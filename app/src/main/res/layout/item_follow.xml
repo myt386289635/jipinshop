@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    android:background="@color/color_white"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:tools="http://schemas.android.com/tools">
+
+
+    <ImageView
+        android:id="@+id/item_image"
+        tools:src="@color/color_E31436"
+        android:layout_marginRight="@dimen/x32"
+        android:layout_marginBottom="@dimen/x30"
+        android:layout_marginTop="@dimen/x30"
+        android:layout_marginLeft="@dimen/x28"
+        android:layout_width="@dimen/x84"
+        android:layout_height="@dimen/x84"/>
+
+
+    <TextView
+        android:id="@+id/item_name"
+        android:layout_centerVertical="true"
+        android:layout_toRightOf="@id/item_image"
+        android:textStyle="bold"
+        android:textColor="@color/color_DE151515"
+        android:text="Vicky买买买"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"/>
+
+
+    <View
+        android:layout_toRightOf="@id/item_image"
+        android:layout_below="@id/item_image"
+        android:background="@color/color_F5F5F5"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/x2"/>
+
+
+    <TextView
+        android:gravity="center"
+        android:id="@+id/item_attention"
+        android:layout_marginRight="@dimen/x28"
+        android:layout_alignParentRight="true"
+        android:layout_centerVertical="true"
+        android:paddingBottom="@dimen/x8"
+        android:paddingTop="@dimen/x8"
+        android:background="@drawable/bg_my_attention"
+        android:textSize="13sp"
+        android:textColor="@color/color_ACACAC"
+        android:text="已关注"
+        android:layout_width="@dimen/x132"
+        android:layout_height="wrap_content"/>
+
+</RelativeLayout>

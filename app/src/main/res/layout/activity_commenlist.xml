@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:bind="http://schemas.android.com/apk/res-auto"
+        xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <data>
+        <variable
+            name="listener"
+            type="android.view.View.OnClickListener"/>
+
+    </data>
+
+    <com.example.administrator.jipinshop.view.FullScreenLinearLayout
+        android:orientation="vertical"
+        android:fitsSystemWindows="true"
+        android:focusableInTouchMode="true"
+        android:focusable="true"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+
+        <include
+            bind:listener="@{listener}"
+            layout="@layout/aa_title"
+            android:id="@+id/title_container"/>
+
+        <android.support.v7.widget.RecyclerView
+            android:background="@color/color_white"
+            android:layout_above="@id/detail_keyLayout"
+            android:layout_below="@id/title_container"
+            android:id="@+id/recycler_view"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"/>
+
+
+        <RelativeLayout
+            android:id="@+id/detail_keyLayout"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/x100"
+            android:layout_alignParentBottom="true"
+            android:background="@color/color_F5F5F5">
+
+            <View
+                android:background="@color/color_ACACAC"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/x1"/>
+
+            <EditText
+                android:id="@+id/key_edit"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginBottom="@dimen/x16"
+                android:layout_marginLeft="@dimen/x28"
+                android:layout_marginRight="@dimen/x16"
+                android:layout_marginTop="@dimen/x16"
+                android:layout_toLeftOf="@id/key_text"
+                android:background="@drawable/bg_keyedit"
+                android:hint="点击输入评论"
+                android:padding="@dimen/x16"
+                android:textColor="@color/color_DE151515"
+                android:textColorHint="@color/color_ACACAC"
+                android:textSize="13sp"/>
+
+            <TextView
+                android:onClick="@{listener.onClick}"
+                android:id="@+id/key_text"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_alignParentRight="true"
+                android:layout_marginRight="@dimen/x16"
+                android:gravity="center_vertical"
+                android:padding="@dimen/x16"
+                android:text="发送"
+                android:textColor="@drawable/bg_keytext"/>
+
+        </RelativeLayout>
+
+    </com.example.administrator.jipinshop.view.FullScreenLinearLayout>
+</layout>

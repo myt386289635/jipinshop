@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <ImageView
+            android:id="@+id/item_image"
+            android:layout_width="@dimen/x76"
+            android:layout_height="@dimen/x76"
+            android:layout_marginLeft="@dimen/x28"
+            android:layout_marginRight="@dimen/x24"
+            android:layout_marginTop="@dimen/x48"
+            tools:src="@color/color_E31436"/>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="@dimen/x28"
+            android:layout_marginTop="@dimen/x64"
+            android:layout_toRightOf="@id/item_image">
+
+
+            <TextView
+                android:id="@+id/item_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="李丹妮"
+                android:textColor="@color/color_DE151515"
+                android:textSize="15sp"/>
+
+
+            <TextView
+                android:id="@+id/item_goodNum"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:drawableLeft="@mipmap/appreciate_nor"
+                android:drawablePadding="@dimen/x8"
+                android:text="222"
+                android:textColor="@color/color_ACACAC"
+                android:textSize="13sp"/>
+
+            <TextView
+                android:id="@+id/item_content"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/item_name"
+                android:layout_marginTop="@dimen/x42"
+                android:lineSpacingExtra="@dimen/x8"
+                android:text="与水直接接触的内胆、不锈钢材质安全放心,不易生锈、结垢、无异味、易清洁。"
+                android:textColor="@color/color_DE151515"/>
+
+            <RelativeLayout
+                android:id="@+id/item_bottomLayout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/item_content"
+                android:layout_marginTop="@dimen/x24">
+
+                <TextView
+                    android:id="@+id/item_time"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="2018.06.16"
+                    android:textColor="@color/color_ACACAC"
+                    android:textSize="13sp"/>
+
+
+                <TextView
+                    android:visibility="gone"
+                    android:id="@+id/item_yuan"
+                    android:layout_width="@dimen/x4"
+                    android:layout_height="@dimen/x4"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="@dimen/x20"
+                    android:layout_marginRight="@dimen/x20"
+                    android:layout_marginTop="@dimen/x24"
+                    android:layout_toRightOf="@id/item_time"
+                    android:background="@drawable/bg_shixinyuan"/>
+
+
+                <TextView
+                    android:visibility="gone"
+                    android:id="@+id/item_reply"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_toRightOf="@id/item_yuan"
+                    android:text="回复"
+                    android:textColor="@color/color_ACACAC"
+                    android:textSize="13sp"/>
+
+            </RelativeLayout>
+
+
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/recycler_view"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/item_bottomLayout"
+                android:layout_marginTop="@dimen/x24"
+                android:visibility="gone"/>
+
+        </RelativeLayout>
+
+    </RelativeLayout>
+
+</layout>

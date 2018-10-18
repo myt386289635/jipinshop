@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    android:background="@color/color_F5F5F5"
+    android:orientation="vertical"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <include layout="@layout/aa_title"/>
+
+        <TextView
+            android:layout_marginRight="@dimen/x28"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:id="@+id/edit_save"
+            android:textColor="@color/color_DE050505"
+            android:textSize="15sp"
+            android:text="保存"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+
+    </RelativeLayout>
+
+
+    <RelativeLayout
+        android:background="@color/color_white"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <ImageView
+            android:id="@+id/edit_close"
+            android:layout_marginRight="@dimen/x28"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:src="@mipmap/nickname_close"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+
+
+        <EditText
+            android:layout_marginRight="@dimen/x28"
+            android:singleLine="true"
+            android:layout_toLeftOf="@id/edit_close"
+            android:textColorHint="@color/color_ACACAC"
+            android:textColor="@color/color_DE151515"
+            android:id="@+id/edit_edit"
+            android:layout_marginLeft="@dimen/x28"
+            android:textSize="15sp"
+            android:hint="请输入您的名字"
+            android:background="@null"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/x82"/>
+
+
+    </RelativeLayout>
+
+
+
+</LinearLayout>

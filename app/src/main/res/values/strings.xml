@@ -1,0 +1,26 @@
+<resources>
+    <string name="app_name">极品城</string>
+
+    <string name="message_permission_always_failed">Please give us permission in the settings:\n\n%1$s</string>
+    <string name="title_dialog">温馨提示</string>
+
+    <string name="setting">设置</string>
+    <string name="resume">恢复</string>
+    <string name="cancel">取消</string>
+
+    <string name="message_setting_comeback">用户从设置页面回来</string>
+    <string name="message_permission_rationale">“极品城”需要获取以下权限：\n\n%1$s</string>
+
+    <string name="goodsFrom">：</string>
+    <string name="savePrice">省</string>
+    <string name="price">¥</string>
+
+    <string name="pickerview_cancel">取消</string>
+    <string name="pickerview_submit">确定</string>
+    <string name="pickerview_year">年</string>
+    <string name="pickerview_month">月</string>
+    <string name="pickerview_day">日</string>
+    <string name="pickerview_hours">时</string>
+    <string name="pickerview_minutes">分</string>
+    <string name="pickerview_seconds">秒</string>
+</resources>

@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    android:background="@color/color_white"
+    android:orientation="vertical"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <ImageView
+        android:layout_marginLeft="@dimen/x42"
+        android:id="@+id/item_triangle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:src="@drawable/bg_common_sanjiao" />
+
+    <RelativeLayout
+        android:id="@+id/item_replyLayout"
+        android:background="@drawable/bg_common"
+        android:layout_height="wrap_content"
+        android:layout_width="match_parent">
+
+        <TextView
+            android:id="@+id/item_head"
+            android:layout_marginTop="@dimen/x32"
+            android:layout_marginLeft="@dimen/x24"
+            android:textColor="@color/color_DE151515"
+            android:text="极品城回复"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+
+
+        <TextView
+            android:id="@+id/item_name"
+            android:layout_marginTop="@dimen/x32"
+            android:textColor="@color/color_4A90E2"
+            android:layout_toRightOf="@id/item_head"
+            android:text="楼主:"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+
+
+        <TextView
+            android:id="@+id/item_content"
+            android:lineSpacingExtra="@dimen/x6"
+            android:layout_marginRight="@dimen/x24"
+            android:layout_marginLeft="@dimen/x12"
+            android:layout_marginTop="@dimen/x32"
+            android:layout_toRightOf="@id/item_name"
+            android:textColor="@color/color_DE151515"
+            android:text="赞同楼主观点赞同楼主观点赞同楼主观点赞同楼主观点赞同楼主观点"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+
+        <RelativeLayout
+            android:layout_marginBottom="@dimen/x32"
+            android:layout_marginLeft="@dimen/x24"
+            android:layout_marginTop="@dimen/x24"
+            android:layout_below="@id/item_content"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:textColor="@color/color_ACACAC"
+                android:textSize="13sp"
+                android:id="@+id/item_time"
+                android:text="2018.06.16"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+
+
+            <TextView
+                android:id="@+id/item_yuan"
+                android:layout_marginRight="@dimen/x20"
+                android:layout_marginLeft="@dimen/x20"
+                android:layout_toRightOf="@id/item_time"
+                android:layout_centerVertical="true"
+                android:background="@drawable/bg_shixinyuan"
+                android:layout_marginTop="@dimen/x24"
+                android:layout_width="@dimen/x4"
+                android:layout_height="@dimen/x4"/>
+
+
+            <TextView
+                android:textSize="13sp"
+                android:layout_toRightOf="@id/item_yuan"
+                android:textColor="@color/color_ACACAC"
+                android:text="回复"
+                android:id="@+id/item_reply"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+
+        </RelativeLayout>
+
+    </RelativeLayout>
+
+</LinearLayout>

@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    android:orientation="vertical"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <ImageView
+        android:id="@+id/item_image"
+        android:layout_marginRight="@dimen/x28"
+        android:layout_marginLeft="@dimen/x28"
+        android:layout_marginTop="@dimen/x32"
+        android:src="@color/color_E31436"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/x628"/>
+
+
+    <TextView
+        android:textColor="@color/color_DE151515"
+        android:id="@+id/item_text"
+        android:text="304不锈钢，一体壶身，防烫设计，进口温控器"
+        android:layout_marginTop="@dimen/x40"
+        android:layout_marginLeft="@dimen/x28"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"/>
+
+</LinearLayout>

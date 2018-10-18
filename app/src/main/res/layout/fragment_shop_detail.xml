@@ -1,0 +1,276 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <ScrollView
+        android:id="@+id/srcoll_view"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:fillViewport="true"
+        android:scrollbars="none">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+
+            <android.support.v4.view.ViewPager
+                android:id="@+id/view_pager"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/x500"/>
+
+
+            <LinearLayout
+                android:id="@+id/detail_point"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/view_pager"
+                android:layout_marginTop="-18dp"
+                android:gravity="center"
+                android:orientation="horizontal"/>
+
+
+            <TextView
+                android:id="@+id/detail_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/view_pager"
+                android:layout_marginLeft="@dimen/x28"
+                android:layout_marginRight="@dimen/x28"
+                android:layout_marginTop="@dimen/x32"
+                android:lineSpacingExtra="@dimen/x6"
+                android:text="MI 小米 米家电水壶 1.5L大容量 304不锈钢 快速沸腾 携带方便"
+                android:textColor="@color/color_DE151515"
+                android:textSize="16sp"
+                android:textStyle="bold"/>
+
+
+            <TextView
+                android:id="@+id/detail_newPrice"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/detail_name"
+                android:layout_marginLeft="@dimen/x28"
+                android:layout_marginTop="@dimen/x36"
+                android:text="券后价：¥599.00"
+                android:textColor="@color/color_E31436"/>
+
+
+            <TextView
+                android:id="@+id/detail_oldPriceName"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/detail_name"
+                android:layout_marginLeft="@dimen/x20"
+                android:layout_marginTop="@dimen/x36"
+                android:layout_toRightOf="@id/detail_newPrice"
+                android:text="京东："
+                android:textColor="@color/color_ACACAC"
+                android:textSize="13sp"/>
+
+
+            <TextView
+                android:id="@+id/detail_oldPrice"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/detail_name"
+                android:layout_marginTop="@dimen/x36"
+                android:layout_toRightOf="@id/detail_oldPriceName"
+                android:text="¥699.00"
+                android:textColor="@color/color_ACACAC"
+                android:textSize="13sp"/>
+
+
+            <RelativeLayout
+                android:id="@+id/detail_couponContainer"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/detail_newPrice"
+                android:layout_marginBottom="@dimen/x48"
+                android:layout_marginLeft="@dimen/x28"
+                android:layout_marginTop="@dimen/x48">
+
+
+                <TextView
+                    android:id="@+id/detail_couponImg"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:background="@mipmap/coupon"
+                    android:padding="@dimen/x6"
+                    android:text="优惠券"
+                    android:textColor="@color/color_white"
+                    android:textSize="10sp"/>
+
+
+                <TextView
+                    android:id="@+id/detaile_couponTitle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/x24"
+                    android:layout_toRightOf="@id/detail_couponImg"
+                    android:text="100元独家优惠券 "
+                    android:textColor="@color/color_DE151515"
+                    android:textSize="15sp"/>
+
+                <TextView
+                    android:id="@+id/detail_couponDeci"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/detaile_couponTitle"
+                    android:layout_marginLeft="@dimen/x24"
+                    android:layout_marginTop="@dimen/x12"
+                    android:layout_toRightOf="@id/detail_couponImg"
+                    android:text="每人限领一张 抢完即止 "
+                    android:textColor="@color/color_ACACAC"
+                    android:textSize="13sp"/>
+            </RelativeLayout>
+
+
+            <ImageView
+                android:id="@+id/detail_qualityImg"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/detail_couponContainer"
+                android:layout_marginLeft="@dimen/x24"
+                android:background="@mipmap/quality"/>
+
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/detail_couponContainer"
+                android:layout_marginLeft="@dimen/x8"
+                android:layout_toRightOf="@id/detail_qualityImg"
+                android:text="品质保证"
+                android:textColor="@color/color_DE151515"
+                android:textSize="15sp"
+                android:textStyle="bold"/>
+
+
+            <com.example.administrator.jipinshop.view.MyGridView
+                android:id="@+id/detail_quality"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/detail_qualityImg"
+                android:layout_marginLeft="@dimen/x124"
+                android:layout_marginRight="@dimen/x28"
+                android:layout_marginTop="@dimen/x24"
+                android:background="@color/color_white"
+                android:numColumns="1"/>
+
+
+            <ImageView
+                android:id="@+id/detail_serviceImg"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/detail_quality"
+                android:layout_marginLeft="@dimen/x24"
+                android:layout_marginTop="@dimen/x68"
+                android:background="@mipmap/service"/>
+
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/detail_quality"
+                android:layout_marginLeft="@dimen/x8"
+                android:layout_marginTop="@dimen/x64"
+                android:layout_toRightOf="@id/detail_serviceImg"
+                android:text="售后服务"
+                android:textColor="@color/color_DE151515"
+                android:textSize="15sp"
+                android:textStyle="bold"/>
+
+
+            <com.example.administrator.jipinshop.view.MyGridView
+                android:id="@+id/detail_service"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/detail_serviceImg"
+                android:layout_marginLeft="@dimen/x124"
+                android:layout_marginRight="@dimen/x28"
+                android:layout_marginTop="@dimen/x24"
+                android:background="@color/color_white"
+                android:numColumns="1"/>
+
+
+            <ImageView
+                android:id="@+id/detail_parameterImg"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/detail_service"
+                android:layout_marginLeft="@dimen/x24"
+                android:layout_marginTop="@dimen/x68"
+                android:background="@mipmap/parameter"/>
+
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/detail_service"
+                android:layout_marginLeft="@dimen/x8"
+                android:layout_marginTop="@dimen/x64"
+                android:layout_toRightOf="@id/detail_parameterImg"
+                android:text="产品参数"
+                android:textColor="@color/color_DE151515"
+                android:textSize="15sp"
+                android:textStyle="bold"/>
+
+
+            <com.example.administrator.jipinshop.view.MyGridView
+                android:id="@+id/detail_parameter"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/detail_parameterImg"
+                android:layout_marginLeft="@dimen/x28"
+                android:layout_marginRight="@dimen/x28"
+                android:layout_marginTop="@dimen/x24"
+                android:background="@color/color_white"
+                android:numColumns="1"/>
+
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/x2"
+                android:layout_below="@id/detail_parameter"
+                android:layout_marginLeft="@dimen/x28"
+                android:layout_marginRight="@dimen/x28"
+                android:background="@color/color_F5F5F5"/>
+
+
+            <View
+                android:id="@+id/detail_headLine"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/x12"
+                android:layout_below="@id/detail_parameter"
+                android:layout_marginTop="@dimen/x76"
+                android:background="@color/color_F5F5F5"/>
+
+            <RelativeLayout
+                android:id="@+id/detail_good"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/detail_headLine"
+                android:layout_centerHorizontal="true"
+                android:layout_marginBottom="@dimen/x100"
+                android:layout_marginTop="@dimen/x100"
+                android:background="@drawable/bg_good"
+                android:orientation="vertical">
+
+
+                <TextView
+                    android:id="@+id/detail_goodTv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerInParent="true"
+                    android:drawablePadding="@dimen/x4"
+                    android:drawableTop="@mipmap/appreciate_big"
+                    android:text="128"/>
+
+
+            </RelativeLayout>
+
+        </RelativeLayout>
+    </ScrollView>
+</layout>

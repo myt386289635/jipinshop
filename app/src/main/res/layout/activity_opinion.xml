@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    android:background="@color/color_white"
+    android:orientation="vertical"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+
+    <include layout="@layout/aa_title"/>
+
+    <TextView
+        android:textSize="15sp"
+        android:textColor="@color/color_DE151515"
+        android:layout_marginLeft="@dimen/x28"
+        android:layout_marginTop="@dimen/x32"
+        android:text="反馈意见"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"/>
+
+
+    <EditText
+        android:id="@+id/opinion_edit"
+        android:textColor="@color/color_DE151515"
+        android:textColorHint="@color/color_ACACAC"
+        android:padding="@dimen/x24"
+        android:gravity="top"
+        android:textSize="13sp"
+        android:hint="请输入您的反馈"
+        android:layout_marginRight="@dimen/x28"
+        android:layout_marginLeft="@dimen/x28"
+        android:layout_marginTop="@dimen/x24"
+        android:background="@drawable/bg_opinion"
+        android:minHeight="@dimen/x360"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/x360"/>
+
+
+    <TextView
+        android:textColor="@color/color_ACACAC"
+        android:id="@+id/opinion_text"
+        android:layout_marginRight="@dimen/x28"
+        android:layout_marginTop="@dimen/x24"
+        android:layout_gravity="right"
+        android:textSize="13sp"
+        android:text="您还可以输入200个字"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"/>
+
+
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <TextView
+            android:id="@+id/opinion_submit"
+            android:background="@color/color_E31436"
+            android:textSize="15sp"
+            android:textColor="@color/color_white"
+            android:gravity="center"
+            android:text="提交"
+            android:layout_alignParentBottom="true"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/x100"/>
+
+    </RelativeLayout>
+
+
+</LinearLayout>

@@ -1,0 +1,152 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+        <variable
+            name="listener"
+            type="android.view.View.OnClickListener"/>
+
+    </data>
+
+    <RelativeLayout
+        android:background="@color/color_white"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <RelativeLayout
+            android:id="@+id/sreach_head"
+            android:layout_marginRight="@dimen/x28"
+            android:layout_marginLeft="@dimen/x28"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/x60">
+
+            <RelativeLayout
+                android:gravity="center_vertical"
+                android:layout_marginRight="@dimen/x24"
+                android:layout_toLeftOf="@id/sreach_cancle"
+                android:orientation="horizontal"
+                android:background="@drawable/bg_sreach"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+
+                <ImageView
+                    android:id="@+id/sreach_nav"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="@dimen/x26"
+                    android:background="@mipmap/nav_search"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"/>
+
+
+                <EditText
+                    android:paddingRight="@dimen/x26"
+                    android:layout_toLeftOf="@id/sreach_close"
+                    android:layout_toRightOf="@id/sreach_nav"
+                    android:imeOptions="actionDone"
+                    android:cursorVisible="true"
+                    android:textCursorDrawable="@drawable/color_cursor"
+                    android:singleLine="true"
+                    android:textColor="@color/color_DE050505"
+                    android:textColorHint="@color/color_ACACAC"
+                    android:id="@+id/sreach_edit"
+                    android:textSize="13sp"
+                    android:hint="搜索商品榜"
+                    android:layout_marginLeft="@dimen/x10"
+                    android:background="@null"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"/>
+
+
+                <ImageView
+                    android:onClick="@{listener.onClick}"
+                    android:visibility="gone"
+                    android:id="@+id/sreach_close"
+                    android:layout_marginRight="@dimen/x26"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:background="@mipmap/search_close"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"/>
+            </RelativeLayout>
+
+
+            <TextView
+                android:onClick="@{listener.onClick}"
+                android:textColor="@color/color_DE050505"
+                android:id="@+id/sreach_cancle"
+                android:layout_centerVertical="true"
+                android:layout_alignParentRight="true"
+                android:text="取消"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+
+        </RelativeLayout>
+
+
+        <LinearLayout
+            android:onClick="@{listener.onClick}"
+            android:id="@+id/sreach_home"
+            android:layout_below="@id/sreach_head"
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+
+            <TextView
+                android:layout_marginLeft="@dimen/x28"
+                android:textColor="@color/color_DE050505"
+                android:textSize="14sp"
+                android:layout_marginTop="@dimen/x60"
+                android:text="历史搜索"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+
+            <com.google.android.flexbox.FlexboxLayout
+                android:layout_marginLeft="@dimen/x4"
+                android:layout_marginRight="@dimen/x28"
+                android:id="@+id/search_flex_histroy"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:alignItems="flex_start"
+                app:flexWrap="wrap"
+                app:justifyContent="flex_start"/>
+
+
+            <TextView
+                android:layout_marginLeft="@dimen/x28"
+                android:textColor="@color/color_DE050505"
+                android:textSize="14sp"
+                android:layout_marginTop="@dimen/x60"
+                android:text="热门搜索"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+
+            <com.google.android.flexbox.FlexboxLayout
+                android:layout_marginLeft="@dimen/x4"
+                android:layout_marginRight="@dimen/x28"
+                android:id="@+id/search_flex_hot"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:alignItems="flex_start"
+                app:flexWrap="wrap"
+                app:justifyContent="flex_start"/>
+
+        </LinearLayout>
+
+
+        <ListView
+            android:divider="@color/transparent"
+            android:dividerHeight="0dp"
+            android:visibility="gone"
+            android:id="@+id/list_view"
+            android:layout_below="@id/sreach_head"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"/>
+
+
+    </RelativeLayout>
+</layout>
+

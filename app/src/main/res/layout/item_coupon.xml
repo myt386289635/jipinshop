@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    android:id="@+id/container"
+    android:background="@mipmap/coupon_unused"
+    android:layout_marginRight="@dimen/x28"
+    android:layout_marginLeft="@dimen/x28"
+    android:layout_marginTop="@dimen/x32"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="@dimen/x224">
+
+    <TextView
+        android:id="@+id/item_moneyTag"
+        android:layout_marginTop="@dimen/x82"
+        android:layout_marginLeft="@dimen/x38"
+        android:textColor="@color/color_DE151515"
+        android:text="¥"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"/>
+
+
+    <TextView
+        android:layout_toRightOf="@id/item_moneyTag"
+        android:id="@+id/item_money"
+        android:layout_marginLeft="@dimen/x8"
+        android:layout_marginTop="@dimen/x46"
+        android:textColor="@color/color_DE151515"
+        android:textStyle="bold"
+        android:textSize="32sp"
+        android:text="30"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"/>
+
+
+    <TextView
+        android:layout_marginLeft="@dimen/x8"
+        android:layout_marginTop="@dimen/x82"
+        android:layout_toRightOf="@id/item_money"
+        android:textColor="@color/color_DE151515"
+        android:text="元"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"/>
+
+
+    <TextView
+        android:id="@+id/item_notice"
+        android:textColor="@color/color_DE151515"
+        android:text="仅限购买飞利浦电动牙刷HX3216时使用"
+        android:ellipsize="end"
+        android:singleLine="true"
+        android:textSize="12sp"
+        android:layout_marginBottom="@dimen/x6"
+        android:layout_alignParentBottom="true"
+        android:layout_marginRight="@dimen/x24"
+        android:layout_marginLeft="@dimen/x24"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
+
+
+    <TextView
+        android:id="@+id/item_name"
+        android:layout_marginLeft="@dimen/x232"
+        android:layout_marginTop="@dimen/x32"
+        android:textColor="@color/color_DE151515"
+        android:text="天猫飞利浦畅卓专卖店用户专享"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"/>
+
+
+    <TextView
+        android:id="@+id/item_time"
+        android:layout_marginTop="@dimen/x28"
+        android:textSize="12sp"
+        android:textColor="@color/color_ACACAC"
+        android:text="2018.07.18至2018.08.18"
+        android:layout_marginLeft="@dimen/x232"
+        android:layout_below="@id/item_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"/>
+
+
+    <TextView
+        android:textSize="12sp"
+        android:layout_marginRight="@dimen/x20"
+        android:layout_marginTop="@dimen/x30"
+        android:layout_below="@id/item_name"
+        android:layout_alignParentRight="true"
+        android:id="@+id/item_use"
+        android:paddingBottom="@dimen/x8"
+        android:paddingTop="@dimen/x8"
+        android:paddingRight="@dimen/x16"
+        android:paddingLeft="@dimen/x16"
+        android:textColor="@color/color_white"
+        android:text="立即使用"
+        android:background="@drawable/bg_coupom"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"/>
+
+</RelativeLayout>

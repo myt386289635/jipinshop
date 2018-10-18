@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#3F51B5</color>
+    <color name="colorPrimaryDark">#303F9F</color>
+    <color name="colorAccent">#FF4081</color>
+
+    <color name="color_white">#ffffff</color>
+    <color name="color_282828">#282828</color>
+    <color name="color_E31436">#E31436</color>
+    <color name="transparent">#00000000</color>
+    <color name="color_F5F5F5">#F5F5F5</color>
+    <color name="color_ACACAC">#ACACAC</color>
+    <color name="color_FF3939">#FF3939</color>
+    <color name="color_050505">#050505</color>
+    <color name="color_202020">#202020</color>
+    <color name="color_EEEEEE">#EEEEEE</color>
+    <color name="color_151515">#151515</color>
+    <color name="color_DE050505">#DE050505</color>
+    <color name="color_DEACACAC">#DEACACAC</color>
+    <color name="color_DE151515">#DE151515</color>
+    <color name="color_E0E0E0">#FFE0E0E0</color>
+    <color name="color_D8D8D8">#FFD8D8D8</color>
+    <color name="color_8F8F8F">#FF8F8F8F</color>
+    <color name="color_4A90E2">#FF4A90E2</color>
+    <color name="color_F0F0F0">#FFF0F0F0</color>
+    <color name="color_DEFFFFFF">#DEFFFFFF</color>
+    <color name="color_990092FF">#990092FF</color>
+    <color name="color_4D151515">#4D151515</color>
+    <color name="color_685FA1">#FF685FA1</color>
+
+    <color name="pickerview_timebtn_nor">#057dff</color>
+    <color name="pickerview_timebtn_pre">#c2daf5</color>
+    <color name="pickerview_bg_topbar">#f5f5f5</color>
+    <color name="pickerview_topbar_title">#000000</color>
+    <color name="pickerview_wheelview_textcolor_out">#a8a8a8</color>
+    <color name="pickerview_wheelview_textcolor_center">#2a2a2a</color>
+    <color name="pickerview_wheelview_textcolor_divider">#d5d5d5</color>
+    <!--覆盖颜色-->
+    <color name="bgColor_overlay">#4D151515</color>
+</resources>

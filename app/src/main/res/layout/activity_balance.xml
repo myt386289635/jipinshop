@@ -1,0 +1,392 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <data>
+        <variable
+            name="listener"
+            type="android.view.View.OnClickListener"/>
+    </data>
+
+    <com.example.administrator.jipinshop.view.FullScreenLinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/color_F5F5F5"
+        android:fitsSystemWindows="true"
+        android:focusable="true"
+        android:focusableInTouchMode="true">
+
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_below="@id/balance_container"
+            android:fillViewport="true"
+            android:scrollbars="none">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <RelativeLayout
+                    android:id="@+id/container"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/x320"
+                    android:background="@drawable/bg_mine_head"
+                    android:orientation="vertical">
+
+                    <LinearLayout
+                        android:id="@+id/status_bar"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="@color/transparent"
+                        android:orientation="vertical"/>
+
+
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/x80"
+                        android:layout_below="@id/status_bar"
+                        android:background="@color/transparent">
+
+                        <ImageView
+                            android:onClick="@{listener.onClick}"
+                            android:id="@+id/title_back"
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:layout_centerVertical="true"
+                            android:padding="@dimen/x22"
+                            android:src="@mipmap/balance_white"/>
+
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_centerInParent="true"
+                            android:text="我的佣金"
+                            android:textColor="@color/color_DEFFFFFF"
+                            android:textSize="15sp"
+                            android:textStyle="bold"/>
+
+                        <TextView
+                            android:onClick="@{listener.onClick}"
+                            android:id="@+id/title_record"
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:layout_alignParentRight="true"
+                            android:layout_centerVertical="true"
+                            android:layout_marginRight="@dimen/x22"
+                            android:gravity="center"
+                            android:text="提现记录"
+                            android:textColor="@color/color_DEFFFFFF"
+                            android:textSize="15sp"/>
+
+                    </RelativeLayout>
+
+
+                    <TextView
+                        android:id="@+id/balance_money"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentBottom="true"
+                        android:layout_marginBottom="@dimen/x106"
+                        android:layout_marginLeft="@dimen/x60"
+                        android:text="总佣金¥00.00"
+                        android:textColor="@color/color_DEFFFFFF"
+                        android:textSize="18sp"/>
+
+
+                    <TextView
+                        android:onClick="@{listener.onClick}"
+                        android:id="@+id/balance_score"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentBottom="true"
+                        android:layout_alignParentRight="true"
+                        android:layout_marginBottom="@dimen/x106"
+                        android:layout_marginLeft="@dimen/x60"
+                        android:layout_marginRight="@dimen/x22"
+                        android:layout_marginTop="@dimen/x60"
+                        android:text="佣金来源"
+                        android:textColor="@color/color_DEFFFFFF"
+                        android:textSize="15sp"/>
+
+                </RelativeLayout>
+
+
+                <LinearLayout
+                    android:id="@+id/balance_container"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/container"
+                    android:layout_marginLeft="@dimen/x28"
+                    android:layout_marginRight="@dimen/x28"
+                    android:layout_marginTop="@dimen/x_54"
+                    android:background="@drawable/bg_mine"
+                    android:orientation="vertical">
+
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
+
+                        <LinearLayout
+                            android:id="@+id/mine_processing"
+                            android:layout_width="0dp"
+                            android:layout_height="match_parent"
+                            android:layout_weight="1"
+                            android:gravity="center"
+                            android:orientation="vertical">
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="@dimen/x28"
+                                android:text="处理中"
+                                android:textColor="@color/color_8F8F8F"/>
+
+                            <TextView
+                                android:id="@+id/mine_processing_value"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginBottom="@dimen/x28"
+                                android:layout_marginTop="@dimen/x6"
+                                android:text="0"
+                                android:textColor="@color/color_8F8F8F"/>
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:id="@+id/mine_withdrawable"
+                            android:layout_width="0dp"
+                            android:layout_height="match_parent"
+                            android:layout_weight="1"
+                            android:gravity="center"
+                            android:orientation="vertical">
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="可提现"
+                                android:textColor="@color/color_8F8F8F"/>
+
+                            <TextView
+                                android:id="@+id/mine_withdrawable_value"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="@dimen/x6"
+                                android:text="0"
+                                android:textColor="@color/color_8F8F8F"/>
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:id="@+id/mine_settlement"
+                            android:layout_width="0dp"
+                            android:layout_height="match_parent"
+                            android:layout_weight="1"
+                            android:gravity="center"
+                            android:orientation="vertical">
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="待结算"
+                                android:textColor="@color/color_8F8F8F"/>
+
+                            <TextView
+                                android:id="@+id/mine_settlement_value"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="@dimen/x6"
+                                android:text="0"
+                                android:textColor="@color/color_8F8F8F"/>
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:id="@+id/mine_Withdrawed"
+                            android:layout_width="0dp"
+                            android:layout_height="match_parent"
+                            android:layout_weight="1"
+                            android:gravity="center"
+                            android:orientation="vertical">
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="已提现"
+                                android:textColor="@color/color_8F8F8F"/>
+
+                            <TextView
+                                android:id="@+id/mine_Withdrawed_value"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="@dimen/x6"
+                                android:text="0"
+                                android:textColor="@color/color_8F8F8F"/>
+                        </LinearLayout>
+
+                    </LinearLayout>
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/balance_container"
+                    android:layout_marginLeft="@dimen/x28"
+                    android:layout_marginRight="@dimen/x28"
+                    android:layout_marginTop="@dimen/x48"
+                    android:background="@drawable/bg_mine"
+                    android:orientation="vertical">
+
+
+                    <RelativeLayout
+                        android:onClick="@{listener.onClick}"
+                        android:id="@+id/balance_boundAlipay"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+
+                        <TextView
+                            android:id="@+id/balance_boundText"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginBottom="@dimen/x32"
+                            android:layout_marginLeft="@dimen/x24"
+                            android:layout_marginTop="@dimen/x32"
+                            android:text="请输入支付宝账号"
+                            android:textColor="@color/color_DE151515"/>
+
+                        <View
+                            android:layout_width="match_parent"
+                            android:layout_height="@dimen/x2"
+                            android:layout_below="@id/balance_boundText"
+                            android:background="@color/color_D8D8D8"/>
+
+
+                        <ImageView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_alignParentRight="true"
+                            android:layout_centerVertical="true"
+                            android:layout_marginRight="@dimen/x24"
+                            android:background="@mipmap/balance_right"/>
+
+
+                    </RelativeLayout>
+
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="@dimen/x24"
+                        android:layout_marginTop="@dimen/x32"
+                        android:text="提现金额"
+                        android:textColor="@color/color_DE151515"/>
+
+                    <!--<ScrollView-->
+                    <!--android:layout_width="match_parent"-->
+                    <!--android:layout_height="wrap_content">-->
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="@dimen/x24"
+                            android:layout_marginTop="@dimen/x106"
+                            android:text="¥"
+                            android:textColor="@color/color_DE151515"
+                            android:textSize="24sp"/>
+
+                        <EditText
+                            android:hint="00.00"
+                            android:id="@+id/balance_withdrawMoney"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginRight="@dimen/x24"
+                            android:layout_marginTop="@dimen/x106"
+                            android:background="@null"
+                            android:digits="0.123456789"
+                            android:inputType="number"
+                            android:textColor="@color/color_DE151515"
+                            android:textColorHint="@color/color_4D151515"
+                            android:textSize="24sp"/>
+
+                    </LinearLayout>
+
+                    <!--</ScrollView>-->
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/x2"
+                        android:layout_marginTop="@dimen/x8"
+                        android:background="@color/color_D8D8D8"/>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:id="@+id/balance_totleMoney"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="@dimen/x24"
+                            android:layout_marginTop="@dimen/x12"
+                            android:text="佣金¥29.17，"
+                            android:textColor="@color/color_ACACAC"
+                            android:textSize="12sp"/>
+
+                        <TextView
+                            android:onClick="@{listener.onClick}"
+                            android:id="@+id/balance_withdraw"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="@dimen/x12"
+                            android:text="全部提现"
+                            android:textColor="@color/color_4A90E2"
+                            android:textSize="12sp"/>
+
+
+                    </LinearLayout>
+
+
+                    <TextView
+                        android:onClick="@{listener.onClick}"
+                        android:id="@+id/balance_withdrawButton"
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/x80"
+                        android:layout_marginLeft="@dimen/x24"
+                        android:layout_marginRight="@dimen/x24"
+                        android:layout_marginTop="@dimen/x48"
+                        android:background="@drawable/bg_withdraw_button"
+                        android:gravity="center"
+                        android:text="申请提现"
+                        android:textColor="@color/color_DEFFFFFF"
+                        android:textSize="15sp"/>
+
+
+                    <TextView
+                        android:id="@+id/balance_action"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="@dimen/x32"
+                        android:layout_marginLeft="@dimen/x24"
+                        android:layout_marginTop="@dimen/x12"
+                        android:text="温馨提示：最低提现金额为50元，24小时内到账"
+                        android:textColor="@color/color_ACACAC"
+                        android:textSize="12sp"/>
+
+                </LinearLayout>
+
+            </RelativeLayout>
+
+
+        </ScrollView>
+
+
+    </com.example.administrator.jipinshop.view.FullScreenLinearLayout>
+
+</layout>
+

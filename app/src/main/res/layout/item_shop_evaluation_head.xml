@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    android:background="@color/color_white"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/detail_headLine"
+        android:layout_marginLeft="@dimen/x28"
+        android:layout_marginTop="@dimen/x56"
+        android:text="开箱评测"
+        android:textColor="@color/color_DE050505"
+        android:textSize="18sp"
+        android:textStyle="bold"/>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/x28"
+        android:layout_marginRight="@dimen/x28"
+        android:layout_marginTop="@dimen/x32">
+
+
+        <ImageView
+            android:id="@+id/detail_evaluationImage"
+            tools:src="@color/color_E31436"
+            android:layout_width="@dimen/x76"
+            android:layout_height="@dimen/x76"
+            android:scaleType="centerCrop"/>
+
+
+        <TextView
+            android:id="@+id/detail_evaluationName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/x24"
+            android:layout_toRightOf="@id/detail_evaluationImage"
+            android:text="资深编辑"
+            android:textColor="@color/color_DE151515"
+            android:textSize="15sp"/>
+
+
+        <TextView
+            android:id="@+id/detail_evaluationTime"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBottom="@id/detail_evaluationImage"
+            android:layout_marginLeft="@dimen/x24"
+            android:layout_toRightOf="@id/detail_evaluationImage"
+            android:text="2018.06.16"
+            android:textColor="@color/color_ACACAC"
+            android:textSize="13sp"/>
+
+
+        <TextView
+            android:id="@+id/detail_fansNum"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/x20"
+            android:layout_toRightOf="@id/detail_evaluationName"
+            android:text="粉丝数:376"
+            android:textColor="@color/color_ACACAC"
+            android:textSize="13sp"/>
+
+
+        <TextView
+            android:id="@+id/detail_attention"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:background="@drawable/bg_attention"
+            android:text="+关注"
+            android:textColor="@color/color_E31436"
+            android:textSize="13sp"/>
+
+    </RelativeLayout>
+
+
+</LinearLayout>

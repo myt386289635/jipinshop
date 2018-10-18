@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    android:background="@color/color_white"
+    android:orientation="horizontal"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <TextView
+        android:paddingBottom="@dimen/x18"
+        android:paddingTop="@dimen/x18"
+        android:paddingLeft="@dimen/x24"
+        android:textSize="13sp"
+        android:textColor="@color/color_ACACAC"
+        android:id="@+id/item_name"
+        android:text="产品材质"
+        android:background="@drawable/bg_parameter_left"
+        android:layout_width="@dimen/x168"
+        android:layout_height="wrap_content"/>
+
+    <TextView
+        android:paddingBottom="@dimen/x18"
+        android:paddingTop="@dimen/x18"
+        android:paddingLeft="@dimen/x24"
+        android:textColor="@color/color_DE151515"
+        android:textSize="13sp"
+        android:id="@+id/item_content"
+        android:text="自动断电 加热 防干烧"
+        android:background="@drawable/bg_parameter_right"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
+
+</LinearLayout>

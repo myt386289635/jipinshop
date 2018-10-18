@@ -1,0 +1,108 @@
+package com.example.administrator.jipinshop.activity.foval;
+
+import android.content.res.ColorStateList;
+import android.os.Bundle;
+import android.support.annotation.Nullable;
+import android.support.design.widget.TabLayout;
+import android.support.v4.app.Fragment;
+import android.support.v4.view.ViewPager;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.TextView;
+
+import com.example.administrator.jipinshop.R;
+import com.example.administrator.jipinshop.adapter.HomeFragmentAdapter;
+import com.example.administrator.jipinshop.base.BaseActivity;
+import com.example.administrator.jipinshop.fragment.foval.FovalFragment;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import butterknife.BindView;
+import butterknife.ButterKnife;
+
+/**
+ * @author 莫小婷
+ * @create 2018/8/6
+ * @Describe 收藏/足迹
+ */
+public class FovalActivity extends BaseActivity {
+
+    @BindView(R.id.title_back)
+    ImageView mTitleBack;
+    @BindView(R.id.title_tv)
+    TextView mTitleTv;
+    @BindView(R.id.tab_layout)
+    TabLayout mTabLayout;
+    @BindView(R.id.view_pager)
+    ViewPager mViewPager;
+
+    private List<Fragment> mFragments;
+    private HomeFragmentAdapter mAdapter;
+
+    @Override
+    protected void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_foval);
+        mButterKnife = ButterKnife.bind(this);
+        initView();
+    }
+
+    private void initView() {
+        mTitleBack.setOnClickListener(v -> finish());
+        mTitleTv.setText("收藏");
+        mFragments = new ArrayList<>();
+        mAdapter = new HomeFragmentAdapter(getSupportFragmentManager());
+        mFragments.add(FovalFragment.getInstance("1"));
+//        mFragments.add(FovalFragment.getInstance("2"));
+        mAdapter.setFragments(mFragments);
+        mViewPager.setAdapter(mAdapter);
+//        mViewPager.setOffscreenPageLimit(2);
+        mTabLayout.setupWithViewPager(mViewPager);
+//        initTabLayout();
+    }
+
+    @Override
+    protected void onDestroy() {
+        mButterKnife.unbind();
+        super.onDestroy();
+    }
+
+    public void initTabLayout() {
+        final List<Integer> textLether = new ArrayList<>();
+        for (int i = 0; i < 2; i++) {
+            View view = LayoutInflater.from(this).inflate(R.layout.tablayout_home, null);
+            TextView textView = view.findViewById(R.id.tab_name);
+            if (i == 0) {
+                textView.setText("收藏");
+            } else {
+                textView.setText("足迹");
+            }
+            mTabLayout.getTabAt(i).setCustomView(view);
+            int a = (int) textView.getPaint().measureText(textView.getText().toString());
+            textLether.add(a);
+        }
+        mTabLayout.setSelectedTabIndicatorColor(getResources().getColor(R.color.color_FF3939));
+        mTabLayout.setTabRippleColor(ColorStateList.valueOf(getResources().getColor(R.color.transparent)));
+        mTabLayout.post(() -> {
+            //拿到tabLayout的mTabStrip属性
+            LinearLayout mTabStrip = (LinearLayout) mTabLayout.getChildAt(0);
+            int totle = textLether.get(0) + textLether.get(1);
+            int dp10 = (mTabLayout.getWidth() - totle) / 2;
+            for (int i = 0; i < mTabStrip.getChildCount(); i++) {
+                View tabView = mTabStrip.getChildAt(i);
+                tabView.setPadding(0, 0, 0, 0);
+                int width = textLether.get(i) + dp10;
+                LinearLayout.LayoutParams params = (LinearLayout.LayoutParams)
+                        tabView.getLayoutParams();
+                params.width = width;
+                params.leftMargin = dp10  / 2;
+                params.rightMargin = dp10  / 2;
+                tabView.setLayoutParams(params);
+                tabView.invalidate();
+            }
+        });
+    }
+}

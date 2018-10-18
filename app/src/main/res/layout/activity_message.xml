@@ -1,0 +1,258 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:bind="http://schemas.android.com/apk/res-auto">
+
+    <data>
+        <variable
+            name="listener"
+            type="android.view.View.OnClickListener"/>
+    </data>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/color_white"
+        android:orientation="vertical">
+
+        <include
+            bind:listener="@{listener}"
+            android:id="@+id/in_clude"
+            layout="@layout/aa_title"/>
+
+        <RelativeLayout
+            android:id="@+id/message_title"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/x88"
+            android:background="@color/color_F5F5F5">
+
+            <TextView
+                android:id="@+id/title_tlv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="@dimen/x28"
+                android:text="开启系统通知，精彩消息不容错过"
+                android:textColor="@color/color_ACACAC"
+                android:textSize="13sp"/>
+
+
+            <TextView
+                android:onClick="@{listener.onClick}"
+                android:id="@+id/title_start"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="@dimen/x12"
+                android:layout_toRightOf="@id/title_tlv"
+                android:background="@drawable/bg_message"
+                android:paddingBottom="@dimen/x10"
+                android:paddingLeft="@dimen/x22"
+                android:paddingRight="@dimen/x22"
+                android:paddingTop="@dimen/x10"
+                android:text="去开启"
+                android:textColor="@color/color_E31436"/>
+
+
+            <ImageView
+                android:onClick="@{listener.onClick}"
+                android:id="@+id/title_close"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:layout_marginRight="@dimen/x28"
+                android:src="@mipmap/message_close"/>
+
+        </RelativeLayout>
+
+
+        <RelativeLayout
+            android:onClick="@{listener.onClick}"
+            android:id="@+id/system_container"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <ImageView
+                android:id="@+id/system_img"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/x32"
+                android:layout_marginLeft="@dimen/x28"
+                android:layout_marginTop="@dimen/x32"
+                android:src="@mipmap/news_system"/>
+
+
+            <TextView
+                android:id="@+id/system_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/x24"
+                android:layout_marginTop="@dimen/x24"
+                android:layout_toRightOf="@id/system_img"
+                android:text="系统消息"
+                android:textColor="@color/color_DE151515"
+                android:textSize="15sp"/>
+
+
+            <TextView
+                android:id="@+id/system_content"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/system_title"
+                android:layout_marginLeft="@dimen/x24"
+                android:layout_marginTop="@dimen/x12"
+                android:layout_toRightOf="@id/system_img"
+                android:text="京东返利申请"
+                android:textColor="@color/color_ACACAC"
+                android:textSize="13sp"/>
+
+
+            <TextView
+                android:id="@+id/system_time"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_marginRight="@dimen/x28"
+                android:layout_marginTop="@dimen/x30"
+                android:text="2018.08.18"
+                android:textColor="@color/color_ACACAC"
+                android:textSize="13sp"/>
+
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/x2"
+                android:layout_alignLeft="@id/system_img"
+                android:layout_alignRight="@id/system_time"
+                android:layout_below="@id/system_img"
+                android:background="@color/color_F5F5F5"/>
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:onClick="@{listener.onClick}"
+            android:id="@+id/action_container"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <ImageView
+                android:id="@+id/action_img"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/x32"
+                android:layout_marginLeft="@dimen/x28"
+                android:layout_marginTop="@dimen/x32"
+                android:src="@mipmap/news_activity"/>
+
+
+            <TextView
+                android:id="@+id/action_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/x24"
+                android:layout_marginTop="@dimen/x24"
+                android:layout_toRightOf="@id/action_img"
+                android:text="极品城活动"
+                android:textColor="@color/color_DE151515"
+                android:textSize="15sp"/>
+
+
+            <TextView
+                android:id="@+id/action_content"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/action_title"
+                android:layout_marginLeft="@dimen/x24"
+                android:layout_marginTop="@dimen/x12"
+                android:layout_toRightOf="@id/action_img"
+                android:text="双11年终大促，抢先购"
+                android:textColor="@color/color_ACACAC"
+                android:textSize="13sp"/>
+
+
+            <TextView
+                android:id="@+id/action_time"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_marginRight="@dimen/x28"
+                android:layout_marginTop="@dimen/x30"
+                android:text="2018.08.18"
+                android:textColor="@color/color_ACACAC"
+                android:textSize="13sp"/>
+
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/x2"
+                android:layout_alignLeft="@id/action_img"
+                android:layout_alignRight="@id/action_time"
+                android:layout_below="@id/action_img"
+                android:background="@color/color_F5F5F5"/>
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:onClick="@{listener.onClick}"
+            android:id="@+id/evaluating_container"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <ImageView
+                android:id="@+id/evaluating_img"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/x32"
+                android:layout_marginLeft="@dimen/x28"
+                android:layout_marginTop="@dimen/x32"
+                android:src="@mipmap/news_evaluating"/>
+
+
+            <TextView
+                android:id="@+id/evaluating_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/x24"
+                android:layout_marginTop="@dimen/x24"
+                android:layout_toRightOf="@id/evaluating_img"
+                android:text="评测赢大奖"
+                android:textColor="@color/color_DE151515"
+                android:textSize="15sp"/>
+
+
+            <TextView
+                android:id="@+id/evaluating_content"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/evaluating_title"
+                android:layout_marginLeft="@dimen/x24"
+                android:layout_marginTop="@dimen/x12"
+                android:layout_toRightOf="@id/evaluating_img"
+                android:text="加入评测团队，新产品免费领取"
+                android:textColor="@color/color_ACACAC"
+                android:textSize="13sp"/>
+
+
+            <TextView
+                android:id="@+id/evaluating_time"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_marginRight="@dimen/x28"
+                android:layout_marginTop="@dimen/x30"
+                android:text="2018.08.18"
+                android:textColor="@color/color_ACACAC"
+                android:textSize="13sp"/>
+
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/x2"
+                android:layout_alignLeft="@id/evaluating_img"
+                android:layout_alignRight="@id/evaluating_time"
+                android:layout_below="@id/evaluating_img"
+                android:background="@color/color_F5F5F5"/>
+
+        </RelativeLayout>
+    </LinearLayout>
+</layout>

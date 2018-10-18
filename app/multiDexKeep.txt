@@ -1,0 +1,2 @@
+com.tencent.bugly.Bugly.class
+android.support.multidex.MultiDex.class

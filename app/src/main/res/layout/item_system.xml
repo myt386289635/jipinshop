@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    android:background="@drawable/bg_system_item"
+    android:layout_marginTop="@dimen/x32"
+    android:layout_marginRight="@dimen/x28"
+    android:layout_marginLeft="@dimen/x28"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+
+    <TextView
+        android:id="@+id/item_name"
+        android:layout_marginTop="@dimen/x42"
+        android:layout_marginLeft="@dimen/x16"
+        android:textColor="@color/color_DE151515"
+        android:textSize="15sp"
+        android:text="京东返利升级"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"/>
+
+    <TextView
+        android:id="@+id/item_time"
+        android:layout_marginRight="@dimen/x16"
+        android:textColor="@color/color_ACACAC"
+        android:textSize="13sp"
+        android:layout_marginTop="@dimen/x42"
+        android:layout_alignParentRight="true"
+        android:text="2018.08.18"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"/>
+
+
+    <View
+        android:id="@+id/item_line"
+        android:background="@color/color_F5F5F5"
+        android:layout_below="@id/item_name"
+        android:layout_marginTop="@dimen/x24"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/x2"/>
+
+
+    <TextView
+        android:id="@+id/item_content"
+        android:lineSpacingExtra="@dimen/x8"
+        android:layout_marginBottom="@dimen/x32"
+        android:text="尊敬的用户您好：
+        京东商城返利体验大升级，一键自动跳转至京东APP跳转至京东APP"
+        android:textColor="@color/color_ACACAC"
+        android:textSize="13sp"
+        android:ellipsize="end"
+        android:maxLines="2"
+        android:layout_marginRight="@dimen/x16"
+        android:layout_marginLeft="@dimen/x16"
+        android:layout_marginTop="@dimen/x24"
+        android:layout_below="@id/item_line"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
+
+
+    <TextView
+        android:id="@+id/item_more"
+        android:layout_marginBottom="@dimen/x16"
+        android:layout_marginRight="@dimen/x16"
+        android:layout_alignParentRight="true"
+        android:layout_below="@id/item_content"
+        android:drawablePadding="@dimen/x10"
+        android:textColor="@color/color_DE151515"
+        android:drawableRight="@mipmap/news_right"
+        android:text="查看更多"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"/>
+
+
+</RelativeLayout>

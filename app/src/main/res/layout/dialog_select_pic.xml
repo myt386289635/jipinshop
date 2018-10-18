@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    android:orientation="vertical"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+
+    <TextView
+        android:id="@+id/dialog_pic"
+        android:gravity="center"
+        android:textSize="15sp"
+        android:textColor="@color/color_DE151515"
+        android:text="相册"
+        android:background="@color/color_white"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/x100"/>
+
+    <View
+        android:background="@color/color_F0F0F0"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/x2"/>
+
+    <TextView
+        android:id="@+id/dialog_cerame"
+        android:gravity="center"
+        android:textSize="15sp"
+        android:textColor="@color/color_DE151515"
+        android:text="相机"
+        android:background="@color/color_white"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/x100"/>
+
+    <View
+        android:background="@color/color_F0F0F0"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/x2"/>
+
+    <TextView
+        android:id="@+id/dialog_diss"
+        android:gravity="center"
+        android:textSize="15sp"
+        android:textColor="@color/color_202020"
+        android:text="取消"
+        android:background="@color/color_white"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/x100"/>
+
+</LinearLayout>

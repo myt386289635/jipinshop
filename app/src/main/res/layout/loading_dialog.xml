@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:id="@+id/dialog_view"
+              android:layout_width="wrap_content"
+              android:layout_height="wrap_content"
+              android:layout_gravity="center"
+              android:background="@drawable/rounded_progress_dialog"
+              android:gravity="center"
+              android:minHeight="80dp"
+              android:minWidth="80dp"
+              android:orientation="vertical">
+
+    <ImageView
+        android:id="@+id/imgView_loading_dialog_img"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:src="@mipmap/snow_white" />
+
+    <TextView
+        android:id="@+id/tv_loading_dialog_tip"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:layout_marginTop="10dp"
+        android:text="数据加载中……"
+        android:textColor="#fff"
+        android:visibility="gone" />
+</LinearLayout>

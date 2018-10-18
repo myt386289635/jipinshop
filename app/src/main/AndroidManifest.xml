@@ -1,0 +1,285 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+          xmlns:tools="http://schemas.android.com/tools"
+          package="com.example.administrator.jipinshop">
+
+    <uses-permission android:name="android.permission.INTERNET"/>
+
+    <!--需要动态申请的权限-->
+    <uses-permission android:name="android.permission.CALL_PHONE" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
+    <uses-permission android:name="android.permission.CAMERA"/>
+    <uses-permission android:name="android.permission.VIBRATE"/>
+
+    <!--友盟需要-->
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
+    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
+
+    <uses-permission android:name="android.permission.READ_LOGS"
+                     tools:ignore="ProtectedPermissions"/>
+
+    <!--蒲公英需要-->
+    <uses-permission android:name="android.permission.RECORD_AUDIO" /> <!-- 允许程序录制音频 -->
+    <uses-permission android:name="android.permission.GET_TASKS"/>
+    <uses-permission android:name="android.permission.REQUEST_INSTALL_PACKAGES" />
+
+    <application
+        tools:replace="android:allowBackup"
+        android:name=".MyApplication"
+        android:allowBackup="true"
+        android:icon="@mipmap/logo"
+        android:label="@string/app_name"
+        android:roundIcon="@mipmap/logo"
+        android:supportsRtl="true"
+        android:theme="@style/AppTheme">
+        <!--华为手机8.0：刘海屏适配-->
+        <meta-data android:name="android.notch_support" android:value="true"/>
+        <!--小米手机8.0：刘海屏适配（有状态栏时默认是使用耳朵区的）-->
+        <meta-data
+            android:name="notch.config"
+            android:value="portrait|landscape"/>
+        <!--适配超宽屏（全面屏） 注意：小米手机有刘海屏的基本都是全面屏-->
+        <meta-data android:name="android.max_aspect"
+                   android:value="2.2"/>
+        <!--欢迎页-->
+        <activity
+            android:name=".activity.wellcome.WellComeActivity"
+            android:theme="@style/SplashTheme"
+            android:screenOrientation="portrait">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN"/>
+
+                <category android:name="android.intent.category.LAUNCHER"/>
+            </intent-filter>
+        </activity>
+
+        <!--首页-->
+        <activity android:name=".activity.home.MainActivity"
+                  android:screenOrientation="portrait"/>
+
+        <!--搜索页面-->
+        <activity
+            android:name=".activity.sreach.SreachActivity"
+            android:screenOrientation="portrait"/>
+
+        <!--商品详情页-->
+        <activity
+            android:name=".activity.shoppingdetail.ShoppingDetailActivity"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustResize|stateHidden"/>
+
+        <!--评论列表-->
+        <activity android:name=".activity.commenlist.CommenListActivity"
+                  android:screenOrientation="portrait"
+                  android:windowSoftInputMode="adjustResize|stateHidden"/>
+
+        <!--登陆页面-->
+        <activity android:name=".activity.login.LoginActivity"
+                  android:screenOrientation="portrait"/>
+
+        <!--绑定手机号-->
+        <activity android:name=".activity.info.bind.BindNumberActivity"
+                  android:screenOrientation="portrait"/>
+
+        <!--消息页面-->
+        <activity android:name=".activity.message.MessageActivity"
+                  android:screenOrientation="portrait"/>
+
+        <!--系统消息-->
+        <activity android:name=".activity.message.system.SystemMessageActivity"
+                  android:screenOrientation="portrait"/>
+
+        <!--其他系统消息-->
+        <activity android:name=".activity.message.other.OtherMessageActivity"
+                  android:screenOrientation="portrait"/>
+
+        <!--设置页面-->
+        <activity android:name=".activity.setting.SettingActivity"
+                  android:screenOrientation="portrait"/>
+
+        <!--我要反馈-->
+        <activity android:name=".activity.setting.opinion.OpinionActivity"
+                  android:screenOrientation="portrait"/>
+
+        <!--收藏/足迹页面-->
+        <activity android:name=".activity.foval.FovalActivity"
+                  android:screenOrientation="portrait"/>
+
+        <!--优惠券列表-->
+        <activity android:name=".activity.coupon.CouponActivity"
+                  android:screenOrientation="portrait"/>
+
+
+        <!--我的关注-->
+        <activity android:name=".activity.follow.FollowActivity"
+                  android:screenOrientation="portrait"/>
+
+        <!--个人主页-->
+        <activity android:name=".activity.follow.user.UserActivity"
+                  android:screenOrientation="portrait"/>
+
+        <!--我的积分-->
+        <activity android:name=".activity.integral.IntegralActivity"
+                  android:screenOrientation="portrait"/>
+
+        <!--积分明细-->
+        <activity android:name=".activity.integral.detail.IntegralDetailActivity"
+                  android:screenOrientation="portrait"/>
+
+        <!--我的资料页面-->
+        <activity android:name=".activity.info.MyInfoActivity"
+                  android:screenOrientation="portrait"/>
+
+        <!--修改昵称-->
+        <activity android:name=".activity.info.editname.EditNameActivity"
+                  android:screenOrientation="portrait"/>
+
+        <provider
+            android:name="android.support.v4.content.FileProvider"
+            android:authorities="${applicationId}.provider"
+            android:exported="false"
+            android:grantUriPermissions="true">
+            <meta-data
+                android:name="android.support.FILE_PROVIDER_PATHS"
+                android:resource="@xml/provider_paths" />
+        </provider>
+
+        <!--会员中心-->
+        <activity android:name=".activity.info.member.MemberLevelActivity"
+                  android:screenOrientation="portrait"/>
+
+        <!--我的余额-->
+        <activity android:name=".activity.balance.BalanceActivity"
+                  android:screenOrientation="portrait"
+                  android:windowSoftInputMode="adjustPan|stateHidden"/>
+
+        <!--提现记录-->
+        <activity android:name=".activity.balance.record.RecordActivity"
+                  android:screenOrientation="portrait"/>
+
+        <!--佣金来源-->
+        <activity android:name=".activity.balance.score.ScoreActivity"
+                  android:screenOrientation="portrait"/>
+
+        <!--绑定支付宝-->
+        <activity android:name=".activity.balance.boundalipay.BoundAlipayActivity"
+                  android:screenOrientation="portrait"/>
+
+        <!--搜索结果页-->
+        <activity android:name=".activity.sreach.result.SreachResultActivity"
+                  android:screenOrientation="portrait"/>
+
+
+        <!--以下是友盟需要-->
+        <!--新浪-->
+        <activity
+            android:name="com.umeng.socialize.media.WBShareCallBackActivity"
+            android:configChanges="keyboardHidden|orientation"
+            android:theme="@android:style/Theme.Translucent.NoTitleBar"
+            android:exported="false"
+            >
+        </activity>
+        <activity android:name="com.sina.weibo.sdk.web.WeiboSdkWebActivity"
+                  android:configChanges="keyboardHidden|orientation"
+                  android:exported="false"
+                  android:windowSoftInputMode="adjustResize"
+            >
+
+        </activity>
+        <activity
+            android:theme="@android:style/Theme.Translucent.NoTitleBar.Fullscreen"
+            android:launchMode="singleTask"
+            android:name="com.sina.weibo.sdk.share.WbShareTransActivity">
+            <intent-filter>
+                <action android:name="com.sina.weibo.sdk.action.ACTION_SDK_REQ_ACTIVITY" />
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+
+        </activity>
+
+        <!--微信-->
+        <activity
+            android:name=".wxapi.WXEntryActivity"
+            android:configChanges="keyboardHidden|orientation|screenSize"
+            android:exported="true"
+            android:theme="@android:style/Theme.Translucent.NoTitleBar" />
+
+        <!--QQ-->
+        <activity
+            android:name="com.tencent.tauth.AuthActivity"
+            android:launchMode="singleTask"
+            android:noHistory="true" >
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
+
+                <data android:scheme="tencent1107605787" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name="com.tencent.connect.common.AssistActivity"
+            android:theme="@android:style/Theme.Translucent.NoTitleBar"
+            android:configChanges="orientation|keyboardHidden|screenSize"/>
+
+        <!--极光服务-->
+        <!-- User defined. 用户自定义的广播接收器-->
+        <receiver
+            android:name=".jpush.JPushReceiver"
+            android:enabled="true"
+            android:exported="false">
+            <intent-filter>
+                <!--Required 用户注册SDK的intent-->
+                <action android:name="cn.jpush.android.intent.REGISTRATION" />
+                <!--Required 用户接收SDK消息的intent-->
+                <action android:name="cn.jpush.android.intent.MESSAGE_RECEIVED" />
+                <!--Required 用户接收SDK通知栏信息的intent-->
+                <action android:name="cn.jpush.android.intent.NOTIFICATION_RECEIVED" />
+                <!--Required 用户打开自定义通知栏的intent-->
+                <action android:name="cn.jpush.android.intent.NOTIFICATION_OPENED" />
+                <!-- 接收网络变化 连接/断开 since 1.6.3 -->
+                <action android:name="cn.jpush.android.intent.CONNECTION" />
+                <category android:name="${applicationId}" />
+            </intent-filter>
+        </receiver>
+
+
+        <!--(新的)商品详情页-->
+        <activity
+            android:name=".activity.shoppingdetail.ReShoppingDetailActivity"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustResize|stateHidden"/>
+
+        <!--签到页面-->
+        <activity android:name=".activity.sign.SignActivity"
+                  android:screenOrientation="portrait"/>
+
+        <!--发现详情-->
+        <activity android:name=".activity.home.find.FindDetailActivity"
+                  android:screenOrientation="portrait"/>
+
+        <!--引导页-->
+        <activity android:name=".activity.wellcome.IndexActivity"
+                  android:screenOrientation="portrait"/>
+
+        <!--公用的webView-->
+        <activity android:name=".activity.WebActivity"
+                  android:screenOrientation="portrait"/>
+
+        <!--蒲公英需要-->
+        <provider
+            android:name="com.pgyersdk.PgyerProvider"
+            android:authorities="${applicationId}.com.pgyer.provider"
+            android:exported="false"/>
+        <!--蛋鸡管家：1422866def864a7c57b56d6ff9d29257-->
+        <meta-data
+            android:name="PGYER_APPID"
+            android:value="" >
+        </meta-data>
+
+    </application>
+
+</manifest>

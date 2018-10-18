@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <com.example.administrator.jipinshop.view.MyGridView
+            android:paddingLeft="@dimen/x20"
+            android:paddingRight="@dimen/x20"
+            android:horizontalSpacing="@dimen/x20"
+            android:background="@color/color_F5F5F5"
+            android:id="@+id/grid_View"
+            android:scrollbars="none"
+            android:numColumns="6"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+
+        <com.aspsine.swipetoloadlayout.SwipeToLoadLayout
+            android:id="@+id/swipeToLoad"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <com.example.administrator.jipinshop.view.CustomRefreshHeadView
+                android:id="@+id/swipe_refresh_header"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:padding="20dp"/>
+
+            <android.support.v7.widget.RecyclerView
+                android:layout_marginRight="@dimen/x28"
+                android:layout_marginLeft="@dimen/x28"
+                android:id="@+id/swipe_target"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"/>
+
+        </com.aspsine.swipetoloadlayout.SwipeToLoadLayout>
+
+
+
+    </LinearLayout>
+
+
+</layout>

@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    android:background="@color/color_white"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+
+    <ImageView
+        android:scaleType="fitXY"
+        android:id="@+id/user_image"
+        tools:src="@color/color_E31436"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/x320"/>
+
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:id="@+id/status_bar"
+        android:background="@color/transparent"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
+
+    <ImageView
+        android:layout_below="@id/status_bar"
+        android:id="@+id/title_back"
+        android:padding="@dimen/x22"
+        android:src="@mipmap/nav_back"
+        android:layout_width="wrap_content"
+        android:layout_height="@dimen/x80"/>
+
+
+    <android.support.v7.widget.CardView
+        android:layout_below="@id/user_image"
+        app:cardPreventCornerOverlap="false"
+        app:cardBackgroundColor="@color/color_white"
+        android:layout_marginTop="@dimen/x_88"
+        app:cardElevation="@dimen/x6"
+        app:cardCornerRadius="@dimen/x10"
+        android:layout_marginBottom="@dimen/x8"
+        android:layout_marginLeft="@dimen/x28"
+        android:layout_marginRight="@dimen/x28"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/x210">
+
+        <RelativeLayout
+            android:layout_margin="@dimen/x4"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+            
+            <ImageView
+                android:id="@+id/user_headImage"
+                tools:src="@color/color_E31436"
+                android:layout_marginLeft="@dimen/x40"
+                android:layout_centerVertical="true"
+                android:layout_width="@dimen/x94"
+                android:layout_height="@dimen/x94"/>
+
+
+            <TextView
+                android:id="@+id/user_name"
+                android:layout_marginLeft="@dimen/x24"
+                android:layout_toRightOf="@id/user_headImage"
+                android:layout_alignTop="@id/user_headImage"
+                android:textStyle="bold"
+                android:textColor="@color/color_DE151515"
+                android:text="F买遍全球无敌手"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+
+
+            <TextView
+                android:id="@+id/user_attentionNum"
+                android:textColor="@color/color_ACACAC"
+                android:layout_marginLeft="@dimen/x24"
+                android:layout_toRightOf="@id/user_headImage"
+                android:layout_alignBottom="@id/user_headImage"
+                android:textSize="13sp"
+                android:text="粉丝数:3762"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+
+
+            <TextView
+                android:layout_marginTop="@dimen/x_20"
+                android:layout_alignTop="@id/user_name"
+                android:id="@+id/item_attention"
+                android:layout_marginRight="@dimen/x28"
+                android:layout_alignParentRight="true"
+                android:paddingBottom="@dimen/x8"
+                android:paddingTop="@dimen/x8"
+                android:paddingRight="@dimen/x28"
+                android:paddingLeft="@dimen/x28"
+                android:background="@drawable/bg_my_attention"
+                android:textSize="13sp"
+                android:textColor="@color/color_ACACAC"
+                android:text="已关注"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+
+        </RelativeLayout>
+
+
+    </android.support.v7.widget.CardView>
+
+</RelativeLayout>

@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    android:minWidth="@dimen/x612"
+    android:orientation="vertical"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+
+    <ImageView
+        android:id="@+id/sign_diss"
+        android:layout_gravity="right"
+        android:src="@mipmap/h5_close"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"/>
+
+
+    <RelativeLayout
+        android:background="@mipmap/h5_signin"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:id="@+id/sign_title"
+            android:layout_marginTop="@dimen/x312"
+            android:layout_centerHorizontal="true"
+            android:textStyle="bold"
+            android:textColor="@color/color_685FA1"
+            android:text="恭喜您签到成功！"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+
+        <TextView
+            android:id="@+id/sign_code"
+            android:layout_marginTop="@dimen/x18"
+            android:layout_centerHorizontal="true"
+            android:layout_below="@id/sign_title"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            android:textColor="@color/color_685FA1"
+            android:text="+3积分"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+
+
+    </RelativeLayout>
+
+
+
+</LinearLayout>
