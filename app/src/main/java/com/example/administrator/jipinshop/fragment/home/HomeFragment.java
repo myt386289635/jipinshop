@@ -66,7 +66,7 @@ public class HomeFragment extends DBBaseFragment implements Badge.OnDragStateCha
         mBaseFragmentComponent.inject(this);
         mHomeFragmentPresenter.setStatusBarHight(mBinding.statusBar, getContext());
         mHomeFragmentPresenter.setView(this);
-        //测试一下
+
         tabList = new ArrayList<>();
         tabTextView = new ArrayList<>();
 
