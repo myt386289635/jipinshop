@@ -107,8 +107,10 @@ public class RecommendFragment extends DBBaseFragment implements OnRefreshListen
             mAdapter.setList(recommendFragmentBean);
             mAdapter.notifyDataSetChanged();
         } else {
-            initError(R.mipmap.qs_404, "页面出错", "程序猿正在赶来的路上");
-            binding.recyclerView.setVisibility(View.GONE);
+            if(TextUtils.isEmpty(SPUtils.getInstance(CommonDate.NETCACHE).getString(CommonDate.RecommendFragmentDATA,""))){
+                initError(R.mipmap.qs_404, "页面出错", "程序猿正在赶来的路上");
+                binding.recyclerView.setVisibility(View.GONE);
+            }
             Toast.makeText(getContext(), recommendFragmentBean.getMessage(), Toast.LENGTH_SHORT).show();
         }
         if (binding.swipeToLoad != null && binding.swipeToLoad.isRefreshing()) {
@@ -132,6 +134,10 @@ public class RecommendFragment extends DBBaseFragment implements OnRefreshListen
             }else {
                 binding.swipeToLoad.setRefreshing(false);
             }
+        }
+        if(TextUtils.isEmpty(SPUtils.getInstance(CommonDate.NETCACHE).getString(CommonDate.RecommendFragmentDATA,""))){
+            initError(R.mipmap.qs_404, "页面出错", "程序猿正在赶来的路上");
+            binding.recyclerView.setVisibility(View.GONE);
         }
         Toast.makeText(getContext(), "网络出错", Toast.LENGTH_SHORT).show();
         Log.d("RecommendFragmentPresen", error);
