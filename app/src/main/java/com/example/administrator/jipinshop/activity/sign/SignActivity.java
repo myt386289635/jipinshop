@@ -9,6 +9,7 @@ import android.os.Handler;
 import android.os.Looper;
 import android.os.Message;
 import android.support.annotation.Nullable;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
@@ -72,13 +73,17 @@ public class SignActivity extends BaseActivity implements View.OnClickListener, 
             mBinding.start.setClickable(true);
             mBinding.start.setEnabled(true);
 
-            DialogUtil.SignPrice(SignActivity.this, LuckString,"恭喜您获得" + LuckMark);
+            if(TextUtils.isEmpty(LuckMark)){
+                DialogUtil.SignPrice(SignActivity.this, LuckString,"很抱歉您没有抽到奖品");
+            }else {
+                DialogUtil.SignPrice(SignActivity.this, LuckString,"恭喜您获得" + LuckMark);
+            }
             last = lunckyPosition;
             if (lunckyPosition != 7) {
 //                if (lunckyPosition != views.size())
                 views.get(7).setVisibility(View.GONE);
             }
-            // TODO: 2018/10/17 抽奖抽到积分后，需要刷新MineFragment页面
+            EventBus.getDefault().post(new EditNameBus(SignActivity.eventbusTag));
             return true;
         }
     };
@@ -328,7 +333,10 @@ public class SignActivity extends BaseActivity implements View.OnClickListener, 
         mBinding.start.setEnabled(false);
         runCount = 5;
         timeC = 100;
-        lunckyPosition = Integer.valueOf(luckselectBean.getList().get(0).getCode());
+        if(!TextUtils.isEmpty(luckselectBean.getPoint()) && LuckMark.contains("积分") ){
+            SPUtils.getInstance(CommonDate.USER).put(CommonDate.userPoint, Integer.valueOf(luckselectBean.getPoint()));
+        }
+        lunckyPosition = Integer.valueOf(luckselectBean.getList().get(0).getCode()) - 1;
         views.get(lunckyPosition).setVisibility(View.GONE);
         mTimer = new TimeCount(timeC * 9, timeC);
         mTimer.start();

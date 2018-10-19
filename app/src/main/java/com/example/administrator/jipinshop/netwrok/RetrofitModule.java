@@ -12,8 +12,10 @@ import retrofit2.converter.gson.GsonConverterFactory;
 @Module
 public class RetrofitModule {
 
-    public static final String UP_BASE_URL = "http://192.168.5.182:8081/";
-    public static final String H5_URL = "http://192.168.5.126:8081/";
+//    public static final String URL = "http://47.92.164.156:8089/";//正式地址
+    public static final String URL = "http://192.168.5.182:8081/";//测试地址
+    public static final String UP_BASE_URL = URL;
+    public static final String H5_URL = "http://47.92.164.156:8080/";
 
     @ApplicationScope
     @Provides

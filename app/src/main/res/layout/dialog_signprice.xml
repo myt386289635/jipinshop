@@ -25,8 +25,8 @@
             android:layout_centerHorizontal="true"
             android:src="@mipmap/h5_prize_5coupon"
             android:id="@+id/sign_price"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"/>
+            android:layout_width="@dimen/x172"
+            android:layout_height="@dimen/x144"/>
 
 
         <TextView

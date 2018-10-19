@@ -204,7 +204,7 @@ public class MineFragment extends DBBaseFragment implements View.OnClickListener
             mBinding.mineSettlementValue.setText(bus.getNone());
             mBinding.mineWithdrawedValue.setText(bus.getUseMoney());
         }else if(bus.getTag().equals(SignActivity.eventbusTag)){
-            //签到、补签后刷新积分
+            //签到、补签、抽奖后刷新积分
             mBinding.mineIntegral.setText("积分" + SPUtils.getInstance(CommonDate.USER).getInt(CommonDate.userPoint));
         }else if(bus.getTag().equals(BalanceActivity.alipayTag)){
             //提现后刷新佣金
