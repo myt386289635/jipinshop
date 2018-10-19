@@ -111,7 +111,7 @@
             android:textSize="13sp"
             android:textColor="@color/color_ACACAC"
             android:gravity="center_vertical"
-            android:text="400-1801616"
+            android:text="0571-88120907"
             android:paddingLeft="@dimen/x28"
             android:id="@+id/setting_serviceText"
             android:paddingRight="@dimen/x28"
