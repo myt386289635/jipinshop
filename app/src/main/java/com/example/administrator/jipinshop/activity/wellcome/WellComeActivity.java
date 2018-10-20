@@ -88,13 +88,13 @@ public class WellComeActivity extends AppCompatActivity{
     }
 
     public void permission(){
-        if (AndPermission.hasPermissions(this, Manifest.permission.READ_EXTERNAL_STORAGE,Manifest.permission.WRITE_EXTERNAL_STORAGE)) {
+        if (AndPermission.hasPermissions(this, Manifest.permission.READ_EXTERNAL_STORAGE,Manifest.permission.CAMERA)) {
             //有权限了
             if (timer != null) {
                 timer.start();
             }
         } else {
-            requestPermission(Manifest.permission.READ_EXTERNAL_STORAGE,Manifest.permission.WRITE_EXTERNAL_STORAGE);
+            requestPermission(Manifest.permission.READ_EXTERNAL_STORAGE,Manifest.permission.CAMERA);
         }
     }
 
