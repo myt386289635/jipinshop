@@ -1,14 +1,11 @@
 package com.example.administrator.jipinshop.activity.wellcome;
 
 import android.Manifest;
-import android.content.Context;
 import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.CountDownTimer;
-import android.provider.MediaStore;
 import android.support.annotation.Nullable;
-import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.view.KeyEvent;
 
@@ -16,13 +13,9 @@ import com.blankj.utilcode.util.SPUtils;
 import com.example.administrator.jipinshop.R;
 import com.example.administrator.jipinshop.activity.home.MainActivity;
 import com.example.administrator.jipinshop.util.NotchUtil;
+import com.example.administrator.jipinshop.util.permission.HasPermissionsUtil;
 import com.example.administrator.jipinshop.util.sp.CommonDate;
-import com.example.administrator.jipinshop.view.RuntimeRationale;
 import com.gyf.barlibrary.ImmersionBar;
-import com.yanzhenjie.permission.AndPermission;
-import com.yanzhenjie.permission.Permission;
-
-import java.util.List;
 
 /**
  * @author 莫小婷
@@ -88,75 +81,39 @@ public class WellComeActivity extends AppCompatActivity{
     }
 
     public void permission(){
-        if (AndPermission.hasPermissions(this, Manifest.permission.READ_EXTERNAL_STORAGE,Manifest.permission.CAMERA)) {
-            //有权限了
-            if (timer != null) {
-                timer.start();
+        HasPermissionsUtil.permission(this, new HasPermissionsUtil(){
+            @Override
+            public void hasPermissionsSuccess() {
+                super.hasPermissionsSuccess();
+                if (timer != null) {
+                    timer.start();
+                }
             }
-        } else {
-            requestPermission(Manifest.permission.READ_EXTERNAL_STORAGE,Manifest.permission.CAMERA);
-        }
-    }
 
-    private void requestPermission(String... permissions) {
-        AndPermission.with(this)
-                .runtime()
-                .permission(permissions)
-                .rationale(new RuntimeRationale())
-                .onGranted(permissions1 -> {
-//                        Toast.makeText(getContext(), "成功", Toast.LENGTH_SHORT).show();
-                    if (timer != null) {
-                        timer.start();
-                    }
-                })
-                .onDenied(permissions12 -> {
-//                        Toast.makeText(getContext(), "失败", Toast.LENGTH_SHORT).show();
-                    if (AndPermission.hasAlwaysDeniedPermission(this, permissions12)) {
-                        showSettingDialog(this, permissions12);
-                    }else {
-                        if (timer != null) {
-                            timer.start();
-                        }
-                    }
-                })
-                .start();
-    }
+            @Override
+            public void hasPermissionsFaile() {
+                super.hasPermissionsFaile();
+                if (timer != null) {
+                    timer.start();
+                }
+            }
 
-    /**
-     * Display setting dialog.
-     * 这个是用户勾了再也不要提示后，请求权限失败调用该方法
-     */
-    public void showSettingDialog(Context context, final List<String> permissions) {
-        List<String> permissionNames = Permission.transformText(context, permissions);
-        String message = "点击设置打开" + permissionNames.get(0) + "权限";
-        String title = "该操作需要访问您的" + permissionNames.get(0) + "权限";
-        new AlertDialog.Builder(context)
-                .setCancelable(false)
-                .setTitle(title)
-                .setMessage(message)
-                .setPositiveButton(R.string.setting, (dialog, which) -> setPermission())
-                .setNegativeButton(R.string.cancel, (dialog, which) -> {
-                    if (timer != null) {
-                        timer.start();
-                    }
-                })
-                .show();
-    }
+            @Override
+            public void rePermissionsFaile() {
+                super.rePermissionsFaile();
+                if (timer != null) {
+                    timer.start();
+                }
+            }
 
-    /**
-     * Set permissions.
-     */
-    private void setPermission() {
-        AndPermission.with(this)
-                .runtime()
-                .setting()
-                .onComeback(() -> {
-//                        Toast.makeText(getContext(), R.string.message_setting_comeback, Toast.LENGTH_SHORT).show();
-                    if (timer != null) {
-                        timer.start();
-                    }
-                })
-                .start();
-    }
+            @Override
+            public void settingPermissions() {
+                super.settingPermissions();
+                if (timer != null) {
+                    timer.start();
+                }
+            }
 
+        }, Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.CAMERA);
+    }
 }
