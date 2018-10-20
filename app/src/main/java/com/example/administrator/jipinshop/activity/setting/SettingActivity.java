@@ -114,7 +114,7 @@ public class SettingActivity extends BaseActivity implements CleanCacheDialog.On
         switch (view.getId()) {
             case R.id.title_back:
                 finish();
-                break;
+                return;
             case R.id.setting_cleanContainer:
                 if (mCleanCacheDialog == null) {
                     mCleanCacheDialog = mCleanCacheDialog.getInstance();
@@ -123,31 +123,23 @@ public class SettingActivity extends BaseActivity implements CleanCacheDialog.On
                 if (!mCleanCacheDialog.isAdded()) {
                     mCleanCacheDialog.show(getSupportFragmentManager(), mCleanCacheDialog.TAG);
                 }
-                break;
+                return;
             case R.id.setting_serviceContainer:
                 //联系客服
                 DialogUtil.LoginDialog(this, "极品城想打开您的电话", v -> diallPhone(mSettingServiceText.getText().toString()));
-                break;
+                return;
             case R.id.setting_goodContainer:
                 if(!ShopJumpUtil.toMarket(this,"com.example.administrator.jipinshop",null)){
                     Toast.makeText(this, "没有找到您手机里的应用商店，请确认", Toast.LENGTH_SHORT).show();
                 }
-                break;
+                return;
             case R.id.setting_userContainer:
                 //用户协议
                 startActivity(new Intent(this, WebActivity.class)
                         .putExtra(WebActivity.url, RetrofitModule.H5_URL+"jpc-info/src/my/user-agreement.html")
                         .putExtra(WebActivity.title,"用户协议")
                 );
-                break;
-            case R.id.setting_exitLogin:
-                //退出登陆
-                DialogUtil.LoginDialog(this, "您确定要退出登陆吗？","确定","取消", v -> {
-                    Dialog mDialog = (new ProgressDialogView()).createLoadingDialog(this, "退出登录...");
-                    mDialog.show();
-                    mPresenter.loginOut(this.<SuccessBean>bindToLifecycle(),mDialog);
-                });
-                break;
+                return;
         }
         if(!SPUtils.getInstance(CommonDate.USER).getBoolean(CommonDate.userLogin,false)){
             Toast.makeText(this, "请先登陆", Toast.LENGTH_SHORT).show();
@@ -157,6 +149,14 @@ public class SettingActivity extends BaseActivity implements CleanCacheDialog.On
             case R.id.setting_opinionContainer:
                 //我要反馈
                 startActivity(new Intent(this,OpinionActivity.class));
+                break;
+            case R.id.setting_exitLogin:
+                //退出登陆
+                DialogUtil.LoginDialog(this, "您确定要退出登陆吗？","确定","取消", v -> {
+                    Dialog mDialog = (new ProgressDialogView()).createLoadingDialog(this, "退出登录...");
+                    mDialog.show();
+                    mPresenter.loginOut(this.<SuccessBean>bindToLifecycle(),mDialog);
+                });
                 break;
         }
     }
