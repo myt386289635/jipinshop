@@ -221,6 +221,7 @@
         </RelativeLayout>
 
         <RelativeLayout
+            android:visibility="gone"
             android:onClick="@{listener.onClick}"
             android:id="@+id/info_numberContainer"
             android:layout_width="wrap_content"

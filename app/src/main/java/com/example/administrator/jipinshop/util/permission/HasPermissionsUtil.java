@@ -50,7 +50,7 @@ public class HasPermissionsUtil implements HasPermissmionsListener{
      * Display setting dialog.
      * 这个是用户勾了再也不要提示后，请求权限失败调用该方法
      */
-    public static void showSettingDialog(Context context,HasPermissionsUtil hasPermissionsUtil, final List<String> permissions) {
+    private static void showSettingDialog(Context context,HasPermissionsUtil hasPermissionsUtil, final List<String> permissions) {
         List<String> permissionNames = Permission.transformText(context, permissions);
         String message = "点击设置打开" + permissionNames.get(0) + "权限";
         String title = "该操作需要访问您的" + permissionNames.get(0) + "权限";

@@ -154,6 +154,7 @@
         </RelativeLayout>
 
         <LinearLayout
+            android:visibility="gone"
             android:layout_marginBottom="@dimen/x74"
             android:layout_above="@id/login_protocol"
             android:layout_marginRight="@dimen/x80"
