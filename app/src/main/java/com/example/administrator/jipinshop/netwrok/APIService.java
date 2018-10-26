@@ -38,7 +38,7 @@ public interface APIService {
     /**
      * 榜单首页接口
      */
-    @GET("ea_cs_tmall_app/ranklist")
+    @GET("qualityshop-api/api/goodsRankList")
     Observable<RecommendFragmentBean> ranklist();
 
     /**

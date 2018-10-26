@@ -5,25 +5,21 @@ import java.util.List;
 public class RecommendFragmentBean {
 
     /**
-     * rankListData : [{"goodTag":["成人","小资"],"goodsFromBrand":"天猫","goodsGrade":7.875,"goodsImgPath":"http://192.168.56.1:8080/ea_cs_tmall_app/images/1.png","goodsLinkText":"双十一大促特卖飞利浦电动牙刷HX3216","goodsPrice":199,"gradeWays":["way_震动频率$value_85","way_洁净模式$value_56","way_清洁功能$value_98","way_使用时间$value_76"],"linkRef":"http://www.baidu.com","othersPrice":290,"recommendReason":"飞利浦电动牙刷HX3216是飞利浦退出入门级产品,采用声波震动技术原理,每分钟23000次/分,1种模式,是初次使用电动牙刷的首选。","savePrice":20,"visitCount":"93.70万"},{"goodTag":["成人","小资"],"goodsFromBrand":"京东","goodsGrade":6.45,"goodsImgPath":"http://192.168.56.1:8080/ea_cs_tmall_app/images/01.png","goodsLinkText":"双十一大卖送,九阳豆浆机为双十一加油,畅卓店全网性价比之王!","goodsPrice":299,"gradeWays":["way_震动频率$value_88","way_洁净模式$value_66","way_清洁功能$value_28","way_使用时间$value_76"],"linkRef":"http://www.baidu.com","othersPrice":339,"recommendReason":"九阳超级好豆浆机,买到你就赚到货真价优快来赶紧选购吧,只需要加水添豆就能出奶，营养可比市面上所有的纯年奶价值高多了","savePrice":50,"visitCount":"8.89万"},{"goodTag":["成人","小资"],"goodsFromBrand":"京东","goodsGrade":6.45,"goodsImgPath":"http://192.168.56.1:8080/ea_cs_tmall_app/images/3.png","goodsLinkText":"飞利浦电动剃须刀真男人的选择!","goodsPrice":588,"gradeWays":["way_震动频率$value_88","way_洁净模式$value_66","way_清洁功能$value_28","way_使用时间$value_76"],"linkRef":"http://www.baidu.com","othersPrice":1190,"recommendReason":"飞利浦电动剃须刀是全国最大品类最全的电子商务公司畅卓为您精心挑选的精品中的精品。","savePrice":20,"visitCount":"1008"},{"goodTag":["成人","小资"],"goodsFromBrand":"京东","goodsGrade":6.45,"goodsImgPath":"http://192.168.56.1:8080/ea_cs_tmall_app/images/4.png","goodsLinkText":"飞利浦情侣套餐,真爱她就选它!","goodsPrice":6359,"gradeWays":["way_震动频率$value_88","way_洁净模式$value_66","way_清洁功能$value_28","way_使用时间$value_76"],"linkRef":"http://www.baidu.com","othersPrice":19000,"recommendReason":"飞利浦情侣套餐,经过畅卓小伙伴十八道工序为你挑选,不要辜负她哦。","savePrice":20,"visitCount":"100.94万"},{"goodTag":["成人","小资"],"goodsFromBrand":"京东","goodsGrade":6.45,"goodsImgPath":"http://192.168.56.1:8080/ea_cs_tmall_app/images/6.png","goodsLinkText":"美的超级香甜电饭煲,你值得选择的生活管家!","goodsPrice":179,"gradeWays":["way_震动频率$value_88","way_洁净模式$value_66","way_清洁功能$value_28","way_使用时间$value_76"],"linkRef":"http://www.baidu.com","othersPrice":290,"recommendReason":"生活中我们总是吃的不香,不甜,严重影响了我们的生活健康和工作的动力,美的新一代超级香甜电饭煲畅卓小二精心为你推荐哦","savePrice":20,"visitCount":"848"},{"goodTag":["成人","小资"],"goodsFromBrand":"天猫","goodsGrade":6.45,"goodsImgPath":"http://192.168.56.1:8080/ea_cs_tmall_app/images/07.png","goodsLinkText":"格力健康生活空调畅卓小二最佳推荐！","goodsPrice":668,"gradeWays":["way_震动频率$value_88","way_洁净模式$value_66","way_清洁功能$value_28","way_使用时间$value_76"],"linkRef":"http://www.baidu.com","othersPrice":990,"recommendReason":"广告做的好不如格力空调好,格力新一代健康空调让你美美的睡一晚,畅卓小三为您推荐,记得一定要购买哦,我们为你打个大折","savePrice":20,"visitCount":"1008"},{"goodTag":["成人","小资"],"goodsFromBrand":"小红书","goodsGrade":6.45,"goodsImgPath":"http://192.168.56.1:8080/ea_cs_tmall_app/images/010.png","goodsLinkText":"双十一大促特卖飞利浦电动牙刷HX3216","goodsPrice":1299,"gradeWays":["way_震动频率$value_88","way_洁净模式$value_66","way_清洁功能$value_28","way_使用时间$value_76"],"linkRef":"http://www.baidu.com","othersPrice":1200,"recommendReason":"九阳超级好豆浆机,买到你就赚到货真价优快来赶紧选购吧","savePrice":20,"visitCount":"1008.85万"},{"goodTag":["成人","小资"],"goodsFromBrand":"网易考拉","goodsGrade":6.45,"goodsImgPath":"http://192.168.56.1:8080/ea_cs_tmall_app/images/11.png","goodsLinkText":"双十一大促特卖飞利浦电动牙刷HX3216","goodsPrice":1199,"gradeWays":["way_震动频率$value_88","way_洁净模式$value_66","way_清洁功能$value_28","way_使用时间$value_76"],"linkRef":"http://www.baidu.com","othersPrice":1990,"recommendReason":"九阳超级好豆浆机,买到你就赚到货真价优快来赶紧选购吧","savePrice":20,"visitCount":"1.88万"},{"goodTag":["成人","小资"],"goodsFromBrand":"唯品会","goodsGrade":6.1,"goodsImgPath":"http://192.168.56.1:8080/ea_cs_tmall_app/images/2.1.png","goodsLinkText":"双十一大促特卖飞利浦电动牙刷HX3216","goodsPrice":169,"gradeWays":["way_震动频率$value_84","way_洁净模式$value_35","way_清洁功能$value_97","way_使用时间$value_28"],"linkRef":"http://www.baidu.com","othersPrice":1999,"recommendReason":"九阳超级好豆浆机,买到你就赚到货真价优快来赶紧选购吧","savePrice":20,"visitCount":"988"},{"goodTag":["成人","小资"],"goodsFromBrand":"天猫","goodsGrade":6.75,"goodsImgPath":"http://192.168.56.1:8080/ea_cs_tmall_app/images/9.png","goodsLinkText":"双十二继续打折嗨翻天,畅卓小店带你飞,买买买！！","goodsPrice":149,"gradeWays":["way_震动频率$value_98","way_净化模式$value_61","way_健康功能$value_67","way_使用时间$value_44"],"linkRef":"http://www.sina.com","othersPrice":188,"recommendReason":"畅卓双十二折到不要钱了,快买快买,挣钱要狠花,媳妇宠宠宠","savePrice":50,"visitCount":"3.81万"}]
-     * goodstypes : ["推荐榜","个人健康","厨卫电器","生活家电","家电大全"]
-     * logoimg : http://192.168.56.1:8080/ea_cs_tmall_app/images/banner.png
+     * msg : success
      * code : 200
-     * message : 操作成功!
+     * list : [{"goodsId":"577468482345","goodsName":"附属设施所所所所所所所所所","rankGoodImg":"http://img.alicdn.com/bao/uploaded/i3/113740699/TB26f5UjHsTMeJjy1zcXXXAgXXa_!!113740699.jpg","goodsTypeid":"[{\"name\":\"WEKJAKL\"},{\"name\":\"AMGK\"},{\"name\":\"AASDS\"},{\"name\":\"SADGGS\"}]","actualPrice":346,"cutPrice":10,"otherPlatform":"石榴 清水溪原创设计刺绣汉服女装斗篷 复古中长款风衣外套秋冬款","otherPrice":356,"visitCount":"555555","recommendReason":null,"goodsGrade":8.25,"goodsStandard":"[{\"name\":\"SDS\",\"score\":\"10\"},{\"name\":\"SDS\",\"score\":\"10\"},{\"name\":\"视觉\",\"score\":\"10\"},{\"name\":\"好教练\",\"score\":\"3\"}]","category1_id":"c38c97e81c3142779f9e085902c9423d","category2_id":"bb269c5d3fe94b1cb1d5df68afcda140","createTime":"2018-10-26T06:50:59.000+0000","rankListStatus":1,"findGoodsStatus":0,"evalWayStatus":0,"pointsStatus":0,"sourceStatus":3,"status":1,"goodstypeList":[{"name":"WEKJAKL"},{"name":"AMGK"},{"name":"AASDS"},{"name":"SADGGS"}],"goodsScopeList":[{"name":"SDS","score":"10"},{"name":"SDS","score":"10"},{"name":"视觉","score":"10"},{"name":"好教练","score":"3"}]},{"goodsId":"577897047414","goodsName":"款上衣中老年人女装棉袄","rankGoodImg":"http://img.alicdn.com/bao/uploaded/i4/929348432/TB2vcKQbXzqK1RjSZFzXXXjrpXa_!!929348432-0-item_pic.jpg","goodsTypeid":"[]","actualPrice":59,"cutPrice":40,"otherPlatform":"妈妈冬装棉衣外套秋加厚大码羽绒棉服中长款上衣中老年人女装棉袄","otherPrice":99,"visitCount":"300000","recommendReason":null,"goodsGrade":10,"goodsStandard":"[{\"name\":\"教练好\",\"score\":\"10\"},{\"name\":\"教练好\",\"score\":\"10\"},{\"name\":\"教练好\",\"score\":\"10\"},{\"name\":\"教练好\",\"score\":\"10\"}]","category1_id":"c38c97e81c3142779f9e085902c9423d","category2_id":"bb269c5d3fe94b1cb1d5df68afcda140","createTime":"2018-10-26T06:37:47.000+0000","rankListStatus":1,"findGoodsStatus":0,"evalWayStatus":0,"pointsStatus":0,"sourceStatus":1,"status":1,"goodstypeList":[],"goodsScopeList":[{"name":"教练好","score":"10"},{"name":"教练好","score":"10"},{"name":"教练好","score":"10"},{"name":"教练好","score":"10"}]},{"goodsId":"545363931984","goodsName":"族绣花中长款衬衫宽松棉打底衬衣","rankGoodImg":"http://img.alicdn.com/bao/uploaded/i1/2455486615/TB1XMhyagsSMeJjSspdXXXZ4pXa_!!0-item_pic.jpg","goodsTypeid":"[{\"name\":\"成人\"},{\"name\":\"小资\"}]","actualPrice":179,"cutPrice":20,"otherPlatform":"布景秋装 翻领民族绣花中长款衬衫宽松棉打底衬衣","otherPrice":199,"visitCount":"23222","recommendReason":null,"goodsGrade":6.75,"goodsStandard":"[{\"name\":\"外观\",\"score\":\"6\"},{\"name\":\"族绣花中\",\"score\":\"1\"},{\"name\":\"族绣花中\",\"score\":\"10\"},{\"name\":\"族绣花中\",\"score\":\"10\"}]","category1_id":"","category2_id":"","createTime":"2018-10-26T08:28:51.000+0000","rankListStatus":1,"findGoodsStatus":0,"evalWayStatus":0,"pointsStatus":0,"sourceStatus":0,"status":1,"goodstypeList":[{"name":"成人"},{"name":"小资"}],"goodsScopeList":[{"name":"外观","score":"6"},{"name":"族绣花中","score":"1"},{"name":"族绣花中","score":"10"},{"name":"族绣花中","score":"10"}]},{"goodsId":"7658378673","goodsName":"民族风女装冬装轻薄棉衣女盘扣连帽碎花棉布复古长款风衣羔毛棉服","rankGoodImg":"http://img.alicdn.com/bao/uploaded/i4/50138409/TB2KtAKaHeI.eBjSspkXXaXqVXa_!!50138409.jpg","goodsTypeid":"[{\"name\":\"搜索\"},{\"name\":\"多多多多\"},{\"name\":\"的点点滴滴\"}]","actualPrice":225,"cutPrice":10,"otherPlatform":"民族风女装冬装轻薄棉衣女盘扣连帽碎花棉布复古长款风衣羔毛棉服","otherPrice":235,"visitCount":"22222","recommendReason":null,"goodsGrade":4.25,"goodsStandard":"[{\"name\":\"好教练\",\"score\":\"3\"},{\"name\":\"好教练\",\"score\":\"3\"},{\"name\":\"好教练\",\"score\":\"7\"},{\"name\":\"好教练\",\"score\":\"4\"}]","category1_id":"c38c97e81c3142779f9e085902c9423d","category2_id":"bb269c5d3fe94b1cb1d5df68afcda140","createTime":"2018-10-26T06:41:22.000+0000","rankListStatus":1,"findGoodsStatus":0,"evalWayStatus":0,"pointsStatus":0,"sourceStatus":1,"status":1,"goodstypeList":[{"name":"搜索"},{"name":"多多多多"},{"name":"的点点滴滴"}],"goodsScopeList":[{"name":"好教练","score":"3"},{"name":"好教练","score":"3"},{"name":"好教练","score":"7"},{"name":"好教练","score":"4"}]},{"goodsId":"578539184026","goodsName":"吧吧吧vvvvvvvvvvvvvvvvvvvvvvvvv","rankGoodImg":"http://img.alicdn.com/bao/uploaded/i1/1869907541/TB21uR2fCrqK1RjSZK9XXXyypXa_!!1869907541.jpg","goodsTypeid":"[{\"name\":\"成人\"},{\"name\":\"小资\"}]","actualPrice":203,"cutPrice":5,"otherPlatform":"黑色双面呢子大衣2018秋冬中长款过膝系带韩国毛呢外套女装赫本风","otherPrice":208,"visitCount":"5466","recommendReason":null,"goodsGrade":8.5,"goodsStandard":"[{\"name\":\"外观\",\"score\":\"10\"},{\"name\":\"质量\",\"score\":\"8\"},{\"name\":\"换手机阿卡\",\"score\":\"7\"},{\"name\":\"实践活动\",\"score\":\"9\"}]","category1_id":"c38c97e81c3142779f9e085902c9423d","category2_id":"bb269c5d3fe94b1cb1d5df68afcda140","createTime":"2018-10-26T06:43:29.000+0000","rankListStatus":1,"findGoodsStatus":0,"evalWayStatus":0,"pointsStatus":0,"sourceStatus":1,"status":1,"goodstypeList":[{"name":"成人"},{"name":"小资"}],"goodsScopeList":[{"name":"外观","score":"10"},{"name":"质量","score":"8"},{"name":"换手机阿卡","score":"7"},{"name":"实践活动","score":"9"}]},{"goodsId":"577230755986","goodsName":"犯法犯法付付付付付付付付付付付付付付","rankGoodImg":"http://img.alicdn.com/bao/uploaded/i3/1133873553/TB2b7.bxiQnBKNjSZFmXXcApVXa_!!1133873553-0-item_pic.jpg","goodsTypeid":"[{\"name\":\"万分\"},{\"name\":\"是的\"}]","actualPrice":109,"cutPrice":10,"otherPlatform":"2018秋装新款宽松韩版拼色圆领长袖学生百搭中长款套头毛衣女装潮","otherPrice":119,"visitCount":"2332","recommendReason":null,"goodsGrade":9.5,"goodsStandard":"[{\"name\":\"SCSA\",\"score\":\"10\"},{\"name\":\"RVVVCCC\",\"score\":\"10\"},{\"name\":\"EES\",\"score\":\"8\"},{\"name\":\"SCSV\",\"score\":\"10\"}]","category1_id":"c38c97e81c3142779f9e085902c9423d","category2_id":"bb269c5d3fe94b1cb1d5df68afcda140","createTime":"2018-10-26T06:42:49.000+0000","rankListStatus":1,"findGoodsStatus":0,"evalWayStatus":0,"pointsStatus":0,"sourceStatus":3,"status":1,"goodstypeList":[{"name":"万分"},{"name":"是的"}],"goodsScopeList":[{"name":"SCSA","score":"10"},{"name":"RVVVCCC","score":"10"},{"name":"EES","score":"8"},{"name":"SCSV","score":"10"}]},{"goodsId":"577951216673","goodsName":"衣裙修身过膝一步打底毛衣裙包臂裙","rankGoodImg":"http://img.alicdn.com/bao/uploaded/i4/2113905378/O1CN011pbAVUFu6xCtEuL_!!0-item_pic.jpg","goodsTypeid":"[]","actualPrice":49.9,"cutPrice":50,"otherPlatform":"2018秋冬新款女装中长款针织连衣裙修身过膝一步打底毛衣裙包臂裙","otherPrice":99.9,"visitCount":"200","recommendReason":null,"goodsGrade":7.75,"goodsStandard":"[{\"name\":\"教练好\",\"score\":\"1\"},{\"name\":\"教练好\",\"score\":\"10\"},{\"name\":\"教练好\",\"score\":\"10\"},{\"name\":\"教练好\",\"score\":\"10\"}]","category1_id":"c38c97e81c3142779f9e085902c9423d","category2_id":"bb269c5d3fe94b1cb1d5df68afcda140","createTime":"2018-10-26T06:30:28.000+0000","rankListStatus":1,"findGoodsStatus":0,"evalWayStatus":0,"pointsStatus":0,"sourceStatus":2,"status":1,"goodstypeList":[],"goodsScopeList":[{"name":"教练好","score":"1"},{"name":"教练好","score":"10"},{"name":"教练好","score":"10"},{"name":"教练好","score":"10"}]},{"goodsId":"577807027977","goodsName":"2018冬季新款仿貂绒毛呢外套女装秋冬中长款赫本风小个子呢子大衣","rankGoodImg":"http://img.alicdn.com/bao/uploaded/i4/193502143/O1CN011RhXEHsUfEvz24M_!!193502143.jpg","goodsTypeid":"[]","actualPrice":459.5,"cutPrice":20,"otherPlatform":"2018冬季新款仿貂绒毛呢外套女装秋冬中长款赫本风小个子呢子大衣","otherPrice":479.5,"visitCount":"30","recommendReason":null,"goodsGrade":4.25,"goodsStandard":"[{\"name\":\"教练好\",\"score\":\"1\"},{\"name\":\"教练好\",\"score\":\"3\"},{\"name\":\"教练好\",\"score\":\"3\"},{\"name\":\"教练好\",\"score\":\"10\"}]","category1_id":"c38c97e81c3142779f9e085902c9423d","category2_id":"bb269c5d3fe94b1cb1d5df68afcda140","createTime":"2018-10-26T06:39:53.000+0000","rankListStatus":1,"findGoodsStatus":0,"evalWayStatus":0,"pointsStatus":0,"sourceStatus":1,"status":1,"goodstypeList":[],"goodsScopeList":[{"name":"教练好","score":"1"},{"name":"教练好","score":"3"},{"name":"教练好","score":"3"},{"name":"教练好","score":"10"}]},{"goodsId":"577728661096","goodsName":"妈妈秋冬装新款上衣","rankGoodImg":"http://img.alicdn.com/bao/uploaded/i1/3182100776/TB2heSedcfpK1RjSZFOXXa6nFXa_!!3182100776-0-item_pic.jpg","goodsTypeid":"[]","actualPrice":19.9,"cutPrice":10,"otherPlatform":"妈妈秋冬装新款上衣洋气外套中老年女装加绒马甲奶奶棉衣中年女装","otherPrice":29.9,"visitCount":"2","recommendReason":null,"goodsGrade":2.25,"goodsStandard":"[{\"name\":\"教练好\",\"score\":\"1\"},{\"name\":\"教练好\",\"score\":\"2\"},{\"name\":\"教练好\",\"score\":\"2\"},{\"name\":\"教练好\",\"score\":\"4\"}]","category1_id":"c38c97e81c3142779f9e085902c9423d","category2_id":"bb269c5d3fe94b1cb1d5df68afcda140","createTime":"2018-10-26T06:38:59.000+0000","rankListStatus":1,"findGoodsStatus":0,"evalWayStatus":0,"pointsStatus":0,"sourceStatus":1,"status":1,"goodstypeList":[],"goodsScopeList":[{"name":"教练好","score":"1"},{"name":"教练好","score":"2"},{"name":"教练好","score":"2"},{"name":"教练好","score":"4"}]}]
      */
 
-    private String logoimg;
+    private String msg;
     private int code;
-    private String message;
-    private List<RankListDataBean> rankListData;
-    private List<String> goodstypes;
+    private List<ListBean> list;
 
-    public String getLogoimg() {
-        return logoimg;
+    public String getMsg() {
+        return msg;
     }
 
-    public void setLogoimg(String logoimg) {
-        this.logoimg = logoimg;
+    public void setMsg(String msg) {
+        this.msg = msg;
     }
 
     public int getCode() {
@@ -34,129 +30,127 @@ public class RecommendFragmentBean {
         this.code = code;
     }
 
-    public String getMessage() {
-        return message;
+    public List<ListBean> getList() {
+        return list;
     }
 
-    public void setMessage(String message) {
-        this.message = message;
+    public void setList(List<ListBean> list) {
+        this.list = list;
     }
 
-    public List<RankListDataBean> getRankListData() {
-        return rankListData;
-    }
-
-    public void setRankListData(List<RankListDataBean> rankListData) {
-        this.rankListData = rankListData;
-    }
-
-    public List<String> getGoodstypes() {
-        return goodstypes;
-    }
-
-    public void setGoodstypes(List<String> goodstypes) {
-        this.goodstypes = goodstypes;
-    }
-
-    public static class RankListDataBean {
+    public static class ListBean {
         /**
-         * goodTag : ["成人","小资"]
-         * goodsFromBrand : 天猫
-         * goodsGrade : 7.875
-         * goodsImgPath : http://192.168.56.1:8080/ea_cs_tmall_app/images/1.png
-         * goodsLinkText : 双十一大促特卖飞利浦电动牙刷HX3216
-         * goodsPrice : 199.0
-         * gradeWays : ["way_震动频率$value_85","way_洁净模式$value_56","way_清洁功能$value_98","way_使用时间$value_76"]
-         * linkRef : http://www.baidu.com
-         * othersPrice : 290.0
-         * recommendReason : 飞利浦电动牙刷HX3216是飞利浦退出入门级产品,采用声波震动技术原理,每分钟23000次/分,1种模式,是初次使用电动牙刷的首选。
-         * savePrice : 20.0
-         * visitCount : 93.70万
+         * goodsId : 577468482345
+         * goodsName : 附属设施所所所所所所所所所
+         * rankGoodImg : http://img.alicdn.com/bao/uploaded/i3/113740699/TB26f5UjHsTMeJjy1zcXXXAgXXa_!!113740699.jpg
+         * goodsTypeid : [{"name":"WEKJAKL"},{"name":"AMGK"},{"name":"AASDS"},{"name":"SADGGS"}]
+         * actualPrice : 346
+         * cutPrice : 10
+         * otherPlatform : 石榴 清水溪原创设计刺绣汉服女装斗篷 复古中长款风衣外套秋冬款
+         * otherPrice : 356
+         * visitCount : 555555
+         * recommendReason : null
+         * goodsGrade : 8.25
+         * goodsStandard : [{"name":"SDS","score":"10"},{"name":"SDS","score":"10"},{"name":"视觉","score":"10"},{"name":"好教练","score":"3"}]
+         * category1_id : c38c97e81c3142779f9e085902c9423d
+         * category2_id : bb269c5d3fe94b1cb1d5df68afcda140
+         * createTime : 2018-10-26T06:50:59.000+0000
+         * rankListStatus : 1
+         * findGoodsStatus : 0
+         * evalWayStatus : 0
+         * pointsStatus : 0
+         * sourceStatus : 3
+         * status : 1
+         * goodstypeList : [{"name":"WEKJAKL"},{"name":"AMGK"},{"name":"AASDS"},{"name":"SADGGS"}]
+         * goodsScopeList : [{"name":"SDS","score":"10"},{"name":"SDS","score":"10"},{"name":"视觉","score":"10"},{"name":"好教练","score":"3"}]
          */
 
-        private String goodsFromBrand;
-        private String goodsGrade;
-        private String goodsImgPath;
-        private String goodsLinkText;
-        private String goodsPrice;
-        private String linkRef;
-        private String othersPrice;
-        private String recommendReason;
-        private String savePrice;
+        private String goodsId;
+        private String goodsName;
+        private String rankGoodImg;
+        private String goodsTypeid;
+        private String actualPrice;
+        private String cutPrice;
+        private String otherPlatform;
+        private String otherPrice;
         private String visitCount;
-        private List<String> goodTag;
-        private List<String> gradeWays;
+        private String recommendReason;
+        private String goodsGrade;
+        private String goodsStandard;
+        private String category1_id;
+        private String category2_id;
+        private String createTime;
+        private int rankListStatus;
+        private int findGoodsStatus;
+        private int evalWayStatus;
+        private int pointsStatus;
+        private int sourceStatus;
+        private int status;
+        private List<GoodstypeListBean> goodstypeList;
+        private List<GoodsScopeListBean> goodsScopeList;
 
-        public String getGoodsFromBrand() {
-            return goodsFromBrand;
+        public String getGoodsId() {
+            return goodsId;
         }
 
-        public void setGoodsFromBrand(String goodsFromBrand) {
-            this.goodsFromBrand = goodsFromBrand;
+        public void setGoodsId(String goodsId) {
+            this.goodsId = goodsId;
         }
 
-        public String getGoodsGrade() {
-            return goodsGrade;
+        public String getGoodsName() {
+            return goodsName;
         }
 
-        public void setGoodsGrade(String goodsGrade) {
-            this.goodsGrade = goodsGrade;
+        public void setGoodsName(String goodsName) {
+            this.goodsName = goodsName;
         }
 
-        public String getGoodsImgPath() {
-            return goodsImgPath;
+        public String getRankGoodImg() {
+            return rankGoodImg;
         }
 
-        public void setGoodsImgPath(String goodsImgPath) {
-            this.goodsImgPath = goodsImgPath;
+        public void setRankGoodImg(String rankGoodImg) {
+            this.rankGoodImg = rankGoodImg;
         }
 
-        public String getGoodsLinkText() {
-            return goodsLinkText;
+        public String getGoodsTypeid() {
+            return goodsTypeid;
         }
 
-        public void setGoodsLinkText(String goodsLinkText) {
-            this.goodsLinkText = goodsLinkText;
+        public void setGoodsTypeid(String goodsTypeid) {
+            this.goodsTypeid = goodsTypeid;
         }
 
-        public String getGoodsPrice() {
-            return goodsPrice;
+        public String getActualPrice() {
+            return actualPrice;
         }
 
-        public void setGoodsPrice(String goodsPrice) {
-            this.goodsPrice = goodsPrice;
+        public void setActualPrice(String actualPrice) {
+            this.actualPrice = actualPrice;
         }
 
-        public String getLinkRef() {
-            return linkRef;
+        public String getCutPrice() {
+            return cutPrice;
         }
 
-        public void setLinkRef(String linkRef) {
-            this.linkRef = linkRef;
+        public void setCutPrice(String cutPrice) {
+            this.cutPrice = cutPrice;
         }
 
-        public String getOthersPrice() {
-            return othersPrice;
+        public String getOtherPlatform() {
+            return otherPlatform;
         }
 
-        public void setOthersPrice(String othersPrice) {
-            this.othersPrice = othersPrice;
+        public void setOtherPlatform(String otherPlatform) {
+            this.otherPlatform = otherPlatform;
         }
 
-        public String getRecommendReason() {
-            return recommendReason;
+        public String getOtherPrice() {
+            return otherPrice;
         }
 
-        public void setRecommendReason(String recommendReason) {
-            this.recommendReason = recommendReason;
-        }
-
-        public String getSavePrice() {
-            return savePrice;
-        }
-
-        public void setSavePrice(String savePrice) {
-            this.savePrice = savePrice;
+        public void setOtherPrice(String otherPrice) {
+            this.otherPrice = otherPrice;
         }
 
         public String getVisitCount() {
@@ -167,49 +161,158 @@ public class RecommendFragmentBean {
             this.visitCount = visitCount;
         }
 
-        public List<String> getGoodTag() {
-            return goodTag;
+        public String getRecommendReason() {
+            return recommendReason;
         }
 
-        public void setGoodTag(List<String> goodTag) {
-            this.goodTag = goodTag;
+        public void setRecommendReason(String recommendReason) {
+            this.recommendReason = recommendReason;
         }
 
-        public List<String> getGradeWays() {
-            return gradeWays;
+        public String getGoodsGrade() {
+            return goodsGrade;
         }
 
-        public void setGradeWays(List<String> gradeWays) {
-            this.gradeWays = gradeWays;
+        public void setGoodsGrade(String goodsGrade) {
+            this.goodsGrade = goodsGrade;
         }
 
-        @Override
-        public String toString() {
-            return "RankListDataBean{" +
-                    "goodsFromBrand='" + goodsFromBrand + '\'' +
-                    ", goodsGrade=" + goodsGrade +
-                    ", goodsImgPath='" + goodsImgPath + '\'' +
-                    ", goodsLinkText='" + goodsLinkText + '\'' +
-                    ", goodsPrice=" + goodsPrice +
-                    ", linkRef='" + linkRef + '\'' +
-                    ", othersPrice=" + othersPrice +
-                    ", recommendReason='" + recommendReason + '\'' +
-                    ", savePrice=" + savePrice +
-                    ", visitCount='" + visitCount + '\'' +
-                    ", goodTag=" + goodTag +
-                    ", gradeWays=" + gradeWays +
-                    '}';
+        public String getGoodsStandard() {
+            return goodsStandard;
         }
-    }
 
-    @Override
-    public String toString() {
-        return "RecommendFragmentBean{" +
-                "logoimg='" + logoimg + '\'' +
-                ", code=" + code +
-                ", message='" + message + '\'' +
-                ", rankListData=" + rankListData +
-                ", goodstypes=" + goodstypes +
-                '}';
+        public void setGoodsStandard(String goodsStandard) {
+            this.goodsStandard = goodsStandard;
+        }
+
+        public String getCategory1_id() {
+            return category1_id;
+        }
+
+        public void setCategory1_id(String category1_id) {
+            this.category1_id = category1_id;
+        }
+
+        public String getCategory2_id() {
+            return category2_id;
+        }
+
+        public void setCategory2_id(String category2_id) {
+            this.category2_id = category2_id;
+        }
+
+        public String getCreateTime() {
+            return createTime;
+        }
+
+        public void setCreateTime(String createTime) {
+            this.createTime = createTime;
+        }
+
+        public int getRankListStatus() {
+            return rankListStatus;
+        }
+
+        public void setRankListStatus(int rankListStatus) {
+            this.rankListStatus = rankListStatus;
+        }
+
+        public int getFindGoodsStatus() {
+            return findGoodsStatus;
+        }
+
+        public void setFindGoodsStatus(int findGoodsStatus) {
+            this.findGoodsStatus = findGoodsStatus;
+        }
+
+        public int getEvalWayStatus() {
+            return evalWayStatus;
+        }
+
+        public void setEvalWayStatus(int evalWayStatus) {
+            this.evalWayStatus = evalWayStatus;
+        }
+
+        public int getPointsStatus() {
+            return pointsStatus;
+        }
+
+        public void setPointsStatus(int pointsStatus) {
+            this.pointsStatus = pointsStatus;
+        }
+
+        public int getSourceStatus() {
+            return sourceStatus;
+        }
+
+        public void setSourceStatus(int sourceStatus) {
+            this.sourceStatus = sourceStatus;
+        }
+
+        public int getStatus() {
+            return status;
+        }
+
+        public void setStatus(int status) {
+            this.status = status;
+        }
+
+        public List<GoodstypeListBean> getGoodstypeList() {
+            return goodstypeList;
+        }
+
+        public void setGoodstypeList(List<GoodstypeListBean> goodstypeList) {
+            this.goodstypeList = goodstypeList;
+        }
+
+        public List<GoodsScopeListBean> getGoodsScopeList() {
+            return goodsScopeList;
+        }
+
+        public void setGoodsScopeList(List<GoodsScopeListBean> goodsScopeList) {
+            this.goodsScopeList = goodsScopeList;
+        }
+
+        public static class GoodstypeListBean {
+            /**
+             * name : WEKJAKL
+             */
+
+            private String name;
+
+            public String getName() {
+                return name;
+            }
+
+            public void setName(String name) {
+                this.name = name;
+            }
+        }
+
+        public static class GoodsScopeListBean {
+            /**
+             * name : SDS
+             * score : 10
+             */
+
+            private String name;
+            private String score;
+
+            public String getName() {
+                return name;
+            }
+
+            public void setName(String name) {
+                this.name = name;
+            }
+
+            public String getScore() {
+                return score;
+            }
+
+            public void setScore(String score) {
+                this.score = score;
+            }
+        }
     }
 }

@@ -92,7 +92,6 @@ public class HomeFragment extends DBBaseFragment implements Badge.OnDragStateCha
         tabList.add(SPUtils.getInstance().getString(CommonDate.HomeTab4, "生活家电"));
         tabList.add(SPUtils.getInstance().getString(CommonDate.HomeTab5, "家用大电"));
         initTab(null);
-        EventBus.getDefault().post(HomeFragment.subTab);//通知榜单里的4个fragment初始化二级导航栏
         mQBadgeView.setBadgeNumber(5);
 
         mHomeFragmentPresenter.goodsCategory(this.bindToLifecycle());
@@ -155,7 +154,7 @@ public class HomeFragment extends DBBaseFragment implements Badge.OnDragStateCha
      */
     @Override
     public void Faile(String error) {
-        EventBus.getDefault().post(HomeFragment.subTab);
+        EventBus.getDefault().post(HomeFragment.subTab);//通知榜单里的4个fragment初始化二级导航栏
         Toast.makeText(getContext(), error, Toast.LENGTH_SHORT).show();
     }
 }

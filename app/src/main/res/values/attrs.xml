@@ -30,4 +30,19 @@
         <attr name="textColorCenter" format="color"/>
         <attr name="dividerColor" format="color"/>
     </declare-styleable>
+
+    <!-- 末行对齐方式 -->
+    <declare-styleable name="AlignTextView">
+        <attr name="align" format="enum">
+            <enum name="left" value="0"/>
+            <enum name="center" value="1"/>
+            <enum name="right" value="2"/>
+        </attr>
+    </declare-styleable>
+
+    <!-- 标点转换 -->
+    <declare-styleable name="CBAlignTextView">
+        <attr name="punctuationConvert" format="boolean"/>
+    </declare-styleable>
+
 </resources>

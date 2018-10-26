@@ -8,6 +8,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.administrator.jipinshop.R;
 import com.example.administrator.jipinshop.activity.WebActivity;
@@ -93,7 +94,8 @@ public class IntegralActivity extends BaseActivity implements IntegralAdapter.On
      */
     @Override
     public void onItemExchange(int pos) {
-        startActivity(new Intent(this,ShoppingDetailActivity.class));
+//        startActivity(new Intent(this,ShoppingDetailActivity.class));
+        Toast.makeText(this, "该功能正在开发", Toast.LENGTH_SHORT).show();
     }
 
     /**

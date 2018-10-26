@@ -111,7 +111,7 @@ public class RecommendFragment extends DBBaseFragment implements OnRefreshListen
                 initError(R.mipmap.qs_404, "页面出错", "程序猿正在赶来的路上");
                 binding.recyclerView.setVisibility(View.GONE);
             }
-            Toast.makeText(getContext(), recommendFragmentBean.getMessage(), Toast.LENGTH_SHORT).show();
+            Toast.makeText(getContext(), recommendFragmentBean.getMsg(), Toast.LENGTH_SHORT).show();
         }
         if (binding.swipeToLoad != null && binding.swipeToLoad.isRefreshing()) {
             if(!binding.swipeToLoad.isRefreshEnabled()){

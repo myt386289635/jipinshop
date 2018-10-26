@@ -6,7 +6,7 @@
     <data>
         <variable
             name="date"
-            type="com.example.administrator.jipinshop.bean.RecommendFragmentBean.RankListDataBean"/>
+            type="com.example.administrator.jipinshop.bean.RecommendFragmentBean.ListBean"/>
 
         <variable
             name="position"
@@ -69,12 +69,14 @@
             android:gravity="center_vertical"
             android:lineSpacingExtra="@dimen/x6"
             android:lines="4"
-            android:text="@{date.goodsLinkText}"
+            android:text="@{date.goodsName}"
             android:textColor="@color/color_202020"
             android:textSize="16sp"
             android:textStyle="bold"/>
 
         <TextView
+            android:ellipsize="end"
+            android:singleLine="true"
             android:id="@+id/item_tag1"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -89,6 +91,8 @@
 
 
         <TextView
+            android:ellipsize="end"
+            android:singleLine="true"
             android:id="@+id/item_tag2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -116,7 +120,7 @@
                 android:id="@+id/item_price"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@{@string/price + date.goodsPrice}"
+                android:text="@{@string/price + date.actualPrice}"
                 android:textColor="@color/color_E31436"
                 android:textSize="14sp"/>
 
@@ -127,7 +131,7 @@
                 android:layout_alignParentRight="true"
                 android:layout_marginRight="@dimen/x1"
                 android:background="@drawable/recommend_price_bg"
-                android:text="@{@string/savePrice + date.savePrice}"
+                android:text="@{@string/savePrice + date.cutPrice}"
                 android:textColor="@color/color_white"
                 android:textSize="11sp"/>
 
@@ -148,7 +152,7 @@
                 android:id="@+id/item_goodsFrom"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@{date.goodsFromBrand +  @string/goodsFrom}"
+                tools:text="天猫："
                 android:textColor="@color/color_ACACAC"
                 android:textSize="12sp"/>
 
@@ -158,7 +162,7 @@
                 android:layout_height="wrap_content"
                 android:ellipsize="end"
                 android:singleLine="true"
-                android:text="@{@string/price + date.othersPrice}"
+                android:text="@{@string/price + date.otherPrice}"
                 android:textColor="@color/color_ACACAC"
                 android:textSize="12sp"/>
 
@@ -227,7 +231,7 @@
                     android:id="@+id/item_score"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@{date.goodsGrade}"
+                    tools:text="1"
                     android:textColor="@color/color_202020"
                     android:textSize="18sp"/>
 
@@ -250,12 +254,15 @@
                 android:layout_toRightOf="@id/item_score_container"
                 android:orientation="horizontal">
 
-                <TextView
+                <com.example.administrator.jipinshop.view.AlignTextView
+                    android:minEms="4"
+                    android:maxLength="4"
                     android:id="@+id/item_progressbar1_text"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_centerVertical="true"
-                    android:text="震动频率"
+                    tools:text="震动频率"
+                    app:align="center"
                     android:textColor="@color/color_151515"
                     android:textSize="13sp"/>
 
@@ -285,12 +292,14 @@
                 android:gravity="center_vertical"
                 android:orientation="horizontal">
 
-                <TextView
+                <com.example.administrator.jipinshop.view.AlignTextView
+                    android:minEms="4"
+                    android:maxLength="4"
                     android:id="@+id/item_progressbar2_text"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_centerVertical="true"
-                    android:text="清洁模式"
+                    tools:text="清洁模式"
                     android:textColor="@color/color_151515"
                     android:textSize="13sp"/>
 
@@ -320,12 +329,14 @@
                 android:gravity="center_vertical"
                 android:orientation="horizontal">
 
-                <TextView
+                <com.example.administrator.jipinshop.view.AlignTextView
+                    android:minEms="4"
+                    android:maxLength="4"
                     android:id="@+id/item_progressbar3_text"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_centerVertical="true"
-                    android:text="清洁功能"
+                    tools:text="清洁功能"
                     android:textColor="@color/color_151515"
                     android:textSize="13sp"/>
 
@@ -355,12 +366,14 @@
                 android:gravity="center_vertical"
                 android:orientation="horizontal">
 
-                <TextView
+                <com.example.administrator.jipinshop.view.AlignTextView
+                    android:maxLength="4"
+                    android:minEms="4"
                     android:id="@+id/item_progressbar4_text"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_centerVertical="true"
-                    android:text="使用时间"
+                    tools:text="使用时间"
                     android:textColor="@color/color_151515"
                     android:textSize="13sp"/>
 

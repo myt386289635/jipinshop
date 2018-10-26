@@ -5,6 +5,7 @@ import android.databinding.DataBindingUtil;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.text.Html;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,6 +15,8 @@ import com.example.administrator.jipinshop.R;
 import com.example.administrator.jipinshop.bean.RecommendFragmentBean;
 import com.example.administrator.jipinshop.databinding.RecommendItemBinding;
 import com.example.administrator.jipinshop.view.glide.imageloder.ImageManager;
+
+import java.math.BigDecimal;
 
 public class RecommendFragmentAdapter extends RecyclerView.Adapter {
 
@@ -60,30 +63,27 @@ public class RecommendFragmentAdapter extends RecyclerView.Adapter {
         switch (type) {
             case HEAD:
                 ContentViewHolder contentViewHolder = (ContentViewHolder) holder;
-                ImageManager.displayRoundImage(mList.getLogoimg(), contentViewHolder.recommend_image, 0, 0, 10);
+                contentViewHolder.recommend_image.setBackgroundResource(R.mipmap.remmonent_banner);
                 break;
             case CONTENT:
                 HeadViewHolder viewHolder = (HeadViewHolder) holder;
 
                 final int position = pos - 1;
                 viewHolder.getBinding().setPosition(pos + "");
-                viewHolder.getBinding().setDate(mList.getRankListData().get(position));
+                viewHolder.getBinding().setDate(mList.getList().get(position));
 
-                String[] type1 = mList.getRankListData().get(position).getGradeWays().get(0).split("\\$");
-                int code1 = Integer.parseInt(type1[1].replace("value_",""));
-                viewHolder.getBinding().itemProgressbar1.setTotalAndCurrentCount(100,code1);
 
-                String[] type2 = mList.getRankListData().get(position).getGradeWays().get(1).split("\\$");
-                int code2 =Integer.parseInt(type2[1].replace("value_",""));
-                viewHolder.getBinding().itemProgressbar2.setTotalAndCurrentCount(100,code2);
+                viewHolder.getBinding().itemProgressbar1Text.setText(mList.getList().get(position).getGoodsScopeList().get(0).getName());
+                viewHolder.getBinding().itemProgressbar1.setTotalAndCurrentCount(10, Integer.valueOf(mList.getList().get(position).getGoodsScopeList().get(0).getScore()));
 
-                String[] type3 = mList.getRankListData().get(position).getGradeWays().get(2).split("\\$");
-                int code3 = Integer.parseInt(type3[1].replace("value_",""));
-                viewHolder.getBinding().itemProgressbar3.setTotalAndCurrentCount(100,code3);
+                viewHolder.getBinding().itemProgressbar2Text.setText(mList.getList().get(position).getGoodsScopeList().get(1).getName());
+                viewHolder.getBinding().itemProgressbar2.setTotalAndCurrentCount(10,Integer.valueOf(mList.getList().get(position).getGoodsScopeList().get(1).getScore()));
 
-                String[] type4 = mList.getRankListData().get(position).getGradeWays().get(3).split("\\$");
-                int code4 = Integer.parseInt(type4[1].replace("value_",""));
-                viewHolder.getBinding().itemProgressbar4.setTotalAndCurrentCount(100,code4);
+                viewHolder.getBinding().itemProgressbar3Text.setText(mList.getList().get(position).getGoodsScopeList().get(2).getName());
+                viewHolder.getBinding().itemProgressbar3.setTotalAndCurrentCount(10,Integer.valueOf(mList.getList().get(position).getGoodsScopeList().get(2).getScore()));
+
+                viewHolder.getBinding().itemProgressbar4Text.setText(mList.getList().get(position).getGoodsScopeList().get(3).getName());
+                viewHolder.getBinding().itemProgressbar4.setTotalAndCurrentCount(10,Integer.valueOf(mList.getList().get(position).getGoodsScopeList().get(3).getScore()));
 
                 viewHolder.itemView.setOnClickListener(view -> {
                     if (mOnItem != null) {
@@ -91,9 +91,44 @@ public class RecommendFragmentAdapter extends RecyclerView.Adapter {
                     }
                 });
 
-                String str = "<font color='#E31436'>推荐理由：</font>" + mList.getRankListData().get(position).getRecommendReason();
-                viewHolder.getBinding().itemReason.setText(Html.fromHtml(str));
-                ImageManager.displayRoundImage(mList.getRankListData().get(position).getGoodsImgPath(), viewHolder.getBinding().itemImage, R.color.transparent,  R.color.transparent, 10);
+                if(!TextUtils.isEmpty(mList.getList().get(position).getRecommendReason())){
+                    String str = "<font color='#E31436'>推荐理由：</font>" + mList.getList().get(position).getRecommendReason();
+                    viewHolder.getBinding().itemReason.setText(Html.fromHtml(str));
+                }else {
+                    String str = "<font color='#E31436'>推荐理由：</font>" + "无";
+                    viewHolder.getBinding().itemReason.setText(Html.fromHtml(str));
+                }
+
+                ImageManager.displayRoundImage(mList.getList().get(position).getRankGoodImg(), viewHolder.getBinding().itemImage, R.color.transparent,  R.color.transparent, 10);
+
+                if(mList.getList().get(position).getSourceStatus() == 1){
+                    viewHolder.getBinding().itemGoodsFrom.setText("京东：");
+                }else  if(mList.getList().get(position).getSourceStatus() == 2){
+                    viewHolder.getBinding().itemGoodsFrom.setText("淘宝：");
+                }else  if(mList.getList().get(position).getSourceStatus() == 3){
+                    viewHolder.getBinding().itemGoodsFrom.setText("天猫：");
+                }
+
+                BigDecimal b = new BigDecimal(mList.getList().get(position).getGoodsGrade());
+                //保留1位小数
+                double result = b.setScale(1, BigDecimal.ROUND_HALF_UP).doubleValue();
+                viewHolder.getBinding().itemScore.setText(result + "");
+
+                if(mList.getList().get(position).getGoodstypeList().size() != 0){
+                    if(mList.getList().get(position).getGoodstypeList().size() >= 2){
+                        viewHolder.getBinding().itemTag1.setVisibility(View.VISIBLE);
+                        viewHolder.getBinding().itemTag2.setVisibility(View.VISIBLE);
+                        viewHolder.getBinding().itemTag1.setText(mList.getList().get(position).getGoodstypeList().get(0).getName());
+                        viewHolder.getBinding().itemTag2.setText(mList.getList().get(position).getGoodstypeList().get(1).getName());
+                    }else {
+                        viewHolder.getBinding().itemTag1.setVisibility(View.VISIBLE);
+                        viewHolder.getBinding().itemTag2.setVisibility(View.GONE);
+                        viewHolder.getBinding().itemTag1.setText(mList.getList().get(position).getGoodstypeList().get(0).getName());
+                    }
+                }else {
+                    viewHolder.getBinding().itemTag1.setVisibility(View.GONE);
+                    viewHolder.getBinding().itemTag2.setVisibility(View.GONE);
+                }
 
                 // 立刻刷新界面
                 viewHolder.getBinding().executePendingBindings();
@@ -112,7 +147,7 @@ public class RecommendFragmentAdapter extends RecyclerView.Adapter {
 
     @Override
     public int getItemCount() {
-        return mList.getRankListData() == null || mList.getRankListData().size() == 0 ? 0 : mList.getRankListData().size() + 1;
+        return mList.getList() == null || mList.getList().size() == 0 ? 0 : mList.getList().size() + 1;
     }
 
     public class HeadViewHolder extends RecyclerView.ViewHolder {
