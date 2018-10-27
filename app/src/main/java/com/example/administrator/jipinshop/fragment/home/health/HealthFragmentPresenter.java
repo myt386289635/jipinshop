@@ -46,6 +46,7 @@ public class HealthFragmentPresenter {
         gridViewList.get(pos).setTag(true);
         mAdapter.notifyDataSetChanged();
         mRecyclerView.scrollToPosition(0);
+        mSwipeToLoadLayout.setRefreshEnabled(true);
         mSwipeToLoadLayout.setRefreshing(true);
     }
 
