@@ -73,17 +73,21 @@ public class RecommendFragmentAdapter extends RecyclerView.Adapter {
                 viewHolder.getBinding().setDate(mList.getList().get(position));
 
 
-                viewHolder.getBinding().itemProgressbar1Text.setText(mList.getList().get(position).getGoodsScopeList().get(0).getName());
-                viewHolder.getBinding().itemProgressbar1.setTotalAndCurrentCount(10, Integer.valueOf(mList.getList().get(position).getGoodsScopeList().get(0).getScore()));
+                if(mList.getList().get(position).getGoodsScopeList() != null && mList.getList().get(position).getGoodsScopeList().size() != 0){
+                    viewHolder.getBinding().itemProgressbar1Text.setText(mList.getList().get(position).getGoodsScopeList().get(0).getName());
+                    viewHolder.getBinding().itemProgressbar1.setTotalAndCurrentCount(10, Integer.valueOf(mList.getList().get(position).getGoodsScopeList().get(0).getScore()));
 
-                viewHolder.getBinding().itemProgressbar2Text.setText(mList.getList().get(position).getGoodsScopeList().get(1).getName());
-                viewHolder.getBinding().itemProgressbar2.setTotalAndCurrentCount(10,Integer.valueOf(mList.getList().get(position).getGoodsScopeList().get(1).getScore()));
+                    viewHolder.getBinding().itemProgressbar2Text.setText(mList.getList().get(position).getGoodsScopeList().get(1).getName());
+                    viewHolder.getBinding().itemProgressbar2.setTotalAndCurrentCount(10,Integer.valueOf(mList.getList().get(position).getGoodsScopeList().get(1).getScore()));
 
-                viewHolder.getBinding().itemProgressbar3Text.setText(mList.getList().get(position).getGoodsScopeList().get(2).getName());
-                viewHolder.getBinding().itemProgressbar3.setTotalAndCurrentCount(10,Integer.valueOf(mList.getList().get(position).getGoodsScopeList().get(2).getScore()));
+                    viewHolder.getBinding().itemProgressbar3Text.setText(mList.getList().get(position).getGoodsScopeList().get(2).getName());
+                    viewHolder.getBinding().itemProgressbar3.setTotalAndCurrentCount(10,Integer.valueOf(mList.getList().get(position).getGoodsScopeList().get(2).getScore()));
 
-                viewHolder.getBinding().itemProgressbar4Text.setText(mList.getList().get(position).getGoodsScopeList().get(3).getName());
-                viewHolder.getBinding().itemProgressbar4.setTotalAndCurrentCount(10,Integer.valueOf(mList.getList().get(position).getGoodsScopeList().get(3).getScore()));
+                    viewHolder.getBinding().itemProgressbar4Text.setText(mList.getList().get(position).getGoodsScopeList().get(3).getName());
+                    viewHolder.getBinding().itemProgressbar4.setTotalAndCurrentCount(10,Integer.valueOf(mList.getList().get(position).getGoodsScopeList().get(3).getScore()));
+                }else {
+                    viewHolder.getBinding().itemProgressContainer.setVisibility(View.GONE);
+                }
 
                 viewHolder.itemView.setOnClickListener(view -> {
                     if (mOnItem != null) {
@@ -114,7 +118,7 @@ public class RecommendFragmentAdapter extends RecyclerView.Adapter {
                 double result = b.setScale(1, BigDecimal.ROUND_HALF_UP).doubleValue();
                 viewHolder.getBinding().itemScore.setText(result + "");
 
-                if(mList.getList().get(position).getGoodstypeList().size() != 0){
+                if(mList.getList().get(position).getGoodstypeList() != null && mList.getList().get(position).getGoodstypeList().size() != 0){
                     if(mList.getList().get(position).getGoodstypeList().size() >= 2){
                         viewHolder.getBinding().itemTag1.setVisibility(View.VISIBLE);
                         viewHolder.getBinding().itemTag2.setVisibility(View.VISIBLE);

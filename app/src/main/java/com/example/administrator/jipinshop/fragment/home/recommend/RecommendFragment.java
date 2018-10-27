@@ -79,7 +79,14 @@ public class RecommendFragment extends DBBaseFragment implements OnRefreshListen
      */
     @Override
     public void onRefresh() {
-        mPresenter.getDate(this.<RecommendFragmentBean>bindToLifecycle());
+        if (!TextUtils.isEmpty(SPUtils.getInstance().getString(CommonDate.SubTab, ""))){
+            mPresenter.getDate(this.<RecommendFragmentBean>bindToLifecycle());
+        }else {
+            stopResher();
+            initError(R.mipmap.qs_net, "网络出错", "哇哦，网络出错了，换个姿势下滑页面试试");
+            binding.recyclerView.setVisibility(View.GONE);
+            Toast.makeText(getContext(), "网络请求错误,请重新开启app", Toast.LENGTH_SHORT).show();
+        }
     }
 
     /**
@@ -113,7 +120,7 @@ public class RecommendFragment extends DBBaseFragment implements OnRefreshListen
             }
         } else {
             if(TextUtils.isEmpty(SPUtils.getInstance(CommonDate.NETCACHE).getString(CommonDate.RecommendFragmentDATA,""))){
-                initError(R.mipmap.qs_net, "网络出错", "哇哦，网络出错了，换个姿势点击试试");
+                initError(R.mipmap.qs_net, "网络出错", "哇哦，网络出错了，换个姿势下滑页面试试");
                 binding.recyclerView.setVisibility(View.GONE);
             }
             Toast.makeText(getContext(), recommendFragmentBean.getMsg(), Toast.LENGTH_SHORT).show();
@@ -125,7 +132,7 @@ public class RecommendFragment extends DBBaseFragment implements OnRefreshListen
     public void onFile(String error) {
         stopResher();
         if(TextUtils.isEmpty(SPUtils.getInstance(CommonDate.NETCACHE).getString(CommonDate.RecommendFragmentDATA,""))){
-            initError(R.mipmap.qs_net, "网络出错", "哇哦，网络出错了，换个姿势点击试试");
+            initError(R.mipmap.qs_net, "网络出错", "哇哦，网络出错了，换个姿势下滑页面试试");
             binding.recyclerView.setVisibility(View.GONE);
         }
         Toast.makeText(getContext(), "网络出错", Toast.LENGTH_SHORT).show();

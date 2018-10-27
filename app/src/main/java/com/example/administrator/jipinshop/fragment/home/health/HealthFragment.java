@@ -98,6 +98,9 @@ public class HealthFragment extends DBBaseFragment implements HealthFragmentGrid
         super.setUserVisibleHint(isVisibleToUser);
         if (isVisibleToUser && once) {
             if (gridViewList.size() != 0) {
+                if (!TextUtils.isEmpty(SPUtils.getInstance(CommonDate.NETCACHE).getString(CommonDate.HealthFragmentDATA,""))) {
+                    initDate();
+                }
                 mBinding.swipeToLoad.setRefreshing(true);
                 once = false;
             }
@@ -113,7 +116,7 @@ public class HealthFragment extends DBBaseFragment implements HealthFragmentGrid
             mPresenter.goodRank(gridViewList.get(position).getCategoryid(),this.bindToLifecycle());
         }else {
             stopResher();
-            initError(R.mipmap.qs_404, "页面出错", "程序猿正在赶来的路上");
+            initError(R.mipmap.qs_net, "网络出错", "哇哦，网络出错了，换个姿势下滑页面试试");
             mBinding.recyclerView.setVisibility(View.GONE);
             Toast.makeText(getContext(), "网络请求错误,请重新开启app", Toast.LENGTH_SHORT).show();
         }
@@ -179,6 +182,9 @@ public class HealthFragment extends DBBaseFragment implements HealthFragmentGrid
 
     @Override
     public void onSuccess(HealthFragmentBean healthFragmentBean) {
+        if(position == 0){
+            SPUtils.getInstance(CommonDate.NETCACHE).put(CommonDate.HealthFragmentDATA,new Gson().toJson(healthFragmentBean));
+        }
         stopResher();
         if(healthFragmentBean.getList() != null  && healthFragmentBean.getList().size() != 0){
             recyclerList.clear();
@@ -195,8 +201,24 @@ public class HealthFragment extends DBBaseFragment implements HealthFragmentGrid
     @Override
     public void onFile(String error) {
         stopResher();
-        initError(R.mipmap.qs_net, "网络出错", "哇哦，网络出错了，换个姿势点击试试");
-        mBinding.recyclerView.setVisibility(View.GONE);
+        if(position == 0 && !TextUtils.isEmpty(SPUtils.getInstance(CommonDate.NETCACHE).getString(CommonDate.HealthFragmentDATA,""))){
+            initDate();
+        }else {
+            initError(R.mipmap.qs_net, "网络出错", "哇哦，网络出错了，换个姿势下滑页面试试");
+            mBinding.recyclerView.setVisibility(View.GONE);
+        }
         Toast.makeText(getContext(), error, Toast.LENGTH_SHORT).show();
+    }
+
+    /**
+     * 初始化本地数据
+     */
+    public void initDate(){
+        HealthFragmentBean healthFragmentBean = new Gson().fromJson(SPUtils.getInstance(CommonDate.NETCACHE).getString(CommonDate.HealthFragmentDATA),HealthFragmentBean.class);
+        recyclerList.clear();
+        mBinding.inClude.qsNet.setVisibility(View.GONE);
+        mBinding.recyclerView.setVisibility(View.VISIBLE);
+        recyclerList.addAll(healthFragmentBean.getList());
+        mRecyclerAdapter.notifyDataSetChanged();
     }
 }
