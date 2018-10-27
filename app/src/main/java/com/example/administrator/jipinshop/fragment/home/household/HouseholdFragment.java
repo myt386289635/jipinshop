@@ -7,6 +7,7 @@ import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import com.aspsine.swipetoloadlayout.OnRefreshListener;
 import com.blankj.utilcode.util.SPUtils;
@@ -16,6 +17,7 @@ import com.example.administrator.jipinshop.adapter.HouseholdFragmentGridAdapter;
 import com.example.administrator.jipinshop.adapter.HouseholdFragmentRecyclerAdapter;
 import com.example.administrator.jipinshop.base.DBBaseFragment;
 import com.example.administrator.jipinshop.bean.HealthFragmentGridBean;
+import com.example.administrator.jipinshop.bean.HouseholdFragmentBean;
 import com.example.administrator.jipinshop.bean.TabBean;
 import com.example.administrator.jipinshop.databinding.FragmentHouseholdBinding;
 import com.example.administrator.jipinshop.fragment.home.HomeFragment;
@@ -33,7 +35,7 @@ import javax.inject.Inject;
 /**
  * 生活家电
  */
-public class HouseholdFragment extends DBBaseFragment implements HouseholdFragmentGridAdapter.OnItem, OnRefreshListener, HouseholdFragmentRecyclerAdapter.OnItem {
+public class HouseholdFragment extends DBBaseFragment implements HouseholdFragmentGridAdapter.OnItem, OnRefreshListener, HouseholdFragmentRecyclerAdapter.OnItem, HouseholdFragmentView {
 
     @Inject
     HouseholdFragmentPresenter mPresenter;
@@ -43,9 +45,11 @@ public class HouseholdFragment extends DBBaseFragment implements HouseholdFragme
     private HouseholdFragmentGridAdapter mAdapter;
 
     private HouseholdFragmentRecyclerAdapter mRecyclerAdapter;
-    private List<String> recyclerList;
+    private List<HouseholdFragmentBean.ListBean> recyclerList;
 
     private Boolean once = true;
+
+    private int position = 0;//二级导航点击的位置   默认为第0个
 
     public static HouseholdFragment getInstance() {
         HouseholdFragment fragment = new HouseholdFragment();
@@ -62,6 +66,7 @@ public class HouseholdFragment extends DBBaseFragment implements HouseholdFragme
     public void initView() {
         mBaseFragmentComponent.inject(this);
         EventBus.getDefault().register(this);
+        mPresenter.setView(this);
 
         gridViewList = new ArrayList<>();
         mAdapter = new HouseholdFragmentGridAdapter(gridViewList, getContext());
@@ -69,13 +74,14 @@ public class HouseholdFragment extends DBBaseFragment implements HouseholdFragme
         mBinding.gridView.setAdapter(mAdapter);
         mBinding.gridView.setVisibility(View.GONE);
 
-        mBinding.swipeTarget.setLayoutManager(new LinearLayoutManager(getContext()));
+        mBinding.recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         recyclerList = new ArrayList<>();
-        mRecyclerAdapter = new HouseholdFragmentRecyclerAdapter(recyclerList, getContext(), mPresenter);
+        mRecyclerAdapter = new HouseholdFragmentRecyclerAdapter(recyclerList, getContext());
         mRecyclerAdapter.setOnItem(this);
-        mBinding.swipeTarget.setAdapter(mRecyclerAdapter);
+        mBinding.recyclerView.setAdapter(mRecyclerAdapter);
 
         mBinding.swipeToLoad.setOnRefreshListener(this);
+        mPresenter.solveScoll(mBinding.recyclerView,mBinding.swipeToLoad);
     }
 
     /**
@@ -83,7 +89,8 @@ public class HouseholdFragment extends DBBaseFragment implements HouseholdFragme
      */
     @Override
     public void onItem(int pos) {
-        mPresenter.refreshGirdView(getContext(), mBinding.swipeToLoad, gridViewList, pos, mAdapter, mBinding.swipeTarget);
+        position = pos;
+        mPresenter.refreshGirdView(getContext(), mBinding.swipeToLoad, gridViewList, pos, mAdapter, mBinding.recyclerView);
     }
 
     @Override
@@ -91,6 +98,9 @@ public class HouseholdFragment extends DBBaseFragment implements HouseholdFragme
         super.setUserVisibleHint(isVisibleToUser);
         if (isVisibleToUser && once) {
             if (gridViewList.size() != 0) {
+                if (!TextUtils.isEmpty(SPUtils.getInstance(CommonDate.NETCACHE).getString(CommonDate.HouseholdFragmentDATA,""))) {
+                    initDate();
+                }
                 mBinding.swipeToLoad.setRefreshing(true);
                 once = false;
             }
@@ -102,14 +112,14 @@ public class HouseholdFragment extends DBBaseFragment implements HouseholdFragme
      */
     @Override
     public void onRefresh() {
-        if (mBinding.swipeToLoad != null && mBinding.swipeToLoad.isRefreshing()) {
-            mBinding.swipeToLoad.setRefreshing(false);
+        if(gridViewList.size() != 0){
+            mPresenter.goodRank(gridViewList.get(position).getCategoryid(),this.bindToLifecycle());
+        }else {
+            stopResher();
+            initError(R.mipmap.qs_net, "网络出错", "哇哦，网络出错了，换个姿势下滑页面试试");
+            mBinding.recyclerView.setVisibility(View.GONE);
+            Toast.makeText(getContext(), "网络请求错误,请重新开启app", Toast.LENGTH_SHORT).show();
         }
-        for (int i = 0; i < 10; i++) {
-            recyclerList.add("");
-        }
-        mRecyclerAdapter.notifyDataSetChanged();
-        // TODO: 2018/8/1  网络请求
     }
 
 
@@ -148,5 +158,69 @@ public class HouseholdFragment extends DBBaseFragment implements HouseholdFragme
                 mBinding.gridView.setVisibility(View.GONE);
             }
         }
+    }
+
+    public void initError(int id, String title, String content) {
+        mBinding.inClude.qsNet.setVisibility(View.VISIBLE);
+        mBinding.inClude.errorImage.setBackgroundResource(id);
+        mBinding.inClude.errorTitle.setText(title);
+        mBinding.inClude.errorContent.setText(content);
+    }
+
+
+    public void stopResher(){
+        if (mBinding.swipeToLoad != null && mBinding.swipeToLoad.isRefreshing()) {
+            if(!mBinding.swipeToLoad.isRefreshEnabled()){
+                mBinding.swipeToLoad.setRefreshEnabled(true);
+                mBinding.swipeToLoad.setRefreshing(false);
+                mBinding.swipeToLoad.setRefreshEnabled(false);
+            }else {
+                mBinding.swipeToLoad.setRefreshing(false);
+            }
+        }
+    }
+
+
+    @Override
+    public void onSuccess(HouseholdFragmentBean householdFragmentBean) {
+        if(position == 0){
+            SPUtils.getInstance(CommonDate.NETCACHE).put(CommonDate.HouseholdFragmentDATA,new Gson().toJson(householdFragmentBean));
+        }
+        stopResher();
+        if(householdFragmentBean.getList() != null  && householdFragmentBean.getList().size() != 0){
+            recyclerList.clear();
+            mBinding.inClude.qsNet.setVisibility(View.GONE);
+            mBinding.recyclerView.setVisibility(View.VISIBLE);
+            recyclerList.addAll(householdFragmentBean.getList());
+            mRecyclerAdapter.notifyDataSetChanged();
+        }else {
+            initError(R.mipmap.qs_404, "页面出错", "程序猿正在赶来的路上");
+            mBinding.recyclerView.setVisibility(View.GONE);
+            Toast.makeText(getContext(), "没有数据", Toast.LENGTH_SHORT).show();
+        }
+    }
+
+    @Override
+    public void onFile(String error) {
+        stopResher();
+        if(position == 0 && !TextUtils.isEmpty(SPUtils.getInstance(CommonDate.NETCACHE).getString(CommonDate.HouseholdFragmentDATA,""))){
+            initDate();
+        }else {
+            initError(R.mipmap.qs_net, "网络出错", "哇哦，网络出错了，换个姿势下滑页面试试");
+            mBinding.recyclerView.setVisibility(View.GONE);
+        }
+        Toast.makeText(getContext(), error, Toast.LENGTH_SHORT).show();
+    }
+
+    /**
+     * 初始化本地数据
+     */
+    public void initDate(){
+        HouseholdFragmentBean householdFragmentBean = new Gson().fromJson(SPUtils.getInstance(CommonDate.NETCACHE).getString(CommonDate.HouseholdFragmentDATA),HouseholdFragmentBean.class);
+        recyclerList.clear();
+        mBinding.inClude.qsNet.setVisibility(View.GONE);
+        mBinding.recyclerView.setVisibility(View.VISIBLE);
+        recyclerList.addAll(householdFragmentBean.getList());
+        mRecyclerAdapter.notifyDataSetChanged();
     }
 }

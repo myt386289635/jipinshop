@@ -5,6 +5,7 @@ import com.example.administrator.jipinshop.bean.AccountBean;
 import com.example.administrator.jipinshop.bean.FollowBean;
 import com.example.administrator.jipinshop.bean.FovalBean;
 import com.example.administrator.jipinshop.bean.HealthFragmentBean;
+import com.example.administrator.jipinshop.bean.HouseholdFragmentBean;
 import com.example.administrator.jipinshop.bean.ImageBean;
 import com.example.administrator.jipinshop.bean.KitchenFragmentBean;
 import com.example.administrator.jipinshop.bean.LoginBean;
@@ -197,5 +198,12 @@ public class Repository {
      */
     public Observable<KitchenFragmentBean> goodRank2(String goodsId){
         return mAPIService.goodRank2("0",goodsId);
+    }
+
+    /**
+     * 榜单二级菜单列表
+     */
+    public Observable<HouseholdFragmentBean> goodRank3(String goodsId){
+        return mAPIService.goodRank3("0",goodsId);
     }
 }

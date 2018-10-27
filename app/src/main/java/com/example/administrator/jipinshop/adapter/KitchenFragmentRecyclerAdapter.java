@@ -58,6 +58,7 @@ public class KitchenFragmentRecyclerAdapter extends RecyclerView.Adapter<Kitchen
         }
 
         if(mList.get(position).getGoodsScopeList() != null && mList.get(position).getGoodsScopeList().size() != 0){
+            viewHolder.getBinding().itemProgressContainer.setVisibility(View.VISIBLE);
             viewHolder.getBinding().itemProgressbar1Text.setText(mList.get(position).getGoodsScopeList().get(0).getName());
             viewHolder.getBinding().itemProgressbar1.setTotalAndCurrentCount(10, Integer.valueOf(mList.get(position).getGoodsScopeList().get(0).getScore()));
 
