@@ -4,6 +4,7 @@ import com.blankj.utilcode.util.SPUtils;
 import com.example.administrator.jipinshop.bean.AccountBean;
 import com.example.administrator.jipinshop.bean.FollowBean;
 import com.example.administrator.jipinshop.bean.FovalBean;
+import com.example.administrator.jipinshop.bean.HealthFragmentBean;
 import com.example.administrator.jipinshop.bean.ImageBean;
 import com.example.administrator.jipinshop.bean.LoginBean;
 import com.example.administrator.jipinshop.bean.LuckImageBean;
@@ -26,6 +27,7 @@ import javax.inject.Inject;
 
 import io.reactivex.Observable;
 import okhttp3.MultipartBody;
+import retrofit2.http.Query;
 
 public class Repository {
 
@@ -179,7 +181,14 @@ public class Repository {
     /**
      * 获取抽奖图片
      */
-    public  Observable<LuckImageBean> luckselects(){
+    public Observable<LuckImageBean> luckselects(){
         return mAPIService.luckselects();
+    }
+
+    /**
+     *
+     */
+    public Observable<HealthFragmentBean> goodRank(String goodsId){
+        return mAPIService.goodRank("0",goodsId);
     }
 }

@@ -3,6 +3,7 @@ package com.example.administrator.jipinshop.netwrok;
 
 import com.example.administrator.jipinshop.bean.FollowBean;
 import com.example.administrator.jipinshop.bean.FovalBean;
+import com.example.administrator.jipinshop.bean.HealthFragmentBean;
 import com.example.administrator.jipinshop.bean.ImageBean;
 import com.example.administrator.jipinshop.bean.LoginBean;
 import com.example.administrator.jipinshop.bean.LuckImageBean;
@@ -176,5 +177,11 @@ public interface APIService {
      */
     @POST("qualityshop-api/api/luckselects")
     Observable<LuckImageBean> luckselects();
+
+    /**
+     * 榜单二级菜单列表
+     */
+    @GET("qualityshop-api/api/goodRank")
+    Observable<HealthFragmentBean> goodRank(@Query("mark") String mark , @Query("goodsId") String goodsId);
 
 }

@@ -6,16 +6,27 @@ import android.widget.Toast;
 
 import com.aspsine.swipetoloadlayout.SwipeToLoadLayout;
 import com.example.administrator.jipinshop.adapter.HealthFragmentGridAdapter;
+import com.example.administrator.jipinshop.bean.HealthFragmentBean;
 import com.example.administrator.jipinshop.bean.HealthFragmentGridBean;
 import com.example.administrator.jipinshop.netwrok.Repository;
+import com.example.administrator.jipinshop.view.glide.imageloder.ImageManager;
+import com.trello.rxlifecycle2.LifecycleTransformer;
 
 import java.util.List;
 
 import javax.inject.Inject;
 
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.schedulers.Schedulers;
+
 public class HealthFragmentPresenter {
 
-    Repository mRepository;
+    private Repository mRepository;
+    private HealthFragmentView mView;
+
+    public void setView(HealthFragmentView view) {
+        mView = view;
+    }
 
     @Inject
     public HealthFragmentPresenter(Repository repository) {
@@ -37,5 +48,51 @@ public class HealthFragmentPresenter {
         mRecyclerView.scrollToPosition(0);
         mSwipeToLoadLayout.setRefreshing(true);
     }
+
+
+    //解决冲突问题
+    public void solveScoll(RecyclerView mRecyclerView, final SwipeToLoadLayout mSwipeToLoad){
+        mRecyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
+            @Override
+            public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
+                super.onScrolled(recyclerView, dx, dy);
+                int topRowVerticalPosition = (recyclerView == null || recyclerView.getChildCount() == 0) ? 0 : recyclerView.getChildAt(0).getTop();
+                mSwipeToLoad.setRefreshEnabled(topRowVerticalPosition >= 0);
+            }
+
+            @Override
+            public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
+                super.onScrollStateChanged(recyclerView, newState);
+                if (newState == RecyclerView.SCROLL_STATE_IDLE) {
+                    ImageManager.getImageLoader().resume();//为了在滑动时不卡顿
+                }else {
+                    ImageManager.getImageLoader().pause();//为了在滑动时不卡顿
+                }
+            }
+        });
+    }
+
+    public void goodRank(String goodsId,LifecycleTransformer<HealthFragmentBean> transformer){
+        mRepository.goodRank(goodsId)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .compose(transformer)
+                .subscribe(healthFragmentBean -> {
+                    if(healthFragmentBean.getCode() == 200){
+                        if(mView != null){
+                            mView.onSuccess(healthFragmentBean);
+                        }
+                    }else {
+                       if(mView != null){
+                           mView.onFile(healthFragmentBean.getMsg());
+                       }
+                    }
+                }, throwable -> {
+                    if(mView != null){
+                        mView.onFile(throwable.getMessage());
+                    }
+                });
+    }
+
 
 }

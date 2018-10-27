@@ -102,41 +102,30 @@ public class RecommendFragment extends DBBaseFragment implements OnRefreshListen
     @Override
     public void onSuccess(RecommendFragmentBean recommendFragmentBean) {
         if (recommendFragmentBean.getCode() == 200) {
-            binding.inClude.qsNet.setVisibility(View.GONE);
-            binding.recyclerView.setVisibility(View.VISIBLE);
-            mAdapter.setList(recommendFragmentBean);
-            mAdapter.notifyDataSetChanged();
+            if(recommendFragmentBean.getList() != null && recommendFragmentBean.getList().size() != 0){
+                binding.inClude.qsNet.setVisibility(View.GONE);
+                binding.recyclerView.setVisibility(View.VISIBLE);
+                mAdapter.setList(recommendFragmentBean);
+                mAdapter.notifyDataSetChanged();
+            }else {
+                initError(R.mipmap.qs_404, "页面出错", "程序猿正在赶来的路上");
+                binding.recyclerView.setVisibility(View.GONE);
+            }
         } else {
             if(TextUtils.isEmpty(SPUtils.getInstance(CommonDate.NETCACHE).getString(CommonDate.RecommendFragmentDATA,""))){
-                initError(R.mipmap.qs_404, "页面出错", "程序猿正在赶来的路上");
+                initError(R.mipmap.qs_net, "网络出错", "哇哦，网络出错了，换个姿势点击试试");
                 binding.recyclerView.setVisibility(View.GONE);
             }
             Toast.makeText(getContext(), recommendFragmentBean.getMsg(), Toast.LENGTH_SHORT).show();
         }
-        if (binding.swipeToLoad != null && binding.swipeToLoad.isRefreshing()) {
-            if(!binding.swipeToLoad.isRefreshEnabled()){
-                binding.swipeToLoad.setRefreshEnabled(true);
-                binding.swipeToLoad.setRefreshing(false);
-                binding.swipeToLoad.setRefreshEnabled(false);
-            }else {
-                binding.swipeToLoad.setRefreshing(false);
-            }
-        }
+        stopResher();
     }
 
     @Override
     public void onFile(String error) {
-        if (binding.swipeToLoad != null && binding.swipeToLoad.isRefreshing()) {
-            if(!binding.swipeToLoad.isRefreshEnabled()){
-                binding.swipeToLoad.setRefreshEnabled(true);
-                binding.swipeToLoad.setRefreshing(false);
-                binding.swipeToLoad.setRefreshEnabled(false);
-            }else {
-                binding.swipeToLoad.setRefreshing(false);
-            }
-        }
+        stopResher();
         if(TextUtils.isEmpty(SPUtils.getInstance(CommonDate.NETCACHE).getString(CommonDate.RecommendFragmentDATA,""))){
-            initError(R.mipmap.qs_404, "页面出错", "程序猿正在赶来的路上");
+            initError(R.mipmap.qs_net, "网络出错", "哇哦，网络出错了，换个姿势点击试试");
             binding.recyclerView.setVisibility(View.GONE);
         }
         Toast.makeText(getContext(), "网络出错", Toast.LENGTH_SHORT).show();
@@ -148,6 +137,18 @@ public class RecommendFragment extends DBBaseFragment implements OnRefreshListen
         binding.inClude.errorImage.setBackgroundResource(id);
         binding.inClude.errorTitle.setText(title);
         binding.inClude.errorContent.setText(content);
+    }
+
+    public void stopResher(){
+        if (binding.swipeToLoad != null && binding.swipeToLoad.isRefreshing()) {
+            if(!binding.swipeToLoad.isRefreshEnabled()){
+                binding.swipeToLoad.setRefreshEnabled(true);
+                binding.swipeToLoad.setRefreshing(false);
+                binding.swipeToLoad.setRefreshEnabled(false);
+            }else {
+                binding.swipeToLoad.setRefreshing(false);
+            }
+        }
     }
 
     @Override

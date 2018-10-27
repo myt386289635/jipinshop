@@ -13,7 +13,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
 public class RetrofitModule {
 
 //    public static final String URL = "http://47.92.164.156:8089/";//正式地址
-    public static final String URL = "http://192.168.5.133:8081/";//测试地址
+    public static final String URL = "http://192.168.5.151:8081/";//测试地址
     public static final String UP_BASE_URL = URL;
     public static final String H5_URL = "http://47.92.164.156:8080/";
 
