@@ -7,6 +7,7 @@ import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import com.aspsine.swipetoloadlayout.OnRefreshListener;
 import com.blankj.utilcode.util.SPUtils;
@@ -16,6 +17,7 @@ import com.example.administrator.jipinshop.adapter.KitchenFragmentGridAdapter;
 import com.example.administrator.jipinshop.adapter.KitchenFragmentRecyclerAdapter;
 import com.example.administrator.jipinshop.base.DBBaseFragment;
 import com.example.administrator.jipinshop.bean.HealthFragmentGridBean;
+import com.example.administrator.jipinshop.bean.KitchenFragmentBean;
 import com.example.administrator.jipinshop.bean.TabBean;
 import com.example.administrator.jipinshop.databinding.FragmentKitchenBinding;
 import com.example.administrator.jipinshop.fragment.home.HomeFragment;
@@ -33,7 +35,7 @@ import javax.inject.Inject;
 /**
  * 厨卫电器
  */
-public class KitchenFragment extends DBBaseFragment implements KitchenFragmentGridAdapter.OnItem, OnRefreshListener, KitchenFragmentRecyclerAdapter.OnItem {
+public class KitchenFragment extends DBBaseFragment implements KitchenFragmentGridAdapter.OnItem, OnRefreshListener, KitchenFragmentRecyclerAdapter.OnItem, KitchenFragmentView {
 
     @Inject
     KitchenFragmentPresenter mPresenter;
@@ -45,7 +47,9 @@ public class KitchenFragment extends DBBaseFragment implements KitchenFragmentGr
     private KitchenFragmentGridAdapter mAdapter;
 
     private KitchenFragmentRecyclerAdapter mRecyclerAdapter;
-    private List<String> recyclerList;
+    private List<KitchenFragmentBean.ListBean> recyclerList;
+
+    private int position = 0;//二级导航点击的位置   默认为第0个
 
     public static KitchenFragment getInstance() {
         KitchenFragment fragment = new KitchenFragment();
@@ -62,6 +66,7 @@ public class KitchenFragment extends DBBaseFragment implements KitchenFragmentGr
     public void initView() {
         mBaseFragmentComponent.inject(this);
         EventBus.getDefault().register(this);
+        mPresenter.setView(this);
 
         gridViewList = new ArrayList<>();
         mAdapter = new KitchenFragmentGridAdapter(gridViewList, getContext());
@@ -69,13 +74,14 @@ public class KitchenFragment extends DBBaseFragment implements KitchenFragmentGr
         mBinding.gridView.setAdapter(mAdapter);
         mBinding.gridView.setVisibility(View.GONE);
 
-        mBinding.swipeTarget.setLayoutManager(new LinearLayoutManager(getContext()));
+        mBinding.recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         recyclerList = new ArrayList<>();
-        mRecyclerAdapter = new KitchenFragmentRecyclerAdapter(recyclerList, getContext(), mPresenter);
+        mRecyclerAdapter = new KitchenFragmentRecyclerAdapter(recyclerList, getContext());
         mRecyclerAdapter.setOnItem(this);
-        mBinding.swipeTarget.setAdapter(mRecyclerAdapter);
+        mBinding.recyclerView.setAdapter(mRecyclerAdapter);
 
         mBinding.swipeToLoad.setOnRefreshListener(this);
+        mPresenter.solveScoll(mBinding.recyclerView,mBinding.swipeToLoad);
     }
 
     /**
@@ -83,7 +89,8 @@ public class KitchenFragment extends DBBaseFragment implements KitchenFragmentGr
      */
     @Override
     public void onItem(int pos) {
-        mPresenter.refreshGirdView(getContext(), mBinding.swipeToLoad, gridViewList, pos, mAdapter, mBinding.swipeTarget);
+        position = pos;
+        mPresenter.refreshGirdView(getContext(), mBinding.swipeToLoad, gridViewList, pos, mAdapter, mBinding.recyclerView);
     }
 
     @Override
@@ -91,6 +98,9 @@ public class KitchenFragment extends DBBaseFragment implements KitchenFragmentGr
         super.setUserVisibleHint(isVisibleToUser);
         if (isVisibleToUser && once) {
             if (gridViewList.size() != 0) {
+                if (!TextUtils.isEmpty(SPUtils.getInstance(CommonDate.NETCACHE).getString(CommonDate.KitchenFragmentDATA,""))) {
+                    initDate();
+                }
                 mBinding.swipeToLoad.setRefreshing(true);
                 once = false;
             }
@@ -102,14 +112,14 @@ public class KitchenFragment extends DBBaseFragment implements KitchenFragmentGr
      */
     @Override
     public void onRefresh() {
-        if (mBinding.swipeToLoad != null && mBinding.swipeToLoad.isRefreshing()) {
-            mBinding.swipeToLoad.setRefreshing(false);
+        if(gridViewList.size() != 0){
+            mPresenter.goodRank(gridViewList.get(position).getCategoryid(),this.bindToLifecycle());
+        }else {
+            stopResher();
+            initError(R.mipmap.qs_net, "网络出错", "哇哦，网络出错了，换个姿势下滑页面试试");
+            mBinding.recyclerView.setVisibility(View.GONE);
+            Toast.makeText(getContext(), "网络请求错误,请重新开启app", Toast.LENGTH_SHORT).show();
         }
-        for (int i = 0; i < 10; i++) {
-            recyclerList.add("");
-        }
-        mRecyclerAdapter.notifyDataSetChanged();
-        // TODO: 2018/8/1 网络请求
     }
 
     /**
@@ -147,5 +157,79 @@ public class KitchenFragment extends DBBaseFragment implements KitchenFragmentGr
                 mBinding.gridView.setVisibility(View.GONE);
             }
         }
+    }
+
+    /**
+     * 错误页面
+     */
+    public void initError(int id, String title, String content) {
+        mBinding.inClude.qsNet.setVisibility(View.VISIBLE);
+        mBinding.inClude.errorImage.setBackgroundResource(id);
+        mBinding.inClude.errorTitle.setText(title);
+        mBinding.inClude.errorContent.setText(content);
+    }
+
+    /**
+     * 停止刷新
+     */
+    public void stopResher(){
+        if (mBinding.swipeToLoad != null && mBinding.swipeToLoad.isRefreshing()) {
+            if(!mBinding.swipeToLoad.isRefreshEnabled()){
+                mBinding.swipeToLoad.setRefreshEnabled(true);
+                mBinding.swipeToLoad.setRefreshing(false);
+                mBinding.swipeToLoad.setRefreshEnabled(false);
+            }else {
+                mBinding.swipeToLoad.setRefreshing(false);
+            }
+        }
+    }
+
+    /**
+     * 请求成功
+     */
+    @Override
+    public void onSuccess(KitchenFragmentBean kitchenFragmentBean) {
+        if(position == 0){
+            SPUtils.getInstance(CommonDate.NETCACHE).put(CommonDate.KitchenFragmentDATA,new Gson().toJson(kitchenFragmentBean));
+        }
+        stopResher();
+        if(kitchenFragmentBean.getList() != null  && kitchenFragmentBean.getList().size() != 0){
+            recyclerList.clear();
+            mBinding.inClude.qsNet.setVisibility(View.GONE);
+            mBinding.recyclerView.setVisibility(View.VISIBLE);
+            recyclerList.addAll(kitchenFragmentBean.getList());
+            mRecyclerAdapter.notifyDataSetChanged();
+        }else {
+            initError(R.mipmap.qs_404, "页面出错", "程序猿正在赶来的路上");
+            mBinding.recyclerView.setVisibility(View.GONE);
+            Toast.makeText(getContext(), "没有数据", Toast.LENGTH_SHORT).show();
+        }
+    }
+
+    /**
+     * 请求失败
+     */
+    @Override
+    public void onFile(String error) {
+        stopResher();
+        if(position == 0 && !TextUtils.isEmpty(SPUtils.getInstance(CommonDate.NETCACHE).getString(CommonDate.KitchenFragmentDATA,""))){
+            initDate();
+        }else {
+            initError(R.mipmap.qs_net, "网络出错", "哇哦，网络出错了，换个姿势下滑页面试试");
+            mBinding.recyclerView.setVisibility(View.GONE);
+        }
+        Toast.makeText(getContext(), error, Toast.LENGTH_SHORT).show();
+    }
+
+    /**
+     * 初始化本地数据
+     */
+    public void initDate(){
+        KitchenFragmentBean kitchenFragmentBean = new Gson().fromJson(SPUtils.getInstance(CommonDate.NETCACHE).getString(CommonDate.KitchenFragmentDATA),KitchenFragmentBean.class);
+        recyclerList.clear();
+        mBinding.inClude.qsNet.setVisibility(View.GONE);
+        mBinding.recyclerView.setVisibility(View.VISIBLE);
+        recyclerList.addAll(kitchenFragmentBean.getList());
+        mRecyclerAdapter.notifyDataSetChanged();
     }
 }

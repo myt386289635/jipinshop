@@ -21,6 +21,7 @@ public class CommonDate {
     public static final String NETCACHE = "netCache";
     public static final String RecommendFragmentDATA = "RecommendFragment";
     public static final String HealthFragmentDATA = "HealthFragment";
+    public static final String KitchenFragmentDATA = "KitchenFragment";
 
 
     //用户数据表（sp文件名：user）

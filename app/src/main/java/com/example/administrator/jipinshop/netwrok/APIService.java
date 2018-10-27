@@ -5,6 +5,7 @@ import com.example.administrator.jipinshop.bean.FollowBean;
 import com.example.administrator.jipinshop.bean.FovalBean;
 import com.example.administrator.jipinshop.bean.HealthFragmentBean;
 import com.example.administrator.jipinshop.bean.ImageBean;
+import com.example.administrator.jipinshop.bean.KitchenFragmentBean;
 import com.example.administrator.jipinshop.bean.LoginBean;
 import com.example.administrator.jipinshop.bean.LuckImageBean;
 import com.example.administrator.jipinshop.bean.RecommendFragmentBean;
@@ -183,5 +184,11 @@ public interface APIService {
      */
     @GET("qualityshop-api/api/goodRank")
     Observable<HealthFragmentBean> goodRank(@Query("mark") String mark , @Query("goodsId") String goodsId);
+
+    /**
+     * 榜单二级菜单列表
+     */
+    @GET("qualityshop-api/api/goodRank")
+    Observable<KitchenFragmentBean> goodRank2(@Query("mark") String mark , @Query("goodsId") String goodsId);
 
 }

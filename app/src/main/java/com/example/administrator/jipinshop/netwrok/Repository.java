@@ -6,6 +6,7 @@ import com.example.administrator.jipinshop.bean.FollowBean;
 import com.example.administrator.jipinshop.bean.FovalBean;
 import com.example.administrator.jipinshop.bean.HealthFragmentBean;
 import com.example.administrator.jipinshop.bean.ImageBean;
+import com.example.administrator.jipinshop.bean.KitchenFragmentBean;
 import com.example.administrator.jipinshop.bean.LoginBean;
 import com.example.administrator.jipinshop.bean.LuckImageBean;
 import com.example.administrator.jipinshop.bean.LuckselectBean;
@@ -27,7 +28,6 @@ import javax.inject.Inject;
 
 import io.reactivex.Observable;
 import okhttp3.MultipartBody;
-import retrofit2.http.Query;
 
 public class Repository {
 
@@ -186,9 +186,16 @@ public class Repository {
     }
 
     /**
-     *
+     *  榜单二级菜单列表
      */
     public Observable<HealthFragmentBean> goodRank(String goodsId){
         return mAPIService.goodRank("0",goodsId);
+    }
+
+    /**
+     * 榜单二级菜单列表
+     */
+    public Observable<KitchenFragmentBean> goodRank2(String goodsId){
+        return mAPIService.goodRank2("0",goodsId);
     }
 }
