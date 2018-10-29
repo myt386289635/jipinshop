@@ -1,8 +1,6 @@
 package com.example.administrator.jipinshop.activity.sreach;
 
 import android.content.Context;
-import android.content.Intent;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.ImageView;
@@ -10,14 +8,12 @@ import android.widget.TextView;
 
 import com.blankj.utilcode.util.SPUtils;
 import com.example.administrator.jipinshop.R;
-import com.example.administrator.jipinshop.activity.sreach.result.SreachResultActivity;
 import com.example.administrator.jipinshop.bean.SreachTagBean;
 import com.example.administrator.jipinshop.netwrok.Repository;
 import com.example.administrator.jipinshop.util.sp.CommonDate;
 import com.google.android.flexbox.FlexboxLayout;
 import com.google.gson.Gson;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import javax.inject.Inject;
