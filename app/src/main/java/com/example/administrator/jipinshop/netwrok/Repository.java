@@ -2,6 +2,7 @@ package com.example.administrator.jipinshop.netwrok;
 
 import com.blankj.utilcode.util.SPUtils;
 import com.example.administrator.jipinshop.bean.AccountBean;
+import com.example.administrator.jipinshop.bean.ElectricityFragmentBean;
 import com.example.administrator.jipinshop.bean.FollowBean;
 import com.example.administrator.jipinshop.bean.FovalBean;
 import com.example.administrator.jipinshop.bean.HealthFragmentBean;
@@ -29,6 +30,8 @@ import javax.inject.Inject;
 
 import io.reactivex.Observable;
 import okhttp3.MultipartBody;
+import retrofit2.http.GET;
+import retrofit2.http.Query;
 
 public class Repository {
 
@@ -205,5 +208,12 @@ public class Repository {
      */
     public Observable<HouseholdFragmentBean> goodRank3(String goodsId){
         return mAPIService.goodRank3("0",goodsId);
+    }
+
+    /**
+     * 榜单二级菜单列表
+     */
+    public Observable<ElectricityFragmentBean> goodRank4(String goodsId){
+        return mAPIService.goodRank4("0",goodsId);
     }
 }

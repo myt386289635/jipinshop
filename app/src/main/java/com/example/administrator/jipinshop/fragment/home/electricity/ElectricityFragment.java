@@ -7,6 +7,7 @@ import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import com.aspsine.swipetoloadlayout.OnRefreshListener;
 import com.blankj.utilcode.util.SPUtils;
@@ -15,6 +16,7 @@ import com.example.administrator.jipinshop.activity.shoppingdetail.ShoppingDetai
 import com.example.administrator.jipinshop.adapter.ElectricityFragmentGridAdapter;
 import com.example.administrator.jipinshop.adapter.ElectricityFragmentRecyclerAdapter;
 import com.example.administrator.jipinshop.base.DBBaseFragment;
+import com.example.administrator.jipinshop.bean.ElectricityFragmentBean;
 import com.example.administrator.jipinshop.bean.HealthFragmentGridBean;
 import com.example.administrator.jipinshop.bean.TabBean;
 import com.example.administrator.jipinshop.databinding.FragmentElectricityBinding;
@@ -33,7 +35,7 @@ import javax.inject.Inject;
 /**
  * 家用大电
  */
-public class ElectricityFragment extends DBBaseFragment implements ElectricityFragmentGridAdapter.OnItem, OnRefreshListener, ElectricityFragmentRecyclerAdapter.OnItem {
+public class ElectricityFragment extends DBBaseFragment implements ElectricityFragmentGridAdapter.OnItem, OnRefreshListener, ElectricityFragmentRecyclerAdapter.OnItem, ElectricityFragmentView {
 
     @Inject
     ElectricityFragmentPresenter mPresenter;
@@ -43,9 +45,11 @@ public class ElectricityFragment extends DBBaseFragment implements ElectricityFr
     private ElectricityFragmentGridAdapter mAdapter;
 
     private ElectricityFragmentRecyclerAdapter mRecyclerAdapter;
-    private List<String> recyclerList;
+    private List<ElectricityFragmentBean.ListBean> recyclerList;
 
     private Boolean once = true;
+
+    private int position = 0;//二级导航点击的位置   默认为第0个
 
     public static ElectricityFragment getInstance() {
         ElectricityFragment fragment = new ElectricityFragment();
@@ -62,6 +66,7 @@ public class ElectricityFragment extends DBBaseFragment implements ElectricityFr
     public void initView() {
         mBaseFragmentComponent.inject(this);
         EventBus.getDefault().register(this);
+        mPresenter.setView(this);
 
         gridViewList = new ArrayList<>();
         mAdapter = new ElectricityFragmentGridAdapter(gridViewList, getContext());
@@ -69,13 +74,14 @@ public class ElectricityFragment extends DBBaseFragment implements ElectricityFr
         mBinding.gridView.setAdapter(mAdapter);
         mBinding.gridView.setVisibility(View.GONE);
 
-        mBinding.swipeTarget.setLayoutManager(new LinearLayoutManager(getContext()));
+        mBinding.recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         recyclerList = new ArrayList<>();
-        mRecyclerAdapter = new ElectricityFragmentRecyclerAdapter(recyclerList, getContext(), mPresenter);
+        mRecyclerAdapter = new ElectricityFragmentRecyclerAdapter(recyclerList, getContext());
         mRecyclerAdapter.setOnItem(this);
-        mBinding.swipeTarget.setAdapter(mRecyclerAdapter);
+        mBinding.recyclerView.setAdapter(mRecyclerAdapter);
 
         mBinding.swipeToLoad.setOnRefreshListener(this);
+        mPresenter.solveScoll(mBinding.recyclerView,mBinding.swipeToLoad);
     }
 
     /**
@@ -83,7 +89,8 @@ public class ElectricityFragment extends DBBaseFragment implements ElectricityFr
      */
     @Override
     public void onItem(int pos) {
-        mPresenter.refreshGirdView(getContext(), mBinding.swipeToLoad, gridViewList, pos, mAdapter, mBinding.swipeTarget);
+        position = pos;
+        mPresenter.refreshGirdView(getContext(), mBinding.swipeToLoad, gridViewList, pos, mAdapter, mBinding.recyclerView);
     }
 
     @Override
@@ -91,6 +98,9 @@ public class ElectricityFragment extends DBBaseFragment implements ElectricityFr
         super.setUserVisibleHint(isVisibleToUser);
         if (isVisibleToUser && once) {
             if (gridViewList.size() != 0) {
+                if (!TextUtils.isEmpty(SPUtils.getInstance(CommonDate.NETCACHE).getString(CommonDate.ElectricityFragmentDATA,""))) {
+                    initDate();
+                }
                 mBinding.swipeToLoad.setRefreshing(true);
                 once = false;
             }
@@ -102,14 +112,14 @@ public class ElectricityFragment extends DBBaseFragment implements ElectricityFr
      */
     @Override
     public void onRefresh() {
-        if (mBinding.swipeToLoad != null && mBinding.swipeToLoad.isRefreshing()) {
-            mBinding.swipeToLoad.setRefreshing(false);
+        if(gridViewList.size() != 0){
+            mPresenter.goodRank(gridViewList.get(position).getCategoryid(),this.bindToLifecycle());
+        }else {
+            stopResher();
+            initError(R.mipmap.qs_net, "网络出错", "哇哦，网络出错了，换个姿势下滑页面试试");
+            mBinding.recyclerView.setVisibility(View.GONE);
+            Toast.makeText(getContext(), "网络请求错误,请重新开启app", Toast.LENGTH_SHORT).show();
         }
-        for (int i = 0; i < 10; i++) {
-            recyclerList.add("");
-        }
-        mRecyclerAdapter.notifyDataSetChanged();
-        // TODO: 2018/8/1 网络请求
     }
 
 
@@ -148,5 +158,68 @@ public class ElectricityFragment extends DBBaseFragment implements ElectricityFr
                 mBinding.gridView.setVisibility(View.GONE);
             }
         }
+    }
+
+    public void initError(int id, String title, String content) {
+        mBinding.inClude.qsNet.setVisibility(View.VISIBLE);
+        mBinding.inClude.errorImage.setBackgroundResource(id);
+        mBinding.inClude.errorTitle.setText(title);
+        mBinding.inClude.errorContent.setText(content);
+    }
+
+
+    public void stopResher(){
+        if (mBinding.swipeToLoad != null && mBinding.swipeToLoad.isRefreshing()) {
+            if(!mBinding.swipeToLoad.isRefreshEnabled()){
+                mBinding.swipeToLoad.setRefreshEnabled(true);
+                mBinding.swipeToLoad.setRefreshing(false);
+                mBinding.swipeToLoad.setRefreshEnabled(false);
+            }else {
+                mBinding.swipeToLoad.setRefreshing(false);
+            }
+        }
+    }
+
+    @Override
+    public void onSuccess(ElectricityFragmentBean electricityFragmentBean) {
+        if(position == 0){
+            SPUtils.getInstance(CommonDate.NETCACHE).put(CommonDate.ElectricityFragmentDATA,new Gson().toJson(electricityFragmentBean));
+        }
+        stopResher();
+        if(electricityFragmentBean.getList() != null  && electricityFragmentBean.getList().size() != 0){
+            recyclerList.clear();
+            mBinding.inClude.qsNet.setVisibility(View.GONE);
+            mBinding.recyclerView.setVisibility(View.VISIBLE);
+            recyclerList.addAll(electricityFragmentBean.getList());
+            mRecyclerAdapter.notifyDataSetChanged();
+        }else {
+            initError(R.mipmap.qs_404, "页面出错", "程序猿正在赶来的路上");
+            mBinding.recyclerView.setVisibility(View.GONE);
+            Toast.makeText(getContext(), "没有数据", Toast.LENGTH_SHORT).show();
+        }
+    }
+
+    @Override
+    public void onFile(String error) {
+        stopResher();
+        if(position == 0 && !TextUtils.isEmpty(SPUtils.getInstance(CommonDate.NETCACHE).getString(CommonDate.ElectricityFragmentDATA,""))){
+            initDate();
+        }else {
+            initError(R.mipmap.qs_net, "网络出错", "哇哦，网络出错了，换个姿势下滑页面试试");
+            mBinding.recyclerView.setVisibility(View.GONE);
+        }
+        Toast.makeText(getContext(), error, Toast.LENGTH_SHORT).show();
+    }
+
+    /**
+     * 初始化本地数据
+     */
+    public void initDate(){
+        ElectricityFragmentBean electricityFragmentBean = new Gson().fromJson(SPUtils.getInstance(CommonDate.NETCACHE).getString(CommonDate.ElectricityFragmentDATA),ElectricityFragmentBean.class);
+        recyclerList.clear();
+        mBinding.inClude.qsNet.setVisibility(View.GONE);
+        mBinding.recyclerView.setVisibility(View.VISIBLE);
+        recyclerList.addAll(electricityFragmentBean.getList());
+        mRecyclerAdapter.notifyDataSetChanged();
     }
 }

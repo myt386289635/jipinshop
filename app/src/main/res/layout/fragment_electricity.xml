@@ -30,12 +30,27 @@
                 android:gravity="center"
                 android:padding="20dp"/>
 
-            <android.support.v7.widget.RecyclerView
-                android:layout_marginRight="@dimen/x28"
-                android:layout_marginLeft="@dimen/x28"
+            <LinearLayout
                 android:id="@+id/swipe_target"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"/>
+                android:layout_height="match_parent"
+                android:orientation="vertical">
+
+
+                <android.support.v7.widget.RecyclerView
+                    android:id="@+id/recycler_view"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginLeft="@dimen/x28"
+                    android:layout_marginRight="@dimen/x28"/>
+
+
+                <include
+                    android:id="@+id/in_clude"
+                    layout="@layout/common_net_error"
+                    android:visibility="gone"/>
+
+            </LinearLayout>
 
 
         </com.aspsine.swipetoloadlayout.SwipeToLoadLayout>

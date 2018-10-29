@@ -1,6 +1,7 @@
 package com.example.administrator.jipinshop.netwrok;
 
 
+import com.example.administrator.jipinshop.bean.ElectricityFragmentBean;
 import com.example.administrator.jipinshop.bean.FollowBean;
 import com.example.administrator.jipinshop.bean.FovalBean;
 import com.example.administrator.jipinshop.bean.HealthFragmentBean;
@@ -198,4 +199,9 @@ public interface APIService {
     @GET("qualityshop-api/api/goodRank")
     Observable<HouseholdFragmentBean> goodRank3(@Query("mark") String mark , @Query("goodsId") String goodsId);
 
+    /**
+     * 榜单二级菜单列表
+     */
+    @GET("qualityshop-api/api/goodRank")
+    Observable<ElectricityFragmentBean> goodRank4(@Query("mark") String mark , @Query("goodsId") String goodsId);
 }

@@ -23,6 +23,7 @@ public class CommonDate {
     public static final String HealthFragmentDATA = "HealthFragment";
     public static final String KitchenFragmentDATA = "KitchenFragment";
     public static final String HouseholdFragmentDATA = "HouseholdFragment";
+    public static final String ElectricityFragmentDATA = "ElectricityFragment";
 
 
     //用户数据表（sp文件名：user）
