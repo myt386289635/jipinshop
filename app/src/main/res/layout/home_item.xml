@@ -1,401 +1,403 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content">
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
+        xmlns:app="http://schemas.android.com/apk/res-auto">
 
-    <LinearLayout
-        android:id="@+id/item_title_contanier"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_centerHorizontal="true"
-        android:layout_marginBottom="@dimen/x48"
-        android:layout_marginTop="@dimen/x12"
-        android:orientation="horizontal">
+    <data>
+        <variable
+            name="date"
+            type="com.example.administrator.jipinshop.bean.SreachResultBean.ListBean"/>
 
-        <TextView
+        <variable
+            name="position"
+            type="String"/>
+
+    </data>
+
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <LinearLayout
+            android:id="@+id/item_title_contanier"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="TOP"
+            android:layout_centerHorizontal="true"
+            android:layout_marginBottom="@dimen/x48"
+            android:layout_marginTop="@dimen/x12"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="TOP"
+                android:textColor="@color/color_202020"
+                android:textSize="23sp"
+                android:textStyle="bold"/>
+
+            <TextView
+                android:id="@+id/item_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/x20"
+                android:text="@{position}"
+                android:textColor="@color/color_E31436"
+                android:textSize="23sp"/>
+
+        </LinearLayout>
+
+        <ImageView
+            android:id="@+id/item_image"
+            android:layout_width="@dimen/x420"
+            android:layout_height="wrap_content"
+            android:layout_alignBottom="@id/item_lookNum_container"
+            android:layout_below="@id/item_title_contanier"
+            android:minHeight="@dimen/x420"
+            android:scaleType="fitXY"
+            tools:src="@color/color_E31436"/>
+
+
+        <TextView
+            android:id="@+id/item_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/item_title_contanier"
+            android:layout_marginLeft="@dimen/x32"
+            android:layout_marginTop="@dimen/x16"
+            android:layout_toRightOf="@id/item_image"
+            android:ellipsize="end"
+            android:gravity="center_vertical"
+            android:lineSpacingExtra="@dimen/x6"
+            android:lines="4"
+            android:text="@{date.goodsName}"
             android:textColor="@color/color_202020"
-            android:textSize="23sp"
+            android:textSize="16sp"
             android:textStyle="bold"/>
 
         <TextView
-            android:id="@+id/item_title"
+            android:singleLine="true"
+            android:ellipsize="end"
+            android:id="@+id/item_tag1"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="@dimen/x20"
-            android:text="1"
-            android:textColor="@color/color_E31436"
-            android:textSize="23sp"/>
-
-    </LinearLayout>
-
-    <ImageView
-        android:id="@+id/item_image"
-        android:layout_width="@dimen/x420"
-        android:layout_height="wrap_content"
-        android:layout_alignBottom="@id/item_lookNum_container"
-        android:layout_below="@id/item_title_contanier"
-        android:minHeight="@dimen/x420"
-        android:scaleType="fitXY"
-        tools:src="@color/color_E31436"/>
-
-
-    <TextView
-        android:id="@+id/item_name"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/item_title_contanier"
-        android:layout_marginLeft="@dimen/x32"
-        android:layout_marginTop="@dimen/x16"
-        android:layout_toRightOf="@id/item_image"
-        android:ellipsize="end"
-        android:gravity="center_vertical"
-        android:lineSpacingExtra="@dimen/x6"
-        android:lines="4"
-        android:text="测试名字名字测试名字名字测试名字名字测试名字名字测试名字名字测试名字名字测试名字名字"
-        android:textColor="@color/color_202020"
-        android:textSize="16sp"
-        android:textStyle="bold"/>
-
-    <TextView
-        android:id="@+id/item_tag1"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/item_name"
-        android:layout_marginLeft="@dimen/x32"
-        android:layout_marginTop="@dimen/x20"
-        android:layout_toRightOf="@id/item_image"
-        android:background="@drawable/recommend_tag_bg"
-        android:text="成人"
-        android:textColor="@color/color_ACACAC"
-        android:textSize="11sp"/>
-
-
-    <TextView
-        android:id="@+id/item_tag2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/item_name"
-        android:layout_marginLeft="@dimen/x24"
-        android:layout_marginTop="@dimen/x20"
-        android:layout_toRightOf="@id/item_tag1"
-        android:background="@drawable/recommend_tag_bg"
-        android:text="小资"
-        android:textColor="@color/color_ACACAC"
-        android:textSize="11sp"/>
-
-    <RelativeLayout
-        android:id="@+id/item_price_container"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/item_tag1"
-        android:layout_marginLeft="@dimen/x32"
-        android:layout_marginTop="@dimen/x20"
-        android:layout_toRightOf="@id/item_image"
-        android:gravity="center_vertical"
-        android:orientation="horizontal">
-
-        <TextView
-            android:id="@+id/item_price"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="¥1222"
-            android:textColor="@color/color_E31436"
-            android:textSize="14sp"/>
-
-        <TextView
-            android:id="@+id/item_savePrice"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentRight="true"
-            android:layout_marginRight="@dimen/x1"
-            android:background="@drawable/recommend_price_bg"
-            android:text="¥20"
-            android:textColor="@color/color_white"
+            android:layout_below="@id/item_name"
+            android:layout_marginLeft="@dimen/x32"
+            android:layout_marginTop="@dimen/x20"
+            android:layout_toRightOf="@id/item_image"
+            android:background="@drawable/recommend_tag_bg"
+            android:text="成人"
+            android:textColor="@color/color_ACACAC"
             android:textSize="11sp"/>
 
 
-    </RelativeLayout>
-
-    <LinearLayout
-        android:id="@+id/item_price_old_container"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/item_price_container"
-        android:layout_marginLeft="@dimen/x32"
-        android:layout_marginTop="@dimen/x20"
-        android:layout_toRightOf="@id/item_image"
-        android:orientation="horizontal">
-
         <TextView
-            android:id="@+id/item_goodsFrom"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="天猫："
-            android:textColor="@color/color_ACACAC"
-            android:textSize="12sp"/>
-
-        <TextView
-            android:id="@+id/item_price_old"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:ellipsize="end"
             android:singleLine="true"
-            android:text="¥222"
-            android:textColor="@color/color_ACACAC"
-            android:textSize="12sp"/>
-
-
-    </LinearLayout>
-
-
-    <LinearLayout
-        android:id="@+id/item_lookNum_container"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/item_price_old_container"
-        android:layout_marginLeft="@dimen/x32"
-        android:layout_marginTop="@dimen/x20"
-        android:layout_toRightOf="@id/item_image"
-        android:gravity="center_vertical"
-        android:orientation="horizontal">
-
-        <ImageView
+            android:ellipsize="end"
+            android:id="@+id/item_tag2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:background="@mipmap/recommend_browse"/>
-
-        <TextView
-            android:id="@+id/item_lookNum"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="@dimen/x4"
-            android:text="100"
+            android:layout_below="@id/item_name"
+            android:layout_marginLeft="@dimen/x24"
+            android:layout_marginTop="@dimen/x20"
+            android:layout_toRightOf="@id/item_tag1"
+            android:background="@drawable/recommend_tag_bg"
+            android:text="小资"
             android:textColor="@color/color_ACACAC"
-            android:textSize="12sp"/>
+            android:textSize="11sp"/>
+
+        <RelativeLayout
+            android:id="@+id/item_price_container"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/item_tag1"
+            android:layout_marginLeft="@dimen/x32"
+            android:layout_marginTop="@dimen/x20"
+            android:layout_toRightOf="@id/item_image"
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/item_price"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@{@string/price + date.actualPrice}"
+                android:textColor="@color/color_E31436"
+                android:textSize="14sp"/>
+
+            <TextView
+                android:id="@+id/item_savePrice"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_marginRight="@dimen/x1"
+                android:background="@drawable/recommend_price_bg"
+                android:text="@{@string/savePrice + date.cutPrice}"
+                android:textColor="@color/color_white"
+                android:textSize="11sp"/>
 
 
-    </LinearLayout>
-
-
-    <TextView
-        android:id="@+id/item_reason"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/item_image"
-        android:layout_marginBottom="@dimen/x54"
-        android:layout_marginTop="@dimen/x34"
-        android:lineSpacingExtra="@dimen/x5"
-        android:text="推荐理由：飞利浦电动牙刷hx3216是飞利浦推出入门级产品，采取声波震动技术原理，每分钟23000次/分，1种模式，是初次使用电动牙刷的首选。"
-        android:textColor="@color/color_DE151515"
-        android:textSize="13sp"/>
-
-
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/item_reason"
-        android:layout_marginBottom="@dimen/x98">
-
+        </RelativeLayout>
 
         <LinearLayout
-            android:id="@+id/item_score_container"
+            android:id="@+id/item_price_old_container"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_centerVertical="true"
-            android:gravity="center"
-            android:orientation="vertical">
+            android:layout_below="@id/item_price_container"
+            android:layout_marginLeft="@dimen/x32"
+            android:layout_marginTop="@dimen/x20"
+            android:layout_toRightOf="@id/item_image"
+            android:orientation="horizontal">
 
             <TextView
-                android:id="@+id/item_score"
+                android:id="@+id/item_goodsFrom"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="8.2"
-                android:textColor="@color/color_202020"
-                android:textSize="18sp"/>
-
+                tools:text="天猫："
+                android:textColor="@color/color_ACACAC"
+                android:textSize="12sp"/>
 
             <TextView
+                android:id="@+id/item_price_old"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/x8"
-                android:text="综合评分"
+                android:ellipsize="end"
+                android:singleLine="true"
+                android:text="@{@string/price + date.otherPrice}"
+                android:textColor="@color/color_ACACAC"
                 android:textSize="12sp"/>
 
 
         </LinearLayout>
 
-        <RelativeLayout
-            android:id="@+id/item_progressbar1_container"
+
+        <LinearLayout
+            android:id="@+id/item_lookNum_container"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="@dimen/x48"
-            android:layout_toRightOf="@id/item_score_container"
-            android:orientation="horizontal">
-
-            <TextView
-                android:id="@+id/item_progressbar1_text"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_centerVertical="true"
-                android:text="震动频率"
-                android:textColor="@color/color_151515"
-                android:textSize="13sp"/>
-
-            <View
-                android:id="@+id/item_progressbar1"
-                android:layout_width="@dimen/x208"
-                android:layout_height="@dimen/x20"
-                android:layout_centerVertical="true"
-                android:layout_marginLeft="@dimen/x8"
-                android:layout_toRightOf="@+id/item_progressbar1_text"
-                android:background="@drawable/shape_progressbar_mini"/>
-
-
-            <ProgressBar
-                android:id="@+id/item_progressbar1_copy"
-                style="@style/StyleProgressBarMini"
-                android:layout_width="@dimen/x104"
-                android:layout_height="@dimen/x20"
-                android:layout_centerVertical="true"
-                android:layout_marginLeft="@dimen/x8"
-                android:layout_toRightOf="@id/item_progressbar1_text"
-                android:max="100"
-                android:progress="100"/>
-
-        </RelativeLayout>
-
-        <RelativeLayout
-            android:id="@+id/item_progressbar2_container"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/item_progressbar1_container"
-            android:layout_marginLeft="@dimen/x48"
-            android:layout_marginTop="@dimen/x14"
-            android:layout_toRightOf="@id/item_score_container"
+            android:layout_below="@+id/item_price_old_container"
+            android:layout_marginLeft="@dimen/x32"
+            android:layout_marginTop="@dimen/x20"
+            android:layout_toRightOf="@id/item_image"
             android:gravity="center_vertical"
             android:orientation="horizontal">
 
-            <TextView
-                android:id="@+id/item_progressbar2_text"
+            <ImageView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_centerVertical="true"
-                android:text="清洁模式"
-                android:textColor="@color/color_151515"
-                android:textSize="13sp"/>
+                android:background="@mipmap/recommend_browse"/>
 
-            <View
-                android:id="@+id/item_progressbar2"
-                android:layout_width="@dimen/x208"
-                android:layout_height="@dimen/x20"
-                android:layout_centerVertical="true"
-                android:layout_marginLeft="@dimen/x8"
-                android:layout_toRightOf="@+id/item_progressbar2_text"
-                android:background="@drawable/shape_progressbar_mini"/>
+            <TextView
+                android:id="@+id/item_lookNum"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/x4"
+                android:text="@{date.visitCount}"
+                android:textColor="@color/color_ACACAC"
+                android:textSize="12sp"/>
 
-            <ProgressBar
-                android:id="@+id/item_progressbar2_copy"
-                style="@style/StyleProgressBarMini"
-                android:layout_width="@dimen/x108"
-                android:layout_height="@dimen/x20"
-                android:layout_centerVertical="true"
-                android:layout_marginLeft="@dimen/x8"
-                android:layout_toRightOf="@id/item_progressbar2_text"
-                android:max="100"
-                android:progress="100"/>
 
-        </RelativeLayout>
+        </LinearLayout>
 
-        <RelativeLayout
-            android:id="@+id/item_progressbar3_container"
+
+        <TextView
+            android:id="@+id/item_reason"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@id/item_progressbar2_container"
-            android:layout_marginLeft="@dimen/x48"
-            android:layout_marginTop="@dimen/x14"
-            android:layout_toRightOf="@id/item_score_container"
-            android:gravity="center_vertical"
-            android:orientation="horizontal">
+            android:layout_below="@id/item_image"
+            android:layout_marginBottom="@dimen/x54"
+            android:layout_marginTop="@dimen/x34"
+            android:lineSpacingExtra="@dimen/x5"
+            android:text="推荐理由：飞利浦电动牙刷hx3216是飞利浦推出入门级产品，采取声波震动技术原理，每分钟23000次/分，1种模式，是初次使用电动牙刷的首选。"
+            android:textColor="@color/color_DE151515"
+            android:textSize="13sp"/>
 
-            <TextView
-                android:id="@+id/item_progressbar3_text"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_centerVertical="true"
-                android:text="清洁功能"
-                android:textColor="@color/color_151515"
-                android:textSize="13sp"/>
-
-            <View
-                android:id="@+id/item_progressbar3"
-                android:layout_width="@dimen/x208"
-                android:layout_height="@dimen/x20"
-                android:layout_centerVertical="true"
-                android:layout_marginLeft="@dimen/x8"
-                android:layout_toRightOf="@+id/item_progressbar3_text"
-                android:background="@drawable/shape_progressbar_mini"/>
-
-            <ProgressBar
-                android:id="@+id/item_progressbar3_copy"
-                style="@style/StyleProgressBarMini"
-                android:layout_width="@dimen/x108"
-                android:layout_height="@dimen/x20"
-                android:layout_centerVertical="true"
-                android:layout_marginLeft="@dimen/x8"
-                android:layout_toRightOf="@+id/item_progressbar3_text"
-                android:max="100"
-                android:progress="100"/>
-
-        </RelativeLayout>
 
         <RelativeLayout
-            android:id="@+id/item_progressbar4_container"
-            android:layout_width="wrap_content"
+            android:id="@+id/item_progress_container"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@id/item_progressbar3_container"
-            android:layout_marginLeft="@dimen/x48"
-            android:layout_marginTop="@dimen/x14"
-            android:layout_toRightOf="@id/item_score_container"
-            android:gravity="center_vertical"
-            android:orientation="horizontal">
+            android:layout_below="@id/item_reason"
+            android:layout_marginBottom="@dimen/x98">
 
-            <TextView
-                android:id="@+id/item_progressbar4_text"
+
+            <LinearLayout
+                android:id="@+id/item_score_container"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerVertical="true"
-                android:text="使用时间"
-                android:textColor="@color/color_151515"
-                android:textSize="13sp"/>
+                android:gravity="center"
+                android:orientation="vertical">
 
-            <View
-                android:id="@+id/item_progressbar4"
-                android:layout_width="@dimen/x208"
-                android:layout_height="@dimen/x20"
-                android:layout_centerVertical="true"
-                android:layout_marginLeft="@dimen/x8"
-                android:layout_toRightOf="@+id/item_progressbar4_text"
-                android:background="@drawable/shape_progressbar_mini"/>
+                <TextView
+                    android:id="@+id/item_score"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    tools:text="8.2"
+                    android:textColor="@color/color_202020"
+                    android:textSize="18sp"/>
 
-            <ProgressBar
-                android:id="@+id/item_progressbar4_copy"
-                style="@style/StyleProgressBarMini"
-                android:layout_width="@dimen/x108"
-                android:layout_height="@dimen/x20"
-                android:layout_centerVertical="true"
-                android:layout_marginLeft="@dimen/x8"
-                android:layout_toRightOf="@+id/item_progressbar4_text"
-                android:max="100"
-                android:progress="100"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/x8"
+                    android:text="综合评分"
+                    android:textSize="12sp"/>
+
+
+            </LinearLayout>
+
+            <RelativeLayout
+                android:id="@+id/item_progressbar1_container"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/x48"
+                android:layout_toRightOf="@id/item_score_container"
+                android:orientation="horizontal">
+
+                <com.example.administrator.jipinshop.view.AlignTextView
+                    android:minEms="4"
+                    android:maxLength="4"
+                    android:id="@+id/item_progressbar1_text"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    tools:text="震动频率"
+                    app:align="center"
+                    android:textColor="@color/color_151515"
+                    android:textSize="13sp"/>
+
+                <com.example.administrator.jipinshop.view.SaleProgressView
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="@dimen/x8"
+                    android:layout_toRightOf="@id/item_progressbar1_text"
+                    android:id="@+id/item_progressbar1"
+                    android:layout_width="@dimen/x208"
+                    android:layout_height="@dimen/x20"
+                    android:layout_centerInParent="true"
+                    app:sideColor="#F5F5F5"
+                    app:nearOverText=""
+                    app:overText=""
+                    />
+
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/item_progressbar2_container"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/item_progressbar1_container"
+                android:layout_marginLeft="@dimen/x48"
+                android:layout_marginTop="@dimen/x14"
+                android:layout_toRightOf="@id/item_score_container"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
+
+                <com.example.administrator.jipinshop.view.AlignTextView
+                    android:minEms="4"
+                    android:maxLength="4"
+                    android:id="@+id/item_progressbar2_text"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    tools:text="清洁模式"
+                    android:textColor="@color/color_151515"
+                    android:textSize="13sp"/>
+
+                <com.example.administrator.jipinshop.view.SaleProgressView
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="@dimen/x8"
+                    android:layout_toRightOf="@id/item_progressbar2_text"
+                    android:id="@+id/item_progressbar2"
+                    android:layout_width="@dimen/x208"
+                    android:layout_height="@dimen/x20"
+                    android:layout_centerInParent="true"
+                    app:sideColor="#F5F5F5"
+                    app:nearOverText=""
+                    app:overText=""
+                    />
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/item_progressbar3_container"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/item_progressbar2_container"
+                android:layout_marginLeft="@dimen/x48"
+                android:layout_marginTop="@dimen/x14"
+                android:layout_toRightOf="@id/item_score_container"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
+
+                <com.example.administrator.jipinshop.view.AlignTextView
+                    android:minEms="4"
+                    android:maxLength="4"
+                    android:id="@+id/item_progressbar3_text"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    tools:text="清洁功能"
+                    android:textColor="@color/color_151515"
+                    android:textSize="13sp"/>
+
+                <com.example.administrator.jipinshop.view.SaleProgressView
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="@dimen/x8"
+                    android:layout_toRightOf="@id/item_progressbar3_text"
+                    android:id="@+id/item_progressbar3"
+                    android:layout_width="@dimen/x208"
+                    android:layout_height="@dimen/x20"
+                    android:layout_centerInParent="true"
+                    app:sideColor="#F5F5F5"
+                    app:nearOverText=""
+                    app:overText=""
+                    />
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/item_progressbar4_container"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/item_progressbar3_container"
+                android:layout_marginLeft="@dimen/x48"
+                android:layout_marginTop="@dimen/x14"
+                android:layout_toRightOf="@id/item_score_container"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
+
+                <com.example.administrator.jipinshop.view.AlignTextView
+                    android:maxLength="4"
+                    android:minEms="4"
+                    android:id="@+id/item_progressbar4_text"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    tools:text="使用时间"
+                    android:textColor="@color/color_151515"
+                    android:textSize="13sp"/>
+
+                <com.example.administrator.jipinshop.view.SaleProgressView
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="@dimen/x8"
+                    android:layout_toRightOf="@id/item_progressbar4_text"
+                    android:id="@+id/item_progressbar4"
+                    android:layout_width="@dimen/x208"
+                    android:layout_height="@dimen/x20"
+                    android:layout_centerInParent="true"
+                    app:nearOverText=""
+                    app:overText=""
+                    app:sideColor="#F5F5F5"
+                    />
+
+            </RelativeLayout>
+
 
         </RelativeLayout>
-
 
     </RelativeLayout>
+</layout>
 
-</RelativeLayout>
