@@ -6,6 +6,9 @@ package com.example.administrator.jipinshop.activity.sreach.result;
  * @Describe
  */
 public interface SreachResultView {
-
-    void onResher();
+    /**
+     * @param from 来自热门搜索 2，还是 历史搜索 1
+     * @param content 点击位置的内容
+     */
+    void onResher(String from,String content);
 }

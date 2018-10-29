@@ -14,6 +14,7 @@ import android.view.View;
 import android.view.inputmethod.EditorInfo;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.Toast;
 
 import com.blankj.utilcode.util.SPUtils;
 import com.example.administrator.jipinshop.R;
@@ -74,12 +75,25 @@ public class SreachActivity extends BaseActivity implements TextWatcher, SreachV
             if (actionId == EditorInfo.IME_ACTION_SEND
                     || actionId == EditorInfo.IME_ACTION_DONE
                     || (event != null && KeyEvent.KEYCODE_ENTER == event.getKeyCode() && KeyEvent.ACTION_DOWN == event.getAction())) {
-                mPresenter.addSearchFlex(mBinding.sreachEdit.getText().toString(), SreachActivity.this, mBinding.searchFlexHistroy, FlexHistroy, histroyText);
-                saveHistroy();
+                if(TextUtils.isEmpty(mBinding.sreachEdit.getText().toString().trim())){
+                    Toast.makeText(this, "请输入搜索内容", Toast.LENGTH_SHORT).show();
+                    return false;
+                }
+                Boolean flag = false;
+                for (int i = 0; i < histroyText.size(); i++) {
+                    if(histroyText.get(i).getName().equals(mBinding.sreachEdit.getText().toString())){
+                        flag = true;
+                        break;
+                    }
+                }
+                if(!flag){
+                    mPresenter.addSearchFlex(mBinding.sreachEdit.getText().toString(), SreachActivity.this, mBinding.searchFlexHistroy, FlexHistroy, histroyText);
+                    saveHistroy();
+                }
+
                 startActivity(new Intent(SreachActivity.this, SreachResultActivity.class)
                         .putExtra("content",mBinding.sreachEdit.getText().toString())
                 );
-                mBinding.sreachEdit.setText("");
                 finish();
             }
             return false;
@@ -156,8 +170,17 @@ public class SreachActivity extends BaseActivity implements TextWatcher, SreachV
 
         }else {
             //点击的是热门搜索里面的
-            mPresenter.addSearchFlex(content, SreachActivity.this, mBinding.searchFlexHistroy, FlexHistroy, histroyText);
-            saveHistroy();
+            Boolean flag = false;
+            for (int i = 0; i < histroyText.size(); i++) {
+                if(histroyText.get(i).getName().equals(content)){
+                    flag = true;
+                    break;
+                }
+            }
+            if(!flag){
+                mPresenter.addSearchFlex(content, SreachActivity.this, mBinding.searchFlexHistroy, FlexHistroy, histroyText);
+                saveHistroy();
+            }
         }
         startActivity(new Intent(this, SreachResultActivity.class)
                 .putExtra("content",content)
@@ -172,12 +195,24 @@ public class SreachActivity extends BaseActivity implements TextWatcher, SreachV
                 if (mBinding.sreachCancle.getText().toString().equals("取消")) {
                     finish();
                 } else {
-                    mPresenter.addSearchFlex(mBinding.sreachEdit.getText().toString(), SreachActivity.this, mBinding.searchFlexHistroy, FlexHistroy, histroyText);
-                    saveHistroy();
+                    if(TextUtils.isEmpty(mBinding.sreachEdit.getText().toString().trim())){
+                        Toast.makeText(this, "请输入搜索内容", Toast.LENGTH_SHORT).show();
+                        return;
+                    }
+                    Boolean flag = false;
+                    for (int i = 0; i < histroyText.size(); i++) {
+                        if(histroyText.get(i).getName().equals(mBinding.sreachEdit.getText().toString())){
+                            flag = true;
+                            break;
+                        }
+                    }
+                    if(!flag){
+                        mPresenter.addSearchFlex(mBinding.sreachEdit.getText().toString(), SreachActivity.this, mBinding.searchFlexHistroy, FlexHistroy, histroyText);
+                        saveHistroy();
+                    }
                     startActivity(new Intent(this, SreachResultActivity.class)
                             .putExtra("content",mBinding.sreachEdit.getText().toString())
                     );
-                    mBinding.sreachEdit.setText("");
                     finish();
                 }
                 break;
