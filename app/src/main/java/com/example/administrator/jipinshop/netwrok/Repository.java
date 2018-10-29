@@ -16,6 +16,7 @@ import com.example.administrator.jipinshop.bean.RecommendFragmentBean;
 import com.example.administrator.jipinshop.bean.RecordBean;
 import com.example.administrator.jipinshop.bean.SignBean;
 import com.example.administrator.jipinshop.bean.SignInsertBean;
+import com.example.administrator.jipinshop.bean.SreachResultBean;
 import com.example.administrator.jipinshop.bean.SuccessBean;
 import com.example.administrator.jipinshop.bean.SupplementBean;
 import com.example.administrator.jipinshop.bean.TabBean;
@@ -216,4 +217,12 @@ public class Repository {
     public Observable<ElectricityFragmentBean> goodRank4(String goodsId){
         return mAPIService.goodRank4("0",goodsId);
     }
+
+    /**
+     * 搜索列表
+     */
+    public Observable<SreachResultBean> searchGoods(String goodsName){
+        return mAPIService.searchGoods(goodsName);
+    }
+
 }

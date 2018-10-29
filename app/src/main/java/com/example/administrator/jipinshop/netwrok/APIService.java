@@ -14,6 +14,7 @@ import com.example.administrator.jipinshop.bean.RecommendFragmentBean;
 import com.example.administrator.jipinshop.bean.RecordBean;
 import com.example.administrator.jipinshop.bean.SignBean;
 import com.example.administrator.jipinshop.bean.SignInsertBean;
+import com.example.administrator.jipinshop.bean.SreachResultBean;
 import com.example.administrator.jipinshop.bean.SuccessBean;
 import com.example.administrator.jipinshop.bean.AccountBean;
 import com.example.administrator.jipinshop.bean.SupplementBean;
@@ -204,4 +205,10 @@ public interface APIService {
      */
     @GET("qualityshop-api/api/goodRank")
     Observable<ElectricityFragmentBean> goodRank4(@Query("mark") String mark , @Query("goodsId") String goodsId);
+
+    /**
+     * 搜索列表
+     */
+    @GET("qualityshop-api/api/searchGoods")
+    Observable<SreachResultBean> searchGoods(@Query("goodsName") String goodsName);
 }

@@ -169,7 +169,7 @@
         <com.aspsine.swipetoloadlayout.SwipeToLoadLayout
             android:id="@+id/swipeToLoad"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:background="@color/color_white">
 
             <com.example.administrator.jipinshop.view.CustomRefreshHeadView
@@ -180,6 +180,7 @@
                 android:padding="20dp"/>
 
             <LinearLayout
+                android:layout_marginTop="@dimen/x24"
                 android:id="@+id/swipe_target"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
@@ -192,7 +193,7 @@
                     android:layout_height="match_parent"
                     android:layout_marginLeft="@dimen/x28"
                     android:layout_marginRight="@dimen/x28"
-                    android:layout_marginTop="@dimen/x24"/>
+                   />
 
 
                 <include

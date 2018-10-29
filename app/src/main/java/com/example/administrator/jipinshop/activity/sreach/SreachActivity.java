@@ -44,6 +44,9 @@ public class SreachActivity extends BaseActivity implements TextWatcher, SreachV
     private List<String> hotText;
     private List<SreachTagBean> histroyText;
 
+    //用于存储历史搜索里的View
+    private List<View> histroyFlex;
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -67,32 +70,24 @@ public class SreachActivity extends BaseActivity implements TextWatcher, SreachV
         hotText.add("厨卫");
 
         histroyText = new ArrayList<>();
+        histroyFlex = new ArrayList<>();
         getHistory();
 
-        mPresenter.initHistroy(this, mBinding.searchFlexHistroy, FlexHistroy, histroyText);
+        mPresenter.initHistroy(this, mBinding.searchFlexHistroy, FlexHistroy, histroyText,histroyFlex);
         mPresenter.initHot(this, mBinding.searchFlexHot, hotText);
         mBinding.sreachEdit.setOnEditorActionListener((textView, actionId, event) -> {
             if (actionId == EditorInfo.IME_ACTION_SEND
                     || actionId == EditorInfo.IME_ACTION_DONE
                     || (event != null && KeyEvent.KEYCODE_ENTER == event.getKeyCode() && KeyEvent.ACTION_DOWN == event.getAction())) {
-                if(TextUtils.isEmpty(mBinding.sreachEdit.getText().toString().trim())){
+                if (TextUtils.isEmpty(mBinding.sreachEdit.getText().toString().trim())) {
                     Toast.makeText(this, "请输入搜索内容", Toast.LENGTH_SHORT).show();
                     return false;
                 }
-                Boolean flag = false;
-                for (int i = 0; i < histroyText.size(); i++) {
-                    if(histroyText.get(i).getName().equals(mBinding.sreachEdit.getText().toString())){
-                        flag = true;
-                        break;
-                    }
-                }
-                if(!flag){
-                    mPresenter.addSearchFlex(mBinding.sreachEdit.getText().toString(), SreachActivity.this, mBinding.searchFlexHistroy, FlexHistroy, histroyText);
-                    saveHistroy();
-                }
-
+                mPresenter.addSearchFlex(mBinding.sreachEdit.getText().toString(), SreachActivity.this,
+                        mBinding.searchFlexHistroy, FlexHistroy, histroyText,histroyFlex);
+                saveHistroy();
                 startActivity(new Intent(SreachActivity.this, SreachResultActivity.class)
-                        .putExtra("content",mBinding.sreachEdit.getText().toString())
+                        .putExtra("content", mBinding.sreachEdit.getText().toString())
                 );
                 finish();
             }
@@ -164,26 +159,11 @@ public class SreachActivity extends BaseActivity implements TextWatcher, SreachV
      * 从热门搜索、历史搜索里点击进入搜索列表
      */
     @Override
-    public void jump(String from,String content) {
-        if(from.equals("1")){
-            //点击的是历史搜索里面的
-
-        }else {
-            //点击的是热门搜索里面的
-            Boolean flag = false;
-            for (int i = 0; i < histroyText.size(); i++) {
-                if(histroyText.get(i).getName().equals(content)){
-                    flag = true;
-                    break;
-                }
-            }
-            if(!flag){
-                mPresenter.addSearchFlex(content, SreachActivity.this, mBinding.searchFlexHistroy, FlexHistroy, histroyText);
-                saveHistroy();
-            }
-        }
+    public void jump(String from, String content) {
+        mPresenter.addSearchFlex(content, SreachActivity.this, mBinding.searchFlexHistroy, FlexHistroy, histroyText,histroyFlex);
+        saveHistroy();
         startActivity(new Intent(this, SreachResultActivity.class)
-                .putExtra("content",content)
+                .putExtra("content", content)
         );
         finish();
     }
@@ -195,23 +175,15 @@ public class SreachActivity extends BaseActivity implements TextWatcher, SreachV
                 if (mBinding.sreachCancle.getText().toString().equals("取消")) {
                     finish();
                 } else {
-                    if(TextUtils.isEmpty(mBinding.sreachEdit.getText().toString().trim())){
+                    if (TextUtils.isEmpty(mBinding.sreachEdit.getText().toString().trim())) {
                         Toast.makeText(this, "请输入搜索内容", Toast.LENGTH_SHORT).show();
                         return;
                     }
-                    Boolean flag = false;
-                    for (int i = 0; i < histroyText.size(); i++) {
-                        if(histroyText.get(i).getName().equals(mBinding.sreachEdit.getText().toString())){
-                            flag = true;
-                            break;
-                        }
-                    }
-                    if(!flag){
-                        mPresenter.addSearchFlex(mBinding.sreachEdit.getText().toString(), SreachActivity.this, mBinding.searchFlexHistroy, FlexHistroy, histroyText);
-                        saveHistroy();
-                    }
+                    mPresenter.addSearchFlex(mBinding.sreachEdit.getText().toString(), SreachActivity.this,
+                            mBinding.searchFlexHistroy, FlexHistroy, histroyText,histroyFlex);
+                    saveHistroy();
                     startActivity(new Intent(this, SreachResultActivity.class)
-                            .putExtra("content",mBinding.sreachEdit.getText().toString())
+                            .putExtra("content", mBinding.sreachEdit.getText().toString())
                     );
                     finish();
                 }
@@ -234,17 +206,18 @@ public class SreachActivity extends BaseActivity implements TextWatcher, SreachV
      */
     public void saveHistroy() {
         String str = new Gson().toJson(histroyText);
-        SPUtils.getInstance(CommonDate.USER).put(CommonDate.historySreach,str);
+        SPUtils.getInstance(CommonDate.USER).put(CommonDate.historySreach, str);
     }
 
     /**
      * json转数组
      */
-    public void getHistory(){
-        String str = SPUtils.getInstance(CommonDate.USER).getString(CommonDate.historySreach,"");
+    public void getHistory() {
+        String str = SPUtils.getInstance(CommonDate.USER).getString(CommonDate.historySreach, "");
         Log.d("moxiaoting", str);
-        if(!TextUtils.isEmpty(str)){
-            histroyText = new Gson().fromJson(str,new TypeToken<List<SreachTagBean>>() {}.getType());
+        if (!TextUtils.isEmpty(str)) {
+            histroyText = new Gson().fromJson(str, new TypeToken<List<SreachTagBean>>() {
+            }.getType());
         }
     }
 

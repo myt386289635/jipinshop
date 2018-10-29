@@ -15,6 +15,7 @@ import android.widget.TextView;
 
 import com.example.administrator.jipinshop.MyApplication;
 import com.example.administrator.jipinshop.R;
+import com.example.administrator.jipinshop.bean.SreachResultBean;
 import com.example.administrator.jipinshop.util.DistanceHelper;
 import com.example.administrator.jipinshop.view.glide.imageloder.ImageManager;
 
@@ -27,7 +28,7 @@ import java.util.List;
  */
 public class SreachResultAdapter extends RecyclerView.Adapter<SreachResultAdapter.ViewHolder> {
 
-    private List<String> mList;
+    private List<SreachResultBean.ListBean> mList;
     private Context mContext;
     private OnItem mOnItem;
 
@@ -35,7 +36,7 @@ public class SreachResultAdapter extends RecyclerView.Adapter<SreachResultAdapte
         mOnItem = onItem;
     }
 
-    public SreachResultAdapter(List<String> list, Context context) {
+    public SreachResultAdapter(List<SreachResultBean.ListBean> list, Context context) {
         mList = list;
         mContext = context;
     }
@@ -75,8 +76,13 @@ public class SreachResultAdapter extends RecyclerView.Adapter<SreachResultAdapte
 
     @Override
     public int getItemCount() {
-        // TODO: 2018/7/31 有假数据
-        return mList.size() == 0 ? 10 : mList.size();
+        if(mList != null && mList.size() == 0){
+            return 0;
+        }else if(mList != null && mList.size() >= 10){
+            return 10;
+        }else {
+            return mList.size();
+        }
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {

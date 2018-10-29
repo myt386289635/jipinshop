@@ -1,5 +1,7 @@
 package com.example.administrator.jipinshop.activity.sreach.result;
 
+import com.example.administrator.jipinshop.bean.SreachResultBean;
+
 /**
  * @author 莫小婷
  * @create 2018/8/13
@@ -11,4 +13,9 @@ public interface SreachResultView {
      * @param content 点击位置的内容
      */
     void onResher(String from,String content);
+
+    void Success(SreachResultBean resultBean);
+
+    void Faile(String error);
+
 }

@@ -17,12 +17,14 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Toast;
 
+import com.aspsine.swipetoloadlayout.OnRefreshListener;
 import com.blankj.utilcode.util.SPUtils;
 import com.example.administrator.jipinshop.R;
 import com.example.administrator.jipinshop.activity.shoppingdetail.ShoppingDetailActivity;
 import com.example.administrator.jipinshop.activity.sreach.SreachActivity;
 import com.example.administrator.jipinshop.adapter.SreachResultAdapter;
 import com.example.administrator.jipinshop.base.BaseActivity;
+import com.example.administrator.jipinshop.bean.SreachResultBean;
 import com.example.administrator.jipinshop.bean.SreachTagBean;
 import com.example.administrator.jipinshop.databinding.ActivitySreachResultBinding;
 import com.example.administrator.jipinshop.util.sp.CommonDate;
@@ -39,14 +41,14 @@ import javax.inject.Inject;
  * @create 2018/8/10
  * @Describe 搜索结果页
  */
-public class SreachResultActivity extends BaseActivity implements SreachResultAdapter.OnItem, SreachResultView, TextWatcher, View.OnClickListener {
+public class SreachResultActivity extends BaseActivity implements SreachResultAdapter.OnItem, SreachResultView, TextWatcher, View.OnClickListener, OnRefreshListener {
 
     @Inject
     SreachResultPresenter mPresenter;
 
     private List<ImageView> FlexHistroy = new ArrayList<>();
     private SreachResultAdapter mAdapter;
-    private List<String> mList;
+    private List<SreachResultBean.ListBean> mList;
 
     private Boolean tag = true;//标示是显示界面一，还是界面2
     private ActivitySreachResultBinding mBinding;
@@ -54,6 +56,9 @@ public class SreachResultActivity extends BaseActivity implements SreachResultAd
     private String content = "";
     private List<String> hotText;
     private List<SreachTagBean> histroyText;
+
+    //用于存储历史搜索里的View
+    private List<View> histroyFlex;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -89,10 +94,11 @@ public class SreachResultActivity extends BaseActivity implements SreachResultAd
         hotText.add("厨卫");
 
         histroyText = new ArrayList<>();
+        histroyFlex = new ArrayList<>();
         getHistory();
 
         mPresenter.setView(this);
-        mPresenter.initHistroy(this, mBinding.searchFlexHistroy, FlexHistroy, histroyText);
+        mPresenter.initHistroy(this, mBinding.searchFlexHistroy, FlexHistroy, histroyText,histroyFlex);
         mPresenter.initHot(this, mBinding.searchFlexHot, hotText);
         mBinding.sreachEdit.setOnEditorActionListener((textView, actionId, event) -> {
             if (actionId == EditorInfo.IME_ACTION_SEND
@@ -102,26 +108,24 @@ public class SreachResultActivity extends BaseActivity implements SreachResultAd
                     Toast.makeText(this, "请输入搜索内容", Toast.LENGTH_SHORT).show();
                     return false;
                 }
-                Boolean flag = false;
-                for (int i = 0; i < histroyText.size(); i++) {
-                    if(histroyText.get(i).getName().equals(mBinding.sreachEdit.getText().toString())){
-                        flag = true;
-                        break;
-                    }
-                }
-                if(!flag){
-                    mPresenter.addSearchFlex(mBinding.sreachEdit.getText().toString(), SreachResultActivity.this, mBinding.searchFlexHistroy, FlexHistroy, histroyText);
-                    saveHistroy();
-                }
+                mPresenter.addSearchFlex(mBinding.sreachEdit.getText().toString(), SreachResultActivity.this,
+                        mBinding.searchFlexHistroy, FlexHistroy, histroyText,histroyFlex);
+                saveHistroy();
                 mBinding.sreachHome.setVisibility(View.GONE);
                 mBinding.recyclerView.setVisibility(View.VISIBLE);
                 mBinding.sreachCancle.setVisibility(View.GONE);
                 mBinding.sreachBack.setVisibility(View.VISIBLE);
                 mBinding.sreachClose.setVisibility(View.VISIBLE);
+                mBinding.swipeToLoad.setRefreshing(true);
             }
             return false;
         });
         mBinding.sreachEdit.addTextChangedListener(this);
+
+        mBinding.swipeToLoad.setOnRefreshListener(this);
+        mBinding.swipeToLoad.setRefreshing(true);
+
+        mPresenter.solveScoll(mBinding.recyclerView,mBinding.swipeToLoad);
     }
 
     /**
@@ -140,22 +144,8 @@ public class SreachResultActivity extends BaseActivity implements SreachResultAd
     @Override
     public void onResher(String from, String content) {
         tag = false;
-        if (from.equals("1")) {
-            //点击的是历史搜索里面的
-        } else {
-            //点击的是热门搜索里面的
-            Boolean flag = false;
-            for (int i = 0; i < histroyText.size(); i++) {
-                if(histroyText.get(i).getName().equals(content)){
-                    flag = true;
-                    break;
-                }
-            }
-            if(!flag){
-                mPresenter.addSearchFlex(content, this, mBinding.searchFlexHistroy, FlexHistroy, histroyText);
-                saveHistroy();
-            }
-        }
+        mPresenter.addSearchFlex(content, this, mBinding.searchFlexHistroy, FlexHistroy, histroyText,histroyFlex);
+        saveHistroy();
         mBinding.sreachHome.setVisibility(View.GONE);
         mBinding.recyclerView.setVisibility(View.VISIBLE);
         mBinding.sreachCancle.setVisibility(View.GONE);
@@ -163,7 +153,40 @@ public class SreachResultActivity extends BaseActivity implements SreachResultAd
         mBinding.sreachClose.setVisibility(View.VISIBLE);
         mBinding.sreachEdit.setText(content);
         mBinding.sreachEdit.setSelection(mBinding.sreachEdit.getText().length());//将光标移至文字末尾
+        mBinding.swipeToLoad.setRefreshing(true);
         tag = true;//为了避免手动修改eidtText造成没有效果的问题
+    }
+
+    /**
+     * 数据加载成功
+     * @param resultBean
+     */
+    @Override
+    public void Success(SreachResultBean resultBean) {
+        stopResher();
+        mList.clear();
+        if(resultBean.getList() != null && resultBean.getList().size() != 0){
+            mBinding.inClude.qsNet.setVisibility(View.GONE);
+            mBinding.recyclerView.setVisibility(View.VISIBLE);
+            mList.addAll(resultBean.getList());
+        }else {
+            mBinding.recyclerView.setVisibility(View.GONE);
+            initError(R.mipmap.qs_order, "暂无数据", "没有发现商品哟，请换个关键词试试");
+            Toast.makeText(this, "没有商品", Toast.LENGTH_SHORT).show();
+        }
+        mAdapter.notifyDataSetChanged();
+    }
+
+    /**
+     * 数据加载失败
+     * @param error
+     */
+    @Override
+    public void Faile(String error) {
+        stopResher();
+        mBinding.recyclerView.setVisibility(View.GONE);
+        initError(R.mipmap.qs_net, "网络出错", "哇哦，网络出错了，换个姿势下滑页面试试");
+        Toast.makeText(this, error, Toast.LENGTH_SHORT).show();
     }
 
     @Override
@@ -240,23 +263,15 @@ public class SreachResultActivity extends BaseActivity implements SreachResultAd
                         Toast.makeText(this, "请输入搜索内容", Toast.LENGTH_SHORT).show();
                         return;
                     }
-                    Boolean flag = false;
-                    for (int i = 0; i < histroyText.size(); i++) {
-                        if(histroyText.get(i).getName().equals(mBinding.sreachEdit.getText().toString())){
-                            flag = true;
-                            break;
-                        }
-                    }
-                    if(!flag){
-                        mPresenter.addSearchFlex(mBinding.sreachEdit.getText().toString(), SreachResultActivity.this, mBinding.searchFlexHistroy, FlexHistroy, histroyText);
-                        saveHistroy();
-                    }
+                    mPresenter.addSearchFlex(mBinding.sreachEdit.getText().toString(), SreachResultActivity.this,
+                            mBinding.searchFlexHistroy, FlexHistroy, histroyText,histroyFlex);
+                    saveHistroy();
                     mBinding.sreachHome.setVisibility(View.GONE);
                     mBinding.recyclerView.setVisibility(View.VISIBLE);
                     mBinding.sreachCancle.setVisibility(View.GONE);
                     mBinding.sreachBack.setVisibility(View.VISIBLE);
                     mBinding.sreachClose.setVisibility(View.VISIBLE);
-
+                    mBinding.swipeToLoad.setRefreshing(true);
                 }
                 break;
             case R.id.sreach_close:
@@ -285,4 +300,30 @@ public class SreachResultActivity extends BaseActivity implements SreachResultAd
         }
     }
 
+    /**
+     * 刷新列表
+     */
+    @Override
+    public void onRefresh() {
+        mPresenter.searchGoods(mBinding.sreachEdit.getText().toString(),this.bindToLifecycle());
+    }
+
+    public void initError(int id, String title, String content) {
+        mBinding.inClude.qsNet.setVisibility(View.VISIBLE);
+        mBinding.inClude.errorImage.setBackgroundResource(id);
+        mBinding.inClude.errorTitle.setText(title);
+        mBinding.inClude.errorContent.setText(content);
+    }
+
+    public void stopResher(){
+        if (mBinding.swipeToLoad != null && mBinding.swipeToLoad.isRefreshing()) {
+            if(!mBinding.swipeToLoad.isRefreshEnabled()){
+                mBinding.swipeToLoad.setRefreshEnabled(true);
+                mBinding.swipeToLoad.setRefreshing(false);
+                mBinding.swipeToLoad.setRefreshEnabled(false);
+            }else {
+                mBinding.swipeToLoad.setRefreshing(false);
+            }
+        }
+    }
 }
