@@ -128,6 +128,10 @@ public class HomeFragment extends DBBaseFragment implements Badge.OnDragStateCha
 
     @Override
     public void onClick(View view) {
+        if(!SPUtils.getInstance(CommonDate.USER).getBoolean(CommonDate.userLogin,false)){
+            Toast.makeText(getContext(), "请先登陆", Toast.LENGTH_SHORT).show();
+            return;
+        }
         switch (view.getId()) {
             case R.id.home_sreach:
                 startActivity(new Intent(getContext(), SreachActivity.class));

@@ -71,10 +71,6 @@ public class MineFragment extends DBBaseFragment implements View.OnClickListener
                 //跳转到设置页面
                 startActivityForResult(new Intent(getContext(), SettingActivity.class),100);
                 return;
-            case R.id.mine_message:
-                //跳转到消息页面
-                startActivity(new Intent(getContext(), MessageActivity.class));
-                return;
             case R.id.mine_login:
                 //跳转到登陆页面
                 startActivityForResult(new Intent(getContext(), LoginActivity.class), 100);
@@ -133,6 +129,10 @@ public class MineFragment extends DBBaseFragment implements View.OnClickListener
             case R.id.mine_integral:
                 //跳转到我的积分页面
                 startActivity(new Intent(getContext(), IntegralActivity.class));
+                break;
+            case R.id.mine_message:
+                //跳转到消息页面
+                startActivity(new Intent(getContext(), MessageActivity.class));
                 break;
         }
     }

@@ -40,6 +40,6 @@ public class CommonDate {
     public static final String userPoint = "userPoint";//用户积分
     public static final String alipAccount = "alipAccount";//支付宝账号
     public static final String alipName = "alipName";//支付宝绑定的真实姓名
-
+    public static final String historySreach = "historySreach";//用户的历史搜索目录
 
 }

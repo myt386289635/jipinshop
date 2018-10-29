@@ -7,34 +7,41 @@ import android.support.annotation.Nullable;
 import android.text.Editable;
 import android.text.TextUtils;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.KeyEvent;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.inputmethod.EditorInfo;
 import android.widget.EditText;
 import android.widget.ImageView;
-import android.widget.TextView;
 
+import com.blankj.utilcode.util.SPUtils;
 import com.example.administrator.jipinshop.R;
 import com.example.administrator.jipinshop.activity.sreach.result.SreachResultActivity;
-import com.example.administrator.jipinshop.adapter.SreachAdapter;
 import com.example.administrator.jipinshop.base.BaseActivity;
+import com.example.administrator.jipinshop.bean.SreachTagBean;
 import com.example.administrator.jipinshop.databinding.ActivitySreachBinding;
+import com.example.administrator.jipinshop.util.sp.CommonDate;
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import javax.inject.Inject;
 
-public class SreachActivity extends BaseActivity implements TextWatcher, SreachAdapter.OnItem, SreachView, View.OnClickListener {
+public class SreachActivity extends BaseActivity implements TextWatcher, SreachView, View.OnClickListener {
 
     @Inject
     SreachPresenter mPresenter;
 
     private List<ImageView> FlexHistroy = new ArrayList<>();
-    private List<String> mList;
-    private SreachAdapter mAdapter;
+    //    private List<String> mList;
+//    private SreachAdapter mAdapter;
     private ActivitySreachBinding mBinding;
+
+    private List<String> hotText;
+    private List<SreachTagBean> histroyText;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -48,25 +55,41 @@ public class SreachActivity extends BaseActivity implements TextWatcher, SreachA
     private void initView() {
         mPresenter.setView(this);
         showKeyboardDelayed(mBinding.sreachEdit);
-        mPresenter.initHistroy(this, mBinding.searchFlexHistroy, FlexHistroy);
-        mPresenter.initHot(this, mBinding.searchFlexHot);
+
+        hotText = new ArrayList<>();
+        hotText.add("电动牙刷");
+        hotText.add("洗衣机");
+        hotText.add("电热水壶");
+        hotText.add("吹风机");
+        hotText.add("波轮洗衣机");
+        hotText.add("美容仪");
+        hotText.add("厨卫");
+
+        histroyText = new ArrayList<>();
+        getHistory();
+
+        mPresenter.initHistroy(this, mBinding.searchFlexHistroy, FlexHistroy, histroyText);
+        mPresenter.initHot(this, mBinding.searchFlexHot, hotText);
         mBinding.sreachEdit.setOnEditorActionListener((textView, actionId, event) -> {
             if (actionId == EditorInfo.IME_ACTION_SEND
                     || actionId == EditorInfo.IME_ACTION_DONE
                     || (event != null && KeyEvent.KEYCODE_ENTER == event.getKeyCode() && KeyEvent.ACTION_DOWN == event.getAction())) {
-                mPresenter.addSearchFlex(mBinding.sreachEdit.getText().toString(), SreachActivity.this, mBinding.searchFlexHistroy, FlexHistroy);
+                mPresenter.addSearchFlex(mBinding.sreachEdit.getText().toString(), SreachActivity.this, mBinding.searchFlexHistroy, FlexHistroy, histroyText);
+                saveHistroy();
+                startActivity(new Intent(SreachActivity.this, SreachResultActivity.class)
+                        .putExtra("content",mBinding.sreachEdit.getText().toString())
+                );
                 mBinding.sreachEdit.setText("");
-                startActivity(new Intent(SreachActivity.this, SreachResultActivity.class));
                 finish();
             }
             return false;
         });
         mBinding.sreachEdit.addTextChangedListener(this);
 
-        mList = new ArrayList<>();
-        mAdapter = new SreachAdapter(mList, this);
-        mAdapter.setOnItem(this);
-        mBinding.listView.setAdapter(mAdapter);
+//        mList = new ArrayList<>();
+//        mAdapter = new SreachAdapter(mList, this);
+//        mAdapter.setOnItem(this);
+//        mBinding.listView.setAdapter(mAdapter);
     }
 
     @Override
@@ -109,27 +132,36 @@ public class SreachActivity extends BaseActivity implements TextWatcher, SreachA
     @Override
     public void afterTextChanged(Editable s) {
         if (TextUtils.isEmpty(mBinding.sreachEdit.getText().toString().trim())) {
-            mBinding.sreachHome.setVisibility(View.VISIBLE);
-            mBinding.listView.setVisibility(View.GONE);
-            mBinding.sreachNav.setVisibility(View.VISIBLE);
+//            mBinding.sreachHome.setVisibility(View.VISIBLE);
+//            mBinding.listView.setVisibility(View.GONE);
+//            mBinding.sreachNav.setVisibility(View.VISIBLE);
             mBinding.sreachClose.setVisibility(View.GONE);
+            mBinding.sreachCancle.setText("取消");
         } else {
-            mBinding.sreachHome.setVisibility(View.GONE);
-            mBinding.listView.setVisibility(View.VISIBLE);
-            mBinding.sreachNav.setVisibility(View.VISIBLE);
+//            mBinding.sreachHome.setVisibility(View.GONE);
+//            mBinding.listView.setVisibility(View.VISIBLE);
+//            mBinding.sreachNav.setVisibility(View.VISIBLE);
             mBinding.sreachClose.setVisibility(View.VISIBLE);
+            mBinding.sreachCancle.setText("搜索");
         }
     }
 
+    /**
+     * 从热门搜索、历史搜索里点击进入搜索列表
+     */
     @Override
-    public void onItem(int pos) {
-        startActivity(new Intent(this, SreachResultActivity.class));
-        finish();
-    }
+    public void jump(String from,String content) {
+        if(from.equals("1")){
+            //点击的是历史搜索里面的
 
-    @Override
-    public void jump() {
-        startActivity(new Intent(this, SreachResultActivity.class));
+        }else {
+            //点击的是热门搜索里面的
+            mPresenter.addSearchFlex(content, SreachActivity.this, mBinding.searchFlexHistroy, FlexHistroy, histroyText);
+            saveHistroy();
+        }
+        startActivity(new Intent(this, SreachResultActivity.class)
+                .putExtra("content",content)
+        );
         finish();
     }
 
@@ -137,8 +169,17 @@ public class SreachActivity extends BaseActivity implements TextWatcher, SreachA
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.sreach_cancle:
-                finish();
-                mBinding.sreachEdit.setText("");
+                if (mBinding.sreachCancle.getText().toString().equals("取消")) {
+                    finish();
+                } else {
+                    mPresenter.addSearchFlex(mBinding.sreachEdit.getText().toString(), SreachActivity.this, mBinding.searchFlexHistroy, FlexHistroy, histroyText);
+                    saveHistroy();
+                    startActivity(new Intent(this, SreachResultActivity.class)
+                            .putExtra("content",mBinding.sreachEdit.getText().toString())
+                    );
+                    mBinding.sreachEdit.setText("");
+                    finish();
+                }
                 break;
             case R.id.sreach_home:
                 if (FlexHistroy != null && FlexHistroy.size() != 0) {
@@ -152,4 +193,25 @@ public class SreachActivity extends BaseActivity implements TextWatcher, SreachA
                 break;
         }
     }
+
+    /**
+     * 数组转json
+     */
+    public void saveHistroy() {
+        String str = new Gson().toJson(histroyText);
+        SPUtils.getInstance(CommonDate.USER).put(CommonDate.historySreach,str);
+    }
+
+    /**
+     * json转数组
+     */
+    public void getHistory(){
+        String str = SPUtils.getInstance(CommonDate.USER).getString(CommonDate.historySreach,"");
+        Log.d("moxiaoting", str);
+        if(!TextUtils.isEmpty(str)){
+            histroyText = new Gson().fromJson(str,new TypeToken<List<SreachTagBean>>() {}.getType());
+        }
+    }
+
+
 }
