@@ -45,9 +45,9 @@ public class MemberLevelActivity extends BaseActivity {
         mButterKnife =  ButterKnife.bind(this);
         mTitleTv.setText("会员中心");
         if(!TextUtils.isEmpty(SPUtils.getInstance(CommonDate.USER).getString(CommonDate.userNickImg))){
-            ImageManager.displayCircleImage(SPUtils.getInstance(CommonDate.USER).getString(CommonDate.userNickImg),mMemberImage,0,R.mipmap.logo);
+            ImageManager.displayCircleImage(SPUtils.getInstance(CommonDate.USER).getString(CommonDate.userNickImg),mMemberImage,R.drawable.rlogo,R.drawable.rlogo);
         }else {
-            ImageManager.displayCircleImage("drawable://" + R.drawable.logo,mMemberImage,0,0);
+            ImageManager.displayImage("drawable://" + R.drawable.rlogo,mMemberImage,R.drawable.rlogo,R.drawable.rlogo);
         }
         mMemberLevel.setText("v" + SPUtils.getInstance(CommonDate.USER).getString(CommonDate.userMemberGrade));
         int str = Integer.valueOf(SPUtils.getInstance(CommonDate.USER).getInt(CommonDate.userPoint));
