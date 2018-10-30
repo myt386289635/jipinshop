@@ -64,9 +64,9 @@ public class MyInfoActivity extends BaseActivity implements SelectPicDialog.Choo
     private void initView() {
         mBinding.inClude.titleTv.setText("我的资料");
         if(!TextUtils.isEmpty(SPUtils.getInstance(CommonDate.USER).getString(CommonDate.userNickImg))){
-            ImageManager.displayCircleImage(SPUtils.getInstance(CommonDate.USER).getString(CommonDate.userNickImg),mBinding.infoImage,0,R.mipmap.logo);
+            ImageManager.displayCircleImage(SPUtils.getInstance(CommonDate.USER).getString(CommonDate.userNickImg),mBinding.infoImage,R.drawable.rlogo,R.drawable.rlogo);
         }else {
-            ImageManager.displayCircleImage("drawable://" + R.drawable.logo,mBinding.infoImage,0,0);
+            ImageManager.displayImage("drawable://" + R.drawable.rlogo,mBinding.infoImage,R.drawable.rlogo,R.drawable.rlogo);
         }
         if(TextUtils.isEmpty(SPUtils.getInstance(CommonDate.USER).getString(CommonDate.userNickName))){
             mBinding.infoName.setText(SPUtils.getInstance(CommonDate.USER).getString(CommonDate.userPhone));
@@ -199,7 +199,7 @@ public class MyInfoActivity extends BaseActivity implements SelectPicDialog.Choo
     @Override
     public void EditUserNickImgSuc(SuccessBean successBean, String date) {
         if (successBean.getCode() == 200) {
-            ImageManager.displayCircleImage(date,mBinding.infoImage,0,R.mipmap.rlogo);
+            ImageManager.displayCircleImage(date,mBinding.infoImage,R.mipmap.rlogo,R.mipmap.rlogo);
             SPUtils.getInstance(CommonDate.USER).put(CommonDate.userNickImg, date);
             EventBus.getDefault().post(new EditNameBus(EditNameActivity.tag,date,"4"));
             Toast.makeText(this, "修改成功", Toast.LENGTH_SHORT).show();
