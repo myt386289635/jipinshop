@@ -20,7 +20,7 @@ import com.example.administrator.jipinshop.view.dialog.ProgressDialogView;
 /**
  * @author 莫小婷
  * @create 2018/9/3
- * @Describe
+ * @Describe webView页面
  */
 public class WebActivity extends BaseActivity implements View.OnClickListener {
 
