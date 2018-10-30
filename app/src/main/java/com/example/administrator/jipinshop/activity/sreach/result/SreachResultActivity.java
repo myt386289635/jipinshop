@@ -21,7 +21,6 @@ import com.aspsine.swipetoloadlayout.OnRefreshListener;
 import com.blankj.utilcode.util.SPUtils;
 import com.example.administrator.jipinshop.R;
 import com.example.administrator.jipinshop.activity.shoppingdetail.ShoppingDetailActivity;
-import com.example.administrator.jipinshop.activity.sreach.SreachActivity;
 import com.example.administrator.jipinshop.adapter.SreachResultAdapter;
 import com.example.administrator.jipinshop.base.BaseActivity;
 import com.example.administrator.jipinshop.bean.SreachResultBean;
@@ -116,6 +115,8 @@ public class SreachResultActivity extends BaseActivity implements SreachResultAd
                 mBinding.sreachCancle.setVisibility(View.GONE);
                 mBinding.sreachBack.setVisibility(View.VISIBLE);
                 mBinding.sreachClose.setVisibility(View.VISIBLE);
+                mBinding.recyclerView.scrollToPosition(0);
+                mBinding.swipeToLoad.setRefreshEnabled(true);
                 mBinding.swipeToLoad.setRefreshing(true);
             }
             return false;
@@ -153,6 +154,8 @@ public class SreachResultActivity extends BaseActivity implements SreachResultAd
         mBinding.sreachClose.setVisibility(View.VISIBLE);
         mBinding.sreachEdit.setText(content);
         mBinding.sreachEdit.setSelection(mBinding.sreachEdit.getText().length());//将光标移至文字末尾
+        mBinding.recyclerView.scrollToPosition(0);
+        mBinding.swipeToLoad.setRefreshEnabled(true);
         mBinding.swipeToLoad.setRefreshing(true);
         tag = true;//为了避免手动修改eidtText造成没有效果的问题
     }
@@ -271,6 +274,8 @@ public class SreachResultActivity extends BaseActivity implements SreachResultAd
                     mBinding.sreachCancle.setVisibility(View.GONE);
                     mBinding.sreachBack.setVisibility(View.VISIBLE);
                     mBinding.sreachClose.setVisibility(View.VISIBLE);
+                    mBinding.recyclerView.scrollToPosition(0);
+                    mBinding.swipeToLoad.setRefreshEnabled(true);
                     mBinding.swipeToLoad.setRefreshing(true);
                 }
                 break;
