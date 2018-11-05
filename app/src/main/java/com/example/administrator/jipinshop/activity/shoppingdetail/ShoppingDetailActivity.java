@@ -359,6 +359,9 @@ public class ShoppingDetailActivity extends BaseActivity implements ShoppingComm
                         shoppingDetailBean.getGoodsRankdetailEntity().getGoodsEvalWayEntity().getContent(),
                         "text/html", "utf-8", null);
             }else {
+                if (mDialogProgress.isShowing()) {
+                    mDialogProgress.dismiss();
+                }
                 mBinding.detailEvaluationLine.setVisibility(View.GONE);
                 mBinding.detailEvaluationTitle.setVisibility(View.GONE);
                 mBinding.detailEvaluationHead.setVisibility(View.GONE);
@@ -370,18 +373,25 @@ public class ShoppingDetailActivity extends BaseActivity implements ShoppingComm
             }
             mCommonAdapter.notifyDataSetChanged();
 
-            mParameterList.addAll(shoppingDetailBean.getGoodsRankdetailEntity().getParametersList());
-            mParameterAdapter.notifyDataSetChanged();
-
-            for (ShoppingDetailBean.GoodsRankdetailEntityBean.QualityListBean qualityListBean : shoppingDetailBean.getGoodsRankdetailEntity().getQualityList()) {
-                mQualityList.add(qualityListBean.getName());
+            if(shoppingDetailBean.getGoodsRankdetailEntity().getParametersList() != null){
+                mParameterList.addAll(shoppingDetailBean.getGoodsRankdetailEntity().getParametersList());
+                mParameterAdapter.notifyDataSetChanged();
             }
-            mQualityAdapter.notifyDataSetChanged();
 
-            for (ShoppingDetailBean.GoodsRankdetailEntityBean.ServiceListBean serviceListBean : shoppingDetailBean.getGoodsRankdetailEntity().getServiceList()) {
-                mSreverList.add(serviceListBean.getName());
+            if (shoppingDetailBean.getGoodsRankdetailEntity().getQualityList() != null) {
+                for (ShoppingDetailBean.GoodsRankdetailEntityBean.QualityListBean qualityListBean : shoppingDetailBean.getGoodsRankdetailEntity().getQualityList()) {
+                    mQualityList.add(qualityListBean.getName());
+                }
+                mQualityAdapter.notifyDataSetChanged();
             }
-            mSreverAdapter.notifyDataSetChanged();
+
+            if (shoppingDetailBean.getGoodsRankdetailEntity().getServiceList()!= null) {
+                for (ShoppingDetailBean.GoodsRankdetailEntityBean.ServiceListBean serviceListBean : shoppingDetailBean.getGoodsRankdetailEntity().getServiceList()) {
+                    mSreverList.add(serviceListBean.getName());
+                }
+                mSreverAdapter.notifyDataSetChanged();
+            }
+
         }else {
             if (mDialogProgress.isShowing()) {
                 mDialogProgress.dismiss();
