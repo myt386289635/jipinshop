@@ -16,6 +16,7 @@ import com.example.administrator.jipinshop.adapter.ShoppingBannerAdapter;
 import com.example.administrator.jipinshop.adapter.ShoppingQualityAdapter;
 import com.example.administrator.jipinshop.adapter.ShoppingmParameterAdapter;
 import com.example.administrator.jipinshop.base.DBBaseFragment;
+import com.example.administrator.jipinshop.bean.ShoppingDetailBean;
 import com.example.administrator.jipinshop.databinding.FragmentShopDetailBinding;
 import com.example.administrator.jipinshop.util.WeakRefHandler;
 import com.example.administrator.jipinshop.view.goodview.GoodView;
@@ -42,7 +43,7 @@ public class DetailShopFragment extends DBBaseFragment {
 
     //产品参数
     private ShoppingmParameterAdapter mParameterAdapter;
-    private List<String> mParameterList;
+    private List<ShoppingDetailBean.GoodsRankdetailEntityBean.ParametersListBean> mParameterList;
 
     //banner
     private ShoppingBannerAdapter mBannerAdapter;

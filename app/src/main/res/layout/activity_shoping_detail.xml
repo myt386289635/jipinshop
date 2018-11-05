@@ -181,7 +181,7 @@
                     android:layout_marginRight="@dimen/x28"
                     android:layout_marginTop="@dimen/x32"
                     android:lineSpacingExtra="@dimen/x6"
-                    android:text="MI 小米 米家电水壶 1.5L大容量 304不锈钢 快速沸腾 携带方便"
+                    android:text=""
                     android:textColor="@color/color_DE151515"
                     android:textSize="16sp"
                     android:textStyle="bold"/>
@@ -194,7 +194,7 @@
                     android:layout_below="@id/detail_name"
                     android:layout_marginLeft="@dimen/x28"
                     android:layout_marginTop="@dimen/x36"
-                    android:text="券后价：¥599.00"
+                    android:text="券后价：¥0.00"
                     android:textColor="@color/color_E31436"/>
 
 
@@ -218,7 +218,7 @@
                     android:layout_below="@id/detail_name"
                     android:layout_marginTop="@dimen/x36"
                     android:layout_toRightOf="@id/detail_oldPriceName"
-                    android:text="¥699.00"
+                    android:text="¥0.00"
                     android:textColor="@color/color_ACACAC"
                     android:textSize="13sp"/>
 
@@ -251,7 +251,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="@dimen/x24"
                         android:layout_toRightOf="@id/detail_couponImg"
-                        android:text="100元独家优惠券 "
+                        android:text="0元独家优惠券"
                         android:textColor="@color/color_DE151515"
                         android:textSize="15sp"/>
 
@@ -470,13 +470,14 @@
 
 
                 <WebView
-                    android:visibility="gone"
                     android:id="@+id/detail_evaluation"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_below="@id/detail_evaluationHead"/>
 
+                <!--测试：图文混合 大长图加载-->
                 <com.davemorrissey.labs.subscaleview.SubsamplingScaleImageView
+                    android:visibility="gone"
                     android:id="@+id/detail_evaluationImageview"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -486,7 +487,7 @@
                     android:id="@+id/detail_evaluationLine"
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/x12"
-                    android:layout_below="@id/detail_evaluationImageview"
+                    android:layout_below="@id/detail_evaluation"
                     android:layout_marginTop="@dimen/x80"
                     android:background="@color/color_F5F5F5"/>
 

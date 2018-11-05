@@ -100,7 +100,12 @@ public class RecommendFragment extends DBBaseFragment implements OnRefreshListen
             return;
         }else{
             startActivity(new Intent(getContext(), ShoppingDetailActivity.class)
-                    .putExtra("pos",pos)
+                    .putExtra("goodsId",mList.getList().get(pos).getGoodsId())
+                    .putExtra("goodsName",mList.getList().get(pos).getGoodsName())
+                    .putExtra("priceNow",mList.getList().get(pos).getActualPrice())
+                    .putExtra("priceOld",mList.getList().get(pos).getOtherPrice())
+                    .putExtra("price",mList.getList().get(pos).getCutPrice())
+                    .putExtra("state",mList.getList().get(pos).getSourceStatus() + "")
             );
         }
 
@@ -112,6 +117,7 @@ public class RecommendFragment extends DBBaseFragment implements OnRefreshListen
             if(recommendFragmentBean.getList() != null && recommendFragmentBean.getList().size() != 0){
                 binding.inClude.qsNet.setVisibility(View.GONE);
                 binding.recyclerView.setVisibility(View.VISIBLE);
+                mList = recommendFragmentBean;
                 mAdapter.setList(recommendFragmentBean);
                 mAdapter.notifyDataSetChanged();
             }else {

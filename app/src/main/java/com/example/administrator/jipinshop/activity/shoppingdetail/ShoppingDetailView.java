@@ -1,6 +1,6 @@
 package com.example.administrator.jipinshop.activity.shoppingdetail;
 
-import com.example.administrator.jipinshop.bean.RecommendFragmentBean;
+import com.example.administrator.jipinshop.bean.ShoppingDetailBean;
 
 /**
  * @author 莫小婷
@@ -11,6 +11,6 @@ public interface ShoppingDetailView {
      void keyShow();
      void keyHint();
 
-     void onSuccess(RecommendFragmentBean recommendFragmentBean);
+     void onSuccess(ShoppingDetailBean recommendFragmentBean);
      void onFile(String error);
 }

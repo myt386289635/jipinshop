@@ -14,6 +14,7 @@ import com.example.administrator.jipinshop.bean.LuckImageBean;
 import com.example.administrator.jipinshop.bean.LuckselectBean;
 import com.example.administrator.jipinshop.bean.RecommendFragmentBean;
 import com.example.administrator.jipinshop.bean.RecordBean;
+import com.example.administrator.jipinshop.bean.ShoppingDetailBean;
 import com.example.administrator.jipinshop.bean.SignBean;
 import com.example.administrator.jipinshop.bean.SignInsertBean;
 import com.example.administrator.jipinshop.bean.SreachResultBean;
@@ -223,6 +224,13 @@ public class Repository {
      */
     public Observable<SreachResultBean> searchGoods(String goodsName){
         return mAPIService.searchGoods(goodsName);
+    }
+
+    /**
+     * 商品详情
+     */
+    public Observable<ShoppingDetailBean> goodsRankDetailList(String goodsId){
+        return mAPIService.goodsRankDetailList(goodsId);
     }
 
 }

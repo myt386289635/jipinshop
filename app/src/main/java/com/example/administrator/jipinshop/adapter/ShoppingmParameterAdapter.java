@@ -8,6 +8,7 @@ import android.widget.BaseAdapter;
 import android.widget.TextView;
 
 import com.example.administrator.jipinshop.R;
+import com.example.administrator.jipinshop.bean.ShoppingDetailBean;
 
 import java.util.List;
 
@@ -18,10 +19,10 @@ import java.util.List;
  */
 public class ShoppingmParameterAdapter extends BaseAdapter {
 
-    private List<String> mList;
+    private List<ShoppingDetailBean.GoodsRankdetailEntityBean.ParametersListBean> mList;
     private Context mContext;
 
-    public ShoppingmParameterAdapter(List<String> list, Context context) {
+    public ShoppingmParameterAdapter(List<ShoppingDetailBean.GoodsRankdetailEntityBean.ParametersListBean> list, Context context) {
         mList = list;
         mContext = context;
     }
@@ -53,6 +54,8 @@ public class ShoppingmParameterAdapter extends BaseAdapter {
             holder = (ViewHolder) view.getTag();
         }
 
+        holder.item_name.setText(mList.get(i).getName());
+        holder.item_content.setText(mList.get(i).getValue());
 
         return view;
     }

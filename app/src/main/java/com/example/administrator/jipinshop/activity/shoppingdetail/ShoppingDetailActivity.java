@@ -5,7 +5,6 @@ import android.content.Intent;
 import android.databinding.DataBindingUtil;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
-import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
@@ -36,12 +35,6 @@ import com.alibaba.baichuan.android.trade.model.OpenType;
 import com.alibaba.baichuan.android.trade.page.AlibcPage;
 import com.alibaba.baichuan.trade.biz.context.AlibcResultType;
 import com.alibaba.baichuan.trade.biz.context.AlibcTradeResult;
-import com.alibaba.baichuan.trade.biz.core.taoke.AlibcTaokeParams;
-import com.bumptech.glide.Glide;
-import com.bumptech.glide.request.animation.GlideAnimation;
-import com.bumptech.glide.request.target.SimpleTarget;
-import com.davemorrissey.labs.subscaleview.ImageSource;
-import com.davemorrissey.labs.subscaleview.SubsamplingScaleImageView;
 import com.example.administrator.jipinshop.MyApplication;
 import com.example.administrator.jipinshop.R;
 import com.example.administrator.jipinshop.activity.commenlist.CommenListActivity;
@@ -50,7 +43,7 @@ import com.example.administrator.jipinshop.adapter.ShoppingCommonAdapter;
 import com.example.administrator.jipinshop.adapter.ShoppingQualityAdapter;
 import com.example.administrator.jipinshop.adapter.ShoppingmParameterAdapter;
 import com.example.administrator.jipinshop.base.BaseActivity;
-import com.example.administrator.jipinshop.bean.RecommendFragmentBean;
+import com.example.administrator.jipinshop.bean.ShoppingDetailBean;
 import com.example.administrator.jipinshop.databinding.ActivityShopingDetailBinding;
 import com.example.administrator.jipinshop.util.ShareUtils;
 import com.example.administrator.jipinshop.util.WeakRefHandler;
@@ -61,7 +54,6 @@ import com.example.administrator.jipinshop.view.goodview.GoodView;
 import com.umeng.socialize.UMShareAPI;
 import com.umeng.socialize.bean.SHARE_MEDIA;
 
-import java.io.File;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -107,13 +99,17 @@ public class ShoppingDetailActivity extends BaseActivity implements ShoppingComm
     private Boolean stopThread = true;
 
 
-    //品质保证、售后服务
+    //品质保证
     private ShoppingQualityAdapter mQualityAdapter;
     private List<String> mQualityList;
 
+    //售后服务
+    private ShoppingQualityAdapter mSreverAdapter;
+    private List<String> mSreverList;
+
     //产品参数
     private ShoppingmParameterAdapter mParameterAdapter;
-    private List<String> mParameterList;
+    private List<ShoppingDetailBean.GoodsRankdetailEntityBean.ParametersListBean> mParameterList;
 
     //用户评论
     private ShoppingCommonAdapter mCommonAdapter;
@@ -130,6 +126,16 @@ public class ShoppingDetailActivity extends BaseActivity implements ShoppingComm
     //加载框
     private Dialog mDialogProgress;
 
+    //商品id
+    private String goodsId = "";
+    private String goodsName = "";
+    private String priceNow = "";
+    private String priceOld = "";
+    private String price = "";
+    private String sourceStatus = "";
+
+    private String goodsUrl = "";
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -141,6 +147,14 @@ public class ShoppingDetailActivity extends BaseActivity implements ShoppingComm
     }
 
     private void initView() {
+
+        goodsId = getIntent().getStringExtra("goodsId");//商品id
+        goodsName = getIntent().getStringExtra("goodsName");
+        priceNow = getIntent().getStringExtra("priceNow");
+        priceOld = getIntent().getStringExtra("priceOld");
+        price = getIntent().getStringExtra("price");
+        sourceStatus = getIntent().getStringExtra("state");//来源状态
+
         mDialogProgress = (new ProgressDialogView()).createLoadingDialog(ShoppingDetailActivity.this, "正在加载...");
         mDialogProgress.show();
 
@@ -160,7 +174,9 @@ public class ShoppingDetailActivity extends BaseActivity implements ShoppingComm
         mBinding.detailQuality.setSelector(new ColorDrawable(Color.TRANSPARENT));
 
         //售后服务
-        mBinding.detailService.setAdapter(mQualityAdapter);
+        mSreverList = new ArrayList<>();
+        mSreverAdapter = new ShoppingQualityAdapter(mSreverList,this);
+        mBinding.detailService.setAdapter(mSreverAdapter);
         mBinding.detailService.setSelector(new ColorDrawable(Color.TRANSPARENT));
 
         //产品参数
@@ -170,35 +186,32 @@ public class ShoppingDetailActivity extends BaseActivity implements ShoppingComm
         mBinding.detailParameter.setSelector(new ColorDrawable(Color.TRANSPARENT));
 
         //开箱评测
-//        mPresenter.initWebView(mBinding.detailEvaluation);
-//        mBinding.detailEvaluation.addJavascriptInterface(new WebViewJavaScriptFunction(), "android");
-//        mBinding.detailEvaluation.setWebViewClient(new WebViewClient() {
-//            @Override
-//            public boolean shouldOverrideUrlLoading(WebView view, String url) {
-//                view.loadUrl(url);
-//                return true;
-//            }
-//
-//            @Override
-//            public void onPageFinished(WebView view, String url) {
-//                super.onPageFinished(view, url);
-//                mBinding.detailEvaluation.loadUrl("javascript:window.android.getBodyHeight(document.body.scrollHeight)");
-//            }
-//        });
-//        //判断页面加载过程
-//        mBinding.detailEvaluation.setWebChromeClient(new WebChromeClient() {
-//            @Override
-//            public void onProgressChanged(WebView view, int newProgress) {
-//                if (newProgress == 100) {// 网页加载完成
-//                    if (mDialogProgress != null && mDialogProgress.isShowing()) {
-//                        mDialogProgress.dismiss();
-//                    }
-//                }
-//            }
-//        });
+        mPresenter.initWebView(mBinding.detailEvaluation);
+        mBinding.detailEvaluation.addJavascriptInterface(new WebViewJavaScriptFunction(), "android");
+        mBinding.detailEvaluation.setWebViewClient(new WebViewClient() {
+            @Override
+            public boolean shouldOverrideUrlLoading(WebView view, String url) {
+                view.loadUrl(url);
+                return true;
+            }
 
-        mBinding.detailEvaluationImageview.setMinimumScaleType(SubsamplingScaleImageView.SCALE_TYPE_CUSTOM);
-        mBinding.detailEvaluationImageview.setZoomEnabled(false);
+            @Override
+            public void onPageFinished(WebView view, String url) {
+                super.onPageFinished(view, url);
+                mBinding.detailEvaluation.loadUrl("javascript:window.android.getBodyHeight(document.body.scrollHeight)");
+            }
+        });
+        //判断页面加载过程
+        mBinding.detailEvaluation.setWebChromeClient(new WebChromeClient() {
+            @Override
+            public void onProgressChanged(WebView view, int newProgress) {
+                if (newProgress == 100) {// 网页加载完成
+                    if (mDialogProgress != null && mDialogProgress.isShowing()) {
+                        mDialogProgress.dismiss();
+                    }
+                }
+            }
+        });
 
         //用户评论
         LinearLayoutManager layoutManager1 = new LinearLayoutManager(this) {
@@ -222,8 +235,6 @@ public class ShoppingDetailActivity extends BaseActivity implements ShoppingComm
         mBinding.srcollView.setOnScrollChangeListener(new View.OnScrollChangeListener() {
             @Override
             public void onScrollChange(View view, int i, int i1, int i2, int i3) {
-//                Log.d("ShoppingDetailActivity", "view.getScrollY():" + view.getScrollY());
-//                Log.d("ShoppingDetailActivity", "mBinding.detailHeadLine.getTop():" + mBinding.detailHeadLine.getTop());
                 if(view.getScrollY() >= mBinding.detailEvaluationLine.getTop()){
                     mPresenter.initTitleLayout(ShoppingDetailActivity.this, mBinding.commonTv,  mBinding.commonView, mBinding.shopTv, mBinding.shopView, mBinding.evaluationTv, mBinding.evaluationView);
                 }else if(view.getScrollY() >= mBinding.detailHeadLine.getTop()){
@@ -234,7 +245,7 @@ public class ShoppingDetailActivity extends BaseActivity implements ShoppingComm
             }
         });
         //网络请求数据
-        mPresenter.getDate(this.<RecommendFragmentBean>bindToLifecycle());
+        mPresenter.getDate(goodsId,this.<ShoppingDetailBean>bindToLifecycle());
     }
 
 
@@ -307,44 +318,74 @@ public class ShoppingDetailActivity extends BaseActivity implements ShoppingComm
      * @param recommendFragmentBean
      */
     @Override
-    public void onSuccess(RecommendFragmentBean recommendFragmentBean) {
-        if(recommendFragmentBean.getCode() == 200){
+    public void onSuccess(ShoppingDetailBean shoppingDetailBean) {
+        if(shoppingDetailBean.getCode() == 200){
+            goodsUrl = shoppingDetailBean.getGoodsRankdetailEntity().getGoodsBuyLink();
+            //初始值
+            if(!TextUtils.isEmpty(goodsName)){
+                mBinding.detailName.setText(goodsName);
+            }
+            if(!TextUtils.isEmpty(priceNow)){
+                mBinding.detailNewPrice.setText("券后价：¥" + priceNow);
+            }
+            if(!TextUtils.isEmpty(priceOld)){
+                mBinding.detailOldPrice.setText("¥" + priceOld);
+            }
+            if(!TextUtils.isEmpty(sourceStatus)){
+                if(sourceStatus.equals("1")){
+                    mBinding.detailOldPriceName.setText("京东：");
+                }else  if(sourceStatus.equals("2")){
+                    mBinding.detailOldPriceName.setText("淘宝：");
+                }else  if(sourceStatus.equals("3")){
+                    mBinding.detailOldPriceName.setText("天猫：");
+                }
+            }
+            if(!TextUtils.isEmpty(price)){
+                mBinding.detaileCouponTitle.setText(price + "元独家优惠券");
+            }
             //轮播图设置值
+            for (int i = 0; i < shoppingDetailBean.getGoodsRankdetailEntity().getImgList().size(); i++) {
+                mBannerList.add(shoppingDetailBean.getGoodsRankdetailEntity().getImgList().get(i).getImgPath());
+            }
             mPresenter.initBanner(mBannerList, this, point, mBinding.detailPoint, mBannerAdapter);
             new Thread(new MyRunble()).start();
 
             //开箱评测头像
-            ImageManager.displayCircleImage(MyApplication.imag,mBinding.detailEvaluationImage,0,0);
-            mBinding.detailEvaluation.loadUrl("http://192.168.5.136:8080/ueditor/161628719039.html");
-            String testUrl ="http://wimg.spriteapp.cn/ugc/2018/09/22/5ba60aff63dfd_1.jpg";
-            //下载图片保存到本地
-            Glide.with(this)
-                    .load(testUrl).downloadOnly(new SimpleTarget<File>() {
-                @Override
-                public void onResourceReady(File resource, GlideAnimation<? super File> glideAnimation) {
-                    // 将保存的图片地址给SubsamplingScaleImageView,这里注意设置ImageViewState设置初始显示比例
-                    mBinding.detailEvaluationImageview.setImage(ImageSource.uri(Uri.fromFile(resource)));
-                    if (mDialogProgress != null && mDialogProgress.isShowing()) {
-                        mDialogProgress.dismiss();
-                    }
-                }
-            });
+            if(shoppingDetailBean.getGoodsRankdetailEntity().getGoodsEvalWayEntity() != null){
+                ImageManager.displayCircleImage(MyApplication.imag,mBinding.detailEvaluationImage,
+                        0,0);
+                mBinding.detailEvaluation.loadDataWithBaseURL(null,
+                        shoppingDetailBean.getGoodsRankdetailEntity().getGoodsEvalWayEntity().getContent(),
+                        "text/html", "utf-8", null);
+            }else {
+                mBinding.detailEvaluationLine.setVisibility(View.GONE);
+                mBinding.detailEvaluationTitle.setVisibility(View.GONE);
+                mBinding.detailEvaluationHead.setVisibility(View.GONE);
+                mBinding.detailEvaluation.setVisibility(View.GONE);
+            }
 
-            //显示评论
             for (int i = 0; i < 1 + getIntent().getIntExtra("pos",0); i++) {
                 mCommonList.add("");
             }
             mCommonAdapter.notifyDataSetChanged();
 
-            for (int i = 0; i < 1 + getIntent().getIntExtra("pos",0); i++) {
-                mParameterList.add("");
-            }
+            mParameterList.addAll(shoppingDetailBean.getGoodsRankdetailEntity().getParametersList());
             mParameterAdapter.notifyDataSetChanged();
 
-            for (int i = 0; i < 1 + getIntent().getIntExtra("pos",0); i++) {
-                mQualityList.add("");
+            for (ShoppingDetailBean.GoodsRankdetailEntityBean.QualityListBean qualityListBean : shoppingDetailBean.getGoodsRankdetailEntity().getQualityList()) {
+                mQualityList.add(qualityListBean.getName());
             }
             mQualityAdapter.notifyDataSetChanged();
+
+            for (ShoppingDetailBean.GoodsRankdetailEntityBean.ServiceListBean serviceListBean : shoppingDetailBean.getGoodsRankdetailEntity().getServiceList()) {
+                mSreverList.add(serviceListBean.getName());
+            }
+            mSreverAdapter.notifyDataSetChanged();
+        }else {
+            if (mDialogProgress.isShowing()) {
+                mDialogProgress.dismiss();
+            }
+            Toast.makeText(this, shoppingDetailBean.getMsg(), Toast.LENGTH_SHORT).show();
         }
     }
 
@@ -357,6 +398,7 @@ public class ShoppingDetailActivity extends BaseActivity implements ShoppingComm
         if (mDialogProgress.isShowing()) {
             mDialogProgress.dismiss();
         }
+        Toast.makeText(this, error, Toast.LENGTH_SHORT).show();
     }
 
     /**
@@ -417,7 +459,7 @@ public class ShoppingDetailActivity extends BaseActivity implements ShoppingComm
                 if(mDialog != null && !mDialog.isShowing()){
                     mDialog.show();
                 }
-                openAliHomeWeb();
+                openAliHomeWeb(goodsUrl,sourceStatus);
                 break;
             case R.id.key_text:
                 //发送按钮
@@ -503,15 +545,12 @@ public class ShoppingDetailActivity extends BaseActivity implements ShoppingComm
     /****
      * 跳转淘宝首页
      */
-    public void openAliHomeWeb() {
-        String url = "https://item.taobao.com/item.htm?id=577514743347&ali_refid=a3_430673_1006:1122566292:N:%E8%BF%9E%E8%A1%A3%E8%A3%99:3414b5a7e38760d60ae26d74b9235683&ali_trackid=1_3414b5a7e38760d60ae26d74b9235683&spm=a2e15.8261149.07626516002.2";
-        Boolean tb = true;
-
+    public void openAliHomeWeb(String url, String tb ) {
         AlibcShowParams alibcShowParams  = new AlibcShowParams(OpenType.Native, false);
-        if(tb){
+        if(tb.equals("2")){
             //淘宝协议
             alibcShowParams.setClientType("taobao_scheme");
-        }else {
+        }else if(tb.equals("3")){
             //天猫协议
             alibcShowParams.setClientType("tmall_scheme");
         }

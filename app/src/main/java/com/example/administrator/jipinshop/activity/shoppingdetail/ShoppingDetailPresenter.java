@@ -4,21 +4,17 @@ import android.content.Context;
 import android.graphics.Rect;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.ViewTreeObserver;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import com.blankj.utilcode.util.SPUtils;
 import com.example.administrator.jipinshop.R;
 import com.example.administrator.jipinshop.adapter.ShoppingBannerAdapter;
-import com.example.administrator.jipinshop.bean.RecommendFragmentBean;
+import com.example.administrator.jipinshop.bean.ShoppingDetailBean;
 import com.example.administrator.jipinshop.netwrok.Repository;
-import com.example.administrator.jipinshop.util.sp.CommonDate;
 import com.example.administrator.jipinshop.view.FullScreenLinearLayout;
-import com.google.gson.Gson;
 import com.trello.rxlifecycle2.LifecycleTransformer;
 
 import java.util.List;
@@ -35,7 +31,7 @@ import io.reactivex.schedulers.Schedulers;
  */
 public class ShoppingDetailPresenter {
 
-    Repository mRepository;
+    private Repository mRepository;
     private ShoppingDetailView mShoppingDetailView;
 
     public void setShoppingDetailView(ShoppingDetailView shoppingDetailView) {
@@ -49,9 +45,6 @@ public class ShoppingDetailPresenter {
 
 
     public void initBanner(List<String> mBannerList , Context context , List<ImageView> point,LinearLayout mDetailPoint, ShoppingBannerAdapter mBannerAdapter){
-        for (int i = 0; i < 5; i++) {
-            mBannerList.add("http://pic.90sjimg.com/back_pic/qk/back_origin_pic/00/03/14/c0391a6c1efab3fe00911b04e8cedca4.jpg");
-        }
         for (int i = 0; i < mBannerList.size(); i++) {
             ImageView imageView = new ImageView(context);
 
@@ -85,11 +78,7 @@ public class ShoppingDetailPresenter {
 
     public void setKeyListener(final FullScreenLinearLayout mDetailContanier , final int[] usableHeightPrevious){
         mDetailContanier.getViewTreeObserver()
-                .addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
-                    public void onGlobalLayout() {
-                        possiblyResizeChildOfContent(mDetailContanier,usableHeightPrevious);
-                    }
-                });
+                .addOnGlobalLayoutListener(() -> possiblyResizeChildOfContent(mDetailContanier,usableHeightPrevious));
     }
 
     /****************监听软键盘的情况**********************/
@@ -125,13 +114,13 @@ public class ShoppingDetailPresenter {
         mWebView.getSettings().setDomStorageEnabled(true);// 开启 DOM storage API 功能
     }
 
-    public void getDate(LifecycleTransformer<RecommendFragmentBean> transformer){
-        mRepository.ranklist()
+    public void getDate(String goodsId , LifecycleTransformer<ShoppingDetailBean> transformer){
+        mRepository.goodsRankDetailList(goodsId)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .compose(transformer)
-                .subscribe(recommendFragmentBean -> {
-                    mShoppingDetailView.onSuccess(recommendFragmentBean);
+                .subscribe(shoppingDetailBean -> {
+                    mShoppingDetailView.onSuccess(shoppingDetailBean);
                 }, throwable -> mShoppingDetailView.onFile(throwable.getMessage()));
     }
 

@@ -112,6 +112,8 @@ public class ElectricityFragmentRecyclerAdapter extends RecyclerView.Adapter<Ele
             viewHolder.getBinding().itemTag2.setVisibility(View.GONE);
         }
 
+        viewHolder.getBinding().itemPriceOld.setTv(true);
+        viewHolder.getBinding().itemPriceOld.setColor(R.color.color_ACACAC);
 
         // 立刻刷新界面
         viewHolder.getBinding().executePendingBindings();

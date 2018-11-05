@@ -61,6 +61,7 @@ public class ShoppingQualityAdapter extends BaseAdapter{
             holder.item_line1.setVisibility(View.GONE);
         }
 
+        holder.item_name.setText(mList.get(i));
 
         return view;
     }

@@ -12,6 +12,7 @@ import com.example.administrator.jipinshop.bean.LoginBean;
 import com.example.administrator.jipinshop.bean.LuckImageBean;
 import com.example.administrator.jipinshop.bean.RecommendFragmentBean;
 import com.example.administrator.jipinshop.bean.RecordBean;
+import com.example.administrator.jipinshop.bean.ShoppingDetailBean;
 import com.example.administrator.jipinshop.bean.SignBean;
 import com.example.administrator.jipinshop.bean.SignInsertBean;
 import com.example.administrator.jipinshop.bean.SreachResultBean;
@@ -211,4 +212,11 @@ public interface APIService {
      */
     @GET("qualityshop-api/api/searchGoods")
     Observable<SreachResultBean> searchGoods(@Query("goodsName") String goodsName);
+
+    /**
+     * 商品详情
+     */
+    @GET("qualityshop-api/api/goodsRankDetailList")
+    Observable<ShoppingDetailBean> goodsRankDetailList(@Query("goodsId") String goodsId);
+
 }

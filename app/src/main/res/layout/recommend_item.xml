@@ -156,7 +156,7 @@
                 android:textColor="@color/color_ACACAC"
                 android:textSize="12sp"/>
 
-            <TextView
+            <com.example.administrator.jipinshop.view.TextViewDel
                 android:id="@+id/item_price_old"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
