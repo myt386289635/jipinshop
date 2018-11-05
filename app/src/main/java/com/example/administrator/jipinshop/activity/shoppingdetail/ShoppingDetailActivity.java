@@ -320,6 +320,7 @@ public class ShoppingDetailActivity extends BaseActivity implements ShoppingComm
     @Override
     public void onSuccess(ShoppingDetailBean shoppingDetailBean) {
         if(shoppingDetailBean.getCode() == 200){
+            mBinding.inClude.qsNet.setVisibility(View.GONE);
             goodsUrl = shoppingDetailBean.getGoodsRankdetailEntity().getGoodsBuyLink();
             //初始值
             if(!TextUtils.isEmpty(goodsName)){
@@ -386,6 +387,7 @@ public class ShoppingDetailActivity extends BaseActivity implements ShoppingComm
                 mDialogProgress.dismiss();
             }
             Toast.makeText(this, shoppingDetailBean.getMsg(), Toast.LENGTH_SHORT).show();
+            initError(R.mipmap.qs_404, "页面出错", "程序猿正在赶来的路上");
         }
     }
 
@@ -398,6 +400,7 @@ public class ShoppingDetailActivity extends BaseActivity implements ShoppingComm
         if (mDialogProgress.isShowing()) {
             mDialogProgress.dismiss();
         }
+        initError(R.mipmap.qs_net, "网络出错", "哇哦，网络出错了，换个姿势点击试试");
         Toast.makeText(this, error, Toast.LENGTH_SHORT).show();
     }
 
@@ -476,6 +479,13 @@ public class ShoppingDetailActivity extends BaseActivity implements ShoppingComm
                 break;
             case R.id.content_attention:
                 //关注
+                break;
+            case R.id.in_clude:
+                if(mBinding.inClude.errorTitle.getText().toString().equals("网络出错")){
+                    mDialogProgress = (new ProgressDialogView()).createLoadingDialog(ShoppingDetailActivity.this, "正在加载...");
+                    mDialogProgress.show();
+                    mPresenter.getDate(goodsId,this.<ShoppingDetailBean>bindToLifecycle());
+                }
                 break;
         }
     }
@@ -611,5 +621,12 @@ public class ShoppingDetailActivity extends BaseActivity implements ShoppingComm
             mHandler.sendMessage(msg);
 
         }
+    }
+
+    public void initError(int id, String title, String content) {
+        mBinding.inClude.qsNet.setVisibility(View.VISIBLE);
+        mBinding.inClude.errorImage.setBackgroundResource(id);
+        mBinding.inClude.errorTitle.setText(title);
+        mBinding.inClude.errorContent.setText(content);
     }
 }
