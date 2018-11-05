@@ -508,7 +508,7 @@ public class ShoppingDetailActivity extends BaseActivity implements ShoppingComm
         public void run() {
             while (stopThread) {
                 try {
-                    Thread.sleep(3000);
+                    Thread.sleep(5000);
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }
