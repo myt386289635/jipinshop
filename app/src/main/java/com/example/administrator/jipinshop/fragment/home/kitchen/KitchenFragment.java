@@ -129,7 +129,14 @@ public class KitchenFragment extends DBBaseFragment implements KitchenFragmentGr
      */
     @Override
     public void onItemclick(int pos) {
-        startActivity(new Intent(getContext(), ShoppingDetailActivity.class));
+        startActivity(new Intent(getContext(), ShoppingDetailActivity.class)
+                .putExtra("goodsId",recyclerList.get(pos).getGoodsId())
+                .putExtra("goodsName",recyclerList.get(pos).getGoodsName())
+                .putExtra("priceNow",recyclerList.get(pos).getActualPrice())
+                .putExtra("priceOld",recyclerList.get(pos).getOtherPrice())
+                .putExtra("price",recyclerList.get(pos).getCutPrice())
+                .putExtra("state",recyclerList.get(pos).getSourceStatus() + "")
+        );
     }
 
     @Override

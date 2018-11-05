@@ -136,7 +136,14 @@ public class SreachResultActivity extends BaseActivity implements SreachResultAd
      */
     @Override
     public void onItem(int pos) {
-        startActivity(new Intent(this, ShoppingDetailActivity.class));
+        startActivity(new Intent(this, ShoppingDetailActivity.class)
+                .putExtra("goodsId",mList.get(pos).getGoodsId())
+                .putExtra("goodsName",mList.get(pos).getGoodsName())
+                .putExtra("priceNow",mList.get(pos).getActualPrice())
+                .putExtra("priceOld",mList.get(pos).getOtherPrice())
+                .putExtra("price",mList.get(pos).getCutPrice())
+                .putExtra("state",mList.get(pos).getSourceStatus() + "")
+        );
     }
 
     /**
