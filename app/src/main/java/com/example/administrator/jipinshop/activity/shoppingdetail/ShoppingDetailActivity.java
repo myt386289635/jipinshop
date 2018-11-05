@@ -567,13 +567,13 @@ public class ShoppingDetailActivity extends BaseActivity implements ShoppingComm
      */
     public void openAliHomeWeb(String url, String tb ) {
         AlibcShowParams alibcShowParams  = new AlibcShowParams(OpenType.Native, false);
-        if(tb.equals("2")){
+//        if(tb.equals("2")){
             //淘宝协议
             alibcShowParams.setClientType("taobao_scheme");
-        }else if(tb.equals("3")){
-            //天猫协议
-            alibcShowParams.setClientType("tmall_scheme");
-        }
+//        }else if(tb.equals("3")){
+//            //天猫协议
+//            alibcShowParams.setClientType("tmall_scheme");
+//        }
 
         //yhhpass参数
         Map<String, String> exParams = new HashMap<>();
