@@ -98,7 +98,7 @@ public interface APIService {
     /**
      * 获取收藏列表
      */
-    @GET("qualityshop-api/api/collect")
+    @GET("qualityshop-api/api/collectAll")
     Observable<FovalBean> collect(@Query("page") String page ,@Query("userId") String userId);
 
     /**

@@ -8,7 +8,6 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.example.administrator.jipinshop.MyApplication;
 import com.example.administrator.jipinshop.R;
 import com.example.administrator.jipinshop.bean.FovalBean;
 import com.example.administrator.jipinshop.view.TextViewDel;
@@ -41,21 +40,50 @@ public class FovalAdapter extends RecyclerView.Adapter<FovalAdapter.ViewHolder>{
 
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
-        holder.item_tags.removeAllViews();
-        for (int i = 0; i < 4; i++) {
-            View itemTypeView = LayoutInflater.from(mContext).inflate(R.layout.item_tag, null);
-            TextView textView = itemTypeView.findViewById(R.id.histroy_item);
-            textView.setText(mList.get(position).getProduct_tabs().get(i));
-            holder.item_tags.addView(itemTypeView);
+        if (mList.get(position).getState().equals("1")) {
+            //商品
+            holder.item_tags.setVisibility(View.VISIBLE);
+            holder.item_price.setVisibility(View.VISIBLE);
+            holder.item_priceOld.setVisibility(View.VISIBLE);
+            holder.item_resouce.setVisibility(View.VISIBLE);
+
+            int count = (mList.get(position).getGoodsRanklist().getGoodstypeList().size() >= 4 ? 4 : mList.get(position).getGoodsRanklist().getGoodstypeList().size());
+            if(count != 0){
+                holder.item_tags.removeAllViews();
+                for (int i = 0; i < count; i++) {
+                    View itemTypeView = LayoutInflater.from(mContext).inflate(R.layout.item_tag, null);
+                    TextView textView = itemTypeView.findViewById(R.id.histroy_item);
+                    textView.setText(mList.get(position).getGoodsRanklist().getGoodstypeList().get(i).getName());
+                    holder.item_tags.addView(itemTypeView);
+                }
+            }else {
+                holder.item_tags.setVisibility(View.GONE);
+            }
+            holder.item_priceOld.setColor(R.color.color_ACACAC);
+            holder.item_priceOld.setTv(true);
+            ImageManager.displayRoundImage(mList.get(position).getGoodsRanklist().getRankGoodImg(),holder.item_image,0,0,10);
+            holder.item_name.setText(mList.get(position).getGoodsRanklist().getGoodsName());
+            if(mList.get(position).getGoodsRanklist().getSourceStatus() == 1){
+                holder.item_resouce.setText("京东：");
+            }else  if(mList.get(position).getGoodsRanklist().getSourceStatus() == 2){
+                holder.item_resouce.setText("淘宝：");
+            }else  if(mList.get(position).getGoodsRanklist().getSourceStatus() == 3){
+                holder.item_resouce.setText("天猫：");
+            }
+            holder.item_priceOld.setText("¥" + mList.get(position).getGoodsRanklist().getOtherPrice());
+            holder.item_price.setText("¥" +mList.get(position).getGoodsRanklist().getActualPrice());
+            holder.item_lookNum.setText(mList.get(position).getGoodsRanklist().getVisitCount());
+        }else {
+            //文章
+            holder.item_tags.setVisibility(View.GONE);
+            holder.item_price.setVisibility(View.GONE);
+            holder.item_priceOld.setVisibility(View.GONE);
+            holder.item_resouce.setVisibility(View.GONE);
+
+            holder.item_name.setText(mList.get(position).getGoodsEvalway().getEvalWayName());
+            holder.item_lookNum.setText(mList.get(position).getGoodsEvalway().getVisitCount());
+            ImageManager.displayRoundImage(mList.get(position).getGoodsEvalway().getImgId(),holder.item_image,0,0,10);
         }
-        holder.item_priceOld.setColor(R.color.color_ACACAC);
-        holder.item_priceOld.setTv(true);
-        ImageManager.displayRoundImage(MyApplication.imag,holder.item_image,0,0,10);
-        holder.item_name.setText(mList.get(position).getCollect_name());
-        holder.item_resouce.setText(mList.get(position).getProduct_resouce() + ":");
-        holder.item_priceOld.setText("¥" + mList.get(position).getProduct_price());
-        holder.item_price.setText("¥" +mList.get(position).getCollect_price());
-        holder.item_lookNum.setText(mList.get(position).getCollect_nubmer());
     }
 
     @Override

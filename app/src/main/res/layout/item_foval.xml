@@ -28,7 +28,7 @@
         android:layout_toRightOf="@id/item_image"
         android:ellipsize="end"
         android:singleLine="true"
-        android:text="便携式果蔬榨汁料理机便携式果蔬榨汁料理机"
+        tools:text="便携式果蔬榨汁料理机便携式果蔬榨汁料理机"
         android:textColor="@color/color_202020"
         android:textSize="16sp"
         android:textStyle="bold"/>
@@ -56,19 +56,19 @@
             android:id="@+id/item_price"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="¥899.00"
+            android:text="¥0.00"
             android:textColor="@color/color_E31436"/>
 
         <TextView
-            android:textColor="@color/color_ACACAC"
             android:id="@+id/item_price_oldText"
-            android:layout_marginLeft="@dimen/x6"
-            android:layout_centerVertical="true"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
             android:layout_marginBottom="@dimen/x14"
+            android:layout_marginLeft="@dimen/x6"
             android:layout_toRightOf="@id/item_price"
-            android:text="天猫:"
+            tools:text="天猫:"
+            android:textColor="@color/color_ACACAC"
             android:textSize="12sp"/>
 
 
@@ -81,7 +81,7 @@
             android:layout_height="wrap_content"
             android:layout_marginBottom="@dimen/x14"
             android:layout_toRightOf="@id/item_price_oldText"
-            android:text="¥1699.00"
+            android:text="¥0.00"
             android:textSize="12sp"/>
 
         <TextView
@@ -94,7 +94,7 @@
             android:id="@+id/item_lookNum"
             android:textSize="13sp"
             android:textColor="@color/color_ACACAC"
-            android:text="936"
+            android:text="0"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"/>
 
