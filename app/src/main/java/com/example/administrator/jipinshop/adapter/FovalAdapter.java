@@ -73,8 +73,18 @@ public class FovalAdapter extends RecyclerView.Adapter<FovalAdapter.ViewHolder>{
             holder.item_priceOld.setText("¥" + mList.get(position).getGoodsRanklist().getOtherPrice());
             holder.item_price.setText("¥" +mList.get(position).getGoodsRanklist().getActualPrice());
             holder.item_lookNum.setText(mList.get(position).getGoodsRanklist().getVisitCount());
+        }else if (mList.get(position).getState().equals("2")) {
+            //评测
+            holder.item_tags.setVisibility(View.GONE);
+            holder.item_price.setVisibility(View.GONE);
+            holder.item_priceOld.setVisibility(View.GONE);
+            holder.item_resouce.setVisibility(View.GONE);
+
+            holder.item_name.setText(mList.get(position).getGoodsEvalway().getEvalWayName());
+            holder.item_lookNum.setText(mList.get(position).getGoodsEvalway().getVisitCount());
+            ImageManager.displayRoundImage(mList.get(position).getGoodsEvalway().getImgId(),holder.item_image,0,0,10);
         }else {
-            //文章
+            //发现
             holder.item_tags.setVisibility(View.GONE);
             holder.item_price.setVisibility(View.GONE);
             holder.item_priceOld.setVisibility(View.GONE);

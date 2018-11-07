@@ -41,19 +41,21 @@
                 android:onClick="@{listener.onClick}"
                 android:id="@+id/detail_favor"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_height="match_parent"
                 android:layout_alignParentRight="true"
                 android:layout_centerVertical="true"
-                android:layout_marginRight="@dimen/x28"
-                android:background="@mipmap/nav_favor"/>
+                android:paddingLeft="@dimen/x14"
+                android:paddingRight="@dimen/x28"
+                android:src="@mipmap/nav_favor"/>
 
 
             <LinearLayout
+                android:id="@+id/detail_titleContainer"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_centerInParent="true"
                 android:layout_marginLeft="@dimen/x140"
-                android:layout_marginRight="@dimen/x160"
+                android:layout_marginRight="@dimen/x146"
                 android:layout_toLeftOf="@id/detail_favor"
                 android:layout_toRightOf="@id/detail_back"
                 android:orientation="horizontal">

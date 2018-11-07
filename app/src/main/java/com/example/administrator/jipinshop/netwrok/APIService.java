@@ -38,6 +38,7 @@ import retrofit2.http.Multipart;
 import retrofit2.http.POST;
 import retrofit2.http.Part;
 import retrofit2.http.Query;
+import retrofit2.http.QueryMap;
 
 public interface APIService {
 
@@ -219,4 +220,22 @@ public interface APIService {
     @GET("qualityshop-api/api/goodsRankDetailList")
     Observable<ShoppingDetailBean> goodsRankDetailList(@Query("goodsId") String goodsId);
 
+    /**
+     * 判断用户是否收藏此文章或者商品
+     */
+    @GET("qualityshop-api/api/collect")
+    Observable<SuccessBean> isCollect(@QueryMap Map<String,String> param);
+
+    /**
+     * 添加收藏
+     */
+    @FormUrlEncoded
+    @POST("qualityshop-api/api/collectInsert")
+    Observable<SuccessBean> collectInsert(@FieldMap Map<String,String> param);
+
+    /**
+     * 删除收藏
+     */
+    @GET("qualityshop-api/api/collectDelete")
+    Observable<SuccessBean> collectDelete(@QueryMap Map<String,String> param);
 }

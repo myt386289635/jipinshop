@@ -8,20 +8,27 @@ import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.blankj.utilcode.util.SPUtils;
 import com.example.administrator.jipinshop.R;
 import com.example.administrator.jipinshop.adapter.ShoppingBannerAdapter;
 import com.example.administrator.jipinshop.bean.ShoppingDetailBean;
+import com.example.administrator.jipinshop.bean.SuccessBean;
 import com.example.administrator.jipinshop.netwrok.Repository;
+import com.example.administrator.jipinshop.util.sp.CommonDate;
 import com.example.administrator.jipinshop.view.FullScreenLinearLayout;
 import com.trello.rxlifecycle2.LifecycleTransformer;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.inject.Inject;
 
 import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.functions.Consumer;
 import io.reactivex.schedulers.Schedulers;
 
 /**
@@ -122,6 +129,109 @@ public class ShoppingDetailPresenter {
                 .subscribe(shoppingDetailBean -> {
                     mShoppingDetailView.onSuccess(shoppingDetailBean);
                 }, throwable -> mShoppingDetailView.onFile(throwable.getMessage()));
+    }
+
+
+    /**
+     * 查询文章是否被收藏过
+     */
+    public void isCollect(String goodsId , LifecycleTransformer<SuccessBean> transformer){
+        Map<String,String> hashMap = new HashMap<>();
+        hashMap.put("userId", SPUtils.getInstance(CommonDate.USER).getString(CommonDate.userId));
+        hashMap.put("projectId",goodsId);
+        mRepository.isCollect(hashMap)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .compose(transformer)
+                .subscribe(successBean -> {
+                    if(mShoppingDetailView != null){
+                        mShoppingDetailView.onSucIsCollect(successBean);
+                    }
+                }, throwable -> {
+                    if(mShoppingDetailView != null){
+                        mShoppingDetailView.onFileIsCollect(throwable.toString());
+                    }
+                });
+    }
+
+    /**
+     * 添加收藏
+     */
+    public void collectInsert(String goodsId , LifecycleTransformer<SuccessBean> transformer){
+        Map<String,String> hashMap = new HashMap<>();
+        hashMap.put("user_id", SPUtils.getInstance(CommonDate.USER).getString(CommonDate.userId));
+        hashMap.put("project_id",goodsId);
+        mRepository.collectInsert(hashMap)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .compose(transformer)
+                .subscribe(successBean -> {
+                    if(successBean.getCode() == 200) {
+                        if (mShoppingDetailView != null) {
+                            mShoppingDetailView.onSucCollectInsert(successBean);
+                        }
+                    }else {
+                        if(mShoppingDetailView != null){
+                            mShoppingDetailView.onFileCollectInsert(successBean.getMsg());
+                        }
+                    }
+                }, throwable -> {
+                    if(mShoppingDetailView != null){
+                        mShoppingDetailView.onFileCollectInsert(throwable.getMessage());
+                    }
+                });
+    }
+
+    /**
+     * 删除收藏
+     */
+    public void collectDelete(String goodsId , LifecycleTransformer<SuccessBean> transformer){
+        Map<String,String> hashMap = new HashMap<>();
+        hashMap.put("userId", SPUtils.getInstance(CommonDate.USER).getString(CommonDate.userId));
+        hashMap.put("projectId",goodsId);
+        mRepository.collectDelete(hashMap)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .compose(transformer)
+                .subscribe(successBean -> {
+                    if(successBean.getCode() == 200) {
+                        if (mShoppingDetailView != null) {
+                            mShoppingDetailView.onSucCollectDelete(successBean);
+                        }
+                    }else {
+                        if(mShoppingDetailView != null){
+                            mShoppingDetailView.onFileCollectDelete(successBean.getMsg());
+                        }
+                    }
+                }, throwable -> {
+                    if(mShoppingDetailView != null){
+                        mShoppingDetailView.onFileCollectDelete(throwable.getMessage());
+                    }
+                });
+    }
+
+
+    /**
+     * 优化标题跟踪长度
+     */
+    public void initLine(LinearLayout layout , TextView textView , View shopView,View evaluationView,View commonView){
+        int a = (int) textView.getPaint().measureText(textView.getText().toString());
+        layout.post(() -> {
+            int content = layout.getWidth() / 3;
+            int dp10 = (content - a) / 2;
+            RelativeLayout.LayoutParams params = (RelativeLayout.LayoutParams) shopView.getLayoutParams();
+            params.leftMargin = dp10;
+            params.rightMargin = dp10;
+            shopView.setLayoutParams(params);
+            RelativeLayout.LayoutParams params1 = (RelativeLayout.LayoutParams) evaluationView.getLayoutParams();
+            params1.leftMargin = dp10;
+            params1.rightMargin = dp10;
+            evaluationView.setLayoutParams(params1);
+            RelativeLayout.LayoutParams params2 = (RelativeLayout.LayoutParams) commonView.getLayoutParams();
+            params2.leftMargin = dp10;
+            params2.rightMargin = dp10;
+            commonView.setLayoutParams(params2);
+        });
     }
 
 }

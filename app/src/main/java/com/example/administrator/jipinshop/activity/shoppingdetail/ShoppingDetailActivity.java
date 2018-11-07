@@ -44,7 +44,9 @@ import com.example.administrator.jipinshop.adapter.ShoppingQualityAdapter;
 import com.example.administrator.jipinshop.adapter.ShoppingmParameterAdapter;
 import com.example.administrator.jipinshop.base.BaseActivity;
 import com.example.administrator.jipinshop.bean.ShoppingDetailBean;
+import com.example.administrator.jipinshop.bean.SuccessBean;
 import com.example.administrator.jipinshop.databinding.ActivityShopingDetailBinding;
+import com.example.administrator.jipinshop.util.ClickUtil;
 import com.example.administrator.jipinshop.util.ShareUtils;
 import com.example.administrator.jipinshop.util.WeakRefHandler;
 import com.example.administrator.jipinshop.view.dialog.ProgressDialogView;
@@ -135,6 +137,11 @@ public class ShoppingDetailActivity extends BaseActivity implements ShoppingComm
     private String sourceStatus = "";
 
     private String goodsUrl = "";
+
+    /**
+     * 标志：是否收藏过此商品
+     */
+    private boolean isCollect = false;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -231,6 +238,8 @@ public class ShoppingDetailActivity extends BaseActivity implements ShoppingComm
         mGoodView = new GoodView(this);
         //监听软键盘的弹出与收回
         mPresenter.setKeyListener(mBinding.detailContanier, usableHeightPrevious);
+        mPresenter.initLine(mBinding.detailTitleContainer,mBinding.shopTv
+                ,mBinding.shopView,mBinding.evaluationView,mBinding.commonView);
 
         mBinding.srcollView.setOnScrollChangeListener(new View.OnScrollChangeListener() {
             @Override
@@ -246,6 +255,8 @@ public class ShoppingDetailActivity extends BaseActivity implements ShoppingComm
         });
         //网络请求数据
         mPresenter.getDate(goodsId,this.<ShoppingDetailBean>bindToLifecycle());
+        //判断是否收藏过本篇文章
+        mPresenter.isCollect(goodsId,this.bindToLifecycle());
     }
 
 
@@ -415,6 +426,78 @@ public class ShoppingDetailActivity extends BaseActivity implements ShoppingComm
     }
 
     /**
+     * 查询是否收藏 成功回调
+     */
+    @Override
+    public void onSucIsCollect(SuccessBean successBean) {
+        if(successBean.getCode() == 200){
+            isCollect = true;
+            mBinding.detailFavor.setImageResource(R.mipmap.score_sel);
+        }else {
+            isCollect = false;
+            mBinding.detailFavor.setImageResource(R.mipmap.nav_favor);
+        }
+    }
+
+    /**
+     * 查询是否收藏 失败回调
+     */
+    @Override
+    public void onFileIsCollect(String error) {
+        isCollect = false;
+        mBinding.detailFavor.setImageResource(R.mipmap.nav_favor);
+        Toast.makeText(this, "获取收藏信息失败", Toast.LENGTH_SHORT).show();
+    }
+
+    /**
+     * 添加收藏成功
+     * @param successBean
+     */
+    @Override
+    public void onSucCollectInsert(SuccessBean successBean) {
+        if (mDialogProgress != null && mDialogProgress.isShowing()) {
+            mDialogProgress.dismiss();
+        }
+        isCollect = true;
+        mBinding.detailFavor.setImageResource(R.mipmap.score_sel);
+    }
+
+    /**
+     * 添加收藏失败
+     * @param error
+     */
+    @Override
+    public void onFileCollectInsert(String error) {
+        if (mDialogProgress != null && mDialogProgress.isShowing()) {
+            mDialogProgress.dismiss();
+        }
+        Toast.makeText(this, error, Toast.LENGTH_SHORT).show();
+    }
+
+    /**
+     * 删除收藏成功
+     */
+    @Override
+    public void onSucCollectDelete(SuccessBean successBean) {
+        if (mDialogProgress != null && mDialogProgress.isShowing()) {
+            mDialogProgress.dismiss();
+        }
+        isCollect = false;
+        mBinding.detailFavor.setImageResource(R.mipmap.nav_favor);
+    }
+
+    /**
+     * 删除收藏失败
+     */
+    @Override
+    public void onFileCollectDelete(String error) {
+        if (mDialogProgress != null && mDialogProgress.isShowing()) {
+            mDialogProgress.dismiss();
+        }
+        Toast.makeText(this, error, Toast.LENGTH_SHORT).show();
+    }
+
+    /**
      * 分享
      *
      * @param share_media
@@ -433,6 +516,22 @@ public class ShoppingDetailActivity extends BaseActivity implements ShoppingComm
                 finish();
                 break;
             case R.id.detail_favor:
+                if (ClickUtil.isFastDoubleClick(1000)) {
+                    Toast.makeText(this, "您点击太快了，请休息会再点", Toast.LENGTH_SHORT).show();
+                    return;
+                }else{
+                    if(isCollect){
+                        //收藏过了
+                        mDialogProgress = (new ProgressDialogView()).createLoadingDialog(ShoppingDetailActivity.this, "正在加载...");
+                        mDialogProgress.show();
+                        mPresenter.collectDelete(goodsId,this.bindToLifecycle());
+                    }else {
+                        //没有收藏
+                        mDialogProgress = (new ProgressDialogView()).createLoadingDialog(ShoppingDetailActivity.this, "正在加载...");
+                        mDialogProgress.show();
+                        mPresenter.collectInsert(goodsId,this.bindToLifecycle());
+                    }
+                }
                 break;
             case R.id.head_shop:
                 //商品

@@ -96,7 +96,7 @@ public class RecommendFragment extends DBBaseFragment implements OnRefreshListen
      */
     @Override
     public void onItem(int pos) {
-        if (ClickUtil.isFastDoubleClick()) {
+        if (ClickUtil.isFastDoubleClick(800)) {
             return;
         }else{
             startActivity(new Intent(getContext(), ShoppingDetailActivity.class)

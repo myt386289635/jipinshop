@@ -33,7 +33,9 @@ import javax.inject.Inject;
 import io.reactivex.Observable;
 import okhttp3.MultipartBody;
 import retrofit2.http.GET;
+import retrofit2.http.POST;
 import retrofit2.http.Query;
+import retrofit2.http.QueryMap;
 
 public class Repository {
 
@@ -231,6 +233,27 @@ public class Repository {
      */
     public Observable<ShoppingDetailBean> goodsRankDetailList(String goodsId){
         return mAPIService.goodsRankDetailList(goodsId);
+    }
+
+    /**
+     * 判断用户是否收藏此文章或者商品
+     */
+    public Observable<SuccessBean> isCollect(Map<String,String> param){
+        return  mAPIService.isCollect(param);
+    }
+
+    /**
+     * 添加收藏
+     */
+    public Observable<SuccessBean> collectInsert(Map<String,String> param){
+        return mAPIService.collectInsert(param);
+    }
+
+    /**
+     * 删除收藏
+     */
+    public Observable<SuccessBean> collectDelete(Map<String,String> param){
+        return mAPIService.collectDelete(param);
     }
 
 }

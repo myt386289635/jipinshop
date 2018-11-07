@@ -9,10 +9,10 @@ public class ClickUtil {
 
     private static long lastClickTime;
 
-    public static boolean isFastDoubleClick() {
+    public static boolean isFastDoubleClick(long times) {
         long time = System.currentTimeMillis();
         long timeD = time - lastClickTime;
-        if ( 0 < timeD && timeD < 800) {
+        if ( 0 < timeD && timeD < times) {
             return true;
         }
         lastClickTime = time;
