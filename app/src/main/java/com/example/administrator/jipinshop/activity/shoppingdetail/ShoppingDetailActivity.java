@@ -567,7 +567,7 @@ public class ShoppingDetailActivity extends BaseActivity implements ShoppingComm
     @Override
     public void share(SHARE_MEDIA share_media) {
         new ShareUtils(this, share_media)
-                .shareWeb(this, "https://www.baidu.com", "测试", "测试而已", "", R.mipmap.ic_launcher_round);
+                .shareWeb(this, "https://www.baidu.com", "测试", "测试而已", "", R.mipmap.share_logo);
     }
 
     @Override
