@@ -441,9 +441,13 @@ public class ShoppingDetailActivity extends BaseActivity implements ShoppingComm
         if(successBean.getCode() == 200){
             isCollect = true;
             mBinding.detailFavor.setImageResource(R.mipmap.score_sel);
+        }else if(successBean.getCode() == 400){
+            isCollect = false;
+            mBinding.detailFavor.setImageResource(R.mipmap.nav_favor);
         }else {
             isCollect = false;
             mBinding.detailFavor.setImageResource(R.mipmap.nav_favor);
+            Toast.makeText(this, successBean.getMsg(), Toast.LENGTH_SHORT).show();
         }
     }
 
@@ -513,11 +517,16 @@ public class ShoppingDetailActivity extends BaseActivity implements ShoppingComm
         if(snapSelectBean.getCode() == 200){
             isSnap = true;
             mBinding.detailGoodTv.setTextColor(getResources().getColor(R.color.color_E31436));
+            mBinding.detailGoodTv.setText(snapSelectBean.getCount() + "");
+        }else if(snapSelectBean.getCode() == 400){
+            isSnap = false;
+            mBinding.detailGoodTv.setTextColor(getResources().getColor(R.color.color_ACACAC));
+            mBinding.detailGoodTv.setText(snapSelectBean.getCount() + "");
         }else {
             isSnap = false;
             mBinding.detailGoodTv.setTextColor(getResources().getColor(R.color.color_ACACAC));
+            Toast.makeText(this, snapSelectBean.getMsg(), Toast.LENGTH_SHORT).show();
         }
-        mBinding.detailGoodTv.setText(snapSelectBean.getCount() + "");
     }
 
     /**
