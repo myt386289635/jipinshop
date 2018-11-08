@@ -475,18 +475,6 @@ public class ShoppingDetailActivity extends BaseActivity implements ShoppingComm
     }
 
     /**
-     * 添加收藏失败
-     * @param error
-     */
-    @Override
-    public void onFileCollectInsert(String error) {
-        if (mDialogProgress != null && mDialogProgress.isShowing()) {
-            mDialogProgress.dismiss();
-        }
-        Toast.makeText(this, error, Toast.LENGTH_SHORT).show();
-    }
-
-    /**
      * 删除收藏成功
      */
     @Override
@@ -499,7 +487,7 @@ public class ShoppingDetailActivity extends BaseActivity implements ShoppingComm
     }
 
     /**
-     * 删除收藏、添加点赞、删除点赞 失败回调
+     * 添加收藏、删除收藏、添加点赞、删除点赞 失败回调
      */
     @Override
     public void onFileCollectDelete(String error) {

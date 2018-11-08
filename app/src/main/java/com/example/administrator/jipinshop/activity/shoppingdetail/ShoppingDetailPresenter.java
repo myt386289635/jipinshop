@@ -173,12 +173,12 @@ public class ShoppingDetailPresenter {
                         }
                     }else {
                         if(mShoppingDetailView != null){
-                            mShoppingDetailView.onFileCollectInsert(successBean.getMsg());
+                            mShoppingDetailView.onFileCollectDelete(successBean.getMsg());
                         }
                     }
                 }, throwable -> {
                     if(mShoppingDetailView != null){
-                        mShoppingDetailView.onFileCollectInsert(throwable.getMessage());
+                        mShoppingDetailView.onFileCollectDelete(throwable.getMessage());
                     }
                 });
     }

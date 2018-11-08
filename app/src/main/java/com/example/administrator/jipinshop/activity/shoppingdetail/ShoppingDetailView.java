@@ -22,7 +22,6 @@ public interface ShoppingDetailView {
      void onFileIsCollect(String error);
 
      void onSucCollectInsert(SuccessBean successBean);
-     void onFileCollectInsert(String error);
 
      void onSucCollectDelete(SuccessBean successBean);
      void onFileCollectDelete(String error);
