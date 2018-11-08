@@ -575,13 +575,15 @@
 
 
                     <TextView
+                        android:gravity="center_horizontal"
+                        android:textColor="@color/color_ACACAC"
                         android:id="@+id/detail_goodTv"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_centerInParent="true"
                         android:drawablePadding="@dimen/x4"
                         android:drawableTop="@mipmap/appreciate_big"
-                        android:text="128"/>
+                        android:text="0"/>
 
 
                 </RelativeLayout>

@@ -15,6 +15,7 @@ import com.example.administrator.jipinshop.bean.RecordBean;
 import com.example.administrator.jipinshop.bean.ShoppingDetailBean;
 import com.example.administrator.jipinshop.bean.SignBean;
 import com.example.administrator.jipinshop.bean.SignInsertBean;
+import com.example.administrator.jipinshop.bean.SnapSelectBean;
 import com.example.administrator.jipinshop.bean.SreachResultBean;
 import com.example.administrator.jipinshop.bean.SuccessBean;
 import com.example.administrator.jipinshop.bean.AccountBean;
@@ -238,4 +239,23 @@ public interface APIService {
      */
     @GET("qualityshop-api/api/collectDelete")
     Observable<SuccessBean> collectDelete(@QueryMap Map<String,String> param);
+
+    /**
+     * 判断用户是否点赞此文章或者商品
+     */
+    @GET("qualityshop-api/api/snapSelect")
+    Observable<SnapSelectBean> snapSelect(@QueryMap Map<String,String> param);
+
+    /**
+     * 添加点赞
+     */
+    @FormUrlEncoded
+    @POST("qualityshop-api/api/snapInsert")
+    Observable<SuccessBean> snapInsert(@FieldMap Map<String,String> param);
+
+    /**
+     * 删除点赞
+     */
+    @GET("qualityshop-api/api/snapDelete")
+    Observable<SuccessBean> snapDelete(@QueryMap Map<String,String> param);
 }

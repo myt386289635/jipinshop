@@ -1,6 +1,9 @@
 package com.example.administrator.jipinshop.activity.shoppingdetail;
 
+import android.view.View;
+
 import com.example.administrator.jipinshop.bean.ShoppingDetailBean;
+import com.example.administrator.jipinshop.bean.SnapSelectBean;
 import com.example.administrator.jipinshop.bean.SuccessBean;
 
 /**
@@ -23,4 +26,11 @@ public interface ShoppingDetailView {
 
      void onSucCollectDelete(SuccessBean successBean);
      void onFileCollectDelete(String error);
+
+     void onSucIsSnap(SnapSelectBean snapSelectBean);
+     void onFileIsSnap(String error);
+
+     void onSucSnapInsert(View view , SuccessBean successBean);
+
+     void onSucSnapDelete(SuccessBean successBean);
 }

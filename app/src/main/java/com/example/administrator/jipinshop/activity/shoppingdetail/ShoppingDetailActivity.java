@@ -44,6 +44,7 @@ import com.example.administrator.jipinshop.adapter.ShoppingQualityAdapter;
 import com.example.administrator.jipinshop.adapter.ShoppingmParameterAdapter;
 import com.example.administrator.jipinshop.base.BaseActivity;
 import com.example.administrator.jipinshop.bean.ShoppingDetailBean;
+import com.example.administrator.jipinshop.bean.SnapSelectBean;
 import com.example.administrator.jipinshop.bean.SuccessBean;
 import com.example.administrator.jipinshop.databinding.ActivityShopingDetailBinding;
 import com.example.administrator.jipinshop.util.ClickUtil;
@@ -139,9 +140,14 @@ public class ShoppingDetailActivity extends BaseActivity implements ShoppingComm
     private String goodsUrl = "";
 
     /**
-     * 标志：是否收藏过此商品
+     * 标志：是否收藏过此商品 false:没有
      */
     private boolean isCollect = false;
+
+    /**
+     * 标志：是否点赞过此商品  false:没有
+     */
+    private boolean isSnap = false;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -255,8 +261,10 @@ public class ShoppingDetailActivity extends BaseActivity implements ShoppingComm
         });
         //网络请求数据
         mPresenter.getDate(goodsId,this.<ShoppingDetailBean>bindToLifecycle());
-        //判断是否收藏过本篇文章
+        //判断是否收藏过该商品
         mPresenter.isCollect(goodsId,this.bindToLifecycle());
+        //判断是否点赞过该商品
+        mPresenter.snapSelect(goodsId,this.bindToLifecycle());
     }
 
 
@@ -487,7 +495,7 @@ public class ShoppingDetailActivity extends BaseActivity implements ShoppingComm
     }
 
     /**
-     * 删除收藏失败
+     * 删除收藏、添加点赞、删除点赞 失败回调
      */
     @Override
     public void onFileCollectDelete(String error) {
@@ -495,6 +503,60 @@ public class ShoppingDetailActivity extends BaseActivity implements ShoppingComm
             mDialogProgress.dismiss();
         }
         Toast.makeText(this, error, Toast.LENGTH_SHORT).show();
+    }
+
+    /**
+     * 查询是否被用户点赞过 成功回调
+     */
+    @Override
+    public void onSucIsSnap(SnapSelectBean snapSelectBean) {
+        if(snapSelectBean.getCode() == 200){
+            isSnap = true;
+            mBinding.detailGoodTv.setTextColor(getResources().getColor(R.color.color_E31436));
+        }else {
+            isSnap = false;
+            mBinding.detailGoodTv.setTextColor(getResources().getColor(R.color.color_ACACAC));
+        }
+        mBinding.detailGoodTv.setText(snapSelectBean.getCount() + "");
+    }
+
+    /**
+     * 查询是否被用户点赞过 失败回调
+     */
+    @Override
+    public void onFileIsSnap(String error) {
+        isSnap = false;
+        mBinding.detailGoodTv.setTextColor(getResources().getColor(R.color.color_ACACAC));
+        Toast.makeText(this, "获取点赞信息失败", Toast.LENGTH_SHORT).show();
+    }
+
+    /**
+     * 添加赞过 成功回调
+     */
+    @Override
+    public void onSucSnapInsert(View view ,SuccessBean successBean) {
+        if (mDialogProgress != null && mDialogProgress.isShowing()) {
+            mDialogProgress.dismiss();
+        }
+        mGoodView.setText("+1");
+        mGoodView.setTextColor(getResources().getColor(R.color.color_E31436));
+        mGoodView.show(view);
+        isSnap = true;
+        mBinding.detailGoodTv.setTextColor(getResources().getColor(R.color.color_E31436));
+        mBinding.detailGoodTv.setText( (Integer.valueOf(mBinding.detailGoodTv.getText().toString()) + 1 )+ "");
+    }
+
+    /**
+     * 删除赞过 成功回调
+     */
+    @Override
+    public void onSucSnapDelete(SuccessBean successBean) {
+        if (mDialogProgress != null && mDialogProgress.isShowing()) {
+            mDialogProgress.dismiss();
+        }
+        isSnap = false;
+        mBinding.detailGoodTv.setTextColor(getResources().getColor(R.color.color_ACACAC));
+        mBinding.detailGoodTv.setText( (Integer.valueOf(mBinding.detailGoodTv.getText().toString()) - 1 )+ "");
     }
 
     /**
@@ -552,9 +614,22 @@ public class ShoppingDetailActivity extends BaseActivity implements ShoppingComm
                 hintKey();
                 break;
             case R.id.detail_good:
-                mGoodView.setText("+1");
-                mGoodView.setTextColor(getResources().getColor(R.color.color_E31436));
-                mGoodView.show(view);
+                if (ClickUtil.isFastDoubleClick(1000)) {
+                    Toast.makeText(this, "您点击太快了，请休息会再点", Toast.LENGTH_SHORT).show();
+                    return;
+                }else{
+                    if(isSnap){
+                        //点赞过了
+                        mDialogProgress = (new ProgressDialogView()).createLoadingDialog(ShoppingDetailActivity.this, "正在加载...");
+                        mDialogProgress.show();
+                        mPresenter.snapDelete(goodsId,this.bindToLifecycle());
+                    }else {
+                        //没有点赞
+                        mDialogProgress = (new ProgressDialogView()).createLoadingDialog(ShoppingDetailActivity.this, "正在加载...");
+                        mDialogProgress.show();
+                        mPresenter.snapInsert(view,goodsId,this.bindToLifecycle());
+                    }
+                }
                 break;
             case R.id.detail_share:
                 if (mShareBoardDialog == null) {

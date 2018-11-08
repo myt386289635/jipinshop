@@ -17,6 +17,7 @@ import com.example.administrator.jipinshop.bean.RecordBean;
 import com.example.administrator.jipinshop.bean.ShoppingDetailBean;
 import com.example.administrator.jipinshop.bean.SignBean;
 import com.example.administrator.jipinshop.bean.SignInsertBean;
+import com.example.administrator.jipinshop.bean.SnapSelectBean;
 import com.example.administrator.jipinshop.bean.SreachResultBean;
 import com.example.administrator.jipinshop.bean.SuccessBean;
 import com.example.administrator.jipinshop.bean.SupplementBean;
@@ -32,10 +33,6 @@ import javax.inject.Inject;
 
 import io.reactivex.Observable;
 import okhttp3.MultipartBody;
-import retrofit2.http.GET;
-import retrofit2.http.POST;
-import retrofit2.http.Query;
-import retrofit2.http.QueryMap;
 
 public class Repository {
 
@@ -254,6 +251,27 @@ public class Repository {
      */
     public Observable<SuccessBean> collectDelete(Map<String,String> param){
         return mAPIService.collectDelete(param);
+    }
+
+    /**
+     * 判断用户是否点赞此文章或者商品
+     */
+    public Observable<SnapSelectBean> snapSelect(Map<String,String> param){
+        return mAPIService.snapSelect(param);
+    }
+
+    /**
+     * 添加点赞
+     */
+    public Observable<SuccessBean> snapInsert(Map<String,String> param){
+        return mAPIService.snapInsert(param);
+    }
+
+    /**
+     * 删除点赞
+     */
+    public Observable<SuccessBean> snapDelete(Map<String,String> param){
+        return  mAPIService.snapDelete(param);
     }
 
 }

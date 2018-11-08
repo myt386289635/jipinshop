@@ -15,6 +15,7 @@ import com.blankj.utilcode.util.SPUtils;
 import com.example.administrator.jipinshop.R;
 import com.example.administrator.jipinshop.adapter.ShoppingBannerAdapter;
 import com.example.administrator.jipinshop.bean.ShoppingDetailBean;
+import com.example.administrator.jipinshop.bean.SnapSelectBean;
 import com.example.administrator.jipinshop.bean.SuccessBean;
 import com.example.administrator.jipinshop.netwrok.Repository;
 import com.example.administrator.jipinshop.util.sp.CommonDate;
@@ -133,7 +134,7 @@ public class ShoppingDetailPresenter {
 
 
     /**
-     * 查询文章是否被收藏过
+     * 查询商品是否被收藏过
      */
     public void isCollect(String goodsId , LifecycleTransformer<SuccessBean> transformer){
         Map<String,String> hashMap = new HashMap<>();
@@ -234,4 +235,81 @@ public class ShoppingDetailPresenter {
         });
     }
 
+    /**
+     * 查询商品是否被点赞过
+     */
+    public void snapSelect(String goodsId , LifecycleTransformer<SnapSelectBean> transformer){
+        Map<String,String> hashMap = new HashMap<>();
+        hashMap.put("userId", SPUtils.getInstance(CommonDate.USER).getString(CommonDate.userId));
+        hashMap.put("goodsId",goodsId);
+        mRepository.snapSelect(hashMap)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .compose(transformer)
+                .subscribe(snapSelectBean -> {
+                    if(mShoppingDetailView != null){
+                        mShoppingDetailView.onSucIsSnap(snapSelectBean);
+                    }
+                }, throwable -> {
+                    if(mShoppingDetailView != null){
+                        mShoppingDetailView.onFileIsSnap(throwable.getMessage());
+                    }
+                });
+    }
+
+    /**
+     * 添加点赞
+     */
+    public void snapInsert(View view , String goodsId , LifecycleTransformer<SuccessBean> transformer){
+        Map<String,String> hashMap = new HashMap<>();
+        hashMap.put("userId", SPUtils.getInstance(CommonDate.USER).getString(CommonDate.userId));
+        hashMap.put("goodsId",goodsId);
+        mRepository.snapInsert(hashMap)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .compose(transformer)
+                .subscribe(successBean -> {
+                    if(successBean.getCode() == 200){
+                        if(mShoppingDetailView != null){
+                            mShoppingDetailView.onSucSnapInsert(view,successBean);
+                        }
+                    }else {
+                        if(mShoppingDetailView != null){
+                            mShoppingDetailView.onFileCollectDelete(successBean.getMsg());
+                        }
+                    }
+                }, throwable -> {
+                    if(mShoppingDetailView != null){
+                        mShoppingDetailView.onFileCollectDelete(throwable.getMessage());
+                    }
+                });
+    }
+
+    /**
+     * 删除点赞
+     */
+    public void snapDelete(String goodsId , LifecycleTransformer<SuccessBean> transformer){
+        Map<String,String> hashMap = new HashMap<>();
+        hashMap.put("userId", SPUtils.getInstance(CommonDate.USER).getString(CommonDate.userId));
+        hashMap.put("goodsId",goodsId);
+        mRepository.snapDelete(hashMap)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .compose(transformer)
+                .subscribe(successBean -> {
+                    if(successBean.getCode() == 200){
+                        if(mShoppingDetailView != null){
+                            mShoppingDetailView.onSucSnapDelete(successBean);
+                        }
+                    }else {
+                        if(mShoppingDetailView != null){
+                            mShoppingDetailView.onFileCollectDelete(successBean.getMsg());
+                        }
+                    }
+                }, throwable -> {
+                    if(mShoppingDetailView != null){
+                        mShoppingDetailView.onFileCollectDelete(throwable.getMessage());
+                    }
+                });
+    }
 }
