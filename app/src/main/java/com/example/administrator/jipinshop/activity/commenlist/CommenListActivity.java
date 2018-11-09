@@ -15,7 +15,6 @@ import android.widget.Toast;
 import com.aspsine.swipetoloadlayout.OnLoadMoreListener;
 import com.aspsine.swipetoloadlayout.OnRefreshListener;
 import com.example.administrator.jipinshop.R;
-import com.example.administrator.jipinshop.activity.shoppingdetail.ShoppingDetailActivity;
 import com.example.administrator.jipinshop.adapter.CommenListAdapter;
 import com.example.administrator.jipinshop.adapter.ShoppingCommon2Adapter;
 import com.example.administrator.jipinshop.base.BaseActivity;
