@@ -13,18 +13,28 @@ import com.example.administrator.jipinshop.R;
 
 import java.util.List;
 
-import javax.xml.transform.Templates;
-
 /**
  * @author 莫小婷
  * @create 2018/8/2
  * @Describe 二级评论
  */
-public class ShoppingCommon2Adapter extends RecyclerView.Adapter<ShoppingCommon2Adapter.ViewHolder>{
+public class ShoppingCommon2Adapter extends RecyclerView.Adapter<ShoppingCommon2Adapter.ViewHolder> {
 
+    //总共的二级评论数量
     private List<String> mList;
     private Context mContext;
     private OnReplyLisenter mOnReplyLisenter;
+    private OnMoreUp mOnMoreUp;
+
+    private int number = 0;//展开的评论条数
+
+    public void setNumber(int number) {
+        this.number = number;
+    }
+
+    public void setOnMoreUp(OnMoreUp onMoreUp) {
+        mOnMoreUp = onMoreUp;
+    }
 
     public void setOnReplyLisenter(OnReplyLisenter onReplyLisenter) {
         mOnReplyLisenter = onReplyLisenter;
@@ -40,70 +50,134 @@ public class ShoppingCommon2Adapter extends RecyclerView.Adapter<ShoppingCommon2
 
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(mContext).inflate(R.layout.item_common2,parent,false);
-        ViewHolder  holder = new ViewHolder(view);
+        View view = LayoutInflater.from(mContext).inflate(R.layout.item_common2, parent, false);
+        ViewHolder holder = new ViewHolder(view);
         return holder;
     }
 
     @Override
     public void onBindViewHolder(ViewHolder holder, final int position) {
 
-        if(position != 0){
+        if (position != 0) {
             holder.item_triangle.setVisibility(View.GONE);
-        }else {
+        } else {
             holder.item_triangle.setVisibility(View.VISIBLE);
         }
 
-        if(getItemCount() == 1){
+        if (getItemCount() == 1) {
+            holder.item_more.setVisibility(View.GONE);
             holder.item_replyLayout.setBackgroundResource(R.drawable.bg_common);
         } else {
-           if(position == 0){
-               holder.item_replyLayout.setBackgroundResource(R.drawable.bg_common_one);
-           }else if(getItemCount() - 1 == position){
-               holder.item_replyLayout.setBackgroundResource(R.drawable.bg_common_last);
-           }else {
-               holder.item_replyLayout.setBackgroundResource(R.drawable.bg_common_other);
-           }
+            if (position == 0) {
+                holder.item_more.setVisibility(View.GONE);
+                holder.item_replyLayout.setBackgroundResource(R.drawable.bg_common_one);
+            } else if (getItemCount() - 1 == position) {
+                holder.item_replyLayout.setBackgroundResource(R.drawable.bg_common_last);
+                if (mList.size() <= number) {
+                    if(number == mList.size() && number != 2){
+                        holder.item_more.setVisibility(View.VISIBLE);
+                        holder.item_time.setVisibility(View.GONE);
+                        holder.item_down.setVisibility(View.GONE);
+                        holder.item_up.setVisibility(View.VISIBLE);
+                        holder.item_up.setOnClickListener(v -> {
+                            if (mOnMoreUp != null) {
+                                mOnMoreUp.onUp();
+                            }
+                        });
+                    }else {
+                        holder.item_more.setVisibility(View.GONE);
+                    }
+                } else {
+                    holder.item_more.setVisibility(View.VISIBLE);
+                    int num = 0;
+                    if (number == 2) {
+                        if (number < mList.size() && mList.size() >= 10) {
+                            holder.item_time.setVisibility(View.VISIBLE);
+                            holder.item_down.setVisibility(View.GONE);
+                            holder.item_up.setVisibility(View.GONE);
+                            num = number + 8;
+                            holder.item_time.setText("共"+mList.size()+"条回复");
+                        } else if (number < mList.size() && mList.size() < 10) {
+                            holder.item_time.setVisibility(View.VISIBLE);
+                            holder.item_down.setVisibility(View.GONE);
+                            holder.item_up.setVisibility(View.GONE);
+                            num = mList.size();
+                            holder.item_time.setText("共" + (mList.size() - 2) + "条回复");
+                        }else {
+                            holder.item_more.setVisibility(View.GONE);
+                        }
+                    } else {
+                        if (number < mList.size() && mList.size() - number >= 10) {
+                            holder.item_time.setVisibility(View.GONE);
+                            holder.item_down.setVisibility(View.VISIBLE);
+                            holder.item_up.setVisibility(View.GONE);
+                            num = number + 10;
+                            holder.item_down.setText("查看10条评论");
+                        } else if (number < mList.size() && mList.size() - number < 10) {
+                            holder.item_time.setVisibility(View.GONE);
+                            holder.item_down.setVisibility(View.VISIBLE);
+                            holder.item_up.setVisibility(View.GONE);
+                            num = mList.size();
+                            holder.item_down.setText("查看" + (mList.size() - number) + "条评论");
+                        }else {
+                            holder.item_more.setVisibility(View.GONE);
+                        }
+                    }
+                    int finalNum = num;
+                    holder.item_time.setOnClickListener(v -> {
+                        if (mOnReplyLisenter != null) {
+                            mOnReplyLisenter.onReply(finalNum);
+                        }
+                    });
+                    holder.item_down.setOnClickListener(v -> {
+                        if (mOnReplyLisenter != null) {
+                            mOnReplyLisenter.onReply(finalNum);
+                        }
+                    });
+                }
+            } else {
+                holder.item_more.setVisibility(View.GONE);
+                holder.item_replyLayout.setBackgroundResource(R.drawable.bg_common_other);
+            }
         }
 
-        holder.item_reply.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                if(mOnReplyLisenter != null){
-                    mOnReplyLisenter.onReply(position);
-                }
-            }
-        });
+        holder.item_content.setText("第" + position + "楼");
+        holder.item_name.setText("极品城");
     }
 
     @Override
     public int getItemCount() {
-        return 10;
+        return number;
     }
 
-    class ViewHolder extends RecyclerView.ViewHolder{
+    class ViewHolder extends RecyclerView.ViewHolder {
 
         private ImageView item_triangle;
-        private RelativeLayout item_replyLayout;
-        private TextView item_head;
+        private RelativeLayout item_replyLayout, item_more;
         private TextView item_name;
         private TextView item_content;
         private TextView item_time;
-        private TextView item_reply;
+        private TextView item_down;
+        private TextView item_up;
 
         public ViewHolder(View itemView) {
             super(itemView);
             item_triangle = itemView.findViewById(R.id.item_triangle);
             item_replyLayout = itemView.findViewById(R.id.item_replyLayout);
-            item_head = itemView.findViewById(R.id.item_head);
             item_name = itemView.findViewById(R.id.item_name);
             item_content = itemView.findViewById(R.id.item_content);
+            item_more = itemView.findViewById(R.id.item_more);
             item_time = itemView.findViewById(R.id.item_time);
-            item_reply = itemView.findViewById(R.id.item_reply);
+            item_down = itemView.findViewById(R.id.item_down);
+            item_up = itemView.findViewById(R.id.item_up);
         }
     }
 
-    public interface OnReplyLisenter{
-        void onReply(int pos);
+    public interface OnReplyLisenter {
+        void onReply(int pos);//这个是 需要暂时多少条数据
+    }
+
+    public interface OnMoreUp{
+        void onUp();
     }
 }

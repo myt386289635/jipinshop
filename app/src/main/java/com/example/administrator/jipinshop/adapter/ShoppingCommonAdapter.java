@@ -46,17 +46,24 @@ public class ShoppingCommonAdapter extends RecyclerView.Adapter<ShoppingCommonAd
     @Override
     public void onBindViewHolder(final ViewHolder holder, final int position) {
 
-//        if(position != 0){
-//            holder.recycler_view.setVisibility(View.VISIBLE);
-//            holder.mAdapter.setList(mList);
-//            //二级评论的回复
-//            holder.mAdapter.setOnReplyLisenter(pos -> {
-//                if(mOnItemReply != null){
-//                    mOnItemReply.onItemTwoReply(pos);
-//                }
-//            });
-//            holder.recycler_view.setAdapter(holder.mAdapter);
-//        }
+        if(position != 0){
+            holder.recycler_view.setVisibility(View.VISIBLE);
+            holder.mAdapter.setList(mList);
+            if(mList.size() > 2){
+                holder.mAdapter.setNumber(2);
+            }else {
+                holder.mAdapter.setNumber(mList.size());
+            }
+            //二级评论的更多
+            holder.mAdapter.setOnReplyLisenter(pos -> {
+                if(mOnItemReply != null){
+                    mOnItemReply.onItemTwoReply(position);
+                }
+            });
+            holder.recycler_view.setAdapter(holder.mAdapter);
+        }else {
+            holder.recycler_view.setVisibility(View.GONE);
+        }
 
         holder.item_reply.setOnClickListener(view -> {
             if(mOnItemReply != null){
@@ -97,15 +104,15 @@ public class ShoppingCommonAdapter extends RecyclerView.Adapter<ShoppingCommonAd
             recycler_view = itemView.findViewById(R.id.recycler_view);
             item_reply  = itemView.findViewById(R.id.item_reply);
 
-//            LinearLayoutManager layoutManager = new LinearLayoutManager(mContext) {
-//                @Override
-//                public boolean canScrollVertically() {
-//                    // 直接禁止垂直滑动
-//                    return false;
-//                }
-//            };
-//            recycler_view.setLayoutManager(layoutManager);
-//            mAdapter = new ShoppingCommon2Adapter(mContext);
+            LinearLayoutManager layoutManager = new LinearLayoutManager(mContext) {
+                @Override
+                public boolean canScrollVertically() {
+                    // 直接禁止垂直滑动
+                    return false;
+                }
+            };
+            recycler_view.setLayoutManager(layoutManager);
+            mAdapter = new ShoppingCommon2Adapter(mContext);
         }
     }
 

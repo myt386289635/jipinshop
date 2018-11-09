@@ -94,6 +94,8 @@ public class ShoppingDetailActivity extends BaseActivity implements ShoppingComm
                 RelativeLayout.LayoutParams layoutParams = (RelativeLayout.LayoutParams) mBinding.detailEvaluation.getLayoutParams();
                 layoutParams.height = (int) (msg.arg1 * getResources().getDisplayMetrics().density);
                 mBinding.detailEvaluation.setLayoutParams(layoutParams);
+            }else if(msg.what == 101){
+                mBinding.detailBottom.setVisibility(View.VISIBLE);
             }
             return true;
         }
@@ -306,14 +308,18 @@ public class ShoppingDetailActivity extends BaseActivity implements ShoppingComm
     }
 
     /**
-     * 点击二级评论回复按钮
+     * 点击二级评论更多按钮
      *
      * @param pos
      */
     @Override
     public void onItemTwoReply(int pos) {
-        mBinding.keyEdit.requestFocus();
-        showKeyboard(true);
+//        mBinding.keyEdit.requestFocus();
+//        showKeyboard(true);
+        //跳转到评论列表
+        startActivity(new Intent(this, CommenListActivity.class)
+                .putExtra("position",pos)
+        );
     }
 
     /**
@@ -321,6 +327,7 @@ public class ShoppingDetailActivity extends BaseActivity implements ShoppingComm
      */
     @Override
     public void keyShow() {
+        mBinding.detailBottom.setVisibility(View.INVISIBLE);
         mBinding.detailKeyLayout.setVisibility(View.VISIBLE);
     }
 
@@ -330,6 +337,7 @@ public class ShoppingDetailActivity extends BaseActivity implements ShoppingComm
     @Override
     public void keyHint() {
         mBinding.detailKeyLayout.setVisibility(View.GONE);
+        mHandler.sendEmptyMessageDelayed(101,200);
     }
 
     /**
@@ -387,7 +395,7 @@ public class ShoppingDetailActivity extends BaseActivity implements ShoppingComm
                 mBinding.detailEvaluation.setVisibility(View.GONE);
             }
 
-            for (int i = 0; i < 1 + getIntent().getIntExtra("pos",0); i++) {
+            for (int i = 0; i < 10; i++) {
                 mCommonList.add("");
             }
             mCommonAdapter.notifyDataSetChanged();
@@ -652,11 +660,13 @@ public class ShoppingDetailActivity extends BaseActivity implements ShoppingComm
                     return;
                 }
                 mBinding.keyEdit.setText("");
-                hintKey();
+//                hintKey();
                 break;
             case R.id.detail_commonTotle:
                 //跳转到评论列表
-                startActivity(new Intent(this, CommenListActivity.class));
+                startActivity(new Intent(this, CommenListActivity.class)
+                        .putExtra("position",0)
+                );
                 break;
             case R.id.content_attention:
                 //关注

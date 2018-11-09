@@ -4,7 +4,8 @@
     android:orientation="vertical"
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content">
+    android:layout_height="wrap_content"
+    xmlns:tools="http://schemas.android.com/tools">
 
     <ImageView
         android:layout_marginLeft="@dimen/x42"
@@ -21,74 +22,81 @@
         android:layout_width="match_parent">
 
         <TextView
-            android:id="@+id/item_head"
+            android:textColor="@color/color_8F8F8F"
+            android:id="@+id/item_name"
+            tools:text="极品城"
             android:layout_marginTop="@dimen/x32"
             android:layout_marginLeft="@dimen/x24"
-            android:textColor="@color/color_DE151515"
-            android:text="极品城回复"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"/>
 
-
         <TextView
-            android:id="@+id/item_name"
+            android:layout_toRightOf="@id/item_name"
+            android:id="@+id/item_head"
             android:layout_marginTop="@dimen/x32"
-            android:textColor="@color/color_4A90E2"
-            android:layout_toRightOf="@id/item_head"
-            android:text="楼主:"
+            android:layout_marginLeft="@dimen/x8"
+            android:textColor="@color/color_151515"
+            android:text="回复:"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"/>
 
 
         <TextView
+            android:layout_marginBottom="@dimen/x24"
             android:id="@+id/item_content"
             android:lineSpacingExtra="@dimen/x6"
             android:layout_marginRight="@dimen/x24"
             android:layout_marginLeft="@dimen/x12"
             android:layout_marginTop="@dimen/x32"
-            android:layout_toRightOf="@id/item_name"
-            android:textColor="@color/color_DE151515"
-            android:text="赞同楼主观点赞同楼主观点赞同楼主观点赞同楼主观点赞同楼主观点"
+            android:layout_toRightOf="@id/item_head"
+            android:textColor="@color/color_151515"
+            tools:text="赞同楼主观点赞同楼主观点赞同楼主观点赞同楼主观点赞同楼主观点"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"/>
 
         <RelativeLayout
+            android:id="@+id/item_more"
+            android:visibility="gone"
             android:layout_marginBottom="@dimen/x32"
             android:layout_marginLeft="@dimen/x24"
-            android:layout_marginTop="@dimen/x24"
             android:layout_below="@id/item_content"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
             <TextView
-                android:textColor="@color/color_ACACAC"
+                android:drawablePadding="@dimen/x10"
+                android:drawableRight="@mipmap/right_blue"
+                android:textColor="@color/color_4A90E2"
                 android:textSize="13sp"
                 android:id="@+id/item_time"
-                android:text="2018.06.16"
+                android:text="查看更多8条评论"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"/>
 
-
             <TextView
-                android:id="@+id/item_yuan"
-                android:layout_marginRight="@dimen/x20"
-                android:layout_marginLeft="@dimen/x20"
-                android:layout_toRightOf="@id/item_time"
-                android:layout_centerVertical="true"
-                android:background="@drawable/bg_shixinyuan"
-                android:layout_marginTop="@dimen/x24"
-                android:layout_width="@dimen/x4"
-                android:layout_height="@dimen/x4"/>
-
-
-            <TextView
-                android:textSize="13sp"
-                android:layout_toRightOf="@id/item_yuan"
+                android:visibility="gone"
+                android:layout_centerHorizontal="true"
+                android:drawablePadding="@dimen/x10"
+                android:drawableRight="@mipmap/more_down"
                 android:textColor="@color/color_ACACAC"
-                android:text="回复"
-                android:id="@+id/item_reply"
+                android:textSize="13sp"
+                android:id="@+id/item_down"
+                android:text="查看10条回复"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"/>
+
+            <TextView
+                android:visibility="gone"
+                android:layout_centerHorizontal="true"
+                android:drawablePadding="@dimen/x10"
+                android:drawableRight="@mipmap/more_up"
+                android:textColor="@color/color_ACACAC"
+                android:textSize="13sp"
+                android:id="@+id/item_up"
+                android:text="收起所有回复"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+
 
         </RelativeLayout>
 

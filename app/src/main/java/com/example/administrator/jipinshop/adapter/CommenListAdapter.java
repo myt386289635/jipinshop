@@ -9,10 +9,8 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.bumptech.glide.Glide;
 import com.example.administrator.jipinshop.MyApplication;
 import com.example.administrator.jipinshop.R;
-import com.example.administrator.jipinshop.view.glide.CircleImageView;
 import com.example.administrator.jipinshop.view.glide.imageloder.ImageManager;
 
 import java.util.List;
@@ -27,6 +25,17 @@ public class CommenListAdapter extends RecyclerView.Adapter<CommenListAdapter.Vi
     private List<String> mList;
     private Context mContext;
     private OnItemReply mOnItemReply;
+    private OnMoreUp mOnMoreUp;
+
+    private List<Integer> sets;//记录每个留言的二级展示条数
+
+    public void setSets(List<Integer> sets) {
+        this.sets = sets;
+    }
+
+    public void setOnMoreUp(OnMoreUp onMoreUp) {
+        mOnMoreUp = onMoreUp;
+    }
 
     public void setOnItemReply(OnItemReply onItemReply) {
         mOnItemReply = onItemReply;
@@ -46,27 +55,29 @@ public class CommenListAdapter extends RecyclerView.Adapter<CommenListAdapter.Vi
 
     @Override
     public void onBindViewHolder(final ViewHolder holder, final int position) {
-//        if(position != 0){
-//            holder.recycler_view.setVisibility(View.VISIBLE);
-//            holder.mAdapter.setList(mList);
-//            //二级评论的回复
-//            holder.mAdapter.setOnReplyLisenter(new ShoppingCommon2Adapter.OnReplyLisenter() {
-//                @Override
-//                public void onReply(int pos) {
-//                    if(mOnItemReply != null){
-//                        mOnItemReply.onItemTwoReply(pos);
-//                    }
-//                }
-//            });
-//            holder.recycler_view.setAdapter(holder.mAdapter);
-//        }
-
-        holder.item_reply.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
+        if(position != 0){
+            holder.recycler_view.setVisibility(View.VISIBLE);
+            holder.mAdapter.setList(mList);
+            holder.mAdapter.setNumber(sets.get(position));
+            //点击二级评论更多
+            holder.mAdapter.setOnReplyLisenter(pos -> {
                 if(mOnItemReply != null){
-                    mOnItemReply.onItemReply(position,holder.item_reply);
+                    mOnItemReply.onItemTwoReply(pos,holder.mAdapter,position);
                 }
+            });
+            holder.mAdapter.setOnMoreUp(() -> {
+                if(mOnMoreUp != null){
+                    mOnMoreUp.onUp(position,holder.mAdapter);
+                }
+            });
+            holder.recycler_view.setAdapter(holder.mAdapter);
+        }else {
+            holder.recycler_view.setVisibility(View.GONE);
+        }
+
+        holder.item_reply.setOnClickListener(view -> {
+            if(mOnItemReply != null){
+                mOnItemReply.onItemReply(position,holder.item_reply);
             }
         });
         ImageManager.displayCircleImage(MyApplication.imag,holder.item_image,0,0);
@@ -74,10 +85,11 @@ public class CommenListAdapter extends RecyclerView.Adapter<CommenListAdapter.Vi
 
     @Override
     public int getItemCount() {
-        return 10;
+        return mList.size();
     }
 
     class ViewHolder extends  RecyclerView.ViewHolder {
+
         private ImageView item_image;
         private TextView item_name;
         private TextView item_goodNum;
@@ -85,6 +97,7 @@ public class CommenListAdapter extends RecyclerView.Adapter<CommenListAdapter.Vi
         private TextView item_time,item_reply;
         private RecyclerView recycler_view;
         private ShoppingCommon2Adapter mAdapter;
+
         public ViewHolder(View itemView) {
             super(itemView);
             item_image = itemView.findViewById(R.id.item_image);
@@ -95,21 +108,24 @@ public class CommenListAdapter extends RecyclerView.Adapter<CommenListAdapter.Vi
             recycler_view = itemView.findViewById(R.id.recycler_view);
             item_reply  = itemView.findViewById(R.id.item_reply);
 
-//            LinearLayoutManager layoutManager = new LinearLayoutManager(mContext) {
-//                @Override
-//                public boolean canScrollVertically() {
-//                    // 直接禁止垂直滑动
-//                    return false;
-//                }
-//            };
-//            recycler_view.setLayoutManager(layoutManager);
-//            mAdapter = new ShoppingCommon2Adapter(mContext);
+            LinearLayoutManager layoutManager = new LinearLayoutManager(mContext) {
+                @Override
+                public boolean canScrollVertically() {
+                    // 直接禁止垂直滑动
+                    return false;
+                }
+            };
+            recycler_view.setLayoutManager(layoutManager);
+            mAdapter = new ShoppingCommon2Adapter(mContext);
         }
     }
 
     public interface OnItemReply{
         void onItemReply(int pos,TextView textView);
-        void onItemTwoReply(int pos);
+        void onItemTwoReply(int pos,ShoppingCommon2Adapter mAdapter,int postion);
     }
 
+    public interface OnMoreUp{
+        void onUp(int position,ShoppingCommon2Adapter mAdapter);
+    }
 }

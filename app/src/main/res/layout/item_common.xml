@@ -28,11 +28,12 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="李丹妮"
-                android:textColor="@color/color_DE151515"
+                android:textColor="@color/color_8F8F8F"
                 android:textSize="15sp"/>
 
 
             <TextView
+                android:visibility="gone"
                 android:id="@+id/item_goodNum"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -51,7 +52,7 @@
                 android:layout_marginTop="@dimen/x42"
                 android:lineSpacingExtra="@dimen/x8"
                 android:text="与水直接接触的内胆、不锈钢材质安全放心,不易生锈、结垢、无异味、易清洁。"
-                android:textColor="@color/color_DE151515"/>
+                android:textColor="@color/color_151515"/>
 
             <RelativeLayout
                 android:id="@+id/item_bottomLayout"
@@ -70,7 +71,6 @@
 
 
                 <TextView
-                    android:visibility="gone"
                     android:id="@+id/item_yuan"
                     android:layout_width="@dimen/x4"
                     android:layout_height="@dimen/x4"
@@ -83,7 +83,6 @@
 
 
                 <TextView
-                    android:visibility="gone"
                     android:id="@+id/item_reply"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -100,8 +99,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_below="@id/item_bottomLayout"
-                android:layout_marginTop="@dimen/x24"
-                android:visibility="gone"/>
+                android:layout_marginTop="@dimen/x24"/>
 
         </RelativeLayout>
 
