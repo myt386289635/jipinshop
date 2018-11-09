@@ -22,6 +22,7 @@ import com.example.administrator.jipinshop.bean.AccountBean;
 import com.example.administrator.jipinshop.bean.SupplementBean;
 import com.example.administrator.jipinshop.bean.TabBean;
 import com.example.administrator.jipinshop.bean.UserInfoBean;
+import com.example.administrator.jipinshop.bean.CommentBean;
 import com.example.administrator.jipinshop.bean.json.LoginJson;
 import com.example.administrator.jipinshop.bean.json.PushMessageJson;
 import com.example.administrator.jipinshop.bean.LuckselectBean;
@@ -258,4 +259,18 @@ public interface APIService {
      */
     @GET("qualityshop-api/api/snapDelete")
     Observable<SuccessBean> snapDelete(@QueryMap Map<String,String> param);
+
+    /**
+     * 查看评论列表
+     */
+    @GET("qualityshop-api/api/comment")
+    Observable<CommentBean> comment(@QueryMap Map<String,String> param);
+
+    /**
+     * 添加评论
+     */
+    @FormUrlEncoded
+    @POST("qualityshop-api/api/commentInsert")
+    Observable<SuccessBean> commentInsert(@Field("articId") String articId,@Field("userId") String userId,
+                                          @Field("content") String content,@Field("parentId") String parentId);
 }

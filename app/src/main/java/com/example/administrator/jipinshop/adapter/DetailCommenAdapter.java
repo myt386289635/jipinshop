@@ -83,19 +83,19 @@ public class DetailCommenAdapter extends RecyclerView.Adapter {
                         mOnItemReply.onItemReply(position - 1,contentViewHolder.getCommonBinding().itemReply);
                     }
                 });
-                if(position != 0){
-                    contentViewHolder.getCommonBinding().recyclerView.setVisibility(View.VISIBLE);
-                    contentViewHolder.mAdapter.setList(mList);
-                    //二级评论的回复
-                    contentViewHolder.mAdapter.setOnReplyLisenter(pos -> {
-                        if(mOnItemReply != null){
-                            mOnItemReply.onItemTwoReply(pos);
-                        }
-                    });
-                    contentViewHolder.getCommonBinding().recyclerView.setAdapter(contentViewHolder.mAdapter);
-                }
-                ImageManager.displayCircleImage(MyApplication.imag,contentViewHolder.getCommonBinding().itemImage,0,0);
-                contentViewHolder.getCommonBinding().executePendingBindings();
+//                if(position != 0){
+//                    contentViewHolder.getCommonBinding().recyclerView.setVisibility(View.VISIBLE);
+//                    contentViewHolder.mAdapter.setList(mList);
+//                    //二级评论的回复
+//                    contentViewHolder.mAdapter.setOnReplyLisenter(pos -> {
+//                        if(mOnItemReply != null){
+//                            mOnItemReply.onItemTwoReply(pos);
+//                        }
+//                    });
+//                    contentViewHolder.getCommonBinding().recyclerView.setAdapter(contentViewHolder.mAdapter);
+//                }
+//                ImageManager.displayCircleImage(MyApplication.imag,contentViewHolder.getCommonBinding().itemImage,0,0);
+//                contentViewHolder.getCommonBinding().executePendingBindings();
                 break;
             case 3:
                 BottonViewHolder bottonViewHolder = (BottonViewHolder) holder;

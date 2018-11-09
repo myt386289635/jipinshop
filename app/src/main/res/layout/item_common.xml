@@ -27,20 +27,19 @@
                 android:id="@+id/item_name"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="李丹妮"
+                tools:text="李丹妮"
                 android:textColor="@color/color_8F8F8F"
                 android:textSize="15sp"/>
 
 
             <TextView
-                android:visibility="gone"
                 android:id="@+id/item_goodNum"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentRight="true"
                 android:drawableLeft="@mipmap/appreciate_nor"
                 android:drawablePadding="@dimen/x8"
-                android:text="222"
+                android:text=""
                 android:textColor="@color/color_ACACAC"
                 android:textSize="13sp"/>
 

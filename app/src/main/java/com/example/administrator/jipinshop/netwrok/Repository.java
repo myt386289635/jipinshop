@@ -2,6 +2,7 @@ package com.example.administrator.jipinshop.netwrok;
 
 import com.blankj.utilcode.util.SPUtils;
 import com.example.administrator.jipinshop.bean.AccountBean;
+import com.example.administrator.jipinshop.bean.CommentBean;
 import com.example.administrator.jipinshop.bean.ElectricityFragmentBean;
 import com.example.administrator.jipinshop.bean.FollowBean;
 import com.example.administrator.jipinshop.bean.FovalBean;
@@ -274,4 +275,18 @@ public class Repository {
         return  mAPIService.snapDelete(param);
     }
 
+    /**
+     * 查看评论列表
+     */
+    public Observable<CommentBean> comment(Map<String,String> param){
+        return mAPIService.comment(param);
+    }
+
+    /**
+     * 添加评论
+     */
+    public Observable<SuccessBean> commentInsert(String articId,String content,String parentId){
+        return mAPIService.commentInsert(articId,SPUtils.getInstance(CommonDate.USER).getString(CommonDate.userId),
+                content,parentId);
+    }
 }

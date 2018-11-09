@@ -43,6 +43,7 @@ import com.example.administrator.jipinshop.adapter.ShoppingCommonAdapter;
 import com.example.administrator.jipinshop.adapter.ShoppingQualityAdapter;
 import com.example.administrator.jipinshop.adapter.ShoppingmParameterAdapter;
 import com.example.administrator.jipinshop.base.BaseActivity;
+import com.example.administrator.jipinshop.bean.CommentBean;
 import com.example.administrator.jipinshop.bean.ShoppingDetailBean;
 import com.example.administrator.jipinshop.bean.SnapSelectBean;
 import com.example.administrator.jipinshop.bean.SuccessBean;
@@ -118,7 +119,7 @@ public class ShoppingDetailActivity extends BaseActivity implements ShoppingComm
 
     //用户评论
     private ShoppingCommonAdapter mCommonAdapter;
-    private List<String> mCommonList;
+    private List<CommentBean.ListBean> mCommonList;
 
     //点赞
     private GoodView mGoodView;
@@ -150,6 +151,11 @@ public class ShoppingDetailActivity extends BaseActivity implements ShoppingComm
      * 标志：是否点赞过此商品  false:没有
      */
     private boolean isSnap = false;
+
+    /**
+     * 父评论id
+     */
+    private String parentId = "0";
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -267,6 +273,8 @@ public class ShoppingDetailActivity extends BaseActivity implements ShoppingComm
         mPresenter.isCollect(goodsId,this.bindToLifecycle());
         //判断是否点赞过该商品
         mPresenter.snapSelect(goodsId,this.bindToLifecycle());
+        //获取评论列表
+        mPresenter.comment(goodsId,this.bindToLifecycle());
     }
 
 
@@ -303,6 +311,7 @@ public class ShoppingDetailActivity extends BaseActivity implements ShoppingComm
      */
     @Override
     public void onItemReply(int pos, TextView textView) {
+        parentId = mCommonList.get(pos).getCommentId();
         mBinding.keyEdit.requestFocus();
         showKeyboard(true);
     }
@@ -319,6 +328,7 @@ public class ShoppingDetailActivity extends BaseActivity implements ShoppingComm
         //跳转到评论列表
         startActivity(new Intent(this, CommenListActivity.class)
                 .putExtra("position",pos)
+                .putExtra("id",goodsId)
         );
     }
 
@@ -394,11 +404,6 @@ public class ShoppingDetailActivity extends BaseActivity implements ShoppingComm
                 mBinding.detailEvaluationHead.setVisibility(View.GONE);
                 mBinding.detailEvaluation.setVisibility(View.GONE);
             }
-
-            for (int i = 0; i < 10; i++) {
-                mCommonList.add("");
-            }
-            mCommonAdapter.notifyDataSetChanged();
 
             if(shoppingDetailBean.getGoodsRankdetailEntity().getParametersList() != null){
                 mParameterList.addAll(shoppingDetailBean.getGoodsRankdetailEntity().getParametersList());
@@ -565,6 +570,65 @@ public class ShoppingDetailActivity extends BaseActivity implements ShoppingComm
     }
 
     /**
+     * 获取评论列表 成功回调
+     */
+    @Override
+    public void onSucComment(CommentBean commentBean) {
+        if(commentBean.getList() != null && commentBean.getList().size() != 0){
+            mBinding.detailCommon.setVisibility(View.VISIBLE);
+            mBinding.detailCommonTotle.setVisibility(View.VISIBLE);
+            mBinding.detailCommentLayout.setVisibility(View.GONE);
+            mCommonList.clear();
+            mCommonList.addAll(commentBean.getList());
+            mCommonAdapter.notifyDataSetChanged();
+            if(commentBean.getCount() > 3){
+                mBinding.detailCommonTotle.setText("查看全部"+commentBean.getCount()+"条评论");
+            }else {
+                mBinding.detailCommonTotle.setText("查看更多");
+            }
+        }else {
+            mBinding.detailCommon.setVisibility(View.GONE);
+            mBinding.detailCommonTotle.setVisibility(View.GONE);
+            mBinding.detailCommentLayout.setVisibility(View.VISIBLE);
+        }
+    }
+
+    /**
+     * 获取评论列表 失败回调
+     */
+    @Override
+    public void onFileComment(String error) {
+        mBinding.detailCommon.setVisibility(View.GONE);
+        mBinding.detailCommonTotle.setVisibility(View.GONE);
+        mBinding.detailCommentLayout.setVisibility(View.VISIBLE);
+        Toast.makeText(this, error, Toast.LENGTH_SHORT).show();
+    }
+
+    /**
+     * 评论成功
+     */
+    @Override
+    public void onSucCommentInsert(SuccessBean successBean) {
+        mPresenter.comment(goodsId,this.bindToLifecycle());
+        mBinding.keyEdit.setText("");
+        hintKey();
+        if (mDialogProgress != null && mDialogProgress.isShowing()) {
+            mDialogProgress.dismiss();
+        }
+    }
+
+    /**
+     * 评论失败
+     */
+    @Override
+    public void onFileCommentInsert(String error) {
+        if (mDialogProgress != null && mDialogProgress.isShowing()) {
+            mDialogProgress.dismiss();
+        }
+        Toast.makeText(this, error, Toast.LENGTH_SHORT).show();
+    }
+
+    /**
      * 分享
      *
      * @param share_media
@@ -659,13 +723,15 @@ public class ShoppingDetailActivity extends BaseActivity implements ShoppingComm
                     Toast.makeText(this, "请输入评论", Toast.LENGTH_SHORT).show();
                     return;
                 }
-                mBinding.keyEdit.setText("");
-//                hintKey();
+                mDialogProgress = (new ProgressDialogView()).createLoadingDialog(ShoppingDetailActivity.this, "正在加载...");
+                mDialogProgress.show();
+                mPresenter.commentInsert(goodsId,mBinding.keyEdit.getText().toString(),parentId,this.bindToLifecycle());
                 break;
             case R.id.detail_commonTotle:
                 //跳转到评论列表
                 startActivity(new Intent(this, CommenListActivity.class)
-                        .putExtra("position",0)
+                        .putExtra("position",-1)
+                        .putExtra("id",goodsId)
                 );
                 break;
             case R.id.content_attention:
@@ -677,6 +743,11 @@ public class ShoppingDetailActivity extends BaseActivity implements ShoppingComm
                     mDialogProgress.show();
                     mPresenter.getDate(goodsId,this.<ShoppingDetailBean>bindToLifecycle());
                 }
+                break;
+            case R.id.detail_commentTv:
+                parentId = "0";
+                mBinding.keyEdit.requestFocus();
+                showKeyboard(true);
                 break;
         }
     }

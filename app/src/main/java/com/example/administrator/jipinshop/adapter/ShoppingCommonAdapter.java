@@ -1,8 +1,10 @@
 package com.example.administrator.jipinshop.adapter;
 
 import android.content.Context;
+import android.graphics.drawable.Drawable;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,6 +13,7 @@ import android.widget.TextView;
 
 import com.example.administrator.jipinshop.MyApplication;
 import com.example.administrator.jipinshop.R;
+import com.example.administrator.jipinshop.bean.CommentBean;
 import com.example.administrator.jipinshop.view.glide.imageloder.ImageManager;
 
 import java.util.List;
@@ -22,7 +25,7 @@ import java.util.List;
  */
 public class ShoppingCommonAdapter extends RecyclerView.Adapter<ShoppingCommonAdapter.ViewHolder> {
 
-    private List<String> mList;
+    private List<CommentBean.ListBean> mList;
     private Context mContext;
     private OnItemReply mOnItemReply;
 
@@ -30,7 +33,7 @@ public class ShoppingCommonAdapter extends RecyclerView.Adapter<ShoppingCommonAd
         mOnItemReply = onItemReply;
     }
 
-    public ShoppingCommonAdapter(List<String> list, Context context) {
+    public ShoppingCommonAdapter(List<CommentBean.ListBean> list, Context context) {
         mList = list;
         mContext = context;
     }
@@ -46,13 +49,13 @@ public class ShoppingCommonAdapter extends RecyclerView.Adapter<ShoppingCommonAd
     @Override
     public void onBindViewHolder(final ViewHolder holder, final int position) {
 
-        if(position != 0){
+        if(mList.get(position).getUserCommentList() != null && mList.get(position).getUserCommentList().size() != 0){
             holder.recycler_view.setVisibility(View.VISIBLE);
-            holder.mAdapter.setList(mList);
-            if(mList.size() > 2){
+            holder.mAdapter.setList(mList.get(position).getUserCommentList());
+            if(mList.get(position).getUserCommentList().size() > 2){
                 holder.mAdapter.setNumber(2);
             }else {
-                holder.mAdapter.setNumber(mList.size());
+                holder.mAdapter.setNumber(mList.get(position).getUserCommentList().size());
             }
             //二级评论的更多
             holder.mAdapter.setOnReplyLisenter(pos -> {
@@ -70,7 +73,31 @@ public class ShoppingCommonAdapter extends RecyclerView.Adapter<ShoppingCommonAd
                 mOnItemReply.onItemReply(position,holder.item_reply);
             }
         });
-        ImageManager.displayCircleImage(MyApplication.imag,holder.item_image,0,0);
+        if(!TextUtils.isEmpty(mList.get(position).getFromImg())){
+            ImageManager.displayCircleImage(mList.get(position).getFromImg(),holder.item_image,0,R.mipmap.rlogo);
+        }else {
+            ImageManager.displayImage("drawable://" + R.drawable.rlogo,holder.item_image,R.drawable.rlogo,R.drawable.rlogo);
+        }
+
+        holder.item_name.setText(mList.get(position).getFromNickname());
+        if(!TextUtils.isEmpty(mList.get(position).getSnapNum()) && !mList.get(position).getSnapNum().equals("0")){
+            holder.item_goodNum.setText(mList.get(position).getSnapNum());
+        }
+        Drawable drawable;
+        if(mList.get(position).isUserSnap()){
+            drawable= mContext.getResources().getDrawable(R.mipmap.appreciate_big);
+        }else {
+            drawable= mContext.getResources().getDrawable(R.mipmap.appreciate_nor);
+        }
+        drawable.setBounds(0, 0, drawable.getMinimumWidth(), drawable.getMinimumHeight());
+        holder.item_goodNum.setCompoundDrawables(drawable,null,null,null);
+        holder.item_content.setText(mList.get(position).getContent());
+        if(!TextUtils.isEmpty(mList.get(position).getShowTime())){
+            holder.item_time.setText(mList.get(position).getShowTime());
+        }else {
+            holder.item_time.setText(mList.get(position).getCreateTime().split(" ")[0]);
+        }
+
     }
 
     @Override

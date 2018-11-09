@@ -10,6 +10,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.example.administrator.jipinshop.R;
+import com.example.administrator.jipinshop.bean.CommentBean;
 
 import java.util.List;
 
@@ -21,7 +22,7 @@ import java.util.List;
 public class ShoppingCommon2Adapter extends RecyclerView.Adapter<ShoppingCommon2Adapter.ViewHolder> {
 
     //总共的二级评论数量
-    private List<String> mList;
+    private List<CommentBean.ListBean.UserCommentListBean> mList;
     private Context mContext;
     private OnReplyLisenter mOnReplyLisenter;
     private OnMoreUp mOnMoreUp;
@@ -44,7 +45,7 @@ public class ShoppingCommon2Adapter extends RecyclerView.Adapter<ShoppingCommon2
         mContext = context;
     }
 
-    public void setList(List<String> list) {
+    public void setList(List<CommentBean.ListBean.UserCommentListBean> list) {
         mList = list;
     }
 
@@ -102,7 +103,7 @@ public class ShoppingCommon2Adapter extends RecyclerView.Adapter<ShoppingCommon2
                             holder.item_down.setVisibility(View.GONE);
                             holder.item_up.setVisibility(View.GONE);
                             num = mList.size();
-                            holder.item_time.setText("共" + (mList.size() - 2) + "条回复");
+                            holder.item_time.setText("共" + (mList.size()) + "条回复");
                         }else {
                             holder.item_more.setVisibility(View.GONE);
                         }
@@ -141,8 +142,8 @@ public class ShoppingCommon2Adapter extends RecyclerView.Adapter<ShoppingCommon2
             }
         }
 
-        holder.item_content.setText("第" + position + "楼");
-        holder.item_name.setText("极品城");
+        holder.item_content.setText(mList.get(position).getContent());
+        holder.item_name.setText(mList.get(position).getFromNickname());
     }
 
     @Override

@@ -14,6 +14,7 @@ import android.widget.TextView;
 import com.blankj.utilcode.util.SPUtils;
 import com.example.administrator.jipinshop.R;
 import com.example.administrator.jipinshop.adapter.ShoppingBannerAdapter;
+import com.example.administrator.jipinshop.bean.CommentBean;
 import com.example.administrator.jipinshop.bean.ShoppingDetailBean;
 import com.example.administrator.jipinshop.bean.SnapSelectBean;
 import com.example.administrator.jipinshop.bean.SuccessBean;
@@ -309,6 +310,59 @@ public class ShoppingDetailPresenter {
                 }, throwable -> {
                     if(mShoppingDetailView != null){
                         mShoppingDetailView.onFileCollectDelete(throwable.getMessage());
+                    }
+                });
+    }
+
+    /**
+     * 查看评论列表
+     */
+    public void comment(String goodsId, LifecycleTransformer<CommentBean> transformer){
+        Map<String,String> hashMap = new HashMap<>();
+        hashMap.put("userId", SPUtils.getInstance(CommonDate.USER).getString(CommonDate.userId));
+        hashMap.put("articId",goodsId);
+        mRepository.comment(hashMap)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .compose(transformer)
+                .subscribe(commentBean -> {
+                    if(commentBean.getCode() == 200){
+                        if(mShoppingDetailView != null){
+                            mShoppingDetailView.onSucComment(commentBean);
+                        }
+                    }else {
+                        if(mShoppingDetailView != null){
+                            mShoppingDetailView.onFileComment(commentBean.getMsg());
+                        }
+                    }
+                }, throwable -> {
+                    if(mShoppingDetailView != null){
+                        mShoppingDetailView.onFileComment(throwable.getMessage());
+                    }
+                });
+    }
+
+    /**
+     * 添加评论
+     */
+    public void commentInsert(String articId,String content,String parentId , LifecycleTransformer<SuccessBean> transformer){
+        mRepository.commentInsert(articId,content,parentId)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .compose(transformer)
+                .subscribe(successBean -> {
+                    if(successBean.getCode() == 200){
+                        if(mShoppingDetailView != null){
+                            mShoppingDetailView.onSucCommentInsert(successBean);
+                        }
+                    }else {
+                        if(mShoppingDetailView != null){
+                            mShoppingDetailView.onFileCommentInsert(successBean.getMsg());
+                        }
+                    }
+                }, throwable -> {
+                    if(mShoppingDetailView != null){
+                        mShoppingDetailView.onFileCommentInsert(throwable.getMessage());
                     }
                 });
     }
