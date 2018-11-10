@@ -1,6 +1,7 @@
 package com.example.administrator.jipinshop.activity.commenlist;
 
 import android.graphics.Rect;
+import android.view.View;
 
 import com.blankj.utilcode.util.SPUtils;
 import com.example.administrator.jipinshop.bean.CommentBean;
@@ -122,4 +123,61 @@ public class CommenListPresenter {
         mDetailContanier.getWindowVisibleDisplayFrame(r);
         return (r.bottom - r.top);
     }
+
+    /**
+     * 添加点赞
+     */
+    public void snapInsert(int position, String id , LifecycleTransformer<SuccessBean> transformer){
+        Map<String,String> hashMap = new HashMap<>();
+        hashMap.put("userId", SPUtils.getInstance(CommonDate.USER).getString(CommonDate.userId));
+        hashMap.put("commentId",id);
+        mRepository.snapInsert(hashMap)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .compose(transformer)
+                .subscribe(successBean -> {
+                    if(successBean.getCode() == 200){
+                        if(mView != null){
+                            mView.onSucCommentSnapIns(position,successBean);
+                        }
+                    }else {
+                        if(mView != null){
+                            mView.onFileSnap(successBean.getMsg());
+                        }
+                    }
+                }, throwable -> {
+                    if(mView != null){
+                        mView.onFileSnap(throwable.getMessage());
+                    }
+                });
+    }
+
+    /**
+     * 删除点赞
+     */
+    public void snapDelete(int position, String id , LifecycleTransformer<SuccessBean> transformer){
+        Map<String,String> hashMap = new HashMap<>();
+        hashMap.put("userId", SPUtils.getInstance(CommonDate.USER).getString(CommonDate.userId));
+        hashMap.put("commentId",id);
+        mRepository.snapDelete(hashMap)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .compose(transformer)
+                .subscribe(successBean -> {
+                    if(successBean.getCode() == 200){
+                        if(mView != null){
+                            mView.onSucCommentSnapDel(position,successBean);
+                        }
+                    }else {
+                        if(mView != null){
+                            mView.onFileSnap(successBean.getMsg());
+                        }
+                    }
+                }, throwable -> {
+                    if(mView != null){
+                        mView.onFileSnap(throwable.getMessage());
+                    }
+                });
+    }
+
 }

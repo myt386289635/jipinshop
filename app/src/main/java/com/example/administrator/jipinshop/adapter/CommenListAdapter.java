@@ -28,6 +28,11 @@ public class CommenListAdapter extends RecyclerView.Adapter<CommenListAdapter.Vi
     private Context mContext;
     private OnItemReply mOnItemReply;
     private OnMoreUp mOnMoreUp;
+    private OnGoodItem mOnGoodItem;
+
+    public void setOnGoodItem(OnGoodItem onGoodItem) {
+        mOnGoodItem = onGoodItem;
+    }
 
     private List<Integer> sets;//记录每个留言的二级展示条数
 
@@ -91,10 +96,12 @@ public class CommenListAdapter extends RecyclerView.Adapter<CommenListAdapter.Vi
         holder.item_name.setText(mList.get(position).getFromNickname());
         if(!TextUtils.isEmpty(mList.get(position).getSnapNum()) && !mList.get(position).getSnapNum().equals("0")){
             holder.item_goodNum.setText(mList.get(position).getSnapNum());
+        }else {
+            holder.item_goodNum.setText("");
         }
         Drawable drawable;
         if(mList.get(position).isUserSnap()){
-            drawable= mContext.getResources().getDrawable(R.mipmap.appreciate_big);
+            drawable= mContext.getResources().getDrawable(R.mipmap.appreciate_sel);
         }else {
             drawable= mContext.getResources().getDrawable(R.mipmap.appreciate_nor);
         }
@@ -106,7 +113,11 @@ public class CommenListAdapter extends RecyclerView.Adapter<CommenListAdapter.Vi
         }else {
             holder.item_time.setText(mList.get(position).getCreateTime().split(" ")[0]);
         }
-
+        holder.item_goodNum.setOnClickListener(v -> {
+            if(mOnGoodItem != null){
+                mOnGoodItem.onGood(mList.get(position).isUserSnap(),position);
+            }
+        });
     }
 
     @Override
@@ -153,5 +164,8 @@ public class CommenListAdapter extends RecyclerView.Adapter<CommenListAdapter.Vi
 
     public interface OnMoreUp{
         void onUp(int position,ShoppingCommon2Adapter mAdapter);
+    }
+    public interface OnGoodItem{
+        void onGood(Boolean flag,int position);
     }
 }

@@ -18,4 +18,8 @@ public interface CommenListView {
 
     void onSucCommentInsert(CommentInsertBean commentInsertBean);
     void onFileCommentInsert(String error);
+
+    void onSucCommentSnapIns(int position,SuccessBean successBean);
+    void onSucCommentSnapDel(int position,SuccessBean successBean);
+    void onFileSnap(String error);
 }

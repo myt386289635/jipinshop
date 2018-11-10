@@ -16,17 +16,20 @@ import com.aspsine.swipetoloadlayout.OnLoadMoreListener;
 import com.aspsine.swipetoloadlayout.OnRefreshListener;
 import com.blankj.utilcode.util.SPUtils;
 import com.example.administrator.jipinshop.R;
+import com.example.administrator.jipinshop.activity.shoppingdetail.ShoppingDetailActivity;
 import com.example.administrator.jipinshop.adapter.CommenListAdapter;
 import com.example.administrator.jipinshop.adapter.ShoppingCommon2Adapter;
 import com.example.administrator.jipinshop.base.BaseActivity;
 import com.example.administrator.jipinshop.bean.CommentBean;
 import com.example.administrator.jipinshop.bean.CommentInsertBean;
+import com.example.administrator.jipinshop.bean.SuccessBean;
 import com.example.administrator.jipinshop.databinding.ActivityCommenlistBinding;
 import com.example.administrator.jipinshop.util.sp.CommonDate;
 import com.example.administrator.jipinshop.view.dialog.ProgressDialogView;
 
 import org.greenrobot.eventbus.EventBus;
 
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -37,7 +40,7 @@ import javax.inject.Inject;
  * @create 2018/8/3
  * @Describe 评论列表
  */
-public class CommenListActivity extends BaseActivity implements CommenListAdapter.OnItemReply, View.OnClickListener, CommenListAdapter.OnMoreUp, CommenListView, OnRefreshListener, OnLoadMoreListener {
+public class CommenListActivity extends BaseActivity implements CommenListAdapter.OnItemReply, View.OnClickListener, CommenListAdapter.OnMoreUp, CommenListView, OnRefreshListener, OnLoadMoreListener, CommenListAdapter.OnGoodItem {
 
     public static final String commentResher = "ShoppingDetailActivity_commentResher";
 
@@ -94,6 +97,7 @@ public class CommenListActivity extends BaseActivity implements CommenListAdapte
         mAdapter.setOnItemReply(this);
         mAdapter.setSets(sets);
         mAdapter.setOnMoreUp(this);
+        mAdapter.setOnGoodItem(this);
         mBinding.swipeTarget.setAdapter(mAdapter);
         mBinding.swipeToLoad.setOnRefreshListener(this);
         mBinding.swipeToLoad.setOnLoadMoreListener(this);
@@ -299,6 +303,47 @@ public class CommenListActivity extends BaseActivity implements CommenListAdapte
         Toast.makeText(this, error, Toast.LENGTH_SHORT).show();
     }
 
+    /**
+     * 评论点赞成功回调
+     */
+    @Override
+    public void onSucCommentSnapIns(int position, SuccessBean successBean) {
+        if (mDialog != null && mDialog.isShowing()) {
+            mDialog.dismiss();
+        }
+        mList.get(position).setUserSnap(true);
+        BigDecimal bigDecimal = new BigDecimal(mList.get(position).getSnapNum());
+        int num = bigDecimal.intValue();
+        mList.get(position).setSnapNum((num + 1) + "");
+        mAdapter.notifyItemChanged(position);
+    }
+
+    /**
+     * 评论删除点赞成功回调
+     */
+    @Override
+    public void onSucCommentSnapDel(int position, SuccessBean successBean) {
+        if (mDialog != null && mDialog.isShowing()) {
+            mDialog.dismiss();
+        }
+        mList.get(position).setUserSnap(false);
+        BigDecimal bigDecimal = new BigDecimal(mList.get(position).getSnapNum());
+        int num = bigDecimal.intValue();
+        mList.get(position).setSnapNum((num - 1) + "");
+        mAdapter.notifyItemChanged(position);
+    }
+
+    /**
+     * 点赞、删除点赞  失败回调
+     */
+    @Override
+    public void onFileSnap(String error) {
+        if (mDialog != null && mDialog.isShowing()) {
+            mDialog.dismiss();
+        }
+        Toast.makeText(this, error, Toast.LENGTH_SHORT).show();
+    }
+
     /***
      * 刷新
      */
@@ -363,6 +408,21 @@ public class CommenListActivity extends BaseActivity implements CommenListAdapte
             } else {
                 sets.add(2);
             }
+        }
+    }
+
+    @Override
+    public void onGood(Boolean flag, int position) {
+        if(flag){
+            //取消点赞
+            mDialog = (new ProgressDialogView()).createLoadingDialog(this, "正在加载...");
+            mDialog.show();
+            mPresenter.snapDelete(position,mList.get(position).getCommentId(),this.bindToLifecycle());
+        }else {
+            //点赞
+            mDialog = (new ProgressDialogView()).createLoadingDialog(this, "正在加载...");
+            mDialog.show();
+            mPresenter.snapInsert(position,mList.get(position).getCommentId(),this.bindToLifecycle());
         }
     }
 }
