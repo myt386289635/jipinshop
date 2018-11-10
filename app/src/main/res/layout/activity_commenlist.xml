@@ -67,6 +67,7 @@
                 android:layout_height="@dimen/x1"/>
 
             <EditText
+                android:onClick="@{listener.onClick}"
                 android:id="@+id/key_edit"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"

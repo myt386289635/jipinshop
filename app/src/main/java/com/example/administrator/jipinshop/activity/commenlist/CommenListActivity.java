@@ -69,6 +69,11 @@ public class CommenListActivity extends BaseActivity implements CommenListAdapte
      */
     private int parentNum = -1;
 
+    /**
+     * 判断软键盘是关闭还是打开的
+     */
+    private Boolean imi = false;
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -119,13 +124,10 @@ public class CommenListActivity extends BaseActivity implements CommenListAdapte
      */
     @Override
     public void onItemTwoReply(int pos, ShoppingCommon2Adapter mAdapter, int postion) {
-//        mBinding.keyEdit.requestFocus();
-//        showKeyboard(true);
         sets.remove(postion);
         sets.add(postion, pos);
         mAdapter.setNumber(sets.get(postion));
         mAdapter.notifyDataSetChanged();
-//        Toast.makeText(this, "条数:" + sets.get(postion) + "--->位置：" + postion, Toast.LENGTH_SHORT).show();
     }
 
     public void hintKey() {
@@ -178,6 +180,14 @@ public class CommenListActivity extends BaseActivity implements CommenListAdapte
                 mDialog.show();
                 mPresenter.commentInsert(getIntent().getStringExtra("id"), mBinding.keyEdit.getText().toString(), parentId, this.bindToLifecycle());
                 break;
+            case R.id.key_edit:
+//                Toast.makeText(this, "点击了" + imi, Toast.LENGTH_SHORT).show();
+                if(!imi){
+                    //不是打开的时候点击
+                    parentId = "0";
+                    parentNum = -1;
+                }
+                break;
         }
     }
 
@@ -192,13 +202,12 @@ public class CommenListActivity extends BaseActivity implements CommenListAdapte
 
     @Override
     public void keyShow() {
-
+        imi = true;
     }
 
     @Override
     public void keyHint() {
-        parentId = "0";
-        parentNum = -1;
+        imi = false;
     }
 
     @Override
@@ -263,7 +272,7 @@ public class CommenListActivity extends BaseActivity implements CommenListAdapte
                 sets.remove(parentNum);
                 sets.add(parentNum, mList.get(parentNum).getUserCommentList().size());
             } else {
-                if (sets.get(parentNum) != 2 && sets.get(parentNum) < 10) {
+                if (sets.get(parentNum) != 2 && (sets.get(parentNum) % 10) != 0) {
                     int num = sets.remove(parentNum);
                     sets.add(parentNum, num + 1);
                 }
@@ -276,7 +285,6 @@ public class CommenListActivity extends BaseActivity implements CommenListAdapte
             onRefresh();
         }
         mBinding.keyEdit.setText("");
-        hintKey();
         if (mDialog != null && mDialog.isShowing()) {
             mDialog.dismiss();
         }
