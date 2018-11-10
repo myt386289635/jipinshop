@@ -58,6 +58,9 @@ import com.example.administrator.jipinshop.view.goodview.GoodView;
 import com.umeng.socialize.UMShareAPI;
 import com.umeng.socialize.bean.SHARE_MEDIA;
 
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -164,6 +167,7 @@ public class ShoppingDetailActivity extends BaseActivity implements ShoppingComm
         mBinding.setListener(this);
         mBaseActivityComponent.inject(this);
         mPresenter.setShoppingDetailView(this);
+        EventBus.getDefault().register(this);
         initView();
     }
 
@@ -280,6 +284,7 @@ public class ShoppingDetailActivity extends BaseActivity implements ShoppingComm
 
     @Override
     protected void onDestroy() {
+        EventBus.getDefault().unregister(this);
         UMShareAPI.get(this).release();
         AlibcTradeSDK.destory();
         stopThread = false;
@@ -890,5 +895,13 @@ public class ShoppingDetailActivity extends BaseActivity implements ShoppingComm
         mBinding.inClude.errorImage.setBackgroundResource(id);
         mBinding.inClude.errorTitle.setText(title);
         mBinding.inClude.errorContent.setText(content);
+    }
+
+    //获取评论列表
+    @Subscribe
+    public void commentResher(String s){
+        if(!TextUtils.isEmpty(s) && s.equals(CommenListActivity.commentResher)){
+            mPresenter.comment(goodsId,this.bindToLifecycle());
+        }
     }
 }

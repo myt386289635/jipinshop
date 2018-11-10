@@ -23,6 +23,8 @@ import com.example.administrator.jipinshop.bean.SuccessBean;
 import com.example.administrator.jipinshop.databinding.ActivityCommenlistBinding;
 import com.example.administrator.jipinshop.view.dialog.ProgressDialogView;
 
+import org.greenrobot.eventbus.EventBus;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -34,6 +36,8 @@ import javax.inject.Inject;
  * @Describe 评论列表
  */
 public class CommenListActivity extends BaseActivity implements CommenListAdapter.OnItemReply, View.OnClickListener, CommenListAdapter.OnMoreUp, CommenListView, OnRefreshListener, OnLoadMoreListener {
+
+    public static final String commentResher = "ShoppingDetailActivity_commentResher";
 
     @Inject
     CommenListPresenter mPresenter;
@@ -255,6 +259,7 @@ public class CommenListActivity extends BaseActivity implements CommenListAdapte
         if (mDialog != null && mDialog.isShowing()) {
             mDialog.dismiss();
         }
+        EventBus.getDefault().post(CommenListActivity.commentResher);
     }
 
     @Override
