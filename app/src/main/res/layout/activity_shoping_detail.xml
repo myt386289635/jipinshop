@@ -56,8 +56,8 @@
                 android:layout_centerInParent="true"
                 android:layout_marginLeft="@dimen/x140"
                 android:layout_marginRight="@dimen/x146"
-                android:layout_toLeftOf="@id/detail_favor"
-                android:layout_toRightOf="@id/detail_back"
+                android:layout_toLeftOf="@+id/detail_favor"
+                android:layout_toRightOf="@+id/detail_back"
                 android:orientation="horizontal">
                 <!-- 商品 -->
                 <RelativeLayout
@@ -151,7 +151,7 @@
             android:id="@+id/srcoll_view"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_below="@id/head_contanier"
+            android:layout_below="@+id/head_contanier"
             android:fillViewport="true">
 
             <RelativeLayout
@@ -194,7 +194,7 @@
                     android:id="@+id/detail_newPrice"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_below="@id/detail_name"
+                    android:layout_below="@+id/detail_name"
                     android:layout_marginLeft="@dimen/x28"
                     android:layout_marginTop="@dimen/x36"
                     android:text="券后价：¥0.00"
@@ -205,10 +205,10 @@
                     android:id="@+id/detail_oldPriceName"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_below="@id/detail_name"
+                    android:layout_below="@+id/detail_name"
                     android:layout_marginLeft="@dimen/x20"
                     android:layout_marginTop="@dimen/x36"
-                    android:layout_toRightOf="@id/detail_newPrice"
+                    android:layout_toRightOf="@+id/detail_newPrice"
                     android:text="京东："
                     android:textColor="@color/color_ACACAC"
                     android:textSize="13sp"/>
@@ -218,9 +218,9 @@
                     android:id="@+id/detail_oldPrice"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_below="@id/detail_name"
+                    android:layout_below="@+id/detail_name"
                     android:layout_marginTop="@dimen/x36"
-                    android:layout_toRightOf="@id/detail_oldPriceName"
+                    android:layout_toRightOf="@+id/detail_oldPriceName"
                     android:text="¥0.00"
                     android:textColor="@color/color_ACACAC"
                     android:textSize="13sp"/>
@@ -230,7 +230,7 @@
                     android:id="@+id/detail_couponContainer"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_below="@id/detail_newPrice"
+                    android:layout_below="@+id/detail_newPrice"
                     android:layout_marginBottom="@dimen/x48"
                     android:layout_marginLeft="@dimen/x28"
                     android:layout_marginTop="@dimen/x48">
@@ -253,7 +253,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="@dimen/x24"
-                        android:layout_toRightOf="@id/detail_couponImg"
+                        android:layout_toRightOf="@+id/detail_couponImg"
                         android:text="0元独家优惠券"
                         android:textColor="@color/color_DE151515"
                         android:textSize="15sp"/>
@@ -262,10 +262,10 @@
                         android:id="@+id/detail_couponDeci"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_below="@id/detaile_couponTitle"
+                        android:layout_below="@+id/detaile_couponTitle"
                         android:layout_marginLeft="@dimen/x24"
                         android:layout_marginTop="@dimen/x12"
-                        android:layout_toRightOf="@id/detail_couponImg"
+                        android:layout_toRightOf="@+id/detail_couponImg"
                         android:text="每人限领一张 抢完即止 "
                         android:textColor="@color/color_ACACAC"
                         android:textSize="13sp"/>
@@ -276,7 +276,7 @@
                     android:id="@+id/detail_qualityImg"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_below="@id/detail_couponContainer"
+                    android:layout_below="@+id/detail_couponContainer"
                     android:layout_marginLeft="@dimen/x24"
                     android:background="@mipmap/quality"/>
 
@@ -284,9 +284,9 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_below="@id/detail_couponContainer"
+                    android:layout_below="@+id/detail_couponContainer"
                     android:layout_marginLeft="@dimen/x8"
-                    android:layout_toRightOf="@id/detail_qualityImg"
+                    android:layout_toRightOf="@+id/detail_qualityImg"
                     android:text="品质保证"
                     android:textColor="@color/color_DE151515"
                     android:textSize="15sp"
@@ -297,7 +297,7 @@
                     android:id="@+id/detail_quality"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_below="@id/detail_qualityImg"
+                    android:layout_below="@+id/detail_qualityImg"
                     android:layout_marginLeft="@dimen/x124"
                     android:layout_marginRight="@dimen/x28"
                     android:layout_marginTop="@dimen/x24"
@@ -309,7 +309,7 @@
                     android:id="@+id/detail_serviceImg"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_below="@id/detail_quality"
+                    android:layout_below="@+id/detail_quality"
                     android:layout_marginLeft="@dimen/x24"
                     android:layout_marginTop="@dimen/x68"
                     android:background="@mipmap/service"/>
@@ -318,10 +318,10 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_below="@id/detail_quality"
+                    android:layout_below="@+id/detail_quality"
                     android:layout_marginLeft="@dimen/x8"
                     android:layout_marginTop="@dimen/x64"
-                    android:layout_toRightOf="@id/detail_serviceImg"
+                    android:layout_toRightOf="@+id/detail_serviceImg"
                     android:text="售后服务"
                     android:textColor="@color/color_DE151515"
                     android:textSize="15sp"
@@ -332,7 +332,7 @@
                     android:id="@+id/detail_service"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_below="@id/detail_serviceImg"
+                    android:layout_below="@+id/detail_serviceImg"
                     android:layout_marginLeft="@dimen/x124"
                     android:layout_marginRight="@dimen/x28"
                     android:layout_marginTop="@dimen/x24"
@@ -344,7 +344,7 @@
                     android:id="@+id/detail_parameterImg"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_below="@id/detail_service"
+                    android:layout_below="@+id/detail_service"
                     android:layout_marginLeft="@dimen/x24"
                     android:layout_marginTop="@dimen/x68"
                     android:background="@mipmap/parameter"/>
@@ -353,10 +353,10 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_below="@id/detail_service"
+                    android:layout_below="@+id/detail_service"
                     android:layout_marginLeft="@dimen/x8"
                     android:layout_marginTop="@dimen/x64"
-                    android:layout_toRightOf="@id/detail_parameterImg"
+                    android:layout_toRightOf="@+id/detail_parameterImg"
                     android:text="产品参数"
                     android:textColor="@color/color_DE151515"
                     android:textSize="15sp"
@@ -367,7 +367,7 @@
                     android:id="@+id/detail_parameter"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_below="@id/detail_parameterImg"
+                    android:layout_below="@+id/detail_parameterImg"
                     android:layout_marginLeft="@dimen/x28"
                     android:layout_marginRight="@dimen/x28"
                     android:layout_marginTop="@dimen/x24"
@@ -378,7 +378,7 @@
                 <View
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/x2"
-                    android:layout_below="@id/detail_parameter"
+                    android:layout_below="@+id/detail_parameter"
                     android:layout_marginLeft="@dimen/x28"
                     android:layout_marginRight="@dimen/x28"
                     android:background="@color/color_F5F5F5"/>
@@ -388,7 +388,7 @@
                     android:id="@+id/detail_headLine"
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/x12"
-                    android:layout_below="@id/detail_parameter"
+                    android:layout_below="@+id/detail_parameter"
                     android:layout_marginTop="@dimen/x76"
                     android:background="@color/color_F5F5F5"/>
 
@@ -397,7 +397,7 @@
                     android:id="@+id/detail_evaluationTitle"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_below="@id/detail_headLine"
+                    android:layout_below="@+id/detail_headLine"
                     android:layout_marginLeft="@dimen/x28"
                     android:layout_marginTop="@dimen/x56"
                     android:text="开箱评测"
@@ -409,7 +409,7 @@
                     android:id="@+id/detail_evaluationHead"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_below="@id/detail_evaluationTitle"
+                    android:layout_below="@+id/detail_evaluationTitle"
                     android:layout_marginLeft="@dimen/x28"
                     android:layout_marginRight="@dimen/x28"
                     android:layout_marginTop="@dimen/x32">
@@ -476,7 +476,7 @@
                     android:id="@+id/detail_evaluation"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_below="@id/detail_evaluationHead"/>
+                    android:layout_below="@+id/detail_evaluationHead"/>
 
                 <!--测试：图文混合 大长图加载-->
                 <com.davemorrissey.labs.subscaleview.SubsamplingScaleImageView
@@ -484,13 +484,13 @@
                     android:id="@+id/detail_evaluationImageview"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_below="@id/detail_evaluationHead"/>
+                    android:layout_below="@+id/detail_evaluationHead"/>
 
                 <View
                     android:id="@+id/detail_evaluationLine"
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/x12"
-                    android:layout_below="@id/detail_evaluation"
+                    android:layout_below="@+id/detail_evaluation"
                     android:layout_marginTop="@dimen/x80"
                     android:background="@color/color_F5F5F5"/>
 
@@ -499,7 +499,7 @@
                     android:id="@+id/detail_commonTitle"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_below="@id/detail_evaluationLine"
+                    android:layout_below="@+id/detail_evaluationLine"
                     android:layout_marginLeft="@dimen/x28"
                     android:layout_marginTop="@dimen/x56"
                     android:text="用户评价 "
@@ -513,7 +513,7 @@
                     android:id="@+id/detail_commonStarLayout"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_below="@id/detail_commonTitle"
+                    android:layout_below="@+id/detail_commonTitle"
                     android:layout_marginLeft="@dimen/x28"
                     android:layout_marginTop="@dimen/x32"
                     android:orientation="horizontal"/>
@@ -524,7 +524,6 @@
                     android:id="@+id/detail_commonDev"
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/x2"
-                    android:layout_below="@id/detail_commonTotle"
                     android:layout_marginLeft="@dimen/x28"
                     android:layout_marginRight="@dimen/x28"
                     android:layout_marginTop="@dimen/x42"
@@ -532,7 +531,7 @@
 
                 <RelativeLayout
                     android:id="@+id/detail_comment"
-                    android:layout_below="@id/detail_commonTitle"
+                    android:layout_below="@+id/detail_commonTitle"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content">
 
@@ -550,7 +549,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_centerHorizontal="true"
-                        android:layout_below="@id/detail_common"
+                        android:layout_below="@+id/detail_common"
                         android:layout_marginTop="@dimen/x42"
                         android:drawablePadding="@dimen/x14"
                         android:drawableRight="@mipmap/right"
@@ -590,7 +589,7 @@
                     android:id="@+id/detail_commonLine"
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/x12"
-                    android:layout_below="@id/detail_comment"
+                    android:layout_below="@+id/detail_comment"
                     android:layout_marginTop="@dimen/x42"
                     android:background="@color/color_F5F5F5"/>
 
@@ -600,7 +599,7 @@
                     android:id="@+id/detail_good"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_below="@id/detail_commonLine"
+                    android:layout_below="@+id/detail_commonLine"
                     android:layout_centerHorizontal="true"
                     android:layout_marginBottom="@dimen/x100"
                     android:layout_marginTop="@dimen/x100"
@@ -674,7 +673,7 @@
                 android:layout_marginLeft="@dimen/x28"
                 android:layout_marginRight="@dimen/x16"
                 android:layout_marginTop="@dimen/x16"
-                android:layout_toLeftOf="@id/key_text"
+                android:layout_toLeftOf="@+id/key_text"
                 android:background="@drawable/bg_keyedit"
                 android:hint="点击输入评论"
                 android:padding="@dimen/x16"
