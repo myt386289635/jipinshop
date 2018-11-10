@@ -28,6 +28,11 @@ public class ShoppingCommonAdapter extends RecyclerView.Adapter<ShoppingCommonAd
     private List<CommentBean.ListBean> mList;
     private Context mContext;
     private OnItemReply mOnItemReply;
+    private OnGoodItem mOnGoodItem;
+
+    public void setOnGoodItem(OnGoodItem onGoodItem) {
+        mOnGoodItem = onGoodItem;
+    }
 
     public void setOnItemReply(OnItemReply onItemReply) {
         mOnItemReply = onItemReply;
@@ -85,7 +90,7 @@ public class ShoppingCommonAdapter extends RecyclerView.Adapter<ShoppingCommonAd
         }
         Drawable drawable;
         if(mList.get(position).isUserSnap()){
-            drawable= mContext.getResources().getDrawable(R.mipmap.appreciate_big);
+            drawable= mContext.getResources().getDrawable(R.mipmap.appreciate_sel);
         }else {
             drawable= mContext.getResources().getDrawable(R.mipmap.appreciate_nor);
         }
@@ -97,7 +102,11 @@ public class ShoppingCommonAdapter extends RecyclerView.Adapter<ShoppingCommonAd
         }else {
             holder.item_time.setText(mList.get(position).getCreateTime().split(" ")[0]);
         }
-
+        holder.item_goodNum.setOnClickListener(v -> {
+            if(mOnGoodItem != null){
+                mOnGoodItem.onGood(mList.get(position).isUserSnap(),position);
+            }
+        });
     }
 
     @Override
@@ -148,4 +157,7 @@ public class ShoppingCommonAdapter extends RecyclerView.Adapter<ShoppingCommonAd
         void onItemTwoReply(int pos);
     }
 
+    public interface OnGoodItem{
+        void onGood(Boolean flag,int position);
+    }
 }

@@ -62,6 +62,7 @@ import com.umeng.socialize.bean.SHARE_MEDIA;
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -78,7 +79,7 @@ import javax.inject.Inject;
  * 1、 使用一个recycelrView写,n个item，注意不要嵌套其他滑动布局，否则会卡顿)
  */
 @SuppressWarnings("all")
-public class ShoppingDetailActivity extends BaseActivity implements ShoppingCommonAdapter.OnItemReply, ShoppingDetailView, ShareBoardDialog.onShareListener, View.OnClickListener {
+public class ShoppingDetailActivity extends BaseActivity implements ShoppingCommonAdapter.OnItemReply, ShoppingDetailView, ShareBoardDialog.onShareListener, View.OnClickListener, ShoppingCommonAdapter.OnGoodItem {
 
     @Inject
     ShoppingDetailPresenter mPresenter;
@@ -252,6 +253,7 @@ public class ShoppingDetailActivity extends BaseActivity implements ShoppingComm
         mCommonList = new ArrayList<>();
         mCommonAdapter = new ShoppingCommonAdapter(mCommonList, this);
         mCommonAdapter.setOnItemReply(this);
+        mCommonAdapter.setOnGoodItem(this);
         mBinding.detailCommon.setAdapter(mCommonAdapter);
 
         mGoodView = new GoodView(this);
@@ -635,6 +637,36 @@ public class ShoppingDetailActivity extends BaseActivity implements ShoppingComm
     }
 
     /**
+     * 评论点赞成功回调
+     */
+    @Override
+    public void onSucCommentSnapIns(int position,SuccessBean successBean) {
+        if (mDialogProgress != null && mDialogProgress.isShowing()) {
+            mDialogProgress.dismiss();
+        }
+        mCommonList.get(position).setUserSnap(true);
+        BigDecimal bigDecimal = new BigDecimal(mCommonList.get(position).getSnapNum());
+        int num = bigDecimal.intValue();
+        mCommonList.get(position).setSnapNum((num + 1) + "");
+        mCommonAdapter.notifyItemChanged(position);
+    }
+
+    /**
+     * 评论删除点赞成功回调
+     */
+    @Override
+    public void onSucCommentSnapDel(int position,SuccessBean successBean) {
+        if (mDialogProgress != null && mDialogProgress.isShowing()) {
+            mDialogProgress.dismiss();
+        }
+        mCommonList.get(position).setUserSnap(false);
+        BigDecimal bigDecimal = new BigDecimal(mCommonList.get(position).getSnapNum());
+        int num = bigDecimal.intValue();
+        mCommonList.get(position).setSnapNum((num - 1) + "");
+        mCommonAdapter.notifyItemChanged(position);
+    }
+
+    /**
      * 分享
      *
      * @param share_media
@@ -697,12 +729,12 @@ public class ShoppingDetailActivity extends BaseActivity implements ShoppingComm
                         //点赞过了
                         mDialogProgress = (new ProgressDialogView()).createLoadingDialog(ShoppingDetailActivity.this, "正在加载...");
                         mDialogProgress.show();
-                        mPresenter.snapDelete(goodsId,this.bindToLifecycle());
+                        mPresenter.snapDelete("1",0,goodsId,this.bindToLifecycle());
                     }else {
                         //没有点赞
                         mDialogProgress = (new ProgressDialogView()).createLoadingDialog(ShoppingDetailActivity.this, "正在加载...");
                         mDialogProgress.show();
-                        mPresenter.snapInsert(view,goodsId,this.bindToLifecycle());
+                        mPresenter.snapInsert("1",0,view,goodsId,this.bindToLifecycle());
                     }
                 }
                 break;
@@ -755,6 +787,24 @@ public class ShoppingDetailActivity extends BaseActivity implements ShoppingComm
                 mBinding.keyEdit.requestFocus();
                 showKeyboard(true);
                 break;
+        }
+    }
+
+    /**
+     * 评论点赞与取消点赞
+     */
+    @Override
+    public void onGood(Boolean flag, int position) {
+        if(flag){
+            //取消点赞
+            mDialogProgress = (new ProgressDialogView()).createLoadingDialog(ShoppingDetailActivity.this, "正在加载...");
+            mDialogProgress.show();
+            mPresenter.snapDelete("2",position,mCommonList.get(position).getCommentId(),this.bindToLifecycle());
+        }else {
+            //点赞
+            mDialogProgress = (new ProgressDialogView()).createLoadingDialog(ShoppingDetailActivity.this, "正在加载...");
+            mDialogProgress.show();
+            mPresenter.snapInsert("2",position,null,mCommonList.get(position).getCommentId(),this.bindToLifecycle());
         }
     }
 

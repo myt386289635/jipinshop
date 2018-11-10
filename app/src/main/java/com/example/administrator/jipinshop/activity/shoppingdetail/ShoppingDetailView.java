@@ -40,4 +40,7 @@ public interface ShoppingDetailView {
 
      void onSucCommentInsert(CommentInsertBean successBean);
      void onFileCommentInsert(String error);
+
+     void onSucCommentSnapIns(int position,SuccessBean successBean);
+     void onSucCommentSnapDel(int position,SuccessBean successBean);
 }

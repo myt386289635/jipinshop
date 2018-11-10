@@ -262,18 +262,28 @@ public class ShoppingDetailPresenter {
     /**
      * 添加点赞
      */
-    public void snapInsert(View view , String goodsId , LifecycleTransformer<SuccessBean> transformer){
+    public void snapInsert(String tag,int position,View view , String id , LifecycleTransformer<SuccessBean> transformer){
         Map<String,String> hashMap = new HashMap<>();
         hashMap.put("userId", SPUtils.getInstance(CommonDate.USER).getString(CommonDate.userId));
-        hashMap.put("goodsId",goodsId);
+        if(tag.equals("1")){
+            hashMap.put("goodsId",id);
+        }else {
+            hashMap.put("commentId",id);
+        }
         mRepository.snapInsert(hashMap)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .compose(transformer)
                 .subscribe(successBean -> {
                     if(successBean.getCode() == 200){
-                        if(mShoppingDetailView != null){
-                            mShoppingDetailView.onSucSnapInsert(view,successBean);
+                        if(tag.equals("1")){
+                            if(mShoppingDetailView != null){
+                                mShoppingDetailView.onSucSnapInsert(view,successBean);
+                            }
+                        }else {
+                            if(mShoppingDetailView != null){
+                                mShoppingDetailView.onSucCommentSnapIns(position,successBean);
+                            }
                         }
                     }else {
                         if(mShoppingDetailView != null){
@@ -290,18 +300,28 @@ public class ShoppingDetailPresenter {
     /**
      * 删除点赞
      */
-    public void snapDelete(String goodsId , LifecycleTransformer<SuccessBean> transformer){
+    public void snapDelete(String tag, int position, String id , LifecycleTransformer<SuccessBean> transformer){
         Map<String,String> hashMap = new HashMap<>();
         hashMap.put("userId", SPUtils.getInstance(CommonDate.USER).getString(CommonDate.userId));
-        hashMap.put("goodsId",goodsId);
+        if(tag.equals("1")){
+            hashMap.put("goodsId",id);
+        }else {
+            hashMap.put("commentId",id);
+        }
         mRepository.snapDelete(hashMap)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .compose(transformer)
                 .subscribe(successBean -> {
                     if(successBean.getCode() == 200){
-                        if(mShoppingDetailView != null){
-                            mShoppingDetailView.onSucSnapDelete(successBean);
+                        if(tag.equals("1")){
+                            if(mShoppingDetailView != null){
+                                mShoppingDetailView.onSucSnapDelete(successBean);
+                            }
+                        }else {
+                            if(mShoppingDetailView != null){
+                                mShoppingDetailView.onSucCommentSnapDel(position,successBean);
+                            }
                         }
                     }else {
                         if(mShoppingDetailView != null){
