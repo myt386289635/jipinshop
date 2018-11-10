@@ -15,6 +15,7 @@ import com.blankj.utilcode.util.SPUtils;
 import com.example.administrator.jipinshop.R;
 import com.example.administrator.jipinshop.adapter.ShoppingBannerAdapter;
 import com.example.administrator.jipinshop.bean.CommentBean;
+import com.example.administrator.jipinshop.bean.CommentInsertBean;
 import com.example.administrator.jipinshop.bean.ShoppingDetailBean;
 import com.example.administrator.jipinshop.bean.SnapSelectBean;
 import com.example.administrator.jipinshop.bean.SuccessBean;
@@ -345,7 +346,7 @@ public class ShoppingDetailPresenter {
     /**
      * 添加评论
      */
-    public void commentInsert(String articId,String content,String parentId , LifecycleTransformer<SuccessBean> transformer){
+    public void commentInsert(String articId,String content,String parentId , LifecycleTransformer<CommentInsertBean> transformer){
         mRepository.commentInsert(articId,content,parentId)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())

@@ -1,6 +1,7 @@
 package com.example.administrator.jipinshop.activity.commenlist;
 
 import com.example.administrator.jipinshop.bean.CommentBean;
+import com.example.administrator.jipinshop.bean.CommentInsertBean;
 import com.example.administrator.jipinshop.bean.SuccessBean;
 
 /**
@@ -15,6 +16,6 @@ public interface CommenListView {
     void onSucComment(CommentBean commentBean);
     void onFileComment(String error);
 
-    void onSucCommentInsert(SuccessBean successBean);
+    void onSucCommentInsert(CommentInsertBean commentInsertBean);
     void onFileCommentInsert(String error);
 }

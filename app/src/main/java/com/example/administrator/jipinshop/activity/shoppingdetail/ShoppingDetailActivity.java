@@ -44,6 +44,7 @@ import com.example.administrator.jipinshop.adapter.ShoppingQualityAdapter;
 import com.example.administrator.jipinshop.adapter.ShoppingmParameterAdapter;
 import com.example.administrator.jipinshop.base.BaseActivity;
 import com.example.administrator.jipinshop.bean.CommentBean;
+import com.example.administrator.jipinshop.bean.CommentInsertBean;
 import com.example.administrator.jipinshop.bean.ShoppingDetailBean;
 import com.example.administrator.jipinshop.bean.SnapSelectBean;
 import com.example.administrator.jipinshop.bean.SuccessBean;
@@ -613,7 +614,7 @@ public class ShoppingDetailActivity extends BaseActivity implements ShoppingComm
      * 评论成功
      */
     @Override
-    public void onSucCommentInsert(SuccessBean successBean) {
+    public void onSucCommentInsert(CommentInsertBean successBean) {
         mPresenter.comment(goodsId,this.bindToLifecycle());
         mBinding.keyEdit.setText("");
         hintKey();

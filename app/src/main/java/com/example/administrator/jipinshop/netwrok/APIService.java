@@ -1,6 +1,7 @@
 package com.example.administrator.jipinshop.netwrok;
 
 
+import com.example.administrator.jipinshop.bean.CommentInsertBean;
 import com.example.administrator.jipinshop.bean.ElectricityFragmentBean;
 import com.example.administrator.jipinshop.bean.FollowBean;
 import com.example.administrator.jipinshop.bean.FovalBean;
@@ -271,6 +272,6 @@ public interface APIService {
      */
     @FormUrlEncoded
     @POST("qualityshop-api/api/commentInsert")
-    Observable<SuccessBean> commentInsert(@Field("articId") String articId,@Field("userId") String userId,
-                                          @Field("content") String content,@Field("parentId") String parentId);
+    Observable<CommentInsertBean> commentInsert(@Field("articId") String articId, @Field("userId") String userId,
+                                                @Field("content") String content, @Field("parentId") String parentId);
 }

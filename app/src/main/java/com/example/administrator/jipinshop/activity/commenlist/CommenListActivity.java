@@ -14,13 +14,15 @@ import android.widget.Toast;
 
 import com.aspsine.swipetoloadlayout.OnLoadMoreListener;
 import com.aspsine.swipetoloadlayout.OnRefreshListener;
+import com.blankj.utilcode.util.SPUtils;
 import com.example.administrator.jipinshop.R;
 import com.example.administrator.jipinshop.adapter.CommenListAdapter;
 import com.example.administrator.jipinshop.adapter.ShoppingCommon2Adapter;
 import com.example.administrator.jipinshop.base.BaseActivity;
 import com.example.administrator.jipinshop.bean.CommentBean;
-import com.example.administrator.jipinshop.bean.SuccessBean;
+import com.example.administrator.jipinshop.bean.CommentInsertBean;
 import com.example.administrator.jipinshop.databinding.ActivityCommenlistBinding;
+import com.example.administrator.jipinshop.util.sp.CommonDate;
 import com.example.administrator.jipinshop.view.dialog.ProgressDialogView;
 
 import org.greenrobot.eventbus.EventBus;
@@ -62,6 +64,11 @@ public class CommenListActivity extends BaseActivity implements CommenListAdapte
     private Dialog mDialog;
     private int[] usableHeightPrevious = {0};
 
+    /**
+     * 记录回复楼层的层数  -1:初始值，可以用来表示没有楼层
+     */
+    private int parentNum = -1;
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -99,6 +106,7 @@ public class CommenListActivity extends BaseActivity implements CommenListAdapte
     @Override
     public void onItemReply(int pos, TextView textView) {
         parentId = mList.get(pos).getCommentId();
+        parentNum = pos;
         mBinding.keyEdit.requestFocus();
         showKeyboard(true);
     }
@@ -190,6 +198,7 @@ public class CommenListActivity extends BaseActivity implements CommenListAdapte
     @Override
     public void keyHint() {
         parentId = "0";
+        parentNum = -1;
     }
 
     @Override
@@ -203,27 +212,16 @@ public class CommenListActivity extends BaseActivity implements CommenListAdapte
         if (commentBean.getList() != null && commentBean.getList().size() != 0) {
             if (refresh) {
                 mList.clear();
-                sets.clear();
                 mList.addAll(commentBean.getList());
-            } else {
-                mList.addAll(commentBean.getList());
-            }
-            for (int i = 0; i < mList.size(); i++) {
-                if (once && pos == i && pos != -1) {
-                    //这里判断的是二级评论的条数
-                    if (mList.get(i).getUserCommentList().size() <= 10) {
-                        sets.add(mList.get(i).getUserCommentList().size());
-                    } else {
-                        sets.add(10);
-                    }
+                if (once) {
+                    initSets();
                 } else {
-                    //这里判断的是二级评论的条数
-                    if (mList.get(i).getUserCommentList().size() <= 2) {
-                        sets.add(mList.get(i).getUserCommentList().size());
-                    } else {
-                        sets.add(2);
-                    }
+                    ResherSets();
                 }
+            } else {
+                int i = mList.size();
+                mList.addAll(commentBean.getList());
+                onLodeSets(i);
             }
             mAdapter.notifyDataSetChanged();
         } else {
@@ -232,9 +230,11 @@ public class CommenListActivity extends BaseActivity implements CommenListAdapte
                 Toast.makeText(this, "已经是最后一页了", Toast.LENGTH_SHORT).show();
             }
         }
-        mBinding.titleContainer.titleTv.setText("所有评论(" + commentBean.getList().size() + ")");
+        mBinding.titleContainer.titleTv.setText("所有评论(" + commentBean.getCount() + ")");
         if (once && pos != -1) {
             mBinding.swipeTarget.scrollToPosition(pos);
+            once = false;
+        } else if (once) {
             once = false;
         }
 
@@ -252,8 +252,29 @@ public class CommenListActivity extends BaseActivity implements CommenListAdapte
     }
 
     @Override
-    public void onSucCommentInsert(SuccessBean successBean) {
-        onRefresh();
+    public void onSucCommentInsert(CommentInsertBean successBean) {
+        if (!parentId.equals("0")) {
+            //回复评论
+            CommentBean.ListBean.UserCommentListBean listBean = new CommentBean.ListBean.UserCommentListBean();
+            listBean.setContent(mBinding.keyEdit.getText().toString());
+            listBean.setFromNickname(SPUtils.getInstance(CommonDate.USER).getString(CommonDate.userNickName));
+            mList.get(parentNum).getUserCommentList().add(listBean);
+            if (mList.get(parentNum).getUserCommentList().size() <= 2) {
+                sets.remove(parentNum);
+                sets.add(parentNum, mList.get(parentNum).getUserCommentList().size());
+            } else {
+                if (sets.get(parentNum) != 2 && sets.get(parentNum) < 10) {
+                    int num = sets.remove(parentNum);
+                    sets.add(parentNum, num + 1);
+                }
+            }
+            mAdapter.notifyItemChanged(parentNum);
+        } else {
+            //回复楼层
+            sets.add(0, 0);
+            mBinding.swipeTarget.scrollToPosition(0);
+            onRefresh();
+        }
         mBinding.keyEdit.setText("");
         hintKey();
         if (mDialog != null && mDialog.isShowing()) {
@@ -285,5 +306,55 @@ public class CommenListActivity extends BaseActivity implements CommenListAdapte
         refresh = false;
         page++;
         mPresenter.comment(page + "", getIntent().getStringExtra("id"), this.bindToLifecycle());
+    }
+
+    /**
+     * 第一次进入页面时，初始化sets数组
+     */
+    public void initSets() {
+        for (int i = 0; i < mList.size(); i++) {
+            if (pos == i && pos != -1) {
+                //这里判断的是二级评论的条数
+                if (mList.get(i).getUserCommentList().size() <= 10) {
+                    sets.add(mList.get(i).getUserCommentList().size());
+                } else {
+                    sets.add(10);
+                }
+            } else {
+                //这里判断的是二级评论的条数
+                if (mList.get(i).getUserCommentList().size() <= 2) {
+                    sets.add(mList.get(i).getUserCommentList().size());
+                } else {
+                    sets.add(2);
+                }
+            }
+        }
+    }
+
+    /**
+     * 不是第一次，刷新列表时，sets数组的逻辑
+     */
+    private void ResherSets() {
+        List<Integer> timer = new ArrayList<>();
+        if (sets.size() > 10) {
+            for (int i = 0; i < 10; i++) {
+                timer.add(sets.get(i));
+            }
+            sets.clear();
+            sets.addAll(timer);
+        }
+    }
+
+    /**
+     * 加载数据时，sets数组的逻辑
+     */
+    private void onLodeSets(int pos) {
+        for (int i = pos; i < mList.size(); i++) {
+            if (mList.get(i).getUserCommentList().size() <= 2) {
+                sets.add(mList.get(i).getUserCommentList().size());
+            } else {
+                sets.add(2);
+            }
+        }
     }
 }

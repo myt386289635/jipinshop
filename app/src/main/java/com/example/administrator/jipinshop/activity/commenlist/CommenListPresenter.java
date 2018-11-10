@@ -4,6 +4,7 @@ import android.graphics.Rect;
 
 import com.blankj.utilcode.util.SPUtils;
 import com.example.administrator.jipinshop.bean.CommentBean;
+import com.example.administrator.jipinshop.bean.CommentInsertBean;
 import com.example.administrator.jipinshop.bean.SuccessBean;
 import com.example.administrator.jipinshop.netwrok.Repository;
 import com.example.administrator.jipinshop.util.sp.CommonDate;
@@ -70,19 +71,19 @@ public class CommenListPresenter {
     /**
      * 添加评论
      */
-    public void commentInsert(String articId,String content,String parentId , LifecycleTransformer<SuccessBean> transformer){
+    public void commentInsert(String articId,String content,String parentId , LifecycleTransformer<CommentInsertBean> transformer){
         mRepository.commentInsert(articId,content,parentId)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .compose(transformer)
-                .subscribe(successBean -> {
-                    if(successBean.getCode() == 200){
+                .subscribe(commentInsertBean -> {
+                    if(commentInsertBean.getCode() == 200){
                         if(mView != null){
-                            mView.onSucCommentInsert(successBean);
+                            mView.onSucCommentInsert(commentInsertBean);
                         }
                     }else {
                         if(mView != null){
-                            mView.onFileCommentInsert(successBean.getMsg());
+                            mView.onFileCommentInsert(commentInsertBean.getMsg());
                         }
                     }
                 }, throwable -> {
