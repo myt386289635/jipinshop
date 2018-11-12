@@ -284,4 +284,10 @@ public class LoginActivity extends BaseActivity implements LoginView, View.OnCli
                 break;
         }
     }
+
+    @Override
+    public void onBackPressed() {
+        setResult(400);
+        super.onBackPressed();
+    }
 }

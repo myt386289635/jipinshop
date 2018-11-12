@@ -1,14 +1,20 @@
 package com.example.administrator.jipinshop.activity.home;
 
+import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
+import android.text.TextUtils;
+import android.view.View;
 import android.widget.Toast;
 
+import com.blankj.utilcode.util.SPUtils;
 import com.example.administrator.jipinshop.MyApplication;
 import com.example.administrator.jipinshop.R;
+import com.example.administrator.jipinshop.activity.login.LoginActivity;
 import com.example.administrator.jipinshop.adapter.HomeAdapter;
 import com.example.administrator.jipinshop.base.DaggerBaseActivityComponent;
 import com.example.administrator.jipinshop.fragment.evaluation.EvaluationFragment;
@@ -18,6 +24,7 @@ import com.example.administrator.jipinshop.fragment.mine.MineFragment;
 import com.example.administrator.jipinshop.util.InputMethodManagerLeak;
 import com.example.administrator.jipinshop.util.NotchUtil;
 import com.example.administrator.jipinshop.util.UpDataUtil;
+import com.example.administrator.jipinshop.util.sp.CommonDate;
 import com.example.administrator.jipinshop.view.NoScrollViewPager;
 import com.gyf.barlibrary.ImmersionBar;
 
@@ -94,6 +101,13 @@ public class MainActivity extends AppCompatActivity {
 
         //版本更新
         UpDataUtil.newInstance().download(this);//第一版
+
+        View tabView = (View) mTabLayout.getTabAt(3).getCustomView().getParent();
+        tabView.setOnClickListener(v -> {
+            if(TextUtils.isEmpty(SPUtils.getInstance(CommonDate.USER).getString(CommonDate.userId).trim())){
+                startActivityForResult(new Intent(this, LoginActivity.class),100);
+            }
+        });
     }
 
     @Override
@@ -111,6 +125,19 @@ public class MainActivity extends AppCompatActivity {
             exitTime = System.currentTimeMillis();
         } else {
             super.onBackPressed();
+        }
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        switch (resultCode){
+            case  400:
+                TabLayout.Tab tab = mTabLayout.getTabAt(0);
+                if (tab != null) {
+                    tab.select();
+                }
+                break;
         }
     }
 }
