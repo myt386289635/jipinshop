@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -20,6 +21,9 @@ import com.example.administrator.jipinshop.bean.FovalBean;
 import com.example.administrator.jipinshop.databinding.FragmentFovalBinding;
 import com.example.administrator.jipinshop.view.dialog.ProgressDialogView;
 
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -31,6 +35,8 @@ import javax.inject.Inject;
  * @Describe 收藏/足迹
  */
 public class FovalFragment extends DBBaseFragment implements OnRefreshListener, View.OnClickListener, OnLoadMoreListener, FovalView, FovalAdapter.OnLayout {
+
+    public static final String CollectResher = "ShoppingDetailActivity2FovalFragment";
 
     @Inject
     FovalPresenter mPresenter;
@@ -85,6 +91,7 @@ public class FovalFragment extends DBBaseFragment implements OnRefreshListener, 
         mBaseFragmentComponent.inject(this);
         mBinding.setListener(this);
         mPresenter.setView(this);
+        EventBus.getDefault().register(this);
 
         mBinding.swipeTarget.setLayoutManager(new LinearLayoutManager(getContext()));
         mBinding.swipeToLoad.setOnRefreshListener(this);
@@ -219,6 +226,19 @@ public class FovalFragment extends DBBaseFragment implements OnRefreshListener, 
         }else {
             //发现
 
+        }
+    }
+
+    @Override
+    public void onDestroyView() {
+        EventBus.getDefault().unregister(this);
+        super.onDestroyView();
+    }
+
+    @Subscribe
+    public void onResher(String s){
+        if(!TextUtils.isEmpty(s) && s.equals(FovalFragment.CollectResher)){
+            mBinding.swipeToLoad.setRefreshing(true);
         }
     }
 }

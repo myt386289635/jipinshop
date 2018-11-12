@@ -49,6 +49,7 @@ import com.example.administrator.jipinshop.bean.ShoppingDetailBean;
 import com.example.administrator.jipinshop.bean.SnapSelectBean;
 import com.example.administrator.jipinshop.bean.SuccessBean;
 import com.example.administrator.jipinshop.databinding.ActivityShopingDetailBinding;
+import com.example.administrator.jipinshop.fragment.foval.FovalFragment;
 import com.example.administrator.jipinshop.util.ClickUtil;
 import com.example.administrator.jipinshop.util.ShareUtils;
 import com.example.administrator.jipinshop.util.WeakRefHandler;
@@ -507,6 +508,7 @@ public class ShoppingDetailActivity extends BaseActivity implements ShoppingComm
         }
         isCollect = false;
         mBinding.detailFavor.setImageResource(R.mipmap.nav_favor);
+        EventBus.getDefault().post(FovalFragment.CollectResher);
     }
 
     /**
