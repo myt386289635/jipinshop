@@ -273,6 +273,7 @@ public class ShoppingDetailActivity extends BaseActivity implements ShoppingComm
                 }else {
                     mPresenter.initTitleLayout(ShoppingDetailActivity.this, mBinding.shopTv, mBinding.shopView, mBinding.evaluationTv, mBinding.evaluationView, mBinding.commonTv, mBinding.commonView);
                 }
+                hintKey();
             }
         });
         //网络请求数据
@@ -357,7 +358,8 @@ public class ShoppingDetailActivity extends BaseActivity implements ShoppingComm
     @Override
     public void keyHint() {
         mBinding.detailKeyLayout.setVisibility(View.GONE);
-        mHandler.sendEmptyMessageDelayed(101,200);
+//        mHandler.sendEmptyMessageDelayed(101,100);
+        mBinding.detailBottom.setVisibility(View.VISIBLE);
     }
 
     /**
@@ -830,47 +832,12 @@ public class ShoppingDetailActivity extends BaseActivity implements ShoppingComm
         }
     }
 
-
-    @Override
-    public boolean dispatchTouchEvent(MotionEvent ev) {
-        if (ev.getAction() == MotionEvent.ACTION_MOVE) {
-            View view = getCurrentFocus();
-            if (isHideInput(view, ev)) {
-                hideSoftInput(view);
-            }
-        }
-        return super.dispatchTouchEvent(ev);
-    }
-
-    private boolean isHideInput(View v, MotionEvent ev) {
-        if (v != null && (v instanceof EditText)) {
-            int[] l = {0, 0};
-            v.getLocationInWindow(l);
-            int left = l[0], top = l[1], bottom = top + v.getHeight(), right = left
-                    + v.getWidth();
-            if (ev.getX() > left && ev.getX() < right && ev.getY() > top
-                    && ev.getY() < bottom) {
-                return false;
-            } else {
-                return true;
-            }
-        }
-        return false;
-    }
-
-    private void hideSoftInput(View view) {
-        if (mImm.isActive()) {
-            // 如果开启
-            mImm.hideSoftInputFromWindow(getCurrentFocus().getWindowToken(), 0); //强制隐藏键盘
-        }
-    }
-
     public void hintKey() {
         if (mBinding.detailKeyLayout.getVisibility() == View.VISIBLE) {
             if (mImm.isActive()) {
                 // 如果开启
                 mImm.hideSoftInputFromWindow(getCurrentFocus().getWindowToken(), 0); //强制隐藏键盘
-                mBinding.detailKeyLayout.setVisibility(View.GONE);
+//                mBinding.detailKeyLayout.setVisibility(View.GONE);
             }
         }
     }
