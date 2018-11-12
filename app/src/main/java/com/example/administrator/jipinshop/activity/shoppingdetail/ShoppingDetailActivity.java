@@ -323,6 +323,7 @@ public class ShoppingDetailActivity extends BaseActivity implements ShoppingComm
         parentId = mCommonList.get(pos).getCommentId();
         mBinding.keyEdit.requestFocus();
         showKeyboard(true);
+        mBinding.keyEdit.setHint("回复"+mCommonList.get(pos).getFromNickname());
     }
 
     /**
