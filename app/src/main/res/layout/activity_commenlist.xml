@@ -55,9 +55,10 @@
         </com.aspsine.swipetoloadlayout.SwipeToLoadLayout>
 
         <RelativeLayout
+            android:minHeight="@dimen/x100"
             android:id="@+id/detail_keyLayout"
             android:layout_width="match_parent"
-            android:layout_height="@dimen/x100"
+            android:layout_height="wrap_content"
             android:layout_alignParentBottom="true"
             android:background="@color/color_F5F5F5">
 
@@ -67,10 +68,11 @@
                 android:layout_height="@dimen/x1"/>
 
             <EditText
+                android:maxLines="4"
                 android:onClick="@{listener.onClick}"
                 android:id="@+id/key_edit"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_height="wrap_content"
                 android:layout_marginBottom="@dimen/x16"
                 android:layout_marginLeft="@dimen/x28"
                 android:layout_marginRight="@dimen/x16"
@@ -84,10 +86,11 @@
                 android:textSize="13sp"/>
 
             <TextView
+                android:layout_centerInParent="true"
                 android:onClick="@{listener.onClick}"
                 android:id="@+id/key_text"
                 android:layout_width="wrap_content"
-                android:layout_height="match_parent"
+                android:layout_height="wrap_content"
                 android:layout_alignParentRight="true"
                 android:layout_marginRight="@dimen/x16"
                 android:gravity="center_vertical"

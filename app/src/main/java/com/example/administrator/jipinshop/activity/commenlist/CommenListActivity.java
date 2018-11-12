@@ -3,12 +3,12 @@ package com.example.administrator.jipinshop.activity.commenlist;
 import android.app.Dialog;
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
-import android.view.MotionEvent;
 import android.view.View;
-import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -16,7 +16,6 @@ import com.aspsine.swipetoloadlayout.OnLoadMoreListener;
 import com.aspsine.swipetoloadlayout.OnRefreshListener;
 import com.blankj.utilcode.util.SPUtils;
 import com.example.administrator.jipinshop.R;
-import com.example.administrator.jipinshop.activity.shoppingdetail.ShoppingDetailActivity;
 import com.example.administrator.jipinshop.adapter.CommenListAdapter;
 import com.example.administrator.jipinshop.adapter.ShoppingCommon2Adapter;
 import com.example.administrator.jipinshop.base.BaseActivity;
@@ -104,6 +103,16 @@ public class CommenListActivity extends BaseActivity implements CommenListAdapte
         mBinding.swipeToLoad.setRefreshing(true);
 
         mPresenter.setKeyListener(mBinding.detailContanier, usableHeightPrevious);
+
+        mBinding.swipeTarget.addOnScrollListener(new RecyclerView.OnScrollListener() {
+            @Override
+            public void onScrollStateChanged(@NonNull RecyclerView recyclerView, int newState) {
+                super.onScrollStateChanged(recyclerView, newState);
+                if(newState == RecyclerView.SCROLL_STATE_DRAGGING){
+                    hintKey();
+                }
+            }
+        });
     }
 
     /**
@@ -118,6 +127,7 @@ public class CommenListActivity extends BaseActivity implements CommenListAdapte
         parentNum = pos;
         mBinding.keyEdit.requestFocus();
         showKeyboard(true);
+        mBinding.keyEdit.setHint("回复"+mList.get(pos).getFromNickname());
     }
 
     /**
@@ -135,37 +145,10 @@ public class CommenListActivity extends BaseActivity implements CommenListAdapte
     }
 
     public void hintKey() {
-        if (mImm.isActive()) {
+        if (mImm.isActive() && imi) {
             // 如果开启
             mImm.hideSoftInputFromWindow(getCurrentFocus().getWindowToken(), 0); //强制隐藏键盘
         }
-    }
-
-    @Override
-    public boolean dispatchTouchEvent(MotionEvent ev) {
-        if (ev.getAction() == MotionEvent.ACTION_MOVE) {
-            View view = getCurrentFocus();
-            if (isHideInput(view, ev)) {
-                hintKey();
-            }
-        }
-        return super.dispatchTouchEvent(ev);
-    }
-
-    private boolean isHideInput(View v, MotionEvent ev) {
-        if (v != null && (v instanceof EditText)) {
-            int[] l = {0, 0};
-            v.getLocationInWindow(l);
-            int left = l[0], top = l[1], bottom = top + v.getHeight(), right = left
-                    + v.getWidth();
-            if (ev.getX() > left && ev.getX() < right && ev.getY() > top
-                    && ev.getY() < bottom) {
-                return false;
-            } else {
-                return true;
-            }
-        }
-        return false;
     }
 
     @Override
@@ -212,6 +195,7 @@ public class CommenListActivity extends BaseActivity implements CommenListAdapte
     @Override
     public void keyHint() {
         imi = false;
+        mBinding.keyEdit.setHint("点击输入评论");
     }
 
     @Override
