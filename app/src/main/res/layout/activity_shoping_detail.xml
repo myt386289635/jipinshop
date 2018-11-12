@@ -667,6 +667,7 @@
             android:visibility="gone">
 
             <EditText
+                android:maxLength="1000"
                 android:maxLines="4"
                 android:id="@+id/key_edit"
                 android:layout_width="match_parent"

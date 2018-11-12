@@ -68,6 +68,7 @@
                 android:layout_height="@dimen/x1"/>
 
             <EditText
+                android:maxLength="1000"
                 android:maxLines="4"
                 android:onClick="@{listener.onClick}"
                 android:id="@+id/key_edit"
