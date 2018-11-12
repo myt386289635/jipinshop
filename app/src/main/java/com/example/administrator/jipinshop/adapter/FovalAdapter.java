@@ -25,6 +25,11 @@ public class FovalAdapter extends RecyclerView.Adapter<FovalAdapter.ViewHolder>{
 
     private List<FovalBean.ListBean> mList;
     private Context mContext;
+    private OnLayout mOnLayout;
+
+    public void setOnLayout(OnLayout onLayout) {
+        mOnLayout = onLayout;
+    }
 
     public FovalAdapter(List<FovalBean.ListBean> list, Context context) {
         mList = list;
@@ -94,6 +99,11 @@ public class FovalAdapter extends RecyclerView.Adapter<FovalAdapter.ViewHolder>{
             holder.item_lookNum.setText(mList.get(position).getGoodsEvalway().getVisitCount());
             ImageManager.displayRoundImage(mList.get(position).getGoodsEvalway().getImgId(),holder.item_image,0,0,10);
         }
+        holder.itemView.setOnClickListener(v -> {
+            if(mOnLayout != null){
+                mOnLayout.onLayoutClick(position,mList.get(position).getState());
+            }
+        });
     }
 
     @Override
@@ -121,5 +131,9 @@ public class FovalAdapter extends RecyclerView.Adapter<FovalAdapter.ViewHolder>{
             item_lookNum = itemView.findViewById(R.id.item_lookNum);
             item_resouce = itemView.findViewById(R.id.item_price_oldText);
         }
+    }
+
+    public interface OnLayout{
+        void onLayoutClick(int pos , String type);
     }
 }

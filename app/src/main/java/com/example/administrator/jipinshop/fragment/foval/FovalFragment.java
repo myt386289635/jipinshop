@@ -1,6 +1,7 @@
 package com.example.administrator.jipinshop.fragment.foval;
 
 import android.app.Dialog;
+import android.content.Intent;
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
@@ -12,6 +13,7 @@ import android.widget.Toast;
 import com.aspsine.swipetoloadlayout.OnLoadMoreListener;
 import com.aspsine.swipetoloadlayout.OnRefreshListener;
 import com.example.administrator.jipinshop.R;
+import com.example.administrator.jipinshop.activity.shoppingdetail.ShoppingDetailActivity;
 import com.example.administrator.jipinshop.adapter.FovalAdapter;
 import com.example.administrator.jipinshop.base.DBBaseFragment;
 import com.example.administrator.jipinshop.bean.FovalBean;
@@ -28,7 +30,7 @@ import javax.inject.Inject;
  * @create 2018/8/6
  * @Describe 收藏/足迹
  */
-public class FovalFragment extends DBBaseFragment implements OnRefreshListener, View.OnClickListener, OnLoadMoreListener, FovalView {
+public class FovalFragment extends DBBaseFragment implements OnRefreshListener, View.OnClickListener, OnLoadMoreListener, FovalView, FovalAdapter.OnLayout {
 
     @Inject
     FovalPresenter mPresenter;
@@ -89,6 +91,7 @@ public class FovalFragment extends DBBaseFragment implements OnRefreshListener, 
         mBinding.swipeToLoad.setOnLoadMoreListener(this);
         mList = new ArrayList<>();
         mFovalAdapter = new FovalAdapter(mList,getContext());
+        mFovalAdapter.setOnLayout(this);
         mBinding.swipeTarget.setAdapter(mFovalAdapter);
 
         if(getArguments().getString("type").equals("1")){
@@ -192,6 +195,30 @@ public class FovalFragment extends DBBaseFragment implements OnRefreshListener, 
             dissLoading();
             page--;
             Toast.makeText(getContext(), throwable, Toast.LENGTH_SHORT).show();
+        }
+    }
+
+    /**
+     * item 点击
+     */
+    @Override
+    public void onLayoutClick(int pos, String type) {
+        if (mList.get(pos).getState().equals("1")) {
+            //商品
+            startActivity(new Intent(getContext(), ShoppingDetailActivity.class)
+                    .putExtra("goodsId",mList.get(pos).getGoodsRanklist().getGoodsId())
+                    .putExtra("goodsName",mList.get(pos).getGoodsRanklist().getGoodsName())
+                    .putExtra("priceNow",mList.get(pos).getGoodsRanklist().getActualPrice())
+                    .putExtra("priceOld",mList.get(pos).getGoodsRanklist().getOtherPrice())
+                    .putExtra("price",mList.get(pos).getGoodsRanklist().getCutPrice())
+                    .putExtra("state",mList.get(pos).getGoodsRanklist().getSourceStatus() + "")
+            );
+        }else if(mList.get(pos).getState().equals("2")){
+            //评测
+
+        }else {
+            //发现
+
         }
     }
 }
