@@ -377,6 +377,8 @@ public class ShoppingDetailActivity extends BaseActivity implements ShoppingComm
             if(!TextUtils.isEmpty(priceOld)){
                 mBinding.detailOldPrice.setText("¥" + priceOld);
             }
+            mBinding.detailOldPrice.setTv(true);
+            mBinding.detailOldPrice.setColor(R.color.color_ACACAC);
             if(!TextUtils.isEmpty(sourceStatus)){
                 if(sourceStatus.equals("1")){
                     mBinding.detailOldPriceName.setText("京东：");

@@ -214,7 +214,7 @@
                     android:textSize="13sp"/>
 
 
-                <TextView
+                <com.example.administrator.jipinshop.view.TextViewDel
                     android:id="@+id/detail_oldPrice"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
