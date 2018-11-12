@@ -11,7 +11,6 @@ import android.widget.Toast;
 import com.blankj.utilcode.util.SPUtils;
 import com.example.administrator.jipinshop.R;
 import com.example.administrator.jipinshop.activity.balance.BalanceActivity;
-import com.example.administrator.jipinshop.activity.balance.boundalipay.BoundAlipayActivity;
 import com.example.administrator.jipinshop.activity.coupon.CouponActivity;
 import com.example.administrator.jipinshop.activity.follow.FollowActivity;
 import com.example.administrator.jipinshop.activity.foval.FovalActivity;
@@ -77,7 +76,7 @@ public class MineFragment extends DBBaseFragment implements View.OnClickListener
                 return;
         }
         if(!SPUtils.getInstance(CommonDate.USER).getBoolean(CommonDate.userLogin,false)){
-            Toast.makeText(getContext(), "请先登陆", Toast.LENGTH_SHORT).show();
+            startActivity(new Intent(getContext(), LoginActivity.class));
             return;
         }
         switch (view.getId()) {

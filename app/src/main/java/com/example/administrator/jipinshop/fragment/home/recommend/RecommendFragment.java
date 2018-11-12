@@ -13,6 +13,7 @@ import android.widget.Toast;
 import com.aspsine.swipetoloadlayout.OnRefreshListener;
 import com.blankj.utilcode.util.SPUtils;
 import com.example.administrator.jipinshop.R;
+import com.example.administrator.jipinshop.activity.login.LoginActivity;
 import com.example.administrator.jipinshop.activity.shoppingdetail.ShoppingDetailActivity;
 import com.example.administrator.jipinshop.adapter.RecommendFragmentAdapter;
 import com.example.administrator.jipinshop.base.DBBaseFragment;
@@ -96,6 +97,10 @@ public class RecommendFragment extends DBBaseFragment implements OnRefreshListen
      */
     @Override
     public void onItem(int pos) {
+        if(!SPUtils.getInstance(CommonDate.USER).getBoolean(CommonDate.userLogin,false)){
+            startActivity(new Intent(getContext(), LoginActivity.class));
+            return;
+        }
         if (ClickUtil.isFastDoubleClick(800)) {
             return;
         }else{

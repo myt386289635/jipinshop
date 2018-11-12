@@ -12,6 +12,7 @@ import android.widget.Toast;
 
 import com.blankj.utilcode.util.SPUtils;
 import com.example.administrator.jipinshop.R;
+import com.example.administrator.jipinshop.activity.login.LoginActivity;
 import com.example.administrator.jipinshop.activity.message.MessageActivity;
 import com.example.administrator.jipinshop.activity.sreach.SreachActivity;
 import com.example.administrator.jipinshop.adapter.HomeFragmentAdapter;
@@ -92,7 +93,7 @@ public class HomeFragment extends DBBaseFragment implements Badge.OnDragStateCha
         tabList.add(SPUtils.getInstance().getString(CommonDate.HomeTab4, "生活家电"));
         tabList.add(SPUtils.getInstance().getString(CommonDate.HomeTab5, "家用大电"));
         initTab(null);
-        mQBadgeView.setBadgeNumber(5);
+        mQBadgeView.setBadgeNumber(0);
 
         mHomeFragmentPresenter.goodsCategory(this.bindToLifecycle());
     }
@@ -129,7 +130,7 @@ public class HomeFragment extends DBBaseFragment implements Badge.OnDragStateCha
     @Override
     public void onClick(View view) {
         if(!SPUtils.getInstance(CommonDate.USER).getBoolean(CommonDate.userLogin,false)){
-            Toast.makeText(getContext(), "请先登陆", Toast.LENGTH_SHORT).show();
+            startActivity(new Intent(getContext(), LoginActivity.class));
             return;
         }
         switch (view.getId()) {

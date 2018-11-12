@@ -316,6 +316,7 @@ public class CommenListActivity extends BaseActivity implements CommenListAdapte
         int num = bigDecimal.intValue();
         mList.get(position).setSnapNum((num + 1) + "");
         mAdapter.notifyItemChanged(position);
+        EventBus.getDefault().post(CommenListActivity.commentResher);
     }
 
     /**
@@ -331,6 +332,7 @@ public class CommenListActivity extends BaseActivity implements CommenListAdapte
         int num = bigDecimal.intValue();
         mList.get(position).setSnapNum((num - 1) + "");
         mAdapter.notifyItemChanged(position);
+        EventBus.getDefault().post(CommenListActivity.commentResher);
     }
 
     /**

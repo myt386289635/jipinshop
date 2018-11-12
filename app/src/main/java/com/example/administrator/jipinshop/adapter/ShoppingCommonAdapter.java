@@ -87,6 +87,8 @@ public class ShoppingCommonAdapter extends RecyclerView.Adapter<ShoppingCommonAd
         holder.item_name.setText(mList.get(position).getFromNickname());
         if(!TextUtils.isEmpty(mList.get(position).getSnapNum()) && !mList.get(position).getSnapNum().equals("0")){
             holder.item_goodNum.setText(mList.get(position).getSnapNum());
+        }else {
+            holder.item_goodNum.setText("");
         }
         Drawable drawable;
         if(mList.get(position).isUserSnap()){
