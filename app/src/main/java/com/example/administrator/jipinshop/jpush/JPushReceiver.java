@@ -16,6 +16,8 @@ import com.example.administrator.jipinshop.MyApplication;
 import com.example.administrator.jipinshop.R;
 import com.example.administrator.jipinshop.activity.message.system.SystemMessageActivity;
 
+import org.greenrobot.eventbus.EventBus;
+
 import cn.jpush.android.api.JPushInterface;
 
 import static android.content.Context.NOTIFICATION_SERVICE;
@@ -27,7 +29,7 @@ import static android.content.Context.NOTIFICATION_SERVICE;
  */
 public class JPushReceiver extends BroadcastReceiver {
 
-    private final String TAG = "JPushReceiver";
+    public static final String TAG = "JPushReceiver";
     private static final String PUSH_CHANNEL_ID = "JPush";//android8.0需要，否则通知出不来
 
     private NotificationManager nm;
@@ -47,9 +49,10 @@ public class JPushReceiver extends BroadcastReceiver {
         } else if (JPushInterface.ACTION_MESSAGE_RECEIVED.equals(intent.getAction())) {
             Log.e(TAG, "接受到推送下来的自定义消息");
             receivingNotification(context, bundle);
+            EventBus.getDefault().post(JPushReceiver.TAG);
         } else if (JPushInterface.ACTION_NOTIFICATION_RECEIVED.equals(intent.getAction())) {
             Log.e(TAG, "接受到推送下来的通知");
-
+            EventBus.getDefault().post(JPushReceiver.TAG);
         } else if (JPushInterface.ACTION_NOTIFICATION_OPENED.equals(intent.getAction())) {
             Log.e(TAG, "用户点击打开了通知");
             openNotification(context,bundle);

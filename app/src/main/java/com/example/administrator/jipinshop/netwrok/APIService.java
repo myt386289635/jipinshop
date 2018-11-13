@@ -22,6 +22,7 @@ import com.example.administrator.jipinshop.bean.SuccessBean;
 import com.example.administrator.jipinshop.bean.AccountBean;
 import com.example.administrator.jipinshop.bean.SupplementBean;
 import com.example.administrator.jipinshop.bean.TabBean;
+import com.example.administrator.jipinshop.bean.UnMessageBean;
 import com.example.administrator.jipinshop.bean.UserInfoBean;
 import com.example.administrator.jipinshop.bean.CommentBean;
 import com.example.administrator.jipinshop.bean.json.LoginJson;
@@ -274,4 +275,11 @@ public interface APIService {
     @POST("qualityshop-api/api/commentInsert")
     Observable<CommentInsertBean> commentInsert(@Field("articId") String articId, @Field("userId") String userId,
                                                 @Field("content") String content, @Field("parentId") String parentId);
+
+    /**
+     * 获取未读消息
+     */
+    @GET("qualityshop-api/message/selectCount")
+    Observable<UnMessageBean> unMessage(@Query("userId") String userId);
+
 }

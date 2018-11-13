@@ -14,6 +14,7 @@ import android.widget.TextView;
 import com.example.administrator.jipinshop.R;
 import com.example.administrator.jipinshop.bean.ImageBean;
 import com.example.administrator.jipinshop.bean.TabBean;
+import com.example.administrator.jipinshop.bean.UnMessageBean;
 import com.example.administrator.jipinshop.netwrok.Repository;
 import com.trello.rxlifecycle2.LifecycleTransformer;
 
@@ -168,5 +169,24 @@ public class HomeFragmentPresenter{
                        mView.Faile(throwable.getMessage());
                    }
                });
+    }
+
+    /**
+     * 获取未读消息
+     */
+    public void unMessage(LifecycleTransformer<UnMessageBean> ransformer){
+        mRepository.unMessage()
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .compose(ransformer)
+                .subscribe(unMessageBean -> {
+                    if(mView != null){
+                        mView.unMessageSuc(unMessageBean);
+                    }
+                }, throwable -> {
+                    if(mView != null){
+                        mView.unMessageFaile(throwable.getMessage());
+                    }
+                });
     }
 }

@@ -21,6 +21,7 @@ import com.example.administrator.jipinshop.bean.LoginBean;
 import com.example.administrator.jipinshop.bean.SuccessBean;
 import com.example.administrator.jipinshop.bean.eventbus.EditNameBus;
 import com.example.administrator.jipinshop.databinding.LoginBinding;
+import com.example.administrator.jipinshop.jpush.JPushReceiver;
 import com.example.administrator.jipinshop.netwrok.RetrofitModule;
 import com.example.administrator.jipinshop.util.sp.CommonDate;
 import com.example.administrator.jipinshop.view.dialog.DialogUtil;
@@ -162,6 +163,7 @@ public class LoginActivity extends BaseActivity implements LoginView, View.OnCli
 //            BigDecimal useDecimal = new BigDecimal(loginBean.getUserAccountEntity().getUse_account());
 //            String value = String.valueOf(totleDecimal.subtract(useDecimal).doubleValue());
             EventBus.getDefault().post(new EditNameBus(LoginActivity.tag,loginBean.getUserAccountEntity().getTotal_account(),loginBean.getUserAccountEntity().getState(),loginBean.getUserAccountEntity().getTotal_account(),loginBean.getUserAccountEntity().getUse_account(),"0"));
+            EventBus.getDefault().post(JPushReceiver.TAG);//刷新未读消息
             Toast.makeText(this, "登陆成功", Toast.LENGTH_SHORT).show();
             setResult(200);
             finish();

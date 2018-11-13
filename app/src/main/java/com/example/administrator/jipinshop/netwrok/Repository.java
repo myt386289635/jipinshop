@@ -24,6 +24,7 @@ import com.example.administrator.jipinshop.bean.SreachResultBean;
 import com.example.administrator.jipinshop.bean.SuccessBean;
 import com.example.administrator.jipinshop.bean.SupplementBean;
 import com.example.administrator.jipinshop.bean.TabBean;
+import com.example.administrator.jipinshop.bean.UnMessageBean;
 import com.example.administrator.jipinshop.bean.UserInfoBean;
 import com.example.administrator.jipinshop.bean.json.LoginJson;
 import com.example.administrator.jipinshop.bean.json.PushMessageJson;
@@ -289,5 +290,12 @@ public class Repository {
     public Observable<CommentInsertBean> commentInsert(String articId, String content, String parentId){
         return mAPIService.commentInsert(articId,SPUtils.getInstance(CommonDate.USER).getString(CommonDate.userId),
                 content,parentId);
+    }
+
+    /**
+     * 获取未读消息
+     */
+    public Observable<UnMessageBean> unMessage(){
+        return mAPIService.unMessage(SPUtils.getInstance(CommonDate.USER).getString(CommonDate.userId));
     }
 }

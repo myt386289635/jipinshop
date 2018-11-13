@@ -4,6 +4,7 @@ package com.example.administrator.jipinshop.fragment.home;
 import android.content.Intent;
 import android.databinding.DataBindingUtil;
 import android.support.v4.app.Fragment;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -18,16 +19,19 @@ import com.example.administrator.jipinshop.activity.sreach.SreachActivity;
 import com.example.administrator.jipinshop.adapter.HomeFragmentAdapter;
 import com.example.administrator.jipinshop.base.DBBaseFragment;
 import com.example.administrator.jipinshop.bean.TabBean;
+import com.example.administrator.jipinshop.bean.UnMessageBean;
 import com.example.administrator.jipinshop.databinding.FragmentHomeBinding;
 import com.example.administrator.jipinshop.fragment.home.electricity.ElectricityFragment;
 import com.example.administrator.jipinshop.fragment.home.health.HealthFragment;
 import com.example.administrator.jipinshop.fragment.home.household.HouseholdFragment;
 import com.example.administrator.jipinshop.fragment.home.kitchen.KitchenFragment;
 import com.example.administrator.jipinshop.fragment.home.recommend.RecommendFragment;
+import com.example.administrator.jipinshop.jpush.JPushReceiver;
 import com.example.administrator.jipinshop.util.sp.CommonDate;
 import com.google.gson.Gson;
 
 import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -67,6 +71,7 @@ public class HomeFragment extends DBBaseFragment implements Badge.OnDragStateCha
         mBaseFragmentComponent.inject(this);
         mHomeFragmentPresenter.setStatusBarHight(mBinding.statusBar, getContext());
         mHomeFragmentPresenter.setView(this);
+        EventBus.getDefault().register(this);
 
         tabList = new ArrayList<>();
         tabTextView = new ArrayList<>();
@@ -93,9 +98,9 @@ public class HomeFragment extends DBBaseFragment implements Badge.OnDragStateCha
         tabList.add(SPUtils.getInstance().getString(CommonDate.HomeTab4, "生活家电"));
         tabList.add(SPUtils.getInstance().getString(CommonDate.HomeTab5, "家用大电"));
         initTab(null);
-        mQBadgeView.setBadgeNumber(0);
 
         mHomeFragmentPresenter.goodsCategory(this.bindToLifecycle());
+        mHomeFragmentPresenter.unMessage(this.bindToLifecycle());
     }
 
 
@@ -162,5 +167,43 @@ public class HomeFragment extends DBBaseFragment implements Badge.OnDragStateCha
     public void Faile(String error) {
         EventBus.getDefault().post(HomeFragment.subTab);//通知榜单里的4个fragment初始化二级导航栏
         Toast.makeText(getContext(), error, Toast.LENGTH_SHORT).show();
+    }
+
+    /**
+     * 获取未读消息成功回调
+     * @param unMessageBean
+     */
+    @Override
+    public void unMessageSuc(UnMessageBean unMessageBean) {
+        if(unMessageBean.getCount() != 0) {
+            if (unMessageBean.getCount() <= 99) {
+                mQBadgeView.setBadgeText("" + unMessageBean.getCount());
+            } else {
+                mQBadgeView.setBadgeText("99+");
+            }
+        }else { 
+            mQBadgeView.hide(false);
+        }
+    }
+
+    /**
+     * 获取未读消息成功回调
+     */
+    @Override
+    public void unMessageFaile(String error) {
+        Toast.makeText(getContext(), error, Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    public void onDestroyView() {
+        EventBus.getDefault().unregister(this);
+        super.onDestroyView();
+    }
+
+    @Subscribe
+    public  void  unMessage(String s){
+        if(!TextUtils.isEmpty(s) && s.equals(JPushReceiver.TAG)){
+            mHomeFragmentPresenter.unMessage(this.bindToLifecycle());
+        }
     }
 }

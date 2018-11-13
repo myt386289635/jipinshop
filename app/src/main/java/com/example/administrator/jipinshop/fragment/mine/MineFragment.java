@@ -26,6 +26,7 @@ import com.example.administrator.jipinshop.bean.AccountBean;
 import com.example.administrator.jipinshop.bean.UserInfoBean;
 import com.example.administrator.jipinshop.bean.eventbus.EditNameBus;
 import com.example.administrator.jipinshop.databinding.FragmentMineBinding;
+import com.example.administrator.jipinshop.jpush.JPushReceiver;
 import com.example.administrator.jipinshop.util.sp.CommonDate;
 import com.example.administrator.jipinshop.view.glide.imageloder.ImageManager;
 
@@ -153,6 +154,7 @@ public class MineFragment extends DBBaseFragment implements View.OnClickListener
                 mBinding.mineWithdrawableValue.setText("0");
                 mBinding.mineSettlementValue.setText("0");
                 mBinding.mineWithdrawedValue.setText("0");
+                EventBus.getDefault().post(JPushReceiver.TAG);//刷新未读消息
                 break;
         }
     }
