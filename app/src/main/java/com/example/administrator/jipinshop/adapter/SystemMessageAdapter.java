@@ -40,7 +40,7 @@ public class SystemMessageAdapter extends RecyclerView.Adapter<SystemMessageAdap
 
         holder.item_content.setText(mList.get(position).getMessageContentDetail());
         holder.item_name.setText(mList.get(position).getMessageTitle());
-        holder.item_time.setText(mList.get(position).getMessagePushTime());
+        holder.item_time.setText(mList.get(position).getMessagePushTime().split(" ")[0]);
         holder.item_more.setOnClickListener(v -> {
             Toast.makeText(mContext, "点击跳转", Toast.LENGTH_SHORT).show();
         });
