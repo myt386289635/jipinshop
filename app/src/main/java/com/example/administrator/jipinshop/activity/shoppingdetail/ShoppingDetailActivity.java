@@ -21,7 +21,6 @@ import android.webkit.JavascriptInterface;
 import android.webkit.WebChromeClient;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
-import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -273,7 +272,6 @@ public class ShoppingDetailActivity extends BaseActivity implements ShoppingComm
                 }else {
                     mPresenter.initTitleLayout(ShoppingDetailActivity.this, mBinding.shopTv, mBinding.shopView, mBinding.evaluationTv, mBinding.evaluationView, mBinding.commonTv, mBinding.commonView);
                 }
-                hintKey();
             }
         });
         //网络请求数据
@@ -840,6 +838,33 @@ public class ShoppingDetailActivity extends BaseActivity implements ShoppingComm
 //                mBinding.detailKeyLayout.setVisibility(View.GONE);
             }
         }
+    }
+
+    @Override
+    public boolean dispatchTouchEvent(MotionEvent ev) {
+        if (mBinding.detailKeyLayout.getVisibility() == View.VISIBLE && ev.getAction() == MotionEvent.ACTION_DOWN) {
+            View view = mBinding.detailKeyLayout;
+            if (isHideInput(view, ev)) {
+                hintKey();
+            }
+        }
+        return super.dispatchTouchEvent(ev);
+    }
+
+    private boolean isHideInput(View v, MotionEvent ev) {
+        if (v != null && (v instanceof RelativeLayout)) {
+            int[] l = {0, 0};
+            v.getLocationInWindow(l);
+            int left = l[0], top = l[1], bottom = top + v.getHeight(), right = left
+                    + v.getWidth();
+            if (ev.getX() > left && ev.getX() < right && ev.getY() > top
+                    && ev.getY() < bottom) {
+                return false;
+            } else {
+                return true;
+            }
+        }
+        return false;
     }
 
     /****

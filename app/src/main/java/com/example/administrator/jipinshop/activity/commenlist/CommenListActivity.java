@@ -3,12 +3,12 @@ package com.example.administrator.jipinshop.activity.commenlist;
 import android.app.Dialog;
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
+import android.view.MotionEvent;
 import android.view.View;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -103,16 +103,6 @@ public class CommenListActivity extends BaseActivity implements CommenListAdapte
         mBinding.swipeToLoad.setRefreshing(true);
 
         mPresenter.setKeyListener(mBinding.detailContanier, usableHeightPrevious);
-
-        mBinding.swipeTarget.addOnScrollListener(new RecyclerView.OnScrollListener() {
-            @Override
-            public void onScrollStateChanged(@NonNull RecyclerView recyclerView, int newState) {
-                super.onScrollStateChanged(recyclerView, newState);
-                if(newState == RecyclerView.SCROLL_STATE_DRAGGING){
-                    hintKey();
-                }
-            }
-        });
     }
 
     /**
@@ -149,6 +139,33 @@ public class CommenListActivity extends BaseActivity implements CommenListAdapte
             // 如果开启
             mImm.hideSoftInputFromWindow(getCurrentFocus().getWindowToken(), 0); //强制隐藏键盘
         }
+    }
+
+    @Override
+    public boolean dispatchTouchEvent(MotionEvent ev) {
+        if (imi && ev.getAction() == MotionEvent.ACTION_DOWN) {
+            View view = mBinding.detailKeyLayout;
+            if (isHideInput(view, ev)) {
+                hintKey();
+            }
+        }
+        return super.dispatchTouchEvent(ev);
+    }
+
+    private boolean isHideInput(View v, MotionEvent ev) {
+        if (v != null && (v instanceof RelativeLayout)) {
+            int[] l = {0, 0};
+            v.getLocationInWindow(l);
+            int left = l[0], top = l[1], bottom = top + v.getHeight(), right = left
+                    + v.getWidth();
+            if (ev.getX() > left && ev.getX() < right && ev.getY() > top
+                    && ev.getY() < bottom) {
+                return false;
+            } else {
+                return true;
+            }
+        }
+        return false;
     }
 
     @Override
