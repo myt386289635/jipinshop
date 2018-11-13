@@ -225,13 +225,21 @@ public class CommenListActivity extends BaseActivity implements CommenListAdapte
         }
         if (commentBean.getList() != null && commentBean.getList().size() != 0) {
             if (refresh) {
+                //这里的beanList 是用来记录上一次数据的，用来判断是否有新数据添加进入
+                List<CommentBean.ListBean> beanList = new ArrayList<>();
+                if (mList.size() != 0){
+                    for (int i = 0; i < 10; i++) {
+                        beanList.add(mList.get(i));
+                    }
+                }
                 mList.clear();
                 mList.addAll(commentBean.getList());
                 if (once) {
                     initSets();
                 } else {
-                    ResherSets();
+                    ResherSets(beanList);
                 }
+                EventBus.getDefault().post(CommenListActivity.commentResher);
             } else {
                 int i = mList.size();
                 mList.addAll(commentBean.getList());
@@ -283,9 +291,10 @@ public class CommenListActivity extends BaseActivity implements CommenListAdapte
                 }
             }
             mAdapter.notifyItemChanged(parentNum);
+            EventBus.getDefault().post(CommenListActivity.commentResher);
         } else {
             //回复楼层
-            sets.add(0, 0);
+//            sets.add(0, 0);
             mBinding.swipeTarget.scrollToPosition(0);
             onRefresh();
         }
@@ -293,7 +302,6 @@ public class CommenListActivity extends BaseActivity implements CommenListAdapte
         if (mDialog != null && mDialog.isShowing()) {
             mDialog.dismiss();
         }
-        EventBus.getDefault().post(CommenListActivity.commentResher);
     }
 
     @Override
@@ -390,15 +398,46 @@ public class CommenListActivity extends BaseActivity implements CommenListAdapte
     /**
      * 不是第一次，刷新列表时，sets数组的逻辑
      */
-    private void ResherSets() {
+    private void ResherSets(List<CommentBean.ListBean> beanList) {
         List<Integer> timer = new ArrayList<>();
-        if (sets.size() > 10) {
+        int num = 0;//记录新加入的条数
+        if (mList.size() >= 10) {
             for (int i = 0; i < 10; i++) {
+                if(!beanList.get(0).getCommentId().equals(mList.get(i).getCommentId())){
+                    //有新评论进来了
+                    if (mList.get(i).getUserCommentList().size() <= 2) {
+                        timer.add(mList.get(i).getUserCommentList().size());
+                    } else {
+                        timer.add(2);
+                    }
+                    num++;
+                }else {
+                    break;
+                }
+            }
+            for (int i = 0; i < 10 - num; i++) {
                 timer.add(sets.get(i));
             }
-            sets.clear();
-            sets.addAll(timer);
+        }else {
+            for (int i = 0; i < mList.size(); i++) {
+                if(!beanList.get(0).getCommentId().equals(mList.get(i).getCommentId())){
+                    //有新评论进来了
+                    if (mList.get(i).getUserCommentList().size() <= 2) {
+                        timer.add(mList.get(i).getUserCommentList().size());
+                    } else {
+                        timer.add(2);
+                    }
+                    num++;
+                }else {
+                    break;
+                }
+            }
+            for (int i = 0; i < mList.size() - num; i++) {
+                timer.add(sets.get(i));
+            }
         }
+        sets.clear();
+        sets.addAll(timer);
     }
 
     /**
