@@ -424,7 +424,7 @@ public class CommenListActivity extends BaseActivity implements CommenListAdapte
                 break;
             }
         }
-        for (int i = 0; i < 10 - num; i++) {
+        for (int i = 0; i < size - num; i++) {
             timer.add(sets.get(i));
         }
     }
