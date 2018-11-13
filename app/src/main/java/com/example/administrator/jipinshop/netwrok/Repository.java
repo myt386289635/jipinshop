@@ -23,6 +23,7 @@ import com.example.administrator.jipinshop.bean.SnapSelectBean;
 import com.example.administrator.jipinshop.bean.SreachResultBean;
 import com.example.administrator.jipinshop.bean.SuccessBean;
 import com.example.administrator.jipinshop.bean.SupplementBean;
+import com.example.administrator.jipinshop.bean.SystemMessageBean;
 import com.example.administrator.jipinshop.bean.TabBean;
 import com.example.administrator.jipinshop.bean.UnMessageBean;
 import com.example.administrator.jipinshop.bean.UserInfoBean;
@@ -36,6 +37,8 @@ import javax.inject.Inject;
 
 import io.reactivex.Observable;
 import okhttp3.MultipartBody;
+import retrofit2.http.GET;
+import retrofit2.http.Query;
 
 public class Repository {
 
@@ -297,5 +300,12 @@ public class Repository {
      */
     public Observable<UnMessageBean> unMessage(){
         return mAPIService.unMessage(SPUtils.getInstance(CommonDate.USER).getString(CommonDate.userId));
+    }
+
+    /**
+     * 获取消息列表详情内容
+     */
+    public Observable<SystemMessageBean> messageAll(String page){
+        return mAPIService.messageAll(page,SPUtils.getInstance(CommonDate.USER).getString(CommonDate.userId),"1");
     }
 }

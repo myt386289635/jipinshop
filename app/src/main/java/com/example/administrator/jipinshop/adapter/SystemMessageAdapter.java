@@ -6,8 +6,10 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.administrator.jipinshop.R;
+import com.example.administrator.jipinshop.bean.SystemMessageBean;
 
 import java.util.List;
 
@@ -19,9 +21,9 @@ import java.util.List;
 public class SystemMessageAdapter extends RecyclerView.Adapter<SystemMessageAdapter.ViewHolder>{
 
     private Context mContext;
-    private List<String> mList;
+    private List<SystemMessageBean.ListBean> mList;
 
-    public SystemMessageAdapter(Context context, List<String> list) {
+    public SystemMessageAdapter(Context context, List<SystemMessageBean.ListBean> list) {
         mContext = context;
         mList = list;
     }
@@ -36,11 +38,17 @@ public class SystemMessageAdapter extends RecyclerView.Adapter<SystemMessageAdap
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
 
+        holder.item_content.setText(mList.get(position).getMessageContentDetail());
+        holder.item_name.setText(mList.get(position).getMessageTitle());
+        holder.item_time.setText(mList.get(position).getMessagePushTime());
+        holder.item_more.setOnClickListener(v -> {
+            Toast.makeText(mContext, "点击跳转", Toast.LENGTH_SHORT).show();
+        });
     }
 
     @Override
     public int getItemCount() {
-        return 10;
+        return mList.size();
     }
 
     class ViewHolder extends RecyclerView.ViewHolder{

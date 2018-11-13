@@ -21,6 +21,7 @@ import com.example.administrator.jipinshop.bean.SreachResultBean;
 import com.example.administrator.jipinshop.bean.SuccessBean;
 import com.example.administrator.jipinshop.bean.AccountBean;
 import com.example.administrator.jipinshop.bean.SupplementBean;
+import com.example.administrator.jipinshop.bean.SystemMessageBean;
 import com.example.administrator.jipinshop.bean.TabBean;
 import com.example.administrator.jipinshop.bean.UnMessageBean;
 import com.example.administrator.jipinshop.bean.UserInfoBean;
@@ -282,4 +283,9 @@ public interface APIService {
     @GET("qualityshop-api/message/selectCount")
     Observable<UnMessageBean> unMessage(@Query("userId") String userId);
 
+    /**
+     * 获取消息列表详情内容
+     */
+    @GET("qualityshop-api/message/selectAll")
+    Observable<SystemMessageBean> messageAll(@Query("page") String page ,@Query("userId") String userId,@Query("type") String type);
 }
