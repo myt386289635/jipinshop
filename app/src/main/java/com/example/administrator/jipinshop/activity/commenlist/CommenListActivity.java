@@ -400,44 +400,33 @@ public class CommenListActivity extends BaseActivity implements CommenListAdapte
      */
     private void ResherSets(List<CommentBean.ListBean> beanList) {
         List<Integer> timer = new ArrayList<>();
-        int num = 0;//记录新加入的条数
         if (mList.size() >= 10) {
-            for (int i = 0; i < 10; i++) {
-                if(!beanList.get(0).getCommentId().equals(mList.get(i).getCommentId())){
-                    //有新评论进来了
-                    if (mList.get(i).getUserCommentList().size() <= 2) {
-                        timer.add(mList.get(i).getUserCommentList().size());
-                    } else {
-                        timer.add(2);
-                    }
-                    num++;
-                }else {
-                    break;
-                }
-            }
-            for (int i = 0; i < 10 - num; i++) {
-                timer.add(sets.get(i));
-            }
+            ResherSets2(timer,beanList,10);
         }else {
-            for (int i = 0; i < mList.size(); i++) {
-                if(!beanList.get(0).getCommentId().equals(mList.get(i).getCommentId())){
-                    //有新评论进来了
-                    if (mList.get(i).getUserCommentList().size() <= 2) {
-                        timer.add(mList.get(i).getUserCommentList().size());
-                    } else {
-                        timer.add(2);
-                    }
-                    num++;
-                }else {
-                    break;
-                }
-            }
-            for (int i = 0; i < mList.size() - num; i++) {
-                timer.add(sets.get(i));
-            }
+            ResherSets2(timer,beanList, mList.size());
         }
         sets.clear();
         sets.addAll(timer);
+    }
+
+    private void ResherSets2(List<Integer> timer,List<CommentBean.ListBean> beanList,int size) {
+        int num = 0;//记录新加入的条数
+        for (int i = 0; i < size; i++) {
+            if(!beanList.get(0).getCommentId().equals(mList.get(i).getCommentId())){
+                //有新评论进来了
+                if (mList.get(i).getUserCommentList().size() <= 2) {
+                    timer.add(mList.get(i).getUserCommentList().size());
+                } else {
+                    timer.add(2);
+                }
+                num++;
+            }else {
+                break;
+            }
+        }
+        for (int i = 0; i < 10 - num; i++) {
+            timer.add(sets.get(i));
+        }
     }
 
     /**
