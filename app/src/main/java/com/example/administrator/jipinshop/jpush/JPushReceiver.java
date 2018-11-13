@@ -14,7 +14,7 @@ import android.util.Log;
 
 import com.example.administrator.jipinshop.MyApplication;
 import com.example.administrator.jipinshop.R;
-import com.example.administrator.jipinshop.activity.message.MessageActivity;
+import com.example.administrator.jipinshop.activity.message.system.SystemMessageActivity;
 
 import cn.jpush.android.api.JPushInterface;
 
@@ -70,7 +70,7 @@ public class JPushReceiver extends BroadcastReceiver {
             MyApplication.getInstance().setNotificationNum(1);
         }
         Log.d("JPushReceiver", "mNotificationNum:" + MyApplication.getInstance().getNotificationNum());
-        Intent intent = new Intent(context, MessageActivity.class);
+        Intent intent = new Intent(context, SystemMessageActivity.class);
         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         NotificationManager mNotifyMgr =
                 (NotificationManager) context.getSystemService(NOTIFICATION_SERVICE);
@@ -111,7 +111,7 @@ public class JPushReceiver extends BroadcastReceiver {
      * @param bundle
      */
     private void openNotification(Context context, Bundle bundle){
-        Intent intent = new Intent(context, MessageActivity.class);
+        Intent intent = new Intent(context, SystemMessageActivity.class);
         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         context.startActivity(intent);
     }
