@@ -58,32 +58,32 @@ public class MineFragment extends DBBaseFragment implements View.OnClickListener
 
         mPresenter.setStatusBarHight(mBinding.statusBar, getContext());
         mPresenter.setView(this);
-        if(!TextUtils.isEmpty(SPUtils.getInstance(CommonDate.USER).getString(CommonDate.userId).trim())){
+        if (!TextUtils.isEmpty(SPUtils.getInstance(CommonDate.USER).getString(CommonDate.userId).trim())) {
             //这里是判断该手机是否有账户登陆过。如果有userId不会为空，除非没有用户登录或已经退出登陆
-            mPresenter.modelUser(getContext(),this.bindToLifecycle());
+            mPresenter.modelUser(this.bindToLifecycle());
         }
     }
 
     @Override
     public void onClick(View view) {
-        switch (view.getId()){
+        switch (view.getId()) {
             case R.id.mine_setting:
                 //跳转到设置页面
-                startActivityForResult(new Intent(getContext(), SettingActivity.class),100);
+                startActivityForResult(new Intent(getContext(), SettingActivity.class), 100);
                 return;
             case R.id.mine_login:
                 //跳转到登陆页面
                 startActivityForResult(new Intent(getContext(), LoginActivity.class), 100);
                 return;
         }
-        if(!SPUtils.getInstance(CommonDate.USER).getBoolean(CommonDate.userLogin,false)){
+        if (!SPUtils.getInstance(CommonDate.USER).getBoolean(CommonDate.userLogin, false)) {
             startActivityForResult(new Intent(getContext(), LoginActivity.class), 100);
             return;
         }
         switch (view.getId()) {
             case R.id.mine_image:
                 //我的资料
-                startActivityForResult(new Intent(getContext(), MyInfoActivity.class),100);
+                startActivityForResult(new Intent(getContext(), MyInfoActivity.class), 100);
                 break;
             case R.id.mine_sign:
                 //跳转到H5页面
@@ -92,10 +92,10 @@ public class MineFragment extends DBBaseFragment implements View.OnClickListener
             case R.id.mine_withdraw:
                 //跳转到我的余额页面
                 startActivity(new Intent(getContext(), BalanceActivity.class)
-                        .putExtra("totleMoney",mBinding.mineMoney.getText().toString())//总金额
-                        .putExtra("processingValue",mBinding.mineProcessingValue.getText().toString())//处理中
+                        .putExtra("totleMoney", mBinding.mineMoney.getText().toString())//总金额
+                        .putExtra("processingValue", mBinding.mineProcessingValue.getText().toString())//处理中
                         .putExtra("withdrawableValue", mBinding.mineWithdrawableValue.getText().toString())//可提现
-                        .putExtra("settlementValue",mBinding.mineSettlementValue.getText().toString())//待结算
+                        .putExtra("settlementValue", mBinding.mineSettlementValue.getText().toString())//待结算
                         .putExtra("withdrawedValue", mBinding.mineWithdrawedValue.getText().toString())//已提现
                 );
                 break;
@@ -140,15 +140,15 @@ public class MineFragment extends DBBaseFragment implements View.OnClickListener
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        switch (resultCode){
+        switch (resultCode) {
             case 201://退出登陆成功
                 mBinding.mineName.setVisibility(View.GONE);
                 mBinding.mineLogin.setVisibility(View.VISIBLE);
                 mBinding.mineLevel.setVisibility(View.GONE);
                 mBinding.mineIntegral.setText("积分0");
-                ImageManager.displayImage("drawable://" + R.drawable.logo,mBinding.mineImage,0,0);
+                ImageManager.displayImage("drawable://" + R.drawable.logo, mBinding.mineImage, 0, 0);
                 SPUtils.getInstance(CommonDate.USER).clear();
-                SPUtils.getInstance(CommonDate.USER).put(CommonDate.userLogin,false);
+                SPUtils.getInstance(CommonDate.USER).put(CommonDate.userLogin, false);
                 mBinding.mineMoney.setText("总佣金¥00.00");
                 mBinding.mineProcessingValue.setText("0");
                 mBinding.mineWithdrawableValue.setText("0");
@@ -166,72 +166,73 @@ public class MineFragment extends DBBaseFragment implements View.OnClickListener
     }
 
     @Subscribe
-    public void eidtInfo(EditNameBus bus){
-        if(bus.getTag().equals(EditNameActivity.tag)){
+    public void eidtInfo(EditNameBus bus) {
+        if (bus.getTag().equals(EditNameActivity.tag)) {
             //修改用户信息时返回刷新
-            if(bus.getType().equals("1")){
+            if (bus.getType().equals("1")) {
                 mBinding.mineName.setText(bus.getContent());
-            }else if(bus.getType().equals("4")){
+            } else if (bus.getType().equals("4")) {
                 //修改用户头像
-                ImageManager.displayImage(bus.getContent(),mBinding.mineImage,0,R.mipmap.rlogo);
+                ImageManager.displayImage(bus.getContent(), mBinding.mineImage, 0, R.mipmap.rlogo);
             }
-        }else if(bus.getTag().equals(LoginActivity.tag)){
+        } else if (bus.getTag().equals(LoginActivity.tag)) {
             //登陆时返回刷新佣金数
             mBinding.mineMoney.setText("总佣金¥" + bus.getTotleMoney());
             mBinding.mineProcessingValue.setText(bus.getState());
-            BigDecimal totleDecimal= new BigDecimal(bus.getTotleMoney());
+            BigDecimal totleDecimal = new BigDecimal(bus.getTotleMoney());
             BigDecimal useDecimal = new BigDecimal("50");
             double value = totleDecimal.subtract(useDecimal).doubleValue();
-            if(value >= 0){
+            if (value >= 0) {
                 mBinding.mineWithdrawableValue.setText(bus.getTotleMoney());
-            }else {
+            } else {
                 mBinding.mineWithdrawableValue.setText("0");
             }
             mBinding.mineSettlementValue.setText(bus.getNone());
             mBinding.mineWithdrawedValue.setText(bus.getUseMoney());
-            //更改用户信息
+            //登陆时返回更改用户信息
             mBinding.mineName.setVisibility(View.VISIBLE);
             mBinding.mineLogin.setVisibility(View.GONE);
-            if(TextUtils.isEmpty(SPUtils.getInstance(CommonDate.USER).getString(CommonDate.userNickName))){
+            if (TextUtils.isEmpty(SPUtils.getInstance(CommonDate.USER).getString(CommonDate.userNickName))) {
                 mBinding.mineName.setText(SPUtils.getInstance(CommonDate.USER).getString(CommonDate.userPhone));
-            }else {
+            } else {
                 mBinding.mineName.setText(SPUtils.getInstance(CommonDate.USER).getString(CommonDate.userNickName));
             }
-            if(!TextUtils.isEmpty(SPUtils.getInstance(CommonDate.USER).getString(CommonDate.userNickImg))){
-                ImageManager.displayImage(SPUtils.getInstance(CommonDate.USER).getString(CommonDate.userNickImg),mBinding.mineImage,0,R.mipmap.logo);
+            if (!TextUtils.isEmpty(SPUtils.getInstance(CommonDate.USER).getString(CommonDate.userNickImg))) {
+                ImageManager.displayImage(SPUtils.getInstance(CommonDate.USER).getString(CommonDate.userNickImg), mBinding.mineImage, 0, R.mipmap.logo);
             }
             mBinding.mineLevel.setVisibility(View.VISIBLE);
             mBinding.mineLevel.setText("v" + SPUtils.getInstance(CommonDate.USER).getString(CommonDate.userMemberGrade));
             mBinding.mineIntegral.setText("积分" + SPUtils.getInstance(CommonDate.USER).getInt(CommonDate.userPoint));
-        }else if(bus.getTag().equals(SignActivity.eventbusTag)){
+        } else if (bus.getTag().equals(SignActivity.eventbusTag)) {
             //签到、补签、抽奖后刷新积分
             mBinding.mineIntegral.setText("积分" + SPUtils.getInstance(CommonDate.USER).getInt(CommonDate.userPoint));
-        }else if(bus.getTag().equals(BalanceActivity.alipayTag)){
+        } else if (bus.getTag().equals(BalanceActivity.alipayTag)) {
             //提现后刷新佣金
-            mPresenter.getMoney(getContext(),this.bindToLifecycle());
+            mPresenter.getMoney(getContext(), this.bindToLifecycle());
         }
     }
 
     /**
      * 获取佣金金额
+     *
      * @param accountBean
      */
     @Override
     public void successMoney(AccountBean accountBean) {
-        if(accountBean.getCode() == 200){
+        if (accountBean.getCode() == 200) {
             mBinding.mineMoney.setText("总佣金¥" + accountBean.getList().get(0).getTotal_account());
             mBinding.mineProcessingValue.setText(accountBean.getList().get(0).getState());
-            BigDecimal totleDecimal= new BigDecimal(accountBean.getList().get(0).getTotal_account());
+            BigDecimal totleDecimal = new BigDecimal(accountBean.getList().get(0).getTotal_account());
             BigDecimal useDecimal = new BigDecimal("50");
             double value = totleDecimal.subtract(useDecimal).doubleValue();
-            if(value >= 0){
+            if (value >= 0) {
                 mBinding.mineWithdrawableValue.setText(accountBean.getList().get(0).getTotal_account());
-            }else {
+            } else {
                 mBinding.mineWithdrawableValue.setText("0");
             }
             mBinding.mineSettlementValue.setText("0");
             mBinding.mineWithdrawedValue.setText(accountBean.getList().get(0).getUse_account());
-        }else {
+        } else {
             Toast.makeText(getContext(), "佣金金额获取失败，请联系客服", Toast.LENGTH_SHORT).show();
         }
     }
@@ -239,83 +240,64 @@ public class MineFragment extends DBBaseFragment implements View.OnClickListener
     /**
      * 获取用户信息
      * 用来刷新用户信息
+     *
      * @param userInfoBean
      */
     @Override
     public void successUserInfo(UserInfoBean userInfoBean) {
-        if(userInfoBean.getCode() == 200){
-            //获取用户佣金
-            mPresenter.getMoney(getContext(),this.bindToLifecycle());
+        //获取用户佣金
+        mPresenter.getMoney(getContext(), this.bindToLifecycle());
 
-            SPUtils.getInstance(CommonDate.USER).put(CommonDate.userLogin,true);
-            SPUtils.getInstance(CommonDate.USER).put(CommonDate.userBirthday,userInfoBean.getList().get(0).getUserBirthday());
-            SPUtils.getInstance(CommonDate.USER).put(CommonDate.userGender,userInfoBean.getList().get(0).getUserGender());
-            SPUtils.getInstance(CommonDate.USER).put(CommonDate.userNickImg,userInfoBean.getList().get(0).getUserNickImg());
-            SPUtils.getInstance(CommonDate.USER).put(CommonDate.userNickName,userInfoBean.getList().get(0).getUserNickName());
-            SPUtils.getInstance(CommonDate.USER).put(CommonDate.userPhone,userInfoBean.getList().get(0).getUserPhone());
-            SPUtils.getInstance(CommonDate.USER).put(CommonDate.userMemberGrade,userInfoBean.getList().get(0).getUserMemberGrade());
-            SPUtils.getInstance(CommonDate.USER).put(CommonDate.userPoint,Integer.valueOf(userInfoBean.getPoints()));
-            SPUtils.getInstance(CommonDate.USER).put(CommonDate.alipAccount,userInfoBean.getList().get(0).getAlipayAccount());
-            SPUtils.getInstance(CommonDate.USER).put(CommonDate.alipName,userInfoBean.getList().get(0).getAlipayName());
+        SPUtils.getInstance(CommonDate.USER).put(CommonDate.userLogin, true);
+        SPUtils.getInstance(CommonDate.USER).put(CommonDate.userBirthday, userInfoBean.getList().get(0).getUserBirthday());
+        SPUtils.getInstance(CommonDate.USER).put(CommonDate.userGender, userInfoBean.getList().get(0).getUserGender());
+        SPUtils.getInstance(CommonDate.USER).put(CommonDate.userNickImg, userInfoBean.getList().get(0).getUserNickImg());
+        SPUtils.getInstance(CommonDate.USER).put(CommonDate.userNickName, userInfoBean.getList().get(0).getUserNickName());
+        SPUtils.getInstance(CommonDate.USER).put(CommonDate.userPhone, userInfoBean.getList().get(0).getUserPhone());
+        SPUtils.getInstance(CommonDate.USER).put(CommonDate.userMemberGrade, userInfoBean.getList().get(0).getUserMemberGrade());
+        SPUtils.getInstance(CommonDate.USER).put(CommonDate.userPoint, Integer.valueOf(userInfoBean.getPoints()));
+        SPUtils.getInstance(CommonDate.USER).put(CommonDate.alipAccount, userInfoBean.getList().get(0).getAlipayAccount());
+        SPUtils.getInstance(CommonDate.USER).put(CommonDate.alipName, userInfoBean.getList().get(0).getAlipayName());
 
-            mBinding.mineName.setVisibility(View.VISIBLE);
-            mBinding.mineLogin.setVisibility(View.GONE);
-            mBinding.mineLevel.setVisibility(View.VISIBLE);
-            if(TextUtils.isEmpty(SPUtils.getInstance(CommonDate.USER).getString(CommonDate.userNickName))){
-                mBinding.mineName.setText(SPUtils.getInstance(CommonDate.USER).getString(CommonDate.userPhone));
-            }else {
-                mBinding.mineName.setText(SPUtils.getInstance(CommonDate.USER).getString(CommonDate.userNickName));
-            }
-            if(!TextUtils.isEmpty(SPUtils.getInstance(CommonDate.USER).getString(CommonDate.userNickImg))){
-                ImageManager.displayImage(SPUtils.getInstance(CommonDate.USER).getString(CommonDate.userNickImg),mBinding.mineImage,0,R.mipmap.logo);
-            }
-            mBinding.mineLevel.setText("v" + SPUtils.getInstance(CommonDate.USER).getString(CommonDate.userMemberGrade));
-            mBinding.mineIntegral.setText("积分" + SPUtils.getInstance(CommonDate.USER).getInt(CommonDate.userPoint));
-        }else {
-            //获取用户信息失败 走退出登陆的逻辑
-            mBinding.mineName.setVisibility(View.VISIBLE);
-            mBinding.mineLogin.setVisibility(View.GONE);
-            mBinding.mineLevel.setVisibility(View.VISIBLE);
-            if(TextUtils.isEmpty(SPUtils.getInstance(CommonDate.USER).getString(CommonDate.userNickName))){
-                mBinding.mineName.setText(SPUtils.getInstance(CommonDate.USER).getString(CommonDate.userPhone));
-            }else {
-                mBinding.mineName.setText(SPUtils.getInstance(CommonDate.USER).getString(CommonDate.userNickName));
-            }
-            if(!TextUtils.isEmpty(SPUtils.getInstance(CommonDate.USER).getString(CommonDate.userNickImg))){
-                ImageManager.displayImage(SPUtils.getInstance(CommonDate.USER).getString(CommonDate.userNickImg),mBinding.mineImage,0,R.mipmap.logo);
-            }
-//            SPUtils.getInstance(CommonDate.USER).clear();这里不清空用户数据，方便用户网络好的时候免登陆
-//            SPUtils.getInstance(CommonDate.USER).put(CommonDate.userLogin,true);
-            mBinding.mineLevel.setText("v0");
-            mBinding.mineIntegral.setText("积分0");
-            SPUtils.getInstance(CommonDate.USER).put(CommonDate.userMemberGrade,"0");
-            SPUtils.getInstance(CommonDate.USER).put(CommonDate.userPoint,0);
-            Toast.makeText(getContext(), userInfoBean.getMsg(), Toast.LENGTH_SHORT).show();
+        mBinding.mineName.setVisibility(View.VISIBLE);
+        mBinding.mineLogin.setVisibility(View.GONE);
+        mBinding.mineLevel.setVisibility(View.VISIBLE);
+        if (TextUtils.isEmpty(SPUtils.getInstance(CommonDate.USER).getString(CommonDate.userNickName))) {
+            mBinding.mineName.setText(SPUtils.getInstance(CommonDate.USER).getString(CommonDate.userPhone));
+        } else {
+            mBinding.mineName.setText(SPUtils.getInstance(CommonDate.USER).getString(CommonDate.userNickName));
         }
+        if (!TextUtils.isEmpty(SPUtils.getInstance(CommonDate.USER).getString(CommonDate.userNickImg))) {
+            ImageManager.displayImage(SPUtils.getInstance(CommonDate.USER).getString(CommonDate.userNickImg), mBinding.mineImage, 0, R.mipmap.logo);
+        }
+        mBinding.mineLevel.setText("v" + SPUtils.getInstance(CommonDate.USER).getString(CommonDate.userMemberGrade));
+        mBinding.mineIntegral.setText("积分" + SPUtils.getInstance(CommonDate.USER).getInt(CommonDate.userPoint));
     }
 
     /**
      * 获取用户信息失败
+     *
      * @param error
      */
     @Override
     public void FaileUserInfo(String error) {
+        //获取用户信息失败 走退出登陆的逻辑
         mBinding.mineName.setVisibility(View.VISIBLE);
         mBinding.mineLogin.setVisibility(View.GONE);
         mBinding.mineLevel.setVisibility(View.VISIBLE);
-        if(TextUtils.isEmpty(SPUtils.getInstance(CommonDate.USER).getString(CommonDate.userNickName))){
+        if (TextUtils.isEmpty(SPUtils.getInstance(CommonDate.USER).getString(CommonDate.userNickName))) {
             mBinding.mineName.setText(SPUtils.getInstance(CommonDate.USER).getString(CommonDate.userPhone));
-        }else {
+        } else {
             mBinding.mineName.setText(SPUtils.getInstance(CommonDate.USER).getString(CommonDate.userNickName));
         }
-        if(!TextUtils.isEmpty(SPUtils.getInstance(CommonDate.USER).getString(CommonDate.userNickImg))){
-            ImageManager.displayImage(SPUtils.getInstance(CommonDate.USER).getString(CommonDate.userNickImg),mBinding.mineImage,0,R.mipmap.logo);
+        if (!TextUtils.isEmpty(SPUtils.getInstance(CommonDate.USER).getString(CommonDate.userNickImg))) {
+            ImageManager.displayImage(SPUtils.getInstance(CommonDate.USER).getString(CommonDate.userNickImg), mBinding.mineImage, 0, R.mipmap.logo);
         }
         mBinding.mineLevel.setText("v0");
         mBinding.mineIntegral.setText("积分0");
-        SPUtils.getInstance(CommonDate.USER).put(CommonDate.userMemberGrade,"0");
-        SPUtils.getInstance(CommonDate.USER).put(CommonDate.userPoint,0);
+        SPUtils.getInstance(CommonDate.USER).put(CommonDate.userMemberGrade, "0");
+        SPUtils.getInstance(CommonDate.USER).put(CommonDate.userPoint, 0);
 //        SPUtils.getInstance(CommonDate.USER).put(CommonDate.userLogin,true);
-        Toast.makeText(getContext(), "用户信息更新失败，请检查网络", Toast.LENGTH_SHORT).show();
+        Toast.makeText(getContext(), error, Toast.LENGTH_SHORT).show();
     }
 }

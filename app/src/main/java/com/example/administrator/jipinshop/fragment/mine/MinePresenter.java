@@ -61,18 +61,24 @@ public class MinePresenter {
                 });
     }
 
-    public void modelUser(Context context,LifecycleTransformer<UserInfoBean> transformer){
+    public void modelUser(LifecycleTransformer<UserInfoBean> transformer){
         mRepository.modelUser()
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .compose(transformer)
                 .subscribe(userInfoBean -> {
-                    if(mView != null){
-                        mView.successUserInfo(userInfoBean);
+                    if(userInfoBean.getCode() == 200){
+                        if(mView != null){
+                            mView.successUserInfo(userInfoBean);
+                        }
+                    }else {
+                        if(mView != null){
+                            mView.FaileUserInfo(userInfoBean.getMsg());
+                        }
                     }
                 }, throwable -> {
                     if(mView != null){
-                        mView.FaileUserInfo(throwable.getMessage());
+                        mView.FaileUserInfo("用户信息更新失败，请检查网络");
                     }
                     Log.d("MinePresenter", throwable.getMessage());
                 });
