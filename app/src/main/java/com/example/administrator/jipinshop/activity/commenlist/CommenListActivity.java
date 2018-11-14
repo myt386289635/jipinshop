@@ -117,7 +117,7 @@ public class CommenListActivity extends BaseActivity implements CommenListAdapte
         parentNum = pos;
         mBinding.keyEdit.requestFocus();
         showKeyboard(true);
-        mBinding.keyEdit.setHint("回复"+mList.get(pos).getFromNickname());
+        mBinding.keyEdit.setHint("回复"+mList.get(pos).getUserShopmember().getUserNickName());
     }
 
     /**
@@ -228,9 +228,9 @@ public class CommenListActivity extends BaseActivity implements CommenListAdapte
                 //这里的beanList 是用来记录上一次数据的，用来判断是否有新数据添加进入
                 List<CommentBean.ListBean> beanList = new ArrayList<>();
                 if (mList.size() != 0){
-                    for (int i = 0; i < 10; i++) {
-                        beanList.add(mList.get(i));
-                    }
+//                    for (int i = 0; i < mList.size(); i++) {
+                        beanList.add(mList.get(0));
+//                    }
                 }
                 mList.clear();
                 mList.addAll(commentBean.getList());
@@ -278,8 +278,11 @@ public class CommenListActivity extends BaseActivity implements CommenListAdapte
         if (!parentId.equals("0")) {
             //回复评论
             CommentBean.ListBean.UserCommentListBean listBean = new CommentBean.ListBean.UserCommentListBean();
+            CommentBean.ListBean.UserCommentListBean.UserShopmemberBeanX bean = new CommentBean.ListBean.UserCommentListBean.UserShopmemberBeanX();
             listBean.setContent(mBinding.keyEdit.getText().toString());
-            listBean.setFromNickname(SPUtils.getInstance(CommonDate.USER).getString(CommonDate.userNickName));
+            bean.setUserNickName(SPUtils.getInstance(CommonDate.USER).getString(CommonDate.userNickName));
+            bean.setUserPhone(SPUtils.getInstance(CommonDate.USER).getString(CommonDate.userPhone));
+            listBean.setUserShopmember(bean);
             mList.get(parentNum).getUserCommentList().add(listBean);
             if (mList.get(parentNum).getUserCommentList().size() <= 2) {
                 sets.remove(parentNum);

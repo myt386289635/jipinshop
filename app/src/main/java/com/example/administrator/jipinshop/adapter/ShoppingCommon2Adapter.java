@@ -145,7 +145,7 @@ public class ShoppingCommon2Adapter extends RecyclerView.Adapter<ShoppingCommon2
 
         if(position < mList.size()){
             holder.item_content.setText(mList.get(position).getContent());
-            holder.item_name.setText(mList.get(position).getFromNickname());
+            holder.item_name.setText(mList.get(position).getUserShopmember().getUserNickName());
         }else {
             Log.d("moxiaoting", "数据越界了你知道么？" + position + "，数组大小：" + mList.size());
         }
