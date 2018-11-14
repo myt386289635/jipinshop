@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    android:background="@color/color_F5F5F5"
+    android:orientation="vertical"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:tools="http://schemas.android.com/tools">
+
+
+    <include layout="@layout/aa_title"/>
+
+    <LinearLayout
+        android:background="@drawable/bg_system_item"
+        android:paddingRight="@dimen/x16"
+        android:paddingLeft="@dimen/x16"
+        android:paddingBottom="@dimen/x32"
+        android:paddingTop="@dimen/x32"
+        android:layout_marginLeft="@dimen/x28"
+        android:layout_marginRight="@dimen/x28"
+        android:layout_marginTop="@dimen/x32"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:textSize="13sp"
+            android:textColor="@color/color_ACACAC"
+            android:lineSpacingExtra="@dimen/x10"
+            tools:text="尊敬的用户您好：\n\t\t\t京东商城返利体验大升级，一键自动跳转至京APP，无需再次登录，搜索商品标题返利更清晰，跟单流量顺畅操作更便捷。京东商城返利体验大升级，一键自动跳转至京APP，无需再次登录，搜索商品标题返利更清晰，跟单流量顺畅操作更便捷。京东商城返利体验大升级，一键自动跳转至京APP，无需再次登录，搜索商品标题返利更清晰，跟单流量顺畅操作更便捷。\n\t\t\t京东商城返利体验大升级，一键自动跳转至京APP，无需再次登录，搜索商品标题返利更清晰，跟单流量顺畅操作更便捷。京东商城返利体验大升级，一键自动跳转至京APP，无需再次登录，搜索商品标题返利更清晰，跟单流量顺畅操作更便捷。"
+            android:id="@+id/detail_content"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+
+
+    </LinearLayout>
+
+</LinearLayout>

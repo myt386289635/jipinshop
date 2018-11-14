@@ -19,6 +19,7 @@ import com.example.administrator.jipinshop.activity.info.bind.BindNumberActivity
 import com.example.administrator.jipinshop.activity.message.MessageActivity;
 import com.example.administrator.jipinshop.activity.message.other.OtherMessageActivity;
 import com.example.administrator.jipinshop.activity.message.system.SystemMessageActivity;
+import com.example.administrator.jipinshop.activity.message.system.detail.SystemMsgDetailActivity;
 import com.example.administrator.jipinshop.activity.setting.SettingActivity;
 import com.example.administrator.jipinshop.activity.setting.opinion.OpinionActivity;
 import com.example.administrator.jipinshop.activity.shoppingdetail.ReShoppingDetailActivity;
@@ -60,4 +61,5 @@ public interface BaseActivityComponent {
     void inject(MyInfoActivity activity);
     void inject(EditNameActivity activity);
     void inject(SignActivity activity);
+    void inject(SystemMsgDetailActivity activity);
 }

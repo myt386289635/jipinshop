@@ -1,14 +1,17 @@
 package com.example.administrator.jipinshop.adapter;
 
 import android.content.Context;
+import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.administrator.jipinshop.R;
+import com.example.administrator.jipinshop.activity.message.system.detail.SystemMsgDetailActivity;
 import com.example.administrator.jipinshop.bean.SystemMessageBean;
 
 import java.util.List;
@@ -40,10 +43,19 @@ public class SystemMessageAdapter extends RecyclerView.Adapter<SystemMessageAdap
 
         holder.item_content.setText(mList.get(position).getMessageContentDetail());
         holder.item_name.setText(mList.get(position).getMessageTitle());
-        holder.item_time.setText(mList.get(position).getMessagePushTime().split(" ")[0]);
+        holder.item_time.setText(mList.get(position).getMessagePushTime().split(" ")[0].replace("-","."));
         holder.item_more.setOnClickListener(v -> {
-            Toast.makeText(mContext, "点击跳转", Toast.LENGTH_SHORT).show();
+            Intent intent = new Intent(mContext,SystemMsgDetailActivity.class);
+            intent.putExtra("title",mList.get(position).getMessageTitle());
+            intent.putExtra("content",mList.get(position).getMessageContentDetail());
+            intent.putExtra("id",mList.get(position).getMessageId());
+            mContext.startActivity(intent);
         });
+        if (mList.get(position).getReadNum() == 0) {
+            holder.item_unred.setVisibility(View.VISIBLE);
+        }else {
+            holder.item_unred.setVisibility(View.GONE);
+        }
     }
 
     @Override
@@ -57,6 +69,7 @@ public class SystemMessageAdapter extends RecyclerView.Adapter<SystemMessageAdap
         private TextView item_time;
         private TextView item_content;
         private TextView item_more;
+        private ImageView item_unred;
 
         public ViewHolder(View itemView) {
             super(itemView);
@@ -64,6 +77,7 @@ public class SystemMessageAdapter extends RecyclerView.Adapter<SystemMessageAdap
             item_time = itemView.findViewById(R.id.item_time);
             item_content = itemView.findViewById(R.id.item_content);
             item_more = itemView.findViewById(R.id.item_more);
+            item_unred = itemView.findViewById(R.id.item_unred);
         }
     }
 }

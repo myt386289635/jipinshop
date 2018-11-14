@@ -5,6 +5,7 @@ import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.LinearLayoutManager;
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.Toast;
 
@@ -17,6 +18,9 @@ import com.example.administrator.jipinshop.bean.SystemMessageBean;
 import com.example.administrator.jipinshop.databinding.ActivityMessageSystemBinding;
 import com.example.administrator.jipinshop.view.dialog.ProgressDialogView;
 
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -28,6 +32,8 @@ import javax.inject.Inject;
  * @Describe
  */
 public class SystemMessageActivity extends BaseActivity implements View.OnClickListener, OnRefreshListener, OnLoadMoreListener, SystemMessageView {
+
+    public static final String tag = "SystemMsgDetailActivity2SystemMessageActivity";
 
     @Inject
     SystemMessagePresenter mPresenter;
@@ -54,6 +60,7 @@ public class SystemMessageActivity extends BaseActivity implements View.OnClickL
         mBinding.setListener(this);
         mBaseActivityComponent.inject(this);
         mPresenter.setView(this);
+        EventBus.getDefault().register(this);
         initView();
     }
 
@@ -176,4 +183,16 @@ public class SystemMessageActivity extends BaseActivity implements View.OnClickL
         mBinding.netClude.errorContent.setText(content);
     }
 
+    @Override
+    protected void onDestroy() {
+        EventBus.getDefault().unregister(this);
+        super.onDestroy();
+    }
+
+    @Subscribe
+    public void onRefersh(String s){
+        if(!TextUtils.isEmpty(s) && s.equals(SystemMessageActivity.tag)){
+            mBinding.swipeToLoad.setRefreshing(true);
+        }
+    }
 }

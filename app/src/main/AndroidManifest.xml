@@ -280,6 +280,9 @@
             android:value="d850a3451515099b6d0054728d0e9d13" >
         </meta-data>
 
+        <activity android:name=".activity.message.system.detail.SystemMsgDetailActivity"
+                  android:screenOrientation="portrait"/>
+
     </application>
 
 </manifest>

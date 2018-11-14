@@ -37,8 +37,6 @@ import javax.inject.Inject;
 
 import io.reactivex.Observable;
 import okhttp3.MultipartBody;
-import retrofit2.http.GET;
-import retrofit2.http.Query;
 
 public class Repository {
 
@@ -307,5 +305,12 @@ public class Repository {
      */
     public Observable<SystemMessageBean> messageAll(String page){
         return mAPIService.messageAll(page,SPUtils.getInstance(CommonDate.USER).getString(CommonDate.userId),"1");
+    }
+
+    /**
+     * 查看未读消息
+     */
+    public Observable<SuccessBean> readMsg(String messageId){
+        return mAPIService.readMsg(messageId,SPUtils.getInstance(CommonDate.USER).getString(CommonDate.userId));
     }
 }

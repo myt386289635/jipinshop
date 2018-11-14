@@ -288,4 +288,11 @@ public interface APIService {
      */
     @GET("qualityshop-api/message/selectAll")
     Observable<SystemMessageBean> messageAll(@Query("page") String page ,@Query("userId") String userId,@Query("type") String type);
+
+    /**
+     * 查看未读消息
+     */
+    @FormUrlEncoded
+    @POST("qualityshop-api/message/readMsg")
+    Observable<SuccessBean> readMsg(@Field("messageId") String messageId,@Field("userId") String userId);
 }
