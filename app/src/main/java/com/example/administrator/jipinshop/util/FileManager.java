@@ -1,6 +1,7 @@
 package com.example.administrator.jipinshop.util;
 
 import android.content.Context;
+import android.text.TextUtils;
 
 import static android.os.Environment.DIRECTORY_PICTURES;
 
@@ -20,5 +21,15 @@ public class FileManager {
      */
     public static String externalFiles(Context context){
         return context.getExternalFilesDir(DIRECTORY_PICTURES).getPath();
+    }
+
+    public static String editPhone(String phone){
+        if(!TextUtils.isEmpty(phone)){
+            String start = phone.substring(0,3);
+            String end = phone.substring(phone.length() - 4,phone.length());
+            start = start + "****" + end;
+            return start;
+        }
+        return phone;
     }
 }

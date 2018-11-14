@@ -2,6 +2,7 @@ package com.example.administrator.jipinshop.adapter;
 
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -12,6 +13,7 @@ import android.widget.TextView;
 
 import com.example.administrator.jipinshop.R;
 import com.example.administrator.jipinshop.bean.CommentBean;
+import com.example.administrator.jipinshop.util.FileManager;
 
 import java.util.List;
 
@@ -145,7 +147,11 @@ public class ShoppingCommon2Adapter extends RecyclerView.Adapter<ShoppingCommon2
 
         if(position < mList.size()){
             holder.item_content.setText(mList.get(position).getContent());
-            holder.item_name.setText(mList.get(position).getUserShopmember().getUserNickName());
+            if (!TextUtils.isEmpty(mList.get(position).getUserShopmember().getUserNickName())){
+                holder.item_name.setText(mList.get(position).getUserShopmember().getUserNickName());
+            }else {
+                holder.item_name.setText(FileManager.editPhone(mList.get(position).getUserShopmember().getUserPhone()));
+            }
         }else {
             Log.d("moxiaoting", "数据越界了你知道么？" + position + "，数组大小：" + mList.size());
         }

@@ -13,6 +13,7 @@ import android.widget.TextView;
 
 import com.example.administrator.jipinshop.R;
 import com.example.administrator.jipinshop.bean.CommentBean;
+import com.example.administrator.jipinshop.util.FileManager;
 import com.example.administrator.jipinshop.view.glide.imageloder.ImageManager;
 
 import java.util.List;
@@ -92,8 +93,11 @@ public class CommenListAdapter extends RecyclerView.Adapter<CommenListAdapter.Vi
         }else {
             ImageManager.displayImage("drawable://" + R.drawable.rlogo,holder.item_image,R.drawable.rlogo,R.drawable.rlogo);
         }
-
-        holder.item_name.setText(mList.get(position).getUserShopmember().getUserNickName());
+        if (!TextUtils.isEmpty(mList.get(position).getUserShopmember().getUserNickName())){
+            holder.item_name.setText(mList.get(position).getUserShopmember().getUserNickName());
+        }else {
+            holder.item_name.setText(FileManager.editPhone(mList.get(position).getUserShopmember().getUserPhone()));
+        }
         if(!TextUtils.isEmpty(mList.get(position).getSnapNum()) && !mList.get(position).getSnapNum().equals("0")){
             holder.item_goodNum.setText(mList.get(position).getSnapNum());
         }else {
