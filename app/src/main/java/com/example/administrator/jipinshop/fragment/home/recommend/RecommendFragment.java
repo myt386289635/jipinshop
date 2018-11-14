@@ -179,7 +179,7 @@ public class RecommendFragment extends DBBaseFragment implements OnRefreshListen
     public void initSubTab(String string) {
         if (string.equals(HomeFragment.subTab)) {
             if (!TextUtils.isEmpty(SPUtils.getInstance().getString(CommonDate.SubTab, ""))) {
-                binding.swipeToLoad.setRefreshing(true);
+                binding.swipeToLoad.post(() -> binding.swipeToLoad.setRefreshing(true));
             }
         }
     }
