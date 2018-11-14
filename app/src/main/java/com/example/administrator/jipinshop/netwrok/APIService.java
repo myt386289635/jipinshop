@@ -175,7 +175,7 @@ public interface APIService {
      */
     @POST("qualityshop-api/api/importCustomer")
     @Multipart
-    Observable<ImageBean> importCustomer(@Part MultipartBody.Part importFile);
+    Observable<ImageBean> importCustomer(@Part("url")String url,@Part MultipartBody.Part importFile);
 
     /**
      * 榜单tab的字段

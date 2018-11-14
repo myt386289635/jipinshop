@@ -96,7 +96,7 @@ public class MyInfoPresenter {
     public void importCustomer(LifecycleTransformer<ImageBean> ransformer,Dialog mDialog, File file){
         RequestBody requestBody = RequestBody.create(MediaType.parse("image/*"), file);
         MultipartBody.Part body = MultipartBody.Part.createFormData("importFile", file.getName(), requestBody);
-        mRepository.importCustomer(body)
+        mRepository.importCustomer(SPUtils.getInstance(CommonDate.USER).getString(CommonDate.userNickImg,""),body)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .compose(ransformer)

@@ -44,9 +44,6 @@ public class EvaluationFragmentPresenter {
                 textView.setText("家用大电");
             }
             tabLayout.getTabAt(i).setCustomView(view);
-//            TextPaint textPaint = new TextPaint();
-//            totle = totle + textPaint.measureText(textView.getText().toString());
-//            totleSingle.add((int) textPaint.measureText(textView.getText().toString()));
             int a = (int) textView.getPaint().measureText(textView.getText().toString());
             totle = totle + a;
             totleSingle.add(a);
@@ -57,43 +54,6 @@ public class EvaluationFragmentPresenter {
         tabLayout.post(new Runnable() {
             @Override
             public void run() {
-//                try {
-//                    //拿到tabLayout的mTabStrip属性
-//                    Field mTabStripField = tabLayout.getClass().getDeclaredField("mTabStrip");
-//                    mTabStripField.setAccessible(true);
-//                    LinearLayout mTabStrip = (LinearLayout) mTabStripField.get(tabLayout);
-//                    int dp10 = DistanceHelper.dip2px((int) (((screenWidth - finalTotle) / 5)));
-//                    for (int i = 0; i < mTabStrip.getChildCount(); i++) {
-//                        View tabView = mTabStrip.getChildAt(i);
-//                        //拿到tabView的mTextView属性
-//                        Field mTextViewField = tabView.getClass().getDeclaredField("mTextView");
-//                        mTextViewField.setAccessible(true);
-//                        tabView.setPadding(0, 0, 0, 0);
-//                        //因为我想要的效果是   字多宽线就多宽，所以测量mTextView的宽度
-//                        int width = 0;
-//                        width = totleSingle.get(i) + dp10;
-//                        if(i == 0){
-//                            //设置tab左右间距为10dp  注意这里不能使用Padding 因为源码中线的宽度是根据 tabView的宽度来设置的
-//                            LinearLayout.LayoutParams params = (LinearLayout.LayoutParams) tabView.getLayoutParams();
-//                            params.width = width ;
-//                            params.leftMargin = dp10 /2;
-//                            params.rightMargin = dp10 /2- DistanceHelper.dip2px(4);
-//                            tabView.setLayoutParams(params);
-//                        }else {
-//                            //设置tab左右间距为10dp  注意这里不能使用Padding 因为源码中线的宽度是根据 tabView的宽度来设置的
-//                            LinearLayout.LayoutParams params = (LinearLayout.LayoutParams) tabView.getLayoutParams();
-//                            params.width = width ;
-//                            params.rightMargin = dp10 /2;
-//                            tabView.setLayoutParams(params);
-//                        }
-//                        tabView.invalidate();
-//                    }
-//
-//                } catch (NoSuchFieldException e) {
-//                    e.printStackTrace();
-//                } catch (IllegalAccessException e) {
-//                    e.printStackTrace();
-//                }
                 int dp10 = (int) (((tabLayout.getWidth() - finalTotle) /5));
                 //拿到tabLayout的mTabStrip属性
                 LinearLayout mTabStrip = (LinearLayout) tabLayout.getChildAt(0);

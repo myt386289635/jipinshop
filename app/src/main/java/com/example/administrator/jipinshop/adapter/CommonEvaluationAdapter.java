@@ -8,10 +8,15 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.blankj.utilcode.util.SPUtils;
 import com.example.administrator.jipinshop.MyApplication;
 import com.example.administrator.jipinshop.R;
 import com.example.administrator.jipinshop.activity.home.evaluation.EvaluationDetailActivity;
+import com.example.administrator.jipinshop.activity.login.LoginActivity;
+import com.example.administrator.jipinshop.util.ClickUtil;
+import com.example.administrator.jipinshop.util.sp.CommonDate;
 import com.example.administrator.jipinshop.view.glide.imageloder.ImageManager;
 
 import java.util.List;
@@ -58,8 +63,16 @@ public class CommonEvaluationAdapter extends RecyclerView.Adapter {
                 ImageManager.displayCircleImage(MyApplication.imag,contentViewHolder.content_head,0,0);
                 contentViewHolder.content_title.setText("23款网红榨汁机大测评，国货居然这么能打？");
                 contentViewHolder.itemView.setOnClickListener(v -> {
-                    //点击跳转到评测详情
-                    mContext.startActivity(new Intent(mContext, EvaluationDetailActivity.class));
+                    if(!SPUtils.getInstance(CommonDate.USER).getBoolean(CommonDate.userLogin,false)){
+                        mContext.startActivity(new Intent(mContext, LoginActivity.class));
+                        return;
+                    }
+                    if (ClickUtil.isFastDoubleClick(800)) {
+                        return;
+                    }else{
+                        //点击跳转到评测详情
+                        mContext.startActivity(new Intent(mContext, EvaluationDetailActivity.class));
+                    }
                 });
                 break;
         }

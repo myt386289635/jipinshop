@@ -176,8 +176,8 @@ public class Repository {
     /**
      * 上传图片
      */
-    public Observable<ImageBean> importCustomer(MultipartBody.Part importFile){
-        return mAPIService.importCustomer(importFile);
+    public Observable<ImageBean> importCustomer(String url,MultipartBody.Part importFile){
+        return mAPIService.importCustomer(url,importFile);
     }
 
     /**

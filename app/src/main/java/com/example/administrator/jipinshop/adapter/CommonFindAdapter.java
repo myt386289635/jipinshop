@@ -9,9 +9,13 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.blankj.utilcode.util.SPUtils;
 import com.example.administrator.jipinshop.MyApplication;
 import com.example.administrator.jipinshop.R;
 import com.example.administrator.jipinshop.activity.home.find.FindDetailActivity;
+import com.example.administrator.jipinshop.activity.login.LoginActivity;
+import com.example.administrator.jipinshop.util.ClickUtil;
+import com.example.administrator.jipinshop.util.sp.CommonDate;
 import com.example.administrator.jipinshop.view.glide.imageloder.ImageManager;
 
 import java.util.List;
@@ -38,8 +42,16 @@ public class CommonFindAdapter extends RecyclerView.Adapter<CommonFindAdapter.Vi
 
         ImageManager.displayRoundImage(MyApplication.imag,holder.mItemImage,0,0,10);
         holder.itemView.setOnClickListener(view -> {
-            //点击跳转到发现详情
-            mContext.startActivity(new Intent(mContext, FindDetailActivity.class));
+            if(!SPUtils.getInstance(CommonDate.USER).getBoolean(CommonDate.userLogin,false)){
+                mContext.startActivity(new Intent(mContext, LoginActivity.class));
+                return;
+            }
+            if (ClickUtil.isFastDoubleClick(800)) {
+                return;
+            }else{
+                //点击跳转到发现详情
+                mContext.startActivity(new Intent(mContext, FindDetailActivity.class));
+            }
         });
     }
 
