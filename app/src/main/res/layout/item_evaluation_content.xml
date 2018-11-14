@@ -55,15 +55,38 @@
 
     </RelativeLayout>
 
-
-    <ImageView
-        android:scaleType="fitXY"
-        tools:src="@color/color_E31436"
-        android:id="@+id/content_image"
+    <RelativeLayout
         android:layout_marginLeft="@dimen/x28"
         android:layout_marginRight="@dimen/x28"
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/x628"/>
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+
+        <ImageView
+            android:scaleType="fitXY"
+            tools:src="@color/color_E31436"
+            android:id="@+id/content_image"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/x628"/>
+
+        <TextView
+            android:textStyle="bold"
+            android:id="@+id/content_title"
+            android:ellipsize="end"
+            android:maxLines="1"
+            android:paddingLeft="@dimen/x28"
+            android:paddingRight="@dimen/x28"
+            android:gravity="center_vertical"
+            tools:text="23款网红榨汁机大测评，国货居然这么能打？"
+            android:textSize="16sp"
+            android:textColor="@color/color_white"
+            android:background="@drawable/bg_evaluation"
+            android:layout_alignBottom="@id/content_image"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/x100"/>
+
+    </RelativeLayout>
+
+
 
 
     <RelativeLayout

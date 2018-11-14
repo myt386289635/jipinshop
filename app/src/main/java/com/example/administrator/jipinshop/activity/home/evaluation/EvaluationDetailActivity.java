@@ -1,4 +1,4 @@
-package com.example.administrator.jipinshop.activity.home.find;
+package com.example.administrator.jipinshop.activity.home.evaluation;
 
 import android.app.Dialog;
 import android.content.Intent;
@@ -17,15 +17,14 @@ import android.webkit.JavascriptInterface;
 import android.webkit.WebChromeClient;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
-import android.widget.ImageView;
 import android.widget.RelativeLayout;
+import android.widget.Toast;
 
 import com.example.administrator.jipinshop.MyApplication;
 import com.example.administrator.jipinshop.R;
 import com.example.administrator.jipinshop.activity.commenlist.CommenListActivity;
-import com.example.administrator.jipinshop.adapter.ShoppingBannerAdapter;
 import com.example.administrator.jipinshop.base.DaggerBaseActivityComponent;
-import com.example.administrator.jipinshop.databinding.ActivityFindDetailBinding;
+import com.example.administrator.jipinshop.databinding.ActivityEvaluationDetailBinding;
 import com.example.administrator.jipinshop.util.ShareUtils;
 import com.example.administrator.jipinshop.util.WeakRefHandler;
 import com.example.administrator.jipinshop.view.dialog.ProgressDialogView;
@@ -35,30 +34,22 @@ import com.gyf.barlibrary.ImmersionBar;
 import com.umeng.socialize.UMShareAPI;
 import com.umeng.socialize.bean.SHARE_MEDIA;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import javax.inject.Inject;
 
 /**
  * @author 莫小婷
- * @create 2018/8/30
- * @Describe 发现的详情
+ * @create 2018/11/14
+ * @Describe 评测详情
  */
-public class FindDetailActivity extends AppCompatActivity implements View.OnClickListener, ShareBoardDialog.onShareListener {
+public class EvaluationDetailActivity extends AppCompatActivity implements View.OnClickListener, ShareBoardDialog.onShareListener {
 
     @Inject
-    FindDetailPresenter mPresenter;
-    private ActivityFindDetailBinding mBinding;
+    EvaluationDetailPresenter mPresenter;
 
-    private Dialog mDialog;//加载框
+    private ActivityEvaluationDetailBinding mBinding;
     private ImmersionBar mImmersionBar;
-    private Boolean stopThread = true;
-    private ShoppingBannerAdapter mBannerAdapter;
-    private List<String> mBannerList;
-    private List<ImageView> point;
-    //点赞
-    private GoodView mGoodView;
+    private Dialog mDialog;//加载框
+    private GoodView mGoodView;  //点赞
     private ShareBoardDialog mShareBoardDialog;
 
     private Handler.Callback mCallback = msg -> {
@@ -66,11 +57,6 @@ public class FindDetailActivity extends AppCompatActivity implements View.OnClic
             RelativeLayout.LayoutParams layoutParams = (RelativeLayout.LayoutParams) mBinding.webView.getLayoutParams();
             layoutParams.height = (int) (msg.arg1 * getResources().getDisplayMetrics().density);
             mBinding.webView.setLayoutParams(layoutParams);
-        }else if(msg.what == 100){
-            //banner
-            if (mBinding.viewPager != null) {
-                mBinding.viewPager.setCurrentItem(mBinding.viewPager.getCurrentItem() + 1);
-            }
         }
         return true;
     };
@@ -80,7 +66,7 @@ public class FindDetailActivity extends AppCompatActivity implements View.OnClic
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        mBinding = DataBindingUtil.setContentView(this, R.layout.activity_find_detail);
+        mBinding = DataBindingUtil.setContentView(this,R.layout.activity_evaluation_detail);
         mBinding.setListener(this);
         DaggerBaseActivityComponent.builder()
                 .applicationComponent(MyApplication.getInstance().getComponent())
@@ -93,11 +79,12 @@ public class FindDetailActivity extends AppCompatActivity implements View.OnClic
     }
 
     private void initView() {
-        mDialog = (new ProgressDialogView()).createLoadingDialog(FindDetailActivity.this, "正在加载...");
+        mDialog = (new ProgressDialogView()).createLoadingDialog(this, "正在加载...");
         mDialog.show();
 
         mPresenter.initWebView(mBinding.webView);
         mPresenter.setStatusBarHight(mBinding.statusBar,this);
+
         mBinding.webView.addJavascriptInterface(new WebViewJavaScriptFunction(), "android");
         mBinding.webView.setWebViewClient(new WebViewClient() {
             @Override
@@ -125,37 +112,21 @@ public class FindDetailActivity extends AppCompatActivity implements View.OnClic
         });
         mBinding.webView.loadUrl("http://192.168.5.136:8080/ueditor/161628719039.html");
 
-        mBannerAdapter = new ShoppingBannerAdapter(this);
-        mBannerList = new ArrayList<>();
-        point = new ArrayList<>();
-        mBannerAdapter.setPoint(point);
-        mBannerAdapter.setList(mBannerList);
-        mBannerAdapter.setViewPager( mBinding.viewPager);
-        mBinding.viewPager.setAdapter(mBannerAdapter);
-        mBinding.viewPager.setCurrentItem(mBannerList.size() * 10);
-        //轮播图设置值
-        mPresenter.initBanner(mBannerList, this, point, mBinding.detailPoint, mBannerAdapter);
-        new Thread(new MyRunble()).start();
-
         mGoodView = new GoodView(this);
     }
 
     @Override
     protected void onDestroy() {
-        stopThread = false;
         mImmersionBar.destroy();
         UMShareAPI.get(this).release();
         handler.removeCallbacksAndMessages(null);
         //防止webView内存溺出
         if (mBinding.webView != null) {
-            // 如果先调用destroy()方法，则会命中if (isDestroyed()) return;这一行代码，需要先onDetachedFromWindow()，再
-            // destory()
             ViewParent parent = mBinding.webView.getParent();
             if (parent != null) {
                 ((ViewGroup) parent).removeView(mBinding.webView);
             }
             mBinding.webView.stopLoading();
-            // 退出时调用此方法，移除绑定的服务，否则某些特定系统会报错
             mBinding.webView.getSettings().setJavaScriptEnabled(false);
             mBinding.webView.clearHistory();
             mBinding.webView.clearView();
@@ -167,7 +138,7 @@ public class FindDetailActivity extends AppCompatActivity implements View.OnClic
 
     @Override
     public void onClick(View view) {
-        switch (view.getId()) {
+        switch (view.getId()){
             case R.id.title_back:
                 finish();
                 break;
@@ -190,23 +161,27 @@ public class FindDetailActivity extends AppCompatActivity implements View.OnClic
                 break;
             case R.id.bottom_commen:
                 startActivity(new Intent(this, CommenListActivity.class)
-                                .putExtra("position",-1)
+                        .putExtra("position",-1)
 //                        .putExtra("id",goodsId)
                 );
+                break;
+            case R.id.bottom_buy:
+                Toast.makeText(this, "点击购买", Toast.LENGTH_SHORT).show();
                 break;
         }
     }
 
-    /**
-     * 分享
-     * @param share_media
-     */
     @Override
     public void share(SHARE_MEDIA share_media) {
         new ShareUtils(this, share_media)
                 .shareWeb(this, "https://www.baidu.com", "测试", "测试而已", "", R.mipmap.ic_launcher_round);
     }
 
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        UMShareAPI.get(this).onActivityResult(requestCode, resultCode, data);
+    }
 
     public class WebViewJavaScriptFunction {
         /**
@@ -224,27 +199,4 @@ public class FindDetailActivity extends AppCompatActivity implements View.OnClic
 
         }
     }
-
-    /******************轮播图需要*********************/
-    public class MyRunble implements Runnable {
-
-        @Override
-        public void run() {
-            while (stopThread) {
-                try {
-                    Thread.sleep(5000);
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                }
-                handler.sendEmptyMessage(100);
-            }
-        }
-    }
-
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-        UMShareAPI.get(this).onActivityResult(requestCode, resultCode, data);
-    }
-
 }

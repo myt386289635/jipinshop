@@ -1,6 +1,7 @@
 package com.example.administrator.jipinshop.adapter;
 
 import android.content.Context;
+import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -8,10 +9,9 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.bumptech.glide.Glide;
 import com.example.administrator.jipinshop.MyApplication;
 import com.example.administrator.jipinshop.R;
-import com.example.administrator.jipinshop.view.glide.CircleImageView;
+import com.example.administrator.jipinshop.activity.home.evaluation.EvaluationDetailActivity;
 import com.example.administrator.jipinshop.view.glide.imageloder.ImageManager;
 
 import java.util.List;
@@ -56,6 +56,11 @@ public class CommonEvaluationAdapter extends RecyclerView.Adapter {
                 ContentViewHolder contentViewHolder = (ContentViewHolder) holder;
                 ImageManager.displayRoundImage(MyApplication.imag,contentViewHolder.content_image,0,0,10);
                 ImageManager.displayCircleImage(MyApplication.imag,contentViewHolder.content_head,0,0);
+                contentViewHolder.content_title.setText("23款网红榨汁机大测评，国货居然这么能打？");
+                contentViewHolder.itemView.setOnClickListener(v -> {
+                    //点击跳转到评测详情
+                    mContext.startActivity(new Intent(mContext, EvaluationDetailActivity.class));
+                });
                 break;
         }
     }
@@ -95,6 +100,7 @@ public class CommonEvaluationAdapter extends RecyclerView.Adapter {
         private TextView content_time;
         private TextView content_commentNum;
         private TextView content_lookNum;
+        private TextView content_title;
 
         public ContentViewHolder(View itemView) {
             super(itemView);
@@ -106,6 +112,7 @@ public class CommonEvaluationAdapter extends RecyclerView.Adapter {
             content_time = itemView.findViewById(R.id.content_time);
             content_commentNum = itemView.findViewById(R.id.content_commentNum);
             content_lookNum = itemView.findViewById(R.id.content_lookNum);
+            content_title = itemView.findViewById(R.id.content_title);
         }
     }
 }

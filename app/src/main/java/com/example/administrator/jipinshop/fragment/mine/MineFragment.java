@@ -273,11 +273,23 @@ public class MineFragment extends DBBaseFragment implements View.OnClickListener
             mBinding.mineIntegral.setText("积分" + SPUtils.getInstance(CommonDate.USER).getInt(CommonDate.userPoint));
         }else {
             //获取用户信息失败 走退出登陆的逻辑
-            mBinding.mineName.setVisibility(View.GONE);
-            mBinding.mineLogin.setVisibility(View.VISIBLE);
-            mBinding.mineLevel.setVisibility(View.GONE);
+            mBinding.mineName.setVisibility(View.VISIBLE);
+            mBinding.mineLogin.setVisibility(View.GONE);
+            mBinding.mineLevel.setVisibility(View.VISIBLE);
+            if(TextUtils.isEmpty(SPUtils.getInstance(CommonDate.USER).getString(CommonDate.userNickName))){
+                mBinding.mineName.setText(SPUtils.getInstance(CommonDate.USER).getString(CommonDate.userPhone));
+            }else {
+                mBinding.mineName.setText(SPUtils.getInstance(CommonDate.USER).getString(CommonDate.userNickName));
+            }
+            if(!TextUtils.isEmpty(SPUtils.getInstance(CommonDate.USER).getString(CommonDate.userNickImg))){
+                ImageManager.displayImage(SPUtils.getInstance(CommonDate.USER).getString(CommonDate.userNickImg),mBinding.mineImage,0,R.mipmap.logo);
+            }
 //            SPUtils.getInstance(CommonDate.USER).clear();这里不清空用户数据，方便用户网络好的时候免登陆
-            SPUtils.getInstance(CommonDate.USER).put(CommonDate.userLogin,false);
+//            SPUtils.getInstance(CommonDate.USER).put(CommonDate.userLogin,true);
+            mBinding.mineLevel.setText("v0");
+            mBinding.mineIntegral.setText("积分0");
+            SPUtils.getInstance(CommonDate.USER).put(CommonDate.userMemberGrade,"0");
+            SPUtils.getInstance(CommonDate.USER).put(CommonDate.userPoint,0);
             Toast.makeText(getContext(), userInfoBean.getMsg(), Toast.LENGTH_SHORT).show();
         }
     }
@@ -288,10 +300,22 @@ public class MineFragment extends DBBaseFragment implements View.OnClickListener
      */
     @Override
     public void FaileUserInfo(String error) {
-        mBinding.mineName.setVisibility(View.GONE);
-        mBinding.mineLogin.setVisibility(View.VISIBLE);
-        mBinding.mineLevel.setVisibility(View.GONE);
-        SPUtils.getInstance(CommonDate.USER).put(CommonDate.userLogin,false);
+        mBinding.mineName.setVisibility(View.VISIBLE);
+        mBinding.mineLogin.setVisibility(View.GONE);
+        mBinding.mineLevel.setVisibility(View.VISIBLE);
+        if(TextUtils.isEmpty(SPUtils.getInstance(CommonDate.USER).getString(CommonDate.userNickName))){
+            mBinding.mineName.setText(SPUtils.getInstance(CommonDate.USER).getString(CommonDate.userPhone));
+        }else {
+            mBinding.mineName.setText(SPUtils.getInstance(CommonDate.USER).getString(CommonDate.userNickName));
+        }
+        if(!TextUtils.isEmpty(SPUtils.getInstance(CommonDate.USER).getString(CommonDate.userNickImg))){
+            ImageManager.displayImage(SPUtils.getInstance(CommonDate.USER).getString(CommonDate.userNickImg),mBinding.mineImage,0,R.mipmap.logo);
+        }
+        mBinding.mineLevel.setText("v0");
+        mBinding.mineIntegral.setText("积分0");
+        SPUtils.getInstance(CommonDate.USER).put(CommonDate.userMemberGrade,"0");
+        SPUtils.getInstance(CommonDate.USER).put(CommonDate.userPoint,0);
+//        SPUtils.getInstance(CommonDate.USER).put(CommonDate.userLogin,true);
         Toast.makeText(getContext(), "用户信息更新失败，请检查网络", Toast.LENGTH_SHORT).show();
     }
 }

@@ -280,7 +280,12 @@
             android:value="d850a3451515099b6d0054728d0e9d13" >
         </meta-data>
 
+        <!--系统消息详情页-->
         <activity android:name=".activity.message.system.detail.SystemMsgDetailActivity"
+                  android:screenOrientation="portrait"/>
+
+        <!--评测详情页-->
+        <activity android:name=".activity.home.evaluation.EvaluationDetailActivity"
                   android:screenOrientation="portrait"/>
 
     </application>

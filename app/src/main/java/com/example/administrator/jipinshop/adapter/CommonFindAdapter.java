@@ -11,7 +11,6 @@ import android.widget.TextView;
 
 import com.example.administrator.jipinshop.MyApplication;
 import com.example.administrator.jipinshop.R;
-import com.example.administrator.jipinshop.activity.WebActivity;
 import com.example.administrator.jipinshop.activity.home.find.FindDetailActivity;
 import com.example.administrator.jipinshop.view.glide.imageloder.ImageManager;
 
@@ -39,8 +38,8 @@ public class CommonFindAdapter extends RecyclerView.Adapter<CommonFindAdapter.Vi
 
         ImageManager.displayRoundImage(MyApplication.imag,holder.mItemImage,0,0,10);
         holder.itemView.setOnClickListener(view -> {
-            //点击跳转到webView详情
-            mContext.startActivity(new Intent(mContext, WebActivity.class));
+            //点击跳转到发现详情
+            mContext.startActivity(new Intent(mContext, FindDetailActivity.class));
         });
     }
 

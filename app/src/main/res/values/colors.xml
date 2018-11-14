@@ -37,4 +37,5 @@
     <color name="pickerview_wheelview_textcolor_divider">#d5d5d5</color>
     <!--覆盖颜色-->
     <color name="bgColor_overlay">#4D151515</color>
+    <color name="color_B3151515">#B3151515</color>
 </resources>
