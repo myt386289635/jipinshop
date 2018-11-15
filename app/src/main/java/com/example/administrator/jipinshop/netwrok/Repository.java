@@ -5,6 +5,7 @@ import com.example.administrator.jipinshop.bean.AccountBean;
 import com.example.administrator.jipinshop.bean.CommentBean;
 import com.example.administrator.jipinshop.bean.CommentInsertBean;
 import com.example.administrator.jipinshop.bean.ElectricityFragmentBean;
+import com.example.administrator.jipinshop.bean.EvaluationTabBean;
 import com.example.administrator.jipinshop.bean.FollowBean;
 import com.example.administrator.jipinshop.bean.FovalBean;
 import com.example.administrator.jipinshop.bean.HealthFragmentBean;
@@ -312,5 +313,12 @@ public class Repository {
      */
     public Observable<SuccessBean> readMsg(String messageId){
         return mAPIService.readMsg(messageId,SPUtils.getInstance(CommonDate.USER).getString(CommonDate.userId));
+    }
+
+    /**
+     * 获取评测tab
+     */
+    public Observable<EvaluationTabBean> evaTab(){
+        return mAPIService.evaTab();
     }
 }

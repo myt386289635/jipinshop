@@ -3,6 +3,7 @@ package com.example.administrator.jipinshop.netwrok;
 
 import com.example.administrator.jipinshop.bean.CommentInsertBean;
 import com.example.administrator.jipinshop.bean.ElectricityFragmentBean;
+import com.example.administrator.jipinshop.bean.EvaluationTabBean;
 import com.example.administrator.jipinshop.bean.FollowBean;
 import com.example.administrator.jipinshop.bean.FovalBean;
 import com.example.administrator.jipinshop.bean.HealthFragmentBean;
@@ -295,4 +296,10 @@ public interface APIService {
     @FormUrlEncoded
     @POST("qualityshop-api/message/readMsg")
     Observable<SuccessBean> readMsg(@Field("messageId") String messageId,@Field("userId") String userId);
+
+    /**
+     * 获取评测tab
+     */
+    @GET("qualityshop-api/evalWay/selectCategory")
+    Observable<EvaluationTabBean> evaTab();
 }

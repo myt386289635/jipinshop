@@ -7,7 +7,7 @@ package com.example.administrator.jipinshop.util.sp;
  */
 public class CommonDate {
 
-    //榜单的tab (sp文件名：spUtils)
+    //榜单的tab (sp文件名：spUtils  默认)
     public static final String HomeTab1 = "HomeTab1";
     public static final String HomeTab2 = "HomeTab2";
     public static final String HomeTab3 = "HomeTab3";
@@ -15,6 +15,7 @@ public class CommonDate {
     public static final String HomeTab5 = "HomeTab5";
     public static final String FIRST = "FIRST";//是否是第一次下载
     public static final String SubTab = "SubTab";//榜单的二级菜单
+    public static final String EvaluationTab = "EvaluationTab";//评测的tab
 
 
     //数据缓存表(sp文件名：netCache)
