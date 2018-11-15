@@ -95,7 +95,7 @@ public class ShoppingCommonAdapter extends RecyclerView.Adapter<ShoppingCommonAd
             holder.item_goodNum.setText("");
         }
         Drawable drawable;
-        if(mList.get(position).isUserSnap()){
+        if(mList.get(position).isUserSnap() == 1){
             drawable= mContext.getResources().getDrawable(R.mipmap.appreciate_sel);
         }else {
             drawable= mContext.getResources().getDrawable(R.mipmap.appreciate_nor);
@@ -164,6 +164,6 @@ public class ShoppingCommonAdapter extends RecyclerView.Adapter<ShoppingCommonAd
     }
 
     public interface OnGoodItem{
-        void onGood(Boolean flag,int position);
+        void onGood(int flag,int position);
     }
 }

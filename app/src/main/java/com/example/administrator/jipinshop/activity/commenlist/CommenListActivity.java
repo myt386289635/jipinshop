@@ -323,7 +323,7 @@ public class CommenListActivity extends BaseActivity implements CommenListAdapte
         if (mDialog != null && mDialog.isShowing()) {
             mDialog.dismiss();
         }
-        mList.get(position).setUserSnap(true);
+        mList.get(position).setUserSnap(1);
         BigDecimal bigDecimal = new BigDecimal(mList.get(position).getSnapNum());
         int num = bigDecimal.intValue();
         mList.get(position).setSnapNum((num + 1) + "");
@@ -339,7 +339,7 @@ public class CommenListActivity extends BaseActivity implements CommenListAdapte
         if (mDialog != null && mDialog.isShowing()) {
             mDialog.dismiss();
         }
-        mList.get(position).setUserSnap(false);
+        mList.get(position).setUserSnap(0);
         BigDecimal bigDecimal = new BigDecimal(mList.get(position).getSnapNum());
         int num = bigDecimal.intValue();
         mList.get(position).setSnapNum((num - 1) + "");
@@ -446,8 +446,8 @@ public class CommenListActivity extends BaseActivity implements CommenListAdapte
     }
 
     @Override
-    public void onGood(Boolean flag, int position) {
-        if(flag){
+    public void onGood(int flag, int position) {
+        if(flag == 1){
             //取消点赞
             mDialog = (new ProgressDialogView()).createLoadingDialog(this, "正在加载...");
             mDialog.show();

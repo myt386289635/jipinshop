@@ -79,7 +79,7 @@ public class CommentBean {
         private String parentId;
         private int status;
         private String snapNum;
-        private boolean userSnap;
+        private int userSnap;
         private int secondNum;
         private UserShopmemberBean userShopmember;
         private List<UserCommentListBean> userCommentList;
@@ -156,11 +156,11 @@ public class CommentBean {
             this.snapNum = snapNum;
         }
 
-        public boolean isUserSnap() {
+        public int isUserSnap() {
             return userSnap;
         }
 
-        public void setUserSnap(boolean userSnap) {
+        public void setUserSnap(int userSnap) {
             this.userSnap = userSnap;
         }
 
@@ -340,7 +340,7 @@ public class CommentBean {
             private String parentId;
             private String status;
             private String snapNum;
-            private boolean userSnap;
+            private int userSnap;
             private Object secondNum;
             private UserShopmemberBeanX userShopmember;
             private Object userCommentList;
@@ -417,11 +417,11 @@ public class CommentBean {
                 this.snapNum = snapNum;
             }
 
-            public boolean getUserSnap() {
+            public int getUserSnap() {
                 return userSnap;
             }
 
-            public void setUserSnap(boolean userSnap) {
+            public void setUserSnap(int userSnap) {
                 this.userSnap = userSnap;
             }
 

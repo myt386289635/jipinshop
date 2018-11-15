@@ -649,7 +649,7 @@ public class ShoppingDetailActivity extends BaseActivity implements ShoppingComm
         if (mDialogProgress != null && mDialogProgress.isShowing()) {
             mDialogProgress.dismiss();
         }
-        mCommonList.get(position).setUserSnap(true);
+        mCommonList.get(position).setUserSnap(1);
         BigDecimal bigDecimal = new BigDecimal(mCommonList.get(position).getSnapNum());
         int num = bigDecimal.intValue();
         mCommonList.get(position).setSnapNum((num + 1) + "");
@@ -664,7 +664,7 @@ public class ShoppingDetailActivity extends BaseActivity implements ShoppingComm
         if (mDialogProgress != null && mDialogProgress.isShowing()) {
             mDialogProgress.dismiss();
         }
-        mCommonList.get(position).setUserSnap(false);
+        mCommonList.get(position).setUserSnap(0);
         BigDecimal bigDecimal = new BigDecimal(mCommonList.get(position).getSnapNum());
         int num = bigDecimal.intValue();
         mCommonList.get(position).setSnapNum((num - 1) + "");
@@ -799,8 +799,8 @@ public class ShoppingDetailActivity extends BaseActivity implements ShoppingComm
      * 评论点赞与取消点赞
      */
     @Override
-    public void onGood(Boolean flag, int position) {
-        if(flag){
+    public void onGood(int flag, int position) {
+        if(flag == 1){
             //取消点赞
             mDialogProgress = (new ProgressDialogView()).createLoadingDialog(ShoppingDetailActivity.this, "正在加载...");
             mDialogProgress.show();
