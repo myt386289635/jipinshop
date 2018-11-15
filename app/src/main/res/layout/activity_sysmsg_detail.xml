@@ -8,7 +8,42 @@
     xmlns:tools="http://schemas.android.com/tools">
 
 
-    <include layout="@layout/aa_title"/>
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/x80"
+        android:background="@color/color_white">
+
+        <ImageView
+            android:id="@+id/title_back"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_centerVertical="true"
+            android:padding="@dimen/x22"
+            android:src="@mipmap/nav_back"/>
+
+
+        <TextView
+            android:ellipsize="end"
+            android:singleLine="true"
+            android:gravity="center"
+            android:layout_marginRight="@dimen/x24"
+            android:layout_toRightOf="@id/title_back"
+            android:id="@+id/title_tv"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:textColor="@color/color_DE050505"
+            android:textSize="15sp"
+            android:textStyle="bold"
+            tools:text="标题"/>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/x2"
+            android:layout_alignParentBottom="true"
+            android:background="@color/color_F5F5F5"/>
+
+    </RelativeLayout>
 
     <LinearLayout
         android:background="@drawable/bg_system_item"
