@@ -55,7 +55,7 @@ public class CommonEvaluationAdapter extends RecyclerView.Adapter {
         switch (type) {
             case HEAD:
                 HeadViewHolder headViewHolder = (HeadViewHolder) holder;
-                ImageManager.displayImage(MyApplication.imag,headViewHolder.mHeadImage,0,0);
+                ImageManager.displayImage("drawable://"+R.drawable.evaluating_banner,headViewHolder.mHeadImage,0,0);
                 break;
             case CONTENT:
                 ContentViewHolder contentViewHolder = (ContentViewHolder) holder;
