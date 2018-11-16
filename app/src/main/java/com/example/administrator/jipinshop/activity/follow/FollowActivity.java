@@ -19,7 +19,10 @@ import com.example.administrator.jipinshop.base.BaseActivity;
 import com.example.administrator.jipinshop.bean.FollowBean;
 import com.example.administrator.jipinshop.bean.SuccessBean;
 import com.example.administrator.jipinshop.databinding.ActivityFollowBinding;
+import com.example.administrator.jipinshop.fragment.evaluation.common.CommonEvaluationFragment;
 import com.example.administrator.jipinshop.view.dialog.ProgressDialogView;
+
+import org.greenrobot.eventbus.EventBus;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -208,6 +211,7 @@ public class FollowActivity extends BaseActivity implements OnRefreshListener, F
      */
     @Override
     public void ConcerDelSuccess(SuccessBean successBean, int pos) {
+        EventBus.getDefault().post(CommonEvaluationFragment.REFERSH);//刷新评测首页
         if(dialog != null && dialog.isShowing()){
             dialog.dismiss();
         }
@@ -230,6 +234,7 @@ public class FollowActivity extends BaseActivity implements OnRefreshListener, F
      */
     @Override
     public void concerInsSuccess(SuccessBean successBean, int pos) {
+        EventBus.getDefault().post(CommonEvaluationFragment.REFERSH);//刷新评测首页
         if(dialog != null && dialog.isShowing()){
             dialog.dismiss();
         }

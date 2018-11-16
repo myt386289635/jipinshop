@@ -43,6 +43,8 @@ public class CommonEvaluationFragment extends DBBaseFragment implements OnRefres
     public static final String FORE = "4"; //该页为生活家居
     public static final String FIVE = "5"; //该页为家用大电
 
+    public static final String REFERSH = "FollowActivity2CommonEvaluationFragment";
+
     @Inject
     CommonEvaluationPresenter mPresenter;
 
@@ -108,6 +110,7 @@ public class CommonEvaluationFragment extends DBBaseFragment implements OnRefres
                 bean = new Gson().fromJson(SPUtils.getInstance(CommonDate.NETCACHE).getString(CommonDate.CommonEvaluationFragmentDATA1), EvaluationListBean.class);
                 mList.addAll(bean.getList());
             }
+            once = false;
         }
         mAdapter = new CommonEvaluationAdapter(mList, getContext());
         mAdapter.setOnClickItem(this);
@@ -144,6 +147,10 @@ public class CommonEvaluationFragment extends DBBaseFragment implements OnRefres
                 id = "0";
             }
             if (getArguments().getString("type").equals(ONE)) {
+                mBinding.swipeToLoad.setRefreshing(true);
+            }
+        }else if(!TextUtils.isEmpty(s) && s.equals(CommonEvaluationFragment.REFERSH)){
+            if(!once){//代表第一次已经看过该页了，所以当我的关注页面取消关注时需要刷新页面
                 mBinding.swipeToLoad.setRefreshing(true);
             }
         }
