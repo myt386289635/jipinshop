@@ -64,31 +64,10 @@ public class CommonEvaluationFragment extends DBBaseFragment implements OnRefres
         super.setUserVisibleHint(isVisibleToUser);
         if (isVisibleToUser && once) {
             if (!getArguments().getString("type").equals(ONE)) {
-                //缓存数据
-                if (getArguments().getString("type").equals(TWO)) {
-                    if(!TextUtils.isEmpty(SPUtils.getInstance(CommonDate.NETCACHE).getString(CommonDate.CommonEvaluationFragmentDATA2,""))){
-                        bean = new Gson().fromJson(SPUtils.getInstance(CommonDate.NETCACHE).getString(CommonDate.CommonEvaluationFragmentDATA2),EvaluationListBean.class);
-                        mList.addAll(bean.getList());
-                        mAdapter.notifyDataSetChanged();
-                    }
-                }else if (getArguments().getString("type").equals(THREE)) {
-                    if(!TextUtils.isEmpty(SPUtils.getInstance(CommonDate.NETCACHE).getString(CommonDate.CommonEvaluationFragmentDATA3,""))){
-                        bean = new Gson().fromJson(SPUtils.getInstance(CommonDate.NETCACHE).getString(CommonDate.CommonEvaluationFragmentDATA3),EvaluationListBean.class);
-                        mList.addAll(bean.getList());
-                        mAdapter.notifyDataSetChanged();
-                    }
-                }else if (getArguments().getString("type").equals(FORE)) {
-                    if(!TextUtils.isEmpty(SPUtils.getInstance(CommonDate.NETCACHE).getString(CommonDate.CommonEvaluationFragmentDATA4,""))){
-                        bean = new Gson().fromJson(SPUtils.getInstance(CommonDate.NETCACHE).getString(CommonDate.CommonEvaluationFragmentDATA4),EvaluationListBean.class);
-                        mList.addAll(bean.getList());
-                        mAdapter.notifyDataSetChanged();
-                    }
-                }else if (getArguments().getString("type").equals(FIVE)) {
-                    if(!TextUtils.isEmpty(SPUtils.getInstance(CommonDate.NETCACHE).getString(CommonDate.CommonEvaluationFragmentDATA5,""))){
-                        bean = new Gson().fromJson(SPUtils.getInstance(CommonDate.NETCACHE).getString(CommonDate.CommonEvaluationFragmentDATA5),EvaluationListBean.class);
-                        mList.addAll(bean.getList());
-                        mAdapter.notifyDataSetChanged();
-                    }
+                bean = getDate(); //缓存数据
+                if (bean != null){
+                    mList.addAll(bean.getList());
+                    mAdapter.notifyDataSetChanged();
                 }
                 mBinding.swipeToLoad.setRefreshing(true);
                 once = false;
@@ -100,7 +79,7 @@ public class CommonEvaluationFragment extends DBBaseFragment implements OnRefres
     public void onRefresh() {
         page = 0;
         refersh = true;
-        mPresenter.getDate(id,page + "",this.bindToLifecycle());
+        mPresenter.getDate(id, page + "", this.bindToLifecycle());
     }
 
     @Override
@@ -119,8 +98,8 @@ public class CommonEvaluationFragment extends DBBaseFragment implements OnRefres
         mList = new ArrayList<>();
         //缓存数据
         if (getArguments().getString("type").equals(ONE)) {
-            if(!TextUtils.isEmpty(SPUtils.getInstance(CommonDate.NETCACHE).getString(CommonDate.CommonEvaluationFragmentDATA1,""))){
-                bean = new Gson().fromJson(SPUtils.getInstance(CommonDate.NETCACHE).getString(CommonDate.CommonEvaluationFragmentDATA1),EvaluationListBean.class);
+            if (!TextUtils.isEmpty(SPUtils.getInstance(CommonDate.NETCACHE).getString(CommonDate.CommonEvaluationFragmentDATA1, ""))) {
+                bean = new Gson().fromJson(SPUtils.getInstance(CommonDate.NETCACHE).getString(CommonDate.CommonEvaluationFragmentDATA1), EvaluationListBean.class);
                 mList.addAll(bean.getList());
             }
         }
@@ -165,29 +144,30 @@ public class CommonEvaluationFragment extends DBBaseFragment implements OnRefres
 
     /**
      * 数据成功回调
+     *
      * @param evaluationListBean
      */
     @Override
     public void onSuccess(EvaluationListBean evaluationListBean) {
-        if(refersh){
+        if (refersh) {
             stopResher();
             setDate(evaluationListBean);//本地缓存
-            if(evaluationListBean.getList()!= null && evaluationListBean.getList().size() != 0){
+            if (evaluationListBean.getList() != null && evaluationListBean.getList().size() != 0) {
                 mBinding.netClude.qsNet.setVisibility(View.GONE);
                 mBinding.recyclerView.setVisibility(View.VISIBLE);
                 mList.clear();
                 mList.addAll(evaluationListBean.getList());
                 mAdapter.notifyDataSetChanged();
-            }else {
+            } else {
                 initError(R.mipmap.qs_404, "页面出错", "程序猿正在赶来的路上");
                 mBinding.recyclerView.setVisibility(View.GONE);
             }
-        }else {
+        } else {
             stopLoading();
-            if(evaluationListBean.getList()!= null && evaluationListBean.getList().size() != 0){
+            if (evaluationListBean.getList() != null && evaluationListBean.getList().size() != 0) {
                 mList.addAll(evaluationListBean.getList());
                 mAdapter.notifyDataSetChanged();
-            }else {
+            } else {
                 page--;
                 Toast.makeText(getContext(), "已经是最后一页了", Toast.LENGTH_SHORT).show();
             }
@@ -196,36 +176,58 @@ public class CommonEvaluationFragment extends DBBaseFragment implements OnRefres
 
     /**
      * 数据失败回调
+     *
      * @param error
      */
     @Override
     public void onFile(String error) {
-        if(refersh){
+        if (refersh) {
             stopResher();
-            if (bean == null || bean.getList() == null || bean.getList().size() == 0){
+            if (bean == null || bean.getList() == null || bean.getList().size() == 0) {
                 initError(R.mipmap.qs_net, "网络出错", "哇哦，网络出错了，换个姿势下滑页面试试");
                 mBinding.recyclerView.setVisibility(View.GONE);
-            }else {
+            } else {
                 Toast.makeText(getContext(), error, Toast.LENGTH_SHORT).show();
             }
-        }else {
+        } else {
             stopLoading();
             Toast.makeText(getContext(), error, Toast.LENGTH_SHORT).show();
         }
     }
 
-    public void setDate(EvaluationListBean evaluationListBean){
+    public void setDate(EvaluationListBean evaluationListBean) {
         if (getArguments().getString("type").equals(ONE)) {
-            SPUtils.getInstance(CommonDate.NETCACHE).put(CommonDate.CommonEvaluationFragmentDATA1,new Gson().toJson(evaluationListBean));
+            SPUtils.getInstance(CommonDate.NETCACHE).put(CommonDate.CommonEvaluationFragmentDATA1, new Gson().toJson(evaluationListBean));
         } else if (getArguments().getString("type").equals(TWO)) {
-            SPUtils.getInstance(CommonDate.NETCACHE).put(CommonDate.CommonEvaluationFragmentDATA2,new Gson().toJson(evaluationListBean));
+            SPUtils.getInstance(CommonDate.NETCACHE).put(CommonDate.CommonEvaluationFragmentDATA2, new Gson().toJson(evaluationListBean));
         } else if (getArguments().getString("type").equals(THREE)) {
-            SPUtils.getInstance(CommonDate.NETCACHE).put(CommonDate.CommonEvaluationFragmentDATA3,new Gson().toJson(evaluationListBean));
+            SPUtils.getInstance(CommonDate.NETCACHE).put(CommonDate.CommonEvaluationFragmentDATA3, new Gson().toJson(evaluationListBean));
         } else if (getArguments().getString("type").equals(FORE)) {
-            SPUtils.getInstance(CommonDate.NETCACHE).put(CommonDate.CommonEvaluationFragmentDATA4,new Gson().toJson(evaluationListBean));
+            SPUtils.getInstance(CommonDate.NETCACHE).put(CommonDate.CommonEvaluationFragmentDATA4, new Gson().toJson(evaluationListBean));
         } else if (getArguments().getString("type").equals(FIVE)) {
-            SPUtils.getInstance(CommonDate.NETCACHE).put(CommonDate.CommonEvaluationFragmentDATA5,new Gson().toJson(evaluationListBean));
+            SPUtils.getInstance(CommonDate.NETCACHE).put(CommonDate.CommonEvaluationFragmentDATA5, new Gson().toJson(evaluationListBean));
         }
+    }
+
+    public EvaluationListBean getDate() {
+        if (getArguments().getString("type").equals(TWO)) {
+            if (!TextUtils.isEmpty(SPUtils.getInstance(CommonDate.NETCACHE).getString(CommonDate.CommonEvaluationFragmentDATA2, ""))) {
+                return new Gson().fromJson(SPUtils.getInstance(CommonDate.NETCACHE).getString(CommonDate.CommonEvaluationFragmentDATA2), EvaluationListBean.class);
+            }
+        } else if (getArguments().getString("type").equals(THREE)) {
+            if (!TextUtils.isEmpty(SPUtils.getInstance(CommonDate.NETCACHE).getString(CommonDate.CommonEvaluationFragmentDATA3, ""))) {
+                return new Gson().fromJson(SPUtils.getInstance(CommonDate.NETCACHE).getString(CommonDate.CommonEvaluationFragmentDATA3), EvaluationListBean.class);
+            }
+        } else if (getArguments().getString("type").equals(FORE)) {
+            if (!TextUtils.isEmpty(SPUtils.getInstance(CommonDate.NETCACHE).getString(CommonDate.CommonEvaluationFragmentDATA4, ""))) {
+                return new Gson().fromJson(SPUtils.getInstance(CommonDate.NETCACHE).getString(CommonDate.CommonEvaluationFragmentDATA4), EvaluationListBean.class);
+            }
+        } else if (getArguments().getString("type").equals(FIVE)) {
+            if (!TextUtils.isEmpty(SPUtils.getInstance(CommonDate.NETCACHE).getString(CommonDate.CommonEvaluationFragmentDATA5, ""))) {
+                return new Gson().fromJson(SPUtils.getInstance(CommonDate.NETCACHE).getString(CommonDate.CommonEvaluationFragmentDATA5), EvaluationListBean.class);
+            }
+        }
+        return null;
     }
 
     /**
@@ -241,13 +243,13 @@ public class CommonEvaluationFragment extends DBBaseFragment implements OnRefres
     /**
      * 停止刷新
      */
-    public void stopResher(){
+    public void stopResher() {
         if (mBinding.swipeToLoad != null && mBinding.swipeToLoad.isRefreshing()) {
-            if(!mBinding.swipeToLoad.isRefreshEnabled()){
+            if (!mBinding.swipeToLoad.isRefreshEnabled()) {
                 mBinding.swipeToLoad.setRefreshEnabled(true);
                 mBinding.swipeToLoad.setRefreshing(false);
                 mBinding.swipeToLoad.setRefreshEnabled(false);
-            }else {
+            } else {
                 mBinding.swipeToLoad.setRefreshing(false);
             }
         }
@@ -256,13 +258,13 @@ public class CommonEvaluationFragment extends DBBaseFragment implements OnRefres
     /**
      * 停止加载
      */
-    public void stopLoading(){
+    public void stopLoading() {
         if (mBinding.swipeToLoad != null && mBinding.swipeToLoad.isLoadingMore()) {
-            if(!mBinding.swipeToLoad.isLoadingMore()){
+            if (!mBinding.swipeToLoad.isLoadingMore()) {
                 mBinding.swipeToLoad.setLoadMoreEnabled(true);
                 mBinding.swipeToLoad.setLoadingMore(false);
                 mBinding.swipeToLoad.setLoadMoreEnabled(false);
-            }else {
+            } else {
                 mBinding.swipeToLoad.setLoadingMore(false);
             }
         }
@@ -275,6 +277,6 @@ public class CommonEvaluationFragment extends DBBaseFragment implements OnRefres
     public void onLoadMore() {
         page++;
         refersh = false;
-        mPresenter.getDate(id,page + "",this.bindToLifecycle());
+        mPresenter.getDate(id, page + "", this.bindToLifecycle());
     }
 }
