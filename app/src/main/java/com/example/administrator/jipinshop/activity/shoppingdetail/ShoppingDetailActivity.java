@@ -47,6 +47,7 @@ import com.example.administrator.jipinshop.bean.CommentInsertBean;
 import com.example.administrator.jipinshop.bean.ShoppingDetailBean;
 import com.example.administrator.jipinshop.bean.SnapSelectBean;
 import com.example.administrator.jipinshop.bean.SuccessBean;
+import com.example.administrator.jipinshop.bean.eventbus.CommenBus;
 import com.example.administrator.jipinshop.databinding.ActivityShopingDetailBinding;
 import com.example.administrator.jipinshop.fragment.foval.FovalFragment;
 import com.example.administrator.jipinshop.util.ClickUtil;
@@ -947,8 +948,8 @@ public class ShoppingDetailActivity extends BaseActivity implements ShoppingComm
 
     //获取评论列表
     @Subscribe
-    public void commentResher(String s){
-        if(!TextUtils.isEmpty(s) && s.equals(CommenListActivity.commentResher)){
+    public void commentResher(CommenBus commenBus){
+        if(commenBus != null && commenBus.getTag().equals(CommenListActivity.commentResher)){
             mPresenter.comment(goodsId,this.bindToLifecycle());
         }
     }

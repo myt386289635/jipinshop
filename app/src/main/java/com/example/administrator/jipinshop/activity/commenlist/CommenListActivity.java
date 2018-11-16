@@ -22,6 +22,7 @@ import com.example.administrator.jipinshop.base.BaseActivity;
 import com.example.administrator.jipinshop.bean.CommentBean;
 import com.example.administrator.jipinshop.bean.CommentInsertBean;
 import com.example.administrator.jipinshop.bean.SuccessBean;
+import com.example.administrator.jipinshop.bean.eventbus.CommenBus;
 import com.example.administrator.jipinshop.bean.eventbus.EvaluationBus;
 import com.example.administrator.jipinshop.databinding.ActivityCommenlistBinding;
 import com.example.administrator.jipinshop.util.sp.CommonDate;
@@ -242,7 +243,7 @@ public class CommenListActivity extends BaseActivity implements CommenListAdapte
                         initSets();
                     }
                 }
-                EventBus.getDefault().post(CommenListActivity.commentResher);
+                EventBus.getDefault().post(new CommenBus(CommenListActivity.commentResher));
                 EventBus.getDefault().post(new EvaluationBus(getIntent().getStringExtra("id"),commentBean.getCount()));
             } else {
                 int i = mList.size();
@@ -298,7 +299,7 @@ public class CommenListActivity extends BaseActivity implements CommenListAdapte
                 }
             }
             mAdapter.notifyItemChanged(parentNum);
-            EventBus.getDefault().post(CommenListActivity.commentResher);
+            EventBus.getDefault().post(new CommenBus(CommenListActivity.commentResher));
         } else {
             //回复楼层
 //            sets.add(0, 0);
@@ -332,7 +333,7 @@ public class CommenListActivity extends BaseActivity implements CommenListAdapte
         int num = bigDecimal.intValue();
         mList.get(position).setSnapNum((num + 1) + "");
         mAdapter.notifyItemChanged(position);
-        EventBus.getDefault().post(CommenListActivity.commentResher);
+        EventBus.getDefault().post(new CommenBus(CommenListActivity.commentResher));
     }
 
     /**
@@ -348,7 +349,7 @@ public class CommenListActivity extends BaseActivity implements CommenListAdapte
         int num = bigDecimal.intValue();
         mList.get(position).setSnapNum((num - 1) + "");
         mAdapter.notifyItemChanged(position);
-        EventBus.getDefault().post(CommenListActivity.commentResher);
+        EventBus.getDefault().post(new CommenBus(CommenListActivity.commentResher));
     }
 
     /**
