@@ -5,14 +5,14 @@ import java.util.List;
 /**
  * @author 莫小婷
  * @create 2018/10/10
- * @Describe
+ * @Describe 关注列表bean
  */
 public class FollowBean {
 
     /**
      * msg : success
      * code : 200
-     * list : [{"concernId":"12","userId":"7d67892cb02f4766aa72fd5b08b8d8d1","attentionUserId":"55","isConcern":55,"concernCount":55,"create_time":"2018-11-01T03:03:23.000+0000","from_thumb_img":"112","from_nickname":"22"},{"concernId":"1776","userId":"7d67892cb02f4766aa72fd5b08b8d8d1","attentionUserId":"777","isConcern":777,"concernCount":777,"create_time":"2018-09-27T02:57:02.000+0000","from_thumb_img":"7777","from_nickname":"7777"},{"concernId":"12341234","userId":"7d67892cb02f4766aa72fd5b08b8d8d1","attentionUserId":"12341234","isConcern":12341234,"concernCount":12341234,"create_time":"2018-09-27T02:45:31.000+0000","from_thumb_img":"12341234","from_nickname":"12341234"},{"concernId":"1236263","userId":"7d67892cb02f4766aa72fd5b08b8d8d1","attentionUserId":"123123123","isConcern":1231231231,"concernCount":123123123,"create_time":"2018-09-27T02:42:10.000+0000","from_thumb_img":"123123","from_nickname":"1231231"},{"concernId":"3332","userId":"7d67892cb02f4766aa72fd5b08b8d8d1","attentionUserId":"332","isConcern":332,"concernCount":332,"create_time":"2018-09-27T02:41:10.000+0000","from_thumb_img":"332","from_nickname":"552"},{"concernId":"17727","userId":"7d67892cb02f4766aa72fd5b08b8d8d1","attentionUserId":"777","isConcern":777,"concernCount":777,"create_time":"2018-09-27T02:36:07.000+0000","from_thumb_img":"7777","from_nickname":"7777"},{"concernId":"222","userId":"7d67892cb02f4766aa72fd5b08b8d8d1","attentionUserId":"222","isConcern":322,"concernCount":422,"create_time":"2018-09-27T02:29:34.000+0000","from_thumb_img":"622","from_nickname":"722"},{"concernId":"333","userId":"7d67892cb02f4766aa72fd5b08b8d8d1","attentionUserId":"33","isConcern":33,"concernCount":33,"create_time":"2018-09-27T02:24:25.000+0000","from_thumb_img":"33","from_nickname":"55"},{"concernId":"3","userId":"7d67892cb02f4766aa72fd5b08b8d8d1","attentionUserId":"3","isConcern":3,"concernCount":3,"create_time":"2018-09-26T09:41:22.000+0000","from_thumb_img":null,"from_nickname":null},{"concernId":"55","userId":"7d67892cb02f4766aa72fd5b08b8d8d1","attentionUserId":"55","isConcern":55,"concernCount":55,"create_time":"2018-09-26T07:13:00.000+0000","from_thumb_img":null,"from_nickname":null},{"concernId":"444","userId":"7d67892cb02f4766aa72fd5b08b8d8d1","attentionUserId":"44","isConcern":44,"concernCount":44,"create_time":"2018-09-26T07:11:17.000+0000","from_thumb_img":null,"from_nickname":null},{"concernId":"1244","userId":"7d67892cb02f4766aa72fd5b08b8d8d1","attentionUserId":"33","isConcern":33,"concernCount":33,"create_time":"2018-09-26T06:49:42.000+0000","from_thumb_img":null,"from_nickname":null},{"concernId":"1","userId":"7d67892cb02f4766aa72fd5b08b8d8d1","attentionUserId":"2","isConcern":2,"concernCount":2,"create_time":"2018-09-26T05:08:22.000+0000","from_thumb_img":null,"from_nickname":null},{"concernId":"124","userId":"7d67892cb02f4766aa72fd5b08b8d8d1","attentionUserId":"3","isConcern":33,"concernCount":33,"create_time":null,"from_thumb_img":null,"from_nickname":null}]
+     * list : [{"concernId":"dcb44c33159b4563aeee2b54158293c6","userId":"7d67892cb02f4766aa72fd5b08b8d8d1","attentionUserId":"786afd1ad252451bbae5ee0790c7d577","createTime":"2018-11-16 15:18:33","status":1,"userShopmember":{"userId":"786afd1ad252451bbae5ee0790c7d577","userNickName":"Wowo","userNickImg":"","userAcutalName":null,"userMemberGrade":null,"userGender":null,"userBirthday":null,"userPhone":"13841284944","createTime":null,"openId":null,"alipayName":null,"alipayAccount":null,"fansCount":1}},{"concernId":"b841d435f1884db79679f3c19b4ac24a","userId":"7d67892cb02f4766aa72fd5b08b8d8d1","attentionUserId":"58f3f9223d324558aa965dd97c69b532","createTime":"2018-11-16 15:18:22","status":1,"userShopmember":{"userId":"58f3f9223d324558aa965dd97c69b532","userNickName":"Chona","userNickImg":"https://wx.qlogo.cn/mmopen/vi_32/n8c8j5rrsN9XMKdTzhh6dXWdyA1ZEl2Nh8RQTBiaVoYPj1uXONuVwN2VGM3xbMB5wWOKiamZwCBnbLL6GMh0GASA/132","userAcutalName":null,"userMemberGrade":null,"userGender":null,"userBirthday":null,"userPhone":null,"createTime":null,"openId":null,"alipayName":null,"alipayAccount":null,"fansCount":1}}]
      */
 
     private String msg;
@@ -45,24 +45,29 @@ public class FollowBean {
 
     public static class ListBean {
         /**
-         * concernId : 12
+         * concernId : dcb44c33159b4563aeee2b54158293c6
          * userId : 7d67892cb02f4766aa72fd5b08b8d8d1
-         * attentionUserId : 55
-         * isConcern : 55
-         * concernCount : 55
-         * create_time : 2018-11-01T03:03:23.000+0000
-         * from_thumb_img : 112
-         * from_nickname : 22
+         * attentionUserId : 786afd1ad252451bbae5ee0790c7d577
+         * createTime : 2018-11-16 15:18:33
+         * status : 1
+         * userShopmember : {"userId":"786afd1ad252451bbae5ee0790c7d577","userNickName":"Wowo","userNickImg":"","userAcutalName":null,"userMemberGrade":null,"userGender":null,"userBirthday":null,"userPhone":"13841284944","createTime":null,"openId":null,"alipayName":null,"alipayAccount":null,"fansCount":1}
          */
 
         private String concernId;
         private String userId;
         private String attentionUserId;
-        private int isConcern;
-        private int concernCount;
-        private String create_time;
-        private String from_thumb_img;
-        private String from_nickname;
+        private String createTime;
+        private int status;
+        private UserShopmemberBean userShopmember;
+        private int fans;//自己添加的标示，标志有没有关注这个人
+
+        public int getFans() {
+            return fans;
+        }
+
+        public void setFans(int fans) {
+            this.fans = fans;
+        }
 
         public String getConcernId() {
             return concernId;
@@ -88,44 +93,164 @@ public class FollowBean {
             this.attentionUserId = attentionUserId;
         }
 
-        public int getIsConcern() {
-            return isConcern;
+        public String getCreateTime() {
+            return createTime;
         }
 
-        public void setIsConcern(int isConcern) {
-            this.isConcern = isConcern;
+        public void setCreateTime(String createTime) {
+            this.createTime = createTime;
         }
 
-        public int getConcernCount() {
-            return concernCount;
+        public int getStatus() {
+            return status;
         }
 
-        public void setConcernCount(int concernCount) {
-            this.concernCount = concernCount;
+        public void setStatus(int status) {
+            this.status = status;
         }
 
-        public String getCreate_time() {
-            return create_time;
+        public UserShopmemberBean getUserShopmember() {
+            return userShopmember;
         }
 
-        public void setCreate_time(String create_time) {
-            this.create_time = create_time;
+        public void setUserShopmember(UserShopmemberBean userShopmember) {
+            this.userShopmember = userShopmember;
         }
 
-        public String getFrom_thumb_img() {
-            return from_thumb_img;
-        }
+        public static class UserShopmemberBean {
+            /**
+             * userId : 786afd1ad252451bbae5ee0790c7d577
+             * userNickName : Wowo
+             * userNickImg :
+             * userAcutalName : null
+             * userMemberGrade : null
+             * userGender : null
+             * userBirthday : null
+             * userPhone : 13841284944
+             * createTime : null
+             * openId : null
+             * alipayName : null
+             * alipayAccount : null
+             * fansCount : 1
+             */
 
-        public void setFrom_thumb_img(String from_thumb_img) {
-            this.from_thumb_img = from_thumb_img;
-        }
+            private String userId;
+            private String userNickName;
+            private String userNickImg;
+            private Object userAcutalName;
+            private Object userMemberGrade;
+            private Object userGender;
+            private Object userBirthday;
+            private String userPhone;
+            private Object createTime;
+            private Object openId;
+            private Object alipayName;
+            private Object alipayAccount;
+            private int fansCount;
 
-        public String getFrom_nickname() {
-            return from_nickname;
-        }
+            public String getUserId() {
+                return userId;
+            }
 
-        public void setFrom_nickname(String from_nickname) {
-            this.from_nickname = from_nickname;
+            public void setUserId(String userId) {
+                this.userId = userId;
+            }
+
+            public String getUserNickName() {
+                return userNickName;
+            }
+
+            public void setUserNickName(String userNickName) {
+                this.userNickName = userNickName;
+            }
+
+            public String getUserNickImg() {
+                return userNickImg;
+            }
+
+            public void setUserNickImg(String userNickImg) {
+                this.userNickImg = userNickImg;
+            }
+
+            public Object getUserAcutalName() {
+                return userAcutalName;
+            }
+
+            public void setUserAcutalName(Object userAcutalName) {
+                this.userAcutalName = userAcutalName;
+            }
+
+            public Object getUserMemberGrade() {
+                return userMemberGrade;
+            }
+
+            public void setUserMemberGrade(Object userMemberGrade) {
+                this.userMemberGrade = userMemberGrade;
+            }
+
+            public Object getUserGender() {
+                return userGender;
+            }
+
+            public void setUserGender(Object userGender) {
+                this.userGender = userGender;
+            }
+
+            public Object getUserBirthday() {
+                return userBirthday;
+            }
+
+            public void setUserBirthday(Object userBirthday) {
+                this.userBirthday = userBirthday;
+            }
+
+            public String getUserPhone() {
+                return userPhone;
+            }
+
+            public void setUserPhone(String userPhone) {
+                this.userPhone = userPhone;
+            }
+
+            public Object getCreateTime() {
+                return createTime;
+            }
+
+            public void setCreateTime(Object createTime) {
+                this.createTime = createTime;
+            }
+
+            public Object getOpenId() {
+                return openId;
+            }
+
+            public void setOpenId(Object openId) {
+                this.openId = openId;
+            }
+
+            public Object getAlipayName() {
+                return alipayName;
+            }
+
+            public void setAlipayName(Object alipayName) {
+                this.alipayName = alipayName;
+            }
+
+            public Object getAlipayAccount() {
+                return alipayAccount;
+            }
+
+            public void setAlipayAccount(Object alipayAccount) {
+                this.alipayAccount = alipayAccount;
+            }
+
+            public int getFansCount() {
+                return fansCount;
+            }
+
+            public void setFansCount(int fansCount) {
+                this.fansCount = fansCount;
+            }
         }
     }
 }

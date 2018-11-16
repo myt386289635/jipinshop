@@ -19,7 +19,6 @@ import com.example.administrator.jipinshop.base.BaseActivity;
 import com.example.administrator.jipinshop.bean.FollowBean;
 import com.example.administrator.jipinshop.bean.SuccessBean;
 import com.example.administrator.jipinshop.databinding.ActivityFollowBinding;
-import com.example.administrator.jipinshop.view.dialog.DialogUtil;
 import com.example.administrator.jipinshop.view.dialog.ProgressDialogView;
 
 import java.util.ArrayList;
@@ -93,18 +92,24 @@ public class FollowActivity extends BaseActivity implements OnRefreshListener, F
     }
 
     /**
+     * 添加关注
+     */
+    @Override
+    public void onItemAtten(int pos) {
+        dialog = (new ProgressDialogView()).createLoadingDialog(this, "请求中...");
+        dialog.show();
+        mPresenter.concernInsert(mList.get(pos).getUserShopmember().getUserId(),pos,this.bindToLifecycle());
+    }
+
+    /**
      * 取消关注
      * @param pos
      */
     @Override
     public void onItemDecAtten(int pos,TextView textView) {
-
-        DialogUtil.LoginDialog(this, "您确定要取消对" + mList.get(pos).getFrom_nickname() +"的关注吗？", "不再关注", "取消", (View.OnClickListener) view -> {
-            Dialog dialog = (new ProgressDialogView()).createLoadingDialog(FollowActivity.this, "请求中...");
-            dialog.show();
-            mPresenter.concerDelete(textView,pos,dialog,mList.get(pos).getConcernId(),FollowActivity.this.bindToLifecycle());
-        });
-
+        dialog = (new ProgressDialogView()).createLoadingDialog(this, "请求中...");
+        dialog.show();
+        mPresenter.concerDelete(pos,mList.get(pos).getUserShopmember().getUserId(),this.bindToLifecycle());
     }
 
     @Override
@@ -152,8 +157,17 @@ public class FollowActivity extends BaseActivity implements OnRefreshListener, F
             mBinding.netClude.qsNet.setVisibility(View.GONE);
             if(refresh){
                 mList.clear();
+                mList.addAll(followBean.getList());
+                for (int i = 0; i < mList.size(); i++) {
+                    mList.get(i).setFans(1);
+                }
+            }else {
+                int count = mList.size();
+                mList.addAll(followBean.getList());
+                for (int i = count; i < mList.size(); i++) {
+                    mList.get(i).setFans(1);
+                }
             }
-            mList.addAll(followBean.getList());
             mAdapter.notifyDataSetChanged();
         }else {
             if(!refresh){
@@ -169,29 +183,7 @@ public class FollowActivity extends BaseActivity implements OnRefreshListener, F
 
     /**
      * 数据请求失败
-     * @param throwable 接口请求错误
-     */
-    @Override
-    public void FollowFaileNet(String throwable) {
-        //网络请求失败时
-        if(refresh){
-            //刷新失败
-            dissRefresh();
-            if(dialog != null && dialog.isShowing()){
-                dialog.dismiss();
-            }
-            initError(R.mipmap.qs_net, "网络出错", "哇哦，网络出错了，换个姿势点击试试");
-        }else {
-            //加载时失败
-            dissLoading();
-            page--;
-            Toast.makeText(this, "网络出错", Toast.LENGTH_SHORT).show();
-        }
-    }
-
-    /**
-     * 数据请求失败
-     * @param error 后台返回不是200
+     * @param error 后台返回不是200以及网络请求错误
      */
     @Override
     public void FollowFaileCode(String error) {
@@ -212,19 +204,37 @@ public class FollowActivity extends BaseActivity implements OnRefreshListener, F
     }
 
     /**
-     * 取消关注回调
-     * @param successBean
+     * 取消关注 成功回调
      */
     @Override
-    public void ConcerDelSuccess(SuccessBean successBean,TextView textView, int pos) {
-        if(successBean.getCode() == 200){
-            textView.setBackgroundResource(R.drawable.bg_attention);
-            textView.setTextColor(getResources().getColor(R.color.color_E31436));
-            textView.setText("+关注");
-            mBinding.swipeToLoad.setRefreshing(true);
-        }else {
-            Toast.makeText(this, successBean.getMsg(), Toast.LENGTH_SHORT).show();
+    public void ConcerDelSuccess(SuccessBean successBean, int pos) {
+        if(dialog != null && dialog.isShowing()){
+            dialog.dismiss();
         }
+        mList.get(pos).setFans(0);
+        mAdapter.notifyDataSetChanged();
+    }
+    /**
+     * 取消关注 失败回调
+     */
+    @Override
+    public void ConcerDelFaile(String error) {
+        if(dialog != null && dialog.isShowing()){
+            dialog.dismiss();
+        }
+        Toast.makeText(this, error, Toast.LENGTH_SHORT).show();
+    }
+
+    /**
+     * 添加关注 成功回调
+     */
+    @Override
+    public void concerInsSuccess(SuccessBean successBean, int pos) {
+        if(dialog != null && dialog.isShowing()){
+            dialog.dismiss();
+        }
+        mList.get(pos).setFans(1);
+        mAdapter.notifyDataSetChanged();
     }
 
     public void dissRefresh(){

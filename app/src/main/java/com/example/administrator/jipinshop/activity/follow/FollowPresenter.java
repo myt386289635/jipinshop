@@ -57,7 +57,7 @@ public class FollowPresenter {
                 }, throwable -> {
                     Log.d("FollowPresenter", throwable.getMessage());
                     if(mView != null){
-                        mView.FollowFaileNet(throwable.getMessage());
+                        mView.FollowFaileCode("网络出错");
                     }
                 });
     }
@@ -82,35 +82,51 @@ public class FollowPresenter {
     }
 
     /**
-     * 判断RecyclerView是否滑动到底部
-     */
-    public static boolean isSlideToBottom(RecyclerView recyclerView) {
-        if (recyclerView == null) return false;
-        if (recyclerView.computeVerticalScrollExtent() + recyclerView.computeVerticalScrollOffset()
-                >= recyclerView.computeVerticalScrollRange())
-            return true;
-        return false;
-    }
-
-
-    /**
      * 取消关注
      */
-    public void concerDelete(TextView textView, int pos, Dialog dialog, String concerId, LifecycleTransformer<SuccessBean> transformer){
-        mRepository.concernDelete(concerId)
+    public void concerDelete(int pos,String attentionUserId, LifecycleTransformer<SuccessBean> transformer){
+        mRepository.concernDelete(attentionUserId)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .compose(transformer)
                 .subscribe(successBean -> {
-                    if(dialog != null && dialog.isShowing()){
-                        dialog.dismiss();
-                    }
-                    if(mView  != null){
-                        mView.ConcerDelSuccess(successBean,textView,pos);
+                    if(successBean.getCode() == 200){
+                        if(mView  != null){
+                            mView.ConcerDelSuccess(successBean,pos);
+                        }
+                    }else {
+                        if(mView != null){
+                            mView.ConcerDelFaile(successBean.getMsg());
+                        }
                     }
                 }, throwable -> {
-                    if(dialog != null && dialog.isShowing()){
-                        dialog.dismiss();
+                    if(mView != null){
+                        mView.ConcerDelFaile(throwable.getMessage());
+                    }
+                });
+    }
+
+    /**
+     * 添加关注
+     */
+    public void concernInsert(String attentionUserId, int pos,LifecycleTransformer<SuccessBean> transformer){
+        mRepository.concernInsert(attentionUserId)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .compose(transformer)
+                .subscribe(successBean -> {
+                    if(successBean.getCode() == 200){
+                        if(mView  != null){
+                            mView.concerInsSuccess(successBean,pos);
+                        }
+                    }else {
+                        if(mView != null){
+                            mView.ConcerDelFaile(successBean.getMsg());
+                        }
+                    }
+                }, throwable -> {
+                    if(mView != null){
+                        mView.ConcerDelFaile(throwable.getMessage());
                     }
                 });
     }

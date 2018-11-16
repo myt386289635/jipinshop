@@ -49,13 +49,31 @@ public class FollowAdapter extends RecyclerView.Adapter<FollowAdapter.ViewHolder
                 mOnItemClick.onItem(position);
             }
         });
-        ImageManager.displayCircleImage(mList.get(position).getFrom_thumb_img(),holder.item_image,R.mipmap.rlogo,R.mipmap.rlogo);
-        holder.item_name.setText(mList.get(position).getFrom_nickname());
+        ImageManager.displayCircleImage(mList.get(position).getUserShopmember().getUserNickImg(),holder.item_image,0,R.mipmap.rlogo);
+        holder.item_name.setText(mList.get(position).getUserShopmember().getUserNickName());
+        if(mList.get(position).getFans() == 1){
+            //关注了
+            holder.item_attention.setBackgroundResource(R.drawable.bg_my_attention);
+            holder.item_attention.setTextColor(mContext.getResources().getColor(R.color.color_ACACAC));
+            holder.item_attention.setText("已关注");
+        }else {
+            //未关注
+            holder.item_attention.setBackgroundResource(R.drawable.bg_attention);
+            holder.item_attention.setTextColor(mContext.getResources().getColor(R.color.color_E31436));
+            holder.item_attention.setText("+关注");
+        }
+
 
         holder.item_attention.setOnClickListener(view -> {
-            //取消关注
-            if (mOnItemClick != null) {
-                mOnItemClick.onItemDecAtten(position, holder.item_attention);
+            if(mList.get(position).getFans() == 1){
+                //取消关注
+                if (mOnItemClick != null) {
+                    mOnItemClick.onItemDecAtten(position, holder.item_attention);
+                }
+            }else {
+                if (mOnItemClick != null) {
+                    mOnItemClick.onItemAtten(position);
+                }
             }
         });
     }
@@ -82,7 +100,7 @@ public class FollowAdapter extends RecyclerView.Adapter<FollowAdapter.ViewHolder
    public interface OnItemClick{
         void onItem(int pos);
 
-//        void onItemAtten(int pos,TextView textView);//添加关注
+        void onItemAtten(int pos);//添加关注
 
         void onItemDecAtten(int pos, TextView textView);//取消关注
     }

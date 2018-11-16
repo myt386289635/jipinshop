@@ -99,7 +99,7 @@ public interface APIService {
     /**
      * 获取关注列表
      */
-    @GET("qualityshop-api/api/concer")
+    @GET("qualityshop-api/api/selectAll")
     Observable<FollowBean> concer(@Query("page") String page ,@Query("userId") String userId);
 
 
