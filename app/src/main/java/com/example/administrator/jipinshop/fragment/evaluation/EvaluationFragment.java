@@ -19,6 +19,8 @@ import com.example.administrator.jipinshop.fragment.evaluation.common.CommonEval
 import com.example.administrator.jipinshop.util.sp.CommonDate;
 import com.google.gson.Gson;
 
+import org.greenrobot.eventbus.EventBus;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -26,6 +28,7 @@ import javax.inject.Inject;
 
 public class EvaluationFragment extends DBBaseFragment implements EvaluationView {
 
+    public static final String tag = "EvaluationFragment2CommonEvaluationFragment";
 
     @Inject
     EvaluationFragmentPresenter mPresenter;
@@ -74,10 +77,12 @@ public class EvaluationFragment extends DBBaseFragment implements EvaluationView
         tabTitle.addAll(bean.getList());
         SPUtils.getInstance().put(CommonDate.EvaluationTab,new Gson().toJson(bean));
         mPresenter.initTabLayout(getContext(),mBinding.tabLayout,tabTitle,tabTextView);
+        EventBus.getDefault().post(EvaluationFragment.tag);
     }
 
     @Override
     public void onFaile(String error) {
+        EventBus.getDefault().post(EvaluationFragment.tag);
         Toast.makeText(getContext(), error, Toast.LENGTH_SHORT).show();
     }
 
