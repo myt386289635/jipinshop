@@ -33,7 +33,7 @@
                     android:orientation="vertical"/>
 
                 <ImageView
-                    android:scaleType="fitXY"
+                    android:scaleType="centerCrop"
                     tools:src="@color/color_E31436"
                     android:id="@+id/detail_imageTitle"
                     android:layout_width="match_parent"

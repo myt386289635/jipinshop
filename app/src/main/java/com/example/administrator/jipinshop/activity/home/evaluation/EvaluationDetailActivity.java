@@ -8,6 +8,7 @@ import android.os.Handler;
 import android.os.Looper;
 import android.os.Message;
 import android.support.annotation.Nullable;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
@@ -27,6 +28,7 @@ import com.example.administrator.jipinshop.bean.CommentBean;
 import com.example.administrator.jipinshop.bean.EvaluationDetailBean;
 import com.example.administrator.jipinshop.bean.SnapSelectBean;
 import com.example.administrator.jipinshop.bean.SuccessBean;
+import com.example.administrator.jipinshop.bean.eventbus.EvaluationBus;
 import com.example.administrator.jipinshop.databinding.ActivityEvaluationDetailBinding;
 import com.example.administrator.jipinshop.fragment.foval.FovalFragment;
 import com.example.administrator.jipinshop.util.ClickUtil;
@@ -42,6 +44,7 @@ import com.umeng.socialize.UMShareAPI;
 import com.umeng.socialize.bean.SHARE_MEDIA;
 
 import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
 
 import javax.inject.Inject;
 
@@ -93,6 +96,7 @@ public class EvaluationDetailActivity extends RxAppCompatActivity implements Vie
                 .statusBarDarkFont(true, 0f)
                 .init();
         mPresenter.setView(this);
+        EventBus.getDefault().register(this);
         initView();
     }
 
@@ -141,6 +145,7 @@ public class EvaluationDetailActivity extends RxAppCompatActivity implements Vie
 
     @Override
     protected void onDestroy() {
+        EventBus.getDefault().unregister(this);
         mImmersionBar.destroy();
         UMShareAPI.get(this).release();
         handler.removeCallbacksAndMessages(null);
@@ -422,5 +427,13 @@ public class EvaluationDetailActivity extends RxAppCompatActivity implements Vie
         mBinding.inClude.errorImage.setBackgroundResource(id);
         mBinding.inClude.errorTitle.setText(title);
         mBinding.inClude.errorContent.setText(content);
+    }
+
+    //获取评论列表
+    @Subscribe
+    public void commentResher(EvaluationBus evaluationBus){
+        if(evaluationBus != null){
+            mBinding.bottomCommenNum.setText(evaluationBus.getCount() + "");
+        }
     }
 }

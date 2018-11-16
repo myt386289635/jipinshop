@@ -22,6 +22,7 @@ import com.example.administrator.jipinshop.base.BaseActivity;
 import com.example.administrator.jipinshop.bean.CommentBean;
 import com.example.administrator.jipinshop.bean.CommentInsertBean;
 import com.example.administrator.jipinshop.bean.SuccessBean;
+import com.example.administrator.jipinshop.bean.eventbus.EvaluationBus;
 import com.example.administrator.jipinshop.databinding.ActivityCommenlistBinding;
 import com.example.administrator.jipinshop.util.sp.CommonDate;
 import com.example.administrator.jipinshop.view.dialog.ProgressDialogView;
@@ -228,18 +229,21 @@ public class CommenListActivity extends BaseActivity implements CommenListAdapte
                 //这里的beanList 是用来记录上一次数据的，用来判断是否有新数据添加进入
                 List<CommentBean.ListBean> beanList = new ArrayList<>();
                 if (mList.size() != 0){
-//                    for (int i = 0; i < mList.size(); i++) {
-                        beanList.add(mList.get(0));
-//                    }
+                    beanList.add(mList.get(0));
                 }
                 mList.clear();
                 mList.addAll(commentBean.getList());
                 if (once) {
                     initSets();
                 } else {
-                    ResherSets(beanList);
+                    if(beanList.size() != 0){
+                        ResherSets(beanList);
+                    }else {
+                        initSets();
+                    }
                 }
                 EventBus.getDefault().post(CommenListActivity.commentResher);
+                EventBus.getDefault().post(new EvaluationBus(getIntent().getStringExtra("id"),commentBean.getCount()));
             } else {
                 int i = mList.size();
                 mList.addAll(commentBean.getList());

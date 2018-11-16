@@ -40,7 +40,7 @@ public class CommonFindAdapter extends RecyclerView.Adapter<CommonFindAdapter.Vi
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
 
-        ImageManager.displayRoundImage(MyApplication.imag,holder.mItemImage,0,0,10);
+        ImageManager.displayRoundImage("http://pi6611u5d.bkt.clouddn.com/a007a458b51141f88a15ab24e034596a",holder.mItemImage,0,0,10);
         holder.itemView.setOnClickListener(view -> {
             if(!SPUtils.getInstance(CommonDate.USER).getBoolean(CommonDate.userLogin,false)){
                 mContext.startActivity(new Intent(mContext, LoginActivity.class));

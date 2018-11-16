@@ -21,6 +21,7 @@ import com.example.administrator.jipinshop.base.DBBaseFragment;
 import com.example.administrator.jipinshop.bean.EvaluationListBean;
 import com.example.administrator.jipinshop.bean.EvaluationTabBean;
 import com.example.administrator.jipinshop.bean.SuccessBean;
+import com.example.administrator.jipinshop.bean.eventbus.EvaluationBus;
 import com.example.administrator.jipinshop.databinding.FragmentEvaluationCommonBinding;
 import com.example.administrator.jipinshop.fragment.evaluation.EvaluationFragment;
 import com.example.administrator.jipinshop.util.sp.CommonDate;
@@ -152,6 +153,19 @@ public class CommonEvaluationFragment extends DBBaseFragment implements OnRefres
         }else if(!TextUtils.isEmpty(s) && s.equals(CommonEvaluationFragment.REFERSH)){
             if(!once){//代表第一次已经看过该页了，所以当我的关注页面取消关注时需要刷新页面
                 mBinding.swipeToLoad.setRefreshing(true);
+            }
+        }
+    }
+
+    @Subscribe
+    public void commentResher(EvaluationBus evaluationBus){
+        if(evaluationBus != null){
+            for (int i = 0; i < mList.size(); i++) {
+                if(mList.get(i).getEvalWayId().equals(evaluationBus.getId())){
+                    mList.get(i).setCommentNum(evaluationBus.getCount() + "");
+                    mAdapter.notifyDataSetChanged();
+                    break;
+                }
             }
         }
     }
