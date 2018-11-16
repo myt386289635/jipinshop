@@ -60,8 +60,8 @@ public class CommonEvaluationAdapter extends RecyclerView.Adapter {
                 break;
             case CONTENT:
                 ContentViewHolder contentViewHolder = (ContentViewHolder) holder;
-                ImageManager.displayRoundImage(MyApplication.imag,contentViewHolder.content_image,0,0,10);
-                ImageManager.displayCircleImage(MyApplication.imag,contentViewHolder.content_head,0,0);
+                ImageManager.displayRoundImage(mList.get(position -1).getImgId(),contentViewHolder.content_image,0,0,10);
+                ImageManager.displayCircleImage(mList.get(position -1).getUserShopmember().getUserNickImg(),contentViewHolder.content_head,0,R.mipmap.rlogo);
                 contentViewHolder.content_title.setText(mList.get(position - 1).getEvalWayName());
                 contentViewHolder.itemView.setOnClickListener(v -> {
                     if(!SPUtils.getInstance(CommonDate.USER).getBoolean(CommonDate.userLogin,false)){
