@@ -79,6 +79,15 @@ public class EvaluationDetailBean {
         private String commentId;
         private Object concernNum;
         private Object userShopmember;
+        private String goodsBuyLink;
+
+        public String getGoodsBuyLink() {
+            return goodsBuyLink;
+        }
+
+        public void setGoodsBuyLink(String goodsBuyLink) {
+            this.goodsBuyLink = goodsBuyLink;
+        }
 
         public String getEvalWayId() {
             return evalWayId;

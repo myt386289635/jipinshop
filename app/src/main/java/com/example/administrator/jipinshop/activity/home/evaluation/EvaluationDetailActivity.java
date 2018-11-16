@@ -8,7 +8,6 @@ import android.os.Handler;
 import android.os.Looper;
 import android.os.Message;
 import android.support.annotation.Nullable;
-import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
@@ -20,6 +19,14 @@ import android.webkit.WebViewClient;
 import android.widget.RelativeLayout;
 import android.widget.Toast;
 
+import com.alibaba.baichuan.android.trade.AlibcTrade;
+import com.alibaba.baichuan.android.trade.AlibcTradeSDK;
+import com.alibaba.baichuan.android.trade.callback.AlibcTradeCallback;
+import com.alibaba.baichuan.android.trade.model.AlibcShowParams;
+import com.alibaba.baichuan.android.trade.model.OpenType;
+import com.alibaba.baichuan.android.trade.page.AlibcPage;
+import com.alibaba.baichuan.trade.biz.context.AlibcResultType;
+import com.alibaba.baichuan.trade.biz.context.AlibcTradeResult;
 import com.example.administrator.jipinshop.MyApplication;
 import com.example.administrator.jipinshop.R;
 import com.example.administrator.jipinshop.activity.commenlist.CommenListActivity;
@@ -45,6 +52,9 @@ import com.umeng.socialize.bean.SHARE_MEDIA;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
+
+import java.util.HashMap;
+import java.util.Map;
 
 import javax.inject.Inject;
 
@@ -82,6 +92,11 @@ public class EvaluationDetailActivity extends RxAppCompatActivity implements Vie
      * 标志：是否收藏过此商品 false:没有
      */
     private boolean isCollect = false;
+
+    /**
+     * 购买链接
+     */
+    private String buyLink = "";
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -146,6 +161,7 @@ public class EvaluationDetailActivity extends RxAppCompatActivity implements Vie
     @Override
     protected void onDestroy() {
         EventBus.getDefault().unregister(this);
+        AlibcTradeSDK.destory();
         mImmersionBar.destroy();
         UMShareAPI.get(this).release();
         handler.removeCallbacksAndMessages(null);
@@ -223,7 +239,11 @@ public class EvaluationDetailActivity extends RxAppCompatActivity implements Vie
                 );
                 break;
             case R.id.bottom_buy:
-                Toast.makeText(this, "点击购买", Toast.LENGTH_SHORT).show();
+                mDialog = (new ProgressDialogView()).createLoadingDialog(this, "");
+                if(mDialog != null && !mDialog.isShowing()){
+                    mDialog.show();
+                }
+                openAliHomeWeb(buyLink);
                 break;
         }
     }
@@ -250,7 +270,7 @@ public class EvaluationDetailActivity extends RxAppCompatActivity implements Vie
                 bean.getGoodsEvalWay().getContent(),
                 "text/html", "utf-8", null);
         mBinding.evaTitle.setText(bean.getGoodsEvalWay().getEvalWayName());
-
+        buyLink = bean.getGoodsEvalWay().getGoodsBuyLink();
     }
     /**
      * 数据请求失败
@@ -434,6 +454,47 @@ public class EvaluationDetailActivity extends RxAppCompatActivity implements Vie
     public void commentResher(EvaluationBus evaluationBus){
         if(evaluationBus != null){
             mBinding.bottomCommenNum.setText(evaluationBus.getCount() + "");
+        }
+    }
+
+    /****
+     * 跳转淘宝首页
+     */
+    public void openAliHomeWeb(String url) {
+        AlibcShowParams alibcShowParams  = new AlibcShowParams(OpenType.Native, false);
+        alibcShowParams.setClientType("taobao_scheme");
+
+        //yhhpass参数
+        Map<String, String> exParams = new HashMap<>();
+        exParams.put("isv_code", "appisvcode");
+        exParams.put("alibaba", "阿里巴巴");//自定义参数部分，可任意增删改
+
+        AlibcTrade.show(this, new AlibcPage(url), alibcShowParams, null, exParams, new AlibcTradeCallback() {
+            @Override
+            public void onTradeSuccess(AlibcTradeResult alibcTradeResult) {
+                if (alibcTradeResult.resultType.equals(AlibcResultType.TYPECART)) {
+                    //加购成功
+                    Log.e("AlibcTradeSDK", "加购成功");
+                } else if (alibcTradeResult.resultType.equals(AlibcResultType.TYPEPAY)) {
+                    //支付成功
+                    Log.e("AlibcTradeSDK", "支付成功,成功订单号为" + alibcTradeResult.payResult.paySuccessOrders);
+                }
+                Log.e("AlibcTradeSDK", "加购成功");
+                Toast.makeText(EvaluationDetailActivity.this, "进去了", Toast.LENGTH_SHORT).show();
+            }
+
+            @Override
+            public void onFailure(int errCode, String errMsg) {
+                Log.e("AlibcTradeSDK", "电商SDK出错,错误码=" + errCode + " / 错误消息=" + errMsg);
+            }
+        });
+    }
+
+    @Override
+    protected void onRestart() {
+        super.onRestart();
+        if(mDialog != null && mDialog.isShowing()){
+            mDialog.dismiss();
         }
     }
 }
