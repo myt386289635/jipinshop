@@ -66,17 +66,10 @@ public class FovalBean {
         private String id;
         private String user_id;
         private String project_id;
-        private Object eval_id;
-        private Object findGoods_id;
+        private String eval_id;
+        private String findGoods_id;
         private String create_time;
         private String state;
-        private Object collect_name;
-        private Object collect_price;
-        private Object collect_nubmer;
-        private Object product_img;
-        private Object product_tab;
-        private Object product_price;
-        private Object product_resouce;
         private GoodsRanklistBean goodsRanklist;
         private GoodsEvalwayBean goodsEvalway;
 
@@ -104,19 +97,19 @@ public class FovalBean {
             this.project_id = project_id;
         }
 
-        public Object getEval_id() {
+        public String getEval_id() {
             return eval_id;
         }
 
-        public void setEval_id(Object eval_id) {
+        public void setEval_id(String eval_id) {
             this.eval_id = eval_id;
         }
 
-        public Object getFindGoods_id() {
+        public String getFindGoods_id() {
             return findGoods_id;
         }
 
-        public void setFindGoods_id(Object findGoods_id) {
+        public void setFindGoods_id(String findGoods_id) {
             this.findGoods_id = findGoods_id;
         }
 
@@ -134,62 +127,6 @@ public class FovalBean {
 
         public void setState(String state) {
             this.state = state;
-        }
-
-        public Object getCollect_name() {
-            return collect_name;
-        }
-
-        public void setCollect_name(Object collect_name) {
-            this.collect_name = collect_name;
-        }
-
-        public Object getCollect_price() {
-            return collect_price;
-        }
-
-        public void setCollect_price(Object collect_price) {
-            this.collect_price = collect_price;
-        }
-
-        public Object getCollect_nubmer() {
-            return collect_nubmer;
-        }
-
-        public void setCollect_nubmer(Object collect_nubmer) {
-            this.collect_nubmer = collect_nubmer;
-        }
-
-        public Object getProduct_img() {
-            return product_img;
-        }
-
-        public void setProduct_img(Object product_img) {
-            this.product_img = product_img;
-        }
-
-        public Object getProduct_tab() {
-            return product_tab;
-        }
-
-        public void setProduct_tab(Object product_tab) {
-            this.product_tab = product_tab;
-        }
-
-        public Object getProduct_price() {
-            return product_price;
-        }
-
-        public void setProduct_price(Object product_price) {
-            this.product_price = product_price;
-        }
-
-        public Object getProduct_resouce() {
-            return product_resouce;
-        }
-
-        public void setProduct_resouce(Object product_resouce) {
-            this.product_resouce = product_resouce;
         }
 
         public GoodsRanklistBean getGoodsRanklist() {

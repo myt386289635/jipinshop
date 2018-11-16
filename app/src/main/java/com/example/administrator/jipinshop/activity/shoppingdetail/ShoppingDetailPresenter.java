@@ -138,7 +138,7 @@ public class ShoppingDetailPresenter {
     /**
      * 查询商品是否被收藏过
      */
-    public void isCollect(String goodsId , LifecycleTransformer<SuccessBean> transformer){
+    public void isCollect(String goodsId , LifecycleTransformer<SnapSelectBean> transformer){
         Map<String,String> hashMap = new HashMap<>();
         hashMap.put("userId", SPUtils.getInstance(CommonDate.USER).getString(CommonDate.userId));
         hashMap.put("projectId",goodsId);

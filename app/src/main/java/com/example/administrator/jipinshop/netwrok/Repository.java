@@ -5,6 +5,7 @@ import com.example.administrator.jipinshop.bean.AccountBean;
 import com.example.administrator.jipinshop.bean.CommentBean;
 import com.example.administrator.jipinshop.bean.CommentInsertBean;
 import com.example.administrator.jipinshop.bean.ElectricityFragmentBean;
+import com.example.administrator.jipinshop.bean.EvaluationDetailBean;
 import com.example.administrator.jipinshop.bean.EvaluationListBean;
 import com.example.administrator.jipinshop.bean.EvaluationTabBean;
 import com.example.administrator.jipinshop.bean.FollowBean;
@@ -39,8 +40,6 @@ import javax.inject.Inject;
 
 import io.reactivex.Observable;
 import okhttp3.MultipartBody;
-import retrofit2.http.GET;
-import retrofit2.http.Query;
 
 public class Repository {
 
@@ -243,7 +242,7 @@ public class Repository {
     /**
      * 判断用户是否收藏此文章或者商品
      */
-    public Observable<SuccessBean> isCollect(Map<String,String> param){
+    public Observable<SnapSelectBean> isCollect(Map<String,String> param){
         return  mAPIService.isCollect(param);
     }
 
@@ -330,6 +329,13 @@ public class Repository {
      */
     public Observable<EvaluationListBean> evaluationList(String categoryId ,String page){
         return mAPIService.evaluationList(categoryId,page,SPUtils.getInstance(CommonDate.USER).getString(CommonDate.userId,"0"));
+    }
+
+    /**
+     * 评测详情
+     */
+    public Observable<EvaluationDetailBean> evaluationDetail(String evalWayId){
+        return mAPIService.evaluationDetail(evalWayId);
     }
 
 }

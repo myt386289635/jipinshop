@@ -20,7 +20,7 @@ public interface ShoppingDetailView {
      void onSuccess(ShoppingDetailBean recommendFragmentBean);
      void onFile(String error);
 
-     void onSucIsCollect(SuccessBean successBean);
+     void onSucIsCollect(SnapSelectBean successBean);
      void onFileIsCollect(String error);
 
      void onSucCollectInsert(SuccessBean successBean);

@@ -14,6 +14,7 @@ import android.widget.Toast;
 import com.aspsine.swipetoloadlayout.OnLoadMoreListener;
 import com.aspsine.swipetoloadlayout.OnRefreshListener;
 import com.example.administrator.jipinshop.R;
+import com.example.administrator.jipinshop.activity.home.evaluation.EvaluationDetailActivity;
 import com.example.administrator.jipinshop.activity.shoppingdetail.ShoppingDetailActivity;
 import com.example.administrator.jipinshop.adapter.FovalAdapter;
 import com.example.administrator.jipinshop.base.DBBaseFragment;
@@ -222,7 +223,9 @@ public class FovalFragment extends DBBaseFragment implements OnRefreshListener, 
             );
         }else if(mList.get(pos).getState().equals("2")){
             //评测
-
+            startActivity(new Intent(getContext(), EvaluationDetailActivity.class)
+                    .putExtra("id",mList.get(pos).getGoodsEvalway().getEvalWayId())
+            );
         }else {
             //发现
 

@@ -3,6 +3,7 @@ package com.example.administrator.jipinshop.netwrok;
 
 import com.example.administrator.jipinshop.bean.CommentInsertBean;
 import com.example.administrator.jipinshop.bean.ElectricityFragmentBean;
+import com.example.administrator.jipinshop.bean.EvaluationDetailBean;
 import com.example.administrator.jipinshop.bean.EvaluationListBean;
 import com.example.administrator.jipinshop.bean.EvaluationTabBean;
 import com.example.administrator.jipinshop.bean.FollowBean;
@@ -230,7 +231,7 @@ public interface APIService {
      * 判断用户是否收藏此文章或者商品
      */
     @GET("qualityshop-api/api/collect")
-    Observable<SuccessBean> isCollect(@QueryMap Map<String,String> param);
+    Observable<SnapSelectBean> isCollect(@QueryMap Map<String,String> param);
 
     /**
      * 添加收藏
@@ -308,4 +309,11 @@ public interface APIService {
      */
     @GET("qualityshop-api/evalWay/selectList")
     Observable<EvaluationListBean> evaluationList(@Query("categoryId")String categoryId , @Query("page") String page, @Query("userId")String userId);
+
+    /**
+     * 评测详情
+     */
+    @GET("qualityshop-api/evalWay/selectById")
+    Observable<EvaluationDetailBean> evaluationDetail(@Query("evalWayId") String evalWayId);
+
 }

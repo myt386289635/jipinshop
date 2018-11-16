@@ -462,7 +462,7 @@ public class ShoppingDetailActivity extends BaseActivity implements ShoppingComm
      * 查询是否收藏 成功回调
      */
     @Override
-    public void onSucIsCollect(SuccessBean successBean) {
+    public void onSucIsCollect(SnapSelectBean successBean) {
         if(successBean.getCode() == 200){
             isCollect = true;
             mBinding.detailFavor.setImageResource(R.mipmap.score_sel);

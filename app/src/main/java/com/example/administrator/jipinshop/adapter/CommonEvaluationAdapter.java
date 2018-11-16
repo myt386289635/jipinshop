@@ -76,7 +76,9 @@ public class CommonEvaluationAdapter extends RecyclerView.Adapter {
                         return;
                     }else{
                         //点击跳转到评测详情
-                        mContext.startActivity(new Intent(mContext, EvaluationDetailActivity.class));
+                        mContext.startActivity(new Intent(mContext, EvaluationDetailActivity.class)
+                                .putExtra("id",mList.get(position - 1).getEvalWayId())
+                        );
                     }
                 });
 

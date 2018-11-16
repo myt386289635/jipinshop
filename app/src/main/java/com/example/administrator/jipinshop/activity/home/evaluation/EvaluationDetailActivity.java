@@ -8,7 +8,6 @@ import android.os.Handler;
 import android.os.Looper;
 import android.os.Message;
 import android.support.annotation.Nullable;
-import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
@@ -24,15 +23,25 @@ import com.example.administrator.jipinshop.MyApplication;
 import com.example.administrator.jipinshop.R;
 import com.example.administrator.jipinshop.activity.commenlist.CommenListActivity;
 import com.example.administrator.jipinshop.base.DaggerBaseActivityComponent;
+import com.example.administrator.jipinshop.bean.CommentBean;
+import com.example.administrator.jipinshop.bean.EvaluationDetailBean;
+import com.example.administrator.jipinshop.bean.SnapSelectBean;
+import com.example.administrator.jipinshop.bean.SuccessBean;
 import com.example.administrator.jipinshop.databinding.ActivityEvaluationDetailBinding;
+import com.example.administrator.jipinshop.fragment.foval.FovalFragment;
+import com.example.administrator.jipinshop.util.ClickUtil;
 import com.example.administrator.jipinshop.util.ShareUtils;
 import com.example.administrator.jipinshop.util.WeakRefHandler;
 import com.example.administrator.jipinshop.view.dialog.ProgressDialogView;
 import com.example.administrator.jipinshop.view.dialog.ShareBoardDialog;
+import com.example.administrator.jipinshop.view.glide.imageloder.ImageManager;
 import com.example.administrator.jipinshop.view.goodview.GoodView;
 import com.gyf.barlibrary.ImmersionBar;
+import com.trello.rxlifecycle2.components.support.RxAppCompatActivity;
 import com.umeng.socialize.UMShareAPI;
 import com.umeng.socialize.bean.SHARE_MEDIA;
+
+import org.greenrobot.eventbus.EventBus;
 
 import javax.inject.Inject;
 
@@ -41,7 +50,7 @@ import javax.inject.Inject;
  * @create 2018/11/14
  * @Describe 评测详情
  */
-public class EvaluationDetailActivity extends AppCompatActivity implements View.OnClickListener, ShareBoardDialog.onShareListener {
+public class EvaluationDetailActivity extends RxAppCompatActivity implements View.OnClickListener, ShareBoardDialog.onShareListener, EvaluationDetailView {
 
     @Inject
     EvaluationDetailPresenter mPresenter;
@@ -62,6 +71,14 @@ public class EvaluationDetailActivity extends AppCompatActivity implements View.
     };
     private Handler handler = new WeakRefHandler(mCallback, Looper.getMainLooper());
 
+    /**
+     * 标志：是否点赞过此商品  false:没有
+     */
+    private boolean isSnap = false;
+    /**
+     * 标志：是否收藏过此商品 false:没有
+     */
+    private boolean isCollect = false;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -75,6 +92,7 @@ public class EvaluationDetailActivity extends AppCompatActivity implements View.
         mImmersionBar.transparentStatusBar()
                 .statusBarDarkFont(true, 0f)
                 .init();
+        mPresenter.setView(this);
         initView();
     }
 
@@ -110,9 +128,15 @@ public class EvaluationDetailActivity extends AppCompatActivity implements View.
                 }
             }
         });
-        mBinding.webView.loadUrl("http://192.168.5.136:8080/ueditor/161628719039.html");
-
         mGoodView = new GoodView(this);
+
+        mPresenter.initDate(getIntent().getStringExtra("id"),this.bindToLifecycle());
+        //判断是否收藏过该商品
+        mPresenter.isCollect(getIntent().getStringExtra("id"),this.bindToLifecycle());
+        //判断是否点赞过该商品
+        mPresenter.snapSelect(getIntent().getStringExtra("id"),this.bindToLifecycle());
+        //获取评论列表
+        mPresenter.comment(getIntent().getStringExtra("id"),this.bindToLifecycle());
     }
 
     @Override
@@ -143,9 +167,22 @@ public class EvaluationDetailActivity extends AppCompatActivity implements View.
                 finish();
                 break;
             case R.id.detail_good:
-                mGoodView.setText("+1");
-                mGoodView.setTextColor(getResources().getColor(R.color.color_E31436));
-                mGoodView.show(view);
+                if (ClickUtil.isFastDoubleClick(1000)) {
+                    Toast.makeText(this, "您点击太快了，请休息会再点", Toast.LENGTH_SHORT).show();
+                    return;
+                }else{
+                    if(isSnap){
+                        //点赞过了
+                        mDialog = (new ProgressDialogView()).createLoadingDialog(this, "正在加载...");
+                        mDialog.show();
+                        mPresenter.snapDelete(getIntent().getStringExtra("id"),this.bindToLifecycle());
+                    }else {
+                        //没有点赞
+                        mDialog = (new ProgressDialogView()).createLoadingDialog(this, "正在加载...");
+                        mDialog.show();
+                        mPresenter.snapInsert(view,getIntent().getStringExtra("id"),this.bindToLifecycle());
+                    }
+                }
                 break;
             case R.id.bottom_share:
                 if (mShareBoardDialog == null) {
@@ -157,12 +194,27 @@ public class EvaluationDetailActivity extends AppCompatActivity implements View.
                 }
                 break;
             case R.id.bottom_favorLayout:
-
+                if (ClickUtil.isFastDoubleClick(1000)) {
+                    Toast.makeText(this, "您点击太快了，请休息会再点", Toast.LENGTH_SHORT).show();
+                    return;
+                }else{
+                    if(isCollect){
+                        //收藏过了
+                        mDialog = (new ProgressDialogView()).createLoadingDialog(this, "正在加载...");
+                        mDialog.show();
+                        mPresenter.collectDelete(getIntent().getStringExtra("id"),this.bindToLifecycle());
+                    }else {
+                        //没有收藏
+                        mDialog = (new ProgressDialogView()).createLoadingDialog(this, "正在加载...");
+                        mDialog.show();
+                        mPresenter.collectInsert(getIntent().getStringExtra("id"),this.bindToLifecycle());
+                    }
+                }
                 break;
             case R.id.bottom_commen:
                 startActivity(new Intent(this, CommenListActivity.class)
                         .putExtra("position",-1)
-//                        .putExtra("id",goodsId)
+                        .putExtra("id",getIntent().getStringExtra("id"))
                 );
                 break;
             case R.id.bottom_buy:
@@ -183,6 +235,171 @@ public class EvaluationDetailActivity extends AppCompatActivity implements View.
         UMShareAPI.get(this).onActivityResult(requestCode, resultCode, data);
     }
 
+    /**
+     * 数据请求成功
+     */
+    @Override
+    public void onSuccess(EvaluationDetailBean bean) {
+        ImageManager.displayImage(bean.getGoodsEvalWay().getImgId(),mBinding.detailImageTitle,0,0);
+        mBinding.webView.loadDataWithBaseURL(null,
+                bean.getGoodsEvalWay().getContent(),
+                "text/html", "utf-8", null);
+        mBinding.evaTitle.setText(bean.getGoodsEvalWay().getEvalWayName());
+
+    }
+    /**
+     * 数据请求失败
+     */
+    @Override
+    public void onFile(String error) {
+        if (mDialog != null && mDialog.isShowing()) {
+            mDialog.dismiss();
+        }
+        Toast.makeText(this, error, Toast.LENGTH_SHORT).show();
+        initError(R.mipmap.qs_404, "页面出错", "程序猿正在赶来的路上");
+    }
+
+    /**
+     * 查询是否收藏过该文章
+     */
+    @Override
+    public void onSucIsCollect(SnapSelectBean successBean) {
+        if(successBean.getCode() == 200){
+            isCollect = true;
+            mBinding.bottomFavor.setImageResource(R.mipmap.tab_favor_sel);
+            mBinding.bottomFavorNum.setText(successBean.getCount() + "");
+        }else if(successBean.getCode() == 400){
+            isCollect = false;
+            mBinding.bottomFavor.setImageResource(R.mipmap.tab_favor_nor);
+            mBinding.bottomFavorNum.setText(successBean.getCount() + "");
+        }else {
+            isCollect = false;
+            mBinding.bottomFavor.setImageResource(R.mipmap.tab_favor_nor);
+            mBinding.bottomFavorNum.setText("0");
+            Toast.makeText(this, successBean.getMsg(), Toast.LENGTH_SHORT).show();
+        }
+    }
+    /**
+     * 查询是否收藏过该文章 失败回调
+     */
+    @Override
+    public void onFileIsCollect(String error) {
+        isCollect = false;
+        mBinding.bottomFavor.setImageResource(R.mipmap.tab_favor_nor);
+        mBinding.bottomFavorNum.setText("0");
+        Toast.makeText(this, "获取收藏信息失败", Toast.LENGTH_SHORT).show();
+    }
+    /**
+     * 查询是否点赞过该文章
+     */
+    @Override
+    public void onSucIsSnap(SnapSelectBean snapSelectBean) {
+        if(snapSelectBean.getCode() == 200){
+            isSnap = true;
+            mBinding.detailGoodTv.setTextColor(getResources().getColor(R.color.color_E31436));
+            mBinding.detailGoodTv.setText(snapSelectBean.getCount() + "");
+        }else if(snapSelectBean.getCode() == 400){
+            isSnap = false;
+            mBinding.detailGoodTv.setTextColor(getResources().getColor(R.color.color_ACACAC));
+            mBinding.detailGoodTv.setText(snapSelectBean.getCount() + "");
+        }else {
+            isSnap = false;
+            mBinding.detailGoodTv.setTextColor(getResources().getColor(R.color.color_ACACAC));
+            mBinding.detailGoodTv.setText("0");
+            Toast.makeText(this, snapSelectBean.getMsg(), Toast.LENGTH_SHORT).show();
+        }
+    }
+    /**
+     * 查询是否点赞过该文章 失败回调
+     */
+    @Override
+    public void onFileIsSnap(String error) {
+        isSnap = false;
+        mBinding.detailGoodTv.setTextColor(getResources().getColor(R.color.color_ACACAC));
+        mBinding.detailGoodTv.setText("0");
+        Toast.makeText(this, "获取点赞信息失败", Toast.LENGTH_SHORT).show();
+    }
+    /**
+     * 查询该文章的评论数量
+     */
+    @Override
+    public void onSucComment(CommentBean commentBean) {
+        mBinding.bottomCommenNum.setText(commentBean.getCount() + "");
+    }
+    /**
+     * 查询该文章的评论数量  失败回调
+     */
+    @Override
+    public void onFileComment(String error) {
+        mBinding.bottomCommenNum.setText("0");
+        Toast.makeText(this, error, Toast.LENGTH_SHORT).show();
+    }
+
+    /**
+     * 添加收藏  成功回调
+     */
+    @Override
+    public void onSucCollectInsert(SuccessBean successBean) {
+        if (mDialog != null && mDialog.isShowing()) {
+            mDialog.dismiss();
+        }
+        isCollect = true;
+        mBinding.bottomFavor.setImageResource(R.mipmap.tab_favor_sel);
+        mBinding.bottomFavorNum.setText(Integer.valueOf(mBinding.bottomFavorNum.getText().toString()) + 1 + "");
+    }
+    /**
+     * 删除收藏  成功回调
+     */
+    @Override
+    public void onSucCollectDelete(SuccessBean successBean) {
+        if (mDialog != null && mDialog.isShowing()) {
+            mDialog.dismiss();
+        }
+        isCollect = false;
+        mBinding.bottomFavor.setImageResource(R.mipmap.nav_favor);
+        mBinding.bottomFavorNum.setText(Integer.valueOf(mBinding.bottomFavorNum.getText().toString()) - 1 + "");
+        EventBus.getDefault().post(FovalFragment.CollectResher);
+    }
+    /**
+     * 添加、删除收藏  失败回调
+     */
+    @Override
+    public void onFileCollectDelete(String error) {
+        if (mDialog != null && mDialog.isShowing()) {
+            mDialog.dismiss();
+        }
+        Toast.makeText(this, error, Toast.LENGTH_SHORT).show();
+    }
+
+    /**
+     * 添加点赞成功
+     */
+    @Override
+    public void onSucSnapInsert(View view, SuccessBean successBean) {
+        if (mDialog != null && mDialog.isShowing()) {
+            mDialog.dismiss();
+        }
+        mGoodView.setText("+1");
+        mGoodView.setTextColor(getResources().getColor(R.color.color_E31436));
+        mGoodView.show(view);
+        isSnap = true;
+        mBinding.detailGoodTv.setTextColor(getResources().getColor(R.color.color_E31436));
+        mBinding.detailGoodTv.setText( (Integer.valueOf(mBinding.detailGoodTv.getText().toString()) + 1 )+ "");
+    }
+
+    /**
+     * 删除点赞成功
+     */
+    @Override
+    public void onSucSnapDelete(SuccessBean successBean) {
+        if (mDialog != null && mDialog.isShowing()) {
+            mDialog.dismiss();
+        }
+        isSnap = false;
+        mBinding.detailGoodTv.setTextColor(getResources().getColor(R.color.color_ACACAC));
+        mBinding.detailGoodTv.setText( (Integer.valueOf(mBinding.detailGoodTv.getText().toString()) - 1 )+ "");
+    }
+
     public class WebViewJavaScriptFunction {
         /**
          * 高度
@@ -198,5 +415,12 @@ public class EvaluationDetailActivity extends AppCompatActivity implements View.
             handler.sendMessage(msg);
 
         }
+    }
+
+    public void initError(int id, String title, String content) {
+        mBinding.inClude.qsNet.setVisibility(View.VISIBLE);
+        mBinding.inClude.errorImage.setBackgroundResource(id);
+        mBinding.inClude.errorTitle.setText(title);
+        mBinding.inClude.errorContent.setText(content);
     }
 }
