@@ -191,6 +191,7 @@ public class FindDetailActivity extends AppCompatActivity implements View.OnClic
             case R.id.bottom_commen:
                 startActivity(new Intent(this, CommenListActivity.class)
                                 .putExtra("position",-1)
+                                .putExtra("type","2")
 //                        .putExtra("id",goodsId)
                 );
                 break;

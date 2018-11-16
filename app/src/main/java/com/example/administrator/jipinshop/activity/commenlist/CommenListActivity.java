@@ -243,8 +243,15 @@ public class CommenListActivity extends BaseActivity implements CommenListAdapte
                         initSets();
                     }
                 }
-                EventBus.getDefault().post(new CommenBus(CommenListActivity.commentResher));
-                EventBus.getDefault().post(new EvaluationBus(getIntent().getStringExtra("id"),commentBean.getCount()));
+                if (getIntent().getStringExtra("type").equals("3")){
+                    //表示从评测进来的
+                    EventBus.getDefault().post(new EvaluationBus(getIntent().getStringExtra("id"),commentBean.getCount()));
+                }else if(getIntent().getStringExtra("type").equals("2")){
+                    //表示从发现进来的
+                }else {
+                    //表示从商品进来的。
+                    EventBus.getDefault().post(new CommenBus(CommenListActivity.commentResher));
+                }
             } else {
                 int i = mList.size();
                 mList.addAll(commentBean.getList());

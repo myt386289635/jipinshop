@@ -339,6 +339,7 @@ public class ShoppingDetailActivity extends BaseActivity implements ShoppingComm
         startActivity(new Intent(this, CommenListActivity.class)
                 .putExtra("position",pos)
                 .putExtra("id",goodsId)
+                .putExtra("type","1")
         );
     }
 
@@ -776,6 +777,7 @@ public class ShoppingDetailActivity extends BaseActivity implements ShoppingComm
                 startActivity(new Intent(this, CommenListActivity.class)
                         .putExtra("position",-1)
                         .putExtra("id",goodsId)
+                        .putExtra("type","1")
                 );
                 break;
             case R.id.content_attention:
