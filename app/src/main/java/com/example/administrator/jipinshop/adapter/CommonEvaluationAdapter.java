@@ -29,6 +29,11 @@ public class CommonEvaluationAdapter extends RecyclerView.Adapter {
 
     private List<EvaluationListBean.ListBean> mList;
     private Context mContext;
+    private OnClickItem mOnClickItem;
+
+    public void setOnClickItem(OnClickItem onClickItem) {
+        mOnClickItem = onClickItem;
+    }
 
     public CommonEvaluationAdapter(List<EvaluationListBean.ListBean> list, Context context) {
         mList = list;
@@ -94,6 +99,19 @@ public class CommonEvaluationAdapter extends RecyclerView.Adapter {
                 }else {
                     contentViewHolder.content_time.setText(mList.get(position -1).getShowTime());
                 }
+                contentViewHolder.content_attention.setOnClickListener(v -> {
+                    if (mList.get(position -1).getConcernNum() == 0) {
+                        //添加关注
+                        if(mOnClickItem != null){
+                            mOnClickItem.onAttenInsItem(mList.get(position -1).getUserId(),position -1);
+                        }
+                    }else {
+                        //删除关注
+                        if(mOnClickItem != null){
+                            mOnClickItem.onAttenDecItem(mList.get(position -1).getUserId(),position -1);
+                        }
+                    }
+                });
                 break;
         }
     }
@@ -146,5 +164,10 @@ public class CommonEvaluationAdapter extends RecyclerView.Adapter {
             content_lookNum = itemView.findViewById(R.id.content_lookNum);
             content_title = itemView.findViewById(R.id.content_title);
         }
+    }
+
+    public interface OnClickItem{
+        void onAttenInsItem(String attentionUserId,int pos);
+        void onAttenDecItem(String attentionUserId,int pos);
     }
 }

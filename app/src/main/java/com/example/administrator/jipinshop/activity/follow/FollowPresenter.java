@@ -97,7 +97,7 @@ public class FollowPresenter {
      * 取消关注
      */
     public void concerDelete(TextView textView, int pos, Dialog dialog, String concerId, LifecycleTransformer<SuccessBean> transformer){
-        mRepository.concerDelete(concerId)
+        mRepository.concernDelete(concerId)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .compose(transformer)

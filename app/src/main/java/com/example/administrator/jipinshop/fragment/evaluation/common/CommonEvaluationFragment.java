@@ -1,5 +1,7 @@
 package com.example.administrator.jipinshop.fragment.evaluation.common;
 
+import android.app.Dialog;
+import android.content.Intent;
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
@@ -13,13 +15,16 @@ import com.aspsine.swipetoloadlayout.OnLoadMoreListener;
 import com.aspsine.swipetoloadlayout.OnRefreshListener;
 import com.blankj.utilcode.util.SPUtils;
 import com.example.administrator.jipinshop.R;
+import com.example.administrator.jipinshop.activity.login.LoginActivity;
 import com.example.administrator.jipinshop.adapter.CommonEvaluationAdapter;
 import com.example.administrator.jipinshop.base.DBBaseFragment;
 import com.example.administrator.jipinshop.bean.EvaluationListBean;
 import com.example.administrator.jipinshop.bean.EvaluationTabBean;
+import com.example.administrator.jipinshop.bean.SuccessBean;
 import com.example.administrator.jipinshop.databinding.FragmentEvaluationCommonBinding;
 import com.example.administrator.jipinshop.fragment.evaluation.EvaluationFragment;
 import com.example.administrator.jipinshop.util.sp.CommonDate;
+import com.example.administrator.jipinshop.view.dialog.ProgressDialogView;
 import com.google.gson.Gson;
 
 import org.greenrobot.eventbus.EventBus;
@@ -30,7 +35,7 @@ import java.util.List;
 
 import javax.inject.Inject;
 
-public class CommonEvaluationFragment extends DBBaseFragment implements OnRefreshListener, CommonEvaluationView, OnLoadMoreListener {
+public class CommonEvaluationFragment extends DBBaseFragment implements OnRefreshListener, CommonEvaluationView, OnLoadMoreListener, CommonEvaluationAdapter.OnClickItem {
 
     public static final String ONE = "1"; //该页为精选榜
     public static final String TWO = "2"; //该页为个护健康
@@ -50,6 +55,7 @@ public class CommonEvaluationFragment extends DBBaseFragment implements OnRefres
     private int page = 0;
     private Boolean refersh = true;
     private EvaluationListBean bean;//本地数据
+    private Dialog dialog;
 
     public static CommonEvaluationFragment getInstance(String type) {
         CommonEvaluationFragment fragment = new CommonEvaluationFragment();
@@ -104,6 +110,7 @@ public class CommonEvaluationFragment extends DBBaseFragment implements OnRefres
             }
         }
         mAdapter = new CommonEvaluationAdapter(mList, getContext());
+        mAdapter.setOnClickItem(this);
         mBinding.recyclerView.setAdapter(mAdapter);
 
         mPresenter.solveScoll(mBinding.recyclerView, mBinding.swipeToLoad);
@@ -195,6 +202,42 @@ public class CommonEvaluationFragment extends DBBaseFragment implements OnRefres
         }
     }
 
+    @Override
+    public void concerDelSuccess(SuccessBean successBean,int pos) {
+        if(dialog != null && dialog.isShowing()){
+            dialog.dismiss();
+        }
+        for (int i = 0; i < mList.size(); i++) {
+            if(mList.get(pos).getUserId().equals(mList.get(i).getUserId())){
+                mList.get(i).setConcernNum(0);
+                mList.get(i).getUserShopmember().setFansCount(mList.get(i).getUserShopmember().getFansCount() - 1);
+            }
+        }
+        mAdapter.notifyDataSetChanged();
+    }
+
+    @Override
+    public void concerInsSuccess(SuccessBean successBean,int pos) {
+        if(dialog != null && dialog.isShowing()){
+            dialog.dismiss();
+        }
+        for (int i = 0; i < mList.size(); i++) {
+            if (mList.get(pos).getUserId().equals(mList.get(i).getUserId())) {
+                mList.get(i).setConcernNum(1);
+                mList.get(i).getUserShopmember().setFansCount(mList.get(i).getUserShopmember().getFansCount() + 1);
+            }
+        }
+        mAdapter.notifyDataSetChanged();
+    }
+
+    @Override
+    public void concerFaile(String error) {
+        if(dialog != null && dialog.isShowing()){
+            dialog.dismiss();
+        }
+        Toast.makeText(getContext(), error, Toast.LENGTH_SHORT).show();
+    }
+
     public void setDate(EvaluationListBean evaluationListBean) {
         if (getArguments().getString("type").equals(ONE)) {
             SPUtils.getInstance(CommonDate.NETCACHE).put(CommonDate.CommonEvaluationFragmentDATA1, new Gson().toJson(evaluationListBean));
@@ -278,5 +321,33 @@ public class CommonEvaluationFragment extends DBBaseFragment implements OnRefres
         page++;
         refersh = false;
         mPresenter.getDate(id, page + "", this.bindToLifecycle());
+    }
+
+    /**
+     * 添加关注
+     */
+    @Override
+    public void onAttenInsItem(String attentionUserId, int pos) {
+        if (!SPUtils.getInstance(CommonDate.USER).getBoolean(CommonDate.userLogin, false)) {
+            startActivity(new Intent(getContext(), LoginActivity.class));
+            return;
+        }
+        dialog = (new ProgressDialogView()).createLoadingDialog(getContext(), "请求中...");
+        dialog.show();
+        mPresenter.concernInsert(attentionUserId,pos,this.bindToLifecycle());
+    }
+
+    /**
+     * 删除关注
+     */
+    @Override
+    public void onAttenDecItem(String attentionUserId, int pos) {
+        if (!SPUtils.getInstance(CommonDate.USER).getBoolean(CommonDate.userLogin, false)) {
+            startActivity(new Intent(getContext(), LoginActivity.class));
+            return;
+        }
+        dialog = (new ProgressDialogView()).createLoadingDialog(getContext(), "请求中...");
+        dialog.show();
+        mPresenter.concernDelete(attentionUserId,pos,this.bindToLifecycle());
     }
 }

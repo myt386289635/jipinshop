@@ -1,6 +1,7 @@
 package com.example.administrator.jipinshop.fragment.evaluation.common;
 
 import com.example.administrator.jipinshop.bean.EvaluationListBean;
+import com.example.administrator.jipinshop.bean.SuccessBean;
 
 /**
  * @author 莫小婷
@@ -11,4 +12,8 @@ public interface CommonEvaluationView {
 
     void onSuccess(EvaluationListBean evaluationListBean);
     void onFile(String error);
+
+    void concerDelSuccess(SuccessBean successBean,int pos);
+    void concerInsSuccess(SuccessBean successBean,int pos);
+    void concerFaile(String error);
 }

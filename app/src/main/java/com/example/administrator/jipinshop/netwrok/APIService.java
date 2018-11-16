@@ -147,9 +147,8 @@ public interface APIService {
     /**
      * 取消关注
      */
-    @POST("qualityshop-api/api/concerDelete")
-    @FormUrlEncoded
-    Observable<SuccessBean> concerDelete(@Field("concerId") String concerId);
+    @GET("qualityshop-api/api/concernDelete")
+    Observable<SuccessBean> concernDelete(@Query("userId") String userId,@Query("attentionUserId") String attentionUserId);
 
     /**
      * 一键补签
@@ -161,9 +160,9 @@ public interface APIService {
     /**
      * 关注
      */
-    @POST("qualityshop-api/api/concerInsert")
+    @POST("qualityshop-api/api/concernInsert")
     @FormUrlEncoded
-    Observable<SuccessBean> concerInsert(@Field("userId") String userId,@Field("attentionUserId") String attentionUserId);
+    Observable<SuccessBean> concernInsert(@Field("userId") String userId,@Field("attentionUserId") String attentionUserId);
 
     /**
      * 抽奖结果

@@ -4,6 +4,7 @@ import android.support.v7.widget.RecyclerView;
 
 import com.aspsine.swipetoloadlayout.SwipeToLoadLayout;
 import com.example.administrator.jipinshop.bean.EvaluationListBean;
+import com.example.administrator.jipinshop.bean.SuccessBean;
 import com.example.administrator.jipinshop.netwrok.Repository;
 import com.example.administrator.jipinshop.view.glide.imageloder.ImageManager;
 import com.trello.rxlifecycle2.LifecycleTransformer;
@@ -82,6 +83,56 @@ public class CommonEvaluationPresenter {
                 }, throwable -> {
                     if(mView != null){
                         mView.onFile(throwable.getMessage());
+                    }
+                });
+    }
+
+    /**
+     * 取消关注
+     */
+    public void concernDelete(String attentionUserId, int pos, LifecycleTransformer<SuccessBean> transformer){
+        mRepository.concernDelete(attentionUserId)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .compose(transformer)
+                .subscribe(successBean -> {
+                    if(successBean.getCode() == 200){
+                        if(mView  != null){
+                            mView.concerDelSuccess(successBean,pos);
+                        }
+                    }else {
+                        if(mView != null){
+                            mView.concerFaile(successBean.getMsg());
+                        }
+                    }
+                }, throwable -> {
+                    if(mView != null){
+                        mView.concerFaile(throwable.getMessage());
+                    }
+                });
+    }
+
+    /**
+     * 添加关注
+     */
+    public void concernInsert(String attentionUserId,  int pos,LifecycleTransformer<SuccessBean> transformer){
+        mRepository.concernInsert(attentionUserId)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .compose(transformer)
+                .subscribe(successBean -> {
+                    if(successBean.getCode() == 200){
+                        if(mView  != null){
+                            mView.concerInsSuccess(successBean,pos);
+                        }
+                    }else {
+                        if(mView != null){
+                            mView.concerFaile(successBean.getMsg());
+                        }
+                    }
+                }, throwable -> {
+                    if(mView != null){
+                        mView.concerFaile(throwable.getMessage());
                     }
                 });
     }

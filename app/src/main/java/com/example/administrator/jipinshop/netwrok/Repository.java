@@ -152,8 +152,8 @@ public class Repository {
     /**
      * 取消关注
      */
-    public  Observable<SuccessBean> concerDelete(String concerId){
-        return mAPIService.concerDelete(concerId);
+    public  Observable<SuccessBean> concernDelete(String attentionUserId){
+        return mAPIService.concernDelete(SPUtils.getInstance(CommonDate.USER).getString(CommonDate.userId),attentionUserId);
     }
 
     /**
@@ -164,10 +164,10 @@ public class Repository {
     }
 
     /**
-     * 关注
+     * 添加关注
      */
-    public Observable<SuccessBean> concerInsert(String attentionUserId){
-        return mAPIService.concerInsert(SPUtils.getInstance(CommonDate.USER).getString(CommonDate.userId),attentionUserId);
+    public Observable<SuccessBean> concernInsert(String attentionUserId){
+        return mAPIService.concernInsert(SPUtils.getInstance(CommonDate.USER).getString(CommonDate.userId),attentionUserId);
     }
 
     /**
