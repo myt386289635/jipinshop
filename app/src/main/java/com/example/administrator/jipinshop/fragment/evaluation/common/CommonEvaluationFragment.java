@@ -9,11 +9,13 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
+import com.aspsine.swipetoloadlayout.OnLoadMoreListener;
 import com.aspsine.swipetoloadlayout.OnRefreshListener;
 import com.blankj.utilcode.util.SPUtils;
 import com.example.administrator.jipinshop.R;
 import com.example.administrator.jipinshop.adapter.CommonEvaluationAdapter;
 import com.example.administrator.jipinshop.base.DBBaseFragment;
+import com.example.administrator.jipinshop.bean.EvaluationListBean;
 import com.example.administrator.jipinshop.bean.EvaluationTabBean;
 import com.example.administrator.jipinshop.databinding.FragmentEvaluationCommonBinding;
 import com.example.administrator.jipinshop.fragment.evaluation.EvaluationFragment;
@@ -28,7 +30,7 @@ import java.util.List;
 
 import javax.inject.Inject;
 
-public class CommonEvaluationFragment extends DBBaseFragment implements OnRefreshListener {
+public class CommonEvaluationFragment extends DBBaseFragment implements OnRefreshListener, CommonEvaluationView, OnLoadMoreListener {
 
     public static final String ONE = "1"; //该页为精选榜
     public static final String TWO = "2"; //该页为个护健康
@@ -40,11 +42,14 @@ public class CommonEvaluationFragment extends DBBaseFragment implements OnRefres
     CommonEvaluationPresenter mPresenter;
 
     private FragmentEvaluationCommonBinding mBinding;
-    private List<String> mList;
+    private List<EvaluationListBean.ListBean> mList;
     private CommonEvaluationAdapter mAdapter;
 
     private Boolean once = true;
     private String id = "0";//数据id
+    private int page = 0;
+    private Boolean refersh = true;
+    private EvaluationListBean bean;//本地数据
 
     public static CommonEvaluationFragment getInstance(String type) {
         CommonEvaluationFragment fragment = new CommonEvaluationFragment();
@@ -60,10 +65,31 @@ public class CommonEvaluationFragment extends DBBaseFragment implements OnRefres
         if (isVisibleToUser && once) {
             if (!getArguments().getString("type").equals(ONE)) {
                 //缓存数据
-                for (int i = 0; i < 10; i++) {
-                    mList.add("");
+                if (getArguments().getString("type").equals(TWO)) {
+                    if(!TextUtils.isEmpty(SPUtils.getInstance(CommonDate.NETCACHE).getString(CommonDate.CommonEvaluationFragmentDATA2,""))){
+                        bean = new Gson().fromJson(SPUtils.getInstance(CommonDate.NETCACHE).getString(CommonDate.CommonEvaluationFragmentDATA2),EvaluationListBean.class);
+                        mList.addAll(bean.getList());
+                        mAdapter.notifyDataSetChanged();
+                    }
+                }else if (getArguments().getString("type").equals(THREE)) {
+                    if(!TextUtils.isEmpty(SPUtils.getInstance(CommonDate.NETCACHE).getString(CommonDate.CommonEvaluationFragmentDATA3,""))){
+                        bean = new Gson().fromJson(SPUtils.getInstance(CommonDate.NETCACHE).getString(CommonDate.CommonEvaluationFragmentDATA3),EvaluationListBean.class);
+                        mList.addAll(bean.getList());
+                        mAdapter.notifyDataSetChanged();
+                    }
+                }else if (getArguments().getString("type").equals(FORE)) {
+                    if(!TextUtils.isEmpty(SPUtils.getInstance(CommonDate.NETCACHE).getString(CommonDate.CommonEvaluationFragmentDATA4,""))){
+                        bean = new Gson().fromJson(SPUtils.getInstance(CommonDate.NETCACHE).getString(CommonDate.CommonEvaluationFragmentDATA4),EvaluationListBean.class);
+                        mList.addAll(bean.getList());
+                        mAdapter.notifyDataSetChanged();
+                    }
+                }else if (getArguments().getString("type").equals(FIVE)) {
+                    if(!TextUtils.isEmpty(SPUtils.getInstance(CommonDate.NETCACHE).getString(CommonDate.CommonEvaluationFragmentDATA5,""))){
+                        bean = new Gson().fromJson(SPUtils.getInstance(CommonDate.NETCACHE).getString(CommonDate.CommonEvaluationFragmentDATA5),EvaluationListBean.class);
+                        mList.addAll(bean.getList());
+                        mAdapter.notifyDataSetChanged();
+                    }
                 }
-                mAdapter.notifyDataSetChanged();
                 mBinding.swipeToLoad.setRefreshing(true);
                 once = false;
             }
@@ -72,11 +98,9 @@ public class CommonEvaluationFragment extends DBBaseFragment implements OnRefres
 
     @Override
     public void onRefresh() {
-        if (mBinding.swipeToLoad != null && mBinding.swipeToLoad.isRefreshing()) {
-            mBinding.swipeToLoad.setRefreshing(false);
-        }
-        Toast.makeText(getContext(), id, Toast.LENGTH_SHORT).show();
-        mAdapter.notifyDataSetChanged();
+        page = 0;
+        refersh = true;
+        mPresenter.getDate(id,page + "",this.bindToLifecycle());
     }
 
     @Override
@@ -89,13 +113,15 @@ public class CommonEvaluationFragment extends DBBaseFragment implements OnRefres
     public void initView() {
         mBaseFragmentComponent.inject(this);
         EventBus.getDefault().register(this);
+        mPresenter.setView(this);
 
         mBinding.recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         mList = new ArrayList<>();
         //缓存数据
         if (getArguments().getString("type").equals(ONE)) {
-            for (int i = 0; i < 10; i++) {
-                mList.add("");
+            if(!TextUtils.isEmpty(SPUtils.getInstance(CommonDate.NETCACHE).getString(CommonDate.CommonEvaluationFragmentDATA1,""))){
+                bean = new Gson().fromJson(SPUtils.getInstance(CommonDate.NETCACHE).getString(CommonDate.CommonEvaluationFragmentDATA1),EvaluationListBean.class);
+                mList.addAll(bean.getList());
             }
         }
         mAdapter = new CommonEvaluationAdapter(mList, getContext());
@@ -103,6 +129,7 @@ public class CommonEvaluationFragment extends DBBaseFragment implements OnRefres
 
         mPresenter.solveScoll(mBinding.recyclerView, mBinding.swipeToLoad);
         mBinding.swipeToLoad.setOnRefreshListener(this);
+        mBinding.swipeToLoad.setOnLoadMoreListener(this);
     }
 
     @Override
@@ -134,5 +161,120 @@ public class CommonEvaluationFragment extends DBBaseFragment implements OnRefres
                 mBinding.swipeToLoad.setRefreshing(true);
             }
         }
+    }
+
+    /**
+     * 数据成功回调
+     * @param evaluationListBean
+     */
+    @Override
+    public void onSuccess(EvaluationListBean evaluationListBean) {
+        if(refersh){
+            stopResher();
+            setDate(evaluationListBean);//本地缓存
+            if(evaluationListBean.getList()!= null && evaluationListBean.getList().size() != 0){
+                mBinding.netClude.qsNet.setVisibility(View.GONE);
+                mBinding.recyclerView.setVisibility(View.VISIBLE);
+                mList.clear();
+                mList.addAll(evaluationListBean.getList());
+                mAdapter.notifyDataSetChanged();
+            }else {
+                initError(R.mipmap.qs_404, "页面出错", "程序猿正在赶来的路上");
+                mBinding.recyclerView.setVisibility(View.GONE);
+            }
+        }else {
+            stopLoading();
+            if(evaluationListBean.getList()!= null && evaluationListBean.getList().size() != 0){
+                mList.addAll(evaluationListBean.getList());
+                mAdapter.notifyDataSetChanged();
+            }else {
+                page--;
+                Toast.makeText(getContext(), "已经是最后一页了", Toast.LENGTH_SHORT).show();
+            }
+        }
+    }
+
+    /**
+     * 数据失败回调
+     * @param error
+     */
+    @Override
+    public void onFile(String error) {
+        if(refersh){
+            stopResher();
+            if (bean == null || bean.getList() == null || bean.getList().size() == 0){
+                initError(R.mipmap.qs_net, "网络出错", "哇哦，网络出错了，换个姿势下滑页面试试");
+                mBinding.recyclerView.setVisibility(View.GONE);
+            }else {
+                Toast.makeText(getContext(), error, Toast.LENGTH_SHORT).show();
+            }
+        }else {
+            stopLoading();
+            Toast.makeText(getContext(), error, Toast.LENGTH_SHORT).show();
+        }
+    }
+
+    public void setDate(EvaluationListBean evaluationListBean){
+        if (getArguments().getString("type").equals(ONE)) {
+            SPUtils.getInstance(CommonDate.NETCACHE).put(CommonDate.CommonEvaluationFragmentDATA1,new Gson().toJson(evaluationListBean));
+        } else if (getArguments().getString("type").equals(TWO)) {
+            SPUtils.getInstance(CommonDate.NETCACHE).put(CommonDate.CommonEvaluationFragmentDATA2,new Gson().toJson(evaluationListBean));
+        } else if (getArguments().getString("type").equals(THREE)) {
+            SPUtils.getInstance(CommonDate.NETCACHE).put(CommonDate.CommonEvaluationFragmentDATA3,new Gson().toJson(evaluationListBean));
+        } else if (getArguments().getString("type").equals(FORE)) {
+            SPUtils.getInstance(CommonDate.NETCACHE).put(CommonDate.CommonEvaluationFragmentDATA4,new Gson().toJson(evaluationListBean));
+        } else if (getArguments().getString("type").equals(FIVE)) {
+            SPUtils.getInstance(CommonDate.NETCACHE).put(CommonDate.CommonEvaluationFragmentDATA5,new Gson().toJson(evaluationListBean));
+        }
+    }
+
+    /**
+     * 错误页面
+     */
+    public void initError(int id, String title, String content) {
+        mBinding.netClude.qsNet.setVisibility(View.VISIBLE);
+        mBinding.netClude.errorImage.setBackgroundResource(id);
+        mBinding.netClude.errorTitle.setText(title);
+        mBinding.netClude.errorContent.setText(content);
+    }
+
+    /**
+     * 停止刷新
+     */
+    public void stopResher(){
+        if (mBinding.swipeToLoad != null && mBinding.swipeToLoad.isRefreshing()) {
+            if(!mBinding.swipeToLoad.isRefreshEnabled()){
+                mBinding.swipeToLoad.setRefreshEnabled(true);
+                mBinding.swipeToLoad.setRefreshing(false);
+                mBinding.swipeToLoad.setRefreshEnabled(false);
+            }else {
+                mBinding.swipeToLoad.setRefreshing(false);
+            }
+        }
+    }
+
+    /**
+     * 停止加载
+     */
+    public void stopLoading(){
+        if (mBinding.swipeToLoad != null && mBinding.swipeToLoad.isLoadingMore()) {
+            if(!mBinding.swipeToLoad.isLoadingMore()){
+                mBinding.swipeToLoad.setLoadMoreEnabled(true);
+                mBinding.swipeToLoad.setLoadingMore(false);
+                mBinding.swipeToLoad.setLoadMoreEnabled(false);
+            }else {
+                mBinding.swipeToLoad.setLoadingMore(false);
+            }
+        }
+    }
+
+    /**
+     * 加载
+     */
+    @Override
+    public void onLoadMore() {
+        page++;
+        refersh = false;
+        mPresenter.getDate(id,page + "",this.bindToLifecycle());
     }
 }

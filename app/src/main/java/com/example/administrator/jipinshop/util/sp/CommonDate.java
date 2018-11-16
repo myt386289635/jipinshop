@@ -25,6 +25,11 @@ public class CommonDate {
     public static final String KitchenFragmentDATA = "KitchenFragment";
     public static final String HouseholdFragmentDATA = "HouseholdFragment";
     public static final String ElectricityFragmentDATA = "ElectricityFragment";
+    public static final String CommonEvaluationFragmentDATA1 = "CommonEvaluationFragment1";
+    public static final String CommonEvaluationFragmentDATA2 = "CommonEvaluationFragment2";
+    public static final String CommonEvaluationFragmentDATA3 = "CommonEvaluationFragment3";
+    public static final String CommonEvaluationFragmentDATA4 = "CommonEvaluationFragment4";
+    public static final String CommonEvaluationFragmentDATA5 = "CommonEvaluationFragment5";
 
 
     //用户数据表（sp文件名：user）

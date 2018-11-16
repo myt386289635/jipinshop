@@ -3,6 +3,7 @@ package com.example.administrator.jipinshop.netwrok;
 
 import com.example.administrator.jipinshop.bean.CommentInsertBean;
 import com.example.administrator.jipinshop.bean.ElectricityFragmentBean;
+import com.example.administrator.jipinshop.bean.EvaluationListBean;
 import com.example.administrator.jipinshop.bean.EvaluationTabBean;
 import com.example.administrator.jipinshop.bean.FollowBean;
 import com.example.administrator.jipinshop.bean.FovalBean;
@@ -302,4 +303,10 @@ public interface APIService {
      */
     @GET("qualityshop-api/evalWay/selectCategory")
     Observable<EvaluationTabBean> evaTab();
+
+    /**
+     * 获取评测列表
+     */
+    @GET("qualityshop-api/evalWay/selectList")
+    Observable<EvaluationListBean> evaluationList(@Query("categoryId")String categoryId , @Query("page") String page, @Query("userId")String userId);
 }

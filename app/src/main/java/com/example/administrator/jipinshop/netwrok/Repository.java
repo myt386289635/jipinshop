@@ -5,6 +5,7 @@ import com.example.administrator.jipinshop.bean.AccountBean;
 import com.example.administrator.jipinshop.bean.CommentBean;
 import com.example.administrator.jipinshop.bean.CommentInsertBean;
 import com.example.administrator.jipinshop.bean.ElectricityFragmentBean;
+import com.example.administrator.jipinshop.bean.EvaluationListBean;
 import com.example.administrator.jipinshop.bean.EvaluationTabBean;
 import com.example.administrator.jipinshop.bean.FollowBean;
 import com.example.administrator.jipinshop.bean.FovalBean;
@@ -38,6 +39,8 @@ import javax.inject.Inject;
 
 import io.reactivex.Observable;
 import okhttp3.MultipartBody;
+import retrofit2.http.GET;
+import retrofit2.http.Query;
 
 public class Repository {
 
@@ -321,4 +324,12 @@ public class Repository {
     public Observable<EvaluationTabBean> evaTab(){
         return mAPIService.evaTab();
     }
+
+    /**
+     * 获取评测列表
+     */
+    public Observable<EvaluationListBean> evaluationList(String categoryId ,String page){
+        return mAPIService.evaluationList(categoryId,page,SPUtils.getInstance(CommonDate.USER).getString(CommonDate.userId,"0"));
+    }
+
 }

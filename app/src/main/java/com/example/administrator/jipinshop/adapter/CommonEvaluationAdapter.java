@@ -3,18 +3,19 @@ package com.example.administrator.jipinshop.adapter;
 import android.content.Context;
 import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.blankj.utilcode.util.SPUtils;
 import com.example.administrator.jipinshop.MyApplication;
 import com.example.administrator.jipinshop.R;
 import com.example.administrator.jipinshop.activity.home.evaluation.EvaluationDetailActivity;
 import com.example.administrator.jipinshop.activity.login.LoginActivity;
+import com.example.administrator.jipinshop.bean.EvaluationListBean;
 import com.example.administrator.jipinshop.util.ClickUtil;
 import com.example.administrator.jipinshop.util.sp.CommonDate;
 import com.example.administrator.jipinshop.view.glide.imageloder.ImageManager;
@@ -26,10 +27,10 @@ public class CommonEvaluationAdapter extends RecyclerView.Adapter {
     private static final int HEAD = 1;
     private static final int CONTENT = 2;
 
-    private List<String> mList;
+    private List<EvaluationListBean.ListBean> mList;
     private Context mContext;
 
-    public CommonEvaluationAdapter(List<String> list, Context context) {
+    public CommonEvaluationAdapter(List<EvaluationListBean.ListBean> list, Context context) {
         mList = list;
         mContext = context;
     }
@@ -61,7 +62,7 @@ public class CommonEvaluationAdapter extends RecyclerView.Adapter {
                 ContentViewHolder contentViewHolder = (ContentViewHolder) holder;
                 ImageManager.displayRoundImage(MyApplication.imag,contentViewHolder.content_image,0,0,10);
                 ImageManager.displayCircleImage(MyApplication.imag,contentViewHolder.content_head,0,0);
-                contentViewHolder.content_title.setText("23款网红榨汁机大测评，国货居然这么能打？");
+                contentViewHolder.content_title.setText(mList.get(position - 1).getEvalWayName());
                 contentViewHolder.itemView.setOnClickListener(v -> {
                     if(!SPUtils.getInstance(CommonDate.USER).getBoolean(CommonDate.userLogin,false)){
                         mContext.startActivity(new Intent(mContext, LoginActivity.class));
@@ -74,6 +75,25 @@ public class CommonEvaluationAdapter extends RecyclerView.Adapter {
                         mContext.startActivity(new Intent(mContext, EvaluationDetailActivity.class));
                     }
                 });
+
+                contentViewHolder.content_name.setText(mList.get(position -1).getUserShopmember().getUserNickName());
+                contentViewHolder.content_actionNum.setText("粉丝数:" + mList.get(position -1).getUserShopmember().getFansCount());
+                if (mList.get(position -1).getConcernNum() == 0) {
+                    contentViewHolder.content_attention.setBackgroundResource(R.drawable.bg_attention);
+                    contentViewHolder.content_attention.setText("+关注");
+                    contentViewHolder.content_attention.setTextColor(mContext.getResources().getColor(R.color.color_E31436));
+                }else {
+                    contentViewHolder.content_attention.setBackgroundResource(R.drawable.bg_attentioned);
+                    contentViewHolder.content_attention.setText("已关注");
+                    contentViewHolder.content_attention.setTextColor(mContext.getResources().getColor(R.color.color_white));
+                }
+                contentViewHolder.content_lookNum.setText(mList.get(position -1).getVisitCount());
+                contentViewHolder.content_commentNum.setText(mList.get(position -1).getCommentNum());
+                if(TextUtils.isEmpty(mList.get(position -1).getShowTime())){
+                    contentViewHolder.content_time.setText(mList.get(position -1).getPublishTime().split(" ")[0]);
+                }else {
+                    contentViewHolder.content_time.setText(mList.get(position -1).getShowTime());
+                }
                 break;
         }
     }
@@ -89,7 +109,6 @@ public class CommonEvaluationAdapter extends RecyclerView.Adapter {
 
     @Override
     public int getItemCount() {
-        // TODO: 2018/8/1 有假数据
         return mList.size() == 0 ? 0 : mList.size() + 1;
     }
 
