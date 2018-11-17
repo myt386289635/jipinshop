@@ -372,6 +372,7 @@ public class EvaluationDetailActivity extends RxAppCompatActivity implements Vie
         isCollect = true;
         mBinding.bottomFavor.setImageResource(R.mipmap.tab_favor_sel);
         mBinding.bottomFavorNum.setText(Integer.valueOf(mBinding.bottomFavorNum.getText().toString()) + 1 + "");
+        EventBus.getDefault().post(FovalFragment.CollectResher);//刷新我的收藏列表
     }
     /**
      * 删除收藏  成功回调

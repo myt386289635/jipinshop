@@ -521,6 +521,7 @@ public class ShoppingDetailActivity extends BaseActivity implements ShoppingComm
         }
         isCollect = true;
         mBinding.detailFavor.setImageResource(R.mipmap.score_sel);
+        EventBus.getDefault().post(FovalFragment.CollectResher);//刷新我的收藏列表
     }
 
     /**

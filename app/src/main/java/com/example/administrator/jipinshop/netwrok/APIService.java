@@ -6,6 +6,7 @@ import com.example.administrator.jipinshop.bean.ElectricityFragmentBean;
 import com.example.administrator.jipinshop.bean.EvaluationDetailBean;
 import com.example.administrator.jipinshop.bean.EvaluationListBean;
 import com.example.administrator.jipinshop.bean.EvaluationTabBean;
+import com.example.administrator.jipinshop.bean.FindDetailBean;
 import com.example.administrator.jipinshop.bean.FindListBean;
 import com.example.administrator.jipinshop.bean.FollowBean;
 import com.example.administrator.jipinshop.bean.FovalBean;
@@ -328,4 +329,10 @@ public interface APIService {
      */
     @GET("qualityshop-api/findGoods/selectList")
     Observable<FindListBean> findLis(@Query("categoryId") String categoryId,@Query("page") String page,@Query("userId") String userId);
+
+    /**
+     * 发现详情
+     */
+    @GET("qualityshop-api/findGoods/selectById")
+    Observable<FindDetailBean> findDetail(@Query("findgoodsId") String findgoodsId);
 }

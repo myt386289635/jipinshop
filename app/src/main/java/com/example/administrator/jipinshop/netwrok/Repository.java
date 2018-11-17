@@ -8,6 +8,7 @@ import com.example.administrator.jipinshop.bean.ElectricityFragmentBean;
 import com.example.administrator.jipinshop.bean.EvaluationDetailBean;
 import com.example.administrator.jipinshop.bean.EvaluationListBean;
 import com.example.administrator.jipinshop.bean.EvaluationTabBean;
+import com.example.administrator.jipinshop.bean.FindDetailBean;
 import com.example.administrator.jipinshop.bean.FindListBean;
 import com.example.administrator.jipinshop.bean.FollowBean;
 import com.example.administrator.jipinshop.bean.FovalBean;
@@ -353,5 +354,10 @@ public class Repository {
         return mAPIService.findLis(categoryId,page,"0");
     }
 
-
+    /**
+     * 发现详情
+     */
+    public Observable<FindDetailBean> findDetail(String findgoodsId){
+        return mAPIService.findDetail(findgoodsId);
+    }
 }

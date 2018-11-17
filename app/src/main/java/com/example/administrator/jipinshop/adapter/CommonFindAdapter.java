@@ -50,7 +50,9 @@ public class CommonFindAdapter extends RecyclerView.Adapter<CommonFindAdapter.Vi
                 return;
             }else{
                 //点击跳转到发现详情
-                mContext.startActivity(new Intent(mContext, FindDetailActivity.class));
+                mContext.startActivity(new Intent(mContext, FindDetailActivity.class)
+                        .putExtra("id",mList.get(position).getFindgoodsId())
+                );
             }
         });
         holder.mItemName.setText(mList.get(position).getTitle());
