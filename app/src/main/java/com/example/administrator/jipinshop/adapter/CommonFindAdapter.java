@@ -10,10 +10,10 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.blankj.utilcode.util.SPUtils;
-import com.example.administrator.jipinshop.MyApplication;
 import com.example.administrator.jipinshop.R;
 import com.example.administrator.jipinshop.activity.home.find.FindDetailActivity;
 import com.example.administrator.jipinshop.activity.login.LoginActivity;
+import com.example.administrator.jipinshop.bean.FindListBean;
 import com.example.administrator.jipinshop.util.ClickUtil;
 import com.example.administrator.jipinshop.util.sp.CommonDate;
 import com.example.administrator.jipinshop.view.glide.imageloder.ImageManager;
@@ -22,10 +22,10 @@ import java.util.List;
 
 public class CommonFindAdapter extends RecyclerView.Adapter<CommonFindAdapter.ViewHolder> {
 
-    private List<String> mList;
+    private List<FindListBean.ListBean> mList;
     private Context mContext;
 
-    public CommonFindAdapter(List<String> list, Context context) {
+    public CommonFindAdapter(List<FindListBean.ListBean> list, Context context) {
         mList = list;
         mContext = context;
     }
@@ -40,7 +40,7 @@ public class CommonFindAdapter extends RecyclerView.Adapter<CommonFindAdapter.Vi
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
 
-        ImageManager.displayRoundImage("http://pi6611u5d.bkt.clouddn.com/a007a458b51141f88a15ab24e034596a",holder.mItemImage,0,0,10);
+        ImageManager.displayRoundImage(mList.get(position).getImgId(),holder.mItemImage,0,0,10);
         holder.itemView.setOnClickListener(view -> {
             if(!SPUtils.getInstance(CommonDate.USER).getBoolean(CommonDate.userLogin,false)){
                 mContext.startActivity(new Intent(mContext, LoginActivity.class));
@@ -53,11 +53,14 @@ public class CommonFindAdapter extends RecyclerView.Adapter<CommonFindAdapter.Vi
                 mContext.startActivity(new Intent(mContext, FindDetailActivity.class));
             }
         });
+        holder.mItemName.setText(mList.get(position).getTitle());
+        holder.mItemDescription.setText(mList.get(position).getSmallTitle());
+        holder.mItemTime.setText(mList.get(position).getPublishTime());
+        holder.mItemLookNum.setText(mList.get(position).getVisitCount());
     }
 
     @Override
     public int getItemCount() {
-        // TODO: 2018/8/1 有假数据
         return mList.size() == 0 ? 0 : mList.size();
     }
 

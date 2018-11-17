@@ -31,6 +31,12 @@ public class CommonDate {
     public static final String CommonEvaluationFragmentDATA3 = "CommonEvaluationFragment3";
     public static final String CommonEvaluationFragmentDATA4 = "CommonEvaluationFragment4";
     public static final String CommonEvaluationFragmentDATA5 = "CommonEvaluationFragment5";
+    public static final String CommonFindFragmentDATA1 = "CommonFindFragment1";
+    public static final String CommonFindFragmentDATA2 = "CommonFindFragment2";
+    public static final String CommonFindFragmentDATA3 = "CommonFindFragment3";
+    public static final String CommonFindFragmentDATA4 = "CommonFindFragment4";
+    public static final String CommonFindFragmentDATA5 = "CommonFindFragment5";
+
 
 
     //用户数据表（sp文件名：user）

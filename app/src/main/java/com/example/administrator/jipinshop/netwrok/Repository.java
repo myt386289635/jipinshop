@@ -8,6 +8,7 @@ import com.example.administrator.jipinshop.bean.ElectricityFragmentBean;
 import com.example.administrator.jipinshop.bean.EvaluationDetailBean;
 import com.example.administrator.jipinshop.bean.EvaluationListBean;
 import com.example.administrator.jipinshop.bean.EvaluationTabBean;
+import com.example.administrator.jipinshop.bean.FindListBean;
 import com.example.administrator.jipinshop.bean.FollowBean;
 import com.example.administrator.jipinshop.bean.FovalBean;
 import com.example.administrator.jipinshop.bean.HealthFragmentBean;
@@ -344,5 +345,13 @@ public class Repository {
     public Observable<EvaluationTabBean> findTab(){
         return mAPIService.findTab();
     }
+
+    /**
+     * 获取发现列表
+     */
+    public Observable<FindListBean> findLis(String categoryId,String page){
+        return mAPIService.findLis(categoryId,page,"0");
+    }
+
 
 }
