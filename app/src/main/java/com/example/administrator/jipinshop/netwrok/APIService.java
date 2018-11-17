@@ -225,7 +225,7 @@ public interface APIService {
      * 商品详情
      */
     @GET("qualityshop-api/api/goodsRankDetailList")
-    Observable<ShoppingDetailBean> goodsRankDetailList(@Query("goodsId") String goodsId);
+    Observable<ShoppingDetailBean> goodsRankDetailList(@Query("userId")String userId,@Query("goodsId") String goodsId);
 
     /**
      * 判断用户是否收藏此文章或者商品

@@ -15,8 +15,10 @@ import com.example.administrator.jipinshop.R;
 import com.example.administrator.jipinshop.adapter.CommonFindAdapter;
 import com.example.administrator.jipinshop.base.DBBaseFragment;
 import com.example.administrator.jipinshop.bean.EvaluationTabBean;
+import com.example.administrator.jipinshop.bean.eventbus.FindTabBus;
 import com.example.administrator.jipinshop.databinding.FragmentFindCommonBinding;
 import com.example.administrator.jipinshop.fragment.evaluation.EvaluationFragment;
+import com.example.administrator.jipinshop.fragment.find.FindFragment;
 import com.example.administrator.jipinshop.util.sp.CommonDate;
 import com.google.gson.Gson;
 
@@ -115,8 +117,8 @@ public class CommonFindFragment extends DBBaseFragment implements OnRefreshListe
     }
 
     @Subscribe
-    public void initDate(String s) {
-        if (!TextUtils.isEmpty(s) && s.equals(EvaluationFragment.tag)) {
+    public void initDate(FindTabBus findTabBus) {
+        if (findTabBus != null && findTabBus.getTag().equals(FindFragment.tag)) {
             if (!TextUtils.isEmpty(SPUtils.getInstance().getString(CommonDate.FindTab, ""))) {
                 EvaluationTabBean bean = new Gson().fromJson(SPUtils.getInstance().getString(CommonDate.FindTab), EvaluationTabBean.class);
                 if (getArguments().getString("type").equals(ONE)) {
