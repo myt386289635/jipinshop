@@ -43,4 +43,7 @@ public interface ShoppingDetailView {
 
      void onSucCommentSnapIns(int position,SuccessBean successBean);
      void onSucCommentSnapDel(int position,SuccessBean successBean);
+
+     void concerDelSuccess(SuccessBean successBean);
+     void concerInsSuccess(SuccessBean successBean);
 }

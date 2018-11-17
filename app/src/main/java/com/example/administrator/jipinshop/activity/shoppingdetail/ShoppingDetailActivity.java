@@ -34,7 +34,6 @@ import com.alibaba.baichuan.android.trade.model.OpenType;
 import com.alibaba.baichuan.android.trade.page.AlibcPage;
 import com.alibaba.baichuan.trade.biz.context.AlibcResultType;
 import com.alibaba.baichuan.trade.biz.context.AlibcTradeResult;
-import com.example.administrator.jipinshop.MyApplication;
 import com.example.administrator.jipinshop.R;
 import com.example.administrator.jipinshop.activity.commenlist.CommenListActivity;
 import com.example.administrator.jipinshop.adapter.ShoppingBannerAdapter;
@@ -48,7 +47,9 @@ import com.example.administrator.jipinshop.bean.ShoppingDetailBean;
 import com.example.administrator.jipinshop.bean.SnapSelectBean;
 import com.example.administrator.jipinshop.bean.SuccessBean;
 import com.example.administrator.jipinshop.bean.eventbus.CommenBus;
+import com.example.administrator.jipinshop.bean.eventbus.ConcerBus;
 import com.example.administrator.jipinshop.databinding.ActivityShopingDetailBinding;
+import com.example.administrator.jipinshop.fragment.evaluation.common.CommonEvaluationFragment;
 import com.example.administrator.jipinshop.fragment.foval.FovalFragment;
 import com.example.administrator.jipinshop.util.ClickUtil;
 import com.example.administrator.jipinshop.util.ShareUtils;
@@ -157,6 +158,12 @@ public class ShoppingDetailActivity extends BaseActivity implements ShoppingComm
      * 标志：是否点赞过此商品  false:没有
      */
     private boolean isSnap = false;
+
+    /**
+     * 标志开箱评测用户是否被关注过
+     */
+    private boolean isConcer = false;
+    private String attentionUserId = "";//评测用户id
 
     /**
      * 父评论id
@@ -404,8 +411,23 @@ public class ShoppingDetailActivity extends BaseActivity implements ShoppingComm
 
             //开箱评测头像
             if(shoppingDetailBean.getGoodsRankdetailEntity().getGoodsEvalWayEntity() != null){
-                ImageManager.displayCircleImage(MyApplication.imag,mBinding.detailEvaluationImage,
+                attentionUserId = shoppingDetailBean.getGoodsRankdetailEntity().getGoodsEvalWayEntity().getUserShopmember().getUserId();
+                ImageManager.displayCircleImage(shoppingDetailBean.getGoodsRankdetailEntity().getGoodsEvalWayEntity().getUserShopmember().getUserNickImg(),mBinding.detailEvaluationImage,
                         0,0);
+                mBinding.detailEvaluationName.setText(shoppingDetailBean.getGoodsRankdetailEntity().getGoodsEvalWayEntity().getUserShopmember().getUserNickName());
+                mBinding.detailEvaluationTime.setText(shoppingDetailBean.getGoodsRankdetailEntity().getGoodsEvalWayEntity().getPublishTime().split(" ")[0].replace("-","."));
+                mBinding.detailEvaluationFans.setText("粉丝数："+shoppingDetailBean.getGoodsRankdetailEntity().getGoodsEvalWayEntity().getUserShopmember().getFansCount());
+                if (shoppingDetailBean.getGoodsRankdetailEntity().getGoodsEvalWayEntity().getConcernNum() == 0) {
+                    isConcer = false;
+                    mBinding.contentAttention.setBackgroundResource(R.drawable.bg_attention);
+                    mBinding.contentAttention.setText("+关注");
+                    mBinding.contentAttention.setTextColor(getResources().getColor(R.color.color_E31436));
+                }else {
+                    isConcer = true;
+                    mBinding.contentAttention.setBackgroundResource(R.drawable.bg_attentioned);
+                    mBinding.contentAttention.setText("已关注");
+                    mBinding.contentAttention.setTextColor(getResources().getColor(R.color.color_white));
+                }
                 mBinding.detailEvaluation.loadDataWithBaseURL(null,
                         shoppingDetailBean.getGoodsRankdetailEntity().getGoodsEvalWayEntity().getContent(),
                         "text/html", "utf-8", null);
@@ -674,6 +696,39 @@ public class ShoppingDetailActivity extends BaseActivity implements ShoppingComm
     }
 
     /**
+     * 取消关注成功
+     */
+    @Override
+    public void concerDelSuccess(SuccessBean successBean) {
+        if (mDialogProgress != null && mDialogProgress.isShowing()) {
+            mDialogProgress.dismiss();
+        }
+        isConcer = false;
+        mBinding.contentAttention.setBackgroundResource(R.drawable.bg_attention);
+        mBinding.contentAttention.setText("+关注");
+        mBinding.contentAttention.setTextColor(getResources().getColor(R.color.color_E31436));
+        String num = mBinding.detailEvaluationFans.getText().toString().replace("粉丝数：" , "");
+        mBinding.detailEvaluationFans.setText("粉丝数："+ (Integer.valueOf(num) - 1));
+
+    }
+    /**
+     * 添加关注成功
+     */
+    @Override
+    public void concerInsSuccess(SuccessBean successBean) {
+        if (mDialogProgress != null && mDialogProgress.isShowing()) {
+            mDialogProgress.dismiss();
+        }
+        isConcer = true;
+        mBinding.contentAttention.setBackgroundResource(R.drawable.bg_attentioned);
+        mBinding.contentAttention.setText("已关注");
+        mBinding.contentAttention.setTextColor(getResources().getColor(R.color.color_white));
+        String num = mBinding.detailEvaluationFans.getText().toString().replace("粉丝数：" , "");
+        mBinding.detailEvaluationFans.setText("粉丝数："+ (Integer.valueOf(num) + 1));
+
+    }
+
+    /**
      * 分享
      *
      * @param share_media
@@ -782,6 +837,22 @@ public class ShoppingDetailActivity extends BaseActivity implements ShoppingComm
                 break;
             case R.id.content_attention:
                 //关注
+                if (ClickUtil.isFastDoubleClick(1000)) {
+                    Toast.makeText(this, "您点击太快了，请休息会再点", Toast.LENGTH_SHORT).show();
+                    return;
+                }else{
+                    if(isConcer){
+                        //关注过了
+                        mDialogProgress = (new ProgressDialogView()).createLoadingDialog(ShoppingDetailActivity.this, "正在加载...");
+                        mDialogProgress.show();
+                        mPresenter.concernDelete(attentionUserId,this.bindToLifecycle());
+                    }else {
+                        //没有关注
+                        mDialogProgress = (new ProgressDialogView()).createLoadingDialog(ShoppingDetailActivity.this, "正在加载...");
+                        mDialogProgress.show();
+                        mPresenter.concernInsert(attentionUserId,this.bindToLifecycle());
+                    }
+                }
                 break;
             case R.id.in_clude:
                 if(mBinding.inClude.errorTitle.getText().toString().equals("网络出错")){

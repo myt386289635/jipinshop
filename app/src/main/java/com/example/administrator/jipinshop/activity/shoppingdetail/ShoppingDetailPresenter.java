@@ -387,4 +387,55 @@ public class ShoppingDetailPresenter {
                     }
                 });
     }
+
+    /**
+     * 取消关注
+     */
+    public void concernDelete(String attentionUserId, LifecycleTransformer<SuccessBean> transformer){
+        mRepository.concernDelete(attentionUserId)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .compose(transformer)
+                .subscribe(successBean -> {
+                    if(successBean.getCode() == 200){
+                        if(mShoppingDetailView  != null){
+                            mShoppingDetailView.concerDelSuccess(successBean);
+                        }
+                    }else {
+                        if(mShoppingDetailView != null){
+                            mShoppingDetailView.onFileCollectDelete(successBean.getMsg());
+                        }
+                    }
+                }, throwable -> {
+                    if(mShoppingDetailView != null){
+                        mShoppingDetailView.onFileCollectDelete(throwable.getMessage());
+                    }
+                });
+    }
+
+    /**
+     * 添加关注
+     */
+    public void concernInsert(String attentionUserId,LifecycleTransformer<SuccessBean> transformer){
+        mRepository.concernInsert(attentionUserId)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .compose(transformer)
+                .subscribe(successBean -> {
+                    if(successBean.getCode() == 200){
+                        if(mShoppingDetailView  != null){
+                            mShoppingDetailView.concerInsSuccess(successBean);
+                        }
+                    }else {
+                        if(mShoppingDetailView != null){
+                            mShoppingDetailView.onFileCollectDelete(successBean.getMsg());
+                        }
+                    }
+                }, throwable -> {
+                    if(mShoppingDetailView != null){
+                        mShoppingDetailView.onFileCollectDelete(throwable.getMessage());
+                    }
+                });
+    }
+
 }

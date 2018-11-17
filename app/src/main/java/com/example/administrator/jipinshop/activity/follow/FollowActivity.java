@@ -18,6 +18,7 @@ import com.example.administrator.jipinshop.adapter.FollowAdapter;
 import com.example.administrator.jipinshop.base.BaseActivity;
 import com.example.administrator.jipinshop.bean.FollowBean;
 import com.example.administrator.jipinshop.bean.SuccessBean;
+import com.example.administrator.jipinshop.bean.eventbus.ConcerBus;
 import com.example.administrator.jipinshop.databinding.ActivityFollowBinding;
 import com.example.administrator.jipinshop.fragment.evaluation.common.CommonEvaluationFragment;
 import com.example.administrator.jipinshop.view.dialog.ProgressDialogView;
@@ -211,7 +212,7 @@ public class FollowActivity extends BaseActivity implements OnRefreshListener, F
      */
     @Override
     public void ConcerDelSuccess(SuccessBean successBean, int pos) {
-        EventBus.getDefault().post(CommonEvaluationFragment.REFERSH);//刷新评测首页
+        EventBus.getDefault().post(new ConcerBus(CommonEvaluationFragment.REFERSH,0,(mList.get(pos).getUserShopmember().getFansCount() - 1)+ "",mList.get(pos).getUserShopmember().getUserId()));//刷新评测首页
         if(dialog != null && dialog.isShowing()){
             dialog.dismiss();
         }
@@ -234,7 +235,7 @@ public class FollowActivity extends BaseActivity implements OnRefreshListener, F
      */
     @Override
     public void concerInsSuccess(SuccessBean successBean, int pos) {
-        EventBus.getDefault().post(CommonEvaluationFragment.REFERSH);//刷新评测首页
+        EventBus.getDefault().post(new ConcerBus(CommonEvaluationFragment.REFERSH,1,mList.get(pos).getUserShopmember().getFansCount()+ "",mList.get(pos).getUserShopmember().getUserId()));//刷新评测首页
         if(dialog != null && dialog.isShowing()){
             dialog.dismiss();
         }

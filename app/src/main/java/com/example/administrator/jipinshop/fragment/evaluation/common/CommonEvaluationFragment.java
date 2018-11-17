@@ -22,6 +22,7 @@ import com.example.administrator.jipinshop.bean.EvaluationListBean;
 import com.example.administrator.jipinshop.bean.EvaluationTabBean;
 import com.example.administrator.jipinshop.bean.SuccessBean;
 import com.example.administrator.jipinshop.bean.eventbus.EvaluationBus;
+import com.example.administrator.jipinshop.bean.eventbus.ConcerBus;
 import com.example.administrator.jipinshop.databinding.FragmentEvaluationCommonBinding;
 import com.example.administrator.jipinshop.fragment.evaluation.EvaluationFragment;
 import com.example.administrator.jipinshop.util.sp.CommonDate;
@@ -150,10 +151,6 @@ public class CommonEvaluationFragment extends DBBaseFragment implements OnRefres
             if (getArguments().getString("type").equals(ONE)) {
                 mBinding.swipeToLoad.setRefreshing(true);
             }
-        }else if(!TextUtils.isEmpty(s) && s.equals(CommonEvaluationFragment.REFERSH)){
-            if(!once){//代表第一次已经看过该页了，所以当我的关注页面取消关注时需要刷新页面
-                mBinding.swipeToLoad.setRefreshing(true);
-            }
         }
     }
 
@@ -165,6 +162,21 @@ public class CommonEvaluationFragment extends DBBaseFragment implements OnRefres
                     mList.get(i).setCommentNum(evaluationBus.getCount() + "");
                     mAdapter.notifyDataSetChanged();
                     break;
+                }
+            }
+        }
+    }
+
+    @Subscribe
+    public void concerRefresh(ConcerBus concerBus){
+        if(concerBus != null && concerBus.getString().equals(CommonEvaluationFragment.REFERSH)){
+            if(!once){//代表第一次已经看过该页了，所以当我的关注页面取消关注时需要刷新页面
+                for (int i = 0; i < mList.size(); i++) {
+                    if(mList.get(i).getUserShopmember().getUserId().equals(concerBus.getUserId())){
+                        mList.get(i).setConcernNum(concerBus.getConcerNum());
+                        mList.get(i).getUserShopmember().setFansCount(Integer.valueOf(concerBus.getFansNum()));
+                        mAdapter.notifyItemChanged( i + 1);
+                    }
                 }
             }
         }

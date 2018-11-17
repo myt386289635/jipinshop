@@ -87,17 +87,16 @@ public class CommonFindFragment extends DBBaseFragment implements OnRefreshListe
 
         mBinding.recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         mList = new ArrayList<>();
+        if(getArguments().getString("type").equals(ONE)){
+            for (int i = 0; i < 10; i++) {
+                mList.add("");
+            }
+        }
         mAdapter = new CommonFindAdapter(mList, getContext());
         mBinding.recyclerView.setAdapter(mAdapter);
 
         mPresenter.solveScoll(mBinding.recyclerView,mBinding.swipeToLoad);
         mBinding.swipeToLoad.setOnRefreshListener(this);
-        if(getArguments().getString("type").equals(ONE)){
-            for (int i = 0; i < 10; i++) {
-                mList.add("");
-            }
-            mAdapter.notifyDataSetChanged();
-        }
     }
 
     //刷新

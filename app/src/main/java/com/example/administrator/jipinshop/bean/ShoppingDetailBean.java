@@ -298,8 +298,75 @@ public class ShoppingDetailBean {
             private Object evalWayName;
             private String content;
             private String commentId;
-            private Object publishTime;
+            private String publishTime;
             private String createTime;
+            private int concernNum;
+            private UserShopmemberBean userShopmember;
+
+            public static class UserShopmemberBean {
+
+                private String userId;
+                private String userNickName;
+                private String userNickImg;
+                private String userPhone;
+                private int fansCount;
+
+                public String getUserId() {
+                    return userId;
+                }
+
+                public void setUserId(String userId) {
+                    this.userId = userId;
+                }
+
+                public String getUserNickName() {
+                    return userNickName;
+                }
+
+                public void setUserNickName(String userNickName) {
+                    this.userNickName = userNickName;
+                }
+
+                public String getUserNickImg() {
+                    return userNickImg;
+                }
+
+                public void setUserNickImg(String userNickImg) {
+                    this.userNickImg = userNickImg;
+                }
+
+                public String getUserPhone() {
+                    return userPhone;
+                }
+
+                public void setUserPhone(String userPhone) {
+                    this.userPhone = userPhone;
+                }
+
+                public int getFansCount() {
+                    return fansCount;
+                }
+
+                public void setFansCount(int fansCount) {
+                    this.fansCount = fansCount;
+                }
+            }
+
+            public int getConcernNum() {
+                return concernNum;
+            }
+
+            public void setConcernNum(int concernNum) {
+                this.concernNum = concernNum;
+            }
+
+            public UserShopmemberBean getUserShopmember() {
+                return userShopmember;
+            }
+
+            public void setUserShopmember(UserShopmemberBean userShopmember) {
+                this.userShopmember = userShopmember;
+            }
 
             public String getEvalWayId() {
                 return evalWayId;
@@ -357,11 +424,11 @@ public class ShoppingDetailBean {
                 this.commentId = commentId;
             }
 
-            public Object getPublishTime() {
+            public String getPublishTime() {
                 return publishTime;
             }
 
-            public void setPublishTime(Object publishTime) {
+            public void setPublishTime(String publishTime) {
                 this.publishTime = publishTime;
             }
 
