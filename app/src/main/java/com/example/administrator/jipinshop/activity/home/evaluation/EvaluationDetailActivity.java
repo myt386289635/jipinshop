@@ -366,26 +366,26 @@ public class EvaluationDetailActivity extends RxAppCompatActivity implements Vie
      */
     @Override
     public void onSucCollectInsert(SuccessBean successBean) {
+        EventBus.getDefault().post(FovalFragment.CollectResher);//刷新我的收藏列表
         if (mDialog != null && mDialog.isShowing()) {
             mDialog.dismiss();
         }
         isCollect = true;
         mBinding.bottomFavor.setImageResource(R.mipmap.tab_favor_sel);
         mBinding.bottomFavorNum.setText(Integer.valueOf(mBinding.bottomFavorNum.getText().toString()) + 1 + "");
-        EventBus.getDefault().post(FovalFragment.CollectResher);//刷新我的收藏列表
     }
     /**
      * 删除收藏  成功回调
      */
     @Override
     public void onSucCollectDelete(SuccessBean successBean) {
+        EventBus.getDefault().post(FovalFragment.CollectResher);
         if (mDialog != null && mDialog.isShowing()) {
             mDialog.dismiss();
         }
         isCollect = false;
         mBinding.bottomFavor.setImageResource(R.mipmap.nav_favor);
         mBinding.bottomFavorNum.setText(Integer.valueOf(mBinding.bottomFavorNum.getText().toString()) - 1 + "");
-        EventBus.getDefault().post(FovalFragment.CollectResher);
     }
     /**
      * 添加、删除收藏  失败回调

@@ -516,12 +516,12 @@ public class ShoppingDetailActivity extends BaseActivity implements ShoppingComm
      */
     @Override
     public void onSucCollectInsert(SuccessBean successBean) {
+        EventBus.getDefault().post(FovalFragment.CollectResher);//刷新我的收藏列表
         if (mDialogProgress != null && mDialogProgress.isShowing()) {
             mDialogProgress.dismiss();
         }
         isCollect = true;
         mBinding.detailFavor.setImageResource(R.mipmap.score_sel);
-        EventBus.getDefault().post(FovalFragment.CollectResher);//刷新我的收藏列表
     }
 
     /**
@@ -529,12 +529,12 @@ public class ShoppingDetailActivity extends BaseActivity implements ShoppingComm
      */
     @Override
     public void onSucCollectDelete(SuccessBean successBean) {
+        EventBus.getDefault().post(FovalFragment.CollectResher);
         if (mDialogProgress != null && mDialogProgress.isShowing()) {
             mDialogProgress.dismiss();
         }
         isCollect = false;
         mBinding.detailFavor.setImageResource(R.mipmap.nav_favor);
-        EventBus.getDefault().post(FovalFragment.CollectResher);
     }
 
     /**

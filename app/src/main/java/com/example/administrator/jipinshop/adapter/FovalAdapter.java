@@ -51,6 +51,7 @@ public class FovalAdapter extends RecyclerView.Adapter<FovalAdapter.ViewHolder>{
             holder.item_price.setVisibility(View.VISIBLE);
             holder.item_priceOld.setVisibility(View.VISIBLE);
             holder.item_resouce.setVisibility(View.VISIBLE);
+            holder.item_time.setVisibility(View.GONE);
 
             int count = (mList.get(position).getGoodsRanklist().getGoodstypeList().size() >= 4 ? 4 : mList.get(position).getGoodsRanklist().getGoodstypeList().size());
             if(count != 0){
@@ -84,20 +85,24 @@ public class FovalAdapter extends RecyclerView.Adapter<FovalAdapter.ViewHolder>{
             holder.item_price.setVisibility(View.GONE);
             holder.item_priceOld.setVisibility(View.GONE);
             holder.item_resouce.setVisibility(View.GONE);
+            holder.item_time.setVisibility(View.VISIBLE);
 
             holder.item_name.setText(mList.get(position).getGoodsEvalway().getEvalWayName());
             holder.item_lookNum.setText(mList.get(position).getGoodsEvalway().getVisitCount());
             ImageManager.displayRoundImage(mList.get(position).getGoodsEvalway().getImgId(),holder.item_image,0,0,10);
+            holder.item_time.setText(mList.get(position).getGoodsEvalway().getPublishTime());
         }else {
             //发现
             holder.item_tags.setVisibility(View.GONE);
             holder.item_price.setVisibility(View.GONE);
             holder.item_priceOld.setVisibility(View.GONE);
             holder.item_resouce.setVisibility(View.GONE);
+            holder.item_time.setVisibility(View.VISIBLE);
 
-            holder.item_name.setText(mList.get(position).getGoodsEvalway().getEvalWayName());
-            holder.item_lookNum.setText(mList.get(position).getGoodsEvalway().getVisitCount());
-            ImageManager.displayRoundImage(mList.get(position).getGoodsEvalway().getImgId(),holder.item_image,0,0,10);
+            holder.item_name.setText(mList.get(position).getGoodsFindGoods().getTitle());
+            holder.item_lookNum.setText(mList.get(position).getGoodsFindGoods().getVisitCount());
+            ImageManager.displayRoundImage(mList.get(position).getGoodsFindGoods().getImgId(),holder.item_image,0,0,10);
+            holder.item_time.setText(mList.get(position).getGoodsFindGoods().getPublishTime());
         }
         holder.itemView.setOnClickListener(v -> {
             if(mOnLayout != null){
@@ -120,6 +125,7 @@ public class FovalAdapter extends RecyclerView.Adapter<FovalAdapter.ViewHolder>{
         private TextViewDel item_priceOld;
         private TextView item_lookNum;
         private TextView item_resouce;
+        private TextView item_time;
 
         public ViewHolder(View itemView) {
             super(itemView);
@@ -130,6 +136,7 @@ public class FovalAdapter extends RecyclerView.Adapter<FovalAdapter.ViewHolder>{
             item_priceOld = itemView.findViewById(R.id.item_priceOld);
             item_lookNum = itemView.findViewById(R.id.item_lookNum);
             item_resouce = itemView.findViewById(R.id.item_price_oldText);
+            item_time = itemView.findViewById(R.id.item_time);
         }
     }
 

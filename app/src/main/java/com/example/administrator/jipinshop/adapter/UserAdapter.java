@@ -2,6 +2,7 @@ package com.example.administrator.jipinshop.adapter;
 
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,12 +13,11 @@ import android.widget.TextView;
 import com.bumptech.glide.Glide;
 import com.example.administrator.jipinshop.MyApplication;
 import com.example.administrator.jipinshop.R;
+import com.example.administrator.jipinshop.bean.UserPageBean;
 import com.example.administrator.jipinshop.view.glide.BlurTransformation;
 import com.example.administrator.jipinshop.view.glide.imageloder.ImageManager;
 
 import java.util.List;
-
-
 
 /**
  * @author 莫小婷
@@ -28,16 +28,37 @@ public class UserAdapter extends RecyclerView.Adapter {
 
     private final int HEAD = 1;
     private final int CONTENT = 2;
+    private final int EVA = 3;
 
-    private List<String> mList;
+    private List<UserPageBean.ListBean> mList;
     private Context mContext;
     private OnListener mOnListener;
+    private String headImage = "";
+    private String name = "";
+    private int fans = 0;
+    private int isfans= 0;
+
+    public void setHeadImage(String headImage) {
+        this.headImage = headImage;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public void setFans(int fans) {
+        this.fans = fans;
+    }
+
+    public void setIsfans(int isfans) {
+        this.isfans = isfans;
+    }
 
     public void setOnListener(OnListener onListener) {
         mOnListener = onListener;
     }
 
-    public UserAdapter(List<String> list, Context context) {
+    public UserAdapter(List<UserPageBean.ListBean> list, Context context) {
         mList = list;
         mContext = context;
     }
@@ -46,7 +67,9 @@ public class UserAdapter extends RecyclerView.Adapter {
     public int getItemViewType(int position) {
         if(position == 0){
             return HEAD;
-        }else {
+        } else if(mList.get(position - 1).getSmallTitle().equals("0")){
+            return EVA;
+        } else {
             return CONTENT;
         }
     }
@@ -60,9 +83,14 @@ public class UserAdapter extends RecyclerView.Adapter {
                holder = new HeadViewHolder(headView);
                break;
            case CONTENT:
-               View contentView = LayoutInflater.from(mContext).inflate(R.layout.item_user_content,parent,false);
-               holder = new ContentViewHolder(contentView);
+               View contentView = LayoutInflater.from(mContext).inflate(R.layout.item_user_find,parent,false);
+               holder = new FindViewHolder(contentView);
                break;
+           case EVA:
+               View evaView = LayoutInflater.from(mContext).inflate(R.layout.item_user_content,parent,false);
+               holder = new EvaViewHolder(evaView);
+               break;
+
        }
         return holder;
     }
@@ -72,35 +100,61 @@ public class UserAdapter extends RecyclerView.Adapter {
         int type = getItemViewType(position);
         switch (type){
             case HEAD:
-
                 HeadViewHolder headViewHolder = (HeadViewHolder) holder;
                 headViewHolder.setStatusBarHight(mContext);
-                headViewHolder.title_back.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                         if(mOnListener != null){
-                             mOnListener.onFinish();
-                         }
-                    }
+                headViewHolder.title_back.setOnClickListener(v -> {
+                     if(mOnListener != null){
+                         mOnListener.onFinish();
+                     }
                 });
-                ImageManager.displayCircleImage(MyApplication.imag,headViewHolder.user_headImage,0,0);
-//                ImageManager.displayImage(MyApplication.imag,headViewHolder.user_image,0,0);
+                ImageManager.displayCircleImage(headImage,headViewHolder.user_headImage,0,0);
                 Glide.with(mContext)
-                        .load(MyApplication.imag)
+                        .load(headImage)
                         .crossFade(500)
                         .bitmapTransform(new BlurTransformation(mContext,5,4))  // “23”：设置模糊度(在0.0到25.0之间)，默认”25";"4":图片缩放比例,默认“1”。
                         .into(headViewHolder.user_image);
+                headViewHolder.user_name.setText(name);
+                headViewHolder.user_attentionNum.setText("粉丝数:" + fans);
+                if(isfans == 0){
+                    headViewHolder.item_attention.setBackgroundResource(R.drawable.bg_attention);
+                    headViewHolder.item_attention.setTextColor(mContext.getResources().getColor(R.color.color_E31436));
+                    headViewHolder.item_attention.setText("+关注");
+                }else {
+                    headViewHolder.item_attention.setBackgroundResource(R.drawable.bg_my_attention);
+                    headViewHolder.item_attention.setTextColor(mContext.getResources().getColor(R.color.color_ACACAC));
+                    headViewHolder.item_attention.setText("已关注");
+                }
+                break;
+            case EVA:
+                EvaViewHolder contentViewHolder = (EvaViewHolder) holder;
+                ImageManager.displayRoundImage(mList.get(position -1).getImg(),contentViewHolder.content_image,0,0,10);
+                contentViewHolder.content_lookNum.setText(mList.get(position -1).getVisitCount());
+                if(TextUtils.isEmpty(mList.get(position - 1).getShowTime())){
+                    contentViewHolder.content_time.setText(mList.get(position - 1).getPublishTime());
+                }else {
+                    contentViewHolder.content_time.setText(mList.get(position - 1).getShowTime());
+                }
+                contentViewHolder.content_commentNum.setText(mList.get(position - 1).getCommentNum());
+                contentViewHolder.content_title.setText(mList.get(position - 1).getTitle());
                 break;
             case CONTENT:
-                ContentViewHolder contentViewHolder = (ContentViewHolder) holder;
-                ImageManager.displayRoundImage(MyApplication.imag,contentViewHolder.content_image,0,0,10);
+                FindViewHolder findViewHolder = (FindViewHolder) holder;
+                ImageManager.displayRoundImage(mList.get(position -1).getImg(),findViewHolder.mItemImage,0,0,10);
+                findViewHolder.mItemName.setText(mList.get(position - 1).getTitle());
+                findViewHolder.mItemDescription.setText(mList.get(position -1).getSmallTitle());
+                findViewHolder.mItemLookNum.setText(mList.get(position -1).getVisitCount());
+                if(TextUtils.isEmpty(mList.get(position - 1).getShowTime())){
+                    findViewHolder.mItemTime.setText(mList.get(position - 1).getPublishTime());
+                }else {
+                    findViewHolder.mItemTime.setText(mList.get(position - 1).getShowTime());
+                }
                 break;
         }
     }
 
     @Override
     public int getItemCount() {
-        return 10 + 1;
+        return mList.size() == 0 ? 1: mList.size() + 1;
     }
 
     class HeadViewHolder extends RecyclerView.ViewHolder{
@@ -134,20 +188,38 @@ public class UserAdapter extends RecyclerView.Adapter {
         }
     }
 
-    class ContentViewHolder extends RecyclerView.ViewHolder{
+    class EvaViewHolder extends RecyclerView.ViewHolder{
 
         private ImageView content_image ;
         private TextView content_time;
         private TextView content_commentNum;
         private TextView content_lookNum;
+        private TextView content_title;
 
 
-        public ContentViewHolder(View itemView) {
+        public EvaViewHolder(View itemView) {
             super(itemView);
             content_image = itemView.findViewById(R.id.content_image);
             content_time = itemView.findViewById(R.id.content_time);
             content_commentNum = itemView.findViewById(R.id.content_commentNum);
             content_lookNum = itemView.findViewById(R.id.content_lookNum);
+            content_title = itemView.findViewById(R.id.content_title);
+        }
+    }
+
+    class FindViewHolder extends RecyclerView.ViewHolder{
+        private ImageView mItemImage;
+        private TextView mItemName;
+        private TextView mItemDescription;
+        private TextView mItemTime;
+        private TextView mItemLookNum;
+        public FindViewHolder(View itemView) {
+            super(itemView);
+            mItemImage = itemView.findViewById(R.id.item_image);
+            mItemName = itemView.findViewById(R.id.item_name);
+            mItemDescription = itemView.findViewById(R.id.item_description);
+            mItemTime = itemView.findViewById(R.id.item_time);
+            mItemLookNum = itemView.findViewById(R.id.item_lookNum);
         }
     }
 

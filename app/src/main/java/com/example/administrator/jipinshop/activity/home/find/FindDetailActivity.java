@@ -37,6 +37,7 @@ import com.example.administrator.jipinshop.bean.CommentBean;
 import com.example.administrator.jipinshop.bean.FindDetailBean;
 import com.example.administrator.jipinshop.bean.SnapSelectBean;
 import com.example.administrator.jipinshop.bean.SuccessBean;
+import com.example.administrator.jipinshop.bean.eventbus.FindBus;
 import com.example.administrator.jipinshop.databinding.ActivityFindDetailBinding;
 import com.example.administrator.jipinshop.fragment.foval.FovalFragment;
 import com.example.administrator.jipinshop.util.ClickUtil;
@@ -51,6 +52,7 @@ import com.umeng.socialize.UMShareAPI;
 import com.umeng.socialize.bean.SHARE_MEDIA;
 
 import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -116,6 +118,7 @@ public class FindDetailActivity extends RxAppCompatActivity implements View.OnCl
         mImmersionBar.transparentStatusBar()
                 .statusBarDarkFont(true, 0f)
                 .init();
+        EventBus.getDefault().register(this);
         initView();
     }
 
@@ -185,6 +188,7 @@ public class FindDetailActivity extends RxAppCompatActivity implements View.OnCl
 
     @Override
     protected void onDestroy() {
+        EventBus.getDefault().unregister(this);
         AlibcTradeSDK.destory();
         stopThread = false;
         mImmersionBar.destroy();
@@ -375,26 +379,26 @@ public class FindDetailActivity extends RxAppCompatActivity implements View.OnCl
      */
     @Override
     public void onSucCollectInsert(SuccessBean successBean) {
+        EventBus.getDefault().post(FovalFragment.CollectResher);//刷新我的收藏列表
         if (mDialog != null && mDialog.isShowing()) {
             mDialog.dismiss();
         }
         isCollect = true;
         mBinding.bottomFavor.setImageResource(R.mipmap.tab_favor_sel);
         mBinding.bottomFavorNum.setText(Integer.valueOf(mBinding.bottomFavorNum.getText().toString()) + 1 + "");
-        EventBus.getDefault().post(FovalFragment.CollectResher);//刷新我的收藏列表
     }
     /**
      * 删除收藏成功回调
      */
     @Override
     public void onSucCollectDelete(SuccessBean successBean) {
+        EventBus.getDefault().post(FovalFragment.CollectResher);//刷新我的收藏列表
         if (mDialog != null && mDialog.isShowing()) {
             mDialog.dismiss();
         }
         isCollect = false;
         mBinding.bottomFavor.setImageResource(R.mipmap.nav_favor);
         mBinding.bottomFavorNum.setText(Integer.valueOf(mBinding.bottomFavorNum.getText().toString()) - 1 + "");
-        EventBus.getDefault().post(FovalFragment.CollectResher);//刷新我的收藏列表
     }
     /**
      * 失败回调
@@ -519,6 +523,14 @@ public class FindDetailActivity extends RxAppCompatActivity implements View.OnCl
         super.onRestart();
         if(mDialog != null && mDialog.isShowing()){
             mDialog.dismiss();
+        }
+    }
+
+    //获取评论列表
+    @Subscribe
+    public void commentResher(FindBus findBus){
+        if(findBus != null){
+            mBinding.bottomCommenNum.setText(findBus.getCount() + "");
         }
     }
 }

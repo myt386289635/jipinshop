@@ -24,6 +24,7 @@ import com.example.administrator.jipinshop.bean.CommentInsertBean;
 import com.example.administrator.jipinshop.bean.SuccessBean;
 import com.example.administrator.jipinshop.bean.eventbus.CommenBus;
 import com.example.administrator.jipinshop.bean.eventbus.EvaluationBus;
+import com.example.administrator.jipinshop.bean.eventbus.FindBus;
 import com.example.administrator.jipinshop.databinding.ActivityCommenlistBinding;
 import com.example.administrator.jipinshop.util.sp.CommonDate;
 import com.example.administrator.jipinshop.view.dialog.ProgressDialogView;
@@ -248,6 +249,7 @@ public class CommenListActivity extends BaseActivity implements CommenListAdapte
                     EventBus.getDefault().post(new EvaluationBus(getIntent().getStringExtra("id"),commentBean.getCount()));
                 }else if(getIntent().getStringExtra("type").equals("2")){
                     //表示从发现进来的
+                    EventBus.getDefault().post(new FindBus(commentBean.getCount()));
                 }else {
                     //表示从商品进来的。
                     EventBus.getDefault().post(new CommenBus(CommenListActivity.commentResher));

@@ -29,6 +29,7 @@ import com.example.administrator.jipinshop.bean.SupplementBean;
 import com.example.administrator.jipinshop.bean.SystemMessageBean;
 import com.example.administrator.jipinshop.bean.TabBean;
 import com.example.administrator.jipinshop.bean.UnMessageBean;
+import com.example.administrator.jipinshop.bean.UserPageBean;
 import com.example.administrator.jipinshop.bean.UserInfoBean;
 import com.example.administrator.jipinshop.bean.CommentBean;
 import com.example.administrator.jipinshop.bean.json.LoginJson;
@@ -335,4 +336,10 @@ public interface APIService {
      */
     @GET("qualityshop-api/findGoods/selectById")
     Observable<FindDetailBean> findDetail(@Query("findgoodsId") String findgoodsId);
+
+    /**
+     * 个人主页
+     */
+    @GET("qualityshop-api/api/selectConcern")
+    Observable<UserPageBean> userPage(@Query("attentionUserId") String attentionUserId,@Query("page") String page);
 }

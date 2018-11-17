@@ -92,7 +92,13 @@ public class FollowActivity extends BaseActivity implements OnRefreshListener, F
      */
     @Override
     public void onItem(int pos) {
-        startActivity(new Intent(this, UserActivity.class));
+        startActivity(new Intent(this, UserActivity.class)
+                .putExtra("name",mList.get(pos).getUserShopmember().getUserNickName())
+                .putExtra("id",mList.get(pos).getUserShopmember().getUserId())
+                .putExtra("image",mList.get(pos).getUserShopmember().getUserNickImg())
+                .putExtra("fans",mList.get(pos).getUserShopmember().getFansCount())
+                .putExtra("isFans",mList.get(pos).getFans())
+        );
     }
 
     /**

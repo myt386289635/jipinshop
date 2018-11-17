@@ -78,7 +78,7 @@
                 android:layout_toRightOf="@id/user_headImage"
                 android:layout_alignBottom="@id/user_headImage"
                 android:textSize="13sp"
-                android:text="粉丝数:3762"
+                android:text="粉丝数:0"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"/>
 

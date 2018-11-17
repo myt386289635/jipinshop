@@ -72,6 +72,15 @@ public class FovalBean {
         private String state;
         private GoodsRanklistBean goodsRanklist;
         private GoodsEvalwayBean goodsEvalway;
+        private GoodsFindGoodsBean goodsFindGoods;
+
+        public GoodsFindGoodsBean getGoodsFindGoods() {
+            return goodsFindGoods;
+        }
+
+        public void setGoodsFindGoods(GoodsFindGoodsBean goodsFindGoods) {
+            this.goodsFindGoods = goodsFindGoods;
+        }
 
         public String getId() {
             return id;
@@ -488,6 +497,145 @@ public class FovalBean {
 
             public void setStatus(String status) {
                 this.status = status;
+            }
+        }
+
+        public static class GoodsFindGoodsBean {
+
+            private String findgoodsId;
+            private String userId;
+            private String title;
+            private String smallTitle;
+            private String imgId;
+            private String publishTime;
+            private Object showTime;
+            private String visitCount;
+            private Object commentNum;
+            private String content;
+            private String createTime;
+            private String categoryId;
+            private int status;
+            private Object concernNum;
+            private Object userShopmember;
+
+            public String getFindgoodsId() {
+                return findgoodsId;
+            }
+
+            public void setFindgoodsId(String findgoodsId) {
+                this.findgoodsId = findgoodsId;
+            }
+
+            public String getUserId() {
+                return userId;
+            }
+
+            public void setUserId(String userId) {
+                this.userId = userId;
+            }
+
+            public String getTitle() {
+                return title;
+            }
+
+            public void setTitle(String title) {
+                this.title = title;
+            }
+
+            public String getSmallTitle() {
+                return smallTitle;
+            }
+
+            public void setSmallTitle(String smallTitle) {
+                this.smallTitle = smallTitle;
+            }
+
+            public String getImgId() {
+                return imgId;
+            }
+
+            public void setImgId(String imgId) {
+                this.imgId = imgId;
+            }
+
+            public String getPublishTime() {
+                return publishTime;
+            }
+
+            public void setPublishTime(String publishTime) {
+                this.publishTime = publishTime;
+            }
+
+            public Object getShowTime() {
+                return showTime;
+            }
+
+            public void setShowTime(Object showTime) {
+                this.showTime = showTime;
+            }
+
+            public String getVisitCount() {
+                return visitCount;
+            }
+
+            public void setVisitCount(String visitCount) {
+                this.visitCount = visitCount;
+            }
+
+            public Object getCommentNum() {
+                return commentNum;
+            }
+
+            public void setCommentNum(Object commentNum) {
+                this.commentNum = commentNum;
+            }
+
+            public String getContent() {
+                return content;
+            }
+
+            public void setContent(String content) {
+                this.content = content;
+            }
+
+            public String getCreateTime() {
+                return createTime;
+            }
+
+            public void setCreateTime(String createTime) {
+                this.createTime = createTime;
+            }
+
+            public String getCategoryId() {
+                return categoryId;
+            }
+
+            public void setCategoryId(String categoryId) {
+                this.categoryId = categoryId;
+            }
+
+            public int getStatus() {
+                return status;
+            }
+
+            public void setStatus(int status) {
+                this.status = status;
+            }
+
+            public Object getConcernNum() {
+                return concernNum;
+            }
+
+            public void setConcernNum(Object concernNum) {
+                this.concernNum = concernNum;
+            }
+
+            public Object getUserShopmember() {
+                return userShopmember;
+            }
+
+            public void setUserShopmember(Object userShopmember) {
+                this.userShopmember = userShopmember;
             }
         }
     }

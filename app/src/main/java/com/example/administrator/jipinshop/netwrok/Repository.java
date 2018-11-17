@@ -32,6 +32,7 @@ import com.example.administrator.jipinshop.bean.SystemMessageBean;
 import com.example.administrator.jipinshop.bean.TabBean;
 import com.example.administrator.jipinshop.bean.UnMessageBean;
 import com.example.administrator.jipinshop.bean.UserInfoBean;
+import com.example.administrator.jipinshop.bean.UserPageBean;
 import com.example.administrator.jipinshop.bean.json.LoginJson;
 import com.example.administrator.jipinshop.bean.json.PushMessageJson;
 import com.example.administrator.jipinshop.util.sp.CommonDate;
@@ -359,5 +360,12 @@ public class Repository {
      */
     public Observable<FindDetailBean> findDetail(String findgoodsId){
         return mAPIService.findDetail(findgoodsId);
+    }
+
+    /**
+     * 个人主页
+     */
+    public Observable<UserPageBean> userPage(String attentionUserId,String page){
+        return  mAPIService.userPage(attentionUserId, page);
     }
 }
