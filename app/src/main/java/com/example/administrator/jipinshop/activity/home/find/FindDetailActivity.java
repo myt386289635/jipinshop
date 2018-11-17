@@ -20,6 +20,14 @@ import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.Toast;
 
+import com.alibaba.baichuan.android.trade.AlibcTrade;
+import com.alibaba.baichuan.android.trade.AlibcTradeSDK;
+import com.alibaba.baichuan.android.trade.callback.AlibcTradeCallback;
+import com.alibaba.baichuan.android.trade.model.AlibcShowParams;
+import com.alibaba.baichuan.android.trade.model.OpenType;
+import com.alibaba.baichuan.android.trade.page.AlibcPage;
+import com.alibaba.baichuan.trade.biz.context.AlibcResultType;
+import com.alibaba.baichuan.trade.biz.context.AlibcTradeResult;
 import com.example.administrator.jipinshop.MyApplication;
 import com.example.administrator.jipinshop.R;
 import com.example.administrator.jipinshop.activity.commenlist.CommenListActivity;
@@ -45,7 +53,9 @@ import com.umeng.socialize.bean.SHARE_MEDIA;
 import org.greenrobot.eventbus.EventBus;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.inject.Inject;
 
@@ -121,8 +131,18 @@ public class FindDetailActivity extends RxAppCompatActivity implements View.OnCl
             @Override
             public boolean shouldOverrideUrlLoading(WebView view, String url) {
                 Log.e("moxiaoting", "" + url);
-                view.loadUrl(url);
-                return true;
+                if(url.contains("http://qualityshop/?")){
+                    mDialog = (new ProgressDialogView()).createLoadingDialog(FindDetailActivity.this, "");
+                    if(mDialog != null && !mDialog.isShowing()){
+                        mDialog.show();
+                    }
+                    String link = url.replace("http://qualityshop/?buyId=","");
+                    openAliHomeWeb(link);
+                    return true;
+                }else {
+                    view.loadUrl(url);
+                    return true;
+                }
             }
 
             @Override
@@ -165,6 +185,7 @@ public class FindDetailActivity extends RxAppCompatActivity implements View.OnCl
 
     @Override
     protected void onDestroy() {
+        AlibcTradeSDK.destory();
         stopThread = false;
         mImmersionBar.destroy();
         UMShareAPI.get(this).release();
@@ -458,5 +479,46 @@ public class FindDetailActivity extends RxAppCompatActivity implements View.OnCl
         mBinding.inClude.errorImage.setBackgroundResource(id);
         mBinding.inClude.errorTitle.setText(title);
         mBinding.inClude.errorContent.setText(content);
+    }
+
+    /****
+     * 跳转淘宝首页
+     */
+    public void openAliHomeWeb(String url) {
+        AlibcShowParams alibcShowParams  = new AlibcShowParams(OpenType.Native, false);
+        alibcShowParams.setClientType("taobao_scheme");
+
+        //yhhpass参数
+        Map<String, String> exParams = new HashMap<>();
+        exParams.put("isv_code", "appisvcode");
+        exParams.put("alibaba", "阿里巴巴");//自定义参数部分，可任意增删改
+
+        AlibcTrade.show(this, new AlibcPage(url), alibcShowParams, null, exParams, new AlibcTradeCallback() {
+            @Override
+            public void onTradeSuccess(AlibcTradeResult alibcTradeResult) {
+                if (alibcTradeResult.resultType.equals(AlibcResultType.TYPECART)) {
+                    //加购成功
+                    Log.e("AlibcTradeSDK", "加购成功");
+                } else if (alibcTradeResult.resultType.equals(AlibcResultType.TYPEPAY)) {
+                    //支付成功
+                    Log.e("AlibcTradeSDK", "支付成功,成功订单号为" + alibcTradeResult.payResult.paySuccessOrders);
+                }
+                Log.e("AlibcTradeSDK", "加购成功");
+                Toast.makeText(FindDetailActivity.this, "进去了", Toast.LENGTH_SHORT).show();
+            }
+
+            @Override
+            public void onFailure(int errCode, String errMsg) {
+                Log.e("AlibcTradeSDK", "电商SDK出错,错误码=" + errCode + " / 错误消息=" + errMsg);
+            }
+        });
+    }
+
+    @Override
+    protected void onRestart() {
+        super.onRestart();
+        if(mDialog != null && mDialog.isShowing()){
+            mDialog.dismiss();
+        }
     }
 }

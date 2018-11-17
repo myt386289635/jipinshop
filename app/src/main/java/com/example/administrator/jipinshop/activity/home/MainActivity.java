@@ -151,7 +151,11 @@ public class MainActivity extends AppCompatActivity implements ViewPager.OnPageC
 
     @Override
     public void onPageSelected(int i) {
-        mEvaluationFragment.getView().requestLayout();
+        if(i == 2){
+            if(mEvaluationFragment != null && mEvaluationFragment.getView() != null){
+                mEvaluationFragment.getView().requestLayout();
+            }
+        }
     }
 
     @Override
