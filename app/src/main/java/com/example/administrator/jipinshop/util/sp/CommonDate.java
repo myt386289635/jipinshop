@@ -16,6 +16,7 @@ public class CommonDate {
     public static final String FIRST = "FIRST";//是否是第一次下载
     public static final String SubTab = "SubTab";//榜单的二级菜单
     public static final String EvaluationTab = "EvaluationTab";//评测的tab
+    public static final String FindTab = "FindTab";//发现的tab
 
 
     //数据缓存表(sp文件名：netCache)

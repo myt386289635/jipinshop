@@ -316,4 +316,10 @@ public interface APIService {
     @GET("qualityshop-api/evalWay/selectById")
     Observable<EvaluationDetailBean> evaluationDetail(@Query("evalWayId") String evalWayId);
 
+    /**
+     * 获取发现tab
+     */
+    @GET("qualityshop-api/findGoods/selectCategory")
+    Observable<EvaluationTabBean> findTab();
+
 }

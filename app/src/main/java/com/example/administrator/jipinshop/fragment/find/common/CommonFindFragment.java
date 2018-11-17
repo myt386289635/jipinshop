@@ -3,15 +3,25 @@ package com.example.administrator.jipinshop.fragment.find.common;
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import com.aspsine.swipetoloadlayout.OnRefreshListener;
+import com.blankj.utilcode.util.SPUtils;
 import com.example.administrator.jipinshop.R;
 import com.example.administrator.jipinshop.adapter.CommonFindAdapter;
 import com.example.administrator.jipinshop.base.DBBaseFragment;
+import com.example.administrator.jipinshop.bean.EvaluationTabBean;
 import com.example.administrator.jipinshop.databinding.FragmentFindCommonBinding;
+import com.example.administrator.jipinshop.fragment.evaluation.EvaluationFragment;
+import com.example.administrator.jipinshop.util.sp.CommonDate;
+import com.google.gson.Gson;
+
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -37,6 +47,7 @@ public class CommonFindFragment extends DBBaseFragment implements OnRefreshListe
     private CommonFindAdapter mAdapter;
 
     private Boolean once = true;
+    private String id = "0";//数据id
 
     public static CommonFindFragment getInstance(String type) {
         CommonFindFragment fragment = new CommonFindFragment();
@@ -70,6 +81,7 @@ public class CommonFindFragment extends DBBaseFragment implements OnRefreshListe
     @Override
     public void initView() {
         mBaseFragmentComponent.inject(this);
+        EventBus.getDefault().register(this);
 
         mBinding.recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         mList = new ArrayList<>();
@@ -83,7 +95,6 @@ public class CommonFindFragment extends DBBaseFragment implements OnRefreshListe
                 mList.add("");
             }
             mAdapter.notifyDataSetChanged();
-            mBinding.swipeToLoad.setRefreshing(true);
         }
     }
 
@@ -93,6 +104,38 @@ public class CommonFindFragment extends DBBaseFragment implements OnRefreshListe
         if (mBinding.swipeToLoad != null && mBinding.swipeToLoad.isRefreshing()) {
             mBinding.swipeToLoad.setRefreshing(false);
         }
+        Toast.makeText(getContext(), id, Toast.LENGTH_SHORT).show();
         mAdapter.notifyDataSetChanged();
+    }
+
+    @Override
+    public void onDestroyView() {
+        EventBus.getDefault().unregister(this);
+        super.onDestroyView();
+    }
+
+    @Subscribe
+    public void initDate(String s) {
+        if (!TextUtils.isEmpty(s) && s.equals(EvaluationFragment.tag)) {
+            if (!TextUtils.isEmpty(SPUtils.getInstance().getString(CommonDate.FindTab, ""))) {
+                EvaluationTabBean bean = new Gson().fromJson(SPUtils.getInstance().getString(CommonDate.FindTab), EvaluationTabBean.class);
+                if (getArguments().getString("type").equals(ONE)) {
+                    id = bean.getList().get(0).getCategoryId();
+                } else if (getArguments().getString("type").equals(TWO)) {
+                    id = bean.getList().get(1).getCategoryId();
+                } else if (getArguments().getString("type").equals(THREE)) {
+                    id = bean.getList().get(2).getCategoryId();
+                } else if (getArguments().getString("type").equals(FORE)) {
+                    id = bean.getList().get(3).getCategoryId();
+                } else if (getArguments().getString("type").equals(FIVE)) {
+                    id = bean.getList().get(4).getCategoryId();
+                }
+            } else {
+                id = "0";
+            }
+            if (getArguments().getString("type").equals(ONE)) {
+                mBinding.swipeToLoad.setRefreshing(true);
+            }
+        }
     }
 }

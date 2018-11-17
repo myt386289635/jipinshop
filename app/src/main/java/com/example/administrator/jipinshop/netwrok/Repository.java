@@ -338,4 +338,11 @@ public class Repository {
         return mAPIService.evaluationDetail(evalWayId);
     }
 
+    /**
+     * 获取发现tab
+     */
+    public Observable<EvaluationTabBean> findTab(){
+        return mAPIService.findTab();
+    }
+
 }
