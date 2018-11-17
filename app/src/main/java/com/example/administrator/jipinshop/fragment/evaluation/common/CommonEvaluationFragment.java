@@ -21,8 +21,8 @@ import com.example.administrator.jipinshop.base.DBBaseFragment;
 import com.example.administrator.jipinshop.bean.EvaluationListBean;
 import com.example.administrator.jipinshop.bean.EvaluationTabBean;
 import com.example.administrator.jipinshop.bean.SuccessBean;
-import com.example.administrator.jipinshop.bean.eventbus.EvaluationBus;
 import com.example.administrator.jipinshop.bean.eventbus.ConcerBus;
+import com.example.administrator.jipinshop.bean.eventbus.EvaluationBus;
 import com.example.administrator.jipinshop.databinding.FragmentEvaluationCommonBinding;
 import com.example.administrator.jipinshop.fragment.evaluation.EvaluationFragment;
 import com.example.administrator.jipinshop.util.sp.CommonDate;
@@ -175,9 +175,9 @@ public class CommonEvaluationFragment extends DBBaseFragment implements OnRefres
                     if(mList.get(i).getUserShopmember().getUserId().equals(concerBus.getUserId())){
                         mList.get(i).setConcernNum(concerBus.getConcerNum());
                         mList.get(i).getUserShopmember().setFansCount(Integer.valueOf(concerBus.getFansNum()));
-                        mAdapter.notifyItemChanged( i + 1);
                     }
                 }
+                mAdapter.notifyDataSetChanged();
             }
         }
     }

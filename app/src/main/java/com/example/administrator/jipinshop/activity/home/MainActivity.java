@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
+import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
 import android.view.View;
@@ -37,7 +38,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements ViewPager.OnPageChangeListener {
 
     @Inject
     MainActivityPresenter mPresenter;
@@ -108,6 +109,8 @@ public class MainActivity extends AppCompatActivity {
                 startActivityForResult(new Intent(this, LoginActivity.class),100);
             }
         });
+        //主要是解决商品详情点击关注时无法刷新评测首页fragment的数据，不清楚原理是什么，但是这样解决能成功
+        mViewPager.addOnPageChangeListener(this);
     }
 
     @Override
@@ -139,5 +142,20 @@ public class MainActivity extends AppCompatActivity {
                 }
                 break;
         }
+    }
+
+    @Override
+    public void onPageScrolled(int i, float v, int i1) {
+
+    }
+
+    @Override
+    public void onPageSelected(int i) {
+        mEvaluationFragment.getView().requestLayout();
+    }
+
+    @Override
+    public void onPageScrollStateChanged(int i) {
+
     }
 }
