@@ -55,6 +55,15 @@ public class EvaluationTabBean {
         private String categoryName;
         private int categoryCode;
         private int status;
+        private String img;
+
+        public String getImg() {
+            return img;
+        }
+
+        public void setImg(String img) {
+            this.img = img;
+        }
 
         public String getCategoryId() {
             return categoryId;

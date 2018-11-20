@@ -29,6 +29,11 @@ public class CommonEvaluationAdapter extends RecyclerView.Adapter {
     private List<EvaluationListBean.ListBean> mList;
     private Context mContext;
     private OnClickItem mOnClickItem;
+    private String headImg = "";//数据head图片
+
+    public void setHeadImg(String headImg) {
+        this.headImg = headImg;
+    }
 
     public void setOnClickItem(OnClickItem onClickItem) {
         mOnClickItem = onClickItem;
@@ -60,7 +65,11 @@ public class CommonEvaluationAdapter extends RecyclerView.Adapter {
         switch (type) {
             case HEAD:
                 HeadViewHolder headViewHolder = (HeadViewHolder) holder;
-                ImageManager.displayImage("drawable://"+R.drawable.evaluating_banner,headViewHolder.mHeadImage,0,0);
+                if(TextUtils.isEmpty(headImg)){
+                    ImageManager.displayImage("drawable://"+R.drawable.evaluating_banner,headViewHolder.mHeadImage,0,0);
+                }else {
+                    ImageManager.displayImage(headImg,headViewHolder.mHeadImage,0,0);
+                }
                 break;
             case CONTENT:
                 ContentViewHolder contentViewHolder = (ContentViewHolder) holder;

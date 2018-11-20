@@ -57,6 +57,7 @@ public class CommonEvaluationFragment extends DBBaseFragment implements OnRefres
 
     private Boolean once = true;
     private String id = "0";//数据id
+    private String headImg = "";//数据head图片
     private int page = 0;
     private Boolean refersh = true;
     private EvaluationListBean bean;//本地数据
@@ -78,6 +79,7 @@ public class CommonEvaluationFragment extends DBBaseFragment implements OnRefres
                 bean = getDate(); //缓存数据
                 if (bean != null){
                     mList.addAll(bean.getList());
+                    mAdapter.setHeadImg(headImg);
                     mAdapter.notifyDataSetChanged();
                 }
                 mBinding.swipeToLoad.setRefreshing(true);
@@ -117,6 +119,7 @@ public class CommonEvaluationFragment extends DBBaseFragment implements OnRefres
         }
         mAdapter = new CommonEvaluationAdapter(mList, getContext());
         mAdapter.setOnClickItem(this);
+        mAdapter.setHeadImg(headImg);
         mBinding.recyclerView.setAdapter(mAdapter);
 
         mPresenter.solveScoll(mBinding.recyclerView, mBinding.swipeToLoad);
@@ -137,17 +140,23 @@ public class CommonEvaluationFragment extends DBBaseFragment implements OnRefres
                 EvaluationTabBean bean = new Gson().fromJson(SPUtils.getInstance().getString(CommonDate.EvaluationTab), EvaluationTabBean.class);
                 if (getArguments().getString("type").equals(ONE)) {
                     id = bean.getList().get(0).getCategoryId();
+                    headImg = bean.getList().get(0).getImg();
                 } else if (getArguments().getString("type").equals(TWO)) {
                     id = bean.getList().get(1).getCategoryId();
+                    headImg = bean.getList().get(1).getImg();
                 } else if (getArguments().getString("type").equals(THREE)) {
                     id = bean.getList().get(2).getCategoryId();
+                    headImg = bean.getList().get(2).getImg();
                 } else if (getArguments().getString("type").equals(FORE)) {
                     id = bean.getList().get(3).getCategoryId();
+                    headImg = bean.getList().get(3).getImg();
                 } else if (getArguments().getString("type").equals(FIVE)) {
                     id = bean.getList().get(4).getCategoryId();
+                    headImg = bean.getList().get(4).getImg();
                 }
             } else {
                 id = "0";
+                headImg = "";
             }
             if (getArguments().getString("type").equals(ONE)) {
                 mBinding.swipeToLoad.setRefreshing(true);
@@ -198,6 +207,7 @@ public class CommonEvaluationFragment extends DBBaseFragment implements OnRefres
                 mBinding.recyclerView.setVisibility(View.VISIBLE);
                 mList.clear();
                 mList.addAll(evaluationListBean.getList());
+                mAdapter.setHeadImg(headImg);
                 mAdapter.notifyDataSetChanged();
             } else {
                 initError(R.mipmap.qs_404, "页面出错", "程序猿正在赶来的路上");
