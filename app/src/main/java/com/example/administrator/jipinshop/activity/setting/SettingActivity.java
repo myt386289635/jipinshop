@@ -129,8 +129,10 @@ public class SettingActivity extends BaseActivity implements CleanCacheDialog.On
                 DialogUtil.LoginDialog(this, "极品城想打开您的电话", v -> diallPhone(mSettingServiceText.getText().toString()));
                 return;
             case R.id.setting_goodContainer:
-                if(!ShopJumpUtil.toMarket(this,"com.example.administrator.jipinshop",null)){
-                    Toast.makeText(this, "没有找到您手机里的应用商店，请确认", Toast.LENGTH_SHORT).show();
+                if(!ShopJumpUtil.toQQDownload(this,"com.example.administrator.jipinshop")){
+                    if(!ShopJumpUtil.toMarket(this,"com.example.administrator.jipinshop",null)){
+                        Toast.makeText(this, "没有找到您手机里的应用商店，请确认", Toast.LENGTH_SHORT).show();
+                    }
                 }
                 return;
             case R.id.setting_userContainer:
