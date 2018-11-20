@@ -19,6 +19,7 @@ import com.example.administrator.jipinshop.bean.KitchenFragmentBean;
 import com.example.administrator.jipinshop.bean.LoginBean;
 import com.example.administrator.jipinshop.bean.LuckImageBean;
 import com.example.administrator.jipinshop.bean.LuckselectBean;
+import com.example.administrator.jipinshop.bean.MemberLevelBean;
 import com.example.administrator.jipinshop.bean.PointDetailBean;
 import com.example.administrator.jipinshop.bean.RecommendFragmentBean;
 import com.example.administrator.jipinshop.bean.RecordBean;
@@ -376,4 +377,12 @@ public class Repository {
     public Observable<PointDetailBean> pointDetail(){
         return mAPIService.pointDetail(SPUtils.getInstance(CommonDate.USER).getString(CommonDate.userId));
     }
+
+    /**
+     * 获取累计积分
+     */
+    public Observable<MemberLevelBean> totalAddPoint(){
+        return mAPIService.totalAddPoint(SPUtils.getInstance(CommonDate.USER).getString(CommonDate.userId));
+    }
+
 }

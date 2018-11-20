@@ -13,6 +13,7 @@ import com.example.administrator.jipinshop.activity.home.find.FindDetailActivity
 import com.example.administrator.jipinshop.activity.info.MyInfoActivity;
 import com.example.administrator.jipinshop.activity.info.editname.EditNameActivity;
 import com.example.administrator.jipinshop.activity.info.editname.EditNamePresent;
+import com.example.administrator.jipinshop.activity.info.member.MemberLevelActivity;
 import com.example.administrator.jipinshop.activity.integral.IntegralActivity;
 import com.example.administrator.jipinshop.activity.integral.detail.IntegralDetailActivity;
 import com.example.administrator.jipinshop.activity.login.LoginActivity;
@@ -64,4 +65,5 @@ public interface BaseActivityComponent {
     void inject(SignActivity activity);
     void inject(SystemMsgDetailActivity activity);
     void inject(EvaluationDetailActivity activity);
+    void inject(MemberLevelActivity activity);
 }

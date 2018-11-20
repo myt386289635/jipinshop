@@ -1,19 +1,22 @@
 package com.example.administrator.jipinshop.activity.info.member;
 
+import android.app.Dialog;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.text.TextUtils;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.blankj.utilcode.util.SPUtils;
-import com.bumptech.glide.Glide;
-import com.example.administrator.jipinshop.MyApplication;
 import com.example.administrator.jipinshop.R;
 import com.example.administrator.jipinshop.base.BaseActivity;
+import com.example.administrator.jipinshop.bean.MemberLevelBean;
 import com.example.administrator.jipinshop.util.sp.CommonDate;
-import com.example.administrator.jipinshop.view.glide.CircleImageView;
+import com.example.administrator.jipinshop.view.dialog.ProgressDialogView;
 import com.example.administrator.jipinshop.view.glide.imageloder.ImageManager;
+
+import javax.inject.Inject;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -24,7 +27,7 @@ import butterknife.OnClick;
  * @create 2018/8/7
  * @Describe 会员中心
  */
-public class MemberLevelActivity extends BaseActivity {
+public class MemberLevelActivity extends BaseActivity implements MemberLevelView {
 
 
     @BindView(R.id.title_back)
@@ -38,11 +41,17 @@ public class MemberLevelActivity extends BaseActivity {
     @BindView(R.id.member_level)
     TextView mMemberLevel;
 
+    @Inject
+    MemberLevelPersenter mPersenter;
+    private Dialog dialog;
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_memberlevel);
+        mBaseActivityComponent.inject(this);
         mButterKnife =  ButterKnife.bind(this);
+        mPersenter.setView(this);
         mTitleTv.setText("会员中心");
         if(!TextUtils.isEmpty(SPUtils.getInstance(CommonDate.USER).getString(CommonDate.userNickImg))){
             ImageManager.displayCircleImage(SPUtils.getInstance(CommonDate.USER).getString(CommonDate.userNickImg),mMemberImage,R.drawable.rlogo,R.drawable.rlogo);
@@ -50,8 +59,9 @@ public class MemberLevelActivity extends BaseActivity {
             ImageManager.displayImage("drawable://" + R.drawable.rlogo,mMemberImage,R.drawable.rlogo,R.drawable.rlogo);
         }
         mMemberLevel.setText("v" + SPUtils.getInstance(CommonDate.USER).getString(CommonDate.userMemberGrade));
-        int str = Integer.valueOf(SPUtils.getInstance(CommonDate.USER).getInt(CommonDate.userPoint));
-        getLevel(str);
+        dialog = (new ProgressDialogView()).createLoadingDialog(this, "请求中...");
+        dialog.show();
+        mPersenter.getDate(this.bindToLifecycle());
     }
 
     @Override
@@ -82,5 +92,24 @@ public class MemberLevelActivity extends BaseActivity {
         }else if(level < 10000){
             mMemberText.setText("还需要"+(10000 - level)+"积分可升级到v5");
         }
+    }
+
+    @Override
+    public void onSuccess(MemberLevelBean bean) {
+        if(dialog != null && dialog.isShowing()){
+            dialog.dismiss();
+        }
+        int str = bean.getTotalAddPoint();
+        getLevel(str);
+    }
+
+    @Override
+    public void onFile(String error) {
+        if(dialog != null && dialog.isShowing()){
+            dialog.dismiss();
+        }
+        int str = 0;
+        getLevel(str);
+        Toast.makeText(this, error, Toast.LENGTH_SHORT).show();
     }
 }

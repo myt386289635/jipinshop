@@ -1,87 +1,60 @@
 package com.example.administrator.jipinshop.activity.integral.detail;
 
+import android.app.Dialog;
+import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
 import android.view.View;
-import android.widget.ImageView;
-import android.widget.LinearLayout;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.aspsine.swipetoloadlayout.OnRefreshListener;
-import com.aspsine.swipetoloadlayout.SwipeToLoadLayout;
 import com.example.administrator.jipinshop.R;
 import com.example.administrator.jipinshop.adapter.IntegralDetailAdapter;
 import com.example.administrator.jipinshop.base.BaseActivity;
 import com.example.administrator.jipinshop.bean.PointDetailBean;
+import com.example.administrator.jipinshop.databinding.ActivityIntegralDetailBinding;
+import com.example.administrator.jipinshop.view.dialog.ProgressDialogView;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import javax.inject.Inject;
 
-import butterknife.BindView;
-import butterknife.ButterKnife;
-
 /**
  * @author 莫小婷
  * @create 2018/8/7
  * @Describe 积分明细
  */
-public class IntegralDetailActivity extends BaseActivity implements IntegralDetailView, OnRefreshListener {
+public class IntegralDetailActivity extends BaseActivity implements IntegralDetailView, OnRefreshListener, View.OnClickListener {
     @Inject
     IntegralDetailPresenter mPresenter;
 
-    @BindView(R.id.title_back)
-    ImageView mTitleBack;
-    @BindView(R.id.title_tv)
-    TextView mTitleTv;
-    @BindView(R.id.error_image)
-    ImageView mErrorImage;
-    @BindView(R.id.error_title)
-    TextView mErrorTitle;
-    @BindView(R.id.error_content)
-    TextView mErrorContent;
-    @BindView(R.id.qs_net)
-    LinearLayout mQsNet;
-    @BindView(R.id.swipe_target)
-    RecyclerView mRecyclerView;
-    @BindView(R.id.swipeToLoad)
-    SwipeToLoadLayout mSwipeToLoad;
-
+    private ActivityIntegralDetailBinding mBinding;
     private List<PointDetailBean.PointDetailListBean> mList;
     private IntegralDetailAdapter mAdapter;
+    private Dialog dialog;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_integral_detail);
-        mButterKnife = ButterKnife.bind(this);
+        mBinding = DataBindingUtil.setContentView(this,R.layout.activity_integral_detail);
         mBaseActivityComponent.inject(this);
         mPresenter.setView(this);
+        mBinding.setListener(this);
         initView();
     }
 
     private void initView() {
-        mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
-        mTitleBack.setOnClickListener(v -> finish());
-        mTitleTv.setText("积分明细");
+        mBinding.swipeTarget.setLayoutManager(new LinearLayoutManager(this));
+        mBinding.inClude.titleTv.setText("积分明细");
 
         mList = new ArrayList<>();
         mAdapter = new IntegralDetailAdapter(this, mList);
-        mRecyclerView.setAdapter(mAdapter);
+        mBinding.swipeTarget.setAdapter(mAdapter);
 
-        mSwipeToLoad.setOnRefreshListener(this);
-        mSwipeToLoad.setRefreshing(true);
-    }
-
-
-    @Override
-    protected void onDestroy() {
-        mButterKnife.unbind();
-        super.onDestroy();
+        mBinding.swipeToLoad.setOnRefreshListener(this);
+        mBinding.swipeToLoad.setRefreshing(true);
     }
 
     /**
@@ -89,11 +62,14 @@ public class IntegralDetailActivity extends BaseActivity implements IntegralDeta
      */
     @Override
     public void onSuccess(PointDetailBean bean) {
-        if(mSwipeToLoad != null && mSwipeToLoad.isRefreshing()){
-            mSwipeToLoad.setRefreshing(false);
+        if(mBinding.swipeToLoad != null && mBinding.swipeToLoad.isRefreshing()){
+            mBinding.swipeToLoad.setRefreshing(false);
+        }
+        if(dialog != null && dialog.isShowing()){
+            dialog.dismiss();
         }
         if (bean.getPointDetailList() != null && bean.getPointDetailList().size() != 0) {
-            mQsNet.setVisibility(View.GONE);
+            mBinding.netClude.qsNet.setVisibility(View.GONE);
             mList.clear();
             mList.addAll(bean.getPointDetailList());
             mAdapter.notifyDataSetChanged();
@@ -107,22 +83,44 @@ public class IntegralDetailActivity extends BaseActivity implements IntegralDeta
      */
     @Override
     public void onFile(String error) {
-        if(mSwipeToLoad != null && mSwipeToLoad.isRefreshing()){
-            mSwipeToLoad.setRefreshing(false);
+        if(mBinding.swipeToLoad != null && mBinding.swipeToLoad.isRefreshing()){
+            mBinding.swipeToLoad.setRefreshing(false);
+        }
+        if(dialog != null && dialog.isShowing()){
+            dialog.dismiss();
         }
         initError(R.mipmap.qs_net, "网络出错", "哇哦，网络出错了，换个姿势点击试试");
         Toast.makeText(this, error, Toast.LENGTH_SHORT).show();
     }
 
+    /**
+     * 错误页面
+     */
     public void initError(int id, String title, String content) {
-        mQsNet.setVisibility(View.VISIBLE);
-        mErrorImage.setBackgroundResource(id);
-        mErrorTitle.setText(title);
-        mErrorContent.setText(content);
+        mBinding.netClude.qsNet.setVisibility(View.VISIBLE);
+        mBinding.netClude.errorImage.setBackgroundResource(id);
+        mBinding.netClude.errorTitle.setText(title);
+        mBinding.netClude.errorContent.setText(content);
     }
 
     @Override
     public void onRefresh() {
         mPresenter.getDate(this.bindToLifecycle());
+    }
+
+    @Override
+    public void onClick(View v) {
+        switch (v.getId()){
+            case R.id.title_back:
+                finish();
+                break;
+            case R.id.net_clude:
+                if(mBinding.netClude.errorTitle.getText().toString().equals("网络出错")){
+                    dialog = (new ProgressDialogView()).createLoadingDialog(this, "请求中...");
+                    dialog.show();
+                    onRefresh();
+                }
+                break;
+        }
     }
 }

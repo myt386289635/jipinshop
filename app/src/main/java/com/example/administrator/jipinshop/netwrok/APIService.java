@@ -16,6 +16,7 @@ import com.example.administrator.jipinshop.bean.ImageBean;
 import com.example.administrator.jipinshop.bean.KitchenFragmentBean;
 import com.example.administrator.jipinshop.bean.LoginBean;
 import com.example.administrator.jipinshop.bean.LuckImageBean;
+import com.example.administrator.jipinshop.bean.MemberLevelBean;
 import com.example.administrator.jipinshop.bean.PointDetailBean;
 import com.example.administrator.jipinshop.bean.RecommendFragmentBean;
 import com.example.administrator.jipinshop.bean.RecordBean;
@@ -349,4 +350,10 @@ public interface APIService {
      */
     @GET("qualityshop-api/api/pointDetail")
     Observable<PointDetailBean> pointDetail(@Query("userId") String userId);
+
+    /**
+     * 获取累计积分
+     */
+    @GET("qualityshop-api/api/totalAddPoint")
+    Observable<MemberLevelBean> totalAddPoint(@Query("userId") String userId);
 }
