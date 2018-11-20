@@ -1,5 +1,6 @@
 package com.example.administrator.jipinshop.activity.follow.user;
 
+import com.example.administrator.jipinshop.bean.SuccessBean;
 import com.example.administrator.jipinshop.bean.UserPageBean;
 import com.example.administrator.jipinshop.netwrok.Repository;
 import com.trello.rxlifecycle2.LifecycleTransformer;
@@ -48,6 +49,56 @@ public class UserPresenter {
                 }, throwable -> {
                     if(mView != null){
                         mView.onFile(throwable.getMessage());
+                    }
+                });
+    }
+
+    /**
+     * 取消关注
+     */
+    public void concerDelete(String attentionUserId, LifecycleTransformer<SuccessBean> transformer){
+        mRepository.concernDelete(attentionUserId)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .compose(transformer)
+                .subscribe(successBean -> {
+                    if(successBean.getCode() == 200){
+                        if(mView  != null){
+                            mView.ConcerDelSuccess(successBean);
+                        }
+                    }else {
+                        if(mView != null){
+                            mView.ConcerDelFaile(successBean.getMsg());
+                        }
+                    }
+                }, throwable -> {
+                    if(mView != null){
+                        mView.ConcerDelFaile(throwable.getMessage());
+                    }
+                });
+    }
+
+    /**
+     * 添加关注
+     */
+    public void concernInsert(String attentionUserId,LifecycleTransformer<SuccessBean> transformer){
+        mRepository.concernInsert(attentionUserId)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .compose(transformer)
+                .subscribe(successBean -> {
+                    if(successBean.getCode() == 200){
+                        if(mView  != null){
+                            mView.concerInsSuccess(successBean);
+                        }
+                    }else {
+                        if(mView != null){
+                            mView.ConcerDelFaile(successBean.getMsg());
+                        }
+                    }
+                }, throwable -> {
+                    if(mView != null){
+                        mView.ConcerDelFaile(throwable.getMessage());
                     }
                 });
     }

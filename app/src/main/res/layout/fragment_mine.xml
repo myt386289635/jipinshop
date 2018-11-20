@@ -353,6 +353,7 @@
                 </RelativeLayout>
 
                 <RelativeLayout
+                    android:visibility="gone"
                     android:onClick="@{listener.onClick}"
                     android:id="@+id/mine_coupon"
                     android:layout_width="match_parent"

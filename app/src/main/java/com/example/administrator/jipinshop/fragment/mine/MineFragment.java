@@ -91,13 +91,14 @@ public class MineFragment extends DBBaseFragment implements View.OnClickListener
                 break;
             case R.id.mine_withdraw:
                 //跳转到我的余额页面
-                startActivity(new Intent(getContext(), BalanceActivity.class)
-                        .putExtra("totleMoney", mBinding.mineMoney.getText().toString())//总金额
-                        .putExtra("processingValue", mBinding.mineProcessingValue.getText().toString())//处理中
-                        .putExtra("withdrawableValue", mBinding.mineWithdrawableValue.getText().toString())//可提现
-                        .putExtra("settlementValue", mBinding.mineSettlementValue.getText().toString())//待结算
-                        .putExtra("withdrawedValue", mBinding.mineWithdrawedValue.getText().toString())//已提现
-                );
+//                startActivity(new Intent(getContext(), BalanceActivity.class)
+//                        .putExtra("totleMoney", mBinding.mineMoney.getText().toString())//总金额
+//                        .putExtra("processingValue", mBinding.mineProcessingValue.getText().toString())//处理中
+//                        .putExtra("withdrawableValue", mBinding.mineWithdrawableValue.getText().toString())//可提现
+//                        .putExtra("settlementValue", mBinding.mineSettlementValue.getText().toString())//待结算
+//                        .putExtra("withdrawedValue", mBinding.mineWithdrawedValue.getText().toString())//已提现
+//                );
+                Toast.makeText(getContext(), "该模块正在开发中", Toast.LENGTH_SHORT).show();
                 break;
             case R.id.mine_processing:
                 //跳转到

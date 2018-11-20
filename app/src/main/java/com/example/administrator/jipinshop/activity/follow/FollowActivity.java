@@ -19,11 +19,13 @@ import com.example.administrator.jipinshop.base.BaseActivity;
 import com.example.administrator.jipinshop.bean.FollowBean;
 import com.example.administrator.jipinshop.bean.SuccessBean;
 import com.example.administrator.jipinshop.bean.eventbus.ConcerBus;
+import com.example.administrator.jipinshop.bean.eventbus.FollowBus;
 import com.example.administrator.jipinshop.databinding.ActivityFollowBinding;
 import com.example.administrator.jipinshop.fragment.evaluation.common.CommonEvaluationFragment;
 import com.example.administrator.jipinshop.view.dialog.ProgressDialogView;
 
 import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -55,6 +57,7 @@ public class FollowActivity extends BaseActivity implements OnRefreshListener, F
         mBinding = DataBindingUtil.setContentView(this,R.layout.activity_follow);
         mBinding.setListener(this);
         mBaseActivityComponent.inject(this);
+        EventBus.getDefault().register(this);
         initView();
     }
 
@@ -223,6 +226,7 @@ public class FollowActivity extends BaseActivity implements OnRefreshListener, F
             dialog.dismiss();
         }
         mList.get(pos).setFans(0);
+        mList.get(pos).getUserShopmember().setFansCount(mList.get(pos).getUserShopmember().getFansCount() - 1);
         mAdapter.notifyDataSetChanged();
     }
     /**
@@ -241,11 +245,12 @@ public class FollowActivity extends BaseActivity implements OnRefreshListener, F
      */
     @Override
     public void concerInsSuccess(SuccessBean successBean, int pos) {
-        EventBus.getDefault().post(new ConcerBus(CommonEvaluationFragment.REFERSH,1,mList.get(pos).getUserShopmember().getFansCount()+ "",mList.get(pos).getUserShopmember().getUserId()));//刷新评测首页
+        EventBus.getDefault().post(new ConcerBus(CommonEvaluationFragment.REFERSH,1,(mList.get(pos).getUserShopmember().getFansCount() + 1 )+ "",mList.get(pos).getUserShopmember().getUserId()));//刷新评测首页
         if(dialog != null && dialog.isShowing()){
             dialog.dismiss();
         }
         mList.get(pos).setFans(1);
+        mList.get(pos).getUserShopmember().setFansCount(mList.get(pos).getUserShopmember().getFansCount() + 1);
         mAdapter.notifyDataSetChanged();
     }
 
@@ -267,5 +272,18 @@ public class FollowActivity extends BaseActivity implements OnRefreshListener, F
         mBinding.netClude.errorImage.setBackgroundResource(id);
         mBinding.netClude.errorTitle.setText(title);
         mBinding.netClude.errorContent.setText(content);
+    }
+
+    @Override
+    protected void onDestroy() {
+        EventBus.getDefault().unregister(this);
+        super.onDestroy();
+    }
+
+    @Subscribe
+    public void concernRefersh(FollowBus followBus){
+        if(followBus != null && followBus.getTag().equals(UserActivity.tag)){
+            mBinding.swipeToLoad.setRefreshing(true);
+        }
     }
 }

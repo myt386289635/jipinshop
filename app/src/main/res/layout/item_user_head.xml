@@ -84,6 +84,7 @@
 
 
             <TextView
+                android:gravity="center"
                 android:layout_marginTop="@dimen/x_20"
                 android:layout_alignTop="@id/user_name"
                 android:id="@+id/item_attention"
@@ -91,13 +92,11 @@
                 android:layout_alignParentRight="true"
                 android:paddingBottom="@dimen/x8"
                 android:paddingTop="@dimen/x8"
-                android:paddingRight="@dimen/x28"
-                android:paddingLeft="@dimen/x28"
                 android:background="@drawable/bg_my_attention"
                 android:textSize="13sp"
                 android:textColor="@color/color_ACACAC"
                 android:text="已关注"
-                android:layout_width="wrap_content"
+                android:layout_width="@dimen/x132"
                 android:layout_height="wrap_content"/>
 
         </RelativeLayout>

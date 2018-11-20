@@ -1,5 +1,6 @@
 package com.example.administrator.jipinshop.activity.follow.user;
 
+import com.example.administrator.jipinshop.bean.SuccessBean;
 import com.example.administrator.jipinshop.bean.UserPageBean;
 
 /**
@@ -10,4 +11,9 @@ import com.example.administrator.jipinshop.bean.UserPageBean;
 public interface UserView {
     void onSuccess(UserPageBean userPageBean);
     void onFile(String error);
+
+    void ConcerDelSuccess(SuccessBean successBean);
+    void ConcerDelFaile(String error);
+
+    void concerInsSuccess(SuccessBean successBean);
 }

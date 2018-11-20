@@ -53,6 +53,10 @@ public class UserAdapter extends RecyclerView.Adapter {
         this.fans = fans;
     }
 
+    public int getFans() {
+        return fans;
+    }
+
     public void setIsfans(int isfans) {
         this.isfans = isfans;
     }
@@ -119,7 +123,7 @@ public class UserAdapter extends RecyclerView.Adapter {
                 headViewHolder.user_name.setText(name);
                 headViewHolder.user_attentionNum.setText("粉丝数:" + fans);
                 if(isfans == 0){
-                    headViewHolder.item_attention.setBackgroundResource(R.drawable.bg_attention);
+                    headViewHolder.item_attention.setBackgroundResource(R.drawable.bg_my_attentioned);
                     headViewHolder.item_attention.setTextColor(mContext.getResources().getColor(R.color.color_E31436));
                     headViewHolder.item_attention.setText("+关注");
                 }else {
@@ -127,6 +131,19 @@ public class UserAdapter extends RecyclerView.Adapter {
                     headViewHolder.item_attention.setTextColor(mContext.getResources().getColor(R.color.color_ACACAC));
                     headViewHolder.item_attention.setText("已关注");
                 }
+                headViewHolder.item_attention.setOnClickListener(v -> {
+                    if(isfans == 0){
+                        //关注
+                        if(mOnListener != null){
+                            mOnListener.onAttenInsItem(1);
+                        }
+                    }else {
+                        //取消关注
+                        if(mOnListener != null){
+                            mOnListener.onAttenDecItem(1);
+                        }
+                    }
+                });
                 break;
             case EVA://评测
                 EvaViewHolder contentViewHolder = (EvaViewHolder) holder;
@@ -239,8 +256,8 @@ public class UserAdapter extends RecyclerView.Adapter {
     public interface OnListener{
         void onFinish();
 
-        void onAttenInsItem(String attentionUserId,int pos);
-        void onAttenDecItem(String attentionUserId,int pos);
+        void onAttenInsItem(int pos);
+        void onAttenDecItem(int pos);
 
     }
 }

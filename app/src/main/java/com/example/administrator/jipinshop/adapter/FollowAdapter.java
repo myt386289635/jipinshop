@@ -58,7 +58,7 @@ public class FollowAdapter extends RecyclerView.Adapter<FollowAdapter.ViewHolder
             holder.item_attention.setText("已关注");
         }else {
             //未关注
-            holder.item_attention.setBackgroundResource(R.drawable.bg_attention);
+            holder.item_attention.setBackgroundResource(R.drawable.bg_my_attentioned);
             holder.item_attention.setTextColor(mContext.getResources().getColor(R.color.color_E31436));
             holder.item_attention.setText("+关注");
         }
