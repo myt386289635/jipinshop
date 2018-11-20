@@ -18,6 +18,15 @@ public class SignInsertBean {
     private int code;
     private int points;
     private int addPoint;
+    private int userMemberGrade;
+
+    public int getUserMemberGrade() {
+        return userMemberGrade;
+    }
+
+    public void setUserMemberGrade(int userMemberGrade) {
+        this.userMemberGrade = userMemberGrade;
+    }
 
     public int getAddPoint() {
         return addPoint;

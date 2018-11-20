@@ -205,8 +205,9 @@ public class MineFragment extends DBBaseFragment implements View.OnClickListener
             mBinding.mineLevel.setText("v" + SPUtils.getInstance(CommonDate.USER).getString(CommonDate.userMemberGrade));
             mBinding.mineIntegral.setText("积分" + SPUtils.getInstance(CommonDate.USER).getInt(CommonDate.userPoint));
         } else if (bus.getTag().equals(SignActivity.eventbusTag)) {
-            //签到、补签、抽奖后刷新积分
+            //签到、补签、抽奖后刷新积分和会员等级
             mBinding.mineIntegral.setText("积分" + SPUtils.getInstance(CommonDate.USER).getInt(CommonDate.userPoint));
+            mBinding.mineLevel.setText("v" + SPUtils.getInstance(CommonDate.USER).getString(CommonDate.userMemberGrade));
         } else if (bus.getTag().equals(BalanceActivity.alipayTag)) {
             //提现后刷新佣金
             mPresenter.getMoney(getContext(), this.bindToLifecycle());

@@ -276,7 +276,7 @@ public class LoginActivity extends BaseActivity implements LoginView, View.OnCli
             case R.id.login_protocol:
                 //点击用户协议
                 startActivity(new Intent(this, WebActivity.class)
-                        .putExtra(WebActivity.url, RetrofitModule.H5_URL+"jpc-info/src/my/user-agreement.html")
+                        .putExtra(WebActivity.url, RetrofitModule.H5_URL+"user-agreement.html")
                         .putExtra(WebActivity.title,"用户协议")
                 );
                 break;

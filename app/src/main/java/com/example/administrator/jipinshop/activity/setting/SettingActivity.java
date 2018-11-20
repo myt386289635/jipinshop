@@ -138,7 +138,7 @@ public class SettingActivity extends BaseActivity implements CleanCacheDialog.On
             case R.id.setting_userContainer:
                 //用户协议
                 startActivity(new Intent(this, WebActivity.class)
-                        .putExtra(WebActivity.url, RetrofitModule.H5_URL+"jpc-info/src/my/user-agreement.html")
+                        .putExtra(WebActivity.url, RetrofitModule.H5_URL+"user-agreement.html")
                         .putExtra(WebActivity.title,"用户协议")
                 );
                 return;

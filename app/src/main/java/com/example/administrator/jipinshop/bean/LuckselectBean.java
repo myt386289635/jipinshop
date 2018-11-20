@@ -18,6 +18,15 @@ public class LuckselectBean {
     private int code;
     private MyPrizeBean myPrize;
     private int points;
+    private int userMemberGrade;
+
+    public int getUserMemberGrade() {
+        return userMemberGrade;
+    }
+
+    public void setUserMemberGrade(int userMemberGrade) {
+        this.userMemberGrade = userMemberGrade;
+    }
 
     public String getMsg() {
         return msg;

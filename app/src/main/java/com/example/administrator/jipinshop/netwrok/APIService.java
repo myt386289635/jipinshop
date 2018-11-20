@@ -16,6 +16,7 @@ import com.example.administrator.jipinshop.bean.ImageBean;
 import com.example.administrator.jipinshop.bean.KitchenFragmentBean;
 import com.example.administrator.jipinshop.bean.LoginBean;
 import com.example.administrator.jipinshop.bean.LuckImageBean;
+import com.example.administrator.jipinshop.bean.PointDetailBean;
 import com.example.administrator.jipinshop.bean.RecommendFragmentBean;
 import com.example.administrator.jipinshop.bean.RecordBean;
 import com.example.administrator.jipinshop.bean.ShoppingDetailBean;
@@ -342,4 +343,10 @@ public interface APIService {
      */
     @GET("qualityshop-api/api/selectConcern")
     Observable<UserPageBean> userPage(@Query("attentionUserId") String attentionUserId,@Query("page") String page);
+
+    /**
+     * 积分明细
+     */
+    @GET("qualityshop-api/api/pointDetail")
+    Observable<PointDetailBean> pointDetail(@Query("userId") String userId);
 }

@@ -8,6 +8,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.example.administrator.jipinshop.R;
+import com.example.administrator.jipinshop.bean.PointDetailBean;
 
 import java.util.List;
 
@@ -19,9 +20,9 @@ import java.util.List;
 public class IntegralDetailAdapter extends RecyclerView.Adapter<IntegralDetailAdapter.ViewHolder> {
 
     private Context mContext;
-    private List<String> mList;
+    private List<PointDetailBean.PointDetailListBean> mList;
 
-    public IntegralDetailAdapter(Context context, List<String> list) {
+    public IntegralDetailAdapter(Context context, List<PointDetailBean.PointDetailListBean> list) {
         mContext = context;
         mList = list;
     }
@@ -35,12 +36,20 @@ public class IntegralDetailAdapter extends RecyclerView.Adapter<IntegralDetailAd
 
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
-
+        holder.item_name.setText(mList.get(position).getRemark());
+        holder.item_time.setText(mList.get(position).getCreateTime());
+        if(mList.get(position).getPoint() <= 0){
+            holder.item_code.setTextColor(mContext.getResources().getColor(R.color.color_4A90E2));
+            holder.item_code.setText(mList.get(position).getPoint() + "");
+        }else {
+            holder.item_code.setTextColor(mContext.getResources().getColor(R.color.color_E31436));
+            holder.item_code.setText("+"+mList.get(position).getPoint());
+        }
     }
 
     @Override
     public int getItemCount() {
-        return 10;
+        return mList.size();
     }
 
     class ViewHolder extends  RecyclerView.ViewHolder{

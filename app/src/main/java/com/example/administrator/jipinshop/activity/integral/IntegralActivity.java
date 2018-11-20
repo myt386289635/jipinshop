@@ -74,7 +74,7 @@ public class IntegralActivity extends BaseActivity implements IntegralAdapter.On
                 break;
             case R.id.integral_rule:
                 startActivity(new Intent(this, WebActivity.class)
-                        .putExtra(WebActivity.url, RetrofitModule.H5_URL+"jpc-info/src/my/integral-rule.html")
+                        .putExtra(WebActivity.url, RetrofitModule.H5_URL+"integral-rule.html")
                         .putExtra(WebActivity.title,"积分规则")
                 );
                 break;
