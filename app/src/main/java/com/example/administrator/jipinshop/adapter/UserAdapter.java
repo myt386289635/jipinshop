@@ -118,7 +118,7 @@ public class UserAdapter extends RecyclerView.Adapter {
                 Glide.with(mContext)
                         .load(headImage)
                         .crossFade(500)
-                        .bitmapTransform(new BlurTransformation(mContext,5,4))  // “23”：设置模糊度(在0.0到25.0之间)，默认”25";"4":图片缩放比例,默认“1”。
+                        .bitmapTransform(new BlurTransformation(mContext,1,4))  // “23”：设置模糊度(在0.0到25.0之间)，默认”25";"4":图片缩放比例,默认“1”。
                         .into(headViewHolder.user_image);
                 headViewHolder.user_name.setText(name);
                 headViewHolder.user_attentionNum.setText("粉丝数:" + fans);

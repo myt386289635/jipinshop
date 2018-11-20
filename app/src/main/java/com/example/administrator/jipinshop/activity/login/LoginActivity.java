@@ -156,7 +156,7 @@ public class LoginActivity extends BaseActivity implements LoginView, View.OnCli
             SPUtils.getInstance(CommonDate.USER).put(CommonDate.userNickName,loginBean.getUser().getUserNickName());
             SPUtils.getInstance(CommonDate.USER).put(CommonDate.userPhone,loginBean.getUser().getUserPhone());
             SPUtils.getInstance(CommonDate.USER).put(CommonDate.userLogin,true);
-            SPUtils.getInstance(CommonDate.USER).put(CommonDate.userPoint,Integer.valueOf(loginBean.getUserDetailPointEntity().getPoints()));
+            SPUtils.getInstance(CommonDate.USER).put(CommonDate.userPoint,loginBean.getPoints());
             SPUtils.getInstance(CommonDate.USER).put(CommonDate.alipAccount,loginBean.getUser().getAlipayAccount());
             SPUtils.getInstance(CommonDate.USER).put(CommonDate.alipName,loginBean.getUser().getAlipayName());
 //            BigDecimal totleDecimal= new BigDecimal(loginBean.getUserAccountEntity().getTotal_account());

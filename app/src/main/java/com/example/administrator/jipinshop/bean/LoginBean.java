@@ -11,18 +11,18 @@ public class LoginBean {
 
     /**
      * msg : success
-     * UserDetailPointEntity : {"id":"cfc8d1a358264fa4959d50405bbd68f7","userId":"7d67892cb02f4766aa72fd5b08b8d8d1","points":"0","startTime":"2018-10-09T06:47:35.000+0000","expireTime":"2019-10-09T06:47:35.000+0000","remark":null}
      * code : 200
-     * UserAccountEntity : {"id":"cfc8d1a358264fa4959d50405bbd68f7","userId":"7d67892cb02f4766aa72fd5b08b8d8d1","total_account":0,"use_account":0,"unuse_account":0,"create_time":"2018-10-09T06:47:35.000+0000","state":"0"}
-     * list : [{"id":"e5b141e7fdc8483b9738fc7047b6cfe5","mobile":"18240011200","code":"224985","create_time":"2018-10-09T06:45:54.000+0000","expire_time":"2018-10-09T06:50:54.000+0000"}]
-     * user : {"userId":"7d67892cb02f4766aa72fd5b08b8d8d1","userNickName":"83极品城1539067655909","userNickImg":"","userAcutalName":"","userMemberGrade":"0","userGender":"","userBirthday":"2018-10-08T16:00:00.000+0000","userPhone":"18240011200","createTime":"2018-10-09 14:47:35"}
+     * UserAccountEntity : {"id":"cfc8d1a358264fa4959d50405bbd68f7","userId":"7d67892cb02f4766aa72fd5b08b8d8d1","total_account":90.96,"use_account":29.06,"unuse_account":9.04,"create_time":"2018-10-09 14:47:35","state":"0"}
+     * list : [{"id":"fa4f36cca43d4d40819035bca36359f7","mobile":"18240011200","code":"947427","create_time":"2018-11-20 16:06:50","expire_time":"2018-11-20 16:11:50"}]
+     * user : {"userId":"7d67892cb02f4766aa72fd5b08b8d8d1","userNickName":"御用编辑1","userNickImg":"http://pi6611u5d.bkt.clouddn.com/d61bf54391b64b289e72208654168bd1","userAcutalName":"","userMemberGrade":"0","userGender":"男","userBirthday":"1994-06-30","userPhone":"18240011200","createTime":"2018-11-15 11:24:43","openId":" ","alipayName":"李耕旬","alipayAccount":"13841284944","fansCount":101}
+     * points : 0
      */
 
     private String msg;
-    private UserDetailPointEntityBean UserDetailPointEntity;
     private int code;
     private UserAccountEntityBean UserAccountEntity;
     private UserBean user;
+    private int points;
     private List<ListBean> list;
 
     public String getMsg() {
@@ -31,14 +31,6 @@ public class LoginBean {
 
     public void setMsg(String msg) {
         this.msg = msg;
-    }
-
-    public UserDetailPointEntityBean getUserDetailPointEntity() {
-        return UserDetailPointEntity;
-    }
-
-    public void setUserDetailPointEntity(UserDetailPointEntityBean UserDetailPointEntity) {
-        this.UserDetailPointEntity = UserDetailPointEntity;
     }
 
     public int getCode() {
@@ -65,6 +57,14 @@ public class LoginBean {
         this.user = user;
     }
 
+    public int getPoints() {
+        return points;
+    }
+
+    public void setPoints(int points) {
+        this.points = points;
+    }
+
     public List<ListBean> getList() {
         return list;
     }
@@ -73,80 +73,14 @@ public class LoginBean {
         this.list = list;
     }
 
-    public static class UserDetailPointEntityBean {
-        /**
-         * id : cfc8d1a358264fa4959d50405bbd68f7
-         * userId : 7d67892cb02f4766aa72fd5b08b8d8d1
-         * points : 0
-         * startTime : 2018-10-09T06:47:35.000+0000
-         * expireTime : 2019-10-09T06:47:35.000+0000
-         * remark : null
-         */
-
-        private String id;
-        private String userId;
-        private String points;
-        private String startTime;
-        private String expireTime;
-        private Object remark;
-
-        public String getId() {
-            return id;
-        }
-
-        public void setId(String id) {
-            this.id = id;
-        }
-
-        public String getUserId() {
-            return userId;
-        }
-
-        public void setUserId(String userId) {
-            this.userId = userId;
-        }
-
-        public String getPoints() {
-            return points;
-        }
-
-        public void setPoints(String points) {
-            this.points = points;
-        }
-
-        public String getStartTime() {
-            return startTime;
-        }
-
-        public void setStartTime(String startTime) {
-            this.startTime = startTime;
-        }
-
-        public String getExpireTime() {
-            return expireTime;
-        }
-
-        public void setExpireTime(String expireTime) {
-            this.expireTime = expireTime;
-        }
-
-        public Object getRemark() {
-            return remark;
-        }
-
-        public void setRemark(Object remark) {
-            this.remark = remark;
-        }
-    }
-
     public static class UserAccountEntityBean {
         /**
          * id : cfc8d1a358264fa4959d50405bbd68f7
          * userId : 7d67892cb02f4766aa72fd5b08b8d8d1
-         * total_account : 0
-         * use_account : 0
-         * unuse_account : 0
-         * create_time : 2018-10-09T06:47:35.000+0000
+         * total_account : 90.96
+         * use_account : 29.06
+         * unuse_account : 9.04
+         * create_time : 2018-10-09 14:47:35
          * state : 0
          */
 
@@ -218,14 +152,18 @@ public class LoginBean {
     public static class UserBean {
         /**
          * userId : 7d67892cb02f4766aa72fd5b08b8d8d1
-         * userNickName : 83极品城1539067655909
-         * userNickImg :
+         * userNickName : 御用编辑1
+         * userNickImg : http://pi6611u5d.bkt.clouddn.com/d61bf54391b64b289e72208654168bd1
          * userAcutalName :
          * userMemberGrade : 0
-         * userGender :
-         * userBirthday : 2018-10-08T16:00:00.000+0000
+         * userGender : 男
+         * userBirthday : 1994-06-30
          * userPhone : 18240011200
-         * createTime : 2018-10-09 14:47:35
+         * createTime : 2018-11-15 11:24:43
+         * openId :
+         * alipayName : 李耕旬
+         * alipayAccount : 13841284944
+         * fansCount : 101
          */
 
         private String userId;
@@ -237,24 +175,10 @@ public class LoginBean {
         private String userBirthday;
         private String userPhone;
         private String createTime;
+        private String openId;
         private String alipayName;
         private String alipayAccount;
-
-        public String getAlipayName() {
-            return alipayName;
-        }
-
-        public void setAlipayName(String alipayName) {
-            this.alipayName = alipayName;
-        }
-
-        public String getAlipayAccount() {
-            return alipayAccount;
-        }
-
-        public void setAlipayAccount(String alipayAccount) {
-            this.alipayAccount = alipayAccount;
-        }
+        private int fansCount;
 
         public String getUserId() {
             return userId;
@@ -327,15 +251,47 @@ public class LoginBean {
         public void setCreateTime(String createTime) {
             this.createTime = createTime;
         }
+
+        public String getOpenId() {
+            return openId;
+        }
+
+        public void setOpenId(String openId) {
+            this.openId = openId;
+        }
+
+        public String getAlipayName() {
+            return alipayName;
+        }
+
+        public void setAlipayName(String alipayName) {
+            this.alipayName = alipayName;
+        }
+
+        public String getAlipayAccount() {
+            return alipayAccount;
+        }
+
+        public void setAlipayAccount(String alipayAccount) {
+            this.alipayAccount = alipayAccount;
+        }
+
+        public int getFansCount() {
+            return fansCount;
+        }
+
+        public void setFansCount(int fansCount) {
+            this.fansCount = fansCount;
+        }
     }
 
     public static class ListBean {
         /**
-         * id : e5b141e7fdc8483b9738fc7047b6cfe5
+         * id : fa4f36cca43d4d40819035bca36359f7
          * mobile : 18240011200
-         * code : 224985
-         * create_time : 2018-10-09T06:45:54.000+0000
-         * expire_time : 2018-10-09T06:50:54.000+0000
+         * code : 947427
+         * create_time : 2018-11-20 16:06:50
+         * expire_time : 2018-11-20 16:11:50
          */
 
         private String id;

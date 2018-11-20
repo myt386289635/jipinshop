@@ -221,6 +221,7 @@ public class CommonFindFragment extends DBBaseFragment implements OnRefreshListe
             if (findListBean.getList() != null && findListBean.getList().size() != 0) {
                 mList.addAll(findListBean.getList());
                 mAdapter.notifyDataSetChanged();
+                mBinding.swipeToLoad.setLoadMoreEnabled(false);
             } else {
                 page--;
                 Toast.makeText(getContext(), "已经是最后一页了", Toast.LENGTH_SHORT).show();

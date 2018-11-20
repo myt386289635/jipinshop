@@ -16,7 +16,6 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.blankj.utilcode.util.SPUtils;
-import com.bumptech.glide.Glide;
 import com.example.administrator.jipinshop.R;
 import com.example.administrator.jipinshop.base.BaseActivity;
 import com.example.administrator.jipinshop.bean.LuckImageBean;
@@ -73,7 +72,7 @@ public class SignActivity extends BaseActivity implements View.OnClickListener, 
             mBinding.start.setClickable(true);
             mBinding.start.setEnabled(true);
 
-            if(TextUtils.isEmpty(LuckMark)){
+            if(TextUtils.isEmpty(LuckMark) && TextUtils.isEmpty(LuckString)){
                 DialogUtil.SignPrice(SignActivity.this, LuckString,"很抱歉您没有抽到奖品");
             }else {
                 DialogUtil.SignPrice(SignActivity.this, LuckString,"恭喜您获得" + LuckMark);
@@ -96,10 +95,6 @@ public class SignActivity extends BaseActivity implements View.OnClickListener, 
      * 控制今天只能签到一次 没签到：false  签到了：true
      */
     private Boolean signFlag = false;
-    /**
-     * 开始抽奖  false：今天不能抽奖 true：今天可以抽奖
-     */
-    private Boolean startLuck = false;
     /**
      * 记录抽中的奖品头像
      */
@@ -182,10 +177,6 @@ public class SignActivity extends BaseActivity implements View.OnClickListener, 
                 mPresenter.Supplement(dialog1, this.bindToLifecycle());
                 break;
             case R.id.start:
-                if (!startLuck) {
-                    Toast.makeText(this, "请签满7天再抽奖", Toast.LENGTH_SHORT).show();
-                    return;
-                }
                 Dialog dialogLuck = (new ProgressDialogView()).createLoadingDialog(this, "正在加载...");
                 dialogLuck.show();
                 mPresenter.luckselect(dialogLuck, this.bindToLifecycle());
@@ -206,60 +197,24 @@ public class SignActivity extends BaseActivity implements View.OnClickListener, 
         if (mDialog != null && mDialog.isShowing()) {
             mDialog.dismiss();
         }
-        if (signBean.getList() != null && signBean.getList().size() != 0) {
+        if (signBean.getSigninInfo().getWeekArray() != null && signBean.getSigninInfo().getWeekArray().size() != 0) {
             int day = getWeek();//今天星期几
-            for (int i = 0; i < signBean.getList().size(); i++) {
-                switch (signBean.getList().get(i).getArrays_time()) {
-                    case "星期一":
-                        if (day == 1) {
-                            signFlag = true;
-                        }
-                        upImg(R.mipmap.h5_signin_complete, mTextViews.get(0));
+            for (int i = 0; i < day; i++) {
+                switch (signBean.getSigninInfo().getWeekArray().get(i)) {
+                    case "2"://补签
+//                        upImg(R.mipmap.h5_signin_supplement, mTextViews.get(i));
                         break;
-                    case "星期二":
-                        if (day == 2) {
+                    case "1"://已签过
+                        if(day == (i + 1)){
                             signFlag = true;
                         }
-                        upImg(R.mipmap.h5_signin_complete, mTextViews.get(1));
+                        upImg(R.mipmap.h5_signin_complete, mTextViews.get(i));
                         break;
-                    case "星期三":
-                        if (day == 3) {
-                            signFlag = true;
-                        }
-                        upImg(R.mipmap.h5_signin_complete, mTextViews.get(2));
-                        break;
-                    case "星期四":
-                        if (day == 4) {
-                            signFlag = true;
-                        }
-                        upImg(R.mipmap.h5_signin_complete, mTextViews.get(3));
-                        break;
-                    case "星期五":
-                        if (day == 5) {
-                            signFlag = true;
-                        }
-                        upImg(R.mipmap.h5_signin_complete, mTextViews.get(4));
-                        break;
-                    case "星期六":
-                        if (day == 6) {
-                            signFlag = true;
-                        }
-                        upImg(R.mipmap.h5_signin_complete, mTextViews.get(5));
-                        break;
-                    case "星期天":
-                        if (day == 7) {
-                            signFlag = true;
-                        }
-                        upImg(R.mipmap.h5_signin_complete, mTextViews.get(6));
+                    case "0"://未签到
+//                        upImg(R.mipmap.h5_signin_unsigned, mTextViews.get(i));
                         break;
                 }
             }
-
-            if (day == 7 && signBean.getList().size() == 7) {
-                //7天都签满了
-                startLuck = true;
-            }
-
         }
 
     }
@@ -281,10 +236,10 @@ public class SignActivity extends BaseActivity implements View.OnClickListener, 
     @Override
     public void signSuc(SignInsertBean signInsertBean) {
         signFlag = true;
-        SPUtils.getInstance(CommonDate.USER).put(CommonDate.userPoint, Integer.valueOf(signInsertBean.getTotalPoints()));
+        SPUtils.getInstance(CommonDate.USER).put(CommonDate.userPoint, signInsertBean.getPoints());
         upImg(R.mipmap.h5_signin_complete, mTextViews.get(getWeek() - 1));
         EventBus.getDefault().post(new EditNameBus(SignActivity.eventbusTag));
-        DialogUtil.SignSuccess(this, "恭喜您签到成功！", "+3积分");
+        DialogUtil.SignSuccess(this, "恭喜您签到成功！", "+"+signInsertBean.getAddPoint()+"积分");
     }
 
     /**
@@ -292,7 +247,6 @@ public class SignActivity extends BaseActivity implements View.OnClickListener, 
      */
     @Override
     public void signFaile(String error) {
-        signFlag = false;
         Toast.makeText(this, error, Toast.LENGTH_SHORT).show();
     }
 
@@ -307,9 +261,9 @@ public class SignActivity extends BaseActivity implements View.OnClickListener, 
         for (int i = 0; i < day; i++) {
             upImg(R.mipmap.h5_signin_complete, mTextViews.get(i));
         }
-        SPUtils.getInstance(CommonDate.USER).put(CommonDate.userPoint, Integer.valueOf(supplementBean.getScore()));
+        SPUtils.getInstance(CommonDate.USER).put(CommonDate.userPoint, Integer.valueOf(supplementBean.getPoints()));
         EventBus.getDefault().post(new EditNameBus(SignActivity.eventbusTag));
-        DialogUtil.SignSuccess(this, "恭喜您补签成功！", "-" + supplementBean.getPoint() + "积分");
+        DialogUtil.SignSuccess(this, "恭喜您补签"+supplementBean.getSupplementDays()+"天成功！", supplementBean.getPoint() + "积分");
     }
 
     /**
@@ -319,7 +273,11 @@ public class SignActivity extends BaseActivity implements View.OnClickListener, 
      */
     @Override
     public void SuppleFaile(String error) {
-        Toast.makeText(this, error, Toast.LENGTH_SHORT).show();
+        if (error.equals("641")){
+            DialogUtil.SignFaile(this,R.mipmap.h5_signfail);
+        }else {
+            Toast.makeText(this, error, Toast.LENGTH_SHORT).show();
+        }
     }
 
     /**
@@ -327,16 +285,16 @@ public class SignActivity extends BaseActivity implements View.OnClickListener, 
      */
     @Override
     public void LuckSuc(LuckselectBean luckselectBean) {
-        LuckString = luckselectBean.getList().get(0).getCode_img();
-        LuckMark = luckselectBean.getList().get(0).getMark();
+        LuckString = luckselectBean.getMyPrize().getImgurl();
+        LuckMark = luckselectBean.getMyPrize().getName();
         mBinding.start.setClickable(false);
         mBinding.start.setEnabled(false);
         runCount = 5;
         timeC = 100;
-        if(!TextUtils.isEmpty(luckselectBean.getPoint()) && LuckMark.contains("积分") ){
-            SPUtils.getInstance(CommonDate.USER).put(CommonDate.userPoint, Integer.valueOf(luckselectBean.getPoint()));
+        if(luckselectBean.getPoints() != 0){
+            SPUtils.getInstance(CommonDate.USER).put(CommonDate.userPoint, luckselectBean.getPoints());
         }
-        lunckyPosition = Integer.valueOf(luckselectBean.getList().get(0).getCode()) - 1;
+        lunckyPosition = luckselectBean.getMyPrize().getId();
         views.get(lunckyPosition).setVisibility(View.GONE);
         mTimer = new TimeCount(timeC * 9, timeC);
         mTimer.start();
@@ -347,7 +305,11 @@ public class SignActivity extends BaseActivity implements View.OnClickListener, 
      */
     @Override
     public void LuckFaile(String error) {
-        Toast.makeText(this, error, Toast.LENGTH_SHORT).show();
+        if(error.equals("642")){
+            DialogUtil.SignFaile(this,R.mipmap.h5_noway);
+        }else {
+            Toast.makeText(this, error, Toast.LENGTH_SHORT).show();
+        }
     }
 
     /**
@@ -356,14 +318,14 @@ public class SignActivity extends BaseActivity implements View.OnClickListener, 
      */
     @Override
     public void LuckImageSuc(LuckImageBean luckImageBean) {
-        ImageManager.displayImage(luckImageBean.getList().get(0).getCode_img(),mBinding.prize1,0,0);
-        ImageManager.displayImage(luckImageBean.getList().get(1).getCode_img(),mBinding.prize2,0,0);
-        ImageManager.displayImage(luckImageBean.getList().get(2).getCode_img(),mBinding.prize3,0,0);
-        ImageManager.displayImage(luckImageBean.getList().get(3).getCode_img(),mBinding.prize4,0,0);
-        ImageManager.displayImage(luckImageBean.getList().get(4).getCode_img(),mBinding.prize5,0,0);
-        ImageManager.displayImage(luckImageBean.getList().get(5).getCode_img(),mBinding.prize6,0,0);
-        ImageManager.displayImage(luckImageBean.getList().get(6).getCode_img(),mBinding.prize7,0,0);
-        ImageManager.displayImage(luckImageBean.getList().get(7).getCode_img(),mBinding.prize8,0,0);
+        ImageManager.displayImage(luckImageBean.getPrizeList().get(0).getImgurl(),mBinding.prize1,0,0);
+        ImageManager.displayImage(luckImageBean.getPrizeList().get(1).getImgurl(),mBinding.prize2,0,0);
+        ImageManager.displayImage(luckImageBean.getPrizeList().get(2).getImgurl(),mBinding.prize3,0,0);
+        ImageManager.displayImage(luckImageBean.getPrizeList().get(3).getImgurl(),mBinding.prize4,0,0);
+        ImageManager.displayImage(luckImageBean.getPrizeList().get(4).getImgurl(),mBinding.prize5,0,0);
+        ImageManager.displayImage(luckImageBean.getPrizeList().get(5).getImgurl(),mBinding.prize6,0,0);
+        ImageManager.displayImage(luckImageBean.getPrizeList().get(6).getImgurl(),mBinding.prize7,0,0);
+        ImageManager.displayImage(luckImageBean.getPrizeList().get(7).getImgurl(),mBinding.prize8,0,0);
     }
 
     /**

@@ -1,7 +1,5 @@
 package com.example.administrator.jipinshop.bean;
 
-import java.util.List;
-
 /**
  * @author 莫小婷
  * @create 2018/10/16
@@ -12,21 +10,14 @@ public class LuckselectBean {
     /**
      * msg : success
      * code : 200
-     * list : [{"id":"db5faca2a7244f0881071142848f800e","userId":"7d67892cb02f4766aa72fd5b08b8d8d1","code":"4","code_img":"","mark":"1","state":"1"}]
+     * myPrize : {"id":"2","name":"二等奖","imgurl":"http://pi6611u5d.bkt.clouddn.com/33a5ee6fe8114c169cb37c96c189d68e"}
+     * points : 204
      */
 
     private String msg;
     private int code;
-    private List<ListBean> list;
-    private String point;
-
-    public String getPoint() {
-        return point;
-    }
-
-    public void setPoint(String point) {
-        this.point = point;
-    }
+    private MyPrizeBean myPrize;
+    private int points;
 
     public String getMsg() {
         return msg;
@@ -44,77 +35,55 @@ public class LuckselectBean {
         this.code = code;
     }
 
-    public List<ListBean> getList() {
-        return list;
+    public MyPrizeBean getMyPrize() {
+        return myPrize;
     }
 
-    public void setList(List<ListBean> list) {
-        this.list = list;
+    public void setMyPrize(MyPrizeBean myPrize) {
+        this.myPrize = myPrize;
     }
 
-    public static class ListBean {
+    public int getPoints() {
+        return points;
+    }
+
+    public void setPoints(int points) {
+        this.points = points;
+    }
+
+    public static class MyPrizeBean {
         /**
-         * id : db5faca2a7244f0881071142848f800e
-         * userId : 7d67892cb02f4766aa72fd5b08b8d8d1
-         * code : 4
-         * code_img :
-         * mark : 1
-         * state : 1
+         * id : 2
+         * name : 二等奖
+         * imgurl : http://pi6611u5d.bkt.clouddn.com/33a5ee6fe8114c169cb37c96c189d68e
          */
 
-        private String id;
-        private String userId;
-        private String code;
-        private String code_img;
-        private String mark;
-        private String state;
+        private int id;
+        private String name;
+        private String imgurl;
 
-        public String getId() {
+        public int getId() {
             return id;
         }
 
-        public void setId(String id) {
+        public void setId(int id) {
             this.id = id;
         }
 
-        public String getUserId() {
-            return userId;
+        public String getName() {
+            return name;
         }
 
-        public void setUserId(String userId) {
-            this.userId = userId;
+        public void setName(String name) {
+            this.name = name;
         }
 
-        public String getCode() {
-            return code;
+        public String getImgurl() {
+            return imgurl;
         }
 
-        public void setCode(String code) {
-            this.code = code;
-        }
-
-        public String getCode_img() {
-            return code_img;
-        }
-
-        public void setCode_img(String code_img) {
-            this.code_img = code_img;
-        }
-
-        public String getMark() {
-            return mark;
-        }
-
-        public void setMark(String mark) {
-            this.mark = mark;
-        }
-
-        public String getState() {
-            return state;
-        }
-
-        public void setState(String state) {
-            this.state = state;
+        public void setImgurl(String imgurl) {
+            this.imgurl = imgurl;
         }
     }
 }

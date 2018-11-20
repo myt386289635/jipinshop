@@ -7,6 +7,7 @@ import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
@@ -93,5 +94,17 @@ public class DialogUtil{
         dialog.setContentView(view);
     }
 
-
+    public static  void SignFaile(Context context,int id){
+        AlertDialog.Builder builder = new AlertDialog.Builder(context,R.style.dialog);
+        View view = LayoutInflater.from(context).inflate(R.layout.dialog_signfaile,null);
+        RelativeLayout relativeLayout = view.findViewById(R.id.sign_bg);
+        relativeLayout.setBackgroundResource(id);
+        ImageView diss = view.findViewById(R.id.sign_diss);
+        final Dialog dialog = builder.create();
+        dialog.getWindow().setDimAmount(0.75f);
+        diss.setOnClickListener(v -> dialog.dismiss());
+        dialog.show();
+        dialog.setCanceledOnTouchOutside(false);
+        dialog.setContentView(view);
+    }
 }

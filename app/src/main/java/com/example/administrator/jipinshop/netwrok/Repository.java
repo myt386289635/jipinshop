@@ -197,7 +197,7 @@ public class Repository {
      * 获取抽奖图片
      */
     public Observable<LuckImageBean> luckselects(){
-        return mAPIService.luckselects();
+        return mAPIService.luckselects(SPUtils.getInstance(CommonDate.USER).getString(CommonDate.userId));
     }
 
     /**

@@ -13,7 +13,6 @@ import android.widget.Toast;
 import com.example.administrator.jipinshop.R;
 import com.example.administrator.jipinshop.activity.WebActivity;
 import com.example.administrator.jipinshop.activity.integral.detail.IntegralDetailActivity;
-import com.example.administrator.jipinshop.activity.shoppingdetail.ShoppingDetailActivity;
 import com.example.administrator.jipinshop.adapter.IntegralAdapter;
 import com.example.administrator.jipinshop.base.BaseActivity;
 import com.example.administrator.jipinshop.netwrok.RetrofitModule;
@@ -95,7 +94,7 @@ public class IntegralActivity extends BaseActivity implements IntegralAdapter.On
     @Override
     public void onItemExchange(int pos) {
 //        startActivity(new Intent(this,ShoppingDetailActivity.class));
-        Toast.makeText(this, "该功能正在开发", Toast.LENGTH_SHORT).show();
+        Toast.makeText(this, "积分不足", Toast.LENGTH_SHORT).show();
     }
 
     /**

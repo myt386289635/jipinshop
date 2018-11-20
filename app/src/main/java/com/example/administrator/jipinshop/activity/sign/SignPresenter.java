@@ -114,8 +114,14 @@ public class SignPresenter {
                             mView.SuppleSuc(supplementBean);
                         }
                     }else {
-                        if(mView != null){
-                            mView.SuppleFaile(supplementBean.getMsg());
+                        if(supplementBean.getCode() == 641){
+                            if(mView != null){
+                                mView.SuppleFaile("641");
+                            }
+                        }else {
+                            if(mView != null){
+                                mView.SuppleFaile(supplementBean.getMsg());
+                            }
                         }
                     }
 
@@ -147,8 +153,14 @@ public class SignPresenter {
                             mView.LuckSuc(luckselectBean);
                         }
                     }else {
-                        if(mView != null){
-                            mView.LuckFaile(luckselectBean.getMsg());
+                        if(luckselectBean.getCode() == 642){
+                            if(mView != null){
+                                mView.LuckFaile("642");
+                            }
+                        }else {
+                            if(mView != null){
+                                mView.LuckFaile(luckselectBean.getMsg());
+                            }
                         }
                     }
                 }, throwable -> {

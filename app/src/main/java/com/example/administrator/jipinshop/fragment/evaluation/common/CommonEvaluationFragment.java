@@ -28,6 +28,7 @@ import com.example.administrator.jipinshop.fragment.evaluation.EvaluationFragmen
 import com.example.administrator.jipinshop.util.sp.CommonDate;
 import com.example.administrator.jipinshop.view.dialog.ProgressDialogView;
 import com.google.gson.Gson;
+import com.trello.rxlifecycle2.android.FragmentEvent;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
@@ -89,7 +90,7 @@ public class CommonEvaluationFragment extends DBBaseFragment implements OnRefres
     public void onRefresh() {
         page = 0;
         refersh = true;
-        mPresenter.getDate(id, page + "", this.bindToLifecycle());
+        mPresenter.getDate(id, page + "", this.bindUntilEvent(FragmentEvent.DESTROY_VIEW));
     }
 
     @Override
@@ -207,6 +208,7 @@ public class CommonEvaluationFragment extends DBBaseFragment implements OnRefres
             if (evaluationListBean.getList() != null && evaluationListBean.getList().size() != 0) {
                 mList.addAll(evaluationListBean.getList());
                 mAdapter.notifyDataSetChanged();
+                mBinding.swipeToLoad.setLoadMoreEnabled(false);
             } else {
                 page--;
                 Toast.makeText(getContext(), "已经是最后一页了", Toast.LENGTH_SHORT).show();
@@ -353,7 +355,7 @@ public class CommonEvaluationFragment extends DBBaseFragment implements OnRefres
     public void onLoadMore() {
         page++;
         refersh = false;
-        mPresenter.getDate(id, page + "", this.bindToLifecycle());
+        mPresenter.getDate(id, page + "", this.bindUntilEvent(FragmentEvent.DESTROY_VIEW));
     }
 
     /**

@@ -7,25 +7,19 @@ package com.example.administrator.jipinshop.bean;
  */
 public class SupplementBean {
 
-
     /**
-     * msg : 补签成功
-     * score : 1224
+     * msg : success
      * code : 200
+     * supplementDays : 1
+     * point : -10
+     * points : 992
      */
 
     private String msg;
-    private String score;
     private int code;
-    private String point;
-
-    public String getPoint() {
-        return point;
-    }
-
-    public void setPoint(String point) {
-        this.point = point;
-    }
+    private int supplementDays;
+    private int point;
+    private int points;
 
     public String getMsg() {
         return msg;
@@ -35,19 +29,35 @@ public class SupplementBean {
         this.msg = msg;
     }
 
-    public String getScore() {
-        return score;
-    }
-
-    public void setScore(String score) {
-        this.score = score;
-    }
-
     public int getCode() {
         return code;
     }
 
     public void setCode(int code) {
         this.code = code;
+    }
+
+    public int getSupplementDays() {
+        return supplementDays;
+    }
+
+    public void setSupplementDays(int supplementDays) {
+        this.supplementDays = supplementDays;
+    }
+
+    public int getPoint() {
+        return point;
+    }
+
+    public void setPoint(int point) {
+        this.point = point;
+    }
+
+    public int getPoints() {
+        return points;
+    }
+
+    public void setPoints(int points) {
+        this.points = points;
     }
 }

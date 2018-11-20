@@ -12,12 +12,12 @@ public class LuckImageBean {
     /**
      * msg : success
      * code : 200
-     * list : [{"id":"1","numbers":1,"code_img":"http://192.168.5.182:8083/img/1539767586215prize-100integral.png","mark":"100元积分"},{"id":"2","numbers":2,"code_img":"http://192.168.5.182:8083/img/1539767616882prize-200integral.png","mark":"200元积分"},{"id":"3","numbers":3,"code_img":"http://192.168.5.182:8083/img/1539767645573prize-hairdrier.png","mark":"吹风机"},{"id":"4","numbers":4,"code_img":"http://192.168.5.182:8083/img/1539767672322prize-ricecooker.png","mark":"煲饭锅"},{"id":"5","numbers":5,"code_img":"http://192.168.5.182:8083/img/1539767703851prize-voucher.png","mark":"免费体验劵"},{"id":"6","numbers":6,"code_img":"http://192.168.5.182:8083/img/1539767777199prize-10coupon.png","mark":"10元优惠券"},{"id":"7","numbers":7,"code_img":"http://192.168.5.182:8083/img/1539767925851prize-kettle.png","mark":""},{"id":"8","numbers":0,"code_img":"http://192.168.5.182:8083/img/1539767434129prize-5coupon.png","mark":"5元优惠券"}]
+     * prizeList : [{"id":"1","name":"一等奖","imgurl":"http://pi6611u5d.bkt.clouddn.com/33a5ee6fe8114c169cb37c96c189d68e"},{"id":"2","name":"二等奖","imgurl":"http://pi6611u5d.bkt.clouddn.com/33a5ee6fe8114c169cb37c96c189d68e"},{"id":"3","name":"三等奖","imgurl":"http://pi6611u5d.bkt.clouddn.com/33a5ee6fe8114c169cb37c96c189d68e"},{"id":"4","name":"四等奖","imgurl":"http://pi6611u5d.bkt.clouddn.com/33a5ee6fe8114c169cb37c96c189d68e"},{"id":"5","name":"四等奖","imgurl":"http://pi6611u5d.bkt.clouddn.com/33a5ee6fe8114c169cb37c96c189d68e"},{"id":"6","name":"四等奖","imgurl":"http://pi6611u5d.bkt.clouddn.com/33a5ee6fe8114c169cb37c96c189d68e"},{"id":"7","name":"四等奖","imgurl":"http://pi6611u5d.bkt.clouddn.com/33a5ee6fe8114c169cb37c96c189d68e"},{"id":"8","name":"四等奖","imgurl":"http://pi6611u5d.bkt.clouddn.com/33a5ee6fe8114c169cb37c96c189d68e"}]
      */
 
     private String msg;
     private int code;
-    private List<ListBean> list;
+    private List<PrizeListBean> prizeList;
 
     public String getMsg() {
         return msg;
@@ -35,26 +35,24 @@ public class LuckImageBean {
         this.code = code;
     }
 
-    public List<ListBean> getList() {
-        return list;
+    public List<PrizeListBean> getPrizeList() {
+        return prizeList;
     }
 
-    public void setList(List<ListBean> list) {
-        this.list = list;
+    public void setPrizeList(List<PrizeListBean> prizeList) {
+        this.prizeList = prizeList;
     }
 
-    public static class ListBean {
+    public static class PrizeListBean {
         /**
          * id : 1
-         * numbers : 1
-         * code_img : http://192.168.5.182:8083/img/1539767586215prize-100integral.png
-         * mark : 100元积分
+         * name : 一等奖
+         * imgurl : http://pi6611u5d.bkt.clouddn.com/33a5ee6fe8114c169cb37c96c189d68e
          */
 
         private String id;
-        private int numbers;
-        private String code_img;
-        private String mark;
+        private String name;
+        private String imgurl;
 
         public String getId() {
             return id;
@@ -64,28 +62,20 @@ public class LuckImageBean {
             this.id = id;
         }
 
-        public int getNumbers() {
-            return numbers;
+        public String getName() {
+            return name;
         }
 
-        public void setNumbers(int numbers) {
-            this.numbers = numbers;
+        public void setName(String name) {
+            this.name = name;
         }
 
-        public String getCode_img() {
-            return code_img;
+        public String getImgurl() {
+            return imgurl;
         }
 
-        public void setCode_img(String code_img) {
-            this.code_img = code_img;
-        }
-
-        public String getMark() {
-            return mark;
-        }
-
-        public void setMark(String mark) {
-            this.mark = mark;
+        public void setImgurl(String imgurl) {
+            this.imgurl = imgurl;
         }
     }
 }

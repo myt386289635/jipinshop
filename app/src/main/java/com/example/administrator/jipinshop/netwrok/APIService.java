@@ -116,13 +116,13 @@ public interface APIService {
     /**
      * 查询签到7天状态
      */
-    @GET("qualityshop-api/api/sign")
+    @GET("qualityshop-api/api/signinDetail")
     Observable<SignBean> sign(@Query("userId") String userId);
 
     /**
      * 签到
      */
-    @POST("qualityshop-api/api/signInsert")
+    @POST("qualityshop-api/api/signin")
     @FormUrlEncoded
     Observable<SignInsertBean> signInsert(@Field("userId") String userId);
 
@@ -157,7 +157,7 @@ public interface APIService {
     /**
      * 一键补签
      */
-    @POST("qualityshop-api/api/Supplement")
+    @POST("qualityshop-api/api/supplement")
     @FormUrlEncoded
     Observable<SupplementBean> Supplement(@Field("userId") String userId);
 
@@ -171,7 +171,7 @@ public interface APIService {
     /**
      * 抽奖结果
      */
-    @POST("qualityshop-api/api/luckselect")
+    @POST("qualityshop-api/api/startLuckyDraw")
     @FormUrlEncoded
     Observable<LuckselectBean> luckselect(@Field("userId") String userId);
 
@@ -191,8 +191,8 @@ public interface APIService {
     /**
      * 获取抽奖图片
      */
-    @POST("qualityshop-api/api/luckselects")
-    Observable<LuckImageBean> luckselects();
+    @GET("qualityshop-api/api/prizeList")
+    Observable<LuckImageBean> luckselects(@Query("userId") String userId);
 
     /**
      * 榜单二级菜单列表
