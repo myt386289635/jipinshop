@@ -72,8 +72,8 @@ public class CommenListPresenter {
     /**
      * 添加评论
      */
-    public void commentInsert(String articId,String content,String parentId , LifecycleTransformer<CommentInsertBean> transformer){
-        mRepository.commentInsert(articId,content,parentId)
+    public void commentInsert(String articId,String content,String parentId,String status , LifecycleTransformer<CommentInsertBean> transformer){
+        mRepository.commentInsert(articId,content,parentId,status)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .compose(transformer)

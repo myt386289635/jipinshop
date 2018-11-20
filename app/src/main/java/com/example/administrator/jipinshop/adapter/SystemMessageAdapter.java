@@ -8,7 +8,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.example.administrator.jipinshop.R;
 import com.example.administrator.jipinshop.activity.message.system.detail.SystemMsgDetailActivity;
@@ -41,17 +40,18 @@ public class SystemMessageAdapter extends RecyclerView.Adapter<SystemMessageAdap
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
 
-        holder.item_content.setText(mList.get(position).getMessageContentDetail());
-        holder.item_name.setText(mList.get(position).getMessageTitle());
-        holder.item_time.setText(mList.get(position).getMessagePushTime().split(" ")[0].replace("-","."));
+        holder.item_content.setText(mList.get(position).getContent());
+        holder.item_name.setText(mList.get(position).getTitle());
+        holder.item_time.setText(mList.get(position).getCreateTime().split(" ")[0].replace("-","."));
         holder.item_more.setOnClickListener(v -> {
             Intent intent = new Intent(mContext,SystemMsgDetailActivity.class);
-            intent.putExtra("title",mList.get(position).getMessageTitle());
-            intent.putExtra("content",mList.get(position).getMessageContentDetail());
-            intent.putExtra("id",mList.get(position).getMessageId());
+            intent.putExtra("title",mList.get(position).getTitle());
+            intent.putExtra("content",mList.get(position).getContent());
+            intent.putExtra("id",mList.get(position).getId());
             mContext.startActivity(intent);
         });
-        if (mList.get(position).getReadNum() == 0) {
+        if (mList.get(position).getStatus() == 0) {
+            //未读
             holder.item_unred.setVisibility(View.VISIBLE);
         }else {
             holder.item_unred.setVisibility(View.GONE);

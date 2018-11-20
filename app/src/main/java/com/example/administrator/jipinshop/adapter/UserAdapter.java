@@ -1,6 +1,7 @@
 package com.example.administrator.jipinshop.adapter;
 
 import android.content.Context;
+import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
@@ -13,6 +14,8 @@ import android.widget.TextView;
 import com.bumptech.glide.Glide;
 import com.example.administrator.jipinshop.MyApplication;
 import com.example.administrator.jipinshop.R;
+import com.example.administrator.jipinshop.activity.home.evaluation.EvaluationDetailActivity;
+import com.example.administrator.jipinshop.activity.home.find.FindDetailActivity;
 import com.example.administrator.jipinshop.bean.UserPageBean;
 import com.example.administrator.jipinshop.view.glide.BlurTransformation;
 import com.example.administrator.jipinshop.view.glide.imageloder.ImageManager;
@@ -125,7 +128,7 @@ public class UserAdapter extends RecyclerView.Adapter {
                     headViewHolder.item_attention.setText("已关注");
                 }
                 break;
-            case EVA:
+            case EVA://评测
                 EvaViewHolder contentViewHolder = (EvaViewHolder) holder;
                 ImageManager.displayRoundImage(mList.get(position -1).getImg(),contentViewHolder.content_image,0,0,10);
                 contentViewHolder.content_lookNum.setText(mList.get(position -1).getVisitCount());
@@ -136,8 +139,13 @@ public class UserAdapter extends RecyclerView.Adapter {
                 }
                 contentViewHolder.content_commentNum.setText(mList.get(position - 1).getCommentNum());
                 contentViewHolder.content_title.setText(mList.get(position - 1).getTitle());
+                contentViewHolder.itemView.setOnClickListener(v -> {
+                    mContext.startActivity(new Intent(mContext, EvaluationDetailActivity.class)
+                            .putExtra("id",mList.get(position - 1).getArticleId())
+                    );
+                });
                 break;
-            case CONTENT:
+            case CONTENT://发现
                 FindViewHolder findViewHolder = (FindViewHolder) holder;
                 ImageManager.displayRoundImage(mList.get(position -1).getImg(),findViewHolder.mItemImage,0,0,10);
                 findViewHolder.mItemName.setText(mList.get(position - 1).getTitle());
@@ -148,6 +156,11 @@ public class UserAdapter extends RecyclerView.Adapter {
                 }else {
                     findViewHolder.mItemTime.setText(mList.get(position - 1).getShowTime());
                 }
+                findViewHolder.itemView.setOnClickListener(v -> {
+                    mContext.startActivity(new Intent(mContext, FindDetailActivity.class)
+                            .putExtra("id",mList.get(position - 1).getArticleId())
+                    );
+                });
                 break;
         }
     }
@@ -225,5 +238,9 @@ public class UserAdapter extends RecyclerView.Adapter {
 
     public interface OnListener{
         void onFinish();
+
+        void onAttenInsItem(String attentionUserId,int pos);
+        void onAttenDecItem(String attentionUserId,int pos);
+
     }
 }

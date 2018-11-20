@@ -185,7 +185,7 @@ public class CommenListActivity extends BaseActivity implements CommenListAdapte
                 }
                 mDialog = (new ProgressDialogView()).createLoadingDialog(this, "正在加载...");
                 mDialog.show();
-                mPresenter.commentInsert(getIntent().getStringExtra("id"), mBinding.keyEdit.getText().toString(), parentId, this.bindToLifecycle());
+                mPresenter.commentInsert(getIntent().getStringExtra("id"), mBinding.keyEdit.getText().toString(), parentId,getIntent().getStringExtra("type"), this.bindToLifecycle());
                 break;
             case R.id.key_edit:
 //                Toast.makeText(this, "点击了" + imi, Toast.LENGTH_SHORT).show();
@@ -244,10 +244,10 @@ public class CommenListActivity extends BaseActivity implements CommenListAdapte
                         initSets();
                     }
                 }
-                if (getIntent().getStringExtra("type").equals("3")){
+                if (getIntent().getStringExtra("type").equals("2")){
                     //表示从评测进来的
                     EventBus.getDefault().post(new EvaluationBus(getIntent().getStringExtra("id"),commentBean.getCount()));
-                }else if(getIntent().getStringExtra("type").equals("2")){
+                }else if(getIntent().getStringExtra("type").equals("3")){
                     //表示从发现进来的
                     EventBus.getDefault().post(new FindBus(commentBean.getCount()));
                 }else {

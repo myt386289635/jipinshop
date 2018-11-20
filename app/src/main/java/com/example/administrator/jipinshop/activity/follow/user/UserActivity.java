@@ -99,6 +99,16 @@ public class UserActivity extends RxAppCompatActivity implements UserAdapter.OnL
         finish();
     }
 
+    @Override
+    public void onAttenInsItem(String attentionUserId, int pos) {
+
+    }
+
+    @Override
+    public void onAttenDecItem(String attentionUserId, int pos) {
+
+    }
+
     /**
      * 加载
      */

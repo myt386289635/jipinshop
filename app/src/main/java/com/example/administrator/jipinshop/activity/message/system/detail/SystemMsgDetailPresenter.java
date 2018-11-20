@@ -28,8 +28,8 @@ public class SystemMsgDetailPresenter {
         mRepository = repository;
     }
 
-    public void readMsg(String messageId,LifecycleTransformer<SuccessBean> ransformer){
-        mRepository.readMsg(messageId)
+    public void readMsg(String id,LifecycleTransformer<SuccessBean> ransformer){
+        mRepository.readMsg(id)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .compose(ransformer)

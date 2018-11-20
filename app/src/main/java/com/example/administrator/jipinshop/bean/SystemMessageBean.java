@@ -12,7 +12,7 @@ public class SystemMessageBean {
     /**
      * msg : success
      * code : 200
-     * list : [{"messageId":"14358eb8e526428f808525c1bafe8417","messageType":"1","messageTitle":"33333333333","messageFrom":null,"messageImg":"1","messageContentDetail":null,"messageCreatetime":"2018-11-12 16:04:05","messageBaticContent":null,"messagePushTime":"2018-10-19 16:16:24","pushStatus":null,"pushMessageUser":null,"readNum":0},{"messageId":"bc14b2fed1854a079da8b2ec1843bbf9","messageType":"1","messageTitle":"33333333333","messageFrom":null,"messageImg":"1","messageContentDetail":null,"messageCreatetime":"2018-11-13 19:33:21","messageBaticContent":"系统消息   啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊","messagePushTime":"2018-11-13 19:33:32","pushStatus":null,"pushMessageUser":null,"readNum":0},{"messageId":"dcd2faea668648cc9cf3a32578a6a54b","messageType":"1","messageTitle":"222222222222","messageFrom":"21312","messageImg":"3213","messageContentDetail":"31231","messageCreatetime":"2018-10-20 17:23:35","messageBaticContent":"21312","messagePushTime":"2018-11-12 17:57:31","pushStatus":null,"pushMessageUser":null,"readNum":0},{"messageId":"dffa13905bb744289f7be9acb5faa701","messageType":"1","messageTitle":"111111111111","messageFrom":"","messageImg":"","messageContentDetail":"","messageCreatetime":"2018-10-20 18:49:17","messageBaticContent":"","messagePushTime":"2018-11-12 17:57:35","pushStatus":null,"pushMessageUser":null,"readNum":0}]
+     * list : [{"id":"0185d0ac968d4d1c8970bf064c9963eb","messageId":"5883d336b1e347c38678762a212f9472","userId":"7d67892cb02f4766aa72fd5b08b8d8d1","title":"商品测试","content":"商品双12活动,商品双12活动商品双12活动商品双12活动商品双12活动商品双12活动商品双12活动","createTime":"2018-11-19 14:47:03","type":1,"status":null,"dataFlag":null,"unreadNum":null},{"id":"c150a4a09ac44b9d9e74b63088f9e447","messageId":"6c46e703d55b4eebaa8827bcb44b9afa","userId":"7d67892cb02f4766aa72fd5b08b8d8d1","title":"马上开始了双十二活动！我们要打起十二分精神起来卖商品了！！！","content":"尊敬的用户您好：马上开始了双十二活动！我们要打起十二分精神起来卖商品了！！！马上开始了双十二活动！我们要打起十二分精神起来卖商品了！！！马上开始了双十二活动！我们要打起十二分精神起来卖商品了！！！马上开始了双十二活动！我们要打起十二分精神起来卖商品了！！！马上开始了双十二活动！我们要打起十二分精神起来卖商品了！！！马上开始了双十二活动！我们要打起十二分精神起来卖商品了！！！","createTime":"2018-11-19 14:39:33","type":1,"status":null,"dataFlag":null,"unreadNum":null},{"id":"5b147b9e526a430489d719a6271b2acd","messageId":"6c46e703d55b4eebaa8827bcb44b9afa","userId":"7d67892cb02f4766aa72fd5b08b8d8d1","title":"标题9","content":"京东返利升级,买一送二","createTime":"2018-11-15 15:36:52","type":1,"status":null,"dataFlag":null,"unreadNum":null},{"id":"9bed970709984a11beeead8df9b0fe45","messageId":"6c46e703d55b4eebaa8827bcb44b9afa","userId":"7d67892cb02f4766aa72fd5b08b8d8d1","title":"标题4","content":"京东返利升级,买一送二","createTime":"2018-11-15 15:35:42","type":1,"status":null,"dataFlag":null,"unreadNum":null},{"id":"f740072589394a7080ede2a5a155fb7c","messageId":"fa8df1577fe443468bae384f4b90ce7f","userId":"7d67892cb02f4766aa72fd5b08b8d8d1","title":"标题3","content":"京东返利升级,买一送二","createTime":"2018-11-15 15:28:44","type":1,"status":null,"dataFlag":null,"unreadNum":null},{"id":"2d944d308b4b4523bc80a2033e0b2e3d","messageId":"53767dbb5e95498ab1ec37664246d299","userId":"7d67892cb02f4766aa72fd5b08b8d8d1","title":"标题2","content":"京东返利升级,买一送二","createTime":"2018-11-15 15:28:30","type":1,"status":null,"dataFlag":null,"unreadNum":null},{"id":"99d79cf269da4620a42e28340fd8ed1e","messageId":"53767dbb5e95498ab1ec37664246d299","userId":"7d67892cb02f4766aa72fd5b08b8d8d1","title":"标题1","content":"京东返利升级,买一送二","createTime":"2018-11-15 15:19:26","type":1,"status":null,"dataFlag":null,"unreadNum":null},{"id":"9734fe6546f04d21b7c85326967e9bc8","messageId":"53767dbb5e95498ab1ec37664246d299","userId":"7d67892cb02f4766aa72fd5b08b8d8d1","title":"标题8","content":"京东返利升级,买一送二","createTime":"2018-11-15 15:19:20","type":1,"status":null,"dataFlag":null,"unreadNum":null},{"id":"8b15e1b8aeb14d94bc6211ea53f8b4d4","messageId":"53767dbb5e95498ab1ec37664246d299","userId":"7d67892cb02f4766aa72fd5b08b8d8d1","title":"标题7","content":"京东返利升级,买一送二","createTime":"2018-11-15 15:19:12","type":1,"status":null,"dataFlag":null,"unreadNum":null}]
      */
 
     private String msg;
@@ -45,32 +45,36 @@ public class SystemMessageBean {
 
     public static class ListBean {
         /**
-         * messageId : 14358eb8e526428f808525c1bafe8417
-         * messageType : 1
-         * messageTitle : 33333333333
-         * messageFrom : null
-         * messageImg : 1
-         * messageContentDetail : null
-         * messageCreatetime : 2018-11-12 16:04:05
-         * messageBaticContent : null
-         * messagePushTime : 2018-10-19 16:16:24
-         * pushStatus : null
-         * pushMessageUser : null
-         * readNum : 0
+         * id : 0185d0ac968d4d1c8970bf064c9963eb
+         * messageId : 5883d336b1e347c38678762a212f9472
+         * userId : 7d67892cb02f4766aa72fd5b08b8d8d1
+         * title : 商品测试
+         * content : 商品双12活动,商品双12活动商品双12活动商品双12活动商品双12活动商品双12活动商品双12活动
+         * createTime : 2018-11-19 14:47:03
+         * type : 1
+         * status : null
+         * dataFlag : null
+         * unreadNum : null
          */
 
+        private String id;
         private String messageId;
-        private String messageType;
-        private String messageTitle;
-        private String messageFrom;
-        private String messageImg;
-        private String messageContentDetail;
-        private String messageCreatetime;
-        private String messageBaticContent;
-        private String messagePushTime;
-        private String pushStatus;
-        private String pushMessageUser;
-        private int readNum;
+        private String userId;
+        private String title;
+        private String content;
+        private String createTime;
+        private int type;
+        private int status;
+        private String dataFlag;
+        private String unreadNum;
+
+        public String getId() {
+            return id;
+        }
+
+        public void setId(String id) {
+            this.id = id;
+        }
 
         public String getMessageId() {
             return messageId;
@@ -80,92 +84,68 @@ public class SystemMessageBean {
             this.messageId = messageId;
         }
 
-        public String getMessageType() {
-            return messageType;
+        public String getUserId() {
+            return userId;
         }
 
-        public void setMessageType(String messageType) {
-            this.messageType = messageType;
+        public void setUserId(String userId) {
+            this.userId = userId;
         }
 
-        public String getMessageTitle() {
-            return messageTitle;
+        public String getTitle() {
+            return title;
         }
 
-        public void setMessageTitle(String messageTitle) {
-            this.messageTitle = messageTitle;
+        public void setTitle(String title) {
+            this.title = title;
         }
 
-        public Object getMessageFrom() {
-            return messageFrom;
+        public String getContent() {
+            return content;
         }
 
-        public void setMessageFrom(String messageFrom) {
-            this.messageFrom = messageFrom;
+        public void setContent(String content) {
+            this.content = content;
         }
 
-        public String getMessageImg() {
-            return messageImg;
+        public String getCreateTime() {
+            return createTime;
         }
 
-        public void setMessageImg(String messageImg) {
-            this.messageImg = messageImg;
+        public void setCreateTime(String createTime) {
+            this.createTime = createTime;
         }
 
-        public String getMessageContentDetail() {
-            return messageContentDetail;
+        public int getType() {
+            return type;
         }
 
-        public void setMessageContentDetail(String messageContentDetail) {
-            this.messageContentDetail = messageContentDetail;
+        public void setType(int type) {
+            this.type = type;
         }
 
-        public String getMessageCreatetime() {
-            return messageCreatetime;
+        public int getStatus() {
+            return status;
         }
 
-        public void setMessageCreatetime(String messageCreatetime) {
-            this.messageCreatetime = messageCreatetime;
+        public void setStatus(int status) {
+            this.status = status;
         }
 
-        public String getMessageBaticContent() {
-            return messageBaticContent;
+        public String getDataFlag() {
+            return dataFlag;
         }
 
-        public void setMessageBaticContent(String messageBaticContent) {
-            this.messageBaticContent = messageBaticContent;
+        public void setDataFlag(String dataFlag) {
+            this.dataFlag = dataFlag;
         }
 
-        public String getMessagePushTime() {
-            return messagePushTime;
+        public String getUnreadNum() {
+            return unreadNum;
         }
 
-        public void setMessagePushTime(String messagePushTime) {
-            this.messagePushTime = messagePushTime;
-        }
-
-        public String getPushStatus() {
-            return pushStatus;
-        }
-
-        public void setPushStatus(String pushStatus) {
-            this.pushStatus = pushStatus;
-        }
-
-        public String getPushMessageUser() {
-            return pushMessageUser;
-        }
-
-        public void setPushMessageUser(String pushMessageUser) {
-            this.pushMessageUser = pushMessageUser;
-        }
-
-        public int getReadNum() {
-            return readNum;
-        }
-
-        public void setReadNum(int readNum) {
-            this.readNum = readNum;
+        public void setUnreadNum(String unreadNum) {
+            this.unreadNum = unreadNum;
         }
     }
 }

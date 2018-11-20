@@ -162,8 +162,8 @@ public class ShoppingDetailPresenter {
      */
     public void collectInsert(String goodsId , LifecycleTransformer<SuccessBean> transformer){
         Map<String,String> hashMap = new HashMap<>();
-        hashMap.put("user_id", SPUtils.getInstance(CommonDate.USER).getString(CommonDate.userId));
-        hashMap.put("project_id",goodsId);
+        hashMap.put("userId", SPUtils.getInstance(CommonDate.USER).getString(CommonDate.userId));
+        hashMap.put("projectId",goodsId);
         mRepository.collectInsert(hashMap)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
@@ -367,7 +367,7 @@ public class ShoppingDetailPresenter {
      * 添加评论
      */
     public void commentInsert(String articId,String content,String parentId , LifecycleTransformer<CommentInsertBean> transformer){
-        mRepository.commentInsert(articId,content,parentId)
+        mRepository.commentInsert(articId,content,parentId,"1")
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .compose(transformer)

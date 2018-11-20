@@ -294,9 +294,9 @@ public class Repository {
     /**
      * 添加评论
      */
-    public Observable<CommentInsertBean> commentInsert(String articId, String content, String parentId){
+    public Observable<CommentInsertBean> commentInsert(String articId, String content, String parentId,String status){
         return mAPIService.commentInsert(articId,SPUtils.getInstance(CommonDate.USER).getString(CommonDate.userId),
-                content,parentId);
+                content,parentId,status);
     }
 
     /**
@@ -317,7 +317,7 @@ public class Repository {
      * 查看未读消息
      */
     public Observable<SuccessBean> readMsg(String messageId){
-        return mAPIService.readMsg(messageId,SPUtils.getInstance(CommonDate.USER).getString(CommonDate.userId));
+        return mAPIService.readMsg(messageId);
     }
 
     /**

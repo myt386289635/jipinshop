@@ -236,7 +236,7 @@ public class EvaluationDetailActivity extends RxAppCompatActivity implements Vie
                 startActivity(new Intent(this, CommenListActivity.class)
                         .putExtra("position",-1)
                         .putExtra("id",getIntent().getStringExtra("id"))
-                        .putExtra("type","3")
+                        .putExtra("type","2")
                 );
                 break;
             case R.id.bottom_buy:

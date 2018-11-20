@@ -280,7 +280,8 @@ public interface APIService {
     @FormUrlEncoded
     @POST("qualityshop-api/api/commentInsert")
     Observable<CommentInsertBean> commentInsert(@Field("articId") String articId, @Field("userId") String userId,
-                                                @Field("content") String content, @Field("parentId") String parentId);
+                                                @Field("content") String content, @Field("parentId") String parentId,
+                                                @Field("status") String status);
 
     /**
      * 获取未读消息
@@ -297,9 +298,8 @@ public interface APIService {
     /**
      * 查看未读消息
      */
-    @FormUrlEncoded
-    @POST("qualityshop-api/message/readMsg")
-    Observable<SuccessBean> readMsg(@Field("messageId") String messageId,@Field("userId") String userId);
+    @GET("qualityshop-api/message/selectById")
+    Observable<SuccessBean> readMsg(@Query("id") String id);
 
     /**
      * 获取评测tab

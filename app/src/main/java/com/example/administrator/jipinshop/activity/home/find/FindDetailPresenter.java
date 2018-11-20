@@ -190,8 +190,8 @@ public class FindDetailPresenter {
      */
     public void collectInsert(String goodsId , LifecycleTransformer<SuccessBean> transformer){
         Map<String,String> hashMap = new HashMap<>();
-        hashMap.put("user_id", SPUtils.getInstance(CommonDate.USER).getString(CommonDate.userId));
-        hashMap.put("findGoods_id",goodsId);
+        hashMap.put("userId", SPUtils.getInstance(CommonDate.USER).getString(CommonDate.userId));
+        hashMap.put("findGoodsId",goodsId);
         mRepository.collectInsert(hashMap)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())

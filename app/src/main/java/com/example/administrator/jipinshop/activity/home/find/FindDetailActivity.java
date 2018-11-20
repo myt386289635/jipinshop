@@ -267,7 +267,7 @@ public class FindDetailActivity extends RxAppCompatActivity implements View.OnCl
             case R.id.bottom_commen:
                 startActivity(new Intent(this, CommenListActivity.class)
                         .putExtra("position",-1)
-                        .putExtra("type","2")
+                        .putExtra("type","3")
                         .putExtra("id",getIntent().getStringExtra("id"))
                 );
                 break;
