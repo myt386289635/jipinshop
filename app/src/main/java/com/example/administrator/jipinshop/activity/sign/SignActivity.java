@@ -16,6 +16,10 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.blankj.utilcode.util.SPUtils;
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.resource.drawable.GlideDrawable;
+import com.bumptech.glide.request.animation.GlideAnimation;
+import com.bumptech.glide.request.target.SimpleTarget;
 import com.example.administrator.jipinshop.R;
 import com.example.administrator.jipinshop.base.BaseActivity;
 import com.example.administrator.jipinshop.bean.LuckImageBean;
@@ -29,7 +33,6 @@ import com.example.administrator.jipinshop.util.WeakRefHandler;
 import com.example.administrator.jipinshop.util.sp.CommonDate;
 import com.example.administrator.jipinshop.view.dialog.DialogUtil;
 import com.example.administrator.jipinshop.view.dialog.ProgressDialogView;
-import com.example.administrator.jipinshop.view.glide.imageloder.ImageManager;
 
 import org.greenrobot.eventbus.EventBus;
 
@@ -139,9 +142,6 @@ public class SignActivity extends BaseActivity implements View.OnClickListener, 
         for (int i = 0; i < day - 1; i++) {
             upImg(R.mipmap.h5_signin_supplement, mTextViews.get(i));
         }
-        for (int i = day - 1; i < 7; i++) {
-            upImg(R.mipmap.h5_signin_unsigned, mTextViews.get(i));
-        }
 
         mDialog = (new ProgressDialogView()).createLoadingDialog(this, "正在加载...");
         mDialog.show();
@@ -197,12 +197,12 @@ public class SignActivity extends BaseActivity implements View.OnClickListener, 
         if (mDialog != null && mDialog.isShowing()) {
             mDialog.dismiss();
         }
-        if (signBean.getSigninInfo().getWeekArray() != null && signBean.getSigninInfo().getWeekArray().size() != 0) {
-            int day = getWeek();//今天星期几
-            for (int i = 0; i < day; i++) {
-                switch (signBean.getSigninInfo().getWeekArray().get(i)) {
+        int day = getWeek();//今天星期几
+        if (signBean.getWeekArray() != null && signBean.getWeekArray().size() != 0) {
+            for (int i = 0; i < signBean.getWeekArray().size(); i++) {
+                switch (signBean.getWeekArray().get(i)) {
                     case "2"://补签
-//                        upImg(R.mipmap.h5_signin_supplement, mTextViews.get(i));
+                        upImg(R.mipmap.h5_signin_supplement, mTextViews.get(i));
                         break;
                     case "1"://已签过
                         if(day == (i + 1)){
@@ -211,12 +211,11 @@ public class SignActivity extends BaseActivity implements View.OnClickListener, 
                         upImg(R.mipmap.h5_signin_complete, mTextViews.get(i));
                         break;
                     case "0"://未签到
-//                        upImg(R.mipmap.h5_signin_unsigned, mTextViews.get(i));
+                        upImg(signBean.getImgList().get(i), mTextViews.get(i));
                         break;
                 }
             }
         }
-
     }
 
     /**
@@ -259,7 +258,7 @@ public class SignActivity extends BaseActivity implements View.OnClickListener, 
     @Override
     public void SuppleSuc(SupplementBean supplementBean) {
         int day = getWeek();
-        for (int i = 0; i < day; i++) {
+        for (int i = 0; i < day - 1; i++) {
             upImg(R.mipmap.h5_signin_complete, mTextViews.get(i));
         }
         SPUtils.getInstance(CommonDate.USER).put(CommonDate.userPoint, Integer.valueOf(supplementBean.getPoints()));
@@ -320,14 +319,14 @@ public class SignActivity extends BaseActivity implements View.OnClickListener, 
      */
     @Override
     public void LuckImageSuc(LuckImageBean luckImageBean) {
-        ImageManager.displayImage(luckImageBean.getPrizeList().get(0).getImgurl(),mBinding.prize1,0,0);
-        ImageManager.displayImage(luckImageBean.getPrizeList().get(1).getImgurl(),mBinding.prize2,0,0);
-        ImageManager.displayImage(luckImageBean.getPrizeList().get(2).getImgurl(),mBinding.prize3,0,0);
-        ImageManager.displayImage(luckImageBean.getPrizeList().get(3).getImgurl(),mBinding.prize4,0,0);
-        ImageManager.displayImage(luckImageBean.getPrizeList().get(4).getImgurl(),mBinding.prize5,0,0);
-        ImageManager.displayImage(luckImageBean.getPrizeList().get(5).getImgurl(),mBinding.prize6,0,0);
-        ImageManager.displayImage(luckImageBean.getPrizeList().get(6).getImgurl(),mBinding.prize7,0,0);
-        ImageManager.displayImage(luckImageBean.getPrizeList().get(7).getImgurl(),mBinding.prize8,0,0);
+        Glide.with(this).load(luckImageBean.getPrizeList().get(0).getImgurl()).into(mBinding.prize1);
+        Glide.with(this).load(luckImageBean.getPrizeList().get(1).getImgurl()).into(mBinding.prize2);
+        Glide.with(this).load(luckImageBean.getPrizeList().get(2).getImgurl()).into(mBinding.prize3);
+        Glide.with(this).load(luckImageBean.getPrizeList().get(3).getImgurl()).into(mBinding.prize4);
+        Glide.with(this).load(luckImageBean.getPrizeList().get(4).getImgurl()).into(mBinding.prize5);
+        Glide.with(this).load(luckImageBean.getPrizeList().get(5).getImgurl()).into(mBinding.prize6);
+        Glide.with(this).load(luckImageBean.getPrizeList().get(6).getImgurl()).into(mBinding.prize7);
+        Glide.with(this).load(luckImageBean.getPrizeList().get(7).getImgurl()).into(mBinding.prize8);
     }
 
     /**
@@ -420,6 +419,18 @@ public class SignActivity extends BaseActivity implements View.OnClickListener, 
         Drawable bottomDrawable = getResources().getDrawable(id);
         bottomDrawable.setBounds(0, 0, bottomDrawable.getMinimumWidth(), bottomDrawable.getMinimumHeight());
         textView.setCompoundDrawables(null, null, null, bottomDrawable);
+    }
+
+    public void upImg(String url, TextView textView) {
+        Glide.with(this)
+                .load(url)
+                .into(new SimpleTarget<GlideDrawable>() {
+                    @Override
+                    public void onResourceReady(GlideDrawable resource, GlideAnimation<? super GlideDrawable> glideAnimation) {
+                        resource.setBounds(0, 0, resource.getMinimumWidth(), resource.getMinimumHeight());
+                        textView.setCompoundDrawables(null, null, null, resource);
+                    }
+                });
     }
 
     /**

@@ -12,12 +12,14 @@ public class SignBean {
     /**
      * msg : success
      * code : 200
-     * signinInfo : {"id":"738ee2bdf2b646d5b69ce20bdba021c1","userId":"7d67892cb02f4766aa72fd5b08b8d8d1","week":"0,1,0,0,0,0,0","weekArray":["2","1","0","0","0","0","0"],"lastTime":"2018-11-20 13:18:27","daysCount":1,"remark":"签到"}
+     * weekArray : ["2","2","1","0","0","0","0"]
+     * imgList : ["http://pi6611u5d.bkt.clouddn.com/upload/20181121/c6f7fc55df774c4e8119ad17400980a5.png","http://pi6611u5d.bkt.clouddn.com/upload/20181121/6b15d200ed44432281a9e9c53bf9d118.png","http://pi6611u5d.bkt.clouddn.com/upload/20181121/26c7dc87db8543f899f895b6fb509828.png","http://pi6611u5d.bkt.clouddn.com/upload/20181121/300df951b18140858b22665c76ddca85.png","http://pi6611u5d.bkt.clouddn.com/upload/20181121/a595e9d0cd0e4a8d93ad7ad85438e105.png","http://pi6611u5d.bkt.clouddn.com/upload/20181121/9c53d3ca1ba64bcfa1fd96e0d8e183fc.png","http://pi6611u5d.bkt.clouddn.com/upload/20181121/9c45b88daada4c14a2d0ce6645a54723.png"]
      */
 
     private String msg;
     private int code;
-    private SigninInfoBean signinInfo;
+    private List<String> weekArray;
+    private List<String> imgList;
 
     public String getMsg() {
         return msg;
@@ -35,87 +37,19 @@ public class SignBean {
         this.code = code;
     }
 
-    public SigninInfoBean getSigninInfo() {
-        return signinInfo;
+    public List<String> getWeekArray() {
+        return weekArray;
     }
 
-    public void setSigninInfo(SigninInfoBean signinInfo) {
-        this.signinInfo = signinInfo;
+    public void setWeekArray(List<String> weekArray) {
+        this.weekArray = weekArray;
     }
 
-    public static class SigninInfoBean {
-        /**
-         * id : 738ee2bdf2b646d5b69ce20bdba021c1
-         * userId : 7d67892cb02f4766aa72fd5b08b8d8d1
-         * week : 0,1,0,0,0,0,0
-         * weekArray : ["2","1","0","0","0","0","0"]
-         * lastTime : 2018-11-20 13:18:27
-         * daysCount : 1
-         * remark : 签到
-         */
+    public List<String> getImgList() {
+        return imgList;
+    }
 
-        private String id;
-        private String userId;
-        private String week;
-        private String lastTime;
-        private int daysCount;
-        private String remark;
-        private List<String> weekArray;
-
-        public String getId() {
-            return id;
-        }
-
-        public void setId(String id) {
-            this.id = id;
-        }
-
-        public String getUserId() {
-            return userId;
-        }
-
-        public void setUserId(String userId) {
-            this.userId = userId;
-        }
-
-        public String getWeek() {
-            return week;
-        }
-
-        public void setWeek(String week) {
-            this.week = week;
-        }
-
-        public String getLastTime() {
-            return lastTime;
-        }
-
-        public void setLastTime(String lastTime) {
-            this.lastTime = lastTime;
-        }
-
-        public int getDaysCount() {
-            return daysCount;
-        }
-
-        public void setDaysCount(int daysCount) {
-            this.daysCount = daysCount;
-        }
-
-        public String getRemark() {
-            return remark;
-        }
-
-        public void setRemark(String remark) {
-            this.remark = remark;
-        }
-
-        public List<String> getWeekArray() {
-            return weekArray;
-        }
-
-        public void setWeekArray(List<String> weekArray) {
-            this.weekArray = weekArray;
-        }
+    public void setImgList(List<String> imgList) {
+        this.imgList = imgList;
     }
 }

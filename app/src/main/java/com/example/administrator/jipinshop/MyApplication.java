@@ -9,6 +9,7 @@ import android.util.Log;
 import com.alibaba.baichuan.android.trade.AlibcTradeSDK;
 import com.alibaba.baichuan.android.trade.callback.AlibcTradeInitCallback;
 import com.blankj.utilcode.util.Utils;
+import com.bumptech.glide.Glide;
 import com.example.administrator.jipinshop.netwrok.ApplicationComponent;
 import com.example.administrator.jipinshop.netwrok.DaggerApplicationComponent;
 import com.example.administrator.jipinshop.util.DebugHelper;
@@ -42,6 +43,22 @@ public class MyApplication extends Application {
 
     public void setNotificationNum(int notificationNum) {
         mNotificationNum = notificationNum;
+    }
+
+    @Override
+    public void onTrimMemory(int level) {
+        super.onTrimMemory(level);
+        if(level == TRIM_MEMORY_UI_HIDDEN){
+            Glide.get(this).clearMemory();
+        }
+        Glide.get(this).trimMemory(level);
+    }
+
+    @Override
+    public void onLowMemory() {
+        super.onLowMemory();
+        //内存低的时候清除Glide缓存
+        Glide.get(this).clearMemory();
     }
 
     @Override
