@@ -237,7 +237,7 @@ public class SignActivity extends BaseActivity implements View.OnClickListener, 
     public void signSuc(SignInsertBean signInsertBean) {
         signFlag = true;
         SPUtils.getInstance(CommonDate.USER).put(CommonDate.userPoint, signInsertBean.getPoints());
-        SPUtils.getInstance(CommonDate.USER).put(CommonDate.userMemberGrade, signInsertBean.getUserMemberGrade());
+        SPUtils.getInstance(CommonDate.USER).put(CommonDate.userMemberGrade, signInsertBean.getUserMemberGrade() + "");
         upImg(R.mipmap.h5_signin_complete, mTextViews.get(getWeek() - 1));
         EventBus.getDefault().post(new EditNameBus(SignActivity.eventbusTag));
         DialogUtil.SignSuccess(this, "恭喜您签到成功！", "+"+signInsertBean.getAddPoint()+"积分");
@@ -295,7 +295,7 @@ public class SignActivity extends BaseActivity implements View.OnClickListener, 
         if(luckselectBean.getPoints() != 0){
             SPUtils.getInstance(CommonDate.USER).put(CommonDate.userPoint, luckselectBean.getPoints());
         }
-        SPUtils.getInstance(CommonDate.USER).put(CommonDate.userMemberGrade, luckselectBean.getUserMemberGrade());
+        SPUtils.getInstance(CommonDate.USER).put(CommonDate.userMemberGrade, luckselectBean.getUserMemberGrade() + "");
         lunckyPosition = luckselectBean.getMyPrize().getId();
         views.get(lunckyPosition).setVisibility(View.GONE);
         mTimer = new TimeCount(timeC * 9, timeC);
