@@ -56,82 +56,170 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content">
 
-                    <TextView
-                        android:id="@+id/sign_mon"
-                        android:layout_weight="1"
+                    <LinearLayout
                         android:gravity="center"
-                        android:textSize="13sp"
-                        android:textColor="@color/color_white"
-                        android:text="MON"
-                        android:drawableBottom="@mipmap/h5_signin_unsigned"
+                        android:orientation="vertical"
+                        android:layout_weight="1"
                         android:layout_width="0dp"
-                        android:layout_height="wrap_content"/>
+                        android:layout_height="wrap_content">
 
-                    <TextView
-                        android:id="@+id/sigh_tue"
-                        android:layout_weight="1"
-                        android:gravity="center"
-                        android:textSize="13sp"
-                        android:textColor="@color/color_white"
-                        android:text="TUE"
-                        android:drawableBottom="@mipmap/h5_signin_unsigned"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"/>
+                        <TextView
+                            android:gravity="center"
+                            android:textSize="13sp"
+                            android:textColor="@color/color_white"
+                            android:text="MON"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"/>
 
-                    <TextView
-                        android:id="@+id/sign_wed"
-                        android:layout_weight="1"
-                        android:gravity="center"
-                        android:textSize="13sp"
-                        android:textColor="@color/color_white"
-                        android:text="WED"
-                        android:drawableBottom="@mipmap/h5_signin_unsigned"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"/>
+                        <ImageView
+                            android:id="@+id/sign_mon"
+                            android:src="@mipmap/h5_signin_unsigned"
+                            android:scaleType="fitXY"
+                            android:layout_width="@dimen/x74"
+                            android:layout_height="@dimen/x74"/>
 
-                    <TextView
-                        android:id="@+id/sign_thu"
-                        android:layout_weight="1"
-                        android:gravity="center"
-                        android:textSize="13sp"
-                        android:textColor="@color/color_white"
-                        android:text="THU"
-                        android:drawableBottom="@mipmap/h5_signin_unsigned"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"/>
+                    </LinearLayout>
 
-                    <TextView
-                        android:id="@+id/sign_fri"
-                        android:layout_weight="1"
-                        android:gravity="center"
-                        android:textSize="13sp"
-                        android:textColor="@color/color_white"
-                        android:text="FRI"
-                        android:drawableBottom="@mipmap/h5_signin_unsigned"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"/>
 
-                    <TextView
-                        android:id="@+id/sign_sat"
-                        android:layout_weight="1"
+                    <LinearLayout
                         android:gravity="center"
-                        android:textSize="13sp"
-                        android:textColor="@color/color_white"
-                        android:text="SAT"
-                        android:drawableBottom="@mipmap/h5_signin_unsigned"
+                        android:orientation="vertical"
+                        android:layout_weight="1"
                         android:layout_width="0dp"
-                        android:layout_height="wrap_content"/>
+                        android:layout_height="wrap_content">
 
-                    <TextView
-                        android:id="@+id/sign_sun"
-                        android:layout_weight="1"
+                        <TextView
+                            android:gravity="center"
+                            android:textSize="13sp"
+                            android:textColor="@color/color_white"
+                            android:text="TUE"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"/>
+
+                        <ImageView
+                            android:id="@+id/sigh_tue"
+                            android:src="@mipmap/h5_signin_unsigned"
+                            android:scaleType="fitXY"
+                            android:layout_width="@dimen/x74"
+                            android:layout_height="@dimen/x74"/>
+                    </LinearLayout>
+
+                    <LinearLayout
                         android:gravity="center"
-                        android:textSize="13sp"
-                        android:textColor="@color/color_white"
-                        android:text="SUN"
-                        android:drawableBottom="@mipmap/h5_signin_unsigned"
+                        android:orientation="vertical"
+                        android:layout_weight="1"
                         android:layout_width="0dp"
-                        android:layout_height="wrap_content"/>
+                        android:layout_height="wrap_content">
+
+                        <TextView
+                            android:gravity="center"
+                            android:textSize="13sp"
+                            android:textColor="@color/color_white"
+                            android:text="WED"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"/>
+
+                        <ImageView
+                            android:id="@+id/sign_wed"
+                            android:src="@mipmap/h5_signin_unsigned"
+                            android:scaleType="fitXY"
+                            android:layout_width="@dimen/x74"
+                            android:layout_height="@dimen/x74"/>
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:gravity="center"
+                        android:orientation="vertical"
+                        android:layout_weight="1"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content">
+
+                        <TextView
+                            android:gravity="center"
+                            android:textSize="13sp"
+                            android:textColor="@color/color_white"
+                            android:text="THU"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"/>
+
+                        <ImageView
+                            android:id="@+id/sign_thu"
+                            android:src="@mipmap/h5_signin_unsigned"
+                            android:scaleType="fitXY"
+                            android:layout_width="@dimen/x74"
+                            android:layout_height="@dimen/x74"/>
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:gravity="center"
+                        android:orientation="vertical"
+                        android:layout_weight="1"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content">
+
+                        <TextView
+                            android:gravity="center"
+                            android:textSize="13sp"
+                            android:textColor="@color/color_white"
+                            android:text="FRI"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"/>
+
+                        <ImageView
+                            android:id="@+id/sign_fri"
+                            android:src="@mipmap/h5_signin_unsigned"
+                            android:scaleType="fitXY"
+                            android:layout_width="@dimen/x74"
+                            android:layout_height="@dimen/x74"/>
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:gravity="center"
+                        android:orientation="vertical"
+                        android:layout_weight="1"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content">
+
+                        <TextView
+                            android:gravity="center"
+                            android:textSize="13sp"
+                            android:textColor="@color/color_white"
+                            android:text="SAT"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"/>
+
+                        <ImageView
+                            android:id="@+id/sign_sat"
+                            android:src="@mipmap/h5_signin_unsigned"
+                            android:scaleType="fitXY"
+                            android:layout_width="@dimen/x74"
+                            android:layout_height="@dimen/x74"/>
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:gravity="center"
+                        android:orientation="vertical"
+                        android:layout_weight="1"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content">
+
+                        <TextView
+                            android:gravity="center"
+                            android:textSize="13sp"
+                            android:textColor="@color/color_white"
+                            android:text="SUN"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"/>
+
+                        <ImageView
+                            android:id="@+id/sign_sun"
+                            android:src="@mipmap/h5_signin_unsigned"
+                            android:scaleType="fitXY"
+                            android:layout_width="@dimen/x74"
+                            android:layout_height="@dimen/x74"/>
+                    </LinearLayout>
 
                 </LinearLayout>
                 

@@ -12,6 +12,7 @@ import android.support.annotation.Nullable;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -91,7 +92,7 @@ public class SignActivity extends BaseActivity implements View.OnClickListener, 
     };
     private Handler mHandler = new WeakRefHandler(mCallback, Looper.getMainLooper());
 
-    private List<TextView> mTextViews = new ArrayList<>();
+    private List<ImageView> mTextViews = new ArrayList<>();
     private Dialog mDialog;
 
     /**
@@ -415,22 +416,14 @@ public class SignActivity extends BaseActivity implements View.OnClickListener, 
     }
 
 
-    public void upImg(int id, TextView textView) {
-        Drawable bottomDrawable = getResources().getDrawable(id);
-        bottomDrawable.setBounds(0, 0, bottomDrawable.getMinimumWidth(), bottomDrawable.getMinimumHeight());
-        textView.setCompoundDrawables(null, null, null, bottomDrawable);
+    public void upImg(int id, ImageView textView) {
+       textView.setImageResource(id);
     }
 
-    public void upImg(String url, TextView textView) {
+    public void upImg(String url, ImageView textView) {
         Glide.with(this)
                 .load(url)
-                .into(new SimpleTarget<GlideDrawable>() {
-                    @Override
-                    public void onResourceReady(GlideDrawable resource, GlideAnimation<? super GlideDrawable> glideAnimation) {
-                        resource.setBounds(0, 0, resource.getMinimumWidth(), resource.getMinimumHeight());
-                        textView.setCompoundDrawables(null, null, null, resource);
-                    }
-                });
+                .into(textView);
     }
 
     /**
