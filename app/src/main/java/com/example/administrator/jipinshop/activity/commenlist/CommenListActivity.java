@@ -278,11 +278,15 @@ public class CommenListActivity extends BaseActivity implements CommenListAdapte
 
     @Override
     public void onFileComment(String error) {
-        if (mBinding.swipeToLoad != null && mBinding.swipeToLoad.isRefreshing()) {
-            mBinding.swipeToLoad.setRefreshing(false);
-        }
-        if (mBinding.swipeToLoad != null && mBinding.swipeToLoad.isLoadingMore()) {
-            mBinding.swipeToLoad.setLoadingMore(false);
+        if(!refresh){
+            page--;
+            if (mBinding.swipeToLoad != null && mBinding.swipeToLoad.isLoadingMore()) {
+                mBinding.swipeToLoad.setLoadingMore(false);
+            }
+        }else {
+            if (mBinding.swipeToLoad != null && mBinding.swipeToLoad.isRefreshing()) {
+                mBinding.swipeToLoad.setRefreshing(false);
+            }
         }
         Toast.makeText(this, error, Toast.LENGTH_SHORT).show();
     }

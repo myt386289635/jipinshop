@@ -13,6 +13,7 @@ import com.example.administrator.jipinshop.bean.FovalBean;
 import com.example.administrator.jipinshop.bean.HealthFragmentBean;
 import com.example.administrator.jipinshop.bean.HouseholdFragmentBean;
 import com.example.administrator.jipinshop.bean.ImageBean;
+import com.example.administrator.jipinshop.bean.IntegralShopBean;
 import com.example.administrator.jipinshop.bean.KitchenFragmentBean;
 import com.example.administrator.jipinshop.bean.LoginBean;
 import com.example.administrator.jipinshop.bean.LuckImageBean;
@@ -356,4 +357,10 @@ public interface APIService {
      */
     @GET("qualityshop-api/api/totalAddPoint")
     Observable<MemberLevelBean> totalAddPoint(@Query("userId") String userId);
+
+    /**
+     * 积分商城
+     */
+    @GET("qualityshop-api/goodsPoint/selectList")
+    Observable<IntegralShopBean> integralShopList(@Query("page") String page);
 }

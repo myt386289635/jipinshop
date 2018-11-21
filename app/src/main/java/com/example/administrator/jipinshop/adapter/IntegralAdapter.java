@@ -7,12 +7,13 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.blankj.utilcode.util.SPUtils;
+import com.bumptech.glide.Glide;
 import com.example.administrator.jipinshop.R;
+import com.example.administrator.jipinshop.bean.IntegralShopBean;
 import com.example.administrator.jipinshop.util.sp.CommonDate;
 import com.example.administrator.jipinshop.view.TextViewDel;
 
@@ -29,14 +30,14 @@ public class IntegralAdapter extends RecyclerView.Adapter{
     private final int CONTENT  = 2;
 
     private Context mContext;
-    private List<String> mList;
+    private List<IntegralShopBean.ListBean> mList;
     private OnItemListener mOnItemListener;
 
     public void setOnItemListener(OnItemListener onItemListener) {
         mOnItemListener = onItemListener;
     }
 
-    public IntegralAdapter(Context context, List<String> list) {
+    public IntegralAdapter(Context context, List<IntegralShopBean.ListBean> list) {
         mContext = context;
         mList = list;
     }
@@ -97,21 +98,25 @@ public class IntegralAdapter extends RecyclerView.Adapter{
                     layoutParams.leftMargin = mContext.getResources().getDimensionPixelSize(R.dimen.x14);
                     layoutParams.rightMargin = mContext.getResources().getDimensionPixelSize(R.dimen.x28);
                 }
-                contentViewHolder.item_exchange.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        if(mOnItemListener != null){
-                            mOnItemListener.onItemExchange(position);
-                        }
+                contentViewHolder.item_exchange.setOnClickListener(v -> {
+                    if(mOnItemListener != null){
+                        mOnItemListener.onItemExchange(position);
                     }
                 });
+
+                Glide.with(mContext).load(mList.get(position - 1).getRankGoodImg()).into(contentViewHolder.item_image);
+                contentViewHolder.item_code.setText(mList.get(position -1).getGoodsPoint() + "积分");
+                contentViewHolder.item_price.setColor(R.color.color_ACACAC);
+                contentViewHolder.item_price.setTv(true);
+                contentViewHolder.item_price.setText("¥"+mList.get(position -1).getOtherPrice());
+                contentViewHolder.item_name.setText(mList.get(position - 1).getGoodsName());
                 break;
         }
     }
 
     @Override
     public int getItemCount() {
-        return 10 + 1;
+        return mList.size() == 0 ? 1 : mList.size() + 1;
     }
 
     @Override

@@ -7,24 +7,27 @@
     android:layout_marginLeft="@dimen/x28"
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content">
+    android:layout_height="wrap_content"
+    xmlns:tools="http://schemas.android.com/tools">
 
     
     <ImageView
-        android:src="@color/color_E31436"
+        android:scaleType="fitXY"
+        tools:src="@color/color_E31436"
         android:id="@+id/item_image"
         android:layout_width="match_parent"
         android:layout_height="@dimen/x330"/>
 
 
     <TextView
+        android:minLines="2"
         android:id="@+id/item_name"
         android:layout_marginTop="@dimen/x24"
         android:textColor="@color/color_DE151515"
         android:layout_below="@id/item_image"
         android:ellipsize="end"
         android:maxLines="2"
-        android:text="飞利浦HD9103/11双层简洁大容量5升多功能蒸11双层简洁大容量5升多功能蒸11双层简洁大容量5升多功能蒸11双层简洁大容量5升多功能蒸"
+        tools:text="飞利浦HD9103/11双层简洁"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"/>
 
@@ -38,7 +41,7 @@
         <TextView
             android:id="@+id/item_code"
             android:textColor="@color/color_E31436"
-            android:text="3288积分"
+            tools:text="3288积分"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"/>
 
@@ -46,7 +49,7 @@
         <com.example.administrator.jipinshop.view.TextViewDel
             android:id="@+id/item_price"
             android:layout_below="@id/item_code"
-            android:text="¥699.00"
+            tools:text="¥699.00"
             android:textColor="@color/color_ACACAC"
             android:textSize="13sp"
             android:layout_width="wrap_content"

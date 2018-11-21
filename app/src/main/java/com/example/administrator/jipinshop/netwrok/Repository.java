@@ -15,6 +15,7 @@ import com.example.administrator.jipinshop.bean.FovalBean;
 import com.example.administrator.jipinshop.bean.HealthFragmentBean;
 import com.example.administrator.jipinshop.bean.HouseholdFragmentBean;
 import com.example.administrator.jipinshop.bean.ImageBean;
+import com.example.administrator.jipinshop.bean.IntegralShopBean;
 import com.example.administrator.jipinshop.bean.KitchenFragmentBean;
 import com.example.administrator.jipinshop.bean.LoginBean;
 import com.example.administrator.jipinshop.bean.LuckImageBean;
@@ -383,6 +384,13 @@ public class Repository {
      */
     public Observable<MemberLevelBean> totalAddPoint(){
         return mAPIService.totalAddPoint(SPUtils.getInstance(CommonDate.USER).getString(CommonDate.userId));
+    }
+
+    /**
+     * 积分商城
+     */
+    public Observable<IntegralShopBean> integralShopList(String page){
+        return mAPIService.integralShopList(page);
     }
 
 }

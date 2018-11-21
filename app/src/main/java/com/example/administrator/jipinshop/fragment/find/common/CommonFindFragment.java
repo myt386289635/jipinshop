@@ -244,6 +244,7 @@ public class CommonFindFragment extends DBBaseFragment implements OnRefreshListe
             }
         }else {
             stopLoading();
+            page--;
             Toast.makeText(getContext(), error, Toast.LENGTH_SHORT).show();
         }
     }

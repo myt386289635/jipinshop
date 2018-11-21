@@ -243,6 +243,7 @@ public class CommonEvaluationFragment extends DBBaseFragment implements OnRefres
             }
         } else {
             stopLoading();
+            page--;
             Toast.makeText(getContext(), error, Toast.LENGTH_SHORT).show();
         }
     }
