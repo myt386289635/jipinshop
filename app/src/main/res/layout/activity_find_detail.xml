@@ -182,7 +182,7 @@
                     android:layout_centerVertical="true"
                     android:layout_marginLeft="@dimen/x8"
                     android:layout_toRightOf="@id/bottom_favor"
-                    android:text="222"/>
+                    android:text="0"/>
 
             </RelativeLayout>
 
@@ -209,7 +209,7 @@
                     android:layout_centerVertical="true"
                     android:layout_marginLeft="@dimen/x8"
                     android:layout_toRightOf="@id/bottom_community"
-                    android:text="222"/>
+                    android:text="0"/>
             </RelativeLayout>
 
         </LinearLayout>
