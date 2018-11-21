@@ -21,6 +21,7 @@ import com.example.administrator.jipinshop.base.DBBaseFragment;
 import com.example.administrator.jipinshop.bean.EvaluationListBean;
 import com.example.administrator.jipinshop.bean.EvaluationTabBean;
 import com.example.administrator.jipinshop.bean.SuccessBean;
+import com.example.administrator.jipinshop.bean.eventbus.CommonEvaluationBus;
 import com.example.administrator.jipinshop.bean.eventbus.ConcerBus;
 import com.example.administrator.jipinshop.bean.eventbus.EvaluationBus;
 import com.example.administrator.jipinshop.databinding.FragmentEvaluationCommonBinding;
@@ -47,6 +48,7 @@ public class CommonEvaluationFragment extends DBBaseFragment implements OnRefres
     public static final String FIVE = "5"; //该页为家用大电
 
     public static final String REFERSH = "FollowActivity2CommonEvaluationFragment";
+    public static final String REFERSH_PAGE = "LOGIN2CommonEvaluationFragment_REFERSHPAGE";
 
     @Inject
     CommonEvaluationPresenter mPresenter;
@@ -188,6 +190,21 @@ public class CommonEvaluationFragment extends DBBaseFragment implements OnRefres
                     }
                 }
                 mAdapter.notifyDataSetChanged();
+            }
+        }
+    }
+
+    @Subscribe
+    public void refershPage(CommonEvaluationBus commonEvaluationBus){
+        if(commonEvaluationBus != null && commonEvaluationBus.getRefersh().equals(CommonEvaluationFragment.REFERSH_PAGE)){
+            if(!once){
+                if(mBinding.swipeToLoad.isRefreshEnabled()){
+                    mBinding.swipeToLoad.setRefreshing(true);
+                }else {
+                    mBinding.swipeToLoad.setRefreshEnabled(true);
+                    mBinding.recyclerView.scrollToPosition(0);
+                    mBinding.swipeToLoad.setRefreshing(true);
+                }
             }
         }
     }
