@@ -96,6 +96,7 @@ public class MainActivity extends AppCompatActivity implements ViewPager.OnPageC
         mHomeAdapter = new HomeAdapter(getSupportFragmentManager());
         mHomeAdapter.setFragments(mFragments);
         mViewPager.setAdapter(mHomeAdapter);
+        mViewPager.setOffscreenPageLimit(3);
         mTabLayout.setupWithViewPager(mViewPager);
 
         mPresenter.initTabLayout(this, mTabLayout);

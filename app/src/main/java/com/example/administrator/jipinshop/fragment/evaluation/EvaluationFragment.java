@@ -39,6 +39,24 @@ public class EvaluationFragment extends DBBaseFragment implements EvaluationView
 
     private List<EvaluationTabBean.ListBean> tabTitle;
     private List<TextView> tabTextView;
+    private Boolean once = true;
+
+    @Override
+    public void setUserVisibleHint(boolean isVisibleToUser) {
+        super.setUserVisibleHint(isVisibleToUser);
+        if (isVisibleToUser && once) {
+            mFragments.add(CommonEvaluationFragment.getInstance(CommonEvaluationFragment.ONE));
+            mFragments.add(CommonEvaluationFragment.getInstance(CommonEvaluationFragment.TWO));
+            mFragments.add(CommonEvaluationFragment.getInstance(CommonEvaluationFragment.THREE));
+            mFragments.add(CommonEvaluationFragment.getInstance(CommonEvaluationFragment.FORE));
+            mFragments.add(CommonEvaluationFragment.getInstance(CommonEvaluationFragment.FIVE));
+            mAdapter.notifyDataSetChanged();
+            mBinding.viewPager.setOffscreenPageLimit(4);
+            initDate();
+            mPresenter.initTab(this.bindToLifecycle());
+            once = false;
+        }
+    }
 
     @Override
     public View initLayout(LayoutInflater inflater, ViewGroup container) {
@@ -55,20 +73,11 @@ public class EvaluationFragment extends DBBaseFragment implements EvaluationView
         mFragments = new ArrayList<>();
         tabTitle = new ArrayList<>();
         tabTextView= new ArrayList<>();
-        mFragments.add(CommonEvaluationFragment.getInstance(CommonEvaluationFragment.ONE));
-        mFragments.add(CommonEvaluationFragment.getInstance(CommonEvaluationFragment.TWO));
-        mFragments.add(CommonEvaluationFragment.getInstance(CommonEvaluationFragment.THREE));
-        mFragments.add(CommonEvaluationFragment.getInstance(CommonEvaluationFragment.FORE));
-        mFragments.add(CommonEvaluationFragment.getInstance(CommonEvaluationFragment.FIVE));
 
         mAdapter = new HomeFragmentAdapter(getChildFragmentManager());
         mAdapter.setFragments(mFragments);
         mBinding.viewPager.setAdapter(mAdapter);
-        mBinding.viewPager.setOffscreenPageLimit(4);
         mBinding.tabLayout.setupWithViewPager( mBinding.viewPager);
-
-        initDate();
-        mPresenter.initTab(this.bindToLifecycle());
     }
 
     @Override

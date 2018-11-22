@@ -29,9 +29,4 @@ public class HomeAdapter extends FragmentPagerAdapter {
         return fragments.size();
     }
 
-
-    @Override
-    public void destroyItem(ViewGroup container, int position, Object object) {
-    }
-
 }
