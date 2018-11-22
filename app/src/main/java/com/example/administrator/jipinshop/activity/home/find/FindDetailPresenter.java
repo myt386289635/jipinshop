@@ -67,9 +67,6 @@ public class FindDetailPresenter {
     }
 
     public void initBanner(List<String> mBannerList , Context context , List<ImageView> point, LinearLayout mDetailPoint, ShoppingBannerAdapter mBannerAdapter){
-        for (int i = 0; i < 2; i++) {
-            mBannerList.add("http://pic.90sjimg.com/back_pic/qk/back_origin_pic/00/03/14/c0391a6c1efab3fe00911b04e8cedca4.jpg");
-        }
         for (int i = 0; i < mBannerList.size(); i++) {
             ImageView imageView = new ImageView(context);
 

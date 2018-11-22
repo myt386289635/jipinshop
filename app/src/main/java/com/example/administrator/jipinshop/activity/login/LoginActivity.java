@@ -77,7 +77,7 @@ public class LoginActivity extends BaseActivity implements LoginView, View.OnCli
         String str = "登录即视为同意<font color='#4A90E2'>《极品城用户协议》</font>";
         mBinding.loginProtocol.setText(Html.fromHtml(str));
 
-        mDialog = (new ProgressDialogView()).createLoadingDialog(this, "正在登陆...");
+        mDialog = (new ProgressDialogView()).createLoadingDialog(this, "正在登录...");
     }
 
     @Override
@@ -167,7 +167,7 @@ public class LoginActivity extends BaseActivity implements LoginView, View.OnCli
             EventBus.getDefault().post(new EditNameBus(LoginActivity.tag,loginBean.getUserAccountEntity().getTotal_account(),loginBean.getUserAccountEntity().getState(),loginBean.getUserAccountEntity().getTotal_account(),loginBean.getUserAccountEntity().getUse_account(),"0"));
             EventBus.getDefault().post(JPushReceiver.TAG);//刷新未读消息
             EventBus.getDefault().post(new CommonEvaluationBus(CommonEvaluationFragment.REFERSH_PAGE));//登陆时刷新评测首页
-            Toast.makeText(this, "登陆成功", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "登录成功", Toast.LENGTH_SHORT).show();
             setResult(200);
             finish();
         }else {

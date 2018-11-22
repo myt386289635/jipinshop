@@ -2,8 +2,11 @@ package com.example.administrator.jipinshop.util;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.net.Uri;
 import android.support.v7.app.AlertDialog;
+import android.text.TextUtils;
 import android.util.Log;
 
 import com.example.administrator.jipinshop.MyApplication;
@@ -26,6 +29,10 @@ public class UpDataUtil {
         return upDataUtil;
     }
 
+    /**
+     * 蒲公英的下载方法 功能是实现的 （ps:但是产品说不要，因为花钱）
+     * @param activity
+     */
     public void download(Activity activity) {
         new PgyUpdateManager.Builder()
                 .setForced(true)                //设置是否强制更新,非自定义回调更新接口此方法有用
@@ -90,6 +97,30 @@ public class UpDataUtil {
 //                        Log.e("pgyer", "update download apk progress" + integers);
 //                    }})
                 .register();
+    }
+
+    /**
+     * 跳转浏览器下载apk
+     */
+    public void downloadApk(Context context, String url){
+        new AlertDialog.Builder(context)
+                .setTitle("版本更新")
+                .setMessage("测试的版本更新")
+                .setCancelable(false)//点击外部区域是否取消dialog
+                .setNegativeButton(
+                        "下次再说",
+                        (dialog, which) -> dialog.dismiss())
+                .setPositiveButton("下载",
+                        (dialog, which) -> {
+                            Intent intent = new Intent();
+                            intent.setAction("android.intent.action.VIEW");
+                            Uri content_url = Uri.parse(url);
+                            intent.setData(content_url);
+                            context.startActivity(intent);
+                        }).show();
+        if (TextUtils.isEmpty(url)) {
+            return;
+        }
     }
 
     public static int getPackageVersionCode() {

@@ -49,7 +49,7 @@ public class SystemMsgDetailActivity extends BaseActivity implements SystemMsgDe
     private void initView() {
         mTitleBack.setOnClickListener(v -> finish());
         mTitleTv.setText(getIntent().getStringExtra("title"));
-        mDetailContent.setText(getIntent().getStringExtra("content"));
+        mDetailContent.setText("\t\t\t\t" + getIntent().getStringExtra("content"));
         mPresenter.readMsg(getIntent().getStringExtra("id"),this.bindToLifecycle());
     }
 

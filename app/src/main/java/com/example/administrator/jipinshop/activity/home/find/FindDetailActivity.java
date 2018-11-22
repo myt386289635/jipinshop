@@ -290,8 +290,13 @@ public class FindDetailActivity extends RxAppCompatActivity implements View.OnCl
     @Override
     public void onSuccess(FindDetailBean bean) {
         //轮播图设置值
-        mPresenter.initBanner(mBannerList, this, point, mBinding.detailPoint, mBannerAdapter);
-        new Thread(new MyRunble()).start();
+        if(bean.getGoodsFindGoods().getImgList() != null && bean.getGoodsFindGoods().getImgList().size() != 0){
+            for (int i = 0; i < bean.getGoodsFindGoods().getImgList().size(); i++) {
+                mBannerList.add(bean.getGoodsFindGoods().getImgList().get(i).getImgPath());
+            }
+            mPresenter.initBanner(mBannerList, this, point, mBinding.detailPoint, mBannerAdapter);
+            new Thread(new MyRunble()).start();
+        }
         mBinding.webView.loadDataWithBaseURL(null,
                 bean.getGoodsFindGoods().getContent(),
                 "text/html", "utf-8", null);

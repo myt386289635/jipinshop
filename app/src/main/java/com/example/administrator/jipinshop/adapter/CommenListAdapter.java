@@ -88,15 +88,20 @@ public class CommenListAdapter extends RecyclerView.Adapter<CommenListAdapter.Vi
                 mOnItemReply.onItemReply(position,holder.item_reply);
             }
         });
-        if(!TextUtils.isEmpty(mList.get(position).getUserShopmember().getUserNickImg())){
-            ImageManager.displayCircleImage(mList.get(position).getUserShopmember().getUserNickImg(),holder.item_image,0,R.mipmap.rlogo);
+        if (mList.get(position).getUserShopmember() != null) {
+            if(!TextUtils.isEmpty(mList.get(position).getUserShopmember().getUserNickImg())){
+                ImageManager.displayCircleImage(mList.get(position).getUserShopmember().getUserNickImg(),holder.item_image,0,R.mipmap.rlogo);
+            }else {
+                ImageManager.displayImage("drawable://" + R.drawable.rlogo,holder.item_image,R.drawable.rlogo,R.drawable.rlogo);
+            }
+            if (!TextUtils.isEmpty(mList.get(position).getUserShopmember().getUserNickName())){
+                holder.item_name.setText(mList.get(position).getUserShopmember().getUserNickName());
+            }else {
+                holder.item_name.setText(FileManager.editPhone(mList.get(position).getUserShopmember().getUserPhone()));
+            }
         }else {
+            holder.item_name.setText("游客");
             ImageManager.displayImage("drawable://" + R.drawable.rlogo,holder.item_image,R.drawable.rlogo,R.drawable.rlogo);
-        }
-        if (!TextUtils.isEmpty(mList.get(position).getUserShopmember().getUserNickName())){
-            holder.item_name.setText(mList.get(position).getUserShopmember().getUserNickName());
-        }else {
-            holder.item_name.setText(FileManager.editPhone(mList.get(position).getUserShopmember().getUserPhone()));
         }
         if(!TextUtils.isEmpty(mList.get(position).getSnapNum()) && !mList.get(position).getSnapNum().equals("0")){
             holder.item_goodNum.setText(mList.get(position).getSnapNum());

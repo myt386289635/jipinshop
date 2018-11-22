@@ -63,7 +63,7 @@
                     android:layout_alignTop="@id/mine_image"
                     android:layout_marginLeft="@dimen/x48"
                     android:layout_toRightOf="@id/mine_image"
-                    tools:text="F买遍全球无敌手"
+                    android:text="游客"
                     android:textColor="@color/color_white"
                     android:textSize="18sp"
                     android:textStyle="bold"

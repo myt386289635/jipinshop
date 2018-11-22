@@ -144,7 +144,7 @@ public class SettingActivity extends BaseActivity implements CleanCacheDialog.On
                 return;
         }
         if(!SPUtils.getInstance(CommonDate.USER).getBoolean(CommonDate.userLogin,false)){
-            Toast.makeText(this, "请先登陆", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "请先登录", Toast.LENGTH_SHORT).show();
             return;
         }
         switch (view.getId()){
@@ -154,7 +154,7 @@ public class SettingActivity extends BaseActivity implements CleanCacheDialog.On
                 break;
             case R.id.setting_exitLogin:
                 //退出登陆
-                DialogUtil.LoginDialog(this, "您确定要退出登陆吗？","确定","取消", v -> {
+                DialogUtil.LoginDialog(this, "您确定要退出登录吗？","确定","取消", v -> {
                     Dialog mDialog = (new ProgressDialogView()).createLoadingDialog(this, "退出登录...");
                     mDialog.show();
                     mPresenter.loginOut(this.<SuccessBean>bindToLifecycle(),mDialog);
@@ -198,7 +198,7 @@ public class SettingActivity extends BaseActivity implements CleanCacheDialog.On
         if(msg.getCode() == 200){
             setResult(201);
             finish();
-            Toast.makeText(this, "退出登陆成功", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "退出登录成功", Toast.LENGTH_SHORT).show();
         }else {
             Toast.makeText(this, msg.getMsg(), Toast.LENGTH_SHORT).show();
         }

@@ -366,7 +366,7 @@ public class CommonEvaluationFragment extends DBBaseFragment implements OnRefres
      */
     public void stopLoading() {
         if (mBinding.swipeToLoad != null && mBinding.swipeToLoad.isLoadingMore()) {
-            if (!mBinding.swipeToLoad.isLoadingMore()) {
+            if (!mBinding.swipeToLoad.isLoadMoreEnabled()) {
                 mBinding.swipeToLoad.setLoadMoreEnabled(true);
                 mBinding.swipeToLoad.setLoadingMore(false);
                 mBinding.swipeToLoad.setLoadMoreEnabled(false);

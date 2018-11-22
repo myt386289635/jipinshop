@@ -39,7 +39,7 @@
             android:textStyle="bold"
             android:background="@drawable/bg_login"
             android:textColor="@color/color_white"
-            android:text="登陆"
+            android:text="登录"
             android:id="@+id/login_button"
             android:layout_centerInParent="true"
             android:layout_marginRight="@dimen/x80"

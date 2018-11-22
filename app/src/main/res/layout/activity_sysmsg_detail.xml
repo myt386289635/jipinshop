@@ -46,6 +46,7 @@
     </RelativeLayout>
 
     <LinearLayout
+        android:orientation="vertical"
         android:background="@drawable/bg_system_item"
         android:paddingRight="@dimen/x16"
         android:paddingLeft="@dimen/x16"
@@ -58,10 +59,19 @@
         android:layout_height="wrap_content">
 
         <TextView
+            android:layout_marginBottom="@dimen/x8"
             android:textSize="13sp"
             android:textColor="@color/color_ACACAC"
             android:lineSpacingExtra="@dimen/x10"
-            tools:text="尊敬的用户您好：\n\t\t\t京东商城返利体验大升级，一键自动跳转至京APP，无需再次登录，搜索商品标题返利更清晰，跟单流量顺畅操作更便捷。京东商城返利体验大升级，一键自动跳转至京APP，无需再次登录，搜索商品标题返利更清晰，跟单流量顺畅操作更便捷。京东商城返利体验大升级，一键自动跳转至京APP，无需再次登录，搜索商品标题返利更清晰，跟单流量顺畅操作更便捷。\n\t\t\t京东商城返利体验大升级，一键自动跳转至京APP，无需再次登录，搜索商品标题返利更清晰，跟单流量顺畅操作更便捷。京东商城返利体验大升级，一键自动跳转至京APP，无需再次登录，搜索商品标题返利更清晰，跟单流量顺畅操作更便捷。"
+            android:text="尊敬的用户您好："
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+
+        <TextView
+            android:textSize="13sp"
+            android:textColor="@color/color_ACACAC"
+            android:lineSpacingExtra="@dimen/x10"
+            tools:text="京东商城返利体验大升级，一键自动跳转至京APP，无需再次登录，搜索商品标题返利更清晰，跟单流量顺畅操作更便捷。京东商城返利体验大升级，一键自动跳转至京APP，无需再次登录，搜索商品标题返利更清晰，跟单流量顺畅操作更便捷。京东商城返利体验大升级，一键自动跳转至京APP，无需再次登录，搜索商品标题返利更清晰，跟单流量顺畅操作更便捷。\n\t\t\t京东商城返利体验大升级，一键自动跳转至京APP，无需再次登录，搜索商品标题返利更清晰，跟单流量顺畅操作更便捷。京东商城返利体验大升级，一键自动跳转至京APP，无需再次登录，搜索商品标题返利更清晰，跟单流量顺畅操作更便捷。"
             android:id="@+id/detail_content"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"/>

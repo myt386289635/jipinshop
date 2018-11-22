@@ -140,7 +140,7 @@ public class MyInfoActivity extends BaseActivity implements SelectPicDialog.Choo
                 break;
             case R.id.info_exitLogin:
                 //退出登陆
-                DialogUtil.LoginDialog(this, "您确定要退出登陆吗？","确定","取消", v -> {
+                DialogUtil.LoginDialog(this, "您确定要退出登录吗？","确定","取消", v -> {
                     Dialog mDialog = (new ProgressDialogView()).createLoadingDialog(this, "退出登录...");
                     mDialog.show();
                     mPresenter.loginOut(this.<SuccessBean>bindToLifecycle(),mDialog);
@@ -158,7 +158,7 @@ public class MyInfoActivity extends BaseActivity implements SelectPicDialog.Choo
         if(msg.getCode() == 200){
             setResult(201);
             finish();
-            Toast.makeText(this, "退出登陆成功", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "退出登录成功", Toast.LENGTH_SHORT).show();
         }else {
             Toast.makeText(this, msg.getMsg(), Toast.LENGTH_SHORT).show();
         }

@@ -3,6 +3,7 @@ package com.example.administrator.jipinshop.fragment.mine;
 import android.content.Intent;
 import android.databinding.DataBindingUtil;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -204,6 +205,7 @@ public class MineFragment extends DBBaseFragment implements View.OnClickListener
             if (!TextUtils.isEmpty(SPUtils.getInstance(CommonDate.USER).getString(CommonDate.userNickImg))) {
                 ImageManager.displayImage(SPUtils.getInstance(CommonDate.USER).getString(CommonDate.userNickImg), mBinding.mineImage, 0, R.mipmap.logo);
             }
+            Log.d("moxiaoting", "积分:" + SPUtils.getInstance(CommonDate.USER).getInt(CommonDate.userPoint));
             mBinding.mineLevel.setVisibility(View.VISIBLE);
             mBinding.mineLevel.setText("v" + SPUtils.getInstance(CommonDate.USER).getString(CommonDate.userMemberGrade));
             mBinding.mineIntegral.setText("积分" + SPUtils.getInstance(CommonDate.USER).getInt(CommonDate.userPoint));

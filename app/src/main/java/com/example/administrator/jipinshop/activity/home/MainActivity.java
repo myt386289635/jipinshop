@@ -101,7 +101,7 @@ public class MainActivity extends AppCompatActivity implements ViewPager.OnPageC
         mPresenter.initTabLayout(this, mTabLayout);
 
         //版本更新
-        UpDataUtil.newInstance().download(this);//第一版
+        UpDataUtil.newInstance().downloadApk(this,"http://www.pgyer.com/app/installUpdate/8ce5d6ae9e32fb8a2eb270dbb22ce48b?sig=9vywFMfifTgXriKE4tQ%2Fz9wk%2FpLCz9pxo9gIVnZ9LClDWF7TL1ZWNpIz%2FhtQrfd%2B");//第一版
 
         View tabView = (View) mTabLayout.getTabAt(3).getCustomView().getParent();
         tabView.setOnClickListener(v -> {
