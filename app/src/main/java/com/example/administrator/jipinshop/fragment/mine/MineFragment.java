@@ -7,6 +7,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.RelativeLayout;
 import android.widget.Toast;
 
 import com.blankj.utilcode.util.SPUtils;
@@ -153,11 +154,11 @@ public class MineFragment extends DBBaseFragment implements View.OnClickListener
                 ImageManager.displayImage("drawable://" + R.drawable.logo, mBinding.mineImage, 0, 0);
                 SPUtils.getInstance(CommonDate.USER).clear();
                 SPUtils.getInstance(CommonDate.USER).put(CommonDate.userLogin, false);
-                mBinding.mineMoney.setText("总佣金¥00.00");
-                mBinding.mineProcessingValue.setText("0");
-                mBinding.mineWithdrawableValue.setText("0");
-                mBinding.mineSettlementValue.setText("0");
-                mBinding.mineWithdrawedValue.setText("0");
+//                mBinding.mineMoney.setText("总佣金¥00.00");
+//                mBinding.mineProcessingValue.setText("0");
+//                mBinding.mineWithdrawableValue.setText("0");
+//                mBinding.mineSettlementValue.setText("0");
+//                mBinding.mineWithdrawedValue.setText("0");
                 EventBus.getDefault().post(JPushReceiver.TAG);//刷新未读消息
                 EventBus.getDefault().post(new CommonEvaluationBus(CommonEvaluationFragment.REFERSH_PAGE));//退出登陆时刷新评测首页
                 break;
@@ -182,18 +183,18 @@ public class MineFragment extends DBBaseFragment implements View.OnClickListener
             }
         } else if (bus.getTag().equals(LoginActivity.tag)) {
             //登陆时返回刷新佣金数
-            mBinding.mineMoney.setText("总佣金¥" + bus.getTotleMoney());
-            mBinding.mineProcessingValue.setText(bus.getState());
-            BigDecimal totleDecimal = new BigDecimal(bus.getTotleMoney());
-            BigDecimal useDecimal = new BigDecimal("50");
-            double value = totleDecimal.subtract(useDecimal).doubleValue();
-            if (value >= 0) {
-                mBinding.mineWithdrawableValue.setText(bus.getTotleMoney());
-            } else {
-                mBinding.mineWithdrawableValue.setText("0");
-            }
-            mBinding.mineSettlementValue.setText(bus.getNone());
-            mBinding.mineWithdrawedValue.setText(bus.getUseMoney());
+//            mBinding.mineMoney.setText("总佣金¥" + bus.getTotleMoney());
+//            mBinding.mineProcessingValue.setText(bus.getState());
+//            BigDecimal totleDecimal = new BigDecimal(bus.getTotleMoney());
+//            BigDecimal useDecimal = new BigDecimal("50");
+//            double value = totleDecimal.subtract(useDecimal).doubleValue();
+//            if (value >= 0) {
+//                mBinding.mineWithdrawableValue.setText(bus.getTotleMoney());
+//            } else {
+//                mBinding.mineWithdrawableValue.setText("0");
+//            }
+//            mBinding.mineSettlementValue.setText(bus.getNone());
+//            mBinding.mineWithdrawedValue.setText(bus.getUseMoney());
             //登陆时返回更改用户信息
             mBinding.mineName.setVisibility(View.VISIBLE);
             mBinding.mineLogin.setVisibility(View.GONE);
@@ -205,7 +206,6 @@ public class MineFragment extends DBBaseFragment implements View.OnClickListener
             if (!TextUtils.isEmpty(SPUtils.getInstance(CommonDate.USER).getString(CommonDate.userNickImg))) {
                 ImageManager.displayImage(SPUtils.getInstance(CommonDate.USER).getString(CommonDate.userNickImg), mBinding.mineImage, 0, R.mipmap.logo);
             }
-            Log.d("moxiaoting", "积分:" + SPUtils.getInstance(CommonDate.USER).getInt(CommonDate.userPoint));
             mBinding.mineLevel.setVisibility(View.VISIBLE);
             mBinding.mineLevel.setText("v" + SPUtils.getInstance(CommonDate.USER).getString(CommonDate.userMemberGrade));
             mBinding.mineIntegral.setText("积分" + SPUtils.getInstance(CommonDate.USER).getInt(CommonDate.userPoint));
@@ -226,22 +226,22 @@ public class MineFragment extends DBBaseFragment implements View.OnClickListener
      */
     @Override
     public void successMoney(AccountBean accountBean) {
-        if (accountBean.getCode() == 200) {
-            mBinding.mineMoney.setText("总佣金¥" + accountBean.getList().get(0).getTotal_account());
-            mBinding.mineProcessingValue.setText(accountBean.getList().get(0).getState());
-            BigDecimal totleDecimal = new BigDecimal(accountBean.getList().get(0).getTotal_account());
-            BigDecimal useDecimal = new BigDecimal("50");
-            double value = totleDecimal.subtract(useDecimal).doubleValue();
-            if (value >= 0) {
-                mBinding.mineWithdrawableValue.setText(accountBean.getList().get(0).getTotal_account());
-            } else {
-                mBinding.mineWithdrawableValue.setText("0");
-            }
-            mBinding.mineSettlementValue.setText("0");
-            mBinding.mineWithdrawedValue.setText(accountBean.getList().get(0).getUse_account());
-        } else {
-            Toast.makeText(getContext(), "佣金金额获取失败，请联系客服", Toast.LENGTH_SHORT).show();
-        }
+//        if (accountBean.getCode() == 200) {
+//            mBinding.mineMoney.setText("总佣金¥" + accountBean.getList().get(0).getTotal_account());
+//            mBinding.mineProcessingValue.setText(accountBean.getList().get(0).getState());
+//            BigDecimal totleDecimal = new BigDecimal(accountBean.getList().get(0).getTotal_account());
+//            BigDecimal useDecimal = new BigDecimal("50");
+//            double value = totleDecimal.subtract(useDecimal).doubleValue();
+//            if (value >= 0) {
+//                mBinding.mineWithdrawableValue.setText(accountBean.getList().get(0).getTotal_account());
+//            } else {
+//                mBinding.mineWithdrawableValue.setText("0");
+//            }
+//            mBinding.mineSettlementValue.setText("0");
+//            mBinding.mineWithdrawedValue.setText(accountBean.getList().get(0).getUse_account());
+//        } else {
+//            Toast.makeText(getContext(), "佣金金额获取失败，请联系客服", Toast.LENGTH_SHORT).show();
+//        }
     }
 
     /**
