@@ -155,6 +155,10 @@ public class MainActivity extends AppCompatActivity implements ViewPager.OnPageC
             if(mEvaluationFragment != null && mEvaluationFragment.getView() != null){
                 mEvaluationFragment.getView().requestLayout();
             }
+        }else if(i == 3){
+            if(mMineFragment != null && mMineFragment.getView() != null){
+                mMineFragment.getView().requestLayout();
+            }
         }
     }
 

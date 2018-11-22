@@ -23,6 +23,7 @@ import com.example.administrator.jipinshop.fragment.home.HomeFragment;
 import com.example.administrator.jipinshop.util.ClickUtil;
 import com.example.administrator.jipinshop.util.sp.CommonDate;
 import com.google.gson.Gson;
+import com.trello.rxlifecycle2.android.FragmentEvent;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
@@ -81,7 +82,7 @@ public class RecommendFragment extends DBBaseFragment implements OnRefreshListen
     @Override
     public void onRefresh() {
         if (!TextUtils.isEmpty(SPUtils.getInstance().getString(CommonDate.SubTab, ""))){
-            mPresenter.getDate(this.<RecommendFragmentBean>bindToLifecycle());
+            mPresenter.getDate(this.bindUntilEvent(FragmentEvent.DESTROY_VIEW));
         }else {
             stopResher();
             initError(R.mipmap.qs_net, "网络出错", "哇哦，网络出错了，换个姿势下滑页面试试");
