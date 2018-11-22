@@ -3,11 +3,9 @@ package com.example.administrator.jipinshop.fragment.mine;
 import android.content.Intent;
 import android.databinding.DataBindingUtil;
 import android.text.TextUtils;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.RelativeLayout;
 import android.widget.Toast;
 
 import com.blankj.utilcode.util.SPUtils;
@@ -37,8 +35,6 @@ import com.example.administrator.jipinshop.view.glide.imageloder.ImageManager;
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 
-import java.math.BigDecimal;
-
 import javax.inject.Inject;
 
 public class MineFragment extends DBBaseFragment implements View.OnClickListener, MineView {
@@ -47,6 +43,19 @@ public class MineFragment extends DBBaseFragment implements View.OnClickListener
     MinePresenter mPresenter;
 
     private FragmentMineBinding mBinding;
+    private Boolean once = true;
+
+    @Override
+    public void setUserVisibleHint(boolean isVisibleToUser) {
+        super.setUserVisibleHint(isVisibleToUser);
+        if (isVisibleToUser && once) {
+            if (!TextUtils.isEmpty(SPUtils.getInstance(CommonDate.USER).getString(CommonDate.userId).trim())) {
+                //这里是判断该手机是否有账户登陆过。如果有userId不会为空，除非没有用户登录或已经退出登陆
+                mPresenter.modelUser(this.bindToLifecycle());
+            }
+            once = false;
+        }
+    }
 
     @Override
     public View initLayout(LayoutInflater inflater, ViewGroup container) {
@@ -62,10 +71,6 @@ public class MineFragment extends DBBaseFragment implements View.OnClickListener
 
         mPresenter.setStatusBarHight(mBinding.statusBar, getContext());
         mPresenter.setView(this);
-        if (!TextUtils.isEmpty(SPUtils.getInstance(CommonDate.USER).getString(CommonDate.userId).trim())) {
-            //这里是判断该手机是否有账户登陆过。如果有userId不会为空，除非没有用户登录或已经退出登陆
-            mPresenter.modelUser(this.bindToLifecycle());
-        }
     }
 
     @Override
