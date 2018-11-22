@@ -42,7 +42,7 @@ public class WellComeActivity extends AppCompatActivity{
     }
 
 
-    CountDownTimer timer = new CountDownTimer(3 * 1000, 1000) {
+    CountDownTimer timer = new CountDownTimer(2 * 1000, 1000) {
         @Override
         public void onTick(long millisUntilFinished) {
 

@@ -43,19 +43,6 @@ public class MineFragment extends DBBaseFragment implements View.OnClickListener
     MinePresenter mPresenter;
 
     private FragmentMineBinding mBinding;
-    private Boolean once = true;
-
-    @Override
-    public void setUserVisibleHint(boolean isVisibleToUser) {
-        super.setUserVisibleHint(isVisibleToUser);
-        if (isVisibleToUser && once) {
-            if (!TextUtils.isEmpty(SPUtils.getInstance(CommonDate.USER).getString(CommonDate.userId).trim())) {
-                //这里是判断该手机是否有账户登陆过。如果有userId不会为空，除非没有用户登录或已经退出登陆
-                mPresenter.modelUser(this.bindToLifecycle());
-            }
-            once = false;
-        }
-    }
 
     @Override
     public View initLayout(LayoutInflater inflater, ViewGroup container) {
@@ -71,6 +58,10 @@ public class MineFragment extends DBBaseFragment implements View.OnClickListener
 
         mPresenter.setStatusBarHight(mBinding.statusBar, getContext());
         mPresenter.setView(this);
+        if (!TextUtils.isEmpty(SPUtils.getInstance(CommonDate.USER).getString(CommonDate.userId).trim())) {
+            //这里是判断该手机是否有账户登陆过。如果有userId不会为空，除非没有用户登录或已经退出登陆
+            mPresenter.modelUser(this.bindToLifecycle());
+        }
     }
 
     @Override
@@ -214,6 +205,7 @@ public class MineFragment extends DBBaseFragment implements View.OnClickListener
             mBinding.mineLevel.setVisibility(View.VISIBLE);
             mBinding.mineLevel.setText("v" + SPUtils.getInstance(CommonDate.USER).getString(CommonDate.userMemberGrade));
             mBinding.mineIntegral.setText("积分" + SPUtils.getInstance(CommonDate.USER).getInt(CommonDate.userPoint));
+            mBinding.getRoot().requestLayout();//重新画布局
         } else if (bus.getTag().equals(SignActivity.eventbusTag)) {
             //签到、补签、抽奖后刷新积分和会员等级
             mBinding.mineIntegral.setText("积分" + SPUtils.getInstance(CommonDate.USER).getInt(CommonDate.userPoint));
