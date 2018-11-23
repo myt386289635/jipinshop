@@ -10,6 +10,7 @@ import com.example.administrator.jipinshop.R;
 import com.example.administrator.jipinshop.activity.message.system.SystemMessageActivity;
 import com.example.administrator.jipinshop.base.BaseActivity;
 import com.example.administrator.jipinshop.bean.SuccessBean;
+import com.example.administrator.jipinshop.bean.eventbus.MessageMsgBus;
 import com.example.administrator.jipinshop.jpush.JPushReceiver;
 
 import org.greenrobot.eventbus.EventBus;
@@ -64,7 +65,7 @@ public class SystemMsgDetailActivity extends BaseActivity implements SystemMsgDe
      */
     @Override
     public void onSuccess(SuccessBean successBean) {
-        EventBus.getDefault().post(SystemMessageActivity.tag);
+        EventBus.getDefault().post(new MessageMsgBus(SystemMessageActivity.tag,getIntent().getIntExtra("position",0)));
         EventBus.getDefault().post(JPushReceiver.TAG);//刷新首页未读消息
     }
 

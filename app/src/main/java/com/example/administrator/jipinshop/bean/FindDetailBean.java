@@ -72,7 +72,7 @@ public class FindDetailBean {
         private String publishTime;
         private Object showTime;
         private String visitCount;
-        private Object commentNum;
+        private String commentNum;
         private String content;
         private String createTime;
         private String categoryId;
@@ -145,11 +145,11 @@ public class FindDetailBean {
             this.visitCount = visitCount;
         }
 
-        public Object getCommentNum() {
+        public String getCommentNum() {
             return commentNum;
         }
 
-        public void setCommentNum(Object commentNum) {
+        public void setCommentNum(String commentNum) {
             this.commentNum = commentNum;
         }
 

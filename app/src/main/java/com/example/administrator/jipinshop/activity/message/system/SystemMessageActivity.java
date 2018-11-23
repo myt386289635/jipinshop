@@ -15,6 +15,7 @@ import com.example.administrator.jipinshop.R;
 import com.example.administrator.jipinshop.adapter.SystemMessageAdapter;
 import com.example.administrator.jipinshop.base.BaseActivity;
 import com.example.administrator.jipinshop.bean.SystemMessageBean;
+import com.example.administrator.jipinshop.bean.eventbus.MessageMsgBus;
 import com.example.administrator.jipinshop.databinding.ActivityMessageSystemBinding;
 import com.example.administrator.jipinshop.view.dialog.ProgressDialogView;
 
@@ -190,9 +191,10 @@ public class SystemMessageActivity extends BaseActivity implements View.OnClickL
     }
 
     @Subscribe
-    public void onRefersh(String s){
-        if(!TextUtils.isEmpty(s) && s.equals(SystemMessageActivity.tag)){
-            mBinding.swipeToLoad.setRefreshing(true);
+    public void onRefersh(MessageMsgBus messageMsgBus){
+        if(messageMsgBus != null && messageMsgBus.getMsg().equals(SystemMessageActivity.tag)){
+            mList.get(messageMsgBus.getPosition()).setStatus(1);
+            mAdapter.notifyDataSetChanged();
         }
     }
 }

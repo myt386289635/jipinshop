@@ -8,6 +8,7 @@ import android.os.Handler;
 import android.os.Looper;
 import android.os.Message;
 import android.support.annotation.Nullable;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
@@ -155,7 +156,7 @@ public class EvaluationDetailActivity extends RxAppCompatActivity implements Vie
         //判断是否点赞过该商品
         mPresenter.snapSelect(getIntent().getStringExtra("id"),this.bindToLifecycle());
         //获取评论列表
-        mPresenter.comment(getIntent().getStringExtra("id"),this.bindToLifecycle());
+//        mPresenter.comment(getIntent().getStringExtra("id"),this.bindToLifecycle());
     }
 
     @Override
@@ -273,6 +274,11 @@ public class EvaluationDetailActivity extends RxAppCompatActivity implements Vie
                 "text/html", "utf-8", null);
         mBinding.evaTitle.setText(bean.getGoodsEvalWay().getEvalWayName());
         buyLink = bean.getGoodsEvalWay().getGoodsBuyLink();
+        if(TextUtils.isEmpty(bean.getGoodsEvalWay().getCommentNum())){
+            mBinding.bottomCommenNum.setText("0");
+        }else {
+            mBinding.bottomCommenNum.setText(bean.getGoodsEvalWay().getCommentNum());
+        }
     }
     /**
      * 数据请求失败

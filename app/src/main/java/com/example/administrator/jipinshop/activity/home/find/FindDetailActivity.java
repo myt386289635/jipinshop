@@ -8,6 +8,7 @@ import android.os.Handler;
 import android.os.Looper;
 import android.os.Message;
 import android.support.annotation.Nullable;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
@@ -182,8 +183,8 @@ public class FindDetailActivity extends RxAppCompatActivity implements View.OnCl
         mPresenter.isCollect(getIntent().getStringExtra("id"),this.bindToLifecycle());
         //判断是否点赞过该商品
         mPresenter.snapSelect(getIntent().getStringExtra("id"),this.bindToLifecycle());
-        //获取评论列表
-        mPresenter.comment(getIntent().getStringExtra("id"),this.bindToLifecycle());
+//        //获取评论列表
+//        mPresenter.comment(getIntent().getStringExtra("id"),this.bindToLifecycle());
     }
 
     @Override
@@ -302,6 +303,11 @@ public class FindDetailActivity extends RxAppCompatActivity implements View.OnCl
                 "text/html", "utf-8", null);
         mBinding.detailTitle.setText(bean.getGoodsFindGoods().getTitle());
         mBinding.detailSmallTitle.setText(bean.getGoodsFindGoods().getSmallTitle());
+        if(TextUtils.isEmpty(bean.getGoodsFindGoods().getCommentNum())){
+            mBinding.bottomCommenNum.setText("0");
+        }else {
+            mBinding.bottomCommenNum.setText(bean.getGoodsFindGoods().getCommentNum());
+        }
     }
     /**
      * 获取详情页数据
