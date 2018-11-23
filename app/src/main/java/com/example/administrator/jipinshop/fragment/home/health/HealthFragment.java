@@ -12,6 +12,7 @@ import android.widget.Toast;
 import com.aspsine.swipetoloadlayout.OnRefreshListener;
 import com.blankj.utilcode.util.SPUtils;
 import com.example.administrator.jipinshop.R;
+import com.example.administrator.jipinshop.activity.login.LoginActivity;
 import com.example.administrator.jipinshop.activity.shoppingdetail.ShoppingDetailActivity;
 import com.example.administrator.jipinshop.adapter.HealthFragmentGridAdapter;
 import com.example.administrator.jipinshop.adapter.HealthFragmentRecyclerAdapter;
@@ -21,6 +22,7 @@ import com.example.administrator.jipinshop.bean.HealthFragmentGridBean;
 import com.example.administrator.jipinshop.bean.TabBean;
 import com.example.administrator.jipinshop.databinding.FragmentHealthBinding;
 import com.example.administrator.jipinshop.fragment.home.HomeFragment;
+import com.example.administrator.jipinshop.util.ClickUtil;
 import com.example.administrator.jipinshop.util.sp.CommonDate;
 import com.google.gson.Gson;
 
@@ -130,14 +132,22 @@ public class HealthFragment extends DBBaseFragment implements HealthFragmentGrid
      */
     @Override
     public void onItemclick(int pos) {
-        startActivity(new Intent(getContext(), ShoppingDetailActivity.class)
-                .putExtra("goodsId",recyclerList.get(pos).getGoodsId())
-                .putExtra("goodsName",recyclerList.get(pos).getGoodsName())
-                .putExtra("priceNow",recyclerList.get(pos).getActualPrice())
-                .putExtra("priceOld",recyclerList.get(pos).getOtherPrice())
-                .putExtra("price",recyclerList.get(pos).getCutPrice())
-                .putExtra("state",recyclerList.get(pos).getSourceStatus() + "")
-        );
+        if(!SPUtils.getInstance(CommonDate.USER).getBoolean(CommonDate.userLogin,false)){
+            startActivity(new Intent(getContext(), LoginActivity.class));
+            return;
+        }
+        if (ClickUtil.isFastDoubleClick(800)) {
+            return;
+        }else{
+            startActivity(new Intent(getContext(), ShoppingDetailActivity.class)
+                    .putExtra("goodsId",recyclerList.get(pos).getGoodsId())
+                    .putExtra("goodsName",recyclerList.get(pos).getGoodsName())
+                    .putExtra("priceNow",recyclerList.get(pos).getActualPrice())
+                    .putExtra("priceOld",recyclerList.get(pos).getOtherPrice())
+                    .putExtra("price",recyclerList.get(pos).getCutPrice())
+                    .putExtra("state",recyclerList.get(pos).getSourceStatus() + "")
+            );
+        }
     }
 
     @Override
