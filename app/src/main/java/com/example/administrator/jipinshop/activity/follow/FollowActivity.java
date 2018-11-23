@@ -76,7 +76,7 @@ public class FollowActivity extends BaseActivity implements OnRefreshListener, F
         mBinding.swipeToLoad.setRefreshing(true);
         mBinding.swipeToLoad.setOnLoadMoreListener(this);
 
-        mPresenter.solveScoll(mBinding.swipeTarget);
+        mPresenter.solveScoll(mBinding.swipeTarget,this);
     }
 
     /**

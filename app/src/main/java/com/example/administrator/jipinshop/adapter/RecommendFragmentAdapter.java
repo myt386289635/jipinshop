@@ -14,7 +14,7 @@ import android.widget.ImageView;
 import com.example.administrator.jipinshop.R;
 import com.example.administrator.jipinshop.bean.RecommendFragmentBean;
 import com.example.administrator.jipinshop.databinding.RecommendItemBinding;
-import com.example.administrator.jipinshop.view.glide.imageloder.ImageManager;
+import com.example.administrator.jipinshop.view.glide.GlideApp;
 
 import java.math.BigDecimal;
 
@@ -103,7 +103,8 @@ public class RecommendFragmentAdapter extends RecyclerView.Adapter {
                     viewHolder.getBinding().itemReason.setText(Html.fromHtml(str));
                 }
 
-                ImageManager.displayRoundImage(mList.getList().get(position).getRankGoodImg(), viewHolder.getBinding().itemImage, R.color.transparent,  R.color.transparent, 10);
+                GlideApp.loderRoundImage(mContext,mList.getList().get(position).getRankGoodImg(),viewHolder.getBinding().itemImage,R.color.transparent,R.color.transparent);
+//                ImageManager.displayRoundImage(mList.getList().get(position).getRankGoodImg(), viewHolder.getBinding().itemImage, R.color.transparent,  R.color.transparent, 10);
 
                 if(mList.getList().get(position).getSourceStatus() == 1){
                     viewHolder.getBinding().itemGoodsFrom.setText("京东：");

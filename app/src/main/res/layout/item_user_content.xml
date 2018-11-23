@@ -14,6 +14,7 @@
         android:layout_height="wrap_content">
 
         <ImageView
+            android:scaleType="fitXY"
             android:layout_marginTop="@dimen/x48"
             tools:src="@color/color_E31436"
             android:id="@+id/content_image"

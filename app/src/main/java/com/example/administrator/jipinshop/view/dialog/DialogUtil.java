@@ -10,9 +10,8 @@ import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import com.bumptech.glide.Glide;
 import com.example.administrator.jipinshop.R;
-import com.example.administrator.jipinshop.view.glide.imageloder.ImageManager;
+import com.example.administrator.jipinshop.view.glide.GlideApp;
 
 /**
  * @author 莫小婷
@@ -84,7 +83,8 @@ public class DialogUtil{
         ImageView diss = view.findViewById(R.id.sign_diss);
         ImageView mImage = view.findViewById(R.id.sign_price);
         if(!TextUtils.isEmpty(image)){
-            ImageManager.displayImage(image,mImage,0,0);
+//            ImageManager.displayImage(image,mImage,0,0);
+            GlideApp.loderImage(context,image,mImage,0,0);
         }
         final Dialog dialog = builder.create();
         dialog.getWindow().setDimAmount(0.75f);

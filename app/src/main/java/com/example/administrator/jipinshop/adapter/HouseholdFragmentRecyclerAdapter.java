@@ -9,19 +9,11 @@ import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
-import android.widget.LinearLayout;
-import android.widget.ProgressBar;
-import android.widget.RelativeLayout;
-import android.widget.TextView;
 
-import com.example.administrator.jipinshop.MyApplication;
 import com.example.administrator.jipinshop.R;
 import com.example.administrator.jipinshop.bean.HouseholdFragmentBean;
 import com.example.administrator.jipinshop.databinding.HouseholdItemBinding;
-import com.example.administrator.jipinshop.fragment.home.household.HouseholdFragmentPresenter;
-import com.example.administrator.jipinshop.util.DistanceHelper;
-import com.example.administrator.jipinshop.view.glide.imageloder.ImageManager;
+import com.example.administrator.jipinshop.view.glide.GlideApp;
 
 import java.math.BigDecimal;
 import java.util.List;
@@ -90,7 +82,9 @@ public class HouseholdFragmentRecyclerAdapter extends RecyclerView.Adapter<House
             viewHolder.getBinding().itemReason.setText(Html.fromHtml(str));
         }
 
-        ImageManager.displayRoundImage(mList.get(position).getRankGoodImg(), viewHolder.getBinding().itemImage, R.color.transparent,  R.color.transparent, 10);
+        GlideApp.loderRoundImage(mContext,mList.get(position).getRankGoodImg(),viewHolder.getBinding().itemImage,R.color.transparent,R.color.transparent);
+
+//        ImageManager.displayRoundImage(mList.get(position).getRankGoodImg(), viewHolder.getBinding().itemImage, R.color.transparent,  R.color.transparent, 10);
 
         if(mList.get(position).getSourceStatus() == 1){
             viewHolder.getBinding().itemGoodsFrom.setText("京东：");

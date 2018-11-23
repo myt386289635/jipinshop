@@ -10,7 +10,7 @@ import android.widget.TextView;
 
 import com.example.administrator.jipinshop.R;
 import com.example.administrator.jipinshop.bean.FollowBean;
-import com.example.administrator.jipinshop.view.glide.imageloder.ImageManager;
+import com.example.administrator.jipinshop.view.glide.GlideApp;
 
 import java.util.List;
 
@@ -49,7 +49,8 @@ public class FollowAdapter extends RecyclerView.Adapter<FollowAdapter.ViewHolder
                 mOnItemClick.onItem(position);
             }
         });
-        ImageManager.displayCircleImage(mList.get(position).getUserShopmember().getUserNickImg(),holder.item_image,0,R.mipmap.rlogo);
+        GlideApp.loderCircleImage(mContext,mList.get(position).getUserShopmember().getUserNickImg(),holder.item_image,R.mipmap.rlogo,0);
+//        ImageManager.displayCircleImage(mList.get(position).getUserShopmember().getUserNickImg(),holder.item_image,0,R.mipmap.rlogo);
         holder.item_name.setText(mList.get(position).getUserShopmember().getUserNickName());
         if(mList.get(position).getFans() == 1){
             //关注了

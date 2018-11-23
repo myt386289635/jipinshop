@@ -16,7 +16,7 @@ import com.example.administrator.jipinshop.activity.login.LoginActivity;
 import com.example.administrator.jipinshop.bean.FindListBean;
 import com.example.administrator.jipinshop.util.ClickUtil;
 import com.example.administrator.jipinshop.util.sp.CommonDate;
-import com.example.administrator.jipinshop.view.glide.imageloder.ImageManager;
+import com.example.administrator.jipinshop.view.glide.GlideApp;
 
 import java.util.List;
 
@@ -39,8 +39,7 @@ public class CommonFindAdapter extends RecyclerView.Adapter<CommonFindAdapter.Vi
 
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
-
-        ImageManager.displayRoundImage(mList.get(position).getImgId(),holder.mItemImage,0,0,10);
+        GlideApp.loderRoundImage(mContext,mList.get(position).getImgId(),holder.mItemImage);
         holder.itemView.setOnClickListener(view -> {
             if(!SPUtils.getInstance(CommonDate.USER).getBoolean(CommonDate.userLogin,false)){
                 mContext.startActivity(new Intent(mContext, LoginActivity.class));

@@ -89,6 +89,7 @@ public class UserActivity extends RxAppCompatActivity implements UserAdapter.OnL
         mAdapter.setOnListener(this);
         mBinding.swipeTarget.setAdapter(mAdapter);
 
+        mPresenter.solveScoll(mBinding.swipeTarget,this);
         mBinding.swipeToLoad.setOnLoadMoreListener(this);
         mBinding.swipeToLoad.setOnRefreshListener(this);
         mBinding.swipeToLoad.setRefreshing(true);

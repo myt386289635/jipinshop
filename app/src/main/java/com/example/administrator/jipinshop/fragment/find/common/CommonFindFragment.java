@@ -104,7 +104,7 @@ public class CommonFindFragment extends DBBaseFragment implements OnRefreshListe
         mAdapter = new CommonFindAdapter(mList, getContext());
         mBinding.recyclerView.setAdapter(mAdapter);
 
-        mPresenter.solveScoll(mBinding.recyclerView,mBinding.swipeToLoad);
+        mPresenter.solveScoll(mBinding.recyclerView,mBinding.swipeToLoad,getContext());
         mBinding.swipeToLoad.setOnRefreshListener(this);
         mBinding.swipeToLoad.setOnLoadMoreListener(this);
     }

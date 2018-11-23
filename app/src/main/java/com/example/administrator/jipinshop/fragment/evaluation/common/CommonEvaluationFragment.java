@@ -124,7 +124,7 @@ public class CommonEvaluationFragment extends DBBaseFragment implements OnRefres
         mAdapter.setHeadImg(headImg);
         mBinding.recyclerView.setAdapter(mAdapter);
 
-        mPresenter.solveScoll(mBinding.recyclerView, mBinding.swipeToLoad);
+        mPresenter.solveScoll(mBinding.recyclerView, mBinding.swipeToLoad,getContext());
         mBinding.swipeToLoad.setOnRefreshListener(this);
         mBinding.swipeToLoad.setOnLoadMoreListener(this);
     }

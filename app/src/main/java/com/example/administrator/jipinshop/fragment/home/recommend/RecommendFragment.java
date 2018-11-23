@@ -73,7 +73,7 @@ public class RecommendFragment extends DBBaseFragment implements OnRefreshListen
         binding.recyclerView.setFocusable(false);
         binding.swipeToLoad.setOnRefreshListener(this);
 
-        mPresenter.solveScoll(binding.recyclerView,binding.swipeToLoad);
+        mPresenter.solveScoll(binding.recyclerView,binding.swipeToLoad,getContext());
     }
 
     /**

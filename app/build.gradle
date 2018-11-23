@@ -105,13 +105,7 @@ dependencies {
     implementation 'com.google.android:flexbox:0.3.2'
 
     //glide
-    implementation('com.github.bumptech.glide:glide:3.7.0') {
-        exclude group: 'com.android.support', module: 'support-fragment'
-        exclude group: 'com.android.support', module: 'support-core-utils'
-        exclude group: 'com.android.support', module: 'support-core-ui'
-        exclude group: 'com.android.support', module: 'support-compat'
-        exclude group: 'com.android.support', module: 'support-annotations'
-    }
+    api "jp.wasabeef:glide-transformations:4.0.1"
 
     //    implementation 'jp.wasabeef:glide-transformations:2.0.1'
     implementation 'com.nostra13.universalimageloader:universal-image-loader:1.9.5'

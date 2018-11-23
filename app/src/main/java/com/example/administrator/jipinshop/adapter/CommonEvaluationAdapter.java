@@ -17,7 +17,7 @@ import com.example.administrator.jipinshop.activity.login.LoginActivity;
 import com.example.administrator.jipinshop.bean.EvaluationListBean;
 import com.example.administrator.jipinshop.util.ClickUtil;
 import com.example.administrator.jipinshop.util.sp.CommonDate;
-import com.example.administrator.jipinshop.view.glide.imageloder.ImageManager;
+import com.example.administrator.jipinshop.view.glide.GlideApp;
 
 import java.util.List;
 
@@ -66,15 +66,19 @@ public class CommonEvaluationAdapter extends RecyclerView.Adapter {
             case HEAD:
                 HeadViewHolder headViewHolder = (HeadViewHolder) holder;
                 if(TextUtils.isEmpty(headImg)){
-                    ImageManager.displayImage("drawable://"+R.drawable.evaluating_banner,headViewHolder.mHeadImage,0,0);
+                    GlideApp.loderImage(mContext,R.drawable.evaluating_banner,headViewHolder.mHeadImage,0,0);
+//                    ImageManager.displayImage("drawable://"+R.drawable.evaluating_banner,headViewHolder.mHeadImage,0,0);
                 }else {
-                    ImageManager.displayImage(headImg,headViewHolder.mHeadImage,0,0);
+                    GlideApp.loderImage(mContext,headImg,headViewHolder.mHeadImage,0,0);
+//                    ImageManager.displayImage(headImg,headViewHolder.mHeadImage,0,0);
                 }
                 break;
             case CONTENT:
                 ContentViewHolder contentViewHolder = (ContentViewHolder) holder;
-                ImageManager.displayRoundImage(mList.get(position -1).getImgId(),contentViewHolder.content_image,0,0,10);
-                ImageManager.displayCircleImage(mList.get(position -1).getUserShopmember().getUserNickImg(),contentViewHolder.content_head,0,R.mipmap.rlogo);
+                GlideApp.loderCircleImage(mContext,mList.get(position -1).getUserShopmember().getUserNickImg(),contentViewHolder.content_head,R.mipmap.rlogo,0);
+                GlideApp.loderRoundImage(mContext,mList.get(position -1).getImgId(),contentViewHolder.content_image);
+//                ImageManager.displayRoundImage(mList.get(position -1).getImgId(),contentViewHolder.content_image,0,0,10);
+//                ImageManager.displayCircleImage(mList.get(position -1).getUserShopmember().getUserNickImg(),contentViewHolder.content_head,0,R.mipmap.rlogo);
                 contentViewHolder.content_title.setText(mList.get(position - 1).getEvalWayName());
                 contentViewHolder.itemView.setOnClickListener(v -> {
                     if(!SPUtils.getInstance(CommonDate.USER).getBoolean(CommonDate.userLogin,false)){

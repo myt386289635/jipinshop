@@ -1,15 +1,15 @@
 package com.example.administrator.jipinshop.fragment.home.recommend;
 
+import android.content.Context;
 import android.support.v7.widget.RecyclerView;
 
 import com.aspsine.swipetoloadlayout.SwipeToLoadLayout;
 import com.blankj.utilcode.util.SPUtils;
+import com.bumptech.glide.Glide;
 import com.example.administrator.jipinshop.bean.RecommendFragmentBean;
 import com.example.administrator.jipinshop.netwrok.Repository;
 import com.example.administrator.jipinshop.util.sp.CommonDate;
-import com.example.administrator.jipinshop.view.glide.imageloder.ImageManager;
 import com.google.gson.Gson;
-import com.nostra13.universalimageloader.utils.L;
 import com.trello.rxlifecycle2.LifecycleTransformer;
 
 import javax.inject.Inject;
@@ -46,7 +46,7 @@ public class RecommendFragmentPresenter {
     }
 
     //解决冲突问题
-    public void solveScoll(RecyclerView mRecyclerView, final SwipeToLoadLayout mSwipeToLoad){
+    public void solveScoll(RecyclerView mRecyclerView, final SwipeToLoadLayout mSwipeToLoad, Context context){
         mRecyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
             @Override
             public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
@@ -59,9 +59,9 @@ public class RecommendFragmentPresenter {
             public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
                 super.onScrollStateChanged(recyclerView, newState);
                 if (newState == RecyclerView.SCROLL_STATE_IDLE) {
-                    ImageManager.getImageLoader().resume();//为了在滑动时不卡顿
+                    Glide.with(context).resumeRequests();//为了在滑动时不卡顿
                 }else {
-                    ImageManager.getImageLoader().pause();//为了在滑动时不卡顿
+                    Glide.with(context).pauseRequests();//为了在滑动时不卡顿
                 }
             }
         });

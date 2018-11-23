@@ -11,14 +11,11 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import com.bumptech.glide.Glide;
-import com.example.administrator.jipinshop.MyApplication;
 import com.example.administrator.jipinshop.R;
 import com.example.administrator.jipinshop.activity.home.evaluation.EvaluationDetailActivity;
 import com.example.administrator.jipinshop.activity.home.find.FindDetailActivity;
 import com.example.administrator.jipinshop.bean.UserPageBean;
-import com.example.administrator.jipinshop.view.glide.BlurTransformation;
-import com.example.administrator.jipinshop.view.glide.imageloder.ImageManager;
+import com.example.administrator.jipinshop.view.glide.GlideApp;
 
 import java.util.List;
 
@@ -114,12 +111,9 @@ public class UserAdapter extends RecyclerView.Adapter {
                          mOnListener.onFinish();
                      }
                 });
-                ImageManager.displayCircleImage(headImage,headViewHolder.user_headImage,0,0);
-                Glide.with(mContext)
-                        .load(headImage)
-                        .crossFade(500)
-                        .bitmapTransform(new BlurTransformation(mContext,1,4))  // “23”：设置模糊度(在0.0到25.0之间)，默认”25";"4":图片缩放比例,默认“1”。
-                        .into(headViewHolder.user_image);
+                GlideApp.loderCircleImage(mContext,headImage,headViewHolder.user_headImage,0,0);
+                GlideApp.loderBlurImage(mContext,headImage,headViewHolder.user_image);
+
                 headViewHolder.user_name.setText(name);
                 headViewHolder.user_attentionNum.setText("粉丝数:" + fans);
                 if(isfans == 0){
@@ -147,7 +141,8 @@ public class UserAdapter extends RecyclerView.Adapter {
                 break;
             case EVA://评测
                 EvaViewHolder contentViewHolder = (EvaViewHolder) holder;
-                ImageManager.displayRoundImage(mList.get(position -1).getImg(),contentViewHolder.content_image,0,0,10);
+                GlideApp.loderRoundImage(mContext,mList.get(position -1).getImg(),contentViewHolder.content_image);
+//                ImageManager.displayRoundImage(mList.get(position -1).getImg(),contentViewHolder.content_image,0,0,10);
                 contentViewHolder.content_lookNum.setText(mList.get(position -1).getVisitCount());
                 if(TextUtils.isEmpty(mList.get(position - 1).getShowTime())){
                     contentViewHolder.content_time.setText(mList.get(position - 1).getPublishTime());
@@ -164,7 +159,8 @@ public class UserAdapter extends RecyclerView.Adapter {
                 break;
             case CONTENT://发现
                 FindViewHolder findViewHolder = (FindViewHolder) holder;
-                ImageManager.displayRoundImage(mList.get(position -1).getImg(),findViewHolder.mItemImage,0,0,10);
+                GlideApp.loderRoundImage(mContext,mList.get(position -1).getImg(),findViewHolder.mItemImage);
+//                ImageManager.displayRoundImage(mList.get(position -1).getImg(),findViewHolder.mItemImage,0,0,10);
                 findViewHolder.mItemName.setText(mList.get(position - 1).getTitle());
                 findViewHolder.mItemDescription.setText(mList.get(position -1).getSmallTitle());
                 findViewHolder.mItemLookNum.setText(mList.get(position -1).getVisitCount());

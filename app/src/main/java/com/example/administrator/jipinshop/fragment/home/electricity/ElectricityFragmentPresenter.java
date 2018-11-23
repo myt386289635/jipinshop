@@ -5,11 +5,11 @@ import android.support.v7.widget.RecyclerView;
 import android.widget.Toast;
 
 import com.aspsine.swipetoloadlayout.SwipeToLoadLayout;
+import com.bumptech.glide.Glide;
 import com.example.administrator.jipinshop.adapter.ElectricityFragmentGridAdapter;
 import com.example.administrator.jipinshop.bean.ElectricityFragmentBean;
 import com.example.administrator.jipinshop.bean.HealthFragmentGridBean;
 import com.example.administrator.jipinshop.netwrok.Repository;
-import com.example.administrator.jipinshop.view.glide.imageloder.ImageManager;
 import com.trello.rxlifecycle2.LifecycleTransformer;
 
 import java.util.List;
@@ -50,7 +50,7 @@ public class ElectricityFragmentPresenter {
     }
 
     //解决冲突问题
-    public void solveScoll(RecyclerView mRecyclerView, final SwipeToLoadLayout mSwipeToLoad){
+    public void solveScoll(RecyclerView mRecyclerView, final SwipeToLoadLayout mSwipeToLoad, Context context){
         mRecyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
             @Override
             public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
@@ -63,9 +63,9 @@ public class ElectricityFragmentPresenter {
             public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
                 super.onScrollStateChanged(recyclerView, newState);
                 if (newState == RecyclerView.SCROLL_STATE_IDLE) {
-                    ImageManager.getImageLoader().resume();//为了在滑动时不卡顿
+                    Glide.with(context).resumeRequests();//为了在滑动时不卡顿
                 }else {
-                    ImageManager.getImageLoader().pause();//为了在滑动时不卡顿
+                    Glide.with(context).pauseRequests();//为了在滑动时不卡顿
                 }
             }
         });

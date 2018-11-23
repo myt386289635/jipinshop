@@ -81,7 +81,7 @@ public class HealthFragment extends DBBaseFragment implements HealthFragmentGrid
         mBinding.recyclerView.setAdapter(mRecyclerAdapter);
 
         mBinding.swipeToLoad.setOnRefreshListener(this);
-        mPresenter.solveScoll(mBinding.recyclerView,mBinding.swipeToLoad);
+        mPresenter.solveScoll(mBinding.recyclerView,mBinding.swipeToLoad,getContext());
     }
 
     /**

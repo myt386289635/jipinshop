@@ -1,5 +1,9 @@
 package com.example.administrator.jipinshop.activity.follow.user;
 
+import android.content.Context;
+import android.support.v7.widget.RecyclerView;
+
+import com.bumptech.glide.Glide;
 import com.example.administrator.jipinshop.bean.SuccessBean;
 import com.example.administrator.jipinshop.bean.UserPageBean;
 import com.example.administrator.jipinshop.netwrok.Repository;
@@ -29,6 +33,25 @@ public class UserPresenter {
     @Inject
     public UserPresenter(Repository repository) {
         mRepository = repository;
+    }
+
+    //解决冲突问题以及滑动卡顿问题
+    public void solveScoll(RecyclerView mRecyclerView, Context context){
+        mRecyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
+            @Override
+            public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
+            }
+
+            @Override
+            public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
+                super.onScrollStateChanged(recyclerView, newState);
+                if (newState == RecyclerView.SCROLL_STATE_IDLE) {
+                    Glide.with(context).resumeRequests();//为了在滑动时不卡顿
+                }else {
+                    Glide.with(context).pauseRequests();//为了在滑动时不卡顿
+                }
+            }
+        });
     }
 
     public void getList(String attentionUserId,String page,LifecycleTransformer<UserPageBean> transformer){

@@ -13,7 +13,7 @@ import android.view.ViewGroup;
 import com.example.administrator.jipinshop.R;
 import com.example.administrator.jipinshop.bean.KitchenFragmentBean;
 import com.example.administrator.jipinshop.databinding.KitchenItemBinding;
-import com.example.administrator.jipinshop.view.glide.imageloder.ImageManager;
+import com.example.administrator.jipinshop.view.glide.GlideApp;
 
 import java.math.BigDecimal;
 import java.util.List;
@@ -82,7 +82,8 @@ public class KitchenFragmentRecyclerAdapter extends RecyclerView.Adapter<Kitchen
             viewHolder.getBinding().itemReason.setText(Html.fromHtml(str));
         }
 
-        ImageManager.displayRoundImage(mList.get(position).getRankGoodImg(), viewHolder.getBinding().itemImage, R.color.transparent,  R.color.transparent, 10);
+        GlideApp.loderRoundImage(mContext,mList.get(position).getRankGoodImg(),viewHolder.getBinding().itemImage,R.color.transparent,R.color.transparent);
+//        ImageManager.displayRoundImage(mList.get(position).getRankGoodImg(), viewHolder.getBinding().itemImage, R.color.transparent,  R.color.transparent, 10);
 
         if(mList.get(position).getSourceStatus() == 1){
             viewHolder.getBinding().itemGoodsFrom.setText("京东：");
