@@ -1,6 +1,7 @@
 package com.example.administrator.jipinshop.netwrok;
 
 
+import com.example.administrator.jipinshop.bean.AppVersionbean;
 import com.example.administrator.jipinshop.bean.CommentInsertBean;
 import com.example.administrator.jipinshop.bean.ElectricityFragmentBean;
 import com.example.administrator.jipinshop.bean.EvaluationDetailBean;
@@ -363,4 +364,10 @@ public interface APIService {
      */
     @GET("qualityshop-api/goodsPoint/selectList")
     Observable<IntegralShopBean> integralShopList(@Query("page") String page);
+
+    /**
+     * 版本更新
+     */
+    @GET("qualityshop-api/api/getAppVersion")
+    Observable<AppVersionbean> getAppVersion(@Query("type") String type);
 }

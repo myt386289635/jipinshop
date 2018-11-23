@@ -7,13 +7,26 @@ import android.view.LayoutInflater;
 import android.view.View;
 
 import com.example.administrator.jipinshop.R;
+import com.example.administrator.jipinshop.bean.AppVersionbean;
+import com.example.administrator.jipinshop.bean.RecommendFragmentBean;
 import com.example.administrator.jipinshop.netwrok.Repository;
+import com.example.administrator.jipinshop.util.UpDataUtil;
+import com.trello.rxlifecycle2.LifecycleTransformer;
 
 import javax.inject.Inject;
 
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.functions.Consumer;
+import io.reactivex.schedulers.Schedulers;
+
 public class MainActivityPresenter {
 
-    Repository mRepository;
+    private Repository mRepository;
+    private MainView mView;
+
+    public void setView(MainView view) {
+        mView = view;
+    }
 
     @Inject
     public MainActivityPresenter(Repository repository) {
@@ -34,5 +47,21 @@ public class MainActivityPresenter {
         tabLayout.getTabAt(3).setCustomView(view4);
         //水波纹颜色
         tabLayout.setTabRippleColor(ColorStateList.valueOf(context.getResources().getColor(R.color.transparent)));
+    }
+
+    public void getAppVersion(LifecycleTransformer<AppVersionbean> transformer){
+        mRepository.getAppVersion()
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .compose(transformer)
+                .subscribe(appVersionbean -> {
+                    if(appVersionbean.getCode() == 200){
+                        if(mView != null){
+                            mView.onSuccess(appVersionbean);
+                        }
+                    }
+                }, throwable -> {
+
+                });
     }
 }
