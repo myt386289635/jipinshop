@@ -171,7 +171,6 @@ public class MainActivity extends RxAppCompatActivity implements ViewPager.OnPag
 
     @Override
     public void onSuccess(AppVersionbean versionbean) {
-        Toast.makeText(this, "UpDataUtil.getPackageVersionCode():" + UpDataUtil.getPackageVersionCode(), Toast.LENGTH_SHORT).show();
         if(versionbean.getAppVersion().getVersionCode() > UpDataUtil.getPackageVersionCode()){
             UpDataUtil.newInstance().downloadApk(this,versionbean.getAppVersion().getContent(),versionbean.getAppVersion().getDownloadUrl());//第一版
         }
