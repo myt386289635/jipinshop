@@ -39,6 +39,7 @@ import com.example.administrator.jipinshop.bean.UserInfoBean;
 import com.example.administrator.jipinshop.bean.UserPageBean;
 import com.example.administrator.jipinshop.bean.json.LoginJson;
 import com.example.administrator.jipinshop.bean.json.PushMessageJson;
+import com.example.administrator.jipinshop.util.UpDataUtil;
 import com.example.administrator.jipinshop.util.sp.CommonDate;
 
 import java.util.Map;
@@ -400,6 +401,6 @@ public class Repository {
      * 版本更新
      */
     public Observable<AppVersionbean> getAppVersion(){
-        return mAPIService.getAppVersion("1");
+        return mAPIService.getAppVersion("1", UpDataUtil.getPackageVersionCode() + "");
     }
 }

@@ -369,5 +369,5 @@ public interface APIService {
      * 版本更新
      */
     @GET("qualityshop-api/api/getAppVersion")
-    Observable<AppVersionbean> getAppVersion(@Query("type") String type);
+    Observable<AppVersionbean> getAppVersion(@Query("type") String type , @Query("clientVersionCode") String clientVersionCode);
 }

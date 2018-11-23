@@ -102,26 +102,40 @@ public class UpDataUtil {
     /**
      * 跳转浏览器下载apk
      */
-    public void downloadApk(Context context,String content, String url){
-        new AlertDialog.Builder(context)
-                .setTitle("版本更新")
-                .setMessage(content)
-                .setCancelable(false)//点击外部区域是否取消dialog
-                .setNegativeButton(
-                        "下次再说",
-                        (dialog, which) -> dialog.dismiss())
-                .setPositiveButton("下载",
-                        (dialog, which) -> {
-                            Intent intent = new Intent();
-                            intent.setAction("android.intent.action.VIEW");
-                            Uri content_url = Uri.parse(url);
-                            intent.setData(content_url);
-                            intent.setClassName("com.android.browser","com.android.browser.BrowserActivity");
-                            context.startActivity(intent);
-                        }).show();
-        if (TextUtils.isEmpty(url)) {
-            return;
+    public void downloadApk(Context context,Boolean tag,String content, String url){
+        if(tag){
+            new AlertDialog.Builder(context)
+                    .setTitle("版本更新")
+                    .setMessage(content)
+                    .setCancelable(false)
+                    .setPositiveButton("下载",
+                            (dialog, which) -> {
+                                Intent intent = new Intent();
+                                intent.setAction("android.intent.action.VIEW");
+                                Uri content_url = Uri.parse(url);
+                                intent.setData(content_url);
+                                intent.setClassName("com.android.browser","com.android.browser.BrowserActivity");
+                                context.startActivity(intent);
+                            }).show();
+        }else {
+            new AlertDialog.Builder(context)
+                    .setTitle("版本更新")
+                    .setMessage(content)
+                    .setCancelable(true)
+                    .setNegativeButton(
+                            "下次再说",
+                            (dialog, which) -> dialog.dismiss())
+                    .setPositiveButton("下载",
+                            (dialog, which) -> {
+                                Intent intent = new Intent();
+                                intent.setAction("android.intent.action.VIEW");
+                                Uri content_url = Uri.parse(url);
+                                intent.setData(content_url);
+                                intent.setClassName("com.android.browser","com.android.browser.BrowserActivity");
+                                context.startActivity(intent);
+                            }).show();
         }
+
     }
 
     public static int getPackageVersionCode() {
