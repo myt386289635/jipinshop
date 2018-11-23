@@ -56,7 +56,7 @@ import com.example.administrator.jipinshop.util.ShareUtils;
 import com.example.administrator.jipinshop.util.WeakRefHandler;
 import com.example.administrator.jipinshop.view.dialog.ProgressDialogView;
 import com.example.administrator.jipinshop.view.dialog.ShareBoardDialog;
-import com.example.administrator.jipinshop.view.glide.imageloder.ImageManager;
+import com.example.administrator.jipinshop.view.glide.GlideApp;
 import com.example.administrator.jipinshop.view.goodview.GoodView;
 import com.umeng.socialize.UMShareAPI;
 import com.umeng.socialize.bean.SHARE_MEDIA;
@@ -412,8 +412,9 @@ public class ShoppingDetailActivity extends BaseActivity implements ShoppingComm
             //开箱评测头像
             if(shoppingDetailBean.getGoodsRankdetailEntity().getGoodsEvalWayEntity() != null){
                 attentionUserId = shoppingDetailBean.getGoodsRankdetailEntity().getGoodsEvalWayEntity().getUserShopmember().getUserId();
-                ImageManager.displayCircleImage(shoppingDetailBean.getGoodsRankdetailEntity().getGoodsEvalWayEntity().getUserShopmember().getUserNickImg(),mBinding.detailEvaluationImage,
-                        0,0);
+//                ImageManager.displayCircleImage(shoppingDetailBean.getGoodsRankdetailEntity().getGoodsEvalWayEntity().getUserShopmember().getUserNickImg(),mBinding.detailEvaluationImage,
+//                        0,0);
+                GlideApp.loderCircleImage(this,shoppingDetailBean.getGoodsRankdetailEntity().getGoodsEvalWayEntity().getUserShopmember().getUserNickImg(),mBinding.detailEvaluationImage,0 ,0);
                 mBinding.detailEvaluationName.setText(shoppingDetailBean.getGoodsRankdetailEntity().getGoodsEvalWayEntity().getUserShopmember().getUserNickName());
                 mBinding.detailEvaluationTime.setText(shoppingDetailBean.getGoodsRankdetailEntity().getGoodsEvalWayEntity().getPublishTime().split(" ")[0].replace("-","."));
                 mBinding.detailEvaluationFans.setText("粉丝数："+shoppingDetailBean.getGoodsRankdetailEntity().getGoodsEvalWayEntity().getUserShopmember().getFansCount());

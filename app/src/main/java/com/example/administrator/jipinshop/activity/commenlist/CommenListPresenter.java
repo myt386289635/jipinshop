@@ -1,9 +1,11 @@
 package com.example.administrator.jipinshop.activity.commenlist;
 
+import android.content.Context;
 import android.graphics.Rect;
-import android.view.View;
+import android.support.v7.widget.RecyclerView;
 
 import com.blankj.utilcode.util.SPUtils;
+import com.bumptech.glide.Glide;
 import com.example.administrator.jipinshop.bean.CommentBean;
 import com.example.administrator.jipinshop.bean.CommentInsertBean;
 import com.example.administrator.jipinshop.bean.SuccessBean;
@@ -39,6 +41,24 @@ public class CommenListPresenter {
         mRepository = repository;
     }
 
+    //解决冲突问题
+    public void solveScoll(RecyclerView mRecyclerView, Context context){
+        mRecyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
+            @Override
+            public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
+            }
+
+            @Override
+            public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
+                super.onScrollStateChanged(recyclerView, newState);
+                if (newState == RecyclerView.SCROLL_STATE_IDLE) {
+                    Glide.with(context).resumeRequests();//为了在滑动时不卡顿
+                }else {
+                    Glide.with(context).pauseRequests();//为了在滑动时不卡顿
+                }
+            }
+        });
+    }
 
     /**
      * 查看评论列表

@@ -108,7 +108,7 @@ public class FovalFragment extends DBBaseFragment implements OnRefreshListener, 
             once = false;
         }
 
-        mPresenter.solveScoll(mBinding.swipeTarget);
+        mPresenter.solveScoll(mBinding.swipeTarget,getContext());
     }
 
     @Override

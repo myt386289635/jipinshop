@@ -14,7 +14,7 @@ import android.widget.TextView;
 import com.example.administrator.jipinshop.R;
 import com.example.administrator.jipinshop.bean.CommentBean;
 import com.example.administrator.jipinshop.util.FileManager;
-import com.example.administrator.jipinshop.view.glide.imageloder.ImageManager;
+import com.example.administrator.jipinshop.view.glide.GlideApp;
 
 import java.util.List;
 
@@ -90,9 +90,11 @@ public class CommenListAdapter extends RecyclerView.Adapter<CommenListAdapter.Vi
         });
         if (mList.get(position).getUserShopmember() != null) {
             if(!TextUtils.isEmpty(mList.get(position).getUserShopmember().getUserNickImg())){
-                ImageManager.displayCircleImage(mList.get(position).getUserShopmember().getUserNickImg(),holder.item_image,0,R.mipmap.rlogo);
+                GlideApp.loderCircleImage(mContext,mList.get(position).getUserShopmember().getUserNickImg(),holder.item_image,R.mipmap.rlogo,0);
+//                ImageManager.displayCircleImage(mList.get(position).getUserShopmember().getUserNickImg(),holder.item_image,0,R.mipmap.rlogo);
             }else {
-                ImageManager.displayImage("drawable://" + R.drawable.rlogo,holder.item_image,R.drawable.rlogo,R.drawable.rlogo);
+                GlideApp.loderCircleImage(mContext, R.drawable.rlogo,holder.item_image,R.mipmap.rlogo,R.drawable.rlogo);
+//                ImageManager.displayImage("drawable://" + R.drawable.rlogo,holder.item_image,R.drawable.rlogo,R.drawable.rlogo);
             }
             if (!TextUtils.isEmpty(mList.get(position).getUserShopmember().getUserNickName())){
                 holder.item_name.setText(mList.get(position).getUserShopmember().getUserNickName());
@@ -101,7 +103,8 @@ public class CommenListAdapter extends RecyclerView.Adapter<CommenListAdapter.Vi
             }
         }else {
             holder.item_name.setText("游客");
-            ImageManager.displayImage("drawable://" + R.drawable.rlogo,holder.item_image,R.drawable.rlogo,R.drawable.rlogo);
+            GlideApp.loderCircleImage(mContext, R.drawable.rlogo,holder.item_image,R.mipmap.rlogo,R.drawable.rlogo);
+//            ImageManager.displayImage("drawable://" + R.drawable.rlogo,holder.item_image,R.drawable.rlogo,R.drawable.rlogo);
         }
         if(!TextUtils.isEmpty(mList.get(position).getSnapNum()) && !mList.get(position).getSnapNum().equals("0")){
             holder.item_goodNum.setText(mList.get(position).getSnapNum());

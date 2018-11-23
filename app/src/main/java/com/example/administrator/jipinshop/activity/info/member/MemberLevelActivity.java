@@ -14,7 +14,7 @@ import com.example.administrator.jipinshop.base.BaseActivity;
 import com.example.administrator.jipinshop.bean.MemberLevelBean;
 import com.example.administrator.jipinshop.util.sp.CommonDate;
 import com.example.administrator.jipinshop.view.dialog.ProgressDialogView;
-import com.example.administrator.jipinshop.view.glide.imageloder.ImageManager;
+import com.example.administrator.jipinshop.view.glide.GlideApp;
 
 import javax.inject.Inject;
 
@@ -54,9 +54,11 @@ public class MemberLevelActivity extends BaseActivity implements MemberLevelView
         mPersenter.setView(this);
         mTitleTv.setText("会员中心");
         if(!TextUtils.isEmpty(SPUtils.getInstance(CommonDate.USER).getString(CommonDate.userNickImg))){
-            ImageManager.displayCircleImage(SPUtils.getInstance(CommonDate.USER).getString(CommonDate.userNickImg),mMemberImage,R.drawable.rlogo,R.drawable.rlogo);
+            GlideApp.loderCircleImage(this,SPUtils.getInstance(CommonDate.USER).getString(CommonDate.userNickImg),mMemberImage,R.drawable.rlogo,R.drawable.rlogo);
+//            ImageManager.displayCircleImage(SPUtils.getInstance(CommonDate.USER).getString(CommonDate.userNickImg),mMemberImage,R.drawable.rlogo,R.drawable.rlogo);
         }else {
-            ImageManager.displayImage("drawable://" + R.drawable.rlogo,mMemberImage,R.drawable.rlogo,R.drawable.rlogo);
+            GlideApp.loderImage(this,R.drawable.rlogo,mMemberImage,R.drawable.rlogo,R.drawable.rlogo);
+//            ImageManager.displayImage("drawable://" + R.drawable.rlogo,mMemberImage,R.drawable.rlogo,R.drawable.rlogo);
         }
         mMemberLevel.setText("v" + SPUtils.getInstance(CommonDate.USER).getString(CommonDate.userMemberGrade));
         dialog = (new ProgressDialogView()).createLoadingDialog(this, "请求中...");

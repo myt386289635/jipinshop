@@ -43,7 +43,7 @@ import com.example.administrator.jipinshop.util.ShareUtils;
 import com.example.administrator.jipinshop.util.WeakRefHandler;
 import com.example.administrator.jipinshop.view.dialog.ProgressDialogView;
 import com.example.administrator.jipinshop.view.dialog.ShareBoardDialog;
-import com.example.administrator.jipinshop.view.glide.imageloder.ImageManager;
+import com.example.administrator.jipinshop.view.glide.GlideApp;
 import com.example.administrator.jipinshop.view.goodview.GoodView;
 import com.gyf.barlibrary.ImmersionBar;
 import com.trello.rxlifecycle2.components.support.RxAppCompatActivity;
@@ -266,7 +266,8 @@ public class EvaluationDetailActivity extends RxAppCompatActivity implements Vie
      */
     @Override
     public void onSuccess(EvaluationDetailBean bean) {
-        ImageManager.displayImage(bean.getGoodsEvalWay().getImgId(),mBinding.detailImageTitle,0,0);
+//        ImageManager.displayImage(bean.getGoodsEvalWay().getImgId(),mBinding.detailImageTitle,0,0);
+        GlideApp.loderImage(this,bean.getGoodsEvalWay().getImgId(),mBinding.detailImageTitle,0,0);
         mBinding.webView.loadDataWithBaseURL(null,
                 bean.getGoodsEvalWay().getContent(),
                 "text/html", "utf-8", null);

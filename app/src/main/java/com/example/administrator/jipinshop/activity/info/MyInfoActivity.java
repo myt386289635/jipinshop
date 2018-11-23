@@ -24,7 +24,7 @@ import com.example.administrator.jipinshop.util.sp.CommonDate;
 import com.example.administrator.jipinshop.view.dialog.DialogUtil;
 import com.example.administrator.jipinshop.view.dialog.ProgressDialogView;
 import com.example.administrator.jipinshop.view.dialog.SelectPicDialog;
-import com.example.administrator.jipinshop.view.glide.imageloder.ImageManager;
+import com.example.administrator.jipinshop.view.glide.GlideApp;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
@@ -64,9 +64,11 @@ public class MyInfoActivity extends BaseActivity implements SelectPicDialog.Choo
     private void initView() {
         mBinding.inClude.titleTv.setText("我的资料");
         if(!TextUtils.isEmpty(SPUtils.getInstance(CommonDate.USER).getString(CommonDate.userNickImg))){
-            ImageManager.displayCircleImage(SPUtils.getInstance(CommonDate.USER).getString(CommonDate.userNickImg),mBinding.infoImage,R.drawable.rlogo,R.drawable.rlogo);
+            GlideApp.loderCircleImage(this,SPUtils.getInstance(CommonDate.USER).getString(CommonDate.userNickImg),mBinding.infoImage,R.drawable.rlogo,R.drawable.rlogo);
+//            ImageManager.displayCircleImage(SPUtils.getInstance(CommonDate.USER).getString(CommonDate.userNickImg),mBinding.infoImage,R.drawable.rlogo,R.drawable.rlogo);
         }else {
-            ImageManager.displayImage("drawable://" + R.drawable.rlogo,mBinding.infoImage,R.drawable.rlogo,R.drawable.rlogo);
+            GlideApp.loderImage(this,R.drawable.rlogo,mBinding.infoImage,R.drawable.rlogo,R.drawable.rlogo);
+//            ImageManager.displayImage("drawable://" + R.drawable.rlogo,mBinding.infoImage,R.drawable.rlogo,R.drawable.rlogo);
         }
         if(TextUtils.isEmpty(SPUtils.getInstance(CommonDate.USER).getString(CommonDate.userNickName))){
             mBinding.infoName.setText(SPUtils.getInstance(CommonDate.USER).getString(CommonDate.userPhone));
@@ -199,7 +201,8 @@ public class MyInfoActivity extends BaseActivity implements SelectPicDialog.Choo
     @Override
     public void EditUserNickImgSuc(SuccessBean successBean, String date) {
         if (successBean.getCode() == 200) {
-            ImageManager.displayCircleImage(date,mBinding.infoImage,R.mipmap.rlogo,R.mipmap.rlogo);
+//            ImageManager.displayCircleImage(date,mBinding.infoImage,R.mipmap.rlogo,R.mipmap.rlogo);
+            GlideApp.loderCircleImage(this,date,mBinding.infoImage,R.mipmap.rlogo,R.mipmap.rlogo);
             SPUtils.getInstance(CommonDate.USER).put(CommonDate.userNickImg, date);
             EventBus.getDefault().post(new EditNameBus(EditNameActivity.tag,date,"4"));
             Toast.makeText(this, "修改成功", Toast.LENGTH_SHORT).show();

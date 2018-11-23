@@ -14,7 +14,7 @@ import android.widget.TextView;
 import com.example.administrator.jipinshop.R;
 import com.example.administrator.jipinshop.bean.CommentBean;
 import com.example.administrator.jipinshop.util.FileManager;
-import com.example.administrator.jipinshop.view.glide.imageloder.ImageManager;
+import com.example.administrator.jipinshop.view.glide.GlideApp;
 
 import java.util.List;
 
@@ -79,9 +79,11 @@ public class ShoppingCommonAdapter extends RecyclerView.Adapter<ShoppingCommonAd
             }
         });
         if(!TextUtils.isEmpty(mList.get(position).getUserShopmember().getUserNickImg())){
-            ImageManager.displayCircleImage(mList.get(position).getUserShopmember().getUserNickImg(),holder.item_image,0,R.mipmap.rlogo);
+//            ImageManager.displayCircleImage(mList.get(position).getUserShopmember().getUserNickImg(),holder.item_image,0,R.mipmap.rlogo);
+            GlideApp.loderCircleImage(mContext,mList.get(position).getUserShopmember().getUserNickImg(),holder.item_image,R.mipmap.rlogo,0);
         }else {
-            ImageManager.displayImage("drawable://" + R.drawable.rlogo,holder.item_image,R.drawable.rlogo,R.drawable.rlogo);
+            GlideApp.loderImage(mContext,R.drawable.rlogo,holder.item_image,R.drawable.rlogo,R.drawable.rlogo);
+//            ImageManager.displayImage("drawable://" + R.drawable.rlogo,holder.item_image,R.drawable.rlogo,R.drawable.rlogo);
         }
         if (!TextUtils.isEmpty(mList.get(position).getUserShopmember().getUserNickName())){
             holder.item_name.setText(mList.get(position).getUserShopmember().getUserNickName());

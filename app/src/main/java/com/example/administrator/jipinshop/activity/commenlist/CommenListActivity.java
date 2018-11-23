@@ -106,6 +106,7 @@ public class CommenListActivity extends BaseActivity implements CommenListAdapte
         mBinding.swipeToLoad.setRefreshing(true);
 
         mPresenter.setKeyListener(mBinding.detailContanier, usableHeightPrevious);
+        mPresenter.solveScoll(mBinding.swipeTarget,this);
     }
 
     /**

@@ -30,7 +30,7 @@ import com.example.administrator.jipinshop.databinding.FragmentMineBinding;
 import com.example.administrator.jipinshop.fragment.evaluation.common.CommonEvaluationFragment;
 import com.example.administrator.jipinshop.jpush.JPushReceiver;
 import com.example.administrator.jipinshop.util.sp.CommonDate;
-import com.example.administrator.jipinshop.view.glide.imageloder.ImageManager;
+import com.example.administrator.jipinshop.view.glide.GlideApp;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
@@ -147,7 +147,8 @@ public class MineFragment extends DBBaseFragment implements View.OnClickListener
                 mBinding.mineLogin.setVisibility(View.VISIBLE);
                 mBinding.mineLevel.setVisibility(View.GONE);
                 mBinding.mineIntegral.setText("积分0");
-                ImageManager.displayImage("drawable://" + R.drawable.logo, mBinding.mineImage, 0, 0);
+                GlideApp.loderImage(getContext(),R.drawable.logo, mBinding.mineImage, 0, 0);
+//                ImageManager.displayImage("drawable://" + R.drawable.logo, mBinding.mineImage, 0, 0);
                 SPUtils.getInstance(CommonDate.USER).clear();
                 SPUtils.getInstance(CommonDate.USER).put(CommonDate.userLogin, false);
 //                mBinding.mineMoney.setText("总佣金¥00.00");
@@ -175,7 +176,8 @@ public class MineFragment extends DBBaseFragment implements View.OnClickListener
                 mBinding.mineName.setText(bus.getContent());
             } else if (bus.getType().equals("4")) {
                 //修改用户头像
-                ImageManager.displayImage(bus.getContent(), mBinding.mineImage, 0, R.mipmap.rlogo);
+//                ImageManager.displayImage(bus.getContent(), mBinding.mineImage, 0, R.mipmap.rlogo);
+                GlideApp.loderImage(getContext(),bus.getContent(), mBinding.mineImage, R.mipmap.rlogo, 0);
             }
         } else if (bus.getTag().equals(LoginActivity.tag)) {
             //登陆时返回刷新佣金数
@@ -200,7 +202,8 @@ public class MineFragment extends DBBaseFragment implements View.OnClickListener
                 mBinding.mineName.setText(SPUtils.getInstance(CommonDate.USER).getString(CommonDate.userNickName));
             }
             if (!TextUtils.isEmpty(SPUtils.getInstance(CommonDate.USER).getString(CommonDate.userNickImg))) {
-                ImageManager.displayImage(SPUtils.getInstance(CommonDate.USER).getString(CommonDate.userNickImg), mBinding.mineImage, 0, R.mipmap.logo);
+//                ImageManager.displayImage(SPUtils.getInstance(CommonDate.USER).getString(CommonDate.userNickImg), mBinding.mineImage, 0, R.mipmap.logo);
+                GlideApp.loderImage(getContext(),SPUtils.getInstance(CommonDate.USER).getString(CommonDate.userNickImg), mBinding.mineImage, R.mipmap.logo, 0);
             }
             mBinding.mineLevel.setVisibility(View.VISIBLE);
             mBinding.mineLevel.setText("v" + SPUtils.getInstance(CommonDate.USER).getString(CommonDate.userMemberGrade));
@@ -271,7 +274,8 @@ public class MineFragment extends DBBaseFragment implements View.OnClickListener
             mBinding.mineName.setText(SPUtils.getInstance(CommonDate.USER).getString(CommonDate.userNickName));
         }
         if (!TextUtils.isEmpty(SPUtils.getInstance(CommonDate.USER).getString(CommonDate.userNickImg))) {
-            ImageManager.displayImage(SPUtils.getInstance(CommonDate.USER).getString(CommonDate.userNickImg), mBinding.mineImage, 0, R.mipmap.logo);
+//            ImageManager.displayImage(SPUtils.getInstance(CommonDate.USER).getString(CommonDate.userNickImg), mBinding.mineImage, 0, R.mipmap.logo);
+            GlideApp.loderImage(getContext(),SPUtils.getInstance(CommonDate.USER).getString(CommonDate.userNickImg), mBinding.mineImage, R.mipmap.logo, 0);
         }
         mBinding.mineLevel.setText("v" + SPUtils.getInstance(CommonDate.USER).getString(CommonDate.userMemberGrade));
         mBinding.mineIntegral.setText("积分" + SPUtils.getInstance(CommonDate.USER).getInt(CommonDate.userPoint));
@@ -294,7 +298,8 @@ public class MineFragment extends DBBaseFragment implements View.OnClickListener
             mBinding.mineName.setText(SPUtils.getInstance(CommonDate.USER).getString(CommonDate.userNickName));
         }
         if (!TextUtils.isEmpty(SPUtils.getInstance(CommonDate.USER).getString(CommonDate.userNickImg))) {
-            ImageManager.displayImage(SPUtils.getInstance(CommonDate.USER).getString(CommonDate.userNickImg), mBinding.mineImage, 0, R.mipmap.logo);
+//            ImageManager.displayImage(SPUtils.getInstance(CommonDate.USER).getString(CommonDate.userNickImg), mBinding.mineImage, 0, R.mipmap.logo);
+            GlideApp.loderImage(getContext(),SPUtils.getInstance(CommonDate.USER).getString(CommonDate.userNickImg), mBinding.mineImage, R.mipmap.logo, 0);
         }
         mBinding.mineLevel.setText("v0");
         mBinding.mineIntegral.setText("积分0");

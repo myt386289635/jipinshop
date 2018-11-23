@@ -11,7 +11,7 @@ import android.widget.TextView;
 import com.example.administrator.jipinshop.R;
 import com.example.administrator.jipinshop.bean.FovalBean;
 import com.example.administrator.jipinshop.view.TextViewDel;
-import com.example.administrator.jipinshop.view.glide.imageloder.ImageManager;
+import com.example.administrator.jipinshop.view.glide.GlideApp;
 import com.google.android.flexbox.FlexboxLayout;
 
 import java.util.List;
@@ -67,7 +67,8 @@ public class FovalAdapter extends RecyclerView.Adapter<FovalAdapter.ViewHolder>{
             }
             holder.item_priceOld.setColor(R.color.color_ACACAC);
             holder.item_priceOld.setTv(true);
-            ImageManager.displayRoundImage(mList.get(position).getGoodsRanklist().getRankGoodImg(),holder.item_image,0,0,10);
+//            ImageManager.displayRoundImage(mList.get(position).getGoodsRanklist().getRankGoodImg(),holder.item_image,0,0,10);
+            GlideApp.loderRoundImage(mContext,mList.get(position).getGoodsRanklist().getRankGoodImg(),holder.item_image,0,0);
             holder.item_name.setText(mList.get(position).getGoodsRanklist().getGoodsName());
             if(mList.get(position).getGoodsRanklist().getSourceStatus() == 1){
                 holder.item_resouce.setText("京东：");
@@ -89,7 +90,8 @@ public class FovalAdapter extends RecyclerView.Adapter<FovalAdapter.ViewHolder>{
 
             holder.item_name.setText(mList.get(position).getGoodsEvalway().getEvalWayName());
             holder.item_lookNum.setText(mList.get(position).getGoodsEvalway().getVisitCount());
-            ImageManager.displayRoundImage(mList.get(position).getGoodsEvalway().getImgId(),holder.item_image,0,0,10);
+//            ImageManager.displayRoundImage(mList.get(position).getGoodsEvalway().getImgId(),holder.item_image,0,0,10);
+            GlideApp.loderRoundImage(mContext,mList.get(position).getGoodsEvalway().getImgId(),holder.item_image,0,0);
             holder.item_time.setText(mList.get(position).getGoodsEvalway().getPublishTime());
         }else {
             //发现
@@ -101,7 +103,8 @@ public class FovalAdapter extends RecyclerView.Adapter<FovalAdapter.ViewHolder>{
 
             holder.item_name.setText(mList.get(position).getGoodsFindGoods().getTitle());
             holder.item_lookNum.setText(mList.get(position).getGoodsFindGoods().getVisitCount());
-            ImageManager.displayRoundImage(mList.get(position).getGoodsFindGoods().getImgId(),holder.item_image,0,0,10);
+//            ImageManager.displayRoundImage(mList.get(position).getGoodsFindGoods().getImgId(),holder.item_image,0,0,10);
+            GlideApp.loderRoundImage(mContext,mList.get(position).getGoodsFindGoods().getImgId(),holder.item_image,0,0);
             holder.item_time.setText(mList.get(position).getGoodsFindGoods().getPublishTime());
         }
         holder.itemView.setOnClickListener(v -> {

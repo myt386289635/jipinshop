@@ -126,7 +126,7 @@ public class SreachResultActivity extends BaseActivity implements SreachResultAd
         mBinding.swipeToLoad.setOnRefreshListener(this);
         mBinding.swipeToLoad.setRefreshing(true);
 
-        mPresenter.solveScoll(mBinding.recyclerView,mBinding.swipeToLoad);
+        mPresenter.solveScoll(mBinding.recyclerView,mBinding.swipeToLoad,this);
     }
 
     /**
