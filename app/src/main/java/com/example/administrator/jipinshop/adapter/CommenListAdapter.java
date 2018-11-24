@@ -169,8 +169,10 @@ public class CommenListAdapter extends RecyclerView.Adapter<CommenListAdapter.Vi
                 }
             };
             recycler_view.setLayoutManager(layoutManager);
-            //每个二级recyclerView使用一个viewPool,优化卡顿问题
-            recycler_view.setRecycledViewPool(mViewPool);
+            if(mViewPool != null){
+                //每个二级recyclerView使用一个viewPool,优化卡顿问题
+                recycler_view.setRecycledViewPool(mViewPool);
+            }
             mAdapter = new ShoppingCommon2Adapter(mContext);
         }
     }

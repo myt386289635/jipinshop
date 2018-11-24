@@ -158,7 +158,9 @@ public class ShoppingCommonAdapter extends RecyclerView.Adapter<ShoppingCommonAd
                 }
             };
             recycler_view.setLayoutManager(layoutManager);
-            recycler_view.setRecycledViewPool(mViewPool);
+            if(mViewPool != null){
+                recycler_view.setRecycledViewPool(mViewPool);
+            }
             mAdapter = new ShoppingCommon2Adapter(mContext);
         }
     }
