@@ -81,18 +81,24 @@ public class ShoppingCommonAdapter extends RecyclerView.Adapter<ShoppingCommonAd
                 mOnItemReply.onItemReply(position,holder.item_reply);
             }
         });
-        if(!TextUtils.isEmpty(mList.get(position).getUserShopmember().getUserNickImg())){
+        if (mList.get(position).getUserShopmember() != null) {
+            if(!TextUtils.isEmpty(mList.get(position).getUserShopmember().getUserNickImg())){
 //            ImageManager.displayCircleImage(mList.get(position).getUserShopmember().getUserNickImg(),holder.item_image,0,R.mipmap.rlogo);
-            GlideApp.loderCircleImage(mContext,mList.get(position).getUserShopmember().getUserNickImg(),holder.item_image,R.mipmap.rlogo,0);
-        }else {
-            GlideApp.loderImage(mContext,R.drawable.rlogo,holder.item_image,R.drawable.rlogo,R.drawable.rlogo);
+                GlideApp.loderCircleImage(mContext,mList.get(position).getUserShopmember().getUserNickImg(),holder.item_image,R.mipmap.rlogo,0);
+            }else {
+                GlideApp.loderImage(mContext,R.drawable.rlogo,holder.item_image,R.drawable.rlogo,R.drawable.rlogo);
 //            ImageManager.displayImage("drawable://" + R.drawable.rlogo,holder.item_image,R.drawable.rlogo,R.drawable.rlogo);
-        }
-        if (!TextUtils.isEmpty(mList.get(position).getUserShopmember().getUserNickName())){
-            holder.item_name.setText(mList.get(position).getUserShopmember().getUserNickName());
+            }
+            if (!TextUtils.isEmpty(mList.get(position).getUserShopmember().getUserNickName())){
+                holder.item_name.setText(mList.get(position).getUserShopmember().getUserNickName());
+            }else {
+                holder.item_name.setText(FileManager.editPhone(mList.get(position).getUserShopmember().getUserPhone()));
+            }
         }else {
-            holder.item_name.setText(FileManager.editPhone(mList.get(position).getUserShopmember().getUserPhone()));
+            holder.item_name.setText("游客");
+            GlideApp.loderCircleImage(mContext, R.drawable.rlogo,holder.item_image,R.mipmap.rlogo,R.drawable.rlogo);
         }
+
         if(!TextUtils.isEmpty(mList.get(position).getSnapNum()) && !mList.get(position).getSnapNum().equals("0")){
             holder.item_goodNum.setText(mList.get(position).getSnapNum());
         }else {
