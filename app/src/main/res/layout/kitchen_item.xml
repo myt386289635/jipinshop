@@ -70,7 +70,6 @@
             android:layout_marginTop="@dimen/x16"
             android:layout_toRightOf="@id/item_image"
             android:ellipsize="end"
-            android:gravity="center_vertical"
             android:lineSpacingExtra="@dimen/x6"
             android:lines="4"
             android:text="@{date.goodsName}"
@@ -79,6 +78,8 @@
             android:textStyle="bold"/>
 
         <TextView
+            android:ellipsize="end"
+            android:maxLines="1"
             android:id="@+id/item_tag1"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -93,6 +94,8 @@
 
 
         <TextView
+            android:ellipsize="end"
+            android:maxLines="1"
             android:id="@+id/item_tag2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -200,6 +203,8 @@
 
 
         <TextView
+            android:ellipsize="end"
+            android:maxLines="3"
             android:id="@+id/item_reason"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
