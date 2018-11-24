@@ -31,6 +31,8 @@ public class CommenListAdapter extends RecyclerView.Adapter<CommenListAdapter.Vi
     private OnMoreUp mOnMoreUp;
     private OnGoodItem mOnGoodItem;
 
+    private RecyclerView.RecycledViewPool mViewPool;
+
     public void setOnGoodItem(OnGoodItem onGoodItem) {
         mOnGoodItem = onGoodItem;
     }
@@ -52,6 +54,8 @@ public class CommenListAdapter extends RecyclerView.Adapter<CommenListAdapter.Vi
     public CommenListAdapter(List<CommentBean.ListBean> list, Context context) {
         mList = list;
         mContext = context;
+
+        mViewPool = new RecyclerView.RecycledViewPool();
     }
 
     @Override
@@ -165,6 +169,8 @@ public class CommenListAdapter extends RecyclerView.Adapter<CommenListAdapter.Vi
                 }
             };
             recycler_view.setLayoutManager(layoutManager);
+            //每个二级recyclerView使用一个viewPool,优化卡顿问题
+            recycler_view.setRecycledViewPool(mViewPool);
             mAdapter = new ShoppingCommon2Adapter(mContext);
         }
     }

@@ -30,6 +30,8 @@ public class ShoppingCommonAdapter extends RecyclerView.Adapter<ShoppingCommonAd
     private OnItemReply mOnItemReply;
     private OnGoodItem mOnGoodItem;
 
+    private RecyclerView.RecycledViewPool mViewPool;
+
     public void setOnGoodItem(OnGoodItem onGoodItem) {
         mOnGoodItem = onGoodItem;
     }
@@ -41,6 +43,7 @@ public class ShoppingCommonAdapter extends RecyclerView.Adapter<ShoppingCommonAd
     public ShoppingCommonAdapter(List<CommentBean.ListBean> list, Context context) {
         mList = list;
         mContext = context;
+        mViewPool = new RecyclerView.RecycledViewPool();
     }
 
     @Override
@@ -155,6 +158,7 @@ public class ShoppingCommonAdapter extends RecyclerView.Adapter<ShoppingCommonAd
                 }
             };
             recycler_view.setLayoutManager(layoutManager);
+            recycler_view.setRecycledViewPool(mViewPool);
             mAdapter = new ShoppingCommon2Adapter(mContext);
         }
     }
