@@ -876,16 +876,21 @@ public class ShoppingDetailActivity extends BaseActivity implements ShoppingComm
      */
     @Override
     public void onGood(int flag, int position) {
-        if(flag == 1){
-            //取消点赞
-            mDialogProgress = (new ProgressDialogView()).createLoadingDialog(ShoppingDetailActivity.this, "正在加载...");
-            mDialogProgress.show();
-            mPresenter.snapDelete("2",position,mCommonList.get(position).getCommentId(),this.bindToLifecycle());
-        }else {
-            //点赞
-            mDialogProgress = (new ProgressDialogView()).createLoadingDialog(ShoppingDetailActivity.this, "正在加载...");
-            mDialogProgress.show();
-            mPresenter.snapInsert("2",position,null,mCommonList.get(position).getCommentId(),this.bindToLifecycle());
+        if (ClickUtil.isFastDoubleClick(1000)) {
+            Toast.makeText(this, "您点击太快了，请休息会再点", Toast.LENGTH_SHORT).show();
+            return;
+        }else{
+            if(flag == 1){
+                //取消点赞
+                mDialogProgress = (new ProgressDialogView()).createLoadingDialog(ShoppingDetailActivity.this, "正在加载...");
+                mDialogProgress.show();
+                mPresenter.snapDelete("2",position,mCommonList.get(position).getCommentId(),this.bindToLifecycle());
+            }else {
+                //点赞
+                mDialogProgress = (new ProgressDialogView()).createLoadingDialog(ShoppingDetailActivity.this, "正在加载...");
+                mDialogProgress.show();
+                mPresenter.snapInsert("2",position,null,mCommonList.get(position).getCommentId(),this.bindToLifecycle());
+            }
         }
     }
 

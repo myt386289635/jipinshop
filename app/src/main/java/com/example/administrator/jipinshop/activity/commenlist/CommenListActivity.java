@@ -27,6 +27,7 @@ import com.example.administrator.jipinshop.bean.eventbus.CommenBus;
 import com.example.administrator.jipinshop.bean.eventbus.EvaluationBus;
 import com.example.administrator.jipinshop.bean.eventbus.FindBus;
 import com.example.administrator.jipinshop.databinding.ActivityCommenlistBinding;
+import com.example.administrator.jipinshop.util.ClickUtil;
 import com.example.administrator.jipinshop.util.sp.CommonDate;
 import com.example.administrator.jipinshop.view.dialog.ProgressDialogView;
 
@@ -110,6 +111,8 @@ public class CommenListActivity extends BaseActivity implements CommenListAdapte
         mAdapter.setOnGoodItem(this);
 
         mBinding.swipeTarget.setItemViewCacheSize(10);
+        mBinding.swipeTarget.setDrawingCacheEnabled(true);//耗内存
+        mBinding.swipeTarget.setDrawingCacheQuality(View.DRAWING_CACHE_QUALITY_HIGH);//耗内存
 
         mBinding.swipeTarget.setAdapter(mAdapter);
         mBinding.swipeToLoad.setOnRefreshListener(this);
@@ -477,16 +480,21 @@ public class CommenListActivity extends BaseActivity implements CommenListAdapte
 
     @Override
     public void onGood(int flag, int position) {
-        if(flag == 1){
-            //取消点赞
-            mDialog = (new ProgressDialogView()).createLoadingDialog(this, "正在加载...");
-            mDialog.show();
-            mPresenter.snapDelete(position,mList.get(position).getCommentId(),this.bindToLifecycle());
-        }else {
-            //点赞
-            mDialog = (new ProgressDialogView()).createLoadingDialog(this, "正在加载...");
-            mDialog.show();
-            mPresenter.snapInsert(position,mList.get(position).getCommentId(),this.bindToLifecycle());
+        if (ClickUtil.isFastDoubleClick(1000)) {
+            Toast.makeText(this, "您点击太快了，请休息会再点", Toast.LENGTH_SHORT).show();
+            return;
+        }else{
+            if(flag == 1){
+                //取消点赞
+                mDialog = (new ProgressDialogView()).createLoadingDialog(this, "正在加载...");
+                mDialog.show();
+                mPresenter.snapDelete(position,mList.get(position).getCommentId(),this.bindToLifecycle());
+            }else {
+                //点赞
+                mDialog = (new ProgressDialogView()).createLoadingDialog(this, "正在加载...");
+                mDialog.show();
+                mPresenter.snapInsert(position,mList.get(position).getCommentId(),this.bindToLifecycle());
+            }
         }
     }
 }
