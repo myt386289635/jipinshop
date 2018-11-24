@@ -5,6 +5,7 @@ import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
 import android.view.MotionEvent;
 import android.view.View;
@@ -92,7 +93,12 @@ public class CommenListActivity extends BaseActivity implements CommenListAdapte
         mPresenter.setView(this);
         pos = getIntent().getIntExtra("position", -1);
         mBinding.titleContainer.titleTv.setText("所有评论(" + 0 + ")");
-        mBinding.swipeTarget.setLayoutManager(new LinearLayoutManager(this));
+        mBinding.swipeTarget.setLayoutManager(new LinearLayoutManager(this){
+            @Override
+            protected int getExtraLayoutSpace(RecyclerView.State state) {
+                return 300;
+            }
+        });
         mList = new ArrayList<>();
         sets = new ArrayList<>();
         mAdapter = new CommenListAdapter(mList, this);
@@ -100,6 +106,9 @@ public class CommenListActivity extends BaseActivity implements CommenListAdapte
         mAdapter.setSets(sets);
         mAdapter.setOnMoreUp(this);
         mAdapter.setOnGoodItem(this);
+
+        mBinding.swipeTarget.setItemViewCacheSize(10);
+
         mBinding.swipeTarget.setAdapter(mAdapter);
         mBinding.swipeToLoad.setOnRefreshListener(this);
         mBinding.swipeToLoad.setOnLoadMoreListener(this);
