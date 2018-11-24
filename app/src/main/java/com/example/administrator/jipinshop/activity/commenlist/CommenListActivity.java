@@ -94,6 +94,8 @@ public class CommenListActivity extends BaseActivity implements CommenListAdapte
         pos = getIntent().getIntExtra("position", -1);
         mBinding.titleContainer.titleTv.setText("所有评论(" + 0 + ")");
         mBinding.swipeTarget.setLayoutManager(new LinearLayoutManager(this){
+            //将返回LayoutManager应该预留的额外空间(即：手机屏幕以外的预留空间，
+            // 这样做不会造成到item时卡顿，而是在还未到item时卡顿体验能好点)
             @Override
             protected int getExtraLayoutSpace(RecyclerView.State state) {
                 return 300;
