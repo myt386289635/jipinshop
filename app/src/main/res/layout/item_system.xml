@@ -63,22 +63,36 @@
         android:layout_marginTop="@dimen/x24"
         android:background="@color/color_F5F5F5"/>
 
-
     <TextView
-        android:id="@+id/item_content"
+        android:id="@+id/item_content_title"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@id/item_line"
-        android:layout_marginBottom="@dimen/x32"
         android:layout_marginLeft="@dimen/x16"
         android:layout_marginRight="@dimen/x16"
         android:layout_marginTop="@dimen/x24"
         android:ellipsize="end"
         android:lineSpacingExtra="@dimen/x8"
-        android:maxLines="2"
+        android:maxLines="1"
         android:textColor="@color/color_ACACAC"
         android:textSize="13sp"
-        tools:text=""/>
+        android:text="尊敬的用户您好："/>
+
+    <TextView
+        android:id="@+id/item_content"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/item_content_title"
+        android:layout_marginBottom="@dimen/x32"
+        android:layout_marginLeft="@dimen/x16"
+        android:layout_marginRight="@dimen/x46"
+        android:layout_marginTop="@dimen/x8"
+        android:ellipsize="end"
+        android:lineSpacingExtra="@dimen/x8"
+        android:maxLines="1"
+        android:textColor="@color/color_ACACAC"
+        android:textSize="13sp"
+        tools:text="京东商城返利体验大升级，一键自动跳转至京东APP一键自动跳转至京东APP"/>
 
 
     <TextView

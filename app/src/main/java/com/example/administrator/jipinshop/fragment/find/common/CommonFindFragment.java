@@ -129,7 +129,7 @@ public class CommonFindFragment extends DBBaseFragment implements OnRefreshListe
             if (!TextUtils.isEmpty(SPUtils.getInstance().getString(CommonDate.FindTab, ""))) {
                 EvaluationTabBean bean = new Gson().fromJson(SPUtils.getInstance().getString(CommonDate.FindTab), EvaluationTabBean.class);
                 if (getArguments().getString("type").equals(ONE)) {
-                    id = bean.getList().get(0).getCategoryId();
+                    id = "";
                 } else if (getArguments().getString("type").equals(TWO)) {
                     id = bean.getList().get(1).getCategoryId();
                 } else if (getArguments().getString("type").equals(THREE)) {

@@ -1,8 +1,30 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-    android:background="@mipmap/well_come"
+<RelativeLayout
+    android:background="@color/color_white"
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-</LinearLayout>
+
+    <TextView
+        android:id="@+id/well_text"
+        android:layout_marginBottom="@dimen/x66"
+        android:layout_centerHorizontal="true"
+        android:layout_alignParentBottom="true"
+        android:textColor="@color/color_202020"
+        android:textSize="14sp"
+        android:text="极好物 极有品"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"/>
+
+
+    <ImageView
+        android:layout_marginBottom="@dimen/x24"
+        android:layout_centerHorizontal="true"
+        android:layout_above="@id/well_text"
+        android:src="@mipmap/logo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"/>
+
+
+</RelativeLayout>

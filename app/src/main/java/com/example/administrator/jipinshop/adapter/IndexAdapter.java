@@ -49,7 +49,7 @@ public  class IndexAdapter  extends PagerAdapter {
         View view = LayoutInflater.from(mContext).inflate(R.layout.item_index, container, false);
         ImageView imageView = view.findViewById(R.id.recommend_img_rotate);
         TextView textView = view.findViewById(R.id.index_into);
-        imageView.setBackgroundResource(mList.get(position));
+        imageView.setImageResource(mList.get(position));
         if(position == 3){
             textView.setVisibility(View.VISIBLE);
             textView.setOnClickListener(view1 -> {

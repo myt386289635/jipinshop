@@ -141,7 +141,7 @@ public class CommonEvaluationFragment extends DBBaseFragment implements OnRefres
             if (!TextUtils.isEmpty(SPUtils.getInstance().getString(CommonDate.EvaluationTab, ""))) {
                 EvaluationTabBean bean = new Gson().fromJson(SPUtils.getInstance().getString(CommonDate.EvaluationTab), EvaluationTabBean.class);
                 if (getArguments().getString("type").equals(ONE)) {
-                    id = bean.getList().get(0).getCategoryId();
+                    id = "";
                     headImg = bean.getList().get(0).getImg();
                 } else if (getArguments().getString("type").equals(TWO)) {
                     id = bean.getList().get(1).getCategoryId();
