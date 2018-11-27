@@ -14,6 +14,7 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import com.blankj.utilcode.util.SPUtils;
+import com.example.administrator.jipinshop.MyApplication;
 import com.example.administrator.jipinshop.R;
 import com.example.administrator.jipinshop.activity.WebActivity;
 import com.example.administrator.jipinshop.base.BaseActivity;
@@ -39,6 +40,8 @@ import java.math.BigDecimal;
 import java.util.Map;
 
 import javax.inject.Inject;
+
+import cn.jpush.android.api.JPushInterface;
 
 /**
  * @author 莫小婷
@@ -167,6 +170,7 @@ public class LoginActivity extends BaseActivity implements LoginView, View.OnCli
             EventBus.getDefault().post(new EditNameBus(LoginActivity.tag,loginBean.getUserAccountEntity().getTotal_account(),loginBean.getUserAccountEntity().getState(),loginBean.getUserAccountEntity().getTotal_account(),loginBean.getUserAccountEntity().getUse_account(),"0"));
             EventBus.getDefault().post(JPushReceiver.TAG);//刷新未读消息
             EventBus.getDefault().post(new CommonEvaluationBus(CommonEvaluationFragment.REFERSH_PAGE));//登陆时刷新评测首页
+            JPushInterface.resumePush(MyApplication.getInstance());//恢复推送
             Toast.makeText(this, "登录成功", Toast.LENGTH_SHORT).show();
             setResult(200);
             finish();

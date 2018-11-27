@@ -8,11 +8,13 @@ import android.util.Log;
 
 import com.alibaba.baichuan.android.trade.AlibcTradeSDK;
 import com.alibaba.baichuan.android.trade.callback.AlibcTradeInitCallback;
+import com.blankj.utilcode.util.SPUtils;
 import com.blankj.utilcode.util.Utils;
 import com.bumptech.glide.Glide;
 import com.example.administrator.jipinshop.netwrok.ApplicationComponent;
 import com.example.administrator.jipinshop.netwrok.DaggerApplicationComponent;
 import com.example.administrator.jipinshop.util.DebugHelper;
+import com.example.administrator.jipinshop.util.sp.CommonDate;
 import com.squareup.leakcanary.LeakCanary;
 import com.squareup.leakcanary.RefWatcher;
 import com.tencent.bugly.crashreport.CrashReport;
@@ -93,6 +95,10 @@ public class MyApplication extends Application {
         //极光初始化
         JPushInterface.setDebugMode(true);
         JPushInterface.init(this);
+        if(!SPUtils.getInstance(CommonDate.USER).getBoolean(CommonDate.userLogin,false)){
+            ///没有登陆
+            JPushInterface.stopPush(this);//停止推送
+        }
 
         if(DebugHelper.isDebug()){
             //初始化LeakCanary

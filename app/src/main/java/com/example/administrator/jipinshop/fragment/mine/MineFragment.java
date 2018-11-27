@@ -9,6 +9,7 @@ import android.view.ViewGroup;
 import android.widget.Toast;
 
 import com.blankj.utilcode.util.SPUtils;
+import com.example.administrator.jipinshop.MyApplication;
 import com.example.administrator.jipinshop.R;
 import com.example.administrator.jipinshop.activity.balance.BalanceActivity;
 import com.example.administrator.jipinshop.activity.coupon.CouponActivity;
@@ -36,6 +37,8 @@ import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 
 import javax.inject.Inject;
+
+import cn.jpush.android.api.JPushInterface;
 
 public class MineFragment extends DBBaseFragment implements View.OnClickListener, MineView {
 
@@ -158,6 +161,7 @@ public class MineFragment extends DBBaseFragment implements View.OnClickListener
 //                mBinding.mineWithdrawedValue.setText("0");
                 EventBus.getDefault().post(JPushReceiver.TAG);//刷新未读消息
                 EventBus.getDefault().post(new CommonEvaluationBus(CommonEvaluationFragment.REFERSH_PAGE));//退出登陆时刷新评测首页
+                JPushInterface.stopPush(MyApplication.getInstance());//停止推送
                 break;
         }
     }
