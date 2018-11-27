@@ -59,6 +59,7 @@ public class EditNameActivity extends BaseActivity implements EditNameView {
         mTitleTv.setText(getIntent().getStringExtra("title"));
         mEditEdit.setHint("请输入您的名字");
         mEditEdit.setText(getIntent().getStringExtra("value"));
+        mEditEdit.setSelection(mEditEdit.getText().length());//将光标移至文字末尾
     }
 
     @OnClick({R.id.title_back, R.id.edit_save, R.id.edit_close})
@@ -69,6 +70,10 @@ public class EditNameActivity extends BaseActivity implements EditNameView {
                 finish();
                 break;
             case R.id.edit_save:
+                if(TextUtils.isEmpty(mEditEdit.getText().toString())){
+                    Toast.makeText(this, "请输入修改的名字", Toast.LENGTH_SHORT).show();
+                    return;
+                }
                 showKeyboard(false);
                 Dialog mDialog = (new ProgressDialogView()).createLoadingDialog(this, "请求中...");
                 mDialog.show();

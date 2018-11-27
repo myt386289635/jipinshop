@@ -25,6 +25,9 @@
 
 
             <TextView
+                android:maxWidth="@dimen/x200"
+                android:singleLine="true"
+                android:ellipsize="end"
                 android:id="@+id/item_name"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"

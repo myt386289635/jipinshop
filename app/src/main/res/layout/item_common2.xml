@@ -22,11 +22,14 @@
         android:layout_width="match_parent">
 
         <TextView
+            android:singleLine="true"
+            android:ellipsize="end"
             android:textColor="@color/color_8F8F8F"
             android:id="@+id/item_name"
             tools:text="极品城"
             android:layout_marginTop="@dimen/x32"
             android:layout_marginLeft="@dimen/x24"
+            android:maxWidth="@dimen/x200"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"/>
 

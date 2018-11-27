@@ -57,8 +57,10 @@
                     android:textStyle="bold"/>
 
                 <TextView
-                    android:maxLength="10"
+                    android:singleLine="true"
+                    android:ellipsize="end"
                     android:id="@+id/mine_name"
+                    android:maxWidth="@dimen/x300"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignTop="@id/mine_image"
