@@ -159,27 +159,40 @@
                 android:layout_height="match_parent"
                 android:orientation="vertical">
 
-                <android.support.v4.view.ViewPager
-                    android:id="@+id/view_pager"
+                <RelativeLayout
+                    android:id="@+id/pager_container"
                     android:layout_width="match_parent"
-                    android:layout_height="@dimen/x500"/>
+                    android:layout_height="wrap_content">
+
+                    <ImageView
+                        android:visibility="gone"
+                        android:id="@+id/pager_image"
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/x500"/>
+
+                    <android.support.v4.view.ViewPager
+                        android:id="@+id/view_pager"
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/x500"/>
 
 
-                <LinearLayout
-                    android:id="@+id/detail_point"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_below="@id/view_pager"
-                    android:layout_marginTop="-18dp"
-                    android:gravity="center"
-                    android:orientation="horizontal"/>
+                    <LinearLayout
+                        android:id="@+id/detail_point"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@id/view_pager"
+                        android:layout_marginTop="-18dp"
+                        android:gravity="center"
+                        android:orientation="horizontal"/>
+
+                </RelativeLayout>
 
 
                 <TextView
                     android:id="@+id/detail_name"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_below="@id/view_pager"
+                    android:layout_below="@id/pager_container"
                     android:layout_marginLeft="@dimen/x28"
                     android:layout_marginRight="@dimen/x28"
                     android:layout_marginTop="@dimen/x32"
@@ -411,7 +424,6 @@
                     android:layout_height="wrap_content"
                     android:layout_below="@+id/detail_evaluationTitle"
                     android:layout_marginLeft="@dimen/x28"
-                    android:layout_marginRight="@dimen/x28"
                     android:layout_marginTop="@dimen/x32">
 
 

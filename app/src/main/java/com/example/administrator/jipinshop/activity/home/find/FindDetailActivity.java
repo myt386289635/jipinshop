@@ -46,6 +46,7 @@ import com.example.administrator.jipinshop.util.ShareUtils;
 import com.example.administrator.jipinshop.util.WeakRefHandler;
 import com.example.administrator.jipinshop.view.dialog.ProgressDialogView;
 import com.example.administrator.jipinshop.view.dialog.ShareBoardDialog;
+import com.example.administrator.jipinshop.view.glide.GlideApp;
 import com.example.administrator.jipinshop.view.goodview.GoodView;
 import com.gyf.barlibrary.ImmersionBar;
 import com.trello.rxlifecycle2.components.support.RxAppCompatActivity;
@@ -292,11 +293,21 @@ public class FindDetailActivity extends RxAppCompatActivity implements View.OnCl
     public void onSuccess(FindDetailBean bean) {
         //轮播图设置值
         if(bean.getGoodsFindGoods().getImgList() != null && bean.getGoodsFindGoods().getImgList().size() != 0){
-            for (int i = 0; i < bean.getGoodsFindGoods().getImgList().size(); i++) {
-                mBannerList.add(bean.getGoodsFindGoods().getImgList().get(i).getImgPath());
+            if(bean.getGoodsFindGoods().getImgList().size() == 1){
+                mBinding.viewPager.setVisibility(View.GONE);
+                mBinding.detailPoint.setVisibility(View.GONE);
+                mBinding.pagerImage.setVisibility(View.VISIBLE);
+                GlideApp.loderImage(this,bean.getGoodsFindGoods().getImgList().get(0).getImgPath(),mBinding.pagerImage,0,0);
+            }else {
+                mBinding.viewPager.setVisibility(View.VISIBLE);
+                mBinding.detailPoint.setVisibility(View.VISIBLE);
+                mBinding.pagerImage.setVisibility(View.GONE);
+                for (int i = 0; i < bean.getGoodsFindGoods().getImgList().size(); i++) {
+                    mBannerList.add(bean.getGoodsFindGoods().getImgList().get(i).getImgPath());
+                }
+                mPresenter.initBanner(mBannerList, this, point, mBinding.detailPoint, mBannerAdapter);
+                new Thread(new MyRunble()).start();
             }
-            mPresenter.initBanner(mBannerList, this, point, mBinding.detailPoint, mBannerAdapter);
-            new Thread(new MyRunble()).start();
         }
         mBinding.webView.loadDataWithBaseURL(null,
                 bean.getGoodsFindGoods().getContent(),

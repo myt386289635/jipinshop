@@ -403,11 +403,21 @@ public class ShoppingDetailActivity extends BaseActivity implements ShoppingComm
                 mBinding.detaileCouponTitle.setText(price + "元独家优惠券");
             }
             //轮播图设置值
-            for (int i = 0; i < shoppingDetailBean.getGoodsRankdetailEntity().getImgList().size(); i++) {
-                mBannerList.add(shoppingDetailBean.getGoodsRankdetailEntity().getImgList().get(i).getImgPath());
+            if(shoppingDetailBean.getGoodsRankdetailEntity().getImgList().size() == 1){
+                mBinding.viewPager.setVisibility(View.GONE);
+                mBinding.detailPoint.setVisibility(View.GONE);
+                mBinding.pagerImage.setVisibility(View.VISIBLE);
+                GlideApp.loderImage(this,shoppingDetailBean.getGoodsRankdetailEntity().getImgList().get(0).getImgPath(),mBinding.pagerImage,0,0);
+            }else {
+                mBinding.viewPager.setVisibility(View.VISIBLE);
+                mBinding.detailPoint.setVisibility(View.VISIBLE);
+                mBinding.pagerImage.setVisibility(View.GONE);
+                for (int i = 0; i < shoppingDetailBean.getGoodsRankdetailEntity().getImgList().size(); i++) {
+                    mBannerList.add(shoppingDetailBean.getGoodsRankdetailEntity().getImgList().get(i).getImgPath());
+                }
+                mPresenter.initBanner(mBannerList, this, point, mBinding.detailPoint, mBannerAdapter);
+                new Thread(new MyRunble()).start();
             }
-            mPresenter.initBanner(mBannerList, this, point, mBinding.detailPoint, mBannerAdapter);
-            new Thread(new MyRunble()).start();
 
             //开箱评测头像
             if(shoppingDetailBean.getGoodsRankdetailEntity().getGoodsEvalWayEntity() != null){
@@ -416,7 +426,7 @@ public class ShoppingDetailActivity extends BaseActivity implements ShoppingComm
 //                        0,0);
                 GlideApp.loderCircleImage(this,shoppingDetailBean.getGoodsRankdetailEntity().getGoodsEvalWayEntity().getUserShopmember().getUserNickImg(),mBinding.detailEvaluationImage,0 ,0);
                 mBinding.detailEvaluationName.setText(shoppingDetailBean.getGoodsRankdetailEntity().getGoodsEvalWayEntity().getUserShopmember().getUserNickName());
-                mBinding.detailEvaluationTime.setText(shoppingDetailBean.getGoodsRankdetailEntity().getGoodsEvalWayEntity().getPublishTime().split(" ")[0].replace("-","."));
+                mBinding.detailEvaluationTime.setText(shoppingDetailBean.getGoodsRankdetailEntity().getGoodsEvalWayEntity().getCreateTime().split(" ")[0].replace("-","."));
                 mBinding.detailEvaluationFans.setText("粉丝数："+shoppingDetailBean.getGoodsRankdetailEntity().getGoodsEvalWayEntity().getUserShopmember().getFansCount());
                 if (shoppingDetailBean.getGoodsRankdetailEntity().getGoodsEvalWayEntity().getConcernNum() == 0) {
                     isConcer = false;
@@ -738,7 +748,7 @@ public class ShoppingDetailActivity extends BaseActivity implements ShoppingComm
     @Override
     public void share(SHARE_MEDIA share_media) {
         new ShareUtils(this, share_media)
-                .shareWeb(this, "https://www.baidu.com", "测试", "测试而已", "", R.mipmap.share_logo);
+                .shareWeb(this, "https://www.jipincheng.cn/", "测试", "测试而已", "", R.mipmap.share_logo);
     }
 
     @Override
