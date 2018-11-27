@@ -17,6 +17,7 @@ import com.example.administrator.jipinshop.base.BaseActivity;
 import com.example.administrator.jipinshop.bean.SystemMessageBean;
 import com.example.administrator.jipinshop.bean.eventbus.MessageMsgBus;
 import com.example.administrator.jipinshop.databinding.ActivityMessageSystemBinding;
+import com.example.administrator.jipinshop.jpush.JPushReceiver;
 import com.example.administrator.jipinshop.view.dialog.ProgressDialogView;
 
 import org.greenrobot.eventbus.EventBus;
@@ -195,6 +196,15 @@ public class SystemMessageActivity extends BaseActivity implements View.OnClickL
         if(messageMsgBus != null && messageMsgBus.getMsg().equals(SystemMessageActivity.tag)){
             mList.get(messageMsgBus.getPosition()).setStatus(1);
             mAdapter.notifyDataSetChanged();
+        }
+    }
+
+    @Subscribe
+    public  void  unMessage(String s){
+        if(!TextUtils.isEmpty(s) && s.equals(JPushReceiver.TAG)){
+            if(mBinding != null && mBinding.swipeToLoad != null && !mBinding.swipeToLoad.isRefreshing()){
+                mBinding.swipeToLoad.setRefreshing(true);
+            }
         }
     }
 }
