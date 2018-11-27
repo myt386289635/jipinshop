@@ -222,7 +222,6 @@
         </RelativeLayout>
 
         <RelativeLayout
-            android:visibility="gone"
             android:onClick="@{listener.onClick}"
             android:id="@+id/info_numberContainer"
             android:layout_width="wrap_content"
@@ -246,9 +245,7 @@
                 android:layout_alignParentRight="true"
                 android:layout_centerVertical="true"
                 android:layout_marginRight="@dimen/x28"
-                android:drawablePadding="@dimen/x10"
-                android:drawableRight="@mipmap/right_ash1"
-                android:text="15826680888"
+                tools:text="15826680888"
                 android:textColor="@color/color_ACACAC"
                 android:textSize="13sp"/>
 

@@ -19,6 +19,7 @@ import com.example.administrator.jipinshop.util.wheelview.adapter.ArrayWheelAdap
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 
 /**
@@ -43,7 +44,7 @@ public class WheelViewUtil {
      * @param format   时间格式化
      * @param callBack 时间选择回调
      */
-    public static void alertTimerPicker(Context context,String startDate , TimePickerView.Type type, final String format, final TimerPickerCallBack callBack) {
+    public static void alertTimerPicker(Context context,int startYear,String startDate , TimePickerView.Type type, final String format, final TimerPickerCallBack callBack) {
         TimePickerView pvTime = new TimePickerView(context, type);
         //控制时间范围
         //        Calendar calendar = Calendar.getInstance();
@@ -51,6 +52,8 @@ public class WheelViewUtil {
         if(startDate.contains("T")){
             startDate = startDate.substring(0,10);
         }
+        Calendar calendar = Calendar.getInstance();
+        pvTime.setRange(startYear, calendar.get(Calendar.YEAR));
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
         try {
             pvTime.setTime(simpleDateFormat.parse(startDate));

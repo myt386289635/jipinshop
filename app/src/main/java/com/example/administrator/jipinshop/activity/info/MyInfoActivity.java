@@ -12,7 +12,6 @@ import android.widget.Toast;
 
 import com.blankj.utilcode.util.SPUtils;
 import com.example.administrator.jipinshop.R;
-import com.example.administrator.jipinshop.activity.info.bind.BindNumberActivity;
 import com.example.administrator.jipinshop.activity.info.editname.EditNameActivity;
 import com.example.administrator.jipinshop.activity.info.member.MemberLevelActivity;
 import com.example.administrator.jipinshop.base.BaseActivity;
@@ -77,6 +76,8 @@ public class MyInfoActivity extends BaseActivity implements SelectPicDialog.Choo
         }
         mBinding.infoBirth.setText(SPUtils.getInstance(CommonDate.USER).getString(CommonDate.userBirthday));
         mBinding.infoNumber.setText(SPUtils.getInstance(CommonDate.USER).getString(CommonDate.userPhone));
+        mBinding.infoLevel.setText("v" + SPUtils.getInstance(CommonDate.USER).getString(CommonDate.userMemberGrade));
+        mBinding.infoSex.setText(SPUtils.getInstance(CommonDate.USER).getString(CommonDate.userGender));
 
         wheelList = new ArrayList<>();
         wheelList.add("女");
@@ -127,18 +128,15 @@ public class MyInfoActivity extends BaseActivity implements SelectPicDialog.Choo
                 });
                 break;
             case R.id.info_birthContainer:
-                WheelViewUtil.alertTimerPicker(this,mBinding.infoBirth.getText().toString(), YEAR_MONTH_DAY, "yyyy-MM-dd", new WheelViewUtil.TimerPickerCallBack() {
-                    @Override
-                    public void onTimeSelect(String date) {
-                        Dialog mDialog = (new ProgressDialogView()).createLoadingDialog(MyInfoActivity.this, "请求中...");
-                        mDialog.show();
-                        mPresenter.SaveUserInfo("3", date, MyInfoActivity.this.bindToLifecycle(), mDialog);
-                    }
+                WheelViewUtil.alertTimerPicker(this,1900,mBinding.infoBirth.getText().toString(), YEAR_MONTH_DAY, "yyyy-MM-dd", (WheelViewUtil.TimerPickerCallBack) date -> {
+                    Dialog mDialog = (new ProgressDialogView()).createLoadingDialog(MyInfoActivity.this, "请求中...");
+                    mDialog.show();
+                    mPresenter.SaveUserInfo("3", date, MyInfoActivity.this.bindToLifecycle(), mDialog);
                 });
                 break;
             case R.id.info_numberContainer:
                 //跳转到绑定手机页面
-                startActivity(new Intent(this, BindNumberActivity.class));
+//                startActivity(new Intent(this, BindNumberActivity.class));
                 break;
             case R.id.info_exitLogin:
                 //退出登陆
@@ -189,6 +187,7 @@ public class MyInfoActivity extends BaseActivity implements SelectPicDialog.Choo
     public void EditGenderSuccess(SuccessBean successBean,String date) {
         if (successBean.getCode() == 200) {
             SPUtils.getInstance(CommonDate.USER).put(CommonDate.userGender, date);
+            mBinding.infoSex.setText(SPUtils.getInstance(CommonDate.USER).getString(CommonDate.userGender));
             Toast.makeText(this, "修改成功", Toast.LENGTH_SHORT).show();
         } else {
             Toast.makeText(this, successBean.getMsg(), Toast.LENGTH_SHORT).show();

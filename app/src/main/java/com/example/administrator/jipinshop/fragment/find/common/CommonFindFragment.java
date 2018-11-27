@@ -213,7 +213,7 @@ public class CommonFindFragment extends DBBaseFragment implements OnRefreshListe
                 mList.addAll(findListBean.getList());
                 mAdapter.notifyDataSetChanged();
             }else {
-                initError(R.mipmap.qs_404, "页面出错", "程序猿正在赶来的路上");
+                initError(R.mipmap.qs_nodata, "暂无数据", "暂时没有任何数据 ");
                 mBinding.recyclerView.setVisibility(View.GONE);
             }
         }else {
