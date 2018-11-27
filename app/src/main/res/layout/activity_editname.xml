@@ -42,6 +42,7 @@
 
 
         <EditText
+            android:maxLength="10"
             android:layout_marginRight="@dimen/x28"
             android:singleLine="true"
             android:layout_toLeftOf="@id/edit_close"

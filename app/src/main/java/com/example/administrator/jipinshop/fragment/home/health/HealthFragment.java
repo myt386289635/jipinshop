@@ -210,9 +210,9 @@ public class HealthFragment extends DBBaseFragment implements HealthFragmentGrid
             recyclerList.addAll(healthFragmentBean.getList());
             mRecyclerAdapter.notifyDataSetChanged();
         }else {
-            initError(R.mipmap.qs_404, "页面出错", "程序猿正在赶来的路上");
+            initError(R.mipmap.qs_nodata, "暂无数据", "暂时没有任何数据 ");
             mBinding.recyclerView.setVisibility(View.GONE);
-            Toast.makeText(getContext(), "没有数据", Toast.LENGTH_SHORT).show();
+//            Toast.makeText(getContext(), "没有数据", Toast.LENGTH_SHORT).show();
         }
     }
 

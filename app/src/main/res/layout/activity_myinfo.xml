@@ -84,6 +84,7 @@
                 android:textSize="15sp"/>
 
             <TextView
+                android:maxLength="10"
                 android:id="@+id/info_name"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -92,7 +93,7 @@
                 android:layout_marginRight="@dimen/x28"
                 android:drawablePadding="@dimen/x10"
                 android:drawableRight="@mipmap/right_ash1"
-                android:text="F买遍全球无敌手"
+                android:text="游客"
                 android:textColor="@color/color_ACACAC"
                 android:textSize="13sp"/>
 
