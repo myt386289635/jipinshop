@@ -174,7 +174,7 @@ public class ShoppingDetailActivity extends BaseActivity implements ShoppingComm
     /**
      * 分享的图片
      */
-    private String goodsImage = "";
+    private String shareImage = "";
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -195,7 +195,7 @@ public class ShoppingDetailActivity extends BaseActivity implements ShoppingComm
         priceOld = getIntent().getStringExtra("priceOld");
         price = getIntent().getStringExtra("price");
         sourceStatus = getIntent().getStringExtra("state");//来源状态
-        goodsImage = getIntent().getStringExtra("goodsImage");
+        shareImage = getIntent().getStringExtra("goodsImage");
 
         mDialogProgress = (new ProgressDialogView()).createLoadingDialog(ShoppingDetailActivity.this, "正在加载...");
         mDialogProgress.show();
@@ -755,7 +755,7 @@ public class ShoppingDetailActivity extends BaseActivity implements ShoppingComm
     @Override
     public void share(SHARE_MEDIA share_media) {
         new ShareUtils(this, share_media)
-                .shareWeb(this, RetrofitModule.UP_BASE_URL + "share/info-tab.html?goodsId=" + goodsId, goodsName, goodsName, goodsImage, R.mipmap.share_logo);
+                .shareWeb(this, RetrofitModule.UP_BASE_URL + "share/info-tab.html?goodsId=" + goodsId, goodsName, goodsName, shareImage, R.mipmap.share_logo);
     }
 
     @Override
