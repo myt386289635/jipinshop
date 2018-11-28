@@ -242,6 +242,9 @@ public class EvaluationDetailActivity extends RxAppCompatActivity implements Vie
                 );
                 break;
             case R.id.bottom_buy:
+                if(TextUtils.isEmpty(buyLink)){
+                    return;
+                }
                 mDialog = (new ProgressDialogView()).createLoadingDialog(this, "");
                 if(mDialog != null && !mDialog.isShowing()){
                     mDialog.show();
