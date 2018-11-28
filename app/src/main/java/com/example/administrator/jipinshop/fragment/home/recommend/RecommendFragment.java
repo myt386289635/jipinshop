@@ -112,6 +112,7 @@ public class RecommendFragment extends DBBaseFragment implements OnRefreshListen
                     .putExtra("priceOld",mList.getList().get(pos).getOtherPrice())
                     .putExtra("price",mList.getList().get(pos).getCutPrice())
                     .putExtra("state",mList.getList().get(pos).getSourceStatus() + "")
+                    .putExtra("goodsImage",mList.getList().get(pos).getRankGoodImg())
             );
         }
 

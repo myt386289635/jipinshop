@@ -221,6 +221,7 @@ public class FovalFragment extends DBBaseFragment implements OnRefreshListener, 
                     .putExtra("priceOld",mList.get(pos).getGoodsRanklist().getOtherPrice())
                     .putExtra("price",mList.get(pos).getGoodsRanklist().getCutPrice())
                     .putExtra("state",mList.get(pos).getGoodsRanklist().getSourceStatus() + "")
+                    .putExtra("goodsImage",mList.get(pos).getGoodsRanklist().getRankGoodImg())
             );
         }else if(mList.get(pos).getState().equals("2")){
             //评测
@@ -231,6 +232,7 @@ public class FovalFragment extends DBBaseFragment implements OnRefreshListener, 
             //发现
             startActivity(new Intent(getContext(), FindDetailActivity.class)
                     .putExtra("id",mList.get(pos).getFindGoods_id())
+                    .putExtra("image",mList.get(pos).getGoodsFindGoods().getImgId())
             );
         }
     }

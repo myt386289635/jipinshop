@@ -172,6 +172,7 @@ public class UserAdapter extends RecyclerView.Adapter {
                 findViewHolder.itemView.setOnClickListener(v -> {
                     mContext.startActivity(new Intent(mContext, FindDetailActivity.class)
                             .putExtra("id",mList.get(position - 1).getArticleId())
+                            .putExtra("image",mList.get(position - 1).getImg())
                     );
                 });
                 break;

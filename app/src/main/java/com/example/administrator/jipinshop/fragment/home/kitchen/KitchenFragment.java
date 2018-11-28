@@ -145,6 +145,7 @@ public class KitchenFragment extends DBBaseFragment implements KitchenFragmentGr
                 .putExtra("priceOld",recyclerList.get(pos).getOtherPrice())
                 .putExtra("price",recyclerList.get(pos).getCutPrice())
                 .putExtra("state",recyclerList.get(pos).getSourceStatus() + "")
+                .putExtra("goodsImage",recyclerList.get(pos).getRankGoodImg())
         );
         }
     }

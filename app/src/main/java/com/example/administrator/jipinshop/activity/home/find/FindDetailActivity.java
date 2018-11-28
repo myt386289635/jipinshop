@@ -107,7 +107,12 @@ public class FindDetailActivity extends RxAppCompatActivity implements View.OnCl
         return true;
     };
     private Handler handler = new WeakRefHandler(mCallback, Looper.getMainLooper());
-
+    /**
+     * 分享的东西
+     */
+    private String shareImage = "";
+    private String shareTitle = "";
+    private String shareSubTitle = "";
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -284,7 +289,7 @@ public class FindDetailActivity extends RxAppCompatActivity implements View.OnCl
     @Override
     public void share(SHARE_MEDIA share_media) {
         new ShareUtils(this, share_media)
-                .shareWeb(this, RetrofitModule.UP_BASE_URL + "share/find-info.html?findgoodsId=" + getIntent().getStringExtra("id"), "测试", "测试而已", "", R.mipmap.ic_launcher_round);
+                .shareWeb(this, RetrofitModule.UP_BASE_URL + "share/find-info.html?findgoodsId=" + getIntent().getStringExtra("id"), shareTitle, shareSubTitle, shareImage, R.mipmap.share_logo);
     }
 
     /**
@@ -292,6 +297,9 @@ public class FindDetailActivity extends RxAppCompatActivity implements View.OnCl
      */
     @Override
     public void onSuccess(FindDetailBean bean) {
+        shareTitle = bean.getGoodsFindGoods().getTitle();
+        shareSubTitle = bean.getGoodsFindGoods().getSmallTitle();
+        shareImage = getIntent().getStringExtra("image");
         //轮播图设置值
         if(bean.getGoodsFindGoods().getImgList() != null && bean.getGoodsFindGoods().getImgList().size() != 0){
             if(bean.getGoodsFindGoods().getImgList().size() == 1){

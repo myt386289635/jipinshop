@@ -146,6 +146,7 @@ public class HealthFragment extends DBBaseFragment implements HealthFragmentGrid
                     .putExtra("priceOld",recyclerList.get(pos).getOtherPrice())
                     .putExtra("price",recyclerList.get(pos).getCutPrice())
                     .putExtra("state",recyclerList.get(pos).getSourceStatus() + "")
+                    .putExtra("goodsImage",recyclerList.get(pos).getRankGoodImg())
             );
         }
     }

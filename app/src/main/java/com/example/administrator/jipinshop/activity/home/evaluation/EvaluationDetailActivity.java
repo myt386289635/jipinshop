@@ -100,6 +100,12 @@ public class EvaluationDetailActivity extends RxAppCompatActivity implements Vie
      */
     private String buyLink = "";
 
+    /**
+     * 分享的东西
+     */
+    private String evaImage = "";
+    private String evaTitle = "";
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -257,7 +263,7 @@ public class EvaluationDetailActivity extends RxAppCompatActivity implements Vie
     @Override
     public void share(SHARE_MEDIA share_media) {
         new ShareUtils(this, share_media)
-                .shareWeb(this, RetrofitModule.UP_BASE_URL + "share/ev-info.html?evalWayId=" + getIntent().getStringExtra("id"), "测试", "测试而已", "", R.mipmap.ic_launcher_round);
+                .shareWeb(this, RetrofitModule.UP_BASE_URL + "share/ev-info.html?evalWayId=" + getIntent().getStringExtra("id"), evaTitle, evaTitle, evaImage, R.mipmap.share_logo);
     }
 
     @Override
@@ -272,6 +278,8 @@ public class EvaluationDetailActivity extends RxAppCompatActivity implements Vie
     @Override
     public void onSuccess(EvaluationDetailBean bean) {
 //        ImageManager.displayImage(bean.getGoodsEvalWay().getImgId(),mBinding.detailImageTitle,0,0);
+        evaImage = bean.getGoodsEvalWay().getImgId();
+        evaTitle = bean.getGoodsEvalWay().getEvalWayName();
         GlideApp.loderImage(this,bean.getGoodsEvalWay().getImgId(),mBinding.detailImageTitle,0,0);
         mBinding.webView.loadDataWithBaseURL(null,
                 bean.getGoodsEvalWay().getContent(),

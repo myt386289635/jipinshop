@@ -143,6 +143,7 @@ public class SreachResultActivity extends BaseActivity implements SreachResultAd
                 .putExtra("priceOld",mList.get(pos).getOtherPrice())
                 .putExtra("price",mList.get(pos).getCutPrice())
                 .putExtra("state",mList.get(pos).getSourceStatus() + "")
+                .putExtra("goodsImage",mList.get(pos).getRankGoodImg())
         );
     }
 

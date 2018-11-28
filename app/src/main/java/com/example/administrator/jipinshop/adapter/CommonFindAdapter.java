@@ -51,6 +51,7 @@ public class CommonFindAdapter extends RecyclerView.Adapter<CommonFindAdapter.Vi
                 //点击跳转到发现详情
                 mContext.startActivity(new Intent(mContext, FindDetailActivity.class)
                         .putExtra("id",mList.get(position).getFindgoodsId())
+                        .putExtra("image",mList.get(position).getImgId())
                 );
             }
         });
