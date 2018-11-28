@@ -39,6 +39,7 @@ import com.example.administrator.jipinshop.bean.SuccessBean;
 import com.example.administrator.jipinshop.bean.eventbus.EvaluationBus;
 import com.example.administrator.jipinshop.databinding.ActivityEvaluationDetailBinding;
 import com.example.administrator.jipinshop.fragment.foval.FovalFragment;
+import com.example.administrator.jipinshop.netwrok.RetrofitModule;
 import com.example.administrator.jipinshop.util.ClickUtil;
 import com.example.administrator.jipinshop.util.ShareUtils;
 import com.example.administrator.jipinshop.util.WeakRefHandler;
@@ -253,7 +254,7 @@ public class EvaluationDetailActivity extends RxAppCompatActivity implements Vie
     @Override
     public void share(SHARE_MEDIA share_media) {
         new ShareUtils(this, share_media)
-                .shareWeb(this, "https://www.baidu.com", "测试", "测试而已", "", R.mipmap.ic_launcher_round);
+                .shareWeb(this, RetrofitModule.UP_BASE_URL + "share/ev-info.html?evalWayId=" + getIntent().getStringExtra("id"), "测试", "测试而已", "", R.mipmap.ic_launcher_round);
     }
 
     @Override

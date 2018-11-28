@@ -132,29 +132,24 @@ public class SelectPicDialog extends BottomSheetDialogFragment {
             Uri imageUri = data.getData();
             String imgPathSel = ImageHelper.getImageAbsolutePath(getActivity(), imageUri);
 
-            //这里进行了图片旋转以及图片压缩后得到新图片
-            imgPathSel = ImageCompressUtil.getimage(getContext(),ImageCompressUtil.getPicture(getContext(),imgPathSel));
-
             if (mChoosePhotoCallback != null) {
-                mChoosePhotoCallback.getAbsolutePicPath(new File(imgPathSel));
+                mChoosePhotoCallback.getAbsolutePicPath(imgPathSel);
             }
             dismiss();
 
         } else if (requestCode == REQUEST_CAMERA) {
 
             String imgPathSel = mSavePhotoFile.getPath();
-            //这里进行了图片旋转以及图片压缩后得到新图片
-            imgPathSel = ImageCompressUtil.getimage(getContext(),ImageCompressUtil.getPicture(getContext(),imgPathSel));
 
             if (mChoosePhotoCallback != null) {
-                mChoosePhotoCallback.getAbsolutePicPath(new File(imgPathSel));
+                mChoosePhotoCallback.getAbsolutePicPath(imgPathSel);
             }
             dismiss();
         }
     }
 
     public interface ChoosePhotoCallback {
-        void getAbsolutePicPath(File picFile);
+        void getAbsolutePicPath(String picFile);
     }
 
 }

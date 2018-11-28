@@ -18,6 +18,7 @@ import com.example.administrator.jipinshop.base.BaseActivity;
 import com.example.administrator.jipinshop.bean.SuccessBean;
 import com.example.administrator.jipinshop.bean.eventbus.EditNameBus;
 import com.example.administrator.jipinshop.databinding.ActivityMyinfoBinding;
+import com.example.administrator.jipinshop.util.ImageCompressUtil;
 import com.example.administrator.jipinshop.util.WheelViewUtil;
 import com.example.administrator.jipinshop.util.sp.CommonDate;
 import com.example.administrator.jipinshop.view.dialog.DialogUtil;
@@ -89,11 +90,13 @@ public class MyInfoActivity extends BaseActivity implements SelectPicDialog.Choo
      * @param picFile
      */
     @Override
-    public void getAbsolutePicPath(File picFile) {
-        Log.e("MyInfoActivity", picFile.getPath());
+    public void getAbsolutePicPath(String picFile) {
+        Log.e("MyInfoActivity", picFile);
         Dialog mDialog = (new ProgressDialogView()).createLoadingDialog(MyInfoActivity.this, "请求中...");
         mDialog.show();
-        mPresenter.importCustomer(this.bindToLifecycle(),mDialog,picFile);
+        //这里进行了图片旋转以及图片压缩后得到新图片
+        picFile = ImageCompressUtil.getimage(this,ImageCompressUtil.getPicture(this,picFile));
+        mPresenter.importCustomer(this.bindToLifecycle(),mDialog,new File(picFile));
     }
 
     @Override

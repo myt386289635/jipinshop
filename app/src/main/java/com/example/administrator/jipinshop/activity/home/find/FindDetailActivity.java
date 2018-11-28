@@ -41,6 +41,7 @@ import com.example.administrator.jipinshop.bean.SuccessBean;
 import com.example.administrator.jipinshop.bean.eventbus.FindBus;
 import com.example.administrator.jipinshop.databinding.ActivityFindDetailBinding;
 import com.example.administrator.jipinshop.fragment.foval.FovalFragment;
+import com.example.administrator.jipinshop.netwrok.RetrofitModule;
 import com.example.administrator.jipinshop.util.ClickUtil;
 import com.example.administrator.jipinshop.util.ShareUtils;
 import com.example.administrator.jipinshop.util.WeakRefHandler;
@@ -283,7 +284,7 @@ public class FindDetailActivity extends RxAppCompatActivity implements View.OnCl
     @Override
     public void share(SHARE_MEDIA share_media) {
         new ShareUtils(this, share_media)
-                .shareWeb(this, "https://www.baidu.com", "测试", "测试而已", "", R.mipmap.ic_launcher_round);
+                .shareWeb(this, RetrofitModule.UP_BASE_URL + "share/find-info.html?findgoodsId=" + getIntent().getStringExtra("id"), "测试", "测试而已", "", R.mipmap.ic_launcher_round);
     }
 
     /**
