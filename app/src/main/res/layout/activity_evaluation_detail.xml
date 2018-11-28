@@ -37,7 +37,7 @@
                     tools:src="@color/color_E31436"
                     android:id="@+id/detail_imageTitle"
                     android:layout_width="match_parent"
-                    android:layout_height="@dimen/x500"/>
+                    android:layout_height="@dimen/x588"/>
 
                 <TextView
                     android:id="@+id/eva_title"

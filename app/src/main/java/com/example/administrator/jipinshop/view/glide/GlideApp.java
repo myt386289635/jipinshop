@@ -8,7 +8,6 @@ import com.bumptech.glide.request.RequestOptions;
 
 import jp.wasabeef.glide.transformations.BlurTransformation;
 import jp.wasabeef.glide.transformations.CropCircleTransformation;
-import jp.wasabeef.glide.transformations.RoundedCornersTransformation;
 
 import static com.bumptech.glide.request.RequestOptions.bitmapTransform;
 
@@ -23,10 +22,12 @@ public class GlideApp {
      * 加载圆角图片
      */
     public static void loderRoundImage(Context context , String url , ImageView imageView){
+        RequestOptions requestOptions = new RequestOptions();
+        requestOptions = requestOptions
+                .transform(new CenterRoundTransform(10,0, CenterRoundTransform.CornerType.ALL));
         Glide.with(context)
                 .load(url)
-                .apply(bitmapTransform(new RoundedCornersTransformation(10, 0,
-                        RoundedCornersTransformation.CornerType.ALL)))
+                .apply(requestOptions)
                 .into(imageView);
     }
 
@@ -34,10 +35,12 @@ public class GlideApp {
      * 加载圆角图片
      */
     public static void loderRoundImage(Context context , int id , ImageView imageView){
+        RequestOptions requestOptions = new RequestOptions();
+        requestOptions = requestOptions
+                .transform(new CenterRoundTransform(10,0, CenterRoundTransform.CornerType.ALL));
         Glide.with(context)
                 .load(id)
-                .apply(bitmapTransform(new RoundedCornersTransformation(10, 0,
-                        RoundedCornersTransformation.CornerType.ALL)))
+                .apply(requestOptions)
                 .into(imageView);
     }
 
@@ -47,6 +50,8 @@ public class GlideApp {
     public static void loderRoundImage(Context context , String url , ImageView imageView , int error ,int placeholder){
 
         RequestOptions requestOptions = new RequestOptions();
+        requestOptions = requestOptions
+                .transform(new CenterRoundTransform(10,0, CenterRoundTransform.CornerType.ALL));
         if(error != 0){
             requestOptions =  requestOptions.error(error);
         }
@@ -55,8 +60,6 @@ public class GlideApp {
         }
         Glide.with(context)
                 .load(url)
-                .apply(bitmapTransform(new RoundedCornersTransformation(10, 0,
-                        RoundedCornersTransformation.CornerType.ALL)))
                 .apply(requestOptions)
                 .into(imageView);
     }
@@ -67,6 +70,8 @@ public class GlideApp {
     public static void loderRoundImage(Context context , int url , ImageView imageView , int error ,int placeholder){
 
         RequestOptions requestOptions = new RequestOptions();
+        requestOptions = requestOptions
+                .transform(new CenterRoundTransform(10,0, CenterRoundTransform.CornerType.ALL));
         if(error != 0){
             requestOptions =  requestOptions.error(error);
         }
@@ -75,8 +80,6 @@ public class GlideApp {
         }
         Glide.with(context)
                 .load(url)
-                .apply(bitmapTransform(new RoundedCornersTransformation(10, 0,
-                        RoundedCornersTransformation.CornerType.ALL)))
                 .apply(requestOptions)
                 .into(imageView);
     }

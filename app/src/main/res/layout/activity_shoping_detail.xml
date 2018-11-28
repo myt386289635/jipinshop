@@ -165,6 +165,7 @@
                     android:layout_height="wrap_content">
 
                     <ImageView
+                        android:scaleType="centerCrop"
                         android:visibility="gone"
                         android:id="@+id/pager_image"
                         android:layout_width="match_parent"

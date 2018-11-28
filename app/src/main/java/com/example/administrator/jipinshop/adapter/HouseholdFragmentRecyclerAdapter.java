@@ -57,7 +57,7 @@ public class HouseholdFragmentRecyclerAdapter extends RecyclerView.Adapter<House
             viewHolder.getBinding().itemTitleContanier.setPadding(0,mContext.getResources().getDimensionPixelSize(R.dimen.x36),0,0);
         }
 
-        if(mList.get(position).getGoodsScopeList() != null && mList.get(position).getGoodsScopeList().size() != 0){
+        if(mList.get(position).getGoodsScopeList() != null && mList.get(position).getGoodsScopeList().size() >= 4){
             viewHolder.getBinding().itemProgressContainer.setVisibility(View.VISIBLE);
             viewHolder.getBinding().itemProgressbar1Text.setText(mList.get(position).getGoodsScopeList().get(0).getName());
             viewHolder.getBinding().itemProgressbar1.setTotalAndCurrentCount(10, Integer.valueOf(mList.get(position).getGoodsScopeList().get(0).getScore()));
