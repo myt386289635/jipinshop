@@ -7,6 +7,7 @@ import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 
 import com.blankj.utilcode.util.SPUtils;
 import com.example.administrator.jipinshop.R;
@@ -57,12 +58,14 @@ public class FindDetailPresenter {
         mWebView.getSettings().setDomStorageEnabled(true);// 开启 DOM storage API 功能
     }
 
-    public void setStatusBarHight(LinearLayout StatusBar , Context context){
+    public void setStatusBarHight(LinearLayout StatusBar ,ImageView imageView, Context context){
         int resourceId = context.getResources().getIdentifier("status_bar_height", "dimen", "android");
         if (resourceId > 0) {
             int statusBarHeight = context.getResources().getDimensionPixelSize(resourceId);
             ViewGroup.LayoutParams layoutParams = StatusBar.getLayoutParams();
             layoutParams.height = statusBarHeight;
+            RelativeLayout.LayoutParams layoutParams1 = (RelativeLayout.LayoutParams) imageView.getLayoutParams();
+            layoutParams1.topMargin = statusBarHeight;
         }
     }
 

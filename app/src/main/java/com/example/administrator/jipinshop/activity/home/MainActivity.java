@@ -111,7 +111,8 @@ public class MainActivity extends RxAppCompatActivity implements ViewPager.OnPag
                 startActivityForResult(new Intent(this, LoginActivity.class),100);
             }
         });
-        //主要是解决商品详情点击关注时无法刷新评测首页fragment的数据，不清楚原理是什么，但是这样解决能成功
+        //解决因为没有缓存fragment造成的各种问题，经验来说最好设置viewPager.setOffscreenPageLimit(3);
+        // 但是这样会导致引导页打开首页时过慢，因为要预加载其余三个页面的UI（onCreateView）
         mViewPager.addOnPageChangeListener(this);
     }
 
@@ -153,7 +154,11 @@ public class MainActivity extends RxAppCompatActivity implements ViewPager.OnPag
 
     @Override
     public void onPageSelected(int i) {
-        if(i == 2){
+        if(i == 0){
+            if(mHomeFragment != null && mHomeFragment.getView() != null){
+                mHomeFragment.getView().requestLayout();
+            }
+        }else if(i == 2){
             if(mEvaluationFragment != null && mEvaluationFragment.getView() != null){
                 mEvaluationFragment.getView().requestLayout();
             }

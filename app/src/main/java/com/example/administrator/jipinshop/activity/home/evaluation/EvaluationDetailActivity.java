@@ -128,7 +128,7 @@ public class EvaluationDetailActivity extends RxAppCompatActivity implements Vie
         mDialog.show();
 
         mPresenter.initWebView(mBinding.webView);
-        mPresenter.setStatusBarHight(mBinding.statusBar,this);
+        mPresenter.setStatusBarHight(mBinding.statusBar,mBinding.titleBack,this);
 
         mBinding.webView.addJavascriptInterface(new WebViewJavaScriptFunction(), "android");
         mBinding.webView.setWebViewClient(new WebViewClient() {

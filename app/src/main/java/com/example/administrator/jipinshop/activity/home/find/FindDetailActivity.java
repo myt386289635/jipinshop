@@ -136,7 +136,7 @@ public class FindDetailActivity extends RxAppCompatActivity implements View.OnCl
 
         mPresenter.setView(this);
         mPresenter.initWebView(mBinding.webView);
-        mPresenter.setStatusBarHight(mBinding.statusBar,this);
+        mPresenter.setStatusBarHight(mBinding.statusBar,mBinding.titleBack,this);
         mBinding.webView.addJavascriptInterface(new WebViewJavaScriptFunction(), "android");
         mBinding.webView.setWebViewClient(new WebViewClient() {
             @Override
