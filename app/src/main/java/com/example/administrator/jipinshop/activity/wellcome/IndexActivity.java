@@ -7,11 +7,14 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 
+import com.blankj.utilcode.util.SPUtils;
 import com.example.administrator.jipinshop.R;
 import com.example.administrator.jipinshop.activity.home.MainActivity;
 import com.example.administrator.jipinshop.adapter.IndexAdapter;
 import com.example.administrator.jipinshop.databinding.ActivityIndexBinding;
 import com.example.administrator.jipinshop.util.NotchUtil;
+import com.example.administrator.jipinshop.util.sp.CommonDate;
+import com.gyf.barlibrary.BarHide;
 import com.gyf.barlibrary.ImmersionBar;
 
 import java.util.ArrayList;
@@ -42,6 +45,7 @@ public class IndexActivity extends AppCompatActivity implements IndexAdapter.OnL
         }
         mImmersionBar = ImmersionBar.with(this);
         mImmersionBar.transparentStatusBar()
+                .hideBar(BarHide.FLAG_HIDE_NAVIGATION_BAR)
                 .statusBarDarkFont(true, 0f)
                 .init();
 
@@ -65,6 +69,7 @@ public class IndexActivity extends AppCompatActivity implements IndexAdapter.OnL
     @Override
     public void onLinkgo() {
         if(tag){
+            SPUtils.getInstance().put(CommonDate.FIRST,false);
             startActivity(new Intent(IndexActivity.this, MainActivity.class));
             finish();
             tag = false;

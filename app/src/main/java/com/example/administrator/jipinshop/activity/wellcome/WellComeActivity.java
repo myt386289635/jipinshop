@@ -54,7 +54,6 @@ public class WellComeActivity extends AppCompatActivity{
                 //跳转到引导页
                 startActivity(new Intent(WellComeActivity.this, IndexActivity.class));
                 finish();
-                SPUtils.getInstance().put(CommonDate.FIRST,false);
             }else {
                 startActivity(new Intent(WellComeActivity.this, MainActivity.class));
                 finish();

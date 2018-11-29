@@ -244,16 +244,16 @@ public class ShoppingDetailActivity extends BaseActivity implements ShoppingComm
             }
         });
         //判断页面加载过程
-        mBinding.detailEvaluation.setWebChromeClient(new WebChromeClient() {
-            @Override
-            public void onProgressChanged(WebView view, int newProgress) {
-                if (newProgress == 100) {// 网页加载完成
-                    if (mDialogProgress != null && mDialogProgress.isShowing()) {
-                        mDialogProgress.dismiss();
-                    }
-                }
-            }
-        });
+//        mBinding.detailEvaluation.setWebChromeClient(new WebChromeClient() {
+//            @Override
+//            public void onProgressChanged(WebView view, int newProgress) {
+//                if (newProgress == 100) {// 网页加载完成
+//                    if (mDialogProgress != null && mDialogProgress.isShowing()) {
+//                        mDialogProgress.dismiss();
+//                    }
+//                }
+//            }
+//        });
 
         //用户评论
         LinearLayoutManager layoutManager1 = new LinearLayoutManager(this) {
@@ -450,9 +450,9 @@ public class ShoppingDetailActivity extends BaseActivity implements ShoppingComm
                         shoppingDetailBean.getGoodsRankdetailEntity().getGoodsEvalWayEntity().getContent(),
                         "text/html", "utf-8", null);
             }else {
-                if (mDialogProgress.isShowing()) {
-                    mDialogProgress.dismiss();
-                }
+//                if (mDialogProgress.isShowing()) {
+//                    mDialogProgress.dismiss();
+//                }
                 mBinding.detailEvaluationLine.setVisibility(View.GONE);
                 mBinding.detailEvaluationTitle.setVisibility(View.GONE);
                 mBinding.detailEvaluationHead.setVisibility(View.GONE);
@@ -477,7 +477,9 @@ public class ShoppingDetailActivity extends BaseActivity implements ShoppingComm
                 }
                 mSreverAdapter.notifyDataSetChanged();
             }
-
+            if (mDialogProgress != null && mDialogProgress.isShowing()) {
+                mDialogProgress.dismiss();
+            }
         }else {
             if (mDialogProgress.isShowing()) {
                 mDialogProgress.dismiss();
