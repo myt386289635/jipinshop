@@ -32,7 +32,7 @@ import com.alibaba.baichuan.trade.biz.context.AlibcTradeResult;
 import com.example.administrator.jipinshop.MyApplication;
 import com.example.administrator.jipinshop.R;
 import com.example.administrator.jipinshop.activity.commenlist.CommenListActivity;
-import com.example.administrator.jipinshop.adapter.ShoppingBannerAdapter;
+import com.example.administrator.jipinshop.adapter.FindBannerAdapter;
 import com.example.administrator.jipinshop.base.DaggerBaseActivityComponent;
 import com.example.administrator.jipinshop.bean.CommentBean;
 import com.example.administrator.jipinshop.bean.FindDetailBean;
@@ -78,7 +78,7 @@ public class FindDetailActivity extends RxAppCompatActivity implements View.OnCl
     private Dialog mDialog;//加载框
     private ImmersionBar mImmersionBar;
     private Boolean stopThread = true;
-    private ShoppingBannerAdapter mBannerAdapter;
+    private FindBannerAdapter mBannerAdapter;
     private List<String> mBannerList;
     private List<ImageView> point;
     //点赞
@@ -174,7 +174,7 @@ public class FindDetailActivity extends RxAppCompatActivity implements View.OnCl
             }
         });
 
-        mBannerAdapter = new ShoppingBannerAdapter(this);
+        mBannerAdapter = new FindBannerAdapter(this);
         mBannerList = new ArrayList<>();
         point = new ArrayList<>();
         mBannerAdapter.setPoint(point);

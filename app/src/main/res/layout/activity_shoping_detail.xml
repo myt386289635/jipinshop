@@ -169,12 +169,12 @@
                         android:visibility="gone"
                         android:id="@+id/pager_image"
                         android:layout_width="match_parent"
-                        android:layout_height="@dimen/x720"/>
+                        android:layout_height="@dimen/y720"/>
 
                     <android.support.v4.view.ViewPager
                         android:id="@+id/view_pager"
                         android:layout_width="match_parent"
-                        android:layout_height="@dimen/x720"/>
+                        android:layout_height="@dimen/y720"/>
 
 
                     <LinearLayout

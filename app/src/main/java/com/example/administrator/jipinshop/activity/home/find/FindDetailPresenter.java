@@ -11,7 +11,7 @@ import android.widget.RelativeLayout;
 
 import com.blankj.utilcode.util.SPUtils;
 import com.example.administrator.jipinshop.R;
-import com.example.administrator.jipinshop.adapter.ShoppingBannerAdapter;
+import com.example.administrator.jipinshop.adapter.FindBannerAdapter;
 import com.example.administrator.jipinshop.bean.CommentBean;
 import com.example.administrator.jipinshop.bean.FindDetailBean;
 import com.example.administrator.jipinshop.bean.SnapSelectBean;
@@ -27,7 +27,6 @@ import java.util.Map;
 import javax.inject.Inject;
 
 import io.reactivex.android.schedulers.AndroidSchedulers;
-import io.reactivex.functions.Consumer;
 import io.reactivex.schedulers.Schedulers;
 
 /**
@@ -69,7 +68,7 @@ public class FindDetailPresenter {
         }
     }
 
-    public void initBanner(List<String> mBannerList , Context context , List<ImageView> point, LinearLayout mDetailPoint, ShoppingBannerAdapter mBannerAdapter){
+    public void initBanner(List<String> mBannerList , Context context , List<ImageView> point, LinearLayout mDetailPoint, FindBannerAdapter mBannerAdapter){
         for (int i = 0; i < mBannerList.size(); i++) {
             ImageView imageView = new ImageView(context);
 

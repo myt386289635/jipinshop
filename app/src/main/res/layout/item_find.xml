@@ -7,14 +7,13 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <ImageView
-        android:scaleType="fitXY"
         android:id="@+id/item_image"
         tools:src="@color/color_E31436"
         android:layout_marginTop="@dimen/x48"
         android:layout_marginRight="@dimen/x28"
         android:layout_marginLeft="@dimen/x28"
         android:layout_width="match_parent"
-        android:layout_height="@dimen/x446"/>
+        android:layout_height="@dimen/y446"/>
 
     <TextView
         android:layout_marginRight="@dimen/x28"
