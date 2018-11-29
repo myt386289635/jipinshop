@@ -12,6 +12,6 @@
         android:id="@+id/head_image"
         tools:src="@color/color_E31436"
         android:layout_width="match_parent"
-        android:layout_height="@dimen/x310"/>
+        android:layout_height="@dimen/y310"/>
 
 </LinearLayout>
