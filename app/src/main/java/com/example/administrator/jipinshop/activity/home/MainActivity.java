@@ -22,6 +22,7 @@ import com.example.administrator.jipinshop.fragment.evaluation.EvaluationFragmen
 import com.example.administrator.jipinshop.fragment.find.FindFragment;
 import com.example.administrator.jipinshop.fragment.home.HomeFragment;
 import com.example.administrator.jipinshop.fragment.mine.MineFragment;
+import com.example.administrator.jipinshop.util.DistanceHelper;
 import com.example.administrator.jipinshop.util.InputMethodManagerLeak;
 import com.example.administrator.jipinshop.util.NotchUtil;
 import com.example.administrator.jipinshop.util.UpDataUtil;
@@ -114,6 +115,8 @@ public class MainActivity extends RxAppCompatActivity implements ViewPager.OnPag
         //解决因为没有缓存fragment造成的各种问题，经验来说最好设置viewPager.setOffscreenPageLimit(3);
         // 但是这样会导致引导页打开首页时过慢，因为要预加载其余三个页面的UI（onCreateView）
         mViewPager.addOnPageChangeListener(this);
+
+//        DistanceHelper.getAndroiodScreenProperty(this);
     }
 
     @Override

@@ -8,7 +8,7 @@
     <ImageView
         android:layout_gravity="center"
         android:layout_width="@dimen/x40"
-        android:layout_height="@dimen/x40"
+        android:layout_height="@dimen/y40"
         android:scaleType="fitXY"
         android:background="@drawable/tablayout_item1"/>
 
@@ -17,7 +17,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="榜单"
-        android:layout_marginTop="@dimen/x2"
+        android:layout_marginTop="@dimen/y2"
         android:textSize="11sp"
         android:textColor="@drawable/item_color"/>
 </LinearLayout>

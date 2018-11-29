@@ -27,7 +27,7 @@
 
         <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="@dimen/x100"
+            android:layout_height="@dimen/y100"
             android:layout_marginLeft="@dimen/x28">
 
 
@@ -35,7 +35,7 @@
                 android:onClick="@{listener.onClick}"
                 android:id="@+id/home_sreach"
                 android:layout_width="match_parent"
-                android:layout_height="@dimen/x60"
+                android:layout_height="@dimen/y60"
                 android:layout_centerVertical="true"
                 android:layout_toLeftOf="@id/home_message"
                 android:background="@drawable/home_search_bg"
@@ -52,10 +52,13 @@
                 android:onClick="@{listener.onClick}"
                 android:id="@+id/home_message"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_height="match_parent"
                 android:layout_alignParentRight="true"
                 android:layout_centerVertical="true"
-                android:padding="@dimen/x28"
+                android:paddingLeft="@dimen/x28"
+                android:paddingRight="@dimen/x28"
+                android:paddingTop="@dimen/y28"
+                android:paddingBottom="@dimen/y28"
                 android:src="@mipmap/nav_message"/>
 
         </RelativeLayout>
@@ -65,16 +68,16 @@
             android:id="@+id/tab_layout"
             style="@style/MyCustomTablayout"
             android:layout_width="match_parent"
-            android:layout_height="@dimen/x84"
+            android:layout_height="@dimen/y84"
             android:layout_gravity="center_horizontal"
             android:layout_marginLeft="@dimen/x10"
             android:layout_marginRight="@dimen/x10"
-            android:layout_marginTop="@dimen/x_20"
+            android:layout_marginTop="@dimen/y_20"
             app:tabBackground="@color/transparent"/>
 
         <View
             android:layout_width="match_parent"
-            android:layout_height="@dimen/x2"
+            android:layout_height="@dimen/y2"
             android:background="@color/color_F5F5F5"/>
 
         <android.support.v4.view.ViewPager

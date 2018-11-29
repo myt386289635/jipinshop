@@ -49,11 +49,11 @@
 
         <ImageView
             android:id="@+id/item_image"
-            android:layout_width="@dimen/x420"
+            android:layout_width="@dimen/x450"
             android:layout_height="wrap_content"
             android:layout_alignBottom="@id/item_lookNum_container"
             android:layout_below="@id/item_title_contanier"
-            android:minHeight="@dimen/y420"
+            android:minHeight="@dimen/y450"
             android:scaleType="fitXY"
             tools:src="@color/color_E31436"/>
 
