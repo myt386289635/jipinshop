@@ -145,16 +145,16 @@ public class EvaluationDetailActivity extends RxAppCompatActivity implements Vie
             }
         });
         //判断页面加载过程
-        mBinding.webView.setWebChromeClient(new WebChromeClient() {
-            @Override
-            public void onProgressChanged(WebView view, int newProgress) {
-                if (newProgress == 100) {// 网页加载完成
-                    if (mDialog.isShowing()) {
-                        mDialog.dismiss();
-                    }
-                }
-            }
-        });
+//        mBinding.webView.setWebChromeClient(new WebChromeClient() {
+//            @Override
+//            public void onProgressChanged(WebView view, int newProgress) {
+//                if (newProgress == 100) {// 网页加载完成
+//                    if (mDialog.isShowing()) {
+//                        mDialog.dismiss();
+//                    }
+//                }
+//            }
+//        });
         mGoodView = new GoodView(this);
 
         mPresenter.initDate(getIntent().getStringExtra("id"),this.bindToLifecycle());
@@ -290,6 +290,9 @@ public class EvaluationDetailActivity extends RxAppCompatActivity implements Vie
             mBinding.bottomCommenNum.setText("0");
         }else {
             mBinding.bottomCommenNum.setText(bean.getGoodsEvalWay().getCommentNum());
+        }
+        if (mDialog != null && mDialog.isShowing()) {
+            mDialog.dismiss();
         }
     }
     /**

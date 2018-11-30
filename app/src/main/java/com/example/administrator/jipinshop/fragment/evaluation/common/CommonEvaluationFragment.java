@@ -255,9 +255,8 @@ public class CommonEvaluationFragment extends DBBaseFragment implements OnRefres
             if (bean == null || bean.getList() == null || bean.getList().size() == 0) {
                 initError(R.mipmap.qs_net, "网络出错", "哇哦，网络出错了，换个姿势下滑页面试试");
                 mBinding.recyclerView.setVisibility(View.GONE);
-            } else {
-                Toast.makeText(getContext(), error, Toast.LENGTH_SHORT).show();
             }
+            Toast.makeText(getContext(), error, Toast.LENGTH_SHORT).show();
         } else {
             stopLoading();
             page--;

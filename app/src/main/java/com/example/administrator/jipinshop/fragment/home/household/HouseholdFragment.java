@@ -120,7 +120,7 @@ public class HouseholdFragment extends DBBaseFragment implements HouseholdFragme
             stopResher();
             initError(R.mipmap.qs_net, "网络出错", "哇哦，网络出错了，换个姿势下滑页面试试");
             mBinding.recyclerView.setVisibility(View.GONE);
-//            Toast.makeText(getContext(), "网络请求错误,请重新开启app", Toast.LENGTH_SHORT).show();
+            Toast.makeText(getContext(), "网络请求错误,请重新开启app", Toast.LENGTH_SHORT).show();
         }
     }
 

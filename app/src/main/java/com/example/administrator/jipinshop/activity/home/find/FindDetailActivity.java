@@ -163,16 +163,16 @@ public class FindDetailActivity extends RxAppCompatActivity implements View.OnCl
             }
         });
         //判断页面加载过程
-        mBinding.webView.setWebChromeClient(new WebChromeClient() {
-            @Override
-            public void onProgressChanged(WebView view, int newProgress) {
-                if (newProgress == 100) {// 网页加载完成
-                    if (mDialog.isShowing()) {
-                        mDialog.dismiss();
-                    }
-                }
-            }
-        });
+//        mBinding.webView.setWebChromeClient(new WebChromeClient() {
+//            @Override
+//            public void onProgressChanged(WebView view, int newProgress) {
+//                if (newProgress == 100) {// 网页加载完成
+//                    if (mDialog.isShowing()) {
+//                        mDialog.dismiss();
+//                    }
+//                }
+//            }
+//        });
 
         mBannerAdapter = new FindBannerAdapter(this);
         mBannerList = new ArrayList<>();
@@ -327,6 +327,9 @@ public class FindDetailActivity extends RxAppCompatActivity implements View.OnCl
             mBinding.bottomCommenNum.setText("0");
         }else {
             mBinding.bottomCommenNum.setText(bean.getGoodsFindGoods().getCommentNum());
+        }
+        if (mDialog != null && mDialog.isShowing()) {
+            mDialog.dismiss();
         }
     }
     /**
