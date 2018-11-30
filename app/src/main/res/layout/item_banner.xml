@@ -7,7 +7,7 @@
     <ImageView
         android:id="@+id/recommend_img_rotate"
         android:layout_width="match_parent"
-        android:layout_height="@dimen/y720"
+        android:layout_height="@dimen/y742"
         android:scaleType="fitXY"/>
 
 
