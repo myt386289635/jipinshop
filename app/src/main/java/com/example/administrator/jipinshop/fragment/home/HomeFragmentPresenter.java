@@ -63,7 +63,7 @@ public class HomeFragmentPresenter{
             }
         }else {
             //第一次添加
-            for (int i = 0; i < tabList.size(); i++) {
+            for (int i = 0; i < tabLayout.getTabCount(); i++) {
                 View view = LayoutInflater.from(context).inflate(R.layout.tablayout_home,null);
                 TextView textView = view.findViewById(R.id.tab_name);
                 textView.setText(tabList.get(i));
@@ -83,7 +83,7 @@ public class HomeFragmentPresenter{
         //了解源码得知 线的宽度是根据 tabView的宽度来设置的
         final float finalTotle = totle;
         tabLayout.post(() -> {
-                int dp10 = (int) (((tabLayout.getWidth() - finalTotle) /5));
+                int dp10 = (int) (((tabLayout.getWidth() - finalTotle) /tabLayout.getTabCount()));
                 //拿到tabLayout的mTabStrip属性
                 LinearLayout mTabStrip = (LinearLayout) tabLayout.getChildAt(0);
                 for (int i = 0; i < mTabStrip.getChildCount(); i++) {

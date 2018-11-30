@@ -60,11 +60,11 @@ public class EvaluationFragment extends DBBaseFragment implements EvaluationView
         mFragments.add(CommonEvaluationFragment.getInstance(CommonEvaluationFragment.TWO));
         mFragments.add(CommonEvaluationFragment.getInstance(CommonEvaluationFragment.THREE));
         mFragments.add(CommonEvaluationFragment.getInstance(CommonEvaluationFragment.FORE));
-        mFragments.add(CommonEvaluationFragment.getInstance(CommonEvaluationFragment.FIVE));
+//        mFragments.add(CommonEvaluationFragment.getInstance(CommonEvaluationFragment.FIVE));
         mAdapter = new HomeFragmentAdapter(getChildFragmentManager());
         mAdapter.setFragments(mFragments);
         mBinding.viewPager.setAdapter(mAdapter);
-        mBinding.viewPager.setOffscreenPageLimit(4);
+        mBinding.viewPager.setOffscreenPageLimit(3);
         mBinding.tabLayout.setupWithViewPager( mBinding.viewPager);
 
         initDate();
@@ -95,7 +95,7 @@ public class EvaluationFragment extends DBBaseFragment implements EvaluationView
             tabTitle.addAll(bean.getList());
         }else {
             //没有缓存时
-            for (int i = 0; i < 5; i++) {
+            for (int i = 0; i < 4; i++) {
                 EvaluationTabBean.ListBean listBean = new EvaluationTabBean.ListBean();
                 if (i== 0){
                     listBean.setCategoryName("精选榜");
@@ -103,11 +103,12 @@ public class EvaluationFragment extends DBBaseFragment implements EvaluationView
                     listBean.setCategoryName("个护健康");
                 }else if(i == 2){
                     listBean.setCategoryName("厨卫电器");
-                }else if(i == 3){
-                    listBean.setCategoryName("生活家电");
-                }else{
-                    listBean.setCategoryName("家用大电");
+                }else {
+                    listBean.setCategoryName("生活电器");
                 }
+//                else{
+//                    listBean.setCategoryName("家用大电");
+//                }
                 tabTitle.add(listBean);
             }
         }

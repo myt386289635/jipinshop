@@ -57,7 +57,7 @@ public class EvaluationFragmentPresenter {
                 return;
             }
         }else {
-            for (int i = 0; i < tabTitle.size(); i++) {
+            for (int i = 0; i < tabLayout.getTabCount(); i++) {
                 View view = LayoutInflater.from(context).inflate(R.layout.tablayout_home,null);
                 TextView textView = view.findViewById(R.id.tab_name);
                 textView.setText(tabTitle.get(i).getCategoryName());
@@ -73,7 +73,7 @@ public class EvaluationFragmentPresenter {
         tabLayout.setTabRippleColor(ColorStateList.valueOf(context.getResources().getColor(R.color.transparent)));
         final float finalTotle = totle;
         tabLayout.post(() -> {
-            int dp10 = (int) (((tabLayout.getWidth() - finalTotle) /5));
+            int dp10 = (int) (((tabLayout.getWidth() - finalTotle) /tabLayout.getTabCount()));
             //拿到tabLayout的mTabStrip属性
             LinearLayout mTabStrip = (LinearLayout) tabLayout.getChildAt(0);
             for (int i = 0; i < mTabStrip.getChildCount(); i++) {

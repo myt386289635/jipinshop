@@ -26,6 +26,11 @@ public class RecommendFragmentAdapter extends RecyclerView.Adapter {
     private RecommendFragmentBean mList;
     private Context mContext;
     private OnItem mOnItem;
+    private String image = "";
+
+    public void setImage(String image) {
+        this.image = image;
+    }
 
     public void setList(RecommendFragmentBean list) {
         mList = list;
@@ -63,7 +68,11 @@ public class RecommendFragmentAdapter extends RecyclerView.Adapter {
         switch (type) {
             case HEAD:
                 ContentViewHolder contentViewHolder = (ContentViewHolder) holder;
-                contentViewHolder.recommend_image.setBackgroundResource(R.mipmap.remmonent_banner);
+                if(TextUtils.isEmpty(image)){
+                    contentViewHolder.recommend_image.setBackgroundResource(R.mipmap.remmonent_banner);
+                }else {
+                    GlideApp.loderImage(mContext,image,contentViewHolder.recommend_image,0,0);
+                }
                 break;
             case CONTENT:
                 HeadViewHolder viewHolder = (HeadViewHolder) holder;

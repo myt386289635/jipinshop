@@ -82,6 +82,15 @@ public class TabBean {
             private String categoryCode;
             private String parentid;
             private String parentName;
+            private String img;
+
+            public String getImg() {
+                return img;
+            }
+
+            public void setImg(String img) {
+                this.img = img;
+            }
 
             public String getCategoryid() {
                 return categoryid;

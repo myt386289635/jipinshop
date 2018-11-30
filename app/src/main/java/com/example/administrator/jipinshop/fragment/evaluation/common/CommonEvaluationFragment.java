@@ -116,6 +116,10 @@ public class CommonEvaluationFragment extends DBBaseFragment implements OnRefres
             if (!TextUtils.isEmpty(SPUtils.getInstance(CommonDate.NETCACHE).getString(CommonDate.CommonEvaluationFragmentDATA1, ""))) {
                 bean = new Gson().fromJson(SPUtils.getInstance(CommonDate.NETCACHE).getString(CommonDate.CommonEvaluationFragmentDATA1), EvaluationListBean.class);
                 mList.addAll(bean.getList());
+                if (!TextUtils.isEmpty(SPUtils.getInstance().getString(CommonDate.EvaluationTab,""))) {
+                    EvaluationTabBean bean = new Gson().fromJson(SPUtils.getInstance().getString(CommonDate.EvaluationTab), EvaluationTabBean.class);
+                    headImg = bean.getList().get(0).getImg();
+                }
             }
             once = false;
         }
@@ -317,18 +321,34 @@ public class CommonEvaluationFragment extends DBBaseFragment implements OnRefres
     public EvaluationListBean getDate() {
         if (getArguments().getString("type").equals(TWO)) {
             if (!TextUtils.isEmpty(SPUtils.getInstance(CommonDate.NETCACHE).getString(CommonDate.CommonEvaluationFragmentDATA2, ""))) {
+                if (!TextUtils.isEmpty(SPUtils.getInstance().getString(CommonDate.EvaluationTab,""))) {
+                    EvaluationTabBean bean = new Gson().fromJson(SPUtils.getInstance().getString(CommonDate.EvaluationTab), EvaluationTabBean.class);
+                    headImg = bean.getList().get(1).getImg();
+                }
                 return new Gson().fromJson(SPUtils.getInstance(CommonDate.NETCACHE).getString(CommonDate.CommonEvaluationFragmentDATA2), EvaluationListBean.class);
             }
         } else if (getArguments().getString("type").equals(THREE)) {
             if (!TextUtils.isEmpty(SPUtils.getInstance(CommonDate.NETCACHE).getString(CommonDate.CommonEvaluationFragmentDATA3, ""))) {
+                if (!TextUtils.isEmpty(SPUtils.getInstance().getString(CommonDate.EvaluationTab,""))) {
+                    EvaluationTabBean bean = new Gson().fromJson(SPUtils.getInstance().getString(CommonDate.EvaluationTab), EvaluationTabBean.class);
+                    headImg = bean.getList().get(2).getImg();
+                }
                 return new Gson().fromJson(SPUtils.getInstance(CommonDate.NETCACHE).getString(CommonDate.CommonEvaluationFragmentDATA3), EvaluationListBean.class);
             }
         } else if (getArguments().getString("type").equals(FORE)) {
             if (!TextUtils.isEmpty(SPUtils.getInstance(CommonDate.NETCACHE).getString(CommonDate.CommonEvaluationFragmentDATA4, ""))) {
+                if (!TextUtils.isEmpty(SPUtils.getInstance().getString(CommonDate.EvaluationTab,""))) {
+                    EvaluationTabBean bean = new Gson().fromJson(SPUtils.getInstance().getString(CommonDate.EvaluationTab), EvaluationTabBean.class);
+                    headImg = bean.getList().get(3).getImg();
+                }
                 return new Gson().fromJson(SPUtils.getInstance(CommonDate.NETCACHE).getString(CommonDate.CommonEvaluationFragmentDATA4), EvaluationListBean.class);
             }
         } else if (getArguments().getString("type").equals(FIVE)) {
             if (!TextUtils.isEmpty(SPUtils.getInstance(CommonDate.NETCACHE).getString(CommonDate.CommonEvaluationFragmentDATA5, ""))) {
+                if (!TextUtils.isEmpty(SPUtils.getInstance().getString(CommonDate.EvaluationTab,""))) {
+                    EvaluationTabBean bean = new Gson().fromJson(SPUtils.getInstance().getString(CommonDate.EvaluationTab), EvaluationTabBean.class);
+                    headImg = bean.getList().get(4).getImg();
+                }
                 return new Gson().fromJson(SPUtils.getInstance(CommonDate.NETCACHE).getString(CommonDate.CommonEvaluationFragmentDATA5), EvaluationListBean.class);
             }
         }

@@ -81,12 +81,12 @@ public class HomeFragment extends DBBaseFragment implements Badge.OnDragStateCha
         mFragments.add(HealthFragment.getInstance());
         mFragments.add(KitchenFragment.getInstance());
         mFragments.add(HouseholdFragment.getInstance());
-        mFragments.add(ElectricityFragment.getInstance());
+//        mFragments.add(ElectricityFragment.getInstance());
 
         mAdapter = new HomeFragmentAdapter(getChildFragmentManager());
         mAdapter.setFragments(mFragments);
         mBinding.viewPager.setAdapter(mAdapter);
-        mBinding.viewPager.setOffscreenPageLimit(4);
+        mBinding.viewPager.setOffscreenPageLimit(3);
         mBinding.tabLayout.setupWithViewPager(mBinding.viewPager);
 
         mQBadgeView = new QBadgeView(getContext());
@@ -95,8 +95,8 @@ public class HomeFragment extends DBBaseFragment implements Badge.OnDragStateCha
         tabList.add(SPUtils.getInstance().getString(CommonDate.HomeTab1, "推荐榜"));
         tabList.add(SPUtils.getInstance().getString(CommonDate.HomeTab2, "个护健康"));
         tabList.add(SPUtils.getInstance().getString(CommonDate.HomeTab3, "厨卫电器"));
-        tabList.add(SPUtils.getInstance().getString(CommonDate.HomeTab4, "生活家电"));
-        tabList.add(SPUtils.getInstance().getString(CommonDate.HomeTab5, "家用大电"));
+        tabList.add(SPUtils.getInstance().getString(CommonDate.HomeTab4, "生活电器"));
+//        tabList.add(SPUtils.getInstance().getString(CommonDate.HomeTab5, "家用大电"));
         initTab(null);
 
         mHomeFragmentPresenter.goodsCategory(this.bindToLifecycle());
@@ -113,16 +113,14 @@ public class HomeFragment extends DBBaseFragment implements Badge.OnDragStateCha
         if (tabBean != null) {
             if(tabBean.getList() != null && tabBean.getList().size() != 0){
                 tabList.clear();
-                tabList.add(tabBean.getList().get(0).getTilte().getCategoryname());
-                tabList.add(tabBean.getList().get(1).getTilte().getCategoryname());
-                tabList.add(tabBean.getList().get(2).getTilte().getCategoryname());
-                tabList.add(tabBean.getList().get(3).getTilte().getCategoryname());
-                tabList.add(tabBean.getList().get(4).getTilte().getCategoryname());
+                for (int i = 0; i < tabBean.getList().size(); i++) {
+                    tabList.add(tabBean.getList().get(i).getTilte().getCategoryname());
+                }
                 SPUtils.getInstance().put(CommonDate.HomeTab1, tabList.get(0));
                 SPUtils.getInstance().put(CommonDate.HomeTab2, tabList.get(1));
                 SPUtils.getInstance().put(CommonDate.HomeTab3, tabList.get(2));
                 SPUtils.getInstance().put(CommonDate.HomeTab4, tabList.get(3));
-                SPUtils.getInstance().put(CommonDate.HomeTab5, tabList.get(4));
+//                SPUtils.getInstance().put(CommonDate.HomeTab5, tabList.get(4));
                 mHomeFragmentPresenter.initTabLayout(getContext(), mBinding.tabLayout, tabList, tabTextView);
             }else {
                 mHomeFragmentPresenter.initTabLayout(getContext(), mBinding.tabLayout, tabList, tabTextView);

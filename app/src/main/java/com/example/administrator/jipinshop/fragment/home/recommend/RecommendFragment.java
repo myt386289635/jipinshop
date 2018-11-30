@@ -18,6 +18,7 @@ import com.example.administrator.jipinshop.activity.shoppingdetail.ShoppingDetai
 import com.example.administrator.jipinshop.adapter.RecommendFragmentAdapter;
 import com.example.administrator.jipinshop.base.DBBaseFragment;
 import com.example.administrator.jipinshop.bean.RecommendFragmentBean;
+import com.example.administrator.jipinshop.bean.TabBean;
 import com.example.administrator.jipinshop.databinding.FragmentRecommendBinding;
 import com.example.administrator.jipinshop.fragment.home.HomeFragment;
 import com.example.administrator.jipinshop.util.ClickUtil;
@@ -41,6 +42,8 @@ public class RecommendFragment extends DBBaseFragment implements OnRefreshListen
     protected FragmentRecommendBinding binding;
     private RecommendFragmentAdapter mAdapter;
     private RecommendFragmentBean mList;
+    private TabBean tabBean;//获取缓存图片
+    private String image = "";//数据head图片
 
     public static RecommendFragment getInstance() {
         RecommendFragment fragment = new RecommendFragment();
@@ -66,7 +69,14 @@ public class RecommendFragment extends DBBaseFragment implements OnRefreshListen
         }else {
             mList = new Gson().fromJson(SPUtils.getInstance(CommonDate.NETCACHE).getString(CommonDate.RecommendFragmentDATA,""),RecommendFragmentBean.class);
         }
+        if(!TextUtils.isEmpty(SPUtils.getInstance().getString(CommonDate.SubTab,""))){
+            tabBean = new Gson().fromJson(SPUtils.getInstance().getString(CommonDate.SubTab),TabBean.class);
+            image = tabBean.getList().get(0).getTilte().getImg();
+        }else {
+            image = "";
+        }
         mAdapter = new RecommendFragmentAdapter(mList, getContext());
+        mAdapter.setImage(image);
         mAdapter.setOnItem(this);
         binding.recyclerView.setAdapter(mAdapter);
 
@@ -125,6 +135,7 @@ public class RecommendFragment extends DBBaseFragment implements OnRefreshListen
                 binding.inClude.qsNet.setVisibility(View.GONE);
                 binding.recyclerView.setVisibility(View.VISIBLE);
                 mList = recommendFragmentBean;
+                mAdapter.setImage(image);
                 mAdapter.setList(recommendFragmentBean);
                 mAdapter.notifyDataSetChanged();
             }else {
@@ -181,6 +192,8 @@ public class RecommendFragment extends DBBaseFragment implements OnRefreshListen
     public void initSubTab(String string) {
         if (string.equals(HomeFragment.subTab)) {
             if (!TextUtils.isEmpty(SPUtils.getInstance().getString(CommonDate.SubTab, ""))) {
+                tabBean = new Gson().fromJson(SPUtils.getInstance().getString(CommonDate.SubTab),TabBean.class);
+                image = tabBean.getList().get(0).getTilte().getImg();
                 binding.swipeToLoad.post(() -> binding.swipeToLoad.setRefreshing(true));
             }
         }

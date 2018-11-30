@@ -6,10 +6,11 @@
 
 
     <TextView
+        android:textStyle="bold"
         android:id="@+id/tab_name"
         android:layout_centerInParent="true"
         android:textColor="@drawable/tab_item_color"
-        android:textSize="14sp"
+        android:textSize="15sp"
         android:text="推荐榜"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"/>

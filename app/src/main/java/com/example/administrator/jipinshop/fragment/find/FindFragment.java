@@ -51,9 +51,9 @@ public class FindFragment extends DBBaseFragment implements FindView {
             mFragments.add(CommonFindFragment.getInstance(CommonFindFragment.TWO));
             mFragments.add(CommonFindFragment.getInstance(CommonFindFragment.THREE));
             mFragments.add(CommonFindFragment.getInstance(CommonFindFragment.FORE));
-            mFragments.add(CommonFindFragment.getInstance(CommonFindFragment.FIVE));
+//            mFragments.add(CommonFindFragment.getInstance(CommonFindFragment.FIVE));
             mAdapter.notifyDataSetChanged();
-            mBinding.viewPager.setOffscreenPageLimit(4);
+            mBinding.viewPager.setOffscreenPageLimit(3);
             initDate();//获取缓存tab
             mPresenter.initTab(this.bindToLifecycle());
             once = false;
@@ -107,7 +107,7 @@ public class FindFragment extends DBBaseFragment implements FindView {
             tabTitle.addAll(bean.getList());
         }else {
             //没有缓存时
-            for (int i = 0; i < 5; i++) {
+            for (int i = 0; i < 4; i++) {
                 EvaluationTabBean.ListBean listBean = new EvaluationTabBean.ListBean();
                 if (i== 0){
                     listBean.setCategoryName("精选榜");
@@ -115,11 +115,12 @@ public class FindFragment extends DBBaseFragment implements FindView {
                     listBean.setCategoryName("个护健康");
                 }else if(i == 2){
                     listBean.setCategoryName("厨卫电器");
-                }else if(i == 3){
-                    listBean.setCategoryName("生活家电");
-                }else{
-                    listBean.setCategoryName("家用大电");
+                }else {
+                    listBean.setCategoryName("生活电器");
                 }
+//                else{
+//                    listBean.setCategoryName("家用大电");
+//                }
                 tabTitle.add(listBean);
             }
         }
