@@ -135,7 +135,11 @@ public class CommenListActivity extends BaseActivity implements CommenListAdapte
         parentNum = pos;
         mBinding.keyEdit.requestFocus();
         showKeyboard(true);
-        mBinding.keyEdit.setHint("回复"+mList.get(pos).getUserShopmember().getUserNickName());
+        if(mList.get(pos).getUserShopmember() != null){
+            mBinding.keyEdit.setHint("回复"+mList.get(pos).getUserShopmember().getUserNickName());
+        }else {
+            mBinding.keyEdit.setHint("回复游客");
+        }
     }
 
     /**
