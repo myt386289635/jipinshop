@@ -57,6 +57,7 @@
                     android:textStyle="bold"/>
 
                 <TextView
+                    android:onClick="@{listener.onClick}"
                     android:singleLine="true"
                     android:ellipsize="end"
                     android:id="@+id/mine_name"

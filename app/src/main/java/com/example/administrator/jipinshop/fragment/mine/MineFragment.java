@@ -84,6 +84,7 @@ public class MineFragment extends DBBaseFragment implements View.OnClickListener
             return;
         }
         switch (view.getId()) {
+            case R.id.mine_name:
             case R.id.mine_image:
                 //我的资料
                 startActivityForResult(new Intent(getContext(), MyInfoActivity.class), 100);
