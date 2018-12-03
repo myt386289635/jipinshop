@@ -145,7 +145,7 @@
             android:id="@+id/item_price_container"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@id/item_tag4"
+            android:layout_below="@id/item_tag3"
             android:layout_marginLeft="@dimen/x32"
             android:layout_marginTop="@dimen/y48"
             android:layout_toRightOf="@id/item_image"
