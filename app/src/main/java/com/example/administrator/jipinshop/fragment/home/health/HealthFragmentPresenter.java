@@ -36,10 +36,10 @@ public class HealthFragmentPresenter {
 
     public void refreshGirdView(Context context, SwipeToLoadLayout mSwipeToLoadLayout, List<HealthFragmentGridBean> gridViewList,
                                 int pos,HealthFragmentGridAdapter mAdapter,RecyclerView mRecyclerView){
-        if(mSwipeToLoadLayout.isRefreshing()){
-            Toast.makeText(context, "正在刷新数据，请稍后再试", Toast.LENGTH_SHORT).show();
-            return;
-        }
+//        if(mSwipeToLoadLayout.isRefreshing()){
+//            Toast.makeText(context, "正在刷新数据，请稍后再试", Toast.LENGTH_SHORT).show();
+//            return;
+//        }
         for (int i = 0; i < gridViewList.size(); i++) {
             gridViewList.get(i).setTag(false);
         }
@@ -47,7 +47,7 @@ public class HealthFragmentPresenter {
         mAdapter.notifyDataSetChanged();
         mRecyclerView.scrollToPosition(0);
         mSwipeToLoadLayout.setRefreshEnabled(true);
-        mSwipeToLoadLayout.setRefreshing(true);
+//        mSwipeToLoadLayout.setRefreshing(true);
     }
 
 

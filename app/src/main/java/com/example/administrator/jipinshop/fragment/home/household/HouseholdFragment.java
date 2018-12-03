@@ -1,5 +1,6 @@
 package com.example.administrator.jipinshop.fragment.home.household;
 
+import android.app.Dialog;
 import android.content.Intent;
 import android.databinding.DataBindingUtil;
 import android.support.v7.widget.LinearLayoutManager;
@@ -24,6 +25,7 @@ import com.example.administrator.jipinshop.databinding.FragmentHouseholdBinding;
 import com.example.administrator.jipinshop.fragment.home.HomeFragment;
 import com.example.administrator.jipinshop.util.ClickUtil;
 import com.example.administrator.jipinshop.util.sp.CommonDate;
+import com.example.administrator.jipinshop.view.dialog.ProgressDialogView;
 import com.google.gson.Gson;
 
 import org.greenrobot.eventbus.EventBus;
@@ -51,7 +53,8 @@ public class HouseholdFragment extends DBBaseFragment implements HouseholdFragme
 
     private Boolean once = true;
 
-    private int position = 0;//二级导航点击的位置   默认为第0个
+    private int position = 0;//二级导航点击的位置   默认为第0个  这个也是最后一次点击的位置
+    private Dialog mDialog;//请求数据
 
     public static HouseholdFragment getInstance() {
         HouseholdFragment fragment = new HouseholdFragment();
@@ -93,6 +96,9 @@ public class HouseholdFragment extends DBBaseFragment implements HouseholdFragme
     public void onItem(int pos) {
         position = pos;
         mPresenter.refreshGirdView(getContext(), mBinding.swipeToLoad, gridViewList, pos, mAdapter, mBinding.recyclerView);
+        mDialog = (new ProgressDialogView()).createLoadingDialog(getContext(), "请求中...");
+        mDialog.show();
+        onRefresh();
     }
 
     @Override
@@ -196,26 +202,32 @@ public class HouseholdFragment extends DBBaseFragment implements HouseholdFragme
                 mBinding.swipeToLoad.setRefreshing(false);
             }
         }
+        if(mDialog != null && mDialog.isShowing()){
+            mDialog.dismiss();
+        }
     }
 
 
     @Override
     public void onSuccess(HouseholdFragmentBean householdFragmentBean) {
-        if(position == 0){
-            SPUtils.getInstance(CommonDate.NETCACHE).put(CommonDate.HouseholdFragmentDATA,new Gson().toJson(householdFragmentBean));
+        if(householdFragmentBean.getCategory2Id().equals(gridViewList.get(position).getCategoryid())){
+            if(position == 0){
+                SPUtils.getInstance(CommonDate.NETCACHE).put(CommonDate.HouseholdFragmentDATA,new Gson().toJson(householdFragmentBean));
+            }
+            stopResher();
+            if(householdFragmentBean.getList() != null  && householdFragmentBean.getList().size() != 0){
+                recyclerList.clear();
+                mBinding.inClude.qsNet.setVisibility(View.GONE);
+                mBinding.recyclerView.setVisibility(View.VISIBLE);
+                recyclerList.addAll(householdFragmentBean.getList());
+                mRecyclerAdapter.notifyDataSetChanged();
+            }else {
+                initError(R.mipmap.qs_nodata, "暂无数据", "暂时没有任何数据 ");
+                mBinding.recyclerView.setVisibility(View.GONE);
+//            Toast.makeText(getContext(), "没有数据", Toast.LENGTH_SHORT).show();
+            }
         }
         stopResher();
-        if(householdFragmentBean.getList() != null  && householdFragmentBean.getList().size() != 0){
-            recyclerList.clear();
-            mBinding.inClude.qsNet.setVisibility(View.GONE);
-            mBinding.recyclerView.setVisibility(View.VISIBLE);
-            recyclerList.addAll(householdFragmentBean.getList());
-            mRecyclerAdapter.notifyDataSetChanged();
-        }else {
-            initError(R.mipmap.qs_nodata, "暂无数据", "暂时没有任何数据 ");
-            mBinding.recyclerView.setVisibility(View.GONE);
-//            Toast.makeText(getContext(), "没有数据", Toast.LENGTH_SHORT).show();
-        }
     }
 
     @Override

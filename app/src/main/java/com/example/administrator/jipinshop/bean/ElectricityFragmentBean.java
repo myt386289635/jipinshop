@@ -17,6 +17,15 @@ public class ElectricityFragmentBean {
     private String msg;
     private int code;
     private List<ListBean> list;
+    private String category2Id;
+
+    public String getCategory2Id() {
+        return category2Id;
+    }
+
+    public void setCategory2Id(String category2Id) {
+        this.category2Id = category2Id;
+    }
 
     public String getMsg() {
         return msg;

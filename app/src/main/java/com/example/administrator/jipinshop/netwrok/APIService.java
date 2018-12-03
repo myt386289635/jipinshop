@@ -202,25 +202,25 @@ public interface APIService {
      * 榜单二级菜单列表
      */
     @GET("qualityshop-api/api/goodRank")
-    Observable<HealthFragmentBean> goodRank(@Query("mark") String mark , @Query("goodsId") String goodsId);
+    Observable<HealthFragmentBean> goodRank(@Query("mark") String mark , @Query("category2Id") String goodsId);
 
     /**
      * 榜单二级菜单列表
      */
     @GET("qualityshop-api/api/goodRank")
-    Observable<KitchenFragmentBean> goodRank2(@Query("mark") String mark , @Query("goodsId") String goodsId);
+    Observable<KitchenFragmentBean> goodRank2(@Query("mark") String mark , @Query("category2Id") String goodsId);
 
     /**
      * 榜单二级菜单列表
      */
     @GET("qualityshop-api/api/goodRank")
-    Observable<HouseholdFragmentBean> goodRank3(@Query("mark") String mark , @Query("goodsId") String goodsId);
+    Observable<HouseholdFragmentBean> goodRank3(@Query("mark") String mark , @Query("category2Id") String goodsId);
 
     /**
      * 榜单二级菜单列表
      */
     @GET("qualityshop-api/api/goodRank")
-    Observable<ElectricityFragmentBean> goodRank4(@Query("mark") String mark , @Query("goodsId") String goodsId);
+    Observable<ElectricityFragmentBean> goodRank4(@Query("mark") String mark , @Query("category2Id") String goodsId);
 
     /**
      * 搜索列表
