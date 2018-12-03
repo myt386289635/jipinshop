@@ -129,21 +129,32 @@ public class RecommendFragmentAdapter extends RecyclerView.Adapter {
                 double result = b.setScale(1, BigDecimal.ROUND_HALF_UP).doubleValue();
                 viewHolder.getBinding().itemScore.setText(result + "");
 
-                if(mList.getList().get(position).getGoodstypeList() != null && mList.getList().get(position).getGoodstypeList().size() != 0){
-                    if(mList.getList().get(position).getGoodstypeList().size() >= 2){
+                if(mList.getList().get(position).getGoodstypeList() != null && mList.getList().get(position).getGoodstypeList().size() >= 3){
+                    if(mList.getList().get(position).getGoodstypeList().size() >= 4){
                         viewHolder.getBinding().itemTag1.setVisibility(View.VISIBLE);
                         viewHolder.getBinding().itemTag2.setVisibility(View.VISIBLE);
+                        viewHolder.getBinding().itemTag3.setVisibility(View.VISIBLE);
+                        viewHolder.getBinding().itemTag4.setVisibility(View.VISIBLE);
                         viewHolder.getBinding().itemTag1.setText(mList.getList().get(position).getGoodstypeList().get(0).getName());
                         viewHolder.getBinding().itemTag2.setText(mList.getList().get(position).getGoodstypeList().get(1).getName());
-                    }else {
+                        viewHolder.getBinding().itemTag3.setText(mList.getList().get(position).getGoodstypeList().get(2).getName());
+                        viewHolder.getBinding().itemTag4.setText(mList.getList().get(position).getGoodstypeList().get(3).getName());
+                    }else if(mList.getList().get(position).getGoodstypeList().size() == 3){
                         viewHolder.getBinding().itemTag1.setVisibility(View.VISIBLE);
-                        viewHolder.getBinding().itemTag2.setVisibility(View.GONE);
+                        viewHolder.getBinding().itemTag2.setVisibility(View.VISIBLE);
+                        viewHolder.getBinding().itemTag3.setVisibility(View.VISIBLE);
+                        viewHolder.getBinding().itemTag4.setVisibility(View.GONE);
                         viewHolder.getBinding().itemTag1.setText(mList.getList().get(position).getGoodstypeList().get(0).getName());
+                        viewHolder.getBinding().itemTag2.setText(mList.getList().get(position).getGoodstypeList().get(1).getName());
+                        viewHolder.getBinding().itemTag3.setText(mList.getList().get(position).getGoodstypeList().get(2).getName());
                     }
                 }else {
                     viewHolder.getBinding().itemTag1.setVisibility(View.GONE);
                     viewHolder.getBinding().itemTag2.setVisibility(View.GONE);
+                    viewHolder.getBinding().itemTag3.setVisibility(View.GONE);
+                    viewHolder.getBinding().itemTag4.setVisibility(View.GONE);
                 }
+
 
                 viewHolder.getBinding().itemPriceOld.setTv(true);
                 viewHolder.getBinding().itemPriceOld.setColor(R.color.color_ACACAC);

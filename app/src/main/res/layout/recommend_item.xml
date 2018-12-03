@@ -66,21 +66,22 @@
             android:layout_toRightOf="@id/item_image"
             android:ellipsize="end"
             android:lineSpacingExtra="@dimen/x6"
-            android:lines="4"
+            android:lines="2"
             android:text="@{date.goodsName}"
             android:textColor="@color/color_202020"
             android:textSize="16sp"
             android:textStyle="bold"/>
 
+
         <TextView
-            android:ellipsize="end"
             android:singleLine="true"
+            android:ellipsize="end"
             android:id="@+id/item_tag1"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@id/item_name"
             android:layout_marginLeft="@dimen/x32"
-            android:layout_marginTop="@dimen/x20"
+            android:layout_marginTop="@dimen/y32"
             android:layout_toRightOf="@id/item_image"
             android:background="@drawable/recommend_tag_bg"
             android:text="成人"
@@ -89,15 +90,46 @@
 
 
         <TextView
-            android:ellipsize="end"
             android:singleLine="true"
+            android:ellipsize="end"
             android:id="@+id/item_tag2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@id/item_name"
-            android:layout_marginLeft="@dimen/x24"
-            android:layout_marginTop="@dimen/x20"
+            android:layout_marginLeft="@dimen/x22"
+            android:layout_marginTop="@dimen/y32"
             android:layout_toRightOf="@id/item_tag1"
+            android:background="@drawable/recommend_tag_bg"
+            android:text="成人"
+            android:textColor="@color/color_ACACAC"
+            android:textSize="11sp"/>
+
+        <TextView
+            android:singleLine="true"
+            android:ellipsize="end"
+            android:id="@+id/item_tag3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/item_tag1"
+            android:layout_marginLeft="@dimen/x32"
+            android:layout_marginTop="@dimen/y22"
+            android:layout_toRightOf="@id/item_image"
+            android:background="@drawable/recommend_tag_bg"
+            android:text="成人"
+            android:textColor="@color/color_ACACAC"
+            android:textSize="11sp"/>
+
+
+        <TextView
+            android:singleLine="true"
+            android:ellipsize="end"
+            android:id="@+id/item_tag4"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/item_tag2"
+            android:layout_marginLeft="@dimen/x22"
+            android:layout_marginTop="@dimen/y22"
+            android:layout_toRightOf="@id/item_tag3"
             android:background="@drawable/recommend_tag_bg"
             android:text="小资"
             android:textColor="@color/color_ACACAC"
@@ -107,9 +139,9 @@
             android:id="@+id/item_price_container"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@id/item_tag1"
+            android:layout_below="@id/item_tag4"
             android:layout_marginLeft="@dimen/x32"
-            android:layout_marginTop="@dimen/x20"
+            android:layout_marginTop="@dimen/y48"
             android:layout_toRightOf="@id/item_image"
             android:gravity="center_vertical"
             android:orientation="horizontal">
