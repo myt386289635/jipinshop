@@ -38,4 +38,5 @@
     <!--覆盖颜色-->
     <color name="bgColor_overlay">#4D151515</color>
     <color name="color_B3151515">#B3151515</color>
+    <color name="color_FAFAFA">#FAFAFA</color>
 </resources>

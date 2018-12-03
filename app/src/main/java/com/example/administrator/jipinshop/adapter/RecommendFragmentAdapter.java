@@ -22,6 +22,7 @@ public class RecommendFragmentAdapter extends RecyclerView.Adapter {
 
     private final int HEAD = 1;
     private final int CONTENT = 2;
+    private final int FOOT = 3;
 
     private RecommendFragmentBean mList;
     private Context mContext;
@@ -57,6 +58,10 @@ public class RecommendFragmentAdapter extends RecyclerView.Adapter {
             case CONTENT:
                 RecommendItemBinding binding = DataBindingUtil.inflate(LayoutInflater.from(mContext), R.layout.recommend_item, viewGroup, false);
                 holder = new HeadViewHolder(binding);
+                break;
+            case FOOT:
+                View view = LayoutInflater.from(mContext).inflate(R.layout.item_foot, viewGroup, false);
+                holder = new FootViewHolder(view);
                 break;
         }
         return holder;
@@ -169,6 +174,8 @@ public class RecommendFragmentAdapter extends RecyclerView.Adapter {
     public int getItemViewType(int position) {
         if (position == 0) {
             return HEAD;
+        }else if (position == getItemCount() - 1){
+            return FOOT;
         } else {
             return CONTENT;
         }
@@ -176,7 +183,7 @@ public class RecommendFragmentAdapter extends RecyclerView.Adapter {
 
     @Override
     public int getItemCount() {
-        return mList.getList() == null || mList.getList().size() == 0 ? 0 : mList.getList().size() + 1;
+        return mList.getList() == null || mList.getList().size() == 0 ? 0 : mList.getList().size() + 2;
     }
 
     public class HeadViewHolder extends RecyclerView.ViewHolder {
@@ -204,6 +211,13 @@ public class RecommendFragmentAdapter extends RecyclerView.Adapter {
         public ContentViewHolder(View itemView) {
             super(itemView);
             recommend_image = itemView.findViewById(R.id.recommend_image);
+        }
+    }
+
+    class FootViewHolder extends RecyclerView.ViewHolder {
+
+        public FootViewHolder(View itemView) {
+            super(itemView);
         }
     }
 

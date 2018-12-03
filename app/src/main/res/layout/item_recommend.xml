@@ -5,6 +5,8 @@
     android:id="@+id/recommend_image"
     android:paddingLeft="@dimen/x1"
     android:paddingRight="@dimen/x1"
+    android:layout_marginLeft="@dimen/x28"
+    android:layout_marginRight="@dimen/x28"
     android:layout_height="wrap_content"
     android:layout_marginBottom="@dimen/x48"
     android:layout_marginTop="@dimen/y48"
