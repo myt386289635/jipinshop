@@ -20,12 +20,14 @@ import android.widget.Toast;
 import com.aspsine.swipetoloadlayout.OnRefreshListener;
 import com.blankj.utilcode.util.SPUtils;
 import com.example.administrator.jipinshop.R;
+import com.example.administrator.jipinshop.activity.login.LoginActivity;
 import com.example.administrator.jipinshop.activity.shoppingdetail.ShoppingDetailActivity;
 import com.example.administrator.jipinshop.adapter.SreachResultAdapter;
 import com.example.administrator.jipinshop.base.BaseActivity;
 import com.example.administrator.jipinshop.bean.SreachResultBean;
 import com.example.administrator.jipinshop.bean.SreachTagBean;
 import com.example.administrator.jipinshop.databinding.ActivitySreachResultBinding;
+import com.example.administrator.jipinshop.util.ClickUtil;
 import com.example.administrator.jipinshop.util.sp.CommonDate;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
@@ -136,15 +138,23 @@ public class SreachResultActivity extends BaseActivity implements SreachResultAd
      */
     @Override
     public void onItem(int pos) {
-        startActivity(new Intent(this, ShoppingDetailActivity.class)
-                .putExtra("goodsId",mList.get(pos).getGoodsId())
-                .putExtra("goodsName",mList.get(pos).getGoodsName())
-                .putExtra("priceNow",mList.get(pos).getActualPrice())
-                .putExtra("priceOld",mList.get(pos).getOtherPrice())
-                .putExtra("price",mList.get(pos).getCutPrice())
-                .putExtra("state",mList.get(pos).getSourceStatus() + "")
-                .putExtra("goodsImage",mList.get(pos).getRankGoodImg())
-        );
+        if(!SPUtils.getInstance(CommonDate.USER).getBoolean(CommonDate.userLogin,false)){
+            startActivity(new Intent(this, LoginActivity.class));
+            return;
+        }
+        if (ClickUtil.isFastDoubleClick(800)) {
+            return;
+        }else{
+            startActivity(new Intent(this, ShoppingDetailActivity.class)
+                    .putExtra("goodsId",mList.get(pos).getGoodsId())
+                    .putExtra("goodsName",mList.get(pos).getGoodsName())
+                    .putExtra("priceNow",mList.get(pos).getActualPrice())
+                    .putExtra("priceOld",mList.get(pos).getOtherPrice())
+                    .putExtra("price",mList.get(pos).getCutPrice())
+                    .putExtra("state",mList.get(pos).getSourceStatus() + "")
+                    .putExtra("goodsImage",mList.get(pos).getRankGoodImg())
+            );
+        }
     }
 
     /**
