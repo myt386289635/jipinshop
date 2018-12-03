@@ -227,13 +227,24 @@
             layout="@layout/common_net_error"
             android:visibility="gone"/>
 
-        <ImageView
-            android:onClick="@{listener.onClick}"
+        <RelativeLayout
             android:id="@+id/title_back"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:padding="@dimen/x22"
-            android:src="@mipmap/nav_back"/>
+            android:onClick="@{listener.onClick}"
+            android:background="@drawable/bg_back"
+            android:layout_marginLeft="@dimen/x28"
+            android:layout_width="@dimen/x56"
+            android:layout_height="@dimen/y56">
+
+            <ImageView
+                android:padding="@dimen/x12"
+                android:layout_centerInParent="true"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@mipmap/balance_white"/>
+
+        </RelativeLayout>
+
+
 
     </RelativeLayout>
 

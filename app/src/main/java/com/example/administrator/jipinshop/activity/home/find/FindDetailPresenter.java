@@ -57,7 +57,7 @@ public class FindDetailPresenter {
         mWebView.getSettings().setDomStorageEnabled(true);// 开启 DOM storage API 功能
     }
 
-    public void setStatusBarHight(LinearLayout StatusBar ,ImageView imageView, Context context){
+    public void setStatusBarHight(LinearLayout StatusBar ,RelativeLayout imageView, Context context){
         int resourceId = context.getResources().getIdentifier("status_bar_height", "dimen", "android");
         if (resourceId > 0) {
             int statusBarHeight = context.getResources().getDimensionPixelSize(resourceId);
