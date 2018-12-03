@@ -2,6 +2,7 @@ package com.example.administrator.jipinshop.fragment.home.household;
 
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.widget.Toast;
 
 import com.aspsine.swipetoloadlayout.SwipeToLoadLayout;
@@ -87,9 +88,7 @@ public class HouseholdFragmentPresenter  {
                         }
                     }
                 }, throwable -> {
-                    if(mView != null){
-                        mView.onFile(throwable.getMessage());
-                    }
+                    Log.d("HealthFragmentPresenter", throwable.getMessage());
                 });
     }
 
