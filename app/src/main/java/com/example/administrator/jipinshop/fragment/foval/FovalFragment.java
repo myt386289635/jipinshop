@@ -231,7 +231,7 @@ public class FovalFragment extends DBBaseFragment implements OnRefreshListener, 
         }else {
             //发现
             startActivity(new Intent(getContext(), FindDetailActivity.class)
-                    .putExtra("id",mList.get(pos).getFindGoods_id())
+                    .putExtra("id",mList.get(pos).getGoodsFindGoods().getFindgoodsId())
                     .putExtra("image",mList.get(pos).getGoodsFindGoods().getImgId())
             );
         }

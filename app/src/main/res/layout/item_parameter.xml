@@ -18,9 +18,9 @@
         android:textSize="13sp"
         android:textColor="@color/color_ACACAC"
         android:id="@+id/item_name"
-        android:text="产品材质产品材质"
+        android:text="产品材质"
         android:background="@drawable/bg_parameter_left"
-        android:layout_width="@dimen/x168"
+        android:layout_width="@dimen/x180"
         android:layout_height="wrap_content"/>
 
     <TextView
