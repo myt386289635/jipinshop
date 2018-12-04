@@ -803,7 +803,11 @@ public class ShoppingDetailActivity extends BaseActivity implements ShoppingComm
                 break;
             case R.id.head_common:
                 //评价
-                mBinding.srcollView.scrollTo(0, mBinding.detailEvaluationLine.getTop());
+                if(mBinding.detailEvaluationLine.getVisibility() == View.VISIBLE ){
+                    mBinding.srcollView.scrollTo(0, mBinding.detailEvaluationLine.getTop());
+                }else {
+                    mBinding.srcollView.scrollTo(0, mBinding.detailHeadLine.getTop());//当开箱评测没有时
+                }
                 mPresenter.initTitleLayout(this, mBinding.commonTv,  mBinding.commonView, mBinding.shopTv, mBinding.shopView, mBinding.evaluationTv, mBinding.evaluationView);
                 hintKey();
                 break;
