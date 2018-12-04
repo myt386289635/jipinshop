@@ -56,6 +56,8 @@
                     android:layout_height="@dimen/x100"/>
 
                 <WebView
+                    android:layout_marginRight="@dimen/x14"
+                    android:layout_marginLeft="@dimen/x14"
                     android:layout_marginTop="@dimen/x28"
                     android:id="@+id/web_view"
                     android:layout_width="match_parent"
@@ -108,6 +110,7 @@
             android:background="@color/color_F5F5F5"/>
 
         <LinearLayout
+            android:background="@color/color_white"
             android:id="@+id/bottom_layout"
             android:layout_width="match_parent"
             android:layout_height="@dimen/x96"

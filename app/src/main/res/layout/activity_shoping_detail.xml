@@ -487,6 +487,8 @@
 
 
                 <WebView
+                    android:layout_marginRight="@dimen/x14"
+                    android:layout_marginLeft="@dimen/x14"
                     android:id="@+id/detail_evaluation"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
