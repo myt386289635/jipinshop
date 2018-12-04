@@ -204,7 +204,7 @@ public class MyInfoActivity extends BaseActivity implements SelectPicDialog.Choo
     public void EditUserNickImgSuc(SuccessBean successBean, String date) {
         if (successBean.getCode() == 200) {
 //            ImageManager.displayCircleImage(date,mBinding.infoImage,R.mipmap.rlogo,R.mipmap.rlogo);
-            GlideApp.loderCircleImage(this,date,mBinding.infoImage,R.mipmap.rlogo,R.mipmap.rlogo);
+            GlideApp.loderCircleImage(this,date,mBinding.infoImage,R.mipmap.rlogo,0);
             SPUtils.getInstance(CommonDate.USER).put(CommonDate.userNickImg, date);
             EventBus.getDefault().post(new EditNameBus(EditNameActivity.tag,date,"4"));
             Toast.makeText(this, "修改成功", Toast.LENGTH_SHORT).show();

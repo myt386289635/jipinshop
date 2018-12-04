@@ -435,7 +435,7 @@ public class ShoppingDetailActivity extends BaseActivity implements ShoppingComm
                 attentionUserId = shoppingDetailBean.getGoodsRankdetailEntity().getGoodsEvalWayEntity().getUserShopmember().getUserId();
 //                ImageManager.displayCircleImage(shoppingDetailBean.getGoodsRankdetailEntity().getGoodsEvalWayEntity().getUserShopmember().getUserNickImg(),mBinding.detailEvaluationImage,
 //                        0,0);
-                GlideApp.loderCircleImage(this,shoppingDetailBean.getGoodsRankdetailEntity().getGoodsEvalWayEntity().getUserShopmember().getUserNickImg(),mBinding.detailEvaluationImage,0 ,0);
+                GlideApp.loderCircleImage(this,shoppingDetailBean.getGoodsRankdetailEntity().getGoodsEvalWayEntity().getUserShopmember().getUserNickImg(),mBinding.detailEvaluationImage,R.mipmap.rlogo ,0);
                 mBinding.detailEvaluationName.setText(shoppingDetailBean.getGoodsRankdetailEntity().getGoodsEvalWayEntity().getUserShopmember().getUserNickName());
                 mBinding.detailEvaluationTime.setText(shoppingDetailBean.getGoodsRankdetailEntity().getGoodsEvalWayEntity().getCreateTime().split(" ")[0].replace("-","."));
                 mBinding.detailEvaluationFans.setText("粉丝数："+shoppingDetailBean.getGoodsRankdetailEntity().getGoodsEvalWayEntity().getUserShopmember().getFansCount());
