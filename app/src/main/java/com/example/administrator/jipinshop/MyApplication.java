@@ -156,7 +156,7 @@ public class MyApplication extends Application {
         CrashReport.UserStrategy strategy = new CrashReport.UserStrategy(context);
         strategy.setBuglyLogUpload(processName == null || processName.equals(packageName));
         // 初始化Bugly
-        CrashReport.initCrashReport(getApplicationContext(), "5d46063289", false,strategy);
+        CrashReport.initCrashReport(getApplicationContext(), "fe0bf6069a", false,strategy);
     }
 
 
