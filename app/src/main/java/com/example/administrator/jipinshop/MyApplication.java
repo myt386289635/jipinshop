@@ -155,8 +155,11 @@ public class MyApplication extends Application {
         // 设置是否为上报进程
         CrashReport.UserStrategy strategy = new CrashReport.UserStrategy(context);
         strategy.setBuglyLogUpload(processName == null || processName.equals(packageName));
+        if(DebugHelper.getDebug()){
+            strategy.setAppVersion("开发版本");//开发时出现的错误都在版本号为1的里面。
+        }
         // 初始化Bugly
-        CrashReport.initCrashReport(getApplicationContext(), "fe0bf6069a", false,strategy);
+        CrashReport.initCrashReport(getApplicationContext(), "9975bceb00", false,strategy);
     }
 
 

@@ -12,8 +12,9 @@ import android.widget.Toast;
  */
 public class DebugHelper {
     private static Boolean isDebug = null;
+
+    /*用来控制内存检测 不进行内存检测**/
     public static boolean isDebug() {
-//        return isDebug == null ? false : isDebug.booleanValue();
         return false;
     }
 
@@ -24,5 +25,10 @@ public class DebugHelper {
             Log.e("DebugHelper", isDebug + ": isdebug");
 //            Toast.makeText(context, isDebug + ": isdebug", Toast.LENGTH_SHORT).show();
         }
+    }
+
+    /*用来控制bugly上传的位置：是开发版本还是线上版本**/
+    public static boolean getDebug() {
+        return isDebug == null ? false : isDebug.booleanValue();
     }
 }
