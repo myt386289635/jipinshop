@@ -58,9 +58,9 @@ import retrofit2.http.QueryMap;
 public interface APIService {
 
     /**
-     * 榜单首页接口
+     * 榜单首页接口  已修改
      */
-    @GET("qualityshop-api/api/goodsRankList")
+    @GET("qualityshop-api/api/getTopGoodsList")
     Observable<RecommendFragmentBean> ranklist();
 
     /**
@@ -187,9 +187,9 @@ public interface APIService {
     Observable<ImageBean> importCustomer(@Part("url")String url,@Part MultipartBody.Part importFile);
 
     /**
-     * 榜单tab的字段
+     * 榜单tab的字段   已修改
      */
-    @GET("qualityshop-api/api/goodsCategory")
+    @GET("qualityshop-api/api/goodsCategoryList")
     Observable<TabBean> goodsCategory();
 
     /**
@@ -366,7 +366,7 @@ public interface APIService {
     Observable<IntegralShopBean> integralShopList(@Query("page") String page);
 
     /**
-     * 版本更新
+     * 版本更新   已修改
      */
     @GET("qualityshop-api/api/getAppVersion")
     Observable<AppVersionbean> getAppVersion(@Query("type") String type , @Query("clientVersionCode") String clientVersionCode);

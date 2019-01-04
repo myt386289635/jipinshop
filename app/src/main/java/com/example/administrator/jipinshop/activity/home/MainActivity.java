@@ -152,13 +152,13 @@ public class MainActivity extends RxAppCompatActivity implements MainView {
 
     @Override
     public void onSuccess(AppVersionbean versionbean) {
-        if(versionbean.getAppVersion().getVersionCode() > UpDataUtil.getPackageVersionCode()){
-            if(versionbean.getAppVersion().getNeedUpdate() == 0){
+        if(versionbean.getData().getVersionCode() > UpDataUtil.getPackageVersionCode()){
+            if(versionbean.getData().getNeedUpdate() == 0){
                 //可以取消
-                UpDataUtil.newInstance().downloadApk(this,false,versionbean.getAppVersion().getContent(),versionbean.getAppVersion().getDownloadUrl());//第一版
+                UpDataUtil.newInstance().downloadApk(this,false,versionbean.getData().getContent(),versionbean.getData().getDownloadUrl());//第一版
             }else {
                 //必须强制更新
-                UpDataUtil.newInstance().downloadApk(this,true,versionbean.getAppVersion().getContent(),versionbean.getAppVersion().getDownloadUrl());//第一版
+                UpDataUtil.newInstance().downloadApk(this,true,versionbean.getData().getContent(),versionbean.getData().getDownloadUrl());//第一版
             }
 
         }

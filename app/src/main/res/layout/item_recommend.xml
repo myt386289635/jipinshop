@@ -7,7 +7,7 @@
     android:paddingRight="@dimen/x1"
     android:layout_marginLeft="@dimen/x28"
     android:layout_marginRight="@dimen/x28"
-    android:layout_height="wrap_content"
+    android:layout_height="@dimen/y314"
     android:layout_marginBottom="@dimen/x48"
     android:layout_marginTop="@dimen/y48"
     android:layout_width="match_parent"

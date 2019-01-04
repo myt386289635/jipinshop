@@ -11,13 +11,13 @@ public class TabBean {
 
     /**
      * msg : success
-     * code : 200
-     * list : [{"subtilte":[{"categoryid":"31c71a9ae22047e5ab966ca478325661","categoryname":"剃毛器","categoryCode":"G","parentid":"c38c97e81c3142779f9e085902c9423d","parentName":""},{"categoryid":"513f96f9ab4d44bbad7b5b13dc4dce3c","categoryname":"计步器","categoryCode":"M","parentid":"c38c97e81c3142779f9e085902c9423d","parentName":""},{"categoryid":"54a82377c556471dbdeddd1dd7e60a00","categoryname":"耳温枪","categoryCode":"H","parentid":"c38c97e81c3142779f9e085902c9423d","parentName":""},{"categoryid":"6b57e095a15d45079c1290510d3c125d","categoryname":"体重秤","categoryCode":"L","parentid":"c38c97e81c3142779f9e085902c9423d","parentName":""},{"categoryid":"6de718eba1d74b80bb03a23ed6773290","categoryname":"眼部按摩仪","categoryCode":"I","parentid":"c38c97e81c3142779f9e085902c9423d","parentName":""},{"categoryid":"87ed34710ef24704b393f753da7f270b","categoryname":"足浴盆","categoryCode":"K","parentid":"c38c97e81c3142779f9e085902c9423d","parentName":""},{"categoryid":"95f3aba5776a425aabee024f60dafff2","categoryname":"按摩椅","categoryCode":"J","parentid":"c38c97e81c3142779f9e085902c9423d","parentName":""},{"categoryid":"99cc6b195a314e75b2523634e679215c","categoryname":"卷发器","categoryCode":"E","parentid":"c38c97e81c3142779f9e085902c9423d","parentName":""},{"categoryid":"a9a2a7a97b2441c5a2234619c5ed59e1","categoryname":"美容仪","categoryCode":"D","parentid":"c38c97e81c3142779f9e085902c9423d","parentName":""},{"categoryid":"b4cb5713c5d548f5a9196ccc8bb0f245","categoryname":"电吹风","categoryCode":"C","parentid":"c38c97e81c3142779f9e085902c9423d","parentName":""},{"categoryid":"bb269c5d3fe94b1cb1d5df68afcda140","categoryname":"剃须刀","categoryCode":"A","parentid":"c38c97e81c3142779f9e085902c9423d","parentName":""},{"categoryid":"e2750799418043ceb3288739ef372e10","categoryname":"电动牙刷","categoryCode":"B","parentid":"c38c97e81c3142779f9e085902c9423d","parentName":""},{"categoryid":"ea8455cc01b643cb86c43437c4a566ff","categoryname":"理发器","categoryCode":"F","parentid":"c38c97e81c3142779f9e085902c9423d","parentName":""}],"tilte":{"categoryid":"c38c97e81c3142779f9e085902c9423d","categoryname":"个护健康","categoryCode":"1","parentid":"0","parentName":""}},{"subtilte":[{"categoryid":"0225166f6c664957bc41e1db05abd8bf","categoryname":"微波炉","categoryCode":"C","parentid":"307a1aff33434386bedfd2eda913bd97","parentName":""},{"categoryid":"3ddc31b6ddf44bea8ceb61e7f1749d3a","categoryname":"电磁炉/电陶炉","categoryCode":"B","parentid":"307a1aff33434386bedfd2eda913bd97","parentName":""},{"categoryid":"6bfac3f655dc4bfa8600b33846033179","categoryname":"料理机","categoryCode":"D","parentid":"307a1aff33434386bedfd2eda913bd97","parentName":""},{"categoryid":"a3cc3b108bcf4c1b91479f2b8e8cc3b1","categoryname":"搅拌/榨汁机","categoryCode":"E","parentid":"307a1aff33434386bedfd2eda913bd97","parentName":""},{"categoryid":"a63b74c8706747e2bfaa205c78e5dc15","categoryname":"电饭煲","categoryCode":"A","parentid":"307a1aff33434386bedfd2eda913bd97","parentName":""}],"tilte":{"categoryid":"307a1aff33434386bedfd2eda913bd97","categoryname":"厨卫电器","categoryCode":"2","parentid":"0","parentName":""}},{"subtilte":[{"categoryid":"507e3f52328a47a59e563bc918efcc3f","categoryname":"空调扇","categoryCode":"B","parentid":"971cf3d41cb0441f88af248578cbb7e6","parentName":""},{"categoryid":"6fa6276ba4914ba5b6764fd9c6feddeb","categoryname":"吸尘器","categoryCode":"C","parentid":"971cf3d41cb0441f88af248578cbb7e6","parentName":""},{"categoryid":"afbe5c62ba2d4e7d92c92b4a4c30db58","categoryname":"取暖器","categoryCode":"A","parentid":"971cf3d41cb0441f88af248578cbb7e6","parentName":""}],"tilte":{"categoryid":"971cf3d41cb0441f88af248578cbb7e6","categoryname":"生活家电","categoryCode":"3","parentid":"0","parentName":""}},{"subtilte":[{"categoryid":"a3fc98da2f404c2190353ca571aabd5c","categoryname":"生活家电","categoryCode":"0","parentid":"cb1ccdb60b0448eda2e709dc10cd8244","parentName":""}],"tilte":{"categoryid":"cb1ccdb60b0448eda2e709dc10cd8244","categoryname":"家用大电","categoryCode":"4","parentid":"0","parentName":""}}]
+     * code : 0
+     * data : [{"categoryId":"0ae94ab3649c4806a099c28353c66d1a","parentId":"0","categoryName":"综合榜","orderNum":0,"children":[]},{"categoryId":"c38c97e81c3142779f9e085902c9423d","parentId":"0","categoryName":"个护健康榜","orderNum":1,"children":[{"categoryId":"3a9da7e316914052ab207c6162a59ae6","parentId":"c38c97e81c3142779f9e085902c9423d","categoryName":"电动牙刷","orderNum":1,"children":[]},{"categoryId":"bb269c5d3fe94b1cb1d5df68afcda140","parentId":"c38c97e81c3142779f9e085902c9423d","categoryName":"剃须刀","orderNum":2,"children":[]},{"categoryId":"b4cb5713c5d548f5a9196ccc8bb0f245","parentId":"c38c97e81c3142779f9e085902c9423d","categoryName":"电吹风","orderNum":3,"children":[]},{"categoryId":"ae89a86ec0f647729607db165f3b9d8a","parentId":"c38c97e81c3142779f9e085902c9423d","categoryName":"卷/直发器","orderNum":4,"children":[]},{"categoryId":"c5701c52584f4a0d8ea41dd91e4e8cd4","parentId":"c38c97e81c3142779f9e085902c9423d","categoryName":"美容仪","orderNum":5,"children":[]},{"categoryId":"ea8455cc01b643cb86c43437c4a566ff","parentId":"c38c97e81c3142779f9e085902c9423d","categoryName":"理发器","orderNum":6,"children":[]},{"categoryId":"d645d23f5a10440ea600008d11a8d73f","parentId":"c38c97e81c3142779f9e085902c9423d","categoryName":"体重秤","orderNum":7,"children":[]},{"categoryId":"d7ce478106d847d4b1a3442783910c54","parentId":"c38c97e81c3142779f9e085902c9423d","categoryName":"按摩椅","orderNum":8,"children":[]},{"categoryId":"fa16deee893a4e3bb7b4c9ab384c35a7","parentId":"c38c97e81c3142779f9e085902c9423d","categoryName":"足浴盆","orderNum":9,"children":[]}]},{"categoryId":"307a1aff33434386bedfd2eda913bd97","parentId":"0","categoryName":"厨房电器榜","orderNum":2,"children":[{"categoryId":"3ddc31b6ddf44bea8ceb61e7f1749d3a","parentId":"307a1aff33434386bedfd2eda913bd97","categoryName":"电火锅","orderNum":0,"children":[]},{"categoryId":"8452e9083c914af0badfebc21bdd55ee","parentId":"307a1aff33434386bedfd2eda913bd97","categoryName":"11111","orderNum":0,"children":[]},{"categoryId":"a3cc3b108bcf4c1b91479f2b8e8cc3b1","parentId":"307a1aff33434386bedfd2eda913bd97","categoryName":"豆浆机","orderNum":0,"children":[]},{"categoryId":"a63b74c8706747e2bfaa205c78e5dc15","parentId":"307a1aff33434386bedfd2eda913bd97","categoryName":"蒸蛋器","orderNum":0,"children":[]}]},{"categoryId":"971cf3d41cb0441f88af248578cbb7e6","parentId":"0","categoryName":"生活电器榜","orderNum":3,"children":[{"categoryId":"758906e13b614e688224572d2f99f957","parentId":"971cf3d41cb0441f88af248578cbb7e6","categoryName":"扫地机器人","orderNum":0,"children":[]},{"categoryId":"81bcd5911a794af8b968ff010d2546df","parentId":"971cf3d41cb0441f88af248578cbb7e6","categoryName":"电风扇","orderNum":0,"children":[]},{"categoryId":"db61fa35e64c441ebd27ad81effce436","parentId":"971cf3d41cb0441f88af248578cbb7e6","categoryName":"空气净化器","orderNum":0,"children":[]}]}]
      */
 
     private String msg;
     private int code;
-    private List<ListBean> list;
+    private List<DataBean> data;
 
     public String getMsg() {
         return msg;
@@ -35,157 +35,106 @@ public class TabBean {
         this.code = code;
     }
 
-    public List<ListBean> getList() {
-        return list;
+    public List<DataBean> getData() {
+        return data;
     }
 
-    public void setList(List<ListBean> list) {
-        this.list = list;
+    public void setData(List<DataBean> data) {
+        this.data = data;
     }
 
-    public static class ListBean {
+    public static class DataBean {
         /**
-         * subtilte : [{"categoryid":"31c71a9ae22047e5ab966ca478325661","categoryname":"剃毛器","categoryCode":"G","parentid":"c38c97e81c3142779f9e085902c9423d","parentName":""},{"categoryid":"513f96f9ab4d44bbad7b5b13dc4dce3c","categoryname":"计步器","categoryCode":"M","parentid":"c38c97e81c3142779f9e085902c9423d","parentName":""},{"categoryid":"54a82377c556471dbdeddd1dd7e60a00","categoryname":"耳温枪","categoryCode":"H","parentid":"c38c97e81c3142779f9e085902c9423d","parentName":""},{"categoryid":"6b57e095a15d45079c1290510d3c125d","categoryname":"体重秤","categoryCode":"L","parentid":"c38c97e81c3142779f9e085902c9423d","parentName":""},{"categoryid":"6de718eba1d74b80bb03a23ed6773290","categoryname":"眼部按摩仪","categoryCode":"I","parentid":"c38c97e81c3142779f9e085902c9423d","parentName":""},{"categoryid":"87ed34710ef24704b393f753da7f270b","categoryname":"足浴盆","categoryCode":"K","parentid":"c38c97e81c3142779f9e085902c9423d","parentName":""},{"categoryid":"95f3aba5776a425aabee024f60dafff2","categoryname":"按摩椅","categoryCode":"J","parentid":"c38c97e81c3142779f9e085902c9423d","parentName":""},{"categoryid":"99cc6b195a314e75b2523634e679215c","categoryname":"卷发器","categoryCode":"E","parentid":"c38c97e81c3142779f9e085902c9423d","parentName":""},{"categoryid":"a9a2a7a97b2441c5a2234619c5ed59e1","categoryname":"美容仪","categoryCode":"D","parentid":"c38c97e81c3142779f9e085902c9423d","parentName":""},{"categoryid":"b4cb5713c5d548f5a9196ccc8bb0f245","categoryname":"电吹风","categoryCode":"C","parentid":"c38c97e81c3142779f9e085902c9423d","parentName":""},{"categoryid":"bb269c5d3fe94b1cb1d5df68afcda140","categoryname":"剃须刀","categoryCode":"A","parentid":"c38c97e81c3142779f9e085902c9423d","parentName":""},{"categoryid":"e2750799418043ceb3288739ef372e10","categoryname":"电动牙刷","categoryCode":"B","parentid":"c38c97e81c3142779f9e085902c9423d","parentName":""},{"categoryid":"ea8455cc01b643cb86c43437c4a566ff","categoryname":"理发器","categoryCode":"F","parentid":"c38c97e81c3142779f9e085902c9423d","parentName":""}]
-         * tilte : {"categoryid":"c38c97e81c3142779f9e085902c9423d","categoryname":"个护健康","categoryCode":"1","parentid":"0","parentName":""}
+         * categoryId : 0ae94ab3649c4806a099c28353c66d1a
+         * parentId : 0
+         * categoryName : 综合榜
+         * orderNum : 0
+         * children : []
          */
 
-        private TilteBean tilte;
-        private List<SubtilteBean> subtilte;
+        private String categoryId;
+        private String parentId;
+        private String categoryName;
+        private int orderNum;
+        private List<ChildrenBean> children;
 
-        public TilteBean getTilte() {
-            return tilte;
+        public String getCategoryId() {
+            return categoryId;
         }
 
-        public void setTilte(TilteBean tilte) {
-            this.tilte = tilte;
+        public void setCategoryId(String categoryId) {
+            this.categoryId = categoryId;
         }
 
-        public List<SubtilteBean> getSubtilte() {
-            return subtilte;
+        public String getParentId() {
+            return parentId;
         }
 
-        public void setSubtilte(List<SubtilteBean> subtilte) {
-            this.subtilte = subtilte;
+        public void setParentId(String parentId) {
+            this.parentId = parentId;
         }
 
-        public static class TilteBean {
-            /**
-             * categoryid : c38c97e81c3142779f9e085902c9423d
-             * categoryname : 个护健康
-             * categoryCode : 1
-             * parentid : 0
-             * parentName :
-             */
-
-            private String categoryid;
-            private String categoryname;
-            private String categoryCode;
-            private String parentid;
-            private String parentName;
-            private String img;
-
-            public String getImg() {
-                return img;
-            }
-
-            public void setImg(String img) {
-                this.img = img;
-            }
-
-            public String getCategoryid() {
-                return categoryid;
-            }
-
-            public void setCategoryid(String categoryid) {
-                this.categoryid = categoryid;
-            }
-
-            public String getCategoryname() {
-                return categoryname;
-            }
-
-            public void setCategoryname(String categoryname) {
-                this.categoryname = categoryname;
-            }
-
-            public String getCategoryCode() {
-                return categoryCode;
-            }
-
-            public void setCategoryCode(String categoryCode) {
-                this.categoryCode = categoryCode;
-            }
-
-            public String getParentid() {
-                return parentid;
-            }
-
-            public void setParentid(String parentid) {
-                this.parentid = parentid;
-            }
-
-            public String getParentName() {
-                return parentName;
-            }
-
-            public void setParentName(String parentName) {
-                this.parentName = parentName;
-            }
+        public String getCategoryName() {
+            return categoryName;
         }
 
-        public static class SubtilteBean {
-            /**
-             * categoryid : 31c71a9ae22047e5ab966ca478325661
-             * categoryname : 剃毛器
-             * categoryCode : G
-             * parentid : c38c97e81c3142779f9e085902c9423d
-             * parentName :
-             */
+        public void setCategoryName(String categoryName) {
+            this.categoryName = categoryName;
+        }
 
-            private String categoryid;
-            private String categoryname;
-            private String categoryCode;
-            private String parentid;
-            private String parentName;
+        public int getOrderNum() {
+            return orderNum;
+        }
 
-            public String getCategoryid() {
-                return categoryid;
+        public void setOrderNum(int orderNum) {
+            this.orderNum = orderNum;
+        }
+
+        public List<ChildrenBean> getChildren() {
+            return children;
+        }
+
+        public void setChildren(List<ChildrenBean> children) {
+            this.children = children;
+        }
+
+        public static class ChildrenBean {
+            private String categoryId;
+            private String parentId;
+            private String categoryName;
+            private int orderNum;
+
+
+            public String getCategoryId() {
+                return categoryId;
             }
 
-            public void setCategoryid(String categoryid) {
-                this.categoryid = categoryid;
+            public void setCategoryId(String categoryId) {
+                this.categoryId = categoryId;
             }
 
-            public String getCategoryname() {
-                return categoryname;
+            public String getParentId() {
+                return parentId;
             }
 
-            public void setCategoryname(String categoryname) {
-                this.categoryname = categoryname;
+            public void setParentId(String parentId) {
+                this.parentId = parentId;
             }
 
-            public String getCategoryCode() {
-                return categoryCode;
+            public String getCategoryName() {
+                return categoryName;
             }
 
-            public void setCategoryCode(String categoryCode) {
-                this.categoryCode = categoryCode;
+            public void setCategoryName(String categoryName) {
+                this.categoryName = categoryName;
             }
 
-            public String getParentid() {
-                return parentid;
+            public int getOrderNum() {
+                return orderNum;
             }
 
-            public void setParentid(String parentid) {
-                this.parentid = parentid;
-            }
-
-            public String getParentName() {
-                return parentName;
-            }
-
-            public void setParentName(String parentName) {
-                this.parentName = parentName;
+            public void setOrderNum(int orderNum) {
+                this.orderNum = orderNum;
             }
         }
     }

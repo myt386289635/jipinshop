@@ -4,11 +4,13 @@ package com.example.administrator.jipinshop.fragment.home;
 import android.content.Intent;
 import android.databinding.DataBindingUtil;
 import android.support.v4.app.Fragment;
+import android.support.v4.view.ViewPager;
+import android.support.v7.widget.LinearLayoutManager;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.TextView;
+import android.widget.LinearLayout;
 import android.widget.Toast;
 
 import com.blankj.utilcode.util.SPUtils;
@@ -17,14 +19,13 @@ import com.example.administrator.jipinshop.activity.login.LoginActivity;
 import com.example.administrator.jipinshop.activity.message.system.SystemMessageActivity;
 import com.example.administrator.jipinshop.activity.sreach.SreachActivity;
 import com.example.administrator.jipinshop.adapter.HomeFragmentAdapter;
+import com.example.administrator.jipinshop.adapter.HomeTabAdapter;
 import com.example.administrator.jipinshop.base.DBBaseFragment;
 import com.example.administrator.jipinshop.bean.TabBean;
+import com.example.administrator.jipinshop.bean.TitleBean;
 import com.example.administrator.jipinshop.bean.UnMessageBean;
 import com.example.administrator.jipinshop.databinding.FragmentHomeBinding;
-import com.example.administrator.jipinshop.fragment.home.electricity.ElectricityFragment;
-import com.example.administrator.jipinshop.fragment.home.health.HealthFragment;
-import com.example.administrator.jipinshop.fragment.home.household.HouseholdFragment;
-import com.example.administrator.jipinshop.fragment.home.kitchen.KitchenFragment;
+import com.example.administrator.jipinshop.fragment.home.commen.HomeCommenFragment;
 import com.example.administrator.jipinshop.fragment.home.recommend.RecommendFragment;
 import com.example.administrator.jipinshop.jpush.JPushReceiver;
 import com.example.administrator.jipinshop.util.sp.CommonDate;
@@ -41,7 +42,7 @@ import javax.inject.Inject;
 import q.rorbin.badgeview.Badge;
 import q.rorbin.badgeview.QBadgeView;
 
-public class HomeFragment extends DBBaseFragment implements Badge.OnDragStateChangedListener, View.OnClickListener, HomeFragmentView {
+public class HomeFragment extends DBBaseFragment implements Badge.OnDragStateChangedListener, View.OnClickListener, HomeFragmentView, HomeTabAdapter.OnClickItem, ViewPager.OnPageChangeListener {
 
     public static final String subTab = "HomeFragment2subFragments";
 
@@ -53,8 +54,11 @@ public class HomeFragment extends DBBaseFragment implements Badge.OnDragStateCha
     private List<Fragment> mFragments;
     private HomeFragmentAdapter mAdapter;
     private QBadgeView mQBadgeView;
-    private List<String> tabList;
-    private List<TextView> tabTextView;
+
+    private List<TitleBean> mTabBeans;
+    private HomeTabAdapter mTabAdapter;
+    private LinearLayoutManager mLinearLayoutManager;
+    private int set = 0;// 记录上一个位置
 
     public HomeFragment() {
     }
@@ -73,34 +77,26 @@ public class HomeFragment extends DBBaseFragment implements Badge.OnDragStateCha
         mHomeFragmentPresenter.setView(this);
         EventBus.getDefault().register(this);
 
-        tabList = new ArrayList<>();
-        tabTextView = new ArrayList<>();
-
         mFragments = new ArrayList<>();
-        mFragments.add(RecommendFragment.getInstance());
-        mFragments.add(HealthFragment.getInstance());
-        mFragments.add(KitchenFragment.getInstance());
-        mFragments.add(HouseholdFragment.getInstance());
-//        mFragments.add(ElectricityFragment.getInstance());
-
         mAdapter = new HomeFragmentAdapter(getChildFragmentManager());
         mAdapter.setFragments(mFragments);
         mBinding.viewPager.setAdapter(mAdapter);
-        mBinding.viewPager.setOffscreenPageLimit(3);
-        mBinding.tabLayout.setupWithViewPager(mBinding.viewPager);
 
         mQBadgeView = new QBadgeView(getContext());
         mHomeFragmentPresenter.initBadgeView(mQBadgeView, mBinding.homeMessage, this);
 
-        tabList.add(SPUtils.getInstance().getString(CommonDate.HomeTab1, "推荐榜"));
-        tabList.add(SPUtils.getInstance().getString(CommonDate.HomeTab2, "个护健康"));
-        tabList.add(SPUtils.getInstance().getString(CommonDate.HomeTab3, "厨卫电器"));
-        tabList.add(SPUtils.getInstance().getString(CommonDate.HomeTab4, "生活电器"));
-//        tabList.add(SPUtils.getInstance().getString(CommonDate.HomeTab5, "家用大电"));
+        mLinearLayoutManager = new LinearLayoutManager(getContext(), LinearLayout.HORIZONTAL,false);
+        mBinding.recyclerView.setLayoutManager(mLinearLayoutManager);
+        mTabBeans = new ArrayList<>();
+        mTabAdapter = new HomeTabAdapter(mTabBeans,getContext());
+        mTabAdapter.setOnClickItem(this);
+        mBinding.recyclerView.setAdapter(mTabAdapter);
         initTab(null);
 
         mHomeFragmentPresenter.goodsCategory(this.bindToLifecycle());
         mHomeFragmentPresenter.unMessage(this.bindToLifecycle());
+
+        mBinding.viewPager.addOnPageChangeListener(this);
     }
 
 
@@ -110,24 +106,49 @@ public class HomeFragment extends DBBaseFragment implements Badge.OnDragStateCha
 
 
     public void initTab(TabBean tabBean) {
+        mTabBeans.clear();
+        mFragments.clear();
         if (tabBean != null) {
-            if(tabBean.getList() != null && tabBean.getList().size() != 0){
-                tabList.clear();
-                for (int i = 0; i < tabBean.getList().size(); i++) {
-                    tabList.add(tabBean.getList().get(i).getTilte().getCategoryname());
+            if(tabBean.getData() != null && tabBean.getData().size() != 0){
+                for (int i = 0; i < tabBean.getData().size(); i++) {
+                    if(i == 0){
+                        mTabBeans.add(new TitleBean(tabBean.getData().get(i).getCategoryName(),true));
+                        mFragments.add(RecommendFragment.getInstance());
+                    }else {
+                        mTabBeans.add(new TitleBean(tabBean.getData().get(i).getCategoryName(),false));
+                        mFragments.add(HomeCommenFragment.getInstance());
+                    }
                 }
-                SPUtils.getInstance().put(CommonDate.HomeTab1, tabList.get(0));
-                SPUtils.getInstance().put(CommonDate.HomeTab2, tabList.get(1));
-                SPUtils.getInstance().put(CommonDate.HomeTab3, tabList.get(2));
-                SPUtils.getInstance().put(CommonDate.HomeTab4, tabList.get(3));
-//                SPUtils.getInstance().put(CommonDate.HomeTab5, tabList.get(4));
-                mHomeFragmentPresenter.initTabLayout(getContext(), mBinding.tabLayout, tabList, tabTextView);
-            }else {
-                mHomeFragmentPresenter.initTabLayout(getContext(), mBinding.tabLayout, tabList, tabTextView);
             }
         } else {
-            mHomeFragmentPresenter.initTabLayout(getContext(), mBinding.tabLayout, tabList, tabTextView);
+            if (!TextUtils.isEmpty(SPUtils.getInstance().getString(CommonDate.SubTab,""))){
+                tabBean = new Gson().fromJson(SPUtils.getInstance().getString(CommonDate.SubTab),TabBean.class);
+                for (int i = 0; i < tabBean.getData().size(); i++) {
+                    if(i == 0){
+                        mTabBeans.add(new TitleBean(tabBean.getData().get(i).getCategoryName(),true));
+                        mFragments.add(RecommendFragment.getInstance());
+                    }else {
+                        mTabBeans.add(new TitleBean(tabBean.getData().get(i).getCategoryName(),false));
+                        mFragments.add(HomeCommenFragment.getInstance());
+                    }
+                }
+            }else {
+                mTabBeans.add(new TitleBean("综合榜",true));
+                mTabBeans.add(new TitleBean("个护健康榜",false));
+                mTabBeans.add(new TitleBean("厨房电器榜",false));
+                mTabBeans.add(new TitleBean("生活电器榜",false));
+                for (int i = 0; i < mTabBeans.size(); i++) {
+                    if(i == 0){
+                        mFragments.add(RecommendFragment.getInstance());
+                    }else {
+                        mFragments.add(HomeCommenFragment.getInstance());
+                    }
+                }
+            }
         }
+        mTabAdapter.notifyDataSetChanged();
+        mAdapter.notifyDataSetChanged();
+        mBinding.viewPager.setOffscreenPageLimit(mFragments.size() - 1);
     }
 
     @Override
@@ -203,5 +224,58 @@ public class HomeFragment extends DBBaseFragment implements Badge.OnDragStateCha
         if(!TextUtils.isEmpty(s) && s.equals(JPushReceiver.TAG)){
             mHomeFragmentPresenter.unMessage(this.bindToLifecycle());
         }
+    }
+
+    /**
+     * tab 点击时的情况
+     * @param pos
+     */
+    @Override
+    public void onClickItem(int pos) {
+
+        final int firstPosition = mLinearLayoutManager.findFirstVisibleItemPosition();
+        int des = 0;
+        if((pos - 1) - firstPosition > 0){
+            ////从左边到点击到右边
+            des = mBinding.recyclerView.getChildAt((pos - 1) - firstPosition).getLeft();
+            mBinding.recyclerView.smoothScrollBy(des,0);
+        }else if(pos - 1 >= 0 && (pos - 1) - firstPosition <= 0){
+            //从右边点击到左边
+            mBinding.recyclerView.smoothScrollToPosition(pos - 1);
+        }
+        mBinding.viewPager.setCurrentItem(pos,false);
+        mTabBeans.get(set).setTag(false);
+        mTabBeans.get(pos).setTag(true);
+        mTabAdapter.notifyDataSetChanged();
+        set = pos;
+    }
+
+    @Override
+    public void onPageScrolled(int i, float v, int i1) {
+
+    }
+
+    @Override
+    public void onPageSelected(int i) {
+        final int firstPosition = mLinearLayoutManager.findFirstVisibleItemPosition();
+        int des = 0;
+        if((i - 1) - firstPosition > 0){
+            ////从左边到点击到右边
+            des = mBinding.recyclerView.getChildAt((i - 1) - firstPosition).getLeft();
+            mBinding.recyclerView.smoothScrollBy(des,0);
+        }else if(i - 1 >= 0 && (i - 1) - firstPosition <= 0){
+            //从右边点击到左边
+            mBinding.recyclerView.smoothScrollToPosition(i - 1);
+        }
+        mTabBeans.get(set).setTag(false);
+        mTabBeans.get(i).setTag(true);
+        mTabAdapter.notifyDataSetChanged();
+
+        set = i;
+    }
+
+    @Override
+    public void onPageScrollStateChanged(int i) {
+
     }
 }

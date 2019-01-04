@@ -10,7 +10,7 @@
         android:layout_width="@dimen/x40"
         android:layout_height="@dimen/y40"
         android:scaleType="fitXY"
-        android:background="@drawable/tablayout_item4"/>
+        android:background="@drawable/tablayout_item5"/>
 
     <TextView
         android:layout_gravity="center_horizontal"

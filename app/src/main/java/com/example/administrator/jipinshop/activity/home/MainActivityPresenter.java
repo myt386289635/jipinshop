@@ -8,15 +8,12 @@ import android.view.View;
 
 import com.example.administrator.jipinshop.R;
 import com.example.administrator.jipinshop.bean.AppVersionbean;
-import com.example.administrator.jipinshop.bean.RecommendFragmentBean;
 import com.example.administrator.jipinshop.netwrok.Repository;
-import com.example.administrator.jipinshop.util.UpDataUtil;
 import com.trello.rxlifecycle2.LifecycleTransformer;
 
 import javax.inject.Inject;
 
 import io.reactivex.android.schedulers.AndroidSchedulers;
-import io.reactivex.functions.Consumer;
 import io.reactivex.schedulers.Schedulers;
 
 public class MainActivityPresenter {
@@ -58,7 +55,7 @@ public class MainActivityPresenter {
                 .observeOn(AndroidSchedulers.mainThread())
                 .compose(transformer)
                 .subscribe(appVersionbean -> {
-                    if(appVersionbean.getCode() == 200){
+                    if(appVersionbean.getCode() == 0){
                         if(mView != null){
                             mView.onSuccess(appVersionbean);
                         }

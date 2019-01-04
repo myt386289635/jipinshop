@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    android:id="@+id/item_container"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <TextView
+        android:layout_marginRight="@dimen/x24"
+        android:singleLine="true"
+        android:ellipsize="end"
+        android:id="@+id/item_tag"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@drawable/recommend_tag_bg"
+        android:text="成人"
+        android:textColor="@color/color_E31436"
+        android:textSize="12sp"/>
+
+</LinearLayout>

@@ -3,12 +3,10 @@ package com.example.administrator.jipinshop.fragment.home.recommend;
 import android.content.Intent;
 import android.databinding.DataBindingUtil;
 import android.support.v7.widget.LinearLayoutManager;
-import android.text.TextUtils;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Toast;
 
 import com.aspsine.swipetoloadlayout.OnRefreshListener;
 import com.blankj.utilcode.util.SPUtils;
@@ -18,16 +16,13 @@ import com.example.administrator.jipinshop.activity.shoppingdetail.ShoppingDetai
 import com.example.administrator.jipinshop.adapter.RecommendFragmentAdapter;
 import com.example.administrator.jipinshop.base.DBBaseFragment;
 import com.example.administrator.jipinshop.bean.RecommendFragmentBean;
-import com.example.administrator.jipinshop.bean.TabBean;
 import com.example.administrator.jipinshop.databinding.FragmentRecommendBinding;
-import com.example.administrator.jipinshop.fragment.home.HomeFragment;
 import com.example.administrator.jipinshop.util.ClickUtil;
 import com.example.administrator.jipinshop.util.sp.CommonDate;
-import com.google.gson.Gson;
 import com.trello.rxlifecycle2.android.FragmentEvent;
 
-import org.greenrobot.eventbus.EventBus;
-import org.greenrobot.eventbus.Subscribe;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.inject.Inject;
 
@@ -41,9 +36,7 @@ public class RecommendFragment extends DBBaseFragment implements OnRefreshListen
 
     protected FragmentRecommendBinding binding;
     private RecommendFragmentAdapter mAdapter;
-    private RecommendFragmentBean mList;
-    private TabBean tabBean;//获取缓存图片
-    private String image = "";//数据head图片
+    private List<RecommendFragmentBean.DataBean> mList;
 
     public static RecommendFragment getInstance() {
         RecommendFragment fragment = new RecommendFragment();
@@ -60,30 +53,19 @@ public class RecommendFragment extends DBBaseFragment implements OnRefreshListen
     public void initView() {
         mBaseFragmentComponent.inject(this);
         mPresenter.setView(this);
-        EventBus.getDefault().register(this);
 
         LinearLayoutManager layoutManager = new LinearLayoutManager(getContext()) ;
         binding.recyclerView.setLayoutManager(layoutManager);
-        if(TextUtils.isEmpty(SPUtils.getInstance(CommonDate.NETCACHE).getString(CommonDate.RecommendFragmentDATA,""))){
-            mList = new RecommendFragmentBean();
-        }else {
-            mList = new Gson().fromJson(SPUtils.getInstance(CommonDate.NETCACHE).getString(CommonDate.RecommendFragmentDATA,""),RecommendFragmentBean.class);
-        }
-        if(!TextUtils.isEmpty(SPUtils.getInstance().getString(CommonDate.SubTab,""))){
-            tabBean = new Gson().fromJson(SPUtils.getInstance().getString(CommonDate.SubTab),TabBean.class);
-            image = tabBean.getList().get(0).getTilte().getImg();
-        }else {
-            image = "";
-        }
+        mList = new ArrayList<>();
         mAdapter = new RecommendFragmentAdapter(mList, getContext());
-        mAdapter.setImage(image);
         mAdapter.setOnItem(this);
         binding.recyclerView.setAdapter(mAdapter);
 
         binding.recyclerView.setFocusable(false);
         binding.swipeToLoad.setOnRefreshListener(this);
 
-        mPresenter.solveScoll(binding.recyclerView,binding.swipeToLoad,getContext());
+        mPresenter.solveScoll(binding.recyclerView,binding.swipeToLoad);
+        binding.swipeToLoad.post(() -> binding.swipeToLoad.setRefreshing(true));
     }
 
     /**
@@ -91,14 +73,7 @@ public class RecommendFragment extends DBBaseFragment implements OnRefreshListen
      */
     @Override
     public void onRefresh() {
-        if (!TextUtils.isEmpty(SPUtils.getInstance().getString(CommonDate.SubTab, ""))){
-            mPresenter.getDate(this.bindUntilEvent(FragmentEvent.DESTROY_VIEW));
-        }else {
-            stopResher();
-            initError(R.mipmap.qs_net, "网络出错", "哇哦，网络出错了，换个姿势下滑页面试试");
-            binding.recyclerView.setVisibility(View.GONE);
-            Toast.makeText(getContext(), "网络请求错误,请重新开启app", Toast.LENGTH_SHORT).show();
-        }
+        mPresenter.getDate(this.bindUntilEvent(FragmentEvent.DESTROY_VIEW));
     }
 
     /**
@@ -108,21 +83,17 @@ public class RecommendFragment extends DBBaseFragment implements OnRefreshListen
      */
     @Override
     public void onItem(int pos) {
-        if(!SPUtils.getInstance(CommonDate.USER).getBoolean(CommonDate.userLogin,false)){
-            startActivity(new Intent(getContext(), LoginActivity.class));
-            return;
-        }
         if (ClickUtil.isFastDoubleClick(800)) {
             return;
         }else{
             startActivity(new Intent(getContext(), ShoppingDetailActivity.class)
-                    .putExtra("goodsId",mList.getList().get(pos).getGoodsId())
-                    .putExtra("goodsName",mList.getList().get(pos).getGoodsName())
-                    .putExtra("priceNow",mList.getList().get(pos).getActualPrice())
-                    .putExtra("priceOld",mList.getList().get(pos).getOtherPrice())
-                    .putExtra("price",mList.getList().get(pos).getCutPrice())
-                    .putExtra("state",mList.getList().get(pos).getSourceStatus() + "")
-                    .putExtra("goodsImage",mList.getList().get(pos).getRankGoodImg())
+                    .putExtra("goodsId",mList.get(pos).getGoodsId())
+                    .putExtra("goodsName",mList.get(pos).getGoodsName())
+                    .putExtra("priceNow",mList.get(pos).getActualPrice())
+                    .putExtra("priceOld",mList.get(pos).getOtherPrice())
+//                    .putExtra("price",mList.get(pos).getCutPrice())
+//                    .putExtra("state",mList.get(pos).getSourceStatus() + "")
+//                    .putExtra("goodsImage",mList.get(pos).getRankGoodImg())
             );
         }
 
@@ -130,24 +101,23 @@ public class RecommendFragment extends DBBaseFragment implements OnRefreshListen
 
     @Override
     public void onSuccess(RecommendFragmentBean recommendFragmentBean) {
-        if (recommendFragmentBean.getCode() == 200) {
-            if(recommendFragmentBean.getList() != null && recommendFragmentBean.getList().size() != 0){
+        if (recommendFragmentBean.getCode() == 0) {
+            if(recommendFragmentBean.getData() != null && recommendFragmentBean.getData().size() != 0){
+                mList.clear();
                 binding.inClude.qsNet.setVisibility(View.GONE);
                 binding.recyclerView.setVisibility(View.VISIBLE);
-                mList = recommendFragmentBean;
-                mAdapter.setImage(image);
-                mAdapter.setList(recommendFragmentBean);
+                mList.addAll(recommendFragmentBean.getData());
+                if (recommendFragmentBean.getAdList().size() != 0) {
+                    mAdapter.setHeadImage(recommendFragmentBean.getAdList().get(0).getImg());
+                }
                 mAdapter.notifyDataSetChanged();
             }else {
                 initError(R.mipmap.qs_nodata, "暂无数据", "暂时没有任何数据 ");
                 binding.recyclerView.setVisibility(View.GONE);
             }
         } else {
-            if(TextUtils.isEmpty(SPUtils.getInstance(CommonDate.NETCACHE).getString(CommonDate.RecommendFragmentDATA,""))){
-                initError(R.mipmap.qs_net, "网络出错", "哇哦，网络出错了，换个姿势下滑页面试试");
-                binding.recyclerView.setVisibility(View.GONE);
-            }
-            Toast.makeText(getContext(), recommendFragmentBean.getMsg(), Toast.LENGTH_SHORT).show();
+            initError(R.mipmap.qs_net, "网络出错", "哇哦，网络出错了，换个姿势下滑页面试试");
+            binding.recyclerView.setVisibility(View.GONE);
         }
         stopResher();
     }
@@ -155,11 +125,8 @@ public class RecommendFragment extends DBBaseFragment implements OnRefreshListen
     @Override
     public void onFile(String error) {
         stopResher();
-        if(TextUtils.isEmpty(SPUtils.getInstance(CommonDate.NETCACHE).getString(CommonDate.RecommendFragmentDATA,""))){
-            initError(R.mipmap.qs_net, "网络出错", "哇哦，网络出错了，换个姿势下滑页面试试");
-            binding.recyclerView.setVisibility(View.GONE);
-        }
-        Toast.makeText(getContext(), "网络出错", Toast.LENGTH_SHORT).show();
+        initError(R.mipmap.qs_net, "网络出错", "哇哦，网络出错了，换个姿势下滑页面试试");
+        binding.recyclerView.setVisibility(View.GONE);
         Log.d("RecommendFragmentPresen", error);
     }
 
@@ -178,23 +145,6 @@ public class RecommendFragment extends DBBaseFragment implements OnRefreshListen
                 binding.swipeToLoad.setRefreshEnabled(false);
             }else {
                 binding.swipeToLoad.setRefreshing(false);
-            }
-        }
-    }
-
-    @Override
-    public void onDestroyView() {
-        EventBus.getDefault().unregister(this);
-        super.onDestroyView();
-    }
-
-    @Subscribe
-    public void initSubTab(String string) {
-        if (string.equals(HomeFragment.subTab)) {
-            if (!TextUtils.isEmpty(SPUtils.getInstance().getString(CommonDate.SubTab, ""))) {
-                tabBean = new Gson().fromJson(SPUtils.getInstance().getString(CommonDate.SubTab),TabBean.class);
-                image = tabBean.getList().get(0).getTilte().getImg();
-                binding.swipeToLoad.post(() -> binding.swipeToLoad.setRefreshing(true));
             }
         }
     }

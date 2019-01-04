@@ -25,10 +25,12 @@ public class GlideApp {
         RequestOptions requestOptions = new RequestOptions();
         requestOptions = requestOptions
                 .transform(new CenterRoundTransform(10,0, CenterRoundTransform.CornerType.ALL));
-        Glide.with(context)
-                .load(url)
-                .apply(requestOptions)
-                .into(imageView);
+        if (context != null) {
+            Glide.with(context)
+                    .load(url)
+                    .apply(requestOptions)
+                    .into(imageView);
+        }
     }
 
     /**
@@ -38,10 +40,12 @@ public class GlideApp {
         RequestOptions requestOptions = new RequestOptions();
         requestOptions = requestOptions
                 .transform(new CenterRoundTransform(10,0, CenterRoundTransform.CornerType.ALL));
-        Glide.with(context)
-                .load(id)
-                .apply(requestOptions)
-                .into(imageView);
+        if (context != null) {
+            Glide.with(context)
+                    .load(id)
+                    .apply(requestOptions)
+                    .into(imageView);
+        }
     }
 
     /**
@@ -58,10 +62,12 @@ public class GlideApp {
         if(placeholder != 0){
             requestOptions = requestOptions.placeholder(placeholder);
         }
-        Glide.with(context)
-                .load(url)
-                .apply(requestOptions)
-                .into(imageView);
+        if (context != null) {
+            Glide.with(context)
+                    .load(url)
+                    .apply(requestOptions)
+                    .into(imageView);
+        }
     }
 
     /**
@@ -78,10 +84,12 @@ public class GlideApp {
         if(placeholder != 0){
             requestOptions = requestOptions.placeholder(placeholder);
         }
-        Glide.with(context)
-                .load(url)
-                .apply(requestOptions)
-                .into(imageView);
+        if (context != null) {
+            Glide.with(context)
+                    .load(url)
+                    .apply(requestOptions)
+                    .into(imageView);
+        }
     }
 
     /**
@@ -95,11 +103,13 @@ public class GlideApp {
         if(placeholder != 0){
             requestOptions = requestOptions.placeholder(placeholder);
         }
-        Glide.with(context)
-                .load(url)
-                .apply(bitmapTransform(new CropCircleTransformation()))
-                .apply(requestOptions)
-                .into(imageView);
+        if (context != null) {
+            Glide.with(context)
+                    .load(url)
+                    .apply(bitmapTransform(new CropCircleTransformation()))
+                    .apply(requestOptions)
+                    .into(imageView);
+        }
     }
 
     /**
@@ -113,11 +123,13 @@ public class GlideApp {
         if(placeholder != 0){
             requestOptions = requestOptions.placeholder(placeholder);
         }
-        Glide.with(context)
-                .load(url)
-                .apply(bitmapTransform(new CropCircleTransformation()))
-                .apply(requestOptions)
-                .into(imageView);
+        if (context != null) {
+            Glide.with(context)
+                    .load(url)
+                    .apply(bitmapTransform(new CropCircleTransformation()))
+                    .apply(requestOptions)
+                    .into(imageView);
+        }
     }
 
     /**
@@ -131,10 +143,12 @@ public class GlideApp {
         if(placeholder != 0){
             requestOptions = requestOptions.placeholder(placeholder);
         }
-        Glide.with(context)
-                .load(url)
-                .apply(requestOptions)
-                .into(imageView);
+        if (context != null) {
+            Glide.with(context)
+                    .load(url)
+                    .apply(requestOptions)
+                    .into(imageView);
+        }
     }
 
     /**
@@ -148,19 +162,23 @@ public class GlideApp {
         if(placeholder != 0){
             requestOptions = requestOptions.placeholder(placeholder);
         }
-        Glide.with(context)
-                .load(url)
-                .apply(requestOptions)
-                .into(imageView);
+        if (context != null) {
+            Glide.with(context)
+                    .load(url)
+                    .apply(requestOptions)
+                    .into(imageView);
+        }
     }
 
     /**
      * 加载高斯模糊图片
      */
     public static void loderBlurImage(Context context , String url , ImageView imageView){
-        Glide.with(context)
-                .load(url)
-                .apply(bitmapTransform(new BlurTransformation(20)))// “23”：设置模糊度(在0.0到25.0之间)，默认”25";
-                .into(imageView);
+        if (context != null) {
+            Glide.with(context)
+                    .load(url)
+                    .apply(bitmapTransform(new BlurTransformation(20)))// “23”：设置模糊度(在0.0到25.0之间)，默认”25";
+                    .into(imageView);
+        }
     }
 }

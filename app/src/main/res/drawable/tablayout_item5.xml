@@ -4,13 +4,13 @@
 
     <item
         android:state_selected="false"
-        android:drawable="@mipmap/tab_trynor"/>
+        android:drawable="@mipmap/tab_people_nor"/>
     <item
-        android:drawable="@mipmap/tab_trysel"
+        android:drawable="@mipmap/tab_people_sel"
         android:state_selected="true"/>
 
     <item
-        android:drawable="@mipmap/tab_trysel"
+        android:drawable="@mipmap/tab_people_sel"
         android:state_pressed="true"
         android:state_focused="true"/>
 

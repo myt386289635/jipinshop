@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    android:orientation="vertical"
+    android:layout_width="wrap_content"
+    android:layout_height="@dimen/y100"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <TextView
+        android:textSize="15sp"
+        android:layout_marginLeft="@dimen/x28"
+        android:layout_marginRight="@dimen/x28"
+        android:gravity="center_vertical"
+        tools:text="测试"
+        android:id="@+id/tab_text"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"/>
+
+    <View
+        android:layout_alignParentBottom="true"
+        android:paddingRight="@dimen/x28"
+        android:paddingLeft="@dimen/x28"
+        android:layout_alignRight="@+id/tab_text"
+        android:layout_alignLeft="@+id/tab_text"
+        android:id="@+id/tab_line"
+        android:background="@color/color_E31436"
+        android:layout_width="wrap_content"
+        android:layout_height="@dimen/y4"/>
+</RelativeLayout>

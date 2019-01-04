@@ -5,6 +5,7 @@
         tools:context=".fragment.home.HomeFragment">
 
     <data>
+
         <variable
             name="listener"
             type="android.view.View.OnClickListener"/>
@@ -25,66 +26,76 @@
             android:background="@color/color_white"
             android:orientation="vertical"/>
 
-        <RelativeLayout
+        <android.support.design.widget.CoordinatorLayout
             android:layout_width="match_parent"
-            android:layout_height="@dimen/y100"
-            android:layout_marginLeft="@dimen/x28">
+            android:layout_height="match_parent"
+            android:background="@color/color_white"
+            tools:context=".MainActivity">
 
-
-            <TextView
-                android:onClick="@{listener.onClick}"
-                android:id="@+id/home_sreach"
+            <android.support.design.widget.AppBarLayout
                 android:layout_width="match_parent"
-                android:layout_height="@dimen/y60"
-                android:layout_centerVertical="true"
-                android:layout_toLeftOf="@id/home_message"
-                android:background="@drawable/home_search_bg"
-                android:drawableLeft="@mipmap/nav_search"
-                android:drawablePadding="@dimen/x10"
-                android:gravity="center_vertical"
-                android:paddingLeft="@dimen/x28"
-                android:text="搜索商品榜"
-                android:textColor="@color/color_ACACAC"
-                android:textSize="12sp"/>
+                android:layout_height="wrap_content"
+                android:background="@color/color_white">
+
+                <RelativeLayout
+                    android:id="@+id/head"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@color/color_white"
+                    android:paddingLeft="@dimen/x28"
+                    app:layout_scrollFlags="scroll|enterAlways|snap">
 
 
-            <ImageView
-                android:onClick="@{listener.onClick}"
-                android:id="@+id/home_message"
-                android:layout_width="wrap_content"
+                    <TextView
+                        android:layout_marginBottom="@dimen/y1"
+                        android:layout_marginTop="@dimen/y22"
+                        android:id="@+id/home_sreach"
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/y60"
+                        android:layout_toLeftOf="@+id/home_message"
+                        android:background="@drawable/home_search_bg"
+                        android:drawableLeft="@mipmap/nav_search"
+                        android:drawablePadding="@dimen/x10"
+                        android:gravity="center_vertical"
+                        android:onClick="@{listener.onClick}"
+                        android:paddingLeft="@dimen/x28"
+                        android:text="搜索商品榜"
+                        android:textColor="@color/color_ACACAC"
+                        android:textSize="12sp"/>
+
+
+                    <ImageView
+                        android:layout_marginBottom="@dimen/y1"
+                        android:layout_marginTop="@dimen/y22"
+                        android:id="@+id/home_message"
+                        android:layout_width="wrap_content"
+                        android:layout_height="@dimen/y60"
+                        android:layout_alignParentRight="true"
+                        android:onClick="@{listener.onClick}"
+                        android:paddingRight="@dimen/x28"
+                        android:paddingLeft="@dimen/x28"
+                        android:src="@mipmap/nav_message"/>
+
+                </RelativeLayout>
+
+                <android.support.v7.widget.RecyclerView
+                    android:id="@+id/recycler_view"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/y100"
+                    android:layout_below="@+id/head"
+                    android:background="@color/color_white"/>
+
+
+            </android.support.design.widget.AppBarLayout>
+
+
+            <com.example.administrator.jipinshop.view.MyViewPager
+                android:id="@+id/view_pager"
+                android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_alignParentRight="true"
-                android:layout_centerVertical="true"
-                android:paddingLeft="@dimen/x28"
-                android:paddingRight="@dimen/x28"
-                android:paddingTop="@dimen/y28"
-                android:paddingBottom="@dimen/y28"
-                android:src="@mipmap/nav_message"/>
-
-        </RelativeLayout>
+                app:layout_behavior="@string/appbar_scrolling_view_behavior"/>
 
 
-        <android.support.design.widget.TabLayout
-            android:id="@+id/tab_layout"
-            style="@style/MyCustomTablayout"
-            android:layout_width="match_parent"
-            android:layout_height="@dimen/y84"
-            android:layout_gravity="center_horizontal"
-            android:layout_marginLeft="@dimen/x10"
-            android:layout_marginRight="@dimen/x10"
-            android:layout_marginTop="@dimen/y_20"
-            app:tabBackground="@color/transparent"/>
-
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="@dimen/y2"
-            android:background="@color/color_F5F5F5"/>
-
-        <android.support.v4.view.ViewPager
-            android:id="@+id/view_pager"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"/>
-
+        </android.support.design.widget.CoordinatorLayout>
     </LinearLayout>
-
 </layout>
