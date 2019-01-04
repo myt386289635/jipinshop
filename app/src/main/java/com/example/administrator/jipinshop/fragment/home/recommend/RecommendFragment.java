@@ -9,16 +9,13 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.aspsine.swipetoloadlayout.OnRefreshListener;
-import com.blankj.utilcode.util.SPUtils;
 import com.example.administrator.jipinshop.R;
-import com.example.administrator.jipinshop.activity.login.LoginActivity;
 import com.example.administrator.jipinshop.activity.shoppingdetail.ShoppingDetailActivity;
 import com.example.administrator.jipinshop.adapter.RecommendFragmentAdapter;
 import com.example.administrator.jipinshop.base.DBBaseFragment;
 import com.example.administrator.jipinshop.bean.RecommendFragmentBean;
 import com.example.administrator.jipinshop.databinding.FragmentRecommendBinding;
 import com.example.administrator.jipinshop.util.ClickUtil;
-import com.example.administrator.jipinshop.util.sp.CommonDate;
 import com.trello.rxlifecycle2.android.FragmentEvent;
 
 import java.util.ArrayList;
@@ -88,12 +85,6 @@ public class RecommendFragment extends DBBaseFragment implements OnRefreshListen
         }else{
             startActivity(new Intent(getContext(), ShoppingDetailActivity.class)
                     .putExtra("goodsId",mList.get(pos).getGoodsId())
-                    .putExtra("goodsName",mList.get(pos).getGoodsName())
-                    .putExtra("priceNow",mList.get(pos).getActualPrice())
-                    .putExtra("priceOld",mList.get(pos).getOtherPrice())
-//                    .putExtra("price",mList.get(pos).getCutPrice())
-//                    .putExtra("state",mList.get(pos).getSourceStatus() + "")
-//                    .putExtra("goodsImage",mList.get(pos).getRankGoodImg())
             );
         }
 

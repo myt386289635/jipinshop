@@ -246,13 +246,6 @@
             </intent-filter>
         </receiver>
 
-
-        <!--(新的)商品详情页-->
-        <activity
-            android:name=".activity.shoppingdetail.ReShoppingDetailActivity"
-            android:screenOrientation="portrait"
-            android:windowSoftInputMode="adjustResize|stateHidden"/>
-
         <!--签到页面-->
         <activity android:name=".activity.sign.SignActivity"
                   android:screenOrientation="portrait"/>
