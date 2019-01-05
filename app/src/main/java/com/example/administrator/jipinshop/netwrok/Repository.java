@@ -246,7 +246,7 @@ public class Repository {
      * 商品详情
      */
     public Observable<ShoppingDetailBean> goodsRankDetailList(String goodsId){
-        return mAPIService.goodsRankDetailList(SPUtils.getInstance(CommonDate.USER).getString(CommonDate.userId),goodsId);
+        return mAPIService.goodsRankDetailList(goodsId);
     }
 
     /**

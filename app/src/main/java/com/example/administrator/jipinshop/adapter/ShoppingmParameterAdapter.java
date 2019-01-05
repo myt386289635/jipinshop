@@ -19,10 +19,10 @@ import java.util.List;
  */
 public class ShoppingmParameterAdapter extends BaseAdapter {
 
-    private List<ShoppingDetailBean.GoodsRankdetailEntityBean.ParametersListBean> mList;
+    private List<ShoppingDetailBean.DataBean.GoodsDetailEntityBean.ParametersListBean> mList;
     private Context mContext;
 
-    public ShoppingmParameterAdapter(List<ShoppingDetailBean.GoodsRankdetailEntityBean.ParametersListBean> list, Context context) {
+    public ShoppingmParameterAdapter(List<ShoppingDetailBean.DataBean.GoodsDetailEntityBean.ParametersListBean> list, Context context) {
         mList = list;
         mContext = context;
     }

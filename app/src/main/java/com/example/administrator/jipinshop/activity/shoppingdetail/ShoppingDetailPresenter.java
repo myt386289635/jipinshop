@@ -54,6 +54,15 @@ public class ShoppingDetailPresenter {
     }
 
 
+    public void setStatusBarHight(LinearLayout StatusBar ,Context context){
+        int resourceId = context.getResources().getIdentifier("status_bar_height", "dimen", "android");
+        if (resourceId > 0) {
+            int statusBarHeight = context.getResources().getDimensionPixelSize(resourceId);
+            ViewGroup.LayoutParams layoutParams = StatusBar.getLayoutParams();
+            layoutParams.height = statusBarHeight;
+        }
+    }
+
     public void initBanner(List<String> mBannerList , Context context , List<ImageView> point,LinearLayout mDetailPoint, ShoppingBannerAdapter mBannerAdapter){
         for (int i = 0; i < mBannerList.size(); i++) {
             ImageView imageView = new ImageView(context);

@@ -11,13 +11,13 @@ public class ShoppingDetailBean {
 
     /**
      * msg : success
-     * code : 200
-     * GoodsRankdetailEntity : {"goodsDetailId":"8b95f6e3928048e0a64ef9121c72bb5c","goodsId":"545363931984","goodsDetailImgId":"","quality":"[{\"name\":\"平安保险承保\"},{\"name\":\"官方授权\"},{\"name\":\"正品保证\"},{\"name\":\"3C认证\"}]","service":"[{\"name\":\"急速退款\"},{\"name\":\"七天无理由退换\"},{\"name\":\"电器延保\"}]","parameters":"[{\"name\":\"品名\",\"value\":\"\"},{\"name\":\"产品类别\",\"value\":\"\"},{\"name\":\"主要功能\",\"value\":\"\"},{\"name\":\"工作方式\",\"value\":\"\"},{\"name\":\"使用人群\",\"value\":\"213123123213\"},{\"name\":\"保修\",\"value\":\"\"}]","supportCount":"0","evalId":"2a343b92c9ae4bc5b01a16ca48b0df2b","commentId":"","goodsBuyLink":"https://uland.taobao.com/coupon/edetail?e=ITyMJEulhvoN%2BoQUE6FNzL9LZuZAJrjlhJAq7F1uY%2FXVhkcIv6TcbyCBjFWwUyoK5nwMTMh13cEtoRgTxpIU1oPpxSZZduT22IaVVct%2FH6e%2FbDB7vEbF3Q%3D%3D&amp;af=1&amp;pid=mm_187680147_154700100_44963000223","goods_detail_url":"http://item.taobao.com/item.htm?id=545363931984","goods_shop":"clothscenery布景旗舰店","seller":"clothscenery布景旗舰店","goods_income":"6.00","goods_brokerage":"11.94","goods_short_url":"https://s.click.taobao.com/WnKRILw","goods_url":"https://s.click.taobao.com/t?e=m%3D2%26s%3Dr1Hlui0Cu24cQipKwQzePOeEDrYVVa64K7Vc7tFgwiHjf2vlNIV67vstTgpfdUWp%2Bx%2FKLma%2BVNkN8oxQ874K7yJbf4i2HmwNSRTFcuoYQxqPsfyOPwGCYAbvG49e4hs1iwBp8IBk2pBXEROXIgstgI%2FDtvdmrhgl0ZE7sXNLyZdxKmPmpIKZsA%3D%3D","good_word":"￥6IYdb6RD5qQ￥","imgList":[{"imgId":"2","imgPath":"http://img.alicdn.com/bao/uploaded/i3/1773327259/TB1vSIUaVcJL1JjSZFOXXcWlXXa_!!0-item_pic.jpg","imgViewposition":null,"imgSort":"0","goodsId":"545363931984","evalwayId":null,"findgoodsId":null},{"imgId":"3","imgPath":"http://img.alicdn.com/bao/uploaded/i1/3082018115/TB2v.gUahTpK1RjSZR0XXbEwXXa_!!3082018115-0-item_pic.jpg","imgViewposition":null,"imgSort":"1","goodsId":"545363931984","evalwayId":null,"findgoodsId":null},{"imgId":"1","imgPath":"http://img.alicdn.com/bao/uploaded/i4/2081483336/TB1ms4VdqagSKJjy0FcXXcZeVXa_!!0-item_pic.jpg","imgViewposition":null,"imgSort":"2","goodsId":"545363931984","evalwayId":null,"findgoodsId":null}],"qualityList":[{"name":"平安保险承保"},{"name":"官方授权"},{"name":"正品保证"},{"name":"3C认证"}],"serviceList":[{"name":"急速退款"},{"name":"七天无理由退换"},{"name":"电器延保"}],"parametersList":[{"name":"品名","value":""},{"name":"产品类别","value":""},{"name":"主要功能","value":""},{"name":"工作方式","value":""},{"name":"使用人群","value":"213123123213"},{"name":"保修","value":""}],"goodsEvalWayEntity":{"evalWayId":"2a343b92c9ae4bc5b01a16ca48b0df2b","userId":null,"imgId":null,"visitCount":"23222","evalWayName":null,"content":"<!DOCTYPE html><html><head><meta charset='utf-8' /><style type=\"text/css\"> img{ width:100% } <\/style><\/head><body><div align=\"center\"><div align=\"left\"><p>黑龙江快乐刚好看见两个号结构化<\/p><p><br /><\/p><p><img src=\"http://img.alicdn.com/bao/uploaded/i2/2438930156/TB1H77vcvBNTKJjSszbXXaFrFXa_!!0-item_pic.jpg\" alt=\"\" title=\"\" width=\"382\" height=\"382\" align=\"\" /> <\/p><\/div><br /> <p align=\"left\"><strong><br /> <\/strong> <\/p><p align=\"left\"><strong>热特让他热欧体如同人工付款咖喱豆腐顾客来对付kfd<\/strong> <\/p><p align=\"left\"><strong><br /> <\/strong> <\/p><p align=\"left\"><strong> <\/strong> <\/p><p style=\"color:#4D4F53;font-family:&quot;font-size:18px;font-style:normal;font-weight:400;text-align:start;text-indent:0px;background-color:#FFFFFF;\" align=\"left\"><strong>[环球时报\u2014环球网报道 记者李司坤]11月1日，国家主席习近平应约同美国总统特朗普通电话。特朗普在通话中表示，美方重视美中经贸合作，愿继续扩大对华出口。两国经济团队有必要加强沟通磋商。特朗普还表示，支持美国企业积极参加首届中国国际进口博览会。<\/strong> <\/p><p style=\"color:#4D4F53;font-family:&quot;font-size:18px;font-style:normal;font-weight:400;text-align:start;text-indent:0px;background-color:#FFFFFF;\" align=\"left\"><strong>在11月2日举行的外交部例行记者会上，有来自路透社的记者就此事提问说，特朗普称与习主席的通话十分积极，中方如何看待两国领导人的此次谈话？<\/strong> <\/p><p style=\"color:#4D4F53;font-family:&quot;font-size:18px;font-style:normal;font-weight:400;text-align:start;text-indent:0px;background-color:#FFFFFF;\" align=\"left\"><strong>对此，外交部发言人陆慷从两个层面对这个问题进行了回答。<\/strong> <\/p><p style=\"color:#4D4F53;font-family:&quot;font-size:18px;font-style:normal;font-weight:400;text-align:start;text-indent:0px;background-color:#FFFFFF;\" align=\"left\"><strong>第一层面，陆慷表示，我也同意这个通话是非常积极的，两国领导人进行了长时间的深入的探讨，就中美关系中的重要议题，和共同关心的一些其他问题充分交换了意见。<\/strong> <\/p><p style=\"color:#4D4F53;font-family:&quot;font-size:18px;font-style:normal;font-weight:400;text-align:start;text-indent:0px;background-color:#FFFFFF;\" align=\"left\"><strong>陆慷说，两国领导人确实谈到了经贸关系，我想这里面还是有一些有共同的看法的。<\/strong> <\/p><p style=\"color:#4D4F53;font-family:&quot;font-size:18px;font-style:normal;font-weight:400;text-align:start;text-indent:0px;background-color:#FFFFFF;\" align=\"left\"><strong>首先，两国领导人都非常重视中美之间的经贸关系：特朗普总统一开始也说美方非常重视中美经贸关系，习近平主席也强调了，中美经贸关系是中美关系的压舱石和稳定器。\u201c就中方而言，我一直认为，中美经贸关系的本质是互利共赢的。\u201d<\/strong> <\/p><p style=\"color:#4D4F53;font-family:&quot;font-size:18px;font-style:normal;font-weight:400;text-align:start;text-indent:0px;background-color:#FFFFFF;\" align=\"left\"><strong>其次，两国领导人同时也认为，应当加强双方间的经贸往来：特朗普总统明确讲美方还是希望扩大对中国的出口，他还特别提到他跟很多美国大公司、大企业的负责人直接交谈过，支持他们积极参与中国首届进口博览会。习近平主席也说，我们还是希望中美经贸关系得到良好发展，我们也很高兴看到，很多美国企业积极参与中国首届进口博览会。<\/strong> <\/p><p style=\"color:#4D4F53;font-family:&quot;font-size:18px;font-style:normal;font-weight:400;text-align:start;text-indent:0px;background-color:#FFFFFF;\" align=\"left\"><strong>陆慷指出，两国领导人确实也谈到了当前中美经贸关系中存在的问题，两国领导人都同意应当责成双方的经济团队就彼此关切的问题展开实质性的磋商，\u201c我们希望磋商能取得积极成果。\u201d<\/strong> <\/p><p style=\"color:#4D4F53;font-family:&quot;font-size:18px;font-style:normal;font-weight:400;text-align:start;text-indent:0px;background-color:#FFFFFF;\" align=\"left\"><strong>第二层面，陆慷对中美之间出现了经贸分歧应该怎么谈做出回应。他说，双方应当是在相互尊重的基础上解决彼此的关切，应该本着平等的、互利的、诚信的原则开展磋商，这样达成一个双方都能接受的成果，也是两国领导人昨天在通话中所要求的，\u201c这样一个结果才是符合双方的共同利益的。\u201d<\/strong> <\/p><p style=\"color:#4D4F53;font-family:&quot;font-size:18px;font-style:normal;font-weight:400;text-align:start;text-indent:0px;background-color:#FFFFFF;\" align=\"left\"><strong><span style=\"color:#337FE5;\">就在两国领导人发表谈话的数小时后，美国司法部对福建晋华集成电路有限公司、台湾半导体公司联华电子及三名台湾人进行起诉，称后者从一家美国科技公司窃取商业机密。上述路透社记者结合此事进行了追问，他说，我想知道美国到底是真诚的吗？为什么美方说的和做的好像不一样？<\/span> <\/strong> <\/p><p style=\"color:#4D4F53;font-family:&quot;font-size:18px;font-style:normal;font-weight:400;text-align:start;text-indent:0px;background-color:#FFFFFF;\" align=\"left\"><strong><span style=\"color:#337FE5;\">对此，陆慷回应道，希望两国的工作团队都能够严格地遵循、落实好两国领导人达成的共识。<\/span> <\/strong> <\/p><p style=\"color:#4D4F53;font-family:&quot;font-size:18px;font-style:normal;font-weight:400;text-align:start;text-indent:0px;background-color:#FFFFFF;\" align=\"left\"><strong><span style=\"color:#337FE5;\">\u201c特朗普总统昨天在和习主席通话的时候表达了美方愿意通过对话来解决两国之间的分歧的愿望，\u201d陆慷说，\u201c我们认为这一愿望是符合美国的自身利益的，当然也符合中国自身的利益和国际社会的利益。\u201d他说，两国领导人昨天一致同意双方的工作团队应该严格落实好这些共识，\u201c我们希望两国的工作团队都能够严格地遵循，落实好这些共识，真正做一些有利于促进中美关系以及真正为两国工商界和两国的消费者带来福祉的事情。<\/span>\u201d<\/strong><\/p><p style=\"color:#4D4F53;font-family:&quot;font-size:18px;font-style:normal;font-weight:400;text-align:start;text-indent:0px;background-color:#FFFFFF;\" align=\"left\"><strong><br /><\/strong> <\/p><p><br /><\/p><p><br /><\/p><\/div><\/body><\/html>","commentId":"","publishTime":null,"createTime":"2018-11-05 11:39:40"}}
+     * code : 0
+     * data : {"goodsEntity":{"goodsId":"19563699049","goodsName":"科德士理发器CHC-912","img":"http://jipincheng.cn/5062e94208b745eea73a295bcf5bf743","imgs":"http://jipincheng.cn/5062e94208b745eea73a295bcf5bf743,http://jipincheng.cn/5062e94208b745eea73a295bcf5bf743","goodsTags":"[{\"name\":\"成人\"},{\"name\":\"100元档\"},{\"name\":\"数显\"},{\"name\":\"快速充电\"}]","actualPrice":154,"couponPrice":5,"otherGoodsId":"19563699049","otherName":"codos科德士理发器CHC 912充电式专业美发店电推剪成人电推子工具","otherPrice":159,"recommendReason":"科德士CHC-912理发器，做工比较精致，手感舒适，理发能力相当不错。同时，配有数显，充电快，续航较久。总的来说，综合性能相当优秀。","score":7,"scoreOptions":"[{\"name\":\"外观操作\",\"score\":\"8\"},{\"name\":\"理发效果\",\"score\":\"6\"},{\"name\":\"噪音水平\",\"score\":\"8\"},{\"name\":\"发热水平\",\"score\":\"6\"}]","pv":333,"source":2,"voteCount":0,"exchangePoint":15400,"goodsTagsList":[{"name":"成人"},{"name":"100元档"},{"name":"数显"},{"name":"快速充电"}],"scoreOptionsList":[{"name":"外观操作","score":"8"},{"name":"理发效果","score":"6"},{"name":"噪音水平","score":"8"},{"name":"发热水平","score":"6"}],"imgList":["http://jipincheng.cn/5062e94208b745eea73a295bcf5bf743","http://jipincheng.cn/5062e94208b745eea73a295bcf5bf743"]},"goodsDetailEntity":{"goodsDetailId":"cc270cba20c346fc8f8c2c33d4cdc77b","goodsId":"19563699049","parameters":"[{\"name\":\"品牌\",\"value\":\"科德士\"},{\"name\":\"型号\",\"value\":\"CHC-912\"},{\"name\":\"刀头材质\",\"value\":\"镀钛合金+陶瓷\"},{\"name\":\"充电\",\"value\":\"2小时\"},{\"name\":\"续航\",\"value\":\"180分钟\"},{\"name\":\"适用人群\",\"value\":\"成人\"}]","goodsBuyLink":"https://uland.taobao.com/coupon/edetail?e=QBFLAGJwMD1t3vqbdXnGlm%2FhZl9dW1mN90OTS5BvsytYmac%2FmX0MHietPwXZ5p%2BI9oalc7kuyppi63vil%2BG%2FBCEBmSsSAq%2FxWOGP4KauORqA9F9OCeGtkw%3D%3D&amp;af=1&amp;pid=mm_233030125_228950062_62874250108","goodsDetailUrl":"http://item.taobao.com/item.htm?id=19563699049","goodsShop":"卡莱飘大师装备","seller":"蝌蚪妈","goodsIncome":1.35,"goodsBrokerage":2.15,"goodsShortUrl":"https://s.click.taobao.com/XncRYJw","goodsUrl":"https://s.click.taobao.com/t?e=m%3D2%26s%3Du4h3LXJrl1YcQipKwQzePOeEDrYVVa64LKpWJ%2Bin0XLjf2vlNIV67sVeFv0BLj4x2yqscP0DbOKYoTGIzrbI9mAFOvXVwd6D1OBzOlXliGpuv7EEly2ho%2Fen02N6fRCn6cBoZrl%2BeFYwrpqIA0Q9cNzUASJl%2FZwGxgxdTc00KD8%3D","goodsWord":"￥CItzbPIf29K￥","shareTitle":null,"shareContent":null,"shareUrl":null,"shareImg":null,"parametersList":[{"name":"品牌","value":"科德士"},{"name":"型号","value":"CHC-912"},{"name":"刀头材质","value":"镀钛合金+陶瓷"},{"name":"充电","value":"2小时"},{"name":"续航","value":"180分钟"},{"name":"适用人群","value":"成人"}]},"evaluationEntity":{"articleId":"24a243bf73ba49389c2be17cfcb461b0","userId":"7d67892cb02f4766aa72fd5b08b8d8d1","user":{"userId":"7d67892cb02f4766aa72fd5b08b8d8d1","nickname":"皮Sir","gender":"男","avatar":"http://jipincheng.cn/dafca5b3d66a43dc9cc00e07acd7bdb0"},"goodsId":"19563699049","img":null,"title":"科德士CHC-912开箱：把\u201c鲸鱼\u201d拿来理发是种什么感受？","content":"<p style=\"text-align:left;\"><span style=\"font-size:19px;font-family:SimHei;\"><strong>科德士CHC-912开箱：把\u201c鲸鱼\u201d拿来理发是种什么感受？<\/strong><\/span><\/p><p><br/><\/p><p><br/><\/p><div style=\"text-align:justify;\"><span style=\"font-family:SimHei;\">不久前，我们做过了100~200元价位段的理发器横评，最终选出了这款科德士CHC-912，虽然不是各方面都极强，但是综合性能确实表现很出色，而且价格也比较实惠。<\/span><\/div><span style=\"font-family:SimHei;\"><\/span><br/><span style=\"font-family:SimHei;\">今天，我就带大家了解一下它，想入手的，看这篇足够了。<\/span><p><br/><\/p><p><img src=\"http://jipincheng.cn/96de584c14dc414f90d0f4cf9f699855\" alt=\"\" /><\/p><p><span style=\"font-family:SimHei;\">外包装中规中矩，还算精致。<\/span><br/><br/><span style=\"font-family:SimHei;\">配件不多，但是足够实用，润滑油、限位梳、充电器等等。限位梳虽然只有2个，但是每一个前后都能用，实际上是4个。<\/span><br/><img src=\"http://jipincheng.cn/8a23dd8d8aca4e07b09fa6542d25262e\" alt=\"\" /><br/><span style=\"font-family:SimHei;\">如果要问我对912的第一个感受，必须是长得像鲸鱼。主要配色是黑色，两侧加了白色的椭圆形，不知识科德士有意为之，还是凑巧。<\/span><br/><img src=\"http://jipincheng.cn/00297b5a227d4d2f98613de97ed2f7a2\" alt=\"\" /><br/><img src=\"http://jipincheng.cn/350d634a71be4870b11c9ead1597d518\" alt=\"\" /><br/><span style=\"font-family:SimHei;\">总是感觉，好像拿着鲸鱼理发一样......随时会被一口吃掉！哈哈哈哈<\/span><br/><br/><span style=\"font-family:SimHei;\">实在忍不住再多看一眼！<\/span><br/><img src=\"http://jipincheng.cn/57466484b37f473db721085cb73e405c\" alt=\"\" /><br/><span style=\"font-family:SimHei;\">好了，不皮了。<\/span><br/><br/><span style=\"font-family:SimHei;\">刀头部分，采用了比较流行的钛合金定刀+陶瓷动刀的设计，支持刀头水洗。<\/span><br/><img src=\"http://jipincheng.cn/484fcf7f17414344b41f49da9008fb91\" alt=\"\" /><br/><span style=\"font-family:SimHei;\">别一看到要拆刀头就觉得麻烦，轻松就能拆下、安装，方便还是很方便的。<\/span><br/><img src=\"http://jipincheng.cn/fdda9786fd854d5e81c059ed769a9734\" alt=\"\" /><br/><span style=\"font-family:SimHei;\">刀头正下方，是长度调节按钮，推动式的，支持4档调节。<\/span><br/><img src=\"http://jipincheng.cn/8ad306cd712140b68f4eb8c820ed16db\" alt=\"\" /><br/><span style=\"font-family:SimHei;\">再往下就是开关键了，就是下面这张图里的，黑色长条。<\/span><br/><img src=\"http://jipincheng.cn/74a1b55882de4522ab18c13eeacc4910\" alt=\"\" /><br/><span style=\"font-family:SimHei;\">机身下半部，特别加了个\u201c斜坡\u201d，配有数字显示电量功能。<\/span><br/><img src=\"http://jipincheng.cn/84d4f6cc70404e9e9f8b21c4cef00278\" alt=\"\" /><br/><span style=\"font-family:SimHei;\">底部是充电接口，支持充插两用。2小时快速充满，180分钟的续航，完全能满足大家的使用了。<\/span><br/><br/><span style=\"font-family:SimHei;\">外观和配置，我们都已经了解得差不多了。<\/span><br/><br/><span style=\"font-family:SimHei;\">那么，拿着\u201c鲸鱼\u201d理发到底是个什么体验呢？理发效果怎么样呢？下面进入实测环节。<\/span><br/><img src=\"http://jipincheng.cn/d6bb9d3f4bc543f5a2f9b05f14823114\" alt=\"\" /><br/><span style=\"font-family:SimHei;\">我准备了一顶假发，但由于我不是专业的\u201cTony\u201d老师，就不东施效颦了。抓起一小撮头发，直接横扫过去。<\/span><br/><img src=\"http://jipincheng.cn/cad80d8b18134dbbb0e4e7c955798a06\" alt=\"\" /><br/><span style=\"font-family:SimHei;\">可以很清楚地看到，发丝比较齐整，不过还是有几根\u201c不合群\u201d，能力还是OK的。<\/span><br/><img src=\"http://jipincheng.cn/3ec8752f16d447c0a927952a50c75b80\" alt=\"\" /><br/><span style=\"font-family:SimHei;\">至于理发器广受吐槽的噪音问题，912也还不错。APP测试只有60dB，加上它的噪声低沉、并不刺耳，所以大多数人还是可以忍受滴。<\/span><br/><br/><span style=\"font-family:SimHei;\">目前，科德士CHC-912的售价为159元，算是比较便宜的。但是它的价值，却不止这个\u201c159\u201d，各方面都很不错，暂时没有发现什么缺点。且不说别人，我这么用一通下来，体验不错，觉得挺贴心、顺手的。<\/span><\/p><p><br/><\/p>","contentType":null,"size":null,"pv":0,"shareTitle":null,"shareContent":null,"shareImg":null,"shareUrl":null},"goodsCouponsEntity":{"couponId":"df8fdaaf43634f6cadfd396bbebe74aa","couponName":null,"couponType":"满100元减5元","couponMoney":5,"spendMoney":100,"couponDes":null,"sendNum":9999,"surplusNum":8996,"validStartTime":"2018.11.14","validEndTime":"2019.02.10","dataFlag":1,"couponsUrl":"https://uland.taobao.com/coupon/edetail?e=QBFLAGJwMD1t3vqbdXnGlm%2FhZl9dW1mN90OTS5BvsytYmac%2FmX0MHietPwXZ5p%2BI9oalc7kuyppi63vil%2BG%2FBCEBmSsSAq%2FxWOGP4KauORqA9F9OCeGtkw%3D%3D&af=1&pid=mm_233030125_228950062_62874250108","couponsShortUrl":"https://s.click.taobao.com/xujRYJw","couponsWord":"￥CMuwbPIfS4e￥"}}
      */
 
     private String msg;
     private int code;
-    private GoodsRankdetailEntityBean GoodsRankdetailEntity;
+    private DataBean data;
 
     public String getMsg() {
         return msg;
@@ -35,461 +35,352 @@ public class ShoppingDetailBean {
         this.code = code;
     }
 
-    public GoodsRankdetailEntityBean getGoodsRankdetailEntity() {
-        return GoodsRankdetailEntity;
+    public DataBean getData() {
+        return data;
     }
 
-    public void setGoodsRankdetailEntity(GoodsRankdetailEntityBean GoodsRankdetailEntity) {
-        this.GoodsRankdetailEntity = GoodsRankdetailEntity;
+    public void setData(DataBean data) {
+        this.data = data;
     }
 
-    public static class GoodsRankdetailEntityBean {
+    public static class DataBean {
         /**
-         * goodsDetailId : 8b95f6e3928048e0a64ef9121c72bb5c
-         * goodsId : 545363931984
-         * goodsDetailImgId :
-         * quality : [{"name":"平安保险承保"},{"name":"官方授权"},{"name":"正品保证"},{"name":"3C认证"}]
-         * service : [{"name":"急速退款"},{"name":"七天无理由退换"},{"name":"电器延保"}]
-         * parameters : [{"name":"品名","value":""},{"name":"产品类别","value":""},{"name":"主要功能","value":""},{"name":"工作方式","value":""},{"name":"使用人群","value":"213123123213"},{"name":"保修","value":""}]
-         * supportCount : 0
-         * evalId : 2a343b92c9ae4bc5b01a16ca48b0df2b
-         * commentId :
-         * goodsBuyLink : https://uland.taobao.com/coupon/edetail?e=ITyMJEulhvoN%2BoQUE6FNzL9LZuZAJrjlhJAq7F1uY%2FXVhkcIv6TcbyCBjFWwUyoK5nwMTMh13cEtoRgTxpIU1oPpxSZZduT22IaVVct%2FH6e%2FbDB7vEbF3Q%3D%3D&amp;af=1&amp;pid=mm_187680147_154700100_44963000223
-         * goods_detail_url : http://item.taobao.com/item.htm?id=545363931984
-         * goods_shop : clothscenery布景旗舰店
-         * seller : clothscenery布景旗舰店
-         * goods_income : 6.00
-         * goods_brokerage : 11.94
-         * goods_short_url : https://s.click.taobao.com/WnKRILw
-         * goods_url : https://s.click.taobao.com/t?e=m%3D2%26s%3Dr1Hlui0Cu24cQipKwQzePOeEDrYVVa64K7Vc7tFgwiHjf2vlNIV67vstTgpfdUWp%2Bx%2FKLma%2BVNkN8oxQ874K7yJbf4i2HmwNSRTFcuoYQxqPsfyOPwGCYAbvG49e4hs1iwBp8IBk2pBXEROXIgstgI%2FDtvdmrhgl0ZE7sXNLyZdxKmPmpIKZsA%3D%3D
-         * good_word : ￥6IYdb6RD5qQ￥
-         * imgList : [{"imgId":"2","imgPath":"http://img.alicdn.com/bao/uploaded/i3/1773327259/TB1vSIUaVcJL1JjSZFOXXcWlXXa_!!0-item_pic.jpg","imgViewposition":null,"imgSort":"0","goodsId":"545363931984","evalwayId":null,"findgoodsId":null},{"imgId":"3","imgPath":"http://img.alicdn.com/bao/uploaded/i1/3082018115/TB2v.gUahTpK1RjSZR0XXbEwXXa_!!3082018115-0-item_pic.jpg","imgViewposition":null,"imgSort":"1","goodsId":"545363931984","evalwayId":null,"findgoodsId":null},{"imgId":"1","imgPath":"http://img.alicdn.com/bao/uploaded/i4/2081483336/TB1ms4VdqagSKJjy0FcXXcZeVXa_!!0-item_pic.jpg","imgViewposition":null,"imgSort":"2","goodsId":"545363931984","evalwayId":null,"findgoodsId":null}]
-         * qualityList : [{"name":"平安保险承保"},{"name":"官方授权"},{"name":"正品保证"},{"name":"3C认证"}]
-         * serviceList : [{"name":"急速退款"},{"name":"七天无理由退换"},{"name":"电器延保"}]
-         * parametersList : [{"name":"品名","value":""},{"name":"产品类别","value":""},{"name":"主要功能","value":""},{"name":"工作方式","value":""},{"name":"使用人群","value":"213123123213"},{"name":"保修","value":""}]
-         * goodsEvalWayEntity : {"evalWayId":"2a343b92c9ae4bc5b01a16ca48b0df2b","userId":null,"imgId":null,"visitCount":"23222","evalWayName":null,"content":"<!DOCTYPE html><html><head><meta charset='utf-8' /><style type=\"text/css\"> img{ width:100% } <\/style><\/head><body><div align=\"center\"><div align=\"left\"><p>黑龙江快乐刚好看见两个号结构化<\/p><p><br /><\/p><p><img src=\"http://img.alicdn.com/bao/uploaded/i2/2438930156/TB1H77vcvBNTKJjSszbXXaFrFXa_!!0-item_pic.jpg\" alt=\"\" title=\"\" width=\"382\" height=\"382\" align=\"\" /> <\/p><\/div><br /> <p align=\"left\"><strong><br /> <\/strong> <\/p><p align=\"left\"><strong>热特让他热欧体如同人工付款咖喱豆腐顾客来对付kfd<\/strong> <\/p><p align=\"left\"><strong><br /> <\/strong> <\/p><p align=\"left\"><strong> <\/strong> <\/p><p style=\"color:#4D4F53;font-family:&quot;font-size:18px;font-style:normal;font-weight:400;text-align:start;text-indent:0px;background-color:#FFFFFF;\" align=\"left\"><strong>[环球时报\u2014环球网报道 记者李司坤]11月1日，国家主席习近平应约同美国总统特朗普通电话。特朗普在通话中表示，美方重视美中经贸合作，愿继续扩大对华出口。两国经济团队有必要加强沟通磋商。特朗普还表示，支持美国企业积极参加首届中国国际进口博览会。<\/strong> <\/p><p style=\"color:#4D4F53;font-family:&quot;font-size:18px;font-style:normal;font-weight:400;text-align:start;text-indent:0px;background-color:#FFFFFF;\" align=\"left\"><strong>在11月2日举行的外交部例行记者会上，有来自路透社的记者就此事提问说，特朗普称与习主席的通话十分积极，中方如何看待两国领导人的此次谈话？<\/strong> <\/p><p style=\"color:#4D4F53;font-family:&quot;font-size:18px;font-style:normal;font-weight:400;text-align:start;text-indent:0px;background-color:#FFFFFF;\" align=\"left\"><strong>对此，外交部发言人陆慷从两个层面对这个问题进行了回答。<\/strong> <\/p><p style=\"color:#4D4F53;font-family:&quot;font-size:18px;font-style:normal;font-weight:400;text-align:start;text-indent:0px;background-color:#FFFFFF;\" align=\"left\"><strong>第一层面，陆慷表示，我也同意这个通话是非常积极的，两国领导人进行了长时间的深入的探讨，就中美关系中的重要议题，和共同关心的一些其他问题充分交换了意见。<\/strong> <\/p><p style=\"color:#4D4F53;font-family:&quot;font-size:18px;font-style:normal;font-weight:400;text-align:start;text-indent:0px;background-color:#FFFFFF;\" align=\"left\"><strong>陆慷说，两国领导人确实谈到了经贸关系，我想这里面还是有一些有共同的看法的。<\/strong> <\/p><p style=\"color:#4D4F53;font-family:&quot;font-size:18px;font-style:normal;font-weight:400;text-align:start;text-indent:0px;background-color:#FFFFFF;\" align=\"left\"><strong>首先，两国领导人都非常重视中美之间的经贸关系：特朗普总统一开始也说美方非常重视中美经贸关系，习近平主席也强调了，中美经贸关系是中美关系的压舱石和稳定器。\u201c就中方而言，我一直认为，中美经贸关系的本质是互利共赢的。\u201d<\/strong> <\/p><p style=\"color:#4D4F53;font-family:&quot;font-size:18px;font-style:normal;font-weight:400;text-align:start;text-indent:0px;background-color:#FFFFFF;\" align=\"left\"><strong>其次，两国领导人同时也认为，应当加强双方间的经贸往来：特朗普总统明确讲美方还是希望扩大对中国的出口，他还特别提到他跟很多美国大公司、大企业的负责人直接交谈过，支持他们积极参与中国首届进口博览会。习近平主席也说，我们还是希望中美经贸关系得到良好发展，我们也很高兴看到，很多美国企业积极参与中国首届进口博览会。<\/strong> <\/p><p style=\"color:#4D4F53;font-family:&quot;font-size:18px;font-style:normal;font-weight:400;text-align:start;text-indent:0px;background-color:#FFFFFF;\" align=\"left\"><strong>陆慷指出，两国领导人确实也谈到了当前中美经贸关系中存在的问题，两国领导人都同意应当责成双方的经济团队就彼此关切的问题展开实质性的磋商，\u201c我们希望磋商能取得积极成果。\u201d<\/strong> <\/p><p style=\"color:#4D4F53;font-family:&quot;font-size:18px;font-style:normal;font-weight:400;text-align:start;text-indent:0px;background-color:#FFFFFF;\" align=\"left\"><strong>第二层面，陆慷对中美之间出现了经贸分歧应该怎么谈做出回应。他说，双方应当是在相互尊重的基础上解决彼此的关切，应该本着平等的、互利的、诚信的原则开展磋商，这样达成一个双方都能接受的成果，也是两国领导人昨天在通话中所要求的，\u201c这样一个结果才是符合双方的共同利益的。\u201d<\/strong> <\/p><p style=\"color:#4D4F53;font-family:&quot;font-size:18px;font-style:normal;font-weight:400;text-align:start;text-indent:0px;background-color:#FFFFFF;\" align=\"left\"><strong><span style=\"color:#337FE5;\">就在两国领导人发表谈话的数小时后，美国司法部对福建晋华集成电路有限公司、台湾半导体公司联华电子及三名台湾人进行起诉，称后者从一家美国科技公司窃取商业机密。上述路透社记者结合此事进行了追问，他说，我想知道美国到底是真诚的吗？为什么美方说的和做的好像不一样？<\/span> <\/strong> <\/p><p style=\"color:#4D4F53;font-family:&quot;font-size:18px;font-style:normal;font-weight:400;text-align:start;text-indent:0px;background-color:#FFFFFF;\" align=\"left\"><strong><span style=\"color:#337FE5;\">对此，陆慷回应道，希望两国的工作团队都能够严格地遵循、落实好两国领导人达成的共识。<\/span> <\/strong> <\/p><p style=\"color:#4D4F53;font-family:&quot;font-size:18px;font-style:normal;font-weight:400;text-align:start;text-indent:0px;background-color:#FFFFFF;\" align=\"left\"><strong><span style=\"color:#337FE5;\">\u201c特朗普总统昨天在和习主席通话的时候表达了美方愿意通过对话来解决两国之间的分歧的愿望，\u201d陆慷说，\u201c我们认为这一愿望是符合美国的自身利益的，当然也符合中国自身的利益和国际社会的利益。\u201d他说，两国领导人昨天一致同意双方的工作团队应该严格落实好这些共识，\u201c我们希望两国的工作团队都能够严格地遵循，落实好这些共识，真正做一些有利于促进中美关系以及真正为两国工商界和两国的消费者带来福祉的事情。<\/span>\u201d<\/strong><\/p><p style=\"color:#4D4F53;font-family:&quot;font-size:18px;font-style:normal;font-weight:400;text-align:start;text-indent:0px;background-color:#FFFFFF;\" align=\"left\"><strong><br /><\/strong> <\/p><p><br /><\/p><p><br /><\/p><\/div><\/body><\/html>","commentId":"","publishTime":null,"createTime":"2018-11-05 11:39:40"}
+         * goodsEntity : {"goodsId":"19563699049","goodsName":"科德士理发器CHC-912","img":"http://jipincheng.cn/5062e94208b745eea73a295bcf5bf743","imgs":"http://jipincheng.cn/5062e94208b745eea73a295bcf5bf743,http://jipincheng.cn/5062e94208b745eea73a295bcf5bf743","goodsTags":"[{\"name\":\"成人\"},{\"name\":\"100元档\"},{\"name\":\"数显\"},{\"name\":\"快速充电\"}]","actualPrice":154,"couponPrice":5,"otherGoodsId":"19563699049","otherName":"codos科德士理发器CHC 912充电式专业美发店电推剪成人电推子工具","otherPrice":159,"recommendReason":"科德士CHC-912理发器，做工比较精致，手感舒适，理发能力相当不错。同时，配有数显，充电快，续航较久。总的来说，综合性能相当优秀。","score":7,"scoreOptions":"[{\"name\":\"外观操作\",\"score\":\"8\"},{\"name\":\"理发效果\",\"score\":\"6\"},{\"name\":\"噪音水平\",\"score\":\"8\"},{\"name\":\"发热水平\",\"score\":\"6\"}]","pv":333,"source":2,"voteCount":0,"exchangePoint":15400,"goodsTagsList":[{"name":"成人"},{"name":"100元档"},{"name":"数显"},{"name":"快速充电"}],"scoreOptionsList":[{"name":"外观操作","score":"8"},{"name":"理发效果","score":"6"},{"name":"噪音水平","score":"8"},{"name":"发热水平","score":"6"}],"imgList":["http://jipincheng.cn/5062e94208b745eea73a295bcf5bf743","http://jipincheng.cn/5062e94208b745eea73a295bcf5bf743"]}
+         * goodsDetailEntity : {"goodsDetailId":"cc270cba20c346fc8f8c2c33d4cdc77b","goodsId":"19563699049","parameters":"[{\"name\":\"品牌\",\"value\":\"科德士\"},{\"name\":\"型号\",\"value\":\"CHC-912\"},{\"name\":\"刀头材质\",\"value\":\"镀钛合金+陶瓷\"},{\"name\":\"充电\",\"value\":\"2小时\"},{\"name\":\"续航\",\"value\":\"180分钟\"},{\"name\":\"适用人群\",\"value\":\"成人\"}]","goodsBuyLink":"https://uland.taobao.com/coupon/edetail?e=QBFLAGJwMD1t3vqbdXnGlm%2FhZl9dW1mN90OTS5BvsytYmac%2FmX0MHietPwXZ5p%2BI9oalc7kuyppi63vil%2BG%2FBCEBmSsSAq%2FxWOGP4KauORqA9F9OCeGtkw%3D%3D&amp;af=1&amp;pid=mm_233030125_228950062_62874250108","goodsDetailUrl":"http://item.taobao.com/item.htm?id=19563699049","goodsShop":"卡莱飘大师装备","seller":"蝌蚪妈","goodsIncome":1.35,"goodsBrokerage":2.15,"goodsShortUrl":"https://s.click.taobao.com/XncRYJw","goodsUrl":"https://s.click.taobao.com/t?e=m%3D2%26s%3Du4h3LXJrl1YcQipKwQzePOeEDrYVVa64LKpWJ%2Bin0XLjf2vlNIV67sVeFv0BLj4x2yqscP0DbOKYoTGIzrbI9mAFOvXVwd6D1OBzOlXliGpuv7EEly2ho%2Fen02N6fRCn6cBoZrl%2BeFYwrpqIA0Q9cNzUASJl%2FZwGxgxdTc00KD8%3D","goodsWord":"￥CItzbPIf29K￥","shareTitle":null,"shareContent":null,"shareUrl":null,"shareImg":null,"parametersList":[{"name":"品牌","value":"科德士"},{"name":"型号","value":"CHC-912"},{"name":"刀头材质","value":"镀钛合金+陶瓷"},{"name":"充电","value":"2小时"},{"name":"续航","value":"180分钟"},{"name":"适用人群","value":"成人"}]}
+         * evaluationEntity : {"articleId":"24a243bf73ba49389c2be17cfcb461b0","userId":"7d67892cb02f4766aa72fd5b08b8d8d1","user":{"userId":"7d67892cb02f4766aa72fd5b08b8d8d1","nickname":"皮Sir","gender":"男","avatar":"http://jipincheng.cn/dafca5b3d66a43dc9cc00e07acd7bdb0"},"goodsId":"19563699049","img":null,"title":"科德士CHC-912开箱：把\u201c鲸鱼\u201d拿来理发是种什么感受？","content":"<p style=\"text-align:left;\"><span style=\"font-size:19px;font-family:SimHei;\"><strong>科德士CHC-912开箱：把\u201c鲸鱼\u201d拿来理发是种什么感受？<\/strong><\/span><\/p><p><br/><\/p><p><br/><\/p><div style=\"text-align:justify;\"><span style=\"font-family:SimHei;\">不久前，我们做过了100~200元价位段的理发器横评，最终选出了这款科德士CHC-912，虽然不是各方面都极强，但是综合性能确实表现很出色，而且价格也比较实惠。<\/span><\/div><span style=\"font-family:SimHei;\"><\/span><br/><span style=\"font-family:SimHei;\">今天，我就带大家了解一下它，想入手的，看这篇足够了。<\/span><p><br/><\/p><p><img src=\"http://jipincheng.cn/96de584c14dc414f90d0f4cf9f699855\" alt=\"\" /><\/p><p><span style=\"font-family:SimHei;\">外包装中规中矩，还算精致。<\/span><br/><br/><span style=\"font-family:SimHei;\">配件不多，但是足够实用，润滑油、限位梳、充电器等等。限位梳虽然只有2个，但是每一个前后都能用，实际上是4个。<\/span><br/><img src=\"http://jipincheng.cn/8a23dd8d8aca4e07b09fa6542d25262e\" alt=\"\" /><br/><span style=\"font-family:SimHei;\">如果要问我对912的第一个感受，必须是长得像鲸鱼。主要配色是黑色，两侧加了白色的椭圆形，不知识科德士有意为之，还是凑巧。<\/span><br/><img src=\"http://jipincheng.cn/00297b5a227d4d2f98613de97ed2f7a2\" alt=\"\" /><br/><img src=\"http://jipincheng.cn/350d634a71be4870b11c9ead1597d518\" alt=\"\" /><br/><span style=\"font-family:SimHei;\">总是感觉，好像拿着鲸鱼理发一样......随时会被一口吃掉！哈哈哈哈<\/span><br/><br/><span style=\"font-family:SimHei;\">实在忍不住再多看一眼！<\/span><br/><img src=\"http://jipincheng.cn/57466484b37f473db721085cb73e405c\" alt=\"\" /><br/><span style=\"font-family:SimHei;\">好了，不皮了。<\/span><br/><br/><span style=\"font-family:SimHei;\">刀头部分，采用了比较流行的钛合金定刀+陶瓷动刀的设计，支持刀头水洗。<\/span><br/><img src=\"http://jipincheng.cn/484fcf7f17414344b41f49da9008fb91\" alt=\"\" /><br/><span style=\"font-family:SimHei;\">别一看到要拆刀头就觉得麻烦，轻松就能拆下、安装，方便还是很方便的。<\/span><br/><img src=\"http://jipincheng.cn/fdda9786fd854d5e81c059ed769a9734\" alt=\"\" /><br/><span style=\"font-family:SimHei;\">刀头正下方，是长度调节按钮，推动式的，支持4档调节。<\/span><br/><img src=\"http://jipincheng.cn/8ad306cd712140b68f4eb8c820ed16db\" alt=\"\" /><br/><span style=\"font-family:SimHei;\">再往下就是开关键了，就是下面这张图里的，黑色长条。<\/span><br/><img src=\"http://jipincheng.cn/74a1b55882de4522ab18c13eeacc4910\" alt=\"\" /><br/><span style=\"font-family:SimHei;\">机身下半部，特别加了个\u201c斜坡\u201d，配有数字显示电量功能。<\/span><br/><img src=\"http://jipincheng.cn/84d4f6cc70404e9e9f8b21c4cef00278\" alt=\"\" /><br/><span style=\"font-family:SimHei;\">底部是充电接口，支持充插两用。2小时快速充满，180分钟的续航，完全能满足大家的使用了。<\/span><br/><br/><span style=\"font-family:SimHei;\">外观和配置，我们都已经了解得差不多了。<\/span><br/><br/><span style=\"font-family:SimHei;\">那么，拿着\u201c鲸鱼\u201d理发到底是个什么体验呢？理发效果怎么样呢？下面进入实测环节。<\/span><br/><img src=\"http://jipincheng.cn/d6bb9d3f4bc543f5a2f9b05f14823114\" alt=\"\" /><br/><span style=\"font-family:SimHei;\">我准备了一顶假发，但由于我不是专业的\u201cTony\u201d老师，就不东施效颦了。抓起一小撮头发，直接横扫过去。<\/span><br/><img src=\"http://jipincheng.cn/cad80d8b18134dbbb0e4e7c955798a06\" alt=\"\" /><br/><span style=\"font-family:SimHei;\">可以很清楚地看到，发丝比较齐整，不过还是有几根\u201c不合群\u201d，能力还是OK的。<\/span><br/><img src=\"http://jipincheng.cn/3ec8752f16d447c0a927952a50c75b80\" alt=\"\" /><br/><span style=\"font-family:SimHei;\">至于理发器广受吐槽的噪音问题，912也还不错。APP测试只有60dB，加上它的噪声低沉、并不刺耳，所以大多数人还是可以忍受滴。<\/span><br/><br/><span style=\"font-family:SimHei;\">目前，科德士CHC-912的售价为159元，算是比较便宜的。但是它的价值，却不止这个\u201c159\u201d，各方面都很不错，暂时没有发现什么缺点。且不说别人，我这么用一通下来，体验不错，觉得挺贴心、顺手的。<\/span><\/p><p><br/><\/p>","contentType":null,"size":null,"pv":0,"shareTitle":null,"shareContent":null,"shareImg":null,"shareUrl":null}
+         * goodsCouponsEntity : {"couponId":"df8fdaaf43634f6cadfd396bbebe74aa","couponName":null,"couponType":"满100元减5元","couponMoney":5,"spendMoney":100,"couponDes":null,"sendNum":9999,"surplusNum":8996,"validStartTime":"2018.11.14","validEndTime":"2019.02.10","dataFlag":1,"couponsUrl":"https://uland.taobao.com/coupon/edetail?e=QBFLAGJwMD1t3vqbdXnGlm%2FhZl9dW1mN90OTS5BvsytYmac%2FmX0MHietPwXZ5p%2BI9oalc7kuyppi63vil%2BG%2FBCEBmSsSAq%2FxWOGP4KauORqA9F9OCeGtkw%3D%3D&af=1&pid=mm_233030125_228950062_62874250108","couponsShortUrl":"https://s.click.taobao.com/xujRYJw","couponsWord":"￥CMuwbPIfS4e￥"}
          */
 
-        private String goodsDetailId;
-        private String goodsId;
-        private String goodsDetailImgId;
-        private String quality;
-        private String service;
-        private String parameters;
-        private String supportCount;
-        private String evalId;
-        private String commentId;
-        private String goodsBuyLink;
-        private String goods_detail_url;
-        private String goods_shop;
-        private String seller;
-        private String goods_income;
-        private String goods_brokerage;
-        private String goods_short_url;
-        private String goods_url;
-        private String good_word;
-        private GoodsEvalWayEntityBean goodsEvalWayEntity;
-        private List<ImgListBean> imgList;
-        private List<QualityListBean> qualityList;
-        private List<ServiceListBean> serviceList;
-        private List<ParametersListBean> parametersList;
+        private GoodsEntityBean goodsEntity;
+        private GoodsDetailEntityBean goodsDetailEntity;
+        private EvaluationEntityBean evaluationEntity;
+        private GoodsCouponsEntityBean goodsCouponsEntity;
 
-        public String getGoodsDetailId() {
-            return goodsDetailId;
+        public GoodsEntityBean getGoodsEntity() {
+            return goodsEntity;
         }
 
-        public void setGoodsDetailId(String goodsDetailId) {
-            this.goodsDetailId = goodsDetailId;
+        public void setGoodsEntity(GoodsEntityBean goodsEntity) {
+            this.goodsEntity = goodsEntity;
         }
 
-        public String getGoodsId() {
-            return goodsId;
+        public GoodsDetailEntityBean getGoodsDetailEntity() {
+            return goodsDetailEntity;
         }
 
-        public void setGoodsId(String goodsId) {
-            this.goodsId = goodsId;
+        public void setGoodsDetailEntity(GoodsDetailEntityBean goodsDetailEntity) {
+            this.goodsDetailEntity = goodsDetailEntity;
         }
 
-        public String getGoodsDetailImgId() {
-            return goodsDetailImgId;
+        public EvaluationEntityBean getEvaluationEntity() {
+            return evaluationEntity;
         }
 
-        public void setGoodsDetailImgId(String goodsDetailImgId) {
-            this.goodsDetailImgId = goodsDetailImgId;
+        public void setEvaluationEntity(EvaluationEntityBean evaluationEntity) {
+            this.evaluationEntity = evaluationEntity;
         }
 
-        public String getQuality() {
-            return quality;
+        public GoodsCouponsEntityBean getGoodsCouponsEntity() {
+            return goodsCouponsEntity;
         }
 
-        public void setQuality(String quality) {
-            this.quality = quality;
+        public void setGoodsCouponsEntity(GoodsCouponsEntityBean goodsCouponsEntity) {
+            this.goodsCouponsEntity = goodsCouponsEntity;
         }
 
-        public String getService() {
-            return service;
-        }
-
-        public void setService(String service) {
-            this.service = service;
-        }
-
-        public String getParameters() {
-            return parameters;
-        }
-
-        public void setParameters(String parameters) {
-            this.parameters = parameters;
-        }
-
-        public String getSupportCount() {
-            return supportCount;
-        }
-
-        public void setSupportCount(String supportCount) {
-            this.supportCount = supportCount;
-        }
-
-        public String getEvalId() {
-            return evalId;
-        }
-
-        public void setEvalId(String evalId) {
-            this.evalId = evalId;
-        }
-
-        public String getCommentId() {
-            return commentId;
-        }
-
-        public void setCommentId(String commentId) {
-            this.commentId = commentId;
-        }
-
-        public String getGoodsBuyLink() {
-            return goodsBuyLink;
-        }
-
-        public void setGoodsBuyLink(String goodsBuyLink) {
-            this.goodsBuyLink = goodsBuyLink;
-        }
-
-        public String getGoods_detail_url() {
-            return goods_detail_url;
-        }
-
-        public void setGoods_detail_url(String goods_detail_url) {
-            this.goods_detail_url = goods_detail_url;
-        }
-
-        public String getGoods_shop() {
-            return goods_shop;
-        }
-
-        public void setGoods_shop(String goods_shop) {
-            this.goods_shop = goods_shop;
-        }
-
-        public String getSeller() {
-            return seller;
-        }
-
-        public void setSeller(String seller) {
-            this.seller = seller;
-        }
-
-        public String getGoods_income() {
-            return goods_income;
-        }
-
-        public void setGoods_income(String goods_income) {
-            this.goods_income = goods_income;
-        }
-
-        public String getGoods_brokerage() {
-            return goods_brokerage;
-        }
-
-        public void setGoods_brokerage(String goods_brokerage) {
-            this.goods_brokerage = goods_brokerage;
-        }
-
-        public String getGoods_short_url() {
-            return goods_short_url;
-        }
-
-        public void setGoods_short_url(String goods_short_url) {
-            this.goods_short_url = goods_short_url;
-        }
-
-        public String getGoods_url() {
-            return goods_url;
-        }
-
-        public void setGoods_url(String goods_url) {
-            this.goods_url = goods_url;
-        }
-
-        public String getGood_word() {
-            return good_word;
-        }
-
-        public void setGood_word(String good_word) {
-            this.good_word = good_word;
-        }
-
-        public GoodsEvalWayEntityBean getGoodsEvalWayEntity() {
-            return goodsEvalWayEntity;
-        }
-
-        public void setGoodsEvalWayEntity(GoodsEvalWayEntityBean goodsEvalWayEntity) {
-            this.goodsEvalWayEntity = goodsEvalWayEntity;
-        }
-
-        public List<ImgListBean> getImgList() {
-            return imgList;
-        }
-
-        public void setImgList(List<ImgListBean> imgList) {
-            this.imgList = imgList;
-        }
-
-        public List<QualityListBean> getQualityList() {
-            return qualityList;
-        }
-
-        public void setQualityList(List<QualityListBean> qualityList) {
-            this.qualityList = qualityList;
-        }
-
-        public List<ServiceListBean> getServiceList() {
-            return serviceList;
-        }
-
-        public void setServiceList(List<ServiceListBean> serviceList) {
-            this.serviceList = serviceList;
-        }
-
-        public List<ParametersListBean> getParametersList() {
-            return parametersList;
-        }
-
-        public void setParametersList(List<ParametersListBean> parametersList) {
-            this.parametersList = parametersList;
-        }
-
-        public static class GoodsEvalWayEntityBean {
+        public static class GoodsEntityBean {
             /**
-             * evalWayId : 2a343b92c9ae4bc5b01a16ca48b0df2b
-             * userId : null
-             * imgId : null
-             * visitCount : 23222
-             * evalWayName : null
-             * content : <!DOCTYPE html><html><head><meta charset='utf-8' /><style type="text/css"> img{ width:100% } </style></head><body><div align="center"><div align="left"><p>黑龙江快乐刚好看见两个号结构化</p><p><br /></p><p><img src="http://img.alicdn.com/bao/uploaded/i2/2438930156/TB1H77vcvBNTKJjSszbXXaFrFXa_!!0-item_pic.jpg" alt="" title="" width="382" height="382" align="" /> </p></div><br /> <p align="left"><strong><br /> </strong> </p><p align="left"><strong>热特让他热欧体如同人工付款咖喱豆腐顾客来对付kfd</strong> </p><p align="left"><strong><br /> </strong> </p><p align="left"><strong> </strong> </p><p style="color:#4D4F53;font-family:&quot;font-size:18px;font-style:normal;font-weight:400;text-align:start;text-indent:0px;background-color:#FFFFFF;" align="left"><strong>[环球时报—环球网报道 记者李司坤]11月1日，国家主席习近平应约同美国总统特朗普通电话。特朗普在通话中表示，美方重视美中经贸合作，愿继续扩大对华出口。两国经济团队有必要加强沟通磋商。特朗普还表示，支持美国企业积极参加首届中国国际进口博览会。</strong> </p><p style="color:#4D4F53;font-family:&quot;font-size:18px;font-style:normal;font-weight:400;text-align:start;text-indent:0px;background-color:#FFFFFF;" align="left"><strong>在11月2日举行的外交部例行记者会上，有来自路透社的记者就此事提问说，特朗普称与习主席的通话十分积极，中方如何看待两国领导人的此次谈话？</strong> </p><p style="color:#4D4F53;font-family:&quot;font-size:18px;font-style:normal;font-weight:400;text-align:start;text-indent:0px;background-color:#FFFFFF;" align="left"><strong>对此，外交部发言人陆慷从两个层面对这个问题进行了回答。</strong> </p><p style="color:#4D4F53;font-family:&quot;font-size:18px;font-style:normal;font-weight:400;text-align:start;text-indent:0px;background-color:#FFFFFF;" align="left"><strong>第一层面，陆慷表示，我也同意这个通话是非常积极的，两国领导人进行了长时间的深入的探讨，就中美关系中的重要议题，和共同关心的一些其他问题充分交换了意见。</strong> </p><p style="color:#4D4F53;font-family:&quot;font-size:18px;font-style:normal;font-weight:400;text-align:start;text-indent:0px;background-color:#FFFFFF;" align="left"><strong>陆慷说，两国领导人确实谈到了经贸关系，我想这里面还是有一些有共同的看法的。</strong> </p><p style="color:#4D4F53;font-family:&quot;font-size:18px;font-style:normal;font-weight:400;text-align:start;text-indent:0px;background-color:#FFFFFF;" align="left"><strong>首先，两国领导人都非常重视中美之间的经贸关系：特朗普总统一开始也说美方非常重视中美经贸关系，习近平主席也强调了，中美经贸关系是中美关系的压舱石和稳定器。“就中方而言，我一直认为，中美经贸关系的本质是互利共赢的。”</strong> </p><p style="color:#4D4F53;font-family:&quot;font-size:18px;font-style:normal;font-weight:400;text-align:start;text-indent:0px;background-color:#FFFFFF;" align="left"><strong>其次，两国领导人同时也认为，应当加强双方间的经贸往来：特朗普总统明确讲美方还是希望扩大对中国的出口，他还特别提到他跟很多美国大公司、大企业的负责人直接交谈过，支持他们积极参与中国首届进口博览会。习近平主席也说，我们还是希望中美经贸关系得到良好发展，我们也很高兴看到，很多美国企业积极参与中国首届进口博览会。</strong> </p><p style="color:#4D4F53;font-family:&quot;font-size:18px;font-style:normal;font-weight:400;text-align:start;text-indent:0px;background-color:#FFFFFF;" align="left"><strong>陆慷指出，两国领导人确实也谈到了当前中美经贸关系中存在的问题，两国领导人都同意应当责成双方的经济团队就彼此关切的问题展开实质性的磋商，“我们希望磋商能取得积极成果。”</strong> </p><p style="color:#4D4F53;font-family:&quot;font-size:18px;font-style:normal;font-weight:400;text-align:start;text-indent:0px;background-color:#FFFFFF;" align="left"><strong>第二层面，陆慷对中美之间出现了经贸分歧应该怎么谈做出回应。他说，双方应当是在相互尊重的基础上解决彼此的关切，应该本着平等的、互利的、诚信的原则开展磋商，这样达成一个双方都能接受的成果，也是两国领导人昨天在通话中所要求的，“这样一个结果才是符合双方的共同利益的。”</strong> </p><p style="color:#4D4F53;font-family:&quot;font-size:18px;font-style:normal;font-weight:400;text-align:start;text-indent:0px;background-color:#FFFFFF;" align="left"><strong><span style="color:#337FE5;">就在两国领导人发表谈话的数小时后，美国司法部对福建晋华集成电路有限公司、台湾半导体公司联华电子及三名台湾人进行起诉，称后者从一家美国科技公司窃取商业机密。上述路透社记者结合此事进行了追问，他说，我想知道美国到底是真诚的吗？为什么美方说的和做的好像不一样？</span> </strong> </p><p style="color:#4D4F53;font-family:&quot;font-size:18px;font-style:normal;font-weight:400;text-align:start;text-indent:0px;background-color:#FFFFFF;" align="left"><strong><span style="color:#337FE5;">对此，陆慷回应道，希望两国的工作团队都能够严格地遵循、落实好两国领导人达成的共识。</span> </strong> </p><p style="color:#4D4F53;font-family:&quot;font-size:18px;font-style:normal;font-weight:400;text-align:start;text-indent:0px;background-color:#FFFFFF;" align="left"><strong><span style="color:#337FE5;">“特朗普总统昨天在和习主席通话的时候表达了美方愿意通过对话来解决两国之间的分歧的愿望，”陆慷说，“我们认为这一愿望是符合美国的自身利益的，当然也符合中国自身的利益和国际社会的利益。”他说，两国领导人昨天一致同意双方的工作团队应该严格落实好这些共识，“我们希望两国的工作团队都能够严格地遵循，落实好这些共识，真正做一些有利于促进中美关系以及真正为两国工商界和两国的消费者带来福祉的事情。</span>”</strong></p><p style="color:#4D4F53;font-family:&quot;font-size:18px;font-style:normal;font-weight:400;text-align:start;text-indent:0px;background-color:#FFFFFF;" align="left"><strong><br /></strong> </p><p><br /></p><p><br /></p></div></body></html>
-             * commentId :
-             * publishTime : null
-             * createTime : 2018-11-05 11:39:40
+             * goodsId : 19563699049
+             * goodsName : 科德士理发器CHC-912
+             * img : http://jipincheng.cn/5062e94208b745eea73a295bcf5bf743
+             * imgs : http://jipincheng.cn/5062e94208b745eea73a295bcf5bf743,http://jipincheng.cn/5062e94208b745eea73a295bcf5bf743
+             * goodsTags : [{"name":"成人"},{"name":"100元档"},{"name":"数显"},{"name":"快速充电"}]
+             * actualPrice : 154
+             * couponPrice : 5
+             * otherGoodsId : 19563699049
+             * otherName : codos科德士理发器CHC 912充电式专业美发店电推剪成人电推子工具
+             * otherPrice : 159
+             * recommendReason : 科德士CHC-912理发器，做工比较精致，手感舒适，理发能力相当不错。同时，配有数显，充电快，续航较久。总的来说，综合性能相当优秀。
+             * score : 7
+             * scoreOptions : [{"name":"外观操作","score":"8"},{"name":"理发效果","score":"6"},{"name":"噪音水平","score":"8"},{"name":"发热水平","score":"6"}]
+             * pv : 333
+             * source : 2
+             * voteCount : 0
+             * exchangePoint : 15400
+             * goodsTagsList : [{"name":"成人"},{"name":"100元档"},{"name":"数显"},{"name":"快速充电"}]
+             * scoreOptionsList : [{"name":"外观操作","score":"8"},{"name":"理发效果","score":"6"},{"name":"噪音水平","score":"8"},{"name":"发热水平","score":"6"}]
+             * imgList : ["http://jipincheng.cn/5062e94208b745eea73a295bcf5bf743","http://jipincheng.cn/5062e94208b745eea73a295bcf5bf743"]
              */
 
-            private String evalWayId;
-            private Object userId;
-            private Object imgId;
-            private String visitCount;
-            private Object evalWayName;
-            private String content;
-            private String commentId;
-            private String publishTime;
-            private String createTime;
-            private int concernNum;
-            private UserShopmemberBean userShopmember;
-
-            public static class UserShopmemberBean {
-
-                private String userId;
-                private String userNickName;
-                private String userNickImg;
-                private String userPhone;
-                private int fansCount;
-
-                public String getUserId() {
-                    return userId;
-                }
-
-                public void setUserId(String userId) {
-                    this.userId = userId;
-                }
-
-                public String getUserNickName() {
-                    return userNickName;
-                }
-
-                public void setUserNickName(String userNickName) {
-                    this.userNickName = userNickName;
-                }
-
-                public String getUserNickImg() {
-                    return userNickImg;
-                }
-
-                public void setUserNickImg(String userNickImg) {
-                    this.userNickImg = userNickImg;
-                }
-
-                public String getUserPhone() {
-                    return userPhone;
-                }
-
-                public void setUserPhone(String userPhone) {
-                    this.userPhone = userPhone;
-                }
-
-                public int getFansCount() {
-                    return fansCount;
-                }
-
-                public void setFansCount(int fansCount) {
-                    this.fansCount = fansCount;
-                }
-            }
-
-            public int getConcernNum() {
-                return concernNum;
-            }
-
-            public void setConcernNum(int concernNum) {
-                this.concernNum = concernNum;
-            }
-
-            public UserShopmemberBean getUserShopmember() {
-                return userShopmember;
-            }
-
-            public void setUserShopmember(UserShopmemberBean userShopmember) {
-                this.userShopmember = userShopmember;
-            }
-
-            public String getEvalWayId() {
-                return evalWayId;
-            }
-
-            public void setEvalWayId(String evalWayId) {
-                this.evalWayId = evalWayId;
-            }
-
-            public Object getUserId() {
-                return userId;
-            }
-
-            public void setUserId(Object userId) {
-                this.userId = userId;
-            }
-
-            public Object getImgId() {
-                return imgId;
-            }
-
-            public void setImgId(Object imgId) {
-                this.imgId = imgId;
-            }
-
-            public String getVisitCount() {
-                return visitCount;
-            }
-
-            public void setVisitCount(String visitCount) {
-                this.visitCount = visitCount;
-            }
-
-            public Object getEvalWayName() {
-                return evalWayName;
-            }
-
-            public void setEvalWayName(Object evalWayName) {
-                this.evalWayName = evalWayName;
-            }
-
-            public String getContent() {
-                return content;
-            }
-
-            public void setContent(String content) {
-                this.content = content;
-            }
-
-            public String getCommentId() {
-                return commentId;
-            }
-
-            public void setCommentId(String commentId) {
-                this.commentId = commentId;
-            }
-
-            public String getPublishTime() {
-                return publishTime;
-            }
-
-            public void setPublishTime(String publishTime) {
-                this.publishTime = publishTime;
-            }
-
-            public String getCreateTime() {
-                return createTime;
-            }
-
-            public void setCreateTime(String createTime) {
-                this.createTime = createTime;
-            }
-        }
-
-        public static class ImgListBean {
-            /**
-             * imgId : 2
-             * imgPath : http://img.alicdn.com/bao/uploaded/i3/1773327259/TB1vSIUaVcJL1JjSZFOXXcWlXXa_!!0-item_pic.jpg
-             * imgViewposition : null
-             * imgSort : 0
-             * goodsId : 545363931984
-             * evalwayId : null
-             * findgoodsId : null
-             */
-
-            private String imgId;
-            private String imgPath;
-            private Object imgViewposition;
-            private String imgSort;
             private String goodsId;
-            private Object evalwayId;
-            private Object findgoodsId;
+            private String goodsName;
+            private String img;
+            private String imgs;
+            private String goodsTags;
+            private String actualPrice;
+            private String couponPrice;
+            private String otherGoodsId;
+            private String otherName;
+            private String otherPrice;
+            private String recommendReason;
+            private String score;
+            private String scoreOptions;
+            private int pv;
+            private int source;
+            private int voteCount;
+            private int exchangePoint;
+            private List<GoodsTagsListBean> goodsTagsList;
+            private List<ScoreOptionsListBean> scoreOptionsList;
+            private List<String> imgList;
 
-            public String getImgId() {
-                return imgId;
+            public String getGoodsId() {
+                return goodsId;
             }
 
-            public void setImgId(String imgId) {
-                this.imgId = imgId;
+            public void setGoodsId(String goodsId) {
+                this.goodsId = goodsId;
             }
 
-            public String getImgPath() {
-                return imgPath;
+            public String getGoodsName() {
+                return goodsName;
             }
 
-            public void setImgPath(String imgPath) {
-                this.imgPath = imgPath;
+            public void setGoodsName(String goodsName) {
+                this.goodsName = goodsName;
             }
 
-            public Object getImgViewposition() {
-                return imgViewposition;
+            public String getImg() {
+                return img;
             }
 
-            public void setImgViewposition(Object imgViewposition) {
-                this.imgViewposition = imgViewposition;
+            public void setImg(String img) {
+                this.img = img;
             }
 
-            public String getImgSort() {
-                return imgSort;
+            public String getImgs() {
+                return imgs;
             }
 
-            public void setImgSort(String imgSort) {
-                this.imgSort = imgSort;
+            public void setImgs(String imgs) {
+                this.imgs = imgs;
+            }
+
+            public String getGoodsTags() {
+                return goodsTags;
+            }
+
+            public void setGoodsTags(String goodsTags) {
+                this.goodsTags = goodsTags;
+            }
+
+            public String getActualPrice() {
+                return actualPrice;
+            }
+
+            public void setActualPrice(String actualPrice) {
+                this.actualPrice = actualPrice;
+            }
+
+            public String getCouponPrice() {
+                return couponPrice;
+            }
+
+            public void setCouponPrice(String couponPrice) {
+                this.couponPrice = couponPrice;
+            }
+
+            public String getOtherGoodsId() {
+                return otherGoodsId;
+            }
+
+            public void setOtherGoodsId(String otherGoodsId) {
+                this.otherGoodsId = otherGoodsId;
+            }
+
+            public String getOtherName() {
+                return otherName;
+            }
+
+            public void setOtherName(String otherName) {
+                this.otherName = otherName;
+            }
+
+            public String getOtherPrice() {
+                return otherPrice;
+            }
+
+            public void setOtherPrice(String otherPrice) {
+                this.otherPrice = otherPrice;
+            }
+
+            public String getRecommendReason() {
+                return recommendReason;
+            }
+
+            public void setRecommendReason(String recommendReason) {
+                this.recommendReason = recommendReason;
+            }
+
+            public String getScore() {
+                return score;
+            }
+
+            public void setScore(String score) {
+                this.score = score;
+            }
+
+            public String getScoreOptions() {
+                return scoreOptions;
+            }
+
+            public void setScoreOptions(String scoreOptions) {
+                this.scoreOptions = scoreOptions;
+            }
+
+            public int getPv() {
+                return pv;
+            }
+
+            public void setPv(int pv) {
+                this.pv = pv;
+            }
+
+            public int getSource() {
+                return source;
+            }
+
+            public void setSource(int source) {
+                this.source = source;
+            }
+
+            public int getVoteCount() {
+                return voteCount;
+            }
+
+            public void setVoteCount(int voteCount) {
+                this.voteCount = voteCount;
+            }
+
+            public int getExchangePoint() {
+                return exchangePoint;
+            }
+
+            public void setExchangePoint(int exchangePoint) {
+                this.exchangePoint = exchangePoint;
+            }
+
+            public List<GoodsTagsListBean> getGoodsTagsList() {
+                return goodsTagsList;
+            }
+
+            public void setGoodsTagsList(List<GoodsTagsListBean> goodsTagsList) {
+                this.goodsTagsList = goodsTagsList;
+            }
+
+            public List<ScoreOptionsListBean> getScoreOptionsList() {
+                return scoreOptionsList;
+            }
+
+            public void setScoreOptionsList(List<ScoreOptionsListBean> scoreOptionsList) {
+                this.scoreOptionsList = scoreOptionsList;
+            }
+
+            public List<String> getImgList() {
+                return imgList;
+            }
+
+            public void setImgList(List<String> imgList) {
+                this.imgList = imgList;
+            }
+
+            public static class GoodsTagsListBean {
+                /**
+                 * name : 成人
+                 */
+
+                private String name;
+
+                public String getName() {
+                    return name;
+                }
+
+                public void setName(String name) {
+                    this.name = name;
+                }
+            }
+
+            public static class ScoreOptionsListBean {
+                /**
+                 * name : 外观操作
+                 * score : 8
+                 */
+
+                private String name;
+                private String score;
+
+                public String getName() {
+                    return name;
+                }
+
+                public void setName(String name) {
+                    this.name = name;
+                }
+
+                public String getScore() {
+                    return score;
+                }
+
+                public void setScore(String score) {
+                    this.score = score;
+                }
+            }
+        }
+
+        public static class GoodsDetailEntityBean {
+            /**
+             * goodsDetailId : cc270cba20c346fc8f8c2c33d4cdc77b
+             * goodsId : 19563699049
+             * parameters : [{"name":"品牌","value":"科德士"},{"name":"型号","value":"CHC-912"},{"name":"刀头材质","value":"镀钛合金+陶瓷"},{"name":"充电","value":"2小时"},{"name":"续航","value":"180分钟"},{"name":"适用人群","value":"成人"}]
+             * goodsBuyLink : https://uland.taobao.com/coupon/edetail?e=QBFLAGJwMD1t3vqbdXnGlm%2FhZl9dW1mN90OTS5BvsytYmac%2FmX0MHietPwXZ5p%2BI9oalc7kuyppi63vil%2BG%2FBCEBmSsSAq%2FxWOGP4KauORqA9F9OCeGtkw%3D%3D&amp;af=1&amp;pid=mm_233030125_228950062_62874250108
+             * goodsDetailUrl : http://item.taobao.com/item.htm?id=19563699049
+             * goodsShop : 卡莱飘大师装备
+             * seller : 蝌蚪妈
+             * goodsIncome : 1.35
+             * goodsBrokerage : 2.15
+             * goodsShortUrl : https://s.click.taobao.com/XncRYJw
+             * goodsUrl : https://s.click.taobao.com/t?e=m%3D2%26s%3Du4h3LXJrl1YcQipKwQzePOeEDrYVVa64LKpWJ%2Bin0XLjf2vlNIV67sVeFv0BLj4x2yqscP0DbOKYoTGIzrbI9mAFOvXVwd6D1OBzOlXliGpuv7EEly2ho%2Fen02N6fRCn6cBoZrl%2BeFYwrpqIA0Q9cNzUASJl%2FZwGxgxdTc00KD8%3D
+             * goodsWord : ￥CItzbPIf29K￥
+             * shareTitle : null
+             * shareContent : null
+             * shareUrl : null
+             * shareImg : null
+             * parametersList : [{"name":"品牌","value":"科德士"},{"name":"型号","value":"CHC-912"},{"name":"刀头材质","value":"镀钛合金+陶瓷"},{"name":"充电","value":"2小时"},{"name":"续航","value":"180分钟"},{"name":"适用人群","value":"成人"}]
+             */
+
+            private String goodsDetailId;
+            private String goodsId;
+            private String parameters;
+            private String goodsBuyLink;
+            private String goodsDetailUrl;
+            private String goodsShop;
+            private String seller;
+            private double goodsIncome;
+            private double goodsBrokerage;
+            private String goodsShortUrl;
+            private String goodsUrl;
+            private String goodsWord;
+            private Object shareTitle;
+            private Object shareContent;
+            private Object shareUrl;
+            private Object shareImg;
+            private List<ParametersListBean> parametersList;
+
+            public String getGoodsDetailId() {
+                return goodsDetailId;
+            }
+
+            public void setGoodsDetailId(String goodsDetailId) {
+                this.goodsDetailId = goodsDetailId;
             }
 
             public String getGoodsId() {
@@ -500,78 +391,515 @@ public class ShoppingDetailBean {
                 this.goodsId = goodsId;
             }
 
-            public Object getEvalwayId() {
-                return evalwayId;
+            public String getParameters() {
+                return parameters;
             }
 
-            public void setEvalwayId(Object evalwayId) {
-                this.evalwayId = evalwayId;
+            public void setParameters(String parameters) {
+                this.parameters = parameters;
             }
 
-            public Object getFindgoodsId() {
-                return findgoodsId;
+            public String getGoodsBuyLink() {
+                return goodsBuyLink;
             }
 
-            public void setFindgoodsId(Object findgoodsId) {
-                this.findgoodsId = findgoodsId;
+            public void setGoodsBuyLink(String goodsBuyLink) {
+                this.goodsBuyLink = goodsBuyLink;
+            }
+
+            public String getGoodsDetailUrl() {
+                return goodsDetailUrl;
+            }
+
+            public void setGoodsDetailUrl(String goodsDetailUrl) {
+                this.goodsDetailUrl = goodsDetailUrl;
+            }
+
+            public String getGoodsShop() {
+                return goodsShop;
+            }
+
+            public void setGoodsShop(String goodsShop) {
+                this.goodsShop = goodsShop;
+            }
+
+            public String getSeller() {
+                return seller;
+            }
+
+            public void setSeller(String seller) {
+                this.seller = seller;
+            }
+
+            public double getGoodsIncome() {
+                return goodsIncome;
+            }
+
+            public void setGoodsIncome(double goodsIncome) {
+                this.goodsIncome = goodsIncome;
+            }
+
+            public double getGoodsBrokerage() {
+                return goodsBrokerage;
+            }
+
+            public void setGoodsBrokerage(double goodsBrokerage) {
+                this.goodsBrokerage = goodsBrokerage;
+            }
+
+            public String getGoodsShortUrl() {
+                return goodsShortUrl;
+            }
+
+            public void setGoodsShortUrl(String goodsShortUrl) {
+                this.goodsShortUrl = goodsShortUrl;
+            }
+
+            public String getGoodsUrl() {
+                return goodsUrl;
+            }
+
+            public void setGoodsUrl(String goodsUrl) {
+                this.goodsUrl = goodsUrl;
+            }
+
+            public String getGoodsWord() {
+                return goodsWord;
+            }
+
+            public void setGoodsWord(String goodsWord) {
+                this.goodsWord = goodsWord;
+            }
+
+            public Object getShareTitle() {
+                return shareTitle;
+            }
+
+            public void setShareTitle(Object shareTitle) {
+                this.shareTitle = shareTitle;
+            }
+
+            public Object getShareContent() {
+                return shareContent;
+            }
+
+            public void setShareContent(Object shareContent) {
+                this.shareContent = shareContent;
+            }
+
+            public Object getShareUrl() {
+                return shareUrl;
+            }
+
+            public void setShareUrl(Object shareUrl) {
+                this.shareUrl = shareUrl;
+            }
+
+            public Object getShareImg() {
+                return shareImg;
+            }
+
+            public void setShareImg(Object shareImg) {
+                this.shareImg = shareImg;
+            }
+
+            public List<ParametersListBean> getParametersList() {
+                return parametersList;
+            }
+
+            public void setParametersList(List<ParametersListBean> parametersList) {
+                this.parametersList = parametersList;
+            }
+
+            public static class ParametersListBean {
+                /**
+                 * name : 品牌
+                 * value : 科德士
+                 */
+
+                private String name;
+                private String value;
+
+                public String getName() {
+                    return name;
+                }
+
+                public void setName(String name) {
+                    this.name = name;
+                }
+
+                public String getValue() {
+                    return value;
+                }
+
+                public void setValue(String value) {
+                    this.value = value;
+                }
             }
         }
 
-        public static class QualityListBean {
+        public static class EvaluationEntityBean {
             /**
-             * name : 平安保险承保
+             * articleId : 24a243bf73ba49389c2be17cfcb461b0
+             * userId : 7d67892cb02f4766aa72fd5b08b8d8d1
+             * user : {"userId":"7d67892cb02f4766aa72fd5b08b8d8d1","nickname":"皮Sir","gender":"男","avatar":"http://jipincheng.cn/dafca5b3d66a43dc9cc00e07acd7bdb0"}
+             * goodsId : 19563699049
+             * img : null
+             * title : 科德士CHC-912开箱：把“鲸鱼”拿来理发是种什么感受？
+             * content : <p style="text-align:left;"><span style="font-size:19px;font-family:SimHei;"><strong>科德士CHC-912开箱：把“鲸鱼”拿来理发是种什么感受？</strong></span></p><p><br/></p><p><br/></p><div style="text-align:justify;"><span style="font-family:SimHei;">不久前，我们做过了100~200元价位段的理发器横评，最终选出了这款科德士CHC-912，虽然不是各方面都极强，但是综合性能确实表现很出色，而且价格也比较实惠。</span></div><span style="font-family:SimHei;"></span><br/><span style="font-family:SimHei;">今天，我就带大家了解一下它，想入手的，看这篇足够了。</span><p><br/></p><p><img src="http://jipincheng.cn/96de584c14dc414f90d0f4cf9f699855" alt="" /></p><p><span style="font-family:SimHei;">外包装中规中矩，还算精致。</span><br/><br/><span style="font-family:SimHei;">配件不多，但是足够实用，润滑油、限位梳、充电器等等。限位梳虽然只有2个，但是每一个前后都能用，实际上是4个。</span><br/><img src="http://jipincheng.cn/8a23dd8d8aca4e07b09fa6542d25262e" alt="" /><br/><span style="font-family:SimHei;">如果要问我对912的第一个感受，必须是长得像鲸鱼。主要配色是黑色，两侧加了白色的椭圆形，不知识科德士有意为之，还是凑巧。</span><br/><img src="http://jipincheng.cn/00297b5a227d4d2f98613de97ed2f7a2" alt="" /><br/><img src="http://jipincheng.cn/350d634a71be4870b11c9ead1597d518" alt="" /><br/><span style="font-family:SimHei;">总是感觉，好像拿着鲸鱼理发一样......随时会被一口吃掉！哈哈哈哈</span><br/><br/><span style="font-family:SimHei;">实在忍不住再多看一眼！</span><br/><img src="http://jipincheng.cn/57466484b37f473db721085cb73e405c" alt="" /><br/><span style="font-family:SimHei;">好了，不皮了。</span><br/><br/><span style="font-family:SimHei;">刀头部分，采用了比较流行的钛合金定刀+陶瓷动刀的设计，支持刀头水洗。</span><br/><img src="http://jipincheng.cn/484fcf7f17414344b41f49da9008fb91" alt="" /><br/><span style="font-family:SimHei;">别一看到要拆刀头就觉得麻烦，轻松就能拆下、安装，方便还是很方便的。</span><br/><img src="http://jipincheng.cn/fdda9786fd854d5e81c059ed769a9734" alt="" /><br/><span style="font-family:SimHei;">刀头正下方，是长度调节按钮，推动式的，支持4档调节。</span><br/><img src="http://jipincheng.cn/8ad306cd712140b68f4eb8c820ed16db" alt="" /><br/><span style="font-family:SimHei;">再往下就是开关键了，就是下面这张图里的，黑色长条。</span><br/><img src="http://jipincheng.cn/74a1b55882de4522ab18c13eeacc4910" alt="" /><br/><span style="font-family:SimHei;">机身下半部，特别加了个“斜坡”，配有数字显示电量功能。</span><br/><img src="http://jipincheng.cn/84d4f6cc70404e9e9f8b21c4cef00278" alt="" /><br/><span style="font-family:SimHei;">底部是充电接口，支持充插两用。2小时快速充满，180分钟的续航，完全能满足大家的使用了。</span><br/><br/><span style="font-family:SimHei;">外观和配置，我们都已经了解得差不多了。</span><br/><br/><span style="font-family:SimHei;">那么，拿着“鲸鱼”理发到底是个什么体验呢？理发效果怎么样呢？下面进入实测环节。</span><br/><img src="http://jipincheng.cn/d6bb9d3f4bc543f5a2f9b05f14823114" alt="" /><br/><span style="font-family:SimHei;">我准备了一顶假发，但由于我不是专业的“Tony”老师，就不东施效颦了。抓起一小撮头发，直接横扫过去。</span><br/><img src="http://jipincheng.cn/cad80d8b18134dbbb0e4e7c955798a06" alt="" /><br/><span style="font-family:SimHei;">可以很清楚地看到，发丝比较齐整，不过还是有几根“不合群”，能力还是OK的。</span><br/><img src="http://jipincheng.cn/3ec8752f16d447c0a927952a50c75b80" alt="" /><br/><span style="font-family:SimHei;">至于理发器广受吐槽的噪音问题，912也还不错。APP测试只有60dB，加上它的噪声低沉、并不刺耳，所以大多数人还是可以忍受滴。</span><br/><br/><span style="font-family:SimHei;">目前，科德士CHC-912的售价为159元，算是比较便宜的。但是它的价值，却不止这个“159”，各方面都很不错，暂时没有发现什么缺点。且不说别人，我这么用一通下来，体验不错，觉得挺贴心、顺手的。</span></p><p><br/></p>
+             * contentType : null
+             * size : null
+             * pv : 0
+             * shareTitle : null
+             * shareContent : null
+             * shareImg : null
+             * shareUrl : null
              */
 
-            private String name;
+            private String articleId;
+            private String userId;
+            private UserBean user;
+            private String goodsId;
+            private Object img;
+            private String title;
+            private String content;
+            private Object contentType;
+            private Object size;
+            private int pv;
+            private Object shareTitle;
+            private Object shareContent;
+            private Object shareImg;
+            private Object shareUrl;
+            private String createTime;
 
-            public String getName() {
-                return name;
+            public String getCreateTime() {
+                return createTime;
             }
 
-            public void setName(String name) {
-                this.name = name;
+            public void setCreateTime(String createTime) {
+                this.createTime = createTime;
+            }
+
+            public String getArticleId() {
+                return articleId;
+            }
+
+            public void setArticleId(String articleId) {
+                this.articleId = articleId;
+            }
+
+            public String getUserId() {
+                return userId;
+            }
+
+            public void setUserId(String userId) {
+                this.userId = userId;
+            }
+
+            public UserBean getUser() {
+                return user;
+            }
+
+            public void setUser(UserBean user) {
+                this.user = user;
+            }
+
+            public String getGoodsId() {
+                return goodsId;
+            }
+
+            public void setGoodsId(String goodsId) {
+                this.goodsId = goodsId;
+            }
+
+            public Object getImg() {
+                return img;
+            }
+
+            public void setImg(Object img) {
+                this.img = img;
+            }
+
+            public String getTitle() {
+                return title;
+            }
+
+            public void setTitle(String title) {
+                this.title = title;
+            }
+
+            public String getContent() {
+                return content;
+            }
+
+            public void setContent(String content) {
+                this.content = content;
+            }
+
+            public Object getContentType() {
+                return contentType;
+            }
+
+            public void setContentType(Object contentType) {
+                this.contentType = contentType;
+            }
+
+            public Object getSize() {
+                return size;
+            }
+
+            public void setSize(Object size) {
+                this.size = size;
+            }
+
+            public int getPv() {
+                return pv;
+            }
+
+            public void setPv(int pv) {
+                this.pv = pv;
+            }
+
+            public Object getShareTitle() {
+                return shareTitle;
+            }
+
+            public void setShareTitle(Object shareTitle) {
+                this.shareTitle = shareTitle;
+            }
+
+            public Object getShareContent() {
+                return shareContent;
+            }
+
+            public void setShareContent(Object shareContent) {
+                this.shareContent = shareContent;
+            }
+
+            public Object getShareImg() {
+                return shareImg;
+            }
+
+            public void setShareImg(Object shareImg) {
+                this.shareImg = shareImg;
+            }
+
+            public Object getShareUrl() {
+                return shareUrl;
+            }
+
+            public void setShareUrl(Object shareUrl) {
+                this.shareUrl = shareUrl;
+            }
+
+            public static class UserBean {
+                /**
+                 * userId : 7d67892cb02f4766aa72fd5b08b8d8d1
+                 * nickname : 皮Sir
+                 * gender : 男
+                 * avatar : http://jipincheng.cn/dafca5b3d66a43dc9cc00e07acd7bdb0
+                 */
+
+                private String userId;
+                private String nickname;
+                private String gender;
+                private String avatar;
+                private int follow;
+                private int fansCount;
+
+                public int getFollow() {
+                    return follow;
+                }
+
+                public void setFollow(int follow) {
+                    this.follow = follow;
+                }
+
+                public int getFansCount() {
+                    return fansCount;
+                }
+
+                public void setFansCount(int fansCount) {
+                    this.fansCount = fansCount;
+                }
+
+                public String getUserId() {
+                    return userId;
+                }
+
+                public void setUserId(String userId) {
+                    this.userId = userId;
+                }
+
+                public String getNickname() {
+                    return nickname;
+                }
+
+                public void setNickname(String nickname) {
+                    this.nickname = nickname;
+                }
+
+                public String getGender() {
+                    return gender;
+                }
+
+                public void setGender(String gender) {
+                    this.gender = gender;
+                }
+
+                public String getAvatar() {
+                    return avatar;
+                }
+
+                public void setAvatar(String avatar) {
+                    this.avatar = avatar;
+                }
             }
         }
 
-        public static class ServiceListBean {
+        public static class GoodsCouponsEntityBean {
             /**
-             * name : 急速退款
+             * couponId : df8fdaaf43634f6cadfd396bbebe74aa
+             * couponName : null
+             * couponType : 满100元减5元
+             * couponMoney : 5
+             * spendMoney : 100
+             * couponDes : null
+             * sendNum : 9999
+             * surplusNum : 8996
+             * validStartTime : 2018.11.14
+             * validEndTime : 2019.02.10
+             * dataFlag : 1
+             * couponsUrl : https://uland.taobao.com/coupon/edetail?e=QBFLAGJwMD1t3vqbdXnGlm%2FhZl9dW1mN90OTS5BvsytYmac%2FmX0MHietPwXZ5p%2BI9oalc7kuyppi63vil%2BG%2FBCEBmSsSAq%2FxWOGP4KauORqA9F9OCeGtkw%3D%3D&af=1&pid=mm_233030125_228950062_62874250108
+             * couponsShortUrl : https://s.click.taobao.com/xujRYJw
+             * couponsWord : ￥CMuwbPIfS4e￥
              */
 
-            private String name;
+            private String couponId;
+            private Object couponName;
+            private String couponType;
+            private String couponMoney;
+            private String spendMoney;
+            private Object couponDes;
+            private String sendNum;
+            private String surplusNum;
+            private String validStartTime;
+            private String validEndTime;
+            private int dataFlag;
+            private String couponsUrl;
+            private String couponsShortUrl;
+            private String couponsWord;
 
-            public String getName() {
-                return name;
+            public String getCouponId() {
+                return couponId;
             }
 
-            public void setName(String name) {
-                this.name = name;
-            }
-        }
-
-        public static class ParametersListBean {
-            /**
-             * name : 品名
-             * value :
-             */
-
-            private String name;
-            private String value;
-
-            public String getName() {
-                return name;
+            public void setCouponId(String couponId) {
+                this.couponId = couponId;
             }
 
-            public void setName(String name) {
-                this.name = name;
+            public Object getCouponName() {
+                return couponName;
             }
 
-            public String getValue() {
-                return value;
+            public void setCouponName(Object couponName) {
+                this.couponName = couponName;
             }
 
-            public void setValue(String value) {
-                this.value = value;
+            public String getCouponType() {
+                return couponType;
+            }
+
+            public void setCouponType(String couponType) {
+                this.couponType = couponType;
+            }
+
+            public String getCouponMoney() {
+                return couponMoney;
+            }
+
+            public void setCouponMoney(String couponMoney) {
+                this.couponMoney = couponMoney;
+            }
+
+            public String getSpendMoney() {
+                return spendMoney;
+            }
+
+            public void setSpendMoney(String spendMoney) {
+                this.spendMoney = spendMoney;
+            }
+
+            public Object getCouponDes() {
+                return couponDes;
+            }
+
+            public void setCouponDes(Object couponDes) {
+                this.couponDes = couponDes;
+            }
+
+            public String getSendNum() {
+                return sendNum;
+            }
+
+            public void setSendNum(String sendNum) {
+                this.sendNum = sendNum;
+            }
+
+            public String getSurplusNum() {
+                return surplusNum;
+            }
+
+            public void setSurplusNum(String surplusNum) {
+                this.surplusNum = surplusNum;
+            }
+
+            public String getValidStartTime() {
+                return validStartTime;
+            }
+
+            public void setValidStartTime(String validStartTime) {
+                this.validStartTime = validStartTime;
+            }
+
+            public String getValidEndTime() {
+                return validEndTime;
+            }
+
+            public void setValidEndTime(String validEndTime) {
+                this.validEndTime = validEndTime;
+            }
+
+            public int getDataFlag() {
+                return dataFlag;
+            }
+
+            public void setDataFlag(int dataFlag) {
+                this.dataFlag = dataFlag;
+            }
+
+            public String getCouponsUrl() {
+                return couponsUrl;
+            }
+
+            public void setCouponsUrl(String couponsUrl) {
+                this.couponsUrl = couponsUrl;
+            }
+
+            public String getCouponsShortUrl() {
+                return couponsShortUrl;
+            }
+
+            public void setCouponsShortUrl(String couponsShortUrl) {
+                this.couponsShortUrl = couponsShortUrl;
+            }
+
+            public String getCouponsWord() {
+                return couponsWord;
+            }
+
+            public void setCouponsWord(String couponsWord) {
+                this.couponsWord = couponsWord;
             }
         }
     }

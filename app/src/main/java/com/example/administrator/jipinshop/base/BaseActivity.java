@@ -25,7 +25,7 @@ public class BaseActivity extends RxAppCompatActivity {
 
     protected InputMethodManager mImm;
     protected String HANDLER_TOKEN = getClass().getName();
-    private ImmersionBar mImmersionBar;
+    protected ImmersionBar mImmersionBar;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {

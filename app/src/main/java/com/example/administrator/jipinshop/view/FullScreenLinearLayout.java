@@ -12,7 +12,7 @@ import android.widget.RelativeLayout;
 /**
  * @author 莫小婷
  * @create 2018/8/3
- * @Describe
+ * @Describe 解决沉淀式状态栏与fitsSystemWindows=true的冲突
  */
 public class FullScreenLinearLayout extends RelativeLayout{
 

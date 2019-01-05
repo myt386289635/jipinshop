@@ -5,12 +5,14 @@ import android.content.Intent;
 import android.databinding.DataBindingUtil;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
 import android.os.Message;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.LinearLayoutManager;
+import android.text.Html;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.MotionEvent;
@@ -50,10 +52,10 @@ import com.example.administrator.jipinshop.bean.eventbus.ConcerBus;
 import com.example.administrator.jipinshop.databinding.ActivityShopingDetailBinding;
 import com.example.administrator.jipinshop.fragment.evaluation.common.CommonEvaluationFragment;
 import com.example.administrator.jipinshop.fragment.foval.FovalFragment;
-import com.example.administrator.jipinshop.netwrok.RetrofitModule;
 import com.example.administrator.jipinshop.util.ClickUtil;
-import com.example.administrator.jipinshop.util.ShareUtils;
 import com.example.administrator.jipinshop.util.WeakRefHandler;
+import com.example.administrator.jipinshop.view.AlignTextView;
+import com.example.administrator.jipinshop.view.SaleProgressView;
 import com.example.administrator.jipinshop.view.dialog.ProgressDialogView;
 import com.example.administrator.jipinshop.view.dialog.ShareBoardDialog;
 import com.example.administrator.jipinshop.view.glide.GlideApp;
@@ -111,18 +113,14 @@ public class ShoppingDetailActivity extends BaseActivity implements ShoppingComm
     private Handler mHandler = new WeakRefHandler(mCallback, Looper.getMainLooper());
     private Boolean stopThread = true;
 
-
-    //品质保证
-    private ShoppingQualityAdapter mQualityAdapter;
-    private List<String> mQualityList;
-
-    //售后服务
-    private ShoppingQualityAdapter mSreverAdapter;
-    private List<String> mSreverList;
+    //功能评分
+    private List<TextView> mTextViews = new ArrayList<>();
+    private List<AlignTextView> mAlignTextViews = new ArrayList<>();
+    private List<SaleProgressView> mSaleProgressViews = new ArrayList<>();
 
     //产品参数
     private ShoppingmParameterAdapter mParameterAdapter;
-    private List<ShoppingDetailBean.GoodsRankdetailEntityBean.ParametersListBean> mParameterList;
+    private List<ShoppingDetailBean.DataBean.GoodsDetailEntityBean.ParametersListBean> mParameterList;
 
     //用户评论
     private ShoppingCommonAdapter mCommonAdapter;
@@ -141,11 +139,6 @@ public class ShoppingDetailActivity extends BaseActivity implements ShoppingComm
 
     //商品id
     private String goodsId = "";
-    private String goodsName = "";
-    private String priceNow = "";
-    private String priceOld = "";
-    private String price = "";
-    private String sourceStatus = "";
 
     private String goodsUrl = "";
 
@@ -183,18 +176,16 @@ public class ShoppingDetailActivity extends BaseActivity implements ShoppingComm
         mBaseActivityComponent.inject(this);
         mPresenter.setShoppingDetailView(this);
         EventBus.getDefault().register(this);
+        mImmersionBar.reset()
+                .transparentStatusBar()
+                .statusBarDarkFont(true, 0f)
+                .init();
         initView();
     }
 
     private void initView() {
 
         goodsId = getIntent().getStringExtra("goodsId");//商品id
-        goodsName = getIntent().getStringExtra("goodsName");
-        priceNow = getIntent().getStringExtra("priceNow");
-        priceOld = getIntent().getStringExtra("priceOld");
-        price = getIntent().getStringExtra("price");
-        sourceStatus = getIntent().getStringExtra("state");//来源状态
-        shareImage = getIntent().getStringExtra("goodsImage");
 
         mDialogProgress = (new ProgressDialogView()).createLoadingDialog(ShoppingDetailActivity.this, "正在加载...");
         mDialogProgress.show();
@@ -208,17 +199,22 @@ public class ShoppingDetailActivity extends BaseActivity implements ShoppingComm
         mBinding.viewPager.setAdapter(mBannerAdapter);
         mBinding.viewPager.setCurrentItem(mBannerList.size() * 10);
 
-        //品质保证
-        mQualityList = new ArrayList<>();
-        mQualityAdapter = new ShoppingQualityAdapter(mQualityList, this);
-        mBinding.detailQuality.setAdapter(mQualityAdapter);
-        mBinding.detailQuality.setSelector(new ColorDrawable(Color.TRANSPARENT));
-
-        //售后服务
-        mSreverList = new ArrayList<>();
-        mSreverAdapter = new ShoppingQualityAdapter(mSreverList,this);
-        mBinding.detailService.setAdapter(mSreverAdapter);
-        mBinding.detailService.setSelector(new ColorDrawable(Color.TRANSPARENT));
+        //功能评分
+        mTextViews.add(mBinding.itemProgressbar1TextDes);
+        mTextViews.add(mBinding.itemProgressbar2TextDes);
+        mTextViews.add(mBinding.itemProgressbar3TextDes);
+        mTextViews.add(mBinding.itemProgressbar4TextDes);
+        mTextViews.add(mBinding.itemProgressbar5TextDes);
+        mAlignTextViews.add(mBinding.itemProgressbar1Text);
+        mAlignTextViews.add(mBinding.itemProgressbar2Text);
+        mAlignTextViews.add(mBinding.itemProgressbar3Text);
+        mAlignTextViews.add(mBinding.itemProgressbar4Text);
+        mAlignTextViews.add(mBinding.itemProgressbar5Text);
+        mSaleProgressViews.add(mBinding.itemProgressbar1);
+        mSaleProgressViews.add(mBinding.itemProgressbar2);
+        mSaleProgressViews.add(mBinding.itemProgressbar3);
+        mSaleProgressViews.add(mBinding.itemProgressbar4);
+        mSaleProgressViews.add(mBinding.itemProgressbar5);
 
         //产品参数
         mParameterList = new ArrayList<>();
@@ -242,17 +238,6 @@ public class ShoppingDetailActivity extends BaseActivity implements ShoppingComm
                 mBinding.detailEvaluation.loadUrl("javascript:window.android.getBodyHeight(document.body.scrollHeight)");
             }
         });
-        //判断页面加载过程
-//        mBinding.detailEvaluation.setWebChromeClient(new WebChromeClient() {
-//            @Override
-//            public void onProgressChanged(WebView view, int newProgress) {
-//                if (newProgress == 100) {// 网页加载完成
-//                    if (mDialogProgress != null && mDialogProgress.isShowing()) {
-//                        mDialogProgress.dismiss();
-//                    }
-//                }
-//            }
-//        });
 
         //用户评论
         LinearLayoutManager layoutManager1 = new LinearLayoutManager(this) {
@@ -275,10 +260,18 @@ public class ShoppingDetailActivity extends BaseActivity implements ShoppingComm
         mPresenter.setKeyListener(mBinding.detailContanier, usableHeightPrevious);
         mPresenter.initLine(mBinding.detailTitleContainer,mBinding.shopTv
                 ,mBinding.shopView,mBinding.evaluationView,mBinding.commonView);
+        mPresenter.setStatusBarHight(mBinding.statusBar,this);
+        mPresenter.setStatusBarHight(mBinding.statusBar2,this);
 
         mBinding.srcollView.setOnScrollChangeListener(new View.OnScrollChangeListener() {
             @Override
-            public void onScrollChange(View view, int i, int i1, int i2, int i3) {
+            public void onScrollChange(View view, int left, int top, int oldLeft, int oldTop) {
+                //控制头布局显示与消失情况
+                float a = top;
+                float b = a / 1000;
+                float max = (float) Math.min(1, b * 2);
+                mBinding.headContanier.setAlpha(max);
+                //控制头布局滑动位置的变化
                 if(view.getScrollY() >= mBinding.detailEvaluationLine.getTop()){
                     mPresenter.initTitleLayout(ShoppingDetailActivity.this, mBinding.commonTv,  mBinding.commonView, mBinding.shopTv, mBinding.shopView, mBinding.evaluationTv, mBinding.evaluationView);
                 }else if(view.getScrollY() >= mBinding.detailHeadLine.getTop()){
@@ -322,7 +315,6 @@ public class ShoppingDetailActivity extends BaseActivity implements ShoppingComm
             mBinding.detailEvaluation.removeAllViews();
             mBinding.detailEvaluation.destroy();
         }
-        mBinding.detailEvaluationImageview.recycle();
         super.onDestroy();
     }
 
@@ -385,60 +377,53 @@ public class ShoppingDetailActivity extends BaseActivity implements ShoppingComm
      */
     @Override
     public void onSuccess(ShoppingDetailBean shoppingDetailBean) {
-        if(shoppingDetailBean.getCode() == 200){
+        if(shoppingDetailBean.getCode() == 0){
             mBinding.inClude.qsNet.setVisibility(View.GONE);
-            goodsUrl = shoppingDetailBean.getGoodsRankdetailEntity().getGoodsBuyLink();
+            goodsUrl = shoppingDetailBean.getData().getGoodsDetailEntity().getGoodsBuyLink();
             //初始值
-            if(!TextUtils.isEmpty(goodsName)){
-                mBinding.detailName.setText(goodsName);
-            }
-            if(!TextUtils.isEmpty(priceNow)){
-                mBinding.detailNewPrice.setText("券后价：¥" + priceNow);
-            }
-            if(!TextUtils.isEmpty(priceOld)){
-                mBinding.detailOldPrice.setText("¥" + priceOld);
-            }
+            mBinding.detailName.setText(shoppingDetailBean.getData().getGoodsEntity().getGoodsName());
+            mBinding.detailNewPrice.setText("¥" + shoppingDetailBean.getData().getGoodsEntity().getActualPrice());
+            mBinding.detailOldPrice.setText("¥" + shoppingDetailBean.getData().getGoodsEntity().getOtherPrice());
             mBinding.detailOldPrice.setTv(true);
             mBinding.detailOldPrice.setColor(R.color.color_ACACAC);
-            if(!TextUtils.isEmpty(sourceStatus)){
-                if(sourceStatus.equals("1")){
-                    mBinding.detailOldPriceName.setText("京东：");
-                }else  if(sourceStatus.equals("2")){
-                    mBinding.detailOldPriceName.setText("淘宝：");
-                }else  if(sourceStatus.equals("3")){
-                    mBinding.detailOldPriceName.setText("天猫：");
-                }
+            if(shoppingDetailBean.getData().getGoodsEntity().getSource()== 1){
+                mBinding.detailOldPriceName.setText("京东价");
+            }else  if(shoppingDetailBean.getData().getGoodsEntity().getSource() == 2){
+                mBinding.detailOldPriceName.setText("淘宝价");
+            }else  if(shoppingDetailBean.getData().getGoodsEntity().getSource() == 3){
+                mBinding.detailOldPriceName.setText("天猫价");
             }
-            if(!TextUtils.isEmpty(price)){
-                mBinding.detaileCouponTitle.setText(price + "元独家优惠券");
-            }
+            //推荐理由
+            String str = "<strong><font color='#21151515' >推荐理由：</font></strong>" + shoppingDetailBean.getData().getGoodsEntity().getRecommendReason();
+            mBinding.detailReason.setText(Html.fromHtml(str));
+            //优惠券
+            mBinding.detaileCoupon.setText(shoppingDetailBean.getData().getGoodsEntity().getCouponPrice());
+            mBinding.detailCouponDeci.setText("使用期限"+shoppingDetailBean.getData().getGoodsCouponsEntity().getValidStartTime()+"至"+shoppingDetailBean.getData().getGoodsCouponsEntity().getValidEndTime());
             //轮播图设置值
-            if(shoppingDetailBean.getGoodsRankdetailEntity().getImgList().size() == 1){
+            if(shoppingDetailBean.getData().getGoodsEntity().getImgList().size() == 1){
                 mBinding.viewPager.setVisibility(View.GONE);
                 mBinding.detailPoint.setVisibility(View.GONE);
                 mBinding.pagerImage.setVisibility(View.VISIBLE);
-                GlideApp.loderImage(this,shoppingDetailBean.getGoodsRankdetailEntity().getImgList().get(0).getImgPath(),mBinding.pagerImage,0,0);
+                GlideApp.loderImage(this,shoppingDetailBean.getData().getGoodsEntity().getImgList().get(0),mBinding.pagerImage,0,0);
             }else {
                 mBinding.viewPager.setVisibility(View.VISIBLE);
                 mBinding.detailPoint.setVisibility(View.VISIBLE);
                 mBinding.pagerImage.setVisibility(View.GONE);
-                for (int i = 0; i < shoppingDetailBean.getGoodsRankdetailEntity().getImgList().size(); i++) {
-                    mBannerList.add(shoppingDetailBean.getGoodsRankdetailEntity().getImgList().get(i).getImgPath());
+                for (int i = 0; i < shoppingDetailBean.getData().getGoodsEntity().getImgList().size(); i++) {
+                    mBannerList.add(shoppingDetailBean.getData().getGoodsEntity().getImgList().get(i));
                 }
                 mPresenter.initBanner(mBannerList, this, point, mBinding.detailPoint, mBannerAdapter);
                 new Thread(new MyRunble()).start();
             }
 
-            //开箱评测头像
-            if(shoppingDetailBean.getGoodsRankdetailEntity().getGoodsEvalWayEntity() != null){
-                attentionUserId = shoppingDetailBean.getGoodsRankdetailEntity().getGoodsEvalWayEntity().getUserShopmember().getUserId();
-//                ImageManager.displayCircleImage(shoppingDetailBean.getGoodsRankdetailEntity().getGoodsEvalWayEntity().getUserShopmember().getUserNickImg(),mBinding.detailEvaluationImage,
-//                        0,0);
-                GlideApp.loderCircleImage(this,shoppingDetailBean.getGoodsRankdetailEntity().getGoodsEvalWayEntity().getUserShopmember().getUserNickImg(),mBinding.detailEvaluationImage,R.mipmap.rlogo ,0);
-                mBinding.detailEvaluationName.setText(shoppingDetailBean.getGoodsRankdetailEntity().getGoodsEvalWayEntity().getUserShopmember().getUserNickName());
-                mBinding.detailEvaluationTime.setText(shoppingDetailBean.getGoodsRankdetailEntity().getGoodsEvalWayEntity().getCreateTime().split(" ")[0].replace("-","."));
-                mBinding.detailEvaluationFans.setText("粉丝数："+shoppingDetailBean.getGoodsRankdetailEntity().getGoodsEvalWayEntity().getUserShopmember().getFansCount());
-                if (shoppingDetailBean.getGoodsRankdetailEntity().getGoodsEvalWayEntity().getConcernNum() == 0) {
+//            //开箱评测头像
+            if(shoppingDetailBean.getData().getEvaluationEntity() != null){
+                attentionUserId = shoppingDetailBean.getData().getEvaluationEntity().getUserId();
+                GlideApp.loderCircleImage(this,shoppingDetailBean.getData().getEvaluationEntity().getUser().getAvatar(),mBinding.detailEvaluationImage,R.mipmap.rlogo ,0);
+                mBinding.detailEvaluationName.setText(shoppingDetailBean.getData().getEvaluationEntity().getUser().getNickname());
+                mBinding.detailEvaluationTime.setText(shoppingDetailBean.getData().getEvaluationEntity().getCreateTime());
+                mBinding.detailEvaluationFans.setText("粉丝数："+shoppingDetailBean.getData().getEvaluationEntity().getUser().getFansCount());
+                if (shoppingDetailBean.getData().getEvaluationEntity().getUser().getFollow() == 0) {
                     isConcer = false;
                     mBinding.contentAttention.setBackgroundResource(R.drawable.bg_attention);
                     mBinding.contentAttention.setText("+关注");
@@ -450,36 +435,40 @@ public class ShoppingDetailActivity extends BaseActivity implements ShoppingComm
                     mBinding.contentAttention.setTextColor(getResources().getColor(R.color.color_white));
                 }
                 mBinding.detailEvaluation.loadDataWithBaseURL(null,
-                        shoppingDetailBean.getGoodsRankdetailEntity().getGoodsEvalWayEntity().getContent(),
+                        shoppingDetailBean.getData().getEvaluationEntity().getContent(),
                         "text/html", "utf-8", null);
             }else {
-//                if (mDialogProgress.isShowing()) {
-//                    mDialogProgress.dismiss();
-//                }
                 mBinding.detailEvaluationLine.setVisibility(View.GONE);
                 mBinding.detailEvaluationTitle.setVisibility(View.GONE);
                 mBinding.detailEvaluationHead.setVisibility(View.GONE);
                 mBinding.detailEvaluation.setVisibility(View.GONE);
+                mBinding.detailGood.setVisibility(View.GONE);
             }
 
-            if(shoppingDetailBean.getGoodsRankdetailEntity().getParametersList() != null){
-                mParameterList.addAll(shoppingDetailBean.getGoodsRankdetailEntity().getParametersList());
+            //产品参数
+            if(shoppingDetailBean.getData().getGoodsDetailEntity().getParametersList() != null){
+                mParameterList.addAll(shoppingDetailBean.getData().getGoodsDetailEntity().getParametersList());
                 mParameterAdapter.notifyDataSetChanged();
             }
-
-            if (shoppingDetailBean.getGoodsRankdetailEntity().getQualityList() != null) {
-                for (ShoppingDetailBean.GoodsRankdetailEntityBean.QualityListBean qualityListBean : shoppingDetailBean.getGoodsRankdetailEntity().getQualityList()) {
-                    mQualityList.add(qualityListBean.getName());
+            //功能分析
+            if(shoppingDetailBean.getData().getGoodsEntity().getScoreOptionsList() != null){
+                mBinding.detailProgressContainer.setVisibility(View.VISIBLE);
+                for (int i = 0; i < shoppingDetailBean.getData().getGoodsEntity().getScoreOptionsList().size(); i++) {
+                    BigDecimal b = new BigDecimal(shoppingDetailBean.getData().getGoodsEntity().getScoreOptionsList().get(i).getScore());
+                    double result = b.setScale(1, BigDecimal.ROUND_HALF_UP).doubleValue();//保留1位小数
+                    mTextViews.get(i).setText(result + "分");
+                    mAlignTextViews.get(i).setText(shoppingDetailBean.getData().getGoodsEntity().getScoreOptionsList().get(i).getName());
+                    mSaleProgressViews.get(i).setTotalAndCurrentCount(100, Integer.valueOf(shoppingDetailBean.getData().getGoodsEntity().getScoreOptionsList().get(i).getScore()) * 10);
                 }
-                mQualityAdapter.notifyDataSetChanged();
-            }
-
-            if (shoppingDetailBean.getGoodsRankdetailEntity().getServiceList()!= null) {
-                for (ShoppingDetailBean.GoodsRankdetailEntityBean.ServiceListBean serviceListBean : shoppingDetailBean.getGoodsRankdetailEntity().getServiceList()) {
-                    mSreverList.add(serviceListBean.getName());
+                if(shoppingDetailBean.getData().getGoodsEntity().getScoreOptionsList().size() <= 4){
+                    mBinding.itemProgressbar5Container.setVisibility(View.GONE);
                 }
-                mSreverAdapter.notifyDataSetChanged();
+            }else {
+                mBinding.detailProgressContainer.setVisibility(View.GONE);
             }
+            //综合评分
+            mBinding.itemScore.setText(shoppingDetailBean.getData().getGoodsEntity().getScore());
+
             if (mDialogProgress != null && mDialogProgress.isShowing()) {
                 mDialogProgress.dismiss();
             }
@@ -576,17 +565,24 @@ public class ShoppingDetailActivity extends BaseActivity implements ShoppingComm
      */
     @Override
     public void onSucIsSnap(SnapSelectBean snapSelectBean) {
-        if(snapSelectBean.getCode() == 200){
+        if(snapSelectBean.getCode() == 0){
             isSnap = true;
-            mBinding.detailGoodTv.setTextColor(getResources().getColor(R.color.color_E31436));
-            mBinding.detailGoodTv.setText(snapSelectBean.getCount() + "");
+            mBinding.detailGood.setText(snapSelectBean.getCount() + "人喜欢");
+            Drawable drawable= getResources().getDrawable(R.mipmap.like_sel);
+            drawable.setBounds(0, 0, drawable.getMinimumWidth(), drawable.getMinimumHeight());
+            mBinding.detailGood.setCompoundDrawables(drawable,null,null,null);
         }else if(snapSelectBean.getCode() == 400){
             isSnap = false;
-            mBinding.detailGoodTv.setTextColor(getResources().getColor(R.color.color_ACACAC));
-            mBinding.detailGoodTv.setText(snapSelectBean.getCount() + "");
+            mBinding.detailGood.setText(snapSelectBean.getCount() + "喜欢");
+            Drawable drawable= getResources().getDrawable(R.mipmap.like_nor);
+            drawable.setBounds(0, 0, drawable.getMinimumWidth(), drawable.getMinimumHeight());
+            mBinding.detailGood.setCompoundDrawables(drawable,null,null,null);
         }else {
             isSnap = false;
-            mBinding.detailGoodTv.setTextColor(getResources().getColor(R.color.color_ACACAC));
+            mBinding.detailGood.setText("喜欢");
+            Drawable drawable= getResources().getDrawable(R.mipmap.like_nor);
+            drawable.setBounds(0, 0, drawable.getMinimumWidth(), drawable.getMinimumHeight());
+            mBinding.detailGood.setCompoundDrawables(drawable,null,null,null);
             Toast.makeText(this, snapSelectBean.getMsg(), Toast.LENGTH_SHORT).show();
         }
     }
@@ -597,7 +593,10 @@ public class ShoppingDetailActivity extends BaseActivity implements ShoppingComm
     @Override
     public void onFileIsSnap(String error) {
         isSnap = false;
-        mBinding.detailGoodTv.setTextColor(getResources().getColor(R.color.color_ACACAC));
+        mBinding.detailGood.setText("喜欢");
+        Drawable drawable= getResources().getDrawable(R.mipmap.like_nor);
+        drawable.setBounds(0, 0, drawable.getMinimumWidth(), drawable.getMinimumHeight());
+        mBinding.detailGood.setCompoundDrawables(drawable,null,null,null);
         Toast.makeText(this, "获取点赞信息失败", Toast.LENGTH_SHORT).show();
     }
 
@@ -613,8 +612,10 @@ public class ShoppingDetailActivity extends BaseActivity implements ShoppingComm
         mGoodView.setTextColor(getResources().getColor(R.color.color_E31436));
         mGoodView.show(view);
         isSnap = true;
-        mBinding.detailGoodTv.setTextColor(getResources().getColor(R.color.color_E31436));
-        mBinding.detailGoodTv.setText( (Integer.valueOf(mBinding.detailGoodTv.getText().toString()) + 1 )+ "");
+        mBinding.detailGood.setText( (Integer.valueOf(mBinding.detailGood.getText().toString()) + 1 )+ "人喜欢");
+        Drawable drawable= getResources().getDrawable(R.mipmap.like_sel);
+        drawable.setBounds(0, 0, drawable.getMinimumWidth(), drawable.getMinimumHeight());
+        mBinding.detailGood.setCompoundDrawables(drawable,null,null,null);
     }
 
     /**
@@ -626,8 +627,10 @@ public class ShoppingDetailActivity extends BaseActivity implements ShoppingComm
             mDialogProgress.dismiss();
         }
         isSnap = false;
-        mBinding.detailGoodTv.setTextColor(getResources().getColor(R.color.color_ACACAC));
-        mBinding.detailGoodTv.setText( (Integer.valueOf(mBinding.detailGoodTv.getText().toString()) - 1 )+ "");
+        mBinding.detailGood.setText("喜欢");
+        Drawable drawable= getResources().getDrawable(R.mipmap.like_nor);
+        drawable.setBounds(0, 0, drawable.getMinimumWidth(), drawable.getMinimumHeight());
+        mBinding.detailGood.setCompoundDrawables(drawable,null,null,null);
     }
 
     /**
@@ -759,17 +762,19 @@ public class ShoppingDetailActivity extends BaseActivity implements ShoppingComm
      */
     @Override
     public void share(SHARE_MEDIA share_media) {
-        new ShareUtils(this, share_media)
-                .shareWeb(this, RetrofitModule.UP_BASE_URL + "share/info-tab.html?goodsId=" + goodsId, goodsName, goodsName, shareImage, R.mipmap.share_logo);
+//        new ShareUtils(this, share_media)
+//                .shareWeb(this, RetrofitModule.UP_BASE_URL + "share/info-tab.html?goodsId=" + goodsId, goodsName, goodsName, shareImage, R.mipmap.share_logo);
     }
 
     @Override
     public void onClick(View view) {
         switch (view.getId()) {
+            case R.id.title_back:
             case R.id.detail_back:
                 hintKey();
                 finish();
                 break;
+            case R.id.title_favor:
             case R.id.detail_favor:
                 if (ClickUtil.isFastDoubleClick(1000)) {
                     Toast.makeText(this, "您点击太快了，请休息会再点", Toast.LENGTH_SHORT).show();
@@ -838,12 +843,13 @@ public class ShoppingDetailActivity extends BaseActivity implements ShoppingComm
                 }
 
                 break;
+            case R.id.detail_couponImg:
             case R.id.detail_buy:
                 mDialog = (new ProgressDialogView()).createLoadingDialog(this, "");
                 if(mDialog != null && !mDialog.isShowing()){
                     mDialog.show();
                 }
-                openAliHomeWeb(goodsUrl,sourceStatus);
+                openAliHomeWeb(goodsUrl);
                 break;
             case R.id.key_text:
                 //发送按钮
@@ -977,7 +983,7 @@ public class ShoppingDetailActivity extends BaseActivity implements ShoppingComm
     /****
      * 跳转淘宝首页
      */
-    public void openAliHomeWeb(String url, String tb ) {
+    public void openAliHomeWeb(String url) {
         AlibcShowParams alibcShowParams  = new AlibcShowParams(OpenType.Native, false);
 //        if(tb.equals("2")){
             //淘宝协议
