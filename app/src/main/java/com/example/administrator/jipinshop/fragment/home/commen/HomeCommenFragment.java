@@ -28,6 +28,7 @@ import com.example.administrator.jipinshop.util.ToastUtil;
 import com.example.administrator.jipinshop.util.sp.CommonDate;
 import com.example.administrator.jipinshop.view.dialog.ProgressDialogView;
 import com.google.gson.Gson;
+import com.trello.rxlifecycle2.android.FragmentEvent;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
@@ -65,7 +66,6 @@ public class HomeCommenFragment extends DBBaseFragment implements HomeCommenTabA
         super.setUserVisibleHint(isVisibleToUser);
         if (isVisibleToUser && once) {
             mBinding.swipeToLoad.setRefreshing(true);
-            once = false;
         }
     }
 
@@ -160,7 +160,7 @@ public class HomeCommenFragment extends DBBaseFragment implements HomeCommenTabA
     @Override
     public void onRefresh() {
         if(mChildrenBeans.size() != 0){
-            mPresenter.goodRank(mChildrenBeans.get(sets).getCategoryid(),this.bindToLifecycle());
+            mPresenter.goodRank(mChildrenBeans.get(sets).getCategoryid(),this.bindUntilEvent(FragmentEvent.DESTROY_VIEW));
         }else {
             stopResher();
             initError(R.mipmap.qs_net, "网络出错", "哇哦，网络出错了，换个姿势下滑页面试试");
@@ -221,6 +221,9 @@ public class HomeCommenFragment extends DBBaseFragment implements HomeCommenTabA
             mBinding.recyclerView.setVisibility(View.GONE);
         }
         stopResher();
+        if (once){
+            once = false;
+        }
     }
 
     /**
