@@ -417,7 +417,7 @@ public class ShoppingDetailActivity extends BaseActivity implements ShoppingComm
             }
 
 //            //开箱评测头像
-            if(shoppingDetailBean.getData().getEvaluationEntity() != null){
+            if(shoppingDetailBean.getData().getEvaluationEntity() != null && !TextUtils.isEmpty(shoppingDetailBean.getData().getEvaluationEntity().getContent())){
                 attentionUserId = shoppingDetailBean.getData().getEvaluationEntity().getUserId();
                 GlideApp.loderCircleImage(this,shoppingDetailBean.getData().getEvaluationEntity().getUser().getAvatar(),mBinding.detailEvaluationImage,R.mipmap.rlogo ,0);
                 mBinding.detailEvaluationName.setText(shoppingDetailBean.getData().getEvaluationEntity().getUser().getNickname());
