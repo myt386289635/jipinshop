@@ -87,7 +87,6 @@ public class RecommendFragment extends DBBaseFragment implements OnRefreshListen
                     .putExtra("goodsId",mList.get(pos).getGoodsId())
             );
         }
-
     }
 
     @Override

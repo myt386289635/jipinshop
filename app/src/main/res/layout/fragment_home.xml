@@ -33,6 +33,7 @@
             tools:context=".MainActivity">
 
             <android.support.design.widget.AppBarLayout
+                app:elevation="0dp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@color/color_white">
@@ -82,9 +83,12 @@
                     android:id="@+id/recycler_view"
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/y100"
-                    android:layout_below="@+id/head"
                     android:background="@color/color_white"/>
 
+                <View
+                    android:background="@color/color_F5F5F5"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/y2"/>
 
             </android.support.design.widget.AppBarLayout>
 

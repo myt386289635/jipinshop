@@ -5,7 +5,6 @@ import com.example.administrator.jipinshop.bean.AccountBean;
 import com.example.administrator.jipinshop.bean.AppVersionbean;
 import com.example.administrator.jipinshop.bean.CommentBean;
 import com.example.administrator.jipinshop.bean.CommentInsertBean;
-import com.example.administrator.jipinshop.bean.ElectricityFragmentBean;
 import com.example.administrator.jipinshop.bean.EvaluationDetailBean;
 import com.example.administrator.jipinshop.bean.EvaluationListBean;
 import com.example.administrator.jipinshop.bean.EvaluationTabBean;
@@ -13,11 +12,9 @@ import com.example.administrator.jipinshop.bean.FindDetailBean;
 import com.example.administrator.jipinshop.bean.FindListBean;
 import com.example.administrator.jipinshop.bean.FollowBean;
 import com.example.administrator.jipinshop.bean.FovalBean;
-import com.example.administrator.jipinshop.bean.HealthFragmentBean;
-import com.example.administrator.jipinshop.bean.HouseholdFragmentBean;
+import com.example.administrator.jipinshop.bean.HomeCommenBean;
 import com.example.administrator.jipinshop.bean.ImageBean;
 import com.example.administrator.jipinshop.bean.IntegralShopBean;
-import com.example.administrator.jipinshop.bean.KitchenFragmentBean;
 import com.example.administrator.jipinshop.bean.LoginBean;
 import com.example.administrator.jipinshop.bean.LuckImageBean;
 import com.example.administrator.jipinshop.bean.LuckselectBean;
@@ -48,8 +45,6 @@ import javax.inject.Inject;
 
 import io.reactivex.Observable;
 import okhttp3.MultipartBody;
-import retrofit2.http.GET;
-import retrofit2.http.Query;
 
 public class Repository {
 
@@ -210,29 +205,8 @@ public class Repository {
     /**
      *  榜单二级菜单列表
      */
-    public Observable<HealthFragmentBean> goodRank(String goodsId){
-        return mAPIService.goodRank("0",goodsId);
-    }
-
-    /**
-     * 榜单二级菜单列表
-     */
-    public Observable<KitchenFragmentBean> goodRank2(String goodsId){
-        return mAPIService.goodRank2("0",goodsId);
-    }
-
-    /**
-     * 榜单二级菜单列表
-     */
-    public Observable<HouseholdFragmentBean> goodRank3(String goodsId){
-        return mAPIService.goodRank3("0",goodsId);
-    }
-
-    /**
-     * 榜单二级菜单列表
-     */
-    public Observable<ElectricityFragmentBean> goodRank4(String goodsId){
-        return mAPIService.goodRank4("0",goodsId);
+    public Observable<HomeCommenBean> goodRank(String goodsId){
+        return mAPIService.goodRank(goodsId);
     }
 
     /**

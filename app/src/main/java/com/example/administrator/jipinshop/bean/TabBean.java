@@ -57,6 +57,15 @@ public class TabBean {
         private String categoryName;
         private int orderNum;
         private List<ChildrenBean> children;
+        private List<AdListBean> adList;
+
+        public List<AdListBean> getAdList() {
+            return adList;
+        }
+
+        public void setAdList(List<AdListBean> adList) {
+            this.adList = adList;
+        }
 
         public String getCategoryId() {
             return categoryId;
@@ -135,6 +144,36 @@ public class TabBean {
 
             public void setOrderNum(int orderNum) {
                 this.orderNum = orderNum;
+            }
+        }
+
+        public static class AdListBean{
+            private String img;
+            private String objectId;
+            private String type;
+
+            public String getObjectId() {
+                return objectId;
+            }
+
+            public void setObjectId(String objectId) {
+                this.objectId = objectId;
+            }
+
+            public String getType() {
+                return type;
+            }
+
+            public void setType(String type) {
+                this.type = type;
+            }
+
+            public String getImg() {
+                return img;
+            }
+
+            public void setImg(String img) {
+                this.img = img;
             }
         }
     }

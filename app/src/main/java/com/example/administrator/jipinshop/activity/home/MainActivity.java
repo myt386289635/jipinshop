@@ -24,6 +24,7 @@ import com.example.administrator.jipinshop.fragment.mine.MineFragment;
 import com.example.administrator.jipinshop.fragment.tryout.TryFragment;
 import com.example.administrator.jipinshop.util.InputMethodManagerLeak;
 import com.example.administrator.jipinshop.util.NotchUtil;
+import com.example.administrator.jipinshop.util.ToastUtil;
 import com.example.administrator.jipinshop.util.UpDataUtil;
 import com.example.administrator.jipinshop.util.sp.CommonDate;
 import com.example.administrator.jipinshop.view.NoScrollViewPager;
@@ -130,7 +131,7 @@ public class MainActivity extends RxAppCompatActivity implements MainView {
     @Override
     public void onBackPressed() {
         if ((System.currentTimeMillis() - exitTime) > 2000) {
-            Toast.makeText(getApplicationContext(), "再按一次退出程序", Toast.LENGTH_SHORT).show();
+            ToastUtil.show("再按一次退出程序");
             exitTime = System.currentTimeMillis();
         } else {
             super.onBackPressed();

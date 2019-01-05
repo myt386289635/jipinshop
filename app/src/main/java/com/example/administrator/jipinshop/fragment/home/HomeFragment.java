@@ -28,6 +28,7 @@ import com.example.administrator.jipinshop.databinding.FragmentHomeBinding;
 import com.example.administrator.jipinshop.fragment.home.commen.HomeCommenFragment;
 import com.example.administrator.jipinshop.fragment.home.recommend.RecommendFragment;
 import com.example.administrator.jipinshop.jpush.JPushReceiver;
+import com.example.administrator.jipinshop.util.ToastUtil;
 import com.example.administrator.jipinshop.util.sp.CommonDate;
 import com.google.gson.Gson;
 
@@ -116,7 +117,7 @@ public class HomeFragment extends DBBaseFragment implements Badge.OnDragStateCha
                         mFragments.add(RecommendFragment.getInstance());
                     }else {
                         mTabBeans.add(new TitleBean(tabBean.getData().get(i).getCategoryName(),false));
-                        mFragments.add(HomeCommenFragment.getInstance());
+                        mFragments.add(HomeCommenFragment.getInstance(i));
                     }
                 }
             }
@@ -129,7 +130,7 @@ public class HomeFragment extends DBBaseFragment implements Badge.OnDragStateCha
                         mFragments.add(RecommendFragment.getInstance());
                     }else {
                         mTabBeans.add(new TitleBean(tabBean.getData().get(i).getCategoryName(),false));
-                        mFragments.add(HomeCommenFragment.getInstance());
+                        mFragments.add(HomeCommenFragment.getInstance(i));
                     }
                 }
             }else {
@@ -141,7 +142,7 @@ public class HomeFragment extends DBBaseFragment implements Badge.OnDragStateCha
                     if(i == 0){
                         mFragments.add(RecommendFragment.getInstance());
                     }else {
-                        mFragments.add(HomeCommenFragment.getInstance());
+                        mFragments.add(HomeCommenFragment.getInstance(i));
                     }
                 }
             }
@@ -185,7 +186,7 @@ public class HomeFragment extends DBBaseFragment implements Badge.OnDragStateCha
     @Override
     public void Faile(String error) {
         EventBus.getDefault().post(HomeFragment.subTab);//通知榜单里的4个fragment初始化二级导航栏
-        Toast.makeText(getContext(), error, Toast.LENGTH_SHORT).show();
+        ToastUtil.show(error);
     }
 
     /**
@@ -210,7 +211,7 @@ public class HomeFragment extends DBBaseFragment implements Badge.OnDragStateCha
      */
     @Override
     public void unMessageFaile(String error) {
-        Toast.makeText(getContext(), error, Toast.LENGTH_SHORT).show();
+        ToastUtil.show(error);
     }
 
     @Override

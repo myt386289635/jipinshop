@@ -1,0 +1,133 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
+        xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+        <variable
+            name="date"
+            type="com.example.administrator.jipinshop.bean.HomeCommenBean.DataBean"/>
+
+        <variable
+            name="position"
+            type="String"/>
+
+    </data>
+
+    <RelativeLayout
+        android:layout_marginBottom="@dimen/y42"
+        android:layout_marginTop="@dimen/y42"
+        android:layout_marginLeft="@dimen/x28"
+        android:layout_marginRight="@dimen/x28"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <ImageView
+            android:scaleType="fitXY"
+            android:id="@+id/item_image"
+            tools:src="@color/color_4A90E2"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/y580"/>
+
+        <TextView
+            android:gravity="center"
+            android:textSize="12sp"
+            android:textColor="@color/color_white"
+            android:text="@{position}"
+            android:background="@mipmap/home_set"
+            android:layout_marginLeft="@dimen/x24"
+            android:layout_marginTop="@dimen/y24"
+            android:layout_width="@dimen/x56"
+            android:layout_height="@dimen/y42"/>
+
+
+        <TextView
+            android:textStyle="bold"
+            android:textColor="@color/color_202020"
+            android:textSize="16sp"
+            android:ellipsize="end"
+            android:maxLines="2"
+            android:id="@+id/item_time"
+            android:text="@{date.goodsName}"
+            android:layout_marginBottom="@dimen/y24"
+            android:layout_marginTop="@dimen/y24"
+            android:layout_below="@+id/item_image"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+
+        <com.google.android.flexbox.FlexboxLayout
+            android:layout_marginBottom="@dimen/y24"
+            android:layout_below="@+id/item_time"
+            android:id="@+id/item_flex"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:alignItems="flex_start"
+            app:flexWrap="wrap"
+            app:justifyContent="flex_start"/>
+
+        <TextView
+            android:layout_below="@+id/item_flex"
+            android:id="@+id/item_price"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@{@string/price + date.actualPrice}"
+            android:textColor="@color/color_E31436"
+            android:textSize="14sp"/>
+
+        <LinearLayout
+            android:layout_marginLeft="@dimen/x24"
+            android:id="@+id/item_price_old_container"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/item_flex"
+            android:layout_toRightOf="@+id/item_price"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/item_goodsFrom"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                tools:text="天猫："
+                android:textColor="@color/color_ACACAC"
+                android:textSize="13sp"/>
+
+            <com.example.administrator.jipinshop.view.TextViewDel
+                android:id="@+id/item_price_old"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:ellipsize="end"
+                android:singleLine="true"
+                android:text="@{@string/price + date.otherPrice}"
+                android:textColor="@color/color_ACACAC"
+                android:textSize="13sp"/>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_alignParentRight="true"
+            android:id="@+id/item_lookNum_container"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/item_flex"
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@mipmap/recommend_browse"/>
+
+            <TextView
+                android:id="@+id/item_lookNum"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/x4"
+                android:text="@{date.pv}"
+                android:textColor="@color/color_ACACAC"
+                android:textSize="13sp"/>
+
+
+        </LinearLayout>
+
+    </RelativeLayout>
+</layout>

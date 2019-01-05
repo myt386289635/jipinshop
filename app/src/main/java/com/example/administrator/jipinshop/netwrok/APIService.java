@@ -1,9 +1,10 @@
 package com.example.administrator.jipinshop.netwrok;
 
 
+import com.example.administrator.jipinshop.bean.AccountBean;
 import com.example.administrator.jipinshop.bean.AppVersionbean;
+import com.example.administrator.jipinshop.bean.CommentBean;
 import com.example.administrator.jipinshop.bean.CommentInsertBean;
-import com.example.administrator.jipinshop.bean.ElectricityFragmentBean;
 import com.example.administrator.jipinshop.bean.EvaluationDetailBean;
 import com.example.administrator.jipinshop.bean.EvaluationListBean;
 import com.example.administrator.jipinshop.bean.EvaluationTabBean;
@@ -11,13 +12,12 @@ import com.example.administrator.jipinshop.bean.FindDetailBean;
 import com.example.administrator.jipinshop.bean.FindListBean;
 import com.example.administrator.jipinshop.bean.FollowBean;
 import com.example.administrator.jipinshop.bean.FovalBean;
-import com.example.administrator.jipinshop.bean.HealthFragmentBean;
-import com.example.administrator.jipinshop.bean.HouseholdFragmentBean;
+import com.example.administrator.jipinshop.bean.HomeCommenBean;
 import com.example.administrator.jipinshop.bean.ImageBean;
 import com.example.administrator.jipinshop.bean.IntegralShopBean;
-import com.example.administrator.jipinshop.bean.KitchenFragmentBean;
 import com.example.administrator.jipinshop.bean.LoginBean;
 import com.example.administrator.jipinshop.bean.LuckImageBean;
+import com.example.administrator.jipinshop.bean.LuckselectBean;
 import com.example.administrator.jipinshop.bean.MemberLevelBean;
 import com.example.administrator.jipinshop.bean.PointDetailBean;
 import com.example.administrator.jipinshop.bean.RecommendFragmentBean;
@@ -28,17 +28,14 @@ import com.example.administrator.jipinshop.bean.SignInsertBean;
 import com.example.administrator.jipinshop.bean.SnapSelectBean;
 import com.example.administrator.jipinshop.bean.SreachResultBean;
 import com.example.administrator.jipinshop.bean.SuccessBean;
-import com.example.administrator.jipinshop.bean.AccountBean;
 import com.example.administrator.jipinshop.bean.SupplementBean;
 import com.example.administrator.jipinshop.bean.SystemMessageBean;
 import com.example.administrator.jipinshop.bean.TabBean;
 import com.example.administrator.jipinshop.bean.UnMessageBean;
-import com.example.administrator.jipinshop.bean.UserPageBean;
 import com.example.administrator.jipinshop.bean.UserInfoBean;
-import com.example.administrator.jipinshop.bean.CommentBean;
+import com.example.administrator.jipinshop.bean.UserPageBean;
 import com.example.administrator.jipinshop.bean.json.LoginJson;
 import com.example.administrator.jipinshop.bean.json.PushMessageJson;
-import com.example.administrator.jipinshop.bean.LuckselectBean;
 
 import java.util.Map;
 
@@ -199,28 +196,10 @@ public interface APIService {
     Observable<LuckImageBean> luckselects(@Query("userId") String userId);
 
     /**
-     * 榜单二级菜单列表
+     * 榜单二级菜单列表  已修改
      */
-    @GET("qualityshop-api/api/goodRank")
-    Observable<HealthFragmentBean> goodRank(@Query("mark") String mark , @Query("category2Id") String goodsId);
-
-    /**
-     * 榜单二级菜单列表
-     */
-    @GET("qualityshop-api/api/goodRank")
-    Observable<KitchenFragmentBean> goodRank2(@Query("mark") String mark , @Query("category2Id") String goodsId);
-
-    /**
-     * 榜单二级菜单列表
-     */
-    @GET("qualityshop-api/api/goodRank")
-    Observable<HouseholdFragmentBean> goodRank3(@Query("mark") String mark , @Query("category2Id") String goodsId);
-
-    /**
-     * 榜单二级菜单列表
-     */
-    @GET("qualityshop-api/api/goodRank")
-    Observable<ElectricityFragmentBean> goodRank4(@Query("mark") String mark , @Query("category2Id") String goodsId);
+    @GET("qualityshop-api/api/goodsList")
+    Observable<HomeCommenBean> goodRank(@Query("category2Id") String goodsId);
 
     /**
      * 搜索列表

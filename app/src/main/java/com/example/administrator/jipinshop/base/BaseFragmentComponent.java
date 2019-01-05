@@ -8,6 +8,7 @@ import com.example.administrator.jipinshop.fragment.find.FindFragment;
 import com.example.administrator.jipinshop.fragment.find.common.CommonFindFragment;
 import com.example.administrator.jipinshop.fragment.foval.FovalFragment;
 import com.example.administrator.jipinshop.fragment.home.HomeFragment;
+import com.example.administrator.jipinshop.fragment.home.commen.HomeCommenFragment;
 import com.example.administrator.jipinshop.fragment.home.recommend.RecommendFragment;
 import com.example.administrator.jipinshop.fragment.mine.MineFragment;
 import com.example.administrator.jipinshop.netwrok.ApplicationComponent;
@@ -26,4 +27,5 @@ public interface BaseFragmentComponent {
     void inject(MineFragment fragment);
     void inject(FovalFragment fragment);
     void inject(CouponFragment fragment);
+    void inject(HomeCommenFragment fragment);
 }

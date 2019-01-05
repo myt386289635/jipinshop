@@ -1,11 +1,11 @@
 package com.example.administrator.jipinshop.bean;
 
-public class HealthFragmentGridBean {
+public class ChildrenTabBean {
     private String name;
     private Boolean tag;
     private String categoryid;
 
-    public HealthFragmentGridBean(String name, Boolean tag, String categoryid) {
+    public ChildrenTabBean(String name, Boolean tag, String categoryid) {
         this.name = name;
         this.tag = tag;
         this.categoryid = categoryid;
