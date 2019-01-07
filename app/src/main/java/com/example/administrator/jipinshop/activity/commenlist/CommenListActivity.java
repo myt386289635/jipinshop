@@ -134,6 +134,10 @@ public class CommenListActivity extends BaseActivity implements CommenListAdapte
      */
     @Override
     public void onItemReply(int pos, TextView textView) {
+        if(TextUtils.isEmpty(SPUtils.getInstance(CommonDate.USER).getString(CommonDate.token,""))){
+            startActivity(new Intent(this, LoginActivity.class));
+            return;
+        }
         parentId = mList.get(pos).getCommentId();
         toUserId = "0";
         parentNum = pos;
@@ -198,6 +202,10 @@ public class CommenListActivity extends BaseActivity implements CommenListAdapte
                 finish();
                 break;
             case R.id.key_text:
+                if(TextUtils.isEmpty(SPUtils.getInstance(CommonDate.USER).getString(CommonDate.token,""))){
+                    startActivity(new Intent(this, LoginActivity.class));
+                    return;
+                }
                 if (TextUtils.isEmpty(mBinding.keyEdit.getText().toString())) {
                     ToastUtil.show("请输入评论");
                     return;

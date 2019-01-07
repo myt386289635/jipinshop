@@ -324,6 +324,10 @@ public class ShoppingDetailActivity extends BaseActivity implements ShoppingComm
      */
     @Override
     public void onItemReply(int pos, TextView textView) {
+        if(TextUtils.isEmpty(SPUtils.getInstance(CommonDate.USER).getString(CommonDate.token,""))){
+            startActivity(new Intent(this, LoginActivity.class));
+            return;
+        }
         parentId = mCommonList.get(pos).getCommentId();
         toUserId = "0";
         mBinding.keyEdit.requestFocus();
@@ -805,6 +809,10 @@ public class ShoppingDetailActivity extends BaseActivity implements ShoppingComm
                 break;
             case R.id.detail_couponImg:
             case R.id.detail_buy:
+                if(TextUtils.isEmpty(SPUtils.getInstance(CommonDate.USER).getString(CommonDate.token,""))){
+                    startActivity(new Intent(this, LoginActivity.class));
+                    return;
+                }
                 mDialog = (new ProgressDialogView()).createLoadingDialog(this, "");
                 if(mDialog != null && !mDialog.isShowing()){
                     mDialog.show();
@@ -854,6 +862,10 @@ public class ShoppingDetailActivity extends BaseActivity implements ShoppingComm
                 break;
             case R.id.detail_send:
             case R.id.detail_commentTv:
+                if(TextUtils.isEmpty(SPUtils.getInstance(CommonDate.USER).getString(CommonDate.token,""))){
+                    startActivity(new Intent(this, LoginActivity.class));
+                    return;
+                }
                 parentId = "0";
                 toUserId = "0";
                 mBinding.keyEdit.requestFocus();
