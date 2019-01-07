@@ -739,6 +739,26 @@
                     android:textSize="18sp"
                     android:textStyle="bold"/>
 
+
+                <TextView
+                    android:layout_marginRight="@dimen/x28"
+                    android:layout_marginTop="@dimen/x56"
+                    android:layout_alignParentRight="true"
+                    android:layout_below="@+id/detail_evaluationLine"
+                    android:drawablePadding="@dimen/x2"
+                    android:drawableLeft="@mipmap/detail_write"
+                    android:id="@+id/detail_send"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/bg_comment"
+                    android:onClick="@{listener.onClick}"
+                    android:paddingBottom="@dimen/y4"
+                    android:paddingLeft="@dimen/x14"
+                    android:paddingRight="@dimen/x14"
+                    android:paddingTop="@dimen/y4"
+                    android:text="写评论"
+                    android:textColor="@color/color_4A90E2"/>
+
                 <RelativeLayout
                     android:id="@+id/detail_comment"
                     android:layout_width="match_parent"
@@ -753,6 +773,7 @@
                         android:visibility="gone"/>
 
                     <TextView
+                        android:layout_marginBottom="@dimen/y60"
                         android:id="@+id/detail_commonTotle"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -916,6 +937,7 @@
                 android:layout_height="@dimen/y56">
 
                 <ImageView
+                    android:id="@+id/title_favorImg"
                     android:padding="@dimen/x12"
                     android:layout_centerInParent="true"
                     android:layout_width="wrap_content"

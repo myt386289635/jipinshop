@@ -6,6 +6,7 @@ import com.example.administrator.jipinshop.bean.CommentBean;
 import com.example.administrator.jipinshop.bean.EvaluationDetailBean;
 import com.example.administrator.jipinshop.bean.SnapSelectBean;
 import com.example.administrator.jipinshop.bean.SuccessBean;
+import com.example.administrator.jipinshop.bean.VoteBean;
 
 /**
  * @author 莫小婷
@@ -30,7 +31,7 @@ public interface EvaluationDetailView {
     void onSucCollectDelete(SuccessBean successBean);
     void onFileCollectDelete(String error);
 
-    void onSucSnapInsert(View view , SuccessBean successBean);
+    void onSucSnapInsert(View view , VoteBean successBean);
 
     void onSucSnapDelete(SuccessBean successBean);
 }

@@ -14,6 +14,7 @@ import com.example.administrator.jipinshop.bean.CommentBean;
 import com.example.administrator.jipinshop.bean.EvaluationDetailBean;
 import com.example.administrator.jipinshop.bean.SnapSelectBean;
 import com.example.administrator.jipinshop.bean.SuccessBean;
+import com.example.administrator.jipinshop.bean.VoteBean;
 import com.example.administrator.jipinshop.netwrok.Repository;
 import com.example.administrator.jipinshop.util.sp.CommonDate;
 import com.trello.rxlifecycle2.LifecycleTransformer;
@@ -221,7 +222,7 @@ public class EvaluationDetailPresenter {
     /**
      * 添加点赞
      */
-    public void snapInsert(View view , String id , LifecycleTransformer<SuccessBean> transformer){
+    public void snapInsert(View view , String id , LifecycleTransformer<VoteBean> transformer){
         Map<String,String> hashMap = new HashMap<>();
         hashMap.put("userId", SPUtils.getInstance(CommonDate.USER).getString(CommonDate.userId));
         hashMap.put("evalId",id);

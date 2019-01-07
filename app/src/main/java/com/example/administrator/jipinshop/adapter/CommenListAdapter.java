@@ -25,7 +25,7 @@ import java.util.List;
  */
 public class CommenListAdapter extends RecyclerView.Adapter<CommenListAdapter.ViewHolder> {
 
-    private List<CommentBean.ListBean> mList;
+    private List<CommentBean.DataBean> mList;
     private Context mContext;
     private OnItemReply mOnItemReply;
     private OnMoreUp mOnMoreUp;
@@ -51,7 +51,7 @@ public class CommenListAdapter extends RecyclerView.Adapter<CommenListAdapter.Vi
         mOnItemReply = onItemReply;
     }
 
-    public CommenListAdapter(List<CommentBean.ListBean> list, Context context) {
+    public CommenListAdapter(List<CommentBean.DataBean> list, Context context) {
         mList = list;
         mContext = context;
 
@@ -60,78 +60,58 @@ public class CommenListAdapter extends RecyclerView.Adapter<CommenListAdapter.Vi
 
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View view  = LayoutInflater.from(mContext).inflate(R.layout.item_common,parent,false);
+        View view = LayoutInflater.from(mContext).inflate(R.layout.item_common, parent, false);
         ViewHolder holder = new ViewHolder(view);
         return holder;
     }
 
     @Override
     public void onBindViewHolder(final ViewHolder holder, final int position) {
-        if(mList.get(position).getUserCommentList() != null && mList.get(position).getUserCommentList().size() != 0){
+        if (mList.get(position).getChildren() != null && mList.get(position).getChildren().size() != 0) {
             holder.recycler_view.setVisibility(View.VISIBLE);
-            holder.mAdapter.setList(mList.get(position).getUserCommentList());
+            holder.mAdapter.setList(mList.get(position).getChildren());
             holder.mAdapter.setNumber(sets.get(position));
             //点击二级评论更多
             holder.mAdapter.setOnReplyLisenter(pos -> {
-                if(mOnItemReply != null){
-                    mOnItemReply.onItemTwoReply(pos,holder.mAdapter,position);
+                if (mOnItemReply != null) {
+                    mOnItemReply.onItemTwoReply(pos, holder.mAdapter, position);
                 }
             });
             holder.mAdapter.setOnMoreUp(() -> {
-                if(mOnMoreUp != null){
-                    mOnMoreUp.onUp(position,holder.mAdapter);
+                if (mOnMoreUp != null) {
+                    mOnMoreUp.onUp(position, holder.mAdapter);
                 }
             });
             holder.recycler_view.setAdapter(holder.mAdapter);
-        }else {
+        } else {
             holder.recycler_view.setVisibility(View.GONE);
         }
 
         holder.item_reply.setOnClickListener(view -> {
-            if(mOnItemReply != null){
-                mOnItemReply.onItemReply(position,holder.item_reply);
+            if (mOnItemReply != null) {
+                mOnItemReply.onItemReply(position, holder.item_reply);
             }
         });
-        if (mList.get(position).getUserShopmember() != null) {
-            if(!TextUtils.isEmpty(mList.get(position).getUserShopmember().getUserNickImg())){
-                GlideApp.loderCircleImage(mContext,mList.get(position).getUserShopmember().getUserNickImg(),holder.item_image,R.mipmap.rlogo,0);
-//                ImageManager.displayCircleImage(mList.get(position).getUserShopmember().getUserNickImg(),holder.item_image,0,R.mipmap.rlogo);
-            }else {
-                GlideApp.loderCircleImage(mContext, R.drawable.rlogo,holder.item_image,R.mipmap.rlogo,R.drawable.rlogo);
-//                ImageManager.displayImage("drawable://" + R.drawable.rlogo,holder.item_image,R.drawable.rlogo,R.drawable.rlogo);
-            }
-            if (!TextUtils.isEmpty(mList.get(position).getUserShopmember().getUserNickName())){
-                holder.item_name.setText(mList.get(position).getUserShopmember().getUserNickName());
-            }else {
-                holder.item_name.setText(FileManager.editPhone(mList.get(position).getUserShopmember().getUserPhone()));
-            }
-        }else {
-            holder.item_name.setText("游客");
-            GlideApp.loderCircleImage(mContext, R.drawable.rlogo,holder.item_image,R.mipmap.rlogo,R.drawable.rlogo);
-//            ImageManager.displayImage("drawable://" + R.drawable.rlogo,holder.item_image,R.drawable.rlogo,R.drawable.rlogo);
+        if (!TextUtils.isEmpty(mList.get(position).getUserAvatar())) {
+            GlideApp.loderCircleImage(mContext, mList.get(position).getUserAvatar(), holder.item_image, R.mipmap.rlogo, 0);
+        } else {
+            GlideApp.loderCircleImage(mContext, R.drawable.rlogo, holder.item_image, R.mipmap.rlogo, R.drawable.rlogo);
         }
-        if(!TextUtils.isEmpty(mList.get(position).getSnapNum()) && !mList.get(position).getSnapNum().equals("0")){
-            holder.item_goodNum.setText(mList.get(position).getSnapNum());
-        }else {
-            holder.item_goodNum.setText("");
-        }
+        holder.item_name.setText(mList.get(position).getUserNickname());
+        holder.item_goodNum.setText(mList.get(position).getVoteCount() + "");
         Drawable drawable;
-        if(mList.get(position).isUserSnap() == 1){
-            drawable= mContext.getResources().getDrawable(R.mipmap.appreciate_sel);
-        }else {
-            drawable= mContext.getResources().getDrawable(R.mipmap.appreciate_nor);
+        if (mList.get(position).getVote() == 1) {
+            drawable = mContext.getResources().getDrawable(R.mipmap.appreciate_sel);
+        } else {
+            drawable = mContext.getResources().getDrawable(R.mipmap.appreciate_nor);
         }
         drawable.setBounds(0, 0, drawable.getMinimumWidth(), drawable.getMinimumHeight());
-        holder.item_goodNum.setCompoundDrawables(drawable,null,null,null);
+        holder.item_goodNum.setCompoundDrawables(drawable, null, null, null);
         holder.item_content.setText(mList.get(position).getContent());
-        if(!TextUtils.isEmpty(mList.get(position).getShowTime())){
-            holder.item_time.setText(mList.get(position).getShowTime());
-        }else {
-            holder.item_time.setText(mList.get(position).getCreateTime().split(" ")[0]);
-        }
+        holder.item_time.setText(mList.get(position).getCreateTimeStr());
         holder.item_goodNum.setOnClickListener(v -> {
-            if(mOnGoodItem != null){
-                mOnGoodItem.onGood(mList.get(position).isUserSnap(),position);
+            if (mOnGoodItem != null) {
+                mOnGoodItem.onGood(mList.get(position).getVote(), position);
             }
         });
     }
@@ -141,13 +121,13 @@ public class CommenListAdapter extends RecyclerView.Adapter<CommenListAdapter.Vi
         return mList.size();
     }
 
-    class ViewHolder extends  RecyclerView.ViewHolder {
+    class ViewHolder extends RecyclerView.ViewHolder {
 
         private ImageView item_image;
         private TextView item_name;
         private TextView item_goodNum;
         private TextView item_content;
-        private TextView item_time,item_reply;
+        private TextView item_time, item_reply;
         private RecyclerView recycler_view;
         private ShoppingCommon2Adapter mAdapter;
 
@@ -159,7 +139,7 @@ public class CommenListAdapter extends RecyclerView.Adapter<CommenListAdapter.Vi
             item_content = itemView.findViewById(R.id.item_content);
             item_time = itemView.findViewById(R.id.item_time);
             recycler_view = itemView.findViewById(R.id.recycler_view);
-            item_reply  = itemView.findViewById(R.id.item_reply);
+            item_reply = itemView.findViewById(R.id.item_reply);
 
             LinearLayoutManager layoutManager = new LinearLayoutManager(mContext) {
                 @Override
@@ -169,7 +149,7 @@ public class CommenListAdapter extends RecyclerView.Adapter<CommenListAdapter.Vi
                 }
             };
             recycler_view.setLayoutManager(layoutManager);
-            if(mViewPool != null){
+            if (mViewPool != null) {
                 //每个二级recyclerView使用一个viewPool,优化卡顿问题
                 recycler_view.setRecycledViewPool(mViewPool);
             }
@@ -177,15 +157,17 @@ public class CommenListAdapter extends RecyclerView.Adapter<CommenListAdapter.Vi
         }
     }
 
-    public interface OnItemReply{
-        void onItemReply(int pos,TextView textView);
-        void onItemTwoReply(int pos,ShoppingCommon2Adapter mAdapter,int postion);
+    public interface OnItemReply {
+        void onItemReply(int pos, TextView textView);
+
+        void onItemTwoReply(int pos, ShoppingCommon2Adapter mAdapter, int postion);
     }
 
-    public interface OnMoreUp{
-        void onUp(int position,ShoppingCommon2Adapter mAdapter);
+    public interface OnMoreUp {
+        void onUp(int position, ShoppingCommon2Adapter mAdapter);
     }
-    public interface OnGoodItem{
-        void onGood(int flag,int position);
+
+    public interface OnGoodItem {
+        void onGood(int flag, int position);
     }
 }

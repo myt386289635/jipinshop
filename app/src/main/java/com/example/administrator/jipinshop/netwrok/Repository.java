@@ -34,6 +34,7 @@ import com.example.administrator.jipinshop.bean.TabBean;
 import com.example.administrator.jipinshop.bean.UnMessageBean;
 import com.example.administrator.jipinshop.bean.UserInfoBean;
 import com.example.administrator.jipinshop.bean.UserPageBean;
+import com.example.administrator.jipinshop.bean.VoteBean;
 import com.example.administrator.jipinshop.util.UpDataUtil;
 import com.example.administrator.jipinshop.util.sp.CommonDate;
 
@@ -252,7 +253,7 @@ public class Repository {
     /**
      * 添加点赞
      */
-    public Observable<SuccessBean> snapInsert(Map<String,String> param){
+    public Observable<VoteBean> snapInsert(Map<String,String> param){
         return mAPIService.snapInsert(param);
     }
 
@@ -273,9 +274,8 @@ public class Repository {
     /**
      * 添加评论
      */
-    public Observable<CommentInsertBean> commentInsert(String articId, String content, String parentId,String status){
-        return mAPIService.commentInsert(articId,SPUtils.getInstance(CommonDate.USER).getString(CommonDate.userId),
-                content,parentId,status);
+    public Observable<SuccessBean> commentInsert(String targetId,String toUserId, String content, String parentId,String type){
+        return mAPIService.commentInsert(targetId,toUserId,content,parentId,type);
     }
 
     /**

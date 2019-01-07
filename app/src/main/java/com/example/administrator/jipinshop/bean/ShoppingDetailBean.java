@@ -132,6 +132,24 @@ public class ShoppingDetailBean {
             private List<GoodsTagsListBean> goodsTagsList;
             private List<ScoreOptionsListBean> scoreOptionsList;
             private List<String> imgList;
+            private int vote;
+            private int collect;
+
+            public int getVote() {
+                return vote;
+            }
+
+            public void setVote(int vote) {
+                this.vote = vote;
+            }
+
+            public int getCollect() {
+                return collect;
+            }
+
+            public void setCollect(int collect) {
+                this.collect = collect;
+            }
 
             public String getGoodsId() {
                 return goodsId;

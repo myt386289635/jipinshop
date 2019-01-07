@@ -9,6 +9,7 @@ import com.bumptech.glide.Glide;
 import com.example.administrator.jipinshop.bean.CommentBean;
 import com.example.administrator.jipinshop.bean.CommentInsertBean;
 import com.example.administrator.jipinshop.bean.SuccessBean;
+import com.example.administrator.jipinshop.bean.VoteBean;
 import com.example.administrator.jipinshop.netwrok.Repository;
 import com.example.administrator.jipinshop.util.sp.CommonDate;
 import com.example.administrator.jipinshop.view.FullScreenLinearLayout;
@@ -63,17 +64,17 @@ public class CommenListPresenter {
     /**
      * 查看评论列表
      */
-    public void comment(String page ,String goodsId, LifecycleTransformer<CommentBean> transformer){
+    public void comment(String type,String page ,String goodsId, LifecycleTransformer<CommentBean> transformer){
         Map<String,String> hashMap = new HashMap<>();
-        hashMap.put("userId", SPUtils.getInstance(CommonDate.USER).getString(CommonDate.userId));
-        hashMap.put("articId",goodsId);
+        hashMap.put("type", type);
+        hashMap.put("targetId",goodsId);
         hashMap.put("page",page);
         mRepository.comment(hashMap)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .compose(transformer)
                 .subscribe(commentBean -> {
-                    if(commentBean.getCode() == 200){
+                    if(commentBean.getCode() == 0){
                         if(mView != null){
                             mView.onSucComment(commentBean);
                         }
@@ -92,13 +93,13 @@ public class CommenListPresenter {
     /**
      * 添加评论
      */
-    public void commentInsert(String articId,String content,String parentId,String status , LifecycleTransformer<CommentInsertBean> transformer){
-        mRepository.commentInsert(articId,content,parentId,status)
+    public void commentInsert(String targetId,String toUserId,String content,String parentId,String type , LifecycleTransformer<SuccessBean> transformer){
+        mRepository.commentInsert(targetId,toUserId,content,parentId,type)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .compose(transformer)
                 .subscribe(commentInsertBean -> {
-                    if(commentInsertBean.getCode() == 200){
+                    if(commentInsertBean.getCode() == 0){
                         if(mView != null){
                             mView.onSucCommentInsert(commentInsertBean);
                         }
@@ -147,16 +148,16 @@ public class CommenListPresenter {
     /**
      * 添加点赞
      */
-    public void snapInsert(int position, String id , LifecycleTransformer<SuccessBean> transformer){
+    public void snapInsert(int position, String id , LifecycleTransformer<VoteBean> transformer){
         Map<String,String> hashMap = new HashMap<>();
-        hashMap.put("userId", SPUtils.getInstance(CommonDate.USER).getString(CommonDate.userId));
-        hashMap.put("commentId",id);
+        hashMap.put("type", "5");
+        hashMap.put("targetId",id);
         mRepository.snapInsert(hashMap)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .compose(transformer)
                 .subscribe(successBean -> {
-                    if(successBean.getCode() == 200){
+                    if(successBean.getCode() == 0 || successBean.getCode() == 602){
                         if(mView != null){
                             mView.onSucCommentSnapIns(position,successBean);
                         }
@@ -177,14 +178,14 @@ public class CommenListPresenter {
      */
     public void snapDelete(int position, String id , LifecycleTransformer<SuccessBean> transformer){
         Map<String,String> hashMap = new HashMap<>();
-        hashMap.put("userId", SPUtils.getInstance(CommonDate.USER).getString(CommonDate.userId));
-        hashMap.put("commentId",id);
+        hashMap.put("type", "5");
+        hashMap.put("targetId",id);
         mRepository.snapDelete(hashMap)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .compose(transformer)
                 .subscribe(successBean -> {
-                    if(successBean.getCode() == 200){
+                    if(successBean.getCode() == 0 || successBean.getCode() == 602){
                         if(mView != null){
                             mView.onSucCommentSnapDel(position,successBean);
                         }

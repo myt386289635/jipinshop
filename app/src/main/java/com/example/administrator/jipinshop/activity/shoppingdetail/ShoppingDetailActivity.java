@@ -25,7 +25,6 @@ import android.webkit.WebViewClient;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.alibaba.baichuan.android.trade.AlibcTrade;
 import com.alibaba.baichuan.android.trade.AlibcTradeSDK;
@@ -35,25 +34,27 @@ import com.alibaba.baichuan.android.trade.model.OpenType;
 import com.alibaba.baichuan.android.trade.page.AlibcPage;
 import com.alibaba.baichuan.trade.biz.context.AlibcResultType;
 import com.alibaba.baichuan.trade.biz.context.AlibcTradeResult;
+import com.blankj.utilcode.util.SPUtils;
 import com.example.administrator.jipinshop.R;
 import com.example.administrator.jipinshop.activity.commenlist.CommenListActivity;
+import com.example.administrator.jipinshop.activity.login.LoginActivity;
 import com.example.administrator.jipinshop.adapter.ShoppingBannerAdapter;
 import com.example.administrator.jipinshop.adapter.ShoppingCommonAdapter;
-import com.example.administrator.jipinshop.adapter.ShoppingQualityAdapter;
 import com.example.administrator.jipinshop.adapter.ShoppingmParameterAdapter;
 import com.example.administrator.jipinshop.base.BaseActivity;
 import com.example.administrator.jipinshop.bean.CommentBean;
-import com.example.administrator.jipinshop.bean.CommentInsertBean;
 import com.example.administrator.jipinshop.bean.ShoppingDetailBean;
-import com.example.administrator.jipinshop.bean.SnapSelectBean;
 import com.example.administrator.jipinshop.bean.SuccessBean;
+import com.example.administrator.jipinshop.bean.VoteBean;
 import com.example.administrator.jipinshop.bean.eventbus.CommenBus;
 import com.example.administrator.jipinshop.bean.eventbus.ConcerBus;
 import com.example.administrator.jipinshop.databinding.ActivityShopingDetailBinding;
 import com.example.administrator.jipinshop.fragment.evaluation.common.CommonEvaluationFragment;
 import com.example.administrator.jipinshop.fragment.foval.FovalFragment;
 import com.example.administrator.jipinshop.util.ClickUtil;
+import com.example.administrator.jipinshop.util.ToastUtil;
 import com.example.administrator.jipinshop.util.WeakRefHandler;
+import com.example.administrator.jipinshop.util.sp.CommonDate;
 import com.example.administrator.jipinshop.view.AlignTextView;
 import com.example.administrator.jipinshop.view.SaleProgressView;
 import com.example.administrator.jipinshop.view.dialog.ProgressDialogView;
@@ -124,7 +125,7 @@ public class ShoppingDetailActivity extends BaseActivity implements ShoppingComm
 
     //用户评论
     private ShoppingCommonAdapter mCommonAdapter;
-    private List<CommentBean.ListBean> mCommonList;
+    private List<CommentBean.DataBean> mCommonList;
 
     //点赞
     private GoodView mGoodView;
@@ -151,6 +152,7 @@ public class ShoppingDetailActivity extends BaseActivity implements ShoppingComm
      * 标志：是否点赞过此商品  false:没有
      */
     private boolean isSnap = false;
+    private int SnapNum = 0;//记录商品点赞数量
 
     /**
      * 标志开箱评测用户是否被关注过
@@ -162,6 +164,7 @@ public class ShoppingDetailActivity extends BaseActivity implements ShoppingComm
      * 父评论id
      */
     private String parentId = "0";
+    private String toUserId = "0";//@回复的用户
 
     /**
      * 分享的图片
@@ -283,10 +286,6 @@ public class ShoppingDetailActivity extends BaseActivity implements ShoppingComm
         });
         //网络请求数据
         mPresenter.getDate(goodsId,this.<ShoppingDetailBean>bindToLifecycle());
-        //判断是否收藏过该商品
-        mPresenter.isCollect(goodsId,this.bindToLifecycle());
-        //判断是否点赞过该商品
-        mPresenter.snapSelect(goodsId,this.bindToLifecycle());
         //获取评论列表
         mPresenter.comment(goodsId,this.bindToLifecycle());
     }
@@ -326,13 +325,10 @@ public class ShoppingDetailActivity extends BaseActivity implements ShoppingComm
     @Override
     public void onItemReply(int pos, TextView textView) {
         parentId = mCommonList.get(pos).getCommentId();
+        toUserId = "0";
         mBinding.keyEdit.requestFocus();
         showKeyboard(true);
-        if(mCommonList.get(pos).getUserShopmember() != null){
-            mBinding.keyEdit.setHint("回复"+mCommonList.get(pos).getUserShopmember().getUserNickName());
-        }else {
-            mBinding.keyEdit.setHint("回复游客");
-        }
+        mBinding.keyEdit.setHint("回复"+mCommonList.get(pos).getUserNickname());
     }
 
     /**
@@ -342,8 +338,6 @@ public class ShoppingDetailActivity extends BaseActivity implements ShoppingComm
      */
     @Override
     public void onItemTwoReply(int pos) {
-//        mBinding.keyEdit.requestFocus();
-//        showKeyboard(true);
         //跳转到评论列表
         startActivity(new Intent(this, CommenListActivity.class)
                 .putExtra("position",pos)
@@ -469,6 +463,32 @@ public class ShoppingDetailActivity extends BaseActivity implements ShoppingComm
             //综合评分
             mBinding.itemScore.setText(shoppingDetailBean.getData().getGoodsEntity().getScore());
 
+            //是否收藏过
+            if(shoppingDetailBean.getData().getGoodsEntity().getCollect() == 1){
+                isCollect = true;
+                mBinding.detailFavor.setImageResource(R.mipmap.score_sel);
+                mBinding.titleFavorImg.setImageResource(R.mipmap.score_sel);
+            }else {
+                isCollect = false;
+                mBinding.detailFavor.setImageResource(R.mipmap.nav_favor);
+                mBinding.titleFavorImg.setImageResource(R.mipmap.nav_favor_white);
+            }
+            //是否点赞过
+            SnapNum = shoppingDetailBean.getData().getGoodsEntity().getVoteCount();
+            if(shoppingDetailBean.getData().getGoodsEntity().getVote() == 1){
+                isSnap = true;
+                mBinding.detailGood.setText(shoppingDetailBean.getData().getGoodsEntity().getVoteCount() + "人喜欢");
+                Drawable drawable= getResources().getDrawable(R.mipmap.like_sel);
+                drawable.setBounds(0, 0, drawable.getMinimumWidth(), drawable.getMinimumHeight());
+                mBinding.detailGood.setCompoundDrawables(drawable,null,null,null);
+            }else {
+                isSnap = false;
+                mBinding.detailGood.setText("喜欢");
+                Drawable drawable= getResources().getDrawable(R.mipmap.like_nor);
+                drawable.setBounds(0, 0, drawable.getMinimumWidth(), drawable.getMinimumHeight());
+                mBinding.detailGood.setCompoundDrawables(drawable,null,null,null);
+            }
+
             if (mDialogProgress != null && mDialogProgress.isShowing()) {
                 mDialogProgress.dismiss();
             }
@@ -476,7 +496,7 @@ public class ShoppingDetailActivity extends BaseActivity implements ShoppingComm
             if (mDialogProgress.isShowing()) {
                 mDialogProgress.dismiss();
             }
-            Toast.makeText(this, shoppingDetailBean.getMsg(), Toast.LENGTH_SHORT).show();
+            ToastUtil.show(shoppingDetailBean.getMsg());
             initError(R.mipmap.qs_404, "页面出错", "程序猿正在赶来的路上");
         }
     }
@@ -491,35 +511,7 @@ public class ShoppingDetailActivity extends BaseActivity implements ShoppingComm
             mDialogProgress.dismiss();
         }
         initError(R.mipmap.qs_net, "网络出错", "哇哦，网络出错了，换个姿势点击试试");
-        Toast.makeText(this, error, Toast.LENGTH_SHORT).show();
-    }
-
-    /**
-     * 查询是否收藏 成功回调
-     */
-    @Override
-    public void onSucIsCollect(SnapSelectBean successBean) {
-        if(successBean.getCode() == 200){
-            isCollect = true;
-            mBinding.detailFavor.setImageResource(R.mipmap.score_sel);
-        }else if(successBean.getCode() == 400){
-            isCollect = false;
-            mBinding.detailFavor.setImageResource(R.mipmap.nav_favor);
-        }else {
-            isCollect = false;
-            mBinding.detailFavor.setImageResource(R.mipmap.nav_favor);
-            Toast.makeText(this, successBean.getMsg(), Toast.LENGTH_SHORT).show();
-        }
-    }
-
-    /**
-     * 查询是否收藏 失败回调
-     */
-    @Override
-    public void onFileIsCollect(String error) {
-        isCollect = false;
-        mBinding.detailFavor.setImageResource(R.mipmap.nav_favor);
-        Toast.makeText(this, "获取收藏信息失败", Toast.LENGTH_SHORT).show();
+        ToastUtil.show(error);
     }
 
     /**
@@ -528,12 +520,16 @@ public class ShoppingDetailActivity extends BaseActivity implements ShoppingComm
      */
     @Override
     public void onSucCollectInsert(SuccessBean successBean) {
-        EventBus.getDefault().post(FovalFragment.CollectResher);//刷新我的收藏列表
-        if (mDialogProgress != null && mDialogProgress.isShowing()) {
-            mDialogProgress.dismiss();
+        if(successBean.getCode() == 0){
+            EventBus.getDefault().post(FovalFragment.CollectResher);//刷新我的收藏列表
+            isCollect = true;
+            mBinding.detailFavor.setImageResource(R.mipmap.score_sel);
+            mBinding.titleFavorImg.setImageResource(R.mipmap.score_sel);
+        }else {
+            //602
+            startActivity(new Intent(this, LoginActivity.class));
+            SPUtils.getInstance(CommonDate.USER).clear();
         }
-        isCollect = true;
-        mBinding.detailFavor.setImageResource(R.mipmap.score_sel);
     }
 
     /**
@@ -541,12 +537,16 @@ public class ShoppingDetailActivity extends BaseActivity implements ShoppingComm
      */
     @Override
     public void onSucCollectDelete(SuccessBean successBean) {
-        EventBus.getDefault().post(FovalFragment.CollectResher);
-        if (mDialogProgress != null && mDialogProgress.isShowing()) {
-            mDialogProgress.dismiss();
+        if(successBean.getCode() == 0){
+            EventBus.getDefault().post(FovalFragment.CollectResher);
+            isCollect = false;
+            mBinding.detailFavor.setImageResource(R.mipmap.nav_favor);
+            mBinding.titleFavorImg.setImageResource(R.mipmap.nav_favor_white);
+        }else {
+            //602
+            startActivity(new Intent(this, LoginActivity.class));
+            SPUtils.getInstance(CommonDate.USER).clear();
         }
-        isCollect = false;
-        mBinding.detailFavor.setImageResource(R.mipmap.nav_favor);
     }
 
     /**
@@ -554,68 +554,29 @@ public class ShoppingDetailActivity extends BaseActivity implements ShoppingComm
      */
     @Override
     public void onFileCollectDelete(String error) {
-        if (mDialogProgress != null && mDialogProgress.isShowing()) {
-            mDialogProgress.dismiss();
-        }
-        Toast.makeText(this, error, Toast.LENGTH_SHORT).show();
-    }
-
-    /**
-     * 查询是否被用户点赞过 成功回调
-     */
-    @Override
-    public void onSucIsSnap(SnapSelectBean snapSelectBean) {
-        if(snapSelectBean.getCode() == 0){
-            isSnap = true;
-            mBinding.detailGood.setText(snapSelectBean.getCount() + "人喜欢");
-            Drawable drawable= getResources().getDrawable(R.mipmap.like_sel);
-            drawable.setBounds(0, 0, drawable.getMinimumWidth(), drawable.getMinimumHeight());
-            mBinding.detailGood.setCompoundDrawables(drawable,null,null,null);
-        }else if(snapSelectBean.getCode() == 400){
-            isSnap = false;
-            mBinding.detailGood.setText(snapSelectBean.getCount() + "喜欢");
-            Drawable drawable= getResources().getDrawable(R.mipmap.like_nor);
-            drawable.setBounds(0, 0, drawable.getMinimumWidth(), drawable.getMinimumHeight());
-            mBinding.detailGood.setCompoundDrawables(drawable,null,null,null);
-        }else {
-            isSnap = false;
-            mBinding.detailGood.setText("喜欢");
-            Drawable drawable= getResources().getDrawable(R.mipmap.like_nor);
-            drawable.setBounds(0, 0, drawable.getMinimumWidth(), drawable.getMinimumHeight());
-            mBinding.detailGood.setCompoundDrawables(drawable,null,null,null);
-            Toast.makeText(this, snapSelectBean.getMsg(), Toast.LENGTH_SHORT).show();
-        }
-    }
-
-    /**
-     * 查询是否被用户点赞过 失败回调
-     */
-    @Override
-    public void onFileIsSnap(String error) {
-        isSnap = false;
-        mBinding.detailGood.setText("喜欢");
-        Drawable drawable= getResources().getDrawable(R.mipmap.like_nor);
-        drawable.setBounds(0, 0, drawable.getMinimumWidth(), drawable.getMinimumHeight());
-        mBinding.detailGood.setCompoundDrawables(drawable,null,null,null);
-        Toast.makeText(this, "获取点赞信息失败", Toast.LENGTH_SHORT).show();
+        ToastUtil.show(error);
     }
 
     /**
      * 添加赞过 成功回调
      */
     @Override
-    public void onSucSnapInsert(View view ,SuccessBean successBean) {
-        if (mDialogProgress != null && mDialogProgress.isShowing()) {
-            mDialogProgress.dismiss();
+    public void onSucSnapInsert(View view ,VoteBean successBean) {
+        if(successBean.getCode() == 0){
+            mGoodView.setText("+1");
+            mGoodView.setTextColor(getResources().getColor(R.color.color_E31436));
+            mGoodView.show(view);
+            isSnap = true;
+            SnapNum = SnapNum + 1;
+            mBinding.detailGood.setText(SnapNum + "人喜欢");
+            Drawable drawable= getResources().getDrawable(R.mipmap.like_sel);
+            drawable.setBounds(0, 0, drawable.getMinimumWidth(), drawable.getMinimumHeight());
+            mBinding.detailGood.setCompoundDrawables(drawable,null,null,null);
+        }else {
+            //602
+            startActivity(new Intent(this, LoginActivity.class));
+            SPUtils.getInstance(CommonDate.USER).clear();
         }
-        mGoodView.setText("+1");
-        mGoodView.setTextColor(getResources().getColor(R.color.color_E31436));
-        mGoodView.show(view);
-        isSnap = true;
-        mBinding.detailGood.setText( (Integer.valueOf(mBinding.detailGood.getText().toString()) + 1 )+ "人喜欢");
-        Drawable drawable= getResources().getDrawable(R.mipmap.like_sel);
-        drawable.setBounds(0, 0, drawable.getMinimumWidth(), drawable.getMinimumHeight());
-        mBinding.detailGood.setCompoundDrawables(drawable,null,null,null);
     }
 
     /**
@@ -623,14 +584,18 @@ public class ShoppingDetailActivity extends BaseActivity implements ShoppingComm
      */
     @Override
     public void onSucSnapDelete(SuccessBean successBean) {
-        if (mDialogProgress != null && mDialogProgress.isShowing()) {
-            mDialogProgress.dismiss();
+        if(successBean.getCode() == 0){
+            isSnap = false;
+            SnapNum = SnapNum - 1;
+            mBinding.detailGood.setText("喜欢");
+            Drawable drawable= getResources().getDrawable(R.mipmap.like_nor);
+            drawable.setBounds(0, 0, drawable.getMinimumWidth(), drawable.getMinimumHeight());
+            mBinding.detailGood.setCompoundDrawables(drawable,null,null,null);
+        }else {
+            //602
+            startActivity(new Intent(this, LoginActivity.class));
+            SPUtils.getInstance(CommonDate.USER).clear();
         }
-        isSnap = false;
-        mBinding.detailGood.setText("喜欢");
-        Drawable drawable= getResources().getDrawable(R.mipmap.like_nor);
-        drawable.setBounds(0, 0, drawable.getMinimumWidth(), drawable.getMinimumHeight());
-        mBinding.detailGood.setCompoundDrawables(drawable,null,null,null);
     }
 
     /**
@@ -638,15 +603,16 @@ public class ShoppingDetailActivity extends BaseActivity implements ShoppingComm
      */
     @Override
     public void onSucComment(CommentBean commentBean) {
-        if(commentBean.getList() != null && commentBean.getList().size() != 0){
+        if(commentBean.getData() != null && commentBean.getData().size() != 0){
             mBinding.detailCommon.setVisibility(View.VISIBLE);
             mBinding.detailCommonTotle.setVisibility(View.VISIBLE);
             mBinding.detailCommentLayout.setVisibility(View.GONE);
+            mBinding.detailSend.setVisibility(View.VISIBLE);
             mCommonList.clear();
-            mCommonList.addAll(commentBean.getList());
+            mCommonList.addAll(commentBean.getData());
             mCommonAdapter.notifyDataSetChanged();
-            if(commentBean.getCount() > 3){
-                mBinding.detailCommonTotle.setText("查看全部"+commentBean.getCount()+"条评论");
+            if(commentBean.getTotal() > 3){
+                mBinding.detailCommonTotle.setText("查看全部"+commentBean.getTotal()+"条评论");
             }else {
                 mBinding.detailCommonTotle.setText("查看更多");
             }
@@ -654,6 +620,7 @@ public class ShoppingDetailActivity extends BaseActivity implements ShoppingComm
             mBinding.detailCommon.setVisibility(View.GONE);
             mBinding.detailCommonTotle.setVisibility(View.GONE);
             mBinding.detailCommentLayout.setVisibility(View.VISIBLE);
+            mBinding.detailSend.setVisibility(View.GONE);
         }
     }
 
@@ -665,14 +632,15 @@ public class ShoppingDetailActivity extends BaseActivity implements ShoppingComm
         mBinding.detailCommon.setVisibility(View.GONE);
         mBinding.detailCommonTotle.setVisibility(View.GONE);
         mBinding.detailCommentLayout.setVisibility(View.VISIBLE);
-        Toast.makeText(this, error, Toast.LENGTH_SHORT).show();
+        mBinding.detailSend.setVisibility(View.GONE);
+        ToastUtil.show(error);
     }
 
     /**
      * 评论成功
      */
     @Override
-    public void onSucCommentInsert(CommentInsertBean successBean) {
+    public void onSucCommentInsert(SuccessBean successBean) {
         mPresenter.comment(goodsId,this.bindToLifecycle());
         mBinding.keyEdit.setText("");
         hintKey();
@@ -689,22 +657,25 @@ public class ShoppingDetailActivity extends BaseActivity implements ShoppingComm
         if (mDialogProgress != null && mDialogProgress.isShowing()) {
             mDialogProgress.dismiss();
         }
-        Toast.makeText(this, error, Toast.LENGTH_SHORT).show();
+        ToastUtil.show(error);
     }
 
     /**
      * 评论点赞成功回调
      */
     @Override
-    public void onSucCommentSnapIns(int position,SuccessBean successBean) {
-        if (mDialogProgress != null && mDialogProgress.isShowing()) {
-            mDialogProgress.dismiss();
+    public void onSucCommentSnapIns(int position,VoteBean successBean) {
+        if (successBean.getCode() == 0){
+            mCommonList.get(position).setVote(1);
+            BigDecimal bigDecimal = new BigDecimal(mCommonList.get(position).getVoteCount());
+            int num = bigDecimal.intValue();
+            mCommonList.get(position).setVoteCount((num + 1));
+            mCommonAdapter.notifyItemChanged(position);
+        }else {
+            //602
+            startActivity(new Intent(this, LoginActivity.class));
+            SPUtils.getInstance(CommonDate.USER).clear();
         }
-        mCommonList.get(position).setUserSnap(1);
-        BigDecimal bigDecimal = new BigDecimal(mCommonList.get(position).getSnapNum());
-        int num = bigDecimal.intValue();
-        mCommonList.get(position).setSnapNum((num + 1) + "");
-        mCommonAdapter.notifyItemChanged(position);
     }
 
     /**
@@ -712,14 +683,17 @@ public class ShoppingDetailActivity extends BaseActivity implements ShoppingComm
      */
     @Override
     public void onSucCommentSnapDel(int position,SuccessBean successBean) {
-        if (mDialogProgress != null && mDialogProgress.isShowing()) {
-            mDialogProgress.dismiss();
+        if(successBean.getCode() == 0){
+            mCommonList.get(position).setVote(0);
+            BigDecimal bigDecimal = new BigDecimal(mCommonList.get(position).getVoteCount());
+            int num = bigDecimal.intValue();
+            mCommonList.get(position).setVoteCount((num - 1));
+            mCommonAdapter.notifyItemChanged(position);
+        }else {
+            //602
+            startActivity(new Intent(this, LoginActivity.class));
+            SPUtils.getInstance(CommonDate.USER).clear();
         }
-        mCommonList.get(position).setUserSnap(0);
-        BigDecimal bigDecimal = new BigDecimal(mCommonList.get(position).getSnapNum());
-        int num = bigDecimal.intValue();
-        mCommonList.get(position).setSnapNum((num - 1) + "");
-        mCommonAdapter.notifyItemChanged(position);
     }
 
     /**
@@ -777,18 +751,14 @@ public class ShoppingDetailActivity extends BaseActivity implements ShoppingComm
             case R.id.title_favor:
             case R.id.detail_favor:
                 if (ClickUtil.isFastDoubleClick(1000)) {
-                    Toast.makeText(this, "您点击太快了，请休息会再点", Toast.LENGTH_SHORT).show();
+                    ToastUtil.show("您点击太快了，请休息会再点");
                     return;
                 }else{
                     if(isCollect){
                         //收藏过了
-                        mDialogProgress = (new ProgressDialogView()).createLoadingDialog(ShoppingDetailActivity.this, "正在加载...");
-                        mDialogProgress.show();
                         mPresenter.collectDelete(goodsId,this.bindToLifecycle());
                     }else {
                         //没有收藏
-                        mDialogProgress = (new ProgressDialogView()).createLoadingDialog(ShoppingDetailActivity.this, "正在加载...");
-                        mDialogProgress.show();
                         mPresenter.collectInsert(goodsId,this.bindToLifecycle());
                     }
                 }
@@ -817,18 +787,14 @@ public class ShoppingDetailActivity extends BaseActivity implements ShoppingComm
                 break;
             case R.id.detail_good:
                 if (ClickUtil.isFastDoubleClick(1000)) {
-                    Toast.makeText(this, "您点击太快了，请休息会再点", Toast.LENGTH_SHORT).show();
+                    ToastUtil.show("您点击太快了，请休息会再点");
                     return;
                 }else{
                     if(isSnap){
                         //点赞过了
-                        mDialogProgress = (new ProgressDialogView()).createLoadingDialog(ShoppingDetailActivity.this, "正在加载...");
-                        mDialogProgress.show();
                         mPresenter.snapDelete("1",0,goodsId,this.bindToLifecycle());
                     }else {
                         //没有点赞
-                        mDialogProgress = (new ProgressDialogView()).createLoadingDialog(ShoppingDetailActivity.this, "正在加载...");
-                        mDialogProgress.show();
                         mPresenter.snapInsert("1",0,view,goodsId,this.bindToLifecycle());
                     }
                 }
@@ -854,12 +820,12 @@ public class ShoppingDetailActivity extends BaseActivity implements ShoppingComm
             case R.id.key_text:
                 //发送按钮
                 if (TextUtils.isEmpty(mBinding.keyEdit.getText().toString())) {
-                    Toast.makeText(this, "请输入评论", Toast.LENGTH_SHORT).show();
+                    ToastUtil.show("请输入评论");
                     return;
                 }
                 mDialogProgress = (new ProgressDialogView()).createLoadingDialog(ShoppingDetailActivity.this, "正在加载...");
                 mDialogProgress.show();
-                mPresenter.commentInsert(goodsId,mBinding.keyEdit.getText().toString(),parentId,this.bindToLifecycle());
+                mPresenter.commentInsert(goodsId,toUserId,mBinding.keyEdit.getText().toString(),parentId,this.bindToLifecycle());
                 break;
             case R.id.detail_commonTotle:
                 //跳转到评论列表
@@ -871,8 +837,9 @@ public class ShoppingDetailActivity extends BaseActivity implements ShoppingComm
                 break;
             case R.id.content_attention:
                 //关注
+                // TODO: 2019/1/7 没有修改
                 if (ClickUtil.isFastDoubleClick(1000)) {
-                    Toast.makeText(this, "您点击太快了，请休息会再点", Toast.LENGTH_SHORT).show();
+                    ToastUtil.show("您点击太快了，请休息会再点");
                     return;
                 }else{
                     if(isConcer){
@@ -895,8 +862,10 @@ public class ShoppingDetailActivity extends BaseActivity implements ShoppingComm
                     mPresenter.getDate(goodsId,this.<ShoppingDetailBean>bindToLifecycle());
                 }
                 break;
+            case R.id.detail_send:
             case R.id.detail_commentTv:
                 parentId = "0";
+                toUserId = "0";
                 mBinding.keyEdit.requestFocus();
                 showKeyboard(true);
                 break;
@@ -909,19 +878,15 @@ public class ShoppingDetailActivity extends BaseActivity implements ShoppingComm
     @Override
     public void onGood(int flag, int position) {
         if (ClickUtil.isFastDoubleClick(1000)) {
-            Toast.makeText(this, "您点击太快了，请休息会再点", Toast.LENGTH_SHORT).show();
+            ToastUtil.show("您点击太快了，请休息会再点");
             return;
         }else{
             if(flag == 1){
                 //取消点赞
-                mDialogProgress = (new ProgressDialogView()).createLoadingDialog(ShoppingDetailActivity.this, "正在加载...");
-                mDialogProgress.show();
-                mPresenter.snapDelete("2",position,mCommonList.get(position).getCommentId(),this.bindToLifecycle());
+                mPresenter.snapDelete("5",position,mCommonList.get(position).getCommentId(),this.bindToLifecycle());
             }else {
                 //点赞
-                mDialogProgress = (new ProgressDialogView()).createLoadingDialog(ShoppingDetailActivity.this, "正在加载...");
-                mDialogProgress.show();
-                mPresenter.snapInsert("2",position,null,mCommonList.get(position).getCommentId(),this.bindToLifecycle());
+                mPresenter.snapInsert("5",position,null,mCommonList.get(position).getCommentId(),this.bindToLifecycle());
             }
         }
     }
@@ -1009,7 +974,7 @@ public class ShoppingDetailActivity extends BaseActivity implements ShoppingComm
                     Log.e("AlibcTradeSDK", "支付成功,成功订单号为" + alibcTradeResult.payResult.paySuccessOrders);
                 }
                 Log.e("AlibcTradeSDK", "加购成功");
-                Toast.makeText(ShoppingDetailActivity.this, "进去了", Toast.LENGTH_SHORT).show();
+                ToastUtil.show("进去了");
             }
 
             @Override

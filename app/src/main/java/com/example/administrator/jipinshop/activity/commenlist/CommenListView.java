@@ -3,6 +3,7 @@ package com.example.administrator.jipinshop.activity.commenlist;
 import com.example.administrator.jipinshop.bean.CommentBean;
 import com.example.administrator.jipinshop.bean.CommentInsertBean;
 import com.example.administrator.jipinshop.bean.SuccessBean;
+import com.example.administrator.jipinshop.bean.VoteBean;
 
 /**
  * @author 莫小婷
@@ -16,10 +17,10 @@ public interface CommenListView {
     void onSucComment(CommentBean commentBean);
     void onFileComment(String error);
 
-    void onSucCommentInsert(CommentInsertBean commentInsertBean);
+    void onSucCommentInsert(SuccessBean commentInsertBean);
     void onFileCommentInsert(String error);
 
-    void onSucCommentSnapIns(int position,SuccessBean successBean);
+    void onSucCommentSnapIns(int position,VoteBean successBean);
     void onSucCommentSnapDel(int position,SuccessBean successBean);
     void onFileSnap(String error);
 }

@@ -19,6 +19,7 @@ import com.example.administrator.jipinshop.bean.CommentInsertBean;
 import com.example.administrator.jipinshop.bean.ShoppingDetailBean;
 import com.example.administrator.jipinshop.bean.SnapSelectBean;
 import com.example.administrator.jipinshop.bean.SuccessBean;
+import com.example.administrator.jipinshop.bean.VoteBean;
 import com.example.administrator.jipinshop.netwrok.Repository;
 import com.example.administrator.jipinshop.util.sp.CommonDate;
 import com.example.administrator.jipinshop.view.FullScreenLinearLayout;
@@ -143,42 +144,19 @@ public class ShoppingDetailPresenter {
                 }, throwable -> mShoppingDetailView.onFile(throwable.getMessage()));
     }
 
-
-    /**
-     * 查询商品是否被收藏过
-     */
-    public void isCollect(String goodsId , LifecycleTransformer<SnapSelectBean> transformer){
-        Map<String,String> hashMap = new HashMap<>();
-        hashMap.put("userId", SPUtils.getInstance(CommonDate.USER).getString(CommonDate.userId));
-        hashMap.put("projectId",goodsId);
-        mRepository.isCollect(hashMap)
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .compose(transformer)
-                .subscribe(successBean -> {
-                    if(mShoppingDetailView != null){
-                        mShoppingDetailView.onSucIsCollect(successBean);
-                    }
-                }, throwable -> {
-                    if(mShoppingDetailView != null){
-                        mShoppingDetailView.onFileIsCollect(throwable.toString());
-                    }
-                });
-    }
-
     /**
      * 添加收藏
      */
     public void collectInsert(String goodsId , LifecycleTransformer<SuccessBean> transformer){
         Map<String,String> hashMap = new HashMap<>();
-        hashMap.put("userId", SPUtils.getInstance(CommonDate.USER).getString(CommonDate.userId));
-        hashMap.put("projectId",goodsId);
+        hashMap.put("type", "1");
+        hashMap.put("targetId",goodsId);
         mRepository.collectInsert(hashMap)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .compose(transformer)
                 .subscribe(successBean -> {
-                    if(successBean.getCode() == 200) {
+                    if(successBean.getCode() == 0 || successBean.getCode() == 602) {
                         if (mShoppingDetailView != null) {
                             mShoppingDetailView.onSucCollectInsert(successBean);
                         }
@@ -199,14 +177,14 @@ public class ShoppingDetailPresenter {
      */
     public void collectDelete(String goodsId , LifecycleTransformer<SuccessBean> transformer){
         Map<String,String> hashMap = new HashMap<>();
-        hashMap.put("userId", SPUtils.getInstance(CommonDate.USER).getString(CommonDate.userId));
-        hashMap.put("projectId",goodsId);
+        hashMap.put("type", "1");
+        hashMap.put("targetId",goodsId);
         mRepository.collectDelete(hashMap)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .compose(transformer)
                 .subscribe(successBean -> {
-                    if(successBean.getCode() == 200) {
+                    if(successBean.getCode() == 0 || successBean.getCode() == 602) {
                         if (mShoppingDetailView != null) {
                             mShoppingDetailView.onSucCollectDelete(successBean);
                         }
@@ -247,44 +225,18 @@ public class ShoppingDetailPresenter {
     }
 
     /**
-     * 查询商品是否被点赞过
-     */
-    public void snapSelect(String goodsId , LifecycleTransformer<SnapSelectBean> transformer){
-        Map<String,String> hashMap = new HashMap<>();
-        hashMap.put("userId", SPUtils.getInstance(CommonDate.USER).getString(CommonDate.userId));
-        hashMap.put("goodsId",goodsId);
-        mRepository.snapSelect(hashMap)
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .compose(transformer)
-                .subscribe(snapSelectBean -> {
-                    if(mShoppingDetailView != null){
-                        mShoppingDetailView.onSucIsSnap(snapSelectBean);
-                    }
-                }, throwable -> {
-                    if(mShoppingDetailView != null){
-                        mShoppingDetailView.onFileIsSnap(throwable.getMessage());
-                    }
-                });
-    }
-
-    /**
      * 添加点赞
      */
-    public void snapInsert(String tag,int position,View view , String id , LifecycleTransformer<SuccessBean> transformer){
+    public void snapInsert(String tag,int position,View view , String id , LifecycleTransformer<VoteBean> transformer){
         Map<String,String> hashMap = new HashMap<>();
-        hashMap.put("userId", SPUtils.getInstance(CommonDate.USER).getString(CommonDate.userId));
-        if(tag.equals("1")){
-            hashMap.put("goodsId",id);
-        }else {
-            hashMap.put("commentId",id);
-        }
+        hashMap.put("type", tag);
+        hashMap.put("targetId",id);
         mRepository.snapInsert(hashMap)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .compose(transformer)
                 .subscribe(successBean -> {
-                    if(successBean.getCode() == 200){
+                    if(successBean.getCode() == 0 || successBean.getCode() == 602){
                         if(tag.equals("1")){
                             if(mShoppingDetailView != null){
                                 mShoppingDetailView.onSucSnapInsert(view,successBean);
@@ -311,18 +263,14 @@ public class ShoppingDetailPresenter {
      */
     public void snapDelete(String tag, int position, String id , LifecycleTransformer<SuccessBean> transformer){
         Map<String,String> hashMap = new HashMap<>();
-        hashMap.put("userId", SPUtils.getInstance(CommonDate.USER).getString(CommonDate.userId));
-        if(tag.equals("1")){
-            hashMap.put("goodsId",id);
-        }else {
-            hashMap.put("commentId",id);
-        }
+        hashMap.put("type", tag);
+        hashMap.put("targetId",id);
         mRepository.snapDelete(hashMap)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .compose(transformer)
                 .subscribe(successBean -> {
-                    if(successBean.getCode() == 200){
+                    if(successBean.getCode() == 0 || successBean.getCode() == 602){
                         if(tag.equals("1")){
                             if(mShoppingDetailView != null){
                                 mShoppingDetailView.onSucSnapDelete(successBean);
@@ -349,14 +297,14 @@ public class ShoppingDetailPresenter {
      */
     public void comment(String goodsId, LifecycleTransformer<CommentBean> transformer){
         Map<String,String> hashMap = new HashMap<>();
-        hashMap.put("userId", SPUtils.getInstance(CommonDate.USER).getString(CommonDate.userId));
-        hashMap.put("articId",goodsId);
+        hashMap.put("type", "1");
+        hashMap.put("targetId",goodsId);
         mRepository.comment(hashMap)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .compose(transformer)
                 .subscribe(commentBean -> {
-                    if(commentBean.getCode() == 200){
+                    if(commentBean.getCode() == 0){
                         if(mShoppingDetailView != null){
                             mShoppingDetailView.onSucComment(commentBean);
                         }
@@ -375,13 +323,13 @@ public class ShoppingDetailPresenter {
     /**
      * 添加评论
      */
-    public void commentInsert(String articId,String content,String parentId , LifecycleTransformer<CommentInsertBean> transformer){
-        mRepository.commentInsert(articId,content,parentId,"1")
+    public void commentInsert(String targetId,String toUserId,String content,String parentId , LifecycleTransformer<SuccessBean> transformer){
+        mRepository.commentInsert(targetId,toUserId,content,parentId,"1")
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .compose(transformer)
                 .subscribe(successBean -> {
-                    if(successBean.getCode() == 200){
+                    if(successBean.getCode() == 0){
                         if(mShoppingDetailView != null){
                             mShoppingDetailView.onSucCommentInsert(successBean);
                         }

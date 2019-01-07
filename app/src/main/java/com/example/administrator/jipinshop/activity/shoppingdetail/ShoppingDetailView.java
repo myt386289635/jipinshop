@@ -7,6 +7,7 @@ import com.example.administrator.jipinshop.bean.CommentInsertBean;
 import com.example.administrator.jipinshop.bean.ShoppingDetailBean;
 import com.example.administrator.jipinshop.bean.SnapSelectBean;
 import com.example.administrator.jipinshop.bean.SuccessBean;
+import com.example.administrator.jipinshop.bean.VoteBean;
 
 /**
  * @author 莫小婷
@@ -20,28 +21,22 @@ public interface ShoppingDetailView {
      void onSuccess(ShoppingDetailBean recommendFragmentBean);
      void onFile(String error);
 
-     void onSucIsCollect(SnapSelectBean successBean);
-     void onFileIsCollect(String error);
-
      void onSucCollectInsert(SuccessBean successBean);
 
      void onSucCollectDelete(SuccessBean successBean);
      void onFileCollectDelete(String error);
 
-     void onSucIsSnap(SnapSelectBean snapSelectBean);
-     void onFileIsSnap(String error);
-
-     void onSucSnapInsert(View view , SuccessBean successBean);
+     void onSucSnapInsert(View view , VoteBean successBean);
 
      void onSucSnapDelete(SuccessBean successBean);
 
      void onSucComment(CommentBean commentBean);
      void onFileComment(String error);
 
-     void onSucCommentInsert(CommentInsertBean successBean);
+     void onSucCommentInsert(SuccessBean successBean);
      void onFileCommentInsert(String error);
 
-     void onSucCommentSnapIns(int position,SuccessBean successBean);
+     void onSucCommentSnapIns(int position,VoteBean successBean);
      void onSucCommentSnapDel(int position,SuccessBean successBean);
 
      void concerDelSuccess(SuccessBean successBean);

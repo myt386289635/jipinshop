@@ -1,6 +1,7 @@
 package com.example.administrator.jipinshop.activity.commenlist;
 
 import android.app.Dialog;
+import android.content.Intent;
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -11,23 +12,24 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.aspsine.swipetoloadlayout.OnLoadMoreListener;
 import com.aspsine.swipetoloadlayout.OnRefreshListener;
 import com.blankj.utilcode.util.SPUtils;
 import com.example.administrator.jipinshop.R;
+import com.example.administrator.jipinshop.activity.login.LoginActivity;
 import com.example.administrator.jipinshop.adapter.CommenListAdapter;
 import com.example.administrator.jipinshop.adapter.ShoppingCommon2Adapter;
 import com.example.administrator.jipinshop.base.BaseActivity;
 import com.example.administrator.jipinshop.bean.CommentBean;
-import com.example.administrator.jipinshop.bean.CommentInsertBean;
 import com.example.administrator.jipinshop.bean.SuccessBean;
+import com.example.administrator.jipinshop.bean.VoteBean;
 import com.example.administrator.jipinshop.bean.eventbus.CommenBus;
 import com.example.administrator.jipinshop.bean.eventbus.EvaluationBus;
 import com.example.administrator.jipinshop.bean.eventbus.FindBus;
 import com.example.administrator.jipinshop.databinding.ActivityCommenlistBinding;
 import com.example.administrator.jipinshop.util.ClickUtil;
+import com.example.administrator.jipinshop.util.ToastUtil;
 import com.example.administrator.jipinshop.util.sp.CommonDate;
 import com.example.administrator.jipinshop.view.dialog.ProgressDialogView;
 
@@ -53,12 +55,12 @@ public class CommenListActivity extends BaseActivity implements CommenListAdapte
 
     private ActivityCommenlistBinding mBinding;
     private CommenListAdapter mAdapter;
-    private List<CommentBean.ListBean> mList;
+    private List<CommentBean.DataBean> mList;
 
     private int pos;//点击进来的位置。这里是为了商品详情中点击查看更多准备
     private List<Integer> sets;//记录每个留言的二级展示条数
 
-    private int page = 0;
+    private int page = 1;
     private Boolean refresh = true;
     //是否是首次进入页面
     private boolean once = true;
@@ -67,6 +69,7 @@ public class CommenListActivity extends BaseActivity implements CommenListAdapte
      * 父评论id
      */
     private String parentId = "0";
+    private String toUserId = "0";
 
     private Dialog mDialog;
     private int[] usableHeightPrevious = {0};
@@ -132,14 +135,11 @@ public class CommenListActivity extends BaseActivity implements CommenListAdapte
     @Override
     public void onItemReply(int pos, TextView textView) {
         parentId = mList.get(pos).getCommentId();
+        toUserId = "0";
         parentNum = pos;
         mBinding.keyEdit.requestFocus();
         showKeyboard(true);
-        if(mList.get(pos).getUserShopmember() != null){
-            mBinding.keyEdit.setHint("回复"+mList.get(pos).getUserShopmember().getUserNickName());
-        }else {
-            mBinding.keyEdit.setHint("回复游客");
-        }
+        mBinding.keyEdit.setHint("回复"+mList.get(pos).getUserNickname());
     }
 
     /**
@@ -199,18 +199,18 @@ public class CommenListActivity extends BaseActivity implements CommenListAdapte
                 break;
             case R.id.key_text:
                 if (TextUtils.isEmpty(mBinding.keyEdit.getText().toString())) {
-                    Toast.makeText(this, "请输入评论", Toast.LENGTH_SHORT).show();
+                    ToastUtil.show("请输入评论");
                     return;
                 }
                 mDialog = (new ProgressDialogView()).createLoadingDialog(this, "正在加载...");
                 mDialog.show();
-                mPresenter.commentInsert(getIntent().getStringExtra("id"), mBinding.keyEdit.getText().toString(), parentId,getIntent().getStringExtra("type"), this.bindToLifecycle());
+                mPresenter.commentInsert(getIntent().getStringExtra("id"),toUserId, mBinding.keyEdit.getText().toString(), parentId,getIntent().getStringExtra("type"), this.bindToLifecycle());
                 break;
             case R.id.key_edit:
-//                Toast.makeText(this, "点击了" + imi, Toast.LENGTH_SHORT).show();
                 if(!imi){
                     //不是打开的时候点击
                     parentId = "0";
+                    toUserId = "0";
                     parentNum = -1;
                 }
                 break;
@@ -245,15 +245,15 @@ public class CommenListActivity extends BaseActivity implements CommenListAdapte
         if (mBinding.swipeToLoad != null && mBinding.swipeToLoad.isLoadingMore()) {
             mBinding.swipeToLoad.setLoadingMore(false);
         }
-        if (commentBean.getList() != null && commentBean.getList().size() != 0) {
+        if (commentBean.getData() != null && commentBean.getData().size() != 0) {
             if (refresh) {
                 //这里的beanList 是用来记录上一次数据的，用来判断是否有新数据添加进入
-                List<CommentBean.ListBean> beanList = new ArrayList<>();
+                List<CommentBean.DataBean> beanList = new ArrayList<>();
                 if (mList.size() != 0){
                     beanList.add(mList.get(0));
                 }
                 mList.clear();
-                mList.addAll(commentBean.getList());
+                mList.addAll(commentBean.getData());
                 if (once) {
                     initSets();
                 } else {
@@ -265,27 +265,27 @@ public class CommenListActivity extends BaseActivity implements CommenListAdapte
                 }
                 if (getIntent().getStringExtra("type").equals("2")){
                     //表示从评测进来的
-                    EventBus.getDefault().post(new EvaluationBus(getIntent().getStringExtra("id"),commentBean.getCount()));
+                    EventBus.getDefault().post(new EvaluationBus(getIntent().getStringExtra("id"),commentBean.getTotal()));
                 }else if(getIntent().getStringExtra("type").equals("3")){
                     //表示从发现进来的
-                    EventBus.getDefault().post(new FindBus(commentBean.getCount()));
+                    EventBus.getDefault().post(new FindBus(commentBean.getTotal()));
                 }else {
                     //表示从商品进来的。
                     EventBus.getDefault().post(new CommenBus(CommenListActivity.commentResher));
                 }
             } else {
                 int i = mList.size();
-                mList.addAll(commentBean.getList());
+                mList.addAll(commentBean.getData());
                 onLodeSets(i);
             }
             mAdapter.notifyDataSetChanged();
         } else {
             if (!refresh) {
                 page--;
-                Toast.makeText(this, "已经是最后一页了", Toast.LENGTH_SHORT).show();
+                ToastUtil.show("已经是最后一页了");
             }
         }
-        mBinding.titleContainer.titleTv.setText("所有评论(" + commentBean.getCount() + ")");
+        mBinding.titleContainer.titleTv.setText("所有评论(" + commentBean.getTotal() + ")");
         if (once && pos != -1) {
             mBinding.swipeTarget.scrollToPosition(pos);
             once = false;
@@ -307,23 +307,20 @@ public class CommenListActivity extends BaseActivity implements CommenListAdapte
                 mBinding.swipeToLoad.setRefreshing(false);
             }
         }
-        Toast.makeText(this, error, Toast.LENGTH_SHORT).show();
+        ToastUtil.show(error);
     }
 
     @Override
-    public void onSucCommentInsert(CommentInsertBean successBean) {
+    public void onSucCommentInsert(SuccessBean successBean) {
         if (!parentId.equals("0")) {
             //回复评论
-            CommentBean.ListBean.UserCommentListBean listBean = new CommentBean.ListBean.UserCommentListBean();
-            CommentBean.ListBean.UserCommentListBean.UserShopmemberBeanX bean = new CommentBean.ListBean.UserCommentListBean.UserShopmemberBeanX();
+            CommentBean.DataBean.ChildrenBean listBean = new CommentBean.DataBean.ChildrenBean();
             listBean.setContent(mBinding.keyEdit.getText().toString());
-            bean.setUserNickName(SPUtils.getInstance(CommonDate.USER).getString(CommonDate.userNickName));
-            bean.setUserPhone(SPUtils.getInstance(CommonDate.USER).getString(CommonDate.userPhone));
-            listBean.setUserShopmember(bean);
-            mList.get(parentNum).getUserCommentList().add(listBean);
-            if (mList.get(parentNum).getUserCommentList().size() <= 2) {
+            listBean.setUserNickname(SPUtils.getInstance(CommonDate.USER).getString(CommonDate.userNickName));
+            mList.get(parentNum).getChildren().add(listBean);
+            if (mList.get(parentNum).getChildren().size() <= 2) {
                 sets.remove(parentNum);
-                sets.add(parentNum, mList.get(parentNum).getUserCommentList().size());
+                sets.add(parentNum, mList.get(parentNum).getChildren().size());
             } else {
                 if (sets.get(parentNum) != 2 && (sets.get(parentNum) % 10) != 0) {
                     int num = sets.remove(parentNum);
@@ -334,7 +331,6 @@ public class CommenListActivity extends BaseActivity implements CommenListAdapte
             EventBus.getDefault().post(new CommenBus(CommenListActivity.commentResher));
         } else {
             //回复楼层
-//            sets.add(0, 0);
             mBinding.swipeTarget.scrollToPosition(0);
             onRefresh();
         }
@@ -349,23 +345,26 @@ public class CommenListActivity extends BaseActivity implements CommenListAdapte
         if (mDialog != null && mDialog.isShowing()) {
             mDialog.dismiss();
         }
-        Toast.makeText(this, error, Toast.LENGTH_SHORT).show();
+        ToastUtil.show(error);
     }
 
     /**
      * 评论点赞成功回调
      */
     @Override
-    public void onSucCommentSnapIns(int position, SuccessBean successBean) {
-        if (mDialog != null && mDialog.isShowing()) {
-            mDialog.dismiss();
+    public void onSucCommentSnapIns(int position, VoteBean successBean) {
+        if(successBean.getCode() == 0){
+            mList.get(position).setVote(1);
+            BigDecimal bigDecimal = new BigDecimal(mList.get(position).getVoteCount());
+            int num = bigDecimal.intValue();
+            mList.get(position).setVoteCount((num + 1));
+            mAdapter.notifyItemChanged(position);
+            EventBus.getDefault().post(new CommenBus(CommenListActivity.commentResher));
+        }else {
+            //602
+            startActivity(new Intent(this, LoginActivity.class));
+            SPUtils.getInstance(CommonDate.USER).clear();
         }
-        mList.get(position).setUserSnap(1);
-        BigDecimal bigDecimal = new BigDecimal(mList.get(position).getSnapNum());
-        int num = bigDecimal.intValue();
-        mList.get(position).setSnapNum((num + 1) + "");
-        mAdapter.notifyItemChanged(position);
-        EventBus.getDefault().post(new CommenBus(CommenListActivity.commentResher));
     }
 
     /**
@@ -373,15 +372,18 @@ public class CommenListActivity extends BaseActivity implements CommenListAdapte
      */
     @Override
     public void onSucCommentSnapDel(int position, SuccessBean successBean) {
-        if (mDialog != null && mDialog.isShowing()) {
-            mDialog.dismiss();
+        if(successBean.getCode() == 0){
+            mList.get(position).setVote(0);
+            BigDecimal bigDecimal = new BigDecimal(mList.get(position).getVoteCount());
+            int num = bigDecimal.intValue();
+            mList.get(position).setVoteCount((num - 1));
+            mAdapter.notifyItemChanged(position);
+            EventBus.getDefault().post(new CommenBus(CommenListActivity.commentResher));
+        }else {
+            //602
+            startActivity(new Intent(this, LoginActivity.class));
+            SPUtils.getInstance(CommonDate.USER).clear();
         }
-        mList.get(position).setUserSnap(0);
-        BigDecimal bigDecimal = new BigDecimal(mList.get(position).getSnapNum());
-        int num = bigDecimal.intValue();
-        mList.get(position).setSnapNum((num - 1) + "");
-        mAdapter.notifyItemChanged(position);
-        EventBus.getDefault().post(new CommenBus(CommenListActivity.commentResher));
     }
 
     /**
@@ -389,10 +391,7 @@ public class CommenListActivity extends BaseActivity implements CommenListAdapte
      */
     @Override
     public void onFileSnap(String error) {
-        if (mDialog != null && mDialog.isShowing()) {
-            mDialog.dismiss();
-        }
-        Toast.makeText(this, error, Toast.LENGTH_SHORT).show();
+        ToastUtil.show(error);
     }
 
     /***
@@ -401,15 +400,15 @@ public class CommenListActivity extends BaseActivity implements CommenListAdapte
     @Override
     public void onRefresh() {
         refresh = true;
-        page = 0;
-        mPresenter.comment(page + "", getIntent().getStringExtra("id"), this.bindToLifecycle());
+        page = 1;
+        mPresenter.comment(getIntent().getStringExtra("type"),page + "", getIntent().getStringExtra("id"), this.bindToLifecycle());
     }
 
     @Override
     public void onLoadMore() {
         refresh = false;
         page++;
-        mPresenter.comment(page + "", getIntent().getStringExtra("id"), this.bindToLifecycle());
+        mPresenter.comment(getIntent().getStringExtra("type"),page + "", getIntent().getStringExtra("id"), this.bindToLifecycle());
     }
 
     /**
@@ -419,15 +418,15 @@ public class CommenListActivity extends BaseActivity implements CommenListAdapte
         for (int i = 0; i < mList.size(); i++) {
             if (pos == i && pos != -1) {
                 //这里判断的是二级评论的条数
-                if (mList.get(i).getUserCommentList().size() <= 10) {
-                    sets.add(mList.get(i).getUserCommentList().size());
+                if (mList.get(i).getChildren().size() <= 10) {
+                    sets.add(mList.get(i).getChildren().size());
                 } else {
                     sets.add(10);
                 }
             } else {
                 //这里判断的是二级评论的条数
-                if (mList.get(i).getUserCommentList().size() <= 2) {
-                    sets.add(mList.get(i).getUserCommentList().size());
+                if (mList.get(i).getChildren().size() <= 2) {
+                    sets.add(mList.get(i).getChildren().size());
                 } else {
                     sets.add(2);
                 }
@@ -438,7 +437,7 @@ public class CommenListActivity extends BaseActivity implements CommenListAdapte
     /**
      * 不是第一次，刷新列表时，sets数组的逻辑
      */
-    private void ResherSets(List<CommentBean.ListBean> beanList) {
+    private void ResherSets(List<CommentBean.DataBean> beanList) {
         List<Integer> timer = new ArrayList<>();
         if (mList.size() >= 10) {
             ResherSets2(timer,beanList,10);
@@ -449,13 +448,13 @@ public class CommenListActivity extends BaseActivity implements CommenListAdapte
         sets.addAll(timer);
     }
 
-    private void ResherSets2(List<Integer> timer,List<CommentBean.ListBean> beanList,int size) {
+    private void ResherSets2(List<Integer> timer,List<CommentBean.DataBean> beanList,int size) {
         int num = 0;//记录新加入的条数
         for (int i = 0; i < size; i++) {
             if(!beanList.get(0).getCommentId().equals(mList.get(i).getCommentId())){
                 //有新评论进来了
-                if (mList.get(i).getUserCommentList().size() <= 2) {
-                    timer.add(mList.get(i).getUserCommentList().size());
+                if (mList.get(i).getChildren().size() <= 2) {
+                    timer.add(mList.get(i).getChildren().size());
                 } else {
                     timer.add(2);
                 }
@@ -474,8 +473,8 @@ public class CommenListActivity extends BaseActivity implements CommenListAdapte
      */
     private void onLodeSets(int pos) {
         for (int i = pos; i < mList.size(); i++) {
-            if (mList.get(i).getUserCommentList().size() <= 2) {
-                sets.add(mList.get(i).getUserCommentList().size());
+            if (mList.get(i).getChildren().size() <= 2) {
+                sets.add(mList.get(i).getChildren().size());
             } else {
                 sets.add(2);
             }
@@ -485,18 +484,14 @@ public class CommenListActivity extends BaseActivity implements CommenListAdapte
     @Override
     public void onGood(int flag, int position) {
         if (ClickUtil.isFastDoubleClick(1000)) {
-            Toast.makeText(this, "您点击太快了，请休息会再点", Toast.LENGTH_SHORT).show();
+            ToastUtil.show("您点击太快了，请休息会再点");
             return;
         }else{
             if(flag == 1){
                 //取消点赞
-                mDialog = (new ProgressDialogView()).createLoadingDialog(this, "正在加载...");
-                mDialog.show();
                 mPresenter.snapDelete(position,mList.get(position).getCommentId(),this.bindToLifecycle());
             }else {
                 //点赞
-                mDialog = (new ProgressDialogView()).createLoadingDialog(this, "正在加载...");
-                mDialog.show();
                 mPresenter.snapInsert(position,mList.get(position).getCommentId(),this.bindToLifecycle());
             }
         }

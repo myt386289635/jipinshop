@@ -9,10 +9,17 @@ import java.util.List;
  */
 public class CommentBean {
 
+    /**
+     * msg : success
+     * total : 5
+     * code : 0
+     * data : [{"commentId":"73cca1738852479c9265cbad744a0dc7","userId":"3ed475ccc8f24bd08da35e552c85c85a","type":null,"targetId":null,"parentId":null,"toUserId":"0","content":"1111111111111111111111","voteCount":0,"childCount":0,"createTime":"2019-01-07 14:12:50","vote":0,"children":[{"commentId":"110394bbac2f427493977a1cd3c3427a","userId":"3ed475ccc8f24bd08da35e552c85c85a","type":null,"targetId":null,"parentId":null,"toUserId":"f0e42ce1f85442cdba03f536a1bc4fe5","content":"1111111111111111111111","voteCount":null,"childCount":null,"createTime":"2019-01-07 14:18:38","vote":0,"children":null,"userNickname":"︶~\u2002夏末丶","userAvatar":"http://jipincheng.cn/c201cd8dd7f04063bfe3f4eed9e79071","toUserNickname":"︶~\u2002夏末丶"},{"commentId":"a6665b4d45ad4e66ab2a4435a83b324a","userId":"f0e42ce1f85442cdba03f536a1bc4fe5","type":null,"targetId":null,"parentId":null,"toUserId":"3ed475ccc8f24bd08da35e552c85c85a","content":"回复","voteCount":null,"childCount":null,"createTime":"2019-01-07 14:26:04","vote":0,"children":null,"userNickname":"111","userAvatar":"http://jipincheng.cn/075a3efe0bb34aae82bdfd5df4f437e2","toUserNickname":"111"},{"commentId":"ec686f5d59f34ba6ba141efdd528f69f","userId":"3ed475ccc8f24bd08da35e552c85c85a","type":null,"targetId":null,"parentId":null,"toUserId":"3ed475ccc8f24bd08da35e552c85c85a","content":"1111111111111111111111","voteCount":null,"childCount":null,"createTime":"2019-01-07 14:14:12","vote":0,"children":null,"userNickname":"︶~\u2002夏末丶","userAvatar":"http://jipincheng.cn/c201cd8dd7f04063bfe3f4eed9e79071","toUserNickname":"︶~\u2002夏末丶"}],"userNickname":"︶~\u2002夏末丶","userAvatar":"http://jipincheng.cn/c201cd8dd7f04063bfe3f4eed9e79071","toUserNickname":null}]
+     */
+
     private String msg;
+    private int total;
     private int code;
-    private int count;
-    private List<ListBean> list;
+    private List<DataBean> data;
 
     public String getMsg() {
         return msg;
@@ -20,6 +27,14 @@ public class CommentBean {
 
     public void setMsg(String msg) {
         this.msg = msg;
+    }
+
+    public int getTotal() {
+        return total;
+    }
+
+    public void setTotal(int total) {
+        this.total = total;
     }
 
     public int getCode() {
@@ -30,37 +45,57 @@ public class CommentBean {
         this.code = code;
     }
 
-    public int getCount() {
-        return count;
+    public List<DataBean> getData() {
+        return data;
     }
 
-    public void setCount(int count) {
-        this.count = count;
+    public void setData(List<DataBean> data) {
+        this.data = data;
     }
 
-    public List<ListBean> getList() {
-        return list;
-    }
-
-    public void setList(List<ListBean> list) {
-        this.list = list;
-    }
-
-    public static class ListBean {
+    public static class DataBean {
+        /**
+         * commentId : 73cca1738852479c9265cbad744a0dc7
+         * userId : 3ed475ccc8f24bd08da35e552c85c85a
+         * type : null
+         * targetId : null
+         * parentId : null
+         * toUserId : 0
+         * content : 1111111111111111111111
+         * voteCount : 0
+         * childCount : 0
+         * createTime : 2019-01-07 14:12:50
+         * vote : 0
+         * children : [{"commentId":"110394bbac2f427493977a1cd3c3427a","userId":"3ed475ccc8f24bd08da35e552c85c85a","type":null,"targetId":null,"parentId":null,"toUserId":"f0e42ce1f85442cdba03f536a1bc4fe5","content":"1111111111111111111111","voteCount":null,"childCount":null,"createTime":"2019-01-07 14:18:38","vote":0,"children":null,"userNickname":"︶~\u2002夏末丶","userAvatar":"http://jipincheng.cn/c201cd8dd7f04063bfe3f4eed9e79071","toUserNickname":"︶~\u2002夏末丶"},{"commentId":"a6665b4d45ad4e66ab2a4435a83b324a","userId":"f0e42ce1f85442cdba03f536a1bc4fe5","type":null,"targetId":null,"parentId":null,"toUserId":"3ed475ccc8f24bd08da35e552c85c85a","content":"回复","voteCount":null,"childCount":null,"createTime":"2019-01-07 14:26:04","vote":0,"children":null,"userNickname":"111","userAvatar":"http://jipincheng.cn/075a3efe0bb34aae82bdfd5df4f437e2","toUserNickname":"111"},{"commentId":"ec686f5d59f34ba6ba141efdd528f69f","userId":"3ed475ccc8f24bd08da35e552c85c85a","type":null,"targetId":null,"parentId":null,"toUserId":"3ed475ccc8f24bd08da35e552c85c85a","content":"1111111111111111111111","voteCount":null,"childCount":null,"createTime":"2019-01-07 14:14:12","vote":0,"children":null,"userNickname":"︶~\u2002夏末丶","userAvatar":"http://jipincheng.cn/c201cd8dd7f04063bfe3f4eed9e79071","toUserNickname":"︶~\u2002夏末丶"}]
+         * userNickname : ︶~ 夏末丶
+         * userAvatar : http://jipincheng.cn/c201cd8dd7f04063bfe3f4eed9e79071
+         * toUserNickname : null
+         */
 
         private String commentId;
-        private String articId;
         private String userId;
+        private Object type;
+        private Object targetId;
+        private Object parentId;
+        private String toUserId;
         private String content;
+        private int voteCount;
+        private int childCount;
         private String createTime;
-        private String showTime;
-        private String parentId;
-        private int status;
-        private String snapNum;
-        private int userSnap;
-        private int secondNum;
-        private UserShopmemberBean userShopmember;
-        private List<UserCommentListBean> userCommentList;
+        private int vote;
+        private String userNickname;
+        private String userAvatar;
+        private Object toUserNickname;
+        private List<ChildrenBean> children;
+        private String createTimeStr;
+
+        public String getCreateTimeStr() {
+            return createTimeStr;
+        }
+
+        public void setCreateTimeStr(String createTimeStr) {
+            this.createTimeStr = createTimeStr;
+        }
 
         public String getCommentId() {
             return commentId;
@@ -68,14 +103,6 @@ public class CommentBean {
 
         public void setCommentId(String commentId) {
             this.commentId = commentId;
-        }
-
-        public String getArticId() {
-            return articId;
-        }
-
-        public void setArticId(String articId) {
-            this.articId = articId;
         }
 
         public String getUserId() {
@@ -86,12 +113,60 @@ public class CommentBean {
             this.userId = userId;
         }
 
+        public Object getType() {
+            return type;
+        }
+
+        public void setType(Object type) {
+            this.type = type;
+        }
+
+        public Object getTargetId() {
+            return targetId;
+        }
+
+        public void setTargetId(Object targetId) {
+            this.targetId = targetId;
+        }
+
+        public Object getParentId() {
+            return parentId;
+        }
+
+        public void setParentId(Object parentId) {
+            this.parentId = parentId;
+        }
+
+        public String getToUserId() {
+            return toUserId;
+        }
+
+        public void setToUserId(String toUserId) {
+            this.toUserId = toUserId;
+        }
+
         public String getContent() {
             return content;
         }
 
         public void setContent(String content) {
             this.content = content;
+        }
+
+        public int getVoteCount() {
+            return voteCount;
+        }
+
+        public void setVoteCount(int voteCount) {
+            this.voteCount = voteCount;
+        }
+
+        public int getChildCount() {
+            return childCount;
+        }
+
+        public void setChildCount(int childCount) {
+            this.childCount = childCount;
         }
 
         public String getCreateTime() {
@@ -102,133 +177,80 @@ public class CommentBean {
             this.createTime = createTime;
         }
 
-        public String getShowTime() {
-            return showTime;
+        public int getVote() {
+            return vote;
         }
 
-        public void setShowTime(String showTime) {
-            this.showTime = showTime;
+        public void setVote(int vote) {
+            this.vote = vote;
         }
 
-        public String getParentId() {
-            return parentId;
+        public String getUserNickname() {
+            return userNickname;
         }
 
-        public void setParentId(String parentId) {
-            this.parentId = parentId;
+        public void setUserNickname(String userNickname) {
+            this.userNickname = userNickname;
         }
 
-        public int getStatus() {
-            return status;
+        public String getUserAvatar() {
+            return userAvatar;
         }
 
-        public void setStatus(int status) {
-            this.status = status;
+        public void setUserAvatar(String userAvatar) {
+            this.userAvatar = userAvatar;
         }
 
-        public String getSnapNum() {
-            return snapNum;
+        public Object getToUserNickname() {
+            return toUserNickname;
         }
 
-        public void setSnapNum(String snapNum) {
-            this.snapNum = snapNum;
+        public void setToUserNickname(Object toUserNickname) {
+            this.toUserNickname = toUserNickname;
         }
 
-        public int isUserSnap() {
-            return userSnap;
+        public List<ChildrenBean> getChildren() {
+            return children;
         }
 
-        public void setUserSnap(int userSnap) {
-            this.userSnap = userSnap;
+        public void setChildren(List<ChildrenBean> children) {
+            this.children = children;
         }
 
-        public int getSecondNum() {
-            return secondNum;
-        }
-
-        public void setSecondNum(int secondNum) {
-            this.secondNum = secondNum;
-        }
-
-        public UserShopmemberBean getUserShopmember() {
-            return userShopmember;
-        }
-
-        public void setUserShopmember(UserShopmemberBean userShopmember) {
-            this.userShopmember = userShopmember;
-        }
-
-        public List<UserCommentListBean> getUserCommentList() {
-            return userCommentList;
-        }
-
-        public void setUserCommentList(List<UserCommentListBean> userCommentList) {
-            this.userCommentList = userCommentList;
-        }
-
-        public static class UserShopmemberBean {
-
-            private String userId;
-            private String userNickName;
-            private String userNickImg;
-            private String userPhone;
-            private String openId;
-
-            public String getUserId() {
-                return userId;
-            }
-
-            public void setUserId(String userId) {
-                this.userId = userId;
-            }
-
-            public String getUserNickName() {
-                return userNickName;
-            }
-
-            public void setUserNickName(String userNickName) {
-                this.userNickName = userNickName;
-            }
-
-            public String getUserNickImg() {
-                return userNickImg;
-            }
-
-            public void setUserNickImg(String userNickImg) {
-                this.userNickImg = userNickImg;
-            }
-
-            public String getUserPhone() {
-                return userPhone;
-            }
-
-            public void setUserPhone(String userPhone) {
-                this.userPhone = userPhone;
-            }
-
-            public String getOpenId() {
-                return openId;
-            }
-
-            public void setOpenId(String openId) {
-                this.openId = openId;
-            }
-        }
-
-        public static class UserCommentListBean {
+        public static class ChildrenBean {
+            /**
+             * commentId : 110394bbac2f427493977a1cd3c3427a
+             * userId : 3ed475ccc8f24bd08da35e552c85c85a
+             * type : null
+             * targetId : null
+             * parentId : null
+             * toUserId : f0e42ce1f85442cdba03f536a1bc4fe5
+             * content : 1111111111111111111111
+             * voteCount : null
+             * childCount : null
+             * createTime : 2019-01-07 14:18:38
+             * vote : 0
+             * children : null
+             * userNickname : ︶~ 夏末丶
+             * userAvatar : http://jipincheng.cn/c201cd8dd7f04063bfe3f4eed9e79071
+             * toUserNickname : ︶~ 夏末丶
+             */
 
             private String commentId;
-            private String articId;
             private String userId;
+            private Object type;
+            private Object targetId;
+            private Object parentId;
+            private String toUserId;
             private String content;
+            private Object voteCount;
+            private Object childCount;
             private String createTime;
-            private String showTime;
-            private String parentId;
-            private String status;
-            private String snapNum;
-            private int userSnap;
-            private Object secondNum;
-            private UserShopmemberBeanX userShopmember;
+            private int vote;
+            private Object children;
+            private String userNickname;
+            private String userAvatar;
+            private String toUserNickname;
 
             public String getCommentId() {
                 return commentId;
@@ -238,20 +260,44 @@ public class CommentBean {
                 this.commentId = commentId;
             }
 
-            public String getArticId() {
-                return articId;
-            }
-
-            public void setArticId(String articId) {
-                this.articId = articId;
-            }
-
             public String getUserId() {
                 return userId;
             }
 
             public void setUserId(String userId) {
                 this.userId = userId;
+            }
+
+            public Object getType() {
+                return type;
+            }
+
+            public void setType(Object type) {
+                this.type = type;
+            }
+
+            public Object getTargetId() {
+                return targetId;
+            }
+
+            public void setTargetId(Object targetId) {
+                this.targetId = targetId;
+            }
+
+            public Object getParentId() {
+                return parentId;
+            }
+
+            public void setParentId(Object parentId) {
+                this.parentId = parentId;
+            }
+
+            public String getToUserId() {
+                return toUserId;
+            }
+
+            public void setToUserId(String toUserId) {
+                this.toUserId = toUserId;
             }
 
             public String getContent() {
@@ -262,6 +308,22 @@ public class CommentBean {
                 this.content = content;
             }
 
+            public Object getVoteCount() {
+                return voteCount;
+            }
+
+            public void setVoteCount(Object voteCount) {
+                this.voteCount = voteCount;
+            }
+
+            public Object getChildCount() {
+                return childCount;
+            }
+
+            public void setChildCount(Object childCount) {
+                this.childCount = childCount;
+            }
+
             public String getCreateTime() {
                 return createTime;
             }
@@ -270,109 +332,44 @@ public class CommentBean {
                 this.createTime = createTime;
             }
 
-            public String getShowTime() {
-                return showTime;
+            public int getVote() {
+                return vote;
             }
 
-            public void setShowTime(String showTime) {
-                this.showTime = showTime;
+            public void setVote(int vote) {
+                this.vote = vote;
             }
 
-            public String getParentId() {
-                return parentId;
+            public Object getChildren() {
+                return children;
             }
 
-            public void setParentId(String parentId) {
-                this.parentId = parentId;
+            public void setChildren(Object children) {
+                this.children = children;
             }
 
-            public String getStatus() {
-                return status;
+            public String getUserNickname() {
+                return userNickname;
             }
 
-            public void setStatus(String status) {
-                this.status = status;
+            public void setUserNickname(String userNickname) {
+                this.userNickname = userNickname;
             }
 
-            public String getSnapNum() {
-                return snapNum;
+            public String getUserAvatar() {
+                return userAvatar;
             }
 
-            public void setSnapNum(String snapNum) {
-                this.snapNum = snapNum;
+            public void setUserAvatar(String userAvatar) {
+                this.userAvatar = userAvatar;
             }
 
-            public int getUserSnap() {
-                return userSnap;
+            public String getToUserNickname() {
+                return toUserNickname;
             }
 
-            public void setUserSnap(int userSnap) {
-                this.userSnap = userSnap;
-            }
-
-            public Object getSecondNum() {
-                return secondNum;
-            }
-
-            public void setSecondNum(Object secondNum) {
-                this.secondNum = secondNum;
-            }
-
-            public UserShopmemberBeanX getUserShopmember() {
-                return userShopmember;
-            }
-
-            public void setUserShopmember(UserShopmemberBeanX userShopmember) {
-                this.userShopmember = userShopmember;
-            }
-
-            public static class UserShopmemberBeanX {
-
-                private String userId;
-                private String userNickName;
-                private String userNickImg;
-                private String userPhone;
-                private String openId;
-
-                public String getUserId() {
-                    return userId;
-                }
-
-                public void setUserId(String userId) {
-                    this.userId = userId;
-                }
-
-                public String getUserNickName() {
-                    return userNickName;
-                }
-
-                public void setUserNickName(String userNickName) {
-                    this.userNickName = userNickName;
-                }
-
-                public String getUserNickImg() {
-                    return userNickImg;
-                }
-
-                public void setUserNickImg(String userNickImg) {
-                    this.userNickImg = userNickImg;
-                }
-
-                public String getUserPhone() {
-                    return userPhone;
-                }
-
-                public void setUserPhone(String userPhone) {
-                    this.userPhone = userPhone;
-                }
-
-                public String getOpenId() {
-                    return openId;
-                }
-
-                public void setOpenId(String openId) {
-                    this.openId = openId;
-                }
+            public void setToUserNickname(String toUserNickname) {
+                this.toUserNickname = toUserNickname;
             }
         }
     }

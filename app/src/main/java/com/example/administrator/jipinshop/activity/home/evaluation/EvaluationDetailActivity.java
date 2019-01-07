@@ -36,6 +36,7 @@ import com.example.administrator.jipinshop.bean.CommentBean;
 import com.example.administrator.jipinshop.bean.EvaluationDetailBean;
 import com.example.administrator.jipinshop.bean.SnapSelectBean;
 import com.example.administrator.jipinshop.bean.SuccessBean;
+import com.example.administrator.jipinshop.bean.VoteBean;
 import com.example.administrator.jipinshop.bean.eventbus.EvaluationBus;
 import com.example.administrator.jipinshop.databinding.ActivityEvaluationDetailBinding;
 import com.example.administrator.jipinshop.fragment.foval.FovalFragment;
@@ -372,7 +373,7 @@ public class EvaluationDetailActivity extends RxAppCompatActivity implements Vie
      */
     @Override
     public void onSucComment(CommentBean commentBean) {
-        mBinding.bottomCommenNum.setText(commentBean.getCount() + "");
+        mBinding.bottomCommenNum.setText(commentBean.getTotal() + "");
     }
     /**
      * 查询该文章的评论数量  失败回调
@@ -424,7 +425,7 @@ public class EvaluationDetailActivity extends RxAppCompatActivity implements Vie
      * 添加点赞成功
      */
     @Override
-    public void onSucSnapInsert(View view, SuccessBean successBean) {
+    public void onSucSnapInsert(View view, VoteBean successBean) {
         if (mDialog != null && mDialog.isShowing()) {
             mDialog.dismiss();
         }

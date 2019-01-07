@@ -38,6 +38,7 @@ import com.example.administrator.jipinshop.bean.CommentBean;
 import com.example.administrator.jipinshop.bean.FindDetailBean;
 import com.example.administrator.jipinshop.bean.SnapSelectBean;
 import com.example.administrator.jipinshop.bean.SuccessBean;
+import com.example.administrator.jipinshop.bean.VoteBean;
 import com.example.administrator.jipinshop.bean.eventbus.FindBus;
 import com.example.administrator.jipinshop.databinding.ActivityFindDetailBinding;
 import com.example.administrator.jipinshop.fragment.foval.FovalFragment;
@@ -399,7 +400,7 @@ public class FindDetailActivity extends RxAppCompatActivity implements View.OnCl
 
     @Override
     public void onSucComment(CommentBean commentBean) {
-        mBinding.bottomCommenNum.setText(commentBean.getCount() + "");
+        mBinding.bottomCommenNum.setText(commentBean.getTotal() + "");
     }
 
     @Override
@@ -448,7 +449,7 @@ public class FindDetailActivity extends RxAppCompatActivity implements View.OnCl
      * 添加点赞成功回调
      */
     @Override
-    public void onSucSnapInsert(View view, SuccessBean successBean) {
+    public void onSucSnapInsert(View view, VoteBean successBean) {
         if (mDialog != null && mDialog.isShowing()) {
             mDialog.dismiss();
         }

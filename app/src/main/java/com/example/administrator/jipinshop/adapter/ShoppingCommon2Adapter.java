@@ -25,7 +25,7 @@ import java.util.List;
 public class ShoppingCommon2Adapter extends RecyclerView.Adapter<ShoppingCommon2Adapter.ViewHolder> {
 
     //总共的二级评论数量
-    private List<CommentBean.ListBean.UserCommentListBean> mList;
+    private List<CommentBean.DataBean.ChildrenBean> mList;
     private Context mContext;
     private OnReplyLisenter mOnReplyLisenter;
     private OnMoreUp mOnMoreUp;
@@ -48,7 +48,7 @@ public class ShoppingCommon2Adapter extends RecyclerView.Adapter<ShoppingCommon2
         mContext = context;
     }
 
-    public void setList(List<CommentBean.ListBean.UserCommentListBean> list) {
+    public void setList(List<CommentBean.DataBean.ChildrenBean> list) {
         mList = list;
     }
 
@@ -147,15 +147,7 @@ public class ShoppingCommon2Adapter extends RecyclerView.Adapter<ShoppingCommon2
 
         if(position < mList.size()){
             holder.item_content.setText(mList.get(position).getContent());
-            if (mList.get(position).getUserShopmember() != null) {
-                if (!TextUtils.isEmpty(mList.get(position).getUserShopmember().getUserNickName())){
-                    holder.item_name.setText(mList.get(position).getUserShopmember().getUserNickName());
-                }else {
-                    holder.item_name.setText(FileManager.editPhone(mList.get(position).getUserShopmember().getUserPhone()));
-                }
-            }else {
-                holder.item_name.setText("游客");
-            }
+            holder.item_name.setText(mList.get(position).getUserNickname());
         }else {
             Log.d("moxiaoting", "数据越界了你知道么？" + position + "，数组大小：" + mList.size());
         }

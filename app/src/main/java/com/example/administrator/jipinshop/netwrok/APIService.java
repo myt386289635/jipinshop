@@ -34,6 +34,7 @@ import com.example.administrator.jipinshop.bean.TabBean;
 import com.example.administrator.jipinshop.bean.UnMessageBean;
 import com.example.administrator.jipinshop.bean.UserInfoBean;
 import com.example.administrator.jipinshop.bean.UserPageBean;
+import com.example.administrator.jipinshop.bean.VoteBean;
 import com.example.administrator.jipinshop.bean.json.LoginJson;
 import com.example.administrator.jipinshop.bean.json.PushMessageJson;
 
@@ -220,16 +221,16 @@ public interface APIService {
     Observable<SnapSelectBean> isCollect(@QueryMap Map<String,String> param);
 
     /**
-     * 添加收藏
+     * 添加收藏    已修改
      */
     @FormUrlEncoded
-    @POST("qualityshop-api/api/collectInsert")
+    @POST("qualityshop-api/api/collect/add")
     Observable<SuccessBean> collectInsert(@FieldMap Map<String,String> param);
 
     /**
-     * 删除收藏
+     * 删除收藏    已修改
      */
-    @GET("qualityshop-api/api/collectDelete")
+    @GET("qualityshop-api/api/collect/delete")
     Observable<SuccessBean> collectDelete(@QueryMap Map<String,String> param);
 
     /**
@@ -239,32 +240,32 @@ public interface APIService {
     Observable<SnapSelectBean> snapSelect(@QueryMap Map<String,String> param);
 
     /**
-     * 添加点赞
+     * 添加点赞   已修改
      */
     @FormUrlEncoded
-    @POST("qualityshop-api/api/snapInsert")
-    Observable<SuccessBean> snapInsert(@FieldMap Map<String,String> param);
+    @POST("qualityshop-api/api/vote/add")
+    Observable<VoteBean> snapInsert(@FieldMap Map<String,String> param);
 
     /**
-     * 删除点赞
+     * 删除点赞    已修改
      */
-    @GET("qualityshop-api/api/snapDelete")
+    @GET("qualityshop-api/api/vote/delete")
     Observable<SuccessBean> snapDelete(@QueryMap Map<String,String> param);
 
     /**
-     * 查看评论列表
+     * 查看评论列表   已修改
      */
-    @GET("qualityshop-api/api/comment")
+    @GET("qualityshop-api/api/comment/list")
     Observable<CommentBean> comment(@QueryMap Map<String,String> param);
 
     /**
-     * 添加评论
+     * 添加评论     已修改
      */
     @FormUrlEncoded
-    @POST("qualityshop-api/api/commentInsert")
-    Observable<CommentInsertBean> commentInsert(@Field("articId") String articId, @Field("userId") String userId,
+    @POST("qualityshop-api/api/comment/add")
+    Observable<SuccessBean> commentInsert(@Field("targetId") String targetId, @Field("toUserId") String toUserId,
                                                 @Field("content") String content, @Field("parentId") String parentId,
-                                                @Field("status") String status);
+                                                @Field("type") String type);
 
     /**
      * 获取未读消息
