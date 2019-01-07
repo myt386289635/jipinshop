@@ -1,7 +1,14 @@
 package com.example.administrator.jipinshop.netwrok;
 
-import com.example.administrator.jipinshop.auto.ApplicationScope;
+import android.util.Log;
 
+import com.blankj.utilcode.util.EncryptUtils;
+import com.blankj.utilcode.util.SPUtils;
+import com.blankj.utilcode.util.Utils;
+import com.example.administrator.jipinshop.auto.ApplicationScope;
+import com.example.administrator.jipinshop.util.sp.CommonDate;
+
+import java.io.IOException;
 import java.security.SecureRandom;
 import java.util.concurrent.TimeUnit;
 
@@ -11,7 +18,10 @@ import javax.net.ssl.TrustManager;
 
 import dagger.Module;
 import dagger.Provides;
+import okhttp3.Interceptor;
 import okhttp3.OkHttpClient;
+import okhttp3.Request;
+import okhttp3.Response;
 import okhttp3.logging.HttpLoggingInterceptor;
 
 @Module
@@ -39,6 +49,20 @@ public class OKHttpModule {
     @ApplicationScope
     @Provides
     OkHttpClient provideOkHttpClient(OkHttpClient.Builder builder) {
+        builder.addInterceptor(chain -> {
+            Request originalRequest = chain.request();
+//            if (Your.sToken == null || alreadyHasAuthorizationHeader(originalRequest)) {
+//                return chain.proceed(originalRequest);
+//            }
+            long time = System.currentTimeMillis();
+            String sign = "quality-shop" + time;
+            Request authorised = originalRequest.newBuilder()
+                    .addHeader("timestamp", time+"")//时间搓
+                    .addHeader("sign", EncryptUtils.encryptMD5ToString(sign))//Md5加密字段
+                    .addHeader("token", SPUtils.getInstance(CommonDate.USER).getString(CommonDate.token,""))
+                    .build();
+            return chain.proceed(authorised);
+        });
         return builder.build();
     }
 

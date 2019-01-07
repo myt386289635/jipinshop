@@ -129,7 +129,7 @@ public class HomeCommenFragment extends DBBaseFragment implements HomeCommenTabA
                     }
                 }
                 mTabAdapter.notifyDataSetChanged();
-                image = tabBean.getData().get(position).getAdList().get(position).getImg();
+                image = tabBean.getData().get(position).getAdList().get(0).getImg();
             } else {
                 mBinding.categoryView.setVisibility(View.GONE);
             }
@@ -208,22 +208,24 @@ public class HomeCommenFragment extends DBBaseFragment implements HomeCommenTabA
      */
     @Override
     public void onSuccess(HomeCommenBean commenBean) {
-        // TODO: 2019/1/5 还有未完成的功能
-        if(commenBean.getData() != null  && commenBean.getData().size() != 0){
-            mCommenBeans.clear();
-            mBinding.inClude.qsNet.setVisibility(View.GONE);
-            mBinding.recyclerView.setVisibility(View.VISIBLE);
-            mCommenBeans.addAll(commenBean.getData());
-            mAdapter.setImage(image);
-            mAdapter.notifyDataSetChanged();
-        }else {
-            initError(R.mipmap.qs_nodata, "暂无数据", "暂时没有任何数据 ");
-            mBinding.recyclerView.setVisibility(View.GONE);
+        if(commenBean.getCategory2Id().equals(mChildrenBeans.get(sets).getCategoryid())){
+            if(commenBean.getData() != null  && commenBean.getData().size() != 0){
+                mCommenBeans.clear();
+                mBinding.inClude.qsNet.setVisibility(View.GONE);
+                mBinding.recyclerView.setVisibility(View.VISIBLE);
+                mCommenBeans.addAll(commenBean.getData());
+                mAdapter.setImage(image);
+                mAdapter.notifyDataSetChanged();
+            }else {
+                initError(R.mipmap.qs_nodata, "暂无数据", "暂时没有任何数据 ");
+                mBinding.recyclerView.setVisibility(View.GONE);
+            }
+            stopResher();
+            if (once){
+                once = false;
+            }
         }
         stopResher();
-        if (once){
-            once = false;
-        }
     }
 
     /**

@@ -37,6 +37,7 @@ public class CommonDate {
     //用户数据表（sp文件名：user）
     public static final String USER = "user";//表名
     public static final String userId = "userId";//用户id
+    public static final String token = "token";//用户token
     public static final String userNickName = "userNickName";//用户名
     public static final String userNickImg = "userNickImg";//用户头像
     public static final String userAcutalName = "userAcutalName";//用户真实姓名
