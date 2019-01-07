@@ -23,7 +23,6 @@ import com.example.administrator.jipinshop.bean.SuccessBean;
 import com.example.administrator.jipinshop.bean.eventbus.CommonEvaluationBus;
 import com.example.administrator.jipinshop.bean.eventbus.EditNameBus;
 import com.example.administrator.jipinshop.databinding.LoginBinding;
-import com.example.administrator.jipinshop.fragment.evaluation.common.CommonEvaluationFragment;
 import com.example.administrator.jipinshop.jpush.JPushReceiver;
 import com.example.administrator.jipinshop.netwrok.RetrofitModule;
 import com.example.administrator.jipinshop.util.sp.CommonDate;
@@ -36,7 +35,6 @@ import com.umeng.socialize.bean.SHARE_MEDIA;
 
 import org.greenrobot.eventbus.EventBus;
 
-import java.math.BigDecimal;
 import java.util.Map;
 
 import javax.inject.Inject;
@@ -51,6 +49,7 @@ import cn.jpush.android.api.JPushInterface;
 public class LoginActivity extends BaseActivity implements LoginView, View.OnClickListener {
 
     public static final String tag = "userMoney";
+    public static final String refresh = "login2AllRefresh";
 
     @Inject
     LoginPresenter mPresenter;
@@ -164,6 +163,7 @@ public class LoginActivity extends BaseActivity implements LoginView, View.OnCli
             SPUtils.getInstance(CommonDate.USER).put(CommonDate.userPoint,loginBean.getData().getPoint());
             EventBus.getDefault().post(new EditNameBus(LoginActivity.tag));
             EventBus.getDefault().post(JPushReceiver.TAG);//刷新未读消息
+            EventBus.getDefault().post(new CommonEvaluationBus(LoginActivity.refresh));//用来刷新商品、评测、发现详情以及评论列表
             JPushInterface.resumePush(MyApplication.getInstance());//恢复推送
             Toast.makeText(this, "登录成功", Toast.LENGTH_SHORT).show();
             setResult(200);

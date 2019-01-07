@@ -25,15 +25,18 @@ import com.example.administrator.jipinshop.bean.CommentBean;
 import com.example.administrator.jipinshop.bean.SuccessBean;
 import com.example.administrator.jipinshop.bean.VoteBean;
 import com.example.administrator.jipinshop.bean.eventbus.CommenBus;
+import com.example.administrator.jipinshop.bean.eventbus.CommonEvaluationBus;
 import com.example.administrator.jipinshop.bean.eventbus.EvaluationBus;
 import com.example.administrator.jipinshop.bean.eventbus.FindBus;
 import com.example.administrator.jipinshop.databinding.ActivityCommenlistBinding;
+import com.example.administrator.jipinshop.fragment.evaluation.common.CommonEvaluationFragment;
 import com.example.administrator.jipinshop.util.ClickUtil;
 import com.example.administrator.jipinshop.util.ToastUtil;
 import com.example.administrator.jipinshop.util.sp.CommonDate;
 import com.example.administrator.jipinshop.view.dialog.ProgressDialogView;
 
 import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
@@ -84,12 +87,16 @@ public class CommenListActivity extends BaseActivity implements CommenListAdapte
      */
     private Boolean imi = false;
 
+    //判断是否点击的是“回复”按钮，记录该textview用来判断点击位置
+    private List<TextView> mTextViews = new ArrayList<>();
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         mBinding = DataBindingUtil.setContentView(this, R.layout.activity_commenlist);
         mBinding.setListener(this);
         mBaseActivityComponent.inject(this);
+        EventBus.getDefault().register(this);
         initView();
     }
 
@@ -144,6 +151,8 @@ public class CommenListActivity extends BaseActivity implements CommenListAdapte
         mBinding.keyEdit.requestFocus();
         showKeyboard(true);
         mBinding.keyEdit.setHint("回复"+mList.get(pos).getUserNickname());
+        mTextViews.clear();
+        mTextViews.add(textView);
     }
 
     /**
@@ -184,12 +193,30 @@ public class CommenListActivity extends BaseActivity implements CommenListAdapte
             v.getLocationInWindow(l);
             int left = l[0], top = l[1], bottom = top + v.getHeight(), right = left
                     + v.getWidth();
-            if (ev.getX() > left && ev.getX() < right && ev.getY() > top
-                    && ev.getY() < bottom) {
-                return false;
-            } else {
-                return true;
+            if(mTextViews != null && mTextViews.size() == 1){
+                mTextViews.get(0).getLocationInWindow(l);
+                int left1 = l[0], top1 = l[1], bottom1 = top1 + mTextViews.get(0).getHeight(), right1 = left1
+                        + mTextViews.get(0).getWidth();
+                if ((ev.getX() > left && ev.getX() < right && ev.getY() > top
+                        && ev.getY() < bottom)) {
+                    return false;
+                } else {
+                    if ((ev.getX() > left1 && ev.getX() < right1 && ev.getY() > top1
+                            && ev.getY() < bottom1)){
+                        return false;
+                    }else {
+                        return true;
+                    }
+                }
+            }else {
+                if (ev.getX() > left && ev.getX() < right && ev.getY() > top
+                        && ev.getY() < bottom ) {
+                    return false;
+                } else {
+                    return true;
+                }
             }
+
         }
         return false;
     }
@@ -501,6 +528,25 @@ public class CommenListActivity extends BaseActivity implements CommenListAdapte
             }else {
                 //点赞
                 mPresenter.snapInsert(position,mList.get(position).getCommentId(),this.bindToLifecycle());
+            }
+        }
+    }
+
+    @Override
+    protected void onDestroy() {
+        EventBus.getDefault().unregister(this);
+        super.onDestroy();
+    }
+
+    /**
+     * 登陆时刷新  评论
+     */
+    @Subscribe
+    public void refreshPage(CommonEvaluationBus commonEvaluationBus){
+        if(commonEvaluationBus != null && commonEvaluationBus.getRefersh().equals(LoginActivity.refresh)){
+            if(mBinding.swipeToLoad != null && !mBinding.swipeToLoad.isRefreshing()){
+                mBinding.swipeTarget.smoothScrollToPosition(0);
+                mBinding.swipeToLoad.setRefreshing(true);
             }
         }
     }

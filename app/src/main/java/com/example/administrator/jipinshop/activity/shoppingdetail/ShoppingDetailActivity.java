@@ -128,7 +128,6 @@ public class ShoppingDetailActivity extends BaseActivity implements ShoppingComm
     private List<CommentBean.DataBean> mCommonList;
 
     //点赞
-    private GoodView mGoodView;
     private int[] usableHeightPrevious = {0};
 
     //分享面板
@@ -258,7 +257,6 @@ public class ShoppingDetailActivity extends BaseActivity implements ShoppingComm
         mCommonAdapter.setOnGoodItem(this);
         mBinding.detailCommon.setAdapter(mCommonAdapter);
 
-        mGoodView = new GoodView(this);
         //监听软键盘的弹出与收回
         mPresenter.setKeyListener(mBinding.detailContanier, usableHeightPrevious);
         mPresenter.initLine(mBinding.detailTitleContainer,mBinding.shopTv
@@ -567,9 +565,6 @@ public class ShoppingDetailActivity extends BaseActivity implements ShoppingComm
     @Override
     public void onSucSnapInsert(View view ,VoteBean successBean) {
         if(successBean.getCode() == 0){
-            mGoodView.setText("+1");
-            mGoodView.setTextColor(getResources().getColor(R.color.color_E31436));
-            mGoodView.show(view);
             isSnap = true;
             SnapNum = SnapNum + 1;
             mBinding.detailGood.setText(SnapNum + "人喜欢");

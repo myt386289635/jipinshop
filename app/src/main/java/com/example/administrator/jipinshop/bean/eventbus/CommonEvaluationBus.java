@@ -3,7 +3,7 @@ package com.example.administrator.jipinshop.bean.eventbus;
 /**
  * @author 莫小婷
  * @create 2018/11/21
- * @Describe 在登陆时或者退出登陆时需要刷新评测首页
+ * @Describe 在登陆时需要刷新商品详情、发现、评测详情、评论列表
  */
 public class CommonEvaluationBus {
 
