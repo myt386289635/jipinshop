@@ -701,9 +701,6 @@ public class ShoppingDetailActivity extends BaseActivity implements ShoppingComm
      */
     @Override
     public void concerDelSuccess(SuccessBean successBean) {
-        if (mDialogProgress != null && mDialogProgress.isShowing()) {
-            mDialogProgress.dismiss();
-        }
         isConcer = false;
         mBinding.contentAttention.setBackgroundResource(R.drawable.bg_attention);
         mBinding.contentAttention.setText("+关注");
@@ -717,9 +714,6 @@ public class ShoppingDetailActivity extends BaseActivity implements ShoppingComm
      */
     @Override
     public void concerInsSuccess(SuccessBean successBean) {
-        if (mDialogProgress != null && mDialogProgress.isShowing()) {
-            mDialogProgress.dismiss();
-        }
         isConcer = true;
         mBinding.contentAttention.setBackgroundResource(R.drawable.bg_attentioned);
         mBinding.contentAttention.setText("已关注");
@@ -844,13 +838,9 @@ public class ShoppingDetailActivity extends BaseActivity implements ShoppingComm
                 }else{
                     if(isConcer){
                         //关注过了
-                        mDialogProgress = (new ProgressDialogView()).createLoadingDialog(ShoppingDetailActivity.this, "正在加载...");
-                        mDialogProgress.show();
                         mPresenter.concernDelete(attentionUserId,this.bindToLifecycle());
                     }else {
                         //没有关注
-                        mDialogProgress = (new ProgressDialogView()).createLoadingDialog(ShoppingDetailActivity.this, "正在加载...");
-                        mDialogProgress.show();
                         mPresenter.concernInsert(attentionUserId,this.bindToLifecycle());
                     }
                 }
