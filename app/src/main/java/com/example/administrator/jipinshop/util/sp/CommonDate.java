@@ -41,12 +41,12 @@ public class CommonDate {
     public static final String userNickName = "userNickName";//用户名
     public static final String userNickImg = "userNickImg";//用户头像
     public static final String userAcutalName = "userAcutalName";//用户真实姓名
-    public static final String userMemberGrade = "userMemberGrade";//用户会员等级
+    public static final String userMemberGrade = "userMemberGrade";//用户角色  0：公司编辑 1：普通用户 2：达人用户
     public static final String userGender = "userGender";//用户性别
     public static final String userBirthday = "userBirthday";//用户生日
     public static final String userPhone = "userPhone";//用户手机号
     public static final String userLogin = "userLogin";//用户是否登陆  是true,否false
-    public static final String userPoint = "userPoint";//用户积分
+    public static final String userPoint = "userPoint";//用户积分（int类型）
     public static final String alipAccount = "alipAccount";//支付宝账号
     public static final String alipName = "alipName";//支付宝绑定的真实姓名
     public static final String historySreach = "historySreach";//用户的历史搜索目录

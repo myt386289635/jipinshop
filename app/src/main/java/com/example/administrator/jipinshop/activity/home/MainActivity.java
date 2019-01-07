@@ -112,7 +112,7 @@ public class MainActivity extends RxAppCompatActivity implements MainView {
 
         View tabView = (View) mTabLayout.getTabAt(4).getCustomView().getParent();
         tabView.setOnClickListener(v -> {
-            if(TextUtils.isEmpty(SPUtils.getInstance(CommonDate.USER).getString(CommonDate.userId).trim())){
+            if(TextUtils.isEmpty(SPUtils.getInstance(CommonDate.USER).getString(CommonDate.token,"").trim())){
                 startActivityForResult(new Intent(this, LoginActivity.class),100);
             }
         });

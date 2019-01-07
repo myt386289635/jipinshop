@@ -154,14 +154,16 @@ public class HomeFragment extends DBBaseFragment implements Badge.OnDragStateCha
 
     @Override
     public void onClick(View view) {
-        if(!SPUtils.getInstance(CommonDate.USER).getBoolean(CommonDate.userLogin,false)){
+        switch (view.getId()) {
+            case R.id.home_sreach:
+                startActivity(new Intent(getContext(), SreachActivity.class));
+                return;
+        }
+        if(TextUtils.isEmpty(SPUtils.getInstance(CommonDate.USER).getString(CommonDate.token,""))){
             startActivity(new Intent(getContext(), LoginActivity.class));
             return;
         }
         switch (view.getId()) {
-            case R.id.home_sreach:
-                startActivity(new Intent(getContext(), SreachActivity.class));
-                break;
             case R.id.home_message:
 //                startActivity(new Intent(getContext(), MessageActivity.class));
                 startActivity(new Intent(getContext(), SystemMessageActivity.class));

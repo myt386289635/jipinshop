@@ -143,8 +143,7 @@ public class LoginPresenter {
 
 
     public void login(String mobile ,String code ,LifecycleTransformer<LoginBean> transformer){
-        LoginJson loginJson = new LoginJson(mobile,code);
-        mRepository.login(loginJson)
+        mRepository.login(mobile,code)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .compose(transformer)
@@ -162,13 +161,12 @@ public class LoginPresenter {
 
 
     public void pushMessage(Context context,String mobile,LifecycleTransformer<SuccessBean> transformer){
-        PushMessageJson messageJson = new PushMessageJson(mobile);
-        mRepository.pushMessage(messageJson)
+        mRepository.pushMessage(mobile,"1")
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .compose(transformer)
                 .subscribe(successBean ->{
-                    if(successBean.getCode() != 200){
+                    if(successBean.getCode() != 0){
                         Toast.makeText(context, successBean.getMsg(), Toast.LENGTH_SHORT).show();
                     }
                     Log.d("LoginPresenter", successBean.toString());

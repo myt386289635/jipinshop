@@ -61,25 +61,25 @@ public interface APIService {
     Observable<RecommendFragmentBean> ranklist();
 
     /**
-     * 登陆接口
-     * @param loginJson
-     */
-    @POST("qualityshop-api/api/Messagelogin")
-    Observable<LoginBean> login(@Body LoginJson loginJson);
-
-
-    /**
-     * 发送验证码
-     */
-    @POST("qualityshop-api/api/pushMessage")
-    Observable<SuccessBean> pushMessage(@Body PushMessageJson pushMessageJson);
-
-    /**
-     * 退出登陆
+     * 登陆接口   已修改
      */
     @FormUrlEncoded
+    @POST("qualityshop-api/api/mobileLogin")
+    Observable<LoginBean> login(@Field("mobile") String mobile,@Field("code") String code);
+
+
+    /**
+     * 发送验证码    已修改
+     */
+    @FormUrlEncoded
+    @POST("qualityshop-api/api/sendMessage")
+    Observable<SuccessBean> pushMessage(@Field("mobile") String mobile,@Field("type") String type);
+
+    /**
+     * 退出登陆    已修改
+     */
     @POST("qualityshop-api/api/logout")
-    Observable<SuccessBean> logout(@Field("userId") String userId);
+    Observable<SuccessBean> logout();
 
 
     /**

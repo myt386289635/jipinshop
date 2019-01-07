@@ -34,8 +34,6 @@ import com.example.administrator.jipinshop.bean.TabBean;
 import com.example.administrator.jipinshop.bean.UnMessageBean;
 import com.example.administrator.jipinshop.bean.UserInfoBean;
 import com.example.administrator.jipinshop.bean.UserPageBean;
-import com.example.administrator.jipinshop.bean.json.LoginJson;
-import com.example.administrator.jipinshop.bean.json.PushMessageJson;
 import com.example.administrator.jipinshop.util.UpDataUtil;
 import com.example.administrator.jipinshop.util.sp.CommonDate;
 
@@ -65,22 +63,22 @@ public class Repository {
     /**
      * 登陆接口
      */
-    public Observable<LoginBean> login(LoginJson loginJson){
-        return mAPIService.login(loginJson);
+    public Observable<LoginBean> login(String mobile, String code){
+        return mAPIService.login(mobile,code);
     }
 
     /**
      * 获取短信验证码
      */
-    public Observable<SuccessBean> pushMessage( PushMessageJson pushMessageJson){
-        return  mAPIService.pushMessage(pushMessageJson);
+    public Observable<SuccessBean> pushMessage(String mobile,String type){
+        return  mAPIService.pushMessage(mobile,type);
     }
 
     /**
      * 退出登陆
      */
     public Observable<SuccessBean> logout(){
-        return mAPIService.logout(SPUtils.getInstance(CommonDate.USER).getString(CommonDate.userId));
+        return mAPIService.logout();
     }
 
     /**

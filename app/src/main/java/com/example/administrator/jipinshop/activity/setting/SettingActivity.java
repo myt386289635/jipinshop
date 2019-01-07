@@ -7,6 +7,7 @@ import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
@@ -91,7 +92,7 @@ public class SettingActivity extends BaseActivity implements CleanCacheDialog.On
         } catch (Exception e) {
             e.printStackTrace();
         }
-        if(!SPUtils.getInstance(CommonDate.USER).getBoolean(CommonDate.userLogin,false)){
+        if (TextUtils.isEmpty(SPUtils.getInstance(CommonDate.USER).getString(CommonDate.token, ""))) {
             mSettingExitLogin.setVisibility(View.GONE);
         }else {
             mSettingExitLogin.setVisibility(View.VISIBLE);
@@ -143,7 +144,7 @@ public class SettingActivity extends BaseActivity implements CleanCacheDialog.On
                 );
                 return;
         }
-        if(!SPUtils.getInstance(CommonDate.USER).getBoolean(CommonDate.userLogin,false)){
+        if (TextUtils.isEmpty(SPUtils.getInstance(CommonDate.USER).getString(CommonDate.token, ""))) {
             Toast.makeText(this, "请先登录", Toast.LENGTH_SHORT).show();
             return;
         }
@@ -195,7 +196,7 @@ public class SettingActivity extends BaseActivity implements CleanCacheDialog.On
      */
     @Override
     public void loginOutSuccess(SuccessBean msg) {
-        if(msg.getCode() == 200){
+        if(msg.getCode() == 0){
             setResult(201);
             finish();
             Toast.makeText(this, "退出登录成功", Toast.LENGTH_SHORT).show();

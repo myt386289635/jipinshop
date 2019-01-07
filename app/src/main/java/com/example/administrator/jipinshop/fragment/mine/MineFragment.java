@@ -61,7 +61,7 @@ public class MineFragment extends DBBaseFragment implements View.OnClickListener
 
         mPresenter.setStatusBarHight(mBinding.statusBar, getContext());
         mPresenter.setView(this);
-        if (!TextUtils.isEmpty(SPUtils.getInstance(CommonDate.USER).getString(CommonDate.userId).trim())) {
+        if (!TextUtils.isEmpty(SPUtils.getInstance(CommonDate.USER).getString(CommonDate.token,"").trim())) {
             //这里是判断该手机是否有账户登陆过。如果有userId不会为空，除非没有用户登录或已经退出登陆
             mPresenter.modelUser(this.bindToLifecycle());
         }
@@ -79,7 +79,7 @@ public class MineFragment extends DBBaseFragment implements View.OnClickListener
                 startActivityForResult(new Intent(getContext(), LoginActivity.class), 100);
                 return;
         }
-        if (!SPUtils.getInstance(CommonDate.USER).getBoolean(CommonDate.userLogin, false)) {
+        if (TextUtils.isEmpty(SPUtils.getInstance(CommonDate.USER).getString(CommonDate.token, ""))) {
             startActivityForResult(new Intent(getContext(), LoginActivity.class), 100);
             return;
         }
@@ -152,16 +152,8 @@ public class MineFragment extends DBBaseFragment implements View.OnClickListener
                 mBinding.mineLevel.setVisibility(View.GONE);
                 mBinding.mineIntegral.setText("积分0");
                 GlideApp.loderImage(getContext(),R.drawable.logo, mBinding.mineImage, 0, 0);
-//                ImageManager.displayImage("drawable://" + R.drawable.logo, mBinding.mineImage, 0, 0);
                 SPUtils.getInstance(CommonDate.USER).clear();
-                SPUtils.getInstance(CommonDate.USER).put(CommonDate.userLogin, false);
-//                mBinding.mineMoney.setText("总佣金¥00.00");
-//                mBinding.mineProcessingValue.setText("0");
-//                mBinding.mineWithdrawableValue.setText("0");
-//                mBinding.mineSettlementValue.setText("0");
-//                mBinding.mineWithdrawedValue.setText("0");
                 EventBus.getDefault().post(JPushReceiver.TAG);//刷新未读消息
-                EventBus.getDefault().post(new CommonEvaluationBus(CommonEvaluationFragment.REFERSH_PAGE));//退出登陆时刷新评测首页
                 JPushInterface.stopPush(MyApplication.getInstance());//停止推送
                 break;
         }
@@ -181,23 +173,9 @@ public class MineFragment extends DBBaseFragment implements View.OnClickListener
                 mBinding.mineName.setText(bus.getContent());
             } else if (bus.getType().equals("4")) {
                 //修改用户头像
-//                ImageManager.displayImage(bus.getContent(), mBinding.mineImage, 0, R.mipmap.rlogo);
                 GlideApp.loderImage(getContext(),bus.getContent(), mBinding.mineImage, R.mipmap.rlogo, 0);
             }
         } else if (bus.getTag().equals(LoginActivity.tag)) {
-            //登陆时返回刷新佣金数
-//            mBinding.mineMoney.setText("总佣金¥" + bus.getTotleMoney());
-//            mBinding.mineProcessingValue.setText(bus.getState());
-//            BigDecimal totleDecimal = new BigDecimal(bus.getTotleMoney());
-//            BigDecimal useDecimal = new BigDecimal("50");
-//            double value = totleDecimal.subtract(useDecimal).doubleValue();
-//            if (value >= 0) {
-//                mBinding.mineWithdrawableValue.setText(bus.getTotleMoney());
-//            } else {
-//                mBinding.mineWithdrawableValue.setText("0");
-//            }
-//            mBinding.mineSettlementValue.setText(bus.getNone());
-//            mBinding.mineWithdrawedValue.setText(bus.getUseMoney());
             //登陆时返回更改用户信息
             mBinding.mineName.setVisibility(View.VISIBLE);
             mBinding.mineLogin.setVisibility(View.GONE);
@@ -207,7 +185,6 @@ public class MineFragment extends DBBaseFragment implements View.OnClickListener
                 mBinding.mineName.setText(SPUtils.getInstance(CommonDate.USER).getString(CommonDate.userNickName));
             }
             if (!TextUtils.isEmpty(SPUtils.getInstance(CommonDate.USER).getString(CommonDate.userNickImg))) {
-//                ImageManager.displayImage(SPUtils.getInstance(CommonDate.USER).getString(CommonDate.userNickImg), mBinding.mineImage, 0, R.mipmap.logo);
                 GlideApp.loderImage(getContext(),SPUtils.getInstance(CommonDate.USER).getString(CommonDate.userNickImg), mBinding.mineImage, R.mipmap.logo, 0);
             }
             mBinding.mineLevel.setVisibility(View.VISIBLE);
@@ -257,7 +234,7 @@ public class MineFragment extends DBBaseFragment implements View.OnClickListener
     @Override
     public void successUserInfo(UserInfoBean userInfoBean) {
         //获取用户佣金
-        mPresenter.getMoney(getContext(), this.bindToLifecycle());
+//        mPresenter.getMoney(getContext(), this.bindToLifecycle());
 
         SPUtils.getInstance(CommonDate.USER).put(CommonDate.userLogin, true);
         SPUtils.getInstance(CommonDate.USER).put(CommonDate.userBirthday, userInfoBean.getList().get(0).getUserBirthday());
@@ -279,7 +256,6 @@ public class MineFragment extends DBBaseFragment implements View.OnClickListener
             mBinding.mineName.setText(SPUtils.getInstance(CommonDate.USER).getString(CommonDate.userNickName));
         }
         if (!TextUtils.isEmpty(SPUtils.getInstance(CommonDate.USER).getString(CommonDate.userNickImg))) {
-//            ImageManager.displayImage(SPUtils.getInstance(CommonDate.USER).getString(CommonDate.userNickImg), mBinding.mineImage, 0, R.mipmap.logo);
             GlideApp.loderImage(getContext(),SPUtils.getInstance(CommonDate.USER).getString(CommonDate.userNickImg), mBinding.mineImage, R.mipmap.logo, 0);
         }
         mBinding.mineLevel.setText("v" + SPUtils.getInstance(CommonDate.USER).getString(CommonDate.userMemberGrade));
@@ -303,14 +279,12 @@ public class MineFragment extends DBBaseFragment implements View.OnClickListener
             mBinding.mineName.setText(SPUtils.getInstance(CommonDate.USER).getString(CommonDate.userNickName));
         }
         if (!TextUtils.isEmpty(SPUtils.getInstance(CommonDate.USER).getString(CommonDate.userNickImg))) {
-//            ImageManager.displayImage(SPUtils.getInstance(CommonDate.USER).getString(CommonDate.userNickImg), mBinding.mineImage, 0, R.mipmap.logo);
             GlideApp.loderImage(getContext(),SPUtils.getInstance(CommonDate.USER).getString(CommonDate.userNickImg), mBinding.mineImage, R.mipmap.logo, 0);
         }
         mBinding.mineLevel.setText("v0");
         mBinding.mineIntegral.setText("积分0");
         SPUtils.getInstance(CommonDate.USER).put(CommonDate.userMemberGrade, "0");
         SPUtils.getInstance(CommonDate.USER).put(CommonDate.userPoint, 0);
-//        SPUtils.getInstance(CommonDate.USER).put(CommonDate.userLogin,true);
         Toast.makeText(getContext(), error, Toast.LENGTH_SHORT).show();
     }
 }

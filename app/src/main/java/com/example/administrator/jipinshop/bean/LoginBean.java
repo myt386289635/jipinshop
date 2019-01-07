@@ -1,7 +1,5 @@
 package com.example.administrator.jipinshop.bean;
 
-import java.util.List;
-
 /**
  * @author 莫小婷
  * @create 2018/9/29
@@ -11,19 +9,13 @@ public class LoginBean {
 
     /**
      * msg : success
-     * code : 200
-     * UserAccountEntity : {"id":"cfc8d1a358264fa4959d50405bbd68f7","userId":"7d67892cb02f4766aa72fd5b08b8d8d1","total_account":90.96,"use_account":29.06,"unuse_account":9.04,"create_time":"2018-10-09 14:47:35","state":"0"}
-     * list : [{"id":"fa4f36cca43d4d40819035bca36359f7","mobile":"18240011200","code":"947427","create_time":"2018-11-20 16:06:50","expire_time":"2018-11-20 16:11:50"}]
-     * user : {"userId":"7d67892cb02f4766aa72fd5b08b8d8d1","userNickName":"御用编辑1","userNickImg":"http://pi6611u5d.bkt.clouddn.com/d61bf54391b64b289e72208654168bd1","userAcutalName":"","userMemberGrade":"0","userGender":"男","userBirthday":"1994-06-30","userPhone":"18240011200","createTime":"2018-11-15 11:24:43","openId":" ","alipayName":"李耕旬","alipayAccount":"13841284944","fansCount":101}
-     * points : 0
+     * code : 0
+     * data : {"userId":"3ed475ccc8f24bd08da35e552c85c85a","nickname":"︶~\u2002夏末丶","realname":"","gender":"男","birthday":"2018-12-11","mobile":"18240011200","openid":null,"avatar":"http://jipincheng.cn/c201cd8dd7f04063bfe3f4eed9e79071","role":1,"qrCode":null,"authentication":null,"status":null,"fansCount":0,"voteCount":0,"followCount":0,"createTime":"2018-12-05 21:26:15","updateTime":null,"token":"b254af165bcb4e9ea4a7585b99f2ed9d"}
      */
 
     private String msg;
     private int code;
-    private UserAccountEntityBean UserAccountEntity;
-    private UserBean user;
-    private int points;
-    private List<ListBean> list;
+    private DataBean data;
 
     public String getMsg() {
         return msg;
@@ -41,271 +33,102 @@ public class LoginBean {
         this.code = code;
     }
 
-    public UserAccountEntityBean getUserAccountEntity() {
-        return UserAccountEntity;
+    public DataBean getData() {
+        return data;
     }
 
-    public void setUserAccountEntity(UserAccountEntityBean UserAccountEntity) {
-        this.UserAccountEntity = UserAccountEntity;
+    public void setData(DataBean data) {
+        this.data = data;
     }
 
-    public UserBean getUser() {
-        return user;
-    }
-
-    public void setUser(UserBean user) {
-        this.user = user;
-    }
-
-    public int getPoints() {
-        return points;
-    }
-
-    public void setPoints(int points) {
-        this.points = points;
-    }
-
-    public List<ListBean> getList() {
-        return list;
-    }
-
-    public void setList(List<ListBean> list) {
-        this.list = list;
-    }
-
-    public static class UserAccountEntityBean {
+    public static class DataBean {
         /**
-         * id : cfc8d1a358264fa4959d50405bbd68f7
-         * userId : 7d67892cb02f4766aa72fd5b08b8d8d1
-         * total_account : 90.96
-         * use_account : 29.06
-         * unuse_account : 9.04
-         * create_time : 2018-10-09 14:47:35
-         * state : 0
-         */
-
-        private String id;
-        private String userId;
-        private String total_account;
-        private String use_account;
-        private String unuse_account;
-        private String create_time;
-        private String state;
-
-        public String getId() {
-            return id;
-        }
-
-        public void setId(String id) {
-            this.id = id;
-        }
-
-        public String getUserId() {
-            return userId;
-        }
-
-        public void setUserId(String userId) {
-            this.userId = userId;
-        }
-
-        public String getTotal_account() {
-            return total_account;
-        }
-
-        public void setTotal_account(String total_account) {
-            this.total_account = total_account;
-        }
-
-        public String getUse_account() {
-            return use_account;
-        }
-
-        public void setUse_account(String use_account) {
-            this.use_account = use_account;
-        }
-
-        public String getUnuse_account() {
-            return unuse_account;
-        }
-
-        public void setUnuse_account(String unuse_account) {
-            this.unuse_account = unuse_account;
-        }
-
-        public String getCreate_time() {
-            return create_time;
-        }
-
-        public void setCreate_time(String create_time) {
-            this.create_time = create_time;
-        }
-
-        public String getState() {
-            return state;
-        }
-
-        public void setState(String state) {
-            this.state = state;
-        }
-    }
-
-    public static class UserBean {
-        /**
-         * userId : 7d67892cb02f4766aa72fd5b08b8d8d1
-         * userNickName : 御用编辑1
-         * userNickImg : http://pi6611u5d.bkt.clouddn.com/d61bf54391b64b289e72208654168bd1
-         * userAcutalName :
-         * userMemberGrade : 0
-         * userGender : 男
-         * userBirthday : 1994-06-30
-         * userPhone : 18240011200
-         * createTime : 2018-11-15 11:24:43
-         * openId :
-         * alipayName : 李耕旬
-         * alipayAccount : 13841284944
-         * fansCount : 101
-         */
-
-        private String userId;
-        private String userNickName;
-        private String userNickImg;
-        private String userAcutalName;
-        private String userMemberGrade;
-        private String userGender;
-        private String userBirthday;
-        private String userPhone;
-        private String createTime;
-        private String openId;
-        private String alipayName;
-        private String alipayAccount;
-        private int fansCount;
-
-        public String getUserId() {
-            return userId;
-        }
-
-        public void setUserId(String userId) {
-            this.userId = userId;
-        }
-
-        public String getUserNickName() {
-            return userNickName;
-        }
-
-        public void setUserNickName(String userNickName) {
-            this.userNickName = userNickName;
-        }
-
-        public String getUserNickImg() {
-            return userNickImg;
-        }
-
-        public void setUserNickImg(String userNickImg) {
-            this.userNickImg = userNickImg;
-        }
-
-        public String getUserAcutalName() {
-            return userAcutalName;
-        }
-
-        public void setUserAcutalName(String userAcutalName) {
-            this.userAcutalName = userAcutalName;
-        }
-
-        public String getUserMemberGrade() {
-            return userMemberGrade;
-        }
-
-        public void setUserMemberGrade(String userMemberGrade) {
-            this.userMemberGrade = userMemberGrade;
-        }
-
-        public String getUserGender() {
-            return userGender;
-        }
-
-        public void setUserGender(String userGender) {
-            this.userGender = userGender;
-        }
-
-        public String getUserBirthday() {
-            return userBirthday;
-        }
-
-        public void setUserBirthday(String userBirthday) {
-            this.userBirthday = userBirthday;
-        }
-
-        public String getUserPhone() {
-            return userPhone;
-        }
-
-        public void setUserPhone(String userPhone) {
-            this.userPhone = userPhone;
-        }
-
-        public String getCreateTime() {
-            return createTime;
-        }
-
-        public void setCreateTime(String createTime) {
-            this.createTime = createTime;
-        }
-
-        public String getOpenId() {
-            return openId;
-        }
-
-        public void setOpenId(String openId) {
-            this.openId = openId;
-        }
-
-        public String getAlipayName() {
-            return alipayName;
-        }
-
-        public void setAlipayName(String alipayName) {
-            this.alipayName = alipayName;
-        }
-
-        public String getAlipayAccount() {
-            return alipayAccount;
-        }
-
-        public void setAlipayAccount(String alipayAccount) {
-            this.alipayAccount = alipayAccount;
-        }
-
-        public int getFansCount() {
-            return fansCount;
-        }
-
-        public void setFansCount(int fansCount) {
-            this.fansCount = fansCount;
-        }
-    }
-
-    public static class ListBean {
-        /**
-         * id : fa4f36cca43d4d40819035bca36359f7
+         * userId : 3ed475ccc8f24bd08da35e552c85c85a
+         * nickname : ︶~ 夏末丶
+         * realname :
+         * gender : 男
+         * birthday : 2018-12-11
          * mobile : 18240011200
-         * code : 947427
-         * create_time : 2018-11-20 16:06:50
-         * expire_time : 2018-11-20 16:11:50
+         * openid : null
+         * avatar : http://jipincheng.cn/c201cd8dd7f04063bfe3f4eed9e79071
+         * role : 1
+         * qrCode : null
+         * authentication : null
+         * status : null
+         * fansCount : 0
+         * voteCount : 0
+         * followCount : 0
+         * createTime : 2018-12-05 21:26:15
+         * updateTime : null
+         * token : b254af165bcb4e9ea4a7585b99f2ed9d
          */
 
-        private String id;
+        private String userId;
+        private String nickname;
+        private String realname;
+        private String gender;
+        private String birthday;
         private String mobile;
-        private String code;
-        private String create_time;
-        private String expire_time;
+        private String openid;
+        private String avatar;
+        private int role;
+        private String qrCode;
+        private String authentication;
+        private String status;
+        private int fansCount;
+        private int voteCount;
+        private int followCount;
+        private String createTime;
+        private String updateTime;
+        private String token;
+        private int point;
 
-        public String getId() {
-            return id;
+        public int getPoint() {
+            return point;
         }
 
-        public void setId(String id) {
-            this.id = id;
+        public void setPoint(int point) {
+            this.point = point;
+        }
+
+        public String getUserId() {
+            return userId;
+        }
+
+        public void setUserId(String userId) {
+            this.userId = userId;
+        }
+
+        public String getNickname() {
+            return nickname;
+        }
+
+        public void setNickname(String nickname) {
+            this.nickname = nickname;
+        }
+
+        public String getRealname() {
+            return realname;
+        }
+
+        public void setRealname(String realname) {
+            this.realname = realname;
+        }
+
+        public String getGender() {
+            return gender;
+        }
+
+        public void setGender(String gender) {
+            this.gender = gender;
+        }
+
+        public String getBirthday() {
+            return birthday;
+        }
+
+        public void setBirthday(String birthday) {
+            this.birthday = birthday;
         }
 
         public String getMobile() {
@@ -316,28 +139,100 @@ public class LoginBean {
             this.mobile = mobile;
         }
 
-        public String getCode() {
-            return code;
+        public String getOpenid() {
+            return openid;
         }
 
-        public void setCode(String code) {
-            this.code = code;
+        public void setOpenid(String openid) {
+            this.openid = openid;
         }
 
-        public String getCreate_time() {
-            return create_time;
+        public String getAvatar() {
+            return avatar;
         }
 
-        public void setCreate_time(String create_time) {
-            this.create_time = create_time;
+        public void setAvatar(String avatar) {
+            this.avatar = avatar;
         }
 
-        public String getExpire_time() {
-            return expire_time;
+        public int getRole() {
+            return role;
         }
 
-        public void setExpire_time(String expire_time) {
-            this.expire_time = expire_time;
+        public void setRole(int role) {
+            this.role = role;
+        }
+
+        public String getQrCode() {
+            return qrCode;
+        }
+
+        public void setQrCode(String qrCode) {
+            this.qrCode = qrCode;
+        }
+
+        public String getAuthentication() {
+            return authentication;
+        }
+
+        public void setAuthentication(String authentication) {
+            this.authentication = authentication;
+        }
+
+        public String getStatus() {
+            return status;
+        }
+
+        public void setStatus(String status) {
+            this.status = status;
+        }
+
+        public int getFansCount() {
+            return fansCount;
+        }
+
+        public void setFansCount(int fansCount) {
+            this.fansCount = fansCount;
+        }
+
+        public int getVoteCount() {
+            return voteCount;
+        }
+
+        public void setVoteCount(int voteCount) {
+            this.voteCount = voteCount;
+        }
+
+        public int getFollowCount() {
+            return followCount;
+        }
+
+        public void setFollowCount(int followCount) {
+            this.followCount = followCount;
+        }
+
+        public String getCreateTime() {
+            return createTime;
+        }
+
+        public void setCreateTime(String createTime) {
+            this.createTime = createTime;
+        }
+
+        public String getUpdateTime() {
+            return updateTime;
+        }
+
+        public void setUpdateTime(String updateTime) {
+            this.updateTime = updateTime;
+        }
+
+        public String getToken() {
+            return token;
+        }
+
+        public void setToken(String token) {
+            this.token = token;
         }
     }
 }

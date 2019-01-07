@@ -65,10 +65,8 @@ public class MyInfoActivity extends BaseActivity implements SelectPicDialog.Choo
         mBinding.inClude.titleTv.setText("我的资料");
         if(!TextUtils.isEmpty(SPUtils.getInstance(CommonDate.USER).getString(CommonDate.userNickImg))){
             GlideApp.loderCircleImage(this,SPUtils.getInstance(CommonDate.USER).getString(CommonDate.userNickImg),mBinding.infoImage,R.drawable.rlogo,R.drawable.rlogo);
-//            ImageManager.displayCircleImage(SPUtils.getInstance(CommonDate.USER).getString(CommonDate.userNickImg),mBinding.infoImage,R.drawable.rlogo,R.drawable.rlogo);
         }else {
             GlideApp.loderImage(this,R.drawable.rlogo,mBinding.infoImage,R.drawable.rlogo,R.drawable.rlogo);
-//            ImageManager.displayImage("drawable://" + R.drawable.rlogo,mBinding.infoImage,R.drawable.rlogo,R.drawable.rlogo);
         }
         if(TextUtils.isEmpty(SPUtils.getInstance(CommonDate.USER).getString(CommonDate.userNickName))){
             mBinding.infoName.setText(SPUtils.getInstance(CommonDate.USER).getString(CommonDate.userPhone));
@@ -158,7 +156,7 @@ public class MyInfoActivity extends BaseActivity implements SelectPicDialog.Choo
      */
     @Override
     public void loginOutSuccess(SuccessBean msg) {
-        if(msg.getCode() == 200){
+        if(msg.getCode() == 0){
             setResult(201);
             finish();
             Toast.makeText(this, "退出登录成功", Toast.LENGTH_SHORT).show();

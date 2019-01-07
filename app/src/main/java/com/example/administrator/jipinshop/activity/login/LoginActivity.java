@@ -151,25 +151,19 @@ public class LoginActivity extends BaseActivity implements LoginView, View.OnCli
         if(mDialog != null && mDialog.isShowing()){
             mDialog.dismiss();
         }
-        if (loginBean.getCode() == 200){
-            SPUtils.getInstance(CommonDate.USER).put(CommonDate.userId,loginBean.getUser().getUserId());
-            SPUtils.getInstance(CommonDate.USER).put(CommonDate.userAcutalName,loginBean.getUser().getUserAcutalName());
-            SPUtils.getInstance(CommonDate.USER).put(CommonDate.userBirthday,loginBean.getUser().getUserBirthday());
-            SPUtils.getInstance(CommonDate.USER).put(CommonDate.userGender,loginBean.getUser().getUserGender());
-            SPUtils.getInstance(CommonDate.USER).put(CommonDate.userMemberGrade,loginBean.getUser().getUserMemberGrade());
-            SPUtils.getInstance(CommonDate.USER).put(CommonDate.userNickImg,loginBean.getUser().getUserNickImg());
-            SPUtils.getInstance(CommonDate.USER).put(CommonDate.userNickName,loginBean.getUser().getUserNickName());
-            SPUtils.getInstance(CommonDate.USER).put(CommonDate.userPhone,loginBean.getUser().getUserPhone());
-            SPUtils.getInstance(CommonDate.USER).put(CommonDate.userLogin,true);
-            SPUtils.getInstance(CommonDate.USER).put(CommonDate.userPoint,loginBean.getPoints());
-            SPUtils.getInstance(CommonDate.USER).put(CommonDate.alipAccount,loginBean.getUser().getAlipayAccount());
-            SPUtils.getInstance(CommonDate.USER).put(CommonDate.alipName,loginBean.getUser().getAlipayName());
-//            BigDecimal totleDecimal= new BigDecimal(loginBean.getUserAccountEntity().getTotal_account());
-//            BigDecimal useDecimal = new BigDecimal(loginBean.getUserAccountEntity().getUse_account());
-//            String value = String.valueOf(totleDecimal.subtract(useDecimal).doubleValue());
-            EventBus.getDefault().post(new EditNameBus(LoginActivity.tag,loginBean.getUserAccountEntity().getTotal_account(),loginBean.getUserAccountEntity().getState(),loginBean.getUserAccountEntity().getTotal_account(),loginBean.getUserAccountEntity().getUse_account(),"0"));
+        if (loginBean.getCode() == 0){
+            SPUtils.getInstance(CommonDate.USER).put(CommonDate.userId,loginBean.getData().getUserId());
+            SPUtils.getInstance(CommonDate.USER).put(CommonDate.userAcutalName,loginBean.getData().getRealname());
+            SPUtils.getInstance(CommonDate.USER).put(CommonDate.userBirthday,loginBean.getData().getBirthday());
+            SPUtils.getInstance(CommonDate.USER).put(CommonDate.userGender,loginBean.getData().getGender());
+            SPUtils.getInstance(CommonDate.USER).put(CommonDate.userMemberGrade,loginBean.getData().getRole() +"");
+            SPUtils.getInstance(CommonDate.USER).put(CommonDate.userNickImg,loginBean.getData().getAvatar());
+            SPUtils.getInstance(CommonDate.USER).put(CommonDate.userNickName,loginBean.getData().getNickname());
+            SPUtils.getInstance(CommonDate.USER).put(CommonDate.userPhone,loginBean.getData().getMobile());
+            SPUtils.getInstance(CommonDate.USER).put(CommonDate.token,loginBean.getData().getToken());
+            SPUtils.getInstance(CommonDate.USER).put(CommonDate.userPoint,loginBean.getData().getPoint());
+            EventBus.getDefault().post(new EditNameBus(LoginActivity.tag));
             EventBus.getDefault().post(JPushReceiver.TAG);//刷新未读消息
-            EventBus.getDefault().post(new CommonEvaluationBus(CommonEvaluationFragment.REFERSH_PAGE));//登陆时刷新评测首页
             JPushInterface.resumePush(MyApplication.getInstance());//恢复推送
             Toast.makeText(this, "登录成功", Toast.LENGTH_SHORT).show();
             setResult(200);
