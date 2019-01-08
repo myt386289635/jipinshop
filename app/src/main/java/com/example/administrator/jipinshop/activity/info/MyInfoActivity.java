@@ -19,6 +19,7 @@ import com.example.administrator.jipinshop.bean.SuccessBean;
 import com.example.administrator.jipinshop.bean.eventbus.EditNameBus;
 import com.example.administrator.jipinshop.databinding.ActivityMyinfoBinding;
 import com.example.administrator.jipinshop.util.ImageCompressUtil;
+import com.example.administrator.jipinshop.util.ToastUtil;
 import com.example.administrator.jipinshop.util.WheelViewUtil;
 import com.example.administrator.jipinshop.util.sp.CommonDate;
 import com.example.administrator.jipinshop.view.dialog.DialogUtil;
@@ -159,9 +160,9 @@ public class MyInfoActivity extends BaseActivity implements SelectPicDialog.Choo
         if(msg.getCode() == 0){
             setResult(201);
             finish();
-            Toast.makeText(this, "退出登录成功", Toast.LENGTH_SHORT).show();
+            ToastUtil.show("退出登录成功");
         }else {
-            Toast.makeText(this, msg.getMsg(), Toast.LENGTH_SHORT).show();
+            ToastUtil.show(msg.getMsg());
         }
     }
 

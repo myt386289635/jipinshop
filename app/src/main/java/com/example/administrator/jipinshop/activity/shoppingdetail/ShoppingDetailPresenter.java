@@ -16,6 +16,7 @@ import com.example.administrator.jipinshop.R;
 import com.example.administrator.jipinshop.adapter.ShoppingBannerAdapter;
 import com.example.administrator.jipinshop.bean.CommentBean;
 import com.example.administrator.jipinshop.bean.CommentInsertBean;
+import com.example.administrator.jipinshop.bean.PagerStateBean;
 import com.example.administrator.jipinshop.bean.ShoppingDetailBean;
 import com.example.administrator.jipinshop.bean.SnapSelectBean;
 import com.example.administrator.jipinshop.bean.SuccessBean;
@@ -395,4 +396,28 @@ public class ShoppingDetailPresenter {
                 });
     }
 
+    /**
+     * 登陆后查询页面状态
+     */
+    public void pagerState(String targetId, LifecycleTransformer<PagerStateBean> transformer){
+        mRepository.pagerState("1",targetId)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .compose(transformer)
+                .subscribe(pagerStateBean -> {
+                    if(pagerStateBean.getCode() == 0){
+                        if(mShoppingDetailView  != null){
+                            mShoppingDetailView.pagerStateSuccess(pagerStateBean);
+                        }
+                    }else {
+                        if(mShoppingDetailView != null){
+                            mShoppingDetailView.onFileCollectDelete(pagerStateBean.getMsg());
+                        }
+                    }
+                }, throwable -> {
+                    if(mShoppingDetailView != null){
+                        mShoppingDetailView.onFileCollectDelete(throwable.getMessage());
+                    }
+                });
+    }
 }

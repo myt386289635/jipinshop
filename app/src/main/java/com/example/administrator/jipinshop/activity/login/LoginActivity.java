@@ -25,6 +25,7 @@ import com.example.administrator.jipinshop.bean.eventbus.EditNameBus;
 import com.example.administrator.jipinshop.databinding.LoginBinding;
 import com.example.administrator.jipinshop.jpush.JPushReceiver;
 import com.example.administrator.jipinshop.netwrok.RetrofitModule;
+import com.example.administrator.jipinshop.util.ToastUtil;
 import com.example.administrator.jipinshop.util.sp.CommonDate;
 import com.example.administrator.jipinshop.view.dialog.DialogUtil;
 import com.example.administrator.jipinshop.view.dialog.ProgressDialogView;
@@ -165,7 +166,7 @@ public class LoginActivity extends BaseActivity implements LoginView, View.OnCli
             EventBus.getDefault().post(JPushReceiver.TAG);//刷新未读消息
             EventBus.getDefault().post(new CommonEvaluationBus(LoginActivity.refresh));//用来刷新商品、评测、发现详情以及评论列表
             JPushInterface.resumePush(MyApplication.getInstance());//恢复推送
-            Toast.makeText(this, "登录成功", Toast.LENGTH_SHORT).show();
+            ToastUtil.show("登录成功");
             setResult(200);
             finish();
         }else {

@@ -4,6 +4,7 @@ import android.view.View;
 
 import com.example.administrator.jipinshop.bean.CommentBean;
 import com.example.administrator.jipinshop.bean.CommentInsertBean;
+import com.example.administrator.jipinshop.bean.PagerStateBean;
 import com.example.administrator.jipinshop.bean.ShoppingDetailBean;
 import com.example.administrator.jipinshop.bean.SnapSelectBean;
 import com.example.administrator.jipinshop.bean.SuccessBean;
@@ -41,4 +42,6 @@ public interface ShoppingDetailView {
 
      void concerDelSuccess(SuccessBean successBean);
      void concerInsSuccess(SuccessBean successBean);
+
+     void pagerStateSuccess(PagerStateBean pagerStateBean);
 }

@@ -19,6 +19,7 @@ import com.example.administrator.jipinshop.bean.LoginBean;
 import com.example.administrator.jipinshop.bean.LuckImageBean;
 import com.example.administrator.jipinshop.bean.LuckselectBean;
 import com.example.administrator.jipinshop.bean.MemberLevelBean;
+import com.example.administrator.jipinshop.bean.PagerStateBean;
 import com.example.administrator.jipinshop.bean.PointDetailBean;
 import com.example.administrator.jipinshop.bean.RecommendFragmentBean;
 import com.example.administrator.jipinshop.bean.RecordBean;
@@ -374,5 +375,12 @@ public class Repository {
      */
     public Observable<AppVersionbean> getAppVersion(){
         return mAPIService.getAppVersion("1", UpDataUtil.getPackageVersionCode() + "");
+    }
+
+    /**
+     * 页面检测
+     */
+    public Observable<PagerStateBean> pagerState(String type,String targetId){
+        return mAPIService.pagerState(type,targetId);
     }
 }

@@ -43,10 +43,12 @@ import com.example.administrator.jipinshop.adapter.ShoppingCommonAdapter;
 import com.example.administrator.jipinshop.adapter.ShoppingmParameterAdapter;
 import com.example.administrator.jipinshop.base.BaseActivity;
 import com.example.administrator.jipinshop.bean.CommentBean;
+import com.example.administrator.jipinshop.bean.PagerStateBean;
 import com.example.administrator.jipinshop.bean.ShoppingDetailBean;
 import com.example.administrator.jipinshop.bean.SuccessBean;
 import com.example.administrator.jipinshop.bean.VoteBean;
 import com.example.administrator.jipinshop.bean.eventbus.CommenBus;
+import com.example.administrator.jipinshop.bean.eventbus.CommonEvaluationBus;
 import com.example.administrator.jipinshop.bean.eventbus.ConcerBus;
 import com.example.administrator.jipinshop.databinding.ActivityShopingDetailBinding;
 import com.example.administrator.jipinshop.fragment.evaluation.common.CommonEvaluationFragment;
@@ -735,6 +737,46 @@ public class ShoppingDetailActivity extends BaseActivity implements ShoppingComm
       }
 
     /**
+     * 登陆后刷新页面状态
+     */
+    @Override
+    public void pagerStateSuccess(PagerStateBean pagerStateBean) {
+        if (pagerStateBean.getFollow() == 0) {
+            isConcer = false;
+            mBinding.contentAttention.setBackgroundResource(R.drawable.bg_attention);
+            mBinding.contentAttention.setText("+关注");
+            mBinding.contentAttention.setTextColor(getResources().getColor(R.color.color_E31436));
+        }else {
+            isConcer = true;
+            mBinding.contentAttention.setBackgroundResource(R.drawable.bg_attentioned);
+            mBinding.contentAttention.setText("已关注");
+            mBinding.contentAttention.setTextColor(getResources().getColor(R.color.color_white));
+        }
+        if(pagerStateBean.getCollect() == 1){
+            isCollect = true;
+            mBinding.detailFavor.setImageResource(R.mipmap.score_sel);
+            mBinding.titleFavorImg.setImageResource(R.mipmap.score_sel);
+        }else {
+            isCollect = false;
+            mBinding.detailFavor.setImageResource(R.mipmap.nav_favor);
+            mBinding.titleFavorImg.setImageResource(R.mipmap.nav_favor_white);
+        }
+        if(pagerStateBean.getVote() == 1){
+            isSnap = true;
+            mBinding.detailGood.setText(SnapNum + "人喜欢");
+            Drawable drawable= getResources().getDrawable(R.mipmap.like_sel);
+            drawable.setBounds(0, 0, drawable.getMinimumWidth(), drawable.getMinimumHeight());
+            mBinding.detailGood.setCompoundDrawables(drawable,null,null,null);
+        }else {
+            isSnap = false;
+            mBinding.detailGood.setText("喜欢");
+            Drawable drawable= getResources().getDrawable(R.mipmap.like_nor);
+            drawable.setBounds(0, 0, drawable.getMinimumWidth(), drawable.getMinimumHeight());
+            mBinding.detailGood.setCompoundDrawables(drawable,null,null,null);
+        }
+    }
+
+    /**
      * 分享
      *
      * @param share_media
@@ -1035,6 +1077,17 @@ public class ShoppingDetailActivity extends BaseActivity implements ShoppingComm
     @Subscribe
     public void commentResher(CommenBus commenBus){
         if(commenBus != null && commenBus.getTag().equals(CommenListActivity.commentResher)){
+            mPresenter.comment(goodsId,this.bindToLifecycle());
+        }
+    }
+
+    /**
+     * 登陆时刷新 关注 收藏 点赞 评论
+     */
+    @Subscribe
+    public void refreshPage(CommonEvaluationBus commonEvaluationBus){
+        if(commonEvaluationBus != null && commonEvaluationBus.getRefersh().equals(LoginActivity.refresh)){
+            mPresenter.pagerState(goodsId,this.bindToLifecycle());
             mPresenter.comment(goodsId,this.bindToLifecycle());
         }
     }

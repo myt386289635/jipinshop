@@ -19,6 +19,7 @@ import com.example.administrator.jipinshop.bean.LoginBean;
 import com.example.administrator.jipinshop.bean.LuckImageBean;
 import com.example.administrator.jipinshop.bean.LuckselectBean;
 import com.example.administrator.jipinshop.bean.MemberLevelBean;
+import com.example.administrator.jipinshop.bean.PagerStateBean;
 import com.example.administrator.jipinshop.bean.PointDetailBean;
 import com.example.administrator.jipinshop.bean.RecommendFragmentBean;
 import com.example.administrator.jipinshop.bean.RecordBean;
@@ -161,6 +162,12 @@ public interface APIService {
     @GET("qualityshop-api/api/getAppVersion")
     Observable<AppVersionbean> getAppVersion(@Query("type") String type , @Query("clientVersionCode") String clientVersionCode);
 
+
+    /**
+     * 检测页面状态（登陆后需要检测 关注、收藏、点赞）
+     */
+    @GET("qualityshop-api/api/view/status")
+    Observable<PagerStateBean> pagerState(@Query("type") String type ,@Query("targetId") String targetId);
 
 /*************************************************以下是还未修改的接口***********************************************/
 
