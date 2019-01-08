@@ -23,10 +23,15 @@ import com.example.administrator.jipinshop.adapter.SreachAdapter;
 import com.example.administrator.jipinshop.base.BaseActivity;
 import com.example.administrator.jipinshop.bean.SreachHistoryBean;
 import com.example.administrator.jipinshop.bean.SuccessBean;
+import com.example.administrator.jipinshop.bean.eventbus.SreachBus;
 import com.example.administrator.jipinshop.databinding.ActivitySreachBinding;
 import com.example.administrator.jipinshop.util.ToastUtil;
 import com.example.administrator.jipinshop.view.dialog.DialogUtil;
 import com.example.administrator.jipinshop.view.dialog.ProgressDialogView;
+import com.trello.rxlifecycle2.android.ActivityEvent;
+
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -34,6 +39,8 @@ import java.util.List;
 import javax.inject.Inject;
 
 public class SreachActivity extends BaseActivity implements TextWatcher, SreachView, View.OnClickListener, SreachAdapter.OnItem {
+
+    public static final String sreachHistoryTag = "SreachBus";
 
     @Inject
     SreachPresenter mPresenter;
@@ -50,6 +57,7 @@ public class SreachActivity extends BaseActivity implements TextWatcher, SreachV
         mBinding = DataBindingUtil.setContentView(this, R.layout.activity_sreach);
         mBinding.setListener(this);
         mBaseActivityComponent.inject(this);
+        EventBus.getDefault().register(this);
         initView();
     }
 
@@ -75,16 +83,15 @@ public class SreachActivity extends BaseActivity implements TextWatcher, SreachV
                     Toast.makeText(this, "请输入搜索内容", Toast.LENGTH_SHORT).show();
                     return false;
                 }
-                startActivity(new Intent(SreachActivity.this, SreachResultActivity.class)
+                startActivityForResult(new Intent(SreachActivity.this, SreachResultActivity.class)
                         .putExtra("content", mBinding.sreachEdit.getText().toString())
-                );
-                finish();
+                ,200);
             }
             return false;
         });
         mBinding.sreachEdit.addTextChangedListener(this);
 
-        mPresenter.searchLog(this.bindToLifecycle());
+        mPresenter.searchLog("1",this.bindToLifecycle());
     }
 
     @Override
@@ -141,10 +148,10 @@ public class SreachActivity extends BaseActivity implements TextWatcher, SreachV
     @Override
     public void jump(String from, String content) {
         mBinding.sreachEdit.setText(content);
-        startActivity(new Intent(this, SreachResultActivity.class)
+        mBinding.sreachEdit.setSelection(mBinding.sreachEdit.getText().length());//将光标移至文字末尾
+        startActivityForResult(new Intent(this, SreachResultActivity.class)
                 .putExtra("content", content)
-        );
-        finish();
+        ,200);
     }
 
     @Override
@@ -193,6 +200,16 @@ public class SreachActivity extends BaseActivity implements TextWatcher, SreachV
         }
     }
 
+    /**
+     * 更新历史记录
+     */
+    @Override
+    public void SuccessHistory(SreachHistoryBean sreachHistoryBean) {
+        mHistroyList.clear();
+        mHistroyList.addAll(sreachHistoryBean.getData().getLogList());
+        mAdapter.notifyDataSetChanged();
+    }
+
     @Override
     public void onClick(View view) {
         switch (view.getId()) {
@@ -204,10 +221,9 @@ public class SreachActivity extends BaseActivity implements TextWatcher, SreachV
                         Toast.makeText(this, "请输入搜索内容", Toast.LENGTH_SHORT).show();
                         return;
                     }
-                    startActivity(new Intent(this, SreachResultActivity.class)
+                    startActivityForResult(new Intent(this, SreachResultActivity.class)
                             .putExtra("content", mBinding.sreachEdit.getText().toString())
-                    );
-                    finish();
+                    ,200);
                 }
                 break;
             case R.id.sreach_close:
@@ -229,10 +245,10 @@ public class SreachActivity extends BaseActivity implements TextWatcher, SreachV
     @Override
     public void onItemClick(int position) {
         mBinding.sreachEdit.setText(mHistroyList.get(position).getWord());
-        startActivity(new Intent(this, SreachResultActivity.class)
+        mBinding.sreachEdit.setSelection(mBinding.sreachEdit.getText().length());//将光标移至文字末尾
+        startActivityForResult(new Intent(this, SreachResultActivity.class)
                 .putExtra("content", mBinding.sreachEdit.getText().toString())
-        );
-        finish();
+        ,200);
     }
 
     /**
@@ -243,5 +259,33 @@ public class SreachActivity extends BaseActivity implements TextWatcher, SreachV
         mDialog = (new ProgressDialogView()).createLoadingDialog(this, "正在加载...");
         mDialog.show();
         mPresenter.searchDelete(position,mHistroyList.get(position).getId(),this.bindToLifecycle());
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        switch (resultCode){
+            case 301:
+                //点击输入框退回来的。
+                showKeyboardDelayed(mBinding.sreachEdit);
+                break;
+            case 302:
+                //点击叉子退回来的
+                mBinding.sreachEdit.setText("");
+                showKeyboardDelayed(mBinding.sreachEdit);
+        }
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        EventBus.getDefault().unregister(this);
+    }
+
+    @Subscribe
+    public void sreachHis(SreachBus sreachBus){
+        if(sreachBus != null && sreachBus.getTag().equals(sreachHistoryTag)){
+            mPresenter.searchLog("2",this.bindUntilEvent(ActivityEvent.DESTROY));
+        }
     }
 }

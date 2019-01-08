@@ -212,8 +212,8 @@ public class Repository {
     /**
      * 搜索列表
      */
-    public Observable<SreachResultGoodsBean> searchGoods(String goodsName){
-        return mAPIService.searchGoods(goodsName);
+    public Observable<SreachResultGoodsBean> searchGoods(String page ,String type, String goodsName){
+        return mAPIService.searchGoods(page,goodsName,type);
     }
 
     /**

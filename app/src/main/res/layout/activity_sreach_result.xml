@@ -1,209 +1,122 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:app="http://schemas.android.com/apk/res-auto">
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools">
 
     <data>
+
         <variable
             name="listener"
             type="android.view.View.OnClickListener"/>
     </data>
 
-    <LinearLayout
+
+    <android.support.design.widget.CoordinatorLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@color/color_white"
-        android:orientation="vertical">
+        android:background="@color/color_white">
 
-        <RelativeLayout
-            android:id="@+id/sreach_head"
+        <android.support.design.widget.AppBarLayout
             android:layout_width="match_parent"
-            android:layout_height="@dimen/x60"
-            android:layout_marginTop="@dimen/x24">
-
-            <ImageView
-                android:onClick="@{listener.onClick}"
-                android:id="@+id/sreach_back"
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:layout_centerVertical="true"
-                android:layout_marginLeft="@dimen/x14"
-                android:paddingLeft="@dimen/x14"
-                android:paddingRight="@dimen/x14"
-                android:src="@mipmap/nav_back"
-                android:visibility="gone"/>
-
+            android:layout_height="wrap_content"
+            android:background="@color/color_white"
+            app:elevation="0dp">
 
             <RelativeLayout
+                app:layout_scrollFlags="scroll|enterAlways|snap"
+                android:id="@+id/sreach_head"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_marginLeft="@dimen/x14"
-                android:layout_marginRight="@dimen/x24"
-                android:layout_toLeftOf="@id/sreach_cancle"
-                android:layout_toRightOf="@id/sreach_back"
-                android:background="@drawable/bg_sreach"
-                android:gravity="center_vertical"
-                android:orientation="horizontal">
-
+                android:layout_height="@dimen/y60"
+                android:layout_marginTop="@dimen/y24">
 
                 <ImageView
-                    android:id="@+id/sreach_nav"
+                    android:id="@+id/sreach_back"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:layout_height="match_parent"
                     android:layout_centerVertical="true"
-                    android:layout_marginLeft="@dimen/x26"
-                    android:background="@mipmap/nav_search"/>
+                    android:onClick="@{listener.onClick}"
+                    android:paddingLeft="@dimen/x28"
+                    android:src="@mipmap/nav_back"/>
 
 
-                <EditText
-                    android:id="@+id/sreach_edit"
+                <RelativeLayout
+                    android:id="@+id/sreach_container"
+                    android:onClick="@{listener.onClick}"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:layout_marginLeft="@dimen/x10"
-                    android:layout_toLeftOf="@id/sreach_close"
-                    android:layout_toRightOf="@id/sreach_nav"
-                    android:background="@null"
-                    android:cursorVisible="true"
-                    android:hint="搜索商品榜"
-                    android:imeOptions="actionDone"
-                    android:paddingRight="@dimen/x26"
-                    android:singleLine="true"
-                    android:textColor="@color/color_DE050505"
-                    android:textColorHint="@color/color_ACACAC"
-                    android:textCursorDrawable="@drawable/color_cursor"
-                    android:textSize="13sp"/>
+                    android:layout_marginLeft="@dimen/x28"
+                    android:layout_marginRight="@dimen/x28"
+                    android:layout_toLeftOf="@id/sreach_cancle"
+                    android:layout_toRightOf="@id/sreach_back"
+                    android:background="@drawable/bg_sreach"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal">
 
 
-                <ImageView
-                    android:onClick="@{listener.onClick}"
-                    android:id="@+id/sreach_close"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentRight="true"
-                    android:layout_centerVertical="true"
-                    android:layout_marginRight="@dimen/x26"
-                    android:background="@mipmap/search_close"
-                    android:visibility="gone"/>
+                    <ImageView
+                        android:id="@+id/sreach_nav"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:layout_marginLeft="@dimen/x26"
+                        android:background="@mipmap/nav_search"/>
+
+
+                    <EditText
+                        android:onClick="@{listener.onClick}"
+                        android:id="@+id/sreach_edit"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_marginLeft="@dimen/x10"
+                        android:layout_toLeftOf="@id/sreach_close"
+                        android:layout_toRightOf="@id/sreach_nav"
+                        android:background="@null"
+                        android:cursorVisible="true"
+                        android:hint="搜索商品榜"
+                        android:imeOptions="actionDone"
+                        android:paddingRight="@dimen/x26"
+                        android:singleLine="true"
+                        android:textColor="@color/color_DE050505"
+                        android:textColorHint="@color/color_ACACAC"
+                        android:textCursorDrawable="@drawable/color_cursor"
+                        android:textSize="13sp"/>
+
+
+                    <ImageView
+                        android:id="@+id/sreach_close"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentRight="true"
+                        android:layout_centerVertical="true"
+                        android:layout_marginRight="@dimen/x26"
+                        android:background="@mipmap/search_close"
+                        android:onClick="@{listener.onClick}"/>
+                </RelativeLayout>
+
             </RelativeLayout>
 
+            <android.support.design.widget.TabLayout
+                android:id="@+id/tab_layout"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/y90"
+                android:background="@color/color_white"/>
 
-            <TextView
-                android:onClick="@{listener.onClick}"
-                android:id="@+id/sreach_cancle"
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:layout_alignParentRight="true"
-                android:layout_centerVertical="true"
-                android:gravity="center_vertical"
-                android:paddingRight="@dimen/x28"
-                android:text="取消"
-                android:textColor="@color/color_DE050505"/>
+            <View
+                android:background="@color/color_F5F5F5"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/y2"/>
 
-        </RelativeLayout>
+        </android.support.design.widget.AppBarLayout>
 
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="@dimen/x2"
-            android:layout_marginTop="@dimen/x24"
-            android:background="@color/color_F5F5F5"
-            android:visibility="gone"/>
 
-        <LinearLayout
-            android:id="@+id/sreach_home"
+        <com.example.administrator.jipinshop.view.MyViewPager
+            android:id="@+id/view_pager"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_below="@id/sreach_head"
-            android:orientation="vertical"
-            android:visibility="gone">
+            app:layout_behavior="@string/appbar_scrolling_view_behavior"/>
 
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="@dimen/x28"
-                android:layout_marginTop="@dimen/x60"
-                android:text="历史搜索"
-                android:textColor="@color/color_DE050505"
-                android:textSize="14sp"/>
+    </android.support.design.widget.CoordinatorLayout>
 
-            <com.google.android.flexbox.FlexboxLayout
-                android:id="@+id/search_flex_histroy"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="@dimen/x4"
-                android:layout_marginRight="@dimen/x28"
-                app:alignItems="flex_start"
-                app:flexWrap="wrap"
-                app:justifyContent="flex_start"/>
-
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="@dimen/x28"
-                android:layout_marginTop="@dimen/x60"
-                android:text="热门搜索"
-                android:textColor="@color/color_DE050505"
-                android:textSize="14sp"/>
-
-            <com.google.android.flexbox.FlexboxLayout
-                android:id="@+id/search_flex_hot"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="@dimen/x4"
-                android:layout_marginRight="@dimen/x28"
-                app:alignItems="flex_start"
-                app:flexWrap="wrap"
-                app:justifyContent="flex_start"/>
-
-        </LinearLayout>
-
-        <ListView
-            android:id="@+id/list_view"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_below="@id/sreach_head"
-            android:divider="@color/transparent"
-            android:dividerHeight="0dp"
-            android:visibility="gone"/>
-
-        <com.aspsine.swipetoloadlayout.SwipeToLoadLayout
-            android:id="@+id/swipeToLoad"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:background="@color/color_white">
-
-            <com.example.administrator.jipinshop.view.CustomRefreshHeadView
-                android:id="@+id/swipe_refresh_header"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:gravity="center"
-                android:padding="20dp"/>
-
-            <LinearLayout
-                android:layout_marginTop="@dimen/x24"
-                android:id="@+id/swipe_target"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:orientation="vertical">
-
-
-                <android.support.v7.widget.RecyclerView
-                    android:id="@+id/recycler_view"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                   />
-
-
-                <include
-                    android:id="@+id/in_clude"
-                    layout="@layout/common_net_error"
-                    android:visibility="gone"/>
-
-            </LinearLayout>
-
-        </com.aspsine.swipetoloadlayout.SwipeToLoadLayout>
-
-
-    </LinearLayout>
 </layout>
 

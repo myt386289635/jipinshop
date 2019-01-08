@@ -54,15 +54,21 @@ public class SreachPresenter {
     /**
      * 获取搜索记录
      */
-    public void searchLog(LifecycleTransformer<SreachHistoryBean> transformer){
+    public void searchLog(String type ,LifecycleTransformer<SreachHistoryBean> transformer){
         mRepository.searchLog()
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .compose(transformer)
                 .subscribe(sreachHistoryBean -> {
                     if(sreachHistoryBean.getCode() == 0){
-                        if(mView != null){
-                            mView.Success(sreachHistoryBean);
+                        if(type.equals("1")){
+                            if(mView != null){
+                                mView.Success(sreachHistoryBean);
+                            }
+                        }else {
+                            if(mView != null){
+                                mView.SuccessHistory(sreachHistoryBean);
+                            }
                         }
                     }else {
                         if(mView != null){

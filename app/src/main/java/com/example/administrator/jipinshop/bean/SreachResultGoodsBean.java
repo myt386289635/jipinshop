@@ -11,13 +11,13 @@ public class SreachResultGoodsBean {
 
     /**
      * msg : success
-     * code : 200
-     * list : [{"goodsId":"577468482345","goodsName":"附属设施所所所所所所所所所","rankGoodImg":"http://img.alicdn.com/bao/uploaded/i3/113740699/TB26f5UjHsTMeJjy1zcXXXAgXXa_!!113740699.jpg","goodsTypeid":"[{\"name\":\"WEKJAKL\"},{\"name\":\"AMGK\"},{\"name\":\"AASDS\"},{\"name\":\"SADGGS\"}]","actualPrice":346,"cutPrice":10,"otherPlatform":"石榴 清水溪原创设计刺绣汉服女装斗篷 复古中长款风衣外套秋冬款","otherPrice":356,"visitCount":"555555","recommendReason":"BNBNNNNVKSLDJVKLAKLAKB;LKFBKJFBNJNSNJKDHUIFYRUEIOQAJIJDMANMFNBMANBMNBMNKLSJDKALSDLKAJKFDBNBNNNNVKSLDJVKLAKLAKB;LKFBKJFBNJNSNJKDHUIFYRUEIOQAJIJDMANMFNBMANBMNBMNKLSJDKALSDLKAJKFDBNBNNNNVKSLDJVKLAKLAKB;LKFBKJFBNJNSNJKDHUIFYRUEIOQAJIJDMANMFNBMANBMNBMNKLSJDKALSDLKAJKFD","goodsGrade":8.25,"goodsStandard":"[{\"name\":\"SDS\",\"score\":\"10\"},{\"name\":\"SDS\",\"score\":\"10\"},{\"name\":\"视觉\",\"score\":\"10\"},{\"name\":\"好教练\",\"score\":\"3\"}]","category1_id":"c38c97e81c3142779f9e085902c9423d","category2_id":"bb269c5d3fe94b1cb1d5df68afcda140","createTime":"2018-10-27T09:20:50.000+0000","rankListStatus":1,"findGoodsStatus":0,"evalWayStatus":0,"pointsStatus":0,"sourceStatus":2,"status":1,"goodstypeList":[{"name":"WEKJAKL"},{"name":"AMGK"},{"name":"AASDS"},{"name":"SADGGS"}],"goodsScopeList":[{"name":"SDS","score":"10"},{"name":"SDS","score":"10"},{"name":"视觉","score":"10"},{"name":"好教练","score":"3"}]},{"goodsId":"577897047414","goodsName":"款上衣中老年人女装棉袄","rankGoodImg":"http://img.alicdn.com/bao/uploaded/i4/929348432/TB2vcKQbXzqK1RjSZFzXXXjrpXa_!!929348432-0-item_pic.jpg","goodsTypeid":"[]","actualPrice":59,"cutPrice":40,"otherPlatform":"妈妈冬装棉衣外套秋加厚大码羽绒棉服中长款上衣中老年人女装棉袄","otherPrice":99,"visitCount":"300000","recommendReason":"BNBNNNNVKSLDJVKLAKLAKB;LKFBKJFB","goodsGrade":10,"goodsStandard":"[{\"name\":\"教练好\",\"score\":\"10\"},{\"name\":\"教练好\",\"score\":\"10\"},{\"name\":\"教练好\",\"score\":\"10\"},{\"name\":\"教练好\",\"score\":\"10\"}]","category1_id":"c38c97e81c3142779f9e085902c9423d","category2_id":"bb269c5d3fe94b1cb1d5df68afcda140","createTime":"2018-10-27T09:20:51.000+0000","rankListStatus":1,"findGoodsStatus":0,"evalWayStatus":0,"pointsStatus":0,"sourceStatus":2,"status":1,"goodstypeList":[],"goodsScopeList":[{"name":"教练好","score":"10"},{"name":"教练好","score":"10"},{"name":"教练好","score":"10"},{"name":"教练好","score":"10"}]},{"goodsId":"7658378673","goodsName":"民族风女装冬装轻薄棉衣女盘扣连帽碎花棉布复古长款风衣羔毛棉服","rankGoodImg":"http://img.alicdn.com/bao/uploaded/i4/50138409/TB2KtAKaHeI.eBjSspkXXaXqVXa_!!50138409.jpg","goodsTypeid":"[{\"name\":\"搜索\"},{\"name\":\"多多多多\"},{\"name\":\"的点点滴滴\"}]","actualPrice":225,"cutPrice":10,"otherPlatform":"民族风女装冬装轻薄棉衣女盘扣连帽碎花棉布复古长款风衣羔毛棉服","otherPrice":235,"visitCount":"22222","recommendReason":"深VvvvvvvKNAKLMFKAM","goodsGrade":4.25,"goodsStandard":"[{\"name\":\"好教练\",\"score\":\"3\"},{\"name\":\"好教练\",\"score\":\"3\"},{\"name\":\"好教练\",\"score\":\"7\"},{\"name\":\"好教练\",\"score\":\"4\"}]","category1_id":"c38c97e81c3142779f9e085902c9423d","category2_id":"bb269c5d3fe94b1cb1d5df68afcda140","createTime":"2018-10-27T09:50:48.000+0000","rankListStatus":1,"findGoodsStatus":0,"evalWayStatus":0,"pointsStatus":0,"sourceStatus":1,"status":1,"goodstypeList":[{"name":"搜索"},{"name":"多多多多"},{"name":"的点点滴滴"}],"goodsScopeList":[{"name":"好教练","score":"3"},{"name":"好教练","score":"3"},{"name":"好教练","score":"7"},{"name":"好教练","score":"4"}]},{"goodsId":"578539184026","goodsName":"吧吧吧vvvvvvvvvvvvvvvvvvvvvvvvv","rankGoodImg":"http://img.alicdn.com/bao/uploaded/i1/1869907541/TB21uR2fCrqK1RjSZK9XXXyypXa_!!1869907541.jpg","goodsTypeid":"[{\"name\":\"成人\"},{\"name\":\"小资\"}]","actualPrice":203,"cutPrice":5,"otherPlatform":"黑色双面呢子大衣2018秋冬中长款过膝系带韩国毛呢外套女装赫本风","otherPrice":208,"visitCount":"5466","recommendReason":"教练一场多","goodsGrade":8.5,"goodsStandard":"[{\"name\":\"外观\",\"score\":\"10\"},{\"name\":\"质量\",\"score\":\"8\"},{\"name\":\"换手机阿卡\",\"score\":\"7\"},{\"name\":\"实践活动\",\"score\":\"9\"}]","category1_id":"c38c97e81c3142779f9e085902c9423d","category2_id":"bb269c5d3fe94b1cb1d5df68afcda140","createTime":"2018-10-27T09:20:51.000+0000","rankListStatus":1,"findGoodsStatus":0,"evalWayStatus":0,"pointsStatus":0,"sourceStatus":2,"status":1,"goodstypeList":[{"name":"成人"},{"name":"小资"}],"goodsScopeList":[{"name":"外观","score":"10"},{"name":"质量","score":"8"},{"name":"换手机阿卡","score":"7"},{"name":"实践活动","score":"9"}]},{"goodsId":"577230755986","goodsName":"犯法犯法付付付付付付付付付付付付付付","rankGoodImg":"http://img.alicdn.com/bao/uploaded/i3/1133873553/TB2b7.bxiQnBKNjSZFmXXcApVXa_!!1133873553-0-item_pic.jpg","goodsTypeid":"[{\"name\":\"万分\"},{\"name\":\"是的\"}]","actualPrice":109,"cutPrice":10,"otherPlatform":"2018秋装新款宽松韩版拼色圆领长袖学生百搭中长款套头毛衣女装潮","otherPrice":119,"visitCount":"2332","recommendReason":"和GV阿卡林加v链接A计划V经典款HVJKLVJ开两局考虑到时间了KJDVDKLSAJN率 嘎哈卡黄金卡就两款氨甲环酸接哈季节按计划捣江湖浆糊GCGHClIUIAI JAHSJHC JAJCK ALKLASK ALKSLKLA XAKSAJKJCN","goodsGrade":9.5,"goodsStandard":"[{\"name\":\"SCSA\",\"score\":\"10\"},{\"name\":\"RVVVCCC\",\"score\":\"10\"},{\"name\":\"EES\",\"score\":\"8\"},{\"name\":\"SCSV\",\"score\":\"10\"}]","category1_id":"c38c97e81c3142779f9e085902c9423d","category2_id":"bb269c5d3fe94b1cb1d5df68afcda140","createTime":"2018-10-27T09:20:50.000+0000","rankListStatus":1,"findGoodsStatus":0,"evalWayStatus":0,"pointsStatus":0,"sourceStatus":2,"status":1,"goodstypeList":[{"name":"万分"},{"name":"是的"}],"goodsScopeList":[{"name":"SCSA","score":"10"},{"name":"RVVVCCC","score":"10"},{"name":"EES","score":"8"},{"name":"SCSV","score":"10"}]},{"goodsId":"577951216673","goodsName":"衣裙修身过膝一步打底毛衣裙包臂裙","rankGoodImg":"http://img.alicdn.com/bao/uploaded/i4/2113905378/O1CN011pbAVUFu6xCtEuL_!!0-item_pic.jpg","goodsTypeid":"[]","actualPrice":49.9,"cutPrice":50,"otherPlatform":"2018秋冬新款女装中长款针织连衣裙修身过膝一步打底毛衣裙包臂裙","otherPrice":99.9,"visitCount":"200","recommendReason":"BNBNNNNVKSLDJVKLAKLAKB;LKFBKJFBNJNSNJKDHUIFYRUEIOQAJIJDMANMFNBMANBMNBMNKLSJDKALSDLKAJKFDBNBNNNNVKSLDJVKLAKLAKB;LKFBKJFBNJNSNJKDHUIFYRUEIOQAJIJDMANMFNBMANBMNBMNKLSJDKALSDLKAJKFDBNBNNNNVKSLDJVKLAKLAKB;LKFBKJFBNJNSNJKDHUIFYRUEIOQAJIJDMANMFNBMANBMNBMNKLSJDKALSDLKAJKFDBNBNNNNVKSLDJVKLAKLAKB;LKFBKJFBNJNSNJKDHUIFYRUEIOQAJIJDMANMFNBMANBMNBMNKLSJDKALSDLKAJKFD","goodsGrade":7.75,"goodsStandard":"[{\"name\":\"教练好\",\"score\":\"1\"},{\"name\":\"教练好\",\"score\":\"10\"},{\"name\":\"教练好\",\"score\":\"10\"},{\"name\":\"教练好\",\"score\":\"10\"}]","category1_id":"c38c97e81c3142779f9e085902c9423d","category2_id":"bb269c5d3fe94b1cb1d5df68afcda140","createTime":"2018-10-27T09:20:51.000+0000","rankListStatus":1,"findGoodsStatus":0,"evalWayStatus":0,"pointsStatus":0,"sourceStatus":2,"status":1,"goodstypeList":[],"goodsScopeList":[{"name":"教练好","score":"1"},{"name":"教练好","score":"10"},{"name":"教练好","score":"10"},{"name":"教练好","score":"10"}]},{"goodsId":"577807027977","goodsName":"2018冬季新款仿貂绒毛呢外套女装秋冬中长款赫本风小个子呢子大衣","rankGoodImg":"http://img.alicdn.com/bao/uploaded/i4/193502143/O1CN011RhXEHsUfEvz24M_!!193502143.jpg","goodsTypeid":"[]","actualPrice":459.5,"cutPrice":20,"otherPlatform":"2018冬季新款仿貂绒毛呢外套女装秋冬中长款赫本风小个子呢子大衣","otherPrice":479.5,"visitCount":"30","recommendReason":"BNBNNNNVKSLDJVKLAKLAKB;LKFBKJFBNJNSNJKDHUIFYRUEIOQAJIJDMANMFNBMANBMNBMNKLSJDKALSDLKAJKFD","goodsGrade":4.25,"goodsStandard":"[{\"name\":\"教练好\",\"score\":\"1\"},{\"name\":\"教练好\",\"score\":\"3\"},{\"name\":\"教练好\",\"score\":\"3\"},{\"name\":\"教练好\",\"score\":\"10\"}]","category1_id":"c38c97e81c3142779f9e085902c9423d","category2_id":"bb269c5d3fe94b1cb1d5df68afcda140","createTime":"2018-10-27T09:20:51.000+0000","rankListStatus":1,"findGoodsStatus":0,"evalWayStatus":0,"pointsStatus":0,"sourceStatus":2,"status":1,"goodstypeList":[],"goodsScopeList":[{"name":"教练好","score":"1"},{"name":"教练好","score":"3"},{"name":"教练好","score":"3"},{"name":"教练好","score":"10"}]},{"goodsId":"578698771193","goodsName":"犯法犯法付付付付付付付付付","rankGoodImg":"http://img.alicdn.com/bao/uploaded/i2/479184430/TB2ZDaujxTI8KJjSspiXXbM4FXa_!!479184430.jpg","goodsTypeid":"[{\"name\":\"成人\"},{\"name\":\"小资\"}]","actualPrice":269,"cutPrice":10,"otherPlatform":"MG小象麂皮绒棉衣冬季2018新款女装短款加厚毛领棉服保暖宽松外套","otherPrice":279,"visitCount":"23","recommendReason":"去激活万仿古请尽快将","goodsGrade":7.5,"goodsStandard":"[{\"name\":\"SCSA\",\"score\":\"10\"},{\"name\":\"RVVVCCC\",\"score\":\"10\"},{\"name\":\"EES\",\"score\":\"8\"},{\"name\":\"SCSV\",\"score\":\"10\"}]","category1_id":"c38c97e81c3142779f9e085902c9423d","category2_id":"bb269c5d3fe94b1cb1d5df68afcda140","createTime":"2018-10-27T09:20:51.000+0000","rankListStatus":1,"findGoodsStatus":0,"evalWayStatus":0,"pointsStatus":0,"sourceStatus":2,"status":1,"goodstypeList":[{"name":"成人"},{"name":"小资"}],"goodsScopeList":[{"name":"SCSA","score":"10"},{"name":"RVVVCCC","score":"10"},{"name":"EES","score":"8"},{"name":"SCSV","score":"10"}]},{"goodsId":"577728661096","goodsName":"妈妈秋冬装新款上衣","rankGoodImg":"http://img.alicdn.com/bao/uploaded/i1/3182100776/TB2heSedcfpK1RjSZFOXXa6nFXa_!!3182100776-0-item_pic.jpg","goodsTypeid":"[]","actualPrice":19.9,"cutPrice":10,"otherPlatform":"妈妈秋冬装新款上衣洋气外套中老年女装加绒马甲奶奶棉衣中年女装","otherPrice":29.9,"visitCount":"2","recommendReason":"BNBNNNNVKSLDJVKLAKLAKB;LKFBKJFBNJNSNJKDHUIFYRUEIOQAJIJDMANMFNBMANBMNBMNKLSJDKALSDLKAJKFD","goodsGrade":2.25,"goodsStandard":"[]","category1_id":"c38c97e81c3142779f9e085902c9423d","category2_id":"bb269c5d3fe94b1cb1d5df68afcda140","createTime":"2018-10-27T09:51:34.000+0000","rankListStatus":1,"findGoodsStatus":1,"evalWayStatus":0,"pointsStatus":0,"sourceStatus":3,"status":1,"goodstypeList":[],"goodsScopeList":[]},{"goodsId":"577680190633","goodsName":"","rankGoodImg":"http://img.alicdn.com/bao/uploaded/i1/372477188/O1CN0122y9NmUPxgrHWen_!!372477188.jpg","goodsTypeid":"null","actualPrice":378,"cutPrice":10,"otherPlatform":"于momo赫本绵羊毛双面呢大衣女森系小个子毛呢外套冷系女装三件套","otherPrice":388,"visitCount":"0","recommendReason":"","goodsGrade":0,"goodsStandard":"null","category1_id":"c38c97e81c3142779f9e085902c9423d","category2_id":"bb269c5d3fe94b1cb1d5df68afcda140","createTime":"2018-10-27T09:20:50.000+0000","rankListStatus":1,"findGoodsStatus":0,"evalWayStatus":0,"pointsStatus":0,"sourceStatus":2,"status":1,"goodstypeList":null,"goodsScopeList":null}]
+     * code : 0
+     * data : [{"goodsId":"574615564195","goodsName":"凯索电子体重秤HA-865","img":"http://jipincheng.cn/95d88ddaa5ba48a2b1fc72f5aa5610e7","imgs":"http://jipincheng.cn/5062e94208b745eea73a295bcf5bf743,http://jipincheng.cn/5062e94208b745eea73a295bcf5bf743,http://jipincheng.cn/5062e94208b745eea73a295bcf5bf743","goodsTags":"[{\"name\":\"通用\"},{\"name\":\"150元档\"},{\"name\":\"隐屏\"},{\"name\":\"快速充电\"}]","actualPrice":29.9,"couponPrice":10,"otherGoodsId":"574615564195","otherName":"精准电子秤家用小型体重秤小巧充电款人体秤成人电子称减肥健康秤","otherPrice":39.9,"recommendReason":"凯索电子体重秤HA-865相当不错，外观设计美观，手工圆角打磨，十分贴心。而且实用性很强，精准度达到0.1kg，还配备了一块隐藏式超亮LED显示屏，黑暗中亦可读数。","score":0,"scoreOptions":"[]","pv":3,"source":3,"voteCount":null,"exchangePoint":3000,"vote":null,"collect":null,"goodsTagsList":[{"name":"通用"},{"name":"150元档"},{"name":"隐屏"},{"name":"快速充电"}],"scoreOptionsList":[],"imgList":null},{"goodsId":"37472963836","goodsName":"松下电吹风NA45","img":"http://jipincheng.cn/e48eb8b47d55430f82ff78c7c5816bbc","imgs":"http://jipincheng.cn/5062e94208b745eea73a295bcf5bf743,http://jipincheng.cn/5062e94208b745eea73a295bcf5bf743,http://jipincheng.cn/5062e94208b745eea73a295bcf5bf743","goodsTags":"[{\"name\":\"家用\"},{\"name\":\"700元档\"},{\"name\":\"铂金\"},{\"name\":\"纳米离子\"}]","actualPrice":724,"couponPrice":5,"otherGoodsId":"37472963836","otherName":"松下电吹风机EH-NA45 纳米负离子铂金离子双重护发 大功率可折叠","otherPrice":729,"recommendReason":"松下NA45可以说是电吹风界的\u201c网红\u201d了，超受宠爱哒~~多种吹风模式搭载肌肤模式，改善肌肤。还有纳米水离子，带来1000倍的水润，边吹干边养护，很棒哦！","score":0,"scoreOptions":"[]","pv":3,"source":3,"voteCount":null,"exchangePoint":3000,"vote":null,"collect":null,"goodsTagsList":[{"name":"家用"},{"name":"700元档"},{"name":"铂金"},{"name":"纳米离子"}],"scoreOptionsList":[],"imgList":null},{"goodsId":"551163169721","goodsName":"卡杰诗按摩椅K5-星月","img":"http://jipincheng.cn/dd088e79517841fcaafd0d32453c1a65","imgs":"http://jipincheng.cn/5062e94208b745eea73a295bcf5bf743,http://jipincheng.cn/5062e94208b745eea73a295bcf5bf743,http://jipincheng.cn/5062e94208b745eea73a295bcf5bf743","goodsTags":"[{\"name\":\"通用\"},{\"name\":\"1万元档\"},{\"name\":\"智感\"},{\"name\":\"泰式拉伸\"}]","actualPrice":9488,"couponPrice":1000,"otherGoodsId":"551163169721","otherName":"KGC/卡杰诗星月电动按摩椅家用全自动全身揉捏太空舱多功能沙发椅","otherPrice":10488,"recommendReason":"卡杰诗K5-星月是一款非常不错的按摩椅，弦月设计，颜值高；并拥有智能感应式机械手按摩，更舒适。此外，睡眠程序助你入梦，一键前移，节省空间，还有APP操作，方便又省心。","score":0,"scoreOptions":"[]","pv":2,"source":3,"voteCount":null,"exchangePoint":3000,"vote":null,"collect":null,"goodsTagsList":[{"name":"通用"},{"name":"1万元档"},{"name":"智感"},{"name":"泰式拉伸"}],"scoreOptionsList":[],"imgList":null},{"goodsId":"580540831239","goodsName":"蓓慈足浴盆BZ518A","img":"http://jipincheng.cn/a1a6aa4144184a6492053773415df638","imgs":"http://jipincheng.cn/5062e94208b745eea73a295bcf5bf743,http://jipincheng.cn/5062e94208b745eea73a295bcf5bf743,http://jipincheng.cn/5062e94208b745eea73a295bcf5bf743","goodsTags":"[{\"name\":\"通用\"},{\"name\":\"400元档\"},{\"name\":\"45cm\"},{\"name\":\"漏电保护\"}]","actualPrice":427.57,"couponPrice":3,"otherGoodsId":"580540831239","otherName":"蓓慈 足浴盆BZ518A 熏蒸全自动洗脚盆电动按摩加热泡脚桶足疗机 B","otherPrice":430.57,"recommendReason":"蓓慈BZ518A是一款全封闭循环熏蒸深桶足浴盆，45cm桶深，更放松。内置4个大滚轮+4个电动指压+4个塔式侧轮+瀑布喷淋冲浪模组，给你带来最畅快舒适的足浴享受。","score":0,"scoreOptions":"[]","pv":1,"source":2,"voteCount":null,"exchangePoint":3000,"vote":null,"collect":null,"goodsTagsList":[{"name":"通用"},{"name":"400元档"},{"name":"45cm"},{"name":"漏电保护"}],"scoreOptionsList":[],"imgList":null},{"goodsId":"566614360337","goodsName":"飞利浦电动牙刷HX6853/56","img":"http://jipincheng.cn/b3e2def3dd104d54bb12484dd3d65107","imgs":"http://jipincheng.cn/5062e94208b745eea73a295bcf5bf743,http://jipincheng.cn/5062e94208b745eea73a295bcf5bf743,http://jipincheng.cn/5062e94208b745eea73a295bcf5bf743","goodsTags":"[{\"name\":\"成人\"},{\"name\":\"700元档\"},{\"name\":\"软毛\"},{\"name\":\"压力感应\"}]","actualPrice":779,"couponPrice":20,"otherGoodsId":"566614360337","otherName":"飞利浦电动牙刷HX6853/HX6856男女菲利普声波震动超软毛情侣家用","otherPrice":799,"recommendReason":"飞利浦HX6853/56颜值超高，清新亮丽的配色，流线型机身，好看！当然，满满的洁齿力也没少，3种模式，31000次/min震动，美白净齿。还有压力感应和智能提醒功能，超贴心。","score":0,"scoreOptions":"[]","pv":1,"source":3,"voteCount":null,"exchangePoint":3000,"vote":null,"collect":null,"goodsTagsList":[{"name":"成人"},{"name":"700元档"},{"name":"软毛"},{"name":"压力感应"}],"scoreOptionsList":[],"imgList":null},{"goodsId":"566276839571","goodsName":"TANITA电子体重器BC-565","img":"http://jipincheng.cn/acfa5b9299644cd0b6d364d59afba6b2","imgs":"http://jipincheng.cn/5062e94208b745eea73a295bcf5bf743,http://jipincheng.cn/5062e94208b745eea73a295bcf5bf743,http://jipincheng.cn/5062e94208b745eea73a295bcf5bf743","goodsTags":"[{\"name\":\"通用\"},{\"name\":\"300元档\"},{\"name\":\"BMI\"},{\"name\":\"智能分析\"}]","actualPrice":214,"couponPrice":5,"otherGoodsId":"566276839571","otherName":"日本TANITA百利达智能脂肪秤体脂称精准家用电子称体重称准BC-565","otherPrice":219,"recommendReason":"TANITA BC-565设计简约，大秤面，看着舒服，用着舒心。可精准测量体重、BMI、体脂、内脏脂肪、推定骨量、肌肉量等8项数据，全面记录身体数据，实用性极高。","score":0,"scoreOptions":"[]","pv":1,"source":2,"voteCount":null,"exchangePoint":3000,"vote":null,"collect":null,"goodsTagsList":[{"name":"通用"},{"name":"300元档"},{"name":"BMI"},{"name":"智能分析"}],"scoreOptionsList":[],"imgList":null},{"goodsId":"576568719765","goodsName":"飞利浦电动牙刷HX6855","img":"http://jipincheng.cn/a88731ea929d4b069e31e6b2b45170cc","imgs":"http://jipincheng.cn/5062e94208b745eea73a295bcf5bf743,http://jipincheng.cn/5062e94208b745eea73a295bcf5bf743,http://jipincheng.cn/5062e94208b745eea73a295bcf5bf743","goodsTags":"[{\"name\":\"女性\"},{\"name\":\"600元档\"},{\"name\":\"护龈\"},{\"name\":\"智能提醒\"}]","actualPrice":779,"couponPrice":20,"otherGoodsId":"576568719765","otherName":"飞利浦电动牙刷HX6855成年人女声波家用充电式官方旗舰店菲利普","otherPrice":799,"recommendReason":"飞利浦HX6855充盈着满满的少女心！或粉嫩、或简约的时尚设计，令人爱不释手！3种模式、流动洁力，轻松、彻底清洁牙齿，而且还支持智能提醒更换刷头，贴心度满分！","score":0,"scoreOptions":"[]","pv":0,"source":3,"voteCount":null,"exchangePoint":3000,"vote":null,"collect":null,"goodsTagsList":[{"name":"女性"},{"name":"600元档"},{"name":"护龈"},{"name":"智能提醒"}],"scoreOptionsList":[],"imgList":null},{"goodsId":"566964311576","goodsName":"lena直发卷发器LN-508","img":"http://jipincheng.cn/7c2b7fd2f4c44ab2bc067f4c40c9fa57","imgs":"http://jipincheng.cn/5062e94208b745eea73a295bcf5bf743,http://jipincheng.cn/5062e94208b745eea73a295bcf5bf743,http://jipincheng.cn/5062e94208b745eea73a295bcf5bf743","goodsTags":"[{\"name\":\"女性\"},{\"name\":\"100元档\"},{\"name\":\"5档\"},{\"name\":\"负离子\"}]","actualPrice":109,"couponPrice":30,"otherGoodsId":"566964311576","otherName":"lena负离子护发电卷发棒直卷两用夹板刘海内扣拉直板夹直发器神器","otherPrice":139,"recommendReason":"lena LN-508负离子卷/直发器，使用便捷，不管是要内扣刘海，还是顺直长发，轻松搞定。而且是造型养护二合一哦，拥有5档调温，呵护您的秀发。","score":0,"scoreOptions":"[]","pv":0,"source":2,"voteCount":null,"exchangePoint":3000,"vote":null,"collect":null,"goodsTagsList":[{"name":"女性"},{"name":"100元档"},{"name":"5档"},{"name":"负离子"}],"scoreOptionsList":[],"imgList":null},{"goodsId":"564046635227","goodsName":"月立直发卷发器HS-520BK","img":"http://jipincheng.cn/5baa3e7ec2814db0a1cb379e3dd460cc","imgs":"http://jipincheng.cn/5062e94208b745eea73a295bcf5bf743,http://jipincheng.cn/5062e94208b745eea73a295bcf5bf743,http://jipincheng.cn/5062e94208b745eea73a295bcf5bf743","goodsTags":"[{\"name\":\"女性\"},{\"name\":\"200元档\"},{\"name\":\"精油\"},{\"name\":\"负离子\"}]","actualPrice":199,"couponPrice":20,"otherGoodsId":"564046635227","otherName":"月立直板夹 负离子夹板直发卷发两用内扣卷发棒刘海电夹板直发器","otherPrice":219,"recommendReason":"月立HS-520BK是一款功能十分丰富的直发卷发器，内含摩洛哥精油，高浓度负离子，百变发型的同时，还能抚平毛躁、柔顺亮泽。","score":0,"scoreOptions":"[]","pv":0,"source":3,"voteCount":null,"exchangePoint":3000,"vote":null,"collect":null,"goodsTagsList":[{"name":"女性"},{"name":"200元档"},{"name":"精油"},{"name":"负离子"}],"scoreOptionsList":[],"imgList":null},{"goodsId":"545113593274","goodsName":"月立卷发器HS-503","img":"http://jipincheng.cn/f5cfbbe1d0d048029b7d7806473b9e97","imgs":"http://jipincheng.cn/5062e94208b745eea73a295bcf5bf743,http://jipincheng.cn/5062e94208b745eea73a295bcf5bf743,http://jipincheng.cn/f5cfbbe1d0d048029b7d7806473b9e97","goodsTags":"[{\"name\":\"女性\"},{\"name\":\"250元档\"},{\"name\":\"亮发\"},{\"name\":\"双旋转\"}]","actualPrice":239,"couponPrice":20,"otherGoodsId":"545113593274","otherName":"月立卷发棒大卷两用不伤发韩国懒人刘海神器迷你烫发棒内扣电卷棒","otherPrice":259,"recommendReason":"月立HS-503卷发器是很多小仙女的挚爱之选，360°双旋转智能卷直发，加热柔顺，阳极氧化处理涂层，亮泽不伤发。而且是干湿两用型的哦~~","score":0,"scoreOptions":"[]","pv":0,"source":3,"voteCount":null,"exchangePoint":3000,"vote":null,"collect":null,"goodsTagsList":[{"name":"女性"},{"name":"250元档"},{"name":"亮发"},{"name":"双旋转"}],"scoreOptionsList":[],"imgList":null}]
      */
 
     private String msg;
     private int code;
-    private List<ListBean> list;
+    private List<DataBean> data;
 
     public String getMsg() {
         return msg;
@@ -35,64 +35,62 @@ public class SreachResultGoodsBean {
         this.code = code;
     }
 
-    public List<ListBean> getList() {
-        return list;
+    public List<DataBean> getData() {
+        return data;
     }
 
-    public void setList(List<ListBean> list) {
-        this.list = list;
+    public void setData(List<DataBean> data) {
+        this.data = data;
     }
 
-    public static class ListBean {
+    public static class DataBean {
         /**
-         * goodsId : 577468482345
-         * goodsName : 附属设施所所所所所所所所所
-         * rankGoodImg : http://img.alicdn.com/bao/uploaded/i3/113740699/TB26f5UjHsTMeJjy1zcXXXAgXXa_!!113740699.jpg
-         * goodsTypeid : [{"name":"WEKJAKL"},{"name":"AMGK"},{"name":"AASDS"},{"name":"SADGGS"}]
-         * actualPrice : 346
-         * cutPrice : 10
-         * otherPlatform : 石榴 清水溪原创设计刺绣汉服女装斗篷 复古中长款风衣外套秋冬款
-         * otherPrice : 356
-         * visitCount : 555555
-         * recommendReason : BNBNNNNVKSLDJVKLAKLAKB;LKFBKJFBNJNSNJKDHUIFYRUEIOQAJIJDMANMFNBMANBMNBMNKLSJDKALSDLKAJKFDBNBNNNNVKSLDJVKLAKLAKB;LKFBKJFBNJNSNJKDHUIFYRUEIOQAJIJDMANMFNBMANBMNBMNKLSJDKALSDLKAJKFDBNBNNNNVKSLDJVKLAKLAKB;LKFBKJFBNJNSNJKDHUIFYRUEIOQAJIJDMANMFNBMANBMNBMNKLSJDKALSDLKAJKFD
-         * goodsGrade : 8.25
-         * goodsStandard : [{"name":"SDS","score":"10"},{"name":"SDS","score":"10"},{"name":"视觉","score":"10"},{"name":"好教练","score":"3"}]
-         * category1_id : c38c97e81c3142779f9e085902c9423d
-         * category2_id : bb269c5d3fe94b1cb1d5df68afcda140
-         * createTime : 2018-10-27T09:20:50.000+0000
-         * rankListStatus : 1
-         * findGoodsStatus : 0
-         * evalWayStatus : 0
-         * pointsStatus : 0
-         * sourceStatus : 2
-         * status : 1
-         * goodstypeList : [{"name":"WEKJAKL"},{"name":"AMGK"},{"name":"AASDS"},{"name":"SADGGS"}]
-         * goodsScopeList : [{"name":"SDS","score":"10"},{"name":"SDS","score":"10"},{"name":"视觉","score":"10"},{"name":"好教练","score":"3"}]
+         * goodsId : 574615564195
+         * goodsName : 凯索电子体重秤HA-865
+         * img : http://jipincheng.cn/95d88ddaa5ba48a2b1fc72f5aa5610e7
+         * imgs : http://jipincheng.cn/5062e94208b745eea73a295bcf5bf743,http://jipincheng.cn/5062e94208b745eea73a295bcf5bf743,http://jipincheng.cn/5062e94208b745eea73a295bcf5bf743
+         * goodsTags : [{"name":"通用"},{"name":"150元档"},{"name":"隐屏"},{"name":"快速充电"}]
+         * actualPrice : 29.9
+         * couponPrice : 10
+         * otherGoodsId : 574615564195
+         * otherName : 精准电子秤家用小型体重秤小巧充电款人体秤成人电子称减肥健康秤
+         * otherPrice : 39.9
+         * recommendReason : 凯索电子体重秤HA-865相当不错，外观设计美观，手工圆角打磨，十分贴心。而且实用性很强，精准度达到0.1kg，还配备了一块隐藏式超亮LED显示屏，黑暗中亦可读数。
+         * score : 0
+         * scoreOptions : []
+         * pv : 3
+         * source : 3
+         * voteCount : null
+         * exchangePoint : 3000
+         * vote : null
+         * collect : null
+         * goodsTagsList : [{"name":"通用"},{"name":"150元档"},{"name":"隐屏"},{"name":"快速充电"}]
+         * scoreOptionsList : []
+         * imgList : null
          */
 
         private String goodsId;
         private String goodsName;
-        private String rankGoodImg;
-        private String goodsTypeid;
+        private String img;
+        private String imgs;
+        private String goodsTags;
         private String actualPrice;
-        private String cutPrice;
-        private String otherPlatform;
+        private String couponPrice;
+        private String otherGoodsId;
+        private String otherName;
         private String otherPrice;
-        private String visitCount;
         private String recommendReason;
-        private String goodsGrade;
-        private String goodsStandard;
-        private String category1_id;
-        private String category2_id;
-        private String createTime;
-        private int rankListStatus;
-        private int findGoodsStatus;
-        private int evalWayStatus;
-        private int pointsStatus;
-        private int sourceStatus;
-        private int status;
-        private List<GoodstypeListBean> goodstypeList;
-        private List<GoodsScopeListBean> goodsScopeList;
+        private String score;
+        private String scoreOptions;
+        private String pv;
+        private int source;
+        private Object voteCount;
+        private int exchangePoint;
+        private Object vote;
+        private Object collect;
+        private Object imgList;
+        private List<GoodsTagsListBean> goodsTagsList;
+        private List<?> scoreOptionsList;
 
         public String getGoodsId() {
             return goodsId;
@@ -110,20 +108,28 @@ public class SreachResultGoodsBean {
             this.goodsName = goodsName;
         }
 
-        public String getRankGoodImg() {
-            return rankGoodImg;
+        public String getImg() {
+            return img;
         }
 
-        public void setRankGoodImg(String rankGoodImg) {
-            this.rankGoodImg = rankGoodImg;
+        public void setImg(String img) {
+            this.img = img;
         }
 
-        public String getGoodsTypeid() {
-            return goodsTypeid;
+        public String getImgs() {
+            return imgs;
         }
 
-        public void setGoodsTypeid(String goodsTypeid) {
-            this.goodsTypeid = goodsTypeid;
+        public void setImgs(String imgs) {
+            this.imgs = imgs;
+        }
+
+        public String getGoodsTags() {
+            return goodsTags;
+        }
+
+        public void setGoodsTags(String goodsTags) {
+            this.goodsTags = goodsTags;
         }
 
         public String getActualPrice() {
@@ -134,20 +140,28 @@ public class SreachResultGoodsBean {
             this.actualPrice = actualPrice;
         }
 
-        public String getCutPrice() {
-            return cutPrice;
+        public String getCouponPrice() {
+            return couponPrice;
         }
 
-        public void setCutPrice(String cutPrice) {
-            this.cutPrice = cutPrice;
+        public void setCouponPrice(String couponPrice) {
+            this.couponPrice = couponPrice;
         }
 
-        public String getOtherPlatform() {
-            return otherPlatform;
+        public String getOtherGoodsId() {
+            return otherGoodsId;
         }
 
-        public void setOtherPlatform(String otherPlatform) {
-            this.otherPlatform = otherPlatform;
+        public void setOtherGoodsId(String otherGoodsId) {
+            this.otherGoodsId = otherGoodsId;
+        }
+
+        public String getOtherName() {
+            return otherName;
+        }
+
+        public void setOtherName(String otherName) {
+            this.otherName = otherName;
         }
 
         public String getOtherPrice() {
@@ -158,14 +172,6 @@ public class SreachResultGoodsBean {
             this.otherPrice = otherPrice;
         }
 
-        public String getVisitCount() {
-            return visitCount;
-        }
-
-        public void setVisitCount(String visitCount) {
-            this.visitCount = visitCount;
-        }
-
         public String getRecommendReason() {
             return recommendReason;
         }
@@ -174,113 +180,97 @@ public class SreachResultGoodsBean {
             this.recommendReason = recommendReason;
         }
 
-        public String getGoodsGrade() {
-            return goodsGrade;
+        public String getScore() {
+            return score;
         }
 
-        public void setGoodsGrade(String goodsGrade) {
-            this.goodsGrade = goodsGrade;
+        public void setScore(String score) {
+            this.score = score;
         }
 
-        public String getGoodsStandard() {
-            return goodsStandard;
+        public String getScoreOptions() {
+            return scoreOptions;
         }
 
-        public void setGoodsStandard(String goodsStandard) {
-            this.goodsStandard = goodsStandard;
+        public void setScoreOptions(String scoreOptions) {
+            this.scoreOptions = scoreOptions;
         }
 
-        public String getCategory1_id() {
-            return category1_id;
+        public String getPv() {
+            return pv;
         }
 
-        public void setCategory1_id(String category1_id) {
-            this.category1_id = category1_id;
+        public void setPv(String pv) {
+            this.pv = pv;
         }
 
-        public String getCategory2_id() {
-            return category2_id;
+        public int getSource() {
+            return source;
         }
 
-        public void setCategory2_id(String category2_id) {
-            this.category2_id = category2_id;
+        public void setSource(int source) {
+            this.source = source;
         }
 
-        public String getCreateTime() {
-            return createTime;
+        public Object getVoteCount() {
+            return voteCount;
         }
 
-        public void setCreateTime(String createTime) {
-            this.createTime = createTime;
+        public void setVoteCount(Object voteCount) {
+            this.voteCount = voteCount;
         }
 
-        public int getRankListStatus() {
-            return rankListStatus;
+        public int getExchangePoint() {
+            return exchangePoint;
         }
 
-        public void setRankListStatus(int rankListStatus) {
-            this.rankListStatus = rankListStatus;
+        public void setExchangePoint(int exchangePoint) {
+            this.exchangePoint = exchangePoint;
         }
 
-        public int getFindGoodsStatus() {
-            return findGoodsStatus;
+        public Object getVote() {
+            return vote;
         }
 
-        public void setFindGoodsStatus(int findGoodsStatus) {
-            this.findGoodsStatus = findGoodsStatus;
+        public void setVote(Object vote) {
+            this.vote = vote;
         }
 
-        public int getEvalWayStatus() {
-            return evalWayStatus;
+        public Object getCollect() {
+            return collect;
         }
 
-        public void setEvalWayStatus(int evalWayStatus) {
-            this.evalWayStatus = evalWayStatus;
+        public void setCollect(Object collect) {
+            this.collect = collect;
         }
 
-        public int getPointsStatus() {
-            return pointsStatus;
+        public Object getImgList() {
+            return imgList;
         }
 
-        public void setPointsStatus(int pointsStatus) {
-            this.pointsStatus = pointsStatus;
+        public void setImgList(Object imgList) {
+            this.imgList = imgList;
         }
 
-        public int getSourceStatus() {
-            return sourceStatus;
+        public List<GoodsTagsListBean> getGoodsTagsList() {
+            return goodsTagsList;
         }
 
-        public void setSourceStatus(int sourceStatus) {
-            this.sourceStatus = sourceStatus;
+        public void setGoodsTagsList(List<GoodsTagsListBean> goodsTagsList) {
+            this.goodsTagsList = goodsTagsList;
         }
 
-        public int getStatus() {
-            return status;
+        public List<?> getScoreOptionsList() {
+            return scoreOptionsList;
         }
 
-        public void setStatus(int status) {
-            this.status = status;
+        public void setScoreOptionsList(List<?> scoreOptionsList) {
+            this.scoreOptionsList = scoreOptionsList;
         }
 
-        public List<GoodstypeListBean> getGoodstypeList() {
-            return goodstypeList;
-        }
-
-        public void setGoodstypeList(List<GoodstypeListBean> goodstypeList) {
-            this.goodstypeList = goodstypeList;
-        }
-
-        public List<GoodsScopeListBean> getGoodsScopeList() {
-            return goodsScopeList;
-        }
-
-        public void setGoodsScopeList(List<GoodsScopeListBean> goodsScopeList) {
-            this.goodsScopeList = goodsScopeList;
-        }
-
-        public static class GoodstypeListBean {
+        public static class GoodsTagsListBean {
             /**
-             * name : WEKJAKL
+             * name : 通用
              */
 
             private String name;
@@ -291,32 +281,6 @@ public class SreachResultGoodsBean {
 
             public void setName(String name) {
                 this.name = name;
-            }
-        }
-
-        public static class GoodsScopeListBean {
-            /**
-             * name : SDS
-             * score : 10
-             */
-
-            private String name;
-            private String score;
-
-            public String getName() {
-                return name;
-            }
-
-            public void setName(String name) {
-                this.name = name;
-            }
-
-            public String getScore() {
-                return score;
-            }
-
-            public void setScore(String score) {
-                this.score = score;
             }
         }
     }

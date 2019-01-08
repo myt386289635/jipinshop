@@ -22,4 +22,6 @@ public interface SreachView {
     void SuccessDeleteAll(SuccessBean successBean);
 
     void SuccessDelete(int position,SuccessBean successBean);
+
+    void SuccessHistory(SreachHistoryBean sreachHistoryBean);
 }
