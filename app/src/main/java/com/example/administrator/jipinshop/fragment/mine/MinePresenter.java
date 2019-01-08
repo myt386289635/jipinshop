@@ -67,7 +67,7 @@ public class MinePresenter {
                 .observeOn(AndroidSchedulers.mainThread())
                 .compose(transformer)
                 .subscribe(userInfoBean -> {
-                    if(userInfoBean.getCode() == 200){
+                    if(userInfoBean.getCode() == 0){
                         if(mView != null){
                             mView.successUserInfo(userInfoBean);
                         }
@@ -80,7 +80,6 @@ public class MinePresenter {
                     if(mView != null){
                         mView.FaileUserInfo("用户信息更新失败，请检查网络");
                     }
-                    Log.d("MinePresenter", throwable.getMessage());
                 });
     }
 

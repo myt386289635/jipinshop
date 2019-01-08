@@ -4,7 +4,6 @@ package com.example.administrator.jipinshop.netwrok;
 import com.example.administrator.jipinshop.bean.AccountBean;
 import com.example.administrator.jipinshop.bean.AppVersionbean;
 import com.example.administrator.jipinshop.bean.CommentBean;
-import com.example.administrator.jipinshop.bean.CommentInsertBean;
 import com.example.administrator.jipinshop.bean.EvaluationDetailBean;
 import com.example.administrator.jipinshop.bean.EvaluationListBean;
 import com.example.administrator.jipinshop.bean.EvaluationTabBean;
@@ -36,14 +35,11 @@ import com.example.administrator.jipinshop.bean.UnMessageBean;
 import com.example.administrator.jipinshop.bean.UserInfoBean;
 import com.example.administrator.jipinshop.bean.UserPageBean;
 import com.example.administrator.jipinshop.bean.VoteBean;
-import com.example.administrator.jipinshop.bean.json.LoginJson;
-import com.example.administrator.jipinshop.bean.json.PushMessageJson;
 
 import java.util.Map;
 
 import io.reactivex.Observable;
 import okhttp3.MultipartBody;
-import retrofit2.http.Body;
 import retrofit2.http.Field;
 import retrofit2.http.FieldMap;
 import retrofit2.http.FormUrlEncoded;
@@ -169,6 +165,12 @@ public interface APIService {
     @GET("qualityshop-api/api/view/status")
     Observable<PagerStateBean> pagerState(@Query("type") String type ,@Query("targetId") String targetId);
 
+    /**
+     * 获取用户信息  已修改
+     */
+    @GET("qualityshop-api/api/user/getUserInfo")
+    Observable<UserInfoBean> modelUser();
+
 /*************************************************以下是还未修改的接口***********************************************/
 
 
@@ -185,11 +187,6 @@ public interface APIService {
     @GET("qualityshop-api/api/account")
     Observable<AccountBean> account(@Query("userId") String userId);
 
-    /**
-     * 获取用户信息
-     */
-    @GET("qualityshop-api/api/modelUser")
-    Observable<UserInfoBean> modelUser(@Query("userId") String userId);
 
     /**
      * 获取关注列表

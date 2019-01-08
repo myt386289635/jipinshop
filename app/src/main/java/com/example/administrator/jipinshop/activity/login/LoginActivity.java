@@ -152,7 +152,6 @@ public class LoginActivity extends BaseActivity implements LoginView, View.OnCli
             mDialog.dismiss();
         }
         if (loginBean.getCode() == 0){
-            SPUtils.getInstance(CommonDate.USER).put(CommonDate.userId,loginBean.getData().getUserId());
             SPUtils.getInstance(CommonDate.USER).put(CommonDate.userAcutalName,loginBean.getData().getRealname());
             SPUtils.getInstance(CommonDate.USER).put(CommonDate.userBirthday,loginBean.getData().getBirthday());
             SPUtils.getInstance(CommonDate.USER).put(CommonDate.userGender,loginBean.getData().getGender());

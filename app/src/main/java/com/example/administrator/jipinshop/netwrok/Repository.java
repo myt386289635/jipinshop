@@ -101,7 +101,7 @@ public class Repository {
      * 获取用户信息
      */
     public Observable<UserInfoBean> modelUser(){
-        return mAPIService.modelUser(SPUtils.getInstance(CommonDate.USER).getString(CommonDate.userId));
+        return mAPIService.modelUser();
     }
 
     /**

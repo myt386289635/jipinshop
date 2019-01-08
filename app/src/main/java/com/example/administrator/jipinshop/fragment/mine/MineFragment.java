@@ -234,25 +234,19 @@ public class MineFragment extends DBBaseFragment implements View.OnClickListener
         //获取用户佣金
 //        mPresenter.getMoney(getContext(), this.bindToLifecycle());
 
-        SPUtils.getInstance(CommonDate.USER).put(CommonDate.userLogin, true);
-        SPUtils.getInstance(CommonDate.USER).put(CommonDate.userBirthday, userInfoBean.getList().get(0).getUserBirthday());
-        SPUtils.getInstance(CommonDate.USER).put(CommonDate.userGender, userInfoBean.getList().get(0).getUserGender());
-        SPUtils.getInstance(CommonDate.USER).put(CommonDate.userNickImg, userInfoBean.getList().get(0).getUserNickImg());
-        SPUtils.getInstance(CommonDate.USER).put(CommonDate.userNickName, userInfoBean.getList().get(0).getUserNickName());
-        SPUtils.getInstance(CommonDate.USER).put(CommonDate.userPhone, userInfoBean.getList().get(0).getUserPhone());
-        SPUtils.getInstance(CommonDate.USER).put(CommonDate.userMemberGrade, userInfoBean.getList().get(0).getUserMemberGrade());
-        SPUtils.getInstance(CommonDate.USER).put(CommonDate.userPoint, Integer.valueOf(userInfoBean.getPoints()));
-        SPUtils.getInstance(CommonDate.USER).put(CommonDate.alipAccount, userInfoBean.getList().get(0).getAlipayAccount());
-        SPUtils.getInstance(CommonDate.USER).put(CommonDate.alipName, userInfoBean.getList().get(0).getAlipayName());
+        SPUtils.getInstance(CommonDate.USER).put(CommonDate.userBirthday, userInfoBean.getData().getBirthday());
+        SPUtils.getInstance(CommonDate.USER).put(CommonDate.userGender, userInfoBean.getData().getGender());
+        SPUtils.getInstance(CommonDate.USER).put(CommonDate.userNickImg, userInfoBean.getData().getAvatar());
+        SPUtils.getInstance(CommonDate.USER).put(CommonDate.userNickName, userInfoBean.getData().getNickname());
+        SPUtils.getInstance(CommonDate.USER).put(CommonDate.userPhone, userInfoBean.getData().getMobile());
+        SPUtils.getInstance(CommonDate.USER).put(CommonDate.userMemberGrade, userInfoBean.getData().getRole() + "");
+        SPUtils.getInstance(CommonDate.USER).put(CommonDate.userPoint, userInfoBean.getData().getPoint());
 
         mBinding.mineName.setVisibility(View.VISIBLE);
         mBinding.mineLogin.setVisibility(View.GONE);
         mBinding.mineLevel.setVisibility(View.VISIBLE);
-        if (TextUtils.isEmpty(SPUtils.getInstance(CommonDate.USER).getString(CommonDate.userNickName))) {
-            mBinding.mineName.setText(SPUtils.getInstance(CommonDate.USER).getString(CommonDate.userPhone));
-        } else {
-            mBinding.mineName.setText(SPUtils.getInstance(CommonDate.USER).getString(CommonDate.userNickName));
-        }
+
+        mBinding.mineName.setText(SPUtils.getInstance(CommonDate.USER).getString(CommonDate.userNickName));
         if (!TextUtils.isEmpty(SPUtils.getInstance(CommonDate.USER).getString(CommonDate.userNickImg))) {
             GlideApp.loderImage(getContext(),SPUtils.getInstance(CommonDate.USER).getString(CommonDate.userNickImg), mBinding.mineImage, R.mipmap.logo, 0);
         }

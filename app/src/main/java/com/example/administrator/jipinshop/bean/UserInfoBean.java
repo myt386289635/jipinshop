@@ -1,7 +1,5 @@
 package com.example.administrator.jipinshop.bean;
 
-import java.util.List;
-
 /**
  * @author 莫小婷
  * @create 2018/10/10
@@ -9,18 +7,15 @@ import java.util.List;
  */
 public class UserInfoBean {
 
-
     /**
      * msg : success
-     * code : 200
-     * list : [{"userId":"7d67892cb02f4766aa72fd5b08b8d8d1","userNickName":"陌陌","userNickImg":"","userAcutalName":"","userMemberGrade":"0","userGender":"女","userBirthday":"1994-06-30","userPhone":"18240011200","createTime":"2018-10-09 21:01:45","openId":" "}]
-     * points : 1234
+     * code : 0
+     * data : {"userId":"3ed475ccc8f24bd08da35e552c85c85a","nickname":"︶~\u2002夏末丶","realname":"","gender":"男","birthday":"2018-12-11","mobile":"182****1200","openid":null,"avatar":"http://jipincheng.cn/c201cd8dd7f04063bfe3f4eed9e79071","role":1,"qrCode":null,"authentication":null,"status":null,"fansCount":0,"voteCount":0,"followCount":0,"createTime":"2018-12-05 21:26:15","updateTime":null,"token":null,"point":10}
      */
 
     private String msg;
     private int code;
-    private String points;
-    private List<ListBean> list;
+    private DataBean data;
 
     public String getMsg() {
         return msg;
@@ -38,64 +33,56 @@ public class UserInfoBean {
         this.code = code;
     }
 
-    public String getPoints() {
-        return points;
+    public DataBean getData() {
+        return data;
     }
 
-    public void setPoints(String points) {
-        this.points = points;
+    public void setData(DataBean data) {
+        this.data = data;
     }
 
-    public List<ListBean> getList() {
-        return list;
-    }
-
-    public void setList(List<ListBean> list) {
-        this.list = list;
-    }
-
-    public static class ListBean {
+    public static class DataBean {
         /**
-         * userId : 7d67892cb02f4766aa72fd5b08b8d8d1
-         * userNickName : 陌陌
-         * userNickImg :
-         * userAcutalName :
-         * userMemberGrade : 0
-         * userGender : 女
-         * userBirthday : 1994-06-30
-         * userPhone : 18240011200
-         * createTime : 2018-10-09 21:01:45
-         * openId :
+         * userId : 3ed475ccc8f24bd08da35e552c85c85a
+         * nickname : ︶~ 夏末丶
+         * realname :
+         * gender : 男
+         * birthday : 2018-12-11
+         * mobile : 182****1200
+         * openid : null
+         * avatar : http://jipincheng.cn/c201cd8dd7f04063bfe3f4eed9e79071
+         * role : 1
+         * qrCode : null
+         * authentication : null
+         * status : null
+         * fansCount : 0
+         * voteCount : 0
+         * followCount : 0
+         * createTime : 2018-12-05 21:26:15
+         * updateTime : null
+         * token : null
+         * point : 10
          */
 
         private String userId;
-        private String userNickName;
-        private String userNickImg;
-        private String userAcutalName;
-        private String userMemberGrade;
-        private String userGender;
-        private String userBirthday;
-        private String userPhone;
+        private String nickname;
+        private String realname;
+        private String gender;
+        private String birthday;
+        private String mobile;
+        private Object openid;
+        private String avatar;
+        private int role;
+        private Object qrCode;
+        private Object authentication;
+        private Object status;
+        private int fansCount;
+        private int voteCount;
+        private int followCount;
         private String createTime;
-        private String openId;
-        private String alipayName;
-        private String alipayAccount;
-
-        public String getAlipayName() {
-            return alipayName;
-        }
-
-        public void setAlipayName(String alipayName) {
-            this.alipayName = alipayName;
-        }
-
-        public String getAlipayAccount() {
-            return alipayAccount;
-        }
-
-        public void setAlipayAccount(String alipayAccount) {
-            this.alipayAccount = alipayAccount;
-        }
+        private Object updateTime;
+        private Object token;
+        private int point;
 
         public String getUserId() {
             return userId;
@@ -105,60 +92,116 @@ public class UserInfoBean {
             this.userId = userId;
         }
 
-        public String getUserNickName() {
-            return userNickName;
+        public String getNickname() {
+            return nickname;
         }
 
-        public void setUserNickName(String userNickName) {
-            this.userNickName = userNickName;
+        public void setNickname(String nickname) {
+            this.nickname = nickname;
         }
 
-        public String getUserNickImg() {
-            return userNickImg;
+        public String getRealname() {
+            return realname;
         }
 
-        public void setUserNickImg(String userNickImg) {
-            this.userNickImg = userNickImg;
+        public void setRealname(String realname) {
+            this.realname = realname;
         }
 
-        public String getUserAcutalName() {
-            return userAcutalName;
+        public String getGender() {
+            return gender;
         }
 
-        public void setUserAcutalName(String userAcutalName) {
-            this.userAcutalName = userAcutalName;
+        public void setGender(String gender) {
+            this.gender = gender;
         }
 
-        public String getUserMemberGrade() {
-            return userMemberGrade;
+        public String getBirthday() {
+            return birthday;
         }
 
-        public void setUserMemberGrade(String userMemberGrade) {
-            this.userMemberGrade = userMemberGrade;
+        public void setBirthday(String birthday) {
+            this.birthday = birthday;
         }
 
-        public String getUserGender() {
-            return userGender;
+        public String getMobile() {
+            return mobile;
         }
 
-        public void setUserGender(String userGender) {
-            this.userGender = userGender;
+        public void setMobile(String mobile) {
+            this.mobile = mobile;
         }
 
-        public String getUserBirthday() {
-            return userBirthday;
+        public Object getOpenid() {
+            return openid;
         }
 
-        public void setUserBirthday(String userBirthday) {
-            this.userBirthday = userBirthday;
+        public void setOpenid(Object openid) {
+            this.openid = openid;
         }
 
-        public String getUserPhone() {
-            return userPhone;
+        public String getAvatar() {
+            return avatar;
         }
 
-        public void setUserPhone(String userPhone) {
-            this.userPhone = userPhone;
+        public void setAvatar(String avatar) {
+            this.avatar = avatar;
+        }
+
+        public int getRole() {
+            return role;
+        }
+
+        public void setRole(int role) {
+            this.role = role;
+        }
+
+        public Object getQrCode() {
+            return qrCode;
+        }
+
+        public void setQrCode(Object qrCode) {
+            this.qrCode = qrCode;
+        }
+
+        public Object getAuthentication() {
+            return authentication;
+        }
+
+        public void setAuthentication(Object authentication) {
+            this.authentication = authentication;
+        }
+
+        public Object getStatus() {
+            return status;
+        }
+
+        public void setStatus(Object status) {
+            this.status = status;
+        }
+
+        public int getFansCount() {
+            return fansCount;
+        }
+
+        public void setFansCount(int fansCount) {
+            this.fansCount = fansCount;
+        }
+
+        public int getVoteCount() {
+            return voteCount;
+        }
+
+        public void setVoteCount(int voteCount) {
+            this.voteCount = voteCount;
+        }
+
+        public int getFollowCount() {
+            return followCount;
+        }
+
+        public void setFollowCount(int followCount) {
+            this.followCount = followCount;
         }
 
         public String getCreateTime() {
@@ -169,12 +212,28 @@ public class UserInfoBean {
             this.createTime = createTime;
         }
 
-        public String getOpenId() {
-            return openId;
+        public Object getUpdateTime() {
+            return updateTime;
         }
 
-        public void setOpenId(String openId) {
-            this.openId = openId;
+        public void setUpdateTime(Object updateTime) {
+            this.updateTime = updateTime;
+        }
+
+        public Object getToken() {
+            return token;
+        }
+
+        public void setToken(Object token) {
+            this.token = token;
+        }
+
+        public int getPoint() {
+            return point;
+        }
+
+        public void setPoint(int point) {
+            this.point = point;
         }
     }
 }
