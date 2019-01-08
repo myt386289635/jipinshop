@@ -4,7 +4,6 @@ import com.blankj.utilcode.util.SPUtils;
 import com.example.administrator.jipinshop.bean.AccountBean;
 import com.example.administrator.jipinshop.bean.AppVersionbean;
 import com.example.administrator.jipinshop.bean.CommentBean;
-import com.example.administrator.jipinshop.bean.CommentInsertBean;
 import com.example.administrator.jipinshop.bean.EvaluationDetailBean;
 import com.example.administrator.jipinshop.bean.EvaluationListBean;
 import com.example.administrator.jipinshop.bean.EvaluationTabBean;
@@ -27,6 +26,7 @@ import com.example.administrator.jipinshop.bean.ShoppingDetailBean;
 import com.example.administrator.jipinshop.bean.SignBean;
 import com.example.administrator.jipinshop.bean.SignInsertBean;
 import com.example.administrator.jipinshop.bean.SnapSelectBean;
+import com.example.administrator.jipinshop.bean.SreachHistoryBean;
 import com.example.administrator.jipinshop.bean.SreachResultBean;
 import com.example.administrator.jipinshop.bean.SuccessBean;
 import com.example.administrator.jipinshop.bean.SupplementBean;
@@ -382,5 +382,26 @@ public class Repository {
      */
     public Observable<PagerStateBean> pagerState(String type,String targetId){
         return mAPIService.pagerState(type,targetId);
+    }
+
+    /**
+     * 搜索记录
+     */
+    public Observable<SreachHistoryBean> searchLog(){
+        return mAPIService.searchLog();
+    }
+
+    /**
+     * 删除所有搜索记录
+     */
+    public Observable<SuccessBean> searchDeleteAll(){
+        return mAPIService.searchDeleteAll();
+    }
+
+    /**
+     * 删除单条搜索记录
+     */
+    public Observable<SuccessBean> searchDelete(String id){
+        return mAPIService.searchDelete(id);
     }
 }

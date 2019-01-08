@@ -1,5 +1,8 @@
 package com.example.administrator.jipinshop.activity.sreach;
 
+import com.example.administrator.jipinshop.bean.SreachHistoryBean;
+import com.example.administrator.jipinshop.bean.SuccessBean;
+
 /**
  * @author 莫小婷
  * @create 2018/8/13
@@ -13,4 +16,10 @@ public interface SreachView {
      */
     void jump(String from,String content);
 
+    void Success(SreachHistoryBean sreachHistoryBean);
+    void onFaile(String error);
+
+    void SuccessDeleteAll(SuccessBean successBean);
+
+    void SuccessDelete(int position,SuccessBean successBean);
 }

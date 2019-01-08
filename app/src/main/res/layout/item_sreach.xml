@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    android:background="@color/color_white"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="@dimen/y92">
+
+    <View
+        android:layout_alignParentBottom="true"
+        android:layout_marginRight="@dimen/x28"
+        android:layout_marginLeft="@dimen/x28"
+        android:background="@color/color_F5F5F5"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/y2"/>
+
+    <TextView
+        android:layout_marginLeft="@dimen/x28"
+        android:id="@+id/item_name"
+        android:layout_centerVertical="true"
+        android:textSize="13sp"
+        android:textColor="@color/color_ACACAC"
+        android:text="电动牙刷"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"/>
+
+    <ImageView
+        android:id="@+id/item_dec"
+        android:padding="@dimen/y15"
+        android:layout_marginRight="@dimen/x28"
+        android:layout_centerVertical="true"
+        android:layout_alignParentRight="true"
+        android:src="@mipmap/history_close"
+        android:layout_width="@dimen/x50"
+        android:layout_height="@dimen/y50"/>
+
+</RelativeLayout>

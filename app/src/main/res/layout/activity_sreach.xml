@@ -16,12 +16,13 @@
         android:layout_height="match_parent">
 
         <RelativeLayout
+            android:layout_marginBottom="@dimen/y20"
             android:layout_marginTop="@dimen/y20"
             android:id="@+id/sreach_head"
             android:layout_marginRight="@dimen/x28"
             android:layout_marginLeft="@dimen/x28"
             android:layout_width="match_parent"
-            android:layout_height="@dimen/x60">
+            android:layout_height="@dimen/y60">
 
             <RelativeLayout
                 android:gravity="center_vertical"
@@ -88,7 +89,6 @@
 
 
         <LinearLayout
-            android:onClick="@{listener.onClick}"
             android:id="@+id/sreach_home"
             android:layout_below="@id/sreach_head"
             android:orientation="vertical"
@@ -97,11 +97,12 @@
 
 
             <TextView
+                android:textStyle="bold"
                 android:layout_marginLeft="@dimen/x28"
                 android:textColor="@color/color_DE050505"
                 android:textSize="14sp"
-                android:layout_marginTop="@dimen/x60"
-                android:text="历史搜索"
+                android:layout_marginTop="@dimen/y40"
+                android:text="大家都在搜"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"/>
 
@@ -116,37 +117,39 @@
                 app:justifyContent="flex_start"/>
 
 
-            <TextView
-                android:layout_marginLeft="@dimen/x28"
-                android:textColor="@color/color_DE050505"
-                android:textSize="14sp"
-                android:layout_marginTop="@dimen/x60"
-                android:text="热门搜索"
-                android:layout_width="wrap_content"
+            <RelativeLayout
+                android:layout_marginTop="@dimen/y60"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:layout_centerVertical="true"
+                    android:textStyle="bold"
+                    android:layout_marginLeft="@dimen/x28"
+                    android:textColor="@color/color_DE050505"
+                    android:textSize="14sp"
+                    android:text="历史搜索"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"/>
+
+                <ImageView
+                    android:id="@+id/search_delete"
+                    android:onClick="@{listener.onClick}"
+                    android:padding="@dimen/x10"
+                    android:layout_marginRight="@dimen/x28"
+                    android:layout_alignParentRight="true"
+                    android:src="@mipmap/history_delete"
+                    android:layout_width="@dimen/x60"
+                    android:layout_height="@dimen/y60"/>
+
+            </RelativeLayout>
+
+            <com.example.administrator.jipinshop.view.NoScrollRecyclerView
+                android:id="@+id/search_recyclerView"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"/>
 
-            <com.google.android.flexbox.FlexboxLayout
-                android:layout_marginLeft="@dimen/x4"
-                android:layout_marginRight="@dimen/x28"
-                android:id="@+id/search_flex_hot"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                app:alignItems="flex_start"
-                app:flexWrap="wrap"
-                app:justifyContent="flex_start"/>
-
         </LinearLayout>
-
-
-        <ListView
-            android:divider="@color/transparent"
-            android:dividerHeight="0dp"
-            android:visibility="gone"
-            android:id="@+id/list_view"
-            android:layout_below="@id/sreach_head"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"/>
-
 
     </RelativeLayout>
 </layout>

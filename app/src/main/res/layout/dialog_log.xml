@@ -20,6 +20,7 @@
         android:layout_height="wrap_content"/>
 
     <TextView
+        android:textStyle="bold"
         android:id="@+id/dialog_sure"
         android:layout_marginBottom="@dimen/x24"
         android:layout_marginRight="@dimen/x28"

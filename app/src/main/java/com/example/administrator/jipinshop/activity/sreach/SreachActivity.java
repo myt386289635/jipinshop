@@ -1,51 +1,48 @@
 package com.example.administrator.jipinshop.activity.sreach;
 
+import android.app.Dialog;
 import android.content.Intent;
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v7.widget.LinearLayoutManager;
 import android.text.Editable;
 import android.text.TextUtils;
 import android.text.TextWatcher;
-import android.util.Log;
 import android.view.KeyEvent;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.inputmethod.EditorInfo;
 import android.widget.EditText;
-import android.widget.ImageView;
 import android.widget.Toast;
 
-import com.blankj.utilcode.util.SPUtils;
 import com.example.administrator.jipinshop.R;
+import com.example.administrator.jipinshop.activity.shoppingdetail.ShoppingDetailActivity;
 import com.example.administrator.jipinshop.activity.sreach.result.SreachResultActivity;
+import com.example.administrator.jipinshop.adapter.SreachAdapter;
 import com.example.administrator.jipinshop.base.BaseActivity;
-import com.example.administrator.jipinshop.bean.SreachTagBean;
+import com.example.administrator.jipinshop.bean.SreachHistoryBean;
+import com.example.administrator.jipinshop.bean.SuccessBean;
 import com.example.administrator.jipinshop.databinding.ActivitySreachBinding;
-import com.example.administrator.jipinshop.util.sp.CommonDate;
-import com.google.gson.Gson;
-import com.google.gson.reflect.TypeToken;
+import com.example.administrator.jipinshop.util.ToastUtil;
+import com.example.administrator.jipinshop.view.dialog.DialogUtil;
+import com.example.administrator.jipinshop.view.dialog.ProgressDialogView;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import javax.inject.Inject;
 
-public class SreachActivity extends BaseActivity implements TextWatcher, SreachView, View.OnClickListener {
+public class SreachActivity extends BaseActivity implements TextWatcher, SreachView, View.OnClickListener, SreachAdapter.OnItem {
 
     @Inject
     SreachPresenter mPresenter;
 
-    private List<ImageView> FlexHistroy = new ArrayList<>();
-    //    private List<String> mList;
-//    private SreachAdapter mAdapter;
+    private List<SreachHistoryBean.DataBean.LogListBean> mHistroyList;
+    private SreachAdapter mAdapter;
     private ActivitySreachBinding mBinding;
-
-    private List<String> hotText;
-    private List<SreachTagBean> histroyText;
-
-    //用于存储历史搜索里的View
-    private List<View> histroyFlex;
+    private List<SreachHistoryBean.DataBean.HotWordListBean> mHotText;
+    private Dialog mDialog;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -60,21 +57,17 @@ public class SreachActivity extends BaseActivity implements TextWatcher, SreachV
         mPresenter.setView(this);
         showKeyboardDelayed(mBinding.sreachEdit);
 
-        hotText = new ArrayList<>();
-        hotText.add("电动牙刷");
-        hotText.add("洗衣机");
-        hotText.add("电热水壶");
-        hotText.add("吹风机");
-        hotText.add("波轮洗衣机");
-        hotText.add("美容仪");
-        hotText.add("厨卫");
+        mDialog = (new ProgressDialogView()).createLoadingDialog(this, "正在加载...");
+        mDialog.show();
 
-        histroyText = new ArrayList<>();
-        histroyFlex = new ArrayList<>();
-        getHistory();
+        mHotText = new ArrayList<>();
+        mBinding.searchRecyclerView.setLayoutManager(new LinearLayoutManager(this));
+        mHistroyList = new ArrayList<>();
+        mAdapter = new SreachAdapter(mHistroyList, this);
+        mAdapter.setOnItem(this);
+        mBinding.searchRecyclerView.setAdapter(mAdapter);
+//        mBinding.searchRecyclerView.getItemAnimator().setChangeDuration(0);
 
-        mPresenter.initHistroy(this, mBinding.searchFlexHistroy, FlexHistroy, histroyText,histroyFlex);
-        mPresenter.initHot(this, mBinding.searchFlexHot, hotText);
         mBinding.sreachEdit.setOnEditorActionListener((textView, actionId, event) -> {
             if (actionId == EditorInfo.IME_ACTION_SEND
                     || actionId == EditorInfo.IME_ACTION_DONE
@@ -83,9 +76,6 @@ public class SreachActivity extends BaseActivity implements TextWatcher, SreachV
                     Toast.makeText(this, "请输入搜索内容", Toast.LENGTH_SHORT).show();
                     return false;
                 }
-                mPresenter.addSearchFlex(mBinding.sreachEdit.getText().toString(), SreachActivity.this,
-                        mBinding.searchFlexHistroy, FlexHistroy, histroyText,histroyFlex);
-                saveHistroy();
                 startActivity(new Intent(SreachActivity.this, SreachResultActivity.class)
                         .putExtra("content", mBinding.sreachEdit.getText().toString())
                 );
@@ -95,10 +85,7 @@ public class SreachActivity extends BaseActivity implements TextWatcher, SreachV
         });
         mBinding.sreachEdit.addTextChangedListener(this);
 
-//        mList = new ArrayList<>();
-//        mAdapter = new SreachAdapter(mList, this);
-//        mAdapter.setOnItem(this);
-//        mBinding.listView.setAdapter(mAdapter);
+        mPresenter.searchLog(this.bindToLifecycle());
     }
 
     @Override
@@ -141,15 +128,9 @@ public class SreachActivity extends BaseActivity implements TextWatcher, SreachV
     @Override
     public void afterTextChanged(Editable s) {
         if (TextUtils.isEmpty(mBinding.sreachEdit.getText().toString().trim())) {
-//            mBinding.sreachHome.setVisibility(View.VISIBLE);
-//            mBinding.listView.setVisibility(View.GONE);
-//            mBinding.sreachNav.setVisibility(View.VISIBLE);
             mBinding.sreachClose.setVisibility(View.GONE);
             mBinding.sreachCancle.setText("取消");
         } else {
-//            mBinding.sreachHome.setVisibility(View.GONE);
-//            mBinding.listView.setVisibility(View.VISIBLE);
-//            mBinding.sreachNav.setVisibility(View.VISIBLE);
             mBinding.sreachClose.setVisibility(View.VISIBLE);
             mBinding.sreachCancle.setText("搜索");
         }
@@ -160,12 +141,56 @@ public class SreachActivity extends BaseActivity implements TextWatcher, SreachV
      */
     @Override
     public void jump(String from, String content) {
-        mPresenter.addSearchFlex(content, SreachActivity.this, mBinding.searchFlexHistroy, FlexHistroy, histroyText,histroyFlex);
-        saveHistroy();
         startActivity(new Intent(this, SreachResultActivity.class)
                 .putExtra("content", content)
         );
         finish();
+    }
+
+    @Override
+    public void Success(SreachHistoryBean sreachHistoryBean) {
+        if(mDialog != null && mDialog.isShowing()){
+            mDialog.dismiss();
+        }
+        mHotText.addAll(sreachHistoryBean.getData().getHotWordList());
+        mPresenter.initHot(this, mBinding.searchFlexHistroy, mHotText);
+        mHistroyList.addAll(sreachHistoryBean.getData().getLogList());
+        mAdapter.notifyDataSetChanged();
+    }
+
+    @Override
+    public void onFaile(String error) {
+        if(mDialog != null && mDialog.isShowing()){
+            mDialog.dismiss();
+        }
+        ToastUtil.show(error);
+    }
+
+    /**
+     * 删除搜索所有记录
+     */
+    @Override
+    public void SuccessDeleteAll(SuccessBean successBean) {
+        if(mDialog != null && mDialog.isShowing()){
+            mDialog.dismiss();
+        }
+        mHistroyList.clear();
+        mAdapter.notifyDataSetChanged();
+    }
+
+    /**
+     * 删除单条记录
+     */
+    @Override
+    public void SuccessDelete(int position,SuccessBean successBean) {
+        if(mDialog != null && mDialog.isShowing()){
+            mDialog.dismiss();
+        }
+        mHistroyList.remove(position);
+        mAdapter.notifyItemRemoved(position);
+        if(position != mHistroyList.size()) {
+            mAdapter.notifyItemRangeChanged(position,mHistroyList.size() - position);
+        }
     }
 
     @Override
@@ -179,47 +204,32 @@ public class SreachActivity extends BaseActivity implements TextWatcher, SreachV
                         Toast.makeText(this, "请输入搜索内容", Toast.LENGTH_SHORT).show();
                         return;
                     }
-                    mPresenter.addSearchFlex(mBinding.sreachEdit.getText().toString(), SreachActivity.this,
-                            mBinding.searchFlexHistroy, FlexHistroy, histroyText,histroyFlex);
-                    saveHistroy();
                     startActivity(new Intent(this, SreachResultActivity.class)
                             .putExtra("content", mBinding.sreachEdit.getText().toString())
                     );
                     finish();
                 }
                 break;
-            case R.id.sreach_home:
-                if (FlexHistroy != null && FlexHistroy.size() != 0) {
-                    for (int j = 0; j < FlexHistroy.size(); j++) {
-                        FlexHistroy.get(j).setVisibility(View.GONE);
-                    }
-                }
-                break;
             case R.id.sreach_close:
                 mBinding.sreachEdit.setText("");
                 break;
+            case R.id.search_delete:
+                DialogUtil.LoginDialog(this, "确认删除全部历史记录？", "确定", "取消", v -> {
+                    mDialog = (new ProgressDialogView()).createLoadingDialog(this, "正在加载...");
+                    mDialog.show();
+                    mPresenter.deleteAll(this.bindToLifecycle());
+                });
+                break;
         }
     }
 
     /**
-     * 数组转json
+     * 历史记录的删除
      */
-    public void saveHistroy() {
-        String str = new Gson().toJson(histroyText);
-        SPUtils.getInstance(CommonDate.USER).put(CommonDate.historySreach, str);
+    @Override
+    public void onItemClick(int position) {
+        mDialog = (new ProgressDialogView()).createLoadingDialog(this, "正在加载...");
+        mDialog.show();
+        mPresenter.searchDelete(position,mHistroyList.get(position).getId(),this.bindToLifecycle());
     }
-
-    /**
-     * json转数组
-     */
-    public void getHistory() {
-        String str = SPUtils.getInstance(CommonDate.USER).getString(CommonDate.historySreach, "");
-        Log.d("moxiaoting", str);
-        if (!TextUtils.isEmpty(str)) {
-            histroyText = new Gson().fromJson(str, new TypeToken<List<SreachTagBean>>() {
-            }.getType());
-        }
-    }
-
-
 }

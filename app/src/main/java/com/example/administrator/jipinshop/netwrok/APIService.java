@@ -26,6 +26,7 @@ import com.example.administrator.jipinshop.bean.ShoppingDetailBean;
 import com.example.administrator.jipinshop.bean.SignBean;
 import com.example.administrator.jipinshop.bean.SignInsertBean;
 import com.example.administrator.jipinshop.bean.SnapSelectBean;
+import com.example.administrator.jipinshop.bean.SreachHistoryBean;
 import com.example.administrator.jipinshop.bean.SreachResultBean;
 import com.example.administrator.jipinshop.bean.SuccessBean;
 import com.example.administrator.jipinshop.bean.SupplementBean;
@@ -170,6 +171,24 @@ public interface APIService {
      */
     @GET("qualityshop-api/api/user/getUserInfo")
     Observable<UserInfoBean> modelUser();
+
+    /**
+     * 搜索记录
+     */
+    @GET("qualityshop-api/api/search/log")
+    Observable<SreachHistoryBean> searchLog();
+
+    /**
+     * 删除所有搜索记录
+     */
+    @GET("qualityshop-api/api/search/deleteAll")
+    Observable<SuccessBean> searchDeleteAll();
+
+    /**
+     * 删除单条搜索记录
+     */
+    @GET("qualityshop-api/api/search/delete")
+    Observable<SuccessBean> searchDelete(@Query("id") String id);
 
 /*************************************************以下是还未修改的接口***********************************************/
 
