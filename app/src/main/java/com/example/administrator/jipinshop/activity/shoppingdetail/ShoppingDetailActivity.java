@@ -700,27 +700,39 @@ public class ShoppingDetailActivity extends BaseActivity implements ShoppingComm
      */
     @Override
     public void concerDelSuccess(SuccessBean successBean) {
-        isConcer = false;
-        mBinding.contentAttention.setBackgroundResource(R.drawable.bg_attention);
-        mBinding.contentAttention.setText("+关注");
-        mBinding.contentAttention.setTextColor(getResources().getColor(R.color.color_E31436));
-        String num = mBinding.detailEvaluationFans.getText().toString().replace("粉丝数：" , "");
-        mBinding.detailEvaluationFans.setText("粉丝数："+ (Integer.valueOf(num) - 1));
-        EventBus.getDefault().post(new ConcerBus(CommonEvaluationFragment.REFERSH,0,(Integer.valueOf(num) - 1) + "",attentionUserId));//刷新评测首页
+        if(successBean.getCode() == 0){
+            isConcer = false;
+            mBinding.contentAttention.setBackgroundResource(R.drawable.bg_attention);
+            mBinding.contentAttention.setText("+关注");
+            mBinding.contentAttention.setTextColor(getResources().getColor(R.color.color_E31436));
+            String num = mBinding.detailEvaluationFans.getText().toString().replace("粉丝数：" , "");
+            mBinding.detailEvaluationFans.setText("粉丝数："+ (Integer.valueOf(num) - 1));
+            EventBus.getDefault().post(new ConcerBus(CommonEvaluationFragment.REFERSH,0,(Integer.valueOf(num) - 1) + "",attentionUserId));//刷新评测首页
+        }else {
+            //602
+            startActivity(new Intent(this, LoginActivity.class));
+            SPUtils.getInstance(CommonDate.USER).clear();
+        }
     }
     /**
      * 添加关注成功
      */
     @Override
     public void concerInsSuccess(SuccessBean successBean) {
-        isConcer = true;
-        mBinding.contentAttention.setBackgroundResource(R.drawable.bg_attentioned);
-        mBinding.contentAttention.setText("已关注");
-        mBinding.contentAttention.setTextColor(getResources().getColor(R.color.color_white));
-        String num = mBinding.detailEvaluationFans.getText().toString().replace("粉丝数：" , "");
-        mBinding.detailEvaluationFans.setText("粉丝数："+ (Integer.valueOf(num) + 1));
-        EventBus.getDefault().post(new ConcerBus(CommonEvaluationFragment.REFERSH,1,(Integer.valueOf(num) + 1) + "",attentionUserId));//刷新评测首页
-    }
+        if(successBean.getCode() == 0){
+            isConcer = true;
+            mBinding.contentAttention.setBackgroundResource(R.drawable.bg_attentioned);
+            mBinding.contentAttention.setText("已关注");
+            mBinding.contentAttention.setTextColor(getResources().getColor(R.color.color_white));
+            String num = mBinding.detailEvaluationFans.getText().toString().replace("粉丝数：" , "");
+            mBinding.detailEvaluationFans.setText("粉丝数："+ (Integer.valueOf(num) + 1));
+            EventBus.getDefault().post(new ConcerBus(CommonEvaluationFragment.REFERSH,1,(Integer.valueOf(num) + 1) + "",attentionUserId));//刷新评测首页
+        }else {
+            //602
+            startActivity(new Intent(this, LoginActivity.class));
+            SPUtils.getInstance(CommonDate.USER).clear();
+        }
+      }
 
     /**
      * 分享
@@ -834,7 +846,6 @@ public class ShoppingDetailActivity extends BaseActivity implements ShoppingComm
                 break;
             case R.id.content_attention:
                 //关注
-                // TODO: 2019/1/7 没有修改
                 if (ClickUtil.isFastDoubleClick(1000)) {
                     ToastUtil.show("您点击太快了，请休息会再点");
                     return;

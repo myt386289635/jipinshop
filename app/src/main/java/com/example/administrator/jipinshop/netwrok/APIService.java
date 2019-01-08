@@ -82,6 +82,88 @@ public interface APIService {
     @POST("qualityshop-api/api/logout")
     Observable<SuccessBean> logout();
 
+    /**
+     * 取消关注  已修改
+     */
+    @FormUrlEncoded
+    @POST("qualityshop-api/api/follow/delete")
+    Observable<SuccessBean> concernDelete(@Field("attentionUserId") String attentionUserId);
+
+    /**
+     * 添加关注   已修改
+     */
+    @POST("qualityshop-api/api/follow")
+    @FormUrlEncoded
+    Observable<SuccessBean> concernInsert(@Field("attentionUserId") String attentionUserId);
+
+    /**
+     * 榜单tab的字段   已修改
+     */
+    @GET("qualityshop-api/api/goodsCategoryList")
+    Observable<TabBean> goodsCategory();
+
+    /**
+     * 榜单二级菜单列表  已修改
+     */
+    @GET("qualityshop-api/api/goodsList")
+    Observable<HomeCommenBean> goodRank(@Query("category2Id") String goodsId);
+
+    /**
+     * 商品详情  已修改
+     */
+    @GET("qualityshop-api/api/getGoodsInfo")
+    Observable<ShoppingDetailBean> goodsRankDetailList(@Query("goodsId") String goodsId);
+
+    /**
+     * 添加收藏    已修改
+     */
+    @FormUrlEncoded
+    @POST("qualityshop-api/api/collect/add")
+    Observable<SuccessBean> collectInsert(@FieldMap Map<String,String> param);
+
+    /**
+     * 删除收藏    已修改
+     */
+    @GET("qualityshop-api/api/collect/delete")
+    Observable<SuccessBean> collectDelete(@QueryMap Map<String,String> param);
+
+    /**
+     * 添加点赞   已修改
+     */
+    @FormUrlEncoded
+    @POST("qualityshop-api/api/vote/add")
+    Observable<VoteBean> snapInsert(@FieldMap Map<String,String> param);
+
+    /**
+     * 删除点赞    已修改
+     */
+    @GET("qualityshop-api/api/vote/delete")
+    Observable<SuccessBean> snapDelete(@QueryMap Map<String,String> param);
+
+    /**
+     * 查看评论列表   已修改
+     */
+    @GET("qualityshop-api/api/comment/list")
+    Observable<CommentBean> comment(@QueryMap Map<String,String> param);
+
+    /**
+     * 添加评论     已修改
+     */
+    @FormUrlEncoded
+    @POST("qualityshop-api/api/comment/add")
+    Observable<SuccessBean> commentInsert(@Field("targetId") String targetId, @Field("toUserId") String toUserId,
+                                          @Field("content") String content, @Field("parentId") String parentId,
+                                          @Field("type") String type);
+
+    /**
+     * 版本更新   已修改
+     */
+    @GET("qualityshop-api/api/getAppVersion")
+    Observable<AppVersionbean> getAppVersion(@Query("type") String type , @Query("clientVersionCode") String clientVersionCode);
+
+
+/*************************************************以下是还未修改的接口***********************************************/
+
 
     /**
      * 用户信息修改
@@ -151,24 +233,12 @@ public interface APIService {
     Observable<SuccessBean> feedBack(@Field("userId") String userId,@Field("content") String content);
 
     /**
-     * 取消关注
-     */
-    @GET("qualityshop-api/api/concernDelete")
-    Observable<SuccessBean> concernDelete(@Query("userId") String userId,@Query("attentionUserId") String attentionUserId);
-
-    /**
      * 一键补签
      */
     @POST("qualityshop-api/api/supplement")
     @FormUrlEncoded
     Observable<SupplementBean> Supplement(@Field("userId") String userId);
 
-    /**
-     * 关注
-     */
-    @POST("qualityshop-api/api/concernInsert")
-    @FormUrlEncoded
-    Observable<SuccessBean> concernInsert(@Field("userId") String userId,@Field("attentionUserId") String attentionUserId);
 
     /**
      * 抽奖结果
@@ -184,11 +254,6 @@ public interface APIService {
     @Multipart
     Observable<ImageBean> importCustomer(@Part("url")String url,@Part MultipartBody.Part importFile);
 
-    /**
-     * 榜单tab的字段   已修改
-     */
-    @GET("qualityshop-api/api/goodsCategoryList")
-    Observable<TabBean> goodsCategory();
 
     /**
      * 获取抽奖图片
@@ -197,22 +262,11 @@ public interface APIService {
     Observable<LuckImageBean> luckselects(@Query("userId") String userId);
 
     /**
-     * 榜单二级菜单列表  已修改
-     */
-    @GET("qualityshop-api/api/goodsList")
-    Observable<HomeCommenBean> goodRank(@Query("category2Id") String goodsId);
-
-    /**
      * 搜索列表
      */
     @GET("qualityshop-api/api/searchGoods")
     Observable<SreachResultBean> searchGoods(@Query("goodsName") String goodsName);
 
-    /**
-     * 商品详情  已修改
-     */
-    @GET("qualityshop-api/api/getGoodsInfo")
-    Observable<ShoppingDetailBean> goodsRankDetailList(@Query("goodsId") String goodsId);
 
     /**
      * 判断用户是否收藏此文章或者商品
@@ -220,18 +274,6 @@ public interface APIService {
     @GET("qualityshop-api/api/collect")
     Observable<SnapSelectBean> isCollect(@QueryMap Map<String,String> param);
 
-    /**
-     * 添加收藏    已修改
-     */
-    @FormUrlEncoded
-    @POST("qualityshop-api/api/collect/add")
-    Observable<SuccessBean> collectInsert(@FieldMap Map<String,String> param);
-
-    /**
-     * 删除收藏    已修改
-     */
-    @GET("qualityshop-api/api/collect/delete")
-    Observable<SuccessBean> collectDelete(@QueryMap Map<String,String> param);
 
     /**
      * 判断用户是否点赞此文章或者商品
@@ -239,33 +281,6 @@ public interface APIService {
     @GET("qualityshop-api/api/snapSelect")
     Observable<SnapSelectBean> snapSelect(@QueryMap Map<String,String> param);
 
-    /**
-     * 添加点赞   已修改
-     */
-    @FormUrlEncoded
-    @POST("qualityshop-api/api/vote/add")
-    Observable<VoteBean> snapInsert(@FieldMap Map<String,String> param);
-
-    /**
-     * 删除点赞    已修改
-     */
-    @GET("qualityshop-api/api/vote/delete")
-    Observable<SuccessBean> snapDelete(@QueryMap Map<String,String> param);
-
-    /**
-     * 查看评论列表   已修改
-     */
-    @GET("qualityshop-api/api/comment/list")
-    Observable<CommentBean> comment(@QueryMap Map<String,String> param);
-
-    /**
-     * 添加评论     已修改
-     */
-    @FormUrlEncoded
-    @POST("qualityshop-api/api/comment/add")
-    Observable<SuccessBean> commentInsert(@Field("targetId") String targetId, @Field("toUserId") String toUserId,
-                                                @Field("content") String content, @Field("parentId") String parentId,
-                                                @Field("type") String type);
 
     /**
      * 获取未读消息
@@ -345,9 +360,4 @@ public interface APIService {
     @GET("qualityshop-api/goodsPoint/selectList")
     Observable<IntegralShopBean> integralShopList(@Query("page") String page);
 
-    /**
-     * 版本更新   已修改
-     */
-    @GET("qualityshop-api/api/getAppVersion")
-    Observable<AppVersionbean> getAppVersion(@Query("type") String type , @Query("clientVersionCode") String clientVersionCode);
 }

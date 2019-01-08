@@ -354,7 +354,7 @@ public class ShoppingDetailPresenter {
                 .observeOn(AndroidSchedulers.mainThread())
                 .compose(transformer)
                 .subscribe(successBean -> {
-                    if(successBean.getCode() == 200){
+                    if(successBean.getCode() == 0 || successBean.getCode() == 602){
                         if(mShoppingDetailView  != null){
                             mShoppingDetailView.concerDelSuccess(successBean);
                         }
@@ -379,7 +379,7 @@ public class ShoppingDetailPresenter {
                 .observeOn(AndroidSchedulers.mainThread())
                 .compose(transformer)
                 .subscribe(successBean -> {
-                    if(successBean.getCode() == 200){
+                    if(successBean.getCode() == 0 || successBean.getCode() == 602){
                         if(mShoppingDetailView  != null){
                             mShoppingDetailView.concerInsSuccess(successBean);
                         }
