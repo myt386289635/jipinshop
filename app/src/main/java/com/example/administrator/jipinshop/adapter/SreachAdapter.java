@@ -47,6 +47,11 @@ public class SreachAdapter extends RecyclerView.Adapter<SreachAdapter.ViewHolder
         viewHolder.name.setText(mHistroyList.get(i).getWord());
         viewHolder.des.setOnClickListener(v -> {
             if(mOnItem != null){
+                mOnItem.onItemDelete(i);
+            }
+        });
+        viewHolder.itemView.setOnClickListener(v -> {
+            if(mOnItem != null){
                 mOnItem.onItemClick(i);
             }
         });
@@ -71,5 +76,6 @@ public class SreachAdapter extends RecyclerView.Adapter<SreachAdapter.ViewHolder
 
     public interface OnItem{
         void onItemClick(int position);
+        void onItemDelete(int position);
     }
 }

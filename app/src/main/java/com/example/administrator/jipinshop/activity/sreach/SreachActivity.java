@@ -66,7 +66,6 @@ public class SreachActivity extends BaseActivity implements TextWatcher, SreachV
         mAdapter = new SreachAdapter(mHistroyList, this);
         mAdapter.setOnItem(this);
         mBinding.searchRecyclerView.setAdapter(mAdapter);
-//        mBinding.searchRecyclerView.getItemAnimator().setChangeDuration(0);
 
         mBinding.sreachEdit.setOnEditorActionListener((textView, actionId, event) -> {
             if (actionId == EditorInfo.IME_ACTION_SEND
@@ -141,6 +140,7 @@ public class SreachActivity extends BaseActivity implements TextWatcher, SreachV
      */
     @Override
     public void jump(String from, String content) {
+        mBinding.sreachEdit.setText(content);
         startActivity(new Intent(this, SreachResultActivity.class)
                 .putExtra("content", content)
         );
@@ -224,10 +224,22 @@ public class SreachActivity extends BaseActivity implements TextWatcher, SreachV
     }
 
     /**
-     * 历史记录的删除
+     * 历史记录的点击
      */
     @Override
     public void onItemClick(int position) {
+        mBinding.sreachEdit.setText(mHistroyList.get(position).getWord());
+        startActivity(new Intent(this, SreachResultActivity.class)
+                .putExtra("content", mBinding.sreachEdit.getText().toString())
+        );
+        finish();
+    }
+
+    /**
+     * 历史记录的删除
+     */
+    @Override
+    public void onItemDelete(int position) {
         mDialog = (new ProgressDialogView()).createLoadingDialog(this, "正在加载...");
         mDialog.show();
         mPresenter.searchDelete(position,mHistroyList.get(position).getId(),this.bindToLifecycle());

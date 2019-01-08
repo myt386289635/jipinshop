@@ -11,7 +11,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.example.administrator.jipinshop.R;
-import com.example.administrator.jipinshop.bean.SreachResultBean;
+import com.example.administrator.jipinshop.bean.SreachResultGoodsBean;
 import com.example.administrator.jipinshop.databinding.HomeItemBinding;
 import com.example.administrator.jipinshop.view.glide.GlideApp;
 
@@ -25,7 +25,7 @@ import java.util.List;
  */
 public class SreachResultAdapter extends RecyclerView.Adapter {
 
-    private List<SreachResultBean.ListBean> mList;
+    private List<SreachResultGoodsBean.ListBean> mList;
     private Context mContext;
     private OnItem mOnItem;
 
@@ -36,7 +36,7 @@ public class SreachResultAdapter extends RecyclerView.Adapter {
         mOnItem = onItem;
     }
 
-    public SreachResultAdapter(List<SreachResultBean.ListBean> list, Context context) {
+    public SreachResultAdapter(List<SreachResultGoodsBean.ListBean> list, Context context) {
         mList = list;
         mContext = context;
     }

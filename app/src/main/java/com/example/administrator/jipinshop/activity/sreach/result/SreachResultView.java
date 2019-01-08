@@ -1,6 +1,6 @@
 package com.example.administrator.jipinshop.activity.sreach.result;
 
-import com.example.administrator.jipinshop.bean.SreachResultBean;
+import com.example.administrator.jipinshop.bean.SreachResultGoodsBean;
 
 /**
  * @author 莫小婷
@@ -14,7 +14,7 @@ public interface SreachResultView {
      */
     void onResher(String from,String content);
 
-    void Success(SreachResultBean resultBean);
+    void Success(SreachResultGoodsBean resultBean);
 
     void Faile(String error);
 

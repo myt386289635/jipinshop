@@ -27,7 +27,7 @@ import com.example.administrator.jipinshop.bean.SignBean;
 import com.example.administrator.jipinshop.bean.SignInsertBean;
 import com.example.administrator.jipinshop.bean.SnapSelectBean;
 import com.example.administrator.jipinshop.bean.SreachHistoryBean;
-import com.example.administrator.jipinshop.bean.SreachResultBean;
+import com.example.administrator.jipinshop.bean.SreachResultGoodsBean;
 import com.example.administrator.jipinshop.bean.SuccessBean;
 import com.example.administrator.jipinshop.bean.SupplementBean;
 import com.example.administrator.jipinshop.bean.SystemMessageBean;
@@ -190,6 +190,12 @@ public interface APIService {
     @GET("qualityshop-api/api/search/delete")
     Observable<SuccessBean> searchDelete(@Query("id") String id);
 
+//    /**
+//     * 搜索
+//     */
+//    @GET("qualityshop-api/api/search")
+//    Observable<>
+
 /*************************************************以下是还未修改的接口***********************************************/
 
 
@@ -288,7 +294,7 @@ public interface APIService {
      * 搜索列表
      */
     @GET("qualityshop-api/api/searchGoods")
-    Observable<SreachResultBean> searchGoods(@Query("goodsName") String goodsName);
+    Observable<SreachResultGoodsBean> searchGoods(@Query("goodsName") String goodsName);
 
 
     /**

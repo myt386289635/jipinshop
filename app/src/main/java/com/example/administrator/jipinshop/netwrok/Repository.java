@@ -27,7 +27,7 @@ import com.example.administrator.jipinshop.bean.SignBean;
 import com.example.administrator.jipinshop.bean.SignInsertBean;
 import com.example.administrator.jipinshop.bean.SnapSelectBean;
 import com.example.administrator.jipinshop.bean.SreachHistoryBean;
-import com.example.administrator.jipinshop.bean.SreachResultBean;
+import com.example.administrator.jipinshop.bean.SreachResultGoodsBean;
 import com.example.administrator.jipinshop.bean.SuccessBean;
 import com.example.administrator.jipinshop.bean.SupplementBean;
 import com.example.administrator.jipinshop.bean.SystemMessageBean;
@@ -212,7 +212,7 @@ public class Repository {
     /**
      * 搜索列表
      */
-    public Observable<SreachResultBean> searchGoods(String goodsName){
+    public Observable<SreachResultGoodsBean> searchGoods(String goodsName){
         return mAPIService.searchGoods(goodsName);
     }
 

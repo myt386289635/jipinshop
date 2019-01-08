@@ -11,7 +11,7 @@ import com.aspsine.swipetoloadlayout.SwipeToLoadLayout;
 import com.blankj.utilcode.util.SPUtils;
 import com.bumptech.glide.Glide;
 import com.example.administrator.jipinshop.R;
-import com.example.administrator.jipinshop.bean.SreachResultBean;
+import com.example.administrator.jipinshop.bean.SreachResultGoodsBean;
 import com.example.administrator.jipinshop.bean.SreachTagBean;
 import com.example.administrator.jipinshop.netwrok.Repository;
 import com.example.administrator.jipinshop.util.sp.CommonDate;
@@ -181,7 +181,7 @@ public class SreachResultPresenter {
         });
     }
 
-    public void searchGoods(String goodsName,LifecycleTransformer<SreachResultBean> transformer){
+    public void searchGoods(String goodsName,LifecycleTransformer<SreachResultGoodsBean> transformer){
         mRepository.searchGoods(goodsName)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())

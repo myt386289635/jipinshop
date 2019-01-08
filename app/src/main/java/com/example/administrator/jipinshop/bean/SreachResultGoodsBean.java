@@ -7,7 +7,7 @@ import java.util.List;
  * @create 2018/10/29
  * @Describe
  */
-public class SreachResultBean {
+public class SreachResultGoodsBean {
 
     /**
      * msg : success

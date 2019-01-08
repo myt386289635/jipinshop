@@ -24,7 +24,7 @@ import com.example.administrator.jipinshop.activity.login.LoginActivity;
 import com.example.administrator.jipinshop.activity.shoppingdetail.ShoppingDetailActivity;
 import com.example.administrator.jipinshop.adapter.SreachResultAdapter;
 import com.example.administrator.jipinshop.base.BaseActivity;
-import com.example.administrator.jipinshop.bean.SreachResultBean;
+import com.example.administrator.jipinshop.bean.SreachResultGoodsBean;
 import com.example.administrator.jipinshop.bean.SreachTagBean;
 import com.example.administrator.jipinshop.databinding.ActivitySreachResultBinding;
 import com.example.administrator.jipinshop.util.ClickUtil;
@@ -49,7 +49,7 @@ public class SreachResultActivity extends BaseActivity implements SreachResultAd
 
     private List<ImageView> FlexHistroy = new ArrayList<>();
     private SreachResultAdapter mAdapter;
-    private List<SreachResultBean.ListBean> mList;
+    private List<SreachResultGoodsBean.ListBean> mList;
 
     private Boolean tag = true;//标示是显示界面一，还是界面2
     private ActivitySreachResultBinding mBinding;
@@ -183,7 +183,7 @@ public class SreachResultActivity extends BaseActivity implements SreachResultAd
      * @param resultBean
      */
     @Override
-    public void Success(SreachResultBean resultBean) {
+    public void Success(SreachResultGoodsBean resultBean) {
         stopResher();
         mList.clear();
         if(resultBean.getList() != null && resultBean.getList().size() != 0){
