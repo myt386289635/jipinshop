@@ -11,6 +11,7 @@ import com.example.administrator.jipinshop.fragment.home.HomeFragment;
 import com.example.administrator.jipinshop.fragment.home.commen.HomeCommenFragment;
 import com.example.administrator.jipinshop.fragment.home.recommend.RecommendFragment;
 import com.example.administrator.jipinshop.fragment.mine.MineFragment;
+import com.example.administrator.jipinshop.fragment.sreach.article.SreachArticleFragment;
 import com.example.administrator.jipinshop.fragment.sreach.find.SreachFindFragment;
 import com.example.administrator.jipinshop.fragment.sreach.goods.SreachGoodsFragment;
 import com.example.administrator.jipinshop.netwrok.ApplicationComponent;
@@ -32,4 +33,5 @@ public interface BaseFragmentComponent {
     void inject(HomeCommenFragment fragment);
     void inject(SreachGoodsFragment fragment);
     void inject(SreachFindFragment fragment);
+    void inject(SreachArticleFragment fragment);
 }

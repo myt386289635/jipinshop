@@ -18,9 +18,9 @@ import java.util.List;
 /**
  * @author 莫小婷
  * @create 2019/1/9
- * @Describe 发现的
+ * @Describe 评测、试用报告的
  */
-public class SreachArticleAdapter extends RecyclerView.Adapter<SreachArticleAdapter.ViewHolder>{
+public class SreachFindAdapter extends RecyclerView.Adapter<SreachFindAdapter.ViewHolder> {
 
     private List<SreachResultArticlesBean.DataBean> mList;
     private Context mContext;
@@ -30,7 +30,7 @@ public class SreachArticleAdapter extends RecyclerView.Adapter<SreachArticleAdap
         mOnItem = onItem;
     }
 
-    public SreachArticleAdapter(List<SreachResultArticlesBean.DataBean> list, Context context) {
+    public SreachFindAdapter(List<SreachResultArticlesBean.DataBean> list, Context context) {
         mList = list;
         mContext = context;
     }
@@ -38,14 +38,13 @@ public class SreachArticleAdapter extends RecyclerView.Adapter<SreachArticleAdap
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
-        View view = LayoutInflater.from(mContext).inflate(R.layout.item_sreacharticle,viewGroup,false);
+        View view = LayoutInflater.from(mContext).inflate(R.layout.item_sreachfind,viewGroup,false);
         ViewHolder holder= new ViewHolder(view);
         return holder;
     }
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder viewHolder, int i) {
-
         viewHolder.title.setText(mList.get(i).getTitle());
         GlideApp.loderRoundImage(mContext,mList.get(i).getImg(),viewHolder.item_image);
         GlideApp.loderCircleImage(mContext,mList.get(i).getUser().getAvatar(),viewHolder.item_head,R.mipmap.rlogo,0);
@@ -98,4 +97,5 @@ public class SreachArticleAdapter extends RecyclerView.Adapter<SreachArticleAdap
     public interface OnItem {
         void onItem(int pos);
     }
+
 }

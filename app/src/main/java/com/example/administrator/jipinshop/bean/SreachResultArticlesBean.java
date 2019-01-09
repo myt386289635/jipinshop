@@ -253,7 +253,7 @@ public class SreachResultArticlesBean {
             private String nickname;
             private String gender;
             private String avatar;
-            private Object authentication;
+            private String authentication;
             private Object fansCount;
             private Object follow;
 
@@ -289,11 +289,11 @@ public class SreachResultArticlesBean {
                 this.avatar = avatar;
             }
 
-            public Object getAuthentication() {
+            public String getAuthentication() {
                 return authentication;
             }
 
-            public void setAuthentication(Object authentication) {
+            public void setAuthentication(String authentication) {
                 this.authentication = authentication;
             }
 
