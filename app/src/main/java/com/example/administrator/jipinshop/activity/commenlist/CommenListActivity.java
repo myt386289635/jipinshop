@@ -406,7 +406,7 @@ public class CommenListActivity extends BaseActivity implements CommenListAdapte
      * 评论删除点赞成功回调
      */
     @Override
-    public void onSucCommentSnapDel(int position, SuccessBean successBean) {
+    public void onSucCommentSnapDel(int position, VoteBean successBean) {
         if(successBean.getCode() == 0){
             mList.get(position).setVote(0);
             BigDecimal bigDecimal = new BigDecimal(mList.get(position).getVoteCount());

@@ -250,7 +250,7 @@ public class EvaluationDetailPresenter {
     /**
      * 删除点赞
      */
-    public void snapDelete(String id , LifecycleTransformer<SuccessBean> transformer){
+    public void snapDelete(String id , LifecycleTransformer<VoteBean> transformer){
         Map<String,String> hashMap = new HashMap<>();
         hashMap.put("userId", SPUtils.getInstance(CommonDate.USER).getString(CommonDate.userId));
         hashMap.put("evalId",id);

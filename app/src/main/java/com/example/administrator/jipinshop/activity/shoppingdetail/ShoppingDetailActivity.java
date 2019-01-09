@@ -153,7 +153,6 @@ public class ShoppingDetailActivity extends BaseActivity implements ShoppingComm
      * 标志：是否点赞过此商品  false:没有
      */
     private boolean isSnap = false;
-    private int SnapNum = 0;//记录商品点赞数量
 
     /**
      * 标志开箱评测用户是否被关注过
@@ -478,16 +477,23 @@ public class ShoppingDetailActivity extends BaseActivity implements ShoppingComm
                 mBinding.titleFavorImg.setImageResource(R.mipmap.nav_favor_white);
             }
             //是否点赞过
-            SnapNum = shoppingDetailBean.getData().getGoodsEntity().getVoteCount();
             if(shoppingDetailBean.getData().getGoodsEntity().getVote() == 1){
                 isSnap = true;
-                mBinding.detailGood.setText(shoppingDetailBean.getData().getGoodsEntity().getVoteCount() + "人喜欢");
+                mBinding.detailGood.setText(shoppingDetailBean.getData().getGoodsEntity().getVoteCount()+ "");
+                mBinding.detailGood.setTextColor(getResources().getColor(R.color.color_E31436));
                 Drawable drawable= getResources().getDrawable(R.mipmap.like_sel);
                 drawable.setBounds(0, 0, drawable.getMinimumWidth(), drawable.getMinimumHeight());
                 mBinding.detailGood.setCompoundDrawables(drawable,null,null,null);
+                mBinding.detailGood.setBackgroundResource(R.drawable.bg_like);
             }else {
                 isSnap = false;
-                mBinding.detailGood.setText(shoppingDetailBean.getData().getGoodsEntity().getVoteCount() + "人喜欢");
+                if(shoppingDetailBean.getData().getGoodsEntity().getVoteCount() != 0){
+                    mBinding.detailGood.setText(shoppingDetailBean.getData().getGoodsEntity().getVoteCount() + "");
+                }else {
+                    mBinding.detailGood.setText("喜欢");
+                }
+                mBinding.detailGood.setTextColor(getResources().getColor(R.color.color_ACACAC));
+                mBinding.detailGood.setBackgroundResource(R.drawable.bg_nolike);
                 Drawable drawable= getResources().getDrawable(R.mipmap.like_nor);
                 drawable.setBounds(0, 0, drawable.getMinimumWidth(), drawable.getMinimumHeight());
                 mBinding.detailGood.setCompoundDrawables(drawable,null,null,null);
@@ -568,11 +574,12 @@ public class ShoppingDetailActivity extends BaseActivity implements ShoppingComm
     public void onSucSnapInsert(View view ,VoteBean successBean) {
         if(successBean.getCode() == 0){
             isSnap = true;
-            SnapNum = SnapNum + 1;
-            mBinding.detailGood.setText(SnapNum + "人喜欢");
+            mBinding.detailGood.setText(successBean.getData()+ "");
             Drawable drawable= getResources().getDrawable(R.mipmap.like_sel);
             drawable.setBounds(0, 0, drawable.getMinimumWidth(), drawable.getMinimumHeight());
             mBinding.detailGood.setCompoundDrawables(drawable,null,null,null);
+            mBinding.detailGood.setTextColor(getResources().getColor(R.color.color_E31436));
+            mBinding.detailGood.setBackgroundResource(R.drawable.bg_like);
         }else {
             //602
             startActivity(new Intent(this, LoginActivity.class));
@@ -584,11 +591,16 @@ public class ShoppingDetailActivity extends BaseActivity implements ShoppingComm
      * 删除赞过 成功回调
      */
     @Override
-    public void onSucSnapDelete(SuccessBean successBean) {
+    public void onSucSnapDelete(VoteBean successBean) {
         if(successBean.getCode() == 0){
             isSnap = false;
-            SnapNum = SnapNum - 1;
-            mBinding.detailGood.setText(SnapNum + "人喜欢");
+            if(successBean.getData() != 0){
+                mBinding.detailGood.setText(successBean.getData() + "");
+            }else {
+                mBinding.detailGood.setText("喜欢");
+            }
+            mBinding.detailGood.setTextColor(getResources().getColor(R.color.color_ACACAC));
+            mBinding.detailGood.setBackgroundResource(R.drawable.bg_nolike);
             Drawable drawable= getResources().getDrawable(R.mipmap.like_nor);
             drawable.setBounds(0, 0, drawable.getMinimumWidth(), drawable.getMinimumHeight());
             mBinding.detailGood.setCompoundDrawables(drawable,null,null,null);
@@ -668,9 +680,7 @@ public class ShoppingDetailActivity extends BaseActivity implements ShoppingComm
     public void onSucCommentSnapIns(int position,VoteBean successBean) {
         if (successBean.getCode() == 0){
             mCommonList.get(position).setVote(1);
-            BigDecimal bigDecimal = new BigDecimal(mCommonList.get(position).getVoteCount());
-            int num = bigDecimal.intValue();
-            mCommonList.get(position).setVoteCount((num + 1));
+            mCommonList.get(position).setVoteCount(successBean.getData());
             mCommonAdapter.notifyItemChanged(position);
         }else {
             //602
@@ -683,12 +693,10 @@ public class ShoppingDetailActivity extends BaseActivity implements ShoppingComm
      * 评论删除点赞成功回调
      */
     @Override
-    public void onSucCommentSnapDel(int position,SuccessBean successBean) {
+    public void onSucCommentSnapDel(int position,VoteBean successBean) {
         if(successBean.getCode() == 0){
             mCommonList.get(position).setVote(0);
-            BigDecimal bigDecimal = new BigDecimal(mCommonList.get(position).getVoteCount());
-            int num = bigDecimal.intValue();
-            mCommonList.get(position).setVoteCount((num - 1));
+            mCommonList.get(position).setVoteCount(successBean.getData());
             mCommonAdapter.notifyItemChanged(position);
         }else {
             //602
@@ -763,13 +771,15 @@ public class ShoppingDetailActivity extends BaseActivity implements ShoppingComm
         }
         if(pagerStateBean.getVote() == 1){
             isSnap = true;
-            mBinding.detailGood.setText(SnapNum + "人喜欢");
             Drawable drawable= getResources().getDrawable(R.mipmap.like_sel);
             drawable.setBounds(0, 0, drawable.getMinimumWidth(), drawable.getMinimumHeight());
             mBinding.detailGood.setCompoundDrawables(drawable,null,null,null);
+            mBinding.detailGood.setTextColor(getResources().getColor(R.color.color_E31436));
+            mBinding.detailGood.setBackgroundResource(R.drawable.bg_like);
         }else {
             isSnap = false;
-            mBinding.detailGood.setText(SnapNum + "人喜欢");
+            mBinding.detailGood.setTextColor(getResources().getColor(R.color.color_ACACAC));
+            mBinding.detailGood.setBackgroundResource(R.drawable.bg_nolike);
             Drawable drawable= getResources().getDrawable(R.mipmap.like_nor);
             drawable.setBounds(0, 0, drawable.getMinimumWidth(), drawable.getMinimumHeight());
             mBinding.detailGood.setCompoundDrawables(drawable,null,null,null);

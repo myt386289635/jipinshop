@@ -7,17 +7,21 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
+import com.aspsine.swipetoloadlayout.OnLoadMoreListener;
 import com.aspsine.swipetoloadlayout.OnRefreshListener;
 import com.example.administrator.jipinshop.R;
 import com.example.administrator.jipinshop.activity.shoppingdetail.ShoppingDetailActivity;
 import com.example.administrator.jipinshop.activity.sreach.SreachActivity;
+import com.example.administrator.jipinshop.activity.sreach.result.SreachResultActivity;
 import com.example.administrator.jipinshop.adapter.SreachGoodsAdapter;
 import com.example.administrator.jipinshop.base.DBBaseFragment;
 import com.example.administrator.jipinshop.bean.SreachResultGoodsBean;
 import com.example.administrator.jipinshop.bean.eventbus.SreachBus;
 import com.example.administrator.jipinshop.databinding.FragmentSreachgoodsBinding;
 import com.example.administrator.jipinshop.util.ClickUtil;
+import com.example.administrator.jipinshop.util.ToastUtil;
 import com.trello.rxlifecycle2.android.FragmentEvent;
 
 import org.greenrobot.eventbus.EventBus;
@@ -32,13 +36,16 @@ import javax.inject.Inject;
  * @create 2019/1/8
  * @Describe
  */
-public class SreachGoodsFragment extends DBBaseFragment implements SreachGoodsAdapter.OnItem, OnRefreshListener, SreachGoodsView {
+public class SreachGoodsFragment extends DBBaseFragment implements SreachGoodsAdapter.OnItem, OnRefreshListener, SreachGoodsView, OnLoadMoreListener {
 
     @Inject
     SreachGoodsPresenter mPresenter;
     private FragmentSreachgoodsBinding mBinding;
     private SreachGoodsAdapter mAdapter;
     private List<SreachResultGoodsBean.DataBean> mList;
+
+    private int page = 1;
+    private Boolean refersh = true;
 
     public static SreachGoodsFragment getInstance(String content) {
         SreachGoodsFragment fragment = new SreachGoodsFragment();
@@ -66,7 +73,8 @@ public class SreachGoodsFragment extends DBBaseFragment implements SreachGoodsAd
         mBinding.recyclerView.setAdapter(mAdapter);
 
         mBinding.swipeToLoad.setOnRefreshListener(this);
-        mPresenter.solveScoll(mBinding.recyclerView,mBinding.swipeToLoad);
+        mBinding.swipeToLoad.setOnLoadMoreListener(this);
+        mPresenter.solveScoll(mBinding.recyclerView,mBinding.swipeToLoad,((SreachResultActivity)getActivity()).getBar());
         mBinding.swipeToLoad.setRefreshing(true);
     }
 
@@ -86,7 +94,9 @@ public class SreachGoodsFragment extends DBBaseFragment implements SreachGoodsAd
 
     @Override
     public void onRefresh() {
-        mPresenter.searchGoods(getArguments().getString("content"),this.bindUntilEvent(FragmentEvent.DESTROY_VIEW));
+        page = 1;
+        refersh = true;
+        mPresenter.searchGoods(page + "" ,getArguments().getString("content"),this.bindUntilEvent(FragmentEvent.DESTROY_VIEW));
     }
 
 
@@ -94,21 +104,41 @@ public class SreachGoodsFragment extends DBBaseFragment implements SreachGoodsAd
     public void Success(SreachResultGoodsBean resultGoodsBean) {
         EventBus.getDefault().post(new SreachBus(SreachActivity.sreachHistoryTag));
         stopResher();
+        stopLoading();
         if(resultGoodsBean.getData() != null && resultGoodsBean.getData().size() != 0){
-            mList.clear();
-            mList.addAll(resultGoodsBean.getData());
-            mAdapter.notifyDataSetChanged();
+            if(refersh){
+                mBinding.inClude.qsNet.setVisibility(View.GONE);
+                mBinding.recyclerView.setVisibility(View.VISIBLE);
+                mList.clear();
+                mList.addAll(resultGoodsBean.getData());
+                mAdapter.notifyDataSetChanged();
+            }else {
+                mList.addAll(resultGoodsBean.getData());
+                mAdapter.notifyDataSetChanged();
+                mBinding.swipeToLoad.setLoadMoreEnabled(false);
+            }
         }else {
-            initError(R.mipmap.qs_nodata, "暂无数据", "暂时没有任何数据 ");
-            mBinding.recyclerView.setVisibility(View.GONE);
+            if(refersh){
+                initError(R.mipmap.qs_nodata, "暂无数据", "暂时没有任何数据 ");
+                mBinding.recyclerView.setVisibility(View.GONE);
+            }else {
+                page-- ;
+                ToastUtil.show("已经是最后一页了");
+            }
         }
     }
 
     @Override
     public void Faile(String error) {
-        stopResher();
-        initError(R.mipmap.qs_net, "网络出错", "哇哦，网络出错了，换个姿势下滑页面试试");
-        mBinding.recyclerView.setVisibility(View.GONE);
+        if(refersh){
+            stopResher();
+            initError(R.mipmap.qs_net, "网络出错", "哇哦，网络出错了，换个姿势下滑页面试试");
+            mBinding.recyclerView.setVisibility(View.GONE);
+        }else {
+            stopLoading();
+            page--;
+        }
+        ToastUtil.show(error);
     }
 
     public void initError(int id, String title, String content) {
@@ -128,5 +158,26 @@ public class SreachGoodsFragment extends DBBaseFragment implements SreachGoodsAd
                 mBinding.swipeToLoad.setRefreshing(false);
             }
         }
+    }
+    /**
+     * 停止加载
+     */
+    public void stopLoading() {
+        if (mBinding.swipeToLoad != null && mBinding.swipeToLoad.isLoadingMore()) {
+            if (!mBinding.swipeToLoad.isLoadMoreEnabled()) {
+                mBinding.swipeToLoad.setLoadMoreEnabled(true);
+                mBinding.swipeToLoad.setLoadingMore(false);
+                mBinding.swipeToLoad.setLoadMoreEnabled(false);
+            } else {
+                mBinding.swipeToLoad.setLoadingMore(false);
+            }
+        }
+    }
+
+    @Override
+    public void onLoadMore() {
+        page++;
+        refersh = false;
+        mPresenter.searchGoods(page + "" ,getArguments().getString("content"),this.bindUntilEvent(FragmentEvent.DESTROY_VIEW));
     }
 }

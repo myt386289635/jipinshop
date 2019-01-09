@@ -59,12 +59,12 @@ public class HomeCommenFragment extends DBBaseFragment implements HomeCommenTabA
 
     private int sets = 0;//二级导航点击的位置   默认为第0个  这个也是最后一次点击的位置
     private Dialog mDialog;//点击二级菜单时请求数据加载框
-    private Boolean once = true;//记录第一次进入页面标示
+    private Boolean[] once = {true};//记录第一次进入页面标示
 
     @Override
     public void setUserVisibleHint(boolean isVisibleToUser) {
         super.setUserVisibleHint(isVisibleToUser);
-        if (isVisibleToUser && once) {
+        if (isVisibleToUser && once[0]) {
             mBinding.swipeToLoad.setRefreshing(true);
         }
     }
@@ -105,7 +105,7 @@ public class HomeCommenFragment extends DBBaseFragment implements HomeCommenTabA
         mBinding.recyclerView.setAdapter(mAdapter);
 
         mBinding.swipeToLoad.setOnRefreshListener(this);
-        mPresenter.solveScoll(mBinding.recyclerView,mBinding.swipeToLoad);
+        mPresenter.solveScoll(mBinding.recyclerView,mBinding.swipeToLoad,((HomeFragment)getParentFragment()).getBar(),once);
     }
 
     @Override
@@ -221,8 +221,8 @@ public class HomeCommenFragment extends DBBaseFragment implements HomeCommenTabA
                 mBinding.recyclerView.setVisibility(View.GONE);
             }
             stopResher();
-            if (once){
-                once = false;
+            if (once[0]){
+                once[0] = false;
             }
         }
         stopResher();

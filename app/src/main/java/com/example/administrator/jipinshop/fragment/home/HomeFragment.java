@@ -3,6 +3,7 @@ package com.example.administrator.jipinshop.fragment.home;
 
 import android.content.Intent;
 import android.databinding.DataBindingUtil;
+import android.support.design.widget.AppBarLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
 import android.support.v7.widget.LinearLayoutManager;
@@ -280,5 +281,9 @@ public class HomeFragment extends DBBaseFragment implements Badge.OnDragStateCha
     @Override
     public void onPageScrollStateChanged(int i) {
 
+    }
+
+    public AppBarLayout getBar(){
+        return mBinding.appbar;
     }
 }

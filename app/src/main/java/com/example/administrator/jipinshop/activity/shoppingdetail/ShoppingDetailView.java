@@ -29,7 +29,7 @@ public interface ShoppingDetailView {
 
      void onSucSnapInsert(View view , VoteBean successBean);
 
-     void onSucSnapDelete(SuccessBean successBean);
+     void onSucSnapDelete(VoteBean successBean);
 
      void onSucComment(CommentBean commentBean);
      void onFileComment(String error);
@@ -38,7 +38,7 @@ public interface ShoppingDetailView {
      void onFileCommentInsert(String error);
 
      void onSucCommentSnapIns(int position,VoteBean successBean);
-     void onSucCommentSnapDel(int position,SuccessBean successBean);
+     void onSucCommentSnapDel(int position,VoteBean successBean);
 
      void concerDelSuccess(SuccessBean successBean);
      void concerInsSuccess(SuccessBean successBean);

@@ -21,6 +21,6 @@ public interface CommenListView {
     void onFileCommentInsert(String error);
 
     void onSucCommentSnapIns(int position,VoteBean successBean);
-    void onSucCommentSnapDel(int position,SuccessBean successBean);
+    void onSucCommentSnapDel(int position,VoteBean successBean);
     void onFileSnap(String error);
 }

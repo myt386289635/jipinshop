@@ -3,6 +3,7 @@ package com.example.administrator.jipinshop.activity.sreach.result;
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.design.widget.AppBarLayout;
 import android.support.v4.app.Fragment;
 import android.view.MotionEvent;
 import android.view.View;
@@ -114,5 +115,9 @@ public class SreachResultActivity extends BaseActivity implements View.OnClickLi
                 finish();
                 break;
         }
+    }
+
+    public AppBarLayout getBar(){
+        return mBinding.appbar;
     }
 }

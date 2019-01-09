@@ -15,6 +15,7 @@ import com.example.administrator.jipinshop.adapter.RecommendFragmentAdapter;
 import com.example.administrator.jipinshop.base.DBBaseFragment;
 import com.example.administrator.jipinshop.bean.RecommendFragmentBean;
 import com.example.administrator.jipinshop.databinding.FragmentRecommendBinding;
+import com.example.administrator.jipinshop.fragment.home.HomeFragment;
 import com.example.administrator.jipinshop.util.ClickUtil;
 import com.trello.rxlifecycle2.android.FragmentEvent;
 
@@ -34,6 +35,8 @@ public class RecommendFragment extends DBBaseFragment implements OnRefreshListen
     protected FragmentRecommendBinding binding;
     private RecommendFragmentAdapter mAdapter;
     private List<RecommendFragmentBean.DataBean> mList;
+
+    private Boolean[] once = {true};
 
     public static RecommendFragment getInstance() {
         RecommendFragment fragment = new RecommendFragment();
@@ -61,7 +64,7 @@ public class RecommendFragment extends DBBaseFragment implements OnRefreshListen
         binding.recyclerView.setFocusable(false);
         binding.swipeToLoad.setOnRefreshListener(this);
 
-        mPresenter.solveScoll(binding.recyclerView,binding.swipeToLoad);
+        mPresenter.solveScoll(binding.recyclerView,binding.swipeToLoad,((HomeFragment)getParentFragment()).getBar(),once);
         binding.swipeToLoad.post(() -> binding.swipeToLoad.setRefreshing(true));
     }
 
@@ -110,6 +113,9 @@ public class RecommendFragment extends DBBaseFragment implements OnRefreshListen
             binding.recyclerView.setVisibility(View.GONE);
         }
         stopResher();
+        if(once[0]){
+            once[0] = false;
+        }
     }
 
     @Override

@@ -33,5 +33,5 @@ public interface EvaluationDetailView {
 
     void onSucSnapInsert(View view , VoteBean successBean);
 
-    void onSucSnapDelete(SuccessBean successBean);
+    void onSucSnapDelete(VoteBean successBean);
 }

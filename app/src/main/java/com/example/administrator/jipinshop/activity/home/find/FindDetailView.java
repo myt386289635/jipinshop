@@ -32,5 +32,5 @@ public interface FindDetailView {
 
     void onSucSnapInsert(View view , VoteBean successBean);
 
-    void onSucSnapDelete(SuccessBean successBean);
+    void onSucSnapDelete(VoteBean successBean);
 }

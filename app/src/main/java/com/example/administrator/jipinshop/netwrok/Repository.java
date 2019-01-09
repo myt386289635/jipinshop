@@ -27,6 +27,7 @@ import com.example.administrator.jipinshop.bean.SignBean;
 import com.example.administrator.jipinshop.bean.SignInsertBean;
 import com.example.administrator.jipinshop.bean.SnapSelectBean;
 import com.example.administrator.jipinshop.bean.SreachHistoryBean;
+import com.example.administrator.jipinshop.bean.SreachResultArticlesBean;
 import com.example.administrator.jipinshop.bean.SreachResultGoodsBean;
 import com.example.administrator.jipinshop.bean.SuccessBean;
 import com.example.administrator.jipinshop.bean.SupplementBean;
@@ -217,6 +218,13 @@ public class Repository {
     }
 
     /**
+     * 搜索列表
+     */
+    public Observable<SreachResultArticlesBean> searchArticles(String page , String type, String goodsName){
+        return mAPIService.searchArticles(page,goodsName,type);
+    }
+
+    /**
      * 商品详情
      */
     public Observable<ShoppingDetailBean> goodsRankDetailList(String goodsId){
@@ -261,7 +269,7 @@ public class Repository {
     /**
      * 删除点赞
      */
-    public Observable<SuccessBean> snapDelete(Map<String,String> param){
+    public Observable<VoteBean> snapDelete(Map<String,String> param){
         return  mAPIService.snapDelete(param);
     }
 

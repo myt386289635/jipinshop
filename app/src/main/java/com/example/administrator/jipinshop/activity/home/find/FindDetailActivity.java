@@ -464,7 +464,7 @@ public class FindDetailActivity extends RxAppCompatActivity implements View.OnCl
      * 删除点赞成功回调
      */
     @Override
-    public void onSucSnapDelete(SuccessBean successBean) {
+    public void onSucSnapDelete(VoteBean successBean) {
         if (mDialog != null && mDialog.isShowing()) {
             mDialog.dismiss();
         }

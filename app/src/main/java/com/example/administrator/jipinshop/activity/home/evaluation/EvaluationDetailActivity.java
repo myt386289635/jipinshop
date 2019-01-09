@@ -441,7 +441,7 @@ public class EvaluationDetailActivity extends RxAppCompatActivity implements Vie
      * 删除点赞成功
      */
     @Override
-    public void onSucSnapDelete(SuccessBean successBean) {
+    public void onSucSnapDelete(VoteBean successBean) {
         if (mDialog != null && mDialog.isShowing()) {
             mDialog.dismiss();
         }

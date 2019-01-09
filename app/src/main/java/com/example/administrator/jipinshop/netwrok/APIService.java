@@ -27,6 +27,7 @@ import com.example.administrator.jipinshop.bean.SignBean;
 import com.example.administrator.jipinshop.bean.SignInsertBean;
 import com.example.administrator.jipinshop.bean.SnapSelectBean;
 import com.example.administrator.jipinshop.bean.SreachHistoryBean;
+import com.example.administrator.jipinshop.bean.SreachResultArticlesBean;
 import com.example.administrator.jipinshop.bean.SreachResultGoodsBean;
 import com.example.administrator.jipinshop.bean.SuccessBean;
 import com.example.administrator.jipinshop.bean.SupplementBean;
@@ -136,7 +137,7 @@ public interface APIService {
      * 删除点赞    已修改
      */
     @GET("qualityshop-api/api/vote/delete")
-    Observable<SuccessBean> snapDelete(@QueryMap Map<String,String> param);
+    Observable<VoteBean> snapDelete(@QueryMap Map<String,String> param);
 
     /**
      * 查看评论列表   已修改
@@ -191,10 +192,16 @@ public interface APIService {
     Observable<SuccessBean> searchDelete(@Query("id") String id);
 
     /**
-     * 搜索列表   已修改
+     * 搜索列表(商品)   已修改
      */
     @GET("qualityshop-api/api/search")
     Observable<SreachResultGoodsBean> searchGoods(@Query("page") String page,@Query("keyword") String keyword,@Query("type")String type);
+
+    /**
+     * 搜索列表（发现、评测、试用报告）
+     */
+    @GET("qualityshop-api/api/search")
+    Observable<SreachResultArticlesBean> searchArticles(@Query("page") String page, @Query("keyword") String keyword, @Query("type")String type);
 
 /*************************************************以下是还未修改的接口***********************************************/
 

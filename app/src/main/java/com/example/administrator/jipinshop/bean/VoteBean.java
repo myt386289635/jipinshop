@@ -9,13 +9,13 @@ public class VoteBean {
 
     /**
      * msg : 点赞成功
-     * total : 1
      * code : 0
+     * data : 2
      */
 
     private String msg;
-    private int total;
     private int code;
+    private int data;
 
     public String getMsg() {
         return msg;
@@ -25,19 +25,19 @@ public class VoteBean {
         this.msg = msg;
     }
 
-    public int getTotal() {
-        return total;
-    }
-
-    public void setTotal(int total) {
-        this.total = total;
-    }
-
     public int getCode() {
         return code;
     }
 
     public void setCode(int code) {
         this.code = code;
+    }
+
+    public int getData() {
+        return data;
+    }
+
+    public void setData(int data) {
+        this.data = data;
     }
 }

@@ -262,7 +262,7 @@ public class ShoppingDetailPresenter {
     /**
      * 删除点赞
      */
-    public void snapDelete(String tag, int position, String id , LifecycleTransformer<SuccessBean> transformer){
+    public void snapDelete(String tag, int position, String id , LifecycleTransformer<VoteBean> transformer){
         Map<String,String> hashMap = new HashMap<>();
         hashMap.put("type", tag);
         hashMap.put("targetId",id);

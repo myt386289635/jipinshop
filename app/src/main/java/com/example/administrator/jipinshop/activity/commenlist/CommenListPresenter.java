@@ -176,7 +176,7 @@ public class CommenListPresenter {
     /**
      * 删除点赞
      */
-    public void snapDelete(int position, String id , LifecycleTransformer<SuccessBean> transformer){
+    public void snapDelete(int position, String id , LifecycleTransformer<VoteBean> transformer){
         Map<String,String> hashMap = new HashMap<>();
         hashMap.put("type", "5");
         hashMap.put("targetId",id);

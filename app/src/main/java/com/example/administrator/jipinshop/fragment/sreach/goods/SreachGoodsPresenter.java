@@ -1,5 +1,6 @@
 package com.example.administrator.jipinshop.fragment.sreach.goods;
 
+import android.support.design.widget.AppBarLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 
@@ -32,8 +33,8 @@ public class SreachGoodsPresenter {
         mRepository = repository;
     }
 
-    public void searchGoods(String goodsName,LifecycleTransformer<SreachResultGoodsBean> transformer){
-        mRepository.searchGoods("1","1",goodsName)
+    public void searchGoods(String page ,String goodsName,LifecycleTransformer<SreachResultGoodsBean> transformer){
+        mRepository.searchGoods(page,"1",goodsName)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .compose(transformer)
@@ -55,17 +56,15 @@ public class SreachGoodsPresenter {
     }
 
     //解决冲突问题
-    public void solveScoll(RecyclerView mRecyclerView, final SwipeToLoadLayout mSwipeToLoad){
+    public void solveScoll(RecyclerView mRecyclerView, final SwipeToLoadLayout mSwipeToLoad, AppBarLayout appBarLayout) {
+        RecyclerView.LayoutManager layoutManager = mRecyclerView.getLayoutManager();
+        LinearLayoutManager linearManager = (LinearLayoutManager) layoutManager;
         mRecyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
             @Override
             public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
                 super.onScrolled(recyclerView, dx, dy);
-                RecyclerView.LayoutManager layoutManager = recyclerView.getLayoutManager();
-                if (layoutManager instanceof LinearLayoutManager) {
-                    LinearLayoutManager linearManager = (LinearLayoutManager) layoutManager;
-                    mSwipeToLoad.setRefreshEnabled(linearManager.findFirstCompletelyVisibleItemPosition() == 0);
-                }
-
+                mSwipeToLoad.setRefreshEnabled(linearManager.findFirstCompletelyVisibleItemPosition() == 0);
+                mSwipeToLoad.setLoadMoreEnabled(isSlideToBottom(mRecyclerView));
             }
 
             @Override
@@ -73,6 +72,32 @@ public class SreachGoodsPresenter {
                 super.onScrollStateChanged(recyclerView, newState);
             }
         });
+        appBarLayout.addOnOffsetChangedListener((appBarLayout1, verticalOffset) -> {
+            if(verticalOffset == 0){
+                //展开
+                mSwipeToLoad.setRefreshEnabled(linearManager.findFirstCompletelyVisibleItemPosition() == 0);
+                mSwipeToLoad.setLoadMoreEnabled(false);
+            }else if(Math.abs(verticalOffset) >= appBarLayout1.getTotalScrollRange()){
+                //折叠
+                mSwipeToLoad.setLoadMoreEnabled(isSlideToBottom(mRecyclerView));
+                mSwipeToLoad.setRefreshEnabled(false);
+            }else {
+                //过程
+                mSwipeToLoad.setRefreshEnabled(false);
+                mSwipeToLoad.setLoadMoreEnabled(false);
+            }
+        });
+    }
+
+    /**
+     * 判断RecyclerView是否滑动到底部
+     */
+    public static boolean isSlideToBottom(RecyclerView recyclerView) {
+        if (recyclerView == null) return false;
+        if (recyclerView.computeVerticalScrollExtent() + recyclerView.computeVerticalScrollOffset()
+                >= recyclerView.computeVerticalScrollRange())
+            return true;
+        return false;
     }
 
 }
