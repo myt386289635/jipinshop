@@ -487,7 +487,7 @@ public class ShoppingDetailActivity extends BaseActivity implements ShoppingComm
                 mBinding.detailGood.setCompoundDrawables(drawable,null,null,null);
             }else {
                 isSnap = false;
-                mBinding.detailGood.setText("喜欢");
+                mBinding.detailGood.setText(shoppingDetailBean.getData().getGoodsEntity().getVoteCount() + "人喜欢");
                 Drawable drawable= getResources().getDrawable(R.mipmap.like_nor);
                 drawable.setBounds(0, 0, drawable.getMinimumWidth(), drawable.getMinimumHeight());
                 mBinding.detailGood.setCompoundDrawables(drawable,null,null,null);
@@ -588,7 +588,7 @@ public class ShoppingDetailActivity extends BaseActivity implements ShoppingComm
         if(successBean.getCode() == 0){
             isSnap = false;
             SnapNum = SnapNum - 1;
-            mBinding.detailGood.setText("喜欢");
+            mBinding.detailGood.setText(SnapNum + "人喜欢");
             Drawable drawable= getResources().getDrawable(R.mipmap.like_nor);
             drawable.setBounds(0, 0, drawable.getMinimumWidth(), drawable.getMinimumHeight());
             mBinding.detailGood.setCompoundDrawables(drawable,null,null,null);
@@ -769,7 +769,7 @@ public class ShoppingDetailActivity extends BaseActivity implements ShoppingComm
             mBinding.detailGood.setCompoundDrawables(drawable,null,null,null);
         }else {
             isSnap = false;
-            mBinding.detailGood.setText("喜欢");
+            mBinding.detailGood.setText(SnapNum + "人喜欢");
             Drawable drawable= getResources().getDrawable(R.mipmap.like_nor);
             drawable.setBounds(0, 0, drawable.getMinimumWidth(), drawable.getMinimumHeight());
             mBinding.detailGood.setCompoundDrawables(drawable,null,null,null);
