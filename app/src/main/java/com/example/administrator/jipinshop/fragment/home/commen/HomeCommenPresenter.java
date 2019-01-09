@@ -3,6 +3,7 @@ package com.example.administrator.jipinshop.fragment.home.commen;
 import android.support.design.widget.AppBarLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.view.View;
 
 import com.aspsine.swipetoloadlayout.SwipeToLoadLayout;
 import com.example.administrator.jipinshop.bean.HomeCommenBean;
@@ -51,7 +52,7 @@ public class HomeCommenPresenter {
             }
         });
         appBarLayout.addOnOffsetChangedListener((appBarLayout1, verticalOffset) -> {
-            if(once[0]){
+            if(once[0] || mRecyclerView.getVisibility() == View.GONE){
                 mSwipeToLoad.setRefreshEnabled(true);
             }else {
                 if(verticalOffset == 0){

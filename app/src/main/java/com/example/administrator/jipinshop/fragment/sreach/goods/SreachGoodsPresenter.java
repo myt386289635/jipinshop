@@ -3,6 +3,7 @@ package com.example.administrator.jipinshop.fragment.sreach.goods;
 import android.support.design.widget.AppBarLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.view.View;
 
 import com.aspsine.swipetoloadlayout.SwipeToLoadLayout;
 import com.example.administrator.jipinshop.bean.SreachResultGoodsBean;
@@ -73,18 +74,23 @@ public class SreachGoodsPresenter {
             }
         });
         appBarLayout.addOnOffsetChangedListener((appBarLayout1, verticalOffset) -> {
-            if(verticalOffset == 0){
-                //展开
-                mSwipeToLoad.setRefreshEnabled(linearManager.findFirstCompletelyVisibleItemPosition() == 0);
+            if(mRecyclerView.getVisibility() == View.GONE){
+                mSwipeToLoad.setRefreshEnabled(true);
                 mSwipeToLoad.setLoadMoreEnabled(false);
-            }else if(Math.abs(verticalOffset) >= appBarLayout1.getTotalScrollRange()){
-                //折叠
-                mSwipeToLoad.setLoadMoreEnabled(isSlideToBottom(mRecyclerView));
-                mSwipeToLoad.setRefreshEnabled(false);
             }else {
-                //过程
-                mSwipeToLoad.setRefreshEnabled(false);
-                mSwipeToLoad.setLoadMoreEnabled(false);
+                if(verticalOffset == 0){
+                    //展开
+                    mSwipeToLoad.setRefreshEnabled(linearManager.findFirstCompletelyVisibleItemPosition() == 0);
+                    mSwipeToLoad.setLoadMoreEnabled(false);
+                }else if(Math.abs(verticalOffset) >= appBarLayout1.getTotalScrollRange()){
+                    //折叠
+                    mSwipeToLoad.setLoadMoreEnabled(isSlideToBottom(mRecyclerView));
+                    mSwipeToLoad.setRefreshEnabled(false);
+                }else {
+                    //过程
+                    mSwipeToLoad.setRefreshEnabled(false);
+                    mSwipeToLoad.setLoadMoreEnabled(false);
+                }
             }
         });
     }

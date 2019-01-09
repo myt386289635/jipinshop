@@ -3,6 +3,7 @@ package com.example.administrator.jipinshop.fragment.sreach.article;
 import android.support.design.widget.AppBarLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.view.View;
 
 import com.aspsine.swipetoloadlayout.SwipeToLoadLayout;
 import com.example.administrator.jipinshop.bean.SreachResultArticlesBean;
@@ -52,8 +53,11 @@ public class SreachArticlePresenter {
             }
         });
         appBarLayout.addOnOffsetChangedListener((appBarLayout1, verticalOffset) -> {
-            if (once[0]) {
+            if (once[0] ||mRecyclerView.getVisibility() == View.GONE) {
                 mSwipeToLoad.setRefreshEnabled(true);
+                if(mRecyclerView.getVisibility() == View.GONE){
+                    mSwipeToLoad.setLoadMoreEnabled(false);
+                }
             } else {
                 if (verticalOffset == 0) {
                     //展开

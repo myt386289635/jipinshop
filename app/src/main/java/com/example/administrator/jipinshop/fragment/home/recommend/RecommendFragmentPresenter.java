@@ -3,6 +3,7 @@ package com.example.administrator.jipinshop.fragment.home.recommend;
 import android.support.design.widget.AppBarLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.view.View;
 
 import com.aspsine.swipetoloadlayout.SwipeToLoadLayout;
 import com.example.administrator.jipinshop.bean.RecommendFragmentBean;
@@ -63,7 +64,7 @@ public class RecommendFragmentPresenter {
         appBarLayout.addOnOffsetChangedListener((appBarLayout1, verticalOffset) -> {
             if(verticalOffset == 0){
                 //展开
-                if(once[0]){//程序打开的第一次运行
+                if(once[0] || mRecyclerView.getVisibility() == View.GONE){//程序打开的第一次运行
                     mSwipeToLoad.setRefreshEnabled(true);
                 }else {
                     mSwipeToLoad.setRefreshEnabled(linearManager.findFirstCompletelyVisibleItemPosition() == 0);
