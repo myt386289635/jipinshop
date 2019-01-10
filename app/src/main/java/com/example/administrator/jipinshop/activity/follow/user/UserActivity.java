@@ -182,7 +182,6 @@ public class UserActivity extends RxAppCompatActivity implements UserAdapter.OnL
      */
     @Override
     public void ConcerDelSuccess(SuccessBean successBean) {
-        EventBus.getDefault().post(new ConcerBus(CommonEvaluationFragment.REFERSH,0,(mAdapter.getFans() - 1)+ "",getIntent().getStringExtra("id")));//刷新评测首页
         EventBus.getDefault().post(new FollowBus(UserActivity.tag));
         dissRefresh();
         mAdapter.setIsfans(0);
@@ -204,7 +203,6 @@ public class UserActivity extends RxAppCompatActivity implements UserAdapter.OnL
      */
     @Override
     public void concerInsSuccess(SuccessBean successBean) {
-        EventBus.getDefault().post(new ConcerBus(CommonEvaluationFragment.REFERSH,1,(mAdapter.getFans() + 1)+ "",getIntent().getStringExtra("id")));//刷新评测首页
         EventBus.getDefault().post(new FollowBus(UserActivity.tag));
         dissRefresh();
         mAdapter.setIsfans(1);

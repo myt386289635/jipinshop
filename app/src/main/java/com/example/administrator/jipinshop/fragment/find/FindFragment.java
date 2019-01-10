@@ -11,19 +11,19 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
-import android.widget.Toast;
 
 import com.blankj.utilcode.util.SPUtils;
 import com.example.administrator.jipinshop.R;
 import com.example.administrator.jipinshop.activity.sreach.SreachActivity;
 import com.example.administrator.jipinshop.adapter.HomeFragmentAdapter;
-import com.example.administrator.jipinshop.adapter.HomeTabAdapter;
+import com.example.administrator.jipinshop.adapter.ArticleTabAdapter;
 import com.example.administrator.jipinshop.base.DBBaseFragment;
 import com.example.administrator.jipinshop.bean.EvaluationTabBean;
 import com.example.administrator.jipinshop.bean.TitleBean;
 import com.example.administrator.jipinshop.bean.eventbus.FindTabBus;
 import com.example.administrator.jipinshop.databinding.FragmentFindBinding;
 import com.example.administrator.jipinshop.fragment.find.common.CommonFindFragment;
+import com.example.administrator.jipinshop.util.ToastUtil;
 import com.example.administrator.jipinshop.util.sp.CommonDate;
 import com.google.gson.Gson;
 
@@ -34,7 +34,7 @@ import java.util.List;
 
 import javax.inject.Inject;
 
-public class FindFragment extends DBBaseFragment implements FindView, HomeTabAdapter.OnClickItem, ViewPager.OnPageChangeListener, View.OnClickListener {
+public class FindFragment extends DBBaseFragment implements FindView, ArticleTabAdapter.OnClickItem, ViewPager.OnPageChangeListener, View.OnClickListener {
 
     public static final String tag = "FindFragment2CommonFindFragment";
 
@@ -48,7 +48,7 @@ public class FindFragment extends DBBaseFragment implements FindView, HomeTabAda
     private Boolean once = true;
 
     private List<TitleBean> mTabBeans;
-    private HomeTabAdapter mTabAdapter;
+    private ArticleTabAdapter mTabAdapter;
     private LinearLayoutManager mLinearLayoutManager;
     private int set = 0;// 记录上一个位置
 
@@ -83,7 +83,7 @@ public class FindFragment extends DBBaseFragment implements FindView, HomeTabAda
         mLinearLayoutManager = new LinearLayoutManager(getContext(), LinearLayout.HORIZONTAL,false);
         mBinding.recyclerView.setLayoutManager(mLinearLayoutManager);
         mTabBeans = new ArrayList<>();
-        mTabAdapter = new HomeTabAdapter(mTabBeans,getContext());
+        mTabAdapter = new ArticleTabAdapter(mTabBeans,getContext());
         mTabAdapter.setOnClickItem(this);
         mBinding.recyclerView.setAdapter(mTabAdapter);
         mBinding.viewPager.addOnPageChangeListener(this);
@@ -100,7 +100,7 @@ public class FindFragment extends DBBaseFragment implements FindView, HomeTabAda
     @Override
     public void onFaile(String error) {
         EventBus.getDefault().post(new FindTabBus(FindFragment.tag));
-        Toast.makeText(getContext(), error, Toast.LENGTH_SHORT).show();
+        ToastUtil.show(error);
     }
 
     public void initTab(EvaluationTabBean tabBean) {

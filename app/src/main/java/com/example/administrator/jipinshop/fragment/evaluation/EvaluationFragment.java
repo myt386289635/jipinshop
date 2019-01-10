@@ -2,20 +2,24 @@ package com.example.administrator.jipinshop.fragment.evaluation;
 
 import android.databinding.DataBindingUtil;
 import android.support.v4.app.Fragment;
+import android.support.v4.view.ViewPager;
+import android.support.v7.widget.LinearLayoutManager;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.TextView;
-import android.widget.Toast;
+import android.widget.LinearLayout;
 
 import com.blankj.utilcode.util.SPUtils;
 import com.example.administrator.jipinshop.R;
 import com.example.administrator.jipinshop.adapter.HomeFragmentAdapter;
+import com.example.administrator.jipinshop.adapter.ArticleTabAdapter;
 import com.example.administrator.jipinshop.base.DBBaseFragment;
 import com.example.administrator.jipinshop.bean.EvaluationTabBean;
+import com.example.administrator.jipinshop.bean.TitleBean;
 import com.example.administrator.jipinshop.databinding.FragmentEvaluationBinding;
 import com.example.administrator.jipinshop.fragment.evaluation.common.CommonEvaluationFragment;
+import com.example.administrator.jipinshop.util.ToastUtil;
 import com.example.administrator.jipinshop.util.sp.CommonDate;
 import com.google.gson.Gson;
 
@@ -26,7 +30,7 @@ import java.util.List;
 
 import javax.inject.Inject;
 
-public class EvaluationFragment extends DBBaseFragment implements EvaluationView {
+public class EvaluationFragment extends DBBaseFragment implements EvaluationView, ArticleTabAdapter.OnClickItem, ViewPager.OnPageChangeListener {
 
     public static final String tag = "EvaluationFragment2CommonEvaluationFragment";
 
@@ -37,8 +41,22 @@ public class EvaluationFragment extends DBBaseFragment implements EvaluationView
     private List<Fragment> mFragments;
     private HomeFragmentAdapter mAdapter;
 
-    private List<EvaluationTabBean.DataBean> tabTitle;
-    private List<TextView> tabTextView;
+    private Boolean once = true;
+
+    private List<TitleBean> mTabBeans;
+    private ArticleTabAdapter mTabAdapter;
+    private LinearLayoutManager mLinearLayoutManager;
+    private int set = 0;// 记录上一个位置
+
+    @Override
+    public void setUserVisibleHint(boolean isVisibleToUser) {
+        super.setUserVisibleHint(isVisibleToUser);
+        if(isVisibleToUser && once){
+            initTab(null);
+            mPresenter.initTab(this.bindToLifecycle());
+            once = false;
+        }
+    }
 
     @Override
     public View initLayout(LayoutInflater inflater, ViewGroup container) {
@@ -53,65 +71,114 @@ public class EvaluationFragment extends DBBaseFragment implements EvaluationView
         mPresenter.setView(this);
 
         mFragments = new ArrayList<>();
-        tabTitle = new ArrayList<>();
-        tabTextView= new ArrayList<>();
-
-        mFragments.add(CommonEvaluationFragment.getInstance(CommonEvaluationFragment.ONE));
-        mFragments.add(CommonEvaluationFragment.getInstance(CommonEvaluationFragment.TWO));
-        mFragments.add(CommonEvaluationFragment.getInstance(CommonEvaluationFragment.THREE));
-        mFragments.add(CommonEvaluationFragment.getInstance(CommonEvaluationFragment.FORE));
-//        mFragments.add(CommonEvaluationFragment.getInstance(CommonEvaluationFragment.FIVE));
         mAdapter = new HomeFragmentAdapter(getChildFragmentManager());
         mAdapter.setFragments(mFragments);
         mBinding.viewPager.setAdapter(mAdapter);
-        mBinding.viewPager.setOffscreenPageLimit(3);
-        mBinding.tabLayout.setupWithViewPager( mBinding.viewPager);
 
-        initDate();
-        mPresenter.initTab(this.bindToLifecycle());
+        mLinearLayoutManager = new LinearLayoutManager(getContext(), LinearLayout.HORIZONTAL,false);
+        mBinding.recyclerView.setLayoutManager(mLinearLayoutManager);
+        mTabBeans = new ArrayList<>();
+        mTabAdapter = new ArticleTabAdapter(mTabBeans,getContext());
+        mTabAdapter.setOnClickItem(this);
+        mBinding.recyclerView.setAdapter(mTabAdapter);
+        mBinding.viewPager.addOnPageChangeListener(this);
     }
 
     @Override
     public void onSucTab(EvaluationTabBean bean) {
-        tabTitle.clear();
-        tabTitle.addAll(bean.getData());
         SPUtils.getInstance().put(CommonDate.EvaluationTab,new Gson().toJson(bean));
-        mPresenter.initTabLayout(getContext(),mBinding.tabLayout,tabTitle,tabTextView);
+        initTab(bean);
         EventBus.getDefault().post(EvaluationFragment.tag);
     }
 
     @Override
     public void onFaile(String error) {
         EventBus.getDefault().post(EvaluationFragment.tag);
-        Toast.makeText(getContext(), error, Toast.LENGTH_SHORT).show();
+        ToastUtil.show(error);
     }
 
-    /**
-     * 获取缓存内容
-     */
-    public void initDate(){
-        if(!TextUtils.isEmpty(SPUtils.getInstance().getString(CommonDate.EvaluationTab,""))){
-            EvaluationTabBean bean = new Gson().fromJson(SPUtils.getInstance().getString(CommonDate.EvaluationTab),EvaluationTabBean.class);
-            tabTitle.addAll(bean.getData());
-        }else {
-            //没有缓存时
-            for (int i = 0; i < 4; i++) {
-                EvaluationTabBean.DataBean listBean = new EvaluationTabBean.DataBean();
-                if (i== 0){
-                    listBean.setCategoryName("精选榜");
-                }else if(i == 1){
-                    listBean.setCategoryName("个护健康");
-                }else if(i == 2){
-                    listBean.setCategoryName("厨卫电器");
-                }else {
-                    listBean.setCategoryName("生活电器");
+    public void initTab(EvaluationTabBean tabBean) {
+        mTabBeans.clear();
+        mFragments.clear();
+        if (tabBean != null) {
+            if(tabBean.getData() != null && tabBean.getData().size() != 0){
+                for (int i = 0; i < tabBean.getData().size(); i++) {
+                    if(i == 0){
+                        mTabBeans.add(new TitleBean(tabBean.getData().get(i).getCategoryName(),true));
+                    }else {
+                        mTabBeans.add(new TitleBean(tabBean.getData().get(i).getCategoryName(),false));
+                    }
+                    mFragments.add(CommonEvaluationFragment.getInstance(i));
                 }
-//                else{
-//                    listBean.setCategoryName("家用大电");
-//                }
-                tabTitle.add(listBean);
+            }
+        } else {
+            if (!TextUtils.isEmpty(SPUtils.getInstance().getString(CommonDate.EvaluationTab,""))){
+                tabBean = new Gson().fromJson(SPUtils.getInstance().getString(CommonDate.EvaluationTab),EvaluationTabBean.class);
+                for (int i = 0; i < tabBean.getData().size(); i++) {
+                    if(i == 0){
+                        mTabBeans.add(new TitleBean(tabBean.getData().get(i).getCategoryName(),true));
+                    }else {
+                        mTabBeans.add(new TitleBean(tabBean.getData().get(i).getCategoryName(),false));
+                    }
+                    mFragments.add(CommonEvaluationFragment.getInstance(i));
+                }
+            }else {
+                mTabBeans.add(new TitleBean("精选",true));
+                mTabBeans.add(new TitleBean("个护健康",false));
+                mTabBeans.add(new TitleBean("厨房电器",false));
+                mTabBeans.add(new TitleBean("生活电器",false));
+                for (int i = 0; i < mTabBeans.size(); i++) {
+                    mFragments.add(CommonEvaluationFragment.getInstance(i));
+                }
             }
         }
-        mPresenter.initTabLayout(getContext(),mBinding.tabLayout,tabTitle,tabTextView);
+        mTabAdapter.notifyDataSetChanged();
+        mAdapter.notifyDataSetChanged();
+        mBinding.viewPager.setOffscreenPageLimit(mFragments.size() - 1);
     }
+
+    @Override
+    public void onClickItem(int pos) {
+        final int firstPosition = mLinearLayoutManager.findFirstVisibleItemPosition();
+        int des = 0;
+        if((pos - 1) - firstPosition > 0){
+            ////从左边到点击到右边
+            des = mBinding.recyclerView.getChildAt((pos - 1) - firstPosition).getLeft();
+            mBinding.recyclerView.smoothScrollBy(des,0);
+        }else if(pos - 1 >= 0 && (pos - 1) - firstPosition <= 0){
+            //从右边点击到左边
+            mBinding.recyclerView.smoothScrollToPosition(pos - 1);
+        }
+        mBinding.viewPager.setCurrentItem(pos,false);
+        mTabBeans.get(set).setTag(false);
+        mTabBeans.get(pos).setTag(true);
+        mTabAdapter.notifyDataSetChanged();
+        set = pos;
+    }
+
+    @Override
+    public void onPageScrolled(int i, float v, int i1) {}
+
+    @Override
+    public void onPageSelected(int i) {
+        final int firstPosition = mLinearLayoutManager.findFirstVisibleItemPosition();
+        int des = 0;
+        if((i - 1) - firstPosition > 0){
+            ////从左边到点击到右边
+            des = mBinding.recyclerView.getChildAt((i - 1) - firstPosition).getLeft();
+            mBinding.recyclerView.smoothScrollBy(des,0);
+        }else if(i - 1 >= 0 && (i - 1) - firstPosition <= 0){
+            //从右边点击到左边
+            mBinding.recyclerView.smoothScrollToPosition(i - 1);
+        }
+        mTabBeans.get(set).setTag(false);
+        mTabBeans.get(i).setTag(true);
+        mTabAdapter.notifyDataSetChanged();
+
+        set = i;
+    }
+
+    @Override
+    public void onPageScrollStateChanged(int i) {}
+
 }

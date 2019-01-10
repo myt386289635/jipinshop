@@ -2,6 +2,7 @@ package com.example.administrator.jipinshop.adapter;
 
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,10 +16,14 @@ import com.example.administrator.jipinshop.view.glide.GlideApp;
 
 import java.util.List;
 
-public class CommonFindAdapter extends RecyclerView.Adapter<CommonFindAdapter.ViewHolder> {
+public class CommonFindAdapter extends RecyclerView.Adapter {
+
+    private static final int HEAD = 1;
+    private static final int CONTENT = 2;
 
     private List<FindListBean.DataBean> mList;
     private Context mContext;
+    private String headImg = "";//数据head图片
 
     public CommonFindAdapter(List<FindListBean.DataBean> list, Context context) {
         mList = list;
@@ -26,42 +31,87 @@ public class CommonFindAdapter extends RecyclerView.Adapter<CommonFindAdapter.Vi
     }
 
     @Override
-    public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(mContext).inflate(R.layout.item_sreacharticle, parent, false);
-        ViewHolder viewHolder = new ViewHolder(view);
-        return viewHolder;
+    public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+
+        switch (viewType) {
+            case HEAD:
+                View head = LayoutInflater.from(mContext).inflate(R.layout.item_evaluation_head, parent, false);
+                HeadViewHolder headViewHolder = new HeadViewHolder(head);
+                return headViewHolder;
+            case CONTENT:
+                View view = LayoutInflater.from(mContext).inflate(R.layout.item_sreacharticle, parent, false);
+                ContentViewHolder viewHolder = new ContentViewHolder(view);
+                return viewHolder;
+        }
+        return null;
     }
 
     @Override
-    public void onBindViewHolder(ViewHolder viewHolder, int i) {
-        viewHolder.title.setText(mList.get(i).getTitle());
-        GlideApp.loderRoundImage(mContext,mList.get(i).getImg(),viewHolder.item_image);
-        GlideApp.loderCircleImage(mContext,mList.get(i).getUser().getAvatar(),viewHolder.item_head,R.mipmap.rlogo,0);
-        viewHolder.item_name.setText(mList.get(i).getUser().getNickname());
-        viewHolder.item_pv.setText(mList.get(i).getPv() + "阅读");
-        if(mList.get(i).getUser().getAuthentication() == 0){
-            //普通用户
-            viewHolder.item_grade.setVisibility(View.GONE);
-        }else if(mList.get(i).getUser().getAuthentication() == 1){
-            //个人认证
-            viewHolder.item_grade.setVisibility(View.VISIBLE);
-            viewHolder.item_grade.setImageResource(R.mipmap.grade_peroson);
-        }else {
-            //企业认证
-            viewHolder.item_grade.setVisibility(View.VISIBLE);
-            viewHolder.item_grade.setImageResource(R.mipmap.grade_peroson);
+    public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
+        int type = getItemViewType(position);
+        switch (type) {
+            case HEAD:
+                HeadViewHolder headViewHolder = (HeadViewHolder) holder;
+                if (TextUtils.isEmpty(headImg)) {
+                    GlideApp.loderImage(mContext, R.drawable.evaluating_banner, headViewHolder.mHeadImage, 0, 0);
+                } else {
+                    GlideApp.loderImage(mContext, headImg, headViewHolder.mHeadImage, 0, 0);
+                }
+                break;
+            case CONTENT:
+                ContentViewHolder viewHolder = (ContentViewHolder) holder;
+                position = position - 1;
+                viewHolder.title.setText(mList.get(position).getTitle());
+                GlideApp.loderRoundImage(mContext,mList.get(position).getImg(),viewHolder.item_image);
+                GlideApp.loderCircleImage(mContext,mList.get(position).getUser().getAvatar(),viewHolder.item_head,R.mipmap.rlogo,0);
+                viewHolder.item_name.setText(mList.get(position).getUser().getNickname());
+                viewHolder.item_pv.setText(mList.get(position).getPv() + "阅读");
+                if(mList.get(position).getUser().getAuthentication() == 0){
+                    //普通用户
+                    viewHolder.item_grade.setVisibility(View.GONE);
+                }else if(mList.get(position).getUser().getAuthentication() == 1){
+                    //个人认证
+                    viewHolder.item_grade.setVisibility(View.VISIBLE);
+                    viewHolder.item_grade.setImageResource(R.mipmap.grade_peroson);
+                }else {
+                    //企业认证
+                    viewHolder.item_grade.setVisibility(View.VISIBLE);
+                    viewHolder.item_grade.setImageResource(R.mipmap.grade_peroson);
+                }
+                viewHolder.itemView.setOnClickListener(v -> {
+                    Toast.makeText(mContext, "点击了", Toast.LENGTH_SHORT).show();
+                });
+                break;
         }
-        viewHolder.itemView.setOnClickListener(v -> {
-            Toast.makeText(mContext, "点击了", Toast.LENGTH_SHORT).show();
-        });
+
     }
+
+    @Override
+    public int getItemViewType(int position) {
+        if (position == 0) {
+            return HEAD;
+        } else {
+            return CONTENT;
+        }
+    }
+
 
     @Override
     public int getItemCount() {
-        return mList.size() == 0 ? 0 : mList.size();
+        return mList.size() == 0 ? 0 : mList.size() + 1;
     }
 
-    class ViewHolder extends RecyclerView.ViewHolder {
+    class HeadViewHolder extends RecyclerView.ViewHolder {
+
+        private ImageView mHeadImage;
+        public HeadViewHolder(View itemView) {
+            super(itemView);
+            mHeadImage = itemView.findViewById(R.id.head_image);
+        }
+    }
+
+
+    class ContentViewHolder extends RecyclerView.ViewHolder {
 
         private TextView title;
         private ImageView item_image;
@@ -69,7 +119,7 @@ public class CommonFindAdapter extends RecyclerView.Adapter<CommonFindAdapter.Vi
         private ImageView item_grade;
         private TextView item_name;
         private TextView item_pv;
-        public ViewHolder(View itemView) {
+        public ContentViewHolder(View itemView) {
             super(itemView);
             title = itemView.findViewById(R.id.item_title);
             item_image = itemView.findViewById(R.id.item_image);

@@ -319,7 +319,7 @@ public class Repository {
      * 获取评测列表
      */
     public Observable<EvaluationListBean> evaluationList(String categoryId ,String page){
-        return mAPIService.evaluationList(categoryId,page,SPUtils.getInstance(CommonDate.USER).getString(CommonDate.userId,"0"));
+        return mAPIService.evaluationList(categoryId,page);
     }
 
     /**

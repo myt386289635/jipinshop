@@ -717,7 +717,6 @@ public class ShoppingDetailActivity extends BaseActivity implements ShoppingComm
             mBinding.contentAttention.setTextColor(getResources().getColor(R.color.color_E31436));
             String num = mBinding.detailEvaluationFans.getText().toString().replace("粉丝数：" , "");
             mBinding.detailEvaluationFans.setText("粉丝数："+ (Integer.valueOf(num) - 1));
-            EventBus.getDefault().post(new ConcerBus(CommonEvaluationFragment.REFERSH,0,(Integer.valueOf(num) - 1) + "",attentionUserId));//刷新评测首页
         }else {
             //602
             startActivity(new Intent(this, LoginActivity.class));
@@ -736,7 +735,6 @@ public class ShoppingDetailActivity extends BaseActivity implements ShoppingComm
             mBinding.contentAttention.setTextColor(getResources().getColor(R.color.color_white));
             String num = mBinding.detailEvaluationFans.getText().toString().replace("粉丝数：" , "");
             mBinding.detailEvaluationFans.setText("粉丝数："+ (Integer.valueOf(num) + 1));
-            EventBus.getDefault().post(new ConcerBus(CommonEvaluationFragment.REFERSH,1,(Integer.valueOf(num) + 1) + "",attentionUserId));//刷新评测首页
         }else {
             //602
             startActivity(new Intent(this, LoginActivity.class));

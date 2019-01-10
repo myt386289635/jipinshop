@@ -12,8 +12,4 @@ public interface CommonEvaluationView {
 
     void onSuccess(EvaluationListBean evaluationListBean);
     void onFile(String error);
-
-    void concerDelSuccess(SuccessBean successBean,int pos);
-    void concerInsSuccess(SuccessBean successBean,int pos);
-    void concerFaile(String error);
 }

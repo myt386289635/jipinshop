@@ -215,6 +215,19 @@ public interface APIService {
     @GET("qualityshop-api/api/found/list")
     Observable<FindListBean> findLis(@Query("categoryId") String categoryId,@Query("page") String page);
 
+    /**
+     * 获取评测tab  已修改
+     */
+    @GET("qualityshop-api/api/found/categoryList")
+    Observable<EvaluationTabBean> evaTab();
+
+    /**
+     * 获取评测列表  已修改
+     */
+    @GET("qualityshop-api/api/evaluation/list")
+    Observable<EvaluationListBean> evaluationList(@Query("categoryId")String categoryId , @Query("page") String page);
+
+
 /*************************************************以下是还未修改的接口***********************************************/
 
 
@@ -341,18 +354,6 @@ public interface APIService {
      */
     @GET("qualityshop-api/message/selectById")
     Observable<SuccessBean> readMsg(@Query("id") String id);
-
-    /**
-     * 获取评测tab
-     */
-    @GET("qualityshop-api/evalWay/selectCategory")
-    Observable<EvaluationTabBean> evaTab();
-
-    /**
-     * 获取评测列表
-     */
-    @GET("qualityshop-api/evalWay/selectList")
-    Observable<EvaluationListBean> evaluationList(@Query("categoryId")String categoryId , @Query("page") String page, @Query("userId")String userId);
 
     /**
      * 评测详情
