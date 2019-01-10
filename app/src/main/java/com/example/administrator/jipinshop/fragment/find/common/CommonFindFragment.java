@@ -22,6 +22,7 @@ import com.example.administrator.jipinshop.fragment.find.FindFragment;
 import com.example.administrator.jipinshop.util.ToastUtil;
 import com.example.administrator.jipinshop.util.sp.CommonDate;
 import com.google.gson.Gson;
+import com.nostra13.universalimageloader.utils.L;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
@@ -47,6 +48,7 @@ public class CommonFindFragment extends DBBaseFragment implements OnRefreshListe
     private String id = "0";//数据id
     private int page = 1;
     private Boolean refersh = true;
+    private List<EvaluationTabBean.DataBean.AdListBean> mAdListBeans;//轮播图
 
     public static CommonFindFragment getInstance(int position) {
         CommonFindFragment fragment = new CommonFindFragment();
@@ -80,7 +82,9 @@ public class CommonFindFragment extends DBBaseFragment implements OnRefreshListe
 
         mBinding.recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         mList = new ArrayList<>();
-        mAdapter = new CommonFindAdapter(mList, getContext());
+        mAdListBeans = new ArrayList<>();
+        mAdapter = new CommonFindAdapter(mList, getContext(),true);
+        mAdapter.setAdListBeans(mAdListBeans);
         mBinding.recyclerView.setAdapter(mAdapter);
 
         mPresenter.solveScoll(mBinding.recyclerView,mBinding.swipeToLoad,((FindFragment)getParentFragment()).getBar(),once);
@@ -108,6 +112,7 @@ public class CommonFindFragment extends DBBaseFragment implements OnRefreshListe
             if (!TextUtils.isEmpty(SPUtils.getInstance().getString(CommonDate.FindTab, ""))) {
                 EvaluationTabBean bean = new Gson().fromJson(SPUtils.getInstance().getString(CommonDate.FindTab), EvaluationTabBean.class);
                 id = bean.getData().get(getArguments().getInt("type")).getCategoryId();
+                mAdListBeans.addAll(bean.getData().get(getArguments().getInt("type")).getAdList());
             } else {
                 id = "0";
             }

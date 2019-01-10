@@ -12,7 +12,7 @@ public class EvaluationTabBean {
     /**
      * msg : success
      * code : 0
-     * data : [{"categoryId":"2","type":2,"categoryName":"精选","orderNum":0},{"categoryId":"da8076106388493fbf5e38dd8926f41d","type":2,"categoryName":"个护健康","orderNum":1},{"categoryId":"06a89c505c9e42f88ba11e3592f759ed","type":2,"categoryName":"厨房电器","orderNum":2},{"categoryId":"06d488224d5a4850a8c652a24eb5ef30","type":2,"categoryName":"生活电器","orderNum":3}]
+     * data : [{"categoryId":"1","type":1,"categoryName":"精选","orderNum":0,"adList":[{"img":"http://jipincheng.cn/24ddace8f8c34153afff6e29d19cc402","type":0,"objectId":"0"}]},{"categoryId":"7ee077bc59e84a2eb2ba85c4cc068d58","type":1,"categoryName":"视频","orderNum":1,"adList":[]},{"categoryId":"17badcca7e3f4147be206eb7fd828046","type":1,"categoryName":"运动","orderNum":2,"adList":[]},{"categoryId":"e3e088bd3d04408f8fc61e210f7fcc11","type":1,"categoryName":"创意","orderNum":3,"adList":[]},{"categoryId":"93bb3583dee4493e9709e4b119bd6bc7","type":1,"categoryName":"居家","orderNum":4,"adList":[]},{"categoryId":"da5d690dd8ff436f9536a5a6b806522d","type":1,"categoryName":"科技","orderNum":5,"adList":[]},{"categoryId":"970bba901dbb44a99d15d06080449a45","type":1,"categoryName":"旅行","orderNum":6,"adList":[]}]
      */
 
     private String msg;
@@ -45,16 +45,18 @@ public class EvaluationTabBean {
 
     public static class DataBean {
         /**
-         * categoryId : 2
-         * type : 2
+         * categoryId : 1
+         * type : 1
          * categoryName : 精选
          * orderNum : 0
+         * adList : [{"img":"http://jipincheng.cn/24ddace8f8c34153afff6e29d19cc402","type":0,"objectId":"0"}]
          */
 
         private String categoryId;
         private int type;
         private String categoryName;
         private int orderNum;
+        private List<AdListBean> adList;
 
         public String getCategoryId() {
             return categoryId;
@@ -86,6 +88,50 @@ public class EvaluationTabBean {
 
         public void setOrderNum(int orderNum) {
             this.orderNum = orderNum;
+        }
+
+        public List<AdListBean> getAdList() {
+            return adList;
+        }
+
+        public void setAdList(List<AdListBean> adList) {
+            this.adList = adList;
+        }
+
+        public static class AdListBean {
+            /**
+             * img : http://jipincheng.cn/24ddace8f8c34153afff6e29d19cc402
+             * type : 0
+             * objectId : 0
+             */
+
+            private String img;
+            private int type;
+            private String objectId;
+
+            public String getImg() {
+                return img;
+            }
+
+            public void setImg(String img) {
+                this.img = img;
+            }
+
+            public int getType() {
+                return type;
+            }
+
+            public void setType(int type) {
+                this.type = type;
+            }
+
+            public String getObjectId() {
+                return objectId;
+            }
+
+            public void setObjectId(String objectId) {
+                this.objectId = objectId;
+            }
         }
     }
 }

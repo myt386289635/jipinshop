@@ -44,6 +44,7 @@ public class CommonEvaluationFragment extends DBBaseFragment implements OnRefres
     private String id = "0";//数据id
     private int page = 1;
     private Boolean refersh = true;
+    private List<EvaluationTabBean.DataBean.AdListBean> mAdListBeans;//轮播图
 
     public static CommonEvaluationFragment getInstance(int type) {
         CommonEvaluationFragment fragment = new CommonEvaluationFragment();
@@ -84,7 +85,9 @@ public class CommonEvaluationFragment extends DBBaseFragment implements OnRefres
 
         mBinding.recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         mList = new ArrayList<>();
-        mAdapter = new CommonEvaluationAdapter(mList, getContext());
+        mAdListBeans = new ArrayList<>();
+        mAdapter = new CommonEvaluationAdapter(mList, getContext(),true);
+        mAdapter.setAdListBeans(mAdListBeans);
         mBinding.recyclerView.setAdapter(mAdapter);
 
         mPresenter.solveScoll(mBinding.recyclerView, mBinding.swipeToLoad,getContext());
@@ -104,6 +107,7 @@ public class CommonEvaluationFragment extends DBBaseFragment implements OnRefres
             if (!TextUtils.isEmpty(SPUtils.getInstance().getString(CommonDate.EvaluationTab, ""))) {
                 EvaluationTabBean bean = new Gson().fromJson(SPUtils.getInstance().getString(CommonDate.EvaluationTab), EvaluationTabBean.class);
                 id = bean.getData().get(getArguments().getInt("type")).getCategoryId();
+                mAdListBeans.addAll(bean.getData().get(getArguments().getInt("type")).getAdList());
             } else {
                 id = "0";
             }
@@ -142,6 +146,9 @@ public class CommonEvaluationFragment extends DBBaseFragment implements OnRefres
                 page--;
                 ToastUtil.show("已经是最后一页了");
             }
+        }
+        if(once[0]){
+            once[0] = false;
         }
     }
 
