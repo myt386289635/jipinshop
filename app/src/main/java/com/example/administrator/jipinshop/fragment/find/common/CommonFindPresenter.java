@@ -1,7 +1,10 @@
 package com.example.administrator.jipinshop.fragment.find.common;
 
 import android.content.Context;
+import android.support.design.widget.AppBarLayout;
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.view.View;
 
 import com.aspsine.swipetoloadlayout.SwipeToLoadLayout;
 import com.bumptech.glide.Glide;
@@ -29,23 +32,43 @@ public class CommonFindPresenter {
     }
 
 
-    public void solveScoll(RecyclerView mRecyclerView, final SwipeToLoadLayout mSwipeToLoad, Context context){
+    //解决冲突问题
+    public void solveScoll(RecyclerView mRecyclerView, final SwipeToLoadLayout mSwipeToLoad,
+                           AppBarLayout appBarLayout, Boolean[] once) {
+        RecyclerView.LayoutManager layoutManager = mRecyclerView.getLayoutManager();
+        LinearLayoutManager linearManager = (LinearLayoutManager) layoutManager;
         mRecyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
             @Override
             public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
                 super.onScrolled(recyclerView, dx, dy);
-                int topRowVerticalPosition = (recyclerView == null || recyclerView.getChildCount() == 0) ? 0 : recyclerView.getChildAt(0).getTop();
-                mSwipeToLoad.setRefreshEnabled(topRowVerticalPosition >= 0);
+                mSwipeToLoad.setRefreshEnabled(linearManager.findFirstCompletelyVisibleItemPosition() == 0);
                 mSwipeToLoad.setLoadMoreEnabled(isSlideToBottom(mRecyclerView));
             }
 
             @Override
             public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
                 super.onScrollStateChanged(recyclerView, newState);
-                if (newState == RecyclerView.SCROLL_STATE_IDLE) {
-                    Glide.with(context).resumeRequests();//为了在滑动时不卡顿
-                }else {
-                    Glide.with(context).pauseRequests();//为了在滑动时不卡顿
+            }
+        });
+        appBarLayout.addOnOffsetChangedListener((appBarLayout1, verticalOffset) -> {
+            if (once[0] ||mRecyclerView.getVisibility() == View.GONE) {
+                mSwipeToLoad.setRefreshEnabled(true);
+                if(mRecyclerView.getVisibility() == View.GONE){
+                    mSwipeToLoad.setLoadMoreEnabled(false);
+                }
+            } else {
+                if (verticalOffset == 0) {
+                    //展开
+                    mSwipeToLoad.setRefreshEnabled(linearManager.findFirstCompletelyVisibleItemPosition() == 0);
+                    mSwipeToLoad.setLoadMoreEnabled(false);
+                } else if (Math.abs(verticalOffset) >= appBarLayout1.getTotalScrollRange()) {
+                    //折叠
+                    mSwipeToLoad.setLoadMoreEnabled(isSlideToBottom(mRecyclerView));
+                    mSwipeToLoad.setRefreshEnabled(false);
+                } else {
+                    //过程
+                    mSwipeToLoad.setRefreshEnabled(false);
+                    mSwipeToLoad.setLoadMoreEnabled(false);
                 }
             }
         });
@@ -71,7 +94,7 @@ public class CommonFindPresenter {
                 .observeOn(AndroidSchedulers.mainThread())
                 .compose(transformer)
                 .subscribe(findListBean -> {
-                    if(findListBean.getCode() == 200){
+                    if(findListBean.getCode() == 0){
                         if(mView != null){
                             mView.onSuccess(findListBean);
                         }

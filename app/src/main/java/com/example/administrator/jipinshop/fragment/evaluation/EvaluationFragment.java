@@ -37,7 +37,7 @@ public class EvaluationFragment extends DBBaseFragment implements EvaluationView
     private List<Fragment> mFragments;
     private HomeFragmentAdapter mAdapter;
 
-    private List<EvaluationTabBean.ListBean> tabTitle;
+    private List<EvaluationTabBean.DataBean> tabTitle;
     private List<TextView> tabTextView;
 
     @Override
@@ -74,7 +74,7 @@ public class EvaluationFragment extends DBBaseFragment implements EvaluationView
     @Override
     public void onSucTab(EvaluationTabBean bean) {
         tabTitle.clear();
-        tabTitle.addAll(bean.getList());
+        tabTitle.addAll(bean.getData());
         SPUtils.getInstance().put(CommonDate.EvaluationTab,new Gson().toJson(bean));
         mPresenter.initTabLayout(getContext(),mBinding.tabLayout,tabTitle,tabTextView);
         EventBus.getDefault().post(EvaluationFragment.tag);
@@ -92,11 +92,11 @@ public class EvaluationFragment extends DBBaseFragment implements EvaluationView
     public void initDate(){
         if(!TextUtils.isEmpty(SPUtils.getInstance().getString(CommonDate.EvaluationTab,""))){
             EvaluationTabBean bean = new Gson().fromJson(SPUtils.getInstance().getString(CommonDate.EvaluationTab),EvaluationTabBean.class);
-            tabTitle.addAll(bean.getList());
+            tabTitle.addAll(bean.getData());
         }else {
             //没有缓存时
             for (int i = 0; i < 4; i++) {
-                EvaluationTabBean.ListBean listBean = new EvaluationTabBean.ListBean();
+                EvaluationTabBean.DataBean listBean = new EvaluationTabBean.DataBean();
                 if (i== 0){
                     listBean.setCategoryName("精选榜");
                 }else if(i == 1){

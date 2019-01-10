@@ -340,7 +340,7 @@ public class Repository {
      * 获取发现列表
      */
     public Observable<FindListBean> findLis(String categoryId,String page){
-        return mAPIService.findLis(categoryId,page,"0");
+        return mAPIService.findLis(categoryId,page);
     }
 
     /**

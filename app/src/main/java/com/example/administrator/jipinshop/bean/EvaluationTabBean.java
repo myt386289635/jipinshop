@@ -11,13 +11,13 @@ public class EvaluationTabBean {
 
     /**
      * msg : success
-     * code : 200
-     * list : [{"categoryId":"b6f89e5c92704579993b9e4f579aa9aa","categoryName":"精选榜","categoryCode":0,"status":1},{"categoryId":"7ee077bc59e84a2eb2ba85c4cc068d58","categoryName":"个护健康","categoryCode":1,"status":1},{"categoryId":"17badcca7e3f4147be206eb7fd828046","categoryName":"厨卫电器","categoryCode":2,"status":1},{"categoryId":"e3e088bd3d04408f8fc61e210f7fcc11","categoryName":"生活家电","categoryCode":3,"status":1},{"categoryId":"744d4b11ca3f47f98525b729682b8672","categoryName":"家用大电","categoryCode":4,"status":1}]
+     * code : 0
+     * data : [{"categoryId":"2","type":2,"categoryName":"精选","orderNum":0},{"categoryId":"da8076106388493fbf5e38dd8926f41d","type":2,"categoryName":"个护健康","orderNum":1},{"categoryId":"06a89c505c9e42f88ba11e3592f759ed","type":2,"categoryName":"厨房电器","orderNum":2},{"categoryId":"06d488224d5a4850a8c652a24eb5ef30","type":2,"categoryName":"生活电器","orderNum":3}]
      */
 
     private String msg;
     private int code;
-    private List<ListBean> list;
+    private List<DataBean> data;
 
     public String getMsg() {
         return msg;
@@ -35,35 +35,26 @@ public class EvaluationTabBean {
         this.code = code;
     }
 
-    public List<ListBean> getList() {
-        return list;
+    public List<DataBean> getData() {
+        return data;
     }
 
-    public void setList(List<ListBean> list) {
-        this.list = list;
+    public void setData(List<DataBean> data) {
+        this.data = data;
     }
 
-    public static class ListBean {
+    public static class DataBean {
         /**
-         * categoryId : b6f89e5c92704579993b9e4f579aa9aa
-         * categoryName : 精选榜
-         * categoryCode : 0
-         * status : 1
+         * categoryId : 2
+         * type : 2
+         * categoryName : 精选
+         * orderNum : 0
          */
 
         private String categoryId;
+        private int type;
         private String categoryName;
-        private int categoryCode;
-        private int status;
-        private String img;
-
-        public String getImg() {
-            return img;
-        }
-
-        public void setImg(String img) {
-            this.img = img;
-        }
+        private int orderNum;
 
         public String getCategoryId() {
             return categoryId;
@@ -71,6 +62,14 @@ public class EvaluationTabBean {
 
         public void setCategoryId(String categoryId) {
             this.categoryId = categoryId;
+        }
+
+        public int getType() {
+            return type;
+        }
+
+        public void setType(int type) {
+            this.type = type;
         }
 
         public String getCategoryName() {
@@ -81,20 +80,12 @@ public class EvaluationTabBean {
             this.categoryName = categoryName;
         }
 
-        public int getCategoryCode() {
-            return categoryCode;
+        public int getOrderNum() {
+            return orderNum;
         }
 
-        public void setCategoryCode(int categoryCode) {
-            this.categoryCode = categoryCode;
-        }
-
-        public int getStatus() {
-            return status;
-        }
-
-        public void setStatus(int status) {
-            this.status = status;
+        public void setOrderNum(int orderNum) {
+            this.orderNum = orderNum;
         }
     }
 }

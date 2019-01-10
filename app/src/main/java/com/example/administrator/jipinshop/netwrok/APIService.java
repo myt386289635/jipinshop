@@ -203,6 +203,18 @@ public interface APIService {
     @GET("qualityshop-api/api/search")
     Observable<SreachResultArticlesBean> searchArticles(@Query("page") String page, @Query("keyword") String keyword, @Query("type")String type);
 
+    /**
+     * 获取发现tab 已修改
+     */
+    @GET("qualityshop-api/api/evaluation/categoryList")
+    Observable<EvaluationTabBean> findTab();
+
+    /**
+     * 获取发现列表  已修改
+     */
+    @GET("qualityshop-api/api/found/list")
+    Observable<FindListBean> findLis(@Query("categoryId") String categoryId,@Query("page") String page);
+
 /*************************************************以下是还未修改的接口***********************************************/
 
 
@@ -348,17 +360,6 @@ public interface APIService {
     @GET("qualityshop-api/evalWay/selectById")
     Observable<EvaluationDetailBean> evaluationDetail(@Query("evalWayId") String evalWayId);
 
-    /**
-     * 获取发现tab
-     */
-    @GET("qualityshop-api/findGoods/selectCategory")
-    Observable<EvaluationTabBean> findTab();
-
-    /**
-     * 获取发现列表
-     */
-    @GET("qualityshop-api/findGoods/selectList")
-    Observable<FindListBean> findLis(@Query("categoryId") String categoryId,@Query("page") String page,@Query("userId") String userId);
 
     /**
      * 发现详情

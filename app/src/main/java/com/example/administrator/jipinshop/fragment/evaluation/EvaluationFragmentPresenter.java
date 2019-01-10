@@ -37,7 +37,7 @@ public class EvaluationFragmentPresenter {
     }
 
 
-    public void initTabLayout(Context context , final TabLayout tabLayout,List<EvaluationTabBean.ListBean> tabTitle,List<TextView> tabTextView){
+    public void initTabLayout(Context context , final TabLayout tabLayout,List<EvaluationTabBean.DataBean> tabTitle,List<TextView> tabTextView){
         float totle = 0f;
         final List<Integer> totleSingle = new ArrayList<>();
 

@@ -1,19 +1,26 @@
 package com.example.administrator.jipinshop.fragment.find;
 
+import android.content.Intent;
 import android.databinding.DataBindingUtil;
+import android.support.design.widget.AppBarLayout;
 import android.support.v4.app.Fragment;
+import android.support.v4.view.ViewPager;
+import android.support.v7.widget.LinearLayoutManager;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.TextView;
+import android.widget.LinearLayout;
 import android.widget.Toast;
 
 import com.blankj.utilcode.util.SPUtils;
 import com.example.administrator.jipinshop.R;
+import com.example.administrator.jipinshop.activity.sreach.SreachActivity;
 import com.example.administrator.jipinshop.adapter.HomeFragmentAdapter;
+import com.example.administrator.jipinshop.adapter.HomeTabAdapter;
 import com.example.administrator.jipinshop.base.DBBaseFragment;
 import com.example.administrator.jipinshop.bean.EvaluationTabBean;
+import com.example.administrator.jipinshop.bean.TitleBean;
 import com.example.administrator.jipinshop.bean.eventbus.FindTabBus;
 import com.example.administrator.jipinshop.databinding.FragmentFindBinding;
 import com.example.administrator.jipinshop.fragment.find.common.CommonFindFragment;
@@ -27,7 +34,7 @@ import java.util.List;
 
 import javax.inject.Inject;
 
-public class FindFragment extends DBBaseFragment implements FindView {
+public class FindFragment extends DBBaseFragment implements FindView, HomeTabAdapter.OnClickItem, ViewPager.OnPageChangeListener, View.OnClickListener {
 
     public static final String tag = "FindFragment2CommonFindFragment";
 
@@ -40,21 +47,16 @@ public class FindFragment extends DBBaseFragment implements FindView {
 
     private Boolean once = true;
 
-    private List<EvaluationTabBean.ListBean> tabTitle;
-    private List<TextView> tabTextView;
+    private List<TitleBean> mTabBeans;
+    private HomeTabAdapter mTabAdapter;
+    private LinearLayoutManager mLinearLayoutManager;
+    private int set = 0;// 记录上一个位置
 
     @Override
     public void setUserVisibleHint(boolean isVisibleToUser) {
         super.setUserVisibleHint(isVisibleToUser);
         if(isVisibleToUser && once){
-            mFragments.add(CommonFindFragment.getInstance(CommonFindFragment.ONE));
-            mFragments.add(CommonFindFragment.getInstance(CommonFindFragment.TWO));
-            mFragments.add(CommonFindFragment.getInstance(CommonFindFragment.THREE));
-            mFragments.add(CommonFindFragment.getInstance(CommonFindFragment.FORE));
-//            mFragments.add(CommonFindFragment.getInstance(CommonFindFragment.FIVE));
-            mAdapter.notifyDataSetChanged();
-            mBinding.viewPager.setOffscreenPageLimit(3);
-            initDate();//获取缓存tab
+            initTab(null);
             mPresenter.initTab(this.bindToLifecycle());
             once = false;
         }
@@ -63,6 +65,7 @@ public class FindFragment extends DBBaseFragment implements FindView {
     @Override
     public View initLayout(LayoutInflater inflater, ViewGroup container) {
         mBinding = DataBindingUtil.inflate(inflater,R.layout.fragment_find,container,false);
+        mBinding.setListener(this);
         return mBinding.getRoot();
     }
 
@@ -73,22 +76,24 @@ public class FindFragment extends DBBaseFragment implements FindView {
         mPresenter.setView(this);
 
         mFragments = new ArrayList<>();
-        tabTitle = new ArrayList<>();
-        tabTextView= new ArrayList<>();
-
         mAdapter = new HomeFragmentAdapter(getChildFragmentManager());
         mAdapter.setFragments(mFragments);
         mBinding.viewPager.setAdapter(mAdapter);
-        mBinding.tabLayout.setupWithViewPager( mBinding.viewPager);
+
+        mLinearLayoutManager = new LinearLayoutManager(getContext(), LinearLayout.HORIZONTAL,false);
+        mBinding.recyclerView.setLayoutManager(mLinearLayoutManager);
+        mTabBeans = new ArrayList<>();
+        mTabAdapter = new HomeTabAdapter(mTabBeans,getContext());
+        mTabAdapter.setOnClickItem(this);
+        mBinding.recyclerView.setAdapter(mTabAdapter);
+        mBinding.viewPager.addOnPageChangeListener(this);
     }
 
 
     @Override
     public void onSucTab(EvaluationTabBean bean) {
-        tabTitle.clear();
-        tabTitle.addAll(bean.getList());
         SPUtils.getInstance().put(CommonDate.FindTab,new Gson().toJson(bean));
-        mPresenter.initTabLayout(getContext(),mBinding.tabLayout,tabTitle,tabTextView);
+        initTab(bean);
         EventBus.getDefault().post(new FindTabBus(FindFragment.tag));
     }
 
@@ -98,32 +103,100 @@ public class FindFragment extends DBBaseFragment implements FindView {
         Toast.makeText(getContext(), error, Toast.LENGTH_SHORT).show();
     }
 
-    /**
-     * 获取缓存内容
-     */
-    public void initDate(){
-        if(!TextUtils.isEmpty(SPUtils.getInstance().getString(CommonDate.FindTab,""))){
-            EvaluationTabBean bean = new Gson().fromJson(SPUtils.getInstance().getString(CommonDate.FindTab),EvaluationTabBean.class);
-            tabTitle.addAll(bean.getList());
-        }else {
-            //没有缓存时
-            for (int i = 0; i < 4; i++) {
-                EvaluationTabBean.ListBean listBean = new EvaluationTabBean.ListBean();
-                if (i== 0){
-                    listBean.setCategoryName("精选榜");
-                }else if(i == 1){
-                    listBean.setCategoryName("个护健康");
-                }else if(i == 2){
-                    listBean.setCategoryName("厨卫电器");
-                }else {
-                    listBean.setCategoryName("生活电器");
+    public void initTab(EvaluationTabBean tabBean) {
+        mTabBeans.clear();
+        mFragments.clear();
+        if (tabBean != null) {
+            if(tabBean.getData() != null && tabBean.getData().size() != 0){
+                for (int i = 0; i < tabBean.getData().size(); i++) {
+                    if(i == 0){
+                        mTabBeans.add(new TitleBean(tabBean.getData().get(i).getCategoryName(),true));
+                    }else {
+                        mTabBeans.add(new TitleBean(tabBean.getData().get(i).getCategoryName(),false));
+                    }
+                    mFragments.add(CommonFindFragment.getInstance(i));
                 }
-//                else{
-//                    listBean.setCategoryName("家用大电");
-//                }
-                tabTitle.add(listBean);
+            }
+        } else {
+            if (!TextUtils.isEmpty(SPUtils.getInstance().getString(CommonDate.FindTab,""))){
+                tabBean = new Gson().fromJson(SPUtils.getInstance().getString(CommonDate.FindTab),EvaluationTabBean.class);
+                for (int i = 0; i < tabBean.getData().size(); i++) {
+                    if(i == 0){
+                        mTabBeans.add(new TitleBean(tabBean.getData().get(i).getCategoryName(),true));
+                    }else {
+                        mTabBeans.add(new TitleBean(tabBean.getData().get(i).getCategoryName(),false));
+                    }
+                    mFragments.add(CommonFindFragment.getInstance(i));
+                }
+            }else {
+                mTabBeans.add(new TitleBean("精选",true));
+                mTabBeans.add(new TitleBean("个护健康",false));
+                mTabBeans.add(new TitleBean("厨房电器",false));
+                mTabBeans.add(new TitleBean("生活电器",false));
+                for (int i = 0; i < mTabBeans.size(); i++) {
+                    mFragments.add(CommonFindFragment.getInstance(i));
+                }
             }
         }
-        mPresenter.initTabLayout(getContext(),mBinding.tabLayout,tabTitle,tabTextView);
+        mTabAdapter.notifyDataSetChanged();
+        mAdapter.notifyDataSetChanged();
+        mBinding.viewPager.setOffscreenPageLimit(mFragments.size() - 1);
+    }
+
+    @Override
+    public void onClickItem(int pos) {
+        final int firstPosition = mLinearLayoutManager.findFirstVisibleItemPosition();
+        int des = 0;
+        if((pos - 1) - firstPosition > 0){
+            ////从左边到点击到右边
+            des = mBinding.recyclerView.getChildAt((pos - 1) - firstPosition).getLeft();
+            mBinding.recyclerView.smoothScrollBy(des,0);
+        }else if(pos - 1 >= 0 && (pos - 1) - firstPosition <= 0){
+            //从右边点击到左边
+            mBinding.recyclerView.smoothScrollToPosition(pos - 1);
+        }
+        mBinding.viewPager.setCurrentItem(pos,false);
+        mTabBeans.get(set).setTag(false);
+        mTabBeans.get(pos).setTag(true);
+        mTabAdapter.notifyDataSetChanged();
+        set = pos;
+    }
+
+    @Override
+    public void onPageScrolled(int i, float v, int i1) {}
+
+    @Override
+    public void onPageSelected(int i) {
+        final int firstPosition = mLinearLayoutManager.findFirstVisibleItemPosition();
+        int des = 0;
+        if((i - 1) - firstPosition > 0){
+            ////从左边到点击到右边
+            des = mBinding.recyclerView.getChildAt((i - 1) - firstPosition).getLeft();
+            mBinding.recyclerView.smoothScrollBy(des,0);
+        }else if(i - 1 >= 0 && (i - 1) - firstPosition <= 0){
+            //从右边点击到左边
+            mBinding.recyclerView.smoothScrollToPosition(i - 1);
+        }
+        mTabBeans.get(set).setTag(false);
+        mTabBeans.get(i).setTag(true);
+        mTabAdapter.notifyDataSetChanged();
+
+        set = i;
+    }
+
+    @Override
+    public void onPageScrollStateChanged(int i) {}
+
+    public AppBarLayout getBar(){
+        return mBinding.appbar;
+    }
+
+    @Override
+    public void onClick(View view) {
+        switch (view.getId()) {
+            case R.id.home_sreach:
+                startActivity(new Intent(getContext(), SreachActivity.class));
+                return;
+        }
     }
 }

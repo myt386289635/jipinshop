@@ -1,64 +1,59 @@
 package com.example.administrator.jipinshop.adapter;
 
 import android.content.Context;
-import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
-import com.blankj.utilcode.util.SPUtils;
 import com.example.administrator.jipinshop.R;
-import com.example.administrator.jipinshop.activity.home.find.FindDetailActivity;
-import com.example.administrator.jipinshop.activity.login.LoginActivity;
 import com.example.administrator.jipinshop.bean.FindListBean;
-import com.example.administrator.jipinshop.util.ClickUtil;
-import com.example.administrator.jipinshop.util.sp.CommonDate;
 import com.example.administrator.jipinshop.view.glide.GlideApp;
 
 import java.util.List;
 
 public class CommonFindAdapter extends RecyclerView.Adapter<CommonFindAdapter.ViewHolder> {
 
-    private List<FindListBean.ListBean> mList;
+    private List<FindListBean.DataBean> mList;
     private Context mContext;
 
-    public CommonFindAdapter(List<FindListBean.ListBean> list, Context context) {
+    public CommonFindAdapter(List<FindListBean.DataBean> list, Context context) {
         mList = list;
         mContext = context;
     }
 
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(mContext).inflate(R.layout.item_find, parent, false);
+        View view = LayoutInflater.from(mContext).inflate(R.layout.item_sreacharticle, parent, false);
         ViewHolder viewHolder = new ViewHolder(view);
         return viewHolder;
     }
 
     @Override
-    public void onBindViewHolder(ViewHolder holder, int position) {
-        GlideApp.loderRoundImage(mContext,mList.get(position).getImgId(),holder.mItemImage);
-        holder.itemView.setOnClickListener(view -> {
-            if(!SPUtils.getInstance(CommonDate.USER).getBoolean(CommonDate.userLogin,false)){
-                mContext.startActivity(new Intent(mContext, LoginActivity.class));
-                return;
-            }
-            if (ClickUtil.isFastDoubleClick(800)) {
-                return;
-            }else{
-                //点击跳转到发现详情
-                mContext.startActivity(new Intent(mContext, FindDetailActivity.class)
-                        .putExtra("id",mList.get(position).getFindgoodsId())
-                        .putExtra("image",mList.get(position).getImgId())
-                );
-            }
+    public void onBindViewHolder(ViewHolder viewHolder, int i) {
+        viewHolder.title.setText(mList.get(i).getTitle());
+        GlideApp.loderRoundImage(mContext,mList.get(i).getImg(),viewHolder.item_image);
+        GlideApp.loderCircleImage(mContext,mList.get(i).getUser().getAvatar(),viewHolder.item_head,R.mipmap.rlogo,0);
+        viewHolder.item_name.setText(mList.get(i).getUser().getNickname());
+        viewHolder.item_pv.setText(mList.get(i).getPv() + "阅读");
+        if(mList.get(i).getUser().getAuthentication() == 0){
+            //普通用户
+            viewHolder.item_grade.setVisibility(View.GONE);
+        }else if(mList.get(i).getUser().getAuthentication() == 1){
+            //个人认证
+            viewHolder.item_grade.setVisibility(View.VISIBLE);
+            viewHolder.item_grade.setImageResource(R.mipmap.grade_peroson);
+        }else {
+            //企业认证
+            viewHolder.item_grade.setVisibility(View.VISIBLE);
+            viewHolder.item_grade.setImageResource(R.mipmap.grade_peroson);
+        }
+        viewHolder.itemView.setOnClickListener(v -> {
+            Toast.makeText(mContext, "点击了", Toast.LENGTH_SHORT).show();
         });
-        holder.mItemName.setText(mList.get(position).getTitle());
-        holder.mItemDescription.setText(mList.get(position).getSmallTitle());
-        holder.mItemTime.setText(mList.get(position).getPublishTime());
-        holder.mItemLookNum.setText(mList.get(position).getVisitCount());
     }
 
     @Override
@@ -68,18 +63,20 @@ public class CommonFindAdapter extends RecyclerView.Adapter<CommonFindAdapter.Vi
 
     class ViewHolder extends RecyclerView.ViewHolder {
 
-        private ImageView mItemImage;
-        private TextView mItemName;
-        private TextView mItemDescription;
-        private TextView mItemTime;
-        private TextView mItemLookNum;
+        private TextView title;
+        private ImageView item_image;
+        private ImageView item_head;
+        private ImageView item_grade;
+        private TextView item_name;
+        private TextView item_pv;
         public ViewHolder(View itemView) {
             super(itemView);
-            mItemImage = itemView.findViewById(R.id.item_image);
-            mItemName = itemView.findViewById(R.id.item_name);
-            mItemDescription = itemView.findViewById(R.id.item_description);
-            mItemTime = itemView.findViewById(R.id.item_time);
-            mItemLookNum = itemView.findViewById(R.id.item_lookNum);
+            title = itemView.findViewById(R.id.item_title);
+            item_image = itemView.findViewById(R.id.item_image);
+            item_head = itemView.findViewById(R.id.item_head);
+            item_grade = itemView.findViewById(R.id.item_grade);
+            item_name = itemView.findViewById(R.id.item_name);
+            item_pv = itemView.findViewById(R.id.item_pv);
         }
     }
 }
