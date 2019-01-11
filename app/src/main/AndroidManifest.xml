@@ -250,9 +250,10 @@
         <activity android:name=".activity.sign.SignActivity"
                   android:screenOrientation="portrait"/>
 
-        <!--发现详情-->
-        <activity android:name=".activity.home.find.FindDetailActivity"
-                  android:screenOrientation="portrait"/>
+        <!--发现、评测详情-->
+        <activity android:name=".activity.home.article.ArticleDetailActivity"
+                  android:screenOrientation="portrait"
+                  android:windowSoftInputMode="adjustResize|stateHidden"/>
 
         <!--引导页-->
         <activity android:name=".activity.wellcome.IndexActivity"
@@ -275,10 +276,6 @@
 
         <!--系统消息详情页-->
         <activity android:name=".activity.message.system.detail.SystemMsgDetailActivity"
-                  android:screenOrientation="portrait"/>
-
-        <!--评测详情页-->
-        <activity android:name=".activity.home.evaluation.EvaluationDetailActivity"
                   android:screenOrientation="portrait"/>
 
     </application>

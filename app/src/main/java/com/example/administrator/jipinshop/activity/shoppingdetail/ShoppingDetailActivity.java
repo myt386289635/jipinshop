@@ -927,6 +927,9 @@ public class ShoppingDetailActivity extends BaseActivity implements ShoppingComm
                 mBinding.keyEdit.requestFocus();
                 showKeyboard(true);
                 break;
+            case R.id.detail_evaluationImage:
+                // TODO: 2019/1/11 个人主页
+                break;
         }
     }
 

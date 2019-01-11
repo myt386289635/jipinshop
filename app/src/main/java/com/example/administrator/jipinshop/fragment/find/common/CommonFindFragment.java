@@ -22,7 +22,6 @@ import com.example.administrator.jipinshop.fragment.find.FindFragment;
 import com.example.administrator.jipinshop.util.ToastUtil;
 import com.example.administrator.jipinshop.util.sp.CommonDate;
 import com.google.gson.Gson;
-import com.nostra13.universalimageloader.utils.L;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;

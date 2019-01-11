@@ -27,6 +27,8 @@
 
 
     <LinearLayout
+        android:layout_marginRight="@dimen/x40"
+        android:layout_marginLeft="@dimen/x40"
         android:layout_marginBottom="@dimen/x90"
         android:layout_marginTop="@dimen/x88"
         android:orientation="horizontal"
@@ -107,6 +109,7 @@
         </LinearLayout>
 
         <LinearLayout
+            android:visibility="gone"
             android:id="@+id/share_qq_friend"
             android:gravity="center"
             android:layout_weight="1"
@@ -131,6 +134,7 @@
         </LinearLayout>
 
         <LinearLayout
+            android:visibility="gone"
             android:id="@+id/share_qq_space"
             android:gravity="center"
             android:layout_weight="1"

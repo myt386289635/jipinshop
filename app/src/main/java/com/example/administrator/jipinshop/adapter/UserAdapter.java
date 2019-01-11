@@ -12,8 +12,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.example.administrator.jipinshop.R;
-import com.example.administrator.jipinshop.activity.home.evaluation.EvaluationDetailActivity;
-import com.example.administrator.jipinshop.activity.home.find.FindDetailActivity;
+import com.example.administrator.jipinshop.activity.home.article.ArticleDetailActivity;
 import com.example.administrator.jipinshop.bean.UserPageBean;
 import com.example.administrator.jipinshop.view.glide.GlideApp;
 
@@ -152,8 +151,9 @@ public class UserAdapter extends RecyclerView.Adapter {
                 contentViewHolder.content_commentNum.setText(mList.get(position - 1).getCommentNum());
                 contentViewHolder.content_title.setText(mList.get(position - 1).getTitle());
                 contentViewHolder.itemView.setOnClickListener(v -> {
-                    mContext.startActivity(new Intent(mContext, EvaluationDetailActivity.class)
+                    mContext.startActivity(new Intent(mContext,ArticleDetailActivity.class)
                             .putExtra("id",mList.get(position - 1).getArticleId())
+                            .putExtra("type","2")
                     );
                 });
                 break;
@@ -170,9 +170,9 @@ public class UserAdapter extends RecyclerView.Adapter {
                     findViewHolder.mItemTime.setText(mList.get(position - 1).getShowTime());
                 }
                 findViewHolder.itemView.setOnClickListener(v -> {
-                    mContext.startActivity(new Intent(mContext, FindDetailActivity.class)
+                    mContext.startActivity(new Intent(mContext,ArticleDetailActivity.class)
                             .putExtra("id",mList.get(position - 1).getArticleId())
-                            .putExtra("image",mList.get(position - 1).getImg())
+                            .putExtra("type","3")
                     );
                 });
                 break;

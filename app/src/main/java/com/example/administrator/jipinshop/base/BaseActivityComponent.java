@@ -8,8 +8,7 @@ import com.example.administrator.jipinshop.activity.commenlist.CommenListActivit
 import com.example.administrator.jipinshop.activity.follow.FollowActivity;
 import com.example.administrator.jipinshop.activity.follow.user.UserActivity;
 import com.example.administrator.jipinshop.activity.home.MainActivity;
-import com.example.administrator.jipinshop.activity.home.evaluation.EvaluationDetailActivity;
-import com.example.administrator.jipinshop.activity.home.find.FindDetailActivity;
+import com.example.administrator.jipinshop.activity.home.article.ArticleDetailActivity;
 import com.example.administrator.jipinshop.activity.info.MyInfoActivity;
 import com.example.administrator.jipinshop.activity.info.bind.BindNumberActivity;
 import com.example.administrator.jipinshop.activity.info.editname.EditNameActivity;
@@ -54,12 +53,11 @@ public interface BaseActivityComponent {
     void inject(ScoreActivity activity);
     void inject(BoundAlipayActivity activity);
     void inject(SreachResultActivity activity);
-    void inject(FindDetailActivity activity);
+    void inject(ArticleDetailActivity activity);
     void inject(SettingActivity settingActivity);
     void inject(MyInfoActivity activity);
     void inject(EditNameActivity activity);
     void inject(SignActivity activity);
     void inject(SystemMsgDetailActivity activity);
-    void inject(EvaluationDetailActivity activity);
     void inject(MemberLevelActivity activity);
 }

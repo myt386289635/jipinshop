@@ -1,4 +1,4 @@
-package com.example.administrator.jipinshop.activity.home.find;
+package com.example.administrator.jipinshop.activity.home.article;
 
 import android.view.View;
 
@@ -13,15 +13,9 @@ import com.example.administrator.jipinshop.bean.VoteBean;
  * @create 2018/11/17
  * @Describe
  */
-public interface FindDetailView {
+public interface ArticleDetailView {
     void onSuccess(FindDetailBean bean);
     void onFile(String error);
-
-    void onSucIsCollect(SnapSelectBean successBean);
-    void onFileIsCollect(String error);
-
-    void onSucIsSnap(SnapSelectBean snapSelectBean);
-    void onFileIsSnap(String error);
 
     void onSucComment(CommentBean commentBean);
     void onFileComment(String error);
@@ -30,7 +24,19 @@ public interface FindDetailView {
     void onSucCollectDelete(SuccessBean successBean);
     void onFileCollectDelete(String error);
 
-    void onSucSnapInsert(View view , VoteBean successBean);
+    void onSucSnapInsert(VoteBean successBean);
 
     void onSucSnapDelete(VoteBean successBean);
+
+    void onSucCommentInsert(SuccessBean successBean);
+    void onFileCommentInsert(String error);
+
+    void keyShow();
+    void keyHint();
+
+    void concerDelSuccess(SuccessBean successBean);
+    void concerInsSuccess(SuccessBean successBean);
+
+    void onSucCommentSnapIns(int position,VoteBean successBean);
+    void onSucCommentSnapDel(int position,VoteBean successBean);
 }

@@ -632,6 +632,7 @@
 
 
                     <ImageView
+                        android:onClick="@{listener.onClick}"
                         android:id="@+id/detail_evaluationImage"
                         android:layout_width="@dimen/x76"
                         android:layout_height="@dimen/x76"
@@ -734,7 +735,7 @@
                     android:layout_below="@+id/detail_evaluationLine"
                     android:layout_marginLeft="@dimen/x28"
                     android:layout_marginTop="@dimen/x56"
-                    android:text="用户评价 "
+                    android:text="用户评论 "
                     android:textColor="@color/color_DE050505"
                     android:textSize="18sp"
                     android:textStyle="bold"/>

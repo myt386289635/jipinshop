@@ -1,6 +1,7 @@
 package com.example.administrator.jipinshop.adapter;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Handler;
 import android.os.Looper;
 import android.support.v4.view.ViewPager;
@@ -14,6 +15,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.example.administrator.jipinshop.R;
+import com.example.administrator.jipinshop.activity.home.article.ArticleDetailActivity;
 import com.example.administrator.jipinshop.bean.EvaluationListBean;
 import com.example.administrator.jipinshop.bean.EvaluationTabBean;
 import com.example.administrator.jipinshop.util.WeakRefHandler;
@@ -116,8 +118,15 @@ public class CommonEvaluationAdapter extends RecyclerView.Adapter {
                     viewHolder.item_grade.setVisibility(View.VISIBLE);
                     viewHolder.item_grade.setImageResource(R.mipmap.grade_peroson);
                 }
+                int finalPosition = position;
                 viewHolder.itemView.setOnClickListener(v -> {
-
+                    mContext.startActivity(new Intent(mContext,ArticleDetailActivity.class)
+                            .putExtra("id",mList.get(finalPosition).getArticleId())
+                            .putExtra("type","2")
+                    );
+                });
+                viewHolder.item_head.setOnClickListener(v -> {
+                    // TODO: 2019/1/11  个人主页
                 });
                 break;
         }

@@ -88,7 +88,7 @@ public class SreachFindPresenter {
     }
 
     public void searchGoods(String page, String goodsName, LifecycleTransformer<SreachResultArticlesBean> transformer) {
-        mRepository.searchArticles(page, "2", goodsName)
+        mRepository.searchArticles(page, "3", goodsName)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .compose(transformer)

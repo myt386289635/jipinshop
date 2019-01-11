@@ -227,6 +227,11 @@ public interface APIService {
     @GET("qualityshop-api/api/evaluation/list")
     Observable<EvaluationListBean> evaluationList(@Query("categoryId")String categoryId , @Query("page") String page);
 
+    /**
+     * 文章详情   已修改
+     */
+    @GET("qualityshop-api/api/article/detail")
+    Observable<FindDetailBean> findDetail(@Query("articleId") String articleId,@Query("type") String type ,@Query("client") String client);
 
 /*************************************************以下是还未修改的接口***********************************************/
 
@@ -361,12 +366,6 @@ public interface APIService {
     @GET("qualityshop-api/evalWay/selectById")
     Observable<EvaluationDetailBean> evaluationDetail(@Query("evalWayId") String evalWayId);
 
-
-    /**
-     * 发现详情
-     */
-    @GET("qualityshop-api/findGoods/selectById")
-    Observable<FindDetailBean> findDetail(@Query("findgoodsId") String findgoodsId);
 
     /**
      * 个人主页

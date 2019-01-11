@@ -344,10 +344,10 @@ public class Repository {
     }
 
     /**
-     * 发现详情
+     * 文章详情
      */
-    public Observable<FindDetailBean> findDetail(String findgoodsId){
-        return mAPIService.findDetail(findgoodsId);
+    public Observable<FindDetailBean> findDetail(String findgoodsId,String type){
+        return mAPIService.findDetail(findgoodsId,type,"1");//客户端(1安卓，2苹果端，3小程序)
     }
 
     /**

@@ -54,7 +54,7 @@ public class SreachResultActivity extends BaseActivity implements View.OnClickLi
         mFragments = new ArrayList<>();
         mFragments.add(SreachGoodsFragment.getInstance(content));
         mFragments.add(SreachFindFragment.getInstance(content));
-        mFragments.add(SreachArticleFragment.getInstance(content,"3"));//评测
+        mFragments.add(SreachArticleFragment.getInstance(content,"2"));//评测
         mFragments.add(SreachArticleFragment.getInstance(content,"4"));//试用报告
         mAdapter = new HomeAdapter(getSupportFragmentManager());
         mAdapter.setFragments(mFragments);

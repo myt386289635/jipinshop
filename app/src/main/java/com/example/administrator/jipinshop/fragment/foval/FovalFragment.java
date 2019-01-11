@@ -14,8 +14,7 @@ import android.widget.Toast;
 import com.aspsine.swipetoloadlayout.OnLoadMoreListener;
 import com.aspsine.swipetoloadlayout.OnRefreshListener;
 import com.example.administrator.jipinshop.R;
-import com.example.administrator.jipinshop.activity.home.evaluation.EvaluationDetailActivity;
-import com.example.administrator.jipinshop.activity.home.find.FindDetailActivity;
+import com.example.administrator.jipinshop.activity.home.article.ArticleDetailActivity;
 import com.example.administrator.jipinshop.activity.shoppingdetail.ShoppingDetailActivity;
 import com.example.administrator.jipinshop.adapter.FovalAdapter;
 import com.example.administrator.jipinshop.base.DBBaseFragment;
@@ -225,14 +224,15 @@ public class FovalFragment extends DBBaseFragment implements OnRefreshListener, 
             );
         }else if(mList.get(pos).getState().equals("2")){
             //评测
-            startActivity(new Intent(getContext(), EvaluationDetailActivity.class)
+            startActivity(new Intent(getContext(),ArticleDetailActivity.class)
                     .putExtra("id",mList.get(pos).getGoodsEvalway().getEvalWayId())
+                    .putExtra("type","2")
             );
         }else {
             //发现
-            startActivity(new Intent(getContext(), FindDetailActivity.class)
+            startActivity(new Intent(getContext(),ArticleDetailActivity.class)
                     .putExtra("id",mList.get(pos).getGoodsFindGoods().getFindgoodsId())
-                    .putExtra("image",mList.get(pos).getGoodsFindGoods().getImgId())
+                    .putExtra("type","3")
             );
         }
     }
