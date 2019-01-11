@@ -52,6 +52,7 @@ import com.example.administrator.jipinshop.util.ToastUtil;
 import com.example.administrator.jipinshop.util.WeakRefHandler;
 import com.example.administrator.jipinshop.util.sp.CommonDate;
 import com.example.administrator.jipinshop.view.dialog.ProgressDialogView;
+import com.example.administrator.jipinshop.view.dialog.RelatedGoodsDialog;
 import com.example.administrator.jipinshop.view.dialog.ShareBoardDialog;
 import com.example.administrator.jipinshop.view.glide.GlideApp;
 import com.umeng.socialize.UMShareAPI;
@@ -73,7 +74,7 @@ import javax.inject.Inject;
  * @Describe 文章详情  2评测, 3发现
  */
 @SuppressWarnings("all")
-public class ArticleDetailActivity extends BaseActivity implements View.OnClickListener, ShareBoardDialog.onShareListener, ArticleDetailView, ShoppingCommonAdapter.OnItemReply, ShoppingCommonAdapter.OnGoodItem {
+public class ArticleDetailActivity extends BaseActivity implements View.OnClickListener, ShareBoardDialog.onShareListener, ArticleDetailView, ShoppingCommonAdapter.OnItemReply, ShoppingCommonAdapter.OnGoodItem, RelatedGoodsDialog.OnItem {
 
     @Inject
     ArticleDetailPresenter mPresenter;
@@ -81,6 +82,7 @@ public class ArticleDetailActivity extends BaseActivity implements View.OnClickL
 
     private Dialog mDialog;//加载框
     private ShareBoardDialog mShareBoardDialog;
+    private RelatedGoodsDialog mRelatedGoodsDialog;
     /**
      * 标志：是否点赞过此商品  false:没有
      */
@@ -121,6 +123,8 @@ public class ArticleDetailActivity extends BaseActivity implements View.OnClickL
     private String shareImage = "";
     private String shareTitle = "";
     private String shareSubTitle = "";
+
+    private ArrayList<FindDetailBean.DataBean.RelatedGoodsListBean> mBeans;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -186,6 +190,7 @@ public class ArticleDetailActivity extends BaseActivity implements View.OnClickL
         }else {
             mBinding.titleTv.setText("发现详情");
         }
+        mBeans = new ArrayList<>();
 
         mPresenter.getDetail(getIntent().getStringExtra("id"), getIntent().getStringExtra("type"), this.bindToLifecycle());
         mPresenter.comment(getIntent().getStringExtra("id"), getIntent().getStringExtra("type"), this.bindToLifecycle());
@@ -233,6 +238,13 @@ public class ArticleDetailActivity extends BaseActivity implements View.OnClickL
                 break;
             case R.id.detail_buy:
                 //购买
+                if (mRelatedGoodsDialog == null) {
+                    mRelatedGoodsDialog = RelatedGoodsDialog.getInstance(mBeans);
+                    mRelatedGoodsDialog.setOnItem(this);
+                }
+                if (!mRelatedGoodsDialog.isAdded()) {
+                    mRelatedGoodsDialog.show(getSupportFragmentManager(), "RelatedGoodsDialog");
+                }
                 break;
             case R.id.detail_send:
             case R.id.detail_commentTv:
@@ -337,6 +349,7 @@ public class ArticleDetailActivity extends BaseActivity implements View.OnClickL
         if (mDialog != null && mDialog.isShowing()) {
             mDialog.dismiss();
         }
+        mBeans.addAll(bean.getData().getRelatedGoodsList());
         attentionUserId = bean.getData().getUserId();
         mBinding.detailTitle.setText(bean.getData().getTitle());
         mBinding.detailWeb.loadDataWithBaseURL(null, bean.getData().getContent(),
@@ -698,6 +711,17 @@ public class ArticleDetailActivity extends BaseActivity implements View.OnClickL
                 mPresenter.snapInsert(position, "5", mCommonList.get(position).getCommentId(), this.bindToLifecycle());
             }
         }
+    }
+
+    /**
+     * 跳转到淘宝
+     * @param position
+     */
+    @Override
+    public void onItemClick(int position) {
+        mDialog = (new ProgressDialogView()).createLoadingDialog(this, "正在加载...");
+        mDialog.show();
+        openAliHomeWeb(mBeans.get(position).getGoodsBuyLink());
     }
 
 

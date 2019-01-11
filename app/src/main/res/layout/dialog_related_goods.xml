@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    android:id="@+id/container"
+    android:orientation="vertical"
+    android:background="@color/color_white"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:id="@+id/title"
+            android:layout_marginTop="@dimen/y24"
+            android:layout_marginLeft="@dimen/x28"
+            android:textColor="@color/color_DE050505"
+            android:textSize="18sp"
+            android:text="相关商品"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+
+        <ImageView
+            android:id="@+id/close"
+            android:layout_marginRight="@dimen/x28"
+            android:layout_alignParentRight="true"
+            android:layout_marginBottom="@dimen/y6"
+            android:layout_alignBottom="@id/title"
+            android:src="@mipmap/search_close"
+            android:layout_width="@dimen/x40"
+            android:layout_height="@dimen/y40"/>
+    </RelativeLayout>
+
+    <com.example.administrator.jipinshop.view.MaxHeightRecyclerView
+        android:layout_marginTop="@dimen/y24"
+        app:maxHeight="@dimen/y580"
+        android:id="@+id/recycler_view"
+        android:minHeight="@dimen/y290"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
+
+
+</LinearLayout>

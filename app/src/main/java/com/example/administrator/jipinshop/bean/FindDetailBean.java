@@ -1,5 +1,8 @@
 package com.example.administrator.jipinshop.bean;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
 import java.util.List;
 
 /**
@@ -485,7 +488,7 @@ public class FindDetailBean {
             }
         }
 
-        public static class RelatedGoodsListBean {
+        public static class RelatedGoodsListBean implements Parcelable {
             /**
              * goodsId : 524315921495
              * goodsName : 戴森空气净化冷暖风扇HP03
@@ -499,10 +502,32 @@ public class FindDetailBean {
             private String goodsId;
             private String goodsName;
             private String img;
-            private int actualPrice;
-            private int otherPrice;
+            private String actualPrice;
+            private String otherPrice;
             private int source;
             private String goodsBuyLink;
+
+            protected RelatedGoodsListBean(Parcel in) {
+                goodsId = in.readString();
+                goodsName = in.readString();
+                img = in.readString();
+                actualPrice = in.readString();
+                otherPrice = in.readString();
+                source = in.readInt();
+                goodsBuyLink = in.readString();
+            }
+
+            public static final Creator<RelatedGoodsListBean> CREATOR = new Creator<RelatedGoodsListBean>() {
+                @Override
+                public RelatedGoodsListBean createFromParcel(Parcel in) {
+                    return new RelatedGoodsListBean(in);
+                }
+
+                @Override
+                public RelatedGoodsListBean[] newArray(int size) {
+                    return new RelatedGoodsListBean[size];
+                }
+            };
 
             public String getGoodsId() {
                 return goodsId;
@@ -528,19 +553,19 @@ public class FindDetailBean {
                 this.img = img;
             }
 
-            public int getActualPrice() {
+            public String getActualPrice() {
                 return actualPrice;
             }
 
-            public void setActualPrice(int actualPrice) {
+            public void setActualPrice(String actualPrice) {
                 this.actualPrice = actualPrice;
             }
 
-            public int getOtherPrice() {
+            public String getOtherPrice() {
                 return otherPrice;
             }
 
-            public void setOtherPrice(int otherPrice) {
+            public void setOtherPrice(String otherPrice) {
                 this.otherPrice = otherPrice;
             }
 
@@ -558,6 +583,22 @@ public class FindDetailBean {
 
             public void setGoodsBuyLink(String goodsBuyLink) {
                 this.goodsBuyLink = goodsBuyLink;
+            }
+
+            @Override
+            public int describeContents() {
+                return 0;
+            }
+
+            @Override
+            public void writeToParcel(Parcel dest, int flags) {
+                dest.writeString(goodsId);
+                dest.writeString(goodsName);
+                dest.writeString(img);
+                dest.writeString(actualPrice);
+                dest.writeString(otherPrice);
+                dest.writeInt(source);
+                dest.writeString(goodsBuyLink);
             }
         }
     }

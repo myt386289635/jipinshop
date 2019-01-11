@@ -206,7 +206,7 @@ public interface APIService {
     /**
      * 获取发现tab 已修改
      */
-    @GET("qualityshop-api/api/evaluation/categoryList")
+    @GET("qualityshop-api/api/found/categoryList")
     Observable<EvaluationTabBean> findTab();
 
     /**
@@ -218,7 +218,7 @@ public interface APIService {
     /**
      * 获取评测tab  已修改
      */
-    @GET("qualityshop-api/api/found/categoryList")
+    @GET("qualityshop-api/api/evaluation/categoryList")
     Observable<EvaluationTabBean> evaTab();
 
     /**
