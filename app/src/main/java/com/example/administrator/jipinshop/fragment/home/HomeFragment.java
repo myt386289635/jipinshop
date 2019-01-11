@@ -12,7 +12,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
-import android.widget.Toast;
 
 import com.blankj.utilcode.util.SPUtils;
 import com.example.administrator.jipinshop.R;
@@ -198,9 +197,9 @@ public class HomeFragment extends DBBaseFragment implements Badge.OnDragStateCha
      */
     @Override
     public void unMessageSuc(UnMessageBean unMessageBean) {
-        if(unMessageBean.getCount() != 0) {
-            if (unMessageBean.getCount() <= 99) {
-                mQBadgeView.setBadgeText("" + unMessageBean.getCount());
+        if(unMessageBean.getData() != 0) {
+            if (unMessageBean.getData() <= 99) {
+                mQBadgeView.setBadgeText("" + unMessageBean.getData());
             } else {
                 mQBadgeView.setBadgeText("99+");
             }

@@ -233,6 +233,12 @@ public interface APIService {
     @GET("qualityshop-api/api/article/detail")
     Observable<FindDetailBean> findDetail(@Query("articleId") String articleId,@Query("type") String type ,@Query("client") String client);
 
+    /**
+     * 获取未读消息  已修改
+     */
+    @GET("qualityshop-api/api/message/count")
+    Observable<UnMessageBean> unMessage();
+
 /*************************************************以下是还未修改的接口***********************************************/
 
 
@@ -327,27 +333,6 @@ public interface APIService {
     @GET("qualityshop-api/api/prizeList")
     Observable<LuckImageBean> luckselects(@Query("userId") String userId);
 
-
-    /**
-     * 判断用户是否收藏此文章或者商品
-     */
-    @GET("qualityshop-api/api/collect")
-    Observable<SnapSelectBean> isCollect(@QueryMap Map<String,String> param);
-
-
-    /**
-     * 判断用户是否点赞此文章或者商品
-     */
-    @GET("qualityshop-api/api/snapSelect")
-    Observable<SnapSelectBean> snapSelect(@QueryMap Map<String,String> param);
-
-
-    /**
-     * 获取未读消息
-     */
-    @GET("qualityshop-api/message/selectCount")
-    Observable<UnMessageBean> unMessage(@Query("userId") String userId);
-
     /**
      * 获取消息列表详情内容
      */
@@ -359,13 +344,6 @@ public interface APIService {
      */
     @GET("qualityshop-api/message/selectById")
     Observable<SuccessBean> readMsg(@Query("id") String id);
-
-    /**
-     * 评测详情
-     */
-    @GET("qualityshop-api/evalWay/selectById")
-    Observable<EvaluationDetailBean> evaluationDetail(@Query("evalWayId") String evalWayId);
-
 
     /**
      * 个人主页

@@ -9,13 +9,13 @@ public class UnMessageBean {
 
     /**
      * msg : success
-     * code : 200
-     * count : 6
+     * code : 0
+     * data : 0
      */
 
     private String msg;
-    private String code;
-    private int count;
+    private int code;
+    private int data;
 
     public String getMsg() {
         return msg;
@@ -25,19 +25,19 @@ public class UnMessageBean {
         this.msg = msg;
     }
 
-    public String getCode() {
+    public int getCode() {
         return code;
     }
 
-    public void setCode(String code) {
+    public void setCode(int code) {
         this.code = code;
     }
 
-    public int getCount() {
-        return count;
+    public int getData() {
+        return data;
     }
 
-    public void setCount(int count) {
-        this.count = count;
+    public void setData(int data) {
+        this.data = data;
     }
 }

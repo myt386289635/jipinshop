@@ -37,7 +37,7 @@ public class HomeFragmentPresenter{
                 .setBadgeTextSize(8,true)
                 .setBadgeGravity( Gravity.END | Gravity.TOP)
                 .setBadgePadding(2,true)
-                .setGravityOffset(11,11,true)
+                .setGravityOffset(9,3,true)
                 .setOnDragStateChangedListener(onDragStateChangedListener);
     }
 

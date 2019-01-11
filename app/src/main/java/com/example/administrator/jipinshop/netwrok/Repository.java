@@ -232,13 +232,6 @@ public class Repository {
     }
 
     /**
-     * 判断用户是否收藏此文章或者商品
-     */
-    public Observable<SnapSelectBean> isCollect(Map<String,String> param){
-        return  mAPIService.isCollect(param);
-    }
-
-    /**
      * 添加收藏
      */
     public Observable<SuccessBean> collectInsert(Map<String,String> param){
@@ -250,13 +243,6 @@ public class Repository {
      */
     public Observable<SuccessBean> collectDelete(Map<String,String> param){
         return mAPIService.collectDelete(param);
-    }
-
-    /**
-     * 判断用户是否点赞此文章或者商品
-     */
-    public Observable<SnapSelectBean> snapSelect(Map<String,String> param){
-        return mAPIService.snapSelect(param);
     }
 
     /**
@@ -291,7 +277,7 @@ public class Repository {
      * 获取未读消息
      */
     public Observable<UnMessageBean> unMessage(){
-        return mAPIService.unMessage(SPUtils.getInstance(CommonDate.USER).getString(CommonDate.userId));
+        return mAPIService.unMessage();
     }
 
     /**
@@ -320,13 +306,6 @@ public class Repository {
      */
     public Observable<EvaluationListBean> evaluationList(String categoryId ,String page){
         return mAPIService.evaluationList(categoryId,page);
-    }
-
-    /**
-     * 评测详情
-     */
-    public Observable<EvaluationDetailBean> evaluationDetail(String evalWayId){
-        return mAPIService.evaluationDetail(evalWayId);
     }
 
     /**
