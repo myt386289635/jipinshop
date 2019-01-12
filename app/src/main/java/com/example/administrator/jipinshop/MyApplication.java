@@ -88,7 +88,7 @@ public class MyApplication extends Application {
         //微信(已修改)
         PlatformConfig.setWeixin("wx5e541cafac68980e", "b24ea3348fcda68d5ae9bdfabbeb867d");
         //新浪微博(已修改)
-        PlatformConfig.setSinaWeibo("1438884882", "2a0c703950acf79e36f14b222ac54e00","http://sns.whalecloud.com/sina2/callback");
+        PlatformConfig.setSinaWeibo("2148903410", "8d3c2285a9a46b5e4f36656874c0c188","http://sns.whalecloud.com/sina2/callback");
         //腾讯（已修改）
         PlatformConfig.setQQZone("1107605787", "0wJh63XVNMCo307r");
 

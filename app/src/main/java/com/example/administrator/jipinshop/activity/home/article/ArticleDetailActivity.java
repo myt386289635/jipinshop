@@ -1,6 +1,5 @@
 package com.example.administrator.jipinshop.activity.home.article;
 
-import android.annotation.SuppressLint;
 import android.app.Dialog;
 import android.content.Intent;
 import android.databinding.DataBindingUtil;
@@ -374,9 +373,9 @@ public class ArticleDetailActivity extends BaseActivity implements View.OnClickL
         } else {
             //企业认证
             mBinding.itemGrade.setVisibility(View.VISIBLE);
-            mBinding.itemGrade.setImageResource(R.mipmap.grade_peroson);
+            mBinding.itemGrade.setImageResource(R.mipmap.grade_enterprise);
             mBinding.headGrade.setVisibility(View.VISIBLE);
-            mBinding.headGrade.setImageResource(R.mipmap.grade_peroson);
+            mBinding.headGrade.setImageResource(R.mipmap.grade_enterprise);
         }
         //是否收藏过
         if (bean.getData().getCollect() == 1) {

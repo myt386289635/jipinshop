@@ -118,7 +118,7 @@ public class CommonFindAdapter extends RecyclerView.Adapter {
                 }else {
                     //企业认证
                     viewHolder.item_grade.setVisibility(View.VISIBLE);
-                    viewHolder.item_grade.setImageResource(R.mipmap.grade_peroson);
+                    viewHolder.item_grade.setImageResource(R.mipmap.grade_enterprise);
                 }
                 int finalPosition = position;
                 viewHolder.itemView.setOnClickListener(v -> {
