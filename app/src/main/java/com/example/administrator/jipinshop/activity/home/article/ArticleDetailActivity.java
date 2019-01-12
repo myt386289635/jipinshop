@@ -40,8 +40,10 @@ import com.example.administrator.jipinshop.adapter.ShoppingCommonAdapter;
 import com.example.administrator.jipinshop.base.BaseActivity;
 import com.example.administrator.jipinshop.bean.CommentBean;
 import com.example.administrator.jipinshop.bean.FindDetailBean;
+import com.example.administrator.jipinshop.bean.PagerStateBean;
 import com.example.administrator.jipinshop.bean.SuccessBean;
 import com.example.administrator.jipinshop.bean.VoteBean;
+import com.example.administrator.jipinshop.bean.eventbus.CommonEvaluationBus;
 import com.example.administrator.jipinshop.bean.eventbus.FindBus;
 import com.example.administrator.jipinshop.databinding.ActivityFindDetailBinding;
 import com.example.administrator.jipinshop.fragment.foval.FovalFragment;
@@ -669,6 +671,52 @@ public class ArticleDetailActivity extends BaseActivity implements View.OnClickL
     }
 
     /**
+     * 登陆后改变状态
+     */
+    @Override
+    public void pagerStateSuccess(PagerStateBean pagerStateBean) {
+        if (pagerStateBean.getFollow() == 0) {
+            isConcer = false;
+            mBinding.detailAttention.setBackgroundResource(R.drawable.bg_attention);
+            mBinding.detailAttention.setText("+关注");
+            mBinding.detailAttention.setTextColor(getResources().getColor(R.color.color_E31436));
+            mBinding.headAttention.setBackgroundResource(R.drawable.bg_attention);
+            mBinding.headAttention.setText("+关注");
+            mBinding.headAttention.setTextColor(getResources().getColor(R.color.color_E31436));
+        }else {
+            isConcer = true;
+            mBinding.detailAttention.setBackgroundResource(R.drawable.bg_attentioned);
+            mBinding.detailAttention.setText("已关注");
+            mBinding.detailAttention.setTextColor(getResources().getColor(R.color.color_white));
+            mBinding.headAttention.setBackgroundResource(R.drawable.bg_attentioned);
+            mBinding.headAttention.setText("已关注");
+            mBinding.headAttention.setTextColor(getResources().getColor(R.color.color_white));
+        }
+        if(pagerStateBean.getCollect() == 1){
+            isCollect = true;
+            mBinding.bottomFavor.setImageResource(R.mipmap.score_sel);
+        }else {
+            isCollect = false;
+            mBinding.bottomFavor.setImageResource(R.mipmap.nav_favor);
+        }
+        if(pagerStateBean.getVote() == 1){
+            isSnap = true;
+            Drawable drawable= getResources().getDrawable(R.mipmap.like_sel);
+            drawable.setBounds(0, 0, drawable.getMinimumWidth(), drawable.getMinimumHeight());
+            mBinding.detailGood.setCompoundDrawables(drawable,null,null,null);
+            mBinding.detailGood.setTextColor(getResources().getColor(R.color.color_E31436));
+            mBinding.detailGood.setBackgroundResource(R.drawable.bg_like);
+        }else {
+            isSnap = false;
+            mBinding.detailGood.setTextColor(getResources().getColor(R.color.color_ACACAC));
+            mBinding.detailGood.setBackgroundResource(R.drawable.bg_nolike);
+            Drawable drawable= getResources().getDrawable(R.mipmap.like_nor);
+            drawable.setBounds(0, 0, drawable.getMinimumWidth(), drawable.getMinimumHeight());
+            mBinding.detailGood.setCompoundDrawables(drawable,null,null,null);
+        }
+    }
+
+    /**
      * 点击一级回复
      */
     @Override
@@ -837,5 +885,16 @@ public class ArticleDetailActivity extends BaseActivity implements View.OnClickL
             }
         }
         return false;
+    }
+
+    /**
+     * 登陆时刷新 关注 收藏 点赞 评论
+     */
+    @Subscribe
+    public void refreshPage(CommonEvaluationBus commonEvaluationBus){
+        if(commonEvaluationBus != null && commonEvaluationBus.getRefersh().equals(LoginActivity.refresh)){
+            mPresenter.pagerState(getIntent().getStringExtra("type"),getIntent().getStringExtra("id"),this.bindToLifecycle());
+            mPresenter.comment(getIntent().getStringExtra("id"), getIntent().getStringExtra("type"), this.bindToLifecycle());
+        }
     }
 }

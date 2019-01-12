@@ -8,6 +8,7 @@ import android.webkit.WebView;
 import com.blankj.utilcode.util.SPUtils;
 import com.example.administrator.jipinshop.bean.CommentBean;
 import com.example.administrator.jipinshop.bean.FindDetailBean;
+import com.example.administrator.jipinshop.bean.PagerStateBean;
 import com.example.administrator.jipinshop.bean.SuccessBean;
 import com.example.administrator.jipinshop.bean.VoteBean;
 import com.example.administrator.jipinshop.netwrok.Repository;
@@ -334,4 +335,28 @@ public class ArticleDetailPresenter {
                 });
     }
 
+    /**
+     * 登陆后查询页面状态
+     */
+    public void pagerState(String type ,String targetId, LifecycleTransformer<PagerStateBean> transformer){
+        mRepository.pagerState(type,targetId)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .compose(transformer)
+                .subscribe(pagerStateBean -> {
+                    if(pagerStateBean.getCode() == 0){
+                        if(mView  != null){
+                            mView.pagerStateSuccess(pagerStateBean);
+                        }
+                    }else {
+                        if(mView != null){
+                            mView.onFileCollectDelete(pagerStateBean.getMsg());
+                        }
+                    }
+                }, throwable -> {
+                    if(mView != null){
+                        mView.onFileCollectDelete(throwable.getMessage());
+                    }
+                });
+    }
 }
