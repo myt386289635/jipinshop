@@ -20,6 +20,7 @@
         android:layout_height="wrap_content"/>
 
     <ImageView
+        android:scaleType="fitXY"
         tools:src="@color/color_202020"
         android:id="@+id/item_image"
         android:layout_marginRight="@dimen/x28"

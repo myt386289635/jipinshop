@@ -8,7 +8,6 @@ import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.text.TextUtils;
 import android.view.View;
-import android.widget.Toast;
 
 import com.blankj.utilcode.util.SPUtils;
 import com.example.administrator.jipinshop.MyApplication;
@@ -96,13 +95,13 @@ public class MainActivity extends RxAppCompatActivity implements MainView {
         mFragments.add(mHomeFragment);
         mFragments.add(mFindFragment);
         mFragments.add(mEvaluationFragment);
-        mFragments.add(mTryFragment);
+//        mFragments.add(mTryFragment);
         mFragments.add(mMineFragment);
 
         mHomeAdapter = new HomeAdapter(getSupportFragmentManager());
         mHomeAdapter.setFragments(mFragments);
         mViewPager.setAdapter(mHomeAdapter);
-        mViewPager.setOffscreenPageLimit(4);
+        mViewPager.setOffscreenPageLimit(mFragments.size() - 1);
         mTabLayout.setupWithViewPager(mViewPager);
 
         mPresenter.initTabLayout(this, mTabLayout);
@@ -110,7 +109,7 @@ public class MainActivity extends RxAppCompatActivity implements MainView {
         //版本更新
         mPresenter.getAppVersion(this.bindToLifecycle());
 
-        View tabView = (View) mTabLayout.getTabAt(4).getCustomView().getParent();
+        View tabView = (View) mTabLayout.getTabAt(mFragments.size() - 1).getCustomView().getParent();
         tabView.setOnClickListener(v -> {
             if(TextUtils.isEmpty(SPUtils.getInstance(CommonDate.USER).getString(CommonDate.token,"").trim())){
                 startActivityForResult(new Intent(this, LoginActivity.class),100);

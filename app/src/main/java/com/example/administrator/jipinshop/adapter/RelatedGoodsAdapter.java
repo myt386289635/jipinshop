@@ -7,6 +7,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.example.administrator.jipinshop.R;
@@ -49,22 +50,35 @@ public class RelatedGoodsAdapter extends RecyclerView.Adapter<RelatedGoodsAdapte
 
         GlideApp.loderRoundImage(mContext,mBeans.get(i).getImg(),viewHolder.item_image);
         viewHolder.item_name.setText(mBeans.get(i).getGoodsName());
-        viewHolder.item_price.setText("¥" + mBeans.get(i).getActualPrice());
-        if(mBeans.get(i).getSource() == 1){
-            viewHolder.item_promal.setText("京东价");
-        }else  if(mBeans.get(i).getSource() == 2){
-            viewHolder.item_promal.setText("淘宝价");
-        }else  if(mBeans.get(i).getSource() == 3){
-            viewHolder.item_promal.setText("天猫价");
-        }
-        viewHolder.item_priceOld.setText("¥" + mBeans.get(i).getOtherPrice());
-        viewHolder.item_priceOld.setTv(true);
-        viewHolder.item_priceOld.setColor(R.color.color_ACACAC);
         viewHolder.item_buy.setOnClickListener(v -> {
             if(mOnItem != null){
                 mOnItem.onItemClick(i);
             }
         });
+
+        if (mBeans.get(i).getStatus().equals("1")){
+            //上架
+            viewHolder.item_overdue.setVisibility(View.GONE);
+            viewHolder.item_promalContainer.setVisibility(View.VISIBLE);
+            viewHolder.item_price.setVisibility(View.VISIBLE);
+            viewHolder.item_price.setText("¥" + mBeans.get(i).getActualPrice());
+            if(mBeans.get(i).getSource() == 1){
+                viewHolder.item_promal.setText("京东价");
+            }else  if(mBeans.get(i).getSource() == 2){
+                viewHolder.item_promal.setText("淘宝价");
+            }else  if(mBeans.get(i).getSource() == 3){
+                viewHolder.item_promal.setText("天猫价");
+            }
+            viewHolder.item_priceOld.setText("¥" + mBeans.get(i).getOtherPrice());
+            viewHolder.item_priceOld.setTv(true);
+            viewHolder.item_priceOld.setColor(R.color.color_ACACAC);
+        }else if(mBeans.get(i).getStatus().equals("-1")){
+            //优惠券过期
+            viewHolder.item_overdue.setVisibility(View.VISIBLE);
+            viewHolder.item_promalContainer.setVisibility(View.GONE);
+            viewHolder.item_price.setVisibility(View.GONE);
+            viewHolder.item_overdue.setText("¥" + mBeans.get(i).getOtherPrice());
+        }
     }
 
     @Override
@@ -80,6 +94,8 @@ public class RelatedGoodsAdapter extends RecyclerView.Adapter<RelatedGoodsAdapte
         private TextViewDel item_priceOld;
         private TextView item_price;
         private TextView item_buy;
+        private LinearLayout item_promalContainer;
+        private TextView item_overdue;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -89,6 +105,8 @@ public class RelatedGoodsAdapter extends RecyclerView.Adapter<RelatedGoodsAdapte
             item_priceOld = itemView.findViewById(R.id.item_priceOld);
             item_price = itemView.findViewById(R.id.item_price);
             item_buy = itemView.findViewById(R.id.item_buy);
+            item_promalContainer = itemView.findViewById(R.id.item_promalContainer);
+            item_overdue = itemView.findViewById(R.id.item_overdue);
         }
     }
 

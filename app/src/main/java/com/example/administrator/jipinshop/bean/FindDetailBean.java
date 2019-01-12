@@ -506,6 +506,7 @@ public class FindDetailBean {
             private String otherPrice;
             private int source;
             private String goodsBuyLink;
+            private String status;
 
             protected RelatedGoodsListBean(Parcel in) {
                 goodsId = in.readString();
@@ -515,6 +516,7 @@ public class FindDetailBean {
                 otherPrice = in.readString();
                 source = in.readInt();
                 goodsBuyLink = in.readString();
+                status = in.readString();
             }
 
             public static final Creator<RelatedGoodsListBean> CREATOR = new Creator<RelatedGoodsListBean>() {
@@ -528,6 +530,14 @@ public class FindDetailBean {
                     return new RelatedGoodsListBean[size];
                 }
             };
+
+            public String getStatus() {
+                return status;
+            }
+
+            public void setStatus(String status) {
+                this.status = status;
+            }
 
             public String getGoodsId() {
                 return goodsId;
@@ -599,6 +609,7 @@ public class FindDetailBean {
                 dest.writeString(otherPrice);
                 dest.writeInt(source);
                 dest.writeString(goodsBuyLink);
+                dest.writeString(status);
             }
         }
     }

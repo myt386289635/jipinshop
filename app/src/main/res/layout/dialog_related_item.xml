@@ -10,6 +10,7 @@
     xmlns:tools="http://schemas.android.com/tools">
     
     <ImageView
+        android:scaleType="fitXY"
         android:id="@+id/item_image"
         tools:src="@color/color_D8D8D8"
         android:layout_marginRight="@dimen/x30"
@@ -34,6 +35,7 @@
         android:layout_height="wrap_content"/>
 
     <LinearLayout
+        android:visibility="gone"
         android:id="@+id/item_promalContainer"
         android:layout_toRightOf="@id/item_image"
         android:layout_marginBottom="@dimen/y10"
@@ -62,6 +64,7 @@
 
 
     <TextView
+        android:visibility="gone"
         android:id="@+id/item_price"
         android:layout_toRightOf="@id/item_image"
         android:layout_above="@+id/item_promalContainer"
@@ -93,5 +96,16 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"/>
 
+    <TextView
+        android:layout_marginBottom="@dimen/y20"
+        android:id="@+id/item_overdue"
+        android:layout_toRightOf="@id/item_image"
+        android:layout_alignBottom="@id/item_image"
+        android:textStyle="bold"
+        android:textSize="15sp"
+        android:textColor="@color/color_E31436"
+        android:text="¥999.00"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"/>
 
 </RelativeLayout>

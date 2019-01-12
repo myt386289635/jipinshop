@@ -7,6 +7,7 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <ImageView
+        android:scaleType="fitXY"
         android:layout_marginTop="@dimen/y48"
         tools:src="@color/color_202020"
         android:id="@+id/item_image"
