@@ -17,9 +17,7 @@ import com.example.administrator.jipinshop.activity.integral.IntegralActivity;
 import com.example.administrator.jipinshop.activity.integral.detail.IntegralDetailActivity;
 import com.example.administrator.jipinshop.activity.login.LoginActivity;
 import com.example.administrator.jipinshop.activity.message.MessageActivity;
-import com.example.administrator.jipinshop.activity.message.other.OtherMessageActivity;
-import com.example.administrator.jipinshop.activity.message.system.SystemMessageActivity;
-import com.example.administrator.jipinshop.activity.message.system.detail.SystemMsgDetailActivity;
+import com.example.administrator.jipinshop.activity.message.detail.MsgDetailActivity;
 import com.example.administrator.jipinshop.activity.setting.SettingActivity;
 import com.example.administrator.jipinshop.activity.setting.opinion.OpinionActivity;
 import com.example.administrator.jipinshop.activity.shoppingdetail.ShoppingDetailActivity;
@@ -41,8 +39,6 @@ public interface BaseActivityComponent {
     void inject(LoginActivity loginActivity);
     void inject(BindNumberActivity bindNumberActivity);
     void inject(MessageActivity messageActivity);
-    void inject(SystemMessageActivity systemMessageActivity);
-    void inject(OtherMessageActivity activity);
     void inject(OpinionActivity activity);
     void inject(FollowActivity activity);
     void inject(UserActivity activity);
@@ -58,6 +54,6 @@ public interface BaseActivityComponent {
     void inject(MyInfoActivity activity);
     void inject(EditNameActivity activity);
     void inject(SignActivity activity);
-    void inject(SystemMsgDetailActivity activity);
+    void inject(MsgDetailActivity activity);
     void inject(MemberLevelActivity activity);
 }

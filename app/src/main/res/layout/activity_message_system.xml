@@ -3,6 +3,7 @@
         xmlns:bind="http://schemas.android.com/apk/res-auto">
 
     <data>
+
         <variable
             name="listener"
             type="android.view.View.OnClickListener"/>
@@ -10,20 +11,20 @@
     </data>
 
     <RelativeLayout
-        android:orientation="vertical"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:orientation="vertical">
 
         <include
-            bind:listener="@{listener}"
             android:id="@+id/in_clude"
-            layout="@layout/aa_title"/>
+            layout="@layout/aa_title"
+            bind:listener="@{listener}"/>
 
         <com.aspsine.swipetoloadlayout.SwipeToLoadLayout
-            android:layout_below="@id/in_clude"
             android:id="@+id/swipeToLoad"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:layout_below="@id/in_clude"
             android:background="@color/color_F5F5F5">
 
             <com.example.administrator.jipinshop.view.CustomRefreshHeadView
@@ -33,10 +34,25 @@
                 android:gravity="center"
                 android:padding="20dp"/>
 
-            <android.support.v7.widget.RecyclerView
+            <LinearLayout
                 android:id="@+id/swipe_target"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"/>
+                android:layout_height="match_parent"
+                android:orientation="vertical">
+
+
+                <android.support.v7.widget.RecyclerView
+                    android:id="@+id/recycler_view"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"/>
+
+
+                <include
+                    android:id="@+id/net_clude"
+                    layout="@layout/common_net_error"
+                    android:visibility="gone"/>
+
+            </LinearLayout>
 
             <com.example.administrator.jipinshop.view.LoadMoreFooterView
                 android:id="@+id/swipe_load_more_footer"
@@ -46,16 +62,6 @@
                 android:padding="20dp"/>
 
         </com.aspsine.swipetoloadlayout.SwipeToLoadLayout>
-
-
-        <include
-            bind:listener="@{listener}"
-            android:layout_height="match_parent"
-            android:layout_width="match_parent"
-            android:layout_below="@id/in_clude"
-            android:id="@+id/net_clude"
-            layout="@layout/common_net_error"
-            android:visibility="gone"/>
 
     </RelativeLayout>
 

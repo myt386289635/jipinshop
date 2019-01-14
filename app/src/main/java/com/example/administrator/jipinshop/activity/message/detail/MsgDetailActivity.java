@@ -1,17 +1,17 @@
-package com.example.administrator.jipinshop.activity.message.system.detail;
+package com.example.administrator.jipinshop.activity.message.detail;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.example.administrator.jipinshop.R;
-import com.example.administrator.jipinshop.activity.message.system.SystemMessageActivity;
+import com.example.administrator.jipinshop.activity.message.MessageActivity;
 import com.example.administrator.jipinshop.base.BaseActivity;
 import com.example.administrator.jipinshop.bean.SuccessBean;
 import com.example.administrator.jipinshop.bean.eventbus.MessageMsgBus;
 import com.example.administrator.jipinshop.jpush.JPushReceiver;
+import com.example.administrator.jipinshop.util.ToastUtil;
 
 import org.greenrobot.eventbus.EventBus;
 
@@ -25,7 +25,7 @@ import butterknife.ButterKnife;
  * @create 2018/11/14
  * @Describe 系统消息详情页
  */
-public class SystemMsgDetailActivity extends BaseActivity implements SystemMsgDetailView {
+public class MsgDetailActivity extends BaseActivity implements MsgDetailView {
 
     @BindView(R.id.title_back)
     ImageView mTitleBack;
@@ -35,7 +35,7 @@ public class SystemMsgDetailActivity extends BaseActivity implements SystemMsgDe
     TextView mDetailContent;
 
     @Inject
-    SystemMsgDetailPresenter mPresenter;
+    MsgDetailPresenter mPresenter;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -65,7 +65,7 @@ public class SystemMsgDetailActivity extends BaseActivity implements SystemMsgDe
      */
     @Override
     public void onSuccess(SuccessBean successBean) {
-        EventBus.getDefault().post(new MessageMsgBus(SystemMessageActivity.tag,getIntent().getIntExtra("position",0)));
+        EventBus.getDefault().post(new MessageMsgBus(MessageActivity.tag,getIntent().getIntExtra("position",0)));
         EventBus.getDefault().post(JPushReceiver.TAG);//刷新首页未读消息
     }
 
@@ -74,6 +74,6 @@ public class SystemMsgDetailActivity extends BaseActivity implements SystemMsgDe
      */
     @Override
     public void onFaile(String error) {
-        Toast.makeText(this, error, Toast.LENGTH_SHORT).show();
+        ToastUtil.show(error);
     }
 }

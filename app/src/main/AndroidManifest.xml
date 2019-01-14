@@ -83,16 +83,8 @@
         <activity android:name=".activity.info.bind.BindNumberActivity"
                   android:screenOrientation="portrait"/>
 
-        <!--消息页面-->
-        <activity android:name=".activity.message.MessageActivity"
-                  android:screenOrientation="portrait"/>
-
         <!--系统消息-->
-        <activity android:name=".activity.message.system.SystemMessageActivity"
-                  android:screenOrientation="portrait"/>
-
-        <!--其他系统消息-->
-        <activity android:name=".activity.message.other.OtherMessageActivity"
+        <activity android:name=".activity.message.MessageActivity"
                   android:screenOrientation="portrait"/>
 
         <!--设置页面-->
@@ -275,7 +267,7 @@
         </meta-data>
 
         <!--系统消息详情页-->
-        <activity android:name=".activity.message.system.detail.SystemMsgDetailActivity"
+        <activity android:name=".activity.message.detail.MsgDetailActivity"
                   android:screenOrientation="portrait"/>
 
     </application>

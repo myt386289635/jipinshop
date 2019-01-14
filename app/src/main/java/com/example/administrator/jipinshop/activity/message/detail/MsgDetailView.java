@@ -1,4 +1,4 @@
-package com.example.administrator.jipinshop.activity.message.system.detail;
+package com.example.administrator.jipinshop.activity.message.detail;
 
 import com.example.administrator.jipinshop.bean.SuccessBean;
 
@@ -7,7 +7,7 @@ import com.example.administrator.jipinshop.bean.SuccessBean;
  * @create 2018/11/14
  * @Describe
  */
-public interface SystemMsgDetailView {
+public interface MsgDetailView {
     void onSuccess(SuccessBean successBean);
     void onFaile(String error);
 }

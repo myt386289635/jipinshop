@@ -239,6 +239,18 @@ public interface APIService {
     @GET("qualityshop-api/api/message/count")
     Observable<UnMessageBean> unMessage();
 
+    /**
+     * 获取消息列表详情内容  已修改
+     */
+    @GET("qualityshop-api/api/message/selectAll")
+    Observable<SystemMessageBean> messageAll(@Query("page") String page ,@Query("type") String type);
+
+    /**
+     * 查看未读消息  已修改
+     */
+    @GET("qualityshop-api/api/message/selectById")
+    Observable<SuccessBean> readMsg(@Query("id") String id);
+
 /*************************************************以下是还未修改的接口***********************************************/
 
 
@@ -332,18 +344,6 @@ public interface APIService {
      */
     @GET("qualityshop-api/api/prizeList")
     Observable<LuckImageBean> luckselects(@Query("userId") String userId);
-
-    /**
-     * 获取消息列表详情内容
-     */
-    @GET("qualityshop-api/message/selectAll")
-    Observable<SystemMessageBean> messageAll(@Query("page") String page ,@Query("userId") String userId,@Query("type") String type);
-
-    /**
-     * 查看未读消息
-     */
-    @GET("qualityshop-api/message/selectById")
-    Observable<SuccessBean> readMsg(@Query("id") String id);
 
     /**
      * 个人主页

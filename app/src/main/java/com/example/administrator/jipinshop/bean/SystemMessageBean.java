@@ -5,19 +5,19 @@ import java.util.List;
 /**
  * @author 莫小婷
  * @create 2018/11/13
- * @Describe 系统消息
+ * @Describe 消息列表
  */
 public class SystemMessageBean {
 
     /**
      * msg : success
-     * code : 200
-     * list : [{"id":"0185d0ac968d4d1c8970bf064c9963eb","messageId":"5883d336b1e347c38678762a212f9472","userId":"7d67892cb02f4766aa72fd5b08b8d8d1","title":"商品测试","content":"商品双12活动,商品双12活动商品双12活动商品双12活动商品双12活动商品双12活动商品双12活动","createTime":"2018-11-19 14:47:03","type":1,"status":null,"dataFlag":null,"unreadNum":null},{"id":"c150a4a09ac44b9d9e74b63088f9e447","messageId":"6c46e703d55b4eebaa8827bcb44b9afa","userId":"7d67892cb02f4766aa72fd5b08b8d8d1","title":"马上开始了双十二活动！我们要打起十二分精神起来卖商品了！！！","content":"尊敬的用户您好：马上开始了双十二活动！我们要打起十二分精神起来卖商品了！！！马上开始了双十二活动！我们要打起十二分精神起来卖商品了！！！马上开始了双十二活动！我们要打起十二分精神起来卖商品了！！！马上开始了双十二活动！我们要打起十二分精神起来卖商品了！！！马上开始了双十二活动！我们要打起十二分精神起来卖商品了！！！马上开始了双十二活动！我们要打起十二分精神起来卖商品了！！！","createTime":"2018-11-19 14:39:33","type":1,"status":null,"dataFlag":null,"unreadNum":null},{"id":"5b147b9e526a430489d719a6271b2acd","messageId":"6c46e703d55b4eebaa8827bcb44b9afa","userId":"7d67892cb02f4766aa72fd5b08b8d8d1","title":"标题9","content":"京东返利升级,买一送二","createTime":"2018-11-15 15:36:52","type":1,"status":null,"dataFlag":null,"unreadNum":null},{"id":"9bed970709984a11beeead8df9b0fe45","messageId":"6c46e703d55b4eebaa8827bcb44b9afa","userId":"7d67892cb02f4766aa72fd5b08b8d8d1","title":"标题4","content":"京东返利升级,买一送二","createTime":"2018-11-15 15:35:42","type":1,"status":null,"dataFlag":null,"unreadNum":null},{"id":"f740072589394a7080ede2a5a155fb7c","messageId":"fa8df1577fe443468bae384f4b90ce7f","userId":"7d67892cb02f4766aa72fd5b08b8d8d1","title":"标题3","content":"京东返利升级,买一送二","createTime":"2018-11-15 15:28:44","type":1,"status":null,"dataFlag":null,"unreadNum":null},{"id":"2d944d308b4b4523bc80a2033e0b2e3d","messageId":"53767dbb5e95498ab1ec37664246d299","userId":"7d67892cb02f4766aa72fd5b08b8d8d1","title":"标题2","content":"京东返利升级,买一送二","createTime":"2018-11-15 15:28:30","type":1,"status":null,"dataFlag":null,"unreadNum":null},{"id":"99d79cf269da4620a42e28340fd8ed1e","messageId":"53767dbb5e95498ab1ec37664246d299","userId":"7d67892cb02f4766aa72fd5b08b8d8d1","title":"标题1","content":"京东返利升级,买一送二","createTime":"2018-11-15 15:19:26","type":1,"status":null,"dataFlag":null,"unreadNum":null},{"id":"9734fe6546f04d21b7c85326967e9bc8","messageId":"53767dbb5e95498ab1ec37664246d299","userId":"7d67892cb02f4766aa72fd5b08b8d8d1","title":"标题8","content":"京东返利升级,买一送二","createTime":"2018-11-15 15:19:20","type":1,"status":null,"dataFlag":null,"unreadNum":null},{"id":"8b15e1b8aeb14d94bc6211ea53f8b4d4","messageId":"53767dbb5e95498ab1ec37664246d299","userId":"7d67892cb02f4766aa72fd5b08b8d8d1","title":"标题7","content":"京东返利升级,买一送二","createTime":"2018-11-15 15:19:12","type":1,"status":null,"dataFlag":null,"unreadNum":null}]
+     * code : 0
+     * data : [{"id":"9","messageId":"a11993ae1e534e868ae2b10377e805a1","userId":"3ed475ccc8f24bd08da35e552c85c85a","title":"APP遇到闪退等问题处理方式","content":"APP遇到闪退，请先清理缓存，如果还未解决，请联系技术部门","createTime":"2018-12-10 11:50:19","type":1,"status":0,"dataFlag":1},{"id":"8576eebf82794fd982a5f96a13debc66","messageId":"a11993ae1e534e868ae2b10377e805a1","userId":"3ed475ccc8f24bd08da35e552c85c85a","title":"APP遇到闪退等问题处理方式","content":"APP遇到闪退，请先清理缓存，如果还未解决，请联系技术部门","createTime":"2018-12-10 11:50:19","type":1,"status":1,"dataFlag":1},{"id":"8","messageId":"a11993ae1e534e868ae2b10377e805a1","userId":"3ed475ccc8f24bd08da35e552c85c85a","title":"APP遇到闪退等问题处理方式","content":"APP遇到闪退，请先清理缓存，如果还未解决，请联系技术部门","createTime":"2018-12-10 11:50:19","type":1,"status":0,"dataFlag":1},{"id":"7","messageId":"a11993ae1e534e868ae2b10377e805a1","userId":"3ed475ccc8f24bd08da35e552c85c85a","title":"APP遇到闪退等问题处理方式","content":"APP遇到闪退，请先清理缓存，如果还未解决，请联系技术部门","createTime":"2018-12-10 11:50:19","type":1,"status":0,"dataFlag":1},{"id":"6","messageId":"a11993ae1e534e868ae2b10377e805a1","userId":"3ed475ccc8f24bd08da35e552c85c85a","title":"APP遇到闪退等问题处理方式","content":"APP遇到闪退，请先清理缓存，如果还未解决，请联系技术部门","createTime":"2018-12-10 11:50:19","type":1,"status":0,"dataFlag":1},{"id":"5","messageId":"a11993ae1e534e868ae2b10377e805a1","userId":"3ed475ccc8f24bd08da35e552c85c85a","title":"APP遇到闪退等问题处理方式","content":"APP遇到闪退，请先清理缓存，如果还未解决，请联系技术部门","createTime":"2018-12-10 11:50:19","type":1,"status":0,"dataFlag":1},{"id":"4","messageId":"a11993ae1e534e868ae2b10377e805a1","userId":"3ed475ccc8f24bd08da35e552c85c85a","title":"APP遇到闪退等问题处理方式","content":"APP遇到闪退，请先清理缓存，如果还未解决，请联系技术部门","createTime":"2018-12-10 11:50:19","type":1,"status":0,"dataFlag":1},{"id":"3","messageId":"a11993ae1e534e868ae2b10377e805a1","userId":"3ed475ccc8f24bd08da35e552c85c85a","title":"APP遇到闪退等问题处理方式","content":"APP遇到闪退，请先清理缓存，如果还未解决，请联系技术部门","createTime":"2018-12-10 11:50:19","type":1,"status":0,"dataFlag":1},{"id":"2","messageId":"a11993ae1e534e868ae2b10377e805a1","userId":"3ed475ccc8f24bd08da35e552c85c85a","title":"APP遇到闪退等问题处理方式","content":"APP遇到闪退，请先清理缓存，如果还未解决，请联系技术部门","createTime":"2018-12-10 11:50:19","type":1,"status":0,"dataFlag":1},{"id":"13","messageId":"a11993ae1e534e868ae2b10377e805a1","userId":"3ed475ccc8f24bd08da35e552c85c85a","title":"APP遇到闪退等问题处理方式","content":"APP遇到闪退，请先清理缓存，如果还未解决，请联系技术部门","createTime":"2018-12-10 11:50:19","type":1,"status":0,"dataFlag":1}]
      */
 
     private String msg;
     private int code;
-    private List<ListBean> list;
+    private List<DataBean> data;
 
     public String getMsg() {
         return msg;
@@ -35,26 +35,25 @@ public class SystemMessageBean {
         this.code = code;
     }
 
-    public List<ListBean> getList() {
-        return list;
+    public List<DataBean> getData() {
+        return data;
     }
 
-    public void setList(List<ListBean> list) {
-        this.list = list;
+    public void setData(List<DataBean> data) {
+        this.data = data;
     }
 
-    public static class ListBean {
+    public static class DataBean {
         /**
-         * id : 0185d0ac968d4d1c8970bf064c9963eb
-         * messageId : 5883d336b1e347c38678762a212f9472
-         * userId : 7d67892cb02f4766aa72fd5b08b8d8d1
-         * title : 商品测试
-         * content : 商品双12活动,商品双12活动商品双12活动商品双12活动商品双12活动商品双12活动商品双12活动
-         * createTime : 2018-11-19 14:47:03
+         * id : 9
+         * messageId : a11993ae1e534e868ae2b10377e805a1
+         * userId : 3ed475ccc8f24bd08da35e552c85c85a
+         * title : APP遇到闪退等问题处理方式
+         * content : APP遇到闪退，请先清理缓存，如果还未解决，请联系技术部门
+         * createTime : 2018-12-10 11:50:19
          * type : 1
-         * status : null
-         * dataFlag : null
-         * unreadNum : null
+         * status : 0
+         * dataFlag : 1
          */
 
         private String id;
@@ -65,8 +64,7 @@ public class SystemMessageBean {
         private String createTime;
         private int type;
         private int status;
-        private String dataFlag;
-        private String unreadNum;
+        private int dataFlag;
 
         public String getId() {
             return id;
@@ -132,20 +130,12 @@ public class SystemMessageBean {
             this.status = status;
         }
 
-        public String getDataFlag() {
+        public int getDataFlag() {
             return dataFlag;
         }
 
-        public void setDataFlag(String dataFlag) {
+        public void setDataFlag(int dataFlag) {
             this.dataFlag = dataFlag;
-        }
-
-        public String getUnreadNum() {
-            return unreadNum;
-        }
-
-        public void setUnreadNum(String unreadNum) {
-            this.unreadNum = unreadNum;
         }
     }
 }

@@ -16,7 +16,7 @@ import android.widget.LinearLayout;
 import com.blankj.utilcode.util.SPUtils;
 import com.example.administrator.jipinshop.R;
 import com.example.administrator.jipinshop.activity.login.LoginActivity;
-import com.example.administrator.jipinshop.activity.message.system.SystemMessageActivity;
+import com.example.administrator.jipinshop.activity.message.MessageActivity;
 import com.example.administrator.jipinshop.activity.sreach.SreachActivity;
 import com.example.administrator.jipinshop.adapter.HomeFragmentAdapter;
 import com.example.administrator.jipinshop.adapter.HomeTabAdapter;
@@ -165,8 +165,7 @@ public class HomeFragment extends DBBaseFragment implements Badge.OnDragStateCha
         }
         switch (view.getId()) {
             case R.id.home_message:
-//                startActivity(new Intent(getContext(), MessageActivity.class));
-                startActivity(new Intent(getContext(), SystemMessageActivity.class));
+                startActivity(new Intent(getContext(), MessageActivity.class));
                 break;
         }
     }

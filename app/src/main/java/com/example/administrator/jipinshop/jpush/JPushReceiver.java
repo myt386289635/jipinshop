@@ -16,7 +16,7 @@ import com.blankj.utilcode.util.SPUtils;
 import com.example.administrator.jipinshop.MyApplication;
 import com.example.administrator.jipinshop.R;
 import com.example.administrator.jipinshop.activity.login.LoginActivity;
-import com.example.administrator.jipinshop.activity.message.system.SystemMessageActivity;
+import com.example.administrator.jipinshop.activity.message.MessageActivity;
 import com.example.administrator.jipinshop.util.sp.CommonDate;
 
 import org.greenrobot.eventbus.EventBus;
@@ -76,7 +76,7 @@ public class JPushReceiver extends BroadcastReceiver {
             MyApplication.getInstance().setNotificationNum(1);
         }
         Log.d("JPushReceiver", "mNotificationNum:" + MyApplication.getInstance().getNotificationNum());
-        Intent intent = new Intent(context, SystemMessageActivity.class);
+        Intent intent = new Intent(context, MessageActivity.class);
         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         NotificationManager mNotifyMgr =
                 (NotificationManager) context.getSystemService(NOTIFICATION_SERVICE);
@@ -121,7 +121,7 @@ public class JPushReceiver extends BroadcastReceiver {
         if(!SPUtils.getInstance(CommonDate.USER).getBoolean(CommonDate.userLogin,false)){
             intent.setClass(context, LoginActivity.class);
         }else {
-            intent.setClass(context, SystemMessageActivity.class);
+            intent.setClass(context, MessageActivity.class);
         }
         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         context.startActivity(intent);

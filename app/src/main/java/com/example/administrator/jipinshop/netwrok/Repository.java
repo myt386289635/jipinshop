@@ -283,8 +283,8 @@ public class Repository {
     /**
      * 获取消息列表详情内容
      */
-    public Observable<SystemMessageBean> messageAll(String page){
-        return mAPIService.messageAll(page,SPUtils.getInstance(CommonDate.USER).getString(CommonDate.userId),"1");
+    public Observable<SystemMessageBean> messageAll(String page,String type){
+        return mAPIService.messageAll(page,type);
     }
 
     /**

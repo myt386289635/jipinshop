@@ -1,6 +1,6 @@
-package com.example.administrator.jipinshop.activity.message.system;
+package com.example.administrator.jipinshop.activity.message.detail;
 
-import com.example.administrator.jipinshop.bean.SystemMessageBean;
+import com.example.administrator.jipinshop.bean.SuccessBean;
 import com.example.administrator.jipinshop.netwrok.Repository;
 import com.trello.rxlifecycle2.LifecycleTransformer;
 
@@ -11,45 +11,43 @@ import io.reactivex.schedulers.Schedulers;
 
 /**
  * @author 莫小婷
- * @create 2018/8/4
+ * @create 2018/11/14
  * @Describe
  */
-public class SystemMessagePresenter {
+public class MsgDetailPresenter {
 
     private Repository mRepository;
-    private SystemMessageView mView;
+    private MsgDetailView mView;
 
-    public void setView(SystemMessageView view) {
+    public void setView(MsgDetailView view) {
         mView = view;
     }
 
     @Inject
-    public SystemMessagePresenter(Repository repository) {
+    public MsgDetailPresenter(Repository repository) {
         mRepository = repository;
     }
 
-    /**
-     * 获取消息列表
-     */
-    public void messageAll(String page ,LifecycleTransformer<SystemMessageBean> ransformer){
-        mRepository.messageAll(page)
+    public void readMsg(String id,LifecycleTransformer<SuccessBean> ransformer){
+        mRepository.readMsg(id)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .compose(ransformer)
-                .subscribe(systemMessageBean -> {
-                    if(systemMessageBean.getCode() == 200){
+                .subscribe(successBean -> {
+                    if(successBean.getCode() == 0){
                         if(mView != null){
-                            mView.Success(systemMessageBean);
+                            mView.onSuccess(successBean);
                         }
                     }else {
                         if(mView != null){
-                            mView.Faile(systemMessageBean.getMsg());
+                            mView.onFaile(successBean.getMsg());
                         }
                     }
                 }, throwable -> {
                     if(mView != null){
-                        mView.Faile(throwable.getMessage());
+                        mView.onFaile(throwable.getMessage());
                     }
                 });
     }
+
 }

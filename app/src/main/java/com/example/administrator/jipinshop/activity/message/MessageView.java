@@ -1,4 +1,4 @@
-package com.example.administrator.jipinshop.activity.message.system;
+package com.example.administrator.jipinshop.activity.message;
 
 import com.example.administrator.jipinshop.bean.SystemMessageBean;
 
@@ -7,7 +7,7 @@ import com.example.administrator.jipinshop.bean.SystemMessageBean;
  * @create 2018/11/13
  * @Describe
  */
-public interface SystemMessageView {
+public interface MessageView {
 
     void Success(SystemMessageBean systemMessageBean);
     void Faile(String error);

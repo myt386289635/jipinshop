@@ -19,7 +19,7 @@ import com.example.administrator.jipinshop.activity.info.MyInfoActivity;
 import com.example.administrator.jipinshop.activity.info.editname.EditNameActivity;
 import com.example.administrator.jipinshop.activity.integral.IntegralActivity;
 import com.example.administrator.jipinshop.activity.login.LoginActivity;
-import com.example.administrator.jipinshop.activity.message.system.SystemMessageActivity;
+import com.example.administrator.jipinshop.activity.message.MessageActivity;
 import com.example.administrator.jipinshop.activity.setting.SettingActivity;
 import com.example.administrator.jipinshop.activity.sign.SignActivity;
 import com.example.administrator.jipinshop.base.DBBaseFragment;
@@ -135,7 +135,7 @@ public class MineFragment extends DBBaseFragment implements View.OnClickListener
                 break;
             case R.id.mine_message:
                 //跳转到消息页面
-                startActivity(new Intent(getContext(), SystemMessageActivity.class));
+                startActivity(new Intent(getContext(), MessageActivity.class));
                 break;
         }
     }

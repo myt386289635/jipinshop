@@ -10,7 +10,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.administrator.jipinshop.R;
-import com.example.administrator.jipinshop.activity.message.system.detail.SystemMsgDetailActivity;
+import com.example.administrator.jipinshop.activity.message.detail.MsgDetailActivity;
 import com.example.administrator.jipinshop.bean.SystemMessageBean;
 
 import java.util.List;
@@ -23,9 +23,9 @@ import java.util.List;
 public class SystemMessageAdapter extends RecyclerView.Adapter<SystemMessageAdapter.ViewHolder>{
 
     private Context mContext;
-    private List<SystemMessageBean.ListBean> mList;
+    private List<SystemMessageBean.DataBean> mList;
 
-    public SystemMessageAdapter(Context context, List<SystemMessageBean.ListBean> list) {
+    public SystemMessageAdapter(Context context, List<SystemMessageBean.DataBean> list) {
         mContext = context;
         mList = list;
     }
@@ -44,7 +44,7 @@ public class SystemMessageAdapter extends RecyclerView.Adapter<SystemMessageAdap
         holder.item_name.setText(mList.get(position).getTitle());
         holder.item_time.setText(mList.get(position).getCreateTime().split(" ")[0].replace("-","."));
         holder.item_more.setOnClickListener(v -> {
-            Intent intent = new Intent(mContext,SystemMsgDetailActivity.class);
+            Intent intent = new Intent(mContext,MsgDetailActivity.class);
             intent.putExtra("title",mList.get(position).getTitle());
             intent.putExtra("content",mList.get(position).getContent());
             intent.putExtra("id",mList.get(position).getId());

@@ -1,88 +1,212 @@
 package com.example.administrator.jipinshop.activity.message;
 
-import android.content.Intent;
 import android.databinding.DataBindingUtil;
-import android.net.Uri;
-import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.v4.app.NotificationManagerCompat;
+import android.support.v7.widget.LinearLayoutManager;
+import android.text.TextUtils;
 import android.view.View;
 
+import com.aspsine.swipetoloadlayout.OnLoadMoreListener;
+import com.aspsine.swipetoloadlayout.OnRefreshListener;
 import com.example.administrator.jipinshop.R;
-import com.example.administrator.jipinshop.activity.message.other.OtherMessageActivity;
-import com.example.administrator.jipinshop.activity.message.system.SystemMessageActivity;
+import com.example.administrator.jipinshop.adapter.SystemMessageAdapter;
 import com.example.administrator.jipinshop.base.BaseActivity;
-import com.example.administrator.jipinshop.databinding.ActivityMessageBinding;
+import com.example.administrator.jipinshop.bean.SystemMessageBean;
+import com.example.administrator.jipinshop.bean.eventbus.MessageMsgBus;
+import com.example.administrator.jipinshop.databinding.ActivityMessageSystemBinding;
+import com.example.administrator.jipinshop.jpush.JPushReceiver;
+import com.example.administrator.jipinshop.util.ToastUtil;
+
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.inject.Inject;
 
 /**
  * @author 莫小婷
  * @create 2018/8/4
- * @Describe 消息页面
+ * @Describe
  */
-public class MessageActivity extends BaseActivity implements View.OnClickListener {
+public class MessageActivity extends BaseActivity implements View.OnClickListener, OnRefreshListener, OnLoadMoreListener, MessageView {
+
+    public static final String tag = "SystemMsgDetailActivity2SystemMessageActivity";
 
     @Inject
     MessagePresenter mPresenter;
-    private ActivityMessageBinding mBinding;
+
+    private ActivityMessageSystemBinding mBinding;
+
+    private SystemMessageAdapter mAdapter;
+    private List<SystemMessageBean.DataBean> mList;
+
+    /**
+     * 页数
+     */
+    private int page = 1;
+    /**
+     * 记录是刷新还是加载
+     */
+    private Boolean refersh = true;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        mBinding = DataBindingUtil.setContentView(this, R.layout.activity_message);
+        mBinding = DataBindingUtil.setContentView(this,R.layout.activity_message_system);
         mBinding.setListener(this);
         mBaseActivityComponent.inject(this);
+        mPresenter.setView(this);
+        EventBus.getDefault().register(this);
         initView();
     }
 
     private void initView() {
-        mBinding.inClude.titleTv.setText("消息");
-        if(Build.VERSION.SDK_INT < 19){
-            mBinding.messageTitle.setVisibility(View.VISIBLE);
+        mBinding.inClude.titleTv.setText("系统消息");
+        mBinding.recyclerView.setLayoutManager(new LinearLayoutManager(this));
+        mList = new ArrayList<>();
+        mAdapter = new SystemMessageAdapter(this, mList);
+        mBinding.recyclerView.setAdapter(mAdapter);
+
+        mPresenter.solveScoll(mBinding.recyclerView,mBinding.swipeToLoad);
+        mBinding.swipeToLoad.setOnRefreshListener(this);
+        mBinding.swipeToLoad.setOnLoadMoreListener(this);
+        mBinding.swipeToLoad.setRefreshing(true);
+    }
+
+    @Override
+    public void onClick(View v) {
+        switch (v.getId()){
+            case R.id.title_back:
+                finish();
+                break;
+        }
+    }
+
+    /**
+     * 刷新
+     */
+    @Override
+    public void onRefresh() {
+        page = 1;
+        refersh = true;
+        mPresenter.messageAll(page + "" ,this.bindToLifecycle());
+    }
+
+    /**
+     * 加载
+     */
+    @Override
+    public void onLoadMore() {
+        page++;
+        refersh = false;
+        mPresenter.messageAll(page + "",this.bindToLifecycle());
+    }
+
+    /**
+     * 数据加载成功
+     */
+    @Override
+    public void Success(SystemMessageBean systemMessageBean) {
+        if(refersh){
+            dissRefresh();
         }else {
-            if(NotificationManagerCompat.from(this).areNotificationsEnabled()){
-                mBinding.messageTitle.setVisibility(View.GONE);
+            dissLoading();
+        }
+        if (systemMessageBean.getData() != null && systemMessageBean.getData().size() != 0){
+            //有数据
+            mBinding.netClude.qsNet.setVisibility(View.GONE);
+            if(refersh){
+                mList.clear();
+            }
+            mList.addAll(systemMessageBean.getData());
+            mAdapter.notifyDataSetChanged();
+            if(!refersh){
+                mBinding.swipeToLoad.setLoadMoreEnabled(false);
+            }
+        }else {
+            //没有数据
+            if(refersh){
+                //刷新时
+                initError(R.mipmap.qs_news, "暂无消息", "还没有任何消息哦，先休息一下吧");
+                mBinding.recyclerView.setVisibility(View.GONE);
             }else {
-                mBinding.messageTitle.setVisibility(View.VISIBLE);
+                //加载时
+                page--;
+                ToastUtil.show("已经是最后一页了");
             }
         }
     }
 
+    /**
+     * 数据加载失败
+     */
     @Override
-    public void onClick(View view) {
-        switch (view.getId()) {
-            case R.id.title_back:
-                finish();
-                break;
-            case R.id.title_start:
-                //跳转到系统设置页面
-                Intent localIntent = new Intent();
-                localIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                localIntent.setAction("android.settings.APPLICATION_DETAILS_SETTINGS");
-                localIntent.setData(Uri.fromParts("package", MessageActivity.this.getPackageName(), null));
-                startActivity(localIntent);
-                break;
-            case R.id.title_close:
-                mBinding.messageTitle.setVisibility(View.GONE);
-                break;
-            case R.id.system_container:
-                //系统消息
-                startActivity(new Intent(this, SystemMessageActivity.class));
-                break;
-            case R.id.action_container:
-                //极品城活动
-                startActivity(new Intent(this, OtherMessageActivity.class)
-                        .putExtra("title","极品城活动")
-                );
-                break;
-            case R.id.evaluating_container:
-                //评测赢大奖
-                startActivity(new Intent(this, OtherMessageActivity.class)
-                        .putExtra("title","评测赢大奖")
-                );
-                break;
+    public void Faile(String error) {
+        if(refersh){
+            dissRefresh();
+            initError(R.mipmap.qs_net, "网络出错", "哇哦，网络出错了，换个姿势下滑页面试试");
+            mBinding.recyclerView.setVisibility(View.GONE);
+        }else {
+            dissLoading();
+            page--;
+        }
+        ToastUtil.show(error);
+    }
+
+    public void dissRefresh(){
+        if (mBinding.swipeToLoad != null && mBinding.swipeToLoad.isRefreshing()) {
+            if (!mBinding.swipeToLoad.isRefreshEnabled()) {
+                mBinding.swipeToLoad.setRefreshEnabled(true);
+                mBinding.swipeToLoad.setRefreshing(false);
+                mBinding.swipeToLoad.setRefreshEnabled(false);
+            } else {
+                mBinding.swipeToLoad.setRefreshing(false);
+            }
+        }
+    }
+
+    public void dissLoading(){
+        if (mBinding.swipeToLoad != null && mBinding.swipeToLoad.isLoadingMore()) {
+            if (!mBinding.swipeToLoad.isLoadMoreEnabled()) {
+                mBinding.swipeToLoad.setLoadMoreEnabled(true);
+                mBinding.swipeToLoad.setLoadingMore(false);
+                mBinding.swipeToLoad.setLoadMoreEnabled(false);
+            } else {
+                mBinding.swipeToLoad.setLoadingMore(false);
+            }
+        }
+    }
+
+    public void initError(int id, String title, String content) {
+        mBinding.netClude.qsNet.setVisibility(View.VISIBLE);
+        mBinding.netClude.errorImage.setBackgroundResource(id);
+        mBinding.netClude.errorTitle.setText(title);
+        mBinding.netClude.errorContent.setText(content);
+    }
+
+    @Override
+    protected void onDestroy() {
+        EventBus.getDefault().unregister(this);
+        super.onDestroy();
+    }
+
+    @Subscribe
+    public void onRefersh(MessageMsgBus messageMsgBus){
+        if(messageMsgBus != null && messageMsgBus.getMsg().equals(MessageActivity.tag)){
+            mList.get(messageMsgBus.getPosition()).setStatus(1);
+            mAdapter.notifyDataSetChanged();
+        }
+    }
+
+    @Subscribe
+    public  void  unMessage(String s){
+        if(!TextUtils.isEmpty(s) && s.equals(JPushReceiver.TAG)){
+            if(mBinding != null && mBinding.swipeToLoad != null && !mBinding.swipeToLoad.isRefreshing()){
+                mBinding.swipeToLoad.setRefreshing(true);
+            }
         }
     }
 }

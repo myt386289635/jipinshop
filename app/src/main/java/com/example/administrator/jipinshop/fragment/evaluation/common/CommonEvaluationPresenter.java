@@ -1,6 +1,7 @@
 package com.example.administrator.jipinshop.fragment.evaluation.common;
 
 import android.content.Context;
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 
 import com.aspsine.swipetoloadlayout.SwipeToLoadLayout;
@@ -33,19 +34,15 @@ public class CommonEvaluationPresenter {
             @Override
             public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
                 super.onScrolled(recyclerView, dx, dy);
-                int topRowVerticalPosition = (recyclerView == null || recyclerView.getChildCount() == 0) ? 0 : recyclerView.getChildAt(0).getTop();
-                mSwipeToLoad.setRefreshEnabled(topRowVerticalPosition >= 0);
+                RecyclerView.LayoutManager layoutManager = mRecyclerView.getLayoutManager();
+                LinearLayoutManager linearManager = (LinearLayoutManager) layoutManager;
+                mSwipeToLoad.setRefreshEnabled(linearManager.findFirstCompletelyVisibleItemPosition() == 0);
                 mSwipeToLoad.setLoadMoreEnabled(isSlideToBottom(mRecyclerView));
             }
 
             @Override
             public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
                 super.onScrollStateChanged(recyclerView, newState);
-                if (newState == RecyclerView.SCROLL_STATE_IDLE) {
-                    Glide.with(context).resumeRequests();//为了在滑动时不卡顿
-                }else {
-                    Glide.with(context).pauseRequests();//为了在滑动时不卡顿
-                }
             }
         });
     }
