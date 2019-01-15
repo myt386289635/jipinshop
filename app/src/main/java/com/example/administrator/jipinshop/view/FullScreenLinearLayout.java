@@ -40,7 +40,6 @@ public class FullScreenLinearLayout extends RelativeLayout{
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
             // Intentionally do not modify the bottom inset. For some reason,
             // if the bottom inset is modified, window resizing stops working.
-            // TODO: Figure out why.
 
             mInsets[0] = insets.left;
             mInsets[1] = insets.top;

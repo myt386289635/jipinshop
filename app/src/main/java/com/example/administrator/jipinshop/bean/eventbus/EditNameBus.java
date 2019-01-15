@@ -48,66 +48,62 @@ public class EditNameBus {
 
     /*******************登录时需要返回的信息***********************/
 
-    public EditNameBus(String tag, String totleMoney, String state, String unUseMoney, String useMoney, String none) {
+    public EditNameBus(String tag, String fansCount, String voteCount, String followCount) {
         this.tag = tag;
-        this.totleMoney = totleMoney;
-        this.state = state;
-        this.unUseMoney = unUseMoney;
-        this.useMoney = useMoney;
-        this.none = none;
+        this.fansCount = fansCount;
+        this.voteCount = voteCount;
+        this.followCount = followCount;
     }
 
 
-    private String totleMoney;//总金额
-    private String state;//处理中
-    private String unUseMoney;//可提现
-    private String useMoney;//已提现
-    private String none;//待结算
+    private String fansCount;//粉丝数
+    private String voteCount;//点赞数
+    private String followCount;//关注数
 
-    public String getTotleMoney() {
-        return totleMoney;
+    public void setFansCount(String fansCount) {
+        this.fansCount = fansCount;
     }
 
-    public void setTotleMoney(String totleMoney) {
-        this.totleMoney = totleMoney;
+    public void setVoteCount(String voteCount) {
+        this.voteCount = voteCount;
     }
 
-    public String getState() {
-        return state;
+    public void setFollowCount(String followCount) {
+        this.followCount = followCount;
     }
 
-    public void setState(String state) {
-        this.state = state;
+    public String getFansCount() {
+        return fansCount;
     }
 
-    public String getUnUseMoney() {
-        return unUseMoney;
+    public String getVoteCount() {
+        return voteCount;
     }
 
-    public void setUnUseMoney(String unUseMoney) {
-        this.unUseMoney = unUseMoney;
+    public String getFollowCount() {
+        return followCount;
     }
-
-    public String getUseMoney() {
-        return useMoney;
-    }
-
-    public void setUseMoney(String useMoney) {
-        this.useMoney = useMoney;
-    }
-
-    public String getNone() {
-        return none;
-    }
-
-    public void setNone(String none) {
-        this.none = none;
-    }
-
 
     /***************签到时候返回的积分*******************/
 
     public EditNameBus(String tag) {
         this.tag = tag;
+    }
+
+    /********************首页获取未读数量********************/
+
+    private String count;
+
+    public EditNameBus(String tag, String count) {
+        this.tag = tag;
+        this.count = count;
+    }
+
+    public String getCount() {
+        return count;
+    }
+
+    public void setCount(String count) {
+        this.count = count;
     }
 }

@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="@color/pickerview_bg_topbar">
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@color/pickerview_bg_topbar">
 
     <!--android:textColor="@drawable/selector_pickerview_btn"-->
     <Button
@@ -11,10 +11,9 @@
         android:layout_height="fill_parent"
         android:background="@android:color/transparent"
         android:gravity="center_vertical|left"
-        android:paddingLeft="@dimen/pickerview_topbar_paddingleft"
-        android:paddingRight="@dimen/pickerview_topbar_paddingright"
+        android:paddingLeft="@dimen/x60"
         android:text="@string/pickerview_cancel"
-        android:textColor="#57b663"
+        android:textColor="@color/color_151515"
         android:textSize="@dimen/textview_textsize" />
 
     <TextView
@@ -29,15 +28,15 @@
         android:textSize="@dimen/textview_textsize" />
 
     <Button
+        android:textStyle="bold"
         android:id="@id/btnSubmit"
         android:layout_width="wrap_content"
         android:layout_height="fill_parent"
         android:layout_alignParentRight="true"
         android:background="@android:color/transparent"
-        android:gravity="center_vertical|left"
-        android:paddingLeft="@dimen/pickerview_topbar_paddingright"
-        android:paddingRight="@dimen/pickerview_topbar_paddingleft"
+        android:gravity="center_vertical|right"
+        android:paddingRight="@dimen/x60"
         android:text="@string/pickerview_submit"
-        android:textColor="#57b663"
+        android:textColor="@color/color_4A90E2"
         android:textSize="@dimen/textview_textsize" />
 </RelativeLayout>

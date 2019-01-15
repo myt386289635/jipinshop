@@ -2,11 +2,9 @@ package com.example.administrator.jipinshop.activity.info;
 
 import android.app.Dialog;
 
-import com.blankj.utilcode.util.SPUtils;
 import com.example.administrator.jipinshop.bean.ImageBean;
 import com.example.administrator.jipinshop.bean.SuccessBean;
 import com.example.administrator.jipinshop.netwrok.Repository;
-import com.example.administrator.jipinshop.util.sp.CommonDate;
 import com.trello.rxlifecycle2.LifecycleTransformer;
 
 import java.io.File;
@@ -59,14 +57,13 @@ public class MyInfoPresenter {
 
     public void SaveUserInfo(String type, String content, LifecycleTransformer<SuccessBean> transformer, Dialog dialog){
         Map<String,String> map = new HashMap<>();
-        map.put("userId", SPUtils.getInstance(CommonDate.USER).getString(CommonDate.userId));
         if(type.equals("2")){
-            map.put("userGender",content);
+            map.put("gender",content);
         }else if(type.equals("3")){
-            map.put("userBirthday",content);
+            map.put("birthday",content);
         }else if(type.equals("4")){
             //上传头像
-            map.put("userNickImg",content);
+            map.put("avatar",content);
         }
         mRepository.userUpdate(map)
                 .subscribeOn(Schedulers.io())
@@ -95,15 +92,15 @@ public class MyInfoPresenter {
      */
     public void importCustomer(LifecycleTransformer<ImageBean> ransformer,Dialog mDialog, File file){
         RequestBody requestBody = RequestBody.create(MediaType.parse("image/*"), file);
-        MultipartBody.Part body = MultipartBody.Part.createFormData("importFile", file.getName(), requestBody);
-        mRepository.importCustomer(SPUtils.getInstance(CommonDate.USER).getString(CommonDate.userNickImg,""),body)
+        MultipartBody.Part body = MultipartBody.Part.createFormData("imageFile", file.getName(), requestBody);
+        mRepository.importCustomer(body)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .compose(ransformer)
                 .subscribe(imageBean -> {
-                    if(imageBean.getCode() == 200){
+                    if(imageBean.getCode() == 0){
                         if(mView != null){
-                            mView.uploadPicSuccess(mDialog,imageBean.getUserNickImg());
+                            mView.uploadPicSuccess(mDialog,imageBean.getData());
                         }
                     }else {
                         if(mDialog != null && mDialog.isShowing()){

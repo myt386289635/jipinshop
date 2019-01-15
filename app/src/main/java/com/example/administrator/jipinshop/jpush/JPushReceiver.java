@@ -118,7 +118,7 @@ public class JPushReceiver extends BroadcastReceiver {
      */
     private void openNotification(Context context, Bundle bundle){
         Intent intent = new Intent();
-        if(!SPUtils.getInstance(CommonDate.USER).getBoolean(CommonDate.userLogin,false)){
+        if(TextUtils.isEmpty(SPUtils.getInstance(CommonDate.USER).getString(CommonDate.token,"").trim())){
             intent.setClass(context, LoginActivity.class);
         }else {
             intent.setClass(context, MessageActivity.class);

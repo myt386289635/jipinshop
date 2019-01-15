@@ -1,6 +1,5 @@
 package com.example.administrator.jipinshop.fragment.mine;
 
-import com.example.administrator.jipinshop.bean.AccountBean;
 import com.example.administrator.jipinshop.bean.UserInfoBean;
 
 /**
@@ -10,9 +9,7 @@ import com.example.administrator.jipinshop.bean.UserInfoBean;
  */
 public interface MineView {
 
-    void successMoney(AccountBean accountBean);
-
     void successUserInfo(UserInfoBean userInfoBean);
 
-    void FaileUserInfo(String error);
+    void FaileUserInfo(UserInfoBean error);
 }

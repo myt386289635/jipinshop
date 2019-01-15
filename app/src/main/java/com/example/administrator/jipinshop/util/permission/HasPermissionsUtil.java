@@ -1,7 +1,9 @@
 package com.example.administrator.jipinshop.util.permission;
 
 import android.content.Context;
+import android.content.DialogInterface;
 import android.support.v7.app.AlertDialog;
+import android.text.TextPaint;
 
 import com.example.administrator.jipinshop.R;
 import com.example.administrator.jipinshop.view.RuntimeRationale;
@@ -32,11 +34,9 @@ public class HasPermissionsUtil implements HasPermissmionsListener{
                 .permission(permissions)
                 .rationale(new RuntimeRationale())
                 .onGranted(permissions1 -> {
-//                        Toast.makeText(getContext(), "成功", Toast.LENGTH_SHORT).show();
                     hasPermissionsUtil.hasPermissionsSuccess();
                 })
                 .onDenied(permissions12 -> {
-//                        Toast.makeText(getContext(), "失败", Toast.LENGTH_SHORT).show();
                     if (AndPermission.hasAlwaysDeniedPermission(context, permissions12)) {
                         showSettingDialog(context,hasPermissionsUtil, permissions12);
                     }else {
@@ -54,7 +54,7 @@ public class HasPermissionsUtil implements HasPermissmionsListener{
         List<String> permissionNames = Permission.transformText(context, permissions);
         String message = "点击设置打开" + permissionNames.get(0) + "权限";
         String title = "该操作需要访问您的" + permissionNames.get(0) + "权限";
-        new AlertDialog.Builder(context)
+        AlertDialog mDialog = new AlertDialog.Builder(context)
                 .setCancelable(false)
                 .setTitle(title)
                 .setMessage(message)
@@ -63,6 +63,10 @@ public class HasPermissionsUtil implements HasPermissmionsListener{
                     hasPermissionsUtil.rePermissionsFaile();
                 })
                 .show();
+        mDialog.getButton(android.app.AlertDialog.BUTTON_POSITIVE).setTextColor(context.getResources().getColor(R.color.color_4A90E2));
+        mDialog.getButton(DialogInterface.BUTTON_NEGATIVE).setTextColor(context.getResources().getColor(R.color.color_DE151515));
+        TextPaint paint =  mDialog.getButton(android.app.AlertDialog.BUTTON_POSITIVE).getPaint();
+        paint.setFakeBoldText(true);
     }
 
     /**
@@ -73,7 +77,6 @@ public class HasPermissionsUtil implements HasPermissmionsListener{
                 .runtime()
                 .setting()
                 .onComeback(() -> {
-//                        Toast.makeText(getContext(), R.string.message_setting_comeback, Toast.LENGTH_SHORT).show();
                     hasPermissionsUtil.settingPermissions();
                 })
                 .start();

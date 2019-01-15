@@ -3,6 +3,7 @@ package com.example.administrator.jipinshop.view;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.text.TextPaint;
 import android.text.TextUtils;
 
 import com.example.administrator.jipinshop.R;
@@ -24,22 +25,16 @@ public class RuntimeRationale implements Rationale<List<String>> {
         List<String> permissionNames = Permission.transformText(context, permissions);
         String message = context.getString(R.string.message_permission_rationale, TextUtils.join("", permissionNames));
 
-        new AlertDialog.Builder(context)
+        AlertDialog mDialog = new AlertDialog.Builder(context)
                 .setCancelable(false)
                 .setTitle(R.string.title_dialog)
                 .setMessage(message)
-                .setPositiveButton(R.string.resume, new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        executor.execute();
-                    }
-                })
-                .setNegativeButton(R.string.cancel, new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        executor.cancel();
-                    }
-                })
+                .setPositiveButton(R.string.resume, (dialog, which) -> executor.execute())
+                .setNegativeButton(R.string.cancel, (dialog, which) -> executor.cancel())
                 .show();
+        mDialog.getButton(AlertDialog.BUTTON_POSITIVE).setTextColor(context.getResources().getColor(R.color.color_4A90E2));
+        mDialog.getButton(DialogInterface.BUTTON_NEGATIVE).setTextColor(context.getResources().getColor(R.color.color_DE151515));
+        TextPaint paint =  mDialog.getButton(AlertDialog.BUTTON_POSITIVE).getPaint();
+        paint.setFakeBoldText(true);
     }
 }

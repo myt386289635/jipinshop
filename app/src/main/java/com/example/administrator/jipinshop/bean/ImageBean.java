@@ -9,13 +9,13 @@ public class ImageBean {
 
     /**
      * msg : success
-     * code : 200
-     * userNickImg : http://192.168.5.182:8083/img/1539761216882aaaa.jpg
+     * code : 0
+     * data : http://jipincheng.cn/910ffa7702984517b88e4cc3d48cf66f
      */
 
     private String msg;
     private int code;
-    private String userNickImg;
+    private String data;
 
     public String getMsg() {
         return msg;
@@ -33,11 +33,11 @@ public class ImageBean {
         this.code = code;
     }
 
-    public String getUserNickImg() {
-        return userNickImg;
+    public String getData() {
+        return data;
     }
 
-    public void setUserNickImg(String userNickImg) {
-        this.userNickImg = userNickImg;
+    public void setData(String data) {
+        this.data = data;
     }
 }

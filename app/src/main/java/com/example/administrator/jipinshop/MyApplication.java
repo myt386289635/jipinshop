@@ -95,7 +95,7 @@ public class MyApplication extends Application {
         //极光初始化
         JPushInterface.setDebugMode(true);
         JPushInterface.init(this);
-        if(!SPUtils.getInstance(CommonDate.USER).getBoolean(CommonDate.userLogin,false)){
+        if(TextUtils.isEmpty(SPUtils.getInstance(CommonDate.USER).getString(CommonDate.token,"").trim())){
             ///没有登陆
             JPushInterface.stopPush(this);//停止推送
         }

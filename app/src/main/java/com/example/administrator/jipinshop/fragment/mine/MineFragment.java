@@ -6,28 +6,24 @@ import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Toast;
 
 import com.blankj.utilcode.util.SPUtils;
 import com.example.administrator.jipinshop.MyApplication;
 import com.example.administrator.jipinshop.R;
-import com.example.administrator.jipinshop.activity.balance.BalanceActivity;
-import com.example.administrator.jipinshop.activity.coupon.CouponActivity;
 import com.example.administrator.jipinshop.activity.follow.FollowActivity;
 import com.example.administrator.jipinshop.activity.foval.FovalActivity;
 import com.example.administrator.jipinshop.activity.info.MyInfoActivity;
 import com.example.administrator.jipinshop.activity.info.editname.EditNameActivity;
-import com.example.administrator.jipinshop.activity.integral.IntegralActivity;
 import com.example.administrator.jipinshop.activity.login.LoginActivity;
 import com.example.administrator.jipinshop.activity.message.MessageActivity;
 import com.example.administrator.jipinshop.activity.setting.SettingActivity;
-import com.example.administrator.jipinshop.activity.sign.SignActivity;
 import com.example.administrator.jipinshop.base.DBBaseFragment;
-import com.example.administrator.jipinshop.bean.AccountBean;
 import com.example.administrator.jipinshop.bean.UserInfoBean;
 import com.example.administrator.jipinshop.bean.eventbus.EditNameBus;
 import com.example.administrator.jipinshop.databinding.FragmentMineBinding;
+import com.example.administrator.jipinshop.fragment.home.HomeFragment;
 import com.example.administrator.jipinshop.jpush.JPushReceiver;
+import com.example.administrator.jipinshop.util.ToastUtil;
 import com.example.administrator.jipinshop.util.sp.CommonDate;
 import com.example.administrator.jipinshop.view.glide.GlideApp;
 
@@ -68,74 +64,43 @@ public class MineFragment extends DBBaseFragment implements View.OnClickListener
     @Override
     public void onClick(View view) {
         switch (view.getId()) {
-            case R.id.mine_setting:
-                //跳转到设置页面
-                startActivityForResult(new Intent(getContext(), SettingActivity.class), 100);
-                return;
-            case R.id.mine_login:
-                //跳转到登陆页面
-                startActivityForResult(new Intent(getContext(), LoginActivity.class), 100);
-                return;
-        }
-        if (TextUtils.isEmpty(SPUtils.getInstance(CommonDate.USER).getString(CommonDate.token, ""))) {
-            startActivityForResult(new Intent(getContext(), LoginActivity.class), 100);
-            return;
-        }
-        switch (view.getId()) {
             case R.id.mine_name:
             case R.id.mine_image:
                 //我的资料
                 startActivityForResult(new Intent(getContext(), MyInfoActivity.class), 100);
                 break;
             case R.id.mine_sign:
-                //跳转到H5页面
-                startActivity(new Intent(getContext(), SignActivity.class));
-                break;
-            case R.id.mine_withdraw:
-                //跳转到我的余额页面
-//                startActivity(new Intent(getContext(), BalanceActivity.class)
-//                        .putExtra("totleMoney", mBinding.mineMoney.getText().toString())//总金额
-//                        .putExtra("processingValue", mBinding.mineProcessingValue.getText().toString())//处理中
-//                        .putExtra("withdrawableValue", mBinding.mineWithdrawableValue.getText().toString())//可提现
-//                        .putExtra("settlementValue", mBinding.mineSettlementValue.getText().toString())//待结算
-//                        .putExtra("withdrawedValue", mBinding.mineWithdrawedValue.getText().toString())//已提现
-//                );
-                Toast.makeText(getContext(), "该模块正在开发中", Toast.LENGTH_SHORT).show();
-                break;
-            case R.id.mine_processing:
-                //跳转到
-                break;
-            case R.id.mine_withdrawable:
-                //跳转到
-                break;
-            case R.id.mine_settlement:
-                //跳转到
-                break;
-            case R.id.mine_Withdrawed:
-                //跳转到
-                break;
-            case R.id.mine_Order:
-
-                break;
             case R.id.mine_follow:
-                //跳转到我的关注页面
-                startActivity(new Intent(getContext(), FollowActivity.class));
-                break;
-            case R.id.mine_coupon:
-                //跳转到优惠券页面
-                startActivity(new Intent(getContext(), CouponActivity.class));
+                //跳转到签到页面
+
                 break;
             case R.id.mine_favor:
                 //跳转到收藏页面
                 startActivity(new Intent(getContext(), FovalActivity.class));
                 break;
-            case R.id.mine_integral:
-                //跳转到我的积分页面
-                startActivity(new Intent(getContext(), IntegralActivity.class));
-                break;
             case R.id.mine_message:
                 //跳转到消息页面
                 startActivity(new Intent(getContext(), MessageActivity.class));
+                break;
+            case R.id.mine_attention:
+                //跳转到关注页面
+                startActivity(new Intent(getContext(), FollowActivity.class));
+                break;
+            case R.id.mine_fans:
+                //跳转到粉丝页面
+                startActivity(new Intent(getContext(), FollowActivity.class));
+                break;
+            case R.id.mine_goodsNum:
+                //点击点赞数
+
+                break;
+            case R.id.mine_setting:
+                //跳转到设置页面
+                startActivityForResult(new Intent(getContext(), SettingActivity.class), 100);
+                break;
+            case R.id.mine_login:
+                //跳转到登陆页面
+                startActivityForResult(new Intent(getContext(), LoginActivity.class), 100);
                 break;
         }
     }
@@ -147,9 +112,11 @@ public class MineFragment extends DBBaseFragment implements View.OnClickListener
             case 201://退出登陆成功
                 mBinding.mineName.setVisibility(View.GONE);
                 mBinding.mineLogin.setVisibility(View.VISIBLE);
-                mBinding.mineLevel.setVisibility(View.GONE);
-                mBinding.mineIntegral.setText("积分0");
                 GlideApp.loderImage(getContext(),R.drawable.logo, mBinding.mineImage, 0, 0);
+                mBinding.mineGoodsNumText.setText("0");//点赞数
+                mBinding.mineAttentionText.setText("0");//关注数
+                mBinding.mineFansText.setText("0");//粉丝数
+                mBinding.mineSignText.setText("0");//极币数
                 SPUtils.getInstance(CommonDate.USER).clear();
                 EventBus.getDefault().post(JPushReceiver.TAG);//刷新未读消息
                 JPushInterface.stopPush(MyApplication.getInstance());//停止推送
@@ -185,42 +152,18 @@ public class MineFragment extends DBBaseFragment implements View.OnClickListener
             if (!TextUtils.isEmpty(SPUtils.getInstance(CommonDate.USER).getString(CommonDate.userNickImg))) {
                 GlideApp.loderImage(getContext(),SPUtils.getInstance(CommonDate.USER).getString(CommonDate.userNickImg), mBinding.mineImage, R.mipmap.logo, 0);
             }
-            mBinding.mineLevel.setVisibility(View.VISIBLE);
-            mBinding.mineLevel.setText("v" + SPUtils.getInstance(CommonDate.USER).getString(CommonDate.userMemberGrade));
-            mBinding.mineIntegral.setText("积分" + SPUtils.getInstance(CommonDate.USER).getInt(CommonDate.userPoint));
-        } else if (bus.getTag().equals(SignActivity.eventbusTag)) {
-            //签到、补签、抽奖后刷新积分和会员等级
-            mBinding.mineIntegral.setText("积分" + SPUtils.getInstance(CommonDate.USER).getInt(CommonDate.userPoint));
-            mBinding.mineLevel.setText("v" + SPUtils.getInstance(CommonDate.USER).getString(CommonDate.userMemberGrade));
-        } else if (bus.getTag().equals(BalanceActivity.alipayTag)) {
-            //提现后刷新佣金
-            mPresenter.getMoney(getContext(), this.bindToLifecycle());
+            mBinding.mineGoodsNumText.setText(bus.getVoteCount());//点赞数
+            mBinding.mineAttentionText.setText(bus.getFollowCount());//关注数
+            mBinding.mineFansText.setText(bus.getFansCount());//粉丝数
+            mBinding.mineSignText.setText(SPUtils.getInstance(CommonDate.USER).getInt(CommonDate.userPoint,0) + "");//极币数
+        }else if (bus.getTag().equals(HomeFragment.MsgRefersh)){
+            if(bus.getCount().equals("0")){
+                mBinding.mineMsgNumber.setVisibility(View.GONE);
+            }else {
+                mBinding.mineMsgNumber.setVisibility(View.VISIBLE);
+                mBinding.mineMsgNumber.setText(bus.getCount());
+            }
         }
-    }
-
-    /**
-     * 获取佣金金额
-     *
-     * @param accountBean
-     */
-    @Override
-    public void successMoney(AccountBean accountBean) {
-//        if (accountBean.getCode() == 200) {
-//            mBinding.mineMoney.setText("总佣金¥" + accountBean.getList().get(0).getTotal_account());
-//            mBinding.mineProcessingValue.setText(accountBean.getList().get(0).getState());
-//            BigDecimal totleDecimal = new BigDecimal(accountBean.getList().get(0).getTotal_account());
-//            BigDecimal useDecimal = new BigDecimal("50");
-//            double value = totleDecimal.subtract(useDecimal).doubleValue();
-//            if (value >= 0) {
-//                mBinding.mineWithdrawableValue.setText(accountBean.getList().get(0).getTotal_account());
-//            } else {
-//                mBinding.mineWithdrawableValue.setText("0");
-//            }
-//            mBinding.mineSettlementValue.setText("0");
-//            mBinding.mineWithdrawedValue.setText(accountBean.getList().get(0).getUse_account());
-//        } else {
-//            Toast.makeText(getContext(), "佣金金额获取失败，请联系客服", Toast.LENGTH_SHORT).show();
-//        }
     }
 
     /**
@@ -231,8 +174,6 @@ public class MineFragment extends DBBaseFragment implements View.OnClickListener
      */
     @Override
     public void successUserInfo(UserInfoBean userInfoBean) {
-        //获取用户佣金
-//        mPresenter.getMoney(getContext(), this.bindToLifecycle());
 
         SPUtils.getInstance(CommonDate.USER).put(CommonDate.userBirthday, userInfoBean.getData().getBirthday());
         SPUtils.getInstance(CommonDate.USER).put(CommonDate.userGender, userInfoBean.getData().getGender());
@@ -244,14 +185,14 @@ public class MineFragment extends DBBaseFragment implements View.OnClickListener
 
         mBinding.mineName.setVisibility(View.VISIBLE);
         mBinding.mineLogin.setVisibility(View.GONE);
-        mBinding.mineLevel.setVisibility(View.VISIBLE);
-
+        mBinding.mineGoodsNumText.setText(userInfoBean.getData().getVoteCount());//点赞数
+        mBinding.mineAttentionText.setText(userInfoBean.getData().getFollowCount());//关注数
+        mBinding.mineFansText.setText(userInfoBean.getData().getFansCount());//粉丝数
+        mBinding.mineSignText.setText(SPUtils.getInstance(CommonDate.USER).getInt(CommonDate.userPoint,0) + "");//极币数
         mBinding.mineName.setText(SPUtils.getInstance(CommonDate.USER).getString(CommonDate.userNickName));
         if (!TextUtils.isEmpty(SPUtils.getInstance(CommonDate.USER).getString(CommonDate.userNickImg))) {
             GlideApp.loderImage(getContext(),SPUtils.getInstance(CommonDate.USER).getString(CommonDate.userNickImg), mBinding.mineImage, R.mipmap.logo, 0);
         }
-        mBinding.mineLevel.setText("v" + SPUtils.getInstance(CommonDate.USER).getString(CommonDate.userMemberGrade));
-        mBinding.mineIntegral.setText("积分" + SPUtils.getInstance(CommonDate.USER).getInt(CommonDate.userPoint));
     }
 
     /**
@@ -260,23 +201,29 @@ public class MineFragment extends DBBaseFragment implements View.OnClickListener
      * @param error
      */
     @Override
-    public void FaileUserInfo(String error) {
+    public void FaileUserInfo(UserInfoBean error) {
         //获取用户信息失败 走退出登陆的逻辑
-        mBinding.mineName.setVisibility(View.VISIBLE);
-        mBinding.mineLogin.setVisibility(View.GONE);
-        mBinding.mineLevel.setVisibility(View.VISIBLE);
-        if (TextUtils.isEmpty(SPUtils.getInstance(CommonDate.USER).getString(CommonDate.userNickName))) {
-            mBinding.mineName.setText(SPUtils.getInstance(CommonDate.USER).getString(CommonDate.userPhone));
-        } else {
+        if(error.getCode() == 602){
+            //token失效
+            mBinding.mineName.setVisibility(View.GONE);
+            mBinding.mineLogin.setVisibility(View.VISIBLE);
+            GlideApp.loderImage(getContext(),R.drawable.logo, mBinding.mineImage, 0, 0);
+            SPUtils.getInstance(CommonDate.USER).clear();
+            JPushInterface.stopPush(MyApplication.getInstance());//停止推送
+        }else {
+            mBinding.mineName.setVisibility(View.VISIBLE);
+            mBinding.mineLogin.setVisibility(View.GONE);
             mBinding.mineName.setText(SPUtils.getInstance(CommonDate.USER).getString(CommonDate.userNickName));
+            if (!TextUtils.isEmpty(SPUtils.getInstance(CommonDate.USER).getString(CommonDate.userNickImg))) {
+                GlideApp.loderImage(getContext(),SPUtils.getInstance(CommonDate.USER).getString(CommonDate.userNickImg), mBinding.mineImage, R.mipmap.logo, 0);
+            }
+            SPUtils.getInstance(CommonDate.USER).put(CommonDate.userMemberGrade, "1");
+            SPUtils.getInstance(CommonDate.USER).put(CommonDate.userPoint, 0);
         }
-        if (!TextUtils.isEmpty(SPUtils.getInstance(CommonDate.USER).getString(CommonDate.userNickImg))) {
-            GlideApp.loderImage(getContext(),SPUtils.getInstance(CommonDate.USER).getString(CommonDate.userNickImg), mBinding.mineImage, R.mipmap.logo, 0);
-        }
-        mBinding.mineLevel.setText("v0");
-        mBinding.mineIntegral.setText("积分0");
-        SPUtils.getInstance(CommonDate.USER).put(CommonDate.userMemberGrade, "0");
-        SPUtils.getInstance(CommonDate.USER).put(CommonDate.userPoint, 0);
-        Toast.makeText(getContext(), error, Toast.LENGTH_SHORT).show();
+        mBinding.mineGoodsNumText.setText("0");//点赞数
+        mBinding.mineAttentionText.setText("0");//关注数
+        mBinding.mineFansText.setText("0");//粉丝数
+        mBinding.mineSignText.setText("0");//极币数
+        ToastUtil.show(error.getMsg());
     }
 }

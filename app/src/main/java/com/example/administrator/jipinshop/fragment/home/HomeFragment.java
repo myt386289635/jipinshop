@@ -24,6 +24,7 @@ import com.example.administrator.jipinshop.base.DBBaseFragment;
 import com.example.administrator.jipinshop.bean.TabBean;
 import com.example.administrator.jipinshop.bean.TitleBean;
 import com.example.administrator.jipinshop.bean.UnMessageBean;
+import com.example.administrator.jipinshop.bean.eventbus.EditNameBus;
 import com.example.administrator.jipinshop.databinding.FragmentHomeBinding;
 import com.example.administrator.jipinshop.fragment.home.commen.HomeCommenFragment;
 import com.example.administrator.jipinshop.fragment.home.recommend.RecommendFragment;
@@ -46,6 +47,7 @@ import q.rorbin.badgeview.QBadgeView;
 public class HomeFragment extends DBBaseFragment implements Badge.OnDragStateChangedListener, View.OnClickListener, HomeFragmentView, HomeTabAdapter.OnClickItem, ViewPager.OnPageChangeListener {
 
     public static final String subTab = "HomeFragment2subFragments";
+    public static final String MsgRefersh = "MsgRefersh";
 
     @Inject
     HomeFragmentPresenter mHomeFragmentPresenter;
@@ -202,8 +204,10 @@ public class HomeFragment extends DBBaseFragment implements Badge.OnDragStateCha
             } else {
                 mQBadgeView.setBadgeText("99+");
             }
+            EventBus.getDefault().post(new EditNameBus(HomeFragment.MsgRefersh,mQBadgeView.getBadgeText()));
         }else { 
             mQBadgeView.hide(false);
+            EventBus.getDefault().post(new EditNameBus(HomeFragment.MsgRefersh,"0"));
         }
     }
 
@@ -213,6 +217,7 @@ public class HomeFragment extends DBBaseFragment implements Badge.OnDragStateCha
     @Override
     public void unMessageFaile(String error) {
         ToastUtil.show(error);
+        EventBus.getDefault().post(new EditNameBus(HomeFragment.MsgRefersh,"0"));
     }
 
     @Override

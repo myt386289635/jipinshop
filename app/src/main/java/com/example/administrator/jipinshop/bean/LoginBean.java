@@ -82,6 +82,42 @@ public class LoginBean {
         private String updateTime;
         private String token;
         private int point;
+        private String articleCount;
+        private int bindMobile;
+        private int bindWeixin;
+        private  int bindWeibo;
+
+        public String getArticleCount() {
+            return articleCount;
+        }
+
+        public void setArticleCount(String articleCount) {
+            this.articleCount = articleCount;
+        }
+
+        public int getBindMobile() {
+            return bindMobile;
+        }
+
+        public void setBindMobile(int bindMobile) {
+            this.bindMobile = bindMobile;
+        }
+
+        public int getBindWeixin() {
+            return bindWeixin;
+        }
+
+        public void setBindWeixin(int bindWeixin) {
+            this.bindWeixin = bindWeixin;
+        }
+
+        public int getBindWeibo() {
+            return bindWeibo;
+        }
+
+        public void setBindWeibo(int bindWeibo) {
+            this.bindWeibo = bindWeibo;
+        }
 
         public int getPoint() {
             return point;

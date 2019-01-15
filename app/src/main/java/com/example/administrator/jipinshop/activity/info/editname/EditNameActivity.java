@@ -98,7 +98,7 @@ public class EditNameActivity extends BaseActivity implements EditNameView {
      */
     @Override
     public void Success(SuccessBean successBean) {
-        if (successBean.getCode() == 200) {
+        if (successBean.getCode() == 0) {
             SPUtils.getInstance(CommonDate.USER).put(CommonDate.userNickName, mEditEdit.getText().toString());
             EventBus.getDefault().post(new EditNameBus(EditNameActivity.tag, mEditEdit.getText().toString(),"1"));
             Toast.makeText(this, "修改成功", Toast.LENGTH_SHORT).show();

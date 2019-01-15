@@ -1,20 +1,17 @@
 package com.example.administrator.jipinshop.fragment.mine;
 
 import android.content.Context;
-import android.util.Log;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
-import android.widget.Toast;
 
-import com.example.administrator.jipinshop.bean.AccountBean;
 import com.example.administrator.jipinshop.bean.UserInfoBean;
 import com.example.administrator.jipinshop.netwrok.Repository;
+import com.example.administrator.jipinshop.util.ToastUtil;
 import com.trello.rxlifecycle2.LifecycleTransformer;
 
 import javax.inject.Inject;
 
 import io.reactivex.android.schedulers.AndroidSchedulers;
-import io.reactivex.functions.Consumer;
 import io.reactivex.schedulers.Schedulers;
 
 /**
@@ -46,21 +43,6 @@ public class MinePresenter {
         }
     }
 
-    public void getMoney(Context context,LifecycleTransformer<AccountBean> transformer){
-        mRepository.account()
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .compose(transformer)
-                .subscribe(accountBean -> {
-                    if(mView != null){
-                        mView.successMoney(accountBean);
-                    }
-                }, throwable -> {
-                    Toast.makeText(context, "佣金金额获取失败，请检查网络", Toast.LENGTH_SHORT).show();
-                    Log.d("MinePresenter", throwable.getMessage());
-                });
-    }
-
     public void modelUser(LifecycleTransformer<UserInfoBean> transformer){
         mRepository.modelUser()
                 .subscribeOn(Schedulers.io())
@@ -73,13 +55,11 @@ public class MinePresenter {
                         }
                     }else {
                         if(mView != null){
-                            mView.FaileUserInfo(userInfoBean.getMsg());
+                            mView.FaileUserInfo(userInfoBean);
                         }
                     }
                 }, throwable -> {
-                    if(mView != null){
-                        mView.FaileUserInfo("用户信息更新失败，请检查网络");
-                    }
+                    ToastUtil.show("用户信息更新失败，请检查网络");
                 });
     }
 

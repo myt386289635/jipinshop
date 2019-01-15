@@ -74,15 +74,51 @@ public class UserInfoBean {
         private String avatar;
         private int role;
         private Object qrCode;
-        private Object authentication;
+        private int authentication;
         private Object status;
-        private int fansCount;
-        private int voteCount;
-        private int followCount;
+        private String fansCount;
+        private String voteCount;
+        private String followCount;
         private String createTime;
         private Object updateTime;
         private Object token;
         private int point;
+        private String articleCount;
+        private int bindMobile;
+        private int bindWeixin;
+        private  int bindWeibo;
+
+        public String getArticleCount() {
+            return articleCount;
+        }
+
+        public void setArticleCount(String articleCount) {
+            this.articleCount = articleCount;
+        }
+
+        public int getBindMobile() {
+            return bindMobile;
+        }
+
+        public void setBindMobile(int bindMobile) {
+            this.bindMobile = bindMobile;
+        }
+
+        public int getBindWeixin() {
+            return bindWeixin;
+        }
+
+        public void setBindWeixin(int bindWeixin) {
+            this.bindWeixin = bindWeixin;
+        }
+
+        public int getBindWeibo() {
+            return bindWeibo;
+        }
+
+        public void setBindWeibo(int bindWeibo) {
+            this.bindWeibo = bindWeibo;
+        }
 
         public String getUserId() {
             return userId;
@@ -164,11 +200,11 @@ public class UserInfoBean {
             this.qrCode = qrCode;
         }
 
-        public Object getAuthentication() {
+        public int getAuthentication() {
             return authentication;
         }
 
-        public void setAuthentication(Object authentication) {
+        public void setAuthentication(int authentication) {
             this.authentication = authentication;
         }
 
@@ -180,27 +216,27 @@ public class UserInfoBean {
             this.status = status;
         }
 
-        public int getFansCount() {
+        public String getFansCount() {
             return fansCount;
         }
 
-        public void setFansCount(int fansCount) {
+        public void setFansCount(String fansCount) {
             this.fansCount = fansCount;
         }
 
-        public int getVoteCount() {
+        public String getVoteCount() {
             return voteCount;
         }
 
-        public void setVoteCount(int voteCount) {
+        public void setVoteCount(String voteCount) {
             this.voteCount = voteCount;
         }
 
-        public int getFollowCount() {
+        public String getFollowCount() {
             return followCount;
         }
 
-        public void setFollowCount(int followCount) {
+        public void setFollowCount(String followCount) {
             this.followCount = followCount;
         }
 

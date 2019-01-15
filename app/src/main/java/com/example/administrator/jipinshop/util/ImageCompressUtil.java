@@ -91,10 +91,8 @@ public class ImageCompressUtil {
             Log.i("----", "已经保存");
             return  str;
         } catch (FileNotFoundException e) {
-            // TODO Auto-generated catch block
             e.printStackTrace();
         } catch (IOException e) {
-            // TODO Auto-generated catch block
             e.printStackTrace();
         }
 

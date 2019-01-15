@@ -251,15 +251,22 @@ public interface APIService {
     @GET("qualityshop-api/api/message/selectById")
     Observable<SuccessBean> readMsg(@Query("id") String id);
 
-/*************************************************以下是还未修改的接口***********************************************/
-
+    /**
+     * 上传图片  已修改
+     */
+    @POST("qualityshop-api/api/uploadImage")
+    @Multipart
+    Observable<ImageBean> importCustomer(@Part MultipartBody.Part importFile);
 
     /**
-     * 用户信息修改
+     * 用户信息修改  已修改
      */
     @FormUrlEncoded
-    @POST("qualityshop-api/api/ModelUserUpdate")
+    @POST("qualityshop-api/api/user/update")
     Observable<SuccessBean> userUpdate(@FieldMap Map<String,String> param);
+
+
+/*************************************************以下是还未修改的接口***********************************************/
 
     /**
      * 获取佣金金额
@@ -330,14 +337,6 @@ public interface APIService {
     @POST("qualityshop-api/api/startLuckyDraw")
     @FormUrlEncoded
     Observable<LuckselectBean> luckselect(@Field("userId") String userId);
-
-    /**
-     * 上传图片
-     */
-    @POST("qualityshop-api/api/importCustomer")
-    @Multipart
-    Observable<ImageBean> importCustomer(@Part("url")String url,@Part MultipartBody.Part importFile);
-
 
     /**
      * 获取抽奖图片

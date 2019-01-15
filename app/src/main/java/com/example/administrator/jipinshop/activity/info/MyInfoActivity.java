@@ -8,12 +8,10 @@ import android.support.annotation.Nullable;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
-import android.widget.Toast;
 
 import com.blankj.utilcode.util.SPUtils;
 import com.example.administrator.jipinshop.R;
 import com.example.administrator.jipinshop.activity.info.editname.EditNameActivity;
-import com.example.administrator.jipinshop.activity.info.member.MemberLevelActivity;
 import com.example.administrator.jipinshop.base.BaseActivity;
 import com.example.administrator.jipinshop.bean.SuccessBean;
 import com.example.administrator.jipinshop.bean.eventbus.EditNameBus;
@@ -75,8 +73,6 @@ public class MyInfoActivity extends BaseActivity implements SelectPicDialog.Choo
             mBinding.infoName.setText(SPUtils.getInstance(CommonDate.USER).getString(CommonDate.userNickName));
         }
         mBinding.infoBirth.setText(SPUtils.getInstance(CommonDate.USER).getString(CommonDate.userBirthday));
-        mBinding.infoNumber.setText(SPUtils.getInstance(CommonDate.USER).getString(CommonDate.userPhone));
-        mBinding.infoLevel.setText("v" + SPUtils.getInstance(CommonDate.USER).getString(CommonDate.userMemberGrade));
         mBinding.infoSex.setText(SPUtils.getInstance(CommonDate.USER).getString(CommonDate.userGender));
 
         wheelList = new ArrayList<>();
@@ -119,9 +115,6 @@ public class MyInfoActivity extends BaseActivity implements SelectPicDialog.Choo
                         .putExtra("value",mBinding.infoName.getText().toString())
                 );
                 break;
-            case R.id.info_levelContainer:
-                startActivity(new Intent(this,MemberLevelActivity.class));
-                break;
             case R.id.info_sexContainer:
                 WheelViewUtil.alertBottomWheelOption(this, wheelList, (view1, postion) -> {
                     Dialog mDialog = (new ProgressDialogView()).createLoadingDialog(MyInfoActivity.this, "请求中...");
@@ -137,7 +130,7 @@ public class MyInfoActivity extends BaseActivity implements SelectPicDialog.Choo
                 });
                 break;
             case R.id.info_numberContainer:
-                //跳转到绑定手机页面
+                //跳转到绑定账号页面
 //                startActivity(new Intent(this, BindNumberActivity.class));
                 break;
             case R.id.info_exitLogin:
@@ -172,12 +165,12 @@ public class MyInfoActivity extends BaseActivity implements SelectPicDialog.Choo
      */
     @Override
     public void EditBirthDaySuccess(SuccessBean successBean,String date) {
-        if (successBean.getCode() == 200) {
+        if (successBean.getCode() == 0) {
             mBinding.infoBirth.setText(date);
             SPUtils.getInstance(CommonDate.USER).put(CommonDate.userBirthday, mBinding.infoBirth.getText().toString());
-            Toast.makeText(this, "修改成功", Toast.LENGTH_SHORT).show();
+            ToastUtil.show( "修改成功");
         } else {
-            Toast.makeText(this, successBean.getMsg(), Toast.LENGTH_SHORT).show();
+            ToastUtil.show(successBean.getMsg());
         }
     }
 
@@ -187,12 +180,12 @@ public class MyInfoActivity extends BaseActivity implements SelectPicDialog.Choo
      */
     @Override
     public void EditGenderSuccess(SuccessBean successBean,String date) {
-        if (successBean.getCode() == 200) {
+        if (successBean.getCode() == 0) {
             SPUtils.getInstance(CommonDate.USER).put(CommonDate.userGender, date);
             mBinding.infoSex.setText(SPUtils.getInstance(CommonDate.USER).getString(CommonDate.userGender));
-            Toast.makeText(this, "修改成功", Toast.LENGTH_SHORT).show();
+            ToastUtil.show( "修改成功");
         } else {
-            Toast.makeText(this, successBean.getMsg(), Toast.LENGTH_SHORT).show();
+            ToastUtil.show(successBean.getMsg());
         }
     }
 
@@ -201,14 +194,13 @@ public class MyInfoActivity extends BaseActivity implements SelectPicDialog.Choo
      */
     @Override
     public void EditUserNickImgSuc(SuccessBean successBean, String date) {
-        if (successBean.getCode() == 200) {
-//            ImageManager.displayCircleImage(date,mBinding.infoImage,R.mipmap.rlogo,R.mipmap.rlogo);
+        if (successBean.getCode() == 0) {
             GlideApp.loderCircleImage(this,date,mBinding.infoImage,R.mipmap.rlogo,0);
             SPUtils.getInstance(CommonDate.USER).put(CommonDate.userNickImg, date);
             EventBus.getDefault().post(new EditNameBus(EditNameActivity.tag,date,"4"));
-            Toast.makeText(this, "修改成功", Toast.LENGTH_SHORT).show();
+            ToastUtil.show("修改成功");
         } else {
-            Toast.makeText(this, successBean.getMsg(), Toast.LENGTH_SHORT).show();
+            ToastUtil.show(successBean.getMsg());
         }
     }
 
@@ -225,7 +217,7 @@ public class MyInfoActivity extends BaseActivity implements SelectPicDialog.Choo
      */
     @Override
     public void uploadPicFailed(String error) {
-        Toast.makeText(this, error, Toast.LENGTH_SHORT).show();
+        ToastUtil.show(error);
     }
 
     @Override

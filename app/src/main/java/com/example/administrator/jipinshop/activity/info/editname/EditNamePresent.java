@@ -37,8 +37,7 @@ public class EditNamePresent {
 
     public void SaveUserInfo(String content, LifecycleTransformer<SuccessBean> transformer, Dialog dialog){
         Map<String,String> map = new HashMap<>();
-        map.put("userId", SPUtils.getInstance(CommonDate.USER).getString(CommonDate.userId));
-        map.put("userNickName",content);
+        map.put("nickname",content);
         mRepository.userUpdate(map)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())

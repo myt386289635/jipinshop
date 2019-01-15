@@ -108,44 +108,6 @@
 
         <RelativeLayout
             android:onClick="@{listener.onClick}"
-            android:id="@+id/info_levelContainer"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content">
-
-            <TextView
-                android:id="@+id/info_levelText"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="@dimen/x20"
-                android:layout_marginLeft="@dimen/x28"
-                android:layout_marginTop="@dimen/x20"
-                android:text="会员等级"
-                android:textColor="@color/color_DE151515"
-                android:textSize="15sp"/>
-
-            <TextView
-                android:id="@+id/info_level"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentRight="true"
-                android:layout_centerVertical="true"
-                android:layout_marginRight="@dimen/x28"
-                android:drawablePadding="@dimen/x10"
-                android:drawableRight="@mipmap/right_ash1"
-                android:textColor="@color/color_ACACAC"
-                android:textSize="13sp"/>
-
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="@dimen/x2"
-                android:layout_below="@id/info_levelText"
-                android:layout_marginLeft="@dimen/x28"
-                android:layout_marginRight="@dimen/x28"
-                android:background="@color/color_F5F5F5"/>
-        </RelativeLayout>
-
-        <RelativeLayout
-            android:onClick="@{listener.onClick}"
             android:id="@+id/info_sexContainer"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content">
@@ -234,20 +196,46 @@
                 android:layout_marginBottom="@dimen/x20"
                 android:layout_marginLeft="@dimen/x28"
                 android:layout_marginTop="@dimen/x20"
-                android:text="绑定手机"
+                android:text="账号管理"
                 android:textColor="@color/color_DE151515"
                 android:textSize="15sp"/>
 
-            <TextView
-                android:id="@+id/info_number"
+            <ImageView
+                android:id="@+id/info_numberLine"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentRight="true"
                 android:layout_centerVertical="true"
                 android:layout_marginRight="@dimen/x28"
-                tools:text="15826680888"
-                android:textColor="@color/color_ACACAC"
-                android:textSize="13sp"/>
+                android:background="@mipmap/right_ash1"/>
+
+
+            <ImageView
+                android:id="@+id/info_numberWeiBo"
+                android:src="@mipmap/weibo_nor"
+                android:layout_marginRight="@dimen/x10"
+                android:layout_centerVertical="true"
+                android:layout_toLeftOf="@id/info_numberLine"
+                android:layout_width="@dimen/x38"
+                android:layout_height="@dimen/y38"/>
+
+            <ImageView
+                android:id="@+id/info_numberWechat"
+                android:src="@mipmap/wechat_nor"
+                android:layout_marginRight="@dimen/x18"
+                android:layout_centerVertical="true"
+                android:layout_toLeftOf="@id/info_numberWeiBo"
+                android:layout_width="@dimen/x38"
+                android:layout_height="@dimen/y38"/>
+
+            <ImageView
+                android:id="@+id/info_numberPhone"
+                android:src="@mipmap/phone_nor"
+                android:layout_marginRight="@dimen/x18"
+                android:layout_centerVertical="true"
+                android:layout_toLeftOf="@id/info_numberWechat"
+                android:layout_width="@dimen/x38"
+                android:layout_height="@dimen/y38"/>
 
             <View
                 android:layout_width="match_parent"
@@ -256,6 +244,7 @@
                 android:layout_marginLeft="@dimen/x28"
                 android:layout_marginRight="@dimen/x28"
                 android:background="@color/color_F5F5F5"/>
+
         </RelativeLayout>
 
         <RelativeLayout

@@ -38,6 +38,7 @@ public class HomeFragmentPresenter{
                 .setBadgeGravity( Gravity.END | Gravity.TOP)
                 .setBadgePadding(2,true)
                 .setGravityOffset(9,3,true)
+                .setBadgeBackgroundColor(0xffE31436)
                 .setOnDragStateChangedListener(onDragStateChangedListener);
     }
 
