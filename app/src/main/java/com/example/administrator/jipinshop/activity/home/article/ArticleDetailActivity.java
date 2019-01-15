@@ -45,7 +45,7 @@ import com.example.administrator.jipinshop.bean.VoteBean;
 import com.example.administrator.jipinshop.bean.eventbus.CommonEvaluationBus;
 import com.example.administrator.jipinshop.bean.eventbus.FindBus;
 import com.example.administrator.jipinshop.databinding.ActivityFindDetailBinding;
-import com.example.administrator.jipinshop.fragment.foval.FovalFragment;
+import com.example.administrator.jipinshop.fragment.foval.article.FovalArticleFragment;
 import com.example.administrator.jipinshop.netwrok.RetrofitModule;
 import com.example.administrator.jipinshop.util.ClickUtil;
 import com.example.administrator.jipinshop.util.ShareUtils;
@@ -483,7 +483,7 @@ public class ArticleDetailActivity extends BaseActivity implements View.OnClickL
     @Override
     public void onSucCollectInsert(SuccessBean successBean) {
         if (successBean.getCode() == 0) {
-            EventBus.getDefault().post(FovalFragment.CollectResher);//刷新我的收藏列表
+            EventBus.getDefault().post(FovalArticleFragment.CollectResher);//刷新我的收藏列表
             isCollect = true;
             mBinding.bottomFavor.setImageResource(R.mipmap.tab_favor_sel);
         } else {
@@ -499,7 +499,7 @@ public class ArticleDetailActivity extends BaseActivity implements View.OnClickL
     @Override
     public void onSucCollectDelete(SuccessBean successBean) {
         if (successBean.getCode() == 0) {
-            EventBus.getDefault().post(FovalFragment.CollectResher);//刷新我的收藏列表
+            EventBus.getDefault().post(FovalArticleFragment.CollectResher);//刷新我的收藏列表
             isCollect = false;
             mBinding.bottomFavor.setImageResource(R.mipmap.tab_favor_nor);
         } else {

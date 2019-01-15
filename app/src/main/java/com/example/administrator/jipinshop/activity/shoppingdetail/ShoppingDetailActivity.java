@@ -49,10 +49,8 @@ import com.example.administrator.jipinshop.bean.SuccessBean;
 import com.example.administrator.jipinshop.bean.VoteBean;
 import com.example.administrator.jipinshop.bean.eventbus.CommenBus;
 import com.example.administrator.jipinshop.bean.eventbus.CommonEvaluationBus;
-import com.example.administrator.jipinshop.bean.eventbus.ConcerBus;
 import com.example.administrator.jipinshop.databinding.ActivityShopingDetailBinding;
-import com.example.administrator.jipinshop.fragment.evaluation.common.CommonEvaluationFragment;
-import com.example.administrator.jipinshop.fragment.foval.FovalFragment;
+import com.example.administrator.jipinshop.fragment.foval.article.FovalArticleFragment;
 import com.example.administrator.jipinshop.util.ClickUtil;
 import com.example.administrator.jipinshop.util.ToastUtil;
 import com.example.administrator.jipinshop.util.WeakRefHandler;
@@ -62,7 +60,6 @@ import com.example.administrator.jipinshop.view.SaleProgressView;
 import com.example.administrator.jipinshop.view.dialog.ProgressDialogView;
 import com.example.administrator.jipinshop.view.dialog.ShareBoardDialog;
 import com.example.administrator.jipinshop.view.glide.GlideApp;
-import com.example.administrator.jipinshop.view.goodview.GoodView;
 import com.umeng.socialize.UMShareAPI;
 import com.umeng.socialize.bean.SHARE_MEDIA;
 
@@ -531,7 +528,7 @@ public class ShoppingDetailActivity extends BaseActivity implements ShoppingComm
     @Override
     public void onSucCollectInsert(SuccessBean successBean) {
         if(successBean.getCode() == 0){
-            EventBus.getDefault().post(FovalFragment.CollectResher);//刷新我的收藏列表
+            EventBus.getDefault().post(FovalArticleFragment.CollectResher);//刷新我的收藏列表
             isCollect = true;
             mBinding.detailFavor.setImageResource(R.mipmap.score_sel);
             mBinding.titleFavorImg.setImageResource(R.mipmap.score_sel);
@@ -548,7 +545,7 @@ public class ShoppingDetailActivity extends BaseActivity implements ShoppingComm
     @Override
     public void onSucCollectDelete(SuccessBean successBean) {
         if(successBean.getCode() == 0){
-            EventBus.getDefault().post(FovalFragment.CollectResher);
+            EventBus.getDefault().post(FovalArticleFragment.CollectResher);
             isCollect = false;
             mBinding.detailFavor.setImageResource(R.mipmap.nav_favor);
             mBinding.titleFavorImg.setImageResource(R.mipmap.nav_favor_white);

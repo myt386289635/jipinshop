@@ -1,8 +1,7 @@
-package com.example.administrator.jipinshop.fragment.sreach.article;
+package com.example.administrator.jipinshop.fragment.foval.find;
 
 import android.content.Intent;
 import android.databinding.DataBindingUtil;
-import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -12,11 +11,11 @@ import com.aspsine.swipetoloadlayout.OnLoadMoreListener;
 import com.aspsine.swipetoloadlayout.OnRefreshListener;
 import com.example.administrator.jipinshop.R;
 import com.example.administrator.jipinshop.activity.home.article.ArticleDetailActivity;
-import com.example.administrator.jipinshop.activity.sreach.result.SreachResultActivity;
-import com.example.administrator.jipinshop.adapter.SreachFindAdapter;
+import com.example.administrator.jipinshop.adapter.SreachArticleAdapter;
 import com.example.administrator.jipinshop.base.DBBaseFragment;
 import com.example.administrator.jipinshop.bean.SreachResultArticlesBean;
 import com.example.administrator.jipinshop.databinding.FragmentSreachfindBinding;
+import com.example.administrator.jipinshop.fragment.sreach.find.SreachFindView;
 import com.example.administrator.jipinshop.util.ClickUtil;
 import com.example.administrator.jipinshop.util.ToastUtil;
 
@@ -27,29 +26,25 @@ import javax.inject.Inject;
 
 /**
  * @author 莫小婷
- * @create 2019/1/8
+ * @create 2019/1/15
  * @Describe
  */
-public class SreachArticleFragment extends DBBaseFragment implements SreachFindAdapter.OnItem, OnRefreshListener, OnLoadMoreListener, SreachArticleView {
-
-    @Inject
-    SreachArticlePresenter mPresenter;
+public class FovalFindFragment extends DBBaseFragment implements SreachArticleAdapter.OnItem, OnRefreshListener, OnLoadMoreListener, SreachFindView {
 
     private FragmentSreachfindBinding mBinding;
     private Boolean[] once = {true};//记录第一次进入页面标示
-    private SreachFindAdapter mAdapter;
+    private SreachArticleAdapter mAdapter;
     private List<SreachResultArticlesBean.DataBean> mList;
 
     private int page = 1;
     private Boolean refersh = true;
 
+    @Inject
+    FovalFindPresenter mPresenter;
 
-    public static SreachArticleFragment getInstance(String content,String type) {
-        SreachArticleFragment fragment = new SreachArticleFragment();
-        Bundle bundle = new Bundle();
-        bundle.putString("content",content);
-        bundle.putString("type",type);
-        fragment.setArguments(bundle);
+
+    public static FovalFindFragment getInstance() {
+        FovalFindFragment fragment = new FovalFindFragment();
         return fragment;
     }
 
@@ -63,9 +58,10 @@ public class SreachArticleFragment extends DBBaseFragment implements SreachFindA
 
     @Override
     public View initLayout(LayoutInflater inflater, ViewGroup container) {
-        mBinding = DataBindingUtil.inflate(inflater,R.layout.fragment_sreachfind,container,false);
+        mBinding = DataBindingUtil.inflate(inflater, R.layout.fragment_sreachfind,container,false);
         return mBinding.getRoot();
     }
+
 
     @Override
     public void initView() {
@@ -74,13 +70,13 @@ public class SreachArticleFragment extends DBBaseFragment implements SreachFindA
 
         mBinding.recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         mList = new ArrayList<>();
-        mAdapter = new SreachFindAdapter(mList,getContext());
+        mAdapter = new SreachArticleAdapter(mList,getContext());
         mAdapter.setOnItem(this);
         mBinding.recyclerView.setAdapter(mAdapter);
 
         mBinding.swipeToLoad.setOnRefreshListener(this);
         mBinding.swipeToLoad.setOnLoadMoreListener(this);
-        mPresenter.solveScoll(mBinding.recyclerView,mBinding.swipeToLoad,((SreachResultActivity)getActivity()).getBar(),once);
+        mPresenter.solveScoll(mBinding.recyclerView,mBinding.swipeToLoad);
     }
 
     @Override
@@ -90,7 +86,7 @@ public class SreachArticleFragment extends DBBaseFragment implements SreachFindA
         }else{
             startActivity(new Intent(getContext(),ArticleDetailActivity.class)
                     .putExtra("id",mList.get(pos).getArticleId())
-                    .putExtra("type","2")
+                    .putExtra("type","3")
             );
         }
     }
@@ -99,14 +95,14 @@ public class SreachArticleFragment extends DBBaseFragment implements SreachFindA
     public void onRefresh() {
         page = 1;
         refersh = true;
-        mPresenter.searchGoods(page + "",getArguments().getString("type"),getArguments().getString("content"),this.bindToLifecycle());
+        mPresenter.collect(page,this.bindToLifecycle());
     }
 
     @Override
     public void onLoadMore() {
         page++;
         refersh = false;
-        mPresenter.searchGoods(page + "",getArguments().getString("type"),getArguments().getString("content"),this.bindToLifecycle());
+        mPresenter.collect(page,this.bindToLifecycle());
     }
 
     @Override

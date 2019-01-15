@@ -6,7 +6,9 @@ import com.example.administrator.jipinshop.fragment.evaluation.EvaluationFragmen
 import com.example.administrator.jipinshop.fragment.evaluation.common.CommonEvaluationFragment;
 import com.example.administrator.jipinshop.fragment.find.FindFragment;
 import com.example.administrator.jipinshop.fragment.find.common.CommonFindFragment;
-import com.example.administrator.jipinshop.fragment.foval.FovalFragment;
+import com.example.administrator.jipinshop.fragment.foval.article.FovalArticleFragment;
+import com.example.administrator.jipinshop.fragment.foval.find.FovalFindFragment;
+import com.example.administrator.jipinshop.fragment.foval.goods.FovalGoodsFragment;
 import com.example.administrator.jipinshop.fragment.home.HomeFragment;
 import com.example.administrator.jipinshop.fragment.home.commen.HomeCommenFragment;
 import com.example.administrator.jipinshop.fragment.home.recommend.RecommendFragment;
@@ -28,10 +30,12 @@ public interface BaseFragmentComponent {
     void inject(CommonFindFragment fragment);
     void inject(CommonEvaluationFragment fragment);
     void inject(MineFragment fragment);
-    void inject(FovalFragment fragment);
+    void inject(FovalArticleFragment fragment);
     void inject(CouponFragment fragment);
     void inject(HomeCommenFragment fragment);
     void inject(SreachGoodsFragment fragment);
     void inject(SreachFindFragment fragment);
     void inject(SreachArticleFragment fragment);
+    void inject(FovalGoodsFragment fragment);
+    void inject(FovalFindFragment fragment);
 }

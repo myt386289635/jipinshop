@@ -15,7 +15,9 @@ import android.widget.TextView;
 import com.example.administrator.jipinshop.R;
 import com.example.administrator.jipinshop.adapter.HomeFragmentAdapter;
 import com.example.administrator.jipinshop.base.BaseActivity;
-import com.example.administrator.jipinshop.fragment.foval.FovalFragment;
+import com.example.administrator.jipinshop.fragment.foval.article.FovalArticleFragment;
+import com.example.administrator.jipinshop.fragment.foval.find.FovalFindFragment;
+import com.example.administrator.jipinshop.fragment.foval.goods.FovalGoodsFragment;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -26,7 +28,7 @@ import butterknife.ButterKnife;
 /**
  * @author 莫小婷
  * @create 2018/8/6
- * @Describe 收藏/足迹
+ * @Describe 收藏
  */
 public class FovalActivity extends BaseActivity {
 
@@ -52,16 +54,18 @@ public class FovalActivity extends BaseActivity {
 
     private void initView() {
         mTitleBack.setOnClickListener(v -> finish());
-        mTitleTv.setText("收藏");
+        mTitleTv.setText("我的收藏");
         mFragments = new ArrayList<>();
         mAdapter = new HomeFragmentAdapter(getSupportFragmentManager());
-        mFragments.add(FovalFragment.getInstance("1"));
-//        mFragments.add(FovalFragment.getInstance("2"));
+        mFragments.add(FovalGoodsFragment.getInstance());
+        mFragments.add(FovalFindFragment.getInstance());
+        mFragments.add(FovalArticleFragment.getInstance("2"));
+        mFragments.add(FovalArticleFragment.getInstance("4"));
         mAdapter.setFragments(mFragments);
         mViewPager.setAdapter(mAdapter);
-//        mViewPager.setOffscreenPageLimit(2);
+        mViewPager.setOffscreenPageLimit(mFragments.size() - 1);
         mTabLayout.setupWithViewPager(mViewPager);
-//        initTabLayout();
+        initTabLayout();
     }
 
     @Override
@@ -72,13 +76,17 @@ public class FovalActivity extends BaseActivity {
 
     public void initTabLayout() {
         final List<Integer> textLether = new ArrayList<>();
-        for (int i = 0; i < 2; i++) {
+        for (int i = 0; i < mFragments.size(); i++) {
             View view = LayoutInflater.from(this).inflate(R.layout.tablayout_home, null);
             TextView textView = view.findViewById(R.id.tab_name);
             if (i == 0) {
-                textView.setText("收藏");
-            } else {
-                textView.setText("足迹");
+                textView.setText("榜单");
+            } else if (i == 1){
+                textView.setText("发现");
+            }else if (i == 2){
+                textView.setText("评测");
+            }else {
+                textView.setText("试用报告");
             }
             mTabLayout.getTabAt(i).setCustomView(view);
             int a = (int) textView.getPaint().measureText(textView.getText().toString());
@@ -89,8 +97,8 @@ public class FovalActivity extends BaseActivity {
         mTabLayout.post(() -> {
             //拿到tabLayout的mTabStrip属性
             LinearLayout mTabStrip = (LinearLayout) mTabLayout.getChildAt(0);
-            int totle = textLether.get(0) + textLether.get(1);
-            int dp10 = (mTabLayout.getWidth() - totle) / 2;
+            int totle = textLether.get(0) + textLether.get(1) + textLether.get(2) + textLether.get(3);
+            int dp10 = (mTabLayout.getWidth() - totle) / 4;
             for (int i = 0; i < mTabStrip.getChildCount(); i++) {
                 View tabView = mTabStrip.getChildAt(i);
                 tabView.setPadding(0, 0, 0, 0);

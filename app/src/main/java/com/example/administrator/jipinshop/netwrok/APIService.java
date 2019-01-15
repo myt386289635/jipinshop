@@ -272,6 +272,18 @@ public interface APIService {
     @FormUrlEncoded
     Observable<SuccessBean> feedBack(@Field("content") String content);
 
+    /**
+     * 获取收藏列表(商品)  已修改
+     */
+    @GET("qualityshop-api/api/collect/list")
+    Observable<SreachResultGoodsBean> collect(@Query("page") String page ,@Query("type") String type);
+
+    /**
+     * 获取收藏列表（发现、评测、试用报告）
+     */
+    @GET("qualityshop-api/api/collect/list")
+    Observable<SreachResultArticlesBean> collectArticle(@Query("page") String page ,@Query("type") String type);
+
 /*************************************************以下是还未修改的接口***********************************************/
 
     /**
@@ -287,12 +299,6 @@ public interface APIService {
     @GET("qualityshop-api/api/selectAll")
     Observable<FollowBean> concer(@Query("page") String page ,@Query("userId") String userId);
 
-
-    /**
-     * 获取收藏列表
-     */
-    @GET("qualityshop-api/api/collectAll")
-    Observable<FovalBean> collect(@Query("page") String page ,@Query("userId") String userId);
 
     /**
      * 查询签到7天状态

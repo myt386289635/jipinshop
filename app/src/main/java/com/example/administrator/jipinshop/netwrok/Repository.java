@@ -111,10 +111,17 @@ public class Repository {
     }
 
     /**
-     * 收藏列表
+     * 收藏列表(商品)
      */
-    public Observable<FovalBean> collect(String page){
-        return mAPIService.collect(page,SPUtils.getInstance(CommonDate.USER).getString(CommonDate.userId));
+    public Observable<SreachResultGoodsBean> collect(String page,String type){
+        return mAPIService.collect(page,type);
+    }
+
+    /**
+     * 收藏列表（发现、评测、试用报告）
+     */
+    public Observable<SreachResultArticlesBean> collectArticle(String page,String type){
+        return mAPIService.collectArticle(page,type);
     }
 
     /**
