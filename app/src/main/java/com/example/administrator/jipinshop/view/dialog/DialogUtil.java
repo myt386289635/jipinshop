@@ -107,4 +107,19 @@ public class DialogUtil{
         dialog.setCanceledOnTouchOutside(false);
         dialog.setContentView(view);
     }
+
+    public static void MyGoods(Context context,String title ,String content){
+        AlertDialog.Builder builder = new AlertDialog.Builder(context,R.style.dialog);
+        View view = LayoutInflater.from(context).inflate(R.layout.dialog_goods,null);
+        TextView mTitle = view.findViewById(R.id.dialog_title);
+        mTitle.setText(title);
+        TextView dialog_content =  view.findViewById(R.id.dialog_content);
+        dialog_content.setText(content);
+        TextView diss = view.findViewById(R.id.dialog_cancle);
+        final Dialog dialog = builder.create();
+        dialog.getWindow().setDimAmount(0.35f);
+        diss.setOnClickListener(v -> dialog.dismiss());
+        dialog.show();
+        dialog.setContentView(view);
+    }
 }

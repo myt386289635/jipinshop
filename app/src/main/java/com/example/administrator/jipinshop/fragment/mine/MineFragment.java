@@ -25,6 +25,7 @@ import com.example.administrator.jipinshop.fragment.home.HomeFragment;
 import com.example.administrator.jipinshop.jpush.JPushReceiver;
 import com.example.administrator.jipinshop.util.ToastUtil;
 import com.example.administrator.jipinshop.util.sp.CommonDate;
+import com.example.administrator.jipinshop.view.dialog.DialogUtil;
 import com.example.administrator.jipinshop.view.glide.GlideApp;
 
 import org.greenrobot.eventbus.EventBus;
@@ -92,7 +93,7 @@ public class MineFragment extends DBBaseFragment implements View.OnClickListener
                 break;
             case R.id.mine_goodsNum:
                 //点击点赞数
-
+                DialogUtil.MyGoods(getContext(),mBinding.mineName.getText().toString(),mBinding.mineGoodsNumText.getText().toString());
                 break;
             case R.id.mine_setting:
                 //跳转到设置页面

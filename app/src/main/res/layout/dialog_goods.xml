@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    android:minWidth="@dimen/x414"
+    android:background="@mipmap/mine_popup"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <TextView
+        android:id="@+id/dialog_title"
+        android:textColor="@color/color_F65C38"
+        android:layout_marginTop="@dimen/y270"
+        android:layout_centerHorizontal="true"
+        android:textSize="13sp"
+        android:text="游客"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"/>
+
+    <LinearLayout
+        android:id="@+id/dialog_contentContanier"
+        android:layout_marginTop="@dimen/y12"
+        android:layout_centerHorizontal="true"
+        android:layout_below="@id/dialog_title"
+        android:orientation="horizontal"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:textColor="@color/color_666666"
+            android:textSize="13sp"
+            android:text="共获得"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+
+        <TextView
+            android:id="@+id/dialog_content"
+            android:textColor="@color/color_F65C38"
+            android:textSize="15sp"
+            android:text="0"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+
+        <TextView
+            android:textColor="@color/color_666666"
+            android:textSize="13sp"
+            android:text="个赞"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+
+    </LinearLayout>
+
+
+    <TextView
+        android:layout_marginTop="@dimen/y72"
+        android:layout_below="@id/dialog_contentContanier"
+        android:id="@+id/dialog_cancle"
+        android:layout_marginBottom="@dimen/y46"
+        android:background="@drawable/bg_ok"
+        android:textSize="13sp"
+        android:text="好的"
+        android:textColor="@color/color_white"
+        android:layout_centerHorizontal="true"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"/>
+
+
+</RelativeLayout>
