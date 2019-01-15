@@ -3,6 +3,7 @@ package com.example.administrator.jipinshop.activity.setting;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -12,7 +13,6 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.blankj.utilcode.util.SPUtils;
 import com.example.administrator.jipinshop.R;
@@ -69,6 +69,8 @@ public class SettingActivity extends BaseActivity implements CleanCacheDialog.On
     RelativeLayout mSettingUserContainer;
     @BindView(R.id.setting_exitLogin)
     TextView mSettingExitLogin;
+    @BindView(R.id.setting_versonText)
+    TextView mSettingVersonText;
 
     private ClearTask mClearTask;
     private CleanCacheDialog mCleanCacheDialog;
@@ -98,6 +100,24 @@ public class SettingActivity extends BaseActivity implements CleanCacheDialog.On
         }else {
             mSettingExitLogin.setVisibility(View.VISIBLE);
         }
+        mSettingVersonText.setText(getVerName(this));
+    }
+
+    /**
+     * 获取版本号名称
+     *
+     * @param context 上下文
+     * @return
+     */
+    public String getVerName(Context context) {
+        String verName = "";
+        try {
+            verName = context.getPackageManager().
+                    getPackageInfo(context.getPackageName(), 0).versionName;
+        } catch (PackageManager.NameNotFoundException e) {
+            e.printStackTrace();
+        }
+        return verName;
     }
 
 
@@ -131,45 +151,45 @@ public class SettingActivity extends BaseActivity implements CleanCacheDialog.On
                 DialogUtil.LoginDialog(this, "极品城想打开您的电话", v -> diallPhone(mSettingServiceText.getText().toString()));
                 return;
             case R.id.setting_goodContainer:
-                if(!ShopJumpUtil.toQQDownload(this,"com.example.administrator.jipinshop")){
-                    if(!ShopJumpUtil.toMarket(this,"com.example.administrator.jipinshop",null)){
-                        Toast.makeText(this, "没有找到您手机里的应用商店，请确认", Toast.LENGTH_SHORT).show();
+                if (!ShopJumpUtil.toQQDownload(this, "com.example.administrator.jipinshop")) {
+                    if (!ShopJumpUtil.toMarket(this, "com.example.administrator.jipinshop", null)) {
+                        ToastUtil.show("没有找到您手机里的应用商店，请确认");
                     }
                 }
                 return;
             case R.id.setting_userContainer:
                 //用户协议
                 startActivity(new Intent(this, WebActivity.class)
-                        .putExtra(WebActivity.url, RetrofitModule.H5_URL+"user-agreement.html")
-                        .putExtra(WebActivity.title,"用户协议")
+                        .putExtra(WebActivity.url, RetrofitModule.H5_URL + "user-agreement.html")
+                        .putExtra(WebActivity.title, "用户协议")
                 );
                 return;
         }
         if (TextUtils.isEmpty(SPUtils.getInstance(CommonDate.USER).getString(CommonDate.token, ""))) {
-            Toast.makeText(this, "请先登录", Toast.LENGTH_SHORT).show();
+            ToastUtil.show("请先登录");
             return;
         }
-        switch (view.getId()){
+        switch (view.getId()) {
             case R.id.setting_opinionContainer:
                 //我要反馈
-                startActivity(new Intent(this,OpinionActivity.class));
+                startActivity(new Intent(this, OpinionActivity.class));
                 break;
             case R.id.setting_exitLogin:
                 //退出登陆
-                DialogUtil.LoginDialog(this, "您确定要退出登录吗？","确定","取消", v -> {
+                DialogUtil.LoginDialog(this, "您确定要退出登录吗？", "确定", "取消", v -> {
                     Dialog mDialog = (new ProgressDialogView()).createLoadingDialog(this, "退出登录...");
                     mDialog.show();
-                    mPresenter.loginOut(this.<SuccessBean>bindToLifecycle(),mDialog);
+                    mPresenter.loginOut(this.<SuccessBean>bindToLifecycle(), mDialog);
                 });
                 break;
         }
     }
 
 
-
     /**
      * 拨打电话（跳转到拨号界面，用户手动点击拨打）
      * 该功能不需要动态申请权限的
+     *
      * @param phoneNum 电话号码
      */
     public void diallPhone(String phoneNum) {
@@ -193,15 +213,16 @@ public class SettingActivity extends BaseActivity implements CleanCacheDialog.On
 
     /**
      * 退出登陆
+     *
      * @param msg
      */
     @Override
     public void loginOutSuccess(SuccessBean msg) {
-        if(msg.getCode() == 0){
+        if (msg.getCode() == 0) {
             setResult(201);
             finish();
             ToastUtil.show("退出登录成功");
-        }else {
+        } else {
             ToastUtil.show(msg.getMsg());
         }
     }
@@ -233,6 +254,7 @@ public class SettingActivity extends BaseActivity implements CleanCacheDialog.On
 //            clearLoading.setVisibility(View.GONE);
 //            tvCacheNum.setVisibility(View.VISIBLE);
             mSettingCleanImage.setText(MyDataCleanManager.getFormatSize(0L));
+            ToastUtil.show("内存已清空");
         }
     }
 }

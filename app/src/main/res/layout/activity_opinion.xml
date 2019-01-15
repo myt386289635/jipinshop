@@ -6,8 +6,26 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/y80">
 
-    <include layout="@layout/aa_title"/>
+        <include layout="@layout/aa_title"/>
+
+        <TextView
+            android:paddingLeft="@dimen/x28"
+            android:paddingRight="@dimen/x28"
+            android:layout_alignParentRight="true"
+            android:id="@+id/opinion_submit"
+            android:textSize="15sp"
+            android:textColor="@color/color_DE050505"
+            android:gravity="center"
+            android:text="提交"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"/>
+
+    </RelativeLayout>
+
 
     <TextView
         android:textSize="15sp"
@@ -46,25 +64,5 @@
         android:text="您还可以输入200个字"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"/>
-
-
-
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
-
-        <TextView
-            android:id="@+id/opinion_submit"
-            android:background="@color/color_E31436"
-            android:textSize="15sp"
-            android:textColor="@color/color_white"
-            android:gravity="center"
-            android:text="提交"
-            android:layout_alignParentBottom="true"
-            android:layout_width="match_parent"
-            android:layout_height="@dimen/x100"/>
-
-    </RelativeLayout>
-
 
 </LinearLayout>

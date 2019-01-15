@@ -211,6 +211,7 @@
 
 
             <ImageView
+                android:scaleType="fitXY"
                 android:id="@+id/info_numberWeiBo"
                 android:src="@mipmap/weibo_nor"
                 android:layout_marginRight="@dimen/x10"
@@ -220,6 +221,7 @@
                 android:layout_height="@dimen/y38"/>
 
             <ImageView
+                android:scaleType="fitXY"
                 android:id="@+id/info_numberWechat"
                 android:src="@mipmap/wechat_nor"
                 android:layout_marginRight="@dimen/x18"
@@ -229,6 +231,7 @@
                 android:layout_height="@dimen/y38"/>
 
             <ImageView
+                android:scaleType="fitXY"
                 android:id="@+id/info_numberPhone"
                 android:src="@mipmap/phone_nor"
                 android:layout_marginRight="@dimen/x18"

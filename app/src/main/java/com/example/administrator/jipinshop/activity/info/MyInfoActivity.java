@@ -74,6 +74,21 @@ public class MyInfoActivity extends BaseActivity implements SelectPicDialog.Choo
         }
         mBinding.infoBirth.setText(SPUtils.getInstance(CommonDate.USER).getString(CommonDate.userBirthday));
         mBinding.infoSex.setText(SPUtils.getInstance(CommonDate.USER).getString(CommonDate.userGender));
+        if(SPUtils.getInstance(CommonDate.USER).getString(CommonDate.bindMobile,"0").equals("1")){
+            mBinding.infoNumberPhone.setImageResource(R.mipmap.phone_sel);
+        }else {
+            mBinding.infoNumberPhone.setImageResource(R.mipmap.phone_nor);
+        }
+        if(SPUtils.getInstance(CommonDate.USER).getString(CommonDate.bindWeixin,"0").equals("1")){
+            mBinding.infoNumberWechat.setImageResource(R.mipmap.wechat_sel);
+        }else {
+            mBinding.infoNumberWechat.setImageResource(R.mipmap.wechat_nor);
+        }
+        if(SPUtils.getInstance(CommonDate.USER).getString(CommonDate.bindWeibo,"0").equals("1")){
+            mBinding.infoNumberWeiBo.setImageResource(R.mipmap.weibo_sel);
+        }else {
+            mBinding.infoNumberWeiBo.setImageResource(R.mipmap.weibo_nor);
+        }
 
         wheelList = new ArrayList<>();
         wheelList.add("女");

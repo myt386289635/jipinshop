@@ -46,6 +46,10 @@ public class CommonDate {
     public static final String userBirthday = "userBirthday";//用户生日
     public static final String userPhone = "userPhone";//用户手机号
     public static final String userPoint = "userPoint";//用户极币（int类型）
+    public static final String bindMobile = "bindMobile";//是否绑定手机
+    public static final String bindWeixin = "bindWeixin";//是否绑定微信
+    public static final String bindWeibo = "bindWeibo";//是否绑定微博
+
     public static final String alipAccount = "alipAccount";//支付宝账号
     public static final String alipName = "alipName";//支付宝绑定的真实姓名
 

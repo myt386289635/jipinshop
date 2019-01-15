@@ -182,6 +182,9 @@ public class MineFragment extends DBBaseFragment implements View.OnClickListener
         SPUtils.getInstance(CommonDate.USER).put(CommonDate.userPhone, userInfoBean.getData().getMobile());
         SPUtils.getInstance(CommonDate.USER).put(CommonDate.userMemberGrade, userInfoBean.getData().getRole() + "");
         SPUtils.getInstance(CommonDate.USER).put(CommonDate.userPoint, userInfoBean.getData().getPoint());
+        SPUtils.getInstance(CommonDate.USER).put(CommonDate.bindMobile, userInfoBean.getData().getBindMobile() + "");
+        SPUtils.getInstance(CommonDate.USER).put(CommonDate.bindWeibo, userInfoBean.getData().getBindWeibo() + "");
+        SPUtils.getInstance(CommonDate.USER).put(CommonDate.bindWeixin, userInfoBean.getData().getBindWeixin() + "");
 
         mBinding.mineName.setVisibility(View.VISIBLE);
         mBinding.mineLogin.setVisibility(View.GONE);

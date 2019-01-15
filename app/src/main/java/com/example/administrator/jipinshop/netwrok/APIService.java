@@ -265,6 +265,12 @@ public interface APIService {
     @POST("qualityshop-api/api/user/update")
     Observable<SuccessBean> userUpdate(@FieldMap Map<String,String> param);
 
+    /**
+     * 我要反馈  已修改
+     */
+    @POST("qualityshop-api/api/feedback/add")
+    @FormUrlEncoded
+    Observable<SuccessBean> feedBack(@Field("content") String content);
 
 /*************************************************以下是还未修改的接口***********************************************/
 
@@ -315,13 +321,6 @@ public interface APIService {
      */
     @GET("qualityshop-api/api/alipay")
     Observable<RecordBean> alipay(@Query("userId") String userId);
-
-    /**
-     * 我要反馈
-     */
-    @POST("qualityshop-api/api/feedBackInsert")
-    @FormUrlEncoded
-    Observable<SuccessBean> feedBack(@Field("userId") String userId,@Field("content") String content);
 
     /**
      * 一键补签

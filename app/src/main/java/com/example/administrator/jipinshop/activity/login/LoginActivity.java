@@ -161,6 +161,10 @@ public class LoginActivity extends BaseActivity implements LoginView, View.OnCli
             SPUtils.getInstance(CommonDate.USER).put(CommonDate.userPhone,loginBean.getData().getMobile());
             SPUtils.getInstance(CommonDate.USER).put(CommonDate.token,loginBean.getData().getToken());
             SPUtils.getInstance(CommonDate.USER).put(CommonDate.userPoint,loginBean.getData().getPoint());
+            SPUtils.getInstance(CommonDate.USER).put(CommonDate.bindMobile, loginBean.getData().getBindMobile() + "");
+            SPUtils.getInstance(CommonDate.USER).put(CommonDate.bindWeibo, loginBean.getData().getBindWeibo() + "");
+            SPUtils.getInstance(CommonDate.USER).put(CommonDate.bindWeixin, loginBean.getData().getBindWeixin() + "");
+
             EventBus.getDefault().post(new EditNameBus(LoginActivity.tag,loginBean.getData().getFansCount()+""
                     ,loginBean.getData().getVoteCount()+"",loginBean.getData().getFollowCount() + ""));//刷新登陆后我的页面
             EventBus.getDefault().post(JPushReceiver.TAG);//刷新未读消息

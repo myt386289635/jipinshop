@@ -57,20 +57,12 @@ public class CleanCacheDialog extends BottomSheetDialogFragment {
         dialog_clean = view.findViewById(R.id.dialog_clean);
         dialog_diss = view.findViewById(R.id.dialog_diss);
 
-        dialog_diss.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                dismiss();
+        dialog_diss.setOnClickListener(v -> dismiss());
+        dialog_clean.setOnClickListener(v -> {
+            if(mOnItemDialog != null){
+                mOnItemDialog.onItemDialog(v);
             }
-        });
-        dialog_clean.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if(mOnItemDialog != null){
-                    mOnItemDialog.onItemDialog(v);
-                }
-                dismiss();
-            }
+            dismiss();
         });
     }
 

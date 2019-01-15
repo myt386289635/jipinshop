@@ -14,6 +14,7 @@ import android.widget.Toast;
 import com.example.administrator.jipinshop.R;
 import com.example.administrator.jipinshop.base.BaseActivity;
 import com.example.administrator.jipinshop.bean.SuccessBean;
+import com.example.administrator.jipinshop.util.ToastUtil;
 import com.example.administrator.jipinshop.view.dialog.ProgressDialogView;
 
 import javax.inject.Inject;
@@ -96,11 +97,11 @@ public class OpinionActivity extends BaseActivity implements OpinionView {
         if(mDialog != null && mDialog.isShowing()){
             mDialog.dismiss();
         }
-        if(successBean.getCode() == 200){
-            Toast.makeText(this, "提交成功", Toast.LENGTH_SHORT).show();
+        if(successBean.getCode() == 0){
+            ToastUtil.show("提交成功");
             finish();
         }else {
-            Toast.makeText(this, successBean.getMsg(), Toast.LENGTH_SHORT).show();
+            ToastUtil.show( successBean.getMsg());
         }
     }
 }

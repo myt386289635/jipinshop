@@ -4,7 +4,6 @@ import com.blankj.utilcode.util.SPUtils;
 import com.example.administrator.jipinshop.bean.AccountBean;
 import com.example.administrator.jipinshop.bean.AppVersionbean;
 import com.example.administrator.jipinshop.bean.CommentBean;
-import com.example.administrator.jipinshop.bean.EvaluationDetailBean;
 import com.example.administrator.jipinshop.bean.EvaluationListBean;
 import com.example.administrator.jipinshop.bean.EvaluationTabBean;
 import com.example.administrator.jipinshop.bean.FindDetailBean;
@@ -25,7 +24,6 @@ import com.example.administrator.jipinshop.bean.RecordBean;
 import com.example.administrator.jipinshop.bean.ShoppingDetailBean;
 import com.example.administrator.jipinshop.bean.SignBean;
 import com.example.administrator.jipinshop.bean.SignInsertBean;
-import com.example.administrator.jipinshop.bean.SnapSelectBean;
 import com.example.administrator.jipinshop.bean.SreachHistoryBean;
 import com.example.administrator.jipinshop.bean.SreachResultArticlesBean;
 import com.example.administrator.jipinshop.bean.SreachResultGoodsBean;
@@ -151,7 +149,7 @@ public class Repository {
      * 我要反馈
      */
     public Observable<SuccessBean> feedBack(String content){
-        return mAPIService.feedBack(SPUtils.getInstance(CommonDate.USER).getString(CommonDate.userId),content);
+        return mAPIService.feedBack(content);
     }
 
     /**
