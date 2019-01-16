@@ -49,7 +49,9 @@ import com.example.administrator.jipinshop.bean.SuccessBean;
 import com.example.administrator.jipinshop.bean.VoteBean;
 import com.example.administrator.jipinshop.bean.eventbus.CommenBus;
 import com.example.administrator.jipinshop.bean.eventbus.CommonEvaluationBus;
+import com.example.administrator.jipinshop.bean.eventbus.FollowBus;
 import com.example.administrator.jipinshop.databinding.ActivityShopingDetailBinding;
+import com.example.administrator.jipinshop.fragment.follow.attention.AttentionFragment;
 import com.example.administrator.jipinshop.fragment.foval.article.FovalArticleFragment;
 import com.example.administrator.jipinshop.util.ClickUtil;
 import com.example.administrator.jipinshop.util.ToastUtil;
@@ -708,6 +710,7 @@ public class ShoppingDetailActivity extends BaseActivity implements ShoppingComm
     @Override
     public void concerDelSuccess(SuccessBean successBean) {
         if(successBean.getCode() == 0){
+            EventBus.getDefault().post(new FollowBus(AttentionFragment.refreshAttention,-1));
             isConcer = false;
             mBinding.contentAttention.setBackgroundResource(R.drawable.bg_attention);
             mBinding.contentAttention.setText("+关注");
@@ -726,6 +729,7 @@ public class ShoppingDetailActivity extends BaseActivity implements ShoppingComm
     @Override
     public void concerInsSuccess(SuccessBean successBean) {
         if(successBean.getCode() == 0){
+            EventBus.getDefault().post(new FollowBus(AttentionFragment.refreshAttention,1));
             isConcer = true;
             mBinding.contentAttention.setBackgroundResource(R.drawable.bg_attentioned);
             mBinding.contentAttention.setText("已关注");

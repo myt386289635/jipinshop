@@ -8,6 +8,20 @@ package com.example.administrator.jipinshop.bean.eventbus;
 public class FollowBus {
 
     private String tag;
+    private int count;
+
+    public FollowBus(String tag, int count) {
+        this.tag = tag;
+        this.count = count;
+    }
+
+    public int getCount() {
+        return count;
+    }
+
+    public void setCount(int count) {
+        this.count = count;
+    }
 
     public FollowBus(String tag) {
         this.tag = tag;

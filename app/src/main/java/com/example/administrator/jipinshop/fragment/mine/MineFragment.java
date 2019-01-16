@@ -21,7 +21,10 @@ import com.example.administrator.jipinshop.activity.sign.SignActivity;
 import com.example.administrator.jipinshop.base.DBBaseFragment;
 import com.example.administrator.jipinshop.bean.UserInfoBean;
 import com.example.administrator.jipinshop.bean.eventbus.EditNameBus;
+import com.example.administrator.jipinshop.bean.eventbus.FollowBus;
 import com.example.administrator.jipinshop.databinding.FragmentMineBinding;
+import com.example.administrator.jipinshop.fragment.follow.attention.AttentionFragment;
+import com.example.administrator.jipinshop.fragment.follow.fans.FansFragment;
 import com.example.administrator.jipinshop.fragment.home.HomeFragment;
 import com.example.administrator.jipinshop.jpush.JPushReceiver;
 import com.example.administrator.jipinshop.util.ToastUtil;
@@ -31,6 +34,8 @@ import com.example.administrator.jipinshop.view.glide.GlideApp;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
+
+import java.math.BigDecimal;
 
 import javax.inject.Inject;
 
@@ -172,6 +177,18 @@ public class MineFragment extends DBBaseFragment implements View.OnClickListener
         }else if(bus.getTag().equals(SignActivity.eventbusTag)){
             //签到页面返回过来的信息——（极币数）
             mBinding.mineSignText.setText(SPUtils.getInstance(CommonDate.USER).getInt(CommonDate.userPoint,0) + "");//极币数
+        }
+    }
+
+    /**
+     * 刷新关注(商品详情与文章详情刷新关注数量)
+     */
+    @Subscribe
+    public void refreshFans(FollowBus bus){
+       if (bus != null && bus.getTag().equals(AttentionFragment.refreshAttention)){
+            //刷新关注
+            BigDecimal bigDecimal = new BigDecimal(mBinding.mineAttentionText.getText().toString());
+            mBinding.mineAttentionText.setText( bigDecimal.intValue() + bus.getCount() + "");
         }
     }
 

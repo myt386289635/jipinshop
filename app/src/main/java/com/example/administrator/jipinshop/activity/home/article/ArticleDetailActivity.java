@@ -45,7 +45,9 @@ import com.example.administrator.jipinshop.bean.VoteBean;
 import com.example.administrator.jipinshop.bean.eventbus.CommonEvaluationBus;
 import com.example.administrator.jipinshop.bean.eventbus.EvaluationBus;
 import com.example.administrator.jipinshop.bean.eventbus.FindBus;
+import com.example.administrator.jipinshop.bean.eventbus.FollowBus;
 import com.example.administrator.jipinshop.databinding.ActivityFindDetailBinding;
+import com.example.administrator.jipinshop.fragment.follow.attention.AttentionFragment;
 import com.example.administrator.jipinshop.fragment.foval.article.FovalArticleFragment;
 import com.example.administrator.jipinshop.netwrok.RetrofitModule;
 import com.example.administrator.jipinshop.util.ClickUtil;
@@ -604,6 +606,7 @@ public class ArticleDetailActivity extends BaseActivity implements View.OnClickL
     @Override
     public void concerDelSuccess(SuccessBean successBean) {
         if (successBean.getCode() == 0) {
+            EventBus.getDefault().post(new FollowBus(AttentionFragment.refreshAttention,-1));
             isConcer = false;
             mBinding.detailAttention.setBackgroundResource(R.drawable.bg_attention);
             mBinding.detailAttention.setText("+关注");
@@ -624,6 +627,7 @@ public class ArticleDetailActivity extends BaseActivity implements View.OnClickL
     @Override
     public void concerInsSuccess(SuccessBean successBean) {
         if (successBean.getCode() == 0) {
+            EventBus.getDefault().post(new FollowBus(AttentionFragment.refreshAttention,1));
             isConcer = true;
             mBinding.detailAttention.setBackgroundResource(R.drawable.bg_attentioned);
             mBinding.detailAttention.setText("已关注");
