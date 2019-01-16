@@ -14,8 +14,6 @@ import android.widget.Toast;
 import com.example.administrator.jipinshop.R;
 import com.example.administrator.jipinshop.bean.LoginBean;
 import com.example.administrator.jipinshop.bean.SuccessBean;
-import com.example.administrator.jipinshop.bean.json.LoginJson;
-import com.example.administrator.jipinshop.bean.json.PushMessageJson;
 import com.example.administrator.jipinshop.netwrok.Repository;
 import com.trello.rxlifecycle2.LifecycleTransformer;
 

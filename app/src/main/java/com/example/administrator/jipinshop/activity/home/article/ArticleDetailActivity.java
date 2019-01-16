@@ -43,6 +43,7 @@ import com.example.administrator.jipinshop.bean.PagerStateBean;
 import com.example.administrator.jipinshop.bean.SuccessBean;
 import com.example.administrator.jipinshop.bean.VoteBean;
 import com.example.administrator.jipinshop.bean.eventbus.CommonEvaluationBus;
+import com.example.administrator.jipinshop.bean.eventbus.EvaluationBus;
 import com.example.administrator.jipinshop.bean.eventbus.FindBus;
 import com.example.administrator.jipinshop.databinding.ActivityFindDetailBinding;
 import com.example.administrator.jipinshop.fragment.foval.article.FovalArticleFragment;
@@ -843,10 +844,18 @@ public class ArticleDetailActivity extends BaseActivity implements View.OnClickL
         }
     }
 
-    //获取评论列表
+    //获取评论列表——发现详情
     @Subscribe
     public void commentResher(FindBus findBus) {
         if (findBus != null) {
+            mPresenter.comment(getIntent().getStringExtra("id"), getIntent().getStringExtra("type"), this.bindToLifecycle());
+        }
+    }
+
+    //获取评论列表_评测详情
+    @Subscribe
+    public void commentResher(EvaluationBus evaluationBus) {
+        if (evaluationBus != null) {
             mPresenter.comment(getIntent().getStringExtra("id"), getIntent().getStringExtra("type"), this.bindToLifecycle());
         }
     }
