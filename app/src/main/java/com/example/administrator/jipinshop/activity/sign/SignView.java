@@ -1,11 +1,7 @@
 package com.example.administrator.jipinshop.activity.sign;
 
-import com.example.administrator.jipinshop.bean.LuckImageBean;
-import com.example.administrator.jipinshop.bean.LuckselectBean;
 import com.example.administrator.jipinshop.bean.SignBean;
 import com.example.administrator.jipinshop.bean.SignInsertBean;
-import com.example.administrator.jipinshop.bean.SuccessBean;
-import com.example.administrator.jipinshop.bean.SupplementBean;
 
 /**
  * @author 莫小婷
@@ -21,16 +17,4 @@ public interface SignView {
     /**签到成功*/
     void signSuc(SignInsertBean signInsertBean);
     void signFaile(String error);
-
-    /**补签成功**/
-    void SuppleSuc(SupplementBean supplementBean);
-    void SuppleFaile(String error);
-
-    /**抽奖成功**/
-    void LuckSuc(LuckselectBean luckselectBean);
-    void LuckFaile(String error);
-
-    /**获取抽奖图片***/
-    void LuckImageSuc(LuckImageBean luckImageBean);
-    void LuckImageFaile(String error);
 }

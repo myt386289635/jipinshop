@@ -169,6 +169,9 @@ public class MineFragment extends DBBaseFragment implements View.OnClickListener
                 mBinding.mineMsgNumber.setVisibility(View.VISIBLE);
                 mBinding.mineMsgNumber.setText(bus.getCount());
             }
+        }else if(bus.getTag().equals(SignActivity.eventbusTag)){
+            //签到页面返回过来的信息——（极币数）
+            mBinding.mineSignText.setText(SPUtils.getInstance(CommonDate.USER).getInt(CommonDate.userPoint,0) + "");//极币数
         }
     }
 

@@ -59,7 +59,7 @@ public class SignPresenter {
                 .observeOn(AndroidSchedulers.mainThread())
                 .compose(transformer)
                 .subscribe(signBean -> {
-                    if(signBean.getCode() == 200){
+                    if(signBean.getCode() == 0){
                         if(mView != null){
                             mView.getInfoSuc(signBean);
                         }
@@ -80,16 +80,13 @@ public class SignPresenter {
      * 签到
      * @param transformer
      */
-    public void sign(Dialog dialog,LifecycleTransformer<SignInsertBean> transformer){
+    public void sign(LifecycleTransformer<SignInsertBean> transformer){
         mRepository.signInsert()
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .compose(transformer)
                 .subscribe(signInsertBean -> {
-                    if(dialog != null && dialog.isShowing()){
-                        dialog.dismiss();
-                    }
-                    if(signInsertBean.getCode() == 200){
+                    if(signInsertBean.getCode() == 0){
                         if(mView != null){
                             mView.signSuc(signInsertBean);
                         }
@@ -99,9 +96,6 @@ public class SignPresenter {
                         }
                     }
                 }, throwable -> {
-                    if(dialog != null && dialog.isShowing()){
-                        dialog.dismiss();
-                    }
                     if(mView != null){
                         mView.signFaile(throwable.getMessage());
                     }
