@@ -56,7 +56,7 @@ public class SystemMessageBean {
          * dataFlag : 1
          */
 
-        private String id;
+        private String messageUserId;
         private String messageId;
         private String userId;
         private String title;
@@ -66,12 +66,12 @@ public class SystemMessageBean {
         private int status;
         private int dataFlag;
 
-        public String getId() {
-            return id;
+        public String getMessageUserId() {
+            return messageUserId;
         }
 
-        public void setId(String id) {
-            this.id = id;
+        public void setMessageUserId(String messageUserId) {
+            this.messageUserId = messageUserId;
         }
 
         public String getMessageId() {

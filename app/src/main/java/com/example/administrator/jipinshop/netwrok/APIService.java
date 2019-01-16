@@ -292,6 +292,12 @@ public interface APIService {
     @GET("qualityshop-api/api/fans/list")
     Observable<FollowBean> fansList(@Query("page") String page);
 
+    /**
+     * 积分明细 已修该
+     */
+    @GET("qualityshop-api/api/point/list")
+    Observable<PointDetailBean> pointDetail(@Query("page") String page);
+
 /*************************************************以下是还未修改的接口***********************************************/
 
     /**
@@ -313,7 +319,6 @@ public interface APIService {
     @FormUrlEncoded
     Observable<SignInsertBean> signInsert(@Field("userId") String userId);
 
-
     /**
      * 提现
      */
@@ -329,37 +334,10 @@ public interface APIService {
     Observable<RecordBean> alipay(@Query("userId") String userId);
 
     /**
-     * 一键补签
-     */
-    @POST("qualityshop-api/api/supplement")
-    @FormUrlEncoded
-    Observable<SupplementBean> Supplement(@Field("userId") String userId);
-
-
-    /**
-     * 抽奖结果
-     */
-    @POST("qualityshop-api/api/startLuckyDraw")
-    @FormUrlEncoded
-    Observable<LuckselectBean> luckselect(@Field("userId") String userId);
-
-    /**
-     * 获取抽奖图片
-     */
-    @GET("qualityshop-api/api/prizeList")
-    Observable<LuckImageBean> luckselects(@Query("userId") String userId);
-
-    /**
      * 个人主页
      */
     @GET("qualityshop-api/api/selectConcern")
     Observable<UserPageBean> userPage(@Query("attentionUserId") String attentionUserId,@Query("page") String page);
-
-    /**
-     * 积分明细
-     */
-    @GET("qualityshop-api/api/pointDetail")
-    Observable<PointDetailBean> pointDetail(@Query("userId") String userId);
 
     /**
      * 积分商城

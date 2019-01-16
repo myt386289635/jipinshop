@@ -17,6 +17,7 @@ import com.example.administrator.jipinshop.activity.info.editname.EditNameActivi
 import com.example.administrator.jipinshop.activity.login.LoginActivity;
 import com.example.administrator.jipinshop.activity.message.MessageActivity;
 import com.example.administrator.jipinshop.activity.setting.SettingActivity;
+import com.example.administrator.jipinshop.activity.sign.SignActivity;
 import com.example.administrator.jipinshop.base.DBBaseFragment;
 import com.example.administrator.jipinshop.bean.UserInfoBean;
 import com.example.administrator.jipinshop.bean.eventbus.EditNameBus;
@@ -73,7 +74,7 @@ public class MineFragment extends DBBaseFragment implements View.OnClickListener
             case R.id.mine_sign:
             case R.id.mine_follow:
                 //跳转到签到页面
-
+                startActivity(new Intent(getContext(), SignActivity.class));
                 break;
             case R.id.mine_favor:
                 //跳转到收藏页面

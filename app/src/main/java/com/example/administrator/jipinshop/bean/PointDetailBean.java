@@ -11,13 +11,13 @@ public class PointDetailBean {
 
     /**
      * msg : success
-     * code : 200
-     * pointDetailList : [{"id":"234eddb69d4946798b94bd49352eae40","userId":"7d67892cb02f4766aa72fd5b08b8d8d1","point":2,"currentPoint":976,"remark":"签到积分","createTime":"2018-11-20 19:32:34"},{"id":"28b4463125b04114bc76bfe0e4d9f85d","userId":"7d67892cb02f4766aa72fd5b08b8d8d1","point":200,"currentPoint":1478,"remark":"二等奖","createTime":"2018-11-20 20:00:59"},{"id":"5762d2f1d4104d11bc1d277ce731b840","userId":"7d67892cb02f4766aa72fd5b08b8d8d1","point":200,"currentPoint":1078,"remark":"四等奖","createTime":"2018-11-20 19:57:55"},{"id":"68f38f0be3d24e8e90619fe6bb81b303","userId":"7d67892cb02f4766aa72fd5b08b8d8d1","point":-10,"currentPoint":986,"remark":"补签","createTime":"2018-11-20 16:31:31"},{"id":"6e4f6caf7dda4fcb870d0fdf4c09d1df","userId":"7d67892cb02f4766aa72fd5b08b8d8d1","point":2,"currentPoint":984,"remark":"签到积分","createTime":"2018-11-20 16:29:52"},{"id":"a6baa87488744839992ba8c7fe846574","userId":"7d67892cb02f4766aa72fd5b08b8d8d1","point":200,"currentPoint":1278,"remark":"二等奖","createTime":"2018-11-20 20:00:19"},{"id":"bc4586478ef6441cb43bf7d662dd1a20","userId":"7d67892cb02f4766aa72fd5b08b8d8d1","point":100,"currentPoint":978,"remark":"100积分","createTime":"2018-11-20 19:44:38"}]
+     * code : 0
+     * data : [{"id":"9b44280c37514c83bd770ce56e31a015","userId":"3ed475ccc8f24bd08da35e552c85c85a","point":3,"currentPoint":7,"remark":"签到积分","createTime":"2018-12-12 15:06:53"},{"id":"38faf5b0da5c4b01b423e4aae2052b1f","userId":"3ed475ccc8f24bd08da35e552c85c85a","point":2,"currentPoint":5,"remark":"签到积分","createTime":"2018-12-11 09:33:33"},{"id":"dea1ddbda4234244825bf6f53d3d8a7a","userId":"3ed475ccc8f24bd08da35e552c85c85a","point":1,"currentPoint":4,"remark":"签到积分","createTime":"2018-12-10 16:20:45"},{"id":"b7be364860d64798aa19ec4945bbc63e","userId":"3ed475ccc8f24bd08da35e552c85c85a","point":4,"currentPoint":0,"remark":"签到积分","createTime":"2018-12-06 17:44:12"}]
      */
 
     private String msg;
     private int code;
-    private List<PointDetailListBean> pointDetailList;
+    private List<DataBean> data;
 
     public String getMsg() {
         return msg;
@@ -35,22 +35,22 @@ public class PointDetailBean {
         this.code = code;
     }
 
-    public List<PointDetailListBean> getPointDetailList() {
-        return pointDetailList;
+    public List<DataBean> getData() {
+        return data;
     }
 
-    public void setPointDetailList(List<PointDetailListBean> pointDetailList) {
-        this.pointDetailList = pointDetailList;
+    public void setData(List<DataBean> data) {
+        this.data = data;
     }
 
-    public static class PointDetailListBean {
+    public static class DataBean {
         /**
-         * id : 234eddb69d4946798b94bd49352eae40
-         * userId : 7d67892cb02f4766aa72fd5b08b8d8d1
-         * point : 2
-         * currentPoint : 976
+         * id : 9b44280c37514c83bd770ce56e31a015
+         * userId : 3ed475ccc8f24bd08da35e552c85c85a
+         * point : 3
+         * currentPoint : 7
          * remark : 签到积分
-         * createTime : 2018-11-20 19:32:34
+         * createTime : 2018-12-12 15:06:53
          */
 
         private String id;

@@ -165,24 +165,10 @@ public class Repository {
     }
 
     /**
-     * 一键补签
-     */
-    public Observable<SupplementBean> Supplement(){
-        return mAPIService.Supplement(SPUtils.getInstance(CommonDate.USER).getString(CommonDate.userId));
-    }
-
-    /**
      * 添加关注
      */
     public Observable<SuccessBean> concernInsert(String attentionUserId){
         return mAPIService.concernInsert(attentionUserId);
-    }
-
-    /**
-     * 抽奖结果
-     */
-    public Observable<LuckselectBean> luckselect(){
-        return mAPIService.luckselect(SPUtils.getInstance(CommonDate.USER).getString(CommonDate.userId));
     }
 
     /**
@@ -197,13 +183,6 @@ public class Repository {
      */
     public Observable<TabBean> goodsCategory(){
         return mAPIService.goodsCategory();
-    }
-
-    /**
-     * 获取抽奖图片
-     */
-    public Observable<LuckImageBean> luckselects(){
-        return mAPIService.luckselects(SPUtils.getInstance(CommonDate.USER).getString(CommonDate.userId));
     }
 
     /**
@@ -342,8 +321,8 @@ public class Repository {
     /**
      * 积分明细
      */
-    public Observable<PointDetailBean> pointDetail(){
-        return mAPIService.pointDetail(SPUtils.getInstance(CommonDate.USER).getString(CommonDate.userId));
+    public Observable<PointDetailBean> pointDetail(String page){
+        return mAPIService.pointDetail(page);
     }
 
     /**

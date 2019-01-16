@@ -1,6 +1,9 @@
 package com.example.administrator.jipinshop.activity.sign;
 
 import android.app.Dialog;
+import android.content.Context;
+import android.view.ViewGroup;
+import android.widget.LinearLayout;
 
 import com.example.administrator.jipinshop.bean.LoginBean;
 import com.example.administrator.jipinshop.bean.LuckImageBean;
@@ -35,6 +38,15 @@ public class SignPresenter {
     @Inject
     public SignPresenter(Repository repository) {
         mRepository = repository;
+    }
+
+    public void setStatusBarHight(LinearLayout StatusBar , Context context){
+        int resourceId = context.getResources().getIdentifier("status_bar_height", "dimen", "android");
+        if (resourceId > 0) {
+            int statusBarHeight = context.getResources().getDimensionPixelSize(resourceId);
+            ViewGroup.LayoutParams layoutParams = StatusBar.getLayoutParams();
+            layoutParams.height = statusBarHeight;
+        }
     }
 
     /**
@@ -96,105 +108,4 @@ public class SignPresenter {
                 });
     }
 
-
-    /**
-     * 补签
-     */
-    public void Supplement(Dialog dialog,LifecycleTransformer<SupplementBean> transformer){
-        mRepository.Supplement()
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .compose(transformer)
-                .subscribe(supplementBean -> {
-                    if(dialog != null && dialog.isShowing()){
-                        dialog.dismiss();
-                    }
-                    if(supplementBean.getCode() == 200){
-                        if(mView != null){
-                            mView.SuppleSuc(supplementBean);
-                        }
-                    }else {
-                        if(supplementBean.getCode() == 641){
-                            if(mView != null){
-                                mView.SuppleFaile("641");
-                            }
-                        }else {
-                            if(mView != null){
-                                mView.SuppleFaile(supplementBean.getMsg());
-                            }
-                        }
-                    }
-
-                }, throwable -> {
-                    if(dialog != null && dialog.isShowing()){
-                        dialog.dismiss();
-                    }
-                    if(mView != null){
-                        mView.SuppleFaile(throwable.getMessage());
-                    }
-                });
-
-    }
-
-    /**
-     * 抽奖
-     */
-    public void luckselect(Dialog dialogLuck,LifecycleTransformer<LuckselectBean> transformer){
-        mRepository.luckselect()
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .compose(transformer)
-                .subscribe(luckselectBean -> {
-                    if(dialogLuck != null && dialogLuck.isShowing()){
-                        dialogLuck.dismiss();
-                    }
-                    if(luckselectBean.getCode() == 200){
-                        if(mView != null){
-                            mView.LuckSuc(luckselectBean);
-                        }
-                    }else {
-                        if(luckselectBean.getCode() == 642){
-                            if(mView != null){
-                                mView.LuckFaile("642");
-                            }
-                        }else {
-                            if(mView != null){
-                                mView.LuckFaile(luckselectBean.getMsg());
-                            }
-                        }
-                    }
-                }, throwable -> {
-                    if(dialogLuck != null && dialogLuck.isShowing()){
-                        dialogLuck.dismiss();
-                    }
-                    if(mView != null){
-                        mView.LuckFaile(throwable.getMessage());
-                    }
-                });
-    }
-
-    /**
-     * 初始化抽奖图片
-     */
-    public void luckImage(LifecycleTransformer<LuckImageBean> transformer){
-        mRepository.luckselects()
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .compose(transformer)
-                .subscribe(luckImageBean -> {
-                    if(luckImageBean.getCode() == 200){
-                        if(mView != null){
-                            mView.LuckImageSuc(luckImageBean);
-                        }
-                    }else {
-                        if(mView != null){
-                            mView.LuckImageFaile(luckImageBean.getMsg());
-                        }
-                    }
-                }, throwable -> {
-                    if(mView != null){
-                        mView.LuckImageFaile(throwable.getMessage());
-                    }
-                });
-    }
 }

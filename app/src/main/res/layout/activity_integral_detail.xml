@@ -20,12 +20,6 @@
             android:id="@+id/in_clude"
             layout="@layout/aa_title"/>
 
-        <include
-            bind:listener="@{listener}"
-            android:id="@+id/net_clude"
-            android:visibility="gone"
-            layout="@layout/common_net_error"/>
-
         <com.aspsine.swipetoloadlayout.SwipeToLoadLayout
             android:id="@+id/swipeToLoad"
             android:layout_width="match_parent"
@@ -39,10 +33,32 @@
                 android:gravity="center"
                 android:padding="20dp"/>
 
-            <android.support.v7.widget.RecyclerView
+            <LinearLayout
                 android:id="@+id/swipe_target"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"/>
+                android:layout_height="match_parent"
+                android:orientation="vertical">
+
+                <android.support.v7.widget.RecyclerView
+                    android:id="@+id/recycler_view"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"/>
+
+
+                <include
+                    android:id="@+id/net_clude"
+                    layout="@layout/common_net_error"
+                    android:visibility="gone"/>
+
+
+            </LinearLayout>
+
+            <com.example.administrator.jipinshop.view.LoadMoreFooterView
+                android:id="@+id/swipe_load_more_footer"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:padding="20dp"/>
 
         </com.aspsine.swipetoloadlayout.SwipeToLoadLayout>
 

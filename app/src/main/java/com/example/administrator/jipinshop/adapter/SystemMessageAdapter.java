@@ -47,7 +47,7 @@ public class SystemMessageAdapter extends RecyclerView.Adapter<SystemMessageAdap
             Intent intent = new Intent(mContext,MsgDetailActivity.class);
             intent.putExtra("title",mList.get(position).getTitle());
             intent.putExtra("content",mList.get(position).getContent());
-            intent.putExtra("id",mList.get(position).getId());
+            intent.putExtra("id",mList.get(position).getMessageUserId());
             intent.putExtra("position",position);
             mContext.startActivity(intent);
         });

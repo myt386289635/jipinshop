@@ -20,9 +20,9 @@ import java.util.List;
 public class IntegralDetailAdapter extends RecyclerView.Adapter<IntegralDetailAdapter.ViewHolder> {
 
     private Context mContext;
-    private List<PointDetailBean.PointDetailListBean> mList;
+    private List<PointDetailBean.DataBean> mList;
 
-    public IntegralDetailAdapter(Context context, List<PointDetailBean.PointDetailListBean> list) {
+    public IntegralDetailAdapter(Context context, List<PointDetailBean.DataBean> list) {
         mContext = context;
         mList = list;
     }
