@@ -85,11 +85,15 @@ public class MineFragment extends DBBaseFragment implements View.OnClickListener
                 break;
             case R.id.mine_attention:
                 //跳转到关注页面
-                startActivity(new Intent(getContext(), FollowActivity.class));
+                startActivity(new Intent(getContext(), FollowActivity.class)
+                        .putExtra("page",0)
+                );
                 break;
             case R.id.mine_fans:
                 //跳转到粉丝页面
-                startActivity(new Intent(getContext(), FollowActivity.class));
+                startActivity(new Intent(getContext(), FollowActivity.class)
+                        .putExtra("page",1)
+                );
                 break;
             case R.id.mine_goodsNum:
                 //点击点赞数

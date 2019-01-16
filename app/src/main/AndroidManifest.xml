@@ -95,14 +95,9 @@
         <activity android:name=".activity.setting.opinion.OpinionActivity"
                   android:screenOrientation="portrait"/>
 
-        <!--收藏/足迹页面-->
+        <!--收藏页面-->
         <activity android:name=".activity.foval.FovalActivity"
                   android:screenOrientation="portrait"/>
-
-        <!--优惠券列表-->
-        <activity android:name=".activity.coupon.CouponActivity"
-                  android:screenOrientation="portrait"/>
-
 
         <!--我的关注-->
         <activity android:name=".activity.follow.FollowActivity"
@@ -137,10 +132,6 @@
                 android:name="android.support.FILE_PROVIDER_PATHS"
                 android:resource="@xml/provider_paths" />
         </provider>
-
-        <!--会员中心-->
-        <activity android:name=".activity.info.member.MemberLevelActivity"
-                  android:screenOrientation="portrait"/>
 
         <!--我的余额-->
         <activity android:name=".activity.balance.BalanceActivity"

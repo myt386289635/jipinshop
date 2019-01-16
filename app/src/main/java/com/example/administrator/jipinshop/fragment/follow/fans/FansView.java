@@ -1,14 +1,14 @@
-package com.example.administrator.jipinshop.activity.follow;
+package com.example.administrator.jipinshop.fragment.follow.fans;
 
 import com.example.administrator.jipinshop.bean.FollowBean;
 import com.example.administrator.jipinshop.bean.SuccessBean;
 
 /**
  * @author 莫小婷
- * @create 2018/10/10
+ * @create 2019/1/16
  * @Describe
  */
-public interface FollowView {
+public interface FansView {
 
     void FollowSuccess(FollowBean followBean);
 

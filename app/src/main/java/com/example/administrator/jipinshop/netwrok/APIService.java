@@ -284,6 +284,18 @@ public interface APIService {
     @GET("qualityshop-api/api/collect/list")
     Observable<SreachResultArticlesBean> collectArticle(@Query("page") String page ,@Query("type") String type);
 
+    /**
+     * 获取关注列表  已修改
+     */
+    @GET("qualityshop-api/api/follow/list")
+    Observable<FollowBean> concer(@Query("page") String page);
+
+    /**
+     * 获取粉丝列表  已修改
+     */
+    @GET("qualityshop-api/api/fans/list")
+    Observable<FollowBean> fansList(@Query("page") String page);
+
 /*************************************************以下是还未修改的接口***********************************************/
 
     /**
@@ -291,14 +303,6 @@ public interface APIService {
      */
     @GET("qualityshop-api/api/account")
     Observable<AccountBean> account(@Query("userId") String userId);
-
-
-    /**
-     * 获取关注列表
-     */
-    @GET("qualityshop-api/api/selectAll")
-    Observable<FollowBean> concer(@Query("page") String page ,@Query("userId") String userId);
-
 
     /**
      * 查询签到7天状态
@@ -360,12 +364,6 @@ public interface APIService {
      */
     @GET("qualityshop-api/api/pointDetail")
     Observable<PointDetailBean> pointDetail(@Query("userId") String userId);
-
-    /**
-     * 获取累计积分
-     */
-    @GET("qualityshop-api/api/totalAddPoint")
-    Observable<MemberLevelBean> totalAddPoint(@Query("userId") String userId);
 
     /**
      * 积分商城

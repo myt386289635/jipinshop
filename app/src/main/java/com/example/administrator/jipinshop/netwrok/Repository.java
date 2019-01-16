@@ -44,6 +44,8 @@ import javax.inject.Inject;
 
 import io.reactivex.Observable;
 import okhttp3.MultipartBody;
+import retrofit2.http.GET;
+import retrofit2.http.Query;
 
 public class Repository {
 
@@ -107,7 +109,7 @@ public class Repository {
      * 关注列表
      */
     public Observable<FollowBean> concer(String page){
-        return mAPIService.concer(page,SPUtils.getInstance(CommonDate.USER).getString(CommonDate.userId));
+        return mAPIService.concer(page);
     }
 
     /**
@@ -349,13 +351,6 @@ public class Repository {
     }
 
     /**
-     * 获取累计积分
-     */
-    public Observable<MemberLevelBean> totalAddPoint(){
-        return mAPIService.totalAddPoint(SPUtils.getInstance(CommonDate.USER).getString(CommonDate.userId));
-    }
-
-    /**
      * 积分商城
      */
     public Observable<IntegralShopBean> integralShopList(String page){
@@ -395,5 +390,12 @@ public class Repository {
      */
     public Observable<SuccessBean> searchDelete(String id){
         return mAPIService.searchDelete(id);
+    }
+
+    /**
+     * 获取粉丝列表
+     */
+    public Observable<FollowBean> fansList(String page){
+        return mAPIService.fansList(page);
     }
 }
