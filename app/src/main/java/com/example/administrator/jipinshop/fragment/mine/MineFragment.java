@@ -185,7 +185,7 @@ public class MineFragment extends DBBaseFragment implements View.OnClickListener
      */
     @Subscribe
     public void refreshFans(FollowBus bus){
-       if (bus != null && bus.getTag().equals(AttentionFragment.refreshAttention)){
+       if (bus != null && bus.getTag().equals(AttentionFragment.refreshAttention) && bus.getCount() != 0){
             //刷新关注
             BigDecimal bigDecimal = new BigDecimal(mBinding.mineAttentionText.getText().toString());
             mBinding.mineAttentionText.setText( bigDecimal.intValue() + bus.getCount() + "");
