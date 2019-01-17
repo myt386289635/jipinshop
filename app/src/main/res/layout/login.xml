@@ -154,9 +154,8 @@
         </RelativeLayout>
 
         <LinearLayout
-            android:visibility="gone"
             android:layout_marginBottom="@dimen/x74"
-            android:layout_above="@id/login_protocol"
+            android:layout_above="@+id/login_protocol"
             android:layout_marginRight="@dimen/x80"
             android:layout_marginLeft="@dimen/x80"
             android:orientation="horizontal"
@@ -188,6 +187,7 @@
             </LinearLayout>
 
             <LinearLayout
+                android:visibility="gone"
                 android:onClick="@{listener.onClick}"
                 android:id="@+id/login_wb"
                 android:gravity="center"
@@ -212,6 +212,7 @@
 
 
             <LinearLayout
+                android:visibility="gone"
                 android:onClick="@{listener.onClick}"
                 android:id="@+id/login_qq"
                 android:gravity="center"

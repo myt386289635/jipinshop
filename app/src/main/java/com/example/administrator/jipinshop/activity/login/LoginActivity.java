@@ -183,7 +183,7 @@ public class LoginActivity extends BaseActivity implements LoginView, View.OnCli
         final Dialog mDialog = (new ProgressDialogView()).createLoadingDialog(LoginActivity.this, "");
         UMShareAPI umShareAPI = UMShareAPI.get(this);
         UMShareConfig config = new UMShareConfig();
-        config.isNeedAuthOnGetUserInfo(true);
+        config.isNeedAuthOnGetUserInfo(true);//授权页面是吊起来了，但是由于有缓存会自动授权
         umShareAPI.setShareConfig(config);
         umShareAPI.getPlatformInfo(this, share_media, new UMAuthListener() {
             @Override
@@ -195,11 +195,9 @@ public class LoginActivity extends BaseActivity implements LoginView, View.OnCli
 
             @Override
             public void onComplete(SHARE_MEDIA share_media, int i, Map<String, String> map) {
-                Log.d("login", "onComplete " + "授权完成");
                 if(mDialog != null && mDialog.isShowing()){
                     mDialog.dismiss();
                 }
-                //sdk是6.4.5的,但是获取值的时候用的是6.2以前的(access_token)才能获取到值,未知原因
                 String uid = map.get("uid");
                 String openid = map.get("openid");//微博没有
                 String unionid = map.get("unionid");//微博没有
@@ -210,23 +208,45 @@ public class LoginActivity extends BaseActivity implements LoginView, View.OnCli
                 String gender = map.get("gender");//性别
                 String iconurl = map.get("iconurl");//头像地址
 
-                Log.e("login", "onStart授权完成: " + openid);
-                Log.e("login", "onStart授权完成: " + unionid);
-                Log.e("login", "onStart授权完成: " + access_token);
-                Log.e("login", "onStart授权完成: " + refresh_token);
-                Log.e("login", "onStart授权完成: " + expires_in);
-                Log.e("login", "onStart授权完成: " + uid);
-                Log.e("login", "onStart授权完成: " + name);
-                Log.e("login", "onStart授权完成: " + gender);
-                Log.e("login", "onStart授权完成: " + iconurl);
+                Log.e("login", "openid: " + openid);
+                Log.e("login", "unionid: " + unionid);
+                Log.e("login", "access_token: " + access_token);
+                Log.e("login", "refresh_token: " + refresh_token);
+                Log.e("login", "expires_in: " + expires_in);
+                Log.e("login", "uid: " + uid);
+                Log.e("login", "name: " + name);
+                Log.e("login", "gender: " + gender);
+                Log.e("login", "iconurl: " + iconurl);
             }
 
             @Override
             public void onError(SHARE_MEDIA share_media, int i, Throwable throwable) {
-                Log.d("login", "onError " + "授权失败");
+                Log.d("login", "onError " + "授权失败----" + i +"----" +throwable.getMessage());
                 if(mDialog != null && mDialog.isShowing()){
                     mDialog.dismiss();
                 }
+                //授权失败后取消自动授权
+                UMShareAPI.get(LoginActivity.this).deleteOauth(LoginActivity.this, share_media, new UMAuthListener() {
+                    @Override
+                    public void onStart(SHARE_MEDIA share_media) {
+
+                    }
+
+                    @Override
+                    public void onComplete(SHARE_MEDIA share_media, int i, Map<String, String> map) {
+
+                    }
+
+                    @Override
+                    public void onError(SHARE_MEDIA share_media, int i, Throwable throwable) {
+
+                    }
+
+                    @Override
+                    public void onCancel(SHARE_MEDIA share_media, int i) {
+
+                    }
+                });
             }
 
             @Override
