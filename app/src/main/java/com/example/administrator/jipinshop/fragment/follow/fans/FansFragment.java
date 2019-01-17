@@ -15,6 +15,7 @@ import com.example.administrator.jipinshop.adapter.FansAdapter;
 import com.example.administrator.jipinshop.base.DBBaseFragment;
 import com.example.administrator.jipinshop.bean.FollowBean;
 import com.example.administrator.jipinshop.bean.SuccessBean;
+import com.example.administrator.jipinshop.bean.eventbus.EditNameBus;
 import com.example.administrator.jipinshop.bean.eventbus.FollowBus;
 import com.example.administrator.jipinshop.databinding.FragmentFollowBinding;
 import com.example.administrator.jipinshop.fragment.follow.attention.AttentionFragment;
@@ -116,6 +117,7 @@ public class FansFragment extends DBBaseFragment implements OnRefreshListener, F
         }
         if (followBean.getData() != null && followBean.getData().size() != 0) {
             //数据不为空时
+            EventBus.getDefault().post(new EditNameBus(FansFragment.refreshFans,followBean.getTotal()+""));
             mBinding.recyclerView.setVisibility(View.VISIBLE);
             mBinding.netClude.qsNet.setVisibility(View.GONE);
             if(refresh){

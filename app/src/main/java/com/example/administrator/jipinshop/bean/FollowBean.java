@@ -17,7 +17,16 @@ public class FollowBean {
 
     private String msg;
     private int code;
+    private int total;
     private List<DataBean> data;
+
+    public int getTotal() {
+        return total;
+    }
+
+    public void setTotal(int total) {
+        this.total = total;
+    }
 
     public String getMsg() {
         return msg;

@@ -143,7 +143,7 @@ public class MineFragment extends DBBaseFragment implements View.OnClickListener
 
     @Subscribe
     public void eidtInfo(EditNameBus bus) {
-        if (bus.getTag().equals(EditNameActivity.tag)) {
+        if (bus != null && bus.getTag().equals(EditNameActivity.tag)) {
             //修改用户信息时返回刷新
             if (bus.getType().equals("1")) {
                 mBinding.mineName.setText(bus.getContent());
@@ -151,7 +151,7 @@ public class MineFragment extends DBBaseFragment implements View.OnClickListener
                 //修改用户头像
                 GlideApp.loderImage(getContext(),bus.getContent(), mBinding.mineImage, R.mipmap.rlogo, 0);
             }
-        } else if (bus.getTag().equals(LoginActivity.tag)) {
+        } else if (bus != null && bus.getTag().equals(LoginActivity.tag)) {
             //登陆时返回更改用户信息
             mBinding.mineName.setVisibility(View.VISIBLE);
             mBinding.mineLogin.setVisibility(View.GONE);
@@ -167,16 +167,20 @@ public class MineFragment extends DBBaseFragment implements View.OnClickListener
             mBinding.mineAttentionText.setText(bus.getFollowCount());//关注数
             mBinding.mineFansText.setText(bus.getFansCount());//粉丝数
             mBinding.mineSignText.setText(SPUtils.getInstance(CommonDate.USER).getInt(CommonDate.userPoint,0) + "");//极币数
-        }else if (bus.getTag().equals(HomeFragment.MsgRefersh)){
+        }else if (bus != null && bus.getTag().equals(HomeFragment.MsgRefersh)){
             if(bus.getCount().equals("0")){
                 mBinding.mineMsgNumber.setVisibility(View.GONE);
             }else {
                 mBinding.mineMsgNumber.setVisibility(View.VISIBLE);
                 mBinding.mineMsgNumber.setText(bus.getCount());
             }
-        }else if(bus.getTag().equals(SignActivity.eventbusTag)){
+        }else if(bus != null && bus.getTag().equals(SignActivity.eventbusTag)){
             //签到页面返回过来的信息——（极币数）
             mBinding.mineSignText.setText(SPUtils.getInstance(CommonDate.USER).getInt(CommonDate.userPoint,0) + "");//极币数
+        }else if (bus != null && bus.getTag().equals(AttentionFragment.refreshAttention)){
+            mBinding.mineAttentionText.setText(bus.getCount());//关注数
+        }else if (bus != null && bus.getTag().equals(FansFragment.refreshFans)){
+            mBinding.mineFansText.setText(bus.getCount());//粉丝数
         }
     }
 
