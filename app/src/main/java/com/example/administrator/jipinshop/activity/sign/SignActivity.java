@@ -49,6 +49,7 @@ public class SignActivity extends BaseActivity implements View.OnClickListener, 
     private List<TextView> mTextViews;
     private GoodView mGoodView;
     private List<Integer> pointArr;
+    private List<View> mLineViews;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -75,6 +76,14 @@ public class SignActivity extends BaseActivity implements View.OnClickListener, 
         mTextViews.add(mBinding.signFiveImg);
         mTextViews.add(mBinding.signSixImg);
         mTextViews.add(mBinding.signSunImg);
+
+        mLineViews = new ArrayList<>();
+        mLineViews.add(mBinding.signOneLine);
+        mLineViews.add(mBinding.signTwoLine);
+        mLineViews.add(mBinding.signThreeLine);
+        mLineViews.add(mBinding.signForeLine);
+        mLineViews.add(mBinding.signFiveLine);
+        mLineViews.add(mBinding.signSixLine);
 
         mGoodView = new GoodView(this);
         pointArr = new ArrayList<>();
@@ -132,6 +141,9 @@ public class SignActivity extends BaseActivity implements View.OnClickListener, 
         for (int i = 0; i < signBean.getData().getDaysCount(); i++) {
             mTextViews.get(i).setText("");
             mTextViews.get(i).setBackgroundResource(R.mipmap.signin_sel);
+            if(i < signBean.getData().getDaysCount() - 1){
+                mLineViews.get(i).setBackgroundColor(getResources().getColor(R.color.color_FFC5BD));
+            }
         }
         pointArr.clear();
         pointArr.addAll(signBean.getData().getPointArr());
@@ -164,9 +176,17 @@ public class SignActivity extends BaseActivity implements View.OnClickListener, 
             if (i < signInsertBean.getDaysCount()){
                 mTextViews.get(i).setText("");
                 mTextViews.get(i).setBackgroundResource(R.mipmap.signin_sel);
+                if(i < signInsertBean.getDaysCount() - 1){
+                    mLineViews.get(i).setBackgroundColor(getResources().getColor(R.color.color_FFC5BD));
+                }else if(i < 6){
+                    mLineViews.get(i).setBackgroundColor(getResources().getColor(R.color.color_ECECEC));
+                }
             }else {
                 mTextViews.get(i).setText("+" + pointArr.get(i) + "");
                 mTextViews.get(i).setBackgroundResource(R.mipmap.signin_nor);
+                if(i < 6){
+                    mLineViews.get(i).setBackgroundColor(getResources().getColor(R.color.color_ECECEC));
+                }
             }
         }
         EventBus.getDefault().post(new EditNameBus(SignActivity.eventbusTag));
