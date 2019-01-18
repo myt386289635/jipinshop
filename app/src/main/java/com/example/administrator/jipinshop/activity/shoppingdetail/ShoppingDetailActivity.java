@@ -53,7 +53,9 @@ import com.example.administrator.jipinshop.bean.eventbus.FollowBus;
 import com.example.administrator.jipinshop.databinding.ActivityShopingDetailBinding;
 import com.example.administrator.jipinshop.fragment.follow.attention.AttentionFragment;
 import com.example.administrator.jipinshop.fragment.foval.article.FovalArticleFragment;
+import com.example.administrator.jipinshop.netwrok.RetrofitModule;
 import com.example.administrator.jipinshop.util.ClickUtil;
+import com.example.administrator.jipinshop.util.ShareUtils;
 import com.example.administrator.jipinshop.util.ToastUtil;
 import com.example.administrator.jipinshop.util.WeakRefHandler;
 import com.example.administrator.jipinshop.util.sp.CommonDate;
@@ -169,6 +171,7 @@ public class ShoppingDetailActivity extends BaseActivity implements ShoppingComm
      * 分享的图片
      */
     private String shareImage = "";
+    private String shareName = "";
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -498,6 +501,9 @@ public class ShoppingDetailActivity extends BaseActivity implements ShoppingComm
                 mBinding.detailGood.setCompoundDrawables(drawable,null,null,null);
             }
 
+            shareImage = shoppingDetailBean.getData().getGoodsEntity().getImg();
+            shareName = shoppingDetailBean.getData().getGoodsEntity().getGoodsName();
+
             if (mDialogProgress != null && mDialogProgress.isShowing()) {
                 mDialogProgress.dismiss();
             }
@@ -792,8 +798,8 @@ public class ShoppingDetailActivity extends BaseActivity implements ShoppingComm
      */
     @Override
     public void share(SHARE_MEDIA share_media) {
-//        new ShareUtils(this, share_media)
-//                .shareWeb(this, RetrofitModule.UP_BASE_URL + "share/info-tab.html?goodsId=" + goodsId, goodsName, goodsName, shareImage, R.mipmap.share_logo);
+        new ShareUtils(this, share_media)
+                .shareWeb(this, RetrofitModule.UP_BASE_URL + "share/info-tab.html?goodsId=" + goodsId, shareName, shareName, shareImage, R.mipmap.share_logo);
     }
 
     @Override

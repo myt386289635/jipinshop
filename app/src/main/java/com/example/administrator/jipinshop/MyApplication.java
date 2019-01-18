@@ -86,7 +86,7 @@ public class MyApplication extends Application {
         UMConfigure.setLogEnabled(true);
         UMConfigure.init(this, "5b716da48f4a9d4859000095","umeng",UMConfigure.DEVICE_TYPE_PHONE, "");
         //微信(已修改)
-        PlatformConfig.setWeixin("wx5e541cafac68980e", "b24ea3348fcda68d5ae9bdfabbeb867d");
+        PlatformConfig.setWeixin("wxfd2e92db2568030a", "80b12d76b891c37a6ccc47bc0b651713");
         //新浪微博(已修改)
         PlatformConfig.setSinaWeibo("2148903410", "8d3c2285a9a46b5e4f36656874c0c188","http://sns.whalecloud.com/sina2/callback");
         //腾讯（已修改）
