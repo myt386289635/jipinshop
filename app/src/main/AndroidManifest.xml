@@ -112,7 +112,7 @@
                   android:screenOrientation="portrait"/>
 
         <!--积分明细-->
-        <activity android:name=".activity.integral.detail.IntegralDetailActivity"
+        <activity android:name=".activity.sign.detail.IntegralDetailActivity"
                   android:screenOrientation="portrait"/>
 
         <!--我的资料页面-->

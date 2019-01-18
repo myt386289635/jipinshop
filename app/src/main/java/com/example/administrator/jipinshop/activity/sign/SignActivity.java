@@ -11,7 +11,7 @@ import android.widget.TextView;
 import com.blankj.utilcode.util.SPUtils;
 import com.example.administrator.jipinshop.R;
 import com.example.administrator.jipinshop.activity.WebActivity;
-import com.example.administrator.jipinshop.activity.integral.detail.IntegralDetailActivity;
+import com.example.administrator.jipinshop.activity.sign.detail.IntegralDetailActivity;
 import com.example.administrator.jipinshop.base.BaseActivity;
 import com.example.administrator.jipinshop.bean.SignBean;
 import com.example.administrator.jipinshop.bean.SignInsertBean;

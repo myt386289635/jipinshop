@@ -1,4 +1,4 @@
-package com.example.administrator.jipinshop.activity.integral.detail;
+package com.example.administrator.jipinshop.activity.sign.detail;
 
 import com.example.administrator.jipinshop.bean.PointDetailBean;
 
