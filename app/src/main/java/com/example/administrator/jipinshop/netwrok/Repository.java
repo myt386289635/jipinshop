@@ -126,14 +126,14 @@ public class Repository {
      * 查询签到7天状态
      */
    public Observable<SignBean> sign(){
-        return mAPIService.sign(SPUtils.getInstance(CommonDate.USER).getString(CommonDate.userId));
+        return mAPIService.sign();
     }
 
     /**
      * 签到
      */
     public Observable<SignInsertBean> signInsert(){
-        return mAPIService.signInsert(SPUtils.getInstance(CommonDate.USER).getString(CommonDate.userId));
+        return mAPIService.signInsert();
     }
 
     /**

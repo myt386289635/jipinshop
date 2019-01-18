@@ -177,6 +177,17 @@
                         android:layout_height="@dimen/y288"/>
 
                     <LinearLayout
+                        android:layout_marginTop="@dimen/y90"
+                        android:layout_marginRight="@dimen/x100"
+                        android:layout_alignRight="@+id/sign_calendar"
+                        android:layout_alignTop="@+id/sign_calendar"
+                        android:orientation="horizontal"
+                        android:id="@+id/sign_calendarView"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"/>
+
+
+                    <LinearLayout
                         android:layout_marginTop="@dimen/y124"
                         android:layout_alignTop="@+id/sign_calendar"
                         android:orientation="horizontal"
@@ -185,6 +196,7 @@
                         android:layout_height="wrap_content">
 
                         <TextView
+                            android:id="@+id/sign_days"
                             android:textStyle="bold"
                             android:textColor="@color/color_DEFF533A"
                             android:textSize="24sp"
@@ -217,9 +229,13 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content">
 
-                            <ImageView
+                            <TextView
+                                android:text="+0"
+                                android:gravity="center"
+                                android:textColor="@color/color_white"
+                                android:textSize="13sp"
                                 android:id="@+id/sign_oneImg"
-                                android:src="@mipmap/signin_nor"
+                                android:background="@mipmap/signin_nor"
                                 android:layout_width="@dimen/x60"
                                 android:layout_height="@dimen/y60"
                                 android:scaleType="fitXY"/>
@@ -249,9 +265,13 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content">
 
-                            <ImageView
+                            <TextView
+                                android:text="+0"
+                                android:gravity="center"
+                                android:textColor="@color/color_white"
+                                android:textSize="13sp"
                                 android:id="@+id/sign_twoImg"
-                                android:src="@mipmap/signin_nor"
+                                android:background="@mipmap/signin_nor"
                                 android:layout_width="@dimen/x60"
                                 android:layout_height="@dimen/y60"
                                 android:scaleType="fitXY"/>
@@ -281,9 +301,13 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content">
 
-                            <ImageView
+                            <TextView
+                                android:text="+0"
+                                android:gravity="center"
+                                android:textColor="@color/color_white"
+                                android:textSize="13sp"
                                 android:id="@+id/sign_threeImg"
-                                android:src="@mipmap/signin_nor"
+                                android:background="@mipmap/signin_nor"
                                 android:layout_width="@dimen/x60"
                                 android:layout_height="@dimen/y60"
                                 android:scaleType="fitXY"/>
@@ -313,9 +337,13 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content">
 
-                            <ImageView
+                            <TextView
+                                android:text="+0"
+                                android:gravity="center"
+                                android:textColor="@color/color_white"
+                                android:textSize="13sp"
                                 android:id="@+id/sign_foreImg"
-                                android:src="@mipmap/signin_nor"
+                                android:background="@mipmap/signin_nor"
                                 android:layout_width="@dimen/x60"
                                 android:layout_height="@dimen/y60"
                                 android:scaleType="fitXY"/>
@@ -345,9 +373,13 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content">
 
-                            <ImageView
+                            <TextView
+                                android:text="+0"
+                                android:gravity="center"
+                                android:textColor="@color/color_white"
+                                android:textSize="13sp"
                                 android:id="@+id/sign_fiveImg"
-                                android:src="@mipmap/signin_nor"
+                                android:background="@mipmap/signin_nor"
                                 android:layout_width="@dimen/x60"
                                 android:layout_height="@dimen/y60"
                                 android:scaleType="fitXY"/>
@@ -377,9 +409,13 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content">
 
-                            <ImageView
+                            <TextView
+                                android:text="+0"
+                                android:gravity="center"
+                                android:textColor="@color/color_white"
+                                android:textSize="13sp"
                                 android:id="@+id/sign_sixImg"
-                                android:src="@mipmap/signin_nor"
+                                android:background="@mipmap/signin_nor"
                                 android:layout_width="@dimen/x60"
                                 android:layout_height="@dimen/y60"
                                 android:scaleType="fitXY"/>
@@ -409,9 +445,13 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content">
 
-                            <ImageView
+                            <TextView
+                                android:text="+0"
+                                android:gravity="center"
+                                android:textColor="@color/color_white"
+                                android:textSize="13sp"
                                 android:id="@+id/sign_sunImg"
-                                android:src="@mipmap/signin_nor"
+                                android:background="@mipmap/signin_nor"
                                 android:layout_width="@dimen/x60"
                                 android:layout_height="@dimen/y60"
                                 android:scaleType="fitXY"/>

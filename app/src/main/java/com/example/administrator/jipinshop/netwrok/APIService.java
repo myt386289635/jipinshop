@@ -298,6 +298,18 @@ public interface APIService {
     @GET("qualityshop-api/api/point/list")
     Observable<PointDetailBean> pointDetail(@Query("page") String page);
 
+    /**
+     * 查询签到7天状态  已签到
+     */
+    @GET("qualityshop-api/api/signinDetail")
+    Observable<SignBean> sign();
+
+    /**
+     * 签到   已修改
+     */
+    @POST("qualityshop-api/api/signin")
+    Observable<SignInsertBean> signInsert();
+
 /*************************************************以下是还未修改的接口***********************************************/
 
     /**
@@ -305,19 +317,6 @@ public interface APIService {
      */
     @GET("qualityshop-api/api/account")
     Observable<AccountBean> account(@Query("userId") String userId);
-
-    /**
-     * 查询签到7天状态
-     */
-    @GET("qualityshop-api/api/signinDetail")
-    Observable<SignBean> sign(@Query("userId") String userId);
-
-    /**
-     * 签到
-     */
-    @POST("qualityshop-api/api/signin")
-    @FormUrlEncoded
-    Observable<SignInsertBean> signInsert(@Field("userId") String userId);
 
     /**
      * 提现

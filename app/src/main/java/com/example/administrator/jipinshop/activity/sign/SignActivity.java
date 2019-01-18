@@ -6,7 +6,9 @@ import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.view.View;
+import android.widget.TextView;
 
+import com.blankj.utilcode.util.SPUtils;
 import com.example.administrator.jipinshop.R;
 import com.example.administrator.jipinshop.activity.WebActivity;
 import com.example.administrator.jipinshop.activity.integral.detail.IntegralDetailActivity;
@@ -17,9 +19,15 @@ import com.example.administrator.jipinshop.bean.eventbus.EditNameBus;
 import com.example.administrator.jipinshop.databinding.ActivitySignBinding;
 import com.example.administrator.jipinshop.netwrok.RetrofitModule;
 import com.example.administrator.jipinshop.util.ToastUtil;
+import com.example.administrator.jipinshop.util.sp.CommonDate;
 import com.example.administrator.jipinshop.view.dialog.ProgressDialogView;
+import com.example.administrator.jipinshop.view.goodview.GoodView;
 
 import org.greenrobot.eventbus.EventBus;
+
+import java.math.BigDecimal;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.inject.Inject;
 
@@ -38,6 +46,10 @@ public class SignActivity extends BaseActivity implements View.OnClickListener, 
     private ActivitySignBinding mBinding;
     private Dialog mDialog;
 
+    private List<TextView> mTextViews;
+    private GoodView mGoodView;
+    private List<Integer> pointArr;
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -54,6 +66,18 @@ public class SignActivity extends BaseActivity implements View.OnClickListener, 
 
     private void initView() {
         mPresenter.setStatusBarHight(mBinding.statusBar,this);
+
+        mTextViews = new ArrayList<>();
+        mTextViews.add(mBinding.signOneImg);
+        mTextViews.add(mBinding.signTwoImg);
+        mTextViews.add(mBinding.signThreeImg);
+        mTextViews.add(mBinding.signForeImg);
+        mTextViews.add(mBinding.signFiveImg);
+        mTextViews.add(mBinding.signSixImg);
+        mTextViews.add(mBinding.signSunImg);
+
+        mGoodView = new GoodView(this);
+        pointArr = new ArrayList<>();
 
         mDialog = (new ProgressDialogView()).createLoadingDialog(this, "正在加载...");
         mDialog.show();
@@ -99,7 +123,19 @@ public class SignActivity extends BaseActivity implements View.OnClickListener, 
         if(mDialog != null && mDialog.isShowing()){
             mDialog.dismiss();
         }
-        // TODO: 2019/1/16
+        mBinding.signTotle.setText(signBean.getData().getPointAccount().getTotalPoint() + "");
+        mBinding.signDayNum.setText(signBean.getData().getPointAccount().getTodayPoint() + "");
+        mBinding.signSurplusNum.setText(signBean.getData().getPointAccount().getUsablePoint() + "");
+        for (int i = 0; i < signBean.getData().getPointArr().size(); i++) {
+            mTextViews.get(i).setText("+" + signBean.getData().getPointArr().get(i) + "");
+        }
+        for (int i = 0; i < signBean.getData().getDaysCount(); i++) {
+            mTextViews.get(i).setText("");
+            mTextViews.get(i).setBackgroundResource(R.mipmap.signin_sel);
+        }
+        pointArr.clear();
+        pointArr.addAll(signBean.getData().getPointArr());
+        mBinding.signDays.setText(signBean.getData().getDaysCount() + "");
     }
     /**
      * 获取签到信息失败回调
@@ -117,11 +153,26 @@ public class SignActivity extends BaseActivity implements View.OnClickListener, 
      */
     @Override
     public void signSuc(SignInsertBean signInsertBean) {
+        SPUtils.getInstance(CommonDate.USER).put(CommonDate.userPoint,signInsertBean.getData().getUsablePoint());
+        BigDecimal bigDecimal = new BigDecimal(mBinding.signDays.getText().toString());
+        mBinding.signDays.setText((bigDecimal.intValue() + 1 )+ "");
+        mBinding.signSurplusNum.setText(signInsertBean.getData().getUsablePoint() + "");
+        mGoodView.setText("+" + signInsertBean.getAddPoint() + "极币");
+        mGoodView.setTextColor(getResources().getColor(R.color.color_E31436));
+        mGoodView.show(mBinding.signCalendarView);
+        for (int i = 0; i < 7; i++) {
+            if (i < signInsertBean.getDaysCount()){
+                mTextViews.get(i).setText("");
+                mTextViews.get(i).setBackgroundResource(R.mipmap.signin_sel);
+            }else {
+                mTextViews.get(i).setText("+" + pointArr.get(i) + "");
+                mTextViews.get(i).setBackgroundResource(R.mipmap.signin_nor);
+            }
+        }
         EventBus.getDefault().post(new EditNameBus(SignActivity.eventbusTag));
         if(mDialog != null && mDialog.isShowing()){
             mDialog.dismiss();
         }
-        // TODO: 2019/1/16
     }
     /**
      * 签到失败
