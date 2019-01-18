@@ -8,12 +8,14 @@ import android.support.annotation.Nullable;
 import android.view.View;
 
 import com.example.administrator.jipinshop.R;
+import com.example.administrator.jipinshop.activity.WebActivity;
 import com.example.administrator.jipinshop.activity.integral.detail.IntegralDetailActivity;
 import com.example.administrator.jipinshop.base.BaseActivity;
 import com.example.administrator.jipinshop.bean.SignBean;
 import com.example.administrator.jipinshop.bean.SignInsertBean;
 import com.example.administrator.jipinshop.bean.eventbus.EditNameBus;
 import com.example.administrator.jipinshop.databinding.ActivitySignBinding;
+import com.example.administrator.jipinshop.netwrok.RetrofitModule;
 import com.example.administrator.jipinshop.util.ToastUtil;
 import com.example.administrator.jipinshop.view.dialog.ProgressDialogView;
 
@@ -72,6 +74,10 @@ public class SignActivity extends BaseActivity implements View.OnClickListener, 
                 break;
             case R.id.sign_rule:
                 //积分规则
+                startActivity(new Intent(this, WebActivity.class)
+                        .putExtra(WebActivity.url, RetrofitModule.H5_URL + "rule.html")
+                        .putExtra(WebActivity.title, "规则说明")
+                );
                 break;
             case R.id.sign_signed:
                 mDialog = (new ProgressDialogView()).createLoadingDialog(this, "正在加载...");
