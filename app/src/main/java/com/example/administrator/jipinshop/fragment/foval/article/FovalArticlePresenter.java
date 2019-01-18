@@ -1,12 +1,9 @@
 package com.example.administrator.jipinshop.fragment.foval.article;
 
-import android.content.Context;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 
 import com.aspsine.swipetoloadlayout.SwipeToLoadLayout;
-import com.bumptech.glide.Glide;
-import com.example.administrator.jipinshop.bean.FovalBean;
 import com.example.administrator.jipinshop.bean.SreachResultArticlesBean;
 import com.example.administrator.jipinshop.fragment.sreach.article.SreachArticleView;
 import com.example.administrator.jipinshop.netwrok.Repository;

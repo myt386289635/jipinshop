@@ -1,7 +1,5 @@
 package com.example.administrator.jipinshop.netwrok;
 
-import com.blankj.utilcode.util.SPUtils;
-import com.example.administrator.jipinshop.bean.AccountBean;
 import com.example.administrator.jipinshop.bean.AppVersionbean;
 import com.example.administrator.jipinshop.bean.CommentBean;
 import com.example.administrator.jipinshop.bean.EvaluationListBean;
@@ -11,14 +9,10 @@ import com.example.administrator.jipinshop.bean.FindListBean;
 import com.example.administrator.jipinshop.bean.FollowBean;
 import com.example.administrator.jipinshop.bean.HomeCommenBean;
 import com.example.administrator.jipinshop.bean.ImageBean;
-import com.example.administrator.jipinshop.bean.IntegralShopBean;
 import com.example.administrator.jipinshop.bean.LoginBean;
-import com.example.administrator.jipinshop.bean.LuckImageBean;
-import com.example.administrator.jipinshop.bean.LuckselectBean;
 import com.example.administrator.jipinshop.bean.PagerStateBean;
 import com.example.administrator.jipinshop.bean.PointDetailBean;
 import com.example.administrator.jipinshop.bean.RecommendFragmentBean;
-import com.example.administrator.jipinshop.bean.RecordBean;
 import com.example.administrator.jipinshop.bean.ShoppingDetailBean;
 import com.example.administrator.jipinshop.bean.SignBean;
 import com.example.administrator.jipinshop.bean.SignInsertBean;
@@ -26,7 +20,6 @@ import com.example.administrator.jipinshop.bean.SreachHistoryBean;
 import com.example.administrator.jipinshop.bean.SreachResultArticlesBean;
 import com.example.administrator.jipinshop.bean.SreachResultGoodsBean;
 import com.example.administrator.jipinshop.bean.SuccessBean;
-import com.example.administrator.jipinshop.bean.SupplementBean;
 import com.example.administrator.jipinshop.bean.SystemMessageBean;
 import com.example.administrator.jipinshop.bean.TabBean;
 import com.example.administrator.jipinshop.bean.UnMessageBean;
@@ -34,7 +27,6 @@ import com.example.administrator.jipinshop.bean.UserInfoBean;
 import com.example.administrator.jipinshop.bean.UserPageBean;
 import com.example.administrator.jipinshop.bean.VoteBean;
 import com.example.administrator.jipinshop.util.UpDataUtil;
-import com.example.administrator.jipinshop.util.sp.CommonDate;
 
 import java.util.Map;
 
@@ -88,13 +80,6 @@ public class Repository {
     }
 
     /**
-     * 获取佣金金额
-     */
-    public Observable<AccountBean> account(){
-        return mAPIService.account(SPUtils.getInstance(CommonDate.USER).getString(CommonDate.userId));
-    }
-
-    /**
      * 获取用户信息
      */
     public Observable<UserInfoBean> modelUser(){
@@ -134,20 +119,6 @@ public class Repository {
      */
     public Observable<SignInsertBean> signInsert(){
         return mAPIService.signInsert();
-    }
-
-    /**
-     * 提现
-     */
-    public Observable<SuccessBean> lipay(String phone,String amount, String real_name){
-        return mAPIService.lipay(SPUtils.getInstance(CommonDate.USER).getString(CommonDate.userId),phone,amount,real_name);
-    }
-
-    /**
-     * 提现记录
-     */
-    public Observable<RecordBean> alipay(){
-        return mAPIService.alipay(SPUtils.getInstance(CommonDate.USER).getString(CommonDate.userId));
     }
 
     /**
@@ -323,13 +294,6 @@ public class Repository {
      */
     public Observable<PointDetailBean> pointDetail(String page){
         return mAPIService.pointDetail(page);
-    }
-
-    /**
-     * 积分商城
-     */
-    public Observable<IntegralShopBean> integralShopList(String page){
-        return mAPIService.integralShopList(page);
     }
 
     /**

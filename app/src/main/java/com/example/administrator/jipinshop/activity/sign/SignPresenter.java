@@ -1,24 +1,17 @@
 package com.example.administrator.jipinshop.activity.sign;
 
-import android.app.Dialog;
 import android.content.Context;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
 
-import com.example.administrator.jipinshop.bean.LoginBean;
-import com.example.administrator.jipinshop.bean.LuckImageBean;
-import com.example.administrator.jipinshop.bean.LuckselectBean;
 import com.example.administrator.jipinshop.bean.SignBean;
 import com.example.administrator.jipinshop.bean.SignInsertBean;
-import com.example.administrator.jipinshop.bean.SuccessBean;
-import com.example.administrator.jipinshop.bean.SupplementBean;
 import com.example.administrator.jipinshop.netwrok.Repository;
 import com.trello.rxlifecycle2.LifecycleTransformer;
 
 import javax.inject.Inject;
 
 import io.reactivex.android.schedulers.AndroidSchedulers;
-import io.reactivex.functions.Consumer;
 import io.reactivex.schedulers.Schedulers;
 
 /**

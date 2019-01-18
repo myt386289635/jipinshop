@@ -107,10 +107,6 @@
         <activity android:name=".activity.follow.user.UserActivity"
                   android:screenOrientation="portrait"/>
 
-        <!--我的积分-->
-        <activity android:name=".activity.integral.IntegralActivity"
-                  android:screenOrientation="portrait"/>
-
         <!--积分明细-->
         <activity android:name=".activity.sign.detail.IntegralDetailActivity"
                   android:screenOrientation="portrait"/>
@@ -132,23 +128,6 @@
                 android:name="android.support.FILE_PROVIDER_PATHS"
                 android:resource="@xml/provider_paths" />
         </provider>
-
-        <!--我的余额-->
-        <activity android:name=".activity.balance.BalanceActivity"
-                  android:screenOrientation="portrait"
-                  android:windowSoftInputMode="adjustPan|stateHidden"/>
-
-        <!--提现记录-->
-        <activity android:name=".activity.balance.record.RecordActivity"
-                  android:screenOrientation="portrait"/>
-
-        <!--佣金来源-->
-        <activity android:name=".activity.balance.score.ScoreActivity"
-                  android:screenOrientation="portrait"/>
-
-        <!--绑定支付宝-->
-        <activity android:name=".activity.balance.boundalipay.BoundAlipayActivity"
-                  android:screenOrientation="portrait"/>
 
         <!--搜索结果页-->
         <activity android:name=".activity.sreach.result.SreachResultActivity"

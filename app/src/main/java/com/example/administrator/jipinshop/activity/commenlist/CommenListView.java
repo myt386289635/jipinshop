@@ -1,7 +1,6 @@
 package com.example.administrator.jipinshop.activity.commenlist;
 
 import com.example.administrator.jipinshop.bean.CommentBean;
-import com.example.administrator.jipinshop.bean.CommentInsertBean;
 import com.example.administrator.jipinshop.bean.SuccessBean;
 import com.example.administrator.jipinshop.bean.VoteBean;
 

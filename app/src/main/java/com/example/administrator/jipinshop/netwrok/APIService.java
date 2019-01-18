@@ -1,7 +1,6 @@
 package com.example.administrator.jipinshop.netwrok;
 
 
-import com.example.administrator.jipinshop.bean.AccountBean;
 import com.example.administrator.jipinshop.bean.AppVersionbean;
 import com.example.administrator.jipinshop.bean.CommentBean;
 import com.example.administrator.jipinshop.bean.EvaluationListBean;
@@ -11,14 +10,10 @@ import com.example.administrator.jipinshop.bean.FindListBean;
 import com.example.administrator.jipinshop.bean.FollowBean;
 import com.example.administrator.jipinshop.bean.HomeCommenBean;
 import com.example.administrator.jipinshop.bean.ImageBean;
-import com.example.administrator.jipinshop.bean.IntegralShopBean;
 import com.example.administrator.jipinshop.bean.LoginBean;
-import com.example.administrator.jipinshop.bean.LuckImageBean;
-import com.example.administrator.jipinshop.bean.LuckselectBean;
 import com.example.administrator.jipinshop.bean.PagerStateBean;
 import com.example.administrator.jipinshop.bean.PointDetailBean;
 import com.example.administrator.jipinshop.bean.RecommendFragmentBean;
-import com.example.administrator.jipinshop.bean.RecordBean;
 import com.example.administrator.jipinshop.bean.ShoppingDetailBean;
 import com.example.administrator.jipinshop.bean.SignBean;
 import com.example.administrator.jipinshop.bean.SignInsertBean;
@@ -26,7 +21,6 @@ import com.example.administrator.jipinshop.bean.SreachHistoryBean;
 import com.example.administrator.jipinshop.bean.SreachResultArticlesBean;
 import com.example.administrator.jipinshop.bean.SreachResultGoodsBean;
 import com.example.administrator.jipinshop.bean.SuccessBean;
-import com.example.administrator.jipinshop.bean.SupplementBean;
 import com.example.administrator.jipinshop.bean.SystemMessageBean;
 import com.example.administrator.jipinshop.bean.TabBean;
 import com.example.administrator.jipinshop.bean.UnMessageBean;
@@ -313,35 +307,9 @@ public interface APIService {
 /*************************************************以下是还未修改的接口***********************************************/
 
     /**
-     * 获取佣金金额
-     */
-    @GET("qualityshop-api/api/account")
-    Observable<AccountBean> account(@Query("userId") String userId);
-
-    /**
-     * 提现
-     */
-    @POST("qualityshop-api/api/lipay")
-    @FormUrlEncoded
-    Observable<SuccessBean> lipay(@Field("userId") String userId,@Field("phone") String phone,
-                                  @Field("amount") String amount,@Field("real_name") String real_name);
-
-    /**
-     * 提现记录
-     */
-    @GET("qualityshop-api/api/alipay")
-    Observable<RecordBean> alipay(@Query("userId") String userId);
-
-    /**
      * 个人主页
      */
     @GET("qualityshop-api/api/selectConcern")
     Observable<UserPageBean> userPage(@Query("attentionUserId") String attentionUserId,@Query("page") String page);
-
-    /**
-     * 积分商城
-     */
-    @GET("qualityshop-api/goodsPoint/selectList")
-    Observable<IntegralShopBean> integralShopList(@Query("page") String page);
 
 }

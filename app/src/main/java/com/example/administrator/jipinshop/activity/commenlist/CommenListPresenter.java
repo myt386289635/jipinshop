@@ -4,14 +4,11 @@ import android.content.Context;
 import android.graphics.Rect;
 import android.support.v7.widget.RecyclerView;
 
-import com.blankj.utilcode.util.SPUtils;
 import com.bumptech.glide.Glide;
 import com.example.administrator.jipinshop.bean.CommentBean;
-import com.example.administrator.jipinshop.bean.CommentInsertBean;
 import com.example.administrator.jipinshop.bean.SuccessBean;
 import com.example.administrator.jipinshop.bean.VoteBean;
 import com.example.administrator.jipinshop.netwrok.Repository;
-import com.example.administrator.jipinshop.util.sp.CommonDate;
 import com.example.administrator.jipinshop.view.FullScreenLinearLayout;
 import com.trello.rxlifecycle2.LifecycleTransformer;
 

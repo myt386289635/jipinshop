@@ -1,9 +1,5 @@
 package com.example.administrator.jipinshop.base;
 
-import com.example.administrator.jipinshop.activity.balance.BalanceActivity;
-import com.example.administrator.jipinshop.activity.balance.boundalipay.BoundAlipayActivity;
-import com.example.administrator.jipinshop.activity.balance.record.RecordActivity;
-import com.example.administrator.jipinshop.activity.balance.score.ScoreActivity;
 import com.example.administrator.jipinshop.activity.commenlist.CommenListActivity;
 import com.example.administrator.jipinshop.activity.follow.FollowActivity;
 import com.example.administrator.jipinshop.activity.follow.user.UserActivity;
@@ -12,7 +8,6 @@ import com.example.administrator.jipinshop.activity.home.article.ArticleDetailAc
 import com.example.administrator.jipinshop.activity.info.MyInfoActivity;
 import com.example.administrator.jipinshop.activity.info.bind.BindNumberActivity;
 import com.example.administrator.jipinshop.activity.info.editname.EditNameActivity;
-import com.example.administrator.jipinshop.activity.integral.IntegralActivity;
 import com.example.administrator.jipinshop.activity.login.LoginActivity;
 import com.example.administrator.jipinshop.activity.message.MessageActivity;
 import com.example.administrator.jipinshop.activity.message.detail.MsgDetailActivity;
@@ -41,12 +36,7 @@ public interface BaseActivityComponent {
     void inject(OpinionActivity activity);
     void inject(FollowActivity activity);
     void inject(UserActivity activity);
-    void inject(IntegralActivity activity);
     void inject(IntegralDetailActivity activity);
-    void inject(BalanceActivity activity);
-    void inject(RecordActivity activity);
-    void inject(ScoreActivity activity);
-    void inject(BoundAlipayActivity activity);
     void inject(SreachResultActivity activity);
     void inject(ArticleDetailActivity activity);
     void inject(SettingActivity settingActivity);
