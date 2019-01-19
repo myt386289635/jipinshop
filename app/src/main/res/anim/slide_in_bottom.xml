@@ -3,7 +3,7 @@
      android:shareInterpolator="false">
 
   <translate
-      android:duration="@integer/animation_default_duration"
+      android:duration="550"
       android:fromXDelta="0%"
       android:toXDelta="0%"
       android:fromYDelta="100%"
