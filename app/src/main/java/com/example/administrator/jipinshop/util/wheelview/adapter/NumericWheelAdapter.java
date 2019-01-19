@@ -5,13 +5,13 @@ package com.example.administrator.jipinshop.util.wheelview.adapter;
  * Numeric Wheel adapter.
  */
 public class NumericWheelAdapter implements WheelAdapter {
-	
+
 	/** The default min value */
 	public static final int DEFAULT_MAX_VALUE = 9;
 
 	/** The default max value */
 	private static final int DEFAULT_MIN_VALUE = 0;
-	
+
 	// Values
 	private int minValue;
 	private int maxValue;
@@ -46,7 +46,7 @@ public class NumericWheelAdapter implements WheelAdapter {
 	public int getItemsCount() {
 		return maxValue - minValue + 1;
 	}
-	
+
 	@Override
 	public int indexOf(Object o){
 		return (int)o - minValue;
