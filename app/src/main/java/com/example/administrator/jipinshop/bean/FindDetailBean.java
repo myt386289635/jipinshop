@@ -79,10 +79,10 @@ public class FindDetailBean {
         private int contentType;
         private Object size;
         private int pv;
-        private Object shareTitle;
-        private Object shareContent;
-        private Object shareImg;
-        private Object shareUrl;
+        private String shareTitle;
+        private String shareContent;
+        private String shareImg;
+        private String shareUrl;
         private String createTime;
         private int vote;
         private int voteCount;
@@ -178,35 +178,35 @@ public class FindDetailBean {
             this.pv = pv;
         }
 
-        public Object getShareTitle() {
+        public String getShareTitle() {
             return shareTitle;
         }
 
-        public void setShareTitle(Object shareTitle) {
+        public void setShareTitle(String shareTitle) {
             this.shareTitle = shareTitle;
         }
 
-        public Object getShareContent() {
+        public String getShareContent() {
             return shareContent;
         }
 
-        public void setShareContent(Object shareContent) {
+        public void setShareContent(String shareContent) {
             this.shareContent = shareContent;
         }
 
-        public Object getShareImg() {
+        public String getShareImg() {
             return shareImg;
         }
 
-        public void setShareImg(Object shareImg) {
+        public void setShareImg(String shareImg) {
             this.shareImg = shareImg;
         }
 
-        public Object getShareUrl() {
+        public String getShareUrl() {
             return shareUrl;
         }
 
-        public void setShareUrl(Object shareUrl) {
+        public void setShareUrl(String shareUrl) {
             this.shareUrl = shareUrl;
         }
 

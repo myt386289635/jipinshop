@@ -172,6 +172,8 @@ public class ShoppingDetailActivity extends BaseActivity implements ShoppingComm
      */
     private String shareImage = "";
     private String shareName = "";
+    private String shareContent = "";
+    private String shareUrl = "";
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -501,8 +503,10 @@ public class ShoppingDetailActivity extends BaseActivity implements ShoppingComm
                 mBinding.detailGood.setCompoundDrawables(drawable,null,null,null);
             }
 
-            shareImage = shoppingDetailBean.getData().getGoodsEntity().getImg();
-            shareName = shoppingDetailBean.getData().getGoodsEntity().getGoodsName();
+            shareImage = shoppingDetailBean.getData().getGoodsDetailEntity().getShareImg();
+            shareName = shoppingDetailBean.getData().getGoodsDetailEntity().getShareTitle();
+            shareContent = shoppingDetailBean.getData().getGoodsDetailEntity().getShareContent();
+            shareUrl = shoppingDetailBean.getData().getGoodsDetailEntity().getShareUrl();
 
             if (mDialogProgress != null && mDialogProgress.isShowing()) {
                 mDialogProgress.dismiss();
@@ -799,7 +803,7 @@ public class ShoppingDetailActivity extends BaseActivity implements ShoppingComm
     @Override
     public void share(SHARE_MEDIA share_media) {
         new ShareUtils(this, share_media)
-                .shareWeb(this, RetrofitModule.UP_BASE_URL + "share/info-tab.html?goodsId=" + goodsId, shareName, shareName, shareImage, R.mipmap.share_logo);
+                .shareWeb(this, shareUrl, shareName, shareContent, shareImage, R.mipmap.share_logo);
     }
 
     @Override

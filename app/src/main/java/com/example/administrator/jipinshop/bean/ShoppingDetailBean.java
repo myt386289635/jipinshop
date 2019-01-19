@@ -387,10 +387,10 @@ public class ShoppingDetailBean {
             private String goodsShortUrl;
             private String goodsUrl;
             private String goodsWord;
-            private Object shareTitle;
-            private Object shareContent;
-            private Object shareUrl;
-            private Object shareImg;
+            private String shareTitle;
+            private String shareContent;
+            private String shareUrl;
+            private String shareImg;
             private List<ParametersListBean> parametersList;
 
             public String getGoodsDetailId() {
@@ -489,35 +489,35 @@ public class ShoppingDetailBean {
                 this.goodsWord = goodsWord;
             }
 
-            public Object getShareTitle() {
+            public String getShareTitle() {
                 return shareTitle;
             }
 
-            public void setShareTitle(Object shareTitle) {
+            public void setShareTitle(String shareTitle) {
                 this.shareTitle = shareTitle;
             }
 
-            public Object getShareContent() {
+            public String getShareContent() {
                 return shareContent;
             }
 
-            public void setShareContent(Object shareContent) {
+            public void setShareContent(String shareContent) {
                 this.shareContent = shareContent;
             }
 
-            public Object getShareUrl() {
+            public String getShareUrl() {
                 return shareUrl;
             }
 
-            public void setShareUrl(Object shareUrl) {
+            public void setShareUrl(String shareUrl) {
                 this.shareUrl = shareUrl;
             }
 
-            public Object getShareImg() {
+            public String getShareImg() {
                 return shareImg;
             }
 
-            public void setShareImg(Object shareImg) {
+            public void setShareImg(String shareImg) {
                 this.shareImg = shareImg;
             }
 

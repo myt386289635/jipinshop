@@ -123,9 +123,10 @@ public class ArticleDetailActivity extends BaseActivity implements View.OnClickL
     /**
      * 分享的东西
      */
-    private String shareImage = "";
-    private String shareTitle = "";
-    private String shareSubTitle = "";
+    private String shareTitle;
+    private String shareContent;
+    private String shareImg;
+    private String shareUrl;
 
     private ArrayList<FindDetailBean.DataBean.RelatedGoodsListBean> mBeans;
 
@@ -341,7 +342,7 @@ public class ArticleDetailActivity extends BaseActivity implements View.OnClickL
     @Override
     public void share(SHARE_MEDIA share_media) {
         new ShareUtils(this, share_media)
-                .shareWeb(this, RetrofitModule.UP_BASE_URL + "share/find-info.html?findgoodsId=" + getIntent().getStringExtra("id"), shareTitle, shareSubTitle, shareImage, R.mipmap.share_logo);
+                .shareWeb(this, shareUrl, shareTitle, shareContent, shareImg, R.mipmap.share_logo);
     }
 
     /**
@@ -352,6 +353,10 @@ public class ArticleDetailActivity extends BaseActivity implements View.OnClickL
         if (mDialog != null && mDialog.isShowing()) {
             mDialog.dismiss();
         }
+        shareTitle =bean.getData().getShareTitle();
+        shareContent = bean.getData().getShareContent();
+        shareImg = bean.getData().getShareImg();
+        shareUrl= bean.getData().getShareUrl();
         mBeans.addAll(bean.getData().getRelatedGoodsList());
         attentionUserId = bean.getData().getUserId();
         mBinding.detailTitle.setText(bean.getData().getTitle());
