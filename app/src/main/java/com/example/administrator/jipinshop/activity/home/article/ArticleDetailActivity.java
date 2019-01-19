@@ -21,7 +21,6 @@ import android.webkit.WebView;
 import android.webkit.WebViewClient;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.alibaba.baichuan.android.trade.AlibcTrade;
 import com.alibaba.baichuan.android.trade.AlibcTradeSDK;
@@ -438,7 +437,7 @@ public class ArticleDetailActivity extends BaseActivity implements View.OnClickL
         if (mDialog != null && mDialog.isShowing()) {
             mDialog.dismiss();
         }
-        Toast.makeText(this, error, Toast.LENGTH_SHORT).show();
+        ToastUtil.show(error);
         initError(R.mipmap.qs_404, "页面出错", "程序猿正在赶来的路上");
     }
 
@@ -830,7 +829,7 @@ public class ArticleDetailActivity extends BaseActivity implements View.OnClickL
                     Log.e("AlibcTradeSDK", "支付成功,成功订单号为" + alibcTradeResult.payResult.paySuccessOrders);
                 }
                 Log.e("AlibcTradeSDK", "加购成功");
-                Toast.makeText(ArticleDetailActivity.this, "进去了", Toast.LENGTH_SHORT).show();
+                ToastUtil.show("进去了");
             }
 
             @Override

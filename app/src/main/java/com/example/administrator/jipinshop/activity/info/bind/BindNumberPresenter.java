@@ -5,14 +5,23 @@ import android.os.CountDownTimer;
 import android.text.Editable;
 import android.text.TextUtils;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
 import com.example.administrator.jipinshop.R;
+import com.example.administrator.jipinshop.bean.LoginBean;
+import com.example.administrator.jipinshop.bean.SuccessBean;
 import com.example.administrator.jipinshop.netwrok.Repository;
+import com.example.administrator.jipinshop.util.ToastUtil;
+import com.trello.rxlifecycle2.LifecycleTransformer;
 
 import javax.inject.Inject;
+
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.functions.Consumer;
+import io.reactivex.schedulers.Schedulers;
 
 /**
  * @author 莫小婷
@@ -42,7 +51,7 @@ public class BindNumberPresenter {
             @Override
             public void onTick(long millisUntilFinished) {
                 textView.setText(millisUntilFinished / 1000 + "s后重发 ");
-                textView.setTextColor(context.getResources().getColor(R.color.color_E31436));
+                textView.setTextColor(context.getResources().getColor(R.color.color_white));
                 textView.setBackgroundResource(R.drawable.bg_timecounter);
             }
 
@@ -60,7 +69,7 @@ public class BindNumberPresenter {
     /**
      * 为了设置登陆按钮的背景颜色
      */
-    public void initLoginButton(final EditText number, final EditText code, final Button loginButton, final TextView mLoginGetCode) {
+    public void initLoginButton(final EditText number, final EditText code, final Button loginButton, final TextView mLoginGetCode,Boolean[] timerEnd) {
         number.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
@@ -87,12 +96,14 @@ public class BindNumberPresenter {
                     loginButton.setBackgroundResource(R.drawable.bg_login);
                 }
 
-                if(number.getText().length() == 11){
-                    mLoginGetCode.setEnabled(true);
-                    mLoginGetCode.setBackgroundResource(R.drawable.bg_login2);
-                }else {
-                    mLoginGetCode.setEnabled(false);
-                    mLoginGetCode.setBackgroundResource(R.drawable.bg_login);
+                if(!timerEnd[0]){
+                    if(number.getText().length() == 11){
+                        mLoginGetCode.setEnabled(true);
+                        mLoginGetCode.setBackgroundResource(R.drawable.bg_login2);
+                    }else {
+                        mLoginGetCode.setEnabled(false);
+                        mLoginGetCode.setBackgroundResource(R.drawable.bg_login);
+                    }
                 }
             }
         });
@@ -126,4 +137,36 @@ public class BindNumberPresenter {
         });
 
     }
+
+    public void pushMessage(String mobile,LifecycleTransformer<SuccessBean> transformer){
+        mRepository.pushMessage(mobile,"2")
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .compose(transformer)
+                .subscribe(successBean ->{
+                    if(successBean.getCode() != 0){
+                        ToastUtil.show(successBean.getMsg());
+                    }else {
+                        ToastUtil.show("验证码已发送，请注意查收");
+                    }
+                    Log.d("LoginPresenter", successBean.toString());
+                }, throwable -> {
+                    Log.d("LoginPresenter", throwable.getMessage());
+                });
+    }
+
+    public void Login(String channel,String openid,String mobile ,String code ,LifecycleTransformer<LoginBean> transformer){
+        mRepository.bindMobile(channel,openid,mobile,code)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .compose(transformer)
+                .subscribe(successBean -> {
+                    if (mView != null){
+                        mView.loginSuccess(successBean);
+                    }
+                }, throwable -> {
+                    Log.d("LoginPresenter", throwable.getMessage());
+                });
+    }
+
 }

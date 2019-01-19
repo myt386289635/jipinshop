@@ -10,7 +10,7 @@
 
     <TextView
         android:textColor="@color/color_ACACAC"
-        android:layout_marginTop="@dimen/x60"
+        android:layout_marginTop="@dimen/y60"
         android:layout_gravity="center_horizontal"
         android:text="为了你的账号安全，请绑定手机号 "
         android:layout_width="wrap_content"

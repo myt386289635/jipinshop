@@ -14,10 +14,8 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.view.inputmethod.EditorInfo;
 import android.widget.EditText;
-import android.widget.Toast;
 
 import com.example.administrator.jipinshop.R;
-import com.example.administrator.jipinshop.activity.shoppingdetail.ShoppingDetailActivity;
 import com.example.administrator.jipinshop.activity.sreach.result.SreachResultActivity;
 import com.example.administrator.jipinshop.adapter.SreachAdapter;
 import com.example.administrator.jipinshop.base.BaseActivity;
@@ -80,7 +78,7 @@ public class SreachActivity extends BaseActivity implements TextWatcher, SreachV
                     || actionId == EditorInfo.IME_ACTION_DONE
                     || (event != null && KeyEvent.KEYCODE_ENTER == event.getKeyCode() && KeyEvent.ACTION_DOWN == event.getAction())) {
                 if (TextUtils.isEmpty(mBinding.sreachEdit.getText().toString().trim())) {
-                    Toast.makeText(this, "请输入搜索内容", Toast.LENGTH_SHORT).show();
+                    ToastUtil.show("请输入搜索内容");
                     return false;
                 }
                 startActivityForResult(new Intent(SreachActivity.this, SreachResultActivity.class)
@@ -218,7 +216,7 @@ public class SreachActivity extends BaseActivity implements TextWatcher, SreachV
                     finish();
                 } else {
                     if (TextUtils.isEmpty(mBinding.sreachEdit.getText().toString().trim())) {
-                        Toast.makeText(this, "请输入搜索内容", Toast.LENGTH_SHORT).show();
+                        ToastUtil.show("请输入搜索内容");
                         return;
                     }
                     startActivityForResult(new Intent(this, SreachResultActivity.class)

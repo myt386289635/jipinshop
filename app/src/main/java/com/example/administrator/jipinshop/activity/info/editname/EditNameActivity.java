@@ -8,13 +8,13 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.blankj.utilcode.util.SPUtils;
 import com.example.administrator.jipinshop.R;
 import com.example.administrator.jipinshop.base.BaseActivity;
 import com.example.administrator.jipinshop.bean.SuccessBean;
 import com.example.administrator.jipinshop.bean.eventbus.EditNameBus;
+import com.example.administrator.jipinshop.util.ToastUtil;
 import com.example.administrator.jipinshop.util.sp.CommonDate;
 import com.example.administrator.jipinshop.view.dialog.ProgressDialogView;
 
@@ -71,7 +71,7 @@ public class EditNameActivity extends BaseActivity implements EditNameView {
                 break;
             case R.id.edit_save:
                 if(TextUtils.isEmpty(mEditEdit.getText().toString())){
-                    Toast.makeText(this, "请输入修改的名字", Toast.LENGTH_SHORT).show();
+                    ToastUtil.show("请输入修改的名字");
                     return;
                 }
                 showKeyboard(false);
@@ -101,10 +101,10 @@ public class EditNameActivity extends BaseActivity implements EditNameView {
         if (successBean.getCode() == 0) {
             SPUtils.getInstance(CommonDate.USER).put(CommonDate.userNickName, mEditEdit.getText().toString());
             EventBus.getDefault().post(new EditNameBus(EditNameActivity.tag, mEditEdit.getText().toString(),"1"));
-            Toast.makeText(this, "修改成功", Toast.LENGTH_SHORT).show();
+            ToastUtil.show("修改成功");
             finish();
         } else {
-            Toast.makeText(this, successBean.getMsg(), Toast.LENGTH_SHORT).show();
+            ToastUtil.show(successBean.getMsg());
         }
     }
 }

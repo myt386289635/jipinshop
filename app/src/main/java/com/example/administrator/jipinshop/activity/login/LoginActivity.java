@@ -17,9 +17,11 @@ import com.blankj.utilcode.util.SPUtils;
 import com.example.administrator.jipinshop.MyApplication;
 import com.example.administrator.jipinshop.R;
 import com.example.administrator.jipinshop.activity.WebActivity;
+import com.example.administrator.jipinshop.activity.info.bind.BindNumberActivity;
 import com.example.administrator.jipinshop.base.BaseActivity;
 import com.example.administrator.jipinshop.bean.LoginBean;
 import com.example.administrator.jipinshop.bean.SuccessBean;
+import com.example.administrator.jipinshop.bean.UserInfoBean;
 import com.example.administrator.jipinshop.bean.eventbus.CommonEvaluationBus;
 import com.example.administrator.jipinshop.bean.eventbus.EditNameBus;
 import com.example.administrator.jipinshop.databinding.LoginBinding;
@@ -174,7 +176,39 @@ public class LoginActivity extends BaseActivity implements LoginView, View.OnCli
             setResult(200);
             finish();
         }else {
-            Toast.makeText(this, loginBean.getMsg(), Toast.LENGTH_SHORT).show();
+            ToastUtil.show(loginBean.getMsg());
+        }
+    }
+
+    @Override
+    public void loginWx(LoginBean loginBean,String channel,String openid) {
+        if(loginBean.getCode() == 0){
+            SPUtils.getInstance(CommonDate.USER).put(CommonDate.userAcutalName,loginBean.getData().getRealname());
+            SPUtils.getInstance(CommonDate.USER).put(CommonDate.userBirthday,loginBean.getData().getBirthday());
+            SPUtils.getInstance(CommonDate.USER).put(CommonDate.userGender,loginBean.getData().getGender());
+            SPUtils.getInstance(CommonDate.USER).put(CommonDate.userMemberGrade,loginBean.getData().getRole() +"");
+            SPUtils.getInstance(CommonDate.USER).put(CommonDate.userNickImg,loginBean.getData().getAvatar());
+            SPUtils.getInstance(CommonDate.USER).put(CommonDate.userNickName,loginBean.getData().getNickname());
+            SPUtils.getInstance(CommonDate.USER).put(CommonDate.userPhone,loginBean.getData().getMobile());
+            SPUtils.getInstance(CommonDate.USER).put(CommonDate.token,loginBean.getData().getToken());
+            SPUtils.getInstance(CommonDate.USER).put(CommonDate.userPoint,loginBean.getData().getPoint());
+            SPUtils.getInstance(CommonDate.USER).put(CommonDate.bindMobile, loginBean.getData().getBindMobile() + "");
+            SPUtils.getInstance(CommonDate.USER).put(CommonDate.bindWeibo, loginBean.getData().getBindWeibo() + "");
+            SPUtils.getInstance(CommonDate.USER).put(CommonDate.bindWeixin, loginBean.getData().getBindWeixin() + "");
+
+            EventBus.getDefault().post(new EditNameBus(LoginActivity.tag,loginBean.getData().getFansCount()+""
+                    ,loginBean.getData().getVoteCount()+"",loginBean.getData().getFollowCount() + ""));//刷新登陆后我的页面
+            EventBus.getDefault().post(JPushReceiver.TAG);//刷新未读消息
+            EventBus.getDefault().post(new CommonEvaluationBus(LoginActivity.refresh));//用来刷新商品、评测、发现详情以及评论列表
+            JPushInterface.resumePush(MyApplication.getInstance());//恢复推送
+            ToastUtil.show("登录成功");
+            setResult(200);
+            finish();
+        }else if(loginBean.getCode() == 700){
+            startActivityForResult(new Intent(LoginActivity.this,BindNumberActivity.class)
+                    .putExtra("channel",channel)
+                    .putExtra("openid",openid)
+                    ,100);
         }
     }
 
@@ -199,24 +233,14 @@ public class LoginActivity extends BaseActivity implements LoginView, View.OnCli
                     mDialog.dismiss();
                 }
                 String uid = map.get("uid");
-                String openid = map.get("openid");//微博没有
-                String unionid = map.get("unionid");//微博没有
+                String openid = map.get("openid");
                 String access_token = map.get("access_token");
-                String refresh_token = map.get("refresh_token");//微信,qq,微博都没有获取到
-                String expires_in = map.get("expires_in");
-                String name = map.get("name");//名称
-                String gender = map.get("gender");//性别
-                String iconurl = map.get("iconurl");//头像地址
-
-                Log.e("login", "openid: " + openid);
-                Log.e("login", "unionid: " + unionid);
-                Log.e("login", "access_token: " + access_token);
-                Log.e("login", "refresh_token: " + refresh_token);
-                Log.e("login", "expires_in: " + expires_in);
-                Log.e("login", "uid: " + uid);
-                Log.e("login", "name: " + name);
-                Log.e("login", "gender: " + gender);
-                Log.e("login", "iconurl: " + iconurl);
+                if(share_media == SHARE_MEDIA.WEIXIN){
+                    //微信
+                    mPresenter.thirdLogin(access_token,openid,"1",LoginActivity.this.bindToLifecycle());
+                }else {
+                    ToastUtil.show("第三方登陆跳转失败，请联系管理员");
+                }
             }
 
             @Override
@@ -264,6 +288,11 @@ public class LoginActivity extends BaseActivity implements LoginView, View.OnCli
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         UMShareAPI.get(this).onActivityResult(requestCode, resultCode, data);
+        switch (resultCode){
+            case 222:
+                finish();
+                break;
+        }
     }
 
     @Override

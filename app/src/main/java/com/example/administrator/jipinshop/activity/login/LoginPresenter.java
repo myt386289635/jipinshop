@@ -9,18 +9,17 @@ import android.util.Log;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.example.administrator.jipinshop.R;
 import com.example.administrator.jipinshop.bean.LoginBean;
 import com.example.administrator.jipinshop.bean.SuccessBean;
 import com.example.administrator.jipinshop.netwrok.Repository;
+import com.example.administrator.jipinshop.util.ToastUtil;
 import com.trello.rxlifecycle2.LifecycleTransformer;
 
 import javax.inject.Inject;
 
 import io.reactivex.android.schedulers.AndroidSchedulers;
-import io.reactivex.functions.Consumer;
 import io.reactivex.schedulers.Schedulers;
 
 /**
@@ -52,7 +51,7 @@ public class LoginPresenter {
             @Override
             public void onTick(long millisUntilFinished) {
                 textView.setText(millisUntilFinished / 1000 + "s后重发 ");
-                textView.setTextColor(context.getResources().getColor(R.color.color_E31436));
+                textView.setTextColor(context.getResources().getColor(R.color.color_white));
                 textView.setBackgroundResource(R.drawable.bg_timecounter);
             }
 
@@ -145,14 +144,11 @@ public class LoginPresenter {
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .compose(transformer)
-                .subscribe(new Consumer<LoginBean>() {
-                    @Override
-                    public void accept(LoginBean s) throws Exception {
-                       if (mView != null){
-                           mView.loginSuccess(s);
-                       }
-                    }
-                },throwable -> {
+                .subscribe(s -> {
+                   if (mView != null){
+                       mView.loginSuccess(s);
+                   }
+                }, throwable -> {
                     Log.d("LoginPresenter", throwable.getMessage());
                 });
     }
@@ -165,11 +161,27 @@ public class LoginPresenter {
                 .compose(transformer)
                 .subscribe(successBean ->{
                     if(successBean.getCode() != 0){
-                        Toast.makeText(context, successBean.getMsg(), Toast.LENGTH_SHORT).show();
+                       ToastUtil.show(successBean.getMsg());
+                    }else {
+                        ToastUtil.show("验证码已发送，请注意查收");
                     }
                     Log.d("LoginPresenter", successBean.toString());
                 }, throwable -> {
                     Log.d("LoginPresenter", throwable.getMessage());
+                });
+    }
+
+    public void thirdLogin(String accessToken, String openid,String channel,LifecycleTransformer<LoginBean> transformer){
+        mRepository.thirdLogin(accessToken,openid,channel)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .compose(transformer)
+                .subscribe(userInfoBean -> {
+                    if (mView != null){
+                        mView.loginWx(userInfoBean,channel,openid);
+                    }
+                }, throwable -> {
+                    ToastUtil.show("授权登陆失败，请检查网络");
                 });
     }
 

@@ -70,6 +70,16 @@ public class MineFragment extends DBBaseFragment implements View.OnClickListener
 
     @Override
     public void onClick(View view) {
+        switch (view.getId()){
+            case R.id.mine_login:
+                //跳转到登陆页面
+                startActivityForResult(new Intent(getContext(), LoginActivity.class), 100);
+                return;
+        }
+        if(TextUtils.isEmpty(SPUtils.getInstance(CommonDate.USER).getString(CommonDate.token,""))){
+            startActivity(new Intent(getContext(), LoginActivity.class));
+            return;
+        }
         switch (view.getId()) {
             case R.id.mine_name:
             case R.id.mine_image:
@@ -108,10 +118,6 @@ public class MineFragment extends DBBaseFragment implements View.OnClickListener
             case R.id.mine_setting:
                 //跳转到设置页面
                 startActivityForResult(new Intent(getContext(), SettingActivity.class), 100);
-                break;
-            case R.id.mine_login:
-                //跳转到登陆页面
-                startActivityForResult(new Intent(getContext(), LoginActivity.class), 100);
                 break;
         }
     }

@@ -304,6 +304,20 @@ public interface APIService {
     @POST("qualityshop-api/api/signin")
     Observable<SignInsertBean> signInsert();
 
+    /**
+     * app端第三方授权登录
+     */
+    @POST("qualityshop-api/api/thirdLogin")
+    @FormUrlEncoded
+    Observable<LoginBean> thirdLogin(@Field("accessToken") String accessToken,@Field("openid") String openid,@Field("channel") String channel);
+
+    /**
+     * 绑定手机号（app端微信授权登录成功之后）
+     */
+    @POST("qualityshop-api/api/bindMobile")
+    @FormUrlEncoded
+    Observable<LoginBean> bindMobile(@Field("channel")String channel,@Field("openid") String openid,@Field("mobile")String mobile,@Field("code")String code);
+
 /*************************************************以下是还未修改的接口***********************************************/
 
     /**

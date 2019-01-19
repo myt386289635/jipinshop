@@ -7,7 +7,6 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.LinearLayoutManager;
 import android.view.View;
-import android.widget.Toast;
 
 import com.aspsine.swipetoloadlayout.OnLoadMoreListener;
 import com.aspsine.swipetoloadlayout.OnRefreshListener;
@@ -21,6 +20,7 @@ import com.example.administrator.jipinshop.bean.eventbus.EvaluationBus;
 import com.example.administrator.jipinshop.bean.eventbus.FollowBus;
 import com.example.administrator.jipinshop.databinding.ActivityUserBinding;
 import com.example.administrator.jipinshop.util.NotchUtil;
+import com.example.administrator.jipinshop.util.ToastUtil;
 import com.example.administrator.jipinshop.view.dialog.ProgressDialogView;
 import com.gyf.barlibrary.ImmersionBar;
 import com.trello.rxlifecycle2.components.support.RxAppCompatActivity;
@@ -158,7 +158,7 @@ public class UserActivity extends RxAppCompatActivity implements UserAdapter.OnL
                 mAdapter.notifyDataSetChanged();
             }else {
                 page--;
-                Toast.makeText(this, "已经是最后一页了", Toast.LENGTH_SHORT).show();
+                ToastUtil.show("已经是最后一页了");
             }
         }
     }
@@ -171,7 +171,7 @@ public class UserActivity extends RxAppCompatActivity implements UserAdapter.OnL
         }else {
             dissLoading();
             page--;
-            Toast.makeText(this, error, Toast.LENGTH_SHORT).show();
+            ToastUtil.show( error);
         }
     }
 
@@ -193,7 +193,7 @@ public class UserActivity extends RxAppCompatActivity implements UserAdapter.OnL
     @Override
     public void ConcerDelFaile(String error) {
         dissRefresh();
-        Toast.makeText(this, error, Toast.LENGTH_SHORT).show();
+        ToastUtil.show(error);
     }
 
     /**

@@ -337,4 +337,18 @@ public class Repository {
     public Observable<FollowBean> fansList(String page){
         return mAPIService.fansList(page);
     }
+
+    /**
+     * app端第三方授权登录
+     */
+    public Observable<LoginBean> thirdLogin(String accessToken, String openid,String channel){
+        return mAPIService.thirdLogin(accessToken,openid,channel);
+    }
+
+    /**
+     * 绑定手机号（app端微信授权登录成功之后）
+     */
+    public Observable<LoginBean> bindMobile(String channel,String openid,String mobile,String code){
+        return mAPIService.bindMobile(channel,openid,mobile,code);
+    }
 }

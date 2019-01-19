@@ -3,8 +3,6 @@ package com.example.administrator.jipinshop.util;
 import android.app.Activity;
 import android.content.Context;
 import android.text.TextUtils;
-import android.util.Log;
-import android.widget.Toast;
 
 import com.umeng.socialize.ShareAction;
 import com.umeng.socialize.UMShareListener;
@@ -64,7 +62,7 @@ public class ShareUtils {
          */
         @Override
         public void onResult(SHARE_MEDIA platform) {
-            Toast.makeText(mContext,platform +"成功了",Toast.LENGTH_LONG).show();
+            ToastUtil.show(platform +"成功了");
         }
 
         /**
@@ -74,7 +72,7 @@ public class ShareUtils {
          */
         @Override
         public void onError(SHARE_MEDIA platform, Throwable t) {
-            Toast.makeText(mContext,platform+"失败"+t.getMessage(),Toast.LENGTH_LONG).show();
+            ToastUtil.show(platform+"失败"+t.getMessage());
         }
 
         /**
@@ -83,7 +81,7 @@ public class ShareUtils {
          */
         @Override
         public void onCancel(SHARE_MEDIA platform) {
-            Toast.makeText(mContext,platform+"取消了",Toast.LENGTH_LONG).show();
+            ToastUtil.show(platform+"取消了");
 
         }
     };
