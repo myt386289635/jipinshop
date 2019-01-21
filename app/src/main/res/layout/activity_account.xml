@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:bind="http://schemas.android.com/apk/res-auto">
+
+    <data>
+        <variable
+            name="listener"
+            type="android.view.View.OnClickListener"/>
+
+    </data>
+
+    <LinearLayout
+        android:background="@color/color_white"
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <include
+            android:id="@+id/in_clude"
+            bind:listener="@{listener}"
+            layout="@layout/aa_title"/>
+
+        <RelativeLayout
+            android:layout_marginRight="@dimen/x28"
+            android:layout_marginLeft="@dimen/x28"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <ImageView
+                android:layout_marginBottom="@dimen/y26"
+                android:layout_marginTop="@dimen/y26"
+                android:layout_width="@dimen/x84"
+                android:layout_height="@dimen/y84"/>
+
+        </RelativeLayout>
+
+    </LinearLayout>
+
+</layout>

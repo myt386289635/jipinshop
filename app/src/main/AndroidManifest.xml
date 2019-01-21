@@ -240,6 +240,10 @@
         <activity android:name=".activity.message.detail.MsgDetailActivity"
                   android:screenOrientation="portrait"/>
 
+        <!--账户管理页-->
+        <activity android:name=".activity.info.account.AccountManageActivity"
+                  android:screenOrientation="portrait"/>
+
     </application>
 
 </manifest>

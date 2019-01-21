@@ -11,6 +11,7 @@ import android.view.View;
 
 import com.blankj.utilcode.util.SPUtils;
 import com.example.administrator.jipinshop.R;
+import com.example.administrator.jipinshop.activity.info.account.AccountManageActivity;
 import com.example.administrator.jipinshop.activity.info.editname.EditNameActivity;
 import com.example.administrator.jipinshop.base.BaseActivity;
 import com.example.administrator.jipinshop.bean.SuccessBean;
@@ -146,7 +147,7 @@ public class MyInfoActivity extends BaseActivity implements SelectPicDialog.Choo
                 break;
             case R.id.info_numberContainer:
                 //跳转到绑定账号页面
-//                startActivity(new Intent(this, BindNumberActivity.class));
+                startActivity(new Intent(this, AccountManageActivity.class));
                 break;
             case R.id.info_exitLogin:
                 //退出登陆

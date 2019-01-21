@@ -14,26 +14,6 @@ public class CommonDate {
     public static final String FindTab = "FindTab";//发现的tab
 
 
-    //数据缓存表(sp文件名：netCache)
-//    public static final String NETCACHE = "netCache";
-//    public static final String RecommendFragmentDATA = "RecommendFragment";
-//    public static final String HealthFragmentDATA = "HealthFragment";
-//    public static final String KitchenFragmentDATA = "KitchenFragment";
-//    public static final String HouseholdFragmentDATA = "HouseholdFragment";
-//    public static final String ElectricityFragmentDATA = "ElectricityFragment";
-//    public static final String CommonEvaluationFragmentDATA1 = "CommonEvaluationFragment1";
-//    public static final String CommonEvaluationFragmentDATA2 = "CommonEvaluationFragment2";
-//    public static final String CommonEvaluationFragmentDATA3 = "CommonEvaluationFragment3";
-//    public static final String CommonEvaluationFragmentDATA4 = "CommonEvaluationFragment4";
-//    public static final String CommonEvaluationFragmentDATA5 = "CommonEvaluationFragment5";
-//    public static final String CommonFindFragmentDATA1 = "CommonFindFragment1";
-//    public static final String CommonFindFragmentDATA2 = "CommonFindFragment2";
-//    public static final String CommonFindFragmentDATA3 = "CommonFindFragment3";
-//    public static final String CommonFindFragmentDATA4 = "CommonFindFragment4";
-//    public static final String CommonFindFragmentDATA5 = "CommonFindFragment5";
-
-
-
     //用户数据表（sp文件名：user）
     public static final String USER = "user";//表名
     public static final String userId = "userId";//用户id
@@ -49,8 +29,5 @@ public class CommonDate {
     public static final String bindMobile = "bindMobile";//是否绑定手机
     public static final String bindWeixin = "bindWeixin";//是否绑定微信
     public static final String bindWeibo = "bindWeibo";//是否绑定微博
-
-    public static final String alipAccount = "alipAccount";//支付宝账号
-    public static final String alipName = "alipName";//支付宝绑定的真实姓名
 
 }
