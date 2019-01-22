@@ -33,6 +33,7 @@ import com.trello.rxlifecycle2.android.FragmentEvent;
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -197,6 +198,9 @@ public class HomeCommenFragment extends DBBaseFragment implements HomeCommenTabA
         if (ClickUtil.isFastDoubleClick(800)) {
             return;
         }else{
+            BigDecimal bigDecimal = new BigDecimal(mCommenBeans.get(pos).getPv());
+            mCommenBeans.get(pos).setPv((bigDecimal.intValue() + 1) + "");
+            mAdapter.notifyDataSetChanged();
             startActivity(new Intent(getContext(), ShoppingDetailActivity.class)
                     .putExtra("goodsId",mCommenBeans.get(pos).getGoodsId())
             );

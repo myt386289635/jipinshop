@@ -17,8 +17,10 @@ import com.example.administrator.jipinshop.bean.RecommendFragmentBean;
 import com.example.administrator.jipinshop.databinding.FragmentRecommendBinding;
 import com.example.administrator.jipinshop.fragment.home.HomeFragment;
 import com.example.administrator.jipinshop.util.ClickUtil;
+import com.example.administrator.jipinshop.util.ToastUtil;
 import com.trello.rxlifecycle2.android.FragmentEvent;
 
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -86,6 +88,9 @@ public class RecommendFragment extends DBBaseFragment implements OnRefreshListen
         if (ClickUtil.isFastDoubleClick(800)) {
             return;
         }else{
+            BigDecimal bigDecimal = new BigDecimal(mList.get(pos).getPv());
+            mList.get(pos).setPv((bigDecimal.intValue() + 1) + "");
+            mAdapter.notifyDataSetChanged();
             startActivity(new Intent(getContext(), ShoppingDetailActivity.class)
                     .putExtra("goodsId",mList.get(pos).getGoodsId())
             );

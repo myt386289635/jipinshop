@@ -26,6 +26,7 @@ import com.trello.rxlifecycle2.android.FragmentEvent;
 
 import org.greenrobot.eventbus.EventBus;
 
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -86,6 +87,9 @@ public class SreachGoodsFragment extends DBBaseFragment implements SreachGoodsAd
         if (ClickUtil.isFastDoubleClick(800)) {
             return;
         }else{
+            BigDecimal bigDecimal = new BigDecimal(mList.get(pos).getPv());
+            mList.get(pos).setPv((bigDecimal.intValue() + 1) + "");
+            mAdapter.notifyDataSetChanged();
             startActivity(new Intent(getContext(), ShoppingDetailActivity.class)
                     .putExtra("goodsId",mList.get(pos).getGoodsId())
             );

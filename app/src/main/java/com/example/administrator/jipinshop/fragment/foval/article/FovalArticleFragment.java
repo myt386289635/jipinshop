@@ -24,6 +24,7 @@ import com.example.administrator.jipinshop.util.ToastUtil;
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -215,6 +216,9 @@ public class FovalArticleFragment extends DBBaseFragment implements OnRefreshLis
         if (ClickUtil.isFastDoubleClick(800)) {
             return;
         }else{
+            BigDecimal bigDecimal = new BigDecimal(mList.get(pos).getPv());
+            mList.get(pos).setPv((bigDecimal.intValue() + 1) + "");
+            mAdapter.notifyDataSetChanged();
             startActivity(new Intent(getContext(),ArticleDetailActivity.class)
                     .putExtra("id",mList.get(pos).getArticleId())
                     .putExtra("type","2")

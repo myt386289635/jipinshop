@@ -19,6 +19,8 @@ import com.example.administrator.jipinshop.R;
 import com.example.administrator.jipinshop.activity.home.article.ArticleDetailActivity;
 import com.example.administrator.jipinshop.bean.EvaluationTabBean;
 import com.example.administrator.jipinshop.bean.FindListBean;
+import com.example.administrator.jipinshop.util.ClickUtil;
+import com.example.administrator.jipinshop.util.ToastUtil;
 import com.example.administrator.jipinshop.util.WeakRefHandler;
 import com.example.administrator.jipinshop.view.glide.GlideApp;
 
@@ -123,13 +125,17 @@ public class CommonFindAdapter extends RecyclerView.Adapter {
                 }
                 int finalPosition = position;
                 viewHolder.itemView.setOnClickListener(v -> {
-                    BigDecimal bigDecimal = new BigDecimal(mList.get(finalPosition).getPv());
-                    mList.get(finalPosition).setPv((bigDecimal.intValue() + 1) + "");
-                    notifyDataSetChanged();
-                    mContext.startActivity(new Intent(mContext,ArticleDetailActivity.class)
-                            .putExtra("id",mList.get(finalPosition).getArticleId())
-                            .putExtra("type","3")
-                    );
+                    if (ClickUtil.isFastDoubleClick(800)) {
+                        return;
+                    }else{
+                        BigDecimal bigDecimal = new BigDecimal(mList.get(finalPosition).getPv());
+                        mList.get(finalPosition).setPv((bigDecimal.intValue() + 1) + "");
+                        notifyDataSetChanged();
+                        mContext.startActivity(new Intent(mContext,ArticleDetailActivity.class)
+                                .putExtra("id",mList.get(finalPosition).getArticleId())
+                                .putExtra("type","3")
+                        );
+                    }
                 });
                 viewHolder.item_head.setOnClickListener(v -> {
                     // TODO: 2019/1/11 个人主页
