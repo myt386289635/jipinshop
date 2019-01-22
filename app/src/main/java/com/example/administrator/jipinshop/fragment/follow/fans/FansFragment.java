@@ -141,7 +141,7 @@ public class FansFragment extends DBBaseFragment implements OnRefreshListener, F
                 ToastUtil.show("已经是最后一页了");
             }else {
                 //刷新数据为空时
-                initError(R.mipmap.qs_collection, "暂无关注", "关注内容为空，先去逛逛吧");
+                initError(R.mipmap.qs_collection, "暂无粉丝", "粉丝内容为空，先去逛逛吧");
             }
         }
     }
@@ -152,7 +152,7 @@ public class FansFragment extends DBBaseFragment implements OnRefreshListener, F
         if(refresh){
             //刷新时
             dissRefresh();
-            initError(R.mipmap.qs_net, "网络出错", "哇哦，网络出错了，换个姿势点击试试");
+            initError(R.mipmap.qs_net, "网络出错", "哇哦，网络出错了，换个姿势下滑试试");
         }else {
             //加载时
             dissLoading();

@@ -146,7 +146,7 @@ public class FovalGoodsFragment extends DBBaseFragment implements SreachGoodsAda
             }
         }else {
             if(refersh){
-                initError(R.mipmap.qs_nodata, "暂无数据", "暂时没有任何数据 ");
+                initError(R.mipmap.qs_collection, "暂无数据", "暂时没有任何数据 ");
                 mBinding.recyclerView.setVisibility(View.GONE);
             }else {
                 page-- ;
@@ -159,7 +159,7 @@ public class FovalGoodsFragment extends DBBaseFragment implements SreachGoodsAda
     public void Faile(String error) {
         if(refersh){
             stopResher();
-            initError(R.mipmap.qs_net, "网络出错", "哇哦，网络出错了，换个姿势下滑页面试试");
+            initError(R.mipmap.qs_net, "网络出错", "哇哦，网络出错了，换个姿势下滑试试");
             mBinding.recyclerView.setVisibility(View.GONE);
         }else {
             stopLoading();

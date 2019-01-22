@@ -73,7 +73,7 @@ public class IntegralDetailActivity extends BaseActivity implements IntegralDeta
                 mList.addAll(bean.getData());
                 mAdapter.notifyDataSetChanged();
             } else {
-                initError(R.mipmap.qs_integral, "暂无积分明细", "可以去签到领积分哦");
+                initError(R.mipmap.qs_integral, "暂无极币明细", "可以去签到领极币哦");
             }
         }else {
             stopLoading();
