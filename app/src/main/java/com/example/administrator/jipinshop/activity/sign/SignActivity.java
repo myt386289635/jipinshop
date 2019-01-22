@@ -169,6 +169,10 @@ public class SignActivity extends BaseActivity implements View.OnClickListener, 
         BigDecimal bigDecimal = new BigDecimal(mBinding.signDays.getText().toString());
         mBinding.signDays.setText((bigDecimal.intValue() + 1 )+ "");
         mBinding.signSurplusNum.setText(signInsertBean.getData().getUsablePoint() + "");
+        BigDecimal bigDecimal1 = new BigDecimal(mBinding.signDayNum.getText().toString());
+        mBinding.signDayNum.setText((bigDecimal1.intValue() + signInsertBean.getAddPoint()) + "");
+        BigDecimal bigDecimal2 = new BigDecimal(mBinding.signTotle.getText().toString());
+        mBinding.signTotle.setText((bigDecimal2.intValue() + signInsertBean.getAddPoint()) + "");
         mGoodView.setText("+" + signInsertBean.getAddPoint() + "极币");
         mGoodView.setTextColor(getResources().getColor(R.color.color_E31436));
         mGoodView.show(mBinding.signCalendarView);
