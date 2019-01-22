@@ -241,13 +241,15 @@ public class ArticleDetailActivity extends BaseActivity implements View.OnClickL
                 }
                 break;
             case R.id.detail_buy:
-                //购买
-                if (mRelatedGoodsDialog == null) {
-                    mRelatedGoodsDialog = RelatedGoodsDialog.getInstance(mBeans);
-                    mRelatedGoodsDialog.setOnItem(this);
-                }
-                if (!mRelatedGoodsDialog.isAdded()) {
-                    mRelatedGoodsDialog.show(getSupportFragmentManager(), "RelatedGoodsDialog");
+                if(mBeans != null && mBeans.size() != 0){
+                    //购买
+                    if (mRelatedGoodsDialog == null) {
+                        mRelatedGoodsDialog = RelatedGoodsDialog.getInstance(mBeans);
+                        mRelatedGoodsDialog.setOnItem(this);
+                    }
+                    if (!mRelatedGoodsDialog.isAdded()) {
+                        mRelatedGoodsDialog.show(getSupportFragmentManager(), "RelatedGoodsDialog");
+                    }
                 }
                 break;
             case R.id.detail_send:
@@ -359,6 +361,9 @@ public class ArticleDetailActivity extends BaseActivity implements View.OnClickL
         shareUrl= bean.getData().getShareUrl();
         mBeans.addAll(bean.getData().getRelatedGoodsList());
         attentionUserId = bean.getData().getUserId();
+        if(bean.getData().getRelatedGoodsList() == null || bean.getData().getRelatedGoodsList().size() == 0){
+            mBinding.detailBuy.setText("暂无商品");
+        }
         mBinding.detailTitle.setText(bean.getData().getTitle());
         mBinding.detailWeb.loadDataWithBaseURL(null, bean.getData().getContent(),
                 "text/html", "utf-8", null);
