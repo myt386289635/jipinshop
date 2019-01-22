@@ -1086,6 +1086,11 @@
 
             </RelativeLayout>
 
+            <View
+                android:background="@color/color_F5F5F5"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/y2"/>
+
         </LinearLayout>
 
         <include

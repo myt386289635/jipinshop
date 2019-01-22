@@ -10,12 +10,13 @@
         android:layout_marginTop="@dimen/x60"
         android:layout_gravity="center_horizontal"
         android:textColor="@color/color_DE151515"
-        android:text="一边分享一边赚钱"
+        android:text="分享"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"/>
 
 
     <TextView
+        android:visibility="gone"
         android:textColor="@color/color_DE151515"
         android:layout_marginRight="@dimen/x28"
         android:layout_marginLeft="@dimen/x28"
