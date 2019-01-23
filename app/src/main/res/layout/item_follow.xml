@@ -19,6 +19,9 @@
 
 
     <TextView
+        android:ellipsize="end"
+        android:maxLines="1"
+        android:maxWidth="@dimen/x300"
         android:id="@+id/item_name"
         android:layout_centerVertical="true"
         android:layout_toRightOf="@id/item_image"
