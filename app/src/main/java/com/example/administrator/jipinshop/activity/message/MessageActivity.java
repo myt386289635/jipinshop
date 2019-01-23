@@ -13,10 +13,10 @@ import com.example.administrator.jipinshop.R;
 import com.example.administrator.jipinshop.adapter.SystemMessageAdapter;
 import com.example.administrator.jipinshop.base.BaseActivity;
 import com.example.administrator.jipinshop.bean.SystemMessageBean;
-import com.example.administrator.jipinshop.bean.eventbus.MessageMsgBus;
 import com.example.administrator.jipinshop.databinding.ActivityMessageSystemBinding;
 import com.example.administrator.jipinshop.jpush.JPushReceiver;
 import com.example.administrator.jipinshop.util.ToastUtil;
+import com.trello.rxlifecycle2.android.ActivityEvent;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
@@ -92,7 +92,7 @@ public class MessageActivity extends BaseActivity implements View.OnClickListene
     public void onRefresh() {
         page = 1;
         refersh = true;
-        mPresenter.messageAll(page + "" ,this.bindToLifecycle());
+        mPresenter.messageAll(page + "" ,this.bindUntilEvent(ActivityEvent.DESTROY));
     }
 
     /**
@@ -102,7 +102,7 @@ public class MessageActivity extends BaseActivity implements View.OnClickListene
     public void onLoadMore() {
         page++;
         refersh = false;
-        mPresenter.messageAll(page + "",this.bindToLifecycle());
+        mPresenter.messageAll(page + "",this.bindUntilEvent(ActivityEvent.DESTROY));
     }
 
     /**
@@ -191,14 +191,6 @@ public class MessageActivity extends BaseActivity implements View.OnClickListene
     protected void onDestroy() {
         EventBus.getDefault().unregister(this);
         super.onDestroy();
-    }
-
-    @Subscribe
-    public void onRefersh(MessageMsgBus messageMsgBus){
-        if(messageMsgBus != null && messageMsgBus.getMsg().equals(MessageActivity.tag)){
-            mList.get(messageMsgBus.getPosition()).setStatus(1);
-            mAdapter.notifyDataSetChanged();
-        }
     }
 
     @Subscribe

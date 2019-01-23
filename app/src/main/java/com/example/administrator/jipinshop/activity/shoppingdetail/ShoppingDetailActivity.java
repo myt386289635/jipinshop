@@ -693,7 +693,7 @@ public class ShoppingDetailActivity extends BaseActivity implements ShoppingComm
         if (successBean.getCode() == 0){
             mCommonList.get(position).setVote(1);
             mCommonList.get(position).setVoteCount(successBean.getData());
-            mCommonAdapter.notifyItemChanged(position);
+            mCommonAdapter.notifyDataSetChanged();
         }else {
             //602
             startActivity(new Intent(this, LoginActivity.class));
@@ -709,7 +709,7 @@ public class ShoppingDetailActivity extends BaseActivity implements ShoppingComm
         if(successBean.getCode() == 0){
             mCommonList.get(position).setVote(0);
             mCommonList.get(position).setVoteCount(successBean.getData());
-            mCommonAdapter.notifyItemChanged(position);
+            mCommonAdapter.notifyDataSetChanged();
         }else {
             //602
             startActivity(new Intent(this, LoginActivity.class));

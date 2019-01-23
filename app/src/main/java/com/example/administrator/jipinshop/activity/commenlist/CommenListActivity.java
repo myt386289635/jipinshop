@@ -393,7 +393,7 @@ public class CommenListActivity extends BaseActivity implements CommenListAdapte
             BigDecimal bigDecimal = new BigDecimal(mList.get(position).getVoteCount());
             int num = bigDecimal.intValue();
             mList.get(position).setVoteCount((num + 1));
-            mAdapter.notifyItemChanged(position);
+            mAdapter.notifyDataSetChanged();
             EventBus.getDefault().post(new CommenBus(CommenListActivity.commentResher));
         }else {
             //602
@@ -412,7 +412,7 @@ public class CommenListActivity extends BaseActivity implements CommenListAdapte
             BigDecimal bigDecimal = new BigDecimal(mList.get(position).getVoteCount());
             int num = bigDecimal.intValue();
             mList.get(position).setVoteCount((num - 1));
-            mAdapter.notifyItemChanged(position);
+            mAdapter.notifyDataSetChanged();
             EventBus.getDefault().post(new CommenBus(CommenListActivity.commentResher));
         }else {
             //602

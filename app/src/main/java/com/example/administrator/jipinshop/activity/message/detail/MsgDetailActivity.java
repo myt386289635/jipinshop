@@ -6,10 +6,8 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.administrator.jipinshop.R;
-import com.example.administrator.jipinshop.activity.message.MessageActivity;
 import com.example.administrator.jipinshop.base.BaseActivity;
 import com.example.administrator.jipinshop.bean.SuccessBean;
-import com.example.administrator.jipinshop.bean.eventbus.MessageMsgBus;
 import com.example.administrator.jipinshop.jpush.JPushReceiver;
 import com.example.administrator.jipinshop.util.ToastUtil;
 
@@ -65,8 +63,7 @@ public class MsgDetailActivity extends BaseActivity implements MsgDetailView {
      */
     @Override
     public void onSuccess(SuccessBean successBean) {
-        EventBus.getDefault().post(new MessageMsgBus(MessageActivity.tag,getIntent().getIntExtra("position",0)));
-        EventBus.getDefault().post(JPushReceiver.TAG);//刷新首页未读消息
+        EventBus.getDefault().post(JPushReceiver.TAG);//刷新首页未读消息以及消息列表未读
     }
 
     /**
