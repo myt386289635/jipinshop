@@ -460,7 +460,7 @@ public class ArticleDetailActivity extends BaseActivity implements View.OnClickL
             mBinding.detailCommon.setVisibility(View.VISIBLE);
             mBinding.detailCommonTotle.setVisibility(View.VISIBLE);
             mBinding.detailCommentLayout.setVisibility(View.GONE);
-            mBinding.detailSend.setVisibility(View.VISIBLE);
+            mBinding.detailSend.setVisibility(View.GONE);//1.0不需要
             mCommonList.clear();
             mCommonList.addAll(commentBean.getData());
             mCommonAdapter.notifyDataSetChanged();
