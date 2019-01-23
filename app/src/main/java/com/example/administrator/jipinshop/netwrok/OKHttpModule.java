@@ -58,7 +58,7 @@ public class OKHttpModule {
             String sign = "quality-shop" + time;
             Request authorised = originalRequest.newBuilder()
                     .addHeader("timestamp", time+"")//时间搓
-                    .addHeader("sign", EncryptUtils.encryptMD5ToString(sign))//Md5加密字段
+                    .addHeader("sign", EncryptUtils.encryptMD5ToString(sign).toLowerCase())//Md5加密字段
                     .addHeader("token", SPUtils.getInstance(CommonDate.USER).getString(CommonDate.token,""))
                     .build();
             return chain.proceed(authorised);
