@@ -283,7 +283,7 @@
                     android:drawableLeft="@mipmap/quality"
                     android:drawablePadding="@dimen/x8"
                     android:gravity="center_vertical"
-                    android:text="功能分析"
+                    android:text="功能评分"
                     android:textColor="@color/color_DE151515"
                     android:textSize="15sp"
                     android:textStyle="bold"/>
@@ -719,12 +719,31 @@
                     android:layout_height="wrap_content"/>
 
 
+                <RelativeLayout
+                    android:visibility="gone"
+                    android:id="@+id/detail_evaluationEity"
+                    android:layout_below="@+id/detail_evaluationTitle"
+                    android:layout_marginBottom="@dimen/y30"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerHorizontal="true"
+                        android:layout_marginBottom="@dimen/x120"
+                        android:layout_marginTop="@dimen/x120"
+                        android:text="评测进行中......"
+                        android:textColor="@color/color_DE151515"/>
+
+                </RelativeLayout>
+
                 <View
                     android:id="@+id/detail_evaluationLine"
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/x12"
                     android:layout_below="@+id/detail_good"
-                    android:layout_marginTop="@dimen/x80"
+                    android:layout_marginTop="@dimen/y80"
                     android:background="@color/color_F5F5F5"/>
 
 
@@ -742,6 +761,7 @@
 
 
                 <TextView
+                    android:visibility="gone"
                     android:layout_marginRight="@dimen/x28"
                     android:layout_marginTop="@dimen/x56"
                     android:layout_alignParentRight="true"

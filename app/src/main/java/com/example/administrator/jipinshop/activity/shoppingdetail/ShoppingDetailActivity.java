@@ -439,11 +439,14 @@ public class ShoppingDetailActivity extends BaseActivity implements ShoppingComm
                         shoppingDetailBean.getData().getEvaluationEntity().getContent(),
                         "text/html", "utf-8", null);
             }else {
-                mBinding.detailEvaluationLine.setVisibility(View.GONE);
-                mBinding.detailEvaluationTitle.setVisibility(View.GONE);
                 mBinding.detailEvaluationHead.setVisibility(View.GONE);
                 mBinding.detailEvaluation.setVisibility(View.GONE);
                 mBinding.detailGood.setVisibility(View.GONE);
+                mBinding.detailEvaluationEity.setVisibility(View.VISIBLE);
+                RelativeLayout.LayoutParams layoutParams = (RelativeLayout.LayoutParams) mBinding.detailEvaluationLine.getLayoutParams();
+                layoutParams.topMargin = 0;
+                layoutParams.addRule(RelativeLayout.BELOW,R.id.detail_evaluationEity);
+                mBinding.detailEvaluationLine.setLayoutParams(layoutParams);
             }
 
             //产品参数
@@ -629,7 +632,7 @@ public class ShoppingDetailActivity extends BaseActivity implements ShoppingComm
             mBinding.detailCommon.setVisibility(View.VISIBLE);
             mBinding.detailCommonTotle.setVisibility(View.VISIBLE);
             mBinding.detailCommentLayout.setVisibility(View.GONE);
-            mBinding.detailSend.setVisibility(View.VISIBLE);
+            mBinding.detailSend.setVisibility(View.GONE);//1.0版本不需要
             mCommonList.clear();
             mCommonList.addAll(commentBean.getData());
             mCommonAdapter.notifyDataSetChanged();

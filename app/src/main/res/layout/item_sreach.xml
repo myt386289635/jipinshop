@@ -14,6 +14,9 @@
         android:layout_height="@dimen/y2"/>
 
     <TextView
+        android:maxWidth="@dimen/x450"
+        android:ellipsize="end"
+        android:maxLines="1"
         android:layout_marginLeft="@dimen/x28"
         android:id="@+id/item_name"
         android:layout_centerVertical="true"

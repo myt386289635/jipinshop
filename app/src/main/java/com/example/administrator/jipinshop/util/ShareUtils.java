@@ -62,7 +62,7 @@ public class ShareUtils {
          */
         @Override
         public void onResult(SHARE_MEDIA platform) {
-            ToastUtil.show(platform +"成功了");
+            ToastUtil.show("分享成功");
         }
 
         /**
@@ -72,7 +72,7 @@ public class ShareUtils {
          */
         @Override
         public void onError(SHARE_MEDIA platform, Throwable t) {
-            ToastUtil.show(platform+"失败"+t.getMessage());
+            ToastUtil.show("分享失败");
         }
 
         /**
@@ -81,8 +81,7 @@ public class ShareUtils {
          */
         @Override
         public void onCancel(SHARE_MEDIA platform) {
-            ToastUtil.show(platform+"取消了");
-
+            ToastUtil.show("");
         }
     };
 }
