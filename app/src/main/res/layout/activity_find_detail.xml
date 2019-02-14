@@ -114,7 +114,7 @@
         </RelativeLayout>
 
 
-        <ScrollView
+        <com.example.administrator.jipinshop.view.MyScrollView
             android:id="@+id/scroll_View"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
@@ -339,7 +339,7 @@
 
                 </RelativeLayout>
             </RelativeLayout>
-        </ScrollView>
+        </com.example.administrator.jipinshop.view.MyScrollView>
 
         <LinearLayout
             android:id="@+id/detail_bottom"

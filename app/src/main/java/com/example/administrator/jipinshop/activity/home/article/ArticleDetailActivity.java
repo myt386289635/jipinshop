@@ -76,7 +76,7 @@ import javax.inject.Inject;
  * @create 2018/8/30
  * @Describe 文章详情  2评测, 3发现
  */
-@SuppressWarnings("all")
+
 public class ArticleDetailActivity extends BaseActivity implements View.OnClickListener, ShareBoardDialog.onShareListener, ArticleDetailView, ShoppingCommonAdapter.OnItemReply, ShoppingCommonAdapter.OnGoodItem, RelatedGoodsDialog.OnItem {
 
     @Inject
@@ -179,8 +179,8 @@ public class ArticleDetailActivity extends BaseActivity implements View.OnClickL
         //监听软键盘的弹出与收回
         mPresenter.setKeyListener(mBinding.detailContanier, usableHeightPrevious);
 
-        mBinding.scrollView.setOnScrollChangeListener((v, scrollX, scrollY, oldScrollX, oldScrollY) -> {
-            if (v.getScrollY() >= mBinding.detailWeb.getTop()) {
+        mBinding.scrollView.setOnScrollListener((scrollY) -> {
+            if (mBinding.scrollView.getScrollY() >= mBinding.detailWeb.getTop()) {
                 mBinding.titleTv.setVisibility(View.GONE);
                 mBinding.headContanier.setVisibility(View.VISIBLE);
             } else {

@@ -53,7 +53,6 @@ import com.example.administrator.jipinshop.bean.eventbus.FollowBus;
 import com.example.administrator.jipinshop.databinding.ActivityShopingDetailBinding;
 import com.example.administrator.jipinshop.fragment.follow.attention.AttentionFragment;
 import com.example.administrator.jipinshop.fragment.foval.article.FovalArticleFragment;
-import com.example.administrator.jipinshop.netwrok.RetrofitModule;
 import com.example.administrator.jipinshop.util.ClickUtil;
 import com.example.administrator.jipinshop.util.ShareUtils;
 import com.example.administrator.jipinshop.util.ToastUtil;
@@ -86,7 +85,7 @@ import javax.inject.Inject;
  * (该页需要后期优化。。。。: 优化方案：
  * 1、 使用一个recycelrView写,n个item，注意不要嵌套其他滑动布局，否则会卡顿)
  */
-@SuppressWarnings("all")
+
 public class ShoppingDetailActivity extends BaseActivity implements ShoppingCommonAdapter.OnItemReply, ShoppingDetailView, ShareBoardDialog.onShareListener, View.OnClickListener, ShoppingCommonAdapter.OnGoodItem {
 
     @Inject
@@ -269,22 +268,19 @@ public class ShoppingDetailActivity extends BaseActivity implements ShoppingComm
         mPresenter.setStatusBarHight(mBinding.statusBar,this);
         mPresenter.setStatusBarHight(mBinding.statusBar2,this);
 
-        mBinding.srcollView.setOnScrollChangeListener(new View.OnScrollChangeListener() {
-            @Override
-            public void onScrollChange(View view, int left, int top, int oldLeft, int oldTop) {
-                //控制头布局显示与消失情况
-                float a = top;
-                float b = a / 1000;
-                float max = (float) Math.min(1, b * 2);
-                mBinding.headContanier.setAlpha(max);
-                //控制头布局滑动位置的变化
-                if(view.getScrollY() >= mBinding.detailEvaluationLine.getTop()){
-                    mPresenter.initTitleLayout(ShoppingDetailActivity.this, mBinding.commonTv,  mBinding.commonView, mBinding.shopTv, mBinding.shopView, mBinding.evaluationTv, mBinding.evaluationView);
-                }else if(view.getScrollY() >= mBinding.detailHeadLine.getTop()){
-                    mPresenter.initTitleLayout(ShoppingDetailActivity.this, mBinding.evaluationTv, mBinding.evaluationView, mBinding.shopTv, mBinding.shopView, mBinding.commonTv,  mBinding.commonView);
-                }else {
-                    mPresenter.initTitleLayout(ShoppingDetailActivity.this, mBinding.shopTv, mBinding.shopView, mBinding.evaluationTv, mBinding.evaluationView, mBinding.commonTv, mBinding.commonView);
-                }
+        mBinding.srcollView.setOnScrollListener(top -> {
+            //控制头布局显示与消失情况
+            float a = top;
+            float b = a / 1000;
+            float max = (float) Math.min(1, b * 2);
+            mBinding.headContanier.setAlpha(max);
+            //控制头布局滑动位置的变化
+            if(mBinding.srcollView.getScrollY() >= mBinding.detailEvaluationLine.getTop()){
+                mPresenter.initTitleLayout(ShoppingDetailActivity.this, mBinding.commonTv,  mBinding.commonView, mBinding.shopTv, mBinding.shopView, mBinding.evaluationTv, mBinding.evaluationView);
+            }else if(mBinding.srcollView.getScrollY() >= mBinding.detailHeadLine.getTop()){
+                mPresenter.initTitleLayout(ShoppingDetailActivity.this, mBinding.evaluationTv, mBinding.evaluationView, mBinding.shopTv, mBinding.shopView, mBinding.commonTv,  mBinding.commonView);
+            }else {
+                mPresenter.initTitleLayout(ShoppingDetailActivity.this, mBinding.shopTv, mBinding.shopView, mBinding.evaluationTv, mBinding.evaluationView, mBinding.commonTv, mBinding.commonView);
             }
         });
         //网络请求数据
@@ -374,7 +370,6 @@ public class ShoppingDetailActivity extends BaseActivity implements ShoppingComm
 
     /**
      * 数据请求成功
-     * @param recommendFragmentBean
      */
     @Override
     public void onSuccess(ShoppingDetailBean shoppingDetailBean) {
@@ -525,7 +520,6 @@ public class ShoppingDetailActivity extends BaseActivity implements ShoppingComm
 
     /**
      * 数据请求失败
-     * @param recommendFragmentBean
      */
     @Override
     public void onFile(String error) {
