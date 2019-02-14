@@ -77,7 +77,7 @@ public class OKHttpModule {
             try {
                 Charset charset;
                 charset = Charset.forName("UTF-8");
-                ResponseBody responseBody = response.peekBody(Long.MAX_VALUE);
+                ResponseBody responseBody = response.peekBody(Long.MAX_VALUE);//把内容copy了一边，所以不会有影响，peekBody() 方法返回的是一个新的 response 的 body
                 Reader jsonReader = new InputStreamReader(responseBody.byteStream(), charset);
                 BufferedReader reader = new BufferedReader(jsonReader);
                 StringBuilder sbJson = new StringBuilder();
