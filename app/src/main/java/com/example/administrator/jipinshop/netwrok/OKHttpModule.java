@@ -1,14 +1,21 @@
 package com.example.administrator.jipinshop.netwrok;
 
+import android.content.Intent;
 import android.util.Log;
 
 import com.blankj.utilcode.util.EncryptUtils;
 import com.blankj.utilcode.util.SPUtils;
-import com.blankj.utilcode.util.Utils;
+import com.example.administrator.jipinshop.MyApplication;
+import com.example.administrator.jipinshop.activity.login.LoginActivity;
 import com.example.administrator.jipinshop.auto.ApplicationScope;
+import com.example.administrator.jipinshop.bean.SuccessBean;
 import com.example.administrator.jipinshop.util.sp.CommonDate;
+import com.google.gson.Gson;
 
-import java.io.IOException;
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
+import java.io.Reader;
+import java.nio.charset.Charset;
 import java.security.SecureRandom;
 import java.util.concurrent.TimeUnit;
 
@@ -18,10 +25,10 @@ import javax.net.ssl.TrustManager;
 
 import dagger.Module;
 import dagger.Provides;
-import okhttp3.Interceptor;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.Response;
+import okhttp3.ResponseBody;
 import okhttp3.logging.HttpLoggingInterceptor;
 
 @Module
@@ -62,6 +69,33 @@ public class OKHttpModule {
                     .addHeader("token", SPUtils.getInstance(CommonDate.USER).getString(CommonDate.token,""))
                     .build();
             return chain.proceed(authorised);
+        });
+        builder.addInterceptor(chain -> {
+            Request request = chain.request();
+            Response response = chain.proceed(request);// 发送请求，获得回包
+            // 对返回code统一拦截
+            try {
+                Charset charset;
+                charset = Charset.forName("UTF-8");
+                ResponseBody responseBody = response.peekBody(Long.MAX_VALUE);
+                Reader jsonReader = new InputStreamReader(responseBody.byteStream(), charset);
+                BufferedReader reader = new BufferedReader(jsonReader);
+                StringBuilder sbJson = new StringBuilder();
+                String line = reader.readLine();
+                do {
+                    sbJson.append(line);
+                    line = reader.readLine();
+                } while (line != null);
+                Log.e("OKHttpModule", sbJson.toString());// 输出返回结果
+//                SuccessBean successBean = new Gson().fromJson(sbJson.toString(),SuccessBean.class);
+//                if(successBean.getCode() == 602){
+//                    MyApplication.getInstance().startActivity(new Intent(MyApplication.getInstance(),LoginActivity.class));
+//                    SPUtils.getInstance(CommonDate.USER).clear();
+//                }
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+            return response;
         });
         return builder.build();
     }
