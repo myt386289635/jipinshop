@@ -312,11 +312,33 @@ public interface APIService {
     Observable<LoginBean> thirdLogin(@Field("accessToken") String accessToken,@Field("openid") String openid,@Field("channel") String channel);
 
     /**
-     * 绑定手机号（app端微信授权登录成功之后）
+     * 绑定手机号（app端第三方授权登录成功之后）
      */
     @POST("qualityshop-api/api/bindMobile")
     @FormUrlEncoded
     Observable<LoginBean> bindMobile(@Field("channel")String channel,@Field("openid") String openid,@Field("mobile")String mobile,@Field("code")String code);
+
+    /**
+     * app端第三方绑定
+     */
+    @POST("qualityshop-api/api/user/bindThirdAccount")
+    @FormUrlEncoded
+    Observable<SuccessBean> bindThirdAccount(@Field("channel") String channel,@Field("openid") String openid,@Field("accessToken") String accessToken);
+
+    /**
+     *更换手机号验证码验证(验证旧手机号)
+     */
+    @POST("qualityshop-api/api/user/validateMobileCode")
+    @FormUrlEncoded
+    Observable<SuccessBean> validateMobileCode(@Field("code") String code);
+
+
+    /**
+     *更换手机号
+     */
+    @POST("qualityshop-api/api/user/changeMobile")
+    @FormUrlEncoded
+    Observable<SuccessBean> changeMobile(@Field("newMobile") String newMobile,@Field("code") String code);
 
 /*************************************************以下是还未修改的接口***********************************************/
 

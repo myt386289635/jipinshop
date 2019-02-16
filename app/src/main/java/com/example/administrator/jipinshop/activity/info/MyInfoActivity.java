@@ -248,6 +248,18 @@ public class MyInfoActivity extends BaseActivity implements SelectPicDialog.Choo
             if(bus.getType().equals("1")){//修改姓名
                 mBinding.infoName.setText(bus.getContent());
             }
+        }else if(bus.getTag().equals(AccountManageActivity.tag)){
+            //更新账号绑定
+            if(SPUtils.getInstance(CommonDate.USER).getString(CommonDate.bindWeixin,"0").equals("1")){
+                mBinding.infoNumberWechat.setImageResource(R.mipmap.wechat_sel);
+            }else {
+                mBinding.infoNumberWechat.setImageResource(R.mipmap.wechat_nor);
+            }
+            if(SPUtils.getInstance(CommonDate.USER).getString(CommonDate.bindWeibo,"0").equals("1")){
+                mBinding.infoNumberWeiBo.setImageResource(R.mipmap.weibo_sel);
+            }else {
+                mBinding.infoNumberWeiBo.setImageResource(R.mipmap.weibo_nor);
+            }
         }
     }
 }

@@ -351,4 +351,25 @@ public class Repository {
     public Observable<LoginBean> bindMobile(String channel,String openid,String mobile,String code){
         return mAPIService.bindMobile(channel,openid,mobile,code);
     }
+
+    /**
+     * app端第三方绑定
+     */
+    public Observable<SuccessBean> bindThirdAccount(String channel, String openid, String accessToken){
+        return mAPIService.bindThirdAccount(channel, openid, accessToken);
+    }
+
+    /**
+     *更换手机号验证码验证(验证旧手机号)
+     */
+    public Observable<SuccessBean> validateMobileCode(String code){
+        return mAPIService.validateMobileCode(code);
+    }
+
+    /**
+     *更换手机号
+     */
+    public Observable<SuccessBean> changeMobile(String newMobile,String code){
+        return mAPIService.changeMobile(newMobile,code);
+    }
 }

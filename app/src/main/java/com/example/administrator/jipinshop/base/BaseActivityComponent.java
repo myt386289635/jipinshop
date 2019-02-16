@@ -6,6 +6,9 @@ import com.example.administrator.jipinshop.activity.follow.user.UserActivity;
 import com.example.administrator.jipinshop.activity.home.MainActivity;
 import com.example.administrator.jipinshop.activity.home.article.ArticleDetailActivity;
 import com.example.administrator.jipinshop.activity.info.MyInfoActivity;
+import com.example.administrator.jipinshop.activity.info.account.AccountManageActivity;
+import com.example.administrator.jipinshop.activity.info.account.change.ChangePhone2Activity;
+import com.example.administrator.jipinshop.activity.info.account.change.ChangePhoneActivity;
 import com.example.administrator.jipinshop.activity.info.bind.BindNumberActivity;
 import com.example.administrator.jipinshop.activity.info.editname.EditNameActivity;
 import com.example.administrator.jipinshop.activity.login.LoginActivity;
@@ -44,4 +47,7 @@ public interface BaseActivityComponent {
     void inject(EditNameActivity activity);
     void inject(SignActivity activity);
     void inject(MsgDetailActivity activity);
+    void inject(AccountManageActivity activity);
+    void inject(ChangePhoneActivity activity);
+    void inject(ChangePhone2Activity activity);
 }

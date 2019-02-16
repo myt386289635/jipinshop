@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    android:orientation="vertical"
+    android:background="@color/color_white"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <include layout="@layout/aa_title"/>
+
+    <LinearLayout
+        android:layout_marginTop="@dimen/y150"
+        android:layout_marginRight="@dimen/x80"
+        android:layout_marginLeft="@dimen/x80"
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:textColor="@color/color_ACACAC"
+            android:text="您正在更改账号"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+
+        <TextView
+            android:id="@+id/change_oldNum"
+            android:textColor="@color/color_4A90E2"
+            android:text="138****8888"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+
+    </LinearLayout>
+
+    <RelativeLayout
+        android:id="@+id/login_codeLayout"
+        android:layout_marginTop="@dimen/y58"
+        android:layout_marginRight="@dimen/x80"
+        android:layout_marginLeft="@dimen/x80"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+
+        <ImageView
+            android:id="@+id/login_codeImg"
+            android:layout_marginLeft="@dimen/x8"
+            android:layout_centerVertical="true"
+            android:src="@mipmap/verification_code"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+
+
+
+        <EditText
+            android:inputType="number"
+            android:layout_toLeftOf="@id/login_getCode"
+            android:layout_centerVertical="true"
+            android:textSize="14sp"
+            android:layout_marginLeft="@dimen/x20"
+            android:textColorHint="@color/color_ACACAC"
+            android:hint="输入验证码"
+            android:id="@+id/login_code"
+            android:background="@null"
+            android:layout_toRightOf="@id/login_codeImg"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+
+        <View
+            android:layout_marginTop="@dimen/x42"
+            android:background="@color/color_F5F5F5"
+            android:layout_below="@id/login_getCode"
+            android:layout_marginLeft="@dimen/x20"
+            android:layout_toRightOf="@id/login_codeImg"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/x2"/>
+
+        <TextView
+            android:textSize="12sp"
+            android:padding="@dimen/x10"
+            android:text="获取验证码"
+            android:textColor="@color/color_white"
+            android:background="@drawable/bg_login2"
+            android:layout_alignParentRight="true"
+            android:id="@+id/login_getCode"
+            android:layout_centerVertical="true"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+
+
+    </RelativeLayout>
+
+
+    <Button
+        android:layout_marginTop="@dimen/y60"
+        android:textStyle="bold"
+        android:background="@drawable/bg_login"
+        android:textColor="@color/color_white"
+        android:text="下一步"
+        android:id="@+id/login_button"
+        android:layout_centerInParent="true"
+        android:layout_marginRight="@dimen/x80"
+        android:layout_marginLeft="@dimen/x80"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/y72"/>
+
+</LinearLayout>

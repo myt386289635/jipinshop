@@ -28,13 +28,107 @@
             android:layout_height="wrap_content">
 
             <ImageView
+                android:id="@+id/bound_phone"
+                android:src="@mipmap/phone_sel"
                 android:layout_marginBottom="@dimen/y26"
                 android:layout_marginTop="@dimen/y26"
                 android:layout_width="@dimen/x84"
                 android:layout_height="@dimen/y84"/>
 
+            <TextView
+                android:layout_marginLeft="@dimen/x34"
+                android:layout_toRightOf="@+id/bound_phone"
+                android:layout_alignTop="@+id/bound_phone"
+                android:textColor="@color/color_DE151515"
+                android:textSize="15sp"
+                android:text="手机号"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+
+            <TextView
+                android:id="@+id/bound_phoneNum"
+                android:layout_alignBottom="@+id/bound_phone"
+                android:textColor="@color/color_DE151515"
+                android:textSize="15sp"
+                android:text="0 "
+                android:layout_marginLeft="@dimen/x34"
+                android:layout_toRightOf="@+id/bound_phone"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+
+
+            <View
+                android:layout_below="@+id/bound_phone"
+                android:background="@color/color_F5F5F5"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/y2"/>
+
+            <TextView
+                android:onClick="@{listener.onClick}"
+                android:id="@+id/change_phone"
+                android:paddingBottom="@dimen/y10"
+                android:paddingTop="@dimen/y10"
+                android:paddingRight="@dimen/x24"
+                android:paddingLeft="@dimen/x24"
+                android:background="@drawable/bg_account"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:textSize="12sp"
+                android:textColor="@color/color_ACACAC"
+                android:text="更换"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+
         </RelativeLayout>
 
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/x28"
+            android:layout_marginRight="@dimen/x28">
+
+            <ImageView
+                android:id="@+id/bound_wx"
+                android:layout_width="@dimen/x84"
+                android:layout_height="@dimen/y84"
+                android:layout_marginBottom="@dimen/y26"
+                android:layout_marginTop="@dimen/y26"
+                android:src="@mipmap/wechat_nor"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="@dimen/x34"
+                android:layout_toRightOf="@+id/bound_wx"
+                android:text="微信"
+                android:textColor="@color/color_DE151515"
+                android:textSize="15sp"/>
+
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/y2"
+                android:layout_below="@+id/bound_wx"
+                android:background="@color/color_F5F5F5"/>
+
+            <TextView
+                android:onClick="@{listener.onClick}"
+                android:id="@+id/change_wx"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:background="@drawable/bg_login2"
+                android:paddingBottom="@dimen/y10"
+                android:paddingLeft="@dimen/x12"
+                android:paddingRight="@dimen/x12"
+                android:paddingTop="@dimen/y10"
+                android:text="去绑定"
+                android:textColor="@color/color_white"
+                android:textSize="12sp"/>
+
+        </RelativeLayout>
     </LinearLayout>
 
 </layout>

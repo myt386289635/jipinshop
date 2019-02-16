@@ -252,6 +252,14 @@
         <activity android:name=".activity.info.account.AccountManageActivity"
                   android:screenOrientation="portrait"/>
 
+        <!--更换手机号页-->
+        <activity android:name=".activity.info.account.change.ChangePhoneActivity"
+                  android:screenOrientation="portrait"/>
+
+        <!--更换手机号页2-->
+        <activity android:name=".activity.info.account.change.ChangePhone2Activity"
+                  android:screenOrientation="portrait"/>
+
     </application>
 
 </manifest>
