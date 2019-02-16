@@ -189,6 +189,8 @@ public class AccountManageActivity extends BaseActivity implements View.OnClickL
             mBinding.changeWx.setText("已绑定");
             mBinding.boundWx.setImageResource(R.mipmap.wechat_sel);
             EventBus.getDefault().post(new EditNameBus(AccountManageActivity.tag));
+        }else {
+            ToastUtil.show(bean.getMsg());
         }
     }
 
