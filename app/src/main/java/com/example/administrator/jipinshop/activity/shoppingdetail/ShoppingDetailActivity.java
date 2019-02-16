@@ -626,7 +626,7 @@ public class ShoppingDetailActivity extends BaseActivity implements ShoppingComm
             mBinding.detailCommon.setVisibility(View.VISIBLE);
             mBinding.detailCommonTotle.setVisibility(View.VISIBLE);
             mBinding.detailCommentLayout.setVisibility(View.GONE);
-            mBinding.detailSend.setVisibility(View.GONE);//1.0版本不需要
+            mBinding.detailSend.setVisibility(View.VISIBLE);
             mCommonList.clear();
             mCommonList.addAll(commentBean.getData());
             mCommonAdapter.notifyDataSetChanged();
