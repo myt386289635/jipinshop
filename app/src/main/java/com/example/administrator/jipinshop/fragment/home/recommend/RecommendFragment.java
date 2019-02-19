@@ -17,7 +17,6 @@ import com.example.administrator.jipinshop.bean.RecommendFragmentBean;
 import com.example.administrator.jipinshop.databinding.FragmentRecommendBinding;
 import com.example.administrator.jipinshop.fragment.home.HomeFragment;
 import com.example.administrator.jipinshop.util.ClickUtil;
-import com.example.administrator.jipinshop.util.ToastUtil;
 import com.trello.rxlifecycle2.android.FragmentEvent;
 
 import java.math.BigDecimal;
@@ -37,6 +36,7 @@ public class RecommendFragment extends DBBaseFragment implements OnRefreshListen
     protected FragmentRecommendBinding binding;
     private RecommendFragmentAdapter mAdapter;
     private List<RecommendFragmentBean.DataBean> mList;
+    private List<RecommendFragmentBean.AdListBean> image;
 
     private Boolean[] once = {true};
 
@@ -59,7 +59,9 @@ public class RecommendFragment extends DBBaseFragment implements OnRefreshListen
         LinearLayoutManager layoutManager = new LinearLayoutManager(getContext()) ;
         binding.recyclerView.setLayoutManager(layoutManager);
         mList = new ArrayList<>();
+        image = new ArrayList<>();
         mAdapter = new RecommendFragmentAdapter(mList, getContext());
+        mAdapter.setHeadImage(image);
         mAdapter.setOnItem(this);
         binding.recyclerView.setAdapter(mAdapter);
 
@@ -102,12 +104,11 @@ public class RecommendFragment extends DBBaseFragment implements OnRefreshListen
         if (recommendFragmentBean.getCode() == 0) {
             if(recommendFragmentBean.getData() != null && recommendFragmentBean.getData().size() != 0){
                 mList.clear();
+                image.clear();
                 binding.inClude.qsNet.setVisibility(View.GONE);
                 binding.recyclerView.setVisibility(View.VISIBLE);
                 mList.addAll(recommendFragmentBean.getData());
-                if (recommendFragmentBean.getAdList().size() != 0) {
-                    mAdapter.setHeadImage(recommendFragmentBean.getAdList().get(0).getImg());
-                }
+                image.addAll(recommendFragmentBean.getAdList());
                 mAdapter.notifyDataSetChanged();
             }else {
                 initError(R.mipmap.qs_nodata, "暂无数据", "暂时没有任何数据 ");

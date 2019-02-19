@@ -1,15 +1,39 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ImageView
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/recommend_image"
-    android:paddingLeft="@dimen/x1"
-    android:paddingRight="@dimen/x1"
+<RelativeLayout
+    android:layout_marginBottom="@dimen/x48"
     android:layout_marginLeft="@dimen/x28"
     android:layout_marginRight="@dimen/x28"
-    android:layout_height="@dimen/y314"
-    android:layout_marginBottom="@dimen/x48"
     android:layout_marginTop="@dimen/y48"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/pager_container"
     android:layout_width="match_parent"
-    android:scaleType="fitXY"
-    tools:background="@mipmap/remmonent_banner"/>
+    android:layout_height="wrap_content">
+
+    <ImageView
+        android:id="@+id/recommend_image"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/y314"
+        android:paddingLeft="@dimen/x1"
+        android:paddingRight="@dimen/x1"
+        android:scaleType="fitXY"
+        tools:background="@mipmap/remmonent_banner"/>
+
+    <android.support.v4.view.ViewPager
+        android:visibility="gone"
+        android:id="@+id/view_pager"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/y314"/>
+
+
+    <LinearLayout
+        android:visibility="gone"
+        android:id="@+id/detail_point"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/view_pager"
+        android:layout_marginTop="-18dp"
+        android:gravity="center"
+        android:orientation="horizontal"/>
+
+</RelativeLayout>

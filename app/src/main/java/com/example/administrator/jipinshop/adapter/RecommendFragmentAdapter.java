@@ -2,21 +2,27 @@ package com.example.administrator.jipinshop.adapter;
 
 import android.content.Context;
 import android.databinding.DataBindingUtil;
+import android.os.Handler;
+import android.os.Looper;
 import android.support.annotation.NonNull;
+import android.support.v4.view.ViewPager;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.example.administrator.jipinshop.R;
 import com.example.administrator.jipinshop.bean.RecommendFragmentBean;
 import com.example.administrator.jipinshop.databinding.RecommendItemBinding;
+import com.example.administrator.jipinshop.util.WeakRefHandler;
 import com.example.administrator.jipinshop.view.glide.GlideApp;
 import com.google.android.flexbox.FlexboxLayout;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class RecommendFragmentAdapter extends RecyclerView.Adapter {
@@ -24,13 +30,14 @@ public class RecommendFragmentAdapter extends RecyclerView.Adapter {
     private final int HEAD = 1;
     private final int CONTENT = 2;
     private final int FOOT = 3;
+    private final int HEAD2 = 4;
 
     private List<RecommendFragmentBean.DataBean> mList;
     private Context mContext;
     private OnItem mOnItem;
-    private String image = "";
+    private List<RecommendFragmentBean.AdListBean> image;
 
-    public void setHeadImage(String image) {
+    public void setHeadImage(List<RecommendFragmentBean.AdListBean> image) {
         this.image = image;
     }
 
@@ -70,10 +77,36 @@ public class RecommendFragmentAdapter extends RecyclerView.Adapter {
         switch (type) {
             case HEAD:
                 ContentViewHolder contentViewHolder = (ContentViewHolder) holder;
-                if(TextUtils.isEmpty(image)){
-                    contentViewHolder.recommend_image.setBackgroundResource(R.mipmap.remmonent_banner);
+                if(image.size() == 1){
+                    contentViewHolder.recommend_image.setVisibility(View.VISIBLE);
+                    contentViewHolder.mViewPager.setVisibility(View.GONE);
+                    contentViewHolder.detail_point.setVisibility(View.GONE);
+                    if(TextUtils.isEmpty(image.get(0).getImg())){
+                        contentViewHolder.recommend_image.setBackgroundResource(R.mipmap.remmonent_banner);
+                    }else {
+                        GlideApp.loderImage(mContext,image.get(0).getImg(),contentViewHolder.recommend_image,0,0);
+                    }
                 }else {
-                    GlideApp.loderImage(mContext,image,contentViewHolder.recommend_image,0,0);
+                    contentViewHolder.recommend_image.setVisibility(View.GONE);
+                    contentViewHolder.mViewPager.setVisibility(View.VISIBLE);
+                    contentViewHolder.detail_point.setVisibility(View.VISIBLE);
+                    contentViewHolder.mPagerAdapter.setViewPager(contentViewHolder.mViewPager);
+                    contentViewHolder.mViewPager.setAdapter(contentViewHolder.mPagerAdapter);
+                    contentViewHolder.initBanner(image, mContext,contentViewHolder.point
+                            , contentViewHolder.detail_point, contentViewHolder.mPagerAdapter);
+                    if(contentViewHolder.flag){
+                        new Thread(() -> {
+                            while (true) {
+                                try {
+                                    Thread.sleep(5000);
+                                } catch (InterruptedException e) {
+                                    e.printStackTrace();
+                                }
+                                contentViewHolder.handler.sendEmptyMessage(100);
+                            }
+                        }).start();
+                        contentViewHolder.flag = false;
+                    }
                 }
                 break;
             case CONTENT:
@@ -155,10 +188,53 @@ public class RecommendFragmentAdapter extends RecyclerView.Adapter {
 
     class ContentViewHolder extends RecyclerView.ViewHolder {
         private ImageView recommend_image;
+        private ViewPager mViewPager;
+        private LinearLayout detail_point;
+
+        private RecommendPageAdapter mPagerAdapter;
+        private List<ImageView> point;
+        private Handler.Callback mCallback = msg -> {
+            if(msg.what == 100){
+                if (mViewPager != null) {
+                    mViewPager.setCurrentItem(mViewPager.getCurrentItem() + 1);
+                }
+            }
+            return true;
+        };
+        private Handler handler = new WeakRefHandler(mCallback, Looper.getMainLooper());
+
+        private Boolean flag = true;
 
         public ContentViewHolder(View itemView) {
             super(itemView);
             recommend_image = itemView.findViewById(R.id.recommend_image);
+            mViewPager = itemView.findViewById(R.id.view_pager);
+            detail_point = itemView.findViewById(R.id.detail_point);
+
+            mPagerAdapter = new RecommendPageAdapter(mContext);
+            point = new ArrayList<>();
+            mPagerAdapter.setList(image);
+            mPagerAdapter.setPoint(point);
+        }
+
+        public void initBanner(List<RecommendFragmentBean.AdListBean> mBannerList , Context context ,
+                               List<ImageView> point, LinearLayout mDetailPoint, RecommendPageAdapter mBannerAdapter){
+            point.clear();
+            mDetailPoint.removeAllViews();
+            for (int i = 0; i < mBannerList.size(); i++) {
+                ImageView imageView = new ImageView(context);
+                point.add(imageView);
+                if (i == 0) {
+                    imageView.setImageResource(R.drawable.banner_down);
+                } else {
+                    imageView.setImageResource(R.drawable.banner_up);
+                }
+                LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+                layoutParams.leftMargin =context.getResources().getDimensionPixelSize(R.dimen.x4);
+                layoutParams.rightMargin = context.getResources().getDimensionPixelSize(R.dimen.x4);
+                mDetailPoint.addView(imageView, layoutParams);
+            }
+            mBannerAdapter.notifyDataSetChanged();
         }
     }
 
