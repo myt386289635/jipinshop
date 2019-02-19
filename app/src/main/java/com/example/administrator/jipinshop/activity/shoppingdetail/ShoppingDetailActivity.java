@@ -390,11 +390,22 @@ public class ShoppingDetailActivity extends BaseActivity implements ShoppingComm
                 mBinding.detailOldPriceName.setText("天猫价");
             }
             //推荐理由
-            String str = "<strong><font color='#21151515' >推荐理由：</font></strong>" + shoppingDetailBean.getData().getGoodsEntity().getRecommendReason();
-            mBinding.detailReason.setText(Html.fromHtml(str));
+//            String str = "<strong><font color='#21151515' >推荐理由：</font></strong>" + shoppingDetailBean.getData().getGoodsEntity().getRecommendReason();
+//            mBinding.detailReason.setText(Html.fromHtml(str));
             //优惠券
-            mBinding.detaileCoupon.setText(shoppingDetailBean.getData().getGoodsEntity().getCouponPrice());
-            mBinding.detailCouponDeci.setText("使用期限"+shoppingDetailBean.getData().getGoodsCouponsEntity().getValidStartTime()+"至"+shoppingDetailBean.getData().getGoodsCouponsEntity().getValidEndTime());
+            if(shoppingDetailBean.getData().getGoodsCouponsEntity().getDataFlag() == -1){
+                //优惠券过期
+                mBinding.detailCouponContainer.setVisibility(View.GONE);
+                mBinding.detailLine1.setVisibility(View.VISIBLE);
+                mBinding.detailBuy.setText("立即购买");
+            }else {
+                //优惠券有效
+                mBinding.detailCouponContainer.setVisibility(View.VISIBLE);
+                mBinding.detailLine1.setVisibility(View.GONE);
+                mBinding.detailBuy.setText("领券并购买");
+                mBinding.detaileCoupon.setText(shoppingDetailBean.getData().getGoodsEntity().getCouponPrice());
+                mBinding.detailCouponDeci.setText("使用期限"+shoppingDetailBean.getData().getGoodsCouponsEntity().getValidStartTime()+"至"+shoppingDetailBean.getData().getGoodsCouponsEntity().getValidEndTime());
+            }
             //轮播图设置值
             if(shoppingDetailBean.getData().getGoodsEntity().getImgList().size() == 1){
                 mBinding.viewPager.setVisibility(View.GONE);

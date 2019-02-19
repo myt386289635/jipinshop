@@ -81,6 +81,7 @@
 
 
                 <TextView
+                    android:layout_marginBottom="@dimen/y32"
                     android:id="@+id/detail_newPrice"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -118,40 +119,44 @@
                     android:textSize="13sp"/>
 
 
-                <TextView
-                    android:lineSpacingExtra="@dimen/x6"
-                    android:id="@+id/detail_reason"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_below="@+id/detail_newPrice"
-                    android:layout_marginLeft="@dimen/x28"
-                    android:layout_marginRight="@dimen/x28"
-                    android:layout_marginTop="@dimen/x32"
-                    android:text="推荐理由："
-                    android:textColor="@color/color_ACACAC"
-                    android:textSize="13sp"/>
+                <!--<TextView-->
+                    <!--android:lineSpacingExtra="@dimen/x6"-->
+                    <!--android:id="@+id/detail_reason"-->
+                    <!--android:layout_width="match_parent"-->
+                    <!--android:layout_height="wrap_content"-->
+                    <!--android:layout_below="@+id/detail_newPrice"-->
+                    <!--android:layout_marginLeft="@dimen/x28"-->
+                    <!--android:layout_marginRight="@dimen/x28"-->
+                    <!--android:layout_marginTop="@dimen/x32"-->
+                    <!--android:text="推荐理由："-->
+                    <!--android:textColor="@color/color_ACACAC"-->
+                    <!--android:textSize="13sp"/>-->
 
                 <!--优惠券-->
                 <RelativeLayout
                     android:id="@+id/detail_couponContainer"
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/y224"
-                    android:layout_below="@+id/detail_reason"
+                    android:layout_below="@+id/detail_newPrice"
                     android:layout_marginBottom="@dimen/y26"
                     android:layout_marginLeft="@dimen/x28"
                     android:layout_marginRight="@dimen/x28"
-                    android:layout_marginTop="@dimen/y32"
                     android:background="@mipmap/coupon_bg">
 
 
                     <TextView
+                        android:paddingBottom="@dimen/y6"
+                        android:paddingLeft="@dimen/x28"
+                        android:paddingTop="@dimen/y6"
+                        android:paddingRight="@dimen/x28"
+                        android:background="@drawable/bg_coupom"
                         android:onClick="@{listener.onClick}"
                         android:id="@+id/detail_couponImg"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_alignParentRight="true"
                         android:layout_centerVertical="true"
-                        android:layout_marginRight="@dimen/x66"
+                        android:layout_marginRight="@dimen/x40"
                         android:text="立即领券"
                         android:textColor="@color/color_E31436"
                         android:textSize="15sp"/>
@@ -166,7 +171,7 @@
                         android:layout_marginLeft="@dimen/x108"
                         android:layout_marginRight="@dimen/x8"
                         android:text="¥"
-                        android:textColor="@color/color_151515"
+                        android:textColor="@color/color_white"
                         android:textSize="14sp"/>
 
                     <TextView
@@ -178,7 +183,7 @@
                         android:layout_toRightOf="@+id/detail_couponMoney"
                         android:includeFontPadding="false"
                         android:text="0"
-                        android:textColor="@color/color_151515"
+                        android:textColor="@color/color_white"
                         android:textSize="32sp"
                         android:textStyle="bold"/>
 
@@ -193,7 +198,7 @@
                         android:layout_toRightOf="@+id/detaile_coupon"
                         android:includeFontPadding="false"
                         android:text="元优惠券"
-                        android:textColor="@color/color_151515"
+                        android:textColor="@color/color_white"
                         android:textSize="14sp"
                         android:textStyle="bold"/>
 
@@ -205,17 +210,26 @@
                         android:layout_marginBottom="@dimen/y50"
                         android:layout_marginLeft="@dimen/x40"
                         android:text="使用期限2018.07.18至2018.08.18"
-                        android:textColor="@color/color_ACACAC"
+                        android:textColor="@color/color_white"
                         android:textSize="12sp"/>
                 </RelativeLayout>
 
+
+                <View
+                    android:visibility="gone"
+                    android:layout_marginBottom="@dimen/y32"
+                    android:id="@+id/detail_line1"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/y12"
+                    android:layout_below="@+id/detail_couponContainer"
+                    android:background="@color/color_F5F5F5"/>
 
                 <LinearLayout
                     android:layout_marginBottom="@dimen/y32"
                     android:id="@+id/detail_ensureContainer"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_below="@+id/detail_couponContainer"
+                    android:layout_below="@+id/detail_line1"
                     android:layout_marginLeft="@dimen/x28"
                     android:orientation="horizontal">
 
