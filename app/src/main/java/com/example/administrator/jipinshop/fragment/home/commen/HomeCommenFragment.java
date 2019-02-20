@@ -12,6 +12,7 @@ import android.view.ViewGroup;
 import com.aspsine.swipetoloadlayout.OnRefreshListener;
 import com.blankj.utilcode.util.SPUtils;
 import com.example.administrator.jipinshop.R;
+import com.example.administrator.jipinshop.activity.home.tabitem.ItemTabActivity;
 import com.example.administrator.jipinshop.activity.shoppingdetail.ShoppingDetailActivity;
 import com.example.administrator.jipinshop.adapter.HomeCommenAdapter;
 import com.example.administrator.jipinshop.base.DBBaseFragment;
@@ -167,7 +168,10 @@ public class HomeCommenFragment extends DBBaseFragment implements OnRefreshListe
      */
     @Override
     public void onItemTab(int pos) {
-        ToastUtil.show(pos+"");
+        startActivity(new Intent(getContext(),ItemTabActivity.class)
+                .putExtra("title",mChildrenBeans.get(pos).getCategoryName())
+                .putExtra("id",mChildrenBeans.get(pos).getCategoryId())
+        );
     }
 
     /**

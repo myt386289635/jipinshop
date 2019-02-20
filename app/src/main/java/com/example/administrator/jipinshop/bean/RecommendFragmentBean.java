@@ -8,6 +8,15 @@ public class RecommendFragmentBean {
     private int code;
     private List<DataBean> data;
     private List<AdListBean> adList;
+    private List<OrderbyTypeListBean> orderbyTypeList;
+
+    public List<OrderbyTypeListBean> getOrderbyTypeList() {
+        return orderbyTypeList;
+    }
+
+    public void setOrderbyTypeList(List<OrderbyTypeListBean> orderbyTypeList) {
+        this.orderbyTypeList = orderbyTypeList;
+    }
 
     public String getMsg() {
         return msg;
@@ -407,6 +416,54 @@ public class RecommendFragmentBean {
 
         public void setImg(String img) {
             this.img = img;
+        }
+    }
+
+    public static class OrderbyTypeListBean {
+        private String orderbyCategoryId;
+        private String name;
+        private String img;
+        private String orderbyType;
+        private String orderNum;
+
+        public String getOrderbyCategoryId() {
+            return orderbyCategoryId;
+        }
+
+        public void setOrderbyCategoryId(String orderbyCategoryId) {
+            this.orderbyCategoryId = orderbyCategoryId;
+        }
+
+        public String getName() {
+            return name;
+        }
+
+        public void setName(String name) {
+            this.name = name;
+        }
+
+        public String getImg() {
+            return img;
+        }
+
+        public void setImg(String img) {
+            this.img = img;
+        }
+
+        public String getOrderbyType() {
+            return orderbyType;
+        }
+
+        public void setOrderbyType(String orderbyType) {
+            this.orderbyType = orderbyType;
+        }
+
+        public String getOrderNum() {
+            return orderNum;
+        }
+
+        public void setOrderNum(String orderNum) {
+            this.orderNum = orderNum;
         }
     }
 }

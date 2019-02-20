@@ -38,6 +38,11 @@ public class RecommendFragmentAdapter extends RecyclerView.Adapter {
     private Context mContext;
     private OnItem mOnItem;
     private List<RecommendFragmentBean.AdListBean> image;
+    private List<RecommendFragmentBean.OrderbyTypeListBean> mOrderbyTypeListBeans;
+
+    public void setOrderbyTypeListBeans(List<RecommendFragmentBean.OrderbyTypeListBean> orderbyTypeListBeans) {
+        mOrderbyTypeListBeans = orderbyTypeListBeans;
+    }
 
     public void setHeadImage(List<RecommendFragmentBean.AdListBean> image) {
         this.image = image;
@@ -83,7 +88,34 @@ public class RecommendFragmentAdapter extends RecyclerView.Adapter {
         switch (type) {
             case HEAD2:
                 Head2ViewHolder head2ViewHolder = (Head2ViewHolder) holder;
-
+                GlideApp.loderImage(mContext,mOrderbyTypeListBeans.get(0).getImg(),head2ViewHolder.item_hotTopImg,0,0);
+                GlideApp.loderImage(mContext,mOrderbyTypeListBeans.get(1).getImg(),head2ViewHolder.item_luxuryTopImg,0,0);
+                GlideApp.loderImage(mContext,mOrderbyTypeListBeans.get(2).getImg(),head2ViewHolder.item_newTopImg,0,0);
+                GlideApp.loderImage(mContext,mOrderbyTypeListBeans.get(3).getImg(),head2ViewHolder.item_performanceTopImg,0,0);
+                head2ViewHolder.item_hotTopText.setText(mOrderbyTypeListBeans.get(0).getName());
+                head2ViewHolder.item_luxuryTopText.setText(mOrderbyTypeListBeans.get(1).getName());
+                head2ViewHolder.item_newTopText.setText(mOrderbyTypeListBeans.get(2).getName());
+                head2ViewHolder.item_performanceTopText.setText(mOrderbyTypeListBeans.get(3).getName());
+                head2ViewHolder.item_hotTop.setOnClickListener(v -> {
+                    if (mOnItem != null) {
+                        mOnItem.onTabItem(0);
+                    }
+                });
+                head2ViewHolder.item_luxuryTop.setOnClickListener(v -> {
+                    if (mOnItem != null) {
+                        mOnItem.onTabItem(1);
+                    }
+                });
+                head2ViewHolder.item_newTop.setOnClickListener(v -> {
+                    if (mOnItem != null) {
+                        mOnItem.onTabItem(2);
+                    }
+                });
+                head2ViewHolder.item_performanceTop.setOnClickListener(v -> {
+                    if (mOnItem != null) {
+                        mOnItem.onTabItem(3);
+                    }
+                });
                 break;
             case HEAD:
                 ContentViewHolder contentViewHolder = (ContentViewHolder) holder;
@@ -287,5 +319,6 @@ public class RecommendFragmentAdapter extends RecyclerView.Adapter {
 
     public interface OnItem {
         void onItem(int pos);
+        void onTabItem(int pos);
     }
 }

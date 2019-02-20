@@ -260,6 +260,14 @@
         <activity android:name=".activity.info.account.change.ChangePhone2Activity"
                   android:screenOrientation="portrait"/>
 
+        <!--榜单二级目录详情页面-->
+        <activity android:name=".activity.home.tabitem.ItemTabActivity"
+                  android:screenOrientation="portrait"/>
+
+        <!--热卖榜详情页-->
+        <activity android:name=".activity.home.recommendtab.RecommendTabActivity"
+                  android:screenOrientation="portrait"/>
+
     </application>
 
 </manifest>
