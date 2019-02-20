@@ -14,7 +14,7 @@
         android:layout_marginRight="@dimen/x28"
         android:layout_marginLeft="@dimen/x28"
         android:layout_width="match_parent"
-        android:layout_height="@dimen/y580"/>
+        android:layout_height="@dimen/y460"/>
 
     <TextView
         android:layout_marginTop="@dimen/y32"

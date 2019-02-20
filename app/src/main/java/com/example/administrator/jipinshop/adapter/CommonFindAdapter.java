@@ -107,7 +107,7 @@ public class CommonFindAdapter extends RecyclerView.Adapter {
                 ContentViewHolder viewHolder = (ContentViewHolder) holder;
                 position = position - 1;
                 viewHolder.title.setText(mList.get(position).getTitle());
-                GlideApp.loderRoundImage(mContext,mList.get(position).getImg(),viewHolder.item_image);
+                GlideApp.loderImage(mContext,mList.get(position).getImg(),viewHolder.item_image,0,0);
                 GlideApp.loderCircleImage(mContext,mList.get(position).getUser().getAvatar(),viewHolder.item_head,R.mipmap.rlogo,0);
                 viewHolder.item_name.setText(mList.get(position).getUser().getNickname());
                 viewHolder.item_pv.setText(mList.get(position).getPv() + "阅读");

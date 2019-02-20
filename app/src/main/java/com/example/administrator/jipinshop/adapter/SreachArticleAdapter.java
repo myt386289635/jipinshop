@@ -47,7 +47,7 @@ public class SreachArticleAdapter extends RecyclerView.Adapter<SreachArticleAdap
     public void onBindViewHolder(@NonNull ViewHolder viewHolder, int i) {
 
         viewHolder.title.setText(mList.get(i).getTitle());
-        GlideApp.loderRoundImage(mContext,mList.get(i).getImg(),viewHolder.item_image);
+        GlideApp.loderImage(mContext,mList.get(i).getImg(),viewHolder.item_image,0,0);
         GlideApp.loderCircleImage(mContext,mList.get(i).getUser().getAvatar(),viewHolder.item_head,R.mipmap.rlogo,0);
         viewHolder.item_name.setText(mList.get(i).getUser().getNickname());
         viewHolder.item_pv.setText(mList.get(i).getPv() + "阅读");
