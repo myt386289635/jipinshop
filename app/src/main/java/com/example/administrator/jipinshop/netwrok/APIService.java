@@ -30,6 +30,8 @@ import com.example.administrator.jipinshop.bean.VoteBean;
 
 import java.util.Map;
 
+import javax.inject.Inject;
+
 import io.reactivex.Observable;
 import okhttp3.MultipartBody;
 import retrofit2.http.Field;
@@ -92,10 +94,16 @@ public interface APIService {
     Observable<TabBean> goodsCategory();
 
     /**
-     * 榜单二级菜单列表  已修改
+     * 榜单一级分类商品列表  已修改
      */
     @GET("qualityshop-api/api/goodsList")
     Observable<HomeCommenBean> goodRank(@QueryMap Map<String,String> param);
+
+    /**
+     * 榜单二级分类商品列表
+     */
+    @GET("qualityshop-api/api/goodsList2")
+    Observable<SreachResultGoodsBean> goodsList2(@Query("category2Id")String category2Id,@Query("orderbyType")String orderbyType,@Query("client")String client);
 
     /**
      * 商品详情  已修改

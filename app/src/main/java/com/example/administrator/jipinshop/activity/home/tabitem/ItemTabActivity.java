@@ -55,7 +55,7 @@ public class ItemTabActivity extends BaseActivity {
         mFragments = new ArrayList<>();
         mAdapter = new HomeFragmentAdapter(getSupportFragmentManager());
         for (int i = 0; i < 5; i++) {
-            mFragments.add(ItemTabCommenFragment.getInstance(i));
+            mFragments.add(ItemTabCommenFragment.getInstance(i,getIntent().getStringExtra("id")));
         }
         mAdapter.setFragments(mFragments);
         mViewPager.setAdapter(mAdapter);

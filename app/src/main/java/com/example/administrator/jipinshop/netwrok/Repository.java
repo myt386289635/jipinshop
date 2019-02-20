@@ -157,10 +157,14 @@ public class Repository {
     }
 
     /**
-     *  榜单二级菜单列表
+     *  榜单一级分类商品列表
      */
     public Observable<HomeCommenBean> goodRank(Map<String,String> param){
         return mAPIService.goodRank(param);
+    }
+
+    public Observable<SreachResultGoodsBean> goodsList2(String category2Id,String orderbyType){
+        return mAPIService.goodsList2(category2Id,orderbyType,"1");
     }
 
     /**
