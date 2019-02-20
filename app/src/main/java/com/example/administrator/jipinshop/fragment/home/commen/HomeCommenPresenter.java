@@ -10,6 +10,9 @@ import com.example.administrator.jipinshop.bean.HomeCommenBean;
 import com.example.administrator.jipinshop.netwrok.Repository;
 import com.trello.rxlifecycle2.LifecycleTransformer;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import javax.inject.Inject;
 
 import io.reactivex.android.schedulers.AndroidSchedulers;
@@ -70,8 +73,11 @@ public class HomeCommenPresenter {
         });
     }
 
-    public void goodRank(String goodsId,LifecycleTransformer<HomeCommenBean> transformer){
-        mRepository.goodRank(goodsId)
+    public void goodRank(String category1Id,LifecycleTransformer<HomeCommenBean> transformer){
+        Map<String,String> param = new HashMap<>();
+        param.put("category1Id",category1Id);
+        param.put("client","1");
+        mRepository.goodRank(param)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .compose(transformer)

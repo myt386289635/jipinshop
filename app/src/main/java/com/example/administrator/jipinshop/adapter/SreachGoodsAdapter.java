@@ -4,6 +4,7 @@ import android.content.Context;
 import android.databinding.DataBindingUtil;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
+import android.text.Html;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -70,6 +71,9 @@ public class SreachGoodsAdapter extends RecyclerView.Adapter<SreachGoodsAdapter.
         }
         viewHolder.getBinding().itemPriceOld.setTv(true);
         viewHolder.getBinding().itemPriceOld.setColor(R.color.color_ACACAC);
+
+        String str = "<font color='#151515' >推荐理由：</font>" + mList.get(position).getRecommendReason();
+        viewHolder.getBinding().itemReason.setText(Html.fromHtml(str));
 
         // 立刻刷新界面
         viewHolder.getBinding().executePendingBindings();

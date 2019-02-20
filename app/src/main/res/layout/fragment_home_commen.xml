@@ -1,51 +1,40 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <LinearLayout
-        android:orientation="vertical"
-        android:background="@color/color_white"
+
+    <com.aspsine.swipetoloadlayout.SwipeToLoadLayout
+        android:id="@+id/swipeToLoad"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:background="@color/color_white">
 
-        <com.example.administrator.jipinshop.view.MyRecyclerView
-            android:background="@color/color_F5F5F5"
-            android:id="@+id/category_view"
+        <com.example.administrator.jipinshop.view.CustomRefreshHeadView
+            android:id="@+id/swipe_refresh_header"
             android:layout_width="match_parent"
-            android:layout_height="@dimen/y74"/>
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:padding="20dp"/>
 
-        <com.aspsine.swipetoloadlayout.SwipeToLoadLayout
-            android:id="@+id/swipeToLoad"
+        <LinearLayout
+            android:id="@+id/swipe_target"
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="match_parent"
+            android:orientation="vertical">
 
-            <com.example.administrator.jipinshop.view.CustomRefreshHeadView
-                android:id="@+id/swipe_refresh_header"
+
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/recycler_view"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:gravity="center"
-                android:padding="20dp"/>
-
-            <LinearLayout
-                android:id="@+id/swipe_target"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:orientation="vertical">
+                android:layout_height="match_parent"/>
 
 
-                <android.support.v7.widget.RecyclerView
-                    android:id="@+id/recycler_view"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"/>
+            <include
+                android:id="@+id/in_clude"
+                layout="@layout/common_net_error"
+                android:visibility="gone"/>
 
+        </LinearLayout>
 
-                <include
-                    android:id="@+id/in_clude"
-                    layout="@layout/common_net_error"
-                    android:visibility="gone"/>
+    </com.aspsine.swipetoloadlayout.SwipeToLoadLayout>
 
-            </LinearLayout>
-
-        </com.aspsine.swipetoloadlayout.SwipeToLoadLayout>
-
-    </LinearLayout>
 </layout>

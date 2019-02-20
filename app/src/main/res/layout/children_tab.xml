@@ -1,22 +1,27 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="wrap_content"
-    android:layout_height="match_parent">
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <ImageView
+        android:layout_marginTop="@dimen/y24"
+        android:layout_centerHorizontal="true"
+        android:src="@color/color_4A90E2"
+        android:id="@+id/item_tabimg"
+        android:layout_width="@dimen/x110"
+        android:layout_height="@dimen/y110"/>
 
     <TextView
-        android:layout_marginRight="@dimen/x14"
-        android:layout_marginLeft="@dimen/x28"
-        android:singleLine="true"
-        android:ellipsize="end"
-        android:layout_marginBottom="@dimen/x16"
-        android:layout_marginTop="@dimen/x16"
-        android:layout_gravity="center_vertical"
-        android:id="@+id/item_name"
+        android:layout_marginTop="@dimen/y4"
+        android:layout_centerHorizontal="true"
+        android:layout_below="@id/item_tabimg"
         android:textColor="@color/color_ACACAC"
         android:textSize="13sp"
-        android:layout_centerInParent="true"
-        android:text="计步器"
+        android:ellipsize="end"
+        android:singleLine="true"
+        android:text="扫地机"
+        android:id="@+id/item_tabText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"/>
 

@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    android:orientation="horizontal"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <RelativeLayout
+        android:id="@+id/item_hotTop"
+        android:layout_weight="1"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content">
+        
+        
+        <ImageView
+            android:id="@+id/item_hotTopImg"
+            android:layout_centerHorizontal="true"
+            android:src="@color/color_4A90E2"
+            android:layout_width="@dimen/x88"
+            android:layout_height="@dimen/y88"/>
+
+        <TextView
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="@dimen/y12"
+            android:layout_below="@+id/item_hotTopImg"
+            android:textColor="@color/color_ACACAC"
+            android:textSize="13sp"
+            android:id="@+id/item_hotTopText"
+            android:text="热卖榜"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/item_luxuryTop"
+        android:layout_weight="1"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content">
+
+        <ImageView
+            android:id="@+id/item_luxuryTopImg"
+            android:layout_centerHorizontal="true"
+            android:src="@color/color_4A90E2"
+            android:layout_width="@dimen/x88"
+            android:layout_height="@dimen/y88"/>
+
+        <TextView
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="@dimen/y12"
+            android:layout_below="@+id/item_luxuryTopImg"
+            android:textColor="@color/color_ACACAC"
+            android:textSize="13sp"
+            android:id="@+id/item_luxuryTopText"
+            android:text="轻奢榜"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+
+    </RelativeLayout>
+
+
+    <RelativeLayout
+        android:id="@+id/item_newTop"
+        android:layout_weight="1"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content">
+
+        <ImageView
+            android:id="@+id/item_newTopImg"
+            android:layout_centerHorizontal="true"
+            android:src="@color/color_4A90E2"
+            android:layout_width="@dimen/x88"
+            android:layout_height="@dimen/y88"/>
+
+        <TextView
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="@dimen/y12"
+            android:layout_below="@+id/item_newTopImg"
+            android:textColor="@color/color_ACACAC"
+            android:textSize="13sp"
+            android:id="@+id/item_newTopText"
+            android:text="新品榜"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/item_performanceTop"
+        android:layout_weight="1"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content">
+
+        <ImageView
+            android:id="@+id/item_performanceTopImg"
+            android:layout_centerHorizontal="true"
+            android:src="@color/color_4A90E2"
+            android:layout_width="@dimen/x88"
+            android:layout_height="@dimen/y88"/>
+
+        <TextView
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="@dimen/y12"
+            android:layout_below="@+id/item_performanceTopImg"
+            android:textColor="@color/color_ACACAC"
+            android:textSize="13sp"
+            android:id="@+id/item_performanceTopText"
+            android:text="性价比榜"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+
+    </RelativeLayout>
+    
+</LinearLayout>

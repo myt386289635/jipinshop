@@ -16,30 +16,46 @@
 
     <RelativeLayout
         android:layout_marginBottom="@dimen/y42"
-        android:layout_marginTop="@dimen/y42"
+        android:layout_marginTop="@dimen/y58"
         android:layout_marginLeft="@dimen/x28"
         android:layout_marginRight="@dimen/x28"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
+        <LinearLayout
+            android:id="@+id/item_title_contanier"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_marginBottom="@dimen/y36"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="TOP"
+                android:textColor="@color/color_202020"
+                android:textSize="23sp"
+                android:textStyle="bold"/>
+
+            <TextView
+                android:id="@+id/item_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/x20"
+                android:text="@{position}"
+                android:textColor="@color/color_E31436"
+                android:textSize="23sp"/>
+
+        </LinearLayout>
+
         <ImageView
+            android:layout_below="@+id/item_title_contanier"
             android:scaleType="fitXY"
             android:id="@+id/item_image"
             tools:src="@color/color_4A90E2"
             android:layout_width="match_parent"
             android:layout_height="@dimen/y580"/>
-
-        <TextView
-            android:gravity="center"
-            android:textSize="12sp"
-            android:textColor="@color/color_white"
-            android:text="@{position}"
-            android:background="@mipmap/home_set"
-            android:layout_marginLeft="@dimen/x24"
-            android:layout_marginTop="@dimen/y24"
-            android:layout_width="@dimen/x56"
-            android:layout_height="@dimen/y42"/>
-
 
         <TextView
             android:textStyle="bold"
@@ -128,6 +144,19 @@
 
 
         </LinearLayout>
+
+        <TextView
+            android:ellipsize="end"
+            android:maxLines="3"
+            android:id="@+id/item_reason"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/item_price"
+            android:layout_marginTop="@dimen/y24"
+            android:lineSpacingExtra="@dimen/x6"
+            android:text="推荐理由："
+            android:textColor="@color/color_DE151515"
+            android:textSize="13sp"/>
 
     </RelativeLayout>
 </layout>

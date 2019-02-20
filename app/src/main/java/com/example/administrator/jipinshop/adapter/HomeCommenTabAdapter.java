@@ -1,15 +1,16 @@
 package com.example.administrator.jipinshop.adapter;
 
 import android.content.Context;
-import android.support.annotation.NonNull;
-import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.BaseAdapter;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.administrator.jipinshop.R;
-import com.example.administrator.jipinshop.bean.ChildrenTabBean;
+import com.example.administrator.jipinshop.bean.HomeCommenBean;
+import com.example.administrator.jipinshop.view.glide.GlideApp;
 
 import java.util.List;
 
@@ -18,9 +19,9 @@ import java.util.List;
  * @create 2019/1/5
  * @Describe
  */
-public class HomeCommenTabAdapter extends RecyclerView.Adapter<HomeCommenTabAdapter.ViewHolder>{
+public class HomeCommenTabAdapter extends BaseAdapter{
 
-    private List<ChildrenTabBean> mChildrenBeans;
+    private List<HomeCommenBean.GoodsCategoryListBean> mChildrenBeans;
     private Context mContext;
     private OnItem mOnItem;
 
@@ -28,47 +29,64 @@ public class HomeCommenTabAdapter extends RecyclerView.Adapter<HomeCommenTabAdap
         mOnItem = onItem;
     }
 
-    public HomeCommenTabAdapter(List<ChildrenTabBean> list, Context context) {
+    public HomeCommenTabAdapter(List<HomeCommenBean.GoodsCategoryListBean> list, Context context) {
         mChildrenBeans = list;
         mContext = context;
     }
 
-    @NonNull
     @Override
-    public ViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
-       View view = LayoutInflater.from(mContext).inflate(R.layout.children_tab, viewGroup, false);
-       ViewHolder holder = new ViewHolder(view);
-        return holder;
+    public int getCount() {
+        if(mChildrenBeans.size() < 10){
+            return mChildrenBeans.size();
+        }else {
+            return 10;
+        }
     }
 
     @Override
-    public void onBindViewHolder(@NonNull ViewHolder holder, int i) {
+    public Object getItem(int position) {
+        return mChildrenBeans.get(position);
+    }
 
-        holder.mItemName.setText(mChildrenBeans.get(i).getName());
-        if(mChildrenBeans.get(i).getTag()){
-            holder.mItemName.setTextColor(mContext.getResources().getColor(R.color.color_E31436));
+    @Override
+    public long getItemId(int position) {
+        return position;
+    }
+
+    @Override
+    public View getView(int position, View convertView, ViewGroup parent) {
+        ViewHolder holder;
+        if(convertView == null){
+            convertView = LayoutInflater.from(mContext).inflate(R.layout.children_tab, parent, false);
+            holder = new ViewHolder(convertView);
+            convertView.setTag(holder);
         }else {
-            holder.mItemName.setTextColor(mContext.getResources().getColor(R.color.color_ACACAC));
+            holder = (ViewHolder) convertView.getTag();
         }
-        holder.itemView.setOnClickListener(view -> {
+
+        if(position != 9){
+            GlideApp.loderImage(mContext,mChildrenBeans.get(position).getImg(),holder.mImageView,0,0);
+            holder.mItemName.setText(mChildrenBeans.get(position).getCategoryName());
+        }else {
+            holder.mImageView.setImageResource(R.mipmap.tab_all);
+            holder.mItemName.setText("查看全部");
+        }
+        convertView.setOnClickListener(v -> {
             if(mOnItem != null){
-                mOnItem.onItem(i);
+                mOnItem.onItem(position);
             }
         });
+        return convertView;
     }
 
-    @Override
-    public int getItemCount() {
-        return mChildrenBeans.size();
-    }
-
-    public class ViewHolder extends RecyclerView.ViewHolder {
+    public class ViewHolder {
 
         private TextView mItemName;
+        private ImageView mImageView;
 
         ViewHolder(View view) {
-            super(view);
-            mItemName = view.findViewById(R.id.item_name);
+            mItemName = view.findViewById(R.id.item_tabText);
+            mImageView = view.findViewById(R.id.item_tabimg);
         }
     }
 

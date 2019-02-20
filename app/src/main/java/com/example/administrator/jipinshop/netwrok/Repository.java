@@ -159,8 +159,8 @@ public class Repository {
     /**
      *  榜单二级菜单列表
      */
-    public Observable<HomeCommenBean> goodRank(String goodsId){
-        return mAPIService.goodRank(goodsId);
+    public Observable<HomeCommenBean> goodRank(Map<String,String> param){
+        return mAPIService.goodRank(param);
     }
 
     /**

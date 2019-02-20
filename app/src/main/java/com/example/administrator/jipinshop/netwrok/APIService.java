@@ -95,7 +95,7 @@ public interface APIService {
      * 榜单二级菜单列表  已修改
      */
     @GET("qualityshop-api/api/goodsList")
-    Observable<HomeCommenBean> goodRank(@Query("category2Id") String goodsId);
+    Observable<HomeCommenBean> goodRank(@QueryMap Map<String,String> param);
 
     /**
      * 商品详情  已修改

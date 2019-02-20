@@ -94,7 +94,7 @@ public class HomeFragment extends DBBaseFragment implements Badge.OnDragStateCha
         mTabAdapter = new HomeTabAdapter(mTabBeans,getContext());
         mTabAdapter.setOnClickItem(this);
         mBinding.recyclerView.setAdapter(mTabAdapter);
-        initTab(null);
+        initTab();
 
         mHomeFragmentPresenter.goodsCategory(this.bindToLifecycle());
         mHomeFragmentPresenter.unMessage(this.bindToLifecycle());
@@ -108,44 +108,15 @@ public class HomeFragment extends DBBaseFragment implements Badge.OnDragStateCha
     }
 
 
-    public void initTab(TabBean tabBean) {
+    public void successTab(TabBean tabBean) {
         mTabBeans.clear();
-        mFragments.clear();
-        if (tabBean != null) {
-            if(tabBean.getData() != null && tabBean.getData().size() != 0){
-                for (int i = 0; i < tabBean.getData().size(); i++) {
-                    if(i == 0){
-                        mTabBeans.add(new TitleBean(tabBean.getData().get(i).getCategoryName(),true));
-                        mFragments.add(RecommendFragment.getInstance());
-                    }else {
-                        mTabBeans.add(new TitleBean(tabBean.getData().get(i).getCategoryName(),false));
-                        mFragments.add(HomeCommenFragment.getInstance(i));
-                    }
-                }
-            }
-        } else {
-            if (!TextUtils.isEmpty(SPUtils.getInstance().getString(CommonDate.SubTab,""))){
-                tabBean = new Gson().fromJson(SPUtils.getInstance().getString(CommonDate.SubTab),TabBean.class);
-                for (int i = 0; i < tabBean.getData().size(); i++) {
-                    if(i == 0){
-                        mTabBeans.add(new TitleBean(tabBean.getData().get(i).getCategoryName(),true));
-                        mFragments.add(RecommendFragment.getInstance());
-                    }else {
-                        mTabBeans.add(new TitleBean(tabBean.getData().get(i).getCategoryName(),false));
-                        mFragments.add(HomeCommenFragment.getInstance(i));
-                    }
-                }
-            }else {
-                mTabBeans.add(new TitleBean("综合榜",true));
-                mTabBeans.add(new TitleBean("个护健康榜",false));
-                mTabBeans.add(new TitleBean("厨房电器榜",false));
-                mTabBeans.add(new TitleBean("生活电器榜",false));
-                for (int i = 0; i < mTabBeans.size(); i++) {
-                    if(i == 0){
-                        mFragments.add(RecommendFragment.getInstance());
-                    }else {
-                        mFragments.add(HomeCommenFragment.getInstance(i));
-                    }
+        if (tabBean.getData() != null && tabBean.getData().size() != 0) {
+            for (int i = 0; i < tabBean.getData().size(); i++) {
+                if (i == 0) {
+                    mTabBeans.add(new TitleBean(tabBean.getData().get(i).getCategoryName(), true));
+                } else {
+                    mTabBeans.add(new TitleBean(tabBean.getData().get(i).getCategoryName(), false));
+                    mFragments.add(HomeCommenFragment.getInstance(i));
                 }
             }
         }
@@ -153,6 +124,32 @@ public class HomeFragment extends DBBaseFragment implements Badge.OnDragStateCha
         mAdapter.notifyDataSetChanged();
         mBinding.viewPager.setOffscreenPageLimit(mFragments.size() - 1);
     }
+
+    public void initTab(){
+        mTabBeans.add(new TitleBean("综合榜",true));
+        mFragments.add(RecommendFragment.getInstance());
+        mTabAdapter.notifyDataSetChanged();
+        mAdapter.notifyDataSetChanged();
+    }
+
+    public void errorTab(){
+        if (!TextUtils.isEmpty(SPUtils.getInstance().getString(CommonDate.SubTab,""))){
+            mTabBeans.clear();
+            TabBean tabBean = new Gson().fromJson(SPUtils.getInstance().getString(CommonDate.SubTab),TabBean.class);
+            for (int i = 0; i < tabBean.getData().size(); i++) {
+                if(i == 0){
+                    mTabBeans.add(new TitleBean(tabBean.getData().get(i).getCategoryName(),true));
+                }else {
+                    mTabBeans.add(new TitleBean(tabBean.getData().get(i).getCategoryName(),false));
+                    mFragments.add(HomeCommenFragment.getInstance(i));
+                }
+            }
+            mTabAdapter.notifyDataSetChanged();
+            mAdapter.notifyDataSetChanged();
+            mBinding.viewPager.setOffscreenPageLimit(mFragments.size() - 1);
+        }
+    }
+
 
     @Override
     public void onClick(View view) {
@@ -179,8 +176,8 @@ public class HomeFragment extends DBBaseFragment implements Badge.OnDragStateCha
     @Override
     public void Success(TabBean tabBean) {
         SPUtils.getInstance().put(CommonDate.SubTab,new Gson().toJson(tabBean));
+        successTab(tabBean);
         EventBus.getDefault().post(HomeFragment.subTab);
-        initTab(tabBean);
     }
 
     /**
@@ -188,6 +185,7 @@ public class HomeFragment extends DBBaseFragment implements Badge.OnDragStateCha
      */
     @Override
     public void Faile(String error) {
+        errorTab();
         EventBus.getDefault().post(HomeFragment.subTab);//通知榜单里的4个fragment初始化二级导航栏
         ToastUtil.show(error);
     }

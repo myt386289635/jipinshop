@@ -7,12 +7,14 @@ import android.os.Looper;
 import android.support.annotation.NonNull;
 import android.support.v4.view.ViewPager;
 import android.support.v7.widget.RecyclerView;
+import android.text.Html;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.example.administrator.jipinshop.R;
@@ -67,6 +69,10 @@ public class RecommendFragmentAdapter extends RecyclerView.Adapter {
                 View view = LayoutInflater.from(mContext).inflate(R.layout.item_foot, viewGroup, false);
                 holder = new FootViewHolder(view);
                 break;
+            case HEAD2:
+                View view2 = LayoutInflater.from(mContext).inflate(R.layout.item_recommendhead, viewGroup, false);
+                holder = new Head2ViewHolder(view2);
+                break;
         }
         return holder;
     }
@@ -75,6 +81,10 @@ public class RecommendFragmentAdapter extends RecyclerView.Adapter {
     public void onBindViewHolder(RecyclerView.ViewHolder holder, final int pos) {
         int type = getItemViewType(pos);
         switch (type) {
+            case HEAD2:
+                Head2ViewHolder head2ViewHolder = (Head2ViewHolder) holder;
+
+                break;
             case HEAD:
                 ContentViewHolder contentViewHolder = (ContentViewHolder) holder;
                 if(image.size() == 1){
@@ -112,8 +122,8 @@ public class RecommendFragmentAdapter extends RecyclerView.Adapter {
             case CONTENT:
                 HeadViewHolder viewHolder = (HeadViewHolder) holder;
 
-                final int position = pos - 1;
-                viewHolder.getBinding().setPosition(pos + "");
+                final int position = pos - 2;
+                viewHolder.getBinding().setPosition((pos-1) + "");
                 viewHolder.getBinding().setDate(mList.get(position));
 
                 viewHolder.itemView.setOnClickListener(view -> {
@@ -135,6 +145,9 @@ public class RecommendFragmentAdapter extends RecyclerView.Adapter {
                 viewHolder.getBinding().itemPriceOld.setTv(true);
                 viewHolder.getBinding().itemPriceOld.setColor(R.color.color_ACACAC);
 
+                String str = "<font color='#151515' >推荐理由：</font>" + mList.get(position).getRecommendReason();
+                viewHolder.getBinding().itemReason.setText(Html.fromHtml(str));
+
                 // 立刻刷新界面
                 viewHolder.getBinding().executePendingBindings();
                 break;
@@ -145,6 +158,8 @@ public class RecommendFragmentAdapter extends RecyclerView.Adapter {
     public int getItemViewType(int position) {
         if (position == 0) {
             return HEAD;
+        }else if (position == 1){
+            return HEAD2;
         }else if (position == getItemCount() - 1){
             return FOOT;
         } else {
@@ -154,7 +169,7 @@ public class RecommendFragmentAdapter extends RecyclerView.Adapter {
 
     @Override
     public int getItemCount() {
-        return mList == null || mList.size() == 0 ? 0 : mList.size() + 2;
+        return mList == null || mList.size() == 0 ? 0 : mList.size() + 3;
     }
 
     public class HeadViewHolder extends RecyclerView.ViewHolder {
@@ -242,6 +257,31 @@ public class RecommendFragmentAdapter extends RecyclerView.Adapter {
 
         public FootViewHolder(View itemView) {
             super(itemView);
+        }
+    }
+
+    class Head2ViewHolder extends RecyclerView.ViewHolder {
+
+        private RelativeLayout item_hotTop,item_luxuryTop,item_newTop,item_performanceTop;
+        private ImageView item_hotTopImg,item_luxuryTopImg,item_newTopImg,item_performanceTopImg;
+        private TextView item_hotTopText,item_luxuryTopText,item_newTopText,item_performanceTopText;
+
+        public Head2ViewHolder(View itemView) {
+            super(itemView);
+            item_hotTop = itemView.findViewById(R.id.item_hotTop);
+            item_luxuryTop = itemView.findViewById(R.id.item_luxuryTop);
+            item_newTop = itemView.findViewById(R.id.item_newTop);
+            item_performanceTop = itemView.findViewById(R.id.item_performanceTop);
+
+            item_hotTopImg = itemView.findViewById(R.id.item_hotTopImg);
+            item_luxuryTopImg = itemView.findViewById(R.id.item_luxuryTopImg);
+            item_newTopImg = itemView.findViewById(R.id.item_newTopImg);
+            item_performanceTopImg = itemView.findViewById(R.id.item_performanceTopImg);
+
+            item_hotTopText = itemView.findViewById(R.id.item_hotTopText);
+            item_luxuryTopText = itemView.findViewById(R.id.item_luxuryTopText);
+            item_newTopText = itemView.findViewById(R.id.item_newTopText);
+            item_performanceTopText = itemView.findViewById(R.id.item_performanceTopText);
         }
     }
 
