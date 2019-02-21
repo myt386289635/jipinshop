@@ -16,14 +16,22 @@ import android.widget.TextView;
 import com.example.administrator.jipinshop.R;
 import com.example.administrator.jipinshop.adapter.HomeFragmentAdapter;
 import com.example.administrator.jipinshop.base.BaseActivity;
+import com.example.administrator.jipinshop.bean.OrderbyTypeBean;
 import com.example.administrator.jipinshop.fragment.home.commen.tabitem.ItemTabCommenFragment;
+import com.example.administrator.jipinshop.netwrok.Repository;
+import com.example.administrator.jipinshop.util.ToastUtil;
+import com.trello.rxlifecycle2.LifecycleTransformer;
 
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.inject.Inject;
+
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.schedulers.Schedulers;
 
 /**
  * @author 莫小婷
@@ -41,17 +49,28 @@ public class ItemTabActivity extends BaseActivity {
 
     private List<Fragment> mFragments;
     private HomeFragmentAdapter mAdapter;
+    private List<String> mTabs;
+    private  List<TextView> tabTextView;
+
+    @Inject
+    Repository mRepository;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_itemtab);
         mButterKnife = ButterKnife.bind(this);
+        mBaseActivityComponent.inject(this);
         initView();
     }
 
     private void initView() {
         mTitleTv.setText(getIntent().getStringExtra("title"));
+
+        mTabs = new ArrayList<>();
+        tabTextView = new ArrayList<>();
+        mTabs.add("综合榜");mTabs.add("热卖榜");mTabs.add("轻奢榜");mTabs.add("新品榜");mTabs.add("性价比榜");
+
         mFragments = new ArrayList<>();
         mAdapter = new HomeFragmentAdapter(getSupportFragmentManager());
         for (int i = 0; i < 5; i++) {
@@ -85,6 +104,7 @@ public class ItemTabActivity extends BaseActivity {
 
             }
         });
+        orderbyTypeList(this.bindToLifecycle());
     }
 
 
@@ -105,26 +125,41 @@ public class ItemTabActivity extends BaseActivity {
 
     public void initTabLayout() {
         final List<Integer> textLether = new ArrayList<>();
-        for (int i = 0; i < mFragments.size(); i++) {
-            View view = LayoutInflater.from(this).inflate(R.layout.tablayout_home, null);
-            TextView textView = view.findViewById(R.id.tab_name);
-            textView.setTypeface(Typeface.defaultFromStyle(Typeface.NORMAL));
-            if (i == 0) {
-                textView.setText("综合榜");
-                textView.setTypeface(Typeface.defaultFromStyle(Typeface.BOLD));
-            } else if (i == 1){
-                textView.setText("热卖榜");
-            }else if (i == 2){
-                textView.setText("轻奢榜");
-            }else if (i == 3){
-                textView.setText("新品榜");
-            }else {
-                textView.setText("性价比榜");
+
+        //刷新
+        if(tabTextView.size() != 0){
+            boolean isResher = false;
+            for (int i = 0; i < mTabs.size(); i++) {
+                if(!tabTextView.get(i).getText().toString().equals(mTabs.get(i))){
+                    tabTextView.get(i).setText(mTabs.get(i));
+                    isResher = true;
+                }
+                int a = (int) tabTextView.get(i).getPaint().measureText(tabTextView.get(i).getText().toString());
+                textLether.add(a);
             }
-            mTabLayout.getTabAt(i).setCustomView(view);
-            int a = (int) textView.getPaint().measureText(textView.getText().toString());
-            textLether.add(a);
+            //不刷新
+            if(!isResher){
+                return;
+            }
+        }else {
+            //第一次添加
+            for (int i = 0; i < mFragments.size(); i++) {
+                View view = LayoutInflater.from(this).inflate(R.layout.tablayout_home, null);
+                TextView textView = view.findViewById(R.id.tab_name);
+                if (i == 0) {
+                    textView.setText(mTabs.get(i));
+                    textView.setTypeface(Typeface.defaultFromStyle(Typeface.BOLD));
+                } else {
+                    textView.setText(mTabs.get(i));
+                    textView.setTypeface(Typeface.defaultFromStyle(Typeface.NORMAL));
+                }
+                mTabLayout.getTabAt(i).setCustomView(view);
+                int a = (int) textView.getPaint().measureText(textView.getText().toString());
+                textLether.add(a);
+                tabTextView.add(textView);
+            }
         }
+
         mTabLayout.setSelectedTabIndicatorColor(getResources().getColor(R.color.color_FF3939));
         mTabLayout.setTabRippleColor(ColorStateList.valueOf(getResources().getColor(R.color.transparent)));
         mTabLayout.post(() -> {
@@ -145,5 +180,25 @@ public class ItemTabActivity extends BaseActivity {
                 tabView.invalidate();
             }
         });
+    }
+
+    public void orderbyTypeList(LifecycleTransformer<OrderbyTypeBean> transformer){
+        mRepository.orderbyTypeList()
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .compose(transformer)
+                .subscribe(OrderbyTypeBean -> {
+                    if(OrderbyTypeBean.getCode() == 0){
+                        mTabs.clear();
+                        for (OrderbyTypeBean.DataBean dataBean : OrderbyTypeBean.getData()) {
+                            mTabs.add(dataBean.getName());
+                        }
+                        initTabLayout();
+                    }else {
+                        ToastUtil.show("网络请求错误：" + OrderbyTypeBean.getMsg());
+                    }
+                }, throwable -> {
+                    ToastUtil.show("网络请求错误：" + throwable.getMessage());
+                });
     }
 }

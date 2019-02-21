@@ -27,10 +27,9 @@ import com.example.administrator.jipinshop.bean.UnMessageBean;
 import com.example.administrator.jipinshop.bean.UserInfoBean;
 import com.example.administrator.jipinshop.bean.UserPageBean;
 import com.example.administrator.jipinshop.bean.VoteBean;
+import com.example.administrator.jipinshop.bean.OrderbyTypeBean;
 
 import java.util.Map;
-
-import javax.inject.Inject;
 
 import io.reactivex.Observable;
 import okhttp3.MultipartBody;
@@ -347,6 +346,12 @@ public interface APIService {
     @POST("qualityshop-api/api/user/changeMobile")
     @FormUrlEncoded
     Observable<SuccessBean> changeMobile(@Field("newMobile") String newMobile,@Field("code") String code);
+
+    /**
+     * 获取榜单分类列表
+     */
+    @GET("qualityshop-api/api/orderbyTypeList")
+    Observable<OrderbyTypeBean> orderbyTypeList();
 
 /*************************************************以下是还未修改的接口***********************************************/
 

@@ -6,6 +6,7 @@ import com.example.administrator.jipinshop.activity.follow.user.UserActivity;
 import com.example.administrator.jipinshop.activity.home.MainActivity;
 import com.example.administrator.jipinshop.activity.home.article.ArticleDetailActivity;
 import com.example.administrator.jipinshop.activity.home.tabitem.ALLTabActivity;
+import com.example.administrator.jipinshop.activity.home.tabitem.ItemTabActivity;
 import com.example.administrator.jipinshop.activity.info.MyInfoActivity;
 import com.example.administrator.jipinshop.activity.info.account.AccountManageActivity;
 import com.example.administrator.jipinshop.activity.info.account.change.ChangePhone2Activity;
@@ -52,4 +53,5 @@ public interface BaseActivityComponent {
     void inject(ChangePhoneActivity activity);
     void inject(ChangePhone2Activity activity);
     void inject(ALLTabActivity activity);
+    void inject(ItemTabActivity activity);
 }

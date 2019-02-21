@@ -26,6 +26,7 @@ import com.example.administrator.jipinshop.bean.UnMessageBean;
 import com.example.administrator.jipinshop.bean.UserInfoBean;
 import com.example.administrator.jipinshop.bean.UserPageBean;
 import com.example.administrator.jipinshop.bean.VoteBean;
+import com.example.administrator.jipinshop.bean.OrderbyTypeBean;
 import com.example.administrator.jipinshop.util.UpDataUtil;
 
 import java.util.Map;
@@ -378,5 +379,12 @@ public class Repository {
      */
     public Observable<SuccessBean> changeMobile(String newMobile,String code){
         return mAPIService.changeMobile(newMobile,code);
+    }
+
+    /**
+     * 获取榜单分类列表
+     */
+    public Observable<OrderbyTypeBean> orderbyTypeList(){
+        return mAPIService.orderbyTypeList();
     }
 }
