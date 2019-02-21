@@ -12,6 +12,7 @@ import android.view.ViewGroup;
 import com.aspsine.swipetoloadlayout.OnRefreshListener;
 import com.blankj.utilcode.util.SPUtils;
 import com.example.administrator.jipinshop.R;
+import com.example.administrator.jipinshop.activity.home.tabitem.ALLTabActivity;
 import com.example.administrator.jipinshop.activity.home.tabitem.ItemTabActivity;
 import com.example.administrator.jipinshop.activity.shoppingdetail.ShoppingDetailActivity;
 import com.example.administrator.jipinshop.adapter.HomeCommenAdapter;
@@ -29,6 +30,7 @@ import com.trello.rxlifecycle2.android.FragmentEvent;
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 
+import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
@@ -52,6 +54,7 @@ public class HomeCommenFragment extends DBBaseFragment implements OnRefreshListe
     private List<HomeCommenBean.DataBean> mCommenBeans;
     private String category1Id = "";//一级导航id
     private Boolean[] once = {true};//记录第一次进入页面标示
+    private String parentName = "";//一级导航名字
 
     @Override
     public void setUserVisibleHint(boolean isVisibleToUser) {
@@ -108,8 +111,10 @@ public class HomeCommenFragment extends DBBaseFragment implements OnRefreshListe
             if (!TextUtils.isEmpty(SPUtils.getInstance().getString(CommonDate.SubTab, ""))) {
                 TabBean tabBean = new Gson().fromJson(SPUtils.getInstance().getString(CommonDate.SubTab), TabBean.class);
                 category1Id = tabBean.getData().get(position).getCategoryId();
+                parentName = tabBean.getData().get(position).getCategoryName();
             } else {
                 category1Id = "";
+                parentName ="";
             }
         }
     }
@@ -168,10 +173,19 @@ public class HomeCommenFragment extends DBBaseFragment implements OnRefreshListe
      */
     @Override
     public void onItemTab(int pos) {
-        startActivity(new Intent(getContext(),ItemTabActivity.class)
-                .putExtra("title",mChildrenBeans.get(pos).getCategoryName())
-                .putExtra("id",mChildrenBeans.get(pos).getCategoryId())
-        );
+        if(pos != 9){
+            startActivity(new Intent(getContext(),ItemTabActivity.class)
+                    .putExtra("title",mChildrenBeans.get(pos).getCategoryName())
+                    .putExtra("id",mChildrenBeans.get(pos).getCategoryId())
+            );
+        }else {
+            //查看全部
+            startActivity(new Intent(getContext(),ALLTabActivity.class)
+                    .putExtra("title",parentName)
+                    .putExtra("date",(Serializable)mChildrenBeans)//二级分类列表
+                    .putExtra("category1Id",mChildrenBeans.get(pos).getParentId())//一级分类id
+            );
+        }
     }
 
     /**

@@ -1,5 +1,6 @@
 package com.example.administrator.jipinshop.bean;
 
+import java.io.Serializable;
 import java.util.List;
 
 /**
@@ -323,7 +324,7 @@ public class HomeCommenBean {
         }
     }
 
-    public static class GoodsCategoryListBean {
+    public static class GoodsCategoryListBean implements Serializable{
         /**
          * categoryId : 3a9da7e316914052ab207c6162a59ae6
          * parentId : c38c97e81c3142779f9e085902c9423d
