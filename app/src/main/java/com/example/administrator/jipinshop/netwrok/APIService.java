@@ -98,11 +98,11 @@ public interface APIService {
     @GET("qualityshop-api/api/goodsList")
     Observable<HomeCommenBean> goodRank(@QueryMap Map<String,String> param);
 
-    /**
-     * 榜单二级分类商品列表
-     */
-    @GET("qualityshop-api/api/goodsList2")
-    Observable<SreachResultGoodsBean> goodsList2(@Query("category2Id")String category2Id,@Query("orderbyType")String orderbyType,@Query("client")String client);
+//    /**
+//     * 榜单二级分类商品列表
+//     */
+//    @GET("qualityshop-api/api/goodsList2")
+//    Observable<SreachResultGoodsBean> goodsList2(@Query("category2Id")String category2Id,@Query("orderbyType")String orderbyType,@Query("client")String client);
 
     /**
      * 商品详情  已修改

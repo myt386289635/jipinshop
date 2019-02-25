@@ -1,6 +1,5 @@
 package com.example.administrator.jipinshop.bean;
 
-import java.io.Serializable;
 import java.util.List;
 
 /**
@@ -12,9 +11,8 @@ public class HomeCommenBean {
 
     private String msg;
     private int code;
-    private String category1Id;
+    private String category2Id;
     private List<DataBean> data;
-    private List<GoodsCategoryListBean> goodsCategoryList;
 
     public String getMsg() {
         return msg;
@@ -32,12 +30,12 @@ public class HomeCommenBean {
         this.code = code;
     }
 
-    public String getCategory1Id() {
-        return category1Id;
+    public String getCategory2Id() {
+        return category2Id;
     }
 
-    public void setCategory1Id(String category1Id) {
-        this.category1Id = category1Id;
+    public void setCategory2Id(String category2Id) {
+        this.category2Id = category2Id;
     }
 
     public List<DataBean> getData() {
@@ -46,14 +44,6 @@ public class HomeCommenBean {
 
     public void setData(List<DataBean> data) {
         this.data = data;
-    }
-
-    public List<GoodsCategoryListBean> getGoodsCategoryList() {
-        return goodsCategoryList;
-    }
-
-    public void setGoodsCategoryList(List<GoodsCategoryListBean> goodsCategoryList) {
-        this.goodsCategoryList = goodsCategoryList;
     }
 
     public static class DataBean {
@@ -321,82 +311,6 @@ public class HomeCommenBean {
             public void setScore(String score) {
                 this.score = score;
             }
-        }
-    }
-
-    public static class GoodsCategoryListBean implements Serializable{
-        /**
-         * categoryId : 3a9da7e316914052ab207c6162a59ae6
-         * parentId : c38c97e81c3142779f9e085902c9423d
-         * categoryName : 电动牙刷
-         * img : http://jipincheng.cn/category/img/20190219/778dd126247b44dc874060f22d671b22
-         * orderNum : 1
-         * children : null
-         * adList : null
-         */
-
-        private String categoryId;
-        private String parentId;
-        private String categoryName;
-        private String img;
-        private int orderNum;
-        private Object children;
-        private Object adList;
-
-        public String getCategoryId() {
-            return categoryId;
-        }
-
-        public void setCategoryId(String categoryId) {
-            this.categoryId = categoryId;
-        }
-
-        public String getParentId() {
-            return parentId;
-        }
-
-        public void setParentId(String parentId) {
-            this.parentId = parentId;
-        }
-
-        public String getCategoryName() {
-            return categoryName;
-        }
-
-        public void setCategoryName(String categoryName) {
-            this.categoryName = categoryName;
-        }
-
-        public String getImg() {
-            return img;
-        }
-
-        public void setImg(String img) {
-            this.img = img;
-        }
-
-        public int getOrderNum() {
-            return orderNum;
-        }
-
-        public void setOrderNum(int orderNum) {
-            this.orderNum = orderNum;
-        }
-
-        public Object getChildren() {
-            return children;
-        }
-
-        public void setChildren(Object children) {
-            this.children = children;
-        }
-
-        public Object getAdList() {
-            return adList;
-        }
-
-        public void setAdList(Object adList) {
-            this.adList = adList;
         }
     }
 }

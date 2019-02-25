@@ -4,11 +4,13 @@ public class ChildrenTabBean {
     private String name;
     private Boolean tag;
     private String categoryid;
+    private String img;
 
-    public ChildrenTabBean(String name, Boolean tag, String categoryid) {
+    public ChildrenTabBean(String name, Boolean tag, String categoryid,String img) {
         this.name = name;
         this.tag = tag;
         this.categoryid = categoryid;
+        this.img = img;
     }
 
     public String getCategoryid() {
@@ -33,5 +35,13 @@ public class ChildrenTabBean {
 
     public void setTag(Boolean tag) {
         this.tag = tag;
+    }
+
+    public String getImg() {
+        return img;
+    }
+
+    public void setImg(String img) {
+        this.img = img;
     }
 }

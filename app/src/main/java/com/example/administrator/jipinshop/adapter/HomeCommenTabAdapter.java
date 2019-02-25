@@ -9,7 +9,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.administrator.jipinshop.R;
-import com.example.administrator.jipinshop.bean.HomeCommenBean;
+import com.example.administrator.jipinshop.bean.ChildrenTabBean;
 import com.example.administrator.jipinshop.view.glide.GlideApp;
 
 import java.util.List;
@@ -21,7 +21,7 @@ import java.util.List;
  */
 public class HomeCommenTabAdapter extends BaseAdapter{
 
-    private List<HomeCommenBean.GoodsCategoryListBean> mChildrenBeans;
+    private List<ChildrenTabBean> mChildrenBeans;
     private Context mContext;
     private OnItem mOnItem;
 
@@ -29,7 +29,7 @@ public class HomeCommenTabAdapter extends BaseAdapter{
         mOnItem = onItem;
     }
 
-    public HomeCommenTabAdapter(List<HomeCommenBean.GoodsCategoryListBean> list, Context context) {
+    public HomeCommenTabAdapter(List<ChildrenTabBean> list, Context context) {
         mChildrenBeans = list;
         mContext = context;
     }
@@ -64,13 +64,13 @@ public class HomeCommenTabAdapter extends BaseAdapter{
             holder = (ViewHolder) convertView.getTag();
         }
 
-        if(position != 9){
-            GlideApp.loderImage(mContext,mChildrenBeans.get(position).getImg(),holder.mImageView,0,0);
-            holder.mItemName.setText(mChildrenBeans.get(position).getCategoryName());
+        if(mChildrenBeans.get(position).getTag()){
+            holder.mItemName.setTextColor(mContext.getResources().getColor(R.color.color_E31436));
         }else {
-            holder.mImageView.setImageResource(R.mipmap.tab_all);
-            holder.mItemName.setText("查看全部");
+            holder.mItemName.setTextColor(mContext.getResources().getColor(R.color.color_ACACAC));
         }
+        GlideApp.loderImage(mContext,mChildrenBeans.get(position).getImg(),holder.mImageView,0,0);
+        holder.mItemName.setText(mChildrenBeans.get(position).getName());
         convertView.setOnClickListener(v -> {
             if(mOnItem != null){
                 mOnItem.onItem(position);

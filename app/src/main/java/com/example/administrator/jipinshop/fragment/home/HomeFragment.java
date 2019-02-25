@@ -284,7 +284,7 @@ public class HomeFragment extends DBBaseFragment implements Badge.OnDragStateCha
 
     }
 
-    public AppBarLayout getBar(){
-        return mBinding.appbar;
-    }
+//    public AppBarLayout getBar(){
+//        return mBinding.appbar;
+//    }
 }

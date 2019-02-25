@@ -26,18 +26,18 @@
             android:background="@color/color_white"
             android:orientation="vertical"/>
 
-        <android.support.design.widget.CoordinatorLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:background="@color/color_white"
-            tools:context=".MainActivity">
+        <!--<android.support.design.widget.CoordinatorLayout-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="match_parent"-->
+            <!--android:background="@color/color_white"-->
+            <!--tools:context=".MainActivity">-->
 
-            <android.support.design.widget.AppBarLayout
-                android:id="@+id/appbar"
-                app:elevation="0dp"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="@color/color_white">
+            <!--<android.support.design.widget.AppBarLayout-->
+                <!--android:id="@+id/appbar"-->
+                <!--app:elevation="0dp"-->
+                <!--android:layout_width="match_parent"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:background="@color/color_white">-->
 
                 <RelativeLayout
                     android:id="@+id/head"
@@ -91,7 +91,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/y2"/>
 
-            </android.support.design.widget.AppBarLayout>
+            <!--</android.support.design.widget.AppBarLayout>-->
 
 
             <com.example.administrator.jipinshop.view.MyViewPager
@@ -101,6 +101,6 @@
                 app:layout_behavior="@string/appbar_scrolling_view_behavior"/>
 
 
-        </android.support.design.widget.CoordinatorLayout>
+        <!--</android.support.design.widget.CoordinatorLayout>-->
     </LinearLayout>
 </layout>

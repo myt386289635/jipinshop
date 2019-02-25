@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+        <variable
+            name="listener"
+            type="android.view.View.OnClickListener"/>
+
+    </data>
+
+    <RelativeLayout
+        android:id="@+id/item_container"
+        android:onClick="@{listener.onClick}"
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <TextView
+            android:layout_centerHorizontal="true"
+            android:textColor="@color/color_ACACAC"
+            android:textSize="15sp"
+            android:gravity="center_vertical"
+            tools:text="测试"
+            android:id="@+id/tab_text"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"/>
+
+        <View
+            android:layout_alignParentBottom="true"
+            android:layout_alignRight="@+id/tab_text"
+            android:layout_alignLeft="@+id/tab_text"
+            android:id="@+id/tab_line"
+            android:background="@color/color_E31436"
+            android:layout_width="wrap_content"
+            android:layout_height="@dimen/y4"/>
+    </RelativeLayout>
+
+</layout>

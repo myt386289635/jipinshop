@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout
-    android:layout_marginBottom="@dimen/x48"
+    android:layout_marginBottom="@dimen/y12"
     android:layout_marginLeft="@dimen/x28"
     android:layout_marginRight="@dimen/x28"
     android:layout_marginTop="@dimen/y48"

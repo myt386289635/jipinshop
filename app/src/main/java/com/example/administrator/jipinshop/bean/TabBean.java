@@ -111,8 +111,34 @@ public class TabBean {
             private String categoryId;
             private String parentId;
             private String categoryName;
+            private String img;
             private int orderNum;
+            private Object children;
+            private Object adList;
 
+            public String getImg() {
+                return img;
+            }
+
+            public void setImg(String img) {
+                this.img = img;
+            }
+
+            public Object getChildren() {
+                return children;
+            }
+
+            public void setChildren(Object children) {
+                this.children = children;
+            }
+
+            public Object getAdList() {
+                return adList;
+            }
+
+            public void setAdList(Object adList) {
+                this.adList = adList;
+            }
 
             public String getCategoryId() {
                 return categoryId;

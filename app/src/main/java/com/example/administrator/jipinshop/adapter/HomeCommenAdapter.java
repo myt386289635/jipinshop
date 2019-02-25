@@ -13,8 +13,6 @@ import android.widget.TextView;
 import com.example.administrator.jipinshop.R;
 import com.example.administrator.jipinshop.bean.HomeCommenBean;
 import com.example.administrator.jipinshop.databinding.HomeCommenItemBinding;
-import com.example.administrator.jipinshop.util.ToastUtil;
-import com.example.administrator.jipinshop.view.MyGridView;
 import com.example.administrator.jipinshop.view.glide.GlideApp;
 import com.google.android.flexbox.FlexboxLayout;
 
@@ -28,11 +26,9 @@ import java.util.List;
 public class HomeCommenAdapter extends RecyclerView.Adapter{
 
     private List<HomeCommenBean.DataBean> mCommenBeans;
-    private List<HomeCommenBean.GoodsCategoryListBean> mChildrenBeans;
     private Context mContext;
     private OnItem mOnItem;
 
-    private final int HEAD = 1;
     private final int FOOT = 3;
     private final int CONTENT = 2;
 
@@ -45,15 +41,9 @@ public class HomeCommenAdapter extends RecyclerView.Adapter{
         mContext = context;
     }
 
-    public void setChildrenBeans(List<HomeCommenBean.GoodsCategoryListBean> childrenBeans) {
-        mChildrenBeans = childrenBeans;
-    }
-
     @Override
     public int getItemViewType(int position) {
-        if (position == 0) {
-            return HEAD;
-        }else if (position == getItemCount() - 1){
+       if (position == getItemCount() - 1){
             return FOOT;
         } else {
             return CONTENT;
@@ -62,7 +52,7 @@ public class HomeCommenAdapter extends RecyclerView.Adapter{
 
     @Override
     public int getItemCount() {
-        return mCommenBeans.size() == 0 ? 0 : mCommenBeans.size() + 2;
+        return mCommenBeans.size() == 0 ? 0 : mCommenBeans.size() + 1;
     }
 
     @NonNull
@@ -70,10 +60,6 @@ public class HomeCommenAdapter extends RecyclerView.Adapter{
     public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
         RecyclerView.ViewHolder holder = null;
         switch (i) {
-            case HEAD:
-                View view1 = LayoutInflater.from(mContext).inflate(R.layout.item_tabcommen, viewGroup, false);
-                holder = new HeadViewHolder(view1);
-                break;
             case CONTENT:
                 HomeCommenItemBinding binding = DataBindingUtil.inflate(LayoutInflater.from(mContext),R.layout.home_commen_item,viewGroup, false);
                 holder = new ViewHolder(binding);
@@ -91,20 +77,11 @@ public class HomeCommenAdapter extends RecyclerView.Adapter{
     public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int pos) {
         int type = getItemViewType(pos);
         switch (type) {
-            case HEAD:
-                HeadViewHolder headViewHolder = (HeadViewHolder) holder;
-                headViewHolder.mTabAdapter.setOnItem(pos1 -> {
-                    if (mOnItem != null) {
-                        mOnItem.onItemTab(pos1);
-                    }
-                });
-                headViewHolder.mTabAdapter.notifyDataSetChanged();
-                break;
             case CONTENT:
                 ViewHolder viewHolder = (ViewHolder) holder;
 
-                final int position = pos - 1;
-                viewHolder.getBinding().setPosition(pos + "");
+                final int position = pos;
+                viewHolder.getBinding().setPosition((pos + 1) + "");
                 viewHolder.getBinding().setDate(mCommenBeans.get(position));
 
                 viewHolder.itemView.setOnClickListener(view -> {
@@ -167,21 +144,7 @@ public class HomeCommenAdapter extends RecyclerView.Adapter{
         }
     }
 
-    class HeadViewHolder extends RecyclerView.ViewHolder {
-        private MyGridView grid_view;
-        private HomeCommenTabAdapter mTabAdapter;
-
-        public HeadViewHolder(View itemView) {
-            super(itemView);
-            grid_view = itemView.findViewById(R.id.grid_view);
-
-            mTabAdapter = new HomeCommenTabAdapter(mChildrenBeans,mContext);
-            grid_view.setAdapter(mTabAdapter);
-        }
-    }
-
     public interface OnItem{
         void onItemclick(int pos);
-        void onItemTab(int pos);
     }
 }

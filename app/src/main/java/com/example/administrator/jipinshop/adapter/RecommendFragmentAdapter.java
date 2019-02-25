@@ -32,17 +32,17 @@ public class RecommendFragmentAdapter extends RecyclerView.Adapter {
     private final int HEAD = 1;
     private final int CONTENT = 2;
     private final int FOOT = 3;
-    private final int HEAD2 = 4;
+//    private final int HEAD2 = 4;
 
     private List<RecommendFragmentBean.DataBean> mList;
     private Context mContext;
     private OnItem mOnItem;
     private List<RecommendFragmentBean.AdListBean> image;
-    private List<RecommendFragmentBean.OrderbyTypeListBean> mOrderbyTypeListBeans;
+//    private List<RecommendFragmentBean.OrderbyTypeListBean> mOrderbyTypeListBeans;
 
-    public void setOrderbyTypeListBeans(List<RecommendFragmentBean.OrderbyTypeListBean> orderbyTypeListBeans) {
-        mOrderbyTypeListBeans = orderbyTypeListBeans;
-    }
+//    public void setOrderbyTypeListBeans(List<RecommendFragmentBean.OrderbyTypeListBean> orderbyTypeListBeans) {
+//        mOrderbyTypeListBeans = orderbyTypeListBeans;
+//    }
 
     public void setHeadImage(List<RecommendFragmentBean.AdListBean> image) {
         this.image = image;
@@ -74,10 +74,10 @@ public class RecommendFragmentAdapter extends RecyclerView.Adapter {
                 View view = LayoutInflater.from(mContext).inflate(R.layout.item_foot, viewGroup, false);
                 holder = new FootViewHolder(view);
                 break;
-            case HEAD2:
-                View view2 = LayoutInflater.from(mContext).inflate(R.layout.item_recommendhead, viewGroup, false);
-                holder = new Head2ViewHolder(view2);
-                break;
+//            case HEAD2:
+//                View view2 = LayoutInflater.from(mContext).inflate(R.layout.item_recommendhead, viewGroup, false);
+//                holder = new Head2ViewHolder(view2);
+//                break;
         }
         return holder;
     }
@@ -86,37 +86,37 @@ public class RecommendFragmentAdapter extends RecyclerView.Adapter {
     public void onBindViewHolder(RecyclerView.ViewHolder holder, final int pos) {
         int type = getItemViewType(pos);
         switch (type) {
-            case HEAD2:
-                Head2ViewHolder head2ViewHolder = (Head2ViewHolder) holder;
-                GlideApp.loderImage(mContext,mOrderbyTypeListBeans.get(0).getImg(),head2ViewHolder.item_hotTopImg,0,0);
-                GlideApp.loderImage(mContext,mOrderbyTypeListBeans.get(1).getImg(),head2ViewHolder.item_luxuryTopImg,0,0);
-                GlideApp.loderImage(mContext,mOrderbyTypeListBeans.get(2).getImg(),head2ViewHolder.item_newTopImg,0,0);
-                GlideApp.loderImage(mContext,mOrderbyTypeListBeans.get(3).getImg(),head2ViewHolder.item_performanceTopImg,0,0);
-                head2ViewHolder.item_hotTopText.setText(mOrderbyTypeListBeans.get(0).getName());
-                head2ViewHolder.item_luxuryTopText.setText(mOrderbyTypeListBeans.get(1).getName());
-                head2ViewHolder.item_newTopText.setText(mOrderbyTypeListBeans.get(2).getName());
-                head2ViewHolder.item_performanceTopText.setText(mOrderbyTypeListBeans.get(3).getName());
-                head2ViewHolder.item_hotTop.setOnClickListener(v -> {
-                    if (mOnItem != null) {
-                        mOnItem.onTabItem(0);
-                    }
-                });
-                head2ViewHolder.item_luxuryTop.setOnClickListener(v -> {
-                    if (mOnItem != null) {
-                        mOnItem.onTabItem(1);
-                    }
-                });
-                head2ViewHolder.item_newTop.setOnClickListener(v -> {
-                    if (mOnItem != null) {
-                        mOnItem.onTabItem(2);
-                    }
-                });
-                head2ViewHolder.item_performanceTop.setOnClickListener(v -> {
-                    if (mOnItem != null) {
-                        mOnItem.onTabItem(3);
-                    }
-                });
-                break;
+//            case HEAD2:
+//                Head2ViewHolder head2ViewHolder = (Head2ViewHolder) holder;
+//                GlideApp.loderImage(mContext,mOrderbyTypeListBeans.get(0).getImg(),head2ViewHolder.item_hotTopImg,0,0);
+//                GlideApp.loderImage(mContext,mOrderbyTypeListBeans.get(1).getImg(),head2ViewHolder.item_luxuryTopImg,0,0);
+//                GlideApp.loderImage(mContext,mOrderbyTypeListBeans.get(2).getImg(),head2ViewHolder.item_newTopImg,0,0);
+//                GlideApp.loderImage(mContext,mOrderbyTypeListBeans.get(3).getImg(),head2ViewHolder.item_performanceTopImg,0,0);
+//                head2ViewHolder.item_hotTopText.setText(mOrderbyTypeListBeans.get(0).getName());
+//                head2ViewHolder.item_luxuryTopText.setText(mOrderbyTypeListBeans.get(1).getName());
+//                head2ViewHolder.item_newTopText.setText(mOrderbyTypeListBeans.get(2).getName());
+//                head2ViewHolder.item_performanceTopText.setText(mOrderbyTypeListBeans.get(3).getName());
+//                head2ViewHolder.item_hotTop.setOnClickListener(v -> {
+//                    if (mOnItem != null) {
+//                        mOnItem.onTabItem(0);
+//                    }
+//                });
+//                head2ViewHolder.item_luxuryTop.setOnClickListener(v -> {
+//                    if (mOnItem != null) {
+//                        mOnItem.onTabItem(1);
+//                    }
+//                });
+//                head2ViewHolder.item_newTop.setOnClickListener(v -> {
+//                    if (mOnItem != null) {
+//                        mOnItem.onTabItem(2);
+//                    }
+//                });
+//                head2ViewHolder.item_performanceTop.setOnClickListener(v -> {
+//                    if (mOnItem != null) {
+//                        mOnItem.onTabItem(3);
+//                    }
+//                });
+//                break;
             case HEAD:
                 ContentViewHolder contentViewHolder = (ContentViewHolder) holder;
                 if(image.size() == 1){
@@ -154,8 +154,8 @@ public class RecommendFragmentAdapter extends RecyclerView.Adapter {
             case CONTENT:
                 HeadViewHolder viewHolder = (HeadViewHolder) holder;
 
-                final int position = pos - 2;
-                viewHolder.getBinding().setPosition((pos-1) + "");
+                final int position = pos - 1;
+                viewHolder.getBinding().setPosition(pos + "");
                 viewHolder.getBinding().setDate(mList.get(position));
 
                 viewHolder.itemView.setOnClickListener(view -> {
@@ -190,9 +190,11 @@ public class RecommendFragmentAdapter extends RecyclerView.Adapter {
     public int getItemViewType(int position) {
         if (position == 0) {
             return HEAD;
-        }else if (position == 1){
-            return HEAD2;
-        }else if (position == getItemCount() - 1){
+        }
+//        else if (position == 1){
+//            return HEAD2;
+//        }
+        else if (position == getItemCount() - 1){
             return FOOT;
         } else {
             return CONTENT;
@@ -201,7 +203,7 @@ public class RecommendFragmentAdapter extends RecyclerView.Adapter {
 
     @Override
     public int getItemCount() {
-        return mList == null || mList.size() == 0 ? 0 : mList.size() + 3;
+        return mList == null || mList.size() == 0 ? 0 : mList.size() + 2;
     }
 
     public class HeadViewHolder extends RecyclerView.ViewHolder {
@@ -319,6 +321,6 @@ public class RecommendFragmentAdapter extends RecyclerView.Adapter {
 
     public interface OnItem {
         void onItem(int pos);
-        void onTabItem(int pos);
+//        void onTabItem(int pos);
     }
 }

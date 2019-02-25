@@ -164,12 +164,12 @@ public class Repository {
         return mAPIService.goodRank(param);
     }
 
-    /**
-     * 榜单二级分类商品列表
-     */
-    public Observable<SreachResultGoodsBean> goodsList2(String category2Id,String orderbyType){
-        return mAPIService.goodsList2(category2Id,orderbyType,"1");
-    }
+//    /**
+//     * 榜单二级分类商品列表
+//     */
+//    public Observable<SreachResultGoodsBean> goodsList2(String category2Id,String orderbyType){
+//        return mAPIService.goodsList2(category2Id,orderbyType,"1");
+//    }
 
     /**
      * 搜索列表

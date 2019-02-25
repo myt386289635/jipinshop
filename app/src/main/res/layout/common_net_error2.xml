@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+        <variable
+            name="listener"
+            type="android.view.View.OnClickListener"/>
+    </data>
+
+
+    <LinearLayout
+        android:onClick="@{listener.onClick}"
+        android:id="@+id/qs_net"
+        android:background="@color/color_white"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_marginTop="@dimen/y50"
+            android:layout_width="match_parent"
+            android:orientation="vertical"
+            android:layout_height="wrap_content">
+
+
+            <ImageView
+                android:id="@+id/error_image"
+                android:layout_gravity="center_horizontal"
+                tools:src="@mipmap/qs_net"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+
+
+            <TextView
+                android:id="@+id/error_title"
+                android:layout_marginTop="@dimen/x34"
+                android:layout_gravity="center_horizontal"
+                android:textColor="@color/color_DE151515"
+                android:textSize="15sp"
+                android:text="网络出错"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+
+
+            <TextView
+                android:id="@+id/error_content"
+                android:layout_marginTop="@dimen/x8"
+                android:layout_gravity="center_horizontal"
+                android:textColor="@color/color_ACACAC"
+                android:textSize="13sp"
+                android:text="哇哦，网络出错了，换个姿势点击试试"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+
+        </LinearLayout>
+
+
+    </LinearLayout>
+
+</layout>

@@ -10,13 +10,11 @@ import android.view.ViewGroup;
 
 import com.aspsine.swipetoloadlayout.OnRefreshListener;
 import com.example.administrator.jipinshop.R;
-import com.example.administrator.jipinshop.activity.home.recommendtab.RecommendTabActivity;
 import com.example.administrator.jipinshop.activity.shoppingdetail.ShoppingDetailActivity;
 import com.example.administrator.jipinshop.adapter.RecommendFragmentAdapter;
 import com.example.administrator.jipinshop.base.DBBaseFragment;
 import com.example.administrator.jipinshop.bean.RecommendFragmentBean;
 import com.example.administrator.jipinshop.databinding.FragmentRecommendBinding;
-import com.example.administrator.jipinshop.fragment.home.HomeFragment;
 import com.example.administrator.jipinshop.util.ClickUtil;
 import com.trello.rxlifecycle2.android.FragmentEvent;
 
@@ -38,7 +36,7 @@ public class RecommendFragment extends DBBaseFragment implements OnRefreshListen
     private RecommendFragmentAdapter mAdapter;
     private List<RecommendFragmentBean.DataBean> mList;
     private List<RecommendFragmentBean.AdListBean> image;
-    private List<RecommendFragmentBean.OrderbyTypeListBean> mOrderbyTypeListBeans;
+//    private List<RecommendFragmentBean.OrderbyTypeListBean> mOrderbyTypeListBeans;
 
     private Boolean[] once = {true};
 
@@ -62,17 +60,17 @@ public class RecommendFragment extends DBBaseFragment implements OnRefreshListen
         binding.recyclerView.setLayoutManager(layoutManager);
         mList = new ArrayList<>();
         image = new ArrayList<>();
-        mOrderbyTypeListBeans= new ArrayList<>();
+//        mOrderbyTypeListBeans= new ArrayList<>();
         mAdapter = new RecommendFragmentAdapter(mList, getContext());
         mAdapter.setHeadImage(image);
-        mAdapter.setOrderbyTypeListBeans(mOrderbyTypeListBeans);
+//        mAdapter.setOrderbyTypeListBeans(mOrderbyTypeListBeans);
         mAdapter.setOnItem(this);
         binding.recyclerView.setAdapter(mAdapter);
 
         binding.recyclerView.setFocusable(false);
         binding.swipeToLoad.setOnRefreshListener(this);
 
-        mPresenter.solveScoll(binding.recyclerView,binding.swipeToLoad,((HomeFragment)getParentFragment()).getBar(),once);
+        mPresenter.solveScoll(binding.recyclerView,binding.swipeToLoad);
         binding.swipeToLoad.post(() -> binding.swipeToLoad.setRefreshing(true));
     }
 
@@ -103,17 +101,17 @@ public class RecommendFragment extends DBBaseFragment implements OnRefreshListen
         }
     }
 
-    /**
-     * 热卖榜、轻奢榜、新品榜、性价比榜点击
-     * @param pos
-     */
-    @Override
-    public void onTabItem(int pos) {
-        startActivity(new Intent(getContext(),RecommendTabActivity.class)
-                .putExtra("title",mOrderbyTypeListBeans.get(pos).getName())
-                .putExtra("orderbyType",mOrderbyTypeListBeans.get(pos).getOrderbyType())
-        );
-    }
+//    /**
+//     * 热卖榜、轻奢榜、新品榜、性价比榜点击
+//     * @param pos
+//     */
+//    @Override
+//    public void onTabItem(int pos) {
+//        startActivity(new Intent(getContext(),RecommendTabActivity.class)
+//                .putExtra("title",mOrderbyTypeListBeans.get(pos).getName())
+//                .putExtra("orderbyType",mOrderbyTypeListBeans.get(pos).getOrderbyType())
+//        );
+//    }
 
     @Override
     public void onSuccess(RecommendFragmentBean recommendFragmentBean) {
@@ -121,12 +119,12 @@ public class RecommendFragment extends DBBaseFragment implements OnRefreshListen
             if(recommendFragmentBean.getData() != null && recommendFragmentBean.getData().size() != 0){
                 mList.clear();
                 image.clear();
-                mOrderbyTypeListBeans.clear();
+//                mOrderbyTypeListBeans.clear();
                 binding.inClude.qsNet.setVisibility(View.GONE);
                 binding.recyclerView.setVisibility(View.VISIBLE);
                 mList.addAll(recommendFragmentBean.getData());
                 image.addAll(recommendFragmentBean.getAdList());
-                mOrderbyTypeListBeans.addAll(recommendFragmentBean.getOrderbyTypeList());
+//                mOrderbyTypeListBeans.addAll(recommendFragmentBean.getOrderbyTypeList());
                 mAdapter.notifyDataSetChanged();
             }else {
                 initError(R.mipmap.qs_nodata, "暂无数据", "暂时没有任何数据 ");
