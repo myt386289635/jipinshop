@@ -11,6 +11,7 @@ import com.example.administrator.jipinshop.bean.FollowBean;
 import com.example.administrator.jipinshop.bean.HomeCommenBean;
 import com.example.administrator.jipinshop.bean.ImageBean;
 import com.example.administrator.jipinshop.bean.LoginBean;
+import com.example.administrator.jipinshop.bean.OrderbyTypeBean;
 import com.example.administrator.jipinshop.bean.PagerStateBean;
 import com.example.administrator.jipinshop.bean.PointDetailBean;
 import com.example.administrator.jipinshop.bean.RecommendFragmentBean;
@@ -27,7 +28,6 @@ import com.example.administrator.jipinshop.bean.UnMessageBean;
 import com.example.administrator.jipinshop.bean.UserInfoBean;
 import com.example.administrator.jipinshop.bean.UserPageBean;
 import com.example.administrator.jipinshop.bean.VoteBean;
-import com.example.administrator.jipinshop.bean.OrderbyTypeBean;
 
 import java.util.Map;
 
