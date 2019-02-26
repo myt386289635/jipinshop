@@ -2,10 +2,12 @@ package com.example.administrator.jipinshop.fragment.home.commen;
 
 import android.content.Context;
 import android.graphics.Typeface;
+import android.support.annotation.NonNull;
 import android.support.design.widget.AppBarLayout;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
@@ -18,11 +20,13 @@ import com.example.administrator.jipinshop.bean.HomeCommenBean;
 import com.example.administrator.jipinshop.bean.OrderbyTypeBean;
 import com.example.administrator.jipinshop.databinding.FragmentHomeCommenBinding;
 import com.example.administrator.jipinshop.netwrok.Repository;
+import com.example.administrator.jipinshop.util.ClickUtil;
 import com.trello.rxlifecycle2.LifecycleTransformer;
 
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.concurrent.atomic.AtomicReference;
 
 import javax.inject.Inject;
 
@@ -62,13 +66,11 @@ public class HomeCommenPresenter {
                 }else if(Math.abs(verticalOffset) >= appBarLayout1.getTotalScrollRange()){
                     //折叠
                     mSwipeToLoad.setRefreshEnabled(false);
-                    mBinding.didver.setVisibility(View.GONE);
                     mBinding.tabLayout.setBackgroundColor(context.getResources().getColor(R.color.color_F5F5F5));
-                    mTabLine.get(set[0]).setVisibility(View.GONE);
+                    mTabLine.get(set[0]).setVisibility(View.INVISIBLE);
                 }else {
                     //过程
                     mSwipeToLoad.setRefreshEnabled(false);
-                    mBinding.didver.setVisibility(View.VISIBLE);
                     mBinding.tabLayout.setBackgroundColor(context.getResources().getColor(R.color.color_white));
                     mTabLine.get(set[0]).setVisibility(View.VISIBLE);
                 }

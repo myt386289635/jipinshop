@@ -196,6 +196,7 @@ public class HomeCommenFragment extends DBBaseFragment implements ViewPager.OnPa
                 set[0] = 0;
                 mPresenter.seleteTab(getContext(),set[0],mTabTextView,mTabLine);
                 orderbyType="1";
+                mBinding.recyclerView.scrollToPosition(0);
                 mDialog = (new ProgressDialogView()).createLoadingDialog(getContext(), "请求中...");
                 mDialog.show();
                 onRefresh();
@@ -204,6 +205,7 @@ public class HomeCommenFragment extends DBBaseFragment implements ViewPager.OnPa
                 set[0] = 1;
                 mPresenter.seleteTab(getContext(),set[0],mTabTextView,mTabLine);
                 orderbyType="2";
+                mBinding.recyclerView.scrollToPosition(0);
                 mDialog = (new ProgressDialogView()).createLoadingDialog(getContext(), "请求中...");
                 mDialog.show();
                 onRefresh();
@@ -212,6 +214,7 @@ public class HomeCommenFragment extends DBBaseFragment implements ViewPager.OnPa
                 set[0] = 2;
                 mPresenter.seleteTab(getContext(),set[0],mTabTextView,mTabLine);
                 orderbyType="3";
+                mBinding.recyclerView.scrollToPosition(0);
                 mDialog = (new ProgressDialogView()).createLoadingDialog(getContext(), "请求中...");
                 mDialog.show();
                 onRefresh();
@@ -220,6 +223,7 @@ public class HomeCommenFragment extends DBBaseFragment implements ViewPager.OnPa
                 set[0] = 3;
                 mPresenter.seleteTab(getContext(),set[0],mTabTextView,mTabLine);
                 orderbyType="4";
+                mBinding.recyclerView.scrollToPosition(0);
                 mDialog = (new ProgressDialogView()).createLoadingDialog(getContext(), "请求中...");
                 mDialog.show();
                 onRefresh();
