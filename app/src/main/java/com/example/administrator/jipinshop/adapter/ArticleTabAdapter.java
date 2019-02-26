@@ -65,7 +65,7 @@ public class ArticleTabAdapter extends RecyclerView.Adapter<ArticleTabAdapter.Vi
             layoutParams.leftMargin = mContext.getResources().getDimensionPixelSize(R.dimen.x28);
         }else {
             RelativeLayout.LayoutParams layoutParams = (RelativeLayout.LayoutParams) viewHolder.mTextView.getLayoutParams();
-            layoutParams.leftMargin = mContext.getResources().getDimensionPixelSize(R.dimen.x20);
+            layoutParams.leftMargin = mContext.getResources().getDimensionPixelSize(R.dimen.x50);
         }
 
         viewHolder.mTextView.setOnClickListener(v -> {

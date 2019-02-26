@@ -68,7 +68,7 @@ public class HomeTabAdapter extends RecyclerView.Adapter<HomeTabAdapter.ViewHold
             layoutParams.leftMargin = mContext.getResources().getDimensionPixelSize(R.dimen.x28);
         }else {
             RelativeLayout.LayoutParams layoutParams = (RelativeLayout.LayoutParams) viewHolder.mTextView.getLayoutParams();
-            layoutParams.leftMargin = 0;
+            layoutParams.leftMargin = mContext.getResources().getDimensionPixelSize(R.dimen.x10);
         }
 
         viewHolder.mTextView.setOnClickListener(v -> {
