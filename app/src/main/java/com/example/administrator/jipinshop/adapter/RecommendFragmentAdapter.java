@@ -294,30 +294,6 @@ public class RecommendFragmentAdapter extends RecyclerView.Adapter {
         }
     }
 
-    class Head2ViewHolder extends RecyclerView.ViewHolder {
-
-        private RelativeLayout item_hotTop,item_luxuryTop,item_newTop,item_performanceTop;
-        private ImageView item_hotTopImg,item_luxuryTopImg,item_newTopImg,item_performanceTopImg;
-        private TextView item_hotTopText,item_luxuryTopText,item_newTopText,item_performanceTopText;
-
-        public Head2ViewHolder(View itemView) {
-            super(itemView);
-            item_hotTop = itemView.findViewById(R.id.item_hotTop);
-            item_luxuryTop = itemView.findViewById(R.id.item_luxuryTop);
-            item_newTop = itemView.findViewById(R.id.item_newTop);
-            item_performanceTop = itemView.findViewById(R.id.item_performanceTop);
-
-            item_hotTopImg = itemView.findViewById(R.id.item_hotTopImg);
-            item_luxuryTopImg = itemView.findViewById(R.id.item_luxuryTopImg);
-            item_newTopImg = itemView.findViewById(R.id.item_newTopImg);
-            item_performanceTopImg = itemView.findViewById(R.id.item_performanceTopImg);
-
-            item_hotTopText = itemView.findViewById(R.id.item_hotTopText);
-            item_luxuryTopText = itemView.findViewById(R.id.item_luxuryTopText);
-            item_newTopText = itemView.findViewById(R.id.item_newTopText);
-            item_performanceTopText = itemView.findViewById(R.id.item_performanceTopText);
-        }
-    }
 
     public interface OnItem {
         void onItem(int pos);
