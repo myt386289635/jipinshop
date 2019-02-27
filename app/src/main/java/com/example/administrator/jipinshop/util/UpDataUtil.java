@@ -110,12 +110,20 @@ public class UpDataUtil {
                     .setCancelable(false)
                     .setPositiveButton("下载",
                             (dialog, which) -> {
-                                Intent intent = new Intent();
-                                intent.setAction("android.intent.action.VIEW");
-                                Uri content_url = Uri.parse(url);
-                                intent.setData(content_url);
-                                intent.setClassName("com.android.browser","com.android.browser.BrowserActivity");
-                                context.startActivity(intent);
+                                try{
+                                    Intent intent = new Intent();
+                                    intent.setAction("android.intent.action.VIEW");
+                                    Uri content_url = Uri.parse(url);
+                                    intent.setData(content_url);
+                                    intent.setClassName("com.android.browser","com.android.browser.BrowserActivity");
+                                    context.startActivity(intent);
+                                }catch (Exception e){
+                                    Intent ExeIntent = new Intent();
+                                    ExeIntent.setAction("android.intent.action.VIEW");
+                                    Uri content_url = Uri.parse(url);
+                                    ExeIntent.setData(content_url);
+                                    context.startActivity(ExeIntent);
+                                }
                             }).show();
         }else {
             new AlertDialog.Builder(context)
@@ -127,12 +135,20 @@ public class UpDataUtil {
                             (dialog, which) -> dialog.dismiss())
                     .setPositiveButton("下载",
                             (dialog, which) -> {
-                                Intent intent = new Intent();
-                                intent.setAction("android.intent.action.VIEW");
-                                Uri content_url = Uri.parse(url);
-                                intent.setData(content_url);
-                                intent.setClassName("com.android.browser","com.android.browser.BrowserActivity");
-                                context.startActivity(intent);
+                                try{
+                                    Intent intent = new Intent();
+                                    intent.setAction("android.intent.action.VIEW");
+                                    Uri content_url = Uri.parse(url);
+                                    intent.setData(content_url);
+                                    intent.setClassName("com.android.browser","com.android.browser.BrowserActivity");
+                                    context.startActivity(intent);
+                                }catch (Exception e){
+                                    Intent ExeIntent = new Intent();
+                                    ExeIntent.setAction("android.intent.action.VIEW");
+                                    Uri content_url = Uri.parse(url);
+                                    ExeIntent.setData(content_url);
+                                    context.startActivity(ExeIntent);
+                                }
                             }).show();
         }
 
