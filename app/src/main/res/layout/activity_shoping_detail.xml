@@ -321,6 +321,7 @@
                         android:orientation="vertical">
 
                         <TextView
+                            android:textStyle="bold"
                             android:id="@+id/item_score"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
@@ -330,6 +331,7 @@
 
 
                         <TextView
+                            android:textColor="@color/color_DE151515"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginTop="@dimen/x8"
@@ -354,7 +356,7 @@
                             android:layout_centerVertical="true"
                             android:maxLength="6"
                             android:minEms="6"
-                            android:textColor="@color/color_151515"
+                            android:textColor="@color/color_ACACAC"
                             android:textSize="13sp"
                             app:align="center"
                             tools:text="震动频率"/>
@@ -403,7 +405,7 @@
                             android:layout_centerVertical="true"
                             android:maxLength="6"
                             android:minEms="6"
-                            android:textColor="@color/color_151515"
+                            android:textColor="@color/color_ACACAC"
                             android:textSize="13sp"
                             tools:text="清洁模式"/>
 
@@ -450,7 +452,7 @@
                             android:layout_centerVertical="true"
                             android:maxLength="6"
                             android:minEms="6"
-                            android:textColor="@color/color_151515"
+                            android:textColor="@color/color_ACACAC"
                             android:textSize="13sp"
                             tools:text="清洁功能"/>
 
@@ -497,7 +499,7 @@
                             android:layout_centerVertical="true"
                             android:maxLength="6"
                             android:minEms="6"
-                            android:textColor="@color/color_151515"
+                            android:textColor="@color/color_ACACAC"
                             android:textSize="13sp"
                             tools:text="使用时间"/>
 
@@ -544,7 +546,7 @@
                             android:layout_centerVertical="true"
                             android:maxLength="6"
                             android:minEms="6"
-                            android:textColor="@color/color_151515"
+                            android:textColor="@color/color_ACACAC"
                             android:textSize="13sp"
                             tools:text="使用时间"/>
 
@@ -712,25 +714,21 @@
                     android:layout_marginLeft="@dimen/x14"
                     android:layout_marginRight="@dimen/x14"/>
 
-                <TextView
+                <com.example.administrator.jipinshop.view.DrawableLeftCenterTextView
                     android:onClick="@{listener.onClick}"
                     android:layout_marginTop="@dimen/y48"
                     android:layout_centerHorizontal="true"
                     android:drawablePadding="@dimen/x8"
-                    android:gravity="center"
+                    android:gravity="center_vertical"
                     android:textSize="14sp"
                     android:textColor="@color/color_E31436"
                     android:text="喜欢"
-                    android:paddingBottom="@dimen/y16"
-                    android:paddingLeft="@dimen/x44"
-                    android:paddingRight="@dimen/x44"
-                    android:paddingTop="@dimen/y16"
                     android:background="@drawable/bg_like"
                     android:id="@+id/detail_good"
                     android:layout_below="@+id/detail_evaluation"
                     android:drawableLeft="@mipmap/like_nor"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"/>
+                    android:layout_width="@dimen/x230"
+                    android:layout_height="@dimen/y72"/>
 
 
                 <RelativeLayout
