@@ -168,6 +168,9 @@ public class CommonEvaluationFragment extends DBBaseFragment implements OnRefres
             page--;
         }
         ToastUtil.show(error);
+        if(once[0]){
+            once[0] = false;
+        }
     }
 
     /**

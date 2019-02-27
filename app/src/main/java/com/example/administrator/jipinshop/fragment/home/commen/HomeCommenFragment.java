@@ -257,6 +257,9 @@ public class HomeCommenFragment extends DBBaseFragment implements ViewPager.OnPa
         stopResher();
         initError(R.mipmap.qs_net, "网络出错", "哇哦，网络出错了，换个姿势下滑页面试试");
         ToastUtil.show("网络出错");
+        if (once[0]){
+            once[0] = false;
+        }
     }
 
     @Override
