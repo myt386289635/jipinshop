@@ -103,6 +103,12 @@ public class HomeCommenAdapter extends RecyclerView.Adapter{
                 viewHolder.getBinding().itemPriceOld.setTv(true);
                 viewHolder.getBinding().itemPriceOld.setColor(R.color.color_ACACAC);
 
+                if(!mCommenBeans.get(position).getActualPrice().equals(mCommenBeans.get(position).getOtherPrice())){
+                    viewHolder.getBinding().itemPriceOldContainer.setVisibility(View.VISIBLE);
+                }else {
+                    viewHolder.getBinding().itemPriceOldContainer.setVisibility(View.GONE);
+                }
+
                 String str = "<font color='#151515' >推荐理由：</font>" + mCommenBeans.get(position).getRecommendReason();
                 viewHolder.getBinding().itemReason.setText(Html.fromHtml(str));
 

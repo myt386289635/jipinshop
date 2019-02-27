@@ -177,6 +177,12 @@ public class RecommendFragmentAdapter extends RecyclerView.Adapter {
                 viewHolder.getBinding().itemPriceOld.setTv(true);
                 viewHolder.getBinding().itemPriceOld.setColor(R.color.color_ACACAC);
 
+                if(!mList.get(position).getActualPrice().equals(mList.get(position).getOtherPrice())){
+                    viewHolder.getBinding().itemPriceOldContainer.setVisibility(View.VISIBLE);
+                }else {
+                    viewHolder.getBinding().itemPriceOldContainer.setVisibility(View.GONE);
+                }
+
                 String str = "<font color='#151515' >推荐理由：</font>" + mList.get(position).getRecommendReason();
                 viewHolder.getBinding().itemReason.setText(Html.fromHtml(str));
 
