@@ -36,7 +36,6 @@ public class MyApplication extends Application {
 
     private ApplicationComponent mApplicationComponent;
     private static MyApplication instance;
-    public static final String imag = "http://pic.90sjimg.com/back_pic/qk/back_origin_pic/00/03/14/c0391a6c1efab3fe00911b04e8cedca4.jpg";
     private  int mNotificationNum = 0;
 
     public int getNotificationNum() {
