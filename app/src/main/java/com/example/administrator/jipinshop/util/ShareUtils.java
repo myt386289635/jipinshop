@@ -81,7 +81,7 @@ public class ShareUtils {
          */
         @Override
         public void onCancel(SHARE_MEDIA platform) {
-            ToastUtil.show("");
+            ToastUtil.show("分享取消");
         }
     };
 }
