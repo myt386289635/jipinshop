@@ -50,6 +50,10 @@ public class MyApplication extends Application {
     @Override
     public void onTrimMemory(int level) {
         super.onTrimMemory(level);
+        String curProcessName = getProcessName(android.os.Process.myPid());
+        if (curProcessName!= null && !curProcessName.equals(getPackageName())) {
+            return;
+        }
         if(level == TRIM_MEMORY_UI_HIDDEN){
             Glide.get(this).clearMemory();
         }
@@ -59,6 +63,10 @@ public class MyApplication extends Application {
     @Override
     public void onLowMemory() {
         super.onLowMemory();
+        String curProcessName = getProcessName(android.os.Process.myPid());
+        if (curProcessName!= null && !curProcessName.equals(getPackageName())) {
+            return;
+        }
         //内存低的时候清除Glide缓存
         Glide.get(this).clearMemory();
     }
@@ -66,12 +74,20 @@ public class MyApplication extends Application {
     @Override
     protected void attachBaseContext(Context base) {
         super.attachBaseContext(base);
+        String curProcessName = getProcessName(android.os.Process.myPid());
+        if (curProcessName!= null && !curProcessName.equals(getPackageName())) {
+            return;
+        }
         MultiDex.install(this);
     }
 
     @Override
     public void onCreate() {
         super.onCreate();
+        String curProcessName = getProcessName(android.os.Process.myPid());
+        if (curProcessName!= null && !curProcessName.equals(getPackageName())) {
+            return;
+        }
         instance = this;
         mApplicationComponent =
                 DaggerApplicationComponent
