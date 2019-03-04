@@ -163,14 +163,18 @@ public class HomeCommenPresenter {
         mBinding.tab2.tabText.setTypeface(Typeface.defaultFromStyle(Typeface.NORMAL));
         mBinding.tab2.tabText.setTextColor(context.getResources().getColor(R.color.color_ACACAC));
         mBinding.tab2.tabLine.setVisibility(View.GONE);
-        mBinding.tab3.tabText.setText("新品榜");
+        mBinding.tab3.tabText.setText("性能榜");
         mBinding.tab3.tabText.setTypeface(Typeface.defaultFromStyle(Typeface.NORMAL));
         mBinding.tab3.tabText.setTextColor(context.getResources().getColor(R.color.color_ACACAC));
         mBinding.tab3.tabLine.setVisibility(View.GONE);
-        mBinding.tab4.tabText.setText("性价比榜");
+        mBinding.tab4.tabText.setText("新品榜");
         mBinding.tab4.tabText.setTypeface(Typeface.defaultFromStyle(Typeface.NORMAL));
         mBinding.tab4.tabText.setTextColor(context.getResources().getColor(R.color.color_ACACAC));
         mBinding.tab4.tabLine.setVisibility(View.GONE);
+        mBinding.tab5.tabText.setText("性价比榜");
+        mBinding.tab5.tabText.setTypeface(Typeface.defaultFromStyle(Typeface.NORMAL));
+        mBinding.tab5.tabText.setTextColor(context.getResources().getColor(R.color.color_ACACAC));
+        mBinding.tab5.tabLine.setVisibility(View.GONE);
     }
 
     public void seleteTab(Context context , int pos ,List<TextView> mTabTextView,List<View> mTabLine){

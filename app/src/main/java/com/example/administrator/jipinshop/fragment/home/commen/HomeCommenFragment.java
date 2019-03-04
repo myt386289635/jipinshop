@@ -8,6 +8,7 @@ import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -61,8 +62,8 @@ public class HomeCommenFragment extends DBBaseFragment implements ViewPager.OnPa
     private List<Fragment> tabFragments;
     private HomeAdapter mPagerAdapter;
     private List<ImageView> point;
-    private List<TextView> mTabTextView;//记录热卖榜等4个榜的title
-    private List<View> mTabLine;//记录热卖榜等4个榜的line
+    private List<TextView> mTabTextView;//记录热卖榜等4个榜的title 这个值是有顺序的，需要和set数组顺序一致
+    private List<View> mTabLine;//记录热卖榜等4个榜的line  这个值是有顺序的，需要和set数组顺序一致
 
     private Dialog mDialog;//点击二级菜单时请求数据加载框
     private Boolean[] once = {true};//记录第一次进入页面标示
@@ -70,6 +71,7 @@ public class HomeCommenFragment extends DBBaseFragment implements ViewPager.OnPa
     private HomeCommenAdapter mAdapter;
     private List<HomeCommenBean.DataBean> mCommenBeans;
     private int[] set = {0};//记录点击热卖榜4个榜的哪个位置；
+    private List<OrderbyTypeBean.DataBean> mOrderbyTypeBean;
 
     @Override
     public void setUserVisibleHint(boolean isVisibleToUser) {
@@ -111,14 +113,17 @@ public class HomeCommenFragment extends DBBaseFragment implements ViewPager.OnPa
 
         mTabTextView = new ArrayList<>();
         mTabLine = new ArrayList<>();
+        mOrderbyTypeBean = new ArrayList<>();
         mTabTextView.add(mBinding.tab1.tabText);
         mTabTextView.add(mBinding.tab2.tabText);
         mTabTextView.add(mBinding.tab3.tabText);
         mTabTextView.add(mBinding.tab4.tabText);
+        mTabTextView.add(mBinding.tab5.tabText);
         mTabLine.add(mBinding.tab1.tabLine);
         mTabLine.add(mBinding.tab2.tabLine);
         mTabLine.add(mBinding.tab3.tabLine);
         mTabLine.add(mBinding.tab4.tabLine);
+        mTabLine.add(mBinding.tab5.tabLine);
         mPresenter.initTabLayout(getContext(),mBinding);
         mPresenter.orderbyTypeList(this.bindToLifecycle());
 
@@ -195,7 +200,11 @@ public class HomeCommenFragment extends DBBaseFragment implements ViewPager.OnPa
             case R.id.tab1:
                 set[0] = 0;
                 mPresenter.seleteTab(getContext(),set[0],mTabTextView,mTabLine);
-                orderbyType="1";
+                if (mOrderbyTypeBean.size() != 0) {
+                    orderbyType=mOrderbyTypeBean.get(set[0]).getOrderbyType()+"";
+                }else {
+                    orderbyType="1";
+                }
                 mBinding.recyclerView.scrollToPosition(0);
                 mDialog = (new ProgressDialogView()).createLoadingDialog(getContext(), "请求中...");
                 mDialog.show();
@@ -204,7 +213,11 @@ public class HomeCommenFragment extends DBBaseFragment implements ViewPager.OnPa
             case R.id.tab2:
                 set[0] = 1;
                 mPresenter.seleteTab(getContext(),set[0],mTabTextView,mTabLine);
-                orderbyType="2";
+                if (mOrderbyTypeBean.size() != 0) {
+                    orderbyType=mOrderbyTypeBean.get(set[0]).getOrderbyType()+"";
+                }else {
+                    orderbyType="1";
+                }
                 mBinding.recyclerView.scrollToPosition(0);
                 mDialog = (new ProgressDialogView()).createLoadingDialog(getContext(), "请求中...");
                 mDialog.show();
@@ -213,7 +226,11 @@ public class HomeCommenFragment extends DBBaseFragment implements ViewPager.OnPa
             case R.id.tab3:
                 set[0] = 2;
                 mPresenter.seleteTab(getContext(),set[0],mTabTextView,mTabLine);
-                orderbyType="3";
+                if (mOrderbyTypeBean.size() != 0) {
+                    orderbyType=mOrderbyTypeBean.get(set[0]).getOrderbyType()+"";
+                }else {
+                    orderbyType="1";
+                }
                 mBinding.recyclerView.scrollToPosition(0);
                 mDialog = (new ProgressDialogView()).createLoadingDialog(getContext(), "请求中...");
                 mDialog.show();
@@ -222,7 +239,24 @@ public class HomeCommenFragment extends DBBaseFragment implements ViewPager.OnPa
             case R.id.tab4:
                 set[0] = 3;
                 mPresenter.seleteTab(getContext(),set[0],mTabTextView,mTabLine);
-                orderbyType="4";
+                if (mOrderbyTypeBean.size() != 0) {
+                    orderbyType=mOrderbyTypeBean.get(set[0]).getOrderbyType()+"";
+                }else {
+                    orderbyType="1";
+                }
+                mBinding.recyclerView.scrollToPosition(0);
+                mDialog = (new ProgressDialogView()).createLoadingDialog(getContext(), "请求中...");
+                mDialog.show();
+                onRefresh();
+                break;
+            case R.id.tab5:
+                set[0] = 4;
+                mPresenter.seleteTab(getContext(),set[0],mTabTextView,mTabLine);
+                if (mOrderbyTypeBean.size() != 0) {
+                    orderbyType=mOrderbyTypeBean.get(set[0]).getOrderbyType()+"";
+                }else {
+                    orderbyType="1";
+                }
                 mBinding.recyclerView.scrollToPosition(0);
                 mDialog = (new ProgressDialogView()).createLoadingDialog(getContext(), "请求中...");
                 mDialog.show();
@@ -264,10 +298,15 @@ public class HomeCommenFragment extends DBBaseFragment implements ViewPager.OnPa
 
     @Override
     public void onSuccessTab(OrderbyTypeBean commenBean) {
-        mBinding.tab1.tabText.setText(commenBean.getData().get(0).getName());
-        mBinding.tab2.tabText.setText(commenBean.getData().get(1).getName());
-        mBinding.tab3.tabText.setText(commenBean.getData().get(2).getName());
-        mBinding.tab4.tabText.setText(commenBean.getData().get(3).getName());
+        try{
+            mOrderbyTypeBean.clear();
+            mOrderbyTypeBean.addAll(commenBean.getData());
+            for (int i = 0; i < mOrderbyTypeBean.size(); i++) {
+                mTabTextView.get(i).setText(mOrderbyTypeBean.get(i).getName());
+            }
+        }catch (Exception e){
+            Log.d("HomeCommenFragment", "数据出错");
+        }
     }
 
     @Override

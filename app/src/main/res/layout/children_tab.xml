@@ -5,12 +5,13 @@
     android:layout_height="wrap_content">
 
     <ImageView
+        android:scaleType="fitXY"
         android:layout_marginTop="@dimen/y24"
         android:layout_centerHorizontal="true"
         android:src="@color/color_4A90E2"
         android:id="@+id/item_tabimg"
-        android:layout_width="@dimen/x110"
-        android:layout_height="@dimen/y110"/>
+        android:layout_width="@dimen/x66"
+        android:layout_height="@dimen/y66"/>
 
     <TextView
         android:layout_marginTop="@dimen/y4"

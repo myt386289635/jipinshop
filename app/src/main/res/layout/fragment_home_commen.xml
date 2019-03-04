@@ -72,6 +72,7 @@
                     </LinearLayout>
 
                     <LinearLayout
+                        android:paddingRight="@dimen/x15"
                         android:orientation="horizontal"
                         android:id="@+id/tab_layout"
                         android:layout_width="match_parent"
@@ -104,6 +105,14 @@
                         <include
                             bind:listener="@{listener}"
                             android:id="@+id/tab4"
+                            android:layout_width="0dp"
+                            android:layout_height="match_parent"
+                            android:layout_weight="1"
+                            layout="@layout/item_hometab"/>
+
+                        <include
+                            bind:listener="@{listener}"
+                            android:id="@+id/tab5"
                             android:layout_width="0dp"
                             android:layout_height="match_parent"
                             android:layout_weight="1"
