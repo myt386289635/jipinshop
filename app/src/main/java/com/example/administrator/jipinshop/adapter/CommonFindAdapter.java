@@ -13,14 +13,12 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.example.administrator.jipinshop.R;
 import com.example.administrator.jipinshop.activity.home.article.ArticleDetailActivity;
 import com.example.administrator.jipinshop.bean.EvaluationTabBean;
 import com.example.administrator.jipinshop.bean.FindListBean;
 import com.example.administrator.jipinshop.util.ClickUtil;
-import com.example.administrator.jipinshop.util.ToastUtil;
 import com.example.administrator.jipinshop.util.WeakRefHandler;
 import com.example.administrator.jipinshop.view.glide.GlideApp;
 
@@ -105,7 +103,9 @@ public class CommonFindAdapter extends RecyclerView.Adapter {
                 break;
             case CONTENT:
                 ContentViewHolder viewHolder = (ContentViewHolder) holder;
-                position = position - 1;
+                if(mAdListBeans.size() != 0){
+                    position = position - 1;
+                }
                 viewHolder.title.setText(mList.get(position).getTitle());
                 GlideApp.loderImage(mContext,mList.get(position).getImg(),viewHolder.item_image,0,0);
                 GlideApp.loderCircleImage(mContext,mList.get(position).getUser().getAvatar(),viewHolder.item_head,R.mipmap.rlogo,0);
@@ -147,17 +147,25 @@ public class CommonFindAdapter extends RecyclerView.Adapter {
 
     @Override
     public int getItemViewType(int position) {
-        if (position == 0) {
-            return HEAD;
-        } else {
+        if(mAdListBeans.size() == 0){
             return CONTENT;
+        }else {
+            if (position == 0) {
+                return HEAD;
+            } else {
+                return CONTENT;
+            }
         }
     }
 
 
     @Override
     public int getItemCount() {
-        return mList.size() == 0 ? 0 : mList.size() + 1;
+        if(mAdListBeans.size() == 0){
+            return  mList.size() == 0 ? 0 : mList.size();
+        }else {
+            return mList.size() == 0 ? 0 : mList.size() + 1;
+        }
     }
 
     class HeadViewHolder extends RecyclerView.ViewHolder {
