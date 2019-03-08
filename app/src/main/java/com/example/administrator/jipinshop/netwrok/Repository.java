@@ -1,5 +1,6 @@
 package com.example.administrator.jipinshop.netwrok;
 
+import com.example.administrator.jipinshop.bean.AddressBean;
 import com.example.administrator.jipinshop.bean.AppVersionbean;
 import com.example.administrator.jipinshop.bean.CommentBean;
 import com.example.administrator.jipinshop.bean.EvaluationListBean;
@@ -10,6 +11,7 @@ import com.example.administrator.jipinshop.bean.FollowBean;
 import com.example.administrator.jipinshop.bean.HomeCommenBean;
 import com.example.administrator.jipinshop.bean.ImageBean;
 import com.example.administrator.jipinshop.bean.LoginBean;
+import com.example.administrator.jipinshop.bean.OrderbyTypeBean;
 import com.example.administrator.jipinshop.bean.PagerStateBean;
 import com.example.administrator.jipinshop.bean.PointDetailBean;
 import com.example.administrator.jipinshop.bean.RecommendFragmentBean;
@@ -26,7 +28,6 @@ import com.example.administrator.jipinshop.bean.UnMessageBean;
 import com.example.administrator.jipinshop.bean.UserInfoBean;
 import com.example.administrator.jipinshop.bean.UserPageBean;
 import com.example.administrator.jipinshop.bean.VoteBean;
-import com.example.administrator.jipinshop.bean.OrderbyTypeBean;
 import com.example.administrator.jipinshop.util.UpDataUtil;
 
 import java.util.Map;
@@ -35,6 +36,7 @@ import javax.inject.Inject;
 
 import io.reactivex.Observable;
 import okhttp3.MultipartBody;
+import retrofit2.http.Field;
 
 public class Repository {
 
@@ -386,5 +388,41 @@ public class Repository {
      */
     public Observable<OrderbyTypeBean> orderbyTypeList(){
         return mAPIService.orderbyTypeList();
+    }
+
+    /**
+     * 查询收货地址
+     */
+    public Observable<AddressBean> addresslist(){
+        return mAPIService.addresslist();
+    }
+
+    /**
+     * 添加收货地址
+     */
+    public Observable<SuccessBean> addressAdd(String username, String mobile,String address,String area){
+        return mAPIService.addressAdd(username,mobile,address,area);
+    }
+
+    /**
+     * 修改收货地址
+     */
+    public Observable<SuccessBean> addressUpdate(String addressId , String username,
+                                          String mobile, String address,String area){
+        return mAPIService.addressUpdate(addressId,username,mobile,address,area);
+    }
+
+    /**
+     * 删除收货地址
+     */
+    public Observable<SuccessBean> addressDelete(String addressId){
+        return mAPIService.addressDelete(addressId);
+    }
+
+    /**
+     * 设置为默认地址
+     */
+    public Observable<SuccessBean> addressSetDefault(String addressId){
+        return mAPIService.addressSetDefault(addressId);
     }
 }

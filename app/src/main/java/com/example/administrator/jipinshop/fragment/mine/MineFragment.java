@@ -10,12 +10,15 @@ import android.view.ViewGroup;
 import com.blankj.utilcode.util.SPUtils;
 import com.example.administrator.jipinshop.MyApplication;
 import com.example.administrator.jipinshop.R;
+import com.example.administrator.jipinshop.activity.address.MyAddressActivity;
+import com.example.administrator.jipinshop.activity.balance.MyWalletActivity;
 import com.example.administrator.jipinshop.activity.follow.FollowActivity;
 import com.example.administrator.jipinshop.activity.foval.FovalActivity;
 import com.example.administrator.jipinshop.activity.info.MyInfoActivity;
 import com.example.administrator.jipinshop.activity.info.editname.EditNameActivity;
 import com.example.administrator.jipinshop.activity.login.LoginActivity;
 import com.example.administrator.jipinshop.activity.message.MessageActivity;
+import com.example.administrator.jipinshop.activity.order.MyOrderActivity;
 import com.example.administrator.jipinshop.activity.setting.SettingActivity;
 import com.example.administrator.jipinshop.activity.sign.SignActivity;
 import com.example.administrator.jipinshop.base.DBBaseFragment;
@@ -86,6 +89,7 @@ public class MineFragment extends DBBaseFragment implements View.OnClickListener
                 //我的资料
                 startActivityForResult(new Intent(getContext(), MyInfoActivity.class), 100);
                 break;
+            case R.id.mine_signOther:
             case R.id.mine_sign:
             case R.id.mine_follow:
                 //跳转到签到页面
@@ -118,6 +122,22 @@ public class MineFragment extends DBBaseFragment implements View.OnClickListener
             case R.id.mine_setting:
                 //跳转到设置页面
                 startActivityForResult(new Intent(getContext(), SettingActivity.class), 100);
+                break;
+            case R.id.mine_address:
+                //我的收货地址
+                startActivity(new Intent(getContext(), MyAddressActivity.class));
+                break;
+            case R.id.mine_wallet:
+                //我的钱包
+                startActivity(new Intent(getContext(), MyWalletActivity.class));
+                break;
+            case R.id.mine_order:
+                //我的订单
+                startActivity(new Intent(getContext(), MyOrderActivity.class));
+                break;
+            case R.id.mine_shoppingMall:
+                //我的商城
+                ToastUtil.show("我的商城");
                 break;
         }
     }

@@ -1,6 +1,7 @@
 package com.example.administrator.jipinshop.netwrok;
 
 
+import com.example.administrator.jipinshop.bean.AddressBean;
 import com.example.administrator.jipinshop.bean.AppVersionbean;
 import com.example.administrator.jipinshop.bean.CommentBean;
 import com.example.administrator.jipinshop.bean.EvaluationListBean;
@@ -352,6 +353,43 @@ public interface APIService {
      */
     @GET("qualityshop-api/api/orderbyTypeList")
     Observable<OrderbyTypeBean> orderbyTypeList();
+
+    /**
+     * 查询收货地址
+     */
+    @GET("qualityshop-api/api/address/list")
+    Observable<AddressBean> addresslist();
+
+    /**
+     * 添加收货地址
+     */
+    @FormUrlEncoded
+    @POST("qualityshop-api/api/address/add")
+    Observable<SuccessBean> addressAdd(@Field("username") String username, @Field("mobile") String mobile,
+                                       @Field("address") String address, @Field("area") String area);
+
+    /**
+     * 修改收货地址
+     */
+    @FormUrlEncoded
+    @POST("qualityshop-api/api/address/update")
+    Observable<SuccessBean> addressUpdate(@Field("addressId") String addressId , @Field("username") String username,
+                                          @Field("mobile") String mobile, @Field("address") String address ,
+                                          @Field("area") String area);
+
+    /**
+     * 删除收货地址
+     */
+    @FormUrlEncoded
+    @POST("qualityshop-api/api/address/delete")
+    Observable<SuccessBean> addressDelete(@Field("addressId") String addressId);
+
+    /**
+     * 设置为默认地址
+     */
+    @FormUrlEncoded
+    @POST("qualityshop-api/api/address/setDefault")
+    Observable<SuccessBean> addressSetDefault(@Field("addressId") String addressId);
 
 /*************************************************以下是还未修改的接口***********************************************/
 

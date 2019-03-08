@@ -1,6 +1,7 @@
 package com.example.administrator.jipinshop.base;
 
 import com.example.administrator.jipinshop.auto.FragmentScope;
+import com.example.administrator.jipinshop.fragment.balance.BudgetDetailFragment;
 import com.example.administrator.jipinshop.fragment.evaluation.EvaluationFragment;
 import com.example.administrator.jipinshop.fragment.evaluation.common.CommonEvaluationFragment;
 import com.example.administrator.jipinshop.fragment.find.FindFragment;
@@ -40,4 +41,5 @@ public interface BaseFragmentComponent {
     void inject(SreachArticleFragment fragment);
     void inject(FovalGoodsFragment fragment);
     void inject(FovalFindFragment fragment);
+    void inject(BudgetDetailFragment fragment);
 }

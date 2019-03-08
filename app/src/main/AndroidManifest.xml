@@ -260,6 +260,22 @@
         <activity android:name=".activity.info.account.change.ChangePhone2Activity"
                   android:screenOrientation="portrait"/>
 
+        <!--收货地址页面-->
+        <activity android:name=".activity.address.MyAddressActivity"
+                  android:screenOrientation="portrait"/>
+
+        <!--新增/修改地址页面-->
+        <activity android:name=".activity.address.add.CreateAddressActivity"
+                  android:screenOrientation="portrait"/>
+
+        <!--我的钱包页面-->
+        <activity android:name=".activity.balance.MyWalletActivity"
+                  android:screenOrientation="portrait"/>
+
+        <!--我的订单-->
+        <activity android:name=".activity.order.MyOrderActivity"
+                  android:screenOrientation="portrait"/>
+
     </application>
 
 </manifest>

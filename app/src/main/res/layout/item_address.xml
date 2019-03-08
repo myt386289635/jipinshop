@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    android:background="@color/color_white"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <TextView
+        android:ellipsize="end"
+        android:singleLine="true"
+        android:maxWidth="@dimen/x400"
+        android:textColor="@color/color_DE151515"
+        android:textSize="15sp"
+        android:id="@+id/item_name"
+        android:layout_marginTop="@dimen/y24"
+        android:layout_marginLeft="@dimen/x28"
+        tools:text="李哲明"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"/>
+
+
+    <TextView
+        android:id="@+id/item_number"
+        android:layout_marginLeft="@dimen/x24"
+        android:layout_marginTop="@dimen/y28"
+        android:layout_toRightOf="@id/item_name"
+        android:textSize="13sp"
+        tools:text="13817388811"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"/>
+
+    <ImageView
+        android:layout_marginTop="@dimen/y14"
+        android:id="@+id/item_delete"
+        android:layout_width="@dimen/x60"
+        android:layout_height="@dimen/y60"
+        android:layout_alignParentRight="true"
+        android:layout_marginRight="@dimen/x28"
+        android:padding="@dimen/x10"
+        android:src="@mipmap/history_delete"/>
+
+    <TextView
+        android:id="@+id/item_address"
+        android:layout_marginTop="@dimen/y6"
+        android:layout_below="@id/item_name"
+        android:layout_marginRight="@dimen/x142"
+        android:layout_marginLeft="@dimen/x28"
+        tools:text="浙江省杭州市滨江区西陵路888号海威大厦712号畅卓电商"
+        android:lineSpacingExtra="@dimen/y6"
+        android:textSize="13sp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"/>
+
+    <View
+        android:layout_marginTop="@dimen/y24"
+        android:layout_below="@id/item_address"
+        android:layout_marginRight="@dimen/x28"
+        android:layout_marginLeft="@dimen/x28"
+        android:background="@color/color_F5F5F5"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/y2"/>
+
+
+    <ImageView
+        android:layout_marginBottom="@dimen/y24"
+        android:layout_marginLeft="@dimen/x28"
+        android:layout_marginTop="@dimen/y50"
+        android:layout_below="@id/item_address"
+        android:id="@+id/item_unsel"
+        android:src="@mipmap/address_unsel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"/>
+
+    <TextView
+        android:id="@+id/item_addressText"
+        android:layout_marginLeft="@dimen/y8"
+        android:layout_alignTop="@id/item_unsel"
+        android:layout_toRightOf="@id/item_unsel"
+        android:textColor="@color/color_ACACAC"
+        android:textSize="14sp"
+        android:text="设为默认地址"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"/>
+
+    <TextView
+        android:layout_marginRight="@dimen/x28"
+        android:textColor="@color/color_ACACAC"
+        android:layout_alignTop="@id/item_unsel"
+        android:layout_alignParentRight="true"
+        android:id="@+id/item_edit"
+        android:text="编辑"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"/>
+
+    <View
+        android:layout_marginBottom="@dimen/y36"
+        android:layout_below="@id/item_unsel"
+        android:background="@color/color_F5F5F5"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/y10"/>
+
+</RelativeLayout>

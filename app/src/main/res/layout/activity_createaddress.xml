@@ -1,0 +1,217 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:bind="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+        <variable
+            name="listener"
+            type="android.view.View.OnClickListener"/>
+
+    </data>
+
+    <LinearLayout
+        android:background="@color/color_F5F5F5"
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/y80">
+
+            <include
+                android:id="@+id/in_clude"
+                layout="@layout/aa_title"
+                bind:listener="@{listener}"/>
+
+            <TextView
+                android:onClick="@{listener.onClick}"
+                android:id="@+id/title_add"
+                android:gravity="center"
+                android:layout_marginRight="@dimen/x28"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:textColor="@color/color_DE050505"
+                android:textSize="15sp"
+                android:text="保存"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"/>
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:background="@color/color_white"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/y86">
+
+            <TextView
+                android:id="@+id/add_name"
+                android:layout_marginLeft="@dimen/x28"
+                android:layout_centerVertical="true"
+                android:textSize="15sp"
+                android:textColor="@color/color_DE151515"
+                android:text="收件人"
+                android:layout_width="@dimen/x122"
+                android:layout_height="wrap_content"/>
+
+
+            <View
+                android:layout_alignParentBottom="true"
+                android:layout_marginRight="@dimen/x28"
+                android:layout_marginLeft="@dimen/x28"
+                android:background="@color/color_F5F5F5"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/y2"/>
+
+
+            <EditText
+                android:id="@+id/edit_name"
+                android:layout_marginLeft="@dimen/x24"
+                android:layout_toRightOf="@id/add_name"
+                android:textColorHint="@color/color_DEACACAC"
+                android:textSize="15sp"
+                android:hint="请输入收件人名称"
+                android:background="@null"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"/>
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:background="@color/color_white"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/y86">
+
+            <TextView
+                android:minWidth="@dimen/x122"
+                android:id="@+id/add_number"
+                android:layout_marginLeft="@dimen/x28"
+                android:layout_centerVertical="true"
+                android:textSize="15sp"
+                android:textColor="@color/color_DE151515"
+                android:text="联系方式"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+
+
+            <View
+                android:layout_alignParentBottom="true"
+                android:layout_marginRight="@dimen/x28"
+                android:layout_marginLeft="@dimen/x28"
+                android:background="@color/color_F5F5F5"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/y2"/>
+
+
+            <EditText
+                android:digits="0123456789"
+                android:maxLength="11"
+                android:inputType="number"
+                android:textColor="@color/color_DE151515"
+                android:id="@+id/edit_number"
+                android:layout_marginLeft="@dimen/x24"
+                android:layout_toRightOf="@id/add_number"
+                android:textColorHint="@color/color_DEACACAC"
+                android:textSize="15sp"
+                android:hint="请输入收件人手机号"
+                android:background="@null"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"/>
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:background="@color/color_white"
+            android:onClick="@{listener.onClick}"
+            android:id="@+id/areaContainer"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/y86">
+
+            <TextView
+                android:minWidth="@dimen/x122"
+                android:id="@+id/add_area"
+                android:layout_marginLeft="@dimen/x28"
+                android:layout_centerVertical="true"
+                android:textSize="15sp"
+                android:textColor="@color/color_DE151515"
+                android:text="收货地区"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+
+
+            <View
+                android:layout_alignParentBottom="true"
+                android:layout_marginRight="@dimen/x28"
+                android:layout_marginLeft="@dimen/x28"
+                android:background="@color/color_F5F5F5"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/y2"/>
+
+
+            <TextView
+                android:gravity="center_vertical"
+                android:textColor="@color/color_DE151515"
+                android:id="@+id/edit_area"
+                android:layout_marginLeft="@dimen/x24"
+                android:layout_toRightOf="@id/add_area"
+                android:textColorHint="@color/color_DEACACAC"
+                android:textSize="15sp"
+                android:hint="请选择收货地址"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"/>
+
+            <ImageView
+                android:layout_marginRight="@dimen/x28"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:src="@mipmap/right"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:background="@color/color_white"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/y86">
+
+            <TextView
+                android:id="@+id/add_address"
+                android:layout_marginLeft="@dimen/x28"
+                android:layout_centerVertical="true"
+                android:textSize="15sp"
+                android:textColor="@color/color_DE151515"
+                android:text="详细地址"
+                android:minWidth="@dimen/x122"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+
+
+            <View
+                android:layout_alignParentBottom="true"
+                android:layout_marginRight="@dimen/x28"
+                android:layout_marginLeft="@dimen/x28"
+                android:background="@color/color_F5F5F5"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/y2"/>
+
+
+            <EditText
+                android:textColor="@color/color_DE151515"
+                android:id="@+id/edit_address"
+                android:layout_marginLeft="@dimen/x24"
+                android:layout_toRightOf="@id/add_address"
+                android:textColorHint="@color/color_DEACACAC"
+                android:textSize="15sp"
+                android:hint="请输入详细地址"
+                android:background="@null"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"/>
+
+        </RelativeLayout>
+
+    </LinearLayout>
+
+</layout>
+

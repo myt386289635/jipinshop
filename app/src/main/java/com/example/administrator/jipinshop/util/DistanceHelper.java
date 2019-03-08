@@ -58,4 +58,9 @@ public class DistanceHelper {
         Log.e("h_bl", "屏幕高度（像素）：" + height);
         return height;
     }
+
+    public static int spTopx(Context context, float sp) {
+        final float fontScale = context.getResources().getDisplayMetrics().scaledDensity;
+        return (int) (sp * fontScale + 0.5f);
+    }
 }

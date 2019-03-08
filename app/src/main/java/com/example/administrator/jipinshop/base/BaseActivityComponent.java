@@ -1,5 +1,8 @@
 package com.example.administrator.jipinshop.base;
 
+import com.example.administrator.jipinshop.activity.address.MyAddressActivity;
+import com.example.administrator.jipinshop.activity.address.add.CreateAddressActivity;
+import com.example.administrator.jipinshop.activity.balance.MyWalletActivity;
 import com.example.administrator.jipinshop.activity.commenlist.CommenListActivity;
 import com.example.administrator.jipinshop.activity.follow.FollowActivity;
 import com.example.administrator.jipinshop.activity.follow.user.UserActivity;
@@ -14,6 +17,7 @@ import com.example.administrator.jipinshop.activity.info.editname.EditNameActivi
 import com.example.administrator.jipinshop.activity.login.LoginActivity;
 import com.example.administrator.jipinshop.activity.message.MessageActivity;
 import com.example.administrator.jipinshop.activity.message.detail.MsgDetailActivity;
+import com.example.administrator.jipinshop.activity.order.MyOrderActivity;
 import com.example.administrator.jipinshop.activity.setting.SettingActivity;
 import com.example.administrator.jipinshop.activity.setting.opinion.OpinionActivity;
 import com.example.administrator.jipinshop.activity.shoppingdetail.ShoppingDetailActivity;
@@ -50,4 +54,8 @@ public interface BaseActivityComponent {
     void inject(AccountManageActivity activity);
     void inject(ChangePhoneActivity activity);
     void inject(ChangePhone2Activity activity);
+    void inject(MyAddressActivity activity);
+    void inject(CreateAddressActivity activity);
+    void inject(MyWalletActivity activity);
+    void inject(MyOrderActivity activity);
 }

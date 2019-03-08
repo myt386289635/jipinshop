@@ -117,7 +117,7 @@ public class SettingActivity extends BaseActivity implements CleanCacheDialog.On
         } catch (PackageManager.NameNotFoundException e) {
             e.printStackTrace();
         }
-        return verName;
+        return "v"+verName;
     }
 
 
