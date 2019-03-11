@@ -23,4 +23,12 @@
     <string name="pickerview_hours">时</string>
     <string name="pickerview_minutes">分</string>
     <string name="pickerview_seconds">秒</string>
+    
+    <string name="sendTime">发件时间：</string>
+    <string name="getTime">收件时间：</string>
+    <string name="priceStart">实付:</string>
+    <string name="priceEnd">极币</string>
+    <string name="totle">x</string>
+    <string name="Freetrial">免费试用商品</string>
+    <string name="IntegralMall">积分商城</string>
 </resources>

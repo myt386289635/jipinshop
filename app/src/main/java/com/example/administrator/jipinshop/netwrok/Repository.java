@@ -11,6 +11,7 @@ import com.example.administrator.jipinshop.bean.FollowBean;
 import com.example.administrator.jipinshop.bean.HomeCommenBean;
 import com.example.administrator.jipinshop.bean.ImageBean;
 import com.example.administrator.jipinshop.bean.LoginBean;
+import com.example.administrator.jipinshop.bean.MyOrderBean;
 import com.example.administrator.jipinshop.bean.OrderbyTypeBean;
 import com.example.administrator.jipinshop.bean.PagerStateBean;
 import com.example.administrator.jipinshop.bean.PointDetailBean;
@@ -36,7 +37,6 @@ import javax.inject.Inject;
 
 import io.reactivex.Observable;
 import okhttp3.MultipartBody;
-import retrofit2.http.Field;
 
 public class Repository {
 
@@ -424,5 +424,19 @@ public class Repository {
      */
     public Observable<SuccessBean> addressSetDefault(String addressId){
         return mAPIService.addressSetDefault(addressId);
+    }
+
+    /**
+     * 我的订单列表
+     */
+    public Observable<MyOrderBean> orderList(String page){
+        return mAPIService.orderList(page);
+    }
+
+    /**
+     * 确认收货
+     */
+    public Observable<SuccessBean> orderConfirm(String orderId){
+        return mAPIService.orderConfirm(orderId);
     }
 }

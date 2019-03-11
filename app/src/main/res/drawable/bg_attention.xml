@@ -10,7 +10,7 @@
 
     <padding android:left="@dimen/x20"
         android:right="@dimen/x20"
-        android:top="@dimen/x6"
-        android:bottom="@dimen/x6"/>
+        android:top="@dimen/y6"
+        android:bottom="@dimen/y6"/>
 
 </shape>

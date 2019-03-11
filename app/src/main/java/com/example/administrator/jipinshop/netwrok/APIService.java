@@ -12,6 +12,7 @@ import com.example.administrator.jipinshop.bean.FollowBean;
 import com.example.administrator.jipinshop.bean.HomeCommenBean;
 import com.example.administrator.jipinshop.bean.ImageBean;
 import com.example.administrator.jipinshop.bean.LoginBean;
+import com.example.administrator.jipinshop.bean.MyOrderBean;
 import com.example.administrator.jipinshop.bean.OrderbyTypeBean;
 import com.example.administrator.jipinshop.bean.PagerStateBean;
 import com.example.administrator.jipinshop.bean.PointDetailBean;
@@ -390,6 +391,19 @@ public interface APIService {
     @FormUrlEncoded
     @POST("qualityshop-api/api/address/setDefault")
     Observable<SuccessBean> addressSetDefault(@Field("addressId") String addressId);
+
+    /**
+     * 我的订单列表
+     */
+    @GET("qualityshop-api/api/order/list")
+    Observable<MyOrderBean> orderList(@Query("page") String page);
+
+    /**
+     * 确认收货
+     */
+    @FormUrlEncoded
+    @POST("qualityshop-api/api/order/confirm")
+    Observable<SuccessBean> orderConfirm(@Field("orderId") String orderId);
 
 /*************************************************以下是还未修改的接口***********************************************/
 
