@@ -18,7 +18,9 @@ import com.example.administrator.jipinshop.databinding.ActivityMessageSystemBind
 import com.example.administrator.jipinshop.util.ToastUtil;
 import com.example.administrator.jipinshop.view.dialog.ProgressDialogView;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import javax.inject.Inject;
@@ -179,6 +181,9 @@ public class MyOrderActivity extends BaseActivity implements View.OnClickListene
     public void SuccessConfirm(int position) {
         dissRefresh();
         mList.get(position).setStatus(3);
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");// HH:mm:ss
+        Date date = new Date(System.currentTimeMillis());
+        mList.get(position).setFinishTime(simpleDateFormat.format(date));
         mAdapter.notifyDataSetChanged();
     }
 
