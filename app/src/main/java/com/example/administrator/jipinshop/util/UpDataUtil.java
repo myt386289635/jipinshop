@@ -8,8 +8,10 @@ import android.net.Uri;
 import android.support.v7.app.AlertDialog;
 import android.text.TextUtils;
 import android.util.Log;
+import android.view.View;
 
 import com.example.administrator.jipinshop.MyApplication;
+import com.example.administrator.jipinshop.view.dialog.DialogUtil;
 import com.pgyersdk.update.PgyUpdateManager;
 import com.pgyersdk.update.UpdateManagerListener;
 import com.pgyersdk.update.javabean.AppBean;
@@ -102,54 +104,43 @@ public class UpDataUtil {
     /**
      * 跳转浏览器下载apk
      */
-    public void downloadApk(Context context,Boolean tag,String content, String url){
+    public void downloadApk(Context context,String varsonNum,Boolean tag,String content, String url){
         if(tag){
-            new AlertDialog.Builder(context)
-                    .setTitle("版本更新")
-                    .setMessage(content)
-                    .setCancelable(false)
-                    .setPositiveButton("下载",
-                            (dialog, which) -> {
-                                try{
-                                    Intent intent = new Intent();
-                                    intent.setAction("android.intent.action.VIEW");
-                                    Uri content_url = Uri.parse(url);
-                                    intent.setData(content_url);
-                                    intent.setClassName("com.android.browser","com.android.browser.BrowserActivity");
-                                    context.startActivity(intent);
-                                }catch (Exception e){
-                                    Intent ExeIntent = new Intent();
-                                    ExeIntent.setAction("android.intent.action.VIEW");
-                                    Uri content_url = Uri.parse(url);
-                                    ExeIntent.setData(content_url);
-                                    context.startActivity(ExeIntent);
-                                }
-                            }).show();
+            //必须强制更新
+            DialogUtil.UpDateDialog(context, varsonNum , content, v -> {
+                try{
+                    Intent intent = new Intent();
+                    intent.setAction("android.intent.action.VIEW");
+                    Uri content_url = Uri.parse(url);
+                    intent.setData(content_url);
+                    intent.setClassName("com.android.browser","com.android.browser.BrowserActivity");
+                    context.startActivity(intent);
+                }catch (Exception e){
+                    Intent ExeIntent = new Intent();
+                    ExeIntent.setAction("android.intent.action.VIEW");
+                    Uri content_url = Uri.parse(url);
+                    ExeIntent.setData(content_url);
+                    context.startActivity(ExeIntent);
+                }
+            });
         }else {
-            new AlertDialog.Builder(context)
-                    .setTitle("版本更新")
-                    .setMessage(content)
-                    .setCancelable(true)
-                    .setNegativeButton(
-                            "下次再说",
-                            (dialog, which) -> dialog.dismiss())
-                    .setPositiveButton("下载",
-                            (dialog, which) -> {
-                                try{
-                                    Intent intent = new Intent();
-                                    intent.setAction("android.intent.action.VIEW");
-                                    Uri content_url = Uri.parse(url);
-                                    intent.setData(content_url);
-                                    intent.setClassName("com.android.browser","com.android.browser.BrowserActivity");
-                                    context.startActivity(intent);
-                                }catch (Exception e){
-                                    Intent ExeIntent = new Intent();
-                                    ExeIntent.setAction("android.intent.action.VIEW");
-                                    Uri content_url = Uri.parse(url);
-                                    ExeIntent.setData(content_url);
-                                    context.startActivity(ExeIntent);
-                                }
-                            }).show();
+            //可以取消
+            DialogUtil.UpDateDialog(context, varsonNum , content, v -> {
+                try{
+                    Intent intent = new Intent();
+                    intent.setAction("android.intent.action.VIEW");
+                    Uri content_url = Uri.parse(url);
+                    intent.setData(content_url);
+                    intent.setClassName("com.android.browser","com.android.browser.BrowserActivity");
+                    context.startActivity(intent);
+                }catch (Exception e){
+                    Intent ExeIntent = new Intent();
+                    ExeIntent.setAction("android.intent.action.VIEW");
+                    Uri content_url = Uri.parse(url);
+                    ExeIntent.setData(content_url);
+                    context.startActivity(ExeIntent);
+                }
+            });
         }
 
     }

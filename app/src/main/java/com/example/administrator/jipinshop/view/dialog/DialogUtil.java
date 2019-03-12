@@ -59,17 +59,25 @@ public class DialogUtil{
         dialog.setContentView(view);
     }
 
-    public static  void SignSuccess(Context context,String title ,String content){
+    /**
+     * 版本更新diaglog
+     */
+    public static  void UpDateDialog(Context context,String varsonNum ,String content,final View.OnClickListener updateListener){
         AlertDialog.Builder builder = new AlertDialog.Builder(context,R.style.dialog);
         View view = LayoutInflater.from(context).inflate(R.layout.dialog_signsuccess,null);
-        TextView mTitle = view.findViewById(R.id.sign_title);
-        mTitle.setText(title);
-        TextView sure =  view.findViewById(R.id.sign_code);
-        sure.setText(content);
-        ImageView diss = view.findViewById(R.id.sign_diss);
+        TextView update_varsonNum = view.findViewById(R.id.update_varsonNum);
+        update_varsonNum.setText(varsonNum);
+        TextView update_content =  view.findViewById(R.id.update_content);
+        update_content.setText(content);
+        ImageView update_close = view.findViewById(R.id.update_close);
+        TextView update = view.findViewById(R.id.update);
         final Dialog dialog = builder.create();
         dialog.getWindow().setDimAmount(0.75f);
-        diss.setOnClickListener(v -> dialog.dismiss());
+        update.setOnClickListener(v -> {
+            updateListener.onClick(v);
+            dialog.dismiss();
+        });
+        update_close.setOnClickListener(v -> dialog.dismiss());
         dialog.show();
         dialog.setCanceledOnTouchOutside(false);
         dialog.setContentView(view);
