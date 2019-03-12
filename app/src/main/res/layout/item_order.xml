@@ -23,7 +23,7 @@
             android:id="@+id/item_title"
             android:layout_marginTop="@dimen/y48"
             android:layout_marginLeft="@dimen/x28"
-            android:text="@{date.goodsType == 1 ? @string/Freetrial : @string/IntegralMall}"
+            android:text="@{date.goodsType == 1 ? @string/Freetrial : @string/IntegralMall,default = 免费试用商品}"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"/>
 
@@ -54,7 +54,7 @@
             android:textColor="@color/color_202020"
             android:ellipsize="end"
             android:singleLine="true"
-            android:text="@{date.goodsName}"
+            android:text="@{date.goodsName,default=你好啊啊啊啊啊啊啊啊你好啊啊啊啊啊啊啊啊}"
             android:layout_marginTop="@dimen/y6"
             android:layout_alignTop="@+id/item_image"
             android:layout_marginRight="@dimen/x28"
