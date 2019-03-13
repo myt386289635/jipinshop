@@ -31,7 +31,7 @@ import io.reactivex.schedulers.Schedulers;
  */
 public class ArticleDetailPresenter {
 
-    private Repository mRepository;
+    public Repository mRepository;
     private ArticleDetailView mView;
 
     public void setView(ArticleDetailView view) {

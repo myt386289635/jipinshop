@@ -48,7 +48,6 @@ import com.example.administrator.jipinshop.bean.eventbus.FollowBus;
 import com.example.administrator.jipinshop.databinding.ActivityFindDetailBinding;
 import com.example.administrator.jipinshop.fragment.follow.attention.AttentionFragment;
 import com.example.administrator.jipinshop.fragment.foval.article.FovalArticleFragment;
-import com.example.administrator.jipinshop.netwrok.RetrofitModule;
 import com.example.administrator.jipinshop.util.ClickUtil;
 import com.example.administrator.jipinshop.util.ShareUtils;
 import com.example.administrator.jipinshop.util.ToastUtil;
@@ -343,7 +342,7 @@ public class ArticleDetailActivity extends BaseActivity implements View.OnClickL
      */
     @Override
     public void share(SHARE_MEDIA share_media) {
-        new ShareUtils(this, share_media)
+        new ShareUtils(this, share_media,this.bindToLifecycle(),mPresenter.mRepository)
                 .shareWeb(this, shareUrl, shareTitle, shareContent, shareImg, R.mipmap.share_logo);
     }
 

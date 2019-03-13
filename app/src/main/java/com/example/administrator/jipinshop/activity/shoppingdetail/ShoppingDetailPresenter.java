@@ -38,7 +38,7 @@ import io.reactivex.schedulers.Schedulers;
  */
 public class ShoppingDetailPresenter {
 
-    private Repository mRepository;
+    public Repository mRepository;
     private ShoppingDetailView mShoppingDetailView;
 
     public void setShoppingDetailView(ShoppingDetailView shoppingDetailView) {

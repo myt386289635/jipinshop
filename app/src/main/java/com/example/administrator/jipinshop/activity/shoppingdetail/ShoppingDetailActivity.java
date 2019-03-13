@@ -12,7 +12,6 @@ import android.os.Looper;
 import android.os.Message;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.LinearLayoutManager;
-import android.text.Html;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.MotionEvent;
@@ -823,7 +822,7 @@ public class ShoppingDetailActivity extends BaseActivity implements ShoppingComm
      */
     @Override
     public void share(SHARE_MEDIA share_media) {
-        new ShareUtils(this, share_media)
+        new ShareUtils(this, share_media,this.bindToLifecycle(),mPresenter.mRepository)
                 .shareWeb(this, shareUrl, shareName, shareContent, shareImage, R.mipmap.share_logo);
     }
 

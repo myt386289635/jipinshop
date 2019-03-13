@@ -4,11 +4,17 @@ import android.app.Activity;
 import android.content.Context;
 import android.text.TextUtils;
 
+import com.example.administrator.jipinshop.bean.TaskFinishBean;
+import com.example.administrator.jipinshop.netwrok.Repository;
+import com.trello.rxlifecycle2.LifecycleTransformer;
 import com.umeng.socialize.ShareAction;
 import com.umeng.socialize.UMShareListener;
 import com.umeng.socialize.bean.SHARE_MEDIA;
 import com.umeng.socialize.media.UMImage;
 import com.umeng.socialize.media.UMWeb;
+
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.schedulers.Schedulers;
 
 /**
  * @author 莫小婷
@@ -20,16 +26,21 @@ public class ShareUtils {
 
     private Context mContext;
     private SHARE_MEDIA mSHARE_media;
+    private Repository mRepository;
+    private LifecycleTransformer<TaskFinishBean> mTransformer;
 
-    public ShareUtils(Context context,SHARE_MEDIA SHARE_media) {
+    public ShareUtils(Context context,SHARE_MEDIA SHARE_media,LifecycleTransformer<TaskFinishBean> transformer,Repository repository) {
         mContext = context;
         mSHARE_media = SHARE_media;
+        mRepository = repository;
+        mTransformer = transformer;
     }
 
     /**
      * 分享链接
      */
     public void shareWeb(final Activity activity, String WebUrl, String title, String description, String imageUrl, int imageID) {
+        taskFinish(mTransformer);
         UMWeb web = new UMWeb(WebUrl);//连接地址
         web.setTitle(title);//标题
         web.setDescription(description);//描述
@@ -84,4 +95,19 @@ public class ShareUtils {
             ToastUtil.show("分享取消");
         }
     };
+
+    /**
+     * 分享获取极币
+     */
+    public void taskFinish(LifecycleTransformer<TaskFinishBean> transformer){
+        mRepository.taskFinish("5")
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .compose(transformer)
+                .subscribe(taskFinishBean -> {
+
+                }, throwable ->{
+
+                });
+    }
 }
