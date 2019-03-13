@@ -3,6 +3,7 @@ package com.example.administrator.jipinshop.fragment.mine;
 import android.content.Intent;
 import android.databinding.DataBindingUtil;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -51,6 +52,8 @@ public class MineFragment extends DBBaseFragment implements View.OnClickListener
 
     private FragmentMineBinding mBinding;
 
+    private Boolean flage = true;//标记是第一次走入这个页面，防止多次访问接口
+
     @Override
     public View initLayout(LayoutInflater inflater, ViewGroup container) {
         mBinding = DataBindingUtil.inflate(inflater, R.layout.fragment_mine, container, false);
@@ -65,10 +68,6 @@ public class MineFragment extends DBBaseFragment implements View.OnClickListener
 
         mPresenter.setStatusBarHight(mBinding.statusBar, getContext());
         mPresenter.setView(this);
-        if (!TextUtils.isEmpty(SPUtils.getInstance(CommonDate.USER).getString(CommonDate.token,"").trim())) {
-            //这里是判断该手机是否有账户登陆过。如果有userId不会为空，除非没有用户登录或已经退出登陆
-            mPresenter.modelUser(this.bindToLifecycle());
-        }
     }
 
     @Override
@@ -284,5 +283,33 @@ public class MineFragment extends DBBaseFragment implements View.OnClickListener
         mBinding.mineFansText.setText("0");//粉丝数
         mBinding.mineSignText.setText("0");//极币数
         ToastUtil.show(error.getMsg());
+    }
+
+    /**
+     * 用于更新用户接口
+     */
+    @Override
+    public void successUpdateInfo(UserInfoBean userInfoBean) {
+        SPUtils.getInstance(CommonDate.USER).put(CommonDate.userPoint, userInfoBean.getData().getPoint());
+
+        mBinding.mineGoodsNumText.setText(userInfoBean.getData().getVoteCount());//点赞数
+        mBinding.mineAttentionText.setText(userInfoBean.getData().getFollowCount());//关注数
+        mBinding.mineFansText.setText(userInfoBean.getData().getFansCount());//粉丝数
+        mBinding.mineSignText.setText(SPUtils.getInstance(CommonDate.USER).getInt(CommonDate.userPoint,0) + "");//极币数
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        //当页面关闭后，返回app首页就会走该方法，第一次进入这个方法的时候也会走
+        if (!TextUtils.isEmpty(SPUtils.getInstance(CommonDate.USER).getString(CommonDate.token,"").trim())) {
+            if(flage){
+                //这里是判断该手机是否有账户登陆过。如果有userId不会为空，除非没有用户登录或已经退出登陆
+                mPresenter.modelUser(this.bindToLifecycle());
+                flage = false;
+            }else {
+                mPresenter.updateInfo(this.bindToLifecycle());
+            }
+        }
     }
 }

@@ -63,4 +63,22 @@ public class MinePresenter {
                 });
     }
 
+    /**
+     * 更新用户信息 （与获取用户信息接口一样，只是用来实时更新用户信息）
+     */
+    public void updateInfo(LifecycleTransformer<UserInfoBean> transformer){
+        mRepository.modelUser()
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .compose(transformer)
+                .subscribe(userInfoBean -> {
+                    if(userInfoBean.getCode() == 0){
+                        if(mView != null){
+                            mView.successUpdateInfo(userInfoBean);
+                        }
+                    }
+                }, throwable -> {
+
+                });
+    }
 }

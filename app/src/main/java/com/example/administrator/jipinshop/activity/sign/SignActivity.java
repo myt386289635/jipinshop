@@ -3,6 +3,8 @@ package com.example.administrator.jipinshop.activity.sign;
 import android.app.Dialog;
 import android.content.Intent;
 import android.databinding.DataBindingUtil;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.view.View;
@@ -12,9 +14,12 @@ import com.blankj.utilcode.util.SPUtils;
 import com.example.administrator.jipinshop.R;
 import com.example.administrator.jipinshop.activity.WebActivity;
 import com.example.administrator.jipinshop.activity.sign.detail.IntegralDetailActivity;
+import com.example.administrator.jipinshop.adapter.ExtendableListViewAdapter;
 import com.example.administrator.jipinshop.base.BaseActivity;
+import com.example.administrator.jipinshop.bean.DailyTaskBean;
 import com.example.administrator.jipinshop.bean.SignBean;
 import com.example.administrator.jipinshop.bean.SignInsertBean;
+import com.example.administrator.jipinshop.bean.eventbus.ChangeHomePageBus;
 import com.example.administrator.jipinshop.bean.eventbus.EditNameBus;
 import com.example.administrator.jipinshop.databinding.ActivitySignBinding;
 import com.example.administrator.jipinshop.netwrok.RetrofitModule;
@@ -36,7 +41,7 @@ import javax.inject.Inject;
  * @create 2018/8/23
  * @Describe 签到页面
  */
-public class SignActivity extends BaseActivity implements View.OnClickListener, SignView {
+public class SignActivity extends BaseActivity implements View.OnClickListener, SignView, ExtendableListViewAdapter.OnClickItem {
 
     public static final String eventbusTag = "SignActivity";
 
@@ -50,6 +55,9 @@ public class SignActivity extends BaseActivity implements View.OnClickListener, 
     private GoodView mGoodView;
     private List<Integer> pointArr;
     private List<View> mLineViews;
+
+    private List<DailyTaskBean.DataBean> groupList;
+    private ExtendableListViewAdapter mAdapter;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -88,9 +96,16 @@ public class SignActivity extends BaseActivity implements View.OnClickListener, 
         mGoodView = new GoodView(this);
         pointArr = new ArrayList<>();
 
+        mBinding.expandList.setSelector(new ColorDrawable(Color.TRANSPARENT));
+        groupList = new ArrayList<>();
+        mAdapter = new ExtendableListViewAdapter(groupList,this);
+        mAdapter.setOnClickItem(this);
+        mBinding.expandList.setAdapter(mAdapter);
+
         mDialog = (new ProgressDialogView()).createLoadingDialog(this, "正在加载...");
         mDialog.show();
         mPresenter.signInfo(this.bindToLifecycle());
+        mPresenter.DailytaskList(this.bindToLifecycle());
     }
 
 
@@ -207,5 +222,38 @@ public class SignActivity extends BaseActivity implements View.OnClickListener, 
             mDialog.dismiss();
         }
         ToastUtil.show(error);
+    }
+
+    @Override
+    public void getDayList(DailyTaskBean bean) {
+        groupList.addAll(bean.getData());
+        mAdapter.notifyDataSetChanged();
+        for(int i = 0; i < mAdapter.getGroupCount(); i++){
+            mBinding.expandList.expandGroup(i);
+        }
+    }
+
+    @Override
+    public void onClickItem(int location, int position) {
+        switch (location){
+            case 1://跳转到首页
+                EventBus.getDefault().post(new ChangeHomePageBus(0));
+                finish();
+                break;
+            case 2://跳转到发现
+                EventBus.getDefault().post(new ChangeHomePageBus(1));
+                finish();
+                break;
+            case 3://跳转到评测
+                EventBus.getDefault().post(new ChangeHomePageBus(2));
+                finish();
+                break;
+            case 4://跳转到邀请页面
+                ToastUtil.show("正在开发中");
+                break;
+            case 5://跳转到认证页面
+                ToastUtil.show("正在开发中");
+                break;
+        }
     }
 }

@@ -12,4 +12,6 @@ public interface MineView {
     void successUserInfo(UserInfoBean userInfoBean);
 
     void FaileUserInfo(UserInfoBean error);
+
+    void successUpdateInfo(UserInfoBean userInfoBean);
 }

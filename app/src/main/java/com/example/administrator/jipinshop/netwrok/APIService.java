@@ -4,6 +4,7 @@ package com.example.administrator.jipinshop.netwrok;
 import com.example.administrator.jipinshop.bean.AddressBean;
 import com.example.administrator.jipinshop.bean.AppVersionbean;
 import com.example.administrator.jipinshop.bean.CommentBean;
+import com.example.administrator.jipinshop.bean.DailyTaskBean;
 import com.example.administrator.jipinshop.bean.EvaluationListBean;
 import com.example.administrator.jipinshop.bean.EvaluationTabBean;
 import com.example.administrator.jipinshop.bean.FindDetailBean;
@@ -26,6 +27,7 @@ import com.example.administrator.jipinshop.bean.SreachResultGoodsBean;
 import com.example.administrator.jipinshop.bean.SuccessBean;
 import com.example.administrator.jipinshop.bean.SystemMessageBean;
 import com.example.administrator.jipinshop.bean.TabBean;
+import com.example.administrator.jipinshop.bean.TaskFinishBean;
 import com.example.administrator.jipinshop.bean.UnMessageBean;
 import com.example.administrator.jipinshop.bean.UserInfoBean;
 import com.example.administrator.jipinshop.bean.UserPageBean;
@@ -404,6 +406,19 @@ public interface APIService {
     @FormUrlEncoded
     @POST("qualityshop-api/api/order/confirm")
     Observable<SuccessBean> orderConfirm(@Field("orderId") String orderId);
+
+    /**
+     * 每日任务
+     */
+    @GET("qualityshop-api/api/dailytask/list")
+    Observable<DailyTaskBean> DailytaskList();
+
+    /**
+     * 完成任务领取极币
+     */
+    @FormUrlEncoded
+    @POST("qualityshop-api/api/dailytask/finish")
+    Observable<TaskFinishBean> taskFinish(@Field("type") String type);
 
 /*************************************************以下是还未修改的接口***********************************************/
 

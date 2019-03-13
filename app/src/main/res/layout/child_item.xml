@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content"
+              android:orientation="vertical">
+
+    <TextView
+        android:layout_marginBottom="@dimen/y36"
+        android:id="@+id/expand_child"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textSize="13sp"
+        android:lineSpacingExtra="@dimen/y6"
+        android:textColor="@color/color_ACACAC"
+        android:text="每邀请一位好友下载APP并登录成功，奖励600极币；你邀请的好友每次邀请他人成功，你再获得300极币"/>
+
+    <View
+        android:background="@color/color_F5F5F5"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/y2"/>
+
+</LinearLayout>

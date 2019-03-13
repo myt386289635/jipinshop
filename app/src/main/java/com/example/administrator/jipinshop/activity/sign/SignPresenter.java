@@ -4,6 +4,7 @@ import android.content.Context;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
 
+import com.example.administrator.jipinshop.bean.DailyTaskBean;
 import com.example.administrator.jipinshop.bean.SignBean;
 import com.example.administrator.jipinshop.bean.SignInsertBean;
 import com.example.administrator.jipinshop.netwrok.Repository;
@@ -11,7 +12,9 @@ import com.trello.rxlifecycle2.LifecycleTransformer;
 
 import javax.inject.Inject;
 
+import io.reactivex.Observable;
 import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.functions.Consumer;
 import io.reactivex.schedulers.Schedulers;
 
 /**
@@ -95,4 +98,28 @@ public class SignPresenter {
                 });
     }
 
+    /**
+     * 每日任务
+     */
+    public void DailytaskList(LifecycleTransformer<DailyTaskBean> transformer){
+        mRepository.DailytaskList()
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .compose(transformer)
+                .subscribe(dailyTaskBean -> {
+                    if(dailyTaskBean.getCode() == 0){
+                        if(mView != null){
+                            mView.getDayList(dailyTaskBean);
+                        }
+                    }else {
+                        if(mView != null){
+                            mView.getInfoFaile(dailyTaskBean.getMsg());
+                        }
+                    }
+                }, throwable -> {
+                    if(mView != null){
+                        mView.getInfoFaile(throwable.getMessage());
+                    }
+                });
+    }
 }

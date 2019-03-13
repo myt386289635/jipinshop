@@ -143,7 +143,8 @@
                     android:layout_height="@dimen/y296"/>
 
                 <RelativeLayout
-                    android:layout_marginBottom="@dimen/y60"
+                    android:id="@+id/sign_signContainer"
+                    android:layout_marginBottom="@dimen/y32"
                     android:paddingBottom="@dimen/y60"
                     android:layout_marginTop="@dimen/y354"
                     android:layout_alignTop="@+id/sign_bg1"
@@ -540,6 +541,41 @@
                         android:layout_height="wrap_content"/>
 
                 </LinearLayout>
+
+                <LinearLayout
+                    android:orientation="vertical"
+                    android:layout_marginRight="@dimen/x28"
+                    android:layout_marginLeft="@dimen/x28"
+                    android:background="@drawable/bg_sign3"
+                    android:layout_marginBottom="@dimen/y60"
+                    android:layout_below="@+id/sign_signContainer"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <TextView
+                        android:layout_marginTop="@dimen/y36"
+                        android:layout_gravity="center"
+                        android:textStyle="bold"
+                        android:text="每日任务"
+                        android:textSize="16sp"
+                        android:textColor="@color/color_DE151515"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"/>
+
+                    <com.example.administrator.jipinshop.view.MyExtendableListView
+                        android:indicatorLeft="0dp"
+                        android:paddingRight="@dimen/x24"
+                        android:paddingLeft="@dimen/x24"
+                        android:divider="@color/color_F5F5F5"
+                        android:childDivider="@color/color_F5F5F5"
+                        android:dividerHeight="@dimen/y2"
+                        android:id="@+id/expand_list"
+                        android:groupIndicator="@null"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"/>
+
+                </LinearLayout>
+
 
             </RelativeLayout>
 

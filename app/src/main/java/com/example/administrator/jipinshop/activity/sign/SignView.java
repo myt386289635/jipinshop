@@ -1,5 +1,6 @@
 package com.example.administrator.jipinshop.activity.sign;
 
+import com.example.administrator.jipinshop.bean.DailyTaskBean;
 import com.example.administrator.jipinshop.bean.SignBean;
 import com.example.administrator.jipinshop.bean.SignInsertBean;
 
@@ -17,4 +18,7 @@ public interface SignView {
     /**签到成功*/
     void signSuc(SignInsertBean signInsertBean);
     void signFaile(String error);
+
+    /*获取每日任务列表**/
+    void getDayList(DailyTaskBean bean);
 }

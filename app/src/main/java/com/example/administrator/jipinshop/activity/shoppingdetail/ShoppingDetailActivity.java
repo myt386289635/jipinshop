@@ -601,6 +601,9 @@ public class ShoppingDetailActivity extends BaseActivity implements ShoppingComm
             mBinding.detailGood.setCompoundDrawables(drawable,null,null,null);
             mBinding.detailGood.setTextColor(getResources().getColor(R.color.color_E31436));
             mBinding.detailGood.setBackgroundResource(R.drawable.bg_like);
+            if(!successBean.getMsg().equals("success")){
+                ToastUtil.show(successBean.getMsg());
+            }
         }else {
             //602
             startActivity(new Intent(this, LoginActivity.class));
@@ -681,6 +684,9 @@ public class ShoppingDetailActivity extends BaseActivity implements ShoppingComm
         if (mDialogProgress != null && mDialogProgress.isShowing()) {
             mDialogProgress.dismiss();
         }
+        if(!successBean.getMsg().equals("success")){
+            ToastUtil.show(successBean.getMsg());
+        }
     }
 
     /**
@@ -703,6 +709,9 @@ public class ShoppingDetailActivity extends BaseActivity implements ShoppingComm
             mCommonList.get(position).setVote(1);
             mCommonList.get(position).setVoteCount(successBean.getData());
             mCommonAdapter.notifyDataSetChanged();
+            if(!successBean.getMsg().equals("success")){
+                ToastUtil.show(successBean.getMsg());
+            }
         }else {
             //602
             startActivity(new Intent(this, LoginActivity.class));

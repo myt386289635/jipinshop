@@ -542,6 +542,9 @@ public class ArticleDetailActivity extends BaseActivity implements View.OnClickL
             mBinding.detailGood.setCompoundDrawables(drawable, null, null, null);
             mBinding.detailGood.setTextColor(getResources().getColor(R.color.color_E31436));
             mBinding.detailGood.setBackgroundResource(R.drawable.bg_like);
+            if(!successBean.getMsg().equals("success")){
+                ToastUtil.show(successBean.getMsg());
+            }
         } else {
             //602
             startActivity(new Intent(this, LoginActivity.class));
@@ -581,6 +584,9 @@ public class ArticleDetailActivity extends BaseActivity implements View.OnClickL
         mPresenter.comment(getIntent().getStringExtra("id"), getIntent().getStringExtra("type"), this.bindToLifecycle());
         mBinding.keyEdit.setText("");
         hintKey();
+        if(!successBean.getMsg().equals("success")){
+            ToastUtil.show(successBean.getMsg());
+        }
         if (mDialog != null && mDialog.isShowing()) {
             mDialog.dismiss();
         }
@@ -660,6 +666,9 @@ public class ArticleDetailActivity extends BaseActivity implements View.OnClickL
             mCommonList.get(position).setVote(1);
             mCommonList.get(position).setVoteCount(successBean.getData());
             mCommonAdapter.notifyItemChanged(position);
+            if(!successBean.getMsg().equals("success")){
+                ToastUtil.show(successBean.getMsg());
+            }
         } else {
             //602
             startActivity(new Intent(this, LoginActivity.class));

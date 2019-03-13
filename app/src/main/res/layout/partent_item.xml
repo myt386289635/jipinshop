@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout  xmlns:android="http://schemas.android.com/apk/res/android"
+                 xmlns:tools="http://schemas.android.com/tools"
+                 android:layout_width="match_parent"
+                 android:layout_height="@dimen/y124">
+
+    <TextView
+        android:layout_centerVertical="true"
+        android:id="@+id/group_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="center_vertical"
+        android:textColor="@color/color_DE151515"
+        android:textSize="15sp"
+        tools:text="邀请好友   +600"/>
+
+    <TextView
+        android:id="@+id/group_sure"
+        android:paddingBottom="@dimen/y6"
+        android:paddingTop="@dimen/y6"
+        android:paddingRight="@dimen/x20"
+        android:paddingLeft="@dimen/x20"
+        android:background="@drawable/bg_dailytask"
+        android:layout_marginRight="@dimen/y28"
+        android:layout_toLeftOf="@+id/group_right"
+        android:layout_centerVertical="true"
+        android:textSize="14sp"
+        android:textColor="@color/color_FF533A"
+        android:text="立即邀请"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"/>
+
+    <ImageView
+        android:id="@+id/group_right"
+        android:layout_alignParentRight="true"
+        android:layout_centerVertical="true"
+        android:src="@mipmap/right_up"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"/>
+
+</RelativeLayout>

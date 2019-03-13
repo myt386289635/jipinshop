@@ -16,6 +16,7 @@ import com.example.administrator.jipinshop.activity.login.LoginActivity;
 import com.example.administrator.jipinshop.adapter.HomeAdapter;
 import com.example.administrator.jipinshop.base.DaggerBaseActivityComponent;
 import com.example.administrator.jipinshop.bean.AppVersionbean;
+import com.example.administrator.jipinshop.bean.eventbus.ChangeHomePageBus;
 import com.example.administrator.jipinshop.fragment.evaluation.EvaluationFragment;
 import com.example.administrator.jipinshop.fragment.find.FindFragment;
 import com.example.administrator.jipinshop.fragment.home.HomeFragment;
@@ -29,6 +30,9 @@ import com.example.administrator.jipinshop.util.sp.CommonDate;
 import com.example.administrator.jipinshop.view.NoScrollViewPager;
 import com.gyf.barlibrary.ImmersionBar;
 import com.trello.rxlifecycle2.components.support.RxAppCompatActivity;
+
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -84,6 +88,7 @@ public class MainActivity extends RxAppCompatActivity implements MainView {
                 .statusBarDarkFont(true, 0f)
                 .init();
         mPresenter.setView(this);
+        EventBus.getDefault().register(this);
 
         mViewPager.setNoScroll(true);
         mFragments = new ArrayList<>();
@@ -124,6 +129,7 @@ public class MainActivity extends RxAppCompatActivity implements MainView {
         InputMethodManagerLeak.fixInputMethodManagerLeak(null, this);
         mImmersionBar.destroy();
         mButterKnife.unbind();
+        EventBus.getDefault().unregister(this);
         super.onDestroy();
     }
 
@@ -163,6 +169,14 @@ public class MainActivity extends RxAppCompatActivity implements MainView {
                         versionbean.getData().getContent(),versionbean.getData().getDownloadUrl());//第一版
             }
 
+        }
+    }
+
+
+    @Subscribe
+    public void changePage(ChangeHomePageBus bus){
+        if(bus != null){
+            mViewPager.setCurrentItem(bus.getPage());
         }
     }
 }

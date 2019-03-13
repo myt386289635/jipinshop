@@ -373,6 +373,9 @@ public class CommenListActivity extends BaseActivity implements CommenListAdapte
         if (mDialog != null && mDialog.isShowing()) {
             mDialog.dismiss();
         }
+        if(!successBean.getMsg().equals("success")){
+            ToastUtil.show(successBean.getMsg());
+        }
     }
 
     @Override
@@ -395,6 +398,9 @@ public class CommenListActivity extends BaseActivity implements CommenListAdapte
             mList.get(position).setVoteCount((num + 1));
             mAdapter.notifyDataSetChanged();
             EventBus.getDefault().post(new CommenBus(CommenListActivity.commentResher));
+            if(!successBean.getMsg().equals("success")){
+                ToastUtil.show(successBean.getMsg());
+            }
         }else {
             //602
             startActivity(new Intent(this, LoginActivity.class));

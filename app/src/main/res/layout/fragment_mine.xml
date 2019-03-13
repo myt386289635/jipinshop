@@ -276,7 +276,7 @@
                             android:layout_width="@dimen/x52"
                             android:layout_height="@dimen/y52"
                             android:layout_marginTop="@dimen/y38"
-                            android:src="@mipmap/mine_sign"/>
+                            android:src="@mipmap/mine_shopping"/>
 
                         <TextView
                             android:textSize="14sp"
@@ -302,7 +302,7 @@
                             android:layout_width="@dimen/x52"
                             android:layout_height="@dimen/y52"
                             android:layout_marginTop="@dimen/y38"
-                            android:src="@mipmap/mine_sign"/>
+                            android:src="@mipmap/mine_order"/>
 
                         <TextView
                             android:textSize="14sp"

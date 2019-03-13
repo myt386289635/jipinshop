@@ -3,6 +3,7 @@ package com.example.administrator.jipinshop.netwrok;
 import com.example.administrator.jipinshop.bean.AddressBean;
 import com.example.administrator.jipinshop.bean.AppVersionbean;
 import com.example.administrator.jipinshop.bean.CommentBean;
+import com.example.administrator.jipinshop.bean.DailyTaskBean;
 import com.example.administrator.jipinshop.bean.EvaluationListBean;
 import com.example.administrator.jipinshop.bean.EvaluationTabBean;
 import com.example.administrator.jipinshop.bean.FindDetailBean;
@@ -25,6 +26,7 @@ import com.example.administrator.jipinshop.bean.SreachResultGoodsBean;
 import com.example.administrator.jipinshop.bean.SuccessBean;
 import com.example.administrator.jipinshop.bean.SystemMessageBean;
 import com.example.administrator.jipinshop.bean.TabBean;
+import com.example.administrator.jipinshop.bean.TaskFinishBean;
 import com.example.administrator.jipinshop.bean.UnMessageBean;
 import com.example.administrator.jipinshop.bean.UserInfoBean;
 import com.example.administrator.jipinshop.bean.UserPageBean;
@@ -438,5 +440,19 @@ public class Repository {
      */
     public Observable<SuccessBean> orderConfirm(String orderId){
         return mAPIService.orderConfirm(orderId);
+    }
+
+    /**
+     * 每日任务
+     */
+    public Observable<DailyTaskBean> DailytaskList(){
+        return mAPIService.DailytaskList();
+    }
+
+    /**
+     * 完成任务领取极币
+     */
+    public Observable<TaskFinishBean> taskFinish(String type){
+        return mAPIService.taskFinish(type);
     }
 }
