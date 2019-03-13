@@ -10,8 +10,10 @@ import com.example.administrator.jipinshop.bean.CommentBean;
 import com.example.administrator.jipinshop.bean.FindDetailBean;
 import com.example.administrator.jipinshop.bean.PagerStateBean;
 import com.example.administrator.jipinshop.bean.SuccessBean;
+import com.example.administrator.jipinshop.bean.TaskFinishBean;
 import com.example.administrator.jipinshop.bean.VoteBean;
 import com.example.administrator.jipinshop.netwrok.Repository;
+import com.example.administrator.jipinshop.util.ToastUtil;
 import com.example.administrator.jipinshop.util.sp.CommonDate;
 import com.example.administrator.jipinshop.view.FullScreenLinearLayout;
 import com.trello.rxlifecycle2.LifecycleTransformer;
@@ -357,6 +359,23 @@ public class ArticleDetailPresenter {
                     if(mView != null){
                         mView.onFileCollectDelete(throwable.getMessage());
                     }
+                });
+    }
+
+    /**
+     * 阅读获取极币
+     */
+    public void taskFinish(LifecycleTransformer<TaskFinishBean> transformer){
+        mRepository.taskFinish("6")
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .compose(transformer)
+                .subscribe(taskFinishBean -> {
+                    if(taskFinishBean.getCode() == 0){
+                        ToastUtil.show("阅读成功+" + taskFinishBean.getAddPoint());
+                    }
+                }, throwable ->{
+
                 });
     }
 }

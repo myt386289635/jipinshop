@@ -115,6 +115,9 @@ public class ArticleDetailActivity extends BaseActivity implements View.OnClickL
             RelativeLayout.LayoutParams layoutParams = (RelativeLayout.LayoutParams) mBinding.detailWeb.getLayoutParams();
             layoutParams.height = (int) (msg.arg1 * getResources().getDisplayMetrics().density);
             mBinding.detailWeb.setLayoutParams(layoutParams);
+        }else if (msg.what == 100){
+            //阅读获取极币
+            mPresenter.taskFinish(this.bindToLifecycle());
         }
         return true;
     };
@@ -197,6 +200,8 @@ public class ArticleDetailActivity extends BaseActivity implements View.OnClickL
 
         mPresenter.getDetail(getIntent().getStringExtra("id"), getIntent().getStringExtra("type"), this.bindToLifecycle());
         mPresenter.comment(getIntent().getStringExtra("id"), getIntent().getStringExtra("type"), this.bindToLifecycle());
+
+        handler.sendEmptyMessageDelayed(100,1000 * 15);//阅读15秒
     }
 
     @Override
