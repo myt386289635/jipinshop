@@ -1,42 +1,43 @@
-package com.example.administrator.jipinshop.activity.order;
+package com.example.administrator.jipinshop.activity.mall;
 
-import android.app.Dialog;
+import android.content.Intent;
 import android.databinding.DataBindingUtil;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.GridLayoutManager;
 import android.view.View;
 
 import com.aspsine.swipetoloadlayout.OnLoadMoreListener;
 import com.aspsine.swipetoloadlayout.OnRefreshListener;
 import com.example.administrator.jipinshop.R;
-import com.example.administrator.jipinshop.adapter.MyOrderAdapter;
+import com.example.administrator.jipinshop.activity.mall.detail.MallDetailActivity;
+import com.example.administrator.jipinshop.adapter.MallAdapter;
 import com.example.administrator.jipinshop.base.BaseActivity;
-import com.example.administrator.jipinshop.bean.MyOrderBean;
+import com.example.administrator.jipinshop.bean.MallBean;
 import com.example.administrator.jipinshop.databinding.ActivityMessageSystemBinding;
+import com.example.administrator.jipinshop.util.ClickUtil;
 import com.example.administrator.jipinshop.util.ToastUtil;
-import com.example.administrator.jipinshop.view.dialog.ProgressDialogView;
+import com.trello.rxlifecycle2.android.ActivityEvent;
 
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 import javax.inject.Inject;
 
 /**
  * @author 莫小婷
- * @create 2019/3/7
- * @Describe 我的订单页面
+ * @create 2019/3/13
+ * @Describe 极币商城
  */
-public class MyOrderActivity extends BaseActivity implements View.OnClickListener, OnRefreshListener, OnLoadMoreListener, MyOrderView, MyOrderAdapter.OnClickItem {
-
-    private ActivityMessageSystemBinding mBinding;
+public class MallActivity extends BaseActivity implements View.OnClickListener, OnRefreshListener, OnLoadMoreListener, MallAdapter.OnItemListener, MallView {
 
     @Inject
-    MyOrderPresenter mPresenter;
-    private MyOrderAdapter mAdapter;
-    private List<MyOrderBean.DataBean> mList;
+    MallPresenter mPresenter;
+    private ActivityMessageSystemBinding mBinding;
+
+    private List<MallBean.DataBean> mList;
+    private MallAdapter mAdapter;
 
     /**
      * 页数
@@ -46,8 +47,6 @@ public class MyOrderActivity extends BaseActivity implements View.OnClickListene
      * 记录是刷新还是加载
      */
     private Boolean refersh = true;
-
-    private Dialog mDialog;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -60,11 +59,12 @@ public class MyOrderActivity extends BaseActivity implements View.OnClickListene
     }
 
     private void initView() {
-        mBinding.inClude.titleTv.setText("我的订单");
-        mBinding.recyclerView.setLayoutManager(new LinearLayoutManager(this));
+        mBinding.inClude.titleTv.setText("极币商城");
+        mBinding.swipeToLoad.setBackgroundColor(Color.WHITE);
+        mBinding.recyclerView.setLayoutManager(new GridLayoutManager(this, 2));
         mList = new ArrayList<>();
-        mAdapter = new MyOrderAdapter(this, mList);
-        mAdapter.setOnClickItem(this);
+        mAdapter = new MallAdapter(this, mList);
+        mAdapter.setOnItemListener(this);
         mBinding.recyclerView.setAdapter(mAdapter);
 
         mPresenter.solveScoll(mBinding.recyclerView,mBinding.swipeToLoad);
@@ -86,16 +86,29 @@ public class MyOrderActivity extends BaseActivity implements View.OnClickListene
     public void onRefresh() {
         page = 1;
         refersh = true;
-        mPresenter.orderList(page+"",this.bindToLifecycle());
+        mPresenter.mallList(page,this.bindUntilEvent(ActivityEvent.DESTROY));
     }
 
     @Override
     public void onLoadMore() {
         page++;
         refersh = false;
-        mPresenter.orderList(page+"",this.bindToLifecycle());
+        mPresenter.mallList(page,this.bindUntilEvent(ActivityEvent.DESTROY));
     }
 
+    /**
+     * 跳转极币商城详情页
+     */
+    @Override
+    public void onItemIntegralDetail(int position) {
+        if (ClickUtil.isFastDoubleClick(800)) {
+            return;
+        }else{
+            startActivity(new Intent(this, MallDetailActivity.class)
+                    .putExtra("goodsId",mList.get(position).getId())
+            );
+        }
+    }
 
     public void dissRefresh(){
         if (mBinding.swipeToLoad != null && mBinding.swipeToLoad.isRefreshing()) {
@@ -106,9 +119,6 @@ public class MyOrderActivity extends BaseActivity implements View.OnClickListene
             } else {
                 mBinding.swipeToLoad.setRefreshing(false);
             }
-        }
-        if(mDialog != null && mDialog.isShowing()){
-            mDialog.dismiss();
         }
     }
 
@@ -132,19 +142,19 @@ public class MyOrderActivity extends BaseActivity implements View.OnClickListene
     }
 
     @Override
-    public void Success(MyOrderBean myOrderBean) {
+    public void onSuccess(MallBean bean) {
         if(refersh){
             dissRefresh();
         }else {
             dissLoading();
         }
-        if (myOrderBean.getData() != null && myOrderBean.getData().size() != 0){
+        if (bean.getData() != null && bean.getData().size() != 0){
             //有数据
             mBinding.netClude.qsNet.setVisibility(View.GONE);
             if(refersh){
                 mList.clear();
             }
-            mList.addAll(myOrderBean.getData());
+            mList.addAll(bean.getData());
             mAdapter.notifyDataSetChanged();
             if(!refersh){
                 mBinding.swipeToLoad.setLoadMoreEnabled(false);
@@ -153,7 +163,7 @@ public class MyOrderActivity extends BaseActivity implements View.OnClickListene
             //没有数据
             if(refersh){
                 //刷新时
-                initError(R.mipmap.qs_order, "暂无订单", "还没有任何订单哦，先逛一下吧");
+                initError(R.mipmap.qs_nodata, "暂无商品", "还没有任何商品哦!~");
                 mBinding.recyclerView.setVisibility(View.GONE);
             }else {
                 //加载时
@@ -164,7 +174,7 @@ public class MyOrderActivity extends BaseActivity implements View.OnClickListene
     }
 
     @Override
-    public void Faile(String error) {
+    public void onFile(String error) {
         if(refersh){
             dissRefresh();
             initError(R.mipmap.qs_net, "网络出错", "哇哦，网络出错了，换个姿势下滑页面试试");
@@ -174,28 +184,5 @@ public class MyOrderActivity extends BaseActivity implements View.OnClickListene
             page--;
         }
         ToastUtil.show(error);
-    }
-
-    @Override
-    public void SuccessConfirm(int position) {
-        dissRefresh();
-        mList.get(position).setStatus(3);
-        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");// HH:mm:ss
-        Date date = new Date(System.currentTimeMillis());
-        mList.get(position).setFinishTime(simpleDateFormat.format(date));
-        mAdapter.notifyDataSetChanged();
-    }
-
-    @Override
-    public void FaileConfirm(String error) {
-        ToastUtil.show(error);
-        dissRefresh();
-    }
-
-    @Override
-    public void onClickItem(int position) {
-        mDialog = (new ProgressDialogView()).createLoadingDialog(this, "");
-        mDialog.show();
-        mPresenter.orderConfirm(position,mList.get(position).getId(),this.bindToLifecycle());
     }
 }

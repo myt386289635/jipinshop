@@ -15,6 +15,8 @@ import com.example.administrator.jipinshop.activity.info.account.change.ChangePh
 import com.example.administrator.jipinshop.activity.info.bind.BindNumberActivity;
 import com.example.administrator.jipinshop.activity.info.editname.EditNameActivity;
 import com.example.administrator.jipinshop.activity.login.LoginActivity;
+import com.example.administrator.jipinshop.activity.mall.MallActivity;
+import com.example.administrator.jipinshop.activity.mall.detail.MallDetailActivity;
 import com.example.administrator.jipinshop.activity.message.MessageActivity;
 import com.example.administrator.jipinshop.activity.message.detail.MsgDetailActivity;
 import com.example.administrator.jipinshop.activity.order.MyOrderActivity;
@@ -58,4 +60,6 @@ public interface BaseActivityComponent {
     void inject(CreateAddressActivity activity);
     void inject(MyWalletActivity activity);
     void inject(MyOrderActivity activity);
+    void inject(MallActivity activity);
+    void inject(MallDetailActivity activity);
 }

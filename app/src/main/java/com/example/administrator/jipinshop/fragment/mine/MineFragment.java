@@ -18,6 +18,7 @@ import com.example.administrator.jipinshop.activity.foval.FovalActivity;
 import com.example.administrator.jipinshop.activity.info.MyInfoActivity;
 import com.example.administrator.jipinshop.activity.info.editname.EditNameActivity;
 import com.example.administrator.jipinshop.activity.login.LoginActivity;
+import com.example.administrator.jipinshop.activity.mall.MallActivity;
 import com.example.administrator.jipinshop.activity.message.MessageActivity;
 import com.example.administrator.jipinshop.activity.order.MyOrderActivity;
 import com.example.administrator.jipinshop.activity.setting.SettingActivity;
@@ -136,7 +137,7 @@ public class MineFragment extends DBBaseFragment implements View.OnClickListener
                 break;
             case R.id.mine_shoppingMall:
                 //我的商城
-                ToastUtil.show("我的商城");
+                startActivity(new Intent(getContext(), MallActivity.class));
                 break;
         }
     }

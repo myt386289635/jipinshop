@@ -276,6 +276,14 @@
         <activity android:name=".activity.order.MyOrderActivity"
                   android:screenOrientation="portrait"/>
 
+        <!--极币商城-->
+        <activity android:name=".activity.mall.MallActivity"
+                  android:screenOrientation="portrait"/>
+
+        <!--极币商城详情页-->
+        <activity android:name=".activity.mall.detail.MallDetailActivity"
+                  android:screenOrientation="portrait"/>
+
     </application>
 
 </manifest>

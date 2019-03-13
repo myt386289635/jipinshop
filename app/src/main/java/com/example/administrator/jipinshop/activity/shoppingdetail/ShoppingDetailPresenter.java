@@ -12,7 +12,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.example.administrator.jipinshop.R;
-import com.example.administrator.jipinshop.adapter.ShoppingBannerAdapter;
+import com.example.administrator.jipinshop.adapter.CommenBannerAdapter;
 import com.example.administrator.jipinshop.bean.CommentBean;
 import com.example.administrator.jipinshop.bean.PagerStateBean;
 import com.example.administrator.jipinshop.bean.ShoppingDetailBean;
@@ -60,7 +60,7 @@ public class ShoppingDetailPresenter {
         }
     }
 
-    public void initBanner(List<String> mBannerList , Context context , List<ImageView> point,LinearLayout mDetailPoint, ShoppingBannerAdapter mBannerAdapter){
+    public void initBanner(List<String> mBannerList , Context context , List<ImageView> point,LinearLayout mDetailPoint, CommenBannerAdapter mBannerAdapter){
         for (int i = 0; i < mBannerList.size(); i++) {
             ImageView imageView = new ImageView(context);
 

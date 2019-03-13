@@ -12,6 +12,8 @@ import com.example.administrator.jipinshop.bean.FollowBean;
 import com.example.administrator.jipinshop.bean.HomeCommenBean;
 import com.example.administrator.jipinshop.bean.ImageBean;
 import com.example.administrator.jipinshop.bean.LoginBean;
+import com.example.administrator.jipinshop.bean.MallBean;
+import com.example.administrator.jipinshop.bean.MallDetailBean;
 import com.example.administrator.jipinshop.bean.MyOrderBean;
 import com.example.administrator.jipinshop.bean.OrderbyTypeBean;
 import com.example.administrator.jipinshop.bean.PagerStateBean;
@@ -455,4 +457,20 @@ public class Repository {
     public Observable<TaskFinishBean> taskFinish(String type){
         return mAPIService.taskFinish(type);
     }
+
+    /**
+     * 极币商城列表
+     */
+    public Observable<MallBean> mallList(String page){
+        return mAPIService.mallList(page);
+    }
+
+    /**
+     * 极币商城商品详情
+     */
+    public Observable<MallDetailBean> mallDetail(String pointGoodsId){
+        return mAPIService.mallDetail(pointGoodsId,"1");
+    }
+
+
 }

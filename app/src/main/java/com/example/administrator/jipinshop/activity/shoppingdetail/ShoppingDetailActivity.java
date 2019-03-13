@@ -37,7 +37,7 @@ import com.blankj.utilcode.util.SPUtils;
 import com.example.administrator.jipinshop.R;
 import com.example.administrator.jipinshop.activity.commenlist.CommenListActivity;
 import com.example.administrator.jipinshop.activity.login.LoginActivity;
-import com.example.administrator.jipinshop.adapter.ShoppingBannerAdapter;
+import com.example.administrator.jipinshop.adapter.CommenBannerAdapter;
 import com.example.administrator.jipinshop.adapter.ShoppingCommonAdapter;
 import com.example.administrator.jipinshop.adapter.ShoppingmParameterAdapter;
 import com.example.administrator.jipinshop.base.BaseActivity;
@@ -92,7 +92,7 @@ public class ShoppingDetailActivity extends BaseActivity implements ShoppingComm
     private ActivityShopingDetailBinding mBinding;
 
     //banner
-    private ShoppingBannerAdapter mBannerAdapter;
+    private CommenBannerAdapter mBannerAdapter;
     private List<String> mBannerList;
     private List<ImageView> point;
     private Handler.Callback mCallback = new Handler.Callback() {
@@ -195,7 +195,7 @@ public class ShoppingDetailActivity extends BaseActivity implements ShoppingComm
         mDialogProgress = (new ProgressDialogView()).createLoadingDialog(ShoppingDetailActivity.this, "正在加载...");
         mDialogProgress.show();
 
-        mBannerAdapter = new ShoppingBannerAdapter(this);
+        mBannerAdapter = new CommenBannerAdapter(this);
         mBannerList = new ArrayList<>();
         point = new ArrayList<>();
         mBannerAdapter.setPoint(point);
@@ -419,9 +419,7 @@ public class ShoppingDetailActivity extends BaseActivity implements ShoppingComm
                 mBinding.viewPager.setVisibility(View.VISIBLE);
                 mBinding.detailPoint.setVisibility(View.VISIBLE);
                 mBinding.pagerImage.setVisibility(View.GONE);
-                for (int i = 0; i < shoppingDetailBean.getData().getGoodsEntity().getImgList().size(); i++) {
-                    mBannerList.add(shoppingDetailBean.getData().getGoodsEntity().getImgList().get(i));
-                }
+                mBannerList.addAll(shoppingDetailBean.getData().getGoodsEntity().getImgList());
                 mPresenter.initBanner(mBannerList, this, point, mBinding.detailPoint, mBannerAdapter);
                 new Thread(new MyRunble()).start();
             }

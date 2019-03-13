@@ -13,6 +13,8 @@ import com.example.administrator.jipinshop.bean.FollowBean;
 import com.example.administrator.jipinshop.bean.HomeCommenBean;
 import com.example.administrator.jipinshop.bean.ImageBean;
 import com.example.administrator.jipinshop.bean.LoginBean;
+import com.example.administrator.jipinshop.bean.MallBean;
+import com.example.administrator.jipinshop.bean.MallDetailBean;
 import com.example.administrator.jipinshop.bean.MyOrderBean;
 import com.example.administrator.jipinshop.bean.OrderbyTypeBean;
 import com.example.administrator.jipinshop.bean.PagerStateBean;
@@ -419,6 +421,19 @@ public interface APIService {
     @FormUrlEncoded
     @POST("qualityshop-api/api/dailytask/finish")
     Observable<TaskFinishBean> taskFinish(@Field("type") String type);
+
+    /**
+     * 极币商城列表
+     */
+    @GET("qualityshop-api/api/point/getGoodslist")
+    Observable<MallBean> mallList(@Query("page") String page);
+
+    /**
+     * 极币商城商品详情
+     */
+    @GET("qualityshop-api/api/point/getGoodsInfo")
+    Observable<MallDetailBean> mallDetail(@Query("pointGoodsId") String pointGoodsId,@Query("client") String client);
+
 
 /*************************************************以下是还未修改的接口***********************************************/
 

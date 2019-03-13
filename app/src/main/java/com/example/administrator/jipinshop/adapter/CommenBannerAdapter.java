@@ -15,17 +15,16 @@ import java.util.List;
 
 /**
  * @author 莫小婷
- * @create 2018/8/2
- * @Describe 商品详情的banner
+ * @create 2019/3/13
+ * @Describe 公共轮播图adapter
  */
-public class ShoppingBannerAdapter extends PagerAdapter implements ViewPager.OnPageChangeListener {
-
+public class CommenBannerAdapter extends PagerAdapter implements ViewPager.OnPageChangeListener{
     private Context mContext;
     private List<ImageView> point;
     private ViewPager mViewPager;
     private List<String> mList;
 
-    public ShoppingBannerAdapter(Context context) {
+    public CommenBannerAdapter(Context context) {
         mContext = context;
     }
 
@@ -57,7 +56,7 @@ public class ShoppingBannerAdapter extends PagerAdapter implements ViewPager.OnP
     @Override
     public Object instantiateItem(ViewGroup container, int position) {
 
-        View view = LayoutInflater.from(mContext).inflate(R.layout.item_banner, container, false);
+        View view = LayoutInflater.from(mContext).inflate(R.layout.item_common_banner, container, false);
         ImageView imageView = (ImageView) view.findViewById(R.id.recommend_img_rotate);
         Glide.with(mContext).load(mList.get(position % mList.size())).into(imageView);
         container.addView(view);
