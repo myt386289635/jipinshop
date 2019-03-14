@@ -81,6 +81,11 @@ public class MyAddressAdapter extends RecyclerView.Adapter<MyAddressAdapter.View
                 mOnClickItem.onItemDefault(position);
             }
         });
+        holder.itemView.setOnClickListener(v -> {
+            if(mOnClickItem != null){
+                mOnClickItem.onItemClick(position);
+            }
+        });
     }
 
     @Override
@@ -114,5 +119,6 @@ public class MyAddressAdapter extends RecyclerView.Adapter<MyAddressAdapter.View
         void onItemEdit(int position);//编辑地址
         void onItemDelete(int position);//删除地址
         void onItemDefault(int position);//设置默认地址
+        void onItemClick(int position);
     }
 }

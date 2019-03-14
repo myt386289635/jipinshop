@@ -5,6 +5,7 @@ import com.example.administrator.jipinshop.bean.AddressBean;
 import com.example.administrator.jipinshop.bean.AppVersionbean;
 import com.example.administrator.jipinshop.bean.CommentBean;
 import com.example.administrator.jipinshop.bean.DailyTaskBean;
+import com.example.administrator.jipinshop.bean.DefaultAddressBean;
 import com.example.administrator.jipinshop.bean.EvaluationListBean;
 import com.example.administrator.jipinshop.bean.EvaluationTabBean;
 import com.example.administrator.jipinshop.bean.FindDetailBean;
@@ -434,6 +435,11 @@ public interface APIService {
     @GET("qualityshop-api/api/point/getGoodsInfo")
     Observable<MallDetailBean> mallDetail(@Query("pointGoodsId") String pointGoodsId,@Query("client") String client);
 
+    /**
+     * 获取默认地址
+     */
+    @GET("qualityshop-api/api/address/default")
+    Observable<DefaultAddressBean> defaultAddress();
 
 /*************************************************以下是还未修改的接口***********************************************/
 

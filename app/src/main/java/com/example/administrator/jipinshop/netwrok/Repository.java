@@ -4,6 +4,7 @@ import com.example.administrator.jipinshop.bean.AddressBean;
 import com.example.administrator.jipinshop.bean.AppVersionbean;
 import com.example.administrator.jipinshop.bean.CommentBean;
 import com.example.administrator.jipinshop.bean.DailyTaskBean;
+import com.example.administrator.jipinshop.bean.DefaultAddressBean;
 import com.example.administrator.jipinshop.bean.EvaluationListBean;
 import com.example.administrator.jipinshop.bean.EvaluationTabBean;
 import com.example.administrator.jipinshop.bean.FindDetailBean;
@@ -472,5 +473,10 @@ public class Repository {
         return mAPIService.mallDetail(pointGoodsId,"1");
     }
 
-
+    /**
+     * 获取默认地址
+     */
+    public Observable<DefaultAddressBean> defaultAddress(){
+        return mAPIService.defaultAddress();
+    }
 }

@@ -1,0 +1,53 @@
+package com.example.administrator.jipinshop.activity.mall.exchange;
+
+import com.example.administrator.jipinshop.bean.DefaultAddressBean;
+import com.example.administrator.jipinshop.netwrok.Repository;
+import com.trello.rxlifecycle2.LifecycleTransformer;
+
+import javax.inject.Inject;
+
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.functions.Consumer;
+import io.reactivex.schedulers.Schedulers;
+
+/**
+ * @author 莫小婷
+ * @create 2019/3/14
+ * @Describe
+ */
+public class ExchangePresenter {
+
+    private Repository mRepository;
+    private ExchangeView mView;
+
+    public void setView(ExchangeView view) {
+        mView = view;
+    }
+
+    @Inject
+    public ExchangePresenter(Repository repository) {
+        mRepository = repository;
+    }
+
+    public void defaultAddress(LifecycleTransformer<DefaultAddressBean> transformer){
+        mRepository.defaultAddress()
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .compose(transformer)
+                .subscribe(defaultAddressBean -> {
+                    if(defaultAddressBean.getCode() == 0){
+                        if (mView != null){
+                            mView.onSuccess(defaultAddressBean);
+                        }
+                    }else {
+                        if(mView != null){
+                            mView.onFile(defaultAddressBean.getMsg());
+                        }
+                    }
+                }, throwable -> {
+                    if(mView != null){
+                        mView.onFile(throwable.getMessage());
+                    }
+                });
+    }
+}

@@ -6,6 +6,7 @@ import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.LinearLayoutManager;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
 
@@ -193,6 +194,22 @@ public class MyAddressActivity extends BaseActivity implements View.OnClickListe
         mDialog = (new ProgressDialogView()).createLoadingDialog(this, "正在请求...");
         mDialog.show();
         mPresenter.addressSetDefault(position,mList.get(position).getId(),this.bindToLifecycle());
+    }
+
+    /**
+     * 点击item
+     */
+    @Override
+    public void onItemClick(int position) {
+        if(!TextUtils.isEmpty(getIntent().getStringExtra("type"))){
+            //标示是从确认订单页面进来的
+            Intent intent = new Intent();
+            intent.putExtra("name",mList.get(position).getUsername());
+            intent.putExtra("photo",mList.get(position).getMobile());
+            intent.putExtra("address",mList.get(position).getArea().replace("-","") + mList.get(position).getAddress());
+            setResult(200,intent);
+            finish();
+        }
     }
 
     @Override

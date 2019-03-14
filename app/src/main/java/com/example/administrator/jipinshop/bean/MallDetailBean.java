@@ -1,5 +1,6 @@
 package com.example.administrator.jipinshop.bean;
 
+import java.io.Serializable;
 import java.util.List;
 
 /**
@@ -7,7 +8,7 @@ import java.util.List;
  * @create 2019/3/13
  * @Describe 极币商城里商品详情页
  */
-public class MallDetailBean {
+public class MallDetailBean implements Serializable{
 
     /**
      * msg : success
@@ -43,7 +44,7 @@ public class MallDetailBean {
         this.data = data;
     }
 
-    public static class DataBean {
+    public static class DataBean implements Serializable{
         /**
          * id : 64f9ebf436fc4ca1b4a565cc8c347427
          * goodsName : 21312312312321

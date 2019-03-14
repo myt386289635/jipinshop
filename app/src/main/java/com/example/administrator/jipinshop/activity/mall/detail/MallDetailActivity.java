@@ -73,6 +73,7 @@ public class MallDetailActivity extends BaseActivity implements View.OnClickList
     };
     private Handler mHandler = new WeakRefHandler(mCallback, Looper.getMainLooper());
     private Boolean stopThread = true;
+    private MallDetailBean.DataBean mMallDetailBean;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -149,7 +150,9 @@ public class MallDetailActivity extends BaseActivity implements View.OnClickList
                 break;
             case R.id.detail_bottom:
                 if(mBinding.detailBottom.getText().toString().equals("立即兑换")){
-                    startActivity(new Intent(this, ExchangeActivity.class));
+                    startActivity(new Intent(this, ExchangeActivity.class)
+                            .putExtra("date",mMallDetailBean)
+                    );
                 }
                 break;
         }
@@ -181,6 +184,7 @@ public class MallDetailActivity extends BaseActivity implements View.OnClickList
     @Override
     public void onSuccess(MallDetailBean shoppingDetailBean) {
         if(shoppingDetailBean.getCode() == 0){
+            mMallDetailBean = shoppingDetailBean.getData();
             mBinding.netClude.qsNet.setVisibility(View.GONE);
             //初始值
             mBinding.detailName.setText(shoppingDetailBean.getData().getGoodsName());
