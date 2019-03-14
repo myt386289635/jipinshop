@@ -62,6 +62,7 @@ import com.example.administrator.jipinshop.view.SaleProgressView;
 import com.example.administrator.jipinshop.view.dialog.ProgressDialogView;
 import com.example.administrator.jipinshop.view.dialog.ShareBoardDialog;
 import com.example.administrator.jipinshop.view.glide.GlideApp;
+import com.trello.rxlifecycle2.android.ActivityEvent;
 import com.umeng.socialize.UMShareAPI;
 import com.umeng.socialize.bean.SHARE_MEDIA;
 
@@ -820,7 +821,8 @@ public class ShoppingDetailActivity extends BaseActivity implements ShoppingComm
      */
     @Override
     public void share(SHARE_MEDIA share_media) {
-        new ShareUtils(this, share_media,this.bindToLifecycle(),mPresenter.mRepository)
+        mPresenter.taskFinish(this.bindUntilEvent(ActivityEvent.DESTROY));
+        new ShareUtils(this, share_media)
                 .shareWeb(this, shareUrl, shareName, shareContent, shareImage, R.mipmap.share_logo);
     }
 

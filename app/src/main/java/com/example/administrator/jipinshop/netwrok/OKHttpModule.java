@@ -86,7 +86,7 @@ public class OKHttpModule {
                     sbJson.append(line);
                     line = reader.readLine();
                 } while (line != null);
-                Log.e("OKHttpModule", sbJson.toString());// 输出返回结果
+//                Log.e("OKHttpModule", sbJson.toString());// 输出返回结果
 //                SuccessBean successBean = new Gson().fromJson(sbJson.toString(),SuccessBean.class);
 //                if(successBean.getCode() == 602){
 //                    MyApplication.getInstance().startActivity(new Intent(MyApplication.getInstance(),LoginActivity.class));

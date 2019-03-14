@@ -17,6 +17,7 @@ import com.example.administrator.jipinshop.bean.CommentBean;
 import com.example.administrator.jipinshop.bean.PagerStateBean;
 import com.example.administrator.jipinshop.bean.ShoppingDetailBean;
 import com.example.administrator.jipinshop.bean.SuccessBean;
+import com.example.administrator.jipinshop.bean.TaskFinishBean;
 import com.example.administrator.jipinshop.bean.VoteBean;
 import com.example.administrator.jipinshop.netwrok.Repository;
 import com.example.administrator.jipinshop.view.FullScreenLinearLayout;
@@ -38,7 +39,7 @@ import io.reactivex.schedulers.Schedulers;
  */
 public class ShoppingDetailPresenter {
 
-    public Repository mRepository;
+    private Repository mRepository;
     private ShoppingDetailView mShoppingDetailView;
 
     public void setShoppingDetailView(ShoppingDetailView shoppingDetailView) {
@@ -413,6 +414,21 @@ public class ShoppingDetailPresenter {
                     if(mShoppingDetailView != null){
                         mShoppingDetailView.onFileCollectDelete(throwable.getMessage());
                     }
+                });
+    }
+
+    /**
+     * 分享获取极币
+     */
+    public void taskFinish(LifecycleTransformer<TaskFinishBean> transformer){
+        mRepository.taskFinish("5")
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .compose(transformer)
+                .subscribe(taskFinishBean -> {
+
+                }, throwable ->{
+
                 });
     }
 }

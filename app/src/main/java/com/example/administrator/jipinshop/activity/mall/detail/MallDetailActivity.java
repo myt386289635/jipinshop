@@ -1,6 +1,7 @@
 package com.example.administrator.jipinshop.activity.mall.detail;
 
 import android.app.Dialog;
+import android.content.Intent;
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.os.Handler;
@@ -18,6 +19,7 @@ import android.widget.RelativeLayout;
 
 import com.blankj.utilcode.util.SPUtils;
 import com.example.administrator.jipinshop.R;
+import com.example.administrator.jipinshop.activity.mall.exchange.ExchangeActivity;
 import com.example.administrator.jipinshop.adapter.CommenBannerAdapter;
 import com.example.administrator.jipinshop.base.BaseActivity;
 import com.example.administrator.jipinshop.bean.MallDetailBean;
@@ -143,6 +145,11 @@ public class MallDetailActivity extends BaseActivity implements View.OnClickList
                     mDialogProgress = (new ProgressDialogView()).createLoadingDialog(this, "正在加载...");
                     mDialogProgress.show();
                     mPresenter.getDate(goodsId,this.bindToLifecycle());
+                }
+                break;
+            case R.id.detail_bottom:
+                if(mBinding.detailBottom.getText().toString().equals("立即兑换")){
+                    startActivity(new Intent(this, ExchangeActivity.class));
                 }
                 break;
         }

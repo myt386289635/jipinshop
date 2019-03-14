@@ -33,7 +33,7 @@ import io.reactivex.schedulers.Schedulers;
  */
 public class ArticleDetailPresenter {
 
-    public Repository mRepository;
+    private Repository mRepository;
     private ArticleDetailView mView;
 
     public void setView(ArticleDetailView view) {
@@ -374,6 +374,21 @@ public class ArticleDetailPresenter {
                     if(taskFinishBean.getCode() == 0){
                         ToastUtil.show("阅读成功+" + taskFinishBean.getAddPoint());
                     }
+                }, throwable ->{
+
+                });
+    }
+
+    /**
+     * 分享获取极币
+     */
+    public void taskshareFinish(LifecycleTransformer<TaskFinishBean> transformer){
+        mRepository.taskFinish("5")
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .compose(transformer)
+                .subscribe(taskFinishBean -> {
+
                 }, throwable ->{
 
                 });
