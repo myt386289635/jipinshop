@@ -7,7 +7,8 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <TextView
-        android:layout_marginRight="@dimen/x24"
+        android:layout_marginTop="@dimen/y6"
+        android:layout_marginRight="@dimen/x15"
         android:singleLine="true"
         android:ellipsize="end"
         android:id="@+id/item_tag"

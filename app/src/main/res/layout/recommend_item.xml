@@ -62,7 +62,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@+id/item_image"
-            android:layout_marginBottom="@dimen/y24"
+            android:layout_marginBottom="@dimen/y18"
             android:layout_marginTop="@dimen/y24"
             android:ellipsize="end"
             android:maxLines="2"
