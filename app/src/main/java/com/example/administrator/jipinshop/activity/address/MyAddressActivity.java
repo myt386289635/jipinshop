@@ -207,6 +207,7 @@ public class MyAddressActivity extends BaseActivity implements View.OnClickListe
             intent.putExtra("name",mList.get(position).getUsername());
             intent.putExtra("photo",mList.get(position).getMobile());
             intent.putExtra("address",mList.get(position).getArea().replace("-","") + mList.get(position).getAddress());
+            intent.putExtra("id",mList.get(position).getId());
             setResult(200,intent);
             finish();
         }

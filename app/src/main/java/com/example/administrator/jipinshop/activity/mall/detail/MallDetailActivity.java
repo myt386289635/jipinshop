@@ -150,9 +150,9 @@ public class MallDetailActivity extends BaseActivity implements View.OnClickList
                 break;
             case R.id.detail_bottom:
                 if(mBinding.detailBottom.getText().toString().equals("立即兑换")){
-                    startActivity(new Intent(this, ExchangeActivity.class)
+                    startActivityForResult(new Intent(this, ExchangeActivity.class)
                             .putExtra("date",mMallDetailBean)
-                    );
+                    ,300);
                 }
                 break;
         }
@@ -275,6 +275,15 @@ public class MallDetailActivity extends BaseActivity implements View.OnClickList
             msg.what = 1;
             msg.arg1 = webViewHeight;
             mHandler.sendMessage(msg);
+        }
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if(resultCode == 300){
+            setResult(300);
+            finish();
         }
     }
 }

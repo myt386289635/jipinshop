@@ -11,4 +11,7 @@ public interface ExchangeView {
 
     void onSuccess(DefaultAddressBean bean);
     void onFile(String error);
+
+    void onExchangeSuc();
+    void onExchangeFile(String error);
 }

@@ -441,6 +441,13 @@ public interface APIService {
     @GET("qualityshop-api/api/address/default")
     Observable<DefaultAddressBean> defaultAddress();
 
+    /**
+     * 积分兑换
+     */
+    @FormUrlEncoded
+    @POST("qualityshop-api/api/point/exchange")
+    Observable<SuccessBean> exchange(@Field("pointGoodsId") String pointGoodsId ,@Field("addressId") String addressId);
+
 /*************************************************以下是还未修改的接口***********************************************/
 
     /**

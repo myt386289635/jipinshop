@@ -479,4 +479,12 @@ public class Repository {
     public Observable<DefaultAddressBean> defaultAddress(){
         return mAPIService.defaultAddress();
     }
+
+    /**
+     * 积分兑换
+     */
+    public Observable<SuccessBean> exchange(String pointGoodsId , String addressId){
+        return mAPIService.exchange(pointGoodsId,addressId);
+    }
+
 }

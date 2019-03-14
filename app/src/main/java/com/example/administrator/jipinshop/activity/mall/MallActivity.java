@@ -104,9 +104,9 @@ public class MallActivity extends BaseActivity implements View.OnClickListener, 
         if (ClickUtil.isFastDoubleClick(800)) {
             return;
         }else{
-            startActivity(new Intent(this, MallDetailActivity.class)
+            startActivityForResult(new Intent(this, MallDetailActivity.class)
                     .putExtra("goodsId",mList.get(position).getId())
-            );
+            ,300);
         }
     }
 
@@ -184,5 +184,13 @@ public class MallActivity extends BaseActivity implements View.OnClickListener, 
             page--;
         }
         ToastUtil.show(error);
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if(resultCode == 300){
+            finish();
+        }
     }
 }

@@ -1,18 +1,24 @@
 package com.example.administrator.jipinshop.activity.mall.exchange;
 
+import android.app.Dialog;
 import android.content.Intent;
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.text.TextUtils;
 import android.view.View;
 
+import com.blankj.utilcode.util.SPUtils;
 import com.example.administrator.jipinshop.R;
 import com.example.administrator.jipinshop.activity.address.MyAddressActivity;
+import com.example.administrator.jipinshop.activity.order.MyOrderActivity;
 import com.example.administrator.jipinshop.base.BaseActivity;
 import com.example.administrator.jipinshop.bean.DefaultAddressBean;
 import com.example.administrator.jipinshop.bean.MallDetailBean;
 import com.example.administrator.jipinshop.databinding.ActivityExchangeBinding;
 import com.example.administrator.jipinshop.util.ToastUtil;
+import com.example.administrator.jipinshop.util.sp.CommonDate;
+import com.example.administrator.jipinshop.view.dialog.ProgressDialogView;
 import com.example.administrator.jipinshop.view.glide.GlideApp;
 
 import java.math.BigDecimal;
@@ -31,6 +37,8 @@ public class ExchangeActivity extends BaseActivity implements View.OnClickListen
     private ActivityExchangeBinding mBinding;
 
     private MallDetailBean.DataBean mMallDetailBean;//数据
+    private String addressId = "";//收货地址id
+    private Dialog mDialog;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -99,10 +107,29 @@ public class ExchangeActivity extends BaseActivity implements View.OnClickListen
                 break;
             case R.id.exchange_exchange:
                 //立即兑换
+                if(mMallDetailBean == null){
+                    ToastUtil.show("数据错误，请重新进入页面");
+                    return;
+                }
+                if(TextUtils.isEmpty(addressId)){
+                    ToastUtil.show("地址不能为空");
+                    return;
+                }
+                BigDecimal bigDecimal2 = new BigDecimal(mBinding.exchangeTotleCode.getText().toString());
+                if(SPUtils.getInstance(CommonDate.USER).getInt(CommonDate.userPoint,0) < bigDecimal2.intValue()){
+                    ToastUtil.show("极币不足");
+                    return;
+                }
+                mDialog = (new ProgressDialogView()).createLoadingDialog(this, "正在请求...");
+                mDialog.show();
+                mPresenter.exchange(mMallDetailBean.getId(),addressId,this.bindToLifecycle());
                 break;
         }
     }
 
+    /**
+     * 获取默认地址
+     */
     @Override
     public void onSuccess(DefaultAddressBean bean) {
         if(bean != null && bean.getData() != null){
@@ -111,6 +138,7 @@ public class ExchangeActivity extends BaseActivity implements View.OnClickListen
             mBinding.exchangeName.setText(bean.getData().getUsername());
             mBinding.exchangeNumber.setText(bean.getData().getMobile());
             mBinding.exchangeAddress.setText(bean.getData().getArea().replace("-","") + bean.getData().getAddress());
+            addressId = bean.getData().getId();
         }else {
             mBinding.exchangeNoAddress.setVisibility(View.VISIBLE);
             mBinding.exchangeAddressContainer.setVisibility(View.GONE);
@@ -124,6 +152,28 @@ public class ExchangeActivity extends BaseActivity implements View.OnClickListen
     }
 
     @Override
+    public void onExchangeSuc() {
+        if(mDialog != null && mDialog.isShowing()){
+            mDialog.dismiss();
+        }
+        startActivity(new Intent(this, MyOrderActivity.class));
+        ToastUtil.show("商品兑换成功");
+        setResult(300);
+        finish();
+    }
+
+    @Override
+    public void onExchangeFile(String error) {
+        if(mDialog != null && mDialog.isShowing()){
+            mDialog.dismiss();
+        }
+        ToastUtil.show(error);
+    }
+
+    /**
+     * 选择地址返回
+     */
+    @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if(resultCode == 200){
@@ -132,6 +182,7 @@ public class ExchangeActivity extends BaseActivity implements View.OnClickListen
             mBinding.exchangeName.setText(data.getStringExtra("name"));
             mBinding.exchangeNumber.setText(data.getStringExtra("photo"));
             mBinding.exchangeAddress.setText(data.getStringExtra("address"));
+            addressId = data.getStringExtra("id");
         }
     }
 }
