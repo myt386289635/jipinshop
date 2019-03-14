@@ -52,8 +52,8 @@ public class ExchangePresenter {
                 });
     }
 
-    public void exchange(String pointGoodsId , String addressId ,LifecycleTransformer<SuccessBean> transformer){
-        mRepository.exchange(pointGoodsId, addressId)
+    public void exchange(String pointGoodsId , String addressId , String total,LifecycleTransformer<SuccessBean> transformer){
+        mRepository.exchange(pointGoodsId, addressId , total)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .compose(transformer)

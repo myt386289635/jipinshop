@@ -483,8 +483,8 @@ public class Repository {
     /**
      * 积分兑换
      */
-    public Observable<SuccessBean> exchange(String pointGoodsId , String addressId){
-        return mAPIService.exchange(pointGoodsId,addressId);
+    public Observable<SuccessBean> exchange(String pointGoodsId , String addressId ,String total){
+        return mAPIService.exchange(pointGoodsId,addressId,total);
     }
 
 }

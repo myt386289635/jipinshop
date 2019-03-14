@@ -61,9 +61,7 @@ public class ExchangeActivity extends BaseActivity implements View.OnClickListen
             mBinding.exchangeCode.setText(mMallDetailBean.getExchangePoint() + "极币");
             GlideApp.loderImage(this,mMallDetailBean.getImg(),mBinding.exchangeImage,0,0);
         }
-        BigDecimal bigDecimal = new BigDecimal(mBinding.exchangeNum.getText().toString());
-        int totle = mMallDetailBean.getExchangePoint() * bigDecimal.intValue();
-        mBinding.exchangeTotleCode.setText( totle + "" );
+        getTotle();
     }
 
     @Override
@@ -80,6 +78,10 @@ public class ExchangeActivity extends BaseActivity implements View.OnClickListen
                 break;
             case R.id.exchange_decrease:
                 //  -
+                if(mMallDetailBean == null){
+                    ToastUtil.show("数据错误，请重新进入页面");
+                    return;
+                }
                 BigDecimal bigDecimal = new BigDecimal(mBinding.exchangeNum.getText().toString());
                 int num = bigDecimal.intValue();
                 if(num == 1){
@@ -89,6 +91,7 @@ public class ExchangeActivity extends BaseActivity implements View.OnClickListen
                 if(num > 1){
                     mBinding.exchangeNum.setText((num - 1) + "");
                 }
+                getTotle();
                 break;
             case R.id.exchange_increase:
                 //   +
@@ -103,7 +106,7 @@ public class ExchangeActivity extends BaseActivity implements View.OnClickListen
                     return;
                 }
                 mBinding.exchangeNum.setText((num1 + 1) + "");
-
+                getTotle();
                 break;
             case R.id.exchange_exchange:
                 //立即兑换
@@ -122,7 +125,7 @@ public class ExchangeActivity extends BaseActivity implements View.OnClickListen
                 }
                 mDialog = (new ProgressDialogView()).createLoadingDialog(this, "正在请求...");
                 mDialog.show();
-                mPresenter.exchange(mMallDetailBean.getId(),addressId,this.bindToLifecycle());
+                mPresenter.exchange(mMallDetailBean.getId(),addressId, mBinding.exchangeNum.getText().toString() ,this.bindToLifecycle());
                 break;
         }
     }
@@ -184,5 +187,14 @@ public class ExchangeActivity extends BaseActivity implements View.OnClickListen
             mBinding.exchangeAddress.setText(data.getStringExtra("address"));
             addressId = data.getStringExtra("id");
         }
+    }
+
+    /**
+     * 计算总数
+     */
+    public void getTotle(){
+        BigDecimal newbigdecimal = new BigDecimal(mBinding.exchangeNum.getText().toString());
+        int totle = mMallDetailBean.getExchangePoint() * newbigdecimal.intValue();
+        mBinding.exchangeTotleCode.setText( totle + "" );
     }
 }

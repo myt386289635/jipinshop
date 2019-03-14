@@ -446,7 +446,7 @@ public interface APIService {
      */
     @FormUrlEncoded
     @POST("qualityshop-api/api/point/exchange")
-    Observable<SuccessBean> exchange(@Field("pointGoodsId") String pointGoodsId ,@Field("addressId") String addressId);
+    Observable<SuccessBean> exchange(@Field("pointGoodsId") String pointGoodsId ,@Field("addressId") String addressId,@Field("total") String total);
 
 /*************************************************以下是还未修改的接口***********************************************/
 
