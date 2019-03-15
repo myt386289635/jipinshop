@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:tools="http://schemas.android.com/tools">
+        xmlns:tools="http://schemas.android.com/tools"
+        xmlns:bind="http://schemas.android.com/apk/res-auto">
 
     <data>
         <import type="android.view.View"/>
@@ -33,14 +34,14 @@
             android:textSize="13sp"
             android:layout_marginTop="@dimen/y48"
             android:layout_alignParentRight="true"
-            tools:text="待收货"
+            bind:text="@{date.status}"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"/>
 
 
         <ImageView
             android:layout_marginBottom="@dimen/y28"
-            tools:src="@color/color_DE151515"
+            bind:srcRound="@{date.img}"
             android:id="@+id/item_image"
             android:layout_marginTop="@dimen/y34"
             android:layout_marginLeft="@dimen/x28"
@@ -64,6 +65,7 @@
             android:layout_height="wrap_content"/>
 
         <TextView
+            android:visibility="@{date.status == 1 ? View.INVISIBLE : View.VISIBLE}"
             android:layout_marginBottom="@dimen/y6"
             android:layout_marginLeft="@dimen/x28"
             android:layout_toRightOf="@+id/item_image"

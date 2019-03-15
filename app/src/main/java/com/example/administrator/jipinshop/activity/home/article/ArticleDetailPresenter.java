@@ -372,7 +372,7 @@ public class ArticleDetailPresenter {
                 .compose(transformer)
                 .subscribe(taskFinishBean -> {
                     if(taskFinishBean.getCode() == 0){
-                        ToastUtil.show("阅读成功+" + taskFinishBean.getAddPoint());
+                        ToastUtil.show(taskFinishBean.getMsg());
                     }
                 }, throwable ->{
 
