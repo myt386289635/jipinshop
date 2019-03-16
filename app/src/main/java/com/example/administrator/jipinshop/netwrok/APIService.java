@@ -13,6 +13,7 @@ import com.example.administrator.jipinshop.bean.FindListBean;
 import com.example.administrator.jipinshop.bean.FollowBean;
 import com.example.administrator.jipinshop.bean.HomeCommenBean;
 import com.example.administrator.jipinshop.bean.ImageBean;
+import com.example.administrator.jipinshop.bean.InvitationBean;
 import com.example.administrator.jipinshop.bean.LoginBean;
 import com.example.administrator.jipinshop.bean.MallBean;
 import com.example.administrator.jipinshop.bean.MallDetailBean;
@@ -447,6 +448,12 @@ public interface APIService {
     @FormUrlEncoded
     @POST("qualityshop-api/api/point/exchange")
     Observable<SuccessBean> exchange(@Field("pointGoodsId") String pointGoodsId ,@Field("addressId") String addressId,@Field("total") String total);
+
+    /**
+     * 邀请好友
+     */
+    @GET("qualityshop-api/api/user/getQRcodeImg")
+    Observable<InvitationBean> invitation();
 
 /*************************************************以下是还未修改的接口***********************************************/
 

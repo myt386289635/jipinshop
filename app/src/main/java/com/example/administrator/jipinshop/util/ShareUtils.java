@@ -1,9 +1,12 @@
 package com.example.administrator.jipinshop.util;
 
 import android.app.Activity;
+import android.app.Dialog;
 import android.content.Context;
 import android.text.TextUtils;
 
+import com.example.administrator.jipinshop.R;
+import com.example.administrator.jipinshop.view.dialog.ProgressDialogView;
 import com.umeng.socialize.ShareAction;
 import com.umeng.socialize.UMShareListener;
 import com.umeng.socialize.bean.SHARE_MEDIA;
@@ -20,10 +23,12 @@ public class ShareUtils {
 
     private Context mContext;
     private SHARE_MEDIA mSHARE_media;
+    private Dialog mDialog;
 
     public ShareUtils(Context context,SHARE_MEDIA SHARE_media) {
         mContext = context;
         mSHARE_media = SHARE_media;
+        mDialog = (new ProgressDialogView()).createLoadingDialog(mContext, "");
     }
 
     /**
@@ -45,6 +50,22 @@ public class ShareUtils {
                 .share();
     }
 
+    /**
+     * 分享图片
+     */
+    public void shareImage(final Activity activity, String imageUrl){
+        UMImage image = new UMImage(activity, imageUrl);//网络图片
+        image.setThumb(new UMImage(activity, R.mipmap.share_logo));  //本地缩略图
+        image.compressStyle = UMImage.CompressStyle.SCALE;//大小压缩，默认为大小压缩，适合普通很大的图
+        image.compressStyle = UMImage.CompressStyle.QUALITY;//质量压缩，适合长图的分享
+        new ShareAction(activity)
+                .setPlatform(mSHARE_media)//传入平台
+                .withText("极品城App")
+                .withMedia(image)
+                .setCallback(shareListener)//分享回调
+                .share();
+    }
+
 
     private UMShareListener shareListener = new UMShareListener() {
         /**
@@ -53,7 +74,9 @@ public class ShareUtils {
          */
         @Override
         public void onStart(SHARE_MEDIA platform) {
-
+            if(mDialog != null && !mDialog.isShowing()){
+                mDialog.show();
+            }
         }
 
         /**
@@ -62,6 +85,9 @@ public class ShareUtils {
          */
         @Override
         public void onResult(SHARE_MEDIA platform) {
+            if(mDialog != null && mDialog.isShowing()){
+                mDialog.dismiss();
+            }
             ToastUtil.show("分享成功");
         }
 
@@ -72,6 +98,9 @@ public class ShareUtils {
          */
         @Override
         public void onError(SHARE_MEDIA platform, Throwable t) {
+            if(mDialog != null && mDialog.isShowing()){
+                mDialog.dismiss();
+            }
             ToastUtil.show("分享失败");
         }
 
@@ -81,6 +110,9 @@ public class ShareUtils {
          */
         @Override
         public void onCancel(SHARE_MEDIA platform) {
+            if(mDialog != null && mDialog.isShowing()){
+                mDialog.dismiss();
+            }
             ToastUtil.show("分享取消");
         }
     };

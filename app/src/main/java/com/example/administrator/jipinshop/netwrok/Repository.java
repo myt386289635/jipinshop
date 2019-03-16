@@ -12,6 +12,7 @@ import com.example.administrator.jipinshop.bean.FindListBean;
 import com.example.administrator.jipinshop.bean.FollowBean;
 import com.example.administrator.jipinshop.bean.HomeCommenBean;
 import com.example.administrator.jipinshop.bean.ImageBean;
+import com.example.administrator.jipinshop.bean.InvitationBean;
 import com.example.administrator.jipinshop.bean.LoginBean;
 import com.example.administrator.jipinshop.bean.MallBean;
 import com.example.administrator.jipinshop.bean.MallDetailBean;
@@ -487,4 +488,10 @@ public class Repository {
         return mAPIService.exchange(pointGoodsId,addressId,total);
     }
 
+    /**
+     * 邀请好友
+     */
+    public Observable<InvitationBean> invitation(){
+        return mAPIService.invitation();
+    }
 }

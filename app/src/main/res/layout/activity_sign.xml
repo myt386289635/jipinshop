@@ -564,8 +564,6 @@
 
                     <com.example.administrator.jipinshop.view.MyExtendableListView
                         android:indicatorLeft="0dp"
-                        android:paddingRight="@dimen/x24"
-                        android:paddingLeft="@dimen/x24"
                         android:divider="@color/color_F5F5F5"
                         android:childDivider="@color/color_F5F5F5"
                         android:dividerHeight="@dimen/y2"

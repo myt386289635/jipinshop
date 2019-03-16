@@ -14,6 +14,7 @@ import com.blankj.utilcode.util.SPUtils;
 import com.example.administrator.jipinshop.R;
 import com.example.administrator.jipinshop.activity.WebActivity;
 import com.example.administrator.jipinshop.activity.sign.detail.IntegralDetailActivity;
+import com.example.administrator.jipinshop.activity.sign.invitation.InvitationActivity;
 import com.example.administrator.jipinshop.adapter.ExtendableListViewAdapter;
 import com.example.administrator.jipinshop.base.BaseActivity;
 import com.example.administrator.jipinshop.bean.DailyTaskBean;
@@ -249,10 +250,10 @@ public class SignActivity extends BaseActivity implements View.OnClickListener, 
                 finish();
                 break;
             case 4://跳转到邀请页面
-                ToastUtil.show("正在开发中");
+                startActivity(new Intent(this, InvitationActivity.class));
                 break;
             case 5://跳转到认证页面
-                ToastUtil.show("正在开发中");
+                // TODO: 2019/3/16  跳转到认证页面
                 break;
         }
     }

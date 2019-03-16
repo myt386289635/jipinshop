@@ -26,6 +26,7 @@ import com.example.administrator.jipinshop.activity.setting.opinion.OpinionActiv
 import com.example.administrator.jipinshop.activity.shoppingdetail.ShoppingDetailActivity;
 import com.example.administrator.jipinshop.activity.sign.SignActivity;
 import com.example.administrator.jipinshop.activity.sign.detail.IntegralDetailActivity;
+import com.example.administrator.jipinshop.activity.sign.invitation.InvitationActivity;
 import com.example.administrator.jipinshop.activity.sreach.SreachActivity;
 import com.example.administrator.jipinshop.activity.sreach.result.SreachResultActivity;
 import com.example.administrator.jipinshop.auto.ActivityScope;
@@ -64,4 +65,5 @@ public interface BaseActivityComponent {
     void inject(MallActivity activity);
     void inject(MallDetailActivity activity);
     void inject(ExchangeActivity activity);
+    void inject(InvitationActivity activity);
 }
