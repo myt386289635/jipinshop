@@ -151,6 +151,7 @@ public class MallActivity extends BaseActivity implements View.OnClickListener, 
         if (bean.getData() != null && bean.getData().size() != 0){
             //有数据
             mBinding.netClude.qsNet.setVisibility(View.GONE);
+            mBinding.recyclerView.setVisibility(View.VISIBLE);
             if(refersh){
                 mList.clear();
             }
