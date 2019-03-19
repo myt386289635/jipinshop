@@ -7,6 +7,7 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <TextView
+        android:textStyle="bold"
         android:ellipsize="end"
         android:maxLines="1"
         android:id="@+id/item_title"

@@ -83,8 +83,10 @@ public class ExtendableListViewAdapter extends BaseExpandableListAdapter {
         groupViewHolder.mTitle.setText(groupList.get(groupPosition).getTitle() + "   +" + groupList.get(groupPosition).getPoint());
         if(isExpanded){
             groupViewHolder.group_right.setImageResource(R.mipmap.right_up);
+            groupViewHolder.group_divider.setVisibility(View.INVISIBLE);
         }else{
             groupViewHolder.group_right.setImageResource(R.mipmap.right_down);
+            groupViewHolder.group_divider.setVisibility(View.VISIBLE);
         }
         switch (groupList.get(groupPosition).getType()){
             case 1://邀请好友
@@ -142,11 +144,13 @@ public class ExtendableListViewAdapter extends BaseExpandableListAdapter {
         private TextView mTitle;
         private TextView group_sure;
         private ImageView group_right;
+        private View group_divider;
 
         public GroupViewHolder(View view) {
             mTitle = view.findViewById(R.id.group_title);
             group_sure = view.findViewById(R.id.group_sure);
             group_right = view.findViewById(R.id.group_right);
+            group_divider = view.findViewById(R.id.group_divider);
         }
     }
 
