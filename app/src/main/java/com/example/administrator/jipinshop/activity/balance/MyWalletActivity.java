@@ -85,6 +85,9 @@ public class MyWalletActivity extends BaseActivity implements View.OnClickListen
 //        return mBinding.appbar;
 //    }
 
+    /**
+     * 解决AppBarLayout与ViewPager手势冲突出现的滑动卡顿问题
+     */
     @Override
     public boolean dispatchTouchEvent(MotionEvent ev) {
         switch (ev.getAction()) {
