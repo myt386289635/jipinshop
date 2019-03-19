@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.AppBarLayout;
 import android.support.v4.app.Fragment;
+import android.view.MotionEvent;
 import android.view.View;
 
 import com.example.administrator.jipinshop.R;
@@ -32,6 +33,11 @@ public class MyWalletActivity extends BaseActivity implements View.OnClickListen
     private List<Fragment> mFragments;
     private HomeFragmentAdapter mAdapter;
 
+    float startX = 0;
+    float startY = 0;
+    float xDistance = 0;
+    float yDistance = 0;
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -48,9 +54,8 @@ public class MyWalletActivity extends BaseActivity implements View.OnClickListen
     private void initView() {
         mPresenter.setStatusBarHight(mBinding.statusBar,this);
         mPresenter.setStatusBarHight(mBinding.titleTop,mBinding.title,this);
-//        mPresenter.initTitleLayout(mBinding.viewPager,mBinding.statusBar,mBinding.appbar,mBinding.titleContainer,mBinding.titleText);
+//        mPresenter.initTitleLayout(mBinding.statusBar,mBinding.appbar,mBinding.titleContainer,mBinding.titleText);
 
-        mBinding.viewPager.setNoScroll(true);
         mAdapter = new HomeFragmentAdapter(getSupportFragmentManager());
         mFragments = new ArrayList<>();
         mFragments.add(BudgetDetailFragment.getInstance());
@@ -79,4 +84,32 @@ public class MyWalletActivity extends BaseActivity implements View.OnClickListen
 //    public AppBarLayout getBar(){
 //        return mBinding.appbar;
 //    }
+
+    @Override
+    public boolean dispatchTouchEvent(MotionEvent ev) {
+        switch (ev.getAction()) {
+            case MotionEvent.ACTION_DOWN:
+                xDistance = yDistance = 0f;
+                startX = ev.getX();
+                startY = ev.getY();
+                break;
+            case MotionEvent.ACTION_MOVE:
+
+                break;
+        }
+        final float curX = ev.getX();
+        final float curY = ev.getY();
+
+        xDistance += Math.abs(curX - startX);
+        yDistance += Math.abs(curY - startY);
+
+        if (xDistance >= yDistance) {
+            //横向滑动
+            mBinding.viewPager.setNoScroll(false);
+        } else {
+            //垂直滑动
+            mBinding.viewPager.setNoScroll(true);
+        }
+        return super.dispatchTouchEvent(ev);
+    }
 }
