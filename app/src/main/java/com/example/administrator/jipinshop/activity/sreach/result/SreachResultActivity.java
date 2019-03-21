@@ -16,6 +16,7 @@ import com.example.administrator.jipinshop.databinding.ActivitySreachResultBindi
 import com.example.administrator.jipinshop.fragment.sreach.article.SreachArticleFragment;
 import com.example.administrator.jipinshop.fragment.sreach.find.SreachFindFragment;
 import com.example.administrator.jipinshop.fragment.sreach.goods.SreachGoodsFragment;
+import com.example.administrator.jipinshop.fragment.sreach.tryout.SreachTryFragment;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -55,7 +56,7 @@ public class SreachResultActivity extends BaseActivity implements View.OnClickLi
         mFragments.add(SreachGoodsFragment.getInstance(content));
         mFragments.add(SreachFindFragment.getInstance(content));
         mFragments.add(SreachArticleFragment.getInstance(content,"2"));//评测
-        mFragments.add(SreachArticleFragment.getInstance(content,"4"));//试用报告
+        mFragments.add(SreachTryFragment.getInstance(content,"4"));//试用报告
         mAdapter = new HomeAdapter(getSupportFragmentManager());
         mAdapter.setFragments(mFragments);
         mBinding.viewPager.setAdapter(mAdapter);

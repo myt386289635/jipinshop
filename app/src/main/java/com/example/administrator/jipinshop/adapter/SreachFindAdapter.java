@@ -18,7 +18,7 @@ import java.util.List;
 /**
  * @author 莫小婷
  * @create 2019/1/9
- * @Describe 评测、试用报告的
+ * @Describe 评测的
  */
 public class SreachFindAdapter extends RecyclerView.Adapter<SreachFindAdapter.ViewHolder> {
 

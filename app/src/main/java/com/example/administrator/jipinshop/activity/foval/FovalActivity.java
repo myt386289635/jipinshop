@@ -18,6 +18,7 @@ import com.example.administrator.jipinshop.base.BaseActivity;
 import com.example.administrator.jipinshop.fragment.foval.article.FovalArticleFragment;
 import com.example.administrator.jipinshop.fragment.foval.find.FovalFindFragment;
 import com.example.administrator.jipinshop.fragment.foval.goods.FovalGoodsFragment;
+import com.example.administrator.jipinshop.fragment.foval.tryout.FovalTryFragment;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -60,7 +61,7 @@ public class FovalActivity extends BaseActivity {
         mFragments.add(FovalGoodsFragment.getInstance());
         mFragments.add(FovalFindFragment.getInstance());
         mFragments.add(FovalArticleFragment.getInstance("2"));
-        mFragments.add(FovalArticleFragment.getInstance("4"));
+        mFragments.add(FovalTryFragment.getInstance("4"));
         mAdapter.setFragments(mFragments);
         mViewPager.setAdapter(mAdapter);
         mViewPager.setOffscreenPageLimit(mFragments.size() - 1);

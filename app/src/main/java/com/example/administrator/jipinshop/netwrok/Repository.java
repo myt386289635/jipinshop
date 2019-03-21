@@ -31,6 +31,9 @@ import com.example.administrator.jipinshop.bean.SuccessBean;
 import com.example.administrator.jipinshop.bean.SystemMessageBean;
 import com.example.administrator.jipinshop.bean.TabBean;
 import com.example.administrator.jipinshop.bean.TaskFinishBean;
+import com.example.administrator.jipinshop.bean.TryAllBean;
+import com.example.administrator.jipinshop.bean.TryBean;
+import com.example.administrator.jipinshop.bean.TryReportBean;
 import com.example.administrator.jipinshop.bean.UnMessageBean;
 import com.example.administrator.jipinshop.bean.UserInfoBean;
 import com.example.administrator.jipinshop.bean.UserPageBean;
@@ -493,5 +496,26 @@ public class Repository {
      */
     public Observable<InvitationBean> invitation(){
         return mAPIService.invitation();
+    }
+
+    /**
+     * 试用首页
+     */
+    public Observable<TryBean> tryIndex(){
+        return mAPIService.tryIndex();
+    }
+
+    /**
+     * 查看全部试用列表
+     */
+    public Observable<TryAllBean> tryAllList(String page){
+        return mAPIService.tryAllList(page);
+    }
+
+    /**
+     * 查看全部试用报告
+     */
+    public Observable<TryReportBean> tryReportList(String page){
+        return mAPIService.tryReportList(page);
     }
 }

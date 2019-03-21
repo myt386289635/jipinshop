@@ -11,6 +11,7 @@ import com.example.administrator.jipinshop.fragment.follow.fans.FansFragment;
 import com.example.administrator.jipinshop.fragment.foval.article.FovalArticleFragment;
 import com.example.administrator.jipinshop.fragment.foval.find.FovalFindFragment;
 import com.example.administrator.jipinshop.fragment.foval.goods.FovalGoodsFragment;
+import com.example.administrator.jipinshop.fragment.foval.tryout.FovalTryFragment;
 import com.example.administrator.jipinshop.fragment.home.HomeFragment;
 import com.example.administrator.jipinshop.fragment.home.commen.HomeCommenFragment;
 import com.example.administrator.jipinshop.fragment.home.recommend.RecommendFragment;
@@ -18,6 +19,9 @@ import com.example.administrator.jipinshop.fragment.mine.MineFragment;
 import com.example.administrator.jipinshop.fragment.sreach.article.SreachArticleFragment;
 import com.example.administrator.jipinshop.fragment.sreach.find.SreachFindFragment;
 import com.example.administrator.jipinshop.fragment.sreach.goods.SreachGoodsFragment;
+import com.example.administrator.jipinshop.fragment.sreach.tryout.SreachTryFragment;
+import com.example.administrator.jipinshop.fragment.tryout.TryFragment;
+import com.example.administrator.jipinshop.fragment.tryout.hot.TryCommenFragment;
 import com.example.administrator.jipinshop.netwrok.ApplicationComponent;
 
 import dagger.Component;
@@ -42,4 +46,8 @@ public interface BaseFragmentComponent {
     void inject(FovalGoodsFragment fragment);
     void inject(FovalFindFragment fragment);
     void inject(BudgetDetailFragment fragment);
+    void inject(TryFragment fragment);
+    void inject(TryCommenFragment fragment);
+    void inject(SreachTryFragment fragment);
+    void inject(FovalTryFragment fragment);
 }

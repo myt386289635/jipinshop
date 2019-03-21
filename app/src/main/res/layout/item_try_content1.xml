@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    android:background="@color/color_white"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <ImageView
+        android:layout_marginTop="@dimen/y24"
+        tools:src="@color/color_4A90E2"
+        android:id="@+id/try_image"
+        android:scaleType="fitXY"
+        android:layout_marginRight="@dimen/x28"
+        android:layout_marginLeft="@dimen/x28"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/y400"/>
+
+    <TextView
+        android:id="@+id/try_name"
+        android:textColor="@color/color_202020"
+        android:textSize="16sp"
+        android:textStyle="bold"
+        android:layout_below="@+id/try_image"
+        android:layout_marginTop="@dimen/y36"
+        android:layout_marginRight="@dimen/x28"
+        android:layout_marginLeft="@dimen/x28"
+        android:ellipsize="end"
+        android:singleLine="true"
+        tools:text="电动剃须刀刮胡刀全身水洗男士FT668/14电动剃须刀刮胡刀全身水洗男士FT668/14"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"/>
+
+    <TextView
+        android:layout_marginTop="@dimen/y36"
+        android:id="@+id/try_tagnum"
+        android:textSize="13sp"
+        android:textColor="@color/color_ACACAC"
+        android:layout_marginLeft="@dimen/x28"
+        android:layout_below="@+id/try_name"
+        android:text="数量："
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"/>
+
+    <TextView
+        android:layout_marginTop="@dimen/y36"
+        android:textStyle="bold"
+        android:layout_toRightOf="@+id/try_tagnum"
+        android:id="@+id/try_num"
+        android:textSize="13sp"
+        android:textColor="@color/color_E31436"
+        android:layout_below="@+id/try_name"
+        android:text="0"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"/>
+
+    <TextView
+        android:layout_marginTop="@dimen/y36"
+        android:layout_toRightOf="@+id/try_num"
+        android:id="@+id/try_tagnum2"
+        android:textSize="13sp"
+        android:textColor="@color/color_ACACAC"
+        android:layout_marginLeft="@dimen/x48"
+        android:layout_below="@+id/try_name"
+        android:text="售价："
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"/>
+
+    <TextView
+        android:layout_marginTop="@dimen/y36"
+        android:textStyle="bold"
+        android:layout_toRightOf="@+id/try_tagnum2"
+        android:id="@+id/try_price"
+        android:textSize="13sp"
+        android:textColor="@color/color_E31436"
+        android:layout_below="@+id/try_name"
+        android:text="¥0.00"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"/>
+
+    <TextView
+        android:visibility="invisible"
+        android:layout_marginBottom="@dimen/y30"
+        android:layout_marginRight="@dimen/x28"
+        android:id="@+id/try_button"
+        android:layout_marginTop="@dimen/y30"
+        android:layout_below="@+id/try_name"
+        android:paddingRight="@dimen/x18"
+        android:paddingLeft="@dimen/x18"
+        android:paddingBottom="@dimen/y8"
+        android:paddingTop="@dimen/y8"
+        android:textColor="@color/color_white"
+        android:text="免费申请"
+        android:background="@drawable/bg_e31436"
+        android:layout_alignParentRight="true"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"/>
+
+    <TextView
+        android:id="@+id/try_button1"
+        android:layout_marginRight="@dimen/x28"
+        android:layout_marginTop="@dimen/y32"
+        android:layout_below="@+id/try_name"
+        android:layout_alignParentRight="true"
+        tools:text="试用中"
+        android:textSize="13sp"
+        android:textColor="@color/color_ACACAC"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"/>
+
+
+    <View
+        android:layout_marginBottom="@dimen/y56"
+        android:layout_below="@+id/try_button"
+        android:background="@color/color_F5F5F5"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/y12"/>
+
+</RelativeLayout>

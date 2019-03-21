@@ -1,8 +1,59 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-    android:background="#f44"
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent">
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
 
-</LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/color_white"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:id="@+id/status_bar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/color_white"
+            android:orientation="vertical"/>
+
+        <com.aspsine.swipetoloadlayout.SwipeToLoadLayout
+            android:id="@+id/swipeToLoad"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/color_white">
+
+            <com.example.administrator.jipinshop.view.CustomRefreshHeadView
+                android:id="@+id/swipe_refresh_header"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:padding="20dp"/>
+
+            <RelativeLayout
+                android:id="@+id/swipe_target"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical">
+
+
+                <android.support.v7.widget.RecyclerView
+                    android:id="@+id/recycler_view"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"/>
+
+                <RelativeLayout
+                    android:id="@+id/try_head"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"/>
+
+
+                <include
+                    android:id="@+id/in_clude"
+                    layout="@layout/common_net_error"
+                    android:visibility="gone"/>
+
+            </RelativeLayout>
+
+        </com.aspsine.swipetoloadlayout.SwipeToLoadLayout>
+
+    </LinearLayout>
+
+</layout>

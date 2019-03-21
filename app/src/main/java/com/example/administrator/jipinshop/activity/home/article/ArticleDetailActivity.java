@@ -45,9 +45,12 @@ import com.example.administrator.jipinshop.bean.eventbus.CommonEvaluationBus;
 import com.example.administrator.jipinshop.bean.eventbus.EvaluationBus;
 import com.example.administrator.jipinshop.bean.eventbus.FindBus;
 import com.example.administrator.jipinshop.bean.eventbus.FollowBus;
+import com.example.administrator.jipinshop.bean.eventbus.TryBus;
 import com.example.administrator.jipinshop.databinding.ActivityFindDetailBinding;
 import com.example.administrator.jipinshop.fragment.follow.attention.AttentionFragment;
 import com.example.administrator.jipinshop.fragment.foval.article.FovalArticleFragment;
+import com.example.administrator.jipinshop.fragment.foval.find.FovalFindFragment;
+import com.example.administrator.jipinshop.fragment.foval.tryout.FovalTryFragment;
 import com.example.administrator.jipinshop.util.ClickUtil;
 import com.example.administrator.jipinshop.util.ShareUtils;
 import com.example.administrator.jipinshop.util.ToastUtil;
@@ -74,7 +77,7 @@ import javax.inject.Inject;
 /**
  * @author 莫小婷
  * @create 2018/8/30
- * @Describe 文章详情  2评测, 3发现
+ * @Describe 文章详情  2评测, 3发现 , 4试用
  */
 
 public class ArticleDetailActivity extends BaseActivity implements View.OnClickListener, ShareBoardDialog.onShareListener, ArticleDetailView, ShoppingCommonAdapter.OnItemReply, ShoppingCommonAdapter.OnGoodItem, RelatedGoodsDialog.OnItem {
@@ -194,7 +197,9 @@ public class ArticleDetailActivity extends BaseActivity implements View.OnClickL
 
         if(getIntent().getStringExtra("type").equals("2")){
             mBinding.titleTv.setText("评测详情");
-        }else {
+        }else if(getIntent().getStringExtra("type").equals("4")){
+            mBinding.titleTv.setText("报告详情");
+        } else {
             mBinding.titleTv.setText("发现详情");
         }
         mBeans = new ArrayList<>();
@@ -501,7 +506,13 @@ public class ArticleDetailActivity extends BaseActivity implements View.OnClickL
     @Override
     public void onSucCollectInsert(SuccessBean successBean) {
         if (successBean.getCode() == 0) {
-            EventBus.getDefault().post(FovalArticleFragment.CollectResher);//刷新我的收藏列表
+            if(getIntent().getStringExtra("type").equals("2")){
+                EventBus.getDefault().post(FovalArticleFragment.CollectResher);//刷新我的收藏列表
+            }else if(getIntent().getStringExtra("type").equals("4")){
+                EventBus.getDefault().post(FovalTryFragment.CollectResher);//刷新我的收藏列表
+            } else {
+                EventBus.getDefault().post(FovalFindFragment.CollectResher);//刷新我的收藏列表
+            }
             isCollect = true;
             mBinding.bottomFavor.setImageResource(R.mipmap.tab_favor_sel);
         } else {
@@ -517,7 +528,13 @@ public class ArticleDetailActivity extends BaseActivity implements View.OnClickL
     @Override
     public void onSucCollectDelete(SuccessBean successBean) {
         if (successBean.getCode() == 0) {
-            EventBus.getDefault().post(FovalArticleFragment.CollectResher);//刷新我的收藏列表
+            if(getIntent().getStringExtra("type").equals("2")){
+                EventBus.getDefault().post(FovalArticleFragment.CollectResher);//刷新我的收藏列表
+            }else if(getIntent().getStringExtra("type").equals("4")){
+                EventBus.getDefault().post(FovalTryFragment.CollectResher);//刷新我的收藏列表
+            } else {
+                EventBus.getDefault().post(FovalFindFragment.CollectResher);//刷新我的收藏列表
+            }
             isCollect = false;
             mBinding.bottomFavor.setImageResource(R.mipmap.tab_favor_nor);
         } else {
@@ -884,6 +901,14 @@ public class ArticleDetailActivity extends BaseActivity implements View.OnClickL
     @Subscribe
     public void commentResher(EvaluationBus evaluationBus) {
         if (evaluationBus != null) {
+            mPresenter.comment(getIntent().getStringExtra("id"), getIntent().getStringExtra("type"), this.bindToLifecycle());
+        }
+    }
+
+    //获取评论列表_试用报告详情
+    @Subscribe
+    public void commentResher(TryBus tryBus) {
+        if (tryBus != null) {
             mPresenter.comment(getIntent().getStringExtra("id"), getIntent().getStringExtra("type"), this.bindToLifecycle());
         }
     }

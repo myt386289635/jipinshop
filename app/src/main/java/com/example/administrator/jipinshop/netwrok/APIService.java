@@ -32,6 +32,9 @@ import com.example.administrator.jipinshop.bean.SuccessBean;
 import com.example.administrator.jipinshop.bean.SystemMessageBean;
 import com.example.administrator.jipinshop.bean.TabBean;
 import com.example.administrator.jipinshop.bean.TaskFinishBean;
+import com.example.administrator.jipinshop.bean.TryAllBean;
+import com.example.administrator.jipinshop.bean.TryBean;
+import com.example.administrator.jipinshop.bean.TryReportBean;
 import com.example.administrator.jipinshop.bean.UnMessageBean;
 import com.example.administrator.jipinshop.bean.UserInfoBean;
 import com.example.administrator.jipinshop.bean.UserPageBean;
@@ -454,6 +457,24 @@ public interface APIService {
      */
     @GET("qualityshop-api/api/user/getQRcodeImg")
     Observable<InvitationBean> invitation();
+
+    /**
+     * 试用首页
+     */
+    @GET("qualityshop-api/api/trial/index")
+    Observable<TryBean> tryIndex();
+
+    /**
+     * 查看全部试用
+     */
+    @GET("qualityshop-api/api/trial/list")
+    Observable<TryAllBean> tryAllList(@Query("page") String page);
+
+    /**
+     * 查看全部试用报告
+     */
+    @GET("qualityshop-api/api/trial/reportList")
+    Observable<TryReportBean> tryReportList(@Query("page") String page);
 
 /*************************************************以下是还未修改的接口***********************************************/
 

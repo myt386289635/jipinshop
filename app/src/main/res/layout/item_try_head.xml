@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    android:background="@color/color_white"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <TextView
+        android:layout_marginBottom="@dimen/y24"
+        android:id="@+id/try_title"
+        android:textStyle="bold"
+        android:textSize="16sp"
+        android:textColor="@color/color_DE050505"
+        android:text="免费试用"
+        android:layout_marginLeft="@dimen/x28"
+        android:layout_marginTop="@dimen/y24"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"/>
+
+
+    <TextView
+        android:paddingBottom="@dimen/y24"
+        android:id="@+id/try_all"
+        android:text="查看全部"
+        android:drawablePadding="@dimen/x14"
+        android:drawableRight="@mipmap/right_blue"
+        android:paddingRight="@dimen/x28"
+        android:paddingTop="@dimen/y28"
+        android:layout_alignParentRight="true"
+        android:textSize="14sp"
+        android:textColor="@color/color_4A90E2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"/>
+
+</RelativeLayout>

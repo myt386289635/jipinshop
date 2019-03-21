@@ -52,6 +52,7 @@ import com.example.administrator.jipinshop.bean.eventbus.FollowBus;
 import com.example.administrator.jipinshop.databinding.ActivityShopingDetailBinding;
 import com.example.administrator.jipinshop.fragment.follow.attention.AttentionFragment;
 import com.example.administrator.jipinshop.fragment.foval.article.FovalArticleFragment;
+import com.example.administrator.jipinshop.fragment.foval.goods.FovalGoodsFragment;
 import com.example.administrator.jipinshop.util.ClickUtil;
 import com.example.administrator.jipinshop.util.ShareUtils;
 import com.example.administrator.jipinshop.util.ToastUtil;
@@ -550,7 +551,7 @@ public class ShoppingDetailActivity extends BaseActivity implements ShoppingComm
     @Override
     public void onSucCollectInsert(SuccessBean successBean) {
         if(successBean.getCode() == 0){
-            EventBus.getDefault().post(FovalArticleFragment.CollectResher);//刷新我的收藏列表
+            EventBus.getDefault().post(FovalGoodsFragment.CollectResher);//刷新我的收藏列表
             isCollect = true;
             mBinding.detailFavor.setImageResource(R.mipmap.score_sel);
             mBinding.titleFavorImg.setImageResource(R.mipmap.score_sel);
@@ -567,7 +568,7 @@ public class ShoppingDetailActivity extends BaseActivity implements ShoppingComm
     @Override
     public void onSucCollectDelete(SuccessBean successBean) {
         if(successBean.getCode() == 0){
-            EventBus.getDefault().post(FovalArticleFragment.CollectResher);
+            EventBus.getDefault().post(FovalGoodsFragment.CollectResher);
             isCollect = false;
             mBinding.detailFavor.setImageResource(R.mipmap.nav_favor);
             mBinding.titleFavorImg.setImageResource(R.mipmap.nav_favor_white);

@@ -100,7 +100,7 @@ public class MainActivity extends RxAppCompatActivity implements MainView {
         mFragments.add(mHomeFragment);
         mFragments.add(mFindFragment);
         mFragments.add(mEvaluationFragment);
-//        mFragments.add(mTryFragment);
+        mFragments.add(mTryFragment);
         mFragments.add(mMineFragment);
 
         mHomeAdapter = new HomeAdapter(getSupportFragmentManager());

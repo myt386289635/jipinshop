@@ -1,4 +1,4 @@
-package com.example.administrator.jipinshop.fragment.foval.article;
+package com.example.administrator.jipinshop.fragment.foval.tryout;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -18,8 +18,11 @@ import com.aspsine.swipetoloadlayout.SwipeToLoadLayout;
 import com.example.administrator.jipinshop.R;
 import com.example.administrator.jipinshop.activity.home.article.ArticleDetailActivity;
 import com.example.administrator.jipinshop.adapter.SreachFindAdapter;
+import com.example.administrator.jipinshop.adapter.SreachTryAdapter;
 import com.example.administrator.jipinshop.base.DBBaseFragment;
 import com.example.administrator.jipinshop.bean.SreachResultArticlesBean;
+import com.example.administrator.jipinshop.fragment.foval.article.FovalArticleFragment;
+import com.example.administrator.jipinshop.fragment.foval.article.FovalArticlePresenter;
 import com.example.administrator.jipinshop.fragment.sreach.article.SreachArticleView;
 import com.example.administrator.jipinshop.util.ClickUtil;
 import com.example.administrator.jipinshop.util.ToastUtil;
@@ -40,15 +43,16 @@ import butterknife.Unbinder;
 
 /**
  * @author 莫小婷
- * @create 2018/8/6
- * @Describe 收藏评测
+ * @create 2019/3/21
+ * @Describe 收藏试用
  */
-public class FovalArticleFragment extends DBBaseFragment implements OnRefreshListener, OnLoadMoreListener, SreachArticleView, SreachFindAdapter.OnItem {
+public class FovalTryFragment extends DBBaseFragment implements OnRefreshListener, OnLoadMoreListener, SreachFindAdapter.OnItem, SreachArticleView, SreachTryAdapter.OnItem{
 
-    public static final String CollectResher = "ShoppingDetailActivity2FovalArticleFragment";
+    public static final String CollectResher = "ShoppingDetailActivity2FovalTryFragment";
 
     @Inject
     FovalArticlePresenter mPresenter;
+
     @BindView(R.id.recycler_view)
     RecyclerView mRecyclerView;
     @BindView(R.id.error_image)
@@ -64,7 +68,7 @@ public class FovalArticleFragment extends DBBaseFragment implements OnRefreshLis
     private Unbinder unbinder;
 
     private Boolean once = true;//记录第一次进入页面标示
-    private SreachFindAdapter mAdapter;
+    private SreachTryAdapter mAdapter;
     private List<SreachResultArticlesBean.DataBean> mList;
 
     private int page = 1;
@@ -78,22 +82,12 @@ public class FovalArticleFragment extends DBBaseFragment implements OnRefreshLis
         }
     }
 
-    public static FovalArticleFragment getInstance(String type) {
-        FovalArticleFragment fragment = new FovalArticleFragment();
+    public static FovalTryFragment getInstance(String type) {
+        FovalTryFragment fragment = new FovalTryFragment();
         Bundle bundle = new Bundle();
         bundle.putString("type", type);
         fragment.setArguments(bundle);
         return fragment;
-    }
-
-    /**
-     * 页面刷新
-     */
-    @Override
-    public void onRefresh() {
-        page = 1;
-        refersh = true;
-        mPresenter.collect(page, getArguments().getString("type"), this.bindUntilEvent(FragmentEvent.DESTROY_VIEW));
     }
 
     @Override
@@ -111,24 +105,87 @@ public class FovalArticleFragment extends DBBaseFragment implements OnRefreshLis
 
         mRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         mList = new ArrayList<>();
-        mAdapter = new SreachFindAdapter(mList, getContext());
+        mAdapter = new SreachTryAdapter(mList,getContext());
         mAdapter.setOnItem(this);
         mRecyclerView.setAdapter(mAdapter);
 
         mSwipeToLoad.setOnRefreshListener(this);
         mSwipeToLoad.setOnLoadMoreListener(this);
-        mPresenter.solveScoll(mRecyclerView, mSwipeToLoad);
-
+        mPresenter.solveScoll(mRecyclerView,mSwipeToLoad);
     }
 
-    /**
-     * 页面加载
-     */
+    @Override
+    public void onRefresh() {
+        page = 1;
+        refersh = true;
+        mPresenter.collect(page, getArguments().getString("type"), this.bindUntilEvent(FragmentEvent.DESTROY_VIEW));
+    }
+
     @Override
     public void onLoadMore() {
         page++;
         refersh = false;
         mPresenter.collect(page, getArguments().getString("type"), this.bindUntilEvent(FragmentEvent.DESTROY_VIEW));
+    }
+
+    @Override
+    public void onItem(int pos) {
+        if (ClickUtil.isFastDoubleClick(800)) {
+            return;
+        }else{
+            BigDecimal bigDecimal = new BigDecimal(mList.get(pos).getPv());
+            mList.get(pos).setPv((bigDecimal.intValue() + 1) + "");
+            mAdapter.notifyDataSetChanged();
+            startActivity(new Intent(getContext(),ArticleDetailActivity.class)
+                    .putExtra("id",mList.get(pos).getArticleId())
+                    .putExtra("type","4")
+            );
+        }
+    }
+
+    @Override
+    public void Success(SreachResultArticlesBean articlesBean) {
+        stopResher();
+        stopLoading();
+        if(articlesBean.getData() != null && articlesBean.getData().size() != 0){
+            if(refersh){
+                mQsNet.setVisibility(View.GONE);
+                mRecyclerView.setVisibility(View.VISIBLE);
+                mList.clear();
+                mList.addAll(articlesBean.getData());
+                mAdapter.notifyDataSetChanged();
+            }else {
+                mList.addAll(articlesBean.getData());
+                mAdapter.notifyDataSetChanged();
+                mSwipeToLoad.setLoadMoreEnabled(false);
+            }
+        }else {
+            if(refersh){
+                initError(R.mipmap.qs_collection, "暂无数据", "暂时没有任何数据");
+                mRecyclerView.setVisibility(View.GONE);
+            }else {
+                page-- ;
+                ToastUtil.show("已经是最后一页了");
+            }
+        }
+        if(refersh){
+            if (once){
+                once = false;
+            }
+        }
+    }
+
+    @Override
+    public void Faile(String error) {
+        if(refersh){
+            stopResher();
+            initError(R.mipmap.qs_net, "网络出错", "哇哦，网络出错了，换个姿势下滑试试");
+            mRecyclerView.setVisibility(View.GONE);
+        }else {
+            stopLoading();
+            page--;
+        }
+        ToastUtil.show(error);
     }
 
     public void initError(int id, String title, String content) {
@@ -138,7 +195,7 @@ public class FovalArticleFragment extends DBBaseFragment implements OnRefreshLis
         mErrorContent.setText(content);
     }
 
-    public void stopResher() {
+    public void stopResher(){
         if (mSwipeToLoad != null && mSwipeToLoad.isRefreshing()) {
             if (!mSwipeToLoad.isRefreshEnabled()) {
                 mSwipeToLoad.setRefreshEnabled(true);
@@ -165,61 +222,6 @@ public class FovalArticleFragment extends DBBaseFragment implements OnRefreshLis
         }
     }
 
-    /**
-     * 收藏列表获取成功
-     *
-     * @param articlesBean
-     */
-    @Override
-    public void Success(SreachResultArticlesBean articlesBean) {
-        stopResher();
-        stopLoading();
-        if (articlesBean.getData() != null && articlesBean.getData().size() != 0) {
-            if (refersh) {
-                mQsNet.setVisibility(View.GONE);
-                mRecyclerView.setVisibility(View.VISIBLE);
-                mList.clear();
-                mList.addAll(articlesBean.getData());
-                mAdapter.notifyDataSetChanged();
-            } else {
-                mList.addAll(articlesBean.getData());
-                mAdapter.notifyDataSetChanged();
-                mSwipeToLoad.setLoadMoreEnabled(false);
-            }
-        } else {
-            if (refersh) {
-                initError(R.mipmap.qs_collection, "暂无数据", "暂时没有任何数据");
-                mRecyclerView.setVisibility(View.GONE);
-            } else {
-                page--;
-                ToastUtil.show("已经是最后一页了");
-            }
-        }
-        if (refersh) {
-            if (once) {
-                once = false;
-            }
-        }
-    }
-
-    /**
-     * 收藏列表获取失败
-     *
-     * @param throwable
-     */
-    @Override
-    public void Faile(String throwable) {
-        if (refersh) {
-            stopResher();
-            initError(R.mipmap.qs_net, "网络出错", "哇哦，网络出错了，换个姿势下滑试试");
-            mRecyclerView.setVisibility(View.GONE);
-        } else {
-            stopLoading();
-            page--;
-        }
-        ToastUtil.show(throwable);
-    }
-
     @Override
     public void onDestroyView() {
         unbinder.unbind();
@@ -229,7 +231,7 @@ public class FovalArticleFragment extends DBBaseFragment implements OnRefreshLis
 
     @Subscribe
     public void onResher(String s) {
-        if (!TextUtils.isEmpty(s) && s.equals(FovalArticleFragment.CollectResher)) {
+        if (!TextUtils.isEmpty(s) && s.equals(FovalTryFragment.CollectResher)) {
             if (!mSwipeToLoad.isRefreshEnabled()) {
                 mSwipeToLoad.setRefreshEnabled(true);
                 mSwipeToLoad.setRefreshing(true);
@@ -237,21 +239,6 @@ public class FovalArticleFragment extends DBBaseFragment implements OnRefreshLis
             } else {
                 mSwipeToLoad.setRefreshing(true);
             }
-        }
-    }
-
-    @Override
-    public void onItem(int pos) {
-        if (ClickUtil.isFastDoubleClick(800)) {
-            return;
-        } else {
-            BigDecimal bigDecimal = new BigDecimal(mList.get(pos).getPv());
-            mList.get(pos).setPv((bigDecimal.intValue() + 1) + "");
-            mAdapter.notifyDataSetChanged();
-            startActivity(new Intent(getContext(), ArticleDetailActivity.class)
-                    .putExtra("id", mList.get(pos).getArticleId())
-                    .putExtra("type", "2")
-            );
         }
     }
 }

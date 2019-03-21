@@ -292,6 +292,14 @@
         <activity android:name=".activity.sign.invitation.InvitationActivity"
                   android:screenOrientation="portrait"/>
 
+        <!--查看全部试用-->
+        <activity android:name=".activity.tryout.TryAllActivity"
+                  android:screenOrientation="portrait"/>
+
+        <!--查看全部试用报告-->
+        <activity android:name=".activity.tryout.TryReportActivity"
+                  android:screenOrientation="portrait"/>
+
     </application>
 
 </manifest>
