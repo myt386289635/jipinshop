@@ -42,8 +42,8 @@ public class TryReportActivity extends BaseActivity implements View.OnClickListe
         mBinding.inClude.titleTv.setText("全部报告");
         mFragments = new ArrayList<>();
         mAdapter = new HomeFragmentAdapter(getSupportFragmentManager());
-        mFragments.add(TryCommenFragment.getInstance());
-        mFragments.add(TryCommenFragment.getInstance());
+        mFragments.add(TryCommenFragment.getInstance("1"));
+        mFragments.add(TryCommenFragment.getInstance("2"));
         mAdapter.setFragments(mFragments);
         mBinding.viewPager.setAdapter(mAdapter);
         mBinding.viewPager.setOffscreenPageLimit(mFragments.size() - 1);

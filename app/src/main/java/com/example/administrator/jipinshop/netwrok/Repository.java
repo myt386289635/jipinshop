@@ -515,7 +515,7 @@ public class Repository {
     /**
      * 查看全部试用报告
      */
-    public Observable<TryReportBean> tryReportList(String page){
-        return mAPIService.tryReportList(page);
+    public Observable<TryReportBean> tryReportList(String page,String orderbyType){
+        return mAPIService.tryReportList(page,orderbyType);
     }
 }

@@ -4,9 +4,15 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 
 import com.aspsine.swipetoloadlayout.SwipeToLoadLayout;
+import com.example.administrator.jipinshop.bean.TryReportBean;
 import com.example.administrator.jipinshop.netwrok.Repository;
+import com.trello.rxlifecycle2.LifecycleTransformer;
 
 import javax.inject.Inject;
+
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.functions.Consumer;
+import io.reactivex.schedulers.Schedulers;
 
 /**
  * @author 莫小婷
@@ -16,6 +22,11 @@ import javax.inject.Inject;
 public class TryCommenPresenter {
 
     private Repository mRepository;
+    private TryCommenView mView;
+
+    public void setView(TryCommenView view) {
+        mView = view;
+    }
 
     @Inject
     public TryCommenPresenter(Repository repository) {
@@ -49,5 +60,27 @@ public class TryCommenPresenter {
                 >= recyclerView.computeVerticalScrollRange())
             return true;
         return false;
+    }
+
+    public void tryReportList(String page,String orderbyType,LifecycleTransformer<TryReportBean> transformer){
+        mRepository.tryReportList(page,orderbyType)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .compose(transformer)
+                .subscribe(tryReportBean -> {
+                    if (tryReportBean.getCode() == 0){
+                        if(mView != null){
+                            mView.onSuccess(tryReportBean);
+                        }
+                    }else {
+                        if(mView != null){
+                            mView.onFile(tryReportBean.getMsg());
+                        }
+                    }
+                }, throwable -> {
+                    if(mView != null){
+                        mView.onFile(throwable.getMessage());
+                    }
+                });
     }
 }

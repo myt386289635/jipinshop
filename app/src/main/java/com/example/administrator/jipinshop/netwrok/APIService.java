@@ -474,7 +474,7 @@ public interface APIService {
      * 查看全部试用报告
      */
     @GET("qualityshop-api/api/trial/reportList")
-    Observable<TryReportBean> tryReportList(@Query("page") String page);
+    Observable<TryReportBean> tryReportList(@Query("page") String page,@Query("orderbyType") String orderbyType);
 
 /*************************************************以下是还未修改的接口***********************************************/
 

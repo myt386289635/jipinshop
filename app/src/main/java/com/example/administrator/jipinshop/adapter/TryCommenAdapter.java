@@ -11,6 +11,8 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.example.administrator.jipinshop.R;
+import com.example.administrator.jipinshop.bean.TryReportBean;
+import com.example.administrator.jipinshop.view.glide.GlideApp;
 
 import java.util.List;
 
@@ -22,9 +24,14 @@ import java.util.List;
 public class TryCommenAdapter extends RecyclerView.Adapter<TryCommenAdapter.ViewHolder>{
 
     private Context mContext;
-    private List<String> mList;
+    private List<TryReportBean.DataBean> mList;
+    private OnItemClick mOnItemClick;
 
-    public TryCommenAdapter(Context context, List<String> list) {
+    public void setOnItemClick(OnItemClick onItemClick) {
+        mOnItemClick = onItemClick;
+    }
+
+    public TryCommenAdapter(Context context, List<TryReportBean.DataBean> list) {
         mContext = context;
         mList = list;
     }
@@ -38,14 +45,24 @@ public class TryCommenAdapter extends RecyclerView.Adapter<TryCommenAdapter.View
     }
 
     @Override
-    public void onBindViewHolder(@NonNull ViewHolder viewHolder, int position) {
-        RelativeLayout.LayoutParams layoutParams = (RelativeLayout.LayoutParams) viewHolder.try_image.getLayoutParams();
+    public void onBindViewHolder(@NonNull ViewHolder content2ViewHolder, int position) {
+        RelativeLayout.LayoutParams layoutParams = (RelativeLayout.LayoutParams) content2ViewHolder.try_image.getLayoutParams();
         if(position == 0){
             layoutParams.topMargin = (int) mContext.getResources().getDimension(R.dimen.y48);
         }else {
             layoutParams.topMargin = 0;
         }
-        viewHolder.try_image.setLayoutParams(layoutParams);
+        content2ViewHolder.try_image.setLayoutParams(layoutParams);
+        GlideApp.loderImage(mContext,mList.get(position).getImg(),content2ViewHolder.try_image,0,0);
+        content2ViewHolder.try_name.setText(mList.get(position).getTitle());
+        content2ViewHolder.try_nickName.setText(mList.get(position).getUser().getNickname());
+        GlideApp.loderCircleImage(mContext,mList.get(position).getUser().getAvatar(),content2ViewHolder.try_head,0,0);
+        content2ViewHolder.try_pv.setText(mList.get(position).getPv() + "阅读");
+        content2ViewHolder.itemView.setOnClickListener(v -> {
+            if(mOnItemClick != null){
+                mOnItemClick.onItemReportClick(position);
+            }
+        });
     }
 
     @Override
@@ -66,5 +83,9 @@ public class TryCommenAdapter extends RecyclerView.Adapter<TryCommenAdapter.View
             try_nickName = itemView.findViewById(R.id.try_nickName);
             try_pv = itemView.findViewById(R.id.try_pv);
         }
+    }
+
+    public interface OnItemClick{
+        void onItemReportClick(int position);
     }
 }
