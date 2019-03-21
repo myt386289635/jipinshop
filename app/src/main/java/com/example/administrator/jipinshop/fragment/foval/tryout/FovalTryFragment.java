@@ -232,13 +232,7 @@ public class FovalTryFragment extends DBBaseFragment implements OnRefreshListene
     @Subscribe
     public void onResher(String s) {
         if (!TextUtils.isEmpty(s) && s.equals(FovalTryFragment.CollectResher)) {
-            if (!mSwipeToLoad.isRefreshEnabled()) {
-                mSwipeToLoad.setRefreshEnabled(true);
-                mSwipeToLoad.setRefreshing(true);
-                mSwipeToLoad.setRefreshEnabled(false);
-            } else {
-                mSwipeToLoad.setRefreshing(true);
-            }
+            onRefresh();
         }
     }
 }

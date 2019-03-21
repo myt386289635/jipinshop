@@ -228,13 +228,7 @@ public class FovalFindFragment extends DBBaseFragment implements SreachArticleAd
     @Subscribe
     public void onResher(String s) {
         if (!TextUtils.isEmpty(s) && s.equals(FovalFindFragment.CollectResher)) {
-            if (!mSwipeToLoad.isRefreshEnabled()) {
-                mSwipeToLoad.setRefreshEnabled(true);
-                mSwipeToLoad.setRefreshing(true);
-                mSwipeToLoad.setRefreshEnabled(false);
-            } else {
-                mSwipeToLoad.setRefreshing(true);
-            }
+            onRefresh();
         }
     }
 }
