@@ -68,7 +68,6 @@ public class TryFragment extends DBBaseFragment implements OnRefreshListener, Tr
         mAdapter = new TryAdapter(getContext(),mTrialListBeans,mReportListBeans);
         mAdapter.setOnItemClick(this);
         mBinding.recyclerView.setAdapter(mAdapter);
-        mBinding.recyclerView.addItemDecoration(new StickyItemDecoration(mBinding.tryHead));
 
         mTryPresenter.solveScoll(mBinding.recyclerView,mBinding.swipeToLoad);
         mBinding.swipeToLoad.setOnRefreshListener(this);
@@ -146,6 +145,7 @@ public class TryFragment extends DBBaseFragment implements OnRefreshListener, Tr
             mTrialListBeans.addAll(bean.getData().getTrialList());
             mReportListBeans.addAll(bean.getData().getReportList());
             mAdapter.notifyDataSetChanged();
+            mBinding.recyclerView.addItemDecoration(new StickyItemDecoration(mBinding.tryHead));
         }else {
             initError(R.mipmap.qs_nodata, "暂无数据", "暂时没有任何数据 ");
             mBinding.recyclerView.setVisibility(View.GONE);
