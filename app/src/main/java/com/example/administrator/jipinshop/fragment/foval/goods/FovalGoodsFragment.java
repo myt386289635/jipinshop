@@ -1,25 +1,21 @@
 package com.example.administrator.jipinshop.fragment.foval.goods;
 
 import android.content.Intent;
+import android.databinding.DataBindingUtil;
 import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
-import android.widget.LinearLayout;
-import android.widget.TextView;
 
 import com.aspsine.swipetoloadlayout.OnLoadMoreListener;
 import com.aspsine.swipetoloadlayout.OnRefreshListener;
-import com.aspsine.swipetoloadlayout.SwipeToLoadLayout;
 import com.example.administrator.jipinshop.R;
 import com.example.administrator.jipinshop.activity.shoppingdetail.ShoppingDetailActivity;
 import com.example.administrator.jipinshop.adapter.SreachGoodsAdapter;
 import com.example.administrator.jipinshop.base.DBBaseFragment;
 import com.example.administrator.jipinshop.bean.SreachResultGoodsBean;
-import com.example.administrator.jipinshop.fragment.foval.article.FovalArticleFragment;
+import com.example.administrator.jipinshop.databinding.FragmentSreachgoodsBinding;
 import com.example.administrator.jipinshop.fragment.sreach.goods.SreachGoodsView;
 import com.example.administrator.jipinshop.util.ClickUtil;
 import com.example.administrator.jipinshop.util.ToastUtil;
@@ -34,10 +30,6 @@ import java.util.List;
 
 import javax.inject.Inject;
 
-import butterknife.BindView;
-import butterknife.ButterKnife;
-import butterknife.Unbinder;
-
 /**
  * @author 莫小婷
  * @create 2019/1/15
@@ -49,20 +41,7 @@ public class FovalGoodsFragment extends DBBaseFragment implements SreachGoodsAda
 
     @Inject
     FovalGoodsPersenter mPresenter;
-    @BindView(R.id.recycler_view)
-    RecyclerView mRecyclerView;
-    @BindView(R.id.error_image)
-    ImageView mErrorImage;
-    @BindView(R.id.error_title)
-    TextView mErrorTitle;
-    @BindView(R.id.error_content)
-    TextView mErrorContent;
-    @BindView(R.id.qs_net)
-    LinearLayout mQsNet;
-    @BindView(R.id.swipeToLoad)
-    SwipeToLoadLayout mSwipeToLoad;
-    Unbinder unbinder;
-
+    private FragmentSreachgoodsBinding mBinding;
     private SreachGoodsAdapter mAdapter;
     private List<SreachResultGoodsBean.DataBean> mList;
 
@@ -76,9 +55,8 @@ public class FovalGoodsFragment extends DBBaseFragment implements SreachGoodsAda
 
     @Override
     public View initLayout(LayoutInflater inflater, ViewGroup container) {
-        View view = inflater.inflate(R.layout.fragment_fovalgoods, container, false);
-        unbinder = ButterKnife.bind(this, view);
-        return view;
+        mBinding = DataBindingUtil.inflate(inflater, R.layout.fragment_sreachgoods,container,false);
+        return mBinding.getRoot();
     }
 
 
@@ -88,16 +66,16 @@ public class FovalGoodsFragment extends DBBaseFragment implements SreachGoodsAda
         mPresenter.setGoodsView(this);
         EventBus.getDefault().register(this);
 
-        mRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+        mBinding.recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         mList = new ArrayList<>();
         mAdapter = new SreachGoodsAdapter(mList, getContext());
         mAdapter.setOnItem(this);
-        mRecyclerView.setAdapter(mAdapter);
+        mBinding.recyclerView.setAdapter(mAdapter);
 
-        mSwipeToLoad.setOnRefreshListener(this);
-        mSwipeToLoad.setOnLoadMoreListener(this);
-        mPresenter.solveScoll(mRecyclerView, mSwipeToLoad);
-        mSwipeToLoad.setRefreshing(true);
+        mBinding.swipeToLoad.setOnRefreshListener(this);
+        mBinding.swipeToLoad.setOnLoadMoreListener(this);
+        mPresenter.solveScoll(mBinding.recyclerView,mBinding.swipeToLoad);
+        mBinding.swipeToLoad.setRefreshing(true);
     }
 
     @Override
@@ -129,35 +107,34 @@ public class FovalGoodsFragment extends DBBaseFragment implements SreachGoodsAda
     }
 
     public void initError(int id, String title, String content) {
-        mQsNet.setVisibility(View.VISIBLE);
-        mErrorImage.setImageResource(id);
-        mErrorTitle.setText(title);
-        mErrorContent.setText(content);
+        mBinding.inClude.qsNet.setVisibility(View.VISIBLE);
+        mBinding.inClude.errorImage.setBackgroundResource(id);
+        mBinding.inClude.errorTitle.setText(title);
+        mBinding.inClude.errorContent.setText(content);
     }
 
-    public void stopResher() {
-        if (mSwipeToLoad != null && mSwipeToLoad.isRefreshing()) {
-            if (!mSwipeToLoad.isRefreshEnabled()) {
-                mSwipeToLoad.setRefreshEnabled(true);
-                mSwipeToLoad.setRefreshing(false);
-                mSwipeToLoad.setRefreshEnabled(false);
-            } else {
-                mSwipeToLoad.setRefreshing(false);
+    public void stopResher(){
+        if (mBinding.swipeToLoad != null && mBinding.swipeToLoad.isRefreshing()) {
+            if(!mBinding.swipeToLoad.isRefreshEnabled()){
+                mBinding.swipeToLoad.setRefreshEnabled(true);
+                mBinding.swipeToLoad.setRefreshing(false);
+                mBinding.swipeToLoad.setRefreshEnabled(false);
+            }else {
+                mBinding.swipeToLoad.setRefreshing(false);
             }
         }
     }
-
     /**
      * 停止加载
      */
     public void stopLoading() {
-        if (mSwipeToLoad != null && mSwipeToLoad.isLoadingMore()) {
-            if (!mSwipeToLoad.isLoadMoreEnabled()) {
-                mSwipeToLoad.setLoadMoreEnabled(true);
-                mSwipeToLoad.setLoadingMore(false);
-                mSwipeToLoad.setLoadMoreEnabled(false);
+        if (mBinding.swipeToLoad != null && mBinding.swipeToLoad.isLoadingMore()) {
+            if (!mBinding.swipeToLoad.isLoadMoreEnabled()) {
+                mBinding.swipeToLoad.setLoadMoreEnabled(true);
+                mBinding.swipeToLoad.setLoadingMore(false);
+                mBinding.swipeToLoad.setLoadMoreEnabled(false);
             } else {
-                mSwipeToLoad.setLoadingMore(false);
+                mBinding.swipeToLoad.setLoadingMore(false);
             }
         }
     }
@@ -166,24 +143,24 @@ public class FovalGoodsFragment extends DBBaseFragment implements SreachGoodsAda
     public void Success(SreachResultGoodsBean resultGoodsBean) {
         stopResher();
         stopLoading();
-        if (resultGoodsBean.getData() != null && resultGoodsBean.getData().size() != 0) {
-            if (refersh) {
-                mQsNet.setVisibility(View.GONE);
-                mRecyclerView.setVisibility(View.VISIBLE);
+        if(resultGoodsBean.getData() != null && resultGoodsBean.getData().size() != 0){
+            if(refersh){
+                mBinding.inClude.qsNet.setVisibility(View.GONE);
+                mBinding.recyclerView.setVisibility(View.VISIBLE);
                 mList.clear();
                 mList.addAll(resultGoodsBean.getData());
                 mAdapter.notifyDataSetChanged();
             } else {
                 mList.addAll(resultGoodsBean.getData());
                 mAdapter.notifyDataSetChanged();
-                mSwipeToLoad.setLoadMoreEnabled(false);
+                mBinding.swipeToLoad.setLoadMoreEnabled(false);
             }
-        } else {
-            if (refersh) {
-                initError(R.mipmap.qs_collection, "暂无数据", "暂时没有任何数据");
-                mRecyclerView.setVisibility(View.GONE);
-            } else {
-                page--;
+        }else {
+            if(refersh){
+                initError(R.mipmap.qs_collection, "暂无数据", "暂时没有任何数据 ");
+                mBinding.recyclerView.setVisibility(View.GONE);
+            }else {
+                page-- ;
                 ToastUtil.show("已经是最后一页了");
             }
         }
@@ -194,8 +171,8 @@ public class FovalGoodsFragment extends DBBaseFragment implements SreachGoodsAda
         if (refersh) {
             stopResher();
             initError(R.mipmap.qs_net, "网络出错", "哇哦，网络出错了，换个姿势下滑试试");
-            mRecyclerView.setVisibility(View.GONE);
-        } else {
+            mBinding.recyclerView.setVisibility(View.GONE);
+        }else {
             stopLoading();
             page--;
         }
@@ -204,7 +181,6 @@ public class FovalGoodsFragment extends DBBaseFragment implements SreachGoodsAda
 
     @Override
     public void onDestroyView() {
-        unbinder.unbind();
         EventBus.getDefault().unregister(this);
         super.onDestroyView();
     }
