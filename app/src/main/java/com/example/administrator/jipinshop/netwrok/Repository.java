@@ -526,4 +526,11 @@ public class Repository {
     public Observable<TryDetailBean> tryDetail(String trialId){
         return mAPIService.tryDetail(trialId);
     }
+
+    /**
+     * 申请试用
+     */
+    public Observable<SuccessBean> tryApply(String trialId){
+        return mAPIService.tryApply(trialId);
+    }
 }

@@ -27,6 +27,7 @@ import com.example.administrator.jipinshop.R;
 import com.example.administrator.jipinshop.activity.commenlist.CommenListActivity;
 import com.example.administrator.jipinshop.activity.home.article.ArticleDetailActivity;
 import com.example.administrator.jipinshop.activity.login.LoginActivity;
+import com.example.administrator.jipinshop.activity.sign.SignActivity;
 import com.example.administrator.jipinshop.adapter.CommenBannerAdapter;
 import com.example.administrator.jipinshop.adapter.TryDetailApplyRVAdapter;
 import com.example.administrator.jipinshop.adapter.TryDetailGVAdapter;
@@ -34,6 +35,7 @@ import com.example.administrator.jipinshop.adapter.TryDetailRVAdapter;
 import com.example.administrator.jipinshop.adapter.TryDetailReportRVAdapter;
 import com.example.administrator.jipinshop.base.BaseActivity;
 import com.example.administrator.jipinshop.bean.TryDetailBean;
+import com.example.administrator.jipinshop.bean.eventbus.ChangeHomePageBus;
 import com.example.administrator.jipinshop.bean.eventbus.TryShopBus;
 import com.example.administrator.jipinshop.databinding.ActivityTryDetailBinding;
 import com.example.administrator.jipinshop.util.ClickUtil;
@@ -232,13 +234,16 @@ public class TryDetailActivity extends BaseActivity implements View.OnClickListe
 
                 if(mBinding.detailApply.getText().toString().equals("免费申请")){
                     if (mTryDetailBean.getData().getApplyPoint() <= SPUtils.getInstance(CommonDate.USER).getInt(CommonDate.userPoint,0)){
-                        DialogUtil.buleDialog(this, "商品试用需要支付" + 1000 + "极币，是否确认参与？",
+                        DialogUtil.buleDialog(this, "商品试用需要支付" + mTryDetailBean.getData().getApplyPoint() + "极币，是否确认参与？",
                                 "确认申请", v1 -> {
-                                    // TODO: 2019/3/23 确认申请
+                                    mDialog = (new ProgressDialogView()).createLoadingDialog(this, "正在请求...");
+                                    mDialog.show();
+                                    mPresenter.tryApply(getIntent().getStringExtra("id"),this.bindToLifecycle());
                                 });
                     }else {
                         DialogUtil.SingleDialog(this, "极币数不足，请前往获取极币", "去赚极币", v12 -> {
-
+                            //跳转到签到页面
+                            startActivity(new Intent(this, SignActivity.class));
                         });
                     }
                 }else if(mBinding.detailApply.getText().toString().equals("分享拉赞")){
@@ -509,6 +514,25 @@ public class TryDetailActivity extends BaseActivity implements View.OnClickListe
         initError(R.mipmap.qs_404, "页面出错", "程序猿正在赶来的路上");
     }
 
+    /**
+     * 确认申请回调
+     */
+    @Override
+    public void onSuccessApply() {
+        if(mDialog != null && mDialog.isShowing()){
+            mDialog.dismiss();
+        }
+        mBinding.detailApply.setText("分享拉赞");
+    }
+
+    @Override
+    public void onFileApply(String error) {
+        if(mDialog != null && mDialog.isShowing()){
+            mDialog.dismiss();
+        }
+        ToastUtil.show(error);
+    }
+
     public void initError(int id, String title, String content){
         mBinding.detailNoDate.setVisibility(View.VISIBLE);
         mBinding.netClude.errorImage.setBackgroundResource(id);
@@ -646,6 +670,13 @@ public class TryDetailActivity extends BaseActivity implements View.OnClickListe
     public void commentResher(TryShopBus tryShopBus) {
         if (tryShopBus != null) {
             mBinding.detailComment.setText(tryShopBus.getCount() + "");
+        }
+    }
+
+    @Subscribe
+    public void changePage(ChangeHomePageBus bus){
+        if(bus != null){
+            finish();
         }
     }
 }

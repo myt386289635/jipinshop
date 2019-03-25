@@ -21,7 +21,7 @@ import com.example.administrator.jipinshop.view.glide.GlideApp;
 public class DialogUtil{
 
     public static void LoginDialog(Context context, String titleStr, final View.OnClickListener sureListener){
-        AlertDialog.Builder builder = new AlertDialog.Builder(context);
+        AlertDialog.Builder builder = new AlertDialog.Builder(context,R.style.dialog);
         View view = LayoutInflater.from(context).inflate(R.layout.dialog_log,null);
         TextView title = view.findViewById(R.id.dialog_title);
         title.setText(titleStr);
@@ -40,7 +40,7 @@ public class DialogUtil{
 
 
     public static void LoginDialog(Context context, String titleStr,String sureText ,String cancleText, final View.OnClickListener sureListener){
-        AlertDialog.Builder builder = new AlertDialog.Builder(context);
+        AlertDialog.Builder builder = new AlertDialog.Builder(context,R.style.dialog);
         View view = LayoutInflater.from(context).inflate(R.layout.dialog_log,null);
         TextView title = view.findViewById(R.id.dialog_title);
         title.setText(titleStr);
@@ -84,7 +84,7 @@ public class DialogUtil{
     }
 
     public static  void buleDialog(Context context,String titleStr,String sureText , final View.OnClickListener sureListener){
-        AlertDialog.Builder builder = new AlertDialog.Builder(context);
+        AlertDialog.Builder builder = new AlertDialog.Builder(context,R.style.dialog);
         View view = LayoutInflater.from(context).inflate(R.layout.dialog_log,null);
         TextView title = view.findViewById(R.id.dialog_title);
         title.setText(titleStr);

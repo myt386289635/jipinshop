@@ -11,4 +11,7 @@ public interface TryDetailView {
 
     void onSuccess(TryDetailBean bean);
     void onFile(String error);
+
+    void onSuccessApply();
+    void onFileApply(String error);
 }

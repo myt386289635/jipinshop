@@ -483,6 +483,13 @@ public interface APIService {
     @GET("qualityshop-api/api/trial/detail")
     Observable<TryDetailBean> tryDetail(@Query("trialId") String trialId);
 
+    /**
+     * 申请试用
+     */
+    @FormUrlEncoded
+    @POST("qualityshop-api/api/trial/apply")
+    Observable<SuccessBean> tryApply(@Field("trialId") String trialId);
+
 /*************************************************以下是还未修改的接口***********************************************/
 
     /**

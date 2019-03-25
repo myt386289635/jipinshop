@@ -12,6 +12,7 @@ import android.widget.TextView;
 
 import com.example.administrator.jipinshop.R;
 import com.example.administrator.jipinshop.adapter.CommenBannerAdapter;
+import com.example.administrator.jipinshop.bean.SuccessBean;
 import com.example.administrator.jipinshop.bean.TryDetailBean;
 import com.example.administrator.jipinshop.databinding.ActivityTryDetailBinding;
 import com.example.administrator.jipinshop.netwrok.Repository;
@@ -22,6 +23,7 @@ import java.util.List;
 import javax.inject.Inject;
 
 import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.functions.Consumer;
 import io.reactivex.schedulers.Schedulers;
 
 /**
@@ -139,6 +141,28 @@ public class TryDetailPresenter {
             mDetailPoint.addView(imageView, layoutParams);
         }
         mBannerAdapter.notifyDataSetChanged();
+    }
+
+    public void tryApply(String trialId,LifecycleTransformer<SuccessBean> transformer){
+        mRepository.tryApply(trialId)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .compose(transformer)
+                .subscribe(successBean -> {
+                    if(successBean.getCode() == 0){
+                        if(mView != null){
+                            mView.onSuccessApply();
+                        }
+                    }else {
+                        if(mView != null){
+                            mView.onFileApply(successBean.getMsg());
+                        }
+                    }
+                }, throwable -> {
+                    if(mView != null){
+                        mView.onFileApply(throwable.getMessage());
+                    }
+                });
     }
 
 }

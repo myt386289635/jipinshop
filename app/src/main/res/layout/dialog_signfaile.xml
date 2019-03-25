@@ -1,37 +1,51 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-    android:background="@color/color_white"
-    android:orientation="vertical"
+<RelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
 
-    <TextView
-        android:id="@+id/dialog_title"
-        android:layout_marginBottom="@dimen/y48"
-        android:layout_marginTop="@dimen/y48"
-        android:textColor="@color/color_DE151515"
-        android:textSize="16sp"
-        android:layout_gravity="center_horizontal"
-        android:text="极币数不足，请前往获取极币"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"/>
+    <RelativeLayout
+        android:layout_centerHorizontal="true"
+        android:background="@drawable/bg_dialog"
+        android:orientation="vertical"
+        android:layout_width="@dimen/x590"
+        android:layout_height="wrap_content">
 
-    <View
-        android:background="@color/color_F5F5F5"
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/y4"/>
+        <TextView
+            android:layout_centerHorizontal="true"
+            android:id="@+id/dialog_title"
+            android:layout_marginBottom="@dimen/y48"
+            android:layout_marginTop="@dimen/y48"
+            android:textColor="@color/color_DE151515"
+            android:textSize="16sp"
+            android:layout_gravity="center_horizontal"
+            android:text="极币数不足，请前往获取极币"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
 
-    <TextView
-        android:id="@+id/dialog_sure"
-        android:layout_gravity="center_horizontal"
-        android:textColor="@color/color_4A90E2"
-        android:textStyle="bold"
-        android:textSize="16sp"
-        android:text="去赚极币"
-        android:layout_marginBottom="@dimen/y24"
-        android:layout_marginTop="@dimen/y24"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"/>
+        <View
+            android:id="@+id/dialog_line"
+            android:layout_below="@+id/dialog_title"
+            android:background="@color/color_F5F5F5"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/y2"/>
 
-</LinearLayout>
+        <TextView
+            android:gravity="center"
+            android:layout_below="@+id/dialog_line"
+            android:id="@+id/dialog_sure"
+            android:layout_gravity="center_horizontal"
+            android:textColor="@color/color_4A90E2"
+            android:textStyle="bold"
+            android:textSize="16sp"
+            android:text="去赚极币"
+            android:paddingTop="@dimen/y24"
+            android:paddingBottom="@dimen/y24"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+
+    </RelativeLayout>
+
+
+
+</RelativeLayout>

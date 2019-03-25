@@ -16,9 +16,13 @@ import com.example.administrator.jipinshop.activity.tryout.detail.TryDetailActiv
 import com.example.administrator.jipinshop.adapter.TryAllAdapter;
 import com.example.administrator.jipinshop.base.BaseActivity;
 import com.example.administrator.jipinshop.bean.TryAllBean;
+import com.example.administrator.jipinshop.bean.eventbus.ChangeHomePageBus;
 import com.example.administrator.jipinshop.databinding.ActivityMessageSystemBinding;
 import com.example.administrator.jipinshop.util.ClickUtil;
 import com.example.administrator.jipinshop.util.ToastUtil;
+
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -53,6 +57,7 @@ public class TryAllActivity extends BaseActivity implements View.OnClickListener
         mBinding = DataBindingUtil.setContentView(this,R.layout.activity_message_system);
         mBinding.setListener(this);
         mBaseActivityComponent.inject(this);
+        EventBus.getDefault().register(this);
         initView();
     }
 
@@ -180,5 +185,18 @@ public class TryAllActivity extends BaseActivity implements View.OnClickListener
                     .putExtra("id",mList.get(position).getId())
             );
         }
+    }
+
+    @Subscribe
+    public void changePage(ChangeHomePageBus bus){
+        if(bus != null){
+            finish();
+        }
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        EventBus.getDefault().unregister(this);
     }
 }
