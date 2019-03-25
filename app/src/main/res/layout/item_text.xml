@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <TextView
+        android:lineSpacingExtra="@dimen/y6"
+        android:layout_marginTop="@dimen/y40"
+        android:id="@+id/item_text"
+        android:layout_marginRight="@dimen/x30"
+        android:layout_marginLeft="@dimen/x30"
+        android:textSize="14sp"
+        android:textColor="@color/color_DE151515"
+        android:text="视觉导航精品，阿里巴巴战略合作爆款"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
+
+</LinearLayout>

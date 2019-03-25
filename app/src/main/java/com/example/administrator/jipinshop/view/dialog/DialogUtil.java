@@ -83,34 +83,39 @@ public class DialogUtil{
         dialog.setContentView(view);
     }
 
-    public static  void SignPrice(Context context,String image,String content){
-        AlertDialog.Builder builder = new AlertDialog.Builder(context,R.style.dialog);
-        View view = LayoutInflater.from(context).inflate(R.layout.dialog_signprice,null);
-        TextView sure =  view.findViewById(R.id.sign_code);
-        sure.setText(content);
-        ImageView diss = view.findViewById(R.id.sign_diss);
-        ImageView mImage = view.findViewById(R.id.sign_price);
-        if(!TextUtils.isEmpty(image)){
-//            ImageManager.displayImage(image,mImage,0,0);
-            GlideApp.loderImage(context,image,mImage,0,0);
-        }
+    public static  void buleDialog(Context context,String titleStr,String sureText , final View.OnClickListener sureListener){
+        AlertDialog.Builder builder = new AlertDialog.Builder(context);
+        View view = LayoutInflater.from(context).inflate(R.layout.dialog_log,null);
+        TextView title = view.findViewById(R.id.dialog_title);
+        title.setText(titleStr);
+        TextView sure =  view.findViewById(R.id.dialog_sure);
+        sure.setText(sureText);
         final Dialog dialog = builder.create();
-        dialog.getWindow().setDimAmount(0.75f);
-        diss.setOnClickListener(v -> dialog.dismiss());
+        dialog.getWindow().setDimAmount(0.35f);
+        sure.setOnClickListener(view1 -> {
+            sureListener.onClick(view1);
+            dialog.dismiss();
+        });
+        TextView cancle =  view.findViewById(R.id.dialog_cancle);
+        cancle.setTextColor(context.getResources().getColor(R.color.color_4A90E2));
+        cancle.setOnClickListener(view12 -> dialog.dismiss());
         dialog.show();
-        dialog.setCanceledOnTouchOutside(false);
         dialog.setContentView(view);
     }
 
-    public static  void SignFaile(Context context,int id){
+    public static  void SingleDialog(Context context,String titleStr,String sureText , final View.OnClickListener sureListener){
         AlertDialog.Builder builder = new AlertDialog.Builder(context,R.style.dialog);
         View view = LayoutInflater.from(context).inflate(R.layout.dialog_signfaile,null);
-        RelativeLayout relativeLayout = view.findViewById(R.id.sign_bg);
-        relativeLayout.setBackgroundResource(id);
-        ImageView diss = view.findViewById(R.id.sign_diss);
+        TextView title = view.findViewById(R.id.dialog_title);
+        title.setText(titleStr);
+        TextView sure =  view.findViewById(R.id.dialog_sure);
+        sure.setText(sureText);
         final Dialog dialog = builder.create();
-        dialog.getWindow().setDimAmount(0.75f);
-        diss.setOnClickListener(v -> dialog.dismiss());
+        dialog.getWindow().setDimAmount(0.35f);
+        sure.setOnClickListener(v -> {
+            sureListener.onClick(v);
+            dialog.dismiss();
+        });
         dialog.show();
         dialog.setCanceledOnTouchOutside(false);
         dialog.setContentView(view);

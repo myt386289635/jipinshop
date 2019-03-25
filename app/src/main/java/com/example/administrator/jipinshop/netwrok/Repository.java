@@ -33,6 +33,7 @@ import com.example.administrator.jipinshop.bean.TabBean;
 import com.example.administrator.jipinshop.bean.TaskFinishBean;
 import com.example.administrator.jipinshop.bean.TryAllBean;
 import com.example.administrator.jipinshop.bean.TryBean;
+import com.example.administrator.jipinshop.bean.TryDetailBean;
 import com.example.administrator.jipinshop.bean.TryReportBean;
 import com.example.administrator.jipinshop.bean.UnMessageBean;
 import com.example.administrator.jipinshop.bean.UserInfoBean;
@@ -517,5 +518,12 @@ public class Repository {
      */
     public Observable<TryReportBean> tryReportList(String page,String orderbyType){
         return mAPIService.tryReportList(page,orderbyType);
+    }
+
+    /**
+     * 试用详情
+     */
+    public Observable<TryDetailBean> tryDetail(String trialId){
+        return mAPIService.tryDetail(trialId);
     }
 }

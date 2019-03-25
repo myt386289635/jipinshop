@@ -29,6 +29,7 @@ import com.example.administrator.jipinshop.bean.eventbus.CommonEvaluationBus;
 import com.example.administrator.jipinshop.bean.eventbus.EvaluationBus;
 import com.example.administrator.jipinshop.bean.eventbus.FindBus;
 import com.example.administrator.jipinshop.bean.eventbus.TryBus;
+import com.example.administrator.jipinshop.bean.eventbus.TryShopBus;
 import com.example.administrator.jipinshop.databinding.ActivityCommenlistBinding;
 import com.example.administrator.jipinshop.fragment.evaluation.common.CommonEvaluationFragment;
 import com.example.administrator.jipinshop.util.ClickUtil;
@@ -308,6 +309,9 @@ public class CommenListActivity extends BaseActivity implements CommenListAdapte
                 }else if(getIntent().getStringExtra("type").equals("4")){
                     //表示从试用报告进来的
                     EventBus.getDefault().post(new TryBus(commentBean.getTotal()));
+                } else if(getIntent().getStringExtra("type").equals("5")){
+                    //表示从试用商品进来的
+                    EventBus.getDefault().post(new TryShopBus(commentBean.getTotal()));
                 } else {
                     //表示从商品进来的。
                     EventBus.getDefault().post(new CommenBus(CommenListActivity.commentResher));

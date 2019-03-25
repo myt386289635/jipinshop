@@ -31,4 +31,6 @@
     <string name="totle">x</string>
     <string name="Freetrial">免费试用商品</string>
     <string name="IntegralMall">积分商城</string>
+
+    <string name="behavior_sample_title">com.example.administrator.jipinshop.util.behavior.SampleTitleBehavior</string>
 </resources>

@@ -300,6 +300,10 @@
         <activity android:name=".activity.tryout.TryReportActivity"
                   android:screenOrientation="portrait"/>
 
+        <!--试用详情页面-->
+        <activity android:name=".activity.tryout.detail.TryDetailActivity"
+                  android:screenOrientation="portrait"/>
+
     </application>
 
 </manifest>

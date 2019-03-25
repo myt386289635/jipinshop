@@ -1,5 +1,6 @@
 package com.example.administrator.jipinshop.activity.tryout;
 
+import android.content.Intent;
 import android.databinding.DataBindingUtil;
 import android.graphics.Color;
 import android.os.Bundle;
@@ -10,10 +11,13 @@ import android.view.View;
 import com.aspsine.swipetoloadlayout.OnLoadMoreListener;
 import com.aspsine.swipetoloadlayout.OnRefreshListener;
 import com.example.administrator.jipinshop.R;
+import com.example.administrator.jipinshop.activity.home.article.ArticleDetailActivity;
+import com.example.administrator.jipinshop.activity.tryout.detail.TryDetailActivity;
 import com.example.administrator.jipinshop.adapter.TryAllAdapter;
 import com.example.administrator.jipinshop.base.BaseActivity;
 import com.example.administrator.jipinshop.bean.TryAllBean;
 import com.example.administrator.jipinshop.databinding.ActivityMessageSystemBinding;
+import com.example.administrator.jipinshop.util.ClickUtil;
 import com.example.administrator.jipinshop.util.ToastUtil;
 
 import java.util.ArrayList;
@@ -169,6 +173,12 @@ public class TryAllActivity extends BaseActivity implements View.OnClickListener
 
     @Override
     public void onItemDetailClick(int position) {
-        ToastUtil.show(position + "");
+        if (ClickUtil.isFastDoubleClick(800)) {
+            return;
+        }else{
+            startActivity(new Intent(this,TryDetailActivity.class)
+                    .putExtra("id",mList.get(position).getId())
+            );
+        }
     }
 }

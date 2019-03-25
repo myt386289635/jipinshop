@@ -34,6 +34,7 @@ import com.example.administrator.jipinshop.bean.TabBean;
 import com.example.administrator.jipinshop.bean.TaskFinishBean;
 import com.example.administrator.jipinshop.bean.TryAllBean;
 import com.example.administrator.jipinshop.bean.TryBean;
+import com.example.administrator.jipinshop.bean.TryDetailBean;
 import com.example.administrator.jipinshop.bean.TryReportBean;
 import com.example.administrator.jipinshop.bean.UnMessageBean;
 import com.example.administrator.jipinshop.bean.UserInfoBean;
@@ -475,6 +476,12 @@ public interface APIService {
      */
     @GET("qualityshop-api/api/trial/reportList")
     Observable<TryReportBean> tryReportList(@Query("page") String page,@Query("orderbyType") String orderbyType);
+
+    /**
+     * 试用详情
+     */
+    @GET("qualityshop-api/api/trial/detail")
+    Observable<TryDetailBean> tryDetail(@Query("trialId") String trialId);
 
 /*************************************************以下是还未修改的接口***********************************************/
 

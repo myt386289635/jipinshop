@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    android:background="@color/color_white"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="@dimen/y144"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <TextView
+        android:visibility="invisible"
+        android:layout_marginLeft="@dimen/x28"
+        android:layout_centerVertical="true"
+        android:textSize="14sp"
+        android:gravity="center"
+        android:text="1"
+        android:textColor="@color/color_white"
+        android:background="@drawable/bg_sort1"
+        android:id="@+id/item_topSort"
+        android:layout_width="@dimen/x40"
+        android:layout_height="@dimen/y40"/>
+
+    <TextView
+        android:layout_marginLeft="@dimen/x28"
+        android:layout_centerVertical="true"
+        android:textSize="14sp"
+        android:text="1"
+        android:textColor="@color/color_ACACAC"
+        android:id="@+id/item_sort"
+        android:layout_width="@dimen/x40"
+        android:layout_height="@dimen/y40"/>
+
+    <View
+        android:background="@color/color_F5F5F5"
+        android:layout_alignParentBottom="true"
+        android:layout_marginRight="@dimen/x28"
+        android:layout_marginLeft="@dimen/x28"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/y2"/>
+
+
+    <ImageView
+        android:layout_marginLeft="@dimen/x32"
+        android:layout_centerVertical="true"
+        android:layout_toRightOf="@+id/item_topSort"
+        tools:src="@color/color_4A90E2"
+        android:scaleType="fitXY"
+        android:id="@+id/item_image"
+        android:layout_width="@dimen/x84"
+        android:layout_height="@dimen/y84"/>
+
+
+    <TextView
+        android:id="@+id/item_name"
+        android:layout_marginLeft="@dimen/x24"
+        android:layout_centerVertical="true"
+        android:layout_toRightOf="@+id/item_image"
+        android:textColor="@color/color_ACACAC"
+        android:textSize="14sp"
+        tools:text="Vicky买买买"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"/>
+
+    <TextView
+        android:id="@+id/item_goodNum"
+        android:textSize="13sp"
+        android:textColor="@color/color_DE151515"
+        android:layout_marginRight="@dimen/x28"
+        android:layout_alignParentRight="true"
+        android:layout_centerVertical="true"
+        android:text="拉赞数0"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"/>
+
+</RelativeLayout>

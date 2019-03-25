@@ -12,6 +12,7 @@ import com.example.administrator.jipinshop.R;
 import com.example.administrator.jipinshop.activity.home.article.ArticleDetailActivity;
 import com.example.administrator.jipinshop.activity.tryout.TryAllActivity;
 import com.example.administrator.jipinshop.activity.tryout.TryReportActivity;
+import com.example.administrator.jipinshop.activity.tryout.detail.TryDetailActivity;
 import com.example.administrator.jipinshop.adapter.TryAdapter;
 import com.example.administrator.jipinshop.base.DBBaseFragment;
 import com.example.administrator.jipinshop.bean.TryBean;
@@ -116,7 +117,13 @@ public class TryFragment extends DBBaseFragment implements OnRefreshListener, Tr
 
     @Override
     public void onItemDetailClick(int position) {
-        ToastUtil.show(position +"");
+        if (ClickUtil.isFastDoubleClick(800)) {
+            return;
+        }else{
+            startActivity(new Intent(getContext(),TryDetailActivity.class)
+                    .putExtra("id",mTrialListBeans.get(position).getId())
+            );
+        }
     }
 
     @Override
