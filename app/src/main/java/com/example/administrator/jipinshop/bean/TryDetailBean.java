@@ -123,6 +123,14 @@ public class TryDetailBean {
         private String activitiesEndTime;
         private String reportEndTime;
         private int applied;
+        private String shareTitle;
+        private String shareContent;
+        private String shareUrl;
+        private String shareImg;
+        private String voteShareTitle;
+        private String voteShareContent;
+        private String voteShareUrl;
+        private String voteShareImg;
         private EndtimeObjBean endtimeObj;
         private String checkTime;
         private int applyUserCount;
@@ -307,6 +315,70 @@ public class TryDetailBean {
 
         public void setApplied(int applied) {
             this.applied = applied;
+        }
+
+        public String getShareTitle() {
+            return shareTitle;
+        }
+
+        public void setShareTitle(String shareTitle) {
+            this.shareTitle = shareTitle;
+        }
+
+        public String getShareContent() {
+            return shareContent;
+        }
+
+        public void setShareContent(String shareContent) {
+            this.shareContent = shareContent;
+        }
+
+        public String getShareUrl() {
+            return shareUrl;
+        }
+
+        public void setShareUrl(String shareUrl) {
+            this.shareUrl = shareUrl;
+        }
+
+        public String getShareImg() {
+            return shareImg;
+        }
+
+        public void setShareImg(String shareImg) {
+            this.shareImg = shareImg;
+        }
+
+        public String getVoteShareTitle() {
+            return voteShareTitle;
+        }
+
+        public void setVoteShareTitle(String voteShareTitle) {
+            this.voteShareTitle = voteShareTitle;
+        }
+
+        public String getVoteShareContent() {
+            return voteShareContent;
+        }
+
+        public void setVoteShareContent(String voteShareContent) {
+            this.voteShareContent = voteShareContent;
+        }
+
+        public String getVoteShareUrl() {
+            return voteShareUrl;
+        }
+
+        public void setVoteShareUrl(String voteShareUrl) {
+            this.voteShareUrl = voteShareUrl;
+        }
+
+        public String getVoteShareImg() {
+            return voteShareImg;
+        }
+
+        public void setVoteShareImg(String voteShareImg) {
+            this.voteShareImg = voteShareImg;
         }
 
         public EndtimeObjBean getEndtimeObj() {

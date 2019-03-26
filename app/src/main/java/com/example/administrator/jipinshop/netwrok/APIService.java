@@ -20,6 +20,7 @@ import com.example.administrator.jipinshop.bean.MallDetailBean;
 import com.example.administrator.jipinshop.bean.MyOrderBean;
 import com.example.administrator.jipinshop.bean.OrderbyTypeBean;
 import com.example.administrator.jipinshop.bean.PagerStateBean;
+import com.example.administrator.jipinshop.bean.PassedMoreBean;
 import com.example.administrator.jipinshop.bean.PointDetailBean;
 import com.example.administrator.jipinshop.bean.RecommendFragmentBean;
 import com.example.administrator.jipinshop.bean.ShoppingDetailBean;
@@ -489,6 +490,12 @@ public interface APIService {
     @FormUrlEncoded
     @POST("qualityshop-api/api/trial/apply")
     Observable<SuccessBean> tryApply(@Field("trialId") String trialId);
+
+    /**
+     * 试用名单列表
+     */
+    @GET("qualityshop-api/api/trial/passedUserList")
+    Observable<PassedMoreBean> passedUserList(@Query("trialId") String trialId);
 
 /*************************************************以下是还未修改的接口***********************************************/
 

@@ -17,6 +17,8 @@
         android:layout_height="@dimen/y76"/>
 
     <TextView
+        android:ellipsize="end"
+        android:singleLine="true"
         android:id="@+id/item_name"
         android:textColor="@color/color_DE151515"
         android:textSize="13sp"

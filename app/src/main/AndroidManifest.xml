@@ -304,6 +304,10 @@
         <activity android:name=".activity.tryout.detail.TryDetailActivity"
                   android:screenOrientation="portrait"/>
 
+        <!--查看更多试用名单-->
+        <activity android:name=".activity.tryout.passedMore.PassedMoreActivity"
+                  android:screenOrientation="portrait"/>
+
     </application>
 
 </manifest>

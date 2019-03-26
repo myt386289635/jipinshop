@@ -28,6 +28,7 @@ import com.example.administrator.jipinshop.activity.commenlist.CommenListActivit
 import com.example.administrator.jipinshop.activity.home.article.ArticleDetailActivity;
 import com.example.administrator.jipinshop.activity.login.LoginActivity;
 import com.example.administrator.jipinshop.activity.sign.SignActivity;
+import com.example.administrator.jipinshop.activity.tryout.passedMore.PassedMoreActivity;
 import com.example.administrator.jipinshop.adapter.CommenBannerAdapter;
 import com.example.administrator.jipinshop.adapter.TryDetailApplyRVAdapter;
 import com.example.administrator.jipinshop.adapter.TryDetailGVAdapter;
@@ -218,10 +219,10 @@ public class TryDetailActivity extends BaseActivity implements View.OnClickListe
                     ToastUtil.show("分享失败");
                     return;
                 }
-                shareTitle = "";
-                shareContent = "";
-                shareImg = "";
-                shareUrl = "";
+                shareTitle = mTryDetailBean.getData().getShareTitle();
+                shareContent = mTryDetailBean.getData().getShareContent();
+                shareImg = mTryDetailBean.getData().getShareImg();
+                shareUrl = mTryDetailBean.getData().getShareUrl();
                 if (mShareBoardDialog == null) {
                     mShareBoardDialog = new ShareBoardDialog();
                     mShareBoardDialog.setOnShareListener(this);
@@ -251,10 +252,10 @@ public class TryDetailActivity extends BaseActivity implements View.OnClickListe
                         ToastUtil.show("分享失败");
                         return;
                     }
-                    shareTitle = "";
-                    shareContent = "";
-                    shareImg = "";
-                    shareUrl = "";
+                    shareTitle = mTryDetailBean.getData().getVoteShareTitle();
+                    shareContent = mTryDetailBean.getData().getVoteShareContent();
+                    shareImg = mTryDetailBean.getData().getVoteShareImg();
+                    shareUrl = mTryDetailBean.getData().getVoteShareUrl();
                     if (mShareBoardDialog == null) {
                         mShareBoardDialog = new ShareBoardDialog();
                         mShareBoardDialog.setOnShareListener(this);
@@ -263,7 +264,9 @@ public class TryDetailActivity extends BaseActivity implements View.OnClickListe
                         mShareBoardDialog.show(getSupportFragmentManager(), "ShareBoardDialog");
                     }
                 }else if(mBinding.detailApply.getText().toString().equals("查看名单")){
-
+                    startActivity(new Intent(this, PassedMoreActivity.class)
+                            .putExtra("id",mTryDetailBean.getData().getId())
+                    );
                 }else if(mBinding.detailApply.getText().toString().equals("查看试用报告")){
 
                 }
@@ -313,6 +316,9 @@ public class TryDetailActivity extends BaseActivity implements View.OnClickListe
                 break;
             case R.id.detail_passedMore:
                 //查看更多申请成功名单
+                startActivity(new Intent(this, PassedMoreActivity.class)
+                        .putExtra("id",mTryDetailBean.getData().getId())
+                );
                 break;
             case R.id.detail_shareMore:
                 //查看更多拉赞名单

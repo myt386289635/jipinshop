@@ -19,6 +19,7 @@ import com.example.administrator.jipinshop.bean.MallDetailBean;
 import com.example.administrator.jipinshop.bean.MyOrderBean;
 import com.example.administrator.jipinshop.bean.OrderbyTypeBean;
 import com.example.administrator.jipinshop.bean.PagerStateBean;
+import com.example.administrator.jipinshop.bean.PassedMoreBean;
 import com.example.administrator.jipinshop.bean.PointDetailBean;
 import com.example.administrator.jipinshop.bean.RecommendFragmentBean;
 import com.example.administrator.jipinshop.bean.ShoppingDetailBean;
@@ -532,5 +533,12 @@ public class Repository {
      */
     public Observable<SuccessBean> tryApply(String trialId){
         return mAPIService.tryApply(trialId);
+    }
+
+    /**
+     * 试用名单列表
+     */
+    public  Observable<PassedMoreBean> passedUserList(String trialId){
+        return mAPIService.passedUserList(trialId);
     }
 }
