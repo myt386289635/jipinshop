@@ -30,6 +30,7 @@ import com.example.administrator.jipinshop.activity.login.LoginActivity;
 import com.example.administrator.jipinshop.activity.sign.SignActivity;
 import com.example.administrator.jipinshop.activity.tryout.passedMore.PassedMoreActivity;
 import com.example.administrator.jipinshop.activity.tryout.reportMore.ReportMoreActivity;
+import com.example.administrator.jipinshop.activity.tryout.shareMore.ShareMoreActivity;
 import com.example.administrator.jipinshop.adapter.CommenBannerAdapter;
 import com.example.administrator.jipinshop.adapter.TryDetailApplyRVAdapter;
 import com.example.administrator.jipinshop.adapter.TryDetailGVAdapter;
@@ -325,6 +326,9 @@ public class TryDetailActivity extends BaseActivity implements View.OnClickListe
                 break;
             case R.id.detail_shareMore:
                 //查看更多拉赞名单
+                startActivity(new Intent(this, ShareMoreActivity.class)
+                        .putExtra("id",mTryDetailBean.getData().getId())
+                );
                 break;
             case R.id.detail_reportMore:
                 //查看更多试用报告

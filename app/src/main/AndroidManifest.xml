@@ -312,6 +312,10 @@
         <activity android:name=".activity.tryout.reportMore.ReportMoreActivity"
                   android:screenOrientation="portrait"/>
 
+        <!--查看更多拉赞排行页面-->
+        <activity android:name=".activity.tryout.shareMore.ShareMoreActivity"
+                  android:screenOrientation="portrait"/>
+
     </application>
 
 </manifest>

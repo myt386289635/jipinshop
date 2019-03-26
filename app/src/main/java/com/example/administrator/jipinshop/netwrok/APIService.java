@@ -29,6 +29,7 @@ import com.example.administrator.jipinshop.bean.SignInsertBean;
 import com.example.administrator.jipinshop.bean.SreachHistoryBean;
 import com.example.administrator.jipinshop.bean.SreachResultArticlesBean;
 import com.example.administrator.jipinshop.bean.SreachResultGoodsBean;
+import com.example.administrator.jipinshop.bean.SucBean;
 import com.example.administrator.jipinshop.bean.SuccessBean;
 import com.example.administrator.jipinshop.bean.SystemMessageBean;
 import com.example.administrator.jipinshop.bean.TabBean;
@@ -502,6 +503,12 @@ public interface APIService {
      */
     @GET("qualityshop-api/api/trial/reportAllList")
     Observable<TryReportBean> reportAllList(@Query("page") String page , @Query("goodsId") String goodsId);
+
+    /**
+     * 拉赞排行
+     */
+    @GET("qualityshop-api/api/trial/voteUserList")
+    Observable<SucBean<TryDetailBean.DataBean.ApplyUserListBean>> voteUserList(@Query("page") String page , @Query("trialId") String trialId);
 
 /*************************************************以下是还未修改的接口***********************************************/
 

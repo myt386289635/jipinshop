@@ -28,6 +28,7 @@ import com.example.administrator.jipinshop.bean.SignInsertBean;
 import com.example.administrator.jipinshop.bean.SreachHistoryBean;
 import com.example.administrator.jipinshop.bean.SreachResultArticlesBean;
 import com.example.administrator.jipinshop.bean.SreachResultGoodsBean;
+import com.example.administrator.jipinshop.bean.SucBean;
 import com.example.administrator.jipinshop.bean.SuccessBean;
 import com.example.administrator.jipinshop.bean.SystemMessageBean;
 import com.example.administrator.jipinshop.bean.TabBean;
@@ -547,5 +548,12 @@ public class Repository {
      */
     public  Observable<TryReportBean> reportAllList( String page ,String goodsId){
         return mAPIService.reportAllList(page, goodsId);
+    }
+
+    /**
+     * 拉赞排行
+     */
+    public Observable<SucBean<TryDetailBean.DataBean.ApplyUserListBean>> voteUserList( String page , String trialId){
+        return mAPIService.voteUserList(page, trialId);
     }
 }
