@@ -308,6 +308,10 @@
         <activity android:name=".activity.tryout.passedMore.PassedMoreActivity"
                   android:screenOrientation="portrait"/>
 
+        <!--查看试用品查看全部试用报告-->
+        <activity android:name=".activity.tryout.reportMore.ReportMoreActivity"
+                  android:screenOrientation="portrait"/>
+
     </application>
 
 </manifest>

@@ -139,7 +139,7 @@ public class PassedMoreActivity extends BaseActivity implements OnRefreshListene
             mAdapter.notifyDataSetChanged();
         }else {
             //没有数据
-            initError(R.mipmap.qs_news, "暂无消息", "还没有任何消息哦，先休息一下吧");
+            initError(R.mipmap.qs_nodata, "暂无数据", "暂时没有任何数据");
             mRecyclerView.setVisibility(View.GONE);
         }
     }

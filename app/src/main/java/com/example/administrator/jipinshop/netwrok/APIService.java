@@ -497,6 +497,12 @@ public interface APIService {
     @GET("qualityshop-api/api/trial/passedUserList")
     Observable<PassedMoreBean> passedUserList(@Query("trialId") String trialId);
 
+    /**
+     * 试用品查看全部试用报告
+     */
+    @GET("qualityshop-api/api/trial/reportAllList")
+    Observable<TryReportBean> reportAllList(@Query("page") String page , @Query("goodsId") String goodsId);
+
 /*************************************************以下是还未修改的接口***********************************************/
 
     /**

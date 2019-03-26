@@ -541,4 +541,11 @@ public class Repository {
     public  Observable<PassedMoreBean> passedUserList(String trialId){
         return mAPIService.passedUserList(trialId);
     }
+
+    /**
+     * 试用品查看全部试用报告
+     */
+    public  Observable<TryReportBean> reportAllList( String page ,String goodsId){
+        return mAPIService.reportAllList(page, goodsId);
+    }
 }

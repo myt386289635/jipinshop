@@ -32,6 +32,7 @@ import com.example.administrator.jipinshop.activity.sreach.result.SreachResultAc
 import com.example.administrator.jipinshop.activity.tryout.TryAllActivity;
 import com.example.administrator.jipinshop.activity.tryout.detail.TryDetailActivity;
 import com.example.administrator.jipinshop.activity.tryout.passedMore.PassedMoreActivity;
+import com.example.administrator.jipinshop.activity.tryout.reportMore.ReportMoreActivity;
 import com.example.administrator.jipinshop.auto.ActivityScope;
 import com.example.administrator.jipinshop.netwrok.ApplicationComponent;
 
@@ -72,4 +73,5 @@ public interface BaseActivityComponent {
     void inject(TryAllActivity activity);
     void inject(TryDetailActivity activity);
     void inject(PassedMoreActivity activity);
+    void inject(ReportMoreActivity activity);
 }
