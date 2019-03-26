@@ -13,6 +13,7 @@ import android.widget.TextView;
 import com.example.administrator.jipinshop.R;
 import com.example.administrator.jipinshop.adapter.CommenBannerAdapter;
 import com.example.administrator.jipinshop.bean.SuccessBean;
+import com.example.administrator.jipinshop.bean.TaskFinishBean;
 import com.example.administrator.jipinshop.bean.TryDetailBean;
 import com.example.administrator.jipinshop.databinding.ActivityTryDetailBinding;
 import com.example.administrator.jipinshop.netwrok.Repository;
@@ -162,6 +163,21 @@ public class TryDetailPresenter {
                     if(mView != null){
                         mView.onFileApply(throwable.getMessage());
                     }
+                });
+    }
+
+    /**
+     * 分享获取极币
+     */
+    public void taskshareFinish(LifecycleTransformer<TaskFinishBean> transformer){
+        mRepository.taskFinish("5")
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .compose(transformer)
+                .subscribe(taskFinishBean -> {
+
+                }, throwable ->{
+
                 });
     }
 

@@ -1,5 +1,6 @@
 package com.example.administrator.jipinshop.activity.tryout.reportMore;
 
+import android.content.Intent;
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -9,13 +10,15 @@ import android.view.View;
 import com.aspsine.swipetoloadlayout.OnLoadMoreListener;
 import com.aspsine.swipetoloadlayout.OnRefreshListener;
 import com.example.administrator.jipinshop.R;
-import com.example.administrator.jipinshop.adapter.SystemMessageAdapter;
+import com.example.administrator.jipinshop.activity.home.article.ArticleDetailActivity;
 import com.example.administrator.jipinshop.adapter.TryCommenAdapter;
 import com.example.administrator.jipinshop.base.BaseActivity;
 import com.example.administrator.jipinshop.bean.TryReportBean;
 import com.example.administrator.jipinshop.databinding.ActivityMessageSystemBinding;
+import com.example.administrator.jipinshop.util.ClickUtil;
 import com.example.administrator.jipinshop.util.ToastUtil;
 
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -26,7 +29,7 @@ import javax.inject.Inject;
  * @create 2019/3/26
  * @Describe 试用品查看全部试用报告
  */
-public class ReportMoreActivity extends BaseActivity implements View.OnClickListener, ReportMoreView, OnRefreshListener, OnLoadMoreListener {
+public class ReportMoreActivity extends BaseActivity implements View.OnClickListener, ReportMoreView, OnRefreshListener, OnLoadMoreListener, TryCommenAdapter.OnItemClick {
 
     @Inject
     ReportMorePresenter mPresenter;
@@ -60,6 +63,7 @@ public class ReportMoreActivity extends BaseActivity implements View.OnClickList
         mBinding.recyclerView.setLayoutManager(new LinearLayoutManager(this));
         mList = new ArrayList<>();
         mAdapter = new TryCommenAdapter(this, mList);
+        mAdapter.setOnItemClick(this);
         mBinding.recyclerView.setAdapter(mAdapter);
 
         mPresenter.solveScoll(mBinding.recyclerView,mBinding.swipeToLoad);
@@ -167,4 +171,18 @@ public class ReportMoreActivity extends BaseActivity implements View.OnClickList
         mBinding.netClude.errorContent.setText(content);
     }
 
+    @Override
+    public void onItemReportClick(int position) {
+        if (ClickUtil.isFastDoubleClick(800)) {
+            return;
+        }else{
+            BigDecimal bigDecimal = new BigDecimal(mList.get(position).getPv());
+            mList.get(position).setPv((bigDecimal.intValue() + 1));
+            mAdapter.notifyDataSetChanged();
+            startActivity(new Intent(this,ArticleDetailActivity.class)
+                    .putExtra("id",mList.get(position).getArticleId())
+                    .putExtra("type","4")
+            );
+        }
+    }
 }

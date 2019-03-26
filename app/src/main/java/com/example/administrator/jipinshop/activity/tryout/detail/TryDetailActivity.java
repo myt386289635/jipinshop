@@ -50,6 +50,7 @@ import com.example.administrator.jipinshop.view.dialog.DialogUtil;
 import com.example.administrator.jipinshop.view.dialog.ProgressDialogView;
 import com.example.administrator.jipinshop.view.dialog.ShareBoardDialog;
 import com.example.administrator.jipinshop.view.glide.GlideApp;
+import com.trello.rxlifecycle2.android.ActivityEvent;
 import com.umeng.socialize.UMShareAPI;
 import com.umeng.socialize.bean.SHARE_MEDIA;
 
@@ -125,6 +126,8 @@ public class TryDetailActivity extends BaseActivity implements View.OnClickListe
     //试用报告
     private List<TryDetailBean.DataBean.ReportArticleListBean> mReportListBeans;
     private TryDetailReportRVAdapter mReportRVAdapter;
+
+    private Boolean shareFlag = true;//是分享还是拉赞  true分享 false拉赞
 
 
     @Override
@@ -221,6 +224,7 @@ public class TryDetailActivity extends BaseActivity implements View.OnClickListe
                     ToastUtil.show("分享失败");
                     return;
                 }
+                shareFlag = true;
                 shareTitle = mTryDetailBean.getData().getShareTitle();
                 shareContent = mTryDetailBean.getData().getShareContent();
                 shareImg = mTryDetailBean.getData().getShareImg();
@@ -254,6 +258,7 @@ public class TryDetailActivity extends BaseActivity implements View.OnClickListe
                         ToastUtil.show("分享失败");
                         return;
                     }
+                    shareFlag = false;
                     shareTitle = mTryDetailBean.getData().getVoteShareTitle();
                     shareContent = mTryDetailBean.getData().getVoteShareContent();
                     shareImg = mTryDetailBean.getData().getVoteShareImg();
@@ -341,6 +346,9 @@ public class TryDetailActivity extends BaseActivity implements View.OnClickListe
 
     @Override
     public void share(SHARE_MEDIA share_media) {
+        if (shareFlag){
+            mPresenter.taskshareFinish(this.bindUntilEvent(ActivityEvent.DESTROY));
+        }
         new ShareUtils(this, share_media)
                 .shareWeb(this, shareUrl, shareTitle, shareContent, shareImg, R.mipmap.share_logo);
     }
