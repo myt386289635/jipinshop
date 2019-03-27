@@ -194,11 +194,15 @@ public class StickyItemDecoration extends RecyclerView.ItemDecoration {
      * 缓存吸附的view position
      * @param m
      */
-    private void cacheStickyViewPosition(int m) {
+    public void cacheStickyViewPosition(int m) {
         int position = getStickyViewPositionOfRecyclerView(m);
         if (!mStickyPositionList.contains(position)) {
             mStickyPositionList.add(position);
         }
+    }
+
+    public void clearStickyViewPosition(){
+        mStickyPositionList.clear();
     }
 
     /**
