@@ -186,8 +186,10 @@ public class TryFragment extends DBBaseFragment implements OnRefreshListener, Tr
     @Subscribe
     public void changeStutas(TryStatusBus bus){
         if(bus != null && bus.getPos() != -1){
-            mTrialListBeans.get(bus.getPos()).setStatus(3);
-            mAdapter.notifyDataSetChanged();
+            if (bus.getPos() < mTrialListBeans.size()){
+                mTrialListBeans.get(bus.getPos()).setStatus(3);
+                mAdapter.notifyDataSetChanged();
+            }
         }
     }
 
