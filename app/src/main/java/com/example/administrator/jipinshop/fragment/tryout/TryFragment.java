@@ -16,10 +16,13 @@ import com.example.administrator.jipinshop.activity.tryout.detail.TryDetailActiv
 import com.example.administrator.jipinshop.adapter.TryAdapter;
 import com.example.administrator.jipinshop.base.DBBaseFragment;
 import com.example.administrator.jipinshop.bean.TryBean;
+import com.example.administrator.jipinshop.bean.eventbus.TryStatusBus;
 import com.example.administrator.jipinshop.databinding.TryFragmentBinding;
 import com.example.administrator.jipinshop.util.ClickUtil;
-import com.example.administrator.jipinshop.util.ToastUtil;
 import com.example.administrator.jipinshop.view.itemDecoration.StickyItemDecoration;
+
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
@@ -62,6 +65,7 @@ public class TryFragment extends DBBaseFragment implements OnRefreshListener, Tr
         mBaseFragmentComponent.inject(this);
         mTryPresenter.setStatusBarHight(mBinding.statusBar,getContext());
         mTryPresenter.setView(this);
+        EventBus.getDefault().register(this);
 
         mBinding.recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         mTrialListBeans = new ArrayList<>();
@@ -122,6 +126,7 @@ public class TryFragment extends DBBaseFragment implements OnRefreshListener, Tr
         }else{
             startActivity(new Intent(getContext(),TryDetailActivity.class)
                     .putExtra("id",mTrialListBeans.get(position).getId())
+                    .putExtra("pos",position)
             );
         }
     }
@@ -168,4 +173,22 @@ public class TryFragment extends DBBaseFragment implements OnRefreshListener, Tr
         initError(R.mipmap.qs_net, "网络出错", "哇哦，网络出错了，换个姿势下滑页面试试");
         mBinding.recyclerView.setVisibility(View.GONE);
     }
+
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        EventBus.getDefault().unregister(this);
+    }
+
+    /**
+     * 试用商品的状态改变（倒计时结束）
+     */
+    @Subscribe
+    public void changeStutas(TryStatusBus bus){
+        if(bus != null && bus.getPos() != -1){
+            mTrialListBeans.get(bus.getPos()).setStatus(3);
+            mAdapter.notifyDataSetChanged();
+        }
+    }
+
 }

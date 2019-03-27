@@ -40,6 +40,7 @@ import com.example.administrator.jipinshop.base.BaseActivity;
 import com.example.administrator.jipinshop.bean.TryDetailBean;
 import com.example.administrator.jipinshop.bean.eventbus.ChangeHomePageBus;
 import com.example.administrator.jipinshop.bean.eventbus.TryShopBus;
+import com.example.administrator.jipinshop.bean.eventbus.TryStatusBus;
 import com.example.administrator.jipinshop.databinding.ActivityTryDetailBinding;
 import com.example.administrator.jipinshop.util.ClickUtil;
 import com.example.administrator.jipinshop.util.ShareUtils;
@@ -453,7 +454,7 @@ public class TryDetailActivity extends BaseActivity implements View.OnClickListe
         if (bean.getData().getStatus() == 3){
             //试用中时显示
             String passedUserList = "<font color='#151515' >请以下用户于</font><font color='#E31436' >"
-                    + bean.getData().getReportEndTime() +"</font><font color='#151515' >前完成众测报告</font><br>按时提交的优秀众测报告将获得惊喜的奖励";
+                    + bean.getData().getReportEndTime() +"</font><font color='#151515' >前完成试用报告</font><br>按时提交的优秀试用报告将获得惊喜的奖励";
             mBinding.detailPassedUserList.setText(Html.fromHtml(passedUserList));
             if (bean.getData().getPassedUserList().size() != 0){
                 //申请成功人数列表
@@ -685,6 +686,7 @@ public class TryDetailActivity extends BaseActivity implements View.OnClickListe
                 mBinding.detailApplyAble.setVisibility(View.GONE);
                 mBinding.detailApplying.setVisibility(View.VISIBLE);
                 mBinding.detailApplying.setText("试用中");
+                EventBus.getDefault().post(new TryStatusBus(getIntent().getIntExtra("pos",-1)));
             }
         }.start();
     }
@@ -697,6 +699,9 @@ public class TryDetailActivity extends BaseActivity implements View.OnClickListe
         }
     }
 
+    /**
+     * 每日任务里点击跳转后，需要关闭的页面
+     */
     @Subscribe
     public void changePage(ChangeHomePageBus bus){
         if(bus != null){

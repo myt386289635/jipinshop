@@ -17,6 +17,7 @@ import com.example.administrator.jipinshop.adapter.TryAllAdapter;
 import com.example.administrator.jipinshop.base.BaseActivity;
 import com.example.administrator.jipinshop.bean.TryAllBean;
 import com.example.administrator.jipinshop.bean.eventbus.ChangeHomePageBus;
+import com.example.administrator.jipinshop.bean.eventbus.TryStatusBus;
 import com.example.administrator.jipinshop.databinding.ActivityMessageSystemBinding;
 import com.example.administrator.jipinshop.util.ClickUtil;
 import com.example.administrator.jipinshop.util.ToastUtil;
@@ -183,14 +184,29 @@ public class TryAllActivity extends BaseActivity implements View.OnClickListener
         }else{
             startActivity(new Intent(this,TryDetailActivity.class)
                     .putExtra("id",mList.get(position).getId())
+                    .putExtra("pos",position)
             );
         }
     }
 
+    /**
+     * 每日任务里点击跳转后，需要关闭的页面
+     */
     @Subscribe
     public void changePage(ChangeHomePageBus bus){
         if(bus != null){
             finish();
+        }
+    }
+
+    /**
+     * 试用商品的状态改变（倒计时结束）
+     */
+    @Subscribe
+    public void changeStutas(TryStatusBus bus){
+        if(bus != null && bus.getPos() != -1){
+            mList.get(bus.getPos()).setStatus(3);
+            mAdapter.notifyDataSetChanged();
         }
     }
 
