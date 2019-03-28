@@ -8,6 +8,8 @@ import android.os.CountDownTimer;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.view.KeyEvent;
+import android.view.View;
+import android.widget.ImageView;
 
 import com.blankj.utilcode.util.SPUtils;
 import com.example.administrator.jipinshop.R;
@@ -25,6 +27,7 @@ import com.gyf.barlibrary.ImmersionBar;
 public class WellComeActivity extends AppCompatActivity{
 
     private ImmersionBar mImmersionBar;
+    private ImageView mImageView;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -38,6 +41,10 @@ public class WellComeActivity extends AppCompatActivity{
         mImmersionBar.transparentStatusBar()
                 .statusBarDarkFont(true, 0f)
                 .init();
+
+        mImageView = findViewById(R.id.well_imageTag);
+        mImageView.setVisibility(View.GONE);
+
         permission();
     }
 

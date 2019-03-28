@@ -6,25 +6,36 @@
     android:layout_height="match_parent">
 
 
-    <TextView
-        android:id="@+id/well_text"
-        android:layout_marginBottom="@dimen/x66"
+    <LinearLayout
+        android:gravity="center_vertical"
+        android:layout_marginBottom="@dimen/y78"
         android:layout_centerHorizontal="true"
         android:layout_alignParentBottom="true"
-        android:textColor="@color/color_202020"
-        android:textSize="14sp"
-        android:text="极好物 极有品"
+        android:orientation="horizontal"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"/>
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:drawablePadding="@dimen/x24"
+            android:drawableTop="@mipmap/logo"
+            android:id="@+id/well_text"
+            android:textColor="@color/color_202020"
+            android:textSize="14sp"
+            android:text="集好物 极有品"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
 
 
-    <ImageView
-        android:layout_marginBottom="@dimen/x24"
-        android:layout_centerHorizontal="true"
-        android:layout_above="@id/well_text"
-        android:src="@mipmap/logo"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"/>
+        <ImageView
+            android:visibility="gone"
+            android:id="@+id/well_imageTag"
+            android:layout_marginLeft="@dimen/x80"
+            android:src="@mipmap/bg_360"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+
+    </LinearLayout>
+
 
 
 </RelativeLayout>
