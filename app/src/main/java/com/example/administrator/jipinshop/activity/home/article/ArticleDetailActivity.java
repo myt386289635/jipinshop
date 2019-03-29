@@ -812,6 +812,10 @@ public class ArticleDetailActivity extends BaseActivity implements View.OnClickL
      */
     @Override
     public void onItemClick(int position) {
+        if(TextUtils.isEmpty(SPUtils.getInstance(CommonDate.USER).getString(CommonDate.token,""))){
+            startActivity(new Intent(this, LoginActivity.class));
+            return;
+        }
         mDialog = (new ProgressDialogView()).createLoadingDialog(this, "正在加载...");
         mDialog.show();
         openAliHomeWeb(mBeans.get(position).getGoodsBuyLink());

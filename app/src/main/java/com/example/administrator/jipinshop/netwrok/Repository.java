@@ -34,6 +34,7 @@ import com.example.administrator.jipinshop.bean.SystemMessageBean;
 import com.example.administrator.jipinshop.bean.TabBean;
 import com.example.administrator.jipinshop.bean.TaskFinishBean;
 import com.example.administrator.jipinshop.bean.TryAllBean;
+import com.example.administrator.jipinshop.bean.TryApplyBean;
 import com.example.administrator.jipinshop.bean.TryBean;
 import com.example.administrator.jipinshop.bean.TryDetailBean;
 import com.example.administrator.jipinshop.bean.TryReportBean;
@@ -532,7 +533,7 @@ public class Repository {
     /**
      * 申请试用
      */
-    public Observable<SuccessBean> tryApply(String trialId){
+    public Observable<TryApplyBean> tryApply(String trialId){
         return mAPIService.tryApply(trialId);
     }
 

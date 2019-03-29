@@ -3,13 +3,16 @@ package com.example.administrator.jipinshop.fragment.tryout;
 import android.content.Intent;
 import android.databinding.DataBindingUtil;
 import android.support.v7.widget.LinearLayoutManager;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
 import com.aspsine.swipetoloadlayout.OnRefreshListener;
+import com.blankj.utilcode.util.SPUtils;
 import com.example.administrator.jipinshop.R;
 import com.example.administrator.jipinshop.activity.home.article.ArticleDetailActivity;
+import com.example.administrator.jipinshop.activity.login.LoginActivity;
 import com.example.administrator.jipinshop.activity.tryout.TryAllActivity;
 import com.example.administrator.jipinshop.activity.tryout.TryReportActivity;
 import com.example.administrator.jipinshop.activity.tryout.detail.TryDetailActivity;
@@ -19,6 +22,7 @@ import com.example.administrator.jipinshop.bean.TryBean;
 import com.example.administrator.jipinshop.bean.eventbus.TryStatusBus;
 import com.example.administrator.jipinshop.databinding.TryFragmentBinding;
 import com.example.administrator.jipinshop.util.ClickUtil;
+import com.example.administrator.jipinshop.util.sp.CommonDate;
 import com.example.administrator.jipinshop.view.itemDecoration.StickyItemDecoration;
 
 import org.greenrobot.eventbus.EventBus;
@@ -127,6 +131,10 @@ public class TryFragment extends DBBaseFragment implements OnRefreshListener, Tr
         if (ClickUtil.isFastDoubleClick(800)) {
             return;
         }else{
+            if(TextUtils.isEmpty(SPUtils.getInstance(CommonDate.USER).getString(CommonDate.token,""))){
+                startActivity(new Intent(getContext(), LoginActivity.class));
+                return;
+            }
             startActivity(new Intent(getContext(),TryDetailActivity.class)
                     .putExtra("id",mTrialListBeans.get(position).getId())
                     .putExtra("pos",position)

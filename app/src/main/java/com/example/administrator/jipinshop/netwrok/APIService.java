@@ -35,6 +35,7 @@ import com.example.administrator.jipinshop.bean.SystemMessageBean;
 import com.example.administrator.jipinshop.bean.TabBean;
 import com.example.administrator.jipinshop.bean.TaskFinishBean;
 import com.example.administrator.jipinshop.bean.TryAllBean;
+import com.example.administrator.jipinshop.bean.TryApplyBean;
 import com.example.administrator.jipinshop.bean.TryBean;
 import com.example.administrator.jipinshop.bean.TryDetailBean;
 import com.example.administrator.jipinshop.bean.TryReportBean;
@@ -490,7 +491,7 @@ public interface APIService {
      */
     @FormUrlEncoded
     @POST("qualityshop-api/api/trial/apply")
-    Observable<SuccessBean> tryApply(@Field("trialId") String trialId);
+    Observable<TryApplyBean> tryApply(@Field("trialId") String trialId);
 
     /**
      * 试用名单列表

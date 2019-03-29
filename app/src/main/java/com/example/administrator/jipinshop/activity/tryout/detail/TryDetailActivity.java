@@ -37,6 +37,7 @@ import com.example.administrator.jipinshop.adapter.TryDetailGVAdapter;
 import com.example.administrator.jipinshop.adapter.TryDetailRVAdapter;
 import com.example.administrator.jipinshop.adapter.TryDetailReportRVAdapter;
 import com.example.administrator.jipinshop.base.BaseActivity;
+import com.example.administrator.jipinshop.bean.TryApplyBean;
 import com.example.administrator.jipinshop.bean.TryDetailBean;
 import com.example.administrator.jipinshop.bean.eventbus.ChangeHomePageBus;
 import com.example.administrator.jipinshop.bean.eventbus.TryShopBus;
@@ -543,11 +544,12 @@ public class TryDetailActivity extends BaseActivity implements View.OnClickListe
      * 确认申请回调
      */
     @Override
-    public void onSuccessApply() {
+    public void onSuccessApply(TryApplyBean bean) {
         if(mDialog != null && mDialog.isShowing()){
             mDialog.dismiss();
         }
         mBinding.detailApply.setText("分享拉赞");
+        mTryDetailBean.getData().setVoteShareUrl(bean.getVoteShareUrl());//确认申请后更新分享链接
     }
 
     @Override

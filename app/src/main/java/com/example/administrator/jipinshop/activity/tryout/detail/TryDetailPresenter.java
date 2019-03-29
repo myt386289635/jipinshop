@@ -14,6 +14,7 @@ import com.example.administrator.jipinshop.R;
 import com.example.administrator.jipinshop.adapter.CommenBannerAdapter;
 import com.example.administrator.jipinshop.bean.SuccessBean;
 import com.example.administrator.jipinshop.bean.TaskFinishBean;
+import com.example.administrator.jipinshop.bean.TryApplyBean;
 import com.example.administrator.jipinshop.bean.TryDetailBean;
 import com.example.administrator.jipinshop.databinding.ActivityTryDetailBinding;
 import com.example.administrator.jipinshop.netwrok.Repository;
@@ -144,19 +145,19 @@ public class TryDetailPresenter {
         mBannerAdapter.notifyDataSetChanged();
     }
 
-    public void tryApply(String trialId,LifecycleTransformer<SuccessBean> transformer){
+    public void tryApply(String trialId,LifecycleTransformer<TryApplyBean> transformer){
         mRepository.tryApply(trialId)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .compose(transformer)
-                .subscribe(successBean -> {
-                    if(successBean.getCode() == 0){
+                .subscribe(tryApplyBean -> {
+                    if(tryApplyBean.getCode() == 0){
                         if(mView != null){
-                            mView.onSuccessApply();
+                            mView.onSuccessApply(tryApplyBean);
                         }
                     }else {
                         if(mView != null){
-                            mView.onFileApply(successBean.getMsg());
+                            mView.onFileApply(tryApplyBean.getMsg());
                         }
                     }
                 }, throwable -> {
