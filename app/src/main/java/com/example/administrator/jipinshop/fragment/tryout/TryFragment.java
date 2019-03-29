@@ -160,7 +160,7 @@ public class TryFragment extends DBBaseFragment implements OnRefreshListener, Tr
     @Override
     public void onSuccess(TryBean bean) {
         stopResher();
-        if(bean.getData().getTrialList().size() != 0 && bean.getData().getReportList().size() != 0){
+        if(bean.getData().getTrialList().size() != 0){
             mBinding.inClude.qsNet.setVisibility(View.GONE);
             mBinding.recyclerView.setVisibility(View.VISIBLE);
             mReportListBeans.clear();

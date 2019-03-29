@@ -116,8 +116,7 @@ public class TryAdapter extends RecyclerView.Adapter {
                 GlideApp.loderImage(mContext,mTrialListBeans.get(content1Position).getImg(),content1ViewHolder.try_image,0,0);
                 content1ViewHolder.try_name.setText(mTrialListBeans.get(content1Position).getName());
                 content1ViewHolder.try_num.setText(mTrialListBeans.get(content1Position).getCount() + "");
-                BigDecimal bigDecimal = new BigDecimal(mTrialListBeans.get(content1Position).getActualPrice());
-                content1ViewHolder.try_price.setText("¥" + bigDecimal.setScale(2,BigDecimal.ROUND_DOWN).toString());
+                content1ViewHolder.try_price.setText("¥" + mTrialListBeans.get(content1Position).getActualPrice());
                 if(mTrialListBeans.get(content1Position).getStatus() == 2){
                     //进行中
                     content1ViewHolder.try_button.setVisibility(View.VISIBLE);
@@ -153,7 +152,7 @@ public class TryAdapter extends RecyclerView.Adapter {
 
     @Override
     public int getItemCount() {
-        return mTrialListBeans.size() == 0  || mReportListBeans.size() == 0 ? 0 : mTrialListBeans.size() + mReportListBeans.size() + 2;
+        return mTrialListBeans.size() == 0  ? 0 : mTrialListBeans.size() + mReportListBeans.size() + 2;
     }
 
     class HeadViewHolder extends RecyclerView.ViewHolder{
