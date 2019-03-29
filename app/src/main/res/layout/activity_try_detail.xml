@@ -170,10 +170,9 @@
                             android:layout_height="wrap_content"/>
 
                         <LinearLayout
+                            android:id="@+id/detail_applyLayout"
                             android:gravity="center"
                             android:orientation="vertical"
-                            android:layout_marginRight="@dimen/x80"
-                            android:layout_marginTop="@dimen/y28"
                             android:layout_alignParentRight="true"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content">
@@ -370,7 +369,7 @@
                             android:textSize="15sp"
                             android:textColor="@color/color_DE151515"
                             android:visibility="gone"
-                            android:layout_marginTop="@dimen/y202"
+                            android:gravity="center"
                             android:layout_centerHorizontal="true"
                             android:text="试用中"
                             android:id="@+id/detail_applying"

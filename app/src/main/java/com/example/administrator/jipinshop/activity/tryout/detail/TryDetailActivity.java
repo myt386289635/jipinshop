@@ -164,6 +164,7 @@ public class TryDetailActivity extends BaseActivity implements View.OnClickListe
         mTabLine.add(mBinding.detailTab3.tabLine);
         mTabLine.add(mBinding.detailTab4.tabLine);
         mPresenter.initTabLayout(this,mBinding);
+        mPresenter.initText(this,mBinding);
 
         mBannerAdapter = new CommenBannerAdapter(this);
         mBannerList = new ArrayList<>();

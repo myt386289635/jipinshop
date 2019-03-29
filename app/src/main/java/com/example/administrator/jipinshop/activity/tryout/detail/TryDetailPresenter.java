@@ -47,6 +47,22 @@ public class TryDetailPresenter {
         mRepository = repository;
     }
 
+    public void initText(Context context , ActivityTryDetailBinding mBinding) {
+        mBinding.detailTimeContainer.post(() -> {
+            int width = mBinding.detailTimeContainer.getWidth();
+            int height = mBinding.detailTimeContainer.getHeight();
+            RelativeLayout.LayoutParams layoutParams = (RelativeLayout.LayoutParams) mBinding.detailApplyLayout.getLayoutParams();
+            layoutParams.width = width / 2;
+            layoutParams.height = height / 2 ;
+            mBinding.detailApplyLayout.setLayoutParams(layoutParams);
+
+            RelativeLayout.LayoutParams layoutParams1 = (RelativeLayout.LayoutParams) mBinding.detailApplying.getLayoutParams();
+            layoutParams1.height = height / 2 ;
+            layoutParams1.topMargin = height / 2;
+            mBinding.detailApplying.setLayoutParams(layoutParams1);
+        });
+    }
+
     public void setStatusBarHight(LinearLayout StatusBar,LinearLayout StatusBar2 , LinearLayout StatusBar3 , RelativeLayout relativeLayout, Context context){
         int resourceId = context.getResources().getIdentifier("status_bar_height", "dimen", "android");
         if (resourceId > 0) {
