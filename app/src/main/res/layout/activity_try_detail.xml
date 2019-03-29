@@ -117,7 +117,7 @@
                         android:textStyle="bold"
                         android:textSize="16sp"
                         android:textColor="@color/color_DE151515"
-                        android:text="科沃斯扫拖一体地宝DJ35 智能家用超薄全自动扫地机科沃斯扫拖一体地宝DJ35 "
+                        android:text="科沃斯扫拖一体地宝DJ35"
                         android:layout_marginBottom="@dimen/y32"
                         android:layout_marginTop="@dimen/y32"
                         android:layout_marginRight="@dimen/x28"

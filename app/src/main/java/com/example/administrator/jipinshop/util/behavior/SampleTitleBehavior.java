@@ -4,6 +4,7 @@ import android.content.Context;
 import android.support.design.widget.CoordinatorLayout;
 import android.support.v4.widget.NestedScrollView;
 import android.util.AttributeSet;
+import android.util.Log;
 import android.view.View;
 
 import com.example.administrator.jipinshop.R;
@@ -40,6 +41,7 @@ public class SampleTitleBehavior extends CoordinatorLayout.Behavior<View> {
         float dy = (dependency.getY() - hight) - child.getHeight();
         dy = dy < 0 ? 0 : dy;
         float y = -(dy / deltaY) * child.getHeight();
+        y = y < -child.getHeight() ? -child.getHeight() : y;
         child.setTranslationY(y);
 
         return true;
