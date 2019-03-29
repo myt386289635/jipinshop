@@ -65,6 +65,7 @@
 
 
         <TextView
+            android:includeFontPadding="false"
             android:textSize="13sp"
             android:textColor="@color/color_ACACAC"
             android:drawablePadding="@dimen/x10"

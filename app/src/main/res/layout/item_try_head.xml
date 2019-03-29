@@ -19,6 +19,7 @@
 
 
     <TextView
+        android:includeFontPadding="false"
         android:paddingBottom="@dimen/y24"
         android:id="@+id/try_all"
         android:text="查看全部"

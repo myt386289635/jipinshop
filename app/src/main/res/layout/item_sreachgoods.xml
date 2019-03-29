@@ -130,16 +130,14 @@
             android:gravity="center_vertical"
             android:orientation="horizontal">
 
-            <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:background="@mipmap/recommend_browse"/>
-
             <TextView
+                android:gravity="center"
+                android:includeFontPadding="false"
+                android:drawableLeft="@mipmap/recommend_browse"
                 android:id="@+id/item_lookNum"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="@dimen/x4"
+                android:drawablePadding="@dimen/x4"
                 android:text="@{date.pv}"
                 android:textColor="@color/color_ACACAC"
                 android:textSize="13sp"/>
