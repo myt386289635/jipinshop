@@ -52,7 +52,6 @@ public class EvaluationFragment extends DBBaseFragment implements EvaluationView
     public void setUserVisibleHint(boolean isVisibleToUser) {
         super.setUserVisibleHint(isVisibleToUser);
         if(isVisibleToUser && once){
-            initTab(null);
             mPresenter.initTab(this.bindToLifecycle());
             once = false;
         }
@@ -95,6 +94,7 @@ public class EvaluationFragment extends DBBaseFragment implements EvaluationView
     public void onFaile(String error) {
         EventBus.getDefault().post(EvaluationFragment.tag);
         ToastUtil.show(error);
+        initTab(null);
     }
 
     public void initTab(EvaluationTabBean tabBean) {

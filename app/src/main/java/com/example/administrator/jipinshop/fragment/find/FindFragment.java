@@ -56,7 +56,6 @@ public class FindFragment extends DBBaseFragment implements FindView, ArticleTab
     public void setUserVisibleHint(boolean isVisibleToUser) {
         super.setUserVisibleHint(isVisibleToUser);
         if(isVisibleToUser && once){
-            initTab(null);
             mPresenter.initTab(this.bindToLifecycle());
             once = false;
         }
@@ -101,6 +100,7 @@ public class FindFragment extends DBBaseFragment implements FindView, ArticleTab
     public void onFaile(String error) {
         EventBus.getDefault().post(new FindTabBus(FindFragment.tag));
         ToastUtil.show(error);
+        initTab(null);
     }
 
     public void initTab(EvaluationTabBean tabBean) {
