@@ -13,10 +13,12 @@ import com.blankj.utilcode.util.SPUtils;
 import com.example.administrator.jipinshop.MyApplication;
 import com.example.administrator.jipinshop.R;
 import com.example.administrator.jipinshop.activity.login.LoginActivity;
+import com.example.administrator.jipinshop.activity.sign.SignActivity;
 import com.example.administrator.jipinshop.adapter.HomeAdapter;
 import com.example.administrator.jipinshop.base.DaggerBaseActivityComponent;
 import com.example.administrator.jipinshop.bean.AppVersionbean;
 import com.example.administrator.jipinshop.bean.eventbus.ChangeHomePageBus;
+import com.example.administrator.jipinshop.bean.eventbus.HomeNewPeopleBus;
 import com.example.administrator.jipinshop.fragment.evaluation.EvaluationFragment;
 import com.example.administrator.jipinshop.fragment.find.FindFragment;
 import com.example.administrator.jipinshop.fragment.home.HomeFragment;
@@ -28,6 +30,7 @@ import com.example.administrator.jipinshop.util.ToastUtil;
 import com.example.administrator.jipinshop.util.UpDataUtil;
 import com.example.administrator.jipinshop.util.sp.CommonDate;
 import com.example.administrator.jipinshop.view.NoScrollViewPager;
+import com.example.administrator.jipinshop.view.dialog.DialogUtil;
 import com.gyf.barlibrary.ImmersionBar;
 import com.trello.rxlifecycle2.components.support.RxAppCompatActivity;
 
@@ -177,6 +180,15 @@ public class MainActivity extends RxAppCompatActivity implements MainView {
     public void changePage(ChangeHomePageBus bus){
         if(bus != null){
             mViewPager.setCurrentItem(bus.getPage());
+        }
+    }
+
+    @Subscribe
+    public void addPoint(HomeNewPeopleBus newPeopleBus){
+        if (newPeopleBus != null && newPeopleBus.getAddPoint() != 0){
+            DialogUtil.NewPeopleDialog(MainActivity.this, newPeopleBus.getAddPoint() + "", v -> {
+                startActivity(new Intent(MainActivity.this, SignActivity.class));
+            });
         }
     }
 }

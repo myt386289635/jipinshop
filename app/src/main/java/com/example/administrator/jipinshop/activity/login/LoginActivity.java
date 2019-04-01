@@ -24,6 +24,7 @@ import com.example.administrator.jipinshop.bean.SuccessBean;
 import com.example.administrator.jipinshop.bean.UserInfoBean;
 import com.example.administrator.jipinshop.bean.eventbus.CommonEvaluationBus;
 import com.example.administrator.jipinshop.bean.eventbus.EditNameBus;
+import com.example.administrator.jipinshop.bean.eventbus.HomeNewPeopleBus;
 import com.example.administrator.jipinshop.databinding.LoginBinding;
 import com.example.administrator.jipinshop.jpush.JPushReceiver;
 import com.example.administrator.jipinshop.netwrok.RetrofitModule;
@@ -172,6 +173,9 @@ public class LoginActivity extends BaseActivity implements LoginView, View.OnCli
             EventBus.getDefault().post(JPushReceiver.TAG);//刷新未读消息
             EventBus.getDefault().post(new CommonEvaluationBus(LoginActivity.refresh));//用来刷新商品、评测、发现详情以及评论列表
             JPushInterface.resumePush(MyApplication.getInstance());//恢复推送
+            if (loginBean.getData().getAddPoint() != 0){
+                EventBus.getDefault().post(new HomeNewPeopleBus(loginBean.getData().getAddPoint()));//新用户注册
+            }
             ToastUtil.show("登录成功");
             setResult(200);
             finish();

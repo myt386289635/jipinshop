@@ -135,4 +135,22 @@ public class DialogUtil{
         dialog.show();
         dialog.setContentView(view);
     }
+
+    public static void NewPeopleDialog(Context context,String code , final View.OnClickListener sureListener){
+        AlertDialog.Builder builder = new AlertDialog.Builder(context,R.style.dialog);
+        View view = LayoutInflater.from(context).inflate(R.layout.dialog_newpeople,null);
+        TextView dialog_code = view.findViewById(R.id.dialog_code);
+        dialog_code.setText(code);
+        TextView dialog_sure =  view.findViewById(R.id.dialog_sure);
+        ImageView dialog_cancle = view.findViewById(R.id.dialog_cancle);
+        final Dialog dialog = builder.create();
+        dialog.getWindow().setDimAmount(0.35f);
+        dialog_cancle.setOnClickListener(v -> dialog.dismiss());
+        dialog_sure.setOnClickListener(v -> {
+            sureListener.onClick(v);
+            dialog.dismiss();
+        });
+        dialog.show();
+        dialog.setContentView(view);
+    }
 }

@@ -86,6 +86,15 @@ public class LoginBean {
         private int bindMobile;
         private int bindWeixin;
         private  int bindWeibo;
+        private int addPoint;//新用户获得极币
+
+        public int getAddPoint() {
+            return addPoint;
+        }
+
+        public void setAddPoint(int addPoint) {
+            this.addPoint = addPoint;
+        }
 
         public String getArticleCount() {
             return articleCount;
