@@ -23,9 +23,14 @@ public class CommenBannerAdapter extends PagerAdapter implements ViewPager.OnPag
     private List<ImageView> point;
     private ViewPager mViewPager;
     private List<String> mList;
+    private Boolean imgCenter = false;
 
     public CommenBannerAdapter(Context context) {
         mContext = context;
+    }
+
+    public void setImgCenter(Boolean imgCenter) {
+        this.imgCenter = imgCenter;
     }
 
     public void setPoint(List<ImageView> point) {
@@ -58,6 +63,9 @@ public class CommenBannerAdapter extends PagerAdapter implements ViewPager.OnPag
 
         View view = LayoutInflater.from(mContext).inflate(R.layout.item_common_banner, container, false);
         ImageView imageView = (ImageView) view.findViewById(R.id.recommend_img_rotate);
+        if (imgCenter){
+            imageView.setScaleType(ImageView.ScaleType.CENTER_CROP);
+        }
         Glide.with(mContext).load(mList.get(position % mList.size())).into(imageView);
         container.addView(view);
         mViewPager.addOnPageChangeListener(this);

@@ -50,14 +50,14 @@ public class MallAdapter extends RecyclerView.Adapter<MallAdapter.ContentViewHol
         if( position % 2 == 0){
             //左边
             GridLayoutManager.LayoutParams layoutParams = (GridLayoutManager.LayoutParams) contentViewHolder.item_container.getLayoutParams();
-            layoutParams.leftMargin = mContext.getResources().getDimensionPixelSize(R.dimen.x28);
-            layoutParams.rightMargin = mContext.getResources().getDimensionPixelSize(R.dimen.x14);
+            layoutParams.leftMargin = mContext.getResources().getDimensionPixelSize(R.dimen.x14);
+            layoutParams.rightMargin = mContext.getResources().getDimensionPixelSize(R.dimen.x7);
 
         }else {
             //右边
             GridLayoutManager.LayoutParams layoutParams = (GridLayoutManager.LayoutParams) contentViewHolder.item_container.getLayoutParams();
-            layoutParams.leftMargin = mContext.getResources().getDimensionPixelSize(R.dimen.x14);
-            layoutParams.rightMargin = mContext.getResources().getDimensionPixelSize(R.dimen.x28);
+            layoutParams.leftMargin = mContext.getResources().getDimensionPixelSize(R.dimen.x7);
+            layoutParams.rightMargin = mContext.getResources().getDimensionPixelSize(R.dimen.x14);
         }
 
         contentViewHolder.itemView.setOnClickListener(v -> {

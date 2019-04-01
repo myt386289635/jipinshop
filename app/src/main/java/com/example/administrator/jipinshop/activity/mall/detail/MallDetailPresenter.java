@@ -6,12 +6,15 @@ import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 
 import com.example.administrator.jipinshop.R;
 import com.example.administrator.jipinshop.adapter.CommenBannerAdapter;
 import com.example.administrator.jipinshop.bean.MallDetailBean;
 import com.example.administrator.jipinshop.netwrok.Repository;
+import com.example.administrator.jipinshop.util.DistanceHelper;
 import com.trello.rxlifecycle2.LifecycleTransformer;
+import com.example.administrator.jipinshop.databinding.ActivityMallDetailBinding;
 
 import java.util.List;
 
@@ -37,6 +40,16 @@ public class MallDetailPresenter {
     @Inject
     public MallDetailPresenter(Repository repository) {
         mRepository = repository;
+    }
+
+    public void initHeight(Context context ,ActivityMallDetailBinding mBinding){
+        RelativeLayout.LayoutParams layoutParams = (RelativeLayout.LayoutParams) mBinding.pagerImage.getLayoutParams();
+        layoutParams.height = DistanceHelper.getAndroiodScreenwidthPixels(context);
+        mBinding.pagerImage.setLayoutParams(layoutParams);
+
+        RelativeLayout.LayoutParams layoutParams1 = (RelativeLayout.LayoutParams) mBinding.viewPager.getLayoutParams();
+        layoutParams1.height = DistanceHelper.getAndroiodScreenwidthPixels(context);
+        mBinding.viewPager.setLayoutParams(layoutParams1);
     }
 
     public void setStatusBarHight(LinearLayout StatusBar , Context context){

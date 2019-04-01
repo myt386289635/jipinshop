@@ -17,11 +17,12 @@
         android:layout_height="@dimen/y460"/>
 
     <TextView
+        android:lineSpacingExtra="@dimen/x6"
         android:textStyle="bold"
         android:layout_marginTop="@dimen/y32"
         android:layout_below="@id/item_image"
         android:ellipsize="end"
-        android:maxLines="1"
+        android:maxLines="2"
         android:id="@+id/item_title"
         android:textColor="@color/color_202020"
         android:textSize="16sp"

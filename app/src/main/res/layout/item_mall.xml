@@ -3,8 +3,6 @@
     android:layout_marginBottom="@dimen/x20"
     android:layout_marginTop="@dimen/x36"
     android:id="@+id/item_container"
-    android:layout_marginRight="@dimen/x28"
-    android:layout_marginLeft="@dimen/x28"
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
@@ -12,14 +10,17 @@
 
 
     <ImageView
-        android:scaleType="fitXY"
+        android:layout_centerHorizontal="true"
+        android:scaleType="centerCrop"
         tools:src="@color/color_E31436"
         android:id="@+id/item_image"
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/y220"/>
+        android:layout_width="@dimen/x330"
+        android:layout_height="@dimen/y330"/>
 
 
     <TextView
+        android:layout_alignRight="@+id/item_image"
+        android:layout_alignLeft="@+id/item_image"
         android:id="@+id/item_name"
         android:layout_marginTop="@dimen/x24"
         android:textColor="@color/color_DE151515"
@@ -27,11 +28,13 @@
         android:ellipsize="end"
         android:maxLines="1"
         tools:text="飞利浦HD9103/11双层简洁"
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"/>
 
 
     <TextView
+        android:layout_alignRight="@+id/item_name"
+        android:layout_alignLeft="@+id/item_name"
         android:layout_marginTop="@dimen/y8"
         android:layout_below="@id/item_name"
         android:id="@+id/item_code"

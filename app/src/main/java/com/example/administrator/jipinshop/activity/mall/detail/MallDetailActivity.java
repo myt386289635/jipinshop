@@ -96,6 +96,7 @@ public class MallDetailActivity extends BaseActivity implements View.OnClickList
         mDialogProgress.show();
         mPresenter.setStatusBarHight(mBinding.statusBar,this);
         mPresenter.setStatusBarHight(mBinding.statusBar2,this);
+        mPresenter.initHeight(this,mBinding);
 
         mBannerAdapter = new CommenBannerAdapter(this);
         mBannerList = new ArrayList<>();
@@ -103,6 +104,7 @@ public class MallDetailActivity extends BaseActivity implements View.OnClickList
         mBannerAdapter.setPoint(point);
         mBannerAdapter.setList(mBannerList);
         mBannerAdapter.setViewPager(mBinding.viewPager);
+        mBannerAdapter.setImgCenter(true);
         mBinding.viewPager.setAdapter(mBannerAdapter);
         mBinding.viewPager.setCurrentItem(mBannerList.size() * 10);
 
