@@ -130,6 +130,7 @@
 
 
                 <TextView
+                    android:lineSpacingExtra="@dimen/y6"
                     android:id="@+id/detail_title"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -137,9 +138,7 @@
                     android:layout_marginLeft="@dimen/x28"
                     android:layout_marginRight="@dimen/x28"
                     android:layout_marginTop="@dimen/y32"
-                    android:ellipsize="end"
-                    android:maxLines="2"
-                    android:text="闭眼入系列 | 从此爱上刷牙，网红推荐款…"
+                    android:text="闭眼入系列 | 从此爱上刷牙，网红推荐款，网红推荐款，网红推荐款"
                     android:textColor="@color/color_202020"
                     android:textSize="16sp"
                     android:textStyle="bold"/>

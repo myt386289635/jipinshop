@@ -15,6 +15,7 @@
         android:layout_height="@dimen/y170"/>
 
     <TextView
+        android:layout_marginRight="@dimen/x28"
         android:ellipsize="end"
         android:maxLines="2"
         android:lineSpacingExtra="@dimen/y6"
@@ -24,7 +25,7 @@
         android:layout_marginTop="@dimen/y6"
         android:layout_alignTop="@+id/try_image"
         android:layout_toRightOf="@+id/try_image"
-        tools:text="接近“0”辐射，日本黑科技负离子电吹风机"
+        tools:text="接近“0”辐射，日本黑科技负离子电吹风机日本黑科技负离子电吹风机日本黑科技负离子电吹风机"
         android:textStyle="bold"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"/>
