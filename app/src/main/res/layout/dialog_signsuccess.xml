@@ -47,6 +47,7 @@
             android:layout_height="wrap_content"/>
 
         <TextView
+            android:minHeight="@dimen/y136"
             android:layout_marginRight="@dimen/x32"
             android:id="@+id/update_content"
             android:layout_marginLeft="@dimen/x32"

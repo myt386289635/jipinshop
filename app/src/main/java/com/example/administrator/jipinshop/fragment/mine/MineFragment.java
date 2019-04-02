@@ -139,6 +139,10 @@ public class MineFragment extends DBBaseFragment implements View.OnClickListener
                 //我的商城
                 startActivity(new Intent(getContext(), MallActivity.class));
                 break;
+            case R.id.mine_trial:
+                //我的试用
+
+                break;
         }
     }
 

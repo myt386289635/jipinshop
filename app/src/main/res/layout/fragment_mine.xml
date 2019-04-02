@@ -290,7 +290,7 @@
 
                     <LinearLayout
                         android:onClick="@{listener.onClick}"
-                        android:id="@+id/mine_order"
+                        android:id="@+id/mine_trial"
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
                         android:layout_weight="1"
@@ -302,7 +302,7 @@
                             android:layout_width="@dimen/x52"
                             android:layout_height="@dimen/y52"
                             android:layout_marginTop="@dimen/y38"
-                            android:src="@mipmap/mine_order"/>
+                            android:src="@mipmap/mine_trial"/>
 
                         <TextView
                             android:textSize="14sp"
@@ -310,7 +310,7 @@
                             android:layout_height="wrap_content"
                             android:layout_marginBottom="@dimen/y24"
                             android:layout_marginTop="@dimen/y14"
-                            android:text="我的订单"
+                            android:text="我的试用"
                             android:textColor="@color/color_8F8F8F"/>
                     </LinearLayout>
 
@@ -402,6 +402,38 @@
                         android:background="@drawable/bg_yuan3"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"/>
+
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:id="@+id/mine_order"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/x104"
+                    android:onClick="@{listener.onClick}">
+
+                    <TextView
+                        android:textColor="@color/color_8F8F8F"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:layout_marginLeft="@dimen/x32"
+                        android:drawableLeft="@mipmap/order"
+                        android:drawablePadding="@dimen/x18"
+                        android:text="我的订单"/>
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentRight="true"
+                        android:layout_centerVertical="true"
+                        android:layout_marginRight="@dimen/x32"
+                        android:src="@mipmap/right_ash2"/>
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/x2"
+                        android:layout_alignParentBottom="true"
+                        android:background="@color/color_F5F5F5"/>
 
                 </RelativeLayout>
 
