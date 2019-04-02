@@ -289,6 +289,7 @@
                     </LinearLayout>
 
                     <LinearLayout
+                        android:visibility="gone"
                         android:onClick="@{listener.onClick}"
                         android:id="@+id/mine_trial"
                         android:layout_width="0dp"
@@ -311,6 +312,32 @@
                             android:layout_marginBottom="@dimen/y24"
                             android:layout_marginTop="@dimen/y14"
                             android:text="我的试用"
+                            android:textColor="@color/color_8F8F8F"/>
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:onClick="@{listener.onClick}"
+                        android:id="@+id/mine_order"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:gravity="center"
+                        android:orientation="vertical">
+
+                        <ImageView
+                            android:scaleType="fitXY"
+                            android:layout_width="@dimen/x52"
+                            android:layout_height="@dimen/y52"
+                            android:layout_marginTop="@dimen/y38"
+                            android:src="@mipmap/mine_order"/>
+
+                        <TextView
+                            android:textSize="14sp"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginBottom="@dimen/y24"
+                            android:layout_marginTop="@dimen/y14"
+                            android:text="我的订单"
                             android:textColor="@color/color_8F8F8F"/>
                     </LinearLayout>
 
@@ -405,37 +432,37 @@
 
                 </RelativeLayout>
 
-                <RelativeLayout
-                    android:id="@+id/mine_order"
-                    android:layout_width="match_parent"
-                    android:layout_height="@dimen/x104"
-                    android:onClick="@{listener.onClick}">
+                <!--<RelativeLayout-->
+                    <!--android:id="@+id/mine_order"-->
+                    <!--android:layout_width="match_parent"-->
+                    <!--android:layout_height="@dimen/x104"-->
+                    <!--android:onClick="@{listener.onClick}">-->
 
-                    <TextView
-                        android:textColor="@color/color_8F8F8F"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_centerVertical="true"
-                        android:layout_marginLeft="@dimen/x32"
-                        android:drawableLeft="@mipmap/order"
-                        android:drawablePadding="@dimen/x18"
-                        android:text="我的订单"/>
+                    <!--<TextView-->
+                        <!--android:textColor="@color/color_8F8F8F"-->
+                        <!--android:layout_width="wrap_content"-->
+                        <!--android:layout_height="wrap_content"-->
+                        <!--android:layout_centerVertical="true"-->
+                        <!--android:layout_marginLeft="@dimen/x32"-->
+                        <!--android:drawableLeft="@mipmap/order"-->
+                        <!--android:drawablePadding="@dimen/x18"-->
+                        <!--android:text="我的订单"/>-->
 
-                    <ImageView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_alignParentRight="true"
-                        android:layout_centerVertical="true"
-                        android:layout_marginRight="@dimen/x32"
-                        android:src="@mipmap/right_ash2"/>
+                    <!--<ImageView-->
+                        <!--android:layout_width="wrap_content"-->
+                        <!--android:layout_height="wrap_content"-->
+                        <!--android:layout_alignParentRight="true"-->
+                        <!--android:layout_centerVertical="true"-->
+                        <!--android:layout_marginRight="@dimen/x32"-->
+                        <!--android:src="@mipmap/right_ash2"/>-->
 
-                    <View
-                        android:layout_width="match_parent"
-                        android:layout_height="@dimen/x2"
-                        android:layout_alignParentBottom="true"
-                        android:background="@color/color_F5F5F5"/>
+                    <!--<View-->
+                        <!--android:layout_width="match_parent"-->
+                        <!--android:layout_height="@dimen/x2"-->
+                        <!--android:layout_alignParentBottom="true"-->
+                        <!--android:background="@color/color_F5F5F5"/>-->
 
-                </RelativeLayout>
+                <!--</RelativeLayout>-->
 
                 <RelativeLayout
                     android:id="@+id/mine_follow"
