@@ -844,11 +844,58 @@
                             android:text="写评论"
                             android:textColor="@color/color_4A90E2"/>
 
-
                     </RelativeLayout>
 
+                </RelativeLayout>
+
+
+                <View
+                    android:id="@+id/detail_line4"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/y12"
+                    android:layout_below="@+id/detail_comment"
+                    android:background="@color/color_F5F5F5"/>
+
+
+                <TextView
+                    android:id="@+id/detail_relatedArticle"
+                    android:layout_marginLeft="@dimen/x28"
+                    android:layout_marginTop="@dimen/y56"
+                    android:layout_below="@id/detail_line4"
+                    android:textStyle="bold"
+                    android:textSize="18sp"
+                    android:textColor="@color/color_DE050505"
+                    android:text="相关推荐"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"/>
+
+                <RelativeLayout
+                    android:id="@+id/detail_relatedContainer"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/detail_relatedArticle">
+
+
+                    <android.support.v7.widget.RecyclerView
+                        android:id="@+id/detail_related"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:visibility="gone"/>
+
+
+                    <TextView
+                        android:textSize="13sp"
+                        android:id="@+id/detail_relatedNoDate"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerHorizontal="true"
+                        android:layout_marginBottom="@dimen/x120"
+                        android:layout_marginTop="@dimen/x120"
+                        android:text="暂无相关推荐"
+                        android:textColor="@color/color_ACACAC"/>
 
                 </RelativeLayout>
+
 
             </RelativeLayout>
         </com.example.administrator.jipinshop.view.MyScrollView>

@@ -338,20 +338,29 @@ public class FindDetailBean {
              * user : {"userId":"7d67892cb02f4766aa72fd5b08b8d8d1","nickname":"皮Sir","gender":"男","avatar":"http://jipincheng.cn/dafca5b3d66a43dc9cc00e07acd7bdb0","authentication":0,"fansCount":null,"follow":null}
              */
 
-            private Object articleId;
+            private String articleId;
             private String img;
             private String title;
             private int contentType;
-            private int type;
+            private String type;
             private Object size;
             private int pv;
             private UserBeanX user;
+            private String createTime;
 
-            public Object getArticleId() {
+            public String getCreateTime() {
+                return createTime;
+            }
+
+            public void setCreateTime(String createTime) {
+                this.createTime = createTime;
+            }
+
+            public String getArticleId() {
                 return articleId;
             }
 
-            public void setArticleId(Object articleId) {
+            public void setArticleId(String articleId) {
                 this.articleId = articleId;
             }
 
@@ -379,11 +388,11 @@ public class FindDetailBean {
                 this.contentType = contentType;
             }
 
-            public int getType() {
+            public String getType() {
                 return type;
             }
 
-            public void setType(int type) {
+            public void setType(String type) {
                 this.type = type;
             }
 

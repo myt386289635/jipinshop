@@ -134,6 +134,15 @@ public class ShoppingDetailBean {
             private List<String> imgList;
             private int vote;
             private int collect;
+            private List<RelatedArticleListBean> relatedArticleList;
+
+            public List<RelatedArticleListBean> getRelatedArticleList() {
+                return relatedArticleList;
+            }
+
+            public void setRelatedArticleList(List<RelatedArticleListBean> relatedArticleList) {
+                this.relatedArticleList = relatedArticleList;
+            }
 
             public int getVote() {
                 return vote;
@@ -350,6 +359,177 @@ public class ShoppingDetailBean {
 
                 public void setScore(String score) {
                     this.score = score;
+                }
+            }
+
+            public static class RelatedArticleListBean {
+                /**
+                 * articleId : null
+                 * img : http://jipincheng.cn/95b0bc3095a94e1cb0dfd6df08865c20
+                 * title : 600~700元理发器横评：我们选出了一款“型男挚爱”
+                 * contentType : 1
+                 * type : 2
+                 * size : null
+                 * pv : 315
+                 * user : {"userId":"7d67892cb02f4766aa72fd5b08b8d8d1","nickname":"皮Sir","gender":"男","avatar":"http://jipincheng.cn/dafca5b3d66a43dc9cc00e07acd7bdb0","authentication":0,"fansCount":null,"follow":null}
+                 */
+
+                private String articleId;
+                private String img;
+                private String title;
+                private int contentType;
+                private String type;
+                private Object size;
+                private int pv;
+                private UserBeanX user;
+                private String createTime;
+
+                public String getCreateTime() {
+                    return createTime;
+                }
+
+                public void setCreateTime(String createTime) {
+                    this.createTime = createTime;
+                }
+
+                public String getArticleId() {
+                    return articleId;
+                }
+
+                public void setArticleId(String articleId) {
+                    this.articleId = articleId;
+                }
+
+                public String getImg() {
+                    return img;
+                }
+
+                public void setImg(String img) {
+                    this.img = img;
+                }
+
+                public String getTitle() {
+                    return title;
+                }
+
+                public void setTitle(String title) {
+                    this.title = title;
+                }
+
+                public int getContentType() {
+                    return contentType;
+                }
+
+                public void setContentType(int contentType) {
+                    this.contentType = contentType;
+                }
+
+                public String getType() {
+                    return type;
+                }
+
+                public void setType(String type) {
+                    this.type = type;
+                }
+
+                public Object getSize() {
+                    return size;
+                }
+
+                public void setSize(Object size) {
+                    this.size = size;
+                }
+
+                public int getPv() {
+                    return pv;
+                }
+
+                public void setPv(int pv) {
+                    this.pv = pv;
+                }
+
+                public UserBeanX getUser() {
+                    return user;
+                }
+
+                public void setUser(UserBeanX user) {
+                    this.user = user;
+                }
+
+                public static class UserBeanX {
+                    /**
+                     * userId : 7d67892cb02f4766aa72fd5b08b8d8d1
+                     * nickname : 皮Sir
+                     * gender : 男
+                     * avatar : http://jipincheng.cn/dafca5b3d66a43dc9cc00e07acd7bdb0
+                     * authentication : 0
+                     * fansCount : null
+                     * follow : null
+                     */
+
+                    private String userId;
+                    private String nickname;
+                    private String gender;
+                    private String avatar;
+                    private int authentication;
+                    private Object fansCount;
+                    private Object follow;
+
+                    public String getUserId() {
+                        return userId;
+                    }
+
+                    public void setUserId(String userId) {
+                        this.userId = userId;
+                    }
+
+                    public String getNickname() {
+                        return nickname;
+                    }
+
+                    public void setNickname(String nickname) {
+                        this.nickname = nickname;
+                    }
+
+                    public String getGender() {
+                        return gender;
+                    }
+
+                    public void setGender(String gender) {
+                        this.gender = gender;
+                    }
+
+                    public String getAvatar() {
+                        return avatar;
+                    }
+
+                    public void setAvatar(String avatar) {
+                        this.avatar = avatar;
+                    }
+
+                    public int getAuthentication() {
+                        return authentication;
+                    }
+
+                    public void setAuthentication(int authentication) {
+                        this.authentication = authentication;
+                    }
+
+                    public Object getFansCount() {
+                        return fansCount;
+                    }
+
+                    public void setFansCount(Object fansCount) {
+                        this.fansCount = fansCount;
+                    }
+
+                    public Object getFollow() {
+                        return follow;
+                    }
+
+                    public void setFollow(Object follow) {
+                        this.follow = follow;
+                    }
                 }
             }
         }

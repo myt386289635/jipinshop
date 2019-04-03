@@ -23,6 +23,7 @@ import com.example.administrator.jipinshop.activity.message.MessageActivity;
 import com.example.administrator.jipinshop.activity.order.MyOrderActivity;
 import com.example.administrator.jipinshop.activity.setting.SettingActivity;
 import com.example.administrator.jipinshop.activity.sign.SignActivity;
+import com.example.administrator.jipinshop.activity.sign.invitation.InvitationActivity;
 import com.example.administrator.jipinshop.base.DBBaseFragment;
 import com.example.administrator.jipinshop.bean.UserInfoBean;
 import com.example.administrator.jipinshop.bean.eventbus.EditNameBus;
@@ -90,6 +91,9 @@ public class MineFragment extends DBBaseFragment implements View.OnClickListener
                 startActivityForResult(new Intent(getContext(), MyInfoActivity.class), 100);
                 break;
             case R.id.mine_signOther:
+                //邀请
+                startActivity(new Intent(getContext(), InvitationActivity.class));
+                break;
             case R.id.mine_sign:
             case R.id.mine_follow:
                 //跳转到签到页面

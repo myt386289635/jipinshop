@@ -36,12 +36,15 @@ import com.alibaba.baichuan.trade.biz.context.AlibcTradeResult;
 import com.blankj.utilcode.util.SPUtils;
 import com.example.administrator.jipinshop.R;
 import com.example.administrator.jipinshop.activity.commenlist.CommenListActivity;
+import com.example.administrator.jipinshop.activity.home.article.ArticleDetailActivity;
 import com.example.administrator.jipinshop.activity.login.LoginActivity;
 import com.example.administrator.jipinshop.adapter.CommenBannerAdapter;
+import com.example.administrator.jipinshop.adapter.RelatedArticleAdapter;
 import com.example.administrator.jipinshop.adapter.ShoppingCommonAdapter;
 import com.example.administrator.jipinshop.adapter.ShoppingmParameterAdapter;
 import com.example.administrator.jipinshop.base.BaseActivity;
 import com.example.administrator.jipinshop.bean.CommentBean;
+import com.example.administrator.jipinshop.bean.FindDetailBean;
 import com.example.administrator.jipinshop.bean.PagerStateBean;
 import com.example.administrator.jipinshop.bean.ShoppingDetailBean;
 import com.example.administrator.jipinshop.bean.SuccessBean;
@@ -87,7 +90,7 @@ import javax.inject.Inject;
  * 1、 使用一个recycelrView写,n个item，注意不要嵌套其他滑动布局，否则会卡顿)
  */
 
-public class ShoppingDetailActivity extends BaseActivity implements ShoppingCommonAdapter.OnItemReply, ShoppingDetailView, ShareBoardDialog.onShareListener, View.OnClickListener, ShoppingCommonAdapter.OnGoodItem {
+public class ShoppingDetailActivity extends BaseActivity implements ShoppingCommonAdapter.OnItemReply, ShoppingDetailView, ShareBoardDialog.onShareListener, View.OnClickListener, ShoppingCommonAdapter.OnGoodItem, RelatedArticleAdapter.OnClickRelatedItem {
 
     @Inject
     ShoppingDetailPresenter mPresenter;
@@ -129,6 +132,10 @@ public class ShoppingDetailActivity extends BaseActivity implements ShoppingComm
     //用户评论
     private ShoppingCommonAdapter mCommonAdapter;
     private List<CommentBean.DataBean> mCommonList;
+
+    //相关商品
+    private List<FindDetailBean.DataBean.RelatedArticleListBean> mArticleListBeans;
+    private RelatedArticleAdapter mArticleAdapter;
 
     //点赞
     private int[] usableHeightPrevious = {0};
@@ -261,6 +268,21 @@ public class ShoppingDetailActivity extends BaseActivity implements ShoppingComm
         mCommonAdapter.setOnItemReply(this);
         mCommonAdapter.setOnGoodItem(this);
         mBinding.detailCommon.setAdapter(mCommonAdapter);
+
+        //相关推荐
+        LinearLayoutManager layoutManager = new LinearLayoutManager(this) {
+            @Override
+            public boolean canScrollVertically() {
+                // 直接禁止垂直滑动
+                return false;
+            }
+        };
+        mBinding.detailRelated.setLayoutManager(layoutManager);
+        mBinding.detailRelated.setFocusable(false);
+        mArticleListBeans = new ArrayList<>();
+        mArticleAdapter = new RelatedArticleAdapter(mArticleListBeans,this);
+        mArticleAdapter.setOnClickRelatedItem(this);
+        mBinding.detailRelated.setAdapter(mArticleAdapter);
 
         //监听软键盘的弹出与收回
         mPresenter.setKeyListener(mBinding.detailContanier, usableHeightPrevious);
@@ -513,6 +535,26 @@ public class ShoppingDetailActivity extends BaseActivity implements ShoppingComm
                 Drawable drawable= getResources().getDrawable(R.mipmap.like_nor);
                 drawable.setBounds(0, 0, drawable.getMinimumWidth(), drawable.getMinimumHeight());
                 mBinding.detailGood.setCompoundDrawables(drawable,null,null,null);
+            }
+
+            //相关推荐
+            if (shoppingDetailBean.getData().getGoodsEntity().getRelatedArticleList() == null || shoppingDetailBean.getData().getGoodsEntity().getRelatedArticleList().size() == 0){
+                mBinding.detailRelatedNoDate.setVisibility(View.VISIBLE);
+                mBinding.detailRelated.setVisibility(View.GONE);
+            }else {
+                mBinding.detailRelatedNoDate.setVisibility(View.GONE);
+                mBinding.detailRelated.setVisibility(View.VISIBLE);
+                for (int i = 0; i < shoppingDetailBean.getData().getGoodsEntity().getRelatedArticleList().size(); i++) {
+                    FindDetailBean.DataBean.RelatedArticleListBean bean = new FindDetailBean.DataBean.RelatedArticleListBean();
+                    bean.setArticleId(shoppingDetailBean.getData().getGoodsEntity().getRelatedArticleList().get(i).getArticleId());
+                    bean.setImg(shoppingDetailBean.getData().getGoodsEntity().getRelatedArticleList().get(i).getImg());
+                    bean.setCreateTime(shoppingDetailBean.getData().getGoodsEntity().getRelatedArticleList().get(i).getCreateTime());
+                    bean.setTitle(shoppingDetailBean.getData().getGoodsEntity().getRelatedArticleList().get(i).getTitle());
+                    bean.setType(shoppingDetailBean.getData().getGoodsEntity().getRelatedArticleList().get(i).getType());
+                    bean.setContentType(shoppingDetailBean.getData().getGoodsEntity().getRelatedArticleList().get(i).getContentType());
+                    mArticleListBeans.add(bean);
+                }
+                mArticleAdapter.notifyDataSetChanged();
             }
 
             shareImage = shoppingDetailBean.getData().getGoodsDetailEntity().getShareImg();
@@ -984,6 +1026,16 @@ public class ShoppingDetailActivity extends BaseActivity implements ShoppingComm
         }
     }
 
+    /**
+     * 相关商品跳转到文章详情页面
+     */
+    @Override
+    public void onClickItem(int position) {
+        startActivity(new Intent(this,ArticleDetailActivity.class)
+                .putExtra("id",mArticleListBeans.get(position).getArticleId())
+                .putExtra("type",mArticleListBeans.get(position).getType())
+        );
+    }
 
     /******************轮播图需要*********************/
     public class MyRunble implements Runnable {

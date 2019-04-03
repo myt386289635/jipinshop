@@ -34,6 +34,7 @@ import com.blankj.utilcode.util.SPUtils;
 import com.example.administrator.jipinshop.R;
 import com.example.administrator.jipinshop.activity.commenlist.CommenListActivity;
 import com.example.administrator.jipinshop.activity.login.LoginActivity;
+import com.example.administrator.jipinshop.adapter.RelatedArticleAdapter;
 import com.example.administrator.jipinshop.adapter.ShoppingCommonAdapter;
 import com.example.administrator.jipinshop.base.BaseActivity;
 import com.example.administrator.jipinshop.bean.CommentBean;
@@ -80,7 +81,7 @@ import javax.inject.Inject;
  * @Describe 文章详情  2评测, 3发现 , 4试用
  */
 
-public class ArticleDetailActivity extends BaseActivity implements View.OnClickListener, ShareBoardDialog.onShareListener, ArticleDetailView, ShoppingCommonAdapter.OnItemReply, ShoppingCommonAdapter.OnGoodItem, RelatedGoodsDialog.OnItem {
+public class ArticleDetailActivity extends BaseActivity implements View.OnClickListener, ShareBoardDialog.onShareListener, ArticleDetailView, ShoppingCommonAdapter.OnItemReply, ShoppingCommonAdapter.OnGoodItem, RelatedGoodsDialog.OnItem, RelatedArticleAdapter.OnClickRelatedItem {
 
     @Inject
     ArticleDetailPresenter mPresenter;
@@ -136,6 +137,10 @@ public class ArticleDetailActivity extends BaseActivity implements View.OnClickL
 
     private ArrayList<FindDetailBean.DataBean.RelatedGoodsListBean> mBeans;
 
+    //相关推荐
+    private List<FindDetailBean.DataBean.RelatedArticleListBean> mArticleListBeans;
+    private RelatedArticleAdapter mArticleAdapter;
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -184,6 +189,21 @@ public class ArticleDetailActivity extends BaseActivity implements View.OnClickL
         mBinding.detailCommon.setAdapter(mCommonAdapter);
         //监听软键盘的弹出与收回
         mPresenter.setKeyListener(mBinding.detailContanier, usableHeightPrevious);
+
+        //相关推荐
+        LinearLayoutManager layoutManager = new LinearLayoutManager(this) {
+            @Override
+            public boolean canScrollVertically() {
+                // 直接禁止垂直滑动
+                return false;
+            }
+        };
+        mBinding.detailRelated.setLayoutManager(layoutManager);
+        mBinding.detailRelated.setFocusable(false);
+        mArticleListBeans = new ArrayList<>();
+        mArticleAdapter = new RelatedArticleAdapter(mArticleListBeans,this);
+        mArticleAdapter.setOnClickRelatedItem(this);
+        mBinding.detailRelated.setAdapter(mArticleAdapter);
 
         mBinding.scrollView.setOnScrollListener((scrollY) -> {
             if (mBinding.scrollView.getScrollY() >= mBinding.detailWeb.getTop()) {
@@ -447,6 +467,16 @@ public class ArticleDetailActivity extends BaseActivity implements View.OnClickL
             mBinding.headAttention.setBackgroundResource(R.drawable.bg_attentioned);
             mBinding.headAttention.setText("已关注");
             mBinding.headAttention.setTextColor(getResources().getColor(R.color.color_white));
+        }
+        //相关推荐
+        if (bean.getData().getRelatedArticleList() == null || bean.getData().getRelatedArticleList().size() == 0){
+            mBinding.detailRelatedNoDate.setVisibility(View.VISIBLE);
+            mBinding.detailRelated.setVisibility(View.GONE);
+        }else {
+            mBinding.detailRelatedNoDate.setVisibility(View.GONE);
+            mBinding.detailRelated.setVisibility(View.VISIBLE);
+            mArticleListBeans.addAll(bean.getData().getRelatedArticleList());
+            mArticleAdapter.notifyDataSetChanged();
         }
     }
 
@@ -819,6 +849,18 @@ public class ArticleDetailActivity extends BaseActivity implements View.OnClickL
         mDialog = (new ProgressDialogView()).createLoadingDialog(this, "正在加载...");
         mDialog.show();
         openAliHomeWeb(mBeans.get(position).getGoodsBuyLink());
+    }
+
+    /**
+     * 相关商品跳转到文章详情页面
+     * @param position
+     */
+    @Override
+    public void onClickItem(int position) {
+        startActivity(new Intent(this,ArticleDetailActivity.class)
+                .putExtra("id",mArticleListBeans.get(position).getArticleId())
+                .putExtra("type",mArticleListBeans.get(position).getType())
+        );
     }
 
 

@@ -258,7 +258,7 @@
                             android:layout_height="wrap_content"
                             android:layout_marginBottom="@dimen/y24"
                             android:layout_marginTop="@dimen/y14"
-                            android:text="签到"
+                            android:text="邀请领奖"
                             android:textColor="@color/color_8F8F8F"/>
                     </LinearLayout>
 
