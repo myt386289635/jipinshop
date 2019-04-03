@@ -106,6 +106,7 @@ public class MallActivity extends BaseActivity implements View.OnClickListener, 
         }else{
             startActivityForResult(new Intent(this, MallDetailActivity.class)
                     .putExtra("goodsId",mList.get(position).getId())
+                    .putExtra("isActivityGoods",mList.get(position).getType())
             ,300);
         }
     }

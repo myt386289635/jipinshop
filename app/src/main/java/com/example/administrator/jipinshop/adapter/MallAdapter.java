@@ -65,6 +65,13 @@ public class MallAdapter extends RecyclerView.Adapter<MallAdapter.ContentViewHol
                 mOnItemListener.onItemIntegralDetail(position);
             }
         });
+
+        if (mList.get(position).getType() == 1){
+            contentViewHolder.item_tag.setVisibility(View.VISIBLE);
+        }else {
+            contentViewHolder.item_tag.setVisibility(View.GONE);
+        }
+
         Glide.with(mContext).load(mList.get(position).getImg()).into(contentViewHolder.item_image);
         contentViewHolder.item_code.setText(mList.get(position).getExchangePoint() + "极币");
         contentViewHolder.item_name.setText(mList.get(position).getGoodsName());
@@ -78,7 +85,7 @@ public class MallAdapter extends RecyclerView.Adapter<MallAdapter.ContentViewHol
     class ContentViewHolder extends  RecyclerView.ViewHolder{
 
         private RelativeLayout item_container;
-        private ImageView item_image;
+        private ImageView item_image,item_tag;
         private TextView item_name;
         private TextView item_code;
 
@@ -88,6 +95,7 @@ public class MallAdapter extends RecyclerView.Adapter<MallAdapter.ContentViewHol
             item_image = itemView.findViewById(R.id.item_image);
             item_name = itemView.findViewById(R.id.item_name);
             item_code = itemView.findViewById(R.id.item_code);
+            item_tag = itemView.findViewById(R.id.item_tag);
         }
     }
 

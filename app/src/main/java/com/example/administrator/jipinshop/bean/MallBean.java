@@ -72,6 +72,15 @@ public class MallBean {
         private int orderNum;
         private int up;
         private String createTime;
+        private int type;//类型：0普通商品，1活动商品
+
+        public int getType() {
+            return type;
+        }
+
+        public void setType(int type) {
+            this.type = type;
+        }
 
         public String getId() {
             return id;

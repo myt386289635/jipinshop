@@ -18,6 +18,17 @@
         android:layout_height="@dimen/y330"/>
 
 
+    <ImageView
+        android:visibility="gone"
+        android:id="@+id/item_tag"
+        android:layout_marginTop="@dimen/y8"
+        android:layout_marginLeft="@dimen/x8"
+        android:layout_alignLeft="@+id/item_image"
+        android:src="@mipmap/mall_newpeople"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"/>
+
+
     <TextView
         android:layout_alignRight="@+id/item_image"
         android:layout_alignLeft="@+id/item_image"

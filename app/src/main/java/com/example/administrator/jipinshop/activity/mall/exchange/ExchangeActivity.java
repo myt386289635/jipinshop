@@ -125,7 +125,7 @@ public class ExchangeActivity extends BaseActivity implements View.OnClickListen
                 }
                 mDialog = (new ProgressDialogView()).createLoadingDialog(this, "正在请求...");
                 mDialog.show();
-                mPresenter.exchange(mMallDetailBean.getId(),addressId, mBinding.exchangeNum.getText().toString() ,this.bindToLifecycle());
+                mPresenter.exchange(mMallDetailBean.getId(),addressId, "1" ,this.bindToLifecycle());
                 break;
         }
     }

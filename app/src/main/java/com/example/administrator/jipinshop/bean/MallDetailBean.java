@@ -75,6 +75,15 @@ public class MallDetailBean implements Serializable{
         private int up;
         private String createTime;
         private List<String> imgList;
+        private int hasBuy;//是否购买：0未购买，1已购买
+
+        public int getHasBuy() {
+            return hasBuy;
+        }
+
+        public void setHasBuy(int hasBuy) {
+            this.hasBuy = hasBuy;
+        }
 
         public String getId() {
             return id;

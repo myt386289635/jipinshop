@@ -61,7 +61,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="@dimen/x24"
-                    android:layout_toRightOf="@id/exchange_name"
+                    android:layout_toRightOf="@+id/exchange_name"
                     android:gravity="center"
                     android:textColor="@color/color_ACACAC"
                     android:textSize="13sp"
@@ -71,7 +71,7 @@
                     android:id="@+id/exchange_address"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_below="@id/exchange_name"
+                    android:layout_below="@+id/exchange_name"
                     android:layout_marginTop="@dimen/y8"
                     android:ellipsize="end"
                     android:maxLines="2"
@@ -136,7 +136,7 @@
                 android:layout_marginBottom="@dimen/y48"
                 android:layout_marginLeft="@dimen/x28"
                 android:layout_marginTop="@dimen/y34"
-                android:layout_below="@id/exchange_title"
+                android:layout_below="@+id/exchange_title"
                 tools:src="@color/color_DE151515"
                 android:layout_width="@dimen/x184"
                 android:layout_height="@dimen/y180"/>
@@ -148,10 +148,10 @@
                 android:id="@+id/exchange_goodsName"
                 android:layout_marginLeft="@dimen/x28"
                 android:layout_marginTop="@dimen/y6"
-                android:layout_alignTop="@id/exchange_image"
+                android:layout_alignTop="@+id/exchange_image"
                 android:textSize="13sp"
                 android:textColor="@color/color_202020"
-                android:layout_toRightOf="@id/exchange_image"
+                android:layout_toRightOf="@+id/exchange_image"
                 android:text="飞利浦(Philips)电动剃须刀飞利浦(Philips)电动剃须刀飞利浦(Philips)电动剃须刀"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"/>
@@ -160,8 +160,8 @@
                 android:id="@+id/exchange_code"
                 android:layout_marginTop="@dimen/y28"
                 android:layout_marginLeft="@dimen/x28"
-                android:layout_toRightOf="@id/exchange_image"
-                android:layout_below="@id/exchange_goodsName"
+                android:layout_toRightOf="@+id/exchange_image"
+                android:layout_below="@+id/exchange_goodsName"
                 android:textColor="@color/color_E31436"
                 tools:text="1000极币"
                 android:layout_width="wrap_content"
@@ -169,12 +169,13 @@
 
 
             <RelativeLayout
+                android:visibility="gone"
                 android:id="@+id/exchange_numContanier"
                 android:background="@drawable/bg_exchange"
                 android:layout_marginRight="@dimen/x28"
                 android:layout_alignParentRight="true"
                 android:layout_marginBottom="@dimen/y8"
-                android:layout_alignBottom="@id/exchange_image"
+                android:layout_alignBottom="@+id/exchange_image"
                 android:layout_width="wrap_content"
                 android:layout_height="@dimen/y60">
 
@@ -187,7 +188,7 @@
 
                 <View
                     android:layout_marginRight="@dimen/x76"
-                    android:layout_toRightOf="@id/line1"
+                    android:layout_toRightOf="@+id/line1"
                     android:id="@+id/line2"
                     android:layout_marginLeft="@dimen/x76"
                     android:background="@color/color_F0F0F0"
@@ -202,7 +203,7 @@
                     android:paddingLeft="@dimen/x20"
                     android:src="@mipmap/exchange_decrease"
                     android:id="@+id/exchange_decrease"
-                    android:layout_alignRight="@id/line1"
+                    android:layout_alignRight="@+id/line1"
                     android:layout_alignParentLeft="true"
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"/>
@@ -210,8 +211,8 @@
                 <TextView
                     android:textColor="@color/color_ACACAC"
                     android:textSize="15sp"
-                    android:layout_alignRight="@id/line2"
-                    android:layout_alignLeft="@id/line1"
+                    android:layout_alignRight="@+id/line2"
+                    android:layout_alignLeft="@+id/line1"
                     android:gravity="center"
                     android:id="@+id/exchange_num"
                     android:text="1"
@@ -225,7 +226,7 @@
                     android:paddingRight="@dimen/x20"
                     android:paddingLeft="@dimen/x20"
                     android:src="@mipmap/exchange_increase"
-                    android:layout_alignLeft="@id/line2"
+                    android:layout_alignLeft="@+id/line2"
                     android:id="@+id/exchange_increase"
                     android:layout_width="@dimen/x76"
                     android:layout_height="match_parent"/>

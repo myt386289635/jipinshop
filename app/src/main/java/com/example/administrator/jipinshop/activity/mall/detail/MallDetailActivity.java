@@ -193,7 +193,10 @@ public class MallDetailActivity extends BaseActivity implements View.OnClickList
             mBinding.detailCode.setText(shoppingDetailBean.getData().getExchangePoint() + "极币");
             mBinding.detailEffective.setText(shoppingDetailBean.getData().getStartTime().split(" ")[0] + "至" +
             shoppingDetailBean.getData().getEndTime().split(" ")[0]);
-            if(SPUtils.getInstance(CommonDate.USER).getInt(CommonDate.userPoint,0) < shoppingDetailBean.getData().getExchangePoint()){
+            if (getIntent().getIntExtra("isActivityGoods",0) == 1 && shoppingDetailBean.getData().getHasBuy() == 1){
+                mBinding.detailBottom.setText("已兑换");
+                mBinding.detailBottom.setBackgroundColor(getResources().getColor(R.color.color_D8D8D8));
+            }else if(SPUtils.getInstance(CommonDate.USER).getInt(CommonDate.userPoint,0) < shoppingDetailBean.getData().getExchangePoint()){
                 mBinding.detailBottom.setText("极币不足");
                 mBinding.detailBottom.setBackgroundColor(getResources().getColor(R.color.color_D8D8D8));
             }else if(shoppingDetailBean.getData().getTotal() == 0){
