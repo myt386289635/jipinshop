@@ -100,8 +100,8 @@ public class HomeCommenTabFragment extends DBBaseFragment implements HomeCommenT
      */
     @Override
     public void onItem(int pos) {
-        mChildrenBeans.get(pos).setTag(true);
         mChildrenBeans.get(num).setTag(false);
+        mChildrenBeans.get(pos).setTag(true);
         mTabAdapter.notifyDataSetChanged();
         ((HomeCommenFragment)(HomeCommenTabFragment.this.getParentFragment())).onItemTab(mChildrenBeans.get(pos).getCategoryid());
         num = pos;
