@@ -102,6 +102,7 @@ public class SignActivity extends BaseActivity implements View.OnClickListener, 
         mAdapter = new ExtendableListViewAdapter(groupList,this);
         mAdapter.setOnClickItem(this);
         mBinding.expandList.setAdapter(mAdapter);
+        mBinding.expandList.addOnLayoutChangeListener((v, left, top, right, bottom, oldLeft, oldTop, oldRight, oldBottom) -> mBinding.scrollView.smoothScrollTo(0,0));
 
         mDialog = (new ProgressDialogView()).createLoadingDialog(this, "正在加载...");
         mDialog.show();
