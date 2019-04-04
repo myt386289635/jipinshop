@@ -138,7 +138,6 @@
 
 
         <EditText
-            android:inputType="number"
             android:layout_toLeftOf="@id/login_qrgetCode"
             android:layout_centerVertical="true"
             android:textSize="14sp"
