@@ -1,6 +1,9 @@
 package com.example.administrator.jipinshop.activity.sign.invitation;
 
 import android.app.Dialog;
+import android.content.ClipData;
+import android.content.ClipboardManager;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -8,12 +11,14 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.blankj.utilcode.util.SPUtils;
 import com.example.administrator.jipinshop.R;
 import com.example.administrator.jipinshop.base.BaseActivity;
 import com.example.administrator.jipinshop.bean.InvitationBean;
 import com.example.administrator.jipinshop.netwrok.Repository;
 import com.example.administrator.jipinshop.util.ShareUtils;
 import com.example.administrator.jipinshop.util.ToastUtil;
+import com.example.administrator.jipinshop.util.sp.CommonDate;
 import com.example.administrator.jipinshop.view.dialog.ProgressDialogView;
 import com.example.administrator.jipinshop.view.glide.GlideApp;
 import com.trello.rxlifecycle2.LifecycleTransformer;
@@ -39,6 +44,8 @@ public class InvitationActivity extends BaseActivity {
     TextView mTitleTv;
     @BindView(R.id.invitation_image)
     ImageView mInvitationImage;
+    @BindView(R.id.mine_integral)
+    TextView mMineIntegral;
 
     @Inject
     Repository mRepository;
@@ -57,12 +64,13 @@ public class InvitationActivity extends BaseActivity {
 
     private void initView() {
         mTitleTv.setText("邀请好友");
+        mMineIntegral.setText("邀请码：" + SPUtils.getInstance(CommonDate.USER).getString(CommonDate.qrCode,"000000"));
         mDialog = (new ProgressDialogView()).createLoadingDialog(this, "");
         mDialog.show();
         getDate(this.bindToLifecycle());
     }
 
-    @OnClick({R.id.title_back, R.id.share_wechat, R.id.share_pyq, R.id.share_weibo})
+    @OnClick({R.id.title_back, R.id.share_wechat, R.id.share_pyq, R.id.share_weibo, R.id.mine_copy})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.title_back:
@@ -79,6 +87,13 @@ public class InvitationActivity extends BaseActivity {
             case R.id.share_weibo:
                 new ShareUtils(this, SHARE_MEDIA.SINA)
                         .shareImage(this, shareUrl);
+                break;
+            case R.id.mine_copy:
+                //复制
+                ClipboardManager clip = (ClipboardManager) getSystemService(Context.CLIPBOARD_SERVICE);
+                ClipData clipData = ClipData.newPlainText("jipinshop", mMineIntegral.getText().toString().replace("邀请码：", ""));
+                clip.setPrimaryClip(clipData);
+                ToastUtil.show("复制成功");
                 break;
         }
     }

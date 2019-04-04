@@ -48,7 +48,28 @@
                         android:id="@+id/invitation_title"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="全网优选 TOP10榜单"
+                        android:text="全网优选    真实榜单"
+                        android:textColor="@color/color_FFF6BF"
+                        android:textSize="20sp"/>
+
+                    <TextView
+                        android:id="@+id/invitation_title2"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignLeft="@+id/invitation_title"
+                        android:layout_below="@+id/invitation_title"
+                        android:layout_marginTop="@dimen/y2"
+                        android:text="实物评测"
+                        android:textColor="@color/color_FFF6BF"
+                        android:textSize="20sp"/>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignRight="@+id/invitation_title"
+                        android:layout_below="@+id/invitation_title"
+                        android:layout_marginTop="@dimen/y2"
+                        android:text="新品试用"
                         android:textColor="@color/color_FFF6BF"
                         android:textSize="20sp"/>
 
@@ -56,7 +77,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_alignLeft="@+id/invitation_title"
-                        android:layout_below="@+id/invitation_title"
+                        android:layout_below="@+id/invitation_title2"
                         android:layout_marginTop="@dimen/y2"
                         android:text="自用省钱"
                         android:textColor="@color/color_FFF6BF"
@@ -66,7 +87,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_alignRight="@+id/invitation_title"
-                        android:layout_below="@+id/invitation_title"
+                        android:layout_below="@+id/invitation_title2"
                         android:layout_marginTop="@dimen/y2"
                         android:text="分享赚钱"
                         android:textColor="@color/color_FFF6BF"
@@ -79,12 +100,43 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_horizontal"
-                    android:layout_marginBottom="@dimen/y82"
+                    android:layout_marginBottom="@dimen/y18"
                     android:layout_marginTop="@dimen/y62"
                     android:minHeight="@dimen/y182"
                     android:minWidth="@dimen/x182"
                     android:scaleType="fitXY"
                     android:src="@color/color_white"/>
+
+                <LinearLayout
+                    android:layout_marginBottom="@dimen/y54"
+                    android:layout_gravity="center_horizontal"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content">
+
+                    <TextView
+                        android:textStyle="bold"
+                        android:id="@+id/mine_integral"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="邀请码：000000"
+                        android:textColor="@color/color_white"
+                        android:textSize="20sp"/>
+
+                    <TextView
+                        android:textSize="15sp"
+                        android:gravity="center"
+                        android:textColor="@color/color_white"
+                        android:text="点击复制"
+                        android:background="@drawable/bg_copy"
+                        android:id="@+id/mine_copy"
+                        android:layout_marginLeft="@dimen/x24"
+                        android:layout_width="@dimen/x140"
+                        android:layout_height="@dimen/y48"/>
+
+                </LinearLayout>
+
 
             </LinearLayout>
 

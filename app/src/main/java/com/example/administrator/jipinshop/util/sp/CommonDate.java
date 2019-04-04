@@ -29,5 +29,6 @@ public class CommonDate {
     public static final String bindMobile = "bindMobile";//是否绑定手机
     public static final String bindWeixin = "bindWeixin";//是否绑定微信
     public static final String bindWeibo = "bindWeibo";//是否绑定微博
+    public static final String qrCode = "qrCode";//邀请码
 
 }

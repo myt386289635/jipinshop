@@ -87,6 +87,15 @@ public class UserInfoBean {
         private int bindMobile;
         private int bindWeixin;
         private  int bindWeibo;
+        private String invitationCode;//邀请码
+
+        public String getInvitationCode() {
+            return invitationCode;
+        }
+
+        public void setInvitationCode(String invitationCode) {
+            this.invitationCode = invitationCode;
+        }
 
         public String getArticleCount() {
             return articleCount;

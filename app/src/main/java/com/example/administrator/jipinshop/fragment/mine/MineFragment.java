@@ -1,5 +1,8 @@
 package com.example.administrator.jipinshop.fragment.mine;
 
+import android.content.ClipData;
+import android.content.ClipboardManager;
+import android.content.Context;
 import android.content.Intent;
 import android.databinding.DataBindingUtil;
 import android.text.TextUtils;
@@ -147,6 +150,13 @@ public class MineFragment extends DBBaseFragment implements View.OnClickListener
                 //我的试用
 
                 break;
+            case R.id.mine_copy:
+                //复制
+                ClipboardManager clip = (ClipboardManager)getContext().getSystemService(Context.CLIPBOARD_SERVICE);
+                ClipData clipData = ClipData.newPlainText("jipinshop", mBinding.mineIntegral.getText().toString().replace("邀请码：",""));
+                clip.setPrimaryClip(clipData);
+                ToastUtil.show("复制成功");
+                break;
         }
     }
 
@@ -165,6 +175,7 @@ public class MineFragment extends DBBaseFragment implements View.OnClickListener
                 SPUtils.getInstance(CommonDate.USER).clear();
                 EventBus.getDefault().post(JPushReceiver.TAG);//刷新未读消息
                 JPushInterface.stopPush(MyApplication.getInstance());//停止推送
+                mBinding.mineCopyContainer.setVisibility(View.GONE);//复制邀请码
                 break;
         }
     }
@@ -189,6 +200,8 @@ public class MineFragment extends DBBaseFragment implements View.OnClickListener
             //登陆时返回更改用户信息
             mBinding.mineName.setVisibility(View.VISIBLE);
             mBinding.mineLogin.setVisibility(View.GONE);
+            mBinding.mineCopyContainer.setVisibility(View.VISIBLE);//复制邀请码
+            mBinding.mineIntegral.setText("邀请码：" + SPUtils.getInstance(CommonDate.USER).getString(CommonDate.qrCode,"000000"));
             if (TextUtils.isEmpty(SPUtils.getInstance(CommonDate.USER).getString(CommonDate.userNickName))) {
                 mBinding.mineName.setText(SPUtils.getInstance(CommonDate.USER).getString(CommonDate.userPhone));
             } else {
@@ -249,9 +262,12 @@ public class MineFragment extends DBBaseFragment implements View.OnClickListener
         SPUtils.getInstance(CommonDate.USER).put(CommonDate.bindMobile, userInfoBean.getData().getBindMobile() + "");
         SPUtils.getInstance(CommonDate.USER).put(CommonDate.bindWeibo, userInfoBean.getData().getBindWeibo() + "");
         SPUtils.getInstance(CommonDate.USER).put(CommonDate.bindWeixin, userInfoBean.getData().getBindWeixin() + "");
+        SPUtils.getInstance(CommonDate.USER).put(CommonDate.qrCode, userInfoBean.getData().getInvitationCode());
 
         mBinding.mineName.setVisibility(View.VISIBLE);
         mBinding.mineLogin.setVisibility(View.GONE);
+        mBinding.mineCopyContainer.setVisibility(View.VISIBLE);//复制邀请码
+        mBinding.mineIntegral.setText("邀请码：" + SPUtils.getInstance(CommonDate.USER).getString(CommonDate.qrCode,"000000"));
         mBinding.mineGoodsNumText.setText(userInfoBean.getData().getVoteCount());//点赞数
         mBinding.mineAttentionText.setText(userInfoBean.getData().getFollowCount());//关注数
         mBinding.mineFansText.setText(userInfoBean.getData().getFansCount());//粉丝数
@@ -277,6 +293,7 @@ public class MineFragment extends DBBaseFragment implements View.OnClickListener
             GlideApp.loderImage(getContext(),R.drawable.logo, mBinding.mineImage, 0, 0);
             SPUtils.getInstance(CommonDate.USER).clear();
             JPushInterface.stopPush(MyApplication.getInstance());//停止推送
+            mBinding.mineCopyContainer.setVisibility(View.GONE);//复制邀请码
         }else {
             mBinding.mineName.setVisibility(View.VISIBLE);
             mBinding.mineLogin.setVisibility(View.GONE);
@@ -284,6 +301,8 @@ public class MineFragment extends DBBaseFragment implements View.OnClickListener
             if (!TextUtils.isEmpty(SPUtils.getInstance(CommonDate.USER).getString(CommonDate.userNickImg))) {
                 GlideApp.loderImage(getContext(),SPUtils.getInstance(CommonDate.USER).getString(CommonDate.userNickImg), mBinding.mineImage, R.mipmap.logo, 0);
             }
+            mBinding.mineCopyContainer.setVisibility(View.VISIBLE);//复制邀请码
+            mBinding.mineIntegral.setText("邀请码：" + SPUtils.getInstance(CommonDate.USER).getString(CommonDate.qrCode,"000000"));
             SPUtils.getInstance(CommonDate.USER).put(CommonDate.userMemberGrade, "1");
             SPUtils.getInstance(CommonDate.USER).put(CommonDate.userPoint, 0);
         }

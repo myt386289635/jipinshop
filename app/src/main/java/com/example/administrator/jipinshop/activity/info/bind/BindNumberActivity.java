@@ -4,6 +4,7 @@ import android.app.Dialog;
 import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.support.annotation.Nullable;
+import android.text.TextUtils;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Button;
@@ -64,6 +65,8 @@ public class BindNumberActivity extends BaseActivity implements BindNumberView {
     RelativeLayout mLoginCodeLayout;
     @BindView(R.id.login_button)
     Button mLoginButton;
+    @BindView(R.id.login_qrcode)
+    EditText mLoginQrcode;
 
     @Inject
     BindNumberPresenter mPresenter;
@@ -86,8 +89,8 @@ public class BindNumberActivity extends BaseActivity implements BindNumberView {
         mLoginButton.setEnabled(false);
         mLoginGetCode.setEnabled(false);
         mPresenter.setView(this);
-        mTimer = mPresenter.initTimer(this,mLoginGetCode);
-        mPresenter.initLoginButton(mLoginNumber,mLoginCode,mLoginButton,mLoginGetCode,timerEnd);
+        mTimer = mPresenter.initTimer(this, mLoginGetCode);
+        mPresenter.initLoginButton(mLoginNumber, mLoginCode, mLoginButton, mLoginGetCode, timerEnd);
         mDialog = (new ProgressDialogView()).createLoadingDialog(this, "正在请求...");
     }
 
@@ -98,27 +101,32 @@ public class BindNumberActivity extends BaseActivity implements BindNumberView {
                 finish();
                 break;
             case R.id.login_getCode:
-                if(!timerEnd[0]){
-                    if(mTimer != null){
+                if (!timerEnd[0]) {
+                    if (mTimer != null) {
                         mTimer.start();
                     }
                     timerEnd[0] = true;
                 }
-                mPresenter.pushMessage(mLoginNumber.getText().toString(),this.<SuccessBean>bindToLifecycle());
+                mPresenter.pushMessage(mLoginNumber.getText().toString(), this.<SuccessBean>bindToLifecycle());
                 break;
             case R.id.login_button:
-                if(mDialog != null && !mDialog.isShowing()){
+                if (mDialog != null && !mDialog.isShowing()) {
                     mDialog.show();
                 }
-                mPresenter.Login(getIntent().getStringExtra("channel"),getIntent().getStringExtra("openid"),
-                        mLoginNumber.getText().toString(),mLoginCode.getText().toString(),this.<LoginBean>bindToLifecycle());
+                String invitationCode = "";
+                if (!TextUtils.isEmpty(mLoginQrcode.getText().toString())){
+                    invitationCode = mLoginQrcode.getText().toString();
+                }
+                mPresenter.Login(getIntent().getStringExtra("channel"), getIntent().getStringExtra("openid"),
+                        mLoginNumber.getText().toString(), mLoginCode.getText().toString(),
+                        invitationCode, this.<LoginBean>bindToLifecycle());
                 break;
         }
     }
 
     @Override
     protected void onDestroy() {
-        if(mTimer != null){
+        if (mTimer != null) {
             mTimer.cancel();
         }
         mButterKnife.unbind();
@@ -128,10 +136,10 @@ public class BindNumberActivity extends BaseActivity implements BindNumberView {
     @Override
     public void timerEnd() {
         timerEnd[0] = false;
-        if(mLoginNumber.getText().toString().length() == 11){
+        if (mLoginNumber.getText().toString().length() == 11) {
             mLoginGetCode.setEnabled(true);
             mLoginGetCode.setBackgroundResource(R.drawable.bg_login2);
-        }else {
+        } else {
             mLoginGetCode.setEnabled(false);
             mLoginGetCode.setBackgroundResource(R.drawable.bg_login);
         }
@@ -139,35 +147,36 @@ public class BindNumberActivity extends BaseActivity implements BindNumberView {
 
     @Override
     public void loginSuccess(LoginBean loginBean) {
-        if(mDialog != null && mDialog.isShowing()){
+        if (mDialog != null && mDialog.isShowing()) {
             mDialog.dismiss();
         }
-        if (loginBean.getCode() == 0){
-            SPUtils.getInstance(CommonDate.USER).put(CommonDate.userAcutalName,loginBean.getData().getRealname());
-            SPUtils.getInstance(CommonDate.USER).put(CommonDate.userBirthday,loginBean.getData().getBirthday());
-            SPUtils.getInstance(CommonDate.USER).put(CommonDate.userGender,loginBean.getData().getGender());
-            SPUtils.getInstance(CommonDate.USER).put(CommonDate.userMemberGrade,loginBean.getData().getRole() +"");
-            SPUtils.getInstance(CommonDate.USER).put(CommonDate.userNickImg,loginBean.getData().getAvatar());
-            SPUtils.getInstance(CommonDate.USER).put(CommonDate.userNickName,loginBean.getData().getNickname());
-            SPUtils.getInstance(CommonDate.USER).put(CommonDate.userPhone,loginBean.getData().getMobile());
-            SPUtils.getInstance(CommonDate.USER).put(CommonDate.token,loginBean.getData().getToken());
-            SPUtils.getInstance(CommonDate.USER).put(CommonDate.userPoint,loginBean.getData().getPoint());
+        if (loginBean.getCode() == 0) {
+            SPUtils.getInstance(CommonDate.USER).put(CommonDate.userAcutalName, loginBean.getData().getRealname());
+            SPUtils.getInstance(CommonDate.USER).put(CommonDate.userBirthday, loginBean.getData().getBirthday());
+            SPUtils.getInstance(CommonDate.USER).put(CommonDate.userGender, loginBean.getData().getGender());
+            SPUtils.getInstance(CommonDate.USER).put(CommonDate.userMemberGrade, loginBean.getData().getRole() + "");
+            SPUtils.getInstance(CommonDate.USER).put(CommonDate.userNickImg, loginBean.getData().getAvatar());
+            SPUtils.getInstance(CommonDate.USER).put(CommonDate.userNickName, loginBean.getData().getNickname());
+            SPUtils.getInstance(CommonDate.USER).put(CommonDate.userPhone, loginBean.getData().getMobile());
+            SPUtils.getInstance(CommonDate.USER).put(CommonDate.token, loginBean.getData().getToken());
+            SPUtils.getInstance(CommonDate.USER).put(CommonDate.userPoint, loginBean.getData().getPoint());
             SPUtils.getInstance(CommonDate.USER).put(CommonDate.bindMobile, loginBean.getData().getBindMobile() + "");
             SPUtils.getInstance(CommonDate.USER).put(CommonDate.bindWeibo, loginBean.getData().getBindWeibo() + "");
             SPUtils.getInstance(CommonDate.USER).put(CommonDate.bindWeixin, loginBean.getData().getBindWeixin() + "");
+            SPUtils.getInstance(CommonDate.USER).put(CommonDate.qrCode, loginBean.getData().getInvitationCode());
 
-            EventBus.getDefault().post(new EditNameBus(LoginActivity.tag,loginBean.getData().getFansCount()+""
-                    ,loginBean.getData().getVoteCount()+"",loginBean.getData().getFollowCount() + ""));//刷新登陆后我的页面
+            EventBus.getDefault().post(new EditNameBus(LoginActivity.tag, loginBean.getData().getFansCount() + ""
+                    , loginBean.getData().getVoteCount() + "", loginBean.getData().getFollowCount() + ""));//刷新登陆后我的页面
             EventBus.getDefault().post(JPushReceiver.TAG);//刷新未读消息
             EventBus.getDefault().post(new CommonEvaluationBus(LoginActivity.refresh));//用来刷新商品、评测、发现详情以及评论列表
             JPushInterface.resumePush(MyApplication.getInstance());//恢复推送
-            if (loginBean.getData().getAddPoint() != 0){
+            if (loginBean.getData().getAddPoint() != 0) {
                 EventBus.getDefault().post(new HomeNewPeopleBus(loginBean.getData().getAddPoint()));//新用户注册
             }
             ToastUtil.show("登录成功");
             setResult(222);
             finish();
-        }else {
+        } else {
             ToastUtil.show(loginBean.getMsg());
         }
     }

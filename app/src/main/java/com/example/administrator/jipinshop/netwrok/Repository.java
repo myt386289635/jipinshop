@@ -70,8 +70,8 @@ public class Repository {
     /**
      * 登陆接口
      */
-    public Observable<LoginBean> login(String mobile, String code){
-        return mAPIService.login(mobile,code);
+    public Observable<LoginBean> login(String mobile, String code, String invitationCode){
+        return mAPIService.login(mobile,code,invitationCode);
     }
 
     /**
@@ -371,8 +371,8 @@ public class Repository {
     /**
      * 绑定手机号（app端微信授权登录成功之后）
      */
-    public Observable<LoginBean> bindMobile(String channel,String openid,String mobile,String code){
-        return mAPIService.bindMobile(channel,openid,mobile,code);
+    public Observable<LoginBean> bindMobile(String channel,String openid,String mobile,String code,String invitationCode){
+        return mAPIService.bindMobile(channel,openid,mobile,code,invitationCode);
     }
 
     /**

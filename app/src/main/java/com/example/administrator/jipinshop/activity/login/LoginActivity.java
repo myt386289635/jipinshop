@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.support.annotation.Nullable;
 import android.text.Html;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
@@ -167,6 +168,7 @@ public class LoginActivity extends BaseActivity implements LoginView, View.OnCli
             SPUtils.getInstance(CommonDate.USER).put(CommonDate.bindMobile, loginBean.getData().getBindMobile() + "");
             SPUtils.getInstance(CommonDate.USER).put(CommonDate.bindWeibo, loginBean.getData().getBindWeibo() + "");
             SPUtils.getInstance(CommonDate.USER).put(CommonDate.bindWeixin, loginBean.getData().getBindWeixin() + "");
+            SPUtils.getInstance(CommonDate.USER).put(CommonDate.qrCode, loginBean.getData().getInvitationCode());
 
             EventBus.getDefault().post(new EditNameBus(LoginActivity.tag,loginBean.getData().getFansCount()+""
                     ,loginBean.getData().getVoteCount()+"",loginBean.getData().getFollowCount() + ""));//刷新登陆后我的页面
@@ -199,6 +201,7 @@ public class LoginActivity extends BaseActivity implements LoginView, View.OnCli
             SPUtils.getInstance(CommonDate.USER).put(CommonDate.bindMobile, loginBean.getData().getBindMobile() + "");
             SPUtils.getInstance(CommonDate.USER).put(CommonDate.bindWeibo, loginBean.getData().getBindWeibo() + "");
             SPUtils.getInstance(CommonDate.USER).put(CommonDate.bindWeixin, loginBean.getData().getBindWeixin() + "");
+            SPUtils.getInstance(CommonDate.USER).put(CommonDate.qrCode, loginBean.getData().getInvitationCode());
 
             EventBus.getDefault().post(new EditNameBus(LoginActivity.tag,loginBean.getData().getFansCount()+""
                     ,loginBean.getData().getVoteCount()+"",loginBean.getData().getFollowCount() + ""));//刷新登陆后我的页面
@@ -307,7 +310,12 @@ public class LoginActivity extends BaseActivity implements LoginView, View.OnCli
                 if(mDialog != null && !mDialog.isShowing()){
                     mDialog.show();
                 }
-                mPresenter.login(mBinding.loginNumber.getText().toString(),mBinding.loginCode.getText().toString(),this.<LoginBean>bindToLifecycle());
+                String invitationCode = "";
+                if (!TextUtils.isEmpty(mBinding.loginQrcode.getText().toString())){
+                    invitationCode = mBinding.loginQrcode.getText().toString();
+                }
+                mPresenter.login(mBinding.loginNumber.getText().toString(),mBinding.loginCode.getText().toString(),
+                        invitationCode ,this.<LoginBean>bindToLifecycle());
                 break;
             case R.id.login_getCode:
                 //点击获取验证码

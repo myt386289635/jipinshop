@@ -87,6 +87,15 @@ public class LoginBean {
         private int bindWeixin;
         private  int bindWeibo;
         private int addPoint;//新用户获得极币
+        private String invitationCode;//邀请码
+
+        public String getInvitationCode() {
+            return invitationCode;
+        }
+
+        public void setInvitationCode(String invitationCode) {
+            this.invitationCode = invitationCode;
+        }
 
         public int getAddPoint() {
             return addPoint;

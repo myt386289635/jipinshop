@@ -26,31 +26,65 @@
             android:layout_height="wrap_content"/>
 
         <ImageView
-            android:layout_marginBottom="@dimen/x100"
+            android:id="@+id/login_logo"
+            android:layout_marginTop="@dimen/y44"
             android:layout_centerHorizontal="true"
-            android:layout_above="@+id/login_numberLayout"
+            android:layout_below="@+id/title_back"
             android:src="@mipmap/logo"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"/>
 
-
-        <Button
-            android:onClick="@{listener.onClick}"
-            android:textStyle="bold"
-            android:background="@drawable/bg_login"
-            android:textColor="@color/color_white"
-            android:text="登录"
-            android:id="@+id/login_button"
-            android:layout_centerInParent="true"
+        <RelativeLayout
+            android:layout_marginTop="@dimen/y100"
+            android:layout_marginBottom="@dimen/x10"
+            android:id="@+id/login_numberLayout"
+            android:layout_below="@+id/login_logo"
             android:layout_marginRight="@dimen/x80"
             android:layout_marginLeft="@dimen/x80"
             android:layout_width="match_parent"
-            android:layout_height="@dimen/x72"/>
+            android:layout_height="wrap_content">
+
+
+            <ImageView
+                android:id="@+id/login_numberImg"
+                android:layout_marginLeft="@dimen/x8"
+                android:layout_centerVertical="true"
+                android:src="@mipmap/phone_number"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+
+
+
+            <EditText
+                android:maxLength="11"
+                android:digits="0123456789"
+                android:inputType="number"
+                android:layout_centerVertical="true"
+                android:textSize="14sp"
+                android:layout_marginLeft="@dimen/x20"
+                android:textColorHint="@color/color_ACACAC"
+                android:hint="输入手机号 "
+                android:id="@+id/login_number"
+                android:background="@null"
+                android:layout_toRightOf="@id/login_numberImg"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"/>
+
+            <View
+                android:layout_marginTop="@dimen/x42"
+                android:background="@color/color_F5F5F5"
+                android:layout_below="@id/login_number"
+                android:layout_marginLeft="@dimen/x20"
+                android:layout_toRightOf="@id/login_numberImg"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/x2"/>
+
+
+        </RelativeLayout>
 
         <RelativeLayout
             android:id="@+id/login_codeLayout"
-            android:layout_marginBottom="@dimen/x58"
-            android:layout_above="@id/login_button"
+            android:layout_below="@+id/login_numberLayout"
             android:layout_marginRight="@dimen/x80"
             android:layout_marginLeft="@dimen/x80"
             android:layout_width="match_parent"
@@ -107,9 +141,9 @@
         </RelativeLayout>
 
         <RelativeLayout
-            android:layout_marginBottom="@dimen/x10"
-            android:id="@+id/login_numberLayout"
-            android:layout_above="@id/login_codeLayout"
+            android:id="@+id/login_qrcodeLayout"
+            android:layout_marginBottom="@dimen/y66"
+            android:layout_below="@+id/login_codeLayout"
             android:layout_marginRight="@dimen/x80"
             android:layout_marginLeft="@dimen/x80"
             android:layout_width="match_parent"
@@ -117,41 +151,63 @@
 
 
             <ImageView
-                android:id="@+id/login_numberImg"
+                android:id="@+id/login_qrcodeImg"
                 android:layout_marginLeft="@dimen/x8"
                 android:layout_centerVertical="true"
-                android:src="@mipmap/phone_number"
+                android:src="@mipmap/invitation_code"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"/>
 
 
-
             <EditText
-                android:maxLength="11"
-                android:digits="0123456789"
                 android:inputType="number"
+                android:layout_toLeftOf="@id/login_qrgetCode"
                 android:layout_centerVertical="true"
                 android:textSize="14sp"
                 android:layout_marginLeft="@dimen/x20"
                 android:textColorHint="@color/color_ACACAC"
-                android:hint="输入手机号 "
-                android:id="@+id/login_number"
+                android:hint="输入邀请码"
+                android:id="@+id/login_qrcode"
                 android:background="@null"
-                android:layout_toRightOf="@id/login_numberImg"
+                android:layout_toRightOf="@id/login_qrcodeImg"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"/>
 
             <View
                 android:layout_marginTop="@dimen/x42"
                 android:background="@color/color_F5F5F5"
-                android:layout_below="@id/login_number"
+                android:layout_below="@id/login_qrgetCode"
                 android:layout_marginLeft="@dimen/x20"
-                android:layout_toRightOf="@id/login_numberImg"
+                android:layout_toRightOf="@id/login_qrcodeImg"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/x2"/>
 
+            <TextView
+                android:textSize="12sp"
+                android:padding="@dimen/x10"
+                android:text="（选填） "
+                android:textColor="@color/color_ACACAC"
+                android:layout_alignParentRight="true"
+                android:id="@+id/login_qrgetCode"
+                android:layout_centerVertical="true"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
 
         </RelativeLayout>
+
+        <Button
+            android:layout_below="@id/login_qrcodeLayout"
+            android:onClick="@{listener.onClick}"
+            android:textStyle="bold"
+            android:background="@drawable/bg_login"
+            android:textColor="@color/color_white"
+            android:text="登录"
+            android:id="@+id/login_button"
+            android:layout_marginRight="@dimen/x80"
+            android:layout_marginLeft="@dimen/x80"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/y72"/>
+
 
         <LinearLayout
             android:layout_marginBottom="@dimen/x74"

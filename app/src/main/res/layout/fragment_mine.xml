@@ -89,20 +89,38 @@
                     android:visibility="gone"/>
 
 
-                <TextView
-                    android:id="@+id/mine_integral"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignBottom="@id/mine_image"
+                <LinearLayout
+                    android:visibility="gone"
+                    android:id="@+id/mine_copyContainer"
+                    android:gravity="center_vertical"
                     android:layout_marginLeft="@dimen/x38"
                     android:layout_toRightOf="@id/mine_image"
-                    android:drawablePadding="@dimen/x10"
-                    android:drawableRight="@mipmap/right_white"
-                    android:onClick="@{listener.onClick}"
-                    android:text="去认证"
-                    android:textColor="@color/color_white"
-                    android:textSize="14sp"
-                    android:visibility="gone"/>
+                    android:layout_alignBottom="@id/mine_image"
+                    android:orientation="horizontal"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content">
+
+                    <TextView
+                        android:id="@+id/mine_integral"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="邀请码：000000"
+                        android:textColor="@color/color_white"
+                        android:textSize="14sp"/>
+
+                    <TextView
+                        android:textSize="14sp"
+                        android:gravity="center"
+                        android:textColor="@color/color_white"
+                        android:text="点击复制"
+                        android:background="@drawable/bg_copy"
+                        android:id="@+id/mine_copy"
+                        android:layout_marginLeft="@dimen/x24"
+                        android:onClick="@{listener.onClick}"
+                        android:layout_width="@dimen/x140"
+                        android:layout_height="@dimen/y48"/>
+
+                </LinearLayout>
 
                 <ImageView
                     android:id="@+id/item_grade"

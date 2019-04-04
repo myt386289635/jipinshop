@@ -139,8 +139,8 @@ public class LoginPresenter {
     }
 
 
-    public void login(String mobile ,String code ,LifecycleTransformer<LoginBean> transformer){
-        mRepository.login(mobile,code)
+    public void login(String mobile ,String code , String invitationCode,LifecycleTransformer<LoginBean> transformer){
+        mRepository.login(mobile,code,invitationCode)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .compose(transformer)

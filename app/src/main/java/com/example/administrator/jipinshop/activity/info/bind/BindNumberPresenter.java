@@ -155,8 +155,8 @@ public class BindNumberPresenter {
                 });
     }
 
-    public void Login(String channel,String openid,String mobile ,String code ,LifecycleTransformer<LoginBean> transformer){
-        mRepository.bindMobile(channel,openid,mobile,code)
+    public void Login(String channel,String openid,String mobile ,String code,String invitationCode ,LifecycleTransformer<LoginBean> transformer){
+        mRepository.bindMobile(channel,openid,mobile,code,invitationCode)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .compose(transformer)

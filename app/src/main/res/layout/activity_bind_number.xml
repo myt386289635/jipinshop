@@ -64,7 +64,6 @@
 
     <RelativeLayout
         android:id="@+id/login_codeLayout"
-        android:layout_marginBottom="@dimen/x58"
         android:layout_marginRight="@dimen/x80"
         android:layout_marginLeft="@dimen/x80"
         android:layout_width="match_parent"
@@ -116,6 +115,61 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"/>
 
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/login_qrcodeLayout"
+        android:layout_marginBottom="@dimen/y66"
+        android:layout_below="@+id/login_codeLayout"
+        android:layout_marginRight="@dimen/x80"
+        android:layout_marginLeft="@dimen/x80"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+
+        <ImageView
+            android:id="@+id/login_qrcodeImg"
+            android:layout_marginLeft="@dimen/x8"
+            android:layout_centerVertical="true"
+            android:src="@mipmap/invitation_code"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+
+
+        <EditText
+            android:inputType="number"
+            android:layout_toLeftOf="@id/login_qrgetCode"
+            android:layout_centerVertical="true"
+            android:textSize="14sp"
+            android:layout_marginLeft="@dimen/x20"
+            android:textColorHint="@color/color_ACACAC"
+            android:hint="输入邀请码"
+            android:id="@+id/login_qrcode"
+            android:background="@null"
+            android:layout_toRightOf="@id/login_qrcodeImg"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+
+        <View
+            android:layout_marginTop="@dimen/x42"
+            android:background="@color/color_F5F5F5"
+            android:layout_below="@id/login_qrgetCode"
+            android:layout_marginLeft="@dimen/x20"
+            android:layout_toRightOf="@id/login_qrcodeImg"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/x2"/>
+
+        <TextView
+            android:textSize="12sp"
+            android:padding="@dimen/x10"
+            android:text="（选填） "
+            android:textColor="@color/color_ACACAC"
+            android:layout_alignParentRight="true"
+            android:id="@+id/login_qrgetCode"
+            android:layout_centerVertical="true"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
 
     </RelativeLayout>
 

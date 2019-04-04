@@ -71,7 +71,7 @@ public interface APIService {
      */
     @FormUrlEncoded
     @POST("qualityshop-api/api/mobileLogin")
-    Observable<LoginBean> login(@Field("mobile") String mobile,@Field("code") String code);
+    Observable<LoginBean> login(@Field("mobile") String mobile,@Field("code") String code,@Field("invitationCode")String invitationCode);
 
 
     /**
@@ -338,7 +338,9 @@ public interface APIService {
      */
     @POST("qualityshop-api/api/bindMobile")
     @FormUrlEncoded
-    Observable<LoginBean> bindMobile(@Field("channel")String channel,@Field("openid") String openid,@Field("mobile")String mobile,@Field("code")String code);
+    Observable<LoginBean> bindMobile(@Field("channel")String channel,@Field("openid") String openid,
+                                     @Field("mobile")String mobile,@Field("code")String code,
+                                     @Field("invitationCode") String invitationCode);
 
     /**
      * app端第三方绑定
