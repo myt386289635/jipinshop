@@ -14,8 +14,8 @@ android {
         applicationId "com.example.administrator.jipinshop"
         minSdkVersion 15
         targetSdkVersion 26
-        versionCode 7
-        versionName "2.0.2"
+        versionCode 8
+        versionName "2.1.0"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
         // dex突破65535的限制
         multiDexEnabled true
@@ -174,4 +174,7 @@ dependencies {
 
     //图片浏览功能
     implementation 'com.davemorrissey.labs:subsampling-scale-image-view:3.10.0'
+
+    //友盟统计
+    compile  'com.umeng.umsdk:analytics:8.0.0'
 }
