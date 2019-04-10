@@ -1,16 +1,12 @@
 package com.example.administrator.jipinshop.netwrok;
 
 import android.content.Context;
-import android.telephony.TelephonyManager;
 
 import com.blankj.utilcode.util.EncryptUtils;
-import com.blankj.utilcode.util.NetworkUtils;
 import com.blankj.utilcode.util.SPUtils;
-import com.example.administrator.jipinshop.MyApplication;
 import com.example.administrator.jipinshop.activity.setting.SettingActivity;
 import com.example.administrator.jipinshop.auto.ApplicationScope;
 import com.example.administrator.jipinshop.util.DeviceUuidFactory;
-import com.example.administrator.jipinshop.util.FileManager;
 import com.example.administrator.jipinshop.util.NetUtils;
 import com.example.administrator.jipinshop.util.sp.CommonDate;
 
