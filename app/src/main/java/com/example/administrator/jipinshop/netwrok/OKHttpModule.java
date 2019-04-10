@@ -7,6 +7,7 @@ import com.blankj.utilcode.util.SPUtils;
 import com.example.administrator.jipinshop.activity.setting.SettingActivity;
 import com.example.administrator.jipinshop.auto.ApplicationScope;
 import com.example.administrator.jipinshop.util.DeviceUuidFactory;
+import com.example.administrator.jipinshop.util.DistanceHelper;
 import com.example.administrator.jipinshop.util.NetUtils;
 import com.example.administrator.jipinshop.util.sp.CommonDate;
 
@@ -71,6 +72,7 @@ public class OKHttpModule {
                     .addHeader("model",DeviceUuidFactory.getSystemModel())
                     .addHeader("sysVersion",DeviceUuidFactory.getSystemVersion())
                     .addHeader("netInfo", NetUtils.getNetworkState(context))
+                    .addHeader("res", DistanceHelper.getAndroiodScreenwidthPixels(context) + " x " + DistanceHelper.getAndroiodScreenheightPixels(context))
                     .build();
             return chain.proceed(authorised);
         });
