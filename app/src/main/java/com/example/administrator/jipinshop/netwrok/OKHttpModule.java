@@ -1,16 +1,9 @@
 package com.example.administrator.jipinshop.netwrok;
 
-import android.content.Intent;
-import android.util.Log;
-
 import com.blankj.utilcode.util.EncryptUtils;
 import com.blankj.utilcode.util.SPUtils;
-import com.example.administrator.jipinshop.MyApplication;
-import com.example.administrator.jipinshop.activity.login.LoginActivity;
 import com.example.administrator.jipinshop.auto.ApplicationScope;
-import com.example.administrator.jipinshop.bean.SuccessBean;
 import com.example.administrator.jipinshop.util.sp.CommonDate;
-import com.google.gson.Gson;
 
 import java.io.BufferedReader;
 import java.io.InputStreamReader;

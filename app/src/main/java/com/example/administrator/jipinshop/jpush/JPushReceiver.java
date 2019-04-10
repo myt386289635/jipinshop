@@ -51,7 +51,9 @@ public class JPushReceiver extends BroadcastReceiver {
 
         } else if (JPushInterface.ACTION_MESSAGE_RECEIVED.equals(intent.getAction())) {
             Log.e(TAG, "接受到推送下来的自定义消息");
-            receivingNotification(context, bundle);
+            if (bundle != null){
+                receivingNotification(context, bundle);
+            }
             EventBus.getDefault().post(JPushReceiver.TAG);
         } else if (JPushInterface.ACTION_NOTIFICATION_RECEIVED.equals(intent.getAction())) {
             Log.e(TAG, "接受到推送下来的通知");
@@ -84,18 +86,18 @@ public class JPushReceiver extends BroadcastReceiver {
                 context, MyApplication.getInstance().getNotificationNum(), intent, 0);
 
         String title = "";
-        if(TextUtils.isEmpty(bundle.getString(JPushInterface.EXTRA_TITLE))){
-            title = bundle.getString(JPushInterface.EXTRA_NOTIFICATION_TITLE );
+        if(bundle.getString(JPushInterface.EXTRA_TITLE,null) == null){
+            title = bundle.getString(JPushInterface.EXTRA_NOTIFICATION_TITLE,"");
         }else {
-            title = bundle.getString(JPushInterface.EXTRA_TITLE );
+            title = bundle.getString(JPushInterface.EXTRA_TITLE,"");
         }
 
         NotificationCompat.Builder mBuilder =
                 new NotificationCompat.Builder(context,PUSH_CHANNEL_ID)
-                        .setTicker(bundle.getString(JPushInterface.EXTRA_MESSAGE))
+                        .setTicker(bundle.getString(JPushInterface.EXTRA_MESSAGE,""))
                         .setSmallIcon(R.mipmap.logo)
                         .setContentTitle(title)
-                        .setContentText(bundle.getString(JPushInterface.EXTRA_MESSAGE))
+                        .setContentText(bundle.getString(JPushInterface.EXTRA_MESSAGE,""))
                         .setContentIntent(contentIntent);
         mBuilder.setAutoCancel(true);//点击通知头自动取消
         //悬挂式通知是5.0以后才出现的。

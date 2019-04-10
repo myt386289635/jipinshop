@@ -33,4 +33,8 @@
     <string name="IntegralMall">积分商城</string>
 
     <string name="behavior_sample_title">com.example.administrator.jipinshop.util.behavior.SampleTitleBehavior</string>
+
+    <string name="trialVoteCountStart">已获</string>
+    <string name="trialVoteCountEnd">个赞</string>
+    <string name="trialRemark">失败原因：</string>
 </resources>

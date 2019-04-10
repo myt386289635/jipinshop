@@ -34,6 +34,7 @@ import com.example.administrator.jipinshop.bean.SuccessBean;
 import com.example.administrator.jipinshop.bean.SystemMessageBean;
 import com.example.administrator.jipinshop.bean.TabBean;
 import com.example.administrator.jipinshop.bean.TaskFinishBean;
+import com.example.administrator.jipinshop.bean.TrialCommonBean;
 import com.example.administrator.jipinshop.bean.TryAllBean;
 import com.example.administrator.jipinshop.bean.TryApplyBean;
 import com.example.administrator.jipinshop.bean.TryBean;
@@ -512,6 +513,19 @@ public interface APIService {
      */
     @GET("qualityshop-api/api/trial/voteUserList")
     Observable<SucBean<TryDetailBean.DataBean.ApplyUserListBean>> voteUserList(@Query("page") String page , @Query("trialId") String trialId);
+
+    /**
+     * 我的试用列表
+     */
+    @GET("qualityshop-api/api/my/trial/list")
+    Observable<TrialCommonBean> myTrialList(@Query("status") String status , @Query("page") String page);
+
+    /**
+     * 确认参与
+     */
+    @FormUrlEncoded
+    @POST("qualityshop-api/api/trial/confirm")
+    Observable<SuccessBean> myTrialConfirm(@Field("trialId") String trialId);
 
 /*************************************************以下是还未修改的接口***********************************************/
 

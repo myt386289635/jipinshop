@@ -210,6 +210,7 @@ public class ShoppingDetailActivity extends BaseActivity implements ShoppingComm
         mBannerAdapter.setPoint(point);
         mBannerAdapter.setList(mBannerList);
         mBannerAdapter.setViewPager(mBinding.viewPager);
+        mBannerAdapter.setImgCenter(true);
         mBinding.viewPager.setAdapter(mBannerAdapter);
         mBinding.viewPager.setCurrentItem(mBannerList.size() * 10);
 

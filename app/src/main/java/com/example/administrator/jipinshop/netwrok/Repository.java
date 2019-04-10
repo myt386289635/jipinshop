@@ -33,6 +33,7 @@ import com.example.administrator.jipinshop.bean.SuccessBean;
 import com.example.administrator.jipinshop.bean.SystemMessageBean;
 import com.example.administrator.jipinshop.bean.TabBean;
 import com.example.administrator.jipinshop.bean.TaskFinishBean;
+import com.example.administrator.jipinshop.bean.TrialCommonBean;
 import com.example.administrator.jipinshop.bean.TryAllBean;
 import com.example.administrator.jipinshop.bean.TryApplyBean;
 import com.example.administrator.jipinshop.bean.TryBean;
@@ -556,5 +557,19 @@ public class Repository {
      */
     public Observable<SucBean<TryDetailBean.DataBean.ApplyUserListBean>> voteUserList( String page , String trialId){
         return mAPIService.voteUserList(page, trialId);
+    }
+
+    /**
+     * 我的试用列表
+     */
+    public Observable<TrialCommonBean> myTrialList(String status,String page){
+        return mAPIService.myTrialList(status, page);
+    }
+
+    /**
+     * 确认参与
+     */
+    public Observable<SuccessBean> myTrialConfirm(String trialId){
+        return mAPIService.myTrialConfirm(trialId);
     }
 }

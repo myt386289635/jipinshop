@@ -22,6 +22,7 @@ import com.example.administrator.jipinshop.fragment.sreach.goods.SreachGoodsFrag
 import com.example.administrator.jipinshop.fragment.sreach.tryout.SreachTryFragment;
 import com.example.administrator.jipinshop.fragment.tryout.TryFragment;
 import com.example.administrator.jipinshop.fragment.tryout.hot.TryCommenFragment;
+import com.example.administrator.jipinshop.fragment.tryout.mine.TrialCommonFragment;
 import com.example.administrator.jipinshop.netwrok.ApplicationComponent;
 
 import dagger.Component;
@@ -50,4 +51,5 @@ public interface BaseFragmentComponent {
     void inject(TryCommenFragment fragment);
     void inject(SreachTryFragment fragment);
     void inject(FovalTryFragment fragment);
+    void inject(TrialCommonFragment fragment);
 }

@@ -6,7 +6,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.databinding.DataBindingUtil;
 import android.text.TextUtils;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -27,6 +26,7 @@ import com.example.administrator.jipinshop.activity.order.MyOrderActivity;
 import com.example.administrator.jipinshop.activity.setting.SettingActivity;
 import com.example.administrator.jipinshop.activity.sign.SignActivity;
 import com.example.administrator.jipinshop.activity.sign.invitation.InvitationActivity;
+import com.example.administrator.jipinshop.activity.tryout.mine.MineTrialActivity;
 import com.example.administrator.jipinshop.base.DBBaseFragment;
 import com.example.administrator.jipinshop.bean.UserInfoBean;
 import com.example.administrator.jipinshop.bean.eventbus.EditNameBus;
@@ -148,7 +148,7 @@ public class MineFragment extends DBBaseFragment implements View.OnClickListener
                 break;
             case R.id.mine_trial:
                 //我的试用
-
+                startActivity(new Intent(getContext(), MineTrialActivity.class));
                 break;
             case R.id.mine_copy:
                 //复制

@@ -215,6 +215,18 @@
                 <category android:name="${applicationId}" />
             </intent-filter>
         </receiver>
+        <!-- since 1.8.0 option 可选项。用于同一设备中不同应用的 JPush 服务相互拉起的功能。 -->
+        <!-- 若不启用该功能可删除该组件，或把 enabled 设置成 false ；App 不会被其他 App 拉起，但会拉起其他的 App。 -->
+        <service
+            android:name="cn.jpush.android.service.DaemonService"
+            android:enabled="false"
+            android:exported="false"
+            tools:node="replace">
+            <intent-filter >
+                <action android:name="cn.jpush.android.intent.DaemonService" />
+                <category android:name="${applicationId}"/>
+            </intent-filter>
+        </service>
 
         <!--签到页面-->
         <activity android:name=".activity.sign.SignActivity"
@@ -314,6 +326,10 @@
 
         <!--查看更多拉赞排行页面-->
         <activity android:name=".activity.tryout.shareMore.ShareMoreActivity"
+                  android:screenOrientation="portrait"/>
+
+        <!--我的试用-->
+        <activity android:name=".activity.tryout.mine.MineTrialActivity"
                   android:screenOrientation="portrait"/>
 
     </application>
