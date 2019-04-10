@@ -10,9 +10,9 @@ import dagger.Provides;
 @Module
 public class ApplicationModule {
 
-    private final Context mContext;
+    private Context mContext;
 
-    ApplicationModule(Context context) {
+    public ApplicationModule(Context context) {
         mContext = context;
     }
 

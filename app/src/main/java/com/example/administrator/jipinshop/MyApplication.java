@@ -12,6 +12,7 @@ import com.blankj.utilcode.util.SPUtils;
 import com.blankj.utilcode.util.Utils;
 import com.bumptech.glide.Glide;
 import com.example.administrator.jipinshop.netwrok.ApplicationComponent;
+import com.example.administrator.jipinshop.netwrok.ApplicationModule;
 import com.example.administrator.jipinshop.netwrok.DaggerApplicationComponent;
 import com.example.administrator.jipinshop.util.DebugHelper;
 import com.example.administrator.jipinshop.util.sp.CommonDate;
@@ -89,8 +90,8 @@ public class MyApplication extends Application {
         }
         instance = this;
         mApplicationComponent =
-                DaggerApplicationComponent
-                        .create();
+                DaggerApplicationComponent.builder().applicationModule(new ApplicationModule(this))
+                        .build();
         mApplicationComponent.inject(this);
         Utils.init(instance);
         DebugHelper.syncIsDebug(this);

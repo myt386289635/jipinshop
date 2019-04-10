@@ -109,7 +109,7 @@ public class SettingActivity extends BaseActivity implements CleanCacheDialog.On
      * @param context 上下文
      * @return
      */
-    public String getVerName(Context context) {
+    public static String getVerName(Context context) {
         String verName = "";
         try {
             verName = context.getPackageManager().

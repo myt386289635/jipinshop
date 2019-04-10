@@ -1,8 +1,17 @@
 package com.example.administrator.jipinshop.netwrok;
 
+import android.content.Context;
+import android.telephony.TelephonyManager;
+
 import com.blankj.utilcode.util.EncryptUtils;
+import com.blankj.utilcode.util.NetworkUtils;
 import com.blankj.utilcode.util.SPUtils;
+import com.example.administrator.jipinshop.MyApplication;
+import com.example.administrator.jipinshop.activity.setting.SettingActivity;
 import com.example.administrator.jipinshop.auto.ApplicationScope;
+import com.example.administrator.jipinshop.util.DeviceUuidFactory;
+import com.example.administrator.jipinshop.util.FileManager;
+import com.example.administrator.jipinshop.util.NetUtils;
 import com.example.administrator.jipinshop.util.sp.CommonDate;
 
 import java.io.BufferedReader;
@@ -48,7 +57,7 @@ public class OKHttpModule {
 
     @ApplicationScope
     @Provides
-    OkHttpClient provideOkHttpClient(OkHttpClient.Builder builder) {
+    OkHttpClient provideOkHttpClient(Context context ,OkHttpClient.Builder builder) {
         builder.addInterceptor(chain -> {
             Request originalRequest = chain.request();
 //            if (Your.sToken == null || alreadyHasAuthorizationHeader(originalRequest)) {
@@ -60,6 +69,12 @@ public class OKHttpModule {
                     .addHeader("timestamp", time+"")//时间搓
                     .addHeader("sign", EncryptUtils.encryptMD5ToString(sign).toLowerCase())//Md5加密字段
                     .addHeader("token", SPUtils.getInstance(CommonDate.USER).getString(CommonDate.token,""))
+                    .addHeader("uuid", new DeviceUuidFactory(context).getDeviceUuid())
+                    .addHeader("client","android")
+                    .addHeader("appVersion", SettingActivity.getVerName(context))
+                    .addHeader("model",DeviceUuidFactory.getSystemModel())
+                    .addHeader("sysVersion",DeviceUuidFactory.getSystemVersion())
+                    .addHeader("netInfo", NetUtils.getNetworkState(context))
                     .build();
             return chain.proceed(authorised);
         });
