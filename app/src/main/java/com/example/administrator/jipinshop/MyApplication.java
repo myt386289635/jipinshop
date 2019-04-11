@@ -111,10 +111,10 @@ public class MyApplication extends Application {
         //极光初始化
         JPushInterface.setDebugMode(true);
         JPushInterface.init(this);
-        if(TextUtils.isEmpty(SPUtils.getInstance(CommonDate.USER).getString(CommonDate.token,"").trim())){
-            ///没有登陆
-            JPushInterface.stopPush(this);//停止推送
-        }
+//        if(TextUtils.isEmpty(SPUtils.getInstance(CommonDate.USER).getString(CommonDate.token,"").trim())){
+//            ///没有登陆
+//            JPushInterface.stopPush(this);//停止推送
+//        }
 
         if(DebugHelper.isDebug()){
             //初始化LeakCanary

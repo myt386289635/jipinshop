@@ -11,7 +11,6 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.blankj.utilcode.util.SPUtils;
-import com.example.administrator.jipinshop.MyApplication;
 import com.example.administrator.jipinshop.R;
 import com.example.administrator.jipinshop.activity.address.MyAddressActivity;
 import com.example.administrator.jipinshop.activity.balance.MyWalletActivity;
@@ -47,8 +46,6 @@ import org.greenrobot.eventbus.Subscribe;
 import java.math.BigDecimal;
 
 import javax.inject.Inject;
-
-import cn.jpush.android.api.JPushInterface;
 
 public class MineFragment extends DBBaseFragment implements View.OnClickListener, MineView {
 
@@ -174,7 +171,7 @@ public class MineFragment extends DBBaseFragment implements View.OnClickListener
                 mBinding.mineSignText.setText("0");//极币数
                 SPUtils.getInstance(CommonDate.USER).clear();
                 EventBus.getDefault().post(JPushReceiver.TAG);//刷新未读消息
-                JPushInterface.stopPush(MyApplication.getInstance());//停止推送
+//                JPushInterface.stopPush(MyApplication.getInstance());//停止推送
                 mBinding.mineCopyContainer.setVisibility(View.GONE);//复制邀请码
                 break;
         }
@@ -292,7 +289,7 @@ public class MineFragment extends DBBaseFragment implements View.OnClickListener
             mBinding.mineLogin.setVisibility(View.VISIBLE);
             GlideApp.loderImage(getContext(),R.drawable.logo, mBinding.mineImage, 0, 0);
             SPUtils.getInstance(CommonDate.USER).clear();
-            JPushInterface.stopPush(MyApplication.getInstance());//停止推送
+//            JPushInterface.stopPush(MyApplication.getInstance());//停止推送
             mBinding.mineCopyContainer.setVisibility(View.GONE);//复制邀请码
         }else {
             mBinding.mineName.setVisibility(View.VISIBLE);
