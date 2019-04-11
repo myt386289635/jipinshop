@@ -564,6 +564,7 @@
                         android:layout_height="wrap_content"/>
 
                     <com.example.administrator.jipinshop.view.MyExtendableListView
+                        android:nestedScrollingEnabled="false"
                         android:indicatorLeft="0dp"
                         android:divider="@color/color_white"
                         android:childDivider="@color/color_white"
