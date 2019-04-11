@@ -71,6 +71,22 @@ public class CreateAddressActivity extends BaseActivity implements View.OnClickL
                 break;
             case R.id.title_add:
                 //保存
+                if (TextUtils.isEmpty(mBinding.editName.getText().toString().trim())){
+                    ToastUtil.show("收件人不能为空");
+                    return;
+                }
+                if (TextUtils.isEmpty(mBinding.editNumber.getText().toString().trim())){
+                    ToastUtil.show("联系方式不能为空");
+                    return;
+                }
+                if (mBinding.editNumber.getText().toString().trim().length() < 11){
+                    ToastUtil.show("联系方式不正确，请检查");
+                    return;
+                }
+                if (TextUtils.isEmpty(mBinding.editAddress.getText().toString().trim())){
+                    ToastUtil.show("详细地址不能为空");
+                    return;
+                }
                 mDialog = (new ProgressDialogView()).createLoadingDialog(this, "正在请求...");
                 mDialog.show();
                 if(mBean != null){
