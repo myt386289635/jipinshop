@@ -1,10 +1,14 @@
 package com.example.administrator.jipinshop.activity.order.detail;
 
 import android.app.Dialog;
+import android.content.ClipData;
+import android.content.ClipboardManager;
+import android.content.Context;
 import android.content.Intent;
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.text.TextUtils;
 import android.view.View;
 
 import com.example.administrator.jipinshop.R;
@@ -55,6 +59,17 @@ public class OrderDetailActivity extends BaseActivity implements View.OnClickLis
                 break;
             case R.id.title_back:
                 finish();
+                break;
+            case R.id.detail_copy:
+                //复制
+                if (TextUtils.isEmpty(mBinding.detailExpresssn.getText().toString())){
+                    ToastUtil.show("暂无快递单号");
+                    return;
+                }
+                ClipboardManager clip = (ClipboardManager)getSystemService(Context.CLIPBOARD_SERVICE);
+                ClipData clipData = ClipData.newPlainText("jipinshop", mBinding.detailExpresssn.getText().toString());
+                clip.setPrimaryClip(clipData);
+                ToastUtil.show("复制成功");
                 break;
         }
     }

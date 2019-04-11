@@ -238,6 +238,7 @@
                     </LinearLayout>
 
                     <LinearLayout
+                        android:gravity="center_vertical"
                         android:visibility="@{date.status == 1 ?  View.GONE :  View.VISIBLE }"
                         android:layout_marginTop="@dimen/y12"
                         android:layout_marginRight="@dimen/x28"
@@ -262,6 +263,23 @@
                             android:textSize="13sp"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"/>
+                        
+                        
+                        <TextView
+                            android:background="@drawable/bg_copy2"
+                            android:onClick="@{listener.onClick}"
+                            android:id="@+id/detail_copy"
+                            android:layout_marginLeft="@dimen/x24"
+                            android:paddingBottom="@dimen/y4"
+                            android:paddingTop="@dimen/y4"
+                            android:paddingRight="@dimen/x8"
+                            android:paddingLeft="@dimen/x8"
+                            android:textColor="@color/color_DE151515"
+                            android:textSize="14sp"
+                            android:text="复制"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"/>
+
 
                     </LinearLayout>
 
