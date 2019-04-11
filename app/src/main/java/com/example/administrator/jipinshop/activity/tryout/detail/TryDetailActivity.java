@@ -307,24 +307,24 @@ public class TryDetailActivity extends BaseActivity implements View.OnClickListe
                 );
                 break;
             case R.id.detail_tab1:
-                mPresenter.seleteTab(this,0,mTabTextView,mTabLine);
                 mBinding.appbar.setExpanded(true);//展开
                 mBinding.scrollView.scrollTo(0, 0);
+                mPresenter.seleteTab(this,0,mTabTextView,mTabLine);
                 break;
             case R.id.detail_tab2:
-                mPresenter.seleteTab(this,1,mTabTextView,mTabLine);
                 mBinding.appbar.setExpanded(false);//折叠
                 mBinding.scrollView.scrollTo(0, mBinding.detailLine1.getTop());
+                mPresenter.seleteTab(this,1,mTabTextView,mTabLine);
                 break;
             case R.id.detail_tab3:
-                mPresenter.seleteTab(this,2,mTabTextView,mTabLine);
                 mBinding.appbar.setExpanded(false);//折叠
                 mBinding.scrollView.scrollTo(0, mBinding.detailLine2.getTop());
+                mPresenter.seleteTab(this,2,mTabTextView,mTabLine);
                 break;
             case R.id.detail_tab4:
-                mPresenter.seleteTab(this,3,mTabTextView,mTabLine);
                 mBinding.appbar.setExpanded(false);//折叠
                 mBinding.scrollView.scrollTo(0, mBinding.detailLine3.getTop());
+                mPresenter.seleteTab(this,3,mTabTextView,mTabLine);
                 break;
             case R.id.detail_passedMore:
                 //查看更多申请成功名单
