@@ -37,4 +37,7 @@
     <string name="trialVoteCountStart">已获</string>
     <string name="trialVoteCountEnd">个赞</string>
     <string name="trialRemark">失败原因：</string>
+
+    <string name="order_sure">确认收货</string>
+    <string name="order_sured">已收货</string>
 </resources>

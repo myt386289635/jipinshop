@@ -332,6 +332,10 @@
         <activity android:name=".activity.tryout.mine.MineTrialActivity"
                   android:screenOrientation="portrait"/>
 
+        <!--订单详情页面-->
+        <activity android:name=".activity.order.detail.OrderDetailActivity"
+                  android:screenOrientation="portrait"/>
+
     </application>
 
 </manifest>

@@ -1,5 +1,6 @@
 package com.example.administrator.jipinshop.bean;
 
+import java.io.Serializable;
 import java.util.List;
 
 /**
@@ -7,7 +8,7 @@ import java.util.List;
  * @create 2019/3/11
  * @Describe
  */
-public class MyOrderBean {
+public class MyOrderBean implements Serializable{
 
     /**
      * msg : success
@@ -43,7 +44,7 @@ public class MyOrderBean {
         this.data = data;
     }
 
-    public static class DataBean {
+    public static class DataBean implements Serializable{
         /**
          * id : 1
          * ordersn : 100001
@@ -83,6 +84,24 @@ public class MyOrderBean {
         private String goodsName;
         private String img;
         private String price;
+        private String mobile;
+        private String username;
+
+        public String getMobile() {
+            return mobile;
+        }
+
+        public void setMobile(String mobile) {
+            this.mobile = mobile;
+        }
+
+        public String getUsername() {
+            return username;
+        }
+
+        public void setUsername(String username) {
+            this.username = username;
+        }
 
         public String getId() {
             return id;

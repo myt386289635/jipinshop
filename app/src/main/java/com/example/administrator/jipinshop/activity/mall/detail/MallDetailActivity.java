@@ -20,15 +20,20 @@ import android.widget.RelativeLayout;
 import com.blankj.utilcode.util.SPUtils;
 import com.example.administrator.jipinshop.R;
 import com.example.administrator.jipinshop.activity.mall.exchange.ExchangeActivity;
+import com.example.administrator.jipinshop.activity.sign.SignActivity;
 import com.example.administrator.jipinshop.adapter.CommenBannerAdapter;
 import com.example.administrator.jipinshop.base.BaseActivity;
 import com.example.administrator.jipinshop.bean.MallDetailBean;
+import com.example.administrator.jipinshop.bean.eventbus.ChangeHomePageBus;
 import com.example.administrator.jipinshop.databinding.ActivityMallDetailBinding;
 import com.example.administrator.jipinshop.util.ToastUtil;
 import com.example.administrator.jipinshop.util.WeakRefHandler;
 import com.example.administrator.jipinshop.util.sp.CommonDate;
 import com.example.administrator.jipinshop.view.dialog.ProgressDialogView;
 import com.example.administrator.jipinshop.view.glide.GlideApp;
+
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -86,6 +91,7 @@ public class MallDetailActivity extends BaseActivity implements View.OnClickList
                 .transparentStatusBar()
                 .statusBarDarkFont(true, 0f)
                 .init();
+        EventBus.getDefault().register(this);
         initView();
     }
 
@@ -155,6 +161,8 @@ public class MallDetailActivity extends BaseActivity implements View.OnClickList
                     startActivityForResult(new Intent(this, ExchangeActivity.class)
                             .putExtra("date",mMallDetailBean)
                     ,300);
+                }else if (mBinding.detailBottom.getText().toString().equals("极币不足,去赚取")){
+                    startActivity(new Intent(this, SignActivity.class));
                 }
                 break;
         }
@@ -162,6 +170,7 @@ public class MallDetailActivity extends BaseActivity implements View.OnClickList
 
     @Override
     protected void onDestroy() {
+        EventBus.getDefault().unregister(this);
         stopThread = false;
         mHandler.removeCallbacksAndMessages(null);
         //防止webView内存溺出
@@ -194,11 +203,11 @@ public class MallDetailActivity extends BaseActivity implements View.OnClickList
             mBinding.detailEffective.setText(shoppingDetailBean.getData().getStartTime().split(" ")[0] + "至" +
             shoppingDetailBean.getData().getEndTime().split(" ")[0]);
             if (getIntent().getIntExtra("isActivityGoods",0) == 1 && shoppingDetailBean.getData().getHasBuy() == 1){
-                mBinding.detailBottom.setText("已兑换");
+                mBinding.detailBottom.setText("已兑换（新人仅享兑换一次）");
                 mBinding.detailBottom.setBackgroundColor(getResources().getColor(R.color.color_D8D8D8));
             }else if(SPUtils.getInstance(CommonDate.USER).getInt(CommonDate.userPoint,0) < shoppingDetailBean.getData().getExchangePoint()){
-                mBinding.detailBottom.setText("极币不足");
-                mBinding.detailBottom.setBackgroundColor(getResources().getColor(R.color.color_D8D8D8));
+                mBinding.detailBottom.setText("极币不足,去赚取");
+                mBinding.detailBottom.setBackgroundColor(getResources().getColor(R.color.color_E31436));
             }else if(shoppingDetailBean.getData().getTotal() == 0){
                 mBinding.detailBottom.setText("已售空");
                 mBinding.detailBottom.setBackgroundColor(getResources().getColor(R.color.color_D8D8D8));
@@ -288,6 +297,16 @@ public class MallDetailActivity extends BaseActivity implements View.OnClickList
         super.onActivityResult(requestCode, resultCode, data);
         if(resultCode == 300){
             setResult(300);
+            finish();
+        }
+    }
+
+    /**
+     * 每日任务里点击跳转后，需要关闭的页面
+     */
+    @Subscribe
+    public void changePage(ChangeHomePageBus bus){
+        if(bus != null){
             finish();
         }
     }

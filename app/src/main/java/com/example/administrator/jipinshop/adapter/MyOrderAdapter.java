@@ -49,6 +49,11 @@ public class MyOrderAdapter extends RecyclerView.Adapter<MyOrderAdapter.ViewHold
                 mOnClickItem.onClickItem(position);
             }
         });
+        viewHolder.itemView.setOnClickListener(v -> {
+            if(mOnClickItem != null){
+                mOnClickItem.onClickDetailItem(position);
+            }
+        });
         viewHolder.getBinding().executePendingBindings();
     }
 
@@ -72,6 +77,7 @@ public class MyOrderAdapter extends RecyclerView.Adapter<MyOrderAdapter.ViewHold
     }
 
     public interface OnClickItem{
-        void onClickItem(int position);
+        void onClickItem(int position);//确认收货
+        void onClickDetailItem(int position);//订单详情页面
     }
 }

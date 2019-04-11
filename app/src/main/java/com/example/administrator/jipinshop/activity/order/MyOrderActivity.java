@@ -1,6 +1,7 @@
 package com.example.administrator.jipinshop.activity.order;
 
 import android.app.Dialog;
+import android.content.Intent;
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -10,10 +11,12 @@ import android.view.View;
 import com.aspsine.swipetoloadlayout.OnLoadMoreListener;
 import com.aspsine.swipetoloadlayout.OnRefreshListener;
 import com.example.administrator.jipinshop.R;
+import com.example.administrator.jipinshop.activity.order.detail.OrderDetailActivity;
 import com.example.administrator.jipinshop.adapter.MyOrderAdapter;
 import com.example.administrator.jipinshop.base.BaseActivity;
 import com.example.administrator.jipinshop.bean.MyOrderBean;
 import com.example.administrator.jipinshop.databinding.ActivityMessageSystemBinding;
+import com.example.administrator.jipinshop.util.ClickUtil;
 import com.example.administrator.jipinshop.util.ToastUtil;
 import com.example.administrator.jipinshop.view.dialog.ProgressDialogView;
 
@@ -197,5 +200,45 @@ public class MyOrderActivity extends BaseActivity implements View.OnClickListene
         mDialog = (new ProgressDialogView()).createLoadingDialog(this, "");
         mDialog.show();
         mPresenter.orderConfirm(position,mList.get(position).getId(),this.bindToLifecycle());
+    }
+
+    /**
+     * 跳转到订单详情页面
+     */
+    @Override
+    public void onClickDetailItem(int position) {
+        if (ClickUtil.isFastDoubleClick(800)) {
+            return;
+        }else{
+            startActivityForResult(new Intent(this, OrderDetailActivity.class)
+                    .putExtra("date",mList.get(position))
+                    .putExtra("pos",position)
+            ,201);
+        }
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        switch (resultCode){
+            case 201:
+                int position = data.getIntExtra("pos",-1);
+                if (position != -1){
+                    mList.get(position).setStatus(3);
+                    SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");// HH:mm:ss
+                    Date date = new Date(System.currentTimeMillis());
+                    mList.get(position).setFinishTime(simpleDateFormat.format(date));
+                    mAdapter.notifyDataSetChanged();
+                }else {
+                    if (!mBinding.swipeToLoad.isRefreshEnabled()) {
+                        mBinding.swipeToLoad.setRefreshEnabled(true);
+                        mBinding.swipeToLoad.setRefreshing(true);
+                        mBinding.swipeToLoad.setRefreshEnabled(false);
+                    } else {
+                        mBinding.swipeToLoad.setRefreshing(true);
+                    }
+                }
+                break;
+        }
     }
 }

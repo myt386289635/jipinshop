@@ -15,10 +15,14 @@ import com.example.administrator.jipinshop.activity.mall.detail.MallDetailActivi
 import com.example.administrator.jipinshop.adapter.MallAdapter;
 import com.example.administrator.jipinshop.base.BaseActivity;
 import com.example.administrator.jipinshop.bean.MallBean;
+import com.example.administrator.jipinshop.bean.eventbus.ChangeHomePageBus;
 import com.example.administrator.jipinshop.databinding.ActivityMessageSystemBinding;
 import com.example.administrator.jipinshop.util.ClickUtil;
 import com.example.administrator.jipinshop.util.ToastUtil;
 import com.trello.rxlifecycle2.android.ActivityEvent;
+
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -55,6 +59,7 @@ public class MallActivity extends BaseActivity implements View.OnClickListener, 
         mBinding.setListener(this);
         mBaseActivityComponent.inject(this);
         mPresenter.setView(this);
+        EventBus.getDefault().register(this);
         initView();
     }
 
@@ -192,6 +197,22 @@ public class MallActivity extends BaseActivity implements View.OnClickListener, 
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if(resultCode == 300){
+            finish();
+        }
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        EventBus.getDefault().unregister(this);
+    }
+
+    /**
+     * 每日任务里点击跳转后，需要关闭的页面
+     */
+    @Subscribe
+    public void changePage(ChangeHomePageBus bus){
+        if(bus != null){
             finish();
         }
     }

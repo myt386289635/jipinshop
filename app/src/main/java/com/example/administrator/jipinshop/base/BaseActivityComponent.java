@@ -21,6 +21,7 @@ import com.example.administrator.jipinshop.activity.mall.exchange.ExchangeActivi
 import com.example.administrator.jipinshop.activity.message.MessageActivity;
 import com.example.administrator.jipinshop.activity.message.detail.MsgDetailActivity;
 import com.example.administrator.jipinshop.activity.order.MyOrderActivity;
+import com.example.administrator.jipinshop.activity.order.detail.OrderDetailActivity;
 import com.example.administrator.jipinshop.activity.setting.SettingActivity;
 import com.example.administrator.jipinshop.activity.setting.opinion.OpinionActivity;
 import com.example.administrator.jipinshop.activity.shoppingdetail.ShoppingDetailActivity;
@@ -76,4 +77,5 @@ public interface BaseActivityComponent {
     void inject(PassedMoreActivity activity);
     void inject(ReportMoreActivity activity);
     void inject(ShareMoreActivity activity);
+    void inject(OrderDetailActivity activity);
 }

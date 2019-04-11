@@ -643,10 +643,10 @@ public class TryDetailActivity extends BaseActivity implements View.OnClickListe
                 int dd = hh * 24;
 
                 long day = millisUntilFinished / dd;
-                long hour = ((millisUntilFinished ) / hh) - (day * 24);
-                long minute = (millisUntilFinished- hour * hh) / mi;
-                long second = (millisUntilFinished - hour * hh - minute * mi) / ss;
-                long milliSecond = millisUntilFinished  - hour * hh - minute * mi - second * ss;
+                long hour = ((millisUntilFinished - day * dd) / hh);
+                long minute = (millisUntilFinished- hour * hh - day * dd) / mi;
+                long second = (millisUntilFinished - hour * hh - minute * mi - day * dd) / ss;
+                long milliSecond = millisUntilFinished  - hour * hh - minute * mi - second * ss - day * dd;
 
                 String s_day = day + "";
                 String s_hour=hour+"";

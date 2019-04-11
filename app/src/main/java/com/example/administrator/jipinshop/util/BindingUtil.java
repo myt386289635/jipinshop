@@ -30,6 +30,20 @@ public class BindingUtil {
         }
     }
 
+    /**
+     * 我的订单页面————item_time
+     */
+    @BindingAdapter({"bind:sendStatus","bind:sendTime","bind:finishTime","bind:payTime"})
+    public static void setSendTime(TextView view, int status,String sendTime,String finishTime,String payTime){
+        if(status == 1){
+            view.setText("下单时间：" + payTime);
+        }else if(status == 2){
+            view.setText("发件时间：" + sendTime);
+        }else {
+            view.setText("收件时间：" + finishTime);
+        }
+    }
+
     @BindingAdapter("bind:srcRound")
     public static void setImage(ImageView imageView, String src){
         GlideApp.loderRoundImage(imageView.getContext(),src,imageView, R.color.transparent,R.color.transparent);

@@ -75,6 +75,7 @@
 
 
                 <LinearLayout
+                    android:visibility="gone"
                     android:id="@+id/sign_totleContainer"
                     android:layout_marginTop="@dimen/y66"
                     android:layout_marginLeft="@dimen/x132"
@@ -104,9 +105,9 @@
                 </LinearLayout>
 
                 <LinearLayout
-                    android:layout_alignParentRight="true"
-                    android:layout_marginTop="@dimen/y66"
-                    android:layout_marginRight="@dimen/x132"
+                    android:id="@+id/sign_dayContainer"
+                    android:layout_marginTop="@dimen/y60"
+                    android:layout_marginLeft="@dimen/x52"
                     android:orientation="vertical"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content">
@@ -133,12 +134,12 @@
                 </LinearLayout>
 
                 <ImageView
-                    android:layout_below="@id/sign_totleContainer"
+                    android:layout_alignTop="@+id/sign_bg1"
                     android:scaleType="fitXY"
                     android:layout_marginRight="@dimen/x56"
                     android:layout_marginLeft="@dimen/x56"
                     android:layout_centerHorizontal="true"
-                    android:layout_marginTop="@dimen/y114"
+                    android:layout_marginTop="@dimen/y84"
                     android:src="@mipmap/sign_bg2"
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/y296"/>
@@ -506,9 +507,8 @@
 
                 <ImageView
                     android:scaleType="fitXY"
-                    android:layout_below="@+id/sign_totleContainer"
                     android:id="@+id/sign_bg1"
-                    android:layout_marginTop="@dimen/y30"
+                    android:layout_marginTop="@dimen/y90"
                     android:layout_centerHorizontal="true"
                     android:src="@mipmap/sign_bg1"
                     android:layout_width="@dimen/x304"
