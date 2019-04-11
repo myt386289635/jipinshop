@@ -53,7 +53,6 @@ public class SignActivity extends BaseActivity implements View.OnClickListener, 
     private Dialog mDialog;
 
     private List<TextView> mTextViews;
-    private GoodView mGoodView;
     private List<Integer> pointArr;
     private List<View> mLineViews;
 
@@ -94,7 +93,6 @@ public class SignActivity extends BaseActivity implements View.OnClickListener, 
         mLineViews.add(mBinding.signFiveLine);
         mLineViews.add(mBinding.signSixLine);
 
-        mGoodView = new GoodView(this);
         pointArr = new ArrayList<>();
 
         mBinding.expandList.setSelector(new ColorDrawable(Color.TRANSPARENT));
@@ -164,7 +162,6 @@ public class SignActivity extends BaseActivity implements View.OnClickListener, 
         }
         pointArr.clear();
         pointArr.addAll(signBean.getData().getPointArr());
-        mBinding.signDays.setText(signBean.getData().getDaysCount() + "");
     }
     /**
      * 获取签到信息失败回调
@@ -183,16 +180,11 @@ public class SignActivity extends BaseActivity implements View.OnClickListener, 
     @Override
     public void signSuc(SignInsertBean signInsertBean) {
         SPUtils.getInstance(CommonDate.USER).put(CommonDate.userPoint,signInsertBean.getData().getUsablePoint());
-        BigDecimal bigDecimal = new BigDecimal(mBinding.signDays.getText().toString());
-        mBinding.signDays.setText((bigDecimal.intValue() + 1 )+ "");
         mBinding.signSurplusNum.setText(signInsertBean.getData().getUsablePoint() + "");
         BigDecimal bigDecimal1 = new BigDecimal(mBinding.signDayNum.getText().toString());
         mBinding.signDayNum.setText((bigDecimal1.intValue() + signInsertBean.getAddPoint()) + "");
         BigDecimal bigDecimal2 = new BigDecimal(mBinding.signTotle.getText().toString());
         mBinding.signTotle.setText((bigDecimal2.intValue() + signInsertBean.getAddPoint()) + "");
-        mGoodView.setText("+" + signInsertBean.getAddPoint() + "极币");
-        mGoodView.setTextColor(getResources().getColor(R.color.color_E31436));
-        mGoodView.show(mBinding.signCalendarView);
         for (int i = 0; i < 7; i++) {
             if (i < signInsertBean.getDaysCount()){
                 mTextViews.get(i).setText("");
