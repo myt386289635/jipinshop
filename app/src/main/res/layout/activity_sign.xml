@@ -494,7 +494,7 @@
                         android:layout_marginTop="@dimen/y36"
                         android:layout_gravity="center"
                         android:textStyle="bold"
-                        android:text="每日任务"
+                        android:text="我要赚极币"
                         android:textSize="16sp"
                         android:textColor="@color/color_DE151515"
                         android:layout_width="wrap_content"
