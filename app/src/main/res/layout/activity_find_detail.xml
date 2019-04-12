@@ -217,22 +217,18 @@
                     android:layout_marginLeft="@dimen/x14"
                     android:layout_marginRight="@dimen/x14"/>
 
-                <TextView
+                <com.example.administrator.jipinshop.view.DrawableLeftCenterTextView
                     android:id="@+id/detail_good"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:layout_width="@dimen/x230"
+                    android:layout_height="@dimen/y72"
                     android:layout_below="@+id/detail_web"
                     android:layout_centerHorizontal="true"
                     android:layout_marginTop="@dimen/y48"
                     android:background="@drawable/bg_nolike"
                     android:drawableLeft="@mipmap/like_nor"
                     android:drawablePadding="@dimen/x8"
-                    android:gravity="center"
+                    android:gravity="center_vertical"
                     android:onClick="@{listener.onClick}"
-                    android:paddingBottom="@dimen/y16"
-                    android:paddingLeft="@dimen/x44"
-                    android:paddingRight="@dimen/x44"
-                    android:paddingTop="@dimen/y16"
                     android:text="喜欢"
                     android:textColor="@color/color_ACACAC"
                     android:textSize="14sp"/>
