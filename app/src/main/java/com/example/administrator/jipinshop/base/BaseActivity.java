@@ -15,6 +15,7 @@ import com.example.administrator.jipinshop.util.MainThreadPoster;
 import com.example.administrator.jipinshop.util.NotchUtil;
 import com.gyf.barlibrary.ImmersionBar;
 import com.trello.rxlifecycle2.components.support.RxAppCompatActivity;
+import com.umeng.analytics.MobclickAgent;
 
 import butterknife.Unbinder;
 
@@ -98,4 +99,15 @@ public class BaseActivity extends RxAppCompatActivity {
         }, HANDLER_TOKEN, 200);
     }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+        MobclickAgent.onResume(this);
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        MobclickAgent.onPause(this);
+    }
 }

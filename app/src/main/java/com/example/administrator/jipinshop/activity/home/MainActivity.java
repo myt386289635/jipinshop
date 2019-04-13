@@ -33,6 +33,7 @@ import com.example.administrator.jipinshop.view.NoScrollViewPager;
 import com.example.administrator.jipinshop.view.dialog.DialogUtil;
 import com.gyf.barlibrary.ImmersionBar;
 import com.trello.rxlifecycle2.components.support.RxAppCompatActivity;
+import com.umeng.analytics.MobclickAgent;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
@@ -190,5 +191,17 @@ public class MainActivity extends RxAppCompatActivity implements MainView {
                 startActivity(new Intent(MainActivity.this, SignActivity.class));
             });
         }
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        MobclickAgent.onResume(this);
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        MobclickAgent.onPause(this);
     }
 }
