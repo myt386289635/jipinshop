@@ -241,7 +241,10 @@ public class TryDetailActivity extends BaseActivity implements View.OnClickListe
                 }
                 break;
             case R.id.detail_apply://免费申请
-
+                if (mTryDetailBean == null){
+                    ToastUtil.show("页面请求错误，请重新打开");
+                    return;
+                }
                 if(mBinding.detailApply.getText().toString().equals("免费申请")){
                     if (mTryDetailBean.getData().getApplyPoint() <= SPUtils.getInstance(CommonDate.USER).getInt(CommonDate.userPoint,0)){
                         DialogUtil.buleDialog(this, "商品试用需要支付" + mTryDetailBean.getData().getApplyPoint() + "极币，是否确认参与？",
@@ -300,6 +303,10 @@ public class TryDetailActivity extends BaseActivity implements View.OnClickListe
                 openAliHomeWeb(goodsBuyLink);
                 break;
             case R.id.detail_comment:
+                if (mTryDetailBean == null){
+                    ToastUtil.show("页面请求错误，请重新打开");
+                    return;
+                }
                 startActivity(new Intent(this, CommenListActivity.class)
                         .putExtra("position",-1)
                         .putExtra("id",mTryDetailBean.getData().getId())
@@ -328,18 +335,30 @@ public class TryDetailActivity extends BaseActivity implements View.OnClickListe
                 break;
             case R.id.detail_passedMore:
                 //查看更多申请成功名单
+                if (mTryDetailBean == null){
+                    ToastUtil.show("页面请求错误，请重新打开");
+                    return;
+                }
                 startActivity(new Intent(this, PassedMoreActivity.class)
                         .putExtra("id",mTryDetailBean.getData().getId())
                 );
                 break;
             case R.id.detail_shareMore:
                 //查看更多拉赞名单
+                if (mTryDetailBean == null){
+                    ToastUtil.show("页面请求错误，请重新打开");
+                    return;
+                }
                 startActivity(new Intent(this, ShareMoreActivity.class)
                         .putExtra("id",mTryDetailBean.getData().getId())
                 );
                 break;
             case R.id.detail_reportMore:
                 //查看更多试用报告
+                if (mTryDetailBean == null){
+                    ToastUtil.show("页面请求错误，请重新打开");
+                    return;
+                }
                 startActivity(new Intent(this, ReportMoreActivity.class)
                         .putExtra("id",mTryDetailBean.getData().getGoodsId())
                 );
