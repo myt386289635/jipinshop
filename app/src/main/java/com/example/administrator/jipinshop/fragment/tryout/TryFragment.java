@@ -167,8 +167,8 @@ public class TryFragment extends DBBaseFragment implements OnRefreshListener, Tr
             mTrialListBeans.clear();
             mTrialListBeans.addAll(bean.getData().getTrialList());
             mReportListBeans.addAll(bean.getData().getReportList());
-            mAdapter.notifyDataSetChanged();
             mStickyItemDecoration.clearStickyViewPosition();//清空缓存的位置，添加数据和删除数据容易崩溃
+            mAdapter.notifyDataSetChanged();
         }else {
             initError(R.mipmap.qs_nodata, "暂无数据", "暂时没有任何数据 ");
             mBinding.recyclerView.setVisibility(View.GONE);
