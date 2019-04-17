@@ -6,12 +6,15 @@ import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.LinearLayoutManager;
+import android.text.TextUtils;
 import android.view.View;
 
 import com.aspsine.swipetoloadlayout.OnLoadMoreListener;
 import com.aspsine.swipetoloadlayout.OnRefreshListener;
+import com.blankj.utilcode.util.SPUtils;
 import com.example.administrator.jipinshop.R;
 import com.example.administrator.jipinshop.activity.home.article.ArticleDetailActivity;
+import com.example.administrator.jipinshop.activity.login.LoginActivity;
 import com.example.administrator.jipinshop.activity.tryout.detail.TryDetailActivity;
 import com.example.administrator.jipinshop.adapter.TryAllAdapter;
 import com.example.administrator.jipinshop.base.BaseActivity;
@@ -21,6 +24,7 @@ import com.example.administrator.jipinshop.bean.eventbus.TryStatusBus;
 import com.example.administrator.jipinshop.databinding.ActivityMessageSystemBinding;
 import com.example.administrator.jipinshop.util.ClickUtil;
 import com.example.administrator.jipinshop.util.ToastUtil;
+import com.example.administrator.jipinshop.util.sp.CommonDate;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
@@ -182,6 +186,10 @@ public class TryAllActivity extends BaseActivity implements View.OnClickListener
         if (ClickUtil.isFastDoubleClick(800)) {
             return;
         }else{
+            if(TextUtils.isEmpty(SPUtils.getInstance(CommonDate.USER).getString(CommonDate.token,""))){
+                startActivity(new Intent(this, LoginActivity.class));
+                return;
+            }
             startActivity(new Intent(this,TryDetailActivity.class)
                     .putExtra("id",mList.get(position).getId())
                     .putExtra("pos",position)
