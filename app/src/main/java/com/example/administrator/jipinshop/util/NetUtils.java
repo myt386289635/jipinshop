@@ -17,7 +17,7 @@ public class NetUtils {
     public static final String NETWORK_2G = "2G"; // 2G
     public static final String NETWORK_3G = "3G"; // 3G
     public static final String NETWORK_4G = "4G"; // 4G
-    public static final String NETWORK_MOBILE = "手机流量"; // 手机流量
+    public static final String NETWORK_MOBILE = "手机流量"; // 手机流量  （这个不能用，用了请求接口会被拦截，怀疑是中文的原因）
 
     /**
      * 获取当前网络连接的类型
@@ -88,7 +88,7 @@ public class NetUtils {
             case TelephonyManager.NETWORK_TYPE_LTE:
                 return NETWORK_4G;
             default:
-                return NETWORK_MOBILE;
+                return NETWORK_NONE;//NETWORK_MOBILE 这里应该是显示手机流量，（怀疑，没看到log日志）但是由于是中文，会被拦截请求。
         }
     }
 
