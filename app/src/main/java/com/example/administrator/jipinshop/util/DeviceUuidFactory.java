@@ -72,7 +72,7 @@ public class DeviceUuidFactory {
     }
 
     public String getDeviceUuid() {
-        Log.e("moxiaoting", "------>获取的设备ID号为：" + uuid.toString());
+//        Log.e("moxiaoting", "------>获取的设备ID号为：" + uuid.toString());
         return uuid.toString();
     }
 
