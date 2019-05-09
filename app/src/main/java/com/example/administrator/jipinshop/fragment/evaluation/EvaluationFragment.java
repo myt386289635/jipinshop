@@ -20,6 +20,7 @@ import com.example.administrator.jipinshop.bean.TitleBean;
 import com.example.administrator.jipinshop.databinding.FragmentEvaluationBinding;
 import com.example.administrator.jipinshop.fragment.evaluation.common.CommonEvaluationFragment;
 import com.example.administrator.jipinshop.util.ToastUtil;
+import com.example.administrator.jipinshop.util.UmApp.UAppUtil;
 import com.example.administrator.jipinshop.util.sp.CommonDate;
 import com.google.gson.Gson;
 
@@ -135,6 +136,7 @@ public class EvaluationFragment extends DBBaseFragment implements EvaluationView
         mTabAdapter.notifyDataSetChanged();
         mAdapter.notifyDataSetChanged();
         mBinding.viewPager.setOffscreenPageLimit(mFragments.size() - 1);
+        UAppUtil.oneTab_evaluation(getContext(),mTabBeans.get(0).getString());
     }
 
     @Override
@@ -176,6 +178,7 @@ public class EvaluationFragment extends DBBaseFragment implements EvaluationView
         mTabAdapter.notifyDataSetChanged();
 
         set = i;
+        UAppUtil.oneTab_evaluation(getContext(),mTabBeans.get(i).getString());
     }
 
     @Override

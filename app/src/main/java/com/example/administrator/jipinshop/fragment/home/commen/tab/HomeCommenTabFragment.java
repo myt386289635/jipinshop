@@ -12,6 +12,7 @@ import com.example.administrator.jipinshop.base.DBBaseFragment;
 import com.example.administrator.jipinshop.bean.ChildrenTabBean;
 import com.example.administrator.jipinshop.bean.TabBean;
 import com.example.administrator.jipinshop.fragment.home.commen.HomeCommenFragment;
+import com.example.administrator.jipinshop.util.UmApp.UAppUtil;
 import com.example.administrator.jipinshop.util.sp.CommonDate;
 import com.example.administrator.jipinshop.view.MyGridView;
 import com.google.gson.Gson;
@@ -103,7 +104,9 @@ public class HomeCommenTabFragment extends DBBaseFragment implements HomeCommenT
         mChildrenBeans.get(num).setTag(false);
         mChildrenBeans.get(pos).setTag(true);
         mTabAdapter.notifyDataSetChanged();
-        ((HomeCommenFragment)(HomeCommenTabFragment.this.getParentFragment())).onItemTab(mChildrenBeans.get(pos).getCategoryid());
+        ((HomeCommenFragment)(HomeCommenTabFragment.this.getParentFragment())).onItemTab(mChildrenBeans.get(pos).getCategoryid(),mChildrenBeans.get(pos).getName());
         num = pos;
+
+        UAppUtil.twoTab(getContext(),mTabBean.getData().get(set).getCategoryName(),mChildrenBeans.get(pos).getName());
     }
 }

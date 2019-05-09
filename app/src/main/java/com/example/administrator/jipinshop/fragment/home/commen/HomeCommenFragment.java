@@ -13,7 +13,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.aspsine.swipetoloadlayout.OnRefreshListener;
@@ -31,6 +30,7 @@ import com.example.administrator.jipinshop.fragment.home.HomeFragment;
 import com.example.administrator.jipinshop.fragment.home.commen.tab.HomeCommenTabFragment;
 import com.example.administrator.jipinshop.util.ClickUtil;
 import com.example.administrator.jipinshop.util.ToastUtil;
+import com.example.administrator.jipinshop.util.UmApp.UAppUtil;
 import com.example.administrator.jipinshop.util.sp.CommonDate;
 import com.example.administrator.jipinshop.view.dialog.ProgressDialogView;
 import com.google.gson.Gson;
@@ -72,6 +72,12 @@ public class HomeCommenFragment extends DBBaseFragment implements ViewPager.OnPa
     private List<HomeCommenBean.DataBean> mCommenBeans;
     private int[] set = {0};//记录点击热卖榜4个榜的哪个位置；
     private List<OrderbyTypeBean.DataBean> mOrderbyTypeBean;
+
+    /**
+     * 用于统计
+     */
+    private String category2Name = "";
+    private String category1Name = "";
 
     @Override
     public void setUserVisibleHint(boolean isVisibleToUser) {
@@ -162,6 +168,8 @@ public class HomeCommenFragment extends DBBaseFragment implements ViewPager.OnPa
                     }
                     mPagerAdapter.notifyDataSetChanged();
                     category2Id = tabBean.getData().get(position).getChildren().get(0).getCategoryId();
+                    category1Name = tabBean.getData().get(position).getCategoryName();
+                    category2Name = tabBean.getData().get(position).getChildren().get(0).getCategoryName();
                 }else {
                     mBinding.coordinator.setVisibility(View.GONE);
                     category2Id = "";
@@ -199,6 +207,7 @@ public class HomeCommenFragment extends DBBaseFragment implements ViewPager.OnPa
         switch (v.getId()){
             case R.id.tab1:
                 set[0] = 0;
+                UAppUtil.threeTab(getContext(),category1Name,category2Name,mOrderbyTypeBean.get(set[0]).getName());
                 mPresenter.seleteTab(getContext(),set[0],mTabTextView,mTabLine);
                 if (mOrderbyTypeBean.size() != 0) {
                     orderbyType=mOrderbyTypeBean.get(set[0]).getOrderbyType()+"";
@@ -212,6 +221,7 @@ public class HomeCommenFragment extends DBBaseFragment implements ViewPager.OnPa
                 break;
             case R.id.tab2:
                 set[0] = 1;
+                UAppUtil.threeTab(getContext(),category1Name,category2Name,mOrderbyTypeBean.get(set[0]).getName());
                 mPresenter.seleteTab(getContext(),set[0],mTabTextView,mTabLine);
                 if (mOrderbyTypeBean.size() != 0) {
                     orderbyType=mOrderbyTypeBean.get(set[0]).getOrderbyType()+"";
@@ -225,6 +235,7 @@ public class HomeCommenFragment extends DBBaseFragment implements ViewPager.OnPa
                 break;
             case R.id.tab3:
                 set[0] = 2;
+                UAppUtil.threeTab(getContext(),category1Name,category2Name,mOrderbyTypeBean.get(set[0]).getName());
                 mPresenter.seleteTab(getContext(),set[0],mTabTextView,mTabLine);
                 if (mOrderbyTypeBean.size() != 0) {
                     orderbyType=mOrderbyTypeBean.get(set[0]).getOrderbyType()+"";
@@ -238,6 +249,7 @@ public class HomeCommenFragment extends DBBaseFragment implements ViewPager.OnPa
                 break;
             case R.id.tab4:
                 set[0] = 3;
+                UAppUtil.threeTab(getContext(),category1Name,category2Name,mOrderbyTypeBean.get(set[0]).getName());
                 mPresenter.seleteTab(getContext(),set[0],mTabTextView,mTabLine);
                 if (mOrderbyTypeBean.size() != 0) {
                     orderbyType=mOrderbyTypeBean.get(set[0]).getOrderbyType()+"";
@@ -251,6 +263,7 @@ public class HomeCommenFragment extends DBBaseFragment implements ViewPager.OnPa
                 break;
             case R.id.tab5:
                 set[0] = 4;
+                UAppUtil.threeTab(getContext(),category1Name,category2Name,mOrderbyTypeBean.get(set[0]).getName());
                 mPresenter.seleteTab(getContext(),set[0],mTabTextView,mTabLine);
                 if (mOrderbyTypeBean.size() != 0) {
                     orderbyType=mOrderbyTypeBean.get(set[0]).getOrderbyType()+"";
@@ -376,8 +389,9 @@ public class HomeCommenFragment extends DBBaseFragment implements ViewPager.OnPa
     /**
      * 二级菜单点击
      */
-    public void onItemTab(String category2Id){
+    public void onItemTab(String category2Id,String category2Name){
         this.category2Id = category2Id;
+        this.category2Name = category2Name;
         mBinding.recyclerView.scrollToPosition(0);
         mDialog = (new ProgressDialogView()).createLoadingDialog(getContext(), "请求中...");
         mDialog.show();

@@ -8,7 +8,6 @@ import android.os.CountDownTimer;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.view.KeyEvent;
-import android.view.View;
 import android.widget.ImageView;
 
 import com.blankj.utilcode.util.SPUtils;
@@ -42,8 +41,7 @@ public class WellComeActivity extends AppCompatActivity{
                 .statusBarDarkFont(true, 0f)
                 .init();
 
-        mImageView = findViewById(R.id.well_imageTag);
-        mImageView.setVisibility(View.GONE);
+        mImageView = findViewById(R.id.well_image);
 
         permission();
     }

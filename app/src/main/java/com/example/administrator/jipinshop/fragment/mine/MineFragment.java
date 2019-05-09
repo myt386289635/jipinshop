@@ -36,6 +36,7 @@ import com.example.administrator.jipinshop.fragment.follow.fans.FansFragment;
 import com.example.administrator.jipinshop.fragment.home.HomeFragment;
 import com.example.administrator.jipinshop.jpush.JPushReceiver;
 import com.example.administrator.jipinshop.util.ToastUtil;
+import com.example.administrator.jipinshop.util.UmApp.UAppUtil;
 import com.example.administrator.jipinshop.util.sp.CommonDate;
 import com.example.administrator.jipinshop.view.dialog.DialogUtil;
 import com.example.administrator.jipinshop.view.glide.GlideApp;
@@ -93,55 +94,71 @@ public class MineFragment extends DBBaseFragment implements View.OnClickListener
             case R.id.mine_signOther:
                 //邀请
                 startActivity(new Intent(getContext(), InvitationActivity.class));
+                UAppUtil.mine(getContext(),4);
                 break;
             case R.id.mine_sign:
+                //跳转到签到页面
+                startActivity(new Intent(getContext(), SignActivity.class));
+                UAppUtil.mine(getContext(),0);
+                break;
             case R.id.mine_follow:
                 //跳转到签到页面
                 startActivity(new Intent(getContext(), SignActivity.class));
+                UAppUtil.mine(getContext(),9);
                 break;
             case R.id.mine_favor:
                 //跳转到收藏页面
                 startActivity(new Intent(getContext(), FovalActivity.class));
+                UAppUtil.mine(getContext(),10);
                 break;
             case R.id.mine_message:
                 //跳转到消息页面
                 startActivity(new Intent(getContext(), MessageActivity.class));
+                UAppUtil.mine(getContext(),8);
                 break;
             case R.id.mine_attention:
                 //跳转到关注页面
                 startActivity(new Intent(getContext(), FollowActivity.class)
                         .putExtra("page",0)
                 );
+                UAppUtil.mine(getContext(),1);
                 break;
             case R.id.mine_fans:
                 //跳转到粉丝页面
                 startActivity(new Intent(getContext(), FollowActivity.class)
                         .putExtra("page",1)
                 );
+                UAppUtil.mine(getContext(),2);
                 break;
             case R.id.mine_goodsNum:
                 //点击点赞数
                 DialogUtil.MyGoods(getContext(),mBinding.mineName.getText().toString(),mBinding.mineGoodsNumText.getText().toString());
+                UAppUtil.mine(getContext(),3);
                 break;
             case R.id.mine_setting:
                 //跳转到设置页面
                 startActivityForResult(new Intent(getContext(), SettingActivity.class), 100);
+                UAppUtil.mine(getContext(),12);
                 break;
             case R.id.mine_address:
                 //我的收货地址
                 startActivity(new Intent(getContext(), MyAddressActivity.class));
+                UAppUtil.mine(getContext(),11);
                 break;
             case R.id.mine_wallet:
                 //我的钱包
                 startActivity(new Intent(getContext(), MyWalletActivity.class));
+                UAppUtil.mine(getContext(),7);
                 break;
             case R.id.mine_order:
                 //我的订单
                 startActivity(new Intent(getContext(), MyOrderActivity.class));
+                UAppUtil.mine(getContext(),6);
                 break;
             case R.id.mine_shoppingMall:
                 //我的商城
                 startActivity(new Intent(getContext(), MallActivity.class));
+                UAppUtil.mine(getContext(),5);
                 break;
             case R.id.mine_trial:
                 //我的试用
@@ -153,6 +170,7 @@ public class MineFragment extends DBBaseFragment implements View.OnClickListener
                 ClipData clipData = ClipData.newPlainText("jipinshop", mBinding.mineIntegral.getText().toString().replace("邀请码：",""));
                 clip.setPrimaryClip(clipData);
                 ToastUtil.show("复制成功");
+                UAppUtil.mine(getContext(),13);
                 break;
         }
     }

@@ -22,6 +22,7 @@ import com.example.administrator.jipinshop.bean.TryBean;
 import com.example.administrator.jipinshop.bean.eventbus.TryStatusBus;
 import com.example.administrator.jipinshop.databinding.TryFragmentBinding;
 import com.example.administrator.jipinshop.util.ClickUtil;
+import com.example.administrator.jipinshop.util.UmApp.UAppUtil;
 import com.example.administrator.jipinshop.util.sp.CommonDate;
 import com.example.administrator.jipinshop.view.itemDecoration.StickyItemDecoration;
 
@@ -120,9 +121,11 @@ public class TryFragment extends DBBaseFragment implements OnRefreshListener, Tr
         if(type.equals("免费试用")){
             //查看全部试用
             startActivity(new Intent(getContext(), TryAllActivity.class));
+            UAppUtil.oneTab_trier(getContext(),0);
         }else {
             //查看全部报告
             startActivity(new Intent(getContext(), TryReportActivity.class));
+            UAppUtil.oneTab_trier(getContext(),1);
         }
     }
 

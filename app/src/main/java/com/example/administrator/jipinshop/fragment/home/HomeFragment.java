@@ -3,7 +3,6 @@ package com.example.administrator.jipinshop.fragment.home;
 
 import android.content.Intent;
 import android.databinding.DataBindingUtil;
-import android.support.design.widget.AppBarLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
 import android.support.v7.widget.LinearLayoutManager;
@@ -30,6 +29,7 @@ import com.example.administrator.jipinshop.fragment.home.commen.HomeCommenFragme
 import com.example.administrator.jipinshop.fragment.home.recommend.RecommendFragment;
 import com.example.administrator.jipinshop.jpush.JPushReceiver;
 import com.example.administrator.jipinshop.util.ToastUtil;
+import com.example.administrator.jipinshop.util.UmApp.UAppUtil;
 import com.example.administrator.jipinshop.util.sp.CommonDate;
 import com.google.gson.Gson;
 
@@ -126,7 +126,7 @@ public class HomeFragment extends DBBaseFragment implements Badge.OnDragStateCha
     }
 
     public void initTab(){
-        mTabBeans.add(new TitleBean("综合榜",true));
+        mTabBeans.add(new TitleBean("总榜",true));
         mFragments.add(RecommendFragment.getInstance());
         mTabAdapter.notifyDataSetChanged();
         mAdapter.notifyDataSetChanged();
@@ -165,6 +165,7 @@ public class HomeFragment extends DBBaseFragment implements Badge.OnDragStateCha
         switch (view.getId()) {
             case R.id.home_message:
                 startActivity(new Intent(getContext(), MessageActivity.class));
+                UAppUtil.message(getContext());
                 break;
         }
     }
@@ -178,6 +179,7 @@ public class HomeFragment extends DBBaseFragment implements Badge.OnDragStateCha
         SPUtils.getInstance().put(CommonDate.SubTab,new Gson().toJson(tabBean));
         successTab(tabBean);
         EventBus.getDefault().post(HomeFragment.subTab);
+        UAppUtil.oneTab(getContext(),mTabBeans.get(0).getString());
     }
 
     /**
@@ -188,6 +190,7 @@ public class HomeFragment extends DBBaseFragment implements Badge.OnDragStateCha
         errorTab();
         EventBus.getDefault().post(HomeFragment.subTab);//通知榜单里的4个fragment初始化二级导航栏
         ToastUtil.show(error);
+        UAppUtil.oneTab(getContext(),mTabBeans.get(0).getString());
     }
 
     /**
@@ -277,6 +280,8 @@ public class HomeFragment extends DBBaseFragment implements Badge.OnDragStateCha
         mTabAdapter.notifyDataSetChanged();
 
         set = i;
+
+        UAppUtil.oneTab(getContext(),mTabBeans.get(i).getString());
     }
 
     @Override

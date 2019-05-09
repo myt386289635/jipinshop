@@ -25,9 +25,9 @@ import com.example.administrator.jipinshop.bean.eventbus.EditNameBus;
 import com.example.administrator.jipinshop.databinding.ActivitySignBinding;
 import com.example.administrator.jipinshop.netwrok.RetrofitModule;
 import com.example.administrator.jipinshop.util.ToastUtil;
+import com.example.administrator.jipinshop.util.UmApp.UAppUtil;
 import com.example.administrator.jipinshop.util.sp.CommonDate;
 import com.example.administrator.jipinshop.view.dialog.ProgressDialogView;
-import com.example.administrator.jipinshop.view.goodview.GoodView;
 
 import org.greenrobot.eventbus.EventBus;
 
@@ -131,6 +131,7 @@ public class SignActivity extends BaseActivity implements View.OnClickListener, 
                 mDialog = (new ProgressDialogView()).createLoadingDialog(this, "正在加载...");
                 mDialog.show();
                 mPresenter.sign(this.bindToLifecycle());
+                UAppUtil.sign(this,0);
                 break;
             case R.id.sign_detail:
                 //积分明细
@@ -249,5 +250,7 @@ public class SignActivity extends BaseActivity implements View.OnClickListener, 
                 // TODO: 2019/3/16  跳转到认证页面
                 break;
         }
+        //添加统计
+        UAppUtil.sign(this,groupList.get(position).getType());
     }
 }

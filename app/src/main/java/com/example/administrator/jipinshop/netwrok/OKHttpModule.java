@@ -225,7 +225,7 @@ public class OKHttpModule {
                 temp.append(valueString);
             }
         }
-        Log.d("OKHttpModule", temp.toString());
+//        Log.d("OKHttpModule", temp.toString());
         return EncryptUtils.encryptMD5ToString(temp.toString()).toUpperCase();
     }
 

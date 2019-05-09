@@ -24,6 +24,7 @@ import com.example.administrator.jipinshop.bean.eventbus.FindTabBus;
 import com.example.administrator.jipinshop.databinding.FragmentFindBinding;
 import com.example.administrator.jipinshop.fragment.find.common.CommonFindFragment;
 import com.example.administrator.jipinshop.util.ToastUtil;
+import com.example.administrator.jipinshop.util.UmApp.UAppUtil;
 import com.example.administrator.jipinshop.util.sp.CommonDate;
 import com.google.gson.Gson;
 
@@ -141,6 +142,7 @@ public class FindFragment extends DBBaseFragment implements FindView, ArticleTab
         mTabAdapter.notifyDataSetChanged();
         mAdapter.notifyDataSetChanged();
         mBinding.viewPager.setOffscreenPageLimit(mFragments.size() - 1);
+        UAppUtil.oneTab_find(getContext(),mTabBeans.get(0).getString());
     }
 
     @Override
@@ -182,6 +184,7 @@ public class FindFragment extends DBBaseFragment implements FindView, ArticleTab
         mTabAdapter.notifyDataSetChanged();
 
         set = i;
+        UAppUtil.oneTab_find(getContext(),mTabBeans.get(i).getString());
     }
 
     @Override

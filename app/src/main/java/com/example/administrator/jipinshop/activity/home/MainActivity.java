@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
+import android.support.v4.view.ViewPager;
 import android.text.TextUtils;
 import android.view.View;
 
@@ -27,6 +28,7 @@ import com.example.administrator.jipinshop.fragment.tryout.TryFragment;
 import com.example.administrator.jipinshop.util.InputMethodManagerLeak;
 import com.example.administrator.jipinshop.util.NotchUtil;
 import com.example.administrator.jipinshop.util.ToastUtil;
+import com.example.administrator.jipinshop.util.UmApp.UAppUtil;
 import com.example.administrator.jipinshop.util.UpDataUtil;
 import com.example.administrator.jipinshop.util.sp.CommonDate;
 import com.example.administrator.jipinshop.view.NoScrollViewPager;
@@ -47,7 +49,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
 
-public class MainActivity extends RxAppCompatActivity implements MainView {
+public class MainActivity extends RxAppCompatActivity implements MainView, ViewPager.OnPageChangeListener {
 
     @Inject
     MainActivityPresenter mPresenter;
@@ -112,11 +114,13 @@ public class MainActivity extends RxAppCompatActivity implements MainView {
         mViewPager.setAdapter(mHomeAdapter);
         mViewPager.setOffscreenPageLimit(mFragments.size() - 1);
         mTabLayout.setupWithViewPager(mViewPager);
+        mViewPager.addOnPageChangeListener(this);
 
         mPresenter.initTabLayout(this, mTabLayout);
 
         //版本更新
         mPresenter.getAppVersion(this.bindToLifecycle());
+        UAppUtil.tab(this,0);//统计榜单
 
         View tabView = (View) mTabLayout.getTabAt(mFragments.size() - 1).getCustomView().getParent();
         tabView.setOnClickListener(v -> {
@@ -203,5 +207,20 @@ public class MainActivity extends RxAppCompatActivity implements MainView {
     public void onPause() {
         super.onPause();
         MobclickAgent.onPause(this);
+    }
+
+    @Override
+    public void onPageScrolled(int i, float v, int i1) {
+
+    }
+
+    @Override
+    public void onPageSelected(int i) {
+        UAppUtil.tab(this,i);
+    }
+
+    @Override
+    public void onPageScrollStateChanged(int i) {
+
     }
 }
