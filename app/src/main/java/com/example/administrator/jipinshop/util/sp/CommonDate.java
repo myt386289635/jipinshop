@@ -12,6 +12,7 @@ public class CommonDate {
     public static final String SubTab = "SubTab";//榜单的二级菜单以及一级菜单
     public static final String EvaluationTab = "EvaluationTab";//评测的tab
     public static final String FindTab = "FindTab";//发现的tab
+    public static final String startPage = "startPage";//启动页
 
 
     //用户数据表（sp文件名：user）

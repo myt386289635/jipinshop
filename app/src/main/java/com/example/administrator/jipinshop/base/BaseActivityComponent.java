@@ -35,6 +35,7 @@ import com.example.administrator.jipinshop.activity.tryout.detail.TryDetailActiv
 import com.example.administrator.jipinshop.activity.tryout.passedMore.PassedMoreActivity;
 import com.example.administrator.jipinshop.activity.tryout.reportMore.ReportMoreActivity;
 import com.example.administrator.jipinshop.activity.tryout.shareMore.ShareMoreActivity;
+import com.example.administrator.jipinshop.activity.wellcome.WellComeActivity;
 import com.example.administrator.jipinshop.auto.ActivityScope;
 import com.example.administrator.jipinshop.netwrok.ApplicationComponent;
 
@@ -78,4 +79,5 @@ public interface BaseActivityComponent {
     void inject(ReportMoreActivity activity);
     void inject(ShareMoreActivity activity);
     void inject(OrderDetailActivity activity);
+    void inject(WellComeActivity activity);
 }

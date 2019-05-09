@@ -28,6 +28,7 @@ import com.example.administrator.jipinshop.bean.SignInsertBean;
 import com.example.administrator.jipinshop.bean.SreachHistoryBean;
 import com.example.administrator.jipinshop.bean.SreachResultArticlesBean;
 import com.example.administrator.jipinshop.bean.SreachResultGoodsBean;
+import com.example.administrator.jipinshop.bean.StartPageBean;
 import com.example.administrator.jipinshop.bean.SucBean;
 import com.example.administrator.jipinshop.bean.SuccessBean;
 import com.example.administrator.jipinshop.bean.SystemMessageBean;
@@ -571,5 +572,12 @@ public class Repository {
      */
     public Observable<SuccessBean> myTrialConfirm(String trialId){
         return mAPIService.myTrialConfirm(trialId);
+    }
+
+    /**
+     * 启动页
+     */
+    public Observable<StartPageBean> getStartupImgs(){
+        return mAPIService.getStartupImgs();
     }
 }

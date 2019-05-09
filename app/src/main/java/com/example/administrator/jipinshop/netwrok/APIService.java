@@ -29,6 +29,7 @@ import com.example.administrator.jipinshop.bean.SignInsertBean;
 import com.example.administrator.jipinshop.bean.SreachHistoryBean;
 import com.example.administrator.jipinshop.bean.SreachResultArticlesBean;
 import com.example.administrator.jipinshop.bean.SreachResultGoodsBean;
+import com.example.administrator.jipinshop.bean.StartPageBean;
 import com.example.administrator.jipinshop.bean.SucBean;
 import com.example.administrator.jipinshop.bean.SuccessBean;
 import com.example.administrator.jipinshop.bean.SystemMessageBean;
@@ -526,6 +527,12 @@ public interface APIService {
     @FormUrlEncoded
     @POST("qualityshop-api/api/trial/confirm")
     Observable<SuccessBean> myTrialConfirm(@Field("trialId") String trialId);
+
+    /**
+     * 启动页
+     */
+    @GET("qualityshop-api/api/getStartupImgs")
+    Observable<StartPageBean> getStartupImgs();
 
 /*************************************************以下是还未修改的接口***********************************************/
 

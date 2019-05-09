@@ -2,47 +2,50 @@ package com.example.administrator.jipinshop.activity.wellcome;
 
 import android.Manifest;
 import android.content.Intent;
-import android.os.Build;
 import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.support.annotation.Nullable;
-import android.support.v7.app.AppCompatActivity;
 import android.view.KeyEvent;
 import android.widget.ImageView;
 
 import com.blankj.utilcode.util.SPUtils;
 import com.example.administrator.jipinshop.R;
 import com.example.administrator.jipinshop.activity.home.MainActivity;
-import com.example.administrator.jipinshop.util.NotchUtil;
+import com.example.administrator.jipinshop.base.BaseActivity;
+import com.example.administrator.jipinshop.bean.StartPageBean;
 import com.example.administrator.jipinshop.util.permission.HasPermissionsUtil;
 import com.example.administrator.jipinshop.util.sp.CommonDate;
-import com.gyf.barlibrary.ImmersionBar;
+
+import javax.inject.Inject;
 
 /**
  * @author 莫小婷
  * @create 2018/8/1
- * @Describe
+ * @Describe 欢迎页
  */
-public class WellComeActivity extends AppCompatActivity{
+public class WellComeActivity extends BaseActivity implements WellComeView {
 
-    private ImmersionBar mImmersionBar;
     private ImageView mImageView;
+    @Inject
+    WellComePresenter mPresenter;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_wellcome);
-        if (Build.VERSION.SDK_INT >= 28) {
-            //适配9.0刘海
-            NotchUtil.notch(this);
-        }
-        mImmersionBar = ImmersionBar.with(this);
-        mImmersionBar.transparentStatusBar()
+        mImmersionBar.reset()
+                .transparentStatusBar()
                 .statusBarDarkFont(true, 0f)
                 .init();
-
+        mBaseActivityComponent.inject(this);
+        mPresenter.setView(this);
+//        mPresenter.getStartupImgs(this.bindToLifecycle());
         mImageView = findViewById(R.id.well_image);
-
+//        if (TextUtils.isEmpty(SPUtils.getInstance().getString(CommonDate.startPage,""))){
+            mImageView.setImageResource(R.mipmap.start_page);
+//        }else {
+//            GlideApp.loderImage(this,SPUtils.getInstance().getString(CommonDate.startPage),mImageView,0,0);
+//        }
         permission();
     }
 
@@ -71,8 +74,6 @@ public class WellComeActivity extends AppCompatActivity{
         if (timer != null) {
             timer.cancel();
         }
-        if (mImmersionBar != null)
-            mImmersionBar.destroy(); //必须调用该方法，防止内存泄漏
         super.onDestroy();
     }
 
@@ -119,5 +120,10 @@ public class WellComeActivity extends AppCompatActivity{
             }
 
         }, Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.CAMERA , Manifest.permission.READ_PHONE_STATE);
+    }
+
+    @Override
+    public void onSuccess(StartPageBean startPageBean) {
+//        SPUtils.getInstance().put(CommonDate.startPage,startPageBean.get);
     }
 }
