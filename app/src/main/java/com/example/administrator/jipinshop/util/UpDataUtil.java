@@ -107,7 +107,7 @@ public class UpDataUtil {
     public void downloadApk(Context context,String varsonNum,Boolean tag,String content, String url){
         if(tag){
             //必须强制更新
-            DialogUtil.UpDateDialog(context, varsonNum , content, v -> {
+            DialogUtil.UpDateDialog1(context, varsonNum , content, v -> {
                 try{
                     Intent intent = new Intent();
                     intent.setAction("android.intent.action.VIEW");
