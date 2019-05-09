@@ -46,6 +46,7 @@ import com.example.administrator.jipinshop.databinding.ActivityTryDetailBinding;
 import com.example.administrator.jipinshop.util.ClickUtil;
 import com.example.administrator.jipinshop.util.ShareUtils;
 import com.example.administrator.jipinshop.util.ToastUtil;
+import com.example.administrator.jipinshop.util.UmApp.UAppUtil;
 import com.example.administrator.jipinshop.util.WeakRefHandler;
 import com.example.administrator.jipinshop.util.sp.CommonDate;
 import com.example.administrator.jipinshop.view.dialog.DialogUtil;
@@ -259,6 +260,7 @@ public class TryDetailActivity extends BaseActivity implements View.OnClickListe
                             startActivity(new Intent(this, SignActivity.class));
                         });
                     }
+                    UAppUtil.goods_trier(this,1);
                 }else if(mBinding.detailApply.getText().toString().equals("分享拉赞")){
                     if (mTryDetailBean == null){
                         ToastUtil.show("分享失败");
@@ -301,6 +303,7 @@ public class TryDetailActivity extends BaseActivity implements View.OnClickListe
                     mDialog.show();
                 }
                 openAliHomeWeb(goodsBuyLink);
+                UAppUtil.goods_trier(this,0);
                 break;
             case R.id.detail_comment:
                 if (mTryDetailBean == null){

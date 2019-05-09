@@ -87,9 +87,22 @@ public class UAppUtil {
     /**
      * 统计榜单的消息中心
      */
-    public static void message(Context context){
+    public static void message(Context context,int position){
         Map<String,String> map = new HashMap<>();
-        map.put("message","首页消息按钮");
+        switch (position){
+            case 0:
+                map.put("message","首页消息按钮");
+                break;
+            case 1:
+                map.put("message","首页搜索框");
+                break;
+            case 2:
+                map.put("message","首页搜索框--大家都在搜--第一位置");
+                break;
+            case 3:
+                map.put("message","首页搜索框--大家都在搜--第二位置");
+                break;
+        }
         StatisticalUtil.onEvent(context,"ID1",map);
     }
 
@@ -191,4 +204,35 @@ public class UAppUtil {
         StatisticalUtil.onEvent(context,"ID5",map);
     }
 
+    /**
+     * 统计榜单商品详情两个按钮的统计
+     */
+    public static void goods(Context context,int position){
+        Map<String,String> map = new HashMap<>();
+        switch (position){
+            case 0:
+                map.put("goods","榜单-商品详情-立即购买");
+                break;
+            case 1:
+                map.put("goods","榜单-商品详情-分享给好友");
+                break;
+        }
+        StatisticalUtil.onEvent(context,"ID1",map);
+    }
+
+    /**
+     * 统计试用商品详情两个按钮的统计
+     */
+    public static void goods_trier(Context context,int position){
+        Map<String,String> map = new HashMap<>();
+        switch (position){
+            case 0:
+                map.put("goods","试用-商品详情-优惠购买");
+                break;
+            case 1:
+                map.put("goods","试用-商品详情-申请试用");
+                break;
+        }
+        StatisticalUtil.onEvent(context,"ID4",map);
+    }
 }

@@ -41,9 +41,10 @@ public class SreachPresenter {
             final ImageView delete = itemTypeView.findViewById(R.id.histroy_delete);
             textView.setText(hotText.get(i).getWord());
             delete.setVisibility(View.GONE);
+            int finalI = i;
             textView.setOnClickListener(v -> {
                 if(mView != null){
-                    mView.jump("2", textView.getText().toString());
+                    mView.jump("2", textView.getText().toString(), finalI);
                 }
             });
             flexboxLayout.addView(itemTypeView);

@@ -24,6 +24,7 @@ import com.example.administrator.jipinshop.bean.SuccessBean;
 import com.example.administrator.jipinshop.bean.eventbus.SreachBus;
 import com.example.administrator.jipinshop.databinding.ActivitySreachBinding;
 import com.example.administrator.jipinshop.util.ToastUtil;
+import com.example.administrator.jipinshop.util.UmApp.UAppUtil;
 import com.example.administrator.jipinshop.view.dialog.DialogUtil;
 import com.example.administrator.jipinshop.view.dialog.ProgressDialogView;
 import com.trello.rxlifecycle2.android.ActivityEvent;
@@ -141,15 +142,20 @@ public class SreachActivity extends BaseActivity implements TextWatcher, SreachV
     }
 
     /**
-     * 从热门搜索、历史搜索里点击进入搜索列表
+     * 从 大家都在搜 里点击进入搜索列表
      */
     @Override
-    public void jump(String from, String content) {
+    public void jump(String from, String content,int position) {
         mBinding.sreachEdit.setText(content);
         mBinding.sreachEdit.setSelection(mBinding.sreachEdit.getText().length());//将光标移至文字末尾
         startActivityForResult(new Intent(this, SreachResultActivity.class)
                 .putExtra("content", content)
         ,200);
+        if (position == 0){
+            UAppUtil.message(this,2);
+        }else if (position == 1){
+            UAppUtil.message(this,3);
+        }
     }
 
     @Override
@@ -238,7 +244,7 @@ public class SreachActivity extends BaseActivity implements TextWatcher, SreachV
     }
 
     /**
-     * 历史记录的点击
+     *从 历史记录 里点击进入搜索列表
      */
     @Override
     public void onItemClick(int position) {

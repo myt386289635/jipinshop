@@ -11,10 +11,11 @@ import com.example.administrator.jipinshop.bean.SuccessBean;
 public interface SreachView {
 
     /**
-     * @param from 来自热门搜索 2，还是 历史搜索 1
+     * @param from
      * @param content 点击位置的内容
+     * @param position   位置
      */
-    void jump(String from,String content);
+    void jump(String from,String content,int position);
 
     void Success(SreachHistoryBean sreachHistoryBean);
     void onFaile(String error);

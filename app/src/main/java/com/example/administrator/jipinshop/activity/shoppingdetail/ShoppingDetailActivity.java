@@ -59,6 +59,7 @@ import com.example.administrator.jipinshop.fragment.foval.goods.FovalGoodsFragme
 import com.example.administrator.jipinshop.util.ClickUtil;
 import com.example.administrator.jipinshop.util.ShareUtils;
 import com.example.administrator.jipinshop.util.ToastUtil;
+import com.example.administrator.jipinshop.util.UmApp.UAppUtil;
 import com.example.administrator.jipinshop.util.WeakRefHandler;
 import com.example.administrator.jipinshop.util.sp.CommonDate;
 import com.example.administrator.jipinshop.view.AlignTextView;
@@ -937,10 +938,11 @@ public class ShoppingDetailActivity extends BaseActivity implements ShoppingComm
                 if (!mShareBoardDialog.isAdded()) {
                     mShareBoardDialog.show(getSupportFragmentManager(), "ShareBoardDialog");
                 }
-
+                UAppUtil.goods(this,1);
                 break;
-            case R.id.detail_couponImg:
             case R.id.detail_buy:
+                UAppUtil.goods(this,0);
+            case R.id.detail_couponImg:
                 if(TextUtils.isEmpty(SPUtils.getInstance(CommonDate.USER).getString(CommonDate.token,""))){
                     startActivity(new Intent(this, LoginActivity.class));
                     return;

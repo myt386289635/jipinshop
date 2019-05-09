@@ -156,6 +156,7 @@ public class HomeFragment extends DBBaseFragment implements Badge.OnDragStateCha
         switch (view.getId()) {
             case R.id.home_sreach:
                 startActivity(new Intent(getContext(), SreachActivity.class));
+                UAppUtil.message(getContext(),1);
                 return;
         }
         if(TextUtils.isEmpty(SPUtils.getInstance(CommonDate.USER).getString(CommonDate.token,""))){
@@ -165,7 +166,7 @@ public class HomeFragment extends DBBaseFragment implements Badge.OnDragStateCha
         switch (view.getId()) {
             case R.id.home_message:
                 startActivity(new Intent(getContext(), MessageActivity.class));
-                UAppUtil.message(getContext());
+                UAppUtil.message(getContext(),0);
                 break;
         }
     }
