@@ -2,6 +2,8 @@ package com.example.administrator.jipinshop.util.UmApp;
 
 import android.content.Context;
 
+import com.example.administrator.jipinshop.netwrok.RetrofitModule;
+
 import java.util.HashMap;
 import java.util.Map;
 
@@ -16,6 +18,9 @@ public class UAppUtil {
      * 统计底部tab的点击量
      */
     public static void tab(Context context,int position){
+        if (!RetrofitModule.UP_BASE_URL.contains("https")){
+            return;
+        }
         Map<String, String> map = new HashMap<>();
         switch (position){
             case 0:
@@ -45,6 +50,9 @@ public class UAppUtil {
      * 榜单里的第一行tab：总榜、个护健康榜、厨房电器榜等等
      */
     public static void oneTab(Context context,String name){
+        if (!RetrofitModule.UP_BASE_URL.contains("https")){
+            return;
+        }
         Map<String, String> map = new HashMap<>();
         map.put("oneTab", "榜单——" + name);
         StatisticalUtil.onEvent(context,"ID1",map);
@@ -54,6 +62,9 @@ public class UAppUtil {
      * 发现里的第一行tab: 头条、百科、清单等等
      */
     public static void oneTab_find(Context context,String name){
+        if (!RetrofitModule.UP_BASE_URL.contains("https")){
+            return;
+        }
         Map<String, String> map = new HashMap<>();
         map.put("oneTab", "发现——" + name);
         StatisticalUtil.onEvent(context,"ID2",map);
@@ -63,6 +74,9 @@ public class UAppUtil {
      * 评测里的第一行tab: 头条、百科、清单等等
      */
     public static void oneTab_evaluation(Context context,String name){
+        if (!RetrofitModule.UP_BASE_URL.contains("https")){
+            return;
+        }
         Map<String, String> map = new HashMap<>();
         map.put("oneTab", "评测——" + name);
         StatisticalUtil.onEvent(context,"ID3",map);
@@ -72,6 +86,9 @@ public class UAppUtil {
      * 试用里的tab:  查看全部、查看更多
      */
     public static void oneTab_trier(Context context, int position){
+        if (!RetrofitModule.UP_BASE_URL.contains("https")){
+            return;
+        }
         Map<String,String> map = new HashMap<>();
         switch (position){
             case 0:
@@ -88,6 +105,9 @@ public class UAppUtil {
      * 统计榜单的消息中心
      */
     public static void message(Context context,int position){
+        if (!RetrofitModule.UP_BASE_URL.contains("https")){
+            return;
+        }
         Map<String,String> map = new HashMap<>();
         switch (position){
             case 0:
@@ -110,6 +130,9 @@ public class UAppUtil {
      * 统计榜单二级菜单的点击量
      */
     public static void twoTab(Context context,String oneTabName ,String twoTabName){
+        if (!RetrofitModule.UP_BASE_URL.contains("https")){
+            return;
+        }
         Map<String,String> map = new HashMap<>();
         map.put("twoTab",oneTabName + "——" + twoTabName);
         StatisticalUtil.onEvent(context,"ID1",map);
@@ -119,6 +142,9 @@ public class UAppUtil {
      * 统计榜单三级菜单的点击量
      */
     public static void threeTab(Context context,String oneTabName ,String twoTabName , String threeTabName){
+        if (!RetrofitModule.UP_BASE_URL.contains("https")){
+            return;
+        }
         Map<String,String> map = new HashMap<>();
         map.put("threeTab",oneTabName + "——" + twoTabName + "——" + threeTabName);
         StatisticalUtil.onEvent(context,"ID1",map);
@@ -128,6 +154,9 @@ public class UAppUtil {
      * 我的频道点击
      */
     public static void mine(Context context, int position){
+        if (!RetrofitModule.UP_BASE_URL.contains("https")){
+            return;
+        }
         Map<String,String> map = new HashMap<>();
         switch (position){
             case 0:
@@ -180,6 +209,9 @@ public class UAppUtil {
      * 签到页面点击统计
      */
     public static void sign(Context context, int position){
+        if (!RetrofitModule.UP_BASE_URL.contains("https")){
+            return;
+        }
         Map<String,String> map = new HashMap<>();
         switch (position){
             case 0:
@@ -208,6 +240,9 @@ public class UAppUtil {
      * 统计榜单商品详情两个按钮的统计
      */
     public static void goods(Context context,int position){
+        if (!RetrofitModule.UP_BASE_URL.contains("https")){
+            return;
+        }
         Map<String,String> map = new HashMap<>();
         switch (position){
             case 0:
@@ -224,6 +259,9 @@ public class UAppUtil {
      * 统计试用商品详情两个按钮的统计
      */
     public static void goods_trier(Context context,int position){
+        if (!RetrofitModule.UP_BASE_URL.contains("https")){
+            return;
+        }
         Map<String,String> map = new HashMap<>();
         switch (position){
             case 0:
