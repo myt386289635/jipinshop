@@ -107,7 +107,7 @@ public class UAppUtil {
     }
 
     /**
-     * 统计榜单二级菜单的点击量 （友盟那边没显示）
+     * 统计榜单二级菜单的点击量
      */
     public static void twoTab(Context context,String oneTabName ,String twoTabName){
         Map<String,String> map = new HashMap<>();
@@ -116,7 +116,7 @@ public class UAppUtil {
     }
 
     /**
-     * 统计榜单三级菜单的点击量 （友盟那边没显示）
+     * 统计榜单三级菜单的点击量
      */
     public static void threeTab(Context context,String oneTabName ,String twoTabName , String threeTabName){
         Map<String,String> map = new HashMap<>();
