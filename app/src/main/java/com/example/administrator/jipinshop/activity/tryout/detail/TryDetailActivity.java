@@ -573,6 +573,19 @@ public class TryDetailActivity extends BaseActivity implements View.OnClickListe
         }
         mBinding.detailApply.setText("分享拉赞");
         mTryDetailBean.getData().setVoteShareUrl(bean.getVoteShareUrl());//确认申请后更新分享链接
+
+        shareFlag = false;
+        shareTitle = mTryDetailBean.getData().getVoteShareTitle();
+        shareContent = mTryDetailBean.getData().getVoteShareContent();
+        shareImg = mTryDetailBean.getData().getVoteShareImg();
+        shareUrl = mTryDetailBean.getData().getVoteShareUrl();
+        if (mShareBoardDialog == null) {
+            mShareBoardDialog = new ShareBoardDialog();
+            mShareBoardDialog.setOnShareListener(this);
+        }
+        if (!mShareBoardDialog.isAdded()) {
+            mShareBoardDialog.show(getSupportFragmentManager(), "ShareBoardDialog");
+        }
     }
 
     @Override
