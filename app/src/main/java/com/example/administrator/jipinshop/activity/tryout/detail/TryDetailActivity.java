@@ -614,10 +614,14 @@ public class TryDetailActivity extends BaseActivity implements View.OnClickListe
             BigDecimal bigDecimal = new BigDecimal(mReportListBeans.get(position).getPv());
             mReportListBeans.get(position).setPv((bigDecimal.intValue() + 1));
             mReportRVAdapter.notifyDataSetChanged();
-            startActivity(new Intent(this,ArticleDetailActivity.class)
-                    .putExtra("id",mReportListBeans.get(position).getArticleId())
-                    .putExtra("type","4")
-            );
+            if (mReportListBeans.get(position).getContentType() == 1){//试用报告：web
+                startActivity(new Intent(this,ArticleDetailActivity.class)
+                        .putExtra("id",mReportListBeans.get(position).getArticleId())
+                        .putExtra("type","4")
+                );
+            }else  if (mReportListBeans.get(position).getContentType() == 3){//试用报告：json
+                // TODO: 2019/5/20 试用报告json
+            }
         }
     }
 

@@ -153,10 +153,14 @@ public class TryFragment extends DBBaseFragment implements OnRefreshListener, Tr
             BigDecimal bigDecimal = new BigDecimal(mReportListBeans.get(position).getPv());
             mReportListBeans.get(position).setPv((bigDecimal.intValue() + 1));
             mAdapter.notifyDataSetChanged();
-            startActivity(new Intent(getContext(),ArticleDetailActivity.class)
-                    .putExtra("id",mReportListBeans.get(position).getArticleId())
-                    .putExtra("type","4")
-            );
+            if (mReportListBeans.get(position).getContentType() == 1){//试用报告：web
+                startActivity(new Intent(getContext(),ArticleDetailActivity.class)
+                        .putExtra("id",mReportListBeans.get(position).getArticleId())
+                        .putExtra("type","4")
+                );
+            }else  if (mReportListBeans.get(position).getContentType() == 3){//试用报告：json
+                // TODO: 2019/5/20 试用报告json
+            }
         }
     }
 

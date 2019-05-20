@@ -167,10 +167,14 @@ public class TryCommenFragment extends DBBaseFragment implements OnRefreshListen
             BigDecimal bigDecimal = new BigDecimal(mList.get(position).getPv());
             mList.get(position).setPv((bigDecimal.intValue() + 1));
             mAdapter.notifyDataSetChanged();
-            startActivity(new Intent(getContext(),ArticleDetailActivity.class)
-                    .putExtra("id",mList.get(position).getArticleId())
-                    .putExtra("type","4")
-            );
+            if (mList.get(position).getContentType() == 1){//试用报告：web
+                startActivity(new Intent(getContext(),ArticleDetailActivity.class)
+                        .putExtra("id",mList.get(position).getArticleId())
+                        .putExtra("type","4")
+                );
+            }else  if (mList.get(position).getContentType() == 3){//试用报告：json
+                // TODO: 2019/5/20 试用报告json
+            }
         }
     }
 }

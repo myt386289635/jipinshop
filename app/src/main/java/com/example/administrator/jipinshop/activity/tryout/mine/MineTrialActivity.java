@@ -7,7 +7,6 @@ import android.support.annotation.Nullable;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.LinearLayout;
@@ -16,10 +15,8 @@ import android.widget.TextView;
 import com.example.administrator.jipinshop.R;
 import com.example.administrator.jipinshop.adapter.HomeFragmentAdapter;
 import com.example.administrator.jipinshop.base.BaseActivity;
-import com.example.administrator.jipinshop.fragment.foval.tryout.FovalTryFragment;
 import com.example.administrator.jipinshop.fragment.tryout.mine.TrialCommonFragment;
 import com.example.administrator.jipinshop.fragment.tryout.mine.TrialReportFragment;
-import com.example.administrator.jipinshop.util.ToastUtil;
 import com.umeng.socialize.UMShareAPI;
 
 import java.util.ArrayList;

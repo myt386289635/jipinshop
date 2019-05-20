@@ -179,10 +179,14 @@ public class ReportMoreActivity extends BaseActivity implements View.OnClickList
             BigDecimal bigDecimal = new BigDecimal(mList.get(position).getPv());
             mList.get(position).setPv((bigDecimal.intValue() + 1));
             mAdapter.notifyDataSetChanged();
-            startActivity(new Intent(this,ArticleDetailActivity.class)
-                    .putExtra("id",mList.get(position).getArticleId())
-                    .putExtra("type","4")
-            );
+            if (mList.get(position).getContentType() == 1){
+                startActivity(new Intent(this,ArticleDetailActivity.class)
+                        .putExtra("id",mList.get(position).getArticleId())
+                        .putExtra("type","4")
+                );
+            }else if (mList.get(position).getContentType() == 3){
+                // TODO: 2019/5/20 试用报告json
+            }
         }
     }
 }

@@ -5,7 +5,6 @@ import android.content.Intent;
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -36,7 +35,7 @@ import javax.inject.Inject;
 /**
  * @author 莫小婷
  * @create 2019/4/2
- * @Describe 申请中、申请成功、申请失败页面
+ * @Describe 申请中 0、申请成功 1、申请失败页面 -1
  */
 public class TrialCommonFragment extends DBBaseFragment implements OnRefreshListener, OnLoadMoreListener, TrialCommonAdapter.OnClickItem, TrialCommonView, ShareBoardDialog.onShareListener {
 

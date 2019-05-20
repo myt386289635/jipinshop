@@ -153,10 +153,15 @@ public class SreachTryFragment extends DBBaseFragment implements SreachArticleVi
             BigDecimal bigDecimal = new BigDecimal(mList.get(pos).getPv());
             mList.get(pos).setPv((bigDecimal.intValue() + 1) + "");
             mAdapter.notifyDataSetChanged();
-            startActivity(new Intent(getContext(),ArticleDetailActivity.class)
-                    .putExtra("id",mList.get(pos).getArticleId())
-                    .putExtra("type","4")
-            );
+            if (mList.get(pos).getContentType() == 1){
+                startActivity(new Intent(getContext(),ArticleDetailActivity.class)
+                        .putExtra("id",mList.get(pos).getArticleId())
+                        .putExtra("type","4")
+                );
+            }else  if (mList.get(pos).getContentType() == 3){//试用报告：json
+                // TODO: 2019/5/20 试用报告json
+            }
+
         }
     }
 
