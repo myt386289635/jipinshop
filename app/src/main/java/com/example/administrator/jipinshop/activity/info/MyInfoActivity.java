@@ -6,7 +6,6 @@ import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.text.TextUtils;
-import android.util.Log;
 import android.view.View;
 
 import com.blankj.utilcode.util.SPUtils;
@@ -102,7 +101,6 @@ public class MyInfoActivity extends BaseActivity implements SelectPicDialog.Choo
      */
     @Override
     public void getAbsolutePicPath(String picFile) {
-        Log.e("MyInfoActivity", picFile);
         Dialog mDialog = (new ProgressDialogView()).createLoadingDialog(MyInfoActivity.this, "请求中...");
         mDialog.show();
         //这里进行了图片旋转以及图片压缩后得到新图片

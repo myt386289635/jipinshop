@@ -35,8 +35,8 @@ public class ImageCompressUtil {
         int w = newOpts.outWidth;
         int h = newOpts.outHeight;
         // 现在主流手机比较多是800*480分辨率，所以高和宽我们设置为
-        float hh = DistanceHelper.getAndroiodScreenheightPixels(context);// 这里设置高度为800f
-        float ww = DistanceHelper.getAndroiodScreenwidthPixels(context);// 这里设置宽度为480f
+        float hh = 1280;// 这里设置高度为800f
+        float ww = 720;// 这里设置宽度为480f
         // 缩放比。由于是固定比例缩放，只用高或者宽其中一个数据进行计算即可
         int be = 1;// be=1表示不缩放
         if (w > h && w > ww) {// 如果宽度大的话根据宽度固定大小缩放

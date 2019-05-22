@@ -13,6 +13,7 @@ import com.aspsine.swipetoloadlayout.OnLoadMoreListener;
 import com.aspsine.swipetoloadlayout.OnRefreshListener;
 import com.example.administrator.jipinshop.R;
 import com.example.administrator.jipinshop.activity.address.MyAddressActivity;
+import com.example.administrator.jipinshop.activity.sendReport.CreateReportActivity;
 import com.example.administrator.jipinshop.activity.tryout.detail.TryDetailActivity;
 import com.example.administrator.jipinshop.adapter.TrialCommonAdapter;
 import com.example.administrator.jipinshop.base.DBBaseFragment;
@@ -202,7 +203,13 @@ public class TrialCommonFragment extends DBBaseFragment implements OnRefreshList
      */
     @Override
     public void onClickReport(int position) {
-
+        if (ClickUtil.isFastDoubleClick(800)) {
+            return;
+        }else{
+            startActivity(new Intent(getContext(), CreateReportActivity.class)
+                    .putExtra("trialId",mList.get(position).getId())
+            );
+        }
     }
 
     /**
@@ -286,7 +293,14 @@ public class TrialCommonFragment extends DBBaseFragment implements OnRefreshList
     @Override
     public void onConfirmSuccess() {
         stopDialog();
-        mBinding.swipeToLoad.setRefreshing(true);
+        ToastUtil.show("已成功确认参与");
+        if(!mBinding.swipeToLoad.isRefreshEnabled()){
+            mBinding.swipeToLoad.setRefreshEnabled(true);
+            mBinding.swipeToLoad.setRefreshing(true);
+            mBinding.swipeToLoad.setRefreshEnabled(false);
+        }else {
+            mBinding.swipeToLoad.setRefreshing(true);
+        }
     }
 
     @Override

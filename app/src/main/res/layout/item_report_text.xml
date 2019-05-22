@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    android:orientation="vertical"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <EditText
+        android:gravity="top"
+        android:id="@+id/report_editText"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingBottom="@dimen/y40"
+        android:layout_marginLeft="@dimen/x28"
+        android:layout_marginRight="@dimen/x28"
+        android:background="@color/transparent"
+        android:hint="添加正文，使用底部工具栏  A 可让文章另起一行段落，使用底部工具栏  图片  可以给文章插入一张图片"
+        android:lineSpacingExtra="@dimen/y8"
+        android:textColor="@color/color_DE151515"
+        android:textColorHint="@color/color_DEACACAC"
+        android:textSize="15sp"/>
+
+</LinearLayout>

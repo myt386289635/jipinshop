@@ -23,6 +23,7 @@ import com.example.administrator.jipinshop.bean.PagerStateBean;
 import com.example.administrator.jipinshop.bean.PassedMoreBean;
 import com.example.administrator.jipinshop.bean.PointDetailBean;
 import com.example.administrator.jipinshop.bean.RecommendFragmentBean;
+import com.example.administrator.jipinshop.bean.ReportBean;
 import com.example.administrator.jipinshop.bean.ShoppingDetailBean;
 import com.example.administrator.jipinshop.bean.SignBean;
 import com.example.administrator.jipinshop.bean.SignInsertBean;
@@ -533,6 +534,12 @@ public interface APIService {
      */
     @GET("qualityshop-api/api/getStartupImgs")
     Observable<StartPageBean> getStartupImgs();
+
+    /**
+     * 获取我的某个试用品的试用报告
+     */
+    @GET("qualityshop-api/api/my/trial/reportInfo")
+    Observable<ReportBean> myReportInfo(@Query("trialId") String trialId);
 
 /*************************************************以下是还未修改的接口***********************************************/
 

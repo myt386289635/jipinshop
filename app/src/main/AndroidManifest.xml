@@ -336,6 +336,11 @@
         <activity android:name=".activity.order.detail.OrderDetailActivity"
                   android:screenOrientation="portrait"/>
 
+        <!--书写试用报告-->
+        <activity android:name=".activity.sendReport.CreateReportActivity"
+                  android:screenOrientation="portrait"
+                  android:windowSoftInputMode="adjustResize|stateHidden"/>
+
     </application>
 
 </manifest>

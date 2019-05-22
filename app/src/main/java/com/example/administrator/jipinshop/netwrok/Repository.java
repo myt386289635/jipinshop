@@ -22,6 +22,7 @@ import com.example.administrator.jipinshop.bean.PagerStateBean;
 import com.example.administrator.jipinshop.bean.PassedMoreBean;
 import com.example.administrator.jipinshop.bean.PointDetailBean;
 import com.example.administrator.jipinshop.bean.RecommendFragmentBean;
+import com.example.administrator.jipinshop.bean.ReportBean;
 import com.example.administrator.jipinshop.bean.ShoppingDetailBean;
 import com.example.administrator.jipinshop.bean.SignBean;
 import com.example.administrator.jipinshop.bean.SignInsertBean;
@@ -579,5 +580,12 @@ public class Repository {
      */
     public Observable<StartPageBean> getStartupImgs(){
         return mAPIService.getStartupImgs();
+    }
+
+    /**
+     * 获取我的某个试用品的试用报告
+     */
+    public Observable<ReportBean> myReportInfo(String trialId){
+        return mAPIService.myReportInfo(trialId);
     }
 }
