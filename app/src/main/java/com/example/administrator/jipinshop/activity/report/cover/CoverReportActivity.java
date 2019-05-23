@@ -71,6 +71,10 @@ public class CoverReportActivity extends BaseActivity implements View.OnClickLis
                 break;
             case R.id.cover_save:
                 //保存
+                if (TextUtils.isEmpty(Conver)){
+                    ToastUtil.show("封面图片不得为空");
+                    return;
+                }
                 mDialog = (new ProgressDialogView()).createLoadingDialog(this, "请求中...");
                 mDialog.show();
                 Log.e("moxiaoting", getIntent().getStringExtra("content"));
@@ -79,6 +83,10 @@ public class CoverReportActivity extends BaseActivity implements View.OnClickLis
                 break;
             case R.id.cover_submit:
                 //提交
+                if (TextUtils.isEmpty(Conver)){
+                    ToastUtil.show("封面图片不得为空");
+                    return;
+                }
                 mDialog = (new ProgressDialogView()).createLoadingDialog(this, "请求中...");
                 mDialog.show();
                 Log.e("moxiaoting", getIntent().getStringExtra("content"));

@@ -6,7 +6,10 @@ import android.databinding.DataBindingUtil;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.text.Editable;
+import android.text.InputFilter;
 import android.text.TextUtils;
+import android.text.TextWatcher;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.EditText;
@@ -59,6 +62,23 @@ public class CreateReportActivity extends BaseActivity implements View.OnClickLi
         mPresenter.setView(this);
         mPresenter.myReportInfo(getIntent().getStringExtra("trialId"),this.bindToLifecycle());
         mBinding.inClude.titleTv.setText("试用报告");
+        mBinding.reportTitle.setFilters(new InputFilter[]{new InputFilter.LengthFilter(36)});
+        mBinding.reportTitle.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                mBinding.reportTitleLimi.setText(s.length() +"/36");
+            }
+        });
     }
 
     @Override
@@ -66,9 +86,29 @@ public class CreateReportActivity extends BaseActivity implements View.OnClickLi
         switch (v.getId()){
             case R.id.report_next:
                 //下一步
+                if (TextUtils.isEmpty(mBinding.reportTitle.getText().toString())){
+                    ToastUtil.show("标题不能为空");
+                    return;
+                }
                 List<TryDetailBean.DataBean.GoodsContentListBean> dataBeans = new ArrayList<>();
                 for (int i = 0; i < mList.size(); i++) {
                     dataBeans.add(mList.get(i).getDataBean());
+                }
+                int textNum = 0;int imgNum = 0;
+                for (TryDetailBean.DataBean.GoodsContentListBean dataBean : dataBeans) {
+                    if (dataBean.getType().equals("1")) {
+                        textNum = textNum + dataBean.getValue().length();
+                    }else {
+                        imgNum++;
+                    }
+                }
+                if (textNum <= 500){
+                    ToastUtil.show("正文文字不得小于500字");
+                    return;
+                }
+                if (imgNum < 5){
+                    ToastUtil.show("正文图片不得小于5张 ");
+                    return;
                 }
                 String json = new Gson().toJson(dataBeans,new TypeToken<List<TryDetailBean.DataBean.GoodsContentListBean>>(){}.getType());
                 startActivityForResult(new Intent(this, CoverReportActivity.class)
@@ -122,6 +162,7 @@ public class CreateReportActivity extends BaseActivity implements View.OnClickLi
             mBinding.reportTitle.setSelection(mBinding.reportTitle.getText().length());
             mBinding.reportTitle.clearFocus();
             Conver = bean.getData().getImg();
+            mBinding.reportTitleLimi.setText( mBinding.reportTitle.getText().length() +"/36");
         }else {
             //没有提交过报告
             mPresenter.addText(this,mBinding.reportContentContainer,"",mList);
