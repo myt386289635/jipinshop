@@ -541,6 +541,21 @@ public interface APIService {
     @GET("qualityshop-api/api/my/trial/reportInfo")
     Observable<ReportBean> myReportInfo(@Query("trialId") String trialId);
 
+    /**
+     * 保存试用报告(草稿箱)
+     */
+    @FormUrlEncoded
+    @POST("qualityshop-api/api/trial/editReport")
+    Observable<SuccessBean> saveReport(@Field("trialId") String trialId,@Field("title") String title, @Field("img") String img , @Field("content") String content);
+
+    /**
+     * 提交试用报告
+     */
+    @FormUrlEncoded
+    @POST("qualityshop-api/api/trial/addReport")
+    Observable<SuccessBean> submitReport(@Field("trialId") String trialId,@Field("title") String title, @Field("img") String img , @Field("content") String content);
+
+
 /*************************************************以下是还未修改的接口***********************************************/
 
     /**

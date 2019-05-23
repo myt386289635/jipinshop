@@ -1,4 +1,4 @@
-package com.example.administrator.jipinshop.activity.sendReport;
+package com.example.administrator.jipinshop.activity.report.create;
 
 import android.app.Dialog;
 import android.content.Context;
@@ -10,13 +10,13 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.example.administrator.jipinshop.R;
 import com.example.administrator.jipinshop.bean.ImageBean;
 import com.example.administrator.jipinshop.bean.ReportBean;
 import com.example.administrator.jipinshop.bean.ReportContentBean;
+import com.example.administrator.jipinshop.bean.TryDetailBean;
 import com.example.administrator.jipinshop.netwrok.Repository;
 import com.example.administrator.jipinshop.util.DistanceHelper;
 import com.example.administrator.jipinshop.view.glide.GlideApp;
@@ -75,7 +75,7 @@ public class CreateReportPresenter {
     }
 
     public void addText(Context context ,LinearLayout linearLayout, String content,List<ReportContentBean> mList){
-        ReportBean.DataBean dataBean = new ReportBean.DataBean();
+        TryDetailBean.DataBean.GoodsContentListBean dataBean = new TryDetailBean.DataBean.GoodsContentListBean();
         dataBean.setType("1");
         dataBean.setValue("");
         dataBean.setHeight(0);
@@ -84,6 +84,7 @@ public class CreateReportPresenter {
         EditText editText = view.findViewById(R.id.report_editText);
         if (!TextUtils.isEmpty(content)){
             editText.setText(content);
+            dataBean.setValue(content);
             editText.setSelection(editText.getText().length());
         }
         editText.addTextChangedListener(new TextWatcher() {
@@ -111,7 +112,7 @@ public class CreateReportPresenter {
     public void addImge(Context context ,LinearLayout linearLayout, String img,
                         List<ReportContentBean> mList, int imgWidth,int imgHeight,
                         File file){
-        ReportBean.DataBean dataBean = new ReportBean.DataBean();
+        TryDetailBean.DataBean.GoodsContentListBean dataBean = new TryDetailBean.DataBean.GoodsContentListBean();
         dataBean.setType("2");
         dataBean.setValue(img);
         dataBean.setHeight(imgHeight);
@@ -122,9 +123,13 @@ public class CreateReportPresenter {
         layoutParams.width = (int) (DistanceHelper.getAndroiodScreenwidthPixels(context) - context.getResources().getDimension(R.dimen.x28) - context.getResources().getDimension(R.dimen.x28));
         layoutParams.height = imgHeight * layoutParams.width / imgWidth;
         imageView.setLayoutParams(layoutParams);
-        Glide.with(context)
-                .load(file)
-                .into(imageView);
+        if (file == null){
+            GlideApp.loderImage(context,img,imageView,0,0);
+        }else {
+            Glide.with(context)
+                    .load(file)
+                    .into(imageView);
+        }
         linearLayout.addView(view);
         ReportContentBean bean = new ReportContentBean(dataBean);
         bean.setImageView(imageView);

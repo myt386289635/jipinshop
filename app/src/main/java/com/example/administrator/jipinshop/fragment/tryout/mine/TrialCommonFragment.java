@@ -13,7 +13,7 @@ import com.aspsine.swipetoloadlayout.OnLoadMoreListener;
 import com.aspsine.swipetoloadlayout.OnRefreshListener;
 import com.example.administrator.jipinshop.R;
 import com.example.administrator.jipinshop.activity.address.MyAddressActivity;
-import com.example.administrator.jipinshop.activity.sendReport.CreateReportActivity;
+import com.example.administrator.jipinshop.activity.report.create.CreateReportActivity;
 import com.example.administrator.jipinshop.activity.tryout.detail.TryDetailActivity;
 import com.example.administrator.jipinshop.adapter.TrialCommonAdapter;
 import com.example.administrator.jipinshop.base.DBBaseFragment;
@@ -206,9 +206,9 @@ public class TrialCommonFragment extends DBBaseFragment implements OnRefreshList
         if (ClickUtil.isFastDoubleClick(800)) {
             return;
         }else{
-            startActivity(new Intent(getContext(), CreateReportActivity.class)
+            startActivityForResult(new Intent(getContext(), CreateReportActivity.class)
                     .putExtra("trialId",mList.get(position).getId())
-            );
+            ,334);
         }
     }
 
@@ -326,6 +326,19 @@ public class TrialCommonFragment extends DBBaseFragment implements OnRefreshList
             case 333://退出填写收货地址页面后回调
                 if (getArguments().getString("type","").equals("1")){
                     mPresenter.defaultAddress(this.bindToLifecycle());
+                }
+                break;
+        }
+        switch (resultCode){
+            case 334:
+                if (getArguments().getString("type","").equals("1")){
+                    if(!mBinding.swipeToLoad.isRefreshEnabled()){
+                        mBinding.swipeToLoad.setRefreshEnabled(true);
+                        mBinding.swipeToLoad.setRefreshing(true);
+                        mBinding.swipeToLoad.setRefreshEnabled(false);
+                    }else {
+                        mBinding.swipeToLoad.setRefreshing(true);
+                    }
                 }
                 break;
         }

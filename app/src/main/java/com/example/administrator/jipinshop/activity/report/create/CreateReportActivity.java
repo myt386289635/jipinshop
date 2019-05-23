@@ -1,20 +1,22 @@
-package com.example.administrator.jipinshop.activity.sendReport;
+package com.example.administrator.jipinshop.activity.report.create;
 
 import android.app.Dialog;
+import android.content.Intent;
 import android.databinding.DataBindingUtil;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.text.TextUtils;
-import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.EditText;
 
 import com.example.administrator.jipinshop.R;
+import com.example.administrator.jipinshop.activity.report.cover.CoverReportActivity;
 import com.example.administrator.jipinshop.base.BaseActivity;
 import com.example.administrator.jipinshop.bean.ReportBean;
 import com.example.administrator.jipinshop.bean.ReportContentBean;
+import com.example.administrator.jipinshop.bean.TryDetailBean;
 import com.example.administrator.jipinshop.databinding.ActivityCreateReportBinding;
 import com.example.administrator.jipinshop.util.ImageCompressUtil;
 import com.example.administrator.jipinshop.util.ToastUtil;
@@ -41,6 +43,7 @@ public class CreateReportActivity extends BaseActivity implements View.OnClickLi
     private ActivityCreateReportBinding mBinding;
     private List<ReportContentBean> mList;
     private SelectPicDialog mDialog;
+    private String Conver = "";//封面
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -63,12 +66,17 @@ public class CreateReportActivity extends BaseActivity implements View.OnClickLi
         switch (v.getId()){
             case R.id.report_next:
                 //下一步
-                List<ReportBean.DataBean> dataBeans = new ArrayList<>();
+                List<TryDetailBean.DataBean.GoodsContentListBean> dataBeans = new ArrayList<>();
                 for (int i = 0; i < mList.size(); i++) {
                     dataBeans.add(mList.get(i).getDataBean());
                 }
-                String json = new Gson().toJson(dataBeans,new TypeToken<List<ReportBean.DataBean>>(){}.getType());
-                Log.e("CreateReportActivity", json);
+                String json = new Gson().toJson(dataBeans,new TypeToken<List<TryDetailBean.DataBean.GoodsContentListBean>>(){}.getType());
+                startActivityForResult(new Intent(this, CoverReportActivity.class)
+                        .putExtra("content",json)
+                        .putExtra("title",mBinding.reportTitle.getText().toString())
+                        .putExtra("trialId",getIntent().getStringExtra("trialId"))
+                        .putExtra("conver",Conver)
+                ,331);
                 break;
             case R.id.title_back:
                 finish();
@@ -99,9 +107,21 @@ public class CreateReportActivity extends BaseActivity implements View.OnClickLi
 
     @Override
     public void onSuccessReport(ReportBean bean) {
-        if (bean.getData() != null && bean.getData().size() != 0){
+        if (bean.getData() != null){
             //提交过
-
+            List<TryDetailBean.DataBean.GoodsContentListBean> dataBeans = new ArrayList<>();
+            dataBeans.addAll(new Gson().fromJson(bean.getData().getContent(),new TypeToken<List<TryDetailBean.DataBean.GoodsContentListBean>>(){}.getType()));
+            for (TryDetailBean.DataBean.GoodsContentListBean dataBean : dataBeans) {
+                if (dataBean.getType().equals("1")){
+                    mPresenter.addText(this,mBinding.reportContentContainer,dataBean.getValue(),mList);
+                }else {
+                    mPresenter.addImge(this,mBinding.reportContentContainer,dataBean.getValue(),mList,dataBean.getWidth(),dataBean.getHeight(),null);
+                }
+            }
+            mBinding.reportTitle.setText(bean.getData().getTitle());
+            mBinding.reportTitle.setSelection(mBinding.reportTitle.getText().length());
+            mBinding.reportTitle.clearFocus();
+            Conver = bean.getData().getImg();
         }else {
             //没有提交过报告
             mPresenter.addText(this,mBinding.reportContentContainer,"",mList);
@@ -172,5 +192,16 @@ public class CreateReportActivity extends BaseActivity implements View.OnClickLi
     @Override
     public void uploadPicFailed(String error) {
         ToastUtil.show(error);
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        switch (resultCode){
+            case 331:
+                setResult(334);
+                finish();
+                break;
+        }
     }
 }

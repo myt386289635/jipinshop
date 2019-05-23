@@ -588,4 +588,19 @@ public class Repository {
     public Observable<ReportBean> myReportInfo(String trialId){
         return mAPIService.myReportInfo(trialId);
     }
+
+    /**
+     * 保存试用报告(草稿箱)
+     */
+    public Observable<SuccessBean> saveReport(String trialId,  String title, String img , String content){
+        return mAPIService.saveReport(trialId, title, img, content);
+    }
+
+    /**
+     * 提交试用报告
+     */
+    public Observable<SuccessBean> submitReport(String trialId, String title, String img , String content){
+        return mAPIService.submitReport(trialId, title, img, content);
+    }
+
 }

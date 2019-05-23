@@ -22,7 +22,8 @@ import com.example.administrator.jipinshop.activity.message.MessageActivity;
 import com.example.administrator.jipinshop.activity.message.detail.MsgDetailActivity;
 import com.example.administrator.jipinshop.activity.order.MyOrderActivity;
 import com.example.administrator.jipinshop.activity.order.detail.OrderDetailActivity;
-import com.example.administrator.jipinshop.activity.sendReport.CreateReportActivity;
+import com.example.administrator.jipinshop.activity.report.cover.CoverReportActivity;
+import com.example.administrator.jipinshop.activity.report.create.CreateReportActivity;
 import com.example.administrator.jipinshop.activity.setting.SettingActivity;
 import com.example.administrator.jipinshop.activity.setting.opinion.OpinionActivity;
 import com.example.administrator.jipinshop.activity.shoppingdetail.ShoppingDetailActivity;
@@ -82,4 +83,5 @@ public interface BaseActivityComponent {
     void inject(OrderDetailActivity activity);
     void inject(WellComeActivity activity);
     void inject(CreateReportActivity activity);
+    void inject(CoverReportActivity activity);
 }

@@ -1,6 +1,4 @@
-package com.example.administrator.jipinshop.activity.sendReport;
-
-import android.app.Dialog;
+package com.example.administrator.jipinshop.activity.report.create;
 
 import com.example.administrator.jipinshop.bean.ReportBean;
 

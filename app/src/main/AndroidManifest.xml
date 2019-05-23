@@ -337,9 +337,13 @@
                   android:screenOrientation="portrait"/>
 
         <!--书写试用报告-->
-        <activity android:name=".activity.sendReport.CreateReportActivity"
+        <activity android:name=".activity.report.create.CreateReportActivity"
                   android:screenOrientation="portrait"
                   android:windowSoftInputMode="adjustResize|stateHidden"/>
+
+        <!--上传封面-->
+        <activity android:name=".activity.report.cover.CoverReportActivity"
+                  android:screenOrientation="portrait"/>
 
     </application>
 

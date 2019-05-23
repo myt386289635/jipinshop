@@ -10,11 +10,11 @@ import android.widget.ImageView;
  */
 public class ReportContentBean {
 
-    private ReportBean.DataBean mDataBean;
+    private TryDetailBean.DataBean.GoodsContentListBean mDataBean;
     private EditText mEditText;
     private ImageView mImageView;
 
-    public ReportContentBean(ReportBean.DataBean dataBean) {
+    public ReportContentBean(TryDetailBean.DataBean.GoodsContentListBean dataBean) {
         mDataBean = dataBean;
     }
 
@@ -26,11 +26,11 @@ public class ReportContentBean {
         mImageView = imageView;
     }
 
-    public ReportBean.DataBean getDataBean() {
+    public TryDetailBean.DataBean.GoodsContentListBean getDataBean() {
         return mDataBean;
     }
 
-    public void setDataBean(ReportBean.DataBean dataBean) {
+    public void setDataBean(TryDetailBean.DataBean.GoodsContentListBean dataBean) {
         mDataBean = dataBean;
     }
 
