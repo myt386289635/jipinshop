@@ -10,6 +10,7 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 
 import com.bumptech.glide.Glide;
 import com.example.administrator.jipinshop.R;
@@ -119,7 +120,9 @@ public class CreateReportPresenter {
         dataBean.setWidth(imgWidth);
         View view = LayoutInflater.from(context).inflate(R.layout.item_report_img, null);
         ImageView imageView = view.findViewById(R.id.report_img);
-        LinearLayout.LayoutParams layoutParams = (LinearLayout.LayoutParams) imageView.getLayoutParams();
+        RelativeLayout container = view.findViewById(R.id.report_imgContainer);
+        ImageView imageViewClose = view.findViewById(R.id.report_imgClose);
+        RelativeLayout.LayoutParams layoutParams = (RelativeLayout.LayoutParams) imageView.getLayoutParams();
         layoutParams.width = (int) (DistanceHelper.getAndroiodScreenwidthPixels(context) - context.getResources().getDimension(R.dimen.x28) - context.getResources().getDimension(R.dimen.x28));
         layoutParams.height = imgHeight * layoutParams.width / imgWidth;
         imageView.setLayoutParams(layoutParams);
@@ -133,6 +136,10 @@ public class CreateReportPresenter {
         linearLayout.addView(view);
         ReportContentBean bean = new ReportContentBean(dataBean);
         bean.setImageView(imageView);
+        imageViewClose.setOnClickListener(v ->{
+            container.setVisibility(View.GONE);
+            mList.remove(bean);
+        });
         mList.add(bean);
     }
 

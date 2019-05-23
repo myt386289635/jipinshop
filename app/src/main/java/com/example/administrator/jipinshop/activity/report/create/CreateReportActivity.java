@@ -12,6 +12,7 @@ import android.text.TextUtils;
 import android.text.TextWatcher;
 import android.view.MotionEvent;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.EditText;
 
 import com.example.administrator.jipinshop.R;
@@ -78,6 +79,14 @@ public class CreateReportActivity extends BaseActivity implements View.OnClickLi
             public void afterTextChanged(Editable s) {
                 mBinding.reportTitleLimi.setText(s.length() +"/36");
             }
+        });
+        //解决ScrollView中包含EditText在启动的时候滚动
+        mBinding.scrollView.setDescendantFocusability(ViewGroup.FOCUS_BEFORE_DESCENDANTS);
+        mBinding.scrollView.setFocusable(true);
+        mBinding.scrollView.setFocusableInTouchMode(true);
+        mBinding.scrollView.setOnTouchListener((v, event) -> {
+            v.requestFocusFromTouch();
+            return false;
         });
     }
 
