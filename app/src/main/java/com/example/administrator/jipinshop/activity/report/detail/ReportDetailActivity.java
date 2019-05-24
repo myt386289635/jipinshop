@@ -30,6 +30,7 @@ import com.example.administrator.jipinshop.activity.commenlist.CommenListActivit
 import com.example.administrator.jipinshop.activity.home.article.ArticleDetailActivity;
 import com.example.administrator.jipinshop.activity.login.LoginActivity;
 import com.example.administrator.jipinshop.adapter.RelatedArticleAdapter;
+import com.example.administrator.jipinshop.adapter.ReportDetailAdapter;
 import com.example.administrator.jipinshop.adapter.ShoppingCommonAdapter;
 import com.example.administrator.jipinshop.adapter.TryDetailRVAdapter;
 import com.example.administrator.jipinshop.base.BaseActivity;
@@ -129,7 +130,7 @@ public class ReportDetailActivity extends BaseActivity implements View.OnClickLi
 
     private ArrayList<FindDetailBean.DataBean.RelatedGoodsListBean> mBeans;
     //商品详情
-    private TryDetailRVAdapter mRVAdapter;
+    private ReportDetailAdapter mRVAdapter;
     private List<TryDetailBean.DataBean.GoodsContentListBean> mList;
 
     @Override
@@ -149,7 +150,7 @@ public class ReportDetailActivity extends BaseActivity implements View.OnClickLi
 
         mBinding.recyclerView.setLayoutManager(new LinearLayoutManager(this));
         mList = new ArrayList<>();
-        mRVAdapter = new TryDetailRVAdapter(this,mList);
+        mRVAdapter = new ReportDetailAdapter(this,mList);
         mBinding.recyclerView.setAdapter(mRVAdapter);
 
         //用户评论

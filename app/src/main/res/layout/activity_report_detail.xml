@@ -214,8 +214,6 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_below="@+id/detail_Head"
-                    android:layout_marginLeft="@dimen/x14"
-                    android:layout_marginRight="@dimen/x14"
                     android:nestedScrollingEnabled="false"/>
 
                 <com.example.administrator.jipinshop.view.DrawableLeftCenterTextView
@@ -224,7 +222,7 @@
                     android:layout_height="@dimen/y72"
                     android:layout_below="@+id/recycler_view"
                     android:layout_centerHorizontal="true"
-                    android:layout_marginTop="@dimen/y48"
+                    android:layout_marginTop="@dimen/y8"
                     android:background="@drawable/bg_nolike"
                     android:drawableLeft="@mipmap/like_nor"
                     android:drawablePadding="@dimen/x8"
