@@ -13,6 +13,7 @@ import com.aspsine.swipetoloadlayout.OnLoadMoreListener;
 import com.aspsine.swipetoloadlayout.OnRefreshListener;
 import com.example.administrator.jipinshop.R;
 import com.example.administrator.jipinshop.activity.home.article.ArticleDetailActivity;
+import com.example.administrator.jipinshop.activity.report.detail.ReportDetailActivity;
 import com.example.administrator.jipinshop.adapter.SreachFindAdapter;
 import com.example.administrator.jipinshop.adapter.SreachTryAdapter;
 import com.example.administrator.jipinshop.base.DBBaseFragment;
@@ -120,7 +121,10 @@ public class FovalTryFragment extends DBBaseFragment implements OnRefreshListene
                         .putExtra("type","4")
                 );
             }else  if (mList.get(pos).getContentType() == 3){//试用报告：json
-                // TODO: 2019/5/20 试用报告json
+                startActivity(new Intent(getContext(),ReportDetailActivity.class)
+                        .putExtra("id",mList.get(pos).getArticleId())
+                        .putExtra("type","4")
+                );
             }
         }
     }

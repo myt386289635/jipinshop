@@ -11,6 +11,7 @@ import com.aspsine.swipetoloadlayout.OnLoadMoreListener;
 import com.aspsine.swipetoloadlayout.OnRefreshListener;
 import com.example.administrator.jipinshop.R;
 import com.example.administrator.jipinshop.activity.home.article.ArticleDetailActivity;
+import com.example.administrator.jipinshop.activity.report.detail.ReportDetailActivity;
 import com.example.administrator.jipinshop.adapter.TryCommenAdapter;
 import com.example.administrator.jipinshop.base.BaseActivity;
 import com.example.administrator.jipinshop.bean.TryReportBean;
@@ -185,7 +186,10 @@ public class ReportMoreActivity extends BaseActivity implements View.OnClickList
                         .putExtra("type","4")
                 );
             }else if (mList.get(position).getContentType() == 3){
-                // TODO: 2019/5/20 试用报告json
+                startActivity(new Intent(this,ReportDetailActivity.class)
+                        .putExtra("id",mList.get(position).getArticleId())
+                        .putExtra("type","4")
+                );
             }
         }
     }

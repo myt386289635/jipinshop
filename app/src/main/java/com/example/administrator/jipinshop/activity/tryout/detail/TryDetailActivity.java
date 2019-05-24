@@ -27,6 +27,7 @@ import com.example.administrator.jipinshop.R;
 import com.example.administrator.jipinshop.activity.commenlist.CommenListActivity;
 import com.example.administrator.jipinshop.activity.home.article.ArticleDetailActivity;
 import com.example.administrator.jipinshop.activity.login.LoginActivity;
+import com.example.administrator.jipinshop.activity.report.detail.ReportDetailActivity;
 import com.example.administrator.jipinshop.activity.sign.SignActivity;
 import com.example.administrator.jipinshop.activity.tryout.passedMore.PassedMoreActivity;
 import com.example.administrator.jipinshop.activity.tryout.reportMore.ReportMoreActivity;
@@ -620,7 +621,10 @@ public class TryDetailActivity extends BaseActivity implements View.OnClickListe
                         .putExtra("type","4")
                 );
             }else  if (mReportListBeans.get(position).getContentType() == 3){//试用报告：json
-                // TODO: 2019/5/20 试用报告json
+                startActivity(new Intent(this,ReportDetailActivity.class)
+                        .putExtra("id",mReportListBeans.get(position).getArticleId())
+                        .putExtra("type","4")
+                );
             }
         }
     }

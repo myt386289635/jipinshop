@@ -345,6 +345,11 @@
         <activity android:name=".activity.report.cover.CoverReportActivity"
                   android:screenOrientation="portrait"/>
 
+        <!--json串的试用报告详情-->
+        <activity android:name=".activity.report.detail.ReportDetailActivity"
+                  android:screenOrientation="portrait"
+                  android:windowSoftInputMode="adjustResize|stateHidden"/>
+
     </application>
 
 </manifest>

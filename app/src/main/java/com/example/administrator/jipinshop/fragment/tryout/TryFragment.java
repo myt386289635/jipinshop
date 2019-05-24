@@ -13,6 +13,7 @@ import com.blankj.utilcode.util.SPUtils;
 import com.example.administrator.jipinshop.R;
 import com.example.administrator.jipinshop.activity.home.article.ArticleDetailActivity;
 import com.example.administrator.jipinshop.activity.login.LoginActivity;
+import com.example.administrator.jipinshop.activity.report.detail.ReportDetailActivity;
 import com.example.administrator.jipinshop.activity.tryout.TryAllActivity;
 import com.example.administrator.jipinshop.activity.tryout.TryReportActivity;
 import com.example.administrator.jipinshop.activity.tryout.detail.TryDetailActivity;
@@ -159,7 +160,10 @@ public class TryFragment extends DBBaseFragment implements OnRefreshListener, Tr
                         .putExtra("type","4")
                 );
             }else  if (mReportListBeans.get(position).getContentType() == 3){//试用报告：json
-                // TODO: 2019/5/20 试用报告json
+                startActivity(new Intent(getContext(),ReportDetailActivity.class)
+                        .putExtra("id",mReportListBeans.get(position).getArticleId())
+                        .putExtra("type","4")
+                );
             }
         }
     }
