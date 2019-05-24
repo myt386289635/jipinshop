@@ -610,11 +610,4 @@ public class Repository {
         return mAPIService.myReportList(page);
     }
 
-    /**
-     * 试用报告详情(json串)
-     */
-    public Observable<FindDetailBean> reportDetail(String articleId){
-        return mAPIService.reportDetail(articleId);
-    }
-
 }

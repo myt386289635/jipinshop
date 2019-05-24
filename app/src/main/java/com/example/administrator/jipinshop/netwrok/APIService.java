@@ -561,12 +561,6 @@ public interface APIService {
     @GET("qualityshop-api/api/my/trial/reportList")
     Observable<SreachResultArticlesBean> myReportList(@Query("page") String page);
 
-    /**
-     * 试用报告详情(json串)
-     */
-    @GET("qualityshop-api/api/trial/reportDetail")
-    Observable<FindDetailBean> reportDetail(@Query("articleId") String articleId);
-
 /*************************************************以下是还未修改的接口***********************************************/
 
     /**
