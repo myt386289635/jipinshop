@@ -555,6 +555,11 @@ public interface APIService {
     @POST("qualityshop-api/api/trial/addReport")
     Observable<SuccessBean> submitReport(@Field("trialId") String trialId,@Field("title") String title, @Field("img") String img , @Field("content") String content);
 
+    /**
+     * 我的试用报告
+     */
+    @GET("qualityshop-api/api/my/trial/reportList")
+    Observable<SreachResultArticlesBean> myReportList(@Query("page") String page);
 
 /*************************************************以下是还未修改的接口***********************************************/
 

@@ -603,4 +603,11 @@ public class Repository {
         return mAPIService.submitReport(trialId, title, img, content);
     }
 
+    /**
+     * 我的试用报告  （成功报告）
+     */
+    public Observable<SreachResultArticlesBean> myReportList(String page){
+        return mAPIService.myReportList(page);
+    }
+
 }
