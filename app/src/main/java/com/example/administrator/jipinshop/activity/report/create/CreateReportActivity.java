@@ -218,7 +218,7 @@ public class CreateReportActivity extends BaseActivity implements View.OnClickLi
         Dialog mDialog = (new ProgressDialogView()).createLoadingDialog(this, "请求中...");
         mDialog.show();
         //这里进行了图片旋转后得到新图片
-        picFile = ImageCompressUtil.getPicture(this,picFile);
+        picFile = ImageCompressUtil.getimage(this,ImageCompressUtil.getPicture(this,picFile));
         BitmapFactory.Options options = new BitmapFactory.Options();
         options.inJustDecodeBounds = true;
         BitmapFactory.decodeFile(picFile, options);
