@@ -156,7 +156,7 @@ public class CreateReportActivity extends BaseActivity implements View.OnClickLi
 
     @Override
     public void onSuccessReport(ReportBean bean) {
-        if (bean.getData() != null){
+        if (bean.getData() != null && !TextUtils.isEmpty(bean.getData().getContent())){
             //提交过
             List<TryDetailBean.DataBean.GoodsContentListBean> dataBeans = new ArrayList<>();
             dataBeans.addAll(new Gson().fromJson(bean.getData().getContent(),new TypeToken<List<TryDetailBean.DataBean.GoodsContentListBean>>(){}.getType()));
