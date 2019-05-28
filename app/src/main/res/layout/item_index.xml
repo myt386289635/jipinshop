@@ -5,18 +5,18 @@
     android:layout_height="match_parent">
 
     <ImageView
-        android:scaleType="centerCrop"
+        android:scaleType="fitXY"
         android:id="@+id/recommend_img_rotate"
         android:layout_width="match_parent"
         android:layout_height="match_parent"/>
     
     <TextView
         android:id="@+id/index_into"
-        android:layout_marginBottom="@dimen/x34"
+        android:paddingBottom="@dimen/y100"
         android:layout_centerHorizontal="true"
         android:layout_alignParentBottom="true"
-        android:layout_width="@dimen/x234"
-        android:layout_height="@dimen/x62"/>
+        android:layout_width="@dimen/x300"
+        android:layout_height="wrap_content"/>
     
 </RelativeLayout>
 
