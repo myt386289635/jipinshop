@@ -197,7 +197,13 @@ public class MessageActivity extends BaseActivity implements View.OnClickListene
     public  void  unMessage(String s){
         if(!TextUtils.isEmpty(s) && s.equals(JPushReceiver.TAG)){
             if(mBinding != null && mBinding.swipeToLoad != null && !mBinding.swipeToLoad.isRefreshing()){
-                mBinding.swipeToLoad.setRefreshing(true);
+                if (!mBinding.swipeToLoad.isRefreshEnabled()) {
+                    mBinding.swipeToLoad.setRefreshEnabled(true);
+                    mBinding.swipeToLoad.setRefreshing(true);
+                    mBinding.swipeToLoad.setRefreshEnabled(false);
+                } else {
+                    mBinding.swipeToLoad.setRefreshing(true);
+                }
             }
         }
     }

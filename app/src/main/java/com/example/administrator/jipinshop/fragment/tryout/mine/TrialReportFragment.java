@@ -164,7 +164,7 @@ public class TrialReportFragment extends DBBaseFragment implements TrialReportVi
             }
         }else {
             if(refersh){
-                initError(R.mipmap.qs_collection, "暂无数据", "暂时没有任何数据 ");
+                initError(R.mipmap.qs_nodata, "暂无数据", "暂时没有任何数据 ");
                 mBinding.recyclerView.setVisibility(View.GONE);
             }else {
                 page-- ;
