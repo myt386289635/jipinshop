@@ -53,19 +53,13 @@ public class OKHttpModule {
     OkHttpClient.Builder provideOkHttpClientBuilder(SSLSocketFactory sslSocketFactory) {
         HttpLoggingInterceptor loggingInterceptor = new HttpLoggingInterceptor();
         OkHttpClient.Builder builder = new OkHttpClient.Builder();
+        builder.connectTimeout(CONNECT_TIME_OUT, TimeUnit.SECONDS).
+                writeTimeout(WRITE_TIME_OUT, TimeUnit.SECONDS).
+                readTimeout(READ_TIME_OUT, TimeUnit.SECONDS).
+                retryOnConnectionFailure(true).
+                addInterceptor(loggingInterceptor);
         if (sslSocketFactory != null){
-            builder.connectTimeout(CONNECT_TIME_OUT, TimeUnit.SECONDS).
-                    writeTimeout(WRITE_TIME_OUT, TimeUnit.SECONDS).
-                    readTimeout(READ_TIME_OUT, TimeUnit.SECONDS).
-                    retryOnConnectionFailure(true).
-                    sslSocketFactory(sslSocketFactory).
-                    addInterceptor(loggingInterceptor);
-        }else {
-            builder.connectTimeout(CONNECT_TIME_OUT, TimeUnit.SECONDS).
-                    writeTimeout(WRITE_TIME_OUT, TimeUnit.SECONDS).
-                    readTimeout(READ_TIME_OUT, TimeUnit.SECONDS).
-                    retryOnConnectionFailure(true).
-                    addInterceptor(loggingInterceptor);
+            builder.sslSocketFactory(sslSocketFactory);
         }
         return builder;
     }
