@@ -105,11 +105,13 @@ public class SreachGoodsAdapter extends RecyclerView.Adapter<SreachGoodsAdapter.
 
         public void initTags(FlexboxLayout flexboxLayout, int pos) {
             flexboxLayout.removeAllViews();
-            for (int i = 0; i < mList.get(pos).getGoodsTagsList().size(); i++) {
-                View itemTypeView = LayoutInflater.from(mContext).inflate(R.layout.item_goodstag, null);
-                TextView textView = itemTypeView.findViewById(R.id.item_tag);
-                textView.setText(mList.get(pos).getGoodsTagsList().get(i).getName());
-                flexboxLayout.addView(itemTypeView);
+            if (mList.get(pos).getGoodsTagsList() != null){
+                for (int i = 0; i < mList.get(pos).getGoodsTagsList().size(); i++) {
+                    View itemTypeView = LayoutInflater.from(mContext).inflate(R.layout.item_goodstag, null);
+                    TextView textView = itemTypeView.findViewById(R.id.item_tag);
+                    textView.setText(mList.get(pos).getGoodsTagsList().get(i).getName());
+                    flexboxLayout.addView(itemTypeView);
+                }
             }
         }
     }
