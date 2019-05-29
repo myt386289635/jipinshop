@@ -508,7 +508,7 @@ public interface APIService {
      * 试用品查看全部试用报告
      */
     @GET("qualityshop-api/api/trial/reportAllList")
-    Observable<TryReportBean> reportAllList(@Query("page") String page , @Query("goodsId") String goodsId);
+    Observable<TryReportBean> reportAllList(@Query("page") String page , @Query("trialId") String goodsId);
 
     /**
      * 拉赞排行

@@ -62,8 +62,8 @@ public class ReportMorePresenter {
     }
 
 
-    public void reportAllList(String page ,String goodsId , LifecycleTransformer<TryReportBean> ransformer){
-        mRepository.reportAllList(page, goodsId)
+    public void reportAllList(String page ,String trialId , LifecycleTransformer<TryReportBean> ransformer){
+        mRepository.reportAllList(page, trialId)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .compose(ransformer)

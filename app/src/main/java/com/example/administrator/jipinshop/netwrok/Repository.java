@@ -550,8 +550,8 @@ public class Repository {
     /**
      * 试用品查看全部试用报告
      */
-    public  Observable<TryReportBean> reportAllList( String page ,String goodsId){
-        return mAPIService.reportAllList(page, goodsId);
+    public  Observable<TryReportBean> reportAllList( String page ,String trialId){
+        return mAPIService.reportAllList(page, trialId);
     }
 
     /**

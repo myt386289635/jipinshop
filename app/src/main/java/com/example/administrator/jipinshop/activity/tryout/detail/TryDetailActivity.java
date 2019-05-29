@@ -285,7 +285,7 @@ public class TryDetailActivity extends BaseActivity implements View.OnClickListe
                     );
                 }else if(mBinding.detailApply.getText().toString().equals("查看试用报告")){
                     startActivity(new Intent(this, ReportMoreActivity.class)
-                            .putExtra("id",mTryDetailBean.getData().getGoodsId())
+                            .putExtra("id",getIntent().getStringExtra("id"))
                     );
                 }
 
@@ -364,7 +364,7 @@ public class TryDetailActivity extends BaseActivity implements View.OnClickListe
                     return;
                 }
                 startActivity(new Intent(this, ReportMoreActivity.class)
-                        .putExtra("id",mTryDetailBean.getData().getGoodsId())
+                        .putExtra("id",getIntent().getStringExtra("id"))
                 );
                 break;
         }
