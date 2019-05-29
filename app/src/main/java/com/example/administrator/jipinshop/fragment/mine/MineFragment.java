@@ -71,6 +71,13 @@ public class MineFragment extends DBBaseFragment implements View.OnClickListener
 
         mPresenter.setStatusBarHight(mBinding.statusBar, getContext());
         mPresenter.setView(this);
+
+        mBinding.scrollView.setOnScrollListener(scrollY -> {
+            float a = scrollY;
+            float b = a / 1000;
+            float max = (float) Math.min(1, b * 3);
+            mBinding.mineHeadView.setAlpha(max);
+        });
     }
 
     @Override
