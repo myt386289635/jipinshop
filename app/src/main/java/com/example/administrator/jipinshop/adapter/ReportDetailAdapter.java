@@ -75,7 +75,7 @@ public class ReportDetailAdapter extends RecyclerView.Adapter{
                 imgViewHolder.mImageViewClose.setVisibility(View.GONE);
                 RelativeLayout.LayoutParams layoutParams = (RelativeLayout.LayoutParams) imgViewHolder.mImageView.getLayoutParams();
                 layoutParams.width = (int) (DistanceHelper.getAndroiodScreenwidthPixels(mContext) - mContext.getResources().getDimension(R.dimen.x28) - mContext.getResources().getDimension(R.dimen.x28));
-                layoutParams.height = mList.get(position).getHeight() * layoutParams.width / mList.get(position).getWidth();
+                layoutParams.height = (int) (mList.get(position).getHeight() * layoutParams.width / mList.get(position).getWidth());
                 imgViewHolder.mImageView.setLayoutParams(layoutParams);
                 break;
         }

@@ -499,22 +499,22 @@ public class TryDetailBean {
 
             private String type;
             private String value;
-            private int height;
-            private int width;
+            private double height;
+            private double width;
 
-            public int getHeight() {
+            public double getHeight() {
                 return height;
             }
 
-            public void setHeight(int height) {
+            public void setHeight(double height) {
                 this.height = height;
             }
 
-            public int getWidth() {
+            public double getWidth() {
                 return width;
             }
 
-            public void setWidth(int width) {
+            public void setWidth(double width) {
                 this.width = width;
             }
 

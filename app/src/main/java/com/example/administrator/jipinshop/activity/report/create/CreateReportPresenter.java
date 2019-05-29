@@ -111,7 +111,7 @@ public class CreateReportPresenter {
     }
 
     public void addImge(Context context ,LinearLayout linearLayout, String img,
-                        List<ReportContentBean> mList, int imgWidth,int imgHeight,
+                        List<ReportContentBean> mList, double imgWidth,double imgHeight,
                         File file){
         TryDetailBean.DataBean.GoodsContentListBean dataBean = new TryDetailBean.DataBean.GoodsContentListBean();
         dataBean.setType("2");
@@ -124,7 +124,7 @@ public class CreateReportPresenter {
         ImageView imageViewClose = view.findViewById(R.id.report_imgClose);
         RelativeLayout.LayoutParams layoutParams = (RelativeLayout.LayoutParams) imageView.getLayoutParams();
         layoutParams.width = (int) (DistanceHelper.getAndroiodScreenwidthPixels(context) - context.getResources().getDimension(R.dimen.x28) - context.getResources().getDimension(R.dimen.x28));
-        layoutParams.height = imgHeight * layoutParams.width / imgWidth;
+        layoutParams.height = (int) (imgHeight * layoutParams.width / imgWidth);
         imageView.setLayoutParams(layoutParams);
         if (file == null){
             GlideApp.loderImage(context,img,imageView,0,0);

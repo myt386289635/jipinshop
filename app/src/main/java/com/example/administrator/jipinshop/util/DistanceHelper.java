@@ -1,6 +1,7 @@
 package com.example.administrator.jipinshop.util;
 
 import android.content.Context;
+import android.os.Build;
 import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.WindowManager;
@@ -20,7 +21,11 @@ public class DistanceHelper {
     public static int getAndroiodScreenProperty(Context context) {
         WindowManager wm = (WindowManager) context.getSystemService(Context.WINDOW_SERVICE);
         DisplayMetrics dm = new DisplayMetrics();
-        wm.getDefaultDisplay().getMetrics(dm);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR1) {
+            wm.getDefaultDisplay().getRealMetrics(dm);
+        }else {
+            wm.getDefaultDisplay().getMetrics(dm);
+        }
         int width = dm.widthPixels;         // 屏幕宽度（像素）
         int height = dm.heightPixels;       // 屏幕高度（像素）
         float density = dm.density;         // 屏幕密度（0.75 / 1.0 / 1.5）
@@ -42,9 +47,12 @@ public class DistanceHelper {
     public static int getAndroiodScreenwidthPixels(Context context) {
         WindowManager wm = (WindowManager) context.getSystemService(Context.WINDOW_SERVICE);
         DisplayMetrics dm = new DisplayMetrics();
-        wm.getDefaultDisplay().getMetrics(dm);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR1) {
+            wm.getDefaultDisplay().getRealMetrics(dm);
+        }else {
+            wm.getDefaultDisplay().getMetrics(dm);
+        }
         int width = dm.widthPixels;         // 屏幕宽度（像素）
-
         Log.e("h_bl", "屏幕宽度（像素）：" + width);
         return width;
     }
@@ -53,7 +61,11 @@ public class DistanceHelper {
     public static int getAndroiodScreenheightPixels(Context context) {
         WindowManager wm = (WindowManager) context.getSystemService(Context.WINDOW_SERVICE);
         DisplayMetrics dm = new DisplayMetrics();
-        wm.getDefaultDisplay().getMetrics(dm);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR1) {
+            wm.getDefaultDisplay().getRealMetrics(dm);
+        }else {
+            wm.getDefaultDisplay().getMetrics(dm);
+        }
         int height = dm.heightPixels;       // 屏幕高度（像素）
         Log.e("h_bl", "屏幕高度（像素）：" + height);
         return height;
