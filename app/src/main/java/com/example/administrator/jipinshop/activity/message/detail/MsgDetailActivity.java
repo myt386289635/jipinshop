@@ -48,7 +48,7 @@ public class MsgDetailActivity extends BaseActivity implements MsgDetailView {
     private void initView() {
         mTitleBack.setOnClickListener(v -> finish());
         mTitleTv.setText(getIntent().getStringExtra("title"));
-        mDetailContent.setText("\t\t\t\t" + getIntent().getStringExtra("content"));
+        mDetailContent.setText(getIntent().getStringExtra("content"));
         mPresenter.readMsg(getIntent().getStringExtra("id"),this.bindToLifecycle());
     }
 
