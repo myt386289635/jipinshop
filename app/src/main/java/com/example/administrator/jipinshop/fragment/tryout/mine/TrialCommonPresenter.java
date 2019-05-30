@@ -8,6 +8,7 @@ import com.example.administrator.jipinshop.bean.DefaultAddressBean;
 import com.example.administrator.jipinshop.bean.SuccessBean;
 import com.example.administrator.jipinshop.bean.TrialCommonBean;
 import com.example.administrator.jipinshop.netwrok.Repository;
+import com.example.administrator.jipinshop.util.ToastUtil;
 import com.trello.rxlifecycle2.LifecycleTransformer;
 
 import javax.inject.Inject;
@@ -37,19 +38,20 @@ public class TrialCommonPresenter {
     }
 
     public void solveScoll(RecyclerView mRecyclerView, final SwipeToLoadLayout mSwipeToLoad){
+        RecyclerView.LayoutManager layoutManager = mRecyclerView.getLayoutManager();
+        LinearLayoutManager linearManager = (LinearLayoutManager) layoutManager;
         mRecyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
             @Override
             public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
                 super.onScrolled(recyclerView, dx, dy);
-                RecyclerView.LayoutManager layoutManager = mRecyclerView.getLayoutManager();
-                LinearLayoutManager linearManager = (LinearLayoutManager) layoutManager;
-                mSwipeToLoad.setRefreshEnabled(linearManager.findFirstCompletelyVisibleItemPosition() == 0);
                 mSwipeToLoad.setLoadMoreEnabled(isSlideToBottom(mRecyclerView));
             }
 
             @Override
             public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
                 super.onScrollStateChanged(recyclerView, newState);
+                //完美解决提交报告后页面移动到第一位时无法刷新
+                mSwipeToLoad.setRefreshEnabled(linearManager.findFirstCompletelyVisibleItemPosition() == 0);
             }
         });
     }
