@@ -5,7 +5,12 @@ import android.databinding.DataBindingUtil;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
 
 import com.blankj.utilcode.util.SPUtils;
 import com.example.administrator.jipinshop.R;
@@ -25,12 +30,13 @@ import java.util.List;
  * @create 2018/9/1
  * @Describe 引导页
  */
-public class IndexActivity extends AppCompatActivity implements IndexAdapter.OnLick {
+public class IndexActivity extends AppCompatActivity implements IndexAdapter.OnLick, ViewPager.OnPageChangeListener {
 
     private ActivityIndexBinding mBinding;
 
     private IndexAdapter mAdapter;
     private List<Integer> mList;
+    private List<ImageView> point;
     private ImmersionBar mImmersionBar;
 
     private Boolean tag = true;
@@ -50,6 +56,7 @@ public class IndexActivity extends AppCompatActivity implements IndexAdapter.OnL
                 .init();
 
         mList = new ArrayList<>();
+        point = new ArrayList<>();
         mList.add(R.mipmap.guide_android1);
         mList.add(R.mipmap.guide_android2);
         mList.add(R.mipmap.guide_android3);
@@ -57,6 +64,8 @@ public class IndexActivity extends AppCompatActivity implements IndexAdapter.OnL
         mAdapter = new IndexAdapter(this,mList);
         mAdapter.setOnLick(this);
         mBinding.viewPager.setAdapter(mAdapter);
+        mBinding.viewPager.setOffscreenPageLimit(mList.size() -1);
+        initBanner();
     }
 
     @Override
@@ -74,5 +83,48 @@ public class IndexActivity extends AppCompatActivity implements IndexAdapter.OnL
             finish();
             tag = false;
         }
+    }
+
+    public void initBanner(){
+        for (int i = 0; i < mList.size(); i++) {
+            ImageView imageView = new ImageView(this);
+            point.add(imageView);
+            if (i == 0) {
+                imageView.setImageResource(R.drawable.banner_down);
+            } else {
+                imageView.setImageResource(R.drawable.banner_up);
+            }
+            LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+            layoutParams.leftMargin =getResources().getDimensionPixelSize(R.dimen.x4);
+            layoutParams.rightMargin = getResources().getDimensionPixelSize(R.dimen.x4);
+            mBinding.detailPoint.addView(imageView, layoutParams);
+        }
+        mBinding.viewPager.addOnPageChangeListener(this);
+    }
+
+    @Override
+    public void onPageScrolled(int i, float v, int i1) {
+
+    }
+
+    @Override
+    public void onPageSelected(int position) {
+        if ( position == 3){
+            mBinding.detailPoint.setVisibility(View.GONE);
+        }else {
+            mBinding.detailPoint.setVisibility(View.VISIBLE);
+        }
+        for (int i = 0; i < point.size(); i++) {
+            if (i == position){
+                point.get(i).setImageResource(R.drawable.banner_down);
+            }else {
+                point.get(i).setImageResource(R.drawable.banner_up);
+            }
+        }
+    }
+
+    @Override
+    public void onPageScrollStateChanged(int i) {
+
     }
 }
