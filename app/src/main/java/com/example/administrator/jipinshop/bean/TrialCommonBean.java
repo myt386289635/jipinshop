@@ -74,6 +74,15 @@ public class TrialCommonBean {
         private String voteShareUrl;
         private String voteShareImg;
         private String activitiesEndTime;
+        private String confirmTime;
+
+        public String getConfirmTime() {
+            return confirmTime;
+        }
+
+        public void setConfirmTime(String confirmTime) {
+            this.confirmTime = confirmTime;
+        }
 
         public String getActivitiesEndTime() {
             return activitiesEndTime;
