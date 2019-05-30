@@ -250,6 +250,7 @@ public class TrialCommonFragment extends DBBaseFragment implements OnRefreshList
             } else {
                 page--;
                 ToastUtil.show("已经是最后一页了");
+                if (mBinding.swipeToLoad.isLoadMoreEnabled())  mBinding.swipeToLoad.setLoadMoreEnabled(mPresenter.isSlideToBottom( mBinding.recyclerView));
             }
         }
         if(once[0]){
@@ -330,7 +331,7 @@ public class TrialCommonFragment extends DBBaseFragment implements OnRefreshList
                 break;
         }
         switch (resultCode){
-            case 334:
+            case 334://提交或者保存报告回来后
                 if (getArguments().getString("type","").equals("1")){
                     if(!mBinding.swipeToLoad.isRefreshEnabled()){
                         mBinding.swipeToLoad.setRefreshEnabled(true);
