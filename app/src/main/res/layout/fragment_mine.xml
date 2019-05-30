@@ -402,7 +402,8 @@
                             android:layout_alignParentRight="true"
                             android:layout_centerVertical="true"
                             android:layout_marginRight="@dimen/x32"
-                            android:src="@mipmap/right_ash2"/>
+                            android:src="@mipmap/right"
+                            android:tint="@color/color_8F8F8F"/>
 
                         <View
                             android:layout_width="match_parent"
@@ -450,7 +451,8 @@
                             android:layout_alignParentRight="true"
                             android:layout_centerVertical="true"
                             android:layout_marginRight="@dimen/x32"
-                            android:src="@mipmap/right_ash2"/>
+                            android:src="@mipmap/right"
+                            android:tint="@color/color_8F8F8F"/>
 
                         <View
                             android:layout_width="match_parent"
@@ -482,7 +484,8 @@
                             android:layout_alignParentRight="true"
                             android:layout_centerVertical="true"
                             android:layout_marginRight="@dimen/x32"
-                            android:src="@mipmap/right_ash2"/>
+                            android:src="@mipmap/right"
+                            android:tint="@color/color_8F8F8F"/>
 
                         <View
                             android:layout_width="match_parent"
@@ -514,7 +517,8 @@
                             android:layout_alignParentRight="true"
                             android:layout_centerVertical="true"
                             android:layout_marginRight="@dimen/x32"
-                            android:src="@mipmap/right_ash2"/>
+                            android:src="@mipmap/right"
+                            android:tint="@color/color_8F8F8F"/>
 
                         <View
                             android:layout_width="match_parent"
@@ -546,7 +550,8 @@
                             android:layout_alignParentRight="true"
                             android:layout_centerVertical="true"
                             android:layout_marginRight="@dimen/x32"
-                            android:src="@mipmap/right_ash2"/>
+                            android:src="@mipmap/right"
+                            android:tint="@color/color_8F8F8F"/>
 
                         <View
                             android:layout_width="match_parent"
@@ -578,7 +583,8 @@
                             android:layout_alignParentRight="true"
                             android:layout_centerVertical="true"
                             android:layout_marginRight="@dimen/x32"
-                            android:src="@mipmap/right_ash2"/>
+                            android:src="@mipmap/right"
+                            android:tint="@color/color_8F8F8F"/>
 
 
                     </RelativeLayout>

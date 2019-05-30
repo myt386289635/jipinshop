@@ -35,7 +35,8 @@
                 android:layout_alignParentRight="true"
                 android:layout_centerVertical="true"
                 android:layout_marginRight="@dimen/x28"
-                android:background="@mipmap/right_ash1"/>
+                android:background="@mipmap/right"
+                android:tint="@color/color_ACACAC"/>
 
             <ImageView
                 android:id="@+id/info_image"
@@ -44,13 +45,13 @@
                 android:layout_marginBottom="@dimen/x24"
                 android:layout_marginRight="@dimen/x26"
                 android:layout_marginTop="@dimen/x24"
-                android:layout_toLeftOf="@id/info_line"
+                android:layout_toLeftOf="@+id/info_line"
                 tools:src="#f56"/>
 
             <View
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/x2"
-                android:layout_below="@id/info_image"
+                android:layout_below="@+id/info_image"
                 android:layout_marginLeft="@dimen/x28"
                 android:layout_marginRight="@dimen/x28"
                 android:background="@color/color_F5F5F5"/>
@@ -101,7 +102,7 @@
             <View
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/x2"
-                android:layout_below="@id/info_nameText"
+                android:layout_below="@+id/info_nameText"
                 android:layout_marginLeft="@dimen/x28"
                 android:layout_marginRight="@dimen/x28"
                 android:background="@color/color_F5F5F5"/>
@@ -140,7 +141,7 @@
             <View
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/x2"
-                android:layout_below="@id/info_sexText"
+                android:layout_below="@+id/info_sexText"
                 android:layout_marginLeft="@dimen/x28"
                 android:layout_marginRight="@dimen/x28"
                 android:background="@color/color_F5F5F5"/>
@@ -180,7 +181,7 @@
             <View
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/x2"
-                android:layout_below="@id/info_birthText"
+                android:layout_below="@+id/info_birthText"
                 android:layout_marginLeft="@dimen/x28"
                 android:layout_marginRight="@dimen/x28"
                 android:background="@color/color_F5F5F5"/>
@@ -210,7 +211,8 @@
                 android:layout_alignParentRight="true"
                 android:layout_centerVertical="true"
                 android:layout_marginRight="@dimen/x28"
-                android:background="@mipmap/right_ash1"/>
+                android:src="@mipmap/right"
+                android:tint="@color/color_ACACAC"/>
 
 
             <ImageView
@@ -220,7 +222,7 @@
                 android:src="@mipmap/weibo_nor"
                 android:layout_marginRight="@dimen/x10"
                 android:layout_centerVertical="true"
-                android:layout_toLeftOf="@id/info_numberLine"
+                android:layout_toLeftOf="@+id/info_numberLine"
                 android:layout_width="@dimen/x38"
                 android:layout_height="@dimen/y38"/>
 
@@ -230,7 +232,7 @@
                 android:src="@mipmap/wechat_nor"
                 android:layout_marginRight="@dimen/x18"
                 android:layout_centerVertical="true"
-                android:layout_toLeftOf="@id/info_numberWeiBo"
+                android:layout_toLeftOf="@+id/info_numberWeiBo"
                 android:layout_width="@dimen/x38"
                 android:layout_height="@dimen/y38"/>
 
@@ -240,14 +242,14 @@
                 android:src="@mipmap/phone_nor"
                 android:layout_marginRight="@dimen/x18"
                 android:layout_centerVertical="true"
-                android:layout_toLeftOf="@id/info_numberWechat"
+                android:layout_toLeftOf="@+id/info_numberWechat"
                 android:layout_width="@dimen/x38"
                 android:layout_height="@dimen/y38"/>
 
             <View
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/x2"
-                android:layout_below="@id/info_numberText"
+                android:layout_below="@+id/info_numberText"
                 android:layout_marginLeft="@dimen/x28"
                 android:layout_marginRight="@dimen/x28"
                 android:background="@color/color_F5F5F5"/>

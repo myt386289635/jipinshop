@@ -88,7 +88,8 @@
                 android:layout_alignParentRight="true"
                 android:layout_centerVertical="true"
                 android:layout_marginRight="@dimen/x28"
-                android:src="@mipmap/right_ash1"/>
+                android:src="@mipmap/right"
+                android:tint="@color/color_ACACAC"/>
 
 
         </RelativeLayout>
