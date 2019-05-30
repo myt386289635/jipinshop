@@ -83,6 +83,7 @@ public class MyApplication extends Application {
     @Override
     public void onCreate() {
         super.onCreate();
+        DebugHelper.syncIsDebug(this);
         String curProcessName = getProcessName(android.os.Process.myPid());
         if (curProcessName!= null && !curProcessName.equals(getPackageName())) {
             return;
@@ -93,7 +94,6 @@ public class MyApplication extends Application {
                         .build();
         mApplicationComponent.inject(this);
         Utils.init(instance);
-        DebugHelper.syncIsDebug(this);
         //初始化阿里百川
         initAlibcTradeSDK();
 
