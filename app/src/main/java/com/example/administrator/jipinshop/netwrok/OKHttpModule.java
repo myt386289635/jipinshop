@@ -28,6 +28,7 @@ import java.util.concurrent.TimeUnit;
 import javax.net.ssl.SSLContext;
 import javax.net.ssl.SSLSocketFactory;
 import javax.net.ssl.TrustManager;
+import javax.net.ssl.X509TrustManager;
 
 import dagger.Module;
 import dagger.Provides;
@@ -38,6 +39,7 @@ import okhttp3.Request;
 import okhttp3.RequestBody;
 import okhttp3.Response;
 import okhttp3.ResponseBody;
+import okhttp3.internal.platform.Platform;
 import okhttp3.logging.HttpLoggingInterceptor;
 import okio.Buffer;
 
@@ -59,7 +61,10 @@ public class OKHttpModule {
                 retryOnConnectionFailure(true).
                 addInterceptor(loggingInterceptor);
         if (sslSocketFactory != null){
-            builder.sslSocketFactory(sslSocketFactory);
+            X509TrustManager trustManager = Platform.get().trustManager(sslSocketFactory);
+            if (trustManager != null){
+                builder.sslSocketFactory(sslSocketFactory,trustManager);
+            }
         }
         return builder;
     }
