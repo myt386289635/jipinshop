@@ -1,21 +1,23 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout
+    android:id="@+id/Container"
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
     <ImageView
-        android:scaleType="fitXY"
+        android:scaleType="fitCenter"
         android:id="@+id/recommend_img_rotate"
         android:layout_width="match_parent"
         android:layout_height="match_parent"/>
     
-    <TextView
+    <ImageView
+        android:layout_alignBottom="@+id/recommend_img_rotate"
+        android:src="@mipmap/guide_start"
         android:id="@+id/index_into"
-        android:paddingBottom="@dimen/y100"
+        android:layout_marginBottom="@dimen/y40"
         android:layout_centerHorizontal="true"
-        android:layout_alignParentBottom="true"
-        android:layout_width="@dimen/x300"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"/>
     
 </RelativeLayout>
