@@ -42,7 +42,7 @@ public class WellComeActivity extends BaseActivity implements WellComeView {
 //        mPresenter.getStartupImgs(this.bindToLifecycle());
         mImageView = findViewById(R.id.well_image);
 //        if (TextUtils.isEmpty(SPUtils.getInstance().getString(CommonDate.startPage,""))){
-            mImageView.setImageResource(R.mipmap.start_page360);
+            mImageView.setImageResource(R.mipmap.start_page);
 //        }else {
 //            GlideApp.loderImage(this,SPUtils.getInstance().getString(CommonDate.startPage),mImageView,0,0);
 //        }
