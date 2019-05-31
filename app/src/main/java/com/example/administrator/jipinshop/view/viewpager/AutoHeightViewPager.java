@@ -1,4 +1,4 @@
-package com.example.administrator.jipinshop.view;
+package com.example.administrator.jipinshop.view.viewpager;
 
 import android.content.Context;
 import android.support.v4.view.ViewPager;

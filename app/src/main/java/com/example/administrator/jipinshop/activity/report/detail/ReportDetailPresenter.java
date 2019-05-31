@@ -10,7 +10,7 @@ import com.example.administrator.jipinshop.bean.TaskFinishBean;
 import com.example.administrator.jipinshop.bean.VoteBean;
 import com.example.administrator.jipinshop.netwrok.Repository;
 import com.example.administrator.jipinshop.util.ToastUtil;
-import com.example.administrator.jipinshop.view.FullScreenLinearLayout;
+import com.example.administrator.jipinshop.view.relativeLayout.FullScreenRelativeLayout;
 import com.trello.rxlifecycle2.LifecycleTransformer;
 
 import java.util.HashMap;
@@ -40,13 +40,13 @@ public class ReportDetailPresenter {
         mRepository = repository;
     }
 
-    public void setKeyListener(final FullScreenLinearLayout mDetailContanier , final int[] usableHeightPrevious){
+    public void setKeyListener(final FullScreenRelativeLayout mDetailContanier , final int[] usableHeightPrevious){
         mDetailContanier.getViewTreeObserver()
                 .addOnGlobalLayoutListener(() -> possiblyResizeChildOfContent(mDetailContanier,usableHeightPrevious));
     }
 
     /****************监听软键盘的情况**********************/
-    private void possiblyResizeChildOfContent(FullScreenLinearLayout mDetailContanier ,  int[] usableHeightPrevious) {
+    private void possiblyResizeChildOfContent(FullScreenRelativeLayout mDetailContanier , int[] usableHeightPrevious) {
         int usableHeightNow = computeUsableHeight(mDetailContanier);
         if (usableHeightNow != usableHeightPrevious[0]) {
             int usableHeightSansKeyboard = mDetailContanier.getRootView().getHeight();
@@ -63,7 +63,7 @@ public class ReportDetailPresenter {
         }
     }
 
-    private int computeUsableHeight(FullScreenLinearLayout mDetailContanier) {
+    private int computeUsableHeight(FullScreenRelativeLayout mDetailContanier) {
         Rect r = new Rect();
         mDetailContanier.getWindowVisibleDisplayFrame(r);
         return (r.bottom - r.top);

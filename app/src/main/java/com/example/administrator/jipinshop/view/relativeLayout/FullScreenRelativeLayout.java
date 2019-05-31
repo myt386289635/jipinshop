@@ -1,4 +1,4 @@
-package com.example.administrator.jipinshop.view;
+package com.example.administrator.jipinshop.view.relativeLayout;
 
 import android.annotation.TargetApi;
 import android.content.Context;
@@ -14,24 +14,24 @@ import android.widget.RelativeLayout;
  * @create 2018/8/3
  * @Describe 解决沉淀式状态栏与fitsSystemWindows=true的冲突
  */
-public class FullScreenLinearLayout extends RelativeLayout{
+public class FullScreenRelativeLayout extends RelativeLayout{
 
     private int[] mInsets = new int[4];
 
-    public FullScreenLinearLayout(Context context) {
+    public FullScreenRelativeLayout(Context context) {
         super(context);
     }
 
-    public FullScreenLinearLayout(Context context, AttributeSet attrs) {
+    public FullScreenRelativeLayout(Context context, AttributeSet attrs) {
         super(context, attrs);
     }
 
-    public FullScreenLinearLayout(Context context, AttributeSet attrs, int defStyleAttr) {
+    public FullScreenRelativeLayout(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
     }
 
     @TargetApi(Build.VERSION_CODES.LOLLIPOP)
-    public FullScreenLinearLayout(Context context, AttributeSet attrs, int defStyleAttr, int defStyleRes) {
+    public FullScreenRelativeLayout(Context context, AttributeSet attrs, int defStyleAttr, int defStyleRes) {
         super(context, attrs, defStyleAttr, defStyleRes);
     }
 

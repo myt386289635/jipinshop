@@ -4,7 +4,6 @@ import android.content.Context;
 import android.content.res.ColorStateList;
 import android.support.design.widget.AppBarLayout;
 import android.support.design.widget.TabLayout;
-import android.util.Log;
 import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -15,7 +14,6 @@ import android.widget.TextView;
 
 import com.example.administrator.jipinshop.R;
 import com.example.administrator.jipinshop.netwrok.Repository;
-import com.example.administrator.jipinshop.view.NoScrollViewPager;
 
 import java.util.ArrayList;
 import java.util.List;

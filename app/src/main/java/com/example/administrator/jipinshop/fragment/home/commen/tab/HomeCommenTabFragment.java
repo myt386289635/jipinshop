@@ -14,7 +14,7 @@ import com.example.administrator.jipinshop.bean.TabBean;
 import com.example.administrator.jipinshop.fragment.home.commen.HomeCommenFragment;
 import com.example.administrator.jipinshop.util.UmApp.UAppUtil;
 import com.example.administrator.jipinshop.util.sp.CommonDate;
-import com.example.administrator.jipinshop.view.MyGridView;
+import com.example.administrator.jipinshop.view.gridview.MyGridView;
 import com.google.gson.Gson;
 
 import java.util.ArrayList;

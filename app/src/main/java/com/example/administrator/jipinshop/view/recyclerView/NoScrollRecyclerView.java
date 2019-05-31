@@ -1,4 +1,4 @@
-package com.example.administrator.jipinshop.view;
+package com.example.administrator.jipinshop.view.recyclerView;
 
 import android.content.Context;
 import android.support.annotation.NonNull;

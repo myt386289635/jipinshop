@@ -15,7 +15,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <com.example.administrator.jipinshop.view.MyScrollView
+        <com.example.administrator.jipinshop.view.scrollView.MyScrollView
             android:layout_above="@+id/detail_bottom"
             android:id="@+id/srcoll_view"
             android:scrollbars="none"
@@ -140,7 +140,7 @@
                     android:layout_marginRight="@dimen/x14"/>
 
             </RelativeLayout>
-        </com.example.administrator.jipinshop.view.MyScrollView>
+        </com.example.administrator.jipinshop.view.scrollView.MyScrollView>
 
         <TextView
             android:id="@+id/detail_bottom"

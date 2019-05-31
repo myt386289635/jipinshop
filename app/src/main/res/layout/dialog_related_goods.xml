@@ -34,7 +34,7 @@
             android:layout_height="@dimen/y40"/>
     </RelativeLayout>
 
-    <com.example.administrator.jipinshop.view.MaxHeightRecyclerView
+    <com.example.administrator.jipinshop.view.recyclerView.MaxHeightRecyclerView
         android:scrollbars="vertical"
         android:fadeScrollbars="false"
         android:layout_marginTop="@dimen/y24"

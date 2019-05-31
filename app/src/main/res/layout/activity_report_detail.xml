@@ -10,7 +10,7 @@
             type="android.view.View.OnClickListener"/>
     </data>
 
-    <com.example.administrator.jipinshop.view.FullScreenLinearLayout
+    <com.example.administrator.jipinshop.view.relativeLayout.FullScreenRelativeLayout
         android:background="@color/color_white"
         android:fitsSystemWindows="true"
         android:id="@+id/detail_contanier"
@@ -114,7 +114,7 @@
         </RelativeLayout>
 
 
-        <com.example.administrator.jipinshop.view.MyScrollView
+        <com.example.administrator.jipinshop.view.scrollView.MyScrollView
             android:id="@+id/scroll_View"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
@@ -209,14 +209,14 @@
                 </RelativeLayout>
 
 
-                <com.example.administrator.jipinshop.view.NoScrollRecyclerView
+                <com.example.administrator.jipinshop.view.recyclerView.NoScrollRecyclerView
                     android:id="@+id/recycler_view"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_below="@+id/detail_Head"
                     android:nestedScrollingEnabled="false"/>
 
-                <com.example.administrator.jipinshop.view.DrawableLeftCenterTextView
+                <com.example.administrator.jipinshop.view.textview.DrawableLeftCenterTextView
                     android:id="@+id/detail_good"
                     android:layout_width="@dimen/x230"
                     android:layout_height="@dimen/y72"
@@ -382,7 +382,7 @@
                 </RelativeLayout>
 
             </RelativeLayout>
-        </com.example.administrator.jipinshop.view.MyScrollView>
+        </com.example.administrator.jipinshop.view.scrollView.MyScrollView>
 
         <LinearLayout
             android:id="@+id/detail_bottom"
@@ -466,6 +466,6 @@
             bind:listener="@{listener}"/>
 
 
-    </com.example.administrator.jipinshop.view.FullScreenLinearLayout>
+    </com.example.administrator.jipinshop.view.relativeLayout.FullScreenRelativeLayout>
 
 </layout>

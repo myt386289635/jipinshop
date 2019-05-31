@@ -500,7 +500,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"/>
 
-                    <com.example.administrator.jipinshop.view.MyExtendableListView
+                    <com.example.administrator.jipinshop.view.listview.MyExtendableListView
                         android:nestedScrollingEnabled="false"
                         android:indicatorLeft="0dp"
                         android:divider="@color/color_white"

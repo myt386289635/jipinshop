@@ -7,7 +7,7 @@
         android:layout_height="wrap_content"
         android:background="@color/color_white">
 
-        <com.example.administrator.jipinshop.view.CustomRefreshHeadView
+        <com.example.administrator.jipinshop.view.textview.CustomRefreshHeadView
             android:id="@+id/swipe_refresh_header"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

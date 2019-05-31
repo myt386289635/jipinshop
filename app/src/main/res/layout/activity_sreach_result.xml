@@ -110,7 +110,7 @@
         </android.support.design.widget.AppBarLayout>
 
 
-        <com.example.administrator.jipinshop.view.MyViewPager
+        <com.example.administrator.jipinshop.view.viewpager.MyViewPager
             android:id="@+id/view_pager"
             android:layout_width="match_parent"
             android:layout_height="match_parent"

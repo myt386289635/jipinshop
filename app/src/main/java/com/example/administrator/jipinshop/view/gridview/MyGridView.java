@@ -1,4 +1,4 @@
-package com.example.administrator.jipinshop.view;
+package com.example.administrator.jipinshop.view.gridview;
 
 import android.content.Context;
 import android.util.AttributeSet;

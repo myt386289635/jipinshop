@@ -6,7 +6,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <com.example.administrator.jipinshop.view.CustomRefreshHeadView
+        <com.example.administrator.jipinshop.view.textview.CustomRefreshHeadView
             android:id="@+id/swipe_refresh_header"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

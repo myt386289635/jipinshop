@@ -16,7 +16,7 @@ import android.widget.ImageView;
 import com.example.administrator.jipinshop.R;
 import com.example.administrator.jipinshop.adapter.RelatedGoodsAdapter;
 import com.example.administrator.jipinshop.bean.FindDetailBean;
-import com.example.administrator.jipinshop.view.MaxHeightRecyclerView;
+import com.example.administrator.jipinshop.view.recyclerView.MaxHeightRecyclerView;
 
 import java.util.ArrayList;
 import java.util.List;

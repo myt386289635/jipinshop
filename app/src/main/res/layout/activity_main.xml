@@ -7,7 +7,7 @@
     android:layout_height="match_parent"
     tools:context=".activity.home.MainActivity">
 
-    <com.example.administrator.jipinshop.view.NoScrollViewPager
+    <com.example.administrator.jipinshop.view.viewpager.NoScrollViewPager
         android:id="@+id/view_pager"
         android:layout_above="@id/tab_layout"
         android:layout_width="match_parent"

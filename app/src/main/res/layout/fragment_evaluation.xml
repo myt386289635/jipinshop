@@ -26,7 +26,7 @@
             android:layout_height="@dimen/x2"
             android:background="@color/color_F5F5F5"/>
 
-        <com.example.administrator.jipinshop.view.MyViewPager
+        <com.example.administrator.jipinshop.view.viewpager.MyViewPager
             android:id="@+id/view_pager"
             android:layout_width="match_parent"
             android:layout_height="match_parent"/>

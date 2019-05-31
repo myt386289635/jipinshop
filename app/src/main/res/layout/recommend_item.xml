@@ -108,7 +108,7 @@
                 android:textSize="13sp"
                 tools:text="天猫："/>
 
-            <com.example.administrator.jipinshop.view.TextViewDel
+            <com.example.administrator.jipinshop.view.textview.TextViewDel
                 android:id="@+id/item_price_old"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"

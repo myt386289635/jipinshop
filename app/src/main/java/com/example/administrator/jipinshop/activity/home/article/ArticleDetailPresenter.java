@@ -1,11 +1,9 @@
 package com.example.administrator.jipinshop.activity.home.article;
 
 import android.graphics.Rect;
-import android.view.View;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
 
-import com.blankj.utilcode.util.SPUtils;
 import com.example.administrator.jipinshop.bean.CommentBean;
 import com.example.administrator.jipinshop.bean.FindDetailBean;
 import com.example.administrator.jipinshop.bean.PagerStateBean;
@@ -14,8 +12,7 @@ import com.example.administrator.jipinshop.bean.TaskFinishBean;
 import com.example.administrator.jipinshop.bean.VoteBean;
 import com.example.administrator.jipinshop.netwrok.Repository;
 import com.example.administrator.jipinshop.util.ToastUtil;
-import com.example.administrator.jipinshop.util.sp.CommonDate;
-import com.example.administrator.jipinshop.view.FullScreenLinearLayout;
+import com.example.administrator.jipinshop.view.relativeLayout.FullScreenRelativeLayout;
 import com.trello.rxlifecycle2.LifecycleTransformer;
 
 import java.util.HashMap;
@@ -54,13 +51,13 @@ public class ArticleDetailPresenter {
         mWebView.getSettings().setDomStorageEnabled(true);// 开启 DOM storage API 功能
     }
 
-    public void setKeyListener(final FullScreenLinearLayout mDetailContanier , final int[] usableHeightPrevious){
+    public void setKeyListener(final FullScreenRelativeLayout mDetailContanier , final int[] usableHeightPrevious){
         mDetailContanier.getViewTreeObserver()
                 .addOnGlobalLayoutListener(() -> possiblyResizeChildOfContent(mDetailContanier,usableHeightPrevious));
     }
 
     /****************监听软键盘的情况**********************/
-    private void possiblyResizeChildOfContent(FullScreenLinearLayout mDetailContanier ,  int[] usableHeightPrevious) {
+    private void possiblyResizeChildOfContent(FullScreenRelativeLayout mDetailContanier , int[] usableHeightPrevious) {
         int usableHeightNow = computeUsableHeight(mDetailContanier);
         if (usableHeightNow != usableHeightPrevious[0]) {
             int usableHeightSansKeyboard = mDetailContanier.getRootView().getHeight();
@@ -77,7 +74,7 @@ public class ArticleDetailPresenter {
         }
     }
 
-    private int computeUsableHeight(FullScreenLinearLayout mDetailContanier) {
+    private int computeUsableHeight(FullScreenRelativeLayout mDetailContanier) {
         Rect r = new Rect();
         mDetailContanier.getWindowVisibleDisplayFrame(r);
         return (r.bottom - r.top);

@@ -8,7 +8,7 @@
             type="android.view.View.OnClickListener"/>
     </data>
 
-    <com.example.administrator.jipinshop.view.FullScreenLinearLayout
+    <com.example.administrator.jipinshop.view.relativeLayout.FullScreenRelativeLayout
         android:fitsSystemWindows="true"
         android:background="@color/color_white"
         android:layout_width="match_parent"
@@ -118,5 +118,5 @@
 
         </LinearLayout>
 
-    </com.example.administrator.jipinshop.view.FullScreenLinearLayout>
+    </com.example.administrator.jipinshop.view.relativeLayout.FullScreenRelativeLayout>
 </layout>

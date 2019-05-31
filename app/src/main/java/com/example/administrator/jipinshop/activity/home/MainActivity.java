@@ -31,7 +31,7 @@ import com.example.administrator.jipinshop.util.ToastUtil;
 import com.example.administrator.jipinshop.util.UmApp.UAppUtil;
 import com.example.administrator.jipinshop.util.UpDataUtil;
 import com.example.administrator.jipinshop.util.sp.CommonDate;
-import com.example.administrator.jipinshop.view.NoScrollViewPager;
+import com.example.administrator.jipinshop.view.viewpager.NoScrollViewPager;
 import com.example.administrator.jipinshop.view.dialog.DialogUtil;
 import com.gyf.barlibrary.ImmersionBar;
 import com.trello.rxlifecycle2.components.support.RxAppCompatActivity;

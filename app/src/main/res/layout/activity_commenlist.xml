@@ -9,7 +9,7 @@
 
     </data>
 
-    <com.example.administrator.jipinshop.view.FullScreenLinearLayout
+    <com.example.administrator.jipinshop.view.relativeLayout.FullScreenRelativeLayout
         android:id="@+id/detail_contanier"
         android:orientation="vertical"
         android:fitsSystemWindows="true"
@@ -32,7 +32,7 @@
             android:layout_height="match_parent"
             android:background="@color/color_white">
 
-            <com.example.administrator.jipinshop.view.CustomRefreshHeadView
+            <com.example.administrator.jipinshop.view.textview.CustomRefreshHeadView
                 android:id="@+id/swipe_refresh_header"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -45,7 +45,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"/>
 
-            <com.example.administrator.jipinshop.view.LoadMoreFooterView
+            <com.example.administrator.jipinshop.view.textview.LoadMoreFooterView
                 android:id="@+id/swipe_load_more_footer"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -101,5 +101,5 @@
 
         </RelativeLayout>
 
-    </com.example.administrator.jipinshop.view.FullScreenLinearLayout>
+    </com.example.administrator.jipinshop.view.relativeLayout.FullScreenRelativeLayout>
 </layout>

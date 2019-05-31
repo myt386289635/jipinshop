@@ -1,8 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:app="http://schemas.android.com/apk/res-auto"
-        xmlns:bind="http://schemas.android.com/tools"
-        xmlns:tools="http://schemas.android.com/apk/res-auto">
+        xmlns:bind="http://schemas.android.com/tools">
 
 
     <data>
@@ -433,7 +432,7 @@
 
             </android.support.design.widget.AppBarLayout>
 
-            <com.example.administrator.jipinshop.view.MyNestedScrollView
+            <com.example.administrator.jipinshop.view.scrollView.MyNestedScrollView
                 android:id="@+id/scroll_View"
                 android:focusableInTouchMode="true"
                 android:background="@color/color_white"
@@ -447,7 +446,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent">
 
-                    <com.example.administrator.jipinshop.view.NoScrollRecyclerView
+                    <com.example.administrator.jipinshop.view.recyclerView.NoScrollRecyclerView
                         android:id="@+id/detail_recyclerView"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -630,14 +629,14 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"/>
 
-                    <com.example.administrator.jipinshop.view.MyGridView
+                    <com.example.administrator.jipinshop.view.gridview.MyGridView
                         android:id="@+id/passedUserList_gridview"
                         android:layout_width="match_parent"
                         android:numColumns="3"
                         android:layout_height="wrap_content"
                         android:nestedScrollingEnabled="false"/>
 
-                    <com.example.administrator.jipinshop.view.DrawableRightCenterTextView
+                    <com.example.administrator.jipinshop.view.textview.DrawableRightCenterTextView
                         android:layout_marginTop="@dimen/y56"
                         android:onClick="@{listener.onClick}"
                         android:id="@+id/detail_passedMore"
@@ -682,13 +681,13 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"/>
 
-                    <com.example.administrator.jipinshop.view.NoScrollRecyclerView
+                    <com.example.administrator.jipinshop.view.recyclerView.NoScrollRecyclerView
                         android:id="@+id/userList_recyclerView"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:nestedScrollingEnabled="false"/>
 
-                    <com.example.administrator.jipinshop.view.DrawableRightCenterTextView
+                    <com.example.administrator.jipinshop.view.textview.DrawableRightCenterTextView
                         android:layout_marginTop="@dimen/y56"
                         android:onClick="@{listener.onClick}"
                         android:id="@+id/detail_shareMore"
@@ -720,13 +719,13 @@
                         android:layout_width="match_parent"
                         android:layout_height="@dimen/y12"/>
 
-                    <com.example.administrator.jipinshop.view.NoScrollRecyclerView
+                    <com.example.administrator.jipinshop.view.recyclerView.NoScrollRecyclerView
                         android:id="@+id/report_recyclerView"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:nestedScrollingEnabled="false"/>
 
-                    <com.example.administrator.jipinshop.view.DrawableRightCenterTextView
+                    <com.example.administrator.jipinshop.view.textview.DrawableRightCenterTextView
                         android:layout_marginTop="@dimen/y26"
                         android:layout_marginBottom="@dimen/y56"
                         android:onClick="@{listener.onClick}"
@@ -752,7 +751,7 @@
 
                 </LinearLayout>
 
-            </com.example.administrator.jipinshop.view.MyNestedScrollView>
+            </com.example.administrator.jipinshop.view.scrollView.MyNestedScrollView>
 
             <LinearLayout
                 android:orientation="vertical"
@@ -831,7 +830,7 @@
                 android:layout_height="match_parent"/>
 
 
-            <com.example.administrator.jipinshop.view.DrawableLeftCenterTextView
+            <com.example.administrator.jipinshop.view.textview.DrawableLeftCenterTextView
                 android:onClick="@{listener.onClick}"
                 android:drawablePadding="@dimen/x8"
                 android:gravity="center_vertical"

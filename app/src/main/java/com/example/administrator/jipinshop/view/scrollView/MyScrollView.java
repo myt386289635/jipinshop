@@ -1,4 +1,4 @@
-package com.example.administrator.jipinshop.view;
+package com.example.administrator.jipinshop.view.scrollView;
 
 import android.content.Context;
 import android.util.AttributeSet;

@@ -12,7 +12,7 @@
     </data>
 
 
-    <com.example.administrator.jipinshop.view.FullScreenLinearLayout
+    <com.example.administrator.jipinshop.view.relativeLayout.FullScreenRelativeLayout
         android:id="@+id/detail_contanier"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -22,7 +22,7 @@
         android:focusableInTouchMode="true"
         android:orientation="vertical">
 
-        <com.example.administrator.jipinshop.view.MyScrollView
+        <com.example.administrator.jipinshop.view.scrollView.MyScrollView
             android:id="@+id/srcoll_view"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
@@ -107,7 +107,7 @@
                     android:textSize="13sp"/>
 
 
-                <com.example.administrator.jipinshop.view.TextViewDel
+                <com.example.administrator.jipinshop.view.textview.TextViewDel
                     android:id="@+id/detail_oldPrice"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -349,7 +349,7 @@
                         android:layout_toRightOf="@id/item_score_container"
                         android:orientation="horizontal">
 
-                        <com.example.administrator.jipinshop.view.AlignTextView
+                        <com.example.administrator.jipinshop.view.textview.AlignTextView
                             android:id="@+id/item_progressbar1_text"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
@@ -398,7 +398,7 @@
                         android:gravity="center_vertical"
                         android:orientation="horizontal">
 
-                        <com.example.administrator.jipinshop.view.AlignTextView
+                        <com.example.administrator.jipinshop.view.textview.AlignTextView
                             android:id="@+id/item_progressbar2_text"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
@@ -445,7 +445,7 @@
                         android:gravity="center_vertical"
                         android:orientation="horizontal">
 
-                        <com.example.administrator.jipinshop.view.AlignTextView
+                        <com.example.administrator.jipinshop.view.textview.AlignTextView
                             android:id="@+id/item_progressbar3_text"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
@@ -492,7 +492,7 @@
                         android:gravity="center_vertical"
                         android:orientation="horizontal">
 
-                        <com.example.administrator.jipinshop.view.AlignTextView
+                        <com.example.administrator.jipinshop.view.textview.AlignTextView
                             android:id="@+id/item_progressbar4_text"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
@@ -539,7 +539,7 @@
                         android:gravity="center_vertical"
                         android:orientation="horizontal">
 
-                        <com.example.administrator.jipinshop.view.AlignTextView
+                        <com.example.administrator.jipinshop.view.textview.AlignTextView
                             android:id="@+id/item_progressbar5_text"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
@@ -595,7 +595,7 @@
                     android:textStyle="bold"/>
 
 
-                <com.example.administrator.jipinshop.view.MyGridView
+                <com.example.administrator.jipinshop.view.gridview.MyGridView
                     android:id="@+id/detail_parameter"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -714,7 +714,7 @@
                     android:layout_marginLeft="@dimen/x14"
                     android:layout_marginRight="@dimen/x14"/>
 
-                <com.example.administrator.jipinshop.view.DrawableLeftCenterTextView
+                <com.example.administrator.jipinshop.view.textview.DrawableLeftCenterTextView
                     android:onClick="@{listener.onClick}"
                     android:layout_marginTop="@dimen/y48"
                     android:layout_centerHorizontal="true"
@@ -898,7 +898,7 @@
 
 
             </RelativeLayout>
-        </com.example.administrator.jipinshop.view.MyScrollView>
+        </com.example.administrator.jipinshop.view.scrollView.MyScrollView>
 
         <LinearLayout
             android:id="@+id/detail_bottom"
@@ -1178,5 +1178,5 @@
             android:visibility="gone"
             bind:listener="@{listener}"/>
 
-    </com.example.administrator.jipinshop.view.FullScreenLinearLayout>
+    </com.example.administrator.jipinshop.view.relativeLayout.FullScreenRelativeLayout>
 </layout>

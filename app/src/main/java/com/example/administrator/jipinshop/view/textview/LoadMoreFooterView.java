@@ -1,4 +1,4 @@
-package com.example.administrator.jipinshop.view;
+package com.example.administrator.jipinshop.view.textview;
 
 import android.content.Context;
 import android.support.v7.widget.AppCompatTextView;

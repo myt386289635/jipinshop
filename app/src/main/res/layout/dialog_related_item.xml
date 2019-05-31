@@ -52,7 +52,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"/>
 
-        <com.example.administrator.jipinshop.view.TextViewDel
+        <com.example.administrator.jipinshop.view.textview.TextViewDel
             android:textColor="@color/color_ACACAC"
             android:textSize="13sp"
             android:text="¥0"

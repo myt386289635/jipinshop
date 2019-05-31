@@ -12,7 +12,7 @@ import android.widget.TextView;
 
 import com.example.administrator.jipinshop.R;
 import com.example.administrator.jipinshop.bean.FindDetailBean;
-import com.example.administrator.jipinshop.view.TextViewDel;
+import com.example.administrator.jipinshop.view.textview.TextViewDel;
 import com.example.administrator.jipinshop.view.glide.GlideApp;
 
 import java.util.List;

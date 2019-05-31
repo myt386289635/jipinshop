@@ -215,7 +215,7 @@
 
             <!--</android.support.design.widget.AppBarLayout>-->
 
-            <com.example.administrator.jipinshop.view.NoScrollViewPager
+            <com.example.administrator.jipinshop.view.viewpager.NoScrollViewPager
                 android:layout_below="@+id/tab_layoutContainer"
                 android:id="@+id/view_pager"
                 android:layout_marginBottom="@dimen/y48"
