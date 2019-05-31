@@ -3,6 +3,7 @@ package com.example.administrator.jipinshop.adapter;
 import android.content.Context;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -51,7 +52,7 @@ public class SreachArticleAdapter extends RecyclerView.Adapter<SreachArticleAdap
         GlideApp.loderCircleImage(mContext,mList.get(i).getUser().getAvatar(),viewHolder.item_head,R.mipmap.rlogo,0);
         viewHolder.item_name.setText(mList.get(i).getUser().getNickname());
         viewHolder.item_pv.setText(mList.get(i).getPv() + "阅读");
-        if(mList.get(i).getUser().getAuthentication().equals("0")){
+        if(TextUtils.isEmpty(mList.get(i).getUser().getAuthentication()) || mList.get(i).getUser().getAuthentication().equals("0")){
             //普通用户
             viewHolder.item_grade.setVisibility(View.GONE);
         }else if(mList.get(i).getUser().getAuthentication().equals("1")){
