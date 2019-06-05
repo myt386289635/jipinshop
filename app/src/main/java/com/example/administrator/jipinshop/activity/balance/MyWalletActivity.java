@@ -3,7 +3,6 @@ package com.example.administrator.jipinshop.activity.balance;
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.design.widget.AppBarLayout;
 import android.support.v4.app.Fragment;
 import android.view.MotionEvent;
 import android.view.View;
@@ -12,7 +11,8 @@ import com.example.administrator.jipinshop.R;
 import com.example.administrator.jipinshop.adapter.HomeFragmentAdapter;
 import com.example.administrator.jipinshop.base.BaseActivity;
 import com.example.administrator.jipinshop.databinding.ActivityWalletBinding;
-import com.example.administrator.jipinshop.fragment.balance.BudgetDetailFragment;
+import com.example.administrator.jipinshop.fragment.balance.budget.BudgetDetailFragment;
+import com.example.administrator.jipinshop.fragment.balance.withdraw.WithdrawDetailFragment;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -59,7 +59,7 @@ public class MyWalletActivity extends BaseActivity implements View.OnClickListen
         mAdapter = new HomeFragmentAdapter(getSupportFragmentManager());
         mFragments = new ArrayList<>();
         mFragments.add(BudgetDetailFragment.getInstance());
-        mFragments.add(BudgetDetailFragment.getInstance());
+        mFragments.add(WithdrawDetailFragment.getInstance());
         mAdapter.setFragments(mFragments);
         mBinding.viewPager.setAdapter(mAdapter);
         mBinding.tabLayout.setupWithViewPager(mBinding.viewPager);
@@ -81,12 +81,9 @@ public class MyWalletActivity extends BaseActivity implements View.OnClickListen
         }
     }
 
-//    public AppBarLayout getBar(){
-//        return mBinding.appbar;
-//    }
 
     /**
-     * 解决AppBarLayout与ViewPager手势冲突出现的滑动卡顿问题
+     * 解决AppBarLayout头布局过大与ViewPager手势冲突出现的滑动卡顿问题
      */
     @Override
     public boolean dispatchTouchEvent(MotionEvent ev) {

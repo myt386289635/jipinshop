@@ -17,6 +17,7 @@
         android:layout_height="match_parent">
 
         <LinearLayout
+            android:id="@+id/error_container"
             android:layout_marginTop="@dimen/y236"
             android:layout_width="match_parent"
             android:orientation="vertical"

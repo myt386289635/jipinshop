@@ -1,9 +1,7 @@
-package com.example.administrator.jipinshop.fragment.balance;
+package com.example.administrator.jipinshop.fragment.balance.withdraw;
 
-import android.support.design.widget.AppBarLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.view.View;
 
 import com.aspsine.swipetoloadlayout.SwipeToLoadLayout;
 import com.example.administrator.jipinshop.netwrok.Repository;
@@ -12,21 +10,20 @@ import javax.inject.Inject;
 
 /**
  * @author 莫小婷
- * @create 2019/3/7
+ * @create 2019/6/3
  * @Describe
  */
-public class BudgetDetailPresenter {
+public class WithdrawDetailPresenter {
 
     private Repository mRepository;
 
     @Inject
-    public BudgetDetailPresenter(Repository repository) {
+    public WithdrawDetailPresenter(Repository repository) {
         mRepository = repository;
     }
 
     //解决冲突问题
-    public void solveScoll(RecyclerView mRecyclerView, final SwipeToLoadLayout mSwipeToLoad,
-                           AppBarLayout appBarLayout, Boolean[] once) {
+    public void solveScoll(RecyclerView mRecyclerView, final SwipeToLoadLayout mSwipeToLoad) {
         RecyclerView.LayoutManager layoutManager = mRecyclerView.getLayoutManager();
         LinearLayoutManager linearManager = (LinearLayoutManager) layoutManager;
         mRecyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
@@ -40,28 +37,6 @@ public class BudgetDetailPresenter {
             @Override
             public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
                 super.onScrollStateChanged(recyclerView, newState);
-            }
-        });
-        appBarLayout.addOnOffsetChangedListener((appBarLayout1, verticalOffset) -> {
-            if (once[0] ||mRecyclerView.getVisibility() == View.GONE) {
-                mSwipeToLoad.setRefreshEnabled(true);
-                if(mRecyclerView.getVisibility() == View.GONE){
-                    mSwipeToLoad.setLoadMoreEnabled(false);
-                }
-            } else {
-                if (verticalOffset == 0) {
-                    //展开
-                    mSwipeToLoad.setRefreshEnabled(linearManager.findFirstCompletelyVisibleItemPosition() == 0);
-                    mSwipeToLoad.setLoadMoreEnabled(false);
-                } else if (Math.abs(verticalOffset) >= appBarLayout1.getTotalScrollRange()) {
-                    //折叠
-                    mSwipeToLoad.setLoadMoreEnabled(isSlideToBottom(mRecyclerView));
-                    mSwipeToLoad.setRefreshEnabled(false);
-                } else {
-                    //过程
-                    mSwipeToLoad.setRefreshEnabled(false);
-                    mSwipeToLoad.setLoadMoreEnabled(false);
-                }
             }
         });
     }

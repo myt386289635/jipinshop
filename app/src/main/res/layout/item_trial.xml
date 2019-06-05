@@ -59,7 +59,7 @@
             android:layout_height="wrap_content"/>
 
         <TextView
-            android:visibility="@{data.status == -1 ? View.INVISIBLE :  View.VISIBLE}"
+            android:visibility="@{data.status == -1 || data.status == 3 ? View.INVISIBLE :  View.VISIBLE}"
             android:id="@+id/item_describe"
             android:textColor="@color/color_ACACAC"
             android:textSize="13sp"

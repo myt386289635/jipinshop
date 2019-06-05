@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout   xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <RelativeLayout
+        android:id="@+id/item_container"
+        android:layout_marginRight="@dimen/x28"
+        android:layout_marginLeft="@dimen/x28"
+        android:background="@drawable/bg_balance_other"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:id="@+id/item_title"
+            android:layout_marginLeft="@dimen/x32"
+            android:layout_marginTop="@dimen/y40"
+            android:textColor="@color/color_202020"
+            android:textSize="15sp"
+            android:text="佣金提现"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+
+        <TextView
+            android:layout_marginBottom="@dimen/y20"
+            android:id="@+id/item_time"
+            android:textColor="@color/color_9D9D9D"
+            android:layout_marginTop="@dimen/y30"
+            android:layout_marginLeft="@dimen/x32"
+            android:textSize="12sp"
+            android:layout_below="@id/item_title"
+            android:text="2019-05-27 14:20:56"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+
+        <TextView
+            android:id="@+id/item_money"
+            android:layout_marginRight="@dimen/x32"
+            android:textColor="@color/color_202020"
+            android:textSize="14sp"
+            android:layout_marginTop="@dimen/y42"
+            android:text="¥268.23"
+            android:layout_alignParentRight="true"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+
+        <TextView
+            android:layout_marginRight="@dimen/x32"
+            android:layout_marginTop="@dimen/y30"
+            android:layout_alignParentRight="true"
+            android:layout_below="@+id/item_money"
+            android:id="@+id/item_reason"
+            android:textColor="@color/color_9D9D9D"
+            android:textSize="12sp"
+            android:text="审核失败"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+
+
+        <TextView
+            android:layout_marginBottom="@dimen/y12"
+            android:layout_marginLeft="@dimen/x32"
+            android:layout_below="@+id/item_time"
+            android:id="@+id/item_reasonText"
+            android:textSize="13sp"
+            android:text="支付宝账号有误！"
+            android:textColor="@color/color_E7304F"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+
+
+        <View
+            android:background="@color/color_DEDEDE"
+            android:layout_marginRight="@dimen/x32"
+            android:layout_marginLeft="@dimen/x32"
+            android:layout_below="@+id/item_reasonText"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/y2"/>
+
+    </RelativeLayout>
+</layout>

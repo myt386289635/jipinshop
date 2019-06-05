@@ -58,5 +58,12 @@
     <color name="color_67B6F7">#67B6F7</color>
     <color name="color_F76667">#F76667</color>
     <color name="color_4FCACB">#4FCACB</color>
+    <color name="color_B3FFFFFF">#B3FFFFFF</color>
+    <color name="color_B7B7B7">#B7B7B7</color>
+    <color name="color_424242">#424242</color>
+    <color name="color_9D9D9D">#9D9D9D</color>
+    <color name="color_DEDEDE">#DEDEDE</color>
+    <color name="color_FFFF3F3">#fff3f3</color>
+    <color name="color_E7304F">#E7304F</color>
 
 </resources>

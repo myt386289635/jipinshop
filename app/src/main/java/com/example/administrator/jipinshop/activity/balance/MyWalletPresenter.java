@@ -86,7 +86,7 @@ public class MyWalletPresenter {
         for (int i = 0; i < 2; i++) {
             View view = LayoutInflater.from(context).inflate(R.layout.tablayout_home, null);
             TextView textView = view.findViewById(R.id.tab_name);
-            textView.setTextSize(TypedValue.COMPLEX_UNIT_SP,14);
+            textView.setTextSize(TypedValue.COMPLEX_UNIT_SP,18);
             if (i == 0) {
                 textView.setText("收支明细");
             } else {
@@ -96,8 +96,8 @@ public class MyWalletPresenter {
             int a = (int) textView.getPaint().measureText(textView.getText().toString());
             textLether.add(a);
         }
-        mTabLayout.setSelectedTabIndicatorColor(context.getResources().getColor(R.color.color_FF3939));
-        mTabLayout.setTabTextColors(context.getResources().getColor(R.color.color_ACACAC),context.getResources().getColor(R.color.color_DE151515));
+        mTabLayout.setSelectedTabIndicatorColor(context.getResources().getColor(R.color.color_E31436));
+        mTabLayout.setTabTextColors(context.getResources().getColor(R.color.color_B7B7B7),context.getResources().getColor(R.color.color_202020));
         mTabLayout.setTabRippleColor(ColorStateList.valueOf(context.getResources().getColor(R.color.transparent)));
         mTabLayout.post(() -> {
             //拿到tabLayout的mTabStrip属性

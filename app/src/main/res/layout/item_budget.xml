@@ -1,68 +1,215 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    xmlns:tools="http://schemas.android.com/tools">
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools">
 
-    <ImageView
-        android:src="@color/color_E31436"
-        android:layout_marginRight="@dimen/x18"
-        android:layout_marginBottom="@dimen/y24"
-        android:layout_marginTop="@dimen/y24"
-        android:layout_marginLeft="@dimen/x24"
-        android:id="@+id/item_image"
-        android:layout_width="@dimen/x190"
-        android:layout_height="@dimen/y158"/>
-
-
-    <TextView
-        android:id="@+id/item_money"
-        android:layout_marginRight="@dimen/x24"
+    <RelativeLayout
+        android:id="@+id/item_container"
         android:layout_marginTop="@dimen/y30"
-        android:layout_alignParentRight="true"
-        android:textSize="15sp"
-        android:text="+¥0"
-        android:textColor="@color/color_E31436"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"/>
-
-    <TextView
-        android:textColor="@color/color_202020"
-        android:ellipsize="end"
-        android:singleLine="true"
-        android:layout_toLeftOf="@id/item_money"
-        android:id="@+id/item_name"
-        android:layout_marginRight="@dimen/x80"
-        android:layout_marginTop="@dimen/y6"
-        android:layout_alignTop="@id/item_image"
-        android:layout_toRightOf="@id/item_image"
-        android:text="便携式果蔬榨汁料理机便携式果蔬榨汁料理机便携式果蔬榨汁料理机"
+        android:layout_marginRight="@dimen/x28"
+        android:layout_marginLeft="@dimen/x28"
+        android:background="@drawable/bg_balance"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"/>
+        android:layout_height="wrap_content">
+
+        <RelativeLayout
+            android:id="@+id/item_titleContainer"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:layout_marginBottom="@dimen/y22"
+                android:id="@+id/item_timeContainer"
+                android:layout_marginTop="@dimen/y26"
+                android:layout_marginLeft="@dimen/x36"
+                android:textStyle="bold"
+                android:textColor="@color/color_202020"
+                android:textSize="14sp"
+                android:text="2019-05"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+
+            <TextView
+                android:id="@+id/item_priceContainer"
+                android:layout_marginRight="@dimen/x36"
+                android:layout_centerVertical="true"
+                android:layout_alignParentRight="true"
+                android:textStyle="bold"
+                android:textSize="14sp"
+                android:textColor="@color/color_E31436"
+                android:text="¥5684.32"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+
+            <TextView
+                android:layout_marginRight="@dimen/x10"
+                android:layout_toLeftOf="@id/item_priceContainer"
+                android:layout_centerVertical="true"
+                android:textSize="14sp"
+                android:textColor="@color/color_202020"
+                android:text="预估收益"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+
+        </RelativeLayout>
+
+        <View
+            android:layout_below="@+id/item_titleContainer"
+            android:background="@color/color_DEDEDE"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/y2"/>
+
+        <ImageView
+            android:layout_below="@+id/item_titleContainer"
+            android:src="@color/color_E31436"
+            android:layout_marginRight="@dimen/x10"
+            android:layout_marginBottom="@dimen/y30"
+            android:layout_marginTop="@dimen/y32"
+            android:layout_marginLeft="@dimen/x32"
+            android:id="@+id/item_image1"
+            android:layout_width="@dimen/x150"
+            android:layout_height="@dimen/y150"/>
+
+        <TextView
+            android:layout_marginTop="@dimen/y2"
+            android:layout_alignTop="@+id/item_image1"
+            android:id="@+id/item_money1"
+            android:layout_marginRight="@dimen/x32"
+            android:layout_alignParentRight="true"
+            android:textSize="14sp"
+            android:text="+¥0"
+            android:textColor="@color/color_E31436"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+
+        <TextView
+            android:textSize="14sp"
+            android:textColor="@color/color_424242"
+            android:ellipsize="end"
+            android:singleLine="true"
+            android:id="@+id/item_name1"
+            android:layout_marginTop="@dimen/y2"
+            android:layout_alignTop="@+id/item_image1"
+            android:layout_toRightOf="@+id/item_image1"
+            android:text="便携式果蔬榨汁料理机便携式果蔬榨汁"
+            android:layout_width="@dimen/x308"
+            android:layout_height="wrap_content"/>
+
+        <TextView
+            android:layout_marginBottom="@dimen/y2"
+            android:layout_alignBottom="@+id/item_image1"
+            android:id="@+id/item_time1"
+            android:layout_toRightOf="@+id/item_image1"
+            android:textColor="@color/color_9D9D9D"
+            android:textSize="12sp"
+            android:text="2019-5-27 09:20:18"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+
+        <TextView
+            android:layout_marginRight="@dimen/x40"
+            android:id="@+id/item_state1"
+            android:layout_marginBottom="@dimen/y2"
+            android:layout_alignBottom="@+id/item_image1"
+            android:textColor="@color/color_9D9D9D"
+            android:layout_alignParentRight="true"
+            android:textSize="12sp"
+            android:text="可提现"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+
+        <RelativeLayout
+            android:id="@+id/item_contentContainer"
+            android:layout_below="@+id/item_image1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
 
 
-    <TextView
-        android:gravity="center"
-        android:layout_alignBottom="@id/item_state"
-        android:layout_alignTop="@id/item_name"
-        android:id="@+id/item_time"
-        android:layout_toRightOf="@id/item_image"
-        android:textColor="@color/color_ACACAC"
-        android:textSize="13sp"
-        android:text="2018-08-22 16:38"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"/>
+            <View
+                android:background="@color/color_DEDEDE"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/y2"/>
 
-    <TextView
-        android:id="@+id/item_state"
-        android:layout_marginBottom="@dimen/y8"
-        android:layout_alignBottom="@id/item_image"
-        android:textColor="@color/color_ACACAC"
-        android:layout_toRightOf="@id/item_image"
-        android:textSize="13sp"
-        android:text="可提现"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"/>
+            <ImageView
+                android:src="@color/color_E31436"
+                android:layout_marginRight="@dimen/x10"
+                android:layout_marginBottom="@dimen/y30"
+                android:layout_marginTop="@dimen/y32"
+                android:layout_marginLeft="@dimen/x32"
+                android:id="@+id/item_image2"
+                android:layout_width="@dimen/x150"
+                android:layout_height="@dimen/y150"/>
 
-</RelativeLayout>
+            <TextView
+                android:layout_marginTop="@dimen/y2"
+                android:layout_alignTop="@+id/item_image2"
+                android:id="@+id/item_money2"
+                android:layout_marginRight="@dimen/x32"
+                android:layout_alignParentRight="true"
+                android:textSize="14sp"
+                android:text="+¥0"
+                android:textColor="@color/color_E31436"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+
+            <TextView
+                android:textSize="14sp"
+                android:textColor="@color/color_424242"
+                android:ellipsize="end"
+                android:singleLine="true"
+                android:id="@+id/item_name2"
+                android:layout_marginTop="@dimen/y2"
+                android:layout_alignTop="@+id/item_image2"
+                android:layout_toRightOf="@+id/item_image2"
+                android:text="便携式果蔬榨汁料理机便携式果蔬榨汁"
+                android:layout_width="@dimen/x308"
+                android:layout_height="wrap_content"/>
+
+            <TextView
+                android:layout_marginBottom="@dimen/y2"
+                android:layout_alignBottom="@+id/item_image2"
+                android:id="@+id/item_time2"
+                android:layout_toRightOf="@+id/item_image2"
+                android:textColor="@color/color_9D9D9D"
+                android:textSize="12sp"
+                android:text="2019-5-27 09:20:18"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+
+            <TextView
+                android:layout_marginRight="@dimen/x40"
+                android:id="@+id/item_state2"
+                android:layout_marginBottom="@dimen/y2"
+                android:layout_alignBottom="@+id/item_image2"
+                android:textColor="@color/color_9D9D9D"
+                android:layout_alignParentRight="true"
+                android:textSize="12sp"
+                android:text="可提现"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+
+
+        </RelativeLayout>
+
+        <View
+            android:layout_below="@+id/item_contentContainer"
+            android:background="@color/color_DEDEDE"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/y2"/>
+
+        <TextView
+            android:id="@+id/item_detail"
+            android:textColor="@color/color_E31436"
+            android:textSize="15sp"
+            android:gravity="center"
+            android:text="查看完整明细>>"
+            android:layout_marginRight="@dimen/x50"
+            android:layout_marginLeft="@dimen/x50"
+            android:layout_marginBottom="@dimen/y32"
+            android:layout_marginTop="@dimen/y34"
+            android:layout_below="@id/item_contentContainer"
+            android:background="@drawable/bg_balance1"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/y70"/>
+
+    </RelativeLayout>
+</layout>
