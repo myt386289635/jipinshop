@@ -5,6 +5,7 @@ import android.databinding.DataBindingUtil;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
+import android.view.View;
 import android.view.ViewGroup;
 
 import com.example.administrator.jipinshop.R;
@@ -21,6 +22,11 @@ public class BudgetDetailAdapter extends RecyclerView.Adapter<BudgetDetailAdapte
 
     private Context mContext;
     private List<String> mList;
+    private OnClickItem mOnClickItem;
+
+    public void setOnClickItem(OnClickItem onClickItem) {
+        mOnClickItem = onClickItem;
+    }
 
     public BudgetDetailAdapter(Context context, List<String> list) {
         mContext = context;
@@ -44,6 +50,11 @@ public class BudgetDetailAdapter extends RecyclerView.Adapter<BudgetDetailAdapte
             params.bottomMargin = 0;
         }
         holder.binding.itemContainer.setLayoutParams(params);
+        holder.binding.itemDetail.setOnClickListener(v -> {
+            if (mOnClickItem != null){
+                mOnClickItem.onClickItem(position);
+            }
+        });
     }
 
     @Override
@@ -59,5 +70,9 @@ public class BudgetDetailAdapter extends RecyclerView.Adapter<BudgetDetailAdapte
             super(binding.getRoot());
             this.binding = binding;
         }
+    }
+
+    public interface OnClickItem{
+        void onClickItem(int position);
     }
 }

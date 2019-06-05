@@ -42,7 +42,7 @@
 
             <TextView
                 android:layout_marginRight="@dimen/x10"
-                android:layout_toLeftOf="@id/item_priceContainer"
+                android:layout_toLeftOf="@+id/item_priceContainer"
                 android:layout_centerVertical="true"
                 android:textSize="14sp"
                 android:textColor="@color/color_202020"
@@ -206,7 +206,7 @@
             android:layout_marginLeft="@dimen/x50"
             android:layout_marginBottom="@dimen/y32"
             android:layout_marginTop="@dimen/y34"
-            android:layout_below="@id/item_contentContainer"
+            android:layout_below="@+id/item_contentContainer"
             android:background="@drawable/bg_balance1"
             android:layout_width="match_parent"
             android:layout_height="@dimen/y70"/>

@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout  xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <RelativeLayout
+        android:layout_marginRight="@dimen/x28"
+        android:layout_marginLeft="@dimen/x28"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:layout_marginBottom="@dimen/y16"
+            android:id="@+id/item_time"
+            android:layout_marginTop="@dimen/y30"
+            android:layout_marginLeft="@dimen/x32"
+            android:textStyle="bold"
+            android:textColor="@color/color_202020"
+            android:textSize="14sp"
+            android:text="2019-05"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+
+        <TextView
+            android:layout_marginTop="@dimen/y30"
+            android:id="@+id/item_price"
+            android:layout_marginRight="@dimen/x36"
+            android:layout_alignParentRight="true"
+            android:textStyle="bold"
+            android:textSize="14sp"
+            android:textColor="@color/color_E31436"
+            android:text="¥5684.32"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+
+        <TextView
+            android:layout_marginTop="@dimen/y30"
+            android:layout_marginRight="@dimen/x10"
+            android:layout_toLeftOf="@+id/item_price"
+            android:textSize="14sp"
+            android:textColor="@color/color_202020"
+            android:text="预估收益"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/recycler_view"
+            android:paddingBottom="@dimen/y32"
+            android:background="@drawable/bg_balance"
+            android:layout_below="@+id/item_time"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+
+    </RelativeLayout>
+</layout>

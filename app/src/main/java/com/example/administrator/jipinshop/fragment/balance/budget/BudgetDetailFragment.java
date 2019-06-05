@@ -1,5 +1,6 @@
 package com.example.administrator.jipinshop.fragment.balance.budget;
 
+import android.content.Intent;
 import android.databinding.DataBindingUtil;
 import android.support.v7.widget.LinearLayoutManager;
 import android.view.LayoutInflater;
@@ -9,6 +10,7 @@ import android.widget.LinearLayout;
 
 import com.aspsine.swipetoloadlayout.OnRefreshListener;
 import com.example.administrator.jipinshop.R;
+import com.example.administrator.jipinshop.activity.balance.budget.BudgetDetailActivity;
 import com.example.administrator.jipinshop.adapter.BudgetDetailAdapter;
 import com.example.administrator.jipinshop.base.DBBaseFragment;
 import com.example.administrator.jipinshop.databinding.FragmentFindCommonBinding;
@@ -23,7 +25,7 @@ import javax.inject.Inject;
  * @create 2019/3/7
  * @Describe 收支明细
  */
-public class BudgetDetailFragment extends DBBaseFragment implements OnRefreshListener{
+public class BudgetDetailFragment extends DBBaseFragment implements OnRefreshListener, BudgetDetailAdapter.OnClickItem {
 
     private FragmentFindCommonBinding mBinding;
     private Boolean[] once = {true};
@@ -51,11 +53,12 @@ public class BudgetDetailFragment extends DBBaseFragment implements OnRefreshLis
         mBinding.recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         mList = new ArrayList<>();
         mAdapter = new BudgetDetailAdapter(getContext(),mList);
+        mAdapter.setOnClickItem(this);
         mBinding.recyclerView.setAdapter(mAdapter);
 
         mPresenter.solveScoll(mBinding.recyclerView,mBinding.swipeToLoad);
         mBinding.swipeToLoad.setOnRefreshListener(this);
-        mBinding.swipeToLoad.setLoadMoreEnabled(false);
+        mBinding.swipeToLoad.setLoadMoreEnabled(false);//禁止加载
         mBinding.swipeToLoad.setRefreshing(true);
     }
 
@@ -102,4 +105,13 @@ public class BudgetDetailFragment extends DBBaseFragment implements OnRefreshLis
         }
     }
 
+    /**
+     * 点击item的  查看完整明细>>
+     */
+    @Override
+    public void onClickItem(int position) {
+        startActivity(new Intent(getContext(), BudgetDetailActivity.class)
+                .putExtra("position",position)
+        );
+    }
 }

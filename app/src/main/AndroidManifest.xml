@@ -350,6 +350,10 @@
                   android:screenOrientation="portrait"
                   android:windowSoftInputMode="adjustResize|stateHidden"/>
 
+        <!--收支明细-->
+        <activity android:name=".activity.balance.budget.BudgetDetailActivity"
+                  android:screenOrientation="portrait"/>
+
     </application>
 
 </manifest>
