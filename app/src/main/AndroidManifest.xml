@@ -350,8 +350,12 @@
                   android:screenOrientation="portrait"
                   android:windowSoftInputMode="adjustResize|stateHidden"/>
 
-        <!--收支明细-->
+        <!--收入明细-->
         <activity android:name=".activity.balance.budget.BudgetDetailActivity"
+                  android:screenOrientation="portrait"/>
+
+        <!--我要提现-->
+        <activity android:name=".activity.balance.withdraw.WithdrawActivity"
                   android:screenOrientation="portrait"/>
 
     </application>

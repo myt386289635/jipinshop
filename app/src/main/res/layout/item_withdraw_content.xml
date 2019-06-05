@@ -2,6 +2,7 @@
 <layout   xmlns:android="http://schemas.android.com/apk/res/android">
 
     <RelativeLayout
+        android:elevation="@dimen/y3"
         android:id="@+id/item_container"
         android:layout_marginRight="@dimen/x28"
         android:layout_marginLeft="@dimen/x28"

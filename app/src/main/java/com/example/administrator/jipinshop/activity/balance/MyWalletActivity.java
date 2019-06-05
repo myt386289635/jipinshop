@@ -1,5 +1,6 @@
 package com.example.administrator.jipinshop.activity.balance;
 
+import android.content.Intent;
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -8,6 +9,7 @@ import android.view.MotionEvent;
 import android.view.View;
 
 import com.example.administrator.jipinshop.R;
+import com.example.administrator.jipinshop.activity.balance.withdraw.WithdrawActivity;
 import com.example.administrator.jipinshop.adapter.HomeFragmentAdapter;
 import com.example.administrator.jipinshop.base.BaseActivity;
 import com.example.administrator.jipinshop.databinding.ActivityWalletBinding;
@@ -73,7 +75,8 @@ public class MyWalletActivity extends BaseActivity implements View.OnClickListen
                 finish();
                 break;
             case R.id.title_record:
-                //提现
+                //我要提现
+                startActivity(new Intent(this, WithdrawActivity.class));
                 break;
             case R.id.title_totleText:
                 //总资产解释

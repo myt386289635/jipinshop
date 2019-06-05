@@ -3,6 +3,7 @@
         xmlns:tools="http://schemas.android.com/tools">
 
     <RelativeLayout
+        android:elevation="@dimen/y3"
         android:id="@+id/item_container"
         android:layout_marginTop="@dimen/y30"
         android:layout_marginRight="@dimen/x28"
