@@ -6,6 +6,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.databinding.DataBindingUtil;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -69,13 +70,13 @@ public class MineFragment extends DBBaseFragment implements View.OnClickListener
         mBaseFragmentComponent.inject(this);
         EventBus.getDefault().register(this);
 
-        mPresenter.setStatusBarHight(mBinding.statusBar, getContext());
+        mPresenter.setStatusBarHight(mBinding, getContext());
         mPresenter.setView(this);
 
         mBinding.scrollView.setOnScrollListener(scrollY -> {
             float a = scrollY;
             float b = a / 1000;
-            float max = (float) Math.min(1, b * 3);
+            float max = (float) Math.min(1, b * 5);
             mBinding.mineHeadView.setAlpha(max);
         });
     }
@@ -178,6 +179,9 @@ public class MineFragment extends DBBaseFragment implements View.OnClickListener
                 clip.setPrimaryClip(clipData);
                 ToastUtil.show("复制成功");
                 UAppUtil.mine(getContext(),13);
+                break;
+            case R.id.mine_team:
+
                 break;
         }
     }

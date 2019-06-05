@@ -3,8 +3,11 @@ package com.example.administrator.jipinshop.fragment.mine;
 import android.content.Context;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 
+import com.example.administrator.jipinshop.R;
 import com.example.administrator.jipinshop.bean.UserInfoBean;
+import com.example.administrator.jipinshop.databinding.FragmentMineBinding;
 import com.example.administrator.jipinshop.netwrok.Repository;
 import com.example.administrator.jipinshop.util.ToastUtil;
 import com.trello.rxlifecycle2.LifecycleTransformer;
@@ -34,12 +37,15 @@ public class MinePresenter {
     }
 
 
-    public void setStatusBarHight(LinearLayout StatusBar , Context context){
+    public void setStatusBarHight(FragmentMineBinding mBinding , Context context){
         int resourceId = context.getResources().getIdentifier("status_bar_height", "dimen", "android");
         if (resourceId > 0) {
             int statusBarHeight = context.getResources().getDimensionPixelSize(resourceId);
-            ViewGroup.LayoutParams layoutParams = StatusBar.getLayoutParams();
+            ViewGroup.LayoutParams layoutParams = mBinding.statusBar.getLayoutParams();
             layoutParams.height = statusBarHeight;
+
+            ViewGroup.LayoutParams layoutParams1 = mBinding.statusBar1.getLayoutParams();
+            layoutParams1.height = statusBarHeight;
         }
     }
 
