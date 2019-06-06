@@ -49,6 +49,11 @@ public class BindingUtil {
         GlideApp.loderRoundImage(imageView.getContext(),src,imageView, R.color.transparent,R.color.transparent);
     }
 
+    @BindingAdapter("bind:src")
+    public static void setImageSrc(ImageView imageView, String src){
+        GlideApp.loderImage(imageView.getContext(),src,imageView, R.color.transparent,R.color.transparent);
+    }
+
     /**
      * 我的试用报告页面————审核状态情况 item_statue
      */
@@ -162,6 +167,43 @@ public class BindingUtil {
                 break;
             default:
                 view.setText("null");
+                break;
+        }
+    }
+
+    /**********************以下是 item_budget 收支明细里的**************************/
+
+    @BindingAdapter({"bind:tkStatus","bind:preFee"})
+    public static void setbudgetPrice(TextView view, int tkStatus , String preFee){
+        switch (tkStatus){
+            case 13:
+                view.setText("¥" + preFee);
+                view.setTextColor(0xFFA4A4A4);
+                break;
+            default:
+                view.setText("+¥" + preFee);
+                view.setTextColor(0xFFE31436);
+                break;
+        }
+    }
+
+    @BindingAdapter({"bind:tkStatus"})
+    public static void setbudgetState(TextView view, int tkStatus ){
+        switch (tkStatus){
+            case 13:
+                view.setText("订单失效");
+                break;
+            case 3:
+                view.setText("订单结算");
+                break;
+            case 12:
+                view.setText("订单付款");
+                break;
+            case 14:
+                view.setText("订单成功");
+                break;
+            default:
+                view.setText("");
                 break;
         }
     }

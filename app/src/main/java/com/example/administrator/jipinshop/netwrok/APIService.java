@@ -3,6 +3,7 @@ package com.example.administrator.jipinshop.netwrok;
 
 import com.example.administrator.jipinshop.bean.AddressBean;
 import com.example.administrator.jipinshop.bean.AppVersionbean;
+import com.example.administrator.jipinshop.bean.BudgetDetailBean;
 import com.example.administrator.jipinshop.bean.CommentBean;
 import com.example.administrator.jipinshop.bean.DailyTaskBean;
 import com.example.administrator.jipinshop.bean.DefaultAddressBean;
@@ -567,6 +568,12 @@ public interface APIService {
      */
     @GET("qualityshop-api/api/myCommssionSummary")
     Observable<MyWalletBean> myCommssionSummary();
+
+    /**
+     * 收入明细
+     */
+    @GET("qualityshop-api/api/getCommssionDetail")
+    Observable<BudgetDetailBean> getCommssionDetail();
 
 /*************************************************以下是还未修改的接口***********************************************/
 

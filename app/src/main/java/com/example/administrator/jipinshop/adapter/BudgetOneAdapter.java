@@ -9,6 +9,7 @@ import android.view.LayoutInflater;
 import android.view.ViewGroup;
 
 import com.example.administrator.jipinshop.R;
+import com.example.administrator.jipinshop.bean.BudgetDetailBean;
 import com.example.administrator.jipinshop.databinding.ItemBudgetOneBinding;
 
 import java.util.ArrayList;
@@ -21,11 +22,11 @@ import java.util.List;
  */
 public class BudgetOneAdapter extends RecyclerView.Adapter<BudgetOneAdapter.ViewHolder>{
 
-    private List<String> mList;
+    private List<BudgetDetailBean.DataBean> mList;
     private Context mContext;
     private RecyclerView.RecycledViewPool mViewPool;
 
-    public BudgetOneAdapter(List<String> list, Context context) {
+    public BudgetOneAdapter(List<BudgetDetailBean.DataBean> list, Context context) {
         mList = list;
         mContext = context;
         mViewPool = new RecyclerView.RecycledViewPool();
@@ -42,8 +43,10 @@ public class BudgetOneAdapter extends RecyclerView.Adapter<BudgetOneAdapter.View
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         holder.list.clear();
-        holder.list.addAll(mList);
+        holder.list.addAll(mList.get(position).getCommissionDetailList());
         holder.mAdapter.notifyDataSetChanged();
+        holder.binding.setValue(mList.get(position));
+        holder.binding.executePendingBindings();
     }
 
     @Override
@@ -55,7 +58,7 @@ public class BudgetOneAdapter extends RecyclerView.Adapter<BudgetOneAdapter.View
 
         private ItemBudgetOneBinding binding;
         private BudgetTwoAdapter mAdapter;
-        private List<String> list;
+        private List<BudgetDetailBean.DataBean.CommissionDetailListBean> list;
 
         public ViewHolder(@NonNull ItemBudgetOneBinding binding) {
             super(binding.getRoot());

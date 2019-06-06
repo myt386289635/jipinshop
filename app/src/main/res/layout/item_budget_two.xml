@@ -1,5 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout  xmlns:android="http://schemas.android.com/apk/res/android">
+<layout  xmlns:android="http://schemas.android.com/apk/res/android"
+         xmlns:bind="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+        <variable
+            name="bean"
+            type="com.example.administrator.jipinshop.bean.BudgetDetailBean.DataBean.CommissionDetailListBean"/>
+
+    </data>
+
 
     <RelativeLayout
         android:id="@+id/item_contentContainer"
@@ -15,13 +25,14 @@
             android:background="@color/color_DEDEDE"/>
 
         <ImageView
+            android:scaleType="centerCrop"
             android:id="@+id/item_image"
             android:layout_width="@dimen/x150"
             android:layout_height="@dimen/y150"
             android:layout_marginLeft="@dimen/x32"
             android:layout_marginRight="@dimen/x10"
             android:layout_marginTop="@dimen/y64"
-            android:src="@color/color_E31436"/>
+            bind:src="@{bean.itemImg}"/>
 
         <TextView
             android:id="@+id/item_money"
@@ -31,7 +42,8 @@
             android:layout_alignTop="@+id/item_image"
             android:layout_marginRight="@dimen/x32"
             android:layout_marginTop="@dimen/y2"
-            android:text="+¥0"
+            bind:tkStatus="@{bean.tkStatus}"
+            bind:preFee="@{bean.preFee}"
             android:textColor="@color/color_E31436"
             android:textSize="14sp"/>
 
@@ -44,7 +56,7 @@
             android:layout_toRightOf="@+id/item_image"
             android:ellipsize="end"
             android:singleLine="true"
-            android:text="便携式果蔬榨汁料理机便携式果蔬榨汁"
+            android:text="@{bean.itemTitle}"
             android:textColor="@color/color_424242"
             android:textSize="14sp"/>
 
@@ -55,7 +67,7 @@
             android:layout_alignBottom="@+id/item_image"
             android:layout_marginBottom="@dimen/y2"
             android:layout_toRightOf="@+id/item_image"
-            android:text="2019-5-27 09:20:18"
+            android:text="@{bean.tkPaidTime}"
             android:textColor="@color/color_9D9D9D"
             android:textSize="12sp"/>
 
@@ -67,7 +79,7 @@
             android:layout_alignParentRight="true"
             android:layout_marginBottom="@dimen/y2"
             android:layout_marginRight="@dimen/x40"
-            android:text="可提现"
+            bind:tkStatus="@{bean.tkStatus}"
             android:textColor="@color/color_9D9D9D"
             android:textSize="12sp"/>
 

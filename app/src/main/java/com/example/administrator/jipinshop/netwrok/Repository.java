@@ -2,6 +2,7 @@ package com.example.administrator.jipinshop.netwrok;
 
 import com.example.administrator.jipinshop.bean.AddressBean;
 import com.example.administrator.jipinshop.bean.AppVersionbean;
+import com.example.administrator.jipinshop.bean.BudgetDetailBean;
 import com.example.administrator.jipinshop.bean.CommentBean;
 import com.example.administrator.jipinshop.bean.DailyTaskBean;
 import com.example.administrator.jipinshop.bean.DefaultAddressBean;
@@ -616,6 +617,13 @@ public class Repository {
      */
     public Observable<MyWalletBean> myCommssionSummary(){
         return mAPIService.myCommssionSummary();
+    }
+
+    /**
+     * 收入明细
+     */
+    public Observable<BudgetDetailBean> getCommssionDetail(){
+        return mAPIService.getCommssionDetail();
     }
 
 }

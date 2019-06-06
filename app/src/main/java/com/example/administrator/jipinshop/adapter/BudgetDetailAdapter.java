@@ -9,6 +9,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.example.administrator.jipinshop.R;
+import com.example.administrator.jipinshop.bean.BudgetDetailBean;
 import com.example.administrator.jipinshop.databinding.ItemBudgetBinding;
 
 import java.util.List;
@@ -21,14 +22,14 @@ import java.util.List;
 public class BudgetDetailAdapter extends RecyclerView.Adapter<BudgetDetailAdapter.ViewHolder>{
 
     private Context mContext;
-    private List<String> mList;
+    private List<BudgetDetailBean.DataBean> mList;
     private OnClickItem mOnClickItem;
 
     public void setOnClickItem(OnClickItem onClickItem) {
         mOnClickItem = onClickItem;
     }
 
-    public BudgetDetailAdapter(Context context, List<String> list) {
+    public BudgetDetailAdapter(Context context, List<BudgetDetailBean.DataBean> list) {
         mContext = context;
         mList = list;
     }
@@ -55,6 +56,14 @@ public class BudgetDetailAdapter extends RecyclerView.Adapter<BudgetDetailAdapte
                 mOnClickItem.onClickItem(position);
             }
         });
+        holder.binding.setValue(mList.get(position));
+        holder.binding.setBean1(mList.get(position).getCommissionDetailList().get(0));
+        if (mList.get(position).getCommissionDetailList().size() > 1){
+            holder.binding.setBean2(mList.get(position).getCommissionDetailList().get(1));
+        }else {
+            holder.binding.setBean2(null);
+        }
+        holder.binding.executePendingBindings();
     }
 
     @Override

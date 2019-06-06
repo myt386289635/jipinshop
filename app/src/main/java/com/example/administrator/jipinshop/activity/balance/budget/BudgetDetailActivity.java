@@ -9,6 +9,7 @@ import android.view.View;
 import com.example.administrator.jipinshop.R;
 import com.example.administrator.jipinshop.adapter.BudgetOneAdapter;
 import com.example.administrator.jipinshop.base.BaseActivity;
+import com.example.administrator.jipinshop.bean.BudgetDetailBean;
 import com.example.administrator.jipinshop.databinding.ActivityBudgetDetailBinding;
 
 import java.util.ArrayList;
@@ -22,7 +23,7 @@ import java.util.List;
 public class BudgetDetailActivity extends BaseActivity implements View.OnClickListener {
 
     private ActivityBudgetDetailBinding mBinding;
-    private List<String> mList;
+    private List<BudgetDetailBean.DataBean> mList;
     private BudgetOneAdapter mAdapter;
 
     @Override
@@ -38,9 +39,8 @@ public class BudgetDetailActivity extends BaseActivity implements View.OnClickLi
 
         mBinding.recyclerView.setLayoutManager(new LinearLayoutManager(this));
         mList = new ArrayList<>();
-        for (int i = 0; i < 10; i++) {
-            mList.add("");
-        }
+        BudgetDetailBean mBudgetDetailBean = (BudgetDetailBean) getIntent().getSerializableExtra("date");
+        if (mBudgetDetailBean != null) mList.addAll(mBudgetDetailBean.getData());
         mAdapter = new BudgetOneAdapter(mList,this);
         mBinding.recyclerView.setAdapter(mAdapter);
         mBinding.recyclerView.scrollToPosition(getIntent().getIntExtra("position",0));

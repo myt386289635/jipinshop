@@ -40,4 +40,6 @@
 
     <string name="order_sure">确认收货</string>
     <string name="order_sured">已收货</string>
+    
+    <string name="budget_tag">-</string>
 </resources>

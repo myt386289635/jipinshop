@@ -8,6 +8,7 @@ import android.view.LayoutInflater;
 import android.view.ViewGroup;
 
 import com.example.administrator.jipinshop.R;
+import com.example.administrator.jipinshop.bean.BudgetDetailBean;
 import com.example.administrator.jipinshop.databinding.ItemBudgetTwoBinding;
 
 import java.util.List;
@@ -19,10 +20,10 @@ import java.util.List;
  */
 public class BudgetTwoAdapter extends RecyclerView.Adapter<BudgetTwoAdapter.ViewHolder>{
 
-    private List<String> mList;
+    private List<BudgetDetailBean.DataBean.CommissionDetailListBean> mList;
     private Context mContext;
 
-    public BudgetTwoAdapter(List<String> list, Context context) {
+    public BudgetTwoAdapter(List<BudgetDetailBean.DataBean.CommissionDetailListBean> list, Context context) {
         mList = list;
         mContext = context;
     }
@@ -37,7 +38,8 @@ public class BudgetTwoAdapter extends RecyclerView.Adapter<BudgetTwoAdapter.View
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder viewHolder, int i) {
-
+        viewHolder.binding.setBean(mList.get(i));
+        viewHolder.binding.executePendingBindings();
     }
 
     @Override

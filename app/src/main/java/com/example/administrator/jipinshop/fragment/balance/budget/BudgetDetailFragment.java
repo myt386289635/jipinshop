@@ -13,7 +13,9 @@ import com.example.administrator.jipinshop.R;
 import com.example.administrator.jipinshop.activity.balance.budget.BudgetDetailActivity;
 import com.example.administrator.jipinshop.adapter.BudgetDetailAdapter;
 import com.example.administrator.jipinshop.base.DBBaseFragment;
+import com.example.administrator.jipinshop.bean.BudgetDetailBean;
 import com.example.administrator.jipinshop.databinding.FragmentFindCommonBinding;
+import com.example.administrator.jipinshop.util.ToastUtil;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -25,12 +27,12 @@ import javax.inject.Inject;
  * @create 2019/3/7
  * @Describe 收支明细
  */
-public class BudgetDetailFragment extends DBBaseFragment implements OnRefreshListener, BudgetDetailAdapter.OnClickItem {
+public class BudgetDetailFragment extends DBBaseFragment implements OnRefreshListener, BudgetDetailAdapter.OnClickItem, BudgetDetailView {
 
     private FragmentFindCommonBinding mBinding;
-    private Boolean[] once = {true};
-    private List<String> mList;
+    private List<BudgetDetailBean.DataBean> mList;
     private BudgetDetailAdapter mAdapter;
+    private BudgetDetailBean mBudgetDetailBean;
 
     @Inject
     BudgetDetailPresenter mPresenter;
@@ -49,6 +51,7 @@ public class BudgetDetailFragment extends DBBaseFragment implements OnRefreshLis
     @Override
     public void initView() {
         mBaseFragmentComponent.inject(this);
+        mPresenter.setView(this);
 
         mBinding.recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         mList = new ArrayList<>();
@@ -64,15 +67,7 @@ public class BudgetDetailFragment extends DBBaseFragment implements OnRefreshLis
 
     @Override
     public void onRefresh() {
-        stopResher();
-//        initError(R.mipmap.qs_nodata, "暂无数据", "暂时没有任何数据 ");
-        mBinding.recyclerView.setVisibility(View.VISIBLE);
-        mList.clear();
-        for (int i = 0; i < 10; i++) {
-            mList.add("");
-        }
-        mAdapter.notifyDataSetChanged();
-        once[0] = false;
+        mPresenter.getCommssionDetail(this.bindToLifecycle());
     }
 
     /**
@@ -112,6 +107,30 @@ public class BudgetDetailFragment extends DBBaseFragment implements OnRefreshLis
     public void onClickItem(int position) {
         startActivity(new Intent(getContext(), BudgetDetailActivity.class)
                 .putExtra("position",position)
+                .putExtra("date",mBudgetDetailBean)
         );
+    }
+
+    @Override
+    public void onSuccess(BudgetDetailBean bean) {
+        stopResher();
+        if (bean.getData() != null && bean.getData().size() != 0){
+            mBudgetDetailBean = bean;
+            mBinding.recyclerView.setVisibility(View.VISIBLE);
+            mBinding.netClude.qsNet.setVisibility(View.GONE);
+            mList.clear();
+            mList.addAll(bean.getData());
+            mAdapter.notifyDataSetChanged();
+        }else {
+            initError(R.mipmap.qs_nodata, "暂无数据", "暂时没有任何数据 ");
+        }
+
+    }
+
+    @Override
+    public void onFile(String error) {
+        stopResher();
+        ToastUtil.show(error);
+        initError(R.mipmap.qs_nodata, "暂无数据", "暂时没有任何数据 ");
     }
 }
