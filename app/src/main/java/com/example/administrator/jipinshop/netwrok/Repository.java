@@ -17,6 +17,7 @@ import com.example.administrator.jipinshop.bean.LoginBean;
 import com.example.administrator.jipinshop.bean.MallBean;
 import com.example.administrator.jipinshop.bean.MallDetailBean;
 import com.example.administrator.jipinshop.bean.MyOrderBean;
+import com.example.administrator.jipinshop.bean.MyWalletBean;
 import com.example.administrator.jipinshop.bean.OrderbyTypeBean;
 import com.example.administrator.jipinshop.bean.PagerStateBean;
 import com.example.administrator.jipinshop.bean.PassedMoreBean;
@@ -608,6 +609,13 @@ public class Repository {
      */
     public Observable<SreachResultArticlesBean> myReportList(String page){
         return mAPIService.myReportList(page);
+    }
+
+    /**
+     * 佣金汇总
+     */
+    public Observable<MyWalletBean> myCommssionSummary(){
+        return mAPIService.myCommssionSummary();
     }
 
 }

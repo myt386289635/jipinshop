@@ -12,9 +12,11 @@ import com.example.administrator.jipinshop.R;
 import com.example.administrator.jipinshop.activity.balance.withdraw.WithdrawActivity;
 import com.example.administrator.jipinshop.adapter.HomeFragmentAdapter;
 import com.example.administrator.jipinshop.base.BaseActivity;
+import com.example.administrator.jipinshop.bean.MyWalletBean;
 import com.example.administrator.jipinshop.databinding.ActivityWalletBinding;
 import com.example.administrator.jipinshop.fragment.balance.budget.BudgetDetailFragment;
 import com.example.administrator.jipinshop.fragment.balance.withdraw.WithdrawDetailFragment;
+import com.example.administrator.jipinshop.util.ToastUtil;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -26,7 +28,7 @@ import javax.inject.Inject;
  * @create 2019/3/6
  * @Describe 我的钱包页面
  */
-public class MyWalletActivity extends BaseActivity implements View.OnClickListener {
+public class MyWalletActivity extends BaseActivity implements View.OnClickListener, MyWalletView {
 
     @Inject
     MyWalletPresenter mPresenter;
@@ -50,6 +52,7 @@ public class MyWalletActivity extends BaseActivity implements View.OnClickListen
                 .statusBarDarkFont(true, 0f)
                 .init();
         mBinding.setListener(this);
+        mPresenter.setView(this);
         initView();
     }
 
@@ -66,6 +69,8 @@ public class MyWalletActivity extends BaseActivity implements View.OnClickListen
         mBinding.viewPager.setAdapter(mAdapter);
         mBinding.tabLayout.setupWithViewPager(mBinding.viewPager);
         mPresenter.initTabLayout(this,mBinding.tabLayout);
+
+        mPresenter.myCommssionSummary(this.bindToLifecycle());
     }
 
     @Override
@@ -114,5 +119,15 @@ public class MyWalletActivity extends BaseActivity implements View.OnClickListen
             mBinding.viewPager.setNoScroll(true);
         }
         return super.dispatchTouchEvent(ev);
+    }
+
+    @Override
+    public void onSuccess(MyWalletBean bean) {
+        mBinding.setBean(bean.getData());
+    }
+
+    @Override
+    public void onFile(String error) {
+        ToastUtil.show(error);
     }
 }

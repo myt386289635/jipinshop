@@ -18,6 +18,7 @@ import com.example.administrator.jipinshop.bean.LoginBean;
 import com.example.administrator.jipinshop.bean.MallBean;
 import com.example.administrator.jipinshop.bean.MallDetailBean;
 import com.example.administrator.jipinshop.bean.MyOrderBean;
+import com.example.administrator.jipinshop.bean.MyWalletBean;
 import com.example.administrator.jipinshop.bean.OrderbyTypeBean;
 import com.example.administrator.jipinshop.bean.PagerStateBean;
 import com.example.administrator.jipinshop.bean.PassedMoreBean;
@@ -560,6 +561,12 @@ public interface APIService {
      */
     @GET("qualityshop-api/api/my/trial/reportList")
     Observable<SreachResultArticlesBean> myReportList(@Query("page") String page);
+
+    /**
+     * 佣金汇总
+     */
+    @GET("qualityshop-api/api/myCommssionSummary")
+    Observable<MyWalletBean> myCommssionSummary();
 
 /*************************************************以下是还未修改的接口***********************************************/
 

@@ -13,12 +13,18 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.example.administrator.jipinshop.R;
+import com.example.administrator.jipinshop.bean.MyWalletBean;
 import com.example.administrator.jipinshop.netwrok.Repository;
+import com.trello.rxlifecycle2.LifecycleTransformer;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import javax.inject.Inject;
+
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.functions.Consumer;
+import io.reactivex.schedulers.Schedulers;
 
 /**
  * @author 莫小婷
@@ -28,6 +34,11 @@ import javax.inject.Inject;
 public class MyWalletPresenter {
 
     private Repository mRepository;
+    private MyWalletView mView;
+
+    public void setView(MyWalletView view) {
+        mView = view;
+    }
 
     @Inject
     public MyWalletPresenter(Repository repository) {
@@ -117,5 +128,27 @@ public class MyWalletPresenter {
                 tabView.invalidate();
             }
         });
+    }
+
+    public void myCommssionSummary(LifecycleTransformer<MyWalletBean> transformer){
+        mRepository.myCommssionSummary()
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .compose(transformer)
+                .subscribe(myWalletBean -> {
+                    if (myWalletBean.getCode() == 0){
+                        if (mView != null){
+                            mView.onSuccess(myWalletBean);
+                        }
+                    }else {
+                        if (mView != null){
+                            mView.onFile(myWalletBean.getMsg());
+                        }
+                    }
+                }, throwable -> {
+                    if (mView != null){
+                        mView.onFile(throwable.getMessage());
+                    }
+                });
     }
 }
