@@ -15,6 +15,7 @@ import com.blankj.utilcode.util.SPUtils;
 import com.example.administrator.jipinshop.R;
 import com.example.administrator.jipinshop.activity.address.MyAddressActivity;
 import com.example.administrator.jipinshop.activity.balance.MyWalletActivity;
+import com.example.administrator.jipinshop.activity.balance.team.TeamActivity;
 import com.example.administrator.jipinshop.activity.follow.FollowActivity;
 import com.example.administrator.jipinshop.activity.foval.FovalActivity;
 import com.example.administrator.jipinshop.activity.info.MyInfoActivity;
@@ -181,7 +182,7 @@ public class MineFragment extends DBBaseFragment implements View.OnClickListener
                 UAppUtil.mine(getContext(),13);
                 break;
             case R.id.mine_team:
-
+                startActivity(new Intent(getContext(), TeamActivity.class));
                 break;
         }
     }

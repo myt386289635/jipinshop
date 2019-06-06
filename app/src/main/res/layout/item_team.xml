@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout  xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <RelativeLayout
+        android:id="@+id/item_container"
+        android:background="@color/color_white"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <ImageView
+            android:src="@color/color_DEACACAC"
+            android:id="@+id/item_image"
+            android:layout_marginBottom="@dimen/y50"
+            android:layout_marginTop="@dimen/y50"
+            android:layout_marginLeft="@dimen/x28"
+            android:layout_width="@dimen/x100"
+            android:layout_height="@dimen/y100"/>
+
+        <View
+            android:layout_marginRight="@dimen/x28"
+            android:layout_marginLeft="@dimen/x28"
+            android:background="@color/color_DEDEDE"
+            android:layout_below="@+id/item_image"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/y2"/>
+
+        <TextView
+            android:layout_marginTop="@dimen/y2"
+            android:id="@+id/item_name"
+            android:layout_alignTop="@id/item_image"
+            android:layout_marginLeft="@dimen/x16"
+            android:layout_toRightOf="@id/item_image"
+            android:textStyle="bold"
+            android:textColor="@color/color_252525"
+            android:text="爱分享的Tina"
+            android:textSize="16sp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+
+        <TextView
+            android:id="@+id/item_money"
+            android:text="个人收益 ¥5615.30"
+            android:textColor="@color/color_ACACAC"
+            android:layout_marginLeft="@dimen/x16"
+            android:layout_toRightOf="@id/item_image"
+            android:layout_marginBottom="@dimen/y2"
+            android:layout_alignBottom="@id/item_image"
+            android:textSize="14sp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+
+        <TextView
+            android:layout_marginTop="@dimen/y4"
+            android:layout_marginRight="@dimen/x28"
+            android:layout_alignParentRight="true"
+            android:layout_alignTop="@id/item_image"
+            android:textSize="15sp"
+            android:textColor="@color/color_DE151515"
+            android:text="分佣¥1256.29"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+
+    </RelativeLayout>
+</layout>

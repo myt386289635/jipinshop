@@ -3,6 +3,7 @@ package com.example.administrator.jipinshop.base;
 import com.example.administrator.jipinshop.activity.address.MyAddressActivity;
 import com.example.administrator.jipinshop.activity.address.add.CreateAddressActivity;
 import com.example.administrator.jipinshop.activity.balance.MyWalletActivity;
+import com.example.administrator.jipinshop.activity.balance.team.TeamActivity;
 import com.example.administrator.jipinshop.activity.balance.withdraw.WithdrawActivity;
 import com.example.administrator.jipinshop.activity.commenlist.CommenListActivity;
 import com.example.administrator.jipinshop.activity.follow.FollowActivity;
@@ -88,4 +89,5 @@ public interface BaseActivityComponent {
     void inject(CoverReportActivity activity);
     void inject(ReportDetailActivity activity);
     void inject(WithdrawActivity activity);
+    void inject(TeamActivity activity);
 }

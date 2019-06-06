@@ -358,6 +358,10 @@
         <activity android:name=".activity.balance.withdraw.WithdrawActivity"
                   android:screenOrientation="portrait"/>
 
+        <!--团队收入-->
+        <activity android:name=".activity.balance.team.TeamActivity"
+                  android:screenOrientation="portrait"/>
+
     </application>
 
 </manifest>
