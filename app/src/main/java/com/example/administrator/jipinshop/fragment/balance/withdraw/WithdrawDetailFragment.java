@@ -12,7 +12,9 @@ import com.aspsine.swipetoloadlayout.OnRefreshListener;
 import com.example.administrator.jipinshop.R;
 import com.example.administrator.jipinshop.adapter.WithdrawDetailAdapter;
 import com.example.administrator.jipinshop.base.DBBaseFragment;
+import com.example.administrator.jipinshop.bean.WithdrawDetailBean;
 import com.example.administrator.jipinshop.databinding.FragmentFindCommonBinding;
+import com.example.administrator.jipinshop.util.ToastUtil;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -24,18 +26,28 @@ import javax.inject.Inject;
  * @create 2019/6/3
  * @Describe 提现明细
  */
-public class WithdrawDetailFragment extends DBBaseFragment implements OnRefreshListener, OnLoadMoreListener {
+public class WithdrawDetailFragment extends DBBaseFragment implements OnRefreshListener, OnLoadMoreListener, WithdrawDetailView {
 
     @Inject
     WithdrawDetailPresenter mPresenter;
     private FragmentFindCommonBinding mBinding;
     private Boolean once = true;
-    private List<String> mList;
+    private List<WithdrawDetailBean.DataBean> mList;
     private WithdrawDetailAdapter mAdapter;
+    private int page = 1;
+    private Boolean refersh = true;
 
     public static WithdrawDetailFragment getInstance() {
         WithdrawDetailFragment fragment = new WithdrawDetailFragment();
         return fragment;
+    }
+
+    @Override
+    public void setUserVisibleHint(boolean isVisibleToUser) {
+        super.setUserVisibleHint(isVisibleToUser);
+        if(isVisibleToUser && once){
+            mBinding.swipeToLoad.setRefreshing(true);
+        }
     }
 
     @Override
@@ -47,6 +59,7 @@ public class WithdrawDetailFragment extends DBBaseFragment implements OnRefreshL
     @Override
     public void initView() {
         mBaseFragmentComponent.inject(this);
+        mPresenter.setView(this);
 
         mBinding.recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         mList = new ArrayList<>();
@@ -57,20 +70,14 @@ public class WithdrawDetailFragment extends DBBaseFragment implements OnRefreshL
         mPresenter.solveScoll(mBinding.recyclerView,mBinding.swipeToLoad);
         mBinding.swipeToLoad.setOnRefreshListener(this);
         mBinding.swipeToLoad.setOnLoadMoreListener(this);
-        mBinding.swipeToLoad.setRefreshing(true);
         mBinding.swipeToLoad.setBackgroundColor(getResources().getColor(R.color.color_F5F5F5));
     }
 
     @Override
     public void onRefresh() {
-        stopResher();
-//        initError(R.mipmap.qs_nodata, "暂无数据", "暂时没有任何数据 ");
-        mList.clear();
-        for (int i = 0; i < 10; i++) {
-            mList.add("");
-        }
-        mAdapter.notifyDataSetChanged();
-        once = false;
+        page = 1;
+        refersh = true;
+        mPresenter.getWithdrawDetail(page,this.bindToLifecycle());
     }
 
     /**
@@ -120,11 +127,53 @@ public class WithdrawDetailFragment extends DBBaseFragment implements OnRefreshL
 
     @Override
     public void onLoadMore() {
-        stopLoading();
-        for (int i = 0; i < 10; i++) {
-            mList.add("");
+        page++;
+        refersh = false;
+        mPresenter.getWithdrawDetail(page,this.bindToLifecycle());
+    }
+
+    @Override
+    public void onSuccess(WithdrawDetailBean bean) {
+        if (refersh){
+            stopResher();
+            if(bean.getData() != null && bean.getData().size() != 0){
+                mBinding.recyclerView.setVisibility(View.VISIBLE);
+                mBinding.netClude.qsNet.setVisibility(View.GONE);
+                mList.clear();
+                mList.addAll(bean.getData());
+                mAdapter.notifyDataSetChanged();
+            }else {
+                initError(R.mipmap.qs_nodata, "暂无数据", "暂时没有任何数据 ");
+            }
+            if(once){
+                once = false;
+            }
+        }else {
+            stopLoading();
+            if (bean.getData() != null && bean.getData().size() != 0) {
+                mList.addAll(bean.getData());
+                mAdapter.notifyDataSetChanged();
+                mBinding.swipeToLoad.setLoadMoreEnabled(false);
+            } else {
+                page--;
+                ToastUtil.show("已经是最后一页了");
+            }
         }
-        mBinding.swipeToLoad.setLoadMoreEnabled(false);
-        mAdapter.notifyDataSetChanged();
+
+    }
+
+    @Override
+    public void onFile(String error) {
+        if(refersh){
+            stopResher();
+            initError(R.mipmap.qs_nodata, "网络出错", "哇哦，网络出错了，换个姿势下滑页面试试");
+        }else {
+            stopLoading();
+            page--;
+        }
+        ToastUtil.show(error);
+        if(once){
+            once = false;
+        }
     }
 }

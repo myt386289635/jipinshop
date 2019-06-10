@@ -1,5 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout   xmlns:android="http://schemas.android.com/apk/res/android">
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:bind="http://schemas.android.com/apk/res-auto">
+
+    <data>
+        <import type="android.view.View"/>
+
+        <variable
+            name="bean"
+            type="com.example.administrator.jipinshop.bean.WithdrawDetailBean.DataBean"/>
+
+    </data>
 
     <RelativeLayout
         android:elevation="@dimen/y3"
@@ -28,7 +38,7 @@
             android:layout_marginLeft="@dimen/x32"
             android:textSize="12sp"
             android:layout_below="@id/item_title"
-            android:text="2019-05-27 14:20:56"
+            android:text="@{bean.createTime}"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"/>
 
@@ -38,7 +48,7 @@
             android:textColor="@color/color_202020"
             android:textSize="14sp"
             android:layout_marginTop="@dimen/y42"
-            android:text="¥268.23"
+            android:text="@{@string/price + bean.amount}"
             android:layout_alignParentRight="true"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"/>
@@ -51,18 +61,19 @@
             android:id="@+id/item_reason"
             android:textColor="@color/color_9D9D9D"
             android:textSize="12sp"
-            android:text="审核失败"
+            bind:status="@{bean.status}"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"/>
 
 
         <TextView
+            android:visibility="@{bean.status == -1 ? View.VISIBLE : View.GONE }"
             android:layout_marginBottom="@dimen/y12"
             android:layout_marginLeft="@dimen/x32"
             android:layout_below="@+id/item_time"
             android:id="@+id/item_reasonText"
             android:textSize="13sp"
-            android:text="支付宝账号有误！"
+            android:text="@{bean.failReason}"
             android:textColor="@color/color_E7304F"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"/>

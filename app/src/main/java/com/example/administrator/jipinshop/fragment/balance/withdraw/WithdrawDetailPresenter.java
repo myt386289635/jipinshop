@@ -4,9 +4,14 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 
 import com.aspsine.swipetoloadlayout.SwipeToLoadLayout;
+import com.example.administrator.jipinshop.bean.WithdrawDetailBean;
 import com.example.administrator.jipinshop.netwrok.Repository;
+import com.trello.rxlifecycle2.LifecycleTransformer;
 
 import javax.inject.Inject;
+
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.schedulers.Schedulers;
 
 /**
  * @author 莫小婷
@@ -16,6 +21,11 @@ import javax.inject.Inject;
 public class WithdrawDetailPresenter {
 
     private Repository mRepository;
+    private WithdrawDetailView mView;
+
+    public void setView(WithdrawDetailView view) {
+        mView = view;
+    }
 
     @Inject
     public WithdrawDetailPresenter(Repository repository) {
@@ -50,6 +60,28 @@ public class WithdrawDetailPresenter {
                 >= recyclerView.computeVerticalScrollRange())
             return true;
         return false;
+    }
+
+    public void getWithdrawDetail(int page, LifecycleTransformer<WithdrawDetailBean> transformer){
+        mRepository.getWithdrawDetail(page)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .compose(transformer)
+                .subscribe(withdrawDetailBean -> {
+                    if (withdrawDetailBean.getCode() == 0){
+                        if (mView != null){
+                            mView.onSuccess(withdrawDetailBean);
+                        }
+                    }else {
+                        if (mView != null){
+                            mView.onFile(withdrawDetailBean.getMsg());
+                        }
+                    }
+                }, throwable -> {
+                    if (mView != null){
+                        mView.onFile(throwable.getMessage());
+                    }
+                });
     }
 
 }

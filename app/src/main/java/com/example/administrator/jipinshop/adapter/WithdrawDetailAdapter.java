@@ -8,6 +8,7 @@ import android.view.LayoutInflater;
 import android.view.ViewGroup;
 
 import com.example.administrator.jipinshop.R;
+import com.example.administrator.jipinshop.bean.WithdrawDetailBean;
 import com.example.administrator.jipinshop.databinding.ItemWithdrawContentBinding;
 
 import java.util.List;
@@ -19,10 +20,10 @@ import java.util.List;
  */
 public class WithdrawDetailAdapter extends RecyclerView.Adapter<WithdrawDetailAdapter.ContentViewHolder>{
 
-    private List<String> mList;
+    private List<WithdrawDetailBean.DataBean> mList;
     private Context mContext;
 
-    public WithdrawDetailAdapter(List<String> list, Context context) {
+    public WithdrawDetailAdapter(List<WithdrawDetailBean.DataBean> list, Context context) {
         mList = list;
         mContext = context;
     }
@@ -42,7 +43,11 @@ public class WithdrawDetailAdapter extends RecyclerView.Adapter<WithdrawDetailAd
         if (position == 0){
             params.topMargin = (int) mContext.getResources().getDimension(R.dimen.y30);
             params.bottomMargin = 0;
-            holder.binding.itemContainer.setBackgroundResource(R.drawable.bg_balance_one);
+            if (mList.size() == 1){
+                holder.binding.itemContainer.setBackgroundResource(R.drawable.bg_balance);
+            }else {
+                holder.binding.itemContainer.setBackgroundResource(R.drawable.bg_balance_one);
+            }
         }else if (position == mList.size() - 1){
             params.topMargin = 0;
             params.bottomMargin = (int) mContext.getResources().getDimension(R.dimen.y30);
@@ -53,7 +58,8 @@ public class WithdrawDetailAdapter extends RecyclerView.Adapter<WithdrawDetailAd
             holder.binding.itemContainer.setBackgroundResource(R.drawable.bg_balance_other);
         }
         holder.binding.itemContainer.setLayoutParams(params);
-
+        holder.binding.setBean(mList.get(position));
+        holder.binding.executePendingBindings();
     }
 
     @Override

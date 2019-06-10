@@ -47,6 +47,7 @@ import com.example.administrator.jipinshop.bean.UnMessageBean;
 import com.example.administrator.jipinshop.bean.UserInfoBean;
 import com.example.administrator.jipinshop.bean.UserPageBean;
 import com.example.administrator.jipinshop.bean.VoteBean;
+import com.example.administrator.jipinshop.bean.WithdrawDetailBean;
 import com.example.administrator.jipinshop.util.UpDataUtil;
 
 import java.util.Map;
@@ -624,6 +625,13 @@ public class Repository {
      */
     public Observable<BudgetDetailBean> getCommssionDetail(){
         return mAPIService.getCommssionDetail();
+    }
+
+    /**
+     * 提现明细
+     */
+    public Observable<WithdrawDetailBean> getWithdrawDetail(int page){
+        return mAPIService.getWithdrawDetail(page);
     }
 
 }

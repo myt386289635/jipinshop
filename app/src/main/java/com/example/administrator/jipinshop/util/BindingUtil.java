@@ -207,4 +207,19 @@ public class BindingUtil {
                 break;
         }
     }
+
+    @BindingAdapter({"bind:status"})
+    public static void setWithdrawStatus(TextView view, int status){
+        switch (status){
+            case -1:
+                view.setText("审核失败");
+                break;
+            case 0:
+                view.setText("审核中");
+                break;
+            case 1:
+                view.setText("提现成功");
+                break;
+        }
+    }
 }

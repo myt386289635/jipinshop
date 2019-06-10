@@ -48,6 +48,7 @@ import com.example.administrator.jipinshop.bean.UnMessageBean;
 import com.example.administrator.jipinshop.bean.UserInfoBean;
 import com.example.administrator.jipinshop.bean.UserPageBean;
 import com.example.administrator.jipinshop.bean.VoteBean;
+import com.example.administrator.jipinshop.bean.WithdrawDetailBean;
 
 import java.util.Map;
 
@@ -574,6 +575,12 @@ public interface APIService {
      */
     @GET("qualityshop-api/api/getCommssionDetail")
     Observable<BudgetDetailBean> getCommssionDetail();
+
+    /**
+     * 提现明细
+     */
+    @GET("qualityshop-api/api/getWithdrawDetail")
+    Observable<WithdrawDetailBean> getWithdrawDetail(@Query("page") int page);
 
 /*************************************************以下是还未修改的接口***********************************************/
 
