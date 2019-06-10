@@ -4,10 +4,16 @@ import android.text.InputFilter;
 import android.text.TextUtils;
 import android.view.View;
 
+import com.example.administrator.jipinshop.bean.SuccessBean;
+import com.example.administrator.jipinshop.bean.WithdrawBean;
 import com.example.administrator.jipinshop.databinding.ActivityWithdrawBinding;
 import com.example.administrator.jipinshop.netwrok.Repository;
+import com.trello.rxlifecycle2.LifecycleTransformer;
 
 import javax.inject.Inject;
+
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.schedulers.Schedulers;
 
 /**
  * @author 莫小婷
@@ -17,6 +23,11 @@ import javax.inject.Inject;
 public class WithdrawPresenter {
 
     private Repository mRepository;
+    private WithdrawView mView;
+
+    public void setView(WithdrawView view) {
+        mView = view;
+    }
 
     @Inject
     public WithdrawPresenter(Repository repository) {
@@ -62,5 +73,49 @@ public class WithdrawPresenter {
                 }
             }
         });
+    }
+
+    public void getWithdrawNote(LifecycleTransformer<WithdrawBean> transformer){
+        mRepository.getWithdrawNote()
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .compose(transformer)
+                .subscribe(withdrawBean -> {
+                    if (withdrawBean.getCode() == 0){
+                        if (mView != null){
+                            mView.onSuccess(withdrawBean);
+                        }
+                    }else {
+                        if (mView != null){
+                            mView.onFile(withdrawBean.getMsg());
+                        }
+                    }
+                }, throwable -> {
+                    if (mView != null){
+                        mView.onFile(throwable.getMessage());
+                    }
+                });
+    }
+
+    public void withdraw(String realname , String account, String amount,LifecycleTransformer<SuccessBean> transformer){
+        mRepository.withdraw(realname, account, amount)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .compose(transformer)
+                .subscribe(successBean -> {
+                    if (successBean.getCode() == 0){
+                        if (mView != null){
+                            mView.onWithdrawSuccess();
+                        }
+                    }else {
+                        if (mView != null){
+                            mView.onWithdrawFile(successBean.getMsg());
+                        }
+                    }
+                }, throwable -> {
+                    if (mView != null){
+                        mView.onWithdrawFile(throwable.getMessage());
+                    }
+                });
     }
 }

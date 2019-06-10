@@ -13,10 +13,14 @@ import com.example.administrator.jipinshop.activity.balance.withdraw.WithdrawAct
 import com.example.administrator.jipinshop.adapter.HomeFragmentAdapter;
 import com.example.administrator.jipinshop.base.BaseActivity;
 import com.example.administrator.jipinshop.bean.MyWalletBean;
+import com.example.administrator.jipinshop.bean.eventbus.WithdrawBus;
 import com.example.administrator.jipinshop.databinding.ActivityWalletBinding;
 import com.example.administrator.jipinshop.fragment.balance.budget.BudgetDetailFragment;
 import com.example.administrator.jipinshop.fragment.balance.withdraw.WithdrawDetailFragment;
 import com.example.administrator.jipinshop.util.ToastUtil;
+
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -53,6 +57,7 @@ public class MyWalletActivity extends BaseActivity implements View.OnClickListen
                 .init();
         mBinding.setListener(this);
         mPresenter.setView(this);
+        EventBus.getDefault().register(this);
         initView();
     }
 
@@ -81,7 +86,9 @@ public class MyWalletActivity extends BaseActivity implements View.OnClickListen
                 break;
             case R.id.title_record:
                 //我要提现
-                startActivity(new Intent(this, WithdrawActivity.class));
+                startActivity(new Intent(this, WithdrawActivity.class)
+                        .putExtra("price",mBinding.titleMoneny.getText().toString())
+                );
                 break;
             case R.id.title_totleText:
                 //总资产解释
@@ -129,5 +136,18 @@ public class MyWalletActivity extends BaseActivity implements View.OnClickListen
     @Override
     public void onFile(String error) {
         ToastUtil.show(error);
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        EventBus.getDefault().unregister(this);
+    }
+
+    @Subscribe
+    public void setRefersh(WithdrawBus bus){
+        if (bus != null){
+            mPresenter.myCommssionSummary(this.bindToLifecycle());
+        }
     }
 }

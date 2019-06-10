@@ -13,8 +13,12 @@ import com.example.administrator.jipinshop.R;
 import com.example.administrator.jipinshop.adapter.WithdrawDetailAdapter;
 import com.example.administrator.jipinshop.base.DBBaseFragment;
 import com.example.administrator.jipinshop.bean.WithdrawDetailBean;
+import com.example.administrator.jipinshop.bean.eventbus.WithdrawBus;
 import com.example.administrator.jipinshop.databinding.FragmentFindCommonBinding;
 import com.example.administrator.jipinshop.util.ToastUtil;
+
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -60,6 +64,7 @@ public class WithdrawDetailFragment extends DBBaseFragment implements OnRefreshL
     public void initView() {
         mBaseFragmentComponent.inject(this);
         mPresenter.setView(this);
+        EventBus.getDefault().register(this);
 
         mBinding.recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         mList = new ArrayList<>();
@@ -174,6 +179,25 @@ public class WithdrawDetailFragment extends DBBaseFragment implements OnRefreshL
         ToastUtil.show(error);
         if(once){
             once = false;
+        }
+    }
+
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        EventBus.getDefault().unregister(this);
+    }
+
+    @Subscribe
+    public void setRefersh(WithdrawBus bus){
+        if (bus != null){
+            if (!mBinding.swipeToLoad.isRefreshEnabled()) {
+                mBinding.swipeToLoad.setRefreshEnabled(true);
+                mBinding.swipeToLoad.setRefreshing(true);
+                mBinding.swipeToLoad.setRefreshEnabled(false);
+            } else {
+                mBinding.swipeToLoad.setRefreshing(true);
+            }
         }
     }
 }

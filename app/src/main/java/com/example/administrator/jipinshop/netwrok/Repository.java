@@ -47,6 +47,7 @@ import com.example.administrator.jipinshop.bean.UnMessageBean;
 import com.example.administrator.jipinshop.bean.UserInfoBean;
 import com.example.administrator.jipinshop.bean.UserPageBean;
 import com.example.administrator.jipinshop.bean.VoteBean;
+import com.example.administrator.jipinshop.bean.WithdrawBean;
 import com.example.administrator.jipinshop.bean.WithdrawDetailBean;
 import com.example.administrator.jipinshop.util.UpDataUtil;
 
@@ -632,6 +633,20 @@ public class Repository {
      */
     public Observable<WithdrawDetailBean> getWithdrawDetail(int page){
         return mAPIService.getWithdrawDetail(page);
+    }
+
+    /**
+     * 提现-温馨提示
+     */
+    public Observable<WithdrawBean> getWithdrawNote(){
+        return mAPIService.getWithdrawNote();
+    }
+
+    /**
+     * 提现
+     */
+    public Observable<SuccessBean> withdraw(String realname , String account, String amount){
+        return mAPIService.withdraw(realname, account, amount);
     }
 
 }
