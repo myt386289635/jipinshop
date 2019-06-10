@@ -596,6 +596,12 @@ public interface APIService {
     @POST("qualityshop-api/api/withdraw")
     Observable<SuccessBean> withdraw(@Field("realname") String realname , @Field("account") String account, @Field("amount") String amount);
 
+    /**
+     * 下级会员
+     */
+    @GET("qualityshop-api/api/getSubUserList")
+    Observable<SuccessBean> getSubUserList(@Query("page") int page);
+
 /*************************************************以下是还未修改的接口***********************************************/
 
     /**

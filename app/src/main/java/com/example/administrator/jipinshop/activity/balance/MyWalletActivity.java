@@ -9,6 +9,7 @@ import android.view.MotionEvent;
 import android.view.View;
 
 import com.example.administrator.jipinshop.R;
+import com.example.administrator.jipinshop.activity.WebActivity;
 import com.example.administrator.jipinshop.activity.balance.withdraw.WithdrawActivity;
 import com.example.administrator.jipinshop.adapter.HomeFragmentAdapter;
 import com.example.administrator.jipinshop.base.BaseActivity;
@@ -17,6 +18,7 @@ import com.example.administrator.jipinshop.bean.eventbus.WithdrawBus;
 import com.example.administrator.jipinshop.databinding.ActivityWalletBinding;
 import com.example.administrator.jipinshop.fragment.balance.budget.BudgetDetailFragment;
 import com.example.administrator.jipinshop.fragment.balance.withdraw.WithdrawDetailFragment;
+import com.example.administrator.jipinshop.netwrok.RetrofitModule;
 import com.example.administrator.jipinshop.util.ToastUtil;
 
 import org.greenrobot.eventbus.EventBus;
@@ -92,6 +94,10 @@ public class MyWalletActivity extends BaseActivity implements View.OnClickListen
                 break;
             case R.id.title_totleText:
                 //总资产解释
+                startActivity(new Intent(this, WebActivity.class)
+                        .putExtra(WebActivity.url, RetrofitModule.H5_URL+"commission-rule.html")
+                        .putExtra(WebActivity.title,"规则说明")
+                );
                 break;
         }
     }
