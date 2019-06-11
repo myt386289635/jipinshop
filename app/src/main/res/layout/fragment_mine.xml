@@ -442,7 +442,7 @@
                             android:layout_height="wrap_content"
                             android:layout_centerVertical="true"
                             android:layout_marginLeft="@dimen/x32"
-                            android:drawableLeft="@mipmap/message"
+                            android:drawableLeft="@mipmap/mine_team"
                             android:drawablePadding="@dimen/x18"
                             android:text="团队收入"/>
 

@@ -304,6 +304,10 @@
         <activity android:name=".activity.sign.invitation.InvitationActivity"
                   android:screenOrientation="portrait"/>
 
+        <!--邀请好友页面2.3.0-->
+        <activity android:name=".activity.sign.invitation.InvitationNewActivity"
+                  android:screenOrientation="portrait"/>
+
         <!--查看全部试用-->
         <activity android:name=".activity.tryout.TryAllActivity"
                   android:screenOrientation="portrait"/>

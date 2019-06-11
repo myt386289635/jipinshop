@@ -1,0 +1,143 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:bind="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+        <variable
+            name="listener"
+            type="android.view.View.OnClickListener"/>
+
+    </data>
+
+    <RelativeLayout
+        android:id="@+id/container"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/color_F5F5F5"
+        android:clipChildren="false">
+
+        <include
+            android:id="@+id/in_clude"
+            layout="@layout/aa_title"
+            bind:listener="@{listener}"/>
+
+        <TextView
+            android:id="@+id/invitation_title"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/in_clude"
+            android:background="@color/color_DC4D64"
+            android:lineSpacingExtra="@dimen/y6"
+            android:padding="@dimen/x28"
+            android:text="1.分享给好友，好友通过分享链接下载注册、填写邀请码；邀请一人可获得200极币;
+2.被邀请的好友在“极品城”购买任何商品，您都会获得50%佣金."
+            android:textColor="@color/color_white"
+            android:textSize="15sp"/>
+
+        <LinearLayout
+            android:id="@+id/invitation_bottomContainer"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:background="@color/color_white"
+            android:orientation="horizontal"
+            android:paddingBottom="@dimen/y10"
+            android:paddingTop="@dimen/y10">
+
+
+            <LinearLayout
+                android:id="@+id/share_wechat"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:orientation="vertical">
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@mipmap/share_wechat"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/y10"
+                    android:text="微信"
+                    android:textColor="@color/color_ACACAC"
+                    android:textSize="12sp"/>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/share_pyq"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:orientation="vertical">
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@mipmap/share_pyq"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/y10"
+                    android:text="朋友圈"
+                    android:textColor="@color/color_ACACAC"
+                    android:textSize="12sp"/>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/share_weibo"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:orientation="vertical">
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@mipmap/share_weibo"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/y10"
+                    android:text="微博"
+                    android:textColor="@color/color_ACACAC"
+                    android:textSize="12sp"/>
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+        <RelativeLayout
+            android:id="@+id/viewpager_container"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_above="@id/invitation_bottomContainer"
+            android:layout_below="@id/invitation_title"
+            android:layout_centerInParent="true"
+            android:clipChildren="false">
+
+            <android.support.v4.view.ViewPager
+                android:overScrollMode="never"
+                android:id="@+id/view_pager"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginBottom="@dimen/y20"
+                android:layout_marginLeft="@dimen/x160"
+                android:layout_marginRight="@dimen/x160"
+                android:layout_marginTop="@dimen/y20"
+                android:clipChildren="false"/>
+
+        </RelativeLayout>
+
+    </RelativeLayout>
+</layout>

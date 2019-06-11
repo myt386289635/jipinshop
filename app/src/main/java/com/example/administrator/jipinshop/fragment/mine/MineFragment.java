@@ -27,6 +27,7 @@ import com.example.administrator.jipinshop.activity.order.MyOrderActivity;
 import com.example.administrator.jipinshop.activity.setting.SettingActivity;
 import com.example.administrator.jipinshop.activity.sign.SignActivity;
 import com.example.administrator.jipinshop.activity.sign.invitation.InvitationActivity;
+import com.example.administrator.jipinshop.activity.sign.invitation.InvitationNewActivity;
 import com.example.administrator.jipinshop.activity.tryout.mine.MineTrialActivity;
 import com.example.administrator.jipinshop.base.DBBaseFragment;
 import com.example.administrator.jipinshop.bean.UserInfoBean;
@@ -102,7 +103,7 @@ public class MineFragment extends DBBaseFragment implements View.OnClickListener
                 break;
             case R.id.mine_signOther:
                 //邀请
-                startActivity(new Intent(getContext(), InvitationActivity.class));
+                startActivity(new Intent(getContext(), InvitationNewActivity.class));
                 UAppUtil.mine(getContext(),4);
                 break;
             case R.id.mine_sign:
