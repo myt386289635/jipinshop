@@ -47,6 +47,7 @@
 
 
             <LinearLayout
+                android:onClick="@{listener.onClick}"
                 android:id="@+id/share_wechat"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
@@ -70,6 +71,7 @@
             </LinearLayout>
 
             <LinearLayout
+                android:onClick="@{listener.onClick}"
                 android:id="@+id/share_pyq"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
@@ -93,6 +95,7 @@
             </LinearLayout>
 
             <LinearLayout
+                android:onClick="@{listener.onClick}"
                 android:id="@+id/share_weibo"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
@@ -121,8 +124,8 @@
             android:id="@+id/viewpager_container"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_above="@id/invitation_bottomContainer"
-            android:layout_below="@id/invitation_title"
+            android:layout_above="@+id/invitation_bottomContainer"
+            android:layout_below="@+id/invitation_title"
             android:layout_centerInParent="true"
             android:clipChildren="false">
 
