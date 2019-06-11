@@ -1,19 +1,15 @@
 package com.example.administrator.jipinshop.adapter;
 
 import android.content.Context;
-import android.support.annotation.NonNull;
 import android.support.v4.view.PagerAdapter;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
-import android.widget.RelativeLayout;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
 import com.example.administrator.jipinshop.R;
-import com.example.administrator.jipinshop.view.glide.CenterRoundTransform;
-import com.example.administrator.jipinshop.view.glide.GlideApp;
 import com.example.administrator.jipinshop.view.glide.RoundTransform;
 
 import java.util.List;
@@ -52,7 +48,7 @@ public class InvitationNewAdapter extends PagerAdapter{
         ImageView imageView = view.findViewById(R.id.recommend_img_rotate);
         RequestOptions requestOptions = new RequestOptions();
         requestOptions = requestOptions
-                .transform(new RoundTransform(10,0, RoundTransform.CornerType.ALL));
+                .transform(new RoundTransform(20,0, RoundTransform.CornerType.ALL));
         if (mContext != null) {
             Glide.with(mContext)
                     .load(mList.get(position))

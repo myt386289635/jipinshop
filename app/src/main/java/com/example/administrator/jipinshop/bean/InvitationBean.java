@@ -1,5 +1,7 @@
 package com.example.administrator.jipinshop.bean;
 
+import java.util.List;
+
 /**
  * @author 莫小婷
  * @create 2019/3/16
@@ -49,6 +51,8 @@ public class InvitationBean {
 
         private String qrcodeImg;
         private String posterImg;
+        private String shareContent;
+        private List<String> posterImgs;
 
         public String getQrcodeImg() {
             return qrcodeImg;
@@ -64,6 +68,22 @@ public class InvitationBean {
 
         public void setPosterImg(String posterImg) {
             this.posterImg = posterImg;
+        }
+
+        public String getShareContent() {
+            return shareContent;
+        }
+
+        public void setShareContent(String shareContent) {
+            this.shareContent = shareContent;
+        }
+
+        public List<String> getPosterImgs() {
+            return posterImgs;
+        }
+
+        public void setPosterImgs(List<String> posterImgs) {
+            this.posterImgs = posterImgs;
         }
     }
 }

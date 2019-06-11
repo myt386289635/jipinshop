@@ -603,6 +603,12 @@ public interface APIService {
     @GET("qualityshop-api/api/getSubUserList")
     Observable<TeamBean> getSubUserList(@Query("page") int page);
 
+    /**
+     * 获取二维码邀请图片（多张）
+     */
+    @GET("qualityshop-api/api/user/getQRcodeImgs")
+    Observable<InvitationBean> getQRcodeImgs();
+
 /*************************************************以下是还未修改的接口***********************************************/
 
     /**

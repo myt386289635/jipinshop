@@ -657,4 +657,11 @@ public class Repository {
         return mAPIService.getSubUserList(page);
     }
 
+    /**
+     * 获取二维码邀请图片（多张）
+     */
+    public Observable<InvitationBean> getQRcodeImgs(){
+        return mAPIService.getQRcodeImgs();
+    }
+
 }
