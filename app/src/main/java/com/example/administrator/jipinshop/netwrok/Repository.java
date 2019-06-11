@@ -37,6 +37,7 @@ import com.example.administrator.jipinshop.bean.SuccessBean;
 import com.example.administrator.jipinshop.bean.SystemMessageBean;
 import com.example.administrator.jipinshop.bean.TabBean;
 import com.example.administrator.jipinshop.bean.TaskFinishBean;
+import com.example.administrator.jipinshop.bean.TeamBean;
 import com.example.administrator.jipinshop.bean.TrialCommonBean;
 import com.example.administrator.jipinshop.bean.TryAllBean;
 import com.example.administrator.jipinshop.bean.TryApplyBean;
@@ -647,6 +648,13 @@ public class Repository {
      */
     public Observable<SuccessBean> withdraw(String realname , String account, String amount){
         return mAPIService.withdraw(realname, account, amount);
+    }
+
+    /**
+     * 下级会员
+     */
+    public Observable<TeamBean> getSubUserList(int page){
+        return mAPIService.getSubUserList(page);
     }
 
 }

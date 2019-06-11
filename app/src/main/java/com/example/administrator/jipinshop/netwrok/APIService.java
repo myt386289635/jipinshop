@@ -38,6 +38,7 @@ import com.example.administrator.jipinshop.bean.SuccessBean;
 import com.example.administrator.jipinshop.bean.SystemMessageBean;
 import com.example.administrator.jipinshop.bean.TabBean;
 import com.example.administrator.jipinshop.bean.TaskFinishBean;
+import com.example.administrator.jipinshop.bean.TeamBean;
 import com.example.administrator.jipinshop.bean.TrialCommonBean;
 import com.example.administrator.jipinshop.bean.TryAllBean;
 import com.example.administrator.jipinshop.bean.TryApplyBean;
@@ -600,7 +601,7 @@ public interface APIService {
      * 下级会员
      */
     @GET("qualityshop-api/api/getSubUserList")
-    Observable<SuccessBean> getSubUserList(@Query("page") int page);
+    Observable<TeamBean> getSubUserList(@Query("page") int page);
 
 /*************************************************以下是还未修改的接口***********************************************/
 

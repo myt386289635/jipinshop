@@ -1,5 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout  xmlns:android="http://schemas.android.com/apk/res/android">
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:bind="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+        <variable
+            name="bean"
+            type="com.example.administrator.jipinshop.bean.TeamBean.DataBean"/>
+
+    </data>
 
     <RelativeLayout
         android:id="@+id/item_container"
@@ -8,7 +17,7 @@
         android:layout_height="wrap_content">
 
         <ImageView
-            android:src="@color/color_DEACACAC"
+            bind:srcCircle="@{bean.avatar}"
             android:id="@+id/item_image"
             android:layout_marginBottom="@dimen/y50"
             android:layout_marginTop="@dimen/y50"
@@ -32,14 +41,14 @@
             android:layout_toRightOf="@id/item_image"
             android:textStyle="bold"
             android:textColor="@color/color_252525"
-            android:text="爱分享的Tina"
+            android:text="@{bean.nickname}"
             android:textSize="16sp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"/>
 
         <TextView
             android:id="@+id/item_money"
-            android:text="个人收益 ¥5615.30"
+            android:text="@{@string/team_commission + bean.commission}"
             android:textColor="@color/color_ACACAC"
             android:layout_marginLeft="@dimen/x16"
             android:layout_toRightOf="@id/item_image"
@@ -56,7 +65,7 @@
             android:layout_alignTop="@id/item_image"
             android:textSize="15sp"
             android:textColor="@color/color_DE151515"
-            android:text="分佣¥1256.29"
+            android:text="@{@string/team_shareCommission + bean.shareCommission}"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"/>
 

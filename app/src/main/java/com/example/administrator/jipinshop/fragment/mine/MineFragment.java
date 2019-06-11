@@ -183,6 +183,7 @@ public class MineFragment extends DBBaseFragment implements View.OnClickListener
                 UAppUtil.mine(getContext(),13);
                 break;
             case R.id.mine_team:
+                //我的团队
                 startActivity(new Intent(getContext(), TeamActivity.class));
                 break;
         }

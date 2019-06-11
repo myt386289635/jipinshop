@@ -42,4 +42,7 @@
     <string name="order_sured">已收货</string>
     
     <string name="budget_tag">-</string>
+    
+    <string name="team_commission">个人收益 ¥</string>
+    <string name="team_shareCommission">分佣¥</string>
 </resources>

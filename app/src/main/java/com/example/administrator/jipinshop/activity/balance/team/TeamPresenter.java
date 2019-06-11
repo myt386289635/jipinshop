@@ -4,9 +4,14 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 
 import com.aspsine.swipetoloadlayout.SwipeToLoadLayout;
+import com.example.administrator.jipinshop.bean.TeamBean;
 import com.example.administrator.jipinshop.netwrok.Repository;
+import com.trello.rxlifecycle2.LifecycleTransformer;
 
 import javax.inject.Inject;
+
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.schedulers.Schedulers;
 
 /**
  * @author 莫小婷
@@ -16,6 +21,11 @@ import javax.inject.Inject;
 public class TeamPresenter {
 
     private Repository mRepository;
+    private TeamView mView;
+
+    public void setView(TeamView view) {
+        mView = view;
+    }
 
     @Inject
     public TeamPresenter(Repository repository) {
@@ -49,5 +59,27 @@ public class TeamPresenter {
                 >= recyclerView.computeVerticalScrollRange())
             return true;
         return false;
+    }
+
+    public void getSubUserList(int page, LifecycleTransformer<TeamBean> transformer){
+        mRepository.getSubUserList(page)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .compose(transformer)
+                .subscribe(teamBean -> {
+                    if (teamBean.getCode() == 0){
+                        if (mView != null){
+                            mView.onSuccess(teamBean);
+                        }
+                    }else {
+                        if (mView != null){
+                            mView.onFile(teamBean.getMsg());
+                        }
+                    }
+                }, throwable -> {
+                    if (mView != null){
+                        mView.onFile(throwable.getMessage());
+                    }
+                });
     }
 }

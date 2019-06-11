@@ -11,7 +11,9 @@ import com.aspsine.swipetoloadlayout.OnRefreshListener;
 import com.example.administrator.jipinshop.R;
 import com.example.administrator.jipinshop.adapter.TeamAdapter;
 import com.example.administrator.jipinshop.base.BaseActivity;
+import com.example.administrator.jipinshop.bean.TeamBean;
 import com.example.administrator.jipinshop.databinding.ActivityMessageSystemBinding;
+import com.example.administrator.jipinshop.util.ToastUtil;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -23,13 +25,15 @@ import javax.inject.Inject;
  * @create 2019/6/5
  * @Describe 团队收入
  */
-public class TeamActivity extends BaseActivity implements View.OnClickListener, OnRefreshListener, OnLoadMoreListener {
+public class TeamActivity extends BaseActivity implements View.OnClickListener, OnRefreshListener, OnLoadMoreListener, TeamView {
 
     @Inject
     TeamPresenter mPresenter;
     private ActivityMessageSystemBinding mBinding;
-    private List<String> mList;
+    private List<TeamBean.DataBean> mList;
     private TeamAdapter mAdapter;
+    private int page = 1;
+    private Boolean refersh = true;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -37,6 +41,7 @@ public class TeamActivity extends BaseActivity implements View.OnClickListener, 
         mBinding = DataBindingUtil.setContentView(this,R.layout.activity_message_system);
         mBinding.setListener(this);
         mBaseActivityComponent.inject(this);
+        mPresenter.setView(this);
         initView();
     }
 
@@ -65,23 +70,16 @@ public class TeamActivity extends BaseActivity implements View.OnClickListener, 
 
     @Override
     public void onRefresh() {
-        stopResher();
-//        initError(R.mipmap.qs_nodata, "暂无数据", "暂时没有任何数据 ");
-        mList.clear();
-        for (int i = 0; i < 10; i++) {
-            mList.add("");
-        }
-        mAdapter.notifyDataSetChanged();
+        page = 1;
+        refersh = true;
+        mPresenter.getSubUserList(page,this.bindToLifecycle());
     }
 
     @Override
     public void onLoadMore() {
-        stopLoading();
-        for (int i = 0; i < 10; i++) {
-            mList.add("");
-        }
-        mBinding.swipeToLoad.setLoadMoreEnabled(false);
-        mAdapter.notifyDataSetChanged();
+        page++;
+        refersh = false;
+        mPresenter.getSubUserList(page,this.bindToLifecycle());
     }
 
     /**
@@ -123,5 +121,43 @@ public class TeamActivity extends BaseActivity implements View.OnClickListener, 
                 mBinding.swipeToLoad.setLoadingMore(false);
             }
         }
+    }
+
+    @Override
+    public void onSuccess(TeamBean bean) {
+        if (refersh){
+            stopResher();
+            if (bean.getData() != null && bean.getData().size() != 0){
+                mBinding.recyclerView.setVisibility(View.VISIBLE);
+                mBinding.netClude.qsNet.setVisibility(View.GONE);
+                mList.clear();
+                mList.addAll(bean.getData());
+                mAdapter.notifyDataSetChanged();
+            }else {
+                initError(R.mipmap.qs_nodata, "暂无数据", "暂时没有任何数据 ");
+            }
+        }else {
+            stopLoading();
+            if (bean.getData() != null && bean.getData().size() != 0) {
+                mList.addAll(bean.getData());
+                mAdapter.notifyDataSetChanged();
+                mBinding.swipeToLoad.setLoadMoreEnabled(false);
+            } else {
+                page--;
+                ToastUtil.show("已经是最后一页了");
+            }
+        }
+    }
+
+    @Override
+    public void onFile(String error) {
+        if(refersh){
+            stopResher();
+            initError(R.mipmap.qs_nodata, "网络出错", "哇哦，网络出错了，换个姿势下滑页面试试");
+        }else {
+            stopLoading();
+            page--;
+        }
+        ToastUtil.show(error);
     }
 }

@@ -8,6 +8,7 @@ import android.view.LayoutInflater;
 import android.view.ViewGroup;
 
 import com.example.administrator.jipinshop.R;
+import com.example.administrator.jipinshop.bean.TeamBean;
 import com.example.administrator.jipinshop.databinding.ItemTeamBinding;
 
 import java.util.List;
@@ -20,9 +21,9 @@ import java.util.List;
 public class TeamAdapter extends RecyclerView.Adapter<TeamAdapter.ViewHolder>{
 
     private Context mContext;
-    private List<String> mList;
+    private List<TeamBean.DataBean> mList;
 
-    public TeamAdapter(Context context, List<String> list) {
+    public TeamAdapter(Context context, List<TeamBean.DataBean> list) {
         mContext = context;
         mList = list;
     }
@@ -44,6 +45,8 @@ public class TeamAdapter extends RecyclerView.Adapter<TeamAdapter.ViewHolder>{
             params.topMargin =0;
         }
         holder.binding.itemContainer.setLayoutParams(params);
+        holder.binding.setBean(mList.get(position));
+        holder.binding.executePendingBindings();
     }
 
     @Override
