@@ -137,6 +137,8 @@ public class ArticleDetailActivity extends BaseActivity implements View.OnClickL
     private String shareContent;
     private String shareImg;
     private String shareUrl;
+    private String ShareBoardTitle = "";
+    private String ShareBoardContent = "";
 
     private ArrayList<FindDetailBean.DataBean.RelatedGoodsListBean> mBeans;
 
@@ -266,7 +268,7 @@ public class ArticleDetailActivity extends BaseActivity implements View.OnClickL
                 break;
             case R.id.detail_share:
                 if (mShareBoardDialog == null) {
-                    mShareBoardDialog = new ShareBoardDialog();
+                    mShareBoardDialog = ShareBoardDialog.getInstance(ShareBoardTitle,ShareBoardContent);
                     mShareBoardDialog.setOnShareListener(this);
                 }
                 if (!mShareBoardDialog.isAdded()) {
@@ -389,6 +391,9 @@ public class ArticleDetailActivity extends BaseActivity implements View.OnClickL
         if (mDialog != null && mDialog.isShowing()) {
             mDialog.dismiss();
         }
+        mBinding.detailShare.setText(bean.getBtnTxt());
+        ShareBoardTitle = "一边分享  一边赚";
+        ShareBoardContent = bean.getContent();
         shareTitle =bean.getData().getShareTitle();
         shareContent = bean.getData().getShareContent();
         shareImg = bean.getData().getShareImg();
@@ -397,6 +402,9 @@ public class ArticleDetailActivity extends BaseActivity implements View.OnClickL
         attentionUserId = bean.getData().getUserId();
         if(bean.getData().getRelatedGoodsList() == null || bean.getData().getRelatedGoodsList().size() == 0){
             mBinding.detailBuy.setText("暂无商品");
+            ShareBoardTitle = "分享";
+            ShareBoardContent = "";
+            mBinding.detailShare.setText("分享");
         }
         mBinding.detailTitle.setText(bean.getData().getTitle());
         mBinding.detailWeb.loadDataWithBaseURL(null, bean.getData().getContent(),

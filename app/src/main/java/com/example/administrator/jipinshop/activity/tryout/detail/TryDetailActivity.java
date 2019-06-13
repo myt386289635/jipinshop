@@ -86,6 +86,7 @@ public class TryDetailActivity extends BaseActivity implements View.OnClickListe
      * 分享面板
      */
     private ShareBoardDialog mShareBoardDialog;
+    private ShareBoardDialog mBoardDialog;
     /**
      * 分享的东西
      */
@@ -134,7 +135,7 @@ public class TryDetailActivity extends BaseActivity implements View.OnClickListe
     private TryDetailReportRVAdapter mReportRVAdapter;
 
     private Boolean shareFlag = true;//是分享还是拉赞  true分享 false拉赞
-
+    private String ShareBoardContent = "";
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -226,7 +227,7 @@ public class TryDetailActivity extends BaseActivity implements View.OnClickListe
                 finish();
                 break;
             case R.id.detail_share:
-            case R.id.title_favor://分享
+            case R.id.title_favor://分享商品
                 if (mTryDetailBean == null){
                     ToastUtil.show("分享失败");
                     return;
@@ -237,7 +238,7 @@ public class TryDetailActivity extends BaseActivity implements View.OnClickListe
                 shareImg = mTryDetailBean.getData().getShareImg();
                 shareUrl = mTryDetailBean.getData().getShareUrl();
                 if (mShareBoardDialog == null) {
-                    mShareBoardDialog = new ShareBoardDialog();
+                    mShareBoardDialog =ShareBoardDialog.getInstance("一边分享  一边赚",ShareBoardContent);
                     mShareBoardDialog.setOnShareListener(this);
                 }
                 if (!mShareBoardDialog.isAdded()) {
@@ -274,12 +275,12 @@ public class TryDetailActivity extends BaseActivity implements View.OnClickListe
                     shareContent = mTryDetailBean.getData().getVoteShareContent();
                     shareImg = mTryDetailBean.getData().getVoteShareImg();
                     shareUrl = mTryDetailBean.getData().getVoteShareUrl();
-                    if (mShareBoardDialog == null) {
-                        mShareBoardDialog = new ShareBoardDialog();
-                        mShareBoardDialog.setOnShareListener(this);
+                    if (mBoardDialog == null) {
+                        mBoardDialog = new ShareBoardDialog();
+                        mBoardDialog.setOnShareListener(this);
                     }
-                    if (!mShareBoardDialog.isAdded()) {
-                        mShareBoardDialog.show(getSupportFragmentManager(), "ShareBoardDialog");
+                    if (!mBoardDialog.isAdded()) {
+                        mBoardDialog.show(getSupportFragmentManager(), "ShareBoardDialog");
                     }
                 }else if(mBinding.detailApply.getText().toString().equals("查看名单")){
                     startActivity(new Intent(this, PassedMoreActivity.class)
@@ -413,6 +414,8 @@ public class TryDetailActivity extends BaseActivity implements View.OnClickListe
         if(mDialog != null && mDialog.isShowing()){
             mDialog.dismiss();
         }
+        ShareBoardContent = bean.getContent();
+        mBinding.detailBuy.setText(bean.getBtnTxt());
         mTryDetailBean = bean;
         mBinding.detailNoDate.setVisibility(View.GONE);
         //轮播图
@@ -590,12 +593,12 @@ public class TryDetailActivity extends BaseActivity implements View.OnClickListe
         shareContent = mTryDetailBean.getData().getVoteShareContent();
         shareImg = mTryDetailBean.getData().getVoteShareImg();
         shareUrl = mTryDetailBean.getData().getVoteShareUrl();
-        if (mShareBoardDialog == null) {
-            mShareBoardDialog = new ShareBoardDialog();
-            mShareBoardDialog.setOnShareListener(this);
+        if (mBoardDialog == null) {
+            mBoardDialog = new ShareBoardDialog();
+            mBoardDialog.setOnShareListener(this);
         }
-        if (!mShareBoardDialog.isAdded()) {
-            mShareBoardDialog.show(getSupportFragmentManager(), "ShareBoardDialog");
+        if (!mBoardDialog.isAdded()) {
+            mBoardDialog.show(getSupportFragmentManager(), "ShareBoardDialog");
         }
     }
 

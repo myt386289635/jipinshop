@@ -129,6 +129,8 @@ public class ReportDetailActivity extends BaseActivity implements View.OnClickLi
     private String shareContent;
     private String shareImg;
     private String shareUrl;
+    private String ShareBoardTitle = "";
+    private String ShareBoardContent = "";
 
     private ArrayList<FindDetailBean.DataBean.RelatedGoodsListBean> mBeans;
     //商品详情
@@ -223,7 +225,7 @@ public class ReportDetailActivity extends BaseActivity implements View.OnClickLi
                 break;
             case R.id.detail_share:
                 if (mShareBoardDialog == null) {
-                    mShareBoardDialog = new ShareBoardDialog();
+                    mShareBoardDialog = ShareBoardDialog.getInstance(ShareBoardTitle,ShareBoardContent);
                     mShareBoardDialog.setOnShareListener(this);
                 }
                 if (!mShareBoardDialog.isAdded()) {
@@ -667,6 +669,9 @@ public class ReportDetailActivity extends BaseActivity implements View.OnClickLi
         if (mDialog != null && mDialog.isShowing()) {
             mDialog.dismiss();
         }
+        mBinding.detailShare.setText(bean.getBtnTxt());
+        ShareBoardTitle = "一边分享  一边赚";
+        ShareBoardContent = bean.getContent();
         shareTitle =bean.getData().getShareTitle();
         shareContent = bean.getData().getShareContent();
         shareImg = bean.getData().getShareImg();
@@ -677,6 +682,9 @@ public class ReportDetailActivity extends BaseActivity implements View.OnClickLi
         attentionUserId = bean.getData().getUserId();
         if(bean.getData().getRelatedGoodsList() == null || bean.getData().getRelatedGoodsList().size() == 0){
             mBinding.detailBuy.setText("暂无商品");
+            ShareBoardTitle = "分享";
+            ShareBoardContent = "";
+            mBinding.detailShare.setText("分享");
         }
         mBinding.detailTitle.setText(bean.getData().getTitle());
         mList.clear();

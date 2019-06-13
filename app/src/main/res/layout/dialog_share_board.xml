@@ -7,6 +7,7 @@
     android:layout_height="wrap_content">
 
     <TextView
+        android:id="@+id/share_title"
         android:layout_marginTop="@dimen/x60"
         android:layout_gravity="center_horizontal"
         android:textColor="@color/color_DE151515"
@@ -16,7 +17,9 @@
 
 
     <TextView
-        android:visibility="gone"
+        android:lineSpacingExtra="@dimen/y6"
+        android:layout_gravity="center_horizontal"
+        android:id="@+id/share_content"
         android:textColor="@color/color_DE151515"
         android:layout_marginRight="@dimen/x28"
         android:layout_marginLeft="@dimen/x28"
@@ -30,8 +33,8 @@
     <LinearLayout
         android:layout_marginRight="@dimen/x40"
         android:layout_marginLeft="@dimen/x40"
-        android:layout_marginBottom="@dimen/x90"
-        android:layout_marginTop="@dimen/x88"
+        android:layout_marginBottom="@dimen/y90"
+        android:layout_marginTop="@dimen/y88"
         android:orientation="horizontal"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">

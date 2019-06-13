@@ -18,6 +18,33 @@ public class ShoppingDetailBean {
     private String msg;
     private int code;
     private DataBean data;
+    private String btnTxt1;
+    private String btnTxt2;
+    private String content;
+
+    public String getBtnTxt1() {
+        return btnTxt1;
+    }
+
+    public void setBtnTxt1(String btnTxt1) {
+        this.btnTxt1 = btnTxt1;
+    }
+
+    public String getBtnTxt2() {
+        return btnTxt2;
+    }
+
+    public void setBtnTxt2(String btnTxt2) {
+        this.btnTxt2 = btnTxt2;
+    }
+
+    public String getContent() {
+        return content;
+    }
+
+    public void setContent(String content) {
+        this.content = content;
+    }
 
     public String getMsg() {
         return msg;

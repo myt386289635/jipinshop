@@ -183,6 +183,7 @@ public class ShoppingDetailActivity extends BaseActivity implements ShoppingComm
     private String shareName = "";
     private String shareContent = "";
     private String shareUrl = "";
+    private String shareBoradContent = "";
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -400,6 +401,9 @@ public class ShoppingDetailActivity extends BaseActivity implements ShoppingComm
     @Override
     public void onSuccess(ShoppingDetailBean shoppingDetailBean) {
         if(shoppingDetailBean.getCode() == 0){
+            shareBoradContent = shoppingDetailBean.getContent();
+            mBinding.detailBuy.setText(shoppingDetailBean.getBtnTxt2());
+            mBinding.detailShare.setText(shoppingDetailBean.getBtnTxt1());
             mBinding.inClude.qsNet.setVisibility(View.GONE);
             goodsUrl = shoppingDetailBean.getData().getGoodsDetailEntity().getGoodsBuyLink();
             //初始值
@@ -425,14 +429,14 @@ public class ShoppingDetailActivity extends BaseActivity implements ShoppingComm
                 mBinding.detailLine1.setVisibility(View.VISIBLE);
                 mBinding.detailOldPriceName.setVisibility(View.GONE);
                 mBinding.detailOldPrice.setVisibility(View.GONE);
-                mBinding.detailBuy.setText("立即购买");
+//                mBinding.detailBuy.setText("立即购买");
             }else {
                 //优惠券有效
                 mBinding.detailCouponContainer.setVisibility(View.VISIBLE);
                 mBinding.detailLine1.setVisibility(View.GONE);
                 mBinding.detailOldPriceName.setVisibility(View.VISIBLE);
                 mBinding.detailOldPrice.setVisibility(View.VISIBLE);
-                mBinding.detailBuy.setText("领券并购买");
+//                mBinding.detailBuy.setText("领券并购买");
                 mBinding.detaileCoupon.setText(shoppingDetailBean.getData().getGoodsEntity().getCouponPrice());
                 mBinding.detailCouponDeci.setText("使用期限"+shoppingDetailBean.getData().getGoodsCouponsEntity().getValidStartTime()+"至"+shoppingDetailBean.getData().getGoodsCouponsEntity().getValidEndTime());
             }
@@ -933,7 +937,7 @@ public class ShoppingDetailActivity extends BaseActivity implements ShoppingComm
                 break;
             case R.id.detail_share:
                 if (mShareBoardDialog == null) {
-                    mShareBoardDialog = new ShareBoardDialog();
+                    mShareBoardDialog = ShareBoardDialog.getInstance("一边分享  一边赚",shareBoradContent);
                     mShareBoardDialog.setOnShareListener(this);
                 }
                 if (!mShareBoardDialog.isAdded()) {
