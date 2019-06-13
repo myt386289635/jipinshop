@@ -664,4 +664,11 @@ public class Repository {
         return mAPIService.getQRcodeImgs();
     }
 
+    /**
+     * 淘宝授权登录回调地址
+     */
+    public Observable<SuccessBean> taobaoReturnUrl(String code , String state){
+        return mAPIService.taobaoReturnUrl(code, state);
+    }
+
 }

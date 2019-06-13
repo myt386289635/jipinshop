@@ -292,6 +292,7 @@ public class MineFragment extends DBBaseFragment implements View.OnClickListener
         SPUtils.getInstance(CommonDate.USER).put(CommonDate.bindWeibo, userInfoBean.getData().getBindWeibo() + "");
         SPUtils.getInstance(CommonDate.USER).put(CommonDate.bindWeixin, userInfoBean.getData().getBindWeixin() + "");
         SPUtils.getInstance(CommonDate.USER).put(CommonDate.qrCode, userInfoBean.getData().getInvitationCode());
+        SPUtils.getInstance(CommonDate.USER).put(CommonDate.relationId, userInfoBean.getData().getRelationId());
 
         mBinding.mineName.setVisibility(View.VISIBLE);
         mBinding.mineLogin.setVisibility(View.GONE);
@@ -348,6 +349,7 @@ public class MineFragment extends DBBaseFragment implements View.OnClickListener
     @Override
     public void successUpdateInfo(UserInfoBean userInfoBean) {
         SPUtils.getInstance(CommonDate.USER).put(CommonDate.userPoint, userInfoBean.getData().getPoint());
+        SPUtils.getInstance(CommonDate.USER).put(CommonDate.relationId, userInfoBean.getData().getRelationId());
 
         mBinding.mineGoodsNumText.setText(userInfoBean.getData().getVoteCount());//点赞数
         mBinding.mineAttentionText.setText(userInfoBean.getData().getFollowCount());//关注数

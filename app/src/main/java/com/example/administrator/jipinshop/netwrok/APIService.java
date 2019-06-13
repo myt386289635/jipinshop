@@ -609,6 +609,12 @@ public interface APIService {
     @GET("qualityshop-api/api/user/getQRcodeImgs")
     Observable<InvitationBean> getQRcodeImgs();
 
+    /**
+     * 淘宝授权登录回调地址
+     */
+    @GET("qualityshop-api/api/taobao/returnUrl")
+    Observable<SuccessBean> taobaoReturnUrl(@Query("code")String code , @Query("state") String state);
+
 /*************************************************以下是还未修改的接口***********************************************/
 
     /**

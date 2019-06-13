@@ -1,5 +1,6 @@
 package com.example.administrator.jipinshop.base;
 
+import com.example.administrator.jipinshop.activity.WebActivity;
 import com.example.administrator.jipinshop.activity.address.MyAddressActivity;
 import com.example.administrator.jipinshop.activity.address.add.CreateAddressActivity;
 import com.example.administrator.jipinshop.activity.balance.MyWalletActivity;
@@ -92,4 +93,5 @@ public interface BaseActivityComponent {
     void inject(WithdrawActivity activity);
     void inject(TeamActivity activity);
     void inject(InvitationNewActivity activity);
+    void inject(WebActivity activity);
 }

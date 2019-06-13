@@ -88,6 +88,15 @@ public class UserInfoBean {
         private int bindWeixin;
         private  int bindWeibo;
         private String invitationCode;//邀请码
+        private String relationId;//是否登陆过淘宝
+
+        public String getRelationId() {
+            return relationId;
+        }
+
+        public void setRelationId(String relationId) {
+            this.relationId = relationId;
+        }
 
         public String getInvitationCode() {
             return invitationCode;

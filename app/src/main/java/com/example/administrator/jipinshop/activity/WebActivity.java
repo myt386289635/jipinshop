@@ -12,18 +12,26 @@ import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
 
+import com.blankj.utilcode.util.SPUtils;
 import com.example.administrator.jipinshop.R;
 import com.example.administrator.jipinshop.base.BaseActivity;
 import com.example.administrator.jipinshop.databinding.ActivityWebBinding;
+import com.example.administrator.jipinshop.netwrok.RetrofitModule;
+import com.example.administrator.jipinshop.util.ToastUtil;
+import com.example.administrator.jipinshop.util.sp.CommonDate;
 import com.example.administrator.jipinshop.view.dialog.ProgressDialogView;
+
+import javax.inject.Inject;
 
 /**
  * @author 莫小婷
  * @create 2018/9/3
  * @Describe webView页面
  */
-public class WebActivity extends BaseActivity implements View.OnClickListener {
+public class WebActivity extends BaseActivity implements View.OnClickListener, WebVieww {
 
+    @Inject
+    WebPresenter mPresenter;
     private ActivityWebBinding mBinding;
     private Dialog mDialog;//加载框
 
@@ -35,6 +43,8 @@ public class WebActivity extends BaseActivity implements View.OnClickListener {
         super.onCreate(savedInstanceState);
         mBinding = DataBindingUtil.setContentView(this, R.layout.activity_web);
         mBinding.setListener(this);
+        mBaseActivityComponent.inject(this);
+        mPresenter.setView(this);
         initView();
     }
 
@@ -52,7 +62,13 @@ public class WebActivity extends BaseActivity implements View.OnClickListener {
         mBinding.webView.setWebViewClient(new WebViewClient() {
             @Override
             public boolean shouldOverrideUrlLoading(WebView view, String url) {
-                view.loadUrl(url);
+                if (url.startsWith(RetrofitModule.URL + "qualityshop-api/api/taobao/returnUrl")){
+                    String code = url.replace("https://www.jipincheng.cn/qualityshop-api/api/taobao/returnUrl?code=","").split("&")[0];
+                    String state = url.replace("https://www.jipincheng.cn/qualityshop-api/api/taobao/returnUrl?code=","").split("&")[1].replace("state=","");
+                    mPresenter.taobaoReturnUrl(code, state,WebActivity.this.bindToLifecycle());
+                }else {
+                    view.loadUrl(url);
+                }
                 return true;
             }
 
@@ -103,5 +119,23 @@ public class WebActivity extends BaseActivity implements View.OnClickListener {
             mBinding.webView.destroy();
         }
         super.onDestroy();
+    }
+
+    @Override
+    public void onSuccess() {
+        if (mDialog != null && mDialog.isShowing()) {
+            mDialog.dismiss();
+        }
+        SPUtils.getInstance(CommonDate.USER).put(CommonDate.relationId, "--");//临时数据
+        ToastUtil.show("授权成功");
+        finish();
+    }
+
+    @Override
+    public void onFile(String error) {
+        if (mDialog != null && mDialog.isShowing()) {
+            mDialog.dismiss();
+        }
+        ToastUtil.show(error);
     }
 }

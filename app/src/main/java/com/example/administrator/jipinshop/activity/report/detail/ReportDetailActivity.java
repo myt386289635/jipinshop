@@ -26,6 +26,7 @@ import com.alibaba.baichuan.trade.biz.context.AlibcResultType;
 import com.alibaba.baichuan.trade.biz.context.AlibcTradeResult;
 import com.blankj.utilcode.util.SPUtils;
 import com.example.administrator.jipinshop.R;
+import com.example.administrator.jipinshop.activity.WebActivity;
 import com.example.administrator.jipinshop.activity.commenlist.CommenListActivity;
 import com.example.administrator.jipinshop.activity.home.article.ArticleDetailActivity;
 import com.example.administrator.jipinshop.activity.login.LoginActivity;
@@ -46,6 +47,7 @@ import com.example.administrator.jipinshop.bean.eventbus.TryBus;
 import com.example.administrator.jipinshop.databinding.ActivityReportDetailBinding;
 import com.example.administrator.jipinshop.fragment.follow.attention.AttentionFragment;
 import com.example.administrator.jipinshop.fragment.foval.tryout.FovalTryFragment;
+import com.example.administrator.jipinshop.netwrok.RetrofitModule;
 import com.example.administrator.jipinshop.util.ClickUtil;
 import com.example.administrator.jipinshop.util.ShareUtils;
 import com.example.administrator.jipinshop.util.ToastUtil;
@@ -783,7 +785,15 @@ public class ReportDetailActivity extends BaseActivity implements View.OnClickLi
         }
         mDialog = (new ProgressDialogView()).createLoadingDialog(this, "正在加载...");
         mDialog.show();
-        openAliHomeWeb(mBeans.get(position).getGoodsBuyLink());
+        String specialId = SPUtils.getInstance(CommonDate.USER).getString(CommonDate.relationId,"");
+        if (TextUtils.isEmpty(specialId) || specialId.equals("null")){
+            startActivity(new Intent(this, WebActivity.class)
+                    .putExtra(WebActivity.url, RetrofitModule.UP_BASE_URL+"qualityshop-api/api/taobao/login?token=" + SPUtils.getInstance(CommonDate.USER).getString(CommonDate.token))
+                    .putExtra(WebActivity.title,"淘宝授权")
+            );
+        }else {
+            openAliHomeWeb(mBeans.get(position).getGoodsBuyLink());
+        }
     }
 
     /****
