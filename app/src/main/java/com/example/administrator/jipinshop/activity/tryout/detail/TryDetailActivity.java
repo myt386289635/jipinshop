@@ -39,6 +39,7 @@ import com.example.administrator.jipinshop.adapter.TryDetailGVAdapter;
 import com.example.administrator.jipinshop.adapter.TryDetailRVAdapter;
 import com.example.administrator.jipinshop.adapter.TryDetailReportRVAdapter;
 import com.example.administrator.jipinshop.base.BaseActivity;
+import com.example.administrator.jipinshop.bean.ImageBean;
 import com.example.administrator.jipinshop.bean.TryApplyBean;
 import com.example.administrator.jipinshop.bean.TryDetailBean;
 import com.example.administrator.jipinshop.bean.eventbus.ChangeHomePageBus;
@@ -74,7 +75,7 @@ import javax.inject.Inject;
 /**
  * @author 莫小婷
  * @create 2019/3/21
- * @Describe 试用详情页面
+ * @Describe 试用商品详情页面
  */
 public class TryDetailActivity extends BaseActivity implements View.OnClickListener, ShareBoardDialog.onShareListener, TryDetailView, TryDetailReportRVAdapter.OnItemClick {
 
@@ -313,7 +314,7 @@ public class TryDetailActivity extends BaseActivity implements View.OnClickListe
                             .putExtra(WebActivity.title,"淘宝授权")
                     );
                 }else {
-                    openAliHomeWeb(goodsBuyLink);
+                    mPresenter.goodsBuyLink(goodsBuyLink,this.bindToLifecycle());
                 }
                 UAppUtil.goods_trier(this,0);
                 break;
@@ -432,7 +433,7 @@ public class TryDetailActivity extends BaseActivity implements View.OnClickListe
             mPresenter.initBanner(mBannerList, this, point, mBinding.detailPoint, mBannerAdapter);
             new Thread(new MyRunble()).start();
         }
-        goodsBuyLink = bean.getData().getGoodsBuyLink();
+        goodsBuyLink = bean.getData().getGoodsId();//获取goodsid
         mBinding.detailName.setText(bean.getData().getName());
         String countHtml =  "试用数量  " + "<font color='#E31436' >"+ bean.getData().getCount() +"</font>";
         mBinding.detailTryNumber.setText(Html.fromHtml(countHtml));
@@ -608,6 +609,11 @@ public class TryDetailActivity extends BaseActivity implements View.OnClickListe
             mDialog.dismiss();
         }
         ToastUtil.show(error);
+    }
+
+    @Override
+    public void onBuyLinkSuccess(ImageBean bean) {
+        openAliHomeWeb(bean.getData());
     }
 
     public void initError(int id, String title, String content){

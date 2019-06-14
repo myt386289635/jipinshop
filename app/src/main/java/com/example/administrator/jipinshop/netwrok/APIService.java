@@ -622,6 +622,12 @@ public interface APIService {
     @GET("qualityshop-api/api/getTaobaoAccount")
     Observable<TaobaoAccountBean> taobaoAccount();
 
+    /**
+     * 获取专属淘宝购买链接地址
+     */
+    @GET("qualityshop-api/api/getGoodsBuyLink")
+    Observable<ImageBean> goodsBuyLink(@Query("goodsId")String goodsId);
+
 /*************************************************以下是还未修改的接口***********************************************/
 
     /**

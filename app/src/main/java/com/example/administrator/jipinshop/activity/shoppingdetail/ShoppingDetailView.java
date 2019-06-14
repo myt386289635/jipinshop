@@ -3,6 +3,7 @@ package com.example.administrator.jipinshop.activity.shoppingdetail;
 import android.view.View;
 
 import com.example.administrator.jipinshop.bean.CommentBean;
+import com.example.administrator.jipinshop.bean.ImageBean;
 import com.example.administrator.jipinshop.bean.PagerStateBean;
 import com.example.administrator.jipinshop.bean.ShoppingDetailBean;
 import com.example.administrator.jipinshop.bean.SuccessBean;
@@ -42,4 +43,6 @@ public interface ShoppingDetailView {
      void concerInsSuccess(SuccessBean successBean);
 
      void pagerStateSuccess(PagerStateBean pagerStateBean);
+
+     void onBuyLinkSuccess(ImageBean bean);
 }

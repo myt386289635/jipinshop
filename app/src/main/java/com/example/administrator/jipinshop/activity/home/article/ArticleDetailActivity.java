@@ -41,6 +41,7 @@ import com.example.administrator.jipinshop.adapter.ShoppingCommonAdapter;
 import com.example.administrator.jipinshop.base.BaseActivity;
 import com.example.administrator.jipinshop.bean.CommentBean;
 import com.example.administrator.jipinshop.bean.FindDetailBean;
+import com.example.administrator.jipinshop.bean.ImageBean;
 import com.example.administrator.jipinshop.bean.PagerStateBean;
 import com.example.administrator.jipinshop.bean.SuccessBean;
 import com.example.administrator.jipinshop.bean.VoteBean;
@@ -802,6 +803,11 @@ public class ArticleDetailActivity extends BaseActivity implements View.OnClickL
         }
     }
 
+    @Override
+    public void onBuyLinkSuccess(ImageBean bean) {
+        openAliHomeWeb(bean.getData());
+    }
+
     /**
      * 点击一级回复
      */
@@ -866,7 +872,7 @@ public class ArticleDetailActivity extends BaseActivity implements View.OnClickL
                     .putExtra(WebActivity.title,"淘宝授权")
             );
         }else {
-            openAliHomeWeb(mBeans.get(position).getGoodsBuyLink());
+            mPresenter.goodsBuyLink(mBeans.get(position).getGoodsId(),this.bindToLifecycle());
         }
     }
 

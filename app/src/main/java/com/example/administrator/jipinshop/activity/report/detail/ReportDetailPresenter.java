@@ -4,6 +4,7 @@ import android.graphics.Rect;
 
 import com.example.administrator.jipinshop.bean.CommentBean;
 import com.example.administrator.jipinshop.bean.FindDetailBean;
+import com.example.administrator.jipinshop.bean.ImageBean;
 import com.example.administrator.jipinshop.bean.PagerStateBean;
 import com.example.administrator.jipinshop.bean.SuccessBean;
 import com.example.administrator.jipinshop.bean.TaskFinishBean;
@@ -378,4 +379,28 @@ public class ReportDetailPresenter {
                 });
     }
 
+    /**
+     * 获取专属淘宝购买链接地址
+     */
+    public void goodsBuyLink(String goodsId, LifecycleTransformer<ImageBean> transformer){
+        mRepository.goodsBuyLink(goodsId)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .compose(transformer)
+                .subscribe(imageBean -> {
+                    if (imageBean.getCode() == 0){
+                        if (mView != null){
+                            mView.onBuyLinkSuccess(imageBean);
+                        }
+                    }else {
+                        if(mView != null){
+                            mView.onFileCommentInsert(imageBean.getMsg());
+                        }
+                    }
+                }, throwable -> {
+                    if(mView != null){
+                        mView.onFileCommentInsert(throwable.getMessage());
+                    }
+                });
+    }
 }

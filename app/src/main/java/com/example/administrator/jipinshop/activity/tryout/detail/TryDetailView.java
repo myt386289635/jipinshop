@@ -1,5 +1,6 @@
 package com.example.administrator.jipinshop.activity.tryout.detail;
 
+import com.example.administrator.jipinshop.bean.ImageBean;
 import com.example.administrator.jipinshop.bean.TryApplyBean;
 import com.example.administrator.jipinshop.bean.TryDetailBean;
 
@@ -15,4 +16,6 @@ public interface TryDetailView {
 
     void onSuccessApply(TryApplyBean bean);
     void onFileApply(String error);
+
+    void onBuyLinkSuccess(ImageBean bean);
 }

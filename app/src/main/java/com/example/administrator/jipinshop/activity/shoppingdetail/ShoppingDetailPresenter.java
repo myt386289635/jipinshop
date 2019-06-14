@@ -14,6 +14,7 @@ import android.widget.TextView;
 import com.example.administrator.jipinshop.R;
 import com.example.administrator.jipinshop.adapter.CommenBannerAdapter;
 import com.example.administrator.jipinshop.bean.CommentBean;
+import com.example.administrator.jipinshop.bean.ImageBean;
 import com.example.administrator.jipinshop.bean.PagerStateBean;
 import com.example.administrator.jipinshop.bean.ShoppingDetailBean;
 import com.example.administrator.jipinshop.bean.SuccessBean;
@@ -30,6 +31,7 @@ import java.util.Map;
 import javax.inject.Inject;
 
 import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.functions.Consumer;
 import io.reactivex.schedulers.Schedulers;
 
 /**
@@ -428,6 +430,25 @@ public class ShoppingDetailPresenter {
                 .subscribe(taskFinishBean -> {
 
                 }, throwable ->{
+
+                });
+    }
+
+    /**
+     * 获取专属淘宝购买链接地址
+     */
+    public void goodsBuyLink(String goodsId, LifecycleTransformer<ImageBean> transformer){
+        mRepository.goodsBuyLink(goodsId)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .compose(transformer)
+                .subscribe(imageBean -> {
+                    if (imageBean.getCode() == 0){
+                        if (mShoppingDetailView != null){
+                            mShoppingDetailView.onBuyLinkSuccess(imageBean);
+                        }
+                    }
+                }, throwable -> {
 
                 });
     }

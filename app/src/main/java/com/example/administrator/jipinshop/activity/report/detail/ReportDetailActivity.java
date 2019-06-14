@@ -37,6 +37,7 @@ import com.example.administrator.jipinshop.adapter.TryDetailRVAdapter;
 import com.example.administrator.jipinshop.base.BaseActivity;
 import com.example.administrator.jipinshop.bean.CommentBean;
 import com.example.administrator.jipinshop.bean.FindDetailBean;
+import com.example.administrator.jipinshop.bean.ImageBean;
 import com.example.administrator.jipinshop.bean.PagerStateBean;
 import com.example.administrator.jipinshop.bean.SuccessBean;
 import com.example.administrator.jipinshop.bean.TryDetailBean;
@@ -781,6 +782,11 @@ public class ReportDetailActivity extends BaseActivity implements View.OnClickLi
         initError(R.mipmap.qs_404, "页面出错", "程序猿正在赶来的路上");
     }
 
+    @Override
+    public void onBuyLinkSuccess(ImageBean bean) {
+        openAliHomeWeb(bean.getData());
+    }
+
     /**
      * 跳转到淘宝
      * @param position
@@ -800,7 +806,7 @@ public class ReportDetailActivity extends BaseActivity implements View.OnClickLi
                     .putExtra(WebActivity.title,"淘宝授权")
             );
         }else {
-            openAliHomeWeb(mBeans.get(position).getGoodsBuyLink());
+            mPresenter.goodsBuyLink(mBeans.get(position).getGoodsId(),this.bindToLifecycle());
         }
     }
 

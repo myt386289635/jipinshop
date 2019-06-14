@@ -2,6 +2,7 @@ package com.example.administrator.jipinshop.activity.report.detail;
 
 import com.example.administrator.jipinshop.bean.CommentBean;
 import com.example.administrator.jipinshop.bean.FindDetailBean;
+import com.example.administrator.jipinshop.bean.ImageBean;
 import com.example.administrator.jipinshop.bean.PagerStateBean;
 import com.example.administrator.jipinshop.bean.SuccessBean;
 import com.example.administrator.jipinshop.bean.VoteBean;
@@ -38,4 +39,6 @@ public interface ReportDetailView {
 
     void onSuccess(FindDetailBean bean);
     void onFile(String error);
+
+    void onBuyLinkSuccess(ImageBean bean);
 }

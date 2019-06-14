@@ -2,6 +2,7 @@ package com.example.administrator.jipinshop.activity.home.article;
 
 import com.example.administrator.jipinshop.bean.CommentBean;
 import com.example.administrator.jipinshop.bean.FindDetailBean;
+import com.example.administrator.jipinshop.bean.ImageBean;
 import com.example.administrator.jipinshop.bean.PagerStateBean;
 import com.example.administrator.jipinshop.bean.SuccessBean;
 import com.example.administrator.jipinshop.bean.VoteBean;
@@ -39,4 +40,6 @@ public interface ArticleDetailView {
     void onSucCommentSnapDel(int position,VoteBean successBean);
 
     void pagerStateSuccess(PagerStateBean pagerStateBean);
+
+    void onBuyLinkSuccess(ImageBean bean);
 }

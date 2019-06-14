@@ -12,6 +12,7 @@ import android.widget.TextView;
 
 import com.example.administrator.jipinshop.R;
 import com.example.administrator.jipinshop.adapter.CommenBannerAdapter;
+import com.example.administrator.jipinshop.bean.ImageBean;
 import com.example.administrator.jipinshop.bean.SuccessBean;
 import com.example.administrator.jipinshop.bean.TaskFinishBean;
 import com.example.administrator.jipinshop.bean.TryApplyBean;
@@ -198,4 +199,28 @@ public class TryDetailPresenter {
                 });
     }
 
+    /**
+     * 获取专属淘宝购买链接地址
+     */
+    public void goodsBuyLink(String goodsId, LifecycleTransformer<ImageBean> transformer){
+        mRepository.goodsBuyLink(goodsId)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .compose(transformer)
+                .subscribe(imageBean -> {
+                    if (imageBean.getCode() == 0){
+                        if (mView != null){
+                            mView.onBuyLinkSuccess(imageBean);
+                        }
+                    }else {
+                        if(mView != null){
+                            mView.onFileApply(imageBean.getMsg());
+                        }
+                    }
+                }, throwable -> {
+                    if(mView != null){
+                        mView.onFileApply(throwable.getMessage());
+                    }
+                });
+    }
 }

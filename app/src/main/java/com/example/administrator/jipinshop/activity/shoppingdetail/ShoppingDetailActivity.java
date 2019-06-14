@@ -46,6 +46,7 @@ import com.example.administrator.jipinshop.adapter.ShoppingmParameterAdapter;
 import com.example.administrator.jipinshop.base.BaseActivity;
 import com.example.administrator.jipinshop.bean.CommentBean;
 import com.example.administrator.jipinshop.bean.FindDetailBean;
+import com.example.administrator.jipinshop.bean.ImageBean;
 import com.example.administrator.jipinshop.bean.PagerStateBean;
 import com.example.administrator.jipinshop.bean.ShoppingDetailBean;
 import com.example.administrator.jipinshop.bean.SuccessBean;
@@ -314,6 +315,8 @@ public class ShoppingDetailActivity extends BaseActivity implements ShoppingComm
         mPresenter.getDate(goodsId,this.<ShoppingDetailBean>bindToLifecycle());
         //获取评论列表
         mPresenter.comment(goodsId,this.bindToLifecycle());
+        //获取淘宝购买链接
+        mPresenter.goodsBuyLink(goodsId,this.bindToLifecycle());
     }
 
 
@@ -405,7 +408,7 @@ public class ShoppingDetailActivity extends BaseActivity implements ShoppingComm
             mBinding.detailBuy.setText(shoppingDetailBean.getBtnTxt2());
             mBinding.detailShare.setText(shoppingDetailBean.getBtnTxt1());
             mBinding.inClude.qsNet.setVisibility(View.GONE);
-            goodsUrl = shoppingDetailBean.getData().getGoodsDetailEntity().getGoodsBuyLink();
+
             //初始值
             mBinding.detailName.setText(shoppingDetailBean.getData().getGoodsEntity().getGoodsName());
             mBinding.detailNewPrice.setText("¥" + shoppingDetailBean.getData().getGoodsEntity().getActualPrice());
@@ -862,6 +865,11 @@ public class ShoppingDetailActivity extends BaseActivity implements ShoppingComm
             drawable.setBounds(0, 0, drawable.getMinimumWidth(), drawable.getMinimumHeight());
             mBinding.detailGood.setCompoundDrawables(drawable,null,null,null);
         }
+    }
+
+    @Override
+    public void onBuyLinkSuccess(ImageBean bean) {
+        goodsUrl = bean.getData();
     }
 
     /**

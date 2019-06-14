@@ -679,4 +679,11 @@ public class Repository {
         return mAPIService.taobaoAccount();
     }
 
+    /**
+     * 获取专属淘宝购买链接地址
+     */
+    public Observable<ImageBean> goodsBuyLink(String goodsId){
+        return mAPIService.goodsBuyLink(goodsId);
+    }
+
 }
