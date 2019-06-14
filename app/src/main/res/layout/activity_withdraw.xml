@@ -81,6 +81,7 @@
                 android:layout_height="wrap_content"/>
 
             <EditText
+                android:singleLine="true"
                 android:layout_marginLeft="@dimen/x28"
                 android:textColor="@color/color_252525"
                 android:id="@+id/withdraw_Name"
@@ -128,6 +129,7 @@
 
 
             <EditText
+                android:singleLine="true"
                 android:layout_marginLeft="@dimen/x28"
                 android:textColor="@color/color_252525"
                 android:id="@+id/withdraw_number"
@@ -194,6 +196,7 @@
                 android:layout_height="wrap_content"/>
 
             <EditText
+                android:singleLine="true"
                 android:inputType="number"
                 android:digits="0123456789."
                 android:textStyle="bold"

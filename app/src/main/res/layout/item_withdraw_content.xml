@@ -69,6 +69,7 @@
         <TextView
             android:visibility="@{bean.status == -1 ? View.VISIBLE : View.GONE }"
             android:layout_marginBottom="@dimen/y12"
+            android:layout_marginRight="@dimen/x32"
             android:layout_marginLeft="@dimen/x32"
             android:layout_below="@+id/item_time"
             android:id="@+id/item_reasonText"

@@ -36,6 +36,7 @@ import com.example.administrator.jipinshop.bean.SucBean;
 import com.example.administrator.jipinshop.bean.SuccessBean;
 import com.example.administrator.jipinshop.bean.SystemMessageBean;
 import com.example.administrator.jipinshop.bean.TabBean;
+import com.example.administrator.jipinshop.bean.TaobaoAccountBean;
 import com.example.administrator.jipinshop.bean.TaskFinishBean;
 import com.example.administrator.jipinshop.bean.TeamBean;
 import com.example.administrator.jipinshop.bean.TrialCommonBean;
@@ -669,6 +670,13 @@ public class Repository {
      */
     public Observable<SuccessBean> taobaoReturnUrl(String code , String state){
         return mAPIService.taobaoReturnUrl(code, state);
+    }
+
+    /**
+     * 获取支付宝账号
+     */
+    public Observable<TaobaoAccountBean> taobaoAccount(){
+        return mAPIService.taobaoAccount();
     }
 
 }

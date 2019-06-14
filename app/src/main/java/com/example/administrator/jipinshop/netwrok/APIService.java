@@ -37,6 +37,7 @@ import com.example.administrator.jipinshop.bean.SucBean;
 import com.example.administrator.jipinshop.bean.SuccessBean;
 import com.example.administrator.jipinshop.bean.SystemMessageBean;
 import com.example.administrator.jipinshop.bean.TabBean;
+import com.example.administrator.jipinshop.bean.TaobaoAccountBean;
 import com.example.administrator.jipinshop.bean.TaskFinishBean;
 import com.example.administrator.jipinshop.bean.TeamBean;
 import com.example.administrator.jipinshop.bean.TrialCommonBean;
@@ -614,6 +615,12 @@ public interface APIService {
      */
     @GET("qualityshop-api/api/taobao/returnUrl")
     Observable<SuccessBean> taobaoReturnUrl(@Query("code")String code , @Query("state") String state);
+
+    /**
+     * 获取支付宝账号
+     */
+    @GET("qualityshop-api/api/getTaobaoAccount")
+    Observable<TaobaoAccountBean> taobaoAccount();
 
 /*************************************************以下是还未修改的接口***********************************************/
 

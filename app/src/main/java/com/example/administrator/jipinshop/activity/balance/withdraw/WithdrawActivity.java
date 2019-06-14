@@ -12,6 +12,7 @@ import android.widget.EditText;
 
 import com.example.administrator.jipinshop.R;
 import com.example.administrator.jipinshop.base.BaseActivity;
+import com.example.administrator.jipinshop.bean.TaobaoAccountBean;
 import com.example.administrator.jipinshop.bean.WithdrawBean;
 import com.example.administrator.jipinshop.bean.eventbus.WithdrawBus;
 import com.example.administrator.jipinshop.databinding.ActivityWithdrawBinding;
@@ -48,6 +49,9 @@ public class WithdrawActivity extends BaseActivity implements View.OnClickListen
     }
 
     private void initView() {
+        mDialog = (new ProgressDialogView()).createLoadingDialog(this, "正在加载...");
+        mDialog.show();
+        mPresenter.taobaoAccount(this.bindToLifecycle());
         mPresenter.getWithdrawNote(this.bindToLifecycle());
         mBinding.inClude.titleTv.setText("我要提现");
         mPresenter.initMoneyEdit(mBinding);
@@ -153,5 +157,18 @@ public class WithdrawActivity extends BaseActivity implements View.OnClickListen
             mDialog.dismiss();
         }
         ToastUtil.show(error);
+    }
+
+    @Override
+    public void onSuccessAccount(TaobaoAccountBean bean) {
+        if (mDialog != null && mDialog.isShowing()){
+            mDialog.dismiss();
+        }
+        if (bean.getData() != null && !TextUtils.isEmpty(bean.getData().getAccount()) && !TextUtils.isEmpty(bean.getData().getRealname())){
+            mBinding.withdrawNameText.setVisibility(View.GONE);
+            mBinding.withdrawName.setText(bean.getData().getRealname());
+            mBinding.withdrawNumber.setText(bean.getData().getAccount());
+            mBinding.withdrawNumberText.setVisibility(View.GONE);
+        }
     }
 }

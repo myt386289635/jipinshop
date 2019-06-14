@@ -5,6 +5,7 @@ import android.text.TextUtils;
 import android.view.View;
 
 import com.example.administrator.jipinshop.bean.SuccessBean;
+import com.example.administrator.jipinshop.bean.TaobaoAccountBean;
 import com.example.administrator.jipinshop.bean.WithdrawBean;
 import com.example.administrator.jipinshop.databinding.ActivityWithdrawBinding;
 import com.example.administrator.jipinshop.netwrok.Repository;
@@ -110,6 +111,28 @@ public class WithdrawPresenter {
                     }else {
                         if (mView != null){
                             mView.onWithdrawFile(successBean.getMsg());
+                        }
+                    }
+                }, throwable -> {
+                    if (mView != null){
+                        mView.onWithdrawFile(throwable.getMessage());
+                    }
+                });
+    }
+
+    public void taobaoAccount(LifecycleTransformer<TaobaoAccountBean> transformer){
+        mRepository.taobaoAccount()
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .compose(transformer)
+                .subscribe(taobaoAccountBean -> {
+                    if (taobaoAccountBean.getCode() == 0){
+                        if (mView != null){
+                            mView.onSuccessAccount(taobaoAccountBean);
+                        }
+                    }else {
+                        if (mView != null){
+                            mView.onWithdrawFile(taobaoAccountBean.getMsg());
                         }
                     }
                 }, throwable -> {

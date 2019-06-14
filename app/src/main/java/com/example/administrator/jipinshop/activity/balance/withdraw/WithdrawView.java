@@ -1,5 +1,6 @@
 package com.example.administrator.jipinshop.activity.balance.withdraw;
 
+import com.example.administrator.jipinshop.bean.TaobaoAccountBean;
 import com.example.administrator.jipinshop.bean.WithdrawBean;
 
 /**
@@ -14,4 +15,6 @@ public interface WithdrawView {
 
     void onWithdrawSuccess();
     void onWithdrawFile(String error);
+
+    void onSuccessAccount(TaobaoAccountBean bean);
 }
