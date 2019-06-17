@@ -138,8 +138,8 @@ public class BindNumberPresenter {
 
     }
 
-    public void pushMessage(String mobile,LifecycleTransformer<SuccessBean> transformer){
-        mRepository.pushMessage(mobile,"2")
+    public void pushMessage(String mobile, String ticket, String randstr,LifecycleTransformer<SuccessBean> transformer){
+        mRepository.pushMessage(mobile,"2",ticket,randstr)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .compose(transformer)

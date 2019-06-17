@@ -25,6 +25,7 @@ import com.example.administrator.jipinshop.fragment.find.FindFragment;
 import com.example.administrator.jipinshop.fragment.home.HomeFragment;
 import com.example.administrator.jipinshop.fragment.mine.MineFragment;
 import com.example.administrator.jipinshop.fragment.tryout.TryFragment;
+import com.example.administrator.jipinshop.netwrok.RetrofitModule;
 import com.example.administrator.jipinshop.util.InputMethodManagerLeak;
 import com.example.administrator.jipinshop.util.NotchUtil;
 import com.example.administrator.jipinshop.util.ToastUtil;
@@ -166,6 +167,7 @@ public class MainActivity extends RxAppCompatActivity implements MainView, ViewP
 
     @Override
     public void onSuccess(AppVersionbean versionbean) {
+        RetrofitModule.needVerify = versionbean.getData().getNeedVerify();
         if(versionbean.getData().getVersionCode() > UpDataUtil.getPackageVersionCode()){
             if(versionbean.getData().getNeedUpdate() == 0){
                 //可以取消

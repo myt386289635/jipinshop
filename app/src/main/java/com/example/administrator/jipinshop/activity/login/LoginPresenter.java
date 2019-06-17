@@ -154,8 +154,8 @@ public class LoginPresenter {
     }
 
 
-    public void pushMessage(Context context,String mobile,LifecycleTransformer<SuccessBean> transformer){
-        mRepository.pushMessage(mobile,"1")
+    public void pushMessage(Context context,String mobile, String ticket, String randstr,LifecycleTransformer<SuccessBean> transformer){
+        mRepository.pushMessage(mobile,"1",ticket,randstr)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .compose(transformer)

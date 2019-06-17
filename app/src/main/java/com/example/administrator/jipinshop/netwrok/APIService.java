@@ -1,6 +1,5 @@
 package com.example.administrator.jipinshop.netwrok;
 
-
 import com.example.administrator.jipinshop.bean.AddressBean;
 import com.example.administrator.jipinshop.bean.AppVersionbean;
 import com.example.administrator.jipinshop.bean.BudgetDetailBean;
@@ -88,7 +87,7 @@ public interface APIService {
      */
     @FormUrlEncoded
     @POST("qualityshop-api/api/sendMessage")
-    Observable<SuccessBean> pushMessage(@Field("mobile") String mobile,@Field("type") String type);
+    Observable<SuccessBean> pushMessage(@Field("mobile") String mobile,@Field("type") String type,@Field("ticket") String ticket, @Field("randstr") String randstr);
 
     /**
      * 退出登陆    已修改

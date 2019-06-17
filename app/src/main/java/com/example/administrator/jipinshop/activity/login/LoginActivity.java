@@ -12,17 +12,14 @@ import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.EditText;
-import android.widget.Toast;
 
 import com.blankj.utilcode.util.SPUtils;
-import com.example.administrator.jipinshop.MyApplication;
 import com.example.administrator.jipinshop.R;
 import com.example.administrator.jipinshop.activity.WebActivity;
 import com.example.administrator.jipinshop.activity.info.bind.BindNumberActivity;
 import com.example.administrator.jipinshop.base.BaseActivity;
 import com.example.administrator.jipinshop.bean.LoginBean;
 import com.example.administrator.jipinshop.bean.SuccessBean;
-import com.example.administrator.jipinshop.bean.UserInfoBean;
 import com.example.administrator.jipinshop.bean.eventbus.CommonEvaluationBus;
 import com.example.administrator.jipinshop.bean.eventbus.EditNameBus;
 import com.example.administrator.jipinshop.bean.eventbus.HomeNewPeopleBus;
@@ -33,6 +30,7 @@ import com.example.administrator.jipinshop.util.ToastUtil;
 import com.example.administrator.jipinshop.util.sp.CommonDate;
 import com.example.administrator.jipinshop.view.dialog.DialogUtil;
 import com.example.administrator.jipinshop.view.dialog.ProgressDialogView;
+import com.tencent.captchasdk.TCaptchaDialog;
 import com.umeng.socialize.UMAuthListener;
 import com.umeng.socialize.UMShareAPI;
 import com.umeng.socialize.UMShareConfig;
@@ -43,8 +41,6 @@ import org.greenrobot.eventbus.EventBus;
 import java.util.Map;
 
 import javax.inject.Inject;
-
-import cn.jpush.android.api.JPushInterface;
 
 /**
  * @author 莫小婷
@@ -319,14 +315,29 @@ public class LoginActivity extends BaseActivity implements LoginView, View.OnCli
                 break;
             case R.id.login_getCode:
                 //点击获取验证码
-                if (!timerEnd[0]) {
-                    if (mTimer != null) {
-                        mTimer.start();
-                    }
-                    mBinding.loginGetCode.setEnabled(false);
-                    timerEnd[0] = true;
+                if (RetrofitModule.needVerify.equals("1")){//是否需要安全验证（0不需要，1需要）
+                    TCaptchaDialog dialog = new TCaptchaDialog(this, true, dialog1 ->{
+                        ToastUtil.show("验证取消");
+                    },"2087266956", jsonObject -> {
+                        try {
+                            int ret = jsonObject.getInt("ret");
+                            if (ret == 0) { //验证成功
+                                String ticket = jsonObject.getString("ticket");
+                                String randstr = jsonObject.getString("randstr");
+                                send(ticket,randstr);
+                            } else if (ret == -1001) {// 首个TCaptcha.js加载错误时允许用户(操作者)或业务方(接入方)介入重试
+                                ToastUtil.show("验证码加载错误：" + jsonObject.toString());
+                            } else { //用户(可能)点了验证码的关闭按钮
+                                ToastUtil.show("验证失败：" +  jsonObject.toString());
+                            }
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                        }
+                    },null);
+                    dialog.show();
+                }else {
+                    send("","");
                 }
-                mPresenter.pushMessage(this,mBinding.loginNumber.getText().toString(),this.<SuccessBean>bindToLifecycle());
                 break;
             case R.id.login_wx:
                 //点击微信登陆
@@ -358,5 +369,16 @@ public class LoginActivity extends BaseActivity implements LoginView, View.OnCli
     public void onBackPressed() {
         setResult(400);
         super.onBackPressed();
+    }
+
+    public void send(String ticket,String randstr){
+        if (!timerEnd[0]) {
+            if (mTimer != null) {
+                mTimer.start();
+            }
+            mBinding.loginGetCode.setEnabled(false);
+            timerEnd[0] = true;
+        }
+        mPresenter.pushMessage(this,mBinding.loginNumber.getText().toString(),ticket,randstr,this.<SuccessBean>bindToLifecycle());
     }
 }

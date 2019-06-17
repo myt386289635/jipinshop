@@ -86,8 +86,8 @@ public class Repository {
     /**
      * 获取短信验证码
      */
-    public Observable<SuccessBean> pushMessage(String mobile,String type){
-        return  mAPIService.pushMessage(mobile,type);
+    public Observable<SuccessBean> pushMessage(String mobile, String type, String ticket, String randstr){
+        return  mAPIService.pushMessage(mobile,type,ticket,randstr);
     }
 
     /**

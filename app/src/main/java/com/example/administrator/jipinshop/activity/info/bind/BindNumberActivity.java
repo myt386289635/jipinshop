@@ -14,7 +14,6 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.blankj.utilcode.util.SPUtils;
-import com.example.administrator.jipinshop.MyApplication;
 import com.example.administrator.jipinshop.R;
 import com.example.administrator.jipinshop.activity.login.LoginActivity;
 import com.example.administrator.jipinshop.base.BaseActivity;
@@ -24,9 +23,11 @@ import com.example.administrator.jipinshop.bean.eventbus.CommonEvaluationBus;
 import com.example.administrator.jipinshop.bean.eventbus.EditNameBus;
 import com.example.administrator.jipinshop.bean.eventbus.HomeNewPeopleBus;
 import com.example.administrator.jipinshop.jpush.JPushReceiver;
+import com.example.administrator.jipinshop.netwrok.RetrofitModule;
 import com.example.administrator.jipinshop.util.ToastUtil;
 import com.example.administrator.jipinshop.util.sp.CommonDate;
 import com.example.administrator.jipinshop.view.dialog.ProgressDialogView;
+import com.tencent.captchasdk.TCaptchaDialog;
 
 import org.greenrobot.eventbus.EventBus;
 
@@ -35,7 +36,6 @@ import javax.inject.Inject;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
-import cn.jpush.android.api.JPushInterface;
 
 /**
  * @author 莫小婷
@@ -101,13 +101,29 @@ public class BindNumberActivity extends BaseActivity implements BindNumberView {
                 finish();
                 break;
             case R.id.login_getCode:
-                if (!timerEnd[0]) {
-                    if (mTimer != null) {
-                        mTimer.start();
-                    }
-                    timerEnd[0] = true;
+                if (RetrofitModule.needVerify.equals("1")){//是否需要安全验证（0不需要，1需要）
+                    TCaptchaDialog dialog = new TCaptchaDialog(this, true, dialog1 ->{
+                        ToastUtil.show("验证取消");
+                    },"2087266956", jsonObject -> {
+                        try {
+                            int ret = jsonObject.getInt("ret");
+                            if (ret == 0) { //验证成功
+                                String ticket = jsonObject.getString("ticket");
+                                String randstr = jsonObject.getString("randstr");
+                                send(ticket,randstr);
+                            } else if (ret == -1001) {// 首个TCaptcha.js加载错误时允许用户(操作者)或业务方(接入方)介入重试
+                                ToastUtil.show("验证码加载错误：" + jsonObject.toString());
+                            } else { //用户(可能)点了验证码的关闭按钮
+                                ToastUtil.show("验证失败：" +  jsonObject.toString());
+                            }
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                        }
+                    },null);
+                    dialog.show();
+                }else {
+                    send("","");
                 }
-                mPresenter.pushMessage(mLoginNumber.getText().toString(), this.<SuccessBean>bindToLifecycle());
                 break;
             case R.id.login_button:
                 if (mDialog != null && !mDialog.isShowing()) {
@@ -213,5 +229,15 @@ public class BindNumberActivity extends BaseActivity implements BindNumberView {
             // 如果开启
             mImm.hideSoftInputFromWindow(getCurrentFocus().getWindowToken(), 0); //强制隐藏键盘
         }
+    }
+
+    public void send(String ticket,String randstr){
+        if (!timerEnd[0]) {
+            if (mTimer != null) {
+                mTimer.start();
+            }
+            timerEnd[0] = true;
+        }
+        mPresenter.pushMessage(mLoginNumber.getText().toString(),ticket,randstr, this.<SuccessBean>bindToLifecycle());
     }
 }

@@ -65,6 +65,15 @@ public class AppVersionbean {
         private int open;
         private String content;
         private Object createTime;
+        private String needVerify;// 是否需要安全验证（0不需要，1需要）
+
+        public String getNeedVerify() {
+            return needVerify;
+        }
+
+        public void setNeedVerify(String needVerify) {
+            this.needVerify = needVerify;
+        }
 
         public String getId() {
             return id;

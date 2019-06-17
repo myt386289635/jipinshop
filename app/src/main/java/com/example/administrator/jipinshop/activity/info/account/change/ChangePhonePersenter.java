@@ -90,8 +90,8 @@ public class ChangePhonePersenter {
         return timer;
     }
 
-    public void pushMessage(String mobile,LifecycleTransformer<SuccessBean> transformer){
-        mRepository.pushMessage(mobile,"3")
+    public void pushMessage(String mobile, String ticket, String randstr,LifecycleTransformer<SuccessBean> transformer){
+        mRepository.pushMessage(mobile,"3",ticket,randstr)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .compose(transformer)
