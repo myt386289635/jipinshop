@@ -1,6 +1,7 @@
 package com.example.administrator.jipinshop.util;
 
 import android.databinding.BindingAdapter;
+import android.text.Html;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
@@ -227,4 +228,28 @@ public class BindingUtil {
                 break;
         }
     }
+
+    @BindingAdapter({"bind:textColor"})
+    public static void setWithdrawColor(TextView view, int status){
+        switch (status){
+            case -1:
+                view.setTextColor(0xFFE62D4C);
+                break;
+            case 0:
+                view.setTextColor(0xFF202020);
+                break;
+            case 1:
+                view.setTextColor(0xFF0F9D55);
+                break;
+        }
+    }
+
+    /**********************以下是 item_team 我的团队里的**************************/
+
+    @BindingAdapter({"bind:shareCommission"})
+    public static void setshareCommission(TextView view, String shareCommission){
+        String html = "分佣 <font color='#E31436'> <b>¥"+ shareCommission +"</b></font>";
+        view.setText(Html.fromHtml(html));
+    }
+
 }

@@ -65,7 +65,7 @@
             android:layout_alignTop="@id/item_image"
             android:textSize="15sp"
             android:textColor="@color/color_DE151515"
-            android:text="@{@string/team_shareCommission + bean.shareCommission}"
+            bind:shareCommission="@{bean.shareCommission}"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"/>
 

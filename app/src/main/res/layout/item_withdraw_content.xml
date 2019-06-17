@@ -45,7 +45,7 @@
         <TextView
             android:id="@+id/item_money"
             android:layout_marginRight="@dimen/x32"
-            android:textColor="@color/color_202020"
+            bind:textColor="@{bean.status}"
             android:textSize="14sp"
             android:layout_marginTop="@dimen/y42"
             android:text="@{@string/price + bean.amount}"

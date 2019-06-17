@@ -444,7 +444,7 @@
                             android:layout_marginLeft="@dimen/x32"
                             android:drawableLeft="@mipmap/mine_team"
                             android:drawablePadding="@dimen/x18"
-                            android:text="团队收入"/>
+                            android:text="我的团队"/>
 
                         <ImageView
                             android:layout_width="wrap_content"
