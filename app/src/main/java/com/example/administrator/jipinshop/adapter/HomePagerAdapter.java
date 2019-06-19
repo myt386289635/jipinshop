@@ -26,6 +26,11 @@ public class HomePagerAdapter extends PagerAdapter implements ViewPager.OnPageCh
     private Context mContext;
     private List<ImageView> point;
     private ViewPager mViewPager;
+    private Boolean imgCenter = true;
+
+    public void setImgCenter(Boolean imgCenter) {
+        this.imgCenter = imgCenter;
+    }
 
 
     public HomePagerAdapter(Context context) {
@@ -60,8 +65,11 @@ public class HomePagerAdapter extends PagerAdapter implements ViewPager.OnPageCh
     @Override
     public Object instantiateItem(ViewGroup container, int position) {
 
-        View view = LayoutInflater.from(mContext).inflate(R.layout.item_home_banner, container, false);
+        View view = LayoutInflater.from(mContext).inflate(R.layout.item_common_banner, container, false);
         ImageView imageView = (ImageView) view.findViewById(R.id.recommend_img_rotate);
+        if (imgCenter){
+            imageView.setScaleType(ImageView.ScaleType.CENTER_CROP);
+        }
         Glide.with(mContext).load(mAdListBeans.get(position % mAdListBeans.size()).getImg()).into(imageView);
         container.addView(view);
         mViewPager.addOnPageChangeListener(this);

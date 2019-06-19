@@ -1,4 +1,4 @@
-package com.example.administrator.jipinshop.fragment.tryout;
+package com.example.administrator.jipinshop.fragment.tryout.trymodel;
 
 import android.content.Context;
 import android.support.v7.widget.LinearLayoutManager;
@@ -7,6 +7,8 @@ import android.view.ViewGroup;
 import android.widget.LinearLayout;
 
 import com.aspsine.swipetoloadlayout.SwipeToLoadLayout;
+import com.example.administrator.jipinshop.bean.EvaluationTabBean;
+import com.example.administrator.jipinshop.bean.SucBean;
 import com.example.administrator.jipinshop.bean.TryBean;
 import com.example.administrator.jipinshop.netwrok.Repository;
 import com.trello.rxlifecycle2.LifecycleTransformer;
@@ -82,5 +84,28 @@ public class TryPresenter {
                         mView.onFile(throwable.getMessage());
                     }
                 });
+    }
+
+    public void tryADlist(LifecycleTransformer<SucBean<EvaluationTabBean.DataBean.AdListBean>> transformer){
+        mRepository.adList("4")
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .compose(transformer)
+                .subscribe(adListBeanSucBean -> {
+                    if (adListBeanSucBean.getCode() == 0){
+                        if (mView != null){
+                            mView.onSucAdList(adListBeanSucBean);
+                        }
+                    }else{
+                        if (mView != null){
+                            mView.onFileAdList(adListBeanSucBean.getMsg());
+                        }
+                    }
+                }, throwable -> {
+                    if (mView != null){
+                        mView.onFileAdList(throwable.getMessage());
+                    }
+                });
+
     }
 }

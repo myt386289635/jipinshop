@@ -82,11 +82,11 @@
     </RelativeLayout>
 
     <View
-        android:layout_marginBottom="@dimen/y48"
-        android:layout_marginTop="@dimen/y24"
+        android:layout_marginBottom="@dimen/y40"
+        android:layout_marginTop="@dimen/y40"
         android:layout_below="@+id/item_tag"
         android:background="@color/color_F5F5F5"
         android:layout_width="match_parent"
-        android:layout_height="@dimen/y12"/>
+        android:layout_height="@dimen/y2"/>
 
 </RelativeLayout>

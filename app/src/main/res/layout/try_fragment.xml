@@ -7,13 +7,6 @@
         android:background="@color/color_white"
         android:orientation="vertical">
 
-        <LinearLayout
-            android:id="@+id/status_bar"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@color/color_white"
-            android:orientation="vertical"/>
-
         <com.aspsine.swipetoloadlayout.SwipeToLoadLayout
             android:id="@+id/swipeToLoad"
             android:layout_width="match_parent"
@@ -39,10 +32,10 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"/>
 
-                <RelativeLayout
-                    android:id="@+id/try_head"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"/>
+                <!--<RelativeLayout-->
+                    <!--android:id="@+id/try_head"-->
+                    <!--android:layout_width="match_parent"-->
+                    <!--android:layout_height="wrap_content"/>-->
 
 
                 <include

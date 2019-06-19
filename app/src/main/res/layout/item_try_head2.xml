@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    android:background="@color/color_white"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+
+    <TextView
+        android:layout_marginBottom="@dimen/y50"
+        android:includeFontPadding="false"
+        android:paddingBottom="@dimen/y24"
+        android:id="@+id/try_all"
+        android:text="查看更多"
+        android:drawablePadding="@dimen/x14"
+        android:drawableRight="@mipmap/right_blue"
+        android:padding="@dimen/x28"
+        android:layout_centerHorizontal="true"
+        android:textSize="14sp"
+        android:textColor="@color/color_4A90E2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"/>
+    
+
+    <TextView
+        android:layout_marginBottom="@dimen/y68"
+        android:id="@+id/try_title"
+        android:paddingTop="@dimen/y54"
+        android:paddingLeft="@dimen/x30"
+        android:textColor="@color/color_DE050505"
+        android:textStyle="bold"
+        android:textSize="18sp"
+        android:text="试用报告"
+        android:background="@color/color_F5F5F5"
+        android:layout_below="@+id/try_all"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/y142"/>
+
+</RelativeLayout>

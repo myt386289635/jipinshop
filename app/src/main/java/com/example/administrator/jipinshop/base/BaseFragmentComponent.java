@@ -21,7 +21,7 @@ import com.example.administrator.jipinshop.fragment.sreach.article.SreachArticle
 import com.example.administrator.jipinshop.fragment.sreach.find.SreachFindFragment;
 import com.example.administrator.jipinshop.fragment.sreach.goods.SreachGoodsFragment;
 import com.example.administrator.jipinshop.fragment.sreach.tryout.SreachTryFragment;
-import com.example.administrator.jipinshop.fragment.tryout.TryFragment;
+import com.example.administrator.jipinshop.fragment.tryout.trymodel.TryFragment;
 import com.example.administrator.jipinshop.fragment.tryout.hot.TryCommenFragment;
 import com.example.administrator.jipinshop.fragment.tryout.mine.TrialCommonFragment;
 import com.example.administrator.jipinshop.fragment.tryout.mine.TrialReportFragment;

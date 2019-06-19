@@ -686,4 +686,11 @@ public class Repository {
         return mAPIService.goodsBuyLink(goodsId);
     }
 
+    /**
+     * 轮播图
+     */
+    public Observable<SucBean<EvaluationTabBean.DataBean.AdListBean>> adList(String location){
+        return mAPIService.adList(location);
+    }
+
 }

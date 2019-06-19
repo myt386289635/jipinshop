@@ -627,6 +627,12 @@ public interface APIService {
     @GET("qualityshop-api/api/getGoodsBuyLink")
     Observable<ImageBean> goodsBuyLink(@Query("goodsId")String goodsId);
 
+    /**
+     * 轮播图
+     */
+    @GET("qualityshop-api/api/adList")
+    Observable<SucBean<EvaluationTabBean.DataBean.AdListBean>> adList(@Query("location") String location);
+
 /*************************************************以下是还未修改的接口***********************************************/
 
     /**

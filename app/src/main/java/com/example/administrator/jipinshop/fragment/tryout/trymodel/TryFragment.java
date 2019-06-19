@@ -1,4 +1,4 @@
-package com.example.administrator.jipinshop.fragment.tryout;
+package com.example.administrator.jipinshop.fragment.tryout.trymodel;
 
 import android.content.Intent;
 import android.databinding.DataBindingUtil;
@@ -19,13 +19,15 @@ import com.example.administrator.jipinshop.activity.tryout.TryReportActivity;
 import com.example.administrator.jipinshop.activity.tryout.detail.TryDetailActivity;
 import com.example.administrator.jipinshop.adapter.TryAdapter;
 import com.example.administrator.jipinshop.base.DBBaseFragment;
+import com.example.administrator.jipinshop.bean.EvaluationTabBean;
+import com.example.administrator.jipinshop.bean.SucBean;
 import com.example.administrator.jipinshop.bean.TryBean;
 import com.example.administrator.jipinshop.bean.eventbus.TryStatusBus;
 import com.example.administrator.jipinshop.databinding.TryFragmentBinding;
 import com.example.administrator.jipinshop.util.ClickUtil;
+import com.example.administrator.jipinshop.util.ToastUtil;
 import com.example.administrator.jipinshop.util.UmApp.UAppUtil;
 import com.example.administrator.jipinshop.util.sp.CommonDate;
-import com.example.administrator.jipinshop.view.itemDecoration.StickyItemDecoration;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
@@ -39,27 +41,21 @@ import javax.inject.Inject;
 /**
  * @author 莫小婷
  * @create 2018/12/26
- * @Describe 试用模块
+ * @Describe 试用首页
  */
 public class TryFragment extends DBBaseFragment implements OnRefreshListener, TryAdapter.OnItemClick, TryView {
 
     private TryFragmentBinding mBinding;
     private List<TryBean.DataBean.TrialListBean> mTrialListBeans;
     private List<TryBean.DataBean.ReportListBean> mReportListBeans;
+    private List<EvaluationTabBean.DataBean.AdListBean> mAdListBeans;
     private TryAdapter mAdapter;
     private Boolean[] once = {true};
-    private StickyItemDecoration mStickyItemDecoration;
+//    private StickyItemDecoration mStickyItemDecoration;
 
     @Inject
     TryPresenter mTryPresenter;
 
-    @Override
-    public void setUserVisibleHint(boolean isVisibleToUser) {
-        super.setUserVisibleHint(isVisibleToUser);
-        if(isVisibleToUser && once[0]){
-            mBinding.swipeToLoad.setRefreshing(true);
-        }
-    }
 
     @Override
     public View initLayout(LayoutInflater inflater, ViewGroup container) {
@@ -70,21 +66,24 @@ public class TryFragment extends DBBaseFragment implements OnRefreshListener, Tr
     @Override
     public void initView() {
         mBaseFragmentComponent.inject(this);
-        mTryPresenter.setStatusBarHight(mBinding.statusBar,getContext());
         mTryPresenter.setView(this);
         EventBus.getDefault().register(this);
 
         mBinding.recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         mTrialListBeans = new ArrayList<>();
         mReportListBeans = new ArrayList<>();
+        mAdListBeans = new ArrayList<>();
         mAdapter = new TryAdapter(getContext(),mTrialListBeans,mReportListBeans);
         mAdapter.setOnItemClick(this);
+        mAdapter.setAdListBeans(mAdListBeans);
         mBinding.recyclerView.setAdapter(mAdapter);
-        mStickyItemDecoration = new StickyItemDecoration(mBinding.tryHead);
-        mBinding.recyclerView.addItemDecoration(mStickyItemDecoration);
+//        mStickyItemDecoration = new StickyItemDecoration(mBinding.tryHead);
+//        mBinding.recyclerView.addItemDecoration(mStickyItemDecoration);
 
         mTryPresenter.solveScoll(mBinding.recyclerView,mBinding.swipeToLoad);
         mBinding.swipeToLoad.setOnRefreshListener(this);
+        mBinding.swipeToLoad.setRefreshing(true);
+        mTryPresenter.tryADlist(this.bindToLifecycle());
     }
 
     @Override
@@ -178,7 +177,7 @@ public class TryFragment extends DBBaseFragment implements OnRefreshListener, Tr
             mTrialListBeans.clear();
             mTrialListBeans.addAll(bean.getData().getTrialList());
             mReportListBeans.addAll(bean.getData().getReportList());
-            mStickyItemDecoration.clearStickyViewPosition();//清空缓存的位置，添加数据和删除数据容易崩溃
+//            mStickyItemDecoration.clearStickyViewPosition();//清空缓存的位置，添加数据和删除数据容易崩溃
             mAdapter.notifyDataSetChanged();
         }else {
             initError(R.mipmap.qs_nodata, "暂无数据", "暂时没有任何数据 ");
@@ -194,6 +193,17 @@ public class TryFragment extends DBBaseFragment implements OnRefreshListener, Tr
         stopResher();
         initError(R.mipmap.qs_net, "网络出错", "哇哦，网络出错了，换个姿势下滑页面试试");
         mBinding.recyclerView.setVisibility(View.GONE);
+    }
+
+    @Override
+    public void onSucAdList(SucBean<EvaluationTabBean.DataBean.AdListBean> adListBeanSucBean) {
+        mAdListBeans.addAll(adListBeanSucBean.getData());
+        mAdapter.notifyItemChanged(0);
+    }
+
+    @Override
+    public void onFileAdList(String error) {
+        ToastUtil.show(error);
     }
 
     @Override

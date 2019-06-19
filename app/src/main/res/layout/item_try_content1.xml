@@ -112,7 +112,7 @@
     <View
         android:layout_marginBottom="@dimen/y56"
         android:layout_below="@+id/try_button"
-        android:background="@color/color_F5F5F5"
+        android:background="@color/color_white"
         android:layout_width="match_parent"
         android:layout_height="@dimen/y12"/>
 

@@ -24,7 +24,7 @@ import com.example.administrator.jipinshop.fragment.evaluation.EvaluationFragmen
 import com.example.administrator.jipinshop.fragment.find.FindFragment;
 import com.example.administrator.jipinshop.fragment.home.HomeFragment;
 import com.example.administrator.jipinshop.fragment.mine.MineFragment;
-import com.example.administrator.jipinshop.fragment.tryout.TryFragment;
+import com.example.administrator.jipinshop.fragment.tryout.TryModelFragment;
 import com.example.administrator.jipinshop.netwrok.RetrofitModule;
 import com.example.administrator.jipinshop.util.InputMethodManagerLeak;
 import com.example.administrator.jipinshop.util.NotchUtil;
@@ -32,8 +32,8 @@ import com.example.administrator.jipinshop.util.ToastUtil;
 import com.example.administrator.jipinshop.util.UmApp.UAppUtil;
 import com.example.administrator.jipinshop.util.UpDataUtil;
 import com.example.administrator.jipinshop.util.sp.CommonDate;
-import com.example.administrator.jipinshop.view.viewpager.NoScrollViewPager;
 import com.example.administrator.jipinshop.view.dialog.DialogUtil;
+import com.example.administrator.jipinshop.view.viewpager.NoScrollViewPager;
 import com.gyf.barlibrary.ImmersionBar;
 import com.trello.rxlifecycle2.components.support.RxAppCompatActivity;
 import com.umeng.analytics.MobclickAgent;
@@ -67,7 +67,7 @@ public class MainActivity extends RxAppCompatActivity implements MainView, ViewP
     private FindFragment mFindFragment;
     private MineFragment mMineFragment;
     private EvaluationFragment mEvaluationFragment;
-    private TryFragment mTryFragment;
+    private TryModelFragment mTryFragment;
 
     private Unbinder mButterKnife;
     private ImmersionBar mImmersionBar;
@@ -102,7 +102,7 @@ public class MainActivity extends RxAppCompatActivity implements MainView, ViewP
         mHomeFragment = new HomeFragment();
         mFindFragment = new FindFragment();
         mEvaluationFragment = new EvaluationFragment();
-        mTryFragment = new TryFragment();
+        mTryFragment = new TryModelFragment();
         mMineFragment = new MineFragment();
         mFragments.add(mHomeFragment);
         mFragments.add(mFindFragment);
