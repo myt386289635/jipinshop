@@ -44,5 +44,6 @@
     <string name="budget_tag">-</string>
     
     <string name="team_commission">个人收益 ¥</string>
-    <string name="team_shareCommission">分佣¥</string>
+    <string name="free_count1">共</string>
+    <string name="free_count2">件</string>
 </resources>

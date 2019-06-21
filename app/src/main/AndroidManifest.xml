@@ -366,6 +366,10 @@
         <activity android:name=".activity.balance.team.TeamActivity"
                   android:screenOrientation="portrait"/>
 
+        <!--免单购详情-->
+        <activity android:name=".activity.tryout.freedetail.FreeDetailActivity"
+                  android:screenOrientation="portrait"/>
+
     </application>
 
 </manifest>

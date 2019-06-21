@@ -40,6 +40,10 @@ public class SaleProgressView extends View {
     private Paint sidePaint;
     //背景矩形
     private RectF bgRectF;
+    //进度条开始颜色
+    private int startColor;
+    //进度条结束颜色
+    private int endColor;
     private float radius;
     private int width;
     private int height;
@@ -78,6 +82,8 @@ public class SaleProgressView extends View {
         nearOverText = ta.getString(R.styleable.SaleProgressView_nearOverText);
         textSize = ta.getDimension(R.styleable.SaleProgressView_textSize,sp2px(16));
         isNeedAnim = ta.getBoolean(R.styleable.SaleProgressView_isNeedAnim,true);
+        startColor = ta.getColor(R.styleable.SaleProgressView_startColor,0x70E31436);
+        endColor = ta.getColor(R.styleable.SaleProgressView_endColor,0xFFE31436);
         ta.recycle();
     }
 
@@ -159,7 +165,7 @@ public class SaleProgressView extends View {
         if (scale == 0.0f) {
             return;
         }
-        LinearGradient lg = new LinearGradient(0,0,(width - sideWidth) * scale,height - sideWidth,0x70E31436,0xFFE31436, Shader.TileMode.MIRROR);
+        LinearGradient lg = new LinearGradient(0,0,(width - sideWidth) * scale,height - sideWidth,startColor,endColor, Shader.TileMode.MIRROR);
         srcPaint.setShader(lg);
         canvas.drawRoundRect(new RectF(sideWidth, sideWidth, (width - sideWidth) * scale, height - sideWidth), radius, radius, srcPaint);
     }

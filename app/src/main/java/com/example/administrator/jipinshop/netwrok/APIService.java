@@ -11,6 +11,7 @@ import com.example.administrator.jipinshop.bean.EvaluationTabBean;
 import com.example.administrator.jipinshop.bean.FindDetailBean;
 import com.example.administrator.jipinshop.bean.FindListBean;
 import com.example.administrator.jipinshop.bean.FollowBean;
+import com.example.administrator.jipinshop.bean.FreeBean;
 import com.example.administrator.jipinshop.bean.HomeCommenBean;
 import com.example.administrator.jipinshop.bean.ImageBean;
 import com.example.administrator.jipinshop.bean.InvitationBean;
@@ -632,6 +633,13 @@ public interface APIService {
      */
     @GET("qualityshop-api/api/adList")
     Observable<SucBean<EvaluationTabBean.DataBean.AdListBean>> adList(@Query("location") String location);
+
+    /**
+     * 免单列表
+     */
+    @GET("qualityshop-api/api/free/list")
+    Observable<FreeBean> freeList(@Query("page") int page);
+
 
 /*************************************************以下是还未修改的接口***********************************************/
 

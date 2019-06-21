@@ -1,0 +1,201 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:bind="http://schemas.android.com/apk/res-auto">
+
+
+    <data>
+
+        <import type="android.view.View"/>
+
+        <variable
+            name="date"
+            type="com.example.administrator.jipinshop.bean.FreeBean.DataBean"/>
+
+    </data>
+
+
+    <android.support.v7.widget.CardView
+        android:id="@+id/card_view"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/y50"
+        android:layout_marginLeft="@dimen/x28"
+        android:layout_marginRight="@dimen/x28"
+        app:cardCornerRadius="@dimen/x10"
+        app:cardElevation="@dimen/y12"
+        app:cardPreventCornerOverlap="false">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <ImageView
+                android:id="@+id/item_freeImage"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/y400"
+                android:scaleType="centerCrop"
+                bind:src="@{date.img}"/>
+
+            <RelativeLayout
+                android:id="@+id/item_countdown"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/y60"
+                android:layout_alignBottom="@+id/item_freeImage"
+                android:background="@color/color_4D000000">
+
+                <TextView
+                    android:id="@+id/item_freeCountdown"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="@dimen/x22"
+                    android:text="开抢倒计时：9分钟59秒"
+                    android:textColor="@color/color_white"
+                    android:textSize="13sp"/>
+
+                <TextView
+                    android:id="@+id/item_freeTotle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginRight="@dimen/x32"
+                    android:text="@{@string/free_count1 + date.count + @string/free_count2}"
+                    android:textColor="@color/color_white"
+                    android:textSize="13sp"
+                    android:textStyle="bold"/>
+
+            </RelativeLayout>
+
+            <ImageView
+                android:visibility="@{date.status == 2 ? View.VISIBLE : View.GONE}"
+                android:id="@+id/item_saled"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/y400"
+                android:scaleType="fitXY"
+                android:src="@mipmap/free_saled"/>
+
+            <TextView
+                android:id="@+id/item_name"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/item_freeImage"
+                android:layout_marginBottom="@dimen/y50"
+                android:layout_marginLeft="@dimen/x24"
+                android:layout_marginRight="@dimen/x24"
+                android:layout_marginTop="@dimen/y32"
+                android:ellipsize="end"
+                android:singleLine="true"
+                android:text="@{date.name}"
+                android:textColor="@color/color_202020"
+                android:textSize="16sp"
+                android:textStyle="bold"/>
+
+            <RelativeLayout
+                android:id="@+id/item_progressbarContainer"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/item_name"
+                android:layout_marginBottom="@dimen/y50">
+
+                <com.example.administrator.jipinshop.view.SaleProgressView
+                    android:id="@+id/item_progressbar"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/y16"
+                    android:layout_marginLeft="@dimen/x24"
+                    android:layout_marginRight="@dimen/x70"
+                    app:endColor="@color/color_E31B3C"
+                    app:nearOverText=""
+                    app:overText=""
+                    app:sideColor="@color/color_D8D8D8"
+                    app:startColor="@color/color_E31B3C"/>
+
+                <TextView
+                    android:id="@+id/item_saledNumber"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/item_progressbar"
+                    android:layout_marginLeft="@dimen/x24"
+                    android:layout_marginTop="@dimen/y8"
+                    bind:userCount="@{date.userCount}"
+                    android:textColor="@color/color_ACACAC"
+                    android:textSize="13sp"
+                    android:textStyle="bold"/>
+
+                <TextView
+                    android:id="@+id/item_totalNumber"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignRight="@+id/item_progressbar"
+                    android:layout_below="@+id/item_progressbar"
+                    android:layout_marginTop="@dimen/y8"
+                    android:text="@{@string/free_count1 + date.count + @string/free_count2}"
+                    android:textColor="@color/color_ACACAC"
+                    android:textSize="13sp"
+                    android:textStyle="bold"/>
+
+            </RelativeLayout>
+
+            <TextView
+                android:id="@+id/item_button"
+                android:layout_width="@dimen/x220"
+                android:layout_height="@dimen/y60"
+                android:layout_alignParentRight="true"
+                android:layout_below="@+id/item_progressbarContainer"
+                android:layout_marginBottom="@dimen/y49"
+                android:layout_marginRight="@dimen/x24"
+                android:background="@drawable/bg_freetwo"
+                android:gravity="center"
+                android:text="已售罄"
+                android:textColor="@color/color_white"
+                android:textSize="16sp"
+                android:textStyle="bold"/>
+
+            <TextView
+                android:id="@+id/item_coins"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignBottom="@+id/item_button"
+                android:layout_alignTop="@+id/item_button"
+                android:layout_marginLeft="@dimen/x24"
+                android:gravity="center"
+                android:text="@{date.point + @string/priceEnd}"
+                android:textColor="@color/color_E31B3C"
+                android:textSize="14sp"
+                android:textStyle="bold"/>
+
+
+            <TextView
+                android:id="@+id/item_price"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignBottom="@+id/item_button"
+                android:layout_alignTop="@+id/item_button"
+                android:layout_marginLeft="@dimen/x20"
+                android:layout_toRightOf="@+id/item_coins"
+                android:gravity="center"
+                android:text="@{@string/price + date.actualPrice}"
+                android:textColor="@color/color_ACACAC"
+                android:textSize="13sp"
+                android:textStyle="bold"/>
+
+            <com.example.administrator.jipinshop.view.textview.TextViewDel
+                android:id="@+id/item_otherPrice"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignBottom="@+id/item_button"
+                android:layout_alignTop="@+id/item_button"
+                android:layout_marginLeft="@dimen/x20"
+                android:layout_toRightOf="@+id/item_price"
+                android:gravity="center"
+                android:text="@{@string/price + date.otherPrice}"
+                android:textColor="@color/color_ACACAC"
+                android:textSize="13sp"/>
+
+        </RelativeLayout>
+
+    </android.support.v7.widget.CardView>
+
+</layout>

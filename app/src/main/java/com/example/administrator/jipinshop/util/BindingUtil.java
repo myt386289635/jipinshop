@@ -252,4 +252,11 @@ public class BindingUtil {
         view.setText(Html.fromHtml(html));
     }
 
+    /*******************************以下是免单首页里的  item_free_one/item_free_two************************************/
+
+    @BindingAdapter({"bind:userCount"})
+    public static void setSaledFree(TextView view, int userCount){
+        String html = "已抢<font color='#E31B3C'>"+ userCount +"</font>件";
+        view.setText(Html.fromHtml(html));
+    }
 }

@@ -17,6 +17,8 @@
         <attr name="nearOverText" format="string" />
         <attr name="textSize" format="dimension" />
         <attr name="isNeedAnim" format="boolean" />
+        <attr name="startColor" format="color" />
+        <attr name="endColor" format="color" />
     </declare-styleable>
 
     <declare-styleable name="wheelview">

@@ -11,6 +11,7 @@ import com.example.administrator.jipinshop.bean.EvaluationTabBean;
 import com.example.administrator.jipinshop.bean.FindDetailBean;
 import com.example.administrator.jipinshop.bean.FindListBean;
 import com.example.administrator.jipinshop.bean.FollowBean;
+import com.example.administrator.jipinshop.bean.FreeBean;
 import com.example.administrator.jipinshop.bean.HomeCommenBean;
 import com.example.administrator.jipinshop.bean.ImageBean;
 import com.example.administrator.jipinshop.bean.InvitationBean;
@@ -693,4 +694,10 @@ public class Repository {
         return mAPIService.adList(location);
     }
 
+    /**
+     * 免单列表
+     */
+    public Observable<FreeBean> freeList(int page){
+        return mAPIService.freeList(page);
+    }
 }
