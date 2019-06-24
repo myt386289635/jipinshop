@@ -60,6 +60,7 @@ import com.example.administrator.jipinshop.fragment.foval.goods.FovalGoodsFragme
 import com.example.administrator.jipinshop.netwrok.RetrofitModule;
 import com.example.administrator.jipinshop.util.ClickUtil;
 import com.example.administrator.jipinshop.util.ShareUtils;
+import com.example.administrator.jipinshop.util.TaoBaoUtil;
 import com.example.administrator.jipinshop.util.ToastUtil;
 import com.example.administrator.jipinshop.util.UmApp.UAppUtil;
 import com.example.administrator.jipinshop.util.WeakRefHandler;
@@ -971,7 +972,7 @@ public class ShoppingDetailActivity extends BaseActivity implements ShoppingComm
                             .putExtra(WebActivity.title,"淘宝授权")
                     );
                 }else {
-                    openAliHomeWeb(goodsUrl);
+                    TaoBaoUtil.openAliHomeWeb(this,goodsUrl);
                 }
                 break;
             case R.id.key_text:
@@ -1114,44 +1115,6 @@ public class ShoppingDetailActivity extends BaseActivity implements ShoppingComm
         return false;
     }
 
-    /****
-     * 跳转淘宝首页
-     */
-    public void openAliHomeWeb(String url) {
-        AlibcShowParams alibcShowParams  = new AlibcShowParams(OpenType.Native, false);
-//        if(tb.equals("2")){
-            //淘宝协议
-            alibcShowParams.setClientType("taobao_scheme");
-//        }else if(tb.equals("3")){
-//            //天猫协议
-//            alibcShowParams.setClientType("tmall_scheme");
-//        }
-
-        //yhhpass参数
-        Map<String, String> exParams = new HashMap<>();
-        exParams.put("isv_code", "appisvcode");
-        exParams.put("alibaba", "阿里巴巴");//自定义参数部分，可任意增删改
-
-        AlibcTrade.show(this, new AlibcPage(url), alibcShowParams, null, exParams, new AlibcTradeCallback() {
-            @Override
-            public void onTradeSuccess(AlibcTradeResult alibcTradeResult) {
-                if (alibcTradeResult.resultType.equals(AlibcResultType.TYPECART)) {
-                    //加购成功
-                    Log.e("AlibcTradeSDK", "加购成功");
-                } else if (alibcTradeResult.resultType.equals(AlibcResultType.TYPEPAY)) {
-                    //支付成功
-                    Log.e("AlibcTradeSDK", "支付成功,成功订单号为" + alibcTradeResult.payResult.paySuccessOrders);
-                }
-                Log.e("AlibcTradeSDK", "加购成功");
-                ToastUtil.show("进去了");
-            }
-
-            @Override
-            public void onFailure(int errCode, String errMsg) {
-                Log.e("AlibcTradeSDK", "电商SDK出错,错误码=" + errCode + " / 错误消息=" + errMsg);
-            }
-        });
-    }
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {

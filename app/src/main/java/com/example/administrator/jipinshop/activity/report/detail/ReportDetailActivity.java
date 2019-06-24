@@ -51,6 +51,7 @@ import com.example.administrator.jipinshop.fragment.foval.tryout.FovalTryFragmen
 import com.example.administrator.jipinshop.netwrok.RetrofitModule;
 import com.example.administrator.jipinshop.util.ClickUtil;
 import com.example.administrator.jipinshop.util.ShareUtils;
+import com.example.administrator.jipinshop.util.TaoBaoUtil;
 import com.example.administrator.jipinshop.util.ToastUtil;
 import com.example.administrator.jipinshop.util.WeakRefHandler;
 import com.example.administrator.jipinshop.util.sp.CommonDate;
@@ -784,7 +785,7 @@ public class ReportDetailActivity extends BaseActivity implements View.OnClickLi
 
     @Override
     public void onBuyLinkSuccess(ImageBean bean) {
-        openAliHomeWeb(bean.getData());
+        TaoBaoUtil.openAliHomeWeb(this,bean.getData());
     }
 
     /**
@@ -810,38 +811,6 @@ public class ReportDetailActivity extends BaseActivity implements View.OnClickLi
         }
     }
 
-    /****
-     * 跳转淘宝首页
-     */
-    public void openAliHomeWeb(String url) {
-        AlibcShowParams alibcShowParams = new AlibcShowParams(OpenType.Native, false);
-        alibcShowParams.setClientType("taobao_scheme");
-
-        //yhhpass参数
-        Map<String, String> exParams = new HashMap<>();
-        exParams.put("isv_code", "appisvcode");
-        exParams.put("alibaba", "阿里巴巴");//自定义参数部分，可任意增删改
-
-        AlibcTrade.show(this, new AlibcPage(url), alibcShowParams, null, exParams, new AlibcTradeCallback() {
-            @Override
-            public void onTradeSuccess(AlibcTradeResult alibcTradeResult) {
-                if (alibcTradeResult.resultType.equals(AlibcResultType.TYPECART)) {
-                    //加购成功
-                    Log.e("AlibcTradeSDK", "加购成功");
-                } else if (alibcTradeResult.resultType.equals(AlibcResultType.TYPEPAY)) {
-                    //支付成功
-                    Log.e("AlibcTradeSDK", "支付成功,成功订单号为" + alibcTradeResult.payResult.paySuccessOrders);
-                }
-                Log.e("AlibcTradeSDK", "加购成功");
-                ToastUtil.show("进去了");
-            }
-
-            @Override
-            public void onFailure(int errCode, String errMsg) {
-                Log.e("AlibcTradeSDK", "电商SDK出错,错误码=" + errCode + " / 错误消息=" + errMsg);
-            }
-        });
-    }
 
     @Override
     protected void onRestart() {

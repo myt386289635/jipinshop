@@ -46,4 +46,9 @@
     <string name="team_commission">个人收益 ¥</string>
     <string name="free_count1">共</string>
     <string name="free_count2">件</string>
+    <string name="free_count3">剩余</string>
+    <string name="free_count4">已售</string>
+    <string name="free_startTime">开抢</string>
+    <string name="free_freePrice_start">可免</string>
+    <string name="free_freePrice_end">%</string>
 </resources>

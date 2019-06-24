@@ -49,6 +49,7 @@ import com.example.administrator.jipinshop.databinding.ActivityTryDetailBinding;
 import com.example.administrator.jipinshop.netwrok.RetrofitModule;
 import com.example.administrator.jipinshop.util.ClickUtil;
 import com.example.administrator.jipinshop.util.ShareUtils;
+import com.example.administrator.jipinshop.util.TaoBaoUtil;
 import com.example.administrator.jipinshop.util.ToastUtil;
 import com.example.administrator.jipinshop.util.UmApp.UAppUtil;
 import com.example.administrator.jipinshop.util.WeakRefHandler;
@@ -613,7 +614,7 @@ public class TryDetailActivity extends BaseActivity implements View.OnClickListe
 
     @Override
     public void onBuyLinkSuccess(ImageBean bean) {
-        openAliHomeWeb(bean.getData());
+        TaoBaoUtil.openAliHomeWeb(this,bean.getData());
     }
 
     public void initError(int id, String title, String content){
@@ -664,26 +665,6 @@ public class TryDetailActivity extends BaseActivity implements View.OnClickListe
         }
     }
 
-    /****
-     * 跳转淘宝首页
-     */
-    public void openAliHomeWeb(String url) {
-        AlibcShowParams alibcShowParams  = new AlibcShowParams(OpenType.Native, false);
-        alibcShowParams.setClientType("taobao_scheme");
-        //yhhpass参数
-        Map<String, String> exParams = new HashMap<>();
-        exParams.put("isv_code", "appisvcode");
-        exParams.put("alibaba", "阿里巴巴");//自定义参数部分，可任意增删改
-        AlibcTrade.show(this, new AlibcPage(url), alibcShowParams, null, exParams, new AlibcTradeCallback() {
-            @Override
-            public void onTradeSuccess(AlibcTradeResult alibcTradeResult) {
-            }
-
-            @Override
-            public void onFailure(int errCode, String errMsg) {
-            }
-        });
-    }
 
     @Override
     protected void onRestart() {

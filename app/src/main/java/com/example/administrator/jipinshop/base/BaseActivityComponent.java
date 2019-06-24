@@ -39,6 +39,7 @@ import com.example.administrator.jipinshop.activity.sreach.SreachActivity;
 import com.example.administrator.jipinshop.activity.sreach.result.SreachResultActivity;
 import com.example.administrator.jipinshop.activity.tryout.TryAllActivity;
 import com.example.administrator.jipinshop.activity.tryout.detail.TryDetailActivity;
+import com.example.administrator.jipinshop.activity.tryout.freedetail.FreeDetailActivity;
 import com.example.administrator.jipinshop.activity.tryout.passedMore.PassedMoreActivity;
 import com.example.administrator.jipinshop.activity.tryout.reportMore.ReportMoreActivity;
 import com.example.administrator.jipinshop.activity.tryout.shareMore.ShareMoreActivity;
@@ -94,4 +95,5 @@ public interface BaseActivityComponent {
     void inject(TeamActivity activity);
     void inject(InvitationNewActivity activity);
     void inject(WebActivity activity);
+    void inject(FreeDetailActivity activity);
 }

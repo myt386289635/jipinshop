@@ -2,12 +2,16 @@ package com.example.administrator.jipinshop.util;
 
 import android.databinding.BindingAdapter;
 import android.text.Html;
+import android.text.TextUtils;
+import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.example.administrator.jipinshop.R;
+import com.example.administrator.jipinshop.util.html.CustomerTagHandler_1;
+import com.example.administrator.jipinshop.util.html.HtmlParser;
 import com.example.administrator.jipinshop.view.glide.GlideApp;
 
 /**
@@ -258,5 +262,42 @@ public class BindingUtil {
     public static void setSaledFree(TextView view, int userCount){
         String html = "已抢<font color='#E31B3C'>"+ userCount +"</font>件";
         view.setText(Html.fromHtml(html));
+    }
+
+    @BindingAdapter({"bind:Freestatus","bind:applyStatus"})
+    public static void setFreeButton(TextView view , int Freestatus, int applyStatus){
+        switch (Freestatus){
+            case 0://即将开始
+                view.setText("即将开始");
+                view.setBackgroundColor(0xFFF76D20);
+                break;
+            case 1://进行中
+                if (applyStatus == -1){
+                    view.setText("免费抢购");
+                    view.setBackgroundColor(0xFFE31B3C);
+                }else if (applyStatus == 1){
+                    view.setText("前往购买");
+                    view.setBackgroundColor(0xFFE31B3C);
+                }
+                break;
+            case 2://已售罄
+                view.setText("已售罄");
+                view.setBackgroundColor(0xFFD8D8D8);
+                break;
+        }
+    }
+
+    @BindingAdapter({"bind:actualPrice"})
+    public static void setActualPrice(TextView view ,String actualPrice){
+        if (!TextUtils.isEmpty(actualPrice)){
+            String[] price = actualPrice.split("\\.");
+            String html = "";
+            if (price.length == 2){
+                html = "¥ <font size='30'>"+ price[0] +"</font>." + price[1];
+            }else if (price.length == 1){
+                html = "¥ <font size='30'>"+ price[0] +"</font>.00";
+            }
+            view.setText(HtmlParser.buildSpannedText(html,new CustomerTagHandler_1()));
+        }
     }
 }

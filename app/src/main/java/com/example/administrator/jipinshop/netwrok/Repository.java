@@ -12,6 +12,8 @@ import com.example.administrator.jipinshop.bean.FindDetailBean;
 import com.example.administrator.jipinshop.bean.FindListBean;
 import com.example.administrator.jipinshop.bean.FollowBean;
 import com.example.administrator.jipinshop.bean.FreeBean;
+import com.example.administrator.jipinshop.bean.FreeDetailBean;
+import com.example.administrator.jipinshop.bean.FreeUserListBean;
 import com.example.administrator.jipinshop.bean.HomeCommenBean;
 import com.example.administrator.jipinshop.bean.ImageBean;
 import com.example.administrator.jipinshop.bean.InvitationBean;
@@ -699,5 +701,26 @@ public class Repository {
      */
     public Observable<FreeBean> freeList(int page){
         return mAPIService.freeList(page);
+    }
+
+    /**
+     * 免单详情
+     */
+    public Observable<FreeDetailBean> freeDetail(String freeId){
+        return mAPIService.freeDetail(freeId);
+    }
+
+    /**
+     * 免单抢购
+     */
+    public Observable<FreeDetailBean> freeApply(String freeId){
+        return mAPIService.freeApply(freeId);
+    }
+
+    /**
+     * 参与名单列表
+     */
+    public Observable<FreeUserListBean> freeUserList(String freeId , int page){
+        return mAPIService.freeUserList(freeId, page);
     }
 }

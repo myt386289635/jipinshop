@@ -4,7 +4,6 @@ import android.content.Context;
 import android.support.design.widget.CoordinatorLayout;
 import android.support.v4.widget.NestedScrollView;
 import android.util.AttributeSet;
-import android.util.Log;
 import android.view.View;
 
 import com.example.administrator.jipinshop.R;
@@ -32,6 +31,11 @@ public class SampleTitleBehavior extends CoordinatorLayout.Behavior<View> {
         return dependency instanceof NestedScrollView;
     }
 
+    /**
+     * @param parent CoordinatorLayout
+     * @param child  这个就是app:layout_behavior="@string/behavior_sample_title" 的view,即：自己，依赖的view
+     * @param dependency 被依赖的view, 自己依赖的对象
+     */
     @Override
     public boolean onDependentViewChanged(CoordinatorLayout parent, View child, View dependency) {
         if (deltaY == 0) {

@@ -12,6 +12,8 @@ import com.example.administrator.jipinshop.bean.FindDetailBean;
 import com.example.administrator.jipinshop.bean.FindListBean;
 import com.example.administrator.jipinshop.bean.FollowBean;
 import com.example.administrator.jipinshop.bean.FreeBean;
+import com.example.administrator.jipinshop.bean.FreeDetailBean;
+import com.example.administrator.jipinshop.bean.FreeUserListBean;
 import com.example.administrator.jipinshop.bean.HomeCommenBean;
 import com.example.administrator.jipinshop.bean.ImageBean;
 import com.example.administrator.jipinshop.bean.InvitationBean;
@@ -640,6 +642,24 @@ public interface APIService {
     @GET("qualityshop-api/api/free/list")
     Observable<FreeBean> freeList(@Query("page") int page);
 
+    /**
+     * 免单详情
+     */
+    @GET("qualityshop-api/api/free/detail")
+    Observable<FreeDetailBean> freeDetail(@Query("freeId") String freeId);
+
+    /**
+     * 免单抢购
+     */
+    @FormUrlEncoded
+    @POST("qualityshop-api/api/free/apply")
+    Observable<FreeDetailBean> freeApply(@Field("freeId") String freeId);
+
+    /**
+     * 参与名单列表
+     */
+    @GET("qualityshop-api/api/free/freeUserList")
+    Observable<FreeUserListBean> freeUserList(@Query("freeId") String freeId , @Query("page") int page);
 
 /*************************************************以下是还未修改的接口***********************************************/
 

@@ -126,12 +126,6 @@ public class FreeAdapter extends RecyclerView.Adapter{
                     oneViewHolder.oneBinding.itemButton.setBackgroundResource(R.drawable.bg_freetwo);
                     oneViewHolder.oneBinding.itemButton.setTextColor(mContext.getResources().getColor(R.color.color_white));
                     oneViewHolder.oneBinding.itemButton.setText("已售罄");
-                }else if(mList.get(position).getStatus() == 3){//3活动结束
-                    oneViewHolder.oneBinding.itemCountdown.setVisibility(View.GONE);
-                    oneViewHolder.oneBinding.itemProgressbarContainer.setVisibility(View.VISIBLE);
-                    oneViewHolder.oneBinding.itemButton.setBackgroundResource(R.drawable.bg_freetwo);
-                    oneViewHolder.oneBinding.itemButton.setTextColor(mContext.getResources().getColor(R.color.color_white));
-                    oneViewHolder.oneBinding.itemButton.setText("已结束");
                 }
                 oneViewHolder.oneBinding.itemProgressbar.setTotalAndCurrentCount(mList.get(position).getCount(),mList.get(position).getUserCount());
                 oneViewHolder.oneBinding.itemOtherPrice.setTv(true);
@@ -193,12 +187,6 @@ public class FreeAdapter extends RecyclerView.Adapter{
                     twoViewHolder.twoBinding.itemButton.setBackgroundResource(R.drawable.bg_freetwo);
                     twoViewHolder.twoBinding.itemButton.setTextColor(mContext.getResources().getColor(R.color.color_white));
                     twoViewHolder.twoBinding.itemButton.setText("已售罄");
-                }else if(mList.get(position).getStatus() == 3){//3活动结束
-                    twoViewHolder.twoBinding.itemCountdown.setVisibility(View.GONE);
-                    twoViewHolder.twoBinding.itemProgressbarContainer.setVisibility(View.VISIBLE);
-                    twoViewHolder.twoBinding.itemButton.setBackgroundResource(R.drawable.bg_freetwo);
-                    twoViewHolder.twoBinding.itemButton.setTextColor(mContext.getResources().getColor(R.color.color_white));
-                    twoViewHolder.twoBinding.itemButton.setText("已结束");
                 }
                 twoViewHolder.twoBinding.itemProgressbar.setTotalAndCurrentCount(mList.get(position).getCount(),mList.get(position).getUserCount());
                 twoViewHolder.twoBinding.itemOtherPrice.setTv(true);

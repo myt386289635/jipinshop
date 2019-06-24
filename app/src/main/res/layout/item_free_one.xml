@@ -123,7 +123,8 @@
                         app:overText=""
                         app:sideColor="@color/color_D8D8D8"
                         app:startColor="@color/color_E31B3C"
-                        app:endColor="@color/color_E31B3C"/>
+                        app:endColor="@color/color_E31B3C"
+                        app:isNeedAnim="false"/>
 
                     <TextView
                         android:id="@+id/item_saledNumber"
