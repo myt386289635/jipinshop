@@ -266,23 +266,23 @@ public class BindingUtil {
 
     @BindingAdapter({"bind:Freestatus","bind:applyStatus"})
     public static void setFreeButton(TextView view , int Freestatus, int applyStatus){
-        switch (Freestatus){
-            case 0://即将开始
-                view.setText("即将开始");
-                view.setBackgroundColor(0xFFF76D20);
-                break;
-            case 1://进行中
-                if (applyStatus == -1){
+        switch (applyStatus){
+            case -1://未申请
+                if (Freestatus == 0){
+                    view.setText("即将开始");
+                    view.setBackgroundColor(0xFFF76D20);
+                }else if (Freestatus == 1){
+                    //进行中
                     view.setText("免费抢购");
                     view.setBackgroundColor(0xFFE31B3C);
-                }else if (applyStatus == 1){
-                    view.setText("前往购买");
-                    view.setBackgroundColor(0xFFE31B3C);
+                }else {//已售罄
+                    view.setText("已售罄");
+                    view.setBackgroundColor(0xFFD8D8D8);
                 }
                 break;
-            case 2://已售罄
-                view.setText("已售罄");
-                view.setBackgroundColor(0xFFD8D8D8);
+            case 1://申请了已付款
+                view.setText("前往购买");
+                view.setBackgroundColor(0xFFE31B3C);
                 break;
         }
     }

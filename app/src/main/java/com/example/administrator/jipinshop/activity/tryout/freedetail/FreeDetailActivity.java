@@ -254,7 +254,7 @@ public class FreeDetailActivity extends BaseActivity implements View.OnClickList
             mPresenter.initBanner(mBannerList, this, point, mBinding.detailPoint, mBannerAdapter);
             new Thread(new MyRunble()).start();
         }
-        if (detailBean.getData().getStatus() == 1 && detailBean.getData().getApplyStatus() == 0){
+        if (detailBean.getData().getApplyStatus() == 0){
             //活动进行中且申请过后未付款的
             mBinding.detailBottomNote.setVisibility(View.VISIBLE);
             String html = "前往购买<font size='13'>(可返"+ detailBean.getData().getFreePrice() +"元)</font>";
@@ -280,7 +280,7 @@ public class FreeDetailActivity extends BaseActivity implements View.OnClickList
         }else {
             mBinding.detailBottomNote.setVisibility(View.GONE);
         }
-        if (detailBean.getData().getStatus() == 0){//即将开始
+        if (detailBean.getData().getApplyStatus() == -1 && detailBean.getData().getStatus() == 0){//即将开始
             long timer = dateAddOneDay(detailBean.getData().getActivitiesStartTime()) - System.currentTimeMillis();
             if (timer > 0) {
                 mCountDownTimer = new CountDownTimer(timer, 1000) {

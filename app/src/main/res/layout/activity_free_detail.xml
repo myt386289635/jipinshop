@@ -122,7 +122,7 @@
                     </RelativeLayout>
 
                     <RelativeLayout
-                        android:visibility="@{date.status == 0 ? View.VISIBLE : View.GONE}"
+                        android:visibility="@{date.applyStatus == -1 &amp;&amp; date.status == 0 ? View.VISIBLE : View.GONE}"
                         android:layout_below="@+id/detail_pagerContainer"
                         android:background="@color/color_E31B3C"
                         android:id="@+id/detail_countdownContainer"
@@ -155,7 +155,7 @@
                     </RelativeLayout>
 
                     <RelativeLayout
-                        android:visibility="@{date.status == 1 &amp;&amp; (date.applyStatus == 0 || date.applyStatus == 1)? View.VISIBLE : View.GONE}"
+                        android:visibility="@{date.applyStatus == 0 || date.applyStatus == 1 ? View.VISIBLE : View.GONE}"
                         android:id="@+id/detail_buyContainer"
                         android:layout_below="@+id/detail_countdownContainer"
                         android:layout_width="match_parent"
@@ -247,7 +247,7 @@
 
                     <RelativeLayout
                         android:layout_marginBottom="@dimen/y44"
-                        android:visibility="@{date.status == 0 || (date.status == 1 &amp;&amp; date.applyStatus == 0) ? View.GONE : View.VISIBLE}"
+                        android:visibility="@{(date.status == 0 &amp;&amp; date.applyStatus == -1) || date.applyStatus == 0 ? View.GONE : View.VISIBLE}"
                         android:id="@+id/item_progressbarContainer"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -293,7 +293,7 @@
                     </RelativeLayout>
 
                     <TextView
-                        android:visibility="@{date.status == 1 &amp;&amp; (date.applyStatus == 0 || date.applyStatus == 1) ? View.GONE : View.VISIBLE}"
+                        android:visibility="@{date.applyStatus == 0 || date.applyStatus == 1 ? View.GONE : View.VISIBLE}"
                         android:layout_marginLeft="@dimen/x28"
                         android:layout_below="@id/item_progressbarContainer"
                         android:id="@+id/detail_coins"
@@ -305,7 +305,7 @@
                         android:layout_height="wrap_content"/>
 
                     <com.example.administrator.jipinshop.view.textview.TextViewDel
-                        android:visibility="@{date.status == 1 &amp;&amp; (date.applyStatus == 0 || date.applyStatus == 1) ? View.GONE : View.VISIBLE}"
+                        android:visibility="@{date.applyStatus == 0 || date.applyStatus == 1 ? View.GONE : View.VISIBLE}"
                         android:gravity="center"
                         android:layout_marginLeft="@dimen/x20"
                         android:layout_toRightOf="@id/detail_coins"
@@ -320,7 +320,7 @@
                         android:layout_height="wrap_content"/>
 
                     <com.example.administrator.jipinshop.view.textview.TextViewDel
-                        android:visibility="@{date.status == 1 &amp;&amp; (date.applyStatus == 0 || date.applyStatus == 1) ? View.GONE : View.VISIBLE}"
+                        android:visibility="@{date.applyStatus == 0 || date.applyStatus == 1 ? View.GONE : View.VISIBLE}"
                         android:gravity="center"
                         android:layout_marginLeft="@dimen/x20"
                         android:textStyle="bold"
@@ -335,7 +335,7 @@
                         android:layout_height="wrap_content"/>
 
                     <TextView
-                        android:visibility="@{date.status == 0 ? View.VISIBLE : View.GONE}"
+                        android:visibility="@{date.applyStatus == -1 &amp;&amp; date.status == 0 ? View.VISIBLE : View.GONE}"
                         android:layout_marginLeft="@dimen/x28"
                         android:layout_marginTop="@dimen/y26"
                         android:layout_below="@id/detail_coins"
@@ -348,7 +348,7 @@
                         android:layout_height="wrap_content"/>
 
                     <TextView
-                        android:visibility="@{date.status == 1 &amp;&amp; (date.applyStatus == 0 || date.applyStatus == 1) ? View.GONE : View.VISIBLE }"
+                        android:visibility="@{date.applyStatus == 0 || date.applyStatus == 1 ? View.GONE : View.VISIBLE }"
                         android:layout_marginTop="@dimen/y36"
                         android:text="@{date.freeNote}"
                         android:layout_below="@id/detail_startTime"
