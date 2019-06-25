@@ -235,7 +235,7 @@ public class ReportDetailActivity extends BaseActivity implements View.OnClickLi
                 }
                 break;
             case R.id.detail_buy:
-                if(mBeans != null && mBeans.size() != 0){
+                if(mBeans != null && mBeans.size() != 0 && mBeans.size() > 1){
                     //购买
                     if (mRelatedGoodsDialog == null) {
                         mRelatedGoodsDialog = RelatedGoodsDialog.getInstance(mBeans);
@@ -243,6 +243,23 @@ public class ReportDetailActivity extends BaseActivity implements View.OnClickLi
                     }
                     if (!mRelatedGoodsDialog.isAdded()) {
                         mRelatedGoodsDialog.show(getSupportFragmentManager(), "RelatedGoodsDialog");
+                    }
+                }else if (mBeans != null && mBeans.size() != 0 && mBeans.size() == 1){
+                    //直接购买
+                    if(TextUtils.isEmpty(SPUtils.getInstance(CommonDate.USER).getString(CommonDate.token,""))){
+                        startActivity(new Intent(this, LoginActivity.class));
+                        return;
+                    }
+                    mDialog = (new ProgressDialogView()).createLoadingDialog(this, "正在加载...");
+                    mDialog.show();
+                    String specialId = SPUtils.getInstance(CommonDate.USER).getString(CommonDate.relationId,"");
+                    if (TextUtils.isEmpty(specialId) || specialId.equals("null")){
+                        startActivity(new Intent(this, WebActivity.class)
+                                .putExtra(WebActivity.url, RetrofitModule.UP_BASE_URL+"qualityshop-api/api/taobao/login?token=" + SPUtils.getInstance(CommonDate.USER).getString(CommonDate.token))
+                                .putExtra(WebActivity.title,"淘宝授权")
+                        );
+                    }else {
+                        mPresenter.goodsBuyLink(mBeans.get(0).getGoodsId(),this.bindToLifecycle());
                     }
                 }
                 break;
@@ -671,6 +688,7 @@ public class ReportDetailActivity extends BaseActivity implements View.OnClickLi
         if (mDialog != null && mDialog.isShowing()) {
             mDialog.dismiss();
         }
+        mBinding.detailBuy.setText(bean.getBtnTxt2());
         mBinding.detailShare.setText(bean.getBtnTxt());
         ShareBoardTitle = "一边分享  一边赚";
         ShareBoardContent = bean.getContent();
@@ -683,7 +701,7 @@ public class ReportDetailActivity extends BaseActivity implements View.OnClickLi
         }
         attentionUserId = bean.getData().getUserId();
         if(bean.getData().getRelatedGoodsList() == null || bean.getData().getRelatedGoodsList().size() == 0){
-            mBinding.detailBuy.setText("暂无商品");
+//            mBinding.detailBuy.setText("暂无商品");
             ShareBoardTitle = "分享";
             ShareBoardContent = "";
             mBinding.detailShare.setText("分享");
