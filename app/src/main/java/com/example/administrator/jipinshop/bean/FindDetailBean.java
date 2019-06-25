@@ -23,6 +23,15 @@ public class FindDetailBean {
     private DataBean data;
     private String btnTxt;
     private String content;
+    private String btnTxt2;
+
+    public String getBtnTxt2() {
+        return btnTxt2;
+    }
+
+    public void setBtnTxt2(String btnTxt2) {
+        this.btnTxt2 = btnTxt2;
+    }
 
     public String getBtnTxt() {
         return btnTxt;

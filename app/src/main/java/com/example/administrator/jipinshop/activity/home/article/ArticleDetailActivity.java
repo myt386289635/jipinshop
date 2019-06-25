@@ -22,14 +22,7 @@ import android.webkit.WebViewClient;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import com.alibaba.baichuan.android.trade.AlibcTrade;
 import com.alibaba.baichuan.android.trade.AlibcTradeSDK;
-import com.alibaba.baichuan.android.trade.callback.AlibcTradeCallback;
-import com.alibaba.baichuan.android.trade.model.AlibcShowParams;
-import com.alibaba.baichuan.android.trade.model.OpenType;
-import com.alibaba.baichuan.android.trade.page.AlibcPage;
-import com.alibaba.baichuan.trade.biz.context.AlibcResultType;
-import com.alibaba.baichuan.trade.biz.context.AlibcTradeResult;
 import com.blankj.utilcode.util.SPUtils;
 import com.example.administrator.jipinshop.R;
 import com.example.administrator.jipinshop.activity.WebActivity;
@@ -74,9 +67,7 @@ import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import javax.inject.Inject;
 
@@ -278,7 +269,7 @@ public class ArticleDetailActivity extends BaseActivity implements View.OnClickL
                 }
                 break;
             case R.id.detail_buy:
-                if(mBeans != null && mBeans.size() != 0){
+                if(mBeans != null && mBeans.size() != 0 && mBeans.size() > 1){
                     //购买
                     if (mRelatedGoodsDialog == null) {
                         mRelatedGoodsDialog = RelatedGoodsDialog.getInstance(mBeans);
@@ -286,6 +277,23 @@ public class ArticleDetailActivity extends BaseActivity implements View.OnClickL
                     }
                     if (!mRelatedGoodsDialog.isAdded()) {
                         mRelatedGoodsDialog.show(getSupportFragmentManager(), "RelatedGoodsDialog");
+                    }
+                }else if (mBeans != null && mBeans.size() != 0 && mBeans.size() == 1){
+                    //直接购买
+                    if(TextUtils.isEmpty(SPUtils.getInstance(CommonDate.USER).getString(CommonDate.token,""))){
+                        startActivity(new Intent(this, LoginActivity.class));
+                        return;
+                    }
+                    mDialog = (new ProgressDialogView()).createLoadingDialog(this, "正在加载...");
+                    mDialog.show();
+                    String specialId = SPUtils.getInstance(CommonDate.USER).getString(CommonDate.relationId,"");
+                    if (TextUtils.isEmpty(specialId) || specialId.equals("null")){
+                        startActivity(new Intent(this, WebActivity.class)
+                                .putExtra(WebActivity.url, RetrofitModule.UP_BASE_URL+"qualityshop-api/api/taobao/login?token=" + SPUtils.getInstance(CommonDate.USER).getString(CommonDate.token))
+                                .putExtra(WebActivity.title,"淘宝授权")
+                        );
+                    }else {
+                        mPresenter.goodsBuyLink(mBeans.get(0).getGoodsId(),this.bindToLifecycle());
                     }
                 }
                 break;
@@ -393,6 +401,7 @@ public class ArticleDetailActivity extends BaseActivity implements View.OnClickL
         if (mDialog != null && mDialog.isShowing()) {
             mDialog.dismiss();
         }
+        mBinding.detailBuy.setText(bean.getBtnTxt2());
         mBinding.detailShare.setText(bean.getBtnTxt());
         ShareBoardTitle = "一边分享  一边赚";
         ShareBoardContent = bean.getContent();
@@ -403,7 +412,7 @@ public class ArticleDetailActivity extends BaseActivity implements View.OnClickL
         mBeans.addAll(bean.getData().getRelatedGoodsList());
         attentionUserId = bean.getData().getUserId();
         if(bean.getData().getRelatedGoodsList() == null || bean.getData().getRelatedGoodsList().size() == 0){
-            mBinding.detailBuy.setText("暂无商品");
+//            mBinding.detailBuy.setText("暂无商品");
             ShareBoardTitle = "分享";
             ShareBoardContent = "";
             mBinding.detailShare.setText("分享");
