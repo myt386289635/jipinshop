@@ -21,7 +21,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@color/color_white"
-            app:elevation="0dp">
+            app:elevation="0dp"
+            app:layout_behavior="@string/AppBarLayoutBehavior">
 
             <RelativeLayout
                 app:layout_scrollFlags="scroll|enterAlways|snap"
@@ -47,7 +48,7 @@
                     android:layout_height="match_parent"
                     android:layout_marginLeft="@dimen/x28"
                     android:layout_marginRight="@dimen/x28"
-                    android:layout_toLeftOf="@id/sreach_cancle"
+                    android:layout_toLeftOf="@+id/sreach_cancle"
                     android:layout_toRightOf="@id/sreach_back"
                     android:background="@drawable/bg_sreach"
                     android:gravity="center_vertical"

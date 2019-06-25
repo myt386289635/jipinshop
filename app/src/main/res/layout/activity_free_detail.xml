@@ -30,7 +30,8 @@
                 android:id="@+id/appbar"
                 app:elevation="0dp"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                android:layout_height="wrap_content"
+                app:layout_behavior="@string/AppBarLayoutBehavior">
 
                 <RelativeLayout
                     android:id="@+id/title_container"

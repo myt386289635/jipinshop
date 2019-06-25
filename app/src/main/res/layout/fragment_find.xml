@@ -37,7 +37,8 @@
                 app:elevation="0dp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@color/color_white">
+                android:background="@color/color_white"
+                app:layout_behavior="@string/AppBarLayoutBehavior">
 
                 <RelativeLayout
                     android:id="@+id/head"
