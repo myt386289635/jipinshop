@@ -3,13 +3,16 @@ package com.example.administrator.jipinshop.fragment.tryout.freemodel;
 import android.content.Intent;
 import android.databinding.DataBindingUtil;
 import android.support.v7.widget.LinearLayoutManager;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
 import com.aspsine.swipetoloadlayout.OnLoadMoreListener;
 import com.aspsine.swipetoloadlayout.OnRefreshListener;
+import com.blankj.utilcode.util.SPUtils;
 import com.example.administrator.jipinshop.R;
+import com.example.administrator.jipinshop.activity.login.LoginActivity;
 import com.example.administrator.jipinshop.activity.tryout.freedetail.FreeDetailActivity;
 import com.example.administrator.jipinshop.adapter.FreeAdapter;
 import com.example.administrator.jipinshop.base.DBBaseFragment;
@@ -17,6 +20,7 @@ import com.example.administrator.jipinshop.bean.FreeBean;
 import com.example.administrator.jipinshop.databinding.FragmentEvaluationCommonBinding;
 import com.example.administrator.jipinshop.util.ClickUtil;
 import com.example.administrator.jipinshop.util.ToastUtil;
+import com.example.administrator.jipinshop.util.sp.CommonDate;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -166,6 +170,10 @@ public class FreeFragment extends DBBaseFragment implements OnRefreshListener, O
         if (ClickUtil.isFastDoubleClick(800)) {
             return;
         }else{
+            if(TextUtils.isEmpty(SPUtils.getInstance(CommonDate.USER).getString(CommonDate.token,""))){
+                startActivity(new Intent(getContext(), LoginActivity.class));
+                return;
+            }
             startActivity(new Intent(getContext(), FreeDetailActivity.class)
                     .putExtra("id",mList.get(position).getId())
             );

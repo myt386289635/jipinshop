@@ -320,7 +320,7 @@
                         android:layout_height="wrap_content"/>
 
                     <com.example.administrator.jipinshop.view.textview.TextViewDel
-                        android:visibility="@{date.applyStatus == 0 || date.applyStatus == 1 ? View.GONE : View.VISIBLE}"
+                        android:visibility="gone"
                         android:gravity="center"
                         android:layout_marginLeft="@dimen/x20"
                         android:textStyle="bold"

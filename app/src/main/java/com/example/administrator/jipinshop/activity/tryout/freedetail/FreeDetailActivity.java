@@ -184,7 +184,7 @@ public class FreeDetailActivity extends BaseActivity implements View.OnClickList
                         }
                     }
                 }else if (mBinding.detailBottomBuy.getText().toString().equals("前往购买")){
-                    if (status == 1 && applyStatus == 1){
+                    if (applyStatus == 1){
                         //二次购买的情况（可再次购买但不返回佣金）  跳转到淘宝
                         if (TextUtils.isEmpty(goodsId)){
                             ToastUtil.show("暂无商品链接");
@@ -236,8 +236,8 @@ public class FreeDetailActivity extends BaseActivity implements View.OnClickList
         mBinding.setDate(detailBean.getData());
         mBinding.detailBuyOtherPrice.setTv(true);
         mBinding.detailBuyOtherPrice.setColor(R.color.color_white);
-        mBinding.itemOtherPrice.setTv(true);
-        mBinding.itemOtherPrice.setColor(R.color.color_ACACAC);
+//        mBinding.itemOtherPrice.setTv(true);
+//        mBinding.itemOtherPrice.setColor(R.color.color_ACACAC);
         mBinding.itemPrice.setTv(true);
         mBinding.itemPrice.setColor(R.color.color_ACACAC);
         mBinding.itemProgressbar.setTotalAndCurrentCount(detailBean.getData().getCount(),detailBean.getData().getUserCount());
