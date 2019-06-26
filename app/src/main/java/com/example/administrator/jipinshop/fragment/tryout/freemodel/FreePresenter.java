@@ -2,6 +2,7 @@ package com.example.administrator.jipinshop.fragment.tryout.freemodel;
 
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.view.View;
 
 import com.aspsine.swipetoloadlayout.SwipeToLoadLayout;
 import com.example.administrator.jipinshop.bean.FreeBean;
@@ -40,8 +41,21 @@ public class FreePresenter {
                 super.onScrolled(recyclerView, dx, dy);
                 RecyclerView.LayoutManager layoutManager = mRecyclerView.getLayoutManager();
                 LinearLayoutManager linearManager = (LinearLayoutManager) layoutManager;
-                mSwipeToLoad.setRefreshEnabled(linearManager.findFirstCompletelyVisibleItemPosition() == 0);
                 mSwipeToLoad.setLoadMoreEnabled(isSlideToBottom(mRecyclerView));
+
+                //解决item占满全屏时无法下拉刷新
+                View firstChild = null;
+                if (recyclerView.getChildCount() > 0) {
+                    firstChild = recyclerView.getChildAt(0);
+                }
+                int firstChildPosition = firstChild == null ? 0 : recyclerView.getChildLayoutPosition(firstChild);
+                if ( firstChild != null){
+                    mSwipeToLoad.setRefreshEnabled(firstChildPosition == 0 && firstChild.getTop()>=0);//如果firstChild处于列表的第一个位置，且top>=0,则下拉刷新控件可用
+                }else {
+                    //第一个item没有占满全屏时可用
+                    mSwipeToLoad.setRefreshEnabled(linearManager.findFirstCompletelyVisibleItemPosition() == 0);
+                }
+
             }
 
             @Override
