@@ -388,7 +388,8 @@
 
         <!--问答区详情-->
         <activity android:name=".activity.home.classification.questions.detail.QuestionDetailActivity"
-                  android:screenOrientation="portrait"/>
+                  android:screenOrientation="portrait"
+                  android:windowSoftInputMode="adjustResize|stateHidden"/>
 
         <!--问题提交页面-->
         <activity android:name=".activity.home.classification.questions.submit.QuestionSubmitActivity"

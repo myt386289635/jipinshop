@@ -16,8 +16,9 @@
             android:orientation="vertical"/>
 
         <android.support.v7.widget.RecyclerView
+            android:layout_gravity="center"
             android:id="@+id/recycler_view"
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="@dimen/y100"
             android:background="@color/color_white"/>
 

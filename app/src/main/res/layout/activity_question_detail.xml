@@ -1,0 +1,191 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:bind="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+        <variable
+            name="listener"
+            type="android.view.View.OnClickListener"/>
+
+    </data>
+
+    <com.example.administrator.jipinshop.view.relativeLayout.FullScreenRelativeLayout
+        android:id="@+id/detail_container"
+        android:background="@color/color_white"
+        android:orientation="vertical"
+        android:fitsSystemWindows="true"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <include
+            layout="@layout/aa_title2"
+            bind:listener="@{listener}"
+            android:id="@+id/in_clude"/>
+
+        <ImageView
+            android:onClick="@{listener.onClick}"
+            android:paddingLeft="@dimen/x40"
+            android:paddingRight="@dimen/x40"
+            android:layout_alignParentRight="true"
+            android:id="@+id/detail_share"
+            android:src="@mipmap/qus_forward"
+            android:layout_width="wrap_content"
+            android:layout_height="@dimen/y88"/>
+
+        <com.aspsine.swipetoloadlayout.SwipeToLoadLayout
+            android:layout_above="@id/detail_bottomContainer"
+            android:layout_below="@id/in_clude"
+            android:id="@+id/swipeToLoad"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/color_white">
+
+            <com.example.administrator.jipinshop.view.textview.CustomRefreshHeadView
+                android:id="@+id/swipe_refresh_header"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:padding="20dp"/>
+
+            <LinearLayout
+                android:id="@+id/swipe_target"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical">
+
+
+                <android.support.v7.widget.RecyclerView
+                    android:id="@+id/recycler_view"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"/>
+
+
+                <include
+                    android:id="@+id/net_clude"
+                    layout="@layout/common_net_error"
+                    android:visibility="gone"/>
+
+            </LinearLayout>
+
+            <com.example.administrator.jipinshop.view.textview.LoadMoreFooterView
+                android:id="@+id/swipe_load_more_footer"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:padding="20dp"/>
+
+        </com.aspsine.swipetoloadlayout.SwipeToLoadLayout>
+
+        <RelativeLayout
+            android:onClick="@{listener.onClick}"
+            android:id="@+id/detail_bottomContainer"
+            android:layout_alignParentBottom="true"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/y100">
+
+            <ImageView
+                android:layout_marginLeft="@dimen/x55"
+                android:layout_marginRight="@dimen/x30"
+                android:id="@+id/item_comment"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:src="@mipmap/question_comment"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+
+
+            <TextView
+                android:gravity="center_vertical"
+                android:textSize="14sp"
+                android:textStyle="bold"
+                android:textColorHint="@color/color_9E9E9E"
+                android:paddingLeft="@dimen/x13"
+                android:hint="输入回答"
+                android:layout_toLeftOf="@id/item_comment"
+                android:layout_marginLeft="@dimen/x30"
+                android:layout_marginBottom="@dimen/y10"
+                android:layout_marginTop="@dimen/y10"
+                android:background="@drawable/bg_common"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"/>
+
+            <View
+                android:background="@color/color_DEDEDE"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/y2"/>
+
+        </RelativeLayout>
+        
+        <RelativeLayout
+            android:visibility="gone"
+            android:background="@color/color_white"
+            android:id="@+id/detail_bottomContainer2"
+            android:layout_alignParentBottom="true"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/y280">
+
+            <RelativeLayout
+                android:id="@+id/detail_editContainer"
+                android:layout_marginRight="@dimen/x30"
+                android:layout_marginLeft="@dimen/x30"
+                android:layout_marginTop="@dimen/y25"
+                android:background="@drawable/bg_common"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/y180">
+
+
+                <EditText
+                    android:textColor="@color/color_202020"
+                    android:textStyle="bold"
+                    android:textColorHint="@color/color_9E9E9E"
+                    android:layout_above="@id/detail_totalNum"
+                    android:maxLength="500"
+                    android:id="@+id/detail_edit"
+                    android:textSize="14sp"
+                    android:padding="@dimen/x15"
+                    android:gravity="top"
+                    android:hint="输入评论"
+                    android:background="@null"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"/>
+
+
+                <TextView
+                    android:layout_marginTop="@dimen/y5"
+                    android:id="@+id/detail_totalNum"
+                    android:layout_marginRight="@dimen/x9"
+                    android:layout_marginBottom="@dimen/y5"
+                    android:layout_alignParentRight="true"
+                    android:layout_alignParentBottom="true"
+                    android:text="0/500"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"/>
+
+            </RelativeLayout>
+
+            <View
+                android:background="@color/color_DEDEDE"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/y2"/>
+
+            <TextView
+                android:onClick="@{listener.onClick}"
+                android:id="@+id/detail_comment"
+                android:layout_alignParentRight="true"
+                android:paddingLeft="@dimen/x38"
+                android:paddingRight="@dimen/x38"
+                android:gravity="center"
+                android:textSize="16sp"
+                android:textColor="@color/color_9E9E9E"
+                android:text="发送"
+                android:layout_below="@id/detail_editContainer"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"/>
+
+        </RelativeLayout>
+        
+
+    </com.example.administrator.jipinshop.view.relativeLayout.FullScreenRelativeLayout>
+
+</layout>

@@ -1,5 +1,6 @@
 package com.example.administrator.jipinshop.bean;
 
+import java.io.Serializable;
 import java.util.List;
 
 /**
@@ -7,7 +8,7 @@ import java.util.List;
  * @create 2019/7/5
  * @Describe 问题回答
  */
-public class QuestionsBean {
+public class QuestionsBean implements Serializable {
 
     private String msg;
     private int code;
@@ -37,7 +38,7 @@ public class QuestionsBean {
         this.data = data;
     }
 
-    public static class DataBean {
+    public static class DataBean implements Serializable{
 
         private String id;
         private String title;
@@ -112,7 +113,7 @@ public class QuestionsBean {
             this.createTime = createTime;
         }
 
-        public static class UserBean {
+        public static class UserBean implements Serializable{
             /**
              * userId : 2
              * nickname : null
@@ -124,12 +125,12 @@ public class QuestionsBean {
              */
 
             private String userId;
-            private Object nickname;
-            private Object gender;
-            private Object avatar;
-            private Object authentication;
-            private Object fansCount;
-            private Object follow;
+            private String nickname;
+            private String gender;
+            private String avatar;
+            private String authentication;
+            private String fansCount;
+            private String follow;
 
             public String getUserId() {
                 return userId;
@@ -139,56 +140,56 @@ public class QuestionsBean {
                 this.userId = userId;
             }
 
-            public Object getNickname() {
+            public String getNickname() {
                 return nickname;
             }
 
-            public void setNickname(Object nickname) {
+            public void setNickname(String nickname) {
                 this.nickname = nickname;
             }
 
-            public Object getGender() {
+            public String getGender() {
                 return gender;
             }
 
-            public void setGender(Object gender) {
+            public void setGender(String gender) {
                 this.gender = gender;
             }
 
-            public Object getAvatar() {
+            public String getAvatar() {
                 return avatar;
             }
 
-            public void setAvatar(Object avatar) {
+            public void setAvatar(String avatar) {
                 this.avatar = avatar;
             }
 
-            public Object getAuthentication() {
+            public String getAuthentication() {
                 return authentication;
             }
 
-            public void setAuthentication(Object authentication) {
+            public void setAuthentication(String authentication) {
                 this.authentication = authentication;
             }
 
-            public Object getFansCount() {
+            public String getFansCount() {
                 return fansCount;
             }
 
-            public void setFansCount(Object fansCount) {
+            public void setFansCount(String fansCount) {
                 this.fansCount = fansCount;
             }
 
-            public Object getFollow() {
+            public String getFollow() {
                 return follow;
             }
 
-            public void setFollow(Object follow) {
+            public void setFollow(String follow) {
                 this.follow = follow;
             }
         }
 
-        public static class AnswerBean {
+        public static class AnswerBean implements Serializable{
             /**
              * id : null
              * content : 你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好
@@ -200,20 +201,20 @@ public class QuestionsBean {
              * createTime : null
              */
 
-            private Object id;
+            private String id;
             private String content;
-            private Object questionId;
+            private String questionId;
             private String userId;
             private String userAvatar;
             private String userNickname;
-            private Object voteCount;
-            private Object createTime;
+            private String voteCount;
+            private String createTime;
 
-            public Object getId() {
+            public String getId() {
                 return id;
             }
 
-            public void setId(Object id) {
+            public void setId(String id) {
                 this.id = id;
             }
 
@@ -225,11 +226,11 @@ public class QuestionsBean {
                 this.content = content;
             }
 
-            public Object getQuestionId() {
+            public String getQuestionId() {
                 return questionId;
             }
 
-            public void setQuestionId(Object questionId) {
+            public void setQuestionId(String questionId) {
                 this.questionId = questionId;
             }
 
@@ -257,19 +258,19 @@ public class QuestionsBean {
                 this.userNickname = userNickname;
             }
 
-            public Object getVoteCount() {
+            public String getVoteCount() {
                 return voteCount;
             }
 
-            public void setVoteCount(Object voteCount) {
+            public void setVoteCount(String voteCount) {
                 this.voteCount = voteCount;
             }
 
-            public Object getCreateTime() {
+            public String getCreateTime() {
                 return createTime;
             }
 
-            public void setCreateTime(Object createTime) {
+            public void setCreateTime(String createTime) {
                 this.createTime = createTime;
             }
         }

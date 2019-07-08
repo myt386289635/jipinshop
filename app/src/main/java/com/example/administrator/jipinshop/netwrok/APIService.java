@@ -667,45 +667,58 @@ public interface APIService {
     /**
      * 榜单推荐分类列表
      */
-    @GET("qualityshop-api/api/getTopCategorysList")
+    @GET("qualityshop-api/api/v2/getTopCategorysList")
     Observable<TopCategorysListBean> getTopCategorysList(@Query("page") int page);
 
     /**
      * 榜单推荐分类详情
      */
-    @GET("qualityshop-api/api/getTopCategoryDetail")
+    @GET("qualityshop-api/api/v2/getTopCategoryDetail")
     Observable<TopCategoryDetailBean> getTopCategoryDetail(@Query("categoryId") String categoryId);
 
     /**
      * 榜单分类属性下商品列表
      */
-    @GET("qualityshop-api/api/goodsListByOrderbyCategoryId")
+    @GET("qualityshop-api/api/v2/goodsListByOrderbyCategoryId")
     Observable<SucBean<TopCategoryDetailBean.DataBean.RelatedGoodsListBean>> goodsListByOrderbyCategoryId(@Query("orderbyCategoryId") String orderbyCategoryId , @Query("client") String client);
 
     /**
      * 新品专区
      */
-    @GET("qualityshop-api/api/article/listnew")
+    @GET("qualityshop-api/api/v2/article/listnew")
     Observable<EvaluationListBean> newList(@Query("categoryId") String categoryId , @Query("page") int page);
 
     /**
      * 问题列表
      */
-    @GET("qualityshop-api/api/question/list")
+    @GET("qualityshop-api/api/v2/question/list")
     Observable<QuestionsBean> questionList(@Query("goodsCategoryId")String goodsCategoryId , @Query("page") int page);
 
     /**
      * 提交问题
      */
     @FormUrlEncoded
-    @POST("qualityshop-api/api/question/addQuestion")
+    @POST("qualityshop-api/api/v2/question/addQuestion")
     Observable<SuccessBean> addQuestion(@Field("goodsCategoryId") String goodsCategoryId , @Field("title") String title);
 
     /**
      * 查看更多评测推荐——分类榜单
      */
-    @GET("qualityshop-api/api/article/list")
+    @GET("qualityshop-api/api/v2/article/list")
     Observable<SucBean<TopCategoryDetailBean.DataBean.RelatedArticleListBean>> classiyArticleList(@Query("goodsCategoryId") String goodsCategoryId, @Query("page") int page);
+
+    /**
+     * 回答列表
+     */
+    @GET("qualityshop-api/api/v2/question/answerList")
+    Observable<SucBean<QuestionsBean.DataBean.AnswerBean>> answerList(@Query("page") int page , @Query("questionId") String questionId);
+
+    /**
+     * 提交回答
+     */
+    @FormUrlEncoded
+    @POST("qualityshop-api/api/v2/question/addAnswer")
+    Observable<SuccessBean> addAnswer(@Field("content") String content ,@Field("questionId") String questionId);
 
 /*************************************************以下是还未修改的接口***********************************************/
 

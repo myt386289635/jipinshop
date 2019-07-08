@@ -126,7 +126,9 @@ public class QuestionsActivity extends BaseActivity implements View.OnClickListe
 
     @Override
     public void onClickArticle(int position) {
-        startActivity(new Intent(this, QuestionDetailActivity.class));
+        startActivityForResult(new Intent(this, QuestionDetailActivity.class)
+                .putExtra("date",mList.get(position))
+        ,202);
     }
 
     @Override
@@ -174,6 +176,15 @@ public class QuestionsActivity extends BaseActivity implements View.OnClickListe
         switch (resultCode){
             case 201://发布问题成功
                 DialogUtil.QuestionDialog(this);
+                break;
+            case 202://从问题详情出来
+                if (!mBinding.swipeToLoad.isRefreshEnabled()) {
+                    mBinding.swipeToLoad.setRefreshEnabled(true);
+                    mBinding.swipeToLoad.setRefreshing(true);
+                    mBinding.swipeToLoad.setRefreshEnabled(false);
+                } else {
+                    mBinding.swipeToLoad.setRefreshing(true);
+                }
                 break;
         }
     }

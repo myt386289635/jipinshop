@@ -21,8 +21,9 @@
             bind:listener="@{listener}"/>
 
         <android.support.v7.widget.RecyclerView
+            android:layout_gravity="center"
             android:id="@+id/tab_layout"
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="@dimen/y100"/>
 
         <View

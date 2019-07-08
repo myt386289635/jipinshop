@@ -776,4 +776,18 @@ public class Repository {
         return mAPIService.classiyArticleList(goodsCategoryId, page);
     }
 
+    /**
+     * 回答列表
+     */
+    public Observable<SucBean<QuestionsBean.DataBean.AnswerBean>> answerList(int page , String questionId){
+        return mAPIService.answerList(page, questionId);
+    }
+
+    /**
+     * 提交回答
+     */
+    public Observable<SuccessBean> addAnswer(String content , String questionId){
+        return mAPIService.addAnswer(content, questionId);
+    }
+
 }
