@@ -9,6 +9,7 @@ import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 import com.example.administrator.jipinshop.R;
 import com.example.administrator.jipinshop.bean.TopCategoryDetailBean;
@@ -17,6 +18,7 @@ import com.example.administrator.jipinshop.databinding.ItemClassifyBinding;
 import com.example.administrator.jipinshop.databinding.ItemGoodsBinding;
 import com.example.administrator.jipinshop.databinding.ItemPageListBinding;
 import com.example.administrator.jipinshop.util.snap.GravitySnapHelper;
+import com.google.android.flexbox.FlexboxLayout;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -126,6 +128,7 @@ public class ClassifyAdapter extends RecyclerView.Adapter {
                         mView.onClickGoods(onePosition);
                     }
                 });
+                oneViewHolder.initTags(oneViewHolder.goodsBinding.itemFlexLayout,onePosition);
                 oneViewHolder.goodsBinding.setDate(mGoodsString.get(onePosition));
                 oneViewHolder.goodsBinding.setPosition(onePosition + 1);
                 oneViewHolder.goodsBinding.executePendingBindings();
@@ -215,6 +218,16 @@ public class ClassifyAdapter extends RecyclerView.Adapter {
         public OneViewHolder(@NonNull ItemGoodsBinding goodsBinding) {
             super(goodsBinding.getRoot());
             this.goodsBinding = goodsBinding;
+        }
+
+        public void initTags(FlexboxLayout flexboxLayout, int pos) {
+            flexboxLayout.removeAllViews();
+            for (int i = 0; i < mGoodsString.get(pos).getGoodsTagsList().size(); i++) {
+                View itemTypeView = LayoutInflater.from(mContext).inflate(R.layout.item_goodstag, null);
+                TextView textView = itemTypeView.findViewById(R.id.item_tag);
+                textView.setText(mGoodsString.get(pos).getGoodsTagsList().get(i).getName());
+                flexboxLayout.addView(itemTypeView);
+            }
         }
     }
 
