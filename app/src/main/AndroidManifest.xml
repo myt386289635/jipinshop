@@ -370,6 +370,30 @@
         <activity android:name=".activity.tryout.freedetail.FreeDetailActivity"
                   android:screenOrientation="portrait"/>
 
+        <!--新品专区-->
+        <activity android:name=".activity.home.newarea.NewAreaActivity"
+                  android:screenOrientation="portrait"/>
+
+        <!--小分类榜单-->
+        <activity android:name=".activity.home.classification.ClassifyActivity"
+                  android:screenOrientation="portrait"/>
+
+        <!--小分类榜单——查看更多评测-->
+        <activity android:name=".activity.home.classification.article.ArticleMoreActivity"
+                  android:screenOrientation="portrait"/>
+
+        <!--问答区-->
+        <activity android:name=".activity.home.classification.questions.QuestionsActivity"
+                  android:screenOrientation="portrait"/>
+
+        <!--问答区详情-->
+        <activity android:name=".activity.home.classification.questions.detail.QuestionDetailActivity"
+                  android:screenOrientation="portrait"/>
+
+        <!--问题提交页面-->
+        <activity android:name=".activity.home.classification.questions.submit.QuestionSubmitActivity"
+                  android:screenOrientation="portrait"/>
+
     </application>
 
 </manifest>

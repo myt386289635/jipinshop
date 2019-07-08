@@ -11,6 +11,12 @@ import com.example.administrator.jipinshop.activity.follow.FollowActivity;
 import com.example.administrator.jipinshop.activity.follow.user.UserActivity;
 import com.example.administrator.jipinshop.activity.home.MainActivity;
 import com.example.administrator.jipinshop.activity.home.article.ArticleDetailActivity;
+import com.example.administrator.jipinshop.activity.home.classification.ClassifyActivity;
+import com.example.administrator.jipinshop.activity.home.classification.article.ArticleMoreActivity;
+import com.example.administrator.jipinshop.activity.home.classification.questions.QuestionsActivity;
+import com.example.administrator.jipinshop.activity.home.classification.questions.detail.QuestionDetailActivity;
+import com.example.administrator.jipinshop.activity.home.classification.questions.submit.QuestionSubmitActivity;
+import com.example.administrator.jipinshop.activity.home.newarea.NewAreaActivity;
 import com.example.administrator.jipinshop.activity.info.MyInfoActivity;
 import com.example.administrator.jipinshop.activity.info.account.AccountManageActivity;
 import com.example.administrator.jipinshop.activity.info.account.change.ChangePhone2Activity;
@@ -96,4 +102,10 @@ public interface BaseActivityComponent {
     void inject(InvitationNewActivity activity);
     void inject(WebActivity activity);
     void inject(FreeDetailActivity activity);
+    void inject(NewAreaActivity activity);
+    void inject(ArticleMoreActivity activity);
+    void inject(QuestionsActivity activity);
+    void inject(QuestionDetailActivity activity);
+    void inject(ClassifyActivity activity);
+    void inject(QuestionSubmitActivity activity);
 }

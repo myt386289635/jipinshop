@@ -50,4 +50,6 @@
     <declare-styleable name="MaxHeightRecyclerView">
         <attr name="maxHeight" format="dimension" />
     </declare-styleable>
+
+    <bool name="is_rtl">false</bool>
 </resources>

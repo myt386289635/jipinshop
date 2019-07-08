@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:bind="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+        <variable
+            name="date"
+            type="com.example.administrator.jipinshop.bean.TopCategoryDetailBean.DataBean.RelatedArticleListBean"/>
+
+    </data>
+
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:background="@color/color_white"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <RelativeLayout
+            android:layout_marginTop="@dimen/y77"
+            android:id="@+id/item_titleContainer"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            
+            <TextView
+                android:layout_marginLeft="@dimen/x30"
+                android:textStyle="bold"
+                android:textColor="@color/color_202020"
+                android:textSize="19sp"
+                android:text="评测推荐"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+
+
+            <TextView
+                android:id="@+id/item_more"
+                android:textStyle="bold"
+                android:drawablePadding="@dimen/x8"
+                android:textColor="@color/color_565252"
+                android:layout_marginRight="@dimen/x30"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:text="查看更多"
+                android:drawableRight="@mipmap/news_right"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+
+            
+        </RelativeLayout>
+
+
+        <RelativeLayout
+            android:id="@+id/item_container"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+
+            <ImageView
+                android:layout_marginBottom="@dimen/y50"
+                android:id="@+id/item_image"
+                bind:srcRound="@{date.img}"
+                android:layout_marginTop="@dimen/y50"
+                android:layout_marginLeft="@dimen/x30"
+                android:layout_width="@dimen/x320"
+                android:layout_height="@dimen/y200"/>
+
+
+            <View
+                android:layout_marginRight="@dimen/x30"
+                android:layout_marginLeft="@dimen/x30"
+                android:layout_below="@id/item_image"
+                android:background="@color/color_DEDEDE"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/y2"/>
+
+            <TextView
+                android:id="@+id/item_name"
+                android:ellipsize="end"
+                android:layout_marginRight="@dimen/x15"
+                android:lineSpacingExtra="@dimen/y6"
+                android:textSize="15sp"
+                android:textColor="@color/color_202020"
+                android:layout_marginTop="@dimen/y16"
+                android:layout_marginLeft="@dimen/x25"
+                android:layout_toRightOf="@id/item_image"
+                android:layout_alignTop="@id/item_image"
+                android:text="@{date.title}"
+                android:maxLines="2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+
+            <TextView
+                android:layout_marginBottom="@dimen/y25"
+                android:id="@+id/item_lookNum"
+                android:layout_marginLeft="@dimen/x25"
+                android:layout_toRightOf="@id/item_image"
+                android:layout_alignBottom="@id/item_image"
+                android:textColor="@color/color_ACACAC"
+                android:text="@{date.pv + @string/pv}"
+                android:textSize="13sp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+
+        </RelativeLayout>
+
+    </LinearLayout>
+</layout>

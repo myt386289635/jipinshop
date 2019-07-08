@@ -3,7 +3,6 @@ package com.example.administrator.jipinshop.adapter;
 import android.content.Context;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
-import android.text.TextPaint;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,9 +11,7 @@ import android.widget.TextView;
 
 import com.example.administrator.jipinshop.R;
 import com.example.administrator.jipinshop.bean.TitleBean;
-import com.example.administrator.jipinshop.util.DistanceHelper;
 
-import java.time.format.TextStyle;
 import java.util.List;
 
 /**
@@ -50,16 +47,12 @@ public class HomeTabAdapter extends RecyclerView.Adapter<HomeTabAdapter.ViewHold
 
         viewHolder.mTextView.setText(mBeans.get(i).getString());
         if(mBeans.get(i) != null && mBeans.get(i).getTag()){
-            viewHolder.mTextView.setTextColor(mContext.getResources().getColor(R.color.color_050505));
+            viewHolder.mTextView.setTextColor(mContext.getResources().getColor(R.color.color_2B2B2B));
             viewHolder.mTextView.setTextSize(16);
-            TextPaint paint = viewHolder.mTextView.getPaint();
-            paint.setFakeBoldText(true);
             viewHolder.mView.setVisibility(View.VISIBLE);
         }else {
-            viewHolder.mTextView.setTextColor(mContext.getResources().getColor(R.color.color_ACACAC));
-            viewHolder.mTextView.setTextSize(15);
-            TextPaint paint = viewHolder.mTextView.getPaint();
-            paint.setFakeBoldText(false);
+            viewHolder.mTextView.setTextColor(mContext.getResources().getColor(R.color.color_2B2B2B));
+            viewHolder.mTextView.setTextSize(16);
             viewHolder.mView.setVisibility(View.GONE);
         }
 

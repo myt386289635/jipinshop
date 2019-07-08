@@ -26,6 +26,7 @@ import com.example.administrator.jipinshop.bean.OrderbyTypeBean;
 import com.example.administrator.jipinshop.bean.PagerStateBean;
 import com.example.administrator.jipinshop.bean.PassedMoreBean;
 import com.example.administrator.jipinshop.bean.PointDetailBean;
+import com.example.administrator.jipinshop.bean.QuestionsBean;
 import com.example.administrator.jipinshop.bean.RecommendFragmentBean;
 import com.example.administrator.jipinshop.bean.ReportBean;
 import com.example.administrator.jipinshop.bean.ShoppingDetailBean;
@@ -42,6 +43,8 @@ import com.example.administrator.jipinshop.bean.TabBean;
 import com.example.administrator.jipinshop.bean.TaobaoAccountBean;
 import com.example.administrator.jipinshop.bean.TaskFinishBean;
 import com.example.administrator.jipinshop.bean.TeamBean;
+import com.example.administrator.jipinshop.bean.TopCategoryDetailBean;
+import com.example.administrator.jipinshop.bean.TopCategorysListBean;
 import com.example.administrator.jipinshop.bean.TrialCommonBean;
 import com.example.administrator.jipinshop.bean.TryAllBean;
 import com.example.administrator.jipinshop.bean.TryApplyBean;
@@ -723,4 +726,54 @@ public class Repository {
     public Observable<FreeUserListBean> freeUserList(String freeId , int page){
         return mAPIService.freeUserList(freeId, page);
     }
+
+    /**
+     * 榜单推荐分类列表
+     */
+    public Observable<TopCategorysListBean> getTopCategorysList(int page){
+        return mAPIService.getTopCategorysList(page);
+    }
+
+    /**
+     * 榜单推荐分类详情
+     */
+    public Observable<TopCategoryDetailBean> getTopCategoryDetail(String categoryId){
+        return mAPIService.getTopCategoryDetail(categoryId);
+    }
+
+    /**
+     * 榜单分类属性下商品列表
+     */
+    public Observable<SucBean<TopCategoryDetailBean.DataBean.RelatedGoodsListBean>> goodsListByOrderbyCategoryId(String orderbyCategoryId){
+        return mAPIService.goodsListByOrderbyCategoryId(orderbyCategoryId, "1");
+    }
+
+    /**
+     * 新品专区
+     */
+    public Observable<EvaluationListBean> newList(String categoryId ,int page){
+        return mAPIService.newList(categoryId, page);
+    }
+
+    /**
+     * 问题列表
+     */
+    public Observable<QuestionsBean> questionList(String goodsCategoryId , int page){
+        return mAPIService.questionList(goodsCategoryId, page);
+    }
+
+    /**
+     * 提交问题
+     */
+    public Observable<SuccessBean> addQuestion(String goodsCategoryId , String title){
+        return mAPIService.addQuestion(goodsCategoryId, title);
+    }
+
+    /**
+     * 查看更多评测推荐——分类榜单
+     */
+    public Observable<SucBean<TopCategoryDetailBean.DataBean.RelatedArticleListBean>> classiyArticleList(String goodsCategoryId,int page){
+        return mAPIService.classiyArticleList(goodsCategoryId, page);
+    }
+
 }

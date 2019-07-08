@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+        <variable
+            name="listener"
+            type="android.view.View.OnClickListener"/>
+
+    </data>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/y88"
+        android:background="@color/color_white">
+
+        <ImageView
+            android:onClick="@{listener.onClick}"
+            android:id="@+id/title_back"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_centerVertical="true"
+            android:padding="@dimen/x22"
+            android:src="@mipmap/nav_black_big"/>
+
+
+        <TextView
+            android:gravity="center"
+            android:ellipsize="end"
+            android:layout_marginRight="@dimen/x24"
+            android:maxLines="1"
+            android:id="@+id/title_tv"
+            android:layout_width="@dimen/x420"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:textColor="@color/color_202020"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            tools:text="标题"/>
+
+        <View
+            android:id="@+id/title_line"
+            android:background="@color/color_DEDEDE"
+            android:layout_alignParentBottom="true"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/y2"/>
+
+    </RelativeLayout>
+</layout>

@@ -26,6 +26,7 @@ import com.example.administrator.jipinshop.bean.OrderbyTypeBean;
 import com.example.administrator.jipinshop.bean.PagerStateBean;
 import com.example.administrator.jipinshop.bean.PassedMoreBean;
 import com.example.administrator.jipinshop.bean.PointDetailBean;
+import com.example.administrator.jipinshop.bean.QuestionsBean;
 import com.example.administrator.jipinshop.bean.RecommendFragmentBean;
 import com.example.administrator.jipinshop.bean.ReportBean;
 import com.example.administrator.jipinshop.bean.ShoppingDetailBean;
@@ -42,6 +43,8 @@ import com.example.administrator.jipinshop.bean.TabBean;
 import com.example.administrator.jipinshop.bean.TaobaoAccountBean;
 import com.example.administrator.jipinshop.bean.TaskFinishBean;
 import com.example.administrator.jipinshop.bean.TeamBean;
+import com.example.administrator.jipinshop.bean.TopCategoryDetailBean;
+import com.example.administrator.jipinshop.bean.TopCategorysListBean;
 import com.example.administrator.jipinshop.bean.TrialCommonBean;
 import com.example.administrator.jipinshop.bean.TryAllBean;
 import com.example.administrator.jipinshop.bean.TryApplyBean;
@@ -660,6 +663,49 @@ public interface APIService {
      */
     @GET("qualityshop-api/api/free/freeUserList")
     Observable<FreeUserListBean> freeUserList(@Query("freeId") String freeId , @Query("page") int page);
+
+    /**
+     * 榜单推荐分类列表
+     */
+    @GET("qualityshop-api/api/getTopCategorysList")
+    Observable<TopCategorysListBean> getTopCategorysList(@Query("page") int page);
+
+    /**
+     * 榜单推荐分类详情
+     */
+    @GET("qualityshop-api/api/getTopCategoryDetail")
+    Observable<TopCategoryDetailBean> getTopCategoryDetail(@Query("categoryId") String categoryId);
+
+    /**
+     * 榜单分类属性下商品列表
+     */
+    @GET("qualityshop-api/api/goodsListByOrderbyCategoryId")
+    Observable<SucBean<TopCategoryDetailBean.DataBean.RelatedGoodsListBean>> goodsListByOrderbyCategoryId(@Query("orderbyCategoryId") String orderbyCategoryId , @Query("client") String client);
+
+    /**
+     * 新品专区
+     */
+    @GET("qualityshop-api/api/article/listnew")
+    Observable<EvaluationListBean> newList(@Query("categoryId") String categoryId , @Query("page") int page);
+
+    /**
+     * 问题列表
+     */
+    @GET("qualityshop-api/api/question/list")
+    Observable<QuestionsBean> questionList(@Query("goodsCategoryId")String goodsCategoryId , @Query("page") int page);
+
+    /**
+     * 提交问题
+     */
+    @FormUrlEncoded
+    @POST("qualityshop-api/api/question/addQuestion")
+    Observable<SuccessBean> addQuestion(@Field("goodsCategoryId") String goodsCategoryId , @Field("title") String title);
+
+    /**
+     * 查看更多评测推荐——分类榜单
+     */
+    @GET("qualityshop-api/api/article/list")
+    Observable<SucBean<TopCategoryDetailBean.DataBean.RelatedArticleListBean>> classiyArticleList(@Query("goodsCategoryId") String goodsCategoryId, @Query("page") int page);
 
 /*************************************************以下是还未修改的接口***********************************************/
 

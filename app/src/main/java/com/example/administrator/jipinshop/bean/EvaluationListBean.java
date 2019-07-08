@@ -85,6 +85,15 @@ public class EvaluationListBean {
         private Object collect;
         private Object relatedArticleList;
         private Object relatedGoodsList;
+        private String type;
+
+        public String getType() {
+            return type;
+        }
+
+        public void setType(String type) {
+            this.type = type;
+        }
 
         public String getArticleId() {
             return articleId;

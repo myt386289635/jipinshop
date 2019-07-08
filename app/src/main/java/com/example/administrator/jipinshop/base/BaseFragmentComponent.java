@@ -14,6 +14,7 @@ import com.example.administrator.jipinshop.fragment.foval.find.FovalFindFragment
 import com.example.administrator.jipinshop.fragment.foval.goods.FovalGoodsFragment;
 import com.example.administrator.jipinshop.fragment.foval.tryout.FovalTryFragment;
 import com.example.administrator.jipinshop.fragment.home.HomeFragment;
+import com.example.administrator.jipinshop.fragment.home.HomeNewFragment;
 import com.example.administrator.jipinshop.fragment.home.commen.HomeCommenFragment;
 import com.example.administrator.jipinshop.fragment.home.recommend.RecommendFragment;
 import com.example.administrator.jipinshop.fragment.mine.MineFragment;
@@ -60,4 +61,5 @@ public interface BaseFragmentComponent {
     void inject(WithdrawDetailFragment fragment);
     void inject(FreeFragment fragment);
     void inject(ShopUserFragment fragment);
+    void inject(HomeNewFragment fragment);
 }

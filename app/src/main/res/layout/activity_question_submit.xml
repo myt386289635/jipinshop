@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:bind="http://schemas.android.com/apk/res-auto">
+
+    <data>
+        <variable
+            name="listener"
+            type="android.view.View.OnClickListener"/>
+
+    </data>
+
+    <RelativeLayout
+        android:background="@color/color_white"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <include
+            layout="@layout/aa_title2"
+            bind:listener="@{listener}"
+            android:id="@+id/in_clude"/>
+
+
+        <TextView
+            android:onClick="@{listener.onClick}"
+            android:id="@+id/question_submit"
+            android:layout_alignParentRight="true"
+            android:paddingRight="@dimen/x30"
+            android:paddingLeft="@dimen/x30"
+            android:gravity="center"
+            android:textSize="17sp"
+            android:textStyle="bold"
+            android:textColor="@color/color_D8D8D8"
+            android:text="发布"
+            android:layout_width="wrap_content"
+            android:layout_height="@dimen/y88"/>
+
+
+        <EditText
+            android:id="@+id/question_edit"
+            android:gravity="top"
+            android:minHeight="@dimen/y160"
+            android:lineSpacingExtra="@dimen/y6"
+            android:layout_marginTop="@dimen/y32"
+            android:layout_marginRight="@dimen/x40"
+            android:layout_marginLeft="@dimen/x40"
+            android:maxLength="36"
+            android:textColor="@color/color_202020"
+            android:textSize="16sp"
+            android:textColorHint="@color/color_D8D8D8"
+            android:hint="提出问题，让大家给你推荐什么值得买吧，并使用问号结尾"
+            android:background="@null"
+            android:layout_below="@id/in_clude"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+
+        <TextView
+            android:id="@+id/question_text"
+            android:layout_marginRight="@dimen/x40"
+            android:layout_alignParentRight="true"
+            android:layout_below="@id/question_edit"
+            android:layout_marginTop="@dimen/y32"
+            android:text="0/36"
+            android:textStyle="bold"
+            android:textSize="17sp"
+            android:textColor="@color/color_D8D8D8"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+
+    </RelativeLayout>
+</layout>

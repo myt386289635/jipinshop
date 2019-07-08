@@ -64,6 +64,11 @@ public class BindingUtil {
         GlideApp.loderCircleImage(imageView.getContext(),src,imageView, R.color.transparent,R.color.transparent);
     }
 
+    @BindingAdapter("bind:srcTopRound")
+    public static void setImageTopRound(ImageView imageView , String src){
+        GlideApp.loderTopRoundImage(imageView.getContext(),src,imageView);
+    }
+
     /**
      * 我的试用报告页面————审核状态情况 item_statue
      */

@@ -174,4 +174,18 @@ public class DialogUtil{
         dialog.show();
         dialog.setContentView(view);
     }
+
+    public static  void QuestionDialog(Context context){
+        AlertDialog.Builder builder = new AlertDialog.Builder(context,R.style.dialog);
+        View view = LayoutInflater.from(context).inflate(R.layout.dialog_question,null);
+        TextView sure =  view.findViewById(R.id.dialog_sure);
+        final Dialog dialog = builder.create();
+        dialog.getWindow().setDimAmount(0.35f);
+        sure.setOnClickListener(v -> {
+            dialog.dismiss();
+        });
+        dialog.show();
+        dialog.setCanceledOnTouchOutside(false);
+        dialog.setContentView(view);
+    }
 }

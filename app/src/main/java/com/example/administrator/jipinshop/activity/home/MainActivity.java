@@ -23,6 +23,7 @@ import com.example.administrator.jipinshop.bean.eventbus.HomeNewPeopleBus;
 import com.example.administrator.jipinshop.fragment.evaluation.EvaluationFragment;
 import com.example.administrator.jipinshop.fragment.find.FindFragment;
 import com.example.administrator.jipinshop.fragment.home.HomeFragment;
+import com.example.administrator.jipinshop.fragment.home.HomeNewFragment;
 import com.example.administrator.jipinshop.fragment.mine.MineFragment;
 import com.example.administrator.jipinshop.fragment.tryout.TryModelFragment;
 import com.example.administrator.jipinshop.netwrok.RetrofitModule;
@@ -63,7 +64,7 @@ public class MainActivity extends RxAppCompatActivity implements MainView, ViewP
     private List<Fragment> mFragments;
     private HomeAdapter mHomeAdapter;
 
-    private HomeFragment mHomeFragment;
+    private HomeNewFragment mHomeFragment;
     private FindFragment mFindFragment;
     private MineFragment mMineFragment;
     private EvaluationFragment mEvaluationFragment;
@@ -99,7 +100,7 @@ public class MainActivity extends RxAppCompatActivity implements MainView, ViewP
 
         mViewPager.setNoScroll(true);
         mFragments = new ArrayList<>();
-        mHomeFragment = new HomeFragment();
+        mHomeFragment = new HomeNewFragment();
         mFindFragment = new FindFragment();
         mEvaluationFragment = new EvaluationFragment();
         mTryFragment = new TryModelFragment();

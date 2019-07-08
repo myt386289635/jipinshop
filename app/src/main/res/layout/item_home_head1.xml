@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout  xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <LinearLayout
+        android:background="@color/color_white"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/recycler_view"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/y90"
+            android:nestedScrollingEnabled="false"/>
+
+
+        <com.example.administrator.jipinshop.view.viewpager.AutoHeightViewPager
+            android:id="@+id/item_viewpager"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+
+        <LinearLayout
+            android:id="@+id/point"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/y36"
+            android:gravity="center"
+            android:orientation="horizontal"/>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/y12"
+            android:layout_marginTop="@dimen/y24"
+            android:background="@color/color_white"/>
+
+    </LinearLayout>
+
+</layout>

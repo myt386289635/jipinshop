@@ -52,4 +52,11 @@
     <string name="free_startTime">开抢</string>
     <string name="free_freePrice_start">可免</string>
     <string name="free_freePrice_end">%</string>
+
+    <string name="classify_sort">TOP</string>
+
+    <string name="pv">阅读</string>
+    <string name="question_start">查看全部</string>
+    <string name="question_end">条回答</string>
+    <string name="question_all">参与回答</string>
 </resources>

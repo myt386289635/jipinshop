@@ -23,7 +23,7 @@
         android:layout_alignRight="@+id/tab_text"
         android:layout_alignLeft="@+id/tab_text"
         android:id="@+id/tab_line"
-        android:background="@color/color_E31436"
+        android:background="@color/color_E25838"
         android:layout_width="wrap_content"
-        android:layout_height="@dimen/y4"/>
+        android:layout_height="@dimen/y6"/>
 </RelativeLayout>

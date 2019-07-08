@@ -10,15 +10,15 @@
         android:layout_centerHorizontal="true"
         android:src="@color/color_4A90E2"
         android:id="@+id/item_tabimg"
-        android:layout_width="@dimen/x66"
-        android:layout_height="@dimen/y66"/>
+        android:layout_width="@dimen/x78"
+        android:layout_height="@dimen/y78"/>
 
     <TextView
-        android:layout_marginTop="@dimen/y4"
+        android:layout_marginTop="@dimen/y14"
         android:layout_centerHorizontal="true"
         android:layout_below="@id/item_tabimg"
         android:textColor="@color/color_ACACAC"
-        android:textSize="13sp"
+        android:textSize="10sp"
         android:ellipsize="end"
         android:singleLine="true"
         android:text="扫地机"

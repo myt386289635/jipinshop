@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:bind="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+        <import type="android.view.View"/>
+
+        <variable
+            name="date"
+            type="com.example.administrator.jipinshop.bean.QuestionsBean.DataBean"/>
+
+    </data>
+
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:layout_marginBottom="@dimen/y20"
+            android:id="@+id/item_title"
+            android:layout_marginLeft="@dimen/x107"
+            android:lineSpacingExtra="@dimen/y15"
+            android:textStyle="bold"
+            android:textColor="@color/color_202020"
+            android:textSize="18sp"
+            android:layout_marginRight="@dimen/x21"
+            android:text="@{date.title}"
+            android:layout_marginTop="@dimen/y30"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+
+        <ImageView
+            android:layout_marginTop="@dimen/y5"
+            android:layout_alignTop="@id/item_title"
+            android:layout_marginLeft="@dimen/x30"
+            android:src="@mipmap/que_ask"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+
+
+        <RelativeLayout
+            android:visibility="@{date.answer == null ? View.GONE : View.VISIBLE}"
+            android:layout_below="@id/item_title"
+            android:id="@+id/item_questionContainer"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <ImageView
+                android:layout_marginTop="@dimen/y20"
+                android:layout_marginLeft="@dimen/x30"
+                android:src="@mipmap/que_question"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+
+
+            <ImageView
+                android:id="@+id/item_image"
+                android:layout_marginLeft="@dimen/x110"
+                bind:srcCircle="@{date.answer.userAvatar}"
+                android:layout_width="@dimen/x60"
+                android:layout_height="@dimen/y60"/>
+
+            <TextView
+                android:id="@+id/item_name"
+                android:textStyle="bold"
+                android:textColor="@color/color_202020"
+                android:textSize="12sp"
+                android:text="@{date.answer.userNickname}"
+                android:gravity="center"
+                android:layout_marginLeft="@dimen/x20"
+                android:layout_toRightOf="@id/item_image"
+                android:layout_alignBottom="@id/item_image"
+                android:layout_alignTop="@id/item_image"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+
+
+            <TextView
+                android:id="@+id/item_content"
+                android:lineSpacingExtra="@dimen/y10"
+                android:textSize="14sp"
+                android:textColor="@color/color_202020"
+                android:layout_marginRight="@dimen/x30"
+                android:ellipsize="end"
+                android:maxLines="3"
+                android:text="@{date.answer.content}"
+                android:layout_marginTop="@dimen/y20"
+                android:layout_below="@id/item_image"
+                android:layout_alignLeft="@id/item_image"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"/>
+
+        </RelativeLayout>
+
+        <TextView
+            android:id="@+id/item_totel"
+            android:layout_marginLeft="@dimen/x110"
+            android:textStyle="bold"
+            android:textColor="@color/color_84B5D3"
+            android:textSize="13sp"
+            android:text="@{date.answer == null ?  @string/question_all : @string/question_start + date.answerCount + @string/question_end}"
+            android:layout_marginTop="@dimen/y16"
+            android:layout_below="@id/item_questionContainer"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+
+
+        <View
+            android:layout_marginTop="@dimen/y22"
+            android:layout_below="@id/item_totel"
+            android:layout_marginRight="@dimen/x30"
+            android:layout_marginLeft="@dimen/x30"
+            android:background="@color/color_DEDEDE"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/y2"/>
+
+    </RelativeLayout>
+</layout>

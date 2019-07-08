@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:bind="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+        <variable
+            name="date"
+            type="com.example.administrator.jipinshop.bean.EvaluationListBean.DataBean"/>
+
+    </data>
+
+    <RelativeLayout
+        android:background="@color/color_white"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:lineSpacingExtra="@dimen/x15"
+            android:textStyle="bold"
+            android:ellipsize="end"
+            android:maxLines="2"
+            android:id="@+id/item_title"
+            android:textColor="@color/color_202020"
+            android:textSize="18sp"
+            android:layout_marginRight="@dimen/x30"
+            android:layout_marginLeft="@dimen/x30"
+            android:text="@{date.title}"
+            android:layout_marginTop="@dimen/y60"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+
+        <ImageView
+            android:scaleType="centerCrop"
+            bind:srcRound="@{date.img}"
+            android:id="@+id/item_image"
+            android:layout_marginRight="@dimen/x28"
+            android:layout_marginLeft="@dimen/x28"
+            android:layout_marginTop="@dimen/y30"
+            android:layout_below="@id/item_title"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/y358"/>
+
+
+        <RelativeLayout
+            android:layout_marginBottom="@dimen/y30"
+            android:layout_marginTop="@dimen/y42"
+            android:layout_below="@id/item_image"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <ImageView
+                android:id="@+id/item_head"
+                bind:srcCircle="@{date.user.avatar}"
+                android:layout_marginLeft="@dimen/x48"
+                android:layout_width="@dimen/x60"
+                android:layout_height="@dimen/y60"/>
+
+
+            <ImageView
+                android:visibility="gone"
+                android:id="@+id/item_grade"
+                android:layout_alignRight="@id/item_head"
+                android:layout_alignBottom="@id/item_head"
+                android:src="@mipmap/grade_peroson"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+
+
+            <TextView
+                android:layout_marginLeft="@dimen/x19"
+                android:layout_centerVertical="true"
+                android:layout_toRightOf="@id/item_head"
+                android:textColor="@color/color_ACACAC"
+                android:textSize="12sp"
+                android:text="@{date.user.nickname}"
+                android:id="@+id/item_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+
+            <TextView
+                android:layout_marginRight="@dimen/x45"
+                android:layout_alignParentRight="true"
+                android:text="@{date.pv + @string/pv}"
+                android:layout_marginLeft="@dimen/x24"
+                android:layout_centerVertical="true"
+                android:textColor="@color/color_ACACAC"
+                android:textSize="12sp"
+                android:id="@+id/item_pv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+
+        </RelativeLayout>
+
+
+    </RelativeLayout>
+
+</layout>

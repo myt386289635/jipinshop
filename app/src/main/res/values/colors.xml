@@ -76,5 +76,13 @@
     <color name="color_E6F3FF">#E6F3FF</color>
     <color name="color_888888">#888888</color>
     <color name="color_5A5A5A">#5A5A5A</color>
+    <color name="color_E25838">#E25838</color>
+    <color name="color_2B2B2B">#2B2B2B</color>
+    <color name="color_F8ECDA">#F8ECDA</color>
+    <color name="color_84B5D3">#84B5D3</color>
+    <color name="color_565252">#565252</color>
+    <color name="color_E1E6DF">#E1E6DF</color>
+    <color name="color_4C4444">#4C4444</color>
+    <color name="color_E84643">#E84643</color>
 
 </resources>
