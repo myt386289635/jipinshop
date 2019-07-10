@@ -1,0 +1,294 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:bind="http://schemas.android.com/apk/res-auto">
+
+
+    <data>
+
+        <variable
+            name="listener"
+            type="android.view.View.OnClickListener"/>
+    </data>
+
+    <com.example.administrator.jipinshop.view.relativeLayout.FullScreenRelativeLayout
+        android:background="@color/color_white"
+        android:fitsSystemWindows="true"
+        android:id="@+id/detail_contanier"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <include
+            android:id="@+id/in_clude"
+            layout="@layout/aa_title2"
+            bind:listener="@{listener}"/>
+
+        <LinearLayout
+            android:id="@+id/detail_bottom"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/y100"
+            android:layout_alignParentBottom="true"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/detail_share"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:background="@color/color_EEEEEE"
+                android:gravity="center"
+                android:onClick="@{listener.onClick}"
+                android:text="分享给好友"
+                android:textColor="@color/color_DE151515"
+                android:textSize="15sp"/>
+
+            <TextView
+                android:id="@+id/detail_fovar"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:background="@color/color_E31436"
+                android:gravity="center"
+                android:onClick="@{listener.onClick}"
+                android:text="收藏"
+                android:textColor="@color/color_white"
+                android:textSize="15sp"/>
+
+        </LinearLayout>
+
+        <ScrollView
+            android:layout_above="@id/detail_bottom"
+            android:fillViewport="true"
+            android:layout_below="@id/in_clude"
+            android:scrollbars="none"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <LinearLayout
+                android:orientation="vertical"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <TextView
+                    android:id="@+id/detail_title"
+                    android:lineSpacingExtra="@dimen/y6"
+                    android:textColor="@color/color_202020"
+                    android:textStyle="bold"
+                    android:text="榨汁机和豆浆机有什么区别，榨汁机和豆浆机有什么区别？"
+                    android:textSize="19sp"
+                    android:layout_marginRight="@dimen/x30"
+                    android:layout_marginLeft="@dimen/x30"
+                    android:layout_marginTop="@dimen/y24"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"/>
+
+                <RelativeLayout
+                    android:id="@+id/detail_Head"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="@dimen/y30"
+                    android:layout_marginLeft="@dimen/x28"
+                    android:layout_marginTop="@dimen/y32">
+
+
+                    <ImageView
+                        android:onClick="@{listener.onClick}"
+                        android:id="@+id/detail_UserImage"
+                        android:layout_width="@dimen/x76"
+                        android:layout_height="@dimen/x76"
+                        android:scaleType="centerCrop"
+                        android:src="@color/color_E31436"/>
+
+                    <ImageView
+                        android:id="@+id/item_grade"
+                        android:layout_alignRight="@+id/detail_UserImage"
+                        android:layout_alignBottom="@+id/detail_UserImage"
+                        android:src="@mipmap/grade_peroson"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"/>
+
+                    <TextView
+                        android:id="@+id/detail_UserName"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="@dimen/x24"
+                        android:layout_toRightOf="@+id/detail_UserImage"
+                        android:text="资深编辑"
+                        android:textColor="@color/color_DE151515"
+                        android:textSize="15sp"/>
+
+
+                    <TextView
+                        android:id="@+id/detail_time"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="@dimen/x24"
+                        android:layout_alignBottom="@id/detail_UserImage"
+                        android:layout_toRightOf="@+id/detail_UserImage"
+                        android:text="2019-6-25  12:11"
+                        android:textColor="@color/color_ACACAC"
+                        android:textSize="13sp"/>
+
+
+                    <TextView
+                        android:id="@+id/detail_attention"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentRight="true"
+                        android:layout_centerVertical="true"
+                        android:layout_marginRight="@dimen/x28"
+                        android:background="@drawable/bg_attention"
+                        android:onClick="@{listener.onClick}"
+                        android:text="+关注"
+                        android:textColor="@color/color_E31436"
+                        android:textSize="13sp"/>
+
+                </RelativeLayout>
+
+                <com.example.administrator.jipinshop.view.webview.MyWebView
+                    android:scrollbars="none"
+                    android:id="@+id/detail_web"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/x14"
+                    android:layout_marginRight="@dimen/x14"/>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/x12"
+                    android:layout_marginTop="@dimen/x80"
+                    android:background="@color/color_F5F5F5"/>
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <TextView
+                        android:id="@+id/detail_commonTitle"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="@dimen/x28"
+                        android:layout_marginTop="@dimen/x56"
+                        android:text="全部评论"
+                        android:textColor="@color/color_DE050505"
+                        android:textSize="18sp"
+                        android:textStyle="bold"/>
+
+                    <TextView
+                        android:visibility="gone"
+                        android:id="@+id/detail_send"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentRight="true"
+                        android:layout_marginRight="@dimen/x28"
+                        android:layout_marginTop="@dimen/x56"
+                        android:background="@drawable/bg_comment"
+                        android:drawableLeft="@mipmap/detail_write"
+                        android:drawablePadding="@dimen/x2"
+                        android:onClick="@{listener.onClick}"
+                        android:paddingBottom="@dimen/y4"
+                        android:paddingLeft="@dimen/x14"
+                        android:paddingRight="@dimen/x14"
+                        android:paddingTop="@dimen/y4"
+                        android:text="写评论"
+                        android:textColor="@color/color_4A90E2"/>
+
+
+                    <android.support.v7.widget.RecyclerView
+                        android:visibility="gone"
+                        android:layout_below="@id/detail_commonTitle"
+                        android:id="@+id/detail_common"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"/>
+
+                    <TextView
+                        android:visibility="gone"
+                        android:id="@+id/detail_commonTotle"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/detail_common"
+                        android:layout_centerHorizontal="true"
+                        android:layout_marginBottom="@dimen/y60"
+                        android:layout_marginTop="@dimen/x42"
+                        android:drawablePadding="@dimen/x14"
+                        android:drawableRight="@mipmap/right_blue"
+                        android:onClick="@{listener.onClick}"
+                        android:textColor="@color/color_4A90E2"
+                        android:textSize="13sp"
+                        android:text="查看全部226条评论"/>
+
+
+                    <TextView
+                        android:layout_below="@id/detail_commonTitle"
+                        android:id="@+id/detail_commentTv"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerHorizontal="true"
+                        android:layout_marginTop="@dimen/x120"
+                        android:layout_marginBottom="@dimen/x120"
+                        android:background="@drawable/bg_comment"
+                        android:drawableLeft="@mipmap/detail_write"
+                        android:drawablePadding="@dimen/x2"
+                        android:onClick="@{listener.onClick}"
+                        android:paddingLeft="@dimen/x14"
+                        android:paddingTop="@dimen/y4"
+                        android:paddingRight="@dimen/x14"
+                        android:paddingBottom="@dimen/y4"
+                        android:text="写评论"
+                        android:textColor="@color/color_4A90E2"/>
+
+                </RelativeLayout>
+
+            </LinearLayout>
+
+        </ScrollView>
+
+        <RelativeLayout
+            android:id="@+id/detail_keyLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:background="@color/color_F5F5F5"
+            android:minHeight="@dimen/x100"
+            android:visibility="gone">
+
+            <EditText
+                android:id="@+id/key_edit"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/x16"
+                android:layout_marginLeft="@dimen/x28"
+                android:layout_marginRight="@dimen/x16"
+                android:layout_marginTop="@dimen/x16"
+                android:layout_toLeftOf="@+id/key_text"
+                android:background="@drawable/bg_keyedit"
+                android:hint="点击输入评论"
+                android:maxLength="1000"
+                android:maxLines="4"
+                android:padding="@dimen/x16"
+                android:textColor="@color/color_DE151515"
+                android:textColorHint="@color/color_ACACAC"
+                android:textSize="13sp"/>
+
+            <TextView
+                android:id="@+id/key_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_centerInParent="true"
+                android:layout_marginRight="@dimen/x16"
+                android:gravity="center_vertical"
+                android:onClick="@{listener.onClick}"
+                android:padding="@dimen/x16"
+                android:text="发送"
+                android:textColor="@drawable/bg_keytext"/>
+
+        </RelativeLayout>
+
+        <include
+            android:id="@+id/net_clude"
+            layout="@layout/common_net_error"
+            android:visibility="gone"
+            bind:listener="@{listener}"/>
+
+    </com.example.administrator.jipinshop.view.relativeLayout.FullScreenRelativeLayout>
+</layout>

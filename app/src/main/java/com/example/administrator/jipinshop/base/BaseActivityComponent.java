@@ -13,6 +13,8 @@ import com.example.administrator.jipinshop.activity.home.MainActivity;
 import com.example.administrator.jipinshop.activity.home.article.ArticleDetailActivity;
 import com.example.administrator.jipinshop.activity.home.classification.ClassifyActivity;
 import com.example.administrator.jipinshop.activity.home.classification.article.ArticleMoreActivity;
+import com.example.administrator.jipinshop.activity.home.classification.encyclopedias.EncyclopediasActivity;
+import com.example.administrator.jipinshop.activity.home.classification.encyclopedias.detail.EncyclopediasDetailActivity;
 import com.example.administrator.jipinshop.activity.home.classification.questions.QuestionsActivity;
 import com.example.administrator.jipinshop.activity.home.classification.questions.detail.QuestionDetailActivity;
 import com.example.administrator.jipinshop.activity.home.classification.questions.submit.QuestionSubmitActivity;
@@ -108,4 +110,6 @@ public interface BaseActivityComponent {
     void inject(QuestionDetailActivity activity);
     void inject(ClassifyActivity activity);
     void inject(QuestionSubmitActivity activity);
+    void inject(EncyclopediasActivity activity);
+    void inject(EncyclopediasDetailActivity activity);
 }

@@ -38,11 +38,9 @@ import com.example.administrator.jipinshop.bean.ImageBean;
 import com.example.administrator.jipinshop.bean.PagerStateBean;
 import com.example.administrator.jipinshop.bean.SuccessBean;
 import com.example.administrator.jipinshop.bean.VoteBean;
+import com.example.administrator.jipinshop.bean.eventbus.CommenBus;
 import com.example.administrator.jipinshop.bean.eventbus.CommonEvaluationBus;
-import com.example.administrator.jipinshop.bean.eventbus.EvaluationBus;
-import com.example.administrator.jipinshop.bean.eventbus.FindBus;
 import com.example.administrator.jipinshop.bean.eventbus.FollowBus;
-import com.example.administrator.jipinshop.bean.eventbus.TryBus;
 import com.example.administrator.jipinshop.databinding.ActivityFindDetailBinding;
 import com.example.administrator.jipinshop.fragment.follow.attention.AttentionFragment;
 import com.example.administrator.jipinshop.fragment.foval.article.FovalArticleFragment;
@@ -307,6 +305,7 @@ public class ArticleDetailActivity extends BaseActivity implements View.OnClickL
                 parentId = "0";
                 toUserId = "0";
                 mBinding.keyEdit.requestFocus();
+                mBinding.keyEdit.setHint("回复楼层");
                 showKeyboard(true);
                 break;
             case R.id.detail_good:
@@ -952,26 +951,10 @@ public class ArticleDetailActivity extends BaseActivity implements View.OnClickL
         }
     }
 
-    //获取评论列表——发现详情
+    //获取评论列表
     @Subscribe
-    public void commentResher(FindBus findBus) {
-        if (findBus != null) {
-            mPresenter.comment(getIntent().getStringExtra("id"), getIntent().getStringExtra("type"), this.bindToLifecycle());
-        }
-    }
-
-    //获取评论列表_评测详情
-    @Subscribe
-    public void commentResher(EvaluationBus evaluationBus) {
-        if (evaluationBus != null) {
-            mPresenter.comment(getIntent().getStringExtra("id"), getIntent().getStringExtra("type"), this.bindToLifecycle());
-        }
-    }
-
-    //获取评论列表_试用报告详情
-    @Subscribe
-    public void commentResher(TryBus tryBus) {
-        if (tryBus != null) {
+    public void commentResher(CommenBus commenBus){
+        if(commenBus != null && commenBus.getTag().equals(CommenListActivity.commentResher)){
             mPresenter.comment(getIntent().getStringExtra("id"), getIntent().getStringExtra("type"), this.bindToLifecycle());
         }
     }

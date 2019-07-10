@@ -13,6 +13,7 @@ import android.widget.LinearLayout;
 import com.example.administrator.jipinshop.R;
 import com.example.administrator.jipinshop.activity.home.article.ArticleDetailActivity;
 import com.example.administrator.jipinshop.activity.home.classification.article.ArticleMoreActivity;
+import com.example.administrator.jipinshop.activity.home.classification.encyclopedias.EncyclopediasActivity;
 import com.example.administrator.jipinshop.activity.home.classification.questions.QuestionsActivity;
 import com.example.administrator.jipinshop.activity.shoppingdetail.ShoppingDetailActivity;
 import com.example.administrator.jipinshop.adapter.ClassifyAdapter;
@@ -51,6 +52,7 @@ public class ClassifyActivity extends BaseActivity implements View.OnClickListen
     private List<TopCategoryDetailBean.DataBean.RelatedArticleListBean> mArticleList;//评测推荐列表
     private List<String> relatedQuestionList;//话题问答
     private List<String> relatedPediaList;//百科
+    private String articleId = "";
 
     private List<ClassifyTabBean> mTitleList;//二级标题
     private ClassifyTabAdapter mTabAdapter;
@@ -154,7 +156,10 @@ public class ClassifyActivity extends BaseActivity implements View.OnClickListen
      */
     @Override
     public void onEncyclopedias() {
-        ToastUtil.show("百科");
+        startActivity(new Intent(this, EncyclopediasActivity.class)
+                .putExtra("title",title.replace("榜单","") + "百科")
+                .putExtra("id",articleId)
+        );
     }
 
     /**
@@ -223,6 +228,7 @@ public class ClassifyActivity extends BaseActivity implements View.OnClickListen
                 for (int i = 0; i < pedia.length; i++) {
                     relatedPediaList.add(pedia[i]);
                 }
+                articleId = bean.getData().getRelatedPedia().getArticleId();
             }
             mAdapter.setTitle(bean.getData().getCategoryName());
             mTabAdapter.notifyDataSetChanged();

@@ -10,20 +10,12 @@ import android.os.Looper;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.LinearLayoutManager;
 import android.text.TextUtils;
-import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import com.alibaba.baichuan.android.trade.AlibcTrade;
 import com.alibaba.baichuan.android.trade.AlibcTradeSDK;
-import com.alibaba.baichuan.android.trade.callback.AlibcTradeCallback;
-import com.alibaba.baichuan.android.trade.model.AlibcShowParams;
-import com.alibaba.baichuan.android.trade.model.OpenType;
-import com.alibaba.baichuan.android.trade.page.AlibcPage;
-import com.alibaba.baichuan.trade.biz.context.AlibcResultType;
-import com.alibaba.baichuan.trade.biz.context.AlibcTradeResult;
 import com.blankj.utilcode.util.SPUtils;
 import com.example.administrator.jipinshop.R;
 import com.example.administrator.jipinshop.activity.WebActivity;
@@ -33,7 +25,6 @@ import com.example.administrator.jipinshop.activity.login.LoginActivity;
 import com.example.administrator.jipinshop.adapter.RelatedArticleAdapter;
 import com.example.administrator.jipinshop.adapter.ReportDetailAdapter;
 import com.example.administrator.jipinshop.adapter.ShoppingCommonAdapter;
-import com.example.administrator.jipinshop.adapter.TryDetailRVAdapter;
 import com.example.administrator.jipinshop.base.BaseActivity;
 import com.example.administrator.jipinshop.bean.CommentBean;
 import com.example.administrator.jipinshop.bean.FindDetailBean;
@@ -42,9 +33,9 @@ import com.example.administrator.jipinshop.bean.PagerStateBean;
 import com.example.administrator.jipinshop.bean.SuccessBean;
 import com.example.administrator.jipinshop.bean.TryDetailBean;
 import com.example.administrator.jipinshop.bean.VoteBean;
+import com.example.administrator.jipinshop.bean.eventbus.CommenBus;
 import com.example.administrator.jipinshop.bean.eventbus.CommonEvaluationBus;
 import com.example.administrator.jipinshop.bean.eventbus.FollowBus;
-import com.example.administrator.jipinshop.bean.eventbus.TryBus;
 import com.example.administrator.jipinshop.databinding.ActivityReportDetailBinding;
 import com.example.administrator.jipinshop.fragment.follow.attention.AttentionFragment;
 import com.example.administrator.jipinshop.fragment.foval.tryout.FovalTryFragment;
@@ -69,9 +60,7 @@ import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import javax.inject.Inject;
 
@@ -886,8 +875,8 @@ public class ReportDetailActivity extends BaseActivity implements View.OnClickLi
 
     //获取评论列表_试用报告详情
     @Subscribe
-    public void commentResher(TryBus tryBus) {
-        if (tryBus != null) {
+    public void commentResher(CommenBus commenBus){
+        if(commenBus != null && commenBus.getTag().equals(CommenListActivity.commentResher)){
             mPresenter.comment(getIntent().getStringExtra("id"), "4", this.bindToLifecycle());
         }
     }

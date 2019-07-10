@@ -395,6 +395,15 @@
         <activity android:name=".activity.home.classification.questions.submit.QuestionSubmitActivity"
                   android:screenOrientation="portrait"/>
 
+        <!--百科首页-->
+        <activity android:name=".activity.home.classification.encyclopedias.EncyclopediasActivity"
+                  android:screenOrientation="portrait"/>
+
+        <!--百科详情-->
+        <activity android:name=".activity.home.classification.encyclopedias.detail.EncyclopediasDetailActivity"
+                  android:screenOrientation="portrait"
+                  android:windowSoftInputMode="adjustResize|stateHidden"/>
+
     </application>
 
 </manifest>

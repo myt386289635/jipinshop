@@ -26,12 +26,8 @@ import com.example.administrator.jipinshop.bean.SuccessBean;
 import com.example.administrator.jipinshop.bean.VoteBean;
 import com.example.administrator.jipinshop.bean.eventbus.CommenBus;
 import com.example.administrator.jipinshop.bean.eventbus.CommonEvaluationBus;
-import com.example.administrator.jipinshop.bean.eventbus.EvaluationBus;
-import com.example.administrator.jipinshop.bean.eventbus.FindBus;
-import com.example.administrator.jipinshop.bean.eventbus.TryBus;
 import com.example.administrator.jipinshop.bean.eventbus.TryShopBus;
 import com.example.administrator.jipinshop.databinding.ActivityCommenlistBinding;
-import com.example.administrator.jipinshop.fragment.evaluation.common.CommonEvaluationFragment;
 import com.example.administrator.jipinshop.util.ClickUtil;
 import com.example.administrator.jipinshop.util.ToastUtil;
 import com.example.administrator.jipinshop.util.sp.CommonDate;
@@ -300,20 +296,11 @@ public class CommenListActivity extends BaseActivity implements CommenListAdapte
                         initSets();
                     }
                 }
-                if (getIntent().getStringExtra("type").equals("2")){
-                    //表示从评测进来的
-                    EventBus.getDefault().post(new EvaluationBus(getIntent().getStringExtra("id"),commentBean.getTotal()));
-                }else if(getIntent().getStringExtra("type").equals("3")){
-                    //表示从发现进来的
-                    EventBus.getDefault().post(new FindBus(commentBean.getTotal()));
-                }else if(getIntent().getStringExtra("type").equals("4")){
-                    //表示从试用报告进来的
-                    EventBus.getDefault().post(new TryBus(commentBean.getTotal()));
-                } else if(getIntent().getStringExtra("type").equals("5")){
+                if(getIntent().getStringExtra("type").equals("5")){
                     //表示从试用商品进来的
                     EventBus.getDefault().post(new TryShopBus(commentBean.getTotal()));
                 } else {
-                    //表示从商品进来的。
+                    //表示从商品、发现、评测、试用报告、百科进来的。
                     EventBus.getDefault().post(new CommenBus(CommenListActivity.commentResher));
                 }
             } else {

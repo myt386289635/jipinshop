@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:bind="http://schemas.android.com/apk/res-auto">
+
+    <data>
+        <variable
+            name="listener"
+            type="android.view.View.OnClickListener"/>
+
+    </data>
+
+    <LinearLayout
+        android:id="@+id/container"
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <include
+            android:id="@+id/in_clude"
+            layout="@layout/aa_title2"
+            bind:listener="@{listener}"/>
+
+        <ScrollView
+            android:id="@+id/scroll_View"
+            android:scrollbars="none"
+            android:fillViewport="true"
+            android:background="@color/color_white"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <LinearLayout
+                android:orientation="vertical"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <com.example.administrator.jipinshop.view.webview.MyWebView
+                    android:scrollbars="none"
+                    android:layout_marginLeft="@dimen/x14"
+                    android:layout_marginRight="@dimen/x14"
+                    android:id="@+id/web_view"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"/>
+
+                <View
+                    android:id="@+id/line"
+                    android:background="@color/color_DEDEDE"
+                    android:layout_marginTop="@dimen/y30"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/y2"/>
+
+                <TextView
+                    android:layout_marginTop="@dimen/y48"
+                    android:layout_marginLeft="@dimen/x30"
+                    android:textStyle="bold"
+                    android:textColor="@color/color_202020"
+                    android:textSize="19sp"
+                    android:text="相关文章"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"/>
+
+                <android.support.v7.widget.RecyclerView
+                    android:id="@+id/recycler_view"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"/>
+
+                <TextView
+                    android:visibility="gone"
+                    android:textSize="13sp"
+                    android:id="@+id/detail_relatedNoDate"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_marginBottom="@dimen/x120"
+                    android:layout_marginTop="@dimen/x120"
+                    android:text="暂无相关文章"
+                    android:textColor="@color/color_ACACAC"/>
+
+            </LinearLayout>
+
+        </ScrollView>
+
+    </LinearLayout>
+</layout>
