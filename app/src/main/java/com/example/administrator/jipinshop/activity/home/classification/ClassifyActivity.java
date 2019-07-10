@@ -6,6 +6,7 @@ import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.LinearLayoutManager;
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.LinearLayout;
 
@@ -216,6 +217,12 @@ public class ClassifyActivity extends BaseActivity implements View.OnClickListen
             }
             for (TopCategoryDetailBean.DataBean.RelatedQuestionListBean relatedQuestionListBean : bean.getData().getRelatedQuestionList()) {
                 relatedQuestionList.add(relatedQuestionListBean.getTitle());
+            }
+            if (bean.getData().getRelatedPedia() != null && !TextUtils.isEmpty(bean.getData().getRelatedPedia().getSubtitle())){
+                String[] pedia = bean.getData().getRelatedPedia().getSubtitle().split("\\|");
+                for (int i = 0; i < pedia.length; i++) {
+                    relatedPediaList.add(pedia[i]);
+                }
             }
             mAdapter.setTitle(bean.getData().getCategoryName());
             mTabAdapter.notifyDataSetChanged();

@@ -1,6 +1,7 @@
 package com.example.administrator.jipinshop.activity.home.classification.questions.detail;
 
 import android.app.Dialog;
+import android.content.Intent;
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -17,9 +18,16 @@ import com.example.administrator.jipinshop.adapter.QuestionDetailAdapter;
 import com.example.administrator.jipinshop.base.BaseActivity;
 import com.example.administrator.jipinshop.bean.QuestionsBean;
 import com.example.administrator.jipinshop.bean.SucBean;
+import com.example.administrator.jipinshop.bean.VoteBean;
 import com.example.administrator.jipinshop.databinding.ActivityQuestionDetailBinding;
+import com.example.administrator.jipinshop.util.ClickUtil;
+import com.example.administrator.jipinshop.util.ShareUtils;
 import com.example.administrator.jipinshop.util.ToastUtil;
 import com.example.administrator.jipinshop.view.dialog.ProgressDialogView;
+import com.example.administrator.jipinshop.view.dialog.ShareBoardDialog;
+import com.trello.rxlifecycle2.android.ActivityEvent;
+import com.umeng.socialize.UMShareAPI;
+import com.umeng.socialize.bean.SHARE_MEDIA;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -31,7 +39,7 @@ import javax.inject.Inject;
  * @create 2019/7/3
  * @Describe 答题区详情
  */
-public class QuestionDetailActivity extends BaseActivity implements View.OnClickListener, OnRefreshListener, OnLoadMoreListener, QuestionDetailView {
+public class QuestionDetailActivity extends BaseActivity implements View.OnClickListener, OnRefreshListener, OnLoadMoreListener, QuestionDetailView, ShareBoardDialog.onShareListener, QuestionDetailAdapter.OnClickLayout {
 
     @Inject
     QuestionDetailPresenter mPresenter;
@@ -44,6 +52,12 @@ public class QuestionDetailActivity extends BaseActivity implements View.OnClick
     private QuestionsBean.DataBean mBean;
     private Dialog mDialog;
     private int resultCode = 402;
+
+    private String shareImage = "";
+    private String shareName = "";
+    private String shareContent = "";
+    private String shareUrl = "";
+    private ShareBoardDialog mShareBoardDialog;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -61,10 +75,19 @@ public class QuestionDetailActivity extends BaseActivity implements View.OnClick
         mPresenter.setKeyListener(mBinding.detailContainer, usableHeightPrevious);
         mPresenter.initEdit(mBinding);
 
+        shareName = mBean.getTitle();
+        shareUrl = "https://lanhuapp.com/web/#/item/project/board?pid=a2e5a6a3-e7c0-4b07-95dd-3c261bba6bac";
+        if (mBean.getAnswerCount() == 0){
+            shareContent = "参与回答";
+        }else {
+            shareContent = "回答：" + mBean.getAnswerCount();
+        }
+
         mBinding.recyclerView.setLayoutManager(new LinearLayoutManager(this));
         mList = new ArrayList<>();
         mAdapter = new QuestionDetailAdapter(mList,this);
         mAdapter.setBean(mBean);
+        mAdapter.setOnClickLayout(this);
         mBinding.recyclerView.setAdapter(mAdapter);
 
         mPresenter.solveScoll(mBinding.recyclerView,mBinding.swipeToLoad);
@@ -81,7 +104,13 @@ public class QuestionDetailActivity extends BaseActivity implements View.OnClick
                 finish();
                 break;
             case R.id.detail_share:
-                // TODO: 2019/7/3 分享
+                if (mShareBoardDialog == null) {
+                    mShareBoardDialog = new ShareBoardDialog();
+                    mShareBoardDialog.setOnShareListener(this);
+                }
+                if (!mShareBoardDialog.isAdded()) {
+                    mShareBoardDialog.show(getSupportFragmentManager(), "ShareBoardDialog");
+                }
                 break;
             case R.id.detail_bottomContainer:
                 mBinding.detailEdit.requestFocus();
@@ -246,8 +275,112 @@ public class QuestionDetailActivity extends BaseActivity implements View.OnClick
     }
 
     @Override
+    public void concerDelSuccess() {
+        resultCode = 202;
+        mBean.getUser().setFollow("0");
+        mAdapter.notifyItemChanged(0);
+        ToastUtil.show("取消关注成功");
+    }
+
+    @Override
+    public void concerInsSuccess() {
+        resultCode = 202;
+        mBean.getUser().setFollow("1");
+        mAdapter.notifyItemChanged(0);
+        ToastUtil.show("关注成功");
+    }
+
+    @Override
+    public void onSucCommentSnapIns(int position, VoteBean voteBean) {
+        mList.get(position).setVote("1");
+        mList.get(position).setVoteCount(voteBean.getData() + "");
+        mAdapter.notifyItemChanged(position + 1);
+        if(!voteBean.getMsg().equals("success")){
+            ToastUtil.show(voteBean.getMsg());
+        }
+    }
+
+    @Override
+    public void onSucCommentSnapDel(int position, VoteBean voteBean) {
+        mList.get(position).setVote("0");
+        mList.get(position).setVoteCount(voteBean.getData() + "");
+        mAdapter.notifyItemChanged(position + 1);
+    }
+
+    @Override
     public void onBackPressed() {
         setResult(resultCode);
         super.onBackPressed();
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        UMShareAPI.get(this).release();
+    }
+
+    @Override
+    public void share(SHARE_MEDIA share_media) {
+        mPresenter.taskFinish(this.bindUntilEvent(ActivityEvent.DESTROY));
+        new ShareUtils(this, share_media)
+                .shareWeb(this, shareUrl, shareName, shareContent, shareImage, R.mipmap.share_logo);
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        UMShareAPI.get(this).onActivityResult(requestCode, resultCode, data);
+    }
+
+    /**
+     * 点赞
+     */
+    @Override
+    public void onClickGood(int postion) {
+        if (ClickUtil.isFastDoubleClick(1000)) {
+            ToastUtil.show("您点击太快了，请休息会再点");
+            return;
+        }else{
+            mPresenter.snapInsert(postion,mList.get(postion).getId(),this.bindToLifecycle());
+        }
+    }
+
+    /**
+     * 取消点赞
+     */
+    @Override
+    public void onClickUnGood(int position) {
+        if (ClickUtil.isFastDoubleClick(1000)) {
+            ToastUtil.show("您点击太快了，请休息会再点");
+            return;
+        }else{
+            mPresenter.snapDelete(position,mList.get(position).getId(),this.bindToLifecycle());
+        }
+    }
+
+    /**
+     * 关注
+     */
+    @Override
+    public void onClickFollow() {
+        if (ClickUtil.isFastDoubleClick(1000)) {
+            ToastUtil.show("您点击太快了，请休息会再点");
+            return;
+        }else{
+            mPresenter.concernInsert(mBean.getUser().getUserId(),this.bindToLifecycle());
+        }
+    }
+
+    /**
+     * 取消关注
+     */
+    @Override
+    public void onClickUnFollow() {
+        if (ClickUtil.isFastDoubleClick(1000)) {
+            ToastUtil.show("您点击太快了，请休息会再点");
+            return;
+        }else{
+            mPresenter.concernDelete(mBean.getUser().getUserId(),this.bindToLifecycle());
+        }
     }
 }

@@ -5,15 +5,21 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.view.View;
 
 import com.aspsine.swipetoloadlayout.SwipeToLoadLayout;
 import com.example.administrator.jipinshop.bean.QuestionsBean;
 import com.example.administrator.jipinshop.bean.SucBean;
 import com.example.administrator.jipinshop.bean.SuccessBean;
+import com.example.administrator.jipinshop.bean.TaskFinishBean;
+import com.example.administrator.jipinshop.bean.VoteBean;
 import com.example.administrator.jipinshop.databinding.ActivityQuestionDetailBinding;
 import com.example.administrator.jipinshop.netwrok.Repository;
 import com.example.administrator.jipinshop.view.relativeLayout.FullScreenRelativeLayout;
 import com.trello.rxlifecycle2.LifecycleTransformer;
+
+import java.util.HashMap;
+import java.util.Map;
 
 import javax.inject.Inject;
 
@@ -159,4 +165,126 @@ public class QuestionDetailPresenter {
                     }
                 });
     }
+
+    /**
+     * 分享获取极币
+     */
+    public void taskFinish(LifecycleTransformer<TaskFinishBean> transformer){
+        mRepository.taskFinish("5")
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .compose(transformer)
+                .subscribe(taskFinishBean -> {
+
+                }, throwable ->{
+
+                });
+    }
+
+    /**
+     * 取消关注
+     */
+    public void concernDelete(String attentionUserId, LifecycleTransformer<SuccessBean> transformer){
+        mRepository.concernDelete(attentionUserId)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .compose(transformer)
+                .subscribe(successBean -> {
+                    if(successBean.getCode() == 0 || successBean.getCode() == 602){
+                        if(mView != null){
+                            mView.concerDelSuccess();
+                        }
+                    }else {
+                        if(mView != null){
+                            mView.onFileComment(successBean.getMsg());
+                        }
+                    }
+                }, throwable -> {
+                    if(mView != null){
+                        mView.onFileComment(throwable.getMessage());
+                    }
+                });
+    }
+
+    /**
+     * 添加关注
+     */
+    public void concernInsert(String attentionUserId,LifecycleTransformer<SuccessBean> transformer){
+        mRepository.concernInsert(attentionUserId)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .compose(transformer)
+                .subscribe(successBean -> {
+                    if(successBean.getCode() == 0 || successBean.getCode() == 602){
+                        if(mView  != null){
+                            mView.concerInsSuccess();
+                        }
+                    }else {
+                        if(mView != null){
+                            mView.onFileComment(successBean.getMsg());
+                        }
+                    }
+                }, throwable -> {
+                    if(mView != null){
+                        mView.onFileComment(throwable.getMessage());
+                    }
+                });
+    }
+
+    /**
+     * 添加点赞
+     */
+    public void snapInsert(int position, String id , LifecycleTransformer<VoteBean> transformer){
+        Map<String,String> hashMap = new HashMap<>();
+        hashMap.put("type", "6");
+        hashMap.put("targetId",id);
+        mRepository.snapInsert(hashMap)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .compose(transformer)
+                .subscribe(successBean -> {
+                    if(successBean.getCode() == 0 || successBean.getCode() == 602){
+                        if (mView != null) {
+                            mView.onSucCommentSnapIns(position,successBean);
+                        }
+                    }else {
+                        if(mView != null){
+                            mView.onFileComment(successBean.getMsg());
+                        }
+                    }
+                }, throwable -> {
+                    if(mView != null){
+                        mView.onFileComment(throwable.getMessage());
+                    }
+                });
+    }
+
+    /**
+     * 删除点赞
+     */
+    public void snapDelete(int position, String id , LifecycleTransformer<VoteBean> transformer){
+        Map<String,String> hashMap = new HashMap<>();
+        hashMap.put("type", "6");
+        hashMap.put("targetId",id);
+        mRepository.snapDelete(hashMap)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .compose(transformer)
+                .subscribe(successBean -> {
+                    if(successBean.getCode() == 0 || successBean.getCode() == 602){
+                        if (mView != null) {
+                            mView.onSucCommentSnapDel(position,successBean);
+                        }
+                    }else {
+                        if(mView != null){
+                            mView.onFileComment(successBean.getMsg());
+                        }
+                    }
+                }, throwable -> {
+                    if(mView != null){
+                        mView.onFileComment(throwable.getMessage());
+                    }
+                });
+    }
+
 }

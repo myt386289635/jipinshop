@@ -52,7 +52,7 @@ public class TopCategoryDetailBean {
         private Object adList;
         private List<RelatedItemListBean> relatedItemList;
         private List<RelatedGoodsListBean> relatedGoodsList;
-        private List<String> relatedPediaList;
+        private RelatedPediaBean relatedPedia;
         private List<RelatedQuestionListBean> relatedQuestionList;
         private List<RelatedItemCategotyListBean> relatedItemCategotyList;
         private List<RelatedArticleListBean> relatedArticleList;
@@ -161,12 +161,12 @@ public class TopCategoryDetailBean {
             this.relatedGoodsList = relatedGoodsList;
         }
 
-        public List<String> getRelatedPediaList() {
-            return relatedPediaList;
+        public RelatedPediaBean getRelatedPedia() {
+            return relatedPedia;
         }
 
-        public void setRelatedPediaList(List<String> relatedPediaList) {
-            this.relatedPediaList = relatedPediaList;
+        public void setRelatedPedia(RelatedPediaBean relatedPedia) {
+            this.relatedPedia = relatedPedia;
         }
 
         public List<RelatedQuestionListBean> getRelatedQuestionList() {
@@ -943,6 +943,28 @@ public class TopCategoryDetailBean {
 
             public void setTitle(String title) {
                 this.title = title;
+            }
+        }
+
+        public static class RelatedPediaBean{
+
+            private String articleId;
+            private String subtitle;
+
+            public String getArticleId() {
+                return articleId;
+            }
+
+            public void setArticleId(String articleId) {
+                this.articleId = articleId;
+            }
+
+            public String getSubtitle() {
+                return subtitle;
+            }
+
+            public void setSubtitle(String subtitle) {
+                this.subtitle = subtitle;
             }
         }
     }

@@ -17,6 +17,7 @@ import com.example.administrator.jipinshop.databinding.ItemArticleBinding;
 import com.example.administrator.jipinshop.databinding.ItemClassifyBinding;
 import com.example.administrator.jipinshop.databinding.ItemGoodsBinding;
 import com.example.administrator.jipinshop.databinding.ItemPageListBinding;
+import com.example.administrator.jipinshop.util.ToastUtil;
 import com.example.administrator.jipinshop.util.snap.GravitySnapHelper;
 import com.google.android.flexbox.FlexboxLayout;
 
@@ -133,7 +134,7 @@ public class ClassifyAdapter extends RecyclerView.Adapter {
                 oneViewHolder.goodsBinding.setPosition(onePosition + 1);
                 oneViewHolder.goodsBinding.executePendingBindings();
                 break;
-            case TWO:// TODO: 2019/7/3 未完成
+            case TWO:
                 TwoViewHolder twoViewHolder = (TwoViewHolder) viewHolder;
                 int twoPosition = position - mGoodsString.size();
                 if (twoPosition == 0){
@@ -146,6 +147,10 @@ public class ClassifyAdapter extends RecyclerView.Adapter {
                     twoViewHolder.classifyBinding.itemTextContent2.setTextColor(mContext.getResources().getColor(R.color.color_white));
                     twoViewHolder.classifyBinding.itemTextContent3.setTextColor(mContext.getResources().getColor(R.color.color_white));
                     twoViewHolder.itemView.setOnClickListener(v ->{
+                        if (relatedPediaList.size() == 0){
+                            ToastUtil.show("暂无百科");
+                            return;
+                        }
                         if (mView != null){
                             mView.onEncyclopedias();
                         }

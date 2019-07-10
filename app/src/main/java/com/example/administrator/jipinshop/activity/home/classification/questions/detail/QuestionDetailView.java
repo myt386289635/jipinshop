@@ -2,6 +2,7 @@ package com.example.administrator.jipinshop.activity.home.classification.questio
 
 import com.example.administrator.jipinshop.bean.QuestionsBean;
 import com.example.administrator.jipinshop.bean.SucBean;
+import com.example.administrator.jipinshop.bean.VoteBean;
 
 /**
  * @author 莫小婷
@@ -18,4 +19,11 @@ public interface QuestionDetailView {
 
     void onSuccessComment();
     void onFileComment(String error);
+
+    void concerDelSuccess();
+    void concerInsSuccess();
+
+    void onSucCommentSnapIns(int position, VoteBean voteBean);
+    void onSucCommentSnapDel(int position,VoteBean voteBean);
+
 }
