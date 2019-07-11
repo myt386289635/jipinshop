@@ -404,6 +404,10 @@
                   android:screenOrientation="portrait"
                   android:windowSoftInputMode="adjustResize|stateHidden"/>
 
+        <!--kotlin：小分类榜单——查看更多评测-->
+        <activity android:name=".activity.KTArticleMoreActivity"
+                  android:screenOrientation="portrait"/>
+
     </application>
 
 </manifest>

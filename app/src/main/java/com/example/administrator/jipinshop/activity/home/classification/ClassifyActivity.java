@@ -12,7 +12,6 @@ import android.widget.LinearLayout;
 
 import com.example.administrator.jipinshop.R;
 import com.example.administrator.jipinshop.activity.home.article.ArticleDetailActivity;
-import com.example.administrator.jipinshop.activity.home.classification.article.ArticleMoreActivity;
 import com.example.administrator.jipinshop.activity.home.classification.encyclopedias.EncyclopediasActivity;
 import com.example.administrator.jipinshop.activity.home.classification.questions.QuestionsActivity;
 import com.example.administrator.jipinshop.activity.shoppingdetail.ShoppingDetailActivity;
@@ -23,6 +22,7 @@ import com.example.administrator.jipinshop.bean.ClassifyTabBean;
 import com.example.administrator.jipinshop.bean.SucBean;
 import com.example.administrator.jipinshop.bean.TopCategoryDetailBean;
 import com.example.administrator.jipinshop.databinding.ActivityClassifyBinding;
+import com.example.administrator.jipinshop.activity.KTArticleMoreActivity;
 import com.example.administrator.jipinshop.util.ClickUtil;
 import com.example.administrator.jipinshop.util.ToastUtil;
 import com.example.administrator.jipinshop.view.dialog.ProgressDialogView;
@@ -196,7 +196,7 @@ public class ClassifyActivity extends BaseActivity implements View.OnClickListen
      */
     @Override
     public void onMore() {
-        startActivity(new Intent(this, ArticleMoreActivity.class)
+        startActivity(new Intent(this, KTArticleMoreActivity.class)
                 .putExtra("title",title.replace("榜单","") + "评测推荐")
                 .putExtra("id",id)
         );

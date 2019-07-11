@@ -53,6 +53,7 @@ import com.example.administrator.jipinshop.activity.tryout.reportMore.ReportMore
 import com.example.administrator.jipinshop.activity.tryout.shareMore.ShareMoreActivity;
 import com.example.administrator.jipinshop.activity.wellcome.WellComeActivity;
 import com.example.administrator.jipinshop.auto.ActivityScope;
+import com.example.administrator.jipinshop.activity.KTArticleMoreActivity;
 import com.example.administrator.jipinshop.netwrok.ApplicationComponent;
 
 import dagger.Component;
@@ -112,4 +113,5 @@ public interface BaseActivityComponent {
     void inject(QuestionSubmitActivity activity);
     void inject(EncyclopediasActivity activity);
     void inject(EncyclopediasDetailActivity activity);
+    void inject(KTArticleMoreActivity activity);
 }
