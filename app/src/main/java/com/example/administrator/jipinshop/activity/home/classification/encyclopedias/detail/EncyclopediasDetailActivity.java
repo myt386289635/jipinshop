@@ -136,7 +136,7 @@ public class EncyclopediasDetailActivity extends BaseActivity implements View.On
                     mShareBoardDialog.show(getSupportFragmentManager(), "ShareBoardDialog");
                 }
                 break;
-            case R.id.detail_favor:
+            case R.id.detail_fovar:
                 // TODO: 2019/7/10 收藏
                 break;
             case R.id.detail_UserImage:
