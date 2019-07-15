@@ -262,4 +262,60 @@ public class EncyclopediasDetailPresenter {
                 });
     }
 
+    /**
+     * 添加收藏
+     */
+    public void collectInsert(String goodsId , LifecycleTransformer<SuccessBean> transformer){
+        Map<String,String> hashMap = new HashMap<>();
+        hashMap.put("type", "5");
+        hashMap.put("targetId",goodsId);
+        mRepository.collectInsert(hashMap)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .compose(transformer)
+                .subscribe(successBean -> {
+                    if(successBean.getCode() == 0) {
+                        if (mView != null) {
+                            mView.onSucCollectInsert();
+                        }
+                    }else {
+                        if(mView != null){
+                            mView.onFileCommentInsert(successBean.getMsg());
+                        }
+                    }
+                }, throwable -> {
+                    if(mView != null){
+                        mView.onFileCommentInsert(throwable.getMessage());
+                    }
+                });
+    }
+
+    /**
+     * 删除收藏
+     */
+    public void collectDelete(String goodsId , LifecycleTransformer<SuccessBean> transformer){
+        Map<String,String> hashMap = new HashMap<>();
+        hashMap.put("type", "5");
+        hashMap.put("targetId",goodsId);
+        mRepository.collectDelete(hashMap)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .compose(transformer)
+                .subscribe(successBean -> {
+                    if(successBean.getCode() == 0) {
+                        if (mView != null) {
+                            mView.onSucCollectDelete();
+                        }
+                    }else {
+                        if(mView != null){
+                            mView.onFileCommentInsert(successBean.getMsg());
+                        }
+                    }
+                }, throwable -> {
+                    if(mView != null){
+                        mView.onFileCommentInsert(throwable.getMessage());
+                    }
+                });
+    }
+
 }

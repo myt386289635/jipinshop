@@ -137,7 +137,18 @@ public class EncyclopediasDetailActivity extends BaseActivity implements View.On
                 }
                 break;
             case R.id.detail_fovar:
-                // TODO: 2019/7/10 收藏
+                if (ClickUtil.isFastDoubleClick(1000)) {
+                    ToastUtil.show("您点击太快了，请休息会再点");
+                    return;
+                } else {
+                    if (isCollect) {
+                        //收藏过了
+                        mPresenter.collectDelete(getIntent().getStringExtra("id"),this.bindToLifecycle());
+                    } else {
+                        //没有收藏
+                        mPresenter.collectInsert(getIntent().getStringExtra("id"),this.bindToLifecycle());
+                    }
+                }
                 break;
             case R.id.detail_UserImage:
                 // TODO: 2019/7/10 个人主页
@@ -430,6 +441,20 @@ public class EncyclopediasDetailActivity extends BaseActivity implements View.On
         mBinding.detailAttention.setBackgroundResource(R.drawable.bg_attentioned);
         mBinding.detailAttention.setText("已关注");
         mBinding.detailAttention.setTextColor(getResources().getColor(R.color.color_white));
+    }
+
+    @Override
+    public void onSucCollectInsert() {
+        ToastUtil.show("收藏成功");
+        isCollect = true;
+        mBinding.detailFovar.setText("已收藏");
+    }
+
+    @Override
+    public void onSucCollectDelete() {
+        ToastUtil.show("取消收藏");
+        isCollect = false;
+        mBinding.detailFovar.setText("收藏");
     }
 
     @Override
