@@ -22,41 +22,19 @@
             layout="@layout/aa_title2"
             bind:listener="@{listener}"/>
 
-        <LinearLayout
-            android:id="@+id/detail_bottom"
-            android:layout_width="match_parent"
-            android:layout_height="@dimen/y100"
-            android:layout_alignParentBottom="true"
-            android:orientation="horizontal">
-
-            <TextView
-                android:id="@+id/detail_share"
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:background="@color/color_EEEEEE"
-                android:gravity="center"
-                android:onClick="@{listener.onClick}"
-                android:text="分享给好友"
-                android:textColor="@color/color_DE151515"
-                android:textSize="15sp"/>
-
-            <TextView
-                android:id="@+id/detail_fovar"
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:background="@color/color_E31436"
-                android:gravity="center"
-                android:onClick="@{listener.onClick}"
-                android:text="收藏"
-                android:textColor="@color/color_white"
-                android:textSize="15sp"/>
-
-        </LinearLayout>
+        <ImageView
+            android:layout_alignParentRight="true"
+            android:paddingRight="@dimen/x28"
+            android:paddingLeft="@dimen/x28"
+            android:tint="@color/pickerview_topbar_title"
+            android:src="@mipmap/nav_share_white"
+            android:id="@+id/detail_share"
+            android:layout_width="wrap_content"
+            android:layout_height="@dimen/y88"
+            android:gravity="center"
+            android:onClick="@{listener.onClick}"/>
 
         <ScrollView
-            android:layout_above="@id/detail_bottom"
             android:fillViewport="true"
             android:layout_below="@id/in_clude"
             android:scrollbars="none"

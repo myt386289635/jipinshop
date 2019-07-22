@@ -52,6 +52,7 @@ public class QuestionDetailActivity extends BaseActivity implements View.OnClick
     private QuestionsBean.DataBean mBean;
     private Dialog mDialog;
     private int resultCode = 402;
+    private boolean isCollect = false;//标志：是否收藏过此商品 false:没有
 
     private String shareImage = "";
     private String shareName = "";
@@ -81,6 +82,16 @@ public class QuestionDetailActivity extends BaseActivity implements View.OnClick
             shareContent = "参与回答";
         }else {
             shareContent = "回答：" + mBean.getAnswerCount();
+        }
+        //是否收藏过
+        if (mBean.getCollect() == 1) {
+            isCollect = true;
+            mBinding.itemComment.setImageResource(R.mipmap.tab_favor_sel);
+            mBinding.itemComment.setColorFilter(R.color.color_E25838);
+        } else {
+            isCollect = false;
+            mBinding.itemComment.setImageResource(R.mipmap.tab_favor_nor);
+            mBinding.itemComment.setColorFilter(R.color.color_9D9D9D);
         }
 
         mBinding.recyclerView.setLayoutManager(new LinearLayoutManager(this));
@@ -112,7 +123,7 @@ public class QuestionDetailActivity extends BaseActivity implements View.OnClick
                     mShareBoardDialog.show(getSupportFragmentManager(), "ShareBoardDialog");
                 }
                 break;
-            case R.id.detail_bottomContainer:
+            case R.id.detail_editTv:
                 mBinding.detailEdit.requestFocus();
                 showKeyboard(true);
                 break;
@@ -125,6 +136,21 @@ public class QuestionDetailActivity extends BaseActivity implements View.OnClick
                 mDialog = (new ProgressDialogView()).createLoadingDialog(this, "");
                 mDialog.show();
                 mPresenter.addAnswer(mBinding.detailEdit.getText().toString(),mBean.getId(),this.bindToLifecycle());
+                break;
+            case R.id.item_comment:
+                //收藏
+                if (ClickUtil.isFastDoubleClick(1000)) {
+                    ToastUtil.show("您点击太快了，请休息会再点");
+                    return;
+                } else {
+                    if (isCollect) {
+                        //收藏过了
+                        mPresenter.collectDelete(mBean.getId(),this.bindToLifecycle());
+                    } else {
+                        //没有收藏
+                        mPresenter.collectInsert(mBean.getId(),this.bindToLifecycle());
+                    }
+                }
                 break;
         }
     }
@@ -305,6 +331,22 @@ public class QuestionDetailActivity extends BaseActivity implements View.OnClick
         mList.get(position).setVote("0");
         mList.get(position).setVoteCount(voteBean.getData() + "");
         mAdapter.notifyItemChanged(position + 1);
+    }
+
+    @Override
+    public void onSucCollectInsert() {
+        ToastUtil.show("收藏成功");
+        isCollect = true;
+        mBinding.itemComment.setImageResource(R.mipmap.tab_favor_sel);
+        mBinding.itemComment.setColorFilter(R.color.color_E25838);
+    }
+
+    @Override
+    public void onSucCollectDelete() {
+        ToastUtil.show("取消收藏");
+        isCollect = false;
+        mBinding.itemComment.setImageResource(R.mipmap.tab_favor_nor);
+        mBinding.itemComment.setColorFilter(R.color.color_9D9D9D);
     }
 
     @Override

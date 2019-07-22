@@ -26,4 +26,6 @@ public interface QuestionDetailView {
     void onSucCommentSnapIns(int position, VoteBean voteBean);
     void onSucCommentSnapDel(int position,VoteBean voteBean);
 
+    void onSucCollectInsert();
+    void onSucCollectDelete();
 }

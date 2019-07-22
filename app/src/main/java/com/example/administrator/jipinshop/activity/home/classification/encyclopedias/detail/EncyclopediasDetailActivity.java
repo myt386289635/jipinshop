@@ -65,7 +65,6 @@ public class EncyclopediasDetailActivity extends BaseActivity implements View.On
     private List<CommentBean.DataBean> mCommonList;
 
     private String attentionUserId = "";//评测用户id
-    private boolean isCollect = false;//标志：是否收藏过此商品 false:没有
     private boolean isConcer = false;//标志文章作者是否被关注过
     private String shareTitle;
     private String shareContent;
@@ -134,20 +133,6 @@ public class EncyclopediasDetailActivity extends BaseActivity implements View.On
                 }
                 if (!mShareBoardDialog.isAdded()) {
                     mShareBoardDialog.show(getSupportFragmentManager(), "ShareBoardDialog");
-                }
-                break;
-            case R.id.detail_fovar:
-                if (ClickUtil.isFastDoubleClick(1000)) {
-                    ToastUtil.show("您点击太快了，请休息会再点");
-                    return;
-                } else {
-                    if (isCollect) {
-                        //收藏过了
-                        mPresenter.collectDelete(getIntent().getStringExtra("id"),this.bindToLifecycle());
-                    } else {
-                        //没有收藏
-                        mPresenter.collectInsert(getIntent().getStringExtra("id"),this.bindToLifecycle());
-                    }
                 }
                 break;
             case R.id.detail_UserImage:
@@ -237,14 +222,12 @@ public class EncyclopediasDetailActivity extends BaseActivity implements View.On
 
     @Override
     public void keyShow() {
-        mBinding.detailBottom.setVisibility(View.INVISIBLE);
         mBinding.detailKeyLayout.setVisibility(View.VISIBLE);
     }
 
     @Override
     public void keyHint() {
         mBinding.detailKeyLayout.setVisibility(View.GONE);
-        mBinding.detailBottom.setVisibility(View.VISIBLE);
     }
 
     /**获取数据***/
@@ -275,14 +258,6 @@ public class EncyclopediasDetailActivity extends BaseActivity implements View.On
             //企业认证
             mBinding.itemGrade.setVisibility(View.VISIBLE);
             mBinding.itemGrade.setImageResource(R.mipmap.grade_enterprise);
-        }
-        //是否收藏过
-        if (bean.getData().getCollect() == 1) {
-            isCollect = true;
-            mBinding.detailFovar.setText("已收藏");
-        } else {
-            isCollect = false;
-            mBinding.detailFovar.setText("收藏");
         }
         //是否关注过
         if (bean.getData().getUser().getFollow() == 0) {
@@ -441,20 +416,6 @@ public class EncyclopediasDetailActivity extends BaseActivity implements View.On
         mBinding.detailAttention.setBackgroundResource(R.drawable.bg_attentioned);
         mBinding.detailAttention.setText("已关注");
         mBinding.detailAttention.setTextColor(getResources().getColor(R.color.color_white));
-    }
-
-    @Override
-    public void onSucCollectInsert() {
-        ToastUtil.show("收藏成功");
-        isCollect = true;
-        mBinding.detailFovar.setText("已收藏");
-    }
-
-    @Override
-    public void onSucCollectDelete() {
-        ToastUtil.show("取消收藏");
-        isCollect = false;
-        mBinding.detailFovar.setText("收藏");
     }
 
     @Override

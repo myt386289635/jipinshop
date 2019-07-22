@@ -31,6 +31,4 @@ public interface EncyclopediasDetailView {
     void concerDelSuccess();
     void concerInsSuccess();
 
-    void onSucCollectInsert();
-    void onSucCollectDelete();
 }

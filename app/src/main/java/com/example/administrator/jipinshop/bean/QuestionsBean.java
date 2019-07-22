@@ -48,6 +48,15 @@ public class QuestionsBean implements Serializable {
         private AnswerBean answer;
         private String createTime;
         private int answerCount;
+        private int collect;
+
+        public int getCollect() {
+            return collect;
+        }
+
+        public void setCollect(int collect) {
+            this.collect = collect;
+        }
 
         public int getAnswerCount() {
             return answerCount;
