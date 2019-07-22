@@ -86,13 +86,12 @@
 
             <ImageView
                 android:onClick="@{listener.onClick}"
-                android:tint="@color/color_9D9D9D"
                 android:paddingLeft="@dimen/x54"
                 android:paddingRight="@dimen/x37"
                 android:id="@+id/item_comment"
                 android:layout_alignParentRight="true"
                 android:layout_centerVertical="true"
-                android:src="@mipmap/tab_favor_nor"
+                android:src="@mipmap/com_favor"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"/>
 

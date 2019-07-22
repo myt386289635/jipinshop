@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:bind="http://schemas.android.com/apk/res-auto">
+        xmlns:bind="http://schemas.android.com/apk/res-auto"
+        xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <data>
 
@@ -77,6 +78,9 @@
             android:layout_height="wrap_content"/>
 
         <com.google.android.flexbox.FlexboxLayout
+            app:alignItems="flex_start"
+            app:flexWrap="wrap"
+            app:justifyContent="flex_start"
             android:layout_above="@+id/item_price"
             android:id="@+id/item_flexLayout"
             android:layout_marginLeft="@dimen/x53"

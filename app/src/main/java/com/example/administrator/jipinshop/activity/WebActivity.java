@@ -62,7 +62,7 @@ public class WebActivity extends BaseActivity implements View.OnClickListener, W
         mBinding.webView.setWebViewClient(new WebViewClient() {
             @Override
             public boolean shouldOverrideUrlLoading(WebView view, String url) {
-                if (url.startsWith(RetrofitModule.URL + "qualityshop-api/api/taobao/returnUrl")){
+                if (url.startsWith(RetrofitModule.UP_BASE_URL + "qualityshop-api/api/taobao/returnUrl")){
                     String code = url.replace("https://www.jipincheng.cn/qualityshop-api/api/taobao/returnUrl?code=","").split("&")[0];
                     String state = url.replace("https://www.jipincheng.cn/qualityshop-api/api/taobao/returnUrl?code=","").split("&")[1].replace("state=","");
                     mPresenter.taobaoReturnUrl(code, state,WebActivity.this.bindToLifecycle());

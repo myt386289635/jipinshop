@@ -3,6 +3,7 @@ package com.example.administrator.jipinshop.activity.home.classification.questio
 import android.app.Dialog;
 import android.content.Intent;
 import android.databinding.DataBindingUtil;
+import android.graphics.PorterDuff;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.LinearLayoutManager;
@@ -86,12 +87,12 @@ public class QuestionDetailActivity extends BaseActivity implements View.OnClick
         //是否收藏过
         if (mBean.getCollect() == 1) {
             isCollect = true;
-            mBinding.itemComment.setImageResource(R.mipmap.tab_favor_sel);
-            mBinding.itemComment.setColorFilter(R.color.color_E25838);
+            mBinding.itemComment.setImageResource(R.mipmap.com_favored);
+            mBinding.itemComment.setColorFilter(0xFFE25838);
         } else {
             isCollect = false;
-            mBinding.itemComment.setImageResource(R.mipmap.tab_favor_nor);
-            mBinding.itemComment.setColorFilter(R.color.color_9D9D9D);
+            mBinding.itemComment.setImageResource(R.mipmap.com_favor);
+            mBinding.itemComment.setColorFilter(0xFF9D9D9D);
         }
 
         mBinding.recyclerView.setLayoutManager(new LinearLayoutManager(this));
@@ -337,16 +338,16 @@ public class QuestionDetailActivity extends BaseActivity implements View.OnClick
     public void onSucCollectInsert() {
         ToastUtil.show("收藏成功");
         isCollect = true;
-        mBinding.itemComment.setImageResource(R.mipmap.tab_favor_sel);
-        mBinding.itemComment.setColorFilter(R.color.color_E25838);
+        mBinding.itemComment.setImageResource(R.mipmap.com_favored);
+        mBinding.itemComment.setColorFilter(0xFFE25838);
     }
 
     @Override
     public void onSucCollectDelete() {
         ToastUtil.show("取消收藏");
         isCollect = false;
-        mBinding.itemComment.setImageResource(R.mipmap.tab_favor_nor);
-        mBinding.itemComment.setColorFilter(R.color.color_9D9D9D);
+        mBinding.itemComment.setImageResource(R.mipmap.com_favor);
+        mBinding.itemComment.setColorFilter(0xFF9D9D9D);
     }
 
     @Override
