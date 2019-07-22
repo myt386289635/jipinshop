@@ -57,7 +57,8 @@
                 android:scaleType="fitXY"
                 android:layout_alignParentRight="true"
                 android:layout_centerVertical="true"
-                android:src="@mipmap/tab_favor_nor"
+                android:src="@mipmap/com_favor"
+                android:tint="@color/pickerview_topbar_title"
                 android:layout_width="@dimen/x32"
                 android:layout_height="@dimen/y32"/>
 

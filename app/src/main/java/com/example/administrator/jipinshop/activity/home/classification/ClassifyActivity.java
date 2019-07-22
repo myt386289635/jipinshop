@@ -207,7 +207,7 @@ public class ClassifyActivity extends BaseActivity implements View.OnClickListen
         if (mDialog != null && mDialog.isShowing()){
             mDialog.dismiss();
         }
-        if (bean.getData().getRelatedGoodsList().size() != 0){
+        if (bean.getData().getRelatedGoodsList() != null && bean.getData().getRelatedGoodsList().size() != 0){
             mBinding.recyclerView.setVisibility(View.VISIBLE);
             mBinding.netClude.qsNet.setVisibility(View.GONE);
             mGoodsString.addAll(bean.getData().getRelatedGoodsList());

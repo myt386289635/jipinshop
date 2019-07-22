@@ -1022,7 +1022,7 @@
                     android:layout_centerInParent="true"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:src="@mipmap/nav_favor_white"/>
+                    android:src="@mipmap/com_favor"/>
 
             </RelativeLayout>
 
@@ -1067,7 +1067,8 @@
                     android:onClick="@{listener.onClick}"
                     android:paddingLeft="@dimen/x14"
                     android:paddingRight="@dimen/x28"
-                    android:src="@mipmap/nav_favor"/>
+                    android:tint="@color/pickerview_topbar_title"
+                    android:src="@mipmap/com_favor"/>
 
 
                 <LinearLayout

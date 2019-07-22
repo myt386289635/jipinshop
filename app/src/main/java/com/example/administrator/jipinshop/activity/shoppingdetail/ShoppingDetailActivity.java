@@ -518,12 +518,16 @@ public class ShoppingDetailActivity extends BaseActivity implements ShoppingComm
             //是否收藏过
             if(shoppingDetailBean.getData().getGoodsEntity().getCollect() == 1){
                 isCollect = true;
-                mBinding.detailFavor.setImageResource(R.mipmap.score_sel);
-                mBinding.titleFavorImg.setImageResource(R.mipmap.score_sel);
+                mBinding.detailFavor.setImageResource(R.mipmap.com_favored);
+                mBinding.titleFavorImg.setImageResource(R.mipmap.com_favored);
+                mBinding.detailFavor.setColorFilter(Color.RED);
+                mBinding.titleFavorImg.setColorFilter(Color.RED);
             }else {
                 isCollect = false;
-                mBinding.detailFavor.setImageResource(R.mipmap.nav_favor);
-                mBinding.titleFavorImg.setImageResource(R.mipmap.nav_favor_white);
+                mBinding.detailFavor.setImageResource(R.mipmap.com_favor);
+                mBinding.titleFavorImg.setImageResource(R.mipmap.com_favor);
+                mBinding.detailFavor.setColorFilter(Color.BLACK);
+                mBinding.titleFavorImg.setColorFilter(Color.WHITE);
             }
             //是否点赞过
             if(shoppingDetailBean.getData().getGoodsEntity().getVote() == 1){
@@ -606,8 +610,10 @@ public class ShoppingDetailActivity extends BaseActivity implements ShoppingComm
         if(successBean.getCode() == 0){
             EventBus.getDefault().post(FovalGoodsFragment.CollectResher);//刷新我的收藏列表
             isCollect = true;
-            mBinding.detailFavor.setImageResource(R.mipmap.score_sel);
-            mBinding.titleFavorImg.setImageResource(R.mipmap.score_sel);
+            mBinding.detailFavor.setImageResource(R.mipmap.com_favored);
+            mBinding.titleFavorImg.setImageResource(R.mipmap.com_favored);
+            mBinding.detailFavor.setColorFilter(Color.RED);
+            mBinding.titleFavorImg.setColorFilter(Color.RED);
         }else {
             //602
             startActivity(new Intent(this, LoginActivity.class));
@@ -623,8 +629,10 @@ public class ShoppingDetailActivity extends BaseActivity implements ShoppingComm
         if(successBean.getCode() == 0){
             EventBus.getDefault().post(FovalGoodsFragment.CollectResher);
             isCollect = false;
-            mBinding.detailFavor.setImageResource(R.mipmap.nav_favor);
-            mBinding.titleFavorImg.setImageResource(R.mipmap.nav_favor_white);
+            mBinding.detailFavor.setImageResource(R.mipmap.com_favor);
+            mBinding.titleFavorImg.setImageResource(R.mipmap.com_favor);
+            mBinding.detailFavor.setColorFilter(Color.BLACK);
+            mBinding.titleFavorImg.setColorFilter(Color.WHITE);
         }else {
             //602
             startActivity(new Intent(this, LoginActivity.class));
@@ -844,12 +852,16 @@ public class ShoppingDetailActivity extends BaseActivity implements ShoppingComm
         }
         if(pagerStateBean.getCollect() == 1){
             isCollect = true;
-            mBinding.detailFavor.setImageResource(R.mipmap.score_sel);
-            mBinding.titleFavorImg.setImageResource(R.mipmap.score_sel);
+            mBinding.detailFavor.setImageResource(R.mipmap.com_favored);
+            mBinding.titleFavorImg.setImageResource(R.mipmap.com_favored);
+            mBinding.detailFavor.setColorFilter(Color.RED);
+            mBinding.titleFavorImg.setColorFilter(Color.RED);
         }else {
             isCollect = false;
-            mBinding.detailFavor.setImageResource(R.mipmap.nav_favor);
-            mBinding.titleFavorImg.setImageResource(R.mipmap.nav_favor_white);
+            mBinding.detailFavor.setImageResource(R.mipmap.com_favor);
+            mBinding.titleFavorImg.setImageResource(R.mipmap.com_favor);
+            mBinding.detailFavor.setColorFilter(Color.BLACK);
+            mBinding.titleFavorImg.setColorFilter(Color.WHITE);
         }
         if(pagerStateBean.getVote() == 1){
             isSnap = true;

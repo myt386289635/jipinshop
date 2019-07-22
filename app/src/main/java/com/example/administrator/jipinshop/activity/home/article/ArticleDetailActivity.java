@@ -3,6 +3,7 @@ package com.example.administrator.jipinshop.activity.home.article;
 import android.app.Dialog;
 import android.content.Intent;
 import android.databinding.DataBindingUtil;
+import android.graphics.Color;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.os.Handler;
@@ -444,10 +445,12 @@ public class ArticleDetailActivity extends BaseActivity implements View.OnClickL
         //是否收藏过
         if (bean.getData().getCollect() == 1) {
             isCollect = true;
-            mBinding.bottomFavor.setImageResource(R.mipmap.tab_favor_sel);
+            mBinding.bottomFavor.setImageResource(R.mipmap.com_favored);
+            mBinding.bottomFavor.setColorFilter(Color.RED);
         } else {
             isCollect = false;
-            mBinding.bottomFavor.setImageResource(R.mipmap.tab_favor_nor);
+            mBinding.bottomFavor.setImageResource(R.mipmap.com_favor);
+            mBinding.bottomFavor.setColorFilter(Color.BLACK);
         }
         //是否点赞过
         if (bean.getData().getVote() == 1) {
@@ -565,7 +568,8 @@ public class ArticleDetailActivity extends BaseActivity implements View.OnClickL
                 EventBus.getDefault().post(FovalFindFragment.CollectResher);//刷新我的收藏列表
             }
             isCollect = true;
-            mBinding.bottomFavor.setImageResource(R.mipmap.tab_favor_sel);
+            mBinding.bottomFavor.setImageResource(R.mipmap.com_favored);
+            mBinding.bottomFavor.setColorFilter(Color.RED);
         } else {
             //602
             startActivity(new Intent(this, LoginActivity.class));
@@ -587,7 +591,8 @@ public class ArticleDetailActivity extends BaseActivity implements View.OnClickL
                 EventBus.getDefault().post(FovalFindFragment.CollectResher);//刷新我的收藏列表
             }
             isCollect = false;
-            mBinding.bottomFavor.setImageResource(R.mipmap.tab_favor_nor);
+            mBinding.bottomFavor.setImageResource(R.mipmap.com_favor);
+            mBinding.bottomFavor.setColorFilter(Color.BLACK);
         } else {
             //602
             startActivity(new Intent(this, LoginActivity.class));
@@ -790,10 +795,12 @@ public class ArticleDetailActivity extends BaseActivity implements View.OnClickL
         }
         if(pagerStateBean.getCollect() == 1){
             isCollect = true;
-            mBinding.bottomFavor.setImageResource(R.mipmap.score_sel);
+            mBinding.bottomFavor.setImageResource(R.mipmap.com_favored);
+            mBinding.bottomFavor.setColorFilter(Color.RED);
         }else {
             isCollect = false;
-            mBinding.bottomFavor.setImageResource(R.mipmap.nav_favor);
+            mBinding.bottomFavor.setImageResource(R.mipmap.com_favor);
+            mBinding.bottomFavor.setColorFilter(Color.BLACK);
         }
         if(pagerStateBean.getVote() == 1){
             isSnap = true;
