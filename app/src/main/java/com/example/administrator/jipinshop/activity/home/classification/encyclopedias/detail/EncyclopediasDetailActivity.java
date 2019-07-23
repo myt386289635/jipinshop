@@ -122,10 +122,10 @@ public class EncyclopediasDetailActivity extends BaseActivity implements View.On
 
     @Override
     public void onClick(View v) {
-        switch (v.getId()){
+        switch (v.getId()) {
             case R.id.title_back:
                 finish();
-                break;
+                return;
             case R.id.detail_share:
                 if (mShareBoardDialog == null) {
                     mShareBoardDialog = new ShareBoardDialog();
@@ -134,7 +134,21 @@ public class EncyclopediasDetailActivity extends BaseActivity implements View.On
                 if (!mShareBoardDialog.isAdded()) {
                     mShareBoardDialog.show(getSupportFragmentManager(), "ShareBoardDialog");
                 }
-                break;
+                return;
+            case R.id.detail_commonTotle:
+                //跳转到评论列表
+                startActivity(new Intent(this, CommenListActivity.class)
+                        .putExtra("position", -1)
+                        .putExtra("id", getIntent().getStringExtra("id"))
+                        .putExtra("type", "6")
+                );
+                return;
+        }
+        if(TextUtils.isEmpty(SPUtils.getInstance(CommonDate.USER).getString(CommonDate.token,""))){
+            startActivity(new Intent(this, LoginActivity.class));
+            return;
+        }
+        switch (v.getId()) {
             case R.id.detail_UserImage:
                 // TODO: 2019/7/10 个人主页
                 break;
@@ -164,14 +178,6 @@ public class EncyclopediasDetailActivity extends BaseActivity implements View.On
                 mBinding.keyEdit.requestFocus();
                 mBinding.keyEdit.setHint("回复楼层");
                 showKeyboard(true);
-                break;
-            case R.id.detail_commonTotle:
-                //跳转到评论列表
-                startActivity(new Intent(this, CommenListActivity.class)
-                        .putExtra("position", -1)
-                        .putExtra("id", getIntent().getStringExtra("id"))
-                        .putExtra("type", "6")
-                );
                 break;
             case R.id.key_text:
                 if (TextUtils.isEmpty(mBinding.keyEdit.getText().toString())) {
@@ -348,6 +354,10 @@ public class EncyclopediasDetailActivity extends BaseActivity implements View.On
 
     @Override
     public void onGood(int flag, int position) {
+        if(TextUtils.isEmpty(SPUtils.getInstance(CommonDate.USER).getString(CommonDate.token,""))){
+            startActivity(new Intent(this, LoginActivity.class));
+            return;
+        }
         if (ClickUtil.isFastDoubleClick(1000)) {
             ToastUtil.show("您点击太快了，请休息会再点");
             return;

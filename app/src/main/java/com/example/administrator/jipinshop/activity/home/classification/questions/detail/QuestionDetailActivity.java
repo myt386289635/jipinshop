@@ -3,7 +3,6 @@ package com.example.administrator.jipinshop.activity.home.classification.questio
 import android.app.Dialog;
 import android.content.Intent;
 import android.databinding.DataBindingUtil;
-import android.graphics.PorterDuff;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.LinearLayoutManager;
@@ -14,7 +13,9 @@ import android.widget.RelativeLayout;
 
 import com.aspsine.swipetoloadlayout.OnLoadMoreListener;
 import com.aspsine.swipetoloadlayout.OnRefreshListener;
+import com.blankj.utilcode.util.SPUtils;
 import com.example.administrator.jipinshop.R;
+import com.example.administrator.jipinshop.activity.login.LoginActivity;
 import com.example.administrator.jipinshop.adapter.QuestionDetailAdapter;
 import com.example.administrator.jipinshop.base.BaseActivity;
 import com.example.administrator.jipinshop.bean.QuestionsBean;
@@ -24,6 +25,7 @@ import com.example.administrator.jipinshop.databinding.ActivityQuestionDetailBin
 import com.example.administrator.jipinshop.util.ClickUtil;
 import com.example.administrator.jipinshop.util.ShareUtils;
 import com.example.administrator.jipinshop.util.ToastUtil;
+import com.example.administrator.jipinshop.util.sp.CommonDate;
 import com.example.administrator.jipinshop.view.dialog.ProgressDialogView;
 import com.example.administrator.jipinshop.view.dialog.ShareBoardDialog;
 import com.trello.rxlifecycle2.android.ActivityEvent;
@@ -110,11 +112,11 @@ public class QuestionDetailActivity extends BaseActivity implements View.OnClick
 
     @Override
     public void onClick(View v) {
-        switch (v.getId()){
+        switch (v.getId()) {
             case R.id.title_back:
                 setResult(resultCode);
                 finish();
-                break;
+                return;
             case R.id.detail_share:
                 if (mShareBoardDialog == null) {
                     mShareBoardDialog = new ShareBoardDialog();
@@ -123,7 +125,13 @@ public class QuestionDetailActivity extends BaseActivity implements View.OnClick
                 if (!mShareBoardDialog.isAdded()) {
                     mShareBoardDialog.show(getSupportFragmentManager(), "ShareBoardDialog");
                 }
-                break;
+                return;
+        }
+        if(TextUtils.isEmpty(SPUtils.getInstance(CommonDate.USER).getString(CommonDate.token,""))){
+            startActivity(new Intent(this, LoginActivity.class));
+            return;
+        }
+        switch (v.getId()) {
             case R.id.detail_editTv:
                 mBinding.detailEdit.requestFocus();
                 showKeyboard(true);
@@ -380,6 +388,10 @@ public class QuestionDetailActivity extends BaseActivity implements View.OnClick
      */
     @Override
     public void onClickGood(int postion) {
+        if(TextUtils.isEmpty(SPUtils.getInstance(CommonDate.USER).getString(CommonDate.token,""))){
+            startActivity(new Intent(this, LoginActivity.class));
+            return;
+        }
         if (ClickUtil.isFastDoubleClick(1000)) {
             ToastUtil.show("您点击太快了，请休息会再点");
             return;
@@ -406,6 +418,10 @@ public class QuestionDetailActivity extends BaseActivity implements View.OnClick
      */
     @Override
     public void onClickFollow() {
+        if(TextUtils.isEmpty(SPUtils.getInstance(CommonDate.USER).getString(CommonDate.token,""))){
+            startActivity(new Intent(this, LoginActivity.class));
+            return;
+        }
         if (ClickUtil.isFastDoubleClick(1000)) {
             ToastUtil.show("您点击太快了，请休息会再点");
             return;

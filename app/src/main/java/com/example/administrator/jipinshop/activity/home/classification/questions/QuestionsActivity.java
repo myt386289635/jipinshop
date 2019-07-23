@@ -5,18 +5,22 @@ import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.LinearLayoutManager;
+import android.text.TextUtils;
 import android.view.View;
 
 import com.aspsine.swipetoloadlayout.OnLoadMoreListener;
 import com.aspsine.swipetoloadlayout.OnRefreshListener;
+import com.blankj.utilcode.util.SPUtils;
 import com.example.administrator.jipinshop.R;
 import com.example.administrator.jipinshop.activity.home.classification.questions.detail.QuestionDetailActivity;
 import com.example.administrator.jipinshop.activity.home.classification.questions.submit.QuestionSubmitActivity;
+import com.example.administrator.jipinshop.activity.login.LoginActivity;
 import com.example.administrator.jipinshop.adapter.QuestionsAdapter;
 import com.example.administrator.jipinshop.base.BaseActivity;
 import com.example.administrator.jipinshop.bean.QuestionsBean;
 import com.example.administrator.jipinshop.databinding.ActivityQuestionBinding;
 import com.example.administrator.jipinshop.util.ToastUtil;
+import com.example.administrator.jipinshop.util.sp.CommonDate;
 import com.example.administrator.jipinshop.view.dialog.DialogUtil;
 
 import java.util.ArrayList;
@@ -72,6 +76,10 @@ public class QuestionsActivity extends BaseActivity implements View.OnClickListe
                 finish();
                 break;
             case R.id.submit:
+                if(TextUtils.isEmpty(SPUtils.getInstance(CommonDate.USER).getString(CommonDate.token,""))){
+                    startActivity(new Intent(this, LoginActivity.class));
+                    return;
+                }
                 startActivityForResult(new Intent(this, QuestionSubmitActivity.class)
                                 .putExtra("id",id)
                         ,201);

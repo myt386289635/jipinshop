@@ -180,10 +180,6 @@ public class HomeNewFragment extends DBBaseFragment implements HomeNewView, OnLo
      * 二级菜单点击 跳转到分类榜单列表
      */
     public void onItemTab(String category2Id,String category2Name){
-        if(TextUtils.isEmpty(SPUtils.getInstance(CommonDate.USER).getString(CommonDate.token,""))){
-            startActivity(new Intent(getContext(), LoginActivity.class));
-            return;
-        }
         startActivity(new Intent(getContext(), ClassifyActivity.class)
                 .putExtra("title",category2Name + "榜单")
                 .putExtra("id",category2Id)
@@ -224,10 +220,6 @@ public class HomeNewFragment extends DBBaseFragment implements HomeNewView, OnLo
      */
     @Override
     public void onClickNewDetail(int position) {
-        if(TextUtils.isEmpty(SPUtils.getInstance(CommonDate.USER).getString(CommonDate.token,""))){
-            startActivity(new Intent(getContext(), LoginActivity.class));
-            return;
-        }
         startActivity(new Intent(getContext(), ClassifyActivity.class)
                 .putExtra("title",mList.get(position).getCategoryName() + "榜单")
                 .putExtra("id", mList.get(position).getCategoryId())
