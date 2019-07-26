@@ -118,7 +118,7 @@ public interface APIService {
     /**
      * 榜单tab的字段   已修改
      */
-    @GET("qualityshop-api/api/goodsCategoryList")
+    @GET("qualityshop-api/api/v2/goodsCategoryList")
     Observable<TabBean> goodsCategory();
 
     /**
