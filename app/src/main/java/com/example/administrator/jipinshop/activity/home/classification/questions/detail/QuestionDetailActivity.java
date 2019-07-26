@@ -22,6 +22,7 @@ import com.example.administrator.jipinshop.bean.QuestionsBean;
 import com.example.administrator.jipinshop.bean.SucBean;
 import com.example.administrator.jipinshop.bean.VoteBean;
 import com.example.administrator.jipinshop.databinding.ActivityQuestionDetailBinding;
+import com.example.administrator.jipinshop.netwrok.RetrofitModule;
 import com.example.administrator.jipinshop.util.ClickUtil;
 import com.example.administrator.jipinshop.util.ShareUtils;
 import com.example.administrator.jipinshop.util.ToastUtil;
@@ -80,7 +81,7 @@ public class QuestionDetailActivity extends BaseActivity implements View.OnClick
         mPresenter.initEdit(mBinding);
 
         shareName = mBean.getTitle();
-        shareUrl = "https://lanhuapp.com/web/#/item/project/board?pid=a2e5a6a3-e7c0-4b07-95dd-3c261bba6bac";
+        shareUrl = RetrofitModule.H5_URL + "share/question.html?id=" + mBean.getId() ;
         if (mBean.getAnswerCount() == 0){
             shareContent = "参与回答";
         }else {

@@ -30,6 +30,7 @@ import com.example.administrator.jipinshop.bean.eventbus.CommenBus;
 import com.example.administrator.jipinshop.bean.eventbus.FollowBus;
 import com.example.administrator.jipinshop.databinding.ActivityEncyclopediasDetailBinding;
 import com.example.administrator.jipinshop.fragment.follow.attention.AttentionFragment;
+import com.example.administrator.jipinshop.netwrok.RetrofitModule;
 import com.example.administrator.jipinshop.util.ClickUtil;
 import com.example.administrator.jipinshop.util.ShareUtils;
 import com.example.administrator.jipinshop.util.ToastUtil;
@@ -245,7 +246,7 @@ public class EncyclopediasDetailActivity extends BaseActivity implements View.On
         shareTitle =bean.getData().getShareTitle();
         shareContent = bean.getData().getShareContent();
         shareImg = bean.getData().getShareImg();
-        shareUrl= bean.getData().getShareUrl();
+        shareUrl= RetrofitModule.H5_URL + "share/bkDetail.html?id=" + getIntent().getStringExtra("id");
         attentionUserId = bean.getData().getUserId();
         mBinding.detailTitle.setText(bean.getData().getTitle());
         mBinding.detailWeb.loadDataWithBaseURL(null, bean.getData().getContent(),
