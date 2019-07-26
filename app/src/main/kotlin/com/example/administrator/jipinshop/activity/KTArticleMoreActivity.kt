@@ -45,7 +45,9 @@ class KTArticleMoreActivity : BaseActivity(), View.OnClickListener, ArticleMoreA
     }
 
     private fun initView() {
-        mBinding.inClude?.titleTv?.text = intent.getStringExtra("title")
+        mBinding.inClude?.let {
+            it.titleTv.text = intent.getStringExtra("title")
+        }
 
         mBinding.recyclerView.layoutManager = LinearLayoutManager(this)
         adapter = ArticleMoreAdapter(this,mList)
@@ -120,10 +122,12 @@ class KTArticleMoreActivity : BaseActivity(), View.OnClickListener, ArticleMoreA
     }
 
     fun initError(id: Int, title: String, content: String) {
-        mBinding.netClude?.qsNet?.visibility = View.VISIBLE
-        mBinding.netClude?.errorImage?.setBackgroundResource(id)
-        mBinding.netClude?.errorTitle?.text = title
-        mBinding.netClude?.errorContent?.text = content
+        mBinding.netClude?.run {
+            qsNet.visibility = View.VISIBLE
+            errorImage.setBackgroundResource(id)
+            errorTitle.text = title
+            errorContent.text = content
+        }
     }
 
     override fun onSuccess(bean: SucBean<TopCategoryDetailBean.DataBean.RelatedArticleListBean>) {
