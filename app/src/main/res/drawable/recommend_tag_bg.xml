@@ -8,8 +8,7 @@
 
     <solid android:color="@color/color_white"/>
 
-    <padding android:bottom="@dimen/x6"
-        android:top="@dimen/x6"
+    <padding
         android:right="@dimen/x12"
         android:left="@dimen/x12"/>
 

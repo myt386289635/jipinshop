@@ -6,13 +6,14 @@
     android:layout_height="wrap_content">
 
     <TextView
+        android:gravity="center"
         android:layout_marginTop="@dimen/y6"
         android:layout_marginRight="@dimen/x15"
         android:singleLine="true"
         android:ellipsize="end"
         android:id="@+id/item_tag"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_height="@dimen/y38"
         android:background="@drawable/recommend_tag_bg"
         android:text="成人"
         android:textColor="@color/color_E25838"

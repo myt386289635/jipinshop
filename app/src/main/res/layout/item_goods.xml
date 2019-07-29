@@ -81,14 +81,13 @@
             app:alignItems="flex_start"
             app:flexWrap="wrap"
             app:justifyContent="flex_start"
-            android:layout_above="@+id/item_price"
             android:id="@+id/item_flexLayout"
             android:layout_marginLeft="@dimen/x53"
             android:layout_toRightOf="@+id/item_image"
             android:layout_marginTop="@dimen/y20"
             android:layout_below="@+id/item_name"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"/>
+            android:layout_height="@dimen/y50"/>
 
     </RelativeLayout>
 </layout>
