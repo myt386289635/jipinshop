@@ -20,6 +20,7 @@ import com.alibaba.baichuan.android.trade.AlibcTradeSDK;
 import com.blankj.utilcode.util.SPUtils;
 import com.example.administrator.jipinshop.R;
 import com.example.administrator.jipinshop.activity.WebActivity;
+import com.example.administrator.jipinshop.activity.login.LoginActivity;
 import com.example.administrator.jipinshop.adapter.CommenBannerAdapter;
 import com.example.administrator.jipinshop.adapter.HomeAdapter;
 import com.example.administrator.jipinshop.base.BaseActivity;
@@ -169,6 +170,10 @@ public class FreeDetailActivity extends BaseActivity implements View.OnClickList
                     ToastUtil.show("活动暂未开始");
                 }else if (mBinding.detailBottomBuy.getText().toString().equals("免费抢购")){
                     //弹框
+                    if (TextUtils.isEmpty(SPUtils.getInstance(CommonDate.USER).getString(CommonDate.token, ""))) {
+                        startActivity(new Intent(this, LoginActivity.class));
+                        return;
+                    }
                     if (Point <= SPUtils.getInstance(CommonDate.USER).getInt(CommonDate.userPoint,0)){
                         //可以参加
                         FreeDetailDialog appDialog = FreeDetailDialog.getInstance(Point + "", 1);
@@ -184,6 +189,10 @@ public class FreeDetailActivity extends BaseActivity implements View.OnClickList
                         }
                     }
                 }else if (mBinding.detailBottomBuy.getText().toString().equals("前往购买")){
+                    if (TextUtils.isEmpty(SPUtils.getInstance(CommonDate.USER).getString(CommonDate.token, ""))) {
+                        startActivity(new Intent(this, LoginActivity.class));
+                        return;
+                    }
                     if (applyStatus == 1){
                         //二次购买的情况（可再次购买但不返回佣金）  跳转到淘宝
                         if (TextUtils.isEmpty(goodsId)){
@@ -206,6 +215,10 @@ public class FreeDetailActivity extends BaseActivity implements View.OnClickList
                     }
                 }else if (mBinding.detailBottomBuy.getText().toString().contains("可返")){
                     //第一次申请参加成功，但未付款  跳转到淘宝
+                    if (TextUtils.isEmpty(SPUtils.getInstance(CommonDate.USER).getString(CommonDate.token, ""))) {
+                        startActivity(new Intent(this, LoginActivity.class));
+                        return;
+                    }
                     if (TextUtils.isEmpty(goodsId)){
                         ToastUtil.show("暂无商品链接");
                         return;

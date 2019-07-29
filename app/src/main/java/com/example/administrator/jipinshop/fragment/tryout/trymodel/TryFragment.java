@@ -134,10 +134,6 @@ public class TryFragment extends DBBaseFragment implements OnRefreshListener, Tr
         if (ClickUtil.isFastDoubleClick(800)) {
             return;
         }else{
-            if(TextUtils.isEmpty(SPUtils.getInstance(CommonDate.USER).getString(CommonDate.token,""))){
-                startActivity(new Intent(getContext(), LoginActivity.class));
-                return;
-            }
             startActivity(new Intent(getContext(),TryDetailActivity.class)
                     .putExtra("id",mTrialListBeans.get(position).getId())
                     .putExtra("pos",position)

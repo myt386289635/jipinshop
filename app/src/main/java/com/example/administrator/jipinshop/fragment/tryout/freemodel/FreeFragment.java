@@ -170,10 +170,6 @@ public class FreeFragment extends DBBaseFragment implements OnRefreshListener, O
         if (ClickUtil.isFastDoubleClick(800)) {
             return;
         }else{
-            if(TextUtils.isEmpty(SPUtils.getInstance(CommonDate.USER).getString(CommonDate.token,""))){
-                startActivity(new Intent(getContext(), LoginActivity.class));
-                return;
-            }
             startActivity(new Intent(getContext(), FreeDetailActivity.class)
                     .putExtra("id",mList.get(position).getId())
             );

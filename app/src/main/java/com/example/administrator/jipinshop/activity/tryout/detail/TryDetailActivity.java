@@ -253,6 +253,10 @@ public class TryDetailActivity extends BaseActivity implements View.OnClickListe
                     return;
                 }
                 if(mBinding.detailApply.getText().toString().equals("免费申请")){
+                    if (TextUtils.isEmpty(SPUtils.getInstance(CommonDate.USER).getString(CommonDate.token, ""))) {
+                        startActivity(new Intent(this, LoginActivity.class));
+                        return;
+                    }
                     if (mTryDetailBean.getData().getApplyPoint() <= SPUtils.getInstance(CommonDate.USER).getInt(CommonDate.userPoint,0)){
                         DialogUtil.buleDialog(this, "商品试用需要支付" + mTryDetailBean.getData().getApplyPoint() + "极币，是否确认参与？",
                                 "确认申请", v1 -> {
@@ -268,6 +272,10 @@ public class TryDetailActivity extends BaseActivity implements View.OnClickListe
                     }
                     UAppUtil.goods_trier(this,1);
                 }else if(mBinding.detailApply.getText().toString().equals("分享拉赞")){
+                    if (TextUtils.isEmpty(SPUtils.getInstance(CommonDate.USER).getString(CommonDate.token, ""))) {
+                        startActivity(new Intent(this, LoginActivity.class));
+                        return;
+                    }
                     if (mTryDetailBean == null){
                         ToastUtil.show("分享失败");
                         return;
@@ -296,6 +304,10 @@ public class TryDetailActivity extends BaseActivity implements View.OnClickListe
 
                 break;
             case R.id.detail_buy: // 优惠购买
+                if (TextUtils.isEmpty(SPUtils.getInstance(CommonDate.USER).getString(CommonDate.token, ""))) {
+                    startActivity(new Intent(this, LoginActivity.class));
+                    return;
+                }
                 if (TextUtils.isEmpty(goodsBuyLink)){
                     ToastUtil.show("暂无商品链接");
                     return;
