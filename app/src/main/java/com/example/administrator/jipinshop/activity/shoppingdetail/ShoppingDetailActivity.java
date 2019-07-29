@@ -957,6 +957,10 @@ public class ShoppingDetailActivity extends BaseActivity implements ShoppingComm
                 }
                 break;
             case R.id.detail_share:
+                if(TextUtils.isEmpty(SPUtils.getInstance(CommonDate.USER).getString(CommonDate.token,""))){
+                    startActivity(new Intent(this, LoginActivity.class));
+                    return;
+                }
                 if (mShareBoardDialog == null) {
                     mShareBoardDialog = ShareBoardDialog.getInstance("一边分享  一边赚",shareBoradContent);
                     mShareBoardDialog.setOnShareListener(this);

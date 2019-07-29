@@ -230,6 +230,10 @@ public class TryDetailActivity extends BaseActivity implements View.OnClickListe
                 break;
             case R.id.detail_share:
             case R.id.title_favor://分享商品
+                if (TextUtils.isEmpty(SPUtils.getInstance(CommonDate.USER).getString(CommonDate.token, ""))) {
+                    startActivity(new Intent(this, LoginActivity.class));
+                    return;
+                }
                 if (mTryDetailBean == null){
                     ToastUtil.show("分享失败");
                     return;

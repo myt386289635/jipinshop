@@ -157,6 +157,10 @@ public class FreeDetailActivity extends BaseActivity implements View.OnClickList
                 finish();
                 break;
             case R.id.title_favor://分享
+                if (TextUtils.isEmpty(SPUtils.getInstance(CommonDate.USER).getString(CommonDate.token, ""))) {
+                    startActivity(new Intent(this, LoginActivity.class));
+                    return;
+                }
                 if (mShareBoardDialog == null) {
                     mShareBoardDialog = new ShareBoardDialog();
                     mShareBoardDialog.setOnShareListener(this);

@@ -259,6 +259,10 @@ public class ArticleDetailActivity extends BaseActivity implements View.OnClickL
                 finish();
                 break;
             case R.id.detail_share:
+                if(TextUtils.isEmpty(SPUtils.getInstance(CommonDate.USER).getString(CommonDate.token,""))){
+                    startActivity(new Intent(this, LoginActivity.class));
+                    return;
+                }
                 if (mShareBoardDialog == null) {
                     mShareBoardDialog = ShareBoardDialog.getInstance(ShareBoardTitle,ShareBoardContent);
                     mShareBoardDialog.setOnShareListener(this);
