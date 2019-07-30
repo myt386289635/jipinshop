@@ -27,7 +27,7 @@ public class GlideApp {
         RequestOptions requestOptions = new RequestOptions();
         requestOptions = requestOptions
                 .transform(new CenterRoundTransform(10, 0, CenterRoundTransform.CornerType.ALL));
-        if (!isDestroy((Activity) context)) {
+        if (context != null) {
             Glide.with(context)
                     .load(url)
                     .apply(requestOptions)
@@ -42,7 +42,7 @@ public class GlideApp {
         RequestOptions requestOptions = new RequestOptions();
         requestOptions = requestOptions
                 .transform(new CenterRoundTransform(10, 0, CenterRoundTransform.CornerType.ALL));
-        if (!isDestroy((Activity) context)) {
+        if (context != null) {
             Glide.with(context)
                     .load(id)
                     .apply(requestOptions)
@@ -64,7 +64,7 @@ public class GlideApp {
         if (placeholder != 0) {
             requestOptions = requestOptions.placeholder(placeholder);
         }
-        if (!isDestroy((Activity) context)) {
+        if (context != null) {
             Glide.with(context)
                     .load(url)
                     .apply(requestOptions)
@@ -86,7 +86,7 @@ public class GlideApp {
         if (placeholder != 0) {
             requestOptions = requestOptions.placeholder(placeholder);
         }
-        if (!isDestroy((Activity) context)) {
+        if (context != null) {
             Glide.with(context)
                     .load(url)
                     .apply(requestOptions)
@@ -105,7 +105,7 @@ public class GlideApp {
         if (placeholder != 0) {
             requestOptions = requestOptions.placeholder(placeholder);
         }
-        if (!isDestroy((Activity) context)) {
+        if (context != null) {
             Glide.with(context)
                     .load(url)
                     .apply(bitmapTransform(new CropCircleTransformation()))
@@ -125,7 +125,7 @@ public class GlideApp {
         if (placeholder != 0) {
             requestOptions = requestOptions.placeholder(placeholder);
         }
-        if (!isDestroy((Activity) context)) {
+        if (context != null) {
             Glide.with(context)
                     .load(url)
                     .apply(bitmapTransform(new CropCircleTransformation()))
@@ -145,7 +145,7 @@ public class GlideApp {
         if (placeholder != 0) {
             requestOptions = requestOptions.placeholder(placeholder);
         }
-        if (!isDestroy((Activity) context)) {
+        if (context != null) {
             Glide.with(context)
                     .load(url)
                     .apply(requestOptions)
@@ -164,7 +164,7 @@ public class GlideApp {
         if (placeholder != 0) {
             requestOptions = requestOptions.placeholder(placeholder);
         }
-        if (!isDestroy((Activity) context)) {
+        if (context != null) {
             Glide.with(context)
                     .load(url)
                     .apply(requestOptions)
@@ -176,7 +176,7 @@ public class GlideApp {
      * 加载高斯模糊图片
      */
     public static void loderBlurImage(Context context, String url, ImageView imageView) {
-        if (!isDestroy((Activity) context)) {
+        if (context != null) {
             Glide.with(context)
                     .load(url)
                     .apply(bitmapTransform(new BlurTransformation(20)))// “23”：设置模糊度(在0.0到25.0之间)，默认”25";
@@ -191,7 +191,7 @@ public class GlideApp {
         RequestOptions requestOptions = new RequestOptions();
         requestOptions = requestOptions
                 .transform(new CenterRoundTransform(10, 0, CenterRoundTransform.CornerType.TOP));
-        if (!isDestroy((Activity) context)) {
+        if (context != null) {
             Glide.with(context)
                     .load(url)
                     .apply(requestOptions)

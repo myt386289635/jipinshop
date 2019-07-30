@@ -118,9 +118,9 @@ public class HomeNewFragment extends DBBaseFragment implements HomeNewView, OnLo
             }
             mAdapter.setTabBean(tabBean);
             mAdapter.notifyDataSetChanged();
+            UAppUtil.oneTab(getContext(),mTabBeans.get(0).getString());
         }
         ToastUtil.show(error);
-        UAppUtil.oneTab(getContext(),mTabBeans.get(0).getString());
     }
 
     @Override
