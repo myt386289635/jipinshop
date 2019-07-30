@@ -1,5 +1,6 @@
 package com.example.administrator.jipinshop.adapter;
 
+import android.app.Activity;
 import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -69,7 +70,9 @@ public class HomeCommenTabAdapter extends BaseAdapter{
         }else {
             holder.mItemName.setTextColor(mContext.getResources().getColor(R.color.color_ACACAC));
         }
-        GlideApp.loderImage(mContext,mChildrenBeans.get(position).getImg(),holder.mImageView,0,0);
+        if (!GlideApp.isDestroy((Activity) mContext)){//解决gridview未创建时因计算item高度而造成的图片加载崩溃问题
+            GlideApp.loderImage(mContext,mChildrenBeans.get(position).getImg(),holder.mImageView,0,0);
+        }
         holder.mItemName.setText(mChildrenBeans.get(position).getName());
         convertView.setOnClickListener(v -> {
             if(mOnItem != null){
