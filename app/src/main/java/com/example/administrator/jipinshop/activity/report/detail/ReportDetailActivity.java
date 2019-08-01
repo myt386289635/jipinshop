@@ -21,7 +21,6 @@ import com.blankj.utilcode.util.SPUtils;
 import com.example.administrator.jipinshop.R;
 import com.example.administrator.jipinshop.activity.WebActivity;
 import com.example.administrator.jipinshop.activity.commenlist.CommenListActivity;
-import com.example.administrator.jipinshop.activity.home.article.ArticleDetailActivity;
 import com.example.administrator.jipinshop.activity.login.LoginActivity;
 import com.example.administrator.jipinshop.adapter.RelatedArticleAdapter;
 import com.example.administrator.jipinshop.adapter.ReportDetailAdapter;
@@ -43,6 +42,7 @@ import com.example.administrator.jipinshop.fragment.foval.tryout.FovalTryFragmen
 import com.example.administrator.jipinshop.netwrok.RetrofitModule;
 import com.example.administrator.jipinshop.util.ClickUtil;
 import com.example.administrator.jipinshop.util.ShareUtils;
+import com.example.administrator.jipinshop.util.ShopJumpUtil;
 import com.example.administrator.jipinshop.util.TaoBaoUtil;
 import com.example.administrator.jipinshop.util.ToastUtil;
 import com.example.administrator.jipinshop.util.WeakRefHandler;
@@ -895,24 +895,8 @@ public class ReportDetailActivity extends BaseActivity implements View.OnClickLi
      */
     @Override
     public void onClickItem(int position) {
-        if (mArticleListBeans.get(position).getType().equals("4")){
-            if (mArticleListBeans.get(position).getContentType() == 3){
-                startActivity(new Intent(this,ReportDetailActivity.class)
-                        .putExtra("id",mArticleListBeans.get(position).getArticleId())
-                        .putExtra("type",mArticleListBeans.get(position).getType())
-                );
-            }else {
-                startActivity(new Intent(this,ArticleDetailActivity.class)
-                        .putExtra("id",mArticleListBeans.get(position).getArticleId())
-                        .putExtra("type",mArticleListBeans.get(position).getType())
-                );
-            }
-        }else {
-            startActivity(new Intent(this,ArticleDetailActivity.class)
-                    .putExtra("id",mArticleListBeans.get(position).getArticleId())
-                    .putExtra("type",mArticleListBeans.get(position).getType())
-            );
-        }
+        ShopJumpUtil.jumpArticle(this,mArticleListBeans.get(position).getArticleId(),
+                mArticleListBeans.get(position).getType(),mArticleListBeans.get(position).getContentType());
     }
 
     @Override

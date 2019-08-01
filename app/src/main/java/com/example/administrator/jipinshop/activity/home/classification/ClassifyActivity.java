@@ -11,7 +11,7 @@ import android.view.View;
 import android.widget.LinearLayout;
 
 import com.example.administrator.jipinshop.R;
-import com.example.administrator.jipinshop.activity.home.article.ArticleDetailActivity;
+import com.example.administrator.jipinshop.activity.KTArticleMoreActivity;
 import com.example.administrator.jipinshop.activity.home.classification.encyclopedias.EncyclopediasActivity;
 import com.example.administrator.jipinshop.activity.home.classification.questions.QuestionsActivity;
 import com.example.administrator.jipinshop.activity.shoppingdetail.ShoppingDetailActivity;
@@ -22,8 +22,8 @@ import com.example.administrator.jipinshop.bean.ClassifyTabBean;
 import com.example.administrator.jipinshop.bean.SucBean;
 import com.example.administrator.jipinshop.bean.TopCategoryDetailBean;
 import com.example.administrator.jipinshop.databinding.ActivityClassifyBinding;
-import com.example.administrator.jipinshop.activity.KTArticleMoreActivity;
 import com.example.administrator.jipinshop.util.ClickUtil;
+import com.example.administrator.jipinshop.util.ShopJumpUtil;
 import com.example.administrator.jipinshop.util.ToastUtil;
 import com.example.administrator.jipinshop.view.dialog.ProgressDialogView;
 
@@ -184,10 +184,8 @@ public class ClassifyActivity extends BaseActivity implements View.OnClickListen
             BigDecimal bigDecimal = new BigDecimal(mArticleList.get(position).getPv());
             mArticleList.get(position).setPv((bigDecimal.intValue() + 1));
             mAdapter.notifyDataSetChanged();
-            startActivity(new Intent(this, ArticleDetailActivity.class)
-                    .putExtra("id",mArticleList.get(position).getArticleId())
-                    .putExtra("type",mArticleList.get(position).getType())
-            );
+            ShopJumpUtil.jumpArticle(this,mArticleList.get(position).getArticleId(),
+                    mArticleList.get(position).getType(),mArticleList.get(position).getContentType());
         }
     }
 

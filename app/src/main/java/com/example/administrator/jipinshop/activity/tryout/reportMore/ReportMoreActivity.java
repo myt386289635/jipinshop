@@ -1,6 +1,5 @@
 package com.example.administrator.jipinshop.activity.tryout.reportMore;
 
-import android.content.Intent;
 import android.databinding.DataBindingUtil;
 import android.graphics.Color;
 import android.os.Bundle;
@@ -11,13 +10,12 @@ import android.view.View;
 import com.aspsine.swipetoloadlayout.OnLoadMoreListener;
 import com.aspsine.swipetoloadlayout.OnRefreshListener;
 import com.example.administrator.jipinshop.R;
-import com.example.administrator.jipinshop.activity.home.article.ArticleDetailActivity;
-import com.example.administrator.jipinshop.activity.report.detail.ReportDetailActivity;
 import com.example.administrator.jipinshop.adapter.TryCommenAdapter;
 import com.example.administrator.jipinshop.base.BaseActivity;
 import com.example.administrator.jipinshop.bean.TryReportBean;
 import com.example.administrator.jipinshop.databinding.ActivityMessageSystemBinding;
 import com.example.administrator.jipinshop.util.ClickUtil;
+import com.example.administrator.jipinshop.util.ShopJumpUtil;
 import com.example.administrator.jipinshop.util.ToastUtil;
 
 import java.math.BigDecimal;
@@ -182,17 +180,8 @@ public class ReportMoreActivity extends BaseActivity implements View.OnClickList
             BigDecimal bigDecimal = new BigDecimal(mList.get(position).getPv());
             mList.get(position).setPv((bigDecimal.intValue() + 1));
             mAdapter.notifyDataSetChanged();
-            if (mList.get(position).getContentType() == 1){
-                startActivity(new Intent(this,ArticleDetailActivity.class)
-                        .putExtra("id",mList.get(position).getArticleId())
-                        .putExtra("type","4")
-                );
-            }else if (mList.get(position).getContentType() == 3){
-                startActivity(new Intent(this,ReportDetailActivity.class)
-                        .putExtra("id",mList.get(position).getArticleId())
-                        .putExtra("type","4")
-                );
-            }
+            ShopJumpUtil.jumpArticle(this,mList.get(position).getArticleId(),
+                    mList.get(position).getType(),mList.get(position).getContentType());
         }
     }
 }

@@ -25,19 +25,11 @@ import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import com.alibaba.baichuan.android.trade.AlibcTrade;
 import com.alibaba.baichuan.android.trade.AlibcTradeSDK;
-import com.alibaba.baichuan.android.trade.callback.AlibcTradeCallback;
-import com.alibaba.baichuan.android.trade.model.AlibcShowParams;
-import com.alibaba.baichuan.android.trade.model.OpenType;
-import com.alibaba.baichuan.android.trade.page.AlibcPage;
-import com.alibaba.baichuan.trade.biz.context.AlibcResultType;
-import com.alibaba.baichuan.trade.biz.context.AlibcTradeResult;
 import com.blankj.utilcode.util.SPUtils;
 import com.example.administrator.jipinshop.R;
 import com.example.administrator.jipinshop.activity.WebActivity;
 import com.example.administrator.jipinshop.activity.commenlist.CommenListActivity;
-import com.example.administrator.jipinshop.activity.home.article.ArticleDetailActivity;
 import com.example.administrator.jipinshop.activity.login.LoginActivity;
 import com.example.administrator.jipinshop.adapter.CommenBannerAdapter;
 import com.example.administrator.jipinshop.adapter.RelatedArticleAdapter;
@@ -60,16 +52,17 @@ import com.example.administrator.jipinshop.fragment.foval.goods.FovalGoodsFragme
 import com.example.administrator.jipinshop.netwrok.RetrofitModule;
 import com.example.administrator.jipinshop.util.ClickUtil;
 import com.example.administrator.jipinshop.util.ShareUtils;
+import com.example.administrator.jipinshop.util.ShopJumpUtil;
 import com.example.administrator.jipinshop.util.TaoBaoUtil;
 import com.example.administrator.jipinshop.util.ToastUtil;
 import com.example.administrator.jipinshop.util.UmApp.UAppUtil;
 import com.example.administrator.jipinshop.util.WeakRefHandler;
 import com.example.administrator.jipinshop.util.sp.CommonDate;
-import com.example.administrator.jipinshop.view.textview.AlignTextView;
 import com.example.administrator.jipinshop.view.SaleProgressView;
 import com.example.administrator.jipinshop.view.dialog.ProgressDialogView;
 import com.example.administrator.jipinshop.view.dialog.ShareBoardDialog;
 import com.example.administrator.jipinshop.view.glide.GlideApp;
+import com.example.administrator.jipinshop.view.textview.AlignTextView;
 import com.trello.rxlifecycle2.android.ActivityEvent;
 import com.umeng.socialize.UMShareAPI;
 import com.umeng.socialize.bean.SHARE_MEDIA;
@@ -79,9 +72,7 @@ import org.greenrobot.eventbus.Subscribe;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import javax.inject.Inject;
 
@@ -1072,10 +1063,8 @@ public class ShoppingDetailActivity extends BaseActivity implements ShoppingComm
      */
     @Override
     public void onClickItem(int position) {
-        startActivity(new Intent(this,ArticleDetailActivity.class)
-                .putExtra("id",mArticleListBeans.get(position).getArticleId())
-                .putExtra("type",mArticleListBeans.get(position).getType())
-        );
+        ShopJumpUtil.jumpArticle(this,mArticleListBeans.get(position).getArticleId(),
+                mArticleListBeans.get(position).getType(),mArticleListBeans.get(position).getContentType());
     }
 
     /******************轮播图需要*********************/

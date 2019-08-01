@@ -1,6 +1,5 @@
 package com.example.administrator.jipinshop.fragment.sreach.find;
 
-import android.content.Intent;
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
@@ -11,13 +10,13 @@ import android.view.ViewGroup;
 import com.aspsine.swipetoloadlayout.OnLoadMoreListener;
 import com.aspsine.swipetoloadlayout.OnRefreshListener;
 import com.example.administrator.jipinshop.R;
-import com.example.administrator.jipinshop.activity.home.article.ArticleDetailActivity;
 import com.example.administrator.jipinshop.activity.sreach.result.SreachResultActivity;
 import com.example.administrator.jipinshop.adapter.SreachArticleAdapter;
 import com.example.administrator.jipinshop.base.DBBaseFragment;
 import com.example.administrator.jipinshop.bean.SreachResultArticlesBean;
 import com.example.administrator.jipinshop.databinding.FragmentSreachfindBinding;
 import com.example.administrator.jipinshop.util.ClickUtil;
+import com.example.administrator.jipinshop.util.ShopJumpUtil;
 import com.example.administrator.jipinshop.util.ToastUtil;
 
 import java.math.BigDecimal;
@@ -94,10 +93,8 @@ public class SreachFindFragment extends DBBaseFragment implements SreachArticleA
             BigDecimal bigDecimal = new BigDecimal(mList.get(pos).getPv());
             mList.get(pos).setPv((bigDecimal.intValue() + 1) + "");
             mAdapter.notifyDataSetChanged();
-            startActivity(new Intent(getContext(),ArticleDetailActivity.class)
-                    .putExtra("id",mList.get(pos).getArticleId())
-                    .putExtra("type","3")
-            );
+            ShopJumpUtil.jumpArticle(getContext(),mList.get(pos).getArticleId(),
+                    "3",mList.get(pos).getContentType());
         }
     }
 

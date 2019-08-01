@@ -1,6 +1,5 @@
 package com.example.administrator.jipinshop.activity
 
-import android.content.Intent
 import android.databinding.DataBindingUtil
 import android.os.Bundle
 import android.support.v7.widget.LinearLayoutManager
@@ -8,7 +7,6 @@ import android.view.View
 import com.aspsine.swipetoloadlayout.OnLoadMoreListener
 import com.aspsine.swipetoloadlayout.OnRefreshListener
 import com.example.administrator.jipinshop.R
-import com.example.administrator.jipinshop.activity.home.article.ArticleDetailActivity
 import com.example.administrator.jipinshop.activity.home.classification.article.ArticleMoreView
 import com.example.administrator.jipinshop.adapter.ArticleMoreAdapter
 import com.example.administrator.jipinshop.base.BaseActivity
@@ -16,6 +14,7 @@ import com.example.administrator.jipinshop.bean.SucBean
 import com.example.administrator.jipinshop.bean.TopCategoryDetailBean
 import com.example.administrator.jipinshop.databinding.ActivityArticleMoreBinding
 import com.example.administrator.jipinshop.util.ClickUtil
+import com.example.administrator.jipinshop.util.ShopJumpUtil
 import com.example.administrator.jipinshop.util.ToastUtil
 import java.math.BigDecimal
 import javax.inject.Inject
@@ -78,10 +77,8 @@ class KTArticleMoreActivity : BaseActivity(), View.OnClickListener, ArticleMoreA
             val bigDecimal = BigDecimal(mList[position].pv)
             mList[position].pv = bigDecimal.toInt() + 1
             adapter.notifyDataSetChanged()
-            startActivity(Intent(this, ArticleDetailActivity::class.java)
-                    .putExtra("id", mList[position].articleId)
-                    .putExtra("type", mList[position].type)
-            )
+            ShopJumpUtil.jumpArticle(this, mList[position].articleId,
+                    mList[position].type, mList[position].contentType)
         }
     }
 

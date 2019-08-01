@@ -5,6 +5,9 @@ import android.content.Intent;
 import android.net.Uri;
 import android.util.Log;
 
+import com.example.administrator.jipinshop.activity.home.article.ArticleDetailActivity;
+import com.example.administrator.jipinshop.activity.report.detail.ReportDetailActivity;
+
 /**
  * @author 莫小婷
  * @create 2018/8/10
@@ -92,5 +95,23 @@ public class ShopJumpUtil {
             ex.printStackTrace();
             return false;
         }
+    }
+
+    /**
+     * 跳转文章逻辑
+     */
+    public static void jumpArticle(Context context , String id , String type ,int contentType){
+        Intent intent = new Intent();
+        switch (contentType){
+            case 1://webview
+                intent.setClass(context, ArticleDetailActivity.class);
+                break;
+            case 3://json
+                intent.setClass(context, ReportDetailActivity.class);
+                break;
+        }
+        intent.putExtra("id",id);
+        intent.putExtra("type",type);
+        context.startActivity(intent);
     }
 }

@@ -3,17 +3,12 @@ package com.example.administrator.jipinshop.fragment.tryout.trymodel;
 import android.content.Intent;
 import android.databinding.DataBindingUtil;
 import android.support.v7.widget.LinearLayoutManager;
-import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
 import com.aspsine.swipetoloadlayout.OnRefreshListener;
-import com.blankj.utilcode.util.SPUtils;
 import com.example.administrator.jipinshop.R;
-import com.example.administrator.jipinshop.activity.home.article.ArticleDetailActivity;
-import com.example.administrator.jipinshop.activity.login.LoginActivity;
-import com.example.administrator.jipinshop.activity.report.detail.ReportDetailActivity;
 import com.example.administrator.jipinshop.activity.tryout.TryAllActivity;
 import com.example.administrator.jipinshop.activity.tryout.TryReportActivity;
 import com.example.administrator.jipinshop.activity.tryout.detail.TryDetailActivity;
@@ -25,9 +20,9 @@ import com.example.administrator.jipinshop.bean.TryBean;
 import com.example.administrator.jipinshop.bean.eventbus.TryStatusBus;
 import com.example.administrator.jipinshop.databinding.TryFragmentBinding;
 import com.example.administrator.jipinshop.util.ClickUtil;
+import com.example.administrator.jipinshop.util.ShopJumpUtil;
 import com.example.administrator.jipinshop.util.ToastUtil;
 import com.example.administrator.jipinshop.util.UmApp.UAppUtil;
-import com.example.administrator.jipinshop.util.sp.CommonDate;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
@@ -149,17 +144,8 @@ public class TryFragment extends DBBaseFragment implements OnRefreshListener, Tr
             BigDecimal bigDecimal = new BigDecimal(mReportListBeans.get(position).getPv());
             mReportListBeans.get(position).setPv((bigDecimal.intValue() + 1));
             mAdapter.notifyDataSetChanged();
-            if (mReportListBeans.get(position).getContentType() == 1){//试用报告：web
-                startActivity(new Intent(getContext(),ArticleDetailActivity.class)
-                        .putExtra("id",mReportListBeans.get(position).getArticleId())
-                        .putExtra("type","4")
-                );
-            }else  if (mReportListBeans.get(position).getContentType() == 3){//试用报告：json
-                startActivity(new Intent(getContext(),ReportDetailActivity.class)
-                        .putExtra("id",mReportListBeans.get(position).getArticleId())
-                        .putExtra("type","4")
-                );
-            }
+            ShopJumpUtil.jumpArticle(getContext(),mReportListBeans.get(position).getArticleId(),
+                    mReportListBeans.get(position).getType(),mReportListBeans.get(position).getContentType());
         }
     }
 

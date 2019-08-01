@@ -16,19 +16,11 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.alibaba.baichuan.android.trade.AlibcTrade;
-import com.alibaba.baichuan.android.trade.callback.AlibcTradeCallback;
-import com.alibaba.baichuan.android.trade.model.AlibcShowParams;
-import com.alibaba.baichuan.android.trade.model.OpenType;
-import com.alibaba.baichuan.android.trade.page.AlibcPage;
-import com.alibaba.baichuan.trade.biz.context.AlibcTradeResult;
 import com.blankj.utilcode.util.SPUtils;
 import com.example.administrator.jipinshop.R;
 import com.example.administrator.jipinshop.activity.WebActivity;
 import com.example.administrator.jipinshop.activity.commenlist.CommenListActivity;
-import com.example.administrator.jipinshop.activity.home.article.ArticleDetailActivity;
 import com.example.administrator.jipinshop.activity.login.LoginActivity;
-import com.example.administrator.jipinshop.activity.report.detail.ReportDetailActivity;
 import com.example.administrator.jipinshop.activity.sign.SignActivity;
 import com.example.administrator.jipinshop.activity.tryout.passedMore.PassedMoreActivity;
 import com.example.administrator.jipinshop.activity.tryout.reportMore.ReportMoreActivity;
@@ -49,6 +41,7 @@ import com.example.administrator.jipinshop.databinding.ActivityTryDetailBinding;
 import com.example.administrator.jipinshop.netwrok.RetrofitModule;
 import com.example.administrator.jipinshop.util.ClickUtil;
 import com.example.administrator.jipinshop.util.ShareUtils;
+import com.example.administrator.jipinshop.util.ShopJumpUtil;
 import com.example.administrator.jipinshop.util.TaoBaoUtil;
 import com.example.administrator.jipinshop.util.ToastUtil;
 import com.example.administrator.jipinshop.util.UmApp.UAppUtil;
@@ -67,9 +60,7 @@ import org.greenrobot.eventbus.Subscribe;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import javax.inject.Inject;
 
@@ -651,17 +642,8 @@ public class TryDetailActivity extends BaseActivity implements View.OnClickListe
             BigDecimal bigDecimal = new BigDecimal(mReportListBeans.get(position).getPv());
             mReportListBeans.get(position).setPv((bigDecimal.intValue() + 1));
             mReportRVAdapter.notifyDataSetChanged();
-            if (mReportListBeans.get(position).getContentType() == 1){//试用报告：web
-                startActivity(new Intent(this,ArticleDetailActivity.class)
-                        .putExtra("id",mReportListBeans.get(position).getArticleId())
-                        .putExtra("type","4")
-                );
-            }else  if (mReportListBeans.get(position).getContentType() == 3){//试用报告：json
-                startActivity(new Intent(this,ReportDetailActivity.class)
-                        .putExtra("id",mReportListBeans.get(position).getArticleId())
-                        .putExtra("type","4")
-                );
-            }
+            ShopJumpUtil.jumpArticle(this,mReportListBeans.get(position).getArticleId(),
+                    mReportListBeans.get(position).getType() +"",mReportListBeans.get(position).getContentType());
         }
     }
 

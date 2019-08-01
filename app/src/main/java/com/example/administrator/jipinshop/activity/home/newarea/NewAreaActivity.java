@@ -1,6 +1,5 @@
 package com.example.administrator.jipinshop.activity.home.newarea;
 
-import android.content.Intent;
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -10,13 +9,13 @@ import android.view.View;
 import com.aspsine.swipetoloadlayout.OnLoadMoreListener;
 import com.aspsine.swipetoloadlayout.OnRefreshListener;
 import com.example.administrator.jipinshop.R;
-import com.example.administrator.jipinshop.activity.home.article.ArticleDetailActivity;
 import com.example.administrator.jipinshop.adapter.NewAreaAdapter;
 import com.example.administrator.jipinshop.adapter.SreachArticleAdapter;
 import com.example.administrator.jipinshop.base.BaseActivity;
 import com.example.administrator.jipinshop.bean.EvaluationListBean;
 import com.example.administrator.jipinshop.databinding.ActivityNewAreaBinding;
 import com.example.administrator.jipinshop.util.ClickUtil;
+import com.example.administrator.jipinshop.util.ShopJumpUtil;
 import com.example.administrator.jipinshop.util.ToastUtil;
 
 import java.math.BigDecimal;
@@ -123,10 +122,8 @@ public class NewAreaActivity extends BaseActivity implements OnRefreshListener, 
             BigDecimal bigDecimal = new BigDecimal(mList.get(pos).getPv());
             mList.get(pos).setPv((bigDecimal.intValue() + 1) + "");
             mAdapter.notifyDataSetChanged();
-            startActivity(new Intent(this, ArticleDetailActivity.class)
-                    .putExtra("id", mList.get(pos).getArticleId())
-                    .putExtra("type", mList.get(pos).getType())
-            );
+            ShopJumpUtil.jumpArticle(this,mList.get(pos).getArticleId(),
+                    mList.get(pos).getType(),mList.get(pos).getContentType());
         }
     }
 

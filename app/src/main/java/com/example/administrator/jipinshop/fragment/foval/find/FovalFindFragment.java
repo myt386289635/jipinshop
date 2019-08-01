@@ -1,6 +1,5 @@
 package com.example.administrator.jipinshop.fragment.foval.find;
 
-import android.content.Intent;
 import android.databinding.DataBindingUtil;
 import android.support.v7.widget.LinearLayoutManager;
 import android.text.TextUtils;
@@ -11,13 +10,13 @@ import android.view.ViewGroup;
 import com.aspsine.swipetoloadlayout.OnLoadMoreListener;
 import com.aspsine.swipetoloadlayout.OnRefreshListener;
 import com.example.administrator.jipinshop.R;
-import com.example.administrator.jipinshop.activity.home.article.ArticleDetailActivity;
 import com.example.administrator.jipinshop.adapter.SreachArticleAdapter;
 import com.example.administrator.jipinshop.base.DBBaseFragment;
 import com.example.administrator.jipinshop.bean.SreachResultArticlesBean;
 import com.example.administrator.jipinshop.databinding.FragmentSreachfindBinding;
 import com.example.administrator.jipinshop.fragment.sreach.find.SreachFindView;
 import com.example.administrator.jipinshop.util.ClickUtil;
+import com.example.administrator.jipinshop.util.ShopJumpUtil;
 import com.example.administrator.jipinshop.util.ToastUtil;
 import com.trello.rxlifecycle2.android.FragmentEvent;
 
@@ -96,10 +95,8 @@ public class FovalFindFragment extends DBBaseFragment implements SreachArticleAd
             BigDecimal bigDecimal = new BigDecimal(mList.get(pos).getPv());
             mList.get(pos).setPv((bigDecimal.intValue() + 1) + "");
             mAdapter.notifyDataSetChanged();
-            startActivity(new Intent(getContext(), ArticleDetailActivity.class)
-                    .putExtra("id", mList.get(pos).getArticleId())
-                    .putExtra("type", "3")
-            );
+            ShopJumpUtil.jumpArticle(getContext(),mList.get(pos).getArticleId(),
+                    "3",mList.get(pos).getContentType());
         }
     }
 

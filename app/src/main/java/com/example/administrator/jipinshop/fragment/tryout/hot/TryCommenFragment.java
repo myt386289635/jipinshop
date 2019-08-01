@@ -1,6 +1,5 @@
 package com.example.administrator.jipinshop.fragment.tryout.hot;
 
-import android.content.Intent;
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
@@ -11,13 +10,12 @@ import android.view.ViewGroup;
 import com.aspsine.swipetoloadlayout.OnLoadMoreListener;
 import com.aspsine.swipetoloadlayout.OnRefreshListener;
 import com.example.administrator.jipinshop.R;
-import com.example.administrator.jipinshop.activity.home.article.ArticleDetailActivity;
-import com.example.administrator.jipinshop.activity.report.detail.ReportDetailActivity;
 import com.example.administrator.jipinshop.adapter.TryCommenAdapter;
 import com.example.administrator.jipinshop.base.DBBaseFragment;
 import com.example.administrator.jipinshop.bean.TryReportBean;
 import com.example.administrator.jipinshop.databinding.FragmentSreachgoodsBinding;
 import com.example.administrator.jipinshop.util.ClickUtil;
+import com.example.administrator.jipinshop.util.ShopJumpUtil;
 import com.example.administrator.jipinshop.util.ToastUtil;
 
 import java.math.BigDecimal;
@@ -168,17 +166,8 @@ public class TryCommenFragment extends DBBaseFragment implements OnRefreshListen
             BigDecimal bigDecimal = new BigDecimal(mList.get(position).getPv());
             mList.get(position).setPv((bigDecimal.intValue() + 1));
             mAdapter.notifyDataSetChanged();
-            if (mList.get(position).getContentType() == 1){//试用报告：web
-                startActivity(new Intent(getContext(),ArticleDetailActivity.class)
-                        .putExtra("id",mList.get(position).getArticleId())
-                        .putExtra("type","4")
-                );
-            }else  if (mList.get(position).getContentType() == 3){//试用报告：json
-                startActivity(new Intent(getContext(),ReportDetailActivity.class)
-                        .putExtra("id",mList.get(position).getArticleId())
-                        .putExtra("type","4")
-                );
-            }
+            ShopJumpUtil.jumpArticle(getContext(),mList.get(position).getArticleId(),
+                    mList.get(position).getType(),mList.get(position).getContentType());
         }
     }
 }

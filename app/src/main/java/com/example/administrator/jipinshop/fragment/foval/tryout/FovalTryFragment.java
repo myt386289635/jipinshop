@@ -1,6 +1,5 @@
 package com.example.administrator.jipinshop.fragment.foval.tryout;
 
-import android.content.Intent;
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
@@ -12,8 +11,6 @@ import android.view.ViewGroup;
 import com.aspsine.swipetoloadlayout.OnLoadMoreListener;
 import com.aspsine.swipetoloadlayout.OnRefreshListener;
 import com.example.administrator.jipinshop.R;
-import com.example.administrator.jipinshop.activity.home.article.ArticleDetailActivity;
-import com.example.administrator.jipinshop.activity.report.detail.ReportDetailActivity;
 import com.example.administrator.jipinshop.adapter.SreachFindAdapter;
 import com.example.administrator.jipinshop.adapter.SreachTryAdapter;
 import com.example.administrator.jipinshop.base.DBBaseFragment;
@@ -22,6 +19,7 @@ import com.example.administrator.jipinshop.databinding.FragmentSreachfindBinding
 import com.example.administrator.jipinshop.fragment.foval.article.FovalArticlePresenter;
 import com.example.administrator.jipinshop.fragment.sreach.article.SreachArticleView;
 import com.example.administrator.jipinshop.util.ClickUtil;
+import com.example.administrator.jipinshop.util.ShopJumpUtil;
 import com.example.administrator.jipinshop.util.ToastUtil;
 import com.trello.rxlifecycle2.android.FragmentEvent;
 
@@ -115,17 +113,8 @@ public class FovalTryFragment extends DBBaseFragment implements OnRefreshListene
             BigDecimal bigDecimal = new BigDecimal(mList.get(pos).getPv());
             mList.get(pos).setPv((bigDecimal.intValue() + 1) + "");
             mAdapter.notifyDataSetChanged();
-            if (mList.get(pos).getContentType() == 1){
-                startActivity(new Intent(getContext(),ArticleDetailActivity.class)
-                        .putExtra("id",mList.get(pos).getArticleId())
-                        .putExtra("type","4")
-                );
-            }else  if (mList.get(pos).getContentType() == 3){//试用报告：json
-                startActivity(new Intent(getContext(),ReportDetailActivity.class)
-                        .putExtra("id",mList.get(pos).getArticleId())
-                        .putExtra("type","4")
-                );
-            }
+            ShopJumpUtil.jumpArticle(getContext(),mList.get(pos).getArticleId(),
+                    "4",mList.get(pos).getContentType());
         }
     }
 

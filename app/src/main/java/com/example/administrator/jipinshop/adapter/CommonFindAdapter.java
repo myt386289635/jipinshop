@@ -1,7 +1,6 @@
 package com.example.administrator.jipinshop.adapter;
 
 import android.content.Context;
-import android.content.Intent;
 import android.os.Handler;
 import android.os.Looper;
 import android.support.v4.view.ViewPager;
@@ -15,10 +14,10 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.example.administrator.jipinshop.R;
-import com.example.administrator.jipinshop.activity.home.article.ArticleDetailActivity;
 import com.example.administrator.jipinshop.bean.EvaluationTabBean;
 import com.example.administrator.jipinshop.bean.FindListBean;
 import com.example.administrator.jipinshop.util.ClickUtil;
+import com.example.administrator.jipinshop.util.ShopJumpUtil;
 import com.example.administrator.jipinshop.util.WeakRefHandler;
 import com.example.administrator.jipinshop.view.glide.GlideApp;
 
@@ -131,10 +130,8 @@ public class CommonFindAdapter extends RecyclerView.Adapter {
                         BigDecimal bigDecimal = new BigDecimal(mList.get(finalPosition).getPv());
                         mList.get(finalPosition).setPv((bigDecimal.intValue() + 1) + "");
                         notifyDataSetChanged();
-                        mContext.startActivity(new Intent(mContext,ArticleDetailActivity.class)
-                                .putExtra("id",mList.get(finalPosition).getArticleId())
-                                .putExtra("type","3")
-                        );
+                        ShopJumpUtil.jumpArticle(mContext,mList.get(finalPosition).getArticleId(),
+                                "3",mList.get(finalPosition).getContentType());
                     }
                 });
                 viewHolder.item_head.setOnClickListener(v -> {
