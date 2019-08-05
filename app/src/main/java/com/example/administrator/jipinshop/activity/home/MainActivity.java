@@ -21,8 +21,6 @@ import com.example.administrator.jipinshop.bean.AppVersionbean;
 import com.example.administrator.jipinshop.bean.eventbus.ChangeHomePageBus;
 import com.example.administrator.jipinshop.bean.eventbus.HomeNewPeopleBus;
 import com.example.administrator.jipinshop.fragment.evaluation.EvaluationFragment;
-import com.example.administrator.jipinshop.fragment.find.FindFragment;
-import com.example.administrator.jipinshop.fragment.home.HomeFragment;
 import com.example.administrator.jipinshop.fragment.home.HomeNewFragment;
 import com.example.administrator.jipinshop.fragment.mine.MineFragment;
 import com.example.administrator.jipinshop.fragment.tryout.TryModelFragment;
@@ -65,7 +63,7 @@ public class MainActivity extends RxAppCompatActivity implements MainView, ViewP
     private HomeAdapter mHomeAdapter;
 
     private HomeNewFragment mHomeFragment;
-    private FindFragment mFindFragment;
+//    private FindFragment mFindFragment;
     private MineFragment mMineFragment;
     private EvaluationFragment mEvaluationFragment;
     private TryModelFragment mTryFragment;
@@ -101,12 +99,12 @@ public class MainActivity extends RxAppCompatActivity implements MainView, ViewP
         mViewPager.setNoScroll(true);
         mFragments = new ArrayList<>();
         mHomeFragment = new HomeNewFragment();
-        mFindFragment = new FindFragment();
+//        mFindFragment = new FindFragment();
         mEvaluationFragment = new EvaluationFragment();
         mTryFragment = new TryModelFragment();
         mMineFragment = new MineFragment();
         mFragments.add(mHomeFragment);
-        mFragments.add(mFindFragment);
+//        mFragments.add(mFindFragment);
         mFragments.add(mEvaluationFragment);
         mFragments.add(mTryFragment);
         mFragments.add(mMineFragment);

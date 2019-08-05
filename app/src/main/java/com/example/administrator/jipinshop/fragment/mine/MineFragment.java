@@ -74,13 +74,6 @@ public class MineFragment extends DBBaseFragment implements View.OnClickListener
 
         mPresenter.setStatusBarHight(mBinding, getContext());
         mPresenter.setView(this);
-
-        mBinding.scrollView.setOnScrollListener(scrollY -> {
-            float a = scrollY;
-            float b = a / 1000;
-            float max = (float) Math.min(1, b * 5);
-            mBinding.mineHeadView.setAlpha(max);
-        });
     }
 
     @Override
@@ -96,6 +89,7 @@ public class MineFragment extends DBBaseFragment implements View.OnClickListener
             return;
         }
         switch (view.getId()) {
+            case R.id.mine_info:
             case R.id.mine_name:
             case R.id.mine_image:
                 //我的资料
@@ -186,6 +180,9 @@ public class MineFragment extends DBBaseFragment implements View.OnClickListener
                 //我的团队
                 startActivity(new Intent(getContext(), TeamActivity.class));
                 break;
+            case R.id.mine_releaseContainer:
+                // TODO: 2019/8/5 我的发布
+                break;
         }
     }
 
@@ -196,6 +193,7 @@ public class MineFragment extends DBBaseFragment implements View.OnClickListener
             case 201://退出登陆成功
                 mBinding.mineName.setVisibility(View.GONE);
                 mBinding.mineLogin.setVisibility(View.VISIBLE);
+                mBinding.mineInfo.setVisibility(View.GONE);
                 GlideApp.loderImage(getContext(),R.drawable.logo, mBinding.mineImage, 0, 0);
                 mBinding.mineGoodsNumText.setText("0");//点赞数
                 mBinding.mineAttentionText.setText("0");//关注数
@@ -229,6 +227,7 @@ public class MineFragment extends DBBaseFragment implements View.OnClickListener
             //登陆时返回更改用户信息
             mBinding.mineName.setVisibility(View.VISIBLE);
             mBinding.mineLogin.setVisibility(View.GONE);
+            mBinding.mineInfo.setVisibility(View.VISIBLE);
             mBinding.mineCopyContainer.setVisibility(View.VISIBLE);//复制邀请码
             mBinding.mineIntegral.setText("邀请码：" + SPUtils.getInstance(CommonDate.USER).getString(CommonDate.qrCode,"000000"));
             if (TextUtils.isEmpty(SPUtils.getInstance(CommonDate.USER).getString(CommonDate.userNickName))) {
@@ -296,6 +295,7 @@ public class MineFragment extends DBBaseFragment implements View.OnClickListener
 
         mBinding.mineName.setVisibility(View.VISIBLE);
         mBinding.mineLogin.setVisibility(View.GONE);
+        mBinding.mineInfo.setVisibility(View.VISIBLE);
         mBinding.mineCopyContainer.setVisibility(View.VISIBLE);//复制邀请码
         mBinding.mineIntegral.setText("邀请码：" + SPUtils.getInstance(CommonDate.USER).getString(CommonDate.qrCode,"000000"));
         mBinding.mineGoodsNumText.setText(userInfoBean.getData().getVoteCount());//点赞数
@@ -320,6 +320,7 @@ public class MineFragment extends DBBaseFragment implements View.OnClickListener
             //token失效
             mBinding.mineName.setVisibility(View.GONE);
             mBinding.mineLogin.setVisibility(View.VISIBLE);
+            mBinding.mineInfo.setVisibility(View.GONE);
             GlideApp.loderImage(getContext(),R.drawable.logo, mBinding.mineImage, 0, 0);
             SPUtils.getInstance(CommonDate.USER).clear();
 //            JPushInterface.stopPush(MyApplication.getInstance());//停止推送
@@ -327,6 +328,7 @@ public class MineFragment extends DBBaseFragment implements View.OnClickListener
         }else {
             mBinding.mineName.setVisibility(View.VISIBLE);
             mBinding.mineLogin.setVisibility(View.GONE);
+            mBinding.mineInfo.setVisibility(View.VISIBLE);
             mBinding.mineName.setText(SPUtils.getInstance(CommonDate.USER).getString(CommonDate.userNickName));
             if (!TextUtils.isEmpty(SPUtils.getInstance(CommonDate.USER).getString(CommonDate.userNickImg))) {
                 GlideApp.loderImage(getContext(),SPUtils.getInstance(CommonDate.USER).getString(CommonDate.userNickImg), mBinding.mineImage, R.mipmap.logo, 0);

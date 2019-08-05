@@ -43,9 +43,6 @@ public class MinePresenter {
             int statusBarHeight = context.getResources().getDimensionPixelSize(resourceId);
             ViewGroup.LayoutParams layoutParams = mBinding.statusBar.getLayoutParams();
             layoutParams.height = statusBarHeight;
-
-            ViewGroup.LayoutParams layoutParams1 = mBinding.statusBar1.getLayoutParams();
-            layoutParams1.height = statusBarHeight;
         }
     }
 
