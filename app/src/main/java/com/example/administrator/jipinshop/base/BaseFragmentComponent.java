@@ -5,6 +5,7 @@ import com.example.administrator.jipinshop.fragment.balance.budget.BudgetDetailF
 import com.example.administrator.jipinshop.fragment.balance.withdraw.WithdrawDetailFragment;
 import com.example.administrator.jipinshop.fragment.evaluation.EvaluationFragment;
 import com.example.administrator.jipinshop.fragment.evaluation.common.CommonEvaluationFragment;
+import com.example.administrator.jipinshop.fragment.evaluationkt.attent.EvaAttentFrament;
 import com.example.administrator.jipinshop.fragment.find.FindFragment;
 import com.example.administrator.jipinshop.fragment.find.common.CommonFindFragment;
 import com.example.administrator.jipinshop.fragment.follow.attention.AttentionFragment;
@@ -24,10 +25,10 @@ import com.example.administrator.jipinshop.fragment.sreach.goods.SreachGoodsFrag
 import com.example.administrator.jipinshop.fragment.sreach.tryout.SreachTryFragment;
 import com.example.administrator.jipinshop.fragment.tryout.freemodel.FreeFragment;
 import com.example.administrator.jipinshop.fragment.tryout.freemodel.detail.ShopUserFragment;
-import com.example.administrator.jipinshop.fragment.tryout.trymodel.TryFragment;
 import com.example.administrator.jipinshop.fragment.tryout.hot.TryCommenFragment;
 import com.example.administrator.jipinshop.fragment.tryout.mine.TrialCommonFragment;
 import com.example.administrator.jipinshop.fragment.tryout.mine.TrialReportFragment;
+import com.example.administrator.jipinshop.fragment.tryout.trymodel.TryFragment;
 import com.example.administrator.jipinshop.netwrok.ApplicationComponent;
 
 import dagger.Component;
@@ -62,4 +63,5 @@ public interface BaseFragmentComponent {
     void inject(FreeFragment fragment);
     void inject(ShopUserFragment fragment);
     void inject(HomeNewFragment fragment);
+    void inject(EvaAttentFrament fragment);
 }

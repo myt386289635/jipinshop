@@ -20,7 +20,7 @@ import com.example.administrator.jipinshop.base.DaggerBaseActivityComponent;
 import com.example.administrator.jipinshop.bean.AppVersionbean;
 import com.example.administrator.jipinshop.bean.eventbus.ChangeHomePageBus;
 import com.example.administrator.jipinshop.bean.eventbus.HomeNewPeopleBus;
-import com.example.administrator.jipinshop.fragment.evaluation.EvaluationFragment;
+import com.example.administrator.jipinshop.fragment.EvaluationNewFragment;
 import com.example.administrator.jipinshop.fragment.home.HomeNewFragment;
 import com.example.administrator.jipinshop.fragment.mine.MineFragment;
 import com.example.administrator.jipinshop.fragment.tryout.TryModelFragment;
@@ -65,7 +65,7 @@ public class MainActivity extends RxAppCompatActivity implements MainView, ViewP
     private HomeNewFragment mHomeFragment;
 //    private FindFragment mFindFragment;
     private MineFragment mMineFragment;
-    private EvaluationFragment mEvaluationFragment;
+    private EvaluationNewFragment mEvaluationFragment;
     private TryModelFragment mTryFragment;
 
     private Unbinder mButterKnife;
@@ -100,7 +100,7 @@ public class MainActivity extends RxAppCompatActivity implements MainView, ViewP
         mFragments = new ArrayList<>();
         mHomeFragment = new HomeNewFragment();
 //        mFindFragment = new FindFragment();
-        mEvaluationFragment = new EvaluationFragment();
+        mEvaluationFragment = new EvaluationNewFragment();
         mTryFragment = new TryModelFragment();
         mMineFragment = new MineFragment();
         mFragments.add(mHomeFragment);

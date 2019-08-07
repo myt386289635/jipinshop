@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:bind="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+    </data>
+
+    <RelativeLayout
+        android:id="@+id/item_container"
+        android:layout_width="@dimen/x460"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/x30"
+        android:background="@drawable/bg_evakt">
+
+        <ImageView
+            android:scaleType="centerCrop"
+            android:src="@color/color_9D9D9D"
+            android:id="@+id/item_bg"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/y208"/>
+        
+        <ImageView
+            android:id="@+id/item_userImg"
+            android:src="@color/color_DEDEDE"
+            android:layout_marginTop="@dimen/y86"
+            android:layout_centerHorizontal="true"
+            android:layout_width="@dimen/x150"
+            android:layout_height="@dimen/y150"/>
+
+        <TextView
+            android:id="@+id/item_userName"
+            android:ellipsize="end"
+            android:singleLine="true"
+            android:gravity="center"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="@dimen/y15"
+            android:layout_below="@id/item_userImg"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            android:textColor="@color/color_202020"
+            android:text="杰西卡住了杰西卡住了杰西卡住了杰西卡住了"
+            android:layout_width="@dimen/x392"
+            android:layout_height="wrap_content"/>
+
+        <TextView
+            android:id="@+id/item_userSign"
+            android:ellipsize="end"
+            android:singleLine="true"
+            android:layout_marginTop="@dimen/y16"
+            android:layout_below="@id/item_userName"
+            android:textColor="@color/color_9D9D9D"
+            android:text="杰西卡住了杰西卡住了杰西卡住了杰西卡住了"
+            android:gravity="center"
+            android:layout_centerHorizontal="true"
+            android:textSize="14sp"
+            android:layout_width="@dimen/x392"
+            android:layout_height="wrap_content"/>
+
+        <LinearLayout
+            android:id="@+id/item_imageContainer"
+            android:layout_marginTop="@dimen/y38"
+            android:layout_below="@id/item_userSign"
+            android:gravity="center"
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            
+            <ImageView
+                android:layout_marginRight="@dimen/x2"
+                android:scaleType="centerCrop"
+                android:id="@+id/item_image1"
+                android:src="@color/color_DC4D64"
+                android:layout_width="@dimen/x130"
+                android:layout_height="@dimen/y130"/>
+
+            <ImageView
+                android:layout_marginRight="@dimen/x2"
+                android:scaleType="centerCrop"
+                android:id="@+id/item_image2"
+                android:src="@color/color_DC4D64"
+                android:layout_width="@dimen/x130"
+                android:layout_height="@dimen/y130"/>
+
+            <ImageView
+                android:scaleType="centerCrop"
+                android:id="@+id/item_image3"
+                android:src="@color/color_DC4D64"
+                android:layout_width="@dimen/x130"
+                android:layout_height="@dimen/y130"/>
+
+        </LinearLayout>
+
+        <TextView
+            android:layout_marginBottom="@dimen/y18"
+            android:layout_marginTop="@dimen/y26"
+            android:layout_below="@id/item_imageContainer"
+            android:layout_centerHorizontal="true"
+            android:id="@+id/item_attention"
+            android:textStyle="bold"
+            android:textColor="@color/color_E25838"
+            android:text="关注"
+            android:textSize="18sp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+
+
+    </RelativeLayout>
+
+</layout>

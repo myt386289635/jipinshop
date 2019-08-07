@@ -84,5 +84,11 @@
     <style name="CustomBottomSheetStyle" parent="Widget.Design.BottomSheet.Modal">
         <item name="android:background">@android:color/transparent</item>
     </style>
+    
+    <style name="CustomTabLayoutTextAppearance"
+           parent="TextAppearance.AppCompat.Widget.ActionBar.Title.Inverse">
+        <item name="android:textStyle">bold</item>
+        <item name="android:textSize">18sp</item>
+    </style>
 
 </resources>
