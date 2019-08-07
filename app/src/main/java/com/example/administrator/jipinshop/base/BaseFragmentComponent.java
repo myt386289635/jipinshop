@@ -6,6 +6,7 @@ import com.example.administrator.jipinshop.fragment.balance.withdraw.WithdrawDet
 import com.example.administrator.jipinshop.fragment.evaluation.EvaluationFragment;
 import com.example.administrator.jipinshop.fragment.evaluation.common.CommonEvaluationFragment;
 import com.example.administrator.jipinshop.fragment.evaluationkt.attent.EvaAttentFrament;
+import com.example.administrator.jipinshop.fragment.evaluationkt.hot.EvaHotFragment;
 import com.example.administrator.jipinshop.fragment.find.FindFragment;
 import com.example.administrator.jipinshop.fragment.find.common.CommonFindFragment;
 import com.example.administrator.jipinshop.fragment.follow.attention.AttentionFragment;
@@ -64,4 +65,5 @@ public interface BaseFragmentComponent {
     void inject(ShopUserFragment fragment);
     void inject(HomeNewFragment fragment);
     void inject(EvaAttentFrament fragment);
+    void inject(EvaHotFragment fragment);
 }

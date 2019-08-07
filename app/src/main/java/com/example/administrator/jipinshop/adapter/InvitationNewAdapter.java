@@ -10,6 +10,7 @@ import android.widget.ImageView;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
 import com.example.administrator.jipinshop.R;
+import com.example.administrator.jipinshop.view.glide.GlideApp;
 import com.example.administrator.jipinshop.view.glide.RoundTransform;
 
 import java.util.List;
@@ -23,6 +24,11 @@ public class InvitationNewAdapter extends PagerAdapter{
 
     private Context mContext;
     private List<String> mList;
+    private Boolean imgCenter = false;
+
+    public void setImgCenter(Boolean imgCenter) {
+        this.imgCenter = imgCenter;
+    }
 
     public InvitationNewAdapter(Context context, List<String> list) {
         mContext = context;
@@ -46,14 +52,18 @@ public class InvitationNewAdapter extends PagerAdapter{
     public Object instantiateItem(ViewGroup container, int position) {
         View view = LayoutInflater.from(mContext).inflate(R.layout.item_invitation, container, false);
         ImageView imageView = view.findViewById(R.id.recommend_img_rotate);
-        RequestOptions requestOptions = new RequestOptions();
-        requestOptions = requestOptions
-                .transform(new RoundTransform(20,0, RoundTransform.CornerType.ALL));
-        if (mContext != null) {
-            Glide.with(mContext)
-                    .load(mList.get(position))
-                    .apply(requestOptions)
-                    .into(imageView);
+        if (imgCenter){
+            GlideApp.loderRoundImage(mContext,mList.get(position),imageView);
+        }else {
+            RequestOptions requestOptions = new RequestOptions();
+            requestOptions = requestOptions
+                    .transform(new RoundTransform(20,0, RoundTransform.CornerType.ALL));
+            if (mContext != null) {
+                Glide.with(mContext)
+                        .load(mList.get(position))
+                        .apply(requestOptions)
+                        .into(imageView);
+            }
         }
         container.addView(view);
         return view;

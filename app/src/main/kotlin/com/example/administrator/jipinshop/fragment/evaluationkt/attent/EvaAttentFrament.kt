@@ -17,7 +17,7 @@ import javax.inject.Inject
 /**
  * @author 莫小婷
  * @create 2019/8/6
- * @Describe
+ * @Describe 评测模块——关注列表
  */
 class EvaAttentFrament : DBBaseFragment(), OnRefreshListener, OnLoadMoreListener, EvaAttentAdapter.OnClickItem {
 
@@ -29,6 +29,15 @@ class EvaAttentFrament : DBBaseFragment(), OnRefreshListener, OnLoadMoreListener
     private lateinit var mAdapter: EvaAttentAdapter
     private var page = 1
     private var refersh: Boolean = true
+    private var once : Boolean = true //第一次进入
+
+    override fun setUserVisibleHint(isVisibleToUser: Boolean) {
+        super.setUserVisibleHint(isVisibleToUser)
+        if (isVisibleToUser && !once){//以后的每一次进入该页面都需要刷新该页面
+            mBinding.recyclerView.scrollToPosition(0)
+            refresh()
+        }
+    }
 
     override fun initLayout(inflater: LayoutInflater?, container: ViewGroup?): View {
         mBinding = DataBindingUtil.inflate(inflater, R.layout.fragment_evaluation_common, container, false)
@@ -72,6 +81,19 @@ class EvaAttentFrament : DBBaseFragment(), OnRefreshListener, OnLoadMoreListener
             mList.add("")
         }
         mAdapter.notifyDataSetChanged()
+        if (once){//第一次请求结束后改变标示
+            once = false
+        }
+    }
+
+    fun refresh(){
+        if (!mBinding.swipeToLoad.isRefreshEnabled) {
+            mBinding.swipeToLoad.isRefreshEnabled = true
+            mBinding.swipeToLoad.isRefreshing = true
+            mBinding.swipeToLoad.isRefreshEnabled = false
+        } else {
+            mBinding.swipeToLoad.isRefreshing = true
+        }
     }
 
     fun dissRefresh() {

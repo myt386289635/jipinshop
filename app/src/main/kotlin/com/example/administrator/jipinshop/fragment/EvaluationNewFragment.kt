@@ -56,6 +56,7 @@ class EvaluationNewFragment : DBBaseFragment() {
             mList.add(EvaEvaFragment())
             mList.add(EvaInventoryFragment())
             mAdapter.notifyDataSetChanged()
+            mBinding.viewPager.offscreenPageLimit = mList.size - 1
             boolean = false
         }
     }
