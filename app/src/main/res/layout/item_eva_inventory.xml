@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:layout_marginTop="@dimen/y16"
+            android:lineSpacingExtra="@dimen/x15"
+            android:textStyle="bold"
+            android:ellipsize="end"
+            android:maxLines="2"
+            android:id="@+id/item_title"
+            android:textColor="@color/color_202020"
+            android:textSize="18sp"
+            android:layout_marginRight="@dimen/x30"
+            android:layout_marginLeft="@dimen/x30"
+            android:text="闭眼入系列 | 从此爱上刷牙，网红推荐款网红推荐款网红推荐款"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+
+        <ImageView
+            android:layout_marginTop="@dimen/y30"
+            android:layout_below="@id/item_title"
+            android:src="@color/color_202020"
+            android:id="@+id/item_image"
+            android:layout_marginRight="@dimen/x30"
+            android:layout_marginLeft="@dimen/x30"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/y406"/>
+
+
+        <ImageView
+            android:layout_marginBottom="@dimen/y86"
+            android:layout_marginTop="@dimen/y35"
+            android:layout_below="@id/item_image"
+            android:id="@+id/item_userImg"
+            android:src="@color/color_202020"
+            android:layout_marginLeft="@dimen/x30"
+            android:layout_width="@dimen/x60"
+            android:layout_height="@dimen/y60"/>
+
+        <TextView
+            android:gravity="center"
+            android:layout_alignBottom="@id/item_userImg"
+            android:layout_alignTop="@id/item_userImg"
+            android:textStyle="bold"
+            android:layout_marginLeft="@dimen/x24"
+            android:layout_centerVertical="true"
+            android:layout_toRightOf="@id/item_userImg"
+            android:textColor="@color/color_ACACAC"
+            android:textSize="12sp"
+            android:text="资深编辑"
+            android:id="@+id/item_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+
+        <TextView
+            android:gravity="center"
+            android:layout_alignBottom="@id/item_userImg"
+            android:layout_alignTop="@id/item_userImg"
+            android:layout_marginRight="@dimen/x30"
+            android:layout_alignParentRight="true"
+            android:text="0阅读"
+            android:textColor="@color/color_ACACAC"
+            android:textSize="12sp"
+            android:id="@+id/item_pv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+
+    </RelativeLayout>
+</layout>
