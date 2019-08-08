@@ -1,9 +1,51 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout xmlns:android="http://schemas.android.com/apk/res/android">
-    <android.support.constraint.ConstraintLayout
-        android:background="#fe1"
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <com.aspsine.swipetoloadlayout.SwipeToLoadLayout
+        android:id="@+id/swipeToLoad"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-    </android.support.constraint.ConstraintLayout>
+        <com.example.administrator.jipinshop.view.textview.CustomRefreshHeadView
+            android:id="@+id/swipe_refresh_header"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:padding="20dp"/>
+
+        <RelativeLayout
+            android:id="@+id/swipe_target"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <android.support.design.widget.TabLayout
+                android:id="@+id/tab_layout"
+                app:tabIndicatorHeight="0dp"
+                app:tabBackground="@color/transparent"
+                app:tabMode="scrollable"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/y88"/>
+
+            <android.support.v7.widget.RecyclerView
+                android:layout_below="@id/tab_layout"
+                android:id="@+id/recycler_view"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"/>
+
+            <include
+                android:id="@+id/net_clude"
+                layout="@layout/common_net_error"
+                android:visibility="gone"/>
+
+        </RelativeLayout>
+
+        <com.example.administrator.jipinshop.view.textview.LoadMoreFooterView
+            android:id="@+id/swipe_load_more_footer"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:padding="20dp"/>
+
+    </com.aspsine.swipetoloadlayout.SwipeToLoadLayout>
 </layout>
