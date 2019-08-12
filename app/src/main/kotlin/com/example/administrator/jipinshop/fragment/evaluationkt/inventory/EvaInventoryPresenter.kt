@@ -9,7 +9,13 @@ import android.view.View
 import android.widget.TextView
 import com.aspsine.swipetoloadlayout.SwipeToLoadLayout
 import com.example.administrator.jipinshop.R
+import com.example.administrator.jipinshop.bean.EvaluationListBean
+import com.example.administrator.jipinshop.bean.EvaluationTabBean
 import com.example.administrator.jipinshop.netwrok.Repository
+import com.trello.rxlifecycle2.LifecycleTransformer
+import io.reactivex.android.schedulers.AndroidSchedulers
+import io.reactivex.schedulers.Schedulers
+import io.reactivex.functions.Consumer
 import javax.inject.Inject
 
 /**
@@ -53,14 +59,14 @@ class EvaInventoryPresenter {
         return false
     }
 
-    fun initTab(context: Context?, tabLayout: TabLayout, mTitleList: MutableList<String>){
+    fun initTab(context: Context?, tabLayout: TabLayout, mTitleList: MutableList<EvaluationTabBean.DataBean>){
         for (i in mTitleList.indices) {
             tabLayout.addTab(tabLayout.newTab())
         }
         for (i in mTitleList.indices){
             val view = LayoutInflater.from(context).inflate(R.layout.tablayout_eva, null)
             val textView = view.findViewById<TextView>(R.id.tab_name)
-            textView.text = mTitleList[i]
+            textView.text = mTitleList[i].categoryName
             tabLayout.getTabAt(i)?.let {
                 it.customView = view
                 var tabView : View = it.customView?.parent as View
@@ -69,5 +75,49 @@ class EvaInventoryPresenter {
                 }
             }
         }
+    }
+
+    fun setTab(transformer : LifecycleTransformer<EvaluationTabBean>){
+        repository.inventTab()
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .compose(transformer)
+                .subscribe(Consumer {
+                    if (it.code == 0){
+                        if (mView != null){
+                            mView.onSuccess(it)
+                        }
+                    }else{
+                        if (mView != null){
+                            mView.onFile(it.msg)
+                        }
+                    }
+                }, Consumer {
+                    if (mView != null){
+                        mView.onFile(it.message)
+                    }
+                })
+    }
+
+    fun setDate( categoryId : String  , page : Int , transformer : LifecycleTransformer<EvaluationListBean>){
+        repository.inventList(categoryId, page)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .compose(transformer)
+                .subscribe(Consumer {
+                    if (it.code == 0){
+                        if (mView != null){
+                            mView.onDateSuc(it)
+                        }
+                    }else{
+                        if (mView != null){
+                            mView.onDateFile(it.msg)
+                        }
+                    }
+                }, Consumer {
+                    if (mView != null){
+                        mView.onDateFile(it.message)
+                    }
+                })
     }
 }

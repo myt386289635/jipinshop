@@ -11,7 +11,6 @@ import com.aspsine.swipetoloadlayout.SwipeToLoadLayout
 import com.example.administrator.jipinshop.R
 import com.example.administrator.jipinshop.bean.EvaEvaBean
 import com.example.administrator.jipinshop.bean.EvaluationTabBean
-import com.example.administrator.jipinshop.bean.SuccessBean
 import com.example.administrator.jipinshop.netwrok.Repository
 import com.trello.rxlifecycle2.LifecycleTransformer
 import io.reactivex.android.schedulers.AndroidSchedulers

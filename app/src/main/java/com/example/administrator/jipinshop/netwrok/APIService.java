@@ -747,6 +747,18 @@ public interface APIService {
     @GET("qualityshop-api/api/v2/article/indexEvaluationList")
     Observable<EvaEvaBean> indexEvaluationList(@Query("categoryId") String categoryId );
 
+    /**
+     * 评测模块——清单列表  类目
+     */
+    @GET("qualityshop-api/api/v2/listing/categoryList")
+    Observable<EvaluationTabBean> inventTab();
+
+    /**
+     * 评测模块——清单列表
+     */
+    @GET("qualityshop-api/api/v2/article/listingList")
+    Observable<EvaluationListBean> inventList(@Query("categoryId") String categoryId , @Query("page") int page);
+
 /*************************************************以下是还未修改的接口***********************************************/
 
     /**

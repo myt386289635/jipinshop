@@ -11,8 +11,13 @@ import com.aspsine.swipetoloadlayout.OnRefreshListener
 import com.example.administrator.jipinshop.R
 import com.example.administrator.jipinshop.adapter.EvaInventoryAdapter
 import com.example.administrator.jipinshop.base.DBBaseFragment
+import com.example.administrator.jipinshop.bean.EvaluationListBean
+import com.example.administrator.jipinshop.bean.EvaluationTabBean
 import com.example.administrator.jipinshop.databinding.FragmentEvaEvaBinding
+import com.example.administrator.jipinshop.util.ClickUtil
+import com.example.administrator.jipinshop.util.ShopJumpUtil
 import com.example.administrator.jipinshop.util.ToastUtil
+import java.math.BigDecimal
 import javax.inject.Inject
 
 /**
@@ -20,30 +25,25 @@ import javax.inject.Inject
  * @create 2019/8/6
  * @Describe
  */
-class EvaInventoryFragment : DBBaseFragment(), EvaInventoryView, OnLoadMoreListener, OnRefreshListener, View.OnClickListener {
+class EvaInventoryFragment : DBBaseFragment(), EvaInventoryView, OnLoadMoreListener, OnRefreshListener, View.OnClickListener, EvaInventoryAdapter.OnClickItem {
 
     @Inject
     lateinit var mPresenter: EvaInventoryPresenter
 
     private lateinit var mBinding : FragmentEvaEvaBinding
-    private lateinit var mList: MutableList<String>
-    private lateinit var mTitleList: MutableList<String>
+    private lateinit var mList: MutableList<EvaluationListBean.DataBean>
+    private lateinit var mTitleList: MutableList<EvaluationTabBean.DataBean>
     private lateinit var mAdapter : EvaInventoryAdapter
     private var page = 1
     private var refersh: Boolean = true
     private var once : Boolean = true //第一次进入
+    private var categoryId : String = ""
 
     override fun setUserVisibleHint(isVisibleToUser: Boolean) {
         super.setUserVisibleHint(isVisibleToUser)
         if (isVisibleToUser && once){
             //先请求类目成功后再刷新列表
-            mTitleList.clear()
-            for (i in 0 .. 10){
-                mTitleList.add("电动牙刷$i")
-            }
-            mPresenter.initTab(context,mBinding.tabLayout,mTitleList)
-            mBinding.swipeToLoad.isRefreshing = true
-            once = false
+           mPresenter.setTab(this.bindToLifecycle())
         }
     }
 
@@ -66,6 +66,7 @@ class EvaInventoryFragment : DBBaseFragment(), EvaInventoryView, OnLoadMoreListe
         mList = mutableListOf()
         mTitleList = mutableListOf()
         mAdapter = EvaInventoryAdapter(mList,context!!)
+        mAdapter.setClick(this)
         mBinding.recyclerView.adapter = mAdapter
 
         mPresenter.solveScoll(mBinding.recyclerView,mBinding.swipeToLoad)
@@ -83,24 +84,19 @@ class EvaInventoryFragment : DBBaseFragment(), EvaInventoryView, OnLoadMoreListe
 
 
     override fun onRefresh() {
-        page = 1
-        refersh = true
-        dissRefresh()
-        mList.clear()
-        for (i in 0 .. 10){
-            mList.add("")
+        if (mBinding.netClude?.qsNet?.visibility == View.VISIBLE){
+            mPresenter.setTab(this.bindToLifecycle())
+        }else{
+            page = 1
+            refersh = true
+            mPresenter.setDate(categoryId,page,this.bindToLifecycle())
         }
-        mAdapter.notifyDataSetChanged()
     }
 
     override fun onLoadMore() {
         page++
         refersh = false
-        dissLoading()
-        for (i in 0 .. 10){
-            mList.add("")
-        }
-        mAdapter.notifyDataSetChanged()
+        mPresenter.setDate(categoryId,page,this.bindToLifecycle())
     }
 
     fun dissRefresh() {
@@ -137,6 +133,75 @@ class EvaInventoryFragment : DBBaseFragment(), EvaInventoryView, OnLoadMoreListe
     }
 
     override fun tabClick(position: Int) {
-        ToastUtil.show("位置$position")
+        categoryId = mTitleList[position].categoryId
+        onRefresh()
+    }
+
+    override fun onSuccess(bean: EvaluationTabBean) {
+        once = false//第一次请求后改变
+        mBinding.netClude?.run {
+            qsNet.visibility = View.GONE
+        }
+        mTitleList.clear()
+        mTitleList.addAll(bean.data)
+        mPresenter.initTab(context,mBinding.tabLayout,mTitleList)
+        categoryId = mTitleList[0].categoryId
+        if (mBinding.swipeToLoad.isRefreshing) {
+            onRefresh()
+        }else{
+            mBinding.swipeToLoad.isRefreshing = true
+        }
+    }
+
+    override fun onFile(error: String?) {
+        dissRefresh()
+        initError(R.mipmap.qs_net, "网络出错", "哇哦，网络出错了，换个姿势下滑页面试试")
+        ToastUtil.show(error)
+        once = false//第一次请求后改变
+    }
+
+    override fun onDateSuc(bean: EvaluationListBean) {
+        if (refersh) {
+            dissRefresh()
+            mList.clear()
+            mList.addAll(bean.data)
+            mAdapter.notifyDataSetChanged()
+        } else {
+            dissLoading()
+            if (bean.data != null && bean.data.size != 0) {
+                mList.addAll(bean.data)
+                mAdapter.notifyDataSetChanged()
+                mBinding.swipeToLoad.isLoadMoreEnabled = false
+            } else {
+                page--
+                ToastUtil.show("已经是最后一页了")
+            }
+        }
+    }
+
+    override fun onDateFile(error: String?) {
+        if (refersh) {
+            dissRefresh()
+        } else {
+            dissLoading()
+            page--
+        }
+        ToastUtil.show(error)
+    }
+
+    override fun onClickItem(position: Int) {
+        if (ClickUtil.isFastDoubleClick(800)) {
+            return
+        } else {
+            val bigDecimal = BigDecimal(mList[position].pv)
+            mList[position].pv = (bigDecimal.toInt() + 1).toString()
+            mAdapter.notifyDataSetChanged()
+            ShopJumpUtil.jumpArticle(context, mList[position].articleId,
+                     mList[position].type, mList[position].contentType)
+        }
+    }
+
+    override fun onClickUserinfo(userId: String) {
+       ToastUtil.show(userId)
     }
 }

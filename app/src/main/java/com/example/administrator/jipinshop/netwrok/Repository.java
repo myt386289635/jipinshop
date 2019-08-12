@@ -820,4 +820,19 @@ public class Repository {
     public Observable<EvaEvaBean> indexEvaluationList(String categoryId ){
         return mAPIService.indexEvaluationList(categoryId);
     }
+
+    /**
+     * 评测模块——清单列表  类目
+     */
+    public Observable<EvaluationTabBean> inventTab(){
+        return mAPIService.inventTab();
+    }
+
+    /**
+     * 评测模块——清单列表
+     */
+    public Observable<EvaluationListBean> inventList(String categoryId ,int page){
+        return mAPIService.inventList(categoryId, page);
+    }
+
 }
