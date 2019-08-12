@@ -66,7 +66,12 @@ public class BindingUtil {
 
     @BindingAdapter("bind:srcTopRound")
     public static void setImageTopRound(ImageView imageView , String src){
-        GlideApp.loderTopRoundImage(imageView.getContext(),src,imageView);
+        GlideApp.loderTopRoundImage(imageView.getContext(),src,imageView,10);
+    }
+
+    @BindingAdapter("bind:srcTop30Round")
+    public static void setImageTop30Round(ImageView imageView , String src){
+        GlideApp.loderTopRoundImage(imageView.getContext(),src,imageView,30);
     }
 
     /**

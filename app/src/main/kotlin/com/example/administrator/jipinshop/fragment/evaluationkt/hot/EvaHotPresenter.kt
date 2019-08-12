@@ -3,7 +3,12 @@ package com.example.administrator.jipinshop.fragment.evaluationkt.hot
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
 import com.aspsine.swipetoloadlayout.SwipeToLoadLayout
+import com.example.administrator.jipinshop.bean.EvaHotBean
 import com.example.administrator.jipinshop.netwrok.Repository
+import com.trello.rxlifecycle2.LifecycleTransformer
+import io.reactivex.android.schedulers.AndroidSchedulers
+import io.reactivex.functions.Consumer
+import io.reactivex.schedulers.Schedulers
 import javax.inject.Inject
 
 /**
@@ -15,6 +20,11 @@ import javax.inject.Inject
 class EvaHotPresenter {
 
     private var repository : Repository
+    private lateinit var mView : EvaHotView
+
+    fun setView(view : EvaHotView){
+        mView = view
+    }
 
     @Inject
     constructor(repository: Repository) {
@@ -43,4 +53,25 @@ class EvaHotPresenter {
         return false
     }
 
+    fun recommendList(page: Int, transformer: LifecycleTransformer<EvaHotBean>){
+        repository.recommendList(page)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .compose(transformer)
+                .subscribe(Consumer {
+                    if (it.code == 0){
+                        if (mView != null){
+                            mView.onSuccess(it)
+                        }
+                    }else{
+                        if (mView != null){
+                            mView.onFile(it.msg)
+                        }
+                    }
+                }, Consumer {
+                    if (mView != null){
+                        mView.onFile(it.message)
+                    }
+                })
+    }
 }

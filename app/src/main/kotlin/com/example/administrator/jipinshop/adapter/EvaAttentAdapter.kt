@@ -6,8 +6,10 @@ import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
 import android.view.Gravity
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
 import com.example.administrator.jipinshop.R
+import com.example.administrator.jipinshop.bean.EvaAttentBean
 import com.example.administrator.jipinshop.databinding.ItemEvaAttent2Binding
 import com.example.administrator.jipinshop.databinding.ItemEvaAttentBinding
 import com.example.administrator.jipinshop.util.snap.GravitySnapHelper
@@ -22,7 +24,7 @@ class EvaAttentAdapter() : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
     private val one = 1
     private val two = 2
 
-    private lateinit var mList: MutableList<String>
+    private lateinit var mList: MutableList<EvaAttentBean.DataBean>
     private lateinit var context: Context
     private lateinit var mOnClickItem: OnClickItem
 
@@ -31,14 +33,14 @@ class EvaAttentAdapter() : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
     }
 
     //父类有构造函数，子类的构造函数需要显示调用父类的构造函数
-    constructor(mList: MutableList<String>, context: Context) : this(){
+    constructor(mList: MutableList<EvaAttentBean.DataBean>, context: Context) : this(){
         this.mList = mList
         this.context = context
     }
 
     override fun getItemViewType(position: Int): Int {
-        when(position % 5){
-            0 -> return one
+        when(mList[position].type){
+            2 -> return one
             else -> return two
         }
     }
@@ -69,19 +71,59 @@ class EvaAttentAdapter() : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
                 var oneViewHolder : OneViewHolder = holder as OneViewHolder
                 oneViewHolder.run {
                     list.clear()
-                    for ( i in 0 .. position ){
-                        list.add("")
+                    if (mList[position].userList != null){
+                        list.addAll(mList[position].userList)
                     }
+                    mPagerAdapter.setClick(object : EvaAttent2Adapter.OnClickItem{
+                        override fun onClickAttent(userId: String, pos: Int) {
+                           mOnClickItem.onClickAttent2(userId,pos,position)
+                        }
+
+                        override fun onClickAttentCancle(userId: String, pos: Int) {
+                            mOnClickItem.onClickAttentCancle2(userId,pos,position)
+                        }
+
+                        override fun onClickUserinfo(userId: String) {//进入个人详情页
+                            mOnClickItem.onClickUserinfo(userId)
+                        }
+
+
+                    })
                     mPagerAdapter.notifyDataSetChanged()
                 }
             }
             two -> {
                 var twoViewHolder : TwoViewHolder = holder as TwoViewHolder
                 twoViewHolder.run {
-
-                    itemView.setOnClickListener{
+                    binding.data = mList[position].article
+                    itemView.setOnClickListener{//进入文章详情
                         mOnClickItem.onClickItem(position)
                     }
+                    binding.itemUserImg.setOnClickListener {//进入个人详情页
+                        mOnClickItem.onClickUserinfo(mList[position].article.user.userId)
+                    }
+                    if (mList[position].article.user.follow == "0"){
+                        binding.itemAttention.visibility = View.VISIBLE
+                        binding.itemAttention.setBackgroundResource(R.drawable.bg_attention_new)
+                        binding.itemAttention.text = "关  注"
+                        binding.itemAttention.setTextColor(context.resources.getColor(R.color.color_E25838))
+                        binding.itemAttention.setOnClickListener {
+                            //关注
+                            mOnClickItem.onClickAttent(mList[position].article.user.userId,position)
+                        }
+                    }else if(mList[position].article.user.follow == "2"){
+                        binding.itemAttention.visibility = View.VISIBLE
+                        binding.itemAttention.setBackgroundResource(R.drawable.bg_attentioned_new)
+                        binding.itemAttention.text = "已关注"
+                        binding.itemAttention.setTextColor(context.resources.getColor(R.color.color_9D9D9D))
+                        binding.itemAttention.setOnClickListener {
+                            //取消关注
+                            mOnClickItem.onClickAttentCancle(mList[position].article.user.userId,position)
+                        }
+                    } else{
+                        binding.itemAttention.visibility = View.GONE
+                    }
+                    binding.executePendingBindings()
                 }
             }
         }
@@ -90,7 +132,7 @@ class EvaAttentAdapter() : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
     inner class OneViewHolder : RecyclerView.ViewHolder{
 
         var binding : ItemEvaAttentBinding
-        var list: MutableList<String>
+        var list: MutableList<EvaAttentBean.DataBean.UserListBean>
         val mPagerAdapter: EvaAttent2Adapter
 
         constructor(binding: ItemEvaAttentBinding) : super(binding.root){
@@ -102,6 +144,7 @@ class EvaAttentAdapter() : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
             val mySnapHelper = GravitySnapHelper(Gravity.START)
             mySnapHelper.attachToRecyclerView(binding.recyclerView)
             binding.recyclerView.adapter = mPagerAdapter
+            binding.recyclerView.isFocusable = false //让recyclerView失去焦点
         }
     }
 
@@ -115,6 +158,11 @@ class EvaAttentAdapter() : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
     }
 
     interface OnClickItem{
-        fun onClickItem(position: Int)
+        fun onClickItem(position: Int)//点击进入文章详情页面
+        fun onClickUserinfo(userId : String) //点击进入个人详情页
+        fun onClickAttent(userId: String , position: Int) //关注逻辑
+        fun onClickAttentCancle(userId: String, position: Int) //取消关注
+        fun onClickAttent2(userId: String , pos: Int , fpos : Int) //推荐列表：关注逻辑
+        fun onClickAttentCancle2(userId: String, pos: Int , fpos: Int) //推荐列表：取消关注
     }
 }

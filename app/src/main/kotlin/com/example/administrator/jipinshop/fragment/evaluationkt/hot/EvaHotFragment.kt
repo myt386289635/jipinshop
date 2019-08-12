@@ -10,7 +10,10 @@ import com.aspsine.swipetoloadlayout.OnRefreshListener
 import com.example.administrator.jipinshop.R
 import com.example.administrator.jipinshop.adapter.EvaHotAdapter
 import com.example.administrator.jipinshop.base.DBBaseFragment
+import com.example.administrator.jipinshop.bean.EvaAttentBean
+import com.example.administrator.jipinshop.bean.EvaHotBean
 import com.example.administrator.jipinshop.databinding.FragmentEvaluationCommonBinding
+import com.example.administrator.jipinshop.util.ToastUtil
 import javax.inject.Inject
 
 /**
@@ -18,13 +21,14 @@ import javax.inject.Inject
  * @create 2019/8/6
  * @Describe 评测模块——推荐列表
  */
-class EvaHotFragment : DBBaseFragment(), OnRefreshListener, OnLoadMoreListener {
+class EvaHotFragment : DBBaseFragment(), OnRefreshListener, OnLoadMoreListener, EvaHotView {
 
     @Inject
     lateinit var mPresenter : EvaHotPresenter
 
     private lateinit var mBinding : FragmentEvaluationCommonBinding
-    private lateinit var mList: MutableList<String>
+    private lateinit var mList: MutableList<EvaAttentBean.DataBean.ArticleBean>
+    private lateinit var mAds: MutableList<EvaHotBean.AdsBean>
     private lateinit var mAdapter : EvaHotAdapter
     private var page = 1
     private var refersh: Boolean = true
@@ -45,13 +49,15 @@ class EvaHotFragment : DBBaseFragment(), OnRefreshListener, OnLoadMoreListener {
 
     override fun initView() {
         mBaseFragmentComponent.inject(this)
+        mPresenter.setView(this)
         context?.let {
             mBinding.swipeToLoad.setBackgroundColor(it.resources.getColor(R.color.color_F5F5F5))
         }
 
         mBinding.recyclerView.layoutManager = LinearLayoutManager(context)
         mList = mutableListOf()
-        mAdapter = EvaHotAdapter(mList,context!!)
+        mAds = mutableListOf()
+        mAdapter = EvaHotAdapter(mList,mAds,context!!)
         mBinding.recyclerView.adapter = mAdapter
 
         mPresenter.solveScoll(mBinding.recyclerView,mBinding.swipeToLoad)
@@ -62,22 +68,13 @@ class EvaHotFragment : DBBaseFragment(), OnRefreshListener, OnLoadMoreListener {
     override fun onLoadMore() {
         page++
         refersh = false
-        dissLoading()
-        for (i in 0 .. 10){
-            mList.add("")
-        }
-        mAdapter.notifyDataSetChanged()
+        mPresenter.recommendList(page,this.bindToLifecycle())
     }
 
     override fun onRefresh() {
         page = 1
         refersh = true
-        dissRefresh()
-        mList.clear()
-        for (i in 0 .. 10){
-            mList.add("")
-        }
-        mAdapter.notifyDataSetChanged()
+        mPresenter.recommendList(page,this.bindToLifecycle())
     }
 
     fun dissRefresh() {
@@ -111,6 +108,48 @@ class EvaHotFragment : DBBaseFragment(), OnRefreshListener, OnLoadMoreListener {
             errorTitle.text = title
             errorContent.text = content
         }
+    }
+
+    override fun onSuccess(bean: EvaHotBean) {
+        if (refersh) {
+            dissRefresh()
+            if (bean.data != null && bean.data.size != 0) {
+                mBinding.netClude?.let {
+                    it.qsNet.visibility = View.GONE
+                }
+                mBinding.recyclerView.visibility = View.VISIBLE
+                mList.clear()
+                mAds.clear()
+                mList.addAll(bean.data)
+                mAds.addAll(bean.ads)
+                mAdapter.notifyDataSetChanged()
+            } else {
+                initError(R.mipmap.qs_nodata, "暂无数据", "暂时没有任何数据 ")
+                mBinding.recyclerView.visibility = View.GONE
+            }
+        } else {
+            dissLoading()
+            if (bean.data != null && bean.data.size != 0) {
+                mList.addAll(bean.data)
+                mAdapter.notifyDataSetChanged()
+                mBinding.swipeToLoad.isLoadMoreEnabled = false
+            } else {
+                page--
+                ToastUtil.show("已经是最后一页了")
+            }
+        }
+    }
+
+    override fun onFile(error: String?) {
+        if (refersh) {
+            dissRefresh()
+            initError(R.mipmap.qs_net, "网络出错", "哇哦，网络出错了，换个姿势下滑页面试试")
+            mBinding.recyclerView.visibility = View.GONE
+        } else {
+            dissLoading()
+            page--
+        }
+        ToastUtil.show(error)
     }
 
 }

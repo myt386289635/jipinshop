@@ -187,10 +187,40 @@ public class GlideApp {
     /**
      * 上圆角，下直角
      */
-    public static void loderTopRoundImage(Context context, String url, ImageView imageView) {
+    public static void loderTopRoundImage(Context context, String url, ImageView imageView,int radius) {
         RequestOptions requestOptions = new RequestOptions();
         requestOptions = requestOptions
-                .transform(new CenterRoundTransform(10, 0, CenterRoundTransform.CornerType.TOP));
+                .transform(new CenterRoundTransform(radius, 0, CenterRoundTransform.CornerType.TOP));
+        if (context != null) {
+            Glide.with(context)
+                    .load(url)
+                    .apply(requestOptions)
+                    .into(imageView);
+        }
+    }
+
+    /**
+     * 左圆角，右直角
+     */
+    public static void loderLeftRoundImage(Context context, String url, ImageView imageView,int radius) {
+        RequestOptions requestOptions = new RequestOptions();
+        requestOptions = requestOptions
+                .transform(new CenterRoundTransform(radius, 0, CenterRoundTransform.CornerType.LEFT));
+        if (context != null) {
+            Glide.with(context)
+                    .load(url)
+                    .apply(requestOptions)
+                    .into(imageView);
+        }
+    }
+
+    /**
+     * 右圆角，左直角
+     */
+    public static void loderRightRoundImage(Context context, String url, ImageView imageView,int radius) {
+        RequestOptions requestOptions = new RequestOptions();
+        requestOptions = requestOptions
+                .transform(new CenterRoundTransform(radius, 0, CenterRoundTransform.CornerType.RIGHT));
         if (context != null) {
             Glide.with(context)
                     .load(url)

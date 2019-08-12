@@ -6,6 +6,8 @@ import com.example.administrator.jipinshop.bean.BudgetDetailBean;
 import com.example.administrator.jipinshop.bean.CommentBean;
 import com.example.administrator.jipinshop.bean.DailyTaskBean;
 import com.example.administrator.jipinshop.bean.DefaultAddressBean;
+import com.example.administrator.jipinshop.bean.EvaAttentBean;
+import com.example.administrator.jipinshop.bean.EvaHotBean;
 import com.example.administrator.jipinshop.bean.EvaluationListBean;
 import com.example.administrator.jipinshop.bean.EvaluationTabBean;
 import com.example.administrator.jipinshop.bean.FindDetailBean;
@@ -790,4 +792,17 @@ public class Repository {
         return mAPIService.addAnswer(content, questionId);
     }
 
+    /**
+     * 评测模块——关注列表
+     */
+    public Observable<EvaAttentBean> myfollowList(int page){
+        return mAPIService.myfollowList(page);
+    }
+
+    /**
+     * 评测模块——推荐列表
+     */
+    public Observable<EvaHotBean> recommendList(int page){
+        return mAPIService.recommendList(page);
+    }
 }

@@ -357,8 +357,8 @@ public class ReportDetailPresenter {
     /**
      * 获取数据
      */
-    public void getDetail(String id, LifecycleTransformer<FindDetailBean> transformer){
-        mRepository.findDetail(id,"4")
+    public void getDetail(String id,String type, LifecycleTransformer<FindDetailBean> transformer){
+        mRepository.findDetail(id,type)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .compose(transformer)

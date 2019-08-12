@@ -1,5 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout xmlns:android="http://schemas.android.com/apk/res/android">
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:bind="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+        <variable
+            name="data"
+            type="com.example.administrator.jipinshop.bean.EvaAttentBean.DataBean.ArticleBean"/>
+    </data>
 
     <RelativeLayout
         android:layout_marginBottom="@dimen/y40"
@@ -11,7 +19,7 @@
             android:layout_marginLeft="@dimen/x30"
             android:layout_marginTop="@dimen/y50"
             android:id="@+id/item_userImg"
-            android:src="@color/color_9D9D9D"
+            bind:srcCircle="@{data.user.avatar}"
             android:layout_width="@dimen/x106"
             android:layout_height="@dimen/y106"/>
 
@@ -22,7 +30,7 @@
             android:textSize="16sp"
             android:textColor="@color/color_202020"
             android:textStyle="bold"
-            android:text="雨女无瓜雨女无瓜雨女无瓜雨女无瓜雨女无瓜"
+            android:text="@{data.user.nickname}"
             android:layout_marginLeft="@dimen/x23"
             android:layout_marginTop="@dimen/y14"
             android:layout_alignTop="@id/item_userImg"
@@ -32,7 +40,7 @@
 
         <TextView
             android:id="@+id/item_userSign"
-            android:text="生活的评论家，吃货届的专家！"
+            android:text="@{data.user.detail}"
             android:textColor="@color/color_9D9D9D"
             android:textSize="13sp"
             android:layout_marginBottom="@dimen/y2"
@@ -53,7 +61,7 @@
             android:textStyle="bold"
             android:textColor="@color/color_202020"
             android:textSize="18sp"
-            android:text="飞利浦电动牙刷HX6853/HX6856成人充电式声波震动电动牙刷小美刷人充电式声波震动电动牙电动牙"
+            android:text="@{data.title}"
             android:layout_marginLeft="@dimen/x30"
             android:layout_marginTop="@dimen/y39"
             android:layout_below="@id/item_userImg"
@@ -61,7 +69,7 @@
             android:layout_height="wrap_content"/>
         
         <ImageView
-            android:src="@color/color_202020"
+            bind:srcRound="@{data.img}"
             android:id="@+id/item_image"
             android:layout_marginTop="@dimen/y30"
             android:layout_below="@id/item_title"
@@ -79,7 +87,7 @@
             android:id="@+id/item_pv"
             android:textColor="@color/color_ACACAC"
             android:textSize="12sp"
-            android:text="378阅读"
+            android:text="@{data.pv + @string/pv}"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"/>
 

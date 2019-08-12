@@ -129,6 +129,8 @@ public class ReportDetailActivity extends BaseActivity implements View.OnClickLi
     private ReportDetailAdapter mRVAdapter;
     private List<TryDetailBean.DataBean.GoodsContentListBean> mList;
 
+    private String type  = "";
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -143,6 +145,12 @@ public class ReportDetailActivity extends BaseActivity implements View.OnClickLi
         mDialog = (new ProgressDialogView()).createLoadingDialog(this, "正在加载...");
         mDialog.show();
         mPresenter.setView(this);
+        type = getIntent().getStringExtra("type");
+        if (type.equals("4")){
+            mBinding.titleTv.setText("试用报告");
+        }else {
+            mBinding.titleTv.setText("清单详情");
+        }
 
         mBinding.recyclerView.setLayoutManager(new LinearLayoutManager(this));
         mList = new ArrayList<>();
@@ -194,8 +202,8 @@ public class ReportDetailActivity extends BaseActivity implements View.OnClickLi
 
         mBeans = new ArrayList<>();
 
-        mPresenter.getDetail(getIntent().getStringExtra("id"), this.bindToLifecycle());
-        mPresenter.comment(getIntent().getStringExtra("id"),"4", this.bindToLifecycle());
+        mPresenter.getDetail(getIntent().getStringExtra("id"), type, this.bindToLifecycle());
+        mPresenter.comment(getIntent().getStringExtra("id"),type, this.bindToLifecycle());
 
         handler.sendEmptyMessageDelayed(100,1000 * 15);//阅读15秒
     }
@@ -273,10 +281,10 @@ public class ReportDetailActivity extends BaseActivity implements View.OnClickLi
                 } else {
                     if (isSnap) {
                         //点赞过了
-                        mPresenter.snapDelete(0, getIntent().getStringExtra("id"), "4", this.bindToLifecycle());
+                        mPresenter.snapDelete(0, getIntent().getStringExtra("id"), type, this.bindToLifecycle());
                     } else {
                         //没有点赞
-                        mPresenter.snapInsert(0, "4", getIntent().getStringExtra("id"), this.bindToLifecycle());
+                        mPresenter.snapInsert(0, type, getIntent().getStringExtra("id"), this.bindToLifecycle());
                     }
                 }
                 break;
@@ -304,10 +312,10 @@ public class ReportDetailActivity extends BaseActivity implements View.OnClickLi
                 } else {
                     if (isCollect) {
                         //收藏过了
-                        mPresenter.collectDelete(getIntent().getStringExtra("id"), "4", this.bindToLifecycle());
+                        mPresenter.collectDelete(getIntent().getStringExtra("id"), type, this.bindToLifecycle());
                     } else {
                         //没有收藏
-                        mPresenter.collectInsert(getIntent().getStringExtra("id"), "4", this.bindToLifecycle());
+                        mPresenter.collectInsert(getIntent().getStringExtra("id"), type, this.bindToLifecycle());
                     }
                 }
                 break;
@@ -324,14 +332,14 @@ public class ReportDetailActivity extends BaseActivity implements View.OnClickLi
                 }
                 mDialog = (new ProgressDialogView()).createLoadingDialog(this, "正在加载...");
                 mDialog.show();
-                mPresenter.commentInsert("4", getIntent().getStringExtra("id"), toUserId, mBinding.keyEdit.getText().toString(), parentId, this.bindToLifecycle());
+                mPresenter.commentInsert(type, getIntent().getStringExtra("id"), toUserId, mBinding.keyEdit.getText().toString(), parentId, this.bindToLifecycle());
                 break;
             case R.id.detail_commonTotle:
                 //跳转到评论列表
                 startActivity(new Intent(this, CommenListActivity.class)
                         .putExtra("position", -1)
                         .putExtra("id", getIntent().getStringExtra("id"))
-                        .putExtra("type", "4")
+                        .putExtra("type", type)
                 );
                 break;
         }
@@ -374,7 +382,7 @@ public class ReportDetailActivity extends BaseActivity implements View.OnClickLi
         startActivity(new Intent(this, CommenListActivity.class)
                 .putExtra("position", pos)
                 .putExtra("id", getIntent().getStringExtra("id"))
-                .putExtra("type", "4")
+                .putExtra("type", type)
         );
     }
 
@@ -607,7 +615,7 @@ public class ReportDetailActivity extends BaseActivity implements View.OnClickLi
      */
     @Override
     public void onSucCommentInsert(SuccessBean successBean) {
-        mPresenter.comment(getIntent().getStringExtra("id"), "4", this.bindToLifecycle());
+        mPresenter.comment(getIntent().getStringExtra("id"), type, this.bindToLifecycle());
         mBinding.keyEdit.setText("");
         hintKey();
         if(!successBean.getMsg().equals("success")){
@@ -875,8 +883,8 @@ public class ReportDetailActivity extends BaseActivity implements View.OnClickLi
     @Subscribe
     public void refreshPage(CommonEvaluationBus commonEvaluationBus){
         if(commonEvaluationBus != null && commonEvaluationBus.getRefersh().equals(LoginActivity.refresh)){
-            mPresenter.pagerState("4",getIntent().getStringExtra("id"),this.bindToLifecycle());
-            mPresenter.comment(getIntent().getStringExtra("id"), "4", this.bindToLifecycle());
+            mPresenter.pagerState(type,getIntent().getStringExtra("id"),this.bindToLifecycle());
+            mPresenter.comment(getIntent().getStringExtra("id"), type, this.bindToLifecycle());
         }
     }
 
@@ -884,7 +892,7 @@ public class ReportDetailActivity extends BaseActivity implements View.OnClickLi
     @Subscribe
     public void commentResher(CommenBus commenBus){
         if(commenBus != null && commenBus.getTag().equals(CommenListActivity.commentResher)){
-            mPresenter.comment(getIntent().getStringExtra("id"), "4", this.bindToLifecycle());
+            mPresenter.comment(getIntent().getStringExtra("id"), type, this.bindToLifecycle());
         }
     }
 

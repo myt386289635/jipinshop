@@ -7,6 +7,8 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.example.administrator.jipinshop.R
+import com.example.administrator.jipinshop.bean.EvaAttentBean
+import com.example.administrator.jipinshop.bean.EvaHotBean
 import com.example.administrator.jipinshop.databinding.ItemEvaAttent2Binding
 import com.example.administrator.jipinshop.databinding.ItemEvaAttentBinding
 import com.example.administrator.jipinshop.databinding.ItemEvaHotBinding
@@ -22,11 +24,13 @@ class EvaHotAdapter() : RecyclerView.Adapter<RecyclerView.ViewHolder>(){
     private val one = 1
     private val two = 2
 
-    private lateinit var mList: MutableList<String>
+    private lateinit var mList: MutableList<EvaAttentBean.DataBean.ArticleBean>
+    private lateinit var mAds: MutableList<EvaHotBean.AdsBean>
     private lateinit var context: Context
 
-    constructor(mList: MutableList<String>, context: Context) : this(){
+    constructor(mList: MutableList<EvaAttentBean.DataBean.ArticleBean>,mAds: MutableList<EvaHotBean.AdsBean>, context: Context) : this(){
         this.mList = mList
+        this.mAds = mAds
         this.context = context
     }
 
@@ -63,19 +67,30 @@ class EvaHotAdapter() : RecyclerView.Adapter<RecyclerView.ViewHolder>(){
                 var oneViewHolder : OneViewHolder = holder as OneViewHolder
                 oneViewHolder.run {
                     list.clear()
-                    for ( i in 0 .. 3 ){
-                        list.add("https://weiliicimg9.pstatp.com/weili/l/480566081290502202.webp")
-                    }
+                    list.addAll(mAds)
                     mPagerAdapter.notifyDataSetChanged()
                 }
             }
             two -> {
                 var twoViewHolder : TwoViewHolder = holder as TwoViewHolder
+                var pos = position - 1
                 twoViewHolder.run {
-
+                    binding.data = mList[pos]
                     itemView.setOnClickListener{
-                        ToastUtil.show("" + position)
+                        ToastUtil.show("" + pos)
                     }
+                    if (mList[pos].user.follow == "0"){
+                        //未关注
+                        binding.itemAttention.setBackgroundResource(R.drawable.bg_attention_new)
+                        binding.itemAttention.text = "关  注"
+                        binding.itemAttention.setTextColor(context.resources.getColor(R.color.color_E25838))
+                    }else{
+                        //关注
+                        binding.itemAttention.setBackgroundResource(R.drawable.bg_attentioned_new)
+                        binding.itemAttention.text = "已关注"
+                        binding.itemAttention.setTextColor(context.resources.getColor(R.color.color_9D9D9D))
+                    }
+                    binding.executePendingBindings()
                 }
             }
         }
@@ -84,15 +99,14 @@ class EvaHotAdapter() : RecyclerView.Adapter<RecyclerView.ViewHolder>(){
     inner class OneViewHolder : RecyclerView.ViewHolder{
 
         var binding : ItemEvaHotBinding
-        var list: MutableList<String>
-        val mPagerAdapter: InvitationNewAdapter
+        var list: MutableList<EvaHotBean.AdsBean>
+        val mPagerAdapter: EvaHotPageAdapter
 
         constructor(binding: ItemEvaHotBinding) : super(binding.root){
             this.binding = binding
 
             list = mutableListOf()
-            mPagerAdapter = InvitationNewAdapter(context,list)
-            mPagerAdapter.setImgCenter(true)
+            mPagerAdapter = EvaHotPageAdapter(context,list)
             binding.viewPager.adapter = mPagerAdapter
             binding.viewPager.offscreenPageLimit = mList.size - 1
             binding.viewPager.pageMargin = context.resources.getDimension(R.dimen.x30).toInt()
