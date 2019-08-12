@@ -7,6 +7,7 @@ import com.example.administrator.jipinshop.bean.CommentBean;
 import com.example.administrator.jipinshop.bean.DailyTaskBean;
 import com.example.administrator.jipinshop.bean.DefaultAddressBean;
 import com.example.administrator.jipinshop.bean.EvaAttentBean;
+import com.example.administrator.jipinshop.bean.EvaEvaBean;
 import com.example.administrator.jipinshop.bean.EvaHotBean;
 import com.example.administrator.jipinshop.bean.EvaluationListBean;
 import com.example.administrator.jipinshop.bean.EvaluationTabBean;
@@ -733,6 +734,18 @@ public interface APIService {
      */
     @GET("qualityshop-api/api/v2/article/recommendList")
     Observable<EvaHotBean> recommendList(@Query("page") int page);
+
+    /**
+     * 评测模块——评测列表  类目
+     */
+    @GET("qualityshop-api/api/v2/evaluation/categoryList")
+    Observable<EvaluationTabBean> evaTab2();
+
+    /**
+     * 评测模块——评测列表
+     */
+    @GET("qualityshop-api/api/v2/article/indexEvaluationList")
+    Observable<EvaEvaBean> indexEvaluationList(@Query("categoryId") String categoryId );
 
 /*************************************************以下是还未修改的接口***********************************************/
 

@@ -6,12 +6,14 @@ import android.support.v7.widget.LinearLayoutManager
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import com.aspsine.swipetoloadlayout.OnLoadMoreListener
 import com.aspsine.swipetoloadlayout.OnRefreshListener
 import com.example.administrator.jipinshop.R
 import com.example.administrator.jipinshop.adapter.EvaEvaAdapter
 import com.example.administrator.jipinshop.base.DBBaseFragment
+import com.example.administrator.jipinshop.bean.EvaEvaBean
+import com.example.administrator.jipinshop.bean.EvaluationTabBean
 import com.example.administrator.jipinshop.databinding.FragmentEvaEvaBinding
+import com.example.administrator.jipinshop.util.ShopJumpUtil
 import com.example.administrator.jipinshop.util.ToastUtil
 import javax.inject.Inject
 
@@ -20,29 +22,24 @@ import javax.inject.Inject
  * @create 2019/8/6
  * @Describe
  */
-class EvaEvaFragment : DBBaseFragment(), OnRefreshListener, EvaEvaView {
+class EvaEvaFragment : DBBaseFragment(), OnRefreshListener, EvaEvaView, EvaEvaAdapter.OnClickItem {
 
     @Inject
     lateinit var mPresenter : EvaEvaPresenter
 
     private lateinit var mBinding : FragmentEvaEvaBinding
-    private lateinit var mList1: MutableList<String>//开箱评测
-    private lateinit var mList2: MutableList<String>//对比评测
-    private lateinit var mTitleList: MutableList<String>
+    private lateinit var mList1: MutableList<EvaEvaBean.DataBean>//开箱评测
+    private lateinit var mList2: MutableList<EvaEvaBean.List2Bean>//对比评测
+    private lateinit var mTitleList: MutableList<EvaluationTabBean.DataBean>
     private lateinit var mAdapter : EvaEvaAdapter
     private var once : Boolean = true //第一次进入
+    private var categoryId : String = ""
 
     override fun setUserVisibleHint(isVisibleToUser: Boolean) {
         super.setUserVisibleHint(isVisibleToUser)
         if (isVisibleToUser && once){
             //先请求类目成功后再刷新列表
-            mTitleList.clear()
-            for (i in 0 .. 10){
-                mTitleList.add("电动牙刷$i")
-            }
-            mPresenter.initTab(context,mBinding.tabLayout,mTitleList)
-            mBinding.swipeToLoad.isRefreshing = true
-            once = false
+            mPresenter.setTab(this.bindToLifecycle())
         }
     }
 
@@ -64,6 +61,7 @@ class EvaEvaFragment : DBBaseFragment(), OnRefreshListener, EvaEvaView {
         mList2 = mutableListOf()
         mTitleList = mutableListOf()
         mAdapter = EvaEvaAdapter(mList1,mList2,context!!)
+        mAdapter.setClick(this)
         mBinding.recyclerView.adapter = mAdapter
 
         mPresenter.solveScoll(mBinding.recyclerView,mBinding.swipeToLoad)
@@ -72,16 +70,11 @@ class EvaEvaFragment : DBBaseFragment(), OnRefreshListener, EvaEvaView {
     }
 
     override fun onRefresh() {
-        dissRefresh()
-        mList1.clear()
-        mList2.clear()
-        for (i in 0 .. 10){
-            mList1.add("")
+        if (mBinding.netClude?.qsNet?.visibility == View.VISIBLE){
+            mPresenter.setTab(this.bindToLifecycle())
+        }else{
+            mPresenter.getDate(categoryId,this.bindToLifecycle())
         }
-        for (i in 0 .. 1){
-            mList2.add("")
-        }
-        mAdapter.notifyDataSetChanged()
     }
 
     fun dissRefresh() {
@@ -106,7 +99,75 @@ class EvaEvaFragment : DBBaseFragment(), OnRefreshListener, EvaEvaView {
     }
 
     override fun tabClick(position: Int) {
-        ToastUtil.show("位置$position")
+        categoryId = mTitleList[position].categoryId
+        onRefresh()
+    }
+
+    override fun onSuccess(bean: EvaluationTabBean) {
+        once = false//第一次请求后改变
+        mBinding.netClude?.run {
+            qsNet.visibility = View.GONE
+        }
+        mTitleList.clear()
+        mTitleList.addAll(bean.data)
+        mPresenter.initTab(context,mBinding.tabLayout,mTitleList)
+        categoryId = mTitleList[0].categoryId
+        if (mBinding.swipeToLoad.isRefreshing) {
+            onRefresh()
+        }else{
+            mBinding.swipeToLoad.isRefreshing = true
+        }
+    }
+
+    override fun onFile(error: String?) {
+        dissRefresh()
+        initError(R.mipmap.qs_net, "网络出错", "哇哦，网络出错了，换个姿势下滑页面试试")
+        ToastUtil.show(error)
+        once = false//第一次请求后改变
+    }
+
+    override fun onDateSuc(bean: EvaEvaBean) {
+        dissRefresh()
+        mList1.clear()
+        mList2.clear()
+        mList1.addAll(bean.data)
+        mList2.addAll(bean.list2)
+        mAdapter.notifyDataSetChanged()
+    }
+
+    override fun onDateFile(error: String?) {
+        dissRefresh()
+        ToastUtil.show(error)
+    }
+
+    /**
+     * 跳转到文章详情
+     */
+    override fun onClickItem(articleId :String , type :String , contentType : Int) {
+        mAdapter.notifyDataSetChanged()
+        ShopJumpUtil.jumpArticle(context, articleId,
+                type, contentType)
+    }
+
+    /**
+     * 个人详情页
+     */
+    override fun onClickUserinfo(userId: String) {
+        ToastUtil.show(userId)
+    }
+
+    /**
+     * 跳转到开箱评测
+     */
+    override fun onClickUnbox() {
+        ToastUtil.show("跳转到开箱评测")
+    }
+
+    /**
+     * 跳转到对比评测
+     */
+    override fun onClickComparison() {
+        ToastUtil.show("跳转到对比评测")
     }
 
 }
