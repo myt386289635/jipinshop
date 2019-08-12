@@ -4,15 +4,12 @@ import android.content.Context
 import android.databinding.DataBindingUtil
 import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
 import com.example.administrator.jipinshop.R
 import com.example.administrator.jipinshop.bean.EvaAttentBean
 import com.example.administrator.jipinshop.bean.EvaHotBean
 import com.example.administrator.jipinshop.databinding.ItemEvaAttent2Binding
-import com.example.administrator.jipinshop.databinding.ItemEvaAttentBinding
 import com.example.administrator.jipinshop.databinding.ItemEvaHotBinding
-import com.example.administrator.jipinshop.util.ToastUtil
 
 /**
  * @author 莫小婷
@@ -27,6 +24,11 @@ class EvaHotAdapter() : RecyclerView.Adapter<RecyclerView.ViewHolder>(){
     private lateinit var mList: MutableList<EvaAttentBean.DataBean.ArticleBean>
     private lateinit var mAds: MutableList<EvaHotBean.AdsBean>
     private lateinit var context: Context
+    private lateinit var mOnClickItem: OnClickItem
+
+    fun setClick(onClickItem: OnClickItem){
+        mOnClickItem = onClickItem
+    }
 
     constructor(mList: MutableList<EvaAttentBean.DataBean.ArticleBean>,mAds: MutableList<EvaHotBean.AdsBean>, context: Context) : this(){
         this.mList = mList
@@ -77,18 +79,27 @@ class EvaHotAdapter() : RecyclerView.Adapter<RecyclerView.ViewHolder>(){
                 twoViewHolder.run {
                     binding.data = mList[pos]
                     itemView.setOnClickListener{
-                        ToastUtil.show("" + pos)
+                        mOnClickItem.onClickItem(pos)
                     }
                     if (mList[pos].user.follow == "0"){
                         //未关注
                         binding.itemAttention.setBackgroundResource(R.drawable.bg_attention_new)
                         binding.itemAttention.text = "关  注"
                         binding.itemAttention.setTextColor(context.resources.getColor(R.color.color_E25838))
+                        binding.itemAttention.setOnClickListener {
+                            mOnClickItem.onClickAttent(mList[pos].user.userId,pos)
+                        }
                     }else{
                         //关注
                         binding.itemAttention.setBackgroundResource(R.drawable.bg_attentioned_new)
                         binding.itemAttention.text = "已关注"
                         binding.itemAttention.setTextColor(context.resources.getColor(R.color.color_9D9D9D))
+                        binding.itemAttention.setOnClickListener {
+                            mOnClickItem.onClickAttentCancle(mList[pos].user.userId,pos)
+                        }
+                    }
+                    binding.itemUserImg.setOnClickListener {//进入个人详情页
+                        mOnClickItem.onClickUserinfo(mList[pos].user.userId)
                     }
                     binding.executePendingBindings()
                 }
@@ -126,5 +137,11 @@ class EvaHotAdapter() : RecyclerView.Adapter<RecyclerView.ViewHolder>(){
         }
     }
 
+    interface OnClickItem{
+        fun onClickItem(position: Int)//点击进入文章详情页面
+        fun onClickAttent(userId: String , position: Int) //关注逻辑
+        fun onClickAttentCancle(userId: String, position: Int) //取消关注
+        fun onClickUserinfo(userId : String) //点击进入个人详情页
+    }
 
 }

@@ -4,6 +4,7 @@ import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
 import com.aspsine.swipetoloadlayout.SwipeToLoadLayout
 import com.example.administrator.jipinshop.bean.EvaHotBean
+import com.example.administrator.jipinshop.bean.SuccessBean
 import com.example.administrator.jipinshop.netwrok.Repository
 import com.trello.rxlifecycle2.LifecycleTransformer
 import io.reactivex.android.schedulers.AndroidSchedulers
@@ -74,4 +75,55 @@ class EvaHotPresenter {
                     }
                 })
     }
+
+    /**
+     * 添加关注
+     */
+    fun concernInsert(pos : Int,attentionUserId : String , transformer : LifecycleTransformer<SuccessBean> ){
+        repository.concernInsert(attentionUserId)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .compose(transformer)
+                .subscribe(Consumer {
+                    if (it.code == 0){
+                        if (mView != null){
+                            mView.onAttent(pos)
+                        }
+                    }else{
+                        if (mView != null){
+                            mView.commenFile(it.msg)
+                        }
+                    }
+                }, Consumer {
+                    if (mView != null){
+                        mView.commenFile(it.message)
+                    }
+                })
+    }
+
+    /**
+     * 取消关注
+     */
+    fun concernDelete(pos : Int,attentionUserId : String , transformer : LifecycleTransformer<SuccessBean> ){
+        repository.concernDelete(attentionUserId)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .compose(transformer)
+                .subscribe(Consumer {
+                    if (it.code == 0){
+                        if (mView != null){
+                            mView.onCancleAttent(pos)
+                        }
+                    }else{
+                        if (mView != null){
+                            mView.commenFile(it.msg)
+                        }
+                    }
+                }, Consumer {
+                    if (mView != null){
+                        mView.commenFile(it.message)
+                    }
+                })
+    }
+
 }

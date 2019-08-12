@@ -13,7 +13,10 @@ import com.example.administrator.jipinshop.base.DBBaseFragment
 import com.example.administrator.jipinshop.bean.EvaAttentBean
 import com.example.administrator.jipinshop.bean.EvaHotBean
 import com.example.administrator.jipinshop.databinding.FragmentEvaluationCommonBinding
+import com.example.administrator.jipinshop.util.ClickUtil
+import com.example.administrator.jipinshop.util.ShopJumpUtil
 import com.example.administrator.jipinshop.util.ToastUtil
+import java.math.BigDecimal
 import javax.inject.Inject
 
 /**
@@ -21,7 +24,7 @@ import javax.inject.Inject
  * @create 2019/8/6
  * @Describe 评测模块——推荐列表
  */
-class EvaHotFragment : DBBaseFragment(), OnRefreshListener, OnLoadMoreListener, EvaHotView {
+class EvaHotFragment : DBBaseFragment(), OnRefreshListener, OnLoadMoreListener, EvaHotView, EvaHotAdapter.OnClickItem {
 
     @Inject
     lateinit var mPresenter : EvaHotPresenter
@@ -58,6 +61,7 @@ class EvaHotFragment : DBBaseFragment(), OnRefreshListener, OnLoadMoreListener, 
         mList = mutableListOf()
         mAds = mutableListOf()
         mAdapter = EvaHotAdapter(mList,mAds,context!!)
+        mAdapter.setClick(this)
         mBinding.recyclerView.adapter = mAdapter
 
         mPresenter.solveScoll(mBinding.recyclerView,mBinding.swipeToLoad)
@@ -152,4 +156,43 @@ class EvaHotFragment : DBBaseFragment(), OnRefreshListener, OnLoadMoreListener, 
         ToastUtil.show(error)
     }
 
+    override fun onClickAttent(userId: String, position: Int) {
+        mPresenter.concernInsert(position,userId,this.bindToLifecycle())
+    }
+
+    override fun onClickAttentCancle(userId: String, position: Int) {
+        mPresenter.concernDelete(position,userId,this.bindToLifecycle())
+    }
+
+    override fun onClickItem(position: Int) {
+        if (ClickUtil.isFastDoubleClick(800)) {
+            return
+        } else {
+            val bigDecimal = BigDecimal(mList[position].pv)
+            mList[position].pv = bigDecimal.toInt() + 1
+            mAdapter.notifyDataSetChanged()
+            ShopJumpUtil.jumpArticle(context, mList[position].articleId,
+                    "" + mList[position].type, mList[position].contentType)
+        }
+    }
+
+    override fun onClickUserinfo(userId: String) {
+        ToastUtil.show("个人主页$userId")
+    }
+
+    override fun onAttent(pos: Int) {
+        ToastUtil.show("关注成功")
+        mList[pos].user.follow = "1"
+        mAdapter.notifyDataSetChanged()
+    }
+
+    override fun onCancleAttent(pos: Int) {
+        ToastUtil.show("取消关注成功")
+        mList[pos].user.follow = "0"
+        mAdapter.notifyDataSetChanged()
+    }
+
+    override fun commenFile(error: String?) {
+        ToastUtil.show(error)
+    }
 }
