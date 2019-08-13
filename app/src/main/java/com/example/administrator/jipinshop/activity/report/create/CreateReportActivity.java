@@ -78,8 +78,12 @@ public class CreateReportActivity extends BaseActivity implements View.OnClickLi
 
             @Override
             public void afterTextChanged(Editable s) {
-                String html = "<font color='#202020'>"+ s.length() + "</font>/36";
-                mBinding.reportTitleLimi.setText(Html.fromHtml(html));
+                if (s.length() == 0){
+                    mBinding.reportTitleLimi.setText("0/36");
+                }else {
+                    String html = "<font color='#202020'>"+ s.length() + "</font>/36";
+                    mBinding.reportTitleLimi.setText(Html.fromHtml(html));
+                }
             }
         });
         //解决ScrollView中包含EditText在启动的时候滚动
@@ -173,7 +177,8 @@ public class CreateReportActivity extends BaseActivity implements View.OnClickLi
             mBinding.reportTitle.setSelection(mBinding.reportTitle.getText().length());
             mBinding.reportTitle.clearFocus();
             Conver = bean.getData().getImg();
-            mBinding.reportTitleLimi.setText( mBinding.reportTitle.getText().length() +"/36");
+            String html = "<font color='#202020'>"+ mBinding.reportTitle.getText().length() + "</font>/36";
+            mBinding.reportTitleLimi.setText(Html.fromHtml(html));
         }else {
             //没有提交过报告
             mPresenter.addText(this,mBinding.reportContentContainer,"",mList);
