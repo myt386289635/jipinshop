@@ -835,4 +835,18 @@ public class Repository {
         return mAPIService.inventList(categoryId, page);
     }
 
+    /**
+     * 开箱/横屏 评测列表
+     */
+    public Observable<SucBean<EvaEvaBean.DataBean>> unBoxList(String categoryId ,String evaluationType, int page){
+        return mAPIService.unBoxList(categoryId, evaluationType, page);
+    }
+
+    /**
+     * 开箱/横屏 评测列表
+     */
+    public Observable<SucBean<EvaEvaBean.List2Bean>> unBoxList2(String categoryId ,String evaluationType, int page){
+        return mAPIService.unBoxList2(categoryId, evaluationType, page);
+    }
+
 }

@@ -408,6 +408,14 @@
         <activity android:name=".activity.KTArticleMoreActivity"
                   android:screenOrientation="portrait"/>
 
+        <!--kotlin：开箱评测-->
+        <activity android:name=".activity.evakt.unbox.UnboxActivity"
+                  android:screenOrientation="portrait"/>
+
+        <!--kotlin：对比评测-->
+        <activity android:name=".activity.evakt.comparison.ComparActivity"
+                  android:screenOrientation="portrait"/>
+
     </application>
 
 </manifest>

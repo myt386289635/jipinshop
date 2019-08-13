@@ -759,6 +759,19 @@ public interface APIService {
     @GET("qualityshop-api/api/v2/article/listingList")
     Observable<EvaluationListBean> inventList(@Query("categoryId") String categoryId , @Query("page") int page);
 
+    /**
+     * 开箱 评测列表
+     */
+    @GET("qualityshop-api/api/v2/article/evaluationList")
+    Observable<SucBean<EvaEvaBean.DataBean>> unBoxList(@Query("categoryId") String categoryId , @Query("evaluationType") String evaluationType, @Query("page") int page);
+
+    /**
+     * 横屏 评测列表
+     */
+    @GET("qualityshop-api/api/v2/article/evaluationList")
+    Observable<SucBean<EvaEvaBean.List2Bean>> unBoxList2(@Query("categoryId") String categoryId , @Query("evaluationType") String evaluationType, @Query("page") int page);
+
+
 /*************************************************以下是还未修改的接口***********************************************/
 
     /**

@@ -7,6 +7,8 @@ import com.example.administrator.jipinshop.activity.balance.MyWalletActivity;
 import com.example.administrator.jipinshop.activity.balance.team.TeamActivity;
 import com.example.administrator.jipinshop.activity.balance.withdraw.WithdrawActivity;
 import com.example.administrator.jipinshop.activity.commenlist.CommenListActivity;
+import com.example.administrator.jipinshop.activity.evakt.comparison.ComparActivity;
+import com.example.administrator.jipinshop.activity.evakt.unbox.UnboxActivity;
 import com.example.administrator.jipinshop.activity.follow.FollowActivity;
 import com.example.administrator.jipinshop.activity.follow.user.UserActivity;
 import com.example.administrator.jipinshop.activity.home.MainActivity;
@@ -114,4 +116,6 @@ public interface BaseActivityComponent {
     void inject(EncyclopediasActivity activity);
     void inject(EncyclopediasDetailActivity activity);
     void inject(KTArticleMoreActivity activity);
+    void inject(UnboxActivity activity);
+    void inject(ComparActivity activity);
 }

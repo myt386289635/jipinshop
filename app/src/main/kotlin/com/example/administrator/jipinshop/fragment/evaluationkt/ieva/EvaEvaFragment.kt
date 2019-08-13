@@ -1,5 +1,6 @@
 package com.example.administrator.jipinshop.fragment.evaluationkt.ieva
 
+import android.content.Intent
 import android.content.res.ColorStateList
 import android.databinding.DataBindingUtil
 import android.support.v7.widget.LinearLayoutManager
@@ -8,6 +9,8 @@ import android.view.View
 import android.view.ViewGroup
 import com.aspsine.swipetoloadlayout.OnRefreshListener
 import com.example.administrator.jipinshop.R
+import com.example.administrator.jipinshop.activity.evakt.comparison.ComparActivity
+import com.example.administrator.jipinshop.activity.evakt.unbox.UnboxActivity
 import com.example.administrator.jipinshop.adapter.EvaEvaAdapter
 import com.example.administrator.jipinshop.base.DBBaseFragment
 import com.example.administrator.jipinshop.bean.EvaEvaBean
@@ -34,6 +37,7 @@ class EvaEvaFragment : DBBaseFragment(), OnRefreshListener, EvaEvaView, EvaEvaAd
     private lateinit var mAdapter : EvaEvaAdapter
     private var once : Boolean = true //第一次进入
     private var categoryId : String = ""
+    private var categoryName : String = ""
 
     override fun setUserVisibleHint(isVisibleToUser: Boolean) {
         super.setUserVisibleHint(isVisibleToUser)
@@ -100,6 +104,7 @@ class EvaEvaFragment : DBBaseFragment(), OnRefreshListener, EvaEvaView, EvaEvaAd
 
     override fun tabClick(position: Int) {
         categoryId = mTitleList[position].categoryId
+        categoryName = mTitleList[position].categoryName
         onRefresh()
     }
 
@@ -112,6 +117,7 @@ class EvaEvaFragment : DBBaseFragment(), OnRefreshListener, EvaEvaView, EvaEvaAd
         mTitleList.addAll(bean.data)
         mPresenter.initTab(context,mBinding.tabLayout,mTitleList)
         categoryId = mTitleList[0].categoryId
+        categoryName = mTitleList[0].categoryName
         if (mBinding.swipeToLoad.isRefreshing) {
             onRefresh()
         }else{
@@ -160,14 +166,20 @@ class EvaEvaFragment : DBBaseFragment(), OnRefreshListener, EvaEvaView, EvaEvaAd
      * 跳转到开箱评测
      */
     override fun onClickUnbox() {
-        ToastUtil.show("跳转到开箱评测")
+        startActivity(Intent(context, UnboxActivity::class.java)
+                .putExtra("title" , categoryName + "开箱评测")
+                .putExtra("categoryId",categoryId)
+        )
     }
 
     /**
      * 跳转到对比评测
      */
     override fun onClickComparison() {
-        ToastUtil.show("跳转到对比评测")
+        startActivity(Intent(context, ComparActivity::class.java)
+                .putExtra("title" , categoryName + "对比评测")
+                .putExtra("categoryId",categoryId)
+        )
     }
 
 }
