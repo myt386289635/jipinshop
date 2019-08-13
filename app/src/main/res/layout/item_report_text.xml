@@ -16,8 +16,8 @@
         android:background="@color/transparent"
         android:hint="添加正文，使用底部工具栏  A 可让文章另起一行段落，使用底部工具栏  图片  可以给文章插入一张图片"
         android:lineSpacingExtra="@dimen/y8"
-        android:textColor="@color/color_DE151515"
-        android:textColorHint="@color/color_DEACACAC"
-        android:textSize="15sp"/>
+        android:textColor="@color/color_565252"
+        android:textColorHint="@color/color_D8D8D8"
+        android:textSize="16sp"/>
 
 </LinearLayout>

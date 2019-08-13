@@ -16,7 +16,7 @@
 
         <include
             android:id="@+id/in_clude"
-            layout="@layout/aa_title"
+            layout="@layout/aa_title2"
             bind:listener="@{listener}"/>
 
         <TextView
@@ -25,12 +25,13 @@
             android:paddingLeft="@dimen/x28"
             android:paddingRight="@dimen/x28"
             android:gravity="center_vertical"
-            android:textSize="15sp"
-            android:textColor="@color/color_DE050505"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            android:textColor="@color/color_E25838"
             android:text="下一步"
             android:layout_alignParentRight="true"
             android:layout_width="wrap_content"
-            android:layout_height="@dimen/y80"/>
+            android:layout_height="@dimen/y88"/>
 
         <ScrollView
             android:scrollbars="none"
@@ -51,14 +52,15 @@
                 <EditText
                     android:gravity="top"
                     android:id="@+id/report_title"
-                    android:layout_marginBottom="@dimen/y12"
+                    android:layout_marginBottom="@dimen/y26"
                     android:layout_marginTop="@dimen/y24"
                     android:layout_marginRight="@dimen/x28"
                     android:layout_marginLeft="@dimen/x28"
-                    android:textColor="@color/color_DE151515"
-                    android:textColorHint="@color/color_DEACACAC"
+                    android:textColor="@color/color_202020"
+                    android:textColorHint="@color/color_D8D8D8"
                     android:lineSpacingExtra="@dimen/y8"
-                    android:textSize="15sp"
+                    android:textSize="18sp"
+                    android:textStyle="bold"
                     android:hint="输入标题，20字左右阅读体验最佳。输入标题，20字左右阅读体验最佳。"
                     android:background="@color/transparent"
                     android:layout_width="match_parent"
@@ -69,8 +71,9 @@
                     android:id="@+id/report_titleLimi"
                     android:layout_marginRight="@dimen/x28"
                     android:layout_gravity="right"
-                    android:textColor="@color/color_DEACACAC"
-                    android:textSize="15sp"
+                    android:textColor="@color/color_D8D8D8"
+                    android:textSize="17sp"
+                    android:textStyle="bold"
                     android:text="0/36"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"/>
@@ -79,9 +82,9 @@
                     android:layout_marginBottom="@dimen/y40"
                     android:layout_marginRight="@dimen/x28"
                     android:layout_marginLeft="@dimen/x28"
-                    android:background="@color/color_F5F5F5"
+                    android:background="@color/color_979797"
                     android:layout_width="match_parent"
-                    android:layout_height="@dimen/y2"/>
+                    android:layout_height="@dimen/y1"/>
 
 
             </LinearLayout>
@@ -108,7 +111,7 @@
 
             <ImageView
                 android:onClick="@{listener.onClick}"
-                android:layout_marginLeft="@dimen/x50"
+                android:layout_marginLeft="@dimen/x120"
                 android:id="@+id/report_pic"
                 android:paddingRight="@dimen/x15"
                 android:paddingLeft="@dimen/x15"

@@ -17,43 +17,44 @@
 
         <include
             android:id="@+id/in_clude"
-            layout="@layout/aa_title"
+            layout="@layout/aa_title2"
             bind:listener="@{listener}"/>
 
         <TextView
-            android:id="@+id/cover_save"
+            android:id="@+id/cover_submit"
             android:layout_width="wrap_content"
-            android:layout_height="@dimen/y80"
+            android:layout_height="@dimen/y88"
             android:layout_alignParentRight="true"
             android:gravity="center_vertical"
             android:onClick="@{listener.onClick}"
             android:paddingLeft="@dimen/x28"
             android:paddingRight="@dimen/x28"
-            android:text="保存"
-            android:textColor="@color/color_DE050505"
-            android:textSize="15sp"/>
+            android:text="发布"
+            android:textStyle="bold"
+            android:textColor="@color/color_E25838"
+            android:textSize="17sp"/>
 
-        <ImageView
+        <TextView
+            android:gravity="center"
+            android:textStyle="bold"
+            android:textSize="17sp"
+            android:text="添加封面"
+            android:textColor="@color/color_202020"
             android:onClick="@{listener.onClick}"
             android:id="@+id/cover_upload"
-            android:layout_marginLeft="@dimen/x28"
-            android:layout_marginTop="@dimen/y32"
             android:layout_below="@+id/in_clude"
-            android:src="@mipmap/up_covar"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"/>
+            android:background="@color/color_D8D8D8"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/y440"/>
 
         <ImageView
             android:scaleType="centerCrop"
             android:visibility="gone"
             tools:src="@color/color_F5F5F5"
             android:id="@+id/cover_img"
-            android:layout_marginRight="@dimen/x28"
-            android:layout_marginLeft="@dimen/x28"
-            android:layout_marginTop="@dimen/y32"
             android:layout_below="@+id/in_clude"
             android:layout_width="match_parent"
-            android:layout_height="@dimen/y400"/>
+            android:layout_height="@dimen/y440"/>
 
         <TextView
             android:visibility="gone"
@@ -75,20 +76,17 @@
             android:layout_height="wrap_content"/>
 
         <TextView
-            android:background="@drawable/bg_login2"
+            android:background="@color/color_E25838"
             android:onClick="@{listener.onClick}"
-            android:id="@+id/cover_submit"
+            android:id="@+id/cover_save"
             android:gravity="center"
-            android:text="发布"
+            android:text="保存草稿箱"
             android:textStyle="bold"
-            android:textSize="15sp"
+            android:textSize="18sp"
             android:textColor="@color/color_white"
-            android:layout_marginBottom="@dimen/y48"
             android:layout_alignParentBottom="true"
-            android:layout_marginRight="@dimen/x80"
-            android:layout_marginLeft="@dimen/x80"
             android:layout_width="match_parent"
-            android:layout_height="@dimen/y72"/>
+            android:layout_height="@dimen/y100"/>
         
     </RelativeLayout>
 </layout>

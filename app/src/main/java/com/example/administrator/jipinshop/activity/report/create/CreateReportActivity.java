@@ -7,6 +7,7 @@ import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.text.Editable;
+import android.text.Html;
 import android.text.InputFilter;
 import android.text.TextUtils;
 import android.text.TextWatcher;
@@ -77,7 +78,8 @@ public class CreateReportActivity extends BaseActivity implements View.OnClickLi
 
             @Override
             public void afterTextChanged(Editable s) {
-                mBinding.reportTitleLimi.setText(s.length() +"/36");
+                String html = "<font color='#202020'>"+ s.length() + "</font>/36";
+                mBinding.reportTitleLimi.setText(Html.fromHtml(html));
             }
         });
         //解决ScrollView中包含EditText在启动的时候滚动
