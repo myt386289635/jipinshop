@@ -100,6 +100,15 @@ public class SreachResultGoodsBean {
         private Object imgList;
         private List<GoodsTagsListBean> goodsTagsList;
         private List<?> scoreOptionsList;
+        private int related;//是否被我添加过（发布清单时搜索商品使用）
+
+        public int getRelated() {
+            return related;
+        }
+
+        public void setRelated(int related) {
+            this.related = related;
+        }
 
         public String getGoodsId() {
             return goodsId;

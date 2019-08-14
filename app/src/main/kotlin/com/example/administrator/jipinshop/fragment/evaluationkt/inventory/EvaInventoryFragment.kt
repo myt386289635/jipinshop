@@ -1,5 +1,6 @@
 package com.example.administrator.jipinshop.fragment.evaluationkt.inventory
 
+import android.content.Intent
 import android.content.res.ColorStateList
 import android.databinding.DataBindingUtil
 import android.support.v7.widget.LinearLayoutManager
@@ -9,6 +10,7 @@ import android.view.ViewGroup
 import com.aspsine.swipetoloadlayout.OnLoadMoreListener
 import com.aspsine.swipetoloadlayout.OnRefreshListener
 import com.example.administrator.jipinshop.R
+import com.example.administrator.jipinshop.activity.evakt.send.SubmitActivity
 import com.example.administrator.jipinshop.adapter.EvaInventoryAdapter
 import com.example.administrator.jipinshop.base.DBBaseFragment
 import com.example.administrator.jipinshop.bean.EvaluationListBean
@@ -77,7 +79,9 @@ class EvaInventoryFragment : DBBaseFragment(), EvaInventoryView, OnLoadMoreListe
     override fun onClick(v: View?) {
         when(v?.id){
             R.id.eva_send ->{
-                ToastUtil.show("点击跳转到发布清单")
+                startActivity(Intent(context,SubmitActivity::class.java)
+                        .putExtra("type","1")
+                )
             }
         }
     }

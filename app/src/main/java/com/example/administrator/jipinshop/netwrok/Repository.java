@@ -849,4 +849,46 @@ public class Repository {
         return mAPIService.unBoxList2(categoryId, evaluationType, page);
     }
 
+    /**
+     * 保存清单
+     */
+    public Observable<FindDetailBean> saveListing(Map<String,String> param){
+        return mAPIService.saveListing(param);
+    }
+
+    /**
+     * 发布清单
+     */
+    public Observable<SuccessBean> publishListing(String articleId , String content, String img , String title){
+        return mAPIService.publishListing(articleId, content, img, title);
+    }
+
+    /**
+     * 获取关联商品
+     */
+    public Observable<SreachResultGoodsBean> relatedGoods(String articleId){
+        return mAPIService.relatedGoods(articleId);
+    }
+
+    /**
+     * 搜索商品
+     */
+    public Observable<SreachResultGoodsBean> searchInventory(String articleId , String keyword , int page){
+        return mAPIService.searchInventory(articleId, keyword, page);
+    }
+
+    /**
+     * 添加商品
+     */
+    public Observable<SuccessBean> addGoods(String articleId , String goodsId){
+        return mAPIService.addGoods(articleId, goodsId);
+    }
+
+    /**
+     * 取消关联商品
+     */
+    public Observable<SuccessBean> deleteGoods(String articleId , String goodsId){
+        return mAPIService.deleteGoods(articleId, goodsId);
+    }
+
 }

@@ -416,6 +416,18 @@
         <activity android:name=".activity.evakt.comparison.ComparActivity"
                   android:screenOrientation="portrait"/>
 
+        <!--kotlin：发布清单-->
+        <activity android:name=".activity.evakt.send.SubmitActivity"
+                  android:screenOrientation="portrait"/>
+
+        <!--kotlin：发布清单2-->
+        <activity android:name=".activity.evakt.send.corve.SubmitCorveActivity"
+                  android:screenOrientation="portrait"/>
+
+        <!--kotlin: 发布清单中 添加商品页面-->
+        <activity android:name=".activity.evakt.send.goods.AddGoodsActivity"
+                  android:screenOrientation="portrait"/>
+
     </application>
 
 </manifest>

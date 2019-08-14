@@ -771,6 +771,46 @@ public interface APIService {
     @GET("qualityshop-api/api/v2/article/evaluationList")
     Observable<SucBean<EvaEvaBean.List2Bean>> unBoxList2(@Query("categoryId") String categoryId , @Query("evaluationType") String evaluationType, @Query("page") int page);
 
+    /**
+     * 保存清单
+     */
+    @FormUrlEncoded
+    @POST("qualityshop-api/api/v2/article/saveListing")
+    Observable<FindDetailBean> saveListing(@FieldMap Map<String,String> param);
+
+    /**
+     * 发布清单
+     */
+    @FormUrlEncoded
+    @POST("qualityshop-api/api/v2/article/publishListing")
+    Observable<SuccessBean> publishListing(@Field("articleId") String articleId , @Field("content") String content,
+                                            @Field("img") String img , @Field("title") String title);
+
+    /**
+     * 获取关联商品
+     */
+    @GET("qualityshop-api/api/v2/article/relatedGoods")
+    Observable<SreachResultGoodsBean> relatedGoods(@Query("articleId") String articleId);
+
+    /**
+     * 搜索商品
+     */
+    @GET("qualityshop-api/api/v2/article/searchGoods")
+    Observable<SreachResultGoodsBean> searchInventory(@Query("articleId") String articleId , @Query("keyword") String keyword , @Query("page") int page);
+
+    /**
+     * 添加商品
+     */
+    @FormUrlEncoded
+    @POST("qualityshop-api/api/v2/article/addGoods")
+    Observable<SuccessBean> addGoods(@Field("articleId") String articleId , @Field("goodsId") String goodsId);
+
+    /**
+     * 取消关联商品
+     */
+    @FormUrlEncoded
+    @POST("qualityshop-api/api/v2/article/deleteGoods")
+    Observable<SuccessBean> deleteGoods(@Field("articleId") String articleId , @Field("goodsId") String goodsId);
 
 /*************************************************以下是还未修改的接口***********************************************/
 

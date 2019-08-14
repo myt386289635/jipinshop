@@ -87,6 +87,63 @@
             android:layout_alignParentBottom="true"
             android:layout_width="match_parent"
             android:layout_height="@dimen/y100"/>
+
+        <RelativeLayout
+            android:visibility="gone"
+            android:onClick="@{listener.onClick}"
+            android:id="@+id/add_goods"
+            android:layout_marginTop="@dimen/y440"
+            android:layout_below="@id/in_clude"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/y110">
+
+            <TextView
+                android:id="@+id/add_tag"
+                android:textStyle="bold"
+                android:textColor="@color/color_202020"
+                android:textSize="17sp"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="@dimen/x30"
+                android:text="添加商品："
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+
+            <TextView
+                android:id="@+id/add_text"
+                android:hint="请选择商品（最多5件）"
+                android:textColorHint="@color/color_D8D8D8"
+                android:textColor="@color/color_202020"
+                android:textSize="18sp"
+                android:layout_centerVertical="true"
+                android:layout_toRightOf="@id/add_tag"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+
+            <ImageView
+                android:layout_marginRight="@dimen/x30"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:src="@mipmap/news_right"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+
+            <View
+                android:layout_alignParentBottom="true"
+                android:layout_marginRight="@dimen/x30"
+                android:layout_marginLeft="@dimen/x30"
+                android:background="@color/color_979797"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/y1"/>
+
+        </RelativeLayout>
+
+        <android.support.v7.widget.RecyclerView
+            android:visibility="gone"
+            android:id="@+id/recycler_view"
+            android:layout_above="@id/cover_save"
+            android:layout_below="@id/add_goods"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"/>
         
     </RelativeLayout>
 </layout>

@@ -49,7 +49,26 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent">
 
+                <TextView
+                    android:id="@+id/report_error"
+                    android:visibility="gone"
+                    android:layout_marginBottom="@dimen/y36"
+                    android:lineSpacingExtra="@dimen/y6"
+                    android:gravity="center"
+                    android:paddingBottom="@dimen/y20"
+                    android:paddingTop="@dimen/y20"
+                    android:text="未通过原因：有错别字有错别字有错别字有错别字有错别字有错别字有错别！"
+                    android:textStyle="bold"
+                    android:textSize="15sp"
+                    android:textColor="@color/color_white"
+                    android:paddingRight="@dimen/x46"
+                    android:paddingLeft="@dimen/x46"
+                    android:background="@color/color_E25838"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"/>
+
                 <EditText
+                    android:minLines="2"
                     android:gravity="top"
                     android:id="@+id/report_title"
                     android:layout_marginBottom="@dimen/y26"
@@ -61,7 +80,7 @@
                     android:lineSpacingExtra="@dimen/y8"
                     android:textSize="18sp"
                     android:textStyle="bold"
-                    android:hint="输入标题，20字左右阅读体验最佳。输入标题，20字左右阅读体验最佳。"
+                    android:hint="输入标题，20字阅读体验最佳"
                     android:background="@color/transparent"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"/>

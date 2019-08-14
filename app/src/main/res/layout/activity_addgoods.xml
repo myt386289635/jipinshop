@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <data>
+        <variable
+            name="listener"
+            type="android.view.View.OnClickListener"/>
+
+    </data>
+
+    <RelativeLayout
+        android:background="@color/color_white"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <TextView
+            android:onClick="@{listener.onClick}"
+            android:id="@+id/cancel"
+            android:layout_alignParentRight="true"
+            android:paddingLeft="@dimen/x32"
+            android:paddingRight="@dimen/x32"
+            android:gravity="center"
+            android:textSize="16sp"
+            android:textColor="@color/color_2B2B2B"
+            android:text="取消"
+            android:layout_width="wrap_content"
+            android:layout_height="@dimen/y88"/>
+
+        <RelativeLayout
+            android:layout_marginBottom="@dimen/y9"
+            android:layout_marginTop="@dimen/y9"
+            android:layout_toLeftOf="@id/cancel"
+            android:layout_marginLeft="@dimen/x30"
+            android:background="@color/color_F5F5F5"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/y70">
+
+            <EditText
+                android:singleLine="true"
+                android:paddingRight="@dimen/x10"
+                android:layout_toLeftOf="@id/goods_sreach"
+                android:id="@+id/goods_edit"
+                android:paddingLeft="@dimen/x30"
+                android:layout_centerVertical="true"
+                android:textColor="@color/color_2B2B2B"
+                android:textSize="15sp"
+                android:textColorHint="@color/color_9D9D9D"
+                android:hint="请输入商品名称"
+                android:background="@null"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"/>
+
+            <ImageView
+                android:id="@+id/goods_sreach"
+                android:layout_alignParentRight="true"
+                android:layout_marginRight="@dimen/x30"
+                android:layout_centerVertical="true"
+                android:src="@mipmap/search"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+
+
+        </RelativeLayout>
+
+        <View
+            android:layout_below="@id/cancel"
+            android:background="@color/color_DEDEDE"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/y1"/>
+
+        <com.aspsine.swipetoloadlayout.SwipeToLoadLayout
+            android:layout_marginTop="@dimen/y1"
+            android:layout_below="@id/cancel"
+            android:id="@+id/swipeToLoad"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/color_white">
+
+            <LinearLayout
+                android:id="@+id/swipe_target"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical">
+
+
+                <android.support.v7.widget.RecyclerView
+                    android:id="@+id/recycler_view"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"/>
+
+
+                <include
+                    android:id="@+id/net_clude"
+                    layout="@layout/common_net_error"
+                    android:visibility="gone"/>
+
+            </LinearLayout>
+
+            <com.example.administrator.jipinshop.view.textview.LoadMoreFooterView
+                android:id="@+id/swipe_load_more_footer"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:padding="20dp"/>
+
+        </com.aspsine.swipetoloadlayout.SwipeToLoadLayout>
+
+
+    </RelativeLayout>
+</layout>
