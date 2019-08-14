@@ -10,6 +10,9 @@ import java.io.File
  */
 interface SubmitView {
 
+    fun onSuccess(bean: FindDetailBean)
+    fun onFile(error: String?)
+
     fun onSave(bean : FindDetailBean)
 
     /***上传图片 */

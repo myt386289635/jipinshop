@@ -167,4 +167,28 @@ class SubmitPresenter {
                 })
     }
 
+    /**
+     * 文章详情接口
+     */
+    fun getDetail(id: String, transformer: LifecycleTransformer<FindDetailBean>) {
+        repository.findDetail(id, "7")
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .compose(transformer)
+                .subscribe({ bean ->
+                    if (bean.code == 0) {
+                        if (mView != null) {
+                            mView.onSuccess(bean)
+                        }
+                    } else {
+                        if (mView != null) {
+                            mView.onFile(bean.msg)
+                        }
+                    }
+                }, { throwable ->
+                    if (mView != null) {
+                        mView.onFile(throwable.message)
+                    }
+                })
+    }
 }

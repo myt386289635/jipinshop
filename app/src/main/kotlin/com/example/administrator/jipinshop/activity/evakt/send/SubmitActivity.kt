@@ -96,6 +96,7 @@ class SubmitActivity : BaseActivity(), View.OnClickListener, SelectPicDialog.Cho
         }else{
             //编辑
             articleId = intent.getStringExtra("articleId")
+            mPresenter.getDetail(articleId,this.bindToLifecycle())
         }
     }
 
@@ -246,5 +247,29 @@ class SubmitActivity : BaseActivity(), View.OnClickListener, SelectPicDialog.Cho
                 finish()
             }
         }
+    }
+
+    override fun onSuccess(bean: FindDetailBean) {
+        var dataBeans = mutableListOf<TryDetailBean.DataBean.GoodsContentListBean>()
+        dataBeans.addAll(Gson().fromJson<Collection<TryDetailBean.DataBean.GoodsContentListBean>>(bean.data.content, object : TypeToken<List<TryDetailBean.DataBean.GoodsContentListBean>>() {}.type))
+        for (dataBean in dataBeans) {
+            if (dataBean.type == "1") {
+                mPresenter.addText(this, mBinding.reportContentContainer, dataBean.value, mList)
+            } else {
+                mPresenter.addImge(this, mBinding.reportContentContainer, dataBean.value, mList, dataBean.width, dataBean.height, null)
+            }
+        }
+        mBinding.reportTitle.setText(bean.data.title)
+        mBinding.reportTitle.setSelection(mBinding.reportTitle.text.length)
+        mBinding.reportTitle.clearFocus()
+        Conver = bean.data.img
+        val html = "<font color='#202020'>" + mBinding.reportTitle.text.length + "</font>/36"
+        mBinding.reportTitleLimi.text = Html.fromHtml(html)
+    }
+
+    override fun onFile(error: String?) {
+        ToastUtil.show(error)
+        mPresenter.addText(this, mBinding.reportContentContainer, "", mList)
+        showKeyboardDelayed(mBinding.reportTitle)
     }
 }
