@@ -10,7 +10,6 @@ import com.aspsine.swipetoloadlayout.OnLoadMoreListener;
 import com.aspsine.swipetoloadlayout.OnRefreshListener;
 import com.example.administrator.jipinshop.R;
 import com.example.administrator.jipinshop.adapter.NewAreaAdapter;
-import com.example.administrator.jipinshop.adapter.SreachArticleAdapter;
 import com.example.administrator.jipinshop.base.BaseActivity;
 import com.example.administrator.jipinshop.bean.EvaluationListBean;
 import com.example.administrator.jipinshop.databinding.ActivityNewAreaBinding;
@@ -29,7 +28,7 @@ import javax.inject.Inject;
  * @create 2019/6/28
  * @Describe 新品专区
  */
-public class NewAreaActivity extends BaseActivity implements OnRefreshListener, OnLoadMoreListener, SreachArticleAdapter.OnItem, View.OnClickListener, NewAreaView {
+public class NewAreaActivity extends BaseActivity implements OnRefreshListener, OnLoadMoreListener, NewAreaAdapter.OnItem, View.OnClickListener, NewAreaView {
 
     @Inject
     NewAreaPresenter mPresenter;

@@ -7,7 +7,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.example.administrator.jipinshop.R;
@@ -39,25 +38,18 @@ public class SreachTryAdapter extends RecyclerView.Adapter<SreachTryAdapter.View
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
-        View Content2View = LayoutInflater.from(mContext).inflate(R.layout.item_try_content2,viewGroup,false);
+        View Content2View = LayoutInflater.from(mContext).inflate(R.layout.item_sreach_try,viewGroup,false);
         ViewHolder holder = new ViewHolder(Content2View);
         return holder;
     }
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder viewHolder, int position) {
-        RelativeLayout.LayoutParams layoutParams = (RelativeLayout.LayoutParams) viewHolder.try_image.getLayoutParams();
-        if(position == 0){
-            layoutParams.topMargin = (int) mContext.getResources().getDimension(R.dimen.y48);
-        }else {
-            layoutParams.topMargin = 0;
-        }
-        viewHolder.try_image.setLayoutParams(layoutParams);
-        GlideApp.loderImage(mContext,mList.get(position).getImg(),viewHolder.try_image,0,0);
-        GlideApp.loderCircleImage(mContext,mList.get(position).getUser().getAvatar(),viewHolder.try_head,R.mipmap.rlogo,0);
-        viewHolder.try_name.setText(mList.get(position).getTitle());
-        viewHolder.try_nickName.setText(mList.get(position).getUser().getNickname());
-        viewHolder.try_pv.setText(mList.get(position).getPv() + "阅读");
+        GlideApp.loderRoundImage(mContext,mList.get(position).getImg(),viewHolder.item_image,0,0);
+        GlideApp.loderCircleImage(mContext,mList.get(position).getUser().getAvatar(),viewHolder.item_userImg,R.mipmap.rlogo,0);
+        viewHolder.item_name.setText(mList.get(position).getTitle());
+        viewHolder.item_userName.setText(mList.get(position).getUser().getNickname());
+        viewHolder.item_pv.setText(mList.get(position).getPv() + "阅读");
         viewHolder.itemView.setOnClickListener(v -> {
             if(mOnItem != null){
                 mOnItem.onItem(position);
@@ -72,16 +64,16 @@ public class SreachTryAdapter extends RecyclerView.Adapter<SreachTryAdapter.View
 
     class ViewHolder extends RecyclerView.ViewHolder{
 
-        private ImageView try_image,try_head;
-        private TextView try_name,try_nickName,try_pv;
+        private ImageView item_image,item_userImg;
+        private TextView item_name,item_userName,item_pv;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
-            try_image = itemView.findViewById(R.id.try_image);
-            try_head = itemView.findViewById(R.id.try_head);
-            try_name = itemView.findViewById(R.id.try_name);
-            try_nickName = itemView.findViewById(R.id.try_nickName);
-            try_pv = itemView.findViewById(R.id.try_pv);
+            item_image = itemView.findViewById(R.id.item_image);
+            item_userImg = itemView.findViewById(R.id.item_userImg);
+            item_name = itemView.findViewById(R.id.item_name);
+            item_userName = itemView.findViewById(R.id.item_userName);
+            item_pv = itemView.findViewById(R.id.item_pv);
         }
     }
 

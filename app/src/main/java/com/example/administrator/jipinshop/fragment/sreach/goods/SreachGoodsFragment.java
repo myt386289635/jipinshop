@@ -7,7 +7,6 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Toast;
 
 import com.aspsine.swipetoloadlayout.OnLoadMoreListener;
 import com.aspsine.swipetoloadlayout.OnRefreshListener;
@@ -15,9 +14,9 @@ import com.example.administrator.jipinshop.R;
 import com.example.administrator.jipinshop.activity.shoppingdetail.ShoppingDetailActivity;
 import com.example.administrator.jipinshop.activity.sreach.SreachActivity;
 import com.example.administrator.jipinshop.activity.sreach.result.SreachResultActivity;
-import com.example.administrator.jipinshop.adapter.SreachGoodsAdapter;
+import com.example.administrator.jipinshop.adapter.SreachGoodsAdapter2;
 import com.example.administrator.jipinshop.base.DBBaseFragment;
-import com.example.administrator.jipinshop.bean.SreachResultGoodsBean;
+import com.example.administrator.jipinshop.bean.SreachBean;
 import com.example.administrator.jipinshop.bean.eventbus.SreachBus;
 import com.example.administrator.jipinshop.databinding.FragmentSreachgoodsBinding;
 import com.example.administrator.jipinshop.util.ClickUtil;
@@ -26,7 +25,6 @@ import com.trello.rxlifecycle2.android.FragmentEvent;
 
 import org.greenrobot.eventbus.EventBus;
 
-import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -35,15 +33,16 @@ import javax.inject.Inject;
 /**
  * @author 莫小婷
  * @create 2019/1/8
- * @Describe
+ * @Describe 榜单
  */
-public class SreachGoodsFragment extends DBBaseFragment implements SreachGoodsAdapter.OnItem, OnRefreshListener, SreachGoodsView, OnLoadMoreListener {
+public class SreachGoodsFragment extends DBBaseFragment implements OnRefreshListener, SreachGoodsView, OnLoadMoreListener, SreachGoodsAdapter2.OnItem {
 
     @Inject
     SreachGoodsPresenter mPresenter;
     private FragmentSreachgoodsBinding mBinding;
-    private SreachGoodsAdapter mAdapter;
-    private List<SreachResultGoodsBean.DataBean> mList;
+    private SreachGoodsAdapter2 mAdapter;
+    private List<SreachBean.DataBean> mList;
+    private List<SreachBean.GoodsCategoryListBean> goodsCategoryList;
 
     private int page = 1;
     private Boolean refersh = true;
@@ -69,7 +68,8 @@ public class SreachGoodsFragment extends DBBaseFragment implements SreachGoodsAd
 
         mBinding.recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         mList = new ArrayList<>();
-        mAdapter = new SreachGoodsAdapter(mList,getContext());
+        goodsCategoryList = new ArrayList<>();
+        mAdapter = new SreachGoodsAdapter2(getContext(),mList,goodsCategoryList);
         mAdapter.setOnItem(this);
         mBinding.recyclerView.setAdapter(mAdapter);
 
@@ -87,9 +87,6 @@ public class SreachGoodsFragment extends DBBaseFragment implements SreachGoodsAd
         if (ClickUtil.isFastDoubleClick(800)) {
             return;
         }else{
-            BigDecimal bigDecimal = new BigDecimal(mList.get(pos).getPv());
-            mList.get(pos).setPv((bigDecimal.intValue() + 1) + "");
-            mAdapter.notifyDataSetChanged();
             startActivity(new Intent(getContext(), ShoppingDetailActivity.class)
                     .putExtra("goodsId",mList.get(pos).getGoodsId())
             );
@@ -105,21 +102,29 @@ public class SreachGoodsFragment extends DBBaseFragment implements SreachGoodsAd
 
 
     @Override
-    public void Success(SreachResultGoodsBean resultGoodsBean) {
+    public void Success(SreachBean resultGoodsBean) {
         EventBus.getDefault().post(new SreachBus(SreachActivity.sreachHistoryTag));
         stopResher();
         stopLoading();
-        if(resultGoodsBean.getData() != null && resultGoodsBean.getData().size() != 0){
+        if((resultGoodsBean.getData() != null && resultGoodsBean.getData().size() != 0) ||
+                (resultGoodsBean.getGoodsCategoryList() != null && resultGoodsBean.getGoodsCategoryList().size() != 0)){
             if(refersh){
                 mBinding.inClude.qsNet.setVisibility(View.GONE);
                 mBinding.recyclerView.setVisibility(View.VISIBLE);
                 mList.clear();
+                goodsCategoryList.clear();
                 mList.addAll(resultGoodsBean.getData());
+                goodsCategoryList.addAll(resultGoodsBean.getGoodsCategoryList());
                 mAdapter.notifyDataSetChanged();
             }else {
-                mList.addAll(resultGoodsBean.getData());
-                mAdapter.notifyDataSetChanged();
-                mBinding.swipeToLoad.setLoadMoreEnabled(false);
+                if (resultGoodsBean.getData() != null && resultGoodsBean.getData().size() != 0){
+                    mList.addAll(resultGoodsBean.getData());
+                    mAdapter.notifyDataSetChanged();
+                    mBinding.swipeToLoad.setLoadMoreEnabled(false);
+                }else{
+                    page-- ;
+                    ToastUtil.show("已经是最后一页了");
+                }
             }
         }else {
             if(refersh){

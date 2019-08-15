@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:bind="http://schemas.android.com/tools">
+
+    <data>
+        <variable
+            name="data"
+            type="com.example.administrator.jipinshop.bean.SreachBean.DataBean"/>
+    </data>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <ImageView
+            android:layout_marginLeft="@dimen/x30"
+            android:layout_marginBottom="@dimen/y50"
+            android:layout_marginTop="@dimen/y50"
+            android:id="@+id/item_image"
+            bind:srcRound="@{data.img}"
+            android:layout_width="@dimen/x200"
+            android:layout_height="@dimen/y200"/>
+
+        <TextView
+            android:id="@+id/item_name"
+            android:layout_marginRight="@dimen/x70"
+            android:ellipsize="end"
+            android:maxLines="1"
+            android:text="@{data.goodsName}"
+            android:textColor="@color/color_202020"
+            android:textSize="16sp"
+            android:layout_alignTop="@id/item_image"
+            android:layout_marginTop="@dimen/y4"
+            android:layout_marginLeft="@dimen/x32"
+            android:layout_toRightOf="@id/item_image"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+
+        <com.google.android.flexbox.FlexboxLayout
+            app:alignItems="flex_start"
+            app:flexWrap="wrap"
+            app:justifyContent="flex_start"
+            android:id="@+id/item_flexLayout"
+            android:layout_marginLeft="@dimen/x32"
+            android:layout_toRightOf="@+id/item_image"
+            android:layout_marginTop="@dimen/y20"
+            android:layout_below="@+id/item_name"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/y50"/>
+
+        <TextView
+            android:id="@+id/item_price"
+            android:textStyle="bold"
+            android:textSize="14sp"
+            android:textColor="@color/color_E25838"
+            android:text="@{@string/price  + data.otherPrice}"
+            android:layout_marginBottom="@dimen/y4"
+            android:layout_marginLeft="@dimen/x32"
+            android:layout_toRightOf="@id/item_image"
+            android:layout_alignBottom="@id/item_image"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+
+
+        <View
+            android:layout_below="@id/item_image"
+            android:layout_marginRight="@dimen/x30"
+            android:layout_marginLeft="@dimen/x30"
+            android:background="@color/color_DEDEDE"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/y1"/>
+
+    </RelativeLayout>
+</layout>

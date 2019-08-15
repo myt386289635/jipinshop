@@ -28,7 +28,7 @@ import javax.inject.Inject;
 /**
  * @author 莫小婷
  * @create 2019/1/8
- * @Describe
+ * @Describe 清单、评测
  */
 public class SreachFindFragment extends DBBaseFragment implements SreachArticleAdapter.OnItem, OnRefreshListener, OnLoadMoreListener, SreachFindView {
 
@@ -43,10 +43,11 @@ public class SreachFindFragment extends DBBaseFragment implements SreachArticleA
     private int page = 1;
     private Boolean refersh = true;
 
-    public static SreachFindFragment getInstance(String content) {
+    public static SreachFindFragment getInstance(String content,String type) {
         SreachFindFragment fragment = new SreachFindFragment();
         Bundle bundle = new Bundle();
         bundle.putString("content",content);
+        bundle.putString("type",type);
         fragment.setArguments(bundle);
         return fragment;
     }
@@ -94,7 +95,7 @@ public class SreachFindFragment extends DBBaseFragment implements SreachArticleA
             mList.get(pos).setPv((bigDecimal.intValue() + 1) + "");
             mAdapter.notifyDataSetChanged();
             ShopJumpUtil.jumpArticle(getContext(),mList.get(pos).getArticleId(),
-                    "3",mList.get(pos).getContentType());
+                    mList.get(pos).getType(),mList.get(pos).getContentType());
         }
     }
 
@@ -105,7 +106,7 @@ public class SreachFindFragment extends DBBaseFragment implements SreachArticleA
     public void onRefresh() {
         page = 1;
         refersh = true;
-        mPresenter.searchGoods(page + "",getArguments().getString("content"),this.bindToLifecycle());
+        mPresenter.searchGoods(page + "",getArguments().getString("type"),getArguments().getString("content"),this.bindToLifecycle());
     }
 
     /**
@@ -115,7 +116,7 @@ public class SreachFindFragment extends DBBaseFragment implements SreachArticleA
     public void onLoadMore() {
         page++;
         refersh = false;
-        mPresenter.searchGoods(page + "",getArguments().getString("content"),this.bindToLifecycle());
+        mPresenter.searchGoods(page + "",getArguments().getString("type"),getArguments().getString("content"),this.bindToLifecycle());
     }
 
     /**

@@ -22,9 +22,9 @@ import io.reactivex.schedulers.Schedulers;
 public class FovalGoodsPersenter {
 
     private Repository mRepository;
-    private SreachGoodsView mGoodsView;
+    private FovalGoodsView mGoodsView;
 
-    public void setGoodsView(SreachGoodsView goodsView) {
+    public void setGoodsView(FovalGoodsView goodsView) {
         mGoodsView = goodsView;
     }
 

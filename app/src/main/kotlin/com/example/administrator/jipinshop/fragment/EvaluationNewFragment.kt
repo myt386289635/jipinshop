@@ -1,6 +1,7 @@
 package com.example.administrator.jipinshop.fragment
 
 import android.content.Context
+import android.content.Intent
 import android.content.res.ColorStateList
 import android.databinding.DataBindingUtil
 import android.support.v4.app.Fragment
@@ -9,6 +10,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.LinearLayout
 import com.example.administrator.jipinshop.R
+import com.example.administrator.jipinshop.activity.sreach.SreachActivity
 import com.example.administrator.jipinshop.adapter.HomeFragmentAdapter
 import com.example.administrator.jipinshop.base.DBBaseFragment
 import com.example.administrator.jipinshop.databinding.FragmentEvaluationNewBinding
@@ -22,7 +24,7 @@ import com.example.administrator.jipinshop.fragment.evaluationkt.inventory.EvaIn
  * @create 2019/8/6
  * @Describe 新版评测fragment
  */
-class EvaluationNewFragment : DBBaseFragment() {
+class EvaluationNewFragment : DBBaseFragment(), View.OnClickListener {
 
     private lateinit var mBinding : FragmentEvaluationNewBinding
     private var mList: MutableList<Fragment> = mutableListOf()
@@ -32,7 +34,16 @@ class EvaluationNewFragment : DBBaseFragment() {
 
     override fun initLayout(inflater: LayoutInflater, container: ViewGroup): View {
         mBinding = DataBindingUtil.inflate(inflater,R.layout.fragment_evaluation_new,container,false)
+        mBinding.listener = this
         return mBinding.root
+    }
+
+    override fun onClick(v: View?) {
+        when(v?.id){
+            R.id.home_sreach  ->{
+                startActivity(Intent(context,SreachActivity::class.java))
+            }
+        }
     }
 
     override fun initView() {

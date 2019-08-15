@@ -35,7 +35,7 @@ import javax.inject.Inject;
  * @create 2019/1/15
  * @Describe
  */
-public class FovalGoodsFragment extends DBBaseFragment implements SreachGoodsAdapter.OnItem, OnRefreshListener, OnLoadMoreListener, SreachGoodsView {
+public class FovalGoodsFragment extends DBBaseFragment implements SreachGoodsAdapter.OnItem, OnRefreshListener, OnLoadMoreListener, FovalGoodsView {
 
     public static final String CollectResher = "ShoppingDetailActivity2FovalGoodsFragment";
 

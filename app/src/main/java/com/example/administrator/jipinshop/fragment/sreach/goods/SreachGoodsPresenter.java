@@ -6,6 +6,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.View;
 
 import com.aspsine.swipetoloadlayout.SwipeToLoadLayout;
+import com.example.administrator.jipinshop.bean.SreachBean;
 import com.example.administrator.jipinshop.bean.SreachResultGoodsBean;
 import com.example.administrator.jipinshop.netwrok.Repository;
 import com.trello.rxlifecycle2.LifecycleTransformer;
@@ -34,7 +35,7 @@ public class SreachGoodsPresenter {
         mRepository = repository;
     }
 
-    public void searchGoods(String page ,String goodsName,LifecycleTransformer<SreachResultGoodsBean> transformer){
+    public void searchGoods(String page ,String goodsName,LifecycleTransformer<SreachBean> transformer){
         mRepository.searchGoods(page,"1",goodsName)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())

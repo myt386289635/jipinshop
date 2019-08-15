@@ -23,9 +23,9 @@ public class NewAreaAdapter extends RecyclerView.Adapter<NewAreaAdapter.ViewHold
 
     private Context mContext;
     private List<EvaluationListBean.DataBean> mList;
-    private SreachArticleAdapter.OnItem mOnItem;
+    private OnItem mOnItem;
 
-    public void setOnItem(SreachArticleAdapter.OnItem onItem) {
+    public void setOnItem(OnItem onItem) {
         mOnItem = onItem;
     }
 

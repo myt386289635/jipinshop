@@ -7,17 +7,17 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <TextView
-        android:lineSpacingExtra="@dimen/x6"
+        android:lineSpacingExtra="@dimen/x15"
         android:textStyle="bold"
         android:ellipsize="end"
         android:maxLines="2"
         android:id="@+id/item_title"
         android:textColor="@color/color_202020"
-        android:textSize="16sp"
-        android:layout_marginRight="@dimen/x28"
-        android:layout_marginLeft="@dimen/x28"
+        android:textSize="18sp"
+        android:layout_marginRight="@dimen/x30"
+        android:layout_marginLeft="@dimen/x30"
         tools:text="闭眼入系列 | 从此爱上刷牙，网红推荐款网红推荐款网红推荐款"
-        android:layout_marginTop="@dimen/y48"
+        android:layout_marginTop="@dimen/y60"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"/>
 
@@ -27,7 +27,7 @@
         android:id="@+id/item_image"
         android:layout_marginRight="@dimen/x28"
         android:layout_marginLeft="@dimen/x28"
-        android:layout_marginTop="@dimen/y32"
+        android:layout_marginTop="@dimen/y30"
         android:layout_below="@id/item_title"
         android:layout_width="match_parent"
         android:layout_height="@dimen/y358"/>
@@ -35,6 +35,7 @@
 
     <RelativeLayout
         android:id="@+id/item_tag"
+        android:layout_marginBottom="@dimen/y30"
         android:layout_marginTop="@dimen/y42"
         android:layout_below="@id/item_image"
         android:layout_width="match_parent"
@@ -43,9 +44,9 @@
         <ImageView
             android:id="@+id/item_head"
             tools:src="@color/color_202020"
-            android:layout_marginLeft="@dimen/x28"
-            android:layout_width="@dimen/x76"
-            android:layout_height="@dimen/y76"/>
+            android:layout_marginLeft="@dimen/x48"
+            android:layout_width="@dimen/x60"
+            android:layout_height="@dimen/y60"/>
 
 
         <ImageView
@@ -59,37 +60,29 @@
 
 
         <TextView
-            android:layout_marginLeft="@dimen/x24"
+            android:layout_marginLeft="@dimen/x19"
             android:layout_centerVertical="true"
             android:layout_toRightOf="@id/item_head"
-            android:textColor="@color/color_DE151515"
-            android:textSize="15sp"
+            android:textColor="@color/color_ACACAC"
+            android:textSize="12sp"
             android:text="资深编辑"
             android:id="@+id/item_name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"/>
 
         <TextView
-            android:layout_marginRight="@dimen/x28"
+            android:layout_marginRight="@dimen/x45"
             android:layout_alignParentRight="true"
             android:text="0阅读"
             android:layout_marginLeft="@dimen/x24"
             android:layout_centerVertical="true"
             android:textColor="@color/color_ACACAC"
-            android:textSize="13sp"
+            android:textSize="12sp"
             android:id="@+id/item_pv"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"/>
 
     </RelativeLayout>
-
-    <View
-        android:layout_marginBottom="@dimen/y36"
-        android:layout_marginTop="@dimen/y32"
-        android:layout_below="@id/item_tag"
-        android:background="@color/color_F5F5F5"
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/y12"/>
 
 
 </RelativeLayout>

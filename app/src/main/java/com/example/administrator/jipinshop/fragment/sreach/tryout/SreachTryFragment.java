@@ -17,6 +17,8 @@ import com.example.administrator.jipinshop.bean.SreachResultArticlesBean;
 import com.example.administrator.jipinshop.databinding.FragmentSreachfindBinding;
 import com.example.administrator.jipinshop.fragment.sreach.article.SreachArticlePresenter;
 import com.example.administrator.jipinshop.fragment.sreach.article.SreachArticleView;
+import com.example.administrator.jipinshop.fragment.sreach.find.SreachFindPresenter;
+import com.example.administrator.jipinshop.fragment.sreach.find.SreachFindView;
 import com.example.administrator.jipinshop.util.ClickUtil;
 import com.example.administrator.jipinshop.util.ShopJumpUtil;
 import com.example.administrator.jipinshop.util.ToastUtil;
@@ -32,10 +34,10 @@ import javax.inject.Inject;
  * @create 2019/3/21
  * @Describe 搜索试用报告结果
  */
-public class SreachTryFragment extends DBBaseFragment implements SreachArticleView, OnRefreshListener, OnLoadMoreListener, SreachTryAdapter.OnItem {
+public class SreachTryFragment extends DBBaseFragment implements SreachFindView, OnRefreshListener, OnLoadMoreListener, SreachTryAdapter.OnItem {
 
     @Inject
-    SreachArticlePresenter mPresenter;
+    SreachFindPresenter mPresenter;
 
     private FragmentSreachfindBinding mBinding;
     private Boolean[] once = {true};//记录第一次进入页面标示
@@ -152,7 +154,7 @@ public class SreachTryFragment extends DBBaseFragment implements SreachArticleVi
             mList.get(pos).setPv((bigDecimal.intValue() + 1) + "");
             mAdapter.notifyDataSetChanged();
             ShopJumpUtil.jumpArticle(getContext(),mList.get(pos).getArticleId(),
-                    "4",mList.get(pos).getContentType());
+                    mList.get(pos).getType(),mList.get(pos).getContentType());
         }
     }
 

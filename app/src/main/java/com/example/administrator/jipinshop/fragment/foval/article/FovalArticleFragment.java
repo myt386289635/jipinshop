@@ -15,7 +15,7 @@ import com.example.administrator.jipinshop.adapter.SreachFindAdapter;
 import com.example.administrator.jipinshop.base.DBBaseFragment;
 import com.example.administrator.jipinshop.bean.SreachResultArticlesBean;
 import com.example.administrator.jipinshop.databinding.FragmentSreachfindBinding;
-import com.example.administrator.jipinshop.fragment.sreach.article.SreachArticleView;
+import com.example.administrator.jipinshop.fragment.sreach.find.SreachFindView;
 import com.example.administrator.jipinshop.util.ClickUtil;
 import com.example.administrator.jipinshop.util.ShopJumpUtil;
 import com.example.administrator.jipinshop.util.ToastUtil;
@@ -35,7 +35,7 @@ import javax.inject.Inject;
  * @create 2018/8/6
  * @Describe 收藏评测
  */
-public class FovalArticleFragment extends DBBaseFragment implements OnRefreshListener, OnLoadMoreListener, SreachArticleView, SreachFindAdapter.OnItem {
+public class FovalArticleFragment extends DBBaseFragment implements OnRefreshListener, OnLoadMoreListener, SreachFindView, SreachFindAdapter.OnItem {
 
     public static final String CollectResher = "ShoppingDetailActivity2FovalArticleFragment";
 

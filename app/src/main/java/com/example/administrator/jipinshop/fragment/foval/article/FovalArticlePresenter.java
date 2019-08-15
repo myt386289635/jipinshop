@@ -5,7 +5,7 @@ import android.support.v7.widget.RecyclerView;
 
 import com.aspsine.swipetoloadlayout.SwipeToLoadLayout;
 import com.example.administrator.jipinshop.bean.SreachResultArticlesBean;
-import com.example.administrator.jipinshop.fragment.sreach.article.SreachArticleView;
+import com.example.administrator.jipinshop.fragment.sreach.find.SreachFindView;
 import com.example.administrator.jipinshop.netwrok.Repository;
 import com.trello.rxlifecycle2.LifecycleTransformer;
 
@@ -22,9 +22,9 @@ import io.reactivex.schedulers.Schedulers;
 public class FovalArticlePresenter {
 
     Repository mRepository;
-    private SreachArticleView mView;
+    private SreachFindView mView;
 
-    public void setView(SreachArticleView view) {
+    public void setView(SreachFindView view) {
         mView = view;
     }
 

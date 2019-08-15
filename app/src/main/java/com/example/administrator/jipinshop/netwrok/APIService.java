@@ -35,6 +35,7 @@ import com.example.administrator.jipinshop.bean.ReportBean;
 import com.example.administrator.jipinshop.bean.ShoppingDetailBean;
 import com.example.administrator.jipinshop.bean.SignBean;
 import com.example.administrator.jipinshop.bean.SignInsertBean;
+import com.example.administrator.jipinshop.bean.SreachBean;
 import com.example.administrator.jipinshop.bean.SreachHistoryBean;
 import com.example.administrator.jipinshop.bean.SreachResultArticlesBean;
 import com.example.administrator.jipinshop.bean.SreachResultGoodsBean;
@@ -219,18 +220,6 @@ public interface APIService {
      */
     @GET("qualityshop-api/api/search/delete")
     Observable<SuccessBean> searchDelete(@Query("id") String id);
-
-    /**
-     * 搜索列表(商品)   已修改
-     */
-    @GET("qualityshop-api/api/search")
-    Observable<SreachResultGoodsBean> searchGoods(@Query("page") String page,@Query("keyword") String keyword,@Query("type")String type);
-
-    /**
-     * 搜索列表（发现、评测、试用报告）
-     */
-    @GET("qualityshop-api/api/search")
-    Observable<SreachResultArticlesBean> searchArticles(@Query("page") String page, @Query("keyword") String keyword, @Query("type")String type);
 
     /**
      * 获取发现tab 已修改
@@ -811,6 +800,24 @@ public interface APIService {
     @FormUrlEncoded
     @POST("qualityshop-api/api/v2/article/deleteGoods")
     Observable<SuccessBean> deleteGoods(@Field("articleId") String articleId , @Field("goodsId") String goodsId);
+
+    /**
+     * 搜索列表（商品）
+     */
+    @GET("qualityshop-api/api/v2/search")
+    Observable<SreachBean> searchGoods(@Query("page") String page, @Query("keyword") String keyword, @Query("type")String type);
+
+    /**
+     * 搜索列表（清单、评测、试用报告）
+     */
+    @GET("qualityshop-api/api/v2/search")
+    Observable<SreachResultArticlesBean> searchArticles(@Query("page") String page, @Query("keyword") String keyword, @Query("type")String type);
+
+    /**
+     * 搜索列表（问答）
+     */
+    @GET("qualityshop-api/api/v2/search")
+    Observable<QuestionsBean> searchQuestions(@Query("page") String page, @Query("keyword") String keyword, @Query("type")String type);
 
 /*************************************************以下是还未修改的接口***********************************************/
 

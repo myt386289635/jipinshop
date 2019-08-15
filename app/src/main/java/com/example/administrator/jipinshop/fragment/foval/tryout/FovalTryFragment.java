@@ -11,13 +11,12 @@ import android.view.ViewGroup;
 import com.aspsine.swipetoloadlayout.OnLoadMoreListener;
 import com.aspsine.swipetoloadlayout.OnRefreshListener;
 import com.example.administrator.jipinshop.R;
-import com.example.administrator.jipinshop.adapter.SreachFindAdapter;
 import com.example.administrator.jipinshop.adapter.SreachTryAdapter;
 import com.example.administrator.jipinshop.base.DBBaseFragment;
 import com.example.administrator.jipinshop.bean.SreachResultArticlesBean;
 import com.example.administrator.jipinshop.databinding.FragmentSreachfindBinding;
 import com.example.administrator.jipinshop.fragment.foval.article.FovalArticlePresenter;
-import com.example.administrator.jipinshop.fragment.sreach.article.SreachArticleView;
+import com.example.administrator.jipinshop.fragment.sreach.find.SreachFindView;
 import com.example.administrator.jipinshop.util.ClickUtil;
 import com.example.administrator.jipinshop.util.ShopJumpUtil;
 import com.example.administrator.jipinshop.util.ToastUtil;
@@ -37,7 +36,7 @@ import javax.inject.Inject;
  * @create 2019/3/21
  * @Describe 收藏试用
  */
-public class FovalTryFragment extends DBBaseFragment implements OnRefreshListener, OnLoadMoreListener, SreachFindAdapter.OnItem, SreachArticleView, SreachTryAdapter.OnItem{
+public class FovalTryFragment extends DBBaseFragment implements OnRefreshListener, OnLoadMoreListener, SreachTryAdapter.OnItem, SreachFindView {
 
     public static final String CollectResher = "ShoppingDetailActivity2FovalTryFragment";
 

@@ -1,6 +1,6 @@
 package com.example.administrator.jipinshop.fragment.sreach.article;
 
-import com.example.administrator.jipinshop.bean.SreachResultArticlesBean;
+import com.example.administrator.jipinshop.bean.QuestionsBean;
 
 /**
  * @author 莫小婷
@@ -9,6 +9,6 @@ import com.example.administrator.jipinshop.bean.SreachResultArticlesBean;
  */
 public interface SreachArticleView {
 
-    void Success(SreachResultArticlesBean articlesBean);
+    void Success(QuestionsBean articlesBean);
     void Faile(String error);
 }

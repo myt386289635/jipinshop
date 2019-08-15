@@ -35,6 +35,7 @@ import com.example.administrator.jipinshop.bean.ReportBean;
 import com.example.administrator.jipinshop.bean.ShoppingDetailBean;
 import com.example.administrator.jipinshop.bean.SignBean;
 import com.example.administrator.jipinshop.bean.SignInsertBean;
+import com.example.administrator.jipinshop.bean.SreachBean;
 import com.example.administrator.jipinshop.bean.SreachHistoryBean;
 import com.example.administrator.jipinshop.bean.SreachResultArticlesBean;
 import com.example.administrator.jipinshop.bean.SreachResultGoodsBean;
@@ -204,19 +205,6 @@ public class Repository {
 //        return mAPIService.goodsList2(category2Id,orderbyType,"1");
 //    }
 
-    /**
-     * 搜索列表
-     */
-    public Observable<SreachResultGoodsBean> searchGoods(String page ,String type, String goodsName){
-        return mAPIService.searchGoods(page,goodsName,type);
-    }
-
-    /**
-     * 搜索列表
-     */
-    public Observable<SreachResultArticlesBean> searchArticles(String page , String type, String goodsName){
-        return mAPIService.searchArticles(page,goodsName,type);
-    }
 
     /**
      * 商品详情
@@ -889,6 +877,27 @@ public class Repository {
      */
     public Observable<SuccessBean> deleteGoods(String articleId , String goodsId){
         return mAPIService.deleteGoods(articleId, goodsId);
+    }
+
+    /**
+     * 搜索列表 (商品)
+     */
+    public Observable<SreachBean> searchGoods(String page , String type, String goodsName){
+        return mAPIService.searchGoods(page,goodsName,type);
+    }
+
+    /**
+     * 搜索列表 (清单、评测、试用报告)
+     */
+    public Observable<SreachResultArticlesBean> searchArticles(String page , String type, String goodsName){
+        return mAPIService.searchArticles(page,goodsName,type);
+    }
+
+    /**
+     * 搜索列表 (问答)
+     */
+    public Observable<QuestionsBean> searchQuestions(String page , String type, String goodsName){
+        return mAPIService.searchQuestions(page,goodsName,type);
     }
 
 }

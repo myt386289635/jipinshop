@@ -54,18 +54,20 @@ public class SreachResultActivity extends BaseActivity implements View.OnClickLi
 
         mFragments = new ArrayList<>();
         mFragments.add(SreachGoodsFragment.getInstance(content));
-        mFragments.add(SreachFindFragment.getInstance(content));
-        mFragments.add(SreachArticleFragment.getInstance(content,"2"));//评测
-        mFragments.add(SreachTryFragment.getInstance(content,"4"));//试用报告
+        mFragments.add(SreachFindFragment.getInstance(content,"2"));//清单
+        mFragments.add(SreachArticleFragment.getInstance(content));//问答
+        mFragments.add(SreachFindFragment.getInstance(content,"4"));//评测
+        mFragments.add(SreachTryFragment.getInstance(content,"5"));//试用报告
         mAdapter = new HomeAdapter(getSupportFragmentManager());
         mAdapter.setFragments(mFragments);
         mBinding.viewPager.setAdapter(mAdapter);
         mBinding.tabLayout.setupWithViewPager(mBinding.viewPager);
-        mBinding.viewPager.setOffscreenPageLimit(3);
+        mBinding.viewPager.setOffscreenPageLimit(4);
 
         List<String> tabTitle = new ArrayList<>();
-        tabTitle.add("商品");
-        tabTitle.add("发现");
+        tabTitle.add("榜单");
+        tabTitle.add("清单");
+        tabTitle.add("问答");
         tabTitle.add("评测");
         tabTitle.add("试用报告");
         mPresenter.initTabLayout(this,mBinding.tabLayout,tabTitle);

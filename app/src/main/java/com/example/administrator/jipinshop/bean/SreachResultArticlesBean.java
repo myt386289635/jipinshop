@@ -74,6 +74,7 @@ public class SreachResultArticlesBean {
         private String title;
         private String content;
         private int contentType;
+        private String type;
         private String size;
         private String pv;
         private String shareTitle;
@@ -85,6 +86,14 @@ public class SreachResultArticlesBean {
         private String collect;
         private String relatedArticleList;
         private String relatedGoodsList;
+
+        public String getType() {
+            return type;
+        }
+
+        public void setType(String type) {
+            this.type = type;
+        }
 
         public String getArticleId() {
             return articleId;
