@@ -41,6 +41,8 @@ public class FovalActivity extends BaseActivity {
     TabLayout mTabLayout;
     @BindView(R.id.view_pager)
     ViewPager mViewPager;
+    @BindView(R.id.title_line)
+    View mTitleLine;
 
     private List<Fragment> mFragments;
     private HomeFragmentAdapter mAdapter;
@@ -56,12 +58,14 @@ public class FovalActivity extends BaseActivity {
     private void initView() {
         mTitleBack.setOnClickListener(v -> finish());
         mTitleTv.setText("我的收藏");
+        mTitleLine.setVisibility(View.INVISIBLE);
         mFragments = new ArrayList<>();
         mAdapter = new HomeFragmentAdapter(getSupportFragmentManager());
         mFragments.add(FovalGoodsFragment.getInstance());
-        mFragments.add(FovalFindFragment.getInstance());
-        mFragments.add(FovalArticleFragment.getInstance("2"));
-        mFragments.add(FovalTryFragment.getInstance("4"));
+        mFragments.add(FovalArticleFragment.getInstance());//问答
+        mFragments.add(FovalFindFragment.getInstance("2"));//评测
+        mFragments.add(FovalFindFragment.getInstance("7"));//清单
+        mFragments.add(FovalTryFragment.getInstance());//试用报告
         mAdapter.setFragments(mFragments);
         mViewPager.setAdapter(mAdapter);
         mViewPager.setOffscreenPageLimit(mFragments.size() - 1);
@@ -82,11 +86,13 @@ public class FovalActivity extends BaseActivity {
             TextView textView = view.findViewById(R.id.tab_name);
             if (i == 0) {
                 textView.setText("榜单");
-            } else if (i == 1){
-                textView.setText("发现");
-            }else if (i == 2){
+            }else if (i == 1){
+                textView.setText("问答");
+            } else if (i == 2) {
                 textView.setText("评测");
-            }else {
+            } else if (i == 3) {
+                textView.setText("清单");
+            } else {
                 textView.setText("试用报告");
             }
             mTabLayout.getTabAt(i).setCustomView(view);
@@ -98,8 +104,8 @@ public class FovalActivity extends BaseActivity {
         mTabLayout.post(() -> {
             //拿到tabLayout的mTabStrip属性
             LinearLayout mTabStrip = (LinearLayout) mTabLayout.getChildAt(0);
-            int totle = textLether.get(0) + textLether.get(1) + textLether.get(2) + textLether.get(3);
-            int dp10 = (mTabLayout.getWidth() - totle) / 4;
+            int totle = textLether.get(0) + textLether.get(1) + textLether.get(2) + textLether.get(3)+ textLether.get(4);
+            int dp10 = (mTabLayout.getWidth() - totle) / 5;
             for (int i = 0; i < mTabStrip.getChildCount(); i++) {
                 View tabView = mTabStrip.getChildAt(i);
                 tabView.setPadding(0, 0, 0, 0);
@@ -107,8 +113,8 @@ public class FovalActivity extends BaseActivity {
                 LinearLayout.LayoutParams params = (LinearLayout.LayoutParams)
                         tabView.getLayoutParams();
                 params.width = width;
-                params.leftMargin = dp10  / 2;
-                params.rightMargin = dp10  / 2;
+                params.leftMargin = dp10 / 2;
+                params.rightMargin = dp10 / 2;
                 tabView.setLayoutParams(params);
                 tabView.invalidate();
             }

@@ -1,6 +1,7 @@
 package com.example.administrator.jipinshop.fragment.foval.find;
 
 import android.databinding.DataBindingUtil;
+import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
@@ -32,7 +33,7 @@ import javax.inject.Inject;
 /**
  * @author 莫小婷
  * @create 2019/1/15
- * @Describe 收藏发现
+ * @Describe 收藏清单、评测
  */
 public class FovalFindFragment extends DBBaseFragment implements SreachArticleAdapter.OnItem, OnRefreshListener, OnLoadMoreListener, SreachFindView {
 
@@ -50,8 +51,11 @@ public class FovalFindFragment extends DBBaseFragment implements SreachArticleAd
     FovalFindPresenter mPresenter;
 
 
-    public static FovalFindFragment getInstance() {
+    public static FovalFindFragment getInstance(String type) {
         FovalFindFragment fragment = new FovalFindFragment();
+        Bundle bundle = new Bundle();
+        bundle.putString("type", type);
+        fragment.setArguments(bundle);
         return fragment;
     }
 
@@ -96,7 +100,7 @@ public class FovalFindFragment extends DBBaseFragment implements SreachArticleAd
             mList.get(pos).setPv((bigDecimal.intValue() + 1) + "");
             mAdapter.notifyDataSetChanged();
             ShopJumpUtil.jumpArticle(getContext(),mList.get(pos).getArticleId(),
-                    "3",mList.get(pos).getContentType());
+                    getArguments().getString("type"),mList.get(pos).getContentType());
         }
     }
 
@@ -104,14 +108,14 @@ public class FovalFindFragment extends DBBaseFragment implements SreachArticleAd
     public void onRefresh() {
         page = 1;
         refersh = true;
-        mPresenter.collect(page, this.bindUntilEvent(FragmentEvent.DESTROY_VIEW));
+        mPresenter.collect(page, getArguments().getString("type"),this.bindUntilEvent(FragmentEvent.DESTROY_VIEW));
     }
 
     @Override
     public void onLoadMore() {
         page++;
         refersh = false;
-        mPresenter.collect(page, this.bindUntilEvent(FragmentEvent.DESTROY_VIEW));
+        mPresenter.collect(page, getArguments().getString("type"),this.bindUntilEvent(FragmentEvent.DESTROY_VIEW));
     }
 
     @Override

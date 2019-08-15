@@ -1,7 +1,7 @@
 package com.example.administrator.jipinshop.fragment.foval.article;
 
+import android.content.Intent;
 import android.databinding.DataBindingUtil;
-import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
@@ -11,20 +11,19 @@ import android.view.ViewGroup;
 import com.aspsine.swipetoloadlayout.OnLoadMoreListener;
 import com.aspsine.swipetoloadlayout.OnRefreshListener;
 import com.example.administrator.jipinshop.R;
-import com.example.administrator.jipinshop.adapter.SreachFindAdapter;
+import com.example.administrator.jipinshop.activity.home.classification.questions.detail.QuestionDetailActivity;
+import com.example.administrator.jipinshop.adapter.QuestionsAdapter;
 import com.example.administrator.jipinshop.base.DBBaseFragment;
-import com.example.administrator.jipinshop.bean.SreachResultArticlesBean;
+import com.example.administrator.jipinshop.bean.QuestionsBean;
 import com.example.administrator.jipinshop.databinding.FragmentSreachfindBinding;
-import com.example.administrator.jipinshop.fragment.sreach.find.SreachFindView;
+import com.example.administrator.jipinshop.fragment.sreach.article.SreachArticleView;
 import com.example.administrator.jipinshop.util.ClickUtil;
-import com.example.administrator.jipinshop.util.ShopJumpUtil;
 import com.example.administrator.jipinshop.util.ToastUtil;
 import com.trello.rxlifecycle2.android.FragmentEvent;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 
-import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -33,9 +32,9 @@ import javax.inject.Inject;
 /**
  * @author 莫小婷
  * @create 2018/8/6
- * @Describe 收藏评测
+ * @Describe 收藏问答
  */
-public class FovalArticleFragment extends DBBaseFragment implements OnRefreshListener, OnLoadMoreListener, SreachFindView, SreachFindAdapter.OnItem {
+public class FovalArticleFragment extends DBBaseFragment implements OnRefreshListener, OnLoadMoreListener, SreachArticleView, QuestionsAdapter.OnClickView {
 
     public static final String CollectResher = "ShoppingDetailActivity2FovalArticleFragment";
 
@@ -44,8 +43,8 @@ public class FovalArticleFragment extends DBBaseFragment implements OnRefreshLis
 
     private FragmentSreachfindBinding mBinding;
     private Boolean once = true;//记录第一次进入页面标示
-    private SreachFindAdapter mAdapter;
-    private List<SreachResultArticlesBean.DataBean> mList;
+    private QuestionsAdapter mAdapter;
+    private List<QuestionsBean.DataBean> mList;
 
     private int page = 1;
     private Boolean refersh = true;
@@ -58,11 +57,8 @@ public class FovalArticleFragment extends DBBaseFragment implements OnRefreshLis
         }
     }
 
-    public static FovalArticleFragment getInstance(String type) {
+    public static FovalArticleFragment getInstance() {
         FovalArticleFragment fragment = new FovalArticleFragment();
-        Bundle bundle = new Bundle();
-        bundle.putString("type", type);
-        fragment.setArguments(bundle);
         return fragment;
     }
 
@@ -73,7 +69,7 @@ public class FovalArticleFragment extends DBBaseFragment implements OnRefreshLis
     public void onRefresh() {
         page = 1;
         refersh = true;
-        mPresenter.collect(page, getArguments().getString("type"), this.bindUntilEvent(FragmentEvent.DESTROY_VIEW));
+        mPresenter.collect(page, "5", this.bindUntilEvent(FragmentEvent.DESTROY_VIEW));
     }
 
     @Override
@@ -90,8 +86,8 @@ public class FovalArticleFragment extends DBBaseFragment implements OnRefreshLis
 
         mBinding.recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         mList = new ArrayList<>();
-        mAdapter = new SreachFindAdapter(mList, getContext());
-        mAdapter.setOnItem(this);
+        mAdapter = new QuestionsAdapter(mList, getContext());
+        mAdapter.setView(this);
         mBinding.recyclerView.setAdapter(mAdapter);
 
         mBinding.swipeToLoad.setOnRefreshListener(this);
@@ -107,7 +103,7 @@ public class FovalArticleFragment extends DBBaseFragment implements OnRefreshLis
     public void onLoadMore() {
         page++;
         refersh = false;
-        mPresenter.collect(page, getArguments().getString("type"), this.bindUntilEvent(FragmentEvent.DESTROY_VIEW));
+        mPresenter.collect(page,"5", this.bindUntilEvent(FragmentEvent.DESTROY_VIEW));
     }
 
     public void initError(int id, String title, String content) {
@@ -150,7 +146,7 @@ public class FovalArticleFragment extends DBBaseFragment implements OnRefreshLis
      * @param articlesBean
      */
     @Override
-    public void Success(SreachResultArticlesBean articlesBean) {
+    public void Success(QuestionsBean articlesBean) {
         stopResher();
         stopLoading();
         if(articlesBean.getData() != null && articlesBean.getData().size() != 0){
@@ -213,15 +209,12 @@ public class FovalArticleFragment extends DBBaseFragment implements OnRefreshLis
     }
 
     @Override
-    public void onItem(int pos) {
+    public void onClickArticle(int pos) {
         if (ClickUtil.isFastDoubleClick(800)) {
             return;
         } else {
-            BigDecimal bigDecimal = new BigDecimal(mList.get(pos).getPv());
-            mList.get(pos).setPv((bigDecimal.intValue() + 1) + "");
-            mAdapter.notifyDataSetChanged();
-            ShopJumpUtil.jumpArticle(getContext(),mList.get(pos).getArticleId(),
-                    "2",mList.get(pos).getContentType());
+            startActivity(new Intent(getContext(), QuestionDetailActivity.class)
+                    .putExtra("date",mList.get(pos)));
         }
     }
 }

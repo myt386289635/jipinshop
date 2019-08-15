@@ -291,18 +291,6 @@ public interface APIService {
     Observable<SuccessBean> feedBack(@Field("content") String content);
 
     /**
-     * 获取收藏列表(商品)  已修改
-     */
-    @GET("qualityshop-api/api/collect/list")
-    Observable<SreachResultGoodsBean> collect(@Query("page") String page ,@Query("type") String type);
-
-    /**
-     * 获取收藏列表（发现、评测、试用报告）
-     */
-    @GET("qualityshop-api/api/collect/list")
-    Observable<SreachResultArticlesBean> collectArticle(@Query("page") String page ,@Query("type") String type);
-
-    /**
      * 获取关注列表  已修改
      */
     @GET("qualityshop-api/api/follow/list")
@@ -818,6 +806,24 @@ public interface APIService {
      */
     @GET("qualityshop-api/api/v2/search")
     Observable<QuestionsBean> searchQuestions(@Query("page") String page, @Query("keyword") String keyword, @Query("type")String type);
+
+    /**
+     * 获取收藏列表(商品)
+     */
+    @GET("qualityshop-api/api/v2/collect/list")
+    Observable<SucBean<TopCategoryDetailBean.DataBean.RelatedGoodsListBean>> collect(@Query("page") String page ,@Query("type") String type);
+
+    /**
+     * 获取收藏列表（清单、评测、试用报告）
+     */
+    @GET("qualityshop-api/api/v2/collect/list")
+    Observable<SreachResultArticlesBean> collectArticle(@Query("page") String page ,@Query("type") String type);
+
+    /**
+     * 获取收藏列表（问答）
+     */
+    @GET("qualityshop-api/api/v2/collect/list")
+    Observable<QuestionsBean> collectQuestions(@Query("page") String page ,@Query("type") String type);
 
 /*************************************************以下是还未修改的接口***********************************************/
 

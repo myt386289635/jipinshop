@@ -12,11 +12,11 @@ import com.aspsine.swipetoloadlayout.OnLoadMoreListener;
 import com.aspsine.swipetoloadlayout.OnRefreshListener;
 import com.example.administrator.jipinshop.R;
 import com.example.administrator.jipinshop.activity.shoppingdetail.ShoppingDetailActivity;
-import com.example.administrator.jipinshop.adapter.SreachGoodsAdapter;
+import com.example.administrator.jipinshop.adapter.FovalGoodsAdapter;
 import com.example.administrator.jipinshop.base.DBBaseFragment;
-import com.example.administrator.jipinshop.bean.SreachResultGoodsBean;
+import com.example.administrator.jipinshop.bean.SucBean;
+import com.example.administrator.jipinshop.bean.TopCategoryDetailBean;
 import com.example.administrator.jipinshop.databinding.FragmentSreachgoodsBinding;
-import com.example.administrator.jipinshop.fragment.sreach.goods.SreachGoodsView;
 import com.example.administrator.jipinshop.util.ClickUtil;
 import com.example.administrator.jipinshop.util.ToastUtil;
 import com.trello.rxlifecycle2.android.FragmentEvent;
@@ -24,7 +24,6 @@ import com.trello.rxlifecycle2.android.FragmentEvent;
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 
-import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -35,15 +34,15 @@ import javax.inject.Inject;
  * @create 2019/1/15
  * @Describe
  */
-public class FovalGoodsFragment extends DBBaseFragment implements SreachGoodsAdapter.OnItem, OnRefreshListener, OnLoadMoreListener, FovalGoodsView {
+public class FovalGoodsFragment extends DBBaseFragment implements FovalGoodsAdapter.OnItem, OnRefreshListener, OnLoadMoreListener, FovalGoodsView {
 
     public static final String CollectResher = "ShoppingDetailActivity2FovalGoodsFragment";
 
     @Inject
     FovalGoodsPersenter mPresenter;
     private FragmentSreachgoodsBinding mBinding;
-    private SreachGoodsAdapter mAdapter;
-    private List<SreachResultGoodsBean.DataBean> mList;
+    private FovalGoodsAdapter mAdapter;
+    private List<TopCategoryDetailBean.DataBean.RelatedGoodsListBean> mList;
 
     private int page = 1;
     private Boolean refersh = true;
@@ -68,7 +67,7 @@ public class FovalGoodsFragment extends DBBaseFragment implements SreachGoodsAda
 
         mBinding.recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         mList = new ArrayList<>();
-        mAdapter = new SreachGoodsAdapter(mList, getContext());
+        mAdapter = new FovalGoodsAdapter(mList, getContext());
         mAdapter.setOnItem(this);
         mBinding.recyclerView.setAdapter(mAdapter);
 
@@ -83,9 +82,6 @@ public class FovalGoodsFragment extends DBBaseFragment implements SreachGoodsAda
         if (ClickUtil.isFastDoubleClick(800)) {
             return;
         } else {
-            BigDecimal bigDecimal = new BigDecimal(mList.get(pos).getPv());
-            mList.get(pos).setPv((bigDecimal.intValue() + 1) + "");
-            mAdapter.notifyDataSetChanged();
             startActivity(new Intent(getContext(), ShoppingDetailActivity.class)
                     .putExtra("goodsId", mList.get(pos).getGoodsId())
             );
@@ -140,7 +136,7 @@ public class FovalGoodsFragment extends DBBaseFragment implements SreachGoodsAda
     }
 
     @Override
-    public void Success(SreachResultGoodsBean resultGoodsBean) {
+    public void Success(SucBean<TopCategoryDetailBean.DataBean.RelatedGoodsListBean> resultGoodsBean) {
         stopResher();
         stopLoading();
         if(resultGoodsBean.getData() != null && resultGoodsBean.getData().size() != 0){

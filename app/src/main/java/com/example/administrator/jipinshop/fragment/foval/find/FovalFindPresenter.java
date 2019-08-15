@@ -62,8 +62,8 @@ public class FovalFindPresenter {
         return false;
     }
 
-    public void collect(int page,LifecycleTransformer<SreachResultArticlesBean> transformer){
-        mRepository.collectArticle(page + "","3")
+    public void collect(int page,String type,LifecycleTransformer<SreachResultArticlesBean> transformer){
+        mRepository.collectArticle(page + "",type)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .compose(transformer)

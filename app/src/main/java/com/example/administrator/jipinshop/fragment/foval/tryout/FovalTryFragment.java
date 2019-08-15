@@ -16,6 +16,7 @@ import com.example.administrator.jipinshop.base.DBBaseFragment;
 import com.example.administrator.jipinshop.bean.SreachResultArticlesBean;
 import com.example.administrator.jipinshop.databinding.FragmentSreachfindBinding;
 import com.example.administrator.jipinshop.fragment.foval.article.FovalArticlePresenter;
+import com.example.administrator.jipinshop.fragment.foval.find.FovalFindPresenter;
 import com.example.administrator.jipinshop.fragment.sreach.find.SreachFindView;
 import com.example.administrator.jipinshop.util.ClickUtil;
 import com.example.administrator.jipinshop.util.ShopJumpUtil;
@@ -41,7 +42,7 @@ public class FovalTryFragment extends DBBaseFragment implements OnRefreshListene
     public static final String CollectResher = "ShoppingDetailActivity2FovalTryFragment";
 
     @Inject
-    FovalArticlePresenter mPresenter;
+    FovalFindPresenter mPresenter;
 
     private FragmentSreachfindBinding mBinding;
     private Boolean once = true;//记录第一次进入页面标示
@@ -59,11 +60,8 @@ public class FovalTryFragment extends DBBaseFragment implements OnRefreshListene
         }
     }
 
-    public static FovalTryFragment getInstance(String type) {
+    public static FovalTryFragment getInstance() {
         FovalTryFragment fragment = new FovalTryFragment();
-        Bundle bundle = new Bundle();
-        bundle.putString("type", type);
-        fragment.setArguments(bundle);
         return fragment;
     }
 
@@ -94,14 +92,14 @@ public class FovalTryFragment extends DBBaseFragment implements OnRefreshListene
     public void onRefresh() {
         page = 1;
         refersh = true;
-        mPresenter.collect(page, getArguments().getString("type"), this.bindUntilEvent(FragmentEvent.DESTROY_VIEW));
+        mPresenter.collect(page, "4", this.bindUntilEvent(FragmentEvent.DESTROY_VIEW));
     }
 
     @Override
     public void onLoadMore() {
         page++;
         refersh = false;
-        mPresenter.collect(page, getArguments().getString("type"), this.bindUntilEvent(FragmentEvent.DESTROY_VIEW));
+        mPresenter.collect(page, "4", this.bindUntilEvent(FragmentEvent.DESTROY_VIEW));
     }
 
     @Override

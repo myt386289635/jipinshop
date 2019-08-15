@@ -129,20 +129,6 @@ public class Repository {
     }
 
     /**
-     * 收藏列表(商品)
-     */
-    public Observable<SreachResultGoodsBean> collect(String page,String type){
-        return mAPIService.collect(page,type);
-    }
-
-    /**
-     * 收藏列表（发现、评测、试用报告）
-     */
-    public Observable<SreachResultArticlesBean> collectArticle(String page,String type){
-        return mAPIService.collectArticle(page,type);
-    }
-
-    /**
      * 查询签到7天状态
      */
    public Observable<SignBean> sign(){
@@ -898,6 +884,28 @@ public class Repository {
      */
     public Observable<QuestionsBean> searchQuestions(String page , String type, String goodsName){
         return mAPIService.searchQuestions(page,goodsName,type);
+    }
+
+
+    /**
+     * 收藏列表(商品)
+     */
+    public Observable<SucBean<TopCategoryDetailBean.DataBean.RelatedGoodsListBean>> collect(String page,String type){
+        return mAPIService.collect(page,type);
+    }
+
+    /**
+     * 收藏列表（清单、评测、试用报告）
+     */
+    public Observable<SreachResultArticlesBean> collectArticle(String page,String type){
+        return mAPIService.collectArticle(page,type);
+    }
+
+    /**
+     * 收藏列表 (问答)
+     */
+    public Observable<QuestionsBean> collectQuestions(String page , String type){
+        return mAPIService.collectQuestions(page,type);
     }
 
 }

@@ -17,6 +17,7 @@ import com.example.administrator.jipinshop.adapter.QuestionsAdapter;
 import com.example.administrator.jipinshop.base.DBBaseFragment;
 import com.example.administrator.jipinshop.bean.QuestionsBean;
 import com.example.administrator.jipinshop.databinding.FragmentSreachfindBinding;
+import com.example.administrator.jipinshop.util.ClickUtil;
 import com.example.administrator.jipinshop.util.ToastUtil;
 
 import java.util.ArrayList;
@@ -83,8 +84,12 @@ public class SreachArticleFragment extends DBBaseFragment implements QuestionsAd
 
     @Override
     public void onClickArticle(int position) {
-        startActivity(new Intent(getContext(), QuestionDetailActivity.class)
-                        .putExtra("date",mList.get(position)));
+        if (ClickUtil.isFastDoubleClick(800)) {
+            return;
+        } else {
+            startActivity(new Intent(getContext(), QuestionDetailActivity.class)
+                    .putExtra("date",mList.get(position)));
+        }
     }
 
     @Override

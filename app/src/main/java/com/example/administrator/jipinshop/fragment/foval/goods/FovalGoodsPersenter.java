@@ -5,6 +5,8 @@ import android.support.v7.widget.RecyclerView;
 
 import com.aspsine.swipetoloadlayout.SwipeToLoadLayout;
 import com.example.administrator.jipinshop.bean.SreachResultGoodsBean;
+import com.example.administrator.jipinshop.bean.SucBean;
+import com.example.administrator.jipinshop.bean.TopCategoryDetailBean;
 import com.example.administrator.jipinshop.fragment.sreach.goods.SreachGoodsView;
 import com.example.administrator.jipinshop.netwrok.Repository;
 import com.trello.rxlifecycle2.LifecycleTransformer;
@@ -62,7 +64,7 @@ public class FovalGoodsPersenter {
         return false;
     }
 
-    public void collect(int page,LifecycleTransformer<SreachResultGoodsBean> transformer){
+    public void collect(int page,LifecycleTransformer<SucBean<TopCategoryDetailBean.DataBean.RelatedGoodsListBean>> transformer){
         mRepository.collect(page + "","1")
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
