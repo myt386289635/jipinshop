@@ -44,9 +44,7 @@ import com.example.administrator.jipinshop.bean.eventbus.CommonEvaluationBus;
 import com.example.administrator.jipinshop.bean.eventbus.FollowBus;
 import com.example.administrator.jipinshop.databinding.ActivityFindDetailBinding;
 import com.example.administrator.jipinshop.fragment.follow.attention.AttentionFragment;
-import com.example.administrator.jipinshop.fragment.foval.article.FovalArticleFragment;
 import com.example.administrator.jipinshop.fragment.foval.find.FovalFindFragment;
-import com.example.administrator.jipinshop.fragment.foval.tryout.FovalTryFragment;
 import com.example.administrator.jipinshop.netwrok.RetrofitModule;
 import com.example.administrator.jipinshop.util.ClickUtil;
 import com.example.administrator.jipinshop.util.ShareUtils;
@@ -564,13 +562,7 @@ public class ArticleDetailActivity extends BaseActivity implements View.OnClickL
     @Override
     public void onSucCollectInsert(SuccessBean successBean) {
         if (successBean.getCode() == 0) {
-            if(getIntent().getStringExtra("type").equals("2")){
-                EventBus.getDefault().post(FovalArticleFragment.CollectResher);//刷新我的收藏列表
-            }else if(getIntent().getStringExtra("type").equals("4")){
-                EventBus.getDefault().post(FovalTryFragment.CollectResher);//刷新我的收藏列表
-            } else {
-                EventBus.getDefault().post(FovalFindFragment.CollectResher);//刷新我的收藏列表
-            }
+            EventBus.getDefault().post(FovalFindFragment.CollectResher);//刷新我的收藏列表
             isCollect = true;
             mBinding.bottomFavor.setImageResource(R.mipmap.com_favored);
             mBinding.bottomFavor.setColorFilter(Color.RED);
@@ -587,13 +579,7 @@ public class ArticleDetailActivity extends BaseActivity implements View.OnClickL
     @Override
     public void onSucCollectDelete(SuccessBean successBean) {
         if (successBean.getCode() == 0) {
-            if(getIntent().getStringExtra("type").equals("2")){
-                EventBus.getDefault().post(FovalArticleFragment.CollectResher);//刷新我的收藏列表
-            }else if(getIntent().getStringExtra("type").equals("4")){
-                EventBus.getDefault().post(FovalTryFragment.CollectResher);//刷新我的收藏列表
-            } else {
-                EventBus.getDefault().post(FovalFindFragment.CollectResher);//刷新我的收藏列表
-            }
+            EventBus.getDefault().post(FovalFindFragment.CollectResher);//刷新我的收藏列表
             isCollect = false;
             mBinding.bottomFavor.setImageResource(R.mipmap.com_favor);
             mBinding.bottomFavor.setColorFilter(Color.BLACK);

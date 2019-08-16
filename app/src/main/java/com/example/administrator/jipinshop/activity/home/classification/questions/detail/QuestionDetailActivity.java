@@ -22,6 +22,7 @@ import com.example.administrator.jipinshop.bean.QuestionsBean;
 import com.example.administrator.jipinshop.bean.SucBean;
 import com.example.administrator.jipinshop.bean.VoteBean;
 import com.example.administrator.jipinshop.databinding.ActivityQuestionDetailBinding;
+import com.example.administrator.jipinshop.fragment.foval.article.FovalArticleFragment;
 import com.example.administrator.jipinshop.netwrok.RetrofitModule;
 import com.example.administrator.jipinshop.util.ClickUtil;
 import com.example.administrator.jipinshop.util.ShareUtils;
@@ -32,6 +33,8 @@ import com.example.administrator.jipinshop.view.dialog.ShareBoardDialog;
 import com.trello.rxlifecycle2.android.ActivityEvent;
 import com.umeng.socialize.UMShareAPI;
 import com.umeng.socialize.bean.SHARE_MEDIA;
+
+import org.greenrobot.eventbus.EventBus;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -345,6 +348,7 @@ public class QuestionDetailActivity extends BaseActivity implements View.OnClick
 
     @Override
     public void onSucCollectInsert() {
+        EventBus.getDefault().post(FovalArticleFragment.CollectResher);//刷新我的收藏列表
         ToastUtil.show("收藏成功");
         isCollect = true;
         mBinding.itemComment.setImageResource(R.mipmap.com_favored);
@@ -353,6 +357,7 @@ public class QuestionDetailActivity extends BaseActivity implements View.OnClick
 
     @Override
     public void onSucCollectDelete() {
+        EventBus.getDefault().post(FovalArticleFragment.CollectResher);//刷新我的收藏列表
         ToastUtil.show("取消收藏");
         isCollect = false;
         mBinding.itemComment.setImageResource(R.mipmap.com_favor);
