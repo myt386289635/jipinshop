@@ -825,5 +825,10 @@ public interface APIService {
     @GET("qualityshop-api/api/v2/collect/list")
     Observable<QuestionsBean> collectQuestions(@Query("page") String page ,@Query("type") String type);
 
+    /**
+     * 通过对方userId获取用户信息(用户中心)
+     */
+    @GET("qualityshop-api/api/user/getUserByUserId")
+    Observable<SuccessBean> getUserByUserId(@Query("userId") String userId);
 
 }

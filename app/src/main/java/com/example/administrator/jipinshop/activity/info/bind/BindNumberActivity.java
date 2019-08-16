@@ -180,6 +180,7 @@ public class BindNumberActivity extends BaseActivity implements BindNumberView {
             SPUtils.getInstance(CommonDate.USER).put(CommonDate.bindWeibo, loginBean.getData().getBindWeibo() + "");
             SPUtils.getInstance(CommonDate.USER).put(CommonDate.bindWeixin, loginBean.getData().getBindWeixin() + "");
             SPUtils.getInstance(CommonDate.USER).put(CommonDate.qrCode, loginBean.getData().getInvitationCode());
+            SPUtils.getInstance(CommonDate.USER).put(CommonDate.userId,loginBean.getData().getUserId());
 
             EventBus.getDefault().post(new EditNameBus(LoginActivity.tag, loginBean.getData().getFansCount() + ""
                     , loginBean.getData().getVoteCount() + "", loginBean.getData().getFollowCount() + ""));//刷新登陆后我的页面
