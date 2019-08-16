@@ -111,10 +111,6 @@
         <activity android:name=".activity.follow.FollowActivity"
                   android:screenOrientation="portrait"/>
 
-        <!--个人主页-->
-        <activity android:name=".activity.follow.user.UserActivity"
-                  android:screenOrientation="portrait"/>
-
         <!--积分明细-->
         <activity android:name=".activity.sign.detail.IntegralDetailActivity"
                   android:screenOrientation="portrait"/>

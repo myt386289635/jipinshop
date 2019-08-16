@@ -298,13 +298,6 @@ public class Repository {
     }
 
     /**
-     * 个人主页
-     */
-    public Observable<UserPageBean> userPage(String attentionUserId,String page){
-        return  mAPIService.userPage(attentionUserId, page);
-    }
-
-    /**
      * 积分明细
      */
     public Observable<PointDetailBean> pointDetail(String page){

@@ -1,5 +1,6 @@
 package com.example.administrator.jipinshop.base;
 
+import com.example.administrator.jipinshop.activity.KTArticleMoreActivity;
 import com.example.administrator.jipinshop.activity.WebActivity;
 import com.example.administrator.jipinshop.activity.address.MyAddressActivity;
 import com.example.administrator.jipinshop.activity.address.add.CreateAddressActivity;
@@ -13,7 +14,6 @@ import com.example.administrator.jipinshop.activity.evakt.send.corve.SubmitCorve
 import com.example.administrator.jipinshop.activity.evakt.send.goods.AddGoodsActivity;
 import com.example.administrator.jipinshop.activity.evakt.unbox.UnboxActivity;
 import com.example.administrator.jipinshop.activity.follow.FollowActivity;
-import com.example.administrator.jipinshop.activity.follow.user.UserActivity;
 import com.example.administrator.jipinshop.activity.home.MainActivity;
 import com.example.administrator.jipinshop.activity.home.article.ArticleDetailActivity;
 import com.example.administrator.jipinshop.activity.home.classification.ClassifyActivity;
@@ -58,7 +58,6 @@ import com.example.administrator.jipinshop.activity.tryout.reportMore.ReportMore
 import com.example.administrator.jipinshop.activity.tryout.shareMore.ShareMoreActivity;
 import com.example.administrator.jipinshop.activity.wellcome.WellComeActivity;
 import com.example.administrator.jipinshop.auto.ActivityScope;
-import com.example.administrator.jipinshop.activity.KTArticleMoreActivity;
 import com.example.administrator.jipinshop.netwrok.ApplicationComponent;
 
 import dagger.Component;
@@ -75,7 +74,6 @@ public interface BaseActivityComponent {
     void inject(MessageActivity messageActivity);
     void inject(OpinionActivity activity);
     void inject(FollowActivity activity);
-    void inject(UserActivity activity);
     void inject(IntegralDetailActivity activity);
     void inject(SreachResultActivity activity);
     void inject(ArticleDetailActivity activity);

@@ -825,12 +825,5 @@ public interface APIService {
     @GET("qualityshop-api/api/v2/collect/list")
     Observable<QuestionsBean> collectQuestions(@Query("page") String page ,@Query("type") String type);
 
-/*************************************************以下是还未修改的接口***********************************************/
-
-    /**
-     * 个人主页
-     */
-    @GET("qualityshop-api/api/selectConcern")
-    Observable<UserPageBean> userPage(@Query("attentionUserId") String attentionUserId,@Query("page") String page);
 
 }
