@@ -1,5 +1,6 @@
 package com.example.administrator.jipinshop.fragment.follow.fans;
 
+import android.content.Intent;
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
@@ -11,6 +12,7 @@ import android.widget.TextView;
 import com.aspsine.swipetoloadlayout.OnLoadMoreListener;
 import com.aspsine.swipetoloadlayout.OnRefreshListener;
 import com.example.administrator.jipinshop.R;
+import com.example.administrator.jipinshop.activity.minekt.UserActivity;
 import com.example.administrator.jipinshop.adapter.FansAdapter;
 import com.example.administrator.jipinshop.base.DBBaseFragment;
 import com.example.administrator.jipinshop.bean.FollowBean;
@@ -182,7 +184,9 @@ public class FansFragment extends DBBaseFragment implements OnRefreshListener, F
 
     @Override
     public void onItem(int pos) {
-        // TODO: 2019/1/16 跳转到个人主页
+        startActivity(new Intent(getContext(), UserActivity.class)
+                .putExtra("userid",mList.get(pos).getUserId())
+        );
     }
 
     @Override

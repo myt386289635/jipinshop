@@ -31,6 +31,7 @@ import com.example.administrator.jipinshop.R;
 import com.example.administrator.jipinshop.activity.WebActivity;
 import com.example.administrator.jipinshop.activity.commenlist.CommenListActivity;
 import com.example.administrator.jipinshop.activity.login.LoginActivity;
+import com.example.administrator.jipinshop.activity.minekt.UserActivity;
 import com.example.administrator.jipinshop.adapter.CommenBannerAdapter;
 import com.example.administrator.jipinshop.adapter.RelatedArticleAdapter;
 import com.example.administrator.jipinshop.adapter.ShoppingCommonAdapter;
@@ -1034,7 +1035,9 @@ public class ShoppingDetailActivity extends BaseActivity implements ShoppingComm
                 showKeyboard(true);
                 break;
             case R.id.detail_evaluationImage:
-                // TODO: 2019/1/11 个人主页
+                startActivity(new Intent(this, UserActivity.class)
+                        .putExtra("userid",attentionUserId)
+                );
                 break;
         }
     }

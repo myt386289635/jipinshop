@@ -1,6 +1,7 @@
 package com.example.administrator.jipinshop.adapter;
 
 import android.content.Context;
+import android.content.Intent;
 import android.databinding.DataBindingUtil;
 import android.graphics.Color;
 import android.graphics.drawable.Drawable;
@@ -11,6 +12,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.example.administrator.jipinshop.R;
+import com.example.administrator.jipinshop.activity.minekt.UserActivity;
 import com.example.administrator.jipinshop.bean.QuestionsBean;
 import com.example.administrator.jipinshop.databinding.ItemQuestionDetaicontentBinding;
 import com.example.administrator.jipinshop.databinding.ItemQuestionDetaiheadBinding;
@@ -99,6 +101,11 @@ public class QuestionDetailAdapter extends RecyclerView.Adapter {
                         }
                     });
                 }
+                headViewHolder.headBinding.itemImage.setOnClickListener(v -> {
+                    mContext.startActivity(new Intent(mContext, UserActivity.class)
+                            .putExtra("userid",mBean.getUser().getUserId())
+                    );
+                });
                 headViewHolder.headBinding.executePendingBindings();
                 break;
             case content:
@@ -128,6 +135,11 @@ public class QuestionDetailAdapter extends RecyclerView.Adapter {
                         }
                     });
                 }
+                contentViewHolder.contentBinding.itemImage.setOnClickListener(v -> {
+                    mContext.startActivity(new Intent(mContext, UserActivity.class)
+                            .putExtra("userid",mList.get(pos).getUserId())
+                    );
+                });
                 contentViewHolder.contentBinding.executePendingBindings();
                 break;
         }

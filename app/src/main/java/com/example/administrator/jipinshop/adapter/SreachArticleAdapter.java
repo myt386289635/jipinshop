@@ -1,6 +1,7 @@
 package com.example.administrator.jipinshop.adapter;
 
 import android.content.Context;
+import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
@@ -11,6 +12,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.administrator.jipinshop.R;
+import com.example.administrator.jipinshop.activity.minekt.UserActivity;
 import com.example.administrator.jipinshop.bean.SreachResultArticlesBean;
 import com.example.administrator.jipinshop.view.glide.GlideApp;
 
@@ -93,7 +95,9 @@ public class SreachArticleAdapter extends RecyclerView.Adapter<SreachArticleAdap
             }
         });
         viewHolder.item_head.setOnClickListener(v -> {
-            // TODO: 2019/1/11 个人主页
+            mContext.startActivity(new Intent(mContext, UserActivity.class)
+                    .putExtra("userid",mList.get(i).getUser().getUserId())
+            );
         });
     }
 

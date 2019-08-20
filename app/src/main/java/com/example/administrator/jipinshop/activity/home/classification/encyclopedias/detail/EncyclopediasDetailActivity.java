@@ -20,6 +20,7 @@ import com.blankj.utilcode.util.SPUtils;
 import com.example.administrator.jipinshop.R;
 import com.example.administrator.jipinshop.activity.commenlist.CommenListActivity;
 import com.example.administrator.jipinshop.activity.login.LoginActivity;
+import com.example.administrator.jipinshop.activity.minekt.UserActivity;
 import com.example.administrator.jipinshop.adapter.ShoppingCommonAdapter;
 import com.example.administrator.jipinshop.base.BaseActivity;
 import com.example.administrator.jipinshop.bean.CommentBean;
@@ -151,7 +152,9 @@ public class EncyclopediasDetailActivity extends BaseActivity implements View.On
         }
         switch (v.getId()) {
             case R.id.detail_UserImage:
-                // TODO: 2019/7/10 个人主页
+                startActivity(new Intent(this, UserActivity.class)
+                        .putExtra("userid",attentionUserId)
+                );
                 break;
             case R.id.detail_attention:
                 if (ClickUtil.isFastDoubleClick(1000)) {

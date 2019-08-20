@@ -29,6 +29,7 @@ import com.example.administrator.jipinshop.R;
 import com.example.administrator.jipinshop.activity.WebActivity;
 import com.example.administrator.jipinshop.activity.commenlist.CommenListActivity;
 import com.example.administrator.jipinshop.activity.login.LoginActivity;
+import com.example.administrator.jipinshop.activity.minekt.UserActivity;
 import com.example.administrator.jipinshop.activity.report.detail.ReportDetailActivity;
 import com.example.administrator.jipinshop.adapter.RelatedArticleAdapter;
 import com.example.administrator.jipinshop.adapter.ShoppingCommonAdapter;
@@ -360,7 +361,9 @@ public class ArticleDetailActivity extends BaseActivity implements View.OnClickL
             case R.id.head_userImage:
             case R.id.detail_UserImage:
                 //跳转到个人主页
-                // TODO: 2019/1/11 个人主页
+                startActivity(new Intent(this, UserActivity.class)
+                        .putExtra("userid",attentionUserId)
+                );
                 break;
             case R.id.key_text:
                 //发送按钮
