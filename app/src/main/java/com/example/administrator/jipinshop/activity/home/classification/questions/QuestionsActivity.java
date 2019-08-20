@@ -15,6 +15,7 @@ import com.example.administrator.jipinshop.R;
 import com.example.administrator.jipinshop.activity.home.classification.questions.detail.QuestionDetailActivity;
 import com.example.administrator.jipinshop.activity.home.classification.questions.submit.QuestionSubmitActivity;
 import com.example.administrator.jipinshop.activity.login.LoginActivity;
+import com.example.administrator.jipinshop.activity.minekt.UserActivity;
 import com.example.administrator.jipinshop.adapter.QuestionsAdapter;
 import com.example.administrator.jipinshop.base.BaseActivity;
 import com.example.administrator.jipinshop.bean.QuestionsBean;
@@ -137,6 +138,13 @@ public class QuestionsActivity extends BaseActivity implements View.OnClickListe
         startActivityForResult(new Intent(this, QuestionDetailActivity.class)
                 .putExtra("date",mList.get(position))
         ,202);
+    }
+
+    @Override
+    public void onClickUserInfo(String userId) {
+        startActivity(new Intent(this, UserActivity.class)
+                .putExtra("userid",userId)
+        );
     }
 
     @Override

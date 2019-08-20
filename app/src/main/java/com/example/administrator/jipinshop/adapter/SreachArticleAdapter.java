@@ -95,9 +95,9 @@ public class SreachArticleAdapter extends RecyclerView.Adapter<SreachArticleAdap
             }
         });
         viewHolder.item_head.setOnClickListener(v -> {
-            mContext.startActivity(new Intent(mContext, UserActivity.class)
-                    .putExtra("userid",mList.get(i).getUser().getUserId())
-            );
+            if(mOnItem != null){
+                mOnItem.onClickUserInfo(mList.get(i).getUser().getUserId());
+            }
         });
     }
 
@@ -128,5 +128,6 @@ public class SreachArticleAdapter extends RecyclerView.Adapter<SreachArticleAdap
 
     public interface OnItem {
         void onItem(int pos);
+        void onClickUserInfo(String userId);//点击进入个人详情
     }
 }

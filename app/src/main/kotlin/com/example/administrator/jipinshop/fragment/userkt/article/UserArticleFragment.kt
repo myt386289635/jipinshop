@@ -99,6 +99,10 @@ class UserArticleFragment : DBBaseFragment(), QuestionsAdapter.OnClickView, OnRe
         }
     }
 
+    override fun onClickUserInfo(userId: String?) {
+
+    }
+
     override fun onSuccess(bean: QuestionsBean) {
         if (refersh){
             dissRefresh()

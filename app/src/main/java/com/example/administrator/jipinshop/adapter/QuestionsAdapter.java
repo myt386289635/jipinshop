@@ -56,9 +56,9 @@ public class QuestionsAdapter extends RecyclerView.Adapter<QuestionsAdapter.View
         });
         viewHolder.binding.itemImage.setOnClickListener(v -> {
             if (mList.get(position).getAnswer() != null && !TextUtils.isEmpty(mList.get(position).getAnswer().getUserId())){
-                mContext.startActivity(new Intent(mContext, UserActivity.class)
-                        .putExtra("userid",mList.get(position).getAnswer().getUserId())
-                );
+                if (mView != null){
+                    mView.onClickUserInfo(mList.get(position).getAnswer().getUserId());
+                }
             }
         });
         viewHolder.binding.setDate(mList.get(position));
@@ -82,5 +82,6 @@ public class QuestionsAdapter extends RecyclerView.Adapter<QuestionsAdapter.View
 
     public interface OnClickView{
         void onClickArticle(int position);//话题详情
+        void onClickUserInfo(String userId);//点击进入个人详情
     }
 }

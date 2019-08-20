@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,6 +13,7 @@ import com.aspsine.swipetoloadlayout.OnLoadMoreListener;
 import com.aspsine.swipetoloadlayout.OnRefreshListener;
 import com.example.administrator.jipinshop.R;
 import com.example.administrator.jipinshop.activity.home.classification.questions.detail.QuestionDetailActivity;
+import com.example.administrator.jipinshop.activity.minekt.UserActivity;
 import com.example.administrator.jipinshop.activity.sreach.result.SreachResultActivity;
 import com.example.administrator.jipinshop.adapter.QuestionsAdapter;
 import com.example.administrator.jipinshop.base.DBBaseFragment;
@@ -90,6 +92,13 @@ public class SreachArticleFragment extends DBBaseFragment implements QuestionsAd
             startActivity(new Intent(getContext(), QuestionDetailActivity.class)
                     .putExtra("date",mList.get(position)));
         }
+    }
+
+    @Override
+    public void onClickUserInfo(String userId) {
+        startActivity(new Intent(getContext(), UserActivity.class)
+                .putExtra("userid",userId)
+        );
     }
 
     @Override

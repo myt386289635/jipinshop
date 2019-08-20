@@ -1,5 +1,6 @@
 package com.example.administrator.jipinshop.fragment.foval.find;
 
+import android.content.Intent;
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
@@ -11,6 +12,7 @@ import android.view.ViewGroup;
 import com.aspsine.swipetoloadlayout.OnLoadMoreListener;
 import com.aspsine.swipetoloadlayout.OnRefreshListener;
 import com.example.administrator.jipinshop.R;
+import com.example.administrator.jipinshop.activity.minekt.UserActivity;
 import com.example.administrator.jipinshop.adapter.SreachArticleAdapter;
 import com.example.administrator.jipinshop.base.DBBaseFragment;
 import com.example.administrator.jipinshop.bean.SreachResultArticlesBean;
@@ -103,6 +105,13 @@ public class FovalFindFragment extends DBBaseFragment implements SreachArticleAd
             ShopJumpUtil.jumpArticle(getContext(),mList.get(pos).getArticleId(),
                     getArguments().getString("type"),mList.get(pos).getContentType());
         }
+    }
+
+    @Override
+    public void onClickUserInfo(String userId) {
+        startActivity(new Intent(getContext(), UserActivity.class)
+                .putExtra("userid",userId)
+        );
     }
 
     @Override

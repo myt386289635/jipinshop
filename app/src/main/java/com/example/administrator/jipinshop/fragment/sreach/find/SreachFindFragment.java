@@ -1,5 +1,6 @@
 package com.example.administrator.jipinshop.fragment.sreach.find;
 
+import android.content.Intent;
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
@@ -10,6 +11,7 @@ import android.view.ViewGroup;
 import com.aspsine.swipetoloadlayout.OnLoadMoreListener;
 import com.aspsine.swipetoloadlayout.OnRefreshListener;
 import com.example.administrator.jipinshop.R;
+import com.example.administrator.jipinshop.activity.minekt.UserActivity;
 import com.example.administrator.jipinshop.activity.sreach.result.SreachResultActivity;
 import com.example.administrator.jipinshop.adapter.SreachArticleAdapter;
 import com.example.administrator.jipinshop.base.DBBaseFragment;
@@ -98,6 +100,13 @@ public class SreachFindFragment extends DBBaseFragment implements SreachArticleA
             ShopJumpUtil.jumpArticle(getContext(),mList.get(pos).getArticleId(),
                     mList.get(pos).getType(),mList.get(pos).getContentType());
         }
+    }
+
+    @Override
+    public void onClickUserInfo(String userId) {
+        startActivity(new Intent(getContext(), UserActivity.class)
+                .putExtra("userid",userId)
+        );
     }
 
     /**

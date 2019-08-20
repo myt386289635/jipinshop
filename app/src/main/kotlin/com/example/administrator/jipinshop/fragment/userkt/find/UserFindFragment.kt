@@ -100,6 +100,10 @@ class UserFindFragment : DBBaseFragment(), SreachArticleAdapter.OnItem, OnRefres
         }
     }
 
+    override fun onClickUserInfo(userId: String?) {
+
+    }
+
     override fun onLoadMore() {
         page++
         refersh = false
