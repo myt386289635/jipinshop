@@ -57,7 +57,6 @@ import com.example.administrator.jipinshop.bean.TryDetailBean;
 import com.example.administrator.jipinshop.bean.TryReportBean;
 import com.example.administrator.jipinshop.bean.UnMessageBean;
 import com.example.administrator.jipinshop.bean.UserInfoBean;
-import com.example.administrator.jipinshop.bean.UserPageBean;
 import com.example.administrator.jipinshop.bean.VoteBean;
 import com.example.administrator.jipinshop.bean.WithdrawBean;
 import com.example.administrator.jipinshop.bean.WithdrawDetailBean;
@@ -899,6 +898,27 @@ public class Repository {
      */
     public Observable<QuestionsBean> collectQuestions(String page , String type){
         return mAPIService.collectQuestions(page,type);
+    }
+
+    /**
+     * 通过对方userId获取用户信息(用户中心)
+     */
+    public Observable<UserInfoBean> getUserByUserId(String userId){
+        return mAPIService.getUserByUserId(userId);
+    }
+
+    /**
+     * 个人主页内容列表（测评，清单）
+     */
+    public Observable<SreachResultArticlesBean> userArticle(int page , String targetUserId , String type){
+        return mAPIService.userArticle(page, targetUserId, type);
+    }
+
+    /**
+     * 个人主页内容列表（问答）
+     */
+    public Observable<QuestionsBean> userQuestions(int page , String targetUserId , String type){
+        return mAPIService.userQuestions(page, targetUserId, type);
     }
 
 }

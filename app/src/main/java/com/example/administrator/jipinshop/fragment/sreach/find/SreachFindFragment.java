@@ -75,6 +75,7 @@ public class SreachFindFragment extends DBBaseFragment implements SreachArticleA
         mList = new ArrayList<>();
         mAdapter = new SreachArticleAdapter(mList,getContext());
         mAdapter.setOnItem(this);
+        mAdapter.setType(getArguments().getString("type"));
         mBinding.recyclerView.setAdapter(mAdapter);
 
         mBinding.swipeToLoad.setOnRefreshListener(this);

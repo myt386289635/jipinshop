@@ -33,6 +33,7 @@
                     android:layout_height="wrap_content">
 
                     <ImageView
+                        android:id="@+id/mine_background"
                         android:layout_alignBottom="@+id/mine_headContainer"
                         android:layout_alignTop="@+id/status_bar"
                         android:background="@mipmap/mine_imagebg_dafult"

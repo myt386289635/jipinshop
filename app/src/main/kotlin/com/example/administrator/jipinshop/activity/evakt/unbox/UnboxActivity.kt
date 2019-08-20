@@ -1,5 +1,6 @@
 package com.example.administrator.jipinshop.activity.evakt.unbox
 
+import android.content.Intent
 import android.databinding.DataBindingUtil
 import android.os.Bundle
 import android.support.v7.widget.LinearLayoutManager
@@ -7,6 +8,7 @@ import android.view.View
 import com.aspsine.swipetoloadlayout.OnLoadMoreListener
 import com.aspsine.swipetoloadlayout.OnRefreshListener
 import com.example.administrator.jipinshop.R
+import com.example.administrator.jipinshop.activity.minekt.UserActivity
 import com.example.administrator.jipinshop.adapter.UnboxAdapter
 import com.example.administrator.jipinshop.base.BaseActivity
 import com.example.administrator.jipinshop.bean.EvaEvaBean
@@ -160,7 +162,9 @@ class UnboxActivity : BaseActivity(), View.OnClickListener, OnRefreshListener, O
     }
 
     override fun onClickUserinfo(userId: String) {
-        ToastUtil.show(userId)
+        startActivity(Intent(this, UserActivity::class.java)
+                .putExtra("userid", userId)
+        )
     }
 
 }

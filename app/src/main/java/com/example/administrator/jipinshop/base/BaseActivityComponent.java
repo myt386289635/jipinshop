@@ -36,6 +36,7 @@ import com.example.administrator.jipinshop.activity.mall.detail.MallDetailActivi
 import com.example.administrator.jipinshop.activity.mall.exchange.ExchangeActivity;
 import com.example.administrator.jipinshop.activity.message.MessageActivity;
 import com.example.administrator.jipinshop.activity.message.detail.MsgDetailActivity;
+import com.example.administrator.jipinshop.activity.minekt.UserActivity;
 import com.example.administrator.jipinshop.activity.order.MyOrderActivity;
 import com.example.administrator.jipinshop.activity.order.detail.OrderDetailActivity;
 import com.example.administrator.jipinshop.activity.report.cover.CoverReportActivity;
@@ -122,4 +123,5 @@ public interface BaseActivityComponent {
     void inject(SubmitActivity activity);
     void inject(SubmitCorveActivity activity);
     void inject(AddGoodsActivity activity);
+    void inject(UserActivity activity);
 }

@@ -11,6 +11,7 @@ import com.aspsine.swipetoloadlayout.OnLoadMoreListener
 import com.aspsine.swipetoloadlayout.OnRefreshListener
 import com.example.administrator.jipinshop.R
 import com.example.administrator.jipinshop.activity.evakt.send.SubmitActivity
+import com.example.administrator.jipinshop.activity.minekt.UserActivity
 import com.example.administrator.jipinshop.adapter.EvaInventoryAdapter
 import com.example.administrator.jipinshop.base.DBBaseFragment
 import com.example.administrator.jipinshop.bean.EvaluationListBean
@@ -206,6 +207,8 @@ class EvaInventoryFragment : DBBaseFragment(), EvaInventoryView, OnLoadMoreListe
     }
 
     override fun onClickUserinfo(userId: String) {
-       ToastUtil.show(userId)
+        startActivity(Intent(context, UserActivity::class.java)
+                .putExtra("userid", userId)
+        )
     }
 }

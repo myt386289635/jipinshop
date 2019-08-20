@@ -84,6 +84,7 @@ public class FovalFindFragment extends DBBaseFragment implements SreachArticleAd
         mList = new ArrayList<>();
         mAdapter = new SreachArticleAdapter(mList, getContext());
         mAdapter.setOnItem(this);
+        mAdapter.setfType(getArguments().getString("type"));
         mBinding.recyclerView.setAdapter(mAdapter);
 
         mBinding.swipeToLoad.setOnRefreshListener(this);

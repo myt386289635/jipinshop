@@ -57,7 +57,6 @@ import com.example.administrator.jipinshop.bean.TryDetailBean;
 import com.example.administrator.jipinshop.bean.TryReportBean;
 import com.example.administrator.jipinshop.bean.UnMessageBean;
 import com.example.administrator.jipinshop.bean.UserInfoBean;
-import com.example.administrator.jipinshop.bean.UserPageBean;
 import com.example.administrator.jipinshop.bean.VoteBean;
 import com.example.administrator.jipinshop.bean.WithdrawBean;
 import com.example.administrator.jipinshop.bean.WithdrawDetailBean;
@@ -829,6 +828,17 @@ public interface APIService {
      * 通过对方userId获取用户信息(用户中心)
      */
     @GET("qualityshop-api/api/user/getUserByUserId")
-    Observable<SuccessBean> getUserByUserId(@Query("userId") String userId);
+    Observable<UserInfoBean> getUserByUserId(@Query("userId") String userId);
 
+    /**
+     * 个人主页内容列表（测评，清单）
+     */
+    @GET("qualityshop-api/api/v2/user/user/article/listByUserId")
+    Observable<SreachResultArticlesBean> userArticle(@Query("page") int page , @Query("targetUserId") String targetUserId , @Query("type") String type);
+
+    /**
+     * 个人主页内容列表（问答）
+     */
+    @GET("qualityshop-api/api/v2/user/user/article/listByUserId")
+    Observable<QuestionsBean> userQuestions(@Query("page") int page , @Query("targetUserId") String targetUserId , @Query("type") String type);
 }

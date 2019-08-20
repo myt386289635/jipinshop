@@ -26,6 +26,16 @@ public class SreachArticleAdapter extends RecyclerView.Adapter<SreachArticleAdap
     private List<SreachResultArticlesBean.DataBean> mList;
     private Context mContext;
     private OnItem mOnItem;
+    private String type = "";//搜索的type
+    private String fType = "";//收藏的type
+
+    public void setfType(String fType) {
+        this.fType = fType;
+    }
+
+    public void setType(String type) {
+        this.type = type;
+    }
 
     public void setOnItem(OnItem onItem) {
         mOnItem = onItem;
@@ -39,8 +49,21 @@ public class SreachArticleAdapter extends RecyclerView.Adapter<SreachArticleAdap
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
-        View view = LayoutInflater.from(mContext).inflate(R.layout.item_sreacharticle,viewGroup,false);
-        ViewHolder holder= new ViewHolder(view);
+        ViewHolder holder = null;
+        if (!TextUtils.isEmpty(type) && type.equals("2") ){//清单
+            View view = LayoutInflater.from(mContext).inflate(R.layout.item_sreacharticle,viewGroup,false);
+            holder = new ViewHolder(view);
+        }else if (!TextUtils.isEmpty(type) && type.equals("4")){//评测
+            View view = LayoutInflater.from(mContext).inflate(R.layout.item_sreachfind2,viewGroup,false);
+            holder = new ViewHolder(view);
+        }else if (!TextUtils.isEmpty(fType) && fType.equals("2")){//评测
+            View view = LayoutInflater.from(mContext).inflate(R.layout.item_sreachfind2,viewGroup,false);
+            holder = new ViewHolder(view);
+        }else {//清单
+            View view = LayoutInflater.from(mContext).inflate(R.layout.item_sreacharticle,viewGroup,false);
+            holder = new ViewHolder(view);
+        }
+
         return holder;
     }
 
@@ -48,7 +71,7 @@ public class SreachArticleAdapter extends RecyclerView.Adapter<SreachArticleAdap
     public void onBindViewHolder(@NonNull ViewHolder viewHolder, int i) {
 
         viewHolder.title.setText(mList.get(i).getTitle());
-        GlideApp.loderImage(mContext,mList.get(i).getImg(),viewHolder.item_image,0,0);
+        GlideApp.loderRoundImage(mContext,mList.get(i).getImg(),viewHolder.item_image,0,0);
         GlideApp.loderCircleImage(mContext,mList.get(i).getUser().getAvatar(),viewHolder.item_head,R.mipmap.rlogo,0);
         viewHolder.item_name.setText(mList.get(i).getUser().getNickname());
         viewHolder.item_pv.setText(mList.get(i).getPv() + "阅读");

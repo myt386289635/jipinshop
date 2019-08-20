@@ -22,6 +22,7 @@ import com.example.administrator.jipinshop.activity.info.editname.EditNameActivi
 import com.example.administrator.jipinshop.activity.login.LoginActivity;
 import com.example.administrator.jipinshop.activity.mall.MallActivity;
 import com.example.administrator.jipinshop.activity.message.MessageActivity;
+import com.example.administrator.jipinshop.activity.minekt.UserActivity;
 import com.example.administrator.jipinshop.activity.order.MyOrderActivity;
 import com.example.administrator.jipinshop.activity.setting.SettingActivity;
 import com.example.administrator.jipinshop.activity.sign.SignActivity;
@@ -91,7 +92,9 @@ public class MineFragment extends DBBaseFragment implements View.OnClickListener
             case R.id.mine_name:
             case R.id.mine_image:
                 //我的资料
-                startActivityForResult(new Intent(getContext(), MyInfoActivity.class), 100);
+                startActivity(new Intent(getContext(), UserActivity.class)
+                        .putExtra("userid",SPUtils.getInstance(CommonDate.USER).getString(CommonDate.userId))
+                );
                 break;
             case R.id.mine_signOther:
                 //邀请
@@ -305,6 +308,11 @@ public class MineFragment extends DBBaseFragment implements View.OnClickListener
         if (!TextUtils.isEmpty(SPUtils.getInstance(CommonDate.USER).getString(CommonDate.userNickImg))) {
             GlideApp.loderImage(getContext(),SPUtils.getInstance(CommonDate.USER).getString(CommonDate.userNickImg), mBinding.mineImage, R.mipmap.logo, 0);
         }
+        if (TextUtils.isEmpty(userInfoBean.getData().getBgImg())){
+            mBinding.mineBackground.setImageResource(R.mipmap.mine_imagebg_dafult);
+        }else {
+            GlideApp.loderImage(getContext(),userInfoBean.getData().getBgImg(),mBinding.mineBackground,0,0);
+        }
     }
 
     /**
@@ -357,6 +365,11 @@ public class MineFragment extends DBBaseFragment implements View.OnClickListener
         mBinding.mineAttentionText.setText(userInfoBean.getData().getFollowCount());//关注数
         mBinding.mineFansText.setText(userInfoBean.getData().getFansCount());//粉丝数
         mBinding.mineSignText.setText(SPUtils.getInstance(CommonDate.USER).getInt(CommonDate.userPoint,0) + "");//极币数
+        if (TextUtils.isEmpty(userInfoBean.getData().getBgImg())){//更新用户资料背景
+            mBinding.mineBackground.setImageResource(R.mipmap.mine_imagebg_dafult);
+        }else {
+            GlideApp.loderImage(getContext(),userInfoBean.getData().getBgImg(),mBinding.mineBackground,0,0);
+        }
     }
 
     @Override

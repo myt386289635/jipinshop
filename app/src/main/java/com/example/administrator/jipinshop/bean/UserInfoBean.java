@@ -89,6 +89,42 @@ public class UserInfoBean {
         private  int bindWeibo;
         private String invitationCode;//邀请码
         private String relationId;//是否登陆过淘宝
+        private String bgImg;//背景
+        private String detail;//个性签名
+        private int follow;//是否关注， 0没关注  1关注
+        private int age;//年龄
+
+        public int getAge() {
+            return age;
+        }
+
+        public void setAge(int age) {
+            this.age = age;
+        }
+
+        public String getDetail() {
+            return detail;
+        }
+
+        public void setDetail(String detail) {
+            this.detail = detail;
+        }
+
+        public int getFollow() {
+            return follow;
+        }
+
+        public void setFollow(int follow) {
+            this.follow = follow;
+        }
+
+        public String getBgImg() {
+            return bgImg;
+        }
+
+        public void setBgImg(String bgImg) {
+            this.bgImg = bgImg;
+        }
 
         public String getRelationId() {
             return relationId;

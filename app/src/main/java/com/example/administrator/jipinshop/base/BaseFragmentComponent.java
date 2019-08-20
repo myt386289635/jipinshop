@@ -32,6 +32,8 @@ import com.example.administrator.jipinshop.fragment.tryout.hot.TryCommenFragment
 import com.example.administrator.jipinshop.fragment.tryout.mine.TrialCommonFragment;
 import com.example.administrator.jipinshop.fragment.tryout.mine.TrialReportFragment;
 import com.example.administrator.jipinshop.fragment.tryout.trymodel.TryFragment;
+import com.example.administrator.jipinshop.fragment.userkt.article.UserArticleFragment;
+import com.example.administrator.jipinshop.fragment.userkt.find.UserFindFragment;
 import com.example.administrator.jipinshop.netwrok.ApplicationComponent;
 
 import dagger.Component;
@@ -70,4 +72,6 @@ public interface BaseFragmentComponent {
     void inject(EvaHotFragment fragment);
     void inject(EvaEvaFragment fragment);
     void inject(EvaInventoryFragment fragment);
+    void inject(UserFindFragment fragment);
+    void inject(UserArticleFragment fragment);
 }

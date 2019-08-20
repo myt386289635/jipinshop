@@ -1,5 +1,6 @@
 package com.example.administrator.jipinshop.fragment.evaluationkt.attent
 
+import android.content.Intent
 import android.databinding.DataBindingUtil
 import android.support.v7.widget.LinearLayoutManager
 import android.view.LayoutInflater
@@ -8,6 +9,7 @@ import android.view.ViewGroup
 import com.aspsine.swipetoloadlayout.OnLoadMoreListener
 import com.aspsine.swipetoloadlayout.OnRefreshListener
 import com.example.administrator.jipinshop.R
+import com.example.administrator.jipinshop.activity.minekt.UserActivity
 import com.example.administrator.jipinshop.adapter.EvaAttentAdapter
 import com.example.administrator.jipinshop.base.DBBaseFragment
 import com.example.administrator.jipinshop.bean.EvaAttentBean
@@ -138,7 +140,9 @@ class EvaAttentFrament : DBBaseFragment(), OnRefreshListener, OnLoadMoreListener
 
     //进入个人详情页
     override fun onClickUserinfo(userId: String) {
-        ToastUtil.show("个人主页--$userId")
+        startActivity(Intent(context, UserActivity::class.java)
+                .putExtra("userid", userId)
+        )
     }
 
     //文章列表：添加关注逻辑

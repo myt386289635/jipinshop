@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:bind="http://schemas.android.com/apk/res-auto">
+        xmlns:tools="http://schemas.android.com/tools"
+        xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <data>
         <variable
@@ -9,43 +10,337 @@
     </data>
 
     <RelativeLayout
+        android:background="@color/color_white"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <com.aspsine.swipetoloadlayout.SwipeToLoadLayout
-            android:id="@+id/swipeToLoad"
-            android:background="@color/color_white"
-            xmlns:android="http://schemas.android.com/apk/res/android"
+        <android.support.design.widget.CoordinatorLayout
+            android:id="@+id/coordinator"
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
-            <com.example.administrator.jipinshop.view.textview.CustomRefreshHeadView
-                android:id="@+id/swipe_refresh_header"
+            <android.support.design.widget.AppBarLayout
+                android:id="@+id/appbar"
+                app:elevation="0dp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:gravity="center"
-                android:padding="20dp"/>
+                app:layout_behavior="@string/AppBarLayoutBehavior">
 
-            <android.support.v7.widget.RecyclerView
-                android:id="@+id/swipe_target"
+                <RelativeLayout
+                    android:id="@+id/user_titleContainer"
+                    android:minHeight="@dimen/y88"
+                    app:layout_scrollFlags="scroll|exitUntilCollapsed"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                    <ImageView
+                        android:scaleType="centerCrop"
+                        tools:src="@mipmap/mine_imagebg_dafult"
+                        android:id="@+id/user_background"
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/y376"/>
+
+
+                    <RelativeLayout
+                        android:id="@+id/user_imageContainer"
+                        android:layout_marginTop="@dimen/y145"
+                        android:layout_marginLeft="@dimen/x30"
+                        android:elevation="@dimen/y20"
+                        android:background="@drawable/bg_yuan4"
+                        android:layout_width="@dimen/x240"
+                        android:layout_height="@dimen/y240">
+                        
+                        <ImageView
+                            android:layout_centerInParent="true"
+                            android:id="@+id/user_image"
+                            tools:src="@mipmap/rlogo"
+                            android:layout_width="@dimen/x234"
+                            android:layout_height="@dimen/y234"/>
+                        
+                    </RelativeLayout>
+
+
+                    <TextView
+                        android:layout_marginTop="@dimen/y10"
+                        android:id="@+id/user_name"
+                        android:gravity="right|center_vertical"
+                        android:ellipsize="end"
+                        android:minLines="2"
+                        android:maxLines="2"
+                        android:lineSpacingExtra="@dimen/y15"
+                        android:layout_marginLeft="@dimen/x46"
+                        android:layout_toRightOf="@id/user_imageContainer"
+                        android:layout_marginRight="@dimen/x30"
+                        android:layout_alignTop="@id/user_imageContainer"
+                        android:layout_alignParentRight="true"
+                        android:textColor="@color/color_white"
+                        android:textStyle="bold"
+                        android:textSize="25sp"
+                        tools:text="海角没有猫海"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"/>
+
+
+                    <TextView
+                        android:layout_marginRight="@dimen/x30"
+                        android:layout_marginTop="@dimen/y25"
+                        android:layout_alignParentRight="true"
+                        android:layout_below="@id/user_name"
+                        android:textSize="17sp"
+                        tools:text="26"
+                        android:textColor="@color/color_white"
+                        android:id="@+id/user_age"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"/>
+
+                    <ImageView
+                        android:layout_marginRight="@dimen/x12"
+                        android:layout_alignBottom="@id/user_age"
+                        android:layout_alignTop="@id/user_age"
+                        android:layout_toLeftOf="@id/user_age"
+                        android:src="@drawable/bg_yuan4"
+                        android:id="@+id/user_ageTag"
+                        android:layout_width="@dimen/x8"
+                        android:layout_height="@dimen/y8"/>
+
+                    <ImageView
+                        android:id="@+id/user_sex"
+                        android:layout_marginRight="@dimen/x6"
+                        android:layout_alignBottom="@id/user_ageTag"
+                        android:layout_alignTop="@id/user_ageTag"
+                        android:layout_toLeftOf="@id/user_ageTag"
+                        tools:src="@mipmap/user_nan"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"/>
+
+                    <TextView
+                        android:layout_marginBottom="@dimen/y26"
+                        android:id="@+id/user_sign"
+                        android:lineSpacingExtra="@dimen/y10"
+                        android:textSize="15sp"
+                        android:textColor="@color/color_202020"
+                        android:layout_marginRight="@dimen/x30"
+                        android:layout_marginLeft="@dimen/x30"
+                        android:layout_marginTop="@dimen/y40"
+                        android:layout_below="@id/user_background"
+                        tools:text="个签：过去两年零三个月，赢过、输过、笑过、哭过，被质疑、被绯闻、被非议！"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"/>
+
+
+                    <RelativeLayout
+                        android:layout_marginBottom="@dimen/y8"
+                        android:layout_below="@id/user_sign"
+                        android:id="@+id/user_container"
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/y116">
+
+                        <RelativeLayout
+                            android:layout_alignParentRight="true"
+                            android:layout_width="@dimen/x250"
+                            android:layout_height="match_parent">
+
+                            <TextView
+                                android:onClick="@{listener.onClick}"
+                                android:layout_centerInParent="true"
+                                android:id="@+id/user_attent"
+                                android:layout_centerVertical="true"
+                                android:paddingRight="@dimen/x48"
+                                android:paddingLeft="@dimen/x48"
+                                android:paddingBottom="@dimen/y16"
+                                android:paddingTop="@dimen/y16"
+                                android:textColor="@color/color_white"
+                                android:text="+关注"
+                                android:background="@drawable/bg_tab_eva"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"/>
+
+                            <TextView
+                                android:visibility="gone"
+                                android:onClick="@{listener.onClick}"
+                                android:id="@+id/user_edit"
+                                android:layout_centerInParent="true"
+                                android:paddingRight="@dimen/x22"
+                                android:paddingLeft="@dimen/x22"
+                                android:paddingBottom="@dimen/y14"
+                                android:paddingTop="@dimen/y14"
+                                android:background="@drawable/bg_attention_new"
+                                android:textSize="13sp"
+                                android:textColor="@color/color_E25838"
+                                android:text="编辑个人资料"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"/>
+
+                        </RelativeLayout>
+
+                        <View
+                            android:id="@+id/user_tag"
+                            android:layout_marginRight="@dimen/x250"
+                            android:layout_alignParentRight="true"
+                            android:background="@color/color_DEDEDE"
+                            android:layout_width="@dimen/y1"
+                            android:layout_height="match_parent"/>
+
+                        <LinearLayout
+                            android:layout_toLeftOf="@id/user_tag"
+                            android:orientation="horizontal"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent">
+
+
+                            <LinearLayout
+                                android:onClick="@{listener.onClick}"
+                                android:id="@+id/user_attentNum"
+                                android:orientation="vertical"
+                                android:gravity="center"
+                                android:layout_weight="1"
+                                android:layout_width="0dp"
+                                android:layout_height="match_parent">
+
+                                <TextView
+                                    android:id="@+id/user_attentText"
+                                    android:textColor="@color/color_202020"
+                                    android:textStyle="bold"
+                                    android:textSize="16sp"
+                                    android:text="0"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"/>
+
+                                <TextView
+                                    android:textColor="@color/color_202020"
+                                    android:textSize="12sp"
+                                    android:text="关注"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"/>
+
+                            </LinearLayout>
+
+                            <LinearLayout
+                                android:id="@+id/user_fansNum"
+                                android:onClick="@{listener.onClick}"
+                                android:orientation="vertical"
+                                android:gravity="center"
+                                android:layout_weight="1"
+                                android:layout_width="0dp"
+                                android:layout_height="match_parent">
+
+                                <TextView
+                                    android:id="@+id/user_fansText"
+                                    android:textColor="@color/color_202020"
+                                    android:textStyle="bold"
+                                    android:textSize="16sp"
+                                    android:text="0"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"/>
+
+                                <TextView
+                                    android:textColor="@color/color_202020"
+                                    android:textSize="12sp"
+                                    android:text="粉丝"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"/>
+
+                            </LinearLayout>
+
+
+                            <LinearLayout
+                                android:id="@+id/user_goodNum"
+                                android:onClick="@{listener.onClick}"
+                                android:orientation="vertical"
+                                android:gravity="center"
+                                android:layout_weight="1"
+                                android:layout_width="0dp"
+                                android:layout_height="match_parent">
+
+                                <TextView
+                                    android:id="@+id/user_goodText"
+                                    android:textColor="@color/color_202020"
+                                    android:textStyle="bold"
+                                    android:textSize="16sp"
+                                    android:text="0"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"/>
+
+                                <TextView
+                                    android:textColor="@color/color_202020"
+                                    android:textSize="12sp"
+                                    android:text="获赞"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"/>
+
+                            </LinearLayout>
+
+                        </LinearLayout>
+
+                    </RelativeLayout>
+
+                    <View
+                        android:layout_below="@id/user_container"
+                        android:background="@color/color_F5F5F5"
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/y20"/>
+
+                </RelativeLayout>
+
+                <android.support.design.widget.TabLayout
+                    app:tabTextAppearance="@style/CustomTabLayoutTextAppearance"
+                    app:tabIndicatorHeight="3dp"
+                    app:tabBackground="@color/transparent"
+                    android:id="@+id/tab_layout"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/y110"/>
+
+                <View
+                    android:background="@color/color_DEDEDE"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/y1"/>
+
+            </android.support.design.widget.AppBarLayout>
+
+            <com.example.administrator.jipinshop.view.viewpager.NoScrollViewPager
+                app:layout_behavior="@string/appbar_scrolling_view_behavior"
+                android:id="@+id/view_pager"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"/>
 
-            <com.example.administrator.jipinshop.view.textview.LoadMoreFooterView
-                android:id="@+id/swipe_load_more_footer"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:gravity="center"
-                android:padding="20dp"/>
+        </android.support.design.widget.CoordinatorLayout>
 
-        </com.aspsine.swipetoloadlayout.SwipeToLoadLayout>
+        <LinearLayout
+            android:alpha="0"
+            android:background="@color/color_white"
+            android:orientation="vertical"
+            android:id="@+id/status_bar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
 
-        <include
-            bind:listener="@{listener}"
-            android:id="@+id/net_clude"
-            layout="@layout/common_net_error"
-            android:visibility="gone"/>
+        <TextView
+            android:layout_below="@+id/status_bar"
+            android:alpha="0"
+            android:background="@color/color_white"
+            android:gravity="center"
+            android:ellipsize="end"
+            android:maxLines="1"
+            android:id="@+id/title_tv"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/y88"
+            android:textColor="@color/color_202020"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            android:text="个人主页"/>
+
+        <ImageView
+            android:tint="@color/color_white"
+            android:layout_below="@+id/status_bar"
+            android:onClick="@{listener.onClick}"
+            android:id="@+id/title_back"
+            android:layout_width="wrap_content"
+            android:layout_height="@dimen/y88"
+            android:paddingLeft="@dimen/x20"
+            android:paddingRight="@dimen/x20"
+            android:src="@mipmap/nav_black_big"/>
 
     </RelativeLayout>
+
+
 
 </layout>

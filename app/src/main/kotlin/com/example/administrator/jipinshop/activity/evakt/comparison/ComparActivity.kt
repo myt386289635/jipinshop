@@ -1,5 +1,6 @@
 package com.example.administrator.jipinshop.activity.evakt.comparison
 
+import android.content.Intent
 import android.databinding.DataBindingUtil
 import android.os.Bundle
 import android.support.v7.widget.LinearLayoutManager
@@ -7,6 +8,7 @@ import android.view.View
 import com.aspsine.swipetoloadlayout.OnLoadMoreListener
 import com.aspsine.swipetoloadlayout.OnRefreshListener
 import com.example.administrator.jipinshop.R
+import com.example.administrator.jipinshop.activity.minekt.UserActivity
 import com.example.administrator.jipinshop.adapter.ComparAdapter
 import com.example.administrator.jipinshop.base.BaseActivity
 import com.example.administrator.jipinshop.bean.EvaEvaBean
@@ -161,7 +163,9 @@ class ComparActivity : BaseActivity(), View.OnClickListener, OnRefreshListener, 
     }
 
     override fun onClickUserinfo(userId: String) {
-        ToastUtil.show(userId)
+        startActivity(Intent(this, UserActivity::class.java)
+                .putExtra("userid", userId)
+        )
     }
 
 }

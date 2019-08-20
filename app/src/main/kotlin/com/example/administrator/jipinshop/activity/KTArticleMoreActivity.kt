@@ -136,7 +136,7 @@ class KTArticleMoreActivity : BaseActivity(), View.OnClickListener, ArticleMoreA
                 mList.addAll(bean.data)
                 adapter.notifyDataSetChanged()
             }else{
-                initError(R.mipmap.qs_nodata, "暂无问答", "快去提问吧！~")
+                initError(R.mipmap.qs_nodata, "暂无数据", "暂时没有任何数据！~")
                 mBinding.recyclerView.visibility = View.GONE
             }
         }else{
