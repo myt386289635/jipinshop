@@ -54,6 +54,7 @@ public class FovalGoodsAdapter extends RecyclerView.Adapter<FovalGoodsAdapter.Vi
         viewHolder.initTags(viewHolder.binding.itemFlexLayout,position);
         viewHolder.binding.setDate(mList.get(position));
         viewHolder.binding.setPosition(position + 1);
+        viewHolder.binding.itemSort.setVisibility(View.GONE);
         viewHolder.binding.executePendingBindings();
     }
 
