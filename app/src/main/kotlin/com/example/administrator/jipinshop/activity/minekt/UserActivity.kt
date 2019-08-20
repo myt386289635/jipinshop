@@ -29,6 +29,7 @@ import com.example.administrator.jipinshop.util.sp.CommonDate
 import com.example.administrator.jipinshop.view.dialog.DialogUtil
 import com.example.administrator.jipinshop.view.dialog.ProgressDialogView
 import com.example.administrator.jipinshop.view.glide.GlideApp
+import java.math.BigDecimal
 import javax.inject.Inject
 
 /**
@@ -217,6 +218,8 @@ class UserActivity : BaseActivity(), View.OnClickListener, UserView {
         mBinding.userAttent.setBackgroundResource(R.drawable.bg_tab_eva4)
         mBinding.userAttent.setPadding(resources.getDimension(R.dimen.x48).toInt(), resources.getDimension(R.dimen.y16).toInt(),
                 resources.getDimension(R.dimen.x48).toInt(), resources.getDimension(R.dimen.y16).toInt())
+        var fans = BigDecimal(mBinding.userFansText.text.toString())
+        mBinding.userFansText.text = (fans.toInt() + 1).toString()
     }
 
     override fun onCancleAttent() {
@@ -225,6 +228,8 @@ class UserActivity : BaseActivity(), View.OnClickListener, UserView {
         mBinding.userAttent.setBackgroundResource(R.drawable.bg_tab_eva)
         mBinding.userAttent.setPadding(resources.getDimension(R.dimen.x48).toInt(), resources.getDimension(R.dimen.y16).toInt(),
                 resources.getDimension(R.dimen.x48).toInt(), resources.getDimension(R.dimen.y16).toInt())
+        var fans = BigDecimal(mBinding.userFansText.text.toString())
+        mBinding.userFansText.text = (fans.toInt() - 1).toString()
     }
 
 }
