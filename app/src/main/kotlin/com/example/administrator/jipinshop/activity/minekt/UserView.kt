@@ -10,4 +10,7 @@ import com.example.administrator.jipinshop.bean.UserInfoBean
 interface UserView {
     fun onSuccess( bean : UserInfoBean)
     fun onFile( error : String?)
+
+    fun onAttent()
+    fun onCancleAttent()
 }

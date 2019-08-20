@@ -96,10 +96,10 @@ class UserActivity : BaseActivity(), View.OnClickListener, UserView {
                 //关注按钮
                 if (follow == 0){
                     //未关注
-
+                    mPresenter.concernInsert(userid,this.bindToLifecycle())
                 }else{
                     //已关注
-
+                    mPresenter.concernDelete(userid,this.bindToLifecycle())
                 }
             }
             R.id.user_edit -> {
@@ -209,6 +209,22 @@ class UserActivity : BaseActivity(), View.OnClickListener, UserView {
 
     fun getBar(): AppBarLayout {
         return mBinding.appbar
+    }
+
+    override fun onAttent() {
+        follow = 1
+        mBinding.userAttent.text = "已关注"
+        mBinding.userAttent.setBackgroundResource(R.drawable.bg_tab_eva4)
+        mBinding.userAttent.setPadding(resources.getDimension(R.dimen.x48).toInt(), resources.getDimension(R.dimen.y16).toInt(),
+                resources.getDimension(R.dimen.x48).toInt(), resources.getDimension(R.dimen.y16).toInt())
+    }
+
+    override fun onCancleAttent() {
+        follow = 0
+        mBinding.userAttent.text = "+关注"
+        mBinding.userAttent.setBackgroundResource(R.drawable.bg_tab_eva)
+        mBinding.userAttent.setPadding(resources.getDimension(R.dimen.x48).toInt(), resources.getDimension(R.dimen.y16).toInt(),
+                resources.getDimension(R.dimen.x48).toInt(), resources.getDimension(R.dimen.y16).toInt())
     }
 
 }

@@ -12,6 +12,7 @@ import android.widget.LinearLayout
 import android.widget.RelativeLayout
 import android.widget.TextView
 import com.example.administrator.jipinshop.R
+import com.example.administrator.jipinshop.bean.SuccessBean
 import com.example.administrator.jipinshop.bean.UserInfoBean
 import com.example.administrator.jipinshop.netwrok.Repository
 import com.trello.rxlifecycle2.LifecycleTransformer
@@ -120,6 +121,56 @@ class UserPresenter {
                     if (it.code == 0){
                         if (mView != null){
                             mView.onSuccess(it)
+                        }
+                    }else{
+                        if (mView != null){
+                            mView.onFile(it.msg)
+                        }
+                    }
+                }, Consumer {
+                    if (mView != null){
+                        mView.onFile(it.message)
+                    }
+                })
+    }
+
+    /**
+     * 添加关注
+     */
+    fun concernInsert(attentionUserId : String , transformer : LifecycleTransformer<SuccessBean> ){
+        repository.concernInsert(attentionUserId)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .compose(transformer)
+                .subscribe(Consumer {
+                    if (it.code == 0){
+                        if (mView != null){
+                            mView.onAttent()
+                        }
+                    }else{
+                        if (mView != null){
+                            mView.onFile(it.msg)
+                        }
+                    }
+                }, Consumer {
+                    if (mView != null){
+                        mView.onFile(it.message)
+                    }
+                })
+    }
+
+    /**
+     * 取消关注
+     */
+    fun concernDelete(attentionUserId : String , transformer : LifecycleTransformer<SuccessBean> ){
+        repository.concernDelete(attentionUserId)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .compose(transformer)
+                .subscribe(Consumer {
+                    if (it.code == 0){
+                        if (mView != null){
+                            mView.onCancleAttent()
                         }
                     }else{
                         if (mView != null){
