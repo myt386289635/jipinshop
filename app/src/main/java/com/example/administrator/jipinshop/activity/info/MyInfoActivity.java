@@ -109,8 +109,12 @@ public class MyInfoActivity extends BaseActivity implements SelectPicDialog.Choo
     public void getAbsolutePicPath(String picFile) {
         Dialog mDialog = (new ProgressDialogView()).createLoadingDialog(MyInfoActivity.this, "请求中...");
         mDialog.show();
-        //这里进行了图片旋转以及图片压缩后得到新图片
-        picFile = ImageCompressUtil.getimage(this,ImageCompressUtil.getPicture(this,picFile));
+        if (!falg) {//修改头像
+            //这里进行了图片旋转以及图片压缩后得到新图片
+            picFile = ImageCompressUtil.getimage(this,ImageCompressUtil.getPicture(this,picFile));
+        }else {//修改背景(不进行质量压缩)
+            picFile = ImageCompressUtil.getimage1(this,ImageCompressUtil.getPicture(this,picFile));
+        }
         mPresenter.importCustomer(this.bindToLifecycle(),mDialog,new File(picFile));
     }
 
