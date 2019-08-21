@@ -37,7 +37,7 @@ import com.example.administrator.jipinshop.activity.mall.detail.MallDetailActivi
 import com.example.administrator.jipinshop.activity.mall.exchange.ExchangeActivity;
 import com.example.administrator.jipinshop.activity.message.MessageActivity;
 import com.example.administrator.jipinshop.activity.message.detail.MsgDetailActivity;
-import com.example.administrator.jipinshop.activity.minekt.UserActivity;
+import com.example.administrator.jipinshop.activity.minekt.userkt.UserActivity;
 import com.example.administrator.jipinshop.activity.order.MyOrderActivity;
 import com.example.administrator.jipinshop.activity.order.detail.OrderDetailActivity;
 import com.example.administrator.jipinshop.activity.report.cover.CoverReportActivity;

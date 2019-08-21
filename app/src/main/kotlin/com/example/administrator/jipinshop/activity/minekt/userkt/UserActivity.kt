@@ -1,4 +1,4 @@
-package com.example.administrator.jipinshop.activity.minekt
+package com.example.administrator.jipinshop.activity.minekt.userkt
 
 import android.app.Dialog
 import android.content.Intent

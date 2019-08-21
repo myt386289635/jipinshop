@@ -11,7 +11,7 @@ import com.aspsine.swipetoloadlayout.OnRefreshListener
 import com.example.administrator.jipinshop.R
 import com.example.administrator.jipinshop.activity.evakt.comparison.ComparActivity
 import com.example.administrator.jipinshop.activity.evakt.unbox.UnboxActivity
-import com.example.administrator.jipinshop.activity.minekt.UserActivity
+import com.example.administrator.jipinshop.activity.minekt.userkt.UserActivity
 import com.example.administrator.jipinshop.adapter.EvaEvaAdapter
 import com.example.administrator.jipinshop.base.DBBaseFragment
 import com.example.administrator.jipinshop.bean.EvaEvaBean

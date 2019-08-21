@@ -1,4 +1,4 @@
-package com.example.administrator.jipinshop.activity.minekt
+package com.example.administrator.jipinshop.activity.minekt.userkt
 
 import com.example.administrator.jipinshop.bean.UserInfoBean
 
