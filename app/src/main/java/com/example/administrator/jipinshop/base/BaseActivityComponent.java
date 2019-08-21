@@ -30,6 +30,7 @@ import com.example.administrator.jipinshop.activity.info.account.change.ChangePh
 import com.example.administrator.jipinshop.activity.info.account.change.ChangePhoneActivity;
 import com.example.administrator.jipinshop.activity.info.bind.BindNumberActivity;
 import com.example.administrator.jipinshop.activity.info.editname.EditNameActivity;
+import com.example.administrator.jipinshop.activity.info.editsign.EditSignActivity;
 import com.example.administrator.jipinshop.activity.login.LoginActivity;
 import com.example.administrator.jipinshop.activity.mall.MallActivity;
 import com.example.administrator.jipinshop.activity.mall.detail.MallDetailActivity;
@@ -124,4 +125,5 @@ public interface BaseActivityComponent {
     void inject(SubmitCorveActivity activity);
     void inject(AddGoodsActivity activity);
     void inject(UserActivity activity);
+    void inject(EditSignActivity activity);
 }

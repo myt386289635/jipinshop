@@ -147,6 +147,50 @@
 
         <RelativeLayout
             android:onClick="@{listener.onClick}"
+            android:id="@+id/info_signContainer"
+            android:layout_width="wrap_content"
+            android:layout_height="@dimen/y136">
+
+            <TextView
+                android:layout_centerVertical="true"
+                android:id="@+id/info_signText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/x30"
+                android:text="个性签名"
+                android:textColor="@color/color_9D9D9D"
+                android:textSize="15sp"/>
+
+            <TextView
+                android:ellipsize="end"
+                android:singleLine="true"
+                android:gravity="right"
+                android:layout_marginLeft="@dimen/x30"
+                android:includeFontPadding="false"
+                android:id="@+id/info_sign"
+                android:layout_width="match_parent"
+                android:layout_toRightOf="@id/info_signText"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:layout_marginRight="@dimen/x30"
+                android:drawablePadding="@dimen/x12"
+                android:drawableRight="@mipmap/right_ash1"
+                android:text="暂无签名"
+                android:textColor="@color/color_202020"
+                android:textSize="15sp"/>
+
+            <View
+                android:layout_alignParentBottom="true"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/y1"
+                android:layout_marginLeft="@dimen/x30"
+                android:layout_marginRight="@dimen/x30"
+                android:background="@color/color_DEDEDE"/>
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:onClick="@{listener.onClick}"
             android:id="@+id/info_sexContainer"
             android:layout_width="wrap_content"
             android:layout_height="@dimen/y136">

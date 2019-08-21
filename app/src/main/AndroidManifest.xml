@@ -428,6 +428,10 @@
         <activity android:name=".activity.minekt.UserActivity"
                   android:screenOrientation="portrait"/>
 
+        <!--编辑个性签名-->
+        <activity android:name=".activity.info.editsign.EditSignActivity"
+                  android:screenOrientation="portrait"/>
+
     </application>
 
 </manifest>

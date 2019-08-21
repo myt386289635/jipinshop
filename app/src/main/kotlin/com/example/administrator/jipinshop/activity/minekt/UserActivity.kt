@@ -54,6 +54,7 @@ class UserActivity : BaseActivity(), View.OnClickListener, UserView {
     private var yDistance = 0f
     private var follow = 0
     private var bgImg = ""
+    private var sign = ""
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -110,6 +111,7 @@ class UserActivity : BaseActivity(), View.OnClickListener, UserView {
                 //跳转个人资料页面
                 startActivity(Intent(this, MyInfoActivity::class.java)
                         .putExtra("bgImg",bgImg)
+                        .putExtra("sign",sign)
                 )
             }
             R.id.user_attentNum -> {
@@ -156,6 +158,7 @@ class UserActivity : BaseActivity(), View.OnClickListener, UserView {
         }
         var html = "<font color='#9D9D9D'><b>个签：</b></font>" + bean.data.detail
         mBinding.userSign.text = Html.fromHtml(html)
+        sign = bean.data.detail
         if (SPUtils.getInstance(CommonDate.USER).getString(CommonDate.userId,"") == userid){
             mBinding.userEdit.visibility = View.VISIBLE
             mBinding.userAttent.visibility = View.GONE
@@ -257,6 +260,7 @@ class UserActivity : BaseActivity(), View.OnClickListener, UserView {
                 //修改了个性签名
                 var html = "<font color='#9D9D9D'><b>个签：</b></font>" + bean.content
                 mBinding.userSign.text = Html.fromHtml(html)
+                sign = bean.content
             }else if (bean.type == "1"){
                 //修改了名字
                 mBinding.userName.text = bean.content

@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    android:background="@color/color_white"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <include layout="@layout/aa_title2"/>
+
+    <TextView
+        android:paddingLeft="@dimen/x30"
+        android:paddingRight="@dimen/x30"
+        android:layout_alignParentRight="true"
+        android:id="@+id/edit_save"
+        android:gravity="center"
+        android:textStyle="bold"
+        android:textColor="@color/color_E25838"
+        android:textSize="15sp"
+        android:text="保存"
+        android:layout_width="wrap_content"
+        android:layout_height="@dimen/y88"/>
+
+    <EditText
+        android:gravity="top"
+        android:minLines="3"
+        android:lineSpacingExtra="@dimen/y20"
+        android:textColor="@color/color_202020"
+        android:maxLength="36"
+        android:id="@+id/edit_sign"
+        android:textSize="16sp"
+        android:textColorHint="@color/color_D8D8D8"
+        android:hint="一个好的签名，让朋友一眼记住你……"
+        android:layout_marginRight="@dimen/x30"
+        android:layout_marginLeft="@dimen/x30"
+        android:layout_marginTop="@dimen/y34"
+        android:background="@null"
+        android:layout_below="@id/edit_save"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
+
+    <TextView
+        android:id="@+id/edit_edit"
+        android:textSize="17sp"
+        android:layout_marginRight="@dimen/x30"
+        android:layout_alignParentRight="true"
+        android:textStyle="bold"
+        android:textColor="@color/color_D8D8D8"
+        android:layout_marginTop="@dimen/y220"
+        android:layout_below="@id/edit_save"
+        android:text="0/36"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"/>
+
+</RelativeLayout>

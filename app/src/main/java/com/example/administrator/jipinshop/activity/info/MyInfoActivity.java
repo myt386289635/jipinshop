@@ -12,6 +12,7 @@ import com.blankj.utilcode.util.SPUtils;
 import com.example.administrator.jipinshop.R;
 import com.example.administrator.jipinshop.activity.info.account.AccountManageActivity;
 import com.example.administrator.jipinshop.activity.info.editname.EditNameActivity;
+import com.example.administrator.jipinshop.activity.info.editsign.EditSignActivity;
 import com.example.administrator.jipinshop.base.BaseActivity;
 import com.example.administrator.jipinshop.bean.SuccessBean;
 import com.example.administrator.jipinshop.bean.eventbus.EditNameBus;
@@ -49,6 +50,7 @@ public class MyInfoActivity extends BaseActivity implements SelectPicDialog.Choo
     //性别选择器  数据
     private ArrayList<String> wheelList;
     private boolean falg = false;
+    private String sign = "";
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -95,6 +97,12 @@ public class MyInfoActivity extends BaseActivity implements SelectPicDialog.Choo
             mBinding.infoNumberWeiBo.setImageResource(R.mipmap.weibo_nor);
         }
         GlideApp.loderImage(this,getIntent().getStringExtra("bgImg"),mBinding.infoBg,R.mipmap.mine_imagebg_dafult,0);
+        sign = getIntent().getStringExtra("sign");
+        if (TextUtils.isEmpty(sign)){
+            mBinding.infoSign.setText("暂无签名");
+        }else {
+            mBinding.infoSign.setText(sign);
+        }
 
         wheelList = new ArrayList<>();
         wheelList.add("女");
@@ -168,6 +176,12 @@ public class MyInfoActivity extends BaseActivity implements SelectPicDialog.Choo
                 if(!mDialog.isAdded()){
                     mDialog.show(getSupportFragmentManager(), SelectPicDialog.TAG);
                 }
+                break;
+            case R.id.info_signContainer:
+                //个性签名
+                startActivity(new Intent(this, EditSignActivity.class)
+                        .putExtra("value",sign)
+                );
                 break;
         }
     }
@@ -279,6 +293,13 @@ public class MyInfoActivity extends BaseActivity implements SelectPicDialog.Choo
         if(bus.getTag().equals(EditNameActivity.tag)){
             if(bus.getType().equals("1")){//修改姓名
                 mBinding.infoName.setText(bus.getContent());
+            } else if (bus.getType().equals("6")) {//修改个性签名
+                if (TextUtils.isEmpty(bus.getContent())){
+                    mBinding.infoSign.setText("暂无签名");
+                }else {
+                    mBinding.infoSign.setText(bus.getContent());
+                }
+                sign = bus.getContent();
             }
         }else if(bus.getTag().equals(AccountManageActivity.tag)){
             //更新账号绑定
