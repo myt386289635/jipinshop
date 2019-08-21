@@ -196,6 +196,7 @@ public class MineFragment extends DBBaseFragment implements View.OnClickListener
                 mBinding.mineLogin.setVisibility(View.VISIBLE);
                 mBinding.mineInfo.setVisibility(View.GONE);
                 GlideApp.loderImage(getContext(),R.drawable.logo, mBinding.mineImage, 0, 0);
+                mBinding.mineBackground.setImageResource(R.mipmap.mine_imagebg_dafult);
                 mBinding.mineGoodsNumText.setText("0");//点赞数
                 mBinding.mineAttentionText.setText("0");//关注数
                 mBinding.mineFansText.setText("0");//粉丝数
