@@ -193,7 +193,7 @@ public interface APIService {
     /**
      * 检测页面状态（登陆后需要检测 关注、收藏、点赞）
      */
-    @GET("qualityshop-api/api/view/status")
+    @GET("qualityshop-api/api/v2/view/status")
     Observable<PagerStateBean> pagerState(@Query("type") String type ,@Query("targetId") String targetId);
 
     /**

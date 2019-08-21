@@ -48,6 +48,7 @@ public class MyInfoActivity extends BaseActivity implements SelectPicDialog.Choo
     MyInfoPresenter mPresenter;
     //性别选择器  数据
     private ArrayList<String> wheelList;
+    private boolean falg = false;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -55,13 +56,17 @@ public class MyInfoActivity extends BaseActivity implements SelectPicDialog.Choo
         mBinding = DataBindingUtil.setContentView(this, R.layout.activity_myinfo);
         mBinding.setListener(this);
         mBaseActivityComponent.inject(this);
+        mImmersionBar.reset()
+                .transparentStatusBar()
+                .statusBarDarkFont(true, 0f)
+                .init();
         mPresenter.setView(this);
         EventBus.getDefault().register(this);
         initView();
     }
 
     private void initView() {
-        mBinding.inClude.titleTv.setText("我的资料");
+        mPresenter.setStatusBarHight(mBinding.statusBar,this);
         if(!TextUtils.isEmpty(SPUtils.getInstance(CommonDate.USER).getString(CommonDate.userNickImg))){
             GlideApp.loderCircleImage(this,SPUtils.getInstance(CommonDate.USER).getString(CommonDate.userNickImg),mBinding.infoImage,R.drawable.rlogo,R.drawable.rlogo);
         }else {
@@ -89,6 +94,7 @@ public class MyInfoActivity extends BaseActivity implements SelectPicDialog.Choo
         }else {
             mBinding.infoNumberWeiBo.setImageResource(R.mipmap.weibo_nor);
         }
+        GlideApp.loderImage(this,getIntent().getStringExtra("bgImg"),mBinding.infoBg,R.mipmap.mine_imagebg_dafult,0);
 
         wheelList = new ArrayList<>();
         wheelList.add("女");
@@ -114,7 +120,8 @@ public class MyInfoActivity extends BaseActivity implements SelectPicDialog.Choo
             case R.id.title_back:
                 finish();
                 break;
-            case R.id.info_imageContainer:
+            case R.id.info_image:
+                falg = false;
                 if(mDialog == null){
                     mDialog = new SelectPicDialog();
                     mDialog.setChoosePhotoCallback(this);
@@ -147,13 +154,16 @@ public class MyInfoActivity extends BaseActivity implements SelectPicDialog.Choo
                 //跳转到绑定账号页面
                 startActivity(new Intent(this, AccountManageActivity.class));
                 break;
-            case R.id.info_exitLogin:
-                //退出登陆
-                DialogUtil.LoginDialog(this, "您确定要退出登录吗？","确定","取消", v -> {
-                    Dialog mDialog = (new ProgressDialogView()).createLoadingDialog(this, "退出登录...");
-                    mDialog.show();
-                    mPresenter.loginOut(this.<SuccessBean>bindToLifecycle(),mDialog);
-                });
+            case R.id.info_backage:
+                //更换背景
+                falg = true;
+                if(mDialog == null){
+                    mDialog = new SelectPicDialog();
+                    mDialog.setChoosePhotoCallback(this);
+                }
+                if(!mDialog.isAdded()){
+                    mDialog.show(getSupportFragmentManager(), SelectPicDialog.TAG);
+                }
                 break;
         }
     }
@@ -183,6 +193,7 @@ public class MyInfoActivity extends BaseActivity implements SelectPicDialog.Choo
             mBinding.infoBirth.setText(date);
             SPUtils.getInstance(CommonDate.USER).put(CommonDate.userBirthday, mBinding.infoBirth.getText().toString());
             ToastUtil.show( "修改成功");
+            EventBus.getDefault().post(new EditNameBus(EditNameActivity.tag,date,"3"));
         } else {
             ToastUtil.show(successBean.getMsg());
         }
@@ -198,6 +209,7 @@ public class MyInfoActivity extends BaseActivity implements SelectPicDialog.Choo
             SPUtils.getInstance(CommonDate.USER).put(CommonDate.userGender, date);
             mBinding.infoSex.setText(SPUtils.getInstance(CommonDate.USER).getString(CommonDate.userGender));
             ToastUtil.show( "修改成功");
+            EventBus.getDefault().post(new EditNameBus(EditNameActivity.tag,date,"2"));
         } else {
             ToastUtil.show(successBean.getMsg());
         }
@@ -219,11 +231,29 @@ public class MyInfoActivity extends BaseActivity implements SelectPicDialog.Choo
     }
 
     /**
+     * 修改背景
+     */
+    @Override
+    public void EditUserBg(SuccessBean successBean,String date) {
+        if (successBean.getCode() == 0) {
+            GlideApp.loderImage(this,date,mBinding.infoBg,R.mipmap.mine_imagebg_dafult,0);
+            ToastUtil.show("修改成功");
+            EventBus.getDefault().post(new EditNameBus(EditNameActivity.tag,date,"5"));
+        } else {
+            ToastUtil.show(successBean.getMsg());
+        }
+    }
+
+    /**
      * 上传图片回调成功
      */
     @Override
     public void uploadPicSuccess(Dialog mDialog, String picPath) {
-        mPresenter.SaveUserInfo("4", picPath, MyInfoActivity.this.bindToLifecycle(), mDialog);
+        if (!falg){//修改头像
+            mPresenter.SaveUserInfo("4", picPath, MyInfoActivity.this.bindToLifecycle(), mDialog);
+        }else {//修改背景
+            mPresenter.SaveUserInfo("5", picPath, MyInfoActivity.this.bindToLifecycle(), mDialog);
+        }
     }
 
     /**

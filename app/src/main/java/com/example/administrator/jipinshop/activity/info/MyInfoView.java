@@ -19,6 +19,8 @@ public interface MyInfoView {
 
     void EditUserNickImgSuc(SuccessBean successBean,String date);
 
+    void EditUserBg(SuccessBean successBean,String date);
+
     /***上传图片**/
     void uploadPicSuccess(Dialog mDialog,String picPath);
     void uploadPicFailed(String error);

@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:tools="http://schemas.android.com/tools"
-        xmlns:bind="http://schemas.android.com/apk/res-auto">
+        xmlns:bind="http://schemas.android.com/apk/res-auto"
+        xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <data>
 
@@ -15,73 +16,109 @@
         android:layout_height="match_parent"
         android:background="@color/color_white"
         android:orientation="vertical">
-
-
-        <include
-            bind:listener="@{listener}"
-            android:id="@+id/in_clude"
-            layout="@layout/aa_title"/>
-
+        
         <RelativeLayout
-            android:onClick="@{listener.onClick}"
-            android:id="@+id/info_imageContainer"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
-            <ImageView
-                android:id="@+id/info_line"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentRight="true"
-                android:layout_centerVertical="true"
-                android:layout_marginRight="@dimen/x28"
-                android:background="@mipmap/right"
-                android:tint="@color/color_ACACAC"/>
-
-            <ImageView
-                android:id="@+id/info_image"
-                android:layout_width="@dimen/x84"
-                android:layout_height="@dimen/x84"
-                android:layout_marginBottom="@dimen/x24"
-                android:layout_marginRight="@dimen/x26"
-                android:layout_marginTop="@dimen/x24"
-                android:layout_toLeftOf="@+id/info_line"
-                tools:src="#f56"/>
-
-            <View
+            <LinearLayout
+                android:orientation="horizontal"
+                android:id="@+id/status_bar"
                 android:layout_width="match_parent"
-                android:layout_height="@dimen/x2"
-                android:layout_below="@+id/info_image"
-                android:layout_marginLeft="@dimen/x28"
-                android:layout_marginRight="@dimen/x28"
-                android:background="@color/color_F5F5F5"/>
+                android:layout_height="wrap_content"/>
+            
+            <ImageView
+                android:scaleType="centerCrop"
+                android:src="@mipmap/mine_imagebg_dafult"
+                android:id="@+id/info_bg"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/y450"/>
 
-            <TextView
+            <RelativeLayout
+                android:layout_alignBottom="@+id/info_bg"
+                android:layout_below="@+id/status_bar"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <com.example.administrator.jipinshop.view.glide.CircleImageView
+                    android:onClick="@{listener.onClick}"
+                    android:layout_centerInParent="true"
+                    android:id="@+id/info_image"
+                    android:src="@mipmap/logo"
+                    app:civ_border_color="@color/color_white"
+                    app:civ_border_width="@dimen/x8"
+                    android:layout_width="@dimen/x230"
+                    android:layout_height="@dimen/y230"/>
+
+                <ImageView
+                    android:layout_marginRight="@dimen/x20"
+                    android:layout_alignRight="@id/info_image"
+                    android:layout_alignBottom="@id/info_image"
+                    android:src="@mipmap/info_userimage"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"/>
+
+            </RelativeLayout>
+            
+            <ImageView
+                android:id="@+id/title_back"
+                android:onClick="@{listener.onClick}"
+                android:paddingRight="@dimen/x20"
+                android:paddingBottom="@dimen/y16"
+                android:paddingTop="@dimen/y16"
+                android:paddingLeft="@dimen/x20"
+                android:layout_below="@+id/status_bar"
+                android:tint="@color/color_white"
+                android:src="@mipmap/nav_black_big"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_centerVertical="true"
-                android:layout_marginLeft="@dimen/x28"
-                android:text="头像"
-                android:textColor="@color/color_DE151515"
-                android:textSize="15sp"/>
+                android:layout_height="wrap_content"/>
 
+            <LinearLayout
+                android:gravity="center"
+                android:orientation="horizontal"
+                android:onClick="@{listener.onClick}"
+                android:id="@+id/info_backage"
+                android:layout_marginBottom="@dimen/y24"
+                android:layout_marginLeft="@dimen/x30"
+                android:layout_alignBottom="@id/info_bg"
+                android:background="@drawable/bg_info"
+                android:layout_width="@dimen/x180"
+                android:layout_height="@dimen/y60">
+
+                <ImageView
+                    android:layout_marginLeft="@dimen/x8"
+                    android:src="@mipmap/info_backage"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"/>
+
+                <TextView
+                    android:textColor="@color/color_202020"
+                    android:textSize="14sp"
+                    android:layout_marginLeft="@dimen/x8"
+                    android:text="设置封面"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"/>
+
+            </LinearLayout>
+
+            
         </RelativeLayout>
+
 
         <RelativeLayout
             android:onClick="@{listener.onClick}"
             android:id="@+id/info_nameContainer"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content">
+            android:layout_height="@dimen/y136">
 
             <TextView
+                android:layout_centerVertical="true"
                 android:id="@+id/info_nameText"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="@dimen/x20"
-                android:layout_marginLeft="@dimen/x28"
-                android:layout_marginTop="@dimen/x20"
+                android:layout_marginLeft="@dimen/x30"
                 android:text="昵称"
-                android:textColor="@color/color_DE151515"
+                android:textColor="@color/color_9D9D9D"
                 android:textSize="15sp"/>
 
             <TextView
@@ -92,37 +129,36 @@
                 android:layout_height="wrap_content"
                 android:layout_alignParentRight="true"
                 android:layout_centerVertical="true"
-                android:layout_marginRight="@dimen/x28"
-                android:drawablePadding="@dimen/x10"
+                android:layout_marginRight="@dimen/x30"
+                android:drawablePadding="@dimen/x12"
                 android:drawableRight="@mipmap/right_ash1"
                 android:text="游客"
-                android:textColor="@color/color_ACACAC"
-                android:textSize="13sp"/>
+                android:textColor="@color/color_202020"
+                android:textSize="15sp"/>
 
             <View
+                android:layout_alignParentBottom="true"
                 android:layout_width="match_parent"
-                android:layout_height="@dimen/x2"
-                android:layout_below="@+id/info_nameText"
-                android:layout_marginLeft="@dimen/x28"
-                android:layout_marginRight="@dimen/x28"
-                android:background="@color/color_F5F5F5"/>
+                android:layout_height="@dimen/y1"
+                android:layout_marginLeft="@dimen/x30"
+                android:layout_marginRight="@dimen/x30"
+                android:background="@color/color_DEDEDE"/>
         </RelativeLayout>
 
         <RelativeLayout
             android:onClick="@{listener.onClick}"
             android:id="@+id/info_sexContainer"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content">
+            android:layout_height="@dimen/y136">
 
             <TextView
+                android:layout_centerVertical="true"
                 android:id="@+id/info_sexText"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="@dimen/x20"
-                android:layout_marginLeft="@dimen/x28"
-                android:layout_marginTop="@dimen/x20"
+                android:layout_marginLeft="@dimen/x30"
                 android:text="性别"
-                android:textColor="@color/color_DE151515"
+                android:textColor="@color/color_9D9D9D"
                 android:textSize="15sp"/>
 
             <TextView
@@ -132,36 +168,35 @@
                 android:layout_height="wrap_content"
                 android:layout_alignParentRight="true"
                 android:layout_centerVertical="true"
-                android:layout_marginRight="@dimen/x28"
-                android:drawablePadding="@dimen/x10"
+                android:layout_marginRight="@dimen/x30"
+                android:drawablePadding="@dimen/x12"
                 android:drawableRight="@mipmap/right_ash1"
-                android:textColor="@color/color_ACACAC"
-                android:textSize="13sp"/>
+                android:textColor="@color/color_202020"
+                android:textSize="15sp"/>
 
             <View
+                android:layout_alignParentBottom="true"
                 android:layout_width="match_parent"
-                android:layout_height="@dimen/x2"
-                android:layout_below="@+id/info_sexText"
-                android:layout_marginLeft="@dimen/x28"
-                android:layout_marginRight="@dimen/x28"
-                android:background="@color/color_F5F5F5"/>
+                android:layout_height="@dimen/y1"
+                android:layout_marginLeft="@dimen/x30"
+                android:layout_marginRight="@dimen/x30"
+                android:background="@color/color_DEDEDE"/>
         </RelativeLayout>
 
         <RelativeLayout
             android:onClick="@{listener.onClick}"
             android:id="@+id/info_birthContainer"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content">
+            android:layout_height="@dimen/y136">
 
             <TextView
+                android:layout_centerVertical="true"
                 android:id="@+id/info_birthText"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="@dimen/x20"
-                android:layout_marginLeft="@dimen/x28"
-                android:layout_marginTop="@dimen/x20"
+                android:layout_marginLeft="@dimen/x30"
                 android:text="生日"
-                android:textColor="@color/color_DE151515"
+                android:textColor="@color/color_9D9D9D"
                 android:textSize="15sp"/>
 
             <TextView
@@ -171,37 +206,36 @@
                 android:layout_height="wrap_content"
                 android:layout_alignParentRight="true"
                 android:layout_centerVertical="true"
-                android:layout_marginRight="@dimen/x28"
-                android:drawablePadding="@dimen/x10"
+                android:layout_marginRight="@dimen/x30"
+                android:drawablePadding="@dimen/x12"
                 android:drawableRight="@mipmap/right_ash1"
                 android:text="2000-06-08"
-                android:textColor="@color/color_ACACAC"
-                android:textSize="13sp"/>
+                android:textColor="@color/color_202020"
+                android:textSize="15sp"/>
 
             <View
+                android:layout_alignParentBottom="true"
                 android:layout_width="match_parent"
-                android:layout_height="@dimen/x2"
-                android:layout_below="@+id/info_birthText"
-                android:layout_marginLeft="@dimen/x28"
-                android:layout_marginRight="@dimen/x28"
-                android:background="@color/color_F5F5F5"/>
+                android:layout_height="@dimen/y1"
+                android:layout_marginLeft="@dimen/x30"
+                android:layout_marginRight="@dimen/x30"
+                android:background="@color/color_DEDEDE"/>
         </RelativeLayout>
 
         <RelativeLayout
             android:onClick="@{listener.onClick}"
             android:id="@+id/info_numberContainer"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content">
+            android:layout_height="@dimen/y136">
 
             <TextView
+                android:layout_centerVertical="true"
                 android:id="@+id/info_numberText"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="@dimen/x20"
-                android:layout_marginLeft="@dimen/x28"
-                android:layout_marginTop="@dimen/x20"
+                android:layout_marginLeft="@dimen/x30"
                 android:text="账号管理"
-                android:textColor="@color/color_DE151515"
+                android:textColor="@color/color_9D9D9D"
                 android:textSize="15sp"/>
 
             <ImageView
@@ -210,7 +244,7 @@
                 android:layout_height="wrap_content"
                 android:layout_alignParentRight="true"
                 android:layout_centerVertical="true"
-                android:layout_marginRight="@dimen/x28"
+                android:layout_marginRight="@dimen/x30"
                 android:src="@mipmap/right"
                 android:tint="@color/color_ACACAC"/>
 
@@ -247,33 +281,14 @@
                 android:layout_height="@dimen/y38"/>
 
             <View
-                android:layout_width="match_parent"
-                android:layout_height="@dimen/x2"
-                android:layout_below="@+id/info_numberText"
-                android:layout_marginLeft="@dimen/x28"
-                android:layout_marginRight="@dimen/x28"
-                android:background="@color/color_F5F5F5"/>
-
-        </RelativeLayout>
-
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
-
-            <TextView
-                android:onClick="@{listener.onClick}"
-                android:id="@+id/info_exitLogin"
-                android:layout_width="match_parent"
-                android:layout_height="@dimen/x100"
                 android:layout_alignParentBottom="true"
-                android:background="@color/color_E31436"
-                android:gravity="center"
-                android:text="退出登录"
-                android:textColor="@color/color_white"
-                android:textSize="15sp"/>
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/y1"
+                android:layout_marginLeft="@dimen/x30"
+                android:layout_marginRight="@dimen/x30"
+                android:background="@color/color_DEDEDE"/>
 
         </RelativeLayout>
-
 
     </LinearLayout>
 </layout>

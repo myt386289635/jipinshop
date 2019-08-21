@@ -1,6 +1,9 @@
 package com.example.administrator.jipinshop.activity.info;
 
 import android.app.Dialog;
+import android.content.Context;
+import android.view.ViewGroup;
+import android.widget.LinearLayout;
 
 import com.example.administrator.jipinshop.bean.ImageBean;
 import com.example.administrator.jipinshop.bean.SuccessBean;
@@ -38,6 +41,15 @@ public class MyInfoPresenter {
         mRepository = repository;
     }
 
+    public void setStatusBarHight(LinearLayout StatusBar , Context context){
+        int resourceId = context.getResources().getIdentifier("status_bar_height", "dimen", "android");
+        if (resourceId > 0) {
+            int statusBarHeight = context.getResources().getDimensionPixelSize(resourceId);
+            ViewGroup.LayoutParams layoutParams = StatusBar.getLayoutParams();
+            layoutParams.height = statusBarHeight;
+        }
+    }
+
     public void loginOut(LifecycleTransformer<SuccessBean> transformer, Dialog dialog){
         mRepository.logout()
                 .subscribeOn(Schedulers.io())
@@ -64,6 +76,9 @@ public class MyInfoPresenter {
         }else if(type.equals("4")){
             //上传头像
             map.put("avatar",content);
+        }else if (type.equals("5")){
+            //上传背景
+            map.put("bgImg",content);
         }
         mRepository.userUpdate(map)
                 .subscribeOn(Schedulers.io())
@@ -80,6 +95,8 @@ public class MyInfoPresenter {
                             mView.EditGenderSuccess(successBean,content);
                         }else if(type.equals("4")){
                             mView.EditUserNickImgSuc(successBean,content);
+                        }else if (type.equals("5")){
+                            mView.EditUserBg(successBean,content);
                         }
                     }
                 }, throwable -> {

@@ -15,13 +15,12 @@ import com.blankj.utilcode.util.SPUtils
 import com.example.administrator.jipinshop.R
 import com.example.administrator.jipinshop.activity.follow.FollowActivity
 import com.example.administrator.jipinshop.activity.info.MyInfoActivity
+import com.example.administrator.jipinshop.activity.info.editname.EditNameActivity
 import com.example.administrator.jipinshop.adapter.HomeFragmentAdapter
 import com.example.administrator.jipinshop.base.BaseActivity
 import com.example.administrator.jipinshop.bean.UserInfoBean
+import com.example.administrator.jipinshop.bean.eventbus.EditNameBus
 import com.example.administrator.jipinshop.databinding.ActivityUserBinding
-import com.example.administrator.jipinshop.fragment.foval.article.FovalArticleFragment
-import com.example.administrator.jipinshop.fragment.foval.find.FovalFindFragment
-import com.example.administrator.jipinshop.fragment.foval.goods.FovalGoodsFragment
 import com.example.administrator.jipinshop.fragment.userkt.article.UserArticleFragment
 import com.example.administrator.jipinshop.fragment.userkt.find.UserFindFragment
 import com.example.administrator.jipinshop.util.ToastUtil
@@ -29,6 +28,8 @@ import com.example.administrator.jipinshop.util.sp.CommonDate
 import com.example.administrator.jipinshop.view.dialog.DialogUtil
 import com.example.administrator.jipinshop.view.dialog.ProgressDialogView
 import com.example.administrator.jipinshop.view.glide.GlideApp
+import org.greenrobot.eventbus.EventBus
+import org.greenrobot.eventbus.Subscribe
 import java.math.BigDecimal
 import javax.inject.Inject
 
@@ -52,6 +53,7 @@ class UserActivity : BaseActivity(), View.OnClickListener, UserView {
     private var xDistance = 0f
     private var yDistance = 0f
     private var follow = 0
+    private var bgImg = ""
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -62,6 +64,7 @@ class UserActivity : BaseActivity(), View.OnClickListener, UserView {
                 .transparentStatusBar()
                 .statusBarDarkFont(true, 0f)
                 .init()
+        EventBus.getDefault().register(this)
         mPresenter.setView(this)
         initView()
     }
@@ -105,7 +108,9 @@ class UserActivity : BaseActivity(), View.OnClickListener, UserView {
             }
             R.id.user_edit -> {
                 //跳转个人资料页面
-                startActivity(Intent(this, MyInfoActivity::class.java))
+                startActivity(Intent(this, MyInfoActivity::class.java)
+                        .putExtra("bgImg",bgImg)
+                )
             }
             R.id.user_attentNum -> {
                 //关注
@@ -140,6 +145,7 @@ class UserActivity : BaseActivity(), View.OnClickListener, UserView {
             mBinding.userBackground.setImageResource(R.mipmap.mine_imagebg_dafult)
         }else{
             GlideApp.loderImage(this,bean.data.bgImg,mBinding.userBackground,R.mipmap.mine_imagebg_dafult,0)
+            bgImg = bean.data.bgImg
         }
         GlideApp.loderCircleImage(this,bean.data.avatar,mBinding.userImage,R.mipmap.rlogo,0)
         mBinding.userName.text = bean.data.nickname
@@ -230,6 +236,41 @@ class UserActivity : BaseActivity(), View.OnClickListener, UserView {
                 resources.getDimension(R.dimen.x48).toInt(), resources.getDimension(R.dimen.y16).toInt())
         var fans = BigDecimal(mBinding.userFansText.text.toString())
         mBinding.userFansText.text = (fans.toInt() - 1).toString()
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        EventBus.getDefault().unregister(this)
+    }
+
+    @Subscribe
+    fun editInfo(bean : EditNameBus?){
+        if (bean != null && bean.tag == EditNameActivity.tag){
+            if (bean.type == "5"){
+                //修改了背景图片
+                GlideApp.loderImage(this,bean.content,mBinding.userBackground,R.mipmap.mine_imagebg_dafult,0)
+                bgImg = bean.content
+            }else if (bean.type == "4"){
+                //修改了头像
+                GlideApp.loderCircleImage(this,bean.content,mBinding.userImage,R.mipmap.rlogo,0)
+            }else if (bean.type == "6"){
+                //修改了个性签名
+                var html = "<font color='#9D9D9D'><b>个签：</b></font>" + bean.content
+                mBinding.userSign.text = Html.fromHtml(html)
+            }else if (bean.type == "1"){
+                //修改了名字
+                mBinding.userName.text = bean.content
+            }else if (bean.type == "2"){
+                //修改了性别
+                when(bean.content){
+                    "男" -> mBinding.userSex.setImageResource(R.mipmap.user_nan)
+                    "女" -> mBinding.userSex.setImageResource(R.mipmap.user_nv)
+                }
+            }else if (bean.type == "3"){
+                //修改了生日
+                mPresenter.getDate(userid,this.bindToLifecycle())
+            }
+        }
     }
 
 }
