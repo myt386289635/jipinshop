@@ -86,6 +86,15 @@ public class SreachResultArticlesBean {
         private String collect;
         private String relatedArticleList;
         private String relatedGoodsList;
+        private String remark;
+
+        public String getRemark() {
+            return remark;
+        }
+
+        public void setRemark(String remark) {
+            this.remark = remark;
+        }
 
         public String getType() {
             return type;

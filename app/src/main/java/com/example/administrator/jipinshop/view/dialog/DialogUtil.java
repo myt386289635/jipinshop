@@ -188,4 +188,22 @@ public class DialogUtil{
         dialog.setCanceledOnTouchOutside(false);
         dialog.setContentView(view);
     }
+
+    public static void listingDetele(Context context, String titleStr, final View.OnClickListener sureListener){
+        AlertDialog.Builder builder = new AlertDialog.Builder(context,R.style.dialog);
+        View view = LayoutInflater.from(context).inflate(R.layout.dialog_listing,null);
+        TextView title = view.findViewById(R.id.dialog_title);
+        title.setText(titleStr);
+        TextView sure =  view.findViewById(R.id.dialog_sure);
+        final Dialog dialog = builder.create();
+        dialog.getWindow().setDimAmount(0.35f);
+        sure.setOnClickListener(view12 -> {
+            sureListener.onClick(view12);
+            dialog.dismiss();
+        });
+        TextView cancle =  view.findViewById(R.id.dialog_cancle);
+        cancle.setOnClickListener(view1 -> dialog.dismiss());
+        dialog.show();
+        dialog.setContentView(view);
+    }
 }

@@ -1,0 +1,133 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:bind="http://schemas.android.com/apk/res-auto">
+
+    <data>
+        <import type="android.view.View"/>
+
+        <variable
+            name="type"
+            type="Integer"/>
+
+        <variable
+            name="data"
+            type="com.example.administrator.jipinshop.bean.SreachResultArticlesBean.DataBean"/>
+    </data>
+
+    <com.example.administrator.jipinshop.view.recyclerView.SwipeItemLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/y300">
+
+
+        <RelativeLayout
+            android:id="@+id/main"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <ImageView
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="@dimen/x30"
+                bind:srcRound="@{data.img}"
+                android:id="@+id/item_image"
+                android:layout_width="@dimen/x320"
+                android:layout_height="@dimen/y200"/>
+
+            <TextView
+                android:id="@+id/item_name"
+                android:textColor="@color/color_202020"
+                android:textSize="15sp"
+                android:layout_marginRight="@dimen/x30"
+                android:ellipsize="end"
+                android:maxLines="1"
+                android:text="@{data.title}"
+                android:layout_marginTop="@dimen/y16"
+                android:layout_alignTop="@id/item_image"
+                android:layout_toRightOf="@id/item_image"
+                android:layout_marginLeft="@dimen/x25"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+
+            <TextView
+                android:id="@+id/item_time"
+                android:layout_marginBottom="@dimen/y26"
+                android:textColor="@color/color_ACACAC"
+                android:textSize="13sp"
+                android:text="@{data.createTime}"
+                android:layout_marginLeft="@dimen/x25"
+                android:layout_alignBottom="@id/item_image"
+                android:layout_toRightOf="@id/item_image"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+
+            <LinearLayout
+                android:layout_marginBottom="@dimen/y26"
+                android:layout_marginRight="@dimen/x30"
+                android:layout_alignParentRight="true"
+                android:layout_alignBottom="@id/item_image"
+                android:orientation="horizontal"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:id="@+id/item_edit"
+                    android:textColor="@color/color_84B5D3"
+                    android:textSize="14sp"
+                    android:text="编辑"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"/>
+
+                <TextView
+                    android:visibility="@{type == -1 ? View.GONE : View.VISIBLE}"
+                    android:layout_marginLeft="@dimen/x52"
+                    android:id="@+id/item_send"
+                    android:textColor="@color/color_E25838"
+                    android:textSize="14sp"
+                    android:text="发布"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"/>
+
+            </LinearLayout>
+
+            <TextView
+                android:visibility="@{type == -1 ? View.VISIBLE : View.GONE}"
+                android:id="@+id/item_reason"
+                android:text="@{@string/remark + data.remark}"
+                android:textSize="13sp"
+                android:textColor="@color/color_FF0000"
+                android:layout_marginLeft="@dimen/x25"
+                android:layout_above="@id/item_time"
+                android:layout_below="@id/item_name"
+                android:layout_toRightOf="@id/item_image"
+                android:gravity="center_vertical"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+
+            <View
+                android:layout_alignParentBottom="true"
+                android:layout_marginRight="@dimen/x30"
+                android:layout_marginLeft="@dimen/x30"
+                android:background="@color/color_DEDEDE"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/y1"/>
+
+        </RelativeLayout>
+
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent">
+
+            <TextView
+                android:background="@color/color_E25838"
+                android:gravity="center"
+                android:id="@+id/item_delete"
+                android:text="删除"
+                android:textColor="@color/color_white"
+                android:textSize="14sp"
+                android:layout_width="@dimen/x110"
+                android:layout_height="match_parent" />
+
+        </LinearLayout>
+
+    </com.example.administrator.jipinshop.view.recyclerView.SwipeItemLayout>
+</layout>

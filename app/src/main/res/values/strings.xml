@@ -59,4 +59,6 @@
     <string name="question_start">查看全部</string>
     <string name="question_end">条回答</string>
     <string name="question_all">参与回答</string>
+
+    <string name="remark">原因：</string>
 </resources>

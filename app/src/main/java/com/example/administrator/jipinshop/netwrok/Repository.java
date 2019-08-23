@@ -921,4 +921,17 @@ public class Repository {
         return mAPIService.userQuestions(page, targetUserId, type);
     }
 
+    /**
+     * 我的发布——我的清单列表
+     */
+    public Observable<SreachResultArticlesBean> publishListing(int page, String status){
+        return mAPIService.publishListing(page, status);
+    }
+
+    /**
+     * 删除清单
+     */
+    public Observable<SuccessBean> ListingDelete(String articleId){
+        return mAPIService.ListingDelete(articleId);
+    }
 }

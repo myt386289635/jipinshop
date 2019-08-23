@@ -21,6 +21,7 @@ import com.example.administrator.jipinshop.activity.info.editname.EditNameActivi
 import com.example.administrator.jipinshop.activity.login.LoginActivity;
 import com.example.administrator.jipinshop.activity.mall.MallActivity;
 import com.example.administrator.jipinshop.activity.message.MessageActivity;
+import com.example.administrator.jipinshop.activity.minekt.publishkt.MyPublishActivity;
 import com.example.administrator.jipinshop.activity.minekt.userkt.UserActivity;
 import com.example.administrator.jipinshop.activity.order.MyOrderActivity;
 import com.example.administrator.jipinshop.activity.setting.SettingActivity;
@@ -181,7 +182,8 @@ public class MineFragment extends DBBaseFragment implements View.OnClickListener
                 startActivity(new Intent(getContext(), TeamActivity.class));
                 break;
             case R.id.mine_releaseContainer:
-                // TODO: 2019/8/5 我的发布
+                //我的发布
+                startActivity(new Intent(getContext(), MyPublishActivity.class));
                 break;
         }
     }

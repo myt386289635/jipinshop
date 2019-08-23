@@ -33,11 +33,29 @@
             android:layout_width="wrap_content"
             android:layout_height="@dimen/y88"/>
 
+        <TextView
+            android:visibility="gone"
+            android:lineSpacingExtra="@dimen/y6"
+            android:textSize="15sp"
+            android:textStyle="bold"
+            android:paddingBottom="@dimen/y20"
+            android:paddingTop="@dimen/y20"
+            android:paddingRight="@dimen/x46"
+            android:paddingLeft="@dimen/x46"
+            android:text=""
+            android:gravity="center"
+            android:textColor="@color/color_white"
+            android:background="@color/color_E25838"
+            android:id="@+id/report_reason"
+            android:layout_below="@id/in_clude"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+
         <ScrollView
             android:scrollbars="none"
             android:fillViewport="true"
             android:layout_above="@+id/report_bottomContainer"
-            android:layout_below="@+id/in_clude"
+            android:layout_below="@+id/report_reason"
             android:id="@+id/scroll_View"
             android:layout_width="match_parent"
             android:layout_height="match_parent">

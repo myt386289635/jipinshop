@@ -841,4 +841,16 @@ public interface APIService {
      */
     @GET("qualityshop-api/api/v2/user/user/article/listByUserId")
     Observable<QuestionsBean> userQuestions(@Query("page") int page , @Query("targetUserId") String targetUserId , @Query("type") String type);
+
+    /**
+     * 我的发布——我的清单列表
+     */
+    @GET("qualityshop-api/api/v2/user/my/article/listingList")
+    Observable<SreachResultArticlesBean> publishListing(@Query("page") int page, @Query("status") String status);
+
+    /**
+     * 删除清单
+     */
+    @GET("qualityshop-api/api/v2/user/my/article/delete")
+    Observable<SuccessBean> ListingDelete(@Query("articleId") String articleId);
 }

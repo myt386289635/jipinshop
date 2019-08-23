@@ -45,6 +45,7 @@ class SubmitActivity : BaseActivity(), View.OnClickListener, SelectPicDialog.Cho
     private var mDialog: SelectPicDialog? = null
     private var Conver = ""//封面
     private var articleId = ""//清单id
+    private var reason = ""//审核失败原因
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -96,6 +97,13 @@ class SubmitActivity : BaseActivity(), View.OnClickListener, SelectPicDialog.Cho
         }else{
             //编辑
             articleId = intent.getStringExtra("articleId")
+            reason = intent.getStringExtra("remark")
+            if (TextUtils.isEmpty(reason)){
+                mBinding.reportReason.visibility = View.GONE
+            }else{
+                mBinding.reportReason.visibility = View.VISIBLE
+                mBinding.reportReason.text = reason
+            }
             mPresenter.getDetail(articleId,this.bindToLifecycle())
         }
     }

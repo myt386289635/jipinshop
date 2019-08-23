@@ -1,0 +1,130 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:bind="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="listener"
+            type="android.view.View.OnClickListener"/>
+    </data>
+
+    <RelativeLayout
+        android:orientation="vertical"
+        android:background="@color/color_white"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <include
+            android:id="@+id/in_clude"
+            layout="@layout/aa_title2"
+            bind:listener="@{listener}"/>
+
+        <TextView
+            android:id="@+id/detail_tag"
+            android:layout_below="@id/in_clude"
+            android:gravity="center"
+            android:textStyle="bold"
+            android:textSize="15sp"
+            android:textColor="@color/color_white"
+            android:text="审核中…"
+            android:background="@color/color_E25838"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/y80"/>
+
+        <TextView
+            android:layout_alignParentBottom="true"
+            android:onClick="@{listener.onClick}"
+            android:id="@+id/detail_buy"
+            android:gravity="center"
+            android:textStyle="bold"
+            android:text="相关商品"
+            android:textColor="@color/color_white"
+            android:textSize="15sp"
+            android:background="@color/color_E25838"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/y98"/>
+
+        <ScrollView
+            android:layout_above="@id/detail_buy"
+            android:layout_below="@id/detail_tag"
+            android:id="@+id/scroll_View"
+            android:fillViewport="true"
+            android:scrollbars="none"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <TextView
+                    android:lineSpacingExtra="@dimen/y8"
+                    android:id="@+id/detail_title"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/x30"
+                    android:layout_marginRight="@dimen/x30"
+                    android:layout_marginTop="@dimen/y60"
+                    android:text="闭眼入系列 | 从此爱上刷牙，网红推荐款，网红推荐款，网红推荐款"
+                    android:textColor="@color/color_202020"
+                    android:textSize="19sp"
+                    android:textStyle="bold"/>
+
+                <ImageView
+                    android:layout_marginBottom="@dimen/y46"
+                    android:layout_marginTop="@dimen/y46"
+                    android:layout_marginLeft="@dimen/x30"
+                    android:layout_below="@id/detail_title"
+                    android:id="@+id/detail_UserImage"
+                    android:layout_width="@dimen/x70"
+                    android:layout_height="@dimen/x70"
+                    android:scaleType="centerCrop"
+                    tools:src="@color/color_E31436"/>
+
+
+                <TextView
+                    android:layout_alignTop="@id/detail_UserImage"
+                    android:textStyle="bold"
+                    android:id="@+id/detail_UserName"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/x24"
+                    android:layout_toRightOf="@+id/detail_UserImage"
+                    android:text="资深编辑"
+                    android:textColor="@color/color_202020"
+                    android:textSize="16sp"/>
+
+
+                <TextView
+                    android:layout_marginLeft="@dimen/x24"
+                    android:id="@+id/detail_time"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignBottom="@id/detail_UserImage"
+                    android:layout_toRightOf="@+id/detail_UserImage"
+                    android:text="2019-6-25  12:11"
+                    android:textColor="@color/color_ACACAC"
+                    android:textSize="12sp"/>
+
+                <com.example.administrator.jipinshop.view.recyclerView.NoScrollRecyclerView
+                    android:id="@+id/recycler_view"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/detail_UserImage"
+                    android:nestedScrollingEnabled="false"/>
+
+            </RelativeLayout>
+        </ScrollView>
+
+        <include
+            android:layout_below="@id/in_clude"
+            android:layout_height="match_parent"
+            android:layout_width="match_parent"
+            android:id="@+id/net_clude"
+            layout="@layout/common_net_error"
+            android:visibility="gone"
+            bind:listener="@{listener}"/>
+
+    </RelativeLayout>
+</layout>

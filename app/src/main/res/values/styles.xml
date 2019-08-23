@@ -91,4 +91,9 @@
         <item name="android:textSize">18sp</item>
     </style>
 
+    <style name="CustomTabLayout"
+           parent="TextAppearance.AppCompat.Widget.ActionBar.Title.Inverse">
+        <item name="android:textSize">16sp</item>
+    </style>
+
 </resources>
