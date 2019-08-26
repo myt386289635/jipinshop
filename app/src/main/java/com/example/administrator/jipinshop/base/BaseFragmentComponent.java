@@ -24,6 +24,8 @@ import com.example.administrator.jipinshop.fragment.home.recommend.RecommendFrag
 import com.example.administrator.jipinshop.fragment.mine.MineFragment;
 import com.example.administrator.jipinshop.fragment.publishkt.inventory.published.PublishedFragment;
 import com.example.administrator.jipinshop.fragment.publishkt.inventory.unpass.UnPassFragment;
+import com.example.administrator.jipinshop.fragment.publishkt.question.pass.PassQuesFragment;
+import com.example.administrator.jipinshop.fragment.publishkt.question.unpass.UnPassQuesFragment;
 import com.example.administrator.jipinshop.fragment.sreach.article.SreachArticleFragment;
 import com.example.administrator.jipinshop.fragment.sreach.find.SreachFindFragment;
 import com.example.administrator.jipinshop.fragment.sreach.goods.SreachGoodsFragment;
@@ -78,4 +80,6 @@ public interface BaseFragmentComponent {
     void inject(UserArticleFragment fragment);
     void inject(PublishedFragment fragment);
     void inject(UnPassFragment fragment);
+    void inject(PassQuesFragment fragment);
+    void inject(UnPassQuesFragment fragment);
 }

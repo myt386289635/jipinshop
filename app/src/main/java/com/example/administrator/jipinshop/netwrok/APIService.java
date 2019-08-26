@@ -851,6 +851,20 @@ public interface APIService {
     /**
      * 删除清单
      */
-    @GET("qualityshop-api/api/v2/user/my/article/delete")
-    Observable<SuccessBean> ListingDelete(@Query("articleId") String articleId);
+    @FormUrlEncoded
+    @POST("qualityshop-api/api/v2/user/my/article/delete")
+    Observable<SuccessBean> ListingDelete(@Field("articleId") String articleId);
+
+    /**
+     * 我的发布——我的问答列表
+     */
+    @GET("qualityshop-api/api/v2/user/my/question/list")
+    Observable<QuestionsBean> publishQuestion(@Query("page") int page, @Query("status") String status);
+
+    /**
+     * 删除话题
+     */
+    @FormUrlEncoded
+    @POST("qualityshop-api/api/v2/user/my/question/delete")
+    Observable<SuccessBean> questionDelete(@Field("questionId") String questionId);
 }

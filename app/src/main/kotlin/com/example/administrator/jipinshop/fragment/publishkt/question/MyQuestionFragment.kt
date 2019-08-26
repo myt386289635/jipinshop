@@ -10,8 +10,9 @@ import com.example.administrator.jipinshop.R
 import com.example.administrator.jipinshop.adapter.HomeFragmentAdapter
 import com.example.administrator.jipinshop.base.DBBaseFragment
 import com.example.administrator.jipinshop.databinding.FragmentMyInventoryBinding
-import com.example.administrator.jipinshop.fragment.evaluationkt.attent.EvaAttentFrament
 import com.example.administrator.jipinshop.fragment.evaluationkt.hot.EvaHotFragment
+import com.example.administrator.jipinshop.fragment.publishkt.question.pass.PassQuesFragment
+import com.example.administrator.jipinshop.fragment.publishkt.question.unpass.UnPassQuesFragment
 
 /**
  * @author 莫小婷
@@ -29,9 +30,9 @@ class MyQuestionFragment :  DBBaseFragment(){
     override fun setUserVisibleHint(isVisibleToUser: Boolean) {
         super.setUserVisibleHint(isVisibleToUser)
         if (isVisibleToUser && boolean){
-            mList.add(EvaAttentFrament())
-            mList.add(EvaHotFragment())
-            mList.add(EvaHotFragment())
+            mList.add(PassQuesFragment())
+            mList.add(UnPassQuesFragment.getInstance("0"))
+            mList.add(UnPassQuesFragment.getInstance("-1"))
             mAdapter.notifyDataSetChanged()
             mBinding.viewPager.offscreenPageLimit = mList.size - 1
             boolean = false

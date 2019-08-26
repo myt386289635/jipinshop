@@ -934,4 +934,18 @@ public class Repository {
     public Observable<SuccessBean> ListingDelete(String articleId){
         return mAPIService.ListingDelete(articleId);
     }
+
+    /**
+     * 我的发布——我的问答列表
+     */
+    public Observable<QuestionsBean> publishQuestion(int page, String status){
+        return mAPIService.publishQuestion(page, status);
+    }
+
+    /**
+     * 删除话题
+     */
+    public Observable<SuccessBean> questionDelete(String questionId){
+        return mAPIService.questionDelete(questionId);
+    }
 }

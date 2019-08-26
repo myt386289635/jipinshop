@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:bind="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+        <import type="android.view.View"/>
+
+        <variable
+            name="type"
+            type="Integer"/>
+
+        <variable
+            name="date"
+            type="com.example.administrator.jipinshop.bean.QuestionsBean.DataBean"/>
+
+    </data>
+
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:layout_marginBottom="@dimen/y20"
+            android:id="@+id/item_title"
+            android:layout_marginLeft="@dimen/x107"
+            android:lineSpacingExtra="@dimen/y15"
+            android:textStyle="bold"
+            android:textColor="@color/color_202020"
+            android:textSize="18sp"
+            android:layout_marginRight="@dimen/x21"
+            android:text="@{date.title}"
+            android:layout_marginTop="@dimen/y30"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+
+        <ImageView
+            android:layout_alignTop="@id/item_title"
+            android:layout_marginLeft="@dimen/x30"
+            android:src="@mipmap/que_ask"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+
+        <RelativeLayout
+            android:id="@+id/item_reasonContainer"
+            android:layout_marginTop="@dimen/y36"
+            android:layout_below="@id/item_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:visibility="@{type == 0 ? View.VISIBLE : View.GONE}"
+                android:id="@+id/item_totel"
+                android:layout_marginLeft="@dimen/x110"
+                android:textStyle="bold"
+                android:textColor="@color/color_E25838"
+                android:textSize="13sp"
+                android:text="审核中…"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+
+
+            <TextView
+                android:visibility="@{type == -1 ? View.VISIBLE : View.GONE}"
+                android:id="@+id/item_reasonTitle"
+                android:layout_marginLeft="@dimen/x110"
+                android:textStyle="bold"
+                android:textColor="@color/color_FF0000"
+                android:textSize="13sp"
+                android:text="原因："
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+
+
+            <TextView
+                android:visibility="@{type == -1 ? View.VISIBLE : View.GONE}"
+                android:lineSpacingExtra="@dimen/y6"
+                android:layout_marginRight="@dimen/x30"
+                android:layout_toRightOf="@id/item_reasonTitle"
+                android:id="@+id/item_reason"
+                android:textStyle="bold"
+                android:textColor="@color/color_FF0000"
+                android:textSize="13sp"
+                android:text="问题中含有违禁词问题与类目不符有错别字有 错别字"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+
+
+            <TextView
+                android:visibility="@{type == -1 ? View.VISIBLE : View.GONE}"
+                android:layout_marginRight="@dimen/x30"
+                android:layout_marginTop="@dimen/y14"
+                android:layout_below="@id/item_reason"
+                android:layout_alignParentRight="true"
+                android:id="@+id/item_delete"
+                android:textSize="13sp"
+                android:textStyle="bold"
+                android:textColor="@color/color_E25838"
+                android:text="删除"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+
+        </RelativeLayout>
+
+
+        <View
+            android:layout_marginTop="@dimen/y24"
+            android:layout_below="@id/item_reasonContainer"
+            android:layout_marginRight="@dimen/x30"
+            android:layout_marginLeft="@dimen/x30"
+            android:background="@color/color_DEDEDE"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/y2"/>
+
+    </RelativeLayout>
+</layout>

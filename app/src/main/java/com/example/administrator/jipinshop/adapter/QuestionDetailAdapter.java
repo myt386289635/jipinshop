@@ -7,7 +7,9 @@ import android.graphics.Color;
 import android.graphics.drawable.Drawable;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
+import android.view.View;
 import android.view.ViewGroup;
 
 import com.example.administrator.jipinshop.R;
@@ -32,6 +34,11 @@ public class QuestionDetailAdapter extends RecyclerView.Adapter {
     private Context mContext;
     private QuestionsBean.DataBean mBean;
     private OnClickLayout mOnClickLayout;
+    private String myType = "";//标志是否是从我的发布里进入的
+
+    public void setType(String myType) {
+        this.myType = myType;
+    }
 
     public void setOnClickLayout(OnClickLayout onClickLayout) {
         mOnClickLayout = onClickLayout;
@@ -79,26 +86,31 @@ public class QuestionDetailAdapter extends RecyclerView.Adapter {
             case head:
                 HeadViewHolder headViewHolder = (HeadViewHolder) viewHolder;
                 headViewHolder.headBinding.setDate(mBean);
-                if (mBean.getUser().getFollow().equals("0")){
-                    //未关注
-                    headViewHolder.headBinding.itemAttention.setText("关  注");
-                    headViewHolder.headBinding.itemAttention.setBackgroundResource(R.drawable.bg_my_attentioned2);
-                    headViewHolder.headBinding.itemAttention.setTextColor(Color.WHITE);
-                    headViewHolder.headBinding.itemAttention.setOnClickListener(v -> {
-                        if (mOnClickLayout != null){
-                            mOnClickLayout.onClickFollow();
-                        }
-                    });
+                if (!TextUtils.isEmpty(myType) && myType.equals("my")){
+                    headViewHolder.headBinding.itemAttention.setVisibility(View.GONE);
                 }else {
-                    //已关注
-                    headViewHolder.headBinding.itemAttention.setText("已关注");
-                    headViewHolder.headBinding.itemAttention.setBackgroundResource(R.drawable.bg_my_attention);
-                    headViewHolder.headBinding.itemAttention.setTextColor(mContext.getResources().getColor(R.color.color_ACACAC));
-                    headViewHolder.headBinding.itemAttention.setOnClickListener(v -> {
-                        if (mOnClickLayout != null){
-                            mOnClickLayout.onClickUnFollow();
-                        }
-                    });
+                    headViewHolder.headBinding.itemAttention.setVisibility(View.VISIBLE);
+                    if (mBean.getUser().getFollow().equals("0")){
+                        //未关注
+                        headViewHolder.headBinding.itemAttention.setText("关  注");
+                        headViewHolder.headBinding.itemAttention.setBackgroundResource(R.drawable.bg_my_attentioned2);
+                        headViewHolder.headBinding.itemAttention.setTextColor(Color.WHITE);
+                        headViewHolder.headBinding.itemAttention.setOnClickListener(v -> {
+                            if (mOnClickLayout != null){
+                                mOnClickLayout.onClickFollow();
+                            }
+                        });
+                    }else {
+                        //已关注
+                        headViewHolder.headBinding.itemAttention.setText("已关注");
+                        headViewHolder.headBinding.itemAttention.setBackgroundResource(R.drawable.bg_my_attention);
+                        headViewHolder.headBinding.itemAttention.setTextColor(mContext.getResources().getColor(R.color.color_ACACAC));
+                        headViewHolder.headBinding.itemAttention.setOnClickListener(v -> {
+                            if (mOnClickLayout != null){
+                                mOnClickLayout.onClickUnFollow();
+                            }
+                        });
+                    }
                 }
                 headViewHolder.headBinding.itemImage.setOnClickListener(v -> {
                     mContext.startActivity(new Intent(mContext, UserActivity.class)

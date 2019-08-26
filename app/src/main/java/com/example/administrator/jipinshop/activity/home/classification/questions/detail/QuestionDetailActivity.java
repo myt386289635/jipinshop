@@ -105,6 +105,7 @@ public class QuestionDetailActivity extends BaseActivity implements View.OnClick
         mList = new ArrayList<>();
         mAdapter = new QuestionDetailAdapter(mList,this);
         mAdapter.setBean(mBean);
+        mAdapter.setType(getIntent().getStringExtra("type"));
         mAdapter.setOnClickLayout(this);
         mBinding.recyclerView.setAdapter(mAdapter);
 
