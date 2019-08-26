@@ -169,7 +169,6 @@ public class LoginActivity extends BaseActivity implements LoginView, View.OnCli
 
             EventBus.getDefault().post(new EditNameBus(LoginActivity.tag,loginBean.getData().getFansCount()+""
                     ,loginBean.getData().getVoteCount()+"",loginBean.getData().getFollowCount() + ""));//刷新登陆后我的页面
-            EventBus.getDefault().post(JPushReceiver.TAG);//刷新未读消息
             EventBus.getDefault().post(new CommonEvaluationBus(LoginActivity.refresh));//用来刷新商品、评测、发现详情以及评论列表
 //            JPushInterface.resumePush(MyApplication.getInstance());//恢复推送
             if (loginBean.getData().getAddPoint() != 0){
@@ -203,7 +202,6 @@ public class LoginActivity extends BaseActivity implements LoginView, View.OnCli
 
             EventBus.getDefault().post(new EditNameBus(LoginActivity.tag,loginBean.getData().getFansCount()+""
                     ,loginBean.getData().getVoteCount()+"",loginBean.getData().getFollowCount() + ""));//刷新登陆后我的页面
-            EventBus.getDefault().post(JPushReceiver.TAG);//刷新未读消息
             EventBus.getDefault().post(new CommonEvaluationBus(LoginActivity.refresh));//用来刷新商品、评测、发现详情以及评论列表
 //            JPushInterface.resumePush(MyApplication.getInstance());//恢复推送
             ToastUtil.show("登录成功");

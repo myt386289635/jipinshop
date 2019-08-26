@@ -371,6 +371,7 @@
                         android:orientation="vertical">
 
                         <ImageView
+                            android:id="@+id/mine_walletImg"
                             android:scaleType="fitXY"
                             android:layout_width="@dimen/x52"
                             android:layout_height="@dimen/y52"

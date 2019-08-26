@@ -16,6 +16,15 @@ public class UnMessageBean {
     private String msg;
     private int code;
     private int data;
+    private int walletCount;
+
+    public int getWalletCount() {
+        return walletCount;
+    }
+
+    public void setWalletCount(int walletCount) {
+        this.walletCount = walletCount;
+    }
 
     public String getMsg() {
         return msg;

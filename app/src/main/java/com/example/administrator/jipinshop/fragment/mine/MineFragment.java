@@ -29,13 +29,13 @@ import com.example.administrator.jipinshop.activity.sign.SignActivity;
 import com.example.administrator.jipinshop.activity.sign.invitation.InvitationNewActivity;
 import com.example.administrator.jipinshop.activity.tryout.mine.MineTrialActivity;
 import com.example.administrator.jipinshop.base.DBBaseFragment;
+import com.example.administrator.jipinshop.bean.UnMessageBean;
 import com.example.administrator.jipinshop.bean.UserInfoBean;
 import com.example.administrator.jipinshop.bean.eventbus.EditNameBus;
 import com.example.administrator.jipinshop.bean.eventbus.FollowBus;
 import com.example.administrator.jipinshop.databinding.FragmentMineBinding;
 import com.example.administrator.jipinshop.fragment.follow.attention.AttentionFragment;
 import com.example.administrator.jipinshop.fragment.follow.fans.FansFragment;
-import com.example.administrator.jipinshop.fragment.home.HomeFragment;
 import com.example.administrator.jipinshop.jpush.JPushReceiver;
 import com.example.administrator.jipinshop.util.ToastUtil;
 import com.example.administrator.jipinshop.util.UmApp.UAppUtil;
@@ -50,7 +50,10 @@ import java.math.BigDecimal;
 
 import javax.inject.Inject;
 
-public class MineFragment extends DBBaseFragment implements View.OnClickListener, MineView {
+import q.rorbin.badgeview.Badge;
+import q.rorbin.badgeview.QBadgeView;
+
+public class MineFragment extends DBBaseFragment implements View.OnClickListener, MineView, Badge.OnDragStateChangedListener {
 
     @Inject
     MinePresenter mPresenter;
@@ -58,6 +61,7 @@ public class MineFragment extends DBBaseFragment implements View.OnClickListener
     private FragmentMineBinding mBinding;
 
     private Boolean flage = true;//标记是第一次走入这个页面，防止多次访问接口
+    private QBadgeView mQBadgeView;
 
     @Override
     public View initLayout(LayoutInflater inflater, ViewGroup container) {
@@ -73,6 +77,8 @@ public class MineFragment extends DBBaseFragment implements View.OnClickListener
 
         mPresenter.setStatusBarHight(mBinding, getContext());
         mPresenter.setView(this);
+        mQBadgeView = new QBadgeView(getContext());
+        mPresenter.initBadgeView(mQBadgeView, mBinding.mineWalletImg, this);
     }
 
     @Override
@@ -203,7 +209,6 @@ public class MineFragment extends DBBaseFragment implements View.OnClickListener
                 mBinding.mineFansText.setText("0");//粉丝数
                 mBinding.mineSignText.setText("0");//极币数
                 SPUtils.getInstance(CommonDate.USER).clear();
-                EventBus.getDefault().post(JPushReceiver.TAG);//刷新未读消息
 //                JPushInterface.stopPush(MyApplication.getInstance());//停止推送
                 mBinding.mineCopyContainer.setVisibility(View.GONE);//复制邀请码
                 break;
@@ -245,13 +250,6 @@ public class MineFragment extends DBBaseFragment implements View.OnClickListener
             mBinding.mineAttentionText.setText(bus.getFollowCount());//关注数
             mBinding.mineFansText.setText(bus.getFansCount());//粉丝数
             mBinding.mineSignText.setText(SPUtils.getInstance(CommonDate.USER).getInt(CommonDate.userPoint,0) + "");//极币数
-        }else if (bus != null && bus.getTag().equals(HomeFragment.MsgRefersh)){
-            if(bus.getCount().equals("0")){
-                mBinding.mineMsgNumber.setVisibility(View.GONE);
-            }else {
-                mBinding.mineMsgNumber.setVisibility(View.VISIBLE);
-                mBinding.mineMsgNumber.setText(bus.getCount());
-            }
         }else if(bus != null && bus.getTag().equals(SignActivity.eventbusTag)){
             //签到页面返回过来的信息——（极币数）
             mBinding.mineSignText.setText(SPUtils.getInstance(CommonDate.USER).getInt(CommonDate.userPoint,0) + "");//极币数
@@ -317,6 +315,13 @@ public class MineFragment extends DBBaseFragment implements View.OnClickListener
         }
     }
 
+    @Subscribe
+    public  void  unMessage(String s){
+        if(!TextUtils.isEmpty(s) && s.equals(JPushReceiver.TAG)){
+            mPresenter.unMessage(this.bindToLifecycle());
+        }
+    }
+
     /**
      * 获取用户信息失败
      *
@@ -375,6 +380,34 @@ public class MineFragment extends DBBaseFragment implements View.OnClickListener
     }
 
     @Override
+    public void unMessageSuc(UnMessageBean unMessageBean) {
+        if(unMessageBean.getWalletCount() != 0) {
+            if (unMessageBean.getWalletCount() <= 99) {
+                mQBadgeView.setBadgeText("" + unMessageBean.getWalletCount());
+            } else {
+                mQBadgeView.setBadgeText("99+");
+            }
+        }else {
+            mQBadgeView.hide(false);
+        }
+        if(unMessageBean.getData() != 0) {
+            mBinding.mineMsgNumber.setVisibility(View.VISIBLE);
+            if (unMessageBean.getData() <= 99) {
+                mBinding.mineMsgNumber.setText("" + unMessageBean.getData());
+            } else {
+                mBinding.mineMsgNumber.setText("99+");
+            }
+        }else {
+            mBinding.mineMsgNumber.setVisibility(View.GONE);
+        }
+    }
+
+    @Override
+    public void unMessageFaile(String error) {
+        ToastUtil.show(error);
+    }
+
+    @Override
     public void onResume() {
         super.onResume();
         //当页面关闭后，返回app首页就会走该方法，第一次进入这个方法的时候也会走
@@ -387,5 +420,11 @@ public class MineFragment extends DBBaseFragment implements View.OnClickListener
                 mPresenter.updateInfo(this.bindToLifecycle());
             }
         }
+        mPresenter.unMessage(this.bindToLifecycle());
+    }
+
+    @Override
+    public void onDragStateChanged(int dragState, Badge badge, View targetView) {
+
     }
 }

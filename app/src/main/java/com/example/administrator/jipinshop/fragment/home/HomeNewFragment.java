@@ -13,7 +13,6 @@ import com.blankj.utilcode.util.SPUtils;
 import com.example.administrator.jipinshop.R;
 import com.example.administrator.jipinshop.activity.home.classification.ClassifyActivity;
 import com.example.administrator.jipinshop.activity.home.newarea.NewAreaActivity;
-import com.example.administrator.jipinshop.activity.login.LoginActivity;
 import com.example.administrator.jipinshop.activity.sreach.SreachActivity;
 import com.example.administrator.jipinshop.adapter.HomeNewAdapter;
 import com.example.administrator.jipinshop.adapter.HomePageAdapter;
@@ -21,15 +20,11 @@ import com.example.administrator.jipinshop.base.DBBaseFragment;
 import com.example.administrator.jipinshop.bean.TabBean;
 import com.example.administrator.jipinshop.bean.TitleBean;
 import com.example.administrator.jipinshop.bean.TopCategorysListBean;
-import com.example.administrator.jipinshop.bean.UnMessageBean;
-import com.example.administrator.jipinshop.bean.eventbus.EditNameBus;
 import com.example.administrator.jipinshop.databinding.FragmentHome2Binding;
 import com.example.administrator.jipinshop.util.ToastUtil;
 import com.example.administrator.jipinshop.util.UmApp.UAppUtil;
 import com.example.administrator.jipinshop.util.sp.CommonDate;
 import com.google.gson.Gson;
-
-import org.greenrobot.eventbus.EventBus;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -39,7 +34,7 @@ import javax.inject.Inject;
 /**
  * @author 莫小婷
  * @create 2019/6/27
- * @Describe  注意消息在这里被拿掉了。要么在这里请求消息数据，要么在我的页面请求
+ * @Describe  注意消息在这里被拿掉了。现在在我的页面请求
  */
 public class HomeNewFragment extends DBBaseFragment implements HomeNewView, OnLoadMoreListener, HomeNewAdapter.OnClickItem, View.OnClickListener {
 
@@ -83,7 +78,6 @@ public class HomeNewFragment extends DBBaseFragment implements HomeNewView, OnLo
 
         mBinding.swipeToLoad.setOnLoadMoreListener(this);
         mPresenter.goodsCategory(this.bindToLifecycle());
-        mPresenter.unMessage(this.bindToLifecycle());
         mPresenter.getTopCategorysList(page,this.bindToLifecycle());
     }
 
@@ -123,26 +117,6 @@ public class HomeNewFragment extends DBBaseFragment implements HomeNewView, OnLo
         ToastUtil.show(error);
     }
 
-    @Override
-    public void unMessageSuc(UnMessageBean unMessageBean) {
-        if(unMessageBean.getData() != 0) {
-            String nuMessage = "0";
-            if (unMessageBean.getData() <= 99) {
-                nuMessage = unMessageBean.getData() + "";
-            } else {
-                nuMessage = "99+";
-            }
-            EventBus.getDefault().post(new EditNameBus(HomeFragment.MsgRefersh,nuMessage));
-        }else {
-            EventBus.getDefault().post(new EditNameBus(HomeFragment.MsgRefersh,"0"));
-        }
-    }
-
-    @Override
-    public void unMessageFaile(String error) {
-        ToastUtil.show(error);
-        EventBus.getDefault().post(new EditNameBus(HomeFragment.MsgRefersh,"0"));
-    }
 
     @Override
     public void SuccessList(TopCategorysListBean bean) {

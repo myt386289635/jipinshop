@@ -106,25 +106,6 @@ public class HomeNewPresenter {
     }
 
     /**
-     * 获取未读消息
-     */
-    public void unMessage(LifecycleTransformer<UnMessageBean> ransformer){
-        mRepository.unMessage()
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .compose(ransformer)
-                .subscribe(unMessageBean -> {
-                    if(mView != null){
-                        mView.unMessageSuc(unMessageBean);
-                    }
-                }, throwable -> {
-                    if(mView != null){
-                        mView.unMessageFaile(throwable.getMessage());
-                    }
-                });
-    }
-
-    /**
      * 榜单推荐分类列表
      */
     public void getTopCategorysList(int page, LifecycleTransformer<TopCategorysListBean> transformer){

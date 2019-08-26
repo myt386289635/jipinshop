@@ -1,11 +1,14 @@
 package com.example.administrator.jipinshop.fragment.mine;
 
 import android.content.Context;
+import android.view.Gravity;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 
 import com.example.administrator.jipinshop.R;
+import com.example.administrator.jipinshop.bean.UnMessageBean;
 import com.example.administrator.jipinshop.bean.UserInfoBean;
 import com.example.administrator.jipinshop.databinding.FragmentMineBinding;
 import com.example.administrator.jipinshop.netwrok.Repository;
@@ -16,6 +19,8 @@ import javax.inject.Inject;
 
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.schedulers.Schedulers;
+import q.rorbin.badgeview.Badge;
+import q.rorbin.badgeview.QBadgeView;
 
 /**
  * @author 莫小婷
@@ -83,5 +88,34 @@ public class MinePresenter {
                 }, throwable -> {
 
                 });
+    }
+
+    /**
+     * 获取钱包未读消息
+     */
+    public void unMessage(LifecycleTransformer<UnMessageBean> ransformer){
+        mRepository.unMessage()
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .compose(ransformer)
+                .subscribe(unMessageBean -> {
+                    if(mView != null){
+                        mView.unMessageSuc(unMessageBean);
+                    }
+                }, throwable -> {
+                    if(mView != null){
+                        mView.unMessageFaile(throwable.getMessage());
+                    }
+                });
+    }
+
+    public void initBadgeView(QBadgeView mQBadgeView, ImageView imageView, Badge.OnDragStateChangedListener onDragStateChangedListener){
+        mQBadgeView.bindTarget(imageView)
+                .setBadgeTextSize(8,true)
+                .setBadgeGravity( Gravity.END | Gravity.TOP)
+                .setBadgePadding(2,true)
+                .setGravityOffset(0,0,true)
+                .setBadgeBackgroundColor(0xffE31436)
+                .setOnDragStateChangedListener(onDragStateChangedListener);
     }
 }

@@ -1,5 +1,6 @@
 package com.example.administrator.jipinshop.fragment.mine;
 
+import com.example.administrator.jipinshop.bean.UnMessageBean;
 import com.example.administrator.jipinshop.bean.UserInfoBean;
 
 /**
@@ -14,4 +15,7 @@ public interface MineView {
     void FaileUserInfo(UserInfoBean error);
 
     void successUpdateInfo(UserInfoBean userInfoBean);
+
+    void unMessageSuc(UnMessageBean unMessageBean);
+    void unMessageFaile(String error);
 }

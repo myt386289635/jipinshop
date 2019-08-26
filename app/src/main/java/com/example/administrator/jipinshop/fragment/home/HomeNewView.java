@@ -14,9 +14,6 @@ public interface HomeNewView {
     void Success(TabBean tabBean);
     void Faile(String error);
 
-    void unMessageSuc(UnMessageBean unMessageBean);
-    void unMessageFaile(String error);
-
     void SuccessList(TopCategorysListBean bean);
     void FaileList(String error);
 }

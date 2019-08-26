@@ -253,7 +253,7 @@ public interface APIService {
     /**
      * 获取未读消息  已修改
      */
-    @GET("qualityshop-api/api/message/count")
+    @GET("qualityshop-api/api/v2/message/count")
     Observable<UnMessageBean> unMessage();
 
     /**
