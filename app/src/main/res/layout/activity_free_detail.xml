@@ -124,7 +124,7 @@
                     <RelativeLayout
                         android:visibility="@{date.applyStatus == -1 &amp;&amp; date.status == 0 ? View.VISIBLE : View.GONE}"
                         android:layout_below="@+id/detail_pagerContainer"
-                        android:background="@color/color_E31B3C"
+                        android:background="@color/color_E25838"
                         android:id="@+id/detail_countdownContainer"
                         android:layout_width="match_parent"
                         android:layout_height="@dimen/y80">
@@ -199,7 +199,7 @@
                         </RelativeLayout>
 
                         <RelativeLayout
-                            android:background="@color/color_E31B3C"
+                            android:background="@color/color_E25838"
                             android:layout_toLeftOf="@+id/detail_buyTimeContainer"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent">
@@ -259,11 +259,11 @@
                             android:layout_height="@dimen/y16"
                             android:layout_marginLeft="@dimen/x30"
                             android:layout_marginRight="@dimen/x40"
-                            app:endColor="@color/color_E31B3C"
+                            app:endColor="@color/color_E25838"
                             app:nearOverText=""
                             app:overText=""
                             app:sideColor="@color/color_D8D8D8"
-                            app:startColor="@color/color_E31B3C"
+                            app:startColor="@color/color_E25838"
                             app:isNeedAnim="false"/>
 
                         <TextView
@@ -299,7 +299,7 @@
                         android:id="@+id/detail_coins"
                         android:textSize="14sp"
                         android:textStyle="bold"
-                        android:textColor="@color/color_E31B3C"
+                        android:textColor="@color/color_E25838"
                         android:text="@{date.point + @string/priceEnd}"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"/>
@@ -357,7 +357,7 @@
                         android:paddingTop="@dimen/y16"
                         android:paddingRight="@dimen/x28"
                         android:paddingLeft="@dimen/x28"
-                        android:textColor="@color/color_E31B3C"
+                        android:textColor="@color/color_E25838"
                         android:textStyle="bold"
                         android:textSize="12sp"
                         android:background="@color/color_FFDBDB"
@@ -467,7 +467,7 @@
                     bind:applyStatus="@{date.applyStatus}"
                     android:textStyle="bold"
                     android:textColor="@color/color_DEFFFFFF"
-                    android:background="@color/color_E31B3C"
+                    android:background="@color/color_E25838"
                     android:id="@+id/detail_bottomBuy"
                     android:layout_weight="1"
                     android:layout_width="0dp"

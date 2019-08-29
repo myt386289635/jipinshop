@@ -276,7 +276,7 @@ public class FreeDetailActivity extends BaseActivity implements View.OnClickList
             mBinding.detailBottomNote.setVisibility(View.VISIBLE);
             String html = "前往购买<font size='13'>(可返"+ detailBean.getData().getFreePrice() +"元)</font>";
             mBinding.detailBottomBuy.setText(HtmlParser.buildSpannedText(html,new CustomerTagHandler_1()));
-            mBinding.detailBottomBuy.setBackgroundColor(getResources().getColor(R.color.color_E31B3C));
+            mBinding.detailBottomBuy.setBackgroundColor(getResources().getColor(R.color.color_E25838));
             long timer = dateAddOneDay(detailBean.getData().getDendlineTime()) - System.currentTimeMillis();
             if (timer > 0) {
                 mCountDownTimer = new CountDownTimer(timer, 1000) {
@@ -362,7 +362,7 @@ public class FreeDetailActivity extends BaseActivity implements View.OnClickList
         mBinding.detailBottomNote.setVisibility(View.VISIBLE);
         String html = "前往购买<font size='13'>(可返"+ detailBean.getData().getFreePrice() +"元)</font>";
         mBinding.detailBottomBuy.setText(HtmlParser.buildSpannedText(html,new CustomerTagHandler_1()));
-        mBinding.detailBottomBuy.setBackgroundColor(getResources().getColor(R.color.color_E31B3C));
+        mBinding.detailBottomBuy.setBackgroundColor(getResources().getColor(R.color.color_E25838));
         long temp = System.currentTimeMillis();
         long currentTime = temp + 60 * 60 * 1000;
         long timer = currentTime - temp;

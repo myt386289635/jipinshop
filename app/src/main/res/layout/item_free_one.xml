@@ -122,8 +122,8 @@
                         app:nearOverText=""
                         app:overText=""
                         app:sideColor="@color/color_D8D8D8"
-                        app:startColor="@color/color_E31B3C"
-                        app:endColor="@color/color_E31B3C"
+                        app:startColor="@color/color_E25838"
+                        app:endColor="@color/color_E25838"
                         app:isNeedAnim="false"/>
 
                     <TextView
@@ -170,7 +170,7 @@
                 <TextView
                     android:id="@+id/item_coins"
                     android:textStyle="bold"
-                    android:textColor="@color/color_E31B3C"
+                    android:textColor="@color/color_E25838"
                     android:textSize="14sp"
                     android:gravity="center"
                     android:text="@{date.point + @string/priceEnd}"

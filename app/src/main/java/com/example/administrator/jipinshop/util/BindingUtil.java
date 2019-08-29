@@ -247,7 +247,7 @@ public class BindingUtil {
     public static void setWithdrawColor(TextView view, int status){
         switch (status){
             case -1:
-                view.setTextColor(0xFFE62D4C);
+                view.setTextColor(0xFFE25838);
                 break;
             case 0:
                 view.setTextColor(0xFF202020);
@@ -270,7 +270,7 @@ public class BindingUtil {
 
     @BindingAdapter({"bind:userCount"})
     public static void setSaledFree(TextView view, int userCount){
-        String html = "已抢<font color='#E31B3C'>"+ userCount +"</font>件";
+        String html = "已抢<font color='#E25838'>"+ userCount +"</font>件";
         view.setText(Html.fromHtml(html));
     }
 
@@ -284,7 +284,7 @@ public class BindingUtil {
                 }else if (Freestatus == 1){
                     //进行中
                     view.setText("免费抢购");
-                    view.setBackgroundColor(0xFFE31B3C);
+                    view.setBackgroundColor(0xFFE25838);
                 }else {//已售罄
                     view.setText("已售罄");
                     view.setBackgroundColor(0xFFD8D8D8);
@@ -292,7 +292,7 @@ public class BindingUtil {
                 break;
             case 1://申请了已付款
                 view.setText("前往购买");
-                view.setBackgroundColor(0xFFE31B3C);
+                view.setBackgroundColor(0xFFE25838);
                 break;
         }
     }

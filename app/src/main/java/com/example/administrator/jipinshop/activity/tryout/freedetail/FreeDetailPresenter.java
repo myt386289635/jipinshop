@@ -147,7 +147,7 @@ public class FreeDetailPresenter {
             int a = (int) textView.getPaint().measureText(textView.getText().toString());
             textLether.add(a);
         }
-        mTabLayout.setSelectedTabIndicatorColor(context.getResources().getColor(R.color.color_FF3939));
+        mTabLayout.setSelectedTabIndicatorColor(context.getResources().getColor(R.color.color_E25838));
         mTabLayout.setTabRippleColor(ColorStateList.valueOf(context.getResources().getColor(R.color.transparent)));
         mTabLayout.post(() -> {
             //拿到tabLayout的mTabStrip属性

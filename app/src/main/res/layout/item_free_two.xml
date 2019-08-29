@@ -106,11 +106,11 @@
                     android:layout_height="@dimen/y16"
                     android:layout_marginLeft="@dimen/x24"
                     android:layout_marginRight="@dimen/x70"
-                    app:endColor="@color/color_E31B3C"
+                    app:endColor="@color/color_E25838"
                     app:nearOverText=""
                     app:overText=""
                     app:sideColor="@color/color_D8D8D8"
-                    app:startColor="@color/color_E31B3C"
+                    app:startColor="@color/color_E25838"
                     app:isNeedAnim="false"/>
 
                 <TextView
@@ -163,7 +163,7 @@
                 android:layout_marginLeft="@dimen/x24"
                 android:gravity="center"
                 android:text="@{date.point + @string/priceEnd}"
-                android:textColor="@color/color_E31B3C"
+                android:textColor="@color/color_E25838"
                 android:textSize="14sp"
                 android:textStyle="bold"/>
 
