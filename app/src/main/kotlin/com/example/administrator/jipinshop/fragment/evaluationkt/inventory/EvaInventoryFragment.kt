@@ -4,13 +4,16 @@ import android.content.Intent
 import android.content.res.ColorStateList
 import android.databinding.DataBindingUtil
 import android.support.v7.widget.LinearLayoutManager
+import android.text.TextUtils
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.aspsine.swipetoloadlayout.OnLoadMoreListener
 import com.aspsine.swipetoloadlayout.OnRefreshListener
+import com.blankj.utilcode.util.SPUtils
 import com.example.administrator.jipinshop.R
 import com.example.administrator.jipinshop.activity.evakt.send.SubmitActivity
+import com.example.administrator.jipinshop.activity.login.LoginActivity
 import com.example.administrator.jipinshop.activity.minekt.userkt.UserActivity
 import com.example.administrator.jipinshop.adapter.EvaInventoryAdapter
 import com.example.administrator.jipinshop.base.DBBaseFragment
@@ -20,6 +23,7 @@ import com.example.administrator.jipinshop.databinding.FragmentEvaEvaBinding
 import com.example.administrator.jipinshop.util.ClickUtil
 import com.example.administrator.jipinshop.util.ShopJumpUtil
 import com.example.administrator.jipinshop.util.ToastUtil
+import com.example.administrator.jipinshop.util.sp.CommonDate
 import java.math.BigDecimal
 import javax.inject.Inject
 
@@ -80,6 +84,10 @@ class EvaInventoryFragment : DBBaseFragment(), EvaInventoryView, OnLoadMoreListe
     override fun onClick(v: View?) {
         when(v?.id){
             R.id.eva_send ->{
+                if (TextUtils.isEmpty(SPUtils.getInstance(CommonDate.USER).getString(CommonDate.token, ""))) {
+                    startActivity(Intent(context, LoginActivity::class.java))
+                    return
+                }
                 startActivity(Intent(context,SubmitActivity::class.java)
                         .putExtra("type","1")
                 )

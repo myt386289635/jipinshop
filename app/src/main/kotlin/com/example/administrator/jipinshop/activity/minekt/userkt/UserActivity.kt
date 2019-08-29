@@ -16,6 +16,7 @@ import com.example.administrator.jipinshop.R
 import com.example.administrator.jipinshop.activity.follow.FollowActivity
 import com.example.administrator.jipinshop.activity.info.MyInfoActivity
 import com.example.administrator.jipinshop.activity.info.editname.EditNameActivity
+import com.example.administrator.jipinshop.activity.login.LoginActivity
 import com.example.administrator.jipinshop.adapter.HomeFragmentAdapter
 import com.example.administrator.jipinshop.base.BaseActivity
 import com.example.administrator.jipinshop.bean.UserInfoBean
@@ -99,6 +100,10 @@ class UserActivity : BaseActivity(), View.OnClickListener, UserView {
             }
             R.id.user_attent -> {
                 //关注按钮
+                if (TextUtils.isEmpty(SPUtils.getInstance(CommonDate.USER).getString(CommonDate.token, ""))) {
+                    startActivity(Intent(this, LoginActivity::class.java))
+                    return
+                }
                 if (follow == 0){
                     //未关注
                     mPresenter.concernInsert(userid,this.bindToLifecycle())

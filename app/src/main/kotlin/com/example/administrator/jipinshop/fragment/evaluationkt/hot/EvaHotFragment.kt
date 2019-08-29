@@ -3,12 +3,15 @@ package com.example.administrator.jipinshop.fragment.evaluationkt.hot
 import android.content.Intent
 import android.databinding.DataBindingUtil
 import android.support.v7.widget.LinearLayoutManager
+import android.text.TextUtils
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.aspsine.swipetoloadlayout.OnLoadMoreListener
 import com.aspsine.swipetoloadlayout.OnRefreshListener
+import com.blankj.utilcode.util.SPUtils
 import com.example.administrator.jipinshop.R
+import com.example.administrator.jipinshop.activity.login.LoginActivity
 import com.example.administrator.jipinshop.activity.minekt.userkt.UserActivity
 import com.example.administrator.jipinshop.adapter.EvaHotAdapter
 import com.example.administrator.jipinshop.base.DBBaseFragment
@@ -18,6 +21,7 @@ import com.example.administrator.jipinshop.databinding.FragmentEvaluationCommonB
 import com.example.administrator.jipinshop.util.ClickUtil
 import com.example.administrator.jipinshop.util.ShopJumpUtil
 import com.example.administrator.jipinshop.util.ToastUtil
+import com.example.administrator.jipinshop.util.sp.CommonDate
 import java.math.BigDecimal
 import javax.inject.Inject
 
@@ -159,6 +163,10 @@ class EvaHotFragment : DBBaseFragment(), OnRefreshListener, OnLoadMoreListener, 
     }
 
     override fun onClickAttent(userId: String, position: Int) {
+        if (TextUtils.isEmpty(SPUtils.getInstance(CommonDate.USER).getString(CommonDate.token, ""))) {
+            startActivity(Intent(context, LoginActivity::class.java))
+            return
+        }
         mPresenter.concernInsert(position,userId,this.bindToLifecycle())
     }
 
