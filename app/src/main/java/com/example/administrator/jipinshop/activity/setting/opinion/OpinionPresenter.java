@@ -51,7 +51,7 @@ public class OpinionPresenter {
 
             @Override
             public void afterTextChanged(Editable s) {
-                String html = "您还可以输入<font color='#E31436' size='20'>"+(200-s.length())+"</font>个字";
+                String html = "您还可以输入<font color='#E25838' size='20'>"+(200-s.length())+"</font>个字";
                 mOpinionText.setText(Html.fromHtml(html));
             }
         });

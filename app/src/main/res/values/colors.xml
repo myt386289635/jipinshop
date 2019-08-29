@@ -6,7 +6,7 @@
 
     <color name="color_white">#ffffff</color>
     <color name="color_282828">#282828</color>
-    <color name="color_E31436">#E31436</color>
+    <color name="color_E31436">#E25838</color> <!--主色调-->
     <color name="transparent">#00000000</color>
     <color name="color_F5F5F5">#F5F5F5</color>
     <color name="color_ACACAC">#ACACAC</color>

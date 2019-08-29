@@ -115,7 +115,7 @@ public class MinePresenter {
                 .setBadgeGravity( Gravity.END | Gravity.TOP)
                 .setBadgePadding(2,true)
                 .setGravityOffset(0,0,true)
-                .setBadgeBackgroundColor(0xffE31436)
+                .setBadgeBackgroundColor(0xffFF0000)
                 .setOnDragStateChangedListener(onDragStateChangedListener);
     }
 }

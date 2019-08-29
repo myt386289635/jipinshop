@@ -82,8 +82,8 @@ public class SaleProgressView extends View {
         nearOverText = ta.getString(R.styleable.SaleProgressView_nearOverText);
         textSize = ta.getDimension(R.styleable.SaleProgressView_textSize,sp2px(16));
         isNeedAnim = ta.getBoolean(R.styleable.SaleProgressView_isNeedAnim,true);
-        startColor = ta.getColor(R.styleable.SaleProgressView_startColor,0x70E31436);
-        endColor = ta.getColor(R.styleable.SaleProgressView_endColor,0xFFE31436);
+        startColor = ta.getColor(R.styleable.SaleProgressView_startColor,0x70E25838);
+        endColor = ta.getColor(R.styleable.SaleProgressView_endColor,0xFFE25838);
         ta.recycle();
     }
 

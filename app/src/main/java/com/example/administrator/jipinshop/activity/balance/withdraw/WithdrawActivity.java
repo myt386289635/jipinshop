@@ -129,7 +129,7 @@ public class WithdrawActivity extends BaseActivity implements View.OnClickListen
     @Override
     public void onSuccess(WithdrawBean bean) {
         minWithdraw = new BigDecimal(bean.getMinWithdraw()).doubleValue();
-        String html = "温馨提示：最低提现金额为<font color='#E31436'>"+ bean.getMinWithdraw() + "元</font>";
+        String html = "温馨提示：最低提现金额为<font color='#E25838'>"+ bean.getMinWithdraw() + "元</font>";
         mBinding.withdrawNodeMoney.setText(Html.fromHtml(html));
         mBinding.withdrawMode.setText(bean.getWithdrawNote());
     }
@@ -137,7 +137,7 @@ public class WithdrawActivity extends BaseActivity implements View.OnClickListen
     @Override
     public void onFile(String error) {
         ToastUtil.show(error);
-        String html = "温馨提示：最低提现金额为<font color='#E31436'>"+minWithdraw+"元</font>";
+        String html = "温馨提示：最低提现金额为<font color='#E25838'>"+minWithdraw+"元</font>";
         mBinding.withdrawNodeMoney.setText(Html.fromHtml(html));
     }
 

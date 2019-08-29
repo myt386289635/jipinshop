@@ -202,7 +202,7 @@ public class BindingUtil {
                 break;
             default:
                 view.setText("+¥" + preFee);
-                view.setTextColor(0xFFE31436);
+                view.setTextColor(0xFFE25838);
                 break;
         }
     }
@@ -262,7 +262,7 @@ public class BindingUtil {
 
     @BindingAdapter({"bind:shareCommission"})
     public static void setshareCommission(TextView view, String shareCommission){
-        String html = "分佣 <font color='#E31436'> <b>¥"+ shareCommission +"</b></font>";
+        String html = "分佣 <font color='#E25838'> <b>¥"+ shareCommission +"</b></font>";
         view.setText(Html.fromHtml(html));
     }
 

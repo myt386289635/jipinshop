@@ -443,12 +443,12 @@ public class TryDetailActivity extends BaseActivity implements View.OnClickListe
         }
         goodsBuyLink = bean.getData().getGoodsId();//获取goodsid
         mBinding.detailName.setText(bean.getData().getName());
-        String countHtml =  "试用数量  " + "<font color='#E31436' >"+ bean.getData().getCount() +"</font>";
+        String countHtml =  "试用数量  " + "<font color='#E25838' >"+ bean.getData().getCount() +"</font>";
         mBinding.detailTryNumber.setText(Html.fromHtml(countHtml));
         BigDecimal bigDecimal = new BigDecimal(bean.getData().getActualPrice());
-        String priceHtml =  "市场价  " + "<font color='#E31436' >¥"+ bigDecimal.setScale(2,BigDecimal.ROUND_DOWN).toString() +"</font>";
+        String priceHtml =  "市场价  " + "<font color='#E25838' >¥"+ bigDecimal.setScale(2,BigDecimal.ROUND_DOWN).toString() +"</font>";
         mBinding.detailPrice.setText(Html.fromHtml(priceHtml));
-        String applyCount = "已申请人数  " + "<font color='#E31436' >"+ bean.getData().getApplyUserCount() +"</font>";
+        String applyCount = "已申请人数  " + "<font color='#E25838' >"+ bean.getData().getApplyUserCount() +"</font>";
         mBinding.detailTryPeople.setText(Html.fromHtml(applyCount));
         mBinding.detailApplyCode.setText(bean.getData().getApplyPoint() + "");
 
@@ -500,7 +500,7 @@ public class TryDetailActivity extends BaseActivity implements View.OnClickListe
         //试用名单
         if (bean.getData().getStatus() == 3){
             //试用中时显示
-            String passedUserList = "<font color='#151515' >请以下用户于</font><font color='#E31436' >"
+            String passedUserList = "<font color='#151515' >请以下用户于</font><font color='#E25838' >"
                     + bean.getData().getReportEndTime() +"</font><font color='#151515' >前完成试用报告</font><br>按时提交的优秀试用报告将获得惊喜的奖励";
             mBinding.detailPassedUserList.setText(Html.fromHtml(passedUserList));
             if (bean.getData().getPassedUserList().size() != 0){

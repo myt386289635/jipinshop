@@ -125,7 +125,7 @@ public class PassedMoreActivity extends BaseActivity implements OnRefreshListene
         dissRefresh();
         if (bean.getStatus() == 3) {
             //试用中时显示
-            String passedUserList = "<font color='#151515' >请以下用户于</font><font color='#E31436' >"
+            String passedUserList = "<font color='#151515' >请以下用户于</font><font color='#E25838' >"
                     + bean.getReportEndTime() + "</font><font color='#151515' >前完成试用报告</font><br>按时提交的优秀试用报告将获得惊喜的奖励";
             mMoreTitle.setText(Html.fromHtml(passedUserList));
         }else {

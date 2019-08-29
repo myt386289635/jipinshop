@@ -58,7 +58,7 @@ public class OpinionActivity extends BaseActivity implements OpinionView {
 
     private void initView() {
         mTitleTv.setText("我要反馈");
-        String html = "您还可以输入<font color='#E31436' size='20'>"+200+"</font>个字";
+        String html = "您还可以输入<font color='#E25838' size='20'>"+200+"</font>个字";
         mOpinionText.setText(Html.fromHtml(html));
         mOpinionEdit.setFilters(new InputFilter[]{new InputFilter.LengthFilter(200)});
         mPresenter.initText(mOpinionEdit,mOpinionText);
