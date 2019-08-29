@@ -450,19 +450,17 @@ public class ArticleDetailActivity extends BaseActivity implements View.OnClickL
         //是否收藏过
         if (bean.getData().getCollect() == 1) {
             isCollect = true;
-            mBinding.bottomFavor.setImageResource(R.mipmap.com_favored);
-            mBinding.bottomFavor.setColorFilter(Color.RED);
+            mBinding.bottomFavor.setImageResource(R.mipmap.collect_red);
         } else {
             isCollect = false;
-            mBinding.bottomFavor.setImageResource(R.mipmap.com_favor);
-            mBinding.bottomFavor.setColorFilter(Color.BLACK);
+            mBinding.bottomFavor.setImageResource(R.mipmap.collect_break);
         }
         //是否点赞过
         if (bean.getData().getVote() == 1) {
             isSnap = true;
             mBinding.detailGood.setText(bean.getData().getVoteCount() + "");
             mBinding.detailGood.setTextColor(getResources().getColor(R.color.color_E31436));
-            Drawable drawable = getResources().getDrawable(R.mipmap.like_sel);
+            Drawable drawable = getResources().getDrawable(R.mipmap.question_good);
             drawable.setBounds(0, 0, drawable.getMinimumWidth(), drawable.getMinimumHeight());
             mBinding.detailGood.setCompoundDrawables(drawable, null, null, null);
             mBinding.detailGood.setBackgroundResource(R.drawable.bg_like);
@@ -475,7 +473,7 @@ public class ArticleDetailActivity extends BaseActivity implements View.OnClickL
             }
             mBinding.detailGood.setTextColor(getResources().getColor(R.color.color_ACACAC));
             mBinding.detailGood.setBackgroundResource(R.drawable.bg_nolike);
-            Drawable drawable = getResources().getDrawable(R.mipmap.like_nor);
+            Drawable drawable = getResources().getDrawable(R.mipmap.question_ungood);
             drawable.setBounds(0, 0, drawable.getMinimumWidth(), drawable.getMinimumHeight());
             mBinding.detailGood.setCompoundDrawables(drawable, null, null, null);
         }
@@ -567,8 +565,7 @@ public class ArticleDetailActivity extends BaseActivity implements View.OnClickL
         if (successBean.getCode() == 0) {
             EventBus.getDefault().post(FovalFindFragment.CollectResher);//刷新我的收藏列表
             isCollect = true;
-            mBinding.bottomFavor.setImageResource(R.mipmap.com_favored);
-            mBinding.bottomFavor.setColorFilter(Color.RED);
+            mBinding.bottomFavor.setImageResource(R.mipmap.collect_red);
         } else {
             //602
             startActivity(new Intent(this, LoginActivity.class));
@@ -584,8 +581,7 @@ public class ArticleDetailActivity extends BaseActivity implements View.OnClickL
         if (successBean.getCode() == 0) {
             EventBus.getDefault().post(FovalFindFragment.CollectResher);//刷新我的收藏列表
             isCollect = false;
-            mBinding.bottomFavor.setImageResource(R.mipmap.com_favor);
-            mBinding.bottomFavor.setColorFilter(Color.BLACK);
+            mBinding.bottomFavor.setImageResource(R.mipmap.collect_break);
         } else {
             //602
             startActivity(new Intent(this, LoginActivity.class));
@@ -609,7 +605,7 @@ public class ArticleDetailActivity extends BaseActivity implements View.OnClickL
         if (successBean.getCode() == 0) {
             isSnap = true;
             mBinding.detailGood.setText(successBean.getData() + "");
-            Drawable drawable = getResources().getDrawable(R.mipmap.like_sel);
+            Drawable drawable = getResources().getDrawable(R.mipmap.question_good);
             drawable.setBounds(0, 0, drawable.getMinimumWidth(), drawable.getMinimumHeight());
             mBinding.detailGood.setCompoundDrawables(drawable, null, null, null);
             mBinding.detailGood.setTextColor(getResources().getColor(R.color.color_E31436));
@@ -638,7 +634,7 @@ public class ArticleDetailActivity extends BaseActivity implements View.OnClickL
             }
             mBinding.detailGood.setTextColor(getResources().getColor(R.color.color_ACACAC));
             mBinding.detailGood.setBackgroundResource(R.drawable.bg_nolike);
-            Drawable drawable = getResources().getDrawable(R.mipmap.like_nor);
+            Drawable drawable = getResources().getDrawable(R.mipmap.question_ungood);
             drawable.setBounds(0, 0, drawable.getMinimumWidth(), drawable.getMinimumHeight());
             mBinding.detailGood.setCompoundDrawables(drawable, null, null, null);
         } else {
@@ -788,16 +784,14 @@ public class ArticleDetailActivity extends BaseActivity implements View.OnClickL
         }
         if(pagerStateBean.getCollect() == 1){
             isCollect = true;
-            mBinding.bottomFavor.setImageResource(R.mipmap.com_favored);
-            mBinding.bottomFavor.setColorFilter(Color.RED);
+            mBinding.bottomFavor.setImageResource(R.mipmap.collect_red);
         }else {
             isCollect = false;
-            mBinding.bottomFavor.setImageResource(R.mipmap.com_favor);
-            mBinding.bottomFavor.setColorFilter(Color.BLACK);
+            mBinding.bottomFavor.setImageResource(R.mipmap.collect_break);
         }
         if(pagerStateBean.getVote() == 1){
             isSnap = true;
-            Drawable drawable= getResources().getDrawable(R.mipmap.like_sel);
+            Drawable drawable= getResources().getDrawable(R.mipmap.question_good);
             drawable.setBounds(0, 0, drawable.getMinimumWidth(), drawable.getMinimumHeight());
             mBinding.detailGood.setCompoundDrawables(drawable,null,null,null);
             mBinding.detailGood.setTextColor(getResources().getColor(R.color.color_E31436));
@@ -806,7 +800,7 @@ public class ArticleDetailActivity extends BaseActivity implements View.OnClickL
             isSnap = false;
             mBinding.detailGood.setTextColor(getResources().getColor(R.color.color_ACACAC));
             mBinding.detailGood.setBackgroundResource(R.drawable.bg_nolike);
-            Drawable drawable= getResources().getDrawable(R.mipmap.like_nor);
+            Drawable drawable= getResources().getDrawable(R.mipmap.question_ungood);
             drawable.setBounds(0, 0, drawable.getMinimumWidth(), drawable.getMinimumHeight());
             mBinding.detailGood.setCompoundDrawables(drawable,null,null,null);
         }

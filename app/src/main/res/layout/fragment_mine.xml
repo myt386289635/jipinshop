@@ -401,7 +401,7 @@
                     <RelativeLayout
                         android:id="@+id/mine_message"
                         android:layout_width="match_parent"
-                        android:layout_height="@dimen/x104"
+                        android:layout_height="@dimen/x136"
                         android:onClick="@{listener.onClick}">
 
                         <TextView
@@ -448,7 +448,7 @@
                     <RelativeLayout
                         android:id="@+id/mine_team"
                         android:layout_width="match_parent"
-                        android:layout_height="@dimen/x104"
+                        android:layout_height="@dimen/x136"
                         android:onClick="@{listener.onClick}">
 
                         <TextView
@@ -478,7 +478,7 @@
                     <RelativeLayout
                         android:id="@+id/mine_order"
                         android:layout_width="match_parent"
-                        android:layout_height="@dimen/x104"
+                        android:layout_height="@dimen/x136"
                         android:onClick="@{listener.onClick}">
 
                         <TextView
@@ -507,7 +507,7 @@
                     <RelativeLayout
                         android:id="@+id/mine_shoppingMall"
                         android:layout_width="match_parent"
-                        android:layout_height="@dimen/x104"
+                        android:layout_height="@dimen/x136"
                         android:onClick="@{listener.onClick}">
 
                         <TextView
@@ -536,7 +536,7 @@
                     <RelativeLayout
                         android:id="@+id/mine_follow"
                         android:layout_width="match_parent"
-                        android:layout_height="@dimen/x104"
+                        android:layout_height="@dimen/x136"
                         android:onClick="@{listener.onClick}">
 
                         <TextView
@@ -565,7 +565,7 @@
                     <RelativeLayout
                         android:id="@+id/mine_favor"
                         android:layout_width="match_parent"
-                        android:layout_height="@dimen/x104"
+                        android:layout_height="@dimen/x136"
                         android:onClick="@{listener.onClick}">
 
                         <TextView
@@ -601,7 +601,7 @@
                     <RelativeLayout
                         android:id="@+id/mine_address"
                         android:layout_width="match_parent"
-                        android:layout_height="@dimen/x104"
+                        android:layout_height="@dimen/x136"
                         android:onClick="@{listener.onClick}">
 
                         <TextView
@@ -631,7 +631,7 @@
                         android:layout_marginBottom="@dimen/y40"
                         android:id="@+id/mine_setting"
                         android:layout_width="match_parent"
-                        android:layout_height="@dimen/x104"
+                        android:layout_height="@dimen/x136"
                         android:onClick="@{listener.onClick}">
 
                         <TextView

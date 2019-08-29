@@ -8,10 +8,10 @@
     <!--选中时的字体颜色  -->
     <item
         android:state_selected="true"
-        android:color="@color/color_E84643"/>
+        android:color="@color/color_E25838"/>
     <!-- 非触摸模式下获得焦点并单击时的字体颜色 -->
     <item
         android:state_focused="true"
         android:state_pressed="true"
-        android:color="@color/color_E84643"/>
+        android:color="@color/color_E25838"/>
 </selector>

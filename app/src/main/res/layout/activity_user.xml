@@ -82,10 +82,10 @@
 
 
                     <TextView
+                        android:layout_marginBottom="@dimen/y30"
+                        android:layout_alignBottom="@+id/user_background"
                         android:layout_marginRight="@dimen/x30"
-                        android:layout_marginTop="@dimen/y25"
                         android:layout_alignParentRight="true"
-                        android:layout_below="@id/user_name"
                         android:textSize="17sp"
                         tools:text="26"
                         android:textColor="@color/color_white"

@@ -57,10 +57,9 @@
                 android:scaleType="fitXY"
                 android:layout_alignParentRight="true"
                 android:layout_centerVertical="true"
-                android:src="@mipmap/com_favor"
-                android:tint="@color/pickerview_topbar_title"
-                android:layout_width="@dimen/x32"
-                android:layout_height="@dimen/y32"/>
+                android:src="@mipmap/collect_break"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
 
             <RelativeLayout
                 android:visibility="gone"
@@ -174,24 +173,24 @@
                         android:id="@+id/detail_UserName"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_centerVertical="true"
                         android:layout_marginLeft="@dimen/x24"
                         android:layout_toRightOf="@+id/detail_UserImage"
                         android:text="资深编辑"
-                        android:textColor="@color/color_DE151515"
-                        android:textSize="15sp"/>
+                        android:textColor="@color/color_202020"
+                        android:textSize="16sp"
+                        android:textStyle="bold"/>
 
 
                     <TextView
                         android:id="@+id/detail_time"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_centerVertical="true"
-                        android:layout_marginLeft="@dimen/x20"
-                        android:layout_toRightOf="@+id/detail_UserName"
+                        android:layout_marginLeft="@dimen/x24"
+                        android:layout_toRightOf="@+id/detail_UserImage"
+                        android:layout_alignBottom="@id/detail_UserImage"
                         android:text="45分钟前"
                         android:textColor="@color/color_ACACAC"
-                        android:textSize="13sp"/>
+                        android:textSize="12sp"/>
 
 
                     <TextView
@@ -225,7 +224,7 @@
                     android:layout_centerHorizontal="true"
                     android:layout_marginTop="@dimen/y8"
                     android:background="@drawable/bg_nolike"
-                    android:drawableLeft="@mipmap/like_nor"
+                    android:drawableLeft="@mipmap/question_ungood"
                     android:drawablePadding="@dimen/x8"
                     android:gravity="center_vertical"
                     android:onClick="@{listener.onClick}"
