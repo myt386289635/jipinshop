@@ -13,12 +13,11 @@
     
     <ImageView
         android:layout_alignBottom="@+id/recommend_img_rotate"
-        android:src="@mipmap/guide_start"
         android:id="@+id/index_into"
-        android:layout_marginBottom="@dimen/y40"
+        android:layout_marginBottom="@dimen/y84"
         android:layout_centerHorizontal="true"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"/>
+        android:layout_width="@dimen/x292"
+        android:layout_height="@dimen/y80"/>
     
 </RelativeLayout>
 

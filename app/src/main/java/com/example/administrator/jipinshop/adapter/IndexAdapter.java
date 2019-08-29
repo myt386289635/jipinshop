@@ -52,6 +52,7 @@ public  class IndexAdapter  extends PagerAdapter {
         ImageView textView = view.findViewById(R.id.index_into);
         RelativeLayout relativeLayout = view.findViewById(R.id.Container);
         imageView.setImageResource(mList.get(position));
+        relativeLayout.setBackgroundResource(R.color.color_white);
         if(position == 3){
             textView.setVisibility(View.VISIBLE);
             textView.setOnClickListener(view1 -> {
@@ -61,20 +62,6 @@ public  class IndexAdapter  extends PagerAdapter {
             });
         }else {
             textView.setVisibility(View.GONE);
-        }
-        switch (position){
-            case 0:
-                relativeLayout.setBackgroundResource(R.color.color_FD7F2A);
-                break;
-            case 1:
-                relativeLayout.setBackgroundResource(R.color.color_67B6F7);
-                break;
-            case 2:
-                relativeLayout.setBackgroundResource(R.color.color_F76667);
-                break;
-            case 3:
-                relativeLayout.setBackgroundResource(R.color.color_4FCACB);
-                break;
         }
         container.addView(view);
         return view;
