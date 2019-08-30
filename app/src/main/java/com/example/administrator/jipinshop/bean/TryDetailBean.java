@@ -124,7 +124,7 @@ public class TryDetailBean {
         private String name;
         private String img;
         private String imgs;
-        private int actualPrice;
+        private String actualPrice;
         private String goodsBuyLink;
         private int applyPoint;
         private int count;
@@ -199,11 +199,11 @@ public class TryDetailBean {
             this.imgs = imgs;
         }
 
-        public int getActualPrice() {
+        public String getActualPrice() {
             return actualPrice;
         }
 
-        public void setActualPrice(int actualPrice) {
+        public void setActualPrice(String actualPrice) {
             this.actualPrice = actualPrice;
         }
 
