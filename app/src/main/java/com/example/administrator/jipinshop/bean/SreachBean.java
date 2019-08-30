@@ -53,11 +53,11 @@ public class SreachBean {
         private String img;
         private String imgs;
         private String goodsTags;
-        private int actualPrice;
-        private int couponPrice;
+        private String actualPrice;
+        private String couponPrice;
         private String otherGoodsId;
         private String otherName;
-        private int otherPrice;
+        private String otherPrice;
         private String recommendReason;
         private double score;
         private String scoreOptions;
@@ -111,19 +111,19 @@ public class SreachBean {
             this.goodsTags = goodsTags;
         }
 
-        public int getActualPrice() {
+        public String getActualPrice() {
             return actualPrice;
         }
 
-        public void setActualPrice(int actualPrice) {
+        public void setActualPrice(String actualPrice) {
             this.actualPrice = actualPrice;
         }
 
-        public int getCouponPrice() {
+        public String getCouponPrice() {
             return couponPrice;
         }
 
-        public void setCouponPrice(int couponPrice) {
+        public void setCouponPrice(String couponPrice) {
             this.couponPrice = couponPrice;
         }
 
@@ -143,11 +143,11 @@ public class SreachBean {
             this.otherName = otherName;
         }
 
-        public int getOtherPrice() {
+        public String getOtherPrice() {
             return otherPrice;
         }
 
-        public void setOtherPrice(int otherPrice) {
+        public void setOtherPrice(String otherPrice) {
             this.otherPrice = otherPrice;
         }
 
