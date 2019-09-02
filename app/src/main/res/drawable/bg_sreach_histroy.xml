@@ -5,8 +5,8 @@
 
     <solid android:color="@color/color_F5F5F5"/>
 
-    <padding android:bottom="@dimen/x16"
-             android:top="@dimen/x16"
-             android:left="@dimen/x28"
-             android:right="@dimen/x28"/>
+    <padding android:bottom="@dimen/x20"
+             android:top="@dimen/x20"
+             android:left="@dimen/x50"
+             android:right="@dimen/x50"/>
 </shape>

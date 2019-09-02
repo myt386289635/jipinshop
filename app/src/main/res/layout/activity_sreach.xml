@@ -19,75 +19,64 @@
         <RelativeLayout
             android:id="@+id/sreach_head"
             android:layout_width="match_parent"
-            android:layout_height="@dimen/y60"
-            android:layout_marginBottom="@dimen/y20"
-            android:layout_marginLeft="@dimen/x28"
-            android:layout_marginRight="@dimen/x28"
-            android:layout_marginTop="@dimen/y20">
+            android:layout_height="@dimen/y88"
+            android:layout_marginBottom="@dimen/y44"
+            android:layout_marginRight="@dimen/x30"
+            android:layout_marginTop="@dimen/y58">
+
+            <ImageView
+                android:onClick="@{listener.onClick}"
+                android:paddingLeft="@dimen/x18"
+                android:paddingRight="@dimen/x26"
+                android:id="@+id/title_back"
+                android:src="@mipmap/nav_black_big"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"/>
 
             <RelativeLayout
+                android:layout_toRightOf="@id/title_back"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_marginRight="@dimen/x24"
-                android:layout_toLeftOf="@id/sreach_cancle"
                 android:background="@drawable/bg_sreach"
                 android:gravity="center_vertical"
                 android:orientation="horizontal">
 
-
-                <ImageView
-                    android:id="@+id/sreach_nav"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_centerVertical="true"
-                    android:layout_marginLeft="@dimen/x26"
-                    android:background="@mipmap/nav_search"/>
-
-
                 <EditText
+                    android:paddingLeft="@dimen/x30"
                     android:id="@+id/sreach_edit"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:layout_marginLeft="@dimen/x10"
-                    android:layout_toLeftOf="@id/sreach_close"
-                    android:layout_toRightOf="@id/sreach_nav"
+                    android:layout_toLeftOf="@id/sreach_nav"
                     android:background="@null"
                     android:cursorVisible="true"
-                    android:hint="搜索商品榜"
+                    android:hint="输入查询商品名称"
                     android:imeOptions="actionDone"
-                    android:paddingRight="@dimen/x26"
                     android:singleLine="true"
-                    android:textColor="@color/color_DE050505"
-                    android:textColorHint="@color/color_ACACAC"
+                    android:textColor="@color/color_565252"
+                    android:textColorHint="@color/color_565252"
                     android:textCursorDrawable="@drawable/color_cursor"
-                    android:textSize="13sp"/>
-
+                    android:textSize="15sp"/>
 
                 <ImageView
-                    android:id="@+id/sreach_close"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentRight="true"
-                    android:layout_centerVertical="true"
-                    android:layout_marginRight="@dimen/x26"
-                    android:background="@mipmap/search_close"
                     android:onClick="@{listener.onClick}"
-                    android:visibility="gone"/>
+                    android:paddingRight="@dimen/x38"
+                    android:layout_alignParentRight="true"
+                    android:id="@+id/sreach_nav"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_centerVertical="true"
+                    android:paddingLeft="@dimen/x20"
+                    android:src="@mipmap/search"/>
+
             </RelativeLayout>
-
-
-            <TextView
-                android:id="@+id/sreach_cancle"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentRight="true"
-                android:layout_centerVertical="true"
-                android:onClick="@{listener.onClick}"
-                android:text="取消"
-                android:textColor="@color/color_DE050505"/>
 
         </RelativeLayout>
 
+        <View
+            android:layout_below="@id/sreach_head"
+            android:background="@color/color_DEDEDE"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/y1"/>
 
         <ScrollView
             android:scrollbars="none"
@@ -103,52 +92,66 @@
 
 
                 <TextView
+                    android:layout_marginBottom="@dimen/y16"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="@dimen/x28"
+                    android:layout_marginLeft="@dimen/x30"
                     android:layout_marginTop="@dimen/y40"
                     android:text="大家都在搜"
-                    android:textColor="@color/color_DE050505"
-                    android:textSize="14sp"
-                    android:textStyle="bold"/>
+                    android:textColor="@color/color_9D9D9D"
+                    android:textSize="16sp"/>
 
                 <com.google.android.flexbox.FlexboxLayout
                     android:id="@+id/search_flex_histroy"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="@dimen/x4"
-                    android:layout_marginRight="@dimen/x28"
+                    android:layout_marginRight="@dimen/x30"
                     app:alignItems="flex_start"
                     app:flexWrap="wrap"
                     app:justifyContent="flex_start"/>
 
 
-                <RelativeLayout
+                <View
+                    android:layout_marginTop="@dimen/y62"
+                    android:background="@color/color_F5F5F5"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/y60">
+                    android:layout_height="@dimen/y20"/>
+
+
+                <RelativeLayout
+                    android:layout_marginTop="@dimen/y12"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_centerVertical="true"
-                        android:layout_marginLeft="@dimen/x28"
+                        android:layout_alignBottom="@id/search_delete"
+                        android:layout_marginLeft="@dimen/x30"
                         android:text="历史搜索"
-                        android:textColor="@color/color_DE050505"
-                        android:textSize="14sp"
-                        android:textStyle="bold"/>
+                        android:textColor="@color/color_9D9D9D"
+                        android:textSize="16sp"/>
 
                     <ImageView
                         android:id="@+id/search_delete"
-                        android:layout_width="@dimen/x60"
-                        android:layout_height="@dimen/y60"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
                         android:layout_alignParentRight="true"
                         android:layout_marginRight="@dimen/x28"
                         android:onClick="@{listener.onClick}"
                         android:padding="@dimen/x10"
-                        android:src="@mipmap/history_delete"/>
+                        android:src="@mipmap/history_delete1"/>
 
                 </RelativeLayout>
+
+
+                <View
+                    android:layout_marginRight="@dimen/x30"
+                    android:layout_marginLeft="@dimen/x30"
+                    android:layout_marginTop="@dimen/y60"
+                    android:background="@color/color_DEDEDE"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/y1"/>
 
                 <com.example.administrator.jipinshop.view.recyclerView.NoScrollRecyclerView
                     android:id="@+id/search_recyclerView"

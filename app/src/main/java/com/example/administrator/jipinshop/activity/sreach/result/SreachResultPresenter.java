@@ -46,7 +46,7 @@ public class SreachResultPresenter {
             int a = (int) textView.getPaint().measureText(textView.getText().toString());
             textLether.add(a);
         }
-        tabLayout.setSelectedTabIndicatorColor(context.getResources().getColor(R.color.color_FF3939));
+        tabLayout.setSelectedTabIndicatorColor(context.getResources().getColor(R.color.transparent));
         tabLayout.setTabRippleColor(ColorStateList.valueOf(context.getResources().getColor(R.color.transparent)));
         tabLayout.post(() -> {
             //拿到tabLayout的mTabStrip属性

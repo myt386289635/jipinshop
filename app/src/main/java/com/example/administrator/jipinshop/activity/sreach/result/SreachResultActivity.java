@@ -7,7 +7,6 @@ import android.support.design.widget.AppBarLayout;
 import android.support.v4.app.Fragment;
 import android.view.MotionEvent;
 import android.view.View;
-import android.widget.EditText;
 
 import com.example.administrator.jipinshop.R;
 import com.example.administrator.jipinshop.adapter.HomeAdapter;
@@ -37,6 +36,10 @@ public class SreachResultActivity extends BaseActivity implements View.OnClickLi
 
     private List<Fragment> mFragments;
     private HomeAdapter mAdapter;
+    float startX = 0;
+    float startY = 0;
+    float xDistance = 0;
+    float yDistance = 0;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -74,42 +77,41 @@ public class SreachResultActivity extends BaseActivity implements View.OnClickLi
     }
 
 
+    /**
+     * 解决AppBarLayout头布局过大与ViewPager手势冲突出现的滑动卡顿问题
+     */
     @Override
     public boolean dispatchTouchEvent(MotionEvent ev) {
-        if (ev.getAction() == MotionEvent.ACTION_DOWN) {
-            View view = getCurrentFocus();
-            if (isHideInput(view, ev)) {
-                showKeyboard(false);
-            }
+        switch (ev.getAction()) {
+            case MotionEvent.ACTION_DOWN:
+                xDistance = yDistance = 0f;
+                startX = ev.getX();
+                startY = ev.getY();
+                break;
+            case MotionEvent.ACTION_MOVE:
+
+                break;
+        }
+        final float curX = ev.getX();
+        final float curY = ev.getY();
+
+        xDistance += Math.abs(curX - startX);
+        yDistance += Math.abs(curY - startY);
+
+        if (xDistance >= yDistance) {
+            //横向滑动
+            mBinding.viewPager.setNoScroll(false);
+        } else {
+            //垂直滑动
+            mBinding.viewPager.setNoScroll(true);
         }
         return super.dispatchTouchEvent(ev);
-    }
-
-    private boolean isHideInput(View v, MotionEvent ev) {
-        if (v != null && (v instanceof EditText)) {
-            int[] l = {0, 0};
-            v.getLocationInWindow(l);
-            int left = l[0], top = l[1], bottom = top + v.getHeight(), right = left
-                    + v.getWidth();
-            if (ev.getX() > left && ev.getX() < right && ev.getY() > top
-                    && ev.getY() < bottom) {
-                return false;
-            } else {
-                return true;
-            }
-        }
-        return false;
     }
 
     @Override
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.sreach_back:
-                finish();
-                break;
-            case R.id.sreach_close:
-                setResult(302);
-                mBinding.sreachEdit.setText("");
                 finish();
                 break;
             case R.id.sreach_edit:

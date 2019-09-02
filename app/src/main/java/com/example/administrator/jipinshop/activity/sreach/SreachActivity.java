@@ -132,13 +132,13 @@ public class SreachActivity extends BaseActivity implements TextWatcher, SreachV
 
     @Override
     public void afterTextChanged(Editable s) {
-        if (TextUtils.isEmpty(mBinding.sreachEdit.getText().toString().trim())) {
-            mBinding.sreachClose.setVisibility(View.GONE);
-            mBinding.sreachCancle.setText("取消");
-        } else {
-            mBinding.sreachClose.setVisibility(View.VISIBLE);
-            mBinding.sreachCancle.setText("搜索");
-        }
+//        if (TextUtils.isEmpty(mBinding.sreachEdit.getText().toString().trim())) {
+//            mBinding.sreachClose.setVisibility(View.GONE);
+//            mBinding.sreachCancle.setText("取消");
+//        } else {
+//            mBinding.sreachClose.setVisibility(View.VISIBLE);
+//            mBinding.sreachCancle.setText("搜索");
+//        }
     }
 
     /**
@@ -217,21 +217,17 @@ public class SreachActivity extends BaseActivity implements TextWatcher, SreachV
     @Override
     public void onClick(View view) {
         switch (view.getId()) {
-            case R.id.sreach_cancle:
-                if (mBinding.sreachCancle.getText().toString().equals("取消")) {
-                    finish();
-                } else {
-                    if (TextUtils.isEmpty(mBinding.sreachEdit.getText().toString().trim())) {
-                        ToastUtil.show("请输入搜索内容");
-                        return;
-                    }
-                    startActivityForResult(new Intent(this, SreachResultActivity.class)
-                            .putExtra("content", mBinding.sreachEdit.getText().toString())
-                    ,200);
-                }
+            case R.id.title_back:
+                finish();
                 break;
-            case R.id.sreach_close:
-                mBinding.sreachEdit.setText("");
+            case R.id.sreach_nav:
+                if (TextUtils.isEmpty(mBinding.sreachEdit.getText().toString().trim())) {
+                    ToastUtil.show("请输入搜索内容");
+                    return;
+                }
+                startActivityForResult(new Intent(this, SreachResultActivity.class)
+                                .putExtra("content", mBinding.sreachEdit.getText().toString())
+                        , 200);
                 break;
             case R.id.search_delete:
                 DialogUtil.LoginDialog(this, "确认删除全部历史记录？", "确定", "取消", v -> {
