@@ -148,11 +148,11 @@ public class ReportDetailActivity extends BaseActivity implements View.OnClickLi
         mDialog.show();
         mPresenter.setView(this);
         type = getIntent().getStringExtra("type");
-        if (type.equals("4")){
-            mBinding.titleTv.setText("试用报告");
-        }else {
-            mBinding.titleTv.setText("清单详情");
-        }
+//        if (type.equals("4")){
+//            mBinding.titleTv.setText("试用报告");
+//        }else {
+//            mBinding.titleTv.setText("清单详情");
+//        }
 
         mBinding.recyclerView.setLayoutManager(new LinearLayoutManager(this));
         mList = new ArrayList<>();
@@ -194,10 +194,10 @@ public class ReportDetailActivity extends BaseActivity implements View.OnClickLi
 
         mBinding.scrollView.setOnScrollListener((scrollY) -> {
             if (mBinding.scrollView.getScrollY() >= mBinding.recyclerView.getTop()) {
-                mBinding.titleTv.setVisibility(View.GONE);
+//                mBinding.titleTv.setVisibility(View.GONE);
                 mBinding.headContanier.setVisibility(View.VISIBLE);
             } else {
-                mBinding.titleTv.setVisibility(View.VISIBLE);
+//                mBinding.titleTv.setVisibility(View.VISIBLE);
                 mBinding.headContanier.setVisibility(View.GONE);
             }
         });

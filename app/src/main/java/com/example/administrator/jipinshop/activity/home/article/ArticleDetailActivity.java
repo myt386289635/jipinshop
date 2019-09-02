@@ -203,21 +203,21 @@ public class ArticleDetailActivity extends BaseActivity implements View.OnClickL
 
         mBinding.scrollView.setOnScrollListener((scrollY) -> {
             if (mBinding.scrollView.getScrollY() >= mBinding.detailWeb.getTop()) {
-                mBinding.titleTv.setVisibility(View.GONE);
+//                mBinding.titleTv.setVisibility(View.GONE);
                 mBinding.headContanier.setVisibility(View.VISIBLE);
             } else {
-                mBinding.titleTv.setVisibility(View.VISIBLE);
+//                mBinding.titleTv.setVisibility(View.VISIBLE);
                 mBinding.headContanier.setVisibility(View.GONE);
             }
         });
 
-        if(getIntent().getStringExtra("type").equals("2")){
-            mBinding.titleTv.setText("评测详情");
-        }else if(getIntent().getStringExtra("type").equals("4")){
-            mBinding.titleTv.setText("报告详情");
-        } else {
-            mBinding.titleTv.setText("发现详情");
-        }
+//        if(getIntent().getStringExtra("type").equals("2")){
+//            mBinding.titleTv.setText("评测详情");
+//        }else if(getIntent().getStringExtra("type").equals("4")){
+//            mBinding.titleTv.setText("报告详情");
+//        } else {
+//            mBinding.titleTv.setText("发现详情");
+//        }
         mBeans = new ArrayList<>();
 
         mPresenter.getDetail(getIntent().getStringExtra("id"), getIntent().getStringExtra("type"), this.bindToLifecycle());
