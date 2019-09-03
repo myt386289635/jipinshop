@@ -55,6 +55,8 @@ public class WebActivity extends BaseActivity implements View.OnClickListener, W
         mBinding.inClude.titleTv.setText(getIntent().getStringExtra(title));
         mBinding.webView.getSettings().setLoadWithOverviewMode(true);
         mBinding.webView.getSettings().setSupportZoom(true);
+        mBinding.webView.getSettings().setBuiltInZoomControls(true);
+        mBinding.webView.getSettings().setUseWideViewPort(true);
         mBinding.webView.getSettings().setJavaScriptEnabled(true);//启用支持javascript
         mBinding.webView.getSettings().setLayoutAlgorithm(WebSettings.LayoutAlgorithm.NARROW_COLUMNS);
         mBinding.webView.getSettings().setCacheMode(WebSettings.LOAD_NO_CACHE);//不使用缓存
