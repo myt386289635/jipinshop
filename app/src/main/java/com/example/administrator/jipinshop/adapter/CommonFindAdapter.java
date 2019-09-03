@@ -130,7 +130,7 @@ public class CommonFindAdapter extends RecyclerView.Adapter {
                         BigDecimal bigDecimal = new BigDecimal(mList.get(finalPosition).getPv());
                         mList.get(finalPosition).setPv((bigDecimal.intValue() + 1) + "");
                         notifyDataSetChanged();
-                        ShopJumpUtil.jumpArticle(mContext,mList.get(finalPosition).getArticleId(),
+                        ShopJumpUtil.jumpArticle(mContext,mList.get(finalPosition).getArticleId(),//固定type
                                 "3",mList.get(finalPosition).getContentType());
                     }
                 });

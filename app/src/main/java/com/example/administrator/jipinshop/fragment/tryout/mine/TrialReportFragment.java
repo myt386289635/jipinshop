@@ -130,7 +130,7 @@ public class TrialReportFragment extends DBBaseFragment implements TrialReportVi
             BigDecimal bigDecimal = new BigDecimal(mList.get(position).getPv());
             mList.get(position).setPv((bigDecimal.intValue() + 1) + "");
             mAdapter.notifyDataSetChanged();
-            ShopJumpUtil.jumpArticle(getContext(),mList.get(position).getArticleId(),
+            ShopJumpUtil.jumpArticle(getContext(),mList.get(position).getArticleId(),//固定type
                     "4",mList.get(position).getContentType());
         }
     }

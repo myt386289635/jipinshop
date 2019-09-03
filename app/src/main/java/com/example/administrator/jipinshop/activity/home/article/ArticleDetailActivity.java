@@ -3,7 +3,6 @@ package com.example.administrator.jipinshop.activity.home.article;
 import android.app.Dialog;
 import android.content.Intent;
 import android.databinding.DataBindingUtil;
-import android.graphics.Color;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.os.Handler;
@@ -30,7 +29,6 @@ import com.example.administrator.jipinshop.activity.WebActivity;
 import com.example.administrator.jipinshop.activity.commenlist.CommenListActivity;
 import com.example.administrator.jipinshop.activity.login.LoginActivity;
 import com.example.administrator.jipinshop.activity.minekt.userkt.UserActivity;
-import com.example.administrator.jipinshop.activity.report.detail.ReportDetailActivity;
 import com.example.administrator.jipinshop.adapter.RelatedArticleAdapter;
 import com.example.administrator.jipinshop.adapter.ShoppingCommonAdapter;
 import com.example.administrator.jipinshop.base.BaseActivity;
@@ -49,6 +47,7 @@ import com.example.administrator.jipinshop.fragment.foval.find.FovalFindFragment
 import com.example.administrator.jipinshop.netwrok.RetrofitModule;
 import com.example.administrator.jipinshop.util.ClickUtil;
 import com.example.administrator.jipinshop.util.ShareUtils;
+import com.example.administrator.jipinshop.util.ShopJumpUtil;
 import com.example.administrator.jipinshop.util.TaoBaoUtil;
 import com.example.administrator.jipinshop.util.ToastUtil;
 import com.example.administrator.jipinshop.util.WeakRefHandler;
@@ -157,7 +156,14 @@ public class ArticleDetailActivity extends BaseActivity implements View.OnClickL
         mBinding.detailWeb.setWebViewClient(new WebViewClient() {
             @Override
             public boolean shouldOverrideUrlLoading(WebView view, String url) {
-                view.loadUrl(url);
+                if (url.startsWith("http://") || url.startsWith("https://")){
+                    startActivity(new Intent(ArticleDetailActivity.this, WebActivity.class)
+                            .putExtra(WebActivity.url, url)
+                            .putExtra(WebActivity.title,"")
+                    );
+                }else {
+                    view.loadUrl(url);
+                }
                 return true;
             }
 
@@ -885,24 +891,8 @@ public class ArticleDetailActivity extends BaseActivity implements View.OnClickL
      */
     @Override
     public void onClickItem(int position) {
-        if (mArticleListBeans.get(position).getType().equals("4")){
-            if (mArticleListBeans.get(position).getContentType() == 3){
-                startActivity(new Intent(this,ReportDetailActivity.class)
-                        .putExtra("id",mArticleListBeans.get(position).getArticleId())
-                        .putExtra("type",mArticleListBeans.get(position).getType())
-                );
-            }else {
-                startActivity(new Intent(this,ArticleDetailActivity.class)
-                        .putExtra("id",mArticleListBeans.get(position).getArticleId())
-                        .putExtra("type",mArticleListBeans.get(position).getType())
-                );
-            }
-        }else {
-            startActivity(new Intent(this,ArticleDetailActivity.class)
-                    .putExtra("id",mArticleListBeans.get(position).getArticleId())
-                    .putExtra("type",mArticleListBeans.get(position).getType())
-            );
-        }
+        ShopJumpUtil.jumpArticle(this,mArticleListBeans.get(position).getArticleId(),
+                mArticleListBeans.get(position).getType(),mArticleListBeans.get(position).getContentType());
     }
 
 

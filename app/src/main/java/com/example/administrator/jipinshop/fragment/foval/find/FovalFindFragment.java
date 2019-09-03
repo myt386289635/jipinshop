@@ -102,7 +102,7 @@ public class FovalFindFragment extends DBBaseFragment implements SreachArticleAd
             BigDecimal bigDecimal = new BigDecimal(mList.get(pos).getPv());
             mList.get(pos).setPv((bigDecimal.intValue() + 1) + "");
             mAdapter.notifyDataSetChanged();
-            ShopJumpUtil.jumpArticle(getContext(),mList.get(pos).getArticleId(),
+            ShopJumpUtil.jumpArticle(getContext(),mList.get(pos).getArticleId(),//固定type
                     getArguments().getString("type"),mList.get(pos).getContentType());
         }
     }

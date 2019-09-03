@@ -110,7 +110,7 @@ public class FovalTryFragment extends DBBaseFragment implements OnRefreshListene
             BigDecimal bigDecimal = new BigDecimal(mList.get(pos).getPv());
             mList.get(pos).setPv((bigDecimal.intValue() + 1) + "");
             mAdapter.notifyDataSetChanged();
-            ShopJumpUtil.jumpArticle(getContext(),mList.get(pos).getArticleId(),
+            ShopJumpUtil.jumpArticle(getContext(),mList.get(pos).getArticleId(),//固定type
                     "4",mList.get(pos).getContentType());
         }
     }
