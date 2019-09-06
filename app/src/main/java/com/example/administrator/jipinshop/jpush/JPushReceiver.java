@@ -24,7 +24,6 @@ import com.example.administrator.jipinshop.activity.shoppingdetail.ShoppingDetai
 import com.example.administrator.jipinshop.activity.tryout.detail.TryDetailActivity;
 import com.example.administrator.jipinshop.activity.tryout.freedetail.FreeDetailActivity;
 import com.example.administrator.jipinshop.bean.JPushBean;
-import com.example.administrator.jipinshop.util.ShopJumpUtil;
 import com.example.administrator.jipinshop.util.sp.CommonDate;
 import com.google.gson.Gson;
 
@@ -73,7 +72,9 @@ public class JPushReceiver extends BroadcastReceiver {
             String newsInfo = bundle.getString(JPushInterface.EXTRA_EXTRA);
             JPushBean jPushBean = new Gson().fromJson(newsInfo, JPushBean.class);
 //            Log.e(TAG,newsInfo);
-            openNotification(context,jPushBean);
+            if (jPushBean != null && !TextUtils.isEmpty(jPushBean.getTargetType())){
+                openNotification(context,jPushBean);
+            }
         } else {
             Log.e(TAG, "Unhandled intent - " + intent.getAction());
         }

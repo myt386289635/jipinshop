@@ -21,6 +21,7 @@ import com.example.administrator.jipinshop.activity.setting.opinion.OpinionActiv
 import com.example.administrator.jipinshop.base.BaseActivity;
 import com.example.administrator.jipinshop.base.BaseAsyncTask;
 import com.example.administrator.jipinshop.bean.SuccessBean;
+import com.example.administrator.jipinshop.jpush.JPushAlias;
 import com.example.administrator.jipinshop.netwrok.RetrofitModule;
 import com.example.administrator.jipinshop.util.MyDataCleanManager;
 import com.example.administrator.jipinshop.util.ShopJumpUtil;
@@ -219,6 +220,7 @@ public class SettingActivity extends BaseActivity implements CleanCacheDialog.On
     @Override
     public void loginOutSuccess(SuccessBean msg) {
         if (msg.getCode() == 0) {
+            JPushAlias.deleteAlias(this);
             setResult(201);
             finish();
             ToastUtil.show("退出登录成功");

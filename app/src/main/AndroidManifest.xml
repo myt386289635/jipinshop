@@ -223,6 +223,17 @@
                 <category android:name="${applicationId}"/>
             </intent-filter>
         </service>
+        <!-- Required since 3.0.7 -->
+        <!-- 新的 tag/alias 接口结果返回需要开发者配置一个自定的广播 -->
+        <receiver
+            android:name=".jpush.JPushAliasAndTagReceiver"
+            android:enabled="true"
+            android:exported="false" >
+            <intent-filter>
+                <action android:name="cn.jpush.android.intent.RECEIVE_MESSAGE" />
+                <category android:name="${applicationId}" />
+            </intent-filter>
+        </receiver>
 
         <!--签到页面-->
         <activity android:name=".activity.sign.SignActivity"
