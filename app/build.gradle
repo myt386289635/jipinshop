@@ -17,8 +17,8 @@ android {
         applicationId "com.example.administrator.jipinshop"
         minSdkVersion 15
         targetSdkVersion 26
-        versionCode 18
-        versionName "2.6.1"
+        versionCode 19
+        versionName "2.6.2"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
         // dex突破65535的限制
         multiDexEnabled true
