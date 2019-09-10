@@ -21,7 +21,6 @@ import com.example.administrator.jipinshop.util.ImageCompressUtil;
 import com.example.administrator.jipinshop.util.ToastUtil;
 import com.example.administrator.jipinshop.util.WheelViewUtil;
 import com.example.administrator.jipinshop.util.sp.CommonDate;
-import com.example.administrator.jipinshop.view.dialog.DialogUtil;
 import com.example.administrator.jipinshop.view.dialog.ProgressDialogView;
 import com.example.administrator.jipinshop.view.dialog.SelectPicDialog;
 import com.example.administrator.jipinshop.view.glide.GlideApp;
@@ -183,21 +182,6 @@ public class MyInfoActivity extends BaseActivity implements SelectPicDialog.Choo
                         .putExtra("value",sign)
                 );
                 break;
-        }
-    }
-
-    /**
-     * 退出登陆
-     * @param msg
-     */
-    @Override
-    public void loginOutSuccess(SuccessBean msg) {
-        if(msg.getCode() == 0){
-            setResult(201);
-            finish();
-            ToastUtil.show("退出登录成功");
-        }else {
-            ToastUtil.show(msg.getMsg());
         }
     }
 

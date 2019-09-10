@@ -11,8 +11,6 @@ import com.example.administrator.jipinshop.bean.SuccessBean;
  */
 public interface MyInfoView {
 
-    void loginOutSuccess(SuccessBean msg);
-
     void EditBirthDaySuccess(SuccessBean successBean,String date);
 
     void EditGenderSuccess(SuccessBean successBean,String date);
