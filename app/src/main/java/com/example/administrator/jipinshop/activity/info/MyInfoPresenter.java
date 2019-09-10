@@ -50,23 +50,6 @@ public class MyInfoPresenter {
         }
     }
 
-    public void loginOut(LifecycleTransformer<SuccessBean> transformer, Dialog dialog){
-        mRepository.logout()
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .compose(transformer)
-                .subscribe(successBean -> {
-                    if(dialog != null && dialog.isShowing()){
-                        dialog.dismiss();
-                    }
-                    if(mView != null){
-                        mView.loginOutSuccess(successBean);
-                    }
-                }, throwable -> {
-
-                });
-    }
-
     public void SaveUserInfo(String type, String content, LifecycleTransformer<SuccessBean> transformer, Dialog dialog){
         Map<String,String> map = new HashMap<>();
         if(type.equals("2")){
