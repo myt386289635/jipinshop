@@ -139,7 +139,7 @@
                     android:layout_marginLeft="@dimen/x28"
                     android:layout_marginRight="@dimen/x28"
                     android:layout_marginTop="@dimen/y32"
-                    android:text="闭眼入系列 | 从此爱上刷牙，网红推荐款，网红推荐款，网红推荐款"
+                    tools:text="闭眼入系列 | 从此爱上刷牙，网红推荐款，网红推荐款，网红推荐款"
                     android:textColor="@color/color_202020"
                     android:textSize="16sp"
                     android:textStyle="bold"/>
@@ -166,7 +166,7 @@
                         android:id="@+id/item_grade"
                         android:layout_alignRight="@+id/detail_UserImage"
                         android:layout_alignBottom="@+id/detail_UserImage"
-                        android:src="@mipmap/grade_peroson"
+                        tools:src="@mipmap/grade_peroson"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"/>
 
@@ -176,7 +176,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="@dimen/x24"
                         android:layout_toRightOf="@+id/detail_UserImage"
-                        android:text="资深编辑"
+                        tools:text="资深编辑"
                         android:textColor="@color/color_202020"
                         android:textSize="16sp"
                         android:textStyle="bold"/>
@@ -189,7 +189,7 @@
                         android:layout_marginLeft="@dimen/x24"
                         android:layout_toRightOf="@+id/detail_UserImage"
                         android:layout_alignBottom="@id/detail_UserImage"
-                        android:text="45分钟前"
+                        tools:text="45分钟前"
                         android:textColor="@color/color_ACACAC"
                         android:textSize="12sp"/>
 
@@ -201,9 +201,9 @@
                         android:layout_alignParentRight="true"
                         android:layout_centerVertical="true"
                         android:layout_marginRight="@dimen/x28"
-                        android:background="@drawable/bg_attention"
+                        tools:background="@drawable/bg_attention"
                         android:onClick="@{listener.onClick}"
-                        android:text="+关注"
+                        tools:text="+关注"
                         android:textColor="@color/color_E31436"
                         android:textSize="13sp"/>
 
