@@ -38,8 +38,8 @@ public class TryModelFragment extends DBBaseFragment{
     public void setUserVisibleHint(boolean isVisibleToUser) {
         super.setUserVisibleHint(isVisibleToUser);
         if(isVisibleToUser && once){
-            mFragments.add(new TryFragment());
             mFragments.add(new FreeFragment());
+            mFragments.add(new TryFragment());
             mAdapter.setFragments(mFragments);
             mBinding.viewPager.setAdapter(mAdapter);
             mBinding.tabLayout.setupWithViewPager(mBinding.viewPager);
@@ -78,9 +78,9 @@ public class TryModelFragment extends DBBaseFragment{
             TextView textView = view.findViewById(R.id.tab_name);
             textView.setTextSize(TypedValue.COMPLEX_UNIT_SP,18);
             if (i == 0) {
-                textView.setText("新品试用");
-            } else{
                 textView.setText("免单");
+            } else{
+                textView.setText("新品试用");
             }
             mTabLayout.getTabAt(i).setCustomView(view);
             int a = (int) textView.getPaint().measureText(textView.getText().toString());

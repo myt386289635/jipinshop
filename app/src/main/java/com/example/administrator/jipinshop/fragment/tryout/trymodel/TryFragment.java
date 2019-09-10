@@ -51,6 +51,15 @@ public class TryFragment extends DBBaseFragment implements OnRefreshListener, Tr
     @Inject
     TryPresenter mTryPresenter;
 
+    @Override
+    public void setUserVisibleHint(boolean isVisibleToUser) {
+        super.setUserVisibleHint(isVisibleToUser);
+        if (isVisibleToUser && once[0]) {
+            mBinding.swipeToLoad.setRefreshing(true);
+            mTryPresenter.tryADlist(this.bindToLifecycle());
+        }
+    }
+
 
     @Override
     public View initLayout(LayoutInflater inflater, ViewGroup container) {
@@ -77,8 +86,6 @@ public class TryFragment extends DBBaseFragment implements OnRefreshListener, Tr
 
         mTryPresenter.solveScoll(mBinding.recyclerView,mBinding.swipeToLoad);
         mBinding.swipeToLoad.setOnRefreshListener(this);
-        mBinding.swipeToLoad.setRefreshing(true);
-        mTryPresenter.tryADlist(this.bindToLifecycle());
     }
 
     @Override

@@ -43,13 +43,7 @@ public class FreeFragment extends DBBaseFragment implements OnRefreshListener, O
     private int page = 1;
     private Boolean refersh = true;
 
-    @Override
-    public void setUserVisibleHint(boolean isVisibleToUser) {
-        super.setUserVisibleHint(isVisibleToUser);
-        if (isVisibleToUser && once) {
-            mBinding.swipeToLoad.setRefreshing(true);
-        }
-    }
+
 
     @Override
     public View initLayout(LayoutInflater inflater, ViewGroup container) {
@@ -71,6 +65,7 @@ public class FreeFragment extends DBBaseFragment implements OnRefreshListener, O
         mPresenter.solveScoll(mBinding.recyclerView, mBinding.swipeToLoad);
         mBinding.swipeToLoad.setOnRefreshListener(this);
         mBinding.swipeToLoad.setOnLoadMoreListener(this);
+        mBinding.swipeToLoad.setRefreshing(true);
     }
 
 

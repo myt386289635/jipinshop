@@ -50,7 +50,7 @@ public class WellComeActivity extends BaseActivity implements WellComeView {
     }
 
 
-    CountDownTimer timer = new CountDownTimer(2 * 1000, 1000) {
+    CountDownTimer timer = new CountDownTimer(1 * 1000, 1000) {
         @Override
         public void onTick(long millisUntilFinished) {
 
