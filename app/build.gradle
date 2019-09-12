@@ -15,7 +15,7 @@ android {
     compileSdkVersion 28
     defaultConfig {
         applicationId "com.example.administrator.jipinshop"
-        minSdkVersion 15
+        minSdkVersion 16
         targetSdkVersion 26
         versionCode 19
         versionName "2.6.2"
@@ -133,35 +133,32 @@ dependencies {
     }
 
     //阿里百川的sdk（只为了商品能跳转到天猫）
-
-    //fastjson
-    implementation 'com.alibaba:fastjson:1.2.9'
-
     //登陆（必须）
-    implementation 'com.ali.auth.sdk:alibabauth_core:1.4.3@jar'
-    implementation 'com.ali.auth.sdk:alibabauth_ui:1.4.3@aar'
-    implementation 'com.ali.auth.sdk:alibabauth_ext:1.4.3@jar'
+    implementation 'com.ali.auth.sdk:alibabauth_core:2.0.0.6@aar'
+    implementation 'com.ali.auth.sdk:alibabauth_ui:2.0.0.6@aar'
+    implementation 'com.ali.auth.sdk:alibabauth_ext:2.0.0.6@aar'
 
     //安全基础（必须）
-    implementation 'com.taobao.android:securityguardaar3:5.1.81@aar'
+    implementation 'com.taobao.android:securityguardaar3:5.4.171@aar'
+    implementation 'com.taobao.android:securitybodyaar3:5.4.99@aar'
+    implementation 'com.taobao.android:avmpaar3:5.4.36@aar'
+    implementation 'com.taobao.android:sgmiddletieraar3:5.4.9@aar'
 
     //Mtop网关（必须）
-    implementation 'com.taobao.android:mtopsdk_allinone_open:1.2.2.4@jar'
+    implementation 'com.taobao.android:mtopsdk_allinone_open:3.1.2.5@jar'
 
     //applink（必须）
-    implementation 'com.alibaba.sdk.android:alibc_link_partner:1.1.0.6'
-
-    //联盟SDK
-    implementation 'com.alimama.tunion.sdk:tuniontradesdk:0.3.2'
+    implementation 'com.alibaba.sdk.android:alibc_link_partner:4.1.6@aar'
 
     //UT
-    implementation 'com.taobao.android:utdid4all:1.1.5.3_proguard@jar'
-    implementation 'com.alibaba.mtl:app-monitor-sdk:2.5.1.3_for_bc_proguard@jar'
+    implementation 'com.taobao.android:utdid4all:1.1.5.3_proguard'
+    implementation 'com.alibaba.mtl:app-monitor-sdk:2.6.4.5_for_bc'
 
     //电商SDK（必须）
-    implementation 'com.alibaba.sdk.android:alibc_trade_common:3.1.1.210'
-    implementation 'com.alibaba.sdk.android:alibc_trade_biz:3.1.1.210'
-    implementation 'com.alibaba.sdk.android:alibc_trade_sdk:3.1.1.210'
+    implementation 'com.alibaba.sdk.android:AlibcTradeCommon:4.0.0.0@aar'
+    implementation 'com.alibaba.sdk.android:AlibcTradeBiz:4.0.0.0@aar'
+    implementation 'com.alibaba.sdk.android:nb_trade:4.0.0.0@aar'
+    implementation 'com.alibaba:fastjson:1.2.41'
 
     //multidex
     implementation 'com.android.support:multidex:1.0.2'

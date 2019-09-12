@@ -1,16 +1,19 @@
 package com.example.administrator.jipinshop.util;
 
 import android.app.Activity;
-import android.util.Log;
+import android.webkit.WebChromeClient;
+import android.webkit.WebViewClient;
 
 import com.alibaba.baichuan.android.trade.AlibcTrade;
 import com.alibaba.baichuan.android.trade.callback.AlibcTradeCallback;
 import com.alibaba.baichuan.android.trade.model.AlibcShowParams;
 import com.alibaba.baichuan.android.trade.model.OpenType;
-import com.alibaba.baichuan.android.trade.page.AlibcPage;
+import com.alibaba.baichuan.trade.biz.applink.adapter.AlibcFailModeType;
 import com.alibaba.baichuan.trade.biz.context.AlibcTradeResult;
+import com.alibaba.baichuan.trade.biz.core.taoke.AlibcTaokeParams;
 import com.alibaba.baichuan.trade.biz.login.AlibcLogin;
 import com.alibaba.baichuan.trade.biz.login.AlibcLoginCallback;
+import com.alibaba.baichuan.trade.common.utils.AlibcLogger;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -26,46 +29,52 @@ public class TaoBaoUtil {
      * 跳转淘宝首页
      */
     public static void openAliHomeWeb(Activity context, String url) {
-        AlibcShowParams alibcShowParams  = new AlibcShowParams(OpenType.Native, false);
-        alibcShowParams.setClientType("taobao_scheme");
-        //yhhpass参数
-        Map<String, String> exParams = new HashMap<>();
-        exParams.put("isv_code", "appisvcode");
-        exParams.put("alibaba", "阿里巴巴");//自定义参数部分，可任意增删改
-        AlibcTrade.show(context, new AlibcPage(url), alibcShowParams, null, exParams, new AlibcTradeCallback() {
-            @Override
-            public void onTradeSuccess(AlibcTradeResult alibcTradeResult) {
-            }
+        AlibcShowParams showParams = new AlibcShowParams();
+        showParams.setOpenType(OpenType.Native);
+        showParams.setClientType("taobao");
+        showParams.setBackUrl("alisdk://");
+        showParams.setNativeOpenFailedMode(AlibcFailModeType.AlibcNativeFailModeJumpH5);
 
-            @Override
-            public void onFailure(int errCode, String errMsg) {
-            }
-        });
+        AlibcTaokeParams taokeParams = new AlibcTaokeParams("", "", "");
+
+        Map<String, String> trackParams = new HashMap<>();
+        AlibcTrade.openByUrl(context, "", url, null,
+                new WebViewClient(), new WebChromeClient(),
+                showParams, taokeParams, trackParams, new AlibcTradeCallback() {
+                    @Override
+                    public void onTradeSuccess(AlibcTradeResult tradeResult) {
+                        AlibcLogger.i("AlibcTradeSDK", "request success");
+                    }
+
+                    @Override
+                    public void onFailure(int code, String msg) {
+                        AlibcLogger.e("AlibcTradeSDK", "code=" + code + ", msg=" + msg);
+                        if (code == -1) {
+//                            Toast.makeText(MainActivity.this, msg, Toast.LENGTH_SHORT).show();
+                        }
+                    }
+                });
     }
 
     /**
      * 第三方淘宝登陆
      */
-    public static void aliLogin(){
+    public static void aliLogin(LoginResLisenter loginResLisenter){
         final AlibcLogin alibcLogin = AlibcLogin.getInstance();
-
         alibcLogin.showLogin(new AlibcLoginCallback() {
-
             @Override
-            public void onSuccess(int i) {
-                ToastUtil.show("登录成功 ");
+            public void onSuccess(int loginResult, String openId, String userNick) {
                 //获取淘宝用户信息
-                Log.d("--获取淘宝用户信息", "获取淘宝用户信息: "+AlibcLogin.getInstance().getSession());
-                String openid=AlibcLogin.getInstance().getSession().openId;//重复登陆不会变
-                String name = AlibcLogin.getInstance().getSession().nick;//重复登陆不会变
-                String imgurl = AlibcLogin.getInstance().getSession().avatarUrl;//重复登陆不会变
-                String topExpireTime = AlibcLogin.getInstance().getSession().topExpireTime;//重复登陆不会变
-
-                String openSid = AlibcLogin.getInstance().getSession().openSid;//重复登陆不会变，退出后登陆会改变
+//                Log.d("--获取淘宝用户信息", "获取淘宝用户信息: "+AlibcLogin.getInstance().getSession());
+//                String openid=AlibcLogin.getInstance().getSession().openId;//重复登陆不会变
+//                String name = AlibcLogin.getInstance().getSession().nick;//重复登陆不会变
+//                String imgurl = AlibcLogin.getInstance().getSession().avatarUrl;//重复登陆不会变
+//                String topExpireTime = AlibcLogin.getInstance().getSession().topExpireTime;//重复登陆不会变
+//
+//                String openSid = AlibcLogin.getInstance().getSession().openSid;//重复登陆不会变，退出后登陆会改变
                 String topAccessToken = AlibcLogin.getInstance().getSession().topAccessToken;//重复登陆会变
-                String topAuthCode = AlibcLogin.getInstance().getSession().topAuthCode;//重复登陆会变
-
-                Log.d("--淘宝名称图片：",name +imgurl);
+//                String topAuthCode = AlibcLogin.getInstance().getSession().topAuthCode;//重复登陆会变
+                loginResLisenter.onLoginResult(topAccessToken);
             }
 
             @Override
@@ -73,6 +82,10 @@ public class TaoBaoUtil {
                 ToastUtil.show("登录失败 ");
             }
         });
+    }
+
+    public interface LoginResLisenter{
+        void onLoginResult(String topAuthCode);
     }
 
     /**
@@ -83,7 +96,7 @@ public class TaoBaoUtil {
         alibcLogin.logout(new AlibcLoginCallback() {
 
             @Override
-            public void onSuccess(int i) {
+            public void onSuccess(int loginResult, String openId, String userNick) {
             }
 
             @Override
