@@ -59,6 +59,7 @@ import com.example.administrator.jipinshop.activity.tryout.freedetail.FreeDetail
 import com.example.administrator.jipinshop.activity.tryout.passedMore.PassedMoreActivity;
 import com.example.administrator.jipinshop.activity.tryout.reportMore.ReportMoreActivity;
 import com.example.administrator.jipinshop.activity.tryout.shareMore.ShareMoreActivity;
+import com.example.administrator.jipinshop.activity.web.TaoBaoWebActivity;
 import com.example.administrator.jipinshop.activity.wellcome.WellComeActivity;
 import com.example.administrator.jipinshop.auto.ActivityScope;
 import com.example.administrator.jipinshop.netwrok.ApplicationComponent;
@@ -128,4 +129,5 @@ public interface BaseActivityComponent {
     void inject(UserActivity activity);
     void inject(EditSignActivity activity);
     void inject(AuditDetailActivity activity);
+    void inject(TaoBaoWebActivity activity);
 }
