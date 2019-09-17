@@ -3,7 +3,6 @@ package com.example.administrator.jipinshop.activity.report.detail;
 import android.app.Dialog;
 import android.content.Intent;
 import android.databinding.DataBindingUtil;
-import android.graphics.Color;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.os.Handler;
@@ -132,6 +131,7 @@ public class ReportDetailActivity extends BaseActivity implements View.OnClickLi
     private List<TryDetailBean.DataBean.GoodsContentListBean> mList;
 
     private String type  = "";
+    private String articleId = "";
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -148,6 +148,7 @@ public class ReportDetailActivity extends BaseActivity implements View.OnClickLi
         mDialog.show();
         mPresenter.setView(this);
         type = getIntent().getStringExtra("type");
+        articleId = getIntent().getStringExtra("id");
 //        if (type.equals("4")){
 //            mBinding.titleTv.setText("试用报告");
 //        }else {
@@ -204,8 +205,8 @@ public class ReportDetailActivity extends BaseActivity implements View.OnClickLi
 
         mBeans = new ArrayList<>();
 
-        mPresenter.getDetail(getIntent().getStringExtra("id"), type, this.bindToLifecycle());
-        mPresenter.comment(getIntent().getStringExtra("id"),type, this.bindToLifecycle());
+        mPresenter.getDetail(articleId, type, this.bindToLifecycle());
+        mPresenter.comment(articleId,type, this.bindToLifecycle());
 
         handler.sendEmptyMessageDelayed(100,1000 * 15);//阅读15秒
     }
@@ -283,10 +284,10 @@ public class ReportDetailActivity extends BaseActivity implements View.OnClickLi
                 } else {
                     if (isSnap) {
                         //点赞过了
-                        mPresenter.snapDelete(0, getIntent().getStringExtra("id"), type, this.bindToLifecycle());
+                        mPresenter.snapDelete(0, articleId, type, this.bindToLifecycle());
                     } else {
                         //没有点赞
-                        mPresenter.snapInsert(0, type, getIntent().getStringExtra("id"), this.bindToLifecycle());
+                        mPresenter.snapInsert(0, type, articleId, this.bindToLifecycle());
                     }
                 }
                 break;
@@ -314,10 +315,10 @@ public class ReportDetailActivity extends BaseActivity implements View.OnClickLi
                 } else {
                     if (isCollect) {
                         //收藏过了
-                        mPresenter.collectDelete(getIntent().getStringExtra("id"), type, this.bindToLifecycle());
+                        mPresenter.collectDelete(articleId, type, this.bindToLifecycle());
                     } else {
                         //没有收藏
-                        mPresenter.collectInsert(getIntent().getStringExtra("id"), type, this.bindToLifecycle());
+                        mPresenter.collectInsert(articleId, type, this.bindToLifecycle());
                     }
                 }
                 break;
@@ -336,13 +337,13 @@ public class ReportDetailActivity extends BaseActivity implements View.OnClickLi
                 }
                 mDialog = (new ProgressDialogView()).createLoadingDialog(this, "正在加载...");
                 mDialog.show();
-                mPresenter.commentInsert(type, getIntent().getStringExtra("id"), toUserId, mBinding.keyEdit.getText().toString(), parentId, this.bindToLifecycle());
+                mPresenter.commentInsert(type, articleId, toUserId, mBinding.keyEdit.getText().toString(), parentId, this.bindToLifecycle());
                 break;
             case R.id.detail_commonTotle:
                 //跳转到评论列表
                 startActivity(new Intent(this, CommenListActivity.class)
                         .putExtra("position", -1)
-                        .putExtra("id", getIntent().getStringExtra("id"))
+                        .putExtra("id", articleId)
                         .putExtra("type", type)
                 );
                 break;
@@ -385,7 +386,7 @@ public class ReportDetailActivity extends BaseActivity implements View.OnClickLi
         //跳转到评论列表
         startActivity(new Intent(this, CommenListActivity.class)
                 .putExtra("position", pos)
-                .putExtra("id", getIntent().getStringExtra("id"))
+                .putExtra("id", articleId)
                 .putExtra("type", type)
         );
     }
@@ -625,7 +626,7 @@ public class ReportDetailActivity extends BaseActivity implements View.OnClickLi
      */
     @Override
     public void onSucCommentInsert(SuccessBean successBean) {
-        mPresenter.comment(getIntent().getStringExtra("id"), type, this.bindToLifecycle());
+        mPresenter.comment(articleId, type, this.bindToLifecycle());
         mBinding.keyEdit.setText("");
         hintKey();
         if(!successBean.getMsg().equals("success")){
@@ -889,8 +890,8 @@ public class ReportDetailActivity extends BaseActivity implements View.OnClickLi
     @Subscribe
     public void refreshPage(CommonEvaluationBus commonEvaluationBus){
         if(commonEvaluationBus != null && commonEvaluationBus.getRefersh().equals(LoginActivity.refresh)){
-            mPresenter.pagerState(type,getIntent().getStringExtra("id"),this.bindToLifecycle());
-            mPresenter.comment(getIntent().getStringExtra("id"), type, this.bindToLifecycle());
+            mPresenter.pagerState(type,articleId,this.bindToLifecycle());
+            mPresenter.comment(articleId, type, this.bindToLifecycle());
         }
     }
 
@@ -898,7 +899,7 @@ public class ReportDetailActivity extends BaseActivity implements View.OnClickLi
     @Subscribe
     public void commentResher(CommenBus commenBus){
         if(commenBus != null && commenBus.getTag().equals(CommenListActivity.commentResher)){
-            mPresenter.comment(getIntent().getStringExtra("id"), type, this.bindToLifecycle());
+            mPresenter.comment(articleId, type, this.bindToLifecycle());
         }
     }
 

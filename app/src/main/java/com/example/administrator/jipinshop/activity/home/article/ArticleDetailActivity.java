@@ -136,6 +136,9 @@ public class ArticleDetailActivity extends BaseActivity implements View.OnClickL
     private List<FindDetailBean.DataBean.RelatedArticleListBean> mArticleListBeans;
     private RelatedArticleAdapter mArticleAdapter;
 
+    private String articleId = "";
+    private String articleType = "";
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -149,6 +152,9 @@ public class ArticleDetailActivity extends BaseActivity implements View.OnClickL
     private void initView() {
         mDialog = (new ProgressDialogView()).createLoadingDialog(ArticleDetailActivity.this, "正在加载...");
         mDialog.show();
+
+        articleId = getIntent().getStringExtra("id");
+        articleType = getIntent().getStringExtra("type");
 
         mPresenter.setView(this);
         mPresenter.initWebView(mBinding.detailWeb);
@@ -226,8 +232,8 @@ public class ArticleDetailActivity extends BaseActivity implements View.OnClickL
 //        }
         mBeans = new ArrayList<>();
 
-        mPresenter.getDetail(getIntent().getStringExtra("id"), getIntent().getStringExtra("type"), this.bindToLifecycle());
-        mPresenter.comment(getIntent().getStringExtra("id"), getIntent().getStringExtra("type"), this.bindToLifecycle());
+        mPresenter.getDetail(articleId, articleType, this.bindToLifecycle());
+        mPresenter.comment(articleId, articleType, this.bindToLifecycle());
 
         handler.sendEmptyMessageDelayed(100,1000 * 15);//阅读15秒
     }
@@ -326,10 +332,10 @@ public class ArticleDetailActivity extends BaseActivity implements View.OnClickL
                 } else {
                     if (isSnap) {
                         //点赞过了
-                        mPresenter.snapDelete(0, getIntent().getStringExtra("id"), getIntent().getStringExtra("type"), this.bindToLifecycle());
+                        mPresenter.snapDelete(0, articleId, articleType, this.bindToLifecycle());
                     } else {
                         //没有点赞
-                        mPresenter.snapInsert(0, getIntent().getStringExtra("type"), getIntent().getStringExtra("id"), this.bindToLifecycle());
+                        mPresenter.snapInsert(0, articleType, articleId, this.bindToLifecycle());
                     }
                 }
                 break;
@@ -357,10 +363,10 @@ public class ArticleDetailActivity extends BaseActivity implements View.OnClickL
                 } else {
                     if (isCollect) {
                         //收藏过了
-                        mPresenter.collectDelete(getIntent().getStringExtra("id"), getIntent().getStringExtra("type"), this.bindToLifecycle());
+                        mPresenter.collectDelete(articleId, articleType, this.bindToLifecycle());
                     } else {
                         //没有收藏
-                        mPresenter.collectInsert(getIntent().getStringExtra("id"), getIntent().getStringExtra("type"), this.bindToLifecycle());
+                        mPresenter.collectInsert(articleId, articleType, this.bindToLifecycle());
                     }
                 }
                 break;
@@ -379,14 +385,14 @@ public class ArticleDetailActivity extends BaseActivity implements View.OnClickL
                 }
                 mDialog = (new ProgressDialogView()).createLoadingDialog(this, "正在加载...");
                 mDialog.show();
-                mPresenter.commentInsert(getIntent().getStringExtra("type"), getIntent().getStringExtra("id"), toUserId, mBinding.keyEdit.getText().toString(), parentId, this.bindToLifecycle());
+                mPresenter.commentInsert(articleType, articleId, toUserId, mBinding.keyEdit.getText().toString(), parentId, this.bindToLifecycle());
                 break;
             case R.id.detail_commonTotle:
                 //跳转到评论列表
                 startActivity(new Intent(this, CommenListActivity.class)
                         .putExtra("position", -1)
-                        .putExtra("id", getIntent().getStringExtra("id"))
-                        .putExtra("type", getIntent().getStringExtra("type"))
+                        .putExtra("id", articleId)
+                        .putExtra("type", articleType)
                 );
                 break;
         }
@@ -655,7 +661,7 @@ public class ArticleDetailActivity extends BaseActivity implements View.OnClickL
      */
     @Override
     public void onSucCommentInsert(SuccessBean successBean) {
-        mPresenter.comment(getIntent().getStringExtra("id"), getIntent().getStringExtra("type"), this.bindToLifecycle());
+        mPresenter.comment(articleId, articleType, this.bindToLifecycle());
         mBinding.keyEdit.setText("");
         hintKey();
         if(!successBean.getMsg().equals("success")){
@@ -841,8 +847,8 @@ public class ArticleDetailActivity extends BaseActivity implements View.OnClickL
         //跳转到评论列表
         startActivity(new Intent(this, CommenListActivity.class)
                 .putExtra("position", pos)
-                .putExtra("id", getIntent().getStringExtra("id"))
-                .putExtra("type", getIntent().getStringExtra("type"))
+                .putExtra("id", articleId)
+                .putExtra("type", articleType)
         );
     }
 
@@ -939,7 +945,7 @@ public class ArticleDetailActivity extends BaseActivity implements View.OnClickL
     @Subscribe
     public void commentResher(CommenBus commenBus){
         if(commenBus != null && commenBus.getTag().equals(CommenListActivity.commentResher)){
-            mPresenter.comment(getIntent().getStringExtra("id"), getIntent().getStringExtra("type"), this.bindToLifecycle());
+            mPresenter.comment(articleId, articleType, this.bindToLifecycle());
         }
     }
 
@@ -984,8 +990,8 @@ public class ArticleDetailActivity extends BaseActivity implements View.OnClickL
     @Subscribe
     public void refreshPage(CommonEvaluationBus commonEvaluationBus){
         if(commonEvaluationBus != null && commonEvaluationBus.getRefersh().equals(LoginActivity.refresh)){
-            mPresenter.pagerState(getIntent().getStringExtra("type"),getIntent().getStringExtra("id"),this.bindToLifecycle());
-            mPresenter.comment(getIntent().getStringExtra("id"), getIntent().getStringExtra("type"), this.bindToLifecycle());
+            mPresenter.pagerState(articleType,articleId,this.bindToLifecycle());
+            mPresenter.comment(articleId, articleType, this.bindToLifecycle());
         }
     }
 }

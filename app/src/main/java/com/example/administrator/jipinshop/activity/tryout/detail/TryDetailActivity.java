@@ -130,6 +130,8 @@ public class TryDetailActivity extends BaseActivity implements View.OnClickListe
     private Boolean shareFlag = true;//是分享还是拉赞  true分享 false拉赞
     private String ShareBoardContent = "";
 
+    private String id;
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -146,6 +148,7 @@ public class TryDetailActivity extends BaseActivity implements View.OnClickListe
     }
 
     private void initView() {
+        id = getIntent().getStringExtra("id");
         mPresenter.setStatusBarHight(mBinding.titleTop, mBinding.statusBar , mBinding.statusBar2 , mBinding.titleContainer,this);
         int dimenTop = (int) getResources().getDimension(R.dimen.x22);
         int dimenLeft = (int) getResources().getDimension(R.dimen.x40);
@@ -209,7 +212,7 @@ public class TryDetailActivity extends BaseActivity implements View.OnClickListe
 
         mDialog = (new ProgressDialogView()).createLoadingDialog(this, "正在请求...");
         mDialog.show();
-        mPresenter.tryDetail(getIntent().getStringExtra("id"),this.bindToLifecycle());
+        mPresenter.tryDetail(id,this.bindToLifecycle());
     }
 
     @Override
@@ -257,7 +260,7 @@ public class TryDetailActivity extends BaseActivity implements View.OnClickListe
                                 "确认申请", v1 -> {
                                     mDialog = (new ProgressDialogView()).createLoadingDialog(this, "正在请求...");
                                     mDialog.show();
-                                    mPresenter.tryApply(getIntent().getStringExtra("id"),this.bindToLifecycle());
+                                    mPresenter.tryApply(id,this.bindToLifecycle());
                                 });
                     }else {
                         DialogUtil.SingleDialog(this, "极币数不足，请前往获取极币", "去赚极币", v12 -> {
@@ -293,7 +296,7 @@ public class TryDetailActivity extends BaseActivity implements View.OnClickListe
                     );
                 }else if(mBinding.detailApply.getText().toString().equals("查看试用报告")){
                     startActivity(new Intent(this, ReportMoreActivity.class)
-                            .putExtra("id",getIntent().getStringExtra("id"))
+                            .putExtra("id",id)
                     );
                 }
 
@@ -384,7 +387,7 @@ public class TryDetailActivity extends BaseActivity implements View.OnClickListe
                     return;
                 }
                 startActivity(new Intent(this, ReportMoreActivity.class)
-                        .putExtra("id",getIntent().getStringExtra("id"))
+                        .putExtra("id",id)
                 );
                 break;
         }
