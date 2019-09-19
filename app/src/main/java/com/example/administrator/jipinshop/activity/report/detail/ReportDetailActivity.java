@@ -18,10 +18,10 @@ import android.widget.TextView;
 import com.alibaba.baichuan.android.trade.AlibcTradeSDK;
 import com.blankj.utilcode.util.SPUtils;
 import com.example.administrator.jipinshop.R;
-import com.example.administrator.jipinshop.activity.WebActivity;
 import com.example.administrator.jipinshop.activity.commenlist.CommenListActivity;
 import com.example.administrator.jipinshop.activity.login.LoginActivity;
 import com.example.administrator.jipinshop.activity.minekt.userkt.UserActivity;
+import com.example.administrator.jipinshop.activity.web.TaoBaoWebActivity;
 import com.example.administrator.jipinshop.adapter.RelatedArticleAdapter;
 import com.example.administrator.jipinshop.adapter.ReportDetailAdapter;
 import com.example.administrator.jipinshop.adapter.ShoppingCommonAdapter;
@@ -40,7 +40,6 @@ import com.example.administrator.jipinshop.databinding.ActivityReportDetailBindi
 import com.example.administrator.jipinshop.fragment.follow.attention.AttentionFragment;
 import com.example.administrator.jipinshop.fragment.foval.find.FovalFindFragment;
 import com.example.administrator.jipinshop.fragment.foval.tryout.FovalTryFragment;
-import com.example.administrator.jipinshop.netwrok.RetrofitModule;
 import com.example.administrator.jipinshop.util.ClickUtil;
 import com.example.administrator.jipinshop.util.ShareUtils;
 import com.example.administrator.jipinshop.util.ShopJumpUtil;
@@ -256,10 +255,12 @@ public class ReportDetailActivity extends BaseActivity implements View.OnClickLi
                     mDialog.show();
                     String specialId = SPUtils.getInstance(CommonDate.USER).getString(CommonDate.relationId,"");
                     if (TextUtils.isEmpty(specialId) || specialId.equals("null")){
-                        startActivity(new Intent(this, WebActivity.class)
-                                .putExtra(WebActivity.url, RetrofitModule.UP_BASE_URL+"qualityshop-api/api/taobao/login?token=" + SPUtils.getInstance(CommonDate.USER).getString(CommonDate.token))
-                                .putExtra(WebActivity.title,"淘宝授权")
-                        );
+                        TaoBaoUtil.aliLogin(topAuthCode -> {
+                            startActivity(new Intent(this, TaoBaoWebActivity.class)
+                                    .putExtra(TaoBaoWebActivity.url, "https://oauth.taobao.com/authorize?response_type=code&client_id=25612235&redirect_uri=https://www.jipincheng.cn/qualityshop-api/api/taobao/returnUrl&state="+SPUtils.getInstance(CommonDate.USER).getString(CommonDate.token)+"&view=wap")
+                                    .putExtra(TaoBaoWebActivity.title,"淘宝授权")
+                            );
+                        });
                     }else {
                         mPresenter.goodsBuyLink(mBeans.get(0).getGoodsId(),this.bindToLifecycle());
                     }
@@ -837,10 +838,12 @@ public class ReportDetailActivity extends BaseActivity implements View.OnClickLi
         mDialog.show();
         String specialId = SPUtils.getInstance(CommonDate.USER).getString(CommonDate.relationId,"");
         if (TextUtils.isEmpty(specialId) || specialId.equals("null")){
-            startActivity(new Intent(this, WebActivity.class)
-                    .putExtra(WebActivity.url, RetrofitModule.UP_BASE_URL+"qualityshop-api/api/taobao/login?token=" + SPUtils.getInstance(CommonDate.USER).getString(CommonDate.token))
-                    .putExtra(WebActivity.title,"淘宝授权")
-            );
+            TaoBaoUtil.aliLogin(topAuthCode -> {
+                startActivity(new Intent(this, TaoBaoWebActivity.class)
+                        .putExtra(TaoBaoWebActivity.url, "https://oauth.taobao.com/authorize?response_type=code&client_id=25612235&redirect_uri=https://www.jipincheng.cn/qualityshop-api/api/taobao/returnUrl&state="+SPUtils.getInstance(CommonDate.USER).getString(CommonDate.token)+"&view=wap")
+                        .putExtra(TaoBaoWebActivity.title,"淘宝授权")
+                );
+            });
         }else {
             mPresenter.goodsBuyLink(mBeans.get(position).getGoodsId(),this.bindToLifecycle());
         }

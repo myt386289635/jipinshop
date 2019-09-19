@@ -222,7 +222,7 @@ public class SettingActivity extends BaseActivity implements CleanCacheDialog.On
     public void loginOutSuccess(SuccessBean msg) {
         if (msg.getCode() == 0) {
             JPushAlias.deleteAlias(this);
-//            TaoBaoUtil.aliLogout();//淘宝退出登陆
+            TaoBaoUtil.aliLogout();//淘宝退出登陆
             setResult(201);
             finish();
             ToastUtil.show("退出登录成功");

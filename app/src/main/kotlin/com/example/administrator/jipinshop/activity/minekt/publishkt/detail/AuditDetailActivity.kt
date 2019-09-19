@@ -10,15 +10,14 @@ import android.view.View
 import com.alibaba.baichuan.android.trade.AlibcTradeSDK
 import com.blankj.utilcode.util.SPUtils
 import com.example.administrator.jipinshop.R
-import com.example.administrator.jipinshop.activity.WebActivity
 import com.example.administrator.jipinshop.activity.login.LoginActivity
+import com.example.administrator.jipinshop.activity.web.TaoBaoWebActivity
 import com.example.administrator.jipinshop.adapter.ReportDetailAdapter
 import com.example.administrator.jipinshop.base.BaseActivity
 import com.example.administrator.jipinshop.bean.FindDetailBean
 import com.example.administrator.jipinshop.bean.ImageBean
 import com.example.administrator.jipinshop.bean.TryDetailBean
 import com.example.administrator.jipinshop.databinding.ActivityAuditDetailBinding
-import com.example.administrator.jipinshop.netwrok.RetrofitModule
 import com.example.administrator.jipinshop.util.TaoBaoUtil
 import com.example.administrator.jipinshop.util.ToastUtil
 import com.example.administrator.jipinshop.util.sp.CommonDate
@@ -100,10 +99,12 @@ class AuditDetailActivity : BaseActivity(), View.OnClickListener, RelatedGoodsDi
                     mDialog.show()
                     val specialId = SPUtils.getInstance(CommonDate.USER).getString(CommonDate.relationId, "")
                     if (TextUtils.isEmpty(specialId) || specialId == "null") {
-                        startActivity(Intent(this, WebActivity::class.java)
-                                .putExtra(WebActivity.url, RetrofitModule.UP_BASE_URL + "qualityshop-api/api/taobao/login?token=" + SPUtils.getInstance(CommonDate.USER).getString(CommonDate.token))
-                                .putExtra(WebActivity.title, "淘宝授权")
-                        )
+                        TaoBaoUtil.aliLogin { topAuthCode ->
+                            startActivity(Intent(this, TaoBaoWebActivity::class.java)
+                                    .putExtra(TaoBaoWebActivity.url, "https://oauth.taobao.com/authorize?response_type=code&client_id=25612235&redirect_uri=https://www.jipincheng.cn/qualityshop-api/api/taobao/returnUrl&state=" + SPUtils.getInstance(CommonDate.USER).getString(CommonDate.token) + "&view=wap")
+                                    .putExtra(TaoBaoWebActivity.title, "淘宝授权")
+                            )
+                        }
                     } else {
                         mPresenter.goodsBuyLink(mRelatedGoods[0].goodsId, this.bindToLifecycle<ImageBean>())
                     }
@@ -121,10 +122,12 @@ class AuditDetailActivity : BaseActivity(), View.OnClickListener, RelatedGoodsDi
         mDialog.show()
         val specialId = SPUtils.getInstance(CommonDate.USER).getString(CommonDate.relationId, "")
         if (TextUtils.isEmpty(specialId) || specialId == "null") {
-            startActivity(Intent(this, WebActivity::class.java)
-                    .putExtra(WebActivity.url, RetrofitModule.UP_BASE_URL + "qualityshop-api/api/taobao/login?token=" + SPUtils.getInstance(CommonDate.USER).getString(CommonDate.token))
-                    .putExtra(WebActivity.title, "淘宝授权")
-            )
+            TaoBaoUtil.aliLogin { topAuthCode ->
+                startActivity(Intent(this, TaoBaoWebActivity::class.java)
+                        .putExtra(TaoBaoWebActivity.url, "https://oauth.taobao.com/authorize?response_type=code&client_id=25612235&redirect_uri=https://www.jipincheng.cn/qualityshop-api/api/taobao/returnUrl&state=" + SPUtils.getInstance(CommonDate.USER).getString(CommonDate.token) + "&view=wap")
+                        .putExtra(TaoBaoWebActivity.title, "淘宝授权")
+                )
+            }
         } else {
             mPresenter.goodsBuyLink(mRelatedGoods[position].goodsId, this.bindToLifecycle<ImageBean>())
         }
