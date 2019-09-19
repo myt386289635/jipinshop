@@ -101,10 +101,10 @@ class SubmitCorveActivity : BaseActivity(), View.OnClickListener, SelectPicDialo
                     ToastUtil.show("封面图片不能为空")
                     return
                 }
-                if (goodsNum == 0){
-                    ToastUtil.show("至少添加一件商品")
-                    return
-                }
+//                if (goodsNum == 0){
+//                    ToastUtil.show("至少添加一件商品")
+//                    return
+//                }
                 if (goodsNum > 5){
                     ToastUtil.show("最多5件商品")
                     return
@@ -119,10 +119,10 @@ class SubmitCorveActivity : BaseActivity(), View.OnClickListener, SelectPicDialo
                     ToastUtil.show("封面图片不能为空")
                     return
                 }
-                if (goodsNum == 0){
-                    ToastUtil.show("至少添加一件商品")
-                    return
-                }
+//                if (goodsNum == 0){
+//                    ToastUtil.show("至少添加一件商品")
+//                    return
+//                }
                 if (goodsNum > 5){
                     ToastUtil.show("最多5件商品")
                     return
