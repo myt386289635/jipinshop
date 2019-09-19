@@ -1,5 +1,6 @@
 package com.example.administrator.jipinshop.activity.home;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
@@ -30,10 +31,14 @@ import com.example.administrator.jipinshop.util.NotchUtil;
 import com.example.administrator.jipinshop.util.ToastUtil;
 import com.example.administrator.jipinshop.util.UmApp.UAppUtil;
 import com.example.administrator.jipinshop.util.UpDataUtil;
+import com.example.administrator.jipinshop.util.share.MobLinkUtil;
 import com.example.administrator.jipinshop.util.sp.CommonDate;
 import com.example.administrator.jipinshop.view.dialog.DialogUtil;
 import com.example.administrator.jipinshop.view.viewpager.NoScrollViewPager;
 import com.gyf.barlibrary.ImmersionBar;
+import com.mob.moblink.MobLink;
+import com.mob.moblink.Scene;
+import com.mob.moblink.SceneRestorable;
 import com.trello.rxlifecycle2.components.support.RxAppCompatActivity;
 import com.umeng.analytics.MobclickAgent;
 
@@ -49,7 +54,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
 
-public class MainActivity extends RxAppCompatActivity implements MainView, ViewPager.OnPageChangeListener {
+public class MainActivity extends RxAppCompatActivity implements MainView, ViewPager.OnPageChangeListener, SceneRestorable {
 
     @Inject
     MainActivityPresenter mPresenter;
@@ -72,11 +77,18 @@ public class MainActivity extends RxAppCompatActivity implements MainView, ViewP
     private ImmersionBar mImmersionBar;
 
     private long exitTime = 0;
+    private static Activity sFirstInstance;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        if (null == sFirstInstance) {
+            sFirstInstance = this;
+        } else if (this != sFirstInstance) {
+            // 防止微信跳转过来，多个MainActivity界面(是singletop)
+            finish();
+        }
         mButterKnife = ButterKnife.bind(this);
         if (Build.VERSION.SDK_INT >= 28) {
             //适配9.0刘海
@@ -138,6 +150,9 @@ public class MainActivity extends RxAppCompatActivity implements MainView, ViewP
         mImmersionBar.destroy();
         mButterKnife.unbind();
         EventBus.getDefault().unregister(this);
+        if (sFirstInstance == this) {
+            sFirstInstance = null;
+        }
         super.onDestroy();
     }
 
@@ -224,4 +239,18 @@ public class MainActivity extends RxAppCompatActivity implements MainView, ViewP
     public void onPageScrollStateChanged(int i) {
 
     }
+
+    @Override
+    public void onReturnSceneData(Scene scene) {
+        String id = (String) scene.params.get("id");
+        MobLinkUtil.openStartActivity(this,scene.path,id);
+    }
+
+    @Override
+    protected void onNewIntent(Intent intent) {
+        super.onNewIntent(intent);
+        setIntent(intent);
+        MobLink.updateNewIntent(getIntent(), this);
+    }
+
 }

@@ -47,6 +47,7 @@ import com.example.administrator.jipinshop.util.ShopJumpUtil;
 import com.example.administrator.jipinshop.util.TaoBaoUtil;
 import com.example.administrator.jipinshop.util.ToastUtil;
 import com.example.administrator.jipinshop.util.WeakRefHandler;
+import com.example.administrator.jipinshop.util.share.MobLinkUtil;
 import com.example.administrator.jipinshop.util.sp.CommonDate;
 import com.example.administrator.jipinshop.view.dialog.ProgressDialogView;
 import com.example.administrator.jipinshop.view.dialog.RelatedGoodsDialog;
@@ -357,9 +358,14 @@ public class ReportDetailActivity extends BaseActivity implements View.OnClickLi
      */
     @Override
     public void share(SHARE_MEDIA share_media) {
-        mPresenter.taskshareFinish(this.bindUntilEvent(ActivityEvent.DESTROY));
-        new ShareUtils(this, share_media)
-                .shareWeb(this, shareUrl, shareTitle, shareContent, shareImg, R.mipmap.share_logo);
+        MobLinkUtil.mobShare(articleId, "/listing2", mobID -> {
+            if (!TextUtils.isEmpty(mobID)){
+                shareUrl += "&mobid=" + mobID;
+            }
+            mPresenter.taskshareFinish(this.bindUntilEvent(ActivityEvent.DESTROY));
+            new ShareUtils(this, share_media)
+                    .shareWeb(this, shareUrl, shareTitle, shareContent, shareImg, R.mipmap.share_logo);
+        });
     }
 
     /**

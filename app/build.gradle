@@ -3,6 +3,16 @@ apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
 apply plugin: 'kotlin-kapt'
 
+apply plugin: 'com.mob.sdk'//mobLink
+MobSDK {
+    appKey "2c7767cc3e614"
+    appSecret "88ab4fcfd033fb7960fcb64b5aa35546"
+    MobLink {
+        uriScheme "jpc://www.jipincheng.cn"
+        appLinkHost "aos2.t4m.cn"
+    }
+}
+
 android {
     signingConfigs {
         release {

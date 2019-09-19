@@ -29,6 +29,7 @@ import com.example.administrator.jipinshop.activity.WebActivity;
 import com.example.administrator.jipinshop.activity.commenlist.CommenListActivity;
 import com.example.administrator.jipinshop.activity.login.LoginActivity;
 import com.example.administrator.jipinshop.activity.minekt.userkt.UserActivity;
+import com.example.administrator.jipinshop.activity.web.TaoBaoWebActivity;
 import com.example.administrator.jipinshop.adapter.RelatedArticleAdapter;
 import com.example.administrator.jipinshop.adapter.ShoppingCommonAdapter;
 import com.example.administrator.jipinshop.base.BaseActivity;
@@ -51,6 +52,7 @@ import com.example.administrator.jipinshop.util.ShopJumpUtil;
 import com.example.administrator.jipinshop.util.TaoBaoUtil;
 import com.example.administrator.jipinshop.util.ToastUtil;
 import com.example.administrator.jipinshop.util.WeakRefHandler;
+import com.example.administrator.jipinshop.util.share.MobLinkUtil;
 import com.example.administrator.jipinshop.util.sp.CommonDate;
 import com.example.administrator.jipinshop.view.dialog.ProgressDialogView;
 import com.example.administrator.jipinshop.view.dialog.RelatedGoodsDialog;
@@ -306,6 +308,12 @@ public class ArticleDetailActivity extends BaseActivity implements View.OnClickL
                                 .putExtra(WebActivity.url, RetrofitModule.UP_BASE_URL+"qualityshop-api/api/taobao/login?token=" + SPUtils.getInstance(CommonDate.USER).getString(CommonDate.token))
                                 .putExtra(WebActivity.title,"淘宝授权")
                         );
+//                        TaoBaoUtil.aliLogin(topAuthCode -> {
+//                            startActivity(new Intent(this, TaoBaoWebActivity.class)
+//                                    .putExtra(TaoBaoWebActivity.url, "https://oauth.taobao.com/authorize?response_type=code&client_id=25612235&redirect_uri=https://www.jipincheng.cn/qualityshop-api/api/taobao/returnUrl&state="+SPUtils.getInstance(CommonDate.USER).getString(CommonDate.token)+"&view=wap")
+//                                    .putExtra(TaoBaoWebActivity.title,"淘宝授权")
+//                            );
+//                        });
                     }else {
                         mPresenter.goodsBuyLink(mBeans.get(0).getGoodsId(),this.bindToLifecycle());
                     }
@@ -405,9 +413,26 @@ public class ArticleDetailActivity extends BaseActivity implements View.OnClickL
      */
     @Override
     public void share(SHARE_MEDIA share_media) {
-        mPresenter.taskshareFinish(this.bindUntilEvent(ActivityEvent.DESTROY));
-        new ShareUtils(this, share_media)
-                .shareWeb(this, shareUrl, shareTitle, shareContent, shareImg, R.mipmap.share_logo);
+        if (articleType.equals("7")){
+            //清单web
+            MobLinkUtil.mobShare(articleId, "/listing1", mobID -> {
+                if (!TextUtils.isEmpty(mobID)){
+                    shareUrl += "&mobid=" + mobID;
+                }
+                mPresenter.taskshareFinish(this.bindUntilEvent(ActivityEvent.DESTROY));
+                new ShareUtils(this, share_media)
+                        .shareWeb(this, shareUrl, shareTitle, shareContent, shareImg, R.mipmap.share_logo);
+            });
+        }else {//评测web
+            MobLinkUtil.mobShare(articleId, "/evaluation", mobID -> {
+                if (!TextUtils.isEmpty(mobID)){
+                    shareUrl += "&mobid=" + mobID;
+                }
+                mPresenter.taskshareFinish(this.bindUntilEvent(ActivityEvent.DESTROY));
+                new ShareUtils(this, share_media)
+                        .shareWeb(this, shareUrl, shareTitle, shareContent, shareImg, R.mipmap.share_logo);
+            });
+        }
     }
 
     /**

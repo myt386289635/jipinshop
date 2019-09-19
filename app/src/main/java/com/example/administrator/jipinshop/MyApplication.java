@@ -16,7 +16,10 @@ import com.example.administrator.jipinshop.netwrok.ApplicationComponent;
 import com.example.administrator.jipinshop.netwrok.ApplicationModule;
 import com.example.administrator.jipinshop.netwrok.DaggerApplicationComponent;
 import com.example.administrator.jipinshop.util.DebugHelper;
+import com.example.administrator.jipinshop.util.share.SceneListener;
 import com.example.administrator.jipinshop.util.sp.CommonDate;
+import com.mob.MobSDK;
+import com.mob.moblink.MobLink;
 import com.squareup.leakcanary.LeakCanary;
 import com.squareup.leakcanary.RefWatcher;
 import com.tencent.bugly.crashreport.CrashReport;
@@ -128,6 +131,9 @@ public class MyApplication extends Application {
         }
 
         initBugly();
+
+        //初始化mobLink
+        MobLink.setRestoreSceneListener(new SceneListener());
     }
     private RefWatcher mRefWatcher;
     public static RefWatcher getRefWatcher() {

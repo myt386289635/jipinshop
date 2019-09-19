@@ -58,6 +58,7 @@ import com.example.administrator.jipinshop.util.TaoBaoUtil;
 import com.example.administrator.jipinshop.util.ToastUtil;
 import com.example.administrator.jipinshop.util.UmApp.UAppUtil;
 import com.example.administrator.jipinshop.util.WeakRefHandler;
+import com.example.administrator.jipinshop.util.share.MobLinkUtil;
 import com.example.administrator.jipinshop.util.sp.CommonDate;
 import com.example.administrator.jipinshop.view.SaleProgressView;
 import com.example.administrator.jipinshop.view.dialog.ProgressDialogView;
@@ -884,9 +885,14 @@ public class ShoppingDetailActivity extends BaseActivity implements ShoppingComm
      */
     @Override
     public void share(SHARE_MEDIA share_media) {
-        mPresenter.taskFinish(this.bindUntilEvent(ActivityEvent.DESTROY));
-        new ShareUtils(this, share_media)
-                .shareWeb(this, shareUrl, shareName, shareContent, shareImage, R.mipmap.share_logo);
+        MobLinkUtil.mobShare(goodsId, "/goods", mobID -> {
+            if (!TextUtils.isEmpty(mobID)){
+                shareUrl += "&mobid=" + mobID;
+            }
+            mPresenter.taskFinish(ShoppingDetailActivity.this.bindUntilEvent(ActivityEvent.DESTROY));
+            new ShareUtils(ShoppingDetailActivity.this, share_media)
+                    .shareWeb(ShoppingDetailActivity.this, shareUrl, shareName, shareContent, shareImage, R.mipmap.share_logo);
+        });
     }
 
     @Override

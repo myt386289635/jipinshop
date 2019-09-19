@@ -38,6 +38,7 @@ import com.example.administrator.jipinshop.util.ToastUtil;
 import com.example.administrator.jipinshop.util.WeakRefHandler;
 import com.example.administrator.jipinshop.util.html.CustomerTagHandler_1;
 import com.example.administrator.jipinshop.util.html.HtmlParser;
+import com.example.administrator.jipinshop.util.share.MobLinkUtil;
 import com.example.administrator.jipinshop.util.sp.CommonDate;
 import com.example.administrator.jipinshop.view.dialog.FreeDetailDialog;
 import com.example.administrator.jipinshop.view.dialog.ProgressDialogView;
@@ -442,8 +443,13 @@ public class FreeDetailActivity extends BaseActivity implements View.OnClickList
 
     @Override
     public void share(SHARE_MEDIA share_media) {
-        new ShareUtils(this, share_media)
-                .shareWeb(this, shareUrl, shareName, shareContent, shareImage, R.mipmap.share_logo);
+        MobLinkUtil.mobShare(id, "/free", mobID -> {
+            if (!TextUtils.isEmpty(mobID)){
+                shareUrl += "&mobid=" + mobID;
+            }
+            new ShareUtils(this, share_media)
+                    .shareWeb(this, shareUrl, shareName, shareContent, shareImage, R.mipmap.share_logo);
+        });
     }
 
     /**

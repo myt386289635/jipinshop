@@ -46,6 +46,7 @@ import com.example.administrator.jipinshop.util.TaoBaoUtil;
 import com.example.administrator.jipinshop.util.ToastUtil;
 import com.example.administrator.jipinshop.util.UmApp.UAppUtil;
 import com.example.administrator.jipinshop.util.WeakRefHandler;
+import com.example.administrator.jipinshop.util.share.MobLinkUtil;
 import com.example.administrator.jipinshop.util.sp.CommonDate;
 import com.example.administrator.jipinshop.view.dialog.DialogUtil;
 import com.example.administrator.jipinshop.view.dialog.ProgressDialogView;
@@ -395,11 +396,16 @@ public class TryDetailActivity extends BaseActivity implements View.OnClickListe
 
     @Override
     public void share(SHARE_MEDIA share_media) {
-        if (shareFlag){
-            mPresenter.taskshareFinish(this.bindUntilEvent(ActivityEvent.DESTROY));
-        }
-        new ShareUtils(this, share_media)
-                .shareWeb(this, shareUrl, shareTitle, shareContent, shareImg, R.mipmap.share_logo);
+        MobLinkUtil.mobShare(id, "/trial", mobID -> {
+            if (!TextUtils.isEmpty(mobID)){
+                shareUrl += "&mobid=" + mobID;
+            }
+            if (shareFlag){
+                mPresenter.taskshareFinish(this.bindUntilEvent(ActivityEvent.DESTROY));
+            }
+            new ShareUtils(this, share_media)
+                    .shareWeb(this, shareUrl, shareTitle, shareContent, shareImg, R.mipmap.share_logo);
+        });
     }
 
     @Override
