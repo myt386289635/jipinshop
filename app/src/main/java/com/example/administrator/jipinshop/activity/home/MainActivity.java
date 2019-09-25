@@ -2,8 +2,10 @@ package com.example.administrator.jipinshop.activity.home;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.graphics.drawable.Drawable;
 import android.os.Build;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
@@ -12,13 +14,19 @@ import android.text.TextUtils;
 import android.view.View;
 
 import com.blankj.utilcode.util.SPUtils;
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.RequestOptions;
+import com.bumptech.glide.request.target.SimpleTarget;
+import com.bumptech.glide.request.transition.Transition;
 import com.example.administrator.jipinshop.MyApplication;
 import com.example.administrator.jipinshop.R;
 import com.example.administrator.jipinshop.activity.login.LoginActivity;
 import com.example.administrator.jipinshop.activity.sign.SignActivity;
+import com.example.administrator.jipinshop.activity.tryout.freedetail.FreeDetailActivity;
 import com.example.administrator.jipinshop.adapter.HomeAdapter;
 import com.example.administrator.jipinshop.base.DaggerBaseActivityComponent;
 import com.example.administrator.jipinshop.bean.AppVersionbean;
+import com.example.administrator.jipinshop.bean.PopInfoBean;
 import com.example.administrator.jipinshop.bean.eventbus.ChangeHomePageBus;
 import com.example.administrator.jipinshop.bean.eventbus.HomeNewPeopleBus;
 import com.example.administrator.jipinshop.fragment.EvaluationNewFragment;
@@ -28,6 +36,7 @@ import com.example.administrator.jipinshop.fragment.tryout.TryModelFragment;
 import com.example.administrator.jipinshop.netwrok.RetrofitModule;
 import com.example.administrator.jipinshop.util.InputMethodManagerLeak;
 import com.example.administrator.jipinshop.util.NotchUtil;
+import com.example.administrator.jipinshop.util.ShopJumpUtil;
 import com.example.administrator.jipinshop.util.ToastUtil;
 import com.example.administrator.jipinshop.util.UmApp.UAppUtil;
 import com.example.administrator.jipinshop.util.UpDataUtil;
@@ -132,6 +141,7 @@ public class MainActivity extends RxAppCompatActivity implements MainView, ViewP
 
         //版本更新
         mPresenter.getAppVersion(this.bindToLifecycle());
+        mPresenter.getPopInfo(this.bindToLifecycle());
         UAppUtil.tab(this,0);//统计榜单
 
         View tabView = (View) mTabLayout.getTabAt(mFragments.size() - 1).getCustomView().getParent();
@@ -193,6 +203,37 @@ public class MainActivity extends RxAppCompatActivity implements MainView, ViewP
                         versionbean.getData().getContent(),versionbean.getData().getDownloadUrl());//第一版
             }
 
+        }
+    }
+
+    @Override
+    public void onDialogSuc(PopInfoBean bean) {
+        if (bean.getData() != null && bean.getData().getData() != null){
+            if (bean.getData().getType() == 1){
+                //活动
+                RequestOptions options = new RequestOptions();
+                options.centerCrop();
+                Glide.with(this)
+                        .asDrawable()
+                        .load(bean.getData().getData().getImg())
+                        .apply(options)
+                        .into(new SimpleTarget<Drawable>() {
+                            @Override
+                            public void onResourceReady(@NonNull Drawable resource, @Nullable Transition<? super Drawable> transition) {
+                                DialogUtil.imgDialog(MainActivity.this, resource, v -> {
+                                    ShopJumpUtil.openPager(MainActivity.this,bean.getData().getData().getTargetType()
+                                            ,bean.getData().getData().getTargetId(),"小分类");
+                                });
+                            }
+                        });
+            }else {
+                //免单
+                DialogUtil.freeDialog(this, bean, v -> {
+                    startActivity(new Intent(MainActivity.this,  FreeDetailActivity.class)
+                            .putExtra("id",bean.getData().getData().getId())
+                    );
+                });
+            }
         }
     }
 

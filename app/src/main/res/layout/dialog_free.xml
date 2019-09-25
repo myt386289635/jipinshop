@@ -1,0 +1,185 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    android:orientation="vertical"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <RelativeLayout
+        android:layout_gravity="center_horizontal"
+        android:background="@drawable/bg_mine"
+        android:layout_width="@dimen/x580"
+        android:layout_height="wrap_content">
+        
+        <ImageView
+            android:scaleType="centerCrop"
+            tools:src="@color/color_202020"
+            android:id="@+id/dialog_image"
+            android:layout_marginTop="@dimen/y15"
+            android:layout_centerHorizontal="true"
+            android:layout_width="@dimen/x550"
+            android:layout_height="@dimen/y550"/>
+
+        <RelativeLayout
+            android:orientation="horizontal"
+            android:background="@color/color_E25838"
+            android:layout_alignBottom="@id/dialog_image"
+            android:layout_alignRight="@id/dialog_image"
+            android:layout_alignLeft="@id/dialog_image"
+            android:layout_width="wrap_content"
+            android:layout_height="@dimen/y86">
+
+            <TextView
+                android:layout_marginBottom="@dimen/y3"
+                android:id="@+id/dialog_priceText"
+                android:layout_alignBottom="@id/dialog_price"
+                android:textStyle="bold"
+                android:text="到手价 ¥"
+                android:textSize="13sp"
+                android:textColor="@color/color_white"
+                android:layout_marginLeft="@dimen/x6"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+
+
+            <TextView
+                android:includeFontPadding="false"
+                android:lineSpacingExtra="0dp"
+                android:layout_toRightOf="@id/dialog_priceText"
+                android:id="@+id/dialog_price"
+                android:layout_centerVertical="true"
+                android:textColor="@color/color_white"
+                android:textSize="21sp"
+                android:textStyle="bold"
+                android:text="0.00"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+
+        </RelativeLayout>
+
+
+        <TextView
+            android:id="@+id/dialog_name"
+            android:layout_marginTop="@dimen/y6"
+            android:textColor="@color/color_202020"
+            android:textSize="15sp"
+            android:lineSpacingExtra="@dimen/y8"
+            android:layout_marginRight="@dimen/x15"
+            android:layout_marginLeft="@dimen/x15"
+            android:layout_below="@id/dialog_image"
+            tools:text="商品名：电动剃须刀刮胡刀全身水洗男士 电动剃须刀刮胡刀"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+
+        <TextView
+            android:id="@+id/dialog_reminder"
+            android:layout_marginRight="@dimen/x15"
+            android:layout_marginLeft="@dimen/x15"
+            android:textSize="14sp"
+            android:textStyle="bold"
+            android:padding="@dimen/x6"
+            android:text="全额售价¥0.00  到货返现¥0元 "
+            android:background="@color/color_FFEBE6"
+            android:layout_marginTop="@dimen/y20"
+            android:layout_below="@id/dialog_name"
+            android:textColor="@color/color_E25838"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+
+        <LinearLayout
+            android:id="@+id/dialog_timeContainer"
+            android:layout_marginTop="@dimen/y20"
+            android:layout_marginLeft="@dimen/x24"
+            android:layout_below="@id/dialog_reminder"
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:id="@+id/dialog_hour"
+                android:textSize="13sp"
+                android:gravity="center"
+                android:text="0"
+                android:textColor="@color/color_white"
+                android:background="@drawable/bg_time"
+                android:layout_width="@dimen/x34"
+                android:layout_height="@dimen/y34"/>
+
+            <TextView
+                android:layout_marginRight="@dimen/x10"
+                android:layout_marginLeft="@dimen/x10"
+                android:textSize="13sp"
+                android:textColor="@color/color_202020"
+                android:text=":"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+
+            <TextView
+                android:id="@+id/dialog_minute"
+                android:textSize="13sp"
+                android:gravity="center"
+                android:text="0"
+                android:textColor="@color/color_white"
+                android:background="@drawable/bg_time"
+                android:layout_width="@dimen/x34"
+                android:layout_height="@dimen/y34"/>
+
+            <TextView
+                android:layout_marginRight="@dimen/x10"
+                android:layout_marginLeft="@dimen/x10"
+                android:textSize="13sp"
+                android:textColor="@color/color_202020"
+                android:text=":"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+
+            <TextView
+                android:id="@+id/dialog_second"
+                android:textSize="13sp"
+                android:gravity="center"
+                android:text="0"
+                android:textColor="@color/color_white"
+                android:background="@drawable/bg_time"
+                android:layout_width="@dimen/x34"
+                android:layout_height="@dimen/y34"/>
+
+            <TextView
+                android:textSize="13sp"
+                android:textColor="@color/color_202020"
+                android:layout_marginLeft="@dimen/x15"
+                android:text="后过期"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+
+        </LinearLayout>
+
+
+        <TextView
+            android:id="@+id/dialog_sure"
+            android:gravity="center"
+            android:text="前往购买"
+            android:textStyle="bold"
+            android:textColor="@color/color_white"
+            android:textSize="21sp"
+            android:background="@drawable/bg_tab_eva"
+            android:layout_marginBottom="@dimen/y30"
+            android:layout_marginTop="@dimen/y26"
+            android:layout_marginRight="@dimen/x16"
+            android:layout_marginLeft="@dimen/x16"
+            android:layout_below="@id/dialog_timeContainer"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/y90"/>
+
+    </RelativeLayout>
+
+    <ImageView
+        android:layout_marginTop="@dimen/y54"
+        android:id="@+id/dialog_cancle"
+        android:layout_gravity="center_horizontal"
+        android:src="@mipmap/dialog_close"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"/>
+
+
+</LinearLayout>

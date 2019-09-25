@@ -29,6 +29,7 @@ import com.example.administrator.jipinshop.bean.OrderbyTypeBean;
 import com.example.administrator.jipinshop.bean.PagerStateBean;
 import com.example.administrator.jipinshop.bean.PassedMoreBean;
 import com.example.administrator.jipinshop.bean.PointDetailBean;
+import com.example.administrator.jipinshop.bean.PopInfoBean;
 import com.example.administrator.jipinshop.bean.QuestionsBean;
 import com.example.administrator.jipinshop.bean.RecommendFragmentBean;
 import com.example.administrator.jipinshop.bean.ReportBean;
@@ -867,4 +868,10 @@ public interface APIService {
     @FormUrlEncoded
     @POST("qualityshop-api/api/v2/user/my/question/delete")
     Observable<SuccessBean> questionDelete(@Field("questionId") String questionId);
+
+    /**
+     * 获取弹窗信息
+     */
+    @GET("qualityshop-api/api/v2/getPopInfo")
+    Observable<PopInfoBean> getPopInfo();
 }

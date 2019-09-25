@@ -1,6 +1,7 @@
 package com.example.administrator.jipinshop.activity.home;
 
 import com.example.administrator.jipinshop.bean.AppVersionbean;
+import com.example.administrator.jipinshop.bean.PopInfoBean;
 
 /**
  * @author 莫小婷
@@ -10,4 +11,6 @@ import com.example.administrator.jipinshop.bean.AppVersionbean;
 public interface MainView {
 
     void onSuccess(AppVersionbean versionbean);
+
+    void onDialogSuc(PopInfoBean bean);
 }

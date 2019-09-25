@@ -29,6 +29,7 @@ import com.example.administrator.jipinshop.bean.OrderbyTypeBean;
 import com.example.administrator.jipinshop.bean.PagerStateBean;
 import com.example.administrator.jipinshop.bean.PassedMoreBean;
 import com.example.administrator.jipinshop.bean.PointDetailBean;
+import com.example.administrator.jipinshop.bean.PopInfoBean;
 import com.example.administrator.jipinshop.bean.QuestionsBean;
 import com.example.administrator.jipinshop.bean.RecommendFragmentBean;
 import com.example.administrator.jipinshop.bean.ReportBean;
@@ -947,5 +948,12 @@ public class Repository {
      */
     public Observable<SuccessBean> questionDelete(String questionId){
         return mAPIService.questionDelete(questionId);
+    }
+
+    /**
+     * 获取弹窗信息
+     */
+    public Observable<PopInfoBean> getPopInfo(){
+        return mAPIService.getPopInfo();
     }
 }

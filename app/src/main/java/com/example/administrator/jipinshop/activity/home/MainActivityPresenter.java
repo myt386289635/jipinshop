@@ -8,12 +8,14 @@ import android.view.View;
 
 import com.example.administrator.jipinshop.R;
 import com.example.administrator.jipinshop.bean.AppVersionbean;
+import com.example.administrator.jipinshop.bean.PopInfoBean;
 import com.example.administrator.jipinshop.netwrok.Repository;
 import com.trello.rxlifecycle2.LifecycleTransformer;
 
 import javax.inject.Inject;
 
 import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.functions.Consumer;
 import io.reactivex.schedulers.Schedulers;
 
 public class MainActivityPresenter {
@@ -58,6 +60,25 @@ public class MainActivityPresenter {
                     if(appVersionbean.getCode() == 0){
                         if(mView != null){
                             mView.onSuccess(appVersionbean);
+                        }
+                    }
+                }, throwable -> {
+
+                });
+    }
+
+    /**
+     * 获取弹窗信息
+     */
+    public void getPopInfo(LifecycleTransformer<PopInfoBean> transformer){
+        mRepository.getPopInfo()
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .compose(transformer)
+                .subscribe(popInfoBean -> {
+                    if (popInfoBean.getCode() == 0){
+                        if(mView != null){
+                            mView.onDialogSuc(popInfoBean);
                         }
                     }
                 }, throwable -> {
