@@ -87,8 +87,8 @@ public class FreeDetailPresenter {
         });
     }
 
-    public void getDate(String freeId, LifecycleTransformer<FreeDetailBean> transformer){
-        mRepository.freeDetail(freeId)
+    public void getDate(String freeId, String fromId ,String fromType, LifecycleTransformer<FreeDetailBean> transformer){
+        mRepository.freeDetail(freeId,fromId,fromType)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .compose(transformer)

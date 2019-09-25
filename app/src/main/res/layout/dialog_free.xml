@@ -11,7 +11,7 @@
         android:background="@drawable/bg_mine"
         android:layout_width="@dimen/x580"
         android:layout_height="wrap_content">
-        
+
         <ImageView
             android:scaleType="centerCrop"
             tools:src="@color/color_202020"
@@ -22,7 +22,6 @@
             android:layout_height="@dimen/y550"/>
 
         <RelativeLayout
-            android:orientation="horizontal"
             android:background="@color/color_E25838"
             android:layout_alignBottom="@id/dialog_image"
             android:layout_alignRight="@id/dialog_image"
@@ -30,31 +29,35 @@
             android:layout_width="wrap_content"
             android:layout_height="@dimen/y86">
 
-            <TextView
-                android:layout_marginBottom="@dimen/y3"
-                android:id="@+id/dialog_priceText"
-                android:layout_alignBottom="@id/dialog_price"
-                android:textStyle="bold"
-                android:text="到手价 ¥"
-                android:textSize="13sp"
-                android:textColor="@color/color_white"
-                android:layout_marginLeft="@dimen/x6"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"/>
-
-
-            <TextView
-                android:includeFontPadding="false"
-                android:lineSpacingExtra="0dp"
-                android:layout_toRightOf="@id/dialog_priceText"
-                android:id="@+id/dialog_price"
+            <LinearLayout
                 android:layout_centerVertical="true"
-                android:textColor="@color/color_white"
-                android:textSize="21sp"
-                android:textStyle="bold"
-                android:text="0.00"
+                android:orientation="horizontal"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"/>
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:id="@+id/dialog_priceText"
+                    android:textStyle="bold"
+                    android:text="到手价 ¥"
+                    android:textSize="13sp"
+                    android:textColor="@color/color_white"
+                    android:layout_marginLeft="@dimen/x6"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"/>
+
+                <TextView
+                    android:layout_marginLeft="@dimen/x5"
+                    android:includeFontPadding="false"
+                    android:lineSpacingExtra="0dp"
+                    android:id="@+id/dialog_price"
+                    android:textColor="@color/color_white"
+                    android:textSize="21sp"
+                    android:textStyle="bold"
+                    android:text="0.00"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"/>
+
+            </LinearLayout>
 
         </RelativeLayout>
 
@@ -77,7 +80,6 @@
             android:layout_marginRight="@dimen/x15"
             android:layout_marginLeft="@dimen/x15"
             android:textSize="14sp"
-            android:textStyle="bold"
             android:padding="@dimen/x6"
             android:text="全额售价¥0.00  到货返现¥0元 "
             android:background="@color/color_FFEBE6"

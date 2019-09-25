@@ -629,7 +629,7 @@ public interface APIService {
      * 免单详情
      */
     @GET("qualityshop-api/api/free/detail")
-    Observable<FreeDetailBean> freeDetail(@Query("freeId") String freeId);
+    Observable<FreeDetailBean> freeDetail(@Query("freeId") String freeId, @Query("fromId") String fromId , @Query("fromType") String fromType);
 
     /**
      * 免单抢购

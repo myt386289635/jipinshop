@@ -43,6 +43,15 @@ public class PopInfoBean {
 
         private int type;
         private DataBean data;
+        private String popId;
+
+        public String getPopId() {
+            return popId;
+        }
+
+        public void setPopId(String popId) {
+            this.popId = popId;
+        }
 
         public int getType() {
             return type;

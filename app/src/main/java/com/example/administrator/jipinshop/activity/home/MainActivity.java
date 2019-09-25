@@ -214,6 +214,8 @@ public class MainActivity extends RxAppCompatActivity implements MainView, ViewP
                 DialogUtil.freeDialog(this, bean, v -> {
                     startActivity(new Intent(MainActivity.this,  FreeDetailActivity.class)
                             .putExtra("id",bean.getData().getData().getId())
+                            .putExtra("fromId",bean.getData().getPopId())
+                            .putExtra("fromType","1")
                     );
                 });
             }

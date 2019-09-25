@@ -70,6 +70,8 @@ public class FreeDetailActivity extends BaseActivity implements View.OnClickList
     FreeDetailPresenter mPresenter;
     private ActivityFreeDetailBinding mBinding;
     private String id = "";
+    private String fromId = "";
+    private String fromType = "";
     private Dialog mDialog;
     //倒计时，所有地方的倒计时都用同一个，因为不重叠
     private CountDownTimer mCountDownTimer;
@@ -130,6 +132,14 @@ public class FreeDetailActivity extends BaseActivity implements View.OnClickList
 
     private void initView() {
         id = getIntent().getStringExtra("id");
+        fromId = getIntent().getStringExtra("fromId");
+        fromType = getIntent().getStringExtra("fromType");
+        if (TextUtils.isEmpty(fromId)){
+            fromId = "";
+        }
+        if (TextUtils.isEmpty(fromType)){
+            fromType = "";
+        }
         mPresenter.setTitle(mBinding.appbar,mBinding.detailBack,mBinding.statusBar);
         mPresenter.init(this,mBinding.detailPagerContainer,mBinding.statusBar,mBinding.statusBar1,mBinding.titleContainer);
         mDialog = (new ProgressDialogView()).createLoadingDialog(this, "");
@@ -146,7 +156,7 @@ public class FreeDetailActivity extends BaseActivity implements View.OnClickList
         mFragments = new ArrayList<>();
         mHomeAdapter = new HomeAdapter(getSupportFragmentManager());
         //请求数据
-        mPresenter.getDate(id,this.bindToLifecycle());
+        mPresenter.getDate(id,fromId,fromType,this.bindToLifecycle());
     }
 
     @Override

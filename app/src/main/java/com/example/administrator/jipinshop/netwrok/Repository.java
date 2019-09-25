@@ -679,8 +679,8 @@ public class Repository {
     /**
      * 免单详情
      */
-    public Observable<FreeDetailBean> freeDetail(String freeId){
-        return mAPIService.freeDetail(freeId);
+    public Observable<FreeDetailBean> freeDetail(String freeId, String fromId ,String fromType){
+        return mAPIService.freeDetail(freeId,fromId,fromType);
     }
 
     /**
