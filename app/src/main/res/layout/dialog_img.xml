@@ -9,12 +9,15 @@
         android:layout_height="wrap_content">
 
         <ImageView
+            android:scaleType="fitXY"
+            android:adjustViewBounds="true"
             android:layout_gravity="center_horizontal"
             android:id="@+id/dialog_img"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"/>
 
         <ImageView
+            android:layout_marginTop="@dimen/y50"
             android:layout_gravity="center_horizontal"
             android:scaleType="fitXY"
             android:id="@+id/dialog_cancle"

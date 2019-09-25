@@ -3,13 +3,9 @@ package com.example.administrator.jipinshop.view.dialog;
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.Context;
-import android.content.DialogInterface;
-import android.graphics.drawable.Drawable;
 import android.os.CountDownTimer;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.view.WindowManager;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -219,13 +215,15 @@ public class DialogUtil{
         dialog.setContentView(view);
     }
 
-    // TODO: 2019/9/24  网络获取图片加载时，控制不了dialog高度？？？  感觉不是代码问题，后台放置web的1倍图是正常的，放置2倍图就不正常。
-    public static void imgDialog(Context context, Drawable resource , final View.OnClickListener sureListener){
+    public static void imgDialog(Context context, String resource , final View.OnClickListener sureListener){
         AlertDialog.Builder builder = new AlertDialog.Builder(context,R.style.dialog);
         View view = LayoutInflater.from(context).inflate(R.layout.dialog_img,null);
         ImageView dialog_img = view.findViewById(R.id.dialog_img);
         ImageView dialog_cancle = view.findViewById(R.id.dialog_cancle);
-        dialog_img.setImageDrawable(resource);
+        Glide.with(context)
+                .asBitmap()
+                .load(resource)
+                .into(dialog_img);
         final Dialog dialog = builder.create();
         dialog.getWindow().setDimAmount(0.35f);
         dialog_cancle.setOnClickListener(v -> dialog.dismiss());
