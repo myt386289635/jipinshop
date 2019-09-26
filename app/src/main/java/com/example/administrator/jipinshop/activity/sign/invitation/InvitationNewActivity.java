@@ -71,16 +71,28 @@ public class InvitationNewActivity extends BaseActivity implements View.OnClickL
                 finish();
                 break;
             case R.id.share_wechat:
-                new ShareUtils(this, SHARE_MEDIA.WEIXIN)
-                        .shareImage(this, mList.get(position));
+                if (mList.size() > position){
+                    new ShareUtils(this, SHARE_MEDIA.WEIXIN)
+                            .shareImage(this, mList.get(position));
+                }else {
+                    ToastUtil.show("邀请页面不存在请确认");
+                }
                 break;
             case R.id.share_pyq:
-                new ShareUtils(this, SHARE_MEDIA.WEIXIN_CIRCLE)
-                        .shareImage(this, mList.get(position));
+                if (mList.size() > position){
+                    new ShareUtils(this, SHARE_MEDIA.WEIXIN_CIRCLE)
+                            .shareImage(this, mList.get(position));
+                }else {
+                    ToastUtil.show("邀请页面不存在请确认");
+                }
                 break;
             case R.id.share_weibo:
-                new ShareUtils(this, SHARE_MEDIA.SINA)
-                        .shareImage(this, mList.get(position));
+                if (mList.size() > position){
+                    new ShareUtils(this, SHARE_MEDIA.SINA)
+                            .shareImage(this, mList.get(position));
+                }else {
+                    ToastUtil.show("邀请页面不存在请确认");
+                }
                 break;
         }
     }
