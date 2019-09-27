@@ -377,9 +377,7 @@ public class FreeDetailActivity extends BaseActivity implements View.OnClickList
         String html = "前往购买<font size='13'>(可返"+ detailBean.getData().getFreePrice() +"元)</font>";
         mBinding.detailBottomBuy.setText(HtmlParser.buildSpannedText(html,new CustomerTagHandler_1()));
         mBinding.detailBottomBuy.setBackgroundColor(getResources().getColor(R.color.color_E25838));
-        long temp = System.currentTimeMillis();
-        long currentTime = temp + 60 * 60 * 1000;
-        long timer = currentTime - temp;
+        long timer = dateAddOneDay(detailBean.getData().getDendlineTime()) - System.currentTimeMillis();
         if (timer > 0) {
             mCountDownTimer = new CountDownTimer(timer, 1000) {
                 public void onTick(long millisUntilFinished) {
@@ -424,7 +422,16 @@ public class FreeDetailActivity extends BaseActivity implements View.OnClickList
 
         String result = "";
         if (falg){
-            result = minute + "分" + second + "秒";
+            if(day != 0){
+                long time = ((day * 24) + hour);
+                result = time + "小时" + minute + "分钟" + second + "秒";
+            }else if(hour != 0){
+                result = hour + "小时" + minute + "分钟" + second + "秒";
+            }else if(minute != 0){
+                result = minute + "分钟" + second + "秒";
+            }else {
+                result = second + "秒";
+            }
         }else {
             if(day != 0){
                 result = day + "天" + hour + "小时" + minute + "分钟" + second + "秒";

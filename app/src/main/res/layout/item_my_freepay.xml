@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:bind="http://schemas.android.com/apk/res-auto">
+
+    <data>
+        <variable
+            name="date"
+            type="com.example.administrator.jipinshop.bean.MyFreeBean.DataBean"/>
+    </data>
+
+    <RelativeLayout
+        android:layout_marginTop="@dimen/y20"
+        android:layout_marginRight="@dimen/x30"
+        android:layout_marginLeft="@dimen/x30"
+        android:background="@drawable/bg_mine"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <ImageView
+            android:layout_marginRight="@dimen/x10"
+            android:layout_marginBottom="@dimen/y20"
+            android:layout_marginTop="@dimen/y20"
+            android:layout_marginLeft="@dimen/x30"
+            bind:srcRound="@{date.shopImg}"
+            android:id="@+id/item_shopImg"
+            android:scaleType="fitXY"
+            android:layout_width="@dimen/x50"
+            android:layout_height="@dimen/y50"/>
+
+        <TextView
+            android:id="@+id/item_shopName"
+            android:textColor="@color/color_ACACAC"
+            android:textSize="14sp"
+            android:layout_toRightOf="@id/item_shopImg"
+            android:gravity="center_vertical"
+            android:layout_alignBottom="@id/item_shopImg"
+            android:layout_alignTop="@id/item_shopImg"
+            android:text="@{date.shopName + @string/my_free_shopname}"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+
+        <ImageView
+            android:layout_below="@id/item_shopImg"
+            bind:srcRound="@{date.img}"
+            android:id="@+id/item_image"
+            android:layout_marginRight="@dimen/x30"
+            android:layout_marginLeft="@dimen/x30"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/y380"/>
+
+        <TextView
+            android:background="@drawable/bg_free_time"
+            android:id="@+id/item_time"
+            android:paddingLeft="@dimen/x24"
+            android:gravity="center_vertical"
+            android:textSize="15sp"
+            android:text="剩余购买时间：0分0秒"
+            android:layout_alignBottom="@id/item_image"
+            android:layout_alignRight="@id/item_image"
+            android:layout_alignLeft="@id/item_image"
+            android:textColor="@color/color_FFCA43"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/y60"/>
+
+        <TextView
+            android:id="@+id/item_name"
+            android:lineSpacingExtra="@dimen/y14"
+            android:textColor="@color/color_202020"
+            android:textSize="17sp"
+            android:text="@{date.name}"
+            android:layout_marginTop="@dimen/y16"
+            android:layout_below="@id/item_image"
+            android:layout_marginRight="@dimen/x30"
+            android:layout_marginLeft="@dimen/x30"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+
+        <TextView
+            android:textSize="15sp"
+            android:id="@+id/item_surplus"
+            android:layout_below="@id/item_name"
+            android:layout_marginTop="@dimen/y20"
+            android:layout_marginLeft="@dimen/x30"
+            android:textStyle="bold"
+            android:textColor="@color/color_0F9D55"
+            android:text="@{@string/free_count3 + date.userCount + @string/free_count2}"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+
+
+        <TextView
+            android:id="@+id/item_buy"
+            android:gravity="center"
+            android:text="@{@string/my_free_pay1 + date.freePrice + @string/my_free_pay2}"
+            android:textSize="16sp"
+            android:textColor="@color/color_white"
+            android:layout_marginBottom="@dimen/y26"
+            android:layout_marginTop="@dimen/y28"
+            android:layout_below="@id/item_surplus"
+            android:background="@drawable/bg_tab_eva"
+            android:layout_marginRight="@dimen/x30"
+            android:layout_marginLeft="@dimen/x30"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/y76"/>
+
+    </RelativeLayout>
+</layout>

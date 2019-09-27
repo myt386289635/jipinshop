@@ -310,4 +310,35 @@ public class BindingUtil {
             view.setText(HtmlParser.buildSpannedText(html,new CustomerTagHandler_1()));
         }
     }
+
+    /*******************************以下是我的免单里的************************************/
+    @BindingAdapter({"bind:myFreeType"})
+    public static void setTextitem_textTag(TextView view ,int myFreeType){
+        switch (myFreeType){
+            case 1:
+                view.setText("待确认");
+                break;
+            case 3:
+                view.setText("已结算");
+                break;
+            case -1:
+                view.setText("已失效");
+                break;
+        }
+    }
+
+    @BindingAdapter({"bind:myFreeType", "bind:myFreeRate" , "bind:myFreePrice"})
+    public static void setTextitem_freeNotice(TextView view ,int myFreeType, double myFreeRate , double myFreePrice){
+        switch (myFreeType){
+            case 1:
+                view.setText("免"+ (myFreeRate * 100) +"%，预估返：¥" + myFreePrice);
+                break;
+            case 3:
+                view.setText("免"+ (myFreeRate * 100) +"%，返现：¥" + myFreePrice);
+                break;
+            case -1:
+                view.setText("免"+ (myFreeRate * 100) +"%，返现：¥0");
+                break;
+        }
+    }
 }

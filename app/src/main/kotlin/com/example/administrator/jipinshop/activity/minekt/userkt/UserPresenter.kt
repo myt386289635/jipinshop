@@ -83,6 +83,7 @@ class UserPresenter {
         for (i in mFragments.indices) {
             val view = LayoutInflater.from(context).inflate(R.layout.tablayout_user, null)
             val textView = view.findViewById<TextView>(R.id.tab_name)
+            textView.paint.isFakeBoldText = true
             when (i) {
                 0 -> textView.text = "评测"
                 1 -> textView.text = "清单"

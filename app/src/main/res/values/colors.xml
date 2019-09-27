@@ -3,7 +3,6 @@
     <color name="colorPrimary">#3F51B5</color>
     <color name="colorPrimaryDark">#303F9F</color>
     <color name="colorAccent">#FF4081</color>
-
     <color name="color_white">#ffffff</color>
     <color name="color_282828">#282828</color>
     <color name="color_E31436">#E25838</color> <!--主色调-->
@@ -27,7 +26,6 @@
     <color name="color_990092FF">#990092FF</color>
     <color name="color_4D151515">#4D151515</color>
     <color name="color_685FA1">#FF685FA1</color>
-
     <color name="pickerview_timebtn_nor">#057dff</color>
     <color name="pickerview_timebtn_pre">#c2daf5</color>
     <color name="pickerview_bg_topbar">#f5f5f5</color>
@@ -35,8 +33,7 @@
     <color name="pickerview_wheelview_textcolor_out">#a8a8a8</color>
     <color name="pickerview_wheelview_textcolor_center">#2a2a2a</color>
     <color name="pickerview_wheelview_textcolor_divider">#d5d5d5</color>
-    <!--覆盖颜色-->
-    <color name="bgColor_overlay">#4D151515</color>
+    <color name="bgColor_overlay">#4D151515</color>  <!--覆盖颜色-->
     <color name="color_B3151515">#B3151515</color>
     <color name="color_FAFAFA">#FAFAFA</color>
     <color name="color_F76B1C">#F76B1C</color>
@@ -87,5 +84,9 @@
     <color name="color_9E9E9E">#9E9E9E</color>
     <color name="color_FF0000">#FF0000</color>
     <color name="color_FFEBE6">#FFEBE6</color>
+    <color name="color_FFCA43">#FFCA43</color>
+    <color name="color_80000000">#80000000</color>
+    <color name="color_0F9D55">#0F9D55</color>
+    <color name="color_E6E6E6">#E6E6E6</color>
 
 </resources>

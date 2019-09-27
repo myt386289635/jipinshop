@@ -91,7 +91,7 @@
         android:paddingTop="@dimen/y8"
         android:textColor="@color/color_white"
         android:text="免费申请"
-        android:background="@drawable/bg_e31436"
+        android:background="@drawable/bg_freeone"
         android:layout_alignParentRight="true"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"/>

@@ -23,6 +23,7 @@ import com.example.administrator.jipinshop.bean.InvitationBean;
 import com.example.administrator.jipinshop.bean.LoginBean;
 import com.example.administrator.jipinshop.bean.MallBean;
 import com.example.administrator.jipinshop.bean.MallDetailBean;
+import com.example.administrator.jipinshop.bean.MyFreeBean;
 import com.example.administrator.jipinshop.bean.MyOrderBean;
 import com.example.administrator.jipinshop.bean.MyWalletBean;
 import com.example.administrator.jipinshop.bean.OrderbyTypeBean;
@@ -874,4 +875,10 @@ public interface APIService {
      */
     @GET("qualityshop-api/api/v2/getPopInfo")
     Observable<PopInfoBean> getPopInfo();
+
+    /**
+     * 我的免单记录
+     */
+    @GET("qualityshop-api/api/v2/user/freeList")
+    Observable<MyFreeBean>  myFreeList(@Query("applyStatus") String applyStatus , @Query("page") int page);
 }

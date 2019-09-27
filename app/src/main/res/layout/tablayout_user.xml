@@ -6,7 +6,6 @@
 
 
     <TextView
-        android:textStyle="bold"
         android:id="@+id/tab_name"
         android:layout_centerInParent="true"
         android:textColor="@drawable/tab_item_color3"
