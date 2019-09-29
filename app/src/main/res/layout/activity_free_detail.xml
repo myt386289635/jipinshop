@@ -166,14 +166,13 @@
                             android:id="@+id/detail_buyTimeContainer"
                             android:layout_alignParentRight="true"
                             android:background="@color/color_333333"
-                            android:layout_width="wrap_content"
+                            android:layout_width="@dimen/x324"
                             android:layout_height="match_parent">
 
                             <LinearLayout
-                                android:layout_centerVertical="true"
+                                android:gravity="center"
+                                android:layout_centerInParent="true"
                                 android:orientation="vertical"
-                                android:layout_marginRight="@dimen/x50"
-                                android:layout_marginLeft="@dimen/x66"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content">
 
