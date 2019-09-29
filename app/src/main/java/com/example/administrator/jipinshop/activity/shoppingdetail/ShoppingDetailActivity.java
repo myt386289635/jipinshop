@@ -149,6 +149,7 @@ public class ShoppingDetailActivity extends BaseActivity implements ShoppingComm
     private String goodsId = "";
 
     private String goodsUrl = "";
+    private String openTBid = "";
 
     /**
      * 标志：是否收藏过此商品 false:没有
@@ -877,6 +878,7 @@ public class ShoppingDetailActivity extends BaseActivity implements ShoppingComm
     @Override
     public void onBuyLinkSuccess(ImageBean bean) {
         goodsUrl = bean.getData();
+        openTBid = bean.getOtherGoodsId();
     }
 
     /**
@@ -989,7 +991,7 @@ public class ShoppingDetailActivity extends BaseActivity implements ShoppingComm
                         );
                     });
                 }else {
-                    TaoBaoUtil.openAliHomeWeb(this,goodsUrl);
+                    TaoBaoUtil.openAliHomeWeb(this,goodsUrl,openTBid);
                 }
                 break;
             case R.id.key_text:

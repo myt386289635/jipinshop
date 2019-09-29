@@ -840,7 +840,7 @@ public class ArticleDetailActivity extends BaseActivity implements View.OnClickL
 
     @Override
     public void onBuyLinkSuccess(ImageBean bean) {
-        TaoBaoUtil.openAliHomeWeb(this,bean.getData());
+        TaoBaoUtil.openAliHomeWeb(this,bean.getData(),bean.getOtherGoodsId());
     }
 
     /**

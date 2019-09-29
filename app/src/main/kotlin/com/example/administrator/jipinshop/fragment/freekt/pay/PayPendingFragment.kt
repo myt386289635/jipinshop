@@ -191,7 +191,7 @@ class PayPendingFragment : DBBaseFragment(), OnRefreshListener, OnLoadMoreListen
     }
 
     override fun onBuyLinkSuccess(bean: ImageBean) {
-        TaoBaoUtil.openAliHomeWeb((context as Activity?), bean.data)
+        TaoBaoUtil.openAliHomeWeb((context as Activity?), bean.data,bean.otherGoodsId)
     }
 
     override fun onCommenFile(error: String?) {

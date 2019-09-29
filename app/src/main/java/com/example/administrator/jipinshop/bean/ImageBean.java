@@ -16,6 +16,15 @@ public class ImageBean {
     private String msg;
     private int code;
     private String data;
+    private String otherGoodsId;
+
+    public String getOtherGoodsId() {
+        return otherGoodsId;
+    }
+
+    public void setOtherGoodsId(String otherGoodsId) {
+        this.otherGoodsId = otherGoodsId;
+    }
 
     public String getMsg() {
         return msg;

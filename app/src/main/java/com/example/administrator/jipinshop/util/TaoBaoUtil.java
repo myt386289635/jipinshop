@@ -1,13 +1,17 @@
 package com.example.administrator.jipinshop.util;
 
 import android.app.Activity;
+import android.text.TextUtils;
 import android.webkit.WebChromeClient;
 import android.webkit.WebViewClient;
+import android.widget.Toast;
 
 import com.alibaba.baichuan.android.trade.AlibcTrade;
 import com.alibaba.baichuan.android.trade.callback.AlibcTradeCallback;
 import com.alibaba.baichuan.android.trade.model.AlibcShowParams;
 import com.alibaba.baichuan.android.trade.model.OpenType;
+import com.alibaba.baichuan.android.trade.page.AlibcBasePage;
+import com.alibaba.baichuan.android.trade.page.AlibcDetailPage;
 import com.alibaba.baichuan.trade.biz.applink.adapter.AlibcFailModeType;
 import com.alibaba.baichuan.trade.biz.context.AlibcTradeResult;
 import com.alibaba.baichuan.trade.biz.core.taoke.AlibcTaokeParams;
@@ -28,32 +32,59 @@ public class TaoBaoUtil {
     /****
      * 跳转淘宝首页
      */
-    public static void openAliHomeWeb(Activity context, String url) {
-        AlibcShowParams showParams = new AlibcShowParams();
-        showParams.setOpenType(OpenType.Native);
-        showParams.setClientType("taobao");
-        showParams.setBackUrl("alisdk://");
-        showParams.setNativeOpenFailedMode(AlibcFailModeType.AlibcNativeFailModeJumpH5);
+    public static void openAliHomeWeb(Activity context, String url,String id) {
+        if (TextUtils.isEmpty(id)){
+            AlibcShowParams showParams = new AlibcShowParams();
+            showParams.setOpenType(OpenType.Native);
+            showParams.setClientType("taobao");
+            showParams.setBackUrl("alisdk://");
+            showParams.setNativeOpenFailedMode(AlibcFailModeType.AlibcNativeFailModeJumpH5);
 
-        AlibcTaokeParams taokeParams = new AlibcTaokeParams("", "", "");
+            AlibcTaokeParams taokeParams = new AlibcTaokeParams("", "", "");
 
-        Map<String, String> trackParams = new HashMap<>();
-        AlibcTrade.openByUrl(context, "", url, null,
-                new WebViewClient(), new WebChromeClient(),
-                showParams, taokeParams, trackParams, new AlibcTradeCallback() {
-                    @Override
-                    public void onTradeSuccess(AlibcTradeResult tradeResult) {
-                        AlibcLogger.i("AlibcTradeSDK", "request success");
-                    }
-
-                    @Override
-                    public void onFailure(int code, String msg) {
-                        AlibcLogger.e("AlibcTradeSDK", "code=" + code + ", msg=" + msg);
-                        if (code == -1) {
-//                            Toast.makeText(MainActivity.this, msg, Toast.LENGTH_SHORT).show();
+            Map<String, String> trackParams = new HashMap<>();
+            AlibcTrade.openByUrl(context, "", url, null,
+                    new WebViewClient(), new WebChromeClient(),
+                    showParams, taokeParams, trackParams, new AlibcTradeCallback() {
+                        @Override
+                        public void onTradeSuccess(AlibcTradeResult tradeResult) {
+                            AlibcLogger.i("AlibcTradeSDK", "request success");
                         }
-                    }
-                });
+
+                        @Override
+                        public void onFailure(int code, String msg) {
+                            AlibcLogger.e("AlibcTradeSDK", "code=" + code + ", msg=" + msg);
+                            if (code == -1) {
+//                            Toast.makeText(MainActivity.this, msg, Toast.LENGTH_SHORT).show();
+                            }
+                        }
+                    });
+        }else {
+            AlibcBasePage page = new AlibcDetailPage(id);
+            AlibcShowParams showParams = new AlibcShowParams();
+            showParams.setOpenType(OpenType.Native);
+            showParams.setClientType("taobao");
+            showParams.setBackUrl("alisdk://");
+            showParams.setNativeOpenFailedMode(AlibcFailModeType.AlibcNativeFailModeJumpH5);
+
+            AlibcTaokeParams taokeParams = new AlibcTaokeParams("", "", "");
+            Map<String, String> trackParams = new HashMap<>();
+
+            AlibcTrade.openByBizCode(context, page, null, new WebViewClient(),
+                    new WebChromeClient(), "detail", showParams, taokeParams,
+                    trackParams, new AlibcTradeCallback() {
+                        @Override
+                        public void onTradeSuccess(AlibcTradeResult tradeResult) {
+                            // 交易成功回调（其他情形不回调）
+                            AlibcLogger.i("AlibcTradeSDK", "open detail page success");
+                        }
+                        @Override
+                        public void onFailure(int code, String msg) {
+                            // 失败回调信息
+                            AlibcLogger.e("AlibcTradeSDK", "code=" + code + ", msg=" + msg);
+                        }
+                    });
+        }
     }
 
     /**

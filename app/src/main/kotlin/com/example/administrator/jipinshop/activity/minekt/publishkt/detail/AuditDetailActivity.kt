@@ -170,7 +170,7 @@ class AuditDetailActivity : BaseActivity(), View.OnClickListener, RelatedGoodsDi
     }
 
     override fun onBuyLinkSuccess(bean: ImageBean) {
-        TaoBaoUtil.openAliHomeWeb(this, bean.data)
+        TaoBaoUtil.openAliHomeWeb(this, bean.data,bean.otherGoodsId)
     }
 
     override fun onFileCommentInsert(error: String?) {
