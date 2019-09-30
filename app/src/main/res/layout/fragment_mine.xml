@@ -489,7 +489,7 @@
                             android:layout_height="wrap_content"
                             android:layout_centerVertical="true"
                             android:layout_marginLeft="@dimen/x32"
-                            android:drawableLeft="@mipmap/mine_release"
+                            android:drawableLeft="@mipmap/mine_try"
                             android:drawablePadding="@dimen/x18"
                             android:text="我的试用"/>
 
