@@ -64,4 +64,10 @@
     <string name="my_free_pay1">立即购买（可免</string>
     <string name="my_free_pay2">元）</string>
     <string name="my_free_shopname"> 赞助</string>
+
+    <string name="order_time">下单时间：</string>
+    <string name="order_prefree_start">补贴：</string>
+    <string name="order_prefree_end">元</string>
+    <string name="order_pay">付款：</string>
+    <string name="order_number">订单号：</string>
 </resources>

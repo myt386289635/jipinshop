@@ -1,0 +1,163 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:bind="http://schemas.android.com/apk/res-auto">
+
+    <data>
+        <variable
+            name="date"
+            type="com.example.administrator.jipinshop.bean.OrderTBBean.DataBean"/>
+    </data>
+
+
+    <RelativeLayout
+        android:background="@color/color_white"
+        android:layout_marginTop="@dimen/y20"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:id="@+id/item_titleText"
+            android:layout_marginLeft="@dimen/x30"
+            android:gravity="center"
+            bind:TbState="@{date.status}"
+            android:textColor="@color/color_ACACAC"
+            android:textSize="14sp"
+            android:textStyle="bold"
+            android:layout_width="wrap_content"
+            android:layout_height="@dimen/y76"/>
+
+        <TextView
+            android:id="@+id/item_titleTime"
+            android:text="@{@string/order_time + date.tkCreateTime}"
+            android:layout_alignParentRight="true"
+            android:textColor="@color/color_9D9D9D"
+            android:textSize="12sp"
+            android:gravity="center"
+            android:layout_marginRight="@dimen/x30"
+            android:layout_width="wrap_content"
+            android:layout_height="@dimen/y76"/>
+
+        <View
+            android:layout_below="@id/item_titleTime"
+            android:background="@color/color_E6E6E6"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/y1"/>
+        
+        <ImageView
+            bind:srcRound="@{date.itemImg}"
+            android:id="@+id/item_image"
+            android:layout_marginRight="@dimen/x20"
+            android:layout_marginBottom="@dimen/y30"
+            android:layout_marginLeft="@dimen/x30"
+            android:layout_marginTop="@dimen/y31"
+            android:layout_below="@id/item_titleText"
+            android:layout_width="@dimen/x200"
+            android:layout_height="@dimen/y200"/>
+
+        <TextView
+            android:layout_marginRight="@dimen/x80"
+            android:ellipsize="end"
+            android:maxLines="2"
+            android:lineSpacingExtra="@dimen/y10"
+            android:textColor="@color/color_202020"
+            android:textSize="14sp"
+            android:id="@+id/item_name"
+            android:text="@{date.itemTitle}"
+            android:layout_alignTop="@id/item_image"
+            android:layout_toRightOf="@id/item_image"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+
+        <TextView
+            android:id="@+id/item_number"
+            android:layout_marginRight="@dimen/x30"
+            android:layout_alignParentRight="true"
+            android:layout_alignTop="@id/item_name"
+            android:textSize="13sp"
+            android:textColor="@color/color_9D9D9D"
+            android:text="@{@string/totle + date.itemNum}"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+
+        <TextView
+            android:layout_toRightOf="@id/item_image"
+            android:layout_alignBottom="@id/item_image"
+            android:id="@+id/item_price"
+            android:paddingRight="@dimen/x4"
+            android:paddingLeft="@dimen/x4"
+            android:paddingBottom="@dimen/y2"
+            android:paddingTop="@dimen/y2"
+            android:text="@{@string/order_prefree_start + date.preFee + @string/order_prefree_end}"
+            android:textColor="@color/color_E25838"
+            android:background="@color/color_FFDBDB"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+
+        <TextView
+            android:id="@+id/item_explain"
+            android:layout_marginRight="@dimen/x30"
+            android:layout_alignParentRight="true"
+            android:layout_alignBottom="@id/item_image"
+            android:textSize="12sp"
+            android:textColor="@color/color_9D9D9D"
+            bind:TbState="@{date.status}"
+            bind:TbEarningTime="@{date.appEarningTime}"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+
+        <TextView
+            android:id="@+id/item_code"
+            android:textColor="@color/color_ACACAC"
+            android:textSize="12sp"
+            android:text="@{@string/order_pay + date.alipayTotalPrice + @string/order_prefree_end}"
+            android:layout_marginBottom="@dimen/y20"
+            android:layout_above="@id/item_price"
+            android:layout_toRightOf="@id/item_image"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+
+        <View
+            android:layout_below="@id/item_image"
+            android:background="@color/color_E6E6E6"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/y1"/>
+
+
+        <RelativeLayout
+            android:layout_marginTop="@dimen/y1"
+            android:layout_below="@id/item_image"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/y76">
+
+
+            <TextView
+                android:id="@+id/item_order"
+                android:layout_marginLeft="@dimen/x30"
+                android:layout_centerVertical="true"
+                android:textSize="12sp"
+                android:textColor="@color/color_9D9D9D"
+                android:text="@{@string/order_number + date.tradeId}"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+
+            <TextView
+                android:id="@+id/item_copy"
+                android:layout_marginRight="@dimen/x30"
+                android:layout_centerVertical="true"
+                android:layout_alignParentRight="true"
+                android:paddingBottom="@dimen/y6"
+                android:paddingTop="@dimen/y6"
+                android:paddingRight="@dimen/x32"
+                android:paddingLeft="@dimen/x32"
+                android:textColor="@color/color_9D9D9D"
+                android:textSize="12sp"
+                android:text="复制"
+                android:background="@drawable/bg_979797"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+
+        </RelativeLayout>
+
+
+    </RelativeLayout>
+</layout>

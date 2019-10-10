@@ -476,6 +476,7 @@
                     </RelativeLayout>
 
                     <RelativeLayout
+                        android:visibility="gone"
                         android:id="@+id/mine_trial"
                         android:layout_width="match_parent"
                         android:layout_height="@dimen/x136"

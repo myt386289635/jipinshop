@@ -26,6 +26,7 @@ import com.example.administrator.jipinshop.bean.MallDetailBean;
 import com.example.administrator.jipinshop.bean.MyFreeBean;
 import com.example.administrator.jipinshop.bean.MyOrderBean;
 import com.example.administrator.jipinshop.bean.MyWalletBean;
+import com.example.administrator.jipinshop.bean.OrderTBBean;
 import com.example.administrator.jipinshop.bean.OrderbyTypeBean;
 import com.example.administrator.jipinshop.bean.PagerStateBean;
 import com.example.administrator.jipinshop.bean.PassedMoreBean;
@@ -963,5 +964,12 @@ public class Repository {
      */
     public Observable<MyFreeBean>  myFreeList(String applyStatus , int page){
         return mAPIService.myFreeList(applyStatus,page);
+    }
+
+    /**
+     * 我的订单（淘宝订单）
+     */
+    public Observable<OrderTBBean> myTaobaoOrderList(int page , String status){
+        return mAPIService.myTaobaoOrderList(page, status);
     }
 }

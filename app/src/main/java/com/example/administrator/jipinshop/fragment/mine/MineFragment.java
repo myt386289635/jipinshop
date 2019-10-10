@@ -22,9 +22,9 @@ import com.example.administrator.jipinshop.activity.login.LoginActivity;
 import com.example.administrator.jipinshop.activity.mall.MallActivity;
 import com.example.administrator.jipinshop.activity.message.MessageActivity;
 import com.example.administrator.jipinshop.activity.minekt.freekt.MineFreeActivity;
+import com.example.administrator.jipinshop.activity.minekt.orderkt.KTMyOrderActivity;
 import com.example.administrator.jipinshop.activity.minekt.publishkt.MyPublishActivity;
 import com.example.administrator.jipinshop.activity.minekt.userkt.UserActivity;
-import com.example.administrator.jipinshop.activity.order.MyOrderActivity;
 import com.example.administrator.jipinshop.activity.setting.SettingActivity;
 import com.example.administrator.jipinshop.activity.sign.SignActivity;
 import com.example.administrator.jipinshop.activity.sign.invitation.InvitationNewActivity;
@@ -164,8 +164,8 @@ public class MineFragment extends DBBaseFragment implements View.OnClickListener
                 break;
             case R.id.mine_order:
                 //我的订单
-                startActivity(new Intent(getContext(), MyOrderActivity.class));
-                UAppUtil.mine(getContext(),6);
+                startActivity(new Intent(getContext(), KTMyOrderActivity.class));
+//                UAppUtil.mine(getContext(),6);
                 break;
             case R.id.mine_shoppingMall:
                 //我的商城

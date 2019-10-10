@@ -341,4 +341,35 @@ public class BindingUtil {
                 break;
         }
     }
+
+    /*******************************以下是我的订单（淘宝订单）里的************************************/
+    @BindingAdapter({"bind:TbState"})
+    public static void setTextitem_titleText(TextView view ,int TbState){
+        switch (TbState){
+            case 1:
+                view.setText("即将到账");
+                break;
+            case 2:
+                view.setText("已到账");
+                break;
+            case 3:
+                view.setText("失效订单");
+                break;
+        }
+    }
+
+    @BindingAdapter({"bind:TbState", "bind:TbEarningTime"})
+    public static void setTextitem_explain(TextView view ,int TbState, String TbEarningTime){
+        switch (TbState){
+            case 1:
+                view.setText("收货后次月结算");
+                break;
+            case 2:
+                view.setText(TbEarningTime + "已到账");
+                break;
+            case 3:
+                view.setText("失效订单无补贴");
+                break;
+        }
+    }
 }

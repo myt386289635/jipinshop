@@ -27,6 +27,7 @@ import com.example.administrator.jipinshop.fragment.EvaluationNewFragment;
 import com.example.administrator.jipinshop.fragment.home.HomeNewFragment;
 import com.example.administrator.jipinshop.fragment.mine.MineFragment;
 import com.example.administrator.jipinshop.fragment.tryout.TryModelFragment;
+import com.example.administrator.jipinshop.fragment.tryout.freemodel.FreeFragment;
 import com.example.administrator.jipinshop.netwrok.RetrofitModule;
 import com.example.administrator.jipinshop.util.InputMethodManagerLeak;
 import com.example.administrator.jipinshop.util.NotchUtil;
@@ -74,7 +75,7 @@ public class MainActivity extends RxAppCompatActivity implements MainView, ViewP
 //    private FindFragment mFindFragment;
     private MineFragment mMineFragment;
     private EvaluationNewFragment mEvaluationFragment;
-    private TryModelFragment mTryFragment;
+    private FreeFragment mTryFragment;
 
     private Unbinder mButterKnife;
     private ImmersionBar mImmersionBar;
@@ -116,7 +117,7 @@ public class MainActivity extends RxAppCompatActivity implements MainView, ViewP
         mHomeFragment = new HomeNewFragment();
 //        mFindFragment = new FindFragment();
         mEvaluationFragment = new EvaluationNewFragment();
-        mTryFragment = new TryModelFragment();
+        mTryFragment = new FreeFragment();
         mMineFragment = new MineFragment();
         mFragments.add(mHomeFragment);
 //        mFragments.add(mFindFragment);

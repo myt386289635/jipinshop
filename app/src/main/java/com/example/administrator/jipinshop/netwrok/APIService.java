@@ -26,6 +26,7 @@ import com.example.administrator.jipinshop.bean.MallDetailBean;
 import com.example.administrator.jipinshop.bean.MyFreeBean;
 import com.example.administrator.jipinshop.bean.MyOrderBean;
 import com.example.administrator.jipinshop.bean.MyWalletBean;
+import com.example.administrator.jipinshop.bean.OrderTBBean;
 import com.example.administrator.jipinshop.bean.OrderbyTypeBean;
 import com.example.administrator.jipinshop.bean.PagerStateBean;
 import com.example.administrator.jipinshop.bean.PassedMoreBean;
@@ -881,4 +882,10 @@ public interface APIService {
      */
     @GET("qualityshop-api/api/v2/user/freeList")
     Observable<MyFreeBean>  myFreeList(@Query("applyStatus") String applyStatus , @Query("page") int page);
+
+    /**
+     * 我的订单（淘宝订单）
+     */
+    @GET("qualityshop-api/api/v2/user/myTaobaoOrderList")
+    Observable<OrderTBBean> myTaobaoOrderList(@Query("page") int page , @Query("status") String status);
 }
