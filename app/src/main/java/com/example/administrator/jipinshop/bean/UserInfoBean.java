@@ -93,6 +93,15 @@ public class UserInfoBean {
         private String detail;//个性签名
         private int follow;//是否关注， 0没关注  1关注
         private int age;//年龄
+        private String officialWeChat;//客服电话
+
+        public String getOfficialWeChat() {
+            return officialWeChat;
+        }
+
+        public void setOfficialWeChat(String officialWeChat) {
+            this.officialWeChat = officialWeChat;
+        }
 
         public int getAge() {
             return age;

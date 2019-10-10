@@ -78,6 +78,7 @@ public class SettingActivity extends BaseActivity implements CleanCacheDialog.On
 
     private ClearTask mClearTask;
     private CleanCacheDialog mCleanCacheDialog;
+    private String officialWeChat = "";//客服电话
 
     @Inject
     SettingPresenter mPresenter;
@@ -105,6 +106,8 @@ public class SettingActivity extends BaseActivity implements CleanCacheDialog.On
             mSettingExitLogin.setVisibility(View.VISIBLE);
         }
         mSettingVersonText.setText(getVerName(this));
+        officialWeChat = getIntent().getStringExtra("officialWeChat");
+        mSettingServiceText.setText(officialWeChat);
     }
 
     /**
@@ -152,7 +155,7 @@ public class SettingActivity extends BaseActivity implements CleanCacheDialog.On
                 return;
             case R.id.setting_serviceContainer:
                 //联系客服
-                DialogUtil.LoginDialog(this, "官方客服微信：jpkele","复制","取消", v ->{
+                DialogUtil.LoginDialog(this, "官方客服微信：" + mSettingServiceText.getText().toString(),"复制","取消", v ->{
                     ClipboardManager clip = (ClipboardManager)this.getSystemService(Context.CLIPBOARD_SERVICE);
                     ClipData clipData = ClipData.newPlainText("jipinshop", mSettingServiceText.getText().toString());
                     clip.setPrimaryClip(clipData);

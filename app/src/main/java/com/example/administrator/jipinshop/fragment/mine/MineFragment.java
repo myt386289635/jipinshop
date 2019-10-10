@@ -63,6 +63,7 @@ public class MineFragment extends DBBaseFragment implements View.OnClickListener
 
     private Boolean flage = true;//标记是第一次走入这个页面，防止多次访问接口
     private QBadgeView mQBadgeView;
+    private String officialWeChat = "";//客服电话
 
     @Override
     public View initLayout(LayoutInflater inflater, ViewGroup container) {
@@ -149,7 +150,9 @@ public class MineFragment extends DBBaseFragment implements View.OnClickListener
                 break;
             case R.id.mine_setting:
                 //跳转到设置页面
-                startActivityForResult(new Intent(getContext(), SettingActivity.class), 100);
+                startActivityForResult(new Intent(getContext(), SettingActivity.class)
+                                .putExtra("officialWeChat",officialWeChat)
+                        , 100);
                 UAppUtil.mine(getContext(),12);
                 break;
             case R.id.mine_address:
@@ -318,6 +321,7 @@ public class MineFragment extends DBBaseFragment implements View.OnClickListener
         }else {
             GlideApp.loderImage(getContext(),userInfoBean.getData().getBgImg(),mBinding.mineBackground,0,0);
         }
+        officialWeChat = userInfoBean.getData().getOfficialWeChat();
     }
 
     @Subscribe
@@ -382,6 +386,7 @@ public class MineFragment extends DBBaseFragment implements View.OnClickListener
         }else {
             GlideApp.loderImage(getContext(),userInfoBean.getData().getBgImg(),mBinding.mineBackground,0,0);
         }
+        officialWeChat = userInfoBean.getData().getOfficialWeChat();
     }
 
     @Override
