@@ -722,7 +722,7 @@ public class ReportDetailActivity extends BaseActivity implements View.OnClickLi
 //            mBinding.detailBuy.setText("暂无商品");
             ShareBoardTitle = "分享";
             ShareBoardContent = "";
-            mBinding.detailShare.setText("分享");
+            mBinding.detailShare.setText("分享给好友");
         }
         mBinding.detailTitle.setText(bean.getData().getTitle());
         mList.clear();

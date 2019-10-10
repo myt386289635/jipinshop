@@ -229,7 +229,7 @@ public class FreeDetailActivity extends BaseActivity implements View.OnClickList
                             mPresenter.goodsBuyLink(goodsId,this.bindToLifecycle());
                         }
                     }
-                }else if (mBinding.detailBottomBuy.getText().toString().contains("可返")){
+                }else if (mBinding.detailBottomBuy.getText().toString().contains("补贴")){
                     //第一次申请参加成功，但未付款  跳转到淘宝
                     if (TextUtils.isEmpty(SPUtils.getInstance(CommonDate.USER).getString(CommonDate.token, ""))) {
                         startActivity(new Intent(this, LoginActivity.class));
@@ -288,7 +288,7 @@ public class FreeDetailActivity extends BaseActivity implements View.OnClickList
         if (detailBean.getData().getApplyStatus() == 0){
             //活动进行中且申请过后未付款的
             mBinding.detailBottomNote.setVisibility(View.VISIBLE);
-            String html = "前往购买<font size='13'>(可返"+ detailBean.getData().getFreePrice() +"元)</font>";
+            String html = "前往购买<font size='13'>(补贴"+ detailBean.getData().getFreePrice() +"元)</font>";
             mBinding.detailBottomBuy.setText(HtmlParser.buildSpannedText(html,new CustomerTagHandler_1()));
             mBinding.detailBottomBuy.setBackgroundColor(getResources().getColor(R.color.color_E25838));
             long timer = dateAddOneDay(detailBean.getData().getDendlineTime()) - System.currentTimeMillis();
@@ -374,7 +374,7 @@ public class FreeDetailActivity extends BaseActivity implements View.OnClickList
         detailBean.getData().setUserCount(detailBean.getData().getUserCount() + 1);
         mBinding.setDate(detailBean.getData());
         mBinding.detailBottomNote.setVisibility(View.VISIBLE);
-        String html = "前往购买<font size='13'>(可返"+ detailBean.getData().getFreePrice() +"元)</font>";
+        String html = "前往购买<font size='13'>(补贴"+ detailBean.getData().getFreePrice() +"元)</font>";
         mBinding.detailBottomBuy.setText(HtmlParser.buildSpannedText(html,new CustomerTagHandler_1()));
         mBinding.detailBottomBuy.setBackgroundColor(getResources().getColor(R.color.color_E25838));
         long timer = dateAddOneDay(detailBean.getData().getDendlineTime()) - System.currentTimeMillis();

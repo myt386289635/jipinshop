@@ -1,6 +1,8 @@
 package com.example.administrator.jipinshop.activity.setting;
 
 import android.app.Dialog;
+import android.content.ClipData;
+import android.content.ClipboardManager;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
@@ -150,7 +152,12 @@ public class SettingActivity extends BaseActivity implements CleanCacheDialog.On
                 return;
             case R.id.setting_serviceContainer:
                 //联系客服
-                DialogUtil.LoginDialog(this, "极品城想打开您的电话", v -> diallPhone(mSettingServiceText.getText().toString()));
+                DialogUtil.LoginDialog(this, "官方客服微信：jpkele","复制","取消", v ->{
+                    ClipboardManager clip = (ClipboardManager)this.getSystemService(Context.CLIPBOARD_SERVICE);
+                    ClipData clipData = ClipData.newPlainText("jipinshop", mSettingServiceText.getText().toString());
+                    clip.setPrimaryClip(clipData);
+                    ToastUtil.show("微信号复制成功");
+                });
                 return;
             case R.id.setting_goodContainer:
                 if (!ShopJumpUtil.toQQDownload(this, "com.example.administrator.jipinshop")) {

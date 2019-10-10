@@ -103,16 +103,19 @@
             android:layout_centerVertical="true"
             android:textColor="@color/color_DE151515"
             android:textSize="15sp"
-            android:text="联系客服"
+            android:text="客服微信"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"/>
 
 
         <TextView
+            android:includeFontPadding="false"
+            android:drawablePadding="@dimen/x10"
+            android:drawableRight="@mipmap/setting_right"
             android:textSize="13sp"
             android:textColor="@color/color_ACACAC"
             android:gravity="center_vertical"
-            android:text="0571-88120907"
+            android:text="jpkele"
             android:paddingLeft="@dimen/x28"
             android:id="@+id/setting_serviceText"
             android:paddingRight="@dimen/x28"
