@@ -168,7 +168,6 @@ public class MineFragment extends DBBaseFragment implements View.OnClickListener
             case R.id.mine_order:
                 //我的订单
                 startActivity(new Intent(getContext(), KTMyOrderActivity.class));
-//                UAppUtil.mine(getContext(),6);
                 break;
             case R.id.mine_shoppingMall:
                 //我的商城

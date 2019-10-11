@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:bind="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+        <variable
+            name="listener"
+            type="android.view.View.OnClickListener"/>
+
+    </data>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <include
+            android:id="@+id/in_clude"
+            layout="@layout/aa_title2"
+            bind:listener="@{listener}"/>
+
+        <TextView
+            android:onClick="@{listener.onClick}"
+            android:textColor="@color/pickerview_topbar_title"
+            android:textSize="13sp"
+            android:paddingLeft="@dimen/x30"
+            android:paddingRight="@dimen/x30"
+            android:layout_alignParentRight="true"
+            android:id="@+id/title_right"
+            android:gravity="center"
+            android:text="兑换记录"
+            android:layout_width="wrap_content"
+            android:layout_height="@dimen/y88"/>
+
+        <com.aspsine.swipetoloadlayout.SwipeToLoadLayout
+            android:id="@+id/swipeToLoad"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_below="@id/in_clude"
+            android:background="@color/color_white">
+
+            <com.example.administrator.jipinshop.view.textview.CustomRefreshHeadView
+                android:id="@+id/swipe_refresh_header"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:padding="20dp"/>
+
+            <LinearLayout
+                android:id="@+id/swipe_target"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical">
+
+
+                <android.support.v7.widget.RecyclerView
+                    android:id="@+id/recycler_view"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"/>
+
+
+                <include
+                    android:id="@+id/net_clude"
+                    layout="@layout/common_net_error"
+                    android:visibility="gone"/>
+
+            </LinearLayout>
+
+            <com.example.administrator.jipinshop.view.textview.LoadMoreFooterView
+                android:id="@+id/swipe_load_more_footer"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:padding="20dp"/>
+
+        </com.aspsine.swipetoloadlayout.SwipeToLoadLayout>
+
+    </RelativeLayout>
+
+</layout>

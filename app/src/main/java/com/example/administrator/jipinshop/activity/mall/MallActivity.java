@@ -12,13 +12,16 @@ import com.aspsine.swipetoloadlayout.OnLoadMoreListener;
 import com.aspsine.swipetoloadlayout.OnRefreshListener;
 import com.example.administrator.jipinshop.R;
 import com.example.administrator.jipinshop.activity.mall.detail.MallDetailActivity;
+import com.example.administrator.jipinshop.activity.order.MyOrderActivity;
+import com.example.administrator.jipinshop.activity.sign.SignActivity;
 import com.example.administrator.jipinshop.adapter.MallAdapter;
 import com.example.administrator.jipinshop.base.BaseActivity;
 import com.example.administrator.jipinshop.bean.MallBean;
 import com.example.administrator.jipinshop.bean.eventbus.ChangeHomePageBus;
-import com.example.administrator.jipinshop.databinding.ActivityMessageSystemBinding;
+import com.example.administrator.jipinshop.databinding.ActivityMallBinding;
 import com.example.administrator.jipinshop.util.ClickUtil;
 import com.example.administrator.jipinshop.util.ToastUtil;
+import com.example.administrator.jipinshop.util.UmApp.UAppUtil;
 import com.trello.rxlifecycle2.android.ActivityEvent;
 
 import org.greenrobot.eventbus.EventBus;
@@ -38,7 +41,7 @@ public class MallActivity extends BaseActivity implements View.OnClickListener, 
 
     @Inject
     MallPresenter mPresenter;
-    private ActivityMessageSystemBinding mBinding;
+    private ActivityMallBinding mBinding;
 
     private List<MallBean.DataBean> mList;
     private MallAdapter mAdapter;
@@ -55,7 +58,7 @@ public class MallActivity extends BaseActivity implements View.OnClickListener, 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        mBinding = DataBindingUtil.setContentView(this,R.layout.activity_message_system);
+        mBinding = DataBindingUtil.setContentView(this,R.layout.activity_mall);
         mBinding.setListener(this);
         mBaseActivityComponent.inject(this);
         mPresenter.setView(this);
@@ -83,6 +86,10 @@ public class MallActivity extends BaseActivity implements View.OnClickListener, 
         switch (v.getId()){
             case R.id.title_back:
                 finish();
+                break;
+            case R.id.title_right:
+                startActivity(new Intent(this, MyOrderActivity.class));
+                UAppUtil.mine(this,6);
                 break;
         }
     }
@@ -114,6 +121,11 @@ public class MallActivity extends BaseActivity implements View.OnClickListener, 
                     .putExtra("isActivityGoods",mList.get(position).getType())
             ,300);
         }
+    }
+
+    @Override
+    public void onHead() {
+        startActivity(new Intent(this, SignActivity.class));
     }
 
     public void dissRefresh(){

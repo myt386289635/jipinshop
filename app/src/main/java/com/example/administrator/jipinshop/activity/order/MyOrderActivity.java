@@ -63,7 +63,7 @@ public class MyOrderActivity extends BaseActivity implements View.OnClickListene
     }
 
     private void initView() {
-        mBinding.inClude.titleTv.setText("我的订单");
+        mBinding.inClude.titleTv.setText("兑换记录");
         mBinding.recyclerView.setLayoutManager(new LinearLayoutManager(this));
         mList = new ArrayList<>();
         mAdapter = new MyOrderAdapter(this, mList);
