@@ -23,7 +23,7 @@ public class ShareBoardDialog extends BottomSheetDialogFragment {
 
     private LinearLayout share_wechat,share_pyq,share_weibo,share_qq_friend,share_qq_space;
     private onShareListener mOnShareListener;
-    private TextView share_content , share_title;
+    private TextView share_content , share_title,share_cancle;
 
     public void setOnShareListener(onShareListener onShareListener) {
         mOnShareListener = onShareListener;
@@ -61,20 +61,22 @@ public class ShareBoardDialog extends BottomSheetDialogFragment {
         share_qq_space = view.findViewById(R.id.share_qq_space);
         share_content = view.findViewById(R.id.share_content);
         share_title = view.findViewById(R.id.share_title);
+        share_cancle = view.findViewById(R.id.share_cancle);
 
-        if (getArguments() != null){
-            if (TextUtils.isEmpty(getArguments().getString("content",""))){
-                share_content.setVisibility(View.GONE);
-            }else {
-                share_content.setVisibility(View.VISIBLE);
-                share_content.setText(getArguments().getString("content",""));
-            }
-            share_title.setText(getArguments().getString("title","分享"));
-        }else {
-            share_content.setVisibility(View.GONE);
-            share_title.setText("分享");
-        }
+//        if (getArguments() != null){
+//            if (TextUtils.isEmpty(getArguments().getString("content",""))){
+//                share_content.setVisibility(View.GONE);
+//            }else {
+//                share_content.setVisibility(View.VISIBLE);
+//                share_content.setText(getArguments().getString("content",""));
+//            }
+//            share_title.setText(getArguments().getString("title","分享"));
+//        }else {
+//            share_content.setVisibility(View.GONE);
+//            share_title.setText("分享");
+//        }
 
+        share_cancle.setOnClickListener(v -> dismiss());
         share_wechat.setOnClickListener(v -> {
             if(mOnShareListener != null){
                 mOnShareListener.share(SHARE_MEDIA.WEIXIN);
