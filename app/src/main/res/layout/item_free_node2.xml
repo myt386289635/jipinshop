@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    android:orientation="vertical"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/y60">
+
+        <View
+            android:background="@color/color_D8D8D8"
+            android:layout_width="@dimen/x1"
+            android:layout_height="match_parent"/>
+
+        <TextView
+            android:id="@+id/item_rank"
+            android:textColor="@color/color_9D9D9D"
+            android:textSize="12sp"
+            android:gravity="center"
+            android:text="1-2名"
+            android:layout_weight="1"
+            android:background="@color/color_white"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"/>
+
+        <View
+            android:background="@color/color_D8D8D8"
+            android:layout_width="@dimen/x1"
+            android:layout_height="match_parent"/>
+
+        <TextView
+            android:id="@+id/item_price"
+            android:textColor="@color/color_9D9D9D"
+            android:textSize="12sp"
+            android:gravity="center"
+            android:text="9.9元"
+            android:layout_weight="1"
+            android:background="@color/color_white"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"/>
+
+        <View
+            android:background="@color/color_D8D8D8"
+            android:layout_width="@dimen/x1"
+            android:layout_height="match_parent"/>
+
+    </LinearLayout>
+
+    <View
+        android:id="@+id/item_bottomLine"
+        android:background="@color/color_D8D8D8"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/y1"/>
+
+</LinearLayout>

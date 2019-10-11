@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    android:orientation="vertical"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <View
+        android:background="@color/color_D8D8D8"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/y1"/>
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/y60">
+
+        <View
+            android:background="@color/color_D8D8D8"
+            android:layout_width="@dimen/x1"
+            android:layout_height="match_parent"/>
+
+        <TextView
+            android:textColor="@color/color_DE050505"
+            android:textStyle="bold"
+            android:textSize="12sp"
+            android:gravity="center"
+            android:text="参与名次"
+            android:layout_weight="1"
+            android:background="@color/color_F5F5F5"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"/>
+
+        <View
+            android:background="@color/color_D8D8D8"
+            android:layout_width="@dimen/x1"
+            android:layout_height="match_parent"/>
+
+        <TextView
+            android:textColor="@color/color_DE050505"
+            android:textStyle="bold"
+            android:textSize="12sp"
+            android:gravity="center"
+            android:text="补贴金额"
+            android:layout_weight="1"
+            android:background="@color/color_F5F5F5"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"/>
+
+        <View
+            android:background="@color/color_D8D8D8"
+            android:layout_width="@dimen/x1"
+            android:layout_height="match_parent"/>
+
+    </LinearLayout>
+
+</LinearLayout>

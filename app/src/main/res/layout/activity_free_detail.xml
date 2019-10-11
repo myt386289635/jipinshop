@@ -165,7 +165,7 @@
                             android:visibility="@{date.applyStatus == 1 ? View.GONE : View.VISIBLE}"
                             android:id="@+id/detail_buyTimeContainer"
                             android:layout_alignParentRight="true"
-                            android:background="@color/color_333333"
+                            android:background="@color/color_FFCA43"
                             android:layout_width="@dimen/x324"
                             android:layout_height="match_parent">
 
@@ -176,18 +176,80 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content">
 
+                                <LinearLayout
+                                    android:id="@+id/dialog_timeContainer"
+                                    android:orientation="horizontal"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content">
+
+                                    <TextView
+                                        android:minWidth="@dimen/x34"
+                                        android:id="@+id/detail_hour"
+                                        android:textSize="13sp"
+                                        android:gravity="center"
+                                        android:text="0"
+                                        android:textColor="@color/color_white"
+                                        android:background="@drawable/bg_time"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="@dimen/y34"/>
+
+                                    <TextView
+                                        android:layout_marginRight="@dimen/x10"
+                                        android:layout_marginLeft="@dimen/x10"
+                                        android:textSize="13sp"
+                                        android:textColor="@color/color_202020"
+                                        android:text=":"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"/>
+
+                                    <TextView
+                                        android:minWidth="@dimen/x34"
+                                        android:id="@+id/detail_minute"
+                                        android:textSize="13sp"
+                                        android:gravity="center"
+                                        android:text="0"
+                                        android:textColor="@color/color_white"
+                                        android:background="@drawable/bg_time"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="@dimen/y34"/>
+
+                                    <TextView
+                                        android:layout_marginRight="@dimen/x10"
+                                        android:layout_marginLeft="@dimen/x10"
+                                        android:textSize="13sp"
+                                        android:textColor="@color/color_202020"
+                                        android:text=":"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"/>
+
+                                    <TextView
+                                        android:minWidth="@dimen/x34"
+                                        android:id="@+id/detail_second"
+                                        android:textSize="13sp"
+                                        android:gravity="center"
+                                        android:text="0"
+                                        android:textColor="@color/color_white"
+                                        android:background="@drawable/bg_time"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="@dimen/y34"/>
+
+                                </LinearLayout>
+
                                 <TextView
-                                    android:textSize="13sp"
-                                    android:textColor="@color/color_white"
-                                    android:text="距离结束购买时间"
+                                    android:visibility="gone"
+                                    android:id="@+id/detail_timeStart"
+                                    android:textSize="15sp"
+                                    android:textColor="@color/pickerview_topbar_title"
+                                    android:text="活动结束"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"/>
 
                                 <TextView
-                                    android:id="@+id/detail_buyTime"
-                                    android:text="仅剩：0分0秒"
-                                    android:textSize="13sp"
-                                    android:textColor="@color/color_white"
+                                    android:id="@+id/detail_timeEnd"
+                                    android:layout_marginTop="@dimen/y8"
+                                    android:textSize="15sp"
+                                    android:textColor="@color/pickerview_topbar_title"
+                                    android:text="后购买回复原价"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"/>
 
@@ -346,11 +408,22 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"/>
 
-                    <TextView
+                    <View
                         android:visibility="@{date.applyStatus == 0 || date.applyStatus == 1 ? View.GONE : View.VISIBLE }"
+                        android:id="@+id/detail_nodeTag"
                         android:layout_marginTop="@dimen/y36"
-                        android:text="@{date.freeNote}"
                         android:layout_below="@id/detail_startTime"
+                        android:background="@color/color_F5F5F5"
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/y20"/>
+
+                    <TextView
+                        android:layout_marginRight="@dimen/x30"
+                        android:layout_marginLeft="@dimen/x30"
+                        android:layout_marginTop="@dimen/y20"
+                        android:visibility="@{date.applyStatus == 0 || date.applyStatus == 1 ? View.GONE : View.VISIBLE }"
+                        android:text="@{date.freeNote}"
+                        android:layout_below="@id/detail_nodeTag"
                         android:id="@+id/detail_node"
                         android:paddingBottom="@dimen/y16"
                         android:paddingTop="@dimen/y16"
@@ -363,8 +436,19 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"/>
 
-                    <View
+                    <com.example.administrator.jipinshop.view.recyclerView.NoScrollRecyclerView
                         android:layout_below="@id/detail_node"
+                        android:visibility="@{date.applyStatus == 0 || date.applyStatus == 1 ? View.GONE : View.VISIBLE }"
+                        android:layout_marginTop="@dimen/y20"
+                        android:layout_marginBottom="@dimen/y20"
+                        android:layout_marginLeft="@dimen/x30"
+                        android:layout_marginRight="@dimen/x30"
+                        android:id="@+id/detail_nodeList"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"/>
+
+                    <View
+                        android:layout_below="@id/detail_nodeList"
                         android:background="@color/color_F5F5F5"
                         android:layout_width="match_parent"
                         android:layout_height="@dimen/y20"/>

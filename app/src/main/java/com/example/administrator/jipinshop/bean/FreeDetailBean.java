@@ -121,6 +121,15 @@ public class FreeDetailBean {
         private List<String> imgList;
         private List<GoodsContentListBean> goodsContentList;
         private String freePrice;
+        private List<FreeRuleParametersBean> freeRuleParameters;
+
+        public List<FreeRuleParametersBean> getFreeRuleParameters() {
+            return freeRuleParameters;
+        }
+
+        public void setFreeRuleParameters(List<FreeRuleParametersBean> freeRuleParameters) {
+            this.freeRuleParameters = freeRuleParameters;
+        }
 
         public String getFreePrice() {
             return freePrice;
@@ -389,6 +398,36 @@ public class FreeDetailBean {
 
             public void setHeight(double height) {
                 this.height = height;
+            }
+        }
+
+        public static class FreeRuleParametersBean {
+            private String start;
+            private String end;
+            private String freePrice;
+
+            public String getStart() {
+                return start;
+            }
+
+            public void setStart(String start) {
+                this.start = start;
+            }
+
+            public String getEnd() {
+                return end;
+            }
+
+            public void setEnd(String end) {
+                this.end = end;
+            }
+
+            public String getFreePrice() {
+                return freePrice;
+            }
+
+            public void setFreePrice(String freePrice) {
+                this.freePrice = freePrice;
             }
         }
     }

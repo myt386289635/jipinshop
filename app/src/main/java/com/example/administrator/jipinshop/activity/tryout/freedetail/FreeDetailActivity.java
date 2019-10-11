@@ -11,6 +11,7 @@ import android.os.Message;
 import android.support.annotation.Nullable;
 import android.support.design.widget.AppBarLayout;
 import android.support.v4.app.Fragment;
+import android.support.v7.widget.LinearLayoutManager;
 import android.text.TextUtils;
 import android.view.MotionEvent;
 import android.view.View;
@@ -22,6 +23,7 @@ import com.example.administrator.jipinshop.R;
 import com.example.administrator.jipinshop.activity.login.LoginActivity;
 import com.example.administrator.jipinshop.activity.web.TaoBaoWebActivity;
 import com.example.administrator.jipinshop.adapter.CommenBannerAdapter;
+import com.example.administrator.jipinshop.adapter.FreeDetailAdapter;
 import com.example.administrator.jipinshop.adapter.HomeAdapter;
 import com.example.administrator.jipinshop.base.BaseActivity;
 import com.example.administrator.jipinshop.bean.FreeDetailBean;
@@ -114,6 +116,9 @@ public class FreeDetailActivity extends BaseActivity implements View.OnClickList
     //获取goodsId
     private String goodsId = "";
     private int Point = 0;
+    //表格
+    private List<FreeDetailBean.DataBean.FreeRuleParametersBean> mNodeList;
+    private FreeDetailAdapter mNodeAdapter;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -155,6 +160,12 @@ public class FreeDetailActivity extends BaseActivity implements View.OnClickList
         //初始化
         mFragments = new ArrayList<>();
         mHomeAdapter = new HomeAdapter(getSupportFragmentManager());
+        //表格
+        mNodeList = new ArrayList<>();
+        mNodeAdapter = new FreeDetailAdapter(mNodeList,this);
+        mBinding.detailNodeList.setLayoutManager(new LinearLayoutManager(this));
+        mBinding.detailNodeList.setAdapter(mNodeAdapter);
+
         //请求数据
         mPresenter.getDate(id,fromId,fromType,this.bindToLifecycle());
     }
@@ -202,35 +213,8 @@ public class FreeDetailActivity extends BaseActivity implements View.OnClickList
                             appDialog.show(getSupportFragmentManager(), "FreeDetailDialog");
                         }
                     }
-                }else if (mBinding.detailBottomBuy.getText().toString().equals("前往购买")){
-                    if (TextUtils.isEmpty(SPUtils.getInstance(CommonDate.USER).getString(CommonDate.token, ""))) {
-                        startActivity(new Intent(this, LoginActivity.class));
-                        return;
-                    }
-                    if (applyStatus == 1){
-                        //二次购买的情况（可再次购买但不返回佣金）  跳转到淘宝
-                        if (TextUtils.isEmpty(goodsId)){
-                            ToastUtil.show("暂无商品链接");
-                            return;
-                        }
-                        mDialog = (new ProgressDialogView()).createLoadingDialog(this, "");
-                        if(mDialog != null && !mDialog.isShowing()){
-                            mDialog.show();
-                        }
-                        String specialId = SPUtils.getInstance(CommonDate.USER).getString(CommonDate.relationId,"");
-                        if (TextUtils.isEmpty(specialId) || specialId.equals("null")){
-                            TaoBaoUtil.aliLogin(topAuthCode -> {
-                                startActivity(new Intent(this, TaoBaoWebActivity.class)
-                                        .putExtra(TaoBaoWebActivity.url, "https://oauth.taobao.com/authorize?response_type=code&client_id=25612235&redirect_uri=https://www.jipincheng.cn/qualityshop-api/api/taobao/returnUrl&state="+SPUtils.getInstance(CommonDate.USER).getString(CommonDate.token)+"&view=wap")
-                                        .putExtra(TaoBaoWebActivity.title,"淘宝授权")
-                                );
-                            });
-                        }else {
-                            mPresenter.goodsBuyLink(goodsId,this.bindToLifecycle());
-                        }
-                    }
-                }else if (mBinding.detailBottomBuy.getText().toString().contains("补贴")){
-                    //第一次申请参加成功，但未付款  跳转到淘宝
+                }else if (mBinding.detailBottomBuy.getText().toString().contains("前往购买")){
+                    //前往购买  跳转到淘宝
                     if (TextUtils.isEmpty(SPUtils.getInstance(CommonDate.USER).getString(CommonDate.token, ""))) {
                         startActivity(new Intent(this, LoginActivity.class));
                         return;
@@ -295,18 +279,24 @@ public class FreeDetailActivity extends BaseActivity implements View.OnClickList
             if (timer > 0) {
                 mCountDownTimer = new CountDownTimer(timer, 1000) {
                     public void onTick(long millisUntilFinished) {
-                        mBinding.detailBuyTime.setText("仅剩："+ getCountTimeByLong(millisUntilFinished,true));
+                        getCountTimeByLong(millisUntilFinished,true);
                     }
                     public void onFinish() {
-                        mBinding.detailBottomBuy.setBackgroundColor(getResources().getColor(R.color.color_D8D8D8));
+                        mBinding.detailBottomBuy.setBackgroundColor(getResources().getColor(R.color.color_E25838));
                         mBinding.detailBottomBuy.setText("前往购买");
                         mBinding.detailBottomNote.setVisibility(View.GONE);
+                        mBinding.detailTimeEnd.setText("商品已恢复原价");
+                        mBinding.dialogTimeContainer.setVisibility(View.GONE);
+                        mBinding.detailTimeStart.setVisibility(View.VISIBLE);
                     }
                 }.start();
             }else {
-                mBinding.detailBottomBuy.setBackgroundColor(getResources().getColor(R.color.color_D8D8D8));
+                mBinding.detailBottomBuy.setBackgroundColor(getResources().getColor(R.color.color_E25838));
                 mBinding.detailBottomBuy.setText("前往购买");
                 mBinding.detailBottomNote.setVisibility(View.GONE);
+                mBinding.detailTimeEnd.setText("商品已恢复原价");
+                mBinding.dialogTimeContainer.setVisibility(View.GONE);
+                mBinding.detailTimeStart.setVisibility(View.VISIBLE);
             }
         }else {
             mBinding.detailBottomNote.setVisibility(View.GONE);
@@ -346,6 +336,9 @@ public class FreeDetailActivity extends BaseActivity implements View.OnClickList
         applyStatus = detailBean.getData().getApplyStatus();
         goodsId = detailBean.getData().getGoodsId();
         Point = detailBean.getData().getPoint();
+
+        mNodeList.addAll(detailBean.getData().getFreeRuleParameters());
+        mNodeAdapter.notifyDataSetChanged();
     }
 
     @Override
@@ -381,18 +374,24 @@ public class FreeDetailActivity extends BaseActivity implements View.OnClickList
         if (timer > 0) {
             mCountDownTimer = new CountDownTimer(timer, 1000) {
                 public void onTick(long millisUntilFinished) {
-                    mBinding.detailBuyTime.setText("仅剩："+ getCountTimeByLong(millisUntilFinished,true));
+                    getCountTimeByLong(millisUntilFinished,true);
                 }
                 public void onFinish() {
-                    mBinding.detailBottomBuy.setBackgroundColor(getResources().getColor(R.color.color_D8D8D8));
+                    mBinding.detailBottomBuy.setBackgroundColor(getResources().getColor(R.color.color_E25838));
                     mBinding.detailBottomBuy.setText("前往购买");
                     mBinding.detailBottomNote.setVisibility(View.GONE);
+                    mBinding.detailTimeEnd.setText("商品已恢复原价");
+                    mBinding.dialogTimeContainer.setVisibility(View.GONE);
+                    mBinding.detailTimeStart.setVisibility(View.VISIBLE);
                 }
             }.start();
         }else {
-            mBinding.detailBottomBuy.setBackgroundColor(getResources().getColor(R.color.color_D8D8D8));
+            mBinding.detailBottomBuy.setBackgroundColor(getResources().getColor(R.color.color_E25838));
             mBinding.detailBottomBuy.setText("前往购买");
             mBinding.detailBottomNote.setVisibility(View.GONE);
+            mBinding.detailTimeEnd.setText("商品已恢复原价");
+            mBinding.dialogTimeContainer.setVisibility(View.GONE);
+            mBinding.detailTimeStart.setVisibility(View.VISIBLE);
         }
     }
 
@@ -422,16 +421,10 @@ public class FreeDetailActivity extends BaseActivity implements View.OnClickList
 
         String result = "";
         if (falg){
-            if(day != 0){
-                long time = ((day * 24) + hour);
-                result = time + "小时" + minute + "分钟" + second + "秒";
-            }else if(hour != 0){
-                result = hour + "小时" + minute + "分钟" + second + "秒";
-            }else if(minute != 0){
-                result = minute + "分钟" + second + "秒";
-            }else {
-                result = second + "秒";
-            }
+            long re = (day * 24) + hour;
+            mBinding.detailHour.setText(re + "");
+            mBinding.detailMinute.setText(minute + "");
+            mBinding.detailSecond.setText(second + "");
         }else {
             if(day != 0){
                 result = day + "天" + hour + "小时" + minute + "分钟" + second + "秒";
