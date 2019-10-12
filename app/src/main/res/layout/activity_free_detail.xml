@@ -249,7 +249,7 @@
                                     android:layout_marginTop="@dimen/y8"
                                     android:textSize="15sp"
                                     android:textColor="@color/pickerview_topbar_title"
-                                    android:text="后购买回复原价"
+                                    android:text="后购买恢复原价"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"/>
 
