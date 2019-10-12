@@ -260,7 +260,7 @@ public class DialogUtil{
             dialog_price.setText(priceBd.setScale(2, BigDecimal.ROUND_HALF_UP).stripTrailingZeros().toPlainString());
             dialog_name.setText(bean.getData().getData().getName());
             dialog_reminder.setText("全额售价¥" + actualBd.stripTrailingZeros().toPlainString()
-                    + "  额外补贴¥" + freeBd.stripTrailingZeros().toPlainString() + "元");
+                    + "  额外补贴¥" + freeBd.stripTrailingZeros().toPlainString());
             dialog_sure.setOnClickListener(v -> {
                 sureListener.onClick(v);
                 dialog.dismiss();
