@@ -1,5 +1,6 @@
 package com.example.administrator.jipinshop.activity.minekt.orderkt
 
+import android.content.Intent
 import android.content.res.ColorStateList
 import android.databinding.DataBindingUtil
 import android.os.Bundle
@@ -9,10 +10,12 @@ import android.view.View
 import android.widget.LinearLayout
 import android.widget.TextView
 import com.example.administrator.jipinshop.R
+import com.example.administrator.jipinshop.activity.WebActivity
 import com.example.administrator.jipinshop.adapter.HomeFragmentAdapter
 import com.example.administrator.jipinshop.base.BaseActivity
 import com.example.administrator.jipinshop.databinding.ActivityOrderBinding
 import com.example.administrator.jipinshop.fragment.orderkt.KTMyOrderFragment
+import com.example.administrator.jipinshop.netwrok.RetrofitModule
 import com.example.administrator.jipinshop.util.ToastUtil
 
 /**
@@ -57,7 +60,10 @@ class KTMyOrderActivity : BaseActivity(), View.OnClickListener {
                 finish()
             }
             R.id.order_explain -> {
-                ToastUtil.show("跳转H5")
+                startActivity(Intent(this, WebActivity::class.java)
+                        .putExtra(WebActivity.url, RetrofitModule.H5_URL + "commission-rule.html")
+                        .putExtra(WebActivity.title, "极品补贴规则说明")
+                )
             }
         }
     }
