@@ -81,7 +81,7 @@
             android:layout_marginLeft="@dimen/x15"
             android:textSize="14sp"
             android:padding="@dimen/x6"
-            android:text="全额售价¥0.00  到货返现¥0元 "
+            android:text="全额售价¥0.00  额外补贴¥0 "
             android:background="@color/color_FFEBE6"
             android:layout_marginTop="@dimen/y20"
             android:layout_below="@id/dialog_name"
