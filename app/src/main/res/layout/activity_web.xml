@@ -17,7 +17,7 @@
         <include
             bind:listener="@{listener}"
             android:id="@+id/in_clude"
-            layout="@layout/aa_title"/>
+            layout="@layout/aa_title2"/>
 
         <WebView
             android:scrollbars="none"
