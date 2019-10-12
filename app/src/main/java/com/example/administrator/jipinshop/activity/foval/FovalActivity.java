@@ -65,7 +65,7 @@ public class FovalActivity extends BaseActivity {
         mFragments.add(FovalArticleFragment.getInstance());//问答
         mFragments.add(FovalFindFragment.getInstance("2"));//评测
         mFragments.add(FovalFindFragment.getInstance("7"));//清单
-        mFragments.add(FovalTryFragment.getInstance());//试用报告
+//        mFragments.add(FovalTryFragment.getInstance());//试用报告
         mAdapter.setFragments(mFragments);
         mViewPager.setAdapter(mAdapter);
         mViewPager.setOffscreenPageLimit(mFragments.size() - 1);
@@ -104,8 +104,8 @@ public class FovalActivity extends BaseActivity {
         mTabLayout.post(() -> {
             //拿到tabLayout的mTabStrip属性
             LinearLayout mTabStrip = (LinearLayout) mTabLayout.getChildAt(0);
-            int totle = textLether.get(0) + textLether.get(1) + textLether.get(2) + textLether.get(3)+ textLether.get(4);
-            int dp10 = (mTabLayout.getWidth() - totle) / 5;
+            int totle = textLether.get(0) + textLether.get(1) + textLether.get(2) + textLether.get(3);
+            int dp10 = (mTabLayout.getWidth() - totle) / mFragments.size();
             for (int i = 0; i < mTabStrip.getChildCount(); i++) {
                 View tabView = mTabStrip.getChildAt(i);
                 tabView.setPadding(0, 0, 0, 0);

@@ -51,7 +51,7 @@ public class SreachResultPresenter {
         tabLayout.post(() -> {
             //拿到tabLayout的mTabStrip属性
             LinearLayout mTabStrip = (LinearLayout) tabLayout.getChildAt(0);
-            int totle = textLether.get(0) + textLether.get(1) + textLether.get(2) + textLether.get(3)+ textLether.get(4);
+            int totle = textLether.get(0) + textLether.get(1) + textLether.get(2) + textLether.get(3);
             int dp10 = (tabLayout.getWidth() - totle) / tabTitle.size();
             for (int i = 0; i < mTabStrip.getChildCount(); i++) {
                 View tabView = mTabStrip.getChildAt(i);

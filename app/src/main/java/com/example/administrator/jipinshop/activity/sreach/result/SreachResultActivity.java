@@ -60,7 +60,7 @@ public class SreachResultActivity extends BaseActivity implements View.OnClickLi
         mFragments.add(SreachFindFragment.getInstance(content,"2"));//清单
         mFragments.add(SreachArticleFragment.getInstance(content));//问答
         mFragments.add(SreachFindFragment.getInstance(content,"4"));//评测
-        mFragments.add(SreachTryFragment.getInstance(content,"5"));//试用报告
+//        mFragments.add(SreachTryFragment.getInstance(content,"5"));//试用报告
         mAdapter = new HomeAdapter(getSupportFragmentManager());
         mAdapter.setFragments(mFragments);
         mBinding.viewPager.setAdapter(mAdapter);
@@ -72,7 +72,7 @@ public class SreachResultActivity extends BaseActivity implements View.OnClickLi
         tabTitle.add("清单");
         tabTitle.add("问答");
         tabTitle.add("评测");
-        tabTitle.add("试用报告");
+//        tabTitle.add("试用报告");
         mPresenter.initTabLayout(this,mBinding.tabLayout,tabTitle);
     }
 
