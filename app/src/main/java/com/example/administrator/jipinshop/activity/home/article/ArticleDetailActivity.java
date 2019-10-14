@@ -177,7 +177,7 @@ public class ArticleDetailActivity extends BaseActivity implements View.OnClickL
             @Override
             public void onPageFinished(WebView view, String url) {
                 super.onPageFinished(view, url);
-                mBinding.detailWeb.loadUrl("javascript:window.android.getBodyHeight(document.body.scrollHeight)");
+//                mBinding.detailWeb.loadUrl("javascript:window.android.getBodyHeight(document.body.scrollHeight)");
             }
         });
 
