@@ -57,7 +57,9 @@ public class BudgetDetailAdapter extends RecyclerView.Adapter<BudgetDetailAdapte
             }
         });
         holder.binding.setValue(mList.get(position));
-        holder.binding.setBean1(mList.get(position).getCommissionDetailList().get(0));
+        if (mList.get(position).getCommissionDetailList().size() > 0){
+            holder.binding.setBean1(mList.get(position).getCommissionDetailList().get(0));
+        }
         if (mList.get(position).getCommissionDetailList().size() > 1){
             holder.binding.setBean2(mList.get(position).getCommissionDetailList().get(1));
         }else {
