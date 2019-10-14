@@ -124,6 +124,7 @@ class EvaHotFragment : DBBaseFragment(), OnRefreshListener, OnLoadMoreListener, 
         if (refersh) {
             dissRefresh()
             if (bean.data != null && bean.data.size != 0) {
+//                ToastUtil.showTop("刷新成功",context)
                 mBinding.netClude?.let {
                     it.qsNet.visibility = View.GONE
                 }

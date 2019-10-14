@@ -97,7 +97,7 @@ public class SelectPicDialog extends BottomSheetDialogFragment {
                 }
                 startActivityForResult(cameraIntent, REQUEST_CAMERA);
             }
-        },Permission.CAMERA);
+        },Permission.CAMERA,Manifest.permission.READ_EXTERNAL_STORAGE);
 
     }
 
@@ -116,7 +116,7 @@ public class SelectPicDialog extends BottomSheetDialogFragment {
                 albumIntent.setDataAndType(MediaStore.Images.Media.INTERNAL_CONTENT_URI, "image/*");
                 startActivityForResult(albumIntent, REQUEST_ALBUM);
             }
-        },Manifest.permission.READ_EXTERNAL_STORAGE);
+        },Manifest.permission.READ_EXTERNAL_STORAGE,Manifest.permission.CAMERA);
     }
 
 

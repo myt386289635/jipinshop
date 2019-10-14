@@ -46,7 +46,11 @@ public class WellComeActivity extends BaseActivity implements WellComeView {
 //        }else {
 //            GlideApp.loderImage(this,SPUtils.getInstance().getString(CommonDate.startPage),mImageView,0,0);
 //        }
-        permission();
+//        permission();
+
+        if (timer != null) {
+            timer.start();
+        }
     }
 
 
