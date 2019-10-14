@@ -1,4 +1,4 @@
-package com.example.administrator.jipinshop.fragment
+package com.example.administrator.jipinshop.fragment.evaluationkt
 
 import android.content.Context
 import android.content.Intent
@@ -68,6 +68,7 @@ class EvaluationNewFragment : DBBaseFragment(), View.OnClickListener {
             mList.add(EvaInventoryFragment())
             mAdapter.notifyDataSetChanged()
             mBinding.viewPager.offscreenPageLimit = mList.size - 1
+            mBinding.viewPager.currentItem = 1
             boolean = false
         }
     }

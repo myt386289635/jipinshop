@@ -43,13 +43,13 @@ class EvaHotFragment : DBBaseFragment(), OnRefreshListener, OnLoadMoreListener, 
     private var refersh: Boolean = true
     private var once : Boolean = true //第一次进入
 
-    override fun setUserVisibleHint(isVisibleToUser: Boolean) {
-        super.setUserVisibleHint(isVisibleToUser)
-        if (isVisibleToUser && once){
-            mBinding.swipeToLoad.isRefreshing = true
-            once = false
-        }
-    }
+//    override fun setUserVisibleHint(isVisibleToUser: Boolean) {
+//        super.setUserVisibleHint(isVisibleToUser)
+//        if (isVisibleToUser && once){
+//            mBinding.swipeToLoad.isRefreshing = true
+//            once = false
+//        }
+//    }
 
     override fun initLayout(inflater: LayoutInflater?, container: ViewGroup?): View {
         mBinding = DataBindingUtil.inflate(inflater, R.layout.fragment_evaluation_common, container, false)
@@ -73,6 +73,8 @@ class EvaHotFragment : DBBaseFragment(), OnRefreshListener, OnLoadMoreListener, 
         mPresenter.solveScoll(mBinding.recyclerView,mBinding.swipeToLoad)
         mBinding.swipeToLoad.setOnRefreshListener(this)
         mBinding.swipeToLoad.setOnLoadMoreListener(this)
+        mBinding.swipeToLoad.isRefreshing = true
+        once = false
     }
 
     override fun onLoadMore() {

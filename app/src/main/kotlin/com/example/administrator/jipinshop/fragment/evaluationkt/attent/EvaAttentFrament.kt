@@ -71,7 +71,7 @@ class EvaAttentFrament : DBBaseFragment(), OnRefreshListener, OnLoadMoreListener
         mPresenter.solveScoll(mBinding.recyclerView,mBinding.swipeToLoad)
         mBinding.swipeToLoad.setOnRefreshListener(this)
         mBinding.swipeToLoad.setOnLoadMoreListener(this)
-        mBinding.swipeToLoad.isRefreshing = true
+        once = false
     }
 
     override fun onLoadMore() {
