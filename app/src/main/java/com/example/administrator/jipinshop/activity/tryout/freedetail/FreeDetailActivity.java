@@ -321,7 +321,7 @@ public class FreeDetailActivity extends BaseActivity implements View.OnClickList
             }
         }
         mFragments.add(ShopDescriptionFragment.getInstance(new Gson().toJson(detailBean.getData().getGoodsContentList(),new TypeToken<List<FreeDetailBean.DataBean.GoodsContentListBean>>(){}.getType())));
-        mFragments.add(ShopUserFragment.getInstance(detailBean.getData().getId()));
+        mFragments.add(ShopUserFragment.getInstance(detailBean.getData().getId(), detailBean.getData().getStatus()));
         mFragments.add(ShopRuleFragment.getInstance(detailBean.getData().getFreeGuide()));
         mHomeAdapter.setFragments(mFragments);
         mBinding.detailViewpager.setAdapter(mHomeAdapter);

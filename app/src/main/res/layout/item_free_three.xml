@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:tools="http://schemas.android.com/tools"
         xmlns:app="http://schemas.android.com/apk/res-auto"
         xmlns:bind="http://schemas.android.com/apk/res-auto">
 
@@ -11,13 +10,6 @@
             name="date"
             type="com.example.administrator.jipinshop.bean.FreeUserListBean.DataBean"/>
 
-         <variable
-             name="pos"
-             type="String"/>
-
-        <variable
-            name="position"
-            type="Integer"/>
     </data>
 
     <RelativeLayout
@@ -25,29 +17,6 @@
         android:layout_width="match_parent"
         android:layout_height="@dimen/y120">
 
-        <TextView
-            android:visibility="@{position &lt; 4 ? View.VISIBLE : View.INVISIBLE}"
-            android:layout_marginLeft="@dimen/x28"
-            android:layout_centerVertical="true"
-            android:textSize="14sp"
-            android:gravity="center"
-            android:text="@{pos}"
-            android:textColor="@color/color_white"
-            android:background="@drawable/bg_sort1"
-            android:id="@+id/item_topSort"
-            android:layout_width="@dimen/x40"
-            android:layout_height="@dimen/y40"/>
-
-        <TextView
-            android:visibility="@{position >= 4 ? View.VISIBLE : View.GONE}"
-            android:layout_marginLeft="@dimen/x28"
-            android:layout_centerVertical="true"
-            android:textSize="14sp"
-            android:text="@{pos}"
-            android:textColor="@color/color_ACACAC"
-            android:id="@+id/item_sort"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"/>
 
         <View
             android:background="@color/color_F5F5F5"
@@ -105,7 +74,7 @@
             android:layout_alignParentRight="true"
             android:layout_centerVertical="true"
             android:text="@{@string/free_freePrice_start + (int)(date.freeRate * 100) + @string/free_freePrice_end}"
-            android:layout_width="wrap_content"
+            android:layout_width="@dimen/x140"
             android:layout_height="wrap_content"/>
 
     </RelativeLayout>

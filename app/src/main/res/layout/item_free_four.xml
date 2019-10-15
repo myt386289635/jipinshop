@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    android:id="@+id/item_headContainer"
+    android:orientation="vertical"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <TextView
+        android:layout_marginBottom="@dimen/y24"
+        android:layout_marginTop="@dimen/y24"
+        android:layout_gravity="center_horizontal"
+        android:drawablePadding="@dimen/x6"
+        android:textColor="@color/color_B8B8B8"
+        android:textSize="13sp"
+        android:text="活动结束后后可查看所有人免单额度"
+        android:drawableLeft="@mipmap/free_node"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"/>
+
+    <View
+        android:background="@color/color_F5F5F5"
+        android:layout_alignParentBottom="true"
+        android:layout_marginRight="@dimen/x28"
+        android:layout_marginLeft="@dimen/x28"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/y2"/>
+
+</LinearLayout>

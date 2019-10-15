@@ -38,10 +38,11 @@ public class ShopUserFragment extends DBBaseFragment implements OnRefreshListene
     private int page = 1;
     private Boolean refersh = true;
 
-    public static ShopUserFragment getInstance(String id) {
+    public static ShopUserFragment getInstance(String id ,int status) {
         ShopUserFragment fragment = new ShopUserFragment();
         Bundle bundle = new Bundle();
         bundle.putString("id", id);
+        bundle.putInt("status",status);
         fragment.setArguments(bundle);
         return fragment;
     }
@@ -73,7 +74,7 @@ public class ShopUserFragment extends DBBaseFragment implements OnRefreshListene
 
         mBinding.recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         mList = new ArrayList<>();
-        mAdapter = new ShopUserAdapter(mList, getContext());
+        mAdapter = new ShopUserAdapter(mList, getContext(),getArguments().getInt("status"));
         mBinding.recyclerView.setAdapter(mAdapter);
 
         mPresenter.solveScoll(mBinding.recyclerView,mBinding.swipeToLoad,((FreeDetailActivity)getActivity()).getBar(),once);
