@@ -364,8 +364,14 @@ public class ReportDetailActivity extends BaseActivity implements View.OnClickLi
                 shareUrl += "&mobid=" + mobID;
             }
             mPresenter.taskshareFinish(this.bindUntilEvent(ActivityEvent.DESTROY));
-            new ShareUtils(this, share_media)
-                    .shareWeb(this, shareUrl, shareTitle, shareContent, shareImg, R.mipmap.share_logo);
+            if (share_media.equals(SHARE_MEDIA.WEIXIN)) {
+                String path = "pages/ev/ev-info/main?evListVal=" + articleId + "&type=" + type;
+                new ShareUtils(this, share_media)
+                        .shareWXMin1(this, shareImg, shareTitle, shareContent, path);
+            } else {
+                new ShareUtils(this, share_media)
+                        .shareWeb(this, shareUrl, shareTitle, shareContent, shareImg, R.mipmap.share_logo);
+            }
         });
     }
 

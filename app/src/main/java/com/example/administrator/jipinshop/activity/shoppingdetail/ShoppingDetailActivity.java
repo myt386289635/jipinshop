@@ -66,6 +66,7 @@ import com.example.administrator.jipinshop.view.dialog.ProgressDialogView;
 import com.example.administrator.jipinshop.view.dialog.ShareBoardDialog;
 import com.example.administrator.jipinshop.view.glide.GlideApp;
 import com.example.administrator.jipinshop.view.textview.AlignTextView;
+import com.google.gson.Gson;
 import com.trello.rxlifecycle2.android.ActivityEvent;
 import com.umeng.socialize.UMShareAPI;
 import com.umeng.socialize.bean.SHARE_MEDIA;
@@ -181,6 +182,7 @@ public class ShoppingDetailActivity extends BaseActivity implements ShoppingComm
     private String shareContent = "";
     private String shareUrl = "";
     private String shareBoradContent = "";
+    private ShoppingDetailBean.DataBean.GoodsEntityBean mShareBean = null;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -400,6 +402,7 @@ public class ShoppingDetailActivity extends BaseActivity implements ShoppingComm
     @Override
     public void onSuccess(ShoppingDetailBean shoppingDetailBean) {
         if(shoppingDetailBean.getCode() == 0){
+            mShareBean = shoppingDetailBean.getData().getGoodsEntity();
             shareBoradContent = shoppingDetailBean.getContent();
             mBinding.detailBuy.setText(shoppingDetailBean.getBtnTxt2());
             mBinding.detailShare.setText(shoppingDetailBean.getBtnTxt1());
@@ -893,8 +896,14 @@ public class ShoppingDetailActivity extends BaseActivity implements ShoppingComm
                 shareUrl += "&mobid=" + mobID;
             }
             mPresenter.taskFinish(ShoppingDetailActivity.this.bindUntilEvent(ActivityEvent.DESTROY));
-            new ShareUtils(ShoppingDetailActivity.this, share_media)
-                    .shareWeb(ShoppingDetailActivity.this, shareUrl, shareName, shareContent, shareImage, R.mipmap.share_logo);
+            if (share_media.equals(SHARE_MEDIA.WEIXIN)){
+                String path = "pages/list/top-info/main?topListVal=" + new Gson().toJson(mShareBean);
+                new ShareUtils(ShoppingDetailActivity.this, share_media)
+                        .shareWXMin1(ShoppingDetailActivity.this,shareImage,shareName,shareContent,path);
+            }else {
+                new ShareUtils(ShoppingDetailActivity.this, share_media)
+                        .shareWeb(ShoppingDetailActivity.this, shareUrl, shareName, shareContent, shareImage, R.mipmap.share_logo);
+            }
         });
     }
 

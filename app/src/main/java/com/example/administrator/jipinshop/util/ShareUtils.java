@@ -11,6 +11,7 @@ import com.umeng.socialize.ShareAction;
 import com.umeng.socialize.UMShareListener;
 import com.umeng.socialize.bean.SHARE_MEDIA;
 import com.umeng.socialize.media.UMImage;
+import com.umeng.socialize.media.UMMin;
 import com.umeng.socialize.media.UMWeb;
 
 /**
@@ -64,6 +65,50 @@ public class ShareUtils {
                 .withMedia(image)
                 .setCallback(shareListener)//分享回调
                 .share();
+    }
+
+    /**
+     * 分享 极品城 小程序
+     */
+    public void shareWXMin1(final Activity activity, String shareImage ,String title , String description,String path){
+        UMMin umMin = new UMMin("https://www.jipincheng.cn/");//兼容低版本的网页链接
+        UMImage image;
+        if (TextUtils.isEmpty(shareImage)){
+            image = new UMImage(activity, R.mipmap.share_logo);//本地缩略图
+        }else {
+            image = new UMImage(activity, shareImage);//网络图片
+        }
+        umMin.setThumb(image);// 小程序消息封面图片
+        umMin.setTitle(title); // 小程序消息title
+        umMin.setDescription(description);// 小程序消息描述
+        umMin.setPath(path);//小程序页面路径
+        umMin.setUserName("gh_b0a86c45468d"); // 小程序原始id,在微信平台查询
+        new ShareAction(activity)
+                .withMedia(umMin)
+                .setPlatform(SHARE_MEDIA.WEIXIN)
+                .setCallback(shareListener).share();
+    }
+
+    /**
+     * 分享 极品0元购 小程序
+     */
+    public void shareWXMin2(final Activity activity, String shareImage ,String title , String description,String path){
+        UMMin umMin = new UMMin("https://www.jipincheng.cn/");//兼容低版本的网页链接
+        UMImage image;
+        if (TextUtils.isEmpty(shareImage)){
+            image = new UMImage(activity, R.mipmap.share_logo);//本地缩略图
+        }else {
+            image = new UMImage(activity, shareImage);//网络图片
+        }
+        umMin.setThumb(image);// 小程序消息封面图片
+        umMin.setTitle(title); // 小程序消息title
+        umMin.setDescription(description);// 小程序消息描述
+        umMin.setPath(path);//小程序页面路径
+        umMin.setUserName("gh_b92a56fb45d1"); // 小程序原始id,在微信平台查询
+        new ShareAction(activity)
+                .withMedia(umMin)
+                .setPlatform(SHARE_MEDIA.WEIXIN)
+                .setCallback(shareListener).share();
     }
 
 

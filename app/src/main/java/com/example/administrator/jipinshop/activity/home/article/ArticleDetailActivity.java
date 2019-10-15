@@ -29,6 +29,7 @@ import com.example.administrator.jipinshop.activity.WebActivity;
 import com.example.administrator.jipinshop.activity.commenlist.CommenListActivity;
 import com.example.administrator.jipinshop.activity.login.LoginActivity;
 import com.example.administrator.jipinshop.activity.minekt.userkt.UserActivity;
+import com.example.administrator.jipinshop.activity.shoppingdetail.ShoppingDetailActivity;
 import com.example.administrator.jipinshop.activity.web.TaoBaoWebActivity;
 import com.example.administrator.jipinshop.adapter.RelatedArticleAdapter;
 import com.example.administrator.jipinshop.adapter.ShoppingCommonAdapter;
@@ -57,6 +58,7 @@ import com.example.administrator.jipinshop.view.dialog.ProgressDialogView;
 import com.example.administrator.jipinshop.view.dialog.RelatedGoodsDialog;
 import com.example.administrator.jipinshop.view.dialog.ShareBoardDialog;
 import com.example.administrator.jipinshop.view.glide.GlideApp;
+import com.google.gson.Gson;
 import com.trello.rxlifecycle2.android.ActivityEvent;
 import com.umeng.socialize.UMShareAPI;
 import com.umeng.socialize.bean.SHARE_MEDIA;
@@ -408,25 +410,31 @@ public class ArticleDetailActivity extends BaseActivity implements View.OnClickL
      */
     @Override
     public void share(SHARE_MEDIA share_media) {
-        if (articleType.equals("7")){
-            //清单web
-            MobLinkUtil.mobShare(articleId, "/listing1", mobID -> {
-                if (!TextUtils.isEmpty(mobID)){
-                    shareUrl += "&mobid=" + mobID;
-                }
-                mPresenter.taskshareFinish(this.bindUntilEvent(ActivityEvent.DESTROY));
-                new ShareUtils(this, share_media)
-                        .shareWeb(this, shareUrl, shareTitle, shareContent, shareImg, R.mipmap.share_logo);
-            });
-        }else {//评测web
-            MobLinkUtil.mobShare(articleId, "/evaluation", mobID -> {
-                if (!TextUtils.isEmpty(mobID)){
-                    shareUrl += "&mobid=" + mobID;
-                }
-                mPresenter.taskshareFinish(this.bindUntilEvent(ActivityEvent.DESTROY));
-                new ShareUtils(this, share_media)
-                        .shareWeb(this, shareUrl, shareTitle, shareContent, shareImg, R.mipmap.share_logo);
-            });
+        if (share_media.equals(SHARE_MEDIA.WEIXIN)){
+            String path = "pages/ev/ev-info/main?evListVal=" + articleId + "&type=" + articleType;
+            new ShareUtils(this, share_media)
+                    .shareWXMin1(this,shareImg,shareTitle,shareContent,path);
+        }else {
+            if (articleType.equals("7")){
+                //清单web
+                MobLinkUtil.mobShare(articleId, "/listing1", mobID -> {
+                    if (!TextUtils.isEmpty(mobID)){
+                        shareUrl += "&mobid=" + mobID;
+                    }
+                    mPresenter.taskshareFinish(this.bindUntilEvent(ActivityEvent.DESTROY));
+                    new ShareUtils(this, share_media)
+                            .shareWeb(this, shareUrl, shareTitle, shareContent, shareImg, R.mipmap.share_logo);
+                });
+            }else {//评测web
+                MobLinkUtil.mobShare(articleId, "/evaluation", mobID -> {
+                    if (!TextUtils.isEmpty(mobID)){
+                        shareUrl += "&mobid=" + mobID;
+                    }
+                    mPresenter.taskshareFinish(this.bindUntilEvent(ActivityEvent.DESTROY));
+                    new ShareUtils(this, share_media)
+                            .shareWeb(this, shareUrl, shareTitle, shareContent, shareImg, R.mipmap.share_logo);
+                });
+            }
         }
     }
 

@@ -456,13 +456,19 @@ public class FreeDetailActivity extends BaseActivity implements View.OnClickList
 
     @Override
     public void share(SHARE_MEDIA share_media) {
-        MobLinkUtil.mobShare(id, "/free", mobID -> {
-            if (!TextUtils.isEmpty(mobID)){
-                shareUrl += "&mobid=" + mobID;
-            }
+        if (share_media.equals(SHARE_MEDIA.WEIXIN)){
+            String path = "pages/main/main-info/index?fromUserId=" + SPUtils.getInstance(CommonDate.USER).getString(CommonDate.userId) + "&freeId=" + id;
             new ShareUtils(this, share_media)
-                    .shareWeb(this, shareUrl, shareName, shareContent, shareImage, R.mipmap.share_logo);
-        });
+                    .shareWXMin2(this,shareImage,shareName,shareContent,path);
+        }else {
+            MobLinkUtil.mobShare(id, "/free", mobID -> {
+                if (!TextUtils.isEmpty(mobID)){
+                    shareUrl += "&mobid=" + mobID;
+                }
+                new ShareUtils(this, share_media)
+                        .shareWeb(this, shareUrl, shareName, shareContent, shareImage, R.mipmap.share_logo);
+            });
+        }
     }
 
     /**
