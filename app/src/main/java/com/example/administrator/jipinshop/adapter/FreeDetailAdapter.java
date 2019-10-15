@@ -83,7 +83,7 @@ public class FreeDetailAdapter extends RecyclerView.Adapter{
                     contentViewHolder.item_bottomLine.setVisibility(View.GONE);
                 }
 
-                contentViewHolder.item_rank.setText(mList.get(pos).getStart() + "-" + mList.get(pos).getEnd() + "名");
+                contentViewHolder.item_rank.setText(mList.get(pos).getTotal() + "份");
                 contentViewHolder.item_price.setText(mList.get(pos).getFreePrice() + "元");
                 break;
         }

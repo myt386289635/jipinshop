@@ -405,6 +405,15 @@ public class FreeDetailBean {
             private String start;
             private String end;
             private String freePrice;
+            private String total;
+
+            public String getTotal() {
+                return total;
+            }
+
+            public void setTotal(String total) {
+                this.total = total;
+            }
 
             public String getStart() {
                 return start;
