@@ -73,8 +73,10 @@ class EvaHotFragment : DBBaseFragment(), OnRefreshListener, OnLoadMoreListener, 
         mPresenter.solveScoll(mBinding.recyclerView,mBinding.swipeToLoad)
         mBinding.swipeToLoad.setOnRefreshListener(this)
         mBinding.swipeToLoad.setOnLoadMoreListener(this)
-        mBinding.swipeToLoad.isRefreshing = true
-        once = false
+        mBinding.swipeToLoad.post {
+            mBinding.swipeToLoad.isRefreshing = true
+            once = false
+        }
     }
 
     override fun onLoadMore() {
@@ -126,7 +128,7 @@ class EvaHotFragment : DBBaseFragment(), OnRefreshListener, OnLoadMoreListener, 
         if (refersh) {
             dissRefresh()
             if (bean.data != null && bean.data.size != 0) {
-//                ToastUtil.showTop("刷新成功",context)
+                ToastUtil.showTop("刷新成功",context)
                 mBinding.netClude?.let {
                     it.qsNet.visibility = View.GONE
                 }

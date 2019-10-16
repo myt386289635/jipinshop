@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <LinearLayout
+        android:layout_centerHorizontal="true"
+        android:orientation="horizontal"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+
+        <ImageView
+            android:id="@+id/refresh_image"
+            android:background="@drawable/animation_list_refresh"
+            android:layout_width="@dimen/x190"
+            android:layout_height="@dimen/y148"/>
+
+        <TextView
+            android:id="@+id/refresh_text"
+            android:textColor="@color/color_9D9D9D"
+            android:textSize="12sp"
+            android:layout_marginLeft="@dimen/x10"
+            android:layout_gravity="center_vertical"
+            android:text="下拉刷新"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+
+    </LinearLayout>
+
+    
+</RelativeLayout>

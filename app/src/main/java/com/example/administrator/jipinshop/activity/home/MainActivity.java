@@ -28,6 +28,7 @@ import com.example.administrator.jipinshop.fragment.home.HomeNewFragment;
 import com.example.administrator.jipinshop.fragment.mine.MineFragment;
 import com.example.administrator.jipinshop.fragment.tryout.freemodel.FreeFragment;
 import com.example.administrator.jipinshop.netwrok.RetrofitModule;
+import com.example.administrator.jipinshop.util.ClickUtil;
 import com.example.administrator.jipinshop.util.InputMethodManagerLeak;
 import com.example.administrator.jipinshop.util.NotchUtil;
 import com.example.administrator.jipinshop.util.ShopJumpUtil;
@@ -141,7 +142,10 @@ public class MainActivity extends RxAppCompatActivity implements MainView, ViewP
         View tabView = (View) mTabLayout.getTabAt(mFragments.size() - 1).getCustomView().getParent();
         tabView.setOnClickListener(v -> {
             if(TextUtils.isEmpty(SPUtils.getInstance(CommonDate.USER).getString(CommonDate.token,"").trim())){
-                startActivityForResult(new Intent(this, LoginActivity.class),100);
+                if (ClickUtil.isFastDoubleClick(800)) {
+                } else {
+                    startActivityForResult(new Intent(this, LoginActivity.class),100);
+                }
             }
         });
 
