@@ -1,7 +1,7 @@
 package com.example.administrator.jipinshop.fragment.evaluationkt.attent
 
-import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
+import android.view.View
 import com.aspsine.swipetoloadlayout.SwipeToLoadLayout
 import com.example.administrator.jipinshop.bean.EvaAttentBean
 import com.example.administrator.jipinshop.bean.SuccessBean
@@ -34,10 +34,26 @@ class EvaAttentPresenter {
     fun solveScoll(recyclerView: RecyclerView, swipeToLoadLayout: SwipeToLoadLayout){
         recyclerView.addOnScrollListener(object : RecyclerView.OnScrollListener(){
 
+            private var firstChild : View? = null
+
             override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
                 super.onScrolled(recyclerView, dx, dy)
-                var layoutManager : LinearLayoutManager = recyclerView.layoutManager as LinearLayoutManager
-                swipeToLoadLayout.isRefreshEnabled = (layoutManager.findFirstCompletelyVisibleItemPosition() == 0)
+                //解决单个item超过整个屏幕的时候
+                if (recyclerView.childCount > 0) {
+                    firstChild = recyclerView.getChildAt(0)
+                }
+                var firstChildPosition =  if ( firstChild == null){
+                    0
+                } else{
+                    recyclerView.getChildLayoutPosition(firstChild!!)
+                }
+                if ( firstChild == null){
+                    val topRowVerticalPosition = if (recyclerView == null || recyclerView.childCount === 0) 0 else recyclerView.getChildAt(0).top
+                    swipeToLoadLayout.isRefreshEnabled = (topRowVerticalPosition >= 0)
+                }else{
+                    swipeToLoadLayout.isRefreshEnabled = (firstChildPosition == 0 && firstChild!!.top >= 0)
+                }
+
                 swipeToLoadLayout.isLoadMoreEnabled = isSlideToBottom(recyclerView)
             }
         })

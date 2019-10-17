@@ -192,6 +192,7 @@ class EvaAttentFrament : DBBaseFragment(), OnRefreshListener, OnLoadMoreListener
                 mBinding.recyclerView.visibility = View.VISIBLE
                 mList.clear()
                 mList.addAll(bean.data)
+                mAdapter.setFollow(bean.follow)
                 mAdapter.notifyDataSetChanged()
             } else {
                 initError(R.mipmap.qs_nodata, "暂无数据", "暂时没有任何数据 ")

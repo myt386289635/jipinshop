@@ -13,6 +13,15 @@ public class EvaAttentBean {
     private int code;
     private List<DataBean> data;
     private int count;
+    private int follow;
+
+    public int getFollow() {
+        return follow;
+    }
+
+    public void setFollow(int follow) {
+        this.follow = follow;
+    }
 
     public int getCount() {
         return count;

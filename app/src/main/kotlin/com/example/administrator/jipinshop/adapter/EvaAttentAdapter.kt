@@ -27,9 +27,14 @@ class EvaAttentAdapter() : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
     private lateinit var mList: MutableList<EvaAttentBean.DataBean>
     private lateinit var context: Context
     private lateinit var mOnClickItem: OnClickItem
+    private var mFollow : Int = -1 // 默认为-1
 
     fun setClick(onClickItem: OnClickItem){
         mOnClickItem = onClickItem
+    }
+
+    fun setFollow(follow : Int){
+        mFollow = follow
     }
 
     //父类有构造函数，子类的构造函数需要显示调用父类的构造函数
@@ -70,6 +75,11 @@ class EvaAttentAdapter() : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
             one ->{
                 var oneViewHolder : OneViewHolder = holder as OneViewHolder
                 oneViewHolder.run {
+                    if (mFollow == 0 && position == 0){
+                        binding.itemNodePeople.visibility = View.VISIBLE
+                    }else{
+                        binding.itemNodePeople.visibility = View.GONE
+                    }
                     list.clear()
                     if (mList[position].userList != null){
                         list.addAll(mList[position].userList)
