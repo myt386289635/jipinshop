@@ -18,8 +18,17 @@ public class EvaHotBean {
 
     private String msg;
     private int code;
+    private int count;
     private List<AdsBean> ads;
     private List<EvaAttentBean.DataBean.ArticleBean> data;
+
+    public int getCount() {
+        return count;
+    }
+
+    public void setCount(int count) {
+        this.count = count;
+    }
 
     public List<EvaAttentBean.DataBean.ArticleBean> getData() {
         return data;

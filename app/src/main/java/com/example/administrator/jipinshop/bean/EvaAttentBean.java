@@ -12,6 +12,15 @@ public class EvaAttentBean {
     private String msg;
     private int code;
     private List<DataBean> data;
+    private int count;
+
+    public int getCount() {
+        return count;
+    }
+
+    public void setCount(int count) {
+        this.count = count;
+    }
 
     public String getMsg() {
         return msg;
