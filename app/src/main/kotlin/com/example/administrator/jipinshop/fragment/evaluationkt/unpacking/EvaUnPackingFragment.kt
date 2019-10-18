@@ -1,7 +1,7 @@
-package com.example.administrator.jipinshop.fragment.orderkt
+package com.example.administrator.jipinshop.fragment.evaluationkt.unpacking
 
+import android.content.Intent
 import android.databinding.DataBindingUtil
-import android.os.Bundle
 import android.support.v7.widget.LinearLayoutManager
 import android.view.LayoutInflater
 import android.view.View
@@ -9,51 +9,38 @@ import android.view.ViewGroup
 import com.aspsine.swipetoloadlayout.OnLoadMoreListener
 import com.aspsine.swipetoloadlayout.OnRefreshListener
 import com.example.administrator.jipinshop.R
-import com.example.administrator.jipinshop.adapter.KTMyOrderAdapter
+import com.example.administrator.jipinshop.activity.minekt.userkt.UserActivity
+import com.example.administrator.jipinshop.adapter.EvaUnPackingAdapter
 import com.example.administrator.jipinshop.base.DBBaseFragment
-import com.example.administrator.jipinshop.bean.OrderTBBean
+import com.example.administrator.jipinshop.bean.EvaEvaBean
+import com.example.administrator.jipinshop.bean.SucBean
 import com.example.administrator.jipinshop.databinding.FragmentEvaluationCommonBinding
+import com.example.administrator.jipinshop.util.ShopJumpUtil
 import com.example.administrator.jipinshop.util.ToastUtil
 import javax.inject.Inject
 
 /**
  * @author 莫小婷
- * @create 2019/10/10
- * @Describe 全部订单、即将到账、已到账、失效订单
+ * @create 2019/10/17
+ * @Describe 开箱页面
  */
-class KTMyOrderFragment : DBBaseFragment(), OnRefreshListener, OnLoadMoreListener, KTMyOrderView {
+class EvaUnPackingFragment : DBBaseFragment(), OnRefreshListener, OnLoadMoreListener, EvaUnPackingAdapter.OnClickItem, EvaUnPackingView {
 
     @Inject
-    lateinit var mPresenter: KTMyOrderPresenter
+    lateinit var mPresenter: EvaUnPackingPresenter
 
-    private lateinit var mBinding : FragmentEvaluationCommonBinding
-    private lateinit var mList: MutableList<OrderTBBean.DataBean>
-    private lateinit var mAdapter : KTMyOrderAdapter
+    private lateinit var mBinding: FragmentEvaluationCommonBinding
+    private lateinit var mList: MutableList<EvaEvaBean.DataBean>
+    private lateinit var mAdapter: EvaUnPackingAdapter
     private var page = 1
     private var refersh: Boolean = true
     private var once : Boolean = true //第一次进入
-    private var type = ""//标志页面
-
-    companion object{
-        fun getInstance(type : String): KTMyOrderFragment{
-            val fragment = KTMyOrderFragment()
-            val bundle = Bundle()
-            bundle.putString("type", type)
-            fragment.arguments = bundle
-            return fragment
-        }
-    }
 
     override fun setUserVisibleHint(isVisibleToUser: Boolean) {
         super.setUserVisibleHint(isVisibleToUser)
         if (isVisibleToUser && once ){
-            arguments?.let {
-                type = it.getString("type","")
-                if (type != "0"){
-                    mBinding.swipeToLoad.isRefreshing = true
-                    once = false
-                }
-            }
+            mBinding.swipeToLoad.isRefreshing = true
+            once = false
         }
     }
 
@@ -64,36 +51,30 @@ class KTMyOrderFragment : DBBaseFragment(), OnRefreshListener, OnLoadMoreListene
 
     override fun initView() {
         mBaseFragmentComponent.inject(this)
-        mBinding.swipeToLoad.setBackgroundColor(resources.getColor(R.color.color_F5F5F5))
-        arguments?.let {
-            type = it.getString("type","")
-        }
+        mBinding.swipeToLoad.setBackgroundColor(resources.getColor(R.color.color_white))
         mPresenter.setView(this)
 
         mBinding.recyclerView.layoutManager = LinearLayoutManager(context)
         mList = mutableListOf()
-        mAdapter = KTMyOrderAdapter(context!!,mList)
+        mAdapter = EvaUnPackingAdapter(mList,context!!)
+        mAdapter.setClick(this)
         mBinding.recyclerView.adapter = mAdapter
 
         mPresenter.solveScoll(mBinding.recyclerView,mBinding.swipeToLoad)
         mBinding.swipeToLoad.setOnRefreshListener(this)
         mBinding.swipeToLoad.setOnLoadMoreListener(this)
-        if (type == "0"){
-            mBinding.swipeToLoad.post { mBinding.swipeToLoad.isRefreshing = true }
-            once = false
-        }
     }
 
     override fun onLoadMore() {
         page++
         refersh = false
-        mPresenter.getDate(page,type,this.bindToLifecycle())
+        mPresenter.setDate(page,this.bindToLifecycle())
     }
 
     override fun onRefresh() {
         page = 1
         refersh = true
-        mPresenter.getDate(page,type,this.bindToLifecycle())
+        mPresenter.setDate(page,this.bindToLifecycle())
     }
 
     fun dissRefresh() {
@@ -129,10 +110,33 @@ class KTMyOrderFragment : DBBaseFragment(), OnRefreshListener, OnLoadMoreListene
         }
     }
 
-    override fun onSuccess(bean: OrderTBBean) {
+    /**
+     * 跳转到文章详情
+     */
+    override fun onClickItem(articleId: String, type: String, contentType: Int) {
+        mAdapter.notifyDataSetChanged()
+        ShopJumpUtil.jumpArticle(context, articleId,
+                type, contentType)
+    }
+
+    /**
+     * 个人详情页
+     */
+    override fun onClickUserinfo(userId: String) {
+        startActivity(Intent(context, UserActivity::class.java)
+                .putExtra("userid", userId)
+        )
+    }
+
+    override fun onSuccess(bean: SucBean<EvaEvaBean.DataBean>) {
         if (refersh) {
             dissRefresh()
             if (bean.data != null && bean.data.size != 0) {
+                if (bean.count != 0){
+                    ToastUtil.showTop("为您更新"+bean.count+"篇文章",context)
+                }else{
+                    ToastUtil.showTop("刷新成功",context)
+                }
                 mBinding.netClude?.let {
                     it.qsNet.visibility = View.GONE
                 }

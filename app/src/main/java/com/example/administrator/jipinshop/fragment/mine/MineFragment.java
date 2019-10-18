@@ -12,7 +12,6 @@ import android.view.ViewGroup;
 
 import com.blankj.utilcode.util.SPUtils;
 import com.example.administrator.jipinshop.R;
-import com.example.administrator.jipinshop.activity.address.MyAddressActivity;
 import com.example.administrator.jipinshop.activity.balance.MyWalletActivity;
 import com.example.administrator.jipinshop.activity.balance.team.TeamActivity;
 import com.example.administrator.jipinshop.activity.follow.FollowActivity;
@@ -30,6 +29,7 @@ import com.example.administrator.jipinshop.activity.sign.SignActivity;
 import com.example.administrator.jipinshop.activity.sign.invitation.InvitationNewActivity;
 import com.example.administrator.jipinshop.activity.tryout.mine.MineTrialActivity;
 import com.example.administrator.jipinshop.base.DBBaseFragment;
+import com.example.administrator.jipinshop.bean.MyWalletBean;
 import com.example.administrator.jipinshop.bean.UnMessageBean;
 import com.example.administrator.jipinshop.bean.UserInfoBean;
 import com.example.administrator.jipinshop.bean.eventbus.EditNameBus;
@@ -41,7 +41,6 @@ import com.example.administrator.jipinshop.jpush.JPushReceiver;
 import com.example.administrator.jipinshop.util.ToastUtil;
 import com.example.administrator.jipinshop.util.UmApp.UAppUtil;
 import com.example.administrator.jipinshop.util.sp.CommonDate;
-import com.example.administrator.jipinshop.view.dialog.DialogUtil;
 import com.example.administrator.jipinshop.view.glide.GlideApp;
 
 import org.greenrobot.eventbus.EventBus;
@@ -80,7 +79,7 @@ public class MineFragment extends DBBaseFragment implements View.OnClickListener
         mPresenter.setStatusBarHight(mBinding, getContext());
         mPresenter.setView(this);
         mQBadgeView = new QBadgeView(getContext());
-        mPresenter.initBadgeView(mQBadgeView, mBinding.mineWalletImg, this);
+        mPresenter.initBadgeView(mQBadgeView, mBinding.mineMessageImg, this);
     }
 
     @Override
@@ -99,7 +98,7 @@ public class MineFragment extends DBBaseFragment implements View.OnClickListener
             case R.id.mine_info:
             case R.id.mine_name:
             case R.id.mine_image:
-                //我的资料
+                //个人主页
                 startActivity(new Intent(getContext(), UserActivity.class)
                         .putExtra("userid",SPUtils.getInstance(CommonDate.USER).getString(CommonDate.userId))
                 );
@@ -143,22 +142,17 @@ public class MineFragment extends DBBaseFragment implements View.OnClickListener
                 );
                 UAppUtil.mine(getContext(),2);
                 break;
-            case R.id.mine_goodsNum:
-                //点击点赞数
-                DialogUtil.MyGoods(getContext(),mBinding.mineName.getText().toString(),mBinding.mineGoodsNumText.getText().toString());
-                UAppUtil.mine(getContext(),3);
-                break;
+//            case R.id.mine_goodsNum:
+//                //点击点赞数
+//                DialogUtil.MyGoods(getContext(),mBinding.mineName.getText().toString(),mBinding.mineGoodsNumText.getText().toString());
+//                UAppUtil.mine(getContext(),3);
+//                break;
             case R.id.mine_setting:
                 //跳转到设置页面
                 startActivityForResult(new Intent(getContext(), SettingActivity.class)
                                 .putExtra("officialWeChat",officialWeChat)
                         , 100);
                 UAppUtil.mine(getContext(),12);
-                break;
-            case R.id.mine_address:
-                //我的收货地址
-                startActivity(new Intent(getContext(), MyAddressActivity.class));
-                UAppUtil.mine(getContext(),11);
                 break;
             case R.id.mine_wallet:
                 //我的钱包
@@ -215,6 +209,10 @@ public class MineFragment extends DBBaseFragment implements View.OnClickListener
                 mBinding.mineAttentionText.setText("0");//关注数
                 mBinding.mineFansText.setText("0");//粉丝数
                 mBinding.mineSignText.setText("0");//极币数
+                mBinding.mineWithdrawal.setText("¥0");
+                mBinding.mineImminent.setText("¥0");
+                mBinding.mineTotal.setText("¥0");
+                mBinding.mineWalletText.setText("共省¥0");
                 SPUtils.getInstance(CommonDate.USER).clear();
 //                JPushInterface.stopPush(MyApplication.getInstance());//停止推送
                 mBinding.mineCopyContainer.setVisibility(View.GONE);//复制邀请码
@@ -345,6 +343,10 @@ public class MineFragment extends DBBaseFragment implements View.OnClickListener
             mBinding.mineInfo.setVisibility(View.GONE);
             GlideApp.loderImage(getContext(),R.drawable.logo, mBinding.mineImage, 0, 0);
             SPUtils.getInstance(CommonDate.USER).clear();
+            mBinding.mineWithdrawal.setText("¥0");
+            mBinding.mineImminent.setText("¥0");
+            mBinding.mineTotal.setText("¥0");
+            mBinding.mineWalletText.setText("共省¥0");
 //            JPushInterface.stopPush(MyApplication.getInstance());//停止推送
             mBinding.mineCopyContainer.setVisibility(View.GONE);//复制邀请码
         }else {
@@ -392,27 +394,30 @@ public class MineFragment extends DBBaseFragment implements View.OnClickListener
     public void unMessageSuc(UnMessageBean unMessageBean) {
         if(unMessageBean.getWalletCount() != 0) {
             if (unMessageBean.getWalletCount() <= 99) {
-                mQBadgeView.setBadgeText("" + unMessageBean.getWalletCount());
+                mQBadgeView.setBadgeText("" + unMessageBean.getData());
             } else {
                 mQBadgeView.setBadgeText("99+");
             }
         }else {
             mQBadgeView.hide(false);
         }
-        if(unMessageBean.getData() != 0) {
-            mBinding.mineMsgNumber.setVisibility(View.VISIBLE);
-            if (unMessageBean.getData() <= 99) {
-                mBinding.mineMsgNumber.setText("" + unMessageBean.getData());
-            } else {
-                mBinding.mineMsgNumber.setText("99+");
-            }
-        }else {
-            mBinding.mineMsgNumber.setVisibility(View.GONE);
-        }
     }
 
     @Override
     public void unMessageFaile(String error) {
+        ToastUtil.show(error);
+    }
+
+    @Override
+    public void onSuccess(MyWalletBean bean) {
+        mBinding.mineWithdrawal.setText("¥" + bean.getData().getWithdraw());
+        mBinding.mineImminent.setText("¥" + bean.getData().getPreFee());
+        mBinding.mineTotal.setText("¥" + bean.getData().getFinalFee());
+        mBinding.mineWalletText.setText("共省¥" + bean.getData().getTotalFee());
+    }
+
+    @Override
+    public void onFile(String error) {
         ToastUtil.show(error);
     }
 
@@ -428,6 +433,7 @@ public class MineFragment extends DBBaseFragment implements View.OnClickListener
             }else {
                 mPresenter.updateInfo(this.bindToLifecycle());
             }
+            mPresenter.myCommssionSummary(this.bindToLifecycle());//获取本人佣金
         }
         mPresenter.unMessage(this.bindToLifecycle());
     }

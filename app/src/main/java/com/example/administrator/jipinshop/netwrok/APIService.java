@@ -557,7 +557,7 @@ public interface APIService {
     /**
      * 佣金汇总
      */
-    @GET("qualityshop-api/api/myCommssionSummary")
+    @GET("qualityshop-api/api/v2/myCommssionSummary")
     Observable<MyWalletBean> myCommssionSummary();
 
     /**

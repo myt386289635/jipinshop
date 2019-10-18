@@ -55,7 +55,7 @@ public class IntegralDetailActivity extends BaseActivity implements IntegralDeta
 
         mBinding.swipeToLoad.setOnRefreshListener(this);
         mBinding.swipeToLoad.setOnLoadMoreListener(this);
-        mBinding.swipeToLoad.setRefreshing(true);
+        mBinding.swipeToLoad.post(() -> mBinding.swipeToLoad.setRefreshing(true));
         mPresenter.solveScoll(mBinding.recyclerView, mBinding.swipeToLoad);
     }
 

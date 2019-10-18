@@ -65,7 +65,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/y88"
                 android:layout_marginLeft="@dimen/x60"
-                android:text="@{@string/price + bean.balanceFee}"
+                android:text="@{@string/price + bean.withdraw}"
                 android:textColor="@color/color_white"
                 android:textSize="26sp"/>
 
@@ -126,7 +126,7 @@
                         android:textStyle="bold"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="@{@string/price + bean.preMonthFee}"
+                        android:text="@{@string/price + bean.preFee}"
                         android:textColor="@color/color_white"/>
 
                     <TextView
@@ -134,7 +134,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="@dimen/y8"
-                        android:text="上月预估(元)"
+                        android:text="即将到账(元)"
                         android:textColor="@color/color_B3FFFFFF"/>
                 </LinearLayout>
 
@@ -158,7 +158,7 @@
                         android:textStyle="bold"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="@{@string/price + bean.currentMonthFee}"
+                        android:text="@{@string/price + bean.finalFee}"
                         android:textColor="@color/color_white"/>
 
                     <TextView
@@ -166,7 +166,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="@dimen/y8"
-                        android:text="本月预估(元)"
+                        android:text="累计到账(元)"
                         android:textColor="@color/color_B3FFFFFF"/>
                 </LinearLayout>
 
@@ -190,7 +190,7 @@
                         android:textStyle="bold"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="@{@string/price + bean.withdraw}"
+                        android:text="@{@string/price + bean.totalFee}"
                         android:textColor="@color/color_white"/>
 
                     <TextView
@@ -198,7 +198,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="@dimen/y8"
-                        android:text="已提现  (元)"
+                        android:text="累计共省(元)"
                         android:textColor="@color/color_B3FFFFFF"/>
                 </LinearLayout>
 

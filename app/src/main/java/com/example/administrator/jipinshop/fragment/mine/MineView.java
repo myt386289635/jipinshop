@@ -1,5 +1,6 @@
 package com.example.administrator.jipinshop.fragment.mine;
 
+import com.example.administrator.jipinshop.bean.MyWalletBean;
 import com.example.administrator.jipinshop.bean.UnMessageBean;
 import com.example.administrator.jipinshop.bean.UserInfoBean;
 
@@ -18,4 +19,7 @@ public interface MineView {
 
     void unMessageSuc(UnMessageBean unMessageBean);
     void unMessageFaile(String error);
+
+    void onSuccess(MyWalletBean bean);
+    void onFile(String error);
 }

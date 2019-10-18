@@ -9,6 +9,8 @@ import com.example.administrator.jipinshop.fragment.evaluationkt.attent.EvaAtten
 import com.example.administrator.jipinshop.fragment.evaluationkt.hot.EvaHotFragment;
 import com.example.administrator.jipinshop.fragment.evaluationkt.ieva.EvaEvaFragment;
 import com.example.administrator.jipinshop.fragment.evaluationkt.inventory.EvaInventoryFragment;
+import com.example.administrator.jipinshop.fragment.evaluationkt.unpacking.EvaUnPackingFragment;
+import com.example.administrator.jipinshop.fragment.evaluationkt.zcompare.EvaCompareFragment;
 import com.example.administrator.jipinshop.fragment.find.FindFragment;
 import com.example.administrator.jipinshop.fragment.find.common.CommonFindFragment;
 import com.example.administrator.jipinshop.fragment.follow.attention.AttentionFragment;
@@ -88,4 +90,6 @@ public interface BaseFragmentComponent {
     void inject(PayPendingFragment fragment);
     void inject(PayPendedFragment fragment);
     void inject(KTMyOrderFragment fragment);
+    void inject(EvaUnPackingFragment fragment);
+    void inject(EvaCompareFragment fragment);
 }

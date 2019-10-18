@@ -74,7 +74,7 @@ public class FovalGoodsFragment extends DBBaseFragment implements FovalGoodsAdap
         mBinding.swipeToLoad.setOnRefreshListener(this);
         mBinding.swipeToLoad.setOnLoadMoreListener(this);
         mPresenter.solveScoll(mBinding.recyclerView,mBinding.swipeToLoad);
-        mBinding.swipeToLoad.setRefreshing(true);
+        mBinding.swipeToLoad.post(() -> mBinding.swipeToLoad.setRefreshing(true));
     }
 
     @Override

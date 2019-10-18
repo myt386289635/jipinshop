@@ -73,7 +73,7 @@ public class MessageActivity extends BaseActivity implements View.OnClickListene
         mPresenter.solveScoll(mBinding.recyclerView,mBinding.swipeToLoad);
         mBinding.swipeToLoad.setOnRefreshListener(this);
         mBinding.swipeToLoad.setOnLoadMoreListener(this);
-        mBinding.swipeToLoad.setRefreshing(true);
+        mBinding.swipeToLoad.post(() -> mBinding.swipeToLoad.setRefreshing(true));
     }
 
     @Override

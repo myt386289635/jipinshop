@@ -64,7 +64,7 @@ public class AttentionFragment extends DBBaseFragment implements OnRefreshListen
     public void setUserVisibleHint(boolean isVisibleToUser) {
         super.setUserVisibleHint(isVisibleToUser);
         if(isVisibleToUser && once && getArguments().getInt("page") != 0){
-            mBinding.swipeToLoad.setRefreshing(true);
+            mBinding.swipeToLoad.post(() -> mBinding.swipeToLoad.setRefreshing(true));
             once = false;
         }
     }
@@ -90,7 +90,7 @@ public class AttentionFragment extends DBBaseFragment implements OnRefreshListen
         mBinding.swipeToLoad.setOnRefreshListener(this);
         mBinding.swipeToLoad.setOnLoadMoreListener(this);
         if(once && getArguments().getInt("page") == 0){
-            mBinding.swipeToLoad.setRefreshing(true);
+            mBinding.swipeToLoad.post(() -> mBinding.swipeToLoad.setRefreshing(true));
             once = false;
         }
 

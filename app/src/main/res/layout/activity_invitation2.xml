@@ -27,7 +27,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@+id/in_clude"
-            android:background="@color/color_DC4D64"
+            android:background="@color/color_E25838"
             android:lineSpacingExtra="@dimen/y6"
             android:padding="@dimen/x28"
             android:text="1.分享给好友，好友通过分享链接下载注册、填写邀请码；邀请一人可获得200极币;

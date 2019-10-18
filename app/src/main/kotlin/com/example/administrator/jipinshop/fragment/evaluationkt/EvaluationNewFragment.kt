@@ -16,8 +16,8 @@ import com.example.administrator.jipinshop.base.DBBaseFragment
 import com.example.administrator.jipinshop.databinding.FragmentEvaluationNewBinding
 import com.example.administrator.jipinshop.fragment.evaluationkt.attent.EvaAttentFrament
 import com.example.administrator.jipinshop.fragment.evaluationkt.hot.EvaHotFragment
-import com.example.administrator.jipinshop.fragment.evaluationkt.ieva.EvaEvaFragment
-import com.example.administrator.jipinshop.fragment.evaluationkt.inventory.EvaInventoryFragment
+import com.example.administrator.jipinshop.fragment.evaluationkt.unpacking.EvaUnPackingFragment
+import com.example.administrator.jipinshop.fragment.evaluationkt.zcompare.EvaCompareFragment
 
 /**
  * @author 莫小婷
@@ -28,7 +28,7 @@ class EvaluationNewFragment : DBBaseFragment(), View.OnClickListener {
 
     private lateinit var mBinding : FragmentEvaluationNewBinding
     private var mList: MutableList<Fragment> = mutableListOf()
-    private var mTitle : ArrayList<String> = arrayListOf("关注","推荐","评测","清单")
+    private var mTitle : ArrayList<String> = arrayListOf("关注","推荐","开箱","横评")
     private lateinit var mAdapter : HomeFragmentAdapter
     private var boolean : Boolean = true
 
@@ -64,8 +64,8 @@ class EvaluationNewFragment : DBBaseFragment(), View.OnClickListener {
         if (isVisibleToUser && boolean){
             mList.add(EvaAttentFrament())
             mList.add(EvaHotFragment())
-            mList.add(EvaEvaFragment())
-            mList.add(EvaInventoryFragment())
+            mList.add(EvaUnPackingFragment())
+            mList.add(EvaCompareFragment())
             mAdapter.notifyDataSetChanged()
             mBinding.viewPager.offscreenPageLimit = mList.size - 1
             mBinding.viewPager.currentItem = 1

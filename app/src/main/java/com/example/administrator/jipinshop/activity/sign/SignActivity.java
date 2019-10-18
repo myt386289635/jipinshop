@@ -128,10 +128,12 @@ public class SignActivity extends BaseActivity implements View.OnClickListener, 
                 );
                 break;
             case R.id.sign_signed:
-                mDialog = (new ProgressDialogView()).createLoadingDialog(this, "正在加载...");
-                mDialog.show();
-                mPresenter.sign(this.bindToLifecycle());
-                UAppUtil.sign(this,0);
+                if (mBinding.signSigned.getText().toString().equals("签到")){
+                    mDialog = (new ProgressDialogView()).createLoadingDialog(this, "正在加载...");
+                    mDialog.show();
+                    mPresenter.sign(this.bindToLifecycle());
+                    UAppUtil.sign(this,0);
+                }
                 break;
             case R.id.sign_detail:
                 //积分明细
@@ -163,6 +165,15 @@ public class SignActivity extends BaseActivity implements View.OnClickListener, 
         }
         pointArr.clear();
         pointArr.addAll(signBean.getData().getPointArr());
+        if (signBean.getData().getSignin() == 0){
+            //0未签到
+            mBinding.signSigned.setText("签到");
+            mBinding.signSigned.setBackgroundResource(R.mipmap.sign_icon);
+        }else {
+            //1已签到
+            mBinding.signSigned.setText("已签到");
+            mBinding.signSigned.setBackgroundResource(R.mipmap.sign_icon2);
+        }
     }
     /**
      * 获取签到信息失败回调
@@ -207,6 +218,9 @@ public class SignActivity extends BaseActivity implements View.OnClickListener, 
         if(mDialog != null && mDialog.isShowing()){
             mDialog.dismiss();
         }
+        ToastUtil.show("签到成功");
+        mBinding.signSigned.setText("已签到");
+        mBinding.signSigned.setBackgroundResource(R.mipmap.sign_icon2);
     }
     /**
      * 签到失败

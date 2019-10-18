@@ -10,7 +10,7 @@ public class MyWalletBean {
     /**
      * msg : success
      * code : 0
-     * data : {"preMonthFee":0,"currentMonthFee":0,"withdraw":0,"balanceFee":2}
+     * data : {"preFee":354,"finalFee":-81.9,"withdraw":7518,"totalFee":272.1}
      */
 
     private String msg;
@@ -43,47 +43,47 @@ public class MyWalletBean {
 
     public static class DataBean {
         /**
-         * preMonthFee : 0
-         * currentMonthFee : 0
-         * withdraw : 0
-         * balanceFee : 2
+         * preFee : 354.0
+         * finalFee : -81.9
+         * withdraw : 7518.0
+         * totalFee : 272.1
          */
 
-        private String preMonthFee;
-        private String currentMonthFee;
-        private String withdraw;
-        private String balanceFee;
+        private double preFee;
+        private double finalFee;
+        private double withdraw;
+        private double totalFee;
 
-        public String getPreMonthFee() {
-            return preMonthFee;
+        public double getPreFee() {
+            return preFee;
         }
 
-        public void setPreMonthFee(String preMonthFee) {
-            this.preMonthFee = preMonthFee;
+        public void setPreFee(double preFee) {
+            this.preFee = preFee;
         }
 
-        public String getCurrentMonthFee() {
-            return currentMonthFee;
+        public double getFinalFee() {
+            return finalFee;
         }
 
-        public void setCurrentMonthFee(String currentMonthFee) {
-            this.currentMonthFee = currentMonthFee;
+        public void setFinalFee(double finalFee) {
+            this.finalFee = finalFee;
         }
 
-        public String getWithdraw() {
+        public double getWithdraw() {
             return withdraw;
         }
 
-        public void setWithdraw(String withdraw) {
+        public void setWithdraw(double withdraw) {
             this.withdraw = withdraw;
         }
 
-        public String getBalanceFee() {
-            return balanceFee;
+        public double getTotalFee() {
+            return totalFee;
         }
 
-        public void setBalanceFee(String balanceFee) {
-            this.balanceFee = balanceFee;
+        public void setTotalFee(double totalFee) {
+            this.totalFee = totalFee;
         }
     }
 }

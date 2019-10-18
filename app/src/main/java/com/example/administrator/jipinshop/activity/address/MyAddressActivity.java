@@ -64,7 +64,7 @@ public class MyAddressActivity extends BaseActivity implements View.OnClickListe
 
         mPresenter.solveScoll(mBinding.recyclerView,mBinding.swipeToLoad);
         mBinding.swipeToLoad.setOnRefreshListener(this);
-        mBinding.swipeToLoad.setRefreshing(true);
+        mBinding.swipeToLoad.post(() -> mBinding.swipeToLoad.setRefreshing(true));
     }
 
     @Override

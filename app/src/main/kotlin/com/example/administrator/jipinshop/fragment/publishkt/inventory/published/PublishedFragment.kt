@@ -86,7 +86,7 @@ class PublishedFragment : DBBaseFragment(), OnRefreshListener, OnLoadMoreListene
         mBinding.swipeToLoad.setOnLoadMoreListener(this)
         if (type == "2"){
             //已发布
-            mBinding.swipeToLoad.isRefreshing = true
+            mBinding.swipeToLoad.post { mBinding.swipeToLoad.isRefreshing = true }
             once = false
         }
     }

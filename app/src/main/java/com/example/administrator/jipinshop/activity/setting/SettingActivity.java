@@ -19,6 +19,7 @@ import android.widget.TextView;
 import com.blankj.utilcode.util.SPUtils;
 import com.example.administrator.jipinshop.R;
 import com.example.administrator.jipinshop.activity.WebActivity;
+import com.example.administrator.jipinshop.activity.address.MyAddressActivity;
 import com.example.administrator.jipinshop.activity.setting.opinion.OpinionActivity;
 import com.example.administrator.jipinshop.base.BaseActivity;
 import com.example.administrator.jipinshop.base.BaseAsyncTask;
@@ -29,6 +30,7 @@ import com.example.administrator.jipinshop.util.MyDataCleanManager;
 import com.example.administrator.jipinshop.util.ShopJumpUtil;
 import com.example.administrator.jipinshop.util.TaoBaoUtil;
 import com.example.administrator.jipinshop.util.ToastUtil;
+import com.example.administrator.jipinshop.util.UmApp.UAppUtil;
 import com.example.administrator.jipinshop.util.sp.CommonDate;
 import com.example.administrator.jipinshop.view.dialog.CleanCacheDialog;
 import com.example.administrator.jipinshop.view.dialog.DialogUtil;
@@ -138,12 +140,19 @@ public class SettingActivity extends BaseActivity implements CleanCacheDialog.On
         super.onDestroy();
     }
 
-    @OnClick({R.id.title_back, R.id.setting_opinionContainer, R.id.setting_cleanContainer, R.id.setting_serviceContainer, R.id.setting_goodContainer, R.id.setting_userContainer, R.id.setting_exitLogin})
+    @OnClick({R.id.title_back, R.id.setting_opinionContainer, R.id.setting_cleanContainer,
+            R.id.setting_serviceContainer, R.id.setting_goodContainer, R.id.setting_userContainer,
+            R.id.setting_exitLogin,R.id.mine_address})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.title_back:
                 finish();
                 return;
+            case R.id.mine_address:
+                //我的收货地址
+                startActivity(new Intent(this, MyAddressActivity.class));
+                UAppUtil.mine(this, 11);
+                break;
             case R.id.setting_cleanContainer:
                 if (mCleanCacheDialog == null) {
                     mCleanCacheDialog = mCleanCacheDialog.getInstance();

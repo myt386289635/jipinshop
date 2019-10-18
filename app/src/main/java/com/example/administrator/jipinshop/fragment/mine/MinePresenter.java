@@ -8,6 +8,7 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 
 import com.example.administrator.jipinshop.R;
+import com.example.administrator.jipinshop.bean.MyWalletBean;
 import com.example.administrator.jipinshop.bean.UnMessageBean;
 import com.example.administrator.jipinshop.bean.UserInfoBean;
 import com.example.administrator.jipinshop.databinding.FragmentMineBinding;
@@ -105,6 +106,29 @@ public class MinePresenter {
                 }, throwable -> {
                     if(mView != null){
                         mView.unMessageFaile(throwable.getMessage());
+                    }
+                });
+    }
+
+
+    public void myCommssionSummary(LifecycleTransformer<MyWalletBean> transformer){
+        mRepository.myCommssionSummary()
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .compose(transformer)
+                .subscribe(myWalletBean -> {
+                    if (myWalletBean.getCode() == 0){
+                        if (mView != null){
+                            mView.onSuccess(myWalletBean);
+                        }
+                    }else {
+                        if (mView != null){
+                            mView.onFile(myWalletBean.getMsg());
+                        }
+                    }
+                }, throwable -> {
+                    if (mView != null){
+                        mView.onFile(throwable.getMessage());
                     }
                 });
     }

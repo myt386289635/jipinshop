@@ -63,7 +63,7 @@ public class FansFragment extends DBBaseFragment implements OnRefreshListener, F
     public void setUserVisibleHint(boolean isVisibleToUser) {
         super.setUserVisibleHint(isVisibleToUser);
         if(isVisibleToUser && once && getArguments().getInt("page") != 1){
-            mBinding.swipeToLoad.setRefreshing(true);
+            mBinding.swipeToLoad.post(() -> mBinding.swipeToLoad.setRefreshing(true));
             once = false;
         }
     }
@@ -89,7 +89,7 @@ public class FansFragment extends DBBaseFragment implements OnRefreshListener, F
         mBinding.swipeToLoad.setOnRefreshListener(this);
         mBinding.swipeToLoad.setOnLoadMoreListener(this);
         if(once && getArguments().getInt("page") == 1){
-            mBinding.swipeToLoad.setRefreshing(true);
+            mBinding.swipeToLoad.post(() -> mBinding.swipeToLoad.setRefreshing(true));
             once = false;
         }
 

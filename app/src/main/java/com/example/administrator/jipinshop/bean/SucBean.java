@@ -18,6 +18,15 @@ public class SucBean<T> {
     private String msg;
     private int code;
     private List<T> data;
+    private int count;
+
+    public int getCount() {
+        return count;
+    }
+
+    public void setCount(int count) {
+        this.count = count;
+    }
 
     public String getMsg() {
         return msg;

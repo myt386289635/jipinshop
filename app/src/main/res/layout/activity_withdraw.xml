@@ -16,7 +16,7 @@
 
         <include
             android:id="@+id/in_clude"
-            layout="@layout/aa_title"
+            layout="@layout/aa_title2"
             bind:listener="@{listener}"/>
 
         <RelativeLayout
@@ -190,7 +190,7 @@
                 android:layout_marginTop="@dimen/y12"
                 android:layout_alignTop="@+id/withdraw_payTag"
                 android:textSize="15sp"
-                android:textColor="@color/color_E8576F"
+                android:textColor="@color/color_E25838"
                 android:text="全部提现"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"/>
@@ -234,7 +234,7 @@
             android:layout_marginRight="@dimen/x42"
             android:layout_marginLeft="@dimen/x60"
             android:textSize="13sp"
-            android:textColor="@color/color_E8576F"
+            android:textColor="@color/color_E25838"
             android:text="*提现审核时间每月25号—30号17:30前，审核通过后在24小时内到账（周六、周末不计算）；
 *提现时请务必正确填写支付宝账号与真实姓名；
 *每月提现上月30号之前确认收货的订单佣金。"

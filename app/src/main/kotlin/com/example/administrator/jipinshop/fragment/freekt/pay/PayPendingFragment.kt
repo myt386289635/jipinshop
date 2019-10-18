@@ -69,7 +69,7 @@ class PayPendingFragment : DBBaseFragment(), OnRefreshListener, OnLoadMoreListen
         mPresenter.solveScoll(mBinding.recyclerView,mBinding.swipeToLoad)
         mBinding.swipeToLoad.setOnRefreshListener(this)
         mBinding.swipeToLoad.setOnLoadMoreListener(this)
-        mBinding.swipeToLoad.isRefreshing = true
+        mBinding.swipeToLoad.post { mBinding.swipeToLoad.isRefreshing = true }
     }
 
     override fun onLoadMore() {

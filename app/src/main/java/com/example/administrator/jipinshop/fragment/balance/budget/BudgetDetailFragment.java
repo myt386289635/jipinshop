@@ -62,7 +62,7 @@ public class BudgetDetailFragment extends DBBaseFragment implements OnRefreshLis
         mPresenter.solveScoll(mBinding.recyclerView,mBinding.swipeToLoad);
         mBinding.swipeToLoad.setOnRefreshListener(this);
         mBinding.swipeToLoad.setLoadMoreEnabled(false);//禁止加载
-        mBinding.swipeToLoad.setRefreshing(true);
+        mBinding.swipeToLoad.post(() -> mBinding.swipeToLoad.setRefreshing(true));
     }
 
     @Override
