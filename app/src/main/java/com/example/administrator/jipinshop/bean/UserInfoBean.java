@@ -94,6 +94,15 @@ public class UserInfoBean {
         private int follow;//是否关注， 0没关注  1关注
         private int age;//年龄
         private String officialWeChat;//客服电话
+        private String collectCount;//收藏夹数量
+
+        public String getCollectCount() {
+            return collectCount;
+        }
+
+        public void setCollectCount(String collectCount) {
+            this.collectCount = collectCount;
+        }
 
         public String getOfficialWeChat() {
             return officialWeChat;

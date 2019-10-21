@@ -205,7 +205,7 @@ public class MineFragment extends DBBaseFragment implements View.OnClickListener
                 mBinding.mineInfo.setVisibility(View.GONE);
                 GlideApp.loderImage(getContext(),R.drawable.logo, mBinding.mineImage, 0, 0);
                 mBinding.mineBackground.setImageResource(R.mipmap.mine_imagebg_dafult);
-                mBinding.mineGoodsNumText.setText("0");//点赞数
+                mBinding.mineFavorNumText.setText("0");//收藏数
                 mBinding.mineAttentionText.setText("0");//关注数
                 mBinding.mineFansText.setText("0");//粉丝数
                 mBinding.mineSignText.setText("0");//极币数
@@ -251,10 +251,6 @@ public class MineFragment extends DBBaseFragment implements View.OnClickListener
             if (!TextUtils.isEmpty(SPUtils.getInstance(CommonDate.USER).getString(CommonDate.userNickImg))) {
                 GlideApp.loderImage(getContext(),SPUtils.getInstance(CommonDate.USER).getString(CommonDate.userNickImg), mBinding.mineImage, R.mipmap.logo, 0);
             }
-            mBinding.mineGoodsNumText.setText(bus.getVoteCount());//点赞数
-            mBinding.mineAttentionText.setText(bus.getFollowCount());//关注数
-            mBinding.mineFansText.setText(bus.getFansCount());//粉丝数
-            mBinding.mineSignText.setText(SPUtils.getInstance(CommonDate.USER).getInt(CommonDate.userPoint,0) + "");//极币数
         }else if(bus != null && bus.getTag().equals(SignActivity.eventbusTag)){
             //签到页面返回过来的信息——（极币数）
             mBinding.mineSignText.setText(SPUtils.getInstance(CommonDate.USER).getInt(CommonDate.userPoint,0) + "");//极币数
@@ -305,7 +301,7 @@ public class MineFragment extends DBBaseFragment implements View.OnClickListener
         mBinding.mineInfo.setVisibility(View.VISIBLE);
         mBinding.mineCopyContainer.setVisibility(View.VISIBLE);//复制邀请码
         mBinding.mineIntegral.setText("邀请码：" + SPUtils.getInstance(CommonDate.USER).getString(CommonDate.qrCode,"000000"));
-        mBinding.mineGoodsNumText.setText(userInfoBean.getData().getVoteCount());//点赞数
+        mBinding.mineFavorNumText.setText(userInfoBean.getData().getCollectCount());//收藏数
         mBinding.mineAttentionText.setText(userInfoBean.getData().getFollowCount());//关注数
         mBinding.mineFansText.setText(userInfoBean.getData().getFansCount());//粉丝数
         mBinding.mineSignText.setText(SPUtils.getInstance(CommonDate.USER).getInt(CommonDate.userPoint,0) + "");//极币数
@@ -362,7 +358,7 @@ public class MineFragment extends DBBaseFragment implements View.OnClickListener
             SPUtils.getInstance(CommonDate.USER).put(CommonDate.userMemberGrade, "1");
             SPUtils.getInstance(CommonDate.USER).put(CommonDate.userPoint, 0);
         }
-        mBinding.mineGoodsNumText.setText("0");//点赞数
+        mBinding.mineFavorNumText.setText("0");//收藏数
         mBinding.mineAttentionText.setText("0");//关注数
         mBinding.mineFansText.setText("0");//粉丝数
         mBinding.mineSignText.setText("0");//极币数
@@ -377,8 +373,7 @@ public class MineFragment extends DBBaseFragment implements View.OnClickListener
         SPUtils.getInstance(CommonDate.USER).put(CommonDate.userPoint, userInfoBean.getData().getPoint());
         SPUtils.getInstance(CommonDate.USER).put(CommonDate.relationId, userInfoBean.getData().getRelationId());
         SPUtils.getInstance(CommonDate.USER).put(CommonDate.userId,userInfoBean.getData().getUserId());
-
-        mBinding.mineGoodsNumText.setText(userInfoBean.getData().getVoteCount());//点赞数
+        mBinding.mineFavorNumText.setText(userInfoBean.getData().getCollectCount());//收藏数
         mBinding.mineAttentionText.setText(userInfoBean.getData().getFollowCount());//关注数
         mBinding.mineFansText.setText(userInfoBean.getData().getFansCount());//粉丝数
         mBinding.mineSignText.setText(SPUtils.getInstance(CommonDate.USER).getInt(CommonDate.userPoint,0) + "");//极币数
