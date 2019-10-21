@@ -154,6 +154,7 @@ public class MineFragment extends DBBaseFragment implements View.OnClickListener
                         , 100);
                 UAppUtil.mine(getContext(),12);
                 break;
+            case R.id.mine_walletBottomContainer:
             case R.id.mine_wallet:
                 //我的钱包
                 startActivity(new Intent(getContext(), MyWalletActivity.class));

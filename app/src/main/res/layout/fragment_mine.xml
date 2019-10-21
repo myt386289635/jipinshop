@@ -320,6 +320,7 @@
                 </RelativeLayout>
 
                 <LinearLayout
+                    android:onClick="@{listener.onClick}"
                     android:background="@drawable/bg_mine_head3"
                     android:layout_marginRight="@dimen/x30"
                     android:layout_marginLeft="@dimen/x30"
