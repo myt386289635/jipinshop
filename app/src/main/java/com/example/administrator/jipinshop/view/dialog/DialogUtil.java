@@ -9,9 +9,13 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.blankj.utilcode.util.SPUtils;
 import com.bumptech.glide.Glide;
 import com.example.administrator.jipinshop.R;
+import com.example.administrator.jipinshop.activity.home.MainActivity;
 import com.example.administrator.jipinshop.bean.PopInfoBean;
+import com.example.administrator.jipinshop.util.NotificationUtil;
+import com.example.administrator.jipinshop.util.sp.CommonDate;
 import com.example.administrator.jipinshop.view.glide.GlideApp;
 
 import java.math.BigDecimal;
@@ -67,7 +71,7 @@ public class DialogUtil{
     /**
      * 版本更新diaglog
      */
-    public static  void UpDateDialog(Context context,String varsonNum ,String content,final View.OnClickListener updateListener){
+    public static  void UpDateDialog(Context context,String varsonNum ,String content,final View.OnClickListener updateListener,OnDismissLitener dismissLitener){
         AlertDialog.Builder builder = new AlertDialog.Builder(context,R.style.dialog);
         View view = LayoutInflater.from(context).inflate(R.layout.dialog_signsuccess,null);
         TextView update_varsonNum = view.findViewById(R.id.update_varsonNum);
@@ -82,7 +86,10 @@ public class DialogUtil{
             updateListener.onClick(v);
             dialog.dismiss();
         });
-        update_close.setOnClickListener(v -> dialog.dismiss());
+        update_close.setOnClickListener(v ->{
+            dialog.dismiss();
+            dismissLitener.onDismiss();
+        });
         dialog.show();
         dialog.setCanceledOnTouchOutside(false);
         dialog.setContentView(view);
@@ -300,5 +307,9 @@ public class DialogUtil{
                 }
             });
         }
+    }
+
+    public interface OnDismissLitener {
+        void onDismiss();
     }
 }

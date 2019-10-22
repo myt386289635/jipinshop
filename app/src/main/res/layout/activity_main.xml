@@ -30,4 +30,77 @@
         android:layout_width="match_parent"
         android:layout_height="@dimen/y2"/>
 
+    <!--新手引导页面-->
+    <RelativeLayout
+        android:id="@+id/guild_background"
+        android:background="@mipmap/guide_bg1"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <ImageView
+            android:src="@mipmap/guide_break"
+            android:id="@+id/guide_break"
+            android:layout_marginTop="@dimen/y95"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="@dimen/x45"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+
+        <ImageView
+            android:id="@+id/guide_content1"
+            android:layout_marginBottom="@dimen/y377"
+            android:layout_alignParentBottom="true"
+            android:layout_centerHorizontal="true"
+            android:src="@mipmap/guide_content1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+
+        <ImageView
+            android:id="@+id/guide_next1"
+            android:layout_marginBottom="@dimen/y154"
+            android:layout_alignParentBottom="true"
+            android:layout_centerHorizontal="true"
+            android:src="@mipmap/guide_next1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+
+        <ImageView
+            android:visibility="gone"
+            android:id="@+id/guide_content2"
+            android:layout_marginBottom="@dimen/y126"
+            android:layout_alignParentBottom="true"
+            android:layout_centerHorizontal="true"
+            android:src="@mipmap/guide_content2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+
+        <ImageView
+            android:visibility="gone"
+            android:id="@+id/guide_next2"
+            android:layout_centerInParent="true"
+            android:src="@mipmap/guide_next2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+
+        <ImageView
+            android:visibility="gone"
+            android:layout_marginBottom="@dimen/y116"
+            android:layout_alignParentBottom="true"
+            android:layout_centerHorizontal="true"
+            android:id="@+id/guide_content3"
+            android:src="@mipmap/guide_content3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+
+
+        <ImageView
+            android:visibility="gone"
+            android:id="@+id/guide_next3"
+            android:layout_centerInParent="true"
+            android:src="@mipmap/guide_next3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+
+    </RelativeLayout>
+
 </RelativeLayout>

@@ -1,0 +1,142 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    android:orientation="vertical"
+    android:minWidth="@dimen/x560"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <RelativeLayout
+        android:layout_gravity="center_horizontal"
+        android:background="@mipmap/dialog_notify"
+        android:layout_width="@dimen/x560"
+        android:layout_height="wrap_content">
+
+        <ImageView
+            android:id="@+id/dialog_cancle"
+            android:layout_alignParentRight="true"
+            android:paddingBottom="@dimen/y17"
+            android:paddingLeft="@dimen/x20"
+            android:paddingTop="@dimen/y17"
+            android:paddingRight="@dimen/x20"
+            android:src="@mipmap/dialog_notify_cancle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_gravity="center_horizontal"
+        android:background="@drawable/bg_ffffff"
+        android:layout_width="@dimen/x560"
+        android:layout_height="wrap_content">
+
+        <ImageView
+            android:id="@+id/dialog_notify1"
+            android:layout_marginTop="@dimen/y48"
+            android:layout_marginLeft="@dimen/x40"
+            android:src="@mipmap/dialog_notify1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+
+        <TextView
+            android:id="@+id/dialog_notify1Text"
+            android:layout_marginLeft="@dimen/x13"
+            android:layout_toRightOf="@id/dialog_notify1"
+            android:layout_alignTop="@id/dialog_notify1"
+            android:textColor="@color/color_202020"
+            android:textSize="15sp"
+            android:text="补贴到账通知"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+
+        <TextView
+            android:layout_marginLeft="@dimen/x13"
+            android:layout_marginTop="@dimen/y6"
+            android:layout_below="@id/dialog_notify1Text"
+            android:layout_toRightOf="@id/dialog_notify1"
+            android:textColor="@color/color_9D9D9D"
+            android:textSize="12.5sp"
+            android:text="了解订单最新动态，实时推送"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+
+        <ImageView
+            android:id="@+id/dialog_notify2"
+            android:layout_marginTop="@dimen/y67"
+            android:layout_marginLeft="@dimen/x40"
+            android:layout_below="@id/dialog_notify1"
+            android:src="@mipmap/dialog_notify2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+
+        <TextView
+            android:id="@+id/dialog_notify2Text"
+            android:layout_marginLeft="@dimen/x13"
+            android:layout_toRightOf="@id/dialog_notify2"
+            android:layout_alignTop="@id/dialog_notify2"
+            android:textColor="@color/color_202020"
+            android:textSize="15sp"
+            android:text="商品促销信息"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+
+        <TextView
+            android:layout_marginLeft="@dimen/x13"
+            android:layout_marginTop="@dimen/y6"
+            android:layout_below="@id/dialog_notify2Text"
+            android:layout_toRightOf="@id/dialog_notify2"
+            android:textColor="@color/color_9D9D9D"
+            android:textSize="12.5sp"
+            android:text="第一时间抢到促销商品，省钱不能等"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+
+        <ImageView
+            android:id="@+id/dialog_notify3"
+            android:layout_marginTop="@dimen/y67"
+            android:layout_marginLeft="@dimen/x40"
+            android:layout_below="@id/dialog_notify2"
+            android:src="@mipmap/dialog_notify3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+
+        <TextView
+            android:id="@+id/dialog_notify3Text"
+            android:layout_marginLeft="@dimen/x13"
+            android:layout_toRightOf="@id/dialog_notify3"
+            android:layout_alignTop="@id/dialog_notify3"
+            android:textColor="@color/color_202020"
+            android:textSize="15sp"
+            android:text="精选内容推送"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+
+        <TextView
+            android:layout_marginLeft="@dimen/x13"
+            android:layout_marginTop="@dimen/y6"
+            android:layout_below="@id/dialog_notify3Text"
+            android:layout_toRightOf="@id/dialog_notify3"
+            android:textColor="@color/color_9D9D9D"
+            android:textSize="12.5sp"
+            android:text="定时为您推荐热门内容，不再错过好货"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+
+        <TextView
+            android:id="@+id/dialog_sure"
+            android:layout_marginBottom="@dimen/y31"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="@dimen/y75"
+            android:layout_below="@id/dialog_notify3"
+            android:gravity="center"
+            android:textSize="15sp"
+            android:text="马上开启"
+            android:textColor="@color/color_white"
+            android:background="@drawable/bg_ff835b"
+            android:layout_width="@dimen/x360"
+            android:layout_height="@dimen/y66"/>
+
+    </RelativeLayout>
+
+</LinearLayout>

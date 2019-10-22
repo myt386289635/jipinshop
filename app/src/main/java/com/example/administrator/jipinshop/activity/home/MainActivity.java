@@ -10,6 +10,8 @@ import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
 import android.text.TextUtils;
 import android.view.View;
+import android.widget.ImageView;
+import android.widget.RelativeLayout;
 
 import com.blankj.utilcode.util.SPUtils;
 import com.example.administrator.jipinshop.MyApplication;
@@ -31,6 +33,7 @@ import com.example.administrator.jipinshop.netwrok.RetrofitModule;
 import com.example.administrator.jipinshop.util.ClickUtil;
 import com.example.administrator.jipinshop.util.InputMethodManagerLeak;
 import com.example.administrator.jipinshop.util.NotchUtil;
+import com.example.administrator.jipinshop.util.NotificationUtil;
 import com.example.administrator.jipinshop.util.ShopJumpUtil;
 import com.example.administrator.jipinshop.util.ToastUtil;
 import com.example.administrator.jipinshop.util.UmApp.UAppUtil;
@@ -56,6 +59,7 @@ import javax.inject.Inject;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 import butterknife.Unbinder;
 
 public class MainActivity extends RxAppCompatActivity implements MainView, ViewPager.OnPageChangeListener, SceneRestorable {
@@ -67,12 +71,26 @@ public class MainActivity extends RxAppCompatActivity implements MainView, ViewP
     NoScrollViewPager mViewPager;
     @BindView(R.id.tab_layout)
     TabLayout mTabLayout;
+    @BindView(R.id.guide_content1)
+    ImageView mGuideContent1;
+    @BindView(R.id.guide_next1)
+    ImageView mGuideNext1;
+    @BindView(R.id.guide_content2)
+    ImageView mGuideContent2;
+    @BindView(R.id.guide_next2)
+    ImageView mGuideNext2;
+    @BindView(R.id.guide_content3)
+    ImageView mGuideContent3;
+    @BindView(R.id.guide_next3)
+    ImageView mGuideNext3;
+    @BindView(R.id.guild_background)
+    RelativeLayout mGuildBackground;
 
     private List<Fragment> mFragments;
     private HomeAdapter mHomeAdapter;
 
     private HomeNewFragment mHomeFragment;
-//    private FindFragment mFindFragment;
+    //    private FindFragment mFindFragment;
     private MineFragment mMineFragment;
     private EvaluationNewFragment mEvaluationFragment;
     private FreeFragment mTryFragment;
@@ -133,23 +151,26 @@ public class MainActivity extends RxAppCompatActivity implements MainView, ViewP
         mViewPager.addOnPageChangeListener(this);
 
         mPresenter.initTabLayout(this, mTabLayout);
-
-        //版本更新
-        mPresenter.getAppVersion(this.bindToLifecycle());
-        mPresenter.getPopInfo(this.bindToLifecycle());
-        UAppUtil.tab(this,0);//统计榜单
-
+        UAppUtil.tab(this, 0);//统计榜单
         View tabView = (View) mTabLayout.getTabAt(mFragments.size() - 1).getCustomView().getParent();
         tabView.setOnClickListener(v -> {
-            if(TextUtils.isEmpty(SPUtils.getInstance(CommonDate.USER).getString(CommonDate.token,"").trim())){
+            if (TextUtils.isEmpty(SPUtils.getInstance(CommonDate.USER).getString(CommonDate.token, "").trim())) {
                 if (ClickUtil.isFastDoubleClick(800)) {
                 } else {
-                    startActivityForResult(new Intent(this, LoginActivity.class),100);
+                    startActivityForResult(new Intent(this, LoginActivity.class), 100);
                 }
             }
         });
 
 //        DistanceHelper.getAndroiodScreenProperty(this);
+        if (SPUtils.getInstance().getBoolean(CommonDate.FIRST, true)) {
+            //新人第一次进入app
+            mGuildBackground.setVisibility(View.VISIBLE);
+        }else {
+            //老人进入app
+            mGuildBackground.setVisibility(View.GONE);
+            mPresenter.getAppVersion(this.bindToLifecycle()); //版本更新
+        }
     }
 
     @Override
@@ -177,8 +198,8 @@ public class MainActivity extends RxAppCompatActivity implements MainView, ViewP
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        switch (resultCode){
-            case  400:
+        switch (resultCode) {
+            case 400:
                 TabLayout.Tab tab = mTabLayout.getTabAt(0);
                 if (tab != null) {
                     tab.select();
@@ -188,38 +209,85 @@ public class MainActivity extends RxAppCompatActivity implements MainView, ViewP
     }
 
     @Override
-    public void onSuccess(AppVersionbean versionbean) {
+    public void onSuccess(AppVersionbean versionbean) {//版本更新弹出
         RetrofitModule.needVerify = versionbean.getData().getNeedVerify();
-        if(versionbean.getData().getVersionCode() > UpDataUtil.getPackageVersionCode()){
-            if(versionbean.getData().getNeedUpdate() == 0){
+        if (versionbean.getData().getVersionCode() > UpDataUtil.getPackageVersionCode()) {
+            if (versionbean.getData().getNeedUpdate() == 0) {
                 //可以取消
-                UpDataUtil.newInstance().downloadApk(this,versionbean.getData().getVersionName(),false,
-                        versionbean.getData().getContent(),versionbean.getData().getDownloadUrl());//第一版
-            }else {
+                UpDataUtil.newInstance().downloadApk(this, versionbean.getData().getVersionName(), false,
+                        versionbean.getData().getContent(), versionbean.getData().getDownloadUrl(), () -> {
+                            if (SPUtils.getInstance().getBoolean(CommonDate.FIRST, true)) {
+                                //新人第一次进入app
+                                NotificationUtil.OpenNotificationSetting(this, () -> {
+                                    //活动弹窗
+                                    mPresenter.getPopInfo(MainActivity.this.bindToLifecycle());
+                                });
+                            }else {
+                                //老人进入app
+                                mPresenter.getPopInfo(this.bindToLifecycle()); //活动弹窗
+                            }
+                        });//第一版
+            } else {
                 //必须强制更新
-                UpDataUtil.newInstance().downloadApk(this,versionbean.getData().getVersionName(),true,
-                        versionbean.getData().getContent(),versionbean.getData().getDownloadUrl());//第一版
+                UpDataUtil.newInstance().downloadApk(this, versionbean.getData().getVersionName(), true,
+                        versionbean.getData().getContent(), versionbean.getData().getDownloadUrl(), () -> {
+                            if (SPUtils.getInstance().getBoolean(CommonDate.FIRST, true)) {
+                                //新人第一次进入app
+                                NotificationUtil.OpenNotificationSetting(this, () -> {
+                                    //活动弹窗
+                                    mPresenter.getPopInfo(MainActivity.this.bindToLifecycle());
+                                });
+                            }else {
+                                //老人进入app
+                                mPresenter.getPopInfo(this.bindToLifecycle()); //活动弹窗
+                            }
+                        });//第一版
             }
 
+        }else {
+            if (SPUtils.getInstance().getBoolean(CommonDate.FIRST, true)) {
+                //新人第一次进入app
+                NotificationUtil.OpenNotificationSetting(this, () -> {
+                    //活动弹窗
+                    mPresenter.getPopInfo(MainActivity.this.bindToLifecycle());
+                });
+            }else {
+                //老人进入app
+                mPresenter.getPopInfo(this.bindToLifecycle()); //活动弹窗
+            }
+        }
+    }
+
+    @Override
+    public void onFile() {//版本更新没有弹出
+        if (SPUtils.getInstance().getBoolean(CommonDate.FIRST, true)) {
+            //新人第一次进入app
+            NotificationUtil.OpenNotificationSetting(this, () -> {
+                //活动弹窗
+                mPresenter.getPopInfo(MainActivity.this.bindToLifecycle());
+            });
+        }else {
+            //老人进入app
+            mPresenter.getPopInfo(this.bindToLifecycle()); //活动弹窗
         }
     }
 
     @Override
     public void onDialogSuc(PopInfoBean bean) {
-        if (bean.getData() != null && bean.getData().getData() != null){
-            if (bean.getData().getType() == 1){
+        if (bean.getData() != null && bean.getData().getData() != null) {
+            if (bean.getData().getType() == 1) {
                 //活动
                 DialogUtil.imgDialog(MainActivity.this, bean.getData().getData().getImg(), v -> {
-                    ShopJumpUtil.openPager(MainActivity.this,bean.getData().getData().getTargetType()
-                            ,bean.getData().getData().getTargetId(),"小分类");
+                    ShopJumpUtil.openPager(MainActivity.this, bean.getData().getData().getTargetType()
+                            , bean.getData().getData().getTargetId(), "小分类");
                 });
-            }else {
+            } else {
                 //免单
                 DialogUtil.freeDialog(this, bean, v -> {
-                    startActivity(new Intent(MainActivity.this,  FreeDetailActivity.class)
-                            .putExtra("id",bean.getData().getData().getId())
-                            .putExtra("fromId",bean.getData().getPopId())
-                            .putExtra("fromType","1")
+                    startActivity(new Intent(MainActivity.this, FreeDetailActivity.class)
+                            .putExtra("id", bean.getData().getData().getId())
+                            .putExtra("fromId", bean.getData().getPopId())
+                            .putExtra("fromType", "1")
                     );
                 });
             }
@@ -228,15 +296,15 @@ public class MainActivity extends RxAppCompatActivity implements MainView, ViewP
 
 
     @Subscribe
-    public void changePage(ChangeHomePageBus bus){
-        if(bus != null){
+    public void changePage(ChangeHomePageBus bus) {
+        if (bus != null) {
             mViewPager.setCurrentItem(bus.getPage());
         }
     }
 
     @Subscribe
-    public void addPoint(HomeNewPeopleBus newPeopleBus){
-        if (newPeopleBus != null && newPeopleBus.getAddPoint() != 0){
+    public void addPoint(HomeNewPeopleBus newPeopleBus) {
+        if (newPeopleBus != null && newPeopleBus.getAddPoint() != 0) {
             DialogUtil.NewPeopleDialog(MainActivity.this, newPeopleBus.getAddPoint() + "", v -> {
                 startActivity(new Intent(MainActivity.this, SignActivity.class));
             });
@@ -262,7 +330,7 @@ public class MainActivity extends RxAppCompatActivity implements MainView, ViewP
 
     @Override
     public void onPageSelected(int i) {
-        UAppUtil.tab(this,i);
+        UAppUtil.tab(this, i);
     }
 
     @Override
@@ -273,7 +341,7 @@ public class MainActivity extends RxAppCompatActivity implements MainView, ViewP
     @Override
     public void onReturnSceneData(Scene scene) {
         String id = (String) scene.params.get("id");
-        MobLinkUtil.openStartActivity(this,scene.path,id);
+        MobLinkUtil.openStartActivity(this, scene.path, id);
     }
 
     @Override
@@ -283,4 +351,37 @@ public class MainActivity extends RxAppCompatActivity implements MainView, ViewP
         MobLink.updateNewIntent(getIntent(), this);
     }
 
+    @OnClick({R.id.guide_break, R.id.guide_next1, R.id.guide_next2, R.id.guide_next3,R.id.guild_background})
+    public void onViewClicked(View view) {
+        switch (view.getId()) {
+            case R.id.guild_background:
+                break;
+            case R.id.guide_break:
+                mGuildBackground.setVisibility(View.GONE);
+                mPresenter.getAppVersion(this.bindToLifecycle()); //版本更新
+                break;
+            case R.id.guide_next1:
+                mGuildBackground.setBackgroundResource(R.mipmap.guide_bg2);
+                mGuideContent1.setVisibility(View.GONE);
+                mGuideNext1.setVisibility(View.GONE);
+                mGuideContent2.setVisibility(View.VISIBLE);
+                mGuideNext2.setVisibility(View.VISIBLE);
+                mGuideContent3.setVisibility(View.GONE);
+                mGuideNext3.setVisibility(View.GONE);
+                break;
+            case R.id.guide_next2:
+                mGuildBackground.setBackgroundResource(R.mipmap.guide_bg3);
+                mGuideContent1.setVisibility(View.GONE);
+                mGuideNext1.setVisibility(View.GONE);
+                mGuideContent2.setVisibility(View.GONE);
+                mGuideNext2.setVisibility(View.GONE);
+                mGuideContent3.setVisibility(View.VISIBLE);
+                mGuideNext3.setVisibility(View.VISIBLE);
+                break;
+            case R.id.guide_next3://下一步
+                mGuildBackground.setVisibility(View.GONE);
+                mPresenter.getAppVersion(this.bindToLifecycle()); //版本更新
+                break;
+        }
+    }
 }

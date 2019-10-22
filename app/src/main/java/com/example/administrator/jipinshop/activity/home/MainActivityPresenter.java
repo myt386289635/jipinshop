@@ -61,9 +61,15 @@ public class MainActivityPresenter {
                         if(mView != null){
                             mView.onSuccess(appVersionbean);
                         }
+                    }else {
+                        if(mView != null){
+                            mView.onFile();
+                        }
                     }
                 }, throwable -> {
-
+                    if(mView != null){
+                        mView.onFile();
+                    }
                 });
     }
 

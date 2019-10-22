@@ -104,7 +104,7 @@ public class UpDataUtil {
     /**
      * 跳转浏览器下载apk
      */
-    public void downloadApk(Context context,String varsonNum,Boolean tag,String content, String url){
+    public void downloadApk(Context context,String varsonNum,Boolean tag,String content, String url,OnNextLitener litener){
         if(tag){
             //必须强制更新
             DialogUtil.UpDateDialog1(context, varsonNum , content, v -> {
@@ -122,24 +122,31 @@ public class UpDataUtil {
                     ExeIntent.setData(content_url);
                     context.startActivity(ExeIntent);
                 }
+                if (litener != null)
+                    litener.onNext();
             });
         }else {
             //可以取消
-            DialogUtil.UpDateDialog(context, varsonNum , content, v -> {
-                try{
+            DialogUtil.UpDateDialog(context, varsonNum, content, v -> {
+                try {
                     Intent intent = new Intent();
                     intent.setAction("android.intent.action.VIEW");
                     Uri content_url = Uri.parse(url);
                     intent.setData(content_url);
-                    intent.setClassName("com.android.browser","com.android.browser.BrowserActivity");
+                    intent.setClassName("com.android.browser", "com.android.browser.BrowserActivity");
                     context.startActivity(intent);
-                }catch (Exception e){
+                } catch (Exception e) {
                     Intent ExeIntent = new Intent();
                     ExeIntent.setAction("android.intent.action.VIEW");
                     Uri content_url = Uri.parse(url);
                     ExeIntent.setData(content_url);
                     context.startActivity(ExeIntent);
                 }
+                if (litener != null)
+                    litener.onNext();
+            }, () -> {
+                if (litener != null)
+                    litener.onNext();
             });
         }
 
@@ -153,5 +160,9 @@ public class UpDataUtil {
             e.printStackTrace();
             return 1;
         }
+    }
+
+    public interface OnNextLitener {
+        void onNext();
     }
 }

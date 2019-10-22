@@ -62,14 +62,14 @@ public class WellComeActivity extends BaseActivity implements WellComeView {
 
         @Override
         public void onFinish() {
-            if(SPUtils.getInstance().getBoolean(CommonDate.FIRST,true)){
-                //跳转到引导页
-                startActivity(new Intent(WellComeActivity.this, IndexActivity.class));
-                finish();
-            }else {
+//            if(SPUtils.getInstance().getBoolean(CommonDate.FIRST,true)){
+//                //跳转到引导页
+//                startActivity(new Intent(WellComeActivity.this, IndexActivity.class));
+//                finish();
+//            }else {
                 startActivity(new Intent(WellComeActivity.this, MainActivity.class));
                 finish();
-            }
+//            }
         }
     };
 

@@ -11,6 +11,7 @@ import com.example.administrator.jipinshop.bean.PopInfoBean;
 public interface MainView {
 
     void onSuccess(AppVersionbean versionbean);
+    void onFile();
 
     void onDialogSuc(PopInfoBean bean);
 }
