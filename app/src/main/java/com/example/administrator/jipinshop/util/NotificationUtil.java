@@ -1,5 +1,6 @@
 package com.example.administrator.jipinshop.util;
 
+import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.Context;
@@ -59,7 +60,7 @@ public class NotificationUtil {
     /**
      * 假设没有开启通知权限，点击之后就需要跳转到 APP的通知设置界面，对应的Action是：Settings.ACTION_APP_NOTIFICATION_SETTINGS, 这个Action是 API 26 后增加的
      * 如果在部分手机中无法精确的跳转到 APP对应的通知设置界面，那么我们就考虑直接跳转到 APP信息界面，对应的Action是：Settings.ACTION_APPLICATION_DETAILS_SETTINGS*/
-    private static void gotoSet(Context context) {
+    private static void gotoSet(Activity context) {
         Intent intent = new Intent();
         if (Build.VERSION.SDK_INT >= 26) {
             // android 8.0引导
@@ -76,7 +77,7 @@ public class NotificationUtil {
             intent.setData(Uri.fromParts("package", context.getPackageName(), null));
         }
         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-        context.startActivity(intent);
+        context.startActivityForResult(intent,401);
     }
 
     private static void showSettingDialog(Context context, View.OnClickListener listener) {
@@ -92,8 +93,7 @@ public class NotificationUtil {
         });
         dialog_sure.setOnClickListener(v -> {
             dialog.dismiss();
-            listener.onClick(v);
-            gotoSet(context);
+            gotoSet((Activity) context);
         });
         dialog.show();
         dialog.setContentView(view);

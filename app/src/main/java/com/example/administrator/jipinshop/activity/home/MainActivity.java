@@ -206,6 +206,10 @@ public class MainActivity extends RxAppCompatActivity implements MainView, ViewP
                 }
                 break;
         }
+        if (requestCode == 401) {//监听从设置页面返回来后调用
+            //解决从设置页面跳转回来无法弹出dialog
+            mPresenter.getPopInfo(MainActivity.this.bindToLifecycle());
+        }
     }
 
     @Override
