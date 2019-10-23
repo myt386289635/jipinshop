@@ -6,6 +6,9 @@ import android.content.Context;
 import android.os.CountDownTimer;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.WindowManager;
+import android.view.inputmethod.InputMethodManager;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -15,6 +18,8 @@ import com.example.administrator.jipinshop.R;
 import com.example.administrator.jipinshop.activity.home.MainActivity;
 import com.example.administrator.jipinshop.bean.PopInfoBean;
 import com.example.administrator.jipinshop.util.NotificationUtil;
+import com.example.administrator.jipinshop.util.ShopJumpUtil;
+import com.example.administrator.jipinshop.util.ToastUtil;
 import com.example.administrator.jipinshop.util.sp.CommonDate;
 import com.example.administrator.jipinshop.view.glide.GlideApp;
 
@@ -309,7 +314,143 @@ public class DialogUtil{
         }
     }
 
+    /**
+     * 评分
+     */
+    public static void scoreDialog(Context context, OnScoreListener badListener) {
+        AlertDialog.Builder builder = new AlertDialog.Builder(context, R.style.dialog);
+        final Dialog dialog = builder.create();
+        View view = LayoutInflater.from(context).inflate(R.layout.dialog_score,null);
+
+        ImageView dialog_titleImg = view.findViewById(R.id.dialog_titleImg);
+        TextView dialog_titleText = view.findViewById(R.id.dialog_titleText);
+        TextView dialog_cancle = view.findViewById(R.id.dialog_cancle);
+        ImageView dialog_score1 = view.findViewById(R.id.dialog_score1);
+        ImageView dialog_score2 = view.findViewById(R.id.dialog_score2);
+        ImageView dialog_score3 = view.findViewById(R.id.dialog_score3);
+        ImageView dialog_score4 = view.findViewById(R.id.dialog_score4);
+        ImageView dialog_score5 = view.findViewById(R.id.dialog_score5);
+        TextView dialog_content = view.findViewById(R.id.dialog_content);
+        EditText dialog_edit = view.findViewById(R.id.dialog_edit);
+        View dialog_line = view.findViewById(R.id.dialog_line);
+        TextView dialog_sure = view.findViewById(R.id.dialog_sure);
+        ImageView[] textViews = {dialog_score1,dialog_score2,dialog_score3,dialog_score4,dialog_score5};
+        final int[] score = {0};
+
+        InputMethodManager inputManager = (InputMethodManager) dialog_edit
+                .getContext().getSystemService(Context.INPUT_METHOD_SERVICE);
+        dialog_score1.setOnClickListener(v -> {
+            score[0] = 1;
+            setSex(textViews,1);
+            dialog_titleImg.setImageResource(R.mipmap.dialog_score4);
+            dialog_titleText.setText("很抱歉对您造成不便，能给我们一些意见么？");
+            dialog_content.setVisibility(View.GONE);
+            dialog_edit.setVisibility(View.VISIBLE);
+            dialog_line.setVisibility(View.VISIBLE);
+            dialog_sure.setVisibility(View.VISIBLE);
+            showKeyboard(dialog_edit,inputManager);
+            if (badListener != null){
+                badListener.onScore(1,"",false);
+            }
+        });
+        dialog_score2.setOnClickListener(v -> {
+            score[0] = 2;
+            setSex(textViews,2);
+            dialog_titleImg.setImageResource(R.mipmap.dialog_score4);
+            dialog_titleText.setText("很抱歉对您造成不便，能给我们一些意见么？");
+            dialog_content.setVisibility(View.GONE);
+            dialog_edit.setVisibility(View.VISIBLE);
+            dialog_line.setVisibility(View.VISIBLE);
+            dialog_sure.setVisibility(View.VISIBLE);
+            showKeyboard(dialog_edit,inputManager);
+            if (badListener != null){
+                badListener.onScore(2,"",false);
+            }
+        });
+        dialog_score3.setOnClickListener(v -> {
+            score[0] = 3;
+            setSex(textViews,3);
+            dialog_titleImg.setImageResource(R.mipmap.dialog_score4);
+            dialog_titleText.setText("很抱歉对您造成不便，能给我们一些意见么？");
+            dialog_content.setVisibility(View.GONE);
+            dialog_edit.setVisibility(View.VISIBLE);
+            dialog_line.setVisibility(View.VISIBLE);
+            dialog_sure.setVisibility(View.VISIBLE);
+            showKeyboard(dialog_edit,inputManager);
+            if (badListener != null){
+                badListener.onScore(3,"",false);
+            }
+        });
+        dialog_score4.setOnClickListener(v -> {
+            setSex(textViews,4);
+            if (badListener != null){
+                badListener.onScore(4,"",false);
+            }
+            if (!ShopJumpUtil.toQQDownload(context, "com.example.administrator.jipinshop")) {
+                if (!ShopJumpUtil.toMarket(context, "com.example.administrator.jipinshop", null)) {
+                    ToastUtil.show("没有找到您手机里的应用商店，请确认");
+                }
+            }
+            dialog.dismiss();
+        });
+        dialog_score5.setOnClickListener(v -> {
+            setSex(textViews,5);
+            if (badListener != null){
+                badListener.onScore(5,"",false);
+            }
+            if (!ShopJumpUtil.toQQDownload(context, "com.example.administrator.jipinshop")) {
+                if (!ShopJumpUtil.toMarket(context, "com.example.administrator.jipinshop", null)) {
+                    ToastUtil.show("没有找到您手机里的应用商店，请确认");
+                }
+            }
+            dialog.dismiss();
+        });
+        dialog_sure.setOnClickListener(v -> {
+            inputManager.hideSoftInputFromWindow( dialog.getCurrentFocus().getWindowToken(), 0);
+            if (badListener != null){
+                badListener.onScore(score[0],dialog_edit.getText().toString(),true);
+            }
+            dialog.dismiss();
+        });
+        dialog.getWindow().setDimAmount(0.35f);
+        dialog_cancle.setOnClickListener(v -> {
+            //在dismiss的时候,getWindowToken()为空指针,所以要在dialog.dismiss()之前关闭软键盘
+            if (dialog.getCurrentFocus() != null)
+                inputManager.hideSoftInputFromWindow(dialog.getCurrentFocus().getWindowToken(), 0);
+            dialog.dismiss();
+        });
+        dialog.show();
+        dialog.getWindow().clearFlags(WindowManager.LayoutParams.FLAG_ALT_FOCUSABLE_IM);//解决无法弹出输入法问题，写在show()方法之后才有效。
+        dialog.setContentView(view);
+    }
+
+    private static void showKeyboard(EditText editText,InputMethodManager inputManager) {
+        if(editText!=null){
+            //设置可获得焦点
+            editText.setFocusable(true);
+            editText.setFocusableInTouchMode(true);
+            //请求获得焦点
+            editText.requestFocus();
+            //调用系统输入法
+            inputManager.showSoftInput(editText, 0);
+        }
+    }
+
+    private static void setSex(ImageView[] imageViews, int sexNum){
+        for (int i = 0; i < imageViews.length; i++) {
+            if (i < sexNum){
+                imageViews[i].setImageResource(R.mipmap.dialog_score3);
+            }else {
+                imageViews[i].setImageResource(R.mipmap.dialog_score2);
+            }
+        }
+    }
+
     public interface OnDismissLitener {
         void onDismiss();
+    }
+
+    public interface OnScoreListener{
+        void onScore(int score,String content,Boolean scoreFlag);
     }
 }

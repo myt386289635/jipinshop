@@ -35,6 +35,7 @@ import com.example.administrator.jipinshop.bean.PopInfoBean;
 import com.example.administrator.jipinshop.bean.QuestionsBean;
 import com.example.administrator.jipinshop.bean.RecommendFragmentBean;
 import com.example.administrator.jipinshop.bean.ReportBean;
+import com.example.administrator.jipinshop.bean.ScoreStatusBean;
 import com.example.administrator.jipinshop.bean.ShoppingDetailBean;
 import com.example.administrator.jipinshop.bean.SignBean;
 import com.example.administrator.jipinshop.bean.SignInsertBean;
@@ -971,5 +972,19 @@ public class Repository {
      */
     public Observable<OrderTBBean> myTaobaoOrderList(int page , String status){
         return mAPIService.myTaobaoOrderList(page, status);
+    }
+
+    /**
+     * 鼓励评分
+     */
+    public Observable<SuccessBean> addScore(String content, int score){
+        return mAPIService.addScore(content, score);
+    }
+
+    /**
+     * 评分状态
+     */
+    public Observable<ScoreStatusBean> getScoreStatus(){
+        return mAPIService.getScoreStatus();
     }
 }

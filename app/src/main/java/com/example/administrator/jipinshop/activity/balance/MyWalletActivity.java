@@ -14,12 +14,14 @@ import com.example.administrator.jipinshop.activity.balance.withdraw.WithdrawAct
 import com.example.administrator.jipinshop.adapter.HomeFragmentAdapter;
 import com.example.administrator.jipinshop.base.BaseActivity;
 import com.example.administrator.jipinshop.bean.MyWalletBean;
+import com.example.administrator.jipinshop.bean.ScoreStatusBean;
 import com.example.administrator.jipinshop.bean.eventbus.WithdrawBus;
 import com.example.administrator.jipinshop.databinding.ActivityWalletBinding;
 import com.example.administrator.jipinshop.fragment.balance.budget.BudgetDetailFragment;
 import com.example.administrator.jipinshop.fragment.balance.withdraw.WithdrawDetailFragment;
 import com.example.administrator.jipinshop.netwrok.RetrofitModule;
 import com.example.administrator.jipinshop.util.ToastUtil;
+import com.example.administrator.jipinshop.view.dialog.DialogUtil;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
@@ -145,6 +147,15 @@ public class MyWalletActivity extends BaseActivity implements View.OnClickListen
     }
 
     @Override
+    public void onScoreSuc(ScoreStatusBean bean) {
+        if (bean.getData() <= 0 ){//data值大于0，评价过了。data等于0未评价
+            DialogUtil.scoreDialog(this, (score, content, scoreFlag) -> {
+                mPresenter.addScore(content,score,scoreFlag,this.bindToLifecycle());
+            });
+        }
+    }
+
+    @Override
     protected void onDestroy() {
         super.onDestroy();
         EventBus.getDefault().unregister(this);
@@ -154,6 +165,7 @@ public class MyWalletActivity extends BaseActivity implements View.OnClickListen
     public void setRefersh(WithdrawBus bus){
         if (bus != null){
             mPresenter.myCommssionSummary(this.bindToLifecycle());
+            mPresenter.getScoreStatus(this.bindToLifecycle());
         }
     }
 }

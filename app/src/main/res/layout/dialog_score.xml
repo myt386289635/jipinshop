@@ -1,0 +1,148 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    android:orientation="vertical"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_gravity="center_horizontal"
+        android:background="@drawable/bg_ff835b_2"
+        android:layout_width="@dimen/x560"
+        android:layout_height="wrap_content">
+
+        <ImageView
+            android:id="@+id/dialog_titleImg"
+            android:layout_marginBottom="@dimen/y7"
+            android:layout_marginTop="@dimen/y21"
+            android:layout_gravity="center"
+            android:src="@mipmap/dialog_score1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+
+        <TextView
+            android:id="@+id/dialog_titleText"
+            android:gravity="center"
+            android:layout_marginBottom="@dimen/y16"
+            android:layout_gravity="center"
+            android:textColor="@color/color_white"
+            android:textStyle="bold"
+            android:textSize="16sp"
+            android:text="您对我们的服务满意么？"
+            android:layout_width="@dimen/x404"
+            android:layout_height="wrap_content"/>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_gravity="center_horizontal"
+        android:background="@drawable/bg_ffffff"
+        android:layout_width="@dimen/x560"
+        android:layout_height="wrap_content">
+
+        <LinearLayout
+            android:layout_marginTop="@dimen/y48"
+            android:layout_gravity="center_horizontal"
+            android:orientation="horizontal"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+
+            <ImageView
+                android:layout_marginRight="@dimen/x31"
+                android:id="@+id/dialog_score1"
+                android:src="@mipmap/dialog_score2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+
+            <ImageView
+                android:layout_marginRight="@dimen/x31"
+                android:id="@+id/dialog_score2"
+                android:src="@mipmap/dialog_score2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+
+            <ImageView
+                android:layout_marginRight="@dimen/x31"
+                android:id="@+id/dialog_score3"
+                android:src="@mipmap/dialog_score2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+
+            <ImageView
+                android:layout_marginRight="@dimen/x31"
+                android:id="@+id/dialog_score4"
+                android:src="@mipmap/dialog_score2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+
+            <ImageView
+                android:id="@+id/dialog_score5"
+                android:src="@mipmap/dialog_score2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+
+        </LinearLayout>
+
+        <TextView
+            android:layout_marginBottom="@dimen/y30"
+            android:id="@+id/dialog_content"
+            android:layout_marginTop="@dimen/y43"
+            android:layout_gravity="center_horizontal"
+            android:textColor="@color/color_9D9D9D"
+            android:textSize="13sp"
+            android:text="您的鼓励是我们前进的动力"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+
+        <EditText
+            android:visibility="gone"
+            android:paddingTop="@dimen/y9"
+            android:paddingLeft="@dimen/x14"
+            android:textSize="13sp"
+            android:textColor="@color/color_565252"
+            android:gravity="top"
+            android:layout_marginBottom="@dimen/y30"
+            android:layout_marginTop="@dimen/y20"
+            android:background="@drawable/bg_f5f5f5"
+            android:id="@+id/dialog_edit"
+            android:layout_marginRight="@dimen/x25"
+            android:layout_marginLeft="@dimen/x25"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/y172"/>
+
+        <View
+            android:visibility="gone"
+            android:id="@+id/dialog_line"
+            android:background="@color/color_DEDEDE"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/y1"/>
+
+        <TextView
+            android:visibility="gone"
+            android:id="@+id/dialog_sure"
+            android:gravity="center"
+            android:textColor="@color/color_9D9D9D"
+            android:textSize="16sp"
+            android:text="发送反馈"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/y83"/>
+
+        <View
+            android:background="@color/color_DEDEDE"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/y1"/>
+
+        <TextView
+            android:id="@+id/dialog_cancle"
+            android:gravity="center"
+            android:textColor="@color/color_9D9D9D"
+            android:textSize="16sp"
+            android:text="暂时不要"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/y83"/>
+
+    </LinearLayout>
+
+</LinearLayout>

@@ -35,6 +35,7 @@ import com.example.administrator.jipinshop.bean.PopInfoBean;
 import com.example.administrator.jipinshop.bean.QuestionsBean;
 import com.example.administrator.jipinshop.bean.RecommendFragmentBean;
 import com.example.administrator.jipinshop.bean.ReportBean;
+import com.example.administrator.jipinshop.bean.ScoreStatusBean;
 import com.example.administrator.jipinshop.bean.ShoppingDetailBean;
 import com.example.administrator.jipinshop.bean.SignBean;
 import com.example.administrator.jipinshop.bean.SignInsertBean;
@@ -888,4 +889,17 @@ public interface APIService {
      */
     @GET("qualityshop-api/api/v2/user/myTaobaoOrderList")
     Observable<OrderTBBean> myTaobaoOrderList(@Query("page") int page , @Query("status") String status);
+
+    /**
+     * 鼓励评分
+     */
+    @FormUrlEncoded
+    @POST("qualityshop-api/api/v2/addScore")
+    Observable<SuccessBean> addScore(@Field("content") String content, @Field("score") int score);
+
+    /**
+     * 评分状态
+     */
+    @GET("qualityshop-api/api/v2/getScoreStatus")
+    Observable<ScoreStatusBean> getScoreStatus();
 }

@@ -1,6 +1,7 @@
 package com.example.administrator.jipinshop.activity.balance;
 
 import com.example.administrator.jipinshop.bean.MyWalletBean;
+import com.example.administrator.jipinshop.bean.ScoreStatusBean;
 
 /**
  * @author 莫小婷
@@ -11,4 +12,6 @@ public interface MyWalletView {
 
     void onSuccess(MyWalletBean bean);
     void onFile(String error);
+
+    void onScoreSuc(ScoreStatusBean bean);
 }
