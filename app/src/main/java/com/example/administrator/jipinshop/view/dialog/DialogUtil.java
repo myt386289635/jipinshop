@@ -453,4 +453,20 @@ public class DialogUtil{
     public interface OnScoreListener{
         void onScore(int score,String content,Boolean scoreFlag);
     }
+
+    /**
+     * 新人首次进入商品详情时弹出新手引导
+     */
+    public static void shopGuideDialog(Context context){
+        AlertDialog.Builder builder = new AlertDialog.Builder(context, R.style.dialog);
+        final Dialog dialog = builder.create();
+        View view = LayoutInflater.from(context).inflate(R.layout.dialog_shop_guide,null);
+        ImageView dialog_cancle = view.findViewById(R.id.dialog_cancle);
+        dialog_cancle.setOnClickListener(v -> {
+            dialog.dismiss();
+        });
+        dialog.getWindow().setDimAmount(0.8f);
+        dialog.show();
+        dialog.setContentView(view);
+    }
 }

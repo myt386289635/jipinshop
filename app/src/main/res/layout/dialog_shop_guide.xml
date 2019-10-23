@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    android:orientation="vertical"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <ImageView
+        android:layout_gravity="center_horizontal"
+        android:src="@mipmap/shop_guide"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"/>
+
+    <LinearLayout
+        android:layout_marginTop="@dimen/y34"
+        android:layout_gravity="center_horizontal"
+        android:orientation="horizontal"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+
+        <ImageView
+            android:src="@mipmap/shop_guide1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+
+        <TextView
+            android:lineSpacingExtra="@dimen/y8"
+            android:textSize="15sp"
+            android:textColor="@color/color_white"
+            android:layout_marginLeft="@dimen/x24"
+            android:text="极品城让利用户，下单商品享受官方额外补贴"
+            android:layout_width="@dimen/x420"
+            android:layout_height="wrap_content"/>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_marginTop="@dimen/y34"
+        android:layout_gravity="center_horizontal"
+        android:orientation="horizontal"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+
+        <ImageView
+            android:src="@mipmap/shop_guide2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+
+        <TextView
+            android:lineSpacingExtra="@dimen/y8"
+            android:textSize="15sp"
+            android:textColor="@color/color_white"
+            android:layout_marginLeft="@dimen/x24"
+            android:text="极品城为您精选商家，获取专享粉丝优惠券，点击可领"
+            android:layout_width="@dimen/x420"
+            android:layout_height="wrap_content"/>
+
+    </LinearLayout>
+
+    <ImageView
+        android:id="@+id/dialog_cancle"
+        android:layout_marginTop="@dimen/y71"
+        android:layout_gravity="center_horizontal"
+        android:src="@mipmap/shop_guide3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"/>
+
+</LinearLayout>

@@ -62,6 +62,7 @@ import com.example.administrator.jipinshop.util.WeakRefHandler;
 import com.example.administrator.jipinshop.util.share.MobLinkUtil;
 import com.example.administrator.jipinshop.util.sp.CommonDate;
 import com.example.administrator.jipinshop.view.SaleProgressView;
+import com.example.administrator.jipinshop.view.dialog.DialogUtil;
 import com.example.administrator.jipinshop.view.dialog.ProgressDialogView;
 import com.example.administrator.jipinshop.view.dialog.ShareBoardDialog;
 import com.example.administrator.jipinshop.view.glide.GlideApp;
@@ -577,6 +578,14 @@ public class ShoppingDetailActivity extends BaseActivity implements ShoppingComm
 
             if (mDialogProgress != null && mDialogProgress.isShowing()) {
                 mDialogProgress.dismiss();
+            }
+
+            if (shoppingDetailBean.getFee() != 0 || shoppingDetailBean.getData().getGoodsCouponsEntity().getDataFlag() != -1){
+                //优惠券有效或者有补贴
+                if(SPUtils.getInstance().getBoolean(CommonDate.FIRSTSHOP,true)){
+                    SPUtils.getInstance().put(CommonDate.FIRSTSHOP,false);
+                    DialogUtil.shopGuideDialog(this);
+                }
             }
         }else {
             if (mDialogProgress.isShowing()) {
