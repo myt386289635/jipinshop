@@ -64,60 +64,125 @@
 
                 </RelativeLayout>
 
+                <LinearLayout
+                    android:layout_marginBottom="@dimen/y10"
+                    android:layout_marginTop="@dimen/y19"
+                    android:layout_marginLeft="@dimen/x28"
+                    android:layout_below="@+id/pager_container"
+                    android:id="@+id/detail_newPriceContainer"
+                    android:orientation="horizontal"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content">
+
+                    <TextView
+                        android:textSize="12sp"
+                        android:textColor="@color/color_E25838"
+                        android:text="到手价"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"/>
+
+                    <TextView
+                        android:layout_marginLeft="@dimen/x10"
+                        android:id="@+id/detail_newPrice"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="¥0.00"
+                        android:textColor="@color/color_E31436"
+                        android:textSize="21sp"
+                        android:textStyle="bold"/>
+
+                </LinearLayout>
+
+                <com.example.administrator.jipinshop.view.textview.TextViewDel
+                    android:gravity="bottom"
+                    android:id="@+id/detail_oldPriceName"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/x20"
+                    android:layout_alignBottom="@id/detail_newPriceContainer"
+                    android:layout_toRightOf="@+id/detail_newPriceContainer"
+                    android:text="淘宝价"
+                    android:textColor="@color/color_ACACAC"
+                    android:layout_marginBottom="@dimen/y4"
+                    android:textSize="13sp"/>
+
+
+                <com.example.administrator.jipinshop.view.textview.TextViewDel
+                    android:gravity="bottom"
+                    android:id="@+id/detail_oldPrice"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignBottom="@id/detail_newPriceContainer"
+                    android:layout_toRightOf="@+id/detail_oldPriceName"
+                    android:text="¥0.00"
+                    android:textColor="@color/color_ACACAC"
+                    android:textSize="13sp"
+                    android:layout_marginBottom="@dimen/y4"/>
+
+                <LinearLayout
+                    android:background="@drawable/bg_333333"
+                    android:gravity="center_vertical"
+                    android:id="@+id/detail_feeContainer"
+                    android:layout_marginTop="@dimen/y20"
+                    android:layout_marginLeft="@dimen/x28"
+                    android:layout_below="@+id/detail_newPriceContainer"
+                    android:orientation="horizontal"
+                    android:layout_width="wrap_content"
+                    android:layout_height="@dimen/y56">
+
+                    <TextView
+                        android:layout_marginLeft="@dimen/x16"
+                        android:textSize="13sp"
+                        android:text="极品城补贴"
+                        android:textColor="@color/color_FFE4C1"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"/>
+
+                    <TextView
+                        android:id="@+id/detail_free"
+                        android:layout_marginRight="@dimen/x16"
+                        android:layout_marginLeft="@dimen/x11"
+                        android:textStyle="bold"
+                        android:textSize="15sp"
+                        android:text="¥0.00"
+                        android:textColor="@color/color_FFE4C1"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"/>
+
+                </LinearLayout>
+
+                <TextView
+                    android:onClick="@{listener.onClick}"
+                    android:id="@+id/detail_freeNotice"
+                    android:background="@drawable/bg_ffebe6"
+                    android:paddingRight="@dimen/x16"
+                    android:drawableTint="@color/color_E25838"
+                    android:drawableRight="@mipmap/right_white"
+                    android:gravity="center_vertical"
+                    android:paddingLeft="@dimen/x16"
+                    android:text="查看什么是极品城补贴"
+                    android:textSize="12sp"
+                    android:textColor="@color/color_E25838"
+                    android:layout_marginRight="@dimen/x28"
+                    android:layout_toRightOf="@id/detail_feeContainer"
+                    android:layout_alignBottom="@id/detail_feeContainer"
+                    android:layout_alignTop="@+id/detail_feeContainer"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"/>
 
                 <TextView
                     android:id="@+id/detail_name"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_below="@id/pager_container"
+                    android:layout_below="@+id/detail_feeContainer"
                     android:layout_marginLeft="@dimen/x28"
                     android:layout_marginRight="@dimen/x28"
-                    android:layout_marginTop="@dimen/y32"
-                    android:lineSpacingExtra="@dimen/x6"
-                    android:text=""
+                    android:layout_marginTop="@dimen/y20"
+                    android:lineSpacingExtra="@dimen/y6"
+                    android:text="MI小米米家电水壶1.5L大容量 304不锈钢 快速沸腾携带方便"
                     android:textColor="@color/color_DE151515"
                     android:textSize="16sp"
                     android:textStyle="bold"/>
-
-
-                <TextView
-                    android:layout_marginBottom="@dimen/y32"
-                    android:id="@+id/detail_newPrice"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_below="@+id/detail_name"
-                    android:layout_marginLeft="@dimen/x28"
-                    android:layout_marginTop="@dimen/y32"
-                    android:text="¥0.00"
-                    android:textColor="@color/color_E31436"
-                    android:textSize="15sp"
-                    android:textStyle="bold"/>
-
-
-                <TextView
-                    android:id="@+id/detail_oldPriceName"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_below="@+id/detail_name"
-                    android:layout_marginLeft="@dimen/x20"
-                    android:layout_marginTop="@dimen/y34"
-                    android:layout_toRightOf="@+id/detail_newPrice"
-                    android:text="淘宝价"
-                    android:textColor="@color/color_ACACAC"
-                    android:textSize="13sp"/>
-
-
-                <com.example.administrator.jipinshop.view.textview.TextViewDel
-                    android:id="@+id/detail_oldPrice"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_below="@+id/detail_name"
-                    android:layout_marginTop="@dimen/y34"
-                    android:layout_toRightOf="@+id/detail_oldPriceName"
-                    android:text="¥0.00"
-                    android:textColor="@color/color_ACACAC"
-                    android:textSize="13sp"/>
-
 
                 <!--<TextView-->
                     <!--android:lineSpacingExtra="@dimen/x6"-->
@@ -134,21 +199,21 @@
 
                 <!--优惠券-->
                 <RelativeLayout
+                    android:layout_marginTop="@dimen/y20"
                     android:id="@+id/detail_couponContainer"
                     android:layout_width="match_parent"
-                    android:layout_height="@dimen/y224"
-                    android:layout_below="@+id/detail_newPrice"
-                    android:layout_marginBottom="@dimen/y26"
+                    android:layout_height="@dimen/y130"
+                    android:layout_below="@+id/detail_name"
                     android:layout_marginLeft="@dimen/x28"
                     android:layout_marginRight="@dimen/x28"
                     android:background="@mipmap/coupon_bg">
 
 
                     <TextView
-                        android:paddingBottom="@dimen/y6"
-                        android:paddingLeft="@dimen/x28"
-                        android:paddingTop="@dimen/y6"
-                        android:paddingRight="@dimen/x28"
+                        android:paddingBottom="@dimen/y7"
+                        android:paddingLeft="@dimen/x16"
+                        android:paddingTop="@dimen/y7"
+                        android:paddingRight="@dimen/x16"
                         android:background="@drawable/bg_coupom"
                         android:onClick="@{listener.onClick}"
                         android:id="@+id/detail_couponImg"
@@ -159,77 +224,74 @@
                         android:layout_marginRight="@dimen/x40"
                         android:text="立即领券"
                         android:textColor="@color/color_E31436"
-                        android:textSize="15sp"/>
+                        android:textSize="13sp"/>
 
-
-                    <TextView
-                        android:id="@+id/detail_couponMoney"
+                    <LinearLayout
+                        android:layout_marginLeft="@dimen/x89"
+                        android:orientation="horizontal"
+                        android:layout_centerVertical="true"
                         android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_above="@+id/detail_couponDeci"
-                        android:layout_marginBottom="@dimen/y24"
-                        android:layout_marginLeft="@dimen/x108"
-                        android:layout_marginRight="@dimen/x8"
-                        android:text="¥"
-                        android:textColor="@color/color_white"
-                        android:textSize="14sp"/>
+                        android:layout_height="wrap_content">
 
-                    <TextView
-                        android:id="@+id/detaile_coupon"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_above="@+id/detail_couponDeci"
-                        android:layout_marginBottom="@dimen/y14"
-                        android:layout_toRightOf="@+id/detail_couponMoney"
-                        android:includeFontPadding="false"
-                        android:text="0"
-                        android:textColor="@color/color_white"
-                        android:textSize="32sp"
-                        android:textStyle="bold"/>
+                        <TextView
+                            android:textStyle="bold"
+                            android:id="@+id/detail_couponMoney"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="¥"
+                            android:textColor="@color/color_E25838"
+                            android:textSize="16sp"/>
 
+                        <TextView
+                            android:layout_marginLeft="@dimen/x5"
+                            android:id="@+id/detaile_coupon"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_toRightOf="@+id/detail_couponMoney"
+                            android:includeFontPadding="false"
+                            android:text="0"
+                            android:textColor="@color/color_E25838"
+                            android:textSize="33sp"
+                            android:textStyle="bold"/>
 
-                    <TextView
-                        android:id="@+id/detaile_couponTitle"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_above="@+id/detail_couponDeci"
-                        android:layout_marginBottom="@dimen/y24"
-                        android:layout_marginLeft="@dimen/x8"
-                        android:layout_toRightOf="@+id/detaile_coupon"
-                        android:includeFontPadding="false"
-                        android:text="元优惠券"
-                        android:textColor="@color/color_white"
-                        android:textSize="14sp"
-                        android:textStyle="bold"/>
+                        <LinearLayout
+                            android:layout_marginBottom="@dimen/y7"
+                            android:layout_gravity="bottom"
+                            android:orientation="vertical"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content">
 
-                    <TextView
-                        android:id="@+id/detail_couponDeci"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_alignParentBottom="true"
-                        android:layout_marginBottom="@dimen/y50"
-                        android:layout_marginLeft="@dimen/x40"
-                        android:text="使用期限2018.07.18至2018.08.18"
-                        android:textColor="@color/color_white"
-                        android:textSize="12sp"/>
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginBottom="@dimen/y1"
+                                android:layout_marginLeft="@dimen/x6"
+                                android:includeFontPadding="false"
+                                android:text="优惠券"
+                                android:textColor="@color/color_E25838"
+                                android:textSize="13sp"/>
+
+                            <TextView
+                                android:id="@+id/detail_couponDeci"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginLeft="@dimen/x6"
+                                android:text="2018.07.18-2018.08.18"
+                                android:textColor="@color/color_E25838"
+                                android:textSize="10sp"/>
+
+                        </LinearLayout>
+
+                    </LinearLayout>
                 </RelativeLayout>
 
-
-                <View
-                    android:visibility="gone"
-                    android:layout_marginBottom="@dimen/y32"
-                    android:id="@+id/detail_line1"
-                    android:layout_width="match_parent"
-                    android:layout_height="@dimen/y12"
-                    android:layout_below="@+id/detail_couponContainer"
-                    android:background="@color/color_F5F5F5"/>
-
                 <LinearLayout
-                    android:layout_marginBottom="@dimen/y32"
+                    android:layout_marginTop="@dimen/y40"
+                    android:layout_marginBottom="@dimen/y20"
                     android:id="@+id/detail_ensureContainer"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_below="@+id/detail_line1"
+                    android:layout_below="@+id/detail_couponContainer"
                     android:layout_marginLeft="@dimen/x28"
                     android:orientation="horizontal">
 
@@ -901,35 +963,52 @@
         </com.example.administrator.jipinshop.view.scrollView.MyScrollView>
 
         <LinearLayout
+            android:background="@color/color_white"
+            android:elevation="6.5dp"
             android:id="@+id/detail_bottom"
             android:layout_width="match_parent"
             android:layout_height="@dimen/x100"
             android:layout_alignParentBottom="true"
             android:orientation="horizontal">
 
-            <TextView
+            <com.example.administrator.jipinshop.view.textview.DrawableLeftCenterTextView
+                android:drawablePadding="@dimen/x10"
+                android:drawableLeft="@mipmap/qus_forward"
                 android:id="@+id/detail_share"
-                android:layout_width="0dp"
+                android:layout_width="@dimen/x210"
                 android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:background="@color/color_EEEEEE"
-                android:gravity="center"
+                android:gravity="center_vertical"
                 android:onClick="@{listener.onClick}"
-                android:text="分享给好友"
-                android:textColor="@color/color_DE151515"
+                android:text="分享"
+                android:textColor="@color/color_202020"
                 android:textSize="15sp"/>
 
-            <TextView
-                android:id="@+id/detail_buy"
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:background="@color/color_E31436"
-                android:gravity="center"
+
+            <LinearLayout
                 android:onClick="@{listener.onClick}"
-                android:text="领券并购买"
-                android:textColor="@color/color_white"
-                android:textSize="15sp"/>
+                android:id="@+id/detail_buy"
+                android:gravity="center"
+                android:background="@color/color_E25838"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="立即购买"
+                    android:textColor="@color/color_white"
+                    android:textSize="18sp"
+                    android:textStyle="bold"/>
+
+                <TextView
+                    android:id="@+id/detail_freeCode"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="（补贴¥0.00）"
+                    android:textColor="@color/color_white"
+                    android:textSize="14sp"/>
+
+            </LinearLayout>
 
         </LinearLayout>
 

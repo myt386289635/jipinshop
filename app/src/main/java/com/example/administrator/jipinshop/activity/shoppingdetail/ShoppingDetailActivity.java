@@ -405,8 +405,6 @@ public class ShoppingDetailActivity extends BaseActivity implements ShoppingComm
         if(shoppingDetailBean.getCode() == 0){
             mShareBean = shoppingDetailBean.getData().getGoodsEntity();
             shareBoradContent = shoppingDetailBean.getContent();
-            mBinding.detailBuy.setText(shoppingDetailBean.getBtnTxt2());
-            mBinding.detailShare.setText(shoppingDetailBean.getBtnTxt1());
             mBinding.inClude.qsNet.setVisibility(View.GONE);
 
             //初始值
@@ -415,6 +413,8 @@ public class ShoppingDetailActivity extends BaseActivity implements ShoppingComm
             mBinding.detailOldPrice.setText("¥" + shoppingDetailBean.getData().getGoodsEntity().getOtherPrice());
             mBinding.detailOldPrice.setTv(true);
             mBinding.detailOldPrice.setColor(R.color.color_ACACAC);
+            mBinding.detailOldPriceName.setTv(true);
+            mBinding.detailOldPriceName.setColor(R.color.color_ACACAC);
             if(shoppingDetailBean.getData().getGoodsEntity().getSource()== 1){
                 mBinding.detailOldPriceName.setText("京东价");
             }else  if(shoppingDetailBean.getData().getGoodsEntity().getSource() == 2){
@@ -422,26 +422,31 @@ public class ShoppingDetailActivity extends BaseActivity implements ShoppingComm
             }else  if(shoppingDetailBean.getData().getGoodsEntity().getSource() == 3){
                 mBinding.detailOldPriceName.setText("天猫价");
             }
-            //推荐理由
-//            String str = "<strong><font color='#21151515' >推荐理由：</font></strong>" + shoppingDetailBean.getData().getGoodsEntity().getRecommendReason();
-//            mBinding.detailReason.setText(Html.fromHtml(str));
             //优惠券
             if(shoppingDetailBean.getData().getGoodsCouponsEntity().getDataFlag() == -1){
                 //优惠券过期
                 mBinding.detailCouponContainer.setVisibility(View.GONE);
-                mBinding.detailLine1.setVisibility(View.VISIBLE);
-                mBinding.detailOldPriceName.setVisibility(View.GONE);
-                mBinding.detailOldPrice.setVisibility(View.GONE);
-//                mBinding.detailBuy.setText("立即购买");
             }else {
                 //优惠券有效
                 mBinding.detailCouponContainer.setVisibility(View.VISIBLE);
-                mBinding.detailLine1.setVisibility(View.GONE);
-                mBinding.detailOldPriceName.setVisibility(View.VISIBLE);
-                mBinding.detailOldPrice.setVisibility(View.VISIBLE);
-//                mBinding.detailBuy.setText("领券并购买");
                 mBinding.detaileCoupon.setText(shoppingDetailBean.getData().getGoodsEntity().getCouponPrice());
-                mBinding.detailCouponDeci.setText("使用期限"+shoppingDetailBean.getData().getGoodsCouponsEntity().getValidStartTime()+"至"+shoppingDetailBean.getData().getGoodsCouponsEntity().getValidEndTime());
+                mBinding.detailCouponDeci.setText(shoppingDetailBean.getData().getGoodsCouponsEntity().getValidStartTime()+" - "+shoppingDetailBean.getData().getGoodsCouponsEntity().getValidEndTime());
+            }
+            //补贴
+            if (shoppingDetailBean.getFee() != 0 ){//有补贴
+                mBinding.detailFeeContainer.setVisibility(View.VISIBLE);
+                mBinding.detailFreeNotice.setVisibility(View.VISIBLE);
+                mBinding.detailFree.setText("¥" + shoppingDetailBean.getFee());
+                mBinding.detailFreeCode.setText("（补贴¥"+shoppingDetailBean.getFee()+"）");
+            }else {
+                mBinding.detailFeeContainer.setVisibility(View.GONE);
+                mBinding.detailFreeNotice.setVisibility(View.GONE);
+                if(shoppingDetailBean.getData().getGoodsCouponsEntity().getDataFlag() == -1){
+                    //优惠券过期
+                    mBinding.detailFreeCode.setVisibility(View.GONE);
+                }else {
+                    mBinding.detailFreeCode.setText("（优惠券¥"+shoppingDetailBean.getData().getGoodsEntity().getCouponPrice()+"）");
+                }
             }
             //轮播图设置值
             if(shoppingDetailBean.getData().getGoodsEntity().getImgList().size() == 1){
@@ -586,6 +591,11 @@ public class ShoppingDetailActivity extends BaseActivity implements ShoppingComm
                     SPUtils.getInstance().put(CommonDate.FIRSTSHOP,false);
                     DialogUtil.shopGuideDialog(this);
                 }
+                mBinding.detailOldPriceName.setVisibility(View.VISIBLE);
+                mBinding.detailOldPrice.setVisibility(View.VISIBLE);
+            }else {
+                mBinding.detailOldPriceName.setVisibility(View.GONE);
+                mBinding.detailOldPrice.setVisibility(View.GONE);
             }
         }else {
             if (mDialogProgress.isShowing()) {
@@ -1067,6 +1077,9 @@ public class ShoppingDetailActivity extends BaseActivity implements ShoppingComm
                 startActivity(new Intent(this, UserActivity.class)
                         .putExtra("userid",attentionUserId)
                 );
+                break;
+            case R.id.detail_freeNotice:
+                ToastUtil.show("极品城补贴");
                 break;
         }
     }
