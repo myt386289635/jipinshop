@@ -24,6 +24,15 @@ public class FindDetailBean {
     private String btnTxt;
     private String content;
     private String btnTxt2;
+    private double fee;
+
+    public double getFee() {
+        return fee;
+    }
+
+    public void setFee(double fee) {
+        this.fee = fee;
+    }
 
     public String getBtnTxt2() {
         return btnTxt2;
@@ -543,6 +552,15 @@ public class FindDetailBean {
             private int source;
             private String goodsBuyLink;
             private String status;
+            private String couponPrice;
+
+            public String getCouponPrice() {
+                return couponPrice;
+            }
+
+            public void setCouponPrice(String couponPrice) {
+                this.couponPrice = couponPrice;
+            }
 
             protected RelatedGoodsListBean(Parcel in) {
                 goodsId = in.readString();
@@ -553,6 +571,7 @@ public class FindDetailBean {
                 source = in.readInt();
                 goodsBuyLink = in.readString();
                 status = in.readString();
+                couponPrice = in.readString();
             }
 
             public static final Creator<RelatedGoodsListBean> CREATOR = new Creator<RelatedGoodsListBean>() {
@@ -646,6 +665,7 @@ public class FindDetailBean {
                 dest.writeInt(source);
                 dest.writeString(goodsBuyLink);
                 dest.writeString(status);
+                dest.writeString(couponPrice);
             }
         }
     }

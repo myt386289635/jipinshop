@@ -245,7 +245,10 @@ public class ReportDetailActivity extends BaseActivity implements View.OnClickLi
                     if (!mRelatedGoodsDialog.isAdded()) {
                         mRelatedGoodsDialog.show(getSupportFragmentManager(), "RelatedGoodsDialog");
                     }
-                }else if (mBeans != null && mBeans.size() != 0 && mBeans.size() == 1){
+                }
+                break;
+            case R.id.detail_buyOne:
+                if (mBeans != null && mBeans.size() != 0 && mBeans.size() == 1){
                     //直接购买
                     if(TextUtils.isEmpty(SPUtils.getInstance(CommonDate.USER).getString(CommonDate.token,""))){
                         startActivity(new Intent(this, LoginActivity.class));
@@ -712,8 +715,6 @@ public class ReportDetailActivity extends BaseActivity implements View.OnClickLi
         if (mDialog != null && mDialog.isShowing()) {
             mDialog.dismiss();
         }
-        mBinding.detailBuy.setText(bean.getBtnTxt2());
-        mBinding.detailShare.setText(bean.getBtnTxt());
         ShareBoardTitle = "一边分享  一边赚";
         ShareBoardContent = bean.getContent();
         shareTitle =bean.getData().getShareTitle();
@@ -725,10 +726,37 @@ public class ReportDetailActivity extends BaseActivity implements View.OnClickLi
         }
         attentionUserId = bean.getData().getUserId();
         if(bean.getData().getRelatedGoodsList() == null || bean.getData().getRelatedGoodsList().size() == 0){
-//            mBinding.detailBuy.setText("暂无商品");
+            mBinding.detailBottom.setVisibility(View.VISIBLE);
+            mBinding.detailBuy.setText("暂无商品");
             ShareBoardTitle = "分享";
             ShareBoardContent = "";
-            mBinding.detailShare.setText("分享给好友");
+        }else if (bean.getData().getRelatedGoodsList().size() > 1){
+            mBinding.detailBottom2.setVisibility(View.GONE);
+            mBinding.detailBottom.setVisibility(View.VISIBLE);
+        }else if (bean.getData().getRelatedGoodsList().size() == 1){
+            if (bean.getFee() != 0){
+                mBinding.detailFee.setVisibility(View.VISIBLE);
+                mBinding.detailFee.setText("补贴 ¥" + bean.getFee());
+            }else {
+                mBinding.detailFee.setVisibility(View.GONE);
+            }
+            if (!bean.getData().getRelatedGoodsList().get(0).getCouponPrice().equals("0")){
+                mBinding.detailCoupon.setVisibility(View.VISIBLE);
+                mBinding.detailCoupon.setText("优惠券 ¥" + bean.getData().getRelatedGoodsList().get(0).getCouponPrice());
+            }else {
+                mBinding.detailCoupon.setVisibility(View.GONE);
+            }
+            if (bean.getFee() == 0 && bean.getData().getRelatedGoodsList().get(0).getCouponPrice().equals("0")){
+                mBinding.detailOtherPrice.setVisibility(View.GONE);
+            }else {
+                mBinding.detailOtherPrice.setVisibility(View.VISIBLE);
+                mBinding.detailOtherPrice.setTv(true);
+                mBinding.detailOtherPrice.setColor(R.color.color_ACACAC);
+                mBinding.detailOtherPrice.setText("¥" +bean.getData().getRelatedGoodsList().get(0).getOtherPrice());
+            }
+            mBinding.detailActualPrice.setText("¥" +bean.getData().getRelatedGoodsList().get(0).getActualPrice());
+            mBinding.detailBottom2.setVisibility(View.VISIBLE);
+            mBinding.detailBottom.setVisibility(View.GONE);
         }
         mBinding.detailTitle.setText(bean.getData().getTitle());
         mList.clear();
