@@ -202,4 +202,7 @@ dependencies {
     //kotlin加入
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk8:1.3.40"
     kapt "com.android.databinding:compiler:3.0.0"
+
+    //微信
+    api 'com.tencent.mm.opensdk:wechat-sdk-android-without-mta:+'
 }
