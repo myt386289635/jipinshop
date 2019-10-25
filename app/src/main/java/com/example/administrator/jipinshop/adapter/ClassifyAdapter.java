@@ -17,10 +17,12 @@ import com.example.administrator.jipinshop.databinding.ItemArticleBinding;
 import com.example.administrator.jipinshop.databinding.ItemClassifyBinding;
 import com.example.administrator.jipinshop.databinding.ItemGoodsBinding;
 import com.example.administrator.jipinshop.databinding.ItemPageListBinding;
+import com.example.administrator.jipinshop.util.ExpandTextview;
 import com.example.administrator.jipinshop.util.ToastUtil;
 import com.example.administrator.jipinshop.util.snap.GravitySnapHelper;
 import com.google.android.flexbox.FlexboxLayout;
 
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -124,11 +126,35 @@ public class ClassifyAdapter extends RecyclerView.Adapter {
             case ONE:
                 OneViewHolder oneViewHolder = (OneViewHolder) viewHolder;
                 int onePosition = position;
-                oneViewHolder.itemView.setOnClickListener(v ->{
+                if (onePosition == 0){
+                    oneViewHolder.goodsBinding.itemNoticeContainer.setVisibility(View.VISIBLE);
+                    String originText = "极品城榜单涉及商品，全部由官方渠道匿名购买，所有商品评测完全由统一标准得出排名。榜单不接受广告！极品城榜单涉及商品，全部由官方渠道匿名购买，所有商品评测完全由统一标准得出排名。榜单不接受广告！极品城榜单涉及商品，全部由官方渠道匿名购买，所有商品评测完全由统一标准得出排名。榜单不接受广告！极品城榜单涉及商品，全部由官方渠道匿名购买，所有商品评测完全由统一标准得出排名。榜单不接受广告！极品城榜单涉及商品，全部由官方渠道匿名购买，所有商品评测完全由统一标准得出排名。极品城榜单涉及商品。";
+                    ExpandTextview.toggleEllipsize(mContext,oneViewHolder.goodsBinding.itemNoticeContent,3,originText,"展开",R.color.color_9D9D9D,false);
+                }else {
+                    oneViewHolder.goodsBinding.itemNoticeContainer.setVisibility(View.GONE);
+                }
+                if (new BigDecimal(mGoodsString.get(onePosition).getCouponPrice()).doubleValue() == 0){
+                    oneViewHolder.goodsBinding.detailCoupon.setVisibility(View.GONE);
+                }else {
+                    oneViewHolder.goodsBinding.detailCoupon.setVisibility(View.VISIBLE);
+                }
+                if (new BigDecimal(mGoodsString.get(onePosition).getFee()).doubleValue() == 0){
+                    oneViewHolder.goodsBinding.detailFee.setVisibility(View.GONE);
+                }else {
+                    oneViewHolder.goodsBinding.detailFee.setVisibility(View.VISIBLE);
+                }
+                if (new BigDecimal(mGoodsString.get(onePosition).getCouponPrice()).doubleValue() == 0 && new BigDecimal(mGoodsString.get(onePosition).getFee()).doubleValue() == 0){
+                    oneViewHolder.goodsBinding.detailOtherPrice.setVisibility(View.GONE);
+                }else {
+                    oneViewHolder.goodsBinding.detailOtherPrice.setVisibility(View.VISIBLE);
+                }
+                oneViewHolder.goodsBinding.itemContainer.setOnClickListener(v ->{
                     if (mView != null){
                         mView.onClickGoods(onePosition);
                     }
                 });
+                oneViewHolder.goodsBinding.detailOtherPrice.setTv(true);
+                oneViewHolder.goodsBinding.detailOtherPrice.setColor(R.color.color_9D9D9D);
                 oneViewHolder.initTags(oneViewHolder.goodsBinding.itemFlexLayout,onePosition);
                 oneViewHolder.goodsBinding.setDate(mGoodsString.get(onePosition));
                 oneViewHolder.goodsBinding.setPosition(onePosition + 1);

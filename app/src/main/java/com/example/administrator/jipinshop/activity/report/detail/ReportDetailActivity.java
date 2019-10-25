@@ -754,7 +754,7 @@ public class ReportDetailActivity extends BaseActivity implements View.OnClickLi
                 mBinding.detailOtherPrice.setColor(R.color.color_ACACAC);
                 mBinding.detailOtherPrice.setText("¥" +bean.getData().getRelatedGoodsList().get(0).getOtherPrice());
             }
-            mBinding.detailActualPrice.setText("¥" +bean.getData().getRelatedGoodsList().get(0).getActualPrice());
+            mBinding.detailActualPrice.setText("¥" +bean.getData().getRelatedGoodsList().get(0).getBuyPrice());
             mBinding.detailBottom2.setVisibility(View.VISIBLE);
             mBinding.detailBottom.setVisibility(View.GONE);
         }

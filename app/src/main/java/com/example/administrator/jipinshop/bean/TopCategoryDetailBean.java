@@ -284,6 +284,24 @@ public class TopCategoryDetailBean {
             private Object relatedArticleList;
             private List<GoodsTagsListBean> goodsTagsList;
             private List<ScoreOptionsListBean> scoreOptionsList;
+            private String fee;
+            private String buyPrice;
+
+            public String getFee() {
+                return fee;
+            }
+
+            public void setFee(String fee) {
+                this.fee = fee;
+            }
+
+            public String getBuyPrice() {
+                return buyPrice;
+            }
+
+            public void setBuyPrice(String buyPrice) {
+                this.buyPrice = buyPrice;
+            }
 
             public String getGoodsId() {
                 return goodsId;

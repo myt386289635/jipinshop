@@ -553,6 +553,15 @@ public class FindDetailBean {
             private String goodsBuyLink;
             private String status;
             private String couponPrice;
+            private String buyPrice;
+
+            public String getBuyPrice() {
+                return buyPrice;
+            }
+
+            public void setBuyPrice(String buyPrice) {
+                this.buyPrice = buyPrice;
+            }
 
             public String getCouponPrice() {
                 return couponPrice;
@@ -572,6 +581,7 @@ public class FindDetailBean {
                 goodsBuyLink = in.readString();
                 status = in.readString();
                 couponPrice = in.readString();
+                buyPrice = in.readString();
             }
 
             public static final Creator<RelatedGoodsListBean> CREATOR = new Creator<RelatedGoodsListBean>() {
@@ -666,6 +676,7 @@ public class FindDetailBean {
                 dest.writeString(goodsBuyLink);
                 dest.writeString(status);
                 dest.writeString(couponPrice);
+                dest.writeString(buyPrice);
             }
         }
     }

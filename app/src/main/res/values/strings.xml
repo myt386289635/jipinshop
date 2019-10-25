@@ -70,4 +70,6 @@
     <string name="order_prefree_end">元</string>
     <string name="order_pay">付款：</string>
     <string name="order_number">订单号：</string>
+    <string name="coupon">优惠券 ¥</string>
+    <string name="fee">补贴 ¥</string>
 </resources>

@@ -171,6 +171,15 @@ public class ShoppingDetailBean {
             private int vote;
             private int collect;
             private List<RelatedArticleListBean> relatedArticleList;
+            private String buyPrice;
+
+            public String getBuyPrice() {
+                return buyPrice;
+            }
+
+            public void setBuyPrice(String buyPrice) {
+                this.buyPrice = buyPrice;
+            }
 
             public List<RelatedArticleListBean> getRelatedArticleList() {
                 return relatedArticleList;

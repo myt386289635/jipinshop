@@ -409,7 +409,7 @@ public class ShoppingDetailActivity extends BaseActivity implements ShoppingComm
 
             //初始值
             mBinding.detailName.setText(shoppingDetailBean.getData().getGoodsEntity().getGoodsName());
-            mBinding.detailNewPrice.setText("¥" + shoppingDetailBean.getData().getGoodsEntity().getActualPrice());
+            mBinding.detailNewPrice.setText("¥" + shoppingDetailBean.getData().getGoodsEntity().getBuyPrice());
             mBinding.detailOldPrice.setText("¥" + shoppingDetailBean.getData().getGoodsEntity().getOtherPrice());
             mBinding.detailOldPrice.setTv(true);
             mBinding.detailOldPrice.setColor(R.color.color_ACACAC);

@@ -13,81 +13,193 @@
             name="position"
             type="Integer"/>
 
+        <import type="android.view.View"/>
+
     </data>
 
-    <RelativeLayout
+
+    <LinearLayout
+        android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
-        <ImageView
-            bind:srcRound="@{date.img}"
-            android:layout_marginTop="@dimen/y50"
-            android:layout_marginLeft="@dimen/x30"
-            android:layout_marginBottom="@dimen/y50"
-            android:id="@+id/item_image"
-            android:layout_width="@dimen/x220"
-            android:layout_height="@dimen/y220"/>
-
-        <TextView
-            android:id="@+id/item_sort"
-            android:gravity="center"
-            android:textSize="12sp"
-            android:textColor="@color/color_white"
-            android:text="@{@string/classify_sort + position}"
-            android:textStyle="bold"
-            android:background="@drawable/bg_goods_sort"
-            android:layout_alignTop="@id/item_image"
-            android:layout_alignLeft="@id/item_image"
-            android:layout_width="@dimen/x78"
-            android:layout_height="@dimen/y43"/>
-
-
-        <View
-            android:layout_marginRight="@dimen/x30"
-            android:layout_marginLeft="@dimen/x30"
-            android:background="@color/color_DEDEDE"
-            android:layout_below="@+id/item_image"
+        <LinearLayout
+            android:visibility="gone"
+            android:id="@+id/item_noticeContainer"
+            android:background="@color/color_F5F5F5"
+            android:orientation="vertical"
             android:layout_width="match_parent"
-            android:layout_height="@dimen/y2"/>
+            android:layout_height="wrap_content">
 
-        <TextView
-            android:textColor="@color/color_202020"
-            android:textSize="16sp"
-            android:text="@{date.goodsName}"
-            android:layout_marginRight="@dimen/x30"
-            android:layout_marginLeft="@dimen/x53"
-            android:layout_toRightOf="@+id/item_image"
-            android:layout_marginTop="@dimen/y4"
-            android:layout_alignTop="@+id/item_image"
-            android:id="@+id/item_name"
-            android:ellipsize="end"
-            android:singleLine="true"
+            <TextView
+                android:id="@+id/item_noticeTitle"
+                android:layout_marginTop="@dimen/y9"
+                android:layout_marginLeft="@dimen/x30"
+                android:textStyle="bold"
+                android:textColor="@color/color_565252"
+                android:textSize="13sp"
+                android:text="极品城榜单官方声明"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+
+            <TextView
+                android:id="@+id/item_noticeContent"
+                android:layout_marginTop="@dimen/y10"
+                android:layout_marginRight="@dimen/x30"
+                android:layout_marginLeft="@dimen/x30"
+                android:text=""
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"/>
+
+            <ImageView
+                android:layout_gravity="center_horizontal"
+                android:layout_marginBottom="@dimen/y16"
+                android:layout_marginTop="@dimen/y16"
+                android:tint="@color/color_E25838"
+                android:src="@mipmap/right_up"
+                android:id="@+id/item_noticeUp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+
+        </LinearLayout>
+
+        <RelativeLayout
+            android:id="@+id/item_container"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"/>
+            android:layout_height="wrap_content">
 
-        <TextView
-            android:id="@+id/item_price"
-            android:textStyle="bold"
-            android:text="@{@string/price + date.actualPrice}"
-            android:textSize="14sp"
-            android:textColor="@color/color_E25838"
-            android:layout_marginLeft="@dimen/x53"
-            android:layout_toRightOf="@+id/item_image"
-            android:layout_alignBottom="@+id/item_image"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"/>
+            <ImageView
+                bind:srcRound="@{date.img}"
+                android:layout_marginTop="@dimen/y50"
+                android:layout_marginLeft="@dimen/x30"
+                android:layout_marginBottom="@dimen/y50"
+                android:id="@+id/item_image"
+                android:layout_width="@dimen/x220"
+                android:layout_height="@dimen/y220"/>
 
-        <com.google.android.flexbox.FlexboxLayout
-            app:alignItems="flex_start"
-            app:flexWrap="wrap"
-            app:justifyContent="flex_start"
-            android:id="@+id/item_flexLayout"
-            android:layout_marginLeft="@dimen/x53"
-            android:layout_toRightOf="@+id/item_image"
-            android:layout_marginTop="@dimen/y20"
-            android:layout_below="@+id/item_name"
-            android:layout_width="match_parent"
-            android:layout_height="@dimen/y50"/>
+            <TextView
+                android:id="@+id/item_sort"
+                android:gravity="center"
+                android:textSize="12sp"
+                android:textColor="@color/color_white"
+                android:text="@{@string/classify_sort + position}"
+                android:textStyle="bold"
+                android:background="@drawable/bg_goods_sort"
+                android:layout_alignTop="@id/item_image"
+                android:layout_alignLeft="@id/item_image"
+                android:layout_width="@dimen/x78"
+                android:layout_height="@dimen/y43"/>
 
-    </RelativeLayout>
+
+            <View
+                android:layout_marginRight="@dimen/x30"
+                android:layout_marginLeft="@dimen/x30"
+                android:background="@color/color_DEDEDE"
+                android:layout_below="@+id/item_image"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/y2"/>
+
+            <TextView
+                android:textColor="@color/color_202020"
+                android:textSize="16sp"
+                android:text="@{date.goodsName}"
+                android:layout_marginRight="@dimen/x30"
+                android:layout_marginLeft="@dimen/x53"
+                android:layout_toRightOf="@+id/item_image"
+                android:layout_marginTop="@dimen/y4"
+                android:layout_alignTop="@+id/item_image"
+                android:id="@+id/item_name"
+                android:ellipsize="end"
+                android:singleLine="true"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"/>
+
+            <RelativeLayout
+                android:layout_toRightOf="@+id/item_image"
+                android:layout_alignBottom="@+id/item_image"
+                android:layout_marginLeft="@dimen/x53"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+
+                <LinearLayout
+                    android:id="@+id/item_priceContainer"
+                    android:orientation="horizontal"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content">
+
+                    <TextView
+                        android:textStyle="bold"
+                        android:textSize="10sp"
+                        android:textColor="@color/color_E25838"
+                        android:text="到手价"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"/>
+
+                    <TextView
+                        android:layout_marginLeft="@dimen/x3"
+                        android:id="@+id/item_price"
+                        android:textStyle="bold"
+                        android:text="@{@string/price + date.buyPrice}"
+                        android:textSize="18sp"
+                        android:textColor="@color/color_E25838"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"/>
+
+                </LinearLayout>
+
+                <com.example.administrator.jipinshop.view.textview.TextViewDel
+                    android:text="@{@string/price + date.otherPrice}"
+                    android:layout_marginLeft="@dimen/x15"
+                    android:layout_marginBottom="@dimen/y1"
+                    android:layout_toRightOf="@id/item_priceContainer"
+                    android:id="@+id/detail_otherPrice"
+                    android:layout_alignBottom="@id/item_priceContainer"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="12sp"
+                    android:textColor="@color/color_9D9D9D"/>
+
+                <TextView
+                    android:layout_marginRight="@dimen/x10"
+                    android:id="@+id/detail_coupon"
+                    android:gravity="center"
+                    android:text="@{@string/coupon + date.couponPrice}"
+                    android:textSize="11sp"
+                    android:textColor="@color/color_white"
+                    android:background="@mipmap/bg_coupon"
+                    android:layout_below="@id/item_priceContainer"
+                    android:layout_width="wrap_content"
+                    android:layout_height="@dimen/y35"/>
+
+                <TextView
+                    android:id="@+id/detail_fee"
+                    android:paddingRight="@dimen/x16"
+                    android:paddingLeft="@dimen/x16"
+                    android:layout_below="@id/item_priceContainer"
+                    android:layout_toRightOf="@id/detail_coupon"
+                    android:gravity="center"
+                    android:text="@{@string/fee + date.fee}"
+                    android:textColor="@color/color_202020"
+                    android:textSize="11sp"
+                    android:background="@drawable/bg_info"
+                    android:layout_width="wrap_content"
+                    android:layout_height="@dimen/y35"/>
+
+            </RelativeLayout>
+
+            <com.google.android.flexbox.FlexboxLayout
+                app:alignItems="flex_start"
+                app:flexWrap="wrap"
+                app:justifyContent="flex_start"
+                android:id="@+id/item_flexLayout"
+                android:layout_marginLeft="@dimen/x53"
+                android:layout_toRightOf="@+id/item_image"
+                android:layout_marginTop="@dimen/y20"
+                android:layout_below="@+id/item_name"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/y50"/>
+
+        </RelativeLayout>
+
+    </LinearLayout>
 </layout>
