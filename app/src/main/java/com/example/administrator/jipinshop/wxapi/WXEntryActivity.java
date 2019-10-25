@@ -16,7 +16,7 @@ import com.umeng.socialize.weixin.view.WXCallbackActivity;
 /**
  * @author 莫小婷
  * @create 2018/8/13
- * @Describe
+ * @Describe 修复小程序无法打开安卓app的问题 需要安卓这边配合书写回调
  */
 public class WXEntryActivity extends WXCallbackActivity implements IWXAPIEventHandler {
 
@@ -25,7 +25,7 @@ public class WXEntryActivity extends WXCallbackActivity implements IWXAPIEventHa
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_wx);
+        setContentView(R.layout.activity_wx);//需要页面，否者打不开首页，会卡在小程序页面
         api = WXAPIFactory.createWXAPI(this, null);
         api.handleIntent(getIntent(), this);
 
