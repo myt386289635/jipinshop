@@ -58,7 +58,8 @@ public class ClassifyActivity extends BaseActivity implements View.OnClickListen
     private ClassifyTabAdapter mTabAdapter;
     private LinearLayoutManager mLinearLayoutManager;
     private int set = 0;// 记录上一个位置
-
+    private String originContent = "";//官方说明内容
+    private String originTitle ="";//官方说明title
     private Dialog mDialog;
 
     @Override
@@ -128,6 +129,8 @@ public class ClassifyActivity extends BaseActivity implements View.OnClickListen
             }
             mTitleList.get(set).setTag(false);
             mTitleList.get(pos).setTag(true);
+            originContent = mTitleList.get(pos).getString().getIntroduction();
+            originTitle = mTitleList.get(pos).getString().getIntroductionTitle();
             mTabAdapter.notifyDataSetChanged();
             set = pos;
             //刷新
@@ -213,6 +216,8 @@ public class ClassifyActivity extends BaseActivity implements View.OnClickListen
             mArticleList.addAll(bean.getData().getRelatedArticleList());
             for (int i = 0; i < bean.getData().getRelatedItemList().size(); i++) {
                 if (i == 0){
+                    originContent = bean.getData().getRelatedItemList().get(i).getIntroduction();
+                    originTitle = bean.getData().getRelatedItemList().get(i).getIntroductionTitle();
                     mTitleList.add(new ClassifyTabBean(bean.getData().getRelatedItemList().get(i),true));
                 }else {
                     mTitleList.add(new ClassifyTabBean(bean.getData().getRelatedItemList().get(i),false));
@@ -229,6 +234,8 @@ public class ClassifyActivity extends BaseActivity implements View.OnClickListen
                 articleId = bean.getData().getRelatedPedia().getArticleId();
             }
             mAdapter.setTitle(bean.getData().getCategoryName());
+            mAdapter.setOriginTitle(originTitle);
+            mAdapter.setOriginContent(originContent);
             mTabAdapter.notifyDataSetChanged();
             mAdapter.notifyDataSetChanged();
         }else {
@@ -264,6 +271,8 @@ public class ClassifyActivity extends BaseActivity implements View.OnClickListen
         }
         mGoodsString.clear();
         mGoodsString.addAll(bean.getData());
+        mAdapter.setOriginTitle(originTitle);
+        mAdapter.setOriginContent(originContent);
         mAdapter.notifyDataSetChanged();
     }
 

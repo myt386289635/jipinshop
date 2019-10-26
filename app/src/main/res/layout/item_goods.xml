@@ -42,23 +42,12 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"/>
 
-            <TextView
+            <com.example.administrator.jipinshop.view.textview.CollapsibleTextView
                 android:id="@+id/item_noticeContent"
                 android:layout_marginTop="@dimen/y10"
                 android:layout_marginRight="@dimen/x30"
                 android:layout_marginLeft="@dimen/x30"
-                android:text=""
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"/>
-
-            <ImageView
-                android:layout_gravity="center_horizontal"
-                android:layout_marginBottom="@dimen/y16"
-                android:layout_marginTop="@dimen/y16"
-                android:tint="@color/color_E25838"
-                android:src="@mipmap/right_up"
-                android:id="@+id/item_noticeUp"
-                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"/>
 
         </LinearLayout>

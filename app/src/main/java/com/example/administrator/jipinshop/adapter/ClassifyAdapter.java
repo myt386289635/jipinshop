@@ -5,10 +5,12 @@ import android.databinding.DataBindingUtil;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.text.TextUtils;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.ViewTreeObserver;
 import android.widget.TextView;
 
 import com.example.administrator.jipinshop.R;
@@ -46,6 +48,8 @@ public class ClassifyAdapter extends RecyclerView.Adapter {
     private List<String> relatedPediaList;
     private OnClickView mView;
     private String title = "";
+    private String originContent = "";//官方说明内容
+    private String originTitle ="";//官方说明title
 
     public void setRelatedQuestionList(List<String> relatedQuestionList) {
         this.relatedQuestionList = relatedQuestionList;
@@ -53,6 +57,14 @@ public class ClassifyAdapter extends RecyclerView.Adapter {
 
     public void setRelatedPediaList(List<String> relatedPediaList) {
         this.relatedPediaList = relatedPediaList;
+    }
+
+    public void setOriginContent(String originContent) {
+        this.originContent = originContent;
+    }
+
+    public void setOriginTitle(String originTitle) {
+        this.originTitle = originTitle;
     }
 
     public void setTitle(String title) {
@@ -128,8 +140,13 @@ public class ClassifyAdapter extends RecyclerView.Adapter {
                 int onePosition = position;
                 if (onePosition == 0){
                     oneViewHolder.goodsBinding.itemNoticeContainer.setVisibility(View.VISIBLE);
-                    String originText = "极品城榜单涉及商品，全部由官方渠道匿名购买，所有商品评测完全由统一标准得出排名。榜单不接受广告！极品城榜单涉及商品，全部由官方渠道匿名购买，所有商品评测完全由统一标准得出排名。榜单不接受广告！极品城榜单涉及商品，全部由官方渠道匿名购买，所有商品评测完全由统一标准得出排名。榜单不接受广告！极品城榜单涉及商品，全部由官方渠道匿名购买，所有商品评测完全由统一标准得出排名。榜单不接受广告！极品城榜单涉及商品，全部由官方渠道匿名购买，所有商品评测完全由统一标准得出排名。极品城榜单涉及商品。";
-                    ExpandTextview.toggleEllipsize(mContext,oneViewHolder.goodsBinding.itemNoticeContent,3,originText,"展开",R.color.color_9D9D9D,false);
+                    if (TextUtils.isEmpty(originTitle)){
+                        oneViewHolder.goodsBinding.itemNoticeTitle.setVisibility(View.GONE);
+                    }else {
+                        oneViewHolder.goodsBinding.itemNoticeTitle.setVisibility(View.VISIBLE);
+                        oneViewHolder.goodsBinding.itemNoticeTitle.setText(originTitle);
+                    }
+                    oneViewHolder.goodsBinding.itemNoticeContent.setDesc(originContent);
                 }else {
                     oneViewHolder.goodsBinding.itemNoticeContainer.setVisibility(View.GONE);
                 }

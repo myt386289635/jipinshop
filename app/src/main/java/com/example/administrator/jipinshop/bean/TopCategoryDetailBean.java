@@ -202,6 +202,24 @@ public class TopCategoryDetailBean {
             private int orderNum;
             private int status;
             private Object goodsList;
+            private String introduction;
+            private String introductionTitle;
+
+            public String getIntroduction() {
+                return introduction;
+            }
+
+            public void setIntroduction(String introduction) {
+                this.introduction = introduction;
+            }
+
+            public String getIntroductionTitle() {
+                return introductionTitle;
+            }
+
+            public void setIntroductionTitle(String introductionTitle) {
+                this.introductionTitle = introductionTitle;
+            }
 
             public String getOrderbyCategoryId() {
                 return orderbyCategoryId;
