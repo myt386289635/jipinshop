@@ -31,7 +31,6 @@ import com.example.administrator.jipinshop.view.dialog.ProgressDialogView;
 
 import org.greenrobot.eventbus.EventBus;
 
-import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -52,9 +51,8 @@ public class SignActivity extends BaseActivity implements View.OnClickListener, 
     private ActivitySignBinding mBinding;
     private Dialog mDialog;
 
-    private List<TextView> mTextViews;
+    private List<TextView> mTextViews, mDayTextViews;
     private List<Integer> pointArr;
-    private List<View> mLineViews;
 
     private List<DailyTaskBean.DataBean> groupList;
     private ExtendableListViewAdapter mAdapter;
@@ -65,16 +63,12 @@ public class SignActivity extends BaseActivity implements View.OnClickListener, 
         mBinding = DataBindingUtil.setContentView(this, R.layout.activity_sign);
         mBinding.setListener(this);
         mBaseActivityComponent.inject(this);
-        mImmersionBar.reset()
-                .transparentStatusBar()
-                .statusBarDarkFont(true, 0f)
-                .init();
         mPresenter.setSignView(this);
         initView();
     }
 
     private void initView() {
-        mPresenter.setStatusBarHight(mBinding.statusBar,this);
+        mBinding.inClude.titleTv.setText("任务中心");
 
         mTextViews = new ArrayList<>();
         mTextViews.add(mBinding.signOneImg);
@@ -84,15 +78,14 @@ public class SignActivity extends BaseActivity implements View.OnClickListener, 
         mTextViews.add(mBinding.signFiveImg);
         mTextViews.add(mBinding.signSixImg);
         mTextViews.add(mBinding.signSunImg);
-
-        mLineViews = new ArrayList<>();
-        mLineViews.add(mBinding.signOneLine);
-        mLineViews.add(mBinding.signTwoLine);
-        mLineViews.add(mBinding.signThreeLine);
-        mLineViews.add(mBinding.signForeLine);
-        mLineViews.add(mBinding.signFiveLine);
-        mLineViews.add(mBinding.signSixLine);
-
+        mDayTextViews = new ArrayList<>();
+        mDayTextViews.add(mBinding.signOneText);
+        mDayTextViews.add(mBinding.signTwoText);
+        mDayTextViews.add(mBinding.signThreeText);
+        mDayTextViews.add(mBinding.signForeText);
+        mDayTextViews.add(mBinding.signFiveText);
+        mDayTextViews.add(mBinding.signSixText);
+        mDayTextViews.add(mBinding.signSunText);
         pointArr = new ArrayList<>();
 
         mBinding.expandList.setSelector(new ColorDrawable(Color.TRANSPARENT));
@@ -105,14 +98,9 @@ public class SignActivity extends BaseActivity implements View.OnClickListener, 
         mDialog = (new ProgressDialogView()).createLoadingDialog(this, "正在加载...");
         mDialog.show();
         mPresenter.signInfo(this.bindToLifecycle());
-        mPresenter.DailytaskList(this.bindToLifecycle());
+        mPresenter.DailytaskList(this.bindToLifecycle());//每日任务
     }
 
-
-    @Override
-    protected void onDestroy() {
-        super.onDestroy();
-    }
 
     @Override
     public void onClick(View v) {
@@ -127,14 +115,6 @@ public class SignActivity extends BaseActivity implements View.OnClickListener, 
                         .putExtra(WebActivity.title, "规则说明")
                 );
                 break;
-            case R.id.sign_signed:
-                if (mBinding.signSigned.getText().toString().equals("签到")){
-                    mDialog = (new ProgressDialogView()).createLoadingDialog(this, "正在加载...");
-                    mDialog.show();
-                    mPresenter.sign(this.bindToLifecycle());
-                    UAppUtil.sign(this,0);
-                }
-                break;
             case R.id.sign_detail:
                 //积分明细
                 startActivity(new Intent(this, IntegralDetailActivity.class));
@@ -147,32 +127,31 @@ public class SignActivity extends BaseActivity implements View.OnClickListener, 
      */
     @Override
     public void getInfoSuc(SignBean signBean) {
-        if(mDialog != null && mDialog.isShowing()){
-            mDialog.dismiss();
-        }
-        mBinding.signTotle.setText(signBean.getData().getPointAccount().getTotalPoint() + "");
-        mBinding.signDayNum.setText(signBean.getData().getPointAccount().getTodayPoint() + "");
-        mBinding.signSurplusNum.setText(signBean.getData().getPointAccount().getUsablePoint() + "");
+        mBinding.signCode.setText(SPUtils.getInstance(CommonDate.USER).getInt(CommonDate.userPoint) + "");
         for (int i = 0; i < signBean.getData().getPointArr().size(); i++) {
             mTextViews.get(i).setText("+" + signBean.getData().getPointArr().get(i) + "");
         }
         for (int i = 0; i < signBean.getData().getDaysCount(); i++) {
             mTextViews.get(i).setText("");
             mTextViews.get(i).setBackgroundResource(R.mipmap.signin_sel);
-            if(i < signBean.getData().getDaysCount() - 1){
-                mLineViews.get(i).setBackgroundColor(getResources().getColor(R.color.color_FFC5BD));
-            }
+            mDayTextViews.get(i).setText("已签");
+            mDayTextViews.get(i).setTextColor(getResources().getColor(R.color.color_E25838));
         }
         pointArr.clear();
         pointArr.addAll(signBean.getData().getPointArr());
+        if (signBean.getData().getDaysCount() >= 7){
+            mBinding.signTomorrowNum.setText("明日签到极币+" + pointArr.get(0));
+        }else {
+            mBinding.signTomorrowNum.setText("明日签到极币+" + pointArr.get(signBean.getData().getDaysCount()));
+        }
         if (signBean.getData().getSignin() == 0){
             //0未签到
-            mBinding.signSigned.setText("签到");
-            mBinding.signSigned.setBackgroundResource(R.mipmap.sign_icon);
+            mPresenter.sign(this.bindToLifecycle());//签到
         }else {
             //1已签到
-            mBinding.signSigned.setText("已签到");
-            mBinding.signSigned.setBackgroundResource(R.mipmap.sign_icon2);
+            if(mDialog != null && mDialog.isShowing()){
+                mDialog.dismiss();
+            }
         }
     }
     /**
@@ -192,26 +171,23 @@ public class SignActivity extends BaseActivity implements View.OnClickListener, 
     @Override
     public void signSuc(SignInsertBean signInsertBean) {
         SPUtils.getInstance(CommonDate.USER).put(CommonDate.userPoint,signInsertBean.getData().getUsablePoint());
-        mBinding.signSurplusNum.setText(signInsertBean.getData().getUsablePoint() + "");
-        BigDecimal bigDecimal1 = new BigDecimal(mBinding.signDayNum.getText().toString());
-        mBinding.signDayNum.setText((bigDecimal1.intValue() + signInsertBean.getAddPoint()) + "");
-        BigDecimal bigDecimal2 = new BigDecimal(mBinding.signTotle.getText().toString());
-        mBinding.signTotle.setText((bigDecimal2.intValue() + signInsertBean.getAddPoint()) + "");
+        mBinding.signCode.setText(SPUtils.getInstance(CommonDate.USER).getInt(CommonDate.userPoint) + "");
+        if (signInsertBean.getDaysCount() >= 7){
+            mBinding.signTomorrowNum.setText("明日签到极币+" + pointArr.get(0));
+        }else {
+            mBinding.signTomorrowNum.setText("明日签到极币+" + pointArr.get(signInsertBean.getDaysCount()));
+        }
         for (int i = 0; i < 7; i++) {
             if (i < signInsertBean.getDaysCount()){
                 mTextViews.get(i).setText("");
                 mTextViews.get(i).setBackgroundResource(R.mipmap.signin_sel);
-                if(i < signInsertBean.getDaysCount() - 1){
-                    mLineViews.get(i).setBackgroundColor(getResources().getColor(R.color.color_FFC5BD));
-                }else if(i < 6){
-                    mLineViews.get(i).setBackgroundColor(getResources().getColor(R.color.color_ECECEC));
-                }
+                mDayTextViews.get(i).setText("已签");
+                mDayTextViews.get(i).setTextColor(getResources().getColor(R.color.color_E25838));
             }else {
                 mTextViews.get(i).setText("+" + pointArr.get(i) + "");
-                mTextViews.get(i).setBackgroundResource(R.mipmap.signin_nor);
-                if(i < 6){
-                    mLineViews.get(i).setBackgroundColor(getResources().getColor(R.color.color_ECECEC));
-                }
+                mTextViews.get(i).setBackgroundResource(R.drawable.bg_ffc0b2);
+                mDayTextViews.get(i).setText((i + 1)+ "天");
+                mDayTextViews.get(i).setTextColor(getResources().getColor(R.color.color_9D9D9D));
             }
         }
         EventBus.getDefault().post(new EditNameBus(SignActivity.eventbusTag));
@@ -219,8 +195,6 @@ public class SignActivity extends BaseActivity implements View.OnClickListener, 
             mDialog.dismiss();
         }
         ToastUtil.show("签到成功");
-        mBinding.signSigned.setText("已签到");
-        mBinding.signSigned.setBackgroundResource(R.mipmap.sign_icon2);
     }
     /**
      * 签到失败

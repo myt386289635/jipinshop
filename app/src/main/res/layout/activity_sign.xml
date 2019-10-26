@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout xmlns:android="http://schemas.android.com/apk/res/android">
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:bind="http://schemas.android.com/apk/res-auto">
 
     <data>
         <variable
@@ -10,54 +11,33 @@
 
 
     <LinearLayout
-        android:background="@drawable/bg_sign"
+        android:background="@color/color_F5F5F5"
         android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <LinearLayout
-            android:id="@+id/status_bar"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@color/transparent"
-            android:orientation="vertical"/>
-
         <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="@dimen/y80">
+            android:layout_height="@dimen/y88">
 
-            <ImageView
-                android:onClick="@{listener.onClick}"
-                android:id="@+id/title_back"
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:layout_centerVertical="true"
-                android:padding="@dimen/x22"
-                android:src="@mipmap/balance_white"/>
-
+            <include
+                android:id="@+id/in_clude"
+                layout="@layout/aa_title2"
+                bind:listener="@{listener}"/>
 
             <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_centerInParent="true"
-                android:textColor="@color/color_DEFFFFFF"
-                android:textSize="15sp"
-                android:textStyle="bold"
-                android:text="任务中心"/>
-
-
-            <TextView
+                android:gravity="center"
+                android:paddingLeft="@dimen/x28"
                 android:onClick="@{listener.onClick}"
                 android:id="@+id/sign_rule"
-                android:layout_marginRight="@dimen/x28"
+                android:paddingRight="@dimen/x28"
                 android:layout_centerVertical="true"
                 android:layout_alignParentRight="true"
-                android:textColor="@color/color_DEFFFFFF"
+                android:textColor="@color/color_202020"
                 android:textSize="15sp"
                 android:text="规则说明"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"/>
-
+                android:layout_height="match_parent"/>
 
         </RelativeLayout>
 
@@ -73,418 +53,326 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent">
 
-
-                <LinearLayout
-                    android:visibility="gone"
-                    android:id="@+id/sign_totleContainer"
-                    android:layout_marginTop="@dimen/y66"
-                    android:layout_marginLeft="@dimen/x132"
-                    android:orientation="vertical"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content">
-
-                    <TextView
-                        android:textSize="16sp"
-                        android:textStyle="bold"
-                        android:textColor="@color/color_DEFFFFFF"
-                        android:text="总极币"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"/>
-
-
-                    <TextView
-                        android:id="@+id/sign_totle"
-                        android:layout_gravity="center"
-                        android:textSize="20sp"
-                        android:textColor="@color/color_DEFFFFFF"
-                        android:textStyle="bold"
-                        android:text="0"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"/>
-
-                </LinearLayout>
-
-                <LinearLayout
-                    android:id="@+id/sign_dayContainer"
-                    android:layout_marginTop="@dimen/y60"
-                    android:layout_marginLeft="@dimen/x52"
-                    android:orientation="vertical"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content">
-
-                    <TextView
-                        android:textSize="16sp"
-                        android:textStyle="bold"
-                        android:textColor="@color/color_DEFFFFFF"
-                        android:text="今日极币 "
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"/>
-
-
-                    <TextView
-                        android:id="@+id/sign_dayNum"
-                        android:layout_gravity="center"
-                        android:textSize="20sp"
-                        android:textColor="@color/color_DEFFFFFF"
-                        android:textStyle="bold"
-                        android:text="0"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"/>
-
-                </LinearLayout>
-
                 <ImageView
-                    android:layout_alignTop="@+id/sign_bg1"
-                    android:scaleType="fitXY"
-                    android:layout_marginRight="@dimen/x56"
-                    android:layout_marginLeft="@dimen/x56"
-                    android:layout_centerHorizontal="true"
-                    android:layout_marginTop="@dimen/y84"
-                    android:src="@mipmap/sign_bg2"
+                    android:background="@mipmap/sign_bg1"
                     android:layout_width="match_parent"
-                    android:layout_height="@dimen/y296"/>
+                    android:layout_height="wrap_content"/>
 
-                <RelativeLayout
+                <TextView
+                    android:layout_marginTop="@dimen/y40"
+                    android:layout_centerHorizontal="true"
+                    android:textColor="@color/color_FFE4C1"
+                    android:textSize="24sp"
+                    android:text="0"
+                    android:id="@+id/sign_code"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"/>
+
+                <TextView
+                    android:layout_marginTop="@dimen/y10"
+                    android:layout_below="@id/sign_code"
+                    android:layout_centerHorizontal="true"
+                    android:textColor="@color/color_FFE4C1"
+                    android:textSize="13sp"
+                    android:text="我的极币"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"/>
+                
+                <TextView
+                    android:onClick="@{listener.onClick}"
+                    android:id="@+id/sign_detail"
+                    android:layout_marginTop="@dimen/y24"
+                    android:layout_alignTop="@id/sign_code"
+                    android:paddingBottom="@dimen/y13"
+                    android:paddingTop="@dimen/y16"
+                    android:paddingLeft="@dimen/x23"
+                    android:paddingRight="@dimen/x7"
+                    android:textSize="13sp"
+                    android:text="极币明细"
+                    android:textColor="@color/color_E25838"
+                    android:layout_alignParentRight="true"
+                    android:background="@drawable/bg_sign"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"/>
+
+                <LinearLayout
+                    android:orientation="vertical"
+                    android:layout_marginTop="@dimen/y86"
+                    android:layout_below="@id/sign_code"
                     android:id="@+id/sign_signContainer"
-                    android:layout_marginBottom="@dimen/y32"
-                    android:paddingBottom="@dimen/y60"
-                    android:layout_marginTop="@dimen/y354"
-                    android:layout_alignTop="@+id/sign_bg1"
+                    android:layout_marginBottom="@dimen/y20"
                     android:layout_marginRight="@dimen/x28"
                     android:layout_marginLeft="@dimen/x28"
                     android:background="@drawable/bg_sign3"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content">
 
-
-                    <LinearLayout
-                        android:id="@+id/sign_container"
-                        android:layout_centerHorizontal="true"
-                        android:orientation="horizontal"
-                        android:layout_marginTop="@dimen/y78"
+                    <TextView
+                        android:layout_marginBottom="@dimen/y33"
+                        android:id="@+id/sign_tomorrowNum"
+                        android:layout_gravity="center_horizontal"
+                        android:textColor="@color/color_E25838"
+                        android:textStyle="bold"
+                        android:textSize="16sp"
+                        android:layout_marginTop="@dimen/y24"
+                        android:text="明日签到极币+0"
                         android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"/>
+
+                    <RelativeLayout
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content">
 
-                        <RelativeLayout
+                        <View
+                            android:layout_marginRight="@dimen/x10"
+                            android:layout_marginLeft="@dimen/x10"
+                            android:layout_marginTop="@dimen/y24"
+                            android:background="@color/color_E25838"
+                            android:layout_width="match_parent"
+                            android:layout_height="@dimen/y2"/>
+
+                        <LinearLayout
+                            android:layout_centerHorizontal="true"
+                            android:id="@+id/sign_container"
+                            android:orientation="horizontal"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content">
 
-                            <TextView
-                                android:text="+0"
-                                android:gravity="center"
-                                android:textColor="@color/color_white"
-                                android:textSize="13sp"
-                                android:id="@+id/sign_oneImg"
-                                android:background="@mipmap/signin_nor"
-                                android:layout_width="@dimen/x60"
-                                android:layout_height="@dimen/y60"
-                                android:scaleType="fitXY"/>
-
-                            <TextView
-                                android:textColor="@color/color_8F8F8F"
-                                android:gravity="center"
-                                android:layout_alignRight="@+id/sign_oneImg"
-                                android:layout_alignLeft="@+id/sign_oneImg"
-                                android:layout_below="@+id/sign_oneImg"
-                                android:text="1天"
+                            <RelativeLayout
+                                android:layout_marginRight="@dimen/x45"
                                 android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"/>
+                                android:layout_height="wrap_content">
 
-                            <View
-                                android:id="@+id/sign_oneLine"
-                                android:layout_marginLeft="@dimen/x2"
-                                android:layout_marginTop="@dimen/y28"
-                                android:layout_toRightOf="@+id/sign_oneImg"
-                                android:background="@color/color_ECECEC"
-                                android:layout_width="@dimen/x28"
-                                android:layout_height="@dimen/y2"/>
+                                <TextView
+                                    android:text="+0"
+                                    android:gravity="center"
+                                    android:textColor="@color/color_white"
+                                    android:textSize="14sp"
+                                    android:id="@+id/sign_oneImg"
+                                    android:background="@drawable/bg_ffc0b2"
+                                    android:layout_width="@dimen/x48"
+                                    android:layout_height="@dimen/y48"
+                                    android:scaleType="fitXY"/>
 
+                                <TextView
+                                    android:id="@+id/sign_oneText"
+                                    android:layout_marginTop="@dimen/y8"
+                                    android:textSize="10sp"
+                                    android:textColor="@color/color_9D9D9D"
+                                    android:gravity="center"
+                                    android:layout_alignRight="@+id/sign_oneImg"
+                                    android:layout_alignLeft="@+id/sign_oneImg"
+                                    android:layout_below="@+id/sign_oneImg"
+                                    android:text="1天"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"/>
 
-                        </RelativeLayout>
-                        <RelativeLayout
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content">
-
-                            <TextView
-                                android:text="+0"
-                                android:gravity="center"
-                                android:textColor="@color/color_white"
-                                android:textSize="13sp"
-                                android:id="@+id/sign_twoImg"
-                                android:background="@mipmap/signin_nor"
-                                android:layout_width="@dimen/x60"
-                                android:layout_height="@dimen/y60"
-                                android:scaleType="fitXY"/>
-
-                            <TextView
-                                android:textColor="@color/color_8F8F8F"
-                                android:gravity="center"
-                                android:layout_alignRight="@+id/sign_twoImg"
-                                android:layout_alignLeft="@+id/sign_twoImg"
-                                android:layout_below="@+id/sign_twoImg"
-                                android:text="2天"
+                            </RelativeLayout>
+                            <RelativeLayout
+                                android:layout_marginRight="@dimen/x45"
                                 android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"/>
+                                android:layout_height="wrap_content">
 
-                            <View
-                                android:id="@+id/sign_twoLine"
-                                android:layout_marginLeft="@dimen/x2"
-                                android:layout_marginTop="@dimen/y28"
-                                android:layout_toRightOf="@+id/sign_twoImg"
-                                android:background="@color/color_ECECEC"
-                                android:layout_width="@dimen/x28"
-                                android:layout_height="@dimen/y2"/>
+                                <TextView
+                                    android:text="+0"
+                                    android:gravity="center"
+                                    android:textColor="@color/color_white"
+                                    android:textSize="14sp"
+                                    android:id="@+id/sign_twoImg"
+                                    android:background="@drawable/bg_ffc0b2"
+                                    android:layout_width="@dimen/x48"
+                                    android:layout_height="@dimen/y48"
+                                    android:scaleType="fitXY"/>
 
+                                <TextView
+                                    android:id="@+id/sign_twoText"
+                                    android:layout_marginTop="@dimen/y8"
+                                    android:textSize="10sp"
+                                    android:textColor="@color/color_9D9D9D"
+                                    android:gravity="center"
+                                    android:layout_alignRight="@+id/sign_twoImg"
+                                    android:layout_alignLeft="@+id/sign_twoImg"
+                                    android:layout_below="@+id/sign_twoImg"
+                                    android:text="2天"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"/>
 
-                        </RelativeLayout>
-                        <RelativeLayout
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content">
-
-                            <TextView
-                                android:text="+0"
-                                android:gravity="center"
-                                android:textColor="@color/color_white"
-                                android:textSize="13sp"
-                                android:id="@+id/sign_threeImg"
-                                android:background="@mipmap/signin_nor"
-                                android:layout_width="@dimen/x60"
-                                android:layout_height="@dimen/y60"
-                                android:scaleType="fitXY"/>
-
-                            <TextView
-                                android:textColor="@color/color_8F8F8F"
-                                android:gravity="center"
-                                android:layout_alignRight="@+id/sign_threeImg"
-                                android:layout_alignLeft="@+id/sign_threeImg"
-                                android:layout_below="@+id/sign_threeImg"
-                                android:text="3天"
+                            </RelativeLayout>
+                            <RelativeLayout
+                                android:layout_marginRight="@dimen/x45"
                                 android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"/>
+                                android:layout_height="wrap_content">
 
-                            <View
-                                android:id="@+id/sign_threeLine"
-                                android:layout_marginLeft="@dimen/x2"
-                                android:layout_marginTop="@dimen/y28"
-                                android:layout_toRightOf="@+id/sign_threeImg"
-                                android:background="@color/color_ECECEC"
-                                android:layout_width="@dimen/x28"
-                                android:layout_height="@dimen/y2"/>
+                                <TextView
+                                    android:text="+0"
+                                    android:gravity="center"
+                                    android:textColor="@color/color_white"
+                                    android:textSize="14sp"
+                                    android:id="@+id/sign_threeImg"
+                                    android:background="@drawable/bg_ffc0b2"
+                                    android:layout_width="@dimen/x48"
+                                    android:layout_height="@dimen/y48"
+                                    android:scaleType="fitXY"/>
 
+                                <TextView
+                                    android:id="@+id/sign_threeText"
+                                    android:layout_marginTop="@dimen/y8"
+                                    android:textSize="10sp"
+                                    android:textColor="@color/color_9D9D9D"
+                                    android:gravity="center"
+                                    android:layout_alignRight="@+id/sign_threeImg"
+                                    android:layout_alignLeft="@+id/sign_threeImg"
+                                    android:layout_below="@+id/sign_threeImg"
+                                    android:text="3天"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"/>
 
-                        </RelativeLayout>
-                        <RelativeLayout
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content">
-
-                            <TextView
-                                android:text="+0"
-                                android:gravity="center"
-                                android:textColor="@color/color_white"
-                                android:textSize="13sp"
-                                android:id="@+id/sign_foreImg"
-                                android:background="@mipmap/signin_nor"
-                                android:layout_width="@dimen/x60"
-                                android:layout_height="@dimen/y60"
-                                android:scaleType="fitXY"/>
-
-                            <TextView
-                                android:textColor="@color/color_8F8F8F"
-                                android:gravity="center"
-                                android:layout_alignRight="@+id/sign_foreImg"
-                                android:layout_alignLeft="@+id/sign_foreImg"
-                                android:layout_below="@+id/sign_foreImg"
-                                android:text="4天"
+                            </RelativeLayout>
+                            <RelativeLayout
+                                android:layout_marginRight="@dimen/x45"
                                 android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"/>
+                                android:layout_height="wrap_content">
 
-                            <View
-                                android:id="@+id/sign_foreLine"
-                                android:layout_marginLeft="@dimen/x2"
-                                android:layout_marginTop="@dimen/y28"
-                                android:layout_toRightOf="@+id/sign_foreImg"
-                                android:background="@color/color_ECECEC"
-                                android:layout_width="@dimen/x28"
-                                android:layout_height="@dimen/y2"/>
+                                <TextView
+                                    android:text="+0"
+                                    android:gravity="center"
+                                    android:textColor="@color/color_white"
+                                    android:textSize="14sp"
+                                    android:id="@+id/sign_foreImg"
+                                    android:background="@drawable/bg_ffc0b2"
+                                    android:layout_width="@dimen/x48"
+                                    android:layout_height="@dimen/y48"
+                                    android:scaleType="fitXY"/>
 
+                                <TextView
+                                    android:id="@+id/sign_foreText"
+                                    android:layout_marginTop="@dimen/y8"
+                                    android:textSize="10sp"
+                                    android:textColor="@color/color_9D9D9D"
+                                    android:gravity="center"
+                                    android:layout_alignRight="@+id/sign_foreImg"
+                                    android:layout_alignLeft="@+id/sign_foreImg"
+                                    android:layout_below="@+id/sign_foreImg"
+                                    android:text="4天"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"/>
 
-                        </RelativeLayout>
-                        <RelativeLayout
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content">
-
-                            <TextView
-                                android:text="+0"
-                                android:gravity="center"
-                                android:textColor="@color/color_white"
-                                android:textSize="13sp"
-                                android:id="@+id/sign_fiveImg"
-                                android:background="@mipmap/signin_nor"
-                                android:layout_width="@dimen/x60"
-                                android:layout_height="@dimen/y60"
-                                android:scaleType="fitXY"/>
-
-                            <TextView
-                                android:textColor="@color/color_8F8F8F"
-                                android:gravity="center"
-                                android:layout_alignRight="@+id/sign_fiveImg"
-                                android:layout_alignLeft="@+id/sign_fiveImg"
-                                android:layout_below="@+id/sign_fiveImg"
-                                android:text="5天"
+                            </RelativeLayout>
+                            <RelativeLayout
+                                android:layout_marginRight="@dimen/x45"
                                 android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"/>
+                                android:layout_height="wrap_content">
 
-                            <View
-                                android:id="@+id/sign_fiveLine"
-                                android:layout_marginLeft="@dimen/x2"
-                                android:layout_marginTop="@dimen/y28"
-                                android:layout_toRightOf="@+id/sign_fiveImg"
-                                android:background="@color/color_ECECEC"
-                                android:layout_width="@dimen/x28"
-                                android:layout_height="@dimen/y2"/>
+                                <TextView
+                                    android:text="+0"
+                                    android:gravity="center"
+                                    android:textColor="@color/color_white"
+                                    android:textSize="14sp"
+                                    android:id="@+id/sign_fiveImg"
+                                    android:background="@drawable/bg_ffc0b2"
+                                    android:layout_width="@dimen/x48"
+                                    android:layout_height="@dimen/y48"
+                                    android:scaleType="fitXY"/>
 
+                                <TextView
+                                    android:id="@+id/sign_fiveText"
+                                    android:layout_marginTop="@dimen/y8"
+                                    android:textSize="10sp"
+                                    android:textColor="@color/color_9D9D9D"
+                                    android:gravity="center"
+                                    android:layout_alignRight="@+id/sign_fiveImg"
+                                    android:layout_alignLeft="@+id/sign_fiveImg"
+                                    android:layout_below="@+id/sign_fiveImg"
+                                    android:text="5天"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"/>
 
-                        </RelativeLayout>
-                        <RelativeLayout
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content">
-
-                            <TextView
-                                android:text="+0"
-                                android:gravity="center"
-                                android:textColor="@color/color_white"
-                                android:textSize="13sp"
-                                android:id="@+id/sign_sixImg"
-                                android:background="@mipmap/signin_nor"
-                                android:layout_width="@dimen/x60"
-                                android:layout_height="@dimen/y60"
-                                android:scaleType="fitXY"/>
-
-                            <TextView
-                                android:textColor="@color/color_8F8F8F"
-                                android:gravity="center"
-                                android:layout_alignRight="@+id/sign_sixImg"
-                                android:layout_alignLeft="@+id/sign_sixImg"
-                                android:layout_below="@+id/sign_sixImg"
-                                android:text="6天"
+                            </RelativeLayout>
+                            <RelativeLayout
+                                android:layout_marginRight="@dimen/x45"
                                 android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"/>
+                                android:layout_height="wrap_content">
 
-                            <View
-                                android:id="@+id/sign_sixLine"
-                                android:layout_marginLeft="@dimen/x2"
-                                android:layout_marginTop="@dimen/y28"
-                                android:layout_toRightOf="@+id/sign_sixImg"
-                                android:background="@color/color_ECECEC"
-                                android:layout_width="@dimen/x28"
-                                android:layout_height="@dimen/y2"/>
+                                <TextView
+                                    android:text="+0"
+                                    android:gravity="center"
+                                    android:textColor="@color/color_white"
+                                    android:textSize="14sp"
+                                    android:id="@+id/sign_sixImg"
+                                    android:background="@drawable/bg_ffc0b2"
+                                    android:layout_width="@dimen/x48"
+                                    android:layout_height="@dimen/y48"
+                                    android:scaleType="fitXY"/>
 
+                                <TextView
+                                    android:id="@+id/sign_sixText"
+                                    android:layout_marginTop="@dimen/y8"
+                                    android:textSize="10sp"
+                                    android:textColor="@color/color_9D9D9D"
+                                    android:gravity="center"
+                                    android:layout_alignRight="@+id/sign_sixImg"
+                                    android:layout_alignLeft="@+id/sign_sixImg"
+                                    android:layout_below="@+id/sign_sixImg"
+                                    android:text="6天"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"/>
 
-                        </RelativeLayout>
-                        <RelativeLayout
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content">
-
-                            <TextView
-                                android:text="+0"
-                                android:gravity="center"
-                                android:textColor="@color/color_white"
-                                android:textSize="13sp"
-                                android:id="@+id/sign_sunImg"
-                                android:background="@mipmap/signin_nor"
-                                android:layout_width="@dimen/x60"
-                                android:layout_height="@dimen/y60"
-                                android:scaleType="fitXY"/>
-
-                            <TextView
-                                android:textColor="@color/color_8F8F8F"
-                                android:gravity="center"
-                                android:layout_alignRight="@+id/sign_sunImg"
-                                android:layout_alignLeft="@+id/sign_sunImg"
-                                android:layout_below="@+id/sign_sunImg"
-                                android:text="7天"
+                            </RelativeLayout>
+                            <RelativeLayout
                                 android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"/>
+                                android:layout_height="wrap_content">
 
-                        </RelativeLayout>
+                                <TextView
+                                    android:text="+0"
+                                    android:gravity="center"
+                                    android:textColor="@color/color_white"
+                                    android:textSize="14sp"
+                                    android:id="@+id/sign_sunImg"
+                                    android:background="@drawable/bg_ffc0b2"
+                                    android:layout_width="@dimen/x48"
+                                    android:layout_height="@dimen/y48"
+                                    android:scaleType="fitXY"/>
 
-                    </LinearLayout>
+                                <TextView
+                                    android:id="@+id/sign_sunText"
+                                    android:layout_marginTop="@dimen/y8"
+                                    android:textSize="10sp"
+                                    android:textColor="@color/color_9D9D9D"
+                                    android:gravity="center"
+                                    android:layout_alignRight="@+id/sign_sunImg"
+                                    android:layout_alignLeft="@+id/sign_sunImg"
+                                    android:layout_below="@+id/sign_sunImg"
+                                    android:text="7天"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"/>
+
+                            </RelativeLayout>
+
+                        </LinearLayout>
+
+                    </RelativeLayout>
 
 
                     <TextView
-                        android:onClick="@{listener.onClick}"
-                        android:id="@+id/sign_signed"
-                        android:gravity="center"
-                        android:textSize="16sp"
-                        android:text="签到"
-                        android:textColor="@color/color_white"
-                        android:background="@mipmap/sign_icon"
-                        android:layout_centerHorizontal="true"
-                        android:layout_marginTop="@dimen/y70"
-                        android:layout_below="@id/sign_container"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"/>
-
-
-                    <TextView
-                        android:id="@+id/sign_detail"
-                        android:onClick="@{listener.onClick}"
-                        android:drawablePadding="@dimen/x10"
-                        android:drawableRight="@mipmap/right"
-                        android:layout_centerHorizontal="true"
-                        android:layout_marginTop="@dimen/y48"
-                        android:textColor="@color/color_8F8F8F"
-                        android:textSize="15sp"
-                        android:text="极币明细"
-                        android:layout_below="@id/sign_signed"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"/>
-
-                </RelativeLayout>
-
-                <ImageView
-                    android:scaleType="fitXY"
-                    android:id="@+id/sign_bg1"
-                    android:layout_marginTop="@dimen/y90"
-                    android:layout_centerHorizontal="true"
-                    android:src="@mipmap/sign_bg1"
-                    android:layout_width="@dimen/x304"
-                    android:layout_height="@dimen/y386"/>
-
-                <LinearLayout
-                    android:layout_alignTop="@+id/sign_bg1"
-                    android:layout_centerHorizontal="true"
-                    android:layout_marginTop="@dimen/y94"
-                    android:orientation="vertical"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content">
-
-                    <TextView
-                        android:textSize="16sp"
-                        android:textStyle="bold"
-                        android:textColor="@color/color_DEFFFFFF"
-                        android:text="剩余极币"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"/>
-
-
-                    <TextView
-                        android:id="@+id/sign_surplusNum"
-                        android:layout_gravity="center"
-                        android:textSize="20sp"
-                        android:textColor="@color/color_DEFFFFFF"
-                        android:textStyle="bold"
-                        android:text="0"
+                        android:textColor="@color/color_E25838"
+                        android:textSize="14sp"
+                        android:layout_marginBottom="@dimen/y28"
+                        android:layout_marginTop="@dimen/y28"
+                        android:layout_gravity="center_horizontal"
+                        android:drawablePadding="@dimen/x4"
+                        android:drawableLeft="@mipmap/sign_bg2"
+                        android:text="今日已签到"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"/>
 
                 </LinearLayout>
 
+                <!--我要赚极币-->
                 <LinearLayout
                     android:orientation="vertical"
                     android:layout_marginRight="@dimen/x28"
                     android:layout_marginLeft="@dimen/x28"
-                    android:background="@drawable/bg_sign3"
+                    android:background="@drawable/bg_sign2"
                     android:layout_marginBottom="@dimen/y60"
                     android:layout_below="@+id/sign_signContainer"
                     android:layout_width="match_parent"
@@ -494,7 +382,7 @@
                         android:layout_marginTop="@dimen/y36"
                         android:layout_gravity="center"
                         android:textStyle="bold"
-                        android:text="我要赚极币"
+                        android:text="每日任务"
                         android:textSize="16sp"
                         android:textColor="@color/color_DE151515"
                         android:layout_width="wrap_content"
