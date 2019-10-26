@@ -1079,7 +1079,10 @@ public class ShoppingDetailActivity extends BaseActivity implements ShoppingComm
                 );
                 break;
             case R.id.detail_freeNotice:
-                ToastUtil.show("极品城补贴");
+                startActivity(new Intent(this, WebActivity.class)
+                        .putExtra(WebActivity.url, RetrofitModule.H5_URL+"fee-rule.html")
+                        .putExtra(WebActivity.title,"极品城购物补贴说明")
+                );
                 break;
         }
     }
