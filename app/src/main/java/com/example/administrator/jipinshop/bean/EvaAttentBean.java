@@ -189,6 +189,15 @@ public class EvaAttentBean {
             private int pv;
             private String createTime;
             private UserBean user;
+            private ArticleReadDataBean articleReadData;
+
+            public ArticleReadDataBean getArticleReadData() {
+                return articleReadData;
+            }
+
+            public void setArticleReadData(ArticleReadDataBean articleReadData) {
+                this.articleReadData = articleReadData;
+            }
 
             public UserBean getUser() {
                 return user;
@@ -300,6 +309,19 @@ public class EvaAttentBean {
 
                 public void setDetail(String detail) {
                     this.detail = detail;
+                }
+            }
+
+            public static class ArticleReadDataBean{
+
+                private int clickCount;//clickCount数值大于0就是已读  等于0就是未读
+
+                public int getClickCount() {
+                    return clickCount;
+                }
+
+                public void setClickCount(int clickCount) {
+                    this.clickCount = clickCount;
                 }
             }
         }

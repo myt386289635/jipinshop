@@ -73,6 +73,15 @@ public class EvaEvaBean {
         private Object collect;
         private Object relatedArticleList;
         private Object relatedGoodsList;
+        private ArticleReadDataBean articleReadData;
+
+        public ArticleReadDataBean getArticleReadData() {
+            return articleReadData;
+        }
+
+        public void setArticleReadData(ArticleReadDataBean articleReadData) {
+            this.articleReadData = articleReadData;
+        }
 
         public String getArticleId() {
             return articleId;
@@ -367,6 +376,19 @@ public class EvaEvaBean {
                 this.imgs = imgs;
             }
         }
+
+        public static class ArticleReadDataBean{
+
+            private int clickCount;//clickCount数值大于0就是已读  等于0就是未读
+
+            public int getClickCount() {
+                return clickCount;
+            }
+
+            public void setClickCount(int clickCount) {
+                this.clickCount = clickCount;
+            }
+        }
     }
 
     public static class List2Bean {
@@ -396,6 +418,15 @@ public class EvaEvaBean {
         private Object collect;
         private Object relatedArticleList;
         private Object relatedGoodsList;
+        private ArticleReadDataBean articleReadData;
+
+        public ArticleReadDataBean getArticleReadData() {
+            return articleReadData;
+        }
+
+        public void setArticleReadData(ArticleReadDataBean articleReadData) {
+            this.articleReadData = articleReadData;
+        }
 
         public String getArticleId() {
             return articleId;
@@ -688,6 +719,19 @@ public class EvaEvaBean {
 
             public void setImgs(Object imgs) {
                 this.imgs = imgs;
+            }
+        }
+
+        public static class ArticleReadDataBean{
+
+            private int clickCount;//clickCount数值大于0就是已读  等于0就是未读
+
+            public int getClickCount() {
+                return clickCount;
+            }
+
+            public void setClickCount(int clickCount) {
+                this.clickCount = clickCount;
             }
         }
     }

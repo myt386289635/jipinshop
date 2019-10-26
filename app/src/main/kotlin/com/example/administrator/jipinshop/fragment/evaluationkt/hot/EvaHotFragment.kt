@@ -189,6 +189,7 @@ class EvaHotFragment : DBBaseFragment(), OnRefreshListener, OnLoadMoreListener, 
         } else {
             val bigDecimal = BigDecimal(mList[position].pv)
             mList[position].pv = bigDecimal.toInt() + 1
+            mList[position].articleReadData.clickCount = 1
             mAdapter.notifyDataSetChanged()
             ShopJumpUtil.jumpArticle(context, mList[position].articleId,
                     "" + mList[position].type, mList[position].contentType)

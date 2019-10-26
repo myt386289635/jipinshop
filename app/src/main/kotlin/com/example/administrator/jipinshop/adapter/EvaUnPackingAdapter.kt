@@ -56,6 +56,7 @@ class EvaUnPackingAdapter : RecyclerView.Adapter<EvaUnPackingAdapter.ViewHolder>
                     } else {
                         val bigDecimal = BigDecimal(it.pv)
                         it.pv = bigDecimal.toInt() + 1
+                        it.articleReadData.clickCount = 1
                         mOnClickItem.onClickItem(it.articleId, "" + it.type,it.contentType)
                     }
                 }

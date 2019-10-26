@@ -32,7 +32,7 @@
             android:ellipsize="end"
             android:maxLines="2"
             android:id="@+id/item_title"
-            android:textColor="@color/color_202020"
+            android:textColor="@{data.articleReadData.clickCount == 0 ? @color/color_202020 : @color/color_ACACAC}"
             android:textSize="18sp"
             android:layout_marginRight="@dimen/x30"
             android:layout_marginLeft="@dimen/x30"

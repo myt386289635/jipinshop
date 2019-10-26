@@ -136,6 +136,7 @@ class EvaAttentFrament : DBBaseFragment(), OnRefreshListener, OnLoadMoreListener
         } else {
             val bigDecimal = BigDecimal(mList[position].article.pv)
             mList[position].article.pv = bigDecimal.toInt() + 1
+            mList[position].article.articleReadData.clickCount = 1
             mAdapter.notifyDataSetChanged()
             ShopJumpUtil.jumpArticle(context, mList[position].article.articleId,
                     "" + mList[position].article.type, mList[position].article.contentType)

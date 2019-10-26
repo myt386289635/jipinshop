@@ -29,7 +29,7 @@
             android:layout_marginRight="@dimen/x16"
             android:textSize="16sp"
             android:lineSpacingExtra="@dimen/y7"
-            android:textColor="@color/color_202020"
+            android:textColor="@{data.articleReadData.clickCount == 0 ? @color/color_202020 : @color/color_ACACAC}"
             android:layout_alignTop="@id/item_image"
             android:layout_toRightOf="@id/item_image"
             android:text="@{data.title}"
