@@ -138,7 +138,7 @@ public class ClassifyAdapter extends RecyclerView.Adapter {
             case ONE:
                 OneViewHolder oneViewHolder = (OneViewHolder) viewHolder;
                 int onePosition = position;
-                if (onePosition == 0){
+                if (onePosition == 0 && !TextUtils.isEmpty(originContent)){
                     oneViewHolder.goodsBinding.itemNoticeContainer.setVisibility(View.VISIBLE);
                     if (TextUtils.isEmpty(originTitle)){
                         oneViewHolder.goodsBinding.itemNoticeTitle.setVisibility(View.GONE);
