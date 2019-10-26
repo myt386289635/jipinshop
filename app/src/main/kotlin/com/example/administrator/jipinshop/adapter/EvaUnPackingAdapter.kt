@@ -62,7 +62,7 @@ class EvaUnPackingAdapter : RecyclerView.Adapter<EvaUnPackingAdapter.ViewHolder>
                 }
             }
             mBinding.itemUserImg.setOnClickListener {
-                mOnClickItem.onClickUserinfo(mList[pos].userId)
+                mOnClickItem.onClickUserinfo(mList[pos].user.userId)
             }
             mBinding.executePendingBindings()
         }

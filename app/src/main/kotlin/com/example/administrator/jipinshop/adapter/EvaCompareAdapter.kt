@@ -56,7 +56,7 @@ class EvaCompareAdapter :RecyclerView.Adapter<EvaCompareAdapter.ViewHolder>{
                 }
             }
             mBinding.itemUserImg.setOnClickListener {
-                mOnClickItem.onClickUserinfo(mList[pos].userId)
+                mOnClickItem.onClickUserinfo(mList[pos].user.userId)
             }
             mBinding.executePendingBindings()
         }
