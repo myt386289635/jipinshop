@@ -149,6 +149,7 @@
                     android:textColor="@color/color_9D9D9D"/>
 
                 <TextView
+                    android:layout_marginTop="@dimen/y10"
                     android:layout_marginRight="@dimen/x10"
                     android:id="@+id/detail_coupon"
                     android:gravity="center"
@@ -161,6 +162,7 @@
                     android:layout_height="@dimen/y35"/>
 
                 <TextView
+                    android:layout_marginTop="@dimen/y10"
                     android:id="@+id/detail_fee"
                     android:paddingRight="@dimen/x16"
                     android:paddingLeft="@dimen/x16"
