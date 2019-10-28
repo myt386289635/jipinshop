@@ -488,7 +488,7 @@ public class ArticleDetailActivity extends BaseActivity implements View.OnClickL
             }
             mBinding.detailActualPrice.setText("¥" +bean.getData().getRelatedGoodsList().get(0).getBuyPrice());
             mBinding.detailBottom2.setVisibility(View.VISIBLE);
-            mBinding.detailBottom.setVisibility(View.GONE);
+            mBinding.detailBottom.setVisibility(View.INVISIBLE);
         }
         mBinding.detailTitle.setText(bean.getData().getTitle());
         mBinding.detailWeb.loadDataWithBaseURL(null, bean.getData().getContent(),

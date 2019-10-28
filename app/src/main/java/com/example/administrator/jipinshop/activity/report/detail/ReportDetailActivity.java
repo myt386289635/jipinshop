@@ -756,7 +756,7 @@ public class ReportDetailActivity extends BaseActivity implements View.OnClickLi
             }
             mBinding.detailActualPrice.setText("¥" +bean.getData().getRelatedGoodsList().get(0).getBuyPrice());
             mBinding.detailBottom2.setVisibility(View.VISIBLE);
-            mBinding.detailBottom.setVisibility(View.GONE);
+            mBinding.detailBottom.setVisibility(View.INVISIBLE);
         }
         mBinding.detailTitle.setText(bean.getData().getTitle());
         mList.clear();
