@@ -33,9 +33,31 @@
     <!--新手引导页面-->
     <RelativeLayout
         android:id="@+id/guild_background"
-        android:background="@mipmap/guide_bg1"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
+
+        <LinearLayout
+            android:id="@+id/guild_background2"
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <View
+                android:layout_width="match_parent"
+                android:background="#CC000000"
+                android:layout_height="@dimen/y507"/>
+
+            <ImageView
+                android:background="@mipmap/guide_bg1"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"/>
+
+            <View
+                android:background="#CC000000"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"/>
+
+        </LinearLayout>
 
         <ImageView
             android:src="@mipmap/guide_break"
@@ -47,18 +69,17 @@
             android:layout_height="wrap_content"/>
 
         <ImageView
+            android:layout_marginTop="@dimen/y740"
             android:id="@+id/guide_content1"
-            android:layout_marginBottom="@dimen/y377"
-            android:layout_alignParentBottom="true"
             android:layout_centerHorizontal="true"
             android:src="@mipmap/guide_content1"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"/>
 
         <ImageView
+            android:layout_marginTop="@dimen/y89"
             android:id="@+id/guide_next1"
-            android:layout_marginBottom="@dimen/y154"
-            android:layout_alignParentBottom="true"
+            android:layout_below="@id/guide_content1"
             android:layout_centerHorizontal="true"
             android:src="@mipmap/guide_next1"
             android:layout_width="wrap_content"

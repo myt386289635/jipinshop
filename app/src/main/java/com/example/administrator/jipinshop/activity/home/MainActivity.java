@@ -11,6 +11,7 @@ import android.support.v4.view.ViewPager;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 
 import com.blankj.utilcode.util.SPUtils;
@@ -85,6 +86,8 @@ public class MainActivity extends RxAppCompatActivity implements MainView, ViewP
     ImageView mGuideNext3;
     @BindView(R.id.guild_background)
     RelativeLayout mGuildBackground;
+    @BindView(R.id.guild_background2)
+    LinearLayout mGuildBackground2;
 
     private List<Fragment> mFragments;
     private HomeAdapter mHomeAdapter;
@@ -166,7 +169,7 @@ public class MainActivity extends RxAppCompatActivity implements MainView, ViewP
         if (SPUtils.getInstance().getBoolean(CommonDate.FIRST, true)) {
             //新人第一次进入app
             mGuildBackground.setVisibility(View.VISIBLE);
-        }else {
+        } else {
             //老人进入app
             mGuildBackground.setVisibility(View.GONE);
             mPresenter.getAppVersion(this.bindToLifecycle()); //版本更新
@@ -226,7 +229,7 @@ public class MainActivity extends RxAppCompatActivity implements MainView, ViewP
                                     //活动弹窗
                                     mPresenter.getPopInfo(MainActivity.this.bindToLifecycle());
                                 });
-                            }else {
+                            } else {
                                 //老人进入app
                                 mPresenter.getPopInfo(this.bindToLifecycle()); //活动弹窗
                             }
@@ -241,21 +244,21 @@ public class MainActivity extends RxAppCompatActivity implements MainView, ViewP
                                     //活动弹窗
                                     mPresenter.getPopInfo(MainActivity.this.bindToLifecycle());
                                 });
-                            }else {
+                            } else {
                                 //老人进入app
                                 mPresenter.getPopInfo(this.bindToLifecycle()); //活动弹窗
                             }
                         });//第一版
             }
 
-        }else {
+        } else {
             if (SPUtils.getInstance().getBoolean(CommonDate.FIRST, true)) {
                 //新人第一次进入app
                 NotificationUtil.OpenNotificationSetting(this, () -> {
                     //活动弹窗
                     mPresenter.getPopInfo(MainActivity.this.bindToLifecycle());
                 });
-            }else {
+            } else {
                 //老人进入app
                 mPresenter.getPopInfo(this.bindToLifecycle()); //活动弹窗
             }
@@ -270,7 +273,7 @@ public class MainActivity extends RxAppCompatActivity implements MainView, ViewP
                 //活动弹窗
                 mPresenter.getPopInfo(MainActivity.this.bindToLifecycle());
             });
-        }else {
+        } else {
             //老人进入app
             mPresenter.getPopInfo(this.bindToLifecycle()); //活动弹窗
         }
@@ -355,7 +358,7 @@ public class MainActivity extends RxAppCompatActivity implements MainView, ViewP
         MobLink.updateNewIntent(getIntent(), this);
     }
 
-    @OnClick({R.id.guide_break, R.id.guide_next1, R.id.guide_next2, R.id.guide_next3,R.id.guild_background})
+    @OnClick({R.id.guide_break, R.id.guide_next1, R.id.guide_next2, R.id.guide_next3, R.id.guild_background})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.guild_background:
@@ -365,6 +368,7 @@ public class MainActivity extends RxAppCompatActivity implements MainView, ViewP
                 mPresenter.getAppVersion(this.bindToLifecycle()); //版本更新
                 break;
             case R.id.guide_next1:
+                mGuildBackground2.setVisibility(View.GONE);
                 mGuildBackground.setBackgroundResource(R.mipmap.guide_bg2);
                 mGuideContent1.setVisibility(View.GONE);
                 mGuideNext1.setVisibility(View.GONE);
