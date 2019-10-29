@@ -12,7 +12,7 @@
         android:layout_above="@id/tab_layout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"/>
-    
+
     <android.support.design.widget.TabLayout
         app:tabGravity="fill"
         app:tabMode="fixed"
@@ -23,7 +23,7 @@
         android:layout_alignParentBottom="true"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"/>
-    
+
     <View
         android:layout_above="@id/tab_layout"
         android:background="@color/color_F5F5F5"
