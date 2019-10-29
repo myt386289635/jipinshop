@@ -369,7 +369,7 @@ public class ArticleDetailPresenter {
                 .observeOn(AndroidSchedulers.mainThread())
                 .compose(transformer)
                 .subscribe(taskFinishBean -> {
-                    if(taskFinishBean.getCode() == 0){
+                    if(taskFinishBean.getCode() == 0 && !taskFinishBean.getMsg().equals("success")){
                         ToastUtil.show(taskFinishBean.getMsg());
                     }
                 }, throwable ->{
