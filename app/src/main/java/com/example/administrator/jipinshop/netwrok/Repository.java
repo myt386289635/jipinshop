@@ -1,5 +1,6 @@
 package com.example.administrator.jipinshop.netwrok;
 
+import com.example.administrator.jipinshop.bean.Action11Bean;
 import com.example.administrator.jipinshop.bean.AddressBean;
 import com.example.administrator.jipinshop.bean.AppVersionbean;
 import com.example.administrator.jipinshop.bean.BudgetDetailBean;
@@ -987,4 +988,26 @@ public class Repository {
     public Observable<ScoreStatusBean> getScoreStatus(){
         return mAPIService.getScoreStatus();
     }
+
+    /**
+     * 是否开启双11活动
+     */
+    public Observable<ScoreStatusBean> open11(){
+        return mAPIService.open11();
+    }
+
+    /**
+     * 双11活动首页
+     */
+    public Observable<Action11Bean> activity11Index(){
+        return mAPIService.activity11Index();
+    }
+
+    /**
+     * 双11活动首页商品列表
+     */
+    public Observable<SucBean<Action11Bean.DataBean.GoodsDataListBean>> activity11GoodsList(int page){
+        return mAPIService.activity11GoodsList(page);
+    }
+
 }

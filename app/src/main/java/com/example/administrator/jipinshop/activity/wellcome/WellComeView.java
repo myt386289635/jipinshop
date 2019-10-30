@@ -1,6 +1,6 @@
 package com.example.administrator.jipinshop.activity.wellcome;
 
-import com.example.administrator.jipinshop.bean.StartPageBean;
+import com.example.administrator.jipinshop.bean.ScoreStatusBean;
 
 /**
  * @author 莫小婷
@@ -9,6 +9,6 @@ import com.example.administrator.jipinshop.bean.StartPageBean;
  */
 public interface WellComeView {
 
-    void onSuccess(StartPageBean startPageBean);
-
+    void onSuccess(ScoreStatusBean bean);
+    void onFile();
 }

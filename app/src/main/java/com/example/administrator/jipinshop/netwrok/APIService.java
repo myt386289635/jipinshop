@@ -1,5 +1,6 @@
 package com.example.administrator.jipinshop.netwrok;
 
+import com.example.administrator.jipinshop.bean.Action11Bean;
 import com.example.administrator.jipinshop.bean.AddressBean;
 import com.example.administrator.jipinshop.bean.AppVersionbean;
 import com.example.administrator.jipinshop.bean.BudgetDetailBean;
@@ -902,4 +903,22 @@ public interface APIService {
      */
     @GET("qualityshop-api/api/v2/getScoreStatus")
     Observable<ScoreStatusBean> getScoreStatus();
+
+    /**
+     * 是否开启双11活动
+     */
+    @GET("qualityshop-api/api/v2/open11")
+    Observable<ScoreStatusBean> open11();
+
+    /**
+     * 双11活动首页
+     */
+    @GET("qualityshop-api/api/v2/activity11/index")
+    Observable<Action11Bean> activity11Index();
+
+    /**
+     * 双11活动首页商品列表
+     */
+    @GET("qualityshop-api/api/v2/activity11/goodsList")
+    Observable<SucBean<Action11Bean.DataBean.GoodsDataListBean>> activity11GoodsList(@Query("page") int page);
 }

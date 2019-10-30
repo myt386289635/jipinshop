@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <RelativeLayout
+        android:background="@color/color_E74434"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <android.support.v4.view.ViewPager
+            android:id="@+id/view_pager"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/y400"/>
+
+        <LinearLayout
+            android:visibility="gone"
+            android:layout_alignBottom="@id/view_pager"
+            android:id="@+id/detail_point"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="18dp"
+            android:gravity="center"
+            android:orientation="horizontal"/>
+
+        <LinearLayout
+            android:layout_marginTop="@dimen/y16"
+            android:layout_below="@id/view_pager"
+            android:layout_marginRight="@dimen/x20"
+            android:layout_marginLeft="@dimen/x20"
+            android:background="@drawable/bg_f9e0cd"
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/y56">
+
+            <TextView
+                android:layout_marginLeft="@dimen/x38"
+                android:drawableTint="@color/color_E74434"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:drawableLeft="@drawable/bg_yuan2"
+                android:drawablePadding="@dimen/x12"
+                android:text="双11极品补贴重量升级"
+                android:textColor="@color/color_E74434"
+                android:textSize="12sp"/>
+
+            <TextView
+                android:layout_marginLeft="@dimen/x73"
+                android:drawableTint="@color/color_E74434"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:drawableLeft="@drawable/bg_yuan2"
+                android:drawablePadding="@dimen/x12"
+                android:text="官方授权"
+                android:textColor="@color/color_E74434"
+                android:textSize="12sp"/>
+
+            <TextView
+                android:layout_marginLeft="@dimen/x73"
+                android:drawableTint="@color/color_E74434"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:drawableLeft="@drawable/bg_yuan2"
+                android:drawablePadding="@dimen/x12"
+                android:text="精选好物"
+                android:textColor="@color/color_E74434"
+                android:textSize="12sp"/>
+
+        </LinearLayout>
+
+    </RelativeLayout>
+
+</layout>

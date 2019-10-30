@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
+
+    
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <com.example.administrator.jipinshop.view.gridview.MyGridView
+            android:background="@color/color_E74434"
+            android:layout_width="match_parent"
+            android:id="@+id/item_gridView"
+            android:layout_height="wrap_content"
+            android:numColumns="4"/>
+        
+        <View
+            android:background="@color/color_E74434"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/y50"/>
+        
+    </LinearLayout>
+  
+
+</layout>

@@ -8,13 +8,11 @@ import android.support.annotation.Nullable;
 import android.view.KeyEvent;
 import android.widget.ImageView;
 
-import com.blankj.utilcode.util.SPUtils;
 import com.example.administrator.jipinshop.R;
 import com.example.administrator.jipinshop.activity.home.MainActivity;
 import com.example.administrator.jipinshop.base.BaseActivity;
-import com.example.administrator.jipinshop.bean.StartPageBean;
+import com.example.administrator.jipinshop.bean.ScoreStatusBean;
 import com.example.administrator.jipinshop.util.permission.HasPermissionsUtil;
-import com.example.administrator.jipinshop.util.sp.CommonDate;
 
 import javax.inject.Inject;
 
@@ -28,6 +26,7 @@ public class WellComeActivity extends BaseActivity implements WellComeView {
     private ImageView mImageView;
     @Inject
     WellComePresenter mPresenter;
+    private int activityInfo = 0;//双十一活动开关  0 是关闭  1是开启   默认关闭
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -39,18 +38,9 @@ public class WellComeActivity extends BaseActivity implements WellComeView {
                 .init();
         mBaseActivityComponent.inject(this);
         mPresenter.setView(this);
-//        mPresenter.getStartupImgs(this.bindToLifecycle());
         mImageView = findViewById(R.id.well_image);
-//        if (TextUtils.isEmpty(SPUtils.getInstance().getString(CommonDate.startPage,""))){
-            mImageView.setImageResource(R.mipmap.start_page);
-//        }else {
-//            GlideApp.loderImage(this,SPUtils.getInstance().getString(CommonDate.startPage),mImageView,0,0);
-//        }
-//        permission();
-
-        if (timer != null) {
-            timer.start();
-        }
+        mImageView.setImageResource(R.mipmap.start_page);
+        mPresenter.open11(this.bindToLifecycle());
     }
 
 
@@ -67,7 +57,9 @@ public class WellComeActivity extends BaseActivity implements WellComeView {
 //                startActivity(new Intent(WellComeActivity.this, IndexActivity.class));
 //                finish();
 //            }else {
-                startActivity(new Intent(WellComeActivity.this, MainActivity.class));
+                startActivity(new Intent(WellComeActivity.this, MainActivity.class)
+                        .putExtra("activityInfo",activityInfo)
+                );
                 finish();
 //            }
         }
@@ -127,7 +119,18 @@ public class WellComeActivity extends BaseActivity implements WellComeView {
     }
 
     @Override
-    public void onSuccess(StartPageBean startPageBean) {
-//        SPUtils.getInstance().put(CommonDate.startPage,startPageBean.get);
+    public void onSuccess(ScoreStatusBean bean) {
+        activityInfo = bean.getData();
+        if (timer != null) {
+            timer.start();
+        }
+    }
+
+    @Override
+    public void onFile() {
+        activityInfo = 0;
+        if (timer != null) {
+            timer.start();
+        }
     }
 }

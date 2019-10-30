@@ -26,6 +26,7 @@ import com.example.administrator.jipinshop.bean.AppVersionbean;
 import com.example.administrator.jipinshop.bean.PopInfoBean;
 import com.example.administrator.jipinshop.bean.eventbus.ChangeHomePageBus;
 import com.example.administrator.jipinshop.bean.eventbus.HomeNewPeopleBus;
+import com.example.administrator.jipinshop.fragment.activity11.Action11Fragment;
 import com.example.administrator.jipinshop.fragment.evaluationkt.EvaluationNewFragment;
 import com.example.administrator.jipinshop.fragment.home.HomeNewFragment;
 import com.example.administrator.jipinshop.fragment.mine.MineFragment;
@@ -91,18 +92,17 @@ public class MainActivity extends RxAppCompatActivity implements MainView, ViewP
 
     private List<Fragment> mFragments;
     private HomeAdapter mHomeAdapter;
-
     private HomeNewFragment mHomeFragment;
-    //    private FindFragment mFindFragment;
     private MineFragment mMineFragment;
     private EvaluationNewFragment mEvaluationFragment;
     private FreeFragment mTryFragment;
+    private Action11Fragment mAction11Fragment;
 
     private Unbinder mButterKnife;
     private ImmersionBar mImmersionBar;
-
     private long exitTime = 0;
     private static Activity sFirstInstance;
+    private int activityInfo = 0;//双十一活动开关  0 是关闭  1是开启   默认关闭
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -123,6 +123,7 @@ public class MainActivity extends RxAppCompatActivity implements MainView, ViewP
     }
 
     private void initView() {
+        activityInfo = getIntent().getIntExtra("activityInfo", 0);
         DaggerBaseActivityComponent.builder()
                 .applicationComponent(MyApplication.getInstance().getComponent())
                 .build().inject(this);
@@ -135,16 +136,28 @@ public class MainActivity extends RxAppCompatActivity implements MainView, ViewP
 
         mViewPager.setNoScroll(true);
         mFragments = new ArrayList<>();
-        mHomeFragment = new HomeNewFragment();
-//        mFindFragment = new FindFragment();
-        mEvaluationFragment = new EvaluationNewFragment();
-        mTryFragment = new FreeFragment();
-        mMineFragment = new MineFragment();
-        mFragments.add(mHomeFragment);
-//        mFragments.add(mFindFragment);
-        mFragments.add(mEvaluationFragment);
-        mFragments.add(mTryFragment);
-        mFragments.add(mMineFragment);
+
+        if (activityInfo == 0) {//平常
+            mHomeFragment = new HomeNewFragment();
+            mEvaluationFragment = new EvaluationNewFragment();
+            mTryFragment = new FreeFragment();
+            mMineFragment = new MineFragment();
+            mFragments.add(mHomeFragment);
+            mFragments.add(mEvaluationFragment);
+            mFragments.add(mTryFragment);
+            mFragments.add(mMineFragment);
+        } else {//双十一活动开启
+            mHomeFragment = new HomeNewFragment();
+            mEvaluationFragment = new EvaluationNewFragment();
+            mAction11Fragment = new Action11Fragment();
+            mTryFragment = new FreeFragment();
+            mMineFragment = new MineFragment();
+            mFragments.add(mHomeFragment);
+            mFragments.add(mEvaluationFragment);
+            mFragments.add(mAction11Fragment);
+            mFragments.add(mTryFragment);
+            mFragments.add(mMineFragment);
+        }
 
         mHomeAdapter = new HomeAdapter(getSupportFragmentManager());
         mHomeAdapter.setFragments(mFragments);
@@ -152,8 +165,7 @@ public class MainActivity extends RxAppCompatActivity implements MainView, ViewP
         mViewPager.setOffscreenPageLimit(mFragments.size() - 1);
         mTabLayout.setupWithViewPager(mViewPager);
         mViewPager.addOnPageChangeListener(this);
-
-        mPresenter.initTabLayout(this, mTabLayout);
+        mPresenter.initTabLayout(this, mTabLayout,activityInfo);
         UAppUtil.tab(this, 0);//统计榜单
         View tabView = (View) mTabLayout.getTabAt(mFragments.size() - 1).getCustomView().getParent();
         tabView.setOnClickListener(v -> {

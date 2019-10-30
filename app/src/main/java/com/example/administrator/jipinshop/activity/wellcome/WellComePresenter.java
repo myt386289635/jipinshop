@@ -1,7 +1,6 @@
 package com.example.administrator.jipinshop.activity.wellcome;
 
-import com.example.administrator.jipinshop.bean.StartPageBean;
-import com.example.administrator.jipinshop.bean.SuccessBean;
+import com.example.administrator.jipinshop.bean.ScoreStatusBean;
 import com.example.administrator.jipinshop.netwrok.Repository;
 import com.trello.rxlifecycle2.LifecycleTransformer;
 
@@ -29,8 +28,8 @@ public class WellComePresenter {
         mRepository = repository;
     }
 
-    public void getStartupImgs(LifecycleTransformer<StartPageBean> transformer){
-        mRepository.getStartupImgs()
+    public void open11(LifecycleTransformer<ScoreStatusBean> transformer){
+        mRepository.open11()
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .compose(transformer)
@@ -39,9 +38,15 @@ public class WellComePresenter {
                         if (mView != null){
                             mView.onSuccess(startPageBean);
                         }
+                    }else {
+                        if (mView != null){
+                            mView.onFile();
+                        }
                     }
                 }, throwable -> {
-
+                    if (mView != null){
+                        mView.onFile();
+                    }
                 });
     }
 }

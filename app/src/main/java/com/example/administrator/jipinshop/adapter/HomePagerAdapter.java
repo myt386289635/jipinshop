@@ -1,7 +1,6 @@
 package com.example.administrator.jipinshop.adapter;
 
 import android.content.Context;
-import android.support.annotation.NonNull;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.view.LayoutInflater;
@@ -27,6 +26,11 @@ public class HomePagerAdapter extends PagerAdapter implements ViewPager.OnPageCh
     private List<ImageView> point;
     private ViewPager mViewPager;
     private Boolean imgCenter = true;
+    private OnClickItem mOnClickItem;
+
+    public void setOnClickItem(OnClickItem onClickItem) {
+        mOnClickItem = onClickItem;
+    }
 
     public void setImgCenter(Boolean imgCenter) {
         this.imgCenter = imgCenter;
@@ -71,6 +75,11 @@ public class HomePagerAdapter extends PagerAdapter implements ViewPager.OnPageCh
             imageView.setScaleType(ImageView.ScaleType.CENTER_CROP);
         }
         Glide.with(mContext).load(mAdListBeans.get(position % mAdListBeans.size()).getImg()).into(imageView);
+        imageView.setOnClickListener(v -> {
+            if (mOnClickItem != null){
+                mOnClickItem.onClickItem(position % mAdListBeans.size());
+            }
+        });
         container.addView(view);
         mViewPager.addOnPageChangeListener(this);
         return view;
@@ -102,5 +111,9 @@ public class HomePagerAdapter extends PagerAdapter implements ViewPager.OnPageCh
     @Override
     public void onPageScrollStateChanged(int state) {
 
+    }
+
+    interface OnClickItem{
+        void onClickItem(int postion);
     }
 }

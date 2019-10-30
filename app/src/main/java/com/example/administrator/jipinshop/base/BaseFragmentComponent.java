@@ -1,6 +1,7 @@
 package com.example.administrator.jipinshop.base;
 
 import com.example.administrator.jipinshop.auto.FragmentScope;
+import com.example.administrator.jipinshop.fragment.activity11.Action11Fragment;
 import com.example.administrator.jipinshop.fragment.balance.budget.BudgetDetailFragment;
 import com.example.administrator.jipinshop.fragment.balance.withdraw.WithdrawDetailFragment;
 import com.example.administrator.jipinshop.fragment.evaluation.EvaluationFragment;
@@ -92,4 +93,5 @@ public interface BaseFragmentComponent {
     void inject(KTMyOrderFragment fragment);
     void inject(EvaUnPackingFragment fragment);
     void inject(EvaCompareFragment fragment);
+    void inject(Action11Fragment fragment);
 }

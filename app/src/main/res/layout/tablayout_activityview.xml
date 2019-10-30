@@ -1,23 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
               android:orientation="vertical"
+              android:gravity="center"
               android:layout_width="match_parent"
               android:layout_height="match_parent"
               android:background="@android:color/transparent">
 
     <ImageView
-        android:layout_gravity="center_horizontal"
-        android:layout_width="@dimen/x40"
-        android:layout_height="@dimen/y40"
-        android:scaleType="fitXY"
-        android:background="@drawable/tablayout_item2"/>
-
-    <TextView
+        android:id="@+id/tab_activity"
         android:layout_gravity="center_horizontal"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="发现"
-        android:layout_marginTop="@dimen/y2"
-        android:textSize="11sp"
-        android:textColor="@drawable/item_color"/>
+        android:src="@mipmap/tab_activity"/>
+
 </LinearLayout>
