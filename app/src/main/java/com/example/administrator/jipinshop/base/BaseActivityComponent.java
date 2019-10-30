@@ -2,6 +2,7 @@ package com.example.administrator.jipinshop.base;
 
 import com.example.administrator.jipinshop.activity.KTArticleMoreActivity;
 import com.example.administrator.jipinshop.activity.WebActivity;
+import com.example.administrator.jipinshop.activity.activity11.Action11Activity;
 import com.example.administrator.jipinshop.activity.address.MyAddressActivity;
 import com.example.administrator.jipinshop.activity.address.add.CreateAddressActivity;
 import com.example.administrator.jipinshop.activity.balance.MyWalletActivity;
@@ -130,4 +131,5 @@ public interface BaseActivityComponent {
     void inject(EditSignActivity activity);
     void inject(AuditDetailActivity activity);
     void inject(TaoBaoWebActivity activity);
+    void inject(Action11Activity activity);
 }

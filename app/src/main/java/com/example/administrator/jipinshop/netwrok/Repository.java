@@ -1,6 +1,7 @@
 package com.example.administrator.jipinshop.netwrok;
 
 import com.example.administrator.jipinshop.bean.Action11Bean;
+import com.example.administrator.jipinshop.bean.Activity11Bean;
 import com.example.administrator.jipinshop.bean.AddressBean;
 import com.example.administrator.jipinshop.bean.AppVersionbean;
 import com.example.administrator.jipinshop.bean.BudgetDetailBean;
@@ -1010,4 +1011,10 @@ public class Repository {
         return mAPIService.activity11GoodsList(page);
     }
 
+    /**
+     * 双11活动专题商品列表
+     */
+    public Observable<Activity11Bean> activity11Category(String articleCategoryId,int page){
+        return mAPIService.activity11Category(articleCategoryId, page);
+    }
 }

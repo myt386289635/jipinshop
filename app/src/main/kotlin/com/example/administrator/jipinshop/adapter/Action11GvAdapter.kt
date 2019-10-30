@@ -1,6 +1,7 @@
 package com.example.administrator.jipinshop.adapter
 
 import android.content.Context
+import android.content.Intent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -8,8 +9,8 @@ import android.widget.BaseAdapter
 import android.widget.ImageView
 import android.widget.TextView
 import com.example.administrator.jipinshop.R
+import com.example.administrator.jipinshop.activity.activity11.Action11Activity
 import com.example.administrator.jipinshop.bean.Action11Bean
-import com.example.administrator.jipinshop.util.ToastUtil
 import com.example.administrator.jipinshop.view.glide.GlideApp
 
 /**
@@ -41,7 +42,10 @@ class Action11GvAdapter : BaseAdapter{
             item_text.text = mGvListBeans[position].categoryName
             GlideApp.loderCircleImage(mContext,mGvListBeans[position].iconImg,item_image,0,0)
             view!!.setOnClickListener {
-                ToastUtil.show("点击了$position")
+                mContext.startActivity(Intent(mContext, Action11Activity::class.java)
+                        .putExtra("title",mGvListBeans[position].categoryName)
+                        .putExtra("categoryId",mGvListBeans[position].categoryId)
+                )
             }
         }
         return view!!

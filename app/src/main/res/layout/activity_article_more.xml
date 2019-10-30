@@ -10,7 +10,7 @@
 
     </data>
 
-    <LinearLayout
+    <RelativeLayout
         android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
@@ -20,7 +20,19 @@
             bind:listener="@{listener}"
             android:id="@+id/in_clude"/>
 
+        <ImageView
+            android:visibility="gone"
+            android:layout_alignParentRight="true"
+            android:paddingLeft="@dimen/x25"
+            android:paddingRight="@dimen/x25"
+            android:id="@+id/detail_share"
+            android:onClick="@{listener.onClick}"
+            android:src="@mipmap/qus_forward"
+            android:layout_width="wrap_content"
+            android:layout_height="@dimen/y88"/>
+
         <com.aspsine.swipetoloadlayout.SwipeToLoadLayout
+            android:layout_below="@id/in_clude"
             android:id="@+id/swipeToLoad"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
@@ -62,6 +74,6 @@
 
         </com.aspsine.swipetoloadlayout.SwipeToLoadLayout>
 
-    </LinearLayout>
+    </RelativeLayout>
 
 </layout>

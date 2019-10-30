@@ -60,7 +60,7 @@ public class MainActivityPresenter {
             tabLayout.post(() -> {
                 //拿到tabLayout的mTabStrip属性
                 LinearLayout mTabStrip = (LinearLayout) tabLayout.getChildAt(0);
-                int w = (int) context.getResources().getDimension(R.dimen.x20);
+                int w = (int) context.getResources().getDimension(R.dimen.x70);
                 Integer[] textLether = {tab_item1.getWidth() + w,tab_item3.getWidth()+ w,tab_activity.getWidth(),tab_item4.getWidth()+ w,tab_item5.getWidth()+ w};
                 int totle = textLether[0] + textLether[1] + textLether[2] + textLether[3] + textLether[4];
                 int dp10 = (tabLayout.getWidth() - totle) / textLether.length;

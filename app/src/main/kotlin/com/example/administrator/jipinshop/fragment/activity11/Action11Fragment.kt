@@ -14,6 +14,7 @@ import com.aspsine.swipetoloadlayout.OnLoadMoreListener
 import com.aspsine.swipetoloadlayout.OnRefreshListener
 import com.blankj.utilcode.util.SPUtils
 import com.example.administrator.jipinshop.R
+import com.example.administrator.jipinshop.activity.activity11.Action11Activity
 import com.example.administrator.jipinshop.activity.login.LoginActivity
 import com.example.administrator.jipinshop.activity.web.TaoBaoWebActivity
 import com.example.administrator.jipinshop.adapter.Action11Adapter
@@ -204,7 +205,7 @@ class Action11Fragment : DBBaseFragment(), OnRefreshListener, OnLoadMoreListener
     }
 
     /**
-     * 购买详情
+     * 购买
      */
     override fun onClickBuy(pos: Int) {
         if (TextUtils.isEmpty(SPUtils.getInstance(CommonDate.USER).getString(CommonDate.token, ""))) {
@@ -230,7 +231,10 @@ class Action11Fragment : DBBaseFragment(), OnRefreshListener, OnLoadMoreListener
      * 跳转详情
      */
     override fun onClickDetail(pos: Int) {
-
+        startActivity(Intent(context, Action11Activity::class.java)
+                .putExtra("title",mList[pos].ad.name)
+                .putExtra("categoryId",mList[pos].ad.objectId)
+        )
     }
 
     override fun onBuyLinkSuccess(bean: ImageBean) {
