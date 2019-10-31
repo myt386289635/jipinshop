@@ -2,13 +2,23 @@ package com.example.administrator.jipinshop.activity.home;
 
 import android.content.Context;
 import android.content.res.ColorStateList;
+import android.support.annotation.Nullable;
 import android.support.design.widget.TabLayout;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.DataSource;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
+import com.bumptech.glide.load.engine.GlideException;
+import com.bumptech.glide.load.resource.gif.GifDrawable;
+import com.bumptech.glide.request.RequestListener;
+import com.bumptech.glide.request.RequestOptions;
+import com.bumptech.glide.request.target.Target;
 import com.example.administrator.jipinshop.R;
 import com.example.administrator.jipinshop.bean.AppVersionbean;
 import com.example.administrator.jipinshop.bean.PopInfoBean;
@@ -57,6 +67,13 @@ public class MainActivityPresenter {
             TextView tab_item4 = view4.findViewById(R.id.tab_item4);
             TextView tab_item5 = view5.findViewById(R.id.tab_item5);
             ImageView tab_activity = viewAticity.findViewById(R.id.tab_activity);
+            RequestOptions options = new RequestOptions()
+                    .diskCacheStrategy(DiskCacheStrategy.RESOURCE);
+            Glide.with(context)
+                    .asGif()
+                    .load(R.drawable.tab_activity)
+                    .apply(options)
+                    .into(tab_activity);
             tabLayout.post(() -> {
                 //拿到tabLayout的mTabStrip属性
                 LinearLayout mTabStrip = (LinearLayout) tabLayout.getChildAt(0);
