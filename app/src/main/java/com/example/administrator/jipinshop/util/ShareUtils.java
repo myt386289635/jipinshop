@@ -33,6 +33,12 @@ public class ShareUtils {
         mDialog = (new ProgressDialogView()).createLoadingDialog(mContext, "");
     }
 
+    public ShareUtils(Context context,SHARE_MEDIA SHARE_media,Dialog dialog) {
+        mContext = context;
+        mSHARE_media = SHARE_media;
+        mDialog = dialog;
+    }
+
     /**
      * 分享链接
      */

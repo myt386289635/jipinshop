@@ -19,6 +19,7 @@ import com.example.administrator.jipinshop.base.BaseActivity
 import com.example.administrator.jipinshop.bean.Activity11Bean
 import com.example.administrator.jipinshop.bean.ImageBean
 import com.example.administrator.jipinshop.databinding.ActivityArticleMoreBinding
+import com.example.administrator.jipinshop.netwrok.RetrofitModule
 import com.example.administrator.jipinshop.util.ShareUtils
 import com.example.administrator.jipinshop.util.TaoBaoUtil
 import com.example.administrator.jipinshop.util.ToastUtil
@@ -98,8 +99,9 @@ class Action11Activity : BaseActivity(), View.OnClickListener, OnRefreshListener
         var shareTitle = "分享的标题"
         var shareContent = "分享的内容"
         var shareImg = ""
-        var shareUrl = "https://www.baidu.com"
-        ShareUtils(this, share_media)
+        var shareUrl = RetrofitModule.H5_URL + "share/category11.html?id=" + categoryId
+        mDialog = ProgressDialogView().createLoadingDialog(this, "")
+        ShareUtils(this, share_media,mDialog)
                 .shareWeb(this, shareUrl, shareTitle, shareContent, shareImg, R.mipmap.share_logo)
     }
 

@@ -20,11 +20,14 @@ import com.example.administrator.jipinshop.base.DBBaseFragment;
 import com.example.administrator.jipinshop.bean.TabBean;
 import com.example.administrator.jipinshop.bean.TitleBean;
 import com.example.administrator.jipinshop.bean.TopCategorysListBean;
+import com.example.administrator.jipinshop.bean.eventbus.ChangeHomePageBus;
 import com.example.administrator.jipinshop.databinding.FragmentHome2Binding;
 import com.example.administrator.jipinshop.util.ToastUtil;
 import com.example.administrator.jipinshop.util.UmApp.UAppUtil;
 import com.example.administrator.jipinshop.util.sp.CommonDate;
 import com.google.gson.Gson;
+
+import org.greenrobot.eventbus.EventBus;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -50,6 +53,7 @@ public class HomeNewFragment extends DBBaseFragment implements HomeNewView, OnLo
     private Boolean once = true;
     private String image = "";
     private String id = "";
+    private int type = 0; //新品专区的type  8跳转到双十一活动首页，否则跳转到新品专区
 
     @Override
     public View initLayout(LayoutInflater inflater, ViewGroup container) {
@@ -127,6 +131,7 @@ public class HomeNewFragment extends DBBaseFragment implements HomeNewView, OnLo
                 mAdapter.setNewShopImage(bean.getAd().getImg());
                 image = bean.getAd().getImg();
                 id = bean.getAd().getObjectId();
+                type = bean.getAd().getType();
             }
             mList.addAll(bean.getData());
             mAdapter.notifyDataSetChanged();
@@ -183,10 +188,14 @@ public class HomeNewFragment extends DBBaseFragment implements HomeNewView, OnLo
      */
     @Override
     public void onClickNewShop() {
-        startActivity(new Intent(getContext(), NewAreaActivity.class)
-                .putExtra("image",image)
-                .putExtra("id",id)
-        );
+        if (type == 8){//跳转到双十一活动首页
+            EventBus.getDefault().post(new ChangeHomePageBus(2));
+        }else {//跳转到新品专区
+            startActivity(new Intent(getContext(), NewAreaActivity.class)
+                    .putExtra("image",image)
+                    .putExtra("id",id)
+            );
+        }
     }
 
     /**
