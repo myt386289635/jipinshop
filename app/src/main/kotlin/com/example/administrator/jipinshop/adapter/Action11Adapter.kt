@@ -1,6 +1,7 @@
 package com.example.administrator.jipinshop.adapter
 
 import android.content.Context
+import android.content.Intent
 import android.databinding.DataBindingUtil
 import android.os.Handler
 import android.os.Looper
@@ -11,6 +12,7 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.LinearLayout
 import com.example.administrator.jipinshop.R
+import com.example.administrator.jipinshop.activity.activity11.Action11Activity
 import com.example.administrator.jipinshop.bean.Action11Bean
 import com.example.administrator.jipinshop.bean.EvaluationTabBean
 import com.example.administrator.jipinshop.databinding.ItemActionForeBinding
@@ -108,8 +110,13 @@ class Action11Adapter : RecyclerView.Adapter<RecyclerView.ViewHolder>{
                 oneViewHolder.run {
                     if (isFlag) {
                         mPagerAdapter.setOnClickItem {
-                            if (mAdListBeans[it].type == 2 || mAdListBeans[it].type == 9){//跳转到文章web
+                            if (mAdListBeans[it].type == 2){//跳转到文章web
                                 ShopJumpUtil.jumpArticle(mContext,mAdListBeans[it].objectId,"" + mAdListBeans[it].type,1)//固定
+                            }else if (mAdListBeans[it].type == 10){ //专题页
+                                mContext.startActivity(Intent(mContext, Action11Activity::class.java)
+                                        .putExtra("title",mAdListBeans[it].name)
+                                        .putExtra("categoryId",mAdListBeans[it].objectId)
+                                )
                             }
                         }
                         initBanner()

@@ -108,6 +108,15 @@ public class EvaluationTabBean {
             private String img;
             private int type;
             private String objectId;
+            private String name;
+
+            public String getName() {
+                return name;
+            }
+
+            public void setName(String name) {
+                this.name = name;
+            }
 
             public String getImg() {
                 return img;

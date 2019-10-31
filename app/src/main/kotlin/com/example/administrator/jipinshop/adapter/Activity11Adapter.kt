@@ -1,12 +1,14 @@
 package com.example.administrator.jipinshop.adapter
 
 import android.content.Context
+import android.content.Intent
 import android.databinding.DataBindingUtil
 import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.example.administrator.jipinshop.R
+import com.example.administrator.jipinshop.activity.activity11.Action11Activity
 import com.example.administrator.jipinshop.bean.Activity11Bean
 import com.example.administrator.jipinshop.databinding.ItemActionOne1Binding
 import com.example.administrator.jipinshop.databinding.ItemActionTwo1Binding
@@ -80,8 +82,14 @@ class Activity11Adapter : RecyclerView.Adapter<RecyclerView.ViewHolder>{
                 oneViewHolder.run {
                     binding.date = mAd
                     binding.itemImage.setOnClickListener {
-                        if (mAd.type == 2 || mAd.type == 9){//跳转到文章web
+                        if (mAd.type == 2){//跳转到文章web
                             ShopJumpUtil.jumpArticle(mContext,mAd.objectId,"" + mAd.type,1)//固定
+                        }else if (mAd.type == 10){
+                            //专题页
+                            mContext.startActivity(Intent(mContext, Action11Activity::class.java)
+                                    .putExtra("title",mAd.name)
+                                    .putExtra("categoryId",mAd.objectId)
+                            )
                         }
                     }
                     binding.executePendingBindings()
