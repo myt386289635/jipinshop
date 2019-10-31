@@ -96,13 +96,12 @@ class Action11Activity : BaseActivity(), View.OnClickListener, OnRefreshListener
     }
 
     override fun share(share_media: SHARE_MEDIA?) {
-        var shareTitle = "分享的标题"
-        var shareContent = "分享的内容"
-        var shareImg = ""
+        var shareTitle = "双十一别傻了，"+ intent.getStringExtra("title") +"像我这样下单才最低价！"
+        var shareContent = "官方正品抄底价，加券！加现金！额外补贴现金转支付宝~"
         var shareUrl = RetrofitModule.H5_URL + "share/category11.html?id=" + categoryId
         mDialog = ProgressDialogView().createLoadingDialog(this, "")
         ShareUtils(this, share_media,mDialog)
-                .shareWeb(this, shareUrl, shareTitle, shareContent, shareImg, R.mipmap.share_logo)
+                .shareWeb(this, shareUrl, shareTitle, shareContent, "", R.mipmap.share_logo)
     }
 
     override fun onLoadMore() {

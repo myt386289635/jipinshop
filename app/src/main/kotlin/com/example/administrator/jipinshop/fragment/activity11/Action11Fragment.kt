@@ -103,13 +103,12 @@ class Action11Fragment : DBBaseFragment(), OnRefreshListener, OnLoadMoreListener
     }
 
     override fun share(share_media: SHARE_MEDIA?) {
-        var shareTitle = "分享的标题"
-        var shareContent = "分享的内容"
-        var shareImg = ""
+        var shareTitle = "这里全是钱啊，双十一我得了现金大额补贴~"
+        var shareContent = "比官方还低价，同商品，同店铺，这里竟然有这样的价格！"
         var shareUrl = RetrofitModule.H5_URL + "share/index11.html"
         mDialog = ProgressDialogView().createLoadingDialog(context, "")
         ShareUtils(context, share_media,mDialog)
-                .shareWeb(context as Activity?, shareUrl, shareTitle, shareContent, shareImg, R.mipmap.share_logo)
+                .shareWeb(context as Activity?, shareUrl, shareTitle, shareContent, "", R.mipmap.share_logo)
     }
 
 
