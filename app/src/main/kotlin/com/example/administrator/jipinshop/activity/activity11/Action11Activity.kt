@@ -101,7 +101,7 @@ class Action11Activity : BaseActivity(), View.OnClickListener, OnRefreshListener
         var shareUrl = RetrofitModule.H5_URL + "share/category11.html?id=" + categoryId
         mDialog = ProgressDialogView().createLoadingDialog(this, "")
         ShareUtils(this, share_media,mDialog)
-                .shareWeb(this, shareUrl, shareTitle, shareContent, "", R.mipmap.share_logo)
+                .shareWeb(this, shareUrl, shareTitle, shareContent, "", R.mipmap.share_logo11)
     }
 
     override fun onLoadMore() {

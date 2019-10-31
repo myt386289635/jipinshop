@@ -108,7 +108,7 @@ class Action11Fragment : DBBaseFragment(), OnRefreshListener, OnLoadMoreListener
         var shareUrl = RetrofitModule.H5_URL + "share/index11.html"
         mDialog = ProgressDialogView().createLoadingDialog(context, "")
         ShareUtils(context, share_media,mDialog)
-                .shareWeb(context as Activity?, shareUrl, shareTitle, shareContent, "", R.mipmap.share_logo)
+                .shareWeb(context as Activity?, shareUrl, shareTitle, shareContent, "", R.mipmap.share_logo11)
     }
 
 

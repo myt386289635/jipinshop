@@ -331,13 +331,13 @@ public class BindingUtil {
     public static void setTextitem_freeNotice(TextView view ,int myFreeType, double myFreeRate , double myFreePrice){
         switch (myFreeType){
             case 1:
-                view.setText("免"+ (myFreeRate * 100) +"%，预估返：¥" + myFreePrice);
+                view.setText("免"+ (myFreeRate * 100) +"%,预估返:¥" + myFreePrice);
                 break;
             case 3:
-                view.setText("免"+ (myFreeRate * 100) +"%，返现：¥" + myFreePrice);
+                view.setText("免"+ (myFreeRate * 100) +"%,返现:¥" + myFreePrice);
                 break;
             case -1:
-                view.setText("免"+ (myFreeRate * 100) +"%，返现：¥0");
+                view.setText("免"+ (myFreeRate * 100) +"%,返现:¥0");
                 break;
         }
     }

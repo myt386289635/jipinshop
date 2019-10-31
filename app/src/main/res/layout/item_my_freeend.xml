@@ -109,7 +109,7 @@
             android:layout_alignTop="@id/item_textTag"
             android:layout_toRightOf="@id/item_textTag"
             android:textColor="@color/color_E25838"
-            android:textSize="14sp"
+            android:textSize="13sp"
             bind:myFreeType="@{type}"
             bind:myFreeRate="@{date.freeRate}"
             bind:myFreePrice="@{date.freePrice}"
