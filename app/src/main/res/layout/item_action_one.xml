@@ -31,22 +31,34 @@
             android:layout_width="match_parent"
             android:layout_height="@dimen/y56">
 
-            <TextView
-                android:layout_marginLeft="@dimen/x38"
+            <com.example.administrator.jipinshop.view.textview.DrawableLeftCenterTextView
+                android:layout_width="0dp"
+                android:layout_weight="1"
                 android:drawableTint="@color/color_E74434"
-                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"
                 android:drawableLeft="@drawable/bg_yuan2"
                 android:drawablePadding="@dimen/x12"
-                android:text="双11极品补贴重量升级"
+                android:text="精选好物"
                 android:textColor="@color/color_E74434"
                 android:textSize="12sp"/>
 
-            <TextView
-                android:layout_marginLeft="@dimen/x73"
+            <com.example.administrator.jipinshop.view.textview.DrawableLeftCenterTextView
                 android:drawableTint="@color/color_E74434"
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:drawableLeft="@drawable/bg_yuan2"
+                android:drawablePadding="@dimen/x12"
+                android:text="超高补贴"
+                android:textColor="@color/color_E74434"
+                android:textSize="12sp"/>
+
+            <com.example.administrator.jipinshop.view.textview.DrawableLeftCenterTextView
+                android:drawableTint="@color/color_E74434"
+                android:layout_width="0dp"
+                android:layout_weight="1"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"
                 android:drawableLeft="@drawable/bg_yuan2"
@@ -55,15 +67,15 @@
                 android:textColor="@color/color_E74434"
                 android:textSize="12sp"/>
 
-            <TextView
-                android:layout_marginLeft="@dimen/x73"
+            <com.example.administrator.jipinshop.view.textview.DrawableLeftCenterTextView
                 android:drawableTint="@color/color_E74434"
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
+                android:layout_weight="1"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"
                 android:drawableLeft="@drawable/bg_yuan2"
                 android:drawablePadding="@dimen/x12"
-                android:text="精选好物"
+                android:text="品质保障"
                 android:textColor="@color/color_E74434"
                 android:textSize="12sp"/>
 
