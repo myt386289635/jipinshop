@@ -1,5 +1,6 @@
 package com.example.administrator.jipinshop.bean;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 /**
@@ -173,7 +174,7 @@ public class Activity11Bean {
         }
 
         public String getFee() {
-            return fee;
+            return new BigDecimal(fee).stripTrailingZeros().toPlainString();
         }
 
         public void setFee(String fee) {
@@ -181,7 +182,7 @@ public class Activity11Bean {
         }
 
         public String getBuyPrice() {
-            return buyPrice;
+            return new BigDecimal(buyPrice).stripTrailingZeros().toPlainString();
         }
 
         public void setBuyPrice(String buyPrice) {
@@ -213,7 +214,7 @@ public class Activity11Bean {
         }
 
         public String getOtherPrice() {
-            return otherPrice;
+            return new BigDecimal(otherPrice).stripTrailingZeros().toPlainString();
         }
 
         public void setOtherPrice(String otherPrice) {
