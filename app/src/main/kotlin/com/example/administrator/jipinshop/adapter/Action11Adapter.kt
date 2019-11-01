@@ -20,7 +20,6 @@ import com.example.administrator.jipinshop.databinding.ItemActionOneBinding
 import com.example.administrator.jipinshop.databinding.ItemActionThreeBinding
 import com.example.administrator.jipinshop.databinding.ItemActionTwoBinding
 import com.example.administrator.jipinshop.util.ShopJumpUtil
-import com.example.administrator.jipinshop.util.ToastUtil
 import com.example.administrator.jipinshop.util.WeakRefHandler
 import java.math.BigDecimal
 

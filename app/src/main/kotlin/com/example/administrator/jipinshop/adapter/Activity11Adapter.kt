@@ -13,7 +13,6 @@ import com.example.administrator.jipinshop.bean.Activity11Bean
 import com.example.administrator.jipinshop.databinding.ItemActionOne1Binding
 import com.example.administrator.jipinshop.databinding.ItemActionTwo1Binding
 import com.example.administrator.jipinshop.util.ShopJumpUtil
-import com.umeng.commonsdk.stateless.UMSLEnvelopeBuild.mContext
 import java.math.BigDecimal
 
 /**
