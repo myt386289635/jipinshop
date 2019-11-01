@@ -167,15 +167,6 @@ public class MainActivity extends RxAppCompatActivity implements MainView, ViewP
         mViewPager.addOnPageChangeListener(this);
         mPresenter.initTabLayout(this, mTabLayout,activityInfo);
         UAppUtil.tab(this, 0);//统计榜单
-        View tabView = (View) mTabLayout.getTabAt(mFragments.size() - 1).getCustomView().getParent();
-        tabView.setOnClickListener(v -> {
-            if (TextUtils.isEmpty(SPUtils.getInstance(CommonDate.USER).getString(CommonDate.token, "").trim())) {
-                if (ClickUtil.isFastDoubleClick(800)) {
-                } else {
-                    startActivityForResult(new Intent(this, LoginActivity.class), 100);
-                }
-            }
-        });
 
 //        DistanceHelper.getAndroiodScreenProperty(this);
         if (SPUtils.getInstance().getBoolean(CommonDate.FIRST, true)) {

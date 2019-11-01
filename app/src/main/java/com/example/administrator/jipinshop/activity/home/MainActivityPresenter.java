@@ -1,9 +1,12 @@
 package com.example.administrator.jipinshop.activity.home;
 
+import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.content.res.ColorStateList;
 import android.support.annotation.Nullable;
 import android.support.design.widget.TabLayout;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -11,6 +14,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.blankj.utilcode.util.SPUtils;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.DataSource;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
@@ -20,9 +24,12 @@ import com.bumptech.glide.request.RequestListener;
 import com.bumptech.glide.request.RequestOptions;
 import com.bumptech.glide.request.target.Target;
 import com.example.administrator.jipinshop.R;
+import com.example.administrator.jipinshop.activity.login.LoginActivity;
 import com.example.administrator.jipinshop.bean.AppVersionbean;
 import com.example.administrator.jipinshop.bean.PopInfoBean;
 import com.example.administrator.jipinshop.netwrok.Repository;
+import com.example.administrator.jipinshop.util.ClickUtil;
+import com.example.administrator.jipinshop.util.sp.CommonDate;
 import com.trello.rxlifecycle2.LifecycleTransformer;
 
 import javax.inject.Inject;
@@ -54,6 +61,16 @@ public class MainActivityPresenter {
             tabLayout.getTabAt(2).setCustomView(view4);
             View view5 = LayoutInflater.from(context).inflate(R.layout.tablayout_item5,null);
             tabLayout.getTabAt(3).setCustomView(view5);
+
+            View tabView = (View) tabLayout.getTabAt(3).getCustomView().getParent();
+            tabView.setOnClickListener(v -> {
+                if (TextUtils.isEmpty(SPUtils.getInstance(CommonDate.USER).getString(CommonDate.token, "").trim())) {
+                    if (ClickUtil.isFastDoubleClick(800)) {
+                    } else {
+                        ((Activity)context).startActivityForResult(new Intent(context, LoginActivity.class), 100);
+                    }
+                }
+            });
         }else {
             View viewAticity = LayoutInflater.from(context).inflate(R.layout.tablayout_activityview, null);
             tabLayout.getTabAt(2).setCustomView(viewAticity);
@@ -94,6 +111,30 @@ public class MainActivityPresenter {
                     tabView.invalidate();
                 }
             });
+
+            for (int i = 0; i < tabLayout.getTabCount(); i++) {
+                View tabView = (View) tabLayout.getTabAt(i).getCustomView().getParent();
+                int finalI = i;
+                tabView.setOnClickListener(v -> {
+                    if (finalI == 2){
+                        tab_activity.setImageResource(R.mipmap.tab_activity);
+                    }else {
+                        Glide.with(context)
+                                .asGif()
+                                .load(R.drawable.tab_activity)
+                                .apply(options)
+                                .into(tab_activity);
+                    }
+                    if (finalI == 4){
+                        if (TextUtils.isEmpty(SPUtils.getInstance(CommonDate.USER).getString(CommonDate.token, "").trim())) {
+                            if (ClickUtil.isFastDoubleClick(800)) {
+                            } else {
+                                ((Activity)context).startActivityForResult(new Intent(context, LoginActivity.class), 100);
+                            }
+                        }
+                    }
+                });
+            }
         }
         //水波纹颜色
         tabLayout.setTabRippleColor(ColorStateList.valueOf(context.getResources().getColor(R.color.transparent)));
