@@ -369,7 +369,13 @@ public class MainActivity extends RxAppCompatActivity implements MainView, ViewP
                 break;
             case R.id.guide_next1:
                 mGuildBackground2.setVisibility(View.GONE);
-                mGuildBackground.setBackgroundResource(R.mipmap.guide_bg2);
+                if (activityInfo == 0) {//平常
+                    mGuildBackground.setBackgroundResource(R.mipmap.guide_bg2);
+                    mGuideContent2.setImageResource(R.mipmap.guide_content2);
+                }else {//双十一
+                    mGuildBackground.setBackgroundResource(R.mipmap.guide_bg21);
+                    mGuideContent2.setImageResource(R.mipmap.guide_content21);
+                }
                 mGuideContent1.setVisibility(View.GONE);
                 mGuideNext1.setVisibility(View.GONE);
                 mGuideContent2.setVisibility(View.VISIBLE);
@@ -378,7 +384,13 @@ public class MainActivity extends RxAppCompatActivity implements MainView, ViewP
                 mGuideNext3.setVisibility(View.GONE);
                 break;
             case R.id.guide_next2:
-                mGuildBackground.setBackgroundResource(R.mipmap.guide_bg3);
+                if (activityInfo == 0) {//平常
+                    mGuildBackground.setBackgroundResource(R.mipmap.guide_bg3);
+                    mGuideContent3.setImageResource(R.mipmap.guide_content3);
+                }else {//双十一
+                    mGuildBackground.setBackgroundResource(R.mipmap.guide_bg31);
+                    mGuideContent3.setImageResource(R.mipmap.guide_content31);
+                }
                 mGuideContent1.setVisibility(View.GONE);
                 mGuideNext1.setVisibility(View.GONE);
                 mGuideContent2.setVisibility(View.GONE);
