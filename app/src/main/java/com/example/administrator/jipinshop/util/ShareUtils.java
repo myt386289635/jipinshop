@@ -59,10 +59,26 @@ public class ShareUtils {
     }
 
     /**
-     * 分享图片
+     * 分享网络图片
      */
     public void shareImage(final Activity activity, String imageUrl){
         UMImage image = new UMImage(activity, imageUrl);//网络图片
+        image.setThumb(new UMImage(activity, R.mipmap.share_logo));  //本地缩略图
+        image.compressStyle = UMImage.CompressStyle.SCALE;//大小压缩，默认为大小压缩，适合普通很大的图
+        image.compressStyle = UMImage.CompressStyle.QUALITY;//质量压缩，适合长图的分享
+        new ShareAction(activity)
+                .setPlatform(mSHARE_media)//传入平台
+                .withText("极品城App")
+                .withMedia(image)
+                .setCallback(shareListener)//分享回调
+                .share();
+    }
+
+    /**
+     * 分享本地图片
+     */
+    public void shareImage(final Activity activity, int imageUrl){
+        UMImage image = new UMImage(activity, imageUrl);//本地图片
         image.setThumb(new UMImage(activity, R.mipmap.share_logo));  //本地缩略图
         image.compressStyle = UMImage.CompressStyle.SCALE;//大小压缩，默认为大小压缩，适合普通很大的图
         image.compressStyle = UMImage.CompressStyle.QUALITY;//质量压缩，适合长图的分享

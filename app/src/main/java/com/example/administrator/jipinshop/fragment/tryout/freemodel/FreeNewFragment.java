@@ -1,24 +1,35 @@
 package com.example.administrator.jipinshop.fragment.tryout.freemodel;
 
+import android.app.Dialog;
 import android.content.Intent;
 import android.databinding.DataBindingUtil;
 import android.support.v7.widget.LinearLayoutManager;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
 import com.aspsine.swipetoloadlayout.OnLoadMoreListener;
 import com.aspsine.swipetoloadlayout.OnRefreshListener;
+import com.blankj.utilcode.util.SPUtils;
 import com.example.administrator.jipinshop.R;
+import com.example.administrator.jipinshop.activity.login.LoginActivity;
 import com.example.administrator.jipinshop.activity.tryout.freedetail.FreeNewDetailActivity;
 import com.example.administrator.jipinshop.adapter.FreeNewAdapter;
 import com.example.administrator.jipinshop.base.DBBaseFragment;
 import com.example.administrator.jipinshop.bean.V2FreeListBean;
+import com.example.administrator.jipinshop.bean.eventbus.CommonEvaluationBus;
 import com.example.administrator.jipinshop.databinding.FragmentEvaluationCommonBinding;
+import com.example.administrator.jipinshop.util.ShareUtils;
 import com.example.administrator.jipinshop.util.ToastUtil;
-import com.example.administrator.jipinshop.view.dialog.ShareBoardDialog;
+import com.example.administrator.jipinshop.util.sp.CommonDate;
+import com.example.administrator.jipinshop.view.dialog.ProgressDialogView;
+import com.example.administrator.jipinshop.view.dialog.ShareBoardDialog2;
 import com.umeng.socialize.UMShareAPI;
 import com.umeng.socialize.bean.SHARE_MEDIA;
+
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -30,7 +41,7 @@ import javax.inject.Inject;
  * @create 2019/11/8
  * @Describe 免单新页面
  */
-public class FreeNewFragment extends DBBaseFragment implements OnRefreshListener, OnLoadMoreListener, FreeNewAdapter.OnClickItem, FreeNewView, ShareBoardDialog.onShareListener {
+public class FreeNewFragment extends DBBaseFragment implements OnRefreshListener, OnLoadMoreListener, FreeNewAdapter.OnClickItem, FreeNewView, ShareBoardDialog2.onShareListener {
 
     @Inject
     FreeNewPresenter mPresenter;
@@ -42,7 +53,8 @@ public class FreeNewFragment extends DBBaseFragment implements OnRefreshListener
     private List<V2FreeListBean.DataBean> mList;
     private FreeNewAdapter mAdapter;
     //分享面板
-    private ShareBoardDialog mShareBoardDialog;
+    private ShareBoardDialog2 mShareBoardDialog;
+    private Dialog mDialog;
 
     @Override
     public void setUserVisibleHint(boolean isVisibleToUser) {
@@ -55,6 +67,7 @@ public class FreeNewFragment extends DBBaseFragment implements OnRefreshListener
     @Override
     public View initLayout(LayoutInflater inflater, ViewGroup container) {
         mBinding = DataBindingUtil.inflate(inflater, R.layout.fragment_evaluation_common,container,false);
+        EventBus.getDefault().register(this);
         return mBinding.getRoot();
     }
 
@@ -122,6 +135,10 @@ public class FreeNewFragment extends DBBaseFragment implements OnRefreshListener
 
     @Override
     public void onItem(int position) {
+        if(TextUtils.isEmpty(SPUtils.getInstance(CommonDate.USER).getString(CommonDate.token,""))){
+            startActivity(new Intent(getContext(), LoginActivity.class));
+            return;
+        }
         startActivity(new Intent(getContext(), FreeNewDetailActivity.class)
                 .putExtra("freeId",mList.get(position).getId())
         );
@@ -129,6 +146,10 @@ public class FreeNewFragment extends DBBaseFragment implements OnRefreshListener
 
     @Override
     public void onBuy(int position) {
+        if(TextUtils.isEmpty(SPUtils.getInstance(CommonDate.USER).getString(CommonDate.token,""))){
+            startActivity(new Intent(getContext(), LoginActivity.class));
+            return;
+        }
         startActivity(new Intent(getContext(), FreeNewDetailActivity.class)
                 .putExtra("freeId",mList.get(position).getId())
         );
@@ -137,11 +158,11 @@ public class FreeNewFragment extends DBBaseFragment implements OnRefreshListener
     @Override
     public void onInvation() {
         if (mShareBoardDialog == null) {
-            mShareBoardDialog = ShareBoardDialog.getInstance("","");
+            mShareBoardDialog = ShareBoardDialog2.getInstance();
             mShareBoardDialog.setOnShareListener(this);
         }
         if (!mShareBoardDialog.isAdded()) {
-            mShareBoardDialog.show(getChildFragmentManager(), "ShareBoardDialog");
+            mShareBoardDialog.show(getChildFragmentManager(), "ShareBoardDialog2");
         }
     }
 
@@ -197,12 +218,44 @@ public class FreeNewFragment extends DBBaseFragment implements OnRefreshListener
 
     @Override
     public void share(SHARE_MEDIA share_media) {
-        ToastUtil.show("分享");
+        mDialog = (new ProgressDialogView()).createLoadingDialog(getContext(), "");
+        if (share_media.equals(SHARE_MEDIA.WEIXIN)){
+            //分享小程序
+            ToastUtil.show("分享小程序");
+        }else if (share_media.equals(SHARE_MEDIA.WEIXIN_CIRCLE)){
+            //分享图片到朋友圈
+            new ShareUtils(getContext(), share_media, mDialog)
+                    .shareImage(getActivity(), R.mipmap.logo11);
+        }
     }
 
     @Override
     public void onDestroyView() {
         UMShareAPI.get(getContext()).release();
+        EventBus.getDefault().unregister(this);
         super.onDestroyView();
+    }
+
+    @Subscribe//登陆后刷新免单模块首页
+    public void onLogin(CommonEvaluationBus commonEvaluationBus){
+        if(commonEvaluationBus != null && commonEvaluationBus.getRefersh().equals(LoginActivity.refresh)){
+            if (!once  && mBinding.swipeToLoad != null){
+                if(!mBinding.swipeToLoad.isRefreshEnabled()){
+                    mBinding.swipeToLoad.setRefreshEnabled(true);
+                    mBinding.swipeToLoad.setRefreshing(true);
+                    mBinding.swipeToLoad.setRefreshEnabled(false);
+                }else {
+                    mBinding.swipeToLoad.setRefreshing(true);
+                }
+            }
+        }
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        if (mDialog != null && mDialog.isShowing()){
+            mDialog.dismiss();
+        }
     }
 }
