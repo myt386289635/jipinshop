@@ -37,6 +37,7 @@ import com.example.administrator.jipinshop.fragment.sreach.find.SreachFindFragme
 import com.example.administrator.jipinshop.fragment.sreach.goods.SreachGoodsFragment;
 import com.example.administrator.jipinshop.fragment.sreach.tryout.SreachTryFragment;
 import com.example.administrator.jipinshop.fragment.tryout.freemodel.FreeFragment;
+import com.example.administrator.jipinshop.fragment.tryout.freemodel.FreeNewFragment;
 import com.example.administrator.jipinshop.fragment.tryout.freemodel.detail.ShopUserFragment;
 import com.example.administrator.jipinshop.fragment.tryout.hot.TryCommenFragment;
 import com.example.administrator.jipinshop.fragment.tryout.mine.TrialCommonFragment;
@@ -94,4 +95,5 @@ public interface BaseFragmentComponent {
     void inject(EvaUnPackingFragment fragment);
     void inject(EvaCompareFragment fragment);
     void inject(Action11Fragment fragment);
+    void inject(FreeNewFragment fragment);
 }

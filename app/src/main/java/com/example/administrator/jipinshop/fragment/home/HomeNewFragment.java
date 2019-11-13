@@ -189,7 +189,7 @@ public class HomeNewFragment extends DBBaseFragment implements HomeNewView, OnLo
     @Override
     public void onClickNewShop() {
         if (type == 8){//跳转到双十一活动首页
-            EventBus.getDefault().post(new ChangeHomePageBus(2));
+            EventBus.getDefault().post(new ChangeHomePageBus(0));
         }else {//跳转到新品专区
             startActivity(new Intent(getContext(), NewAreaActivity.class)
                     .putExtra("image",image)

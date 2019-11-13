@@ -63,6 +63,7 @@ import com.example.administrator.jipinshop.bean.TryDetailBean;
 import com.example.administrator.jipinshop.bean.TryReportBean;
 import com.example.administrator.jipinshop.bean.UnMessageBean;
 import com.example.administrator.jipinshop.bean.UserInfoBean;
+import com.example.administrator.jipinshop.bean.V2FreeListBean;
 import com.example.administrator.jipinshop.bean.VoteBean;
 import com.example.administrator.jipinshop.bean.WithdrawBean;
 import com.example.administrator.jipinshop.bean.WithdrawDetailBean;
@@ -1016,5 +1017,19 @@ public class Repository {
      */
     public Observable<Activity11Bean> activity11Category(String articleCategoryId,int page){
         return mAPIService.activity11Category(articleCategoryId, page);
+    }
+
+    /**
+     * 免单列表
+     */
+    public Observable<V2FreeListBean> freeList(int page , String type){
+        return mAPIService.freeList(page, type);
+    }
+
+    /**
+     * 免单详情
+     */
+    public Observable<FreeDetailBean> freeDetail(String freeId){
+        return mAPIService.freeDetail(freeId);
     }
 }

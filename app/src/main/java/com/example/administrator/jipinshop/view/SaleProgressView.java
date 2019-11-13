@@ -11,6 +11,7 @@ import android.graphics.PorterDuffXfermode;
 import android.graphics.RectF;
 import android.graphics.Shader;
 import android.util.AttributeSet;
+import android.util.Log;
 import android.view.View;
 
 import com.example.administrator.jipinshop.R;
@@ -187,5 +188,18 @@ public class SaleProgressView extends View {
         }
         this.currentCount = currentCount;
         postInvalidate();
+    }
+
+    public  float getSideWidth(){
+        float scale = 0.0f;
+        if (totalCount == 0) {
+            scale = 0.0f;
+        } else {
+            scale = Float.parseFloat(new DecimalFormat("0.##").format((float) currentCount / (float) totalCount));
+        }
+        Log.d("SaleProgressView", "width:" + width);
+        Log.d("SaleProgressView", "sideWidth:" + sideWidth);
+        Log.d("SaleProgressView", "scale:" + scale);
+        return (width - sideWidth) * scale;
     }
 }

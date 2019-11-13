@@ -1,5 +1,6 @@
 package com.example.administrator.jipinshop.bean;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 /**
@@ -117,11 +118,38 @@ public class FreeDetailBean {
         private int userCount;
         private String actualPrice;
         private String otherPrice;
+        private String buyPrice;
         private int timeToStart;
         private List<String> imgList;
         private List<GoodsContentListBean> goodsContentList;
         private String freePrice;
         private List<FreeRuleParametersBean> freeRuleParameters;
+        private int inviteUserCount;
+        private int myInviteUserCount;
+
+        public int getInviteUserCount() {
+            return inviteUserCount;
+        }
+
+        public void setInviteUserCount(int inviteUserCount) {
+            this.inviteUserCount = inviteUserCount;
+        }
+
+        public int getMyInviteUserCount() {
+            return myInviteUserCount;
+        }
+
+        public void setMyInviteUserCount(int myInviteUserCount) {
+            this.myInviteUserCount = myInviteUserCount;
+        }
+
+        public String getBuyPrice() {
+            return new BigDecimal(buyPrice).stripTrailingZeros().toPlainString();
+        }
+
+        public void setBuyPrice(String buyPrice) {
+            this.buyPrice = buyPrice;
+        }
 
         public List<FreeRuleParametersBean> getFreeRuleParameters() {
             return freeRuleParameters;
@@ -132,7 +160,7 @@ public class FreeDetailBean {
         }
 
         public String getFreePrice() {
-            return freePrice;
+            return new BigDecimal(freePrice).stripTrailingZeros().toPlainString();
         }
 
         public void setFreePrice(String freePrice) {
@@ -316,7 +344,7 @@ public class FreeDetailBean {
         }
 
         public String getActualPrice() {
-            return actualPrice;
+            return new BigDecimal(actualPrice).stripTrailingZeros().toPlainString();
         }
 
         public void setActualPrice(String actualPrice) {
@@ -324,7 +352,7 @@ public class FreeDetailBean {
         }
 
         public String getOtherPrice() {
-            return otherPrice;
+            return new BigDecimal(otherPrice).stripTrailingZeros().toPlainString();
         }
 
         public void setOtherPrice(String otherPrice) {

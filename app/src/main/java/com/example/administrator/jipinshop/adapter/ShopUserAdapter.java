@@ -28,21 +28,17 @@ public class ShopUserAdapter extends RecyclerView.Adapter {
 
     private List<FreeUserListBean.DataBean> mList;
     private Context mContext;
-    private int status = 0;//0 即将开始， 1 进行中， 2已售罄， 3已结束
+    private String fee;
 
-    public ShopUserAdapter(List<FreeUserListBean.DataBean> list, Context context , int status ) {
+    public ShopUserAdapter(List<FreeUserListBean.DataBean> list, Context context , String fee ) {
         mList = list;
         mContext = context;
-        this.status =  status;
+        this.fee =  fee;
     }
 
     @Override
     public int getItemViewType(int position) {
-        if (position == 0 && status == 1){
-            return HEAD;
-        }else {
-            return CONTENT;
-        }
+        return CONTENT;
     }
 
     @NonNull
@@ -68,30 +64,14 @@ public class ShopUserAdapter extends RecyclerView.Adapter {
         switch (type){
             case HEAD:
                 HeadViewHolder headViewHolder = (HeadViewHolder) holder;
-                if (status == 1){
-                    headViewHolder.item_headContainer.setVisibility(View.VISIBLE);
-                }else {
-                    headViewHolder.item_headContainer.setVisibility(View.GONE);
-                }
                 break;
             case CONTENT:
                 ViewHolder viewHolder = (ViewHolder) holder;
                 int position = i;
-                if (status == 1){
-                    position = i - 1;
-                }
                 viewHolder.binding.setDate(mList.get(position));
                 viewHolder.binding.executePendingBindings();
-                if (mList.get(position).getIsmyself() == 1){
-                    viewHolder.binding.itemImage.setBorderWidth(ConvertUtils.dp2px(2));
-                    viewHolder.binding.itemGoodNum.setTextColor(mContext.getResources().getColor(R.color.color_E31B3C));
-                }else {
-                    if (status == 1){
-                        viewHolder.binding.itemGoodNum.setText("可免***");
-                    }
-                    viewHolder.binding.itemImage.setBorderWidth(0);
-                    viewHolder.binding.itemGoodNum.setTextColor(mContext.getResources().getColor(R.color.color_DE151515));
-                }
+                viewHolder.binding.itemImage.setBorderWidth(0);
+                viewHolder.binding.itemGoodNum.setText("补贴¥" + fee);
                 break;
         }
 
@@ -99,11 +79,7 @@ public class ShopUserAdapter extends RecyclerView.Adapter {
 
     @Override
     public int getItemCount() {
-        if (status == 1){
-            return  mList.size() == 0 ? 0 : mList.size() + 1;
-        }else {
-            return mList.size();
-        }
+        return mList.size();
     }
 
     class ViewHolder extends RecyclerView.ViewHolder{

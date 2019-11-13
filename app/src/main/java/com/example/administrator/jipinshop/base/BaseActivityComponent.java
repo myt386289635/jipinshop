@@ -57,6 +57,7 @@ import com.example.administrator.jipinshop.activity.sreach.result.SreachResultAc
 import com.example.administrator.jipinshop.activity.tryout.TryAllActivity;
 import com.example.administrator.jipinshop.activity.tryout.detail.TryDetailActivity;
 import com.example.administrator.jipinshop.activity.tryout.freedetail.FreeDetailActivity;
+import com.example.administrator.jipinshop.activity.tryout.freedetail.FreeNewDetailActivity;
 import com.example.administrator.jipinshop.activity.tryout.passedMore.PassedMoreActivity;
 import com.example.administrator.jipinshop.activity.tryout.reportMore.ReportMoreActivity;
 import com.example.administrator.jipinshop.activity.tryout.shareMore.ShareMoreActivity;
@@ -132,4 +133,5 @@ public interface BaseActivityComponent {
     void inject(AuditDetailActivity activity);
     void inject(TaoBaoWebActivity activity);
     void inject(Action11Activity activity);
+    void inject(FreeNewDetailActivity activity);
 }

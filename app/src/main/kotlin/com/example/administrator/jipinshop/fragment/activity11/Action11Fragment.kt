@@ -55,12 +55,12 @@ class Action11Fragment : DBBaseFragment(), OnRefreshListener, OnLoadMoreListener
     private var mDialog: Dialog? = null//加载框
     private var mShareBoardDialog: ShareBoardDialog? = null
 
-    override fun setUserVisibleHint(isVisibleToUser: Boolean) {
-        super.setUserVisibleHint(isVisibleToUser)
-        if (isVisibleToUser && once) {
-            mBinding.swipeToLoad.isRefreshing = true
-        }
-    }
+//    override fun setUserVisibleHint(isVisibleToUser: Boolean) {
+//        super.setUserVisibleHint(isVisibleToUser)
+//        if (isVisibleToUser && once) {
+//            mBinding.swipeToLoad.isRefreshing = true
+//        }
+//    }
 
     override fun initLayout(inflater: LayoutInflater?, container: ViewGroup?): View {
         mBinding = DataBindingUtil.inflate(inflater, R.layout.fragment_activity11, container, false)
@@ -86,6 +86,7 @@ class Action11Fragment : DBBaseFragment(), OnRefreshListener, OnLoadMoreListener
         mPresenter.solveScoll(mBinding.recyclerView, mBinding.swipeToLoad)
         mBinding.swipeToLoad.setOnRefreshListener(this)
         mBinding.swipeToLoad.setOnLoadMoreListener(this)
+        mBinding.swipeToLoad.isRefreshing = true
     }
 
     override fun onClick(v: View) {

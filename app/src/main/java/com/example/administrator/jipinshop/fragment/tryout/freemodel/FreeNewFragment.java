@@ -1,7 +1,7 @@
-package com.example.administrator.jipinshop.fragment.tryout.freemodel.detail;
+package com.example.administrator.jipinshop.fragment.tryout.freemodel;
 
+import android.content.Intent;
 import android.databinding.DataBindingUtil;
-import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -11,11 +11,14 @@ import com.aspsine.swipetoloadlayout.OnLoadMoreListener;
 import com.aspsine.swipetoloadlayout.OnRefreshListener;
 import com.example.administrator.jipinshop.R;
 import com.example.administrator.jipinshop.activity.tryout.freedetail.FreeNewDetailActivity;
-import com.example.administrator.jipinshop.adapter.ShopUserAdapter;
+import com.example.administrator.jipinshop.adapter.FreeNewAdapter;
 import com.example.administrator.jipinshop.base.DBBaseFragment;
-import com.example.administrator.jipinshop.bean.FreeUserListBean;
-import com.example.administrator.jipinshop.databinding.FragmentFreeUserBinding;
+import com.example.administrator.jipinshop.bean.V2FreeListBean;
+import com.example.administrator.jipinshop.databinding.FragmentEvaluationCommonBinding;
 import com.example.administrator.jipinshop.util.ToastUtil;
+import com.example.administrator.jipinshop.view.dialog.ShareBoardDialog;
+import com.umeng.socialize.UMShareAPI;
+import com.umeng.socialize.bean.SHARE_MEDIA;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -24,46 +27,34 @@ import javax.inject.Inject;
 
 /**
  * @author 莫小婷
- * @create 2019/6/24
- * @Describe 免购——参与名单
+ * @create 2019/11/8
+ * @Describe 免单新页面
  */
-public class ShopUserFragment extends DBBaseFragment implements OnRefreshListener, OnLoadMoreListener, ShopUserView {
+public class FreeNewFragment extends DBBaseFragment implements OnRefreshListener, OnLoadMoreListener, FreeNewAdapter.OnClickItem, FreeNewView, ShareBoardDialog.onShareListener {
 
     @Inject
-    ShopUserPresenter mPresenter;
-    private FragmentFreeUserBinding mBinding;
-    private List<FreeUserListBean.DataBean> mList;
-    private ShopUserAdapter mAdapter;
-    private Boolean[] once = {true};
+    FreeNewPresenter mPresenter;
+
+    private FragmentEvaluationCommonBinding mBinding;
+    private Boolean once = true;
     private int page = 1;
     private Boolean refersh = true;
-
-    public static ShopUserFragment getInstance(String id ,String fee) {
-        ShopUserFragment fragment = new ShopUserFragment();
-        Bundle bundle = new Bundle();
-        bundle.putString("id", id);
-        bundle.putString("fee",fee);
-        fragment.setArguments(bundle);
-        return fragment;
-    }
+    private List<V2FreeListBean.DataBean> mList;
+    private FreeNewAdapter mAdapter;
+    //分享面板
+    private ShareBoardDialog mShareBoardDialog;
 
     @Override
     public void setUserVisibleHint(boolean isVisibleToUser) {
         super.setUserVisibleHint(isVisibleToUser);
-        if(isVisibleToUser){
-            if (!mBinding.swipeToLoad.isRefreshEnabled()) {
-                mBinding.swipeToLoad.setRefreshEnabled(true);
-                mBinding.swipeToLoad.setRefreshing(true);
-                mBinding.swipeToLoad.setRefreshEnabled(false);
-            } else {
-                mBinding.swipeToLoad.setRefreshing(true);
-            }
+        if(isVisibleToUser && once){
+            mBinding.swipeToLoad.setRefreshing(true);
         }
     }
 
     @Override
     public View initLayout(LayoutInflater inflater, ViewGroup container) {
-        mBinding = DataBindingUtil.inflate(inflater, R.layout.fragment_free_user,container,false);
+        mBinding = DataBindingUtil.inflate(inflater, R.layout.fragment_evaluation_common,container,false);
         return mBinding.getRoot();
     }
 
@@ -72,12 +63,13 @@ public class ShopUserFragment extends DBBaseFragment implements OnRefreshListene
         mBaseFragmentComponent.inject(this);
         mPresenter.setView(this);
 
-        mBinding.recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         mList = new ArrayList<>();
-        mAdapter = new ShopUserAdapter(mList, getContext(),getArguments().getString("fee","0"));
+        mAdapter = new FreeNewAdapter(mList,getContext());
+        mAdapter.setOnClickItem(this);
+        mBinding.recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         mBinding.recyclerView.setAdapter(mAdapter);
 
-        mPresenter.solveScoll(mBinding.recyclerView,mBinding.swipeToLoad,((FreeNewDetailActivity)getActivity()).getBar(),once);
+        mPresenter.solveScoll(mBinding.recyclerView, mBinding.swipeToLoad);
         mBinding.swipeToLoad.setOnRefreshListener(this);
         mBinding.swipeToLoad.setOnLoadMoreListener(this);
     }
@@ -86,45 +78,36 @@ public class ShopUserFragment extends DBBaseFragment implements OnRefreshListene
     public void onRefresh() {
         page = 1;
         refersh = true;
-        mPresenter.getDate(getArguments().getString("id",""),page,this.bindToLifecycle());
+        mPresenter.getData(page,this.bindToLifecycle());
     }
 
     @Override
     public void onLoadMore() {
         page++;
         refersh = false;
-        mPresenter.getDate(getArguments().getString("id",""),page,this.bindToLifecycle());
+        mPresenter.getData(page,this.bindToLifecycle());
     }
 
-    /**
-     * 错误页面
-     */
     public void initError(int id, String title, String content) {
         mBinding.recyclerView.setVisibility(View.GONE);
-        mBinding.nestedScrollview.setVisibility(View.VISIBLE);
+        mBinding.netClude.qsNet.setVisibility(View.VISIBLE);
         mBinding.netClude.errorImage.setBackgroundResource(id);
         mBinding.netClude.errorTitle.setText(title);
         mBinding.netClude.errorContent.setText(content);
     }
 
-    /**
-     * 停止刷新
-     */
-    public void stopResher() {
+    public void stopResher(){
         if (mBinding.swipeToLoad != null && mBinding.swipeToLoad.isRefreshing()) {
-            if (!mBinding.swipeToLoad.isRefreshEnabled()) {
+            if(!mBinding.swipeToLoad.isRefreshEnabled()){
                 mBinding.swipeToLoad.setRefreshEnabled(true);
                 mBinding.swipeToLoad.setRefreshing(false);
                 mBinding.swipeToLoad.setRefreshEnabled(false);
-            } else {
+            }else {
                 mBinding.swipeToLoad.setRefreshing(false);
             }
         }
     }
 
-    /**
-     * 停止加载
-     */
     public void stopLoading() {
         if (mBinding.swipeToLoad != null && mBinding.swipeToLoad.isLoadingMore()) {
             if (!mBinding.swipeToLoad.isLoadMoreEnabled()) {
@@ -138,11 +121,41 @@ public class ShopUserFragment extends DBBaseFragment implements OnRefreshListene
     }
 
     @Override
-    public void onSuccess(FreeUserListBean bean) {
-        if(refersh){
+    public void onItem(int position) {
+        startActivity(new Intent(getContext(), FreeNewDetailActivity.class)
+                .putExtra("freeId",mList.get(position).getId())
+        );
+    }
+
+    @Override
+    public void onBuy(int position) {
+        startActivity(new Intent(getContext(), FreeNewDetailActivity.class)
+                .putExtra("freeId",mList.get(position).getId())
+        );
+    }
+
+    @Override
+    public void onInvation() {
+        if (mShareBoardDialog == null) {
+            mShareBoardDialog = ShareBoardDialog.getInstance("","");
+            mShareBoardDialog.setOnShareListener(this);
+        }
+        if (!mShareBoardDialog.isAdded()) {
+            mShareBoardDialog.show(getChildFragmentManager(), "ShareBoardDialog");
+        }
+    }
+
+    @Override
+    public void onRule() {
+        ToastUtil.show("免单规则");
+    }
+
+    @Override
+    public void onSuccess(V2FreeListBean bean) {
+        if (refersh){
             stopResher();
-            if(bean.getData() != null && bean.getData().size() != 0){
-                mBinding.nestedScrollview.setVisibility(View.GONE);
+            if (bean.getData() != null && bean.getData().size() != 0){
+                mBinding.netClude.qsNet.setVisibility(View.GONE);
                 mBinding.recyclerView.setVisibility(View.VISIBLE);
                 mList.clear();
                 mList.addAll(bean.getData());
@@ -161,24 +174,35 @@ public class ShopUserFragment extends DBBaseFragment implements OnRefreshListene
                 ToastUtil.show("已经是最后一页了");
             }
         }
-        if(once[0]){
-            once[0] = false;
+        if(once){
+            once = false;
         }
     }
 
     @Override
     public void onFile(String error) {
-        if(refersh){
+        if (refersh) {
             stopResher();
             initError(R.mipmap.qs_net, "网络出错", "哇哦，网络出错了，换个姿势下滑页面试试");
             mBinding.recyclerView.setVisibility(View.GONE);
-        }else {
+        } else {
             stopLoading();
             page--;
         }
         ToastUtil.show(error);
-        if(once[0]){
-            once[0] = false;
+        if(once){
+            once = false;
         }
+    }
+
+    @Override
+    public void share(SHARE_MEDIA share_media) {
+        ToastUtil.show("分享");
+    }
+
+    @Override
+    public void onDestroyView() {
+        UMShareAPI.get(getContext()).release();
+        super.onDestroyView();
     }
 }

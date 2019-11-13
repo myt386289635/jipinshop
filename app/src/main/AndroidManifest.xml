@@ -467,6 +467,10 @@
         <activity android:name=".activity.activity11.Action11Activity"
                   android:screenOrientation="portrait"/>
 
+        <!--新免单详情页面-->
+        <activity android:name=".activity.tryout.freedetail.FreeNewDetailActivity"
+                  android:screenOrientation="portrait"/>
+
     </application>
 
 </manifest>

@@ -44,91 +44,17 @@ public class MainActivityPresenter {
         mRepository = repository;
     }
 
-    public void initTabLayout(Context context , TabLayout tabLayout,int activityInfo){
-        View view1 = LayoutInflater.from(context).inflate(R.layout.tablayout_item1,null);
-        tabLayout.getTabAt(0).setCustomView(view1);
+    public void initTabLayout(Context context , TabLayout tabLayout){
+        View viewAticity = LayoutInflater.from(context).inflate(R.layout.tablayout_activityview, null);
+        tabLayout.getTabAt(0).setCustomView(viewAticity);
         View view3 = LayoutInflater.from(context).inflate(R.layout.tablayout_item3,null);
         tabLayout.getTabAt(1).setCustomView(view3);
-        if (activityInfo == 0){// 平常
-            View view4 = LayoutInflater.from(context).inflate(R.layout.tablayout_item4,null);
-            tabLayout.getTabAt(2).setCustomView(view4);
-            View view5 = LayoutInflater.from(context).inflate(R.layout.tablayout_item5,null);
-            tabLayout.getTabAt(3).setCustomView(view5);
-
-            View tabView = (View) tabLayout.getTabAt(3).getCustomView().getParent();
-            tabView.setOnClickListener(v -> {
-                if (TextUtils.isEmpty(SPUtils.getInstance(CommonDate.USER).getString(CommonDate.token, "").trim())) {
-                    if (ClickUtil.isFastDoubleClick(800)) {
-                    } else {
-                        ((Activity)context).startActivityForResult(new Intent(context, LoginActivity.class), 100);
-                    }
-                }
-            });
-        }else {
-            View viewAticity = LayoutInflater.from(context).inflate(R.layout.tablayout_activityview, null);
-            tabLayout.getTabAt(2).setCustomView(viewAticity);
-            View view4 = LayoutInflater.from(context).inflate(R.layout.tablayout_item4,null);
-            tabLayout.getTabAt(3).setCustomView(view4);
-            View view5 = LayoutInflater.from(context).inflate(R.layout.tablayout_item5,null);
-            tabLayout.getTabAt(4).setCustomView(view5);
-
-            TextView tab_item1 = view1.findViewById(R.id.tab_item1);
-            TextView tab_item3 =view3.findViewById(R.id.tab_item3);
-            TextView tab_item4 = view4.findViewById(R.id.tab_item4);
-            TextView tab_item5 = view5.findViewById(R.id.tab_item5);
-            ImageView tab_activity = viewAticity.findViewById(R.id.tab_activity);
-            RequestOptions options = new RequestOptions()
-                    .diskCacheStrategy(DiskCacheStrategy.RESOURCE);
-            Glide.with(context)
-                    .asGif()
-                    .load(R.drawable.tab_activity)
-                    .apply(options)
-                    .into(tab_activity);
-            tabLayout.post(() -> {
-                //拿到tabLayout的mTabStrip属性
-                LinearLayout mTabStrip = (LinearLayout) tabLayout.getChildAt(0);
-                int w = (int) context.getResources().getDimension(R.dimen.x70);
-                Integer[] textLether = {tab_item1.getWidth() + w,tab_item3.getWidth()+ w,tab_activity.getWidth(),tab_item4.getWidth()+ w,tab_item5.getWidth()+ w};
-                int totle = textLether[0] + textLether[1] + textLether[2] + textLether[3] + textLether[4];
-                int dp10 = (tabLayout.getWidth() - totle) / textLether.length;
-                for (int i = 0; i < mTabStrip.getChildCount(); i++) {
-                    View tabView = mTabStrip.getChildAt(i);
-                    tabView.setPadding(0, 0, 0, 0);
-                    int width = textLether[i] + dp10;
-                    LinearLayout.LayoutParams params = (LinearLayout.LayoutParams)
-                            tabView.getLayoutParams();
-                    params.width = width;
-                    params.leftMargin = dp10 / 2;
-                    params.rightMargin = dp10 / 2;
-                    tabView.setLayoutParams(params);
-                    tabView.invalidate();
-                }
-            });
-
-            for (int i = 0; i < tabLayout.getTabCount(); i++) {
-                View tabView = (View) tabLayout.getTabAt(i).getCustomView().getParent();
-                int finalI = i;
-                tabView.setOnClickListener(v -> {
-                    if (finalI == 2){
-                        tab_activity.setImageResource(R.mipmap.tab_activity);
-                    }else {
-                        Glide.with(context)
-                                .asGif()
-                                .load(R.drawable.tab_activity)
-                                .apply(options)
-                                .into(tab_activity);
-                    }
-                    if (finalI == 4){
-                        if (TextUtils.isEmpty(SPUtils.getInstance(CommonDate.USER).getString(CommonDate.token, "").trim())) {
-                            if (ClickUtil.isFastDoubleClick(800)) {
-                            } else {
-                                ((Activity)context).startActivityForResult(new Intent(context, LoginActivity.class), 100);
-                            }
-                        }
-                    }
-                });
-            }
-        }
+        View view1 = LayoutInflater.from(context).inflate(R.layout.tablayout_item1,null);
+        tabLayout.getTabAt(2).setCustomView(view1);
+        View view4 = LayoutInflater.from(context).inflate(R.layout.tablayout_item4, null);
+        tabLayout.getTabAt(3).setCustomView(view4);
+        View view5 = LayoutInflater.from(context).inflate(R.layout.tablayout_item5, null);
+        tabLayout.getTabAt(4).setCustomView(view5);
         //水波纹颜色
         tabLayout.setTabRippleColor(ColorStateList.valueOf(context.getResources().getColor(R.color.transparent)));
     }

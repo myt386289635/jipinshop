@@ -8,6 +8,7 @@ import android.support.annotation.Nullable;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -16,6 +17,7 @@ import android.widget.RelativeLayout;
 import com.blankj.utilcode.util.SPUtils;
 import com.example.administrator.jipinshop.MyApplication;
 import com.example.administrator.jipinshop.R;
+import com.example.administrator.jipinshop.activity.login.LoginActivity;
 import com.example.administrator.jipinshop.activity.sign.SignActivity;
 import com.example.administrator.jipinshop.activity.tryout.freedetail.FreeDetailActivity;
 import com.example.administrator.jipinshop.adapter.HomeAdapter;
@@ -29,7 +31,9 @@ import com.example.administrator.jipinshop.fragment.evaluationkt.EvaluationNewFr
 import com.example.administrator.jipinshop.fragment.home.HomeNewFragment;
 import com.example.administrator.jipinshop.fragment.mine.MineFragment;
 import com.example.administrator.jipinshop.fragment.tryout.freemodel.FreeFragment;
+import com.example.administrator.jipinshop.fragment.tryout.freemodel.FreeNewFragment;
 import com.example.administrator.jipinshop.netwrok.RetrofitModule;
+import com.example.administrator.jipinshop.util.ClickUtil;
 import com.example.administrator.jipinshop.util.InputMethodManagerLeak;
 import com.example.administrator.jipinshop.util.NotchUtil;
 import com.example.administrator.jipinshop.util.NotificationUtil;
@@ -92,14 +96,13 @@ public class MainActivity extends RxAppCompatActivity implements MainView, ViewP
     private HomeNewFragment mHomeFragment;
     private MineFragment mMineFragment;
     private EvaluationNewFragment mEvaluationFragment;
-    private FreeFragment mTryFragment;
+    private FreeNewFragment mTryFragment;
     private Action11Fragment mAction11Fragment;
 
     private Unbinder mButterKnife;
     private ImmersionBar mImmersionBar;
     private long exitTime = 0;
     private static Activity sFirstInstance;
-    private int activityInfo = 0;//双十一活动开关  0 是关闭  1是开启   默认关闭
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -120,7 +123,6 @@ public class MainActivity extends RxAppCompatActivity implements MainView, ViewP
     }
 
     private void initView() {
-        activityInfo = getIntent().getIntExtra("activityInfo", 0);
         DaggerBaseActivityComponent.builder()
                 .applicationComponent(MyApplication.getInstance().getComponent())
                 .build().inject(this);
@@ -134,27 +136,16 @@ public class MainActivity extends RxAppCompatActivity implements MainView, ViewP
         mViewPager.setNoScroll(true);
         mFragments = new ArrayList<>();
 
-        if (activityInfo == 0) {//平常
-            mHomeFragment = new HomeNewFragment();
-            mEvaluationFragment = new EvaluationNewFragment();
-            mTryFragment = new FreeFragment();
-            mMineFragment = new MineFragment();
-            mFragments.add(mHomeFragment);
-            mFragments.add(mEvaluationFragment);
-            mFragments.add(mTryFragment);
-            mFragments.add(mMineFragment);
-        } else {//双十一活动开启
-            mHomeFragment = new HomeNewFragment();
-            mEvaluationFragment = new EvaluationNewFragment();
-            mAction11Fragment = new Action11Fragment();
-            mTryFragment = new FreeFragment();
-            mMineFragment = new MineFragment();
-            mFragments.add(mHomeFragment);
-            mFragments.add(mEvaluationFragment);
-            mFragments.add(mAction11Fragment);
-            mFragments.add(mTryFragment);
-            mFragments.add(mMineFragment);
-        }
+        mAction11Fragment = new Action11Fragment();
+        mEvaluationFragment = new EvaluationNewFragment();
+        mHomeFragment = new HomeNewFragment();
+        mTryFragment = new FreeNewFragment();
+        mMineFragment = new MineFragment();
+        mFragments.add(mAction11Fragment);
+        mFragments.add(mEvaluationFragment);
+        mFragments.add(mHomeFragment);
+        mFragments.add(mTryFragment);
+        mFragments.add(mMineFragment);
 
         mHomeAdapter = new HomeAdapter(getSupportFragmentManager());
         mHomeAdapter.setFragments(mFragments);
@@ -162,8 +153,17 @@ public class MainActivity extends RxAppCompatActivity implements MainView, ViewP
         mViewPager.setOffscreenPageLimit(mFragments.size() - 1);
         mTabLayout.setupWithViewPager(mViewPager);
         mViewPager.addOnPageChangeListener(this);
-        mPresenter.initTabLayout(this, mTabLayout,activityInfo);
+        mPresenter.initTabLayout(this, mTabLayout);
         UAppUtil.tab(this, 0);//统计榜单
+        View tabView = (View) mTabLayout.getTabAt(mFragments.size() - 1).getCustomView().getParent();
+        tabView.setOnClickListener(v -> {
+            if (TextUtils.isEmpty(SPUtils.getInstance(CommonDate.USER).getString(CommonDate.token, "").trim())) {
+                if (ClickUtil.isFastDoubleClick(800)) {
+                } else {
+                    startActivityForResult(new Intent(this, LoginActivity.class), 100);
+                }
+            }
+        });
 
 //        DistanceHelper.getAndroiodScreenProperty(this);
         if (SPUtils.getInstance().getBoolean(CommonDate.FIRST, true)) {
@@ -369,13 +369,8 @@ public class MainActivity extends RxAppCompatActivity implements MainView, ViewP
                 break;
             case R.id.guide_next1:
                 mGuildBackground2.setVisibility(View.GONE);
-                if (activityInfo == 0) {//平常
-                    mGuildBackground.setBackgroundResource(R.mipmap.guide_bg2);
-                    mGuideContent2.setImageResource(R.mipmap.guide_content2);
-                }else {//双十一
-                    mGuildBackground.setBackgroundResource(R.mipmap.guide_bg21);
-                    mGuideContent2.setImageResource(R.mipmap.guide_content21);
-                }
+                mGuildBackground.setBackgroundResource(R.mipmap.guide_bg21);
+                mGuideContent2.setImageResource(R.mipmap.guide_content21);
                 mGuideContent1.setVisibility(View.GONE);
                 mGuideNext1.setVisibility(View.GONE);
                 mGuideContent2.setVisibility(View.VISIBLE);
@@ -384,13 +379,8 @@ public class MainActivity extends RxAppCompatActivity implements MainView, ViewP
                 mGuideNext3.setVisibility(View.GONE);
                 break;
             case R.id.guide_next2:
-                if (activityInfo == 0) {//平常
-                    mGuildBackground.setBackgroundResource(R.mipmap.guide_bg3);
-                    mGuideContent3.setImageResource(R.mipmap.guide_content3);
-                }else {//双十一
-                    mGuildBackground.setBackgroundResource(R.mipmap.guide_bg31);
-                    mGuideContent3.setImageResource(R.mipmap.guide_content31);
-                }
+                mGuildBackground.setBackgroundResource(R.mipmap.guide_bg31);
+                mGuideContent3.setImageResource(R.mipmap.guide_content31);
                 mGuideContent1.setVisibility(View.GONE);
                 mGuideNext1.setVisibility(View.GONE);
                 mGuideContent2.setVisibility(View.GONE);

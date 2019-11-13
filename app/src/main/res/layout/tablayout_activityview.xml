@@ -1,16 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
               android:orientation="vertical"
-              android:gravity="center"
               android:layout_width="match_parent"
               android:layout_height="match_parent"
               android:background="@android:color/transparent">
 
-    <ImageView
-        android:id="@+id/tab_activity"
+    <TextView
+        android:id="@+id/tab_item2"
+        android:drawableTop="@drawable/tablayout_item2"
+        android:gravity="center"
         android:layout_gravity="center_horizontal"
-        android:layout_width="@dimen/x150"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:src="@mipmap/tab_activity"/>
+        android:text="首页"
+        android:drawablePadding="@dimen/y2"
+        android:textSize="11sp"
+        android:textColor="@drawable/item_color"/>
 
 </LinearLayout>
