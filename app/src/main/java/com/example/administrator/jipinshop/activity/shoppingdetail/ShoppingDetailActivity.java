@@ -918,7 +918,7 @@ public class ShoppingDetailActivity extends BaseActivity implements ShoppingComm
             if (share_media.equals(SHARE_MEDIA.WEIXIN)){
                 String path = "pages/list/top-info/main?topListVal=" + new Gson().toJson(mShareBean);
                 new ShareUtils(ShoppingDetailActivity.this, share_media)
-                        .shareWXMin1(ShoppingDetailActivity.this,shareImage,shareName,shareContent,path);
+                        .shareWXMin1(ShoppingDetailActivity.this,shareUrl,shareImage,shareName,shareContent,path);
             }else {
                 new ShareUtils(ShoppingDetailActivity.this, share_media)
                         .shareWeb(ShoppingDetailActivity.this, shareUrl, shareName, shareContent, shareImage, R.mipmap.share_logo);

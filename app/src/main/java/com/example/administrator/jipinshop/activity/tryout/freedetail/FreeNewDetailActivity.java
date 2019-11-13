@@ -12,19 +12,24 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 
+import com.blankj.utilcode.util.SPUtils;
 import com.example.administrator.jipinshop.R;
-import com.example.administrator.jipinshop.adapter.CommenBannerAdapter;
 import com.example.administrator.jipinshop.adapter.HomeAdapter;
+import com.example.administrator.jipinshop.adapter.NoPageBannerAdapter;
 import com.example.administrator.jipinshop.base.BaseActivity;
 import com.example.administrator.jipinshop.bean.FreeDetailBean;
 import com.example.administrator.jipinshop.databinding.ActivityFreenewDetailBinding;
 import com.example.administrator.jipinshop.fragment.tryout.freemodel.detail.ShopDescriptionFragment;
 import com.example.administrator.jipinshop.fragment.tryout.freemodel.detail.ShopRuleFragment;
 import com.example.administrator.jipinshop.fragment.tryout.freemodel.detail.ShopUserFragment;
+import com.example.administrator.jipinshop.util.ShareUtils;
 import com.example.administrator.jipinshop.util.ToastUtil;
+import com.example.administrator.jipinshop.util.sp.CommonDate;
 import com.example.administrator.jipinshop.view.dialog.ProgressDialogView;
+import com.example.administrator.jipinshop.view.dialog.ShareBoardDialog2;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
+import com.umeng.socialize.bean.SHARE_MEDIA;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -36,7 +41,7 @@ import javax.inject.Inject;
  * @create 2019/11/11
  * @Describe 新免单详情页面
  */
-public class FreeNewDetailActivity extends BaseActivity implements View.OnClickListener, FreeNewDetailView {
+public class FreeNewDetailActivity extends BaseActivity implements View.OnClickListener, FreeNewDetailView, ShareBoardDialog2.onShareListener {
 
     @Inject
     FreeNewDetailPresenter mPresenter;
@@ -45,7 +50,7 @@ public class FreeNewDetailActivity extends BaseActivity implements View.OnClickL
     private String freeId = "";
     private Dialog mDialog;
     //banner
-    private CommenBannerAdapter mBannerAdapter;
+    private NoPageBannerAdapter mBannerAdapter;
     private List<String> mBannerList;
     private List<ImageView> point;
     //三个fragment
@@ -56,6 +61,12 @@ public class FreeNewDetailActivity extends BaseActivity implements View.OnClickL
     float startY = 0;
     float xDistance = 0;
     float yDistance = 0;
+    //分享
+    private ShareBoardDialog2 mShareBoardDialog;
+    private String shareImage = "";
+    private String shareName = "";
+    private String shareContent = "";
+    private String shareUrl = "";
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -80,7 +91,7 @@ public class FreeNewDetailActivity extends BaseActivity implements View.OnClickL
         mDialog.show();
 
         //banner
-        mBannerAdapter = new CommenBannerAdapter(this);
+        mBannerAdapter = new NoPageBannerAdapter(this);
         mBannerList = new ArrayList<>();
         point = new ArrayList<>();
         mBannerAdapter.setPoint(point);
@@ -100,6 +111,29 @@ public class FreeNewDetailActivity extends BaseActivity implements View.OnClickL
             case R.id.detail_back:
             case R.id.title_back:
                 finish();
+                break;
+            case R.id.title_favor:
+                if (mShareBoardDialog == null) {
+                    mShareBoardDialog = ShareBoardDialog2.getInstance();
+                    mShareBoardDialog.setOnShareListener(this);
+                }
+                if (!mShareBoardDialog.isAdded()) {
+                    mShareBoardDialog.show(getSupportFragmentManager(), "ShareBoardDialog2");
+                }
+                break;
+            case R.id.detail_invation:
+                if (mBinding.detailInvation.getText().toString().equals("立即购买")){
+                    //弹框
+                }else {
+                    //邀请
+                    if (mShareBoardDialog == null) {
+                        mShareBoardDialog = ShareBoardDialog2.getInstance();
+                        mShareBoardDialog.setOnShareListener(this);
+                    }
+                    if (!mShareBoardDialog.isAdded()) {
+                        mShareBoardDialog.show(getSupportFragmentManager(), "ShareBoardDialog2");
+                    }
+                }
                 break;
         }
     }
@@ -142,16 +176,25 @@ public class FreeNewDetailActivity extends BaseActivity implements View.OnClickL
         if (mDialog != null && mDialog.isShowing()){
             mDialog.dismiss();
         }
+        shareImage = detailBean.getData().getShareImg();
+        shareName = detailBean.getData().getShareTitle();
+        shareContent = detailBean.getData().getShareContent();
+        shareUrl = detailBean.getData().getShareUrl();
         mBinding.setDate(detailBean.getData());
         mBannerList.addAll(detailBean.getData().getImgList());
         mPresenter.initBanner(mBannerList, this, point, mBannerAdapter);
         mBinding.itemProgressbar.setTotalAndCurrentCount(detailBean.getData().getInviteUserCount(),detailBean.getData().getMyInviteUserCount());
         mBinding.itemProgressbar.post(() -> {
             RelativeLayout.LayoutParams layoutParams = (RelativeLayout.LayoutParams) mBinding.detailProgress.getLayoutParams();
-            int w = (int) mBinding.itemProgressbar.getSideWidth() - (mBinding.detailProgress.getMeasuredWidth() / 2 );
-            if (w > 0){
-                layoutParams.leftMargin = w;
-                mBinding.detailProgress.setLayoutParams(layoutParams);
+            if (detailBean.getData().getMyInviteUserCount() < detailBean.getData().getInviteUserCount()){
+                int w = (int) mBinding.itemProgressbar.getSideWidth() - (mBinding.detailProgress.getMeasuredWidth() / 2 );
+                if (w > 0){
+                    layoutParams.leftMargin = w;
+                    mBinding.detailProgress.setLayoutParams(layoutParams);
+                }
+            }else {
+                mBinding.detailProgress.setVisibility(View.GONE);
+                mBinding.detailProgress2.setImageResource(R.mipmap.free_progrss);
             }
 
             RelativeLayout.LayoutParams layoutParams1 = (RelativeLayout.LayoutParams) mBinding.detailProgressStart.getLayoutParams();
@@ -196,5 +239,28 @@ public class FreeNewDetailActivity extends BaseActivity implements View.OnClickL
             mDialog.dismiss();
         }
         ToastUtil.show(error);
+    }
+
+    @Override
+    public void share(SHARE_MEDIA share_media) {
+        mDialog = (new ProgressDialogView()).createLoadingDialog(this, "");
+        if (share_media.equals(SHARE_MEDIA.WEIXIN)){
+            //分享小程序
+            String path = "pages/main/main-info/index?fromUserId=" + SPUtils.getInstance(CommonDate.USER).getString(CommonDate.userId) + "&freeId=" + freeId;
+            new ShareUtils(this, share_media)
+                    .shareWXMin2(this,shareUrl,shareImage,shareName,shareContent,path);
+        }else if (share_media.equals(SHARE_MEDIA.WEIXIN_CIRCLE)){
+            //分享图片到朋友圈
+            new ShareUtils(this, share_media, mDialog)
+                    .shareImage(this, R.mipmap.logo11);
+        }
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        if (mDialog != null && mDialog.isShowing()){
+            mDialog.dismiss();
+        }
     }
 }

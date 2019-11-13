@@ -232,6 +232,7 @@
                             />
 
                         <ImageView
+                            android:id="@+id/detail_progress2"
                             android:layout_alignParentRight="true"
                             android:src="@mipmap/bg_free_progrss"
                             android:layout_width="wrap_content"

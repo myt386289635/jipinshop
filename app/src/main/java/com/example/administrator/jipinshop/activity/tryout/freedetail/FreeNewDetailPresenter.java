@@ -15,7 +15,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.example.administrator.jipinshop.R;
-import com.example.administrator.jipinshop.adapter.CommenBannerAdapter;
+import com.example.administrator.jipinshop.adapter.NoPageBannerAdapter;
 import com.example.administrator.jipinshop.bean.FreeDetailBean;
 import com.example.administrator.jipinshop.netwrok.Repository;
 import com.example.administrator.jipinshop.util.DistanceHelper;
@@ -147,7 +147,7 @@ public class FreeNewDetailPresenter {
         });
     }
 
-    public void initBanner(List<String> mBannerList , Context context , List<ImageView> point, CommenBannerAdapter mBannerAdapter){
+    public void initBanner(List<String> mBannerList , Context context , List<ImageView> point, NoPageBannerAdapter mBannerAdapter){
         for (int i = 0; i < mBannerList.size(); i++) {
             ImageView imageView = new ImageView(context);
             point.add(imageView);

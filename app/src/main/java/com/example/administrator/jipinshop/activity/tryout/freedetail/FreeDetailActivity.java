@@ -459,7 +459,7 @@ public class FreeDetailActivity extends BaseActivity implements View.OnClickList
         if (share_media.equals(SHARE_MEDIA.WEIXIN)){
             String path = "pages/main/main-info/index?fromUserId=" + SPUtils.getInstance(CommonDate.USER).getString(CommonDate.userId) + "&freeId=" + id;
             new ShareUtils(this, share_media)
-                    .shareWXMin2(this,shareImage,shareName,shareContent,path);
+                    .shareWXMin2(this,shareUrl,shareImage,shareName,shareContent,path);
         }else {
             MobLinkUtil.mobShare(id, "/free", mobID -> {
                 if (!TextUtils.isEmpty(mobID)){

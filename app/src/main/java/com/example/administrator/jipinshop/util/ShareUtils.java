@@ -93,8 +93,8 @@ public class ShareUtils {
     /**
      * 分享 极品城 小程序
      */
-    public void shareWXMin1(final Activity activity, String shareImage ,String title , String description,String path){
-        UMMin umMin = new UMMin("https://www.jipincheng.cn/");//兼容低版本的网页链接
+    public void shareWXMin1(final Activity activity,String shareUrl, String shareImage ,String title , String description,String path){
+        UMMin umMin = new UMMin(shareUrl);//兼容低版本的网页链接
         UMImage image;
         if (TextUtils.isEmpty(shareImage)){
             image = new UMImage(activity, R.mipmap.share_logo);//本地缩略图
@@ -115,9 +115,9 @@ public class ShareUtils {
     /**
      * 分享 极品0元购 小程序
      */
-    public void shareWXMin2(final Activity activity, String shareImage ,String title , String description,String path){
+    public void shareWXMin2(final Activity activity,String shareUrl, String shareImage ,String title , String description,String path){
 //        Config.setMiniTest();//设置为开发版本小程序  上线需要去掉
-        UMMin umMin = new UMMin("https://www.jipincheng.cn/");//兼容低版本的网页链接
+        UMMin umMin = new UMMin(shareUrl);//兼容低版本的网页链接
         UMImage image;
         if (TextUtils.isEmpty(shareImage)){
             image = new UMImage(activity, R.mipmap.share_logo);//本地缩略图

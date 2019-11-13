@@ -416,7 +416,7 @@ public class ArticleDetailActivity extends BaseActivity implements View.OnClickL
         if (share_media.equals(SHARE_MEDIA.WEIXIN)){
             String path = "pages/ev/ev-info/main?evListVal=" + articleId + "&type=" + articleType;
             new ShareUtils(this, share_media)
-                    .shareWXMin1(this,shareImg,shareTitle,shareContent,path);
+                    .shareWXMin1(this,shareUrl,shareImg,shareTitle,shareContent,path);
         }else {
             if (articleType.equals("7")){
                 //清单web
