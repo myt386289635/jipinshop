@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <RelativeLayout
+        android:layout_centerHorizontal="true"
+        android:background="@drawable/bg_dialog"
+        android:orientation="vertical"
+        android:layout_width="@dimen/x630"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:id="@+id/title"
+            android:layout_marginBottom="@dimen/y30"
+            android:layout_marginTop="@dimen/y53"
+            android:layout_centerHorizontal="true"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            android:textColor="@color/color_202020"
+            android:text="奖励规则"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+
+        <TextView
+            android:id="@+id/dialog_time"
+            android:layout_below="@id/title"
+            android:layout_centerHorizontal="true"
+            android:textColor="@color/color_565252"
+            android:textSize="15sp"
+            android:text="您将前往淘宝APP购买该商品"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+
+        <TextView
+            android:id="@+id/dialog_actualPrice"
+            android:layout_marginTop="@dimen/y30"
+            android:layout_below="@id/dialog_time"
+            android:layout_centerHorizontal="true"
+            android:text="购买价格¥198"
+            android:textColor="@color/color_565252"
+            android:textSize="15sp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+
+        <TextView
+            android:id="@+id/dialog_feePrice"
+            android:layout_marginTop="@dimen/y30"
+            android:layout_below="@id/dialog_actualPrice"
+            android:layout_centerHorizontal="true"
+            android:text="补贴¥198"
+            android:textColor="@color/color_565252"
+            android:textSize="15sp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+
+
+        <TextView
+            android:layout_marginTop="@dimen/y44"
+            android:layout_below="@id/dialog_feePrice"
+            android:layout_marginRight="@dimen/x56"
+            android:layout_marginLeft="@dimen/x56"
+            android:id="@+id/dialog_sure"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/y80"
+            android:background="@drawable/bg_free_dialog2"
+            android:gravity="center"
+            android:text="前往购买"
+            android:textColor="@color/color_white"
+            android:textSize="16sp"
+            android:textStyle="bold"/>
+
+        <TextView
+            android:layout_marginBottom="@dimen/y24"
+            android:layout_marginTop="@dimen/y24"
+            android:layout_centerHorizontal="true"
+            android:layout_below="@id/dialog_sure"
+            android:text="*每位用户仅享受一次全额返现机会哦*"
+            android:textColor="@color/color_E25838"
+            android:textSize="13sp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+
+
+        <ImageView
+            android:id="@+id/dialog_cancle"
+            android:layout_alignParentRight="true"
+            android:padding="@dimen/y17"
+            android:src="@mipmap/dialog_close1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+
+    </RelativeLayout>
+
+</RelativeLayout>

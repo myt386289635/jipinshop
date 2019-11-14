@@ -498,4 +498,29 @@ public class DialogUtil{
         dialog.show();
         dialog.setContentView(view);
     }
+
+    /**
+     * 新手专区详情购买弹框
+     */
+    public static void NewPeopleBuyDialog(Context context , String actualPrice, String freePrice , View.OnClickListener listener){
+        AlertDialog.Builder builder = new AlertDialog.Builder(context,R.style.dialog);
+        final Dialog dialog = builder.create();
+        View view = LayoutInflater.from(context).inflate(R.layout.dialog_newpeople_buy,null);
+        TextView dialog_actualPrice = view.findViewById(R.id.dialog_actualPrice);
+        String html2 = "购买价格<font color='#E25838'><b>¥"+actualPrice+"</b></font>";
+        dialog_actualPrice.setText(Html.fromHtml(html2));
+        TextView dialog_feePrice = view.findViewById(R.id.dialog_feePrice);
+        String html3 = "补贴<font color='#E25838'><b>¥"+freePrice+"</b></font>";
+        dialog_feePrice.setText(Html.fromHtml(html3));
+        ImageView dialog_cancle = view.findViewById(R.id.dialog_cancle);
+        TextView dialog_sure = view.findViewById(R.id.dialog_sure);
+        dialog.getWindow().setDimAmount(0.35f);
+        dialog_cancle.setOnClickListener(v -> dialog.dismiss());
+        dialog_sure.setOnClickListener(v -> {
+            listener.onClick(v);
+            dialog.dismiss();
+        });
+        dialog.show();
+        dialog.setContentView(view);
+    }
 }

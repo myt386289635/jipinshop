@@ -1036,7 +1036,7 @@ public class Repository {
     /**
      * 免单抢购
      */
-    public Observable<ImageBean> freeApply2(String freeId){
-        return mAPIService.freeApply2(freeId);
+    public Observable<ImageBean> freeApply2(String freeId,String type){
+        return mAPIService.freeApply2(freeId,type);
     }
 }

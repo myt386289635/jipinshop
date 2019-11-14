@@ -1,29 +1,23 @@
-package com.example.administrator.jipinshop.activity.tryout.freedetail;
+package com.example.administrator.jipinshop.activity.newpeople.detail;
 
 import android.content.Context;
-import android.content.res.ColorStateList;
 import android.support.design.widget.AppBarLayout;
-import android.support.design.widget.TabLayout;
-import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
-import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
-import android.widget.TextView;
 
 import com.example.administrator.jipinshop.R;
+import com.example.administrator.jipinshop.activity.tryout.freedetail.FreeNewDetailView;
 import com.example.administrator.jipinshop.adapter.NoPageBannerAdapter;
 import com.example.administrator.jipinshop.bean.FreeDetailBean;
 import com.example.administrator.jipinshop.bean.ImageBean;
-import com.example.administrator.jipinshop.bean.SuccessBean;
 import com.example.administrator.jipinshop.netwrok.Repository;
 import com.example.administrator.jipinshop.util.DistanceHelper;
 import com.trello.rxlifecycle2.LifecycleTransformer;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import javax.inject.Inject;
@@ -33,10 +27,10 @@ import io.reactivex.schedulers.Schedulers;
 
 /**
  * @author 莫小婷
- * @create 2019/11/12
+ * @create 2019/11/14
  * @Describe
  */
-public class FreeNewDetailPresenter {
+public class NewPeopleDetailPresenter {
 
     private Repository mRepository;
     private FreeNewDetailView mView;
@@ -46,29 +40,26 @@ public class FreeNewDetailPresenter {
     }
 
     @Inject
-    public FreeNewDetailPresenter(Repository repository) {
+    public NewPeopleDetailPresenter(Repository repository) {
         mRepository = repository;
     }
 
-    public void setTitle(AppBarLayout appBarLayout, ImageView view, LinearLayout statusBar){
+    public void setTitle(AppBarLayout appBarLayout, LinearLayout statusBar){
         appBarLayout.addOnOffsetChangedListener((appBarLayout1, verticalOffset) -> {
             if(verticalOffset == 0){
                 //展开
                 if (statusBar.getVisibility() != View.INVISIBLE){
                     statusBar.setVisibility(View.INVISIBLE);
-                    view.setVisibility(View.GONE);
                 }
             }else if(Math.abs(verticalOffset) >= appBarLayout1.getTotalScrollRange()){
                 //折叠
                 if (statusBar.getVisibility() != View.VISIBLE){
                     statusBar.setVisibility(View.VISIBLE);
-                    view.setVisibility(View.VISIBLE);
                 }
             }else {
                 //过程
                 if (statusBar.getVisibility() != View.INVISIBLE){
                     statusBar.setVisibility(View.INVISIBLE);
-                    view.setVisibility(View.GONE);
                 }
             }
         });
@@ -111,44 +102,6 @@ public class FreeNewDetailPresenter {
                 });
     }
 
-    public void initTabLayout(Context context, List<Fragment> mFragments, TabLayout mTabLayout) {
-        final List<Integer> textLether = new ArrayList<>();
-        for (int i = 0; i < mFragments.size(); i++) {
-            View view = LayoutInflater.from(context).inflate(R.layout.tablayout_home, null);
-            TextView textView = view.findViewById(R.id.tab_name);
-            if (i == 0) {
-                textView.setText("商品介绍");
-            } else if (i == 1){
-                textView.setText("参与名单");
-            }else if (i == 2){
-                textView.setText("免单技巧");
-            }
-            mTabLayout.getTabAt(i).setCustomView(view);
-            int a = (int) textView.getPaint().measureText(textView.getText().toString());
-            textLether.add(a);
-        }
-        mTabLayout.setSelectedTabIndicatorColor(context.getResources().getColor(R.color.color_E25838));
-        mTabLayout.setTabRippleColor(ColorStateList.valueOf(context.getResources().getColor(R.color.transparent)));
-        mTabLayout.post(() -> {
-            //拿到tabLayout的mTabStrip属性
-            LinearLayout mTabStrip = (LinearLayout) mTabLayout.getChildAt(0);
-            int totle = textLether.get(0) + textLether.get(1) + textLether.get(2);
-            int dp10 = (mTabLayout.getWidth() - totle) / 3;
-            for (int i = 0; i < mTabStrip.getChildCount(); i++) {
-                View tabView = mTabStrip.getChildAt(i);
-                tabView.setPadding(0, 0, 0, 0);
-                int width = textLether.get(i) + dp10;
-                LinearLayout.LayoutParams params = (LinearLayout.LayoutParams)
-                        tabView.getLayoutParams();
-                params.width = width;
-                params.leftMargin = dp10  / 2;
-                params.rightMargin = dp10  / 2;
-                tabView.setLayoutParams(params);
-                tabView.invalidate();
-            }
-        });
-    }
-
     public void initBanner(List<String> mBannerList , Context context , List<ImageView> point, NoPageBannerAdapter mBannerAdapter){
         for (int i = 0; i < mBannerList.size(); i++) {
             ImageView imageView = new ImageView(context);
@@ -167,7 +120,7 @@ public class FreeNewDetailPresenter {
     }
 
     public void freeAppley(String freeId, LifecycleTransformer<ImageBean> transformer){
-        mRepository.freeApply2(freeId,"1")
+        mRepository.freeApply2(freeId,"0")
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .compose(transformer)
@@ -181,5 +134,4 @@ public class FreeNewDetailPresenter {
                     mView.onFile(throwable.getMessage());
                 });
     }
-
 }

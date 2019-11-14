@@ -1,4 +1,4 @@
-package com.example.administrator.jipinshop.activity.tryout.freedetail;
+package com.example.administrator.jipinshop.activity.newpeople.detail;
 
 import android.app.Dialog;
 import android.content.Intent;
@@ -7,26 +7,27 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.AppBarLayout;
 import android.support.v4.app.Fragment;
+import android.support.v4.view.ViewPager;
 import android.text.Html;
 import android.text.TextUtils;
+import android.util.TypedValue;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.ImageView;
-import android.widget.RelativeLayout;
 
 import com.alibaba.baichuan.android.trade.AlibcTradeSDK;
 import com.blankj.utilcode.util.SPUtils;
 import com.example.administrator.jipinshop.R;
+import com.example.administrator.jipinshop.activity.tryout.freedetail.FreeNewDetailView;
 import com.example.administrator.jipinshop.activity.web.TaoBaoWebActivity;
 import com.example.administrator.jipinshop.adapter.HomeAdapter;
 import com.example.administrator.jipinshop.adapter.NoPageBannerAdapter;
 import com.example.administrator.jipinshop.base.BaseActivity;
 import com.example.administrator.jipinshop.bean.FreeDetailBean;
 import com.example.administrator.jipinshop.bean.ImageBean;
-import com.example.administrator.jipinshop.databinding.ActivityFreenewDetailBinding;
+import com.example.administrator.jipinshop.databinding.ActivityNewpeopleDetailBinding;
 import com.example.administrator.jipinshop.fragment.tryout.freemodel.detail.ShopDescriptionFragment;
-import com.example.administrator.jipinshop.fragment.tryout.freemodel.detail.ShopRuleFragment;
-import com.example.administrator.jipinshop.fragment.tryout.freemodel.detail.ShopUserFragment;
+import com.example.administrator.jipinshop.fragment.tryout.freemodel.detail.ShopUserFragment2;
 import com.example.administrator.jipinshop.util.ShareUtils;
 import com.example.administrator.jipinshop.util.TaoBaoUtil;
 import com.example.administrator.jipinshop.util.ToastUtil;
@@ -46,15 +47,15 @@ import javax.inject.Inject;
 
 /**
  * @author 莫小婷
- * @create 2019/11/11
- * @Describe 新免单详情页面
+ * @create 2019/11/14
+ * @Describe 新人专区详情
  */
-public class FreeNewDetailActivity extends BaseActivity implements View.OnClickListener, FreeNewDetailView, ShareBoardDialog2.onShareListener {
+public class NewPeopleDetailActivity extends BaseActivity implements View.OnClickListener, FreeNewDetailView, ShareBoardDialog2.onShareListener, ViewPager.OnPageChangeListener {
 
     @Inject
-    FreeNewDetailPresenter mPresenter;
+    NewPeopleDetailPresenter mPresenter;
 
-    private ActivityFreenewDetailBinding mBinding;
+    private ActivityNewpeopleDetailBinding mBinding;
     private String freeId = "";
     private Dialog mDialog;
     //banner
@@ -81,7 +82,7 @@ public class FreeNewDetailActivity extends BaseActivity implements View.OnClickL
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        mBinding = DataBindingUtil.setContentView(this,R.layout.activity_freenew_detail);
+        mBinding = DataBindingUtil.setContentView(this, R.layout.activity_newpeople_detail);
         mBinding.setListener(this);
         mImmersionBar.reset()
                 .transparentStatusBar()
@@ -95,7 +96,7 @@ public class FreeNewDetailActivity extends BaseActivity implements View.OnClickL
     private void initView() {
         freeId = getIntent().getStringExtra("freeId");
 
-        mPresenter.setTitle(mBinding.appbar,mBinding.detailBack,mBinding.statusBar);
+        mPresenter.setTitle(mBinding.appbar,mBinding.statusBar);
         mPresenter.init(this,mBinding.detailPager,mBinding.statusBar,mBinding.statusBar1,mBinding.titleContainer);
         mDialog = (new ProgressDialogView()).createLoadingDialog(this, "");
         mDialog.show();
@@ -132,34 +133,43 @@ public class FreeNewDetailActivity extends BaseActivity implements View.OnClickL
                 }
                 break;
             case R.id.detail_invation:
-                if (mBinding.detailInvation.getText().toString().equals("立即购买")){
-                    //弹框
-                    String specialId = SPUtils.getInstance(CommonDate.USER).getString(CommonDate.relationId,"");
-                    if (TextUtils.isEmpty(specialId) || specialId.equals("null")){
-                        TaoBaoUtil.aliLogin(topAuthCode -> {
-                            startActivity(new Intent(this, TaoBaoWebActivity.class)
-                                    .putExtra(TaoBaoWebActivity.url, "https://oauth.taobao.com/authorize?response_type=code&client_id=25612235&redirect_uri=https://www.jipincheng.cn/qualityshop-api/api/taobao/returnUrl&state="+SPUtils.getInstance(CommonDate.USER).getString(CommonDate.token)+"&view=wap")
-                                    .putExtra(TaoBaoWebActivity.title,"淘宝授权")
-                            );
-                        });
-                    }else {
-                        DialogUtil.freeBuyDialog(this, actualPrice, freePrice, v1 -> {
-                            //去购买
-                            mDialog = (new ProgressDialogView()).createLoadingDialog(this, "");
-                            mDialog.show();
-                            mPresenter.freeAppley(freeId,this.bindToLifecycle());
-                        });
-                    }
+                //弹框
+                String specialId = SPUtils.getInstance(CommonDate.USER).getString(CommonDate.relationId,"");
+                if (TextUtils.isEmpty(specialId) || specialId.equals("null")){
+                    TaoBaoUtil.aliLogin(topAuthCode -> {
+                        startActivity(new Intent(this, TaoBaoWebActivity.class)
+                                .putExtra(TaoBaoWebActivity.url, "https://oauth.taobao.com/authorize?response_type=code&client_id=25612235&redirect_uri=https://www.jipincheng.cn/qualityshop-api/api/taobao/returnUrl&state="+SPUtils.getInstance(CommonDate.USER).getString(CommonDate.token)+"&view=wap")
+                                .putExtra(TaoBaoWebActivity.title,"淘宝授权")
+                        );
+                    });
                 }else {
-                    //邀请
-                    if (mShareBoardDialog == null) {
-                        mShareBoardDialog = ShareBoardDialog2.getInstance();
-                        mShareBoardDialog.setOnShareListener(this);
-                    }
-                    if (!mShareBoardDialog.isAdded()) {
-                        mShareBoardDialog.show(getSupportFragmentManager(), "ShareBoardDialog2");
-                    }
+                    DialogUtil.NewPeopleBuyDialog(this, actualPrice, freePrice, v1 -> {
+                        //去购买
+                        mDialog = (new ProgressDialogView()).createLoadingDialog(this, "");
+                        mDialog.show();
+                        mPresenter.freeAppley(freeId, this.bindToLifecycle());
+                    });
                 }
+                break;
+            case R.id.detail_title1Container:
+                //商品详情
+                mBinding.detailTitle1.setTextColor(getResources().getColor(R.color.color_050505));
+                mBinding.detailTitle2.setTextColor(getResources().getColor(R.color.color_ACACAC));
+                mBinding.detailTitle1.setTextSize(TypedValue.COMPLEX_UNIT_SP,15);
+                mBinding.detailTitle2.setTextSize(TypedValue.COMPLEX_UNIT_SP,14);
+                mBinding.detailLine1.setVisibility(View.VISIBLE);
+                mBinding.detailLine2.setVisibility(View.GONE);
+                mBinding.detailViewpager.setCurrentItem(0);
+                break;
+            case R.id.detail_title2Container:
+                //参与名单
+                mBinding.detailTitle2.setTextColor(getResources().getColor(R.color.color_050505));
+                mBinding.detailTitle1.setTextColor(getResources().getColor(R.color.color_ACACAC));
+                mBinding.detailTitle1.setTextSize(TypedValue.COMPLEX_UNIT_SP,14);
+                mBinding.detailTitle2.setTextSize(TypedValue.COMPLEX_UNIT_SP,15);
+                mBinding.detailLine1.setVisibility(View.GONE);
+                mBinding.detailLine2.setVisibility(View.VISIBLE);
+                mBinding.detailViewpager.setCurrentItem(1);
                 break;
         }
     }
@@ -211,54 +221,16 @@ public class FreeNewDetailActivity extends BaseActivity implements View.OnClickL
         mBinding.setDate(detailBean.getData());
         mBannerList.addAll(detailBean.getData().getImgList());
         mPresenter.initBanner(mBannerList, this, point, mBannerAdapter);
-        mBinding.itemProgressbar.setTotalAndCurrentCount(detailBean.getData().getInviteUserCount(),detailBean.getData().getMyInviteUserCount());
-        mBinding.itemProgressbar.post(() -> {
-            RelativeLayout.LayoutParams layoutParams = (RelativeLayout.LayoutParams) mBinding.detailProgress.getLayoutParams();
-            if (detailBean.getData().getMyInviteUserCount() < detailBean.getData().getInviteUserCount()){
-                int w = (int) mBinding.itemProgressbar.getSideWidth() - (mBinding.detailProgress.getMeasuredWidth() / 2 );
-                if (w > 0){
-                    layoutParams.leftMargin = w;
-                    mBinding.detailProgress.setLayoutParams(layoutParams);
-                }
-            }else {
-                mBinding.detailProgress.setVisibility(View.GONE);
-                mBinding.detailProgress2.setImageResource(R.mipmap.free_progrss);
-            }
-
-            RelativeLayout.LayoutParams layoutParams1 = (RelativeLayout.LayoutParams) mBinding.detailProgressStart.getLayoutParams();
-            int wT = (int) (mBinding.itemProgressbar.getSideWidth() - (mBinding.detailProgressStart.getMeasuredWidth() / 2));
-            if(wT > 0){
-                layoutParams1.leftMargin = wT;
-                mBinding.detailProgressStart.setLayoutParams(layoutParams1);
-            }
-            if (wT >= getResources().getDimension(R.dimen.x450)){
-                mBinding.detailProgressStart.setVisibility(View.GONE);
-            }else {
-                mBinding.detailProgressStart.setVisibility(View.VISIBLE);
-            }
-        });
         String html = "<b>免单提示：</b>" + detailBean.getData().getFreeNote();
         mBinding.detailRuleText.setText(Html.fromHtml(html));
-        if (detailBean.getData().getMyInviteUserCount() >= detailBean.getData().getInviteUserCount()){
-            mBinding.detailInvationContainer.setVisibility(View.GONE);
-            mBinding.detailInvationText.setVisibility(View.VISIBLE);
-            mBinding.detailInvation.setText("立即购买");
-        }else {
-            mBinding.detailInvationContainer.setVisibility(View.VISIBLE);
-            mBinding.detailInvationText.setVisibility(View.GONE);
-            mBinding.detailInvation.setText("立即邀请");
-        }
         mBinding.detailOldPrice.setColor(R.color.color_white);
         mBinding.detailOldPrice.setTv(true);
         mFragments.clear();
         mFragments.add(ShopDescriptionFragment.getInstance(new Gson().toJson(detailBean.getData().getGoodsContentList(),new TypeToken<List<FreeDetailBean.DataBean.GoodsContentListBean>>(){}.getType())));
-        mFragments.add(ShopUserFragment.getInstance(detailBean.getData().getId(),detailBean.getData().getFreePrice()));
-        mFragments.add(ShopRuleFragment.getInstance(detailBean.getData().getFreeGuide()));
+        mFragments.add(ShopUserFragment2.getInstance(detailBean.getData().getId(),detailBean.getData().getFreePrice()));
         mHomeAdapter.setFragments(mFragments);
         mBinding.detailViewpager.setAdapter(mHomeAdapter);
-        mBinding.detailViewpager.setOffscreenPageLimit(mFragments.size() - 1);
-        mBinding.tabLayout.setupWithViewPager(mBinding.detailViewpager);
-        mPresenter.initTabLayout(this,mFragments,mBinding.tabLayout);
+        mBinding.detailViewpager.addOnPageChangeListener(this);
     }
 
     @Override
@@ -303,4 +275,31 @@ public class FreeNewDetailActivity extends BaseActivity implements View.OnClickL
         AlibcTradeSDK.destory();
         super.onDestroy();
     }
+
+    @Override
+    public void onPageScrolled(int i, float v, int i1) {
+
+    }
+
+    @Override
+    public void onPageSelected(int i) {
+        if (i == 0){
+            mBinding.detailTitle1.setTextColor(getResources().getColor(R.color.color_050505));
+            mBinding.detailTitle2.setTextColor(getResources().getColor(R.color.color_ACACAC));
+            mBinding.detailTitle1.setTextSize(TypedValue.COMPLEX_UNIT_SP,15);
+            mBinding.detailTitle2.setTextSize(TypedValue.COMPLEX_UNIT_SP,14);
+            mBinding.detailLine1.setVisibility(View.VISIBLE);
+            mBinding.detailLine2.setVisibility(View.GONE);
+        }else {
+            mBinding.detailTitle2.setTextColor(getResources().getColor(R.color.color_050505));
+            mBinding.detailTitle1.setTextColor(getResources().getColor(R.color.color_ACACAC));
+            mBinding.detailTitle1.setTextSize(TypedValue.COMPLEX_UNIT_SP,14);
+            mBinding.detailTitle2.setTextSize(TypedValue.COMPLEX_UNIT_SP,15);
+            mBinding.detailLine1.setVisibility(View.GONE);
+            mBinding.detailLine2.setVisibility(View.VISIBLE);
+        }
+    }
+
+    @Override
+    public void onPageScrollStateChanged(int i) { }
 }

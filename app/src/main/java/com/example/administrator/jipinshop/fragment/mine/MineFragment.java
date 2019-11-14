@@ -24,6 +24,7 @@ import com.example.administrator.jipinshop.activity.minekt.freekt.MineFreeActivi
 import com.example.administrator.jipinshop.activity.minekt.orderkt.KTMyOrderActivity;
 import com.example.administrator.jipinshop.activity.minekt.publishkt.MyPublishActivity;
 import com.example.administrator.jipinshop.activity.minekt.userkt.UserActivity;
+import com.example.administrator.jipinshop.activity.newpeople.NewPeopleActivity;
 import com.example.administrator.jipinshop.activity.setting.SettingActivity;
 import com.example.administrator.jipinshop.activity.sign.SignActivity;
 import com.example.administrator.jipinshop.activity.sign.invitation.InvitationNewActivity;
@@ -193,6 +194,14 @@ public class MineFragment extends DBBaseFragment implements View.OnClickListener
                 //我的发布
                 startActivity(new Intent(getContext(), MyPublishActivity.class));
                 break;
+            case R.id.mine_newpeople:
+                //新人专区
+                startActivity(new Intent(getContext(), NewPeopleActivity.class));
+                break;
+            case R.id.mine_invation:
+                //邀请码
+
+                break;
         }
     }
 
@@ -316,6 +325,16 @@ public class MineFragment extends DBBaseFragment implements View.OnClickListener
             GlideApp.loderImage(getContext(),userInfoBean.getData().getBgImg(),mBinding.mineBackground,0,0);
         }
         officialWeChat = userInfoBean.getData().getOfficialWeChat();
+        if (userInfoBean.getData().getPid().equals("0")){
+            mBinding.mineInvation.setVisibility(View.VISIBLE);
+        }else {
+            mBinding.mineInvation.setVisibility(View.GONE);
+        }
+        if (userInfoBean.getData().getIsNewUser().equals("0")){
+            mBinding.mineNewpeople.setVisibility(View.VISIBLE);
+        }else {
+            mBinding.mineNewpeople.setVisibility(View.GONE);
+        }
     }
 
     @Subscribe
@@ -384,6 +403,16 @@ public class MineFragment extends DBBaseFragment implements View.OnClickListener
             GlideApp.loderImage(getContext(),userInfoBean.getData().getBgImg(),mBinding.mineBackground,0,0);
         }
         officialWeChat = userInfoBean.getData().getOfficialWeChat();
+        if (userInfoBean.getData().getPid().equals("0")){
+            mBinding.mineInvation.setVisibility(View.VISIBLE);
+        }else {
+            mBinding.mineInvation.setVisibility(View.GONE);
+        }
+        if (userInfoBean.getData().getIsNewUser().equals("0")){
+            mBinding.mineNewpeople.setVisibility(View.VISIBLE);
+        }else {
+            mBinding.mineNewpeople.setVisibility(View.GONE);
+        }
     }
 
     @Override

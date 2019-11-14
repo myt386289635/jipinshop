@@ -471,6 +471,14 @@
         <activity android:name=".activity.tryout.freedetail.FreeNewDetailActivity"
                   android:screenOrientation="portrait"/>
 
+        <!--新人专区-->
+        <activity android:name=".activity.newpeople.NewPeopleActivity"
+                  android:screenOrientation="portrait"/>
+
+        <!--新人专区详情页-->
+        <activity android:name=".activity.newpeople.detail.NewPeopleDetailActivity"
+                  android:screenOrientation="portrait"/>
+
     </application>
 
 </manifest>

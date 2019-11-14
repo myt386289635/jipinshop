@@ -947,6 +947,6 @@ public interface APIService {
      */
     @FormUrlEncoded
     @POST("api/v2/free/apply")
-    Observable<ImageBean> freeApply2(@Field("freeId") String freeId);
+    Observable<ImageBean> freeApply2(@Field("freeId") String freeId , @Field("type") String type);
 
 }

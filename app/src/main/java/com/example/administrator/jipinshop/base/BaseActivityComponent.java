@@ -40,6 +40,8 @@ import com.example.administrator.jipinshop.activity.message.MessageActivity;
 import com.example.administrator.jipinshop.activity.message.detail.MsgDetailActivity;
 import com.example.administrator.jipinshop.activity.minekt.publishkt.detail.AuditDetailActivity;
 import com.example.administrator.jipinshop.activity.minekt.userkt.UserActivity;
+import com.example.administrator.jipinshop.activity.newpeople.NewPeopleActivity;
+import com.example.administrator.jipinshop.activity.newpeople.detail.NewPeopleDetailActivity;
 import com.example.administrator.jipinshop.activity.order.MyOrderActivity;
 import com.example.administrator.jipinshop.activity.order.detail.OrderDetailActivity;
 import com.example.administrator.jipinshop.activity.report.cover.CoverReportActivity;
@@ -134,4 +136,6 @@ public interface BaseActivityComponent {
     void inject(TaoBaoWebActivity activity);
     void inject(Action11Activity activity);
     void inject(FreeNewDetailActivity activity);
+    void inject(NewPeopleActivity activity);
+    void inject(NewPeopleDetailActivity activity);
 }

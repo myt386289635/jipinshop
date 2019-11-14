@@ -54,7 +54,7 @@
                 android:layout_marginTop="@dimen/x22"
                 android:textColor="@color/color_ACACAC"
                 android:textSize="14sp"
-                android:text="保存图片"
+                android:text="分享至朋友圈"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"/>
 

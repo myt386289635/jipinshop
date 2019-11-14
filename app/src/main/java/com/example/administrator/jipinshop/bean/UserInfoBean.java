@@ -95,6 +95,24 @@ public class UserInfoBean {
         private int age;//年龄
         private String officialWeChat;//客服电话
         private String collectCount;//收藏夹数量
+        private String pid;//是否显示邀请码 （pid=0时需要填写邀请码，其他表示不需要）
+        private String isNewUser;//是否显示新人专区 （0表示新用户，其他表示老用户）
+
+        public String getPid() {
+            return pid;
+        }
+
+        public void setPid(String pid) {
+            this.pid = pid;
+        }
+
+        public String getIsNewUser() {
+            return isNewUser;
+        }
+
+        public void setIsNewUser(String isNewUser) {
+            this.isNewUser = isNewUser;
+        }
 
         public String getCollectCount() {
             return collectCount;

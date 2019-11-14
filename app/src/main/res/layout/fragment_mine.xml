@@ -579,7 +579,7 @@
                             android:paddingBottom="@dimen/y26"
                             android:text="我的团队"
                             android:textColor="@color/color_202020"
-                            android:textSize="15sp"/>
+                            android:textSize="13sp"/>
 
                         <TextView
                             android:paddingTop="@dimen/y26"
@@ -594,7 +594,7 @@
                             android:onClick="@{listener.onClick}"
                             android:text="我的发布"
                             android:textColor="@color/color_202020"
-                            android:textSize="15sp"/>
+                            android:textSize="13sp"/>
 
                         <TextView
                             android:paddingTop="@dimen/y26"
@@ -602,7 +602,7 @@
                             android:id="@+id/mine_follow"
                             android:onClick="@{listener.onClick}"
                             android:gravity="center"
-                            android:textSize="15sp"
+                            android:textSize="13sp"
                             android:textColor="@color/color_202020"
                             android:layout_weight="1"
                             android:layout_width="0dp"
@@ -628,7 +628,7 @@
                                 android:src="@mipmap/message"/>
 
                             <TextView
-                                android:textSize="15sp"
+                                android:textSize="13sp"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_marginTop="@dimen/y16"
@@ -646,12 +646,44 @@
                         android:orientation="horizontal">
 
                         <TextView
+                            android:visibility="gone"
+                            android:paddingTop="@dimen/y26"
+                            android:paddingBottom="@dimen/y26"
+                            android:onClick="@{listener.onClick}"
+                            android:id="@+id/mine_invation"
+                            android:gravity="center"
+                            android:textSize="13sp"
+                            android:textColor="@color/color_202020"
+                            android:layout_weight="1"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:drawableTop="@mipmap/mine_invation"
+                            android:drawablePadding="@dimen/y16"
+                            android:text="邀请码"/>
+
+                        <TextView
+                            android:visibility="gone"
+                            android:paddingTop="@dimen/y26"
+                            android:paddingBottom="@dimen/y26"
+                            android:onClick="@{listener.onClick}"
+                            android:id="@+id/mine_newpeople"
+                            android:gravity="center"
+                            android:textSize="13sp"
+                            android:textColor="@color/color_202020"
+                            android:layout_weight="1"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:drawableTop="@mipmap/mine_newpeople"
+                            android:drawablePadding="@dimen/y16"
+                            android:text="新人专区"/>
+
+                        <TextView
                             android:paddingTop="@dimen/y26"
                             android:paddingBottom="@dimen/y26"
                             android:onClick="@{listener.onClick}"
                             android:id="@+id/mine_setting"
                             android:gravity="center"
-                            android:textSize="15sp"
+                            android:textSize="13sp"
                             android:textColor="@color/color_202020"
                             android:layout_weight="1"
                             android:layout_width="0dp"
@@ -667,7 +699,7 @@
                             android:onClick="@{listener.onClick}"
                             android:id="@+id/mine_trial"
                             android:gravity="center"
-                            android:textSize="15sp"
+                            android:textSize="13sp"
                             android:textColor="@color/color_202020"
                             android:layout_weight="1"
                             android:layout_width="0dp"
