@@ -17,6 +17,8 @@ import android.widget.TextView;
 import com.example.administrator.jipinshop.R;
 import com.example.administrator.jipinshop.adapter.NoPageBannerAdapter;
 import com.example.administrator.jipinshop.bean.FreeDetailBean;
+import com.example.administrator.jipinshop.bean.ImageBean;
+import com.example.administrator.jipinshop.bean.SuccessBean;
 import com.example.administrator.jipinshop.netwrok.Repository;
 import com.example.administrator.jipinshop.util.DistanceHelper;
 import com.trello.rxlifecycle2.LifecycleTransformer;
@@ -162,6 +164,22 @@ public class FreeNewDetailPresenter {
 //            mDetailPoint.addView(imageView, layoutParams);
         }
         mBannerAdapter.notifyDataSetChanged();
+    }
+
+    public void freeAppley(String freeId, LifecycleTransformer<ImageBean> transformer){
+        mRepository.freeApply2(freeId)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .compose(transformer)
+                .subscribe(successBean -> {
+                    if (successBean.getCode() == 0){
+                        mView.onApply(successBean);
+                    }else {
+                        mView.onFile(successBean.getMsg());
+                    }
+                }, throwable -> {
+                    mView.onFile(throwable.getMessage());
+                });
     }
 
 }

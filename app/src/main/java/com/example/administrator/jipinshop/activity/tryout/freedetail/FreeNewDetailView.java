@@ -1,6 +1,7 @@
 package com.example.administrator.jipinshop.activity.tryout.freedetail;
 
 import com.example.administrator.jipinshop.bean.FreeDetailBean;
+import com.example.administrator.jipinshop.bean.ImageBean;
 
 /**
  * @author 莫小婷
@@ -10,4 +11,6 @@ import com.example.administrator.jipinshop.bean.FreeDetailBean;
 public interface FreeNewDetailView {
     void onSuccess(FreeDetailBean detailBean);
     void onFile(String error);
+
+    void onApply(ImageBean bean);
 }

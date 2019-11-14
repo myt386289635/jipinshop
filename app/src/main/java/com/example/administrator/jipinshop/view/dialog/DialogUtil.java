@@ -4,6 +4,7 @@ import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.Context;
 import android.os.CountDownTimer;
+import android.text.Html;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.WindowManager;
@@ -466,6 +467,34 @@ public class DialogUtil{
             dialog.dismiss();
         });
         dialog.getWindow().setDimAmount(0.8f);
+        dialog.show();
+        dialog.setContentView(view);
+    }
+
+    /**
+     * 新免单详情购买弹框
+     */
+    public static void freeBuyDialog(Context context , String actualPrice, String freePrice , View.OnClickListener listener){
+        AlertDialog.Builder builder = new AlertDialog.Builder(context,R.style.dialog);
+        final Dialog dialog = builder.create();
+        View view = LayoutInflater.from(context).inflate(R.layout.dialog_free_buy,null);
+        TextView dialog_time = view.findViewById(R.id.dialog_time);
+        String html = "您需在<b>一小时内</b>前往淘宝APP购买";
+        dialog_time.setText(Html.fromHtml(html));
+        TextView dialog_actualPrice = view.findViewById(R.id.dialog_actualPrice);
+        String html2 = "购买价格<font color='#E25838'><b>¥"+actualPrice+"</b></font>";
+        dialog_actualPrice.setText(Html.fromHtml(html2));
+        TextView dialog_feePrice = view.findViewById(R.id.dialog_feePrice);
+        String html3 = "补贴<font color='#E25838'><b>¥"+freePrice+"</b></font>";
+        dialog_feePrice.setText(Html.fromHtml(html3));
+        TextView dialog_cancle = view.findViewById(R.id.dialog_cancle);
+        TextView dialog_sure = view.findViewById(R.id.dialog_sure);
+        dialog.getWindow().setDimAmount(0.35f);
+        dialog_cancle.setOnClickListener(v -> dialog.dismiss());
+        dialog_sure.setOnClickListener(v -> {
+            listener.onClick(v);
+            dialog.dismiss();
+        });
         dialog.show();
         dialog.setContentView(view);
     }

@@ -941,4 +941,12 @@ public interface APIService {
      */
     @GET("api/v2/free/detail")
     Observable<FreeDetailBean> freeDetail(@Query("freeId") String freeId);
+
+    /**
+     * 免单抢购
+     */
+    @FormUrlEncoded
+    @POST("api/v2/free/apply")
+    Observable<ImageBean> freeApply2(@Field("freeId") String freeId);
+
 }

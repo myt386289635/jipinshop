@@ -1032,4 +1032,11 @@ public class Repository {
     public Observable<FreeDetailBean> freeDetail(String freeId){
         return mAPIService.freeDetail(freeId);
     }
+
+    /**
+     * 免单抢购
+     */
+    public Observable<ImageBean> freeApply2(String freeId){
+        return mAPIService.freeApply2(freeId);
+    }
 }

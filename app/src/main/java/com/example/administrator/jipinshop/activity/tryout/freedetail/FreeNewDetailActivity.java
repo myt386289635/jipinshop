@@ -12,23 +12,28 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 
+import com.alibaba.baichuan.android.trade.AlibcTradeSDK;
 import com.blankj.utilcode.util.SPUtils;
 import com.example.administrator.jipinshop.R;
 import com.example.administrator.jipinshop.adapter.HomeAdapter;
 import com.example.administrator.jipinshop.adapter.NoPageBannerAdapter;
 import com.example.administrator.jipinshop.base.BaseActivity;
 import com.example.administrator.jipinshop.bean.FreeDetailBean;
+import com.example.administrator.jipinshop.bean.ImageBean;
 import com.example.administrator.jipinshop.databinding.ActivityFreenewDetailBinding;
 import com.example.administrator.jipinshop.fragment.tryout.freemodel.detail.ShopDescriptionFragment;
 import com.example.administrator.jipinshop.fragment.tryout.freemodel.detail.ShopRuleFragment;
 import com.example.administrator.jipinshop.fragment.tryout.freemodel.detail.ShopUserFragment;
 import com.example.administrator.jipinshop.util.ShareUtils;
+import com.example.administrator.jipinshop.util.TaoBaoUtil;
 import com.example.administrator.jipinshop.util.ToastUtil;
 import com.example.administrator.jipinshop.util.sp.CommonDate;
+import com.example.administrator.jipinshop.view.dialog.DialogUtil;
 import com.example.administrator.jipinshop.view.dialog.ProgressDialogView;
 import com.example.administrator.jipinshop.view.dialog.ShareBoardDialog2;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
+import com.umeng.socialize.UMShareAPI;
 import com.umeng.socialize.bean.SHARE_MEDIA;
 
 import java.util.ArrayList;
@@ -67,6 +72,8 @@ public class FreeNewDetailActivity extends BaseActivity implements View.OnClickL
     private String shareName = "";
     private String shareContent = "";
     private String shareUrl = "";
+    private String actualPrice = "";
+    private String freePrice = "";
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -124,6 +131,12 @@ public class FreeNewDetailActivity extends BaseActivity implements View.OnClickL
             case R.id.detail_invation:
                 if (mBinding.detailInvation.getText().toString().equals("立即购买")){
                     //弹框
+                    DialogUtil.freeBuyDialog(this, actualPrice, freePrice, v1 -> {
+                        //去购买
+                        mDialog = (new ProgressDialogView()).createLoadingDialog(this, "");
+                        mDialog.show();
+                        mPresenter.freeAppley(freeId,this.bindToLifecycle());
+                    });
                 }else {
                     //邀请
                     if (mShareBoardDialog == null) {
@@ -176,6 +189,8 @@ public class FreeNewDetailActivity extends BaseActivity implements View.OnClickL
         if (mDialog != null && mDialog.isShowing()){
             mDialog.dismiss();
         }
+        actualPrice = detailBean.getData().getActualPrice();
+        freePrice = detailBean.getData().getFreePrice();
         shareImage = detailBean.getData().getShareImg();
         shareName = detailBean.getData().getShareTitle();
         shareContent = detailBean.getData().getShareContent();
@@ -242,6 +257,11 @@ public class FreeNewDetailActivity extends BaseActivity implements View.OnClickL
     }
 
     @Override
+    public void onApply(ImageBean bean) {
+        TaoBaoUtil.openAliHomeWeb(this,bean.getData(),bean.getOtherGoodsId());
+    }
+
+    @Override
     public void share(SHARE_MEDIA share_media) {
         mDialog = (new ProgressDialogView()).createLoadingDialog(this, "");
         if (share_media.equals(SHARE_MEDIA.WEIXIN)){
@@ -262,5 +282,12 @@ public class FreeNewDetailActivity extends BaseActivity implements View.OnClickL
         if (mDialog != null && mDialog.isShowing()){
             mDialog.dismiss();
         }
+    }
+
+    @Override
+    protected void onDestroy() {
+        UMShareAPI.get(this).release();
+        AlibcTradeSDK.destory();
+        super.onDestroy();
     }
 }
