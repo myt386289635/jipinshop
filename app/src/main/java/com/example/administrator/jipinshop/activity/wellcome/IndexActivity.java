@@ -78,7 +78,6 @@ public class IndexActivity extends AppCompatActivity implements IndexAdapter.OnL
     @Override
     public void onLinkgo() {
         if(tag){
-            SPUtils.getInstance().put(CommonDate.FIRST,false);
             startActivity(new Intent(IndexActivity.this, MainActivity.class));
             finish();
             tag = false;

@@ -1,6 +1,7 @@
 package com.example.administrator.jipinshop.activity.info.bind;
 
 import android.app.Dialog;
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.support.annotation.Nullable;
@@ -16,6 +17,7 @@ import android.widget.TextView;
 import com.blankj.utilcode.util.SPUtils;
 import com.example.administrator.jipinshop.R;
 import com.example.administrator.jipinshop.activity.login.LoginActivity;
+import com.example.administrator.jipinshop.activity.newpeople.NewPeopleActivity;
 import com.example.administrator.jipinshop.base.BaseActivity;
 import com.example.administrator.jipinshop.bean.LoginBean;
 import com.example.administrator.jipinshop.bean.SuccessBean;
@@ -75,6 +77,7 @@ public class BindNumberActivity extends BaseActivity implements BindNumberView {
     private CountDownTimer mTimer;
     private Boolean[] timerEnd = {false};
     private Dialog mDialog;
+    private int newpeople = 0;//判断是否是从弹框点击来的  0 不是从弹框点击来的  1 是从新人弹框点击来的
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -86,6 +89,7 @@ public class BindNumberActivity extends BaseActivity implements BindNumberView {
     }
 
     private void initView() {
+        newpeople = getIntent().getIntExtra("newpeople",0);
         mTitleTv.setText("绑定手机");
         mLoginButton.setEnabled(false);
         mLoginGetCode.setEnabled(false);
@@ -189,6 +193,11 @@ public class BindNumberActivity extends BaseActivity implements BindNumberView {
                     , loginBean.getData().getVoteCount() + "", loginBean.getData().getFollowCount() + ""));//刷新登陆后我的页面
             EventBus.getDefault().post(new CommonEvaluationBus(LoginActivity.refresh));//用来刷新商品、评测、发现详情以及评论列表
 
+            if ( newpeople == 1 && loginBean.getData().getIsNewUser().equals("0")){
+                startActivity(new Intent(this, NewPeopleActivity.class));
+            }else {
+                EventBus.getDefault().post(new HomeNewPeopleBus(0));//登陆后刷新首页活动接口
+            }
             ToastUtil.show("登录成功");
             setResult(222);
             finish();

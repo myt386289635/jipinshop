@@ -177,7 +177,7 @@ public class LoginActivity extends BaseActivity implements LoginView, View.OnCli
                     ,loginBean.getData().getVoteCount()+"",loginBean.getData().getFollowCount() + ""));//刷新登陆后我的页面
             EventBus.getDefault().post(new CommonEvaluationBus(LoginActivity.refresh));//用来刷新商品、评测、发现详情以及评论列表
 
-            if ( newpeople == 1){
+            if ( newpeople == 1 && loginBean.getData().getIsNewUser().equals("0")){
                 startActivity(new Intent(this, NewPeopleActivity.class));
             }else {
                 EventBus.getDefault().post(new HomeNewPeopleBus(loginBean.getData().getAddPoint()));//登陆后刷新首页活动接口
@@ -214,7 +214,7 @@ public class LoginActivity extends BaseActivity implements LoginView, View.OnCli
                     ,loginBean.getData().getVoteCount()+"",loginBean.getData().getFollowCount() + ""));//刷新登陆后我的页面
             EventBus.getDefault().post(new CommonEvaluationBus(LoginActivity.refresh));//用来刷新商品、评测、发现详情以及评论列表
 
-            if (newpeople == 1){
+            if (newpeople == 1 && loginBean.getData().getIsNewUser().equals("0")){
                 startActivity(new Intent(this, NewPeopleActivity.class));
             }else {
                 EventBus.getDefault().post(new HomeNewPeopleBus(loginBean.getData().getAddPoint()));//登陆后刷新首页活动接口
@@ -226,6 +226,7 @@ public class LoginActivity extends BaseActivity implements LoginView, View.OnCli
             startActivityForResult(new Intent(LoginActivity.this,BindNumberActivity.class)
                     .putExtra("channel",channel)
                     .putExtra("openid",openid)
+                    .putExtra("newpeople",newpeople)
                     ,100);
         }
     }
@@ -308,11 +309,6 @@ public class LoginActivity extends BaseActivity implements LoginView, View.OnCli
         UMShareAPI.get(this).onActivityResult(requestCode, resultCode, data);
         switch (resultCode){
             case 222:
-                if ( newpeople == 1){
-                    startActivity(new Intent(this, NewPeopleActivity.class));
-                }else {
-                    EventBus.getDefault().post(new HomeNewPeopleBus(0));//登陆后刷新首页活动接口
-                }
                 finish();
                 break;
         }

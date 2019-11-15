@@ -89,6 +89,15 @@ public class LoginBean {
         private int addPoint;//新用户获得极币
         private String invitationCode;//邀请码
         private String relationId;//是否登陆过淘宝
+        private String isNewUser;//是否下过单
+
+        public String getIsNewUser() {
+            return isNewUser;
+        }
+
+        public void setIsNewUser(String isNewUser) {
+            this.isNewUser = isNewUser;
+        }
 
         public String getRelationId() {
             return relationId;
