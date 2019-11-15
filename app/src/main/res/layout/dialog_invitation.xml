@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <RelativeLayout
+        android:layout_centerHorizontal="true"
+        android:background="@drawable/bg_dialog"
+        android:orientation="vertical"
+        android:layout_width="@dimen/x630"
+        android:layout_height="wrap_content">
+
+
+        <TextView
+            android:id="@+id/dialog_title"
+            android:layout_marginTop="@dimen/y53"
+            android:layout_centerHorizontal="true"
+            android:textStyle="bold"
+            android:textSize="16sp"
+            android:textColor="@color/color_202020"
+            android:text="邀请码"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+
+
+        <ImageView
+            android:id="@+id/dialog_cancle"
+            android:layout_alignParentRight="true"
+            android:padding="@dimen/y17"
+            android:src="@mipmap/dialog_close1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+
+        <TextView
+            android:id="@+id/dialog_title2"
+            android:textColor="@color/color_565252"
+            android:text="请输入邀请您的好友的邀请码"
+            android:textSize="15sp"
+            android:layout_marginTop="@dimen/y40"
+            android:layout_centerHorizontal="true"
+            android:layout_below="@id/dialog_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+
+        <EditText
+            android:id="@+id/dialog_edit"
+            android:textStyle="bold"
+            android:textColor="@color/color_202020"
+            android:hint="非必填"
+            android:textColorHint="@color/color_9D9D9D"
+            android:textSize="15sp"
+            android:layout_marginTop="@dimen/y56"
+            android:layout_marginRight="@dimen/x55"
+            android:layout_marginLeft="@dimen/x55"
+            android:text=""
+            android:background="@null"
+            android:layout_below="@id/dialog_title2"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/y70"/>
+
+        <View
+            android:layout_marginRight="@dimen/x55"
+            android:layout_marginLeft="@dimen/x55"
+            android:layout_below="@id/dialog_edit"
+            android:background="@color/color_979797"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/y1"/>
+
+
+        <TextView
+            android:layout_marginBottom="@dimen/y45"
+            android:layout_marginTop="@dimen/y45"
+            android:layout_below="@id/dialog_edit"
+            android:id="@+id/dialog_sure"
+            android:gravity="center"
+            android:textStyle="bold"
+            android:textColor="@color/color_white"
+            android:textSize="16sp"
+            android:text="确定"
+            android:background="@drawable/bg_free_dialog2"
+            android:layout_marginRight="@dimen/x55"
+            android:layout_marginLeft="@dimen/x55"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/y82"/>
+
+    </RelativeLayout>
+
+</RelativeLayout>

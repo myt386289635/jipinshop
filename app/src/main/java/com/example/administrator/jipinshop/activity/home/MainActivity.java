@@ -18,6 +18,7 @@ import com.blankj.utilcode.util.SPUtils;
 import com.example.administrator.jipinshop.MyApplication;
 import com.example.administrator.jipinshop.R;
 import com.example.administrator.jipinshop.activity.login.LoginActivity;
+import com.example.administrator.jipinshop.activity.newpeople.NewPeopleActivity;
 import com.example.administrator.jipinshop.activity.sign.SignActivity;
 import com.example.administrator.jipinshop.activity.tryout.freedetail.FreeDetailActivity;
 import com.example.administrator.jipinshop.adapter.HomeAdapter;
@@ -284,10 +285,26 @@ public class MainActivity extends RxAppCompatActivity implements MainView, ViewP
         if (bean.getData() != null && bean.getData().getData() != null) {
             if (bean.getData().getType() == 1) {
                 //活动
-                DialogUtil.imgDialog(MainActivity.this, bean.getData().getData().getImg(), v -> {
-                    ShopJumpUtil.openPager(MainActivity.this, bean.getData().getData().getTargetType()
-                            , bean.getData().getData().getTargetId(), "小分类");
-                });
+                if (bean.getData().getData().getTargetType().equals("5")){
+                    if (!bean.getData().getPopId().equals(SPUtils.getInstance().getString(CommonDate.POPID,""))){
+                        DialogUtil.imgDialog(MainActivity.this, bean.getData().getData().getImg(), v -> {
+                            if (TextUtils.isEmpty(SPUtils.getInstance(CommonDate.USER).getString(CommonDate.token, ""))) {
+                                startActivity(new Intent(this, LoginActivity.class)
+                                        .putExtra("newpeople", 1));
+                                return;
+                            }
+                            startActivity(new Intent(this, NewPeopleActivity.class));
+                        });
+                        if (TextUtils.isEmpty(SPUtils.getInstance(CommonDate.USER).getString(CommonDate.token, ""))) {
+                            SPUtils.getInstance().put(CommonDate.POPID,bean.getData().getPopId());//未登录时存上id
+                        }
+                    }
+                }else {
+                    DialogUtil.imgDialog(MainActivity.this, bean.getData().getData().getImg(), v -> {
+                        ShopJumpUtil.openPager(MainActivity.this, bean.getData().getData().getTargetType()
+                                , bean.getData().getData().getTargetId(), "小分类");
+                    });
+                }
             } else {
                 //免单
                 DialogUtil.freeDialog(this, bean, v -> {
@@ -311,10 +328,11 @@ public class MainActivity extends RxAppCompatActivity implements MainView, ViewP
 
     @Subscribe
     public void addPoint(HomeNewPeopleBus newPeopleBus) {
-        if (newPeopleBus != null && newPeopleBus.getAddPoint() != 0) {
-            DialogUtil.NewPeopleDialog(MainActivity.this, newPeopleBus.getAddPoint() + "", v -> {
-                startActivity(new Intent(MainActivity.this, SignActivity.class));
-            });
+        if (newPeopleBus != null) {
+//            DialogUtil.NewPeopleDialog(MainActivity.this, newPeopleBus.getAddPoint() + "", v -> {
+//                startActivity(new Intent(MainActivity.this, SignActivity.class));
+//            });
+            mPresenter.getPopInfo(MainActivity.this.bindToLifecycle());
         }
     }
 

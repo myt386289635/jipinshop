@@ -17,6 +17,7 @@ import com.blankj.utilcode.util.SPUtils;
 import com.example.administrator.jipinshop.R;
 import com.example.administrator.jipinshop.activity.WebActivity;
 import com.example.administrator.jipinshop.activity.info.bind.BindNumberActivity;
+import com.example.administrator.jipinshop.activity.newpeople.NewPeopleActivity;
 import com.example.administrator.jipinshop.base.BaseActivity;
 import com.example.administrator.jipinshop.bean.LoginBean;
 import com.example.administrator.jipinshop.bean.SuccessBean;
@@ -60,6 +61,7 @@ public class LoginActivity extends BaseActivity implements LoginView, View.OnCli
     private Boolean[] timerEnd = {false};
     private Dialog mDialog;
     private LoginBinding mBinding;
+    private int newpeople = 0;//判断是否是从弹框点击来的  0 不是从弹框点击来的  1 是从新人弹框点击来的
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -71,6 +73,7 @@ public class LoginActivity extends BaseActivity implements LoginView, View.OnCli
     }
 
     private void initView() {
+        newpeople = getIntent().getIntExtra("newpeople",0);
         mBinding.loginNumber.requestFocus();
         mBinding.loginButton.setEnabled(false);
         mBinding.loginGetCode.setEnabled(false);
@@ -173,9 +176,11 @@ public class LoginActivity extends BaseActivity implements LoginView, View.OnCli
             EventBus.getDefault().post(new EditNameBus(LoginActivity.tag,loginBean.getData().getFansCount()+""
                     ,loginBean.getData().getVoteCount()+"",loginBean.getData().getFollowCount() + ""));//刷新登陆后我的页面
             EventBus.getDefault().post(new CommonEvaluationBus(LoginActivity.refresh));//用来刷新商品、评测、发现详情以及评论列表
-//            JPushInterface.resumePush(MyApplication.getInstance());//恢复推送
-            if (loginBean.getData().getAddPoint() != 0){
-                EventBus.getDefault().post(new HomeNewPeopleBus(loginBean.getData().getAddPoint()));//新用户注册
+
+            if ( newpeople == 1){
+                startActivity(new Intent(this, NewPeopleActivity.class));
+            }else {
+                EventBus.getDefault().post(new HomeNewPeopleBus(loginBean.getData().getAddPoint()));//登陆后刷新首页活动接口
             }
             ToastUtil.show("登录成功");
             setResult(200);
@@ -208,7 +213,12 @@ public class LoginActivity extends BaseActivity implements LoginView, View.OnCli
             EventBus.getDefault().post(new EditNameBus(LoginActivity.tag,loginBean.getData().getFansCount()+""
                     ,loginBean.getData().getVoteCount()+"",loginBean.getData().getFollowCount() + ""));//刷新登陆后我的页面
             EventBus.getDefault().post(new CommonEvaluationBus(LoginActivity.refresh));//用来刷新商品、评测、发现详情以及评论列表
-//            JPushInterface.resumePush(MyApplication.getInstance());//恢复推送
+
+            if (newpeople == 1){
+                startActivity(new Intent(this, NewPeopleActivity.class));
+            }else {
+                EventBus.getDefault().post(new HomeNewPeopleBus(loginBean.getData().getAddPoint()));//登陆后刷新首页活动接口
+            }
             ToastUtil.show("登录成功");
             setResult(200);
             finish();
@@ -298,6 +308,11 @@ public class LoginActivity extends BaseActivity implements LoginView, View.OnCli
         UMShareAPI.get(this).onActivityResult(requestCode, resultCode, data);
         switch (resultCode){
             case 222:
+                if ( newpeople == 1){
+                    startActivity(new Intent(this, NewPeopleActivity.class));
+                }else {
+                    EventBus.getDefault().post(new HomeNewPeopleBus(0));//登陆后刷新首页活动接口
+                }
                 finish();
                 break;
         }

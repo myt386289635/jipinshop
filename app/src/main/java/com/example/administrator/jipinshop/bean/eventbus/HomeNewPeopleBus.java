@@ -3,7 +3,7 @@ package com.example.administrator.jipinshop.bean.eventbus;
 /**
  * @author 莫小婷
  * @create 2019/4/1
- * @Describe 新用户获取极币bus
+ * @Describe 用户登陆后需要再次请求活动窗口接口
  */
 public class HomeNewPeopleBus {
 

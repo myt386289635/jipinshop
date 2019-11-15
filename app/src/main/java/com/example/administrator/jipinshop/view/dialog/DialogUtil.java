@@ -523,4 +523,35 @@ public class DialogUtil{
         dialog.show();
         dialog.setContentView(view);
     }
+
+    /**
+     * 邀请码dialog
+     */
+    public static void invitationDialog(Context context, OnInvitationListener listener){
+        AlertDialog.Builder builder = new AlertDialog.Builder(context,R.style.dialog);
+        final Dialog dialog = builder.create();
+        View view = LayoutInflater.from(context).inflate(R.layout.dialog_invitation,null);
+        ImageView dialog_cancle = view.findViewById(R.id.dialog_cancle);
+        EditText dialog_edit = view.findViewById(R.id.dialog_edit);
+        TextView dialog_sure = view.findViewById(R.id.dialog_sure);
+        dialog.getWindow().setDimAmount(0.35f);
+        InputMethodManager inputManager = (InputMethodManager) dialog_edit
+                .getContext().getSystemService(Context.INPUT_METHOD_SERVICE);
+        dialog_cancle.setOnClickListener(v -> {
+            if (dialog.getCurrentFocus() != null)
+                inputManager.hideSoftInputFromWindow(dialog.getCurrentFocus().getWindowToken(), 0);
+            dialog.dismiss();
+        });
+        dialog_sure.setOnClickListener(v -> {
+            listener.invitation(dialog_edit.getText().toString().trim(),dialog,inputManager);
+        });
+        showKeyboard(dialog_edit,inputManager);
+        dialog.show();
+        dialog.getWindow().clearFlags(WindowManager.LayoutParams.FLAG_ALT_FOCUSABLE_IM);
+        dialog.setContentView(view);
+    }
+
+    public interface OnInvitationListener {
+        void invitation(String invitationCode, Dialog dialog, InputMethodManager inputManager);
+    }
 }

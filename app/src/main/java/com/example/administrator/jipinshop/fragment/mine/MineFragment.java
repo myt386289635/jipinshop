@@ -1,5 +1,6 @@
 package com.example.administrator.jipinshop.fragment.mine;
 
+import android.app.Dialog;
 import android.content.ClipData;
 import android.content.ClipboardManager;
 import android.content.Context;
@@ -42,6 +43,7 @@ import com.example.administrator.jipinshop.jpush.JPushReceiver;
 import com.example.administrator.jipinshop.util.ToastUtil;
 import com.example.administrator.jipinshop.util.UmApp.UAppUtil;
 import com.example.administrator.jipinshop.util.sp.CommonDate;
+import com.example.administrator.jipinshop.view.dialog.DialogUtil;
 import com.example.administrator.jipinshop.view.glide.GlideApp;
 
 import org.greenrobot.eventbus.EventBus;
@@ -200,7 +202,15 @@ public class MineFragment extends DBBaseFragment implements View.OnClickListener
                 break;
             case R.id.mine_invation:
                 //邀请码
-
+                DialogUtil.invitationDialog(getContext(), (invitationCode, dialog, inputManager) -> {
+                    if (TextUtils.isEmpty(invitationCode)){
+                        ToastUtil.show("请输入邀请码");
+                        return;
+                    }
+                    if (dialog.getCurrentFocus() != null)
+                        inputManager.hideSoftInputFromWindow(dialog.getCurrentFocus().getWindowToken(), 0);
+                    dialog.dismiss();
+                });
                 break;
         }
     }
