@@ -7,6 +7,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 
 import com.example.administrator.jipinshop.R;
 import com.umeng.socialize.bean.SHARE_MEDIA;
@@ -20,6 +21,7 @@ public class ShareBoardDialog2 extends BottomSheetDialogFragment {
 
     private LinearLayout share_wechat,share_pyq;
     private onShareListener mOnShareListener;
+    private TextView dialog_cancle;
 
     public void setOnShareListener(onShareListener onShareListener) {
         mOnShareListener = onShareListener;
@@ -42,6 +44,7 @@ public class ShareBoardDialog2 extends BottomSheetDialogFragment {
     private void initView(View view) {
         share_wechat = view.findViewById(R.id.share_wechat);
         share_pyq = view.findViewById(R.id.share_pic);
+        dialog_cancle = view.findViewById(R.id.dialog_cancle);
 
         share_wechat.setOnClickListener(v -> {
             if(mOnShareListener != null){
@@ -53,6 +56,9 @@ public class ShareBoardDialog2 extends BottomSheetDialogFragment {
             if(mOnShareListener != null){
                 mOnShareListener.share(SHARE_MEDIA.WEIXIN_CIRCLE);
             }
+            dismiss();
+        });
+        dialog_cancle.setOnClickListener(v -> {
             dismiss();
         });
     }
