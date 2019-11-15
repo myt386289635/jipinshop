@@ -119,8 +119,8 @@
     </RelativeLayout>
 
     <RelativeLayout
+        android:visibility="gone"
         android:id="@+id/login_qrcodeLayout"
-        android:layout_marginBottom="@dimen/y66"
         android:layout_below="@+id/login_codeLayout"
         android:layout_marginRight="@dimen/x80"
         android:layout_marginLeft="@dimen/x80"
@@ -173,6 +173,7 @@
     </RelativeLayout>
 
     <Button
+        android:layout_marginTop="@dimen/y66"
         android:textStyle="bold"
         android:background="@drawable/bg_login"
         android:textColor="@color/color_white"

@@ -25,7 +25,7 @@ import com.example.administrator.jipinshop.bean.FreeDetailBean;
 import com.example.administrator.jipinshop.bean.ImageBean;
 import com.example.administrator.jipinshop.databinding.ActivityFreenewDetailBinding;
 import com.example.administrator.jipinshop.fragment.tryout.freemodel.detail.ShopDescriptionFragment;
-import com.example.administrator.jipinshop.fragment.tryout.freemodel.detail.ShopRuleFragment;
+import com.example.administrator.jipinshop.fragment.tryout.freemodel.detail.ShopRuleFragment2;
 import com.example.administrator.jipinshop.fragment.tryout.freemodel.detail.ShopUserFragment;
 import com.example.administrator.jipinshop.util.ShareUtils;
 import com.example.administrator.jipinshop.util.TaoBaoUtil;
@@ -253,7 +253,7 @@ public class FreeNewDetailActivity extends BaseActivity implements View.OnClickL
         mFragments.clear();
         mFragments.add(ShopDescriptionFragment.getInstance(new Gson().toJson(detailBean.getData().getGoodsContentList(),new TypeToken<List<FreeDetailBean.DataBean.GoodsContentListBean>>(){}.getType())));
         mFragments.add(ShopUserFragment.getInstance(detailBean.getData().getId(),detailBean.getData().getFreePrice()));
-        mFragments.add(ShopRuleFragment.getInstance(detailBean.getData().getFreeGuide()));
+        mFragments.add(ShopRuleFragment2.getInstance());
         mHomeAdapter.setFragments(mFragments);
         mBinding.detailViewpager.setAdapter(mHomeAdapter);
         mBinding.detailViewpager.setOffscreenPageLimit(mFragments.size() - 1);
