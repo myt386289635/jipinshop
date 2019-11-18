@@ -1,5 +1,6 @@
 package com.example.administrator.jipinshop.fragment.tryout.freemodel;
 
+import com.example.administrator.jipinshop.bean.PosterShareBean;
 import com.example.administrator.jipinshop.bean.V2FreeListBean;
 
 /**
@@ -11,4 +12,7 @@ public interface FreeNewView {
 
     void onSuccess(V2FreeListBean bean);
     void onFile(String error);
+
+    void onPoster(PosterShareBean bean);
+    void onPosterFile(String error);
 }

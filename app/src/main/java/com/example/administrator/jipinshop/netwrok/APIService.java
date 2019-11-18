@@ -34,6 +34,7 @@ import com.example.administrator.jipinshop.bean.PagerStateBean;
 import com.example.administrator.jipinshop.bean.PassedMoreBean;
 import com.example.administrator.jipinshop.bean.PointDetailBean;
 import com.example.administrator.jipinshop.bean.PopInfoBean;
+import com.example.administrator.jipinshop.bean.PosterShareBean;
 import com.example.administrator.jipinshop.bean.QuestionsBean;
 import com.example.administrator.jipinshop.bean.RecommendFragmentBean;
 import com.example.administrator.jipinshop.bean.ReportBean;
@@ -949,4 +950,16 @@ public interface APIService {
     @POST("api/v2/free/apply")
     Observable<ImageBean> freeApply2(@Field("freeId") String freeId , @Field("type") String type);
 
+    /**
+     * 生成邀请免单首页海报
+     */
+    @POST("api/v2/free/getShareInfo")
+    Observable<PosterShareBean> createFreePosterIndex();
+
+    /**
+     * 生成邀请免单详情页海报
+     */
+    @FormUrlEncoded
+    @POST("api/v2/free/createFreePoster")
+    Observable<ImageBean> createFreePoster(@Field("freeId") String freeId);
 }

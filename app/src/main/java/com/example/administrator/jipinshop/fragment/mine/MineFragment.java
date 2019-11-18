@@ -207,6 +207,7 @@ public class MineFragment extends DBBaseFragment implements View.OnClickListener
                         ToastUtil.show("请输入邀请码");
                         return;
                     }
+                    // TODO: 2019/11/15 输入邀请码
                     if (dialog.getCurrentFocus() != null)
                         inputManager.hideSoftInputFromWindow(dialog.getCurrentFocus().getWindowToken(), 0);
                     dialog.dismiss();

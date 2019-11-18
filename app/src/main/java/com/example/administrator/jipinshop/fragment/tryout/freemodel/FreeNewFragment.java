@@ -13,13 +13,17 @@ import com.aspsine.swipetoloadlayout.OnLoadMoreListener;
 import com.aspsine.swipetoloadlayout.OnRefreshListener;
 import com.blankj.utilcode.util.SPUtils;
 import com.example.administrator.jipinshop.R;
+import com.example.administrator.jipinshop.activity.WebActivity;
 import com.example.administrator.jipinshop.activity.login.LoginActivity;
 import com.example.administrator.jipinshop.activity.tryout.freedetail.FreeNewDetailActivity;
 import com.example.administrator.jipinshop.adapter.FreeNewAdapter;
 import com.example.administrator.jipinshop.base.DBBaseFragment;
+import com.example.administrator.jipinshop.bean.ImageBean;
+import com.example.administrator.jipinshop.bean.PosterShareBean;
 import com.example.administrator.jipinshop.bean.V2FreeListBean;
 import com.example.administrator.jipinshop.bean.eventbus.CommonEvaluationBus;
 import com.example.administrator.jipinshop.databinding.FragmentEvaluationCommonBinding;
+import com.example.administrator.jipinshop.netwrok.RetrofitModule;
 import com.example.administrator.jipinshop.util.ShareUtils;
 import com.example.administrator.jipinshop.util.ToastUtil;
 import com.example.administrator.jipinshop.util.sp.CommonDate;
@@ -55,6 +59,11 @@ public class FreeNewFragment extends DBBaseFragment implements OnRefreshListener
     //分享面板
     private ShareBoardDialog2 mShareBoardDialog;
     private Dialog mDialog;
+    private String shareUrl = "";
+    private String shareImage = "";
+    private String shareName = "";
+    private String shareContent = "";
+    private String postUrl = "";
 
     @Override
     public void setUserVisibleHint(boolean isVisibleToUser) {
@@ -157,18 +166,21 @@ public class FreeNewFragment extends DBBaseFragment implements OnRefreshListener
 
     @Override
     public void onInvation() {
-        if (mShareBoardDialog == null) {
-            mShareBoardDialog = ShareBoardDialog2.getInstance();
-            mShareBoardDialog.setOnShareListener(this);
+        if(TextUtils.isEmpty(SPUtils.getInstance(CommonDate.USER).getString(CommonDate.token,""))){
+            startActivity(new Intent(getContext(), LoginActivity.class));
+            return;
         }
-        if (!mShareBoardDialog.isAdded()) {
-            mShareBoardDialog.show(getChildFragmentManager(), "ShareBoardDialog2");
-        }
+        mDialog = (new ProgressDialogView()).createLoadingDialog(getContext(), "正在为您生成海报");
+        mDialog.show();
+        mPresenter.createFreePosterIndex(this.bindToLifecycle());
     }
 
     @Override
     public void onRule() {
-        ToastUtil.show("免单规则");
+        startActivity(new Intent(getContext(), WebActivity.class)
+                .putExtra(WebActivity.url, RetrofitModule.H5_URL+"free-desc.html")
+                .putExtra(WebActivity.title,"规则说明")
+        );
     }
 
     @Override
@@ -217,15 +229,44 @@ public class FreeNewFragment extends DBBaseFragment implements OnRefreshListener
     }
 
     @Override
+    public void onPoster(PosterShareBean bean) {
+        if (mDialog!= null && mDialog.isShowing()){
+            mDialog.dismiss();
+        }
+        shareUrl = bean.getData().getShareUrl();
+        shareImage = bean.getData().getShareImg();
+        shareName = bean.getData().getShareTitle();
+        shareContent = bean.getData().getShareContent();
+        postUrl = bean.getData().getPosterImg();
+        if (mShareBoardDialog == null) {
+            mShareBoardDialog = ShareBoardDialog2.getInstance();
+            mShareBoardDialog.setOnShareListener(this);
+        }
+        if (!mShareBoardDialog.isAdded()) {
+            mShareBoardDialog.show(getChildFragmentManager(), "ShareBoardDialog2");
+        }
+    }
+
+    @Override
+    public void onPosterFile(String error) {
+        if (mDialog!= null && mDialog.isShowing()){
+            mDialog.dismiss();
+        }
+        ToastUtil.show(error);
+    }
+
+    @Override
     public void share(SHARE_MEDIA share_media) {
         mDialog = (new ProgressDialogView()).createLoadingDialog(getContext(), "");
         if (share_media.equals(SHARE_MEDIA.WEIXIN)){
             //分享小程序
-            ToastUtil.show("分享小程序");
+            String path = "pages/main/main-v2-list/index?fromUserId=" + SPUtils.getInstance(CommonDate.USER).getString(CommonDate.userId);
+            new ShareUtils(getContext(), share_media, mDialog)
+                    .shareWXMin2(getActivity(),shareUrl,shareImage,shareName,shareContent,path);
         }else if (share_media.equals(SHARE_MEDIA.WEIXIN_CIRCLE)){
             //分享图片到朋友圈
             new ShareUtils(getContext(), share_media, mDialog)
-                    .shareImage(getActivity(), R.mipmap.logo11);
+                    .shareImage(getActivity(), postUrl);
         }
     }
 

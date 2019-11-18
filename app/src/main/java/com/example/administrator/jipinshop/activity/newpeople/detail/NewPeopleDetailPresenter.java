@@ -134,4 +134,18 @@ public class NewPeopleDetailPresenter {
                     mView.onFile(throwable.getMessage());
                 });
     }
+
+    public void createFreePoster(String freeId, LifecycleTransformer<ImageBean> transformer){
+        mRepository.createFreePoster(freeId)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .compose(transformer)
+                .subscribe(bean -> {
+                    if (bean.getCode() == 0){
+                        mView.onPoster(bean);
+                    }
+                }, throwable -> {
+
+                });
+    }
 }

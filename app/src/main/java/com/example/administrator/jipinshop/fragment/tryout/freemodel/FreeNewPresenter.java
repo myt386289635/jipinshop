@@ -4,6 +4,7 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 
 import com.aspsine.swipetoloadlayout.SwipeToLoadLayout;
+import com.example.administrator.jipinshop.bean.PosterShareBean;
 import com.example.administrator.jipinshop.bean.V2FreeListBean;
 import com.example.administrator.jipinshop.netwrok.Repository;
 import com.trello.rxlifecycle2.LifecycleTransformer;
@@ -74,6 +75,22 @@ public class FreeNewPresenter {
                     }
                 }, throwable -> {
                     mView.onFile(throwable.getMessage());
+                });
+    }
+
+    public void createFreePosterIndex(LifecycleTransformer<PosterShareBean> transformer){
+        mRepository.createFreePosterIndex()
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .compose(transformer)
+                .subscribe(bean -> {
+                    if (bean.getCode() == 0) {
+                        mView.onPoster(bean);
+                    }else {
+                        mView.onPosterFile(bean.getMsg());
+                    }
+                }, throwable -> {
+                    mView.onPosterFile(throwable.getMessage());
                 });
     }
 }

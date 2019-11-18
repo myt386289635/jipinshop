@@ -13,4 +13,6 @@ public interface FreeNewDetailView {
     void onFile(String error);
 
     void onApply(ImageBean bean);
+
+    void onPoster(ImageBean bean);
 }

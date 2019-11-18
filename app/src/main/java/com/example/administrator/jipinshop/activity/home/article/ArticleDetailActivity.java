@@ -459,6 +459,7 @@ public class ArticleDetailActivity extends BaseActivity implements View.OnClickL
         attentionUserId = bean.getData().getUserId();
         if(bean.getData().getRelatedGoodsList() == null || bean.getData().getRelatedGoodsList().size() == 0){
             mBinding.detailBottom.setVisibility(View.VISIBLE);
+            mBinding.detailBottom2.setVisibility(View.GONE);
             mBinding.detailBuy.setText("暂无商品");
             ShareBoardTitle = "分享";
             ShareBoardContent = "";
@@ -742,13 +743,23 @@ public class ArticleDetailActivity extends BaseActivity implements View.OnClickL
     @Override
     public void keyShow() {
         mBinding.detailBottom.setVisibility(View.INVISIBLE);
+        mBinding.detailBottom2.setVisibility(View.INVISIBLE);
         mBinding.detailKeyLayout.setVisibility(View.VISIBLE);
     }
 
     @Override
     public void keyHint() {
         mBinding.detailKeyLayout.setVisibility(View.GONE);
-        mBinding.detailBottom.setVisibility(View.VISIBLE);
+        if (mBeans == null || mBeans.size() == 0){
+            mBinding.detailBottom.setVisibility(View.VISIBLE);
+            mBinding.detailBottom2.setVisibility(View.GONE);
+        }else if (mBeans.size() > 1){
+            mBinding.detailBottom2.setVisibility(View.GONE);
+            mBinding.detailBottom.setVisibility(View.VISIBLE);
+        }else if (mBeans.size() == 1){
+            mBinding.detailBottom2.setVisibility(View.VISIBLE);
+            mBinding.detailBottom.setVisibility(View.INVISIBLE);
+        }
     }
 
     /**

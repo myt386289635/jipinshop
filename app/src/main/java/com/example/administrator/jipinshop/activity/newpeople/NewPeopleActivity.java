@@ -12,12 +12,14 @@ import com.aspsine.swipetoloadlayout.OnLoadMoreListener;
 import com.aspsine.swipetoloadlayout.OnRefreshListener;
 import com.blankj.utilcode.util.SPUtils;
 import com.example.administrator.jipinshop.R;
+import com.example.administrator.jipinshop.activity.WebActivity;
 import com.example.administrator.jipinshop.activity.login.LoginActivity;
 import com.example.administrator.jipinshop.activity.newpeople.detail.NewPeopleDetailActivity;
 import com.example.administrator.jipinshop.adapter.NewPeopleAdapter;
 import com.example.administrator.jipinshop.base.BaseActivity;
 import com.example.administrator.jipinshop.bean.V2FreeListBean;
 import com.example.administrator.jipinshop.databinding.ActivityNewPeopleBinding;
+import com.example.administrator.jipinshop.netwrok.RetrofitModule;
 import com.example.administrator.jipinshop.util.ToastUtil;
 import com.example.administrator.jipinshop.util.sp.CommonDate;
 
@@ -143,7 +145,10 @@ public class NewPeopleActivity extends BaseActivity implements OnRefreshListener
 
     @Override
     public void onRule() {
-        ToastUtil.show("免单规则");
+        startActivity(new Intent(this, WebActivity.class)
+                .putExtra(WebActivity.url, RetrofitModule.H5_URL+"new-free-desc.html")
+                .putExtra(WebActivity.title,"规则说明")
+        );
     }
 
     @Override

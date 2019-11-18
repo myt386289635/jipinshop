@@ -29,6 +29,7 @@ import java.util.List;
 import javax.inject.Inject;
 
 import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.functions.Consumer;
 import io.reactivex.schedulers.Schedulers;
 
 /**
@@ -182,4 +183,17 @@ public class FreeNewDetailPresenter {
                 });
     }
 
+    public void createFreePoster(String freeId, LifecycleTransformer<ImageBean> transformer){
+        mRepository.createFreePoster(freeId)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .compose(transformer)
+                .subscribe(bean -> {
+                    if (bean.getCode() == 0){
+                        mView.onPoster(bean);
+                    }
+                }, throwable -> {
+
+                });
+    }
 }

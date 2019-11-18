@@ -426,6 +426,7 @@ public class ReportDetailActivity extends BaseActivity implements View.OnClickLi
     @Override
     public void keyShow() {
         mBinding.detailBottom.setVisibility(View.INVISIBLE);
+        mBinding.detailBottom2.setVisibility(View.INVISIBLE);
         mBinding.detailKeyLayout.setVisibility(View.VISIBLE);
     }
 
@@ -433,6 +434,16 @@ public class ReportDetailActivity extends BaseActivity implements View.OnClickLi
     public void keyHint() {
         mBinding.detailKeyLayout.setVisibility(View.GONE);
         mBinding.detailBottom.setVisibility(View.VISIBLE);
+        if (mBeans == null || mBeans.size() == 0){
+            mBinding.detailBottom.setVisibility(View.VISIBLE);
+            mBinding.detailBottom2.setVisibility(View.GONE);
+        }else if (mBeans.size() > 1){
+            mBinding.detailBottom2.setVisibility(View.GONE);
+            mBinding.detailBottom.setVisibility(View.VISIBLE);
+        }else if (mBeans.size() == 1){
+            mBinding.detailBottom2.setVisibility(View.VISIBLE);
+            mBinding.detailBottom.setVisibility(View.INVISIBLE);
+        }
     }
 
     @Override

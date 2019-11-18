@@ -77,6 +77,7 @@ public class FreeNewDetailActivity extends BaseActivity implements View.OnClickL
     private String shareUrl = "";
     private String actualPrice = "";
     private String freePrice = "";
+    private String postShare = "";
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -113,6 +114,7 @@ public class FreeNewDetailActivity extends BaseActivity implements View.OnClickL
         mHomeAdapter = new HomeAdapter(getSupportFragmentManager());
 
         mPresenter.getDate(freeId,this.bindToLifecycle());
+        mPresenter.createFreePoster(freeId,this.bindToLifecycle());
     }
 
     @Override
@@ -275,17 +277,22 @@ public class FreeNewDetailActivity extends BaseActivity implements View.OnClickL
     }
 
     @Override
+    public void onPoster(ImageBean bean) {
+        postShare = bean.getData();
+    }
+
+    @Override
     public void share(SHARE_MEDIA share_media) {
         mDialog = (new ProgressDialogView()).createLoadingDialog(this, "");
         if (share_media.equals(SHARE_MEDIA.WEIXIN)){
             //分享小程序
-            String path = "pages/main/main-info/index?fromUserId=" + SPUtils.getInstance(CommonDate.USER).getString(CommonDate.userId) + "&freeId=" + freeId;
-            new ShareUtils(this, share_media)
+            String path = "pages/main/main-v2-info/index?id=" + freeId + "&fromUserId=" + SPUtils.getInstance(CommonDate.USER).getString(CommonDate.userId);
+            new ShareUtils(this, share_media,mDialog)
                     .shareWXMin2(this,shareUrl,shareImage,shareName,shareContent,path);
         }else if (share_media.equals(SHARE_MEDIA.WEIXIN_CIRCLE)){
             //分享图片到朋友圈
             new ShareUtils(this, share_media, mDialog)
-                    .shareImage(this, R.mipmap.logo11);
+                    .shareImage(this, postShare);
         }
     }
 
