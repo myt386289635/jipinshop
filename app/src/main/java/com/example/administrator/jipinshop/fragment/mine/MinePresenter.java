@@ -1,14 +1,17 @@
 package com.example.administrator.jipinshop.fragment.mine;
 
+import android.app.Dialog;
 import android.content.Context;
 import android.view.Gravity;
 import android.view.ViewGroup;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 
 import com.example.administrator.jipinshop.R;
 import com.example.administrator.jipinshop.bean.MyWalletBean;
+import com.example.administrator.jipinshop.bean.SuccessBean;
 import com.example.administrator.jipinshop.bean.UnMessageBean;
 import com.example.administrator.jipinshop.bean.UserInfoBean;
 import com.example.administrator.jipinshop.databinding.FragmentMineBinding;
@@ -19,6 +22,7 @@ import com.trello.rxlifecycle2.LifecycleTransformer;
 import javax.inject.Inject;
 
 import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.functions.Consumer;
 import io.reactivex.schedulers.Schedulers;
 import q.rorbin.badgeview.Badge;
 import q.rorbin.badgeview.QBadgeView;
@@ -141,5 +145,21 @@ public class MinePresenter {
                 .setGravityOffset(0,0,true)
                 .setBadgeBackgroundColor(0xffFF0000)
                 .setOnDragStateChangedListener(onDragStateChangedListener);
+    }
+
+    public void addInvitationCode(String invitationCode, Dialog dialog, InputMethodManager inputManager, LifecycleTransformer<SuccessBean> transformer){
+        mRepository.addInvitationCode(invitationCode)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .compose(transformer)
+                .subscribe(successBean -> {
+                    if (successBean.getCode() == 0){
+                        mView.onCodeSuc(dialog,inputManager);
+                    }else {
+                        mView.onFile(successBean.getMsg());
+                    }
+                }, throwable -> {
+                    mView.onFile(throwable.getMessage());
+                });
     }
 }

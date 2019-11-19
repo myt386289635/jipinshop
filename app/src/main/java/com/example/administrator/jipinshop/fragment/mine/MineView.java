@@ -1,5 +1,8 @@
 package com.example.administrator.jipinshop.fragment.mine;
 
+import android.app.Dialog;
+import android.view.inputmethod.InputMethodManager;
+
 import com.example.administrator.jipinshop.bean.MyWalletBean;
 import com.example.administrator.jipinshop.bean.UnMessageBean;
 import com.example.administrator.jipinshop.bean.UserInfoBean;
@@ -22,4 +25,6 @@ public interface MineView {
 
     void onSuccess(MyWalletBean bean);
     void onFile(String error);
+
+    void onCodeSuc(Dialog dialog, InputMethodManager inputManager);
 }

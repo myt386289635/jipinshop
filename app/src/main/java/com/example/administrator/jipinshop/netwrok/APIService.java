@@ -962,4 +962,11 @@ public interface APIService {
     @FormUrlEncoded
     @POST("api/v2/free/createFreePoster")
     Observable<ImageBean> createFreePoster(@Field("freeId") String freeId);
+
+    /**
+     * 填写邀请码
+     */
+    @FormUrlEncoded
+    @POST("api/user/addInvitationCode")
+    Observable<SuccessBean> addInvitationCode(@Field("invitationCode") String invitationCode);
 }

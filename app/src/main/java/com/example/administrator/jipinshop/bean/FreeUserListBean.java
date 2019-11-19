@@ -65,6 +65,15 @@ public class FreeUserListBean {
         private double freeRate;
         private int ismyself;
         private String createTime;
+        private String buyPrice;
+
+        public String getBuyPrice() {
+            return buyPrice;
+        }
+
+        public void setBuyPrice(String buyPrice) {
+            this.buyPrice = buyPrice;
+        }
 
         public String getId() {
             return id;

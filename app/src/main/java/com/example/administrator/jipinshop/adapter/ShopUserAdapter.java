@@ -71,7 +71,7 @@ public class ShopUserAdapter extends RecyclerView.Adapter {
                 viewHolder.binding.setDate(mList.get(position));
                 viewHolder.binding.executePendingBindings();
                 viewHolder.binding.itemImage.setBorderWidth(0);
-                viewHolder.binding.itemGoodNum.setText("补贴¥" + fee);
+                viewHolder.binding.itemGoodNum.setText("到手¥" + mList.get(position).getBuyPrice());
                 break;
         }
 

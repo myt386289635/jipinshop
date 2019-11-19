@@ -10,6 +10,7 @@ import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.inputmethod.InputMethodManager;
 
 import com.blankj.utilcode.util.SPUtils;
 import com.example.administrator.jipinshop.R;
@@ -44,6 +45,7 @@ import com.example.administrator.jipinshop.util.ToastUtil;
 import com.example.administrator.jipinshop.util.UmApp.UAppUtil;
 import com.example.administrator.jipinshop.util.sp.CommonDate;
 import com.example.administrator.jipinshop.view.dialog.DialogUtil;
+import com.example.administrator.jipinshop.view.dialog.ProgressDialogView;
 import com.example.administrator.jipinshop.view.glide.GlideApp;
 
 import org.greenrobot.eventbus.EventBus;
@@ -66,6 +68,7 @@ public class MineFragment extends DBBaseFragment implements View.OnClickListener
     private Boolean flage = true;//标记是第一次走入这个页面，防止多次访问接口
     private QBadgeView mQBadgeView;
     private String officialWeChat = "";//客服电话
+    private Dialog mDialog;
 
     @Override
     public View initLayout(LayoutInflater inflater, ViewGroup container) {
@@ -207,10 +210,9 @@ public class MineFragment extends DBBaseFragment implements View.OnClickListener
                         ToastUtil.show("请输入邀请码");
                         return;
                     }
-                    // TODO: 2019/11/15 输入邀请码
-                    if (dialog.getCurrentFocus() != null)
-                        inputManager.hideSoftInputFromWindow(dialog.getCurrentFocus().getWindowToken(), 0);
-                    dialog.dismiss();
+                    mDialog = (new ProgressDialogView()).createLoadingDialog(getContext(), "");
+                    mDialog.show();
+                    mPresenter.addInvitationCode(invitationCode, dialog, inputManager,this.bindToLifecycle());
                 });
                 break;
         }
@@ -454,7 +456,22 @@ public class MineFragment extends DBBaseFragment implements View.OnClickListener
 
     @Override
     public void onFile(String error) {
+        if (mDialog != null && mDialog.isShowing()){
+            mDialog.dismiss();
+        }
         ToastUtil.show(error);
+    }
+
+    @Override
+    public void onCodeSuc( Dialog dialog, InputMethodManager inputManager) {
+        if (mDialog != null && mDialog.isShowing()){
+            mDialog.dismiss();
+        }
+        ToastUtil.show("填写成功");
+        if (dialog.getCurrentFocus() != null)
+            inputManager.hideSoftInputFromWindow(dialog.getCurrentFocus().getWindowToken(), 0);
+        dialog.dismiss();
+        mBinding.mineInvation.setVisibility(View.GONE);
     }
 
     @Override

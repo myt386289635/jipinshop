@@ -1054,4 +1054,11 @@ public class Repository {
     public Observable<ImageBean> createFreePoster(String freeId){
         return mAPIService.createFreePoster(freeId);
     }
+
+    /**
+     * 填写邀请码
+     */
+    public Observable<SuccessBean> addInvitationCode(String invitationCode){
+        return mAPIService.addInvitationCode(invitationCode);
+    }
 }
