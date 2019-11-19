@@ -44,22 +44,25 @@ public class NewPeopleDetailPresenter {
         mRepository = repository;
     }
 
-    public void setTitle(AppBarLayout appBarLayout, LinearLayout statusBar){
+    public void setTitle(AppBarLayout appBarLayout, ImageView view,LinearLayout statusBar){
         appBarLayout.addOnOffsetChangedListener((appBarLayout1, verticalOffset) -> {
             if(verticalOffset == 0){
                 //展开
                 if (statusBar.getVisibility() != View.INVISIBLE){
                     statusBar.setVisibility(View.INVISIBLE);
+                    view.setVisibility(View.GONE);
                 }
             }else if(Math.abs(verticalOffset) >= appBarLayout1.getTotalScrollRange()){
                 //折叠
                 if (statusBar.getVisibility() != View.VISIBLE){
                     statusBar.setVisibility(View.VISIBLE);
+                    view.setVisibility(View.VISIBLE);
                 }
             }else {
                 //过程
                 if (statusBar.getVisibility() != View.INVISIBLE){
                     statusBar.setVisibility(View.INVISIBLE);
+                    view.setVisibility(View.GONE);
                 }
             }
         });

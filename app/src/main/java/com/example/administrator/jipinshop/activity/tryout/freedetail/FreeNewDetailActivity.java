@@ -108,6 +108,7 @@ public class FreeNewDetailActivity extends BaseActivity implements View.OnClickL
         mBannerAdapter.setPoint(point);
         mBannerAdapter.setList(mBannerList);
         mBannerAdapter.setViewPager(mBinding.detailPager);
+        mBannerAdapter.setPagerIndex(mBinding.pagerIndex);
         mBinding.detailPager.setAdapter(mBannerAdapter);
         //初始化
         mFragments = new ArrayList<>();
@@ -213,6 +214,7 @@ public class FreeNewDetailActivity extends BaseActivity implements View.OnClickL
         mBinding.setDate(detailBean.getData());
         mBannerList.addAll(detailBean.getData().getImgList());
         mPresenter.initBanner(mBannerList, this, point, mBannerAdapter);
+        mBinding.pagerIndex.setText("1/"+mBannerList.size());
         mBinding.itemProgressbar.setTotalAndCurrentCount(detailBean.getData().getInviteUserCount(),detailBean.getData().getMyInviteUserCount());
         mBinding.itemProgressbar.post(() -> {
             RelativeLayout.LayoutParams layoutParams = (RelativeLayout.LayoutParams) mBinding.detailProgress.getLayoutParams();

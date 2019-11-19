@@ -50,6 +50,21 @@
                         android:layout_width="match_parent"
                         android:layout_height="@dimen/y750"/>
 
+                    <TextView
+                        android:layout_marginRight="@dimen/x30"
+                        android:layout_marginBottom="@dimen/y119"
+                        android:layout_alignBottom="@id/detail_pager"
+                        android:layout_alignParentRight="true"
+                        android:gravity="center"
+                        android:minWidth="@dimen/x100"
+                        android:text="0/0"
+                        android:textSize="14sp"
+                        android:textColor="@color/color_white"
+                        android:background="@drawable/bg_pager"
+                        android:id="@+id/pager_index"
+                        android:layout_width="wrap_content"
+                        android:layout_height="@dimen/y46"/>
+
                     <RelativeLayout
                         android:layout_alignBottom="@id/detail_pager"
                         android:background="@color/color_E25838"
@@ -131,7 +146,7 @@
                         android:layout_marginLeft="@dimen/x30"
                         android:layout_centerHorizontal="true"
                         android:layout_below="@id/detail_name"
-                        android:src="@mipmap/free_detail_rule"
+                        android:src="@mipmap/free_detail_rule1"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"/>
 
@@ -207,81 +222,92 @@
 
                 </RelativeLayout>
 
-                <LinearLayout
-                    android:orientation="horizontal"
+
+                <RelativeLayout
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/y100">
 
-
-                    <RelativeLayout
-                        android:id="@+id/detail_title1Container"
+                    <ImageView
+                        android:visibility="gone"
                         android:onClick="@{listener.onClick}"
-                        android:layout_weight="1"
-                        android:layout_width="0dp"
-                        android:layout_height="match_parent">
+                        android:layout_marginLeft="@dimen/x5"
+                        android:id="@+id/detail_back"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:layout_centerVertical="true"
+                        android:padding="@dimen/x22"
+                        android:src="@mipmap/nav_back"/>
 
-                        <TextView
-                            android:layout_centerHorizontal="true"
-                            android:id="@+id/detail_title1"
-                            android:gravity="center"
-                            android:textSize="15sp"
-                            android:textColor="@color/color_050505"
-                            android:textStyle="bold"
-                            android:text="商品介绍"
-                            android:layout_width="wrap_content"
-                            android:layout_height="match_parent"/>
+                    <LinearLayout
+                        android:layout_marginLeft="@dimen/x80"
+                        android:layout_marginRight="@dimen/x80"
+                        android:orientation="horizontal"
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/y100">
 
-                        <View
-                            android:id="@+id/detail_line1"
-                            android:layout_alignBottom="@id/detail_title1"
-                            android:background="@color/color_E25838"
-                            android:layout_alignRight="@id/detail_title1"
-                            android:layout_alignLeft="@id/detail_title1"
-                            android:layout_width="wrap_content"
-                            android:layout_height="@dimen/y6"/>
+                        <RelativeLayout
+                            android:id="@+id/detail_title1Container"
+                            android:onClick="@{listener.onClick}"
+                            android:layout_weight="1"
+                            android:layout_width="0dp"
+                            android:layout_height="match_parent">
 
-                    </RelativeLayout>
+                            <TextView
+                                android:layout_centerHorizontal="true"
+                                android:id="@+id/detail_title1"
+                                android:gravity="center"
+                                android:textSize="15sp"
+                                android:textColor="@color/color_050505"
+                                android:textStyle="bold"
+                                android:text="商品介绍"
+                                android:layout_width="wrap_content"
+                                android:layout_height="match_parent"/>
 
+                            <View
+                                android:id="@+id/detail_line1"
+                                android:layout_alignBottom="@id/detail_title1"
+                                android:background="@color/color_E25838"
+                                android:layout_alignRight="@id/detail_title1"
+                                android:layout_alignLeft="@id/detail_title1"
+                                android:layout_width="wrap_content"
+                                android:layout_height="@dimen/y6"/>
 
-                    <View
-                        android:background="@color/color_D8D8D8"
-                        android:layout_marginBottom="@dimen/y10"
-                        android:layout_marginTop="@dimen/y10"
-                        android:layout_width="@dimen/y1"
-                        android:layout_height="match_parent"/>
+                        </RelativeLayout>
 
-                    <RelativeLayout
-                        android:id="@+id/detail_title2Container"
-                        android:onClick="@{listener.onClick}"
-                        android:layout_weight="1"
-                        android:layout_width="0dp"
-                        android:layout_height="match_parent">
+                        <RelativeLayout
+                            android:id="@+id/detail_title2Container"
+                            android:onClick="@{listener.onClick}"
+                            android:layout_weight="1"
+                            android:layout_width="0dp"
+                            android:layout_height="match_parent">
 
-                        <TextView
-                            android:layout_centerHorizontal="true"
-                            android:id="@+id/detail_title2"
-                            android:gravity="center"
-                            android:textSize="14sp"
-                            android:textColor="@color/color_ACACAC"
-                            android:textStyle="bold"
-                            android:text="参与名单"
-                            android:layout_width="wrap_content"
-                            android:layout_height="match_parent"/>
+                            <TextView
+                                android:layout_centerHorizontal="true"
+                                android:id="@+id/detail_title2"
+                                android:gravity="center"
+                                android:textSize="14sp"
+                                android:textColor="@color/color_ACACAC"
+                                android:textStyle="bold"
+                                android:text="参与名单"
+                                android:layout_width="wrap_content"
+                                android:layout_height="match_parent"/>
 
-                        <View
-                            android:visibility="gone"
-                            android:id="@+id/detail_line2"
-                            android:layout_alignBottom="@id/detail_title2"
-                            android:background="@color/color_E25838"
-                            android:layout_alignRight="@id/detail_title2"
-                            android:layout_alignLeft="@id/detail_title2"
-                            android:layout_width="wrap_content"
-                            android:layout_height="@dimen/y6"/>
+                            <View
+                                android:visibility="gone"
+                                android:id="@+id/detail_line2"
+                                android:layout_alignBottom="@id/detail_title2"
+                                android:background="@color/color_E25838"
+                                android:layout_alignRight="@id/detail_title2"
+                                android:layout_alignLeft="@id/detail_title2"
+                                android:layout_width="wrap_content"
+                                android:layout_height="@dimen/y6"/>
 
-                    </RelativeLayout>
+                        </RelativeLayout>
 
+                    </LinearLayout>
 
-                </LinearLayout>
+                </RelativeLayout>
+
 
                 <View
                     android:background="@color/color_F5F5F5"

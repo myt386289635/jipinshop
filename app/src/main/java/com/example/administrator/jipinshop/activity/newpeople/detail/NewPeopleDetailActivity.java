@@ -97,7 +97,7 @@ public class NewPeopleDetailActivity extends BaseActivity implements View.OnClic
     private void initView() {
         freeId = getIntent().getStringExtra("freeId");
 
-        mPresenter.setTitle(mBinding.appbar,mBinding.statusBar);
+        mPresenter.setTitle(mBinding.appbar,mBinding.detailBack,mBinding.statusBar);
         mPresenter.init(this,mBinding.detailPager,mBinding.statusBar,mBinding.statusBar1,mBinding.titleContainer);
         mDialog = (new ProgressDialogView()).createLoadingDialog(this, "");
         mDialog.show();
@@ -109,6 +109,7 @@ public class NewPeopleDetailActivity extends BaseActivity implements View.OnClic
         mBannerAdapter.setPoint(point);
         mBannerAdapter.setList(mBannerList);
         mBannerAdapter.setViewPager(mBinding.detailPager);
+        mBannerAdapter.setPagerIndex(mBinding.pagerIndex);
         mBinding.detailPager.setAdapter(mBannerAdapter);
         //初始化
         mFragments = new ArrayList<>();
@@ -223,6 +224,7 @@ public class NewPeopleDetailActivity extends BaseActivity implements View.OnClic
         mBinding.setDate(detailBean.getData());
         mBannerList.addAll(detailBean.getData().getImgList());
         mPresenter.initBanner(mBannerList, this, point, mBannerAdapter);
+        mBinding.pagerIndex.setText("1/"+mBannerList.size());
         String html = "<b>免单提示：</b>" + detailBean.getData().getFreeNote();
         mBinding.detailRuleText.setText(Html.fromHtml(html));
         mBinding.detailOldPrice.setColor(R.color.color_white);

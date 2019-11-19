@@ -7,6 +7,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.example.administrator.jipinshop.R;
@@ -25,6 +26,11 @@ public class NoPageBannerAdapter extends PagerAdapter implements ViewPager.OnPag
     private ViewPager mViewPager;
     private List<String> mList;
     private Boolean imgCenter = false;
+    private TextView pagerIndex;
+
+    public void setPagerIndex(TextView pagerIndex) {
+        this.pagerIndex = pagerIndex;
+    }
 
     public NoPageBannerAdapter(Context context) {
         mContext = context;
@@ -93,6 +99,9 @@ public class NoPageBannerAdapter extends PagerAdapter implements ViewPager.OnPag
             }else {
                 point.get(i).setImageResource(R.drawable.banner_up);
             }
+        }
+        if (pagerIndex != null){
+            pagerIndex.setText((position+1) + "/" + mList.size());
         }
     }
 

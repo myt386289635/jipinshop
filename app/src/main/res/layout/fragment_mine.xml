@@ -431,6 +431,7 @@
                     android:orientation="horizontal">
 
                     <LinearLayout
+                        android:visibility="gone"
                         android:onClick="@{listener.onClick}"
                         android:id="@+id/mine_signOther"
                         android:layout_width="0dp"
@@ -453,6 +454,32 @@
                             android:layout_marginBottom="@dimen/y24"
                             android:layout_marginTop="@dimen/y14"
                             android:text="邀请领奖"
+                            android:textColor="@color/color_202020"/>
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:onClick="@{listener.onClick}"
+                        android:id="@+id/mine_follow"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:gravity="center"
+                        android:orientation="vertical">
+
+                        <ImageView
+                            android:scaleType="fitXY"
+                            android:layout_width="@dimen/x52"
+                            android:layout_height="@dimen/y52"
+                            android:layout_marginTop="@dimen/y38"
+                            android:src="@mipmap/mine_reward"/>
+
+                        <TextView
+                            android:textSize="13sp"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginBottom="@dimen/y24"
+                            android:layout_marginTop="@dimen/y14"
+                            android:text="任务中心"
                             android:textColor="@color/color_202020"/>
                     </LinearLayout>
 
@@ -596,21 +623,6 @@
                             android:textColor="@color/color_202020"
                             android:textSize="13sp"/>
 
-                        <TextView
-                            android:paddingTop="@dimen/y26"
-                            android:paddingBottom="@dimen/y26"
-                            android:id="@+id/mine_follow"
-                            android:onClick="@{listener.onClick}"
-                            android:gravity="center"
-                            android:textSize="13sp"
-                            android:textColor="@color/color_202020"
-                            android:layout_weight="1"
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:drawableTop="@mipmap/mine_reward"
-                            android:drawablePadding="@dimen/y16"
-                            android:text="任务中心"/>
-
                         <LinearLayout
                             android:onClick="@{listener.onClick}"
                             android:id="@+id/mine_message"
@@ -635,6 +647,21 @@
                                 android:text="消息通知"
                                 android:textColor="@color/color_202020"/>
                         </LinearLayout>
+
+                        <TextView
+                            android:paddingTop="@dimen/y26"
+                            android:paddingBottom="@dimen/y26"
+                            android:onClick="@{listener.onClick}"
+                            android:id="@+id/mine_setting"
+                            android:gravity="center"
+                            android:textSize="13sp"
+                            android:textColor="@color/color_202020"
+                            android:layout_weight="1"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:drawableTop="@mipmap/setting"
+                            android:drawablePadding="@dimen/y16"
+                            android:text="设置"/>
 
                     </LinearLayout>
 
@@ -676,21 +703,6 @@
                             android:drawableTop="@mipmap/mine_newpeople"
                             android:drawablePadding="@dimen/y16"
                             android:text="新人专区"/>
-
-                        <TextView
-                            android:paddingTop="@dimen/y26"
-                            android:paddingBottom="@dimen/y26"
-                            android:onClick="@{listener.onClick}"
-                            android:id="@+id/mine_setting"
-                            android:gravity="center"
-                            android:textSize="13sp"
-                            android:textColor="@color/color_202020"
-                            android:layout_weight="1"
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:drawableTop="@mipmap/setting"
-                            android:drawablePadding="@dimen/y16"
-                            android:text="设置"/>
 
                         <TextView
                             android:visibility="gone"

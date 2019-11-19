@@ -170,7 +170,7 @@ public class FreeNewFragment extends DBBaseFragment implements OnRefreshListener
             startActivity(new Intent(getContext(), LoginActivity.class));
             return;
         }
-        mDialog = (new ProgressDialogView()).createLoadingDialog(getContext(), "正在为您生成海报");
+        mDialog = (new ProgressDialogView()).createLoadingDialog(getContext(), "请稍候...");
         mDialog.show();
         mPresenter.createFreePosterIndex(this.bindToLifecycle());
     }

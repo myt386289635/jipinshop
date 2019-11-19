@@ -2,12 +2,17 @@ package com.example.administrator.jipinshop.wxapi;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 
 import com.example.administrator.jipinshop.R;
+import com.example.administrator.jipinshop.activity.newpeople.detail.NewPeopleDetailActivity;
+import com.example.administrator.jipinshop.activity.tryout.freedetail.FreeNewDetailActivity;
 import com.example.administrator.jipinshop.activity.wellcome.WellComeActivity;
 import com.tencent.mm.opensdk.constants.ConstantsAPI;
 import com.tencent.mm.opensdk.modelbase.BaseReq;
 import com.tencent.mm.opensdk.modelbase.BaseResp;
+import com.tencent.mm.opensdk.modelmsg.ShowMessageFromWX;
+import com.tencent.mm.opensdk.modelmsg.WXMediaMessage;
 import com.tencent.mm.opensdk.openapi.IWXAPI;
 import com.tencent.mm.opensdk.openapi.IWXAPIEventHandler;
 import com.tencent.mm.opensdk.openapi.WXAPIFactory;
@@ -45,9 +50,31 @@ public class WXEntryActivity extends WXCallbackActivity implements IWXAPIEventHa
         switch (baseReq.getType()){
             case ConstantsAPI.COMMAND_SHOWMESSAGE_FROM_WX:
                 finish();
-                Intent intent = new Intent(this, WellComeActivity.class);
-                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                startActivity(intent);
+                ShowMessageFromWX.Req showReq = (ShowMessageFromWX.Req) baseReq;
+                WXMediaMessage wxMsg = showReq.message;
+                String extDate= wxMsg.messageExt;//小程序传递过来的参数
+                String[] str = extDate.split("&");
+                String type = str[0].replace("type=","");
+                String id = str[1].replace("id=","");
+                switch (type){
+                    case "0"://.新人免单详情页
+                        Intent intent0 = new Intent(this, NewPeopleDetailActivity.class);
+                        intent0.putExtra("freeId",id);
+                        intent0.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                        startActivity(intent0);
+                        break;
+                    case "1"://.老人免单详情页
+                        Intent intent1 = new Intent(this, FreeNewDetailActivity.class);
+                        intent1.putExtra("freeId",id);
+                        intent1.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                        startActivity(intent1);
+                        break;
+                        default:
+                            Intent intent = new Intent(this, WellComeActivity.class);
+                            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                            startActivity(intent);
+                            break;
+                }
                 break;
         }
     }
