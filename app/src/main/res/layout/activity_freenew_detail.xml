@@ -71,6 +71,7 @@
                         android:layout_height="@dimen/y110">
 
                         <LinearLayout
+                            android:id="@+id/detail_priceContainer"
                             android:layout_centerVertical="true"
                             android:layout_marginLeft="@dimen/x32"
                             android:orientation="horizontal"
@@ -111,12 +112,13 @@
                         </LinearLayout>
 
                         <TextView
+                            android:layout_marginBottom="@dimen/y9"
                             android:id="@+id/detail_buyNum"
                             android:text="@{@string/free_buyed + date.count + @string/free_count2}"
                             android:textSize="12sp"
                             android:layout_marginRight="@dimen/x30"
                             android:layout_alignParentRight="true"
-                            android:layout_centerVertical="true"
+                            android:layout_alignBottom="@id/detail_priceContainer"
                             android:textColor="@color/color_white"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"/>
