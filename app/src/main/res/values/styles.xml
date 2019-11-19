@@ -6,6 +6,8 @@
         <item name="colorPrimary">@color/color_white</item>
         <item name="colorPrimaryDark">@color/color_white</item>
         <item name="colorAccent">@color/colorAccent</item>
+        <item name="android:windowIsTranslucent">true</item>
+        <item name="android:windowNoTitle">true</item>
     </style>
 
     <style name="MyCustomTablayout" parent="Base.Widget.Design.TabLayout">
@@ -38,9 +40,10 @@
 
 
     <style name="SplashTheme" parent="AppTheme">
-        <!--<item name="android:windowBackground">@mipmap/well_come</item>-->
+        <!--<item name="android:windowBackground">@mipmap/start_page</item>-->
         <!--<item name="android:windowFullscreen">true</item>-->
         <item name="android:windowIsTranslucent">true</item>
+        <item name="android:windowNoTitle">true</item>
     </style>
 
     <!--  自定义loading dialog -->

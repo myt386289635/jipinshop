@@ -107,7 +107,6 @@ public interface BaseActivityComponent {
     void inject(ReportMoreActivity activity);
     void inject(ShareMoreActivity activity);
     void inject(OrderDetailActivity activity);
-    void inject(WellComeActivity activity);
     void inject(CreateReportActivity activity);
     void inject(CoverReportActivity activity);
     void inject(ReportDetailActivity activity);
