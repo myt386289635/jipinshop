@@ -167,14 +167,14 @@ public class MainActivity extends RxAppCompatActivity implements MainView, ViewP
         });
 
 //        DistanceHelper.getAndroiodScreenProperty(this);
-        if (SPUtils.getInstance().getBoolean(CommonDate.FIRST, true)) {
-            //新人第一次进入app
-            mGuildBackground.setVisibility(View.VISIBLE);
-        } else {
+//        if (SPUtils.getInstance().getBoolean(CommonDate.FIRST, true)) {
+//            //新人第一次进入app
+//            mGuildBackground.setVisibility(View.VISIBLE);
+//        } else {
             //老人进入app
             mGuildBackground.setVisibility(View.GONE);
             mPresenter.getAppVersion(this.bindToLifecycle()); //版本更新
-        }
+//        }
     }
 
     @Override
