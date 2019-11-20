@@ -71,9 +71,6 @@ class PayPendingAdapter : RecyclerView.Adapter<PayPendingAdapter.ViewHolder>{
             //将此 countDownTimer 放入list.
             countDownCounters.put(it.itemTime.hashCode(), countDownTimer)
         }
-        holder.itemView.setOnClickListener {
-            mOnClickListener.onItem(position)
-        }
     }
 
     class ViewHolder : RecyclerView.ViewHolder{
@@ -86,7 +83,6 @@ class PayPendingAdapter : RecyclerView.Adapter<PayPendingAdapter.ViewHolder>{
     }
 
     interface OnClickListener{
-        fun onItem(position: Int) //进入详情
         fun onBuy(position: Int)  //进入淘宝购买
     }
 

@@ -158,13 +158,6 @@ class PayPendingFragment : DBBaseFragment(), OnRefreshListener, OnLoadMoreListen
         }
     }
 
-    //进入详情
-    override fun onItem(position: Int) {
-        startActivity(Intent(context, FreeDetailActivity::class.java)
-                .putExtra("id", mList[position].id)
-        )
-    }
-
     //购买
     override fun onBuy(position: Int) {
         if (TextUtils.isEmpty(mList[position].goodsId)) {
