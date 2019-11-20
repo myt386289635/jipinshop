@@ -116,7 +116,7 @@ public class ShareUtils {
      * 分享 极品0元购 小程序
      */
     public void shareWXMin2(final Activity activity,String shareUrl, String shareImage ,String title , String description,String path){
-        Config.setMiniTest();//设置为开发版本小程序  上线需要去掉
+//        Config.setMiniTest();//设置为开发版本小程序  上线需要去掉
         UMMin umMin = new UMMin(shareUrl);//兼容低版本的网页链接
         UMImage image;
         if (TextUtils.isEmpty(shareImage)){

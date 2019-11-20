@@ -506,6 +506,9 @@ public class DialogUtil{
         AlertDialog.Builder builder = new AlertDialog.Builder(context,R.style.dialog);
         final Dialog dialog = builder.create();
         View view = LayoutInflater.from(context).inflate(R.layout.dialog_newpeople_buy,null);
+        TextView dialog_time = view.findViewById(R.id.dialog_time);
+        String html = "您需在<b>一小时内</b>前往淘宝APP购买";
+        dialog_time.setText(Html.fromHtml(html));
         TextView dialog_actualPrice = view.findViewById(R.id.dialog_actualPrice);
         String html2 = "购买价格<font color='#E25838'><b>¥"+actualPrice+"</b></font>";
         dialog_actualPrice.setText(Html.fromHtml(html2));
