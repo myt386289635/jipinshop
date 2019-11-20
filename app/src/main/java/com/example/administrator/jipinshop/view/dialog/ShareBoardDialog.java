@@ -81,26 +81,31 @@ public class ShareBoardDialog extends BottomSheetDialogFragment {
             if(mOnShareListener != null){
                 mOnShareListener.share(SHARE_MEDIA.WEIXIN);
             }
+            dismiss();
         });
         share_pyq.setOnClickListener(v -> {
             if(mOnShareListener != null){
                 mOnShareListener.share(SHARE_MEDIA.WEIXIN_CIRCLE);
             }
+            dismiss();
         });
         share_weibo.setOnClickListener(v -> {
             if(mOnShareListener != null){
                 mOnShareListener.share(SHARE_MEDIA.SINA);
             }
+            dismiss();
         });
         share_qq_friend.setOnClickListener(v -> {
             if(mOnShareListener != null){
                 mOnShareListener.share(SHARE_MEDIA.QQ);
             }
+            dismiss();
         });
         share_qq_space.setOnClickListener(v -> {
             if(mOnShareListener != null){
                 mOnShareListener.share(SHARE_MEDIA.QZONE);
             }
+            dismiss();
         });
     }
     public interface onShareListener{

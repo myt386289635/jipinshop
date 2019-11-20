@@ -885,7 +885,7 @@ public interface APIService {
     /**
      * 我的免单记录
      */
-    @GET("api/v2/user/freeList")
+    @GET("api/v3/user/freeList")
     Observable<MyFreeBean>  myFreeList(@Query("applyStatus") String applyStatus , @Query("page") int page);
 
     /**
