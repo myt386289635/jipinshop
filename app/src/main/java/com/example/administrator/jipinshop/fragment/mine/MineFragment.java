@@ -33,6 +33,7 @@ import com.example.administrator.jipinshop.activity.sign.invitation.InvitationNe
 import com.example.administrator.jipinshop.activity.tryout.mine.MineTrialActivity;
 import com.example.administrator.jipinshop.base.DBBaseFragment;
 import com.example.administrator.jipinshop.bean.MyWalletBean;
+import com.example.administrator.jipinshop.bean.SuccessBean;
 import com.example.administrator.jipinshop.bean.UnMessageBean;
 import com.example.administrator.jipinshop.bean.UserInfoBean;
 import com.example.administrator.jipinshop.bean.eventbus.EditNameBus;
@@ -463,11 +464,11 @@ public class MineFragment extends DBBaseFragment implements View.OnClickListener
     }
 
     @Override
-    public void onCodeSuc( Dialog dialog, InputMethodManager inputManager) {
+    public void onCodeSuc( Dialog dialog, InputMethodManager inputManager, SuccessBean bean) {
         if (mDialog != null && mDialog.isShowing()){
             mDialog.dismiss();
         }
-        ToastUtil.show("填写成功");
+        ToastUtil.show(bean.getMsg());
         if (dialog.getCurrentFocus() != null)
             inputManager.hideSoftInputFromWindow(dialog.getCurrentFocus().getWindowToken(), 0);
         dialog.dismiss();

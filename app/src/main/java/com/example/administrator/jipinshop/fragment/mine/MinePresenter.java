@@ -154,7 +154,7 @@ public class MinePresenter {
                 .compose(transformer)
                 .subscribe(successBean -> {
                     if (successBean.getCode() == 0){
-                        mView.onCodeSuc(dialog,inputManager);
+                        mView.onCodeSuc(dialog,inputManager,successBean);
                     }else {
                         mView.onFile(successBean.getMsg());
                     }
