@@ -50,6 +50,7 @@ import com.example.administrator.jipinshop.activity.report.detail.ReportDetailAc
 import com.example.administrator.jipinshop.activity.setting.SettingActivity;
 import com.example.administrator.jipinshop.activity.setting.opinion.OpinionActivity;
 import com.example.administrator.jipinshop.activity.shoppingdetail.ShoppingDetailActivity;
+import com.example.administrator.jipinshop.activity.shoppingdetail.tbshoppingdetail.TBShoppingDetailActivity;
 import com.example.administrator.jipinshop.activity.sign.SignActivity;
 import com.example.administrator.jipinshop.activity.sign.detail.IntegralDetailActivity;
 import com.example.administrator.jipinshop.activity.sign.invitation.InvitationActivity;
@@ -137,4 +138,5 @@ public interface BaseActivityComponent {
     void inject(FreeNewDetailActivity activity);
     void inject(NewPeopleActivity activity);
     void inject(NewPeopleDetailActivity activity);
+    void inject(TBShoppingDetailActivity activity);
 }

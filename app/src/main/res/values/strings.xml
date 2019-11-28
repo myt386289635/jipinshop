@@ -83,4 +83,6 @@
     <string name="free_myinva1">已邀</string>
     <string name="free_myinva2">人</string>
     <string name="new_people">淘宝价¥</string>
+    <string name="detail_buyNum">人已买</string>
+    <string name="detail_coupon">券 ¥</string>
 </resources>

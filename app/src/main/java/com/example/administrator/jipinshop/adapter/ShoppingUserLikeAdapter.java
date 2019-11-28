@@ -1,0 +1,87 @@
+package com.example.administrator.jipinshop.adapter;
+
+import android.content.Context;
+import android.content.Intent;
+import android.databinding.DataBindingUtil;
+import android.support.annotation.NonNull;
+import android.support.v7.widget.RecyclerView;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+
+import com.example.administrator.jipinshop.R;
+import com.example.administrator.jipinshop.activity.shoppingdetail.tbshoppingdetail.TBShoppingDetailActivity;
+import com.example.administrator.jipinshop.bean.SimilerGoodsBean;
+import com.example.administrator.jipinshop.databinding.ItemUserlikeBinding;
+
+import java.math.BigDecimal;
+import java.util.List;
+
+/**
+ * @author 莫小婷
+ * @create 2019/11/28
+ * @Describe
+ */
+public class ShoppingUserLikeAdapter extends RecyclerView.Adapter<ShoppingUserLikeAdapter.ViewHolder> {
+
+    private List<SimilerGoodsBean.DataBean> mList;
+    private Context mContext;
+
+    public ShoppingUserLikeAdapter(List<SimilerGoodsBean.DataBean> list, Context context) {
+        mList = list;
+        mContext = context;
+    }
+
+    @NonNull
+    @Override
+    public ViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
+        ItemUserlikeBinding binding = DataBindingUtil.inflate(LayoutInflater.from(mContext),R.layout.item_userlike,viewGroup,false);
+        ViewHolder holder = new ViewHolder(binding);
+        return holder;
+    }
+
+    @Override
+    public void onBindViewHolder(@NonNull ViewHolder viewHolder, int position) {
+        viewHolder.binding.setDate(mList.get(position));
+        viewHolder.binding.executePendingBindings();
+        viewHolder.binding.detailOtherPrice.setTv(true);
+        viewHolder.binding.detailOtherPrice.setColor(R.color.color_9D9D9D);
+        double coupon = new BigDecimal(mList.get(position).getCouponPrice()).doubleValue();
+        if (coupon == 0){//没有优惠券
+            viewHolder.binding.detailCoupon.setVisibility(View.GONE);
+        }else {
+            viewHolder.binding.detailCoupon.setVisibility(View.VISIBLE);
+        }
+        double free = new BigDecimal(mList.get(position).getFee()).doubleValue();
+        if (free == 0){//没有补贴
+            viewHolder.binding.detailFee.setVisibility(View.GONE);
+        }else {
+            viewHolder.binding.detailFee.setVisibility(View.VISIBLE);
+        }
+        if (coupon == 0 && free == 0){
+            viewHolder.binding.detailOtherPrice.setVisibility(View.GONE);
+        }else {
+            viewHolder.binding.detailOtherPrice.setVisibility(View.VISIBLE);
+        }
+        viewHolder.itemView.setOnClickListener(v -> {
+            mContext.startActivity(new Intent(mContext, TBShoppingDetailActivity.class)
+                    .putExtra("otherGoodsId", mList.get(position).getOtherGoodsId())
+            );
+        });
+    }
+
+    @Override
+    public int getItemCount() {
+        return mList.size();
+    }
+
+    class ViewHolder extends RecyclerView.ViewHolder{
+
+        private ItemUserlikeBinding binding;
+
+        public ViewHolder(@NonNull ItemUserlikeBinding binding) {
+            super(binding.getRoot());
+            this.binding = binding;
+        }
+    }
+}

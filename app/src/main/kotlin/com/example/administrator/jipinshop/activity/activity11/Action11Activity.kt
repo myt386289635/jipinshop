@@ -60,7 +60,7 @@ class Action11Activity : BaseActivity(), View.OnClickListener, OnRefreshListener
 
     private fun initView() {
         mBinding.inClude?.let {
-            it.titleTv.text = intent.getStringExtra("title") + "双11专区"
+            it.titleTv.text = intent.getStringExtra("title") + "专区"
         }
         categoryId = intent.getStringExtra("categoryId")
 

@@ -48,7 +48,7 @@
         android:layout_marginRight="@dimen/x28"
         android:layout_marginLeft="@dimen/x28"
         android:layout_marginTop="@dimen/x24"
-        android:background="@drawable/bg_opinion"
+        android:background="@drawable/bg_common"
         android:minHeight="@dimen/x360"
         android:layout_width="match_parent"
         android:layout_height="@dimen/x360"/>

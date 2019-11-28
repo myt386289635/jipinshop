@@ -13,6 +13,7 @@ import android.widget.ImageView
 import android.widget.LinearLayout
 import com.example.administrator.jipinshop.R
 import com.example.administrator.jipinshop.activity.activity11.Action11Activity
+import com.example.administrator.jipinshop.activity.shoppingdetail.tbshoppingdetail.TBShoppingDetailActivity
 import com.example.administrator.jipinshop.bean.Action11Bean
 import com.example.administrator.jipinshop.bean.EvaluationTabBean
 import com.example.administrator.jipinshop.databinding.ItemActionForeBinding
@@ -151,8 +152,9 @@ class Action11Adapter : RecyclerView.Adapter<RecyclerView.ViewHolder>{
                         mOnClickItem.onClickBuy(pos)
                     }
                     itemView.setOnClickListener {
-                        ShopJumpUtil.jumpArticle(mContext, mList[pos].goods.articleId,
-                                "2", 1)
+                        mContext.startActivity(Intent(mContext, TBShoppingDetailActivity::class.java)
+                                .putExtra("otherGoodsId",mList[pos].goods.otherGoodsId)
+                        )
                     }
                     var tags = ""
                     for (i in mList[pos].goods.goodsTagsList.indices){

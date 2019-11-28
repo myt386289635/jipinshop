@@ -5,9 +5,13 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.provider.Settings;
 import android.telephony.TelephonyManager;
-import android.util.Log;
+import android.text.TextUtils;
+
+import com.ta.utdid2.device.UTDevice;
 
 import java.io.UnsupportedEncodingException;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.UUID;
 
 /**
@@ -92,5 +96,18 @@ public class DeviceUuidFactory {
      */
     public static String getSystemModel() {
         return android.os.Build.MODEL;
+    }
+
+    /**
+     * 获取UTDID
+     */
+    public static Map getIdfa(Context context) {
+        Map<String,String> map = new HashMap<>();
+        String idfa = UTDevice.getUtdid(context);
+        if (!TextUtils.isEmpty(idfa) || !idfa.equals("ffffffffffffffffffffffff")){
+            map.put("deviceType","UTDID");
+            map.put("deviceValue",UTDevice.getUtdid(context));
+        }
+        return map;
     }
 }

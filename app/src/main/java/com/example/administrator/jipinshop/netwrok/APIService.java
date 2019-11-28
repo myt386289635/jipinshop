@@ -42,6 +42,7 @@ import com.example.administrator.jipinshop.bean.ScoreStatusBean;
 import com.example.administrator.jipinshop.bean.ShoppingDetailBean;
 import com.example.administrator.jipinshop.bean.SignBean;
 import com.example.administrator.jipinshop.bean.SignInsertBean;
+import com.example.administrator.jipinshop.bean.SimilerGoodsBean;
 import com.example.administrator.jipinshop.bean.SreachBean;
 import com.example.administrator.jipinshop.bean.SreachHistoryBean;
 import com.example.administrator.jipinshop.bean.SreachResultArticlesBean;
@@ -50,6 +51,7 @@ import com.example.administrator.jipinshop.bean.StartPageBean;
 import com.example.administrator.jipinshop.bean.SucBean;
 import com.example.administrator.jipinshop.bean.SuccessBean;
 import com.example.administrator.jipinshop.bean.SystemMessageBean;
+import com.example.administrator.jipinshop.bean.TBShoppingDetailBean;
 import com.example.administrator.jipinshop.bean.TabBean;
 import com.example.administrator.jipinshop.bean.TaobaoAccountBean;
 import com.example.administrator.jipinshop.bean.TaskFinishBean;
@@ -969,4 +971,16 @@ public interface APIService {
     @FormUrlEncoded
     @POST("api/user/addInvitationCode")
     Observable<SuccessBean> addInvitationCode(@Field("invitationCode") String invitationCode);
+
+    /**
+     * 淘客商品详情
+     */
+    @GET("api/tbk/goodsDetail")
+    Observable<TBShoppingDetailBean> tbGoodsDetail(@Query("otherGoodsId") String otherGoodsId);
+
+    /**
+     * 猜你喜欢
+     */
+    @GET("api/tbk/listSimilerGoods")
+    Observable<SimilerGoodsBean> listSimilerGoods(@QueryMap Map<String,String> map);
 }
