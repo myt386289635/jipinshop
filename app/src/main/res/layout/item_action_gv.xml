@@ -5,19 +5,18 @@
     android:layout_height="wrap_content">
 
     <ImageView
-        android:scaleType="fitXY"
-        android:layout_marginTop="@dimen/y50"
+        android:layout_marginTop="@dimen/y40"
         android:layout_centerHorizontal="true"
         android:src="@color/color_4A90E2"
         android:id="@+id/item_image"
-        android:layout_width="@dimen/x102"
-        android:layout_height="@dimen/y102"/>
+        android:layout_width="@dimen/x88"
+        android:layout_height="@dimen/y88"/>
 
     <TextView
-        android:layout_marginTop="@dimen/y8"
+        android:layout_marginTop="@dimen/y30"
         android:layout_centerHorizontal="true"
         android:layout_below="@id/item_image"
-        android:textColor="@color/color_white"
+        android:textColor="@color/color_939393"
         android:textSize="12sp"
         android:ellipsize="end"
         android:singleLine="true"

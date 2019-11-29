@@ -39,7 +39,7 @@ import javax.inject.Inject
  * @create 2019/10/29
  * @Describe 双十一模块活动
  */
-class Action11Fragment : DBBaseFragment(), OnRefreshListener, OnLoadMoreListener, Action11View, Action11Adapter.OnClickItem, View.OnClickListener, ShareBoardDialog.onShareListener {
+class Action11Fragment : DBBaseFragment(), OnRefreshListener, OnLoadMoreListener, Action11View, Action11Adapter.OnClickItem, View.OnClickListener {
 
     @Inject
     lateinit var mPresenter: Action11Presenter
@@ -53,14 +53,6 @@ class Action11Fragment : DBBaseFragment(), OnRefreshListener, OnLoadMoreListener
     private var refersh: Boolean = true
     private var once: Boolean = true //第一次进入
     private var mDialog: Dialog? = null//加载框
-    private var mShareBoardDialog: ShareBoardDialog? = null
-
-//    override fun setUserVisibleHint(isVisibleToUser: Boolean) {
-//        super.setUserVisibleHint(isVisibleToUser)
-//        if (isVisibleToUser && once) {
-//            mBinding.swipeToLoad.isRefreshing = true
-//        }
-//    }
 
     override fun initLayout(inflater: LayoutInflater?, container: ViewGroup?): View {
         mBinding = DataBindingUtil.inflate(inflater, R.layout.fragment_activity11, container, false)
@@ -72,6 +64,7 @@ class Action11Fragment : DBBaseFragment(), OnRefreshListener, OnLoadMoreListener
         mBaseFragmentComponent.inject(this)
         mBinding.swipeToLoad.setBackgroundColor(resources.getColor(R.color.color_white))
         mPresenter.setView(this)
+        mPresenter.setStatusBarHight(mBinding.statusBar,context!!)
 
         mBinding.recyclerView.layoutManager = LinearLayoutManager(context)
         mList = mutableListOf()
@@ -86,32 +79,18 @@ class Action11Fragment : DBBaseFragment(), OnRefreshListener, OnLoadMoreListener
         mPresenter.solveScoll(mBinding.recyclerView, mBinding.swipeToLoad)
         mBinding.swipeToLoad.setOnRefreshListener(this)
         mBinding.swipeToLoad.setOnLoadMoreListener(this)
-        mBinding.swipeToLoad.isRefreshing = true
+        mBinding.swipeToLoad.post {
+            mBinding.swipeToLoad.isRefreshing = true
+        }
     }
 
     override fun onClick(v: View) {
         when(v.id){
-            R.id.share -> {
-                if (mShareBoardDialog == null) {
-                    mShareBoardDialog = ShareBoardDialog.getInstance("", "")
-                    mShareBoardDialog!!.setOnShareListener(this)
-                }
-                if (!mShareBoardDialog!!.isAdded) {
-                    mShareBoardDialog!!.show(childFragmentManager, "ShareBoardDialog")
-                }
+            R.id.home_sreach -> {
+                ToastUtil.show("搜索")
             }
         }
     }
-
-    override fun share(share_media: SHARE_MEDIA?) {
-        var shareTitle = "这里全是钱啊，我得个现金大额补贴~"
-        var shareContent = "比官方还低，同商品，同店铺，这里竟然有这样的价格！"
-        var shareUrl = RetrofitModule.H5_URL + "share/index11.html"
-        mDialog = ProgressDialogView().createLoadingDialog(context, "")
-        ShareUtils(context, share_media,mDialog)
-                .shareWeb(context as Activity?, shareUrl, shareTitle, shareContent, "", R.mipmap.share_logo)
-    }
-
 
     override fun onLoadMore() {
         page++

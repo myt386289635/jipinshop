@@ -12,13 +12,10 @@
     </data>
 
     <LinearLayout
-        android:background="@color/color_E74434"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
         <RelativeLayout
-            android:layout_marginRight="@dimen/x20"
-            android:layout_marginLeft="@dimen/x20"
             android:background="@color/color_white"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
@@ -29,13 +26,13 @@
                 bind:srcRound="@{date.img}"
                 android:layout_marginBottom="@dimen/y30"
                 android:layout_marginTop="@dimen/y30"
-                android:layout_marginLeft="@dimen/x14"
+                android:layout_marginLeft="@dimen/x20"
                 android:layout_width="@dimen/x220"
                 android:layout_height="@dimen/y220"/>
 
             <View
-                android:layout_marginRight="@dimen/x10"
-                android:layout_marginLeft="@dimen/x10"
+                android:layout_marginRight="@dimen/x20"
+                android:layout_marginLeft="@dimen/x20"
                 android:layout_below="@id/item_image"
                 android:background="@color/color_DEDEDE"
                 android:layout_width="match_parent"
@@ -149,7 +146,7 @@
 
             <ImageView
                 android:id="@+id/item_buy"
-                android:layout_marginRight="@dimen/x14"
+                android:layout_marginRight="@dimen/x20"
                 android:layout_alignBottom="@id/item_image"
                 android:layout_alignParentRight="true"
                 android:src="@mipmap/activity11_buy"
