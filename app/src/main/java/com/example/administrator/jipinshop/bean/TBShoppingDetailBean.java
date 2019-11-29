@@ -62,12 +62,21 @@ public class TBShoppingDetailBean {
         private String evaluates;
         private String fee;
         private String buyPrice;
-        private String collect;
+        private int collect;
         private List<ScoreOptionsListBean> scoreOptionsList;
         private List<ParametersListBean> parametersList;
         private List<EvaluateListBean> evaluateList;
         private List<String> imgList;
         private List<String> descImgList;
+        private String goodsBuyLink;
+
+        public String getGoodsBuyLink() {
+            return goodsBuyLink;
+        }
+
+        public void setGoodsBuyLink(String goodsBuyLink) {
+            this.goodsBuyLink = goodsBuyLink;
+        }
 
         public String getImg() {
             return img;
@@ -245,11 +254,11 @@ public class TBShoppingDetailBean {
             this.buyPrice = buyPrice;
         }
 
-        public String getCollect() {
+        public int getCollect() {
             return collect;
         }
 
-        public void setCollect(String collect) {
+        public void setCollect(int collect) {
             this.collect = collect;
         }
 

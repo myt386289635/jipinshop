@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    android:background="@drawable/bg_ffffff_2"
+    android:orientation="vertical"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+
+    <TextView
+        android:id="@+id/dialog_title"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="@dimen/y36"
+        android:layout_marginTop="@dimen/y36"
+        android:textColor="@color/color_202020"
+        android:text="产品参数"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"/>
+
+    <TextView
+        android:layout_marginTop="@dimen/y915"
+        android:layout_marginBottom="@dimen/y56"
+        android:gravity="center"
+        android:background="@drawable/bg_tab_eva"
+        android:textColor="@color/color_white"
+        android:textSize="15sp"
+        android:text="完成"
+        android:id="@+id/dialog_cancle"
+        android:layout_marginRight="@dimen/x64"
+        android:layout_marginLeft="@dimen/x64"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/y80"/>
+
+    <com.example.administrator.jipinshop.view.recyclerView.MaxHeightRecyclerView
+        app:maxHeight="@dimen/y780"
+        android:layout_marginRight="@dimen/x30"
+        android:layout_marginLeft="@dimen/x30"
+        android:id="@+id/dialog_rv"
+        android:layout_below="@id/dialog_title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
+
+    <LinearLayout
+        android:background="@color/color_F5F5F5"
+        android:layout_marginLeft="@dimen/x165"
+        android:layout_alignLeft="@id/dialog_rv"
+        android:layout_alignBottom="@id/dialog_rv"
+        android:layout_alignTop="@id/dialog_rv"
+        android:layout_width="1px"
+        android:layout_height="wrap_content"/>
+
+</RelativeLayout>

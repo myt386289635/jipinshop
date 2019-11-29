@@ -99,4 +99,17 @@
         <item name="android:textSize">16sp</item>
     </style>
 
+    <style name="CustomBottomSheetDialogTheme2" parent="Theme.Design.Light.BottomSheetDialog">
+        <item name="bottomSheetStyle">@style/CustomBottomSheetStyle2</item>
+        <item name="android:backgroundDimEnabled">true</item>
+    </style>
+    <style name="CustomBottomSheetStyle2" parent="Widget.Design.BottomSheet.Modal">
+        <item name="android:background">@android:color/transparent</item>
+        <item name="behavior_peekHeight">@dimen/y1051</item>
+    </style>
+    <style name="CustomBottomSheetDialogTheme3" parent="Theme.Design.Light.BottomSheetDialog">
+        <item name="bottomSheetStyle">@style/CustomBottomSheetStyle</item>
+        <item name="android:backgroundDimEnabled">true</item>
+    </style>
+
 </resources>

@@ -4,15 +4,20 @@ import android.content.Context
 import android.content.Intent
 import android.databinding.DataBindingUtil
 import android.support.v7.widget.RecyclerView
+import android.text.TextUtils
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import com.blankj.utilcode.util.SPUtils
 import com.example.administrator.jipinshop.R
 import com.example.administrator.jipinshop.activity.activity11.Action11Activity
+import com.example.administrator.jipinshop.activity.login.LoginActivity
+import com.example.administrator.jipinshop.activity.shoppingdetail.tbshoppingdetail.TBShoppingDetailActivity
 import com.example.administrator.jipinshop.bean.Activity11Bean
 import com.example.administrator.jipinshop.databinding.ItemActionOne1Binding
 import com.example.administrator.jipinshop.databinding.ItemActionTwo1Binding
 import com.example.administrator.jipinshop.util.ShopJumpUtil
+import com.example.administrator.jipinshop.util.sp.CommonDate
 import java.math.BigDecimal
 
 /**
@@ -103,8 +108,13 @@ class Activity11Adapter : RecyclerView.Adapter<RecyclerView.ViewHolder>{
                         mOnClickItem.onClickBuy(pos)
                     }
                     itemView.setOnClickListener {
-                        ShopJumpUtil.jumpArticle(mContext, mList[pos].articleId,
-                                "2", 1)
+                        if (TextUtils.isEmpty(SPUtils.getInstance(CommonDate.USER).getString(CommonDate.token, ""))) {
+                            mContext.startActivity(Intent(mContext, LoginActivity::class.java))
+                            return@setOnClickListener
+                        }
+                        mContext.startActivity(Intent(mContext, TBShoppingDetailActivity::class.java)
+                                .putExtra("otherGoodsId",mList[pos].otherGoodsId)
+                        )
                     }
                     var tags = ""
                     for (i in mList[pos].goodsTagsList.indices){

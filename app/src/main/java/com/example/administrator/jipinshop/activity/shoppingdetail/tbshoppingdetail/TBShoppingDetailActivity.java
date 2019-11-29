@@ -1,7 +1,9 @@
 package com.example.administrator.jipinshop.activity.shoppingdetail.tbshoppingdetail;
 
 import android.app.Dialog;
+import android.content.Intent;
 import android.databinding.DataBindingUtil;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.GridLayoutManager;
@@ -12,7 +14,12 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 
+import com.alibaba.baichuan.android.trade.AlibcTradeSDK;
+import com.blankj.utilcode.util.SPUtils;
 import com.example.administrator.jipinshop.R;
+import com.example.administrator.jipinshop.activity.WebActivity;
+import com.example.administrator.jipinshop.activity.login.LoginActivity;
+import com.example.administrator.jipinshop.activity.web.TaoBaoWebActivity;
 import com.example.administrator.jipinshop.adapter.NoPageBannerAdapter;
 import com.example.administrator.jipinshop.adapter.ShoppingImageAdapter;
 import com.example.administrator.jipinshop.adapter.ShoppingParameterAdapter;
@@ -21,10 +28,28 @@ import com.example.administrator.jipinshop.adapter.ShoppingUserLikeAdapter;
 import com.example.administrator.jipinshop.base.BaseActivity;
 import com.example.administrator.jipinshop.bean.SimilerGoodsBean;
 import com.example.administrator.jipinshop.bean.TBShoppingDetailBean;
+import com.example.administrator.jipinshop.bean.eventbus.ChangeHomePageBus;
+import com.example.administrator.jipinshop.bean.eventbus.TBShopDetailBus;
 import com.example.administrator.jipinshop.databinding.ActivityTbShopDetailBinding;
+import com.example.administrator.jipinshop.fragment.foval.goods.FovalGoodsFragment;
+import com.example.administrator.jipinshop.netwrok.RetrofitModule;
+import com.example.administrator.jipinshop.util.ClickUtil;
 import com.example.administrator.jipinshop.util.DeviceUuidFactory;
+import com.example.administrator.jipinshop.util.ShareUtils;
+import com.example.administrator.jipinshop.util.TaoBaoUtil;
 import com.example.administrator.jipinshop.util.ToastUtil;
+import com.example.administrator.jipinshop.util.sp.CommonDate;
+import com.example.administrator.jipinshop.view.dialog.DialogParameter;
+import com.example.administrator.jipinshop.view.dialog.DialogQuality;
 import com.example.administrator.jipinshop.view.dialog.ProgressDialogView;
+import com.example.administrator.jipinshop.view.dialog.ShareBoardDialog;
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
+import com.umeng.socialize.UMShareAPI;
+import com.umeng.socialize.bean.SHARE_MEDIA;
+
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
@@ -38,7 +63,7 @@ import javax.inject.Inject;
  * @create 2019/11/25
  * @Describe 淘宝商品详情
  */
-public class TBShoppingDetailActivity extends BaseActivity implements View.OnClickListener, ShoppingQualityAdapter.OnItem, ShoppingParameterAdapter.OnItem, TBShoppingDetailView {
+public class TBShoppingDetailActivity extends BaseActivity implements View.OnClickListener, ShoppingQualityAdapter.OnItem, ShoppingParameterAdapter.OnItem, TBShoppingDetailView, ShareBoardDialog.onShareListener {
 
     @Inject
     TBShoppingDetailPresenter mPresenter;
@@ -52,15 +77,25 @@ public class TBShoppingDetailActivity extends BaseActivity implements View.OnCli
     //功能评分
     private List<TBShoppingDetailBean.DataBean.ScoreOptionsListBean> mQualityList;
     private ShoppingQualityAdapter mQualityAdapter;
+    private DialogQuality mDialogQuality;
     //产品参数
     private List<TBShoppingDetailBean.DataBean.ParametersListBean> mParameterList;
     private ShoppingParameterAdapter mParameterAdapter;
+    private DialogParameter mDialogParameter;
     //商品详情
     private List<String> mDetailList;
     private ShoppingImageAdapter mImageAdapter;
     //猜你喜欢
     private List<SimilerGoodsBean.DataBean> mUserLikeList;
     private ShoppingUserLikeAdapter mLikeAdapter;
+    //分享面板
+    private ShareBoardDialog mShareBoardDialog;
+    private String shareImage = "";
+    private String shareName = "";
+    private String shareContent = "";
+    private String shareUrl = "";
+    private String goodsBuyLink = "";
+    private boolean isCollect = false;//标志：是否收藏过此商品 false:没有
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -73,6 +108,7 @@ public class TBShoppingDetailActivity extends BaseActivity implements View.OnCli
                 .statusBarDarkFont(true, 0f)
                 .init();
         mPresenter.setView(this);
+        EventBus.getDefault().register(this);
         initView();
     }
 
@@ -145,19 +181,55 @@ public class TBShoppingDetailActivity extends BaseActivity implements View.OnCli
                 break;
             case R.id.detail_couponImg:
             case R.id.detail_buy:
-                ToastUtil.show("购买");
+                mDialog = (new ProgressDialogView()).createLoadingDialog(this, "");
+                if(mDialog != null && !mDialog.isShowing()){
+                    mDialog.show();
+                }
+                String specialId = SPUtils.getInstance(CommonDate.USER).getString(CommonDate.relationId,"");
+                if (TextUtils.isEmpty(specialId) || specialId.equals("null")){
+                    TaoBaoUtil.aliLogin(topAuthCode -> {
+                        startActivity(new Intent(this, TaoBaoWebActivity.class)
+                                .putExtra(TaoBaoWebActivity.url, "https://oauth.taobao.com/authorize?response_type=code&client_id=25612235&redirect_uri=https://www.jipincheng.cn/qualityshop-api/api/taobao/returnUrl&state="+SPUtils.getInstance(CommonDate.USER).getString(CommonDate.token)+"&view=wap")
+                                .putExtra(TaoBaoWebActivity.title,"淘宝授权")
+                        );
+                    });
+                }else {
+                    TaoBaoUtil.openAliHomeWeb(this,goodsBuyLink,"");
+                }
                 break;
             case R.id.detail_share:
-                ToastUtil.show("分享");
+//                if (mShareBoardDialog == null) {
+//                    mShareBoardDialog = ShareBoardDialog.getInstance("","");
+//                    mShareBoardDialog.setOnShareListener(this);
+//                }
+//                if (!mShareBoardDialog.isAdded()) {
+//                    mShareBoardDialog.show(getSupportFragmentManager(), "ShareBoardDialog");
+//                }
+                share(SHARE_MEDIA.WEIXIN);
                 break;
             case R.id.detail_home:
-                ToastUtil.show("首页");
+                EventBus.getDefault().post(new TBShopDetailBus(TBShopDetailBus.finish));
+                EventBus.getDefault().post(new ChangeHomePageBus(0));
                 break;
             case R.id.detail_freeNotice:
-                ToastUtil.show("极品城补贴规则");
+                startActivity(new Intent(this, WebActivity.class)
+                        .putExtra(WebActivity.url, RetrofitModule.H5_URL+"fee-rule.html")
+                        .putExtra(WebActivity.title,"极品城购物补贴说明")
+                );
                 break;
             case R.id.title_favor:
-                ToastUtil.show("收藏");
+                if (ClickUtil.isFastDoubleClick(1000)) {
+                    ToastUtil.show("您点击太快了，请休息会再点");
+                    return;
+                }else{
+                    if(isCollect){
+                        //收藏过了
+                        mPresenter.collectDelete(goodsId,this.bindToLifecycle());
+                    }else {
+                        //没有收藏
+                        mPresenter.collectInsert(goodsId,this.bindToLifecycle());
+                    }
+                }
                 break;
         }
     }
@@ -165,13 +237,25 @@ public class TBShoppingDetailActivity extends BaseActivity implements View.OnCli
     //功能评分
     @Override
     public void onItemQuality() {
-        ToastUtil.show("功能评分");
+        String json = new Gson().toJson(mQualityList,new TypeToken<List<TBShoppingDetailBean.DataBean.ScoreOptionsListBean>>(){}.getType());
+        if (mDialogQuality == null) {
+            mDialogQuality = DialogQuality.getInstance(json);
+        }
+        if (!mDialogQuality.isAdded()) {
+            mDialogQuality.show(getSupportFragmentManager(), "mDialogQuality");
+        }
     }
 
     //产品参数
     @Override
     public void onItemParameter() {
-        ToastUtil.show("产品参数");
+        String json = new Gson().toJson(mParameterList,new TypeToken<List<TBShoppingDetailBean.DataBean.ParametersListBean>>(){}.getType());
+        if (mDialogParameter == null) {
+            mDialogParameter = DialogParameter.getInstance(json);
+        }
+        if (!mDialogParameter.isAdded()) {
+            mDialogParameter.show(getSupportFragmentManager(), "mDialogParameter");
+        }
     }
 
     @Override
@@ -201,6 +285,10 @@ public class TBShoppingDetailActivity extends BaseActivity implements View.OnCli
             mParameterAdapter.notifyDataSetChanged();
         }else {
             mBinding.detailParameterContainer.setVisibility(View.GONE);
+        }
+        if (mBinding.detailQualityContainer.getVisibility() == View.GONE &&
+                mBinding.detailParameterContainer.getVisibility() == View.GONE){
+            mBinding.detailLine2.setVisibility(View.GONE);
         }
         //商品详情
         if (bean.getData().getDescImgList() != null && bean.getData().getDescImgList().size() != 0){
@@ -246,6 +334,22 @@ public class TBShoppingDetailActivity extends BaseActivity implements View.OnCli
         }else {
             mBinding.detailFreeCode.setText("（省¥"+ price +"）");
         }
+        //分享
+        shareImage = bean.getData().getImg();
+        shareName = bean.getData().getOtherName();
+        shareContent = "【分享来自极品城APP】看评测选好物，省心更省钱";
+        shareUrl = "https://www.jipincheng.cn";
+        goodsBuyLink = bean.getData().getGoodsBuyLink();
+        //是否收藏过
+        if(bean.getData().getCollect() == 1){
+            isCollect = true;
+            mBinding.titleFavorImg.setImageResource(R.mipmap.com_favored);
+            mBinding.titleFavorImg.setColorFilter(getResources().getColor(R.color.color_E25838));
+        }else {
+            isCollect = false;
+            mBinding.titleFavorImg.setImageResource(R.mipmap.com_favor);
+            mBinding.titleFavorImg.setColorFilter(Color.WHITE);
+        }
     }
 
     @Override
@@ -261,5 +365,61 @@ public class TBShoppingDetailActivity extends BaseActivity implements View.OnCli
         mUserLikeList.clear();
         mUserLikeList.addAll(bean.getData());
         mLikeAdapter.notifyDataSetChanged();
+    }
+
+    @Override
+    public void onSucCollectInsert() {
+        isCollect = true;
+        mBinding.titleFavorImg.setImageResource(R.mipmap.com_favored);
+        mBinding.titleFavorImg.setColorFilter(getResources().getColor(R.color.color_E25838));
+    }
+
+    @Override
+    public void onSucCollectDelete() {
+        isCollect = false;
+        mBinding.titleFavorImg.setImageResource(R.mipmap.com_favor);
+        mBinding.titleFavorImg.setColorFilter(Color.WHITE);
+    }
+
+    @Override
+    public void share(SHARE_MEDIA share_media) {
+        mDialog = (new ProgressDialogView()).createLoadingDialog(this, "");
+        if (share_media.equals(SHARE_MEDIA.WEIXIN)){
+            String path = "pages/list/main-v2-info/main?id=" + goodsId;
+            new ShareUtils(this, share_media,mDialog)
+                    .shareWXMin1(this,shareUrl,shareImage,shareName,shareContent,path);
+        }else {
+            new ShareUtils(this, share_media,mDialog)
+                    .shareWeb(this, shareUrl, shareName, shareContent, shareImage, R.mipmap.share_logo);
+        }
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        if (mDialog != null && mDialog.isShowing()){
+            mDialog.dismiss();
+        }
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        UMShareAPI.get(this).onActivityResult(requestCode, resultCode, data);
+    }
+
+    @Subscribe
+    public void finishPage(TBShopDetailBus bus){
+        if (bus != null && bus.getTag().equals(TBShopDetailBus.finish)){
+            finish();
+        }
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        EventBus.getDefault().unregister(this);
+        UMShareAPI.get(this).release();
+        AlibcTradeSDK.destory();
     }
 }

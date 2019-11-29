@@ -21,7 +21,6 @@
                      tools:ignore="ProtectedPermissions"/>
 
     <!--蒲公英需要-->
-    <uses-permission android:name="android.permission.RECORD_AUDIO" /> <!-- 允许程序录制音频 -->
     <uses-permission android:name="android.permission.GET_TASKS"/>
     <uses-permission android:name="android.permission.REQUEST_INSTALL_PACKAGES" />
 

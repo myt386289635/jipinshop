@@ -13,4 +13,7 @@ public interface TBShoppingDetailView {
     void onFile(String error);
 
     void LikeSuccess(SimilerGoodsBean bean);
+
+    void onSucCollectInsert();
+    void onSucCollectDelete();
 }

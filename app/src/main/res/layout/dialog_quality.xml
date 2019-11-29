@@ -1,0 +1,318 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/bg_ffffff_2"
+        android:orientation="vertical">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="@dimen/y35"
+            android:text="功能评分"
+            android:textColor="@color/color_202020"
+            android:textSize="14sp"/>
+
+        <RelativeLayout
+            android:id="@+id/detail_progress_container"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/x50"
+            android:layout_marginTop="@dimen/y64"
+            android:layout_marginRight="@dimen/x50">
+
+
+            <LinearLayout
+                android:id="@+id/item_score_container"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:gravity="center"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/item_score"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/color_202020"
+                    android:textSize="18sp"
+                    android:textStyle="bold"
+                    tools:text="1"/>
+
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/x8"
+                    android:text="综合评分"
+                    android:textColor="@color/color_DE151515"
+                    android:textSize="12sp"/>
+
+
+            </LinearLayout>
+
+            <RelativeLayout
+                android:id="@+id/item_progressbar1_container"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/x48"
+                android:layout_toRightOf="@id/item_score_container"
+                android:orientation="horizontal">
+
+                <com.example.administrator.jipinshop.view.textview.AlignTextView
+                    android:id="@+id/item_progressbar1_text"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:maxLength="6"
+                    android:minEms="6"
+                    android:textColor="@color/color_ACACAC"
+                    android:textSize="13sp"
+                    app:align="center"
+                    tools:text="震动频率频率"/>
+
+                <com.example.administrator.jipinshop.view.SaleProgressView
+                    android:id="@+id/item_progressbar1"
+                    android:layout_width="@dimen/x208"
+                    android:layout_height="@dimen/y16"
+                    android:layout_centerInParent="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="@dimen/x8"
+                    android:layout_toRightOf="@id/item_progressbar1_text"
+                    app:endColor="@color/color_E25838"
+                    app:nearOverText=""
+                    app:overText=""
+                    app:sideColor="#F5F5F5"
+                    app:startColor="@color/color_FF9C86"
+                    />
+
+                <TextView
+                    android:id="@+id/item_progressbar1_textDes"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/x20"
+                    android:layout_toRightOf="@id/item_progressbar1"
+                    android:text="0分"
+                    android:textColor="@color/color_ACACAC"
+                    android:textSize="13sp"/>
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/item_progressbar2_container"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/item_progressbar1_container"
+                android:layout_marginLeft="@dimen/x48"
+                android:layout_marginTop="@dimen/x14"
+                android:layout_toRightOf="@id/item_score_container"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
+
+                <com.example.administrator.jipinshop.view.textview.AlignTextView
+                    android:id="@+id/item_progressbar2_text"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:maxLength="6"
+                    android:minEms="6"
+                    android:textColor="@color/color_ACACAC"
+                    android:textSize="13sp"
+                    tools:text="清洁模式"/>
+
+                <com.example.administrator.jipinshop.view.SaleProgressView
+                    android:id="@+id/item_progressbar2"
+                    android:layout_width="@dimen/x208"
+                    android:layout_height="@dimen/y16"
+                    android:layout_centerInParent="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="@dimen/x8"
+                    android:layout_toRightOf="@id/item_progressbar2_text"
+                    app:endColor="@color/color_E25838"
+                    app:nearOverText=""
+                    app:overText=""
+                    app:sideColor="#F5F5F5"
+                    app:startColor="@color/color_FF9C86"
+                    />
+
+                <TextView
+                    android:id="@+id/item_progressbar2_textDes"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/x20"
+                    android:layout_toRightOf="@id/item_progressbar2"
+                    android:text="0分"
+                    android:textColor="@color/color_ACACAC"
+                    android:textSize="13sp"/>
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/item_progressbar3_container"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/item_progressbar2_container"
+                android:layout_marginLeft="@dimen/x48"
+                android:layout_marginTop="@dimen/x14"
+                android:layout_toRightOf="@id/item_score_container"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
+
+                <com.example.administrator.jipinshop.view.textview.AlignTextView
+                    android:id="@+id/item_progressbar3_text"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:maxLength="6"
+                    android:minEms="6"
+                    android:textColor="@color/color_ACACAC"
+                    android:textSize="13sp"
+                    tools:text="清洁功能"/>
+
+                <com.example.administrator.jipinshop.view.SaleProgressView
+                    android:id="@+id/item_progressbar3"
+                    android:layout_width="@dimen/x208"
+                    android:layout_height="@dimen/y16"
+                    android:layout_centerInParent="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="@dimen/x8"
+                    android:layout_toRightOf="@id/item_progressbar3_text"
+                    app:endColor="@color/color_E25838"
+                    app:nearOverText=""
+                    app:overText=""
+                    app:sideColor="#F5F5F5"
+                    app:startColor="@color/color_FF9C86"
+                    />
+
+                <TextView
+                    android:id="@+id/item_progressbar3_textDes"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/x20"
+                    android:layout_toRightOf="@id/item_progressbar3"
+                    android:text="0分"
+                    android:textColor="@color/color_ACACAC"
+                    android:textSize="13sp"/>
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/item_progressbar4_container"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/item_progressbar3_container"
+                android:layout_marginLeft="@dimen/x48"
+                android:layout_marginTop="@dimen/x14"
+                android:layout_toRightOf="@id/item_score_container"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
+
+                <com.example.administrator.jipinshop.view.textview.AlignTextView
+                    android:id="@+id/item_progressbar4_text"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:maxLength="6"
+                    android:minEms="6"
+                    android:textColor="@color/color_ACACAC"
+                    android:textSize="13sp"
+                    tools:text="使用时间"/>
+
+                <com.example.administrator.jipinshop.view.SaleProgressView
+                    android:id="@+id/item_progressbar4"
+                    android:layout_width="@dimen/x208"
+                    android:layout_height="@dimen/y16"
+                    android:layout_centerInParent="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="@dimen/x8"
+                    android:layout_toRightOf="@id/item_progressbar4_text"
+                    app:endColor="@color/color_E25838"
+                    app:nearOverText=""
+                    app:overText=""
+                    app:sideColor="#F5F5F5"
+                    app:startColor="@color/color_FF9C86"/>
+
+                <TextView
+                    android:id="@+id/item_progressbar4_textDes"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/x20"
+                    android:layout_toRightOf="@id/item_progressbar4"
+                    android:text="0分"
+                    android:textColor="@color/color_ACACAC"
+                    android:textSize="13sp"/>
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/item_progressbar5_container"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/item_progressbar4_container"
+                android:layout_marginLeft="@dimen/x48"
+                android:layout_marginTop="@dimen/x14"
+                android:layout_toRightOf="@id/item_score_container"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
+
+                <com.example.administrator.jipinshop.view.textview.AlignTextView
+                    android:id="@+id/item_progressbar5_text"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:maxLength="6"
+                    android:minEms="6"
+                    android:textColor="@color/color_ACACAC"
+                    android:textSize="13sp"
+                    tools:text="使用时间"/>
+
+                <com.example.administrator.jipinshop.view.SaleProgressView
+                    android:id="@+id/item_progressbar5"
+                    android:layout_width="@dimen/x208"
+                    android:layout_height="@dimen/y16"
+                    android:layout_centerInParent="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="@dimen/x8"
+                    android:layout_toRightOf="@+id/item_progressbar5_text"
+                    app:endColor="@color/color_E25838"
+                    app:nearOverText=""
+                    app:overText=""
+                    app:sideColor="#F5F5F5"
+                    app:startColor="@color/color_FF9C86"/>
+
+                <TextView
+                    android:id="@+id/item_progressbar5_textDes"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/x20"
+                    android:layout_toRightOf="@id/item_progressbar5"
+                    android:text="0分"
+                    android:textColor="@color/color_ACACAC"
+                    android:textSize="13sp"/>
+
+            </RelativeLayout>
+
+        </RelativeLayout>
+
+
+        <TextView
+            android:id="@+id/dialog_cancle"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/y80"
+            android:layout_marginLeft="@dimen/x64"
+            android:layout_marginTop="@dimen/y266"
+            android:layout_marginRight="@dimen/x64"
+            android:layout_marginBottom="@dimen/y56"
+            android:background="@drawable/bg_tab_eva"
+            android:gravity="center"
+            android:text="完成"
+            android:textColor="@color/color_white"
+            android:textSize="15sp"/>
+
+    </LinearLayout>
+</layout>

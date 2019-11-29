@@ -321,7 +321,7 @@
 
                 <LinearLayout
                     android:onClick="@{listener.onClick}"
-                    android:background="@drawable/bg_mine_head3"
+                    android:background="@drawable/bg_balance_last"
                     android:layout_marginRight="@dimen/x30"
                     android:layout_marginLeft="@dimen/x30"
                     android:orientation="horizontal"
