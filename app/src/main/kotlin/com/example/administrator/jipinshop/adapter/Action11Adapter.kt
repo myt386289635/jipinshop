@@ -229,7 +229,7 @@ class Action11Adapter : RecyclerView.Adapter<RecyclerView.ViewHolder>{
             point = mutableListOf()
             mPagerAdapter.setList(mAdListBeans)
             mPagerAdapter.setPoint(point)
-            mPagerAdapter.setImgCenter(false)
+            mPagerAdapter.setImgCenter(true)
             mPagerAdapter.setViewPager(binding.viewPager)
             binding.viewPager.adapter = mPagerAdapter
         }
