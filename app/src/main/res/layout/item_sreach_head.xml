@@ -6,6 +6,20 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
 
+    <View
+        android:visibility="gone"
+        android:id="@+id/item_gridLine"
+        android:background="@color/color_white"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/y30"/>
+
+    <View
+        android:visibility="gone"
+        android:id="@+id/item_line"
+        android:background="@color/color_F5F5F5"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/y20"/>
+
     <FrameLayout
         android:id="@+id/item_kong"
         android:background="@color/color_F5F5F5"

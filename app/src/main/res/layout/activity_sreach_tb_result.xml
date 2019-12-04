@@ -215,6 +215,7 @@
                 android:layout_height="match_parent">
 
                 <ImageView
+                    android:id="@+id/sreach_changeImg"
                     android:layout_gravity="center"
                     android:src="@mipmap/sreach_change"
                     android:layout_width="wrap_content"

@@ -33,6 +33,15 @@ public class TBSreachResultAdapter extends RecyclerView.Adapter {
 
     private List<TBSreachResultBean.DataBean> mList;
     private Context mContext;
+    private int layoutType = 1;//横线是1，网格是2  默认横线
+
+    public void setLayoutType(int layoutType) {
+        this.layoutType = layoutType;
+    }
+
+    public int getLayoutType() {
+        return layoutType;
+    }
 
     public TBSreachResultAdapter(List<TBSreachResultBean.DataBean> list, Context context) {
         mList = list;
@@ -67,7 +76,15 @@ public class TBSreachResultAdapter extends RecyclerView.Adapter {
                     if (getItemViewType(position) == CONTENT_2) {
                         return 1;
                     }else {
-                        return gridLayoutManager.getSpanCount();
+                        if (getItemViewType(position) == CONTENT_1){
+                            if (layoutType == 1){
+                                return gridLayoutManager.getSpanCount();
+                            }else {
+                                return 1;
+                            }
+                        }else {
+                            return gridLayoutManager.getSpanCount();
+                        }
                     }
                 }
             });
@@ -100,32 +117,57 @@ public class TBSreachResultAdapter extends RecyclerView.Adapter {
         int type = getItemViewType(position);
         switch (type){
             case CONTENT_1:
-                OneViewHolder oneViewHolder  = (OneViewHolder) holder;
+                OneViewHolder oneViewHolder = (OneViewHolder) holder;
                 oneViewHolder.binding.setDate(mList.get(position));
                 oneViewHolder.binding.executePendingBindings();
-                if (position == 0){
-                    oneViewHolder.binding.itemLine.setVisibility(View.VISIBLE);
-                }else {
-                    oneViewHolder.binding.itemLine.setVisibility(View.GONE);
-                }
-                oneViewHolder.binding.detailOtherPrice.setTv(true);
-                oneViewHolder.binding.detailOtherPrice.setColor(R.color.color_9D9D9D);
                 double coupon1 = new BigDecimal(mList.get(position).getCouponPrice()).doubleValue();
-                if (coupon1 == 0){//没有优惠券
-                    oneViewHolder.binding.detailCoupon.setVisibility(View.GONE);
-                }else {
-                    oneViewHolder.binding.detailCoupon.setVisibility(View.VISIBLE);
-                }
                 double free1 = new BigDecimal(mList.get(position).getFee()).doubleValue();
-                if (free1 == 0){//没有补贴
-                    oneViewHolder.binding.detailFee.setVisibility(View.GONE);
+                if (layoutType == 1){
+                    oneViewHolder.binding.itemLine.setVisibility(View.VISIBLE);
+                    oneViewHolder.binding.itemLineContainer.setVisibility(View.VISIBLE);
+                    oneViewHolder.binding.itemGridContainer.setVisibility(View.GONE);
+                    oneViewHolder.binding.detailOtherPrice.setTv(true);
+                    oneViewHolder.binding.detailOtherPrice.setColor(R.color.color_9D9D9D);
+                    if (coupon1 == 0) {//没有优惠券
+                        oneViewHolder.binding.detailCoupon.setVisibility(View.GONE);
+                    } else {
+                        oneViewHolder.binding.detailCoupon.setVisibility(View.VISIBLE);
+                    }
+                    if (free1 == 0) {//没有补贴
+                        oneViewHolder.binding.detailFee.setVisibility(View.GONE);
+                    } else {
+                        oneViewHolder.binding.detailFee.setVisibility(View.VISIBLE);
+                    }
+                    if (coupon1 == 0 && free1 == 0) {
+                        oneViewHolder.binding.detailOtherPrice.setVisibility(View.GONE);
+                    } else {
+                        oneViewHolder.binding.detailOtherPrice.setVisibility(View.VISIBLE);
+                    }
                 }else {
-                    oneViewHolder.binding.detailFee.setVisibility(View.VISIBLE);
-                }
-                if (coupon1 == 0 && free1 == 0){
-                    oneViewHolder.binding.detailOtherPrice.setVisibility(View.GONE);
-                }else {
-                    oneViewHolder.binding.detailOtherPrice.setVisibility(View.VISIBLE);
+                    oneViewHolder.binding.itemLineContainer.setVisibility(View.GONE);
+                    oneViewHolder.binding.itemGridContainer.setVisibility(View.VISIBLE);
+                    if (position == 0 || position == 1) {
+                        oneViewHolder.binding.itemLine.setVisibility(View.VISIBLE);
+                    } else {
+                        oneViewHolder.binding.itemLine.setVisibility(View.GONE);
+                    }
+                    oneViewHolder.binding.detailGirdOtherPrice.setTv(true);
+                    oneViewHolder.binding.detailGirdOtherPrice.setColor(R.color.color_9D9D9D);
+                    if (coupon1 == 0) {//没有优惠券
+                        oneViewHolder.binding.detailGirdCoupon.setVisibility(View.GONE);
+                    } else {
+                        oneViewHolder.binding.detailGirdCoupon.setVisibility(View.VISIBLE);
+                    }
+                    if (free1 == 0) {//没有补贴
+                        oneViewHolder.binding.detailGirdFee.setVisibility(View.GONE);
+                    } else {
+                        oneViewHolder.binding.detailGirdFee.setVisibility(View.VISIBLE);
+                    }
+                    if (coupon1 == 0 && free1 == 0) {
+                        oneViewHolder.binding.detailGirdOtherPrice.setVisibility(View.GONE);
+                    } else {
+                        oneViewHolder.binding.detailGirdOtherPrice.setVisibility(View.VISIBLE);
+                    }
                 }
                 oneViewHolder.itemView.setOnClickListener(v -> {
                     mContext.startActivity(new Intent(mContext, TBShoppingDetailActivity.class)
@@ -136,9 +178,17 @@ public class TBSreachResultAdapter extends RecyclerView.Adapter {
             case HEAD:
                 HeadViewHolder headViewHolder = (HeadViewHolder) holder;
                 if (position == 0){
+                    headViewHolder.item_gridLine.setVisibility(View.GONE);
+                    headViewHolder.item_line.setVisibility(View.GONE);
                     headViewHolder.mFrameLayout.setVisibility(View.VISIBLE);
                 }else {
                     headViewHolder.mFrameLayout.setVisibility(View.GONE);
+                    headViewHolder.item_line.setVisibility(View.VISIBLE);
+                    if (layoutType == 1){
+                        headViewHolder.item_gridLine.setVisibility(View.GONE);
+                    }else {
+                        headViewHolder.item_gridLine.setVisibility(View.VISIBLE);
+                    }
                 }
                 break;
             case CONTENT_2:
@@ -192,10 +242,13 @@ public class TBSreachResultAdapter extends RecyclerView.Adapter {
     class HeadViewHolder extends RecyclerView.ViewHolder{
 
         private FrameLayout mFrameLayout;
+        private View item_gridLine,item_line;
 
         public HeadViewHolder(@NonNull View itemView) {
             super(itemView);
             mFrameLayout = itemView.findViewById(R.id.item_kong);
+            item_gridLine = itemView.findViewById(R.id.item_gridLine);
+            item_line = itemView.findViewById(R.id.item_line);
         }
     }
 

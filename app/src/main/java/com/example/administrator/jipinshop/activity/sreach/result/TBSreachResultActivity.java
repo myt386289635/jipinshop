@@ -88,6 +88,7 @@ public class TBSreachResultActivity extends BaseActivity implements View.OnClick
         mBinding.swipeTarget.setLayoutManager(new GridLayoutManager(this,2));
         mList = new ArrayList<>();
         mAdapter = new TBSreachResultAdapter(mList,this);
+        mAdapter.setLayoutType(1);//默认横向布局
         mBinding.swipeTarget.setAdapter(mAdapter);
 
         mBinding.swipeToLoad.setOnLoadMoreListener(this);
@@ -169,6 +170,17 @@ public class TBSreachResultActivity extends BaseActivity implements View.OnClick
                 mDialog.show();
                 onRefresh();
                 break;
+            case R.id.sreach_change:
+                if (mAdapter.getLayoutType() == 1){
+                    mAdapter.setLayoutType(2);//网格
+                    mAdapter.notifyItemRangeChanged(0,mList.size());
+                    mBinding.sreachChangeImg.setImageResource(R.mipmap.sreach_change1);
+                }else {
+                    mAdapter.setLayoutType(1);//横向
+                    mAdapter.notifyItemRangeChanged(0,mList.size());
+                    mBinding.sreachChangeImg.setImageResource(R.mipmap.sreach_change);
+                }
+                break;
         }
     }
 
@@ -245,6 +257,9 @@ public class TBSreachResultActivity extends BaseActivity implements View.OnClick
                 page--;
                 ToastUtil.show("已经是最后一页了");
             }
+        }
+        if (once){
+            once = false;
         }
     }
 
