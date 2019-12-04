@@ -52,6 +52,7 @@ import com.example.administrator.jipinshop.bean.SucBean;
 import com.example.administrator.jipinshop.bean.SuccessBean;
 import com.example.administrator.jipinshop.bean.SystemMessageBean;
 import com.example.administrator.jipinshop.bean.TBShoppingDetailBean;
+import com.example.administrator.jipinshop.bean.TBSreachResultBean;
 import com.example.administrator.jipinshop.bean.TabBean;
 import com.example.administrator.jipinshop.bean.TaobaoAccountBean;
 import com.example.administrator.jipinshop.bean.TaskFinishBean;
@@ -983,4 +984,10 @@ public interface APIService {
      */
     @GET("api/tbk/listSimilerGoods")
     Observable<SimilerGoodsBean> listSimilerGoods(@QueryMap Map<String,String> map);
+
+    /**
+     * 搜索结果
+     */
+    @GET("api/tbk/searchGoods")
+    Observable<TBSreachResultBean> searchTBGoods(@QueryMap Map<String,String> map);
 }

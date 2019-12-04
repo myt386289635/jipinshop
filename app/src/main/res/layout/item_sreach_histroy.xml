@@ -5,6 +5,10 @@
     android:layout_height="wrap_content">
 
     <TextView
+        android:paddingBottom="@dimen/x20"
+        android:paddingTop="@dimen/x20"
+        android:paddingLeft="@dimen/x50"
+        android:paddingRight="@dimen/x50"
         android:ellipsize="end"
         android:singleLine="true"
         android:id="@+id/histroy_item"

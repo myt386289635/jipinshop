@@ -5,6 +5,7 @@ import android.app.Dialog
 import android.content.Intent
 import android.databinding.DataBindingUtil
 import android.support.v7.widget.LinearLayoutManager
+import android.text.Html
 import android.text.TextUtils
 import android.view.LayoutInflater
 import android.view.View
@@ -16,6 +17,7 @@ import com.blankj.utilcode.util.SPUtils
 import com.example.administrator.jipinshop.R
 import com.example.administrator.jipinshop.activity.activity11.Action11Activity
 import com.example.administrator.jipinshop.activity.login.LoginActivity
+import com.example.administrator.jipinshop.activity.sreach.TBSreachActivity
 import com.example.administrator.jipinshop.activity.web.TaoBaoWebActivity
 import com.example.administrator.jipinshop.adapter.Action11Adapter
 import com.example.administrator.jipinshop.base.DBBaseFragment
@@ -24,14 +26,10 @@ import com.example.administrator.jipinshop.bean.EvaluationTabBean
 import com.example.administrator.jipinshop.bean.ImageBean
 import com.example.administrator.jipinshop.bean.SucBean
 import com.example.administrator.jipinshop.databinding.FragmentActivity11Binding
-import com.example.administrator.jipinshop.netwrok.RetrofitModule
-import com.example.administrator.jipinshop.util.ShareUtils
 import com.example.administrator.jipinshop.util.TaoBaoUtil
 import com.example.administrator.jipinshop.util.ToastUtil
 import com.example.administrator.jipinshop.util.sp.CommonDate
 import com.example.administrator.jipinshop.view.dialog.ProgressDialogView
-import com.example.administrator.jipinshop.view.dialog.ShareBoardDialog
-import com.umeng.socialize.bean.SHARE_MEDIA
 import javax.inject.Inject
 
 /**
@@ -65,6 +63,8 @@ class Action11Fragment : DBBaseFragment(), OnRefreshListener, OnLoadMoreListener
         mBinding.swipeToLoad.setBackgroundColor(resources.getColor(R.color.color_white))
         mPresenter.setView(this)
         mPresenter.setStatusBarHight(mBinding.statusBar,context!!)
+        var html = "搜索关键词或粘贴淘宝标题<font color='#E25838'>领券</font>..."
+        mBinding.homeSreach.text = Html.fromHtml(html)
 
         mBinding.recyclerView.layoutManager = LinearLayoutManager(context)
         mList = mutableListOf()
@@ -87,7 +87,7 @@ class Action11Fragment : DBBaseFragment(), OnRefreshListener, OnLoadMoreListener
     override fun onClick(v: View) {
         when(v.id){
             R.id.home_sreach -> {
-                ToastUtil.show("搜索")
+                startActivity(Intent(context,TBSreachActivity::class.java))
             }
         }
     }

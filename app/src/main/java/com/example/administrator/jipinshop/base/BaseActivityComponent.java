@@ -56,7 +56,9 @@ import com.example.administrator.jipinshop.activity.sign.detail.IntegralDetailAc
 import com.example.administrator.jipinshop.activity.sign.invitation.InvitationActivity;
 import com.example.administrator.jipinshop.activity.sign.invitation.InvitationNewActivity;
 import com.example.administrator.jipinshop.activity.sreach.SreachActivity;
+import com.example.administrator.jipinshop.activity.sreach.TBSreachActivity;
 import com.example.administrator.jipinshop.activity.sreach.result.SreachResultActivity;
+import com.example.administrator.jipinshop.activity.sreach.result.TBSreachResultActivity;
 import com.example.administrator.jipinshop.activity.tryout.TryAllActivity;
 import com.example.administrator.jipinshop.activity.tryout.detail.TryDetailActivity;
 import com.example.administrator.jipinshop.activity.tryout.freedetail.FreeDetailActivity;
@@ -139,4 +141,6 @@ public interface BaseActivityComponent {
     void inject(NewPeopleActivity activity);
     void inject(NewPeopleDetailActivity activity);
     void inject(TBShoppingDetailActivity activity);
+    void inject(TBSreachActivity activity);
+    void inject(TBSreachResultActivity activity);
 }

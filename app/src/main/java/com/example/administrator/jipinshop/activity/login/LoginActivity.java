@@ -26,7 +26,6 @@ import com.example.administrator.jipinshop.bean.eventbus.EditNameBus;
 import com.example.administrator.jipinshop.bean.eventbus.HomeNewPeopleBus;
 import com.example.administrator.jipinshop.databinding.LoginBinding;
 import com.example.administrator.jipinshop.jpush.JPushAlias;
-import com.example.administrator.jipinshop.jpush.JPushReceiver;
 import com.example.administrator.jipinshop.netwrok.RetrofitModule;
 import com.example.administrator.jipinshop.util.ToastUtil;
 import com.example.administrator.jipinshop.util.sp.CommonDate;
@@ -83,6 +82,8 @@ public class LoginActivity extends BaseActivity implements LoginView, View.OnCli
 
         String str = "登录即视为同意<font color='#4A90E2'>《极品城用户协议》</font>";
         mBinding.loginProtocol.setText(Html.fromHtml(str));
+        String str2 = "和<font color='#4A90E2'>《隐私政策》</font>";
+        mBinding.loginYc.setText(Html.fromHtml(str2));
 
         mDialog = (new ProgressDialogView()).createLoadingDialog(this, "正在登录...");
     }
@@ -377,6 +378,13 @@ public class LoginActivity extends BaseActivity implements LoginView, View.OnCli
             case R.id.title_back:
                 setResult(400);
                 finish();
+                break;
+            case R.id.login_yc:
+                //隐私协议
+                startActivity(new Intent(this, WebActivity.class)
+                        .putExtra(WebActivity.url, RetrofitModule.H5_URL+"privacy.html")
+                        .putExtra(WebActivity.title,"隐私协议")
+                );
                 break;
         }
     }

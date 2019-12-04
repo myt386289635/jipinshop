@@ -85,4 +85,5 @@
     <string name="new_people">淘宝价¥</string>
     <string name="detail_buyNum">人已买</string>
     <string name="detail_coupon">券 ¥</string>
+    <string name="buy_rote">折</string>
 </resources>

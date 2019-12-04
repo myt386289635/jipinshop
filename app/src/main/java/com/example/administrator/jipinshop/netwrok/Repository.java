@@ -52,6 +52,7 @@ import com.example.administrator.jipinshop.bean.SucBean;
 import com.example.administrator.jipinshop.bean.SuccessBean;
 import com.example.administrator.jipinshop.bean.SystemMessageBean;
 import com.example.administrator.jipinshop.bean.TBShoppingDetailBean;
+import com.example.administrator.jipinshop.bean.TBSreachResultBean;
 import com.example.administrator.jipinshop.bean.TabBean;
 import com.example.administrator.jipinshop.bean.TaobaoAccountBean;
 import com.example.administrator.jipinshop.bean.TaskFinishBean;
@@ -1076,5 +1077,12 @@ public class Repository {
      */
     public Observable<SimilerGoodsBean> listSimilerGoods(Map<String,String> map){
         return mAPIService.listSimilerGoods(map);
+    }
+
+    /**
+     * 搜索结果
+     */
+    public Observable<TBSreachResultBean> searchTBGoods(Map<String,String> map){
+        return mAPIService.searchTBGoods(map);
     }
 }

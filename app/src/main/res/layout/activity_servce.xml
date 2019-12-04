@@ -1,0 +1,248 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <data>
+        <variable
+            name="listener"
+            type="android.view.View.OnClickListener"/>
+
+    </data>
+
+    <RelativeLayout
+        android:background="@color/color_F5F5F5"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <TextView
+            android:id="@+id/servce_name"
+            android:layout_marginLeft="@dimen/x30"
+            android:layout_marginTop="@dimen/y56"
+            android:textColor="@color/color_202020"
+            android:textStyle="bold"
+            android:textSize="18sp"
+            android:text="极品城"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+
+        <TextView
+            android:id="@+id/servce_content"
+            android:textColor="@color/color_565252"
+            android:textSize="18sp"
+            android:text="将获取以下权限进行更好的服务"
+            android:layout_marginTop="@dimen/y8"
+            android:layout_marginLeft="@dimen/x30"
+            android:layout_below="@id/servce_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+        
+        <RelativeLayout
+            android:id="@+id/servce1"
+            android:layout_marginTop="@dimen/y40"
+            android:background="@drawable/bg_evakt"
+            android:layout_marginRight="@dimen/x30"
+            android:layout_marginLeft="@dimen/x30"
+            android:layout_below="@id/servce_content"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/y166">
+
+            <ImageView
+                android:id="@+id/servce1_image"
+                android:layout_marginLeft="@dimen/x26"
+                android:layout_centerVertical="true"
+                android:src="@mipmap/bg_servce1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+
+            <LinearLayout
+                android:layout_marginLeft="@dimen/x23"
+                android:layout_toRightOf="@id/servce1_image"
+                android:layout_centerVertical="true"
+                android:orientation="vertical"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:textStyle="bold"
+                    android:textSize="16sp"
+                    android:textColor="@color/color_565252"
+                    android:text="存储文件"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"/>
+
+                <TextView
+                    android:textColor="@color/color_9D9D9D"
+                    android:textSize="12sp"
+                    android:layout_marginTop="@dimen/y2"
+                    android:text="允许程序挂载、反挂载外部文件系统"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"/>
+            </LinearLayout>
+
+            <ImageView
+                android:onClick="@{listener.onClick}"
+                android:id="@+id/servce1_agree"
+                android:layout_marginRight="@dimen/x47"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:src="@mipmap/bg_servce_yes"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+            
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/servce2"
+            android:layout_marginTop="@dimen/y40"
+            android:background="@drawable/bg_evakt"
+            android:layout_marginRight="@dimen/x30"
+            android:layout_marginLeft="@dimen/x30"
+            android:layout_below="@id/servce1"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/y166">
+
+
+            <ImageView
+                android:id="@+id/servce2_image"
+                android:layout_marginLeft="@dimen/x26"
+                android:layout_centerVertical="true"
+                android:src="@mipmap/bg_servce2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+
+            <LinearLayout
+                android:layout_marginLeft="@dimen/x23"
+                android:layout_toRightOf="@id/servce2_image"
+                android:layout_centerVertical="true"
+                android:orientation="vertical"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:textStyle="bold"
+                    android:textSize="16sp"
+                    android:textColor="@color/color_565252"
+                    android:text="基本系统配置信息"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"/>
+
+                <TextView
+                    android:textColor="@color/color_9D9D9D"
+                    android:textSize="12sp"
+                    android:layout_marginTop="@dimen/y2"
+                    android:text="允许应用程序修改当前的配置，比如定位"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"/>
+            </LinearLayout>
+
+            <ImageView
+                android:onClick="@{listener.onClick}"
+                android:id="@+id/servce2_agree"
+                android:layout_marginRight="@dimen/x47"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:src="@mipmap/bg_servce_yes"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+
+        </RelativeLayout>
+
+
+        <RelativeLayout
+            android:id="@+id/servce3"
+            android:layout_marginTop="@dimen/y40"
+            android:background="@drawable/bg_evakt"
+            android:layout_marginRight="@dimen/x30"
+            android:layout_marginLeft="@dimen/x30"
+            android:layout_below="@id/servce2"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/y166">
+
+
+            <ImageView
+                android:id="@+id/servce3_image"
+                android:layout_marginLeft="@dimen/x26"
+                android:layout_centerVertical="true"
+                android:src="@mipmap/bg_servce3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+
+            <LinearLayout
+                android:layout_marginLeft="@dimen/x23"
+                android:layout_toRightOf="@id/servce3_image"
+                android:layout_centerVertical="true"
+                android:orientation="vertical"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:textStyle="bold"
+                    android:textSize="16sp"
+                    android:textColor="@color/color_565252"
+                    android:text="问题诊断"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"/>
+
+                <TextView
+                    android:textColor="@color/color_9D9D9D"
+                    android:textSize="12sp"
+                    android:layout_marginTop="@dimen/y2"
+                    android:text="允许读取系统日志"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"/>
+            </LinearLayout>
+
+            <ImageView
+                android:onClick="@{listener.onClick}"
+                android:id="@+id/servce3_agree"
+                android:layout_marginRight="@dimen/x47"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:src="@mipmap/bg_servce_yes"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_below="@id/servce3"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <LinearLayout
+                android:gravity="center"
+                android:layout_centerInParent="true"
+                android:layout_marginRight="@dimen/x60"
+                android:layout_marginLeft="@dimen/x60"
+                android:orientation="vertical"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:onClick="@{listener.onClick}"
+                    android:id="@+id/sercve_notice"
+                    android:layout_marginBottom="@dimen/y34"
+                    android:textColor="@color/color_9D9D9D"
+                    android:textSize="12sp"
+                    android:text="请在使用极品城APP前查看并同意完整的隐私协议"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"/>
+
+                <TextView
+                    android:onClick="@{listener.onClick}"
+                    android:id="@+id/servce_go"
+                    android:gravity="center"
+                    android:textStyle="bold"
+                    android:textSize="18sp"
+                    android:text="同意授权并进入APP"
+                    android:textColor="@color/color_white"
+                    android:background="@drawable/bg_tab_eva"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/y90"/>
+
+            </LinearLayout>
+
+        </RelativeLayout>
+
+
+    </RelativeLayout>
+</layout>
