@@ -15,6 +15,7 @@ public class CommonDate {
     public static final String startPage = "startPage";//启动页
     public static final String FIRSTSHOP = "FIRSTSHOP";//新人首次进入商品详情打开商品详情引导页
     public static final String POPID = "POPID";//活动popid为了不弹出活动
+    public static final String CLIP = "clip";//粘贴板内容存稿
 
 
     //用户数据表（sp文件名：user）

@@ -190,6 +190,7 @@ public class MineFragment extends DBBaseFragment implements View.OnClickListener
                 ClipData clipData = ClipData.newPlainText("jipinshop", mBinding.mineIntegral.getText().toString().replace("邀请码：",""));
                 clip.setPrimaryClip(clipData);
                 ToastUtil.show("复制成功");
+                SPUtils.getInstance().put(CommonDate.CLIP,mBinding.mineIntegral.getText().toString().replace("邀请码：",""));
                 UAppUtil.mine(getContext(),13);
                 break;
             case R.id.mine_team:

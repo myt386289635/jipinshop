@@ -6,7 +6,10 @@ import android.text.TextUtils;
 import android.util.Log;
 
 import com.example.administrator.jipinshop.R;
+import com.example.administrator.jipinshop.activity.home.article.ArticleDetailActivity;
 import com.example.administrator.jipinshop.activity.newpeople.detail.NewPeopleDetailActivity;
+import com.example.administrator.jipinshop.activity.report.detail.ReportDetailActivity;
+import com.example.administrator.jipinshop.activity.shoppingdetail.tbshoppingdetail.TBShoppingDetailActivity;
 import com.example.administrator.jipinshop.activity.tryout.freedetail.FreeNewDetailActivity;
 import com.example.administrator.jipinshop.activity.wellcome.WellComeActivity;
 import com.tencent.mm.opensdk.constants.ConstantsAPI;
@@ -58,6 +61,10 @@ public class WXEntryActivity extends WXCallbackActivity implements IWXAPIEventHa
                     String[] str = extDate.split("&");
                     String type = str[0].replace("type=","");
                     String id = str[1].replace("id=","");
+                    String articleType = "";
+                    if (str.length == 3){
+                        articleType = str[2].replace("articleType=","");
+                    }
                     switch (type){
                         case "0"://.新人免单详情页
                             Intent intent0 = new Intent(this, NewPeopleDetailActivity.class);
@@ -70,6 +77,26 @@ public class WXEntryActivity extends WXCallbackActivity implements IWXAPIEventHa
                             intent1.putExtra("freeId",id);
                             intent1.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                             startActivity(intent1);
+                            break;
+                        case "2"://淘宝商品详情页面
+                            Intent intent2 = new Intent(this, TBShoppingDetailActivity.class);
+                            intent2.putExtra("otherGoodsId",id);
+                            intent2.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                            startActivity(intent2);
+                            break;
+                        case "3":
+                            Intent intent3 = new Intent(this, ArticleDetailActivity.class);
+                            intent3.putExtra("id",id);
+                            intent3.putExtra("type",articleType);
+                            intent3.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                            startActivity(intent3);
+                            break;
+                        case "4":
+                            Intent intent4 = new Intent(this, ReportDetailActivity.class);
+                            intent4.putExtra("id",id);
+                            intent4.putExtra("type",articleType);
+                            intent4.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                            startActivity(intent4);
                             break;
                         default:
                             Intent intent = new Intent(this, WellComeActivity.class);

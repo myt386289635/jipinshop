@@ -11,11 +11,13 @@ import android.support.annotation.Nullable;
 import android.text.TextUtils;
 import android.view.View;
 
+import com.blankj.utilcode.util.SPUtils;
 import com.example.administrator.jipinshop.R;
 import com.example.administrator.jipinshop.base.BaseActivity;
 import com.example.administrator.jipinshop.bean.MyOrderBean;
 import com.example.administrator.jipinshop.databinding.ActivityOrderDetailBinding;
 import com.example.administrator.jipinshop.util.ToastUtil;
+import com.example.administrator.jipinshop.util.sp.CommonDate;
 import com.example.administrator.jipinshop.view.dialog.ProgressDialogView;
 
 import javax.inject.Inject;
@@ -70,6 +72,7 @@ public class OrderDetailActivity extends BaseActivity implements View.OnClickLis
                 ClipData clipData = ClipData.newPlainText("jipinshop", mBinding.detailExpresssn.getText().toString());
                 clip.setPrimaryClip(clipData);
                 ToastUtil.show("复制成功");
+                SPUtils.getInstance().put(CommonDate.CLIP,mBinding.detailExpresssn.getText().toString());
                 break;
         }
     }

@@ -1,6 +1,9 @@
 package com.example.administrator.jipinshop.activity.home;
 
 import android.app.Activity;
+import android.content.ClipData;
+import android.content.ClipboardManager;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
@@ -9,6 +12,7 @@ import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -25,6 +29,7 @@ import com.example.administrator.jipinshop.adapter.HomeAdapter;
 import com.example.administrator.jipinshop.base.DaggerBaseActivityComponent;
 import com.example.administrator.jipinshop.bean.AppVersionbean;
 import com.example.administrator.jipinshop.bean.PopInfoBean;
+import com.example.administrator.jipinshop.bean.TklBean;
 import com.example.administrator.jipinshop.bean.eventbus.ChangeHomePageBus;
 import com.example.administrator.jipinshop.bean.eventbus.HomeNewPeopleBus;
 import com.example.administrator.jipinshop.fragment.activity11.Action11Fragment;
@@ -104,6 +109,7 @@ public class MainActivity extends RxAppCompatActivity implements MainView, ViewP
     private ImmersionBar mImmersionBar;
     private long exitTime = 0;
     private static Activity sFirstInstance;
+    private Boolean once = true; // 是否是第一次弹出
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -294,15 +300,21 @@ public class MainActivity extends RxAppCompatActivity implements MainView, ViewP
                                 return;
                             }
                             startActivity(new Intent(this, NewPeopleActivity.class));
+                        }, v -> {
+                            getClipText();
                         });
                         if (TextUtils.isEmpty(SPUtils.getInstance(CommonDate.USER).getString(CommonDate.token, ""))) {
                             SPUtils.getInstance().put(CommonDate.POPID,bean.getData().getPopId());//未登录时存上id
                         }
+                    }else {
+                        getClipText();
                     }
                 }else {
                     DialogUtil.imgDialog(MainActivity.this, bean.getData().getData().getImg(), v -> {
                         ShopJumpUtil.openPager(MainActivity.this, bean.getData().getData().getTargetType()
                                 , bean.getData().getData().getTargetId(), "小分类");
+                    }, v -> {
+                        getClipText();
                     });
                 }
             } else {
@@ -313,11 +325,25 @@ public class MainActivity extends RxAppCompatActivity implements MainView, ViewP
                             .putExtra("fromId", bean.getData().getPopId())
                             .putExtra("fromType", "1")
                     );
+                }, v -> {
+                    getClipText();
                 });
             }
+        }else {
+            getClipText();
+        }
+        if (once){
+            once = false;
         }
     }
 
+    @Override
+    public void onDialogFile() {
+        getClipText();
+        if (once){
+            once = false;
+        }
+    }
 
     @Subscribe
     public void changePage(ChangeHomePageBus bus) {
@@ -340,6 +366,9 @@ public class MainActivity extends RxAppCompatActivity implements MainView, ViewP
     protected void onResume() {
         super.onResume();
         MobclickAgent.onResume(this);
+        if (!once){
+            getClipText();//淘口令
+        }
     }
 
     @Override
@@ -412,4 +441,24 @@ public class MainActivity extends RxAppCompatActivity implements MainView, ViewP
                 break;
         }
     }
+
+    public void getClipText(){
+        ClipboardManager cm = (ClipboardManager) getSystemService(CLIPBOARD_SERVICE);
+        ClipData clipData  = cm.getPrimaryClip();
+        if (clipData != null && clipData.getItemCount() > 0) {
+            ClipData.Item item = clipData .getItemAt(0);
+            String content = item.getText().toString();
+            if (!TextUtils.isEmpty(content) && !content.equals(SPUtils.getInstance().getString(CommonDate.CLIP,""))){
+                mPresenter.getGoodsByTkl(content,this.bindToLifecycle());
+            }
+        }
+    }
+
+    //淘口令返回
+    @Override
+    public void onTklDialog(TklBean bean,String tkl) {
+        DialogUtil.tklDialog(this,bean,tkl);
+        SPUtils.getInstance().put(CommonDate.CLIP,tkl);
+    }
+
 }

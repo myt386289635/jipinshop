@@ -1,5 +1,6 @@
 package com.example.administrator.jipinshop.activity.shoppingdetail.tbshoppingdetail;
 
+import com.example.administrator.jipinshop.bean.ImageBean;
 import com.example.administrator.jipinshop.bean.SimilerGoodsBean;
 import com.example.administrator.jipinshop.bean.TBShoppingDetailBean;
 
@@ -16,4 +17,6 @@ public interface TBShoppingDetailView {
 
     void onSucCollectInsert();
     void onSucCollectDelete();
+
+    void onBuyLinkSuccess(ImageBean bean);
 }

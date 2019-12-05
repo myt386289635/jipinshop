@@ -169,6 +169,7 @@ public class SettingActivity extends BaseActivity implements CleanCacheDialog.On
                     ClipData clipData = ClipData.newPlainText("jipinshop", mSettingServiceText.getText().toString());
                     clip.setPrimaryClip(clipData);
                     ToastUtil.show("微信号复制成功");
+                    SPUtils.getInstance().put(CommonDate.CLIP,mSettingServiceText.getText().toString());
                 });
                 return;
             case R.id.setting_goodContainer:

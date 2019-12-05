@@ -18,7 +18,6 @@ import com.alibaba.baichuan.android.trade.AlibcTradeSDK;
 import com.blankj.utilcode.util.SPUtils;
 import com.example.administrator.jipinshop.R;
 import com.example.administrator.jipinshop.activity.WebActivity;
-import com.example.administrator.jipinshop.activity.login.LoginActivity;
 import com.example.administrator.jipinshop.activity.web.TaoBaoWebActivity;
 import com.example.administrator.jipinshop.adapter.NoPageBannerAdapter;
 import com.example.administrator.jipinshop.adapter.ShoppingImageAdapter;
@@ -26,12 +25,12 @@ import com.example.administrator.jipinshop.adapter.ShoppingParameterAdapter;
 import com.example.administrator.jipinshop.adapter.ShoppingQualityAdapter;
 import com.example.administrator.jipinshop.adapter.ShoppingUserLikeAdapter;
 import com.example.administrator.jipinshop.base.BaseActivity;
+import com.example.administrator.jipinshop.bean.ImageBean;
 import com.example.administrator.jipinshop.bean.SimilerGoodsBean;
 import com.example.administrator.jipinshop.bean.TBShoppingDetailBean;
 import com.example.administrator.jipinshop.bean.eventbus.ChangeHomePageBus;
 import com.example.administrator.jipinshop.bean.eventbus.TBShopDetailBus;
 import com.example.administrator.jipinshop.databinding.ActivityTbShopDetailBinding;
-import com.example.administrator.jipinshop.fragment.foval.goods.FovalGoodsFragment;
 import com.example.administrator.jipinshop.netwrok.RetrofitModule;
 import com.example.administrator.jipinshop.util.ClickUtil;
 import com.example.administrator.jipinshop.util.DeviceUuidFactory;
@@ -181,6 +180,10 @@ public class TBShoppingDetailActivity extends BaseActivity implements View.OnCli
                 break;
             case R.id.detail_couponImg:
             case R.id.detail_buy:
+                if (TextUtils.isEmpty(goodsBuyLink)){
+                    ToastUtil.show("跳转错误，请退出页面重新进入");
+                    return;
+                }
                 mDialog = (new ProgressDialogView()).createLoadingDialog(this, "");
                 if(mDialog != null && !mDialog.isShowing()){
                     mDialog.show();
@@ -260,9 +263,6 @@ public class TBShoppingDetailActivity extends BaseActivity implements View.OnCli
 
     @Override
     public void onSuccess(TBShoppingDetailBean bean) {
-        if (mDialog != null && mDialog.isShowing()){
-            mDialog.dismiss();
-        }
         mBinding.setDate(bean.getData());
         mBinding.executePendingBindings();
         //轮播图
@@ -339,7 +339,6 @@ public class TBShoppingDetailActivity extends BaseActivity implements View.OnCli
         shareName = bean.getData().getOtherName();
         shareContent = "【分享来自极品城APP】看评测选好物，省心更省钱";
         shareUrl = "https://www.jipincheng.cn";
-        goodsBuyLink = bean.getData().getGoodsBuyLink();
         //是否收藏过
         if(bean.getData().getCollect() == 1){
             isCollect = true;
@@ -350,6 +349,7 @@ public class TBShoppingDetailActivity extends BaseActivity implements View.OnCli
             mBinding.titleFavorImg.setImageResource(R.mipmap.com_favor);
             mBinding.titleFavorImg.setColorFilter(Color.WHITE);
         }
+        mPresenter.getGoodsClickUrl(bean.getData().getGoodsBuyLink(),bean.getData().getOtherGoodsId(),this.bindToLifecycle());
     }
 
     @Override
@@ -379,6 +379,14 @@ public class TBShoppingDetailActivity extends BaseActivity implements View.OnCli
         isCollect = false;
         mBinding.titleFavorImg.setImageResource(R.mipmap.com_favor);
         mBinding.titleFavorImg.setColorFilter(Color.WHITE);
+    }
+
+    @Override
+    public void onBuyLinkSuccess(ImageBean bean) {
+        if (mDialog != null && mDialog.isShowing()){
+            mDialog.dismiss();
+        }
+        goodsBuyLink = bean.getData();
     }
 
     @Override

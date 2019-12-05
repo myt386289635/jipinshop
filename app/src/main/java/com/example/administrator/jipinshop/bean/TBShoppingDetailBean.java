@@ -175,7 +175,7 @@ public class TBShoppingDetailBean {
         }
 
         public String getScore() {
-            return new BigDecimal(score).stripTrailingZeros().toPlainString();
+            return new BigDecimal(score.trim()).stripTrailingZeros().toPlainString();
         }
 
         public void setScore(String score) {
@@ -320,7 +320,7 @@ public class TBShoppingDetailBean {
             }
 
             public String getScore() {
-                return new BigDecimal(score).stripTrailingZeros().toPlainString();
+                return new BigDecimal(score.trim()).stripTrailingZeros().toPlainString();
             }
 
             public void setScore(String score) {
@@ -372,7 +372,7 @@ public class TBShoppingDetailBean {
             }
 
             public String getScore() {
-                return new BigDecimal(score).stripTrailingZeros().toPlainString();
+                return new BigDecimal(score.trim()).stripTrailingZeros().toPlainString();
             }
 
             public void setScore(String score) {

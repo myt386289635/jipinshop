@@ -7,6 +7,7 @@ import android.widget.LinearLayout;
 
 import com.example.administrator.jipinshop.R;
 import com.example.administrator.jipinshop.adapter.NoPageBannerAdapter;
+import com.example.administrator.jipinshop.bean.ImageBean;
 import com.example.administrator.jipinshop.bean.SimilerGoodsBean;
 import com.example.administrator.jipinshop.bean.SuccessBean;
 import com.example.administrator.jipinshop.bean.TBShoppingDetailBean;
@@ -20,6 +21,7 @@ import java.util.Map;
 import javax.inject.Inject;
 
 import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.functions.Consumer;
 import io.reactivex.schedulers.Schedulers;
 
 /**
@@ -149,6 +151,31 @@ public class TBShoppingDetailPresenter {
                     }else {
                         if(mView != null){
                             mView.onFile(successBean.getMsg());
+                        }
+                    }
+                }, throwable -> {
+                    if(mView != null){
+                        mView.onFile(throwable.getMessage());
+                    }
+                });
+    }
+
+    /**
+     * 获取专属淘客链接
+     */
+    public void getGoodsClickUrl(String goodsBuyLink , String otherGoodsId , LifecycleTransformer<ImageBean> transformer){
+        mRepository.getGoodsClickUrl(goodsBuyLink, otherGoodsId)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .compose(transformer)
+                .subscribe(bean -> {
+                    if (bean.getCode() == 0){
+                        if (mView != null){
+                            mView.onBuyLinkSuccess(bean);
+                        }
+                    }else {
+                        if(mView != null){
+                            mView.onFile(bean.getMsg());
                         }
                     }
                 }, throwable -> {

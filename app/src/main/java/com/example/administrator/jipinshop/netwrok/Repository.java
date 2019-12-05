@@ -57,6 +57,7 @@ import com.example.administrator.jipinshop.bean.TabBean;
 import com.example.administrator.jipinshop.bean.TaobaoAccountBean;
 import com.example.administrator.jipinshop.bean.TaskFinishBean;
 import com.example.administrator.jipinshop.bean.TeamBean;
+import com.example.administrator.jipinshop.bean.TklBean;
 import com.example.administrator.jipinshop.bean.TopCategoryDetailBean;
 import com.example.administrator.jipinshop.bean.TopCategorysListBean;
 import com.example.administrator.jipinshop.bean.TrialCommonBean;
@@ -1084,5 +1085,19 @@ public class Repository {
      */
     public Observable<TBSreachResultBean> searchTBGoods(Map<String,String> map){
         return mAPIService.searchTBGoods(map);
+    }
+
+    /**
+     * 获取专属淘客链接
+     */
+    public Observable<ImageBean> getGoodsClickUrl(String goodsBuyLink ,String otherGoodsId){
+        return mAPIService.getGoodsClickUrl(goodsBuyLink, otherGoodsId);
+    }
+
+    /**
+     * 通过淘口令获取商品信息
+     */
+    public Observable<TklBean> getGoodsByTkl(String tkl){
+        return mAPIService.getGoodsByTkl(tkl);
     }
 }

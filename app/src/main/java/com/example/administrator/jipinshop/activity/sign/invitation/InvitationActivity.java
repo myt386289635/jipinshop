@@ -94,6 +94,7 @@ public class InvitationActivity extends BaseActivity {
                 ClipData clipData = ClipData.newPlainText("jipinshop", mMineIntegral.getText().toString().replace("邀请码：", ""));
                 clip.setPrimaryClip(clipData);
                 ToastUtil.show("复制成功");
+                SPUtils.getInstance().put(CommonDate.CLIP,mMineIntegral.getText().toString().replace("邀请码：", ""));
                 break;
         }
     }

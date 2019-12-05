@@ -2,6 +2,7 @@ package com.example.administrator.jipinshop.activity.home;
 
 import com.example.administrator.jipinshop.bean.AppVersionbean;
 import com.example.administrator.jipinshop.bean.PopInfoBean;
+import com.example.administrator.jipinshop.bean.TklBean;
 
 /**
  * @author 莫小婷
@@ -14,4 +15,7 @@ public interface MainView {
     void onFile();
 
     void onDialogSuc(PopInfoBean bean);
+    void onDialogFile();
+
+    void onTklDialog(TklBean bean,String tkl);
 }

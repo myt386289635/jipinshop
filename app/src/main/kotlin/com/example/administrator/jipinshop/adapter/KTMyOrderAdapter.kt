@@ -7,10 +7,12 @@ import android.databinding.DataBindingUtil
 import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import com.blankj.utilcode.util.SPUtils
 import com.example.administrator.jipinshop.R
 import com.example.administrator.jipinshop.bean.OrderTBBean
 import com.example.administrator.jipinshop.databinding.ItemTbOrderBinding
 import com.example.administrator.jipinshop.util.ToastUtil
+import com.example.administrator.jipinshop.util.sp.CommonDate
 
 /**
  * @author 莫小婷
@@ -45,6 +47,7 @@ class KTMyOrderAdapter : RecyclerView.Adapter<KTMyOrderAdapter.ViewHolder>{
                 val clipData = ClipData.newPlainText("jipinshop", holder.mBinding.itemOrder.text.toString().replace("订单号：", ""))
                 clip.primaryClip = clipData
                 ToastUtil.show("复制成功")
+                SPUtils.getInstance().put(CommonDate.CLIP, holder.mBinding.itemOrder.text.toString().replace("订单号：", ""))
             }
         }
     }

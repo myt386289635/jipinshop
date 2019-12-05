@@ -20,6 +20,7 @@ import com.example.administrator.jipinshop.R;
 import com.example.administrator.jipinshop.activity.login.LoginActivity;
 import com.example.administrator.jipinshop.bean.AppVersionbean;
 import com.example.administrator.jipinshop.bean.PopInfoBean;
+import com.example.administrator.jipinshop.bean.TklBean;
 import com.example.administrator.jipinshop.netwrok.Repository;
 import com.example.administrator.jipinshop.util.ClickUtil;
 import com.example.administrator.jipinshop.util.sp.CommonDate;
@@ -28,6 +29,7 @@ import com.trello.rxlifecycle2.LifecycleTransformer;
 import javax.inject.Inject;
 
 import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.functions.Consumer;
 import io.reactivex.schedulers.Schedulers;
 
 public class MainActivityPresenter {
@@ -94,6 +96,29 @@ public class MainActivityPresenter {
                         if(mView != null){
                             mView.onDialogSuc(popInfoBean);
                         }
+                    }else {
+                        if (mView != null){
+                            mView.onDialogFile();
+                        }
+                    }
+                }, throwable -> {
+                    if (mView != null){
+                        mView.onDialogFile();
+                    }
+                });
+    }
+
+    /**
+     * 通过淘口令获取商品信息
+     */
+    public void getGoodsByTkl(String tkl, LifecycleTransformer<TklBean> transformer){
+        mRepository.getGoodsByTkl(tkl)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .compose(transformer)
+                .subscribe(tklBean -> {
+                    if (tklBean.getCode() == 0){
+                        mView.onTklDialog(tklBean,tkl);
                     }
                 }, throwable -> {
 

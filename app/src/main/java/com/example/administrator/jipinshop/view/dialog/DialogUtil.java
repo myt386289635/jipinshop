@@ -3,6 +3,8 @@ package com.example.administrator.jipinshop.view.dialog;
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.Context;
+import android.content.Intent;
+import android.databinding.DataBindingUtil;
 import android.os.CountDownTimer;
 import android.text.Html;
 import android.view.LayoutInflater;
@@ -11,13 +13,20 @@ import android.view.WindowManager;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.blankj.utilcode.util.SPUtils;
 import com.bumptech.glide.Glide;
 import com.example.administrator.jipinshop.R;
 import com.example.administrator.jipinshop.activity.home.MainActivity;
+import com.example.administrator.jipinshop.activity.shoppingdetail.tbshoppingdetail.TBShoppingDetailActivity;
+import com.example.administrator.jipinshop.activity.sreach.TBSreachActivity;
+import com.example.administrator.jipinshop.activity.sreach.result.TBSreachResultActivity;
 import com.example.administrator.jipinshop.bean.PopInfoBean;
+import com.example.administrator.jipinshop.bean.TklBean;
+import com.example.administrator.jipinshop.databinding.DialogTklBinding;
 import com.example.administrator.jipinshop.util.NotificationUtil;
 import com.example.administrator.jipinshop.util.ShopJumpUtil;
 import com.example.administrator.jipinshop.util.ToastUtil;
@@ -228,7 +237,7 @@ public class DialogUtil{
         dialog.setContentView(view);
     }
 
-    public static void imgDialog(Context context, String resource , final View.OnClickListener sureListener){
+    public static void imgDialog(Context context, String resource , final View.OnClickListener sureListener , View.OnClickListener dissListener){
         AlertDialog.Builder builder = new AlertDialog.Builder(context,R.style.dialog);
         View view = LayoutInflater.from(context).inflate(R.layout.dialog_img,null);
         ImageView dialog_img = view.findViewById(R.id.dialog_img);
@@ -239,7 +248,10 @@ public class DialogUtil{
                 .into(dialog_img);
         final Dialog dialog = builder.create();
         dialog.getWindow().setDimAmount(0.35f);
-        dialog_cancle.setOnClickListener(v -> dialog.dismiss());
+        dialog_cancle.setOnClickListener(v -> {
+            dialog.dismiss();
+            dissListener.onClick(v);
+        });
         dialog_img.setOnClickListener(v -> {
             sureListener.onClick(v);
             dialog.dismiss();
@@ -249,7 +261,7 @@ public class DialogUtil{
     }
 
 
-    public static void freeDialog(Context context, PopInfoBean bean , View.OnClickListener sureListener){
+    public static void freeDialog(Context context, PopInfoBean bean , View.OnClickListener sureListener , View.OnClickListener dissListener){
         long timer = dateAddOneDay(bean.getData().getData().getDendlineTime()) - System.currentTimeMillis();
         if (timer > 0) {
             AlertDialog.Builder builder = new AlertDialog.Builder(context, R.style.dialog);
@@ -278,7 +290,10 @@ public class DialogUtil{
                 sureListener.onClick(v);
                 dialog.dismiss();
             });
-            dialog_cancle.setOnClickListener(v -> dialog.dismiss());
+            dialog_cancle.setOnClickListener(v -> {
+                dialog.dismiss();
+                dissListener.onClick(v);
+            });
             final CountDownTimer[] countDownTimer = {new CountDownTimer(timer, 1000) {
                 public void onTick(long millisUntilFinished) {
 
@@ -556,5 +571,34 @@ public class DialogUtil{
 
     public interface OnInvitationListener {
         void invitation(String invitationCode, Dialog dialog, InputMethodManager inputManager);
+    }
+
+    //淘口令弹框
+    public static void tklDialog(Context context, TklBean bean,String tkl){
+        AlertDialog.Builder builder = new AlertDialog.Builder(context,R.style.dialog);
+        final Dialog dialog = builder.create();
+        DialogTklBinding binding = DataBindingUtil.inflate(LayoutInflater.from(context),R.layout.dialog_tkl,null,false);
+        binding.setData(bean.getData());
+        binding.executePendingBindings();
+        binding.dialogContent.setText(tkl);
+        binding.dialogSure1.setOnClickListener(v -> {
+            context.startActivity(new Intent(context, TBSreachResultActivity.class)
+                    .putExtra("content", tkl)
+                    .putExtra("type","1")
+            );
+            dialog.dismiss();
+        });
+        binding.dialogSure2.setOnClickListener(v -> {
+            context.startActivity(new Intent(context, TBShoppingDetailActivity.class)
+                    .putExtra("otherGoodsId", bean.getData().getOtherGoodsId())
+            );
+            dialog.dismiss();
+        });
+        binding.dialogCancle.setOnClickListener(v -> {
+            dialog.dismiss();
+        });
+        dialog.getWindow().setDimAmount(0.35f);
+        dialog.show();
+        dialog.setContentView(binding.getRoot());
     }
 }
