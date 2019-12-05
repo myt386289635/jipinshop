@@ -138,6 +138,9 @@
 
 
         <!--以下是友盟需要-->
+        <!--友盟-->
+        <meta-data android:value="5b716da48f4a9d4859000095" android:name="UMENG_APPKEY"/>
+        <meta-data android:value="${UMENG_CHANNEL_VALUE}" android:name="UMENG_CHANNEL"/>
         <!--新浪-->
         <activity
             android:name="com.umeng.socialize.media.WBShareCallBackActivity"

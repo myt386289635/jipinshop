@@ -18,7 +18,6 @@ import com.example.administrator.jipinshop.netwrok.DaggerApplicationComponent;
 import com.example.administrator.jipinshop.util.DebugHelper;
 import com.example.administrator.jipinshop.util.share.SceneListener;
 import com.example.administrator.jipinshop.util.sp.CommonDate;
-import com.mob.MobSDK;
 import com.mob.moblink.MobLink;
 import com.squareup.leakcanary.LeakCanary;
 import com.squareup.leakcanary.RefWatcher;
@@ -105,7 +104,7 @@ public class MyApplication extends Application {
 
         //初始化友盟
         UMConfigure.setLogEnabled(true);
-        UMConfigure.init(this, "5b716da48f4a9d4859000095","umeng",UMConfigure.DEVICE_TYPE_PHONE, "");
+        UMConfigure.init(this,UMConfigure.DEVICE_TYPE_PHONE, "");
         //友盟统计需要
         MobclickAgent.setPageCollectionMode(MobclickAgent.PageMode.MANUAL);
 

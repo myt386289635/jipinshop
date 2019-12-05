@@ -14,6 +14,35 @@ MobSDK {
 }
 
 android {
+
+    //多渠道打包支持
+    productFlavors {
+
+        Tencent {//投放应用宝市场
+        }
+        Baidu {//投放百度市场
+        }
+        Wandoujia {//投放豌豆荚市场
+        }
+        Vivo {//投放vivo市场
+        }
+        Oppo {//投放oppo市场
+        }
+        Xiaomi {//投放小米市场
+        }
+        Meizu {//投放魅族市场
+        }
+        Huawei {//投放华为应用市场
+        }
+        umeng {//投放其他安卓市场
+        }
+
+    }
+    //注意我注释掉的，可以去掉注释，那样的话，下面这句就可以不用了
+    productFlavors.all {
+        flavor -> flavor.manifestPlaceholders = [UMENG_CHANNEL_VALUE: name]
+    }
+
     signingConfigs {
         release {
             keyAlias 'jipinshop123'
@@ -33,6 +62,8 @@ android {
         // dex突破65535的限制
         multiDexEnabled true
         multiDexKeepFile file('multiDexKeep.txt')
+        manifestPlaceholders = [UMENG_CHANNEL_VALUE: "umeng"]//添加一个默认渠道号
+        flavorDimensions "versionCode"
 
         ndk {
             //选择要添加的对应cpu类型的.so库。
