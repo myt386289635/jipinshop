@@ -182,6 +182,7 @@
                     android:layout_height="match_parent">
 
                     <ImageView
+                        android:onClick="@{listener.onClick}"
                         android:id="@+id/sreach_process"
                         android:paddingRight="@dimen/x30"
                         android:paddingLeft="@dimen/x30"

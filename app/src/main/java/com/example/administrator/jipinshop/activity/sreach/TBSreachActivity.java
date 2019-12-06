@@ -17,6 +17,7 @@ import android.view.inputmethod.EditorInfo;
 import android.widget.EditText;
 
 import com.example.administrator.jipinshop.R;
+import com.example.administrator.jipinshop.activity.WebActivity;
 import com.example.administrator.jipinshop.activity.sreach.result.TBSreachResultActivity;
 import com.example.administrator.jipinshop.adapter.ShoppingUserLikeAdapter;
 import com.example.administrator.jipinshop.base.BaseActivity;
@@ -25,6 +26,7 @@ import com.example.administrator.jipinshop.bean.SreachHistoryBean;
 import com.example.administrator.jipinshop.bean.SuccessBean;
 import com.example.administrator.jipinshop.bean.eventbus.SreachBus;
 import com.example.administrator.jipinshop.databinding.ActivityTbSreachBinding;
+import com.example.administrator.jipinshop.netwrok.RetrofitModule;
 import com.example.administrator.jipinshop.util.DeviceUuidFactory;
 import com.example.administrator.jipinshop.util.ToastUtil;
 import com.example.administrator.jipinshop.view.dialog.DialogUtil;
@@ -177,6 +179,12 @@ public class TBSreachActivity extends BaseActivity implements View.OnClickListen
                 startActivity(new Intent(TBSreachActivity.this, TBSreachResultActivity.class)
                         .putExtra("content", mBinding.titleEdit.getText().toString())
                         .putExtra("type",type)
+                );
+                break;
+            case R.id.sreach_process:
+                startActivity(new Intent(this, WebActivity.class)
+                        .putExtra(WebActivity.url, RetrofitModule.H5_URL+"tbk-rule.html")
+                        .putExtra(WebActivity.title,"省钱攻略")
                 );
                 break;
         }

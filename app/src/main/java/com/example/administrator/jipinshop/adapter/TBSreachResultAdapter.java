@@ -6,16 +6,22 @@ import android.databinding.DataBindingUtil;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.FrameLayout;
+import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 
+import com.blankj.utilcode.util.SPUtils;
 import com.example.administrator.jipinshop.R;
+import com.example.administrator.jipinshop.activity.login.LoginActivity;
 import com.example.administrator.jipinshop.activity.shoppingdetail.tbshoppingdetail.TBShoppingDetailActivity;
 import com.example.administrator.jipinshop.bean.TBSreachResultBean;
 import com.example.administrator.jipinshop.databinding.ItemSreachOneBinding;
 import com.example.administrator.jipinshop.databinding.ItemSreachTwoBinding;
+import com.example.administrator.jipinshop.util.sp.CommonDate;
 
 import java.math.BigDecimal;
 import java.util.List;
@@ -151,6 +157,20 @@ public class TBSreachResultAdapter extends RecyclerView.Adapter {
                     } else {
                         oneViewHolder.binding.itemLine.setVisibility(View.GONE);
                     }
+                    oneViewHolder.binding.itemGridImage.post(() -> {
+                        ViewGroup.LayoutParams layoutParams = oneViewHolder.binding.itemGridImage.getLayoutParams();
+                        layoutParams.height = oneViewHolder.binding.itemGridImage.getWidth();
+                        oneViewHolder.binding.itemGridImage.setLayoutParams(layoutParams);
+                    });
+                    RelativeLayout.LayoutParams layoutParams = (RelativeLayout.LayoutParams) oneViewHolder.binding.itemGridContainer1.getLayoutParams();
+                    if (position % 2 != 0){
+                        layoutParams.leftMargin = (int) mContext.getResources().getDimension(R.dimen.x10);
+                        layoutParams.rightMargin = (int) mContext.getResources().getDimension(R.dimen.x20);
+                    }else {
+                        layoutParams.leftMargin = (int) mContext.getResources().getDimension(R.dimen.x20);
+                        layoutParams.rightMargin = (int) mContext.getResources().getDimension(R.dimen.x10);
+                    }
+                    oneViewHolder.binding.itemGridContainer1.setLayoutParams(layoutParams);
                     oneViewHolder.binding.detailGirdOtherPrice.setTv(true);
                     oneViewHolder.binding.detailGirdOtherPrice.setColor(R.color.color_9D9D9D);
                     if (coupon1 == 0) {//没有优惠券
@@ -170,6 +190,10 @@ public class TBSreachResultAdapter extends RecyclerView.Adapter {
                     }
                 }
                 oneViewHolder.itemView.setOnClickListener(v -> {
+                    if(TextUtils.isEmpty(SPUtils.getInstance(CommonDate.USER).getString(CommonDate.token,""))){
+                        mContext.startActivity(new Intent(mContext, LoginActivity.class));
+                        return;
+                    }
                     mContext.startActivity(new Intent(mContext, TBShoppingDetailActivity.class)
                             .putExtra("otherGoodsId", mList.get(position).getOtherGoodsId())
                     );
@@ -196,6 +220,20 @@ public class TBSreachResultAdapter extends RecyclerView.Adapter {
                 int pos = position;
                 twoViewHolder.binding.setDate(mList.get(pos));
                 twoViewHolder.binding.executePendingBindings();
+                twoViewHolder.binding.itemImage.post(() -> {
+                    ViewGroup.LayoutParams layoutParams = twoViewHolder.binding.itemImage.getLayoutParams();
+                    layoutParams.height = twoViewHolder.binding.itemImage.getWidth();
+                    twoViewHolder.binding.itemImage.setLayoutParams(layoutParams);
+                });
+                RelativeLayout.LayoutParams layoutParams = (RelativeLayout.LayoutParams) twoViewHolder.binding.itemContainer.getLayoutParams();
+                if (position % 2 != 0){//大多数情况都是左单数，右双数
+                    layoutParams.leftMargin = (int) mContext.getResources().getDimension(R.dimen.x20);
+                    layoutParams.rightMargin = (int) mContext.getResources().getDimension(R.dimen.x10);
+                }else {
+                    layoutParams.leftMargin = (int) mContext.getResources().getDimension(R.dimen.x10);
+                    layoutParams.rightMargin = (int) mContext.getResources().getDimension(R.dimen.x20);
+                }
+                twoViewHolder.binding.itemContainer.setLayoutParams(layoutParams);
                 twoViewHolder.binding.detailOtherPrice.setTv(true);
                 twoViewHolder.binding.detailOtherPrice.setColor(R.color.color_9D9D9D);
                 double coupon = new BigDecimal(mList.get(pos).getCouponPrice()).doubleValue();
@@ -216,6 +254,10 @@ public class TBSreachResultAdapter extends RecyclerView.Adapter {
                     twoViewHolder.binding.detailOtherPrice.setVisibility(View.VISIBLE);
                 }
                 twoViewHolder.itemView.setOnClickListener(v -> {
+                    if(TextUtils.isEmpty(SPUtils.getInstance(CommonDate.USER).getString(CommonDate.token,""))){
+                        mContext.startActivity(new Intent(mContext, LoginActivity.class));
+                        return;
+                    }
                     mContext.startActivity(new Intent(mContext, TBShoppingDetailActivity.class)
                             .putExtra("otherGoodsId", mList.get(pos).getOtherGoodsId())
                     );

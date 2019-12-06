@@ -13,18 +13,19 @@
         android:layout_height="wrap_content">
 
         <RelativeLayout
-            android:elevation="3dp"
+            android:id="@+id/itemContainer"
+            android:elevation="2dp"
             android:layout_marginBottom="@dimen/y20"
             android:layout_marginTop="@dimen/y3"
-            android:layout_centerHorizontal="true"
             android:background="@drawable/bg_dialog_white"
-            android:layout_width="@dimen/y335"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
             <ImageView
+                android:scaleType="fitXY"
                 android:id="@+id/item_image"
-                bind:srcRound="@{date.img}"
-                android:layout_width="@dimen/y335"
+                bind:srcTopRound="@{date.img}"
+                android:layout_width="match_parent"
                 android:layout_height="@dimen/y335"/>
 
             <TextView
@@ -44,6 +45,8 @@
                 android:layout_height="wrap_content"/>
 
             <TextView
+                android:ellipsize="end"
+                android:maxLines="1"
                 android:background="@drawable/bg_opinion"
                 android:paddingRight="@dimen/x12"
                 android:paddingLeft="@dimen/x12"
