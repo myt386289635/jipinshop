@@ -362,6 +362,7 @@
                     android:orientation="vertical">
 
                     <TextView
+                        android:drawableTint="@color/color_E25838"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="@dimen/x24"
@@ -391,6 +392,7 @@
                     android:orientation="vertical">
 
                     <TextView
+                        android:drawableTint="@color/color_E25838"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="@dimen/x24"
@@ -540,7 +542,7 @@
                         android:layout_height="wrap_content"
                         android:layout_gravity="center_horizontal"
                         android:layout_marginTop="@dimen/y39"
-                        android:layout_marginBottom="@dimen/y50"
+                        android:layout_marginBottom="@dimen/y39"
                         android:background="@mipmap/bg_detail"
                         android:gravity="center"
                         android:text="推荐理由"
@@ -576,7 +578,7 @@
                         android:layout_centerHorizontal="true"
                         android:layout_gravity="center_horizontal"
                         android:layout_marginTop="@dimen/y29"
-                        android:layout_marginBottom="@dimen/y50"
+                        android:layout_marginBottom="@dimen/y29"
                         android:background="@mipmap/bg_detail"
                         android:gravity="center"
                         android:text="商品详情"
