@@ -63,7 +63,7 @@ class Action11Fragment : DBBaseFragment(), OnRefreshListener, OnLoadMoreListener
         mBinding.swipeToLoad.setBackgroundColor(resources.getColor(R.color.color_white))
         mPresenter.setView(this)
         mPresenter.setStatusBarHight(mBinding.statusBar,context!!)
-        var html = "搜索关键词或粘贴淘宝标题<font color='#E25838'>领券</font>..."
+        var html = "搜索关键词或粘贴淘宝标题<font color='#E25838'>领券</font>"
         mBinding.homeSreach.text = Html.fromHtml(html)
 
         mBinding.recyclerView.layoutManager = LinearLayoutManager(context)
