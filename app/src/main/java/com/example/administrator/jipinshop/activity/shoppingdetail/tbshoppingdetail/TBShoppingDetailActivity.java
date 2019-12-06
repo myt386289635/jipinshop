@@ -187,10 +187,6 @@ public class TBShoppingDetailActivity extends BaseActivity implements View.OnCli
                     ToastUtil.show("跳转错误，请退出页面重新进入");
                     return;
                 }
-                mDialog = (new ProgressDialogView()).createLoadingDialog(this, "");
-                if(mDialog != null && !mDialog.isShowing()){
-                    mDialog.show();
-                }
                 String specialId = SPUtils.getInstance(CommonDate.USER).getString(CommonDate.relationId,"");
                 if (TextUtils.isEmpty(specialId) || specialId.equals("null")){
                     TaoBaoUtil.aliLogin(topAuthCode -> {
@@ -200,7 +196,9 @@ public class TBShoppingDetailActivity extends BaseActivity implements View.OnCli
                         );
                     });
                 }else {
-                    TaoBaoUtil.openAliHomeWeb(this,goodsBuyLink,"");
+                    mDialog = (new ProgressDialogView()).createLoadingDialog(this, "");
+                    mDialog.show();
+                    mPresenter.getGoodsClickUrl(goodsBuyLink,goodsId,this.bindToLifecycle());
                 }
                 break;
             case R.id.detail_share:
@@ -270,6 +268,7 @@ public class TBShoppingDetailActivity extends BaseActivity implements View.OnCli
         mBinding.executePendingBindings();
         mBinding.detailOldPriceName.setTv(true);
         mBinding.detailOldPriceName.setColor(R.color.color_9D9D9D);
+        goodsBuyLink = bean.getData().getGoodsBuyLink();
         //轮播图
         mBannerList.addAll(bean.getData().getImgList());
         mPresenter.initBanner(mBannerList, this, point, mBinding.detailPoint, mBannerAdapter);
@@ -354,7 +353,9 @@ public class TBShoppingDetailActivity extends BaseActivity implements View.OnCli
             mBinding.titleFavorImg.setImageResource(R.mipmap.com_favor);
             mBinding.titleFavorImg.setColorFilter(Color.WHITE);
         }
-        mPresenter.getGoodsClickUrl(bean.getData().getGoodsBuyLink(),bean.getData().getOtherGoodsId(),this.bindToLifecycle());
+        if (mProgressDialog != null && mProgressDialog.isShowing()){
+            mProgressDialog.dismiss();
+        }
     }
 
     @Override
@@ -393,10 +394,7 @@ public class TBShoppingDetailActivity extends BaseActivity implements View.OnCli
 
     @Override
     public void onBuyLinkSuccess(ImageBean bean) {
-        if (mProgressDialog != null && mProgressDialog.isShowing()){
-            mProgressDialog.dismiss();
-        }
-        goodsBuyLink = bean.getData();
+        TaoBaoUtil.openAliHomeWeb(this,bean.getData(),"");
     }
 
     @Override
