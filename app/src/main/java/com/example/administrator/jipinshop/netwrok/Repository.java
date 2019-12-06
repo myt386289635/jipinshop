@@ -894,7 +894,7 @@ public class Repository {
     /**
      * 收藏列表(商品)
      */
-    public Observable<SucBean<TopCategoryDetailBean.DataBean.RelatedGoodsListBean>> collect(String page,String type){
+    public Observable<SucBean<TBSreachResultBean.DataBean>> collect(String page,String type){
         return mAPIService.collect(page,type);
     }
 

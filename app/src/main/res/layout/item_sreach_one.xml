@@ -125,6 +125,7 @@
                     android:textColor="@color/color_9D9D9D"/>
 
                 <TextView
+                    android:id="@+id/item_volume"
                     android:layout_marginLeft="@dimen/x15"
                     android:layout_marginBottom="@dimen/y2"
                     android:layout_alignBottom="@id/item_priceContainer"
@@ -166,6 +167,7 @@
             </RelativeLayout>
 
             <ImageView
+                android:id="@+id/item_share"
                 android:paddingBottom="@dimen/y2"
                 android:paddingTop="@dimen/y2"
                 android:paddingRight="@dimen/x30"

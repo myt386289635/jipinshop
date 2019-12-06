@@ -1,7 +1,7 @@
 package com.example.administrator.jipinshop.fragment.foval.goods;
 
 import com.example.administrator.jipinshop.bean.SucBean;
-import com.example.administrator.jipinshop.bean.TopCategoryDetailBean;
+import com.example.administrator.jipinshop.bean.TBSreachResultBean;
 
 /**
  * @author 莫小婷
@@ -9,6 +9,6 @@ import com.example.administrator.jipinshop.bean.TopCategoryDetailBean;
  * @Describe
  */
 public interface FovalGoodsView {
-    void Success(SucBean<TopCategoryDetailBean.DataBean.RelatedGoodsListBean> resultGoodsBean);
+    void Success(SucBean<TBSreachResultBean.DataBean> resultGoodsBean);
     void Faile(String error);
 }

@@ -7,12 +7,10 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.TextView;
 
 import com.example.administrator.jipinshop.R;
-import com.example.administrator.jipinshop.bean.TopCategoryDetailBean;
-import com.example.administrator.jipinshop.databinding.ItemGoodsBinding;
-import com.google.android.flexbox.FlexboxLayout;
+import com.example.administrator.jipinshop.bean.TBSreachResultBean;
+import com.example.administrator.jipinshop.databinding.ItemSreachOneBinding;
 
 import java.util.List;
 
@@ -23,7 +21,7 @@ import java.util.List;
  */
 public class FovalGoodsAdapter extends RecyclerView.Adapter<FovalGoodsAdapter.ViewHolder> {
 
-    private List<TopCategoryDetailBean.DataBean.RelatedGoodsListBean> mList;
+    private List<TBSreachResultBean.DataBean> mList;
     private Context mContext;
     private OnItem mOnItem;
 
@@ -31,7 +29,7 @@ public class FovalGoodsAdapter extends RecyclerView.Adapter<FovalGoodsAdapter.Vi
         mOnItem = onItem;
     }
 
-    public FovalGoodsAdapter(List<TopCategoryDetailBean.DataBean.RelatedGoodsListBean> list, Context context) {
+    public FovalGoodsAdapter(List<TBSreachResultBean.DataBean> list, Context context) {
         mList = list;
         mContext = context;
     }
@@ -39,8 +37,8 @@ public class FovalGoodsAdapter extends RecyclerView.Adapter<FovalGoodsAdapter.Vi
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
-        ItemGoodsBinding goodsBinding = DataBindingUtil.inflate(LayoutInflater.from(mContext),R.layout.item_goods,viewGroup,false);
-        ViewHolder holder = new ViewHolder(goodsBinding);
+        ItemSreachOneBinding binding1 = DataBindingUtil.inflate(LayoutInflater.from(mContext),R.layout.item_sreach_one,viewGroup,false);
+        ViewHolder holder = new ViewHolder(binding1);
         return holder;
     }
 
@@ -51,11 +49,13 @@ public class FovalGoodsAdapter extends RecyclerView.Adapter<FovalGoodsAdapter.Vi
                 mOnItem.onItem(position);
             }
         });
-        viewHolder.initTags(viewHolder.binding.itemFlexLayout,position);
         viewHolder.binding.setDate(mList.get(position));
-        viewHolder.binding.setPosition(position + 1);
-        viewHolder.binding.itemSort.setVisibility(View.GONE);
         viewHolder.binding.executePendingBindings();
+        viewHolder.binding.itemLineContainer.setVisibility(View.VISIBLE);
+        viewHolder.binding.itemGridContainer.setVisibility(View.GONE);
+        viewHolder.binding.itemShopName.setVisibility(View.GONE);
+        viewHolder.binding.itemVolume.setVisibility(View.GONE);
+        viewHolder.binding.itemShare.setVisibility(View.GONE);
     }
 
     @Override
@@ -65,27 +65,11 @@ public class FovalGoodsAdapter extends RecyclerView.Adapter<FovalGoodsAdapter.Vi
 
     class ViewHolder extends RecyclerView.ViewHolder{
 
-        private ItemGoodsBinding binding;
+        private ItemSreachOneBinding binding;
 
-        public ViewHolder(ItemGoodsBinding binding) {
+        public ViewHolder(ItemSreachOneBinding binding) {
             super(binding.getRoot());
             this.binding = binding;
-        }
-
-        public ItemGoodsBinding getBinding() {
-            return binding;
-        }
-
-        public void initTags(FlexboxLayout flexboxLayout, int pos) {
-            flexboxLayout.removeAllViews();
-            if (mList.get(pos).getGoodsTagsList() != null){
-                for (int i = 0; i < mList.get(pos).getGoodsTagsList().size(); i++) {
-                    View itemTypeView = LayoutInflater.from(mContext).inflate(R.layout.item_goodstag, null);
-                    TextView textView = itemTypeView.findViewById(R.id.item_tag);
-                    textView.setText(mList.get(pos).getGoodsTagsList().get(i).getName());
-                    flexboxLayout.addView(itemTypeView);
-                }
-            }
         }
     }
 

@@ -31,6 +31,7 @@ import com.example.administrator.jipinshop.bean.TBShoppingDetailBean;
 import com.example.administrator.jipinshop.bean.eventbus.ChangeHomePageBus;
 import com.example.administrator.jipinshop.bean.eventbus.TBShopDetailBus;
 import com.example.administrator.jipinshop.databinding.ActivityTbShopDetailBinding;
+import com.example.administrator.jipinshop.fragment.foval.goods.FovalGoodsFragment;
 import com.example.administrator.jipinshop.netwrok.RetrofitModule;
 import com.example.administrator.jipinshop.util.ClickUtil;
 import com.example.administrator.jipinshop.util.DeviceUuidFactory;
@@ -69,6 +70,7 @@ public class TBShoppingDetailActivity extends BaseActivity implements View.OnCli
     private ActivityTbShopDetailBinding mBinding;
     private String goodsId = "";//商品id
     private Dialog mDialog;
+    private Dialog mProgressDialog;
     //banner
     private NoPageBannerAdapter mBannerAdapter;
     private List<String> mBannerList;
@@ -113,8 +115,6 @@ public class TBShoppingDetailActivity extends BaseActivity implements View.OnCli
 
     private void initView() {
         goodsId = getIntent().getStringExtra("otherGoodsId");//商品id
-        mDialog = (new ProgressDialogView()).createLoadingDialog(this, "正在加载...");
-        mDialog.show();
         mPresenter.setStatusBarHight(mBinding.statusBar,this);
 
         //banner
@@ -161,6 +161,8 @@ public class TBShoppingDetailActivity extends BaseActivity implements View.OnCli
         mBinding.detailUserLike.setAdapter(mLikeAdapter);
 
         //模拟数据
+        mProgressDialog = (new ProgressDialogView()).createLoadingDialog(this, "正在加载...");
+        mProgressDialog.show();
         mPresenter.tbGoodsDetail(goodsId,this.bindToLifecycle());
         Map<String,String> map =  DeviceUuidFactory.getIdfa(this);
         mPresenter.listSimilerGoods(map,goodsId,this.bindToLifecycle());
@@ -332,7 +334,7 @@ public class TBShoppingDetailActivity extends BaseActivity implements View.OnCli
         if (price == 0){
             mBinding.detailFreeCode.setVisibility(View.GONE);
         }else {
-            mBinding.detailFreeCode.setText("（省¥"+ price +"）");
+            mBinding.detailFreeCode.setText("（省¥"+ new BigDecimal(price).setScale(2,BigDecimal.ROUND_HALF_UP).stripTrailingZeros().toPlainString() +"）");
         }
         //分享
         shareImage = bean.getData().getImg();
@@ -357,6 +359,9 @@ public class TBShoppingDetailActivity extends BaseActivity implements View.OnCli
         if (mDialog != null && mDialog.isShowing()){
             mDialog.dismiss();
         }
+        if (mProgressDialog != null && mProgressDialog.isShowing()){
+            mProgressDialog.dismiss();
+        }
         ToastUtil.show(error);
     }
 
@@ -369,6 +374,7 @@ public class TBShoppingDetailActivity extends BaseActivity implements View.OnCli
 
     @Override
     public void onSucCollectInsert() {
+        EventBus.getDefault().post(FovalGoodsFragment.CollectResher);//刷新我的收藏列表
         isCollect = true;
         mBinding.titleFavorImg.setImageResource(R.mipmap.com_favored);
         mBinding.titleFavorImg.setColorFilter(getResources().getColor(R.color.color_E25838));
@@ -376,6 +382,7 @@ public class TBShoppingDetailActivity extends BaseActivity implements View.OnCli
 
     @Override
     public void onSucCollectDelete() {
+        EventBus.getDefault().post(FovalGoodsFragment.CollectResher);//刷新我的收藏列表
         isCollect = false;
         mBinding.titleFavorImg.setImageResource(R.mipmap.com_favor);
         mBinding.titleFavorImg.setColorFilter(Color.WHITE);
@@ -383,8 +390,8 @@ public class TBShoppingDetailActivity extends BaseActivity implements View.OnCli
 
     @Override
     public void onBuyLinkSuccess(ImageBean bean) {
-        if (mDialog != null && mDialog.isShowing()){
-            mDialog.dismiss();
+        if (mProgressDialog != null && mProgressDialog.isShowing()){
+            mProgressDialog.dismiss();
         }
         goodsBuyLink = bean.getData();
     }

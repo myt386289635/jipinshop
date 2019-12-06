@@ -11,11 +11,11 @@ import android.view.ViewGroup;
 import com.aspsine.swipetoloadlayout.OnLoadMoreListener;
 import com.aspsine.swipetoloadlayout.OnRefreshListener;
 import com.example.administrator.jipinshop.R;
-import com.example.administrator.jipinshop.activity.shoppingdetail.ShoppingDetailActivity;
+import com.example.administrator.jipinshop.activity.shoppingdetail.tbshoppingdetail.TBShoppingDetailActivity;
 import com.example.administrator.jipinshop.adapter.FovalGoodsAdapter;
 import com.example.administrator.jipinshop.base.DBBaseFragment;
 import com.example.administrator.jipinshop.bean.SucBean;
-import com.example.administrator.jipinshop.bean.TopCategoryDetailBean;
+import com.example.administrator.jipinshop.bean.TBSreachResultBean;
 import com.example.administrator.jipinshop.databinding.FragmentSreachgoodsBinding;
 import com.example.administrator.jipinshop.util.ClickUtil;
 import com.example.administrator.jipinshop.util.ToastUtil;
@@ -42,7 +42,7 @@ public class FovalGoodsFragment extends DBBaseFragment implements FovalGoodsAdap
     FovalGoodsPersenter mPresenter;
     private FragmentSreachgoodsBinding mBinding;
     private FovalGoodsAdapter mAdapter;
-    private List<TopCategoryDetailBean.DataBean.RelatedGoodsListBean> mList;
+    private List<TBSreachResultBean.DataBean> mList;
 
     private int page = 1;
     private Boolean refersh = true;
@@ -82,8 +82,8 @@ public class FovalGoodsFragment extends DBBaseFragment implements FovalGoodsAdap
         if (ClickUtil.isFastDoubleClick(800)) {
             return;
         } else {
-            startActivity(new Intent(getContext(), ShoppingDetailActivity.class)
-                    .putExtra("goodsId", mList.get(pos).getGoodsId())
+            startActivity(new Intent(getContext(), TBShoppingDetailActivity.class)
+                    .putExtra("otherGoodsId", mList.get(pos).getOtherGoodsId())
             );
         }
     }
@@ -136,7 +136,7 @@ public class FovalGoodsFragment extends DBBaseFragment implements FovalGoodsAdap
     }
 
     @Override
-    public void Success(SucBean<TopCategoryDetailBean.DataBean.RelatedGoodsListBean> resultGoodsBean) {
+    public void Success(SucBean<TBSreachResultBean.DataBean> resultGoodsBean) {
         stopResher();
         stopLoading();
         if(resultGoodsBean.getData() != null && resultGoodsBean.getData().size() != 0){

@@ -822,7 +822,7 @@ public interface APIService {
      * 获取收藏列表(商品)
      */
     @GET("api/v2/collect/list")
-    Observable<SucBean<TopCategoryDetailBean.DataBean.RelatedGoodsListBean>> collect(@Query("page") String page ,@Query("type") String type);
+    Observable<SucBean<TBSreachResultBean.DataBean>> collect(@Query("page") String page ,@Query("type") String type);
 
     /**
      * 获取收藏列表（清单、评测、试用报告）

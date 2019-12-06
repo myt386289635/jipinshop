@@ -85,7 +85,7 @@ public class FovalActivity extends BaseActivity {
             View view = LayoutInflater.from(this).inflate(R.layout.tablayout_home, null);
             TextView textView = view.findViewById(R.id.tab_name);
             if (i == 0) {
-                textView.setText("榜单");
+                textView.setText("商品");
             }else if (i == 1){
                 textView.setText("问答");
             } else if (i == 2) {

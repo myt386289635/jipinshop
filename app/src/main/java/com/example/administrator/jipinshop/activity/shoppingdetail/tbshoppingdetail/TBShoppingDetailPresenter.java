@@ -109,7 +109,7 @@ public class TBShoppingDetailPresenter {
      */
     public void collectInsert(String goodsId , LifecycleTransformer<SuccessBean> transformer){
         Map<String,String> hashMap = new HashMap<>();
-        hashMap.put("type", "1");
+        hashMap.put("type", "8");
         hashMap.put("targetId",goodsId);
         mRepository.collectInsert(hashMap)
                 .subscribeOn(Schedulers.io())
@@ -137,7 +137,7 @@ public class TBShoppingDetailPresenter {
      */
     public void collectDelete(String goodsId , LifecycleTransformer<SuccessBean> transformer){
         Map<String,String> hashMap = new HashMap<>();
-        hashMap.put("type", "1");
+        hashMap.put("type", "8");
         hashMap.put("targetId",goodsId);
         mRepository.collectDelete(hashMap)
                 .subscribeOn(Schedulers.io())
