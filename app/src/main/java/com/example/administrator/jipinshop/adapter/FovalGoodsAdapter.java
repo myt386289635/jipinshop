@@ -12,6 +12,7 @@ import com.example.administrator.jipinshop.R;
 import com.example.administrator.jipinshop.bean.TBSreachResultBean;
 import com.example.administrator.jipinshop.databinding.ItemSreachOneBinding;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 /**
@@ -56,6 +57,25 @@ public class FovalGoodsAdapter extends RecyclerView.Adapter<FovalGoodsAdapter.Vi
         viewHolder.binding.itemShopName.setVisibility(View.GONE);
         viewHolder.binding.itemVolume.setVisibility(View.GONE);
         viewHolder.binding.itemShare.setVisibility(View.GONE);
+        viewHolder.binding.detailOtherPrice.setTv(true);
+        viewHolder.binding.detailOtherPrice.setColor(R.color.color_9D9D9D);
+        double coupon = new BigDecimal(mList.get(position).getCouponPrice()).doubleValue();
+        if (coupon == 0){//没有优惠券
+            viewHolder.binding.detailCoupon.setVisibility(View.GONE);
+        }else {
+            viewHolder.binding.detailCoupon.setVisibility(View.VISIBLE);
+        }
+        double free = new BigDecimal(mList.get(position).getFee()).doubleValue();
+        if (free == 0){//没有补贴
+            viewHolder.binding.detailFee.setVisibility(View.GONE);
+        }else {
+            viewHolder.binding.detailFee.setVisibility(View.VISIBLE);
+        }
+        if (coupon == 0 && free == 0){
+            viewHolder.binding.detailOtherPrice.setVisibility(View.GONE);
+        }else {
+            viewHolder.binding.detailOtherPrice.setVisibility(View.VISIBLE);
+        }
     }
 
     @Override
