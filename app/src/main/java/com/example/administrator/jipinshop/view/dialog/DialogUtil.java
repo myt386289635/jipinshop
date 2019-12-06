@@ -581,6 +581,25 @@ public class DialogUtil{
         binding.setData(bean.getData());
         binding.executePendingBindings();
         binding.dialogContent.setText(tkl);
+        binding.detailOtherPrice.setTv(true);
+        binding.detailOtherPrice.setColor(R.color.color_9D9D9D);
+        double coupon = new BigDecimal(bean.getData().getCouponPrice()).doubleValue();
+        if (coupon == 0){//没有优惠券
+            binding.detailCoupon.setVisibility(View.GONE);
+        }else {
+            binding.detailCoupon.setVisibility(View.VISIBLE);
+        }
+        double free = new BigDecimal(bean.getData().getFee()).doubleValue();
+        if (free == 0){//没有补贴
+            binding.detailFee.setVisibility(View.GONE);
+        }else {
+            binding.detailFee.setVisibility(View.VISIBLE);
+        }
+        if (coupon == 0 && free == 0){
+            binding.detailOtherPrice.setVisibility(View.GONE);
+        }else {
+            binding.detailOtherPrice.setVisibility(View.VISIBLE);
+        }
         binding.dialogSure1.setOnClickListener(v -> {
             context.startActivity(new Intent(context, TBSreachResultActivity.class)
                     .putExtra("content", tkl)
