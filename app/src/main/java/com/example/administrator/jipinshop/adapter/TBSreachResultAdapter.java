@@ -40,6 +40,11 @@ public class TBSreachResultAdapter extends RecyclerView.Adapter {
     private List<TBSreachResultBean.DataBean> mList;
     private Context mContext;
     private int layoutType = 1;//横线是1，网格是2  默认横线
+    private OnItem mOnItem;
+
+    public void setOnItem(OnItem onItem) {
+        mOnItem = onItem;
+    }
 
     public void setLayoutType(int layoutType) {
         this.layoutType = layoutType;
@@ -149,6 +154,11 @@ public class TBSreachResultAdapter extends RecyclerView.Adapter {
                     } else {
                         oneViewHolder.binding.detailOtherPrice.setVisibility(View.VISIBLE);
                     }
+                    oneViewHolder.binding.itemShare.setOnClickListener(v -> {
+                        if (mOnItem != null){
+                            mOnItem.onItemShare(position);
+                        }
+                    });
                 }else {
                     oneViewHolder.binding.itemLineContainer.setVisibility(View.GONE);
                     oneViewHolder.binding.itemGridContainer.setVisibility(View.VISIBLE);
@@ -188,6 +198,11 @@ public class TBSreachResultAdapter extends RecyclerView.Adapter {
                     } else {
                         oneViewHolder.binding.detailGirdOtherPrice.setVisibility(View.VISIBLE);
                     }
+                    oneViewHolder.binding.itemGridShare.setOnClickListener(v -> {
+                        if (mOnItem != null){
+                            mOnItem.onItemShare(position);
+                        }
+                    });
                 }
                 oneViewHolder.itemView.setOnClickListener(v -> {
                     if(TextUtils.isEmpty(SPUtils.getInstance(CommonDate.USER).getString(CommonDate.token,""))){
@@ -226,7 +241,7 @@ public class TBSreachResultAdapter extends RecyclerView.Adapter {
                     twoViewHolder.binding.itemImage.setLayoutParams(layoutParams);
                 });
                 RelativeLayout.LayoutParams layoutParams = (RelativeLayout.LayoutParams) twoViewHolder.binding.itemContainer.getLayoutParams();
-                if (position % 2 != 0){//大多数情况都是左单数，右双数
+                if (pos % 2 != 0){//大多数情况都是左单数，右双数
                     layoutParams.leftMargin = (int) mContext.getResources().getDimension(R.dimen.x20);
                     layoutParams.rightMargin = (int) mContext.getResources().getDimension(R.dimen.x10);
                 }else {
@@ -261,6 +276,11 @@ public class TBSreachResultAdapter extends RecyclerView.Adapter {
                     mContext.startActivity(new Intent(mContext, TBShoppingDetailActivity.class)
                             .putExtra("otherGoodsId", mList.get(pos).getOtherGoodsId())
                     );
+                });
+                twoViewHolder.binding.itemShare.setOnClickListener(v -> {
+                    if (mOnItem != null){
+                        mOnItem.onItemShare(pos);
+                    }
                 });
                 break;
         }
@@ -302,5 +322,9 @@ public class TBSreachResultAdapter extends RecyclerView.Adapter {
             super(binding.getRoot());
             this.binding = binding;
         }
+    }
+
+    public interface OnItem{
+        void onItemShare(int position);
     }
 }

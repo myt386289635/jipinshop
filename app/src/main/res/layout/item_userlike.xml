@@ -151,6 +151,7 @@
                 android:layout_height="wrap_content"/>
 
             <ImageView
+                android:id="@+id/item_share"
                 android:paddingBottom="@dimen/y13"
                 android:paddingTop="@dimen/y13"
                 android:layout_below="@id/item_priceCon"

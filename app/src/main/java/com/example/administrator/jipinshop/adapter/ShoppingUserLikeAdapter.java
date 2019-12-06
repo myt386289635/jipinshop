@@ -35,6 +35,11 @@ public class ShoppingUserLikeAdapter extends RecyclerView.Adapter {
 
     private List<SimilerGoodsBean.DataBean> mList;
     private Context mContext;
+    private OnItem mOnItem;
+
+    public void setOnItem(OnItem onItem) {
+        mOnItem = onItem;
+    }
 
     public ShoppingUserLikeAdapter(List<SimilerGoodsBean.DataBean> list, Context context) {
         mList = list;
@@ -135,6 +140,11 @@ public class ShoppingUserLikeAdapter extends RecyclerView.Adapter {
                             .putExtra("otherGoodsId", mList.get(position).getOtherGoodsId())
                     );
                 });
+                viewHolder.binding.itemShare.setOnClickListener(v -> {
+                    if (mOnItem != null){
+                        mOnItem.onItemShare(position);
+                    }
+                });
                 break;
             case foot:
                 FootViewHolder footViewHolder = (FootViewHolder) holder;
@@ -162,5 +172,9 @@ public class ShoppingUserLikeAdapter extends RecyclerView.Adapter {
         public FootViewHolder(@NonNull View itemView) {
             super(itemView);
         }
+    }
+
+   public interface OnItem{
+        void onItemShare(int position);
     }
 }

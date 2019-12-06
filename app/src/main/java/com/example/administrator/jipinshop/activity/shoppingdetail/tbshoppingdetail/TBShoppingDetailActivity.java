@@ -63,7 +63,7 @@ import javax.inject.Inject;
  * @create 2019/11/25
  * @Describe 淘宝商品详情
  */
-public class TBShoppingDetailActivity extends BaseActivity implements View.OnClickListener, ShoppingQualityAdapter.OnItem, ShoppingParameterAdapter.OnItem, TBShoppingDetailView, ShareBoardDialog.onShareListener {
+public class TBShoppingDetailActivity extends BaseActivity implements View.OnClickListener, ShoppingQualityAdapter.OnItem, ShoppingParameterAdapter.OnItem, TBShoppingDetailView, ShareBoardDialog.onShareListener, ShoppingUserLikeAdapter.OnItem {
 
     @Inject
     TBShoppingDetailPresenter mPresenter;
@@ -158,6 +158,7 @@ public class TBShoppingDetailActivity extends BaseActivity implements View.OnCli
         });
         mUserLikeList = new ArrayList<>();
         mLikeAdapter = new ShoppingUserLikeAdapter(mUserLikeList,this);
+        mLikeAdapter.setOnItem(this);
         mBinding.detailUserLike.setAdapter(mLikeAdapter);
 
         //模拟数据
@@ -436,5 +437,15 @@ public class TBShoppingDetailActivity extends BaseActivity implements View.OnCli
         EventBus.getDefault().unregister(this);
         UMShareAPI.get(this).release();
         AlibcTradeSDK.destory();
+    }
+
+    @Override
+    public void onItemShare(int position) {
+        mDialog = (new ProgressDialogView()).createLoadingDialog(this, "");
+        String path = "pages/list/main-v2-info/main?id=" + mUserLikeList.get(position).getOtherGoodsId();
+        String shareImage =  mUserLikeList.get(position).getImg();
+        String shareName = mUserLikeList.get(position).getOtherName();
+        new ShareUtils(this, SHARE_MEDIA.WEIXIN, mDialog)
+                .shareWXMin1(this, shareUrl, shareImage, shareName, shareContent, path);
     }
 }

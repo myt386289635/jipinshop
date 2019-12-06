@@ -1,6 +1,7 @@
 package com.example.administrator.jipinshop.activity.sreach.result;
 
 import android.app.Dialog;
+import android.content.Intent;
 import android.databinding.DataBindingUtil;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
@@ -19,8 +20,11 @@ import com.example.administrator.jipinshop.base.BaseActivity;
 import com.example.administrator.jipinshop.bean.TBSreachResultBean;
 import com.example.administrator.jipinshop.bean.eventbus.SreachBus;
 import com.example.administrator.jipinshop.databinding.ActivitySreachTbResultBinding;
+import com.example.administrator.jipinshop.util.ShareUtils;
 import com.example.administrator.jipinshop.util.ToastUtil;
 import com.example.administrator.jipinshop.view.dialog.ProgressDialogView;
+import com.umeng.socialize.UMShareAPI;
+import com.umeng.socialize.bean.SHARE_MEDIA;
 
 import org.greenrobot.eventbus.EventBus;
 
@@ -34,7 +38,7 @@ import javax.inject.Inject;
  * @create 2019/12/3
  * @Describe 搜索结果页
  */
-public class TBSreachResultActivity extends BaseActivity implements View.OnClickListener, TBSreachResultView, OnLoadMoreListener, OnRefreshListener {
+public class TBSreachResultActivity extends BaseActivity implements View.OnClickListener, TBSreachResultView, OnLoadMoreListener, OnRefreshListener, TBSreachResultAdapter.OnItem {
 
     @Inject
     TBSreachResultPresenter mPresenter;
@@ -89,6 +93,7 @@ public class TBSreachResultActivity extends BaseActivity implements View.OnClick
         mList = new ArrayList<>();
         mAdapter = new TBSreachResultAdapter(mList,this);
         mAdapter.setLayoutType(1);//默认横向布局
+        mAdapter.setOnItem(this);
         mBinding.swipeTarget.setAdapter(mAdapter);
 
         mBinding.swipeToLoad.setOnLoadMoreListener(this);
@@ -105,6 +110,10 @@ public class TBSreachResultActivity extends BaseActivity implements View.OnClick
                 finish();
                 break;
             case R.id.title_sreach:
+                if (TextUtils.isEmpty(mBinding.titleEdit.getText().toString().trim())) {
+                    ToastUtil.show("请输入搜索内容");
+                    return;
+                }
                 mDialog = (new ProgressDialogView()).createLoadingDialog(this, "");
                 mDialog.show();
                 keyword = mBinding.titleEdit.getText().toString();
@@ -313,6 +322,38 @@ public class TBSreachResultActivity extends BaseActivity implements View.OnClick
                 mTextViews.get(i).setTextColor(getResources().getColor(R.color.color_202020));
                 mTextViews.get(i).getPaint().setFakeBoldText(true);
             }
+        }
+    }
+
+    @Override
+    public void onItemShare(int position) {
+        mDialog = (new ProgressDialogView()).createLoadingDialog(this, "");
+        String path = "pages/list/main-v2-info/main?id=" + mList.get(position).getOtherGoodsId();
+        String shareImage =  mList.get(position).getImg();
+        String shareName = mList.get(position).getOtherName();
+        String shareContent = "【分享来自极品城APP】看评测选好物，省心更省钱";
+        String shareUrl = "https://www.jipincheng.cn";
+        new ShareUtils(this, SHARE_MEDIA.WEIXIN, mDialog)
+                .shareWXMin1(this, shareUrl, shareImage, shareName, shareContent, path);
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        UMShareAPI.get(this).onActivityResult(requestCode, resultCode, data);
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        UMShareAPI.get(this).release();
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        if (mDialog != null && mDialog.isShowing()){
+            mDialog.dismiss();
         }
     }
 }

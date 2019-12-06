@@ -28,10 +28,13 @@ import com.example.administrator.jipinshop.bean.eventbus.SreachBus;
 import com.example.administrator.jipinshop.databinding.ActivityTbSreachBinding;
 import com.example.administrator.jipinshop.netwrok.RetrofitModule;
 import com.example.administrator.jipinshop.util.DeviceUuidFactory;
+import com.example.administrator.jipinshop.util.ShareUtils;
 import com.example.administrator.jipinshop.util.ToastUtil;
 import com.example.administrator.jipinshop.view.dialog.DialogUtil;
 import com.example.administrator.jipinshop.view.dialog.ProgressDialogView;
 import com.trello.rxlifecycle2.android.ActivityEvent;
+import com.umeng.socialize.UMShareAPI;
+import com.umeng.socialize.bean.SHARE_MEDIA;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
@@ -47,7 +50,7 @@ import javax.inject.Inject;
  * @create 2019/11/30
  * @Describe 淘宝搜索页面
  */
-public class TBSreachActivity extends BaseActivity implements View.OnClickListener, TBSreachView {
+public class TBSreachActivity extends BaseActivity implements View.OnClickListener, TBSreachView, ShoppingUserLikeAdapter.OnItem {
 
     @Inject
     TBSreachPresenter mPresenter;
@@ -85,6 +88,7 @@ public class TBSreachActivity extends BaseActivity implements View.OnClickListen
         mBinding.sreachUserLike.setNestedScrollingEnabled(false);
         mUserLikeList = new ArrayList<>();
         mLikeAdapter = new ShoppingUserLikeAdapter(mUserLikeList,this);
+        mLikeAdapter.setOnItem(this);
         mBinding.sreachUserLike.setAdapter(mLikeAdapter);
         mBinding.swipeToLoad.setLoadMoreEnabled(false);
         //监听软键盘的弹出与收回
@@ -268,6 +272,7 @@ public class TBSreachActivity extends BaseActivity implements View.OnClickListen
     protected void onDestroy() {
         super.onDestroy();
         EventBus.getDefault().unregister(this);
+        UMShareAPI.get(this).release();
     }
 
     @Subscribe
@@ -303,6 +308,32 @@ public class TBSreachActivity extends BaseActivity implements View.OnClickListen
             }
         }
         return false;
+    }
+
+    @Override
+    public void onItemShare(int position) {
+        mDialog = (new ProgressDialogView()).createLoadingDialog(this, "");
+        String path = "pages/list/main-v2-info/main?id=" + mUserLikeList.get(position).getOtherGoodsId();
+        String shareImage =  mUserLikeList.get(position).getImg();
+        String shareName = mUserLikeList.get(position).getOtherName();
+        String shareContent = "【分享来自极品城APP】看评测选好物，省心更省钱";
+        String shareUrl = "https://www.jipincheng.cn";
+        new ShareUtils(this, SHARE_MEDIA.WEIXIN, mDialog)
+                .shareWXMin1(this, shareUrl, shareImage, shareName, shareContent, path);
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        UMShareAPI.get(this).onActivityResult(requestCode, resultCode, data);
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        if (mDialog != null && mDialog.isShowing()){
+            mDialog.dismiss();
+        }
     }
 
 }
