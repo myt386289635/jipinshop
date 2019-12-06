@@ -7,6 +7,7 @@ import android.widget.ImageView;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
+import com.example.administrator.jipinshop.R;
 
 import jp.wasabeef.glide.transformations.BlurTransformation;
 import jp.wasabeef.glide.transformations.CropCircleTransformation;
@@ -26,7 +27,7 @@ public class GlideApp {
     public static void loderRoundImage(Context context, String url, ImageView imageView) {
         RequestOptions requestOptions = new RequestOptions();
         requestOptions = requestOptions
-                .transform(new CenterRoundTransform(10, 0, CenterRoundTransform.CornerType.ALL));
+                .transform(new CenterRoundTransform((int) context.getResources().getDimension(R.dimen.x10), 0, CenterRoundTransform.CornerType.ALL));
         if (context != null) {
             Glide.with(context)
                     .load(url)
@@ -41,7 +42,7 @@ public class GlideApp {
     public static void loderRoundImage(Context context, int id, ImageView imageView) {
         RequestOptions requestOptions = new RequestOptions();
         requestOptions = requestOptions
-                .transform(new CenterRoundTransform(10, 0, CenterRoundTransform.CornerType.ALL));
+                .transform(new CenterRoundTransform((int) context.getResources().getDimension(R.dimen.x10), 0, CenterRoundTransform.CornerType.ALL));
         if (context != null) {
             Glide.with(context)
                     .load(id)
@@ -57,7 +58,7 @@ public class GlideApp {
 
         RequestOptions requestOptions = new RequestOptions();
         requestOptions = requestOptions
-                .transform(new CenterRoundTransform(10, 0, CenterRoundTransform.CornerType.ALL));
+                .transform(new CenterRoundTransform((int) context.getResources().getDimension(R.dimen.x10), 0, CenterRoundTransform.CornerType.ALL));
         if (error != 0) {
             requestOptions = requestOptions.error(error);
         }
@@ -79,7 +80,7 @@ public class GlideApp {
 
         RequestOptions requestOptions = new RequestOptions();
         requestOptions = requestOptions
-                .transform(new CenterRoundTransform(10, 0, CenterRoundTransform.CornerType.ALL));
+                .transform(new CenterRoundTransform((int) context.getResources().getDimension(R.dimen.x10), 0, CenterRoundTransform.CornerType.ALL));
         if (error != 0) {
             requestOptions = requestOptions.error(error);
         }

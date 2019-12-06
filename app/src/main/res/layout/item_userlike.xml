@@ -30,6 +30,18 @@
                 android:layout_height="@dimen/y335"/>
 
             <TextView
+                android:id="@+id/item_rote"
+                android:layout_alignRight="@id/item_image"
+                android:layout_alignTop="@id/item_image"
+                android:gravity="center"
+                android:text="@{date.buyRate + @string/buy_rote}"
+                android:textColor="@color/color_white"
+                android:textSize="11sp"
+                android:background="@drawable/bg_e25838_2"
+                android:layout_width="@dimen/x66"
+                android:layout_height="@dimen/y32"/>
+
+            <TextView
                 android:layout_marginBottom="@dimen/y10"
                 android:textSize="14sp"
                 android:textColor="@color/color_565252"

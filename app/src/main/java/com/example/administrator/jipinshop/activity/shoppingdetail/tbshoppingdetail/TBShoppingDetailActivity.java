@@ -268,6 +268,8 @@ public class TBShoppingDetailActivity extends BaseActivity implements View.OnCli
     public void onSuccess(TBShoppingDetailBean bean) {
         mBinding.setDate(bean.getData());
         mBinding.executePendingBindings();
+        mBinding.detailOldPriceName.setTv(true);
+        mBinding.detailOldPriceName.setColor(R.color.color_9D9D9D);
         //轮播图
         mBannerList.addAll(bean.getData().getImgList());
         mPresenter.initBanner(mBannerList, this, point, mBinding.detailPoint, mBannerAdapter);

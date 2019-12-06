@@ -1,5 +1,6 @@
 package com.example.administrator.jipinshop.bean;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 /**
@@ -102,7 +103,7 @@ public class TBSreachResultBean {
         }
 
         public String getOtherPrice() {
-            return otherPrice;
+            return new BigDecimal(otherPrice.trim()).stripTrailingZeros().toPlainString();
         }
 
         public void setOtherPrice(String otherPrice) {
@@ -142,7 +143,7 @@ public class TBSreachResultBean {
         }
 
         public String getBuyPrice() {
-            return buyPrice;
+            return new BigDecimal(buyPrice.trim()).stripTrailingZeros().toPlainString();
         }
 
         public void setBuyPrice(String buyPrice) {
