@@ -44,8 +44,12 @@
                 android:textColor="@color/color_white"
                 android:textSize="11sp"
                 android:background="@drawable/bg_e25838_2"
-                android:layout_width="@dimen/x66"
-                android:layout_height="@dimen/y32"/>
+                android:layout_width="wrap_content"
+                android:paddingLeft="@dimen/x6"
+                android:paddingRight="@dimen/x6"
+                android:paddingTop="@dimen/y3"
+                android:paddingBottom="@dimen/y3"
+                android:layout_height="wrap_content"/>
 
             <TextView
                 android:id="@+id/item_title"
@@ -63,6 +67,7 @@
                 android:layout_height="wrap_content"/>
 
             <TextView
+                android:layout_marginRight="@dimen/x26"
                 android:ellipsize="end"
                 android:maxLines="1"
                 android:layout_marginTop="@dimen/y13"
@@ -213,8 +218,12 @@
                     android:textColor="@color/color_white"
                     android:textSize="11sp"
                     android:background="@drawable/bg_e25838_2"
-                    android:layout_width="@dimen/x66"
-                    android:layout_height="@dimen/y32"/>
+                    android:layout_width="wrap_content"
+                    android:paddingLeft="@dimen/x6"
+                    android:paddingRight="@dimen/x6"
+                    android:paddingTop="@dimen/y3"
+                    android:paddingBottom="@dimen/y3"
+                    android:layout_height="wrap_content"/>
 
                 <TextView
                     android:layout_marginBottom="@dimen/y10"
@@ -233,6 +242,7 @@
                     android:layout_height="wrap_content"/>
 
                 <TextView
+                    android:layout_marginRight="@dimen/x13"
                     android:ellipsize="end"
                     android:maxLines="1"
                     android:background="@drawable/bg_opinion"

@@ -433,6 +433,9 @@
                     bind:srcRound="@{date.shopIcon}"/>
 
                 <TextView
+                    android:layout_marginRight="@dimen/x18"
+                    android:ellipsize="end"
+                    android:maxLines="1"
                     android:id="@+id/detail_shopName"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
