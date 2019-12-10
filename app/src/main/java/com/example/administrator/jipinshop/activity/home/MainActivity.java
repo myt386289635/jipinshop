@@ -446,10 +446,12 @@ public class MainActivity extends RxAppCompatActivity implements MainView, ViewP
         ClipboardManager cm = (ClipboardManager) getSystemService(CLIPBOARD_SERVICE);
         ClipData clipData  = cm.getPrimaryClip();
         if (clipData != null && clipData.getItemCount() > 0) {
-            ClipData.Item item = clipData .getItemAt(0);
-            String content = item.getText().toString();
-            if (!TextUtils.isEmpty(content.trim()) && !content.equals(SPUtils.getInstance().getString(CommonDate.CLIP,""))){
-                mPresenter.getGoodsByTkl(content,this.bindToLifecycle());
+            ClipData.Item item = clipData.getItemAt(0);
+            if (item != null && item.getText() != null){//小米手机会崩溃
+                String content = item.getText().toString();
+                if (!TextUtils.isEmpty(content.trim()) && !content.equals(SPUtils.getInstance().getString(CommonDate.CLIP,""))){
+                    mPresenter.getGoodsByTkl(content,this.bindToLifecycle());
+                }
             }
         }
     }
