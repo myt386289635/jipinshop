@@ -239,4 +239,8 @@ dependencies {
 
     //微信
     api 'com.tencent.mm.opensdk:wechat-sdk-android-without-mta:+'
+    //指示器
+    implementation('com.github.hackware1993:MagicIndicator:1.6.0') {
+        exclude group: 'com.android.support'
+    }
 }

@@ -164,7 +164,7 @@
                                 android:paddingLeft="@dimen/x22"
                                 android:paddingBottom="@dimen/y14"
                                 android:paddingTop="@dimen/y14"
-                                android:background="@drawable/bg_attention_new"
+                                android:background="@drawable/bg_attention"
                                 android:textSize="13sp"
                                 android:textColor="@color/color_E25838"
                                 android:text="编辑个人资料"

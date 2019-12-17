@@ -30,97 +30,100 @@
         android:layout_width="match_parent"
         android:layout_height="@dimen/y2"/>
 
-    <!--新手引导页面-->
     <RelativeLayout
-        android:id="@+id/guild_background"
+        android:id="@+id/login_background"
+        android:background="#7D000000"
+        android:layout_above="@id/tab_layout"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="@dimen/y80">
+
+        <TextView
+            android:id="@+id/login_go"
+            android:gravity="center"
+            android:minHeight="@dimen/y52"
+            android:paddingRight="@dimen/x15"
+            android:paddingLeft="@dimen/x15"
+            android:paddingBottom="@dimen/y6"
+            android:paddingTop="@dimen/y6"
+            android:textSize="14sp"
+            android:text="立即登录"
+            android:textColor="@color/color_white"
+            android:background="@drawable/bg_free_dialog2"
+            android:layout_marginRight="@dimen/x25"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+
+        <TextView
+            android:layout_marginLeft="@dimen/x25"
+            android:layout_centerVertical="true"
+            android:textColor="@color/color_white"
+            android:textSize="14sp"
+            android:text="首单全免资格即将过期"
+            android:id="@+id/login_notice"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
 
         <LinearLayout
-            android:id="@+id/guild_background2"
-            android:orientation="vertical"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_marginLeft="@dimen/x14"
+            android:layout_toRightOf="@id/login_notice"
+            android:layout_centerVertical="true"
+            android:id="@+id/login_timeContainer"
+            android:orientation="horizontal"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
 
-            <View
-                android:layout_width="match_parent"
-                android:background="#CC000000"
-                android:layout_height="@dimen/y507"/>
+            <TextView
+                android:minWidth="@dimen/x38"
+                android:id="@+id/dialog_hour"
+                android:textSize="13sp"
+                android:gravity="center"
+                android:text="00"
+                android:textColor="@color/color_white"
+                android:background="@drawable/bg_time"
+                android:layout_width="wrap_content"
+                android:layout_height="@dimen/y38"/>
 
-            <ImageView
-                android:background="@mipmap/guide_bg1"
-                android:layout_width="match_parent"
+            <TextView
+                android:layout_marginRight="@dimen/x10"
+                android:layout_marginLeft="@dimen/x10"
+                android:textSize="13sp"
+                android:textColor="@color/color_202020"
+                android:text=":"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"/>
 
-            <View
-                android:background="#CC000000"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"/>
+            <TextView
+                android:id="@+id/dialog_minute"
+                android:textSize="13sp"
+                android:gravity="center"
+                android:text="30"
+                android:textColor="@color/color_white"
+                android:background="@drawable/bg_time"
+                android:layout_width="@dimen/x38"
+                android:layout_height="@dimen/y38"/>
+
+            <TextView
+                android:layout_marginRight="@dimen/x10"
+                android:layout_marginLeft="@dimen/x10"
+                android:textSize="13sp"
+                android:textColor="@color/color_202020"
+                android:text=":"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+
+            <TextView
+                android:id="@+id/dialog_second"
+                android:textSize="13sp"
+                android:gravity="center"
+                android:text="00"
+                android:textColor="@color/color_white"
+                android:background="@drawable/bg_time"
+                android:layout_width="@dimen/x38"
+                android:layout_height="@dimen/y38"/>
 
         </LinearLayout>
-
-        <ImageView
-            android:src="@mipmap/guide_break"
-            android:id="@+id/guide_break"
-            android:layout_marginTop="@dimen/y95"
-            android:layout_alignParentRight="true"
-            android:layout_marginRight="@dimen/x45"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"/>
-
-        <ImageView
-            android:layout_marginTop="@dimen/y740"
-            android:id="@+id/guide_content1"
-            android:layout_centerHorizontal="true"
-            android:src="@mipmap/guide_content1"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"/>
-
-        <ImageView
-            android:layout_marginTop="@dimen/y89"
-            android:id="@+id/guide_next1"
-            android:layout_below="@id/guide_content1"
-            android:layout_centerHorizontal="true"
-            android:src="@mipmap/guide_next1"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"/>
-
-        <ImageView
-            android:visibility="gone"
-            android:id="@+id/guide_content2"
-            android:layout_marginBottom="@dimen/y126"
-            android:layout_alignParentBottom="true"
-            android:layout_centerHorizontal="true"
-            android:src="@mipmap/guide_content2"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"/>
-
-        <ImageView
-            android:visibility="gone"
-            android:id="@+id/guide_next2"
-            android:layout_centerInParent="true"
-            android:src="@mipmap/guide_next2"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"/>
-
-        <ImageView
-            android:visibility="gone"
-            android:layout_marginBottom="@dimen/y116"
-            android:layout_alignParentBottom="true"
-            android:layout_centerHorizontal="true"
-            android:id="@+id/guide_content3"
-            android:src="@mipmap/guide_content3"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"/>
-
-
-        <ImageView
-            android:visibility="gone"
-            android:id="@+id/guide_next3"
-            android:layout_centerInParent="true"
-            android:src="@mipmap/guide_next3"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"/>
 
     </RelativeLayout>
 

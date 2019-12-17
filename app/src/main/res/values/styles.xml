@@ -99,6 +99,12 @@
         <item name="android:textSize">16sp</item>
     </style>
 
+    <style name="CustomHomeTabLayout"
+           parent="TextAppearance.AppCompat.Widget.ActionBar.Title.Inverse">
+        <item name="android:textSize">14sp</item>
+        <item name="android:textColor">@color/color_white</item>
+    </style>
+
     <style name="CustomBottomSheetDialogTheme2" parent="Theme.Design.Light.BottomSheetDialog">
         <item name="bottomSheetStyle">@style/CustomBottomSheetStyle2</item>
         <item name="android:backgroundDimEnabled">true</item>

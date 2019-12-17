@@ -101,7 +101,7 @@ public class DeviceUuidFactory {
     /**
      * 获取UTDID
      */
-    public static Map getIdfa(Context context) {
+    public static Map<String,String> getIdfa(Context context) {
         Map<String,String> map = new HashMap<>();
         String idfa = UTDevice.getUtdid(context);
         if (!TextUtils.isEmpty(idfa) || !idfa.equals("ffffffffffffffffffffffff")){

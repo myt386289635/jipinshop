@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+        <variable
+            name="listener"
+            type="android.view.View.OnClickListener"/>
+    </data>
+
+    <RelativeLayout
+        android:id="@+id/bg_home"
+        tools:background="#143030"
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:id="@+id/status_bar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/transparent"
+            android:orientation="vertical"/>
+
+        <com.example.administrator.jipinshop.view.textview.DrawableLeftCenterTextView
+            android:id="@+id/home_sreach"
+            android:onClick="@{listener.onClick}"
+            android:layout_below="@id/status_bar"
+            android:background="@drawable/bg_ffffff_3"
+            android:layout_marginTop="@dimen/y7"
+            android:text="搜商品名称或粘贴标题"
+            android:textSize="15sp"
+            android:drawablePadding="@dimen/x7"
+            android:gravity="center_vertical"
+            android:textColor="@color/color_565252"
+            android:drawableLeft="@mipmap/search1"
+            android:drawableTint="@color/color_E25838"
+            android:layout_width="match_parent"
+            android:layout_marginLeft="@dimen/x30"
+            android:layout_marginRight="@dimen/x30"
+            android:layout_height="@dimen/y70"/>
+
+        <android.support.design.widget.CoordinatorLayout
+            android:layout_below="@id/home_sreach"
+            android:id="@+id/coordinator"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <android.support.design.widget.AppBarLayout
+                android:id="@+id/appbar"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:elevation="0dp"
+                android:background="@color/transparent"
+                app:layout_behavior="@string/AppBarLayoutBehavior">
+
+                <TextView
+                    app:layout_scrollFlags="scroll|exitUntilCollapsed"
+                    android:gravity="center_horizontal"
+                    android:id="@+id/home_tag"
+                    android:textColor="@color/color_99FFFFFF"
+                    android:textSize="10sp"
+                    android:text="补贴方法：①复制淘宝商品标题或淘口令 ； ②搜索商品领取专属补贴"
+                    android:paddingTop="@dimen/y20"
+                    android:paddingBottom="@dimen/y10"
+                    android:layout_below="@id/home_sreach"
+                    android:layout_centerHorizontal="true"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"/>
+
+                <net.lucode.hackware.magicindicator.MagicIndicator
+                    android:id="@+id/tab_layout"
+                    android:layout_below="@id/home_tag"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/y60"/>
+
+                <View
+                    android:id="@+id/home_line"
+                    android:layout_below="@id/coordinator"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/y10"/>
+
+            </android.support.design.widget.AppBarLayout>
+
+            <android.support.v4.view.ViewPager
+                android:background="@color/color_white"
+                app:layout_behavior="@string/appbar_scrolling_view_behavior"
+                android:id="@+id/view_pager"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"/>
+
+        </android.support.design.widget.CoordinatorLayout>
+
+    </RelativeLayout>
+</layout>

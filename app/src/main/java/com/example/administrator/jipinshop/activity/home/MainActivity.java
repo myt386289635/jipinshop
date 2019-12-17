@@ -3,27 +3,25 @@ package com.example.administrator.jipinshop.activity.home;
 import android.app.Activity;
 import android.content.ClipData;
 import android.content.ClipboardManager;
-import android.content.Context;
 import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.CountDownTimer;
 import android.support.annotation.Nullable;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
 import android.text.TextUtils;
-import android.util.Log;
 import android.view.View;
-import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
+import android.widget.TextView;
 
 import com.blankj.utilcode.util.SPUtils;
 import com.example.administrator.jipinshop.MyApplication;
 import com.example.administrator.jipinshop.R;
 import com.example.administrator.jipinshop.activity.login.LoginActivity;
 import com.example.administrator.jipinshop.activity.newpeople.NewPeopleActivity;
-import com.example.administrator.jipinshop.activity.sign.SignActivity;
 import com.example.administrator.jipinshop.activity.tryout.freedetail.FreeDetailActivity;
 import com.example.administrator.jipinshop.adapter.HomeAdapter;
 import com.example.administrator.jipinshop.base.DaggerBaseActivityComponent;
@@ -32,11 +30,11 @@ import com.example.administrator.jipinshop.bean.PopInfoBean;
 import com.example.administrator.jipinshop.bean.TklBean;
 import com.example.administrator.jipinshop.bean.eventbus.ChangeHomePageBus;
 import com.example.administrator.jipinshop.bean.eventbus.HomeNewPeopleBus;
-import com.example.administrator.jipinshop.fragment.activity11.Action11Fragment;
+import com.example.administrator.jipinshop.bean.eventbus.TryStatusBus;
 import com.example.administrator.jipinshop.fragment.evaluationkt.EvaluationNewFragment;
 import com.example.administrator.jipinshop.fragment.home.HomeNewFragment;
+import com.example.administrator.jipinshop.fragment.home.KTHomeFragnent;
 import com.example.administrator.jipinshop.fragment.mine.MineFragment;
-import com.example.administrator.jipinshop.fragment.tryout.freemodel.FreeFragment;
 import com.example.administrator.jipinshop.fragment.tryout.freemodel.FreeNewFragment;
 import com.example.administrator.jipinshop.netwrok.RetrofitModule;
 import com.example.administrator.jipinshop.util.ClickUtil;
@@ -80,22 +78,16 @@ public class MainActivity extends RxAppCompatActivity implements MainView, ViewP
     NoScrollViewPager mViewPager;
     @BindView(R.id.tab_layout)
     TabLayout mTabLayout;
-    @BindView(R.id.guide_content1)
-    ImageView mGuideContent1;
-    @BindView(R.id.guide_next1)
-    ImageView mGuideNext1;
-    @BindView(R.id.guide_content2)
-    ImageView mGuideContent2;
-    @BindView(R.id.guide_next2)
-    ImageView mGuideNext2;
-    @BindView(R.id.guide_content3)
-    ImageView mGuideContent3;
-    @BindView(R.id.guide_next3)
-    ImageView mGuideNext3;
-    @BindView(R.id.guild_background)
-    RelativeLayout mGuildBackground;
-    @BindView(R.id.guild_background2)
-    LinearLayout mGuildBackground2;
+    @BindView(R.id.login_notice)
+    TextView mLoginNotice;
+    @BindView(R.id.dialog_minute)
+    TextView mDialogMinute;
+    @BindView(R.id.dialog_second)
+    TextView mDialogSecond;
+    @BindView(R.id.login_timeContainer)
+    LinearLayout mLoginTimeContainer;
+    @BindView(R.id.login_background)
+    RelativeLayout mLoginBackground;
 
     private List<Fragment> mFragments;
     private HomeAdapter mHomeAdapter;
@@ -103,13 +95,14 @@ public class MainActivity extends RxAppCompatActivity implements MainView, ViewP
     private MineFragment mMineFragment;
     private EvaluationNewFragment mEvaluationFragment;
     private FreeNewFragment mTryFragment;
-    private Action11Fragment mAction11Fragment;
+    private KTHomeFragnent mKTHomeFragnent;
 
     private Unbinder mButterKnife;
     private ImmersionBar mImmersionBar;
     private long exitTime = 0;
     private static Activity sFirstInstance;
     private Boolean once = true; // 是否是第一次弹出
+    private CountDownTimer mCountDownTimerUtils;//定时器
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -143,12 +136,12 @@ public class MainActivity extends RxAppCompatActivity implements MainView, ViewP
         mViewPager.setNoScroll(true);
         mFragments = new ArrayList<>();
 
-        mAction11Fragment = new Action11Fragment();
+        mKTHomeFragnent = KTHomeFragnent.getInstance();
         mEvaluationFragment = new EvaluationNewFragment();
         mHomeFragment = new HomeNewFragment();
         mTryFragment = new FreeNewFragment();
         mMineFragment = new MineFragment();
-        mFragments.add(mAction11Fragment);
+        mFragments.add(mKTHomeFragnent);
         mFragments.add(mEvaluationFragment);
         mFragments.add(mHomeFragment);
         mFragments.add(mTryFragment);
@@ -173,14 +166,56 @@ public class MainActivity extends RxAppCompatActivity implements MainView, ViewP
         });
 
 //        DistanceHelper.getAndroiodScreenProperty(this);
-//        if (SPUtils.getInstance().getBoolean(CommonDate.FIRST, true)) {
-//            //新人第一次进入app
-//            mGuildBackground.setVisibility(View.VISIBLE);
-//        } else {
+        if (SPUtils.getInstance().getBoolean(CommonDate.FIRST, true)) {
+            //新人第一次进入app
+//            mGuildBackground.setVisibility(View.VISIBLE);新手指导
+            mLoginBackground.setVisibility(View.VISIBLE);
+            mLoginNotice.setText("首单全免资格即将过期");
+            mLoginTimeContainer.setVisibility(View.VISIBLE);
+            setCountDownTimer();
+        } else {
             //老人进入app
-            mGuildBackground.setVisibility(View.GONE);
-            mPresenter.getAppVersion(this.bindToLifecycle()); //版本更新
-//        }
+            if (TextUtils.isEmpty(SPUtils.getInstance(CommonDate.USER).getString(CommonDate.token, "").trim())) {
+                mLoginBackground.setVisibility(View.VISIBLE);
+                mLoginNotice.setText("登录领取淘宝隐藏优惠券");
+                mLoginTimeContainer.setVisibility(View.GONE);
+            }else {
+                mLoginBackground.setVisibility(View.GONE);
+            }
+        }
+        mPresenter.getAppVersion(this.bindToLifecycle()); //版本更新
+    }
+
+    private void setCountDownTimer() {
+        long time = 30 * 60;
+        mCountDownTimerUtils =  new CountDownTimer(time * 1000, 1000) {
+
+            public void onTick(long millisUntilFinished) {
+                int ss = 1000;
+                int mi = ss * 60;
+                int hh = mi * 60;
+                int dd = hh * 24;
+                long day = millisUntilFinished / dd;
+                long hour = ((millisUntilFinished - day * dd) / hh);
+                long minute = (millisUntilFinished- hour * hh - day * dd) / mi;
+                long second = (millisUntilFinished - hour * hh - minute * mi - day * dd) / ss;
+                String s_minute= minute+"";
+                String s_second= second+"";
+                if(s_second.length()==1){
+                    s_second="0"+s_second;
+                }
+                if(s_minute.length()==1){
+                    s_minute="0"+s_minute;
+                }
+                mDialogMinute.setText(s_minute);
+                mDialogSecond.setText(s_second);
+            }
+
+            public void onFinish() {
+                mLoginNotice.setText("登录领取淘宝隐藏优惠券");
+                mLoginTimeContainer.setVisibility(View.GONE);
+            }
+        }.start();
     }
 
     @Override
@@ -191,6 +226,10 @@ public class MainActivity extends RxAppCompatActivity implements MainView, ViewP
         EventBus.getDefault().unregister(this);
         if (sFirstInstance == this) {
             sFirstInstance = null;
+        }
+        if(mCountDownTimerUtils != null){
+            mCountDownTimerUtils.cancel();
+            mCountDownTimerUtils = null;
         }
         super.onDestroy();
     }
@@ -291,8 +330,8 @@ public class MainActivity extends RxAppCompatActivity implements MainView, ViewP
         if (bean.getData() != null && bean.getData().getData() != null) {
             if (bean.getData().getType() == 1) {
                 //活动
-                if (bean.getData().getData().getTargetType().equals("5")){
-                    if (!bean.getData().getPopId().equals(SPUtils.getInstance().getString(CommonDate.POPID,""))){
+                if (bean.getData().getData().getTargetType().equals("5")) {
+                    if (!bean.getData().getPopId().equals(SPUtils.getInstance().getString(CommonDate.POPID, ""))) {
                         DialogUtil.imgDialog(MainActivity.this, bean.getData().getData().getImg(), v -> {
                             if (TextUtils.isEmpty(SPUtils.getInstance(CommonDate.USER).getString(CommonDate.token, ""))) {
                                 startActivity(new Intent(this, LoginActivity.class)
@@ -304,12 +343,12 @@ public class MainActivity extends RxAppCompatActivity implements MainView, ViewP
                             getClipText();
                         });
                         if (TextUtils.isEmpty(SPUtils.getInstance(CommonDate.USER).getString(CommonDate.token, ""))) {
-                            SPUtils.getInstance().put(CommonDate.POPID,bean.getData().getPopId());//未登录时存上id
+                            SPUtils.getInstance().put(CommonDate.POPID, bean.getData().getPopId());//未登录时存上id
                         }
-                    }else {
+                    } else {
                         getClipText();
                     }
-                }else {
+                } else {
                     DialogUtil.imgDialog(MainActivity.this, bean.getData().getData().getImg(), v -> {
                         ShopJumpUtil.openPager(MainActivity.this, bean.getData().getData().getTargetType()
                                 , bean.getData().getData().getTargetId(), "小分类");
@@ -329,10 +368,10 @@ public class MainActivity extends RxAppCompatActivity implements MainView, ViewP
                     getClipText();
                 });
             }
-        }else {
+        } else {
             getClipText();
         }
-        if (once){
+        if (once) {
             once = false;
         }
     }
@@ -340,7 +379,7 @@ public class MainActivity extends RxAppCompatActivity implements MainView, ViewP
     @Override
     public void onDialogFile() {
         getClipText();
-        if (once){
+        if (once) {
             once = false;
         }
     }
@@ -366,7 +405,14 @@ public class MainActivity extends RxAppCompatActivity implements MainView, ViewP
     protected void onResume() {
         super.onResume();
         MobclickAgent.onResume(this);
-        if (!once){
+        if (TextUtils.isEmpty(SPUtils.getInstance(CommonDate.USER).getString(CommonDate.token, "").trim())) {
+            mLoginBackground.setVisibility(View.VISIBLE);
+            mLoginNotice.setText("登录领取淘宝隐藏优惠券");
+            mLoginTimeContainer.setVisibility(View.GONE);
+        }else {
+            mLoginBackground.setVisibility(View.GONE);
+        }
+        if (!once) {
             getClipText();//淘口令
         }
     }
@@ -385,6 +431,15 @@ public class MainActivity extends RxAppCompatActivity implements MainView, ViewP
     @Override
     public void onPageSelected(int i) {
         UAppUtil.tab(this, i);
+        if (i == 0){
+            if (TextUtils.isEmpty(SPUtils.getInstance(CommonDate.USER).getString(CommonDate.token, "").trim())) {
+                mLoginBackground.setVisibility(View.VISIBLE);
+            }else {
+                mLoginBackground.setVisibility(View.GONE);
+            }
+        }else {
+            mLoginBackground.setVisibility(View.GONE);
+        }
     }
 
     @Override
@@ -405,52 +460,16 @@ public class MainActivity extends RxAppCompatActivity implements MainView, ViewP
         MobLink.updateNewIntent(getIntent(), this);
     }
 
-    @OnClick({R.id.guide_break, R.id.guide_next1, R.id.guide_next2, R.id.guide_next3, R.id.guild_background})
-    public void onViewClicked(View view) {
-        switch (view.getId()) {
-            case R.id.guild_background:
-                break;
-            case R.id.guide_break:
-                mGuildBackground.setVisibility(View.GONE);
-                mPresenter.getAppVersion(this.bindToLifecycle()); //版本更新
-                break;
-            case R.id.guide_next1:
-                mGuildBackground2.setVisibility(View.GONE);
-                mGuildBackground.setBackgroundResource(R.mipmap.guide_bg21);
-                mGuideContent2.setImageResource(R.mipmap.guide_content21);
-                mGuideContent1.setVisibility(View.GONE);
-                mGuideNext1.setVisibility(View.GONE);
-                mGuideContent2.setVisibility(View.VISIBLE);
-                mGuideNext2.setVisibility(View.VISIBLE);
-                mGuideContent3.setVisibility(View.GONE);
-                mGuideNext3.setVisibility(View.GONE);
-                break;
-            case R.id.guide_next2:
-                mGuildBackground.setBackgroundResource(R.mipmap.guide_bg31);
-                mGuideContent3.setImageResource(R.mipmap.guide_content31);
-                mGuideContent1.setVisibility(View.GONE);
-                mGuideNext1.setVisibility(View.GONE);
-                mGuideContent2.setVisibility(View.GONE);
-                mGuideNext2.setVisibility(View.GONE);
-                mGuideContent3.setVisibility(View.VISIBLE);
-                mGuideNext3.setVisibility(View.VISIBLE);
-                break;
-            case R.id.guide_next3://下一步
-                mGuildBackground.setVisibility(View.GONE);
-                mPresenter.getAppVersion(this.bindToLifecycle()); //版本更新
-                break;
-        }
-    }
 
-    public void getClipText(){
+    public void getClipText() {
         ClipboardManager cm = (ClipboardManager) getSystemService(CLIPBOARD_SERVICE);
-        ClipData clipData  = cm.getPrimaryClip();
+        ClipData clipData = cm.getPrimaryClip();
         if (clipData != null && clipData.getItemCount() > 0) {
             ClipData.Item item = clipData.getItemAt(0);
-            if (item != null && item.getText() != null){//小米手机会崩溃
+            if (item != null && item.getText() != null) {//小米手机会崩溃
                 String content = item.getText().toString();
-                if (!TextUtils.isEmpty(content.trim()) && !content.equals(SPUtils.getInstance().getString(CommonDate.CLIP,""))){
-                    mPresenter.getGoodsByTkl(content,this.bindToLifecycle());
+                if (!TextUtils.isEmpty(content.trim()) && !content.equals(SPUtils.getInstance().getString(CommonDate.CLIP, ""))) {
+                    mPresenter.getGoodsByTkl(content, this.bindToLifecycle());
                 }
             }
         }
@@ -458,9 +477,22 @@ public class MainActivity extends RxAppCompatActivity implements MainView, ViewP
 
     //淘口令返回
     @Override
-    public void onTklDialog(TklBean bean,String tkl) {
-        DialogUtil.tklDialog(this,bean,tkl);
-        SPUtils.getInstance().put(CommonDate.CLIP,tkl);
+    public void onTklDialog(TklBean bean, String tkl) {
+        DialogUtil.tklDialog(this, bean, tkl);
+        SPUtils.getInstance().put(CommonDate.CLIP, tkl);
     }
 
+    @OnClick({R.id.login_go})
+    public void onViewClicked(View view) {
+        switch (view.getId()) {
+            case R.id.login_go:
+                if (TextUtils.isEmpty(SPUtils.getInstance(CommonDate.USER).getString(CommonDate.token, "").trim())) {
+                    if (ClickUtil.isFastDoubleClick(800)) {
+                    } else {
+                        startActivity(new Intent(this, LoginActivity.class));
+                    }
+                }
+                break;
+        }
+    }
 }

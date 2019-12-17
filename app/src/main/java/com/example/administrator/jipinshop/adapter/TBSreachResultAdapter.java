@@ -7,6 +7,7 @@ import android.support.annotation.NonNull;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -233,6 +234,15 @@ public class TBSreachResultAdapter extends RecyclerView.Adapter {
             case CONTENT_2:
                 TwoViewHolder twoViewHolder = (TwoViewHolder) holder;
                 int pos = position;
+                int fpos = 0;
+                for (int i = 0; i < mList.size(); i++) {
+                    if (mList.get(i).getGoodsType() == 1 ||
+                            mList.get(i).getGoodsType() == 2 ||
+                            mList.get(i).getGoodsType() == 4){
+                        fpos = fpos + 1;
+                    }
+                }
+                int zpos = pos - fpos;
                 twoViewHolder.binding.setDate(mList.get(pos));
                 twoViewHolder.binding.executePendingBindings();
                 twoViewHolder.binding.itemImage.post(() -> {
@@ -241,7 +251,7 @@ public class TBSreachResultAdapter extends RecyclerView.Adapter {
                     twoViewHolder.binding.itemImage.setLayoutParams(layoutParams);
                 });
                 RelativeLayout.LayoutParams layoutParams = (RelativeLayout.LayoutParams) twoViewHolder.binding.itemContainer.getLayoutParams();
-                if (pos % 2 != 0){//大多数情况都是左单数，右双数
+                if (zpos % 2 == 0){
                     layoutParams.leftMargin = (int) mContext.getResources().getDimension(R.dimen.x20);
                     layoutParams.rightMargin = (int) mContext.getResources().getDimension(R.dimen.x10);
                 }else {

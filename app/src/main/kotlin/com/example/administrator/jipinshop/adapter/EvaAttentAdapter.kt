@@ -114,7 +114,7 @@ class EvaAttentAdapter() : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
                     }
                     if (mList[position].article.user.follow == "0"){
                         binding.itemAttention.visibility = View.VISIBLE
-                        binding.itemAttention.setBackgroundResource(R.drawable.bg_attention_new)
+                        binding.itemAttention.setBackgroundResource(R.drawable.bg_attention)
                         binding.itemAttention.text = "关  注"
                         binding.itemAttention.setTextColor(context.resources.getColor(R.color.color_E25838))
                         binding.itemAttention.setOnClickListener {

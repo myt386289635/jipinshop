@@ -1,7 +1,6 @@
 package com.example.administrator.jipinshop.base;
 
 import com.example.administrator.jipinshop.auto.FragmentScope;
-import com.example.administrator.jipinshop.fragment.activity11.Action11Fragment;
 import com.example.administrator.jipinshop.fragment.balance.budget.BudgetDetailFragment;
 import com.example.administrator.jipinshop.fragment.balance.withdraw.WithdrawDetailFragment;
 import com.example.administrator.jipinshop.fragment.evaluation.EvaluationFragment;
@@ -24,8 +23,12 @@ import com.example.administrator.jipinshop.fragment.freekt.end.PayPendedFragment
 import com.example.administrator.jipinshop.fragment.freekt.pay.PayPendingFragment;
 import com.example.administrator.jipinshop.fragment.home.HomeFragment;
 import com.example.administrator.jipinshop.fragment.home.HomeNewFragment;
+import com.example.administrator.jipinshop.fragment.home.KTHomeFragnent;
 import com.example.administrator.jipinshop.fragment.home.commen.HomeCommenFragment;
+import com.example.administrator.jipinshop.fragment.home.commen.KTHomeCommenFragment;
+import com.example.administrator.jipinshop.fragment.home.main.KTMainFragment;
 import com.example.administrator.jipinshop.fragment.home.recommend.RecommendFragment;
+import com.example.administrator.jipinshop.fragment.home.userlike.KTUserLikeFragment;
 import com.example.administrator.jipinshop.fragment.mine.MineFragment;
 import com.example.administrator.jipinshop.fragment.orderkt.KTMyOrderFragment;
 import com.example.administrator.jipinshop.fragment.publishkt.inventory.published.PublishedFragment;
@@ -95,7 +98,10 @@ public interface BaseFragmentComponent {
     void inject(KTMyOrderFragment fragment);
     void inject(EvaUnPackingFragment fragment);
     void inject(EvaCompareFragment fragment);
-    void inject(Action11Fragment fragment);
     void inject(FreeNewFragment fragment);
     void inject(ShopUserFragment2 fragment);
+    void inject(KTHomeFragnent fragment);
+    void inject(KTMainFragment fragment);
+    void inject(KTUserLikeFragment fragment);
+    void inject(KTHomeCommenFragment fragment);
 }

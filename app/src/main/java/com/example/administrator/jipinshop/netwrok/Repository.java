@@ -56,6 +56,8 @@ import com.example.administrator.jipinshop.bean.TBSreachResultBean;
 import com.example.administrator.jipinshop.bean.TabBean;
 import com.example.administrator.jipinshop.bean.TaobaoAccountBean;
 import com.example.administrator.jipinshop.bean.TaskFinishBean;
+import com.example.administrator.jipinshop.bean.TbCommonBean;
+import com.example.administrator.jipinshop.bean.TbkIndexBean;
 import com.example.administrator.jipinshop.bean.TeamBean;
 import com.example.administrator.jipinshop.bean.TklBean;
 import com.example.administrator.jipinshop.bean.TopCategoryDetailBean;
@@ -1099,5 +1101,40 @@ public class Repository {
      */
     public Observable<TklBean> getGoodsByTkl(String tkl){
         return mAPIService.getGoodsByTkl(tkl);
+    }
+
+    /**
+     * 淘宝客一级分类列表
+     */
+    public Observable<EvaluationTabBean> tbkCategory(){
+        return mAPIService.tbkCategory();
+    }
+
+    /**
+     * 淘客首页数据
+     */
+    public Observable<TbkIndexBean> tbkIndex(){
+        return mAPIService.tbkIndex();
+    }
+
+    /**
+     * 精品推荐
+     */
+    public Observable<TBSreachResultBean> commendGoodsList(Map<String,String> map){
+        return mAPIService.commendGoodsList(map);
+    }
+
+    /**
+     * 首页通用页面
+     */
+    public Observable<TbCommonBean> getGoodsListByCategory1(Map<String,String> map){
+        return mAPIService.getGoodsListByCategory1(map);
+    }
+
+    /**
+     * 首页专题页面
+     */
+    public Observable<TBSreachResultBean> getGoodsListBySubjectId(Map<String,String> map){
+        return mAPIService.getGoodsListBySubjectId(map);
     }
 }

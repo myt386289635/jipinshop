@@ -2,7 +2,6 @@ package com.example.administrator.jipinshop.base;
 
 import com.example.administrator.jipinshop.activity.KTArticleMoreActivity;
 import com.example.administrator.jipinshop.activity.WebActivity;
-import com.example.administrator.jipinshop.activity.activity11.Action11Activity;
 import com.example.administrator.jipinshop.activity.address.MyAddressActivity;
 import com.example.administrator.jipinshop.activity.address.add.CreateAddressActivity;
 import com.example.administrator.jipinshop.activity.balance.MyWalletActivity;
@@ -15,6 +14,7 @@ import com.example.administrator.jipinshop.activity.evakt.send.corve.SubmitCorve
 import com.example.administrator.jipinshop.activity.evakt.send.goods.AddGoodsActivity;
 import com.example.administrator.jipinshop.activity.evakt.unbox.UnboxActivity;
 import com.example.administrator.jipinshop.activity.follow.FollowActivity;
+import com.example.administrator.jipinshop.activity.home.HomeDetailActivity;
 import com.example.administrator.jipinshop.activity.home.MainActivity;
 import com.example.administrator.jipinshop.activity.home.article.ArticleDetailActivity;
 import com.example.administrator.jipinshop.activity.home.classification.ClassifyActivity;
@@ -67,7 +67,6 @@ import com.example.administrator.jipinshop.activity.tryout.passedMore.PassedMore
 import com.example.administrator.jipinshop.activity.tryout.reportMore.ReportMoreActivity;
 import com.example.administrator.jipinshop.activity.tryout.shareMore.ShareMoreActivity;
 import com.example.administrator.jipinshop.activity.web.TaoBaoWebActivity;
-import com.example.administrator.jipinshop.activity.wellcome.WellComeActivity;
 import com.example.administrator.jipinshop.auto.ActivityScope;
 import com.example.administrator.jipinshop.netwrok.ApplicationComponent;
 
@@ -136,11 +135,11 @@ public interface BaseActivityComponent {
     void inject(EditSignActivity activity);
     void inject(AuditDetailActivity activity);
     void inject(TaoBaoWebActivity activity);
-    void inject(Action11Activity activity);
     void inject(FreeNewDetailActivity activity);
     void inject(NewPeopleActivity activity);
     void inject(NewPeopleDetailActivity activity);
     void inject(TBShoppingDetailActivity activity);
     void inject(TBSreachActivity activity);
     void inject(TBSreachResultActivity activity);
+    void inject(HomeDetailActivity activity);
 }

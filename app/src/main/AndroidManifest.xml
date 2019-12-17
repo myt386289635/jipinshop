@@ -465,10 +465,6 @@
         <activity android:name=".activity.minekt.orderkt.KTMyOrderActivity"
                   android:screenOrientation="portrait"/>
 
-        <!--kotlin：双十一活动专区页面-->
-        <activity android:name=".activity.activity11.Action11Activity"
-                  android:screenOrientation="portrait"/>
-
         <!--新免单详情页面-->
         <activity android:name=".activity.tryout.freedetail.FreeNewDetailActivity"
                   android:screenOrientation="portrait"/>
@@ -495,7 +491,12 @@
                   android:screenOrientation="portrait"/>
 
         <!--相关权限获取页面-->
-        <activity android:name=".activity.wellcome.ServceActivity"/>
+        <activity android:name=".activity.wellcome.ServceActivity"
+                  android:screenOrientation="portrait"/>
+
+        <!--kotlin：首页模块 —— 专题页面-->
+        <activity android:name=".activity.home.HomeDetailActivity"
+                  android:screenOrientation="portrait"/>
 
     </application>
 

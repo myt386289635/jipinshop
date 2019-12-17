@@ -100,7 +100,7 @@
             android:layout_alignParentRight="true"
             android:paddingBottom="@dimen/x8"
             android:paddingTop="@dimen/x8"
-            android:background="@drawable/bg_attention_new"
+            android:background="@drawable/bg_attention"
             android:textSize="16sp"
             android:textStyle="bold"
             android:textColor="@color/color_E25838"
