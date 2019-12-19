@@ -1137,4 +1137,11 @@ public class Repository {
     public Observable<TBSreachResultBean> getGoodsListBySubjectId(Map<String,String> map){
         return mAPIService.getGoodsListBySubjectId(map);
     }
+
+    /**
+     * 首页通用页的10宫格框详情接口
+     */
+    public Observable<TBSreachResultBean> getGoodsListByCategory2(Map<String,String> map){
+        return mAPIService.getGoodsListByCategory2(map);
+    }
 }

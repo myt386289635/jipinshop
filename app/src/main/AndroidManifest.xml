@@ -498,6 +498,10 @@
         <activity android:name=".activity.home.HomeDetailActivity"
                   android:screenOrientation="portrait"/>
 
+        <!--kotlin：首页模块 —— 通用页面的10个宫格图详情页-->
+        <activity android:name=".activity.home.HomeTabActivity"
+                  android:screenOrientation="portrait"/>
+
     </application>
 
 </manifest>

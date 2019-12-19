@@ -1035,4 +1035,10 @@ public interface APIService {
      */
     @GET("api/tbk/getGoodsListBySubjectId")
     Observable<TBSreachResultBean> getGoodsListBySubjectId(@QueryMap Map<String,String> map);
+
+    /**
+     * 首页通用页的10宫格框详情接口
+     */
+    @GET("api/tbk/getGoodsListByCategory2")
+    Observable<TBSreachResultBean> getGoodsListByCategory2(@QueryMap Map<String,String> map);
 }

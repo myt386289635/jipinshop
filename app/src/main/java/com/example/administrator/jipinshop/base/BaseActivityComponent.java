@@ -15,6 +15,7 @@ import com.example.administrator.jipinshop.activity.evakt.send.goods.AddGoodsAct
 import com.example.administrator.jipinshop.activity.evakt.unbox.UnboxActivity;
 import com.example.administrator.jipinshop.activity.follow.FollowActivity;
 import com.example.administrator.jipinshop.activity.home.HomeDetailActivity;
+import com.example.administrator.jipinshop.activity.home.HomeTabActivity;
 import com.example.administrator.jipinshop.activity.home.MainActivity;
 import com.example.administrator.jipinshop.activity.home.article.ArticleDetailActivity;
 import com.example.administrator.jipinshop.activity.home.classification.ClassifyActivity;
@@ -142,4 +143,5 @@ public interface BaseActivityComponent {
     void inject(TBSreachActivity activity);
     void inject(TBSreachResultActivity activity);
     void inject(HomeDetailActivity activity);
+    void inject(HomeTabActivity activity);
 }

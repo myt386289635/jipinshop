@@ -1,6 +1,7 @@
 package com.example.administrator.jipinshop.adapter
 
 import android.content.Context
+import android.content.Intent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -8,6 +9,7 @@ import android.widget.BaseAdapter
 import android.widget.ImageView
 import android.widget.TextView
 import com.example.administrator.jipinshop.R
+import com.example.administrator.jipinshop.activity.home.HomeTabActivity
 import com.example.administrator.jipinshop.bean.TbCommonBean
 import com.example.administrator.jipinshop.util.ToastUtil
 import com.example.administrator.jipinshop.view.glide.GlideApp
@@ -41,8 +43,10 @@ class KTHomeGvAdapter : BaseAdapter {
             item_text.text = mGvListBeans[position].categoryName
             GlideApp.loderCircleImage(mContext,mGvListBeans[position].img,item_image,0,0)
             view!!.setOnClickListener {
-//                TODO("10宫格图")
-                ToastUtil.show("点击了$position")
+                mContext.startActivity(Intent(mContext, HomeTabActivity::class.java)
+                        .putExtra("id", mGvListBeans[position].categoryId)
+                        .putExtra("title", mGvListBeans[position].categoryName)
+                )
             }
         }
         return view!!
