@@ -46,10 +46,15 @@ public class ShareUtils {
         UMWeb web = new UMWeb(WebUrl);//连接地址
         web.setTitle(title);//标题
         web.setDescription(description);//描述
+        UMImage image;
         if (TextUtils.isEmpty(imageUrl)) {
-            web.setThumb(new UMImage(activity, imageID));  //本地缩略图
+            image= new UMImage(activity, imageID);
+            image.compressStyle = UMImage.CompressStyle.QUALITY;
+            web.setThumb(image);  //本地缩略图
         } else {
-            web.setThumb(new UMImage(activity, imageUrl));  //网络缩略图
+            image= new UMImage(activity, imageUrl);
+            image.compressStyle = UMImage.CompressStyle.QUALITY;
+            web.setThumb(image);  //网络缩略图
         }
         new ShareAction(activity)
                 .setPlatform(mSHARE_media)//传入平台
@@ -105,6 +110,7 @@ public class ShareUtils {
         }else {
             image = new UMImage(activity, shareImage);//网络图片
         }
+        image.compressStyle = UMImage.CompressStyle.QUALITY;
         umMin.setThumb(image);// 小程序消息封面图片
         umMin.setTitle(title); // 小程序消息title
         umMin.setDescription(description);// 小程序消息描述
@@ -130,6 +136,7 @@ public class ShareUtils {
         }else {
             image = new UMImage(activity, shareImage);//网络图片
         }
+        image.compressStyle = UMImage.CompressStyle.QUALITY;
         umMin.setThumb(image);// 小程序消息封面图片
         umMin.setTitle(title); // 小程序消息title
         umMin.setDescription(description);// 小程序消息描述
