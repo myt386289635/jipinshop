@@ -36,8 +36,10 @@ public class ServceActivity extends BaseActivity implements View.OnClickListener
                 .fitsSystemWindows(true)
                 .statusBarDarkFont(true, 0f)
                 .init();
-        String str = "请在使用极品城APP前查看并同意完整的<font color='#4A90E2'>《隐私协议》</font>";
+        String str = "请在使用极品城前查看并同意完整的<font color='#4A90E2'>《隐私政策》</font>";
         mBinding.sercveNotice.setText(Html.fromHtml(str));
+        String str1 = "和<font color='#4A90E2'>《用户协议》</font>";
+        mBinding.sercveProtocol.setText(Html.fromHtml(str1));
     }
 
 
@@ -85,10 +87,17 @@ public class ServceActivity extends BaseActivity implements View.OnClickListener
                 initButton();
                 break;
             case R.id.sercve_notice:
-                //隐私协议
+                //隐私政策
                 startActivity(new Intent(this, WebActivity.class)
                         .putExtra(WebActivity.url, RetrofitModule.H5_URL+"privacy.html")
-                        .putExtra(WebActivity.title,"隐私协议")
+                        .putExtra(WebActivity.title,"隐私政策")
+                );
+                break;
+            case R.id.sercve_protocol:
+                //用户协议
+                startActivity(new Intent(this, WebActivity.class)
+                        .putExtra(WebActivity.url, RetrofitModule.H5_URL+"agreement.html")
+                        .putExtra(WebActivity.title,"用户协议")
                 );
                 break;
         }

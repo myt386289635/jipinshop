@@ -104,7 +104,7 @@ public class SettingActivity extends BaseActivity implements CleanCacheDialog.On
         }
         if (TextUtils.isEmpty(SPUtils.getInstance(CommonDate.USER).getString(CommonDate.token, ""))) {
             mSettingExitLogin.setVisibility(View.GONE);
-        }else {
+        } else {
             mSettingExitLogin.setVisibility(View.VISIBLE);
         }
         mSettingVersonText.setText(getVerName(this));
@@ -126,7 +126,7 @@ public class SettingActivity extends BaseActivity implements CleanCacheDialog.On
         } catch (PackageManager.NameNotFoundException e) {
             e.printStackTrace();
         }
-        return "v"+verName;
+        return "v" + verName;
     }
 
 
@@ -142,7 +142,7 @@ public class SettingActivity extends BaseActivity implements CleanCacheDialog.On
 
     @OnClick({R.id.title_back, R.id.setting_opinionContainer, R.id.setting_cleanContainer,
             R.id.setting_serviceContainer, R.id.setting_goodContainer, R.id.setting_userContainer,
-            R.id.setting_exitLogin,R.id.mine_address})
+            R.id.setting_exitLogin, R.id.mine_address, R.id.setting_xieyiContainer})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.title_back:
@@ -164,12 +164,12 @@ public class SettingActivity extends BaseActivity implements CleanCacheDialog.On
                 return;
             case R.id.setting_serviceContainer:
                 //联系客服
-                DialogUtil.LoginDialog(this, "官方客服微信：" + mSettingServiceText.getText().toString(),"复制","取消", v ->{
-                    ClipboardManager clip = (ClipboardManager)this.getSystemService(Context.CLIPBOARD_SERVICE);
+                DialogUtil.LoginDialog(this, "官方客服微信：" + mSettingServiceText.getText().toString(), "复制", "取消", v -> {
+                    ClipboardManager clip = (ClipboardManager) this.getSystemService(Context.CLIPBOARD_SERVICE);
                     ClipData clipData = ClipData.newPlainText("jipinshop", mSettingServiceText.getText().toString());
                     clip.setPrimaryClip(clipData);
                     ToastUtil.show("微信号复制成功");
-                    SPUtils.getInstance().put(CommonDate.CLIP,mSettingServiceText.getText().toString());
+                    SPUtils.getInstance().put(CommonDate.CLIP, mSettingServiceText.getText().toString());
                 });
                 return;
             case R.id.setting_goodContainer:
@@ -186,6 +186,13 @@ public class SettingActivity extends BaseActivity implements CleanCacheDialog.On
                         .putExtra(WebActivity.title, "用户协议")
                 );
                 return;
+            case R.id.setting_xieyiContainer:
+                //隐私政策
+                startActivity(new Intent(this, WebActivity.class)
+                        .putExtra(WebActivity.url, RetrofitModule.H5_URL+"privacy.html")
+                        .putExtra(WebActivity.title,"隐私政策")
+                );
+                break;
         }
         if (TextUtils.isEmpty(SPUtils.getInstance(CommonDate.USER).getString(CommonDate.token, ""))) {
             ToastUtil.show("请先登录");

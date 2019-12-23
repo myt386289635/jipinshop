@@ -398,6 +398,9 @@ public class MainActivity extends RxAppCompatActivity implements MainView, ViewP
 //                startActivity(new Intent(MainActivity.this, SignActivity.class));
 //            });
             mPresenter.getPopInfo(MainActivity.this.bindToLifecycle());
+            mLoginNotice.setText("登录领取淘宝隐藏优惠券");
+            mLoginTimeContainer.setVisibility(View.GONE);
+            mLoginBackground.setVisibility(View.GONE);
         }
     }
 
@@ -405,13 +408,6 @@ public class MainActivity extends RxAppCompatActivity implements MainView, ViewP
     protected void onResume() {
         super.onResume();
         MobclickAgent.onResume(this);
-        if (TextUtils.isEmpty(SPUtils.getInstance(CommonDate.USER).getString(CommonDate.token, "").trim())) {
-            mLoginBackground.setVisibility(View.VISIBLE);
-            mLoginNotice.setText("登录领取淘宝隐藏优惠券");
-            mLoginTimeContainer.setVisibility(View.GONE);
-        }else {
-            mLoginBackground.setVisibility(View.GONE);
-        }
         if (!once) {
             getClipText();//淘口令
         }

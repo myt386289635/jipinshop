@@ -211,23 +211,44 @@
             <LinearLayout
                 android:gravity="center"
                 android:layout_centerInParent="true"
-                android:layout_marginRight="@dimen/x60"
-                android:layout_marginLeft="@dimen/x60"
                 android:orientation="vertical"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
 
-                <TextView
-                    android:onClick="@{listener.onClick}"
-                    android:id="@+id/sercve_notice"
+                <LinearLayout
+                    android:gravity="center"
                     android:layout_marginBottom="@dimen/y34"
-                    android:textColor="@color/color_9D9D9D"
-                    android:textSize="12sp"
-                    android:text="请在使用极品城APP前查看并同意完整的隐私协议"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"/>
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:paddingBottom="@dimen/y10"
+                        android:paddingTop="@dimen/y10"
+                        android:id="@+id/sercve_notice"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:onClick="@{listener.onClick}"
+                        android:text="请在使用极品城APP前查看并同意完整的隐私协议"
+                        android:textColor="@color/color_9D9D9D"
+                        android:textSize="11sp"/>
+
+                    <TextView
+                        android:paddingBottom="@dimen/y10"
+                        android:paddingTop="@dimen/y10"
+                        android:id="@+id/sercve_protocol"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:onClick="@{listener.onClick}"
+                        android:text="和用户协议"
+                        android:textColor="@color/color_9D9D9D"
+                        android:textSize="11sp"/>
+
+                </LinearLayout>
 
                 <TextView
+                    android:layout_marginRight="@dimen/x60"
+                    android:layout_marginLeft="@dimen/x60"
                     android:onClick="@{listener.onClick}"
                     android:id="@+id/servce_go"
                     android:gravity="center"

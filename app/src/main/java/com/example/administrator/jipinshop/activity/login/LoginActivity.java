@@ -380,10 +380,10 @@ public class LoginActivity extends BaseActivity implements LoginView, View.OnCli
                 finish();
                 break;
             case R.id.login_yc:
-                //隐私协议
+                //隐私政策
                 startActivity(new Intent(this, WebActivity.class)
                         .putExtra(WebActivity.url, RetrofitModule.H5_URL+"privacy.html")
-                        .putExtra(WebActivity.title,"隐私协议")
+                        .putExtra(WebActivity.title,"隐私政策")
                 );
                 break;
         }
