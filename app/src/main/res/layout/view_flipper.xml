@@ -6,6 +6,8 @@
     android:layout_height="wrap_content">
 
     <ImageView
+        android:layout_marginBottom="@dimen/y3"
+        android:layout_marginTop="@dimen/y3"
         android:id="@+id/item_image"
         android:layout_marginLeft="@dimen/x15"
         android:src="@color/color_FF3939"

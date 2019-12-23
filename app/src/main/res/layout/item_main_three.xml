@@ -27,8 +27,6 @@
 
         <RelativeLayout
             android:id="@+id/marquee_container"
-            android:paddingBottom="@dimen/y3"
-            android:paddingTop="@dimen/y3"
             android:background="@drawable/bg_f4ebda"
             android:layout_marginBottom="@dimen/y24"
             android:layout_marginTop="@dimen/y22"
