@@ -222,7 +222,6 @@ class KTMainAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder> {
                     })
                     adListBeans.clear()
                     mOnItem.onColor(0)
-                    binding.mainBackground.setColorFilter(Color.parseColor("#" +mColor[0]))
                     adListBeans.addAll(mAdListBeans)
                     initBanner()
                     if (isFlag) {
@@ -527,7 +526,6 @@ class KTMainAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder> {
                         binding.mainViewpager.currentItem = binding.mainViewpager.currentItem + 1
                     }
                     mOnItem.onColor(binding.mainViewpager.currentItem)
-                    binding.mainBackground.setColorFilter(Color.parseColor("#" +mColor[binding.mainViewpager.currentItem]))
                 }
             }
             true
@@ -553,7 +551,6 @@ class KTMainAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
         override fun onPageSelected(position: Int) {
             mOnItem.onColor(position % adListBeans.size)
-            binding.mainBackground.setColorFilter(Color.parseColor("#" +mColor[position % adListBeans.size]))
         }
 
         fun initBanner() {

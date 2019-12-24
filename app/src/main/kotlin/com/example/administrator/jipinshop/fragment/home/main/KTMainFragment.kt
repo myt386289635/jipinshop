@@ -4,6 +4,7 @@ import android.app.Activity
 import android.app.Dialog
 import android.content.Intent
 import android.databinding.DataBindingUtil
+import android.graphics.Color
 import android.support.v7.widget.GridLayoutManager
 import android.view.LayoutInflater
 import android.view.View
@@ -66,7 +67,7 @@ class KTMainFragment : DBBaseFragment(), OnLoadMoreListener, OnRefreshListener, 
 
     override fun initView() {
         mBaseFragmentComponent.inject(this)
-        mBinding.swipeToLoad.setBackgroundColor(resources.getColor(R.color.color_white))
+        mBinding.swipeToLoad.setBackgroundColor(resources.getColor(R.color.transparent))
         mPresenter.setView(this)
 
         mList = mutableListOf()
@@ -95,7 +96,7 @@ class KTMainFragment : DBBaseFragment(), OnLoadMoreListener, OnRefreshListener, 
 
         var fragment = parentFragment
         if (fragment as? KTHomeFragnent != null)
-            mPresenter.solveScoll(mBinding.swipeTarget,mBinding.swipeToLoad,fragment.getAppBar())
+            mPresenter.solveScoll(mBinding.mainBackground,mBinding.swipeTarget,mBinding.swipeToLoad,fragment.getAppBar())
         mBinding.swipeToLoad.setOnLoadMoreListener(this)
         mBinding.swipeToLoad.setOnRefreshListener(this)
         mBinding.swipeToLoad.post {
@@ -148,6 +149,7 @@ class KTMainFragment : DBBaseFragment(), OnLoadMoreListener, OnRefreshListener, 
     //设置父类中的背景颜色
     override fun onColor(pos: Int) {
         initColor(mColor[pos])
+        mBinding.mainBackground.setColorFilter(Color.parseColor("#" +mColor[pos]))
     }
 
     private fun initColor(color : String){

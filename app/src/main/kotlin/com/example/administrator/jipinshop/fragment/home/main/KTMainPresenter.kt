@@ -4,6 +4,8 @@ import android.support.design.widget.AppBarLayout
 import android.support.v7.widget.GridLayoutManager
 import android.support.v7.widget.RecyclerView
 import android.text.TextUtils
+import android.view.View
+import android.widget.ImageView
 import com.aspsine.swipetoloadlayout.SwipeToLoadLayout
 import com.example.administrator.jipinshop.bean.TBSreachResultBean
 import com.example.administrator.jipinshop.bean.TbkIndexBean
@@ -34,7 +36,7 @@ class KTMainPresenter {
     }
 
     //解决冲突问题
-    fun solveScoll(mRecyclerView: RecyclerView, mSwipeToLoad: SwipeToLoadLayout, appBarLayout: AppBarLayout) {
+    fun solveScoll(mainBackground : ImageView, mRecyclerView: RecyclerView, mSwipeToLoad: SwipeToLoadLayout, appBarLayout: AppBarLayout) {
         var layoutManager = mRecyclerView.layoutManager
         var linearManager = layoutManager as GridLayoutManager
         mRecyclerView.addOnScrollListener(object : RecyclerView.OnScrollListener() {
@@ -49,14 +51,17 @@ class KTMainPresenter {
                 //展开
                 mSwipeToLoad.isRefreshEnabled = linearManager.findFirstCompletelyVisibleItemPosition() == 0
                 mSwipeToLoad.isLoadMoreEnabled = false
+                mainBackground.visibility = View.VISIBLE
             } else if (Math.abs(verticalOffset) >= appBarLayout.totalScrollRange) {
                 //折叠
                 mSwipeToLoad.isLoadMoreEnabled = isSlideToBottom(mRecyclerView)
                 mSwipeToLoad.isRefreshEnabled = false
+                mainBackground.visibility = View.INVISIBLE
             } else {
                 //过程
                 mSwipeToLoad.isRefreshEnabled = false
                 mSwipeToLoad.isLoadMoreEnabled = false
+                mainBackground.visibility = View.VISIBLE
             }
         })
     }
