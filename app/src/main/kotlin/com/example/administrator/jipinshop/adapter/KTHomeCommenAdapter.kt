@@ -26,11 +26,10 @@ import com.example.administrator.jipinshop.databinding.ItemHomeOneBinding
 import com.example.administrator.jipinshop.databinding.ItemHomeTwoBinding
 import com.example.administrator.jipinshop.databinding.ItemSreachOneBinding
 import com.example.administrator.jipinshop.util.ShopJumpUtil
-import com.example.administrator.jipinshop.util.ToastUtil
 import com.example.administrator.jipinshop.util.WeakRefHandler
 import com.example.administrator.jipinshop.util.sp.CommonDate
 import java.math.BigDecimal
-import java.util.ArrayList
+import java.util.*
 
 /**
  * @author 莫小婷
@@ -85,10 +84,18 @@ class KTHomeCommenAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>{
     }
 
     override fun getItemViewType(position: Int): Int {
-        return when (position) {
-            0 -> HEAD1
-            1 -> HEAD2
-            else -> CONTENT
+        return if(mGvListBeans.size != 0 && mAdListBeans.size == 0){
+            if (position == 0){
+                HEAD2
+            }else {
+                CONTENT
+            }
+        }else{
+            when (position) {
+                0 -> HEAD1
+                1 -> HEAD2
+                else -> CONTENT
+            }
         }
     }
 
@@ -134,6 +141,8 @@ class KTHomeCommenAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>{
     override fun getItemCount(): Int {
         return if (mList.size == 0 && mGvListBeans.size == 0 && mAdListBeans.size == 0){
             0
+        }else if(mGvListBeans.size != 0 &&mAdListBeans.size == 0){
+            mList.size + 1
         }else{
             mList.size + 2
         }
@@ -223,7 +232,11 @@ class KTHomeCommenAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>{
             CONTENT -> {
                 var contentViewHolder: ContentViewHolder = holder as ContentViewHolder
                 contentViewHolder.run {
-                    var pos = position - 2
+                    var pos = if(mGvListBeans.size != 0 &&mAdListBeans.size == 0){
+                        position - 1
+                    }else{
+                        position - 2
+                    }
                     binding.date = mList[pos]
                     binding.executePendingBindings()
                     val coupon1 = BigDecimal(mList[pos].couponPrice).toDouble()
