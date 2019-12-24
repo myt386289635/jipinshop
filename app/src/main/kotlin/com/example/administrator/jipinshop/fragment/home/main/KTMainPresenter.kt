@@ -44,6 +44,11 @@ class KTMainPresenter {
                 super.onScrolled(recyclerView, dx, dy)
                 mSwipeToLoad.isRefreshEnabled = linearManager.findFirstCompletelyVisibleItemPosition() == 0
                 mSwipeToLoad.isLoadMoreEnabled = isSlideToBottom(mRecyclerView)
+                mainBackground.visibility = if (linearManager.findFirstCompletelyVisibleItemPosition() == 0) {
+                    View.VISIBLE
+                } else {
+                    View.GONE
+                }
             }
         })
         appBarLayout.addOnOffsetChangedListener(AppBarLayout.OnOffsetChangedListener { appBarLayout, verticalOffset ->
@@ -51,7 +56,11 @@ class KTMainPresenter {
                 //展开
                 mSwipeToLoad.isRefreshEnabled = linearManager.findFirstCompletelyVisibleItemPosition() == 0
                 mSwipeToLoad.isLoadMoreEnabled = false
-                mainBackground.visibility = View.VISIBLE
+                mainBackground.visibility = if (linearManager.findFirstCompletelyVisibleItemPosition() == 0) {
+                    View.VISIBLE
+                } else {
+                    View.GONE
+                }
             } else if (Math.abs(verticalOffset) >= appBarLayout.totalScrollRange) {
                 //折叠
                 mSwipeToLoad.isLoadMoreEnabled = isSlideToBottom(mRecyclerView)
