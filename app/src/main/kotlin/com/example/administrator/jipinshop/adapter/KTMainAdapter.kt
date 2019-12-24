@@ -590,6 +590,7 @@ class KTMainAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder> {
             gridList = mutableListOf()
             adapter = KTMainGridAdapter(gridList,mContext)
             binding.gridViewpager.adapter = adapter
+            binding.gridViewpager.isNestedScrollingEnabled = false
             binding.gridViewpager.addOnScrollListener(object : RecyclerView.OnScrollListener() {
                 override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
                     super.onScrolled(recyclerView, dx, dy)
