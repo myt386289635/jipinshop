@@ -1,18 +1,18 @@
 package com.example.administrator.jipinshop.adapter
 
 import android.content.Context
-import android.content.Intent
+import android.support.v7.widget.RecyclerView
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.BaseAdapter
 import android.widget.ImageView
+import android.widget.LinearLayout
 import android.widget.TextView
 import com.example.administrator.jipinshop.R
-import com.example.administrator.jipinshop.activity.home.HomeDetailActivity
 import com.example.administrator.jipinshop.bean.TbkIndexBean
+import com.example.administrator.jipinshop.util.DistanceHelper
 import com.example.administrator.jipinshop.util.ShopJumpUtil
-import com.example.administrator.jipinshop.util.ToastUtil
 import com.example.administrator.jipinshop.view.glide.GlideApp
 
 /**
@@ -20,7 +20,7 @@ import com.example.administrator.jipinshop.view.glide.GlideApp
  * @create 2019/12/12
  * @Describe 首页4宫格的adapter
  */
-class KTMainGridAdapter : BaseAdapter{
+class KTMainGridAdapter : RecyclerView.Adapter<KTMainGridAdapter.ViewHolder>{
 
     private var mList: MutableList<TbkIndexBean.DataBean.BoxListBean>
     private var mContext: Context
@@ -30,51 +30,45 @@ class KTMainGridAdapter : BaseAdapter{
         mContext = context
     }
 
-    override fun getView(position: Int, convertView: View?, parent: ViewGroup?): View {
-        val holder: ViewHolder
-        var view = convertView
-        if (view == null) {
-            view = LayoutInflater.from(mContext).inflate(R.layout.kthome_tab, parent, false)
-            holder = ViewHolder(view)
-            view.tag = holder
-        } else {
-            holder = view.tag as ViewHolder
-        }
+    override fun onCreateViewHolder(viewGroup: ViewGroup, type: Int): ViewHolder {
+        var view = LayoutInflater.from(mContext).inflate(R.layout.kthome_tab, viewGroup, false)
+        return ViewHolder(view)
+    }
+
+    override fun getItemCount(): Int {
+        return mList.size
+    }
+
+    override fun onBindViewHolder(holder : ViewHolder, position: Int) {
         holder.run {
             mItemName.text = mList[position].title
             GlideApp.loderCircleImage(mContext,mList[position].iconUrl,mImageView,0,0)
+            itemView.setOnClickListener {
+                ShopJumpUtil.openCommen(mContext,mList[position].type,mList[position].targetId,
+                        mList[position].title)
+            }
+            item_container.post {
+                var wight = item_container.width
+                var zz =( DistanceHelper.getAndroiodScreenwidthPixels(mContext) - (wight * 4) ) / 4
+                var result = zz / 2
+                var layoutParams =  item_container.layoutParams as LinearLayout.LayoutParams
+                layoutParams.leftMargin = result
+                layoutParams.rightMargin = result
+                item_container.layoutParams = layoutParams
+            }
         }
-        view?.setOnClickListener {
-            ShopJumpUtil.openCommen(mContext,mList[position].type,mList[position].targetId,
-                    mList[position].title)
-        }
-        return view!!
     }
 
-    override fun getItem(position: Int): Any {
-        return mList[position]
-    }
-
-    override fun getItemId(position: Int): Long {
-       return position.toLong()
-    }
-
-    override fun getCount(): Int {
-       return if (mList.size <= 4){
-           mList.size
-       }else{
-           4
-       }
-    }
-
-    inner class ViewHolder {
+    inner class ViewHolder : RecyclerView.ViewHolder{
 
         var mItemName: TextView
         var mImageView: ImageView
+        var item_container : LinearLayout
 
-        constructor(view: View) {
+        constructor(view: View) : super(view){
             mItemName = view.findViewById(R.id.item_name)
             mImageView = view.findViewById(R.id.item_image)
+            item_container = view.findViewById(R.id.item_container)
         }
     }
 

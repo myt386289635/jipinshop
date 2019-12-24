@@ -1,15 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
+<LinearLayout
+    android:orientation="horizontal"
     xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
+    android:layout_width="wrap_content"
     android:layout_height="@dimen/y203">
 
     <LinearLayout
+        android:id="@+id/item_container"
         android:layout_marginTop="@dimen/y39"
-        android:layout_centerHorizontal="true"
         android:gravity="center"
         android:orientation="vertical"
-        android:layout_width="wrap_content"
+        android:layout_width="@dimen/x120"
         android:layout_height="wrap_content">
 
         <ImageView
@@ -24,10 +25,10 @@
             android:id="@+id/item_name"
             android:textColor="@color/color_9D9D9D"
             android:textSize="11sp"
-            android:text="品质大牌品质大牌"
+            android:text="品质大牌"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"/>
 
     </LinearLayout>
 
-</RelativeLayout>
+</LinearLayout>

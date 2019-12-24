@@ -3,16 +3,15 @@ package com.example.administrator.jipinshop.adapter
 import android.content.Context
 import android.content.Intent
 import android.databinding.DataBindingUtil
-import android.graphics.Color
 import android.graphics.drawable.Drawable
 import android.os.Handler
 import android.os.Looper
-import android.support.v4.app.Fragment
 import android.support.v4.view.ViewPager
 import android.support.v7.widget.GridLayoutManager
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
 import android.text.TextUtils
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -21,7 +20,6 @@ import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.RelativeLayout
 import android.widget.TextView
-import com.ali.auth.third.core.context.KernelContext.resources
 import com.blankj.utilcode.util.SPUtils
 import com.example.administrator.jipinshop.R
 import com.example.administrator.jipinshop.activity.WebActivity
@@ -31,18 +29,15 @@ import com.example.administrator.jipinshop.activity.shoppingdetail.tbshoppingdet
 import com.example.administrator.jipinshop.bean.TBSreachResultBean
 import com.example.administrator.jipinshop.bean.TbkIndexBean
 import com.example.administrator.jipinshop.databinding.*
-import com.example.administrator.jipinshop.fragment.home.main.tab.KTTabFragment
 import com.example.administrator.jipinshop.netwrok.RetrofitModule
+import com.example.administrator.jipinshop.util.DistanceHelper
 import com.example.administrator.jipinshop.util.ShopJumpUtil
-import com.example.administrator.jipinshop.util.ToastUtil
 import com.example.administrator.jipinshop.util.WeakRefHandler
 import com.example.administrator.jipinshop.util.sp.CommonDate
 import com.example.administrator.jipinshop.view.glide.GlideApp
 import com.example.administrator.jipinshop.view.textview.TextViewDel
-import net.lucode.hackware.magicindicator.ViewPagerHelper
-import net.lucode.hackware.magicindicator.buildins.commonnavigator.CommonNavigator
 import java.math.BigDecimal
-import java.util.ArrayList
+import java.util.*
 
 
 /**
@@ -242,7 +237,14 @@ class KTMainAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder> {
             HEAD2 -> {
                 var twoViewHolder: TwoViewHolder  = holder as TwoViewHolder
                 twoViewHolder.run {
-                    initGrid()
+                    gridList.clear()
+                    gridList.addAll(mGridList)
+                    if (gridList.size > 4){
+                        binding.gridPoint.visibility = View.VISIBLE
+                    }else{
+                        binding.gridPoint.visibility = View.GONE
+                    }
+                    adapter.notifyDataSetChanged()
                 }
             }
             HEAD3 -> {
@@ -577,38 +579,62 @@ class KTMainAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder> {
     inner class TwoViewHolder : RecyclerView.ViewHolder {
 
         var binding: ItemMainTwoBinding
-        var fragments: MutableList<Fragment>
-        var tabAdapter: KTTabNoTitleAdapter
+        var gridList: MutableList<TbkIndexBean.DataBean.BoxListBean>
+        var adapter: KTMainGridAdapter
 
         constructor(binding: ItemMainTwoBinding) : super(binding.root) {
             this.binding = binding
 
-            fragments = mutableListOf()
-            mPagerAdapter.setFragments(fragments)
-            binding.gridViewpager.adapter = mPagerAdapter
-            var commonNavigator = CommonNavigator(mContext)
-            tabAdapter = KTTabNoTitleAdapter(fragments)
-            commonNavigator.isAdjustMode = true
-            commonNavigator.adapter = tabAdapter
-            binding.gridPoint.navigator = commonNavigator
-            ViewPagerHelper.bind(binding.gridPoint, binding.gridViewpager)
+            var linearLayoutManager = LinearLayoutManager(mContext,LinearLayout.HORIZONTAL,false)
+            binding.gridViewpager.layoutManager= linearLayoutManager
+            gridList = mutableListOf()
+            adapter = KTMainGridAdapter(gridList,mContext)
+            binding.gridViewpager.adapter = adapter
+            binding.gridViewpager.addOnScrollListener(object : RecyclerView.OnScrollListener() {
+                override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
+                    super.onScrolled(recyclerView, dx, dy)
+                    //划出去的宽度
+                    var isResult = getResult(linearLayoutManager)
+                    //可划出去的总宽度
+                    var totleWith = getTotleWith(linearLayoutManager)
+                    //线条的总宽度
+                    var lineWith = mContext.resources.getDimension(R.dimen.x45)
+                    //结果
+                    var result  = (lineWith / totleWith) * isResult
+                    var layoutParams =  binding.point.layoutParams as RelativeLayout.LayoutParams
+                    layoutParams.leftMargin = result.toInt()
+                    binding.point.layoutParams = layoutParams
+                }
+            })
         }
 
-        fun initGrid(){
-            fragments.clear()//清空数据
-            if (mGridList != null && mGridList.size != 0){
-                if (mGridList.size <= 4){
-                    binding.gridPoint.visibility  = View.GONE
-                    fragments.add(KTTabFragment.getInstance(0,mGridList))
-                }else{
-                    binding.gridPoint.visibility  = View.VISIBLE
-                    fragments.add(KTTabFragment.getInstance(0,mGridList))
-                    fragments.add(KTTabFragment.getInstance(1,mGridList))
-                }
-            }
-            mPagerAdapter.updateData(fragments)//更新adapter
-            tabAdapter.notifyDataSetChanged()
+        fun getResult(linearLayoutManager: LinearLayoutManager) : Int{
+            //找到即将移出屏幕Item的position,position是移出屏幕item的数量
+            var position = linearLayoutManager.findFirstVisibleItemPosition()
+            //根据position找到这个Item
+            var firstVisiableChildView = linearLayoutManager.findViewByPosition(position)
+            //获取Item的宽
+            var itemWidth = firstVisiableChildView?.width ?: 0
+            //算出该Item还未移出屏幕的高度
+            var itemRight = firstVisiableChildView?.right ?: 0
+            //position移出屏幕的数量*高度得出移动的距离
+            var iposition = position * itemWidth
+            //因为横着的RecyclerV第一个取到的Item position为零所以计算时需要加一个宽
+            var iResult = iposition - itemRight + itemWidth
+            return  iResult
         }
+
+        fun getTotleWith(linearLayoutManager: LinearLayoutManager) : Int{
+            //找到即将移出屏幕Item的position,position是移出屏幕item的数量
+            var position = linearLayoutManager.findFirstVisibleItemPosition()
+            //根据position找到这个Item
+            var firstVisiableChildView = linearLayoutManager.findViewByPosition(position)
+            //获取Item的宽
+            var itemWidth = firstVisiableChildView?.width ?: 0
+
+            return ((itemWidth * gridList.size) - DistanceHelper.getAndroiodScreenwidthPixels(mContext))
+        }
+
     }
 
     inner class TreeViewHolder : RecyclerView.ViewHolder {

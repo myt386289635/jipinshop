@@ -5,19 +5,28 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
-        <android.support.v4.view.ViewPager
+        <android.support.v7.widget.RecyclerView
             android:id="@+id/grid_viewpager"
             android:layout_width="match_parent"
             android:layout_height="@dimen/y203"/>
-
-        <net.lucode.hackware.magicindicator.MagicIndicator
+        
+        <RelativeLayout
+            android:orientation="horizontal"
+            android:id="@+id/grid_point"
             android:background="@color/color_D8D8D8"
             android:layout_centerHorizontal="true"
             android:layout_below="@id/grid_viewpager"
             android:layout_marginBottom="@dimen/y20"
-            android:id="@+id/grid_point"
             android:layout_width="@dimen/x90"
-            android:layout_height="@dimen/y5"/>
+            android:layout_height="@dimen/y5">
+            
+            <View
+                android:id="@+id/point"
+                android:background="@color/color_E25838"
+                android:layout_width="@dimen/x45"
+                android:layout_height="match_parent"/>
+            
+        </RelativeLayout>
 
         <View
             android:id="@+id/line"
