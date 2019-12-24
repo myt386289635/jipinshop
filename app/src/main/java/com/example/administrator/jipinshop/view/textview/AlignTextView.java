@@ -245,7 +245,7 @@ public class AlignTextView extends AppCompatTextView{
     private void measureTextViewHeight(String text, float textSize, int deviceWidth) {
         TextView textView = new TextView(getContext());
         textView.setText(text);
-        textView.setTextSize(TypedValue.COMPLEX_UNIT_SP, textSize);
+        textView.setTextSize(TypedValue.COMPLEX_UNIT_PX, textSize);
         int widthMeasureSpec = MeasureSpec.makeMeasureSpec(deviceWidth, MeasureSpec.EXACTLY);
         int heightMeasureSpec = MeasureSpec.makeMeasureSpec(0, MeasureSpec.UNSPECIFIED);
         textView.measure(widthMeasureSpec, heightMeasureSpec);
