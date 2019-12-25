@@ -6,6 +6,7 @@ import android.databinding.DataBindingUtil
 import android.graphics.drawable.Drawable
 import android.os.Handler
 import android.os.Looper
+import android.support.v4.view.ViewPager
 import android.support.v7.widget.GridLayoutManager
 import android.support.v7.widget.RecyclerView
 import android.text.TextUtils
@@ -26,8 +27,10 @@ import com.example.administrator.jipinshop.databinding.ItemHomeOneBinding
 import com.example.administrator.jipinshop.databinding.ItemHomeTwoBinding
 import com.example.administrator.jipinshop.databinding.ItemSreachOneBinding
 import com.example.administrator.jipinshop.util.ShopJumpUtil
+import com.example.administrator.jipinshop.util.ToastUtil
 import com.example.administrator.jipinshop.util.WeakRefHandler
 import com.example.administrator.jipinshop.util.sp.CommonDate
+import com.example.administrator.jipinshop.view.viewpager.TouchViewPager
 import java.math.BigDecimal
 import java.util.*
 
@@ -47,7 +50,6 @@ class KTHomeCommenAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>{
     private lateinit var mGvListBeans: MutableList<TbCommonBean.CategoryListBean>
     private var mContext: Context
     private var layoutType = 1//横线是1，网格是2  默认横线
-    private var isFlag: Boolean //控制轮播图的
     private var asc = arrayOf("")
     private var orderByType = arrayOf("0")
     private lateinit var mOnItem: OnItem
@@ -59,7 +61,6 @@ class KTHomeCommenAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>{
     constructor(list: MutableList<TBSreachResultBean.DataBean> ,adListBeans: MutableList<TbCommonBean.AdListBean> , context: Context){
         mList = list
         mContext = context
-        isFlag = true
         mAdListBeans = adListBeans
     }
 
@@ -154,28 +155,16 @@ class KTHomeCommenAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>{
             HEAD1 -> {
                 var oneViewHolder : OneViewHolder = holder as OneViewHolder
                 oneViewHolder.run {
-                    if (isFlag) {
-                        mPagerAdapter.setOnClickItem(object : KTPagerAdapter2.OnClickItem {
-                            override fun onClickItem(postion: Int) {
-                                ShopJumpUtil.openBanner(mContext,mAdListBeans[postion].type,
-                                        mAdListBeans[postion].objectId,mAdListBeans[postion].name)
-                            }
-                        })
-                        adListBeans.clear()
-                        adListBeans.addAll(mAdListBeans)
-                        initBanner()
-                        Thread {
-                            while (true) {
-                                try {
-                                    Thread.sleep(5000)
-                                } catch (e: InterruptedException) {
-                                    e.printStackTrace()
-                                }
-                                handler.sendEmptyMessage(100)
-                            }
-                        }.start()
-                        isFlag = false
-                    }
+                    mPagerAdapter.setOnClickItem(object : KTPagerAdapter2.OnClickItem {
+                        override fun onClickItem(postion: Int) {
+                            ShopJumpUtil.openBanner(mContext, mAdListBeans[toRealPosition(postion)].type,
+                                    mAdListBeans[toRealPosition(postion)].objectId, mAdListBeans[toRealPosition(postion)].name)
+//                            ToastUtil.show("点击位置：" + toRealPosition(postion))
+                        }
+                    })
+                    adListBeans.clear()
+                    adListBeans.addAll(mAdListBeans)
+                    initBanner()
                 }
             }
             HEAD2 -> {
@@ -332,20 +321,25 @@ class KTHomeCommenAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>{
         }
     }
 
-    inner class OneViewHolder : RecyclerView.ViewHolder{
+    inner class OneViewHolder : RecyclerView.ViewHolder, ViewPager.OnPageChangeListener {
 
         lateinit var binding : ItemHomeOneBinding
         var mPagerAdapter: KTPagerAdapter2
         var point: MutableList<ImageView>
-        lateinit var adListBeans : MutableList<TbCommonBean.AdListBean>
+        var adListBeans : MutableList<TbCommonBean.AdListBean>
+        private var currentItem: Int = 0
+        private var count : Int = 0
 
-        private var mCallback = Handler.Callback {
+        private var mCallback : Handler.Callback = Handler.Callback {
             if (it.what == 100) {
-                if (adListBeans.size != 0){
-                    if(binding.mainViewpager.currentItem == adListBeans.size - 1){
-                        binding.mainViewpager.currentItem = 0
+                if (count > 1){
+                    currentItem = currentItem % (count + 1) + 1
+                    if (currentItem == 1) {
+                        binding.mainViewpager.setCurrentItem(currentItem, false)
+                        handler.sendEmptyMessage(100)
                     }else{
-                        binding.mainViewpager.currentItem = binding.mainViewpager.currentItem + 1
+                        binding.mainViewpager.currentItem = currentItem
+                        handler.sendEmptyMessageDelayed(100,5000)
                     }
                 }
             }
@@ -361,15 +355,66 @@ class KTHomeCommenAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>{
             mPagerAdapter.setList(adListBeans)
             mPagerAdapter.setPoint(point)
             mPagerAdapter.setImgCenter(true)
-            mPagerAdapter.setViewPager(binding.mainViewpager)
             binding.mainViewpager.adapter = mPagerAdapter
+            binding.mainViewpager.addOnPageChangeListener(this)
+            binding.mainViewpager.setOnTouchListener(object : TouchViewPager.OnTouchListener {
+                override fun startAutoPlay() {
+                    handler.removeCallbacksAndMessages(null)
+                    handler.sendEmptyMessageDelayed(100,5000)
+                }
+
+                override fun stopAutoPlay() {
+                    handler.removeCallbacksAndMessages(null)
+                }
+
+            })
+        }
+
+        override fun onPageScrollStateChanged(state: Int) {
+            when (state) {
+                0//No operation
+                -> if (currentItem === 0) {
+                    binding.mainViewpager.setCurrentItem(count, false)
+                } else if (currentItem === count + 1) {
+                    binding.mainViewpager.setCurrentItem(1, false)
+                }
+                1//start Sliding
+                -> if (currentItem === count + 1) {
+                    binding.mainViewpager.setCurrentItem(1, false)
+                } else if (currentItem === 0) {
+                    binding.mainViewpager.setCurrentItem(count, false)
+                }
+                2//end Sliding
+                -> {
+                }
+            }
+        }
+
+        override fun onPageScrolled(p0: Int, p1: Float, p2: Int) {}
+
+        override fun onPageSelected(position: Int) {
+            for (i in point.indices) {
+                if (i == toRealPosition(position)) {
+                    point[i].setImageResource(R.drawable.banner_down)
+                } else {
+                    point[i].setImageResource(R.drawable.banner_up)
+                }
+            }
+            currentItem = position
         }
 
         fun initBanner() {
-            binding.mainViewpager.setCurrentItem(0,false)
+            if (adListBeans.size > 1){
+                count = adListBeans.size - 2
+            }else{
+                count = adListBeans.size
+            }
+            handler.removeCallbacksAndMessages(null)//刷新时，要删除handler的请求
+            handler.sendEmptyMessageDelayed(100,5000)
+            binding.mainViewpager.setCurrentItem(1,false)
             point.clear()
             binding.mainPoint.removeAllViews()
-            for (i in adListBeans.indices) {
+            for (i in 0 until count) {
                 val imageView = ImageView(mContext)
                 point.add(imageView)
                 if (i == 0) {
@@ -383,11 +428,26 @@ class KTHomeCommenAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>{
                 binding.mainPoint.addView(imageView, layoutParams)
             }
             mPagerAdapter.notifyDataSetChanged()
-            if (adListBeans.size > 1){
+            if (count > 1){
                 binding.mainPoint.visibility = View.VISIBLE
             }else{
                 binding.mainPoint.visibility = View.INVISIBLE
             }
+        }
+
+        /**
+         * 返回真实的位置
+         * @param position
+         * @return 下标从0开始
+         */
+        fun toRealPosition(position: Int): Int {
+            var realPosition: Int = 0
+            if (count !== 0) {
+                realPosition = (position - 1) % count
+            }
+            if (realPosition < 0)
+                realPosition += count
+            return realPosition
         }
     }
 

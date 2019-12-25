@@ -115,7 +115,23 @@ class KTHomeCommenFragment : DBBaseFragment(), OnLoadMoreListener, OnRefreshList
             mAdListBeans.clear()
             mGvListBeans.clear()
             mGvListBeans.addAll(bean.categoryList)
-            mAdListBeans.addAll(bean.adList)
+            if (bean.adList.size > 1){
+                for (i in 0..(bean.adList.size + 1)) {//轮播图数据
+                    when (i) {
+                        0 -> {//加入最后一个
+                            mAdListBeans.add(bean.adList[bean.adList.size - 1])
+                        }
+                        bean.adList.size + 1 -> {//加入第一个
+                            mAdListBeans.add(bean.adList[0])
+                        }
+                        else -> {//正常数据
+                            mAdListBeans.add(bean.adList[i - 1])
+                        }
+                    }
+                }
+            }else{
+                mAdListBeans.addAll(bean.adList)
+            }
             mList.addAll(bean.data)
             mAdapter.notifyDataSetChanged()
         } else {
