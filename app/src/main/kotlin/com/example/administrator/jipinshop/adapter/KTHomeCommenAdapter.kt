@@ -157,8 +157,8 @@ class KTHomeCommenAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>{
                 oneViewHolder.run {
                     mPagerAdapter.setOnClickItem(object : KTPagerAdapter2.OnClickItem {
                         override fun onClickItem(postion: Int) {
-                            ShopJumpUtil.openBanner(mContext, mAdListBeans[toRealPosition(postion)].type,
-                                    mAdListBeans[toRealPosition(postion)].objectId, mAdListBeans[toRealPosition(postion)].name)
+                            ShopJumpUtil.openBanner(mContext, mAdListBeans[postion].type,
+                                    mAdListBeans[postion].objectId, mAdListBeans[postion].name)
 //                            ToastUtil.show("点击位置：" + toRealPosition(postion))
                         }
                     })

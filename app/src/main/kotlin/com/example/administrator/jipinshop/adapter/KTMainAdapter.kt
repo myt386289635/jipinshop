@@ -31,6 +31,7 @@ import com.example.administrator.jipinshop.databinding.*
 import com.example.administrator.jipinshop.netwrok.RetrofitModule
 import com.example.administrator.jipinshop.util.DistanceHelper
 import com.example.administrator.jipinshop.util.ShopJumpUtil
+import com.example.administrator.jipinshop.util.ToastUtil
 import com.example.administrator.jipinshop.util.WeakRefHandler
 import com.example.administrator.jipinshop.util.sp.CommonDate
 import com.example.administrator.jipinshop.view.glide.GlideApp
@@ -209,8 +210,8 @@ class KTMainAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder> {
                 oneViewHolder.run {
                     mPagerAdapter.setOnClickItem(object : KTPagerAdapter.OnClickItem {
                         override fun onClickItem(postion: Int) {
-                            ShopJumpUtil.openBanner(mContext,mAdListBeans[toRealPosition(postion)].type,
-                                    mAdListBeans[toRealPosition(postion)].objectId,mAdListBeans[toRealPosition(postion)].name)
+                            ShopJumpUtil.openBanner(mContext,mAdListBeans[postion].type,
+                                    mAdListBeans[postion].objectId,mAdListBeans[postion].name)
 //                            ToastUtil.show("点击$postion  --真实位置：" + toRealPosition(postion))
                         }
                     })
