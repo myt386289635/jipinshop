@@ -39,7 +39,7 @@
             android:id="@+id/item_priceContainer"
             android:layout_alignRight="@id/item_image"
             android:layout_alignLeft="@id/item_image"
-            android:layout_marginTop="@dimen/y20"
+            android:layout_marginTop="@dimen/y12"
             android:layout_below="@id/item_name"
             android:orientation="horizontal"
             android:layout_width="wrap_content"
