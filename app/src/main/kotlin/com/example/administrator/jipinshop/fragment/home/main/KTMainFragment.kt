@@ -7,6 +7,7 @@ import android.databinding.DataBindingUtil
 import android.graphics.Color
 import android.support.v7.widget.GridLayoutManager
 import android.view.LayoutInflater
+import android.view.MotionEvent
 import android.view.View
 import android.view.ViewGroup
 import com.aspsine.swipetoloadlayout.OnLoadMoreListener
@@ -194,7 +195,19 @@ class KTMainFragment : DBBaseFragment(), OnLoadMoreListener, OnRefreshListener, 
         for (i in bean.data.ad1List.indices){
             mColor.add(bean.data.ad1List[i].color)
         }
-        mAdListBeans.addAll(bean.data.ad1List)
+        for (i in 0 .. (bean.data.ad1List.size + 1)){//轮播图数据
+            when (i) {
+                0 -> {//加入最后一个
+                    mAdListBeans.add(bean.data.ad1List[bean.data.ad1List.size - 1])
+                }
+                bean.data.ad1List.size + 1 -> {//加入第一个
+                    mAdListBeans.add(bean.data.ad1List[0])
+                }
+                else -> {//正常数据
+                    mAdListBeans.add(bean.data.ad1List[i - 1])
+                }
+            }
+        }
         mGridList.addAll(bean.data.boxList)
         mUserList.addAll(bean.data.messageList)
         mFreeGoodsList.addAll(bean.data.freeGoodsList)

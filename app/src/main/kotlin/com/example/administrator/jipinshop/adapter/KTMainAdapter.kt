@@ -11,7 +11,6 @@ import android.support.v7.widget.GridLayoutManager
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
 import android.text.TextUtils
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -36,6 +35,7 @@ import com.example.administrator.jipinshop.util.WeakRefHandler
 import com.example.administrator.jipinshop.util.sp.CommonDate
 import com.example.administrator.jipinshop.view.glide.GlideApp
 import com.example.administrator.jipinshop.view.textview.TextViewDel
+import com.example.administrator.jipinshop.view.viewpager.TouchViewPager
 import java.math.BigDecimal
 import java.util.*
 
@@ -55,7 +55,6 @@ class KTMainAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder> {
     private val CONTENT = 6
 
     private var mContext: Context
-    private var isFlag: Boolean //控制轮播图的
     private lateinit var mOnItem: OnItem
     private lateinit var mPagerAdapter: HomePageAdapter
     private var layoutType = 1//横线是1，网格是2  默认横线
@@ -82,7 +81,6 @@ class KTMainAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder> {
         mColor = color
         mAdListBeans = adListBeans
         mContext = context
-        this.isFlag = true
     }
 
     fun setLayoutType(layoutType: Int) {
@@ -101,7 +99,7 @@ class KTMainAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder> {
         this.orderByType = orderByType
     }
 
-    fun setAd2Bean(ad2Bean: TbkIndexBean.DataBean.Ad2Bean){
+    fun setAd2Bean(ad2Bean: TbkIndexBean.DataBean.Ad2Bean?){
         mAd2Bean = ad2Bean
     }
 
@@ -211,27 +209,14 @@ class KTMainAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder> {
                 oneViewHolder.run {
                     mPagerAdapter.setOnClickItem(object : KTPagerAdapter.OnClickItem {
                         override fun onClickItem(postion: Int) {
-                            ShopJumpUtil.openBanner(mContext,mAdListBeans[postion].type,
-                                    mAdListBeans[postion].objectId,mAdListBeans[postion].name)
+                            ShopJumpUtil.openBanner(mContext,mAdListBeans[toRealPosition(postion)].type,
+                                    mAdListBeans[toRealPosition(postion)].objectId,mAdListBeans[toRealPosition(postion)].name)
+//                            ToastUtil.show("点击$postion  --真实位置：" + toRealPosition(postion))
                         }
                     })
                     adListBeans.clear()
-                    mOnItem.onColor(0)
                     adListBeans.addAll(mAdListBeans)
                     initBanner()
-                    if (isFlag) {
-                        Thread {
-                            while (true) {
-                                try {
-                                    Thread.sleep(5000)
-                                } catch (e: InterruptedException) {
-                                    e.printStackTrace()
-                                }
-                                handler.sendEmptyMessage(100)
-                            }
-                        }.start()
-                        isFlag = false
-                    }
                 }
             }
             HEAD2 -> {
@@ -517,17 +502,21 @@ class KTMainAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder> {
         lateinit var binding : ItemMainOneBinding
         var mPagerAdapter: KTPagerAdapter
         var point: MutableList<ImageView>
-        lateinit var adListBeans : MutableList<TbkIndexBean.DataBean.Ad1ListBean>
+        var adListBeans : MutableList<TbkIndexBean.DataBean.Ad1ListBean>
+        private var currentItem: Int = 0
+        private var count : Int = 0
 
-        private var mCallback = Handler.Callback {
+        private var mCallback : Handler.Callback = Handler.Callback {
             if (it.what == 100) {
-                if (adListBeans.size != 0){
-                    if(binding.mainViewpager.currentItem == adListBeans.size - 1){
-                        binding.mainViewpager.currentItem = 0
+                if (count > 1){
+                    currentItem = currentItem % (count + 1) + 1
+                    if (currentItem == 1) {
+                        binding.mainViewpager.setCurrentItem(currentItem, false)
+                        handler.sendEmptyMessage(100)
                     }else{
-                        binding.mainViewpager.currentItem = binding.mainViewpager.currentItem + 1
+                        binding.mainViewpager.currentItem = currentItem
+                        handler.sendEmptyMessageDelayed(100,5000)
                     }
-                    mOnItem.onColor(binding.mainViewpager.currentItem)
                 }
             }
             true
@@ -542,24 +531,63 @@ class KTMainAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder> {
             mPagerAdapter.setList(adListBeans)
             mPagerAdapter.setPoint(point)
             mPagerAdapter.setImgCenter(true)
-            mPagerAdapter.setViewPager(binding.mainViewpager)
             binding.mainViewpager.adapter = mPagerAdapter
             binding.mainViewpager.addOnPageChangeListener(this)
+            binding.mainViewpager.setOnTouchListener(object : TouchViewPager.OnTouchListener {
+                override fun startAutoPlay() {
+                    handler.removeCallbacksAndMessages(null)
+                    handler.sendEmptyMessageDelayed(100,5000)
+                }
+
+                override fun stopAutoPlay() {
+                    handler.removeCallbacksAndMessages(null)
+                }
+
+            })
         }
 
-        override fun onPageScrollStateChanged(p0: Int) {}
+        override fun onPageScrollStateChanged(state: Int) {
+            when (state) {
+                0//No operation
+                -> if (currentItem === 0) {
+                    binding.mainViewpager.setCurrentItem(count, false)
+                } else if (currentItem === count + 1) {
+                    binding.mainViewpager.setCurrentItem(1, false)
+                }
+                1//start Sliding
+                -> if (currentItem === count + 1) {
+                    binding.mainViewpager.setCurrentItem(1, false)
+                } else if (currentItem === 0) {
+                    binding.mainViewpager.setCurrentItem(count, false)
+                }
+                2//end Sliding
+                -> {
+                }
+            }
+        }
 
         override fun onPageScrolled(p0: Int, p1: Float, p2: Int) {}
 
         override fun onPageSelected(position: Int) {
-            mOnItem.onColor(position % adListBeans.size)
+            for (i in point.indices) {
+                if (i == toRealPosition(position)) {
+                    point[i].setImageResource(R.drawable.banner_down)
+                } else {
+                    point[i].setImageResource(R.drawable.banner_up)
+                }
+            }
+            currentItem = position
+            mOnItem.onColor(toRealPosition(position))
         }
 
         fun initBanner() {
-            binding.mainViewpager.setCurrentItem(0,false)
+            count = adListBeans.size - 2
+            handler.removeCallbacksAndMessages(null)//刷新时，要删除handler的请求
+            handler.sendEmptyMessageDelayed(100,5000)
+            binding.mainViewpager.setCurrentItem(1,false)
             point.clear()
             binding.mainPoint.removeAllViews()
-            for (i in adListBeans.indices) {
+            for (i in 0 until count) {
                 val imageView = ImageView(mContext)
                 point.add(imageView)
                 if (i == 0) {
@@ -573,6 +601,21 @@ class KTMainAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder> {
                 binding.mainPoint.addView(imageView, layoutParams)
             }
             mPagerAdapter.notifyDataSetChanged()
+        }
+
+        /**
+         * 返回真实的位置
+         * @param position
+         * @return 下标从0开始
+         */
+        fun toRealPosition(position: Int): Int {
+            var realPosition: Int = 0
+            if (count !== 0) {
+                realPosition = (position - 1) % count
+            }
+            if (realPosition < 0)
+                realPosition += count
+            return realPosition
         }
     }
 

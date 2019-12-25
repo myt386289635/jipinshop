@@ -2,7 +2,6 @@ package com.example.administrator.jipinshop.adapter
 
 import android.content.Context
 import android.support.v4.view.PagerAdapter
-import android.support.v4.view.ViewPager
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -16,12 +15,11 @@ import com.example.administrator.jipinshop.view.glide.GlideApp
  * @create 2019/12/11
  * @Describe 轮播图是4个圆角的
  */
-class KTPagerAdapter : PagerAdapter, ViewPager.OnPageChangeListener {
+class KTPagerAdapter : PagerAdapter{
 
     private lateinit var mAdListBeans: List<TbkIndexBean.DataBean.Ad1ListBean>
     private val mContext: Context
     private lateinit var point: List<ImageView>
-    private lateinit var mViewPager: ViewPager
     private var imgCenter: Boolean = true
     private var mOnClickItem: OnClickItem? = null
 
@@ -39,10 +37,6 @@ class KTPagerAdapter : PagerAdapter, ViewPager.OnPageChangeListener {
 
     fun setPoint(point: List<ImageView>) {
         this.point = point
-    }
-
-    fun setViewPager(viewPager: ViewPager) {
-        mViewPager = viewPager
     }
 
     fun setList(list: List<TbkIndexBean.DataBean.Ad1ListBean>) {
@@ -74,27 +68,12 @@ class KTPagerAdapter : PagerAdapter, ViewPager.OnPageChangeListener {
             mOnClickItem?.onClickItem(position)
         }
         container.addView(view)
-        mViewPager.addOnPageChangeListener(this)
         return view
     }
 
 
     override fun destroyItem(container: ViewGroup, position: Int, `object`: Any) {
 
-    }
-
-    override fun onPageScrollStateChanged(p0: Int) {}
-
-    override fun onPageScrolled(p0: Int, p1: Float, p2: Int) {}
-
-    override fun onPageSelected(position: Int) {
-        for (i in point.indices) {
-            if (i == position) {
-                point[i].setImageResource(R.drawable.banner_down)
-            } else {
-                point[i].setImageResource(R.drawable.banner_up)
-            }
-        }
     }
 
     interface OnClickItem {
