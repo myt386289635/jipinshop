@@ -12,13 +12,11 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 
-import com.blankj.utilcode.util.SPUtils;
 import com.example.administrator.jipinshop.R;
 import com.example.administrator.jipinshop.activity.home.MainActivity;
 import com.example.administrator.jipinshop.adapter.IndexAdapter;
 import com.example.administrator.jipinshop.databinding.ActivityIndexBinding;
 import com.example.administrator.jipinshop.util.NotchUtil;
-import com.example.administrator.jipinshop.util.sp.CommonDate;
 import com.gyf.barlibrary.BarHide;
 import com.gyf.barlibrary.ImmersionBar;
 

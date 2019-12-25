@@ -4,35 +4,36 @@ import android.content.Intent;
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v7.app.AppCompatActivity;
 import android.text.Html;
 import android.view.View;
 
 import com.example.administrator.jipinshop.R;
 import com.example.administrator.jipinshop.activity.WebActivity;
-import com.example.administrator.jipinshop.activity.home.MainActivity;
-import com.example.administrator.jipinshop.base.BaseActivity;
 import com.example.administrator.jipinshop.databinding.ActivityServceBinding;
 import com.example.administrator.jipinshop.netwrok.RetrofitModule;
 import com.example.administrator.jipinshop.util.ToastUtil;
+import com.gyf.barlibrary.ImmersionBar;
 
 /**
  * @author 莫小婷
  * @create 2019/12/4
  * @Describe 相关权限获取页面
  */
-public class ServceActivity extends BaseActivity implements View.OnClickListener {
+public class ServceActivity extends AppCompatActivity implements View.OnClickListener {
 
     private ActivityServceBinding mBinding;
     private Boolean[] mBooleans = {true,true,true};
     private long exitTime = 0;
+    protected ImmersionBar mImmersionBar;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         mBinding = DataBindingUtil.setContentView(this,R.layout.activity_servce);
         mBinding.setListener(this);
-        mImmersionBar.reset()
-                .statusBarColor(R.color.color_F5F5F5)
+        mImmersionBar = ImmersionBar.with(this);
+        mImmersionBar.statusBarColor(R.color.color_F5F5F5)
                 .fitsSystemWindows(true)
                 .statusBarDarkFont(true, 0f)
                 .init();
@@ -53,7 +54,7 @@ public class ServceActivity extends BaseActivity implements View.OnClickListener
                         return;
                     }
                 }
-                startActivity(new Intent(this, MainActivity.class));
+                startActivity(new Intent(this, IndexActivity.class));
                 finish();
                 break;
             case R.id.servce1_agree:
@@ -121,5 +122,12 @@ public class ServceActivity extends BaseActivity implements View.OnClickListener
         } else {
             super.onBackPressed();
         }
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        if (mImmersionBar != null)
+            mImmersionBar.destroy(); //必须调用该方法，防止内存泄漏
     }
 }
