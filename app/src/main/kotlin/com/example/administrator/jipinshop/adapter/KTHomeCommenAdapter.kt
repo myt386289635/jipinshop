@@ -383,6 +383,11 @@ class KTHomeCommenAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>{
                 binding.mainPoint.addView(imageView, layoutParams)
             }
             mPagerAdapter.notifyDataSetChanged()
+            if (adListBeans.size > 1){
+                binding.mainPoint.visibility = View.VISIBLE
+            }else{
+                binding.mainPoint.visibility = View.INVISIBLE
+            }
         }
     }
 
