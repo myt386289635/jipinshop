@@ -16,7 +16,6 @@ import android.widget.TextView;
 
 import com.example.administrator.jipinshop.R;
 import com.example.administrator.jipinshop.util.FileManager;
-import com.example.administrator.jipinshop.util.ImageCompressUtil;
 import com.example.administrator.jipinshop.util.ImageHelper;
 import com.example.administrator.jipinshop.util.permission.HasPermissionsUtil;
 import com.yanzhenjie.permission.Permission;
@@ -41,6 +40,7 @@ public class SelectPicDialog extends BottomSheetDialogFragment {
     private TextView dialog_pic;
     private TextView dialog_cerame;
     private TextView dialog_diss;
+    private View dialog_line1,dialog_line11,dialog_line2,dialog_line22;
 
     private ChoosePhotoCallback mChoosePhotoCallback;
     private File mSavePhotoFile;//拍照得到的图片
@@ -62,12 +62,28 @@ public class SelectPicDialog extends BottomSheetDialogFragment {
         dialog_pic = view.findViewById(R.id.dialog_pic);
         dialog_cerame = view.findViewById(R.id.dialog_cerame);
         dialog_diss = view.findViewById(R.id.dialog_diss);
+        dialog_line1 = view.findViewById(R.id.dialog_line1);
+        dialog_line11 = view.findViewById(R.id.dialog_line11);
+        dialog_line2 = view.findViewById(R.id.dialog_line2);
+        dialog_line22 = view.findViewById(R.id.dialog_line22);
 
         dialog_diss.setOnClickListener(v -> dismiss());
         //调用相册
-        dialog_pic.setOnClickListener(v -> selectPicFromAlbum());
+        dialog_pic.setOnClickListener(v -> {
+            dialog_line2.setVisibility(View.VISIBLE);
+            dialog_line22.setVisibility(View.GONE);
+            dialog_line1.setVisibility(View.GONE);
+            dialog_line11.setVisibility(View.VISIBLE);
+            selectPicFromAlbum();
+        });
         //调用相机
-        dialog_cerame.setOnClickListener(v -> selectPicFromCamera());
+        dialog_cerame.setOnClickListener(v -> {
+            dialog_line2.setVisibility(View.GONE);
+            dialog_line22.setVisibility(View.VISIBLE);
+            dialog_line1.setVisibility(View.VISIBLE);
+            dialog_line11.setVisibility(View.GONE);
+            selectPicFromCamera();
+        });
     }
 
     @Override
