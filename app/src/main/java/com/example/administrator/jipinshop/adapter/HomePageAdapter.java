@@ -51,7 +51,9 @@ public class HomePageAdapter extends FragmentPagerAdapter {
             for(Fragment f : fragments){
                 fragmentTransaction.remove(f);
             }
-            fragmentTransaction.commit();
+            //把commit（）方法替换成 commitAllowingStateLoss()  避免崩溃
+            //毕竟报错奔溃，比页面状态信息丢失更严重；
+            fragmentTransaction.commitAllowingStateLoss();
             mFragmentManager.executePendingTransactions();
         }
         fragments = fragmentsTemp;
