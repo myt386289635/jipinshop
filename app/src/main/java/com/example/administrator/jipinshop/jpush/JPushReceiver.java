@@ -68,12 +68,22 @@ public class JPushReceiver extends BroadcastReceiver {
             EventBus.getDefault().post(JPushReceiver.TAG);
         } else if (JPushInterface.ACTION_NOTIFICATION_OPENED.equals(intent.getAction())) {
             Log.e(TAG, "用户点击打开了通知");
-
-            String newsInfo = bundle.getString(JPushInterface.EXTRA_EXTRA);
-            JPushBean jPushBean = new Gson().fromJson(newsInfo, JPushBean.class);
-//            Log.e(TAG,newsInfo);
-            if (jPushBean != null && !TextUtils.isEmpty(jPushBean.getTargetType())){
-                openNotification(context,jPushBean);
+            if (bundle != null){
+                String newsInfo = bundle.getString(JPushInterface.EXTRA_EXTRA);
+                JPushBean jPushBean = new Gson().fromJson(newsInfo, JPushBean.class);
+//              Log.e(TAG,newsInfo);
+                if (jPushBean != null){
+                    openNotification(context,jPushBean);
+                }
+            }else {
+                Intent intentDefult = new Intent();
+                if (TextUtils.isEmpty(SPUtils.getInstance(CommonDate.USER).getString(CommonDate.token, "").trim())) {
+                    intentDefult.setClass(context, LoginActivity.class);
+                } else {
+                    intentDefult.setClass(context, MessageActivity.class);
+                }
+                intentDefult.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                context.startActivity(intentDefult);
             }
         } else {
             Log.e(TAG, "Unhandled intent - " + intent.getAction());

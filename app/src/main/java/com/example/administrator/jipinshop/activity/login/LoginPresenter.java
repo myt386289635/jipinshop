@@ -149,7 +149,8 @@ public class LoginPresenter {
                        mView.loginSuccess(s);
                    }
                 }, throwable -> {
-                    Log.d("LoginPresenter", throwable.getMessage());
+                    if (!TextUtils.isEmpty(throwable.getMessage()))
+                        Log.d("LoginPresenter", throwable.getMessage());
                 });
     }
 
