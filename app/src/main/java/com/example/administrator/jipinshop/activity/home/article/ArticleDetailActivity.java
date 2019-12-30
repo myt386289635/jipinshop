@@ -1020,7 +1020,7 @@ public class ArticleDetailActivity extends BaseActivity implements View.OnClickL
 
     public void hintKey() {
         if (mBinding.detailKeyLayout.getVisibility() == View.VISIBLE) {
-            if (mImm.isActive()) {
+            if (mImm.isActive() && getCurrentFocus() != null) {
                 mImm.hideSoftInputFromWindow(getCurrentFocus().getWindowToken(), 0); //强制隐藏键盘
             }
         }
