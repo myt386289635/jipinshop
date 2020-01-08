@@ -22,6 +22,7 @@ import android.widget.TextView
 import com.blankj.utilcode.util.SPUtils
 import com.example.administrator.jipinshop.R
 import com.example.administrator.jipinshop.activity.WebActivity
+import com.example.administrator.jipinshop.activity.cheapgoods.CheapBuyActivity
 import com.example.administrator.jipinshop.activity.login.LoginActivity
 import com.example.administrator.jipinshop.activity.newpeople.NewPeopleActivity
 import com.example.administrator.jipinshop.activity.shoppingdetail.tbshoppingdetail.TBShoppingDetailActivity
@@ -65,11 +66,12 @@ class KTMainAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder> {
     private var mAdListBeans: MutableList<TbkIndexBean.DataBean.Ad1ListBean> //轮播图列表
     private lateinit var mGridList : MutableList<TbkIndexBean.DataBean.BoxListBean> //4宫格图（品质大牌、白菜好物、新品专区、每日签到）
     private lateinit var mUserList: MutableList<TbkIndexBean.DataBean.MessageListBean> //轮播的用户
-    private lateinit var mFreeGoodsList : MutableList<TbkIndexBean.DataBean.FreeGoodsListBean>//新人免单商品
+    private lateinit var mFreeGoodsList : MutableList<TbkIndexBean.DataBean.AllowanceGoodsListBean>//新人免单商品
     private lateinit var mImageDay: TbkIndexBean.DataBean.HotActivityBean//轮播的每日爆款
     private lateinit var mActivityList: MutableList<TbkIndexBean.DataBean.ActivityListBean>//高反专区、大额优惠卷
     private lateinit var mHotShopList: MutableList<TbkIndexBean.DataBean.HotGoodsListBean>//热销榜单
     private var mAd2Bean: TbkIndexBean.DataBean.Ad2Bean? = null //广告位
+    private var newUser:Boolean = false
     private var asc = arrayOf("")
     private var orderByType = arrayOf("0")
 
@@ -82,6 +84,10 @@ class KTMainAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder> {
         mColor = color
         mAdListBeans = adListBeans
         mContext = context
+    }
+
+    fun setNewUser(newUser:Boolean){
+        this.newUser = newUser
     }
 
     fun setLayoutType(layoutType: Int) {
@@ -104,7 +110,7 @@ class KTMainAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder> {
         mAd2Bean = ad2Bean
     }
 
-    fun setFreeGoodsList(freeGoodsList : MutableList<TbkIndexBean.DataBean.FreeGoodsListBean>){
+    fun setFreeGoodsList(freeGoodsList : MutableList<TbkIndexBean.DataBean.AllowanceGoodsListBean>){
         mFreeGoodsList = freeGoodsList
     }
 
@@ -237,43 +243,28 @@ class KTMainAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder> {
                 var threeViewHolder: TreeViewHolder = holder as TreeViewHolder
                 threeViewHolder.run {
                     binding.size = mFreeGoodsList.size
-                    for (i in 0 until 4){
+                    binding.user = newUser
+                    for (i in mFreeGoodsList.indices){
                         when(i){
                             0 -> {
-                                if (i <= mFreeGoodsList.size - 1){
-                                    binding.one = mFreeGoodsList[0]
-                                    binding.peopleText1.setTv(true)
-                                    binding.peopleText1.setColor(R.color.color_9D9D9D)
-                                }else{
-                                    binding.one = null
-                                }
+                                binding.one = mFreeGoodsList[0]
+                                binding.peopleText1.setTv(true)
+                                binding.peopleText1.setColor(R.color.color_9D9D9D)
                             }
                             1 -> {
-                                if (i <= mFreeGoodsList.size - 1){
-                                    binding.two = mFreeGoodsList[1]
-                                    binding.peopleText2.setTv(true)
-                                    binding.peopleText2.setColor(R.color.color_9D9D9D)
-                                }else{
-                                    binding.two = null
-                                }
+                                binding.two = mFreeGoodsList[1]
+                                binding.peopleText2.setTv(true)
+                                binding.peopleText2.setColor(R.color.color_9D9D9D)
                             }
                             2 -> {
-                                if (i <= mFreeGoodsList.size - 1){
-                                    binding.three = mFreeGoodsList[2]
-                                    binding.peopleText3.setTv(true)
-                                    binding.peopleText3.setColor(R.color.color_9D9D9D)
-                                }else{
-                                    binding.three = null
-                                }
+                                binding.three = mFreeGoodsList[2]
+                                binding.peopleText3.setTv(true)
+                                binding.peopleText3.setColor(R.color.color_9D9D9D)
                             }
                             3 -> {
-                                if (i <= mFreeGoodsList.size - 1){
-                                    binding.fore = mFreeGoodsList[3]
-                                    binding.peopleText4.setTv(true)
-                                    binding.peopleText4.setColor(R.color.color_9D9D9D)
-                                }else{
-                                    binding.fore = null
-                                }
+                                binding.fore = mFreeGoodsList[3]
+                                binding.peopleText4.setTv(true)
+                                binding.peopleText4.setColor(R.color.color_9D9D9D)
                             }
                         }
                     }
@@ -290,6 +281,13 @@ class KTMainAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder> {
                             return@setOnClickListener
                         }
                         mContext.startActivity(Intent(mContext, NewPeopleActivity::class.java))
+                    }
+                    binding.mainOldpeople.setOnClickListener {
+                        if (TextUtils.isEmpty(SPUtils.getInstance(CommonDate.USER).getString(CommonDate.token, ""))) {
+                            mContext.startActivity(Intent(mContext, LoginActivity::class.java))
+                            return@setOnClickListener
+                        }
+                        mContext.startActivity(Intent(mContext, CheapBuyActivity::class.java))
                     }
                     binding.marqueeContainer.setOnClickListener {
                         mContext.startActivity(Intent(mContext, WebActivity::class.java)

@@ -49,7 +49,7 @@ class KTMainFragment : DBBaseFragment(), OnLoadMoreListener, OnRefreshListener, 
     private lateinit var mAdListBeans: MutableList<TbkIndexBean.DataBean.Ad1ListBean>//轮播图
     private lateinit var mGridList : MutableList<TbkIndexBean.DataBean.BoxListBean> //4宫格图（品质大牌、白菜好物、新品专区、每日签到）
     private lateinit var mUserList: MutableList<TbkIndexBean.DataBean.MessageListBean> //轮播的用户
-    private lateinit var mFreeGoodsList : MutableList<TbkIndexBean.DataBean.FreeGoodsListBean>//新人免单商品
+    private lateinit var mFreeGoodsList : MutableList<TbkIndexBean.DataBean.AllowanceGoodsListBean>//新人免单商品
     private lateinit var mActivityList: MutableList<TbkIndexBean.DataBean.ActivityListBean>//高反专区、大额优惠卷
     private lateinit var mHotShopList: MutableList<TbkIndexBean.DataBean.HotGoodsListBean>//热销榜单
     private var page = 1
@@ -210,11 +210,12 @@ class KTMainFragment : DBBaseFragment(), OnLoadMoreListener, OnRefreshListener, 
         }
         mGridList.addAll(bean.data.boxList)
         mUserList.addAll(bean.data.messageList)
-        mFreeGoodsList.addAll(bean.data.freeGoodsList)
+        mFreeGoodsList.addAll(bean.data.allowanceGoodsList)
         mAdapter.setImageDay(bean.data.hotActivity)
         mActivityList.addAll(bean.data.activityList)
         mHotShopList.addAll(bean.data.hotGoodsList)
         mAdapter.setAd2Bean(bean.data.ad2)
+        mAdapter.setNewUser(bean.data.newUser)
         mAdapter.notifyDataSetChanged()
         if (type == "1")
             mPresenter.commendGoodsList(page,asc[0],orderByType[0],this.bindToLifecycle())

@@ -6,19 +6,23 @@
         <import type="android.view.View"/>
         <variable
             name="one"
-            type="com.example.administrator.jipinshop.bean.TbkIndexBean.DataBean.FreeGoodsListBean"/>
+            type="com.example.administrator.jipinshop.bean.TbkIndexBean.DataBean.AllowanceGoodsListBean"/>
         <variable
             name="size"
             type="Integer"/>
         <variable
             name="two"
-            type="com.example.administrator.jipinshop.bean.TbkIndexBean.DataBean.FreeGoodsListBean"/>
+            type="com.example.administrator.jipinshop.bean.TbkIndexBean.DataBean.AllowanceGoodsListBean"/>
         <variable
             name="three"
-            type="com.example.administrator.jipinshop.bean.TbkIndexBean.DataBean.FreeGoodsListBean"/>
+            type="com.example.administrator.jipinshop.bean.TbkIndexBean.DataBean.AllowanceGoodsListBean"/>
         <variable
             name="fore"
-            type="com.example.administrator.jipinshop.bean.TbkIndexBean.DataBean.FreeGoodsListBean"/>
+            type="com.example.administrator.jipinshop.bean.TbkIndexBean.DataBean.AllowanceGoodsListBean"/>
+
+        <variable
+            name="user"
+            type="Boolean"/>
     </data>
 
     <RelativeLayout
@@ -63,7 +67,7 @@
         </RelativeLayout>
 
         <RelativeLayout
-            android:visibility="@{size == 0 ? View.GONE : View.VISIBLE}"
+            android:visibility="@{user ? View.VISIBLE : View.GONE}"
             android:layout_marginBottom="@dimen/y24"
             android:id="@+id/main_newpeople"
             android:layout_marginRight="@dimen/x30"
@@ -312,6 +316,188 @@
                 </RelativeLayout>
 
             </LinearLayout>
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:visibility="@{user ? View.GONE : View.VISIBLE}"
+            android:layout_marginBottom="@dimen/y24"
+            android:id="@+id/main_oldpeople"
+            android:layout_marginRight="@dimen/x30"
+            android:layout_marginLeft="@dimen/x30"
+            android:background="@mipmap/bg_home_oldpeople"
+            android:layout_below="@id/marquee_container"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <LinearLayout
+                android:id="@+id/title_container"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="@dimen/x16"
+                android:orientation="vertical"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:textStyle="bold"
+                    android:textColor="@color/color_EA5018"
+                    android:textSize="18sp"
+                    android:text="百万补贴"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"/>
+
+                <TextView
+                    android:layout_marginTop="@dimen/y19"
+                    android:textColor="@color/color_EA5018"
+                    android:textSize="12sp"
+                    android:text="百款商品 下单立减"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"/>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_toRightOf="@id/title_container"
+                android:layout_marginBottom="@dimen/y30"
+                android:layout_marginTop="@dimen/y30"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="@dimen/x14"
+                android:layout_marginRight="@dimen/x14"
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <RelativeLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:visibility="@{size >= 1 ? View.VISIBLE : View.GONE}">
+
+                    <ImageView
+                        android:layout_centerHorizontal="true"
+                        android:id="@+id/item_oldImage1"
+                        bind:srcTopRound="@{one.img}"
+                        android:layout_width="@dimen/x138"
+                        android:layout_height="@dimen/y138"/>
+
+
+                    <TextView
+                        android:minHeight="@dimen/y28"
+                        android:gravity="center"
+                        android:text="@{@string/allowance2 + one.totalCouponPrice + @string/order_prefree_end}"
+                        android:textSize="11sp"
+                        android:textColor="@color/color_white"
+                        android:layout_alignBottom="@id/item_oldImage1"
+                        android:background="@color/color_EA5018"
+                        android:layout_alignRight="@id/item_oldImage1"
+                        android:layout_alignLeft="@id/item_oldImage1"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"/>
+
+                    <TextView
+                        android:gravity="center"
+                        android:text="@{@string/price + one.buyPrice}"
+                        android:textStyle="bold"
+                        android:textColor="@color/color_EA5018"
+                        android:layout_below="@id/item_oldImage1"
+                        android:layout_alignRight="@id/item_oldImage1"
+                        android:layout_alignLeft="@id/item_oldImage1"
+                        android:minHeight="@dimen/y45"
+                        android:background="@drawable/bg_balance_last"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"/>
+
+
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:layout_marginLeft="@dimen/x10"
+                    android:layout_marginRight="@dimen/x10"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:visibility="@{size >= 2 ? View.VISIBLE : View.GONE}">
+
+                    <ImageView
+                        android:layout_centerHorizontal="true"
+                        android:id="@+id/item_oldImage2"
+                        bind:srcTopRound="@{two.img}"
+                        android:layout_width="@dimen/x138"
+                        android:layout_height="@dimen/y138"/>
+
+
+                    <TextView
+                        android:minHeight="@dimen/y28"
+                        android:gravity="center"
+                        android:text="@{@string/allowance2 + two.totalCouponPrice + @string/order_prefree_end}"
+                        android:textSize="11sp"
+                        android:textColor="@color/color_white"
+                        android:layout_alignBottom="@id/item_oldImage2"
+                        android:background="@color/color_EA5018"
+                        android:layout_alignRight="@id/item_oldImage2"
+                        android:layout_alignLeft="@id/item_oldImage2"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"/>
+
+                    <TextView
+                        android:gravity="center"
+                        android:text="@{@string/price + two.buyPrice}"
+                        android:textStyle="bold"
+                        android:textColor="@color/color_EA5018"
+                        android:layout_below="@id/item_oldImage2"
+                        android:layout_alignRight="@id/item_oldImage2"
+                        android:layout_alignLeft="@id/item_oldImage2"
+                        android:minHeight="@dimen/y45"
+                        android:background="@drawable/bg_balance_last"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"/>
+
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:visibility="@{size >= 2 ? View.VISIBLE : View.GONE}">
+
+                    <ImageView
+                        android:layout_centerHorizontal="true"
+                        android:id="@+id/item_oldImage3"
+                        bind:srcTopRound="@{three.img}"
+                        android:layout_width="@dimen/x138"
+                        android:layout_height="@dimen/y138"/>
+
+
+                    <TextView
+                        android:minHeight="@dimen/y28"
+                        android:gravity="center"
+                        android:text="@{@string/allowance2 + three.totalCouponPrice + @string/order_prefree_end}"
+                        android:textSize="11sp"
+                        android:textColor="@color/color_white"
+                        android:layout_alignBottom="@id/item_oldImage3"
+                        android:background="@color/color_EA5018"
+                        android:layout_alignRight="@id/item_oldImage3"
+                        android:layout_alignLeft="@id/item_oldImage3"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"/>
+
+                    <TextView
+                        android:gravity="center"
+                        android:text="@{@string/price + three.buyPrice}"
+                        android:textStyle="bold"
+                        android:textColor="@color/color_EA5018"
+                        android:layout_below="@id/item_oldImage3"
+                        android:layout_alignRight="@id/item_oldImage3"
+                        android:layout_alignLeft="@id/item_oldImage3"
+                        android:minHeight="@dimen/y45"
+                        android:background="@drawable/bg_balance_last"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"/>
+
+                </RelativeLayout>
+
+            </LinearLayout>
+
 
         </RelativeLayout>
 

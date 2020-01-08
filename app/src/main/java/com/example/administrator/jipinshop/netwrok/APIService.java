@@ -1018,7 +1018,7 @@ public interface APIService {
     /**
      * 淘客首页数据
      */
-    @GET("api/tbk/index")
+    @GET("api/v2/tbk/index")
     Observable<TbkIndexBean> tbkIndex();
 
     /**

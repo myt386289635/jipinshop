@@ -45,9 +45,26 @@ public class TbkIndexBean {
         private List<Ad1ListBean> ad1List;
         private List<BoxListBean> boxList;
         private List<MessageListBean> messageList;
-        private List<FreeGoodsListBean> freeGoodsList;
+        private List<AllowanceGoodsListBean> allowanceGoodsList;
         private List<ActivityListBean> activityList;
         private List<HotGoodsListBean> hotGoodsList;
+        private Boolean newUser;
+
+        public Boolean getNewUser() {
+            return newUser;
+        }
+
+        public void setNewUser(Boolean newUser) {
+            this.newUser = newUser;
+        }
+
+        public List<AllowanceGoodsListBean> getAllowanceGoodsList() {
+            return allowanceGoodsList;
+        }
+
+        public void setAllowanceGoodsList(List<AllowanceGoodsListBean> allowanceGoodsList) {
+            this.allowanceGoodsList = allowanceGoodsList;
+        }
 
         public HotActivityBean getHotActivity() {
             return hotActivity;
@@ -87,14 +104,6 @@ public class TbkIndexBean {
 
         public void setMessageList(List<MessageListBean> messageList) {
             this.messageList = messageList;
-        }
-
-        public List<FreeGoodsListBean> getFreeGoodsList() {
-            return freeGoodsList;
-        }
-
-        public void setFreeGoodsList(List<FreeGoodsListBean> freeGoodsList) {
-            this.freeGoodsList = freeGoodsList;
         }
 
         public List<ActivityListBean> getActivityList() {
@@ -715,56 +724,12 @@ public class TbkIndexBean {
             }
         }
 
-        public static class FreeGoodsListBean {
+        public static class AllowanceGoodsListBean {
 
-            private String id;
-            private String name;
             private String img;
-            private String imgs;
-            private String goodsId;
-            private String goodsContent;
-            private int count;
-            private int status;
-            private String confirmTime;
-            private String freePrice;
-            private String freeRate;
-            private String freeNote;
-            private String shareTitle;
-            private String shareContent;
-            private String shareUrl;
-            private String shareImg;
-            private String createTime;
-            private int inviteUserCount;
-            private int type;
-            private int virtualCount;
             private String otherPrice;
-            private String myInviteUserCount;
-            private String actualPrice;
+            private String totalCouponPrice;
             private String buyPrice;
-            private String imgList;
-            private String goodsContentList;
-            private String applyed;
-            private String applyStatus;
-            private String dendlineTime;
-            private String shopImg;
-            private String shopName;
-            private int userCount;
-
-            public String getId() {
-                return id;
-            }
-
-            public void setId(String id) {
-                this.id = id;
-            }
-
-            public String getName() {
-                return name;
-            }
-
-            public void setName(String name) {
-                this.name = name;
-            }
 
             public String getImg() {
                 return img;
@@ -774,236 +739,28 @@ public class TbkIndexBean {
                 this.img = img;
             }
 
-            public String getImgs() {
-                return imgs;
-            }
-
-            public void setImgs(String imgs) {
-                this.imgs = imgs;
-            }
-
-            public String getGoodsId() {
-                return goodsId;
-            }
-
-            public void setGoodsId(String goodsId) {
-                this.goodsId = goodsId;
-            }
-
-            public String getGoodsContent() {
-                return goodsContent;
-            }
-
-            public void setGoodsContent(String goodsContent) {
-                this.goodsContent = goodsContent;
-            }
-
-            public int getCount() {
-                return count;
-            }
-
-            public void setCount(int count) {
-                this.count = count;
-            }
-
-            public int getStatus() {
-                return status;
-            }
-
-            public void setStatus(int status) {
-                this.status = status;
-            }
-
-            public String getConfirmTime() {
-                return confirmTime;
-            }
-
-            public void setConfirmTime(String confirmTime) {
-                this.confirmTime = confirmTime;
-            }
-
-            public String getFreePrice() {
-                return freePrice;
-            }
-
-            public void setFreePrice(String freePrice) {
-                this.freePrice = freePrice;
-            }
-
-            public String getFreeRate() {
-                return freeRate;
-            }
-
-            public void setFreeRate(String freeRate) {
-                this.freeRate = freeRate;
-            }
-
-            public String getFreeNote() {
-                return freeNote;
-            }
-
-            public void setFreeNote(String freeNote) {
-                this.freeNote = freeNote;
-            }
-
-            public String getShareTitle() {
-                return shareTitle;
-            }
-
-            public void setShareTitle(String shareTitle) {
-                this.shareTitle = shareTitle;
-            }
-
-            public String getShareContent() {
-                return shareContent;
-            }
-
-            public void setShareContent(String shareContent) {
-                this.shareContent = shareContent;
-            }
-
-            public String getShareUrl() {
-                return shareUrl;
-            }
-
-            public void setShareUrl(String shareUrl) {
-                this.shareUrl = shareUrl;
-            }
-
-            public String getShareImg() {
-                return shareImg;
-            }
-
-            public void setShareImg(String shareImg) {
-                this.shareImg = shareImg;
-            }
-
-            public String getCreateTime() {
-                return createTime;
-            }
-
-            public void setCreateTime(String createTime) {
-                this.createTime = createTime;
-            }
-
-            public int getInviteUserCount() {
-                return inviteUserCount;
-            }
-
-            public void setInviteUserCount(int inviteUserCount) {
-                this.inviteUserCount = inviteUserCount;
-            }
-
-            public int getType() {
-                return type;
-            }
-
-            public void setType(int type) {
-                this.type = type;
-            }
-
-            public int getVirtualCount() {
-                return virtualCount;
-            }
-
-            public void setVirtualCount(int virtualCount) {
-                this.virtualCount = virtualCount;
-            }
-
             public String getOtherPrice() {
-                return new BigDecimal(otherPrice.trim()).stripTrailingZeros().toPlainString();
+                return otherPrice;
             }
 
             public void setOtherPrice(String otherPrice) {
                 this.otherPrice = otherPrice;
             }
 
-            public String getMyInviteUserCount() {
-                return myInviteUserCount;
+            public String getTotalCouponPrice() {
+                return totalCouponPrice;
             }
 
-            public void setMyInviteUserCount(String myInviteUserCount) {
-                this.myInviteUserCount = myInviteUserCount;
-            }
-
-            public String getActualPrice() {
-                return actualPrice;
-            }
-
-            public void setActualPrice(String actualPrice) {
-                this.actualPrice = actualPrice;
+            public void setTotalCouponPrice(String totalCouponPrice) {
+                this.totalCouponPrice = totalCouponPrice;
             }
 
             public String getBuyPrice() {
-                return  new BigDecimal(buyPrice.trim()).stripTrailingZeros().toPlainString();
+                return buyPrice;
             }
 
             public void setBuyPrice(String buyPrice) {
                 this.buyPrice = buyPrice;
-            }
-
-            public String getImgList() {
-                return imgList;
-            }
-
-            public void setImgList(String imgList) {
-                this.imgList = imgList;
-            }
-
-            public String getGoodsContentList() {
-                return goodsContentList;
-            }
-
-            public void setGoodsContentList(String goodsContentList) {
-                this.goodsContentList = goodsContentList;
-            }
-
-            public String getApplyed() {
-                return applyed;
-            }
-
-            public void setApplyed(String applyed) {
-                this.applyed = applyed;
-            }
-
-            public String getApplyStatus() {
-                return applyStatus;
-            }
-
-            public void setApplyStatus(String applyStatus) {
-                this.applyStatus = applyStatus;
-            }
-
-            public String getDendlineTime() {
-                return dendlineTime;
-            }
-
-            public void setDendlineTime(String dendlineTime) {
-                this.dendlineTime = dendlineTime;
-            }
-
-            public String getShopImg() {
-                return shopImg;
-            }
-
-            public void setShopImg(String shopImg) {
-                this.shopImg = shopImg;
-            }
-
-            public String getShopName() {
-                return shopName;
-            }
-
-            public void setShopName(String shopName) {
-                this.shopName = shopName;
-            }
-
-            public int getUserCount() {
-                return userCount;
-            }
-
-            public void setUserCount(int userCount) {
-                this.userCount = userCount;
             }
         }
 
