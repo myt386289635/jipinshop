@@ -2,11 +2,13 @@ package com.example.administrator.jipinshop.activity;
 
 import android.app.Dialog;
 import android.databinding.DataBindingUtil;
+import android.net.http.SslError;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.ViewParent;
+import android.webkit.SslErrorHandler;
 import android.webkit.WebChromeClient;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
@@ -16,7 +18,6 @@ import com.blankj.utilcode.util.SPUtils;
 import com.example.administrator.jipinshop.R;
 import com.example.administrator.jipinshop.base.BaseActivity;
 import com.example.administrator.jipinshop.databinding.ActivityWebBinding;
-import com.example.administrator.jipinshop.netwrok.RetrofitModule;
 import com.example.administrator.jipinshop.util.ToastUtil;
 import com.example.administrator.jipinshop.util.sp.CommonDate;
 import com.example.administrator.jipinshop.view.dialog.ProgressDialogView;
@@ -68,15 +69,18 @@ public class WebActivity extends BaseActivity implements View.OnClickListener, W
                     String code = url.replace("https://www.jipincheng.cn/qualityshop-api/api/taobao/returnUrl?code=","").split("&")[0];
                     String state = url.replace("https://www.jipincheng.cn/qualityshop-api/api/taobao/returnUrl?code=","").split("&")[1].replace("state=","");
                     mPresenter.taobaoReturnUrl(code, state,WebActivity.this.bindToLifecycle());
-                }else {
-                    view.loadUrl(url);
+                }else if(url.startsWith("http") || url.startsWith("https")){
+                    view.loadUrl(url);//处理http和https开头的url
                 }
                 return true;
             }
 
             @Override
-            public void onPageFinished(WebView view, String url) {
-                super.onPageFinished(view, url);
+            public void onReceivedSslError(WebView view, SslErrorHandler handler, SslError error) {
+                // 不要使用super，否则有些手机访问不了，因为包含了一条 handler.cancel()
+                // super.onReceivedSslError(view, handler, error);
+                // 接受所有网站的证书，忽略SSL错误，执行访问网页
+                handler.proceed();
             }
         });
         //判断页面加载过程
