@@ -1,85 +1,60 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-    android:minWidth="@dimen/x550"
-    android:orientation="vertical"
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content">
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
 
+    <LinearLayout
+        android:minWidth="@dimen/x550"
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
 
-    <RelativeLayout
-        android:layout_gravity="center_horizontal"
-        android:background="@mipmap/new_people"
-        android:layout_width="@dimen/x550"
-        android:layout_height="@dimen/y594">
-
-        <TextView
-            android:textSize="15sp"
-            android:id="@+id/dialog_title"
-            android:layout_marginTop="@dimen/y122"
-            android:layout_centerHorizontal="true"
-            android:textStyle="bold"
-            android:textColor="@color/color_DEFFFFFF"
-            android:text="恭喜您获得"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"/>
-
-        <LinearLayout
-            android:id="@+id/dialog_content"
-            android:layout_centerHorizontal="true"
-            android:layout_below="@+id/dialog_title"
-            android:layout_marginTop="@dimen/y170"
-            android:orientation="horizontal"
+        <RelativeLayout
+            android:layout_gravity="center_horizontal"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content">
 
-            <TextView
-                android:includeFontPadding="false"
-                android:id="@+id/dialog_code"
+            <ImageView
+                android:id="@+id/dialog_background"
+                android:src="@mipmap/new_people"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+
+            <ImageView
+                android:id="@+id/dialog_sure"
+                android:layout_marginBottom="@dimen/y40"
+                android:layout_alignBottom="@id/dialog_background"
                 android:layout_centerHorizontal="true"
-                android:textSize="43sp"
-                android:textStyle="bold"
-                android:textColor="@color/color_DEFFFFFF"
-                android:text="0"
+                android:src="@mipmap/new_people1"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"/>
 
-            <TextView
-                android:includeFontPadding="false"
-                android:layout_marginLeft="@dimen/x10"
-                android:textStyle="bold"
-                android:textColor="@color/color_DEFFFFFF"
-                android:text="极币"
-                android:textSize="19sp"
+            <ImageView
+                android:visibility="gone"
+                android:id="@+id/dialog_background_result"
+                android:src="@mipmap/new_people_result"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"/>
 
-        </LinearLayout>
+            <ImageView
+                android:visibility="gone"
+                android:layout_marginBottom="@dimen/y90"
+                android:layout_alignBottom="@id/dialog_background_result"
+                android:layout_centerHorizontal="true"
+                android:src="@mipmap/new_people_result1"
+                android:id="@+id/dialog_sure_result"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
 
-        <TextView
-            android:id="@+id/dialog_sure"
-            android:textStyle="bold"
-            android:textSize="16sp"
-            android:gravity="center"
-            android:text="立即领取"
-            android:textColor="@color/color_DEDF3121"
-            android:layout_centerHorizontal="true"
-            android:layout_marginTop="@dimen/y30"
-            android:layout_below="@+id/dialog_content"
-            android:background="@drawable/bg_dialog_white"
-            android:layout_width="@dimen/x268"
-            android:layout_height="@dimen/y60"/>
+        </RelativeLayout>
 
-    </RelativeLayout>
-
-    <ImageView
-        android:scaleType="fitXY"
-        android:layout_marginTop="@dimen/y100"
-        android:id="@+id/dialog_cancle"
-        android:layout_gravity="center_horizontal"
-        android:src="@mipmap/h5_close"
-        android:layout_width="@dimen/x44"
-        android:layout_height="@dimen/y44"/>
+        <ImageView
+            android:scaleType="fitXY"
+            android:layout_marginTop="@dimen/y100"
+            android:id="@+id/dialog_cancle"
+            android:layout_gravity="center_horizontal"
+            android:src="@mipmap/h5_close"
+            android:layout_width="@dimen/x55"
+            android:layout_height="@dimen/y55"/>
 
 
-</LinearLayout>
+    </LinearLayout>
+</layout>

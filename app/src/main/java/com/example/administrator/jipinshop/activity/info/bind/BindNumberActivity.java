@@ -195,6 +195,7 @@ public class BindNumberActivity extends BaseActivity implements BindNumberView {
 
             if ( newpeople == 1 && loginBean.getData().getIsNewUser().equals("0")){
                 startActivity(new Intent(this, NewPeopleActivity.class));
+                EventBus.getDefault().post(new HomeNewPeopleBus(1));//登陆后刷新首页活动接口
             }else {
                 EventBus.getDefault().post(new HomeNewPeopleBus(0));//登陆后刷新首页活动接口
             }

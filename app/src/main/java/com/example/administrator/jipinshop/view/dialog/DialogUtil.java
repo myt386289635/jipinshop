@@ -24,6 +24,7 @@ import com.example.administrator.jipinshop.bean.PopBean;
 import com.example.administrator.jipinshop.bean.PopInfoBean;
 import com.example.administrator.jipinshop.bean.TklBean;
 import com.example.administrator.jipinshop.databinding.DialogCheapBinding;
+import com.example.administrator.jipinshop.databinding.DialogNewpeopleBinding;
 import com.example.administrator.jipinshop.databinding.DialogOutBinding;
 import com.example.administrator.jipinshop.databinding.DialogTklBinding;
 import com.example.administrator.jipinshop.util.ShopJumpUtil;
@@ -224,6 +225,9 @@ public class DialogUtil {
         dialog.setContentView(view);
     }
 
+    /**
+     * 用户主页里的 点赞弹窗
+     */
     public static void MyGoods(Context context, String title, String content) {
         AlertDialog.Builder builder = new AlertDialog.Builder(context, R.style.dialog);
         View view = LayoutInflater.from(context).inflate(R.layout.dialog_goods, null);
@@ -239,22 +243,34 @@ public class DialogUtil {
         dialog.setContentView(view);
     }
 
-    public static void NewPeopleDialog(Context context, String code, final View.OnClickListener sureListener) {
+    /**
+     * 用户首次下载 20元津贴弹窗
+     */
+    public static void NewPeopleDialog(Context context, final View.OnClickListener cancleListener ,
+                                       final View.OnClickListener sureListener) {
         AlertDialog.Builder builder = new AlertDialog.Builder(context, R.style.dialog);
-        View view = LayoutInflater.from(context).inflate(R.layout.dialog_newpeople, null);
-        TextView dialog_code = view.findViewById(R.id.dialog_code);
-        dialog_code.setText(code);
-        TextView dialog_sure = view.findViewById(R.id.dialog_sure);
-        ImageView dialog_cancle = view.findViewById(R.id.dialog_cancle);
+        DialogNewpeopleBinding binding = DataBindingUtil.inflate(LayoutInflater.from(context),R.layout.dialog_newpeople, null,false);
         final Dialog dialog = builder.create();
-        dialog.getWindow().setDimAmount(0.35f);
-        dialog_cancle.setOnClickListener(v -> dialog.dismiss());
-        dialog_sure.setOnClickListener(v -> {
-            sureListener.onClick(v);
+        binding.dialogCancle.setOnClickListener(v -> {
+            if (cancleListener != null)
+                cancleListener.onClick(v);
             dialog.dismiss();
         });
+        binding.dialogSure.setOnClickListener(v -> {
+            binding.dialogBackground.setVisibility(View.GONE);
+            binding.dialogSure.setVisibility(View.GONE);
+            binding.dialogBackgroundResult.setVisibility(View.VISIBLE);
+            binding.dialogSureResult.setVisibility(View.VISIBLE);
+        });
+        binding.dialogSureResult.setOnClickListener(v -> {
+            if (sureListener != null){
+                sureListener.onClick(v);
+            }
+            dialog.dismiss();
+        });
+        dialog.getWindow().setDimAmount(0.35f);
         dialog.show();
-        dialog.setContentView(view);
+        dialog.setContentView(binding.getRoot());
     }
 
     public static void imgDialog(Context context, String resource, final View.OnClickListener sureListener, View.OnClickListener dissListener) {

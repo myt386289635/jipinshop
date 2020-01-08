@@ -272,8 +272,13 @@ public class MainActivity extends RxAppCompatActivity implements MainView, ViewP
                             if (SPUtils.getInstance().getBoolean(CommonDate.FIRST, true)) {
                                 //新人第一次进入app
                                 NotificationUtil.OpenNotificationSetting(this, () -> {
-                                    //活动弹窗
-                                    mPresenter.getPopInfo(MainActivity.this.bindToLifecycle());
+                                    //20元津贴弹窗
+                                    DialogUtil.NewPeopleDialog(MainActivity.this, v -> {
+                                        getClipText();
+                                    }, v -> {
+                                        startActivity(new Intent(this, LoginActivity.class)
+                                                .putExtra("newpeople", 1));
+                                    });
                                 });
                             } else {
                                 //老人进入app
@@ -287,8 +292,13 @@ public class MainActivity extends RxAppCompatActivity implements MainView, ViewP
                             if (SPUtils.getInstance().getBoolean(CommonDate.FIRST, true)) {
                                 //新人第一次进入app
                                 NotificationUtil.OpenNotificationSetting(this, () -> {
-                                    //活动弹窗
-                                    mPresenter.getPopInfo(MainActivity.this.bindToLifecycle());
+                                    //20元津贴弹窗
+                                    DialogUtil.NewPeopleDialog(MainActivity.this, v -> {
+                                        getClipText();
+                                    }, v -> {
+                                        startActivity(new Intent(this, LoginActivity.class)
+                                                .putExtra("newpeople", 1));
+                                    });
                                 });
                             } else {
                                 //老人进入app
@@ -301,8 +311,13 @@ public class MainActivity extends RxAppCompatActivity implements MainView, ViewP
             if (SPUtils.getInstance().getBoolean(CommonDate.FIRST, true)) {
                 //新人第一次进入app
                 NotificationUtil.OpenNotificationSetting(this, () -> {
-                    //活动弹窗
-                    mPresenter.getPopInfo(MainActivity.this.bindToLifecycle());
+                    //20元津贴弹窗
+                    DialogUtil.NewPeopleDialog(MainActivity.this, v -> {
+                        getClipText();
+                    }, v -> {
+                        startActivity(new Intent(this, LoginActivity.class)
+                                .putExtra("newpeople", 1));
+                    });
                 });
             } else {
                 //老人进入app
@@ -316,8 +331,13 @@ public class MainActivity extends RxAppCompatActivity implements MainView, ViewP
         if (SPUtils.getInstance().getBoolean(CommonDate.FIRST, true)) {
             //新人第一次进入app
             NotificationUtil.OpenNotificationSetting(this, () -> {
-                //活动弹窗
-                mPresenter.getPopInfo(MainActivity.this.bindToLifecycle());
+                //20元津贴弹窗
+                DialogUtil.NewPeopleDialog(MainActivity.this, v -> {
+                    getClipText();
+                }, v -> {
+                    startActivity(new Intent(this, LoginActivity.class)
+                            .putExtra("newpeople", 1));
+                });
             });
         } else {
             //老人进入app
@@ -394,10 +414,9 @@ public class MainActivity extends RxAppCompatActivity implements MainView, ViewP
     @Subscribe
     public void addPoint(HomeNewPeopleBus newPeopleBus) {
         if (newPeopleBus != null) {
-//            DialogUtil.NewPeopleDialog(MainActivity.this, newPeopleBus.getAddPoint() + "", v -> {
-//                startActivity(new Intent(MainActivity.this, SignActivity.class));
-//            });
-            mPresenter.getPopInfo(MainActivity.this.bindToLifecycle());
+            if (newPeopleBus.getAddPoint() != 1){
+                mPresenter.getPopInfo(MainActivity.this.bindToLifecycle());
+            }
             mLoginNotice.setText("登录领取淘宝隐藏优惠券");
             mLoginTimeContainer.setVisibility(View.GONE);
             mLoginBackground.setVisibility(View.GONE);

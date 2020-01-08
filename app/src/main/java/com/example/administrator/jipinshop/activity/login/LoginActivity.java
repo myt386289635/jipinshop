@@ -180,8 +180,9 @@ public class LoginActivity extends BaseActivity implements LoginView, View.OnCli
 
             if ( newpeople == 1 && loginBean.getData().getIsNewUser().equals("0")){
                 startActivity(new Intent(this, NewPeopleActivity.class));
+                EventBus.getDefault().post(new HomeNewPeopleBus(1));//登陆后刷新首页活动接口
             }else {
-                EventBus.getDefault().post(new HomeNewPeopleBus(loginBean.getData().getAddPoint()));//登陆后刷新首页活动接口
+                EventBus.getDefault().post(new HomeNewPeopleBus(0));//登陆后刷新首页活动接口
             }
             ToastUtil.show("登录成功");
             setResult(200);
@@ -217,8 +218,9 @@ public class LoginActivity extends BaseActivity implements LoginView, View.OnCli
 
             if (newpeople == 1 && loginBean.getData().getIsNewUser().equals("0")){
                 startActivity(new Intent(this, NewPeopleActivity.class));
+                EventBus.getDefault().post(new HomeNewPeopleBus(1));//登陆后刷新首页活动接口
             }else {
-                EventBus.getDefault().post(new HomeNewPeopleBus(loginBean.getData().getAddPoint()));//登陆后刷新首页活动接口
+                EventBus.getDefault().post(new HomeNewPeopleBus(0));//登陆后刷新首页活动接口
             }
             ToastUtil.show("登录成功");
             setResult(200);
