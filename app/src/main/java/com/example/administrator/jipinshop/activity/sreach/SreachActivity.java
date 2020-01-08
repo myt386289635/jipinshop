@@ -230,7 +230,7 @@ public class SreachActivity extends BaseActivity implements TextWatcher, SreachV
                         , 200);
                 break;
             case R.id.search_delete:
-                DialogUtil.LoginDialog(this, "确认删除全部历史记录？", "确定", "取消", v -> {
+                DialogUtil.listingDetele(this, "确认删除全部历史记录？", "确定", "取消",false, v -> {
                     mDialog = (new ProgressDialogView()).createLoadingDialog(this, "正在加载...");
                     mDialog.show();
                     mPresenter.deleteAll(this.bindToLifecycle());

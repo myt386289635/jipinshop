@@ -16,7 +16,7 @@ import com.blankj.utilcode.util.SPUtils;
 import com.example.administrator.jipinshop.R;
 import com.example.administrator.jipinshop.activity.balance.MyWalletActivity;
 import com.example.administrator.jipinshop.activity.balance.team.TeamActivity;
-import com.example.administrator.jipinshop.activity.follow.FollowActivity;
+import com.example.administrator.jipinshop.activity.cheapgoods.CheapBuyActivity;
 import com.example.administrator.jipinshop.activity.foval.FovalActivity;
 import com.example.administrator.jipinshop.activity.info.editname.EditNameActivity;
 import com.example.administrator.jipinshop.activity.login.LoginActivity;
@@ -28,9 +28,9 @@ import com.example.administrator.jipinshop.activity.minekt.publishkt.MyPublishAc
 import com.example.administrator.jipinshop.activity.minekt.userkt.UserActivity;
 import com.example.administrator.jipinshop.activity.newpeople.NewPeopleActivity;
 import com.example.administrator.jipinshop.activity.setting.SettingActivity;
+import com.example.administrator.jipinshop.activity.setting.opinion.OpinionActivity;
 import com.example.administrator.jipinshop.activity.sign.SignActivity;
 import com.example.administrator.jipinshop.activity.sign.invitation.InvitationNewActivity;
-import com.example.administrator.jipinshop.activity.tryout.mine.MineTrialActivity;
 import com.example.administrator.jipinshop.base.DBBaseFragment;
 import com.example.administrator.jipinshop.bean.MyWalletBean;
 import com.example.administrator.jipinshop.bean.SuccessBean;
@@ -135,25 +135,6 @@ public class MineFragment extends DBBaseFragment implements View.OnClickListener
                 startActivity(new Intent(getContext(), MessageActivity.class));
                 UAppUtil.mine(getContext(),8);
                 break;
-            case R.id.mine_attention:
-                //跳转到关注页面
-                startActivity(new Intent(getContext(), FollowActivity.class)
-                        .putExtra("page",0)
-                );
-                UAppUtil.mine(getContext(),1);
-                break;
-            case R.id.mine_fans:
-                //跳转到粉丝页面
-                startActivity(new Intent(getContext(), FollowActivity.class)
-                        .putExtra("page",1)
-                );
-                UAppUtil.mine(getContext(),2);
-                break;
-//            case R.id.mine_goodsNum:
-//                //点击点赞数
-//                DialogUtil.MyGoods(getContext(),mBinding.mineName.getText().toString(),mBinding.mineGoodsNumText.getText().toString());
-//                UAppUtil.mine(getContext(),3);
-//                break;
             case R.id.mine_setting:
                 //跳转到设置页面
                 startActivityForResult(new Intent(getContext(), SettingActivity.class)
@@ -176,10 +157,10 @@ public class MineFragment extends DBBaseFragment implements View.OnClickListener
                 startActivity(new Intent(getContext(), MallActivity.class));
                 UAppUtil.mine(getContext(),5);
                 break;
-            case R.id.mine_trial:
-                //我的试用
-                startActivity(new Intent(getContext(), MineTrialActivity.class));
-                break;
+//            case R.id.mine_trial:
+//                //我的试用
+//                startActivity(new Intent(getContext(), MineTrialActivity.class));
+//                break;
             case R.id.mine_free:
                 //我的免单
                 startActivity(new Intent(getContext(), MineFreeActivity.class));
@@ -217,6 +198,18 @@ public class MineFragment extends DBBaseFragment implements View.OnClickListener
                     mPresenter.addInvitationCode(invitationCode, dialog, inputManager,this.bindToLifecycle());
                 });
                 break;
+            case R.id.mine_opinion:
+                //我要反馈
+                startActivity(new Intent(getContext(), OpinionActivity.class));
+                break;
+            case R.id.mine_gift:
+                //福利兑换
+                ToastUtil.show("福利兑换");
+                break;
+            case R.id.mine_allowance:
+                //津贴余额
+                startActivity(new Intent(getContext(), CheapBuyActivity.class));
+                break;
         }
     }
 
@@ -231,8 +224,8 @@ public class MineFragment extends DBBaseFragment implements View.OnClickListener
                 GlideApp.loderImage(getContext(),R.drawable.logo, mBinding.mineImage, 0, 0);
                 mBinding.mineBackground.setImageResource(R.mipmap.mine_imagebg_dafult);
                 mBinding.mineFavorNumText.setText("0");//收藏数
-                mBinding.mineAttentionText.setText("0");//关注数
-                mBinding.mineFansText.setText("0");//粉丝数
+                mBinding.mineAllowanceText.setText("0");//津贴余额
+                mBinding.mineTeamText.setText("0");//团队人数
                 mBinding.mineSignText.setText("0");//极币数
                 mBinding.mineWithdrawal.setText("¥0");
                 mBinding.mineImminent.setText("¥0");
@@ -279,22 +272,6 @@ public class MineFragment extends DBBaseFragment implements View.OnClickListener
         }else if(bus != null && bus.getTag().equals(SignActivity.eventbusTag)){
             //签到页面返回过来的信息——（极币数）
             mBinding.mineSignText.setText(SPUtils.getInstance(CommonDate.USER).getInt(CommonDate.userPoint,0) + "");//极币数
-        }else if (bus != null && bus.getTag().equals(AttentionFragment.refreshAttention)){
-            mBinding.mineAttentionText.setText(bus.getCount());//关注数
-        }else if (bus != null && bus.getTag().equals(FansFragment.refreshFans)){
-            mBinding.mineFansText.setText(bus.getCount());//粉丝数
-        }
-    }
-
-    /**
-     * 刷新关注(商品详情与文章详情刷新关注数量)
-     */
-    @Subscribe
-    public void refreshFans(FollowBus bus){
-       if (bus != null && bus.getTag().equals(AttentionFragment.refreshAttention) && bus.getCount() != 0){
-            //刷新关注
-            BigDecimal bigDecimal = new BigDecimal(mBinding.mineAttentionText.getText().toString());
-            mBinding.mineAttentionText.setText( bigDecimal.intValue() + bus.getCount() + "");
         }
     }
 
@@ -327,8 +304,8 @@ public class MineFragment extends DBBaseFragment implements View.OnClickListener
         mBinding.mineCopyContainer.setVisibility(View.VISIBLE);//复制邀请码
         mBinding.mineIntegral.setText("邀请码：" + SPUtils.getInstance(CommonDate.USER).getString(CommonDate.qrCode,"000000"));
         mBinding.mineFavorNumText.setText(userInfoBean.getData().getCollectCount());//收藏数
-        mBinding.mineAttentionText.setText(userInfoBean.getData().getFollowCount());//关注数
-        mBinding.mineFansText.setText(userInfoBean.getData().getFansCount());//粉丝数
+        mBinding.mineAllowanceText.setText(userInfoBean.getData().getAllowance());//津贴余额
+        mBinding.mineTeamText.setText(userInfoBean.getData().getTeamCount());//团队人数
         mBinding.mineSignText.setText(SPUtils.getInstance(CommonDate.USER).getInt(CommonDate.userPoint,0) + "");//极币数
         mBinding.mineName.setText(SPUtils.getInstance(CommonDate.USER).getString(CommonDate.userNickName));
         if (!TextUtils.isEmpty(SPUtils.getInstance(CommonDate.USER).getString(CommonDate.userNickImg))) {
@@ -394,8 +371,8 @@ public class MineFragment extends DBBaseFragment implements View.OnClickListener
             SPUtils.getInstance(CommonDate.USER).put(CommonDate.userPoint, 0);
         }
         mBinding.mineFavorNumText.setText("0");//收藏数
-        mBinding.mineAttentionText.setText("0");//关注数
-        mBinding.mineFansText.setText("0");//粉丝数
+        mBinding.mineAllowanceText.setText("0");//津贴余额
+        mBinding.mineTeamText.setText("0");//团队人数
         mBinding.mineSignText.setText("0");//极币数
         ToastUtil.show(error.getMsg());
     }
@@ -409,8 +386,8 @@ public class MineFragment extends DBBaseFragment implements View.OnClickListener
         SPUtils.getInstance(CommonDate.USER).put(CommonDate.relationId, userInfoBean.getData().getRelationId());
         SPUtils.getInstance(CommonDate.USER).put(CommonDate.userId,userInfoBean.getData().getUserId());
         mBinding.mineFavorNumText.setText(userInfoBean.getData().getCollectCount());//收藏数
-        mBinding.mineAttentionText.setText(userInfoBean.getData().getFollowCount());//关注数
-        mBinding.mineFansText.setText(userInfoBean.getData().getFansCount());//粉丝数
+        mBinding.mineAllowanceText.setText(userInfoBean.getData().getAllowance());//津贴余额
+        mBinding.mineTeamText.setText(userInfoBean.getData().getTeamCount());//团队人数
         mBinding.mineSignText.setText(SPUtils.getInstance(CommonDate.USER).getInt(CommonDate.userPoint,0) + "");//极币数
         if (TextUtils.isEmpty(userInfoBean.getData().getBgImg())){//更新用户资料背景
             mBinding.mineBackground.setImageResource(R.mipmap.mine_imagebg_dafult);

@@ -3,6 +3,7 @@ package com.example.administrator.jipinshop.netwrok;
 import com.example.administrator.jipinshop.bean.Action11Bean;
 import com.example.administrator.jipinshop.bean.Activity11Bean;
 import com.example.administrator.jipinshop.bean.AddressBean;
+import com.example.administrator.jipinshop.bean.AllowanceRecordBean;
 import com.example.administrator.jipinshop.bean.AppVersionbean;
 import com.example.administrator.jipinshop.bean.BudgetDetailBean;
 import com.example.administrator.jipinshop.bean.CommentBean;
@@ -28,11 +29,13 @@ import com.example.administrator.jipinshop.bean.MallDetailBean;
 import com.example.administrator.jipinshop.bean.MyFreeBean;
 import com.example.administrator.jipinshop.bean.MyOrderBean;
 import com.example.administrator.jipinshop.bean.MyWalletBean;
+import com.example.administrator.jipinshop.bean.NewPeopleBean;
 import com.example.administrator.jipinshop.bean.OrderTBBean;
 import com.example.administrator.jipinshop.bean.OrderbyTypeBean;
 import com.example.administrator.jipinshop.bean.PagerStateBean;
 import com.example.administrator.jipinshop.bean.PassedMoreBean;
 import com.example.administrator.jipinshop.bean.PointDetailBean;
+import com.example.administrator.jipinshop.bean.PopBean;
 import com.example.administrator.jipinshop.bean.PopInfoBean;
 import com.example.administrator.jipinshop.bean.PosterShareBean;
 import com.example.administrator.jipinshop.bean.QuestionsBean;
@@ -979,7 +982,7 @@ public interface APIService {
     /**
      * 淘客商品详情
      */
-    @GET("api/tbk/goodsDetail")
+    @GET("api/v2/tbk/goodsDetail")
     Observable<TBShoppingDetailBean> tbGoodsDetail(@Query("otherGoodsId") String otherGoodsId);
 
     /**
@@ -1041,4 +1044,41 @@ public interface APIService {
      */
     @GET("api/tbk/getGoodsListByCategory2")
     Observable<TBSreachResultBean> getGoodsListByCategory2(@QueryMap Map<String,String> map);
+
+    /**
+     * 新人0元购首页
+     */
+    @GET("api/allowance/newIndex")
+    Observable<NewPeopleBean> newIndex();
+
+    /**
+     * 抢购
+     */
+    @FormUrlEncoded
+    @POST("api/allowance/apply")
+    Observable<ImageBean> allowanceApply(@Field("allowanceGoodsId") String allowanceGoodsId);
+
+    /**
+     * 特惠购首页
+     */
+    @GET("api/allowance/index")
+    Observable<NewPeopleBean> allowanceIndex();
+
+    /**
+     * 首次下单 获取弹窗信息
+     */
+    @GET("api/v2/getPopInfo")
+    Observable<PopBean> getPopInfo(@Query("type") String type);
+
+    /**
+     * 商品图文描述
+     */
+    @GET("api/v2/tbk/getGoodsDescImgs")
+    Observable<SucBean<String>> getGoodsDescImgs(@Query("otherGoodsId") String otherGoodsId);
+
+    /**
+     * 津贴使用记录
+     */
+    @GET("api/allowance/myAllowanceList")
+    Observable<AllowanceRecordBean> myAllowanceList(@Query("page") int page);
 }

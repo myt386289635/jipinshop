@@ -191,7 +191,7 @@ public class QuestionsActivity extends BaseActivity implements View.OnClickListe
         super.onActivityResult(requestCode, resultCode, data);
         switch (resultCode){
             case 201://发布问题成功
-                DialogUtil.QuestionDialog(this);
+                DialogUtil.SingleDialog(this,"问题发布成功，正在审核中…","知道了",null);
                 break;
             case 202://从问题详情出来
                 if (!mBinding.swipeToLoad.isRefreshEnabled()) {

@@ -6,30 +6,32 @@
 
     <RelativeLayout
         android:layout_centerHorizontal="true"
-        android:background="@drawable/bg_dialog"
+        android:background="@drawable/bg_balance"
         android:orientation="vertical"
         android:layout_width="@dimen/x590"
         android:layout_height="wrap_content">
 
         <TextView
+            android:layout_marginLeft="@dimen/x42"
+            android:layout_marginRight="@dimen/x42"
             android:textStyle="bold"
-            android:lineSpacingExtra="@dimen/y8"
+            android:lineSpacingExtra="@dimen/y12"
             android:gravity="center"
             android:layout_centerHorizontal="true"
             android:id="@+id/dialog_title"
-            android:layout_marginBottom="@dimen/y48"
-            android:layout_marginTop="@dimen/y48"
+            android:layout_marginBottom="@dimen/y65"
+            android:layout_marginTop="@dimen/y106"
             android:textColor="@color/color_202020"
             android:textSize="18sp"
             android:layout_gravity="center_horizontal"
-            android:text="问题发布成功\n正在审核中"
+            android:text="问题发布成功，正在审核中…"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"/>
 
         <View
             android:id="@+id/dialog_line"
             android:layout_below="@+id/dialog_title"
-            android:background="@color/color_F5F5F5"
+            android:background="@color/color_DEDEDE"
             android:layout_width="match_parent"
             android:layout_height="@dimen/y2"/>
 

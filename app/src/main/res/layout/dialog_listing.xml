@@ -6,37 +6,35 @@
 
     <RelativeLayout
         android:layout_centerHorizontal="true"
-        android:background="@drawable/bg_dialog"
+        android:background="@drawable/bg_balance"
         android:orientation="vertical"
-        android:layout_width="@dimen/x600"
+        android:layout_width="@dimen/x590"
         android:layout_height="wrap_content">
 
 
         <TextView
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="@dimen/y40"
+            android:id="@+id/dialog_titleLine"
             android:textSize="16sp"
             android:textStyle="bold"
             android:textColor="@color/color_E25838"
             android:text="温馨提示"
             android:gravity="center"
-            android:layout_width="match_parent"
-            android:layout_height="@dimen/y100"/>
-
-        <View
-            android:id="@+id/dialog_titleLine"
-            android:layout_marginTop="@dimen/y100"
-            android:layout_marginRight="@dimen/x20"
-            android:layout_marginLeft="@dimen/x20"
-            android:background="@color/color_E25838"
-            android:layout_width="match_parent"
-            android:layout_height="@dimen/y1"/>
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
 
         <TextView
+            android:layout_marginRight="@dimen/x42"
+            android:layout_marginLeft="@dimen/x42"
+            android:lineSpacingExtra="@dimen/y12"
+            android:gravity="center"
             android:textStyle="bold"
             android:textColor="@color/color_202020"
             android:textSize="17sp"
             android:text=""
             android:layout_centerHorizontal="true"
-            android:layout_marginTop="@dimen/y50"
+            android:layout_marginTop="@dimen/y43"
             android:layout_below="@id/dialog_titleLine"
             android:id="@+id/dialog_title"
             android:layout_width="wrap_content"
@@ -45,7 +43,7 @@
 
         <View
             android:id="@+id/dialog_line"
-            android:layout_marginTop="@dimen/y50"
+            android:layout_marginTop="@dimen/y43"
             android:layout_below="@id/dialog_title"
             android:background="@color/color_DEDEDE"
             android:layout_width="match_parent"
@@ -62,7 +60,6 @@
         <TextView
             android:layout_alignLeft="@+id/dialog_line1"
             android:gravity="center"
-            android:textStyle="bold"
             android:id="@+id/dialog_sure"
             android:layout_alignTop="@id/dialog_line"
             android:layout_alignBottom="@+id/dialog_line1"
@@ -74,7 +71,6 @@
             android:layout_height="wrap_content"/>
 
         <TextView
-            android:textStyle="bold"
             android:layout_alignRight="@id/dialog_line1"
             android:gravity="center"
             android:layout_alignTop="@id/dialog_line"

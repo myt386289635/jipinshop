@@ -171,7 +171,7 @@ class UnPassFragment : DBBaseFragment(), OnRefreshListener, OnLoadMoreListener, 
     }
 
     override fun onClickDelete(position: Int) {
-        DialogUtil.listingDetele(context,"文章一旦删除，将无法找回") {
+        DialogUtil.listingDetele(context,"文章一旦删除，将无法找回","确认","取消",false) {
             mDialog = ProgressDialogView().createLoadingDialog(context, "")
             mDialog?.show()
             mPresenter.ListingDelete(position,mList[position].articleId,this.bindToLifecycle())

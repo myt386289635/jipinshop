@@ -1,0 +1,173 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <LinearLayout
+            android:gravity="center_horizontal"
+            android:layout_width="@dimen/x560"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:background="@drawable/bg_db4210"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/y43"
+                android:gravity="center"
+                android:lineSpacingExtra="@dimen/y15"
+                android:text="再看看这些新人商品\n支付0元立即购买"
+                android:textColor="@color/color_white"
+                android:textSize="18sp"
+                android:textStyle="bold"/>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/y44"
+                android:layout_marginBottom="@dimen/y50"
+                android:orientation="horizontal">
+
+                <RelativeLayout
+                    android:layout_width="@dimen/x160"
+                    android:layout_height="@dimen/y212">
+
+                    <ImageView
+                        android:id="@+id/dialog_img1"
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/y160"
+                        android:scaleType="centerCrop"
+                        android:src="@color/color_F4EBDA"/>
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_below="@id/dialog_img1"
+                        android:background="@drawable/bg_balance_last"
+                        android:gravity="center"
+                        android:text="¥0"
+                        android:textColor="@color/color_DB4210"
+                        android:textSize="19sp"
+                        android:textStyle="bold"/>
+
+                    <ImageView
+                        android:layout_marginLeft="@dimen/x6"
+                        android:src="@mipmap/bg_newpople9"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"/>
+
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:layout_width="@dimen/x160"
+                    android:layout_height="@dimen/y212"
+                    android:layout_marginLeft="@dimen/x10"
+                    android:layout_marginRight="@dimen/x10">
+
+                    <ImageView
+                        android:id="@+id/dialog_img2"
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/y160"
+                        android:scaleType="centerCrop"
+                        android:src="@color/color_F4EBDA"/>
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_below="@id/dialog_img2"
+                        android:background="@drawable/bg_balance_last"
+                        android:gravity="center"
+                        android:text="¥0"
+                        android:textColor="@color/color_DB4210"
+                        android:textSize="19sp"
+                        android:textStyle="bold"/>
+
+                    <ImageView
+                        android:layout_marginLeft="@dimen/x6"
+                        android:src="@mipmap/bg_newpople9"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"/>
+
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:layout_width="@dimen/x160"
+                    android:layout_height="@dimen/y212">
+
+                    <ImageView
+                        android:id="@+id/dialog_img3"
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/y160"
+                        android:scaleType="centerCrop"
+                        android:src="@color/color_F4EBDA"/>
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_below="@id/dialog_img3"
+                        android:background="@drawable/bg_balance_last"
+                        android:gravity="center"
+                        android:text="¥0"
+                        android:textColor="@color/color_DB4210"
+                        android:textSize="19sp"
+                        android:textStyle="bold"/>
+
+                    <ImageView
+                        android:layout_marginLeft="@dimen/x6"
+                        android:src="@mipmap/bg_newpople9"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"/>
+
+                </RelativeLayout>
+
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/dialog_allowPrice"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/y50"
+                android:text="还有20元津贴仍未使用下单立减当钱花"
+                android:textColor="@color/color_white"
+                android:textSize="13sp"/>
+
+            <RelativeLayout
+                android:layout_marginRight="@dimen/x30"
+                android:layout_marginLeft="@dimen/x30"
+                android:layout_marginBottom="@dimen/y34"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:id="@+id/dialog_dismiss"
+                    android:layout_marginRight="@dimen/x10"
+                    android:gravity="center"
+                    android:background="@drawable/bg_balance"
+                    android:textColor="@color/color_292929"
+                    android:textSize="18sp"
+                    android:text="忍痛离开"
+                    android:layout_width="@dimen/x204"
+                    android:layout_height="@dimen/y82"/>
+
+                <TextView
+                    android:gravity="center"
+                    android:textSize="18sp"
+                    android:text="继续逛逛"
+                    android:textStyle="bold"
+                    android:textColor="@color/color_BF370B"
+                    android:background="@drawable/bg_dialog_out"
+                    android:layout_toRightOf="@id/dialog_dismiss"
+                    android:id="@+id/dialog_sure"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/y82"/>
+
+            </RelativeLayout>
+
+
+        </LinearLayout>
+
+    </RelativeLayout>
+</layout>

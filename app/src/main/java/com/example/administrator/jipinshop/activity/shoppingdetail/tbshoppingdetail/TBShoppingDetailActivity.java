@@ -5,17 +5,18 @@ import android.content.Intent;
 import android.databinding.DataBindingUtil;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.ImageView;
-import android.widget.RelativeLayout;
 
 import com.alibaba.baichuan.android.trade.AlibcTradeSDK;
 import com.blankj.utilcode.util.SPUtils;
+import com.bumptech.glide.Glide;
 import com.example.administrator.jipinshop.R;
 import com.example.administrator.jipinshop.activity.WebActivity;
 import com.example.administrator.jipinshop.activity.web.TaoBaoWebActivity;
@@ -27,6 +28,7 @@ import com.example.administrator.jipinshop.adapter.ShoppingUserLikeAdapter;
 import com.example.administrator.jipinshop.base.BaseActivity;
 import com.example.administrator.jipinshop.bean.ImageBean;
 import com.example.administrator.jipinshop.bean.SimilerGoodsBean;
+import com.example.administrator.jipinshop.bean.SucBean;
 import com.example.administrator.jipinshop.bean.TBShoppingDetailBean;
 import com.example.administrator.jipinshop.bean.eventbus.ChangeHomePageBus;
 import com.example.administrator.jipinshop.bean.eventbus.TBShopDetailBus;
@@ -144,8 +146,12 @@ public class TBShoppingDetailActivity extends BaseActivity implements View.OnCli
         //商品详情
         mDetailList = new ArrayList<>();
         mImageAdapter = new ShoppingImageAdapter(mDetailList,this);
-        mBinding.detailDec.setLayoutManager(new LinearLayoutManager(this));
-        mBinding.detailDec.setNestedScrollingEnabled(false);
+        mBinding.detailDec.setLayoutManager(new LinearLayoutManager(this){
+            @Override
+            public boolean canScrollVertically() {
+                return false;
+            }
+        });
         mBinding.detailDec.setAdapter(mImageAdapter);
 
         //猜你喜欢
@@ -176,10 +182,9 @@ public class TBShoppingDetailActivity extends BaseActivity implements View.OnCli
                 finish();
                 break;
             case R.id.detail_decSpeach:
-                mBinding.detailDecSpeach.setVisibility(View.GONE);
-                RelativeLayout.LayoutParams layoutParams = (RelativeLayout.LayoutParams) mBinding.detailDec.getLayoutParams();
-                layoutParams.height = ViewGroup.LayoutParams.WRAP_CONTENT;
-                mBinding.detailDec.setLayoutParams(layoutParams);
+                mDialog = (new ProgressDialogView()).createLoadingDialog(this, "");
+                mDialog.show();
+                mPresenter.getGoodsDescImgs(goodsId,this.bindToLifecycle());
                 break;
             case R.id.detail_couponImg:
             case R.id.detail_buy:
@@ -295,30 +300,12 @@ public class TBShoppingDetailActivity extends BaseActivity implements View.OnCli
             mBinding.detailLine2.setVisibility(View.GONE);
         }
         //商品详情
-        if (bean.getData().getDescImgList() != null && bean.getData().getDescImgList().size() != 0){
-            mDetailList.addAll(bean.getData().getDescImgList());
-            mImageAdapter.notifyDataSetChanged();
-        }else {
-            mBinding.detailDecContainer.setVisibility(View.GONE);
-        }
+        mBinding.detailDec.setVisibility(View.GONE);
         //推荐理由
         if (!TextUtils.isEmpty(bean.getData().getRecommendReason())){
             mBinding.detailReason.setDesc(bean.getData().getRecommendReason());
         }else {
             mBinding.detailReasonContainer.setVisibility(View.GONE);
-        }
-        //商家评分
-        if (bean.getData().getEvaluateList() != null && bean.getData().getEvaluateList().size() >= 1){
-            mBinding.detailShopCode1Title.setText(bean.getData().getEvaluateList().get(0).getTitle());
-            mBinding.detailShopCode1.setText(bean.getData().getEvaluateList().get(0).getScore());
-        }
-        if (bean.getData().getEvaluateList() != null && bean.getData().getEvaluateList().size() >= 2){
-            mBinding.detailShopCode2Title.setText(bean.getData().getEvaluateList().get(1).getTitle());
-            mBinding.detailShopCode2.setText(bean.getData().getEvaluateList().get(1).getScore());
-        }
-        if (bean.getData().getEvaluateList() != null && bean.getData().getEvaluateList().size() >= 3){
-            mBinding.detailShopCode3Title.setText(bean.getData().getEvaluateList().get(2).getTitle());
-            mBinding.detailShopCode3.setText(bean.getData().getEvaluateList().get(2).getScore());
         }
         //优惠券
         double coupon = new BigDecimal(bean.getData().getCouponPrice()).doubleValue();
@@ -395,6 +382,22 @@ public class TBShoppingDetailActivity extends BaseActivity implements View.OnCli
     @Override
     public void onBuyLinkSuccess(ImageBean bean) {
         TaoBaoUtil.openAliHomeWeb(this,bean.getData(),"");
+    }
+
+    @Override
+    public void onDescImgs(SucBean<String> bean) {
+        if (mDialog != null && mDialog.isShowing()){
+            mDialog.dismiss();
+        }
+        if (bean.getData() != null && bean.getData().size() != 0){
+            mBinding.detailDec.setVisibility(View.VISIBLE);
+            mBinding.detailDecSpeach.setVisibility(View.GONE);
+            mDetailList.clear();
+            mDetailList.addAll(bean.getData());
+            mImageAdapter.notifyDataSetChanged();
+        }else {
+            ToastUtil.show("暂无商品详情");
+        }
     }
 
     @Override

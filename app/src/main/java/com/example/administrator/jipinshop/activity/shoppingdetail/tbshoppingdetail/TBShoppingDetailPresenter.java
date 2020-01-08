@@ -9,6 +9,7 @@ import com.example.administrator.jipinshop.R;
 import com.example.administrator.jipinshop.adapter.NoPageBannerAdapter;
 import com.example.administrator.jipinshop.bean.ImageBean;
 import com.example.administrator.jipinshop.bean.SimilerGoodsBean;
+import com.example.administrator.jipinshop.bean.SucBean;
 import com.example.administrator.jipinshop.bean.SuccessBean;
 import com.example.administrator.jipinshop.bean.TBShoppingDetailBean;
 import com.example.administrator.jipinshop.netwrok.Repository;
@@ -21,7 +22,6 @@ import java.util.Map;
 import javax.inject.Inject;
 
 import io.reactivex.android.schedulers.AndroidSchedulers;
-import io.reactivex.functions.Consumer;
 import io.reactivex.schedulers.Schedulers;
 
 /**
@@ -172,6 +172,31 @@ public class TBShoppingDetailPresenter {
                     if (bean.getCode() == 0){
                         if (mView != null){
                             mView.onBuyLinkSuccess(bean);
+                        }
+                    }else {
+                        if(mView != null){
+                            mView.onFile(bean.getMsg());
+                        }
+                    }
+                }, throwable -> {
+                    if(mView != null){
+                        mView.onFile(throwable.getMessage());
+                    }
+                });
+    }
+
+    /**
+     * 获取商品详情
+     */
+    public void getGoodsDescImgs(String otherGoodsId , LifecycleTransformer<SucBean<String>> transformer ){
+        mRepository.getGoodsDescImgs(otherGoodsId)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .compose(transformer)
+                .subscribe(bean -> {
+                    if (bean.getCode() == 0){
+                        if (mView != null){
+                            mView.onDescImgs(bean);
                         }
                     }else {
                         if(mView != null){

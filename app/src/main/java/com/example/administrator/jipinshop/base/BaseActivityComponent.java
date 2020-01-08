@@ -7,6 +7,8 @@ import com.example.administrator.jipinshop.activity.address.add.CreateAddressAct
 import com.example.administrator.jipinshop.activity.balance.MyWalletActivity;
 import com.example.administrator.jipinshop.activity.balance.team.TeamActivity;
 import com.example.administrator.jipinshop.activity.balance.withdraw.WithdrawActivity;
+import com.example.administrator.jipinshop.activity.cheapgoods.CheapBuyActivity;
+import com.example.administrator.jipinshop.activity.cheapgoods.record.AllowanceRecordActivity;
 import com.example.administrator.jipinshop.activity.commenlist.CommenListActivity;
 import com.example.administrator.jipinshop.activity.evakt.comparison.ComparActivity;
 import com.example.administrator.jipinshop.activity.evakt.send.SubmitActivity;
@@ -144,4 +146,6 @@ public interface BaseActivityComponent {
     void inject(TBSreachResultActivity activity);
     void inject(HomeDetailActivity activity);
     void inject(HomeTabActivity activity);
+    void inject(CheapBuyActivity activity);
+    void inject(AllowanceRecordActivity activity);
 }

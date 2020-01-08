@@ -358,15 +358,15 @@ public class LoginActivity extends BaseActivity implements LoginView, View.OnCli
                 break;
             case R.id.login_wx:
                 //点击微信登陆
-                DialogUtil.LoginDialog(this, "“极品城”想要打开“微信”", view1 -> authorization(SHARE_MEDIA.WEIXIN));
+                DialogUtil.LoginDialog(this, "“极品城”想要打开“微信”","打开","取消", view1 -> authorization(SHARE_MEDIA.WEIXIN));
                 break;
             case R.id.login_wb:
                 //点击微博登陆
-                DialogUtil.LoginDialog(this, "“极品城”想要打开“微博”", view12 -> authorization(SHARE_MEDIA.SINA));
+                DialogUtil.LoginDialog(this, "“极品城”想要打开“微博”","打开","取消", view12 -> authorization(SHARE_MEDIA.SINA));
                 break;
             case R.id.login_qq:
                 //点击QQ登陆
-                DialogUtil.LoginDialog(this, "“极品城”想要打开“QQ”", view13 -> authorization(SHARE_MEDIA.QQ));
+                DialogUtil.LoginDialog(this, "“极品城”想要打开“QQ”","打开","取消", view13 -> authorization(SHARE_MEDIA.QQ));
                 break;
             case R.id.login_protocol:
                 //点击用户协议

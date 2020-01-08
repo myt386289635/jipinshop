@@ -97,6 +97,24 @@ public class UserInfoBean {
         private String collectCount;//收藏夹数量
         private String pid;//是否显示邀请码 （pid=0时需要填写邀请码，其他表示不需要）
         private String isNewUser;//是否显示新人专区 （0表示新用户，其他表示老用户）
+        private String allowance;//津贴余额
+        private String teamCount;//团队人数
+
+        public String getAllowance() {
+            return allowance;
+        }
+
+        public void setAllowance(String allowance) {
+            this.allowance = allowance;
+        }
+
+        public String getTeamCount() {
+            return teamCount;
+        }
+
+        public void setTeamCount(String teamCount) {
+            this.teamCount = teamCount;
+        }
 
         public String getPid() {
             return pid;

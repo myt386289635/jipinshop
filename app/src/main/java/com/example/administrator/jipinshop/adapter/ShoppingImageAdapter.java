@@ -1,15 +1,23 @@
 package com.example.administrator.jipinshop.adapter;
 
 import android.content.Context;
+import android.graphics.drawable.Drawable;
 import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.DataSource;
+import com.bumptech.glide.load.engine.GlideException;
+import com.bumptech.glide.request.RequestListener;
+import com.bumptech.glide.request.target.Target;
 import com.example.administrator.jipinshop.R;
+import com.example.administrator.jipinshop.util.DistanceHelper;
 
 import java.util.List;
 
@@ -40,6 +48,24 @@ public class ShoppingImageAdapter extends RecyclerView.Adapter<ShoppingImageAdap
     public void onBindViewHolder(@NonNull ViewHolder viewHolder, int position) {
         Glide.with(mContext)
                 .load(mDetailList.get(position))
+                .listener(new RequestListener<Drawable>() {
+                    @Override
+                    public boolean onLoadFailed(@Nullable GlideException e, Object model, Target<Drawable> target, boolean isFirstResource) {
+                        return false;
+                    }
+
+                    @Override
+                    public boolean onResourceReady(Drawable resource, Object model, Target<Drawable> target, DataSource dataSource, boolean isFirstResource) {
+                        double width = resource.getIntrinsicWidth();
+                        double height = resource.getIntrinsicHeight();
+                        double screenWidth = DistanceHelper.getAndroiodScreenwidthPixels(mContext);
+                        RelativeLayout.LayoutParams layoutParams  = (RelativeLayout.LayoutParams) viewHolder.item_img.getLayoutParams();
+                        layoutParams.width = (int) screenWidth;
+                        layoutParams.height = (int) ((height / width ) * screenWidth);
+                        viewHolder.item_img.setLayoutParams(layoutParams);
+                        return false;
+                    }
+                })
                 .into(viewHolder.item_img);
     }
 

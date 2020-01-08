@@ -2,6 +2,7 @@ package com.example.administrator.jipinshop.activity.shoppingdetail.tbshoppingde
 
 import com.example.administrator.jipinshop.bean.ImageBean;
 import com.example.administrator.jipinshop.bean.SimilerGoodsBean;
+import com.example.administrator.jipinshop.bean.SucBean;
 import com.example.administrator.jipinshop.bean.TBShoppingDetailBean;
 
 /**
@@ -19,4 +20,6 @@ public interface TBShoppingDetailView {
     void onSucCollectDelete();
 
     void onBuyLinkSuccess(ImageBean bean);
+
+    void onDescImgs(SucBean<String> bean);
 }

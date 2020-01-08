@@ -88,4 +88,7 @@
     <string name="buy_rote">折</string>
     <string name="coupon2">券</string>
     <string name="fee2">补</string>
+    <string name="allowance">津贴 ¥</string>
+    <string name="allowance1">减 ¥</string>
+    <string name="record">创建时间：</string>
 </resources>

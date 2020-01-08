@@ -7,16 +7,17 @@
 
     <RelativeLayout
         android:layout_centerHorizontal="true"
-        android:background="@drawable/bg_dialog"
+        android:background="@drawable/bg_balance"
         android:orientation="vertical"
         android:layout_width="@dimen/x590"
         android:layout_height="wrap_content">
 
         <TextView
+            android:lineSpacingExtra="@dimen/y12"
             android:gravity="center"
             android:layout_marginLeft="@dimen/x42"
             android:layout_marginRight="@dimen/x42"
-            android:textColor="@color/color_DE151515"
+            android:textColor="@color/color_202020"
             android:textSize="16sp"
             android:layout_marginTop="@dimen/y48"
             android:layout_centerHorizontal="true"
@@ -29,13 +30,13 @@
             android:id="@+id/dialog_line"
             android:layout_marginTop="@dimen/y48"
             android:layout_below="@id/dialog_title"
-            android:background="@color/color_F5F5F5"
+            android:background="@color/color_DEDEDE"
             android:layout_width="match_parent"
             android:layout_height="@dimen/y2"/>
 
         <View
             android:id="@+id/dialog_line1"
-            android:background="@color/color_F5F5F5"
+            android:background="@color/color_DEDEDE"
             android:layout_centerHorizontal="true"
             android:layout_below="@+id/dialog_line"
             android:layout_width="@dimen/y2"
@@ -50,7 +51,7 @@
             android:layout_alignBottom="@+id/dialog_line1"
             android:layout_alignParentRight="true"
             android:textSize="16sp"
-            android:textColor="@color/color_4A90E2"
+            android:textColor="@color/color_202020"
             android:text="打开"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"/>
@@ -64,7 +65,7 @@
             android:id="@+id/dialog_cancle"
             android:layout_below="@id/dialog_title"
             android:textSize="16sp"
-            android:textColor="@color/color_DE151515"
+            android:textColor="@color/color_202020"
             android:text="取消"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"/>

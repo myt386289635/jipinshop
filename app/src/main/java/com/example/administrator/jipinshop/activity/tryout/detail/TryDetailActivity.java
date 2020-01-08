@@ -256,14 +256,14 @@ public class TryDetailActivity extends BaseActivity implements View.OnClickListe
                         return;
                     }
                     if (mTryDetailBean.getData().getApplyPoint() <= SPUtils.getInstance(CommonDate.USER).getInt(CommonDate.userPoint,0)){
-                        DialogUtil.buleDialog(this, "商品试用需要支付" + mTryDetailBean.getData().getApplyPoint() + "极币，是否确认参与？",
-                                "确认申请", v1 -> {
+                        DialogUtil.LoginDialog(this, "商品试用需要支付" + mTryDetailBean.getData().getApplyPoint() + "极币，是否确认参与？",
+                                "确认申请","取消", v1 -> {
                                     mDialog = (new ProgressDialogView()).createLoadingDialog(this, "正在请求...");
                                     mDialog.show();
                                     mPresenter.tryApply(id,this.bindToLifecycle());
                                 });
                     }else {
-                        DialogUtil.SingleDialog(this, "极币数不足，请前往获取极币", "去赚极币", v12 -> {
+                        DialogUtil.listingDetele(this, "您的极币数不足，请前往获取极币", "去赚极币","取消",true, v12 -> {
                             //跳转到签到页面
                             startActivity(new Intent(this, SignActivity.class));
                         });

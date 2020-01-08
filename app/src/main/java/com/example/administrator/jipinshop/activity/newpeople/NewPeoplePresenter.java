@@ -4,7 +4,8 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 
 import com.aspsine.swipetoloadlayout.SwipeToLoadLayout;
-import com.example.administrator.jipinshop.bean.V2FreeListBean;
+import com.example.administrator.jipinshop.bean.ImageBean;
+import com.example.administrator.jipinshop.bean.NewPeopleBean;
 import com.example.administrator.jipinshop.netwrok.Repository;
 import com.trello.rxlifecycle2.LifecycleTransformer;
 
@@ -40,7 +41,6 @@ public class NewPeoplePresenter {
                 RecyclerView.LayoutManager layoutManager = mRecyclerView.getLayoutManager();
                 LinearLayoutManager linearManager = (LinearLayoutManager) layoutManager;
                 mSwipeToLoad.setRefreshEnabled(linearManager.findFirstCompletelyVisibleItemPosition() == 0);
-                mSwipeToLoad.setLoadMoreEnabled(isSlideToBottom(mRecyclerView));
             }
 
             @Override
@@ -50,19 +50,8 @@ public class NewPeoplePresenter {
         });
     }
 
-    /**
-     * 判断RecyclerView是否滑动到底部
-     */
-    public static boolean isSlideToBottom(RecyclerView recyclerView) {
-        if (recyclerView == null) return false;
-        if (recyclerView.computeVerticalScrollExtent() + recyclerView.computeVerticalScrollOffset()
-                >= recyclerView.computeVerticalScrollRange())
-            return true;
-        return false;
-    }
-
-    public void getData(int page, LifecycleTransformer<V2FreeListBean> transformer){
-        mRepository.freeList(page,"0")
+    public void getData(LifecycleTransformer<NewPeopleBean> transformer){
+        mRepository.newIndex()
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .compose(transformer)
@@ -74,6 +63,22 @@ public class NewPeoplePresenter {
                     }
                 }, throwable -> {
                     mView.onFile(throwable.getMessage());
+                });
+    }
+
+    public void apply(String allowanceGoodsId , LifecycleTransformer<ImageBean> transformer){
+        mRepository.allowanceApply(allowanceGoodsId)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .compose(transformer)
+                .subscribe(bean -> {
+                    if (bean.getCode() == 0){
+                        mView.onBuySuccess(bean);
+                    }else {
+                        mView.onBuyFile(bean.getMsg());
+                    }
+                }, throwable -> {
+                    mView.onBuyFile(throwable.getMessage());
                 });
     }
 }

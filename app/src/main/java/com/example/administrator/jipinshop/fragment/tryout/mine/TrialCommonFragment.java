@@ -192,7 +192,7 @@ public class TrialCommonFragment extends DBBaseFragment implements OnRefreshList
             mDialog.show();
             mPresenter.myTrialConfirm(mList.get(position).getId(),this.bindToLifecycle());
         }else {
-            DialogUtil.buleDialog(getContext(), "请先选择默认地址后才能确认参与", "填写地址", v -> {
+            DialogUtil.listingDetele(getContext(), "请先选择默认地址后才能确认参与", "填写地址","取消",true, v -> {
                 startActivityForResult(new Intent(getContext(), MyAddressActivity.class),333);
             });
         }

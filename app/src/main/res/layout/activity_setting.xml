@@ -47,6 +47,7 @@
 
 
     <RelativeLayout
+        android:visibility="gone"
         android:layout_below="@id/mine_address"
         android:id="@+id/setting_opinionContainer"
         android:layout_width="match_parent"

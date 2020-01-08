@@ -3,6 +3,7 @@ package com.example.administrator.jipinshop.netwrok;
 import com.example.administrator.jipinshop.bean.Action11Bean;
 import com.example.administrator.jipinshop.bean.Activity11Bean;
 import com.example.administrator.jipinshop.bean.AddressBean;
+import com.example.administrator.jipinshop.bean.AllowanceRecordBean;
 import com.example.administrator.jipinshop.bean.AppVersionbean;
 import com.example.administrator.jipinshop.bean.BudgetDetailBean;
 import com.example.administrator.jipinshop.bean.CommentBean;
@@ -28,11 +29,13 @@ import com.example.administrator.jipinshop.bean.MallDetailBean;
 import com.example.administrator.jipinshop.bean.MyFreeBean;
 import com.example.administrator.jipinshop.bean.MyOrderBean;
 import com.example.administrator.jipinshop.bean.MyWalletBean;
+import com.example.administrator.jipinshop.bean.NewPeopleBean;
 import com.example.administrator.jipinshop.bean.OrderTBBean;
 import com.example.administrator.jipinshop.bean.OrderbyTypeBean;
 import com.example.administrator.jipinshop.bean.PagerStateBean;
 import com.example.administrator.jipinshop.bean.PassedMoreBean;
 import com.example.administrator.jipinshop.bean.PointDetailBean;
+import com.example.administrator.jipinshop.bean.PopBean;
 import com.example.administrator.jipinshop.bean.PopInfoBean;
 import com.example.administrator.jipinshop.bean.PosterShareBean;
 import com.example.administrator.jipinshop.bean.QuestionsBean;
@@ -1143,5 +1146,47 @@ public class Repository {
      */
     public Observable<TBSreachResultBean> getGoodsListByCategory2(Map<String,String> map){
         return mAPIService.getGoodsListByCategory2(map);
+    }
+
+    /**
+     * 新人0元购首页
+     */
+    public Observable<NewPeopleBean> newIndex(){
+        return mAPIService.newIndex();
+    }
+
+    /**
+     * 抢购
+     */
+    public Observable<ImageBean> allowanceApply(String allowanceGoodsId){
+        return mAPIService.allowanceApply(allowanceGoodsId);
+    }
+
+    /**
+     * 特惠购首页
+     */
+    public Observable<NewPeopleBean> allowanceIndex(){
+        return mAPIService.allowanceIndex();
+    }
+
+    /**
+     * 首次下单 获取弹窗信息
+     */
+    public Observable<PopBean> getPopInfo(String type){
+        return mAPIService.getPopInfo(type);
+    }
+
+    /**
+     * 商品图文描述
+     */
+    public Observable<SucBean<String>> getGoodsDescImgs(String otherGoodsId){
+        return mAPIService.getGoodsDescImgs(otherGoodsId);
+    }
+
+    /**
+     * 津贴使用记录
+     */
+    public Observable<AllowanceRecordBean> myAllowanceList(int page){
+        return mAPIService.myAllowanceList(page);
     }
 }

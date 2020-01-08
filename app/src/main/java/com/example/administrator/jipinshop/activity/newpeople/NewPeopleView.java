@@ -1,6 +1,7 @@
 package com.example.administrator.jipinshop.activity.newpeople;
 
-import com.example.administrator.jipinshop.bean.V2FreeListBean;
+import com.example.administrator.jipinshop.bean.ImageBean;
+import com.example.administrator.jipinshop.bean.NewPeopleBean;
 
 /**
  * @author 莫小婷
@@ -9,6 +10,9 @@ import com.example.administrator.jipinshop.bean.V2FreeListBean;
  */
 public interface NewPeopleView {
 
-    void onSuccess(V2FreeListBean bean);
+    void onSuccess(NewPeopleBean bean);
     void onFile(String error);
+
+    void onBuySuccess(ImageBean successBean);
+    void onBuyFile(String error);
 }
