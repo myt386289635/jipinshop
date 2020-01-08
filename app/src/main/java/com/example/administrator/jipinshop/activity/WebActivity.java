@@ -70,6 +70,7 @@ public class WebActivity extends BaseActivity implements View.OnClickListener, W
                     String state = url.replace("https://www.jipincheng.cn/qualityshop-api/api/taobao/returnUrl?code=","").split("&")[1].replace("state=","");
                     mPresenter.taobaoReturnUrl(code, state,WebActivity.this.bindToLifecycle());
                 }else if(url.startsWith("http") || url.startsWith("https")){
+                    //解决第三方网页打开页面后会跳转到自定义的schame而页面出错问题
                     view.loadUrl(url);//处理http和https开头的url
                 }
                 return true;
