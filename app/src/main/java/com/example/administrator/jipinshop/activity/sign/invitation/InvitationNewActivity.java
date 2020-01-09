@@ -1,13 +1,18 @@
 package com.example.administrator.jipinshop.activity.sign.invitation;
 
 import android.app.Dialog;
+import android.content.ClipData;
+import android.content.ClipboardManager;
+import android.content.Context;
 import android.content.Intent;
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.view.ViewPager;
+import android.text.TextUtils;
 import android.view.View;
 
+import com.blankj.utilcode.util.SPUtils;
 import com.example.administrator.jipinshop.R;
 import com.example.administrator.jipinshop.adapter.InvitationNewAdapter;
 import com.example.administrator.jipinshop.base.BaseActivity;
@@ -15,6 +20,7 @@ import com.example.administrator.jipinshop.bean.InvitationBean;
 import com.example.administrator.jipinshop.databinding.ActivityInvitation2Binding;
 import com.example.administrator.jipinshop.util.ShareUtils;
 import com.example.administrator.jipinshop.util.ToastUtil;
+import com.example.administrator.jipinshop.util.sp.CommonDate;
 import com.example.administrator.jipinshop.view.dialog.ProgressDialogView;
 import com.example.administrator.jipinshop.view.viewpager.transformer.ScalePagerTransformer;
 import com.umeng.socialize.UMShareAPI;
@@ -39,6 +45,7 @@ public class InvitationNewActivity extends BaseActivity implements View.OnClickL
     private List<String> mList;
     private int position = 0;//当前是第几个位置，默认为第一个
     private Dialog mDialog;
+    private String linkUrlContent = "";
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -94,6 +101,17 @@ public class InvitationNewActivity extends BaseActivity implements View.OnClickL
                     ToastUtil.show("邀请页面不存在请确认");
                 }
                 break;
+            case R.id.share_copy:
+                if (TextUtils.isEmpty(linkUrlContent)){
+                    ToastUtil.show("邀请链接为空，请重新进入页面");
+                    return;
+                }
+                ClipboardManager clip = (ClipboardManager) this.getSystemService(Context.CLIPBOARD_SERVICE);
+                ClipData clipData = ClipData.newPlainText("jipinshop", linkUrlContent);
+                clip.setPrimaryClip(clipData);
+                ToastUtil.show("链接复制成功");
+                SPUtils.getInstance().put(CommonDate.CLIP, linkUrlContent);
+                break;
         }
     }
 
@@ -129,6 +147,7 @@ public class InvitationNewActivity extends BaseActivity implements View.OnClickL
         if (mDialog != null && mDialog.isShowing()){
             mDialog.dismiss();
         }
+        linkUrlContent = bean.getData().getLinkUrlContent();
         mList.addAll(bean.getData().getPosterImgs());
         mAdapter = new InvitationNewAdapter(this,mList);
         mBinding.viewPager.setAdapter(mAdapter);

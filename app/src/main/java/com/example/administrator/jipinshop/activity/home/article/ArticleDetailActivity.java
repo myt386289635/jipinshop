@@ -467,7 +467,7 @@ public class ArticleDetailActivity extends BaseActivity implements View.OnClickL
         }else if (bean.getData().getRelatedGoodsList().size() == 1){
             if (bean.getFee() != 0){
                 mBinding.detailFee.setVisibility(View.VISIBLE);
-                mBinding.detailFee.setText("补贴 ¥" + bean.getFee());
+                mBinding.detailFee.setText("返 ¥" + bean.getFee());
             }else {
                 mBinding.detailFee.setVisibility(View.GONE);
             }

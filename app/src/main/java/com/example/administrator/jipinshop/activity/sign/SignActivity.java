@@ -190,7 +190,6 @@ public class SignActivity extends BaseActivity implements View.OnClickListener, 
                 mDayTextViews.get(i).setTextColor(getResources().getColor(R.color.color_9D9D9D));
             }
         }
-        EventBus.getDefault().post(new EditNameBus(SignActivity.eventbusTag));
         if(mDialog != null && mDialog.isShowing()){
             mDialog.dismiss();
         }

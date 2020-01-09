@@ -1,5 +1,7 @@
 package com.example.administrator.jipinshop.activity.home;
 
+import android.app.Dialog;
+
 import com.example.administrator.jipinshop.bean.AppVersionbean;
 import com.example.administrator.jipinshop.bean.PopInfoBean;
 import com.example.administrator.jipinshop.bean.TklBean;
@@ -18,4 +20,7 @@ public interface MainView {
     void onDialogFile();
 
     void onTklDialog(TklBean bean,String tkl);
+
+    void onInvitationSuc( Dialog dialog);
+    void onInvitationFile(String error);
 }

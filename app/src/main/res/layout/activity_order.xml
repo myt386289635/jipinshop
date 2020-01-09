@@ -44,7 +44,7 @@
             android:paddingLeft="@dimen/x30"
             android:gravity="center_vertical"
             android:textSize="14sp"
-            android:text="购物补贴提现说明"
+            android:text="购物返现提现说明"
             android:textColor="@color/color_E25838"
             android:id="@+id/order_explain"
             android:background="@color/color_FFDBDB"

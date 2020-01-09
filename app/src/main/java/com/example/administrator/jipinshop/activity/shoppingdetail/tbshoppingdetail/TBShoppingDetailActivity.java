@@ -223,7 +223,7 @@ public class TBShoppingDetailActivity extends BaseActivity implements View.OnCli
             case R.id.detail_freeNotice:
                 startActivity(new Intent(this, WebActivity.class)
                         .putExtra(WebActivity.url, RetrofitModule.H5_URL+"fee-rule.html")
-                        .putExtra(WebActivity.title,"极品城购物补贴说明")
+                        .putExtra(WebActivity.title,"查看返现攻略")
                 );
                 break;
             case R.id.title_favor:

@@ -133,7 +133,7 @@
                     <TextView
                         android:layout_marginLeft="@dimen/x16"
                         android:textSize="13sp"
-                        android:text="极品城补贴"
+                        android:text="返现"
                         android:textColor="@color/color_FFE4C1"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"/>
@@ -160,7 +160,7 @@
                     android:drawableRight="@mipmap/right_white"
                     android:gravity="center_vertical"
                     android:paddingLeft="@dimen/x16"
-                    android:text="查看什么是极品城补贴"
+                    android:text="查看返现攻略"
                     android:textSize="12sp"
                     android:textColor="@color/color_E25838"
                     android:layout_marginRight="@dimen/x28"
@@ -1004,7 +1004,7 @@
                     android:id="@+id/detail_freeCode"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="（补贴¥0.00）"
+                    android:text="（返现¥0.00）"
                     android:textColor="@color/color_white"
                     android:textSize="14sp"/>
 

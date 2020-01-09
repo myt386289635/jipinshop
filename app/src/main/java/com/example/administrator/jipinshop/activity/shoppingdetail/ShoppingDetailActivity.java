@@ -437,7 +437,7 @@ public class ShoppingDetailActivity extends BaseActivity implements ShoppingComm
                 mBinding.detailFeeContainer.setVisibility(View.VISIBLE);
                 mBinding.detailFreeNotice.setVisibility(View.VISIBLE);
                 mBinding.detailFree.setText("¥" + shoppingDetailBean.getFee());
-                mBinding.detailFreeCode.setText("（补贴¥"+shoppingDetailBean.getFee()+"）");
+                mBinding.detailFreeCode.setText("（返现¥"+shoppingDetailBean.getFee()+"）");
             }else {
                 mBinding.detailFeeContainer.setVisibility(View.GONE);
                 mBinding.detailFreeNotice.setVisibility(View.GONE);
@@ -1081,7 +1081,7 @@ public class ShoppingDetailActivity extends BaseActivity implements ShoppingComm
             case R.id.detail_freeNotice:
                 startActivity(new Intent(this, WebActivity.class)
                         .putExtra(WebActivity.url, RetrofitModule.H5_URL+"fee-rule.html")
-                        .putExtra(WebActivity.title,"极品城购物补贴说明")
+                        .putExtra(WebActivity.title,"查看返现攻略")
                 );
                 break;
         }

@@ -6,7 +6,7 @@
         <import type="android.view.View"/>
         <variable
             name="data"
-            type="com.example.administrator.jipinshop.bean.TklBean.DataBean"/>
+            type="com.example.administrator.jipinshop.bean.TklBean.DataBeanX.DataBean"/>
     </data>
 
     <RelativeLayout

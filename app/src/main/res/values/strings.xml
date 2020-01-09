@@ -66,12 +66,12 @@
     <string name="my_free_shopname"> 赞助</string>
 
     <string name="order_time">下单时间：</string>
-    <string name="order_prefree_start">补贴：</string>
+    <string name="order_prefree_start">返现：</string>
     <string name="order_prefree_end">元</string>
     <string name="order_pay">付款：</string>
     <string name="order_number">订单号：</string>
     <string name="coupon">优惠券 ¥</string>
-    <string name="fee">补贴 ¥</string>
+    <string name="fee">返 ¥</string>
     <string name="free_start">需邀请</string>
     <string name="free_end">人可享</string>
     <string name="free_buyed">已抢</string>
@@ -87,7 +87,7 @@
     <string name="detail_coupon">券 ¥</string>
     <string name="buy_rote">折</string>
     <string name="coupon2">券</string>
-    <string name="fee2">补</string>
+    <string name="fee2">返</string>
     <string name="allowance">津贴 ¥</string>
     <string name="allowance1">减 ¥</string>
     <string name="record">创建时间：</string>

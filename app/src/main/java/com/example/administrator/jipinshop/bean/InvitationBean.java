@@ -49,10 +49,19 @@ public class InvitationBean {
          * posterImg : http://jipincheng.cn/upload/20190316/6a40c770fc134424b7303ea37db90eb2.png
          */
 
+        private String linkUrlContent;
         private String qrcodeImg;
         private String posterImg;
         private String shareContent;
         private List<String> posterImgs;
+
+        public String getLinkUrlContent() {
+            return linkUrlContent;
+        }
+
+        public void setLinkUrlContent(String linkUrlContent) {
+            this.linkUrlContent = linkUrlContent;
+        }
 
         public String getQrcodeImg() {
             return qrcodeImg;

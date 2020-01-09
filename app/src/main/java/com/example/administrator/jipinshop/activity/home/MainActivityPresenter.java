@@ -1,6 +1,7 @@
 package com.example.administrator.jipinshop.activity.home;
 
 import android.app.Activity;
+import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.res.ColorStateList;
@@ -8,6 +9,7 @@ import android.support.design.widget.TabLayout;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -20,6 +22,7 @@ import com.example.administrator.jipinshop.R;
 import com.example.administrator.jipinshop.activity.login.LoginActivity;
 import com.example.administrator.jipinshop.bean.AppVersionbean;
 import com.example.administrator.jipinshop.bean.PopInfoBean;
+import com.example.administrator.jipinshop.bean.SuccessBean;
 import com.example.administrator.jipinshop.bean.TklBean;
 import com.example.administrator.jipinshop.netwrok.Repository;
 import com.example.administrator.jipinshop.util.ClickUtil;
@@ -122,6 +125,22 @@ public class MainActivityPresenter {
                     }
                 }, throwable -> {
 
+                });
+    }
+
+    public void addInvitationCode(String invitationCode, Dialog dialog, LifecycleTransformer<SuccessBean> transformer){
+        mRepository.addInvitationCode(invitationCode)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .compose(transformer)
+                .subscribe(successBean -> {
+                    if (successBean.getCode() == 0){
+                        mView.onInvitationSuc(dialog);
+                    }else {
+                        mView.onInvitationFile(successBean.getMsg());
+                    }
+                }, throwable -> {
+                    mView.onInvitationFile(throwable.getMessage());
                 });
     }
 }

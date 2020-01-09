@@ -271,8 +271,8 @@ public class MineFragment extends DBBaseFragment implements View.OnClickListener
                 GlideApp.loderImage(getContext(),SPUtils.getInstance(CommonDate.USER).getString(CommonDate.userNickImg), mBinding.mineImage, R.mipmap.logo, 0);
             }
         }else if(bus != null && bus.getTag().equals(SignActivity.eventbusTag)){
-            //签到页面返回过来的信息——（极币数）
-            mBinding.mineSignText.setText(SPUtils.getInstance(CommonDate.USER).getInt(CommonDate.userPoint,0) + "");//极币数
+            //首页绑定上下级时需要刷新我的页面
+            mBinding.mineInvation.setVisibility(View.GONE);
         }
     }
 

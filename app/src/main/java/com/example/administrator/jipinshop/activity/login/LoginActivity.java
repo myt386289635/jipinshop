@@ -80,9 +80,9 @@ public class LoginActivity extends BaseActivity implements LoginView, View.OnCli
         mTimer = mPresenter.initTimer(this, mBinding.loginGetCode);
         mPresenter.initLoginButton(mBinding.loginNumber, mBinding.loginCode, mBinding.loginButton, mBinding.loginGetCode,timerEnd);
 
-        String str = "登录即视为同意<font color='#4A90E2'>《极品城用户协议》</font>";
+        String str = "登录即视为同意<font color='#E25838'>《极品城用户协议》</font>";
         mBinding.loginProtocol.setText(Html.fromHtml(str));
-        String str2 = "和<font color='#4A90E2'>《隐私政策》</font>";
+        String str2 = "和<font color='#E25838'>《隐私政策》</font>";
         mBinding.loginYc.setText(Html.fromHtml(str2));
 
         mDialog = (new ProgressDialogView()).createLoadingDialog(this, "正在登录...");

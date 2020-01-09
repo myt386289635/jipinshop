@@ -16,7 +16,6 @@ import com.example.administrator.jipinshop.base.BaseActivity
 import com.example.administrator.jipinshop.databinding.ActivityOrderBinding
 import com.example.administrator.jipinshop.fragment.orderkt.KTMyOrderFragment
 import com.example.administrator.jipinshop.netwrok.RetrofitModule
-import com.example.administrator.jipinshop.util.ToastUtil
 
 /**
  * @author 莫小婷
@@ -62,7 +61,7 @@ class KTMyOrderActivity : BaseActivity(), View.OnClickListener {
             R.id.order_explain -> {
                 startActivity(Intent(this, WebActivity::class.java)
                         .putExtra(WebActivity.url, RetrofitModule.H5_URL + "commission-rule.html")
-                        .putExtra(WebActivity.title, "极品补贴规则说明")
+                        .putExtra(WebActivity.title, "购物返现提现说明")
                 )
             }
         }

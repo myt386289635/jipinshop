@@ -368,7 +368,7 @@ public class BindingUtil {
                 view.setText(TbEarningTime + "已到账");
                 break;
             case 3:
-                view.setText("失效订单无补贴");
+                view.setText("失效订单无返现");
                 break;
         }
     }

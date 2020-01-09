@@ -1,0 +1,131 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:bind="http://schemas.android.com/tools">
+
+    <data>
+        <variable
+            name="data"
+            type="com.example.administrator.jipinshop.bean.TklBean.DataBeanX.DataBean"/>
+    </data>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <RelativeLayout
+            android:layout_centerHorizontal="true"
+            android:background="@drawable/bg_balance"
+            android:orientation="vertical"
+            android:layout_width="@dimen/x590"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:textStyle="bold"
+                android:lineSpacingExtra="@dimen/y12"
+                android:gravity="center"
+                android:layout_marginLeft="@dimen/x42"
+                android:layout_marginRight="@dimen/x42"
+                android:textColor="@color/color_202020"
+                android:textSize="17sp"
+                android:layout_marginTop="@dimen/y27"
+                android:layout_centerHorizontal="true"
+                android:text="关联好友"
+                android:id="@+id/dialog_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+
+            <com.example.administrator.jipinshop.view.glide.CircleImageView
+                android:layout_below="@id/dialog_title"
+                android:layout_marginTop="@dimen/y20"
+                android:layout_centerHorizontal="true"
+                android:id="@+id/dialog_image"
+                android:layout_width="@dimen/x146"
+                android:layout_height="@dimen/y146"
+                bind:src="@{data.avatar}"
+                app:civ_border_color="@color/color_E25838"
+                app:civ_border_width="@dimen/x3"/>
+
+            <TextView
+                android:textColor="@color/color_202020"
+                android:textSize="15sp"
+                android:layout_marginTop="@dimen/y7"
+                android:layout_centerHorizontal="true"
+                android:id="@+id/dialog_name"
+                android:layout_below="@id/dialog_image"
+                android:text="@{data.nickname}"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+
+            <TextView
+                android:text="查询到您可能想关联到的好友"
+                android:textColor="@color/color_9D9D9D"
+                android:textSize="14sp"
+                android:layout_marginTop="@dimen/y10"
+                android:id="@+id/dialog_content"
+                android:layout_below="@id/dialog_name"
+                android:layout_centerHorizontal="true"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+
+            <TextView
+                android:id="@+id/dialog_content2"
+                android:textColor="@color/color_9D9D9D"
+                android:textSize="14sp"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="@dimen/y5"
+                android:layout_below="@id/dialog_content"
+                android:text="关联成功奖励200极币"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+
+            <View
+                android:id="@+id/dialog_line"
+                android:layout_marginTop="@dimen/y13"
+                android:layout_below="@id/dialog_content2"
+                android:background="@color/color_DEDEDE"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/y2"/>
+
+            <View
+                android:id="@+id/dialog_line1"
+                android:background="@color/color_DEDEDE"
+                android:layout_centerHorizontal="true"
+                android:layout_below="@+id/dialog_line"
+                android:layout_width="@dimen/y2"
+                android:layout_height="@dimen/y94"/>
+
+            <TextView
+                android:layout_alignLeft="@+id/dialog_line1"
+                android:gravity="center"
+                android:id="@+id/dialog_sure"
+                android:layout_alignTop="@id/dialog_line"
+                android:layout_alignBottom="@+id/dialog_line1"
+                android:layout_alignParentRight="true"
+                android:textSize="16sp"
+                android:textColor="@color/color_202020"
+                android:text="确认关联"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+
+            <TextView
+                android:layout_alignRight="@id/dialog_line1"
+                android:gravity="center"
+                android:layout_alignTop="@id/dialog_line"
+                android:layout_alignBottom="@+id/dialog_line1"
+                android:layout_alignParentLeft="true"
+                android:id="@+id/dialog_cancle"
+                android:layout_below="@id/dialog_title"
+                android:textSize="16sp"
+                android:textColor="@color/color_202020"
+                android:text="取消"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+
+
+        </RelativeLayout>
+
+
+
+    </RelativeLayout>
+</layout>

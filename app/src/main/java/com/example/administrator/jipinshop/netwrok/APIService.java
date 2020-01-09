@@ -1007,8 +1007,8 @@ public interface APIService {
     /**
      * 通过淘口令获取商品信息
      */
-    @GET("api/tbk/getGoodsByTkl")
-    Observable<TklBean> getGoodsByTkl(@Query("tkl") String tkl);
+    @GET("api/getInfoByKeyword")
+    Observable<TklBean> getGoodsByTkl(@Query("keyword") String keyword);
 
     /**
      * 淘宝客一级分类列表

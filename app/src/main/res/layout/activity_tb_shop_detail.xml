@@ -185,7 +185,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="@dimen/x16"
-                        android:text="极品城补贴"
+                        android:text="返现"
                         android:textColor="@color/color_FFE4C1"
                         android:textSize="13sp"/>
 
@@ -217,7 +217,7 @@
                     android:onClick="@{listener.onClick}"
                     android:paddingLeft="@dimen/x16"
                     android:paddingRight="@dimen/x16"
-                    android:text="查看什么是极品城补贴"
+                    android:text="查看返现攻略"
                     android:textColor="@color/color_E25838"
                     android:textSize="12sp"/>
 

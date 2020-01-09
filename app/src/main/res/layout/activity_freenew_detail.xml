@@ -220,7 +220,7 @@
                             android:layout_gravity="bottom"
                             android:textColor="@color/color_9D9D9D"
                             android:textSize="12sp"
-                            android:text="元补贴"
+                            android:text="元返现"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"/>
 
@@ -443,7 +443,7 @@
                     android:layout_gravity="bottom"
                     android:textColor="@color/color_E25838"
                     android:textSize="13sp"
-                    android:text="购买后补贴¥"
+                    android:text="购买后返现¥"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"/>
 

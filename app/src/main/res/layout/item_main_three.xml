@@ -92,7 +92,7 @@
                 android:id="@+id/mainPeople_reTitle"
                 android:textColor="@color/color_9D9D9D"
                 android:textSize="12sp"
-                android:text="限时抢购，全额返补贴！"
+                android:text="限时抢购，全额返现！"
                 android:layout_marginTop="@dimen/y5"
                 android:layout_marginLeft="@dimen/x17"
                 android:layout_below="@id/mainPeople_title"

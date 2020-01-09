@@ -8,6 +8,7 @@ import android.databinding.DataBindingUtil;
 import android.graphics.Typeface;
 import android.os.CountDownTimer;
 import android.text.Html;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.WindowManager;
@@ -29,6 +30,7 @@ import com.example.administrator.jipinshop.databinding.DialogCheapBinding;
 import com.example.administrator.jipinshop.databinding.DialogNewpeopleBinding;
 import com.example.administrator.jipinshop.databinding.DialogOutBinding;
 import com.example.administrator.jipinshop.databinding.DialogTklBinding;
+import com.example.administrator.jipinshop.databinding.DialogUserBinding;
 import com.example.administrator.jipinshop.util.ShopJumpUtil;
 import com.example.administrator.jipinshop.util.ToastUtil;
 import com.example.administrator.jipinshop.view.glide.GlideApp;
@@ -208,25 +210,6 @@ public class DialogUtil {
         dialog.setContentView(view);
     }
 
-    public static void buleDialog(Context context, String titleStr, String sureText, final View.OnClickListener sureListener) {
-        AlertDialog.Builder builder = new AlertDialog.Builder(context, R.style.dialog);
-        View view = LayoutInflater.from(context).inflate(R.layout.dialog_log, null);
-        TextView title = view.findViewById(R.id.dialog_title);
-        title.setText(titleStr);
-        TextView sure = view.findViewById(R.id.dialog_sure);
-        sure.setText(sureText);
-        final Dialog dialog = builder.create();
-        dialog.getWindow().setDimAmount(0.35f);
-        sure.setOnClickListener(view1 -> {
-            sureListener.onClick(view1);
-            dialog.dismiss();
-        });
-        TextView cancle = view.findViewById(R.id.dialog_cancle);
-        cancle.setOnClickListener(view12 -> dialog.dismiss());
-        dialog.show();
-        dialog.setContentView(view);
-    }
-
     /**
      * 用户主页里的 点赞弹窗
      */
@@ -277,6 +260,7 @@ public class DialogUtil {
         dialog.setContentView(binding.getRoot());
     }
 
+    //活动弹窗  后台设置的活动
     public static void imgDialog(Context context, String resource, final View.OnClickListener sureListener, View.OnClickListener dissListener) {
         AlertDialog.Builder builder = new AlertDialog.Builder(context, R.style.dialog);
         View view = LayoutInflater.from(context).inflate(R.layout.dialog_img, null);
@@ -618,20 +602,20 @@ public class DialogUtil {
         AlertDialog.Builder builder = new AlertDialog.Builder(context, R.style.dialog);
         final Dialog dialog = builder.create();
         DialogTklBinding binding = DataBindingUtil.inflate(LayoutInflater.from(context), R.layout.dialog_tkl, null, false);
-        binding.setData(bean.getData());
-        binding.executePendingBindings();
         if (bean.getData() == null) {
             binding.dialogContent.setText(tkl);
         } else {
+            binding.setData(bean.getData().getData());
+            binding.executePendingBindings();
             binding.detailOtherPrice.setTv(true);
             binding.detailOtherPrice.setColor(R.color.color_9D9D9D);
-            double coupon = new BigDecimal(bean.getData().getCouponPrice()).doubleValue();
+            double coupon = new BigDecimal(bean.getData().getData().getCouponPrice()).doubleValue();
             if (coupon == 0) {//没有优惠券
                 binding.detailCoupon.setVisibility(View.GONE);
             } else {
                 binding.detailCoupon.setVisibility(View.VISIBLE);
             }
-            double free = new BigDecimal(bean.getData().getFee()).doubleValue();
+            double free = new BigDecimal(bean.getData().getData().getFee()).doubleValue();
             if (free == 0) {//没有补贴
                 binding.detailFee.setVisibility(View.GONE);
             } else {
@@ -652,7 +636,7 @@ public class DialogUtil {
         });
         binding.dialogSure2.setOnClickListener(v -> {
             context.startActivity(new Intent(context, TBShoppingDetailActivity.class)
-                    .putExtra("otherGoodsId", bean.getData().getOtherGoodsId())
+                    .putExtra("otherGoodsId", bean.getData().getData().getOtherGoodsId())
             );
             dialog.dismiss();
         });
@@ -708,6 +692,28 @@ public class DialogUtil {
         binding.dialogSure.setOnClickListener(v -> {
             if (listener != null)
                 listener.onClick(v);
+            dialog.dismiss();
+        });
+        dialog.getWindow().setDimAmount(0.35f);
+        dialog.show();
+        dialog.setContentView(binding.getRoot());
+    }
+
+    //关联上下级用户弹窗
+    public static void userDialog(Context context,TklBean bean, final OnInvitationListener sureListener) {
+        AlertDialog.Builder builder = new AlertDialog.Builder(context, R.style.dialog);
+        DialogUserBinding binding = DataBindingUtil.inflate(LayoutInflater.from(context),R.layout.dialog_user, null,false);
+        final Dialog dialog = builder.create();
+        String html = "关联成功奖励<font color='#E25838'>"+bean.getData().getData().getAddPoint()+"</font>极币";
+        binding.dialogContent2.setText(Html.fromHtml(html));
+        binding.setData(bean.getData().getData());
+        binding.executePendingBindings();
+        binding.dialogCancle.setOnClickListener(v -> {
+            dialog.dismiss();
+        });
+        binding.dialogSure.setOnClickListener(v -> {
+            if (sureListener != null)
+                sureListener.invitation(bean.getData().getData().getInvitationCode(),dialog,null);
             dialog.dismiss();
         });
         dialog.getWindow().setDimAmount(0.35f);

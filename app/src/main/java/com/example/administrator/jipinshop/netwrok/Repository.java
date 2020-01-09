@@ -1103,8 +1103,8 @@ public class Repository {
     /**
      * 通过淘口令获取商品信息
      */
-    public Observable<TklBean> getGoodsByTkl(String tkl){
-        return mAPIService.getGoodsByTkl(tkl);
+    public Observable<TklBean> getGoodsByTkl(String keyword){
+        return mAPIService.getGoodsByTkl(keyword);
     }
 
     /**

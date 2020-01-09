@@ -1,6 +1,7 @@
 package com.example.administrator.jipinshop.activity.home;
 
 import android.app.Activity;
+import android.app.Dialog;
 import android.content.ClipData;
 import android.content.ClipboardManager;
 import android.content.Intent;
@@ -13,6 +14,7 @@ import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
 import android.text.TextUtils;
 import android.view.View;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -22,6 +24,7 @@ import com.example.administrator.jipinshop.MyApplication;
 import com.example.administrator.jipinshop.R;
 import com.example.administrator.jipinshop.activity.login.LoginActivity;
 import com.example.administrator.jipinshop.activity.newpeople.NewPeopleActivity;
+import com.example.administrator.jipinshop.activity.sign.SignActivity;
 import com.example.administrator.jipinshop.activity.tryout.freedetail.FreeDetailActivity;
 import com.example.administrator.jipinshop.adapter.HomeAdapter;
 import com.example.administrator.jipinshop.base.DaggerBaseActivityComponent;
@@ -29,6 +32,7 @@ import com.example.administrator.jipinshop.bean.AppVersionbean;
 import com.example.administrator.jipinshop.bean.PopInfoBean;
 import com.example.administrator.jipinshop.bean.TklBean;
 import com.example.administrator.jipinshop.bean.eventbus.ChangeHomePageBus;
+import com.example.administrator.jipinshop.bean.eventbus.EditNameBus;
 import com.example.administrator.jipinshop.bean.eventbus.HomeNewPeopleBus;
 import com.example.administrator.jipinshop.bean.eventbus.TryStatusBus;
 import com.example.administrator.jipinshop.fragment.evaluationkt.EvaluationNewFragment;
@@ -48,6 +52,7 @@ import com.example.administrator.jipinshop.util.UpDataUtil;
 import com.example.administrator.jipinshop.util.share.MobLinkUtil;
 import com.example.administrator.jipinshop.util.sp.CommonDate;
 import com.example.administrator.jipinshop.view.dialog.DialogUtil;
+import com.example.administrator.jipinshop.view.dialog.ProgressDialogView;
 import com.example.administrator.jipinshop.view.viewpager.NoScrollViewPager;
 import com.gyf.barlibrary.ImmersionBar;
 import com.mob.moblink.MobLink;
@@ -103,6 +108,7 @@ public class MainActivity extends RxAppCompatActivity implements MainView, ViewP
     private static Activity sFirstInstance;
     private Boolean once = true; // 是否是第一次弹出
     private CountDownTimer mCountDownTimerUtils;//定时器
+    private Dialog mDialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -484,8 +490,38 @@ public class MainActivity extends RxAppCompatActivity implements MainView, ViewP
     //淘口令返回
     @Override
     public void onTklDialog(TklBean bean, String tkl) {
-        DialogUtil.tklDialog(this, bean, tkl);
+        if (bean.getData() != null && bean.getData().getType() == 2){
+            //关联用户
+            DialogUtil.userDialog(this, bean, (invitationCode, dialog, inputManager) -> {
+                mDialog = (new ProgressDialogView()).createLoadingDialog(MainActivity.this, "");
+                mDialog.show();
+                mPresenter.addInvitationCode(invitationCode, dialog,this.bindToLifecycle());
+            });
+        }else {
+            //淘口令返回
+            DialogUtil.tklDialog(this, bean, tkl);
+        }
         SPUtils.getInstance().put(CommonDate.CLIP, tkl);
+    }
+
+    @Override
+    public void onInvitationSuc(Dialog dialog) {
+        if (mDialog != null && mDialog.isShowing()){
+            mDialog.dismiss();
+        }
+        if (dialog != null && dialog.isShowing()){
+            dialog.dismiss();
+        }
+        ToastUtil.show("关联成功");
+        EventBus.getDefault().post(new EditNameBus(SignActivity.eventbusTag));
+    }
+
+    @Override
+    public void onInvitationFile(String error) {
+        if (mDialog != null && mDialog.isShowing()){
+            mDialog.dismiss();
+        }
+        ToastUtil.show(error);
     }
 
     @OnClick({R.id.login_go})

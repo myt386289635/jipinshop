@@ -19,7 +19,7 @@
 
         <include
             android:id="@+id/in_clude"
-            layout="@layout/aa_title"
+            layout="@layout/aa_title2"
             bind:listener="@{listener}"/>
 
         <TextView
@@ -58,14 +58,14 @@
                 <ImageView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:src="@mipmap/share_wechat"/>
+                    android:src="@mipmap/share_wecha_other"/>
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/y10"
                     android:text="微信"
-                    android:textColor="@color/color_ACACAC"
+                    android:textColor="@color/color_9D9D9D"
                     android:textSize="12sp"/>
 
             </LinearLayout>
@@ -82,14 +82,14 @@
                 <ImageView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:src="@mipmap/share_pyq"/>
+                    android:src="@mipmap/share_pyq_other"/>
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/y10"
                     android:text="朋友圈"
-                    android:textColor="@color/color_ACACAC"
+                    android:textColor="@color/color_9D9D9D"
                     android:textSize="12sp"/>
 
             </LinearLayout>
@@ -106,14 +106,38 @@
                 <ImageView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:src="@mipmap/share_weibo"/>
+                    android:src="@mipmap/share_weibo_other"/>
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/y10"
                     android:text="微博"
-                    android:textColor="@color/color_ACACAC"
+                    android:textColor="@color/color_9D9D9D"
+                    android:textSize="12sp"/>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:onClick="@{listener.onClick}"
+                android:id="@+id/share_copy"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:orientation="vertical">
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@mipmap/share_copy"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/y10"
+                    android:text="链接"
+                    android:textColor="@color/color_9D9D9D"
                     android:textSize="12sp"/>
 
             </LinearLayout>
