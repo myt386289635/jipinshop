@@ -75,6 +75,7 @@ import com.example.administrator.jipinshop.bean.UnMessageBean;
 import com.example.administrator.jipinshop.bean.UserInfoBean;
 import com.example.administrator.jipinshop.bean.V2FreeListBean;
 import com.example.administrator.jipinshop.bean.VoteBean;
+import com.example.administrator.jipinshop.bean.WelfareBean;
 import com.example.administrator.jipinshop.bean.WithdrawBean;
 import com.example.administrator.jipinshop.bean.WithdrawDetailBean;
 
@@ -1081,4 +1082,10 @@ public interface APIService {
      */
     @GET("api/allowance/myAllowanceList")
     Observable<AllowanceRecordBean> myAllowanceList(@Query("page") int page);
+
+    /**
+     * 福利兑换列表
+     */
+    @GET("api/welfareList")
+    Observable<WelfareBean> welfareList();
 }

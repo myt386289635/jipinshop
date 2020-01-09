@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:bind="http://schemas.android.com/apk/res-auto">
+
+    <data>
+        <variable
+            name="date"
+            type="com.example.administrator.jipinshop.bean.WelfareBean.DataBean"/>
+    </data>
+
+    <RelativeLayout
+        android:background="@color/color_white"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <ImageView
+            android:id="@+id/item_image"
+            bind:srcRound="@{date.img}"
+            android:layout_marginRight="@dimen/x25"
+            android:layout_marginBottom="@dimen/y25"
+            android:layout_marginTop="@dimen/y25"
+            android:layout_marginLeft="@dimen/x28"
+            android:layout_width="@dimen/x180"
+            android:layout_height="@dimen/y180"/>
+
+        <TextView
+            android:layout_marginRight="@dimen/x28"
+            android:textColor="@color/color_202020"
+            android:textSize="15sp"
+            android:text="@{date.title}"
+            android:layout_marginTop="@dimen/y16"
+            android:layout_alignTop="@id/item_image"
+            android:layout_toRightOf="@id/item_image"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+
+        <TextView
+            android:id="@+id/item_change"
+            android:layout_marginRight="@dimen/x28"
+            android:layout_alignParentRight="true"
+            android:layout_alignBottom="@id/item_image"
+            android:gravity="center"
+            android:minWidth="@dimen/x166"
+            android:minHeight="@dimen/y55"
+            android:textStyle="bold"
+            android:textSize="15sp"
+            android:text="立即兑换"
+            android:textColor="@color/color_white"
+            android:background="@drawable/bg_free_dialog2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+
+        <View
+            android:layout_below="@id/item_image"
+            android:background="@color/color_F5F5F5"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/y2"/>
+
+    </RelativeLayout>
+</layout>

@@ -26,6 +26,7 @@ import com.example.administrator.jipinshop.activity.minekt.freekt.MineFreeActivi
 import com.example.administrator.jipinshop.activity.minekt.orderkt.KTMyOrderActivity;
 import com.example.administrator.jipinshop.activity.minekt.publishkt.MyPublishActivity;
 import com.example.administrator.jipinshop.activity.minekt.userkt.UserActivity;
+import com.example.administrator.jipinshop.activity.minekt.welfare.WelfareActivity;
 import com.example.administrator.jipinshop.activity.newpeople.NewPeopleActivity;
 import com.example.administrator.jipinshop.activity.setting.SettingActivity;
 import com.example.administrator.jipinshop.activity.setting.opinion.OpinionActivity;
@@ -204,7 +205,7 @@ public class MineFragment extends DBBaseFragment implements View.OnClickListener
                 break;
             case R.id.mine_gift:
                 //福利兑换
-                ToastUtil.show("福利兑换");
+                startActivity(new Intent(getContext(), WelfareActivity.class));
                 break;
             case R.id.mine_allowance:
                 //津贴余额
