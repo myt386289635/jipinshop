@@ -11,6 +11,8 @@ import android.text.Html;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.WindowManager;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -251,6 +253,8 @@ public class DialogUtil {
         AlertDialog.Builder builder = new AlertDialog.Builder(context, R.style.dialog);
         DialogNewpeopleBinding binding = DataBindingUtil.inflate(LayoutInflater.from(context),R.layout.dialog_newpeople, null,false);
         final Dialog dialog = builder.create();
+        Animation animation = AnimationUtils.loadAnimation(context, R.anim.free_scale);
+        binding.dialogSure.startAnimation(animation);
         binding.dialogCancle.setOnClickListener(v -> {
             if (cancleListener != null)
                 cancleListener.onClick(v);
