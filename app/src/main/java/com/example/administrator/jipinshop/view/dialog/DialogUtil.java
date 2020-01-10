@@ -704,7 +704,7 @@ public class DialogUtil {
         AlertDialog.Builder builder = new AlertDialog.Builder(context, R.style.dialog);
         DialogUserBinding binding = DataBindingUtil.inflate(LayoutInflater.from(context),R.layout.dialog_user, null,false);
         final Dialog dialog = builder.create();
-        String html = "关联成功奖励<font color='#E25838'>"+bean.getData().getData().getAddPoint()+"</font>极币";
+        String html = "关联成功奖励<font color='#E25838'>"+bean.getAddPoint()+"极币</font>";
         binding.dialogContent2.setText(Html.fromHtml(html));
         binding.setData(bean.getData().getData());
         binding.executePendingBindings();

@@ -7,9 +7,18 @@ package com.example.administrator.jipinshop.bean;
  */
 public class TklBean {
 
+    private String addPoint;
     private String msg;
     private int code;
     private DataBeanX data;
+
+    public String getAddPoint() {
+        return addPoint;
+    }
+
+    public void setAddPoint(String addPoint) {
+        this.addPoint = addPoint;
+    }
 
     public String getMsg() {
         return msg;
