@@ -22,6 +22,7 @@ import android.widget.TextView;
 import com.blankj.utilcode.util.SPUtils;
 import com.example.administrator.jipinshop.MyApplication;
 import com.example.administrator.jipinshop.R;
+import com.example.administrator.jipinshop.activity.cheapgoods.CheapBuyActivity;
 import com.example.administrator.jipinshop.activity.login.LoginActivity;
 import com.example.administrator.jipinshop.activity.newpeople.NewPeopleActivity;
 import com.example.administrator.jipinshop.activity.sign.SignActivity;
@@ -353,12 +354,87 @@ public class MainActivity extends RxAppCompatActivity implements MainView, ViewP
 
     @Override
     public void onDialogSuc(PopInfoBean bean) {
-        if (bean.getData() != null && bean.getData().getData() != null) {
-            if (bean.getData().getType() == 1) {
-                //活动
-                if (bean.getData().getData().getTargetType().equals("5")) {
-                    if (!bean.getData().getPopId().equals(SPUtils.getInstance().getString(CommonDate.POPID, ""))) {
-                        DialogUtil.imgDialog(MainActivity.this, bean.getData().getData().getImg(), v -> {
+        if (bean.getData() != null && bean.getData().size() != 0) {//有弹窗
+            if (bean.getData().size() > 1){
+                //有2个以上弹窗  目前逻辑：新人、活动、首单弹窗都只会有一个;新人与首单互斥
+                int newPos = -1;//新人弹窗的位置
+                int activityPos = -1;//活动弹窗的位置
+                int oldPos = -1;//首返弹窗的位置
+                for (int i = 0; i < bean.getData().size(); i++) {
+                    if (bean.getData().get(i).getType() == 0){
+                        newPos = i;
+                    }else if (bean.getData().get(i).getType() == 1){
+                        activityPos = i;
+                    }else if (bean.getData().get(i).getType() == 3){
+                        oldPos = i;
+                    }
+                }
+                if (newPos != -1){
+                    //新人弹窗 + 活动弹窗
+                    if (!bean.getData().get(newPos).getPopId().equals(SPUtils.getInstance().getString(CommonDate.POPID, ""))) {
+                        int finalActivityPos = activityPos;
+                        DialogUtil.imgDialog(MainActivity.this, bean.getData().get(newPos).getData().getImg(), v -> {
+                            if (TextUtils.isEmpty(SPUtils.getInstance(CommonDate.USER).getString(CommonDate.token, ""))) {
+                                startActivity(new Intent(this, LoginActivity.class)
+                                        .putExtra("newpeople", 1));
+                                return;
+                            }
+                            startActivity(new Intent(this, NewPeopleActivity.class));
+                        }, v -> {
+                            DialogUtil.imgDialog(MainActivity.this, bean.getData().get(finalActivityPos).getData().getImg(), v1 -> {
+                                ShopJumpUtil.openPager(MainActivity.this, bean.getData().get(finalActivityPos).getData().getTargetType()
+                                        , bean.getData().get(finalActivityPos).getData().getTargetId(), "小分类");
+                            }, v1 -> {
+                                getClipText();
+                            });
+                        });
+                        if (TextUtils.isEmpty(SPUtils.getInstance(CommonDate.USER).getString(CommonDate.token, ""))) {
+                            SPUtils.getInstance().put(CommonDate.POPID, bean.getData().get(newPos).getPopId());//未登录时存上id
+                        }
+                    } else {
+                        getClipText();
+                    }
+                }else if (oldPos != -1){
+                    //首返 + 活动弹窗
+                    if (bean.getData().get(oldPos).getAllowanceGoodsList().size() >= 3){
+                        int finalActivityPos1 = activityPos;
+                        DialogUtil.cheapDialog(this, bean.getData().get(oldPos).getAddAllowancePrice(),
+                                bean.getData().get(oldPos).getAllowanceGoodsList(), v2 -> {
+                                    startActivity(new Intent(this, CheapBuyActivity.class));
+                                }, v2 -> {
+                                    DialogUtil.imgDialog(MainActivity.this, bean.getData().get(finalActivityPos1).getData().getImg(), v -> {
+                                        ShopJumpUtil.openPager(MainActivity.this, bean.getData().get(finalActivityPos1).getData().getTargetType()
+                                                , bean.getData().get(finalActivityPos1).getData().getTargetId(), "小分类");
+                                    }, v -> {
+                                        getClipText();
+                                    });
+                                });
+                    }else {
+                        int finalActivityPos2 = activityPos;
+                        DialogUtil.imgDialog(MainActivity.this, bean.getData().get(finalActivityPos2).getData().getImg(), v3 -> {
+                            ShopJumpUtil.openPager(MainActivity.this, bean.getData().get(finalActivityPos2).getData().getTargetType()
+                                    , bean.getData().get(finalActivityPos2).getData().getTargetId(), "小分类");
+                        }, v3 -> {
+                            getClipText();
+                        });
+                    }
+                }else {
+                    getClipText();
+                }
+            }else {
+                //只有一个弹窗
+                if (bean.getData().get(0).getType() == 1) {
+                    //系统活动弹窗
+                    DialogUtil.imgDialog(MainActivity.this, bean.getData().get(0).getData().getImg(), v -> {
+                        ShopJumpUtil.openPager(MainActivity.this, bean.getData().get(0).getData().getTargetType()
+                                , bean.getData().get(0).getData().getTargetId(), "小分类");
+                    }, v -> {
+                        getClipText();
+                    });
+                }else if (bean.getData().get(0).getType() == 0){
+                    //新人弹窗
+                    if (!bean.getData().get(0).getPopId().equals(SPUtils.getInstance().getString(CommonDate.POPID, ""))) {
+                        DialogUtil.imgDialog(MainActivity.this, bean.getData().get(0).getData().getImg(), v -> {
                             if (TextUtils.isEmpty(SPUtils.getInstance(CommonDate.USER).getString(CommonDate.token, ""))) {
                                 startActivity(new Intent(this, LoginActivity.class)
                                         .putExtra("newpeople", 1));
@@ -369,21 +445,26 @@ public class MainActivity extends RxAppCompatActivity implements MainView, ViewP
                             getClipText();
                         });
                         if (TextUtils.isEmpty(SPUtils.getInstance(CommonDate.USER).getString(CommonDate.token, ""))) {
-                            SPUtils.getInstance().put(CommonDate.POPID, bean.getData().getPopId());//未登录时存上id
+                            SPUtils.getInstance().put(CommonDate.POPID, bean.getData().get(0).getPopId());//未登录时存上id
                         }
                     } else {
                         getClipText();
                     }
-                } else {
-                    DialogUtil.imgDialog(MainActivity.this, bean.getData().getData().getImg(), v -> {
-                        ShopJumpUtil.openPager(MainActivity.this, bean.getData().getData().getTargetType()
-                                , bean.getData().getData().getTargetId(), "小分类");
-                    }, v -> {
+                }else if (bean.getData().get(0).getType() == 3){
+                    //首单弹窗
+                    if (bean.getData().get(0).getAllowanceGoodsList().size() >= 3){
+                        DialogUtil.cheapDialog(this, bean.getData().get(0).getAddAllowancePrice(),
+                                bean.getData().get(0).getAllowanceGoodsList(), v -> {
+                                    startActivity(new Intent(this, CheapBuyActivity.class));
+                                }, v -> {
+                                    getClipText();
+                                });
+                    }else {
                         getClipText();
-                    });
+                    }
+                }else {
+                    getClipText();
                 }
-            } else {
-                getClipText();
             }
         } else {
             getClipText();

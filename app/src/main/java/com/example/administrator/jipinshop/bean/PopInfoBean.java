@@ -1,5 +1,7 @@
 package com.example.administrator.jipinshop.bean;
 
+import java.util.List;
+
 /**
  * @author 莫小婷
  * @create 2019/9/24
@@ -9,7 +11,7 @@ public class PopInfoBean {
 
     private String msg;
     private int code;
-    private DataBeanX data;
+    private List<DataBeanX> data;
 
     public String getMsg() {
         return msg;
@@ -27,30 +29,41 @@ public class PopInfoBean {
         this.code = code;
     }
 
-    public DataBeanX getData() {
+    public List<DataBeanX> getData() {
         return data;
     }
 
-    public void setData(DataBeanX data) {
+    public void setData(List<DataBeanX> data) {
         this.data = data;
     }
 
     public static class DataBeanX {
         /**
-         * type : 1
-         * data : {"id":"1","title":"2342342342342","type":1,"userGroup":1,"img":"https://jipincheng.cn/cj.png","startTime":"2019-09-26 00:00:00","endTime":"2019-10-28 00:00:00","publishTime":"2019-09-19 14:30:51","targetType":21,"targetId":"a73307f581304c028ceda313c545f622","status":1,"createTime":"2019-09-17 15:30:36"}
+         * type : 0
+         * popId : 8cde031535aa49ad8a7b1a57062bfb3b
+         * data : {"id":"0","title":"00000000000","type":1,"userGroup":1,"img":"http://jipincheng.cn/activity/img/20200108/b1faeb859c7c40eaa05242d75f7ff72c","startTime":"2019-11-01 00:00:00","endTime":"2019-12-31 00:00:00","publishTime":"2019-11-25 17:32:08","targetType":12,"targetId":"542736ea48f847dc9354732cc10b9981","status":-1,"createTime":"2019-09-18 14:23:22","fromId":"8cde031535aa49ad8a7b1a57062bfb3b"}
          */
 
         private int type;
-        private DataBean data;
         private String popId;
+        private DataBean data;
+        private String addAllowancePrice;
+        private List<PopBean.DataBean.AllowanceGoodsListBean> allowanceGoodsList;
 
-        public String getPopId() {
-            return popId;
+        public String getAddAllowancePrice() {
+            return addAllowancePrice;
         }
 
-        public void setPopId(String popId) {
-            this.popId = popId;
+        public void setAddAllowancePrice(String addAllowancePrice) {
+            this.addAllowancePrice = addAllowancePrice;
+        }
+
+        public List<PopBean.DataBean.AllowanceGoodsListBean> getAllowanceGoodsList() {
+            return allowanceGoodsList;
+        }
+
+        public void setAllowanceGoodsList(List<PopBean.DataBean.AllowanceGoodsListBean> allowanceGoodsList) {
+            this.allowanceGoodsList = allowanceGoodsList;
         }
 
         public int getType() {
@@ -59,6 +72,14 @@ public class PopInfoBean {
 
         public void setType(int type) {
             this.type = type;
+        }
+
+        public String getPopId() {
+            return popId;
+        }
+
+        public void setPopId(String popId) {
+            this.popId = popId;
         }
 
         public DataBean getData() {
@@ -71,18 +92,19 @@ public class PopInfoBean {
 
         public static class DataBean {
             /**
-             * id : 1
-             * title : 2342342342342
+             * id : 0
+             * title : 00000000000
              * type : 1
              * userGroup : 1
-             * img : https://jipincheng.cn/cj.png
-             * startTime : 2019-09-26 00:00:00
-             * endTime : 2019-10-28 00:00:00
-             * publishTime : 2019-09-19 14:30:51
-             * targetType : 21
-             * targetId : a73307f581304c028ceda313c545f622
-             * status : 1
-             * createTime : 2019-09-17 15:30:36
+             * img : http://jipincheng.cn/activity/img/20200108/b1faeb859c7c40eaa05242d75f7ff72c
+             * startTime : 2019-11-01 00:00:00
+             * endTime : 2019-12-31 00:00:00
+             * publishTime : 2019-11-25 17:32:08
+             * targetType : 12
+             * targetId : 542736ea48f847dc9354732cc10b9981
+             * status : -1
+             * createTime : 2019-09-18 14:23:22
+             * fromId : 8cde031535aa49ad8a7b1a57062bfb3b
              */
 
             private String id;
@@ -97,43 +119,7 @@ public class PopInfoBean {
             private String targetId;
             private int status;
             private String createTime;
-            private String actualPrice;
-            private String dendlineTime;
-            private String freePrice;
-            private String name;
-
-
-            public String getActualPrice() {
-                return actualPrice;
-            }
-
-            public void setActualPrice(String actualPrice) {
-                this.actualPrice = actualPrice;
-            }
-
-            public String getDendlineTime() {
-                return dendlineTime;
-            }
-
-            public void setDendlineTime(String dendlineTime) {
-                this.dendlineTime = dendlineTime;
-            }
-
-            public String getFreePrice() {
-                return freePrice;
-            }
-
-            public void setFreePrice(String freePrice) {
-                this.freePrice = freePrice;
-            }
-
-            public String getName() {
-                return name;
-            }
-
-            public void setName(String name) {
-                this.name = name;
-            }
+            private String fromId;
 
             public String getId() {
                 return id;
@@ -229,6 +215,14 @@ public class PopInfoBean {
 
             public void setCreateTime(String createTime) {
                 this.createTime = createTime;
+            }
+
+            public String getFromId() {
+                return fromId;
+            }
+
+            public void setFromId(String fromId) {
+                this.fromId = fromId;
             }
         }
     }

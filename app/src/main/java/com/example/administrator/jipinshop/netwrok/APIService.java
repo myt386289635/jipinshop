@@ -889,7 +889,7 @@ public interface APIService {
     /**
      * 获取弹窗信息
      */
-    @GET("api/v2/getPopInfo")
+    @GET("api/v3/getPopInfo")
     Observable<PopInfoBean> getPopInfo();
 
     /**
@@ -1068,7 +1068,7 @@ public interface APIService {
     /**
      * 首次下单 获取弹窗信息
      */
-    @GET("api/v2/getPopInfo")
+    @GET("api/v3/getPopInfo")
     Observable<PopBean> getPopInfo(@Query("type") String type);
 
     /**

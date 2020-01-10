@@ -6,9 +6,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.databinding.DataBindingUtil;
 import android.graphics.Typeface;
-import android.os.CountDownTimer;
 import android.text.Html;
-import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.WindowManager;
@@ -24,7 +22,6 @@ import com.example.administrator.jipinshop.R;
 import com.example.administrator.jipinshop.activity.shoppingdetail.tbshoppingdetail.TBShoppingDetailActivity;
 import com.example.administrator.jipinshop.activity.sreach.result.TBSreachResultActivity;
 import com.example.administrator.jipinshop.bean.PopBean;
-import com.example.administrator.jipinshop.bean.PopInfoBean;
 import com.example.administrator.jipinshop.bean.TklBean;
 import com.example.administrator.jipinshop.databinding.DialogCheapBinding;
 import com.example.administrator.jipinshop.databinding.DialogNewpeopleBinding;
@@ -37,8 +34,6 @@ import com.example.administrator.jipinshop.view.glide.GlideApp;
 
 import java.math.BigDecimal;
 import java.util.List;
-
-import static com.example.administrator.jipinshop.util.TimeUtil.dateAddOneDay;
 
 /**
  * @author 莫小婷
@@ -282,76 +277,6 @@ public class DialogUtil {
         });
         dialog.show();
         dialog.setContentView(view);
-    }
-
-
-    public static void freeDialog(Context context, PopInfoBean bean, View.OnClickListener sureListener, View.OnClickListener dissListener) {
-        long timer = dateAddOneDay(bean.getData().getData().getDendlineTime()) - System.currentTimeMillis();
-        if (timer > 0) {
-            AlertDialog.Builder builder = new AlertDialog.Builder(context, R.style.dialog);
-            final Dialog dialog = builder.create();
-            dialog.getWindow().setDimAmount(0.35f);
-            View view = LayoutInflater.from(context).inflate(R.layout.dialog_free, null);
-            ImageView dialog_image = view.findViewById(R.id.dialog_image);
-            TextView dialog_price = view.findViewById(R.id.dialog_price);
-            TextView dialog_name = view.findViewById(R.id.dialog_name);
-            TextView dialog_reminder = view.findViewById(R.id.dialog_reminder);
-            TextView dialog_hour = view.findViewById(R.id.dialog_hour);
-            TextView dialog_minute = view.findViewById(R.id.dialog_minute);
-            TextView dialog_second = view.findViewById(R.id.dialog_second);
-            TextView dialog_sure = view.findViewById(R.id.dialog_sure);
-            ImageView dialog_cancle = view.findViewById(R.id.dialog_cancle);
-            GlideApp.loderImage(context, bean.getData().getData().getImg(), dialog_image, 0, 0);
-            BigDecimal actualBd = new BigDecimal(bean.getData().getData().getActualPrice());
-            BigDecimal freeBd = new BigDecimal(bean.getData().getData().getFreePrice());
-            double price = actualBd.doubleValue() - freeBd.doubleValue();
-            BigDecimal priceBd = new BigDecimal(price + "");
-            dialog_price.setText(priceBd.setScale(2, BigDecimal.ROUND_HALF_UP).stripTrailingZeros().toPlainString());
-            dialog_name.setText(bean.getData().getData().getName());
-            dialog_reminder.setText("全额售价¥" + actualBd.stripTrailingZeros().toPlainString()
-                    + "  额外补贴¥" + freeBd.stripTrailingZeros().toPlainString());
-            dialog_sure.setOnClickListener(v -> {
-                sureListener.onClick(v);
-                dialog.dismiss();
-            });
-            dialog_cancle.setOnClickListener(v -> {
-                dialog.dismiss();
-                dissListener.onClick(v);
-            });
-            final CountDownTimer[] countDownTimer = {new CountDownTimer(timer, 1000) {
-                public void onTick(long millisUntilFinished) {
-
-                    int ss = 1000;
-                    int mi = ss * 60;
-                    int hh = mi * 60;
-                    int dd = hh * 24;
-
-                    long day = millisUntilFinished / dd;
-                    long hour = ((millisUntilFinished - day * dd) / hh);
-                    long minute = (millisUntilFinished - hour * hh - day * dd) / mi;
-                    long second = (millisUntilFinished - hour * hh - minute * mi - day * dd) / ss;
-
-                    long re = (day * 24) + hour;
-
-                    dialog_hour.setText(re + "");
-                    dialog_minute.setText(minute + "");
-                    dialog_second.setText(second + "");
-                }
-
-                public void onFinish() {
-                    dialog.dismiss();
-                }
-            }.start()};
-            dialog.show();
-            dialog.setCanceledOnTouchOutside(true);
-            dialog.setContentView(view);
-            dialog.setOnDismissListener(dialog1 -> {
-                if (countDownTimer[0] != null) {
-                    countDownTimer[0].cancel();
-                    countDownTimer[0] = null;
-                }
-            });
-        }
     }
 
     /**
@@ -671,7 +596,9 @@ public class DialogUtil {
     }
 
     //特惠购首次下单奖励弹框
-    public static void cheapDialog(Context context, String addAllowancePrice , List<PopBean.DataBean.AllowanceGoodsListBean> list, View.OnClickListener listener){
+    public static void cheapDialog(Context context, String addAllowancePrice ,
+                                   List<PopBean.DataBean.AllowanceGoodsListBean> list,
+                                   View.OnClickListener listener , View.OnClickListener cancleListener){
         AlertDialog.Builder builder = new AlertDialog.Builder(context, R.style.dialog);
         final Dialog dialog = builder.create();
         DialogCheapBinding binding = DataBindingUtil.inflate(LayoutInflater.from(context), R.layout.dialog_cheap, null, false);
@@ -687,6 +614,8 @@ public class DialogUtil {
         }
         binding.executePendingBindings();
         binding.dialogCancle.setOnClickListener(v -> {
+            if (cancleListener != null)
+                cancleListener.onClick(v);
             dialog.dismiss();
         });
         binding.dialogSure.setOnClickListener(v -> {

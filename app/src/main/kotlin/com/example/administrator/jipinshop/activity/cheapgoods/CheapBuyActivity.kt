@@ -169,7 +169,7 @@ class CheapBuyActivity : BaseActivity(), View.OnClickListener, OnRefreshListener
 
     override fun onDilaogSuc(bean: PopBean) {
         if (bean.data != null && bean.data.allowanceGoodsList.size >= 3){
-            DialogUtil.cheapDialog(this,bean.data.addAllowancePrice,bean.data.allowanceGoodsList,null)
+            DialogUtil.cheapDialog(this,bean.data.addAllowancePrice,bean.data.allowanceGoodsList,null,null)
         }
     }
 
