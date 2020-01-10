@@ -117,11 +117,21 @@ public class NewPeopleActivity extends BaseActivity implements OnRefreshListener
         DialogUtil.LoginDialog(this, "您将前往淘宝0元购买此商品，\n仅限首单",
                 "确认", "取消", R.color.color_202020, R.color.color_202020,
                 false, v -> {
-                    mDialog = (new ProgressDialogView()).createLoadingDialog(this, "");
-                    if (mDialog != null && !mDialog.isShowing()) {
-                        mDialog.show();
+                    String specialId = SPUtils.getInstance(CommonDate.USER).getString(CommonDate.relationId, "");
+                    if (TextUtils.isEmpty(specialId) || specialId.equals("null")) {
+                        TaoBaoUtil.aliLogin(topAuthCode -> {
+                            startActivity(new Intent(this, TaoBaoWebActivity.class)
+                                    .putExtra(TaoBaoWebActivity.url, "https://oauth.taobao.com/authorize?response_type=code&client_id=25612235&redirect_uri=https://www.jipincheng.cn/qualityshop-api/api/taobao/returnUrl&state=" + SPUtils.getInstance(CommonDate.USER).getString(CommonDate.token) + "&view=wap")
+                                    .putExtra(TaoBaoWebActivity.title, "淘宝授权")
+                            );
+                        });
+                    } else {
+                        mDialog = (new ProgressDialogView()).createLoadingDialog(this, "");
+                        if (mDialog != null && !mDialog.isShowing()) {
+                            mDialog.show();
+                        }
+                        mPresenter.apply(mList.get(position).getId(), this.bindToLifecycle());
                     }
-                    mPresenter.apply(mList.get(position).getId(), this.bindToLifecycle());
                 });
     }
 
@@ -179,11 +189,21 @@ public class NewPeopleActivity extends BaseActivity implements OnRefreshListener
         DialogUtil.LoginDialog(this, "您将前往淘宝购买此商品，\n下单立减",
                 "确认", "取消", R.color.color_202020, R.color.color_202020,
                 false, v -> {
-                    mDialog = (new ProgressDialogView()).createLoadingDialog(this, "");
-                    if (mDialog != null && !mDialog.isShowing()) {
-                        mDialog.show();
+                    String specialId = SPUtils.getInstance(CommonDate.USER).getString(CommonDate.relationId, "");
+                    if (TextUtils.isEmpty(specialId) || specialId.equals("null")) {
+                        TaoBaoUtil.aliLogin(topAuthCode -> {
+                            startActivity(new Intent(this, TaoBaoWebActivity.class)
+                                    .putExtra(TaoBaoWebActivity.url, "https://oauth.taobao.com/authorize?response_type=code&client_id=25612235&redirect_uri=https://www.jipincheng.cn/qualityshop-api/api/taobao/returnUrl&state=" + SPUtils.getInstance(CommonDate.USER).getString(CommonDate.token) + "&view=wap")
+                                    .putExtra(TaoBaoWebActivity.title, "淘宝授权")
+                            );
+                        });
+                    } else {
+                        mDialog = (new ProgressDialogView()).createLoadingDialog(this, "");
+                        if (mDialog != null && !mDialog.isShowing()) {
+                            mDialog.show();
+                        }
+                        mPresenter.apply(mList2.get(position).getId(), this.bindToLifecycle());
                     }
-                    mPresenter.apply(mList2.get(position).getId(), this.bindToLifecycle());
                 });
     }
 
@@ -232,18 +252,8 @@ public class NewPeopleActivity extends BaseActivity implements OnRefreshListener
 
     @Override
     public void onBuySuccess(ImageBean bean) {
-        String specialId = SPUtils.getInstance(CommonDate.USER).getString(CommonDate.relationId, "");
-        if (TextUtils.isEmpty(specialId) || specialId.equals("null")) {
-            TaoBaoUtil.aliLogin(topAuthCode -> {
-                startActivity(new Intent(this, TaoBaoWebActivity.class)
-                        .putExtra(TaoBaoWebActivity.url, "https://oauth.taobao.com/authorize?response_type=code&client_id=25612235&redirect_uri=https://www.jipincheng.cn/qualityshop-api/api/taobao/returnUrl&state=" + SPUtils.getInstance(CommonDate.USER).getString(CommonDate.token) + "&view=wap")
-                        .putExtra(TaoBaoWebActivity.title, "淘宝授权")
-                );
-            });
-        } else {
-            jumpPage = true;
-            TaoBaoUtil.openAliHomeWeb(this, bean.getData(), bean.getOtherGoodsId());
-        }
+        jumpPage = true;
+        TaoBaoUtil.openAliHomeWeb(this, bean.getData(), bean.getOtherGoodsId());
     }
 
     @Override

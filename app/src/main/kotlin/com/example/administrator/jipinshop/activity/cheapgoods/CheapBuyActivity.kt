@@ -125,16 +125,6 @@ class CheapBuyActivity : BaseActivity(), View.OnClickListener, OnRefreshListener
     }
 
     override fun onBuy(position: Int) {
-        mDialog = ProgressDialogView().createLoadingDialog(this, "")
-        mDialog?.let {
-            if (!it.isShowing){
-                it.show()
-            }
-        }
-        mPresenter.apply(mList[position].id, this.bindToLifecycle<ImageBean>())
-    }
-
-    override fun onBuySuccess(bean: ImageBean) {
         var specialId = SPUtils.getInstance(CommonDate.USER).getString(CommonDate.relationId, "")
         if (TextUtils.isEmpty(specialId) || specialId == "null") {
             TaoBaoUtil.aliLogin { topAuthCode ->
@@ -144,8 +134,18 @@ class CheapBuyActivity : BaseActivity(), View.OnClickListener, OnRefreshListener
                 )
             }
         } else {
-            TaoBaoUtil.openAliHomeWeb(this, bean.data, bean.otherGoodsId)
+            mDialog = ProgressDialogView().createLoadingDialog(this, "")
+            mDialog?.let {
+                if (!it.isShowing){
+                    it.show()
+                }
+            }
+            mPresenter.apply(mList[position].id, this.bindToLifecycle<ImageBean>())
         }
+    }
+
+    override fun onBuySuccess(bean: ImageBean) {
+        TaoBaoUtil.openAliHomeWeb(this, bean.data, bean.otherGoodsId)
     }
 
     override fun onBuyFile(error: String?) {
