@@ -50,85 +50,74 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent">
 
-                <RelativeLayout
+                <TextView
+                    android:paddingLeft="@dimen/x28"
+                    android:gravity="center_vertical"
+                    android:background="@color/color_E25838"
+                    android:id="@+id/detail_status"
+                    android:textStyle="bold"
+                    android:textSize="18sp"
+                    android:textColor="@color/color_DEFFFFFF"
+                    bind:text="@{date.status}"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
+                    android:layout_height="@dimen/y120"/>
 
-                    <View
-                        android:background="@drawable/bg_mine_head"
-                        android:layout_width="match_parent"
-                        android:layout_height="@dimen/y184"/>
+                <RelativeLayout
+                    android:visibility="@{date.goodsType == 21 || date.goodsType == 22 ? View.GONE : View.VISIBLE}"
+                    android:layout_marginBottom="@dimen/y12"
+                    android:id="@+id/exchange_addressContainer"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/y164"
+                    android:background="@drawable/bg_mine">
 
-                    <TextView
-                        android:layout_marginTop="@dimen/y44"
-                        android:layout_marginLeft="@dimen/x28"
-                        android:id="@+id/detail_status"
-                        android:textStyle="bold"
-                        android:textSize="18sp"
-                        android:textColor="@color/color_DEFFFFFF"
-                        bind:text="@{date.status}"
+                    <ImageView
+                        android:id="@+id/image_tag"
                         android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"/>
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:layout_marginLeft="@dimen/x28"
+                        android:src="@mipmap/exchange_address"/>
 
                     <RelativeLayout
-                        android:layout_marginRight="@dimen/x28"
-                        android:layout_marginLeft="@dimen/x28"
-                        android:layout_marginTop="@dimen/y136"
-                        android:id="@+id/exchange_addressContainer"
                         android:layout_width="match_parent"
-                        android:layout_height="@dimen/y164"
-                        android:background="@drawable/bg_mine">
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:layout_marginLeft="@dimen/x26"
+                        android:layout_marginRight="@dimen/x28"
+                        android:layout_toRightOf="@+id/image_tag">
 
-                        <ImageView
-                            android:id="@+id/image_tag"
+                        <TextView
+                            android:id="@+id/detail_name"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_centerVertical="true"
-                            android:layout_marginLeft="@dimen/x28"
-                            android:src="@mipmap/exchange_address"/>
+                            android:textColor="@color/color_DE151515"
+                            android:textSize="15sp"
+                            android:text="@{date.username}"/>
 
-                        <RelativeLayout
-                            android:layout_width="match_parent"
+
+                        <TextView
+                            android:id="@+id/detail_number"
+                            android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_centerVertical="true"
-                            android:layout_marginLeft="@dimen/x26"
-                            android:layout_marginRight="@dimen/x28"
-                            android:layout_toRightOf="@+id/image_tag">
+                            android:layout_marginLeft="@dimen/x24"
+                            android:layout_toRightOf="@+id/detail_name"
+                            android:gravity="center"
+                            android:textColor="@color/color_ACACAC"
+                            android:textSize="13sp"
+                            android:text="@{date.mobile}"/>
 
-                            <TextView
-                                android:id="@+id/detail_name"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:textColor="@color/color_DE151515"
-                                android:textSize="15sp"
-                                android:text="@{date.username}"/>
-
-
-                            <TextView
-                                android:id="@+id/detail_number"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_marginLeft="@dimen/x24"
-                                android:layout_toRightOf="@+id/detail_name"
-                                android:gravity="center"
-                                android:textColor="@color/color_ACACAC"
-                                android:textSize="13sp"
-                                android:text="@{date.mobile}"/>
-
-                            <TextView
-                                android:lineSpacingExtra="@dimen/y6"
-                                android:id="@+id/detail_address"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_below="@+id/detail_name"
-                                android:layout_marginTop="@dimen/y8"
-                                android:ellipsize="end"
-                                android:maxLines="2"
-                                android:textColor="@color/color_DE151515"
-                                android:textSize="13sp"
-                                android:text="@{date.address}"/>
-
-                        </RelativeLayout>
+                        <TextView
+                            android:lineSpacingExtra="@dimen/y6"
+                            android:id="@+id/detail_address"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_below="@+id/detail_name"
+                            android:layout_marginTop="@dimen/y8"
+                            android:ellipsize="end"
+                            android:maxLines="2"
+                            android:textColor="@color/color_DE151515"
+                            android:textSize="13sp"
+                            android:text="@{date.address}"/>
 
                     </RelativeLayout>
 
@@ -136,17 +125,17 @@
 
                 <RelativeLayout
                     android:background="@color/color_white"
-                    android:layout_marginTop="@dimen/y12"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content">
 
                     <TextView
+                        android:textStyle="bold"
                         android:textColor="@color/color_DE151515"
-                        android:textSize="13sp"
+                        android:textSize="14sp"
                         android:id="@+id/detail_title"
                         android:layout_marginTop="@dimen/y32"
                         android:layout_marginLeft="@dimen/x28"
-                        android:text="@{date.goodsType == 1 ? @string/Freetrial : @string/IntegralMall,default = 免费试用商品}"
+                        android:text="@string/IntegralMall"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"/>
 
@@ -239,7 +228,7 @@
 
                     <LinearLayout
                         android:gravity="center_vertical"
-                        android:visibility="@{date.status == 1 ?  View.GONE :  View.VISIBLE }"
+                        android:visibility="@{date.status == 1 || date.goodsType == 21 || date.goodsType == 22 ?  View.GONE :  View.VISIBLE }"
                         android:layout_marginTop="@dimen/y12"
                         android:layout_marginRight="@dimen/x28"
                         android:layout_marginLeft="@dimen/x28"
@@ -284,7 +273,7 @@
                     </LinearLayout>
 
                     <LinearLayout
-                        android:visibility="@{date.status == 1 ?  View.GONE :  View.VISIBLE }"
+                        android:visibility="@{date.status == 1 || date.goodsType == 21 || date.goodsType == 22?  View.GONE :  View.VISIBLE }"
                         android:layout_marginTop="@dimen/y12"
                         android:layout_marginRight="@dimen/x28"
                         android:layout_marginLeft="@dimen/x28"
@@ -365,7 +354,51 @@
                     </LinearLayout>
 
                     <LinearLayout
-                        android:visibility="@{date.status == 1 ?  View.GONE :  View.VISIBLE }"
+                        android:gravity="center_vertical"
+                        android:visibility="@{date.goodsType == 21 ?  View.VISIBLE :  View.GONE }"
+                        android:layout_marginTop="@dimen/y12"
+                        android:layout_marginRight="@dimen/x28"
+                        android:layout_marginLeft="@dimen/x28"
+                        android:orientation="horizontal"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content">
+
+                        <TextView
+                            android:textColor="@color/color_ACACAC"
+                            android:textSize="13sp"
+                            android:text="激活码"
+                            android:minWidth="@dimen/x106"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"/>
+
+                        <TextView
+                            android:id="@+id/detail_code"
+                            android:layout_marginLeft="@dimen/x28"
+                            android:text="@{date.remark}"
+                            android:textColor="@color/color_DE151515"
+                            android:textSize="13sp"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"/>
+
+                        <TextView
+                            android:background="@drawable/bg_copy2"
+                            android:onClick="@{listener.onClick}"
+                            android:id="@+id/detail_codeCopy"
+                            android:layout_marginLeft="@dimen/x24"
+                            android:paddingBottom="@dimen/y4"
+                            android:paddingTop="@dimen/y4"
+                            android:paddingRight="@dimen/x8"
+                            android:paddingLeft="@dimen/x8"
+                            android:textColor="@color/color_DE151515"
+                            android:textSize="14sp"
+                            android:text="复制"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"/>
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:visibility="@{date.status == 1 || date.goodsType == 21 || date.goodsType == 22 ?  View.GONE :  View.VISIBLE }"
                         android:layout_marginTop="@dimen/y12"
                         android:layout_marginRight="@dimen/x28"
                         android:layout_marginLeft="@dimen/x28"
@@ -394,7 +427,7 @@
 
                     <LinearLayout
                         android:layout_marginBottom="@dimen/y40"
-                        android:visibility="@{date.status == 3 ? View.VISIBLE :  View.INVISIBLE}"
+                        android:visibility="@{date.status == 3 &amp;&amp; date.goodsType != 21 &amp;&amp; date.goodsType != 22? View.VISIBLE :  View.INVISIBLE}"
                         android:layout_marginTop="@dimen/y12"
                         android:layout_marginRight="@dimen/x28"
                         android:layout_marginLeft="@dimen/x28"

@@ -1,20 +1,21 @@
 package com.example.administrator.jipinshop.activity.sign;
 
+import android.app.Dialog;
 import android.content.Context;
 import android.view.ViewGroup;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.LinearLayout;
 
 import com.example.administrator.jipinshop.bean.DailyTaskBean;
 import com.example.administrator.jipinshop.bean.SignBean;
 import com.example.administrator.jipinshop.bean.SignInsertBean;
+import com.example.administrator.jipinshop.bean.SuccessBean;
 import com.example.administrator.jipinshop.netwrok.Repository;
 import com.trello.rxlifecycle2.LifecycleTransformer;
 
 import javax.inject.Inject;
 
-import io.reactivex.Observable;
 import io.reactivex.android.schedulers.AndroidSchedulers;
-import io.reactivex.functions.Consumer;
 import io.reactivex.schedulers.Schedulers;
 
 /**
@@ -120,6 +121,22 @@ public class SignPresenter {
                     if(mView != null){
                         mView.getInfoFaile(throwable.getMessage());
                     }
+                });
+    }
+
+    public void addInvitationCode(String invitationCode, Dialog dialog, InputMethodManager inputManager, LifecycleTransformer<SuccessBean> transformer){
+        mRepository.addInvitationCode(invitationCode)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .compose(transformer)
+                .subscribe(successBean -> {
+                    if (successBean.getCode() == 0){
+                        mView.onCodeSuc(dialog,inputManager,successBean);
+                    }else {
+                        mView.onFile(successBean.getMsg());
+                    }
+                }, throwable -> {
+                    mView.onFile(throwable.getMessage());
                 });
     }
 }

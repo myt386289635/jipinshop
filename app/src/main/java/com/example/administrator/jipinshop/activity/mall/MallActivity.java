@@ -12,7 +12,7 @@ import com.aspsine.swipetoloadlayout.OnLoadMoreListener;
 import com.aspsine.swipetoloadlayout.OnRefreshListener;
 import com.example.administrator.jipinshop.R;
 import com.example.administrator.jipinshop.activity.mall.detail.MallDetailActivity;
-import com.example.administrator.jipinshop.activity.order.MyOrderActivity;
+import com.example.administrator.jipinshop.activity.mall.order.MyOrderActivity;
 import com.example.administrator.jipinshop.activity.sign.SignActivity;
 import com.example.administrator.jipinshop.adapter.MallAdapter;
 import com.example.administrator.jipinshop.base.BaseActivity;
@@ -116,10 +116,10 @@ public class MallActivity extends BaseActivity implements View.OnClickListener, 
         if (ClickUtil.isFastDoubleClick(800)) {
             return;
         }else{
-            startActivityForResult(new Intent(this, MallDetailActivity.class)
+            startActivity(new Intent(this, MallDetailActivity.class)
                     .putExtra("goodsId",mList.get(position).getId())
                     .putExtra("isActivityGoods",mList.get(position).getType())
-            ,300);
+            );
         }
     }
 
@@ -203,14 +203,6 @@ public class MallActivity extends BaseActivity implements View.OnClickListener, 
             page--;
         }
         ToastUtil.show(error);
-    }
-
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-        if(resultCode == 300){
-            finish();
-        }
     }
 
     @Override

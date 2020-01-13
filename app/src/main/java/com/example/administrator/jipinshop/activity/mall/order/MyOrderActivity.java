@@ -1,4 +1,4 @@
-package com.example.administrator.jipinshop.activity.order;
+package com.example.administrator.jipinshop.activity.mall.order;
 
 import android.app.Dialog;
 import android.content.Intent;
@@ -11,7 +11,7 @@ import android.view.View;
 import com.aspsine.swipetoloadlayout.OnLoadMoreListener;
 import com.aspsine.swipetoloadlayout.OnRefreshListener;
 import com.example.administrator.jipinshop.R;
-import com.example.administrator.jipinshop.activity.order.detail.OrderDetailActivity;
+import com.example.administrator.jipinshop.activity.mall.order.detail.OrderDetailActivity;
 import com.example.administrator.jipinshop.adapter.MyOrderAdapter;
 import com.example.administrator.jipinshop.base.BaseActivity;
 import com.example.administrator.jipinshop.bean.MyOrderBean;
@@ -30,7 +30,7 @@ import javax.inject.Inject;
 /**
  * @author 莫小婷
  * @create 2019/3/7
- * @Describe 我的订单页面
+ * @Describe 兑换记录页面
  */
 public class MyOrderActivity extends BaseActivity implements View.OnClickListener, OnRefreshListener, OnLoadMoreListener, MyOrderView, MyOrderAdapter.OnClickItem {
 

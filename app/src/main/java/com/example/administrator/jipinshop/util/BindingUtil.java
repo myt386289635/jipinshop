@@ -40,13 +40,15 @@ public class BindingUtil {
      */
     @BindingAdapter({"bind:sendStatus","bind:sendTime","bind:finishTime","bind:payTime"})
     public static void setSendTime(TextView view, int status,String sendTime,String finishTime,String payTime){
+        String html = "";
         if(status == 1){
-            view.setText("下单时间：" + payTime);
+            html = "下单时间：<font color='#de151515'>"+payTime+"</font>";
         }else if(status == 2){
-            view.setText("发件时间：" + sendTime);
+            html = "发件时间：<font color='#de151515'>"+sendTime+"</font>";
         }else {
-            view.setText("收件时间：" + finishTime);
+            html = "收件时间：<font color='#de151515'>"+finishTime+"</font>";
         }
+        view.setText(Html.fromHtml(html));
     }
 
     @BindingAdapter("bind:srcRound")

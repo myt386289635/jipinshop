@@ -1,4 +1,4 @@
-package com.example.administrator.jipinshop.activity.order.detail;
+package com.example.administrator.jipinshop.activity.mall.order.detail;
 
 import android.app.Dialog;
 import android.content.ClipData;
@@ -43,6 +43,13 @@ public class OrderDetailActivity extends BaseActivity implements View.OnClickLis
         mBinding.setListener(this);
         mBean = (MyOrderBean.DataBean) getIntent().getSerializableExtra("date");
         mBinding.setDate(mBean);
+        if (mBean.getGoodsType() == 21){
+            mBinding.detailTitle.setText("会员卡兑换");
+        }else if (mBean.getGoodsType() == 22){
+            mBinding.detailTitle.setText("津贴兑换");
+        }else {
+            mBinding.detailTitle.setText("积分商城");
+        }
         mBinding.inClude.titleTv.setText("订单详情");
         mBaseActivityComponent.inject(this);
         mPresenter.setView(this);
@@ -73,6 +80,17 @@ public class OrderDetailActivity extends BaseActivity implements View.OnClickLis
                 clip.setPrimaryClip(clipData);
                 ToastUtil.show("复制成功");
                 SPUtils.getInstance().put(CommonDate.CLIP,mBinding.detailExpresssn.getText().toString());
+                break;
+            case R.id.detail_codeCopy:
+                if (TextUtils.isEmpty(mBinding.detailCode.getText().toString())){
+                    ToastUtil.show("暂无激活码");
+                    return;
+                }
+                ClipboardManager clip1 = (ClipboardManager)getSystemService(Context.CLIPBOARD_SERVICE);
+                ClipData clipData1 = ClipData.newPlainText("jipinshop", mBinding.detailCode.getText().toString());
+                clip1.setPrimaryClip(clipData1);
+                ToastUtil.show("复制成功");
+                SPUtils.getInstance().put(CommonDate.CLIP,mBinding.detailCode.getText().toString());
                 break;
         }
     }

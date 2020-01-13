@@ -35,5 +35,7 @@ public class CommonDate {
     public static final String bindWeibo = "bindWeibo";//是否绑定微博
     public static final String qrCode = "qrCode";//邀请码
     public static final String relationId= "relationId";//用于判断是否有淘宝授权
+    public static final String bgImg="bgImg";//用户背景图片
+    public static final String userSign="userSign";//用户签名
 
 }

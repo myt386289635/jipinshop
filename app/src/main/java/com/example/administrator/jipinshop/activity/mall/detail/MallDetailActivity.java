@@ -296,7 +296,6 @@ public class MallDetailActivity extends BaseActivity implements View.OnClickList
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if(resultCode == 300){
-            setResult(300);
             finish();
         }
     }

@@ -54,6 +54,13 @@ public class MyOrderAdapter extends RecyclerView.Adapter<MyOrderAdapter.ViewHold
                 mOnClickItem.onClickDetailItem(position);
             }
         });
+        if (mList.get(position).getGoodsType() == 21){
+            viewHolder.mBinding.itemTitle.setText("会员卡兑换");
+        }else if (mList.get(position).getGoodsType() == 22){
+            viewHolder.mBinding.itemTitle.setText("津贴兑换");
+        }else {
+            viewHolder.mBinding.itemTitle.setText("积分商城");
+        }
         viewHolder.getBinding().executePendingBindings();
     }
 

@@ -11,10 +11,11 @@ import android.view.View;
 import com.blankj.utilcode.util.SPUtils;
 import com.example.administrator.jipinshop.R;
 import com.example.administrator.jipinshop.activity.address.MyAddressActivity;
-import com.example.administrator.jipinshop.activity.order.MyOrderActivity;
+import com.example.administrator.jipinshop.activity.mall.order.detail.OrderDetailActivity;
 import com.example.administrator.jipinshop.base.BaseActivity;
 import com.example.administrator.jipinshop.bean.DefaultAddressBean;
 import com.example.administrator.jipinshop.bean.MallDetailBean;
+import com.example.administrator.jipinshop.bean.MyOrderBean;
 import com.example.administrator.jipinshop.databinding.ActivityExchangeBinding;
 import com.example.administrator.jipinshop.util.ToastUtil;
 import com.example.administrator.jipinshop.util.sp.CommonDate;
@@ -51,15 +52,27 @@ public class ExchangeActivity extends BaseActivity implements View.OnClickListen
     }
 
     private void initView() {
-        mBinding.exchangeNoAddress.setVisibility(View.VISIBLE);
-        mBinding.exchangeAddressContainer.setVisibility(View.GONE);
-        mPresenter.defaultAddress(this.bindToLifecycle());
         mBinding.inClude.titleTv.setText("确认订单");
         mMallDetailBean = (MallDetailBean.DataBean) getIntent().getSerializableExtra("date");
+
         if(mMallDetailBean != null){
             mBinding.exchangeGoodsName.setText(mMallDetailBean.getGoodsName());
             mBinding.exchangeCode.setText(mMallDetailBean.getExchangePoint() + "极币");
             GlideApp.loderImage(this,mMallDetailBean.getImg(),mBinding.exchangeImage,0,0);
+            if (mMallDetailBean.getType() == 2 || mMallDetailBean.getType() == 3){
+                if (mMallDetailBean.getType() == 2){
+                    mBinding.exchangeTitle.setText("会员卡兑换");
+                }else {
+                    mBinding.exchangeTitle.setText("津贴兑换");
+                }
+                mBinding.exchangeAddressContainer.setVisibility(View.GONE);
+                mBinding.exchangeNoAddress.setVisibility(View.GONE);
+            }else {
+                mBinding.exchangeTitle.setText("积分商城");
+                mBinding.exchangeNoAddress.setVisibility(View.VISIBLE);
+                mBinding.exchangeAddressContainer.setVisibility(View.GONE);
+                mPresenter.defaultAddress(this.bindToLifecycle());
+            }
         }
         getTotle();
     }
@@ -114,7 +127,7 @@ public class ExchangeActivity extends BaseActivity implements View.OnClickListen
                     ToastUtil.show("数据错误，请重新进入页面");
                     return;
                 }
-                if(TextUtils.isEmpty(addressId)){
+                if(mMallDetailBean.getType() != 2&&mMallDetailBean.getType() != 3&&TextUtils.isEmpty(addressId)){
                     ToastUtil.show("地址不能为空");
                     return;
                 }
@@ -155,11 +168,16 @@ public class ExchangeActivity extends BaseActivity implements View.OnClickListen
     }
 
     @Override
-    public void onExchangeSuc() {
+    public void onExchangeSuc(MyOrderBean.DataBean bean) {
         if(mDialog != null && mDialog.isShowing()){
             mDialog.dismiss();
         }
-        startActivity(new Intent(this, MyOrderActivity.class));
+        bean.setImg(mMallDetailBean.getImg());
+        bean.setTotal("1");
+        bean.setGoodsName(mMallDetailBean.getGoodsName());
+        startActivity(new Intent(this, OrderDetailActivity.class)
+                        .putExtra("date",bean)
+        );
         ToastUtil.show("商品兑换成功");
         setResult(300);
         finish();

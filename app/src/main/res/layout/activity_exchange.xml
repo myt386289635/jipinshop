@@ -24,6 +24,7 @@
             bind:listener="@{listener}"/>
 
         <RelativeLayout
+            android:layout_marginBottom="@dimen/y12"
             android:onClick="@{listener.onClick}"
             android:id="@+id/exchange_addressContainer"
             android:layout_width="match_parent"
@@ -96,6 +97,8 @@
 
 
         <RelativeLayout
+            android:visibility="gone"
+            android:layout_marginBottom="@dimen/y12"
             android:id="@+id/exchange_noAddress"
             android:layout_width="match_parent"
             android:layout_height="@dimen/y192"
@@ -115,21 +118,21 @@
         </RelativeLayout>
 
         <RelativeLayout
-            android:layout_marginTop="@dimen/y12"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@color/color_white">
 
 
             <TextView
+                android:textStyle="bold"
                 android:id="@+id/exchange_title"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="@dimen/x28"
                 android:layout_marginTop="@dimen/y48"
-                android:text="极品城-极币商城"
+                android:text="积分商城"
                 android:textColor="@color/color_DE151515"
-                android:textSize="13sp"/>
+                android:textSize="14sp"/>
 
             <ImageView
                 android:scaleType="fitXY"
@@ -158,6 +161,7 @@
                 android:layout_height="wrap_content"/>
 
             <TextView
+                android:textStyle="bold"
                 android:id="@+id/exchange_code"
                 android:layout_marginTop="@dimen/y28"
                 android:layout_marginLeft="@dimen/x28"
@@ -250,8 +254,8 @@
 
                 <TextView
                     android:layout_gravity="center_vertical"
-                    android:textSize="13sp"
-                    android:textColor="@color/color_202020"
+                    android:textSize="15sp"
+                    android:textColor="@color/color_050505"
                     android:text="实付极币："
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"/>
@@ -260,9 +264,8 @@
                     android:id="@+id/exchange_totleCode"
                     android:layout_marginRight="@dimen/x36"
                     android:layout_gravity="center_vertical"
-                    android:textStyle="bold"
-                    android:textColor="@color/color_E31436"
-                    android:textSize="14sp"
+                    android:textColor="@color/color_050505"
+                    android:textSize="15sp"
                     android:text="1000"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"/>

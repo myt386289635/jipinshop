@@ -294,7 +294,7 @@
                   android:screenOrientation="portrait"/>
 
         <!--我的订单-->
-        <activity android:name=".activity.order.MyOrderActivity"
+        <activity android:name=".activity.mall.order.MyOrderActivity"
                   android:screenOrientation="portrait"/>
 
         <!--极币商城-->
@@ -346,7 +346,7 @@
                   android:screenOrientation="portrait"/>
 
         <!--订单详情页面-->
-        <activity android:name=".activity.order.detail.OrderDetailActivity"
+        <activity android:name=".activity.mall.order.detail.OrderDetailActivity"
                   android:screenOrientation="portrait"/>
 
         <!--书写试用报告-->

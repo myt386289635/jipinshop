@@ -1,4 +1,4 @@
-package com.example.administrator.jipinshop.activity.order.detail;
+package com.example.administrator.jipinshop.activity.mall.order.detail;
 
 import com.example.administrator.jipinshop.bean.SuccessBean;
 import com.example.administrator.jipinshop.netwrok.Repository;

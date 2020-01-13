@@ -99,6 +99,9 @@ public class ExtendableListViewAdapter extends BaseExpandableListAdapter {
             case 4://点赞
                 groupViewHolder.group_sure.setText("立即点赞");
                 break;
+            case 21://分享极品城
+            case 22://分享免单
+            case 20://分享商品
             case 5://分享
                 groupViewHolder.group_sure.setText("立即分享");
                 break;
@@ -110,6 +113,18 @@ public class ExtendableListViewAdapter extends BaseExpandableListAdapter {
                 break;
             case 8://发文奖励
                 groupViewHolder.group_sure.setText("立即发文");
+                break;
+            case 9://填写邀请码
+                groupViewHolder.group_sure.setText("立即输入");
+                break;
+            case 17://浏览商品
+                groupViewHolder.group_sure.setText("立即浏览");
+                break;
+            case 18://首次下单
+                groupViewHolder.group_sure.setText("立即下单");
+                break;
+            case 19://完善个人信息
+                groupViewHolder.group_sure.setText("立即完善");
                 break;
         }
         groupViewHolder.group_sure.setOnClickListener(v -> {

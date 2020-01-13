@@ -52,6 +52,7 @@ import com.example.administrator.jipinshop.bean.SreachResultArticlesBean;
 import com.example.administrator.jipinshop.bean.SreachResultGoodsBean;
 import com.example.administrator.jipinshop.bean.StartPageBean;
 import com.example.administrator.jipinshop.bean.SucBean;
+import com.example.administrator.jipinshop.bean.SucBeanT;
 import com.example.administrator.jipinshop.bean.SuccessBean;
 import com.example.administrator.jipinshop.bean.SystemMessageBean;
 import com.example.administrator.jipinshop.bean.TBShoppingDetailBean;
@@ -467,7 +468,7 @@ public interface APIService {
      */
     @FormUrlEncoded
     @POST("api/point/exchange")
-    Observable<SuccessBean> exchange(@Field("pointGoodsId") String pointGoodsId ,@Field("addressId") String addressId,@Field("total") String total);
+    Observable<SucBeanT<MyOrderBean.DataBean>> exchange(@Field("pointGoodsId") String pointGoodsId , @Field("addressId") String addressId, @Field("total") String total);
 
     /**
      * 邀请好友

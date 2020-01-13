@@ -1,4 +1,4 @@
-package com.example.administrator.jipinshop.activity.order;
+package com.example.administrator.jipinshop.activity.mall.order;
 
 import com.example.administrator.jipinshop.bean.MyOrderBean;
 

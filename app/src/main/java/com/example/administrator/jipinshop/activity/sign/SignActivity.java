@@ -7,12 +7,15 @@ import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.text.TextUtils;
 import android.view.View;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.TextView;
 
 import com.blankj.utilcode.util.SPUtils;
 import com.example.administrator.jipinshop.R;
 import com.example.administrator.jipinshop.activity.WebActivity;
+import com.example.administrator.jipinshop.activity.info.MyInfoActivity;
 import com.example.administrator.jipinshop.activity.sign.detail.IntegralDetailActivity;
 import com.example.administrator.jipinshop.activity.sign.invitation.InvitationNewActivity;
 import com.example.administrator.jipinshop.adapter.ExtendableListViewAdapter;
@@ -20,13 +23,14 @@ import com.example.administrator.jipinshop.base.BaseActivity;
 import com.example.administrator.jipinshop.bean.DailyTaskBean;
 import com.example.administrator.jipinshop.bean.SignBean;
 import com.example.administrator.jipinshop.bean.SignInsertBean;
+import com.example.administrator.jipinshop.bean.SuccessBean;
 import com.example.administrator.jipinshop.bean.eventbus.ChangeHomePageBus;
-import com.example.administrator.jipinshop.bean.eventbus.EditNameBus;
 import com.example.administrator.jipinshop.databinding.ActivitySignBinding;
 import com.example.administrator.jipinshop.netwrok.RetrofitModule;
 import com.example.administrator.jipinshop.util.ToastUtil;
 import com.example.administrator.jipinshop.util.UmApp.UAppUtil;
 import com.example.administrator.jipinshop.util.sp.CommonDate;
+import com.example.administrator.jipinshop.view.dialog.DialogUtil;
 import com.example.administrator.jipinshop.view.dialog.ProgressDialogView;
 
 import org.greenrobot.eventbus.EventBus;
@@ -217,27 +221,67 @@ public class SignActivity extends BaseActivity implements View.OnClickListener, 
 
     @Override
     public void onClickItem(int location, int position) {
+        dayJump(location);
+        //添加统计
+        UAppUtil.sign(this,groupList.get(position).getType());
+    }
+
+    /**
+     * 每日任务的跳转逻辑
+     */
+    public void dayJump(int location){
         switch (location){
             case 1://跳转到首页
                 EventBus.getDefault().post(new ChangeHomePageBus(0));
                 finish();
                 break;
-            case 2://跳转到发现
-                EventBus.getDefault().post(new ChangeHomePageBus(1));
-                finish();
-                break;
             case 3://跳转到评测
-                EventBus.getDefault().post(new ChangeHomePageBus(2));
+                EventBus.getDefault().post(new ChangeHomePageBus(1));
                 finish();
                 break;
             case 4://跳转到邀请页面
                 startActivity(new Intent(this, InvitationNewActivity.class));
                 break;
-            case 5://跳转到认证页面
-                // TODO: 2019/3/16  跳转到认证页面
+            case 6://跳转到免单首页
+                EventBus.getDefault().post(new ChangeHomePageBus(3));
+                finish();
+                break;
+            case 7://编辑个人资料
+                startActivity(new Intent(this, MyInfoActivity.class)
+                        .putExtra("bgImg",SPUtils.getInstance(CommonDate.USER).getString(CommonDate.bgImg))
+                        .putExtra("sign",SPUtils.getInstance(CommonDate.USER).getString(CommonDate.userSign))
+                );
+                break;
+            case 8://填写邀请码
+                DialogUtil.invitationDialog(this, (invitationCode, dialog, inputManager) -> {
+                    if (TextUtils.isEmpty(invitationCode)){
+                        ToastUtil.show("请输入邀请码");
+                        return;
+                    }
+                    mDialog = (new ProgressDialogView()).createLoadingDialog(this, "");
+                    mDialog.show();
+                    mPresenter.addInvitationCode(invitationCode, dialog, inputManager,this.bindToLifecycle());
+                });
                 break;
         }
-        //添加统计
-        UAppUtil.sign(this,groupList.get(position).getType());
+    }
+
+    @Override
+    public void onCodeSuc(Dialog dialog, InputMethodManager inputManager, SuccessBean bean) {
+        if (mDialog != null && mDialog.isShowing()){
+            mDialog.dismiss();
+        }
+        ToastUtil.show(bean.getMsg());
+        if (dialog.getCurrentFocus() != null)
+            inputManager.hideSoftInputFromWindow(dialog.getCurrentFocus().getWindowToken(), 0);
+        dialog.dismiss();
+    }
+
+    @Override
+    public void onFile(String error) {
+        if (mDialog != null && mDialog.isShowing()){
+            mDialog.dismiss();
+        }
+        ToastUtil.show(error);
     }
 }

@@ -1,4 +1,4 @@
-package com.example.administrator.jipinshop.activity.order.detail;
+package com.example.administrator.jipinshop.activity.mall.order.detail;
 
 /**
  * @author 莫小婷

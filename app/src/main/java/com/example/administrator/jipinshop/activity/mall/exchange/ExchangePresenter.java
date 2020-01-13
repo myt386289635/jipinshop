@@ -1,6 +1,8 @@
 package com.example.administrator.jipinshop.activity.mall.exchange;
 
 import com.example.administrator.jipinshop.bean.DefaultAddressBean;
+import com.example.administrator.jipinshop.bean.MyOrderBean;
+import com.example.administrator.jipinshop.bean.SucBeanT;
 import com.example.administrator.jipinshop.bean.SuccessBean;
 import com.example.administrator.jipinshop.netwrok.Repository;
 import com.trello.rxlifecycle2.LifecycleTransformer;
@@ -52,7 +54,7 @@ public class ExchangePresenter {
                 });
     }
 
-    public void exchange(String pointGoodsId , String addressId , String total,LifecycleTransformer<SuccessBean> transformer){
+    public void exchange(String pointGoodsId , String addressId , String total,LifecycleTransformer<SucBeanT<MyOrderBean.DataBean>> transformer){
         mRepository.exchange(pointGoodsId, addressId , total)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
@@ -60,7 +62,7 @@ public class ExchangePresenter {
                 .subscribe(successBean -> {
                     if(successBean.getCode() == 0){
                         if (mView != null){
-                            mView.onExchangeSuc();
+                            mView.onExchangeSuc(successBean.getData());
                         }
                     }else {
                         if(mView != null){

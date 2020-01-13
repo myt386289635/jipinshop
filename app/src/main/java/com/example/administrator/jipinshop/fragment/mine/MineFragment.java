@@ -298,6 +298,8 @@ public class MineFragment extends DBBaseFragment implements View.OnClickListener
         SPUtils.getInstance(CommonDate.USER).put(CommonDate.qrCode, userInfoBean.getData().getInvitationCode());
         SPUtils.getInstance(CommonDate.USER).put(CommonDate.relationId, userInfoBean.getData().getRelationId());
         SPUtils.getInstance(CommonDate.USER).put(CommonDate.userId,userInfoBean.getData().getUserId());
+        SPUtils.getInstance(CommonDate.USER).put(CommonDate.userSign,userInfoBean.getData().getDetail());
+        SPUtils.getInstance(CommonDate.USER).put(CommonDate.bgImg,userInfoBean.getData().getBgImg());
 
         mBinding.mineName.setVisibility(View.VISIBLE);
         mBinding.mineLogin.setVisibility(View.GONE);
@@ -386,6 +388,9 @@ public class MineFragment extends DBBaseFragment implements View.OnClickListener
         SPUtils.getInstance(CommonDate.USER).put(CommonDate.userPoint, userInfoBean.getData().getPoint());
         SPUtils.getInstance(CommonDate.USER).put(CommonDate.relationId, userInfoBean.getData().getRelationId());
         SPUtils.getInstance(CommonDate.USER).put(CommonDate.userId,userInfoBean.getData().getUserId());
+        SPUtils.getInstance(CommonDate.USER).put(CommonDate.userSign,userInfoBean.getData().getDetail());
+        SPUtils.getInstance(CommonDate.USER).put(CommonDate.bgImg,userInfoBean.getData().getBgImg());
+
         mBinding.mineFavorNumText.setText(userInfoBean.getData().getCollectCount());//收藏数
         mBinding.mineAllowanceText.setText(userInfoBean.getData().getAllowance());//津贴余额
         mBinding.mineTeamText.setText(userInfoBean.getData().getTeamCount());//团队人数

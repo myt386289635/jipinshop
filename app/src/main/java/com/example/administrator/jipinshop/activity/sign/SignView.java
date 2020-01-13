@@ -1,8 +1,12 @@
 package com.example.administrator.jipinshop.activity.sign;
 
+import android.app.Dialog;
+import android.view.inputmethod.InputMethodManager;
+
 import com.example.administrator.jipinshop.bean.DailyTaskBean;
 import com.example.administrator.jipinshop.bean.SignBean;
 import com.example.administrator.jipinshop.bean.SignInsertBean;
+import com.example.administrator.jipinshop.bean.SuccessBean;
 
 /**
  * @author 莫小婷
@@ -21,4 +25,7 @@ public interface SignView {
 
     /*获取每日任务列表**/
     void getDayList(DailyTaskBean bean);
+
+    void onCodeSuc(Dialog dialog, InputMethodManager inputManager, SuccessBean bean);
+    void onFile(String error);
 }

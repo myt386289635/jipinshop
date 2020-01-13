@@ -52,6 +52,7 @@ import com.example.administrator.jipinshop.bean.SreachResultArticlesBean;
 import com.example.administrator.jipinshop.bean.SreachResultGoodsBean;
 import com.example.administrator.jipinshop.bean.StartPageBean;
 import com.example.administrator.jipinshop.bean.SucBean;
+import com.example.administrator.jipinshop.bean.SucBeanT;
 import com.example.administrator.jipinshop.bean.SuccessBean;
 import com.example.administrator.jipinshop.bean.SystemMessageBean;
 import com.example.administrator.jipinshop.bean.TBShoppingDetailBean;
@@ -493,7 +494,7 @@ public class Repository {
     /**
      * 积分兑换
      */
-    public Observable<SuccessBean> exchange(String pointGoodsId , String addressId ,String total){
+    public Observable<SucBeanT<MyOrderBean.DataBean>> exchange(String pointGoodsId , String addressId , String total){
         return mAPIService.exchange(pointGoodsId,addressId,total);
     }
 
