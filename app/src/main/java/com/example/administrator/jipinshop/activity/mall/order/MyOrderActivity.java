@@ -1,15 +1,20 @@
 package com.example.administrator.jipinshop.activity.mall.order;
 
 import android.app.Dialog;
+import android.content.ClipData;
+import android.content.ClipboardManager;
+import android.content.Context;
 import android.content.Intent;
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.LinearLayoutManager;
+import android.text.TextUtils;
 import android.view.View;
 
 import com.aspsine.swipetoloadlayout.OnLoadMoreListener;
 import com.aspsine.swipetoloadlayout.OnRefreshListener;
+import com.blankj.utilcode.util.SPUtils;
 import com.example.administrator.jipinshop.R;
 import com.example.administrator.jipinshop.activity.mall.order.detail.OrderDetailActivity;
 import com.example.administrator.jipinshop.adapter.MyOrderAdapter;
@@ -18,6 +23,7 @@ import com.example.administrator.jipinshop.bean.MyOrderBean;
 import com.example.administrator.jipinshop.databinding.ActivityMessageSystemBinding;
 import com.example.administrator.jipinshop.util.ClickUtil;
 import com.example.administrator.jipinshop.util.ToastUtil;
+import com.example.administrator.jipinshop.util.sp.CommonDate;
 import com.example.administrator.jipinshop.view.dialog.ProgressDialogView;
 
 import java.text.SimpleDateFormat;
@@ -73,7 +79,7 @@ public class MyOrderActivity extends BaseActivity implements View.OnClickListene
         mPresenter.solveScoll(mBinding.recyclerView,mBinding.swipeToLoad);
         mBinding.swipeToLoad.setOnRefreshListener(this);
         mBinding.swipeToLoad.setOnLoadMoreListener(this);
-        mBinding.swipeToLoad.setRefreshing(true);
+        mBinding.swipeToLoad.post(() -> mBinding.swipeToLoad.setRefreshing(true));
     }
 
     @Override
@@ -215,6 +221,19 @@ public class MyOrderActivity extends BaseActivity implements View.OnClickListene
                     .putExtra("pos",position)
             ,201);
         }
+    }
+
+    @Override
+    public void onClickCopy(int position) {
+        if (TextUtils.isEmpty(mList.get(position).getRemark())){
+            ToastUtil.show("暂无激活码");
+            return;
+        }
+        ClipboardManager clip1 = (ClipboardManager)getSystemService(Context.CLIPBOARD_SERVICE);
+        ClipData clipData1 = ClipData.newPlainText("jipinshop", mList.get(position).getRemark());
+        clip1.setPrimaryClip(clipData1);
+        ToastUtil.show("复制成功");
+        SPUtils.getInstance().put(CommonDate.CLIP,mList.get(position).getRemark());
     }
 
     @Override

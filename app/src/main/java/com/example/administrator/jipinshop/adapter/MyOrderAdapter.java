@@ -5,6 +5,7 @@ import android.databinding.DataBindingUtil;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
+import android.view.View;
 import android.view.ViewGroup;
 
 import com.example.administrator.jipinshop.R;
@@ -54,6 +55,11 @@ public class MyOrderAdapter extends RecyclerView.Adapter<MyOrderAdapter.ViewHold
                 mOnClickItem.onClickDetailItem(position);
             }
         });
+        viewHolder.mBinding.detailCopy.setOnClickListener(v -> {
+            if(mOnClickItem != null){
+                mOnClickItem.onClickCopy(position);
+            }
+        });
         if (mList.get(position).getGoodsType() == 21){
             viewHolder.mBinding.itemTitle.setText("会员卡兑换");
         }else if (mList.get(position).getGoodsType() == 22){
@@ -86,5 +92,6 @@ public class MyOrderAdapter extends RecyclerView.Adapter<MyOrderAdapter.ViewHold
     public interface OnClickItem{
         void onClickItem(int position);//确认收货
         void onClickDetailItem(int position);//订单详情页面
+        void onClickCopy(int position);//复制
     }
 }
