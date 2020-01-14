@@ -13,7 +13,10 @@ import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
 import android.view.Gravity;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 
 import com.alibaba.baichuan.android.trade.AlibcTradeSDK;
 import com.blankj.utilcode.util.SPUtils;
@@ -102,6 +105,7 @@ public class TBShoppingDetailActivity extends BaseActivity implements View.OnCli
     private String shareUrl = "";
     private String goodsBuyLink = "";
     private boolean isCollect = false;//标志：是否收藏过此商品 false:没有
+    private int goodsType = 2;//1是极品城  2是淘宝
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -149,12 +153,8 @@ public class TBShoppingDetailActivity extends BaseActivity implements View.OnCli
         //商品详情
         mDetailList = new ArrayList<>();
         mImageAdapter = new ShoppingImageAdapter(mDetailList,this);
-        mBinding.detailDec.setLayoutManager(new LinearLayoutManager(this){
-            @Override
-            public boolean canScrollVertically() {
-                return false;
-            }
-        });
+        mBinding.detailDec.setLayoutManager(new LinearLayoutManager(this));
+        mBinding.detailDec.setNestedScrollingEnabled(false);
         mBinding.detailDec.setAdapter(mImageAdapter);
 
         //猜你喜欢
@@ -185,9 +185,16 @@ public class TBShoppingDetailActivity extends BaseActivity implements View.OnCli
                 finish();
                 break;
             case R.id.detail_decSpeach:
-                mDialog = (new ProgressDialogView()).createLoadingDialog(this, "");
-                mDialog.show();
-                mPresenter.getGoodsDescImgs(goodsId,this.bindToLifecycle());
+                if (goodsType == 1){
+                    mBinding.detailDecSpeach.setVisibility(View.GONE);
+                    LinearLayout.LayoutParams layoutParams = (LinearLayout.LayoutParams) mBinding.detailDec.getLayoutParams();
+                    layoutParams.height = ViewGroup.LayoutParams.WRAP_CONTENT;
+                    mBinding.detailDec.setLayoutParams(layoutParams);
+                }else {
+                    mDialog = (new ProgressDialogView()).createLoadingDialog(this, "");
+                    mDialog.show();
+                    mPresenter.getGoodsDescImgs(goodsId,this.bindToLifecycle());
+                }
                 break;
             case R.id.detail_couponImg:
             case R.id.detail_buy:
@@ -303,7 +310,20 @@ public class TBShoppingDetailActivity extends BaseActivity implements View.OnCli
             mBinding.detailLine2.setVisibility(View.GONE);
         }
         //商品详情
-        mBinding.detailDec.setVisibility(View.GONE);
+        goodsType = bean.getData().getGoodsType();
+        if (goodsType == 2){
+            mBinding.detailDec.setVisibility(View.GONE);
+        }else {//极品城上架商品和原来一样
+            if (bean.getData().getDescImgList() != null && bean.getData().getDescImgList().size() != 0){
+                LinearLayout.LayoutParams layoutParams = (LinearLayout.LayoutParams) mBinding.detailDec.getLayoutParams();
+                layoutParams.height = (int) getResources().getDimension(R.dimen.y600);
+                mBinding.detailDec.setLayoutParams(layoutParams);
+                mDetailList.addAll(bean.getData().getDescImgList());
+                mImageAdapter.notifyDataSetChanged();
+            }else {
+                mBinding.detailDecContainer.setVisibility(View.GONE);
+            }
+        }
         //推荐理由
         if (!TextUtils.isEmpty(bean.getData().getRecommendReason())){
             mBinding.detailReason.setDesc(bean.getData().getRecommendReason());

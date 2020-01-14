@@ -69,6 +69,15 @@ public class TBShoppingDetailBean {
         private List<String> imgList;
         private List<String> descImgList;
         private String goodsBuyLink;
+        private int goodsType;//1是极品城  2是淘宝
+
+        public int getGoodsType() {
+            return goodsType;
+        }
+
+        public void setGoodsType(int goodsType) {
+            this.goodsType = goodsType;
+        }
 
         public String getGoodsBuyLink() {
             return goodsBuyLink;
