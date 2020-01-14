@@ -185,7 +185,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="@dimen/x16"
-                        android:text="返现"
+                        android:text="极品城返现"
                         android:textColor="@color/color_FFE4C1"
                         android:textSize="13sp"/>
 
@@ -217,7 +217,7 @@
                     android:onClick="@{listener.onClick}"
                     android:paddingLeft="@dimen/x16"
                     android:paddingRight="@dimen/x16"
-                    android:text="查看返现攻略"
+                    android:text="查看极品城返现攻略"
                     android:textColor="@color/color_E25838"
                     android:textSize="12sp"/>
 
@@ -439,7 +439,6 @@
                     android:id="@+id/detail_shopName"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:gravity="center_vertical"
                     android:layout_alignBottom="@id/detail_shopImage"
                     android:layout_alignTop="@id/detail_shopImage"
                     android:layout_toRightOf="@id/detail_shopImage"
@@ -447,6 +446,86 @@
                     android:textColor="@color/color_202020"
                     android:textSize="14sp"/>
 
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_alignBottom="@id/detail_shopImage"
+                    android:layout_toRightOf="@id/detail_shopImage"
+                    android:orientation="horizontal"
+                    android:weightSum="3">
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:id="@+id/detail_shopCode1Title"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text=""
+                            android:textColor="@color/color_ACACAC"
+                            android:textSize="12sp"/>
+
+                        <TextView
+                            android:id="@+id/detail_shopCode1"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="@dimen/x20"
+                            android:text=""
+                            android:textColor="@color/color_E25838"
+                            android:textSize="12sp"/>
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:id="@+id/detail_shopCode2Title"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text=""
+                            android:textColor="@color/color_ACACAC"
+                            android:textSize="12sp"/>
+
+                        <TextView
+                            android:id="@+id/detail_shopCode2"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="@dimen/x20"
+                            android:text=""
+                            android:textColor="@color/color_E25838"
+                            android:textSize="12sp"/>
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:id="@+id/detail_shopCode3Title"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text=""
+                            android:textColor="@color/color_ACACAC"
+                            android:textSize="12sp"/>
+
+                        <TextView
+                            android:id="@+id/detail_shopCode3"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="@dimen/x20"
+                            android:text=""
+                            android:textColor="@color/color_E25838"
+                            android:textSize="12sp"/>
+                    </LinearLayout>
+                </LinearLayout>
 
                 <View
                     android:id="@+id/detail_line3"

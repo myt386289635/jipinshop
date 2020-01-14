@@ -11,6 +11,7 @@ import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
+import android.view.Gravity;
 import android.view.View;
 import android.widget.ImageView;
 
@@ -225,7 +226,7 @@ public class TBShoppingDetailActivity extends BaseActivity implements View.OnCli
             case R.id.detail_freeNotice:
                 startActivity(new Intent(this, WebActivity.class)
                         .putExtra(WebActivity.url, RetrofitModule.H5_URL+"fee-rule.html")
-                        .putExtra(WebActivity.title,"查看返现攻略")
+                        .putExtra(WebActivity.title,"极品城购物返现说明")
                 );
                 break;
             case R.id.title_favor:
@@ -308,6 +309,22 @@ public class TBShoppingDetailActivity extends BaseActivity implements View.OnCli
             mBinding.detailReason.setDesc(bean.getData().getRecommendReason());
         }else {
             mBinding.detailReasonContainer.setVisibility(View.GONE);
+        }
+        //商家评分
+        if (bean.getData().getEvaluateList() == null || bean.getData().getEvaluateList().size() == 0){
+            mBinding.detailShopName.setGravity(Gravity.CENTER_VERTICAL);
+        }
+        if (bean.getData().getEvaluateList() != null && bean.getData().getEvaluateList().size() >= 1){
+            mBinding.detailShopCode1Title.setText(bean.getData().getEvaluateList().get(0).getTitle());
+            mBinding.detailShopCode1.setText(bean.getData().getEvaluateList().get(0).getScore());
+        }
+        if (bean.getData().getEvaluateList() != null && bean.getData().getEvaluateList().size() >= 2){
+            mBinding.detailShopCode2Title.setText(bean.getData().getEvaluateList().get(1).getTitle());
+            mBinding.detailShopCode2.setText(bean.getData().getEvaluateList().get(1).getScore());
+        }
+        if (bean.getData().getEvaluateList() != null && bean.getData().getEvaluateList().size() >= 3){
+            mBinding.detailShopCode3Title.setText(bean.getData().getEvaluateList().get(2).getTitle());
+            mBinding.detailShopCode3.setText(bean.getData().getEvaluateList().get(2).getScore());
         }
         //优惠券
         double coupon = new BigDecimal(bean.getData().getCouponPrice()).doubleValue();
