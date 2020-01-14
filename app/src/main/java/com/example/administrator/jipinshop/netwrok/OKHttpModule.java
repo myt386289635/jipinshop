@@ -79,6 +79,8 @@ public class OKHttpModule {
             Request authorised = originalRequest.newBuilder()
                     .addHeader("token", SPUtils.getInstance(CommonDate.USER).getString(CommonDate.token,""))
                     .addHeader("uuid", new DeviceUuidFactory(context).getDeviceUuid())
+                    .addHeader("androidid",DeviceUuidFactory.getAndroidID(context))
+                    .addHeader("imei",DeviceUuidFactory.getIMEI(context))
                     .addHeader("client","android")
                     .addHeader("appVersion", SettingActivity.getVerName(context))
                     .addHeader("model",DeviceUuidFactory.getSystemModel())

@@ -1,9 +1,12 @@
 package com.example.administrator.jipinshop.util;
 
+import android.Manifest;
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.content.pm.PackageManager;
 import android.provider.Settings;
+import android.support.v4.app.ActivityCompat;
 import android.telephony.TelephonyManager;
 import android.text.TextUtils;
 
@@ -110,4 +113,37 @@ public class DeviceUuidFactory {
         }
         return map;
     }
+
+    /**
+     * 获取AndroidID
+     * 当设备重新初始化或者刷机的时候，会被重置
+     */
+    public static String getAndroidID(Context context) {
+        String id = Settings.Secure.getString(
+                context.getContentResolver(),
+                Settings.Secure.ANDROID_ID
+        );
+        return id == null ? "" : id;
+    }
+
+    /**
+     * 获取IMEI
+     */
+    public static String getIMEI(Context context) {
+        String imei = "";
+        try {
+            TelephonyManager telephonyManager = (TelephonyManager) context.getSystemService(Context.TELEPHONY_SERVICE);
+            if (ActivityCompat.checkSelfPermission(context, Manifest.permission.READ_PHONE_STATE) != PackageManager.PERMISSION_GRANTED) {
+                return imei;
+            }
+            imei = telephonyManager.getDeviceId();
+            if (TextUtils.isEmpty(imei)) {
+                return "";
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return imei;
+    }
+
 }
