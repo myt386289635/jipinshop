@@ -291,8 +291,8 @@ class KTMainAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder> {
                     }
                     binding.marqueeContainer.setOnClickListener {
                         mContext.startActivity(Intent(mContext, WebActivity::class.java)
-                                .putExtra(WebActivity.url, RetrofitModule.H5_URL + "fee-rule.html")
-                                .putExtra(WebActivity.title, "极品城购物补贴说明")
+                                .putExtra(WebActivity.url, RetrofitModule.H5_URL + "newZn.html")
+                                .putExtra(WebActivity.title, "极品城省钱攻略")
                         )
                     }
                     threeViewHolder.setIsRecyclable(false)//该Item不进行复用，避免动画消失问题

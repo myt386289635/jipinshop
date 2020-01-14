@@ -193,7 +193,7 @@ public class TBSreachActivity extends BaseActivity implements View.OnClickListen
             case R.id.sreach_process:
                 startActivity(new Intent(this, WebActivity.class)
                         .putExtra(WebActivity.url, RetrofitModule.H5_URL+"tbk-rule.html")
-                        .putExtra(WebActivity.title,"省钱攻略")
+                        .putExtra(WebActivity.title,"极品城省钱攻略")
                 );
                 break;
         }
