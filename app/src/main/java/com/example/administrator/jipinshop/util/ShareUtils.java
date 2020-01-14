@@ -3,8 +3,18 @@ package com.example.administrator.jipinshop.util;
 import android.app.Activity;
 import android.app.Dialog;
 import android.content.Context;
+import android.graphics.Bitmap;
+import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.text.TextUtils;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.DataSource;
+import com.bumptech.glide.load.engine.GlideException;
+import com.bumptech.glide.request.RequestListener;
+import com.bumptech.glide.request.target.SimpleTarget;
+import com.bumptech.glide.request.target.Target;
+import com.bumptech.glide.request.transition.Transition;
 import com.example.administrator.jipinshop.R;
 import com.example.administrator.jipinshop.view.dialog.ProgressDialogView;
 import com.umeng.socialize.Config;
@@ -46,21 +56,33 @@ public class ShareUtils {
         UMWeb web = new UMWeb(WebUrl);//连接地址
         web.setTitle(title);//标题
         web.setDescription(description);//描述
-        UMImage image;
         if (TextUtils.isEmpty(imageUrl)) {
-            image= new UMImage(activity, imageID);
+            UMImage image= new UMImage(activity, imageID);
             image.compressStyle = UMImage.CompressStyle.QUALITY;
             web.setThumb(image);  //本地缩略图
+            new ShareAction(activity)
+                    .setPlatform(mSHARE_media)//传入平台
+                    .withMedia(web)
+                    .setCallback(shareListener)//分享回调
+                    .share();
         } else {
-            image= new UMImage(activity, imageUrl);
-            image.compressStyle = UMImage.CompressStyle.QUALITY;
-            web.setThumb(image);  //网络缩略图
+            Glide.with(activity)
+                    .asBitmap()
+                    .load(imageUrl)
+                    .into(new SimpleTarget<Bitmap>() {
+                        @Override
+                        public void onResourceReady(@NonNull Bitmap resource, @Nullable Transition<? super Bitmap> transition) {
+                            UMImage image = new UMImage(activity, ImageCompressUtil.createBitmapThumbnail(resource, false));
+                            image.compressStyle = UMImage.CompressStyle.QUALITY;
+                            web.setThumb(image);  //网络缩略图
+                            new ShareAction(activity)
+                                    .setPlatform(mSHARE_media)//传入平台
+                                    .withMedia(web)
+                                    .setCallback(shareListener)//分享回调
+                                    .share();
+                        }
+                    });
         }
-        new ShareAction(activity)
-                .setPlatform(mSHARE_media)//传入平台
-                .withMedia(web)
-                .setCallback(shareListener)//分享回调
-                .share();
     }
 
     /**

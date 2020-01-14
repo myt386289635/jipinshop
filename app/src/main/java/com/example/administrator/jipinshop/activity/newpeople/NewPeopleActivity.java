@@ -161,7 +161,7 @@ public class NewPeopleActivity extends BaseActivity implements OnRefreshListener
     @Override
     public void onRule() {
         startActivity(new Intent(this, WebActivity.class)
-                .putExtra(WebActivity.url, RetrofitModule.H5_URL + "new-free-desc.html")
+                .putExtra(WebActivity.url, RetrofitModule.H5_URL + "new-rule-app.html")
                 .putExtra(WebActivity.title, "规则说明")
         );
     }

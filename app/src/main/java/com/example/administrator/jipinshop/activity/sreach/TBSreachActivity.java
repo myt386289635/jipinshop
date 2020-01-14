@@ -30,8 +30,10 @@ import com.example.administrator.jipinshop.netwrok.RetrofitModule;
 import com.example.administrator.jipinshop.util.DeviceUuidFactory;
 import com.example.administrator.jipinshop.util.ShareUtils;
 import com.example.administrator.jipinshop.util.ToastUtil;
+import com.example.administrator.jipinshop.util.share.MobLinkUtil;
 import com.example.administrator.jipinshop.view.dialog.DialogUtil;
 import com.example.administrator.jipinshop.view.dialog.ProgressDialogView;
+import com.example.administrator.jipinshop.view.dialog.ShareBoardDialog;
 import com.trello.rxlifecycle2.android.ActivityEvent;
 import com.umeng.socialize.UMShareAPI;
 import com.umeng.socialize.bean.SHARE_MEDIA;
@@ -50,7 +52,7 @@ import javax.inject.Inject;
  * @create 2019/11/30
  * @Describe 淘宝搜索页面
  */
-public class TBSreachActivity extends BaseActivity implements View.OnClickListener, TBSreachView, ShoppingUserLikeAdapter.OnItem {
+public class TBSreachActivity extends BaseActivity implements View.OnClickListener, TBSreachView, ShoppingUserLikeAdapter.OnItem, ShareBoardDialog.onShareListener {
 
     @Inject
     TBSreachPresenter mPresenter;
@@ -65,6 +67,9 @@ public class TBSreachActivity extends BaseActivity implements View.OnClickListen
     private ShoppingUserLikeAdapter mLikeAdapter;
     private int[] usableHeightPrevious = {0};
     private String type = "1";//默认搜索类型为极品城
+    private ShareBoardDialog mShareBoardDialog;
+    private int sharePosition = -1;//分享的位置
+    private String shareUrl = "";
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -312,14 +317,14 @@ public class TBSreachActivity extends BaseActivity implements View.OnClickListen
 
     @Override
     public void onItemShare(int position) {
-        mDialog = (new ProgressDialogView()).createLoadingDialog(this, "");
-        String path = "pages/list/main-v2-info/main?id=" + mUserLikeList.get(position).getOtherGoodsId();
-        String shareImage =  mUserLikeList.get(position).getImg();
-        String shareName = mUserLikeList.get(position).getOtherName();
-        String shareContent = "【分享来自极品城APP】看评测选好物，省心更省钱";
-        String shareUrl = "https://www.jipincheng.cn";
-        new ShareUtils(this, SHARE_MEDIA.WEIXIN, mDialog)
-                .shareWXMin1(this, shareUrl, shareImage, shareName, shareContent, path);
+        sharePosition = position;
+        if (mShareBoardDialog == null) {
+            mShareBoardDialog = ShareBoardDialog.getInstance("","");
+            mShareBoardDialog.setOnShareListener(this);
+        }
+        if (!mShareBoardDialog.isAdded()) {
+            mShareBoardDialog.show(getSupportFragmentManager(), "ShareBoardDialog");
+        }
     }
 
     @Override
@@ -336,4 +341,25 @@ public class TBSreachActivity extends BaseActivity implements View.OnClickListen
         }
     }
 
+    @Override
+    public void share(SHARE_MEDIA share_media) {
+        mDialog = (new ProgressDialogView()).createLoadingDialog(this, "");
+        String path = "pages/list/main-v2-info/main?id=" + mUserLikeList.get(sharePosition).getOtherGoodsId();
+        String shareImage =  mUserLikeList.get(sharePosition).getImg();
+        String shareName = mUserLikeList.get(sharePosition).getOtherName();
+        String shareContent = "【分享来自极品城APP】看评测选好物，省心更省钱";
+        shareUrl = RetrofitModule.H5_URL + "share/tbGoodsDetail.html?id=" + mUserLikeList.get(sharePosition).getOtherGoodsId();
+        if (share_media.equals(SHARE_MEDIA.WEIXIN)){
+            new ShareUtils(this, share_media,mDialog)
+                    .shareWXMin1(this,shareUrl,shareImage,shareName,shareContent,path);
+        }else {
+            MobLinkUtil.mobShare(mUserLikeList.get(sharePosition).getOtherGoodsId(), "/tbkGoodsDetail", mobID -> {
+                if (!TextUtils.isEmpty(mobID)){
+                    shareUrl += "&mobid=" + mobID;
+                }
+                new ShareUtils(this, share_media,mDialog)
+                        .shareWeb(this, shareUrl, shareName, shareContent, shareImage, R.mipmap.share_logo);
+            });
+        }
+    }
 }

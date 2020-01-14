@@ -92,7 +92,7 @@ class KTCheapBuyAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>{
                     binding.itemCheapPrice.text = allowance
                     binding.itemRule.setOnClickListener {
                         mContent.startActivity(Intent(mContent, WebActivity::class.java)
-                                .putExtra(WebActivity.url, RetrofitModule.H5_URL + "new-free-desc.html")
+                                .putExtra(WebActivity.url, RetrofitModule.H5_URL + "th-rule.html")
                                 .putExtra(WebActivity.title, "规则说明")
                         )
                     }

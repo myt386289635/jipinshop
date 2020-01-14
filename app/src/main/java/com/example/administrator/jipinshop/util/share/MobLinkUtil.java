@@ -6,6 +6,7 @@ import android.content.Intent;
 import com.example.administrator.jipinshop.activity.home.article.ArticleDetailActivity;
 import com.example.administrator.jipinshop.activity.report.detail.ReportDetailActivity;
 import com.example.administrator.jipinshop.activity.shoppingdetail.ShoppingDetailActivity;
+import com.example.administrator.jipinshop.activity.shoppingdetail.tbshoppingdetail.TBShoppingDetailActivity;
 import com.example.administrator.jipinshop.activity.tryout.detail.TryDetailActivity;
 import com.example.administrator.jipinshop.activity.tryout.freedetail.FreeDetailActivity;
 import com.mob.moblink.ActionListener;
@@ -79,6 +80,11 @@ public class MobLinkUtil {
                 intent.setClass(context, TryDetailActivity.class);
                 intent.putExtra("id", id);
                 intent.putExtra("pos", -1);
+                context.startActivity(intent);
+                break;
+            case "/tbkGoodsDetail":
+                intent.setClass(context, TBShoppingDetailActivity.class);
+                intent.putExtra("otherGoodsId", id);
                 context.startActivity(intent);
                 break;
         }

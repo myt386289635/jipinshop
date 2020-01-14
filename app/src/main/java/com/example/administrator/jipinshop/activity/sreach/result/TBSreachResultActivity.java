@@ -20,9 +20,12 @@ import com.example.administrator.jipinshop.base.BaseActivity;
 import com.example.administrator.jipinshop.bean.TBSreachResultBean;
 import com.example.administrator.jipinshop.bean.eventbus.SreachBus;
 import com.example.administrator.jipinshop.databinding.ActivitySreachTbResultBinding;
+import com.example.administrator.jipinshop.netwrok.RetrofitModule;
 import com.example.administrator.jipinshop.util.ShareUtils;
 import com.example.administrator.jipinshop.util.ToastUtil;
+import com.example.administrator.jipinshop.util.share.MobLinkUtil;
 import com.example.administrator.jipinshop.view.dialog.ProgressDialogView;
+import com.example.administrator.jipinshop.view.dialog.ShareBoardDialog;
 import com.umeng.socialize.UMShareAPI;
 import com.umeng.socialize.bean.SHARE_MEDIA;
 
@@ -38,7 +41,7 @@ import javax.inject.Inject;
  * @create 2019/12/3
  * @Describe 搜索结果页
  */
-public class TBSreachResultActivity extends BaseActivity implements View.OnClickListener, TBSreachResultView, OnLoadMoreListener, OnRefreshListener, TBSreachResultAdapter.OnItem {
+public class TBSreachResultActivity extends BaseActivity implements View.OnClickListener, TBSreachResultView, OnLoadMoreListener, OnRefreshListener, TBSreachResultAdapter.OnItem, ShareBoardDialog.onShareListener {
 
     @Inject
     TBSreachResultPresenter mPresenter;
@@ -55,6 +58,9 @@ public class TBSreachResultActivity extends BaseActivity implements View.OnClick
     private Boolean refresh = true;
     private List<TextView> mTextViews;
     private Boolean once = true;//是否是第一次进入页面
+    private ShareBoardDialog mShareBoardDialog;
+    private int sharePosition = -1;//分享的位置
+    private String shareUrl = "";
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -327,14 +333,14 @@ public class TBSreachResultActivity extends BaseActivity implements View.OnClick
 
     @Override
     public void onItemShare(int position) {
-        mDialog = (new ProgressDialogView()).createLoadingDialog(this, "");
-        String path = "pages/list/main-v2-info/main?id=" + mList.get(position).getOtherGoodsId();
-        String shareImage =  mList.get(position).getImg();
-        String shareName = mList.get(position).getOtherName();
-        String shareContent = "【分享来自极品城APP】看评测选好物，省心更省钱";
-        String shareUrl = "https://www.jipincheng.cn";
-        new ShareUtils(this, SHARE_MEDIA.WEIXIN, mDialog)
-                .shareWXMin1(this, shareUrl, shareImage, shareName, shareContent, path);
+        sharePosition = position;
+        if (mShareBoardDialog == null) {
+            mShareBoardDialog = ShareBoardDialog.getInstance("","");
+            mShareBoardDialog.setOnShareListener(this);
+        }
+        if (!mShareBoardDialog.isAdded()) {
+            mShareBoardDialog.show(getSupportFragmentManager(), "ShareBoardDialog");
+        }
     }
 
     @Override
@@ -354,6 +360,28 @@ public class TBSreachResultActivity extends BaseActivity implements View.OnClick
         super.onResume();
         if (mDialog != null && mDialog.isShowing()){
             mDialog.dismiss();
+        }
+    }
+
+    @Override
+    public void share(SHARE_MEDIA share_media) {
+        mDialog = (new ProgressDialogView()).createLoadingDialog(this, "");
+        String path = "pages/list/main-v2-info/main?id=" + mList.get(sharePosition).getOtherGoodsId();
+        String shareImage =  mList.get(sharePosition).getImg();
+        String shareName = mList.get(sharePosition).getOtherName();
+        String shareContent = "【分享来自极品城APP】看评测选好物，省心更省钱";
+        shareUrl = RetrofitModule.H5_URL + "share/tbGoodsDetail.html?id=" + mList.get(sharePosition).getOtherGoodsId();
+        if (share_media.equals(SHARE_MEDIA.WEIXIN)){
+            new ShareUtils(this, share_media,mDialog)
+                    .shareWXMin1(this,shareUrl,shareImage,shareName,shareContent,path);
+        }else {
+            MobLinkUtil.mobShare(mList.get(sharePosition).getOtherGoodsId(), "/tbkGoodsDetail", mobID -> {
+                if (!TextUtils.isEmpty(mobID)){
+                    shareUrl += "&mobid=" + mobID;
+                }
+                new ShareUtils(this, share_media,mDialog)
+                        .shareWeb(this, shareUrl, shareName, shareContent, shareImage, R.mipmap.share_logo);
+            });
         }
     }
 }

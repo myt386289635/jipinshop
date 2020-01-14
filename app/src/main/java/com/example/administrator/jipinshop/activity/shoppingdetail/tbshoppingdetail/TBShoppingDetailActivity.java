@@ -40,6 +40,7 @@ import com.example.administrator.jipinshop.util.DeviceUuidFactory;
 import com.example.administrator.jipinshop.util.ShareUtils;
 import com.example.administrator.jipinshop.util.TaoBaoUtil;
 import com.example.administrator.jipinshop.util.ToastUtil;
+import com.example.administrator.jipinshop.util.share.MobLinkUtil;
 import com.example.administrator.jipinshop.util.sp.CommonDate;
 import com.example.administrator.jipinshop.view.dialog.DialogParameter;
 import com.example.administrator.jipinshop.view.dialog.DialogQuality;
@@ -93,6 +94,7 @@ public class TBShoppingDetailActivity extends BaseActivity implements View.OnCli
     private ShoppingUserLikeAdapter mLikeAdapter;
     //分享面板
     private ShareBoardDialog mShareBoardDialog;
+    private int sharePosition = -1;//分享的位置  默认-1是商品本身
     private String shareImage = "";
     private String shareName = "";
     private String shareContent = "";
@@ -207,14 +209,14 @@ public class TBShoppingDetailActivity extends BaseActivity implements View.OnCli
                 }
                 break;
             case R.id.detail_share:
-//                if (mShareBoardDialog == null) {
-//                    mShareBoardDialog = ShareBoardDialog.getInstance("","");
-//                    mShareBoardDialog.setOnShareListener(this);
-//                }
-//                if (!mShareBoardDialog.isAdded()) {
-//                    mShareBoardDialog.show(getSupportFragmentManager(), "ShareBoardDialog");
-//                }
-                share(SHARE_MEDIA.WEIXIN);
+                sharePosition = -1;
+                if (mShareBoardDialog == null) {
+                    mShareBoardDialog = ShareBoardDialog.getInstance("","");
+                    mShareBoardDialog.setOnShareListener(this);
+                }
+                if (!mShareBoardDialog.isAdded()) {
+                    mShareBoardDialog.show(getSupportFragmentManager(), "ShareBoardDialog");
+                }
                 break;
             case R.id.detail_home:
                 EventBus.getDefault().post(new TBShopDetailBus(TBShopDetailBus.finish));
@@ -329,7 +331,6 @@ public class TBShoppingDetailActivity extends BaseActivity implements View.OnCli
         shareImage = bean.getData().getImg();
         shareName = bean.getData().getOtherName();
         shareContent = "【分享来自极品城APP】看评测选好物，省心更省钱";
-        shareUrl = "https://www.jipincheng.cn";
         //是否收藏过
         if(bean.getData().getCollect() == 1){
             isCollect = true;
@@ -403,13 +404,31 @@ public class TBShoppingDetailActivity extends BaseActivity implements View.OnCli
     @Override
     public void share(SHARE_MEDIA share_media) {
         mDialog = (new ProgressDialogView()).createLoadingDialog(this, "");
-        if (share_media.equals(SHARE_MEDIA.WEIXIN)){
-            String path = "pages/list/main-v2-info/main?id=" + goodsId;
-            new ShareUtils(this, share_media,mDialog)
-                    .shareWXMin1(this,shareUrl,shareImage,shareName,shareContent,path);
+        String id = "";
+        String[] itemShareImage = {""};
+        String[] itemShareName = {""};
+        if (sharePosition == -1){
+            id = goodsId;
+            itemShareImage[0] = shareImage;
+            itemShareName[0] = shareName;
         }else {
+            id = mUserLikeList.get(sharePosition).getOtherGoodsId();
+            itemShareImage[0] = mUserLikeList.get(sharePosition).getImg();
+            itemShareName[0] =  mUserLikeList.get(sharePosition).getOtherName();
+        }
+        String path = "pages/list/main-v2-info/main?id=" + id;
+        shareUrl = RetrofitModule.H5_URL + "share/tbGoodsDetail.html?id=" + id;
+        if (share_media.equals(SHARE_MEDIA.WEIXIN)){
             new ShareUtils(this, share_media,mDialog)
-                    .shareWeb(this, shareUrl, shareName, shareContent, shareImage, R.mipmap.share_logo);
+                    .shareWXMin1(this,shareUrl,itemShareImage[0],itemShareName[0],shareContent,path);
+        }else {
+            MobLinkUtil.mobShare(id, "/tbkGoodsDetail", mobID -> {
+                if (!TextUtils.isEmpty(mobID)){
+                    shareUrl += "&mobid=" + mobID;
+                }
+                new ShareUtils(this, share_media,mDialog)
+                        .shareWeb(this, shareUrl, itemShareName[0], shareContent, itemShareImage[0], R.mipmap.share_logo);
+            });
         }
     }
 
@@ -444,11 +463,13 @@ public class TBShoppingDetailActivity extends BaseActivity implements View.OnCli
 
     @Override
     public void onItemShare(int position) {
-        mDialog = (new ProgressDialogView()).createLoadingDialog(this, "");
-        String path = "pages/list/main-v2-info/main?id=" + mUserLikeList.get(position).getOtherGoodsId();
-        String shareImage =  mUserLikeList.get(position).getImg();
-        String shareName = mUserLikeList.get(position).getOtherName();
-        new ShareUtils(this, SHARE_MEDIA.WEIXIN, mDialog)
-                .shareWXMin1(this, shareUrl, shareImage, shareName, shareContent, path);
+        sharePosition = position;
+        if (mShareBoardDialog == null) {
+            mShareBoardDialog = ShareBoardDialog.getInstance("","");
+            mShareBoardDialog.setOnShareListener(this);
+        }
+        if (!mShareBoardDialog.isAdded()) {
+            mShareBoardDialog.show(getSupportFragmentManager(), "ShareBoardDialog");
+        }
     }
 }
