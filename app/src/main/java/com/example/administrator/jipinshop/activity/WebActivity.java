@@ -2,7 +2,9 @@ package com.example.administrator.jipinshop.activity;
 
 import android.app.Dialog;
 import android.databinding.DataBindingUtil;
+import android.graphics.Bitmap;
 import android.net.http.SslError;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.view.View;
@@ -62,18 +64,27 @@ public class WebActivity extends BaseActivity implements View.OnClickListener, W
         mBinding.webView.getSettings().setLayoutAlgorithm(WebSettings.LayoutAlgorithm.NARROW_COLUMNS);
         mBinding.webView.getSettings().setCacheMode(WebSettings.LOAD_NO_CACHE);//不使用缓存
         mBinding.webView.getSettings().setDomStorageEnabled(true);// 开启 DOM storage API 功能
+        // 设置允许加载混合内容 https与http混合使用的网址
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            mBinding.webView.getSettings().setMixedContentMode(WebSettings.MIXED_CONTENT_ALWAYS_ALLOW);
+        }
         mBinding.webView.setWebViewClient(new WebViewClient() {
             @Override
             public boolean shouldOverrideUrlLoading(WebView view, String url) {
-                if (url.startsWith("https://www.jipincheng.cn/qualityshop-api/api/taobao/returnUrl")){
-                    String code = url.replace("https://www.jipincheng.cn/qualityshop-api/api/taobao/returnUrl?code=","").split("&")[0];
-                    String state = url.replace("https://www.jipincheng.cn/qualityshop-api/api/taobao/returnUrl?code=","").split("&")[1].replace("state=","");
-                    mPresenter.taobaoReturnUrl(code, state,WebActivity.this.bindToLifecycle());
-                }else if(url.startsWith("http") || url.startsWith("https")){
-                    //解决第三方网页打开页面后会跳转到自定义的schame而页面出错问题
-                    view.loadUrl(url);//处理http和https开头的url
+                if (!checkUrlValid(url)) {
+                    super.shouldOverrideUrlLoading(view,url);
+                    return false;
+                } else {
+                    if (url.startsWith("https://www.jipincheng.cn/qualityshop-api/api/taobao/returnUrl")){
+                        String code = url.replace("https://www.jipincheng.cn/qualityshop-api/api/taobao/returnUrl?code=","").split("&")[0];
+                        String state = url.replace("https://www.jipincheng.cn/qualityshop-api/api/taobao/returnUrl?code=","").split("&")[1].replace("state=","");
+                        mPresenter.taobaoReturnUrl(code, state,WebActivity.this.bindToLifecycle());
+                    }else if(url.startsWith("http") || url.startsWith("https")){
+                        //解决第三方网页打开页面后会跳转到自定义的schame而页面出错问题
+                        view.loadUrl(url);//处理http和https开头的url
+                    }
+                    return true;
                 }
-                return true;
             }
 
             @Override
@@ -82,6 +93,16 @@ public class WebActivity extends BaseActivity implements View.OnClickListener, W
                 // super.onReceivedSslError(view, handler, error);
                 // 接受所有网站的证书，忽略SSL错误，执行访问网页
                 handler.proceed();
+            }
+
+            @Override
+            public void onPageStarted(WebView view, String url, Bitmap favicon) {
+                super.onPageStarted(view, url, favicon);
+            }
+
+            @Override
+            public void onPageFinished(WebView view, String url) {
+                super.onPageFinished(view, url);
             }
         });
         //判断页面加载过程
@@ -96,6 +117,19 @@ public class WebActivity extends BaseActivity implements View.OnClickListener, W
             }
         });
         mBinding.webView.loadUrl(getIntent().getStringExtra(url));
+    }
+
+    //检查是否是淘客推广链接，否者打不开淘客推广链接
+    private boolean checkUrlValid(String aUrl) {
+        boolean result = true;
+        if (aUrl == null || aUrl.equals("") || !aUrl.contains("http")) {
+            return false;
+        }
+        //淘宝推广链接
+        if (aUrl.startsWith("https://s.click") || aUrl.startsWith("http://s.click")) {
+            result = false;
+        }
+        return result;
     }
 
     @Override
