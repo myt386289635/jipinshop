@@ -1,5 +1,6 @@
 package com.example.administrator.jipinshop.activity;
 
+import com.example.administrator.jipinshop.bean.ImageBean;
 import com.example.administrator.jipinshop.bean.SuccessBean;
 import com.example.administrator.jipinshop.netwrok.Repository;
 import com.trello.rxlifecycle2.LifecycleTransformer;
@@ -45,6 +46,31 @@ public class WebPresenter {
                     }
                 }, throwable -> {
                     if (mView != null){
+                        mView.onFile(throwable.getMessage());
+                    }
+                });
+    }
+
+    /**
+     * 获取专属淘客链接
+     */
+    public void getGoodsClickUrl(String goodsBuyLink , String otherGoodsId , LifecycleTransformer<ImageBean> transformer){
+        mRepository.getGoodsClickUrl(goodsBuyLink, otherGoodsId)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .compose(transformer)
+                .subscribe(bean -> {
+                    if (bean.getCode() == 0){
+                        if (mView != null){
+                            mView.onBuyLinkSuccess(bean);
+                        }
+                    }else {
+                        if(mView != null){
+                            mView.onFile(bean.getMsg());
+                        }
+                    }
+                }, throwable -> {
+                    if(mView != null){
                         mView.onFile(throwable.getMessage());
                     }
                 });
