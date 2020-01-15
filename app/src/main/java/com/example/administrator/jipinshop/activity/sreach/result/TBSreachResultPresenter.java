@@ -3,6 +3,7 @@ package com.example.administrator.jipinshop.activity.sreach.result;
 import android.content.Context;
 import android.text.TextUtils;
 
+import com.example.administrator.jipinshop.bean.ImageBean;
 import com.example.administrator.jipinshop.bean.TBSreachResultBean;
 import com.example.administrator.jipinshop.netwrok.Repository;
 import com.example.administrator.jipinshop.util.DeviceUuidFactory;
@@ -55,6 +56,31 @@ public class TBSreachResultPresenter {
                     }
                 }, throwable -> {
                     mView.onFile(throwable.getMessage());
+                });
+    }
+
+    /**
+     * 生成商品海报
+     */
+    public void getTbkGoodsPoster(String otherGoodsId , LifecycleTransformer<ImageBean> transformer){
+        mRepository.getTbkGoodsPoster(otherGoodsId)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .compose(transformer)
+                .subscribe(bean -> {
+                    if(bean.getCode() == 0 && !TextUtils.isEmpty(bean.getData())) {
+                        if (mView != null) {
+                            mView.onShareSuc(bean);
+                        }
+                    }else {
+                        if(mView != null){
+                            mView.onShareFile();
+                        }
+                    }
+                }, throwable -> {
+                    if(mView != null){
+                        mView.onShareFile();
+                    }
                 });
     }
 }

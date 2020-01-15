@@ -1,5 +1,6 @@
 package com.example.administrator.jipinshop.activity.sreach;
 
+import com.example.administrator.jipinshop.bean.ImageBean;
 import com.example.administrator.jipinshop.bean.SimilerGoodsBean;
 import com.example.administrator.jipinshop.bean.SreachHistoryBean;
 import com.example.administrator.jipinshop.bean.SuccessBean;
@@ -27,4 +28,7 @@ public interface TBSreachView {
 
     void keyShow();
     void keyHint();
+
+    void onShareSuc(ImageBean bean);
+    void onShareFile();
 }

@@ -17,6 +17,7 @@ import com.example.administrator.jipinshop.R;
 import com.example.administrator.jipinshop.activity.sreach.SreachActivity;
 import com.example.administrator.jipinshop.adapter.TBSreachResultAdapter;
 import com.example.administrator.jipinshop.base.BaseActivity;
+import com.example.administrator.jipinshop.bean.ImageBean;
 import com.example.administrator.jipinshop.bean.TBSreachResultBean;
 import com.example.administrator.jipinshop.bean.eventbus.SreachBus;
 import com.example.administrator.jipinshop.databinding.ActivitySreachTbResultBinding;
@@ -61,6 +62,10 @@ public class TBSreachResultActivity extends BaseActivity implements View.OnClick
     private ShareBoardDialog mShareBoardDialog;
     private int sharePosition = -1;//分享的位置
     private String shareUrl = "";
+    private String path = "";
+    private String shareImage = "";
+    private String shareName = "";
+    private String shareContent = "";
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -366,14 +371,16 @@ public class TBSreachResultActivity extends BaseActivity implements View.OnClick
     @Override
     public void share(SHARE_MEDIA share_media) {
         mDialog = (new ProgressDialogView()).createLoadingDialog(this, "");
-        String path = "pages/list/main-v2-info/main?id=" + mList.get(sharePosition).getOtherGoodsId();
-        String shareImage =  mList.get(sharePosition).getImg();
-        String shareName = mList.get(sharePosition).getOtherName();
-        String shareContent = "【分享来自极品城APP】看评测选好物，省心更省钱";
+        path = "pages/list/main-v2-info/main?id=" + mList.get(sharePosition).getOtherGoodsId();
+        shareImage =  mList.get(sharePosition).getImg();
+        shareName = mList.get(sharePosition).getOtherName();
+        shareContent = "【分享来自极品城APP】看评测选好物，省心更省钱";
         shareUrl = RetrofitModule.H5_URL + "share/tbGoodsDetail.html?id=" + mList.get(sharePosition).getOtherGoodsId();
         if (share_media.equals(SHARE_MEDIA.WEIXIN)){
-            new ShareUtils(this, share_media,mDialog)
-                    .shareWXMin1(this,shareUrl,shareImage,shareName,shareContent,path);
+            if(mDialog != null && !mDialog.isShowing()){
+                mDialog.show();
+            }
+            mPresenter.getTbkGoodsPoster( mList.get(sharePosition).getOtherGoodsId() , this.bindToLifecycle());
         }else {
             MobLinkUtil.mobShare(mList.get(sharePosition).getOtherGoodsId(), "/tbkGoodsDetail", mobID -> {
                 if (!TextUtils.isEmpty(mobID)){
@@ -383,5 +390,17 @@ public class TBSreachResultActivity extends BaseActivity implements View.OnClick
                         .shareWeb(this, shareUrl, shareName, shareContent, shareImage, R.mipmap.share_logo);
             });
         }
+    }
+
+    @Override
+    public void onShareSuc(ImageBean bean) {
+        new ShareUtils(this, SHARE_MEDIA.WEIXIN,mDialog)
+                .shareWXMin1(this,shareUrl,bean.getData(),shareName,shareContent,path);
+    }
+
+    @Override
+    public void onShareFile() {
+        new ShareUtils(this, SHARE_MEDIA.WEIXIN,mDialog)
+                .shareWXMin1(this,shareUrl,shareImage,shareName,shareContent,path);
     }
 }

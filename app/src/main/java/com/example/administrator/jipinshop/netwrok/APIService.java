@@ -1089,4 +1089,12 @@ public interface APIService {
      */
     @GET("api/welfareList")
     Observable<WelfareBean> welfareList();
+
+
+    /**
+     * 生成商品海报
+     */
+    @FormUrlEncoded
+    @POST("api/tbk/getTbkGoodsPosterImg")
+    Observable<ImageBean> getTbkGoodsPoster(@Field("otherGoodsId") String otherGoodsId);
 }

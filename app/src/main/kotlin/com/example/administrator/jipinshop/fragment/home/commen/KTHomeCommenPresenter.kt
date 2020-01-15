@@ -5,6 +5,7 @@ import android.support.v7.widget.GridLayoutManager
 import android.support.v7.widget.RecyclerView
 import android.text.TextUtils
 import com.aspsine.swipetoloadlayout.SwipeToLoadLayout
+import com.example.administrator.jipinshop.bean.ImageBean
 import com.example.administrator.jipinshop.bean.TbCommonBean
 import com.example.administrator.jipinshop.netwrok.Repository
 import com.trello.rxlifecycle2.LifecycleTransformer
@@ -84,6 +85,25 @@ class KTHomeCommenPresenter {
                     }
                 }, Consumer {
                     mView.onFile(it.message)
+                })
+    }
+
+    /**
+     * 生成商品海报
+     */
+    fun getTbkGoodsPoster(otherGoodsId: String, transformer: LifecycleTransformer<ImageBean>) {
+        repository.getTbkGoodsPoster(otherGoodsId)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .compose(transformer)
+                .subscribe({ bean ->
+                    if (bean.code == 0 && !TextUtils.isEmpty(bean.data)) {
+                        mView.onShareSuc(bean)
+                    } else {
+                        mView.onShareFile()
+                    }
+                }, {
+                    mView.onShareFile()
                 })
     }
 }

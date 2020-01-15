@@ -456,8 +456,10 @@ public class TBShoppingDetailActivity extends BaseActivity implements View.OnCli
         String path = "pages/list/main-v2-info/main?id=" + id;
         shareUrl = RetrofitModule.H5_URL + "share/tbGoodsDetail.html?id=" + id;
         if (share_media.equals(SHARE_MEDIA.WEIXIN)){
-            new ShareUtils(this, share_media,mDialog)
-                    .shareWXMin1(this,shareUrl,itemShareImage[0],itemShareName[0],shareContent,path);
+            if(mDialog != null && !mDialog.isShowing()){
+                mDialog.show();
+            }
+            mPresenter.getTbkGoodsPoster(id , path, itemShareName[0] , itemShareImage[0],this.bindToLifecycle());
         }else {
             MobLinkUtil.mobShare(id, "/tbkGoodsDetail", mobID -> {
                 if (!TextUtils.isEmpty(mobID)){
@@ -467,6 +469,18 @@ public class TBShoppingDetailActivity extends BaseActivity implements View.OnCli
                         .shareWeb(this, shareUrl, itemShareName[0], shareContent, itemShareImage[0], R.mipmap.share_logo);
             });
         }
+    }
+
+    @Override
+    public void onShareSuc(ImageBean bean,String path , String shareName) {
+        new ShareUtils(this, SHARE_MEDIA.WEIXIN,mDialog)
+                .shareWXMin1(this,shareUrl,bean.getData(),shareName,shareContent,path);
+    }
+
+    @Override
+    public void onShareFile(String path , String shareName, String shareImage) {
+        new ShareUtils(this, SHARE_MEDIA.WEIXIN,mDialog)
+                .shareWXMin1(this,shareUrl,shareImage,shareName,shareContent,path);
     }
 
     @Override

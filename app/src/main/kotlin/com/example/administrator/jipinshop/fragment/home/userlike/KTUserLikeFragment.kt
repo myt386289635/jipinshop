@@ -14,6 +14,7 @@ import com.aspsine.swipetoloadlayout.OnRefreshListener
 import com.example.administrator.jipinshop.R
 import com.example.administrator.jipinshop.adapter.KTUserLikeAdapter
 import com.example.administrator.jipinshop.base.DBBaseFragment
+import com.example.administrator.jipinshop.bean.ImageBean
 import com.example.administrator.jipinshop.bean.SimilerGoodsBean
 import com.example.administrator.jipinshop.databinding.FragmentKtMainBinding
 import com.example.administrator.jipinshop.fragment.home.KTHomeFragnent
@@ -45,6 +46,11 @@ class KTUserLikeFragment : DBBaseFragment(), OnLoadMoreListener, OnRefreshListen
     private var mDialog: Dialog? = null
     private var mShareBoardDialog: ShareBoardDialog? = null
     private var sharePosition = -1//分享的位置  默认-1是商品本身
+    private var path = ""
+    private var shareImage = ""
+    private var shareName = ""
+    private var shareContent = ""
+    private var shareUrl = ""
 
     companion object{
         fun getInstance() : KTUserLikeFragment {
@@ -174,14 +180,17 @@ class KTUserLikeFragment : DBBaseFragment(), OnLoadMoreListener, OnRefreshListen
 
     override fun share(share_media: SHARE_MEDIA?) {
         mDialog = ProgressDialogView().createLoadingDialog(context, "")
-        val path = "pages/list/main-v2-info/main?id=" + mList[sharePosition].otherGoodsId
-        val shareImage = mList[sharePosition].img
-        val shareName = mList[sharePosition].otherName
-        val shareContent = "【分享来自极品城APP】看评测选好物，省心更省钱"
-        var shareUrl = RetrofitModule.H5_URL + "share/tbGoodsDetail.html?id=" + mList[sharePosition].otherGoodsId
+        path = "pages/list/main-v2-info/main?id=" + mList[sharePosition].otherGoodsId
+        shareImage = mList[sharePosition].img
+        shareName = mList[sharePosition].otherName
+        shareContent = "【分享来自极品城APP】看评测选好物，省心更省钱"
+        shareUrl = RetrofitModule.H5_URL + "share/tbGoodsDetail.html?id=" + mList[sharePosition].otherGoodsId
         if (share_media == SHARE_MEDIA.WEIXIN){
-            ShareUtils(context, SHARE_MEDIA.WEIXIN, mDialog)
-                    .shareWXMin1(context as Activity, shareUrl, shareImage, shareName, shareContent, path)
+            mDialog?.let {
+                if (!it.isShowing)
+                    it.show()
+            }
+            mPresenter.getTbkGoodsPoster(mList[sharePosition].otherGoodsId,this.bindToLifecycle())
         } else {
             MobLinkUtil.mobShare(mList[sharePosition].otherGoodsId, "/tbkGoodsDetail") { mobID ->
                 if (!TextUtils.isEmpty(mobID)) {
@@ -191,6 +200,16 @@ class KTUserLikeFragment : DBBaseFragment(), OnLoadMoreListener, OnRefreshListen
                         .shareWeb(context as Activity?, shareUrl, shareName, shareContent, shareImage, R.mipmap.share_logo)
             }
         }
+    }
+
+    override fun onShareSuc(bean: ImageBean) {
+        ShareUtils(context, SHARE_MEDIA.WEIXIN, mDialog)
+                .shareWXMin1(context as Activity, shareUrl, bean.data, shareName, shareContent, path)
+    }
+
+    override fun onShareFile() {
+        ShareUtils(context, SHARE_MEDIA.WEIXIN, mDialog)
+                .shareWXMin1(context as Activity, shareUrl, shareImage, shareName, shareContent, path)
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {

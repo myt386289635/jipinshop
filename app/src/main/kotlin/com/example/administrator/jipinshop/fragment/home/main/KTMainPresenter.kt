@@ -7,6 +7,7 @@ import android.text.TextUtils
 import android.view.View
 import android.widget.ImageView
 import com.aspsine.swipetoloadlayout.SwipeToLoadLayout
+import com.example.administrator.jipinshop.bean.ImageBean
 import com.example.administrator.jipinshop.bean.TBSreachResultBean
 import com.example.administrator.jipinshop.bean.TbkIndexBean
 import com.example.administrator.jipinshop.netwrok.Repository
@@ -115,6 +116,25 @@ class KTMainPresenter {
                     }
                 }, Consumer {
                     mView.onFile(it.message)
+                })
+    }
+
+    /**
+     * 生成商品海报
+     */
+    fun getTbkGoodsPoster(otherGoodsId: String, transformer: LifecycleTransformer<ImageBean>) {
+        repository.getTbkGoodsPoster(otherGoodsId)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .compose(transformer)
+                .subscribe({ bean ->
+                    if (bean.code == 0 && !TextUtils.isEmpty(bean.data)) {
+                        mView.onShareSuc(bean)
+                    } else {
+                        mView.onShareFile()
+                    }
+                }, {
+                    mView.onShareFile()
                 })
     }
 }

@@ -1198,4 +1198,11 @@ public class Repository {
     public Observable<WelfareBean> welfareList(){
         return mAPIService.welfareList();
     }
+
+    /**
+     * 生成商品海报
+     */
+    public Observable<ImageBean> getTbkGoodsPoster(String otherGoodsId){
+        return mAPIService.getTbkGoodsPoster(otherGoodsId);
+    }
 }

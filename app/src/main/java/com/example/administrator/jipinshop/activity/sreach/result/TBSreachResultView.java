@@ -1,5 +1,6 @@
 package com.example.administrator.jipinshop.activity.sreach.result;
 
+import com.example.administrator.jipinshop.bean.ImageBean;
 import com.example.administrator.jipinshop.bean.TBSreachResultBean;
 
 /**
@@ -11,4 +12,7 @@ public interface TBSreachResultView {
 
     void onSuccess(TBSreachResultBean bean);
     void onFile(String error);
+
+    void onShareSuc(ImageBean bean);
+    void onShareFile();
 }
