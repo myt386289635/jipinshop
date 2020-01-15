@@ -85,10 +85,12 @@ public class WebActivity extends BaseActivity implements View.OnClickListener, W
                     return false;
                 } else {
                     if (url.startsWith("https://www.jipincheng.cn/qualityshop-api/api/taobao/returnUrl")){
+                        //淘宝授权登陆 没有使用
                         String code = url.replace("https://www.jipincheng.cn/qualityshop-api/api/taobao/returnUrl?code=","").split("&")[0];
                         String state = url.replace("https://www.jipincheng.cn/qualityshop-api/api/taobao/returnUrl?code=","").split("&")[1].replace("state=","");
                         mPresenter.taobaoReturnUrl(code, state,WebActivity.this.bindToLifecycle());
-                    }else if (url.startsWith("https://login.m.taobao.com")){//淘客链接里跳转到淘宝app
+                    }else if (url.startsWith("https://login.m.taobao.com")){
+                        //淘客web链接里跳转到淘宝app
                         String[] urlValue = url.split("redirectURL=");
                         if (urlValue.length == 2) {
                             try {
