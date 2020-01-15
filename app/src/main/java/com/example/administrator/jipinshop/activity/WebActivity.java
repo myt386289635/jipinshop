@@ -95,19 +95,26 @@ public class WebActivity extends BaseActivity implements View.OnClickListener, W
                         if (urlValue.length == 2) {
                             try {
                                 String decoded_url = URLDecoder.decode(urlValue[1], "UTF-8");
-                                String[] str = decoded_url.split("itemId=");
-                                if (str.length == 2) {
-                                    String[] value = str[1].split("&");
-                                    openTB(value[0]);
+                                if (decoded_url.contains("itemId=")){
+                                    String[] str = decoded_url.split("itemId=");
+                                    if (str.length == 2) {
+                                        String[] value = str[1].split("&");
+                                        openTB(value[0]);
+                                    }else {
+                                        ToastUtil.show("未获得跳转链接");
+                                    }
                                 }else {
-                                    ToastUtil.show("未获得跳转链接");
+                                    if(url.startsWith("http") || url.startsWith("https")){
+                                        //解决第三方网页打开页面后会跳转到自定义的schame而页面出错问题
+                                        view.loadUrl(url);//处理http和https开头的url
+                                    }
                                 }
                             } catch (UnsupportedEncodingException e) {
                                 e.printStackTrace();
-                                ToastUtil.show("未获得跳转链接");
                             }
-                        } else {
-                            ToastUtil.show("未获得跳转链接");
+                        }else if(url.startsWith("http") || url.startsWith("https")){
+                            //解决第三方网页打开页面后会跳转到自定义的schame而页面出错问题
+                            view.loadUrl(url);//处理http和https开头的url
                         }
                     }else if(url.startsWith("http") || url.startsWith("https")){
                         //解决第三方网页打开页面后会跳转到自定义的schame而页面出错问题
