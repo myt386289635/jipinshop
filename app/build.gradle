@@ -50,7 +50,7 @@ android {
         release {
             keyAlias 'jipinshop123'
             keyPassword 'jipinshop123'
-            storeFile file('E:/android/work/caodan/jipinshop.jks')
+            storeFile file('jipinshop.jks')
             storePassword 'jipinshop123'
         }
     }
