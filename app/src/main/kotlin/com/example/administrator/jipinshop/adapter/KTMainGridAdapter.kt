@@ -10,10 +10,13 @@ import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.TextView
 import com.example.administrator.jipinshop.R
+import com.example.administrator.jipinshop.bean.SuccessBean
 import com.example.administrator.jipinshop.bean.TbkIndexBean
 import com.example.administrator.jipinshop.util.DistanceHelper
 import com.example.administrator.jipinshop.util.ShopJumpUtil
+import com.example.administrator.jipinshop.util.UmApp.AppStatisticalUtil
 import com.example.administrator.jipinshop.view.glide.GlideApp
+import com.trello.rxlifecycle2.LifecycleTransformer
 
 /**
  * @author 莫小婷
@@ -24,10 +27,20 @@ class KTMainGridAdapter : RecyclerView.Adapter<KTMainGridAdapter.ViewHolder>{
 
     private var mList: MutableList<TbkIndexBean.DataBean.BoxListBean>
     private var mContext: Context
+    private lateinit var appStatisticalUtil: AppStatisticalUtil
+    private lateinit var  transformer : LifecycleTransformer<SuccessBean>
 
     constructor(list: MutableList<TbkIndexBean.DataBean.BoxListBean> , context: Context){
         mList = list
         mContext = context
+    }
+
+    fun setAppStatisticalUtil(appStatisticalUtil : AppStatisticalUtil){
+        this.appStatisticalUtil = appStatisticalUtil
+    }
+
+    fun setTransformer(transformer : LifecycleTransformer<SuccessBean>){
+        this.transformer = transformer
     }
 
     override fun onCreateViewHolder(viewGroup: ViewGroup, type: Int): ViewHolder {
@@ -44,6 +57,7 @@ class KTMainGridAdapter : RecyclerView.Adapter<KTMainGridAdapter.ViewHolder>{
             mItemName.text = mList[position].title
             GlideApp.loderCircleImage(mContext,mList[position].iconUrl,mImageView,0,0)
             itemView.setOnClickListener {
+                appStatisticalUtil.addEvent("shouye_gongge." + (position + 1),transformer)
                 ShopJumpUtil.openCommen(mContext,mList[position].type,mList[position].targetId,
                         mList[position].title)
             }

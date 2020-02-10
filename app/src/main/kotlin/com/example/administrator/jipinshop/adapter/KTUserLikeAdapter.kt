@@ -14,8 +14,11 @@ import com.example.administrator.jipinshop.R
 import com.example.administrator.jipinshop.activity.login.LoginActivity
 import com.example.administrator.jipinshop.activity.shoppingdetail.tbshoppingdetail.TBShoppingDetailActivity
 import com.example.administrator.jipinshop.bean.SimilerGoodsBean
+import com.example.administrator.jipinshop.bean.SuccessBean
 import com.example.administrator.jipinshop.databinding.ItemUserlikeBinding
+import com.example.administrator.jipinshop.util.UmApp.AppStatisticalUtil
 import com.example.administrator.jipinshop.util.sp.CommonDate
+import com.trello.rxlifecycle2.LifecycleTransformer
 import java.math.BigDecimal
 
 /**
@@ -28,9 +31,19 @@ class KTUserLikeAdapter : RecyclerView.Adapter<KTUserLikeAdapter.ViewHolder>{
     private var mList: MutableList<SimilerGoodsBean.DataBean>
     private var mContext: Context
     private var mOnItem: OnItem? = null
+    private lateinit var appStatisticalUtil: AppStatisticalUtil
+    private lateinit var  transformer : LifecycleTransformer<SuccessBean>
 
     fun setOnItem(onItem: OnItem) {
         mOnItem = onItem
+    }
+
+    fun setAppStatisticalUtil(appStatisticalUtil : AppStatisticalUtil){
+        this.appStatisticalUtil = appStatisticalUtil
+    }
+
+    fun setTransformer(transformer : LifecycleTransformer<SuccessBean>){
+        this.transformer = transformer
     }
 
     constructor(list: MutableList<SimilerGoodsBean.DataBean> , context: Context){
@@ -91,6 +104,7 @@ class KTUserLikeAdapter : RecyclerView.Adapter<KTUserLikeAdapter.ViewHolder>{
                 binding.detailOtherPrice.visibility = View.VISIBLE
             }
             viewHolder.itemView.setOnClickListener {
+                appStatisticalUtil.addEvent("shouye.cnxh_liebiao." + (position + 1),transformer)//猜你喜欢列表统计
                 if (TextUtils.isEmpty(SPUtils.getInstance(CommonDate.USER).getString(CommonDate.token, ""))) {
                     mContext.startActivity(Intent(mContext, LoginActivity::class.java))
                     return@setOnClickListener

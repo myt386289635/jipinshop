@@ -8,7 +8,6 @@ import android.graphics.Color
 import android.support.v7.widget.GridLayoutManager
 import android.text.TextUtils
 import android.view.LayoutInflater
-import android.view.MotionEvent
 import android.view.View
 import android.view.ViewGroup
 import com.aspsine.swipetoloadlayout.OnLoadMoreListener
@@ -25,6 +24,7 @@ import com.example.administrator.jipinshop.fragment.home.KTHomeFragnent
 import com.example.administrator.jipinshop.netwrok.RetrofitModule
 import com.example.administrator.jipinshop.util.ShareUtils
 import com.example.administrator.jipinshop.util.ToastUtil
+import com.example.administrator.jipinshop.util.UmApp.AppStatisticalUtil
 import com.example.administrator.jipinshop.util.share.MobLinkUtil
 import com.example.administrator.jipinshop.view.dialog.ProgressDialogView
 import com.example.administrator.jipinshop.view.dialog.ShareBoardDialog
@@ -41,6 +41,8 @@ class KTMainFragment : DBBaseFragment(), OnLoadMoreListener, OnRefreshListener, 
 
     @Inject
     lateinit var mPresenter: KTMainPresenter
+    @Inject
+    lateinit var appStatisticalUtil: AppStatisticalUtil
 
     private lateinit var mBinding : FragmentKtMainBinding
     private lateinit var mAdapter: KTMainAdapter
@@ -96,6 +98,8 @@ class KTMainFragment : DBBaseFragment(), OnLoadMoreListener, OnRefreshListener, 
         mPagerAdapter = HomePageAdapter(childFragmentManager)
         mAdapter = KTMainAdapter(mList,mColor,mAdListBeans,context!!)
         mAdapter.setPagerAdapter(mPagerAdapter)
+        mAdapter.setAppStatisticalUtil(appStatisticalUtil)
+        mAdapter.setTransformer(this.bindToLifecycle())
         mAdapter.setGridList(mGridList)
         mAdapter.setUserList(mUserList)
         mAdapter.setAsc(asc)
@@ -121,6 +125,7 @@ class KTMainFragment : DBBaseFragment(), OnLoadMoreListener, OnRefreshListener, 
     override fun onRefresh() {
         page = 1
         refersh = true
+        appStatisticalUtil.addEvent("shouye_loding",this.bindToLifecycle())
         mPresenter.getDate("1",this.bindToLifecycle())
     }
 
@@ -173,6 +178,7 @@ class KTMainFragment : DBBaseFragment(), OnLoadMoreListener, OnRefreshListener, 
     }
 
     override fun onItemShare(position: Int) {
+        appStatisticalUtil.addEvent("shouye_tuijian.zf",this.bindToLifecycle())
         sharePosition = position
         if (mShareBoardDialog == null) {
             mShareBoardDialog = ShareBoardDialog.getInstance("", "")

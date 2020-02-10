@@ -21,6 +21,7 @@ import com.blankj.utilcode.util.SPUtils
 import com.example.administrator.jipinshop.R
 import com.example.administrator.jipinshop.activity.login.LoginActivity
 import com.example.administrator.jipinshop.activity.shoppingdetail.tbshoppingdetail.TBShoppingDetailActivity
+import com.example.administrator.jipinshop.bean.SuccessBean
 import com.example.administrator.jipinshop.bean.TBSreachResultBean
 import com.example.administrator.jipinshop.bean.TbCommonBean
 import com.example.administrator.jipinshop.databinding.ItemHomeOneBinding
@@ -28,9 +29,11 @@ import com.example.administrator.jipinshop.databinding.ItemHomeTwoBinding
 import com.example.administrator.jipinshop.databinding.ItemSreachOneBinding
 import com.example.administrator.jipinshop.util.ShopJumpUtil
 import com.example.administrator.jipinshop.util.ToastUtil
+import com.example.administrator.jipinshop.util.UmApp.AppStatisticalUtil
 import com.example.administrator.jipinshop.util.WeakRefHandler
 import com.example.administrator.jipinshop.util.sp.CommonDate
 import com.example.administrator.jipinshop.view.viewpager.TouchViewPager
+import com.trello.rxlifecycle2.LifecycleTransformer
 import java.math.BigDecimal
 import java.util.*
 
@@ -53,9 +56,24 @@ class KTHomeCommenAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>{
     private var asc = arrayOf("")
     private var orderByType = arrayOf("0")
     private lateinit var mOnItem: OnItem
+    private lateinit var appStatisticalUtil: AppStatisticalUtil
+    private lateinit var  transformer : LifecycleTransformer<SuccessBean>
+    private var commenStatistical = ""
 
     fun setOnClick(onItem: OnItem){
         mOnItem = onItem
+    }
+
+    fun setAppStatisticalUtil(appStatisticalUtil : AppStatisticalUtil){
+        this.appStatisticalUtil = appStatisticalUtil
+    }
+
+    fun setTransformer(transformer : LifecycleTransformer<SuccessBean>){
+        this.transformer = transformer
+    }
+
+    fun setCommenStatistical(commenStatistical: String){
+        this.commenStatistical = commenStatistical
     }
 
     constructor(list: MutableList<TBSreachResultBean.DataBean> ,adListBeans: MutableList<TbCommonBean.AdListBean> , context: Context){
@@ -157,6 +175,7 @@ class KTHomeCommenAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>{
                 oneViewHolder.run {
                     mPagerAdapter.setOnClickItem(object : KTPagerAdapter2.OnClickItem {
                         override fun onClickItem(postion: Int) {
+                            appStatisticalUtil.addEvent(commenStatistical + "_banner." + (toRealPosition(postion) + 1), transformer)
                             ShopJumpUtil.openBanner(mContext, mAdListBeans[postion].type,
                                     mAdListBeans[postion].objectId, mAdListBeans[postion].name)
 //                            ToastUtil.show("点击位置：" + toRealPosition(postion))
@@ -209,6 +228,7 @@ class KTHomeCommenAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>{
                         mOnItem.initTitle()
                     }
                     binding.sreachChange.setOnClickListener {
+                        appStatisticalUtil.shouye_fl_tab(4,commenStatistical,transformer)
                         if(layoutType == 1){
                             binding.sreachChangeImg.setImageResource(R.mipmap.sreach_change1)
                         }else{
@@ -308,6 +328,7 @@ class KTHomeCommenAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>{
                         }
                     }
                     itemView.setOnClickListener { v ->
+                        appStatisticalUtil.addEvent(commenStatistical + "_liebiao." + (pos+1),transformer)
                         if (TextUtils.isEmpty(SPUtils.getInstance(CommonDate.USER).getString(CommonDate.token, ""))) {
                             mContext.startActivity(Intent(mContext, LoginActivity::class.java))
                             return@setOnClickListener
@@ -462,6 +483,9 @@ class KTHomeCommenAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>{
             this.binding = binding
             gvListBean = mutableListOf()
             mGvAdapter = KTHomeGvAdapter(gvListBean,mContext)
+            mGvAdapter.setAppStatisticalUtil(appStatisticalUtil)
+            mGvAdapter.setTransformer(transformer)
+            mGvAdapter.setCommenStatistical(commenStatistical)
             binding.itemGridView.adapter = mGvAdapter
 
             mTextViews = ArrayList()
@@ -488,6 +512,7 @@ class KTHomeCommenAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>{
 
         //初始化标题
         fun initTitle(position: Int) {
+            appStatisticalUtil.shouye_fl_tab(position,commenStatistical,transformer)
             val drawable = mContext.resources.getDrawable(R.mipmap.sreach_price3)
             drawable.setBounds(0, 0, drawable.minimumWidth, drawable.minimumHeight)
             binding.titleJg.setCompoundDrawables(null, null, drawable, null)

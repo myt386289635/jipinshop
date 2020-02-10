@@ -26,6 +26,7 @@ import com.example.administrator.jipinshop.activity.cheapgoods.CheapBuyActivity
 import com.example.administrator.jipinshop.activity.login.LoginActivity
 import com.example.administrator.jipinshop.activity.newpeople.NewPeopleActivity
 import com.example.administrator.jipinshop.activity.shoppingdetail.tbshoppingdetail.TBShoppingDetailActivity
+import com.example.administrator.jipinshop.bean.SuccessBean
 import com.example.administrator.jipinshop.bean.TBSreachResultBean
 import com.example.administrator.jipinshop.bean.TbkIndexBean
 import com.example.administrator.jipinshop.databinding.*
@@ -33,11 +34,13 @@ import com.example.administrator.jipinshop.netwrok.RetrofitModule
 import com.example.administrator.jipinshop.util.DistanceHelper
 import com.example.administrator.jipinshop.util.ShopJumpUtil
 import com.example.administrator.jipinshop.util.ToastUtil
+import com.example.administrator.jipinshop.util.UmApp.AppStatisticalUtil
 import com.example.administrator.jipinshop.util.WeakRefHandler
 import com.example.administrator.jipinshop.util.sp.CommonDate
 import com.example.administrator.jipinshop.view.glide.GlideApp
 import com.example.administrator.jipinshop.view.textview.TextViewDel
 import com.example.administrator.jipinshop.view.viewpager.TouchViewPager
+import com.trello.rxlifecycle2.LifecycleTransformer
 import java.math.BigDecimal
 import java.util.*
 
@@ -59,6 +62,8 @@ class KTMainAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder> {
     private var mContext: Context
     private lateinit var mOnItem: OnItem
     private lateinit var mPagerAdapter: HomePageAdapter
+    private lateinit var appStatisticalUtil: AppStatisticalUtil
+    private lateinit var  transformer : LifecycleTransformer<SuccessBean>
     private var layoutType = 1//横线是1，网格是2  默认横线
 
     private var mList: MutableList<TBSreachResultBean.DataBean>//精选好物列表
@@ -136,6 +141,14 @@ class KTMainAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
     fun setPagerAdapter(pagerAdapter: HomePageAdapter) {
         mPagerAdapter = pagerAdapter
+    }
+
+    fun setAppStatisticalUtil(appStatisticalUtil : AppStatisticalUtil){
+        this.appStatisticalUtil = appStatisticalUtil
+    }
+
+    fun setTransformer(transformer : LifecycleTransformer<SuccessBean>){
+        this.transformer = transformer
     }
 
     override fun getItemViewType(position: Int): Int {
@@ -216,6 +229,7 @@ class KTMainAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder> {
                 oneViewHolder.run {
                     mPagerAdapter.setOnClickItem(object : KTPagerAdapter.OnClickItem {
                         override fun onClickItem(postion: Int) {
+                            appStatisticalUtil.addEvent("shouye_banner." + (toRealPosition(postion) + 1),transformer)
                             ShopJumpUtil.openBanner(mContext,mAdListBeans[postion].type,
                                     mAdListBeans[postion].objectId,mAdListBeans[postion].name)
 //                            ToastUtil.show("点击$postion  --真实位置：" + toRealPosition(postion))
@@ -276,6 +290,7 @@ class KTMainAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder> {
                     binding.peopleGo.startAnimation(animation)
                     animation.start()
                     binding.mainNewpeople.setOnClickListener {
+                        appStatisticalUtil.addEvent("shouye_xinren",transformer)
                         if (TextUtils.isEmpty(SPUtils.getInstance(CommonDate.USER).getString(CommonDate.token, ""))) {
                             mContext.startActivity(Intent(mContext, LoginActivity::class.java))
                             return@setOnClickListener
@@ -283,6 +298,7 @@ class KTMainAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder> {
                         mContext.startActivity(Intent(mContext, NewPeopleActivity::class.java))
                     }
                     binding.mainOldpeople.setOnClickListener {
+                        appStatisticalUtil.addEvent("shouye_tehui",transformer)
                         if (TextUtils.isEmpty(SPUtils.getInstance(CommonDate.USER).getString(CommonDate.token, ""))) {
                             mContext.startActivity(Intent(mContext, LoginActivity::class.java))
                             return@setOnClickListener
@@ -290,6 +306,7 @@ class KTMainAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder> {
                         mContext.startActivity(Intent(mContext, CheapBuyActivity::class.java))
                     }
                     binding.marqueeContainer.setOnClickListener {
+                        appStatisticalUtil.addEvent("shouye_pmd",transformer)
                         mContext.startActivity(Intent(mContext, WebActivity::class.java)
                                 .putExtra(WebActivity.url, RetrofitModule.H5_URL + "newZn.html")
                                 .putExtra(WebActivity.title, "极品城省钱攻略")
@@ -333,18 +350,22 @@ class KTMainAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder> {
                     initImage1()
                     initImage2()
                     binding.itemOneContainer.setOnClickListener {
+                        appStatisticalUtil.addEvent("shouye_zhuanti.1",transformer)
                         ShopJumpUtil.openCommen(mContext,mImageDay.type,mImageDay.targetId,mImageDay.title)
                     }
                     binding.itemTwoContainer.setOnClickListener {
+                        appStatisticalUtil.addEvent("shouye_zhuanti.2",transformer)
                         ShopJumpUtil.openCommen(mContext,mActivityList[0].type,mActivityList[0].targetId,
                                 mActivityList[0].title)
                     }
                     binding.itemThreeContainer.setOnClickListener {
+                        appStatisticalUtil.addEvent("shouye_zhuanti.3",transformer)
                         ShopJumpUtil.openCommen(mContext,mActivityList[1].type,mActivityList[1].targetId,
                                 mActivityList[1].title)
                     }
                     binding.itemAction.setOnClickListener {
                         mAd2Bean?.let {
+                            appStatisticalUtil.addEvent("shouye_banner.huodong",transformer)
                             ShopJumpUtil.openBanner(mContext,it.type,
                                     it.objectId,it.name)
                         }
@@ -392,6 +413,7 @@ class KTMainAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder> {
                         mOnItem.initTitle()
                     }
                     binding.sreachChange.setOnClickListener {
+                        appStatisticalUtil.shouye_tj_tab(4,transformer)
                         if(layoutType == 1){
                             binding.sreachChangeImg.setImageResource(R.mipmap.sreach_change1)
                         }else{
@@ -483,6 +505,7 @@ class KTMainAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder> {
                         }
                     }
                     itemView.setOnClickListener { v ->
+                        appStatisticalUtil.addEvent("shouye_tuijian." + (pos+1),transformer)
                         if (TextUtils.isEmpty(SPUtils.getInstance(CommonDate.USER).getString(CommonDate.token, ""))) {
                             mContext.startActivity(Intent(mContext, LoginActivity::class.java))
                             return@setOnClickListener
@@ -636,6 +659,8 @@ class KTMainAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder> {
             binding.gridViewpager.layoutManager= linearLayoutManager
             gridList = mutableListOf()
             adapter = KTMainGridAdapter(gridList,mContext)
+            adapter.setAppStatisticalUtil(appStatisticalUtil)
+            adapter.setTransformer(transformer)
             binding.gridViewpager.adapter = adapter
             binding.gridViewpager.isNestedScrollingEnabled = false
             binding.gridViewpager.addOnScrollListener(object : RecyclerView.OnScrollListener() {
@@ -777,6 +802,8 @@ class KTMainAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder> {
             binding.itemRecycler.layoutManager= LinearLayoutManager(mContext,LinearLayout.HORIZONTAL,false)
             hotShopList= mutableListOf()
             adapter = KTMainHotAdapter(hotShopList,mContext)
+            adapter.setAppStatisticalUtil(appStatisticalUtil)
+            adapter.setTransformer(transformer)
             binding.itemRecycler.adapter = adapter
 
             mTextViews = ArrayList()
@@ -788,6 +815,7 @@ class KTMainAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
         //初始化标题
         fun initTitle(position: Int) {
+            appStatisticalUtil.shouye_tj_tab(position,transformer)
             val drawable = mContext.resources.getDrawable(R.mipmap.sreach_price3)
             drawable.setBounds(0, 0, drawable.minimumWidth, drawable.minimumHeight)
             binding.titleJg.setCompoundDrawables(null, null, drawable, null)

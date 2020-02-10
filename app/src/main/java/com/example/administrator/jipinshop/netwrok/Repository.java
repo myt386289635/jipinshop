@@ -1205,4 +1205,11 @@ public class Repository {
     public Observable<ImageBean> getTbkGoodsPoster(String otherGoodsId){
         return mAPIService.getTbkGoodsPoster(otherGoodsId);
     }
+
+    /**
+     *  后台统计
+     */
+    public Observable<SuccessBean> addEvent(String eventId){
+        return mAPIService.addEvent(eventId);
+    }
 }

@@ -23,6 +23,7 @@ import com.example.administrator.jipinshop.fragment.home.KTHomeFragnent
 import com.example.administrator.jipinshop.netwrok.RetrofitModule
 import com.example.administrator.jipinshop.util.ShareUtils
 import com.example.administrator.jipinshop.util.ToastUtil
+import com.example.administrator.jipinshop.util.UmApp.AppStatisticalUtil
 import com.example.administrator.jipinshop.util.share.MobLinkUtil
 import com.example.administrator.jipinshop.view.dialog.ProgressDialogView
 import com.example.administrator.jipinshop.view.dialog.ShareBoardDialog
@@ -39,6 +40,8 @@ class KTHomeCommenFragment : DBBaseFragment(), OnLoadMoreListener, OnRefreshList
 
     @Inject
     lateinit var mPresenter: KTHomeCommenPresenter
+    @Inject
+    lateinit var appStatisticalUtil : AppStatisticalUtil
 
     private lateinit var mBinding : FragmentKtMainBinding
     private lateinit var mList: MutableList<TBSreachResultBean.DataBean>
@@ -59,12 +62,14 @@ class KTHomeCommenFragment : DBBaseFragment(), OnLoadMoreListener, OnRefreshList
     private var shareName = ""
     private var shareContent = ""
     private var shareUrl = ""
+    private var commenStatistical = ""
 
     companion object{
-        fun getInstance(id: String) : KTHomeCommenFragment {
+        fun getInstance(id: String , commenStatistical : String) : KTHomeCommenFragment {
             var fragment = KTHomeCommenFragment()
             var bundle = Bundle()
             bundle.putString("id",id)
+            bundle.putString("commenStatistical",commenStatistical)
             fragment.arguments = bundle
             return fragment
         }
@@ -86,6 +91,7 @@ class KTHomeCommenFragment : DBBaseFragment(), OnLoadMoreListener, OnRefreshList
         mBaseFragmentComponent.inject(this)
         arguments?.let {
             id = it.getString("id","")
+            commenStatistical = it.getString("commenStatistical","")
         }
         mPresenter.setView(this)
 
@@ -94,6 +100,9 @@ class KTHomeCommenFragment : DBBaseFragment(), OnLoadMoreListener, OnRefreshList
         mAdListBeans = mutableListOf()
         mGvListBeans = mutableListOf()
         mAdapter = KTHomeCommenAdapter(mList,mAdListBeans,context!!)
+        mAdapter.setAppStatisticalUtil(appStatisticalUtil)
+        mAdapter.setTransformer(this.bindToLifecycle())
+        mAdapter.setCommenStatistical(commenStatistical)
         mAdapter.setGv(mGvListBeans)
         mAdapter.setLayoutType(1)
         mAdapter.setAsc(asc)
@@ -171,6 +180,7 @@ class KTHomeCommenFragment : DBBaseFragment(), OnLoadMoreListener, OnRefreshList
     }
 
     override fun onItemShare(position: Int) {
+        appStatisticalUtil.addEvent(commenStatistical + "_liebiao.zf" , this.bindToLifecycle())
         sharePosition = position
         if (mShareBoardDialog == null) {
             mShareBoardDialog = ShareBoardDialog.getInstance("", "")

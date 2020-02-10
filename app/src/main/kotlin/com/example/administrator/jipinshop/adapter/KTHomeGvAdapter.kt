@@ -10,9 +10,11 @@ import android.widget.ImageView
 import android.widget.TextView
 import com.example.administrator.jipinshop.R
 import com.example.administrator.jipinshop.activity.home.HomeTabActivity
+import com.example.administrator.jipinshop.bean.SuccessBean
 import com.example.administrator.jipinshop.bean.TbCommonBean
-import com.example.administrator.jipinshop.util.ToastUtil
+import com.example.administrator.jipinshop.util.UmApp.AppStatisticalUtil
 import com.example.administrator.jipinshop.view.glide.GlideApp
+import com.trello.rxlifecycle2.LifecycleTransformer
 
 /**
  * @author 莫小婷
@@ -23,10 +25,25 @@ class KTHomeGvAdapter : BaseAdapter {
 
     private var mGvListBeans: MutableList<TbCommonBean.CategoryListBean>
     private var mContext: Context
+    private lateinit var appStatisticalUtil: AppStatisticalUtil
+    private lateinit var  transformer : LifecycleTransformer<SuccessBean>
+    private var commenStatistical = ""
 
     constructor(mList: MutableList<TbCommonBean.CategoryListBean>, context: Context){
         this.mGvListBeans = mList
         this.mContext = context
+    }
+
+    fun setAppStatisticalUtil(appStatisticalUtil : AppStatisticalUtil){
+        this.appStatisticalUtil = appStatisticalUtil
+    }
+
+    fun setTransformer(transformer : LifecycleTransformer<SuccessBean>){
+        this.transformer = transformer
+    }
+
+    fun setCommenStatistical(commenStatistical: String){
+        this.commenStatistical = commenStatistical
     }
 
     override fun getView(position: Int, convertView: View?, parent: ViewGroup?): View {
@@ -43,6 +60,7 @@ class KTHomeGvAdapter : BaseAdapter {
             item_text.text = mGvListBeans[position].categoryName
             GlideApp.loderCircleImage(mContext,mGvListBeans[position].img,item_image,0,0)
             view!!.setOnClickListener {
+                appStatisticalUtil.addEvent(commenStatistical + "_gongge." + (position + 1) , transformer)
                 mContext.startActivity(Intent(mContext, HomeTabActivity::class.java)
                         .putExtra("id", mGvListBeans[position].categoryId)
                         .putExtra("title", mGvListBeans[position].categoryName)

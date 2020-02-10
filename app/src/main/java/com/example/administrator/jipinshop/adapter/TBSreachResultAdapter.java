@@ -19,10 +19,13 @@ import com.blankj.utilcode.util.SPUtils;
 import com.example.administrator.jipinshop.R;
 import com.example.administrator.jipinshop.activity.login.LoginActivity;
 import com.example.administrator.jipinshop.activity.shoppingdetail.tbshoppingdetail.TBShoppingDetailActivity;
+import com.example.administrator.jipinshop.bean.SuccessBean;
 import com.example.administrator.jipinshop.bean.TBSreachResultBean;
 import com.example.administrator.jipinshop.databinding.ItemSreachOneBinding;
 import com.example.administrator.jipinshop.databinding.ItemSreachTwoBinding;
+import com.example.administrator.jipinshop.util.UmApp.AppStatisticalUtil;
 import com.example.administrator.jipinshop.util.sp.CommonDate;
+import com.trello.rxlifecycle2.LifecycleTransformer;
 
 import java.math.BigDecimal;
 import java.util.List;
@@ -42,6 +45,22 @@ public class TBSreachResultAdapter extends RecyclerView.Adapter {
     private Context mContext;
     private int layoutType = 1;//横线是1，网格是2  默认横线
     private OnItem mOnItem;
+    //统计用
+    private AppStatisticalUtil appStatisticalUtil;
+    private LifecycleTransformer<SuccessBean> transformer;
+    private String id;//专题id
+
+    public void setAppStatisticalUtil(AppStatisticalUtil appStatisticalUtil) {
+        this.appStatisticalUtil = appStatisticalUtil;
+    }
+
+    public void setTransformer(LifecycleTransformer<SuccessBean> transformer) {
+        this.transformer = transformer;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
 
     public void setOnItem(OnItem onItem) {
         mOnItem = onItem;
@@ -206,6 +225,9 @@ public class TBSreachResultAdapter extends RecyclerView.Adapter {
                     });
                 }
                 oneViewHolder.itemView.setOnClickListener(v -> {
+                    if (appStatisticalUtil != null && transformer!= null && !TextUtils.isEmpty(id)){
+                        appStatisticalUtil.addEvent("zhuanti." + id + "_liebiao." + (position + 1),transformer);
+                    }
                     if(TextUtils.isEmpty(SPUtils.getInstance(CommonDate.USER).getString(CommonDate.token,""))){
                         mContext.startActivity(new Intent(mContext, LoginActivity.class));
                         return;

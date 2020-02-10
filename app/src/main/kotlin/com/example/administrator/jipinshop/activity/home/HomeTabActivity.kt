@@ -18,6 +18,7 @@ import com.example.administrator.jipinshop.bean.TBSreachResultBean
 import com.example.administrator.jipinshop.databinding.ActivityHomeDetailBinding
 import com.example.administrator.jipinshop.util.ShareUtils
 import com.example.administrator.jipinshop.util.ToastUtil
+import com.example.administrator.jipinshop.util.UmApp.AppStatisticalUtil
 import com.example.administrator.jipinshop.view.dialog.ProgressDialogView
 import com.umeng.socialize.UMShareAPI
 import com.umeng.socialize.bean.SHARE_MEDIA
@@ -33,6 +34,8 @@ class HomeTabActivity : BaseActivity(), View.OnClickListener, HomeDetailView, TB
 
     @Inject
     lateinit var mPresenter: HomeDetailPresenter
+    @Inject
+    lateinit var appStatisticalUtil: AppStatisticalUtil
 
     private lateinit var mBinding: ActivityHomeDetailBinding
     private var asc = ""
@@ -72,6 +75,9 @@ class HomeTabActivity : BaseActivity(), View.OnClickListener, HomeDetailView, TB
         mBinding.swipeTarget.layoutManager = GridLayoutManager(this, 2)
         mList = mutableListOf()
         mAdapter = TBSreachResultAdapter(mList, this)
+        mAdapter.setAppStatisticalUtil(appStatisticalUtil)
+        mAdapter.setTransformer(this.bindToLifecycle())
+        mAdapter.setId(id)
         mAdapter.layoutType = 1//默认横向布局
         mAdapter.setOnItem(this)
         mBinding.swipeTarget.adapter = mAdapter
@@ -155,6 +161,7 @@ class HomeTabActivity : BaseActivity(), View.OnClickListener, HomeDetailView, TB
                 onRefresh()
             }
             R.id.sreach_change -> {
+                appStatisticalUtil.zhuanti_tab(4,id,this.bindToLifecycle())
                 if (mAdapter.layoutType == 1) {
                     mAdapter.layoutType = 2//网格
                     mAdapter.notifyItemRangeChanged(0, mList.size)
@@ -171,6 +178,7 @@ class HomeTabActivity : BaseActivity(), View.OnClickListener, HomeDetailView, TB
     override fun onRefresh() {
         refresh = true
         page = 1
+        appStatisticalUtil.addEvent("tongyong_loding",this.bindToLifecycle())//专题页刷新统计
         mBinding.swipeTarget.scrollToPosition(0)
         mPresenter.getGoodsListByCategory2(page,asc,orderByType,id,this.bindToLifecycle())
     }
@@ -182,6 +190,7 @@ class HomeTabActivity : BaseActivity(), View.OnClickListener, HomeDetailView, TB
     }
 
     override fun onItemShare(position: Int) {
+        appStatisticalUtil.addEvent("zhuanti." + id + "_liebiao.zf",this.bindToLifecycle())
         mDialog = ProgressDialogView().createLoadingDialog(this, "")
         val path = "pages/list/main-v2-info/main?id=" + mList[position].otherGoodsId
         val shareImage = mList[position].img
@@ -194,6 +203,7 @@ class HomeTabActivity : BaseActivity(), View.OnClickListener, HomeDetailView, TB
 
     //初始化标题
     private fun initTitle(position: Int) {
+        appStatisticalUtil.zhuanti_tab(position,id,this.bindToLifecycle())
         val drawable = resources.getDrawable(R.mipmap.sreach_price3)
         drawable.setBounds(0, 0, drawable.minimumWidth, drawable.minimumHeight)
         mBinding.titleJg.setCompoundDrawables(null, null, drawable, null)

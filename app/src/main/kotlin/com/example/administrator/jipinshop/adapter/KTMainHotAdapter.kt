@@ -12,9 +12,12 @@ import com.blankj.utilcode.util.SPUtils
 import com.example.administrator.jipinshop.R
 import com.example.administrator.jipinshop.activity.login.LoginActivity
 import com.example.administrator.jipinshop.activity.shoppingdetail.tbshoppingdetail.TBShoppingDetailActivity
+import com.example.administrator.jipinshop.bean.SuccessBean
 import com.example.administrator.jipinshop.bean.TbkIndexBean
 import com.example.administrator.jipinshop.databinding.ItemMainHotBinding
+import com.example.administrator.jipinshop.util.UmApp.AppStatisticalUtil
 import com.example.administrator.jipinshop.util.sp.CommonDate
+import com.trello.rxlifecycle2.LifecycleTransformer
 import java.math.BigDecimal
 
 /**
@@ -26,10 +29,20 @@ class KTMainHotAdapter : RecyclerView.Adapter<KTMainHotAdapter.ViewHolder>{
 
     private var mList: MutableList<TbkIndexBean.DataBean.HotGoodsListBean>
     private var mContext: Context
+    private lateinit var appStatisticalUtil: AppStatisticalUtil
+    private lateinit var  transformer : LifecycleTransformer<SuccessBean>
 
     constructor(list: MutableList<TbkIndexBean.DataBean.HotGoodsListBean> , context: Context){
         mList = list
         mContext = context
+    }
+
+    fun setAppStatisticalUtil(appStatisticalUtil : AppStatisticalUtil){
+        this.appStatisticalUtil = appStatisticalUtil
+    }
+
+    fun setTransformer(transformer : LifecycleTransformer<SuccessBean>){
+        this.transformer = transformer
     }
 
     override fun onCreateViewHolder(viewGroup: ViewGroup, type: Int): ViewHolder {
@@ -76,6 +89,7 @@ class KTMainHotAdapter : RecyclerView.Adapter<KTMainHotAdapter.ViewHolder>{
                 binding.detailFee.visibility = View.VISIBLE
             }
             itemView.setOnClickListener {
+                appStatisticalUtil.addEvent("shouye_bangdan." + (position + 1) , transformer)
                 if (TextUtils.isEmpty(SPUtils.getInstance(CommonDate.USER).getString(CommonDate.token, ""))) {
                     mContext.startActivity(Intent(mContext, LoginActivity::class.java))
                     return@setOnClickListener

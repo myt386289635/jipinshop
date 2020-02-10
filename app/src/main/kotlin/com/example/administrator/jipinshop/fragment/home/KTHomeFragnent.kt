@@ -20,6 +20,7 @@ import com.example.administrator.jipinshop.fragment.home.commen.KTHomeCommenFrag
 import com.example.administrator.jipinshop.fragment.home.main.KTMainFragment
 import com.example.administrator.jipinshop.fragment.home.userlike.KTUserLikeFragment
 import com.example.administrator.jipinshop.util.ToastUtil
+import com.example.administrator.jipinshop.util.UmApp.AppStatisticalUtil
 import net.lucode.hackware.magicindicator.ViewPagerHelper
 import net.lucode.hackware.magicindicator.buildins.commonnavigator.CommonNavigator
 import javax.inject.Inject
@@ -33,6 +34,9 @@ class KTHomeFragnent : DBBaseFragment(), View.OnClickListener, ViewPager.OnPageC
 
     @Inject
     lateinit var mPresenter: KTHomePresenter
+    @Inject
+    lateinit var appStatisticalUtil: AppStatisticalUtil
+
     private lateinit var mBinding : FragmentKtHomeBinding
     private lateinit var mAdapter : HomeFragmentAdapter
     private lateinit var mList: MutableList<Fragment>
@@ -76,11 +80,13 @@ class KTHomeFragnent : DBBaseFragment(), View.OnClickListener, ViewPager.OnPageC
         ViewPagerHelper.bind(mBinding.tabLayout, mBinding.viewPager)
 
         mPresenter.getData(this.bindToLifecycle())
+        appStatisticalUtil.addEvent("shouye_fenlei.1",this.bindToLifecycle())//统计精选
     }
 
     override fun onClick(v: View) {
         when(v.id){
             R.id.home_sreach -> {
+                appStatisticalUtil.addEvent("shouye_sousuo",this.bindToLifecycle())//统计搜索
                 startActivity(Intent(context, TBSreachActivity::class.java))
             }
         }
@@ -102,6 +108,7 @@ class KTHomeFragnent : DBBaseFragment(), View.OnClickListener, ViewPager.OnPageC
     override fun onPageScrolled(p0: Int, p1: Float, p2: Int) {}
 
     override fun onPageSelected(position: Int) {
+        appStatisticalUtil.addEvent("shouye_fenlei." + (position + 1),this.bindToLifecycle())//统计首页分类
         if (position != 0){
             isChange = false
             context?.let {
@@ -130,7 +137,7 @@ class KTHomeFragnent : DBBaseFragment(), View.OnClickListener, ViewPager.OnPageC
             when (i) {
                 0 -> mList.add(KTMainFragment.getInstance())
                 1 -> mList.add(KTUserLikeFragment.getInstance())
-                else -> mList.add(KTHomeCommenFragment.getInstance(bean.data[i].categoryId))
+                else -> mList.add(KTHomeCommenFragment.getInstance(bean.data[i].categoryId, "shouye_fenlei." + (i+1)))
             }
         }
         mAdapter.notifyDataSetChanged()

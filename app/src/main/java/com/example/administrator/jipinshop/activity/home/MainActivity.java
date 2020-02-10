@@ -14,7 +14,6 @@ import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
 import android.text.TextUtils;
 import android.view.View;
-import android.view.inputmethod.InputMethodManager;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -26,7 +25,6 @@ import com.example.administrator.jipinshop.activity.cheapgoods.CheapBuyActivity;
 import com.example.administrator.jipinshop.activity.login.LoginActivity;
 import com.example.administrator.jipinshop.activity.newpeople.NewPeopleActivity;
 import com.example.administrator.jipinshop.activity.sign.SignActivity;
-import com.example.administrator.jipinshop.activity.tryout.freedetail.FreeDetailActivity;
 import com.example.administrator.jipinshop.adapter.HomeAdapter;
 import com.example.administrator.jipinshop.base.DaggerBaseActivityComponent;
 import com.example.administrator.jipinshop.bean.AppVersionbean;
@@ -35,7 +33,6 @@ import com.example.administrator.jipinshop.bean.TklBean;
 import com.example.administrator.jipinshop.bean.eventbus.ChangeHomePageBus;
 import com.example.administrator.jipinshop.bean.eventbus.EditNameBus;
 import com.example.administrator.jipinshop.bean.eventbus.HomeNewPeopleBus;
-import com.example.administrator.jipinshop.bean.eventbus.TryStatusBus;
 import com.example.administrator.jipinshop.fragment.evaluationkt.EvaluationNewFragment;
 import com.example.administrator.jipinshop.fragment.home.HomeNewFragment;
 import com.example.administrator.jipinshop.fragment.home.KTHomeFragnent;
@@ -48,6 +45,7 @@ import com.example.administrator.jipinshop.util.NotchUtil;
 import com.example.administrator.jipinshop.util.NotificationUtil;
 import com.example.administrator.jipinshop.util.ShopJumpUtil;
 import com.example.administrator.jipinshop.util.ToastUtil;
+import com.example.administrator.jipinshop.util.UmApp.AppStatisticalUtil;
 import com.example.administrator.jipinshop.util.UmApp.UAppUtil;
 import com.example.administrator.jipinshop.util.UpDataUtil;
 import com.example.administrator.jipinshop.util.share.MobLinkUtil;
@@ -79,6 +77,8 @@ public class MainActivity extends RxAppCompatActivity implements MainView, ViewP
 
     @Inject
     MainActivityPresenter mPresenter;
+    @Inject
+    AppStatisticalUtil appStatisticalUtil;
 
     @BindView(R.id.view_pager)
     NoScrollViewPager mViewPager;
@@ -161,7 +161,7 @@ public class MainActivity extends RxAppCompatActivity implements MainView, ViewP
         mTabLayout.setupWithViewPager(mViewPager);
         mViewPager.addOnPageChangeListener(this);
         mPresenter.initTabLayout(this, mTabLayout);
-        UAppUtil.tab(this, 0);//统计榜单
+        appStatisticalUtil.tab(0,this.bindToLifecycle());//统计榜单
         View tabView = (View) mTabLayout.getTabAt(mFragments.size() - 1).getCustomView().getParent();
         tabView.setOnClickListener(v -> {
             if (TextUtils.isEmpty(SPUtils.getInstance(CommonDate.USER).getString(CommonDate.token, "").trim())) {
@@ -523,7 +523,7 @@ public class MainActivity extends RxAppCompatActivity implements MainView, ViewP
 
     @Override
     public void onPageSelected(int i) {
-        UAppUtil.tab(this, i);
+        appStatisticalUtil.tab(i,this.bindToLifecycle());//统计榜单
         if (i == 0){
             if (TextUtils.isEmpty(SPUtils.getInstance(CommonDate.USER).getString(CommonDate.token, "").trim())) {
                 mLoginBackground.setVisibility(View.VISIBLE);

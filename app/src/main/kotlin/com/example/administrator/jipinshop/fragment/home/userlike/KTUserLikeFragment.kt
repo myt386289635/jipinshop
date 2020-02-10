@@ -21,6 +21,7 @@ import com.example.administrator.jipinshop.fragment.home.KTHomeFragnent
 import com.example.administrator.jipinshop.netwrok.RetrofitModule
 import com.example.administrator.jipinshop.util.ShareUtils
 import com.example.administrator.jipinshop.util.ToastUtil
+import com.example.administrator.jipinshop.util.UmApp.AppStatisticalUtil
 import com.example.administrator.jipinshop.util.share.MobLinkUtil
 import com.example.administrator.jipinshop.view.dialog.ProgressDialogView
 import com.example.administrator.jipinshop.view.dialog.ShareBoardDialog
@@ -37,6 +38,9 @@ class KTUserLikeFragment : DBBaseFragment(), OnLoadMoreListener, OnRefreshListen
 
     @Inject
     lateinit var mPresenter: KTUserLikePresenter
+    @Inject
+    lateinit var appStatisticalUtil: AppStatisticalUtil
+
     private lateinit var mBinding : FragmentKtMainBinding
     private lateinit var mList: MutableList<SimilerGoodsBean.DataBean>
     private lateinit var mAdapter: KTUserLikeAdapter
@@ -78,6 +82,8 @@ class KTUserLikeFragment : DBBaseFragment(), OnLoadMoreListener, OnRefreshListen
         mList = mutableListOf()
         mAdapter = KTUserLikeAdapter(mList,context!!)
         mAdapter.setOnItem(this)
+        mAdapter.setAppStatisticalUtil(appStatisticalUtil)
+        mAdapter.setTransformer(this.bindToLifecycle())
         mBinding.swipeTarget.adapter = mAdapter
 
         var fragment = parentFragment
@@ -90,6 +96,7 @@ class KTUserLikeFragment : DBBaseFragment(), OnLoadMoreListener, OnRefreshListen
     override fun onRefresh() {
         page = 1
         refersh = true
+        appStatisticalUtil.addEvent("cnxh_loding",this.bindToLifecycle())//猜你喜欢刷新统计
         mPresenter.listSimilerGoods(context!!,page,this.bindToLifecycle())
     }
 
@@ -166,6 +173,7 @@ class KTUserLikeFragment : DBBaseFragment(), OnLoadMoreListener, OnRefreshListen
     }
 
     override fun onItemShare(position: Int) {
+        appStatisticalUtil.addEvent("shouye.cnxh_liebiao.zf",this.bindToLifecycle())//猜你喜欢列表分享统计
         sharePosition = position
         if (mShareBoardDialog == null) {
             mShareBoardDialog = ShareBoardDialog.getInstance("", "")

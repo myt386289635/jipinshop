@@ -1097,4 +1097,10 @@ public interface APIService {
     @FormUrlEncoded
     @POST("api/tbk/getTbkGoodsPosterImg")
     Observable<ImageBean> getTbkGoodsPoster(@Field("otherGoodsId") String otherGoodsId);
+
+    /**
+     *  后台统计
+     */
+    @GET("http://47.99.243.255:8081/qualityshop-api/api/addEvent")
+    Observable<SuccessBean> addEvent(@Query("eventId") String eventId);
 }
