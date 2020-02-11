@@ -28,6 +28,7 @@ import com.example.administrator.jipinshop.util.UmApp.AppStatisticalUtil
 import com.example.administrator.jipinshop.util.share.MobLinkUtil
 import com.example.administrator.jipinshop.view.dialog.ProgressDialogView
 import com.example.administrator.jipinshop.view.dialog.ShareBoardDialog
+import com.trello.rxlifecycle2.android.FragmentEvent
 import com.umeng.socialize.UMShareAPI
 import com.umeng.socialize.bean.SHARE_MEDIA
 import javax.inject.Inject
@@ -99,7 +100,7 @@ class KTMainFragment : DBBaseFragment(), OnLoadMoreListener, OnRefreshListener, 
         mAdapter = KTMainAdapter(mList,mColor,mAdListBeans,context!!)
         mAdapter.setPagerAdapter(mPagerAdapter)
         mAdapter.setAppStatisticalUtil(appStatisticalUtil)
-        mAdapter.setTransformer(this.bindToLifecycle())
+        mAdapter.setTransformer(this.bindUntilEvent(FragmentEvent.DESTROY_VIEW))
         mAdapter.setGridList(mGridList)
         mAdapter.setUserList(mUserList)
         mAdapter.setAsc(asc)

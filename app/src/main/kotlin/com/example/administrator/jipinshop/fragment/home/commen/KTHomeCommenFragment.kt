@@ -27,6 +27,7 @@ import com.example.administrator.jipinshop.util.UmApp.AppStatisticalUtil
 import com.example.administrator.jipinshop.util.share.MobLinkUtil
 import com.example.administrator.jipinshop.view.dialog.ProgressDialogView
 import com.example.administrator.jipinshop.view.dialog.ShareBoardDialog
+import com.trello.rxlifecycle2.android.FragmentEvent
 import com.umeng.socialize.UMShareAPI
 import com.umeng.socialize.bean.SHARE_MEDIA
 import javax.inject.Inject
@@ -101,7 +102,7 @@ class KTHomeCommenFragment : DBBaseFragment(), OnLoadMoreListener, OnRefreshList
         mGvListBeans = mutableListOf()
         mAdapter = KTHomeCommenAdapter(mList,mAdListBeans,context!!)
         mAdapter.setAppStatisticalUtil(appStatisticalUtil)
-        mAdapter.setTransformer(this.bindToLifecycle())
+        mAdapter.setTransformer(this.bindUntilEvent(FragmentEvent.DESTROY_VIEW))
         mAdapter.setCommenStatistical(commenStatistical)
         mAdapter.setGv(mGvListBeans)
         mAdapter.setLayoutType(1)
@@ -120,6 +121,7 @@ class KTHomeCommenFragment : DBBaseFragment(), OnLoadMoreListener, OnRefreshList
     override fun onRefresh() {
         page = 1
         refersh = true
+        appStatisticalUtil.addEvent("shouye_loding",this.bindToLifecycle())
         mPresenter.getDate(page,asc[0],orderByType[0],id,this.bindToLifecycle())
     }
 

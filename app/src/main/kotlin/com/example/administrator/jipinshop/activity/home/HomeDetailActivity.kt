@@ -20,6 +20,7 @@ import com.example.administrator.jipinshop.util.ShareUtils
 import com.example.administrator.jipinshop.util.ToastUtil
 import com.example.administrator.jipinshop.util.UmApp.AppStatisticalUtil
 import com.example.administrator.jipinshop.view.dialog.ProgressDialogView
+import com.trello.rxlifecycle2.android.ActivityEvent
 import com.umeng.socialize.UMShareAPI
 import com.umeng.socialize.bean.SHARE_MEDIA
 import java.util.*
@@ -76,7 +77,7 @@ class HomeDetailActivity : BaseActivity(), View.OnClickListener, TBSreachResultA
         mList = mutableListOf()
         mAdapter = TBSreachResultAdapter(mList, this)
         mAdapter.setAppStatisticalUtil(appStatisticalUtil)
-        mAdapter.setTransformer(this.bindToLifecycle())
+        mAdapter.setTransformer(this.bindUntilEvent(ActivityEvent.DESTROY))
         mAdapter.setId(id)
         mAdapter.layoutType = 1//默认横向布局
         mAdapter.setOnItem(this)
