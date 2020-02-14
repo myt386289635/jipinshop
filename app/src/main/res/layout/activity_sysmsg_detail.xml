@@ -47,7 +47,7 @@
 
     <LinearLayout
         android:orientation="vertical"
-        android:background="@drawable/bg_mine"
+        android:background="@drawable/bg_balance"
         android:paddingRight="@dimen/x16"
         android:paddingLeft="@dimen/x16"
         android:paddingBottom="@dimen/x32"

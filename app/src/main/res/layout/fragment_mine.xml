@@ -425,7 +425,7 @@
                     android:layout_marginLeft="@dimen/x30"
                     android:id="@+id/mine_headbootomContainer"
                     android:layout_below="@+id/mine_walletBottomContainer"
-                    android:background="@drawable/bg_mine"
+                    android:background="@drawable/bg_balance"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="horizontal">
@@ -543,7 +543,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_below="@+id/mine_headbootomContainer"
-                    android:background="@drawable/bg_mine"
+                    android:background="@drawable/bg_balance"
                     android:orientation="vertical">
 
                     <TextView

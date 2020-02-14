@@ -12,7 +12,7 @@
         android:layout_marginTop="@dimen/y20"
         android:layout_marginRight="@dimen/x30"
         android:layout_marginLeft="@dimen/x30"
-        android:background="@drawable/bg_mine"
+        android:background="@drawable/bg_balance"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 

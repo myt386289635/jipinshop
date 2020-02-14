@@ -92,5 +92,17 @@
 
         </android.support.design.widget.CoordinatorLayout>
 
+        <ImageView
+            android:scaleType="fitXY"
+            android:adjustViewBounds="true"
+            android:onClick="@{listener.onClick}"
+            android:id="@+id/home_action"
+            android:layout_marginBottom="@dimen/y304"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentRight="true"
+            android:src="@mipmap/tab_money"
+            android:layout_width="@dimen/x280"
+            android:layout_height="wrap_content" />
+
     </RelativeLayout>
 </layout>

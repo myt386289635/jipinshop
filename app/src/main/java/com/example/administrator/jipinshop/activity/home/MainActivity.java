@@ -37,6 +37,7 @@ import com.example.administrator.jipinshop.fragment.evaluationkt.EvaluationNewFr
 import com.example.administrator.jipinshop.fragment.home.HomeNewFragment;
 import com.example.administrator.jipinshop.fragment.home.KTHomeFragnent;
 import com.example.administrator.jipinshop.fragment.mine.MineFragment;
+import com.example.administrator.jipinshop.fragment.money.MoneyFragment;
 import com.example.administrator.jipinshop.fragment.tryout.freemodel.FreeNewFragment;
 import com.example.administrator.jipinshop.netwrok.RetrofitModule;
 import com.example.administrator.jipinshop.util.ClickUtil;
@@ -100,7 +101,7 @@ public class MainActivity extends RxAppCompatActivity implements MainView, ViewP
     private HomeNewFragment mHomeFragment;
     private MineFragment mMineFragment;
     private EvaluationNewFragment mEvaluationFragment;
-    private FreeNewFragment mTryFragment;
+    private MoneyFragment mTryFragment;
     private KTHomeFragnent mKTHomeFragnent;
 
     private Unbinder mButterKnife;
@@ -146,7 +147,8 @@ public class MainActivity extends RxAppCompatActivity implements MainView, ViewP
         mKTHomeFragnent = KTHomeFragnent.getInstance();
         mEvaluationFragment = new EvaluationNewFragment();
         mHomeFragment = new HomeNewFragment();
-        mTryFragment = new FreeNewFragment();
+//        mTryFragment = new FreeNewFragment();
+        mTryFragment = MoneyFragment.getInstance();//赚钱页面
         mMineFragment = new MineFragment();
         mFragments.add(mKTHomeFragnent);
         mFragments.add(mEvaluationFragment);

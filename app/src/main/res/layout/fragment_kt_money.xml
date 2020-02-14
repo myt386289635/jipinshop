@@ -1,0 +1,480 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+        <variable
+            name="listener"
+            type="android.view.View.OnClickListener"/>
+    </data>
+
+    <com.aspsine.swipetoloadlayout.SwipeToLoadLayout
+        android:background="@color/color_E04625"
+        android:id="@+id/swipeToLoad"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <com.example.administrator.jipinshop.view.textview.CustomRefreshHeadView
+            android:id="@+id/swipe_refresh_header"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:padding="20dp"/>
+
+        <ScrollView
+            android:id="@+id/swipe_target"
+            android:scrollbars="none"
+            android:fillViewport="true"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <LinearLayout
+                    android:id="@+id/status_bar"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@color/transparent"
+                    android:orientation="vertical"/>
+
+                <ImageView
+                    android:scaleType="fitXY"
+                    android:src="@mipmap/bg_money1"
+                    android:adjustViewBounds="true"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
+
+                <TextView
+                    android:onClick="@{listener.onClick}"
+                    android:layout_marginTop="@dimen/y30"
+                    android:layout_below="@id/status_bar"
+                    android:id="@+id/money_rule"
+                    android:paddingBottom="@dimen/y13"
+                    android:paddingTop="@dimen/y16"
+                    android:paddingLeft="@dimen/x23"
+                    android:paddingRight="@dimen/x7"
+                    android:textSize="12sp"
+                    android:text="规则说明"
+                    android:textColor="@color/color_white"
+                    android:layout_alignParentRight="true"
+                    android:background="@drawable/bg_ec962a"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"/>
+
+                <ImageView
+                    android:id="@+id/money_bg2"
+                    android:scaleType="fitXY"
+                    android:adjustViewBounds="true"
+                    android:layout_marginTop="@dimen/y2"
+                    android:layout_below="@id/money_rule"
+                    android:src="@mipmap/bg_money2"
+                    android:layout_marginRight="@dimen/x50"
+                    android:layout_marginLeft="@dimen/x50"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
+
+                <TextView
+                    android:id="@+id/money_title"
+                    android:layout_marginTop="@dimen/y5"
+                    android:layout_centerHorizontal="true"
+                    android:layout_below="@id/money_bg2"
+                    android:paddingBottom="@dimen/y10"
+                    android:paddingTop="@dimen/y12"
+                    android:paddingRight="@dimen/x50"
+                    android:paddingLeft="@dimen/x50"
+                    android:textSize="13sp"
+                    android:text="最高可获得152元现金红包"
+                    android:textColor="@color/color_white"
+                    android:background="@drawable/bg_d42304"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+
+                <RelativeLayout
+                    android:id="@+id/money_relayout"
+                    android:layout_marginTop="@dimen/y27"
+                    android:layout_below="@id/money_title"
+                    android:layout_centerHorizontal="true"
+                    android:background="@mipmap/bg_money3"
+                    android:layout_width="@dimen/x460"
+                    android:layout_height="@dimen/y417">
+
+                    <TextView
+                        android:id="@+id/money_reTitle"
+                        android:layout_marginTop="@dimen/y64"
+                        android:layout_centerHorizontal="true"
+                        android:textColor="@color/color_B82802"
+                        android:textStyle="bold"
+                        android:textSize="16sp"
+                        android:text="我的邀请码"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" />
+
+                    <TextView
+                        android:id="@+id/money_reCode"
+                        android:layout_marginTop="@dimen/y18"
+                        android:layout_below="@id/money_reTitle"
+                        android:layout_centerHorizontal="true"
+                        android:text="THFCKL"
+                        android:textSize="18sp"
+                        android:textStyle="bold"
+                        android:textColor="@color/color_B82802"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" />
+
+                    <TextView
+                        android:onClick="@{listener.onClick}"
+                        android:id="@+id/money_reCopy"
+                        android:paddingBottom="@dimen/y17"
+                        android:paddingTop="@dimen/y17"
+                        android:layout_below="@id/money_reCode"
+                        android:layout_centerHorizontal="true"
+                        android:textColor="@color/color_B82802"
+                        android:textSize="13sp"
+                        android:text="(点击复制)"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" />
+
+                    <TextView
+                        android:onClick="@{listener.onClick}"
+                        android:id="@+id/money_reInvitation"
+                        android:layout_marginBottom="@dimen/y43"
+                        android:layout_alignParentBottom="true"
+                        android:layout_centerHorizontal="true"
+                        android:paddingBottom="@dimen/y9"
+                        android:paddingTop="@dimen/y9"
+                        android:paddingRight="@dimen/x76"
+                        android:paddingLeft="@dimen/x76"
+                        android:text="立即邀请"
+                        android:textStyle="bold"
+                        android:textSize="21sp"
+                        android:textColor="@color/color_BB7027"
+                        android:background="@drawable/bg_f9d8b4"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" />
+
+                </RelativeLayout>
+
+                <ImageView
+                    android:layout_marginTop="@dimen/y257"
+                    android:layout_alignTop="@id/money_relayout"
+                    android:layout_marginLeft="@dimen/x19"
+                    android:layout_alignLeft="@id/money_relayout"
+                    android:src="@mipmap/bg_money4"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+
+                <LinearLayout
+                    android:id="@+id/money_marquee"
+                    android:orientation="horizontal"
+                    android:layout_marginTop="@dimen/y50"
+                    android:layout_below="@+id/money_relayout"
+                    android:background="@color/color_171717"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/y66">
+
+                    <ImageView
+                        android:layout_marginLeft="@dimen/x35"
+                        android:layout_gravity="center_vertical"
+                        android:src="@mipmap/bg_laba"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" />
+
+                    <FrameLayout
+                        android:layout_centerVertical="true"
+                        android:layout_marginLeft="@dimen/x8"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent">
+
+                        <ViewFlipper
+                            android:id="@+id/view_flipper"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:inAnimation="@anim/anim_in"
+                            android:outAnimation="@anim/anim_out"
+                            android:layout_gravity="center"/>
+
+                    </FrameLayout>
+                </LinearLayout>
+
+                <ImageView
+                    android:id="@+id/money_bg5"
+                    android:layout_marginTop="@dimen/y28"
+                    android:layout_centerHorizontal="true"
+                    android:layout_below="@id/money_marquee"
+                    android:src="@mipmap/bg_money5"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+
+                <RelativeLayout
+                    android:id="@+id/money_balanceLayout"
+                    android:layout_marginTop="@dimen/y28"
+                    android:background="@drawable/bg_ffefd9"
+                    android:layout_below="@id/money_bg5"
+                    android:layout_marginRight="@dimen/x30"
+                    android:layout_marginLeft="@dimen/x30"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/y287">
+
+                    <View
+                        android:layout_margin="@dimen/x10"
+                        android:background="@drawable/bg_e29121"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"/>
+
+                    <LinearLayout
+                        android:id="@+id/money_balanceContainer"
+                        android:layout_marginTop="@dimen/y21"
+                        android:layout_centerHorizontal="true"
+                        android:orientation="horizontal"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content">
+
+                        <TextView
+                            android:textStyle="bold"
+                            android:textSize="21sp"
+                            android:text="￥"
+                            android:textColor="@color/color_E04724"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content" />
+
+                        <TextView
+                            android:id="@+id/money_balance"
+                            android:textStyle="bold"
+                            android:textSize="44sp"
+                            android:text="128"
+                            android:textColor="@color/color_E04724"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content" />
+
+                    </LinearLayout>
+
+                    <TextView
+                        android:textColor="@color/color_404040"
+                        android:layout_centerHorizontal="true"
+                        android:layout_below="@id/money_balanceContainer"
+                        android:text="邀请好友奖励可以立即提现"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" />
+
+                    <TextView
+                        android:onClick="@{listener.onClick}"
+                        android:id="@+id/money_balanceWithdraw"
+                        android:layout_centerHorizontal="true"
+                        android:layout_marginBottom="@dimen/y30"
+                        android:layout_alignParentBottom="true"
+                        android:paddingBottom="@dimen/y10"
+                        android:paddingTop="@dimen/y10"
+                        android:paddingRight="@dimen/x62"
+                        android:paddingLeft="@dimen/x62"
+                        android:textSize="16sp"
+                        android:textColor="@color/color_white"
+                        android:text="立即提现"
+                        android:background="@drawable/bg_money"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" />
+
+                </RelativeLayout>
+
+                <ImageView
+                    android:id="@+id/money_bg6"
+                    android:layout_marginBottom="@dimen/y28"
+                    android:layout_marginTop="@dimen/y28"
+                    android:layout_below="@id/money_balanceLayout"
+                    android:layout_centerHorizontal="true"
+                    android:src="@mipmap/bg_money6"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+
+                <LinearLayout
+                    android:layout_below="@id/money_bg6"
+                    android:layout_marginRight="@dimen/x30"
+                    android:layout_marginLeft="@dimen/x30"
+                    android:background="@drawable/bg_balance"
+                    android:orientation="vertical"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <TextView
+                        android:layout_marginBottom="@dimen/y28"
+                        android:textSize="18sp"
+                        android:textStyle="bold"
+                        android:layout_marginTop="@dimen/y25"
+                        android:layout_gravity="center_horizontal"
+                        android:textColor="@color/color_DF2121"
+                        android:text="分分钟赚满152元"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" />
+
+                    <LinearLayout
+                        android:orientation="horizontal"
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/y208">
+
+                        <RelativeLayout
+                            android:layout_weight="1"
+                            android:layout_width="0dp"
+                            android:layout_height="match_parent">
+
+                            <ImageView
+                                android:id="@+id/money_background1"
+                                android:layout_marginLeft="@dimen/x36"
+                                android:src="@mipmap/bg_money_unget"
+                                android:layout_width="@dimen/x166"
+                                android:layout_height="match_parent" />
+
+                            <TextView
+                                android:layout_marginBottom="@dimen/y10"
+                                android:layout_alignParentBottom="true"
+                                android:gravity="center"
+                                android:textColor="@color/color_white"
+                                android:text="邀请第1位"
+                                android:layout_alignRight="@id/money_background1"
+                                android:layout_alignLeft="@id/money_background1"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content" />
+
+                        </RelativeLayout>
+
+                        <RelativeLayout
+                            android:layout_weight="1"
+                            android:layout_width="0dp"
+                            android:layout_height="match_parent">
+
+                            <ImageView
+                                android:id="@+id/money_background2"
+                                android:layout_centerHorizontal="true"
+                                android:src="@mipmap/bg_money_unget"
+                                android:layout_width="@dimen/x166"
+                                android:layout_height="match_parent" />
+
+                        </RelativeLayout>
+
+                        <RelativeLayout
+                            android:layout_weight="1"
+                            android:layout_width="0dp"
+                            android:layout_height="match_parent">
+
+                            <ImageView
+                                android:id="@+id/money_background3"
+                                android:layout_marginRight="@dimen/x36"
+                                android:layout_alignParentRight="true"
+                                android:src="@mipmap/bg_money_unget"
+                                android:layout_width="@dimen/x166"
+                                android:layout_height="match_parent" />
+
+                        </RelativeLayout>
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_marginBottom="@dimen/y50"
+                        android:layout_marginTop="@dimen/y50"
+                        android:orientation="horizontal"
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/y208">
+
+                        <RelativeLayout
+                            android:layout_weight="1"
+                            android:layout_width="0dp"
+                            android:layout_height="match_parent">
+
+                            <ImageView
+                                android:id="@+id/money_background4"
+                                android:layout_marginLeft="@dimen/x36"
+                                android:src="@mipmap/bg_money_unget"
+                                android:layout_width="@dimen/x166"
+                                android:layout_height="match_parent" />
+
+                        </RelativeLayout>
+
+                        <RelativeLayout
+                            android:layout_weight="1"
+                            android:layout_width="0dp"
+                            android:layout_height="match_parent">
+
+                            <ImageView
+                                android:id="@+id/money_background5"
+                                android:layout_centerHorizontal="true"
+                                android:src="@mipmap/bg_money_unget"
+                                android:layout_width="@dimen/x166"
+                                android:layout_height="match_parent" />
+
+                        </RelativeLayout>
+
+                        <RelativeLayout
+                            android:layout_weight="1"
+                            android:layout_width="0dp"
+                            android:layout_height="match_parent">
+
+                            <ImageView
+                                android:id="@+id/money_background6"
+                                android:layout_marginRight="@dimen/x36"
+                                android:layout_alignParentRight="true"
+                                android:src="@mipmap/bg_money_unget"
+                                android:layout_width="@dimen/x166"
+                                android:layout_height="match_parent" />
+
+                        </RelativeLayout>
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_marginBottom="@dimen/y30"
+                        android:orientation="horizontal"
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/y208">
+
+                        <RelativeLayout
+                            android:layout_weight="1"
+                            android:layout_width="0dp"
+                            android:layout_height="match_parent">
+
+                            <ImageView
+                                android:id="@+id/money_background7"
+                                android:layout_marginLeft="@dimen/x36"
+                                android:src="@mipmap/bg_money_unget"
+                                android:layout_width="@dimen/x166"
+                                android:layout_height="match_parent" />
+
+                        </RelativeLayout>
+
+                        <RelativeLayout
+                            android:layout_weight="1"
+                            android:layout_width="0dp"
+                            android:layout_height="match_parent">
+
+                            <ImageView
+                                android:id="@+id/money_background8"
+                                android:layout_centerHorizontal="true"
+                                android:src="@mipmap/bg_money_unget"
+                                android:layout_width="@dimen/x166"
+                                android:layout_height="match_parent" />
+
+                        </RelativeLayout>
+
+                        <RelativeLayout
+                            android:layout_weight="1"
+                            android:layout_width="0dp"
+                            android:layout_height="match_parent">
+
+                            <ImageView
+                                android:id="@+id/money_background9"
+                                android:layout_marginRight="@dimen/x36"
+                                android:layout_alignParentRight="true"
+                                android:src="@mipmap/bg_money_unget"
+                                android:layout_width="@dimen/x166"
+                                android:layout_height="match_parent" />
+
+                        </RelativeLayout>
+
+                    </LinearLayout>
+                </LinearLayout>
+
+            </RelativeLayout>
+        </ScrollView>
+
+    </com.aspsine.swipetoloadlayout.SwipeToLoadLayout>
+
+</layout>

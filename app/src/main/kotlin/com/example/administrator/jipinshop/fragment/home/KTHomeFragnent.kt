@@ -9,6 +9,7 @@ import android.support.v4.view.ViewPager
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import com.example.administrator.jipinshop.R
 import com.example.administrator.jipinshop.activity.sreach.TBSreachActivity
 import com.example.administrator.jipinshop.adapter.HomeFragmentAdapter
@@ -89,6 +90,10 @@ class KTHomeFragnent : DBBaseFragment(), View.OnClickListener, ViewPager.OnPageC
                 appStatisticalUtil.addEvent("shouye_sousuo",this.bindToLifecycle())//统计搜索
                 startActivity(Intent(context, TBSreachActivity::class.java))
             }
+            R.id.home_action -> {
+                //todo 点击后需要切换页面
+                ToastUtil.show("点击了")
+            }
         }
     }
 
@@ -110,11 +115,13 @@ class KTHomeFragnent : DBBaseFragment(), View.OnClickListener, ViewPager.OnPageC
     override fun onPageSelected(position: Int) {
         appStatisticalUtil.addEvent("shouye_fenlei." + (position + 1),this.bindToLifecycle())//统计首页分类
         if (position != 0){
+            mBinding.homeAction.visibility = View.GONE
             isChange = false
             context?.let {
                 mBinding.bgHome.setBackgroundColor(it.resources.getColor(R.color.color_E25838))
             }
         }else{
+            mBinding.homeAction.visibility = View.VISIBLE
             isChange = true
             mBinding.bgHome.setBackgroundColor(Color.parseColor(mColor))
         }

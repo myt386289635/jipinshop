@@ -8,7 +8,7 @@
 
     <RelativeLayout
         android:layout_gravity="center_horizontal"
-        android:background="@drawable/bg_mine"
+        android:background="@drawable/bg_balance"
         android:layout_width="@dimen/x580"
         android:layout_height="wrap_content">
 

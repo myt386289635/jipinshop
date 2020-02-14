@@ -1101,6 +1101,6 @@ public interface APIService {
     /**
      *  后台统计
      */
-    @GET("http://47.99.243.255:8081/qualityshop-api/api/addEvent")
+    @GET("api/addEvent")
     Observable<SuccessBean> addEvent(@Query("eventId") String eventId);
 }

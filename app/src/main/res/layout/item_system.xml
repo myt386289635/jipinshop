@@ -8,7 +8,7 @@
     android:layout_marginLeft="@dimen/x28"
     android:layout_marginRight="@dimen/x28"
     android:layout_marginTop="@dimen/x16"
-    android:background="@drawable/bg_mine">
+    android:background="@drawable/bg_balance">
 
     <TextView
         android:id="@+id/item_time"

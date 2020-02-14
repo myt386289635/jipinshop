@@ -68,7 +68,7 @@
                     android:id="@+id/exchange_addressContainer"
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/y164"
-                    android:background="@drawable/bg_mine">
+                    android:background="@drawable/bg_balance">
 
                     <ImageView
                         android:id="@+id/image_tag"
