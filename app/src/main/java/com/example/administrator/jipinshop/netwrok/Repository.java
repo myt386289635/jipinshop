@@ -1212,4 +1212,11 @@ public class Repository {
     public Observable<SuccessBean> addEvent(String eventId){
         return mAPIService.addEvent(eventId);
     }
+
+    /**
+     * 红包首页
+     */
+    public Observable<SuccessBean> hongbaoIndex(){
+        return mAPIService.hongbaoIndex();
+    }
 }

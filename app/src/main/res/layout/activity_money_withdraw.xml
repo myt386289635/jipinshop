@@ -1,0 +1,318 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:bind="http://schemas.android.com/apk/res-auto">
+
+    <data>
+        <variable
+            name="listener"
+            type="android.view.View.OnClickListener"/>
+
+    </data>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <include
+            layout="@layout/aa_title2"
+            bind:listener="@{listener}"
+            android:id="@+id/in_clude"/>
+
+        <TextView
+            android:onClick="@{listener.onClick}"
+            android:id="@+id/withdraw_withdraw"
+            android:layout_alignParentBottom="true"
+            android:gravity="center"
+            android:textStyle="bold"
+            android:textColor="@color/color_white"
+            android:textSize="18sp"
+            android:background="@color/color_E25838"
+            android:text="立即提现"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/y100"/>
+
+        <ScrollView
+            android:layout_above="@id/withdraw_withdraw"
+            android:layout_below="@id/in_clude"
+            android:background="@color/color_F5F5F5"
+            android:scrollbars="none"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+            <LinearLayout
+                android:orientation="vertical"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+
+                <RelativeLayout
+                    android:background="@color/color_E04625"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/y220">
+
+                    <TextView
+                        android:id="@+id/withdraw_title"
+                        android:layout_marginTop="@dimen/y20"
+                        android:layout_marginLeft="@dimen/x36"
+                        android:textColor="@color/color_FFEFD9"
+                        android:text="红包余额"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"/>
+
+                    <LinearLayout
+                        android:layout_marginLeft="@dimen/x30"
+                        android:layout_marginTop="@dimen/y10"
+                        android:layout_below="@id/withdraw_title"
+                        android:orientation="horizontal"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+
+                        <TextView
+                            android:id="@+id/withdraw_money"
+                            android:textColor="@color/color_FFEFD9"
+                            android:textSize="44sp"
+                            android:textStyle="bold"
+                            android:text="888"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"/>
+
+                        <TextView
+                            android:layout_marginLeft="@dimen/x12"
+                            android:textStyle="bold"
+                            android:textColor="@color/color_FFEFD9"
+                            android:textSize="21sp"
+                            android:text="元"
+                            android:layout_width="0dp"
+                            android:layout_weight="1"
+                            android:layout_height="wrap_content"/>
+
+                        <TextView
+                            android:onClick="@{listener.onClick}"
+                            android:id="@+id/withdraw_node"
+                            android:layout_marginRight="@dimen/x40"
+                            android:textSize="13sp"
+                            android:textColor="@color/color_E04625"
+                            android:text="提现记录"
+                            android:gravity="center"
+                            android:background="@drawable/bg_ffefd9_2"
+                            android:layout_gravity="center_vertical"
+                            android:layout_width="@dimen/x161"
+                            android:layout_height="@dimen/y52"/>
+
+                    </LinearLayout>
+
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:onClick="@{listener.onClick}"
+                    android:id="@+id/withdraw_binding"
+                    android:layout_marginBottom="@dimen/y20"
+                    android:background="@color/color_white"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/y120">
+
+                    <TextView
+                        android:layout_marginLeft="@dimen/x30"
+                        android:layout_centerVertical="true"
+                        android:textColor="@color/color_202020"
+                        android:textSize="16sp"
+                        android:text="支付宝提现"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"/>
+
+                    <TextView
+                        android:layout_marginRight="@dimen/x30"
+                        android:drawablePadding="@dimen/x7"
+                        android:drawableRight="@mipmap/right"
+                        android:layout_centerVertical="true"
+                        android:layout_alignParentRight="true"
+                        android:textColor="@color/color_9D9D9D"
+                        android:text="绑定账号"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"/>
+
+                </RelativeLayout>
+
+                <LinearLayout
+                    android:layout_marginBottom="@dimen/y20"
+                    android:orientation="vertical"
+                    android:background="@color/color_white"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <TextView
+                        android:layout_marginBottom="@dimen/y10"
+                        android:layout_marginTop="@dimen/y40"
+                        android:layout_marginLeft="@dimen/x30"
+                        android:textColor="@color/color_202020"
+                        android:textSize="16sp"
+                        android:text="提现金额"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"/>
+
+                    <LinearLayout
+                        android:layout_marginRight="@dimen/x50"
+                        android:layout_marginLeft="@dimen/x50"
+                        android:layout_marginTop="@dimen/y24"
+                        android:orientation="horizontal"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+
+                        <RelativeLayout
+                            android:onClick="@{listener.onClick}"
+                            android:id="@+id/withdraw_money50"
+                            android:layout_marginRight="@dimen/x12"
+                            android:background="@mipmap/withdraw_select"
+                            android:layout_weight="1"
+                            android:layout_width="0dp"
+                            android:layout_height="@dimen/y116">
+
+                            <LinearLayout
+                                android:gravity="center"
+                                android:layout_centerInParent="true"
+                                android:orientation="vertical"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content">
+
+                                <TextView
+                                    android:textStyle="bold"
+                                    android:textColor="@color/color_202020"
+                                    android:textSize="18sp"
+                                    android:text="50元"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"/>
+
+                                <TextView
+                                    android:layout_marginTop="@dimen/y3"
+                                    android:textSize="13sp"
+                                    android:text="（服务费25%）"
+                                    android:textColor="@color/color_B7B7B7"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"/>
+
+                            </LinearLayout>
+
+                        </RelativeLayout>
+
+                        <RelativeLayout
+                            android:onClick="@{listener.onClick}"
+                            android:id="@+id/withdraw_money100"
+                            android:layout_marginLeft="@dimen/x12"
+                            android:background="@mipmap/withdraw_normal"
+                            android:layout_weight="1"
+                            android:layout_width="0dp"
+                            android:layout_height="@dimen/y116">
+
+                            <LinearLayout
+                                android:gravity="center"
+                                android:layout_centerInParent="true"
+                                android:orientation="vertical"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content">
+
+                                <TextView
+                                    android:textStyle="bold"
+                                    android:textColor="@color/color_202020"
+                                    android:textSize="18sp"
+                                    android:text="100元"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"/>
+
+                                <TextView
+                                    android:layout_marginTop="@dimen/y3"
+                                    android:textSize="13sp"
+                                    android:text="（服务费15%）"
+                                    android:textColor="@color/color_B7B7B7"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"/>
+
+                            </LinearLayout>
+
+                        </RelativeLayout>
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_marginBottom="@dimen/y28"
+                        android:weightSum="2"
+                        android:layout_marginRight="@dimen/x50"
+                        android:layout_marginLeft="@dimen/x50"
+                        android:layout_marginTop="@dimen/y24"
+                        android:orientation="horizontal"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+
+                        <RelativeLayout
+                            android:onClick="@{listener.onClick}"
+                            android:id="@+id/withdraw_money150"
+                            android:layout_marginRight="@dimen/x24"
+                            android:background="@mipmap/withdraw_normal"
+                            android:layout_weight="1"
+                            android:layout_width="0dp"
+                            android:layout_height="@dimen/y116">
+
+                            <LinearLayout
+                                android:gravity="center"
+                                android:layout_centerInParent="true"
+                                android:orientation="vertical"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content">
+
+                                <TextView
+                                    android:textStyle="bold"
+                                    android:textColor="@color/color_202020"
+                                    android:textSize="18sp"
+                                    android:text="150元"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"/>
+
+                                <TextView
+                                    android:layout_marginTop="@dimen/y3"
+                                    android:textSize="13sp"
+                                    android:text="（无服务费）"
+                                    android:textColor="@color/color_B7B7B7"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"/>
+
+                            </LinearLayout>
+
+                        </RelativeLayout>
+
+                    </LinearLayout>
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:background="@color/color_white"
+                    android:orientation="vertical"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                    <TextView
+                        android:layout_marginBottom="@dimen/y28"
+                        android:layout_marginTop="@dimen/y46"
+                        android:layout_gravity="center"
+                        android:textColor="@color/color_202020"
+                        android:textSize="16sp"
+                        android:text="提现金额"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"/>
+
+                    <TextView
+                        android:lineSpacingExtra="@dimen/y12"
+                        android:textColor="@color/color_9D9D9D"
+                        android:textSize="15sp"
+                        android:layout_marginBottom="@dimen/y46"
+                        android:layout_marginRight="@dimen/x30"
+                        android:layout_marginLeft="@dimen/x30"
+                        android:text="温馨提示：\n1.到账金额=提现金额-提现全额X手续费\n2.每个账号将与唯一一个提现支付宝账户绑定，本次填写后，提现账号无法进行修改。请仔细核对支付宝账户信息（若因信息填写不符而到账转账失败，极品城概不负责）\n3.提现申请将在7个工作日内审批到账，请耐心等待\n4.提现前需完善实名信息，此操作只为使您的提现符合我国相关规定，极品城将保护您的隐私数据"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"/>
+
+                </LinearLayout>
+
+            </LinearLayout>
+        </ScrollView>
+    </RelativeLayout>
+
+
+</layout>

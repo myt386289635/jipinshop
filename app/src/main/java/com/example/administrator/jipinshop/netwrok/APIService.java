@@ -1103,4 +1103,11 @@ public interface APIService {
      */
     @GET("api/addEvent")
     Observable<SuccessBean> addEvent(@Query("eventId") String eventId);
+
+    /**
+     * 红包首页
+     */
+    @GET("api/hongbao/index")
+    Observable<SuccessBean> hongbaoIndex();
+
 }

@@ -38,7 +38,6 @@ import com.example.administrator.jipinshop.fragment.home.HomeNewFragment;
 import com.example.administrator.jipinshop.fragment.home.KTHomeFragnent;
 import com.example.administrator.jipinshop.fragment.mine.MineFragment;
 import com.example.administrator.jipinshop.fragment.money.MoneyFragment;
-import com.example.administrator.jipinshop.fragment.tryout.freemodel.FreeNewFragment;
 import com.example.administrator.jipinshop.netwrok.RetrofitModule;
 import com.example.administrator.jipinshop.util.ClickUtil;
 import com.example.administrator.jipinshop.util.InputMethodManagerLeak;
@@ -47,7 +46,6 @@ import com.example.administrator.jipinshop.util.NotificationUtil;
 import com.example.administrator.jipinshop.util.ShopJumpUtil;
 import com.example.administrator.jipinshop.util.ToastUtil;
 import com.example.administrator.jipinshop.util.UmApp.AppStatisticalUtil;
-import com.example.administrator.jipinshop.util.UmApp.UAppUtil;
 import com.example.administrator.jipinshop.util.UpDataUtil;
 import com.example.administrator.jipinshop.util.share.MobLinkUtil;
 import com.example.administrator.jipinshop.util.sp.CommonDate;
@@ -152,8 +150,8 @@ public class MainActivity extends RxAppCompatActivity implements MainView, ViewP
         mMineFragment = new MineFragment();
         mFragments.add(mKTHomeFragnent);
         mFragments.add(mEvaluationFragment);
-        mFragments.add(mHomeFragment);
         mFragments.add(mTryFragment);
+        mFragments.add(mHomeFragment);
         mFragments.add(mMineFragment);
 
         mHomeAdapter = new HomeAdapter(getSupportFragmentManager());

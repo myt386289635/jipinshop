@@ -40,11 +40,11 @@ public class AppStatisticalUtil {
             case 1:
                 addEvent("pingce",transformer);
                 break;
-            case 2:
+            case 3:
                 addEvent("bangdan",transformer);
                 break;
-            case 3:
-                addEvent("miandan",transformer);
+            case 2:
+//                addEvent("miandan",transformer);
                 break;
             case 4:
                 addEvent("wode",transformer);

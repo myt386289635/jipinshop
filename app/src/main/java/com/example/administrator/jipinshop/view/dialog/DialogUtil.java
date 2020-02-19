@@ -649,4 +649,27 @@ public class DialogUtil {
         dialog.show();
         dialog.setContentView(binding.getRoot());
     }
+
+    //赚钱红包页面弹框
+    public static void bedDialog(Context context, String money , View.OnClickListener listener){
+        AlertDialog.Builder builder = new AlertDialog.Builder(context, R.style.dialog);
+        View view = LayoutInflater.from(context).inflate(R.layout.dialog_money, null);
+        final Dialog dialog = builder.create();
+        ImageView dialog_cancle = view.findViewById(R.id.dialog_cancle);
+        TextView dialog_money = view.findViewById(R.id.dialog_money);
+        TextView dialog_sure = view.findViewById(R.id.dialog_sure);
+        dialog_cancle.setOnClickListener(view1 -> {
+            dialog.dismiss();
+        });
+        dialog_sure.setOnClickListener(view12 -> {
+            if (listener != null){
+                listener.onClick(view12);
+            }
+            dialog.dismiss();
+        });
+        dialog_money.setText(money);
+        dialog.getWindow().setDimAmount(0.35f);
+        dialog.show();
+        dialog.setContentView(view);
+    }
 }

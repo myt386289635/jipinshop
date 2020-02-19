@@ -16,6 +16,7 @@ import com.example.administrator.jipinshop.adapter.HomeFragmentAdapter
 import com.example.administrator.jipinshop.adapter.KTTabAdaper
 import com.example.administrator.jipinshop.base.DBBaseFragment
 import com.example.administrator.jipinshop.bean.EvaluationTabBean
+import com.example.administrator.jipinshop.bean.eventbus.ChangeHomePageBus
 import com.example.administrator.jipinshop.databinding.FragmentKtHomeBinding
 import com.example.administrator.jipinshop.fragment.home.commen.KTHomeCommenFragment
 import com.example.administrator.jipinshop.fragment.home.main.KTMainFragment
@@ -24,6 +25,7 @@ import com.example.administrator.jipinshop.util.ToastUtil
 import com.example.administrator.jipinshop.util.UmApp.AppStatisticalUtil
 import net.lucode.hackware.magicindicator.ViewPagerHelper
 import net.lucode.hackware.magicindicator.buildins.commonnavigator.CommonNavigator
+import org.greenrobot.eventbus.EventBus
 import javax.inject.Inject
 
 /**
@@ -91,8 +93,7 @@ class KTHomeFragnent : DBBaseFragment(), View.OnClickListener, ViewPager.OnPageC
                 startActivity(Intent(context, TBSreachActivity::class.java))
             }
             R.id.home_action -> {
-                //todo 点击后需要切换页面
-                ToastUtil.show("点击了")
+                EventBus.getDefault().post(ChangeHomePageBus(2))
             }
         }
     }

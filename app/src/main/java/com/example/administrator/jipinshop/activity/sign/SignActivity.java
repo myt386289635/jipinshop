@@ -243,8 +243,8 @@ public class SignActivity extends BaseActivity implements View.OnClickListener, 
                 startActivity(new Intent(this, InvitationNewActivity.class));
                 break;
             case 6://跳转到免单首页
-                EventBus.getDefault().post(new ChangeHomePageBus(3));
-                finish();
+//                EventBus.getDefault().post(new ChangeHomePageBus(3));
+//                finish();
                 break;
             case 7://编辑个人资料
                 startActivity(new Intent(this, MyInfoActivity.class)

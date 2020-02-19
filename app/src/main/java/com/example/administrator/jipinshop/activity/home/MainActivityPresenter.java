@@ -1,38 +1,23 @@
 package com.example.administrator.jipinshop.activity.home;
 
-import android.app.Activity;
 import android.app.Dialog;
 import android.content.Context;
-import android.content.Intent;
 import android.content.res.ColorStateList;
 import android.support.design.widget.TabLayout;
-import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.view.inputmethod.InputMethodManager;
-import android.widget.ImageView;
-import android.widget.LinearLayout;
-import android.widget.TextView;
 
-import com.blankj.utilcode.util.SPUtils;
-import com.bumptech.glide.Glide;
-import com.bumptech.glide.load.engine.DiskCacheStrategy;
-import com.bumptech.glide.request.RequestOptions;
 import com.example.administrator.jipinshop.R;
-import com.example.administrator.jipinshop.activity.login.LoginActivity;
 import com.example.administrator.jipinshop.bean.AppVersionbean;
 import com.example.administrator.jipinshop.bean.PopInfoBean;
 import com.example.administrator.jipinshop.bean.SuccessBean;
 import com.example.administrator.jipinshop.bean.TklBean;
 import com.example.administrator.jipinshop.netwrok.Repository;
-import com.example.administrator.jipinshop.util.ClickUtil;
-import com.example.administrator.jipinshop.util.sp.CommonDate;
 import com.trello.rxlifecycle2.LifecycleTransformer;
 
 import javax.inject.Inject;
 
 import io.reactivex.android.schedulers.AndroidSchedulers;
-import io.reactivex.functions.Consumer;
 import io.reactivex.schedulers.Schedulers;
 
 public class MainActivityPresenter {
@@ -50,14 +35,14 @@ public class MainActivityPresenter {
     }
 
     public void initTabLayout(Context context , TabLayout tabLayout){
-        View viewAticity = LayoutInflater.from(context).inflate(R.layout.tablayout_activityview, null);
-        tabLayout.getTabAt(0).setCustomView(viewAticity);
+        View view2 = LayoutInflater.from(context).inflate(R.layout.tablayout_item2, null);
+        tabLayout.getTabAt(0).setCustomView(view2);
         View view3 = LayoutInflater.from(context).inflate(R.layout.tablayout_item3,null);
         tabLayout.getTabAt(1).setCustomView(view3);
-        View view1 = LayoutInflater.from(context).inflate(R.layout.tablayout_item1,null);
-        tabLayout.getTabAt(2).setCustomView(view1);
         View view4 = LayoutInflater.from(context).inflate(R.layout.tablayout_item4, null);
-        tabLayout.getTabAt(3).setCustomView(view4);
+        tabLayout.getTabAt(2).setCustomView(view4);
+        View view1 = LayoutInflater.from(context).inflate(R.layout.tablayout_item1,null);
+        tabLayout.getTabAt(3).setCustomView(view1);
         View view5 = LayoutInflater.from(context).inflate(R.layout.tablayout_item5, null);
         tabLayout.getTabAt(4).setCustomView(view5);
         //水波纹颜色

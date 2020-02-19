@@ -138,7 +138,7 @@ public class ShopJumpUtil {
         Intent intent = new Intent();
         switch (targetType){
             case "1"://榜单首页
-                EventBus.getDefault().post(new ChangeHomePageBus(0));
+                EventBus.getDefault().post(new ChangeHomePageBus(3));
                 break;
             case "11"://跳转到小分类榜单
                 intent.setClass(context, ClassifyActivity.class);
@@ -174,7 +174,7 @@ public class ShopJumpUtil {
                 break;
             case "4"://免单主页
             case "3"://新品主页
-                EventBus.getDefault().post(new ChangeHomePageBus(2));
+//                EventBus.getDefault().post(new ChangeHomePageBus(2));
                 break;
             case "31"://试用商品详情(新品详情)
                 intent.setClass(context,  TryDetailActivity.class);
@@ -228,10 +228,10 @@ public class ShopJumpUtil {
                 context.startActivity(intent);
                 break;
             case "16"://免单主页
-                EventBus.getDefault().post(new ChangeHomePageBus(3));
+//                EventBus.getDefault().post(new ChangeHomePageBus(3));
                 break;
             case "17"://榜单主页
-                EventBus.getDefault().post(new ChangeHomePageBus(2));
+                EventBus.getDefault().post(new ChangeHomePageBus(3));
                 break;
         }
     }
@@ -290,10 +290,10 @@ public class ShopJumpUtil {
                 context.startActivity(intent);
                 break;
             case "7"://免单主页
-                EventBus.getDefault().post(new ChangeHomePageBus(3));
+//                EventBus.getDefault().post(new ChangeHomePageBus(3));
                 break;
             case "8"://榜单主页
-                EventBus.getDefault().post(new ChangeHomePageBus(2));
+                EventBus.getDefault().post(new ChangeHomePageBus(3));
                 break;
         }
     }
