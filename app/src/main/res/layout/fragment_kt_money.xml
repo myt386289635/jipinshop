@@ -361,19 +361,21 @@
                             android:layout_height="match_parent">
 
                             <ImageView
+                                android:layout_centerVertical="true"
                                 android:onClick="@{listener.onClick}"
                                 android:id="@+id/money_background1"
                                 android:layout_marginLeft="@dimen/x36"
                                 android:src="@mipmap/bg_money_unget"
                                 android:layout_width="@dimen/x166"
-                                android:layout_height="match_parent" />
+                                android:adjustViewBounds="true"
+                                android:layout_height="wrap_content" />
 
                             <TextView
                                 android:layout_marginBottom="@dimen/y10"
-                                android:layout_alignParentBottom="true"
                                 android:gravity="center"
                                 android:textColor="@color/color_white"
                                 android:text="邀请第1位"
+                                android:layout_alignBottom="@id/money_background1"
                                 android:layout_alignRight="@id/money_background1"
                                 android:layout_alignLeft="@id/money_background1"
                                 android:layout_width="match_parent"
@@ -383,6 +385,7 @@
                                 android:id="@+id/money_bedContainer1"
                                 android:layout_marginTop="@dimen/y20"
                                 android:gravity="center_horizontal"
+                                android:layout_alignTop="@id/money_background1"
                                 android:layout_alignRight="@id/money_background1"
                                 android:layout_alignLeft="@id/money_background1"
                                 android:orientation="horizontal"
@@ -410,6 +413,8 @@
 
                             <RelativeLayout
                                 android:visibility="gone"
+                                android:layout_alignBottom="@id/money_background1"
+                                android:layout_alignTop="@id/money_background1"
                                 android:layout_alignRight="@id/money_background1"
                                 android:layout_alignLeft="@id/money_background1"
                                 android:id="@+id/money_getBedContainer1"
@@ -465,16 +470,18 @@
                             android:layout_height="match_parent">
 
                             <ImageView
+                                android:layout_centerVertical="true"
                                 android:onClick="@{listener.onClick}"
                                 android:id="@+id/money_background2"
                                 android:layout_centerHorizontal="true"
                                 android:src="@mipmap/bg_money_unget"
                                 android:layout_width="@dimen/x166"
-                                android:layout_height="match_parent" />
+                                android:adjustViewBounds="true"
+                                android:layout_height="wrap_content"/>
 
                             <TextView
                                 android:layout_marginBottom="@dimen/y10"
-                                android:layout_alignParentBottom="true"
+                                android:layout_alignBottom="@id/money_background2"
                                 android:gravity="center"
                                 android:textColor="@color/color_white"
                                 android:text="邀请第2位"
@@ -487,6 +494,7 @@
                                 android:id="@+id/money_bedContainer2"
                                 android:layout_marginTop="@dimen/y20"
                                 android:gravity="center_horizontal"
+                                android:layout_alignTop="@id/money_background2"
                                 android:layout_alignRight="@id/money_background2"
                                 android:layout_alignLeft="@id/money_background2"
                                 android:orientation="horizontal"
@@ -514,6 +522,8 @@
 
                             <RelativeLayout
                                 android:visibility="gone"
+                                android:layout_alignBottom="@id/money_background2"
+                                android:layout_alignTop="@id/money_background2"
                                 android:layout_alignRight="@id/money_background2"
                                 android:layout_alignLeft="@id/money_background2"
                                 android:id="@+id/money_getBedContainer2"
@@ -569,17 +579,19 @@
                             android:layout_height="match_parent">
 
                             <ImageView
+                                android:layout_centerVertical="true"
                                 android:onClick="@{listener.onClick}"
                                 android:id="@+id/money_background3"
                                 android:layout_marginRight="@dimen/x36"
                                 android:layout_alignParentRight="true"
                                 android:src="@mipmap/bg_money_unget"
                                 android:layout_width="@dimen/x166"
-                                android:layout_height="match_parent" />
+                                android:adjustViewBounds="true"
+                                android:layout_height="wrap_content" />
 
                             <TextView
                                 android:layout_marginBottom="@dimen/y10"
-                                android:layout_alignParentBottom="true"
+                                android:layout_alignBottom="@id/money_background3"
                                 android:gravity="center"
                                 android:textColor="@color/color_white"
                                 android:text="邀请第3位"
@@ -592,6 +604,7 @@
                                 android:id="@+id/money_bedContainer3"
                                 android:layout_marginTop="@dimen/y20"
                                 android:gravity="center_horizontal"
+                                android:layout_alignTop="@id/money_background3"
                                 android:layout_alignRight="@id/money_background3"
                                 android:layout_alignLeft="@id/money_background3"
                                 android:orientation="horizontal"
@@ -619,6 +632,8 @@
 
                             <RelativeLayout
                                 android:visibility="gone"
+                                android:layout_alignBottom="@id/money_background3"
+                                android:layout_alignTop="@id/money_background3"
                                 android:layout_alignRight="@id/money_background3"
                                 android:layout_alignLeft="@id/money_background3"
                                 android:id="@+id/money_getBedContainer3"
@@ -683,16 +698,18 @@
                             android:layout_height="match_parent">
 
                             <ImageView
+                                android:layout_centerVertical="true"
                                 android:onClick="@{listener.onClick}"
                                 android:id="@+id/money_background4"
                                 android:layout_marginLeft="@dimen/x36"
                                 android:src="@mipmap/bg_money_unget"
                                 android:layout_width="@dimen/x166"
-                                android:layout_height="match_parent" />
+                                android:adjustViewBounds="true"
+                                android:layout_height="wrap_content" />
 
                             <TextView
                                 android:layout_marginBottom="@dimen/y10"
-                                android:layout_alignParentBottom="true"
+                                android:layout_alignBottom="@id/money_background4"
                                 android:gravity="center"
                                 android:textColor="@color/color_white"
                                 android:text="邀请第4位"
@@ -705,6 +722,7 @@
                                 android:id="@+id/money_bedContainer4"
                                 android:layout_marginTop="@dimen/y20"
                                 android:gravity="center_horizontal"
+                                android:layout_alignTop="@id/money_background4"
                                 android:layout_alignRight="@id/money_background4"
                                 android:layout_alignLeft="@id/money_background4"
                                 android:orientation="horizontal"
@@ -732,6 +750,8 @@
 
                             <RelativeLayout
                                 android:visibility="gone"
+                                android:layout_alignBottom="@id/money_background4"
+                                android:layout_alignTop="@id/money_background4"
                                 android:layout_alignRight="@id/money_background4"
                                 android:layout_alignLeft="@id/money_background4"
                                 android:id="@+id/money_getBedContainer4"
@@ -787,16 +807,18 @@
                             android:layout_height="match_parent">
 
                             <ImageView
+                                android:layout_centerVertical="true"
                                 android:onClick="@{listener.onClick}"
                                 android:id="@+id/money_background5"
                                 android:layout_centerHorizontal="true"
                                 android:src="@mipmap/bg_money_unget"
                                 android:layout_width="@dimen/x166"
-                                android:layout_height="match_parent" />
+                                android:adjustViewBounds="true"
+                                android:layout_height="wrap_content" />
 
                             <TextView
                                 android:layout_marginBottom="@dimen/y10"
-                                android:layout_alignParentBottom="true"
+                                android:layout_alignBottom="@id/money_background5"
                                 android:gravity="center"
                                 android:textColor="@color/color_white"
                                 android:text="邀请第5位"
@@ -809,6 +831,7 @@
                                 android:id="@+id/money_bedContainer5"
                                 android:layout_marginTop="@dimen/y20"
                                 android:gravity="center_horizontal"
+                                android:layout_alignTop="@id/money_background5"
                                 android:layout_alignRight="@id/money_background5"
                                 android:layout_alignLeft="@id/money_background5"
                                 android:orientation="horizontal"
@@ -836,6 +859,8 @@
 
                             <RelativeLayout
                                 android:visibility="gone"
+                                android:layout_alignBottom="@id/money_background5"
+                                android:layout_alignTop="@id/money_background5"
                                 android:layout_alignRight="@id/money_background5"
                                 android:layout_alignLeft="@id/money_background5"
                                 android:id="@+id/money_getBedContainer5"
@@ -891,17 +916,19 @@
                             android:layout_height="match_parent">
 
                             <ImageView
+                                android:layout_centerVertical="true"
                                 android:onClick="@{listener.onClick}"
                                 android:id="@+id/money_background6"
                                 android:layout_marginRight="@dimen/x36"
                                 android:layout_alignParentRight="true"
                                 android:src="@mipmap/bg_money_unget"
                                 android:layout_width="@dimen/x166"
-                                android:layout_height="match_parent" />
+                                android:adjustViewBounds="true"
+                                android:layout_height="wrap_content" />
 
                             <TextView
                                 android:layout_marginBottom="@dimen/y10"
-                                android:layout_alignParentBottom="true"
+                                android:layout_alignBottom="@id/money_background6"
                                 android:gravity="center"
                                 android:textColor="@color/color_white"
                                 android:text="邀请第6位"
@@ -914,6 +941,7 @@
                                 android:id="@+id/money_bedContainer6"
                                 android:layout_marginTop="@dimen/y20"
                                 android:gravity="center_horizontal"
+                                android:layout_alignTop="@id/money_background6"
                                 android:layout_alignRight="@id/money_background6"
                                 android:layout_alignLeft="@id/money_background6"
                                 android:orientation="horizontal"
@@ -941,6 +969,8 @@
 
                             <RelativeLayout
                                 android:visibility="gone"
+                                android:layout_alignBottom="@id/money_background6"
+                                android:layout_alignTop="@id/money_background6"
                                 android:layout_alignRight="@id/money_background6"
                                 android:layout_alignLeft="@id/money_background6"
                                 android:id="@+id/money_getBedContainer6"
@@ -1004,19 +1034,21 @@
                             android:layout_height="match_parent">
 
                             <ImageView
+                                android:layout_centerVertical="true"
                                 android:onClick="@{listener.onClick}"
                                 android:id="@+id/money_background7"
                                 android:layout_marginLeft="@dimen/x36"
                                 android:src="@mipmap/bg_money_unget"
                                 android:layout_width="@dimen/x166"
-                                android:layout_height="match_parent" />
+                                android:adjustViewBounds="true"
+                                android:layout_height="wrap_content" />
 
                             <TextView
                                 android:layout_marginBottom="@dimen/y10"
-                                android:layout_alignParentBottom="true"
                                 android:gravity="center"
                                 android:textColor="@color/color_white"
                                 android:text="邀请第7位"
+                                android:layout_alignBottom="@id/money_background7"
                                 android:layout_alignRight="@id/money_background7"
                                 android:layout_alignLeft="@id/money_background7"
                                 android:layout_width="match_parent"
@@ -1026,6 +1058,7 @@
                                 android:id="@+id/money_bedContainer7"
                                 android:layout_marginTop="@dimen/y20"
                                 android:gravity="center_horizontal"
+                                android:layout_alignTop="@id/money_background7"
                                 android:layout_alignRight="@id/money_background7"
                                 android:layout_alignLeft="@id/money_background7"
                                 android:orientation="horizontal"
@@ -1053,6 +1086,8 @@
 
                             <RelativeLayout
                                 android:visibility="gone"
+                                android:layout_alignBottom="@id/money_background7"
+                                android:layout_alignTop="@id/money_background7"
                                 android:layout_alignRight="@id/money_background7"
                                 android:layout_alignLeft="@id/money_background7"
                                 android:id="@+id/money_getBedContainer7"
@@ -1108,19 +1143,21 @@
                             android:layout_height="match_parent">
 
                             <ImageView
+                                android:layout_centerVertical="true"
                                 android:onClick="@{listener.onClick}"
                                 android:id="@+id/money_background8"
                                 android:layout_centerHorizontal="true"
                                 android:src="@mipmap/bg_money_unget"
                                 android:layout_width="@dimen/x166"
-                                android:layout_height="match_parent" />
+                                android:adjustViewBounds="true"
+                                android:layout_height="wrap_content" />
 
                             <TextView
                                 android:layout_marginBottom="@dimen/y10"
-                                android:layout_alignParentBottom="true"
                                 android:gravity="center"
                                 android:textColor="@color/color_white"
                                 android:text="邀请第8位"
+                                android:layout_alignBottom="@id/money_background8"
                                 android:layout_alignRight="@id/money_background8"
                                 android:layout_alignLeft="@id/money_background8"
                                 android:layout_width="match_parent"
@@ -1130,6 +1167,7 @@
                                 android:id="@+id/money_bedContainer8"
                                 android:layout_marginTop="@dimen/y20"
                                 android:gravity="center_horizontal"
+                                android:layout_alignTop="@id/money_background8"
                                 android:layout_alignRight="@id/money_background8"
                                 android:layout_alignLeft="@id/money_background8"
                                 android:orientation="horizontal"
@@ -1157,6 +1195,8 @@
 
                             <RelativeLayout
                                 android:visibility="gone"
+                                android:layout_alignBottom="@id/money_background8"
+                                android:layout_alignTop="@id/money_background8"
                                 android:layout_alignRight="@id/money_background8"
                                 android:layout_alignLeft="@id/money_background8"
                                 android:id="@+id/money_getBedContainer8"
@@ -1212,17 +1252,19 @@
                             android:layout_height="match_parent">
 
                             <ImageView
+                                android:layout_centerVertical="true"
                                 android:onClick="@{listener.onClick}"
                                 android:id="@+id/money_background9"
                                 android:layout_marginRight="@dimen/x36"
                                 android:layout_alignParentRight="true"
                                 android:src="@mipmap/bg_money_unget"
                                 android:layout_width="@dimen/x166"
-                                android:layout_height="match_parent" />
+                                android:adjustViewBounds="true"
+                                android:layout_height="wrap_content" />
 
                             <TextView
                                 android:layout_marginBottom="@dimen/y10"
-                                android:layout_alignParentBottom="true"
+                                android:layout_alignBottom="@id/money_background9"
                                 android:gravity="center"
                                 android:textColor="@color/color_white"
                                 android:text="邀第9-18位"
@@ -1235,6 +1277,7 @@
                                 android:id="@+id/money_bedContainer9"
                                 android:layout_marginTop="@dimen/y20"
                                 android:gravity="center_horizontal"
+                                android:layout_alignTop="@id/money_background9"
                                 android:layout_alignRight="@id/money_background9"
                                 android:layout_alignLeft="@id/money_background9"
                                 android:orientation="horizontal"
@@ -1262,6 +1305,8 @@
 
                             <RelativeLayout
                                 android:visibility="gone"
+                                android:layout_alignBottom="@id/money_background9"
+                                android:layout_alignTop="@id/money_background9"
                                 android:layout_alignRight="@id/money_background9"
                                 android:layout_alignLeft="@id/money_background9"
                                 android:id="@+id/money_getBedContainer9"
@@ -1349,6 +1394,7 @@
 
                         <com.example.administrator.jipinshop.view.glide.CircleImageView
                             android:id="@+id/money_friend1"
+                            android:visibility="gone"
                             android:layout_width="@dimen/x66"
                             android:layout_height="@dimen/y66"
                             app:civ_border_color="@color/color_white"
@@ -1357,6 +1403,7 @@
 
                         <com.example.administrator.jipinshop.view.glide.CircleImageView
                             android:layout_marginLeft="-13dp"
+                            android:visibility="gone"
                             android:id="@+id/money_friend2"
                             android:layout_width="@dimen/x66"
                             android:layout_height="@dimen/y66"
@@ -1366,6 +1413,7 @@
 
                         <com.example.administrator.jipinshop.view.glide.CircleImageView
                             android:layout_marginLeft="-13dp"
+                            android:visibility="gone"
                             android:id="@+id/money_friend3"
                             android:layout_width="@dimen/x66"
                             android:layout_height="@dimen/y66"

@@ -2,6 +2,7 @@ package com.example.administrator.jipinshop.fragment.money
 
 import android.content.Context
 import android.widget.LinearLayout
+import com.example.administrator.jipinshop.bean.MoneyBean
 import com.example.administrator.jipinshop.bean.SuccessBean
 import com.example.administrator.jipinshop.netwrok.Repository
 import com.trello.rxlifecycle2.LifecycleTransformer
@@ -33,14 +34,14 @@ class MoneyPresenter {
         }
     }
 
-    fun setDate(transformer: LifecycleTransformer<SuccessBean>){
+    fun setDate(transformer: LifecycleTransformer<MoneyBean>){
         repository.hongbaoIndex()
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .compose(transformer)
                 .subscribe(Consumer {
                     if (it.code == 0){
-                        mView.onSuccess()
+                        mView.onSuccess(it)
                     }else{
                         mView.onFile(it.msg)
                     }

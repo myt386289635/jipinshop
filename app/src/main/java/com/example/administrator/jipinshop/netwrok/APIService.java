@@ -26,6 +26,7 @@ import com.example.administrator.jipinshop.bean.InvitationBean;
 import com.example.administrator.jipinshop.bean.LoginBean;
 import com.example.administrator.jipinshop.bean.MallBean;
 import com.example.administrator.jipinshop.bean.MallDetailBean;
+import com.example.administrator.jipinshop.bean.MoneyBean;
 import com.example.administrator.jipinshop.bean.MyFreeBean;
 import com.example.administrator.jipinshop.bean.MyOrderBean;
 import com.example.administrator.jipinshop.bean.MyWalletBean;
@@ -1108,6 +1109,6 @@ public interface APIService {
      * 红包首页
      */
     @GET("api/hongbao/index")
-    Observable<SuccessBean> hongbaoIndex();
+    Observable<MoneyBean> hongbaoIndex();
 
 }

@@ -1,6 +1,6 @@
 package com.example.administrator.jipinshop.fragment.money
 
-import com.example.administrator.jipinshop.bean.OrderTBBean
+import com.example.administrator.jipinshop.bean.MoneyBean
 
 /**
  * Author     ： 莫小婷
@@ -8,6 +8,6 @@ import com.example.administrator.jipinshop.bean.OrderTBBean
  * Description： 红包页面接口
  */
 interface MoneyView {
-    fun onSuccess()
+    fun onSuccess(bean : MoneyBean)
     fun onFile(error:String?)
 }

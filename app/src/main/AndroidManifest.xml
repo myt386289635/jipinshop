@@ -519,6 +519,11 @@
             android:name=".activity.money.withdraw.MoneyWithdrawActivity"
             android:screenOrientation="portrait"/>
 
+        <!--kotlin：红包提现记录页面-->
+        <activity
+            android:name=".activity.money.record.MoneyRecordActivity"
+            android:screenOrientation="portrait"/>
+
     </application>
 
 </manifest>

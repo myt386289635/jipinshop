@@ -44,6 +44,7 @@ import com.example.administrator.jipinshop.activity.message.detail.MsgDetailActi
 import com.example.administrator.jipinshop.activity.minekt.publishkt.detail.AuditDetailActivity;
 import com.example.administrator.jipinshop.activity.minekt.userkt.UserActivity;
 import com.example.administrator.jipinshop.activity.minekt.welfare.WelfareActivity;
+import com.example.administrator.jipinshop.activity.money.record.MoneyRecordActivity;
 import com.example.administrator.jipinshop.activity.money.withdraw.MoneyWithdrawActivity;
 import com.example.administrator.jipinshop.activity.newpeople.NewPeopleActivity;
 import com.example.administrator.jipinshop.activity.newpeople.detail.NewPeopleDetailActivity;
@@ -152,4 +153,5 @@ public interface BaseActivityComponent {
     void inject(AllowanceRecordActivity activity);
     void inject(WelfareActivity activity);
     void inject(MoneyWithdrawActivity activity);
+    void inject(MoneyRecordActivity activity);
 }

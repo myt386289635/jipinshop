@@ -1,9 +1,11 @@
 package com.example.administrator.jipinshop.activity.money.withdraw
 
+import android.content.Intent
 import android.databinding.DataBindingUtil
 import android.os.Bundle
 import android.view.View
 import com.example.administrator.jipinshop.R
+import com.example.administrator.jipinshop.activity.money.record.MoneyRecordActivity
 import com.example.administrator.jipinshop.base.BaseActivity
 import com.example.administrator.jipinshop.databinding.ActivityMoneyWithdrawBinding
 import com.example.administrator.jipinshop.util.ToastUtil
@@ -45,20 +47,29 @@ class MoneyWithdrawActivity : BaseActivity(), View.OnClickListener {
                 ToastUtil.show("立即提现")
             }
             R.id.withdraw_node -> {
-                ToastUtil.show("提现记录")
+                startActivity(Intent(this,MoneyRecordActivity::class.java))
             }
             R.id.withdraw_binding -> {
                 ToastUtil.show("绑定支付宝")
             }
             R.id.withdraw_money50 -> {
-                ToastUtil.show("提现50元")
+                initButton()
+                mBinding.withdrawMoney50.setBackgroundResource(R.mipmap.withdraw_select)
             }
             R.id.withdraw_money100 -> {
-                ToastUtil.show("提现100元")
+                initButton()
+                mBinding.withdrawMoney100.setBackgroundResource(R.mipmap.withdraw_select)
             }
             R.id.withdraw_money150 -> {
-                ToastUtil.show("提现150元")
+                initButton()
+                mBinding.withdrawMoney150.setBackgroundResource(R.mipmap.withdraw_select)
             }
         }
+    }
+
+    fun initButton(){
+        mBinding.withdrawMoney50.setBackgroundResource(R.mipmap.withdraw_normal)
+        mBinding.withdrawMoney100.setBackgroundResource(R.mipmap.withdraw_normal)
+        mBinding.withdrawMoney150.setBackgroundResource(R.mipmap.withdraw_normal)
     }
 }

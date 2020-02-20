@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <RelativeLayout
+            android:background="@color/color_white"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/y136">
+
+            <ImageView
+                android:id="@+id/item_image"
+                android:layout_marginLeft="@dimen/x20"
+                android:layout_centerVertical="true"
+                android:src="@mipmap/bg_money_record"
+                android:layout_width="@dimen/x102"
+                android:layout_height="@dimen/y102"/>
+
+            <TextView
+                android:layout_marginTop="@dimen/y12"
+                android:id="@+id/item_name"
+                android:layout_alignTop="@id/item_image"
+                android:layout_toRightOf="@id/item_image"
+                android:textColor="@color/color_202020"
+                android:textSize="16sp"
+                android:text="13516828866"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+
+            <TextView
+                android:id="@+id/item_time"
+                android:layout_marginBottom="@dimen/y12"
+                android:layout_toRightOf="@id/item_image"
+                android:layout_alignBottom="@id/item_image"
+                android:textColor="@color/color_9D9D9D"
+                android:textSize="13sp"
+                android:text="申请时间：2020.02.02"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+
+            <LinearLayout
+                android:gravity="center"
+                android:layout_marginRight="@dimen/x30"
+                android:layout_centerVertical="true"
+                android:layout_alignParentRight="true"
+                android:orientation="vertical"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:textSize="13sp"
+                    android:textColor="@color/color_9D9D9D"
+                    android:id="@+id/item_state"
+                    android:text="审核中"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"/>
+
+                <TextView
+                    android:id="@+id/item_money"
+                    android:textStyle="bold"
+                    android:textSize="18sp"
+                    android:textColor="@color/color_E25838"
+                    android:text="150元"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"/>
+
+            </LinearLayout>
+
+
+        </RelativeLayout>
+
+        <View
+            android:background="@color/color_F5F5F5"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/y20"/>
+
+    </LinearLayout>
+</layout>
