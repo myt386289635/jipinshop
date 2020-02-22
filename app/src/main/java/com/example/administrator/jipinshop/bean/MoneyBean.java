@@ -1,7 +1,5 @@
 package com.example.administrator.jipinshop.bean;
 
-import android.util.Log;
-
 import java.math.BigDecimal;
 import java.util.List;
 
@@ -51,9 +49,27 @@ public class MoneyBean {
 
         private String invitationCode;
         private String currentMoney;
+        private String totalMoney;//累计红包
+        private String alipayNickname;//支付宝昵称
         private List<MessageListBean> messageList;//跑马灯
         private List<String> avatarList;//头像
         private List<HongbaoListBean> hongbaoList;
+
+        public String getAlipayNickname() {
+            return alipayNickname;
+        }
+
+        public void setAlipayNickname(String alipayNickname) {
+            this.alipayNickname = alipayNickname;
+        }
+
+        public String getTotalMoney() {
+            return totalMoney;
+        }
+
+        public void setTotalMoney(String totalMoney) {
+            this.totalMoney = totalMoney;
+        }
 
         public String getInvitationCode() {
             return invitationCode;

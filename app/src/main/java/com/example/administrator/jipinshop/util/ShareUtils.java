@@ -21,6 +21,7 @@ import com.umeng.socialize.Config;
 import com.umeng.socialize.ShareAction;
 import com.umeng.socialize.UMShareListener;
 import com.umeng.socialize.bean.SHARE_MEDIA;
+import com.umeng.socialize.editorpage.ShareActivity;
 import com.umeng.socialize.media.UMImage;
 import com.umeng.socialize.media.UMMin;
 import com.umeng.socialize.media.UMWeb;
@@ -83,6 +84,17 @@ public class ShareUtils {
                         }
                     });
         }
+    }
+
+    /**
+     * 分享存文本
+     */
+    public void shareText(final Activity activity , String text){
+        new ShareAction(activity)
+                .setPlatform(mSHARE_media)//传入平台
+                .withText(text)
+                .setCallback(shareListener)//分享回调
+                .share();
     }
 
     /**

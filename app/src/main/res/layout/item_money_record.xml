@@ -1,6 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android">
 
+    <data>
+        <variable
+            name="data"
+            type="com.example.administrator.jipinshop.bean.MoneyRecordBean.DataBean"/>
+    </data>
+
     <LinearLayout
         android:orientation="vertical"
         android:layout_width="match_parent"
@@ -26,7 +32,7 @@
                 android:layout_toRightOf="@id/item_image"
                 android:textColor="@color/color_202020"
                 android:textSize="16sp"
-                android:text="13516828866"
+                android:text="@{data.alipayNickname}"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"/>
 
@@ -37,7 +43,7 @@
                 android:layout_alignBottom="@id/item_image"
                 android:textColor="@color/color_9D9D9D"
                 android:textSize="13sp"
-                android:text="申请时间：2020.02.02"
+                android:text="@{@string/money_time + data.createTime}"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"/>
 
@@ -63,7 +69,7 @@
                     android:textStyle="bold"
                     android:textSize="18sp"
                     android:textColor="@color/color_E25838"
-                    android:text="150元"
+                    android:text="@{data.money + @string/order_prefree_end}"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"/>
 

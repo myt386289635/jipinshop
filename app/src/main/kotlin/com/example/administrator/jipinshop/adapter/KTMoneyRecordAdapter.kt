@@ -6,6 +6,7 @@ import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import com.example.administrator.jipinshop.R
+import com.example.administrator.jipinshop.bean.MoneyRecordBean
 import com.example.administrator.jipinshop.databinding.ItemMoneyRecordBinding
 
 /**
@@ -15,10 +16,10 @@ import com.example.administrator.jipinshop.databinding.ItemMoneyRecordBinding
  */
 class KTMoneyRecordAdapter : RecyclerView.Adapter<KTMoneyRecordAdapter.ViewHolder>{
 
-    private var mList: MutableList<String>
+    private var mList: MutableList<MoneyRecordBean.DataBean>
     private var mContext: Context
 
-    constructor(mList: MutableList<String>, mContext: Context){
+    constructor(mList: MutableList<MoneyRecordBean.DataBean>, mContext: Context){
         this.mList = mList
         this.mContext = mContext
     }
@@ -33,8 +34,23 @@ class KTMoneyRecordAdapter : RecyclerView.Adapter<KTMoneyRecordAdapter.ViewHolde
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        holder.binding.run {
-
+        holder.binding.let {
+            it.data = mList[position]
+            when(mList[position].status){
+                -2,-1 -> {
+                    it.itemState.text = "提现超时"
+                    it.itemState.setTextColor(mContext.resources.getColor(R.color.color_FFB829))
+                }
+                0,1,2,3 -> {
+                    it.itemState.text = "审核中"
+                    it.itemState.setTextColor(mContext.resources.getColor(R.color.color_9D9D9D))
+                }
+                4 -> {
+                    it.itemState.text = "已转账"
+                    it.itemState.setTextColor(mContext.resources.getColor(R.color.color_9D9D9D))
+                }
+            }
+            it.executePendingBindings()
         }
     }
 

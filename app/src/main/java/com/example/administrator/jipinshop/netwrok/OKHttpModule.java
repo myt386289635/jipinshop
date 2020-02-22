@@ -7,6 +7,7 @@ import com.blankj.utilcode.util.EncryptUtils;
 import com.blankj.utilcode.util.SPUtils;
 import com.example.administrator.jipinshop.activity.setting.SettingActivity;
 import com.example.administrator.jipinshop.auto.ApplicationScope;
+import com.example.administrator.jipinshop.util.AppChannelUtil;
 import com.example.administrator.jipinshop.util.DeviceUuidFactory;
 import com.example.administrator.jipinshop.util.DistanceHelper;
 import com.example.administrator.jipinshop.util.NetUtils;
@@ -81,7 +82,7 @@ public class OKHttpModule {
                     .addHeader("uuid", new DeviceUuidFactory(context).getDeviceUuid())
                     .addHeader("androidid",DeviceUuidFactory.getAndroidID(context))
                     .addHeader("imei",DeviceUuidFactory.getIMEI(context))
-                    .addHeader("client","android")
+                    .addHeader("client","android_" + AppChannelUtil.getChannelId())
                     .addHeader("appVersion", SettingActivity.getVerName(context))
                     .addHeader("model",DeviceUuidFactory.getSystemModel())
                     .addHeader("sysVersion",DeviceUuidFactory.getSystemVersion())

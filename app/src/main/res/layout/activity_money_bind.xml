@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:bind="http://schemas.android.com/apk/res-auto">
+
+    <data>
+        <variable
+            name="listener"
+            type="android.view.View.OnClickListener"/>
+    </data>
+
+    <LinearLayout
+        android:background="@color/color_F5F5F5"
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <include
+            android:id="@+id/in_clude"
+            layout="@layout/aa_title2"
+            bind:listener="@{listener}"/>
+
+        <RelativeLayout
+            android:onClick="@{listener.onClick}"
+            android:id="@+id/bind_layout"
+            android:layout_marginTop="@dimen/y20"
+            android:background="@color/color_white"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/y100">
+
+            <TextView
+                android:layout_marginLeft="@dimen/x30"
+                android:layout_centerVertical="true"
+                android:textStyle="bold"
+                android:textSize="16sp"
+                android:textColor="@color/color_202020"
+                android:text="支付宝账号"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+
+            <TextView
+                android:layout_marginRight="@dimen/x30"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:drawablePadding="@dimen/x14"
+                android:textColor="@color/color_9D9D9D"
+                android:textSize="15sp"
+                android:drawableRight="@mipmap/right_ash1"
+                android:text="去授权"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+
+            <View
+                android:background="@color/color_DEDEDE"
+                android:layout_alignParentBottom="true"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/y1"/>
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:background="@color/color_white"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/y100">
+
+            <TextView
+                android:layout_marginLeft="@dimen/x30"
+                android:layout_centerVertical="true"
+                android:textStyle="bold"
+                android:textSize="16sp"
+                android:textColor="@color/color_202020"
+                android:text="姓名"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+
+            <EditText
+                android:id="@+id/bind_name"
+                android:gravity="right|center_vertical"
+                android:text=""
+                android:paddingRight="@dimen/x30"
+                android:layout_alignParentRight="true"
+                android:textColor="@color/color_202020"
+                android:textSize="15sp"
+                android:textColorHint="@color/color_9D9D9D"
+                android:hint="请输入真实姓名"
+                android:background="@null"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"/>
+
+        </RelativeLayout>
+
+        <TextView
+            android:textColor="@color/color_9D9D9D"
+            android:textSize="14sp"
+            android:lineSpacingExtra="@dimen/y12"
+            android:text="1.请确保填写真实的姓名，并且绑定的支付宝已完成实名认证。\n2.请确保信息准确，一旦完成认证将不可修改。\n3.我们承诺不会向任何人泄漏您的信息。\n4.有其他任何问题请咨询客服。"
+            android:layout_marginRight="@dimen/x30"
+            android:layout_marginLeft="@dimen/x30"
+            android:layout_marginTop="@dimen/y38"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+        
+        <TextView
+            android:onClick="@{listener.onClick}"
+            android:id="@+id/bind_account"
+            android:gravity="center"
+            android:textColor="@color/color_white"
+            android:textStyle="bold"
+            android:textSize="18sp"
+            android:text="绑定账号"
+            android:background="@drawable/bg_tab_eva"
+            android:layout_marginTop="@dimen/y135"
+            android:layout_marginRight="@dimen/x30"
+            android:layout_marginLeft="@dimen/x30"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/y88"/>
+
+    </LinearLayout>
+</layout>

@@ -27,6 +27,8 @@ import com.example.administrator.jipinshop.bean.LoginBean;
 import com.example.administrator.jipinshop.bean.MallBean;
 import com.example.administrator.jipinshop.bean.MallDetailBean;
 import com.example.administrator.jipinshop.bean.MoneyBean;
+import com.example.administrator.jipinshop.bean.MoneyPopBean;
+import com.example.administrator.jipinshop.bean.MoneyRecordBean;
 import com.example.administrator.jipinshop.bean.MyFreeBean;
 import com.example.administrator.jipinshop.bean.MyOrderBean;
 import com.example.administrator.jipinshop.bean.MyWalletBean;
@@ -43,6 +45,7 @@ import com.example.administrator.jipinshop.bean.QuestionsBean;
 import com.example.administrator.jipinshop.bean.RecommendFragmentBean;
 import com.example.administrator.jipinshop.bean.ReportBean;
 import com.example.administrator.jipinshop.bean.ScoreStatusBean;
+import com.example.administrator.jipinshop.bean.ShareInfoBean;
 import com.example.administrator.jipinshop.bean.ShoppingDetailBean;
 import com.example.administrator.jipinshop.bean.SignBean;
 import com.example.administrator.jipinshop.bean.SignInsertBean;
@@ -1110,5 +1113,43 @@ public interface APIService {
      */
     @GET("api/hongbao/index")
     Observable<MoneyBean> hongbaoIndex();
+
+    /**
+     * 红包分享海报
+     */
+    @GET("api/hongbao/user/getShareInfo")
+    Observable<ShareInfoBean> shareInfo();
+
+    /**
+     * 拆红包
+     */
+    @FormUrlEncoded
+    @POST("api/hongbao/open")
+    Observable<SuccessBean> openMoney(@Field("id") String id);
+
+    /**
+     * 提现申请
+     */
+    @FormUrlEncoded
+    @POST("api/hongbao/withdraw")
+    Observable<SuccessBean> withdraw(@Field("amount") String amount);
+
+    /**
+     * 提现记录
+     */
+    @GET("api/hongbao/withdrawLog")
+    Observable<MoneyRecordBean> withdrawLog();
+
+    /**
+     * 红包页获取弹窗信息
+     */
+    @GET("api/hongbao/getPopInfo")
+    Observable<MoneyPopBean> hongbaoPopInfo();
+
+    /**
+     * 领取所有红包
+     */
+    @POST("api/hongbao/openAll")
+    Observable<SuccessBean> openAllMoney();
 
 }

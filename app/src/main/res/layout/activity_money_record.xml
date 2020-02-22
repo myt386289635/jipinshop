@@ -115,13 +115,6 @@
 
             </LinearLayout>
 
-            <com.example.administrator.jipinshop.view.textview.LoadMoreFooterView
-                android:id="@+id/swipe_load_more_footer"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:gravity="center"
-                android:padding="20dp"/>
-
         </com.aspsine.swipetoloadlayout.SwipeToLoadLayout>
 
     </RelativeLayout>

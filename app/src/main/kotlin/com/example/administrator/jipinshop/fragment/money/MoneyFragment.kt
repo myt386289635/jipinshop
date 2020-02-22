@@ -1,10 +1,12 @@
 package com.example.administrator.jipinshop.fragment.money
 
+import android.app.Dialog
 import android.content.ClipData
 import android.content.ClipboardManager
 import android.content.Context
 import android.content.Intent
 import android.databinding.DataBindingUtil
+import android.graphics.Bitmap
 import android.graphics.Color
 import android.text.TextUtils
 import android.view.LayoutInflater
@@ -16,24 +18,38 @@ import android.widget.RelativeLayout
 import android.widget.TextView
 import com.aspsine.swipetoloadlayout.OnRefreshListener
 import com.blankj.utilcode.util.SPUtils
+import com.bumptech.glide.Glide
+import com.bumptech.glide.request.target.SimpleTarget
+import com.bumptech.glide.request.transition.Transition
 import com.example.administrator.jipinshop.R
+import com.example.administrator.jipinshop.activity.WebActivity
 import com.example.administrator.jipinshop.activity.balance.team.TeamActivity
 import com.example.administrator.jipinshop.activity.login.LoginActivity
 import com.example.administrator.jipinshop.activity.money.withdraw.MoneyWithdrawActivity
 import com.example.administrator.jipinshop.base.DBBaseFragment
 import com.example.administrator.jipinshop.bean.MoneyBean
+import com.example.administrator.jipinshop.bean.MoneyPopBean
+import com.example.administrator.jipinshop.bean.ShareInfoBean
 import com.example.administrator.jipinshop.databinding.FragmentKtMoneyBinding
+import com.example.administrator.jipinshop.netwrok.RetrofitModule
 import com.example.administrator.jipinshop.util.FileManager
+import com.example.administrator.jipinshop.util.ShareUtils
 import com.example.administrator.jipinshop.util.ToastUtil
+import com.example.administrator.jipinshop.util.share.PlatformUtil
 import com.example.administrator.jipinshop.util.sp.CommonDate
+import com.example.administrator.jipinshop.view.dialog.DialogUtil
+import com.example.administrator.jipinshop.view.dialog.ProgressDialogView
+import com.example.administrator.jipinshop.view.dialog.ShareBoardDialog3
 import com.example.administrator.jipinshop.view.glide.GlideApp
+import com.umeng.socialize.UMShareAPI
+import com.umeng.socialize.bean.SHARE_MEDIA
 import java.math.BigDecimal
 import javax.inject.Inject
 
 /**
  * 赚钱页面  （活动页面）
  */
-class MoneyFragment : DBBaseFragment(), View.OnClickListener, OnRefreshListener, MoneyView {
+class MoneyFragment : DBBaseFragment(), View.OnClickListener, OnRefreshListener, MoneyView, ShareBoardDialog3.onShareListener {
 
     @Inject
     lateinit var mPresenter: MoneyPresenter
@@ -45,6 +61,9 @@ class MoneyFragment : DBBaseFragment(), View.OnClickListener, OnRefreshListener,
     private lateinit var mBedContainer : MutableList<LinearLayout>
     private lateinit var mGetBedContainer: MutableList<RelativeLayout>
     private lateinit var mHongbaoList : MutableList<MoneyBean.DataBean.HongbaoListBean>
+    private var mShareBoardDialog: ShareBoardDialog3? = null
+    private var mDialog: Dialog? = null
+    private var alipayNickname = ""//支付宝昵称
 
     companion object{
         @JvmStatic //java中的静态方法
@@ -55,8 +74,10 @@ class MoneyFragment : DBBaseFragment(), View.OnClickListener, OnRefreshListener,
 
     override fun setUserVisibleHint(isVisibleToUser: Boolean) {
         super.setUserVisibleHint(isVisibleToUser)
-        if (isVisibleToUser) {
+        if (isVisibleToUser && once) {
             mBinding.swipeToLoad.isRefreshing = true
+        }else if(isVisibleToUser){
+            onRefresh()
         }
     }
 
@@ -124,7 +145,11 @@ class MoneyFragment : DBBaseFragment(), View.OnClickListener, OnRefreshListener,
     override fun onClick(view: View) {
         when(view.id){
             R.id.money_rule ->{
-                ToastUtil.show("规则说明")
+                //todo 规则说明
+                startActivity(Intent(context, WebActivity::class.java)
+                        .putExtra(WebActivity.url, RetrofitModule.H5_URL + "commission-rule.html")
+                        .putExtra(WebActivity.title, "规则说明")
+                )
             }
             R.id.money_reCopy ->{
                 var clip = context!!.getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager
@@ -134,13 +159,24 @@ class MoneyFragment : DBBaseFragment(), View.OnClickListener, OnRefreshListener,
                 SPUtils.getInstance().put(CommonDate.CLIP, mBinding.moneyReCode.text.toString())
             }
             R.id.money_reInvitation -> {
-                ToastUtil.show("立即邀请")
+                if (mShareBoardDialog == null) {
+                    mShareBoardDialog = ShareBoardDialog3.getInstance()
+                    mShareBoardDialog?.setOnShareListener(this)
+                }
+                mShareBoardDialog?.let {
+                    if (!it.isAdded){
+                        it.show(childFragmentManager,"ShareBoardDialog")
+                    }
+                }
             }
             R.id.money_balanceWithdraw -> {
                 if (TextUtils.isEmpty(SPUtils.getInstance(CommonDate.USER).getString(CommonDate.token, ""))) {
-                    startActivity(Intent(context,LoginActivity::class.java))
+                    startActivityForResult(Intent(context,LoginActivity::class.java),301)
                 }else{
-                    startActivity(Intent(context,MoneyWithdrawActivity::class.java))
+                    startActivityForResult(Intent(context,MoneyWithdrawActivity::class.java)
+                            .putExtra("money", mBinding.moneyBalance.text.toString())
+                            .putExtra("name",alipayNickname)
+                    ,300)
                 }
             }
             R.id.money_background1 -> {
@@ -182,6 +218,9 @@ class MoneyFragment : DBBaseFragment(), View.OnClickListener, OnRefreshListener,
             mBinding.swipeTarget.visibility = View.VISIBLE
         }
         mPresenter.setDate(this.bindToLifecycle())
+        if (!TextUtils.isEmpty(SPUtils.getInstance(CommonDate.USER).getString(CommonDate.token, ""))) {
+            mPresenter.popInfo(this.bindToLifecycle())
+        }
     }
 
     override fun onSuccess(bean : MoneyBean) {
@@ -206,6 +245,7 @@ class MoneyFragment : DBBaseFragment(), View.OnClickListener, OnRefreshListener,
             mBinding.moneyReCode.text = bean.data.invitationCode
             mBinding.moneyReTitle2.visibility = View.GONE
             //当前红包余额
+            alipayNickname = bean.data.alipayNickname
             mBinding.moneyBalance.text = bean.data.currentMoney
             mBinding.moneyBalanceNode.text = "邀请好友奖励可以立即提现"
             mBinding.moneyBalanceWithdraw.text = "立即提现"
@@ -217,7 +257,7 @@ class MoneyFragment : DBBaseFragment(), View.OnClickListener, OnRefreshListener,
                 mBinding.moneyFriendsLayout.visibility = View.VISIBLE
                 mBinding.moneyNofriendsLayout.visibility = View.GONE
                 mBinding.moneyFriendNum.text = "等"+ bean.data.avatarList.size +"人加入我的团队"
-                mBinding.moneyFriendMoney.text = "累计获得现金红包8.00元"
+                mBinding.moneyFriendMoney.text = "累计获得现金红包"+bean.data.totalMoney+"元"
                 for (i in bean.data.avatarList.indices){
                     when(i){
                         0 -> {
@@ -249,6 +289,92 @@ class MoneyFragment : DBBaseFragment(), View.OnClickListener, OnRefreshListener,
         once = false
     }
 
+    override fun popInfo(bean: MoneyPopBean) {
+        if (bean.data != null){
+            DialogUtil.bedDialog(context,bean.data.addHongbao){
+                mDialog = ProgressDialogView().createLoadingDialog(context, "")
+                mDialog?.let {
+                    if (!it.isShowing)
+                        it.show()
+                }
+                mPresenter.openAll(bean.data.addHongbao,this.bindToLifecycle())
+            }
+        }
+    }
+
+    override fun openAll(money: String) {
+        mDialog?.let {
+            if (it.isShowing){
+                it.dismiss()
+            }
+        }
+        for (i in mHongbaoList.indices){
+            if (mHongbaoList[i].status == "1"){//待领取
+                mHongbaoList[i].status = "2"//2为已领取
+            }
+        }
+        var addMoney = BigDecimal(money)
+        var oldMoney = BigDecimal(mBinding.moneyBalance.text.toString())
+        mBinding.moneyBalance.text = oldMoney.add(addMoney).stripTrailingZeros().toPlainString()
+        initBed(mHongbaoList)
+    }
+
+    override fun share(share_media: SHARE_MEDIA?) {
+        mDialog = ProgressDialogView().createLoadingDialog(context, "")
+        mDialog?.let {
+            if (!it.isShowing)
+                it.show()
+        }
+        mPresenter.shareInfo("1",share_media , this.bindToLifecycle())
+    }
+
+    override fun download() {
+        mDialog = ProgressDialogView().createLoadingDialog(context, "")
+        mDialog?.let {
+            if (!it.isShowing)
+                it.show()
+        }
+        mPresenter.shareInfo("2" , null, this.bindToLifecycle())
+    }
+
+    override fun onPic(type :String , share_media: SHARE_MEDIA? , bean: ShareInfoBean) {
+        context?.let {
+            if (type == "2") {
+                Glide.with(it)
+                        .asBitmap()
+                        .load(bean.data.posterImg)
+                        .into(object : SimpleTarget<Bitmap>() {
+                            override fun onResourceReady(resource: Bitmap, transition: Transition<in Bitmap>?) {
+                                stopResher()
+                                FileManager.saveFile(resource, it)
+                            }
+                        })
+            } else {
+                when (share_media) {
+                    SHARE_MEDIA.WEIXIN_CIRCLE -> {
+                        //微信朋友圈
+                        ShareUtils(it, SHARE_MEDIA.WEIXIN_CIRCLE, mDialog)
+                                .shareImage(activity, bean.data.posterImg)
+                    }
+                    SHARE_MEDIA.QQ -> {
+                        //QQ无法纯文本分享
+                        PlatformUtil.shareQQ(context,bean.data.content)
+                    }
+                    else -> {
+                        //其他
+                        ShareUtils(context, share_media, mDialog)
+                                .shareText(activity,bean.data.content)
+                    }
+                }
+            }
+        }
+    }
+
+    override fun onCommenFile(error: String?) {
+        stopResher()
+        ToastUtil.show(error)
+    }
+
     fun stopResher() {
         if (mBinding.swipeToLoad != null && mBinding.swipeToLoad.isRefreshing) {
             if (!mBinding.swipeToLoad.isRefreshEnabled) {
@@ -257,6 +383,11 @@ class MoneyFragment : DBBaseFragment(), View.OnClickListener, OnRefreshListener,
                 mBinding.swipeToLoad.isRefreshEnabled = false
             } else {
                 mBinding.swipeToLoad.isRefreshing = false
+            }
+        }
+        mDialog?.let {
+            if (it.isShowing){
+                it.dismiss()
             }
         }
     }
@@ -319,12 +450,50 @@ class MoneyFragment : DBBaseFragment(), View.OnClickListener, OnRefreshListener,
     //红包点击事件
     private fun BedClick(set: Int , money : Int){
         if (mHongbaoList.size != 0 && mHongbaoList[set].status == "1") {
-            mBedBg[set].setImageResource(R.mipmap.bg_money_geted)
-            mBedContainer[set].visibility = View.GONE
-            mGetBedContainer[set].visibility = View.VISIBLE
-            var balance = BigDecimal(mBinding.moneyBalance.text.toString()).toDouble() + money
-            mBinding.moneyBalance.text = BigDecimal(balance).setScale(2, BigDecimal.ROUND_DOWN).stripTrailingZeros().toPlainString()
+            mDialog = ProgressDialogView().createLoadingDialog(context, "")
+            mDialog?.let {
+                if (!it.isShowing)
+                    it.show()
+            }
+            mPresenter.openMoney(mHongbaoList[set].id , set , money , this.bindToLifecycle())
         }
     }
 
+    override fun open(set: Int, money: Int) {
+        stopResher()
+        mHongbaoList[set].status = "2"
+        mBedBg[set].setImageResource(R.mipmap.bg_money_geted)
+        mBedContainer[set].visibility = View.GONE
+        mGetBedContainer[set].visibility = View.VISIBLE
+        var balance = BigDecimal(mBinding.moneyBalance.text.toString()).toDouble() + money
+        mBinding.moneyBalance.text = BigDecimal(balance).setScale(2, BigDecimal.ROUND_DOWN).stripTrailingZeros().toPlainString()
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        UMShareAPI.get(context).onActivityResult(requestCode, resultCode, data)
+        if (requestCode == 300 && resultCode == 300){
+            //从提现页面返回
+            data?.let {
+                mBinding.moneyBalance.text = it.getStringExtra("money")
+            }
+        } else if (requestCode == 301 && resultCode == 200){
+            //从登陆页面返回
+            onRefresh()
+        }
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        UMShareAPI.get(context).release()
+    }
+
+    override fun onResume() {
+        super.onResume()
+        mDialog?.let {
+            if (it.isShowing){
+                it.dismiss()
+            }
+        }
+    }
 }

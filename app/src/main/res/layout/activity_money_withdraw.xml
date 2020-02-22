@@ -120,6 +120,7 @@
                         android:layout_height="wrap_content"/>
 
                     <TextView
+                        android:id="@+id/withdraw_bindingText"
                         android:layout_marginRight="@dimen/x30"
                         android:drawablePadding="@dimen/x7"
                         android:drawableRight="@mipmap/right"

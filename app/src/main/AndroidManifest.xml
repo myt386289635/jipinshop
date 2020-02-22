@@ -524,6 +524,11 @@
             android:name=".activity.money.record.MoneyRecordActivity"
             android:screenOrientation="portrait"/>
 
+        <!--kotlin：红包绑定支付宝页面-->
+        <activity android:name=".activity.money.binding.MoneyBindActivity"
+                  android:screenOrientation="portrait"
+                  android:windowSoftInputMode="adjustResize|stateHidden"/>
+
     </application>
 
 </manifest>

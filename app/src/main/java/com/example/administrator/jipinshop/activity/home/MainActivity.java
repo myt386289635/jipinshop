@@ -255,10 +255,12 @@ public class MainActivity extends RxAppCompatActivity implements MainView, ViewP
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         switch (resultCode) {
-            case 400:
-                TabLayout.Tab tab = mTabLayout.getTabAt(0);
-                if (tab != null) {
-                    tab.select();
+            case 400://从登陆页面返回且从该页过去
+                if (requestCode == 100){
+                    TabLayout.Tab tab = mTabLayout.getTabAt(0);
+                    if (tab != null) {
+                        tab.select();
+                    }
                 }
                 break;
         }

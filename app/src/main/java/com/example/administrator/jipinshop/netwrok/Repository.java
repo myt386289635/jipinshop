@@ -27,6 +27,8 @@ import com.example.administrator.jipinshop.bean.LoginBean;
 import com.example.administrator.jipinshop.bean.MallBean;
 import com.example.administrator.jipinshop.bean.MallDetailBean;
 import com.example.administrator.jipinshop.bean.MoneyBean;
+import com.example.administrator.jipinshop.bean.MoneyPopBean;
+import com.example.administrator.jipinshop.bean.MoneyRecordBean;
 import com.example.administrator.jipinshop.bean.MyFreeBean;
 import com.example.administrator.jipinshop.bean.MyOrderBean;
 import com.example.administrator.jipinshop.bean.MyWalletBean;
@@ -43,6 +45,7 @@ import com.example.administrator.jipinshop.bean.QuestionsBean;
 import com.example.administrator.jipinshop.bean.RecommendFragmentBean;
 import com.example.administrator.jipinshop.bean.ReportBean;
 import com.example.administrator.jipinshop.bean.ScoreStatusBean;
+import com.example.administrator.jipinshop.bean.ShareInfoBean;
 import com.example.administrator.jipinshop.bean.ShoppingDetailBean;
 import com.example.administrator.jipinshop.bean.SignBean;
 import com.example.administrator.jipinshop.bean.SignInsertBean;
@@ -1219,5 +1222,47 @@ public class Repository {
      */
     public Observable<MoneyBean> hongbaoIndex(){
         return mAPIService.hongbaoIndex();
+    }
+
+    /**
+     * 红包分享海报
+     */
+    public Observable<ShareInfoBean> shareInfo(){
+        return mAPIService.shareInfo();
+    }
+
+    /**
+     * 拆红包
+     */
+    public Observable<SuccessBean> openMoney(String id){
+        return mAPIService.openMoney(id);
+    }
+
+    /**
+     * 提现申请
+     */
+    public Observable<SuccessBean> withdraw(String amount){
+        return mAPIService.withdraw(amount);
+    }
+
+    /**
+     * 提现记录
+     */
+    public Observable<MoneyRecordBean> withdrawLog(){
+        return mAPIService.withdrawLog();
+    }
+
+    /**
+     * 红包页获取弹窗信息
+     */
+    public Observable<MoneyPopBean> hongbaoPopInfo(){
+        return mAPIService.hongbaoPopInfo();
+    }
+
+    /**
+     * 领取所有红包
+     */
+    public Observable<SuccessBean> openAllMoney(){
+        return mAPIService.openAllMoney();
     }
 }

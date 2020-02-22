@@ -1,6 +1,9 @@
 package com.example.administrator.jipinshop.fragment.money
 
 import com.example.administrator.jipinshop.bean.MoneyBean
+import com.example.administrator.jipinshop.bean.MoneyPopBean
+import com.example.administrator.jipinshop.bean.ShareInfoBean
+import com.umeng.socialize.bean.SHARE_MEDIA
 
 /**
  * Author     ： 莫小婷
@@ -10,4 +13,13 @@ import com.example.administrator.jipinshop.bean.MoneyBean
 interface MoneyView {
     fun onSuccess(bean : MoneyBean)
     fun onFile(error:String?)
+
+    fun onPic(type :String, share_media: SHARE_MEDIA? ,bean: ShareInfoBean)
+    fun onCommenFile(error:String?)
+
+    fun open(set: Int , money : Int)
+
+    fun popInfo(bean: MoneyPopBean)
+
+    fun openAll(money: String)
 }

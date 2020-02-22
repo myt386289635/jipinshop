@@ -1,0 +1,139 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <data>
+        <variable
+            name="listener"
+            type="android.view.View.OnClickListener"/>
+
+    </data>
+
+    <LinearLayout
+        android:background="@color/color_white"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <LinearLayout
+            android:onClick="@{listener.onClick}"
+            android:id="@+id/share_wechat"
+            android:orientation="vertical"
+            android:gravity="center"
+            android:layout_weight="1"
+            android:layout_width="0dp"
+            android:layout_height="@dimen/y198">
+
+            <ImageView
+                android:src="@mipmap/share_wecha_other"
+                android:layout_width="@dimen/x80"
+                android:layout_height="@dimen/y80"/>
+
+            <TextView
+                android:layout_marginTop="@dimen/y20"
+                android:textColor="@color/color_9D9D9D"
+                android:textSize="12sp"
+                android:text="微信邀请"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:onClick="@{listener.onClick}"
+            android:id="@+id/share_wechat_group"
+            android:orientation="vertical"
+            android:gravity="center"
+            android:layout_weight="1"
+            android:layout_width="0dp"
+            android:layout_height="@dimen/y198">
+
+            <ImageView
+                android:src="@mipmap/share_wechat_other"
+                android:layout_width="@dimen/x80"
+                android:layout_height="@dimen/y80"/>
+
+            <TextView
+                android:layout_marginTop="@dimen/y20"
+                android:textColor="@color/color_9D9D9D"
+                android:textSize="12sp"
+                android:text="微信群邀请"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:onClick="@{listener.onClick}"
+            android:id="@+id/share_pyq"
+            android:orientation="vertical"
+            android:gravity="center"
+            android:layout_weight="1"
+            android:layout_width="0dp"
+            android:layout_height="@dimen/y198">
+
+            <ImageView
+                android:src="@mipmap/share_pyq_other"
+                android:layout_width="@dimen/x80"
+                android:layout_height="@dimen/y80"/>
+
+            <TextView
+                android:layout_marginTop="@dimen/y20"
+                android:textColor="@color/color_9D9D9D"
+                android:textSize="12sp"
+                android:text="朋友圈邀请"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:onClick="@{listener.onClick}"
+            android:id="@+id/share_qq"
+            android:orientation="vertical"
+            android:gravity="center"
+            android:layout_weight="1"
+            android:layout_width="0dp"
+            android:layout_height="@dimen/y198">
+
+            <ImageView
+                android:src="@mipmap/share_qq_other"
+                android:layout_width="@dimen/x80"
+                android:layout_height="@dimen/y80"/>
+
+            <TextView
+                android:layout_marginTop="@dimen/y20"
+                android:textColor="@color/color_9D9D9D"
+                android:textSize="12sp"
+                android:text="qq邀请"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:onClick="@{listener.onClick}"
+            android:id="@+id/share_pic"
+            android:orientation="vertical"
+            android:gravity="center"
+            android:layout_weight="1"
+            android:layout_width="0dp"
+            android:layout_height="@dimen/y198">
+
+            <ImageView
+                android:src="@mipmap/share_pic_other"
+                android:layout_width="@dimen/x80"
+                android:layout_height="@dimen/y80"/>
+
+            <TextView
+                android:layout_marginTop="@dimen/y20"
+                android:textColor="@color/color_9D9D9D"
+                android:textSize="12sp"
+                android:text="图片邀请"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+
+        </LinearLayout>
+
+
+    </LinearLayout>
+</layout>

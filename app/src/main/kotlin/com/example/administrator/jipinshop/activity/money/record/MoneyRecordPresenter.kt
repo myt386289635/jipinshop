@@ -3,7 +3,12 @@ package com.example.administrator.jipinshop.activity.money.record
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
 import com.aspsine.swipetoloadlayout.SwipeToLoadLayout
+import com.example.administrator.jipinshop.bean.MoneyRecordBean
 import com.example.administrator.jipinshop.netwrok.Repository
+import com.trello.rxlifecycle2.LifecycleTransformer
+import io.reactivex.android.schedulers.AndroidSchedulers
+import io.reactivex.functions.Consumer
+import io.reactivex.schedulers.Schedulers
 import javax.inject.Inject
 
 /**
@@ -14,6 +19,11 @@ import javax.inject.Inject
 class MoneyRecordPresenter {
 
     private var mRepository: Repository
+    private lateinit var mView : MoneyRecordView
+
+    fun setView(view : MoneyRecordView){
+        mView = view
+    }
 
     @Inject
     constructor(mRepository: Repository) {
@@ -40,5 +50,21 @@ class MoneyRecordPresenter {
                 >= recyclerView.computeVerticalScrollRange())
             return true
         return false
+    }
+
+    fun setDate(transformer: LifecycleTransformer<MoneyRecordBean>){
+        mRepository.withdrawLog()
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .compose(transformer)
+                .subscribe(Consumer {
+                    if (it.code == 0){
+                        mView.onSuccess(it)
+                    }else{
+                        mView.onFile(it.msg)
+                    }
+                }, Consumer {
+                    mView.onFile(it.message)
+                })
     }
 }
