@@ -71,16 +71,16 @@ class MoneyBindActivity : BaseActivity(), View.OnClickListener, MoneyBindView {
     override fun onClick(v: View) {
         when(v.id){
             R.id.bind_layout -> {
-//                if (mBinding.bindText.text.toString() != "已绑定"){
+                if (mBinding.bindText.text.toString() != "已绑定"){
                     HasPermissionsUtil.permission(this,object : HasPermissionsUtil(){
                         override fun hasPermissionsSuccess() {
                             super.hasPermissionsSuccess()
                             openAuthScheme()
                         }
                     }, Manifest.permission.READ_PHONE_STATE,Manifest.permission.WRITE_EXTERNAL_STORAGE)
-//                }else {
-//                    ToastUtil.show("已绑定支付宝账号，请勿重复绑定")
-//                }
+                }else {
+                    ToastUtil.show("已绑定支付宝账号，请勿重复绑定")
+                }
             }
             R.id.bind_account -> {
                 if (TextUtils.isEmpty(alipayNickname)){
