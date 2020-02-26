@@ -101,7 +101,7 @@
             android:layout_alignParentBottom="true"
             android:layout_alignParentRight="true"
             android:src="@mipmap/tab_money"
-            android:layout_width="@dimen/x280"
+            android:layout_width="@dimen/x200"
             android:layout_height="wrap_content" />
 
     </RelativeLayout>

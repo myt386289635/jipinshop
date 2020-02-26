@@ -12,6 +12,7 @@ import android.text.TextUtils
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.animation.AnimationUtils
 import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.RelativeLayout
@@ -41,6 +42,7 @@ import com.example.administrator.jipinshop.view.dialog.DialogUtil
 import com.example.administrator.jipinshop.view.dialog.ProgressDialogView
 import com.example.administrator.jipinshop.view.dialog.ShareBoardDialog3
 import com.example.administrator.jipinshop.view.glide.GlideApp
+import com.umeng.commonsdk.stateless.UMSLEnvelopeBuild.mContext
 import com.umeng.socialize.UMShareAPI
 import com.umeng.socialize.bean.SHARE_MEDIA
 import java.math.BigDecimal
@@ -97,6 +99,10 @@ class MoneyFragment : DBBaseFragment(), View.OnClickListener, OnRefreshListener,
         mBinding.swipeTarget.visibility = View.INVISIBLE
         mHongbaoList = mutableListOf()
 
+        val animation = AnimationUtils.loadAnimation(context, R.anim.free_scale)
+        mBinding.moneyReInvitation.startAnimation(animation)
+        animation.start()
+
         //红包背景
         mBedBg = mutableListOf()
         mBedBg.add(mBinding.moneyBackground1)
@@ -146,9 +152,8 @@ class MoneyFragment : DBBaseFragment(), View.OnClickListener, OnRefreshListener,
     override fun onClick(view: View) {
         when(view.id){
             R.id.money_rule ->{
-                //todo 规则说明
                 startActivity(Intent(context, WebActivity::class.java)
-                        .putExtra(WebActivity.url, RetrofitModule.H5_URL + "commission-rule.html")
+                        .putExtra(WebActivity.url, RetrofitModule.H5_URL + "xianjin_rule.html")
                         .putExtra(WebActivity.title, "规则说明")
                 )
             }
@@ -160,13 +165,17 @@ class MoneyFragment : DBBaseFragment(), View.OnClickListener, OnRefreshListener,
                 SPUtils.getInstance().put(CommonDate.CLIP, mBinding.moneyReCode.text.toString())
             }
             R.id.money_reInvitation -> {
-                if (mShareBoardDialog == null) {
-                    mShareBoardDialog = ShareBoardDialog3.getInstance()
-                    mShareBoardDialog?.setOnShareListener(this)
-                }
-                mShareBoardDialog?.let {
-                    if (!it.isAdded){
-                        it.show(childFragmentManager,"ShareBoardDialog")
+                if (TextUtils.isEmpty(SPUtils.getInstance(CommonDate.USER).getString(CommonDate.token, ""))){
+                    startActivityForResult(Intent(context,LoginActivity::class.java),301)
+                }else{
+                    if (mShareBoardDialog == null) {
+                        mShareBoardDialog = ShareBoardDialog3.getInstance()
+                        mShareBoardDialog?.setOnShareListener(this)
+                    }
+                    mShareBoardDialog?.let {
+                        if (!it.isAdded){
+                            it.show(childFragmentManager,"ShareBoardDialog")
+                        }
                     }
                 }
             }
@@ -459,6 +468,22 @@ class MoneyFragment : DBBaseFragment(), View.OnClickListener, OnRefreshListener,
                     it.show()
             }
             mPresenter.openMoney(mHongbaoList[set].id , set , money , this.bindToLifecycle())
+        }else {
+            if (TextUtils.isEmpty(SPUtils.getInstance(CommonDate.USER).getString(CommonDate.token, ""))){
+                startActivityForResult(Intent(context,LoginActivity::class.java),301)
+            }else{
+                if (mHongbaoList.size != 0 && mHongbaoList[set].status == "0"){
+                    if (mShareBoardDialog == null) {
+                        mShareBoardDialog = ShareBoardDialog3.getInstance()
+                        mShareBoardDialog?.setOnShareListener(this)
+                    }
+                    mShareBoardDialog?.let {
+                        if (!it.isAdded){
+                            it.show(childFragmentManager,"ShareBoardDialog")
+                        }
+                    }
+                }
+            }
         }
     }
 

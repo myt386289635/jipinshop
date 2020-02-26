@@ -58,34 +58,29 @@ class MoneyBindActivity : BaseActivity(), View.OnClickListener, MoneyBindView {
         if (TextUtils.isEmpty(alipayNickname)){
             mBinding.bindText.text = "去授权"
         }else{
-            mBinding.bindText.text =  alipayNickname
+            mBinding.bindText.text =  "已绑定"
         }
         if (TextUtils.isEmpty(realname)){
             mBinding.bindName.setText("")
         }else{
             mBinding.bindName.setText(realname)
+            mBinding.bindName.isFocusableInTouchMode = false
         }
     }
 
     override fun onClick(v: View) {
         when(v.id){
             R.id.bind_layout -> {
-                if (TextUtils.isEmpty(alipayNickname)){
+//                if (mBinding.bindText.text.toString() != "已绑定"){
                     HasPermissionsUtil.permission(this,object : HasPermissionsUtil(){
                         override fun hasPermissionsSuccess() {
                             super.hasPermissionsSuccess()
-//                            mDialog = ProgressDialogView().createLoadingDialog(this@MoneyBindActivity, "")
-//                            mDialog?.let { it ->
-//                                if (!it.isShowing)
-//                                    it.show()
-//                            }
-//                            mPresenter.getAlipayAuthInfo(this@MoneyBindActivity.bindToLifecycle())
                             openAuthScheme()
                         }
                     }, Manifest.permission.READ_PHONE_STATE,Manifest.permission.WRITE_EXTERNAL_STORAGE)
-                }else {
-                    ToastUtil.show("已绑定支付宝账号，请勿重复绑定")
-                }
+//                }else {
+//                    ToastUtil.show("已绑定支付宝账号，请勿重复绑定")
+//                }
             }
             R.id.bind_account -> {
                 if (TextUtils.isEmpty(alipayNickname)){
@@ -160,7 +155,7 @@ class MoneyBindActivity : BaseActivity(), View.OnClickListener, MoneyBindView {
                 OpenAuthTask.BizType.AccountAuth, // 业务类型
                 bizParams, // 业务参数
                 openAuthCallback, // 业务结果回调。注意：此回调必须被你的应用保持强引用
-                false) // 是否需要在用户未安装支付宝 App 时，使用 H5 中间页中转
+                true) // 是否需要在用户未安装支付宝 App 时，使用 H5 中间页中转
     }
 
     private var openAuthCallback: OpenAuthTask.Callback = OpenAuthTask.Callback { i, s, bundle ->
@@ -176,7 +171,13 @@ class MoneyBindActivity : BaseActivity(), View.OnClickListener, MoneyBindView {
                     mPresenter.alipayLogin(it, this@MoneyBindActivity.bindToLifecycle())
                 }
             } else {
-                ToastUtil.show(String.format("业务失败，结果码: %s", i))
+                //授权失败的时候再次调用完整版的进行授权，为了防止支付宝出错极简版无法授权
+                mDialog = ProgressDialogView().createLoadingDialog(this@MoneyBindActivity, "")
+                mDialog?.let { it ->
+                    if (!it.isShowing)
+                        it.show()
+                }
+                mPresenter.getAlipayAuthInfo(this@MoneyBindActivity.bindToLifecycle())
             }
         }
     }
@@ -242,7 +243,7 @@ class MoneyBindActivity : BaseActivity(), View.OnClickListener, MoneyBindView {
         if (!TextUtils.isEmpty(name) && name != null){
            alipayNickname = name
         }
-        mBinding.bindText.text =  alipayNickname
+        mBinding.bindText.text =  "已绑定"
     }
 
     override fun onFile(error: String?) {

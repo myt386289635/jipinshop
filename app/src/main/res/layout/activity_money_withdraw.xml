@@ -289,23 +289,14 @@
                     android:layout_height="match_parent">
 
                     <TextView
-                        android:layout_marginBottom="@dimen/y28"
-                        android:layout_marginTop="@dimen/y46"
-                        android:layout_gravity="center"
-                        android:textColor="@color/color_202020"
-                        android:textSize="16sp"
-                        android:text="提现金额"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"/>
-
-                    <TextView
+                        android:layout_marginTop="@dimen/y40"
                         android:lineSpacingExtra="@dimen/y12"
                         android:textColor="@color/color_9D9D9D"
                         android:textSize="15sp"
                         android:layout_marginBottom="@dimen/y46"
                         android:layout_marginRight="@dimen/x30"
                         android:layout_marginLeft="@dimen/x30"
-                        android:text="温馨提示：\n1.到账金额=提现金额-提现全额X手续费\n2.每个账号将与唯一一个提现支付宝账户绑定，本次填写后，提现账号无法进行修改。请仔细核对支付宝账户信息（若因信息填写不符而到账转账失败，极品城概不负责）\n3.提现申请将在7个工作日内审批到账，请耐心等待\n4.提现前需完善实名信息，此操作只为使您的提现符合我国相关规定，极品城将保护您的隐私数据"
+                        android:text="温馨提示：\n1.到账金额=提现金额-提现服务费\n2.每个账号将与唯一一个提现支付宝账户绑定，本次填写后，提现账号无法进行修改。请仔细核对支付宝账户信息（若因信息填写不符而到账转账失败，极品城概不负责）\n3.提现申请将在7个工作日内审批到账，请耐心等待\n4.提现前需完善实名信息，此操作只为使您的提现符合我国相关规定，极品城将保护您的隐私数据"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"/>
 

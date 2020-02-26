@@ -1,15 +1,18 @@
 package com.example.administrator.jipinshop.activity.money.record
 
+import android.content.Intent
 import android.databinding.DataBindingUtil
 import android.os.Bundle
 import android.support.v7.widget.LinearLayoutManager
 import android.view.View
 import com.aspsine.swipetoloadlayout.OnRefreshListener
 import com.example.administrator.jipinshop.R
+import com.example.administrator.jipinshop.activity.WebActivity
 import com.example.administrator.jipinshop.adapter.KTMoneyRecordAdapter
 import com.example.administrator.jipinshop.base.BaseActivity
 import com.example.administrator.jipinshop.bean.MoneyRecordBean
 import com.example.administrator.jipinshop.databinding.ActivityMoneyRecordBinding
+import com.example.administrator.jipinshop.netwrok.RetrofitModule
 import com.example.administrator.jipinshop.util.ToastUtil
 import javax.inject.Inject
 
@@ -57,7 +60,10 @@ class MoneyRecordActivity : BaseActivity(), View.OnClickListener, OnRefreshListe
                 finish()
             }
             R.id.record_help -> {
-                ToastUtil.show("帮助")
+                startActivity(Intent(this, WebActivity::class.java)
+                        .putExtra(WebActivity.url, RetrofitModule.H5_URL + "tixian_help.html")
+                        .putExtra(WebActivity.title, "支付宝到账查询")
+                )
             }
         }
     }
