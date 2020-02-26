@@ -75,7 +75,12 @@ class MoneyBindActivity : BaseActivity(), View.OnClickListener, MoneyBindView {
                     HasPermissionsUtil.permission(this,object : HasPermissionsUtil(){
                         override fun hasPermissionsSuccess() {
                             super.hasPermissionsSuccess()
-                            openAuthScheme()
+                            mDialog = ProgressDialogView().createLoadingDialog(this@MoneyBindActivity, "")
+                            mDialog?.let { it ->
+                                if (!it.isShowing)
+                                    it.show()
+                            }
+                            mPresenter.getAlipayAuthInfo(this@MoneyBindActivity.bindToLifecycle())
                         }
                     }, Manifest.permission.READ_PHONE_STATE,Manifest.permission.WRITE_EXTERNAL_STORAGE)
                 }else {
@@ -133,7 +138,7 @@ class MoneyBindActivity : BaseActivity(), View.OnClickListener, MoneyBindView {
         }
     }
 
-    //支付宝极速版授权
+    //支付宝极速版授权  有问题，偶尔会出现提示：系统忙，请您稍后再试
     fun openAuthScheme() {
 
         // 传递给支付宝应用的业务参数
@@ -171,18 +176,11 @@ class MoneyBindActivity : BaseActivity(), View.OnClickListener, MoneyBindView {
                     mPresenter.alipayLogin(it, this@MoneyBindActivity.bindToLifecycle())
                 }
             } else {
-                //授权失败的时候再次调用完整版的进行授权，为了防止支付宝出错极简版无法授权
-                mDialog = ProgressDialogView().createLoadingDialog(this@MoneyBindActivity, "")
-                mDialog?.let { it ->
-                    if (!it.isShowing)
-                        it.show()
-                }
-                mPresenter.getAlipayAuthInfo(this@MoneyBindActivity.bindToLifecycle())
             }
         }
     }
 
-    //支付宝完整版授权
+    //支付宝完整版授权 有问题，偶尔会跳转到h5登陆页面，但打开支付宝后，又重新调起授权，可以获取授权信息
     fun authV2(authInfo : String){
         val authRunnable = Runnable {
             // 构造AuthTask 对象

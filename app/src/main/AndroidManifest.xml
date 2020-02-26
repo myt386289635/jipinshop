@@ -529,7 +529,7 @@
                   android:screenOrientation="portrait"
                   android:windowSoftInputMode="adjustResize|stateHidden"/>
 
-        <!--支付宝授权解决与阿里百川同一个文件冲突-->
+        <!--支付宝授权，极简版需要，完整版不需要-->
         <activity android:name="com.alipay.sdk.app.AlipayResultActivity" tools:node="merge">
             <intent-filter tools:node="replace">
                 <action android:name="android.intent.action.VIEW"/>
@@ -538,6 +538,7 @@
                 <data android:scheme="jipinshop"/>
             </intent-filter>
         </activity>
+        <!--支付宝授权解决与阿里百川同一个文件冲突-->
         <activity
             android:name="com.alipay.sdk.app.H5PayActivity"
             tools:replace="android:configChanges"
