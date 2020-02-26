@@ -28,9 +28,9 @@
         tools:replace="android:allowBackup"
         android:name=".MyApplication"
         android:allowBackup="true"
-        android:icon="@mipmap/logo"
+        android:icon="@mipmap/logo11"
         android:label="@string/app_name"
-        android:roundIcon="@mipmap/logo"
+        android:roundIcon="@mipmap/logo11"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <!--华为手机8.0：刘海屏适配-->
@@ -528,6 +528,16 @@
         <activity android:name=".activity.money.binding.MoneyBindActivity"
                   android:screenOrientation="portrait"
                   android:windowSoftInputMode="adjustResize|stateHidden"/>
+
+        <!--支付宝授权解决与阿里百川同一个文件冲突-->
+        <activity
+            android:name="com.alipay.sdk.app.H5PayActivity"
+            tools:replace="android:configChanges"
+            android:configChanges="orientation|keyboardHidden|navigation|screenSize"
+            android:exported="false"
+            android:screenOrientation="behind"
+            android:windowSoftInputMode="adjustResize|stateHidden" >
+        </activity>
 
     </application>
 

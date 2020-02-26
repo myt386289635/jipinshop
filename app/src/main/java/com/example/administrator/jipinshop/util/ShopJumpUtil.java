@@ -227,8 +227,8 @@ public class ShopJumpUtil {
                 intent.setClass(context, SignActivity.class);
                 context.startActivity(intent);
                 break;
-            case "16"://免单主页
-//                EventBus.getDefault().post(new ChangeHomePageBus(3));
+            case "16"://红包主页
+                EventBus.getDefault().post(new ChangeHomePageBus(2));
                 break;
             case "17"://榜单主页
                 EventBus.getDefault().post(new ChangeHomePageBus(3));
@@ -289,8 +289,8 @@ public class ShopJumpUtil {
                 }
                 context.startActivity(intent);
                 break;
-            case "7"://免单主页
-//                EventBus.getDefault().post(new ChangeHomePageBus(3));
+            case "7"://红包主页
+                EventBus.getDefault().post(new ChangeHomePageBus(2));
                 break;
             case "8"://榜单主页
                 EventBus.getDefault().post(new ChangeHomePageBus(3));

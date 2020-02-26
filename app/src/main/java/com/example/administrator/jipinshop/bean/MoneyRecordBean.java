@@ -1,5 +1,7 @@
 package com.example.administrator.jipinshop.bean;
 
+import android.text.TextUtils;
+
 import java.math.BigDecimal;
 import java.util.List;
 
@@ -85,7 +87,11 @@ public class MoneyRecordBean {
         }
 
         public String getMoney() {
-            return new BigDecimal(money).stripTrailingZeros().toPlainString();
+            if (TextUtils.isEmpty(money)){
+                return money;
+            }else {
+                return new BigDecimal(money).stripTrailingZeros().toPlainString();
+            }
         }
 
         public void setMoney(String money) {

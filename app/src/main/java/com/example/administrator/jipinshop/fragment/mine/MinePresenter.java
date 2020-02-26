@@ -10,7 +10,9 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 
 import com.example.administrator.jipinshop.R;
+import com.example.administrator.jipinshop.bean.EvaluationTabBean;
 import com.example.administrator.jipinshop.bean.MyWalletBean;
+import com.example.administrator.jipinshop.bean.SucBean;
 import com.example.administrator.jipinshop.bean.SuccessBean;
 import com.example.administrator.jipinshop.bean.UnMessageBean;
 import com.example.administrator.jipinshop.bean.UserInfoBean;
@@ -161,5 +163,29 @@ public class MinePresenter {
                 }, throwable -> {
                     mView.onFile(throwable.getMessage());
                 });
+    }
+
+    //轮播图数据
+    public void adList(LifecycleTransformer<SucBean<EvaluationTabBean.DataBean.AdListBean>> transformer){
+        mRepository.adList("14")
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .compose(transformer)
+                .subscribe(adListBeanSucBean -> {
+                    if (adListBeanSucBean.getCode() == 0){
+                        if (mView != null){
+                            mView.onAdList(adListBeanSucBean);
+                        }
+                    }else{
+                        if (mView != null){
+                            mView.onFile(adListBeanSucBean.getMsg());
+                        }
+                    }
+                }, throwable -> {
+                    if (mView != null){
+                        mView.onFile(throwable.getMessage());
+                    }
+                });
+
     }
 }

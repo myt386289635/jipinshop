@@ -1152,4 +1152,23 @@ public interface APIService {
     @POST("api/hongbao/openAll")
     Observable<SuccessBean> openAllMoney();
 
+    /**
+     * 支付宝授权登录回调地址
+     */
+    @GET("api/hongbao/alipay/returnUrl")
+    Observable<SucBeanT<String>> alipayLogin(@Query("authCode") String authCode);
+
+    /**
+     * 绑定支付宝
+     */
+    @FormUrlEncoded
+    @POST("api/hongbao/bindingAlipay")
+    Observable<SuccessBean> bindingAlipay(@Field("realname") String realname);
+
+    /**
+     * 获取支付宝授权请求参数
+     */
+    @GET("api/hongbao/alipay/getAuthInfo")
+    Observable<SucBeanT<String>> getAlipayAuthInfo();
+
 }

@@ -91,6 +91,7 @@ import javax.inject.Inject;
 
 import io.reactivex.Observable;
 import okhttp3.MultipartBody;
+import retrofit2.http.GET;
 
 public class Repository {
 
@@ -1264,5 +1265,26 @@ public class Repository {
      */
     public Observable<SuccessBean> openAllMoney(){
         return mAPIService.openAllMoney();
+    }
+
+    /**
+     * 支付宝授权登录回调地址
+     */
+    public Observable<SucBeanT<String>> alipayLogin(String authCode){
+        return mAPIService.alipayLogin(authCode);
+    }
+
+    /**
+     * 绑定支付宝
+     */
+    public Observable<SuccessBean> bindingAlipay(String realname){
+        return mAPIService.bindingAlipay(realname);
+    }
+
+    /**
+     * 获取支付宝授权请求参数
+     */
+    public Observable<SucBeanT<String>> getAlipayAuthInfo(){
+        return mAPIService.getAlipayAuthInfo();
     }
 }

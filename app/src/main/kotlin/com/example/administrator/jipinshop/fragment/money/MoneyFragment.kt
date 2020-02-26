@@ -64,6 +64,7 @@ class MoneyFragment : DBBaseFragment(), View.OnClickListener, OnRefreshListener,
     private var mShareBoardDialog: ShareBoardDialog3? = null
     private var mDialog: Dialog? = null
     private var alipayNickname = ""//支付宝昵称
+    private var realname = ""//真实姓名
 
     companion object{
         @JvmStatic //java中的静态方法
@@ -176,6 +177,7 @@ class MoneyFragment : DBBaseFragment(), View.OnClickListener, OnRefreshListener,
                     startActivityForResult(Intent(context,MoneyWithdrawActivity::class.java)
                             .putExtra("money", mBinding.moneyBalance.text.toString())
                             .putExtra("name",alipayNickname)
+                            .putExtra("realName" , realname)
                     ,300)
                 }
             }
@@ -246,6 +248,7 @@ class MoneyFragment : DBBaseFragment(), View.OnClickListener, OnRefreshListener,
             mBinding.moneyReTitle2.visibility = View.GONE
             //当前红包余额
             alipayNickname = bean.data.alipayNickname
+            realname = bean.data.realname
             mBinding.moneyBalance.text = bean.data.currentMoney
             mBinding.moneyBalanceNode.text = "邀请好友奖励可以立即提现"
             mBinding.moneyBalanceWithdraw.text = "立即提现"
@@ -476,6 +479,8 @@ class MoneyFragment : DBBaseFragment(), View.OnClickListener, OnRefreshListener,
             //从提现页面返回
             data?.let {
                 mBinding.moneyBalance.text = it.getStringExtra("money")
+                alipayNickname = it.getStringExtra("name")
+                realname = it.getStringExtra("realName")
             }
         } else if (requestCode == 301 && resultCode == 200){
             //从登陆页面返回

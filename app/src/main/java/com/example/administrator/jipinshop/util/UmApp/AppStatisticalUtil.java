@@ -44,7 +44,7 @@ public class AppStatisticalUtil {
                 addEvent("bangdan",transformer);
                 break;
             case 2:
-//                addEvent("miandan",transformer);
+                addEvent("hongbao",transformer);
                 break;
             case 4:
                 addEvent("wode",transformer);

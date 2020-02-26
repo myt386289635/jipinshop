@@ -6,6 +6,10 @@ import android.content.ClipboardManager;
 import android.content.Context;
 import android.content.Intent;
 import android.databinding.DataBindingUtil;
+import android.os.Handler;
+import android.os.Looper;
+import android.os.Message;
+import android.support.v4.view.ViewPager;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -32,35 +36,39 @@ import com.example.administrator.jipinshop.activity.setting.SettingActivity;
 import com.example.administrator.jipinshop.activity.setting.opinion.OpinionActivity;
 import com.example.administrator.jipinshop.activity.sign.SignActivity;
 import com.example.administrator.jipinshop.activity.sign.invitation.InvitationNewActivity;
+import com.example.administrator.jipinshop.adapter.KTPagerAdapter3;
 import com.example.administrator.jipinshop.base.DBBaseFragment;
+import com.example.administrator.jipinshop.bean.EvaluationTabBean;
 import com.example.administrator.jipinshop.bean.MyWalletBean;
+import com.example.administrator.jipinshop.bean.SucBean;
 import com.example.administrator.jipinshop.bean.SuccessBean;
 import com.example.administrator.jipinshop.bean.UnMessageBean;
 import com.example.administrator.jipinshop.bean.UserInfoBean;
 import com.example.administrator.jipinshop.bean.eventbus.EditNameBus;
-import com.example.administrator.jipinshop.bean.eventbus.FollowBus;
 import com.example.administrator.jipinshop.databinding.FragmentMineBinding;
-import com.example.administrator.jipinshop.fragment.follow.attention.AttentionFragment;
-import com.example.administrator.jipinshop.fragment.follow.fans.FansFragment;
 import com.example.administrator.jipinshop.jpush.JPushReceiver;
+import com.example.administrator.jipinshop.util.ShopJumpUtil;
 import com.example.administrator.jipinshop.util.ToastUtil;
 import com.example.administrator.jipinshop.util.UmApp.UAppUtil;
+import com.example.administrator.jipinshop.util.WeakRefHandler;
 import com.example.administrator.jipinshop.util.sp.CommonDate;
 import com.example.administrator.jipinshop.view.dialog.DialogUtil;
 import com.example.administrator.jipinshop.view.dialog.ProgressDialogView;
 import com.example.administrator.jipinshop.view.glide.GlideApp;
+import com.example.administrator.jipinshop.view.viewpager.TouchViewPager;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 
-import java.math.BigDecimal;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.inject.Inject;
 
 import q.rorbin.badgeview.Badge;
 import q.rorbin.badgeview.QBadgeView;
 
-public class MineFragment extends DBBaseFragment implements View.OnClickListener, MineView, Badge.OnDragStateChangedListener {
+public class MineFragment extends DBBaseFragment implements View.OnClickListener, MineView, Badge.OnDragStateChangedListener, ViewPager.OnPageChangeListener {
 
     @Inject
     MinePresenter mPresenter;
@@ -71,6 +79,30 @@ public class MineFragment extends DBBaseFragment implements View.OnClickListener
     private QBadgeView mQBadgeView;
     private String officialWeChat = "";//客服电话
     private Dialog mDialog;
+    //轮播图需要
+    private List<EvaluationTabBean.DataBean.AdListBean>  mAdListBeans;
+    private int currentItem = 0;
+    private int count = 0;//记录轮播图实际张数
+    private KTPagerAdapter3 mPagerAdapter;
+    private Handler.Callback mCallback = new Handler.Callback() {
+        @Override
+        public boolean handleMessage(Message it) {
+            if (it.what == 100) {
+                if (count > 1){
+                    currentItem = currentItem % (count + 1) + 1;
+                    if (currentItem == 1) {
+                        mBinding.viewPager.setCurrentItem(currentItem, false);
+                        mHandler.sendEmptyMessage(100);
+                    }else{
+                        mBinding.viewPager.setCurrentItem(currentItem);
+                        mHandler.sendEmptyMessageDelayed(100,5000);
+                    }
+                }
+            }
+            return  true;
+        }
+    };
+    private Handler mHandler = new WeakRefHandler(mCallback, Looper.getMainLooper());
 
     @Override
     public View initLayout(LayoutInflater inflater, ViewGroup container) {
@@ -83,6 +115,29 @@ public class MineFragment extends DBBaseFragment implements View.OnClickListener
     public void initView() {
         mBaseFragmentComponent.inject(this);
         EventBus.getDefault().register(this);
+
+        mAdListBeans = new ArrayList<>();
+        mPagerAdapter = new KTPagerAdapter3(getContext());
+        mPagerAdapter.setList(mAdListBeans);
+        mPagerAdapter.setImgCenter(false);
+        mBinding.viewPager.setAdapter(mPagerAdapter);
+        mBinding.viewPager.addOnPageChangeListener(this);
+        mBinding.viewPager.setOnTouchListener(new TouchViewPager.OnTouchListener() {
+            @Override
+            public void startAutoPlay() {
+                mHandler.removeCallbacksAndMessages(null);
+                mHandler.sendEmptyMessageDelayed(100,5000);
+            }
+
+            @Override
+            public void stopAutoPlay() {
+                mHandler.removeCallbacksAndMessages(null);
+            }
+        });
+        mPagerAdapter.setOnClickItem(postion -> {
+            ShopJumpUtil.openBanner(getContext(), mAdListBeans.get(postion).getType() + "",
+                    mAdListBeans.get(postion).getObjectId(), mAdListBeans.get(postion).getName());
+        });
 
         mPresenter.setStatusBarHight(mBinding, getContext());
         mPresenter.setView(this);
@@ -474,10 +529,82 @@ public class MineFragment extends DBBaseFragment implements View.OnClickListener
             mPresenter.myCommssionSummary(this.bindToLifecycle());//获取本人佣金
         }
         mPresenter.unMessage(this.bindToLifecycle());
+        mPresenter.adList(this.bindToLifecycle());//请求轮播图数据
+    }
+
+    //轮播图返回数据
+    @Override
+    public void onAdList(SucBean<EvaluationTabBean.DataBean.AdListBean> bean) {
+        if (bean.getData() != null && bean.getData().size() != 0){
+            mBinding.viewPager.setVisibility(View.VISIBLE);
+            mAdListBeans.clear();
+            if (bean.getData().size() > 1) {
+                for (int i = 0; i < bean.getData().size() + 2; i++) {
+                    if ( i == 0){
+                        //加入最后一个
+                        mAdListBeans.add(bean.getData().get(bean.getData().size() - 1));
+                    } else  if (i == (bean.getData().size() + 1)){
+                        //加入第一个
+                        mAdListBeans.add(bean.getData().get(0));
+                    }else {
+                        mAdListBeans.add(bean.getData().get(i - 1));
+                    }
+                }
+            }else {
+                mAdListBeans.addAll(bean.getData());
+            }
+            initBanner();
+        }else {
+            mBinding.viewPager.setVisibility(View.GONE);
+        }
     }
 
     @Override
     public void onDragStateChanged(int dragState, Badge badge, View targetView) {
 
+    }
+
+    @Override
+    public void onPageScrolled(int i, float v, int i1) {
+
+    }
+
+    @Override
+    public void onPageSelected(int position) {
+        currentItem = position;
+    }
+
+    @Override
+    public void onPageScrollStateChanged(int state) {
+        switch (state) {
+            case  0://No operation
+                if (currentItem == 0) {
+                    mBinding.viewPager.setCurrentItem(count, false);
+                } else if (currentItem == count + 1) {
+                    mBinding.viewPager.setCurrentItem(1, false);
+                }
+                break;
+            case 1://start Sliding
+                if (currentItem == count + 1) {
+                    mBinding.viewPager.setCurrentItem(1, false);
+                } else if (currentItem == 0) {
+                    mBinding.viewPager.setCurrentItem(count, false);
+                }
+                break;
+            case 2://end Sliding
+                break;
+        }
+    }
+
+    public void initBanner() {
+        if (mAdListBeans.size() > 1){
+            count =mAdListBeans.size() - 2;
+        }else{
+            count = mAdListBeans.size();
+        }
+        mHandler.removeCallbacksAndMessages(null);//刷新时，要删除handler的请求
+        mHandler.sendEmptyMessageDelayed(100,5000);
+        mBinding.viewPager.setCurrentItem(1,false);
+        mPagerAdapter.notifyDataSetChanged();
     }
 }

@@ -31,6 +31,7 @@ class MoneyWithdrawActivity : BaseActivity(), View.OnClickListener, MoneyWithdra
     private var limiMoney = 50
     private var mDialog: Dialog? = null
     private var alipayNickname = ""//支付宝昵称
+    private var realname = ""//真实姓名
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -47,7 +48,8 @@ class MoneyWithdrawActivity : BaseActivity(), View.OnClickListener, MoneyWithdra
         }
         mBinding.withdrawMoney.text = intent.getStringExtra("money")
         alipayNickname = intent.getStringExtra("name")
-        if(TextUtils.isEmpty(alipayNickname)){
+        realname = intent.getStringExtra("realName")
+        if(TextUtils.isEmpty(alipayNickname) || TextUtils.isEmpty(realname)){
             mBinding.withdrawBindingText.text = "绑定账号"
         }else{
             mBinding.withdrawBindingText.text = "已绑定"
@@ -59,6 +61,8 @@ class MoneyWithdrawActivity : BaseActivity(), View.OnClickListener, MoneyWithdra
             R.id.title_back -> {
                 var intent = Intent()
                 intent.putExtra("money" , mBinding.withdrawMoney.text.toString())
+                intent.putExtra("name",alipayNickname)
+                intent.putExtra("realName" , realname)
                 setResult(300,intent)
                 finish()
             }
@@ -68,7 +72,7 @@ class MoneyWithdrawActivity : BaseActivity(), View.OnClickListener, MoneyWithdra
                     ToastUtil.show("金额不足")
                     return
                 }
-                if(TextUtils.isEmpty(alipayNickname)){
+                if(TextUtils.isEmpty(realname) || TextUtils.isEmpty(alipayNickname)){
                     ToastUtil.show("请绑定支付宝账号")
                     return
                 }
@@ -85,9 +89,10 @@ class MoneyWithdrawActivity : BaseActivity(), View.OnClickListener, MoneyWithdra
                 startActivity(Intent(this,MoneyRecordActivity::class.java))
             }
             R.id.withdraw_binding -> {
-                if(TextUtils.isEmpty(alipayNickname)){
-                    startActivity(Intent(this, MoneyBindActivity::class.java))
-                }
+                startActivityForResult(Intent(this, MoneyBindActivity::class.java)
+                        .putExtra("name",alipayNickname)
+                        .putExtra("realName" , realname)
+                ,303)
             }
             R.id.withdraw_money50 -> {
                 initButton()
@@ -138,7 +143,24 @@ class MoneyWithdrawActivity : BaseActivity(), View.OnClickListener, MoneyWithdra
     override fun onBackPressed() {
         var intent = Intent()
         intent.putExtra("money" , mBinding.withdrawMoney.text.toString())
+        intent.putExtra("name",alipayNickname)
+        intent.putExtra("realName" , realname)
         setResult(300,intent)
         super.onBackPressed()
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        if (requestCode == 303 && resultCode == 200){
+            data?.let {
+                alipayNickname = it.getStringExtra("name")
+                realname = it.getStringExtra("realName")
+                if(TextUtils.isEmpty(alipayNickname) || TextUtils.isEmpty(realname)){
+                    mBinding.withdrawBindingText.text = "绑定账号"
+                }else{
+                    mBinding.withdrawBindingText.text = "已绑定"
+                }
+            }
+        }
     }
 }

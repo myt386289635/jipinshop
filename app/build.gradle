@@ -243,4 +243,7 @@ dependencies {
     implementation('com.github.hackware1993:MagicIndicator:1.6.0') {
         exclude group: 'com.android.support'
     }
+
+    //支付宝授权SDK AAR 包所需的配置
+    implementation(name:'alipaySdk-15.7.3-20200217092949-noUtdid', ext:'aar')
 }

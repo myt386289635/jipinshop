@@ -536,13 +536,24 @@
 
                 </LinearLayout>
 
+                <com.example.administrator.jipinshop.view.viewpager.TouchViewPager
+                    android:id="@+id/view_pager"
+                    android:visibility="gone"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/y188"
+                    android:layout_below="@+id/mine_headbootomContainer"
+                    android:layout_marginLeft="@dimen/x30"
+                    android:layout_marginTop="@dimen/y20"
+                    android:layout_marginRight="@dimen/x30"/>
+
                 <LinearLayout
+                    android:layout_marginBottom="@dimen/y20"
                     android:layout_marginTop="@dimen/y20"
                     android:layout_marginRight="@dimen/x30"
                     android:layout_marginLeft="@dimen/x30"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_below="@+id/mine_headbootomContainer"
+                    android:layout_below="@+id/view_pager"
                     android:background="@drawable/bg_balance"
                     android:orientation="vertical">
 

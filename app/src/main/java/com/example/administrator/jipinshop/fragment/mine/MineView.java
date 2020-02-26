@@ -3,7 +3,9 @@ package com.example.administrator.jipinshop.fragment.mine;
 import android.app.Dialog;
 import android.view.inputmethod.InputMethodManager;
 
+import com.example.administrator.jipinshop.bean.EvaluationTabBean;
 import com.example.administrator.jipinshop.bean.MyWalletBean;
+import com.example.administrator.jipinshop.bean.SucBean;
 import com.example.administrator.jipinshop.bean.SuccessBean;
 import com.example.administrator.jipinshop.bean.UnMessageBean;
 import com.example.administrator.jipinshop.bean.UserInfoBean;
@@ -28,4 +30,6 @@ public interface MineView {
     void onFile(String error);
 
     void onCodeSuc(Dialog dialog, InputMethodManager inputManager, SuccessBean bean);
+
+    void onAdList(SucBean<EvaluationTabBean.DataBean.AdListBean> adListBeanSucBean);
 }

@@ -51,9 +51,18 @@ public class MoneyBean {
         private String currentMoney;
         private String totalMoney;//累计红包
         private String alipayNickname;//支付宝昵称
+        private String realname;//真实姓名
         private List<MessageListBean> messageList;//跑马灯
         private List<String> avatarList;//头像
         private List<HongbaoListBean> hongbaoList;
+
+        public String getRealname() {
+            return realname;
+        }
+
+        public void setRealname(String realname) {
+            this.realname = realname;
+        }
 
         public String getAlipayNickname() {
             return alipayNickname;
