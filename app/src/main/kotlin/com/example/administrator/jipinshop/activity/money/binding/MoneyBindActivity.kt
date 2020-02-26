@@ -13,6 +13,7 @@ import android.view.MotionEvent
 import android.view.View
 import android.widget.EditText
 import com.alipay.sdk.app.AuthTask
+import com.alipay.sdk.app.OpenAuthTask
 import com.example.administrator.jipinshop.R
 import com.example.administrator.jipinshop.base.BaseActivity
 import com.example.administrator.jipinshop.bean.AuthResult
@@ -20,6 +21,7 @@ import com.example.administrator.jipinshop.databinding.ActivityMoneyBindBinding
 import com.example.administrator.jipinshop.util.ToastUtil
 import com.example.administrator.jipinshop.util.permission.HasPermissionsUtil
 import com.example.administrator.jipinshop.view.dialog.ProgressDialogView
+import java.util.HashMap
 import javax.inject.Inject
 
 /**
@@ -72,12 +74,13 @@ class MoneyBindActivity : BaseActivity(), View.OnClickListener, MoneyBindView {
                     HasPermissionsUtil.permission(this,object : HasPermissionsUtil(){
                         override fun hasPermissionsSuccess() {
                             super.hasPermissionsSuccess()
-                            mDialog = ProgressDialogView().createLoadingDialog(this@MoneyBindActivity, "")
-                            mDialog?.let { it ->
-                                if (!it.isShowing)
-                                    it.show()
-                            }
-                            mPresenter.getAlipayAuthInfo(this@MoneyBindActivity.bindToLifecycle())
+//                            mDialog = ProgressDialogView().createLoadingDialog(this@MoneyBindActivity, "")
+//                            mDialog?.let { it ->
+//                                if (!it.isShowing)
+//                                    it.show()
+//                            }
+//                            mPresenter.getAlipayAuthInfo(this@MoneyBindActivity.bindToLifecycle())
+                            openAuthScheme()
                         }
                     }, Manifest.permission.READ_PHONE_STATE,Manifest.permission.WRITE_EXTERNAL_STORAGE)
                 }else {
@@ -135,6 +138,49 @@ class MoneyBindActivity : BaseActivity(), View.OnClickListener, MoneyBindView {
         }
     }
 
+    //支付宝极速版授权
+    fun openAuthScheme() {
+
+        // 传递给支付宝应用的业务参数
+        var bizParams = HashMap<String, String>()
+        bizParams["url"] = "https://authweb.alipay.com/auth?auth_type=PURE_OAUTH_SDK&app_id=2021001135656812&scope=auth_user&state=init"
+
+        // 支付宝回跳到你的应用时使用的 Intent Scheme。请设置为不和其它应用冲突的值。
+        // 如果不设置，将无法使用 H5 中间页的方法(OpenAuthTask.execute() 的最后一个参数)回跳至
+        // 你的应用。
+        //
+        // 参见 AndroidManifest 中 <AlipayResultActivity> 的 android:scheme，此两处
+        // 必须设置为相同的值。
+        var scheme = "jipinshop"
+
+        // 唤起授权业务
+        var task = OpenAuthTask(this)
+        task.execute(
+                scheme, // Intent Scheme
+                OpenAuthTask.BizType.AccountAuth, // 业务类型
+                bizParams, // 业务参数
+                openAuthCallback, // 业务结果回调。注意：此回调必须被你的应用保持强引用
+                false) // 是否需要在用户未安装支付宝 App 时，使用 H5 中间页中转
+    }
+
+    private var openAuthCallback: OpenAuthTask.Callback = OpenAuthTask.Callback { i, s, bundle ->
+        run {
+            if (i == OpenAuthTask.OK) {
+                var authCode = bundle.getString("auth_code")
+                authCode?.let {
+                    mDialog = ProgressDialogView().createLoadingDialog(this@MoneyBindActivity, "")
+                    mDialog?.let { it ->
+                        if (!it.isShowing)
+                            it.show()
+                    }
+                    mPresenter.alipayLogin(it, this@MoneyBindActivity.bindToLifecycle())
+                }
+            } else {
+                ToastUtil.show(String.format("业务失败，结果码: %s", i))
+            }
+        }
+    }
+
     //支付宝完整版授权
     fun authV2(authInfo : String){
         val authRunnable = Runnable {
@@ -185,6 +231,7 @@ class MoneyBindActivity : BaseActivity(), View.OnClickListener, MoneyBindView {
         }
         authV2(info)
     }
+    //完整版代码结束
 
     override fun onSuccess(name: String?) {
         mDialog?.let {
