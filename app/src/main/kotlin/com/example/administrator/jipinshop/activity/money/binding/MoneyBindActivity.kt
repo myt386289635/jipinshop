@@ -65,6 +65,7 @@ class MoneyBindActivity : BaseActivity(), View.OnClickListener, MoneyBindView {
         }else{
             mBinding.bindName.setText(realname)
             mBinding.bindName.isFocusableInTouchMode = false
+            mBinding.bindAccount.setBackgroundColor(resources.getColor(R.color.color_9D9D9D))
         }
     }
 

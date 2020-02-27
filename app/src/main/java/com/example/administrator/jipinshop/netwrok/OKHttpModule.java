@@ -3,6 +3,7 @@ package com.example.administrator.jipinshop.netwrok;
 import android.content.Context;
 import android.text.TextUtils;
 
+import com.blankj.utilcode.util.DeviceUtils;
 import com.blankj.utilcode.util.EncryptUtils;
 import com.blankj.utilcode.util.SPUtils;
 import com.example.administrator.jipinshop.activity.setting.SettingActivity;
@@ -81,6 +82,9 @@ public class OKHttpModule {
                     .addHeader("token", SPUtils.getInstance(CommonDate.USER).getString(CommonDate.token,""))
                     .addHeader("uuid", new DeviceUuidFactory(context).getDeviceUuid())
                     .addHeader("androidid",DeviceUuidFactory.getAndroidID(context))
+                    .addHeader("mac", DeviceUtils.getMacAddress())//mac地址
+                    .addHeader("gateway",DeviceUuidFactory.getGateWay())//网关
+                    .addHeader("wx",DeviceUuidFactory.isWXClientAvailable(context))//是否安装微信客户端
                     .addHeader("imei",DeviceUuidFactory.getIMEI(context))
                     .addHeader("client","android_" + AppChannelUtil.getChannelId())
                     .addHeader("appVersion", SettingActivity.getVerName(context))

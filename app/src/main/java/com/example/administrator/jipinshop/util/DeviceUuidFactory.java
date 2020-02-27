@@ -10,8 +10,12 @@ import android.support.v4.app.ActivityCompat;
 import android.telephony.TelephonyManager;
 import android.text.TextUtils;
 
+import com.example.administrator.jipinshop.util.share.PlatformUtil;
 import com.ta.utdid2.device.UTDevice;
 
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
 import java.io.UnsupportedEncodingException;
 import java.util.HashMap;
 import java.util.Map;
@@ -146,4 +150,31 @@ public class DeviceUuidFactory {
         return imei;
     }
 
+
+    //获取默认网关
+    public static String getGateWay() {
+        String [] arr;
+        try {
+            Process  process = Runtime.getRuntime().exec("ip route list table 0");
+            String data = null;
+            BufferedReader ie = new BufferedReader(new InputStreamReader(process.getErrorStream()));
+            BufferedReader in = new BufferedReader(new InputStreamReader(process.getInputStream()));
+            String string = in.readLine();
+
+            arr = string.split("\\s+");
+            return arr[2];
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return "error";
+    }
+
+    //是否安装微信
+    public static String isWXClientAvailable(Context context){
+        if (PlatformUtil.isWxAppInstalledAndSupported(context)){
+            return "1";
+        }else {
+            return "0";
+        }
+    }
 }

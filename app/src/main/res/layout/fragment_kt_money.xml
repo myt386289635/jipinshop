@@ -182,7 +182,6 @@
                         android:paddingRight="@dimen/x76"
                         android:paddingLeft="@dimen/x76"
                         android:text="立即邀请"
-                        android:textStyle="bold"
                         android:textSize="21sp"
                         android:textColor="@color/color_BB7027"
                         android:background="@drawable/bg_f9d8b4"
