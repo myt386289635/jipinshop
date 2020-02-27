@@ -114,7 +114,8 @@ class KTMainFragment : DBBaseFragment(), OnLoadMoreListener, OnRefreshListener, 
 
         var fragment = parentFragment
         if (fragment as? KTHomeFragnent != null)
-            mPresenter.solveScoll(mBinding.mainBackground,mBinding.swipeTarget,mBinding.swipeToLoad,fragment.getAppBar())
+            mPresenter.solveScoll(mBinding.mainBackground,mBinding.swipeTarget,
+                    mBinding.swipeToLoad,fragment.getAppBar(),fragment)
         mBinding.swipeToLoad.setOnLoadMoreListener(this)
         mBinding.swipeToLoad.setOnRefreshListener(this)
         mBinding.swipeToLoad.post {

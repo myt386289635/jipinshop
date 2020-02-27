@@ -4,12 +4,14 @@ import android.support.design.widget.AppBarLayout
 import android.support.v7.widget.GridLayoutManager
 import android.support.v7.widget.RecyclerView
 import android.text.TextUtils
+import android.util.Log
 import android.view.View
 import android.widget.ImageView
 import com.aspsine.swipetoloadlayout.SwipeToLoadLayout
 import com.example.administrator.jipinshop.bean.ImageBean
 import com.example.administrator.jipinshop.bean.TBSreachResultBean
 import com.example.administrator.jipinshop.bean.TbkIndexBean
+import com.example.administrator.jipinshop.fragment.home.KTHomeFragnent
 import com.example.administrator.jipinshop.netwrok.Repository
 import com.trello.rxlifecycle2.LifecycleTransformer
 import io.reactivex.android.schedulers.AndroidSchedulers
@@ -37,7 +39,9 @@ class KTMainPresenter {
     }
 
     //解决冲突问题
-    fun solveScoll(mainBackground : ImageView, mRecyclerView: RecyclerView, mSwipeToLoad: SwipeToLoadLayout, appBarLayout: AppBarLayout) {
+    fun solveScoll(mainBackground : ImageView, mRecyclerView: RecyclerView,
+                   mSwipeToLoad: SwipeToLoadLayout, appBarLayout: AppBarLayout ,
+                   fragment: KTHomeFragnent) {
         var layoutManager = mRecyclerView.layoutManager
         var linearManager = layoutManager as GridLayoutManager
         mRecyclerView.addOnScrollListener(object : RecyclerView.OnScrollListener() {
@@ -49,6 +53,20 @@ class KTMainPresenter {
                     View.VISIBLE
                 } else {
                     View.GONE
+                }
+            }
+
+            override fun onScrollStateChanged(recyclerView: RecyclerView, newState: Int) {
+                super.onScrollStateChanged(recyclerView, newState)
+                when(newState){
+                    0 -> {
+                        //RecyclerView在停止状态中
+                        fragment.toLeft()
+                    }
+                    else -> {
+                        //RecyclerView在滑动状态中
+                        fragment.toRight()
+                    }
                 }
             }
         })

@@ -1,14 +1,20 @@
 package com.example.administrator.jipinshop.fragment.home
 
+import android.animation.Animator
+import android.animation.ObjectAnimator
 import android.content.Intent
 import android.databinding.DataBindingUtil
 import android.graphics.Color
+import android.os.Handler
+import android.os.Looper
+import android.os.Message
 import android.support.design.widget.AppBarLayout
 import android.support.v4.app.Fragment
 import android.support.v4.view.ViewPager
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.animation.Animation
 import android.widget.Toast
 import com.example.administrator.jipinshop.R
 import com.example.administrator.jipinshop.activity.sreach.TBSreachActivity
@@ -23,6 +29,7 @@ import com.example.administrator.jipinshop.fragment.home.main.KTMainFragment
 import com.example.administrator.jipinshop.fragment.home.userlike.KTUserLikeFragment
 import com.example.administrator.jipinshop.util.ToastUtil
 import com.example.administrator.jipinshop.util.UmApp.AppStatisticalUtil
+import com.example.administrator.jipinshop.util.WeakRefHandler
 import net.lucode.hackware.magicindicator.ViewPagerHelper
 import net.lucode.hackware.magicindicator.buildins.commonnavigator.CommonNavigator
 import org.greenrobot.eventbus.EventBus
@@ -81,6 +88,12 @@ class KTHomeFragnent : DBBaseFragment(), View.OnClickListener, ViewPager.OnPageC
         commonNavigator.adapter = mTabAdapter
         mBinding.tabLayout.navigator = commonNavigator
         ViewPagerHelper.bind(mBinding.tabLayout, mBinding.viewPager)
+
+        context?.let {
+            var set = it.resources.getDimension(R.dimen.x120)
+            toLeft =   ObjectAnimator.ofFloat(mBinding.homeAction, "translationX",set , 0f)
+            toRight =   ObjectAnimator.ofFloat(mBinding.homeAction, "translationX",0f , set)
+        }
 
         mPresenter.getData(this.bindToLifecycle())
         appStatisticalUtil.addEvent("shouye_fenlei.1",this.bindToLifecycle())//统计精选
@@ -152,4 +165,77 @@ class KTHomeFragnent : DBBaseFragment(), View.OnClickListener, ViewPager.OnPageC
         mBinding.viewPager.offscreenPageLimit = mList.size - 1
         mTabAdapter.notifyDataSetChanged()
     }
+
+    /*******首页悬浮框动画隐藏效果********/
+    private var toRight : ObjectAnimator? = null
+    private var toLeft : ObjectAnimator? = null
+    private var RightOnce  = true //右边动画只走一次
+    private var LeftOnce  = true
+    private var isRight = false  //标志只走一次  true:在右边  false ：回原位了
+    private var mCallback = Handler.Callback { it ->
+        if (it.what == 100) {
+            toRight?.let { rightAnimator ->
+                rightAnimator.start()
+                rightAnimator.addListener(object : Animator.AnimatorListener{
+                    override fun onAnimationRepeat(animation: Animator?) {}
+
+                    override fun onAnimationCancel(animation: Animator?) {}
+
+                    override fun onAnimationStart(animation: Animator?) {}
+
+                    override fun onAnimationEnd(animation: Animator?) {
+                        isRight = true // 此时在右边的
+                    }
+                })
+            }
+        } else if (it.what == 110){
+            toLeft?.let { leftAnimator ->
+                leftAnimator.start()
+                leftAnimator.addListener(object : Animator.AnimatorListener {
+                    override fun onAnimationRepeat(animation: Animator?) {}
+
+                    override fun onAnimationCancel(animation: Animator?) {}
+
+                    override fun onAnimationStart(animation: Animator?) {}
+
+                    override fun onAnimationEnd(animation: Animator?) {
+                        isRight = false
+                    }
+                })
+            }
+        }
+        true
+    }
+    private var mHandler = WeakRefHandler(mCallback, Looper.getMainLooper())
+
+    fun toRight(){
+        mHandler.removeCallbacksAndMessages(null)
+        if (!isRight){
+            if (RightOnce){
+                LeftOnce = true
+                RightOnce = false
+                mHandler.sendEmptyMessage(100)
+            }
+        }else{
+            if (!LeftOnce){
+                LeftOnce = true
+            }
+        }
+    }
+
+    fun toLeft(){
+        if (isRight){
+            if (LeftOnce){
+                LeftOnce = false
+                RightOnce = true
+                mHandler.sendEmptyMessageDelayed(110,2000)
+            }
+        }
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        mHandler.removeCallbacksAndMessages(null)
+    }
+    /**************结束****************/
 }
