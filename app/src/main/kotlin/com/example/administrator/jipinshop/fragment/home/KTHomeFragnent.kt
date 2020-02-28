@@ -183,9 +183,7 @@ class KTHomeFragnent : DBBaseFragment(), View.OnClickListener, ViewPager.OnPageC
 
                     override fun onAnimationStart(animation: Animator?) {}
 
-                    override fun onAnimationEnd(animation: Animator?) {
-                        isRight = true // 此时在右边的
-                    }
+                    override fun onAnimationEnd(animation: Animator?) {}
                 })
             }
         } else if (it.what == 110){
@@ -214,6 +212,7 @@ class KTHomeFragnent : DBBaseFragment(), View.OnClickListener, ViewPager.OnPageC
             if (RightOnce){
                 LeftOnce = true
                 RightOnce = false
+                isRight = true // 此时在右边的
                 mHandler.sendEmptyMessage(100)
             }
         }else{
