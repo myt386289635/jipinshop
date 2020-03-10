@@ -9,7 +9,9 @@ import android.view.View;
 
 import com.example.administrator.jipinshop.R;
 import com.example.administrator.jipinshop.bean.AppVersionbean;
+import com.example.administrator.jipinshop.bean.EvaluationTabBean;
 import com.example.administrator.jipinshop.bean.PopInfoBean;
+import com.example.administrator.jipinshop.bean.SucBean;
 import com.example.administrator.jipinshop.bean.SuccessBean;
 import com.example.administrator.jipinshop.bean.TklBean;
 import com.example.administrator.jipinshop.netwrok.Repository;
@@ -39,12 +41,12 @@ public class MainActivityPresenter {
         tabLayout.getTabAt(0).setCustomView(view2);
         View view3 = LayoutInflater.from(context).inflate(R.layout.tablayout_item3,null);
         tabLayout.getTabAt(1).setCustomView(view3);
-        View view4 = LayoutInflater.from(context).inflate(R.layout.tablayout_item4, null);
-        tabLayout.getTabAt(2).setCustomView(view4);
+//        View view4 = LayoutInflater.from(context).inflate(R.layout.tablayout_item4, null);
+//        tabLayout.getTabAt(2).setCustomView(view4);
         View view1 = LayoutInflater.from(context).inflate(R.layout.tablayout_item1,null);
-        tabLayout.getTabAt(3).setCustomView(view1);
+        tabLayout.getTabAt(2).setCustomView(view1);
         View view5 = LayoutInflater.from(context).inflate(R.layout.tablayout_item5, null);
-        tabLayout.getTabAt(4).setCustomView(view5);
+        tabLayout.getTabAt(3).setCustomView(view5);
         //水波纹颜色
         tabLayout.setTabRippleColor(ColorStateList.valueOf(context.getResources().getColor(R.color.transparent)));
     }
@@ -127,5 +129,21 @@ public class MainActivityPresenter {
                 }, throwable -> {
                     mView.onInvitationFile(throwable.getMessage());
                 });
+    }
+
+    //app广告数据
+    public void adList(LifecycleTransformer<SucBean<EvaluationTabBean.DataBean.AdListBean>> transformer){
+        mRepository.adList("15")
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .compose(transformer)
+                .subscribe(adListBeanSucBean -> {
+                    if (adListBeanSucBean.getCode() == 0){
+                        if (mView != null){
+                            mView.onAdList(adListBeanSucBean);
+                        }
+                    }
+                }, throwable -> {});
+
     }
 }

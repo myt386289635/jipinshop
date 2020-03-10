@@ -672,4 +672,18 @@ public class DialogUtil {
         dialog.show();
         dialog.setContentView(view);
     }
+
+    //特惠购页面新手指导
+    public static void cheapGuideDialog(Context context) {
+        AlertDialog.Builder builder = new AlertDialog.Builder(context, R.style.dialog);
+        final Dialog dialog = builder.create();
+        View view = LayoutInflater.from(context).inflate(R.layout.dialog_cheap_guide, null);
+        ImageView dialog_cancle = view.findViewById(R.id.dialog_cancle);
+        dialog_cancle.setOnClickListener(v -> {
+            dialog.dismiss();
+        });
+        dialog.getWindow().setDimAmount(0.8f);
+        dialog.show();
+        dialog.setContentView(view);
+    }
 }

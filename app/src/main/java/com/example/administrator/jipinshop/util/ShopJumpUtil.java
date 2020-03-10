@@ -8,11 +8,13 @@ import android.util.Log;
 
 import com.blankj.utilcode.util.SPUtils;
 import com.example.administrator.jipinshop.activity.WebActivity;
+import com.example.administrator.jipinshop.activity.cheapgoods.CheapBuyActivity;
 import com.example.administrator.jipinshop.activity.home.HomeDetailActivity;
 import com.example.administrator.jipinshop.activity.home.article.ArticleDetailActivity;
 import com.example.administrator.jipinshop.activity.home.classification.ClassifyActivity;
 import com.example.administrator.jipinshop.activity.login.LoginActivity;
 import com.example.administrator.jipinshop.activity.mall.MallActivity;
+import com.example.administrator.jipinshop.activity.message.MessageActivity;
 import com.example.administrator.jipinshop.activity.report.detail.ReportDetailActivity;
 import com.example.administrator.jipinshop.activity.shoppingdetail.ShoppingDetailActivity;
 import com.example.administrator.jipinshop.activity.shoppingdetail.tbshoppingdetail.TBShoppingDetailActivity;
@@ -132,7 +134,7 @@ public class ShopJumpUtil {
     }
 
     /**
-     * 公用跳转逻辑
+     * 首页弹窗dialog跳转逻辑
      */
     public static void openPager(Context context, String targetType, String target_id , String target_title ){
         Intent intent = new Intent();
@@ -233,7 +235,62 @@ public class ShopJumpUtil {
             case "17"://榜单主页
                 EventBus.getDefault().post(new ChangeHomePageBus(3));
                 break;
+            case "18"://特惠购列表
+                intent.setClass(context, CheapBuyActivity.class);
+                context.startActivity(intent);
+                break;
         }
+    }
+
+    /**
+     * 推送跳转
+     */
+    public static void openJPush(Context context, String targetType, String target_id , String target_title){
+        Intent intent = new Intent();
+        switch (targetType){
+            case "2"://评测详情
+                intent.setClass(context, ArticleDetailActivity.class);
+                intent.putExtra("id",target_id);
+                intent.putExtra("type","2");
+                break;
+            case "11"://专题页面
+                intent.setClass(context, HomeDetailActivity.class);
+                intent.putExtra("id",target_id);
+                intent.putExtra("title",target_title);
+                break;
+            case "12"://淘宝客详情页面
+                intent.setClass(context, TBShoppingDetailActivity.class);
+                intent.putExtra("otherGoodsId", target_id);
+                break;
+            case "13"://H5页面
+                intent.setClass(context, WebActivity.class);
+                intent.putExtra(WebActivity.url, target_id);
+                intent.putExtra(WebActivity.title,target_title);
+                break;
+            case "14"://极币商城
+                intent.setClass(context, MallActivity.class);
+                break;
+            case "15"://任务中心
+                intent.setClass(context, SignActivity.class);
+                break;
+            case "16"://红包主页
+                EventBus.getDefault().post(new ChangeHomePageBus(2));
+                break;
+            case "17"://榜单主页
+                EventBus.getDefault().post(new ChangeHomePageBus(3));
+            case "18"://特惠购列表
+                intent.setClass(context, CheapBuyActivity.class);
+                break;
+            default:
+                if (TextUtils.isEmpty(SPUtils.getInstance(CommonDate.USER).getString(CommonDate.token, "").trim())) {
+                    intent.setClass(context, LoginActivity.class);
+                } else {
+                    intent.setClass(context, MessageActivity.class);
+                }
+                break;
+        }
+        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        context.startActivity(intent);
     }
 
     /**

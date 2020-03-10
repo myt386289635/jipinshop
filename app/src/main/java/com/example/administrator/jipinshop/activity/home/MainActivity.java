@@ -28,7 +28,9 @@ import com.example.administrator.jipinshop.activity.sign.SignActivity;
 import com.example.administrator.jipinshop.adapter.HomeAdapter;
 import com.example.administrator.jipinshop.base.DaggerBaseActivityComponent;
 import com.example.administrator.jipinshop.bean.AppVersionbean;
+import com.example.administrator.jipinshop.bean.EvaluationTabBean;
 import com.example.administrator.jipinshop.bean.PopInfoBean;
+import com.example.administrator.jipinshop.bean.SucBean;
 import com.example.administrator.jipinshop.bean.TklBean;
 import com.example.administrator.jipinshop.bean.eventbus.ChangeHomePageBus;
 import com.example.administrator.jipinshop.bean.eventbus.EditNameBus;
@@ -52,6 +54,7 @@ import com.example.administrator.jipinshop.util.sp.CommonDate;
 import com.example.administrator.jipinshop.view.dialog.DialogUtil;
 import com.example.administrator.jipinshop.view.dialog.ProgressDialogView;
 import com.example.administrator.jipinshop.view.viewpager.NoScrollViewPager;
+import com.google.gson.Gson;
 import com.gyf.barlibrary.ImmersionBar;
 import com.mob.moblink.MobLink;
 import com.mob.moblink.Scene;
@@ -113,6 +116,18 @@ public class MainActivity extends RxAppCompatActivity implements MainView, ViewP
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+       if (getIntent().getBooleanExtra("isAd",false)){
+           String targetType = getIntent().getStringExtra("targetType");
+           String target_id = getIntent().getStringExtra("target_id");
+           String target_title = getIntent().getStringExtra("target_title");
+           if (!targetType.equals("16") && !targetType.equals("17")){
+               if (TextUtils.isEmpty(SPUtils.getInstance(CommonDate.USER).getString(CommonDate.token, "").trim())) {
+                   startActivity(new Intent(this, LoginActivity.class));
+               }else {
+                   ShopJumpUtil.openBanner(this,targetType,target_id,target_title);
+               }
+           }
+       }
         setContentView(R.layout.activity_main);
         if (null == sFirstInstance) {
             sFirstInstance = this;
@@ -146,11 +161,11 @@ public class MainActivity extends RxAppCompatActivity implements MainView, ViewP
         mEvaluationFragment = new EvaluationNewFragment();
         mHomeFragment = new HomeNewFragment();
 //        mTryFragment = new FreeNewFragment();
-        mTryFragment = MoneyFragment.getInstance();//赚钱页面
+//        mTryFragment = MoneyFragment.getInstance();//赚钱页面
         mMineFragment = new MineFragment();
         mFragments.add(mKTHomeFragnent);
         mFragments.add(mEvaluationFragment);
-        mFragments.add(mTryFragment);
+//        mFragments.add(mTryFragment);
         mFragments.add(mHomeFragment);
         mFragments.add(mMineFragment);
 
@@ -171,6 +186,15 @@ public class MainActivity extends RxAppCompatActivity implements MainView, ViewP
                 }
             }
         });
+        if (getIntent().getBooleanExtra("isAd",false)) {
+            //广告页进来的
+            String targetType = getIntent().getStringExtra("targetType");
+            if (targetType.equals("16")){
+                mViewPager.setCurrentItem(2);
+            }else if (targetType.equals("17")){
+                mViewPager.setCurrentItem(3);
+            }
+        }
 
 //        DistanceHelper.getAndroiodScreenProperty(this);
         if (SPUtils.getInstance().getBoolean(CommonDate.FIRST, true)) {
@@ -191,6 +215,7 @@ public class MainActivity extends RxAppCompatActivity implements MainView, ViewP
             }
         }
         mPresenter.getAppVersion(this.bindToLifecycle()); //版本更新
+        mPresenter.adList(this.bindToLifecycle());//app广告
     }
 
     private void setCountDownTimer() {
@@ -605,6 +630,19 @@ public class MainActivity extends RxAppCompatActivity implements MainView, ViewP
             mDialog.dismiss();
         }
         ToastUtil.show(error);
+    }
+
+    //app广告
+    @Override
+    public void onAdList(SucBean<EvaluationTabBean.DataBean.AdListBean> adListBeanSucBean) {
+        if (adListBeanSucBean.getData() != null && adListBeanSucBean.getData().size() != 0){
+            //有广告
+            String json = new Gson().toJson(adListBeanSucBean.getData().get(0),EvaluationTabBean.DataBean.AdListBean.class);
+            SPUtils.getInstance().put(CommonDate.AD,json);
+        }else {
+            //没有广告
+            SPUtils.getInstance().put(CommonDate.AD,"");
+        }
     }
 
     @OnClick({R.id.login_go})

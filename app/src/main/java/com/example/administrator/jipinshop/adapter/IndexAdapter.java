@@ -53,7 +53,7 @@ public  class IndexAdapter  extends PagerAdapter {
         RelativeLayout relativeLayout = view.findViewById(R.id.Container);
         imageView.setImageResource(mList.get(position));
         relativeLayout.setBackgroundResource(R.color.color_white);
-        if(position == 3){
+        if(position == (mList.size() - 1)){
             textView.setVisibility(View.VISIBLE);
             textView.setOnClickListener(view1 -> {
                 if(mOnLick != null){

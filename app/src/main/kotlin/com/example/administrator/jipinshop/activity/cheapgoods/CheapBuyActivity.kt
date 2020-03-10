@@ -17,6 +17,7 @@ import com.example.administrator.jipinshop.base.BaseActivity
 import com.example.administrator.jipinshop.bean.ImageBean
 import com.example.administrator.jipinshop.bean.NewPeopleBean
 import com.example.administrator.jipinshop.bean.PopBean
+import com.example.administrator.jipinshop.databinding.ActivityArticleMoreBinding
 import com.example.administrator.jipinshop.databinding.ActivityNewPeopleBinding
 import com.example.administrator.jipinshop.util.TaoBaoUtil
 import com.example.administrator.jipinshop.util.ToastUtil
@@ -34,14 +35,14 @@ class CheapBuyActivity : BaseActivity(), View.OnClickListener, OnRefreshListener
 
     @Inject
     lateinit var mPresenter: CheapBuyPresenter
-    private lateinit var mBinding : ActivityNewPeopleBinding
+    private lateinit var mBinding : ActivityArticleMoreBinding
     private lateinit var mList: MutableList<NewPeopleBean.DataBean.AllowanceGoodsListBean>
     private lateinit var adapter: KTCheapBuyAdapter
     private var mDialog: Dialog? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        mBinding = DataBindingUtil.setContentView(this, R.layout.activity_new_people)
+        mBinding = DataBindingUtil.setContentView(this, R.layout.activity_article_more)
         mBinding.listener = this
         mBaseActivityComponent.inject(this)
         mPresenter.setView(this)
@@ -62,6 +63,7 @@ class CheapBuyActivity : BaseActivity(), View.OnClickListener, OnRefreshListener
 
         mPresenter.solveScoll(mBinding.recyclerView, mBinding.swipeToLoad)
         mBinding.swipeToLoad.setOnRefreshListener(this)
+        mBinding.swipeToLoad.isLoadMoreEnabled = false
         mBinding.swipeToLoad.post {
             mBinding.swipeToLoad.isRefreshing = true
         }
@@ -81,6 +83,11 @@ class CheapBuyActivity : BaseActivity(), View.OnClickListener, OnRefreshListener
 
     override fun onSuccess(bean: NewPeopleBean) {
         dissRefresh()
+        //特惠购新手指导
+        if (SPUtils.getInstance().getBoolean(CommonDate.FIRSTCHEAP, true)) {
+            SPUtils.getInstance().put(CommonDate.FIRSTCHEAP, false)
+            DialogUtil.cheapGuideDialog(this)
+        }
         if (bean.data != null && bean.data.allowanceGoodsList.size != 0) {
             mBinding.netClude?.let {
                 it.qsNet.visibility = View.GONE

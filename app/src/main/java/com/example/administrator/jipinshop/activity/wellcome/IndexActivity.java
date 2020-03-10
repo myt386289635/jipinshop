@@ -58,7 +58,7 @@ public class IndexActivity extends AppCompatActivity implements IndexAdapter.OnL
         mList.add(R.mipmap.guide_android1);
         mList.add(R.mipmap.guide_android2);
         mList.add(R.mipmap.guide_android3);
-        mList.add(R.mipmap.guide_android4);
+//        mList.add(R.mipmap.guide_android4);
         mAdapter = new IndexAdapter(this,mList);
         mAdapter.setOnLick(this);
         mBinding.viewPager.setAdapter(mAdapter);
@@ -106,7 +106,7 @@ public class IndexActivity extends AppCompatActivity implements IndexAdapter.OnL
 
     @Override
     public void onPageSelected(int position) {
-        if ( position == 3){
+        if ( position == (mList.size() - 1)){
             mBinding.detailPoint.setVisibility(View.GONE);
         }else {
             mBinding.detailPoint.setVisibility(View.VISIBLE);

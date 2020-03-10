@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.support.annotation.Nullable;
+import android.text.TextUtils;
 import android.view.KeyEvent;
 
 import com.blankj.utilcode.util.SPUtils;
@@ -48,8 +49,14 @@ public class WellComeActivity extends BaseActivity {
                 startActivity(new Intent(WellComeActivity.this, ServceActivity.class));
                 finish();
             }else {
-                startActivity(new Intent(WellComeActivity.this, MainActivity.class));
-                finish();
+                if (!TextUtils.isEmpty(SPUtils.getInstance().getString(CommonDate.AD))){
+                    //跳转广告
+                    startActivity(new Intent(WellComeActivity.this, AdActivity.class));
+                    finish();
+                }else {
+                    startActivity(new Intent(WellComeActivity.this, MainActivity.class));
+                    finish();
+                }
             }
         }
     };

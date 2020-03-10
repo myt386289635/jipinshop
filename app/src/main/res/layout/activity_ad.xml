@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <ImageView
+        android:scaleType="centerCrop"
+        android:id="@+id/ad_image"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"/>
+
+    <TextView
+        android:id="@+id/ad_jump"
+        android:layout_marginRight="@dimen/x33"
+        android:layout_alignParentRight="true"
+        android:layout_marginTop="@dimen/y73"
+        android:paddingBottom="@dimen/y10"
+        android:paddingTop="@dimen/y10"
+        android:paddingRight="@dimen/x23"
+        android:paddingLeft="@dimen/x23"
+        android:background="@drawable/bg_80000000"
+        android:textColor="@color/color_white"
+        android:textSize="15sp"
+        android:text="跳过3s"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"/>
+
+</RelativeLayout>

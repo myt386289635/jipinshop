@@ -56,6 +56,7 @@ import com.example.administrator.jipinshop.view.dialog.DialogUtil;
 import com.example.administrator.jipinshop.view.dialog.ProgressDialogView;
 import com.example.administrator.jipinshop.view.glide.GlideApp;
 import com.example.administrator.jipinshop.view.viewpager.TouchViewPager;
+import com.trello.rxlifecycle2.android.FragmentEvent;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
@@ -520,8 +521,8 @@ public class MineFragment extends DBBaseFragment implements View.OnClickListener
         //当页面关闭后，返回app首页就会走该方法，第一次进入这个方法的时候也会走
         if (!TextUtils.isEmpty(SPUtils.getInstance(CommonDate.USER).getString(CommonDate.token,"").trim())) {
             if(flage){
-                //这里是判断该手机是否有账户登陆过。如果有userId不会为空，除非没有用户登录或已经退出登陆
-                mPresenter.modelUser(this.bindToLifecycle());
+                //这里防止点击广告后直接跳转广告未请求到用户姓名和登陆信息情况
+                mPresenter.modelUser(this.bindUntilEvent(FragmentEvent.DESTROY_VIEW));
                 flage = false;
             }else {
                 mPresenter.updateInfo(this.bindToLifecycle());

@@ -108,7 +108,7 @@ public class NewPeopleAdapter extends RecyclerView.Adapter{
             case CONTENT1:
                 TwoViewHolder twoViewHolder = (TwoViewHolder) holder;
                 int position = pos - 1;
-                twoViewHolder.mBinding.itemBuy.setOnClickListener(v -> {
+                twoViewHolder.itemView.setOnClickListener(v -> {
                     if (mOnClickItem != null)
                         mOnClickItem.onBuy(position);
                 });
@@ -126,7 +126,7 @@ public class NewPeopleAdapter extends RecyclerView.Adapter{
             case HEAD2:
                 TreeViewHolder treeViewHolder = (TreeViewHolder) holder;
                 Drawable drawable;
-                if (mList.size() <= 2){
+                if (mList.size() <= 4){
                     treeViewHolder.mBinding.itemMore.setText("展开更多");
                     drawable= mContext.getResources().getDrawable(R.mipmap.right_down);
                 }else {

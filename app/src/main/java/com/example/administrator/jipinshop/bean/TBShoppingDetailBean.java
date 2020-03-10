@@ -13,6 +13,15 @@ public class TBShoppingDetailBean {
     private String msg;
     private int code;
     private DataBean data;
+    private AllowanceGoodsBean allowanceGoods;
+
+    public AllowanceGoodsBean getAllowanceGoods() {
+        return allowanceGoods;
+    }
+
+    public void setAllowanceGoods(AllowanceGoodsBean allowanceGoods) {
+        this.allowanceGoods = allowanceGoods;
+    }
 
     public String getMsg() {
         return msg;
@@ -387,6 +396,37 @@ public class TBShoppingDetailBean {
             public void setScore(String score) {
                 this.score = score;
             }
+        }
+    }
+
+    public static class AllowanceGoodsBean {
+
+        private String couponPrice;
+        private String goodsName;
+        private String useAllowancePrice;
+
+        public String getCouponPrice() {
+            return couponPrice;
+        }
+
+        public void setCouponPrice(String couponPrice) {
+            this.couponPrice = couponPrice;
+        }
+
+        public String getGoodsName() {
+            return goodsName;
+        }
+
+        public void setGoodsName(String goodsName) {
+            this.goodsName = goodsName;
+        }
+
+        public String getUseAllowancePrice() {
+            return useAllowancePrice;
+        }
+
+        public void setUseAllowancePrice(String useAllowancePrice) {
+            this.useAllowancePrice = useAllowancePrice;
         }
     }
 }

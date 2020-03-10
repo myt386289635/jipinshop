@@ -9,7 +9,7 @@ import com.example.administrator.jipinshop.R
 import com.example.administrator.jipinshop.adapter.KTWelfareAdapter
 import com.example.administrator.jipinshop.base.BaseActivity
 import com.example.administrator.jipinshop.bean.WelfareBean
-import com.example.administrator.jipinshop.databinding.ActivityNewPeopleBinding
+import com.example.administrator.jipinshop.databinding.ActivityArticleMoreBinding
 import com.example.administrator.jipinshop.util.ToastUtil
 import javax.inject.Inject
 
@@ -23,14 +23,15 @@ class WelfareActivity : BaseActivity(), View.OnClickListener, OnRefreshListener,
     @Inject
     lateinit var mPresenter: WelfarePresenter
 
-    private lateinit var mBinding : ActivityNewPeopleBinding
+    private lateinit var mBinding : ActivityArticleMoreBinding
     private lateinit var mList: MutableList<WelfareBean.DataBean>
     private lateinit var mAdapter: KTWelfareAdapter
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        mBinding = DataBindingUtil.setContentView(this, R.layout.activity_new_people)
+        mBinding = DataBindingUtil.setContentView(this, R.layout.activity_article_more)
         mBinding.listener = this
+        mBinding.detailNode.visibility = View.VISIBLE
         mBaseActivityComponent.inject(this)
         mPresenter.setView(this)
         initView()
@@ -50,6 +51,7 @@ class WelfareActivity : BaseActivity(), View.OnClickListener, OnRefreshListener,
 
         mPresenter.solveScoll(mBinding.recyclerView, mBinding.swipeToLoad)
         mBinding.swipeToLoad.setOnRefreshListener(this)
+        mBinding.swipeToLoad.isLoadMoreEnabled = false
         mBinding.swipeToLoad.isRefreshing = true
     }
 

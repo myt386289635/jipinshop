@@ -18,6 +18,7 @@
 <!--        android:textColor="@drawable/item_color"/>-->
 
     <ImageView
+        android:visibility="invisible"
         android:id="@+id/tab_item4"
         android:gravity="center"
         android:src="@drawable/tablayout_item4"

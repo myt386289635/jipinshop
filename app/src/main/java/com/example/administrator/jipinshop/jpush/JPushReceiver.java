@@ -24,6 +24,7 @@ import com.example.administrator.jipinshop.activity.shoppingdetail.ShoppingDetai
 import com.example.administrator.jipinshop.activity.tryout.detail.TryDetailActivity;
 import com.example.administrator.jipinshop.activity.tryout.freedetail.FreeDetailActivity;
 import com.example.administrator.jipinshop.bean.JPushBean;
+import com.example.administrator.jipinshop.util.ShopJumpUtil;
 import com.example.administrator.jipinshop.util.sp.CommonDate;
 import com.google.gson.Gson;
 
@@ -73,7 +74,10 @@ public class JPushReceiver extends BroadcastReceiver {
                 JPushBean jPushBean = new Gson().fromJson(newsInfo, JPushBean.class);
 //              Log.e(TAG,newsInfo);
                 if (jPushBean != null){
-                    openNotification(context,jPushBean);
+                    String targetType = jPushBean.getTargetType();
+                    String target_id = jPushBean.getTargetId();
+                    String target_title = jPushBean.getTargetTitle();
+                    ShopJumpUtil.openJPush(context,targetType,target_id,target_title);
                 }
             }else {
                 Intent intentDefult = new Intent();
@@ -137,56 +141,4 @@ public class JPushReceiver extends BroadcastReceiver {
 
     }
 
-    /**
-     * 用户点击打开了通知
-     * @param context
-     * @param jPushBean
-     */
-    private void openNotification(Context context, JPushBean jPushBean){
-        Intent intent = new Intent();
-        switch (jPushBean.getTargetType()){
-            case "11"://跳转到小分类榜单
-                intent.setClass(context, ClassifyActivity.class);
-                intent.putExtra("title",jPushBean.getTargetTitle() + "榜单");
-                intent.putExtra("id",jPushBean.getTargetId());
-                break;
-            case "12"://跳转到商品详情
-                intent.setClass(context,  ShoppingDetailActivity.class);
-                intent.putExtra("goodsId",jPushBean.getTargetId());
-                break;
-            case "21"://测评文章
-                intent.setClass(context, ArticleDetailActivity.class);
-                intent.putExtra("id",jPushBean.getTargetId());
-                intent.putExtra("type","2");
-                break;
-            case "23"://清单详情web
-                intent.setClass(context, ArticleDetailActivity.class);
-                intent.putExtra("id",jPushBean.getTargetId());
-                intent.putExtra("type","7");
-                break;
-            case "24"://清单详情json
-                intent.setClass(context, ReportDetailActivity.class);
-                intent.putExtra("id",jPushBean.getTargetId());
-                intent.putExtra("type","7");
-                break;
-            case "31"://试用商品详情(新品详情)
-                intent.setClass(context,  TryDetailActivity.class);
-                intent.putExtra("id",jPushBean.getTargetId());
-                intent.putExtra("pos",-1);
-                break;
-            case "41"://免单详情
-                intent.setClass(context,  FreeDetailActivity.class);
-                intent.putExtra("id",jPushBean.getTargetId());
-                break;
-            default:
-                if (TextUtils.isEmpty(SPUtils.getInstance(CommonDate.USER).getString(CommonDate.token, "").trim())) {
-                    intent.setClass(context, LoginActivity.class);
-                } else {
-                    intent.setClass(context, MessageActivity.class);
-                }
-                break;
-        }
-        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-        context.startActivity(intent);
-    }
 }

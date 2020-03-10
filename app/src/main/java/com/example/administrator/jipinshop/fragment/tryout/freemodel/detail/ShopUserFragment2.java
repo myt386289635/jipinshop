@@ -77,7 +77,7 @@ public class ShopUserFragment2  extends DBBaseFragment implements OnRefreshListe
         mAdapter = new ShopUserAdapter(mList, getContext(),getArguments().getString("fee","0"));
         mBinding.recyclerView.setAdapter(mAdapter);
 
-        mPresenter.solveScoll(mBinding.recyclerView,mBinding.swipeToLoad,((NewPeopleDetailActivity)getActivity()).getBar(),once);
+//        mPresenter.solveScoll(mBinding.recyclerView,mBinding.swipeToLoad,((NewPeopleDetailActivity)getActivity()).getBar(),once);
         mBinding.swipeToLoad.setOnRefreshListener(this);
         mBinding.swipeToLoad.setOnLoadMoreListener(this);
     }

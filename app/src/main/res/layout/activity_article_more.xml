@@ -31,8 +31,22 @@
             android:layout_width="wrap_content"
             android:layout_height="@dimen/y88"/>
 
-        <com.aspsine.swipetoloadlayout.SwipeToLoadLayout
+        <TextView
+            android:visibility="gone"
+            android:paddingRight="@dimen/x28"
+            android:paddingLeft="@dimen/x28"
+            android:gravity="center_vertical"
+            android:textColor="@color/color_E25838"
+            android:textSize="13sp"
+            android:text="您可以前往各平台将【积分商城】内获得的会员码进行兑换"
+            android:background="@color/color_FFE4E4"
+            android:id="@+id/detail_node"
             android:layout_below="@id/in_clude"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/y80"/>
+
+        <com.aspsine.swipetoloadlayout.SwipeToLoadLayout
+            android:layout_below="@id/detail_node"
             android:id="@+id/swipeToLoad"
             android:layout_width="match_parent"
             android:layout_height="match_parent"

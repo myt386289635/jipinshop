@@ -8,7 +8,7 @@
 
     <ImageView
         android:layout_gravity="center_horizontal"
-        android:src="@mipmap/shop_guide"
+        android:src="@mipmap/cheap_guide"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"/>
 
@@ -29,7 +29,7 @@
             android:textSize="15sp"
             android:textColor="@color/color_white"
             android:layout_marginLeft="@dimen/x24"
-            android:text="极品城让利用户，下单商品可享受高额返现"
+            android:text="极品城回馈用户，发放专项津贴，购物时下单立减，无需等待返现。"
             android:layout_width="@dimen/x420"
             android:layout_height="wrap_content"/>
 
@@ -52,7 +52,7 @@
             android:textSize="15sp"
             android:textColor="@color/color_white"
             android:layout_marginLeft="@dimen/x24"
-            android:text="极品城为您精选商家，获取专享粉丝优惠券，点击可领；"
+            android:text="挑选心仪商品，点击【立即抢购】进入淘宝进行购买，同时将扣除您的津贴余额，津贴可在积分商城内进行兑换"
             android:layout_width="@dimen/x420"
             android:layout_height="wrap_content"/>
 

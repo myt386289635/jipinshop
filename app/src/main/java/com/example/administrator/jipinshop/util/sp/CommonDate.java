@@ -14,8 +14,11 @@ public class CommonDate {
     public static final String FindTab = "FindTab";//发现的tab
     public static final String startPage = "startPage";//启动页
     public static final String FIRSTSHOP = "FIRSTSHOP";//新人首次进入商品详情打开商品详情引导页
+    public static final String FIRSTCHEAP = "FIRSTCHEAP";//新人首次进入特惠购打开新手指导
+    public static final String FIRSTNEWPEOPLE = "FIRSTNEWPEOPLE";//新人首次进入0元购页面打开新手指导
     public static final String POPID = "POPID";//活动popid为了不弹出活动
     public static final String CLIP = "clip";//粘贴板内容存稿
+    public static final String AD = "AD";//广告
 
 
     //用户数据表（sp文件名：user）

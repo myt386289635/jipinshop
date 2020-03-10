@@ -1171,4 +1171,10 @@ public interface APIService {
     @GET("api/hongbao/alipay/getAuthInfo")
     Observable<SucBeanT<String>> getAlipayAuthInfo();
 
+    /**
+     * 新人商品详情
+     */
+    @GET("api/allowance/detail")
+    Observable<TBShoppingDetailBean> newGoodsDetail(@Query("allowanceGoodsId") String otherGoodsId);
+
 }

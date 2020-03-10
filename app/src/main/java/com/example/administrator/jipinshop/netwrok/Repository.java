@@ -91,7 +91,6 @@ import javax.inject.Inject;
 
 import io.reactivex.Observable;
 import okhttp3.MultipartBody;
-import retrofit2.http.GET;
 
 public class Repository {
 
@@ -1286,5 +1285,12 @@ public class Repository {
      */
     public Observable<SucBeanT<String>> getAlipayAuthInfo(){
         return mAPIService.getAlipayAuthInfo();
+    }
+
+    /**
+     * 新人商品详情
+     */
+    public Observable<TBShoppingDetailBean> newGoodsDetail(String otherGoodsId){
+        return mAPIService.newGoodsDetail(otherGoodsId);
     }
 }

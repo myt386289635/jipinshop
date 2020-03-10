@@ -1,7 +1,10 @@
 package com.example.administrator.jipinshop.activity.newpeople;
 
+import android.content.Context;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.view.ViewGroup;
+import android.widget.LinearLayout;
 
 import com.aspsine.swipetoloadlayout.SwipeToLoadLayout;
 import com.example.administrator.jipinshop.bean.ImageBean;
@@ -31,6 +34,15 @@ public class NewPeoplePresenter {
     @Inject
     public NewPeoplePresenter(Repository repository) {
         mRepository = repository;
+    }
+
+    public void setStatusBarHight(LinearLayout StatusBar , Context context){
+        int resourceId = context.getResources().getIdentifier("status_bar_height", "dimen", "android");
+        if (resourceId > 0) {
+            int statusBarHeight = context.getResources().getDimensionPixelSize(resourceId);
+            ViewGroup.LayoutParams layoutParams = StatusBar.getLayoutParams();
+            layoutParams.height = statusBarHeight;
+        }
     }
 
     public void solveScoll(RecyclerView mRecyclerView, final SwipeToLoadLayout mSwipeToLoad){

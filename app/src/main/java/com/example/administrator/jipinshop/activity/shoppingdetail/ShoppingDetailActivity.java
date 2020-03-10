@@ -587,10 +587,6 @@ public class ShoppingDetailActivity extends BaseActivity implements ShoppingComm
 
             if (shoppingDetailBean.getFee() != 0 || shoppingDetailBean.getData().getGoodsCouponsEntity().getDataFlag() != -1){
                 //优惠券有效或者有补贴
-                if(SPUtils.getInstance().getBoolean(CommonDate.FIRSTSHOP,true)){
-                    SPUtils.getInstance().put(CommonDate.FIRSTSHOP,false);
-                    DialogUtil.shopGuideDialog(this);
-                }
                 mBinding.detailOldPriceName.setVisibility(View.VISIBLE);
                 mBinding.detailOldPrice.setVisibility(View.VISIBLE);
             }else {

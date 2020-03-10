@@ -3,11 +3,9 @@ package com.example.administrator.jipinshop.wxapi;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
-import android.util.Log;
 
 import com.example.administrator.jipinshop.R;
 import com.example.administrator.jipinshop.activity.home.article.ArticleDetailActivity;
-import com.example.administrator.jipinshop.activity.newpeople.detail.NewPeopleDetailActivity;
 import com.example.administrator.jipinshop.activity.report.detail.ReportDetailActivity;
 import com.example.administrator.jipinshop.activity.shoppingdetail.tbshoppingdetail.TBShoppingDetailActivity;
 import com.example.administrator.jipinshop.activity.tryout.freedetail.FreeNewDetailActivity;
@@ -66,13 +64,7 @@ public class WXEntryActivity extends WXCallbackActivity implements IWXAPIEventHa
                         articleType = str[2].replace("articleType=","");
                     }
                     switch (type){
-                        case "0"://.新人免单详情页
-                            Intent intent0 = new Intent(this, NewPeopleDetailActivity.class);
-                            intent0.putExtra("freeId",id);
-                            intent0.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                            startActivity(intent0);
-                            break;
-                        case "1"://.老人免单详情页
+                        case "1"://老人免单详情页
                             Intent intent1 = new Intent(this, FreeNewDetailActivity.class);
                             intent1.putExtra("freeId",id);
                             intent1.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);

@@ -5,22 +5,18 @@ import android.content.Intent;
 import android.databinding.DataBindingUtil;
 import android.graphics.Color;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
 import android.view.Gravity;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.RelativeLayout;
 
 import com.alibaba.baichuan.android.trade.AlibcTradeSDK;
 import com.blankj.utilcode.util.SPUtils;
-import com.bumptech.glide.Glide;
 import com.example.administrator.jipinshop.R;
 import com.example.administrator.jipinshop.activity.WebActivity;
 import com.example.administrator.jipinshop.activity.web.TaoBaoWebActivity;
@@ -48,6 +44,7 @@ import com.example.administrator.jipinshop.util.share.MobLinkUtil;
 import com.example.administrator.jipinshop.util.sp.CommonDate;
 import com.example.administrator.jipinshop.view.dialog.DialogParameter;
 import com.example.administrator.jipinshop.view.dialog.DialogQuality;
+import com.example.administrator.jipinshop.view.dialog.DialogUtil;
 import com.example.administrator.jipinshop.view.dialog.ProgressDialogView;
 import com.example.administrator.jipinshop.view.dialog.ShareBoardDialog;
 import com.google.gson.Gson;
@@ -380,6 +377,13 @@ public class TBShoppingDetailActivity extends BaseActivity implements View.OnCli
         }
         if (mProgressDialog != null && mProgressDialog.isShowing()){
             mProgressDialog.dismiss();
+        }
+        if (coupon != 0 || free != 0){
+            //优惠券有效或者有补贴
+            if(SPUtils.getInstance().getBoolean(CommonDate.FIRSTSHOP,true)){
+                SPUtils.getInstance().put(CommonDate.FIRSTSHOP,false);
+                DialogUtil.shopGuideDialog(this);
+            }
         }
     }
 

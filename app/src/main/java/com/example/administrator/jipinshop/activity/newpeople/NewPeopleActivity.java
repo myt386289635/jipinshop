@@ -18,6 +18,7 @@ import com.blankj.utilcode.util.SPUtils;
 import com.example.administrator.jipinshop.R;
 import com.example.administrator.jipinshop.activity.WebActivity;
 import com.example.administrator.jipinshop.activity.cheapgoods.CheapBuyActivity;
+import com.example.administrator.jipinshop.activity.newpeople.detail.NewPeopleDetailActivity;
 import com.example.administrator.jipinshop.activity.web.TaoBaoWebActivity;
 import com.example.administrator.jipinshop.adapter.NewPeopleAdapter;
 import com.example.administrator.jipinshop.base.BaseActivity;
@@ -62,13 +63,18 @@ public class NewPeopleActivity extends BaseActivity implements OnRefreshListener
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         mBinding = DataBindingUtil.setContentView(this, R.layout.activity_new_people);
-        mBaseActivityComponent.inject(this);
-        mPresenter.setView(this);
         mBinding.setListener(this);
+        mBaseActivityComponent.inject(this);
+        mImmersionBar.reset()
+                .transparentStatusBar()
+                .statusBarDarkFont(true, 0f)
+                .init();
+        mPresenter.setView(this);
         initView();
     }
 
     private void initView() {
+        mPresenter.setStatusBarHight(mBinding.statusBar,this);
         mBinding.inClude.titleTv.setText("新人0元专区");
         mBinding.swipeToLoad.setBackgroundColor(getResources().getColor(R.color.color_white));
 
@@ -114,25 +120,13 @@ public class NewPeopleActivity extends BaseActivity implements OnRefreshListener
 
     @Override
     public void onBuy(int position) {
-        DialogUtil.LoginDialog(this, "您将前往淘宝0元购买此商品，\n仅限首单",
-                "确认", "取消", R.color.color_202020, R.color.color_202020,
-                false, v -> {
-                    String specialId = SPUtils.getInstance(CommonDate.USER).getString(CommonDate.relationId, "");
-                    if (TextUtils.isEmpty(specialId) || specialId.equals("null")) {
-                        TaoBaoUtil.aliLogin(topAuthCode -> {
-                            startActivity(new Intent(this, TaoBaoWebActivity.class)
-                                    .putExtra(TaoBaoWebActivity.url, "https://oauth.taobao.com/authorize?response_type=code&client_id=25612235&redirect_uri=https://www.jipincheng.cn/qualityshop-api/api/taobao/returnUrl&state=" + SPUtils.getInstance(CommonDate.USER).getString(CommonDate.token) + "&view=wap")
-                                    .putExtra(TaoBaoWebActivity.title, "淘宝授权")
-                            );
-                        });
-                    } else {
-                        mDialog = (new ProgressDialogView()).createLoadingDialog(this, "");
-                        if (mDialog != null && !mDialog.isShowing()) {
-                            mDialog.show();
-                        }
-                        mPresenter.apply(mList.get(position).getId(), this.bindToLifecycle());
-                    }
-                });
+        //进入新人详情页
+        mBinding.bgGuide1.setVisibility(View.GONE);
+        mBinding.bgGuide2.setVisibility(View.GONE);
+        startActivity(new Intent(this, NewPeopleDetailActivity.class)
+                .putExtra("freeId",mList.get(position).getId())
+                .putExtra("otherGoodsId",mList.get(position).getOtherGoodsId())
+        );
     }
 
     @Override
@@ -172,21 +166,21 @@ public class NewPeopleActivity extends BaseActivity implements OnRefreshListener
             ToastUtil.show("没有更多数据");
             return;
         }
-        if (mList.size() <= 2) {
+        if (mList.size() <= 4) {
             mList.addAll(mTempList);
-            mAdapter.notifyItemRangeInserted(3, mTempList.size());
+            mAdapter.notifyItemRangeInserted(5, mTempList.size());
             mAdapter.notifyItemChanged(mList.size() + 1);
         } else {
             //批量删除
-            mAdapter.notifyItemRangeRemoved(3, mTempList.size());
+            mAdapter.notifyItemRangeRemoved(5, mTempList.size());
             mList.removeAll(mTempList);
-            mAdapter.notifyItemRangeChanged(3, mAdapter.getItemCount());
+            mAdapter.notifyItemRangeChanged(5, mAdapter.getItemCount());
         }
     }
 
     @Override
     public void onzBuy(int position) {
-        DialogUtil.LoginDialog(this, "您将前往淘宝购买此商品，\n下单立减",
+        DialogUtil.LoginDialog(this, "您将前往淘宝购买此商品，\n使用津贴立减￥"+ mList2.get(position).getUseAllowancePrice() +"，无需等待返现",
                 "确认", "取消", R.color.color_202020, R.color.color_202020,
                 false, v -> {
                     String specialId = SPUtils.getInstance(CommonDate.USER).getString(CommonDate.relationId, "");
@@ -228,10 +222,10 @@ public class NewPeopleActivity extends BaseActivity implements OnRefreshListener
             mList.clear();
             mList2.clear();
             mTempList.clear();
-            for (int i = 0; i < 2 && i < bean.getData().getNewAllowanceGoodsList().size(); i++) {
+            for (int i = 0; i < 4 && i < bean.getData().getNewAllowanceGoodsList().size(); i++) {
                 mList.add(bean.getData().getNewAllowanceGoodsList().get(i));
             }
-            for (int i = 2; i < bean.getData().getNewAllowanceGoodsList().size(); i++) {
+            for (int i = 4; i < bean.getData().getNewAllowanceGoodsList().size(); i++) {
                 mTempList.add(bean.getData().getNewAllowanceGoodsList().get(i));
             }
             mList2.addAll(bean.getData().getAllowanceGoodsList());
@@ -239,6 +233,11 @@ public class NewPeopleActivity extends BaseActivity implements OnRefreshListener
             mAdapter.notifyDataSetChanged();
         } else {
             initError(R.mipmap.qs_nodata, "暂无数据", "暂时没有任何数据 ");
+        }
+        if(SPUtils.getInstance().getBoolean(CommonDate.FIRSTNEWPEOPLE,true)){
+            SPUtils.getInstance().put(CommonDate.FIRSTNEWPEOPLE,false);
+            mBinding.bgGuide1.setVisibility(View.VISIBLE);
+            mBinding.bgGuide2.setVisibility(View.VISIBLE);
         }
     }
 
@@ -279,12 +278,22 @@ public class NewPeopleActivity extends BaseActivity implements OnRefreshListener
                     finish();
                 }
                 break;
+            case R.id.bg_guide1:
+            case R.id.bg_guide3:
+            case R.id.bg_guide4:
+                mBinding.bgGuide1.setVisibility(View.GONE);
+                mBinding.bgGuide2.setVisibility(View.GONE);
+                break;
         }
     }
 
     @Override
     public void onBackPressed() {
-        if (startPop){
+        if (mBinding.bgGuide1.getVisibility() == View.VISIBLE ||
+                mBinding.bgGuide2.getVisibility() == View.VISIBLE){
+            mBinding.bgGuide1.setVisibility(View.GONE);
+            mBinding.bgGuide2.setVisibility(View.GONE);
+        }else if (startPop){
             if (strings.size() != 0){
                 DialogUtil.outDialog(this, strings, allowance, v1 -> {
                     finish();
