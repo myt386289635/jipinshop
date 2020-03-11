@@ -199,7 +199,7 @@ public class NewPeopleDetailActivity extends BaseActivity implements View.OnClic
                 }else {
                     mDialog = (new ProgressDialogView()).createLoadingDialog(this, "");
                     mDialog.show();
-                    mPresenter.apply(otherGoodsId,this.bindToLifecycle());
+                    mPresenter.apply(freeId,this.bindToLifecycle());
                 }
                 break;
         }
