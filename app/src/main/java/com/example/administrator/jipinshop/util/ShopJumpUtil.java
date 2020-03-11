@@ -10,6 +10,7 @@ import com.blankj.utilcode.util.SPUtils;
 import com.example.administrator.jipinshop.activity.WebActivity;
 import com.example.administrator.jipinshop.activity.cheapgoods.CheapBuyActivity;
 import com.example.administrator.jipinshop.activity.home.HomeDetailActivity;
+import com.example.administrator.jipinshop.activity.home.MainActivity;
 import com.example.administrator.jipinshop.activity.home.article.ArticleDetailActivity;
 import com.example.administrator.jipinshop.activity.home.classification.ClassifyActivity;
 import com.example.administrator.jipinshop.activity.login.LoginActivity;
@@ -21,6 +22,7 @@ import com.example.administrator.jipinshop.activity.shoppingdetail.tbshoppingdet
 import com.example.administrator.jipinshop.activity.sign.SignActivity;
 import com.example.administrator.jipinshop.activity.tryout.detail.TryDetailActivity;
 import com.example.administrator.jipinshop.activity.tryout.freedetail.FreeDetailActivity;
+import com.example.administrator.jipinshop.activity.wellcome.WellComeActivity;
 import com.example.administrator.jipinshop.bean.eventbus.ChangeHomePageBus;
 import com.example.administrator.jipinshop.util.sp.CommonDate;
 
@@ -252,45 +254,56 @@ public class ShopJumpUtil {
                 intent.setClass(context, ArticleDetailActivity.class);
                 intent.putExtra("id",target_id);
                 intent.putExtra("type","2");
+                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                context.startActivity(intent);
                 break;
             case "11"://专题页面
                 intent.setClass(context, HomeDetailActivity.class);
                 intent.putExtra("id",target_id);
                 intent.putExtra("title",target_title);
+                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                context.startActivity(intent);
                 break;
             case "12"://淘宝客详情页面
                 intent.setClass(context, TBShoppingDetailActivity.class);
                 intent.putExtra("otherGoodsId", target_id);
+                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                context.startActivity(intent);
                 break;
             case "13"://H5页面
                 intent.setClass(context, WebActivity.class);
                 intent.putExtra(WebActivity.url, target_id);
                 intent.putExtra(WebActivity.title,target_title);
+                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                context.startActivity(intent);
                 break;
             case "14"://极币商城
                 intent.setClass(context, MallActivity.class);
+                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                context.startActivity(intent);
                 break;
             case "15"://任务中心
                 intent.setClass(context, SignActivity.class);
+                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                context.startActivity(intent);
                 break;
             case "16"://红包主页
                 EventBus.getDefault().post(new ChangeHomePageBus(2));
                 break;
             case "17"://榜单主页
                 EventBus.getDefault().post(new ChangeHomePageBus(3));
+                break;
             case "18"://特惠购列表
                 intent.setClass(context, CheapBuyActivity.class);
+                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                context.startActivity(intent);
                 break;
-            default:
-                if (TextUtils.isEmpty(SPUtils.getInstance(CommonDate.USER).getString(CommonDate.token, "").trim())) {
-                    intent.setClass(context, LoginActivity.class);
-                } else {
-                    intent.setClass(context, MessageActivity.class);
-                }
+            default://默认跳转首页
+                intent.setClass(context, MainActivity.class);
+                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                context.startActivity(intent);
                 break;
         }
-        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-        context.startActivity(intent);
     }
 
     /**
