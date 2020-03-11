@@ -28,9 +28,9 @@
         tools:replace="android:allowBackup"
         android:name=".MyApplication"
         android:allowBackup="true"
-        android:icon="@mipmap/logo11"
+        android:icon="@mipmap/logo"
         android:label="@string/app_name"
-        android:roundIcon="@mipmap/logo11"
+        android:roundIcon="@mipmap/logo"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <!--华为手机8.0：刘海屏适配-->
