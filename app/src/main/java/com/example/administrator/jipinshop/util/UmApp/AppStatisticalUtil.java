@@ -43,10 +43,10 @@ public class AppStatisticalUtil {
             case 2:
                 addEvent("bangdan",transformer);
                 break;
-//            case 2:
-//                addEvent("hongbao",transformer);
-//                break;
             case 3:
+                addEvent("faquan",transformer);
+                break;
+            case 4:
                 addEvent("wode",transformer);
                 break;
         }

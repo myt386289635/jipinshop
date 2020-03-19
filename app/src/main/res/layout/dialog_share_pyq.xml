@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <RelativeLayout
+        android:layout_centerHorizontal="true"
+        android:background="@drawable/bg_balance"
+        android:orientation="vertical"
+        android:layout_width="@dimen/x600"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:id="@+id/dialog_title"
+            android:layout_marginBottom="@dimen/y30"
+            android:layout_marginTop="@dimen/y30"
+            android:layout_centerHorizontal="true"
+            android:textSize="18sp"
+            android:textColor="@color/color_E25838"
+            android:textStyle="bold"
+            android:text="去朋友圈分享"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+
+        <LinearLayout
+            android:id="@+id/dialog_content"
+            android:layout_below="@id/dialog_title"
+            android:layout_centerHorizontal="true"
+            android:orientation="vertical"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:drawablePadding="@dimen/x11"
+                android:textSize="16sp"
+                android:textColor="@color/color_565252"
+                android:text="图片已保存至手机相册"
+                android:drawableLeft="@mipmap/share_pyq_dialog"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+
+            <TextView
+                android:layout_marginTop="@dimen/y35"
+                android:drawablePadding="@dimen/x11"
+                android:textSize="16sp"
+                android:textColor="@color/color_565252"
+                android:text="分享文案已复制到粘贴板"
+                android:drawableLeft="@mipmap/share_pyq_dialog"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+
+            <TextView
+                android:layout_marginTop="@dimen/y35"
+                android:drawablePadding="@dimen/x11"
+                android:textSize="16sp"
+                android:textColor="@color/color_565252"
+                android:text="分享成功后记得分享评论内容"
+                android:drawableLeft="@mipmap/share_pyq_dialog"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+
+        </LinearLayout>
+
+        <View
+            android:id="@+id/dialog_line"
+            android:layout_marginTop="@dimen/y48"
+            android:layout_below="@id/dialog_content"
+            android:background="@color/color_DEDEDE"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/y2"/>
+
+        <View
+            android:id="@+id/dialog_line1"
+            android:background="@color/color_DEDEDE"
+            android:layout_centerHorizontal="true"
+            android:layout_below="@+id/dialog_line"
+            android:layout_width="@dimen/y2"
+            android:layout_height="@dimen/y94"/>
+
+        <TextView
+            android:layout_alignLeft="@+id/dialog_line1"
+            android:gravity="center"
+            android:textStyle="bold"
+            android:id="@+id/dialog_sure"
+            android:layout_alignTop="@id/dialog_line"
+            android:layout_alignBottom="@+id/dialog_line1"
+            android:layout_alignParentRight="true"
+            android:textSize="16sp"
+            android:textColor="@color/color_202020"
+            android:text="打开朋友圈"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+
+        <TextView
+            android:layout_alignRight="@id/dialog_line1"
+            android:gravity="center"
+            android:layout_alignTop="@id/dialog_line"
+            android:layout_alignBottom="@+id/dialog_line1"
+            android:layout_alignParentLeft="true"
+            android:id="@+id/dialog_cancle"
+            android:layout_below="@id/dialog_title"
+            android:textSize="16sp"
+            android:textColor="@color/color_202020"
+            android:text="取消"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+
+    </RelativeLayout>
+
+</RelativeLayout>

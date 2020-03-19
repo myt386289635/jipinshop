@@ -35,6 +35,7 @@ import com.example.administrator.jipinshop.bean.TklBean;
 import com.example.administrator.jipinshop.bean.eventbus.ChangeHomePageBus;
 import com.example.administrator.jipinshop.bean.eventbus.EditNameBus;
 import com.example.administrator.jipinshop.bean.eventbus.HomeNewPeopleBus;
+import com.example.administrator.jipinshop.fragment.circle.CircleFragment;
 import com.example.administrator.jipinshop.fragment.evaluationkt.EvaluationNewFragment;
 import com.example.administrator.jipinshop.fragment.home.HomeNewFragment;
 import com.example.administrator.jipinshop.fragment.home.KTHomeFragnent;
@@ -102,7 +103,7 @@ public class MainActivity extends RxAppCompatActivity implements MainView, ViewP
     private HomeNewFragment mHomeFragment;
     private MineFragment mMineFragment;
     private EvaluationNewFragment mEvaluationFragment;
-    private MoneyFragment mTryFragment;
+    private CircleFragment mTryFragment;
     private KTHomeFragnent mKTHomeFragnent;
 
     private Unbinder mButterKnife;
@@ -160,13 +161,12 @@ public class MainActivity extends RxAppCompatActivity implements MainView, ViewP
         mKTHomeFragnent = KTHomeFragnent.getInstance();
         mEvaluationFragment = new EvaluationNewFragment();
         mHomeFragment = new HomeNewFragment();
-//        mTryFragment = new FreeNewFragment();
-//        mTryFragment = MoneyFragment.getInstance();//赚钱页面
+        mTryFragment = CircleFragment.getInstance();
         mMineFragment = new MineFragment();
         mFragments.add(mKTHomeFragnent);
         mFragments.add(mEvaluationFragment);
-//        mFragments.add(mTryFragment);
         mFragments.add(mHomeFragment);
+        mFragments.add(mTryFragment);
         mFragments.add(mMineFragment);
 
         mHomeAdapter = new HomeAdapter(getSupportFragmentManager());

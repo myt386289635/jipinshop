@@ -4,12 +4,11 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
-import android.widget.Toast;
+import android.net.Uri;
 
 import com.example.administrator.jipinshop.util.ToastUtil;
-import com.tencent.mm.opensdk.openapi.IWXAPI;
-import com.tencent.mm.opensdk.openapi.WXAPIFactory;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -73,4 +72,64 @@ public class PlatformUtil {
         }
     }
 
+    //分享多图到微信
+    public static Intent shareWX_images(Context mContext, ArrayList<Uri> list) {
+        if (PlatformUtil.isWxAppInstalledAndSupported(mContext)) {
+            Intent sendIntent =new Intent();
+            sendIntent.setAction(Intent.ACTION_SEND_MULTIPLE);
+            sendIntent.setType("image/*");
+            sendIntent.setFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
+            try {
+                sendIntent.putParcelableArrayListExtra(Intent.EXTRA_STREAM,list);
+                sendIntent.setClassName("com.tencent.mm",
+                            "com.tencent.mm.ui.tools.ShareImgUI");
+                Intent chooserIntent = Intent.createChooser(sendIntent, "选择分享途径");
+                if (chooserIntent ==null) {
+                    return null;
+                }
+                return chooserIntent;
+            }catch (Exception e) {
+                return sendIntent;
+            }
+        }else {
+            ToastUtil.show("您需要安装微信客户端");
+        }
+        return null;
+    }
+
+    //分享多图到QQ
+    public static Intent shareQQ_images(Context mContext, ArrayList<Uri> list) {
+        if (PlatformUtil.isQQClientAvailable(mContext)) {
+            Intent sendIntent =new Intent();
+            sendIntent.setAction(Intent.ACTION_SEND_MULTIPLE);
+            sendIntent.setType("image/*");
+            sendIntent.setFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
+            try {
+                sendIntent.putParcelableArrayListExtra(Intent.EXTRA_STREAM,list);
+                sendIntent.setClassName("com.tencent.mobileqq",
+                        "com.tencent.mobileqq.activity.JumpActivity");
+                Intent chooserIntent = Intent.createChooser(sendIntent, "选择分享途径");
+                if (chooserIntent ==null) {
+                    return null;
+                }
+                return chooserIntent;
+            }catch (Exception e) {
+               return sendIntent;
+            }
+        }else {
+            ToastUtil.show("您需要安装QQ客户端");
+        }
+        return null;
+    }
+
+    //分享多图到朋友圈 微信7.0以后不支持分享多图到朋友圈，所以仅打开微信即可
+    public static Intent sharePYQ_images(Context mContext) {
+        if (PlatformUtil.isWxAppInstalledAndSupported(mContext)) {
+            Intent intent = mContext.getPackageManager().getLaunchIntentForPackage("com.tencent.mm");
+            return intent;
+        }else {
+            ToastUtil.show("您需要安装微信客户端");
+        }
+        return null;
+    }
 }

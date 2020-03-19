@@ -1,11 +1,11 @@
-package com.example.administrator.jipinshop.view.textview;
+package com.example.administrator.jipinshop.view.tab;
 
 import android.content.Context;
 
 /**
  * @author 莫小婷
  * @create 2019/12/11
- * @Describe
+ * @Describe 动态更改左右间距
  */
 public class ColorFlipPagerTitleView extends SimpleCommenPagerTitleView {
 

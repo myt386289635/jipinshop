@@ -6,6 +6,8 @@ import com.example.administrator.jipinshop.bean.AddressBean;
 import com.example.administrator.jipinshop.bean.AllowanceRecordBean;
 import com.example.administrator.jipinshop.bean.AppVersionbean;
 import com.example.administrator.jipinshop.bean.BudgetDetailBean;
+import com.example.administrator.jipinshop.bean.CircleListBean;
+import com.example.administrator.jipinshop.bean.CircleTitleBean;
 import com.example.administrator.jipinshop.bean.CommentBean;
 import com.example.administrator.jipinshop.bean.DailyTaskBean;
 import com.example.administrator.jipinshop.bean.DefaultAddressBean;
@@ -1177,4 +1179,21 @@ public interface APIService {
     @GET("api/allowance/detail")
     Observable<TBShoppingDetailBean> newGoodsDetail(@Query("allowanceGoodsId") String otherGoodsId);
 
+    /**
+     * 全部分类（每日精选/宣传素材）
+     */
+    @GET("api/moment/categoryList")
+    Observable<CircleTitleBean> circleTitle(@Query("type") String type);
+
+    /**
+     * 圈子列表
+     */
+    @GET("api/moment/list")
+    Observable<CircleListBean> circleList(@QueryMap Map<String,String> map);
+
+    /**
+     * 成功分享一次
+     */
+    @GET("api/moment/addShare")
+    Observable<SuccessBean> addShare(@Query("momentId") String momentId);
 }

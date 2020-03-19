@@ -26,6 +26,9 @@ import com.umeng.socialize.media.UMImage;
 import com.umeng.socialize.media.UMMin;
 import com.umeng.socialize.media.UMWeb;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * @author 莫小婷
  * @create 2018/8/14
@@ -95,6 +98,21 @@ public class ShareUtils {
                 .withText(text)
                 .setCallback(shareListener)//分享回调
                 .share();
+    }
+
+    /**
+     * 分享多图 仅支持新浪微博和QQ空间
+     */
+    public void shareImages(final Activity activity , String content , List<String> images){
+        UMImage[] umImages = new UMImage[images.size()];
+        for (int i = 0; i < images.size(); i++) {
+            umImages[i] = new UMImage(activity, images.get(i));
+        }
+        new ShareAction(activity)
+                .withMedias(umImages)
+                .setPlatform(mSHARE_media)
+                .withText(content)
+                .setCallback(shareListener2).share();
     }
 
     /**
@@ -233,4 +251,54 @@ public class ShareUtils {
         }
     };
 
+    //微博多图分享专属回调
+    private UMShareListener shareListener2 = new UMShareListener() {
+        /**
+         * @descrption 分享开始的回调
+         * @param platform 平台类型
+         */
+        @Override
+        public void onStart(SHARE_MEDIA platform) {
+            if(mDialog != null && !mDialog.isShowing()){
+                mDialog.show();
+            }
+        }
+
+        /**
+         * @descrption 分享成功的回调
+         * @param platform 平台类型
+         */
+        @Override
+        public void onResult(SHARE_MEDIA platform) {
+            if(mDialog != null && mDialog.isShowing()){
+                mDialog.dismiss();
+            }
+            ToastUtil.show("图片分享成功,复制评论区内容才能获得收益哦");
+        }
+
+        /**
+         * @descrption 分享失败的回调
+         * @param platform 平台类型
+         * @param t 错误原因
+         */
+        @Override
+        public void onError(SHARE_MEDIA platform, Throwable t) {
+            if(mDialog != null && mDialog.isShowing()){
+                mDialog.dismiss();
+            }
+            ToastUtil.show("分享失败");
+        }
+
+        /**
+         * @descrption 分享取消的回调
+         * @param platform 平台类型
+         */
+        @Override
+        public void onCancel(SHARE_MEDIA platform) {
+            if(mDialog != null && mDialog.isShowing()){
+                mDialog.dismiss();
+            }
+            ToastUtil.show("分享取消");
+        }
+    };
 }

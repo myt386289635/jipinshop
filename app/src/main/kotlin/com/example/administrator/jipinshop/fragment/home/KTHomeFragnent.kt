@@ -7,19 +7,16 @@ import android.databinding.DataBindingUtil
 import android.graphics.Color
 import android.os.Handler
 import android.os.Looper
-import android.os.Message
 import android.support.design.widget.AppBarLayout
 import android.support.v4.app.Fragment
 import android.support.v4.view.ViewPager
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.view.animation.Animation
-import android.widget.Toast
 import com.example.administrator.jipinshop.R
 import com.example.administrator.jipinshop.activity.sreach.TBSreachActivity
 import com.example.administrator.jipinshop.adapter.HomeFragmentAdapter
-import com.example.administrator.jipinshop.adapter.KTTabAdaper
+import com.example.administrator.jipinshop.adapter.KTTabAdapter
 import com.example.administrator.jipinshop.base.DBBaseFragment
 import com.example.administrator.jipinshop.bean.EvaluationTabBean
 import com.example.administrator.jipinshop.bean.eventbus.ChangeHomePageBus
@@ -51,7 +48,7 @@ class KTHomeFragnent : DBBaseFragment(), View.OnClickListener, ViewPager.OnPageC
     private lateinit var mAdapter : HomeFragmentAdapter
     private lateinit var mList: MutableList<Fragment>
     private lateinit var mTitle: MutableList<String>
-    private lateinit var mTabAdapter: KTTabAdaper
+    private lateinit var mTabAdapter: KTTabAdapter
     private var isChange: Boolean = true //是否开启颜色改变
     private var mColor : String = "#E25838"  //轮播图此时滑动的颜色
 
@@ -84,7 +81,7 @@ class KTHomeFragnent : DBBaseFragment(), View.OnClickListener, ViewPager.OnPageC
         var commonNavigator = CommonNavigator(context)
         commonNavigator.leftPadding = context!!.resources.getDimension(R.dimen.x20).toInt()
         commonNavigator.rightPadding = context!!.resources.getDimension(R.dimen.x20).toInt()
-        mTabAdapter = KTTabAdaper(mTitle,mBinding.viewPager)
+        mTabAdapter = KTTabAdapter(mTitle,mBinding.viewPager)
         commonNavigator.adapter = mTabAdapter
         mBinding.tabLayout.navigator = commonNavigator
         ViewPagerHelper.bind(mBinding.tabLayout, mBinding.viewPager)

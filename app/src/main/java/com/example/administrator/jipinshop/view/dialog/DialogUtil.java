@@ -686,4 +686,23 @@ public class DialogUtil {
         dialog.show();
         dialog.setContentView(view);
     }
+
+    //打开朋友圈
+    public static void sharePYQDialog(Context context, View.OnClickListener listener){
+        AlertDialog.Builder builder = new AlertDialog.Builder(context, R.style.dialog);
+        final Dialog dialog = builder.create();
+        View view = LayoutInflater.from(context).inflate(R.layout.dialog_share_pyq, null);
+        TextView dialog_cancle = view.findViewById(R.id.dialog_cancle);
+        TextView dialog_sure = view.findViewById(R.id.dialog_sure);
+        dialog_cancle.setOnClickListener(v -> {
+            dialog.dismiss();
+        });
+        dialog_sure.setOnClickListener(v -> {
+            listener.onClick(v);
+            dialog.dismiss();
+        });
+        dialog.getWindow().setDimAmount(0.35f);
+        dialog.show();
+        dialog.setContentView(view);
+    }
 }

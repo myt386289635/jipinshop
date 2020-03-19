@@ -3,6 +3,8 @@ package com.example.administrator.jipinshop.base;
 import com.example.administrator.jipinshop.auto.FragmentScope;
 import com.example.administrator.jipinshop.fragment.balance.budget.BudgetDetailFragment;
 import com.example.administrator.jipinshop.fragment.balance.withdraw.WithdrawDetailFragment;
+import com.example.administrator.jipinshop.fragment.circle.CircleFragment;
+import com.example.administrator.jipinshop.fragment.circle.daily.DailyFragment;
 import com.example.administrator.jipinshop.fragment.evaluation.EvaluationFragment;
 import com.example.administrator.jipinshop.fragment.evaluation.common.CommonEvaluationFragment;
 import com.example.administrator.jipinshop.fragment.evaluationkt.attent.EvaAttentFrament;
@@ -106,4 +108,6 @@ public interface BaseFragmentComponent {
     void inject(KTUserLikeFragment fragment);
     void inject(KTHomeCommenFragment fragment);
     void inject(MoneyFragment fragment);
+    void inject(CircleFragment fragment);
+    void inject(DailyFragment fragment);
 }

@@ -49,7 +49,7 @@ public class FileManager {
      * @param bm
      * @throws IOException
      */
-    public static void saveFile(Bitmap bm ,Context mContext){
+    public static File saveFile(Bitmap bm ,Context mContext){
         String sdDir = FileManager.externalFiles(mContext);
         String str =  sdDir + "/"+ System.currentTimeMillis() + "bitmap.jpg";
         File myCaptureFile = new File(str);
@@ -65,7 +65,6 @@ public class FileManager {
             //刷新图库
             MediaStore.Images.Media.insertImage(mContext.getContentResolver(),
                     myCaptureFile.getAbsolutePath(), myCaptureFile.getName(), null);
-            ToastUtil.show("已保存到相册");
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         } catch (IOException e) {
@@ -76,5 +75,6 @@ public class FileManager {
         Uri uri = Uri.fromFile(myCaptureFile);
         intent.setData(uri);
         mContext.sendBroadcast(intent);
+        return myCaptureFile;
     }
 }

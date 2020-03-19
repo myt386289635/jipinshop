@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content">
+
+    <TextView
+        android:id="@+id/item_text"
+        android:layout_marginBottom="@dimen/y30"
+        android:layout_marginLeft="@dimen/x30"
+        android:text="收入素材"
+        android:textSize="12sp"
+        android:textColor="@color/color_565252"
+        android:paddingBottom="@dimen/y10"
+        android:paddingTop="@dimen/y10"
+        android:paddingRight="@dimen/x15"
+        android:paddingLeft="@dimen/x15"
+        android:background="@drawable/bg_dialog_white"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"/>
+
+</RelativeLayout>

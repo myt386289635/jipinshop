@@ -1,0 +1,417 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:bind="http://schemas.android.com/tools">
+
+    <data>
+        <import type="android.view.View"/>
+        <variable
+            name="data"
+            type="com.example.administrator.jipinshop.bean.CircleListBean.DataBean"/>
+        <variable
+            name="comment1"
+            type="com.example.administrator.jipinshop.bean.CircleListBean.DataBean.CommentListBean"/>
+        <variable
+            name="comment2"
+            type="com.example.administrator.jipinshop.bean.CircleListBean.DataBean.CommentListBean"/>
+        <variable
+            name="comment3"
+            type="com.example.administrator.jipinshop.bean.CircleListBean.DataBean.CommentListBean"/>
+        <variable
+            name="comment4"
+            type="com.example.administrator.jipinshop.bean.CircleListBean.DataBean.CommentListBean"/>
+        <variable
+            name="comment5"
+            type="com.example.administrator.jipinshop.bean.CircleListBean.DataBean.CommentListBean"/>
+    </data>
+
+    <com.example.administrator.jipinshop.view.scrollView.NoScrollView
+        android:scrollbars="none"
+        android:fillViewport="true"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <RelativeLayout
+            android:id="@+id/item_container"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <com.example.administrator.jipinshop.view.glide.CircleImageView
+                bind:src="@{data.userAvatar}"
+                android:id="@+id/item_image"
+                android:layout_marginTop="@dimen/y30"
+                android:layout_marginLeft="@dimen/x30"
+                android:layout_width="@dimen/x80"
+                android:layout_height="@dimen/y80"
+                app:civ_border_color="@color/color_BD2800"
+                app:civ_border_width="@dimen/x2"/>
+
+            <TextView
+                android:id="@+id/item_share"
+                android:textSize="14sp"
+                android:layout_marginRight="@dimen/x30"
+                android:layout_alignTop="@id/item_image"
+                android:layout_alignParentRight="true"
+                android:gravity="center_vertical"
+                android:paddingBottom="@dimen/y5"
+                android:paddingTop="@dimen/y5"
+                android:paddingRight="@dimen/x15"
+                android:paddingLeft="@dimen/x15"
+                android:drawablePadding="@dimen/x9"
+                android:textColor="@color/color_E25838"
+                android:text="@{data.shareNumber}"
+                android:drawableTint="@color/color_E25838"
+                android:drawableLeft="@mipmap/qus_forward2"
+                android:background="@drawable/bg_ffebe6_2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+
+            <TextView
+                android:ellipsize="end"
+                android:singleLine="true"
+                android:layout_toLeftOf="@id/item_share"
+                android:id="@+id/item_name"
+                android:layout_marginLeft="@dimen/x27"
+                android:textColor="@color/color_E25838"
+                android:textStyle="bold"
+                android:textSize="17sp"
+                android:layout_alignTop="@id/item_image"
+                android:layout_toRightOf="@id/item_image"
+                android:text="@{data.userNickname}"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"/>
+
+            <TextView
+                android:layout_marginBottom="@dimen/y20"
+                android:id="@+id/item_content"
+                android:textSize="14sp"
+                android:textColor="@color/color_565252"
+                android:lineSpacingExtra="@dimen/y10"
+                android:text="@{data.content}"
+                android:layout_toLeftOf="@id/item_share"
+                android:layout_alignLeft="@id/item_name"
+                android:layout_marginTop="@dimen/y24"
+                android:layout_below="@id/item_share"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"/>
+
+            <ImageView
+                android:visibility="@{data.imgList.size() == 1 ? View.VISIBLE: View.GONE}"
+                android:scaleType="centerCrop"
+                android:id="@+id/item_imageContent"
+                bind:src="@{data.imgList[0]}"
+                android:layout_alignLeft="@id/item_content"
+                android:layout_below="@id/item_content"
+                android:layout_width="@dimen/x332"
+                android:layout_height="@dimen/y332"/>
+
+            <com.example.administrator.jipinshop.view.gridview.MyGridView
+                android:visibility="@{data.imgList.size() != 1 ? View.VISIBLE: View.GONE}"
+                android:layout_alignLeft="@id/item_content"
+                android:layout_below="@id/item_imageContent"
+                android:layout_width="@dimen/x520"
+                android:numColumns="3"
+                android:horizontalSpacing="@dimen/y10"
+                android:verticalSpacing="@dimen/x10"
+                android:layout_height="wrap_content"
+                android:id="@+id/item_gridView"/>
+
+            <RelativeLayout
+                android:visibility="@{data.goodsInfo == null ? View.GONE : View.VISIBLE}"
+                android:background="@drawable/bg_opinion"
+                android:id="@+id/item_goodContainer"
+                android:layout_marginRight="@dimen/x30"
+                android:layout_alignLeft="@id/item_content"
+                android:layout_marginTop="@dimen/y30"
+                android:layout_below="@id/item_gridView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <ImageView
+                    android:layout_marginRight="@dimen/x15"
+                    android:id="@+id/item_goodImage"
+                    bind:srcRound="@{data.goodsInfo.img}"
+                    android:layout_marginBottom="@dimen/y22"
+                    android:layout_marginTop="@dimen/y22"
+                    android:layout_marginLeft="@dimen/x15"
+                    android:layout_width="@dimen/x136"
+                    android:layout_height="@dimen/y136"/>
+
+                <TextView
+                    android:id="@+id/item_goodName"
+                    android:textColor="@color/color_565252"
+                    android:ellipsize="end"
+                    android:singleLine="true"
+                    android:text="@{data.goodsInfo.otherName}"
+                    android:layout_marginRight="@dimen/x24"
+                    android:layout_toRightOf="@id/item_goodImage"
+                    android:layout_alignTop="@id/item_goodImage"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"/>
+
+                <TextView
+                    android:layout_toRightOf="@id/item_goodImage"
+                    android:layout_alignBottom="@id/item_goodImage"
+                    android:id="@+id/item_goodPrice"
+                    android:textColor="@color/color_E25838"
+                    android:textSize="13sp"
+                    android:text="@{@string/daily_price + data.goodsInfo.actualPrice}"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"/>
+
+                <TextView
+                    android:id="@+id/item_goodCoupon"
+                    android:minWidth="@dimen/x107"
+                    android:layout_toRightOf="@id/item_goodImage"
+                    android:layout_centerVertical="true"
+                    android:gravity="center"
+                    android:textColor="@color/color_E25838"
+                    android:textSize="11sp"
+                    android:text="@{@string/detail_coupon + data.goodsInfo.couponPrice}"
+                    android:backgroundTint="@color/color_FFCBBE"
+                    android:background="@mipmap/bg_coupon1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"/>
+
+                <LinearLayout
+                    android:layout_marginRight="@dimen/x16"
+                    android:layout_marginBottom="@dimen/y8"
+                    android:layout_alignBottom="@id/item_goodImage"
+                    android:layout_alignParentRight="true"
+                    android:id="@+id/item_goodShare"
+                    android:paddingBottom="@dimen/y5"
+                    android:paddingTop="@dimen/y5"
+                    android:background="@drawable/bg_ef7458"
+                    android:gravity="center"
+                    android:orientation="vertical"
+                    android:layout_width="@dimen/x166"
+                    android:layout_height="wrap_content">
+
+                    <TextView
+                        android:text="分享获收益"
+                        android:textSize="10sp"
+                        android:textColor="@color/color_white"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"/>
+
+                    <TextView
+                        android:id="@+id/item_goodSharePrice"
+                        android:text="@{@string/price + data.goodsInfo.fee}"
+                        android:textSize="12sp"
+                        android:textColor="@color/color_white"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"/>
+
+                </LinearLayout>
+
+            </RelativeLayout>
+
+            <LinearLayout
+                android:visibility="@{data.commentList.size() == 0 ? View.GONE : View.VISIBLE}"
+                android:id="@+id/item_comment"
+                android:layout_marginRight="@dimen/x30"
+                android:layout_marginTop="@dimen/y30"
+                android:layout_below="@id/item_goodContainer"
+                android:layout_alignLeft="@id/item_content"
+                android:orientation="vertical"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <RelativeLayout
+                    android:visibility="@{comment1 == null ? View.GONE : View.VISIBLE}"
+                    android:background="@drawable/bg_edf3f6"
+                    android:id="@+id/item_commentContainer1"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <TextView
+                        android:id="@+id/item_comment1"
+                        android:padding="@dimen/x15"
+                        android:lineSpacingExtra="@dimen/y10"
+                        android:textColor="@color/color_565252"
+                        android:textSize="14sp"
+                        android:text="@{comment1.content}"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"/>
+
+                    <TextView
+                        android:id="@+id/item_commentCopy1"
+                        android:layout_marginRight="@dimen/x15"
+                        android:layout_alignParentRight="true"
+                        android:layout_marginBottom="@dimen/y15"
+                        android:layout_below="@id/item_comment1"
+                        android:paddingBottom="@dimen/y8"
+                        android:paddingTop="@dimen/y8"
+                        android:paddingRight="@dimen/x25"
+                        android:paddingLeft="@dimen/x25"
+                        android:textColor="@color/color_white"
+                        android:textSize="11sp"
+                        android:text="复制评论"
+                        android:background="@drawable/bg_84b5d3"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"/>
+
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:visibility="@{comment2 == null ? View.GONE : View.VISIBLE}"
+                    android:layout_marginTop="@dimen/y30"
+                    android:background="@drawable/bg_edf3f6"
+                    android:id="@+id/item_commentContainer2"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <TextView
+                        android:id="@+id/item_comment2"
+                        android:padding="@dimen/x15"
+                        android:lineSpacingExtra="@dimen/y10"
+                        android:textColor="@color/color_565252"
+                        android:textSize="14sp"
+                        android:text="@{comment2.content}"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"/>
+
+                    <TextView
+                        android:id="@+id/item_commentCopy2"
+                        android:layout_marginRight="@dimen/x15"
+                        android:layout_alignParentRight="true"
+                        android:layout_marginBottom="@dimen/y15"
+                        android:layout_below="@id/item_comment2"
+                        android:paddingBottom="@dimen/y8"
+                        android:paddingTop="@dimen/y8"
+                        android:paddingRight="@dimen/x25"
+                        android:paddingLeft="@dimen/x25"
+                        android:textColor="@color/color_white"
+                        android:textSize="11sp"
+                        android:text="复制评论"
+                        android:background="@drawable/bg_84b5d3"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"/>
+
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:visibility="@{comment3 == null ? View.GONE : View.VISIBLE}"
+                    android:layout_marginTop="@dimen/y30"
+                    android:background="@drawable/bg_edf3f6"
+                    android:id="@+id/item_commentContainer3"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <TextView
+                        android:id="@+id/item_comment3"
+                        android:padding="@dimen/x15"
+                        android:lineSpacingExtra="@dimen/y10"
+                        android:textColor="@color/color_565252"
+                        android:textSize="14sp"
+                        android:text="@{comment3.content}"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"/>
+
+                    <TextView
+                        android:id="@+id/item_commentCopy3"
+                        android:layout_marginRight="@dimen/x15"
+                        android:layout_alignParentRight="true"
+                        android:layout_marginBottom="@dimen/y15"
+                        android:layout_below="@id/item_comment3"
+                        android:paddingBottom="@dimen/y8"
+                        android:paddingTop="@dimen/y8"
+                        android:paddingRight="@dimen/x25"
+                        android:paddingLeft="@dimen/x25"
+                        android:textColor="@color/color_white"
+                        android:textSize="11sp"
+                        android:text="复制评论"
+                        android:background="@drawable/bg_84b5d3"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"/>
+
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:visibility="@{comment4 == null ? View.GONE : View.VISIBLE}"
+                    android:layout_marginTop="@dimen/y30"
+                    android:background="@drawable/bg_edf3f6"
+                    android:id="@+id/item_commentContainer4"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <TextView
+                        android:id="@+id/item_comment4"
+                        android:padding="@dimen/x15"
+                        android:lineSpacingExtra="@dimen/y10"
+                        android:textColor="@color/color_565252"
+                        android:textSize="14sp"
+                        android:text="@{comment4.content}"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"/>
+
+                    <TextView
+                        android:id="@+id/item_commentCopy4"
+                        android:layout_marginRight="@dimen/x15"
+                        android:layout_alignParentRight="true"
+                        android:layout_marginBottom="@dimen/y15"
+                        android:layout_below="@id/item_comment4"
+                        android:paddingBottom="@dimen/y8"
+                        android:paddingTop="@dimen/y8"
+                        android:paddingRight="@dimen/x25"
+                        android:paddingLeft="@dimen/x25"
+                        android:textColor="@color/color_white"
+                        android:textSize="11sp"
+                        android:text="复制评论"
+                        android:background="@drawable/bg_84b5d3"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"/>
+
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:visibility="@{comment5 == null ? View.GONE : View.VISIBLE}"
+                    android:layout_marginTop="@dimen/y30"
+                    android:background="@drawable/bg_edf3f6"
+                    android:id="@+id/item_commentContainer5"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <TextView
+                        android:id="@+id/item_comment5"
+                        android:padding="@dimen/x15"
+                        android:lineSpacingExtra="@dimen/y10"
+                        android:textColor="@color/color_565252"
+                        android:textSize="14sp"
+                        android:text="@{comment5.content}"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"/>
+
+                    <TextView
+                        android:id="@+id/item_commentCopy5"
+                        android:layout_marginRight="@dimen/x15"
+                        android:layout_alignParentRight="true"
+                        android:layout_marginBottom="@dimen/y15"
+                        android:layout_below="@id/item_comment5"
+                        android:paddingBottom="@dimen/y8"
+                        android:paddingTop="@dimen/y8"
+                        android:paddingRight="@dimen/x25"
+                        android:paddingLeft="@dimen/x25"
+                        android:textColor="@color/color_white"
+                        android:textSize="11sp"
+                        android:text="复制评论"
+                        android:background="@drawable/bg_84b5d3"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"/>
+
+                </RelativeLayout>
+
+            </LinearLayout>
+
+            <View
+                android:background="@color/color_F5F5F5"
+                android:layout_below="@id/item_comment"
+                android:layout_marginTop="@dimen/y30"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/y20"/>
+
+        </RelativeLayout>
+
+    </com.example.administrator.jipinshop.view.scrollView.NoScrollView>
+
+</layout>

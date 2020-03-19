@@ -359,6 +359,7 @@ class MoneyFragment : DBBaseFragment(), View.OnClickListener, OnRefreshListener,
                             override fun onResourceReady(resource: Bitmap, transition: Transition<in Bitmap>?) {
                                 stopResher()
                                 FileManager.saveFile(resource, it)
+                                ToastUtil.show("已保存到相册")
                             }
                         })
             } else {

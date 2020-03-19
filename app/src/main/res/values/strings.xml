@@ -93,4 +93,5 @@
     <string name="record">创建时间：</string>
     <string name="allowance2">减</string>
     <string name="money_time">申请时间：</string>
+    <string name="daily_price">券后价¥</string>
 </resources>

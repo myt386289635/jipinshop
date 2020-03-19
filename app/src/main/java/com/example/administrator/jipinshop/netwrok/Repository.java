@@ -6,6 +6,8 @@ import com.example.administrator.jipinshop.bean.AddressBean;
 import com.example.administrator.jipinshop.bean.AllowanceRecordBean;
 import com.example.administrator.jipinshop.bean.AppVersionbean;
 import com.example.administrator.jipinshop.bean.BudgetDetailBean;
+import com.example.administrator.jipinshop.bean.CircleListBean;
+import com.example.administrator.jipinshop.bean.CircleTitleBean;
 import com.example.administrator.jipinshop.bean.CommentBean;
 import com.example.administrator.jipinshop.bean.DailyTaskBean;
 import com.example.administrator.jipinshop.bean.DefaultAddressBean;
@@ -1292,5 +1294,26 @@ public class Repository {
      */
     public Observable<TBShoppingDetailBean> newGoodsDetail(String otherGoodsId){
         return mAPIService.newGoodsDetail(otherGoodsId);
+    }
+
+    /**
+     * 全部分类（每日精选/宣传素材）
+     */
+    public Observable<CircleTitleBean> circleTitle(String type){
+        return mAPIService.circleTitle(type);
+    }
+
+    /**
+     * 圈子列表
+     */
+    public Observable<CircleListBean> circleList(Map<String,String> map){
+        return mAPIService.circleList(map);
+    }
+
+    /**
+     * 成功分享一次
+     */
+    public Observable<SuccessBean> addShare(String momentId){
+        return mAPIService.addShare(momentId);
     }
 }
