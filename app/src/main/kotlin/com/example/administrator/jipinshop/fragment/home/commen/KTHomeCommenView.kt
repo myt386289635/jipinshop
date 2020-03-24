@@ -1,6 +1,5 @@
 package com.example.administrator.jipinshop.fragment.home.commen
 
-import com.example.administrator.jipinshop.bean.ImageBean
 import com.example.administrator.jipinshop.bean.TbCommonBean
 
 /**
@@ -13,6 +12,4 @@ interface KTHomeCommenView {
     fun onSuccess(bean: TbCommonBean)
     fun onFile(error: String?)
 
-    fun onShareSuc(bean: ImageBean)
-    fun onShareFile()
 }

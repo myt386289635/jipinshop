@@ -137,22 +137,4 @@ class KTMainPresenter {
                 })
     }
 
-    /**
-     * 生成商品海报
-     */
-    fun getTbkGoodsPoster(otherGoodsId: String, transformer: LifecycleTransformer<ImageBean>) {
-        repository.getTbkGoodsPoster(otherGoodsId)
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .compose(transformer)
-                .subscribe({ bean ->
-                    if (bean.code == 0 && !TextUtils.isEmpty(bean.data)) {
-                        mView.onShareSuc(bean)
-                    } else {
-                        mView.onShareFile()
-                    }
-                }, {
-                    mView.onShareFile()
-                })
-    }
 }

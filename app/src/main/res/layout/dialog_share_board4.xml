@@ -140,6 +140,7 @@
                     android:layout_height="@dimen/y80"/>
 
                 <TextView
+                    android:id="@+id/share_picText"
                     android:layout_marginTop="@dimen/y20"
                     android:textColor="@color/color_565252"
                     android:textSize="13sp"

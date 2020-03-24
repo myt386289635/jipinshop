@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <RelativeLayout
+        android:layout_marginRight="@dimen/x5"
+        android:layout_marginLeft="@dimen/x5"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+
+        <ImageView
+            android:scaleType="centerCrop"
+            android:id="@+id/item_image"
+            android:src="@color/color_9D9D9D"
+            android:layout_width="@dimen/x188"
+            android:layout_height="@dimen/y188"/>
+
+        <TextView
+            android:visibility="gone"
+            android:id="@+id/item_tag"
+            android:background="#99000000"
+            android:gravity="center"
+            android:textStyle="bold"
+            android:textColor="@color/color_white"
+            android:textSize="11sp"
+            android:text="二维码推广图"
+            android:layout_alignBottom="@id/item_image"
+            android:layout_alignRight="@id/item_image"
+            android:layout_alignLeft="@id/item_image"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/y34"/>
+
+        <CheckBox
+            android:id="@+id/item_checkBox"
+            android:paddingTop="@dimen/y10"
+            android:paddingRight="@dimen/x10"
+            android:paddingBottom="@dimen/y10"
+            android:layout_alignRight="@id/item_image"
+            android:button="@drawable/share_tab"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+
+
+    </RelativeLayout>
+</layout>

@@ -28,7 +28,19 @@
             android:layout_height="@dimen/y88"
             android:layout_width="match_parent"/>
 
+        <ImageView
+            android:background="@color/color_D33C0C"
+            android:onClick="@{listener.onClick}"
+            android:visibility="gone"
+            android:id="@+id/newpeople_share"
+            android:adjustViewBounds="true"
+            android:src="@mipmap/bg_newpeople11"
+            android:layout_alignParentBottom="true"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+
         <com.aspsine.swipetoloadlayout.SwipeToLoadLayout
+            android:layout_above="@id/newpeople_share"
             android:layout_below="@id/in_clude"
             android:id="@+id/swipeToLoad"
             android:layout_width="match_parent"

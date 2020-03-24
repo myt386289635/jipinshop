@@ -59,28 +59,4 @@ public class TBSreachResultPresenter {
                 });
     }
 
-    /**
-     * 生成商品海报
-     */
-    public void getTbkGoodsPoster(String otherGoodsId , LifecycleTransformer<ImageBean> transformer){
-        mRepository.getTbkGoodsPoster(otherGoodsId)
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .compose(transformer)
-                .subscribe(bean -> {
-                    if(bean.getCode() == 0 && !TextUtils.isEmpty(bean.getData())) {
-                        if (mView != null) {
-                            mView.onShareSuc(bean);
-                        }
-                    }else {
-                        if(mView != null){
-                            mView.onShareFile();
-                        }
-                    }
-                }, throwable -> {
-                    if(mView != null){
-                        mView.onShareFile();
-                    }
-                });
-    }
 }

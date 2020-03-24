@@ -29,8 +29,11 @@ public class ShareBoardDialog4 extends BottomSheetDialogFragment implements View
         mOnShareListener = onShareListener;
     }
 
-    public static ShareBoardDialog4 getInstance() {
+    public static ShareBoardDialog4 getInstance(String name) {
         ShareBoardDialog4 fragment = new ShareBoardDialog4();
+        Bundle bundle = new Bundle();
+        bundle.putString("name",name);
+        fragment.setArguments(bundle);
         return fragment;
     }
 
@@ -39,6 +42,7 @@ public class ShareBoardDialog4 extends BottomSheetDialogFragment implements View
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         mBinding = DataBindingUtil.inflate(inflater,R.layout.dialog_share_board4, container, false);
         mBinding.setListener(this);
+        mBinding.sharePicText.setText(getArguments().getString("name","保存图片"));
         return mBinding.getRoot();
     }
 

@@ -134,7 +134,6 @@ public class CommonEvaluationAdapter extends RecyclerView.Adapter {
                     }
                 });
                 viewHolder.item_head.setOnClickListener(v -> {
-                    // TODO: 2019/1/11  个人主页
                 });
                 break;
         }

@@ -1,5 +1,6 @@
 package com.example.administrator.jipinshop.view.dialog;
 
+import android.app.Activity;
 import android.content.Context;
 import android.graphics.Rect;
 import android.graphics.drawable.ColorDrawable;
@@ -105,12 +106,16 @@ public class PopView extends PopupWindow{
     }
 
     //Android7.0 及以上 popupwindow showAsDropDown 无效解决方法
+    //同时解决，popWindow部分手机底部留白问题
     public  void showAsDropDown(final PopupWindow pw, final View anchor, final int xoff, final int yoff) {
         if (Build.VERSION.SDK_INT >= 24) {
-            Rect visibleFrame = new Rect();
-            anchor.getGlobalVisibleRect(visibleFrame);
-            int height = anchor.getResources().getDisplayMetrics().heightPixels - visibleFrame.bottom;
-            pw.setHeight(height);
+            Rect rect = new Rect();
+            anchor.getWindowVisibleDisplayFrame(rect);
+            Activity activity = (Activity) anchor.getContext();
+            Rect outRect1 = new Rect();
+            activity.getWindow().getDecorView().getWindowVisibleDisplayFrame(outRect1);
+            int h = outRect1.height() - rect.bottom;
+            setHeight(h);
             pw.showAsDropDown(anchor, xoff, yoff);
         } else {
             pw.showAsDropDown(anchor, xoff, yoff);

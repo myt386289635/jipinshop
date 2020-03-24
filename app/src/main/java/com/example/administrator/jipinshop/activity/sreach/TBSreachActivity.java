@@ -16,12 +16,14 @@ import android.view.ViewGroup;
 import android.view.inputmethod.EditorInfo;
 import android.widget.EditText;
 
+import com.blankj.utilcode.util.SPUtils;
 import com.example.administrator.jipinshop.R;
 import com.example.administrator.jipinshop.activity.WebActivity;
+import com.example.administrator.jipinshop.activity.login.LoginActivity;
+import com.example.administrator.jipinshop.activity.share.ShareActivity;
 import com.example.administrator.jipinshop.activity.sreach.result.TBSreachResultActivity;
 import com.example.administrator.jipinshop.adapter.ShoppingUserLikeAdapter;
 import com.example.administrator.jipinshop.base.BaseActivity;
-import com.example.administrator.jipinshop.bean.ImageBean;
 import com.example.administrator.jipinshop.bean.SimilerGoodsBean;
 import com.example.administrator.jipinshop.bean.SreachHistoryBean;
 import com.example.administrator.jipinshop.bean.SuccessBean;
@@ -29,15 +31,11 @@ import com.example.administrator.jipinshop.bean.eventbus.SreachBus;
 import com.example.administrator.jipinshop.databinding.ActivityTbSreachBinding;
 import com.example.administrator.jipinshop.netwrok.RetrofitModule;
 import com.example.administrator.jipinshop.util.DeviceUuidFactory;
-import com.example.administrator.jipinshop.util.ShareUtils;
 import com.example.administrator.jipinshop.util.ToastUtil;
-import com.example.administrator.jipinshop.util.share.MobLinkUtil;
+import com.example.administrator.jipinshop.util.sp.CommonDate;
 import com.example.administrator.jipinshop.view.dialog.DialogUtil;
 import com.example.administrator.jipinshop.view.dialog.ProgressDialogView;
-import com.example.administrator.jipinshop.view.dialog.ShareBoardDialog;
 import com.trello.rxlifecycle2.android.ActivityEvent;
-import com.umeng.socialize.UMShareAPI;
-import com.umeng.socialize.bean.SHARE_MEDIA;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
@@ -53,7 +51,7 @@ import javax.inject.Inject;
  * @create 2019/11/30
  * @Describe 淘宝搜索页面
  */
-public class TBSreachActivity extends BaseActivity implements View.OnClickListener, TBSreachView, ShoppingUserLikeAdapter.OnItem, ShareBoardDialog.onShareListener {
+public class TBSreachActivity extends BaseActivity implements View.OnClickListener, TBSreachView, ShoppingUserLikeAdapter.OnItem {
 
     @Inject
     TBSreachPresenter mPresenter;
@@ -68,13 +66,6 @@ public class TBSreachActivity extends BaseActivity implements View.OnClickListen
     private ShoppingUserLikeAdapter mLikeAdapter;
     private int[] usableHeightPrevious = {0};
     private String type = "1";//默认搜索类型为极品城
-    private ShareBoardDialog mShareBoardDialog;
-    private int sharePosition = -1;//分享的位置
-    private String shareUrl = "";
-    private String path = "";
-    private String shareImage = "";
-    private String shareName = "";
-    private String shareContent = "";
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -282,7 +273,6 @@ public class TBSreachActivity extends BaseActivity implements View.OnClickListen
     protected void onDestroy() {
         super.onDestroy();
         EventBus.getDefault().unregister(this);
-        UMShareAPI.get(this).release();
     }
 
     @Subscribe
@@ -322,20 +312,13 @@ public class TBSreachActivity extends BaseActivity implements View.OnClickListen
 
     @Override
     public void onItemShare(int position) {
-        sharePosition = position;
-        if (mShareBoardDialog == null) {
-            mShareBoardDialog = ShareBoardDialog.getInstance("","");
-            mShareBoardDialog.setOnShareListener(this);
+        if(TextUtils.isEmpty(SPUtils.getInstance(CommonDate.USER).getString(CommonDate.token,""))){
+            startActivity(new Intent(this, LoginActivity.class));
+            return;
         }
-        if (!mShareBoardDialog.isAdded()) {
-            mShareBoardDialog.show(getSupportFragmentManager(), "ShareBoardDialog");
-        }
-    }
-
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-        UMShareAPI.get(this).onActivityResult(requestCode, resultCode, data);
+        startActivity(new Intent(this, ShareActivity.class)
+                .putExtra("otherGoodsId",mUserLikeList.get(position).getOtherGoodsId())
+        );
     }
 
     @Override
@@ -346,39 +329,4 @@ public class TBSreachActivity extends BaseActivity implements View.OnClickListen
         }
     }
 
-    @Override
-    public void share(SHARE_MEDIA share_media) {
-        mDialog = (new ProgressDialogView()).createLoadingDialog(this, "");
-        path = "pages/list/main-v2-info/main?id=" + mUserLikeList.get(sharePosition).getOtherGoodsId();
-        shareImage =  mUserLikeList.get(sharePosition).getImg();
-        shareName = mUserLikeList.get(sharePosition).getOtherName();
-        shareContent = "【分享来自极品城APP】看评测选好物，省心更省钱";
-        shareUrl = RetrofitModule.H5_URL + "share/tbGoodsDetail.html?id=" + mUserLikeList.get(sharePosition).getOtherGoodsId();
-        if (share_media.equals(SHARE_MEDIA.WEIXIN)){
-            if(mDialog != null && !mDialog.isShowing()){
-                mDialog.show();
-            }
-            mPresenter.getTbkGoodsPoster( mUserLikeList.get(sharePosition).getOtherGoodsId() , this.bindToLifecycle());
-        }else {
-            MobLinkUtil.mobShare(mUserLikeList.get(sharePosition).getOtherGoodsId(), "/tbkGoodsDetail", mobID -> {
-                if (!TextUtils.isEmpty(mobID)){
-                    shareUrl += "&mobid=" + mobID;
-                }
-                new ShareUtils(this, share_media,mDialog)
-                        .shareWeb(this, shareUrl, shareName, shareContent, shareImage, R.mipmap.share_logo);
-            });
-        }
-    }
-
-    @Override
-    public void onShareSuc(ImageBean bean) {
-        new ShareUtils(this, SHARE_MEDIA.WEIXIN,mDialog)
-                .shareWXMin1(this,shareUrl,bean.getData(),shareName,shareContent,path);
-    }
-
-    @Override
-    public void onShareFile() {
-        new ShareUtils(this, SHARE_MEDIA.WEIXIN,mDialog)
-                .shareWXMin1(this,shareUrl,shareImage,shareName,shareContent,path);
-    }
 }

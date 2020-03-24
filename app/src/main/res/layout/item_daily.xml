@@ -106,6 +106,8 @@
                 android:layout_height="@dimen/y332"/>
 
             <com.example.administrator.jipinshop.view.gridview.MyGridView
+                android:focusable="false"
+                android:focusableInTouchMode="false"
                 android:visibility="@{data.imgList.size() != 1 ? View.VISIBLE: View.GONE}"
                 android:layout_alignLeft="@id/item_content"
                 android:layout_below="@id/item_imageContent"

@@ -11,7 +11,6 @@ import android.view.ViewGroup
 import com.example.administrator.jipinshop.R
 import com.example.administrator.jipinshop.bean.CircleListBean
 import com.example.administrator.jipinshop.databinding.ItemDailyBinding
-import com.example.administrator.jipinshop.util.ToastUtil
 
 /**
  * @author 莫小婷
@@ -71,9 +70,12 @@ class DailyAdapter :RecyclerView.Adapter<DailyAdapter.ViewHolder>{
             holder.setGridViewHeight()
             holder.mGirdAdapter.setOnClick(object : DailyGirdAdapter.OnGridItem{
                 override fun onGrid(position: Int, view: View) {
-//                    ToastUtil.show("点击图片位置$position")
+                    mOnClickItem.onGridImage(pos, position, mList[pos].imgList, view)
                 }
             })
+            mBinding.itemImageContent.setOnClickListener {
+                mOnClickItem.onGridImage(pos, 0, mList[pos].imgList, it)
+            }
             holder.mGirdAdapter.notifyDataSetChanged()
             mBinding.itemContainer.setOnClickListener {
                 if (mList[pos].goodsInfo != null){
@@ -149,5 +151,6 @@ class DailyAdapter :RecyclerView.Adapter<DailyAdapter.ViewHolder>{
         fun onDetailClick(position: Int)
         fun onShareClick(position: Int)
         fun onCommentClick(content: String)
+        fun onGridImage(fatherPos: Int, sonPos: Int, imgs: MutableList<String>, view: View)
     }
 }

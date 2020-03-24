@@ -11,18 +11,19 @@ import android.view.View
 import android.widget.TextView
 import com.aspsine.swipetoloadlayout.OnLoadMoreListener
 import com.aspsine.swipetoloadlayout.OnRefreshListener
+import com.blankj.utilcode.util.SPUtils
 import com.example.administrator.jipinshop.R
+import com.example.administrator.jipinshop.activity.login.LoginActivity
+import com.example.administrator.jipinshop.activity.share.ShareActivity
 import com.example.administrator.jipinshop.adapter.TBSreachResultAdapter
 import com.example.administrator.jipinshop.base.BaseActivity
 import com.example.administrator.jipinshop.bean.TBSreachResultBean
 import com.example.administrator.jipinshop.databinding.ActivityHomeDetailBinding
-import com.example.administrator.jipinshop.util.ShareUtils
 import com.example.administrator.jipinshop.util.ToastUtil
 import com.example.administrator.jipinshop.util.UmApp.AppStatisticalUtil
+import com.example.administrator.jipinshop.util.sp.CommonDate
 import com.example.administrator.jipinshop.view.dialog.ProgressDialogView
 import com.trello.rxlifecycle2.android.ActivityEvent
-import com.umeng.socialize.UMShareAPI
-import com.umeng.socialize.bean.SHARE_MEDIA
 import java.util.*
 import javax.inject.Inject
 
@@ -193,14 +194,13 @@ class HomeDetailActivity : BaseActivity(), View.OnClickListener, TBSreachResultA
 
     override fun onItemShare(position: Int) {
         appStatisticalUtil.addEvent("zhuanti." + id + "_liebiao.zf",this.bindToLifecycle())
-        mDialog = ProgressDialogView().createLoadingDialog(this, "")
-        val path = "pages/list/main-v2-info/main?id=" + mList[position].otherGoodsId
-        val shareImage = mList[position].img
-        val shareName = mList[position].otherName
-        val shareContent = "【分享来自极品城APP】看评测选好物，省心更省钱"
-        val shareUrl = "https://www.jipincheng.cn"
-        ShareUtils(this, SHARE_MEDIA.WEIXIN, mDialog)
-                .shareWXMin1(this, shareUrl, shareImage, shareName, shareContent, path)
+        if (TextUtils.isEmpty(SPUtils.getInstance(CommonDate.USER).getString(CommonDate.token, ""))) {
+            startActivity(Intent(this, LoginActivity::class.java))
+            return
+        }
+        startActivity(Intent(this, ShareActivity::class.java)
+                .putExtra("otherGoodsId", mList[position].otherGoodsId)
+        )
     }
 
     //初始化标题
@@ -248,11 +248,6 @@ class HomeDetailActivity : BaseActivity(), View.OnClickListener, TBSreachResultA
         }
     }
 
-    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-        super.onActivityResult(requestCode, resultCode, data)
-        UMShareAPI.get(this).onActivityResult(requestCode, resultCode, data)
-    }
-
     override fun onResume() {
         super.onResume()
         mDialog?.let {
@@ -262,8 +257,4 @@ class HomeDetailActivity : BaseActivity(), View.OnClickListener, TBSreachResultA
         }
     }
 
-    override fun onDestroy() {
-        super.onDestroy()
-        UMShareAPI.get(this).release()
-    }
 }

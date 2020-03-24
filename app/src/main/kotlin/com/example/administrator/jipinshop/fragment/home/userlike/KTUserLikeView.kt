@@ -1,6 +1,5 @@
 package com.example.administrator.jipinshop.fragment.home.userlike
 
-import com.example.administrator.jipinshop.bean.ImageBean
 import com.example.administrator.jipinshop.bean.SimilerGoodsBean
 
 /**
@@ -13,6 +12,4 @@ interface KTUserLikeView {
     fun onSuccess(bean: SimilerGoodsBean)
     fun onFile(error: String?)
 
-    fun onShareSuc(bean: ImageBean)
-    fun onShareFile()
 }

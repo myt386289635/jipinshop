@@ -1,6 +1,5 @@
 package com.example.administrator.jipinshop.fragment.home.userlike
 
-import android.app.Activity
 import android.app.Dialog
 import android.content.Intent
 import android.databinding.DataBindingUtil
@@ -11,23 +10,19 @@ import android.view.View
 import android.view.ViewGroup
 import com.aspsine.swipetoloadlayout.OnLoadMoreListener
 import com.aspsine.swipetoloadlayout.OnRefreshListener
+import com.blankj.utilcode.util.SPUtils
 import com.example.administrator.jipinshop.R
+import com.example.administrator.jipinshop.activity.login.LoginActivity
+import com.example.administrator.jipinshop.activity.share.ShareActivity
 import com.example.administrator.jipinshop.adapter.KTUserLikeAdapter
 import com.example.administrator.jipinshop.base.DBBaseFragment
-import com.example.administrator.jipinshop.bean.ImageBean
 import com.example.administrator.jipinshop.bean.SimilerGoodsBean
 import com.example.administrator.jipinshop.databinding.FragmentKtMainBinding
 import com.example.administrator.jipinshop.fragment.home.KTHomeFragnent
-import com.example.administrator.jipinshop.netwrok.RetrofitModule
-import com.example.administrator.jipinshop.util.ShareUtils
 import com.example.administrator.jipinshop.util.ToastUtil
 import com.example.administrator.jipinshop.util.UmApp.AppStatisticalUtil
-import com.example.administrator.jipinshop.util.share.MobLinkUtil
-import com.example.administrator.jipinshop.view.dialog.ProgressDialogView
-import com.example.administrator.jipinshop.view.dialog.ShareBoardDialog
+import com.example.administrator.jipinshop.util.sp.CommonDate
 import com.trello.rxlifecycle2.android.FragmentEvent
-import com.umeng.socialize.UMShareAPI
-import com.umeng.socialize.bean.SHARE_MEDIA
 import javax.inject.Inject
 
 /**
@@ -35,7 +30,7 @@ import javax.inject.Inject
  * @create 2019/12/13
  * @Describe
  */
-class KTUserLikeFragment : DBBaseFragment(), OnLoadMoreListener, OnRefreshListener, KTUserLikeView, KTUserLikeAdapter.OnItem, ShareBoardDialog.onShareListener {
+class KTUserLikeFragment : DBBaseFragment(), OnLoadMoreListener, OnRefreshListener, KTUserLikeView, KTUserLikeAdapter.OnItem {
 
     @Inject
     lateinit var mPresenter: KTUserLikePresenter
@@ -49,13 +44,6 @@ class KTUserLikeFragment : DBBaseFragment(), OnLoadMoreListener, OnRefreshListen
     private var refersh: Boolean = true
     private var once : Boolean = true //第一次进入
     private var mDialog: Dialog? = null
-    private var mShareBoardDialog: ShareBoardDialog? = null
-    private var sharePosition = -1//分享的位置  默认-1是商品本身
-    private var path = ""
-    private var shareImage = ""
-    private var shareName = ""
-    private var shareContent = ""
-    private var shareUrl = ""
 
     companion object{
         fun getInstance() : KTUserLikeFragment {
@@ -175,55 +163,13 @@ class KTUserLikeFragment : DBBaseFragment(), OnLoadMoreListener, OnRefreshListen
 
     override fun onItemShare(position: Int) {
         appStatisticalUtil.addEvent("shouye.cnxh_liebiao.zf",this.bindToLifecycle())//猜你喜欢列表分享统计
-        sharePosition = position
-        if (mShareBoardDialog == null) {
-            mShareBoardDialog = ShareBoardDialog.getInstance("", "")
-            mShareBoardDialog?.setOnShareListener(this)
+        if (TextUtils.isEmpty(SPUtils.getInstance(CommonDate.USER).getString(CommonDate.token, ""))) {
+            startActivity(Intent(context, LoginActivity::class.java))
+            return
         }
-        mShareBoardDialog?.let {
-            if (!it.isAdded){
-                it.show(childFragmentManager,"ShareBoardDialog")
-            }
-        }
-    }
-
-    override fun share(share_media: SHARE_MEDIA?) {
-        mDialog = ProgressDialogView().createLoadingDialog(context, "")
-        path = "pages/list/main-v2-info/main?id=" + mList[sharePosition].otherGoodsId
-        shareImage = mList[sharePosition].img
-        shareName = mList[sharePosition].otherName
-        shareContent = "【分享来自极品城APP】看评测选好物，省心更省钱"
-        shareUrl = RetrofitModule.H5_URL + "share/tbGoodsDetail.html?id=" + mList[sharePosition].otherGoodsId
-        if (share_media == SHARE_MEDIA.WEIXIN){
-            mDialog?.let {
-                if (!it.isShowing)
-                    it.show()
-            }
-            mPresenter.getTbkGoodsPoster(mList[sharePosition].otherGoodsId,this.bindToLifecycle())
-        } else {
-            MobLinkUtil.mobShare(mList[sharePosition].otherGoodsId, "/tbkGoodsDetail") { mobID ->
-                if (!TextUtils.isEmpty(mobID)) {
-                    shareUrl += "&mobid=$mobID"
-                }
-                ShareUtils(context, share_media, mDialog)
-                        .shareWeb(context as Activity?, shareUrl, shareName, shareContent, shareImage, R.mipmap.share_logo)
-            }
-        }
-    }
-
-    override fun onShareSuc(bean: ImageBean) {
-        ShareUtils(context, SHARE_MEDIA.WEIXIN, mDialog)
-                .shareWXMin1(context as Activity, shareUrl, bean.data, shareName, shareContent, path)
-    }
-
-    override fun onShareFile() {
-        ShareUtils(context, SHARE_MEDIA.WEIXIN, mDialog)
-                .shareWXMin1(context as Activity, shareUrl, shareImage, shareName, shareContent, path)
-    }
-
-    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-        super.onActivityResult(requestCode, resultCode, data)
-        UMShareAPI.get(context).onActivityResult(requestCode, resultCode, data)
+        startActivity(Intent(context, ShareActivity::class.java)
+                .putExtra("otherGoodsId", mList[position].otherGoodsId)
+        )
     }
 
     override fun onResume() {
@@ -235,8 +181,4 @@ class KTUserLikeFragment : DBBaseFragment(), OnLoadMoreListener, OnRefreshListen
         }
     }
 
-    override fun onDestroyView() {
-        super.onDestroyView()
-        UMShareAPI.get(context).release()
-    }
 }

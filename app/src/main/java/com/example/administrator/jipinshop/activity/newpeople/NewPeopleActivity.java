@@ -6,15 +6,21 @@ import android.content.ClipboardManager;
 import android.content.Context;
 import android.content.Intent;
 import android.databinding.DataBindingUtil;
+import android.graphics.Bitmap;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.LinearLayoutManager;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.View;
 
 import com.alibaba.baichuan.android.trade.AlibcTradeSDK;
 import com.aspsine.swipetoloadlayout.OnRefreshListener;
 import com.blankj.utilcode.util.SPUtils;
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.target.SimpleTarget;
+import com.bumptech.glide.request.transition.Transition;
 import com.example.administrator.jipinshop.R;
 import com.example.administrator.jipinshop.activity.WebActivity;
 import com.example.administrator.jipinshop.activity.cheapgoods.CheapBuyActivity;
@@ -26,11 +32,16 @@ import com.example.administrator.jipinshop.bean.ImageBean;
 import com.example.administrator.jipinshop.bean.NewPeopleBean;
 import com.example.administrator.jipinshop.databinding.ActivityNewPeopleBinding;
 import com.example.administrator.jipinshop.netwrok.RetrofitModule;
+import com.example.administrator.jipinshop.util.FileManager;
+import com.example.administrator.jipinshop.util.ShareUtils;
 import com.example.administrator.jipinshop.util.TaoBaoUtil;
 import com.example.administrator.jipinshop.util.ToastUtil;
 import com.example.administrator.jipinshop.util.sp.CommonDate;
 import com.example.administrator.jipinshop.view.dialog.DialogUtil;
 import com.example.administrator.jipinshop.view.dialog.ProgressDialogView;
+import com.example.administrator.jipinshop.view.dialog.ShareBoardDialog4;
+import com.umeng.socialize.UMShareAPI;
+import com.umeng.socialize.bean.SHARE_MEDIA;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -42,7 +53,7 @@ import javax.inject.Inject;
  * @create 2019/11/14
  * @Describe 新人专区
  */
-public class NewPeopleActivity extends BaseActivity implements OnRefreshListener, NewPeopleAdapter.OnClickItem, NewPeopleView, View.OnClickListener {
+public class NewPeopleActivity extends BaseActivity implements OnRefreshListener, NewPeopleAdapter.OnClickItem, NewPeopleView, View.OnClickListener, ShareBoardDialog4.onShareListener {
 
     @Inject
     NewPeoplePresenter mPresenter;
@@ -58,6 +69,7 @@ public class NewPeopleActivity extends BaseActivity implements OnRefreshListener
     private Boolean jumpPage = false;//是否跳转特惠购页面
     private List<String> strings;
     private String allowance = "0";
+    private ShareBoardDialog4 mShareBoardDialog;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -99,6 +111,7 @@ public class NewPeopleActivity extends BaseActivity implements OnRefreshListener
 
 
     public void initError(int id, String title, String content) {
+        mBinding.newpeopleShare.setVisibility(View.GONE);
         mBinding.recyclerView.setVisibility(View.GONE);
         mBinding.netClude.qsNet.setVisibility(View.VISIBLE);
         mBinding.netClude.errorImage.setBackgroundResource(id);
@@ -209,6 +222,7 @@ public class NewPeopleActivity extends BaseActivity implements OnRefreshListener
             allowance = bean.getData().getAllowance();
             mBinding.netClude.qsNet.setVisibility(View.GONE);
             mBinding.recyclerView.setVisibility(View.VISIBLE);
+            mBinding.newpeopleShare.setVisibility(View.VISIBLE);
             strings.clear();
             if (bean.getData().getNewAllowanceGoodsList().size() >= 5){
                 for (int i = 2; i < 5; i++) {
@@ -245,7 +259,6 @@ public class NewPeopleActivity extends BaseActivity implements OnRefreshListener
     public void onFile(String error) {
         stopResher();
         initError(R.mipmap.qs_net, "网络出错", "哇哦，网络出错了，换个姿势下滑页面试试");
-        mBinding.recyclerView.setVisibility(View.GONE);
         ToastUtil.show(error);
     }
 
@@ -284,6 +297,15 @@ public class NewPeopleActivity extends BaseActivity implements OnRefreshListener
                 mBinding.bgGuide1.setVisibility(View.GONE);
                 mBinding.bgGuide2.setVisibility(View.GONE);
                 break;
+            case R.id.newpeople_share:
+                if (mShareBoardDialog == null) {
+                    mShareBoardDialog = ShareBoardDialog4.getInstance("保存图片");
+                    mShareBoardDialog.setOnShareListener(this);
+                }
+                if (!mShareBoardDialog.isAdded()) {
+                    mShareBoardDialog.show(getSupportFragmentManager(), "ShareBoardDialog4");
+                }
+                break;
         }
     }
 
@@ -309,5 +331,64 @@ public class NewPeopleActivity extends BaseActivity implements OnRefreshListener
     protected void onDestroy() {
         super.onDestroy();
         AlibcTradeSDK.destory();
+        UMShareAPI.get(this).release();
     }
+
+    @Override
+    public void share(SHARE_MEDIA share_media) {
+        mDialog = (new ProgressDialogView()).createLoadingDialog(this, "");
+        if (mDialog != null && !mDialog.isShowing()) {
+            mDialog.show();
+        }
+        if (share_media.equals(SHARE_MEDIA.WEIXIN) || share_media.equals(SHARE_MEDIA.QQ)
+                || share_media.equals(SHARE_MEDIA.SINA)){
+            new ShareUtils(this,share_media,mDialog)
+                    .shareWeb(this,RetrofitModule.H5_URL + "new-free?query=\""
+                            + SPUtils.getInstance(CommonDate.USER).getString(CommonDate.userId) + "\"",
+                            "新人0元购，仅剩2天!","价值30元免单礼品任意选",
+                            "https://jipincheng.cn/share_newFree.png",R.mipmap.logo);
+        }else {
+            //还是点击时获取吧，万一出现进入页面后快速进行分享，可能会导致没有获取到海报就分享的情况
+            mPresenter.getIndexPosterImg(share_media,this.bindToLifecycle());
+        }
+    }
+
+    @Override
+    public void download(int type) {
+        mDialog = (new ProgressDialogView()).createLoadingDialog(this, "");
+        if (mDialog != null && !mDialog.isShowing()) {
+            mDialog.show();
+        }
+        mPresenter.getIndexPosterImg(null,this.bindToLifecycle());
+    }
+
+
+    @Override
+    public void onShareSuc(ImageBean imageBean,SHARE_MEDIA share_media) {
+        if (share_media != null){
+            new ShareUtils(this, share_media, mDialog)
+                    .shareImage(this,imageBean.getData());
+        }else {
+            Glide.with(this)
+                    .asBitmap()
+                    .load(imageBean.getData())
+                    .into(new SimpleTarget<Bitmap>() {
+                        @Override
+                        public void onResourceReady(@NonNull Bitmap resource, @Nullable Transition<? super Bitmap> transition) {
+                            if (mDialog != null && mDialog.isShowing()) {
+                                mDialog.dismiss();
+                            }
+                            FileManager.saveFile(resource, NewPeopleActivity.this);
+                            ToastUtil.show("已保存到相册");
+                        }
+                    });
+        }
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        UMShareAPI.get(this).onActivityResult(requestCode, resultCode, data);
+    }
+
 }

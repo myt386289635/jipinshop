@@ -11,10 +11,12 @@ import com.example.administrator.jipinshop.bean.ImageBean;
 import com.example.administrator.jipinshop.bean.NewPeopleBean;
 import com.example.administrator.jipinshop.netwrok.Repository;
 import com.trello.rxlifecycle2.LifecycleTransformer;
+import com.umeng.socialize.bean.SHARE_MEDIA;
 
 import javax.inject.Inject;
 
 import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.functions.Consumer;
 import io.reactivex.schedulers.Schedulers;
 
 /**
@@ -86,6 +88,22 @@ public class NewPeoplePresenter {
                 .subscribe(bean -> {
                     if (bean.getCode() == 0){
                         mView.onBuySuccess(bean);
+                    }else {
+                        mView.onBuyFile(bean.getMsg());
+                    }
+                }, throwable -> {
+                    mView.onBuyFile(throwable.getMessage());
+                });
+    }
+
+    public void getIndexPosterImg(SHARE_MEDIA share_media , LifecycleTransformer<ImageBean> transformer){
+        mRepository.getIndexPosterImg()
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .compose(transformer)
+                .subscribe(bean -> {
+                    if (bean.getCode() == 0){
+                        mView.onShareSuc(bean,share_media);
                     }else {
                         mView.onBuyFile(bean.getMsg());
                     }

@@ -1,7 +1,6 @@
 package com.example.administrator.jipinshop.activity.shoppingdetail.tbshoppingdetail;
 
 import android.content.Context;
-import android.text.TextUtils;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -23,7 +22,6 @@ import java.util.Map;
 import javax.inject.Inject;
 
 import io.reactivex.android.schedulers.AndroidSchedulers;
-import io.reactivex.functions.Consumer;
 import io.reactivex.schedulers.Schedulers;
 
 /**
@@ -212,28 +210,4 @@ public class TBShoppingDetailPresenter {
                 });
     }
 
-    /**
-     * 生成商品海报
-     */
-    public void getTbkGoodsPoster(String otherGoodsId ,String path , String shareName  , String shareImage, LifecycleTransformer<ImageBean> transformer){
-        mRepository.getTbkGoodsPoster(otherGoodsId)
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .compose(transformer)
-                .subscribe(bean -> {
-                    if(bean.getCode() == 0 && !TextUtils.isEmpty(bean.getData())) {
-                        if (mView != null) {
-                            mView.onShareSuc(bean,path,shareName);
-                        }
-                    }else {
-                        if(mView != null){
-                            mView.onShareFile(path,shareName,shareImage);
-                        }
-                    }
-                }, throwable -> {
-                    if(mView != null){
-                        mView.onShareFile(path,shareName,shareImage);
-                    }
-                });
-    }
 }

@@ -47,6 +47,7 @@ import com.example.administrator.jipinshop.bean.QuestionsBean;
 import com.example.administrator.jipinshop.bean.RecommendFragmentBean;
 import com.example.administrator.jipinshop.bean.ReportBean;
 import com.example.administrator.jipinshop.bean.ScoreStatusBean;
+import com.example.administrator.jipinshop.bean.ShareBean;
 import com.example.administrator.jipinshop.bean.ShareInfoBean;
 import com.example.administrator.jipinshop.bean.ShoppingDetailBean;
 import com.example.administrator.jipinshop.bean.SignBean;
@@ -1315,5 +1316,19 @@ public class Repository {
      */
     public Observable<SuccessBean> addShare(String momentId){
         return mAPIService.addShare(momentId);
+    }
+
+    /**
+     * 获取创建分享内容
+     */
+    public Observable<ShareBean> getGoodsShareInfo(String otherGoodsId, int shareImgLocation){
+        return mAPIService.getGoodsShareInfo(otherGoodsId, shareImgLocation);
+    }
+
+    /**
+     * 生成0元购海报
+     */
+    public Observable<ImageBean> getIndexPosterImg(){
+        return mAPIService.getIndexPosterImg();
     }
 }

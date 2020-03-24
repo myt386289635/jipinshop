@@ -57,7 +57,7 @@ android {
     compileSdkVersion 28
     defaultConfig {
         applicationId "com.example.administrator.jipinshop"
-        minSdkVersion 16
+        minSdkVersion 19
         targetSdkVersion 26
         versionCode 39
         versionName "2.8.8"
@@ -224,8 +224,8 @@ dependencies {
     api 'com.tencent.bugly:crashreport:2.2.0'
     api 'com.tencent.bugly:nativecrashreport:3.0'
 
-    //图片浏览功能
-    implementation 'com.davemorrissey.labs:subsampling-scale-image-view:3.10.0'
+    //点击图片放大浏览 支持查看超大图（基于SubsamplingScaleImageView）
+    implementation 'com.github.iielse:ImageWatcher:1.1.5'
 
     //友盟统计
     implementation 'com.umeng.umsdk:analytics:8.0.0'
@@ -246,4 +246,64 @@ dependencies {
 
     //支付宝授权SDK AAR 包所需的配置
     implementation(name:'alipaySdk-15.7.3-20200217092949-noUtdid', ext:'aar')
+}
+
+configurations {
+    all*.exclude group: 'androidx.arch.core'
+    all*.exclude group: 'androidx.lifecycle'
+    all*.exclude group: 'androidx.paging'
+    all*.exclude group: 'androidx.room'
+    all*.exclude group: 'androidx.sqlite'
+    all*.exclude group: 'androidx.constraintlayout'
+    all*.exclude group: 'androidx.vectordrawable'
+    all*.exclude group: 'androidx.appcompat'
+    all*.exclude group: 'androidx.asynclayoutinflater'
+    all*.exclude group: 'androidx.cardview'
+    all*.exclude group: 'androidx.car'
+    all*.exclude group: 'androidx.collection'
+    all*.exclude group: 'androidx.coordinatorlayout'
+    all*.exclude group: 'androidx.cursoradapter'
+    all*.exclude group: 'androidx.browser'
+    all*.exclude group: 'androidx.customview'
+    all*.exclude group: 'com.google.android.material'
+    all*.exclude group: 'androidx.documentfile'
+    all*.exclude group: 'androidx.drawerlayout'
+    all*.exclude group: 'androidx.exifinterface'
+    all*.exclude group: 'androidx.gridlayout'
+    all*.exclude group: 'androidx.heifwriter'
+    all*.exclude group: 'androidx.interpolator'
+    all*.exclude group: 'androidx.leanback'
+    all*.exclude group: 'androidx.loader'
+    all*.exclude group: 'androidx.localbroadcastmanager'
+    all*.exclude group: 'androidx.media2'
+    all*.exclude group: 'androidx.mediarouter'
+    all*.exclude group: 'androidx.multidex'
+    all*.exclude group: 'androidx.palette'
+    all*.exclude group: 'androidx.percentlayout'
+    all*.exclude group: 'androidx.leanback'
+    all*.exclude group: 'androidx.legacy'
+    all*.exclude group: 'androidx.preference'
+    all*.exclude group: 'androidx.print'
+    all*.exclude group: 'androidx.recommendation'
+    all*.exclude group: 'androidx.recyclerview'
+    all*.exclude group: 'androidx.slice'
+    all*.exclude group: 'androidx.slidingpanelayout'
+    all*.exclude group: 'androidx.annotation'
+    all*.exclude group: 'androidx.core'
+    all*.exclude group: 'androidx.contentpager'
+    all*.exclude group: 'androidx.legacy'
+    all*.exclude group: 'androidx.dynamicanimation'
+    all*.exclude group: 'androidx.emoji'
+    all*.exclude group: 'androidx.fragment'
+    all*.exclude group: 'androidx.media'
+    all*.exclude group: 'androidx.tvprovider'
+    all*.exclude group: 'androidx.vectordrawable'
+    all*.exclude group: 'androidx.swiperefreshlayout'
+    all*.exclude group: 'androidx.textclassifier'
+    all*.exclude group: 'androidx.transition'
+    all*.exclude group: 'androidx.versionedparcelable'
+    all*.exclude group: 'androidx.viewpager'
+    all*.exclude group: 'androidx.wear'
+    all*.exclude group: 'androidx.webkit'
+    all*.exclude group: 'androidx.viewpager2'
 }

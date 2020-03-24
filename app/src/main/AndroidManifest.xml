@@ -552,6 +552,10 @@
         <activity android:name=".activity.wellcome.AdActivity"
                   android:screenOrientation="portrait"/>
 
+        <!--kotlin：创建分享页面-->
+        <activity android:name=".activity.share.ShareActivity"
+                  android:screenOrientation="portrait"/>
+
     </application>
 
 </manifest>

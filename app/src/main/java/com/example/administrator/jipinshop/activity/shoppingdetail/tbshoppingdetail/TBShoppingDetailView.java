@@ -22,7 +22,4 @@ public interface TBShoppingDetailView {
     void onBuyLinkSuccess(ImageBean bean);
 
     void onDescImgs(SucBean<String> bean);
-
-    void onShareSuc(ImageBean bean,String path , String shareName);
-    void onShareFile(String path , String shareName, String shareImage);
 }

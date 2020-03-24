@@ -80,5 +80,6 @@ class CircleFragment : DBBaseFragment(){
         mAdapter = HomeFragmentAdapter(childFragmentManager)
         mAdapter.setFragments(mFragments)
         mBinding.viewPager.adapter = mAdapter
+        mBinding.viewPager.setNoScroll(true)
     }
 }

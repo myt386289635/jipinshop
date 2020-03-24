@@ -47,6 +47,7 @@ import com.example.administrator.jipinshop.bean.QuestionsBean;
 import com.example.administrator.jipinshop.bean.RecommendFragmentBean;
 import com.example.administrator.jipinshop.bean.ReportBean;
 import com.example.administrator.jipinshop.bean.ScoreStatusBean;
+import com.example.administrator.jipinshop.bean.ShareBean;
 import com.example.administrator.jipinshop.bean.ShareInfoBean;
 import com.example.administrator.jipinshop.bean.ShoppingDetailBean;
 import com.example.administrator.jipinshop.bean.SignBean;
@@ -1196,4 +1197,17 @@ public interface APIService {
      */
     @GET("api/moment/addShare")
     Observable<SuccessBean> addShare(@Query("momentId") String momentId);
+
+    /**
+     * 获取创建分享内容
+     */
+    @GET("api/tbk/getGoodsShareInfo")
+    Observable<ShareBean> getGoodsShareInfo(@Query("otherGoodsId") String otherGoodsId, @Query("shareImgLocation") int shareImgLocation);
+
+    /**
+     * 生成0元购海报
+     */
+    @POST("api/allowance/getIndexPosterImg")
+    Observable<ImageBean> getIndexPosterImg();
+
 }

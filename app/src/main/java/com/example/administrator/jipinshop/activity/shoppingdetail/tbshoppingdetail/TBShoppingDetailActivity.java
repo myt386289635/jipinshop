@@ -3,9 +3,10 @@ package com.example.administrator.jipinshop.activity.shoppingdetail.tbshoppingde
 import android.app.Dialog;
 import android.content.Intent;
 import android.databinding.DataBindingUtil;
-import android.graphics.Color;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v4.graphics.drawable.DrawableCompat;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.text.TextUtils;
@@ -19,6 +20,8 @@ import com.alibaba.baichuan.android.trade.AlibcTradeSDK;
 import com.blankj.utilcode.util.SPUtils;
 import com.example.administrator.jipinshop.R;
 import com.example.administrator.jipinshop.activity.WebActivity;
+import com.example.administrator.jipinshop.activity.login.LoginActivity;
+import com.example.administrator.jipinshop.activity.share.ShareActivity;
 import com.example.administrator.jipinshop.activity.web.TaoBaoWebActivity;
 import com.example.administrator.jipinshop.adapter.NoPageBannerAdapter;
 import com.example.administrator.jipinshop.adapter.ShoppingImageAdapter;
@@ -37,20 +40,16 @@ import com.example.administrator.jipinshop.fragment.foval.goods.FovalGoodsFragme
 import com.example.administrator.jipinshop.netwrok.RetrofitModule;
 import com.example.administrator.jipinshop.util.ClickUtil;
 import com.example.administrator.jipinshop.util.DeviceUuidFactory;
-import com.example.administrator.jipinshop.util.ShareUtils;
 import com.example.administrator.jipinshop.util.TaoBaoUtil;
 import com.example.administrator.jipinshop.util.ToastUtil;
-import com.example.administrator.jipinshop.util.share.MobLinkUtil;
 import com.example.administrator.jipinshop.util.sp.CommonDate;
 import com.example.administrator.jipinshop.view.dialog.DialogParameter;
 import com.example.administrator.jipinshop.view.dialog.DialogQuality;
 import com.example.administrator.jipinshop.view.dialog.DialogUtil;
 import com.example.administrator.jipinshop.view.dialog.ProgressDialogView;
-import com.example.administrator.jipinshop.view.dialog.ShareBoardDialog;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.umeng.socialize.UMShareAPI;
-import com.umeng.socialize.bean.SHARE_MEDIA;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
@@ -67,7 +66,7 @@ import javax.inject.Inject;
  * @create 2019/11/25
  * @Describe 淘宝商品详情
  */
-public class TBShoppingDetailActivity extends BaseActivity implements View.OnClickListener, ShoppingQualityAdapter.OnItem, ShoppingParameterAdapter.OnItem, TBShoppingDetailView, ShareBoardDialog.onShareListener, ShoppingUserLikeAdapter.OnItem {
+public class TBShoppingDetailActivity extends BaseActivity implements View.OnClickListener, ShoppingQualityAdapter.OnItem, ShoppingParameterAdapter.OnItem, TBShoppingDetailView, ShoppingUserLikeAdapter.OnItem {
 
     @Inject
     TBShoppingDetailPresenter mPresenter;
@@ -93,13 +92,6 @@ public class TBShoppingDetailActivity extends BaseActivity implements View.OnCli
     //猜你喜欢
     private List<SimilerGoodsBean.DataBean> mUserLikeList;
     private ShoppingUserLikeAdapter mLikeAdapter;
-    //分享面板
-    private ShareBoardDialog mShareBoardDialog;
-    private int sharePosition = -1;//分享的位置  默认-1是商品本身
-    private String shareImage = "";
-    private String shareName = "";
-    private String shareContent = "";
-    private String shareUrl = "";
     private String goodsBuyLink = "";
     private boolean isCollect = false;//标志：是否收藏过此商品 false:没有
     private int goodsType = 2;//1是极品城  2是淘宝
@@ -214,14 +206,13 @@ public class TBShoppingDetailActivity extends BaseActivity implements View.OnCli
                 }
                 break;
             case R.id.detail_share:
-                sharePosition = -1;
-                if (mShareBoardDialog == null) {
-                    mShareBoardDialog = ShareBoardDialog.getInstance("","");
-                    mShareBoardDialog.setOnShareListener(this);
+                if(TextUtils.isEmpty(SPUtils.getInstance(CommonDate.USER).getString(CommonDate.token,""))){
+                    startActivity(new Intent(this, LoginActivity.class));
+                    return;
                 }
-                if (!mShareBoardDialog.isAdded()) {
-                    mShareBoardDialog.show(getSupportFragmentManager(), "ShareBoardDialog");
-                }
+                startActivity(new Intent(this, ShareActivity.class)
+                        .putExtra("otherGoodsId",goodsId)
+                );
                 break;
             case R.id.detail_home:
                 EventBus.getDefault().post(new TBShopDetailBus(TBShopDetailBus.finish));
@@ -351,9 +342,11 @@ public class TBShoppingDetailActivity extends BaseActivity implements View.OnCli
             mBinding.detailCouponContainer.setVisibility(View.VISIBLE);
         }
         double free = new BigDecimal(bean.getData().getFee()).doubleValue();
+        mBinding.detailShareCode.setText("（赚¥"+ new BigDecimal(free).setScale(2,BigDecimal.ROUND_HALF_UP).stripTrailingZeros().toPlainString() +"）");
         if (free == 0){//没有补贴
             mBinding.detailFeeContainer.setVisibility(View.GONE);
             mBinding.detailFreeNotice.setVisibility(View.GONE);
+            mBinding.detailShareCode.setVisibility(View.GONE);
         }
         double price = free + coupon;
         if (price == 0){
@@ -361,19 +354,23 @@ public class TBShoppingDetailActivity extends BaseActivity implements View.OnCli
         }else {
             mBinding.detailFreeCode.setText("（省¥"+ new BigDecimal(price).setScale(2,BigDecimal.ROUND_HALF_UP).stripTrailingZeros().toPlainString() +"）");
         }
-        //分享
-        shareImage = bean.getData().getImg();
-        shareName = bean.getData().getOtherName();
-        shareContent = "【分享来自极品城APP】看评测选好物，省心更省钱";
         //是否收藏过
         if(bean.getData().getCollect() == 1){
             isCollect = true;
-            mBinding.titleFavorImg.setImageResource(R.mipmap.com_favored);
-            mBinding.titleFavorImg.setColorFilter(getResources().getColor(R.color.color_E25838));
+            Drawable drawable= getResources().getDrawable(R.mipmap.com_favored);
+            drawable.setBounds(0, 0, drawable.getMinimumWidth(), drawable.getMinimumHeight());
+            drawable = DrawableCompat.wrap(drawable);
+            DrawableCompat.setTint(drawable, getResources().getColor(R.color.color_FF0000));
+            mBinding.titleFavor.setCompoundDrawables(null,drawable,null,null);
+            mBinding.titleFavor.setText("已收藏");
         }else {
             isCollect = false;
-            mBinding.titleFavorImg.setImageResource(R.mipmap.com_favor);
-            mBinding.titleFavorImg.setColorFilter(Color.WHITE);
+            Drawable drawable= getResources().getDrawable(R.mipmap.com_favor);
+            drawable.setBounds(0, 0, drawable.getMinimumWidth(), drawable.getMinimumHeight());
+            drawable = DrawableCompat.wrap(drawable);
+            DrawableCompat.setTint(drawable, getResources().getColor(R.color.color_565252));
+            mBinding.titleFavor.setCompoundDrawables(null,drawable,null,null);
+            mBinding.titleFavor.setText("收藏");
         }
         if (mProgressDialog != null && mProgressDialog.isShowing()){
             mProgressDialog.dismiss();
@@ -409,16 +406,24 @@ public class TBShoppingDetailActivity extends BaseActivity implements View.OnCli
     public void onSucCollectInsert() {
         EventBus.getDefault().post(FovalGoodsFragment.CollectResher);//刷新我的收藏列表
         isCollect = true;
-        mBinding.titleFavorImg.setImageResource(R.mipmap.com_favored);
-        mBinding.titleFavorImg.setColorFilter(getResources().getColor(R.color.color_E25838));
+        Drawable drawable= getResources().getDrawable(R.mipmap.com_favored);
+        drawable.setBounds(0, 0, drawable.getMinimumWidth(), drawable.getMinimumHeight());
+        drawable = DrawableCompat.wrap(drawable);
+        DrawableCompat.setTint(drawable, getResources().getColor(R.color.color_FF0000));
+        mBinding.titleFavor.setCompoundDrawables(null,drawable,null,null);
+        mBinding.titleFavor.setText("已收藏");
     }
 
     @Override
     public void onSucCollectDelete() {
         EventBus.getDefault().post(FovalGoodsFragment.CollectResher);//刷新我的收藏列表
         isCollect = false;
-        mBinding.titleFavorImg.setImageResource(R.mipmap.com_favor);
-        mBinding.titleFavorImg.setColorFilter(Color.WHITE);
+        Drawable drawable= getResources().getDrawable(R.mipmap.com_favor);
+        drawable.setBounds(0, 0, drawable.getMinimumWidth(), drawable.getMinimumHeight());
+        drawable = DrawableCompat.wrap(drawable);
+        DrawableCompat.setTint(drawable, getResources().getColor(R.color.color_565252));
+        mBinding.titleFavor.setCompoundDrawables(null,drawable,null,null);
+        mBinding.titleFavor.setText("收藏");
     }
 
     @Override
@@ -440,51 +445,6 @@ public class TBShoppingDetailActivity extends BaseActivity implements View.OnCli
         }else {
             ToastUtil.show("暂无商品详情");
         }
-    }
-
-    @Override
-    public void share(SHARE_MEDIA share_media) {
-        mDialog = (new ProgressDialogView()).createLoadingDialog(this, "");
-        String id = "";
-        String[] itemShareImage = {""};
-        String[] itemShareName = {""};
-        if (sharePosition == -1){
-            id = goodsId;
-            itemShareImage[0] = shareImage;
-            itemShareName[0] = shareName;
-        }else {
-            id = mUserLikeList.get(sharePosition).getOtherGoodsId();
-            itemShareImage[0] = mUserLikeList.get(sharePosition).getImg();
-            itemShareName[0] =  mUserLikeList.get(sharePosition).getOtherName();
-        }
-        String path = "pages/list/main-v2-info/main?id=" + id;
-        shareUrl = RetrofitModule.H5_URL + "share/tbGoodsDetail.html?id=" + id;
-        if (share_media.equals(SHARE_MEDIA.WEIXIN)){
-            if(mDialog != null && !mDialog.isShowing()){
-                mDialog.show();
-            }
-            mPresenter.getTbkGoodsPoster(id , path, itemShareName[0] , itemShareImage[0],this.bindToLifecycle());
-        }else {
-            MobLinkUtil.mobShare(id, "/tbkGoodsDetail", mobID -> {
-                if (!TextUtils.isEmpty(mobID)){
-                    shareUrl += "&mobid=" + mobID;
-                }
-                new ShareUtils(this, share_media,mDialog)
-                        .shareWeb(this, shareUrl, itemShareName[0], shareContent, itemShareImage[0], R.mipmap.share_logo);
-            });
-        }
-    }
-
-    @Override
-    public void onShareSuc(ImageBean bean,String path , String shareName) {
-        new ShareUtils(this, SHARE_MEDIA.WEIXIN,mDialog)
-                .shareWXMin1(this,shareUrl,bean.getData(),shareName,shareContent,path);
-    }
-
-    @Override
-    public void onShareFile(String path , String shareName, String shareImage) {
-        new ShareUtils(this, SHARE_MEDIA.WEIXIN,mDialog)
-                .shareWXMin1(this,shareUrl,shareImage,shareName,shareContent,path);
     }
 
     @Override
@@ -518,13 +478,12 @@ public class TBShoppingDetailActivity extends BaseActivity implements View.OnCli
 
     @Override
     public void onItemShare(int position) {
-        sharePosition = position;
-        if (mShareBoardDialog == null) {
-            mShareBoardDialog = ShareBoardDialog.getInstance("","");
-            mShareBoardDialog.setOnShareListener(this);
+        if(TextUtils.isEmpty(SPUtils.getInstance(CommonDate.USER).getString(CommonDate.token,""))){
+            startActivity(new Intent(this, LoginActivity.class));
+            return;
         }
-        if (!mShareBoardDialog.isAdded()) {
-            mShareBoardDialog.show(getSupportFragmentManager(), "ShareBoardDialog");
-        }
+        startActivity(new Intent(this, ShareActivity.class)
+                .putExtra("otherGoodsId",mUserLikeList.get(position).getOtherGoodsId())
+        );
     }
 }

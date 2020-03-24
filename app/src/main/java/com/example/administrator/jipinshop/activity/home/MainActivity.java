@@ -40,7 +40,6 @@ import com.example.administrator.jipinshop.fragment.evaluationkt.EvaluationNewFr
 import com.example.administrator.jipinshop.fragment.home.HomeNewFragment;
 import com.example.administrator.jipinshop.fragment.home.KTHomeFragnent;
 import com.example.administrator.jipinshop.fragment.mine.MineFragment;
-import com.example.administrator.jipinshop.fragment.money.MoneyFragment;
 import com.example.administrator.jipinshop.netwrok.RetrofitModule;
 import com.example.administrator.jipinshop.util.ClickUtil;
 import com.example.administrator.jipinshop.util.InputMethodManagerLeak;
@@ -54,7 +53,11 @@ import com.example.administrator.jipinshop.util.share.MobLinkUtil;
 import com.example.administrator.jipinshop.util.sp.CommonDate;
 import com.example.administrator.jipinshop.view.dialog.DialogUtil;
 import com.example.administrator.jipinshop.view.dialog.ProgressDialogView;
+import com.example.administrator.jipinshop.view.pick.CustomLoadingUIProvider2;
+import com.example.administrator.jipinshop.view.pick.DecorationLayout;
+import com.example.administrator.jipinshop.view.pick.GlideSimpleLoader;
 import com.example.administrator.jipinshop.view.viewpager.NoScrollViewPager;
+import com.github.ielse.imagewatcher.ImageWatcherHelper;
 import com.google.gson.Gson;
 import com.gyf.barlibrary.ImmersionBar;
 import com.mob.moblink.MobLink;
@@ -76,7 +79,7 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 import butterknife.Unbinder;
 
-public class MainActivity extends RxAppCompatActivity implements MainView, ViewPager.OnPageChangeListener, SceneRestorable {
+public class MainActivity extends RxAppCompatActivity implements MainView, ViewPager.OnPageChangeListener, SceneRestorable ,ImageWatcherHelper.Provider{
 
     @Inject
     MainActivityPresenter mPresenter;
@@ -113,6 +116,8 @@ public class MainActivity extends RxAppCompatActivity implements MainView, ViewP
     private Boolean once = true; // 是否是第一次弹出
     private CountDownTimer mCountDownTimerUtils;//定时器
     private Dialog mDialog;
+    private ImageWatcherHelper iwHelper;
+    private DecorationLayout layDecoration;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -154,6 +159,7 @@ public class MainActivity extends RxAppCompatActivity implements MainView, ViewP
                 .init();
         mPresenter.setView(this);
         EventBus.getDefault().register(this);
+        pickImages();//初始化浏览图片
 
         mViewPager.setNoScroll(true);
         mFragments = new ArrayList<>();
@@ -268,12 +274,34 @@ public class MainActivity extends RxAppCompatActivity implements MainView, ViewP
 
     @Override
     public void onBackPressed() {
-        if ((System.currentTimeMillis() - exitTime) > 2000) {
-            ToastUtil.show("再按一次退出程序");
-            exitTime = System.currentTimeMillis();
-        } else {
-            super.onBackPressed();
+        if (!iwHelper.handleBackPressed()) {
+            if ((System.currentTimeMillis() - exitTime) > 2000) {
+                ToastUtil.show("再按一次退出程序");
+                exitTime = System.currentTimeMillis();
+            } else {
+                super.onBackPressed();
+            }
         }
+    }
+
+    //浏览图片初始化控件
+    public void pickImages(){
+        layDecoration = new DecorationLayout(this);
+        iwHelper = ImageWatcherHelper.with(this, new GlideSimpleLoader()) // 一般来讲， ImageWatcher 需要占据全屏的位置
+                .setErrorImageRes(R.mipmap.error_picture) // 配置error图标 如果不介意使用lib自带的图标，并不一定要调用这个API
+                .setOtherView(layDecoration)
+                .addOnPageChangeListener(layDecoration)
+                .setLoadingUIProvider(new CustomLoadingUIProvider2()); // 自定义LoadingUI
+        layDecoration.attachImageWatcher(iwHelper);
+    }
+
+    @Override
+    public ImageWatcherHelper iwHelper() {
+        return iwHelper;
+    }
+
+    public DecorationLayout getLayDecoration(){
+        return layDecoration;
     }
 
     @Override

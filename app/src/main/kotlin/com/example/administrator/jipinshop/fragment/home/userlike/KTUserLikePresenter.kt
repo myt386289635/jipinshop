@@ -4,16 +4,13 @@ import android.content.Context
 import android.support.design.widget.AppBarLayout
 import android.support.v7.widget.GridLayoutManager
 import android.support.v7.widget.RecyclerView
-import android.text.TextUtils
 import com.aspsine.swipetoloadlayout.SwipeToLoadLayout
-import com.example.administrator.jipinshop.bean.ImageBean
 import com.example.administrator.jipinshop.bean.SimilerGoodsBean
 import com.example.administrator.jipinshop.netwrok.Repository
 import com.example.administrator.jipinshop.util.DeviceUuidFactory
 import com.trello.rxlifecycle2.LifecycleTransformer
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
-import java.util.HashMap
 import javax.inject.Inject
 
 /**
@@ -84,22 +81,4 @@ class KTUserLikePresenter {
                 }, { throwable -> mView.onFile(throwable.message) })
     }
 
-    /**
-     * 生成商品海报
-     */
-    fun getTbkGoodsPoster(otherGoodsId: String, transformer: LifecycleTransformer<ImageBean>) {
-        repository.getTbkGoodsPoster(otherGoodsId)
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .compose(transformer)
-                .subscribe({ bean ->
-                    if (bean.code == 0 && !TextUtils.isEmpty(bean.data)) {
-                        mView.onShareSuc(bean)
-                    } else {
-                        mView.onShareFile()
-                    }
-                }, {
-                    mView.onShareFile()
-                })
-    }
 }

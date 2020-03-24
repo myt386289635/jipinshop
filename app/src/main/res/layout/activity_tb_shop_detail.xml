@@ -28,62 +28,79 @@
             android:layout_alignParentBottom="true"
             android:orientation="horizontal">
 
-            <RelativeLayout
+            <LinearLayout
+                android:paddingRight="@dimen/x24"
+                android:paddingLeft="@dimen/x24"
+                android:gravity="center"
+                android:orientation="horizontal"
                 android:layout_alignParentRight="true"
-                android:onClick="@{listener.onClick}"
-                android:id="@+id/detail_buy"
-                android:background="@color/color_E25838"
-                android:layout_width="@dimen/x458"
+                android:id="@+id/detail_buyContainer"
+                android:layout_width="@dimen/x470"
                 android:layout_height="match_parent">
 
                 <LinearLayout
-                    android:layout_centerInParent="true"
-                    android:orientation="horizontal"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content">
+                    android:onClick="@{listener.onClick}"
+                    android:id="@+id/detail_share"
+                    android:gravity="center"
+                    android:background="@drawable/bg_ffd224"
+                    android:orientation="vertical"
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:layout_height="@dimen/y80">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="立即分享"
+                        android:textColor="@color/color_white"
+                        android:textSize="13sp"/>
+
+                    <TextView
+                        android:textStyle="bold"
+                        android:id="@+id/detail_shareCode"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="（赚¥0.00）"
+                        android:textColor="@color/color_white"
+                        android:textSize="15sp"/>
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:onClick="@{listener.onClick}"
+                    android:id="@+id/detail_buy"
+                    android:gravity="center"
+                    android:background="@drawable/bg_e25838_4"
+                    android:orientation="vertical"
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:layout_height="@dimen/y80">
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="立即购买"
                         android:textColor="@color/color_white"
-                        android:textSize="18sp"
-                        android:textStyle="bold"/>
+                        android:textSize="13sp"/>
 
                     <TextView
+                        android:textStyle="bold"
                         android:id="@+id/detail_freeCode"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="（省¥0.00）"
                         android:textColor="@color/color_white"
-                        android:textSize="14sp"/>
+                        android:textSize="15sp"/>
 
                 </LinearLayout>
 
-
-            </RelativeLayout>
+            </LinearLayout>
 
             <LinearLayout
-                android:layout_marginRight="@dimen/x15"
-                android:layout_marginLeft="@dimen/x15"
-                android:layout_toLeftOf="@id/detail_buy"
+                android:layout_toLeftOf="@id/detail_buyContainer"
                 android:orientation="horizontal"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent">
-
-                <com.example.administrator.jipinshop.view.textview.DrawableTopCenterTextView
-                    android:drawableTop="@mipmap/qus_forward2"
-                    android:id="@+id/detail_share"
-                    android:layout_width="0dp"
-                    android:layout_weight="1"
-                    android:gravity="center_horizontal"
-                    android:layout_height="match_parent"
-                    android:onClick="@{listener.onClick}"
-                    android:text="分享"
-                    android:drawablePadding="@dimen/y7"
-                    android:textColor="@color/color_202020"
-                    android:textSize="11sp"/>
-
 
                 <com.example.administrator.jipinshop.view.textview.DrawableTopCenterTextView
                     android:drawableTop="@mipmap/qus_home"
@@ -95,6 +112,20 @@
                     android:layout_height="match_parent"
                     android:onClick="@{listener.onClick}"
                     android:text="首页"
+                    android:textColor="@color/color_202020"
+                    android:textSize="11sp"/>
+
+
+                <com.example.administrator.jipinshop.view.textview.DrawableTopCenterTextView
+                    android:drawableTop="@mipmap/com_favor"
+                    android:id="@+id/title_favor"
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:gravity="center_horizontal"
+                    android:layout_height="match_parent"
+                    android:onClick="@{listener.onClick}"
+                    android:text="收藏"
+                    android:drawablePadding="@dimen/y3"
                     android:textColor="@color/color_202020"
                     android:textSize="11sp"/>
 
@@ -669,26 +700,6 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:src="@mipmap/balance_white"/>
-
-            </RelativeLayout>
-
-            <RelativeLayout
-                android:layout_alignParentRight="true"
-                android:layout_below="@+id/status_bar"
-                android:id="@+id/title_favor"
-                android:onClick="@{listener.onClick}"
-                android:background="@drawable/bg_back"
-                android:layout_marginRight="@dimen/x28"
-                android:layout_width="@dimen/x56"
-                android:layout_height="@dimen/y56">
-
-                <ImageView
-                    android:id="@+id/title_favorImg"
-                    android:padding="@dimen/x12"
-                    android:layout_centerInParent="true"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:src="@mipmap/com_favor"/>
 
             </RelativeLayout>
 

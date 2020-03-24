@@ -6,9 +6,11 @@ import android.view.View
 import com.aspsine.swipetoloadlayout.SwipeToLoadLayout
 import com.example.administrator.jipinshop.bean.CircleListBean
 import com.example.administrator.jipinshop.bean.CircleTitleBean
+import com.example.administrator.jipinshop.bean.ShareBean
 import com.example.administrator.jipinshop.bean.SuccessBean
 import com.example.administrator.jipinshop.netwrok.Repository
 import com.trello.rxlifecycle2.LifecycleTransformer
+import com.umeng.socialize.bean.SHARE_MEDIA
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.functions.Consumer
 import io.reactivex.schedulers.Schedulers
@@ -117,4 +119,24 @@ class DailyPresenter {
                 .compose(transformer)
                 .subscribe(Consumer {}, Consumer {})
     }
+
+    /**
+     * 获取创建分享内容
+     */
+    fun getGoodsShareInfo(share_media: SHARE_MEDIA?, otherGoodsId: String, shareImgLocation: Int, transformer: LifecycleTransformer<ShareBean>) {
+        mRepository.getGoodsShareInfo(otherGoodsId,shareImgLocation)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .compose(transformer)
+                .subscribe(Consumer {
+                    if (it.code == 0 && !TextUtils.isEmpty(it.data.shareImg)){
+                        mView.onShareSuccess(it.data.shareImg,share_media)
+                    }else{
+                        mView.onShareFile(share_media)
+                    }
+                }, Consumer {
+                    mView.onShareFile(share_media)
+                })
+    }
+
 }
