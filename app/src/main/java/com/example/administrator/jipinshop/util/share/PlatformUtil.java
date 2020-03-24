@@ -7,6 +7,8 @@ import android.content.pm.PackageManager;
 import android.net.Uri;
 
 import com.example.administrator.jipinshop.util.ToastUtil;
+import com.tencent.mm.opensdk.openapi.IWXAPI;
+import com.tencent.mm.opensdk.openapi.WXAPIFactory;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -37,15 +39,21 @@ public class PlatformUtil {
      * 判断手机是否安装微信
      */
     public static boolean isWxAppInstalledAndSupported(Context context) {
-        final PackageManager packageManager = context.getPackageManager();// 获取packagemanager
-        List<PackageInfo> pinfo = packageManager.getInstalledPackages(0);// 获取所有已安装程序的包信息
-        if (pinfo != null) {
-            for (int i = 0; i < pinfo.size(); i++) {
-                String pn = pinfo.get(i).packageName;
-                if (pn.equals("com.tencent.mm")) {
-                    return true;
+        //添加一层用微信api判断，避免部分手机判断失效问题
+        IWXAPI wxApi = WXAPIFactory.createWXAPI(context, "wxfd2e92db2568030a");
+        boolean bIsWXAppInstalledAndSupported = wxApi.isWXAppInstalled();
+        if (bIsWXAppInstalledAndSupported) {
+            final PackageManager packageManager = context.getPackageManager();// 获取packagemanager
+            List<PackageInfo> pinfo = packageManager.getInstalledPackages(0);// 获取所有已安装程序的包信息
+            if (pinfo != null) {
+                for (int i = 0; i < pinfo.size(); i++) {
+                    String pn = pinfo.get(i).packageName;
+                    if (pn.equals("com.tencent.mm")) {
+                        return true;
+                    }
                 }
             }
+            return true;
         }
         return false;
     }

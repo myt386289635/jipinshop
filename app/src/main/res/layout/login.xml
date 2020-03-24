@@ -141,6 +141,7 @@
         </RelativeLayout>
 
         <RelativeLayout
+            android:visibility="gone"
             android:id="@+id/login_qrcodeLayout"
             android:layout_below="@+id/login_codeLayout"
             android:layout_marginRight="@dimen/x80"
