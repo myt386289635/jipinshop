@@ -437,6 +437,10 @@ public class MainActivity extends RxAppCompatActivity implements MainView, ViewP
                             startActivity(new Intent(this, NewPeopleActivity.class));
                         }, v -> {
                             DialogUtil.imgDialog(MainActivity.this, bean.getData().get(finalActivityPos).getData().getImg(), v1 -> {
+                                if (TextUtils.isEmpty(SPUtils.getInstance(CommonDate.USER).getString(CommonDate.token, ""))) {
+                                    startActivity(new Intent(this, LoginActivity.class));
+                                    return;
+                                }
                                 ShopJumpUtil.openPager(MainActivity.this, bean.getData().get(finalActivityPos).getData().getTargetType()
                                         , bean.getData().get(finalActivityPos).getData().getTargetId(), "小分类");
                             }, v1 -> {
@@ -458,6 +462,10 @@ public class MainActivity extends RxAppCompatActivity implements MainView, ViewP
                                     startActivity(new Intent(this, CheapBuyActivity.class));
                                 }, v2 -> {
                                     DialogUtil.imgDialog(MainActivity.this, bean.getData().get(finalActivityPos1).getData().getImg(), v -> {
+                                        if (TextUtils.isEmpty(SPUtils.getInstance(CommonDate.USER).getString(CommonDate.token, ""))) {
+                                            startActivity(new Intent(this, LoginActivity.class));
+                                            return;
+                                        }
                                         ShopJumpUtil.openPager(MainActivity.this, bean.getData().get(finalActivityPos1).getData().getTargetType()
                                                 , bean.getData().get(finalActivityPos1).getData().getTargetId(), "小分类");
                                     }, v -> {
@@ -467,6 +475,10 @@ public class MainActivity extends RxAppCompatActivity implements MainView, ViewP
                     }else {
                         int finalActivityPos2 = activityPos;
                         DialogUtil.imgDialog(MainActivity.this, bean.getData().get(finalActivityPos2).getData().getImg(), v3 -> {
+                            if (TextUtils.isEmpty(SPUtils.getInstance(CommonDate.USER).getString(CommonDate.token, ""))) {
+                                startActivity(new Intent(this, LoginActivity.class));
+                                return;
+                            }
                             ShopJumpUtil.openPager(MainActivity.this, bean.getData().get(finalActivityPos2).getData().getTargetType()
                                     , bean.getData().get(finalActivityPos2).getData().getTargetId(), "小分类");
                         }, v3 -> {
@@ -481,6 +493,10 @@ public class MainActivity extends RxAppCompatActivity implements MainView, ViewP
                 if (bean.getData().get(0).getType() == 1) {
                     //系统活动弹窗
                     DialogUtil.imgDialog(MainActivity.this, bean.getData().get(0).getData().getImg(), v -> {
+                        if (TextUtils.isEmpty(SPUtils.getInstance(CommonDate.USER).getString(CommonDate.token, ""))) {
+                            startActivity(new Intent(this, LoginActivity.class));
+                            return;
+                        }
                         ShopJumpUtil.openPager(MainActivity.this, bean.getData().get(0).getData().getTargetType()
                                 , bean.getData().get(0).getData().getTargetId(), "小分类");
                     }, v -> {
