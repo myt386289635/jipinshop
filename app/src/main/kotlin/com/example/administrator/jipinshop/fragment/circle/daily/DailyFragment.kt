@@ -276,6 +276,10 @@ class DailyFragment : DBBaseFragment(), KTTabAdapter2.OnClickItem, KTTabAdapter3
         if (refersh) {
             dissRefresh()
             if (bean.data != null && bean.data.size != 0) {
+                if (mBinding.recyclerView.visibility == View.GONE){
+                    //从暂无数据时变为有一条数据时，为了解决与上拉加载的冲突
+                    mBinding.swipeToLoad.isLoadMoreEnabled = false
+                }
                 mBinding.netClude?.let {
                     it.qsNet.visibility = View.GONE
                 }
