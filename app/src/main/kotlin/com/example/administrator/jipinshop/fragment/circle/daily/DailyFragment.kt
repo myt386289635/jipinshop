@@ -27,6 +27,7 @@ import com.example.administrator.jipinshop.R
 import com.example.administrator.jipinshop.activity.home.MainActivity
 import com.example.administrator.jipinshop.activity.login.LoginActivity
 import com.example.administrator.jipinshop.activity.shoppingdetail.tbshoppingdetail.TBShoppingDetailActivity
+import com.example.administrator.jipinshop.activity.web.TaoBaoWebActivity
 import com.example.administrator.jipinshop.adapter.DailyAdapter
 import com.example.administrator.jipinshop.adapter.KTTabAdapter2
 import com.example.administrator.jipinshop.adapter.KTTabAdapter3
@@ -36,6 +37,7 @@ import com.example.administrator.jipinshop.bean.CircleTitleBean
 import com.example.administrator.jipinshop.databinding.FragmentDailyBinding
 import com.example.administrator.jipinshop.util.FileManager
 import com.example.administrator.jipinshop.util.ShareUtils
+import com.example.administrator.jipinshop.util.TaoBaoUtil
 import com.example.administrator.jipinshop.util.ToastUtil
 import com.example.administrator.jipinshop.util.share.PlatformUtil
 import com.example.administrator.jipinshop.util.sp.CommonDate
@@ -330,14 +332,24 @@ class DailyFragment : DBBaseFragment(), KTTabAdapter2.OnClickItem, KTTabAdapter3
         if (TextUtils.isEmpty(SPUtils.getInstance(CommonDate.USER).getString(CommonDate.token, ""))){
             startActivity(Intent(context,LoginActivity::class.java))
         }else{
-            mSharePosition = position
-            if (mShareBoardDialog == null) {
-                mShareBoardDialog = ShareBoardDialog4.getInstance("批量存图")
-                mShareBoardDialog?.setOnShareListener(this)
-            }
-            mShareBoardDialog?.let {
-                if (!it.isAdded){
-                    it.show(childFragmentManager,"ShareBoardDialog")
+            val specialId = SPUtils.getInstance(CommonDate.USER).getString(CommonDate.relationId, "")
+            if (TextUtils.isEmpty(specialId) || specialId == "null") run {
+                TaoBaoUtil.aliLogin { topAuthCode ->
+                    startActivity(Intent(context, TaoBaoWebActivity::class.java)
+                            .putExtra(TaoBaoWebActivity.url, "https://oauth.taobao.com/authorize?response_type=code&client_id=25612235&redirect_uri=https://www.jipincheng.cn/qualityshop-api/api/taobao/returnUrl&state=" + SPUtils.getInstance(CommonDate.USER).getString(CommonDate.token) + "&view=wap")
+                            .putExtra(TaoBaoWebActivity.title, "淘宝授权")
+                    )
+                }
+            } else {
+                mSharePosition = position
+                if (mShareBoardDialog == null) {
+                    mShareBoardDialog = ShareBoardDialog4.getInstance("批量存图")
+                    mShareBoardDialog?.setOnShareListener(this)
+                }
+                mShareBoardDialog?.let {
+                    if (!it.isAdded){
+                        it.show(childFragmentManager,"ShareBoardDialog")
+                    }
                 }
             }
         }
@@ -348,14 +360,24 @@ class DailyFragment : DBBaseFragment(), KTTabAdapter2.OnClickItem, KTTabAdapter3
             startActivity(Intent(context, LoginActivity::class.java))
             return
         }
-        var clip = context!!.getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager
-        var clipData = ClipData.newPlainText("jipinshop", content)
-        clip.primaryClip = clipData
-        SPUtils.getInstance().put(CommonDate.CLIP, content)
-        DialogUtil.LoginDialog(context,"评论内容复制成功","去微信粘贴","等等"){
-            var intent : Intent? = PlatformUtil.sharePYQ_images(context)
-            intent?.let {
-                startActivity(intent)
+        val specialId = SPUtils.getInstance(CommonDate.USER).getString(CommonDate.relationId, "")
+        if (TextUtils.isEmpty(specialId) || specialId == "null") run {
+            TaoBaoUtil.aliLogin { topAuthCode ->
+                startActivity(Intent(context, TaoBaoWebActivity::class.java)
+                        .putExtra(TaoBaoWebActivity.url, "https://oauth.taobao.com/authorize?response_type=code&client_id=25612235&redirect_uri=https://www.jipincheng.cn/qualityshop-api/api/taobao/returnUrl&state=" + SPUtils.getInstance(CommonDate.USER).getString(CommonDate.token) + "&view=wap")
+                        .putExtra(TaoBaoWebActivity.title, "淘宝授权")
+                )
+            }
+        } else {
+            var clip = context!!.getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager
+            var clipData = ClipData.newPlainText("jipinshop", content)
+            clip.primaryClip = clipData
+            SPUtils.getInstance().put(CommonDate.CLIP, content)
+            DialogUtil.LoginDialog(context,"评论内容复制成功","去微信粘贴","等等"){
+                var intent : Intent? = PlatformUtil.sharePYQ_images(context)
+                intent?.let {
+                    startActivity(intent)
+                }
             }
         }
     }
