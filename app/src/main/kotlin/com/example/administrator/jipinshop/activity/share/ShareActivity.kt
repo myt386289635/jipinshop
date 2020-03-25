@@ -86,38 +86,7 @@ class ShareActivity : BaseActivity(), View.OnClickListener, ShareAdapter.OnClick
             it.titleTv.text = "创建分享"
         }
         mPresenter.initCheckBox(mBinding)
-        mBinding.shareTitle.setOnTouchListener { v, event ->
-            if (canVerticalScroll(mBinding.shareTitle)){
-                if(event.action == MotionEvent.ACTION_DOWN){
-                    //通知父控件不要干扰
-                    v.parent.requestDisallowInterceptTouchEvent(true)
-                }
-                if(event.action == MotionEvent.ACTION_MOVE){
-                    //通知父控件不要干扰
-                    v.parent.requestDisallowInterceptTouchEvent(true)
-                }
-                if (event.action == MotionEvent.ACTION_UP ){
-                    v.parent.requestDisallowInterceptTouchEvent(false)
-                }
-            }
-            return@setOnTouchListener false
-        }
-        mBinding.shareContent.setOnTouchListener { v, event ->
-            if (canVerticalScroll(mBinding.shareContent)){
-                if(event.action == MotionEvent.ACTION_DOWN){
-                    //通知父控件不要干扰
-                    v.parent.requestDisallowInterceptTouchEvent(true)
-                }
-                if(event.action == MotionEvent.ACTION_MOVE){
-                    //通知父控件不要干扰
-                    v.parent.requestDisallowInterceptTouchEvent(true)
-                }
-                if (event.action == MotionEvent.ACTION_UP ){
-                    v.parent.requestDisallowInterceptTouchEvent(false)
-                }
-            }
-            return@setOnTouchListener false
-        }
+        mPresenter.initText(mBinding)
 
         mShareImages = mutableListOf()
         mList = mutableListOf()
@@ -135,21 +104,6 @@ class ShareActivity : BaseActivity(), View.OnClickListener, ShareAdapter.OnClick
                 it.show()
         }
         mPresenter.getGoodsShareInfo(goodsId,shareImgLocation,this.bindToLifecycle())
-    }
-
-    fun canVerticalScroll(editText : TextView): Boolean{
-        //滚动的距离
-        var scrollY = editText.scrollY
-        //控件内容的总高度
-        var scrollRange = editText.getLayout().getHeight();
-        //控件实际显示的高度
-        var scrollExtent = editText.getHeight() - editText.getCompoundPaddingTop() - editText.getCompoundPaddingBottom();
-        //控件内容总高度与实际显示高度的差值
-        var scrollDifference = scrollRange - scrollExtent;
-        if (scrollDifference == 0) {
-            return false
-        }
-        return (scrollY > 0) || (scrollY < scrollDifference - 1)
     }
 
     override fun initShareContent(checkBox1: Boolean, checkBox2: Boolean, checkBox3: Boolean) {

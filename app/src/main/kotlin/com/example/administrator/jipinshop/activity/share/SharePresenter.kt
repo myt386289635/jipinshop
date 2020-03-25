@@ -1,5 +1,7 @@
 package com.example.administrator.jipinshop.activity.share
 
+import android.view.MotionEvent
+import android.widget.TextView
 import com.example.administrator.jipinshop.bean.ShareBean
 import com.example.administrator.jipinshop.databinding.ActivityShareBinding
 import com.example.administrator.jipinshop.netwrok.Repository
@@ -56,6 +58,57 @@ class SharePresenter {
             mView.initShareContent(mBinding.shareCheckBox1.isChecked,mBinding.shareCheckBox2.isChecked,
                     mBinding.shareCheckBox3.isChecked)
         }
+    }
+
+    //解决scrollView嵌套滑动textView时出现的滑动冲突
+    fun initText(mBinding: ActivityShareBinding){
+        mBinding.shareTitle.setOnTouchListener { v, event ->
+            if (canVerticalScroll(mBinding.shareTitle)){
+                if(event.action == MotionEvent.ACTION_DOWN){
+                    //通知父控件不要干扰
+                    v.parent.requestDisallowInterceptTouchEvent(true)
+                }
+                if(event.action == MotionEvent.ACTION_MOVE){
+                    //通知父控件不要干扰
+                    v.parent.requestDisallowInterceptTouchEvent(true)
+                }
+                if (event.action == MotionEvent.ACTION_UP ){
+                    v.parent.requestDisallowInterceptTouchEvent(false)
+                }
+            }
+            return@setOnTouchListener false
+        }
+        mBinding.shareContent.setOnTouchListener { v, event ->
+            if (canVerticalScroll(mBinding.shareContent)){
+                if(event.action == MotionEvent.ACTION_DOWN){
+                    //通知父控件不要干扰
+                    v.parent.requestDisallowInterceptTouchEvent(true)
+                }
+                if(event.action == MotionEvent.ACTION_MOVE){
+                    //通知父控件不要干扰
+                    v.parent.requestDisallowInterceptTouchEvent(true)
+                }
+                if (event.action == MotionEvent.ACTION_UP ){
+                    v.parent.requestDisallowInterceptTouchEvent(false)
+                }
+            }
+            return@setOnTouchListener false
+        }
+    }
+
+    private fun canVerticalScroll(editText : TextView): Boolean{
+        //滚动的距离
+        var scrollY = editText.scrollY
+        //控件内容的总高度
+        var scrollRange = editText.getLayout().getHeight();
+        //控件实际显示的高度
+        var scrollExtent = editText.getHeight() - editText.getCompoundPaddingTop() - editText.getCompoundPaddingBottom();
+        //控件内容总高度与实际显示高度的差值
+        var scrollDifference = scrollRange - scrollExtent;
+        if (scrollDifference == 0) {
+            return false
+        }
+        return (scrollY > 0) || (scrollY < scrollDifference - 1)
     }
 
     /**
