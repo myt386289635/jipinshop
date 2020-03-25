@@ -126,13 +126,13 @@ class KTHomeFragnent : DBBaseFragment(), View.OnClickListener, ViewPager.OnPageC
     override fun onPageSelected(position: Int) {
         appStatisticalUtil.addEvent("shouye_fenlei." + (position + 1),this.bindToLifecycle())//统计首页分类
         if (position != 0){
-            mBinding.homeAction.visibility = View.GONE
+//            mBinding.homeAction.visibility = View.GONE
             isChange = false
             context?.let {
                 mBinding.bgHome.setBackgroundColor(it.resources.getColor(R.color.color_E25838))
             }
         }else{
-            mBinding.homeAction.visibility = View.VISIBLE
+//            mBinding.homeAction.visibility = View.VISIBLE
             isChange = true
             mBinding.bgHome.setBackgroundColor(Color.parseColor(mColor))
         }
