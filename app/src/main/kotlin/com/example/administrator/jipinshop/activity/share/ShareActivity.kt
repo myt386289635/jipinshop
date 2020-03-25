@@ -1,5 +1,6 @@
 package com.example.administrator.jipinshop.activity.share
 
+import android.annotation.SuppressLint
 import android.app.Dialog
 import android.content.ClipData
 import android.content.ClipboardManager
@@ -13,8 +14,10 @@ import android.os.Bundle
 import android.support.v7.widget.LinearLayoutManager
 import android.text.method.ScrollingMovementMethod
 import android.util.SparseArray
+import android.view.MotionEvent
 import android.view.View
 import android.widget.ImageView
+import android.widget.TextView
 import com.blankj.utilcode.util.SPUtils
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.target.SimpleTarget
@@ -75,6 +78,7 @@ class ShareActivity : BaseActivity(), View.OnClickListener, ShareAdapter.OnClick
         initView()
     }
 
+    @SuppressLint("ClickableViewAccessibility")
     private fun initView() {
         goodsId = intent.getStringExtra("otherGoodsId")//商品id
         mBinding.shareTitle.movementMethod = ScrollingMovementMethod.getInstance()
@@ -83,6 +87,38 @@ class ShareActivity : BaseActivity(), View.OnClickListener, ShareAdapter.OnClick
             it.titleTv.text = "创建分享"
         }
         mPresenter.initCheckBox(mBinding)
+        mBinding.shareTitle.setOnTouchListener { v, event ->
+            if (canVerticalScroll(mBinding.shareTitle)){
+                if(event.action == MotionEvent.ACTION_DOWN){
+                    //通知父控件不要干扰
+                    v.parent.requestDisallowInterceptTouchEvent(true)
+                }
+                if(event.action == MotionEvent.ACTION_MOVE){
+                    //通知父控件不要干扰
+                    v.parent.requestDisallowInterceptTouchEvent(true)
+                }
+                if (event.action == MotionEvent.ACTION_UP ){
+                    v.parent.requestDisallowInterceptTouchEvent(false)
+                }
+            }
+            return@setOnTouchListener false
+        }
+        mBinding.shareContent.setOnTouchListener { v, event ->
+            if (canVerticalScroll(mBinding.shareContent)){
+                if(event.action == MotionEvent.ACTION_DOWN){
+                    //通知父控件不要干扰
+                    v.parent.requestDisallowInterceptTouchEvent(true)
+                }
+                if(event.action == MotionEvent.ACTION_MOVE){
+                    //通知父控件不要干扰
+                    v.parent.requestDisallowInterceptTouchEvent(true)
+                }
+                if (event.action == MotionEvent.ACTION_UP ){
+                    v.parent.requestDisallowInterceptTouchEvent(false)
+                }
+            }
+            return@setOnTouchListener false
+        }
 
         mShareImages = mutableListOf()
         mList = mutableListOf()
@@ -100,6 +136,21 @@ class ShareActivity : BaseActivity(), View.OnClickListener, ShareAdapter.OnClick
                 it.show()
         }
         mPresenter.getGoodsShareInfo(goodsId,shareImgLocation,this.bindToLifecycle())
+    }
+
+    fun canVerticalScroll(editText : TextView): Boolean{
+        //滚动的距离
+        var scrollY = editText.scrollY
+        //控件内容的总高度
+        var scrollRange = editText.getLayout().getHeight();
+        //控件实际显示的高度
+        var scrollExtent = editText.getHeight() - editText.getCompoundPaddingTop() - editText.getCompoundPaddingBottom();
+        //控件内容总高度与实际显示高度的差值
+        var scrollDifference = scrollRange - scrollExtent;
+        if (scrollDifference == 0) {
+            return false
+        }
+        return (scrollY > 0) || (scrollY < scrollDifference - 1)
     }
 
     override fun initShareContent(checkBox1: Boolean, checkBox2: Boolean, checkBox3: Boolean) {
