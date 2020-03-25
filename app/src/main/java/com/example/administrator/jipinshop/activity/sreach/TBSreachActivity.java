@@ -22,6 +22,7 @@ import com.example.administrator.jipinshop.activity.WebActivity;
 import com.example.administrator.jipinshop.activity.login.LoginActivity;
 import com.example.administrator.jipinshop.activity.share.ShareActivity;
 import com.example.administrator.jipinshop.activity.sreach.result.TBSreachResultActivity;
+import com.example.administrator.jipinshop.activity.web.TaoBaoWebActivity;
 import com.example.administrator.jipinshop.adapter.ShoppingUserLikeAdapter;
 import com.example.administrator.jipinshop.base.BaseActivity;
 import com.example.administrator.jipinshop.bean.SimilerGoodsBean;
@@ -31,6 +32,7 @@ import com.example.administrator.jipinshop.bean.eventbus.SreachBus;
 import com.example.administrator.jipinshop.databinding.ActivityTbSreachBinding;
 import com.example.administrator.jipinshop.netwrok.RetrofitModule;
 import com.example.administrator.jipinshop.util.DeviceUuidFactory;
+import com.example.administrator.jipinshop.util.TaoBaoUtil;
 import com.example.administrator.jipinshop.util.ToastUtil;
 import com.example.administrator.jipinshop.util.sp.CommonDate;
 import com.example.administrator.jipinshop.view.dialog.DialogUtil;
@@ -316,9 +318,19 @@ public class TBSreachActivity extends BaseActivity implements View.OnClickListen
             startActivity(new Intent(this, LoginActivity.class));
             return;
         }
-        startActivity(new Intent(this, ShareActivity.class)
-                .putExtra("otherGoodsId",mUserLikeList.get(position).getOtherGoodsId())
-        );
+        String specialId2 = SPUtils.getInstance(CommonDate.USER).getString(CommonDate.relationId,"");
+        if (TextUtils.isEmpty(specialId2) || specialId2.equals("null")){
+            TaoBaoUtil.aliLogin(topAuthCode -> {
+                startActivity(new Intent(this, TaoBaoWebActivity.class)
+                        .putExtra(TaoBaoWebActivity.url, "https://oauth.taobao.com/authorize?response_type=code&client_id=25612235&redirect_uri=https://www.jipincheng.cn/qualityshop-api/api/taobao/returnUrl&state="+SPUtils.getInstance(CommonDate.USER).getString(CommonDate.token)+"&view=wap")
+                        .putExtra(TaoBaoWebActivity.title,"淘宝授权")
+                );
+            });
+        }else {
+            startActivity(new Intent(this, ShareActivity.class)
+                    .putExtra("otherGoodsId",mUserLikeList.get(position).getOtherGoodsId())
+            );
+        }
     }
 
     @Override

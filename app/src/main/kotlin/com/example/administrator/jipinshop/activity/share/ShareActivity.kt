@@ -1,6 +1,5 @@
 package com.example.administrator.jipinshop.activity.share
 
-import android.annotation.SuppressLint
 import android.app.Dialog
 import android.content.ClipData
 import android.content.ClipboardManager
@@ -14,10 +13,8 @@ import android.os.Bundle
 import android.support.v7.widget.LinearLayoutManager
 import android.text.method.ScrollingMovementMethod
 import android.util.SparseArray
-import android.view.MotionEvent
 import android.view.View
 import android.widget.ImageView
-import android.widget.TextView
 import com.blankj.utilcode.util.SPUtils
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.target.SimpleTarget

@@ -210,9 +210,19 @@ public class TBShoppingDetailActivity extends BaseActivity implements View.OnCli
                     startActivity(new Intent(this, LoginActivity.class));
                     return;
                 }
-                startActivity(new Intent(this, ShareActivity.class)
-                        .putExtra("otherGoodsId",goodsId)
-                );
+                String specialId2 = SPUtils.getInstance(CommonDate.USER).getString(CommonDate.relationId,"");
+                if (TextUtils.isEmpty(specialId2) || specialId2.equals("null")){
+                    TaoBaoUtil.aliLogin(topAuthCode -> {
+                        startActivity(new Intent(this, TaoBaoWebActivity.class)
+                                .putExtra(TaoBaoWebActivity.url, "https://oauth.taobao.com/authorize?response_type=code&client_id=25612235&redirect_uri=https://www.jipincheng.cn/qualityshop-api/api/taobao/returnUrl&state="+SPUtils.getInstance(CommonDate.USER).getString(CommonDate.token)+"&view=wap")
+                                .putExtra(TaoBaoWebActivity.title,"淘宝授权")
+                        );
+                    });
+                }else {
+                    startActivity(new Intent(this, ShareActivity.class)
+                            .putExtra("otherGoodsId",goodsId)
+                    );
+                }
                 break;
             case R.id.detail_home:
                 EventBus.getDefault().post(new TBShopDetailBus(TBShopDetailBus.finish));
@@ -482,8 +492,18 @@ public class TBShoppingDetailActivity extends BaseActivity implements View.OnCli
             startActivity(new Intent(this, LoginActivity.class));
             return;
         }
-        startActivity(new Intent(this, ShareActivity.class)
-                .putExtra("otherGoodsId",mUserLikeList.get(position).getOtherGoodsId())
-        );
+        String specialId2 = SPUtils.getInstance(CommonDate.USER).getString(CommonDate.relationId,"");
+        if (TextUtils.isEmpty(specialId2) || specialId2.equals("null")){
+            TaoBaoUtil.aliLogin(topAuthCode -> {
+                startActivity(new Intent(this, TaoBaoWebActivity.class)
+                        .putExtra(TaoBaoWebActivity.url, "https://oauth.taobao.com/authorize?response_type=code&client_id=25612235&redirect_uri=https://www.jipincheng.cn/qualityshop-api/api/taobao/returnUrl&state="+SPUtils.getInstance(CommonDate.USER).getString(CommonDate.token)+"&view=wap")
+                        .putExtra(TaoBaoWebActivity.title,"淘宝授权")
+                );
+            });
+        }else {
+            startActivity(new Intent(this, ShareActivity.class)
+                    .putExtra("otherGoodsId",mUserLikeList.get(position).getOtherGoodsId())
+            );
+        }
     }
 }

@@ -15,12 +15,14 @@ import com.blankj.utilcode.util.SPUtils
 import com.example.administrator.jipinshop.R
 import com.example.administrator.jipinshop.activity.login.LoginActivity
 import com.example.administrator.jipinshop.activity.share.ShareActivity
+import com.example.administrator.jipinshop.activity.web.TaoBaoWebActivity
 import com.example.administrator.jipinshop.adapter.KTHomeCommenAdapter
 import com.example.administrator.jipinshop.base.DBBaseFragment
 import com.example.administrator.jipinshop.bean.TBSreachResultBean
 import com.example.administrator.jipinshop.bean.TbCommonBean
 import com.example.administrator.jipinshop.databinding.FragmentKtMainBinding
 import com.example.administrator.jipinshop.fragment.home.KTHomeFragnent
+import com.example.administrator.jipinshop.util.TaoBaoUtil
 import com.example.administrator.jipinshop.util.ToastUtil
 import com.example.administrator.jipinshop.util.UmApp.AppStatisticalUtil
 import com.example.administrator.jipinshop.util.sp.CommonDate
@@ -176,9 +178,19 @@ class KTHomeCommenFragment : DBBaseFragment(), OnLoadMoreListener, OnRefreshList
             startActivity(Intent(context, LoginActivity::class.java))
             return
         }
-        startActivity(Intent(context, ShareActivity::class.java)
-                .putExtra("otherGoodsId", mList[position].otherGoodsId)
-        )
+        val specialId = SPUtils.getInstance(CommonDate.USER).getString(CommonDate.relationId, "")
+        if (TextUtils.isEmpty(specialId) || specialId == "null") run {
+            TaoBaoUtil.aliLogin { topAuthCode ->
+                startActivity(Intent(context, TaoBaoWebActivity::class.java)
+                        .putExtra(TaoBaoWebActivity.url, "https://oauth.taobao.com/authorize?response_type=code&client_id=25612235&redirect_uri=https://www.jipincheng.cn/qualityshop-api/api/taobao/returnUrl&state=" + SPUtils.getInstance(CommonDate.USER).getString(CommonDate.token) + "&view=wap")
+                        .putExtra(TaoBaoWebActivity.title, "淘宝授权")
+                )
+            }
+        } else {
+            startActivity(Intent(context, ShareActivity::class.java)
+                    .putExtra("otherGoodsId", mList[position].otherGoodsId)
+            )
+        }
     }
 
     override fun initTitle() {
