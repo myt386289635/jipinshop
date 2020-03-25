@@ -133,14 +133,14 @@ class SharePresenter {
     /**
      * 获取海报
      */
-    fun refreshInfo(otherGoodsId: String, shareImgLocation: Int , transformer: LifecycleTransformer<ShareBean>){
+    fun refreshInfo(type: String , otherGoodsId: String, shareImgLocation: Int , transformer: LifecycleTransformer<ShareBean>){
         mRepository.getGoodsShareInfo(otherGoodsId,shareImgLocation)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .compose(transformer)
                 .subscribe(Consumer {
                     if (it.code == 0){
-                        mView.onRefresh(it.data.shareImg)
+                        mView.onRefresh(it.data.shareImg,type)
                     }
                 }, Consumer {
                 })

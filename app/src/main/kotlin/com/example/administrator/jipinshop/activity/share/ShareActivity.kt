@@ -16,9 +16,7 @@ import android.text.method.ScrollingMovementMethod
 import android.util.SparseArray
 import android.view.View
 import android.widget.ImageView
-import cn.jpush.android.f.a.b.download
 import com.blankj.utilcode.util.SPUtils
-import com.blankj.utilcode.util.SnackbarUtils.dismiss
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.target.SimpleTarget
 import com.bumptech.glide.request.transition.Transition
@@ -142,8 +140,12 @@ class ShareActivity : BaseActivity(), View.OnClickListener, ShareAdapter.OnClick
                 HasPermissionsUtil.permission(this, object : HasPermissionsUtil() {
                     override fun hasPermissionsSuccess() {
                         super.hasPermissionsSuccess()
-                        shareImages()
-                        sharePlafrom(SHARE_MEDIA.WEIXIN)
+                        mDialog = ProgressDialogView().createLoadingDialog(this@ShareActivity, "")
+                        mDialog?.let {
+                            if (!it.isShowing)
+                                it.show()
+                        }
+                        mPresenter.refreshInfo("wechat",goodsId,shareImgLocation,this@ShareActivity.bindToLifecycle())
                     }
                 }, Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.WRITE_EXTERNAL_STORAGE)
             }
@@ -151,19 +153,12 @@ class ShareActivity : BaseActivity(), View.OnClickListener, ShareAdapter.OnClick
                 HasPermissionsUtil.permission(this, object : HasPermissionsUtil() {
                     override fun hasPermissionsSuccess() {
                         super.hasPermissionsSuccess()
-                        shareImages()
-                        if (mShareImages.size == 1){
-                            //直接分享图片
-                            var clip = getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager
-                            var clipData = ClipData.newPlainText("jipinshop", mBinding.shareTitle.text.toString())
-                            clip.primaryClip = clipData
-                            SPUtils.getInstance().put(CommonDate.CLIP, mBinding.shareTitle.text.toString())
-                            ToastUtil.show("文案已复制到粘贴板,分享后长按粘贴")
-                            ShareUtils(this@ShareActivity, SHARE_MEDIA.WEIXIN_CIRCLE)
-                                    .shareImage(this@ShareActivity,temp)
-                        }else{
-                            download()
+                        mDialog = ProgressDialogView().createLoadingDialog(this@ShareActivity, "")
+                        mDialog?.let {
+                            if (!it.isShowing)
+                                it.show()
                         }
+                        mPresenter.refreshInfo("pyq",goodsId,shareImgLocation,this@ShareActivity.bindToLifecycle())
                     }
                 }, Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.WRITE_EXTERNAL_STORAGE)
             }
@@ -171,27 +166,33 @@ class ShareActivity : BaseActivity(), View.OnClickListener, ShareAdapter.OnClick
                 HasPermissionsUtil.permission(this, object : HasPermissionsUtil() {
                     override fun hasPermissionsSuccess() {
                         super.hasPermissionsSuccess()
-                        shareImages()
-                        sharePlafrom(SHARE_MEDIA.QQ)
+                        mDialog = ProgressDialogView().createLoadingDialog(this@ShareActivity, "")
+                        mDialog?.let {
+                            if (!it.isShowing)
+                                it.show()
+                        }
+                        mPresenter.refreshInfo("qq",goodsId,shareImgLocation,this@ShareActivity.bindToLifecycle())
                     }
                 }, Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.WRITE_EXTERNAL_STORAGE)
             }
             R.id.share_wb -> {
-                shareImages()
-                var clip = getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager
-                var clipData = ClipData.newPlainText("jipinshop", mBinding.shareTitle.text.toString())
-                clip.primaryClip = clipData
-                SPUtils.getInstance().put(CommonDate.CLIP, mBinding.shareTitle.text.toString())
-                ToastUtil.show("文案已复制到粘贴板,分享后长按粘贴")
-                ShareUtils(this, SHARE_MEDIA.SINA)
-                        .shareImages(this, mBinding.shareTitle.text.toString(),mShareImages)
+                mDialog = ProgressDialogView().createLoadingDialog(this, "")
+                mDialog?.let {
+                    if (!it.isShowing)
+                        it.show()
+                }
+                mPresenter.refreshInfo("wb",goodsId,shareImgLocation,this.bindToLifecycle())
             }
             R.id.share_pic -> {
                 HasPermissionsUtil.permission(this, object : HasPermissionsUtil() {
                     override fun hasPermissionsSuccess() {
                         super.hasPermissionsSuccess()
-                        shareImages()
-                        download()
+                        mDialog = ProgressDialogView().createLoadingDialog(this@ShareActivity, "")
+                        mDialog?.let {
+                            if (!it.isShowing)
+                                it.show()
+                        }
+                        mPresenter.refreshInfo("pic",goodsId,shareImgLocation,this@ShareActivity.bindToLifecycle())
                     }
                 }, Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.WRITE_EXTERNAL_STORAGE)
             }
@@ -215,7 +216,6 @@ class ShareActivity : BaseActivity(), View.OnClickListener, ShareAdapter.OnClick
             if (mSet[i] == 1){
                 if(shareImgLocation != (i+1)){
                     shareImgLocation = i+1
-                    mPresenter.refreshInfo(goodsId,shareImgLocation,this.bindToLifecycle())
                 }
                 mAdapter.setPosition(i)
                 break
@@ -263,8 +263,43 @@ class ShareActivity : BaseActivity(), View.OnClickListener, ShareAdapter.OnClick
         ToastUtil.show(error)
     }
 
-    override fun onRefresh(shareImage: String) {
+    override fun onRefresh(shareImage: String ,type: String) {
         temp = shareImage
+        shareImages()
+        when(type){
+            "wechat" -> {
+                sharePlafrom(SHARE_MEDIA.WEIXIN)
+            }
+            "pyq"  -> {
+                if (mShareImages.size == 1){
+                    //直接分享图片
+                    var clip = getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager
+                    var clipData = ClipData.newPlainText("jipinshop", mBinding.shareTitle.text.toString())
+                    clip.primaryClip = clipData
+                    SPUtils.getInstance().put(CommonDate.CLIP, mBinding.shareTitle.text.toString())
+                    ToastUtil.show("文案已复制到粘贴板,分享后长按粘贴")
+                    ShareUtils(this@ShareActivity, SHARE_MEDIA.WEIXIN_CIRCLE, mDialog)
+                            .shareImage(this@ShareActivity,temp)
+                }else{
+                    download()
+                }
+            }
+            "qq" -> {
+                sharePlafrom(SHARE_MEDIA.QQ)
+            }
+            "wb" -> {
+                var clip = getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager
+                var clipData = ClipData.newPlainText("jipinshop", mBinding.shareTitle.text.toString())
+                clip.primaryClip = clipData
+                SPUtils.getInstance().put(CommonDate.CLIP, mBinding.shareTitle.text.toString())
+                ToastUtil.show("文案已复制到粘贴板,分享后长按粘贴")
+                ShareUtils(this, SHARE_MEDIA.SINA ,mDialog)
+                        .shareImages(this, mBinding.shareTitle.text.toString(),mShareImages)
+            }
+            "pic" -> {
+                download()
+            }
+        }
     }
 
     fun shareImages(){
@@ -281,11 +316,6 @@ class ShareActivity : BaseActivity(), View.OnClickListener, ShareAdapter.OnClick
     }
 
     fun download(){
-        mDialog = ProgressDialogView().createLoadingDialog(this, "")
-        mDialog?.let {
-            if (!it.isShowing)
-                it.show()
-        }
         var mun = 0
         for (i in mShareImages.indices){
             Glide.with(this)
@@ -314,11 +344,6 @@ class ShareActivity : BaseActivity(), View.OnClickListener, ShareAdapter.OnClick
     }
 
     fun sharePlafrom(share_media: SHARE_MEDIA){
-        mDialog = ProgressDialogView().createLoadingDialog(this, "")
-        mDialog?.let {
-            if (!it.isShowing)
-                it.show()
-        }
         var num = 0
         var imageUris = ArrayList<Uri>()
         for (i in mShareImages.indices) {
@@ -376,6 +401,11 @@ class ShareActivity : BaseActivity(), View.OnClickListener, ShareAdapter.OnClick
     override fun onDestroy() {
         super.onDestroy()
         UMShareAPI.get(this).release()
+    }
+
+    override fun onResume() {
+        super.onResume()
+        dissRefresh()
     }
 
     override fun onBackPressed() {

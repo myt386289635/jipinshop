@@ -11,7 +11,7 @@ interface ShareView {
     fun onSuccess(bean: ShareBean)
     fun onFile(error: String?)
 
-    fun onRefresh(shareImage : String)
+    fun onRefresh(shareImage : String,type: String)
 
     fun initShareContent(checkBox1: Boolean , checkBox2: Boolean , checkBox3: Boolean)
 }
