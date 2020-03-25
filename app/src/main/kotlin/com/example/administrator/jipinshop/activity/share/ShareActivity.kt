@@ -1,5 +1,6 @@
 package com.example.administrator.jipinshop.activity.share
 
+import android.Manifest
 import android.app.Dialog
 import android.content.ClipData
 import android.content.ClipboardManager
@@ -15,7 +16,9 @@ import android.text.method.ScrollingMovementMethod
 import android.util.SparseArray
 import android.view.View
 import android.widget.ImageView
+import cn.jpush.android.f.a.b.download
 import com.blankj.utilcode.util.SPUtils
+import com.blankj.utilcode.util.SnackbarUtils.dismiss
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.target.SimpleTarget
 import com.bumptech.glide.request.transition.Transition
@@ -29,6 +32,7 @@ import com.example.administrator.jipinshop.netwrok.RetrofitModule
 import com.example.administrator.jipinshop.util.FileManager
 import com.example.administrator.jipinshop.util.ShareUtils
 import com.example.administrator.jipinshop.util.ToastUtil
+import com.example.administrator.jipinshop.util.permission.HasPermissionsUtil
 import com.example.administrator.jipinshop.util.share.PlatformUtil
 import com.example.administrator.jipinshop.util.sp.CommonDate
 import com.example.administrator.jipinshop.view.dialog.DialogUtil
@@ -135,27 +139,42 @@ class ShareActivity : BaseActivity(), View.OnClickListener, ShareAdapter.OnClick
                 }
             }
             R.id.share_wechat -> {
-                shareImages()
-                sharePlafrom(SHARE_MEDIA.WEIXIN)
+                HasPermissionsUtil.permission(this, object : HasPermissionsUtil() {
+                    override fun hasPermissionsSuccess() {
+                        super.hasPermissionsSuccess()
+                        shareImages()
+                        sharePlafrom(SHARE_MEDIA.WEIXIN)
+                    }
+                }, Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.WRITE_EXTERNAL_STORAGE)
             }
             R.id.share_pyq -> {
-                shareImages()
-                if (mShareImages.size == 1){
-                    //直接分享图片
-                    var clip = getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager
-                    var clipData = ClipData.newPlainText("jipinshop", mBinding.shareTitle.text.toString())
-                    clip.primaryClip = clipData
-                    SPUtils.getInstance().put(CommonDate.CLIP, mBinding.shareTitle.text.toString())
-                    ToastUtil.show("文案已复制到粘贴板,分享后长按粘贴")
-                    ShareUtils(this, SHARE_MEDIA.WEIXIN_CIRCLE)
-                            .shareImage(this,temp)
-                }else{
-                    download()
-                }
+                HasPermissionsUtil.permission(this, object : HasPermissionsUtil() {
+                    override fun hasPermissionsSuccess() {
+                        super.hasPermissionsSuccess()
+                        shareImages()
+                        if (mShareImages.size == 1){
+                            //直接分享图片
+                            var clip = getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager
+                            var clipData = ClipData.newPlainText("jipinshop", mBinding.shareTitle.text.toString())
+                            clip.primaryClip = clipData
+                            SPUtils.getInstance().put(CommonDate.CLIP, mBinding.shareTitle.text.toString())
+                            ToastUtil.show("文案已复制到粘贴板,分享后长按粘贴")
+                            ShareUtils(this@ShareActivity, SHARE_MEDIA.WEIXIN_CIRCLE)
+                                    .shareImage(this@ShareActivity,temp)
+                        }else{
+                            download()
+                        }
+                    }
+                }, Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.WRITE_EXTERNAL_STORAGE)
             }
             R.id.share_qq -> {
-                shareImages()
-                sharePlafrom(SHARE_MEDIA.QQ)
+                HasPermissionsUtil.permission(this, object : HasPermissionsUtil() {
+                    override fun hasPermissionsSuccess() {
+                        super.hasPermissionsSuccess()
+                        shareImages()
+                        sharePlafrom(SHARE_MEDIA.QQ)
+                    }
+                }, Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.WRITE_EXTERNAL_STORAGE)
             }
             R.id.share_wb -> {
                 shareImages()
@@ -168,8 +187,13 @@ class ShareActivity : BaseActivity(), View.OnClickListener, ShareAdapter.OnClick
                         .shareImages(this, mBinding.shareTitle.text.toString(),mShareImages)
             }
             R.id.share_pic -> {
-                shareImages()
-                download()
+                HasPermissionsUtil.permission(this, object : HasPermissionsUtil() {
+                    override fun hasPermissionsSuccess() {
+                        super.hasPermissionsSuccess()
+                        shareImages()
+                        download()
+                    }
+                }, Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.WRITE_EXTERNAL_STORAGE)
             }
         }
     }
