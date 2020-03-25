@@ -78,7 +78,6 @@ class ShareActivity : BaseActivity(), View.OnClickListener, ShareAdapter.OnClick
         initView()
     }
 
-    @SuppressLint("ClickableViewAccessibility")
     private fun initView() {
         goodsId = intent.getStringExtra("otherGoodsId")//商品id
         mBinding.shareTitle.movementMethod = ScrollingMovementMethod.getInstance()
