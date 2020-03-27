@@ -228,10 +228,6 @@ public class TBSreachResultAdapter extends RecyclerView.Adapter {
                     if (appStatisticalUtil != null && transformer!= null && !TextUtils.isEmpty(id)){
                         appStatisticalUtil.addEvent("zhuanti." + id + "_liebiao." + (position + 1),transformer);
                     }
-                    if(TextUtils.isEmpty(SPUtils.getInstance(CommonDate.USER).getString(CommonDate.token,""))){
-                        mContext.startActivity(new Intent(mContext, LoginActivity.class));
-                        return;
-                    }
                     mContext.startActivity(new Intent(mContext, TBShoppingDetailActivity.class)
                             .putExtra("otherGoodsId", mList.get(position).getOtherGoodsId())
                     );
@@ -301,10 +297,6 @@ public class TBSreachResultAdapter extends RecyclerView.Adapter {
                     twoViewHolder.binding.detailOtherPrice.setVisibility(View.VISIBLE);
                 }
                 twoViewHolder.itemView.setOnClickListener(v -> {
-                    if(TextUtils.isEmpty(SPUtils.getInstance(CommonDate.USER).getString(CommonDate.token,""))){
-                        mContext.startActivity(new Intent(mContext, LoginActivity.class));
-                        return;
-                    }
                     mContext.startActivity(new Intent(mContext, TBShoppingDetailActivity.class)
                             .putExtra("otherGoodsId", mList.get(pos).getOtherGoodsId())
                     );

@@ -22,4 +22,6 @@ public interface TBShoppingDetailView {
     void onBuyLinkSuccess(ImageBean bean);
 
     void onDescImgs(SucBean<String> bean);
+
+    void onCollect(TBShoppingDetailBean bean);
 }

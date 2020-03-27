@@ -24,6 +24,7 @@ import com.example.administrator.jipinshop.activity.sreach.result.TBSreachResult
 import com.example.administrator.jipinshop.bean.PopBean;
 import com.example.administrator.jipinshop.bean.TklBean;
 import com.example.administrator.jipinshop.databinding.DialogCheapBinding;
+import com.example.administrator.jipinshop.databinding.DialogNewpeople2Binding;
 import com.example.administrator.jipinshop.databinding.DialogNewpeopleBinding;
 import com.example.administrator.jipinshop.databinding.DialogOutBinding;
 import com.example.administrator.jipinshop.databinding.DialogTklBinding;
@@ -254,6 +255,31 @@ public class DialogUtil {
         dialog.show();
         dialog.setContentView(binding.getRoot());
     }
+
+    /**
+     * 用户首次下载 30元购物津贴
+     */
+    public static void newPeopleDialog(Context context, final View.OnClickListener cancleListener ,
+                                       final View.OnClickListener sureListener){
+        AlertDialog.Builder builder = new AlertDialog.Builder(context, R.style.dialog);
+        DialogNewpeople2Binding binding = DataBindingUtil.inflate(LayoutInflater.from(context),R.layout.dialog_newpeople2, null,false);
+        final Dialog dialog = builder.create();
+        binding.dialogCancle.setOnClickListener(v -> {
+            if (cancleListener != null)
+                cancleListener.onClick(v);
+            dialog.dismiss();
+        });
+        binding.dialogImage.setOnClickListener(v -> {
+            if (sureListener != null){
+                sureListener.onClick(v);
+            }
+            dialog.dismiss();
+        });
+        dialog.getWindow().setDimAmount(0.35f);
+        dialog.show();
+        dialog.setContentView(binding.getRoot());
+    }
+
 
     //活动弹窗  后台设置的活动
     public static void imgDialog(Context context, String resource, final View.OnClickListener sureListener, View.OnClickListener dissListener) {

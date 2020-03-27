@@ -127,11 +127,7 @@ public class MainActivity extends RxAppCompatActivity implements MainView, ViewP
            String target_id = getIntent().getStringExtra("target_id");
            String target_title = getIntent().getStringExtra("target_title");
            if (!targetType.equals("16") && !targetType.equals("17")){
-               if (TextUtils.isEmpty(SPUtils.getInstance(CommonDate.USER).getString(CommonDate.token, "").trim())) {
-                   startActivity(new Intent(this, LoginActivity.class));
-               }else {
-                   ShopJumpUtil.openBanner(this,targetType,target_id,target_title);
-               }
+               ShopJumpUtil.openBanner(this,targetType,target_id,target_title);
            }
        }
         setContentView(R.layout.activity_main);
@@ -335,11 +331,10 @@ public class MainActivity extends RxAppCompatActivity implements MainView, ViewP
                                 //新人第一次进入app
                                 NotificationUtil.OpenNotificationSetting(this, () -> {
                                     //20元津贴弹窗
-                                    DialogUtil.NewPeopleDialog(MainActivity.this, v -> {
+                                    DialogUtil.newPeopleDialog(MainActivity.this, v -> {
                                         getClipText();
                                     }, v -> {
-                                        startActivity(new Intent(this, LoginActivity.class)
-                                                .putExtra("newpeople", 1));
+                                        startActivity(new Intent(this, NewPeopleActivity.class));
                                     });
                                 });
                             } else {
@@ -355,11 +350,10 @@ public class MainActivity extends RxAppCompatActivity implements MainView, ViewP
                                 //新人第一次进入app
                                 NotificationUtil.OpenNotificationSetting(this, () -> {
                                     //20元津贴弹窗
-                                    DialogUtil.NewPeopleDialog(MainActivity.this, v -> {
+                                    DialogUtil.newPeopleDialog(MainActivity.this, v -> {
                                         getClipText();
                                     }, v -> {
-                                        startActivity(new Intent(this, LoginActivity.class)
-                                                .putExtra("newpeople", 1));
+                                        startActivity(new Intent(this, NewPeopleActivity.class));
                                     });
                                 });
                             } else {
@@ -374,11 +368,10 @@ public class MainActivity extends RxAppCompatActivity implements MainView, ViewP
                 //新人第一次进入app
                 NotificationUtil.OpenNotificationSetting(this, () -> {
                     //20元津贴弹窗
-                    DialogUtil.NewPeopleDialog(MainActivity.this, v -> {
+                    DialogUtil.newPeopleDialog(MainActivity.this, v -> {
                         getClipText();
                     }, v -> {
-                        startActivity(new Intent(this, LoginActivity.class)
-                                .putExtra("newpeople", 1));
+                        startActivity(new Intent(this, NewPeopleActivity.class));
                     });
                 });
             } else {
@@ -394,11 +387,10 @@ public class MainActivity extends RxAppCompatActivity implements MainView, ViewP
             //新人第一次进入app
             NotificationUtil.OpenNotificationSetting(this, () -> {
                 //20元津贴弹窗
-                DialogUtil.NewPeopleDialog(MainActivity.this, v -> {
+                DialogUtil.newPeopleDialog(MainActivity.this, v -> {
                     getClipText();
                 }, v -> {
-                    startActivity(new Intent(this, LoginActivity.class)
-                            .putExtra("newpeople", 1));
+                    startActivity(new Intent(this, NewPeopleActivity.class));
                 });
             });
         } else {
@@ -429,11 +421,6 @@ public class MainActivity extends RxAppCompatActivity implements MainView, ViewP
                     if (!bean.getData().get(newPos).getPopId().equals(SPUtils.getInstance().getString(CommonDate.POPID, ""))) {
                         int finalActivityPos = activityPos;
                         DialogUtil.imgDialog(MainActivity.this, bean.getData().get(newPos).getData().getImg(), v -> {
-                            if (TextUtils.isEmpty(SPUtils.getInstance(CommonDate.USER).getString(CommonDate.token, ""))) {
-                                startActivity(new Intent(this, LoginActivity.class)
-                                        .putExtra("newpeople", 1));
-                                return;
-                            }
                             startActivity(new Intent(this, NewPeopleActivity.class));
                         }, v -> {
                             DialogUtil.imgDialog(MainActivity.this, bean.getData().get(finalActivityPos).getData().getImg(), v1 -> {
@@ -506,11 +493,6 @@ public class MainActivity extends RxAppCompatActivity implements MainView, ViewP
                     //新人弹窗
                     if (!bean.getData().get(0).getPopId().equals(SPUtils.getInstance().getString(CommonDate.POPID, ""))) {
                         DialogUtil.imgDialog(MainActivity.this, bean.getData().get(0).getData().getImg(), v -> {
-                            if (TextUtils.isEmpty(SPUtils.getInstance(CommonDate.USER).getString(CommonDate.token, ""))) {
-                                startActivity(new Intent(this, LoginActivity.class)
-                                        .putExtra("newpeople", 1));
-                                return;
-                            }
                             startActivity(new Intent(this, NewPeopleActivity.class));
                         }, v -> {
                             getClipText();

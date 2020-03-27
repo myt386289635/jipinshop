@@ -319,10 +319,6 @@ class DailyFragment : DBBaseFragment(), KTTabAdapter2.OnClickItem, KTTabAdapter3
     }
 
     override fun onDetailClick(position: Int) {
-        if (TextUtils.isEmpty(SPUtils.getInstance(CommonDate.USER).getString(CommonDate.token, ""))) {
-            startActivity(Intent(context, LoginActivity::class.java))
-            return
-        }
         startActivity(Intent(context, TBShoppingDetailActivity::class.java)
                 .putExtra("otherGoodsId", mList[position].goodsInfo.otherGoodsId)
         )
@@ -373,7 +369,7 @@ class DailyFragment : DBBaseFragment(), KTTabAdapter2.OnClickItem, KTTabAdapter3
             var clipData = ClipData.newPlainText("jipinshop", content)
             clip.primaryClip = clipData
             SPUtils.getInstance().put(CommonDate.CLIP, content)
-            DialogUtil.LoginDialog(context,"评论内容复制成功","去微信粘贴","等等"){
+            DialogUtil.LoginDialog(context,"评论内容复制成功","去微信粘贴","暂不粘贴"){
                 var intent : Intent? = PlatformUtil.sharePYQ_images(context)
                 intent?.let {
                     startActivity(intent)

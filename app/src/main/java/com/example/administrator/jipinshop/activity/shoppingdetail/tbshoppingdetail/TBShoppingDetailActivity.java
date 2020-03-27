@@ -162,7 +162,7 @@ public class TBShoppingDetailActivity extends BaseActivity implements View.OnCli
         //模拟数据
         mProgressDialog = (new ProgressDialogView()).createLoadingDialog(this, "正在加载...");
         mProgressDialog.show();
-        mPresenter.tbGoodsDetail(goodsId,this.bindToLifecycle());
+        mPresenter.tbGoodsDetail(1,goodsId,this.bindToLifecycle());
         Map<String,String> map =  DeviceUuidFactory.getIdfa(this);
         mPresenter.listSimilerGoods(map,goodsId,this.bindToLifecycle());
     }
@@ -187,6 +187,10 @@ public class TBShoppingDetailActivity extends BaseActivity implements View.OnCli
                 break;
             case R.id.detail_couponImg:
             case R.id.detail_buy:
+                if(TextUtils.isEmpty(SPUtils.getInstance(CommonDate.USER).getString(CommonDate.token,""))){
+                    startActivityForResult(new Intent(this, LoginActivity.class),201);
+                    return;
+                }
                 if (TextUtils.isEmpty(goodsBuyLink)){
                     ToastUtil.show("跳转错误，请退出页面重新进入");
                     return;
@@ -207,7 +211,7 @@ public class TBShoppingDetailActivity extends BaseActivity implements View.OnCli
                 break;
             case R.id.detail_share:
                 if(TextUtils.isEmpty(SPUtils.getInstance(CommonDate.USER).getString(CommonDate.token,""))){
-                    startActivity(new Intent(this, LoginActivity.class));
+                    startActivityForResult(new Intent(this, LoginActivity.class),201);
                     return;
                 }
                 String specialId2 = SPUtils.getInstance(CommonDate.USER).getString(CommonDate.relationId,"");
@@ -235,6 +239,10 @@ public class TBShoppingDetailActivity extends BaseActivity implements View.OnCli
                 );
                 break;
             case R.id.title_favor:
+                if(TextUtils.isEmpty(SPUtils.getInstance(CommonDate.USER).getString(CommonDate.token,""))){
+                    startActivityForResult(new Intent(this, LoginActivity.class),201);
+                    return;
+                }
                 if (ClickUtil.isFastDoubleClick(1000)) {
                     ToastUtil.show("您点击太快了，请休息会再点");
                     return;
@@ -469,6 +477,32 @@ public class TBShoppingDetailActivity extends BaseActivity implements View.OnCli
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         UMShareAPI.get(this).onActivityResult(requestCode, resultCode, data);
+        if (requestCode == 201 && resultCode == 200){
+            //登陆后刷新收藏
+            mPresenter.tbGoodsDetail(2,goodsId,this.bindToLifecycle());
+        }
+    }
+
+    @Override
+    public void onCollect(TBShoppingDetailBean bean) {
+        //是否收藏过
+        if(bean.getData().getCollect() == 1){
+            isCollect = true;
+            Drawable drawable= getResources().getDrawable(R.mipmap.com_favored);
+            drawable.setBounds(0, 0, drawable.getMinimumWidth(), drawable.getMinimumHeight());
+            drawable = DrawableCompat.wrap(drawable);
+            DrawableCompat.setTint(drawable, getResources().getColor(R.color.color_FF0000));
+            mBinding.titleFavor.setCompoundDrawables(null,drawable,null,null);
+            mBinding.titleFavor.setText("已收藏");
+        }else {
+            isCollect = false;
+            Drawable drawable= getResources().getDrawable(R.mipmap.com_favor);
+            drawable.setBounds(0, 0, drawable.getMinimumWidth(), drawable.getMinimumHeight());
+            drawable = DrawableCompat.wrap(drawable);
+            DrawableCompat.setTint(drawable, getResources().getColor(R.color.color_565252));
+            mBinding.titleFavor.setCompoundDrawables(null,drawable,null,null);
+            mBinding.titleFavor.setText("收藏");
+        }
     }
 
     @Subscribe
@@ -489,7 +523,7 @@ public class TBShoppingDetailActivity extends BaseActivity implements View.OnCli
     @Override
     public void onItemShare(int position) {
         if(TextUtils.isEmpty(SPUtils.getInstance(CommonDate.USER).getString(CommonDate.token,""))){
-            startActivity(new Intent(this, LoginActivity.class));
+            startActivityForResult(new Intent(this, LoginActivity.class),201);
             return;
         }
         String specialId2 = SPUtils.getInstance(CommonDate.USER).getString(CommonDate.relationId,"");

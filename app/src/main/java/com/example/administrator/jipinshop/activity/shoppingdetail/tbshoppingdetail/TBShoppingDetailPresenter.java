@@ -69,14 +69,18 @@ public class TBShoppingDetailPresenter {
         mBannerAdapter.notifyDataSetChanged();
     }
 
-    public void tbGoodsDetail(String otherGoodsId, LifecycleTransformer<TBShoppingDetailBean> transformer){
+    public void tbGoodsDetail(int type, String otherGoodsId, LifecycleTransformer<TBShoppingDetailBean> transformer){
         mRepository.tbGoodsDetail(otherGoodsId)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .compose(transformer)
                 .subscribe(bean -> {
                     if (bean.getCode() == 0){
-                        mView.onSuccess(bean);
+                        if (type == 1){
+                            mView.onSuccess(bean);
+                        }else {
+                            mView.onCollect(bean);
+                        }
                     }else {
                         mView.onFile(bean.getMsg());
                     }

@@ -325,12 +325,8 @@ public class ShopJumpUtil {
                 context.startActivity(intent);
                 break;
             case "2"://淘宝客详情页面
-                if (TextUtils.isEmpty(SPUtils.getInstance(CommonDate.USER).getString(CommonDate.token, ""))){
-                    intent.setClass(context, LoginActivity.class);
-                }else {
-                    intent.setClass(context, TBShoppingDetailActivity.class);
-                    intent.putExtra("otherGoodsId", target_id);
-                }
+                intent.setClass(context, TBShoppingDetailActivity.class);
+                intent.putExtra("otherGoodsId", target_id);
                 context.startActivity(intent);
                 break;
             case "4"://H5页面

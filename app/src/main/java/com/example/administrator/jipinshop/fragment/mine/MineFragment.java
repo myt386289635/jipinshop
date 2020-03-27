@@ -153,6 +153,10 @@ public class MineFragment extends DBBaseFragment implements View.OnClickListener
                 //跳转到登陆页面
                 startActivityForResult(new Intent(getContext(), LoginActivity.class), 100);
                 return;
+            case R.id.mine_newpeople:
+                //新人专区
+                startActivity(new Intent(getContext(), NewPeopleActivity.class));
+                break;
         }
         if(TextUtils.isEmpty(SPUtils.getInstance(CommonDate.USER).getString(CommonDate.token,""))){
             startActivity(new Intent(getContext(), LoginActivity.class));
@@ -238,10 +242,6 @@ public class MineFragment extends DBBaseFragment implements View.OnClickListener
             case R.id.mine_releaseContainer:
                 //我的发布
                 startActivity(new Intent(getContext(), MyPublishActivity.class));
-                break;
-            case R.id.mine_newpeople:
-                //新人专区
-                startActivity(new Intent(getContext(), NewPeopleActivity.class));
                 break;
             case R.id.mine_invation:
                 //邀请码
@@ -382,9 +382,11 @@ public class MineFragment extends DBBaseFragment implements View.OnClickListener
             mBinding.mineInvation.setVisibility(View.GONE);
         }
         if (userInfoBean.getData().getIsNewUser().equals("0")){
+            //新人
             mBinding.mineNewpeople.setVisibility(View.VISIBLE);
         }else {
-            mBinding.mineNewpeople.setVisibility(View.GONE);
+            //老人
+            mBinding.mineNewpeople.setVisibility(View.VISIBLE);
         }
     }
 
@@ -463,9 +465,11 @@ public class MineFragment extends DBBaseFragment implements View.OnClickListener
             mBinding.mineInvation.setVisibility(View.GONE);
         }
         if (userInfoBean.getData().getIsNewUser().equals("0")){
+            //新人
             mBinding.mineNewpeople.setVisibility(View.VISIBLE);
         }else {
-            mBinding.mineNewpeople.setVisibility(View.GONE);
+            //老人
+            mBinding.mineNewpeople.setVisibility(View.VISIBLE);
         }
     }
 

@@ -10,7 +10,6 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.text.SpannableString;
 import android.text.Spanned;
 import android.text.TextUtils;
-import android.text.style.ImageSpan;
 import android.view.Gravity;
 import android.view.View;
 import android.view.ViewGroup;
@@ -20,6 +19,7 @@ import android.widget.LinearLayout;
 import com.alibaba.baichuan.android.trade.AlibcTradeSDK;
 import com.blankj.utilcode.util.SPUtils;
 import com.example.administrator.jipinshop.R;
+import com.example.administrator.jipinshop.activity.login.LoginActivity;
 import com.example.administrator.jipinshop.activity.web.TaoBaoWebActivity;
 import com.example.administrator.jipinshop.adapter.NoPageBannerAdapter;
 import com.example.administrator.jipinshop.adapter.ShoppingImageAdapter;
@@ -33,7 +33,6 @@ import com.example.administrator.jipinshop.bean.SucBean;
 import com.example.administrator.jipinshop.bean.TBShoppingDetailBean;
 import com.example.administrator.jipinshop.databinding.ActivityNewpeopleDetailBinding;
 import com.example.administrator.jipinshop.netwrok.RetrofitModule;
-import com.example.administrator.jipinshop.util.ClickUtil;
 import com.example.administrator.jipinshop.util.DeviceUuidFactory;
 import com.example.administrator.jipinshop.util.ShareUtils;
 import com.example.administrator.jipinshop.util.TaoBaoUtil;
@@ -96,6 +95,7 @@ public class NewPeopleDetailActivity extends BaseActivity implements View.OnClic
     private String shareContent = "";
     private String shareUrl = "";
     private int goodsType = 2;//1是极品城  2是淘宝
+    private boolean isNewUser = false; //默认不是新人
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -163,7 +163,7 @@ public class NewPeopleDetailActivity extends BaseActivity implements View.OnClic
         //模拟数据
         mProgressDialog = (new ProgressDialogView()).createLoadingDialog(this, "正在加载...");
         mProgressDialog.show();
-        mPresenter.newGoodsDetail(freeId,this.bindToLifecycle());
+        mPresenter.newGoodsDetail(1,freeId,this.bindToLifecycle());
         Map<String,String> map =  DeviceUuidFactory.getIdfa(this);
         mPresenter.listSimilerGoods(map,otherGoodsId,this.bindToLifecycle());
     }
@@ -188,6 +188,14 @@ public class NewPeopleDetailActivity extends BaseActivity implements View.OnClic
                 break;
             case R.id.detail_coupon:
             case R.id.detail_bottom:
+                if (TextUtils.isEmpty(SPUtils.getInstance(CommonDate.USER).getString(CommonDate.token, ""))) {
+                    startActivityForResult(new Intent(this, LoginActivity.class),201);
+                    return;
+                }
+                if (!isNewUser){
+                    ToastUtil.show("您已不是新用户，无法参加0元购活动");
+                    return;
+                }
                 String specialId = SPUtils.getInstance(CommonDate.USER).getString(CommonDate.relationId,"");
                 if (TextUtils.isEmpty(specialId) || specialId.equals("null")){
                     TaoBaoUtil.aliLogin(topAuthCode -> {
@@ -231,6 +239,10 @@ public class NewPeopleDetailActivity extends BaseActivity implements View.OnClic
 
     @Override
     public void onItemShare(int position) {
+        if (TextUtils.isEmpty(SPUtils.getInstance(CommonDate.USER).getString(CommonDate.token, ""))) {
+            startActivityForResult(new Intent(this, LoginActivity.class),201);
+            return;
+        }
         sharePosition = position;
         if (mShareBoardDialog == null) {
             mShareBoardDialog = ShareBoardDialog.getInstance("","");
@@ -270,6 +282,7 @@ public class NewPeopleDetailActivity extends BaseActivity implements View.OnClic
 
     @Override
     public void onSuccess(TBShoppingDetailBean bean) {
+        isNewUser = bean.isNewUser();
         mBinding.setDate(bean.getData());
         mBinding.executePendingBindings();
         mBinding.detailOldPriceName.setTv(true);
@@ -419,6 +432,16 @@ public class NewPeopleDetailActivity extends BaseActivity implements View.OnClic
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         UMShareAPI.get(this).onActivityResult(requestCode, resultCode, data);
+        if (requestCode == 201 && resultCode == 200){
+            // 从登陆回来
+            mPresenter.newGoodsDetail(2,freeId,this.bindToLifecycle());
+        }
+    }
+
+
+    @Override
+    public void onIsNewUser(TBShoppingDetailBean bean) {
+        isNewUser = bean.isNewUser();
     }
 
     @Override

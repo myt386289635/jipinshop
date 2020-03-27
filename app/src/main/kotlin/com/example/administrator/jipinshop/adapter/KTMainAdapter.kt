@@ -291,10 +291,6 @@ class KTMainAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder> {
                     animation.start()
                     binding.mainNewpeople.setOnClickListener {
                         appStatisticalUtil.addEvent("shouye_xinren",transformer)
-                        if (TextUtils.isEmpty(SPUtils.getInstance(CommonDate.USER).getString(CommonDate.token, ""))) {
-                            mContext.startActivity(Intent(mContext, LoginActivity::class.java))
-                            return@setOnClickListener
-                        }
                         mContext.startActivity(Intent(mContext, NewPeopleActivity::class.java))
                     }
                     binding.mainOldpeople.setOnClickListener {
@@ -506,10 +502,6 @@ class KTMainAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder> {
                     }
                     itemView.setOnClickListener { v ->
                         appStatisticalUtil.addEvent("shouye_tuijian." + (pos+1),transformer)
-                        if (TextUtils.isEmpty(SPUtils.getInstance(CommonDate.USER).getString(CommonDate.token, ""))) {
-                            mContext.startActivity(Intent(mContext, LoginActivity::class.java))
-                            return@setOnClickListener
-                        }
                         mContext.startActivity(Intent(mContext, TBShoppingDetailActivity::class.java)
                                 .putExtra("otherGoodsId", mList[pos].otherGoodsId)
                         )

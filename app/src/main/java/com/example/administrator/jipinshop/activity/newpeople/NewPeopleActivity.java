@@ -12,7 +12,6 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.LinearLayoutManager;
 import android.text.TextUtils;
-import android.util.Log;
 import android.view.View;
 
 import com.alibaba.baichuan.android.trade.AlibcTradeSDK;
@@ -24,6 +23,7 @@ import com.bumptech.glide.request.transition.Transition;
 import com.example.administrator.jipinshop.R;
 import com.example.administrator.jipinshop.activity.WebActivity;
 import com.example.administrator.jipinshop.activity.cheapgoods.CheapBuyActivity;
+import com.example.administrator.jipinshop.activity.login.LoginActivity;
 import com.example.administrator.jipinshop.activity.newpeople.detail.NewPeopleDetailActivity;
 import com.example.administrator.jipinshop.activity.web.TaoBaoWebActivity;
 import com.example.administrator.jipinshop.adapter.NewPeopleAdapter;
@@ -193,6 +193,10 @@ public class NewPeopleActivity extends BaseActivity implements OnRefreshListener
 
     @Override
     public void onzBuy(int position) {
+        if (TextUtils.isEmpty(SPUtils.getInstance(CommonDate.USER).getString(CommonDate.token, ""))) {
+            startActivity(new Intent(this, LoginActivity.class));
+            return;
+        }
         DialogUtil.LoginDialog(this, "您将前往淘宝购买此商品，\n使用津贴立减￥"+ mList2.get(position).getUseAllowancePrice() +"，无需等待返现",
                 "确认", "取消", R.color.color_202020, R.color.color_202020,
                 false, v -> {
@@ -298,6 +302,10 @@ public class NewPeopleActivity extends BaseActivity implements OnRefreshListener
                 mBinding.bgGuide2.setVisibility(View.GONE);
                 break;
             case R.id.newpeople_share:
+                if (TextUtils.isEmpty(SPUtils.getInstance(CommonDate.USER).getString(CommonDate.token, ""))) {
+                    startActivity(new Intent(this, LoginActivity.class));
+                    return;
+                }
                 if (mShareBoardDialog == null) {
                     mShareBoardDialog = ShareBoardDialog4.getInstance("保存图片");
                     mShareBoardDialog.setOnShareListener(this);

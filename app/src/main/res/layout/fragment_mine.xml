@@ -687,7 +687,6 @@
                             android:textSize="13sp"/>
 
                         <TextView
-                            android:visibility="gone"
                             android:paddingTop="@dimen/y26"
                             android:paddingBottom="@dimen/y26"
                             android:onClick="@{listener.onClick}"

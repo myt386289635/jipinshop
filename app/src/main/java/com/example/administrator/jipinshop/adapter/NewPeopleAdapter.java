@@ -172,7 +172,7 @@ public class NewPeopleAdapter extends RecyclerView.Adapter{
 
     @Override
     public int getItemCount() {
-        if (mList2.size() == 0 || mList.size() == 0){
+        if (mList.size() == 0){
             return 0;
         }else {
             return  mList.size() + mList2.size() + 2;

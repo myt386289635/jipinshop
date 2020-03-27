@@ -62,6 +62,7 @@ class ShareActivity : BaseActivity(), View.OnClickListener, ShareAdapter.OnClick
     private lateinit var mShareImages : MutableList<String> //分享的图片地址
     private  var temp = "" //记录海报地址
     private var mDialog: Dialog? = null
+    private var mProgressDialog : Dialog? = null
     private var downloadUrl: String = ""
     private var tkl: String = ""
     private var invitationCode: String = ""
@@ -97,8 +98,8 @@ class ShareActivity : BaseActivity(), View.OnClickListener, ShareAdapter.OnClick
         mAdapter.setOnClick(this)
         mBinding.shareImages.adapter = mAdapter
 
-        mDialog = ProgressDialogView().createLoadingDialog(this, "")
-        mDialog?.let {
+        mProgressDialog = ProgressDialogView().createLoadingDialog(this, "")
+        mProgressDialog?.let {
             if (!it.isShowing)
                 it.show()
         }
@@ -129,7 +130,7 @@ class ShareActivity : BaseActivity(), View.OnClickListener, ShareAdapter.OnClick
                 var clipData = ClipData.newPlainText("jipinshop", mBinding.shareContent.text.toString())
                 clip.primaryClip = clipData
                 SPUtils.getInstance().put(CommonDate.CLIP, mBinding.shareContent.text.toString())
-                DialogUtil.LoginDialog(this,"评论内容复制成功","去微信粘贴","等等"){
+                DialogUtil.LoginDialog(this,"评论内容复制成功","去微信粘贴","暂不粘贴"){
                     var intent : Intent? = PlatformUtil.sharePYQ_images(this)
                     intent?.let {
                         startActivity(intent)
@@ -235,7 +236,11 @@ class ShareActivity : BaseActivity(), View.OnClickListener, ShareAdapter.OnClick
     }
 
     override fun onSuccess(bean: ShareBean) {
-        dissRefresh()
+        mProgressDialog?.let {
+            if (it.isShowing){
+                it.dismiss()
+            }
+        }
         downloadUrl = bean.data.downloadUrl
         tkl = bean.data.tkl
         invitationCode = bean.data.invitationCode

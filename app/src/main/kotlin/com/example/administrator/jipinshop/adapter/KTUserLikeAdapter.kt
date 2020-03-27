@@ -105,10 +105,6 @@ class KTUserLikeAdapter : RecyclerView.Adapter<KTUserLikeAdapter.ViewHolder>{
             }
             viewHolder.itemView.setOnClickListener {
                 appStatisticalUtil.addEvent("shouye.cnxh_liebiao." + (position + 1),transformer)//猜你喜欢列表统计
-                if (TextUtils.isEmpty(SPUtils.getInstance(CommonDate.USER).getString(CommonDate.token, ""))) {
-                    mContext.startActivity(Intent(mContext, LoginActivity::class.java))
-                    return@setOnClickListener
-                }
                 mContext.startActivity(Intent(mContext, TBShoppingDetailActivity::class.java)
                         .putExtra("otherGoodsId", mList[position].otherGoodsId)
                 )

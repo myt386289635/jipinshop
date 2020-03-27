@@ -14,6 +14,15 @@ public class TBShoppingDetailBean {
     private int code;
     private DataBean data;
     private AllowanceGoodsBean allowanceGoods;
+    private boolean isNewUser;
+
+    public boolean isNewUser() {
+        return isNewUser;
+    }
+
+    public void setNewUser(boolean newUser) {
+        isNewUser = newUser;
+    }
 
     public AllowanceGoodsBean getAllowanceGoods() {
         return allowanceGoods;

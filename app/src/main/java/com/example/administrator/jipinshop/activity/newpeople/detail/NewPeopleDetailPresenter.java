@@ -88,14 +88,18 @@ public class NewPeopleDetailPresenter {
                 });
     }
 
-    public void newGoodsDetail(String otherGoodsId, LifecycleTransformer<TBShoppingDetailBean> transformer){
+    public void newGoodsDetail(int type, String otherGoodsId, LifecycleTransformer<TBShoppingDetailBean> transformer){
         mRepository.newGoodsDetail(otherGoodsId)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .compose(transformer)
                 .subscribe(bean -> {
                     if (bean.getCode() == 0){
-                        mView.onSuccess(bean);
+                        if (type == 1){
+                            mView.onSuccess(bean);
+                        }else {
+                            mView.onIsNewUser(bean);
+                        }
                     }else {
                         mView.onFile(bean.getMsg());
                     }

@@ -6,19 +6,15 @@ import android.databinding.DataBindingUtil;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.RelativeLayout;
 
-import com.blankj.utilcode.util.SPUtils;
 import com.example.administrator.jipinshop.R;
-import com.example.administrator.jipinshop.activity.login.LoginActivity;
 import com.example.administrator.jipinshop.activity.shoppingdetail.tbshoppingdetail.TBShoppingDetailActivity;
 import com.example.administrator.jipinshop.bean.SimilerGoodsBean;
 import com.example.administrator.jipinshop.databinding.ItemUserlikeBinding;
-import com.example.administrator.jipinshop.util.sp.CommonDate;
 
 import java.math.BigDecimal;
 import java.util.List;
@@ -132,10 +128,6 @@ public class ShoppingUserLikeAdapter extends RecyclerView.Adapter {
                     viewHolder.binding.detailOtherPrice.setVisibility(View.VISIBLE);
                 }
                 viewHolder.itemView.setOnClickListener(v -> {
-                    if(TextUtils.isEmpty(SPUtils.getInstance(CommonDate.USER).getString(CommonDate.token,""))){
-                        mContext.startActivity(new Intent(mContext, LoginActivity.class));
-                        return;
-                    }
                     mContext.startActivity(new Intent(mContext, TBShoppingDetailActivity.class)
                             .putExtra("otherGoodsId", mList.get(position).getOtherGoodsId())
                     );

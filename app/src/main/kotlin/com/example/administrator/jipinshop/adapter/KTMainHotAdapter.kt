@@ -90,10 +90,6 @@ class KTMainHotAdapter : RecyclerView.Adapter<KTMainHotAdapter.ViewHolder>{
             }
             itemView.setOnClickListener {
                 appStatisticalUtil.addEvent("shouye_bangdan." + (position + 1) , transformer)
-                if (TextUtils.isEmpty(SPUtils.getInstance(CommonDate.USER).getString(CommonDate.token, ""))) {
-                    mContext.startActivity(Intent(mContext, LoginActivity::class.java))
-                    return@setOnClickListener
-                }
                 mContext.startActivity(Intent(mContext, TBShoppingDetailActivity::class.java)
                         .putExtra("otherGoodsId", mList[position].otherGoodsId)
                 )
