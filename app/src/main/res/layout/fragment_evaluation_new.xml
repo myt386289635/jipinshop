@@ -27,9 +27,18 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content">
 
-            <TextView
+            <ImageView
                 android:onClick="@{listener.onClick}"
-                android:layout_marginLeft="@dimen/x30"
+                android:paddingLeft="@dimen/x18"
+                android:paddingRight="@dimen/x26"
+                android:id="@+id/title_back"
+                android:src="@mipmap/nav_black_big"
+                android:layout_width="wrap_content"
+                android:layout_height="@dimen/y70"/>
+
+            <TextView
+                android:layout_toRightOf="@id/title_back"
+                android:onClick="@{listener.onClick}"
                 android:layout_marginRight="@dimen/x30"
                 android:textColor="@color/color_9D9D9D"
                 android:id="@+id/home_sreach"
@@ -37,7 +46,7 @@
                 android:paddingLeft="@dimen/x20"
                 android:textSize="15sp"
                 android:text="搜索你感兴趣的内容"
-                android:background="@color/color_F5F5F5"
+                android:background="@drawable/home_search_bg"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/y70"/>
 

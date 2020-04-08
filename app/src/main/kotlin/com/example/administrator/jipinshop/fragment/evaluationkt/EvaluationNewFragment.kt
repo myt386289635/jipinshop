@@ -43,6 +43,11 @@ class EvaluationNewFragment : DBBaseFragment(), View.OnClickListener {
             R.id.home_sreach  ->{
                 startActivity(Intent(context,SreachActivity::class.java))
             }
+            R.id.title_back -> {
+                activity?.let {
+                    it.finish()
+                }
+            }
         }
     }
 
