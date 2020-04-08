@@ -13,6 +13,7 @@ import com.example.administrator.jipinshop.activity.home.HomeDetailActivity;
 import com.example.administrator.jipinshop.activity.home.MainActivity;
 import com.example.administrator.jipinshop.activity.home.article.ArticleDetailActivity;
 import com.example.administrator.jipinshop.activity.home.classification.ClassifyActivity;
+import com.example.administrator.jipinshop.activity.home.home.HomeNewActivity;
 import com.example.administrator.jipinshop.activity.login.LoginActivity;
 import com.example.administrator.jipinshop.activity.mall.MallActivity;
 import com.example.administrator.jipinshop.activity.message.MessageActivity;
@@ -142,7 +143,9 @@ public class ShopJumpUtil {
         Intent intent = new Intent();
         switch (targetType){
             case "1"://榜单首页
-                EventBus.getDefault().post(new ChangeHomePageBus(3));
+                intent.setClass(context, HomeNewActivity.class);
+                intent.putExtra("type",HomeNewActivity.bangdan);
+                context.startActivity(intent);
                 break;
             case "11"://跳转到小分类榜单
                 intent.setClass(context, ClassifyActivity.class);
@@ -156,7 +159,9 @@ public class ShopJumpUtil {
                 context.startActivity(intent);
                 break;
             case "2"://评测主页
-                EventBus.getDefault().post(new ChangeHomePageBus(1));
+                intent.setClass(context, HomeNewActivity.class);
+                intent.putExtra("type",HomeNewActivity.evaluation);
+                context.startActivity(intent);
                 break;
             case "21"://测评文章
                 intent.setClass(context, ArticleDetailActivity.class);
@@ -232,10 +237,12 @@ public class ShopJumpUtil {
                 context.startActivity(intent);
                 break;
             case "16"://红包主页
-                EventBus.getDefault().post(new ChangeHomePageBus(2));
+                EventBus.getDefault().post(new ChangeHomePageBus(1));
                 break;
             case "17"://榜单主页
-                EventBus.getDefault().post(new ChangeHomePageBus(3));
+                intent.setClass(context, HomeNewActivity.class);
+                intent.putExtra("type",HomeNewActivity.bangdan);
+                context.startActivity(intent);
                 break;
             case "18"://特惠购列表
                 intent.setClass(context, CheapBuyActivity.class);
@@ -288,10 +295,12 @@ public class ShopJumpUtil {
                 context.startActivity(intent);
                 break;
             case "16"://红包主页
-                EventBus.getDefault().post(new ChangeHomePageBus(2));
+                EventBus.getDefault().post(new ChangeHomePageBus(1));
                 break;
             case "17"://榜单主页
-                EventBus.getDefault().post(new ChangeHomePageBus(3));
+                intent.setClass(context, HomeNewActivity.class);
+                intent.putExtra("type",HomeNewActivity.bangdan);
+                context.startActivity(intent);
                 break;
             case "18"://特惠购列表
                 intent.setClass(context, CheapBuyActivity.class);
@@ -356,10 +365,17 @@ public class ShopJumpUtil {
                 context.startActivity(intent);
                 break;
             case "7"://红包主页
-                EventBus.getDefault().post(new ChangeHomePageBus(2));
+                EventBus.getDefault().post(new ChangeHomePageBus(1));
                 break;
-            case "8"://榜单主页
-                EventBus.getDefault().post(new ChangeHomePageBus(3));
+            case "8"://跳转到榜单页面
+                intent.setClass(context, HomeNewActivity.class);
+                intent.putExtra("type",HomeNewActivity.bangdan);
+                context.startActivity(intent);
+                break;
+            case "9"://跳转到评测主页
+                intent.setClass(context, HomeNewActivity.class);
+                intent.putExtra("type",HomeNewActivity.evaluation);
+                context.startActivity(intent);
                 break;
         }
     }

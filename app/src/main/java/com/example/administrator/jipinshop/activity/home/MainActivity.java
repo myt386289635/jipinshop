@@ -36,10 +36,10 @@ import com.example.administrator.jipinshop.bean.eventbus.ChangeHomePageBus;
 import com.example.administrator.jipinshop.bean.eventbus.EditNameBus;
 import com.example.administrator.jipinshop.bean.eventbus.HomeNewPeopleBus;
 import com.example.administrator.jipinshop.fragment.circle.CircleFragment;
-import com.example.administrator.jipinshop.fragment.evaluationkt.EvaluationNewFragment;
-import com.example.administrator.jipinshop.fragment.home.HomeNewFragment;
 import com.example.administrator.jipinshop.fragment.home.KTHomeFragnent;
+import com.example.administrator.jipinshop.fragment.member.KTMemberFragment;
 import com.example.administrator.jipinshop.fragment.mine.MineFragment;
+import com.example.administrator.jipinshop.fragment.money.MoneyFragment;
 import com.example.administrator.jipinshop.netwrok.RetrofitModule;
 import com.example.administrator.jipinshop.util.ClickUtil;
 import com.example.administrator.jipinshop.util.InputMethodManagerLeak;
@@ -103,11 +103,11 @@ public class MainActivity extends RxAppCompatActivity implements MainView, ViewP
 
     private List<Fragment> mFragments;
     private HomeAdapter mHomeAdapter;
-    private HomeNewFragment mHomeFragment;
-    private MineFragment mMineFragment;
-    private EvaluationNewFragment mEvaluationFragment;
-    private CircleFragment mTryFragment;
-    private KTHomeFragnent mKTHomeFragnent;
+    private KTMemberFragment mMemberFragment;//会员
+    private MineFragment mMineFragment;//我的
+    private MoneyFragment mMoneyFragment;//红包
+    private CircleFragment mCircleFragment;//发圈
+    private KTHomeFragnent mKTHomeFragnent;//首页
 
     private Unbinder mButterKnife;
     private ImmersionBar mImmersionBar;
@@ -126,7 +126,7 @@ public class MainActivity extends RxAppCompatActivity implements MainView, ViewP
            String targetType = getIntent().getStringExtra("targetType");
            String target_id = getIntent().getStringExtra("target_id");
            String target_title = getIntent().getStringExtra("target_title");
-           if (!targetType.equals("16") && !targetType.equals("17")){
+           if (!targetType.equals("16")){
                ShopJumpUtil.openBanner(this,targetType,target_id,target_title);
            }
        }
@@ -161,14 +161,14 @@ public class MainActivity extends RxAppCompatActivity implements MainView, ViewP
         mFragments = new ArrayList<>();
 
         mKTHomeFragnent = KTHomeFragnent.getInstance();
-        mEvaluationFragment = new EvaluationNewFragment();
-        mHomeFragment = new HomeNewFragment();
-        mTryFragment = CircleFragment.getInstance();
+        mMoneyFragment = MoneyFragment.getInstance();
+        mMemberFragment = KTMemberFragment.getInstance("1");
+        mCircleFragment = CircleFragment.getInstance();
         mMineFragment = new MineFragment();
         mFragments.add(mKTHomeFragnent);
-        mFragments.add(mEvaluationFragment);
-        mFragments.add(mHomeFragment);
-        mFragments.add(mTryFragment);
+        mFragments.add(mMoneyFragment);
+        mFragments.add(mMemberFragment);
+        mFragments.add(mCircleFragment);
         mFragments.add(mMineFragment);
 
         mHomeAdapter = new HomeAdapter(getSupportFragmentManager());
@@ -178,23 +178,14 @@ public class MainActivity extends RxAppCompatActivity implements MainView, ViewP
         mTabLayout.setupWithViewPager(mViewPager);
         mViewPager.addOnPageChangeListener(this);
         mPresenter.initTabLayout(this, mTabLayout);
+        mPresenter.initTab(this,mTabLayout,mFragments);//初始化tab拦截事件
         appStatisticalUtil.tab(0,this.bindToLifecycle());//统计榜单
-        View tabView = (View) mTabLayout.getTabAt(mFragments.size() - 1).getCustomView().getParent();
-        tabView.setOnClickListener(v -> {
-            if (TextUtils.isEmpty(SPUtils.getInstance(CommonDate.USER).getString(CommonDate.token, "").trim())) {
-                if (ClickUtil.isFastDoubleClick(800)) {
-                } else {
-                    startActivityForResult(new Intent(this, LoginActivity.class), 100);
-                }
-            }
-        });
+
         if (getIntent().getBooleanExtra("isAd",false)) {
             //广告页进来的
             String targetType = getIntent().getStringExtra("targetType");
             if (targetType.equals("16")){
                 mViewPager.setCurrentItem(2);
-            }else if (targetType.equals("17")){
-                mViewPager.setCurrentItem(3);
             }
         }
 
@@ -303,19 +294,14 @@ public class MainActivity extends RxAppCompatActivity implements MainView, ViewP
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        switch (resultCode) {
-            case 400://从登陆页面返回且从该页过去
-                if (requestCode == 100){
-                    TabLayout.Tab tab = mTabLayout.getTabAt(0);
-                    if (tab != null) {
-                        tab.select();
-                    }
-                }
-                break;
-        }
         if (requestCode == 401) {//监听从设置页面返回来后调用
             //解决从设置页面跳转回来无法弹出dialog
-            mPresenter.getPopInfo(MainActivity.this.bindToLifecycle());
+            //20元津贴弹窗
+            DialogUtil.newPeopleDialog(MainActivity.this, v -> {
+                getClipText();
+            }, v -> {
+                startActivity(new Intent(this, NewPeopleActivity.class));
+            });
         }
     }
 
@@ -585,6 +571,18 @@ public class MainActivity extends RxAppCompatActivity implements MainView, ViewP
             }
         }else {
             mLoginBackground.setVisibility(View.GONE);
+        }
+        //改变状态栏颜色
+        if (i == 2){
+            mImmersionBar.reset()
+                    .transparentStatusBar()
+                    .statusBarDarkFont(false, 0f)
+                    .init();
+        }else {
+            mImmersionBar.reset()
+                    .transparentStatusBar()
+                    .statusBarDarkFont(true, 0f)
+                    .init();
         }
     }
 

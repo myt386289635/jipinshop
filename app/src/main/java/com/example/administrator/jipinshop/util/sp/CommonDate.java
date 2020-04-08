@@ -40,5 +40,6 @@ public class CommonDate {
     public static final String relationId= "relationId";//用于判断是否有淘宝授权
     public static final String bgImg="bgImg";//用户背景图片
     public static final String userSign="userSign";//用户签名
+    public static final String wechat = "wechat";//微信号
 
 }

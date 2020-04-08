@@ -99,6 +99,33 @@ public class UserInfoBean {
         private String isNewUser;//是否显示新人专区 （0表示新用户，其他表示老用户）
         private String allowance;//津贴余额
         private String teamCount;//团队人数
+        private String wechat; //(微信号)
+        private int level;  //(会员等级 0普通 1vip 2合伙人)
+        private String levelStatus;//（会员升级状态：0审核中，1正常）
+
+        public String getWechat() {
+            return wechat;
+        }
+
+        public void setWechat(String wechat) {
+            this.wechat = wechat;
+        }
+
+        public int getLevel() {
+            return level;
+        }
+
+        public void setLevel(int level) {
+            this.level = level;
+        }
+
+        public String getLevelStatus() {
+            return levelStatus;
+        }
+
+        public void setLevelStatus(String levelStatus) {
+            this.levelStatus = levelStatus;
+        }
 
         public String getAllowance() {
             return allowance;

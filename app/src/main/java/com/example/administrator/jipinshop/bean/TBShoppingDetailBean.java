@@ -88,6 +88,24 @@ public class TBShoppingDetailBean {
         private List<String> descImgList;
         private String goodsBuyLink;
         private int goodsType;//1是极品城  2是淘宝
+        private String upFee;//最高佣金
+        private int level;//会员等级
+
+        public String getUpFee() {
+            return new BigDecimal(upFee).stripTrailingZeros().toPlainString();
+        }
+
+        public void setUpFee(String upFee) {
+            this.upFee = upFee;
+        }
+
+        public int getLevel() {
+            return level;
+        }
+
+        public void setLevel(int level) {
+            this.level = level;
+        }
 
         public int getGoodsType() {
             return goodsType;

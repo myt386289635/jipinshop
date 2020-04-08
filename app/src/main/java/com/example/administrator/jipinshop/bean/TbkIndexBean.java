@@ -730,6 +730,15 @@ public class TbkIndexBean {
             private String otherPrice;
             private String totalCouponPrice;
             private String buyPrice;
+            private String useAllowancePrice;
+
+            public String getUseAllowancePrice() {
+                return useAllowancePrice;
+            }
+
+            public void setUseAllowancePrice(String useAllowancePrice) {
+                this.useAllowancePrice = useAllowancePrice;
+            }
 
             public String getImg() {
                 return img;

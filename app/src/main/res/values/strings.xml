@@ -91,7 +91,15 @@
     <string name="allowance">津贴 ¥</string>
     <string name="allowance1">减 ¥</string>
     <string name="record">创建时间：</string>
-    <string name="allowance2">减</string>
+    <string name="allowance2">津贴减 ¥</string>
     <string name="money_time">申请时间：</string>
     <string name="daily_price">券后价¥</string>
+
+    <string name="member_title1">合伙人尊享特权</string>
+    <string name="member_title2">VIP尊享特权</string>
+    <string name="member_title3">邀请有效直属粉丝</string>
+    <string name="member_title4">近30天淘宝结算佣金</string>
+    <string name="member_wx">微信:</string>
+
+    <string name="index_price">原价：</string>
 </resources>

@@ -70,6 +70,7 @@ public class NewPeopleActivity extends BaseActivity implements OnRefreshListener
     private List<String> strings;
     private String allowance = "0";
     private ShareBoardDialog4 mShareBoardDialog;
+    public static final int number = 6;//默认展示的个数
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -179,15 +180,15 @@ public class NewPeopleActivity extends BaseActivity implements OnRefreshListener
             ToastUtil.show("没有更多数据");
             return;
         }
-        if (mList.size() <= 4) {
+        if (mList.size() <= number) {
             mList.addAll(mTempList);
-            mAdapter.notifyItemRangeInserted(5, mTempList.size());
+            mAdapter.notifyItemRangeInserted(number + 1, mTempList.size());
             mAdapter.notifyItemChanged(mList.size() + 1);
         } else {
             //批量删除
-            mAdapter.notifyItemRangeRemoved(5, mTempList.size());
+            mAdapter.notifyItemRangeRemoved(number + 1, mTempList.size());
             mList.removeAll(mTempList);
-            mAdapter.notifyItemRangeChanged(5, mAdapter.getItemCount());
+            mAdapter.notifyItemRangeChanged(number + 1, mAdapter.getItemCount());
         }
     }
 
@@ -240,10 +241,10 @@ public class NewPeopleActivity extends BaseActivity implements OnRefreshListener
             mList.clear();
             mList2.clear();
             mTempList.clear();
-            for (int i = 0; i < 4 && i < bean.getData().getNewAllowanceGoodsList().size(); i++) {
+            for (int i = 0; i < number && i < bean.getData().getNewAllowanceGoodsList().size(); i++) {
                 mList.add(bean.getData().getNewAllowanceGoodsList().get(i));
             }
-            for (int i = 4; i < bean.getData().getNewAllowanceGoodsList().size(); i++) {
+            for (int i = number; i < bean.getData().getNewAllowanceGoodsList().size(); i++) {
                 mTempList.add(bean.getData().getNewAllowanceGoodsList().get(i));
             }
             mList2.addAll(bean.getData().getAllowanceGoodsList());

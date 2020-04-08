@@ -21,8 +21,6 @@ public interface MineView {
 
     void FaileUserInfo(UserInfoBean error);
 
-    void successUpdateInfo(UserInfoBean userInfoBean);
-
     void unMessageSuc(UnMessageBean unMessageBean);
     void unMessageFaile(String error);
 

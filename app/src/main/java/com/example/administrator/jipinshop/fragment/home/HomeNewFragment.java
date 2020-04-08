@@ -216,6 +216,10 @@ public class HomeNewFragment extends DBBaseFragment implements HomeNewView, OnLo
                 startActivity(new Intent(getContext(), SreachActivity.class));
                 UAppUtil.message(getContext(),1);
                 break;
+            case R.id.title_back:
+                if (getActivity() != null)
+                    getActivity().finish();
+                break;
         }
     }
 }

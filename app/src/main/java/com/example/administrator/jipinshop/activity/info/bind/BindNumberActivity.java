@@ -22,10 +22,8 @@ import com.example.administrator.jipinshop.base.BaseActivity;
 import com.example.administrator.jipinshop.bean.LoginBean;
 import com.example.administrator.jipinshop.bean.SuccessBean;
 import com.example.administrator.jipinshop.bean.eventbus.CommonEvaluationBus;
-import com.example.administrator.jipinshop.bean.eventbus.EditNameBus;
 import com.example.administrator.jipinshop.bean.eventbus.HomeNewPeopleBus;
 import com.example.administrator.jipinshop.jpush.JPushAlias;
-import com.example.administrator.jipinshop.jpush.JPushReceiver;
 import com.example.administrator.jipinshop.netwrok.RetrofitModule;
 import com.example.administrator.jipinshop.util.ToastUtil;
 import com.example.administrator.jipinshop.util.sp.CommonDate;
@@ -189,8 +187,6 @@ public class BindNumberActivity extends BaseActivity implements BindNumberView {
             SPUtils.getInstance(CommonDate.USER).put(CommonDate.relationId, loginBean.getData().getRelationId());
 
             JPushAlias.setAlias(this,loginBean.getData().getUserId());
-            EventBus.getDefault().post(new EditNameBus(LoginActivity.tag, loginBean.getData().getFansCount() + ""
-                    , loginBean.getData().getVoteCount() + "", loginBean.getData().getFollowCount() + ""));//刷新登陆后我的页面
             EventBus.getDefault().post(new CommonEvaluationBus(LoginActivity.refresh));//用来刷新商品、评测、发现详情以及评论列表
 
             if ( newpeople == 1 && loginBean.getData().getIsNewUser().equals("0")){

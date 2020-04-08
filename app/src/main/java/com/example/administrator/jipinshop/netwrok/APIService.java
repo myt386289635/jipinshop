@@ -28,6 +28,7 @@ import com.example.administrator.jipinshop.bean.InvitationBean;
 import com.example.administrator.jipinshop.bean.LoginBean;
 import com.example.administrator.jipinshop.bean.MallBean;
 import com.example.administrator.jipinshop.bean.MallDetailBean;
+import com.example.administrator.jipinshop.bean.MemberBean;
 import com.example.administrator.jipinshop.bean.MoneyBean;
 import com.example.administrator.jipinshop.bean.MoneyPopBean;
 import com.example.administrator.jipinshop.bean.MoneyRecordBean;
@@ -1210,4 +1211,15 @@ public interface APIService {
     @POST("api/allowance/getIndexPosterImg")
     Observable<ImageBean> getIndexPosterImg();
 
+    /**
+     * 会员中心
+     */
+    @GET("api/user/levelIndex")
+    Observable<MemberBean> memberIndex();
+
+    /**
+     * 申请升级
+     */
+    @POST("api/user/levelUpdate")
+    Observable<SuccessBean> memberUpdate();
 }

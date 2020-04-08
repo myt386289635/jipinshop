@@ -65,7 +65,7 @@
 
         <ImageView
             android:id="@+id/bg_free2"
-            android:layout_marginTop="@dimen/y350"
+            android:layout_marginTop="@dimen/y330"
             android:layout_alignTop="@id/bg_free1"
             android:adjustViewBounds="true"
             android:layout_marginRight="@dimen/x20"

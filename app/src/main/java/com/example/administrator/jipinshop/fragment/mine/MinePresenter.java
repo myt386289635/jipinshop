@@ -89,7 +89,7 @@ public class MinePresenter {
                 .subscribe(userInfoBean -> {
                     if(userInfoBean.getCode() == 0){
                         if(mView != null){
-                            mView.successUpdateInfo(userInfoBean);
+                            mView.successUserInfo(userInfoBean);
                         }
                     }
                 }, throwable -> {

@@ -2,12 +2,18 @@ package com.example.administrator.jipinshop.activity.home;
 
 import android.app.Dialog;
 import android.content.Context;
+import android.content.Intent;
 import android.content.res.ColorStateList;
 import android.support.design.widget.TabLayout;
+import android.support.v4.app.Fragment;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 
+import com.blankj.utilcode.util.SPUtils;
 import com.example.administrator.jipinshop.R;
+import com.example.administrator.jipinshop.activity.login.LoginActivity;
 import com.example.administrator.jipinshop.bean.AppVersionbean;
 import com.example.administrator.jipinshop.bean.EvaluationTabBean;
 import com.example.administrator.jipinshop.bean.PopInfoBean;
@@ -15,7 +21,11 @@ import com.example.administrator.jipinshop.bean.SucBean;
 import com.example.administrator.jipinshop.bean.SuccessBean;
 import com.example.administrator.jipinshop.bean.TklBean;
 import com.example.administrator.jipinshop.netwrok.Repository;
+import com.example.administrator.jipinshop.util.ClickUtil;
+import com.example.administrator.jipinshop.util.sp.CommonDate;
 import com.trello.rxlifecycle2.LifecycleTransformer;
+
+import java.util.List;
 
 import javax.inject.Inject;
 
@@ -49,6 +59,28 @@ public class MainActivityPresenter {
         tabLayout.getTabAt(4).setCustomView(view5);
         //水波纹颜色
         tabLayout.setTabRippleColor(ColorStateList.valueOf(context.getResources().getColor(R.color.transparent)));
+    }
+
+    //拦截tab事件
+    public void initTab(Context context , TabLayout tabLayout , List<Fragment> mFragments){
+        for (int i = 0; i < mFragments.size(); i++) {
+            View tab = (View) tabLayout.getTabAt(i).getCustomView().getParent();
+            int finalI = i;
+            tab.setOnTouchListener((view, event) -> {
+                if (event.getAction() == MotionEvent.ACTION_DOWN){
+                    if (finalI == 2 || finalI == mFragments.size()-1){
+                        if (TextUtils.isEmpty(SPUtils.getInstance(CommonDate.USER).getString(CommonDate.token, "").trim())) {
+                            if (ClickUtil.isFastDoubleClick(800)) {
+                            } else {
+                                context.startActivity(new Intent(context, LoginActivity.class));
+                            }
+                            return true; // 拦截
+                        }
+                    }
+                }
+                return false;// 不拦截
+            });
+        }
     }
 
     public void getAppVersion(LifecycleTransformer<AppVersionbean> transformer){

@@ -20,6 +20,7 @@ import com.blankj.utilcode.util.SPUtils;
 import com.example.administrator.jipinshop.R;
 import com.example.administrator.jipinshop.activity.WebActivity;
 import com.example.administrator.jipinshop.activity.address.MyAddressActivity;
+import com.example.administrator.jipinshop.activity.setting.bind.BindWXActivity;
 import com.example.administrator.jipinshop.activity.setting.opinion.OpinionActivity;
 import com.example.administrator.jipinshop.base.BaseActivity;
 import com.example.administrator.jipinshop.base.BaseAsyncTask;
@@ -77,6 +78,8 @@ public class SettingActivity extends BaseActivity implements CleanCacheDialog.On
     TextView mSettingExitLogin;
     @BindView(R.id.setting_versonText)
     TextView mSettingVersonText;
+    @BindView(R.id.setting_weiChat)
+    TextView mSettingWeiChat;
 
     private ClearTask mClearTask;
     private CleanCacheDialog mCleanCacheDialog;
@@ -110,6 +113,11 @@ public class SettingActivity extends BaseActivity implements CleanCacheDialog.On
         mSettingVersonText.setText(getVerName(this));
         officialWeChat = getIntent().getStringExtra("officialWeChat");
         mSettingServiceText.setText(officialWeChat);
+        if (TextUtils.isEmpty(SPUtils.getInstance(CommonDate.USER).getString(CommonDate.wechat, ""))) {
+            mSettingWeiChat.setText("未填写");
+        }else {
+            mSettingWeiChat.setText("已填写");
+        }
     }
 
     /**
@@ -142,7 +150,8 @@ public class SettingActivity extends BaseActivity implements CleanCacheDialog.On
 
     @OnClick({R.id.title_back, R.id.setting_opinionContainer, R.id.setting_cleanContainer,
             R.id.setting_serviceContainer, R.id.setting_goodContainer, R.id.setting_userContainer,
-            R.id.setting_exitLogin, R.id.mine_address, R.id.setting_xieyiContainer})
+            R.id.setting_exitLogin, R.id.mine_address, R.id.setting_xieyiContainer,
+            R.id.setting_weiChatContainer})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.title_back:
@@ -189,8 +198,8 @@ public class SettingActivity extends BaseActivity implements CleanCacheDialog.On
             case R.id.setting_xieyiContainer:
                 //隐私政策
                 startActivity(new Intent(this, WebActivity.class)
-                        .putExtra(WebActivity.url, RetrofitModule.H5_URL+"privacy.html")
-                        .putExtra(WebActivity.title,"隐私政策")
+                        .putExtra(WebActivity.url, RetrofitModule.H5_URL + "privacy.html")
+                        .putExtra(WebActivity.title, "隐私政策")
                 );
                 break;
         }
@@ -210,6 +219,10 @@ public class SettingActivity extends BaseActivity implements CleanCacheDialog.On
                     mDialog.show();
                     mPresenter.loginOut(this.<SuccessBean>bindToLifecycle(), mDialog);
                 });
+                break;
+            case R.id.setting_weiChatContainer:
+                //微信
+                startActivityForResult(new Intent(this, BindWXActivity.class),201);
                 break;
         }
     }
@@ -286,6 +299,19 @@ public class SettingActivity extends BaseActivity implements CleanCacheDialog.On
 //            tvCacheNum.setVisibility(View.VISIBLE);
             mSettingCleanImage.setText(MyDataCleanManager.getFormatSize(0L));
             ToastUtil.show("内存已清空");
+        }
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == 201 && resultCode == 200){
+            //从填写微信号返回
+            if (TextUtils.isEmpty(SPUtils.getInstance(CommonDate.USER).getString(CommonDate.wechat, ""))) {
+                mSettingWeiChat.setText("未填写");
+            }else {
+                mSettingWeiChat.setText("已填写");
+            }
         }
     }
 }

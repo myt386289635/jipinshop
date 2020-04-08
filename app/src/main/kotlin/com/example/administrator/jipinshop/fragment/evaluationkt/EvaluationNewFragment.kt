@@ -30,7 +30,7 @@ class EvaluationNewFragment : DBBaseFragment(), View.OnClickListener {
     private var mList: MutableList<Fragment> = mutableListOf()
     private var mTitle : ArrayList<String> = arrayListOf("关注","推荐","开箱","横评")
     private lateinit var mAdapter : HomeFragmentAdapter
-    private var boolean : Boolean = true
+//    private var boolean : Boolean = true
 
     override fun initLayout(inflater: LayoutInflater, container: ViewGroup): View {
         mBinding = DataBindingUtil.inflate(inflater,R.layout.fragment_evaluation_new,container,false)
@@ -47,31 +47,38 @@ class EvaluationNewFragment : DBBaseFragment(), View.OnClickListener {
     }
 
     override fun initView() {
-        mAdapter = HomeFragmentAdapter(childFragmentManager)
-        mAdapter.setFragments(mList)
-        mAdapter.setTitle(mTitle)
-        mBinding.viewPager.adapter = mAdapter
-        mBinding.tabLayout.setupWithViewPager(mBinding.viewPager)
         context?.let {
             setStatusBarHight(mBinding.statusBar,it)
             mBinding.tabLayout.tabRippleColor = ColorStateList.valueOf(it.resources.getColor(R.color.transparent))
             mBinding.tabLayout.setTabTextColors(it.resources.getColor(R.color.color_9D9D9D),it.resources.getColor(R.color.color_202020))
         }
+
+        mAdapter = HomeFragmentAdapter(childFragmentManager)
+        mList.add(EvaAttentFrament())
+        mList.add(EvaHotFragment())
+        mList.add(EvaUnPackingFragment())
+        mList.add(EvaCompareFragment())
+        mAdapter.setFragments(mList)
+        mAdapter.setTitle(mTitle)
+        mBinding.viewPager.adapter = mAdapter
+        mBinding.tabLayout.setupWithViewPager(mBinding.viewPager)
+        mBinding.viewPager.offscreenPageLimit = mList.size - 1
+        mBinding.viewPager.currentItem = 1
     }
 
-    override fun setUserVisibleHint(isVisibleToUser: Boolean) {
-        super.setUserVisibleHint(isVisibleToUser)
-        if (isVisibleToUser && boolean){
-            mList.add(EvaAttentFrament())
-            mList.add(EvaHotFragment())
-            mList.add(EvaUnPackingFragment())
-            mList.add(EvaCompareFragment())
-            mAdapter.notifyDataSetChanged()
-            mBinding.viewPager.offscreenPageLimit = mList.size - 1
-            mBinding.viewPager.currentItem = 1
-            boolean = false
-        }
-    }
+//    override fun setUserVisibleHint(isVisibleToUser: Boolean) {
+//        super.setUserVisibleHint(isVisibleToUser)
+//        if (isVisibleToUser && boolean){
+//            mList.add(EvaAttentFrament())
+//            mList.add(EvaHotFragment())
+//            mList.add(EvaUnPackingFragment())
+//            mList.add(EvaCompareFragment())
+//            mAdapter.notifyDataSetChanged()
+//            mBinding.viewPager.offscreenPageLimit = mList.size - 1
+//            mBinding.viewPager.currentItem = 1
+//            boolean = false
+//        }
+//    }
 
     fun setStatusBarHight(statusBar: LinearLayout, context: Context){
         var resourceId = context.resources.getIdentifier("status_bar_height", "dimen", "android")

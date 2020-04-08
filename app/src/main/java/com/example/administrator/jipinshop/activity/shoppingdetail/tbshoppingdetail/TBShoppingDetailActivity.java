@@ -20,6 +20,7 @@ import com.alibaba.baichuan.android.trade.AlibcTradeSDK;
 import com.blankj.utilcode.util.SPUtils;
 import com.example.administrator.jipinshop.R;
 import com.example.administrator.jipinshop.activity.WebActivity;
+import com.example.administrator.jipinshop.activity.home.home.HomeNewActivity;
 import com.example.administrator.jipinshop.activity.login.LoginActivity;
 import com.example.administrator.jipinshop.activity.share.ShareActivity;
 import com.example.administrator.jipinshop.activity.web.TaoBaoWebActivity;
@@ -256,6 +257,15 @@ public class TBShoppingDetailActivity extends BaseActivity implements View.OnCli
                     }
                 }
                 break;
+            case R.id.detail_memberGo:
+                if(TextUtils.isEmpty(SPUtils.getInstance(CommonDate.USER).getString(CommonDate.token,""))){
+                    startActivityForResult(new Intent(this, LoginActivity.class),201);
+                    return;
+                }
+                startActivity(new Intent(this, HomeNewActivity.class)
+                        .putExtra("type",HomeNewActivity.member)
+                );
+                break;
         }
     }
 
@@ -400,6 +410,12 @@ public class TBShoppingDetailActivity extends BaseActivity implements View.OnCli
                 DialogUtil.shopGuideDialog(this);
             }
         }
+        if (bean.getData().getLevel() == 2){
+            mBinding.detailMember.setVisibility(View.GONE);
+        }else {
+            mBinding.detailMember.setVisibility(View.VISIBLE);
+            mBinding.detailMemberText.setText("升级会员等级，本商品最高可赚￥" + bean.getData().getUpFee());
+        }
     }
 
     @Override
@@ -502,6 +518,12 @@ public class TBShoppingDetailActivity extends BaseActivity implements View.OnCli
             DrawableCompat.setTint(drawable, getResources().getColor(R.color.color_565252));
             mBinding.titleFavor.setCompoundDrawables(null,drawable,null,null);
             mBinding.titleFavor.setText("收藏");
+        }
+        if (bean.getData().getLevel() == 2){
+            mBinding.detailMember.setVisibility(View.GONE);
+        }else {
+            mBinding.detailMember.setVisibility(View.VISIBLE);
+            mBinding.detailMemberText.setText("升级会员等级，本商品最高可赚￥" + bean.getData().getUpFee());
         }
     }
 

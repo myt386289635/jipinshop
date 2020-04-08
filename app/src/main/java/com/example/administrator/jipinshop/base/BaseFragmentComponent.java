@@ -31,6 +31,7 @@ import com.example.administrator.jipinshop.fragment.home.commen.KTHomeCommenFrag
 import com.example.administrator.jipinshop.fragment.home.main.KTMainFragment;
 import com.example.administrator.jipinshop.fragment.home.recommend.RecommendFragment;
 import com.example.administrator.jipinshop.fragment.home.userlike.KTUserLikeFragment;
+import com.example.administrator.jipinshop.fragment.member.KTMemberFragment;
 import com.example.administrator.jipinshop.fragment.mine.MineFragment;
 import com.example.administrator.jipinshop.fragment.money.MoneyFragment;
 import com.example.administrator.jipinshop.fragment.orderkt.KTMyOrderFragment;
@@ -110,4 +111,5 @@ public interface BaseFragmentComponent {
     void inject(MoneyFragment fragment);
     void inject(CircleFragment fragment);
     void inject(DailyFragment fragment);
+    void inject(KTMemberFragment fragment);
 }

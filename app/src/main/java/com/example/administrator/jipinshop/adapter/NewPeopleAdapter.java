@@ -11,6 +11,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.example.administrator.jipinshop.R;
+import com.example.administrator.jipinshop.activity.newpeople.NewPeopleActivity;
 import com.example.administrator.jipinshop.bean.NewPeopleBean;
 import com.example.administrator.jipinshop.bean.V2FreeListBean;
 import com.example.administrator.jipinshop.databinding.ItemNewForeBinding;
@@ -126,7 +127,7 @@ public class NewPeopleAdapter extends RecyclerView.Adapter{
             case HEAD2:
                 TreeViewHolder treeViewHolder = (TreeViewHolder) holder;
                 Drawable drawable;
-                if (mList.size() <= 4){
+                if (mList.size() <= NewPeopleActivity.number){
                     treeViewHolder.mBinding.itemMore.setText("展开更多");
                     drawable= mContext.getResources().getDrawable(R.mipmap.right_down);
                 }else {

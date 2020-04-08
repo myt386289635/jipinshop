@@ -159,11 +159,45 @@
                     android:gravity="center"
                     android:orientation="horizontal"/>
 
+                <RelativeLayout
+                    android:id="@+id/detail_member"
+                    android:layout_below="@id/view_pager"
+                    android:background="@color/color_E25838"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/y56">
+
+                    <TextView
+                        android:drawablePadding="@dimen/x5"
+                        android:drawableLeft="@mipmap/detail_member"
+                        android:layout_marginLeft="@dimen/x10"
+                        android:id="@+id/detail_memberText"
+                        android:layout_centerVertical="true"
+                        android:text="升级会员等级，本商品最高可赚￥0"
+                        android:textColor="@color/color_F7D6AB"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"/>
+
+                    <TextView
+                        android:onClick="@{listener.onClick}"
+                        android:id="@+id/detail_memberGo"
+                        android:gravity="center"
+                        android:textColor="@color/color_F7D6AB"
+                        android:paddingLeft="@dimen/x25"
+                        android:paddingRight="@dimen/x25"
+                        android:layout_alignParentRight="true"
+                        android:layout_centerVertical="true"
+                        android:textSize="12sp"
+                        android:text="立即升级>"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"/>
+
+                </RelativeLayout>
+
                 <LinearLayout
                     android:id="@+id/detail_newPriceContainer"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_below="@+id/view_pager"
+                    android:layout_below="@+id/detail_member"
                     android:layout_marginLeft="@dimen/x28"
                     android:layout_marginTop="@dimen/y19"
                     android:layout_marginBottom="@dimen/y10"

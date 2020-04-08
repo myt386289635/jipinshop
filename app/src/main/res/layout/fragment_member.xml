@@ -1,0 +1,479 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:bind="http://schemas.android.com/tools">
+
+    <data>
+        <variable
+            name="listener"
+            type="android.view.View.OnClickListener"/>
+
+        <variable
+            name="date"
+            type="com.example.administrator.jipinshop.bean.MemberBean.DataBean"/>
+
+    </data>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/color_222222">
+
+        <LinearLayout
+            android:id="@+id/status_bar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"/>
+
+        <TextView
+            android:layout_below="@+id/status_bar"
+            android:id="@+id/member_title"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/y88"
+            android:gravity="center"
+            android:text="会员中心"
+            android:textColor="@color/color_white"
+            android:textSize="18sp"
+            android:textStyle="bold"/>
+
+        <TextView
+            android:onClick="@{listener.onClick}"
+            android:id="@+id/member_share"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignTop="@+id/member_title"
+            android:layout_alignBottom="@+id/member_title"
+            android:layout_alignParentRight="true"
+            android:gravity="center_vertical"
+            android:paddingLeft="@dimen/x40"
+            android:paddingRight="@dimen/x40"
+            android:text="邀请好友"
+            android:textColor="@color/color_F7D6AB"/>
+
+        <ImageView
+            android:id="@+id/member_black"
+            android:onClick="@{listener.onClick}"
+            android:visibility="gone"
+            android:paddingRight="@dimen/x20"
+            android:paddingLeft="@dimen/x20"
+            android:tint="@color/color_white"
+            android:src="@mipmap/nav_black_big"
+            android:layout_alignTop="@+id/member_title"
+            android:layout_alignBottom="@+id/member_title"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"/>
+
+        <com.aspsine.swipetoloadlayout.SwipeToLoadLayout
+            android:layout_below="@+id/member_share"
+            android:id="@+id/swipeToLoad"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <com.example.administrator.jipinshop.view.textview.CustomRefreshHeadView
+                android:background="@color/color_222222"
+                android:id="@+id/swipe_refresh_header"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:padding="20dp"/>
+
+            <ScrollView
+                android:fillViewport="true"
+                android:scrollbars="none"
+                android:id="@+id/swipe_target"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+                <RelativeLayout
+                    android:background="@color/color_white"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                    <View
+                        android:layout_alignBottom="@+id/member_userTitle"
+                        android:layout_alignTop="@+id/member_userContainer"
+                        android:background="@color/color_222222"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"/>
+
+                    <RelativeLayout
+                        android:id="@+id/member_userContainer"
+                        android:layout_marginRight="@dimen/x20"
+                        android:layout_marginLeft="@dimen/x20"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+
+                        <ImageView
+                            android:id="@+id/member_image"
+                            android:layout_marginTop="@dimen/y56"
+                            android:scaleType="fitXY"
+                            android:adjustViewBounds="true"
+                            android:src="@mipmap/member_public"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"/>
+
+                        <com.example.administrator.jipinshop.view.glide.CircleImageView
+                            android:layout_width="@dimen/x88"
+                            android:layout_height="@dimen/y88"
+                            app:civ_border_color="@color/color_7B849C"
+                            app:civ_border_width="@dimen/x4"
+                            bind:src="@{date.avatar}"
+                            android:layout_marginTop="@dimen/y36"
+                            android:layout_marginLeft="@dimen/x21"
+                            android:layout_alignTop="@id/member_image"
+                            android:id="@+id/member_userImage"/>
+
+                        <TextView
+                            android:layout_marginLeft="@dimen/x10"
+                            android:layout_marginTop="@dimen/y8"
+                            android:id="@+id/member_userName"
+                            android:layout_alignTop="@+id/member_userImage"
+                            android:layout_toRightOf="@+id/member_userImage"
+                            android:text="@{date.nickname}"
+                            android:textColor="@color/color_FCFCFC"
+                            android:textSize="13sp"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"/>
+
+
+                        <ImageView
+                            android:layout_marginBottom="@dimen/y5"
+                            android:layout_marginLeft="@dimen/x10"
+                            android:layout_toRightOf="@+id/member_userImage"
+                            android:layout_alignBottom="@+id/member_userImage"
+                            android:src="@mipmap/member_label1"
+                            android:id="@+id/member_userLabel"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"/>
+
+                    </RelativeLayout>
+
+                    <TextView
+                        android:paddingBottom="@dimen/y14"
+                        android:id="@+id/member_userTitle"
+                        android:layout_marginTop="@dimen/y70"
+                        android:layout_centerHorizontal="true"
+                        android:layout_below="@+id/member_userContainer"
+                        android:textColor="@color/color_FAE1BF"
+                        android:textStyle="bold"
+                        android:textSize="21sp"
+                        android:text="@{date.level == 0 ? @string/member_title2 : @string/member_title1}"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"/>
+
+                    <LinearLayout
+                        android:id="@+id/member_vpContainer"
+                        android:orientation="vertical"
+                        android:layout_below="@+id/member_userTitle"
+                        android:background="@mipmap/member_bg"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+
+                        <android.support.v4.view.ViewPager
+                            android:id="@+id/member_viewPager"
+                            android:layout_marginTop="@dimen/y45"
+                            android:layout_marginRight="@dimen/x35"
+                            android:layout_marginLeft="@dimen/x35"
+                            android:layout_width="match_parent"
+                            android:layout_height="@dimen/y380"/>
+
+                        <LinearLayout
+                            android:layout_marginBottom="@dimen/y32"
+                            android:layout_marginTop="@dimen/y10"
+                            android:id="@+id/member_point"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:gravity="center"
+                            android:orientation="horizontal"/>
+
+                    </LinearLayout>
+
+                    <RelativeLayout
+                        android:onClick="@{listener.onClick}"
+                        android:id="@+id/member_adContainer"
+                        android:layout_marginTop="@dimen/y14"
+                        android:layout_below="@+id/member_vpContainer"
+                        android:layout_marginRight="@dimen/x20"
+                        android:layout_marginLeft="@dimen/x20"
+                        android:background="@drawable/bg_f8dbb5"
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/y60">
+
+                        <ImageView
+                            android:layout_marginRight="@dimen/x27"
+                            android:layout_alignParentRight="true"
+                            android:layout_centerVertical="true"
+                            android:tint="@color/color_565252"
+                            android:src="@mipmap/right_white"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"/>
+
+                        <FrameLayout
+                            android:layout_centerVertical="true"
+                            android:layout_marginRight="@dimen/x49"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent">
+
+                            <ViewFlipper
+                                android:id="@+id/view_flipper"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:inAnimation="@anim/anim_in"
+                                android:outAnimation="@anim/anim_out"
+                                android:layout_gravity="center"/>
+
+                        </FrameLayout>
+
+                    </RelativeLayout>
+
+                    <ImageView
+                        android:id="@+id/member_title1"
+                        android:layout_marginTop="@dimen/y25"
+                        android:layout_centerHorizontal="true"
+                        android:layout_below="@+id/member_adContainer"
+                        android:src="@mipmap/member_title1"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"/>
+
+                    <LinearLayout
+                        android:id="@+id/member_newContainer"
+                        android:layout_marginRight="@dimen/x20"
+                        android:layout_marginLeft="@dimen/x20"
+                        android:layout_marginTop="@dimen/y48"
+                        android:layout_below="@+id/member_title1"
+                        android:orientation="horizontal"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+
+                        <ImageView
+                            android:onClick="@{listener.onClick}"
+                            android:id="@+id/member_newBuy"
+                            android:layout_marginRight="@dimen/x10"
+                            android:adjustViewBounds="true"
+                            android:scaleType="fitXY"
+                            android:src="@mipmap/member_new_image1"
+                            android:layout_weight="1"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"/>
+
+                        <ImageView
+                            android:onClick="@{listener.onClick}"
+                            android:id="@+id/member_newH5"
+                            android:adjustViewBounds="true"
+                            android:scaleType="fitXY"
+                            android:src="@mipmap/member_new_image2"
+                            android:layout_weight="1"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"/>
+
+                    </LinearLayout>
+
+                    <ImageView
+                        android:id="@+id/member_title2"
+                        android:layout_marginTop="@dimen/y60"
+                        android:layout_centerHorizontal="true"
+                        android:layout_below="@+id/member_newContainer"
+                        android:src="@mipmap/member_title3"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"/>
+
+                    <LinearLayout
+                        android:id="@+id/member_progressContainer"
+                        android:layout_marginTop="@dimen/y31"
+                        android:layout_below="@+id/member_title2"
+                        android:layout_marginRight="@dimen/x20"
+                        android:layout_marginLeft="@dimen/x20"
+                        android:background="@drawable/bg_fff4e5"
+                        android:orientation="vertical"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+
+                        <TextView
+                            android:id="@+id/member_fans"
+                            android:layout_marginTop="@dimen/y49"
+                            android:layout_marginLeft="@dimen/x40"
+                            android:textColor="@color/color_424242"
+                            android:textStyle="bold"
+                            android:textSize="13sp"
+                            android:text="@{@string/member_title3 + date.levelInvitedUserCount + @string/free_myinva2}"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"/>
+
+
+                        <LinearLayout
+                            android:gravity="center_vertical"
+                            android:layout_marginTop="@dimen/y5"
+                            android:layout_marginLeft="@dimen/x40"
+                            android:orientation="horizontal"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content">
+
+                            <com.example.administrator.jipinshop.view.SaleProgressView
+                                android:id="@+id/member_fansProgress"
+                                android:layout_width="@dimen/x480"
+                                android:layout_height="@dimen/y18"
+                                android:layout_toRightOf="@+id/item_progressbar1_text"
+                                app:nearOverText=""
+                                app:overText=""
+                                app:sideColor="#424242"
+                                app:startColor="#AF7845"
+                                app:endColor="#ECCA9E"
+                                app:isNeedAnim="false"/>
+
+                            <TextView
+                                android:id="@+id/member_fansNum"
+                                android:layout_marginLeft="@dimen/x12"
+                                android:textColor="@color/color_CA8E56"
+                                android:textSize="12sp"
+                                android:text="@{date.invitedUserCount + @string/free_inva2 + date.levelInvitedUserCount + @string/free_myinva2}"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"/>
+
+                        </LinearLayout>
+
+                        <TextView
+                            android:id="@+id/member_commission"
+                            android:layout_marginTop="@dimen/y44"
+                            android:layout_marginLeft="@dimen/x40"
+                            android:textColor="@color/color_424242"
+                            android:textStyle="bold"
+                            android:textSize="13sp"
+                            android:text="@{@string/member_title4 + date.levelCommission + @string/order_prefree_end}"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"/>
+
+                        <LinearLayout
+                            android:gravity="center_vertical"
+                            android:layout_marginTop="@dimen/y5"
+                            android:layout_marginLeft="@dimen/x40"
+                            android:orientation="horizontal"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content">
+
+                            <com.example.administrator.jipinshop.view.SaleProgressView
+                                android:id="@+id/member_commissionProgress"
+                                android:layout_width="@dimen/x480"
+                                android:layout_height="@dimen/y18"
+                                android:layout_toRightOf="@+id/item_progressbar1_text"
+                                app:nearOverText=""
+                                app:overText=""
+                                app:sideColor="#424242"
+                                app:startColor="#AF7845"
+                                app:endColor="#ECCA9E"
+                                app:isNeedAnim="false"/>
+
+                            <TextView
+                                android:id="@+id/member_commissionNum"
+                                android:layout_marginLeft="@dimen/x12"
+                                android:textColor="@color/color_CA8E56"
+                                android:textSize="12sp"
+                                android:text="@{date.commission + @string/free_inva2 + date.levelCommission + @string/order_prefree_end}"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"/>
+
+                        </LinearLayout>
+
+                        <TextView
+                            android:layout_marginBottom="@dimen/y25"
+                            android:layout_marginTop="@dimen/y25"
+                            android:textColor="@color/color_424242"
+                            android:layout_marginRight="@dimen/x35"
+                            android:layout_marginLeft="@dimen/x35"
+                            android:lineSpacingExtra="@dimen/y8"
+                            android:textSize="12sp"
+                            android:text="*有效粉丝：成功登录极品城App并存在购物订单的用户视为有效粉丝。购物订单中的活动订单不包括在内（0元购、特惠购等活动）\n*升级说明：两个目标进度达到100%后，即可申请为VIP会员，审核需要1-3个工作日内完成。"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"/>
+
+                        <TextView
+                            android:onClick="@{listener.onClick}"
+                            android:id="@+id/member_apply"
+                            android:textSize="18sp"
+                            android:textColor="@color/color_FFE4AC"
+                            android:text="申请升级VIP"
+                            android:gravity="center"
+                            android:layout_gravity="center_horizontal"
+                            android:layout_marginBottom="@dimen/y22"
+                            android:background="@mipmap/member_bottom"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"/>
+
+                    </LinearLayout>
+
+                    <ImageView
+                        android:id="@+id/member_title3"
+                        android:layout_marginTop="@dimen/y99"
+                        android:layout_centerHorizontal="true"
+                        android:layout_below="@+id/member_progressContainer"
+                        android:src="@mipmap/member_title4"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"/>
+
+                    <LinearLayout
+                        android:layout_below="@+id/member_title3"
+                        android:gravity="center"
+                        android:orientation="vertical"
+                        android:layout_marginBottom="@dimen/y45"
+                        android:layout_marginTop="@dimen/y25"
+                        android:layout_marginRight="@dimen/x20"
+                        android:layout_marginLeft="@dimen/x20"
+                        android:background="@drawable/bg_fff4e5"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+
+                        <ImageView
+                            bind:srcCircle="@{date.PAvatar}"
+                            android:id="@+id/member_teacherImage"
+                            android:layout_marginBottom="@dimen/y30"
+                            android:layout_marginTop="@dimen/y25"
+                            android:layout_centerHorizontal="true"
+                            android:layout_width="@dimen/x98"
+                            android:layout_height="@dimen/y98"/>
+
+                        <LinearLayout
+                            android:orientation="horizontal"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content">
+
+                            <TextView
+                                android:id="@+id/member_wxCode"
+                                android:gravity="center_vertical"
+                                android:paddingRight="@dimen/x30"
+                                android:paddingLeft="@dimen/x16"
+                                android:textColor="@color/color_5B5757"
+                                android:textSize="13sp"
+                                android:text="@{@string/member_wx + date.PWechat}"
+                                android:background="@drawable/bg_member_copy_left"
+                                android:layout_width="wrap_content"
+                                android:layout_height="@dimen/y60"/>
+
+                            <TextView
+                                android:onClick="@{listener.onClick}"
+                                android:id="@+id/member_copy"
+                                android:gravity="center"
+                                android:text="复制"
+                                android:textSize="13sp"
+                                android:textColor="@color/color_FAE1BF"
+                                android:background="@drawable/bg_member_copy_right"
+                                android:layout_width="@dimen/x125"
+                                android:layout_height="@dimen/y60"/>
+
+                        </LinearLayout>
+
+                        <TextView
+                            android:layout_marginBottom="@dimen/y61"
+                            android:layout_marginTop="@dimen/y42"
+                            android:textColor="@color/color_424242"
+                            android:textSize="16sp"
+                            android:text="添加导师微信，获取升级秘籍"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"/>
+
+                    </LinearLayout>
+
+                </RelativeLayout>
+            </ScrollView>
+
+        </com.aspsine.swipetoloadlayout.SwipeToLoadLayout>
+
+    </RelativeLayout>
+</layout>

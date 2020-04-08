@@ -19,6 +19,7 @@ import android.widget.LinearLayout;
 import com.alibaba.baichuan.android.trade.AlibcTradeSDK;
 import com.blankj.utilcode.util.SPUtils;
 import com.example.administrator.jipinshop.R;
+import com.example.administrator.jipinshop.activity.cheapgoods.CheapBuyActivity;
 import com.example.administrator.jipinshop.activity.login.LoginActivity;
 import com.example.administrator.jipinshop.activity.web.TaoBaoWebActivity;
 import com.example.administrator.jipinshop.adapter.NoPageBannerAdapter;
@@ -96,6 +97,7 @@ public class NewPeopleDetailActivity extends BaseActivity implements View.OnClic
     private String shareUrl = "";
     private int goodsType = 2;//1是极品城  2是淘宝
     private boolean isNewUser = false; //默认不是新人
+    private Boolean jumpPage = false;//是否跳转特惠购页面
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -389,6 +391,7 @@ public class NewPeopleDetailActivity extends BaseActivity implements View.OnClic
 
     @Override
     public void onBuySuccess(ImageBean bean) {
+        jumpPage = true;
         TaoBaoUtil.openAliHomeWeb(this, bean.getData(), bean.getOtherGoodsId());
     }
 
@@ -425,6 +428,12 @@ public class NewPeopleDetailActivity extends BaseActivity implements View.OnClic
         super.onResume();
         if (mDialog != null && mDialog.isShowing()){
             mDialog.dismiss();
+        }
+        if (jumpPage){
+            //跳转到特惠购页面
+            startActivity(new Intent(this, CheapBuyActivity.class));
+            finish();
+            jumpPage = false;
         }
     }
 

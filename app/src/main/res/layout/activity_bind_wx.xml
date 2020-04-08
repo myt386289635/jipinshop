@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:bind="http://schemas.android.com/apk/res-auto">
+
+    <data>
+        <variable
+            name="listener"
+            type="android.view.View.OnClickListener"/>
+
+    </data>
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:background="@color/color_F5F5F5"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <include
+            android:id="@+id/in_clude"
+            layout="@layout/aa_title2"
+            bind:listener="@{listener}"/>
+
+        <EditText
+            android:id="@+id/bind_edit"
+            android:textColor="@color/color_202020"
+            android:textColorHint="@color/color_D8D8D8"
+            android:paddingLeft="@dimen/x30"
+            android:textSize="16sp"
+            android:hint="请输入微信号"
+            android:layout_marginTop="@dimen/y20"
+            android:background="@color/color_white"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/y90"/>
+
+        <TextView
+            android:onClick="@{listener.onClick}"
+            android:id="@+id/bind_sure"
+            android:layout_marginTop="@dimen/y167"
+            android:layout_gravity="center_horizontal"
+            android:gravity="center"
+            android:text="确定"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            android:textColor="@color/color_white"
+            android:background="@drawable/bg_withdraw"
+            android:layout_width="@dimen/x520"
+            android:layout_height="@dimen/y76"/>
+
+    </LinearLayout>
+</layout>

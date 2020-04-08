@@ -1,6 +1,7 @@
 package com.example.administrator.jipinshop.adapter;
 
 import android.content.Context;
+import android.support.annotation.NonNull;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.view.LayoutInflater;
@@ -26,7 +27,22 @@ public class NoPageBannerAdapter extends PagerAdapter implements ViewPager.OnPag
     private ViewPager mViewPager;
     private List<String> mList;
     private Boolean imgCenter = false;
+    private Boolean imgFixCenter = false;
     private TextView pagerIndex;
+    private int type = 0;//点的样式  默认0
+    private int refresh = 0; //是否需要刷新 0：不需要 ；非0：需要
+
+    public void setRefresh(int refresh) {
+        this.refresh = refresh;
+    }
+
+    public void setImgFixCenter(Boolean imgFixCenter) {
+        this.imgFixCenter = imgFixCenter;
+    }
+
+    public void setType(int type) {
+        this.type = type;
+    }
 
     public void setPagerIndex(TextView pagerIndex) {
         this.pagerIndex = pagerIndex;
@@ -63,6 +79,14 @@ public class NoPageBannerAdapter extends PagerAdapter implements ViewPager.OnPag
         return view == object;
     }
 
+    @Override
+    public int getItemPosition(@NonNull Object object) {
+        if (refresh != 0){
+            return POSITION_NONE;
+        }else {
+            return super.getItemPosition(object);
+        }
+    }
 
     //给ImageView设置显示的图片
     @Override
@@ -72,6 +96,8 @@ public class NoPageBannerAdapter extends PagerAdapter implements ViewPager.OnPag
         ImageView imageView = (ImageView) view.findViewById(R.id.recommend_img_rotate);
         if (imgCenter){
             imageView.setScaleType(ImageView.ScaleType.CENTER_CROP);
+        }else if (imgFixCenter){
+            imageView.setScaleType(ImageView.ScaleType.FIT_CENTER);
         }
         Glide.with(mContext).load(mList.get(position)).into(imageView);
         container.addView(view);
@@ -93,11 +119,21 @@ public class NoPageBannerAdapter extends PagerAdapter implements ViewPager.OnPag
 
     @Override
     public void onPageSelected(int position) {
-        for (int i = 0; i < point.size(); i++) {
-            if (i == position){
-                point.get(i).setImageResource(R.drawable.banner_down);
-            }else {
-                point.get(i).setImageResource(R.drawable.banner_up);
+        if (type == 0){//默认样式
+            for (int i = 0; i < point.size(); i++) {
+                if (i == position){
+                    point.get(i).setImageResource(R.drawable.banner_down);
+                }else {
+                    point.get(i).setImageResource(R.drawable.banner_up);
+                }
+            }
+        }else if (type == 1){
+            for (int i = 0; i < point.size(); i++) {
+                if (i == position){
+                    point.get(i).setImageResource(R.mipmap.member_yes);
+                }else {
+                    point.get(i).setImageResource(R.mipmap.member_no);
+                }
             }
         }
         if (pagerIndex != null){

@@ -556,6 +556,14 @@
         <activity android:name=".activity.share.ShareActivity"
                   android:screenOrientation="portrait"/>
 
+        <!--榜单页面-->
+        <activity android:name=".activity.home.home.HomeNewActivity"
+                  android:screenOrientation="portrait"/>
+
+        <!--设置页面——绑定微信-->
+        <activity android:name=".activity.setting.bind.BindWXActivity"
+                  android:screenOrientation="portrait"/>
+
     </application>
 
 </manifest>

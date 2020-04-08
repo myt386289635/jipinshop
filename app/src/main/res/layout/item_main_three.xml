@@ -340,17 +340,21 @@
 
                 <TextView
                     android:textStyle="bold"
-                    android:textColor="@color/color_EA5018"
-                    android:textSize="18sp"
-                    android:text="百万补贴"
+                    android:textColor="@color/color_FFDDA6"
+                    android:textSize="21sp"
+                    android:text="百万津贴"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"/>
 
                 <TextView
+                    android:textStyle="bold"
+                    android:layout_gravity="center_horizontal"
+                    android:lineSpacingExtra="@dimen/y10"
+                    android:gravity="center"
                     android:layout_marginTop="@dimen/y19"
-                    android:textColor="@color/color_EA5018"
-                    android:textSize="12sp"
-                    android:text="百款商品 下单立减"
+                    android:textColor="@color/color_FFDDA6"
+                    android:textSize="14sp"
+                    android:text="津贴当钱花\n下单立减"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"/>
 
@@ -371,7 +375,7 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:visibility="@{size >= 1 ? View.VISIBLE : View.GONE}">
+                    android:visibility="@{size >= 1 ? View.VISIBLE : View.INVISIBLE}">
 
                     <ImageView
                         android:layout_centerHorizontal="true"
@@ -380,33 +384,48 @@
                         android:layout_width="@dimen/x138"
                         android:layout_height="@dimen/y138"/>
 
-
                     <TextView
+                        android:paddingLeft="@dimen/x5"
                         android:minHeight="@dimen/y28"
-                        android:gravity="center"
-                        android:text="@{@string/allowance2 + one.totalCouponPrice + @string/order_prefree_end}"
-                        android:textSize="11sp"
+                        android:text="@{@string/allowance2 + one.useAllowancePrice}"
+                        android:textSize="10sp"
                         android:textColor="@color/color_white"
                         android:layout_alignBottom="@id/item_oldImage1"
-                        android:background="@color/color_EA5018"
+                        android:background="@color/color_FFAA23"
                         android:layout_alignRight="@id/item_oldImage1"
                         android:layout_alignLeft="@id/item_oldImage1"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"/>
 
-                    <TextView
-                        android:gravity="center"
-                        android:text="@{@string/price + one.buyPrice}"
-                        android:textStyle="bold"
-                        android:textColor="@color/color_EA5018"
+                    <RelativeLayout
+                        android:background="@drawable/bg_balance_last"
                         android:layout_below="@id/item_oldImage1"
                         android:layout_alignRight="@id/item_oldImage1"
                         android:layout_alignLeft="@id/item_oldImage1"
-                        android:minHeight="@dimen/y45"
-                        android:background="@drawable/bg_balance_last"
                         android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"/>
+                        android:layout_height="wrap_content">
 
+                        <TextView
+                            android:id="@+id/item_buy1"
+                            android:layout_marginLeft="@dimen/x5"
+                            android:gravity="center"
+                            android:text="@{@string/price + one.buyPrice}"
+                            android:textStyle="bold"
+                            android:textColor="@color/color_EA5018"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"/>
+
+                        <TextView
+                            android:layout_marginBottom="@dimen/y5"
+                            android:layout_marginLeft="@dimen/x5"
+                            android:textColor="@color/color_565252"
+                            android:textSize="10sp"
+                            android:layout_below="@id/item_buy1"
+                            android:text="@{@string/index_price + one.otherPrice}"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"/>
+
+                    </RelativeLayout>
 
                 </RelativeLayout>
 
@@ -416,7 +435,7 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:visibility="@{size >= 2 ? View.VISIBLE : View.GONE}">
+                    android:visibility="@{size >= 2 ? View.VISIBLE : View.INVISIBLE}">
 
                     <ImageView
                         android:layout_centerHorizontal="true"
@@ -428,29 +447,46 @@
 
                     <TextView
                         android:minHeight="@dimen/y28"
-                        android:gravity="center"
-                        android:text="@{@string/allowance2 + two.totalCouponPrice + @string/order_prefree_end}"
-                        android:textSize="11sp"
+                        android:paddingLeft="@dimen/x5"
+                        android:text="@{@string/allowance2 + two.useAllowancePrice}"
+                        android:textSize="10sp"
                         android:textColor="@color/color_white"
                         android:layout_alignBottom="@id/item_oldImage2"
-                        android:background="@color/color_EA5018"
+                        android:background="@color/color_FFAA23"
                         android:layout_alignRight="@id/item_oldImage2"
                         android:layout_alignLeft="@id/item_oldImage2"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"/>
 
-                    <TextView
-                        android:gravity="center"
-                        android:text="@{@string/price + two.buyPrice}"
-                        android:textStyle="bold"
-                        android:textColor="@color/color_EA5018"
+                    <RelativeLayout
+                        android:background="@drawable/bg_balance_last"
                         android:layout_below="@id/item_oldImage2"
                         android:layout_alignRight="@id/item_oldImage2"
                         android:layout_alignLeft="@id/item_oldImage2"
-                        android:minHeight="@dimen/y45"
-                        android:background="@drawable/bg_balance_last"
                         android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"/>
+                        android:layout_height="wrap_content">
+
+                        <TextView
+                            android:id="@+id/item_buy2"
+                            android:layout_marginLeft="@dimen/x5"
+                            android:gravity="center"
+                            android:text="@{@string/price + two.buyPrice}"
+                            android:textStyle="bold"
+                            android:textColor="@color/color_EA5018"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"/>
+
+                        <TextView
+                            android:layout_marginBottom="@dimen/y5"
+                            android:layout_marginLeft="@dimen/x5"
+                            android:textColor="@color/color_565252"
+                            android:textSize="10sp"
+                            android:layout_below="@id/item_buy2"
+                            android:text="@{@string/index_price + two.otherPrice}"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"/>
+
+                    </RelativeLayout>
 
                 </RelativeLayout>
 
@@ -458,7 +494,7 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:visibility="@{size >= 2 ? View.VISIBLE : View.GONE}">
+                    android:visibility="@{size > 2 ? View.VISIBLE : View.INVISIBLE}">
 
                     <ImageView
                         android:layout_centerHorizontal="true"
@@ -470,29 +506,46 @@
 
                     <TextView
                         android:minHeight="@dimen/y28"
-                        android:gravity="center"
-                        android:text="@{@string/allowance2 + three.totalCouponPrice + @string/order_prefree_end}"
-                        android:textSize="11sp"
+                        android:paddingLeft="@dimen/x5"
+                        android:text="@{@string/allowance2 + three.useAllowancePrice}"
+                        android:textSize="10sp"
                         android:textColor="@color/color_white"
                         android:layout_alignBottom="@id/item_oldImage3"
-                        android:background="@color/color_EA5018"
+                        android:background="@color/color_FFAA23"
                         android:layout_alignRight="@id/item_oldImage3"
                         android:layout_alignLeft="@id/item_oldImage3"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"/>
 
-                    <TextView
-                        android:gravity="center"
-                        android:text="@{@string/price + three.buyPrice}"
-                        android:textStyle="bold"
-                        android:textColor="@color/color_EA5018"
+                    <RelativeLayout
+                        android:background="@drawable/bg_balance_last"
                         android:layout_below="@id/item_oldImage3"
                         android:layout_alignRight="@id/item_oldImage3"
                         android:layout_alignLeft="@id/item_oldImage3"
-                        android:minHeight="@dimen/y45"
-                        android:background="@drawable/bg_balance_last"
                         android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"/>
+                        android:layout_height="wrap_content">
+
+                        <TextView
+                            android:id="@+id/item_buy3"
+                            android:layout_marginLeft="@dimen/x5"
+                            android:gravity="center"
+                            android:text="@{@string/price + three.buyPrice}"
+                            android:textStyle="bold"
+                            android:textColor="@color/color_EA5018"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"/>
+
+                        <TextView
+                            android:layout_marginBottom="@dimen/y5"
+                            android:layout_marginLeft="@dimen/x5"
+                            android:textColor="@color/color_565252"
+                            android:textSize="10sp"
+                            android:layout_below="@id/item_buy3"
+                            android:text="@{@string/index_price + three.otherPrice}"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"/>
+
+                    </RelativeLayout>
 
                 </RelativeLayout>
 

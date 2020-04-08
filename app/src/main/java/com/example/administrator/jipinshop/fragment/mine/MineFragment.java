@@ -22,6 +22,7 @@ import com.example.administrator.jipinshop.activity.balance.MyWalletActivity;
 import com.example.administrator.jipinshop.activity.balance.team.TeamActivity;
 import com.example.administrator.jipinshop.activity.cheapgoods.CheapBuyActivity;
 import com.example.administrator.jipinshop.activity.foval.FovalActivity;
+import com.example.administrator.jipinshop.activity.home.home.HomeNewActivity;
 import com.example.administrator.jipinshop.activity.info.editname.EditNameActivity;
 import com.example.administrator.jipinshop.activity.login.LoginActivity;
 import com.example.administrator.jipinshop.activity.mall.MallActivity;
@@ -218,10 +219,6 @@ public class MineFragment extends DBBaseFragment implements View.OnClickListener
                 startActivity(new Intent(getContext(), MallActivity.class));
                 UAppUtil.mine(getContext(),5);
                 break;
-//            case R.id.mine_trial:
-//                //我的试用
-//                startActivity(new Intent(getContext(), MineTrialActivity.class));
-//                break;
             case R.id.mine_free:
                 //我的免单
                 startActivity(new Intent(getContext(), MineFreeActivity.class));
@@ -267,6 +264,12 @@ public class MineFragment extends DBBaseFragment implements View.OnClickListener
                 //津贴余额
                 startActivity(new Intent(getContext(), CheapBuyActivity.class));
                 break;
+            case R.id.mine_member:
+                //我的会员
+                startActivity(new Intent(getContext(), HomeNewActivity.class)
+                        .putExtra("type",HomeNewActivity.member)
+                );
+                break;
         }
     }
 
@@ -291,6 +294,7 @@ public class MineFragment extends DBBaseFragment implements View.OnClickListener
                 SPUtils.getInstance(CommonDate.USER).clear();
 //                JPushInterface.stopPush(MyApplication.getInstance());//停止推送
                 mBinding.mineCopyContainer.setVisibility(View.GONE);//复制邀请码
+                mBinding.itemGrade.setImageResource(R.mipmap.grade_public);
                 break;
         }
     }
@@ -311,22 +315,7 @@ public class MineFragment extends DBBaseFragment implements View.OnClickListener
                 //修改用户头像
                 GlideApp.loderImage(getContext(),bus.getContent(), mBinding.mineImage, R.mipmap.rlogo, 0);
             }
-        } else if (bus != null && bus.getTag().equals(LoginActivity.tag)) {
-            //登陆时返回更改用户信息
-            mBinding.mineName.setVisibility(View.VISIBLE);
-            mBinding.mineLogin.setVisibility(View.GONE);
-            mBinding.mineInfo.setVisibility(View.VISIBLE);
-            mBinding.mineCopyContainer.setVisibility(View.VISIBLE);//复制邀请码
-            mBinding.mineIntegral.setText("邀请码：" + SPUtils.getInstance(CommonDate.USER).getString(CommonDate.qrCode,"000000"));
-            if (TextUtils.isEmpty(SPUtils.getInstance(CommonDate.USER).getString(CommonDate.userNickName))) {
-                mBinding.mineName.setText(SPUtils.getInstance(CommonDate.USER).getString(CommonDate.userPhone));
-            } else {
-                mBinding.mineName.setText(SPUtils.getInstance(CommonDate.USER).getString(CommonDate.userNickName));
-            }
-            if (!TextUtils.isEmpty(SPUtils.getInstance(CommonDate.USER).getString(CommonDate.userNickImg))) {
-                GlideApp.loderImage(getContext(),SPUtils.getInstance(CommonDate.USER).getString(CommonDate.userNickImg), mBinding.mineImage, R.mipmap.logo, 0);
-            }
-        }else if(bus != null && bus.getTag().equals(SignActivity.eventbusTag)){
+        } else if(bus != null && bus.getTag().equals(SignActivity.eventbusTag)){
             //首页绑定上下级时需要刷新我的页面
             mBinding.mineInvation.setVisibility(View.GONE);
         }
@@ -356,6 +345,7 @@ public class MineFragment extends DBBaseFragment implements View.OnClickListener
         SPUtils.getInstance(CommonDate.USER).put(CommonDate.userId,userInfoBean.getData().getUserId());
         SPUtils.getInstance(CommonDate.USER).put(CommonDate.userSign,userInfoBean.getData().getDetail());
         SPUtils.getInstance(CommonDate.USER).put(CommonDate.bgImg,userInfoBean.getData().getBgImg());
+        SPUtils.getInstance(CommonDate.USER).put(CommonDate.wechat,userInfoBean.getData().getWechat());
 
         mBinding.mineName.setVisibility(View.VISIBLE);
         mBinding.mineLogin.setVisibility(View.GONE);
@@ -387,6 +377,18 @@ public class MineFragment extends DBBaseFragment implements View.OnClickListener
         }else {
             //老人
             mBinding.mineNewpeople.setVisibility(View.VISIBLE);
+        }
+        if (userInfoBean.getData().getLevel() == 2){
+            //2合伙人
+            mBinding.mineMemberContainer.setVisibility(View.GONE);
+            mBinding.itemGrade.setImageResource(R.mipmap.grade_partner);
+        }else {
+            mBinding.mineMemberContainer.setVisibility(View.VISIBLE);
+            if (userInfoBean.getData().getLevel() == 1){
+                mBinding.itemGrade.setImageResource(R.mipmap.grade_vip);
+            }else{
+                mBinding.itemGrade.setImageResource(R.mipmap.grade_public);
+            }
         }
     }
 
@@ -436,41 +438,6 @@ public class MineFragment extends DBBaseFragment implements View.OnClickListener
         mBinding.mineTeamText.setText("0");//团队人数
         mBinding.mineSignText.setText("0");//极币数
         ToastUtil.show(error.getMsg());
-    }
-
-    /**
-     * 用于更新用户接口
-     */
-    @Override
-    public void successUpdateInfo(UserInfoBean userInfoBean) {
-        SPUtils.getInstance(CommonDate.USER).put(CommonDate.userPoint, userInfoBean.getData().getPoint());
-        SPUtils.getInstance(CommonDate.USER).put(CommonDate.relationId, userInfoBean.getData().getRelationId());
-        SPUtils.getInstance(CommonDate.USER).put(CommonDate.userId,userInfoBean.getData().getUserId());
-        SPUtils.getInstance(CommonDate.USER).put(CommonDate.userSign,userInfoBean.getData().getDetail());
-        SPUtils.getInstance(CommonDate.USER).put(CommonDate.bgImg,userInfoBean.getData().getBgImg());
-
-        mBinding.mineFavorNumText.setText(userInfoBean.getData().getCollectCount());//收藏数
-        mBinding.mineAllowanceText.setText(userInfoBean.getData().getAllowance());//津贴余额
-        mBinding.mineTeamText.setText(userInfoBean.getData().getTeamCount());//团队人数
-        mBinding.mineSignText.setText(SPUtils.getInstance(CommonDate.USER).getInt(CommonDate.userPoint,0) + "");//极币数
-        if (TextUtils.isEmpty(userInfoBean.getData().getBgImg())){//更新用户资料背景
-            mBinding.mineBackground.setImageResource(R.mipmap.mine_imagebg_dafult);
-        }else {
-            GlideApp.loderImage(getContext(),userInfoBean.getData().getBgImg(),mBinding.mineBackground,0,0);
-        }
-        officialWeChat = userInfoBean.getData().getOfficialWeChat();
-        if (userInfoBean.getData().getPid().equals("0")){
-            mBinding.mineInvation.setVisibility(View.VISIBLE);
-        }else {
-            mBinding.mineInvation.setVisibility(View.GONE);
-        }
-        if (userInfoBean.getData().getIsNewUser().equals("0")){
-            //新人
-            mBinding.mineNewpeople.setVisibility(View.VISIBLE);
-        }else {
-            //老人
-            mBinding.mineNewpeople.setVisibility(View.VISIBLE);
-        }
     }
 
     @Override
