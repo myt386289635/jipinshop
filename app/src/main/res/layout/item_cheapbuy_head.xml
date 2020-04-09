@@ -146,7 +146,7 @@
                 android:lineSpacingExtra="@dimen/y8"
                 android:layout_marginRight="@dimen/x40"
                 android:layout_marginLeft="@dimen/x40"
-                android:text="购物津贴指平台补贴现金红包，下单时可直接享受立减优惠。\n温馨提示：点“立即抢购”后直接扣减津贴余额"
+                android:text="购物津贴指平台补贴现金红包，下单时可直接享受立减优惠。温馨提示：点“立即抢购”后直接扣减津贴余额"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"/>
 
