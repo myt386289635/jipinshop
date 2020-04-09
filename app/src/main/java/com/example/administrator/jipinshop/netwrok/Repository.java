@@ -95,6 +95,7 @@ import javax.inject.Inject;
 
 import io.reactivex.Observable;
 import okhttp3.MultipartBody;
+import okhttp3.ResponseBody;
 
 public class Repository {
 
@@ -1345,5 +1346,12 @@ public class Repository {
      */
     public Observable<SuccessBean> memberUpdate(){
         return mAPIService.memberUpdate();
+    }
+
+    /**
+     * 下载图片
+     */
+    public Observable<ResponseBody> downLoadImg(String url){
+        return mAPIService.downLoadImg(url);
     }
 }

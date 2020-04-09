@@ -6,9 +6,7 @@ import android.content.ClipboardManager
 import android.content.Context
 import android.content.Intent
 import android.databinding.DataBindingUtil
-import android.graphics.Bitmap
 import android.net.Uri
-import android.os.Build
 import android.os.Bundle
 import android.support.v7.widget.LinearLayoutManager
 import android.text.TextUtils
@@ -20,9 +18,6 @@ import android.widget.ImageView
 import com.aspsine.swipetoloadlayout.OnLoadMoreListener
 import com.aspsine.swipetoloadlayout.OnRefreshListener
 import com.blankj.utilcode.util.SPUtils
-import com.bumptech.glide.Glide
-import com.bumptech.glide.request.target.SimpleTarget
-import com.bumptech.glide.request.transition.Transition
 import com.example.administrator.jipinshop.R
 import com.example.administrator.jipinshop.activity.home.MainActivity
 import com.example.administrator.jipinshop.activity.login.LoginActivity
@@ -35,7 +30,6 @@ import com.example.administrator.jipinshop.base.DBBaseFragment
 import com.example.administrator.jipinshop.bean.CircleListBean
 import com.example.administrator.jipinshop.bean.CircleTitleBean
 import com.example.administrator.jipinshop.databinding.FragmentDailyBinding
-import com.example.administrator.jipinshop.util.FileManager
 import com.example.administrator.jipinshop.util.ShareUtils
 import com.example.administrator.jipinshop.util.TaoBaoUtil
 import com.example.administrator.jipinshop.util.ToastUtil
@@ -51,6 +45,7 @@ import com.umeng.socialize.UMShareAPI
 import com.umeng.socialize.bean.SHARE_MEDIA
 import net.lucode.hackware.magicindicator.buildins.commonnavigator.CommonNavigator
 import java.math.BigDecimal
+import java.util.*
 import javax.inject.Inject
 
 /**
@@ -271,6 +266,7 @@ class DailyFragment : DBBaseFragment(), KTTabAdapter2.OnClickItem, KTTabAdapter3
     }
 
     override fun onTabFile(error: String?) {
+        dissRefresh()
         ToastUtil.show(error)
     }
 
@@ -427,47 +423,6 @@ class DailyFragment : DBBaseFragment(), KTTabAdapter2.OnClickItem, KTTabAdapter3
             images[0] = temp
         }
         when (share_media) {
-            SHARE_MEDIA.WEIXIN,SHARE_MEDIA.QQ -> {
-                mShareImages.clear()//监督图片下载数量
-                var imageUris = ArrayList<Uri>()
-                for (i in images.indices) {
-                    Glide.with(context!!)
-                            .asBitmap()
-                            .load(images[i])
-                            .into(object : SimpleTarget<Bitmap>() {
-                                override fun onResourceReady(resource: Bitmap, transition: Transition<in Bitmap>?) {
-                                    var file = FileManager.saveFile(resource, context)
-                                    mShareImages.add("")
-                                    if (Build.VERSION.SDK_INT < Build.VERSION_CODES.N) {
-                                        imageUris.add(Uri.fromFile(file))
-                                    } else {
-                                        //修复微信在7.0崩溃的问题
-                                        var uri = Uri.parse(android.provider.MediaStore.Images.Media.insertImage(context?.contentResolver, file.absolutePath, file.name, null))
-                                        imageUris.add(uri)
-                                    }
-                                    if (mShareImages.size == images.size) {
-                                        dissRefresh()
-                                        var clip = context!!.getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager
-                                        var clipData = ClipData.newPlainText("jipinshop", mList[mSharePosition].content)
-                                        clip.primaryClip = clipData
-                                        SPUtils.getInstance().put(CommonDate.CLIP, mList[mSharePosition].content)
-                                        ToastUtil.show("文案已复制到粘贴板,分享后长按粘贴")
-                                        if (share_media == SHARE_MEDIA.WEIXIN) {
-                                            var intent: Intent? = PlatformUtil.shareWX_images(context, imageUris)
-                                            intent?.let {
-                                                startActivityForResult(intent, 301)
-                                            }
-                                        } else if (share_media == SHARE_MEDIA.QQ) {
-                                            var intent: Intent? = PlatformUtil.shareQQ_images(context, imageUris)
-                                            intent?.let {
-                                                startActivityForResult(intent, 302)
-                                            }
-                                        }
-                                    }
-                                }
-                            })
-                }
-            }
             SHARE_MEDIA.SINA -> {
                 var clip = context!!.getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager
                 var clipData = ClipData.newPlainText("jipinshop", mList[mSharePosition].content)
@@ -477,32 +432,43 @@ class DailyFragment : DBBaseFragment(), KTTabAdapter2.OnClickItem, KTTabAdapter3
                 ShareUtils(context,share_media,mDialog)
                         .shareImages(activity,mList[mSharePosition].content,images)
             }
+            SHARE_MEDIA.WEIXIN,SHARE_MEDIA.QQ,SHARE_MEDIA.WEIXIN_CIRCLE -> {
+                mPresenter.downLoadImg(context!!,images,share_media,this.bindToLifecycle())
+            }
+        }
+    }
+
+    /**
+     * 图片下载完成
+     */
+    override fun downLoadSuc(share_media: SHARE_MEDIA?,imageUris: ArrayList<Uri>) {
+        dissRefresh()
+        var clip = context!!.getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager
+        var clipData = ClipData.newPlainText("jipinshop", mList[mSharePosition].content)
+        clip.primaryClip = clipData
+        SPUtils.getInstance().put(CommonDate.CLIP, mList[mSharePosition].content)
+        when(share_media){
+            SHARE_MEDIA.WEIXIN -> {
+                ToastUtil.show("文案已复制到粘贴板,分享后长按粘贴")
+                var intent: Intent? = PlatformUtil.shareWX_images(context, imageUris)
+                intent?.let {
+                    startActivityForResult(intent, 301)
+                }
+            }
+            SHARE_MEDIA.QQ -> {
+                ToastUtil.show("文案已复制到粘贴板,分享后长按粘贴")
+                var intent: Intent? = PlatformUtil.shareQQ_images(context, imageUris)
+                intent?.let {
+                    startActivityForResult(intent, 302)
+                }
+            }
             SHARE_MEDIA.WEIXIN_CIRCLE -> {
-                mShareImages.clear()//监督图片下载数量
-                for (i in images.indices){
-                    Glide.with(context!!)
-                            .asBitmap()
-                            .load(images[i])
-                            .into(object : SimpleTarget<Bitmap>() {
-                                override fun onResourceReady(resource: Bitmap, transition: Transition<in Bitmap>?) {
-                                    FileManager.saveFile(resource, context)
-                                    mShareImages.add("")
-                                    if (mShareImages.size == images.size) {
-                                        dissRefresh()
-                                        var clip = context!!.getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager
-                                        var clipData = ClipData.newPlainText("jipinshop", mList[mSharePosition].content)
-                                        clip.primaryClip = clipData
-                                        SPUtils.getInstance().put(CommonDate.CLIP, mList[mSharePosition].content)
-                                        DialogUtil.sharePYQDialog(context){
-                                            var intent : Intent? = PlatformUtil.sharePYQ_images(context)
-                                            intent?.let {
-                                                sharePyqCode = 303
-                                                startActivity(intent)
-                                            }
-                                        }
-                                    }
-                                }
-                            })
+                DialogUtil.sharePYQDialog(context) {
+                    var intent: Intent? = PlatformUtil.sharePYQ_images(context)
+                    intent?.let {
+                        sharePyqCode = 303
+                        startActivity(intent)
+                    }
                 }
             }
         }

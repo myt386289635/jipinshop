@@ -1,15 +1,24 @@
 package com.example.administrator.jipinshop.activity.share
 
+import android.content.Context
+import android.graphics.BitmapFactory
+import android.net.Uri
+import android.os.Build
 import android.view.MotionEvent
 import android.widget.TextView
 import com.example.administrator.jipinshop.bean.ShareBean
 import com.example.administrator.jipinshop.databinding.ActivityShareBinding
 import com.example.administrator.jipinshop.netwrok.Repository
+import com.example.administrator.jipinshop.util.FileManager
 import com.example.administrator.jipinshop.util.ToastUtil
 import com.trello.rxlifecycle2.LifecycleTransformer
+import com.umeng.socialize.bean.SHARE_MEDIA
+import io.reactivex.Observable
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.functions.Consumer
 import io.reactivex.schedulers.Schedulers
+import okhttp3.ResponseBody
+import java.util.ArrayList
 import javax.inject.Inject
 
 /**
@@ -143,6 +152,40 @@ class SharePresenter {
                         mView.onRefresh(it.data.shareImg,type)
                     }
                 }, Consumer {
+                })
+    }
+
+    /**
+     * 下载图片
+     */
+    fun downLoadImg(context: Context, urls :MutableList<String>, share_media: SHARE_MEDIA?, transformer: LifecycleTransformer<ResponseBody>){
+        var observables = mutableListOf<Observable<ResponseBody>>()
+        for (i in urls.indices){
+            observables.add(mRepository.downLoadImg(urls[i]))
+        }
+        var mun = 0
+        Observable.merge(observables)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .compose(transformer)
+                .subscribe(Consumer {
+                    var bys = it.bytes()
+                    var bitmap = BitmapFactory.decodeByteArray(bys, 0, bys.size)
+                    var file = FileManager.saveFile(bitmap, context)
+                    var imageUris = ArrayList<Uri>()
+                    if (Build.VERSION.SDK_INT < Build.VERSION_CODES.N) {
+                        imageUris.add(Uri.fromFile(file))
+                    } else {
+                        //修复微信在7.0崩溃的问题
+                        var uri = Uri.parse(android.provider.MediaStore.Images.Media.insertImage(context?.contentResolver, file.absolutePath, file.name, null))
+                        imageUris.add(uri)
+                    }
+                    mun++
+                    if (mun == urls.size){
+                        mView.downLoadSuc(share_media,imageUris)
+                    }
+                }, Consumer {
+                    mView.onFile(it.message)
                 })
     }
 }
