@@ -55,7 +55,16 @@ public class ShareBean {
         private String tkl;
         private String invitationCode;
         private String fee;
+        private String baseComment;
         private List<String> imgs;
+
+        public String getBaseComment() {
+            return baseComment;
+        }
+
+        public void setBaseComment(String baseComment) {
+            this.baseComment = baseComment;
+        }
 
         public String getContent() {
             return content;

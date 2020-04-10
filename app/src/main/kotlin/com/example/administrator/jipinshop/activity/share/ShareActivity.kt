@@ -60,6 +60,7 @@ class ShareActivity : BaseActivity(), View.OnClickListener, ShareAdapter.OnClick
     private var downloadUrl: String = ""
     private var tkl: String = ""
     private var invitationCode: String = ""
+    private var baseComment: String = ""
     private var iwHelper: ImageWatcherHelper? = null
     private var layDecoration: DecorationLayout? = null
 
@@ -101,10 +102,10 @@ class ShareActivity : BaseActivity(), View.OnClickListener, ShareAdapter.OnClick
     }
 
     override fun initShareContent(checkBox1: Boolean, checkBox2: Boolean, checkBox3: Boolean) {
-        var string = ""
-        if (checkBox1) string += tkl + "\n"
+        var string = baseComment + "\n"
         if (checkBox2) string += downloadUrl + "\n"
-        if (checkBox3) string += invitationCode
+        if (checkBox3) string += invitationCode  + "\n"
+        if (checkBox1) string += tkl
         mBinding.shareContent.text = string
     }
 
@@ -235,13 +236,14 @@ class ShareActivity : BaseActivity(), View.OnClickListener, ShareAdapter.OnClick
                 it.dismiss()
             }
         }
+        baseComment = bean.data.baseComment
         downloadUrl = bean.data.downloadUrl
         tkl = bean.data.tkl
         invitationCode = bean.data.invitationCode
         temp = bean.data.shareImg
         mBinding.shareMoney.text = "分享后复制【评论区文案】，预估收益"+ bean.data.fee +"元！"
         mBinding.shareTitle.text = bean.data.content
-        mBinding.shareContent.text = bean.data.tkl + "\n" + bean.data.downloadUrl + "\n" + bean.data.invitationCode
+        mBinding.shareContent.text = bean.data.baseComment  + "\n" + bean.data.downloadUrl + "\n" + bean.data.invitationCode +"\n" + bean.data.tkl
         mList.clear()
         mList.addAll(bean.data.imgs)
         for (i in mList.indices){
