@@ -129,6 +129,9 @@ class KTMemberFragment : DBBaseFragment(), View.OnClickListener, OnRefreshListen
                 startActivity(Intent(context, WebActivity::class.java)
                         .putExtra(WebActivity.url, RetrofitModule.H5_URL + "newZn.html")
                         .putExtra(WebActivity.title, "极品城省钱攻略")
+                        .putExtra(WebActivity.isShare,true)
+                        .putExtra(WebActivity.shareTitle,"如何查找淘宝隐藏优惠券及下单返利？")
+                        .putExtra(WebActivity.shareContent,"淘宝天猫90%的商品都能省，同时还有高额返利，淘好物，更省钱！")
                 )
             }
             R.id.member_apply -> {

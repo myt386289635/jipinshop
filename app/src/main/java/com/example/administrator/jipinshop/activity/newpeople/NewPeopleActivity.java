@@ -354,7 +354,7 @@ public class NewPeopleActivity extends BaseActivity implements OnRefreshListener
             new ShareUtils(this,share_media,mDialog)
                     .shareWeb(this,RetrofitModule.H5_URL + "new-free?query=\""
                             + SPUtils.getInstance(CommonDate.USER).getString(CommonDate.userId) + "\"",
-                            "新人0元购，仅剩2天!","价值30元免单礼品任意选",
+                            "新人惊喜二重礼，限时活动速抢！","新人首单0元购，更有30元大额津贴下单立减当钱花~！",
                             "https://jipincheng.cn/share_newFree.png",R.mipmap.logo);
         }else {
             //还是点击时获取吧，万一出现进入页面后快速进行分享，可能会导致没有获取到海报就分享的情况

@@ -13,11 +13,27 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
 
-        <include
-            bind:listener="@{listener}"
-            android:id="@+id/in_clude"
-            layout="@layout/aa_title2"/>
+            <include
+                bind:listener="@{listener}"
+                android:id="@+id/in_clude"
+                layout="@layout/aa_title2"/>
+
+            <ImageView
+                android:visibility="gone"
+                android:id="@+id/web_share"
+                android:onClick="@{listener.onClick}"
+                android:paddingLeft="@dimen/x20"
+                android:paddingRight="@dimen/x20"
+                android:layout_alignParentRight="true"
+                android:src="@mipmap/qus_forward"
+                android:layout_width="wrap_content"
+                android:layout_height="@dimen/y88"/>
+
+        </RelativeLayout>
 
         <WebView
             android:scrollbars="none"

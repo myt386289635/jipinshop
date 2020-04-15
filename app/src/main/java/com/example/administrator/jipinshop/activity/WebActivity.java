@@ -9,7 +9,6 @@ import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.text.TextUtils;
-import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.ViewParent;
@@ -19,16 +18,21 @@ import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
 
+import com.alibaba.baichuan.android.trade.AlibcTradeSDK;
 import com.blankj.utilcode.util.SPUtils;
 import com.example.administrator.jipinshop.R;
 import com.example.administrator.jipinshop.activity.web.TaoBaoWebActivity;
 import com.example.administrator.jipinshop.base.BaseActivity;
 import com.example.administrator.jipinshop.bean.ImageBean;
 import com.example.administrator.jipinshop.databinding.ActivityWebBinding;
+import com.example.administrator.jipinshop.util.ShareUtils;
 import com.example.administrator.jipinshop.util.TaoBaoUtil;
 import com.example.administrator.jipinshop.util.ToastUtil;
 import com.example.administrator.jipinshop.util.sp.CommonDate;
 import com.example.administrator.jipinshop.view.dialog.ProgressDialogView;
+import com.example.administrator.jipinshop.view.dialog.ShareBoardDialog;
+import com.umeng.socialize.UMShareAPI;
+import com.umeng.socialize.bean.SHARE_MEDIA;
 
 import java.io.UnsupportedEncodingException;
 import java.net.URLDecoder;
@@ -40,15 +44,21 @@ import javax.inject.Inject;
  * @create 2018/9/3
  * @Describe webView页面
  */
-public class WebActivity extends BaseActivity implements View.OnClickListener, WebVieww {
+public class WebActivity extends BaseActivity implements View.OnClickListener, WebVieww, ShareBoardDialog.onShareListener {
 
     @Inject
     WebPresenter mPresenter;
     private ActivityWebBinding mBinding;
     private Dialog mDialog;//加载框
+    private boolean inShare = false;//是否分享  默认为不分享
+    //分享面板
+    private ShareBoardDialog mShareBoardDialog;
 
     public static final String url = "url";
     public static final String title = "title";
+    public static final String isShare= "isShare";
+    public static final String shareTitle = "shareTitle";
+    public static final String shareContent = "shareContent";
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -61,6 +71,7 @@ public class WebActivity extends BaseActivity implements View.OnClickListener, W
     }
 
     private void initView() {
+        inShare = getIntent().getBooleanExtra(isShare,false);
         mDialog = (new ProgressDialogView()).createLoadingDialog(WebActivity.this, "正在加载...");
         mDialog.show();
 
@@ -154,6 +165,12 @@ public class WebActivity extends BaseActivity implements View.OnClickListener, W
             }
         });
         mBinding.webView.loadUrl(getIntent().getStringExtra(url));
+
+        if (inShare){
+            mBinding.webShare.setVisibility(View.VISIBLE);
+        }else {
+            mBinding.webShare.setVisibility(View.GONE);
+        }
     }
 
     //检查是否是淘客推广链接，否者打不开淘客推广链接
@@ -174,6 +191,15 @@ public class WebActivity extends BaseActivity implements View.OnClickListener, W
         switch (view.getId()){
             case R.id.title_back:
                 finish();
+                break;
+            case R.id.web_share:
+                if (mShareBoardDialog == null) {
+                    mShareBoardDialog = ShareBoardDialog.getInstance("","");
+                    mShareBoardDialog.setOnShareListener(this);
+                }
+                if (!mShareBoardDialog.isAdded()) {
+                    mShareBoardDialog.show(getSupportFragmentManager(), "ShareBoardDialog");
+                }
                 break;
         }
     }
@@ -197,6 +223,8 @@ public class WebActivity extends BaseActivity implements View.OnClickListener, W
             mBinding.webView.destroy();
         }
         super.onDestroy();
+        UMShareAPI.get(this).release();
+        AlibcTradeSDK.destory();
     }
 
     @Override
@@ -237,5 +265,28 @@ public class WebActivity extends BaseActivity implements View.OnClickListener, W
     @Override
     public void onBuyLinkSuccess(ImageBean bean) {
         TaoBaoUtil.openAliHomeWeb(this,bean.getData(),bean.getOtherGoodsId());
+    }
+
+    @Override
+    public void share(SHARE_MEDIA share_media) {
+        mDialog = (new ProgressDialogView()).createLoadingDialog(WebActivity.this, "");
+        new ShareUtils(this, share_media, mDialog)
+                .shareWeb(this, getIntent().getStringExtra(url),
+                        getIntent().getStringExtra(shareTitle), getIntent().getStringExtra(shareContent),
+                        "", R.mipmap.share_logo);
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        UMShareAPI.get(this).onActivityResult(requestCode, resultCode, data);
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        if(mDialog != null && mDialog.isShowing()){
+            mDialog.dismiss();
+        }
     }
 }
