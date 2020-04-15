@@ -10,6 +10,8 @@ import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
+import android.view.ViewGroup;
+import android.widget.LinearLayout;
 
 import com.blankj.utilcode.util.SPUtils;
 import com.example.administrator.jipinshop.R;
@@ -44,6 +46,15 @@ public class MainActivityPresenter {
     @Inject
     public MainActivityPresenter(Repository repository) {
         mRepository = repository;
+    }
+
+    public void setStatusBarHight(LinearLayout StatusBar , Context context){
+        int resourceId = context.getResources().getIdentifier("status_bar_height", "dimen", "android");
+        if (resourceId > 0) {
+            int statusBarHeight = context.getResources().getDimensionPixelSize(resourceId);
+            ViewGroup.LayoutParams layoutParams = StatusBar.getLayoutParams();
+            layoutParams.height = statusBarHeight;
+        }
     }
 
     public void initTabLayout(Context context , TabLayout tabLayout){
