@@ -59,6 +59,7 @@ public class WebActivity extends BaseActivity implements View.OnClickListener, W
     public static final String isShare= "isShare";
     public static final String shareTitle = "shareTitle";
     public static final String shareContent = "shareContent";
+    public static final String shareImage = "shareImage";
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -273,7 +274,7 @@ public class WebActivity extends BaseActivity implements View.OnClickListener, W
         new ShareUtils(this, share_media, mDialog)
                 .shareWeb(this, getIntent().getStringExtra(url),
                         getIntent().getStringExtra(shareTitle), getIntent().getStringExtra(shareContent),
-                        "", R.mipmap.share_logo);
+                        getIntent().getStringExtra(shareImage), R.mipmap.share_logo);
     }
 
     @Override

@@ -309,6 +309,7 @@ class KTMainAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder> {
                                 .putExtra(WebActivity.isShare,true)
                                 .putExtra(WebActivity.shareTitle,"如何查找淘宝隐藏优惠券及下单返利？")
                                 .putExtra(WebActivity.shareContent,"淘宝天猫90%的商品都能省，同时还有高额返利，淘好物，更省钱！")
+                                .putExtra(WebActivity.shareImage,"https://jipincheng.cn/shengqian.png")
                         )
                     }
                     threeViewHolder.setIsRecyclable(false)//该Item不进行复用，避免动画消失问题
