@@ -105,7 +105,7 @@ public class MainActivity extends RxAppCompatActivity implements MainView, ViewP
     private HomeAdapter mHomeAdapter;
     private KTMemberFragment mMemberFragment;//会员
     private MineFragment mMineFragment;//我的
-    private MoneyFragment mMoneyFragment;//红包
+//    private MoneyFragment mMoneyFragment;//红包
     private CircleFragment mCircleFragment;//发圈
     private KTHomeFragnent mKTHomeFragnent;//首页
 
@@ -161,12 +161,12 @@ public class MainActivity extends RxAppCompatActivity implements MainView, ViewP
         mFragments = new ArrayList<>();
 
         mKTHomeFragnent = KTHomeFragnent.getInstance();
-        mMoneyFragment = MoneyFragment.getInstance();
+//        mMoneyFragment = MoneyFragment.getInstance();
         mMemberFragment = KTMemberFragment.getInstance("1");
         mCircleFragment = CircleFragment.getInstance();
         mMineFragment = new MineFragment();
         mFragments.add(mKTHomeFragnent);
-        mFragments.add(mMoneyFragment);
+//        mFragments.add(mMoneyFragment);
         mFragments.add(mMemberFragment);
         mFragments.add(mCircleFragment);
         mFragments.add(mMineFragment);
@@ -179,15 +179,15 @@ public class MainActivity extends RxAppCompatActivity implements MainView, ViewP
         mViewPager.addOnPageChangeListener(this);
         mPresenter.initTabLayout(this, mTabLayout);
         mPresenter.initTab(this,mTabLayout,mFragments);//初始化tab拦截事件
-        appStatisticalUtil.tab(0,this.bindToLifecycle());//统计榜单
+        appStatisticalUtil.tab(0,this.bindToLifecycle());//统计首页
 
-        if (getIntent().getBooleanExtra("isAd",false)) {
-            //广告页进来的
-            String targetType = getIntent().getStringExtra("targetType");
-            if (targetType.equals("16")){
-                mViewPager.setCurrentItem(2);
-            }
-        }
+//        if (getIntent().getBooleanExtra("isAd",false)) {
+//            //广告页进来的
+//            String targetType = getIntent().getStringExtra("targetType");
+//            if (targetType.equals("16")){
+//                mViewPager.setCurrentItem(2);
+//            }
+//        }
 
 //        DistanceHelper.getAndroiodScreenProperty(this);
         if (SPUtils.getInstance().getBoolean(CommonDate.FIRST, true)) {
@@ -573,7 +573,7 @@ public class MainActivity extends RxAppCompatActivity implements MainView, ViewP
             mLoginBackground.setVisibility(View.GONE);
         }
         //改变状态栏颜色
-        if (i == 2){
+        if (i == 1){
             mImmersionBar.reset()
                     .transparentStatusBar()
                     .statusBarDarkFont(false, 0f)

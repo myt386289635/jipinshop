@@ -95,13 +95,25 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"/>
 
+            <TextView
+                android:visibility="@{data.goodsInfo == null ? View.GONE : View.VISIBLE}"
+                android:paddingBottom="@dimen/y20"
+                android:layout_below="@id/item_content"
+                android:layout_alignLeft="@id/item_content"
+                android:id="@+id/item_detail"
+                android:textColor="@color/color_E25838"
+                android:textSize="14sp"
+                android:text="查看详情"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+
             <ImageView
                 android:visibility="@{data.imgList.size() == 1 ? View.VISIBLE: View.GONE}"
                 android:scaleType="centerCrop"
                 android:id="@+id/item_imageContent"
                 bind:src="@{data.imgList[0]}"
                 android:layout_alignLeft="@id/item_content"
-                android:layout_below="@id/item_content"
+                android:layout_below="@id/item_detail"
                 android:layout_width="@dimen/x332"
                 android:layout_height="@dimen/y332"/>
 

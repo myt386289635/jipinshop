@@ -82,6 +82,11 @@ class DailyAdapter :RecyclerView.Adapter<DailyAdapter.ViewHolder>{
                     mOnClickItem.onDetailClick(pos)
                 }
             }
+            mBinding.itemDetail.setOnClickListener {
+                if (mList[pos].goodsInfo != null){
+                    mOnClickItem.onDetailClick(pos)
+                }
+            }
             mBinding.itemShare.setOnClickListener {
                 mOnClickItem.onShareClick(pos)
             }

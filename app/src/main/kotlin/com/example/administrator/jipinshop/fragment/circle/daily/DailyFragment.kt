@@ -99,7 +99,10 @@ class DailyFragment : DBBaseFragment(), KTTabAdapter2.OnClickItem, KTTabAdapter3
         if (isVisibleToUser && once) {
             if (arguments!!.getString("type","1") != "1") {
                 type = arguments!!.getString("type","1")
-                mPresenter.circleTitle(type,this.bindToLifecycle())
+//                mPresenter.circleTitle(type,this.bindToLifecycle())
+                mBinding.swipeToLoad.post {
+                    mBinding.swipeToLoad.isRefreshing = true
+                }
             }
         }
     }
@@ -143,7 +146,10 @@ class DailyFragment : DBBaseFragment(), KTTabAdapter2.OnClickItem, KTTabAdapter3
         mBinding.swipeToLoad.setOnRefreshListener(this)
         mBinding.swipeToLoad.setOnLoadMoreListener(this)
         if (type == "1"){
-            mPresenter.circleTitle(type,this.bindToLifecycle())
+//            mPresenter.circleTitle(type,this.bindToLifecycle())
+            mBinding.swipeToLoad.post {
+                mBinding.swipeToLoad.isRefreshing = true
+            }
         }
     }
 
@@ -195,21 +201,23 @@ class DailyFragment : DBBaseFragment(), KTTabAdapter2.OnClickItem, KTTabAdapter3
     override fun onLoadMore() {
         page++
         refersh = false
-        if (mTitle[FirstSet].children.size == 0){
-            mPresenter.circleList(mTitle[FirstSet].id,"",type,page,this.bindToLifecycle())
-        }else{
-            mPresenter.circleList(mTitle[FirstSet].id,mSendTitle[SendSet].id,type,page,this.bindToLifecycle())
-        }
+//        if (mTitle[FirstSet].children.size == 0){
+//            mPresenter.circleList(mTitle[FirstSet].id,"",type,page,this.bindToLifecycle())
+//        }else{
+//            mPresenter.circleList(mTitle[FirstSet].id,mSendTitle[SendSet].id,type,page,this.bindToLifecycle())
+//        }
+        mPresenter.circleList("","",type,page,this.bindToLifecycle())
     }
 
     override fun onRefresh() {
         page = 1
         refersh = true
-        if (mTitle[FirstSet].children.size == 0){
-            mPresenter.circleList(mTitle[FirstSet].id,"",type,page,this.bindToLifecycle())
-        }else{
-            mPresenter.circleList(mTitle[FirstSet].id,mSendTitle[SendSet].id,type,page,this.bindToLifecycle())
-        }
+//        if (mTitle[FirstSet].children.size == 0){
+//            mPresenter.circleList(mTitle[FirstSet].id,"",type,page,this.bindToLifecycle())
+//        }else{
+//            mPresenter.circleList(mTitle[FirstSet].id,mSendTitle[SendSet].id,type,page,this.bindToLifecycle())
+//        }
+        mPresenter.circleList("","",type,page,this.bindToLifecycle())
     }
 
     fun dissRefresh() {
@@ -251,18 +259,18 @@ class DailyFragment : DBBaseFragment(), KTTabAdapter2.OnClickItem, KTTabAdapter3
     }
 
     override fun onTabSuc(bean: CircleTitleBean) {
-        mTitle.clear()
-        mTitle.addAll(bean.data)
-        if (bean.data[FirstSet].children.size == 0){
-            mBinding.dailySendMenu.visibility = View.GONE
-        }else{
-            mBinding.dailySendMenu.visibility = View.VISIBLE
-            mSendTitle.clear()
-            mSendTitle.addAll(bean.data[FirstSet].children)
-            mTabSendAdapter.notifyDataSetChanged()
-        }
-        mTabAdapter.notifyDataSetChanged()
-        mBinding.swipeToLoad.isRefreshing = true
+//        mTitle.clear()
+//        mTitle.addAll(bean.data)
+//        if (bean.data[FirstSet].children.size == 0){
+//            mBinding.dailySendMenu.visibility = View.GONE
+//        }else{
+//            mBinding.dailySendMenu.visibility = View.VISIBLE
+//            mSendTitle.clear()
+//            mSendTitle.addAll(bean.data[FirstSet].children)
+//            mTabSendAdapter.notifyDataSetChanged()
+//        }
+//        mTabAdapter.notifyDataSetChanged()
+//        mBinding.swipeToLoad.isRefreshing = true
     }
 
     override fun onTabFile(error: String?) {

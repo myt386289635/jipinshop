@@ -88,7 +88,7 @@ public class NewPeopleActivity extends BaseActivity implements OnRefreshListener
 
     private void initView() {
         mPresenter.setStatusBarHight(mBinding.statusBar,this);
-        mBinding.inClude.titleTv.setText("新人0元专区");
+        mBinding.inClude.titleTv.setText("新人福利专区");
         mBinding.swipeToLoad.setBackgroundColor(getResources().getColor(R.color.color_white));
 
         strings = new ArrayList<>();

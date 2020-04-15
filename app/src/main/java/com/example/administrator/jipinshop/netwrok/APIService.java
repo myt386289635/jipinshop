@@ -1193,7 +1193,7 @@ public interface APIService {
     /**
      * 圈子列表
      */
-    @GET("api/moment/list")
+    @GET("api/v2/moment/list")
     Observable<CircleListBean> circleList(@QueryMap Map<String,String> map);
 
     /**

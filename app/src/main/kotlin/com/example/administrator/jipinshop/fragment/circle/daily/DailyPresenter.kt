@@ -63,11 +63,13 @@ class DailyPresenter {
 
     fun circleList(categoryId1: String , categoryId2: String, type: String , page : Int,  transformer: LifecycleTransformer<CircleListBean> ){
         var map = HashMap<String, String>()
-        map["categoryId1"] = categoryId1
         map["type"] = type
         map["page"] = "" + page
         if (!TextUtils.isEmpty(categoryId2)){
             map["categoryId2"] = categoryId2
+        }
+        if(!TextUtils.isEmpty(categoryId1)){
+            map["categoryId1"] = categoryId1
         }
         mRepository.circleList(map)
                 .subscribeOn(Schedulers.io())
