@@ -34,18 +34,27 @@
             android:layout_width="@dimen/x106"
             android:layout_height="wrap_content"/>
 
-        <VideoView
-            android:id="@+id/index_video"
-            android:layout_marginTop="@dimen/y70"
-            android:layout_marginBottom="@dimen/y26"
+        <LinearLayout
+            android:background="@color/pickerview_topbar_title"
             android:layout_marginRight="@dimen/x28"
             android:layout_marginLeft="@dimen/x28"
-            android:layout_alignBottom="@+id/index_background"
-            android:layout_alignTop="@+id/index_background"
+            android:gravity="center"
+            android:layout_marginTop="@dimen/y25"
+            android:layout_marginBottom="@dimen/y25"
+            android:layout_alignTop="@id/index_background"
+            android:layout_alignBottom="@id/index_background"
             android:layout_alignRight="@+id/index_background"
             android:layout_alignLeft="@+id/index_background"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"/>
+            android:layout_height="wrap_content">
+
+            <VideoView
+                android:id="@+id/index_video"
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"/>
+
+        </LinearLayout>
+
 
         <ImageView
             android:layout_below="@id/status_bar"

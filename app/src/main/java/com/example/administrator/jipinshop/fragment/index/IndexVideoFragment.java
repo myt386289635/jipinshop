@@ -9,6 +9,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 
 import com.example.administrator.jipinshop.R;
 import com.example.administrator.jipinshop.activity.home.MainActivity;
@@ -23,7 +24,7 @@ import static com.umeng.socialize.utils.ContextUtil.getPackageName;
  * @create 2020/4/17
  * @Describe 引导页视频
  */
-public class IndexVideoFragment extends DBBaseFragment implements View.OnClickListener, MediaPlayer.OnCompletionListener {
+public class IndexVideoFragment extends DBBaseFragment implements View.OnClickListener, MediaPlayer.OnCompletionListener, MediaPlayer.OnPreparedListener {
 
     private FragmentIndexVideoBinding mBinding;
     private boolean isPlay = false; //是否播放完毕  默认为否
@@ -67,6 +68,7 @@ public class IndexVideoFragment extends DBBaseFragment implements View.OnClickLi
         String uri = "android.resource://" + getPackageName() + "/" + R.raw.jipinshop;
         mBinding.indexVideo.setVideoPath(uri);
         mBinding.indexVideo.setOnCompletionListener(this);
+        mBinding.indexVideo.setOnPreparedListener(this);
     }
 
     @Override
@@ -142,5 +144,10 @@ public class IndexVideoFragment extends DBBaseFragment implements View.OnClickLi
             public void onFinish() { }
         };
         timer.start();
+    }
+
+    @Override
+    public void onPrepared(MediaPlayer mp) {
+
     }
 }
