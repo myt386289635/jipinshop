@@ -160,6 +160,7 @@ class DailyPresenter {
             observables.add(mRepository.downLoadImg(urls[i]))
         }
         var mun = 0
+        var imageUris = ArrayList<Uri>()
         Observable.merge(observables)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
@@ -168,7 +169,6 @@ class DailyPresenter {
                     var bys = it.bytes()
                     var bitmap = BitmapFactory.decodeByteArray(bys, 0, bys.size)
                     var file = FileManager.saveFile(bitmap, context)
-                    var imageUris = ArrayList<Uri>()
                     if (Build.VERSION.SDK_INT < Build.VERSION_CODES.N) {
                         imageUris.add(Uri.fromFile(file))
                     } else {

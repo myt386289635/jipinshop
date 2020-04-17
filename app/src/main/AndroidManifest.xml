@@ -247,7 +247,7 @@
                   android:windowSoftInputMode="adjustResize|stateHidden"/>
 
         <!--引导页-->
-        <activity android:name=".activity.wellcome.IndexActivity"
+        <activity android:name=".activity.wellcome.index.IndexActivity"
                   android:screenOrientation="portrait"/>
 
         <!--公用的webView-->
@@ -562,6 +562,10 @@
 
         <!--设置页面——绑定微信-->
         <activity android:name=".activity.setting.bind.BindWXActivity"
+                  android:screenOrientation="portrait"/>
+
+        <!--引导页（含视频）-->
+        <activity android:name=".activity.wellcome.index.IndexMixActivity"
                   android:screenOrientation="portrait"/>
 
     </application>

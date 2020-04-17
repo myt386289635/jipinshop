@@ -10,6 +10,7 @@ import android.view.View;
 
 import com.example.administrator.jipinshop.R;
 import com.example.administrator.jipinshop.activity.WebActivity;
+import com.example.administrator.jipinshop.activity.wellcome.index.IndexMixActivity;
 import com.example.administrator.jipinshop.databinding.ActivityServceBinding;
 import com.example.administrator.jipinshop.netwrok.RetrofitModule;
 import com.example.administrator.jipinshop.util.ToastUtil;
@@ -54,7 +55,7 @@ public class ServceActivity extends AppCompatActivity implements View.OnClickLis
                         return;
                     }
                 }
-                startActivity(new Intent(this, IndexActivity.class));
+                startActivity(new Intent(this, IndexMixActivity.class));
                 finish();
                 break;
             case R.id.servce1_agree:

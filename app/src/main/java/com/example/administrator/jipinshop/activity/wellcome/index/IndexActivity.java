@@ -1,4 +1,4 @@
-package com.example.administrator.jipinshop.activity.wellcome;
+package com.example.administrator.jipinshop.activity.wellcome.index;
 
 import android.content.Intent;
 import android.databinding.DataBindingUtil;
@@ -26,7 +26,7 @@ import java.util.List;
 /**
  * @author 莫小婷
  * @create 2018/9/1
- * @Describe 引导页
+ * @Describe 引导页(纯图片)
  */
 public class IndexActivity extends AppCompatActivity implements IndexAdapter.OnLick, ViewPager.OnPageChangeListener {
 
