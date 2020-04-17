@@ -135,6 +135,10 @@ public class NewPeopleActivity extends BaseActivity implements OnRefreshListener
     @Override
     public void onBuy(int position) {
         //进入新人详情页
+        if (mList.get(position).getTotal() <= 0){
+            ToastUtil.show("当前商品已抢光，再看看其他商品吧");
+            return;
+        }
         mBinding.bgGuide1.setVisibility(View.GONE);
         mBinding.bgGuide2.setVisibility(View.GONE);
         startActivity(new Intent(this, NewPeopleDetailActivity.class)

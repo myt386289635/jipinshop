@@ -4,6 +4,7 @@
         xmlns:bind="http://schemas.android.com/tools">
 
     <data>
+        <import type="android.view.View"/>
         <variable
             name="data"
             type="com.example.administrator.jipinshop.bean.NewPeopleBean.DataBean.NewAllowanceGoodsListBean"/>
@@ -87,14 +88,14 @@
                 android:layout_marginRight="@dimen/x20"
                 android:layout_alignParentRight="true"
                 android:minWidth="@dimen/x150"
-                android:background="@drawable/bg_tab_eva"
+                android:background="@{data.total > 0 ? @drawable/bg_tab_eva : @drawable/bg_tab_eva4}"
                 android:gravity="center"
                 android:paddingBottom="@dimen/y10"
                 android:paddingTop="@dimen/y10"
                 android:paddingRight="@dimen/x12"
                 android:paddingLeft="@dimen/x12"
                 android:id="@+id/item_buy"
-                android:text="0 元 购"
+                android:text="@{data.total > 0 ? @string/buy : @string/no_buy}"
                 android:textStyle="bold"
                 android:textSize="17sp"
                 android:textColor="@color/color_white"
@@ -134,7 +135,7 @@
                     android:layout_marginLeft="@dimen/x13"
                     android:textColor="@color/color_9D9D9D"
                     android:textSize="10sp"
-                    android:text="@{@string/free_buyed + data.count + @string/free_freePrice_end}"
+                    android:text="@{  data.total > 0 ? @string/free_buyed + data.count + @string/free_freePrice_end : @string/no_buy2}"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"/>
 
@@ -146,6 +147,18 @@
                 android:layout_alignLeft="@id/item_image"
                 android:layout_alignTop="@id/item_image"
                 android:src="@mipmap/bg_newpople2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+
+            <ImageView
+                android:visibility="@{data.total > 0 ? View.GONE : View.VISIBLE}"
+                android:id="@+id/item_shadow"
+                android:src="@mipmap/bg_shadow"
+                android:background="@drawable/bg_80000000_1"
+                android:layout_alignRight="@id/item_image"
+                android:layout_alignBottom="@id/item_image"
+                android:layout_alignTop="@id/item_image"
+                android:layout_alignLeft="@id/item_image"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"/>
 

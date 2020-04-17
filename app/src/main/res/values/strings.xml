@@ -102,4 +102,7 @@
     <string name="member_wx">微信:</string>
 
     <string name="index_price">原价：</string>
+    <string name="buy">0 元 购</string>
+    <string name="no_buy">已 抢 完</string>
+    <string name="no_buy2">已抢完</string>
 </resources>

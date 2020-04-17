@@ -117,6 +117,15 @@ public class NewPeopleBean {
             private int status;
             private String otherPrice;
             private String buyPrice;
+            private int total;
+
+            public int getTotal() {
+                return total;
+            }
+
+            public void setTotal(int total) {
+                this.total = total;
+            }
 
             public String getId() {
                 return id;
