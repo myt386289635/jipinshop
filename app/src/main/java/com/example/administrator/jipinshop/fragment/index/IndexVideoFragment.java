@@ -11,6 +11,8 @@ import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.RequestOptions;
 import com.example.administrator.jipinshop.R;
 import com.example.administrator.jipinshop.activity.home.MainActivity;
 import com.example.administrator.jipinshop.base.DBBaseFragment;
@@ -69,6 +71,14 @@ public class IndexVideoFragment extends DBBaseFragment implements View.OnClickLi
         mBinding.indexVideo.setVideoPath(uri);
         mBinding.indexVideo.setOnCompletionListener(this);
         mBinding.indexVideo.setOnPreparedListener(this);
+        Glide.with(this)
+                .setDefaultRequestOptions(
+                        new RequestOptions()
+                                .frame(100000)
+                )
+                .load(uri)
+                .into(mBinding.indexVideoImage);
+        mBinding.indexVideoImage.setVisibility(View.VISIBLE);
     }
 
     @Override
@@ -130,6 +140,7 @@ public class IndexVideoFragment extends DBBaseFragment implements View.OnClickLi
     }
 
     public void startTimer(){
+        mBinding.indexVideoImage.setVisibility(View.INVISIBLE);
         if (timer != null) {
             timer.cancel();
         }

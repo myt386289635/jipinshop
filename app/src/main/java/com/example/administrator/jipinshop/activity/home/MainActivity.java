@@ -105,7 +105,7 @@ public class MainActivity extends RxAppCompatActivity implements MainView, ViewP
     @BindView(R.id.guide_container)
     RelativeLayout mGuideContainer;
     @BindView(R.id.guide_ok)
-    ImageView mGuideOk;
+    RelativeLayout mGuideOk;
 
     private List<Fragment> mFragments;
     private HomeAdapter mHomeAdapter;

@@ -70,6 +70,7 @@ public class NewPeopleDetailActivity extends BaseActivity implements View.OnClic
     private ActivityNewpeopleDetailBinding mBinding;
     private String freeId = "";//商品id
     private String otherGoodsId = "";
+    private int goodsTotle = 0;//默认为无法购买
     private Dialog mDialog;
     private Dialog mProgressDialog;
     //banner
@@ -116,6 +117,7 @@ public class NewPeopleDetailActivity extends BaseActivity implements View.OnClic
     private void initView() {
         freeId = getIntent().getStringExtra("freeId");
         otherGoodsId = getIntent().getStringExtra("otherGoodsId");
+        goodsTotle = getIntent().getIntExtra("goodsTotle",0);
         mPresenter.setStatusBarHight(mBinding.statusBar,this);
 
         //banner
@@ -196,6 +198,10 @@ public class NewPeopleDetailActivity extends BaseActivity implements View.OnClic
                 }
                 if (!isNewUser){
                     ToastUtil.show("您已不是新用户，无法参加0元购活动");
+                    return;
+                }
+                if (goodsTotle <= 0){
+                    ToastUtil.show("当前商品已抢光，再看看其他商品吧");
                     return;
                 }
                 String specialId = SPUtils.getInstance(CommonDate.USER).getString(CommonDate.relationId,"");

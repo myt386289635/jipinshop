@@ -194,13 +194,24 @@
 
     </RelativeLayout>
 
-    <ImageView
-        android:scaleType="fitXY"
-        android:adjustViewBounds="true"
+    <RelativeLayout
         android:visibility="gone"
         android:id="@+id/guide_ok"
-        android:src="@mipmap/guide_home3"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"/>
+        android:layout_height="match_parent">
+
+        <View
+            android:background="@color/color_white"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"/>
+
+        <ImageView
+            android:background="@color/color_99000000"
+            android:scaleType="fitCenter"
+            android:src="@mipmap/guide_home3"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"/>
+
+    </RelativeLayout>
 
 </RelativeLayout>

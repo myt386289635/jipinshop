@@ -34,11 +34,10 @@
             android:layout_width="@dimen/x106"
             android:layout_height="wrap_content"/>
 
-        <LinearLayout
+        <RelativeLayout
             android:background="@color/pickerview_topbar_title"
             android:layout_marginRight="@dimen/x28"
             android:layout_marginLeft="@dimen/x28"
-            android:gravity="center"
             android:layout_marginTop="@dimen/y25"
             android:layout_marginBottom="@dimen/y25"
             android:layout_alignTop="@id/index_background"
@@ -49,11 +48,20 @@
             android:layout_height="wrap_content">
 
             <VideoView
+                android:layout_centerInParent="true"
                 android:id="@+id/index_video"
                 android:layout_width="fill_parent"
                 android:layout_height="fill_parent"/>
 
-        </LinearLayout>
+            <ImageView
+                android:id="@+id/index_videoImage"
+                android:adjustViewBounds="true"
+                android:scaleType="fitXY"
+                android:layout_centerInParent="true"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"/>
+
+        </RelativeLayout>
 
 
         <ImageView
