@@ -84,6 +84,7 @@ public class FovalGoodsFragment extends DBBaseFragment implements FovalGoodsAdap
         } else {
             startActivity(new Intent(getContext(), TBShoppingDetailActivity.class)
                     .putExtra("otherGoodsId", mList.get(pos).getOtherGoodsId())
+                    .putExtra("source",mList.get(pos).getSource())
             );
         }
     }

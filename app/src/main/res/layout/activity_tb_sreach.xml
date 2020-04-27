@@ -82,80 +82,13 @@
 
         </RelativeLayout>
 
-        <LinearLayout
-            android:id="@+id/title_container2"
-            android:layout_below="@id/title_container"
-            android:layout_marginRight="@dimen/x30"
-            android:layout_marginLeft="@dimen/x30"
+        <net.lucode.hackware.magicindicator.MagicIndicator
+            android:layout_centerHorizontal="true"
             android:layout_marginTop="@dimen/y18"
-            android:weightSum="2"
-            android:orientation="horizontal"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-
-
-            <RelativeLayout
-                android:onClick="@{listener.onClick}"
-                android:id="@+id/sreach_jp"
-                android:layout_weight="1"
-                android:orientation="vertical"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content">
-
-                <TextView
-                    android:id="@+id/sreach_type_jp"
-                    android:layout_centerHorizontal="true"
-                    android:textSize="18sp"
-                    android:textStyle="bold"
-                    android:textColor="@color/color_E25838"
-                    android:text="搜极品城"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"/>
-                
-                <View
-                    android:id="@+id/sreach_jp_line"
-                    android:layout_marginTop="@dimen/y11"
-                    android:layout_below="@id/sreach_type_jp"
-                    android:layout_alignRight="@id/sreach_type_jp"
-                    android:layout_alignLeft="@id/sreach_type_jp"
-                    android:background="@color/color_E25838"
-                    android:layout_width="match_parent"
-                    android:layout_height="6px"/>
-
-            </RelativeLayout>
-
-            <RelativeLayout
-                android:onClick="@{listener.onClick}"
-                android:id="@+id/sreach_tb"
-                android:layout_weight="1"
-                android:orientation="vertical"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content">
-
-                <TextView
-                    android:id="@+id/sreach_type_tb"
-                    android:layout_centerHorizontal="true"
-                    android:textSize="18sp"
-                    android:textStyle="bold"
-                    android:textColor="@color/color_9D9D9D"
-                    android:text="搜淘宝"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"/>
-
-                <View
-                    android:id="@+id/sreach_tb_line"
-                    android:visibility="invisible"
-                    android:layout_marginTop="@dimen/y11"
-                    android:layout_below="@id/sreach_type_tb"
-                    android:layout_alignRight="@id/sreach_type_tb"
-                    android:layout_alignLeft="@id/sreach_type_tb"
-                    android:background="@color/color_E25838"
-                    android:layout_width="match_parent"
-                    android:layout_height="6px"/>
-
-            </RelativeLayout>
-
-        </LinearLayout>
+            android:layout_below="@id/title_container"
+            android:id="@+id/title_container2"
+            android:layout_width="wrap_content"
+            android:layout_height="@dimen/y78"/>
 
         <View
             android:id="@+id/line"
@@ -280,28 +213,35 @@
                     </RelativeLayout>
 
 
-                    <View
-                        android:id="@+id/sreach_line"
+                    <RelativeLayout
+                        android:id="@+id/sreach_uLikeContainer"
                         android:layout_below="@id/sreach_hisContainer"
-                        android:background="@color/color_F5F5F5"
                         android:layout_width="match_parent"
-                        android:layout_height="@dimen/y20"/>
+                        android:layout_height="wrap_content">
 
-                    <ImageView
-                        android:id="@+id/userList_title"
-                        android:layout_below="@id/sreach_line"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_centerHorizontal="true"
-                        android:layout_marginTop="@dimen/y29"
-                        android:layout_marginBottom="@dimen/y32"
-                        android:src="@mipmap/bg_userlike"/>
+                        <View
+                            android:id="@+id/sreach_line"
+                            android:background="@color/color_F5F5F5"
+                            android:layout_width="match_parent"
+                            android:layout_height="@dimen/y20"/>
 
-                    <android.support.v7.widget.RecyclerView
-                        android:layout_below="@id/userList_title"
-                        android:id="@+id/sreach_userLike"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"/>
+                        <ImageView
+                            android:id="@+id/userList_title"
+                            android:layout_below="@id/sreach_line"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_centerHorizontal="true"
+                            android:layout_marginTop="@dimen/y29"
+                            android:layout_marginBottom="@dimen/y32"
+                            android:src="@mipmap/bg_userlike"/>
+
+                        <android.support.v7.widget.RecyclerView
+                            android:layout_below="@id/userList_title"
+                            android:id="@+id/sreach_userLike"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"/>
+
+                    </RelativeLayout>
 
                 </RelativeLayout>
             </ScrollView>

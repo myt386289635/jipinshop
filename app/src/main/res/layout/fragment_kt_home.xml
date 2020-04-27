@@ -25,6 +25,8 @@
 
         <com.example.administrator.jipinshop.view.textview.DrawableLeftCenterTextView
             android:id="@+id/home_sreach"
+            android:layout_toLeftOf="@id/home_server"
+            android:layout_toRightOf="@+id/home_sign"
             android:onClick="@{listener.onClick}"
             android:layout_below="@id/status_bar"
             android:background="@drawable/bg_ffffff_3"
@@ -37,8 +39,29 @@
             android:drawableLeft="@mipmap/search1"
             android:drawableTint="@color/color_E25838"
             android:layout_width="match_parent"
-            android:layout_marginLeft="@dimen/x30"
-            android:layout_marginRight="@dimen/x30"
+            android:layout_height="@dimen/y70"/>
+
+        <ImageView
+            android:onClick="@{listener.onClick}"
+            android:paddingRight="@dimen/x15"
+            android:paddingLeft="@dimen/x15"
+            android:layout_marginLeft="@dimen/x15"
+            android:id="@+id/home_sign"
+            android:src="@mipmap/home_sign"
+            android:layout_alignTop="@id/home_sreach"
+            android:layout_width="wrap_content"
+            android:layout_height="@dimen/y70"/>
+
+        <ImageView
+            android:onClick="@{listener.onClick}"
+            android:layout_alignTop="@id/home_sreach"
+            android:paddingRight="@dimen/x15"
+            android:paddingLeft="@dimen/x15"
+            android:layout_marginRight="@dimen/x15"
+            android:id="@+id/home_server"
+            android:layout_alignParentRight="true"
+            android:src="@mipmap/home_server"
+            android:layout_width="wrap_content"
             android:layout_height="@dimen/y70"/>
 
         <android.support.design.widget.CoordinatorLayout
@@ -61,7 +84,7 @@
                     android:id="@+id/home_tag"
                     android:textColor="@color/color_99FFFFFF"
                     android:textSize="10sp"
-                    android:text="补贴方法：①复制淘宝商品标题或淘口令 ； ②搜索商品领取专属补贴"
+                    android:text="返现方法：①复制淘宝商品标题或淘口令 ； ②搜索商品领取专属返现"
                     android:paddingTop="@dimen/y20"
                     android:paddingBottom="@dimen/y10"
                     android:layout_below="@id/home_sreach"

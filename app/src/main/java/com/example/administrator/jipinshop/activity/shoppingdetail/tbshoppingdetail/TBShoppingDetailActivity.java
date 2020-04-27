@@ -9,6 +9,8 @@ import android.support.annotation.Nullable;
 import android.support.v4.graphics.drawable.DrawableCompat;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
+import android.text.SpannableString;
+import android.text.Spanned;
 import android.text.TextUtils;
 import android.view.Gravity;
 import android.view.View;
@@ -19,18 +21,16 @@ import android.widget.LinearLayout;
 import com.alibaba.baichuan.android.trade.AlibcTradeSDK;
 import com.blankj.utilcode.util.SPUtils;
 import com.example.administrator.jipinshop.R;
-import com.example.administrator.jipinshop.activity.WebActivity;
 import com.example.administrator.jipinshop.activity.home.home.HomeNewActivity;
 import com.example.administrator.jipinshop.activity.login.LoginActivity;
 import com.example.administrator.jipinshop.activity.share.ShareActivity;
-import com.example.administrator.jipinshop.activity.web.TaoBaoWebActivity;
 import com.example.administrator.jipinshop.adapter.NoPageBannerAdapter;
 import com.example.administrator.jipinshop.adapter.ShoppingImageAdapter;
 import com.example.administrator.jipinshop.adapter.ShoppingParameterAdapter;
 import com.example.administrator.jipinshop.adapter.ShoppingQualityAdapter;
 import com.example.administrator.jipinshop.adapter.ShoppingUserLikeAdapter;
 import com.example.administrator.jipinshop.base.BaseActivity;
-import com.example.administrator.jipinshop.bean.ImageBean;
+import com.example.administrator.jipinshop.bean.ClickUrlBean;
 import com.example.administrator.jipinshop.bean.SimilerGoodsBean;
 import com.example.administrator.jipinshop.bean.SucBean;
 import com.example.administrator.jipinshop.bean.TBShoppingDetailBean;
@@ -38,9 +38,9 @@ import com.example.administrator.jipinshop.bean.eventbus.ChangeHomePageBus;
 import com.example.administrator.jipinshop.bean.eventbus.TBShopDetailBus;
 import com.example.administrator.jipinshop.databinding.ActivityTbShopDetailBinding;
 import com.example.administrator.jipinshop.fragment.foval.goods.FovalGoodsFragment;
-import com.example.administrator.jipinshop.netwrok.RetrofitModule;
 import com.example.administrator.jipinshop.util.ClickUtil;
 import com.example.administrator.jipinshop.util.DeviceUuidFactory;
+import com.example.administrator.jipinshop.util.PDDUtil;
 import com.example.administrator.jipinshop.util.TaoBaoUtil;
 import com.example.administrator.jipinshop.util.ToastUtil;
 import com.example.administrator.jipinshop.util.sp.CommonDate;
@@ -48,6 +48,7 @@ import com.example.administrator.jipinshop.view.dialog.DialogParameter;
 import com.example.administrator.jipinshop.view.dialog.DialogQuality;
 import com.example.administrator.jipinshop.view.dialog.DialogUtil;
 import com.example.administrator.jipinshop.view.dialog.ProgressDialogView;
+import com.example.administrator.jipinshop.view.textview.CenteredImageSpan;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.umeng.socialize.UMShareAPI;
@@ -93,9 +94,9 @@ public class TBShoppingDetailActivity extends BaseActivity implements View.OnCli
     //猜你喜欢
     private List<SimilerGoodsBean.DataBean> mUserLikeList;
     private ShoppingUserLikeAdapter mLikeAdapter;
-    private String goodsBuyLink = "";
     private boolean isCollect = false;//标志：是否收藏过此商品 false:没有
     private int goodsType = 2;//1是极品城  2是淘宝
+    private String source = "2";//商品来源:1京东,2淘宝，4拼多多 默认淘宝详情
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -113,6 +114,9 @@ public class TBShoppingDetailActivity extends BaseActivity implements View.OnCli
     }
 
     private void initView() {
+        if (!TextUtils.isEmpty(getIntent().getStringExtra("source"))){
+            source = getIntent().getStringExtra("source");//商品来源
+        }
         goodsId = getIntent().getStringExtra("otherGoodsId");//商品id
         mPresenter.setStatusBarHight(mBinding.statusBar,this);
 
@@ -163,9 +167,16 @@ public class TBShoppingDetailActivity extends BaseActivity implements View.OnCli
         //模拟数据
         mProgressDialog = (new ProgressDialogView()).createLoadingDialog(this, "正在加载...");
         mProgressDialog.show();
-        mPresenter.tbGoodsDetail(1,goodsId,this.bindToLifecycle());
-        Map<String,String> map =  DeviceUuidFactory.getIdfa(this);
-        mPresenter.listSimilerGoods(map,goodsId,this.bindToLifecycle());
+        mPresenter.tbGoodsDetail(1,goodsId,source,this.bindToLifecycle());
+        if (source.equals("2")){//只有淘宝商品有猜你喜欢
+            mBinding.detailUserLikeImage.setVisibility(View.VISIBLE);
+            mBinding.detailUserLike.setVisibility(View.VISIBLE);
+            Map<String,String> map =  DeviceUuidFactory.getIdfa(this);
+            mPresenter.listSimilerGoods(map,goodsId,this.bindToLifecycle());
+        }else {
+            mBinding.detailUserLikeImage.setVisibility(View.GONE);
+            mBinding.detailUserLike.setVisibility(View.GONE);
+        }
     }
 
     @Override
@@ -192,22 +203,16 @@ public class TBShoppingDetailActivity extends BaseActivity implements View.OnCli
                     startActivityForResult(new Intent(this, LoginActivity.class),201);
                     return;
                 }
-                if (TextUtils.isEmpty(goodsBuyLink)){
-                    ToastUtil.show("跳转错误，请退出页面重新进入");
-                    return;
-                }
-                String specialId = SPUtils.getInstance(CommonDate.USER).getString(CommonDate.relationId,"");
-                if (TextUtils.isEmpty(specialId) || specialId.equals("null")){
-                    TaoBaoUtil.aliLogin(topAuthCode -> {
-                        startActivity(new Intent(this, TaoBaoWebActivity.class)
-                                .putExtra(TaoBaoWebActivity.url, "https://oauth.taobao.com/authorize?response_type=code&client_id=25612235&redirect_uri=https://www.jipincheng.cn/qualityshop-api/api/taobao/returnUrl&state="+SPUtils.getInstance(CommonDate.USER).getString(CommonDate.token)+"&view=wap")
-                                .putExtra(TaoBaoWebActivity.title,"淘宝授权")
-                        );
+                if (source.equals("2")){//只有淘宝商品进行授权
+                    TaoBaoUtil.openTB(this, () -> {
+                        mDialog = (new ProgressDialogView()).createLoadingDialog(TBShoppingDetailActivity.this, "");
+                        mDialog.show();
+                        mPresenter.getGoodsClickUrl(source, goodsId, this.bindToLifecycle());
                     });
                 }else {
                     mDialog = (new ProgressDialogView()).createLoadingDialog(this, "");
                     mDialog.show();
-                    mPresenter.getGoodsClickUrl(goodsBuyLink,goodsId,this.bindToLifecycle());
+                    mPresenter.getGoodsClickUrl(source, goodsId, this.bindToLifecycle());
                 }
                 break;
             case R.id.detail_share:
@@ -215,12 +220,10 @@ public class TBShoppingDetailActivity extends BaseActivity implements View.OnCli
                     startActivityForResult(new Intent(this, LoginActivity.class),201);
                     return;
                 }
-                String specialId2 = SPUtils.getInstance(CommonDate.USER).getString(CommonDate.relationId,"");
-                if (TextUtils.isEmpty(specialId2) || specialId2.equals("null")){
-                    TaoBaoUtil.aliLogin(topAuthCode -> {
-                        startActivity(new Intent(this, TaoBaoWebActivity.class)
-                                .putExtra(TaoBaoWebActivity.url, "https://oauth.taobao.com/authorize?response_type=code&client_id=25612235&redirect_uri=https://www.jipincheng.cn/qualityshop-api/api/taobao/returnUrl&state="+SPUtils.getInstance(CommonDate.USER).getString(CommonDate.token)+"&view=wap")
-                                .putExtra(TaoBaoWebActivity.title,"淘宝授权")
+                if (source.equals("2")){
+                    TaoBaoUtil.openTB(this, () -> {
+                        startActivity(new Intent(this, ShareActivity.class)
+                                .putExtra("otherGoodsId",goodsId)
                         );
                     });
                 }else {
@@ -232,12 +235,6 @@ public class TBShoppingDetailActivity extends BaseActivity implements View.OnCli
             case R.id.detail_home:
                 EventBus.getDefault().post(new TBShopDetailBus(TBShopDetailBus.finish));
                 EventBus.getDefault().post(new ChangeHomePageBus(0));
-                break;
-            case R.id.detail_freeNotice:
-                startActivity(new Intent(this, WebActivity.class)
-                        .putExtra(WebActivity.url, RetrofitModule.H5_URL+"fee-rule.html")
-                        .putExtra(WebActivity.title,"极品城购物返现说明")
-                );
                 break;
             case R.id.title_favor:
                 if(TextUtils.isEmpty(SPUtils.getInstance(CommonDate.USER).getString(CommonDate.token,""))){
@@ -298,8 +295,21 @@ public class TBShoppingDetailActivity extends BaseActivity implements View.OnCli
         mBinding.setDate(bean.getData());
         mBinding.executePendingBindings();
         mBinding.detailOldPriceName.setTv(true);
-        mBinding.detailOldPriceName.setColor(R.color.color_9D9D9D);
-        goodsBuyLink = bean.getData().getGoodsBuyLink();
+        mBinding.detailOldPriceName.setColor(R.color.color_989898);
+        //商品名称
+        SpannableString string = new SpannableString("   " + bean.getData().getOtherName());
+        CenteredImageSpan imageSpan;
+        if (bean.getData().getTag()== 1){
+            imageSpan = new CenteredImageSpan(this,R.mipmap.detail_jd);
+        }else if (bean.getData().getTag()== 4){
+            imageSpan = new CenteredImageSpan(this,R.mipmap.detail_pdd);
+        }else if (bean.getData().getTag()== 3){
+            imageSpan = new CenteredImageSpan(this,R.mipmap.detail_tm);
+        }else {
+            imageSpan = new CenteredImageSpan(this,R.mipmap.detail_tb);
+        }
+        string.setSpan(imageSpan, 0, 1, Spanned.SPAN_INCLUSIVE_EXCLUSIVE);
+        mBinding.detailName.setText(string);
         //轮播图
         mBannerList.addAll(bean.getData().getImgList());
         mPresenter.initBanner(mBannerList, this, point, mBinding.detailPoint, mBannerAdapter);
@@ -372,8 +382,6 @@ public class TBShoppingDetailActivity extends BaseActivity implements View.OnCli
         double free = new BigDecimal(bean.getData().getFee()).doubleValue();
         mBinding.detailShareCode.setText("（赚¥"+ new BigDecimal(free).setScale(2,BigDecimal.ROUND_HALF_UP).stripTrailingZeros().toPlainString() +"）");
         if (free == 0){//没有补贴
-            mBinding.detailFeeContainer.setVisibility(View.GONE);
-            mBinding.detailFreeNotice.setVisibility(View.GONE);
             mBinding.detailShareCode.setVisibility(View.GONE);
         }
         double price = free + coupon;
@@ -414,7 +422,7 @@ public class TBShoppingDetailActivity extends BaseActivity implements View.OnCli
             mBinding.detailMember.setVisibility(View.GONE);
         }else {
             mBinding.detailMember.setVisibility(View.VISIBLE);
-            mBinding.detailMemberText.setText("升级会员等级，本商品最高可赚￥" + bean.getData().getUpFee());
+            mBinding.detailMemberPrice.setText("￥" + bean.getData().getUpFee());
         }
     }
 
@@ -461,8 +469,17 @@ public class TBShoppingDetailActivity extends BaseActivity implements View.OnCli
     }
 
     @Override
-    public void onBuyLinkSuccess(ImageBean bean) {
-        TaoBaoUtil.openAliHomeWeb(this,bean.getData(),"");
+    public void onBuyLinkSuccess(ClickUrlBean bean) {
+        if (source.equals("1")){
+            //京东还未跳转
+            // TODO: 2020/4/27
+            ToastUtil.show("京东还未跳转");
+        }else if (source.equals("4")){
+            //拼多多
+            PDDUtil.jumpPDD(this,bean.getData().getSchemaUrl(),bean.getData().getMobileUrl());
+        }else {
+            TaoBaoUtil.openAliHomeWeb(this,bean.getData().getMobileUrl(),bean.getData().getOtherGoodsId());
+        }
     }
 
     @Override
@@ -495,7 +512,7 @@ public class TBShoppingDetailActivity extends BaseActivity implements View.OnCli
         UMShareAPI.get(this).onActivityResult(requestCode, resultCode, data);
         if (requestCode == 201 && resultCode == 200){
             //登陆后刷新收藏
-            mPresenter.tbGoodsDetail(2,goodsId,this.bindToLifecycle());
+            mPresenter.tbGoodsDetail(2,goodsId,source,this.bindToLifecycle());
         }
     }
 
@@ -523,7 +540,7 @@ public class TBShoppingDetailActivity extends BaseActivity implements View.OnCli
             mBinding.detailMember.setVisibility(View.GONE);
         }else {
             mBinding.detailMember.setVisibility(View.VISIBLE);
-            mBinding.detailMemberText.setText("升级会员等级，本商品最高可赚￥" + bean.getData().getUpFee());
+            mBinding.detailMemberPrice.setText("￥" + bean.getData().getUpFee());
         }
     }
 
@@ -548,18 +565,10 @@ public class TBShoppingDetailActivity extends BaseActivity implements View.OnCli
             startActivityForResult(new Intent(this, LoginActivity.class),201);
             return;
         }
-        String specialId2 = SPUtils.getInstance(CommonDate.USER).getString(CommonDate.relationId,"");
-        if (TextUtils.isEmpty(specialId2) || specialId2.equals("null")){
-            TaoBaoUtil.aliLogin(topAuthCode -> {
-                startActivity(new Intent(this, TaoBaoWebActivity.class)
-                        .putExtra(TaoBaoWebActivity.url, "https://oauth.taobao.com/authorize?response_type=code&client_id=25612235&redirect_uri=https://www.jipincheng.cn/qualityshop-api/api/taobao/returnUrl&state="+SPUtils.getInstance(CommonDate.USER).getString(CommonDate.token)+"&view=wap")
-                        .putExtra(TaoBaoWebActivity.title,"淘宝授权")
-                );
-            });
-        }else {
-            startActivity(new Intent(this, ShareActivity.class)
+        TaoBaoUtil.openTB(this, () -> {
+            startActivity(new Intent(TBShoppingDetailActivity.this, ShareActivity.class)
                     .putExtra("otherGoodsId",mUserLikeList.get(position).getOtherGoodsId())
             );
-        }
+        });
     }
 }

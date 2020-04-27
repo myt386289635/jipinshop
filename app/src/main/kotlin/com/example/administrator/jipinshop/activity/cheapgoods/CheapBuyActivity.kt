@@ -1,24 +1,20 @@
 package com.example.administrator.jipinshop.activity.cheapgoods
 
 import android.app.Dialog
-import android.content.Intent
 import android.databinding.DataBindingUtil
 import android.os.Bundle
 import android.support.v7.widget.LinearLayoutManager
-import android.text.TextUtils
 import android.view.View
 import com.alibaba.baichuan.android.trade.AlibcTradeSDK
 import com.aspsine.swipetoloadlayout.OnRefreshListener
 import com.blankj.utilcode.util.SPUtils
 import com.example.administrator.jipinshop.R
-import com.example.administrator.jipinshop.activity.web.TaoBaoWebActivity
 import com.example.administrator.jipinshop.adapter.KTCheapBuyAdapter
 import com.example.administrator.jipinshop.base.BaseActivity
 import com.example.administrator.jipinshop.bean.ImageBean
 import com.example.administrator.jipinshop.bean.NewPeopleBean
 import com.example.administrator.jipinshop.bean.PopBean
 import com.example.administrator.jipinshop.databinding.ActivityArticleMoreBinding
-import com.example.administrator.jipinshop.databinding.ActivityNewPeopleBinding
 import com.example.administrator.jipinshop.util.TaoBaoUtil
 import com.example.administrator.jipinshop.util.ToastUtil
 import com.example.administrator.jipinshop.util.sp.CommonDate
@@ -132,15 +128,7 @@ class CheapBuyActivity : BaseActivity(), View.OnClickListener, OnRefreshListener
     }
 
     override fun onBuy(position: Int) {
-        var specialId = SPUtils.getInstance(CommonDate.USER).getString(CommonDate.relationId, "")
-        if (TextUtils.isEmpty(specialId) || specialId == "null") {
-            TaoBaoUtil.aliLogin { topAuthCode ->
-                startActivity(Intent(this, TaoBaoWebActivity::class.java)
-                        .putExtra(TaoBaoWebActivity.url, "https://oauth.taobao.com/authorize?response_type=code&client_id=25612235&redirect_uri=https://www.jipincheng.cn/qualityshop-api/api/taobao/returnUrl&state=" + SPUtils.getInstance(CommonDate.USER).getString(CommonDate.token) + "&view=wap")
-                        .putExtra(TaoBaoWebActivity.title, "淘宝授权")
-                )
-            }
-        } else {
+        TaoBaoUtil.openTB(this){
             mDialog = ProgressDialogView().createLoadingDialog(this, "")
             mDialog?.let {
                 if (!it.isShowing){

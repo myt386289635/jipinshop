@@ -21,6 +21,7 @@ import com.alibaba.baichuan.android.trade.AlibcTradeSDK;
 import com.blankj.utilcode.util.SPUtils;
 import com.example.administrator.jipinshop.R;
 import com.example.administrator.jipinshop.activity.login.LoginActivity;
+import com.example.administrator.jipinshop.activity.tryout.detail.TryDetailActivity;
 import com.example.administrator.jipinshop.activity.web.TaoBaoWebActivity;
 import com.example.administrator.jipinshop.adapter.CommenBannerAdapter;
 import com.example.administrator.jipinshop.adapter.FreeDetailAdapter;
@@ -227,17 +228,9 @@ public class FreeDetailActivity extends BaseActivity implements View.OnClickList
                     if(mDialog != null && !mDialog.isShowing()){
                         mDialog.show();
                     }
-                    String specialId = SPUtils.getInstance(CommonDate.USER).getString(CommonDate.relationId,"");
-                    if (TextUtils.isEmpty(specialId) || specialId.equals("null")){
-                        TaoBaoUtil.aliLogin(topAuthCode -> {
-                            startActivity(new Intent(this, TaoBaoWebActivity.class)
-                                    .putExtra(TaoBaoWebActivity.url, "https://oauth.taobao.com/authorize?response_type=code&client_id=25612235&redirect_uri=https://www.jipincheng.cn/qualityshop-api/api/taobao/returnUrl&state="+SPUtils.getInstance(CommonDate.USER).getString(CommonDate.token)+"&view=wap")
-                                    .putExtra(TaoBaoWebActivity.title,"淘宝授权")
-                            );
-                        });
-                    }else {
+                    TaoBaoUtil.openTB(this, () -> {
                         mPresenter.goodsBuyLink(goodsId,this.bindToLifecycle());
-                    }
+                    });
                 }
                 break;
         }

@@ -21,7 +21,6 @@ import com.blankj.utilcode.util.SPUtils;
 import com.example.administrator.jipinshop.R;
 import com.example.administrator.jipinshop.activity.cheapgoods.CheapBuyActivity;
 import com.example.administrator.jipinshop.activity.login.LoginActivity;
-import com.example.administrator.jipinshop.activity.web.TaoBaoWebActivity;
 import com.example.administrator.jipinshop.adapter.NoPageBannerAdapter;
 import com.example.administrator.jipinshop.adapter.ShoppingImageAdapter;
 import com.example.administrator.jipinshop.adapter.ShoppingParameterAdapter;
@@ -204,19 +203,11 @@ public class NewPeopleDetailActivity extends BaseActivity implements View.OnClic
                     ToastUtil.show("当前商品已抢光，再看看其他商品吧");
                     return;
                 }
-                String specialId = SPUtils.getInstance(CommonDate.USER).getString(CommonDate.relationId,"");
-                if (TextUtils.isEmpty(specialId) || specialId.equals("null")){
-                    TaoBaoUtil.aliLogin(topAuthCode -> {
-                        startActivity(new Intent(this, TaoBaoWebActivity.class)
-                                .putExtra(TaoBaoWebActivity.url, "https://oauth.taobao.com/authorize?response_type=code&client_id=25612235&redirect_uri=https://www.jipincheng.cn/qualityshop-api/api/taobao/returnUrl&state="+SPUtils.getInstance(CommonDate.USER).getString(CommonDate.token)+"&view=wap")
-                                .putExtra(TaoBaoWebActivity.title,"淘宝授权")
-                        );
-                    });
-                }else {
-                    mDialog = (new ProgressDialogView()).createLoadingDialog(this, "");
+                TaoBaoUtil.openTB(this, () -> {
+                    mDialog = (new ProgressDialogView()).createLoadingDialog(NewPeopleDetailActivity.this, "");
                     mDialog.show();
-                    mPresenter.apply(freeId,this.bindToLifecycle());
-                }
+                    mPresenter.apply(freeId,NewPeopleDetailActivity.this.bindToLifecycle());
+                });
                 break;
         }
     }

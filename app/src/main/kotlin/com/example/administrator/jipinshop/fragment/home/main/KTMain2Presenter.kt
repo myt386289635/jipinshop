@@ -1,18 +1,19 @@
 package com.example.administrator.jipinshop.fragment.home.main
 
+import android.content.Context
 import android.support.design.widget.AppBarLayout
 import android.support.v7.widget.GridLayoutManager
 import android.support.v7.widget.RecyclerView
 import android.text.TextUtils
-import android.util.Log
 import android.view.View
 import android.widget.ImageView
 import com.aspsine.swipetoloadlayout.SwipeToLoadLayout
-import com.example.administrator.jipinshop.bean.ImageBean
+import com.example.administrator.jipinshop.bean.SimilerGoodsBean
 import com.example.administrator.jipinshop.bean.TBSreachResultBean
 import com.example.administrator.jipinshop.bean.TbkIndexBean
 import com.example.administrator.jipinshop.fragment.home.KTHomeFragnent
 import com.example.administrator.jipinshop.netwrok.Repository
+import com.example.administrator.jipinshop.util.DeviceUuidFactory
 import com.trello.rxlifecycle2.LifecycleTransformer
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.functions.Consumer
@@ -21,15 +22,15 @@ import javax.inject.Inject
 
 /**
  * @author 莫小婷
- * @create 2019/12/11
+ * @create 2020/4/20
  * @Describe
  */
-class KTMainPresenter {
+class KTMain2Presenter {
 
     private var repository: Repository
-    private lateinit var mView: KTMainView
+    private lateinit var mView: KTMain2View
 
-    fun setView(view: KTMainView){
+    fun setView(view: KTMain2View){
         mView = view
     }
 
@@ -40,7 +41,7 @@ class KTMainPresenter {
 
     //解决冲突问题
     fun solveScoll(mainBackground : ImageView, mRecyclerView: RecyclerView,
-                   mSwipeToLoad: SwipeToLoadLayout, appBarLayout: AppBarLayout ,
+                   mSwipeToLoad: SwipeToLoadLayout, appBarLayout: AppBarLayout,
                    fragment: KTHomeFragnent) {
         var layoutManager = mRecyclerView.layoutManager
         var linearManager = layoutManager as GridLayoutManager
@@ -115,13 +116,10 @@ class KTMainPresenter {
                 })
     }
 
-    fun commendGoodsList(page : Int , asc : String , orderByType : String ,transformer: LifecycleTransformer<TBSreachResultBean>){
+    fun commendGoodsList(page : Int , source : String ,transformer: LifecycleTransformer<TBSreachResultBean>){
         var map = HashMap<String, String>()
-        if (!TextUtils.isEmpty(asc)){
-            map["asc"] = asc
-        }
         map["page"] = "" + page
-        map["orderByType"] = orderByType
+        map["source"] = source
         repository.commendGoodsList(map)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
@@ -136,5 +134,4 @@ class KTMainPresenter {
                     mView.onFile(it.message)
                 })
     }
-
 }

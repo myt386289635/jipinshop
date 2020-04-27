@@ -2,6 +2,8 @@ package com.example.administrator.jipinshop.view.dialog;
 
 import android.app.AlertDialog;
 import android.app.Dialog;
+import android.content.ClipData;
+import android.content.ClipboardManager;
 import android.content.Context;
 import android.content.Intent;
 import android.databinding.DataBindingUtil;
@@ -17,6 +19,7 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.blankj.utilcode.util.SPUtils;
 import com.bumptech.glide.Glide;
 import com.example.administrator.jipinshop.R;
 import com.example.administrator.jipinshop.activity.shoppingdetail.tbshoppingdetail.TBShoppingDetailActivity;
@@ -26,11 +29,13 @@ import com.example.administrator.jipinshop.bean.TklBean;
 import com.example.administrator.jipinshop.databinding.DialogCheapBinding;
 import com.example.administrator.jipinshop.databinding.DialogNewpeople2Binding;
 import com.example.administrator.jipinshop.databinding.DialogNewpeopleBinding;
+import com.example.administrator.jipinshop.databinding.DialogNewpeopleBuyBinding;
 import com.example.administrator.jipinshop.databinding.DialogOutBinding;
 import com.example.administrator.jipinshop.databinding.DialogTklBinding;
 import com.example.administrator.jipinshop.databinding.DialogUserBinding;
 import com.example.administrator.jipinshop.util.ShopJumpUtil;
 import com.example.administrator.jipinshop.util.ToastUtil;
+import com.example.administrator.jipinshop.util.sp.CommonDate;
 import com.example.administrator.jipinshop.view.glide.GlideApp;
 
 import java.math.BigDecimal;
@@ -490,31 +495,26 @@ public class DialogUtil {
     }
 
     /**
-     * 新手专区详情购买弹框
+     * 首页专属导师弹窗
      */
-    public static void NewPeopleBuyDialog(Context context, String actualPrice, String freePrice, View.OnClickListener listener) {
+    public static void teacherDialog(Context context,String Twechat , String Tavatar) {
         AlertDialog.Builder builder = new AlertDialog.Builder(context, R.style.dialog);
         final Dialog dialog = builder.create();
-        View view = LayoutInflater.from(context).inflate(R.layout.dialog_newpeople_buy, null);
-        TextView dialog_time = view.findViewById(R.id.dialog_time);
-        String html = "您需在<b>一小时内</b>前往淘宝APP购买";
-        dialog_time.setText(Html.fromHtml(html));
-        TextView dialog_actualPrice = view.findViewById(R.id.dialog_actualPrice);
-        String html2 = "购买价格<font color='#E25838'><b>¥" + actualPrice + "</b></font>";
-        dialog_actualPrice.setText(Html.fromHtml(html2));
-        TextView dialog_feePrice = view.findViewById(R.id.dialog_feePrice);
-        String html3 = "补贴<font color='#E25838'><b>¥" + freePrice + "</b></font>";
-        dialog_feePrice.setText(Html.fromHtml(html3));
-        ImageView dialog_cancle = view.findViewById(R.id.dialog_cancle);
-        TextView dialog_sure = view.findViewById(R.id.dialog_sure);
-        dialog.getWindow().setDimAmount(0.35f);
-        dialog_cancle.setOnClickListener(v -> dialog.dismiss());
-        dialog_sure.setOnClickListener(v -> {
-            listener.onClick(v);
+        DialogNewpeopleBuyBinding binding = DataBindingUtil.inflate(LayoutInflater.from(context),R.layout.dialog_newpeople_buy, null,false);
+        binding.dialogWx.setText("微信：" + Twechat);
+        GlideApp.loderCircleImage(context,Tavatar,binding.dialogImage,R.mipmap.rlogo,0);
+        binding.dialogCancle.setOnClickListener(v -> dialog.dismiss());
+        binding.dialogSure.setOnClickListener(v -> {
+            ClipboardManager clip = (ClipboardManager)context.getSystemService(Context.CLIPBOARD_SERVICE);
+            ClipData clipData = ClipData.newPlainText("jipinshop", binding.dialogWx.getText().toString().replace("微信：",""));
+            clip.setPrimaryClip(clipData);
+            ToastUtil.show("复制成功");
+            SPUtils.getInstance().put(CommonDate.CLIP,binding.dialogWx.getText().toString().replace("微信：",""));
             dialog.dismiss();
         });
+        dialog.getWindow().setDimAmount(0.35f);
         dialog.show();
-        dialog.setContentView(view);
+        dialog.setContentView(binding.getRoot());
     }
 
     /**
@@ -588,6 +588,7 @@ public class DialogUtil {
         binding.dialogSure2.setOnClickListener(v -> {
             context.startActivity(new Intent(context, TBShoppingDetailActivity.class)
                     .putExtra("otherGoodsId", bean.getData().getData().getOtherGoodsId())
+                    .putExtra("source",bean.getData().getData().getSource())
             );
             dialog.dismiss();
         });

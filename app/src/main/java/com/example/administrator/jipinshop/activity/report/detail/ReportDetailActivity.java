@@ -21,7 +21,6 @@ import com.example.administrator.jipinshop.R;
 import com.example.administrator.jipinshop.activity.commenlist.CommenListActivity;
 import com.example.administrator.jipinshop.activity.login.LoginActivity;
 import com.example.administrator.jipinshop.activity.minekt.userkt.UserActivity;
-import com.example.administrator.jipinshop.activity.web.TaoBaoWebActivity;
 import com.example.administrator.jipinshop.adapter.RelatedArticleAdapter;
 import com.example.administrator.jipinshop.adapter.ReportDetailAdapter;
 import com.example.administrator.jipinshop.adapter.ShoppingCommonAdapter;
@@ -256,17 +255,9 @@ public class ReportDetailActivity extends BaseActivity implements View.OnClickLi
                     }
                     mDialog = (new ProgressDialogView()).createLoadingDialog(this, "正在加载...");
                     mDialog.show();
-                    String specialId = SPUtils.getInstance(CommonDate.USER).getString(CommonDate.relationId,"");
-                    if (TextUtils.isEmpty(specialId) || specialId.equals("null")){
-                        TaoBaoUtil.aliLogin(topAuthCode -> {
-                            startActivity(new Intent(this, TaoBaoWebActivity.class)
-                                    .putExtra(TaoBaoWebActivity.url, "https://oauth.taobao.com/authorize?response_type=code&client_id=25612235&redirect_uri=https://www.jipincheng.cn/qualityshop-api/api/taobao/returnUrl&state="+SPUtils.getInstance(CommonDate.USER).getString(CommonDate.token)+"&view=wap")
-                                    .putExtra(TaoBaoWebActivity.title,"淘宝授权")
-                            );
-                        });
-                    }else {
+                    TaoBaoUtil.openTB(this, () -> {
                         mPresenter.goodsBuyLink(mBeans.get(0).getGoodsId(),this.bindToLifecycle());
-                    }
+                    });
                 }
                 break;
             case R.id.detail_send:
@@ -881,17 +872,9 @@ public class ReportDetailActivity extends BaseActivity implements View.OnClickLi
         }
         mDialog = (new ProgressDialogView()).createLoadingDialog(this, "正在加载...");
         mDialog.show();
-        String specialId = SPUtils.getInstance(CommonDate.USER).getString(CommonDate.relationId,"");
-        if (TextUtils.isEmpty(specialId) || specialId.equals("null")){
-            TaoBaoUtil.aliLogin(topAuthCode -> {
-                startActivity(new Intent(this, TaoBaoWebActivity.class)
-                        .putExtra(TaoBaoWebActivity.url, "https://oauth.taobao.com/authorize?response_type=code&client_id=25612235&redirect_uri=https://www.jipincheng.cn/qualityshop-api/api/taobao/returnUrl&state="+SPUtils.getInstance(CommonDate.USER).getString(CommonDate.token)+"&view=wap")
-                        .putExtra(TaoBaoWebActivity.title,"淘宝授权")
-                );
-            });
-        }else {
+        TaoBaoUtil.openTB(this, () -> {
             mPresenter.goodsBuyLink(mBeans.get(position).getGoodsId(),this.bindToLifecycle());
-        }
+        });
     }
 
 

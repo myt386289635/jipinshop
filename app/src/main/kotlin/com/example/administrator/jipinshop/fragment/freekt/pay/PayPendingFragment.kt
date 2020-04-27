@@ -2,7 +2,6 @@ package com.example.administrator.jipinshop.fragment.freekt.pay
 
 import android.app.Activity
 import android.app.Dialog
-import android.content.Intent
 import android.databinding.DataBindingUtil
 import android.support.v7.widget.LinearLayoutManager
 import android.text.TextUtils
@@ -12,10 +11,7 @@ import android.view.ViewGroup
 import com.alibaba.baichuan.android.trade.AlibcTradeSDK
 import com.aspsine.swipetoloadlayout.OnLoadMoreListener
 import com.aspsine.swipetoloadlayout.OnRefreshListener
-import com.blankj.utilcode.util.SPUtils
 import com.example.administrator.jipinshop.R
-import com.example.administrator.jipinshop.activity.tryout.freedetail.FreeDetailActivity
-import com.example.administrator.jipinshop.activity.web.TaoBaoWebActivity
 import com.example.administrator.jipinshop.adapter.PayPendingAdapter
 import com.example.administrator.jipinshop.base.DBBaseFragment
 import com.example.administrator.jipinshop.bean.ImageBean
@@ -23,7 +19,6 @@ import com.example.administrator.jipinshop.bean.MyFreeBean
 import com.example.administrator.jipinshop.databinding.FragmentEvaluationCommonBinding
 import com.example.administrator.jipinshop.util.TaoBaoUtil
 import com.example.administrator.jipinshop.util.ToastUtil
-import com.example.administrator.jipinshop.util.sp.CommonDate
 import com.example.administrator.jipinshop.view.dialog.ProgressDialogView
 import javax.inject.Inject
 
@@ -170,15 +165,7 @@ class PayPendingFragment : DBBaseFragment(), OnRefreshListener, OnLoadMoreListen
                 it.show()
             }
         }
-        val specialId = SPUtils.getInstance(CommonDate.USER).getString(CommonDate.relationId, "")
-        if (TextUtils.isEmpty(specialId) || specialId == "null") {
-            TaoBaoUtil.aliLogin {
-                startActivity(Intent(context, TaoBaoWebActivity::class.java)
-                        .putExtra(TaoBaoWebActivity.url, "https://oauth.taobao.com/authorize?response_type=code&client_id=25612235&redirect_uri=https://www.jipincheng.cn/qualityshop-api/api/taobao/returnUrl&state=" + SPUtils.getInstance(CommonDate.USER).getString(CommonDate.token) + "&view=wap")
-                        .putExtra(TaoBaoWebActivity.title, "淘宝授权")
-                )
-            }
-        } else {
+        TaoBaoUtil.openTB(context){
             mPresenter.goodsBuyLink(mList[position].goodsId, this.bindToLifecycle())
         }
     }

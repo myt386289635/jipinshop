@@ -7,24 +7,20 @@ import android.support.annotation.NonNull;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.FrameLayout;
-import android.widget.LinearLayout;
+import android.widget.ImageView;
 import android.widget.RelativeLayout;
 
-import com.blankj.utilcode.util.SPUtils;
 import com.example.administrator.jipinshop.R;
-import com.example.administrator.jipinshop.activity.login.LoginActivity;
 import com.example.administrator.jipinshop.activity.shoppingdetail.tbshoppingdetail.TBShoppingDetailActivity;
 import com.example.administrator.jipinshop.bean.SuccessBean;
 import com.example.administrator.jipinshop.bean.TBSreachResultBean;
 import com.example.administrator.jipinshop.databinding.ItemSreachOneBinding;
 import com.example.administrator.jipinshop.databinding.ItemSreachTwoBinding;
 import com.example.administrator.jipinshop.util.UmApp.AppStatisticalUtil;
-import com.example.administrator.jipinshop.util.sp.CommonDate;
 import com.trello.rxlifecycle2.LifecycleTransformer;
 
 import java.math.BigDecimal;
@@ -84,7 +80,7 @@ public class TBSreachResultAdapter extends RecyclerView.Adapter {
         if (mList.get(position).getGoodsType() == 1 || mList.get(position).getGoodsType() == 2){
             //正常布局
             return CONTENT_1;
-        }else if (mList.get(position).getGoodsType() == 4){
+        }else if (mList.get(position).getGoodsType() == 4 || mList.get(position).getGoodsType() == 5){
             return HEAD;
         }else {//猜你喜欢
             return CONTENT_2;
@@ -182,11 +178,7 @@ public class TBSreachResultAdapter extends RecyclerView.Adapter {
                 }else {
                     oneViewHolder.binding.itemLineContainer.setVisibility(View.GONE);
                     oneViewHolder.binding.itemGridContainer.setVisibility(View.VISIBLE);
-                    if (position == 0 || position == 1) {
-                        oneViewHolder.binding.itemLine.setVisibility(View.VISIBLE);
-                    } else {
-                        oneViewHolder.binding.itemLine.setVisibility(View.GONE);
-                    }
+                    oneViewHolder.binding.itemLine.setVisibility(View.GONE);
                     oneViewHolder.binding.itemGridImage.post(() -> {
                         ViewGroup.LayoutParams layoutParams = oneViewHolder.binding.itemGridImage.getLayoutParams();
                         layoutParams.height = oneViewHolder.binding.itemGridImage.getWidth();
@@ -230,6 +222,7 @@ public class TBSreachResultAdapter extends RecyclerView.Adapter {
                     }
                     mContext.startActivity(new Intent(mContext, TBShoppingDetailActivity.class)
                             .putExtra("otherGoodsId", mList.get(position).getOtherGoodsId())
+                            .putExtra("source",mList.get(position).getSource())
                     );
                 });
                 break;
@@ -239,7 +232,13 @@ public class TBSreachResultAdapter extends RecyclerView.Adapter {
                     headViewHolder.item_gridLine.setVisibility(View.GONE);
                     headViewHolder.item_line.setVisibility(View.GONE);
                     headViewHolder.mFrameLayout.setVisibility(View.VISIBLE);
+                    if (mList.get(0).getGoodsType() == 5){
+                        headViewHolder.item_userTitle.setVisibility(View.GONE);
+                    }else {
+                        headViewHolder.item_userTitle.setVisibility(View.VISIBLE);
+                    }
                 }else {
+                    headViewHolder.item_userTitle.setVisibility(View.VISIBLE);
                     headViewHolder.mFrameLayout.setVisibility(View.GONE);
                     headViewHolder.item_line.setVisibility(View.VISIBLE);
                     if (layoutType == 1){
@@ -299,6 +298,7 @@ public class TBSreachResultAdapter extends RecyclerView.Adapter {
                 twoViewHolder.itemView.setOnClickListener(v -> {
                     mContext.startActivity(new Intent(mContext, TBShoppingDetailActivity.class)
                             .putExtra("otherGoodsId", mList.get(pos).getOtherGoodsId())
+                            .putExtra("source",mList.get(pos).getSource())
                     );
                 });
                 twoViewHolder.binding.itemShare.setOnClickListener(v -> {
@@ -329,12 +329,14 @@ public class TBSreachResultAdapter extends RecyclerView.Adapter {
 
         private FrameLayout mFrameLayout;
         private View item_gridLine,item_line;
+        private ImageView item_userTitle;
 
         public HeadViewHolder(@NonNull View itemView) {
             super(itemView);
             mFrameLayout = itemView.findViewById(R.id.item_kong);
             item_gridLine = itemView.findViewById(R.id.item_gridLine);
             item_line = itemView.findViewById(R.id.item_line);
+            item_userTitle = itemView.findViewById(R.id.item_userTitle);
         }
     }
 

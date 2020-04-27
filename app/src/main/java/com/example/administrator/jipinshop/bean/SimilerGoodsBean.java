@@ -50,6 +50,24 @@ public class SimilerGoodsBean {
         private String fee;
         private String buyPrice;
         private String buyRate;
+        private String shopIcon;
+        private String source;
+
+        public String getSource() {
+            return source;
+        }
+
+        public void setSource(String source) {
+            this.source = source;
+        }
+
+        public String getShopIcon() {
+            return shopIcon;
+        }
+
+        public void setShopIcon(String shopIcon) {
+            this.shopIcon = shopIcon;
+        }
 
         public String getImg() {
             return img;

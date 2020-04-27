@@ -8,6 +8,7 @@ import com.example.administrator.jipinshop.bean.AppVersionbean;
 import com.example.administrator.jipinshop.bean.BudgetDetailBean;
 import com.example.administrator.jipinshop.bean.CircleListBean;
 import com.example.administrator.jipinshop.bean.CircleTitleBean;
+import com.example.administrator.jipinshop.bean.ClickUrlBean;
 import com.example.administrator.jipinshop.bean.CommentBean;
 import com.example.administrator.jipinshop.bean.DailyTaskBean;
 import com.example.administrator.jipinshop.bean.DefaultAddressBean;
@@ -25,6 +26,7 @@ import com.example.administrator.jipinshop.bean.FreeUserListBean;
 import com.example.administrator.jipinshop.bean.HomeCommenBean;
 import com.example.administrator.jipinshop.bean.ImageBean;
 import com.example.administrator.jipinshop.bean.InvitationBean;
+import com.example.administrator.jipinshop.bean.JDBean;
 import com.example.administrator.jipinshop.bean.LoginBean;
 import com.example.administrator.jipinshop.bean.MallBean;
 import com.example.administrator.jipinshop.bean.MallDetailBean;
@@ -70,6 +72,7 @@ import com.example.administrator.jipinshop.bean.TaobaoAccountBean;
 import com.example.administrator.jipinshop.bean.TaskFinishBean;
 import com.example.administrator.jipinshop.bean.TbCommonBean;
 import com.example.administrator.jipinshop.bean.TbkIndexBean;
+import com.example.administrator.jipinshop.bean.TeacherBean;
 import com.example.administrator.jipinshop.bean.TeamBean;
 import com.example.administrator.jipinshop.bean.TklBean;
 import com.example.administrator.jipinshop.bean.TopCategoryDetailBean;
@@ -995,8 +998,9 @@ public interface APIService {
     /**
      * 淘客商品详情
      */
-    @GET("api/v2/tbk/goodsDetail")
-    Observable<TBShoppingDetailBean> tbGoodsDetail(@Query("otherGoodsId") String otherGoodsId);
+    @GET("api/v3/tbk/goodsDetail")
+    Observable<TBShoppingDetailBean> tbGoodsDetail(@Query("otherGoodsId") String otherGoodsId ,
+                                                   @Query("source") String source);
 
     /**
      * 猜你喜欢
@@ -1007,14 +1011,14 @@ public interface APIService {
     /**
      * 搜索结果
      */
-    @GET("api/tbk/searchGoods")
+    @GET("api/v3/tbk/searchGoods")
     Observable<TBSreachResultBean> searchTBGoods(@QueryMap Map<String,String> map);
 
     /**
      * 获取专属淘客链接
      */
-    @GET("api/tbk/getGoodsClickUrl")
-    Observable<ImageBean> getGoodsClickUrl(@Query("goodsBuyLink") String goodsBuyLink , @Query("otherGoodsId") String otherGoodsId);
+    @GET("api/v3/tbk/getGoodsClickUrl")
+    Observable<ClickUrlBean> getGoodsClickUrl(@Query("source") String source , @Query("otherGoodsId") String otherGoodsId);
 
     /**
      * 通过淘口令获取商品信息
@@ -1023,21 +1027,21 @@ public interface APIService {
     Observable<TklBean> getGoodsByTkl(@Query("keyword") String keyword);
 
     /**
-     * 淘宝客一级分类列表
+     * 各平台一级分类列表(商品来源1京东 2淘宝 4拼多多)
      */
-    @GET("api/tbk/category1")
-    Observable<EvaluationTabBean> tbkCategory();
+    @GET("api/v2/tbk/category1")
+    Observable<JDBean> tbkCategory(@Query("source") String source);
 
     /**
      * 淘客首页数据
      */
-    @GET("api/v2/tbk/index")
+    @GET("api/v3/tbk/index")
     Observable<TbkIndexBean> tbkIndex();
 
     /**
-     * 精品推荐
+     * 今日推荐
      */
-    @GET("api/tbk/commendGoodsList")
+    @GET("api/v3/tbk/commendGoodsList")
     Observable<TBSreachResultBean> commendGoodsList(@QueryMap Map<String,String> map);
 
     /**
@@ -1232,4 +1236,18 @@ public interface APIService {
     @GET
     @Streaming
     Observable<ResponseBody> downLoadImg(@Url String url);
+
+    /**
+     * 获取上级信息（头像和微信）
+     */
+    @GET("api/v2/user/user/getParentInfo")
+    Observable<TeacherBean> getParentInfo();
+
+    /**
+     * 拼多多、京东专题页列表
+     */
+    @GET("api/v2/tbk/getOtherGoodsListByCategory1")
+    Observable<TBSreachResultBean> getOtherGoodsListByCategory(@Query("category1Id") String category1Id,
+                                                               @Query("page") int page,
+                                                               @Query("source") String source);
 }

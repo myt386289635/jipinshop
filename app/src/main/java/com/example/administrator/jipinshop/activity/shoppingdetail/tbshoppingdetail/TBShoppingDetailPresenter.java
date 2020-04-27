@@ -7,6 +7,7 @@ import android.widget.LinearLayout;
 
 import com.example.administrator.jipinshop.R;
 import com.example.administrator.jipinshop.adapter.NoPageBannerAdapter;
+import com.example.administrator.jipinshop.bean.ClickUrlBean;
 import com.example.administrator.jipinshop.bean.ImageBean;
 import com.example.administrator.jipinshop.bean.SimilerGoodsBean;
 import com.example.administrator.jipinshop.bean.SucBean;
@@ -69,8 +70,8 @@ public class TBShoppingDetailPresenter {
         mBannerAdapter.notifyDataSetChanged();
     }
 
-    public void tbGoodsDetail(int type, String otherGoodsId, LifecycleTransformer<TBShoppingDetailBean> transformer){
-        mRepository.tbGoodsDetail(otherGoodsId)
+    public void tbGoodsDetail(int type, String otherGoodsId , String source, LifecycleTransformer<TBShoppingDetailBean> transformer){
+        mRepository.tbGoodsDetail(otherGoodsId,source)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .compose(transformer)
@@ -167,8 +168,8 @@ public class TBShoppingDetailPresenter {
     /**
      * 获取专属淘客链接
      */
-    public void getGoodsClickUrl(String goodsBuyLink , String otherGoodsId , LifecycleTransformer<ImageBean> transformer){
-        mRepository.getGoodsClickUrl(goodsBuyLink, otherGoodsId)
+    public void getGoodsClickUrl(String source , String otherGoodsId , LifecycleTransformer<ClickUrlBean> transformer){
+        mRepository.getGoodsClickUrl(source, otherGoodsId)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .compose(transformer)

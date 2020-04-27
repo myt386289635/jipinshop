@@ -325,6 +325,7 @@ class DailyFragment : DBBaseFragment(), KTTabAdapter2.OnClickItem, KTTabAdapter3
     override fun onDetailClick(position: Int) {
         startActivity(Intent(context, TBShoppingDetailActivity::class.java)
                 .putExtra("otherGoodsId", mList[position].goodsInfo.otherGoodsId)
+                .putExtra("source",mList[position].goodsInfo.source)
         )
     }
 
@@ -332,15 +333,20 @@ class DailyFragment : DBBaseFragment(), KTTabAdapter2.OnClickItem, KTTabAdapter3
         if (TextUtils.isEmpty(SPUtils.getInstance(CommonDate.USER).getString(CommonDate.token, ""))){
             startActivity(Intent(context,LoginActivity::class.java))
         }else{
-            val specialId = SPUtils.getInstance(CommonDate.USER).getString(CommonDate.relationId, "")
-            if (TextUtils.isEmpty(specialId) || specialId == "null") run {
-                TaoBaoUtil.aliLogin { topAuthCode ->
-                    startActivity(Intent(context, TaoBaoWebActivity::class.java)
-                            .putExtra(TaoBaoWebActivity.url, "https://oauth.taobao.com/authorize?response_type=code&client_id=25612235&redirect_uri=https://www.jipincheng.cn/qualityshop-api/api/taobao/returnUrl&state=" + SPUtils.getInstance(CommonDate.USER).getString(CommonDate.token) + "&view=wap")
-                            .putExtra(TaoBaoWebActivity.title, "淘宝授权")
-                    )
+            if (TextUtils.isEmpty(mList[position].goodsInfo.source) || mList[position].goodsInfo.source == "2"){
+                TaoBaoUtil.openTB(context){
+                    mSharePosition = position
+                    if (mShareBoardDialog == null) {
+                        mShareBoardDialog = ShareBoardDialog4.getInstance("批量存图")
+                        mShareBoardDialog?.setOnShareListener(this)
+                    }
+                    mShareBoardDialog?.let {
+                        if (!it.isAdded){
+                            it.show(childFragmentManager,"ShareBoardDialog")
+                        }
+                    }
                 }
-            } else {
+            }else{
                 mSharePosition = position
                 if (mShareBoardDialog == null) {
                     mShareBoardDialog = ShareBoardDialog4.getInstance("批量存图")
@@ -355,20 +361,25 @@ class DailyFragment : DBBaseFragment(), KTTabAdapter2.OnClickItem, KTTabAdapter3
         }
     }
 
-    override fun onCommentClick(content: String) {
+    override fun onCommentClick(position: Int,content: String) {
         if (TextUtils.isEmpty(SPUtils.getInstance(CommonDate.USER).getString(CommonDate.token, ""))) {
             startActivity(Intent(context, LoginActivity::class.java))
             return
         }
-        val specialId = SPUtils.getInstance(CommonDate.USER).getString(CommonDate.relationId, "")
-        if (TextUtils.isEmpty(specialId) || specialId == "null") run {
-            TaoBaoUtil.aliLogin { topAuthCode ->
-                startActivity(Intent(context, TaoBaoWebActivity::class.java)
-                        .putExtra(TaoBaoWebActivity.url, "https://oauth.taobao.com/authorize?response_type=code&client_id=25612235&redirect_uri=https://www.jipincheng.cn/qualityshop-api/api/taobao/returnUrl&state=" + SPUtils.getInstance(CommonDate.USER).getString(CommonDate.token) + "&view=wap")
-                        .putExtra(TaoBaoWebActivity.title, "淘宝授权")
-                )
+        if (TextUtils.isEmpty(mList[position].goodsInfo.source) || mList[position].goodsInfo.source == "2"){
+            TaoBaoUtil.openTB(context){
+                var clip = context!!.getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager
+                var clipData = ClipData.newPlainText("jipinshop", content)
+                clip.primaryClip = clipData
+                SPUtils.getInstance().put(CommonDate.CLIP, content)
+                DialogUtil.LoginDialog(context,"评论内容复制成功","去微信粘贴","暂不粘贴"){
+                    var intent : Intent? = PlatformUtil.sharePYQ_images(context)
+                    intent?.let {
+                        startActivity(intent)
+                    }
+                }
             }
-        } else {
+        }else{
             var clip = context!!.getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager
             var clipData = ClipData.newPlainText("jipinshop", content)
             clip.primaryClip = clipData

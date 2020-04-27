@@ -1,5 +1,6 @@
 package com.example.administrator.jipinshop.activity;
 
+import com.example.administrator.jipinshop.bean.ClickUrlBean;
 import com.example.administrator.jipinshop.bean.ImageBean;
 import com.example.administrator.jipinshop.bean.SuccessBean;
 import com.example.administrator.jipinshop.netwrok.Repository;
@@ -54,8 +55,8 @@ public class WebPresenter {
     /**
      * 获取专属淘客链接
      */
-    public void getGoodsClickUrl(String goodsBuyLink , String otherGoodsId , LifecycleTransformer<ImageBean> transformer){
-        mRepository.getGoodsClickUrl(goodsBuyLink, otherGoodsId)
+    public void getGoodsClickUrl(String source , String otherGoodsId , LifecycleTransformer<ClickUrlBean> transformer){
+        mRepository.getGoodsClickUrl(source, otherGoodsId)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .compose(transformer)

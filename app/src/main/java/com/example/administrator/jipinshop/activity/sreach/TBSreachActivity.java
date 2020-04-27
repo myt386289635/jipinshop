@@ -3,6 +3,7 @@ package com.example.administrator.jipinshop.activity.sreach;
 import android.app.Dialog;
 import android.content.Intent;
 import android.databinding.DataBindingUtil;
+import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -15,6 +16,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.inputmethod.EditorInfo;
 import android.widget.EditText;
+import android.widget.LinearLayout;
 
 import com.blankj.utilcode.util.SPUtils;
 import com.example.administrator.jipinshop.R;
@@ -22,7 +24,7 @@ import com.example.administrator.jipinshop.activity.WebActivity;
 import com.example.administrator.jipinshop.activity.login.LoginActivity;
 import com.example.administrator.jipinshop.activity.share.ShareActivity;
 import com.example.administrator.jipinshop.activity.sreach.result.TBSreachResultActivity;
-import com.example.administrator.jipinshop.activity.web.TaoBaoWebActivity;
+import com.example.administrator.jipinshop.adapter.KTTabAdapter4;
 import com.example.administrator.jipinshop.adapter.ShoppingUserLikeAdapter;
 import com.example.administrator.jipinshop.base.BaseActivity;
 import com.example.administrator.jipinshop.bean.SimilerGoodsBean;
@@ -39,6 +41,8 @@ import com.example.administrator.jipinshop.view.dialog.DialogUtil;
 import com.example.administrator.jipinshop.view.dialog.ProgressDialogView;
 import com.trello.rxlifecycle2.android.ActivityEvent;
 
+import net.lucode.hackware.magicindicator.buildins.commonnavigator.CommonNavigator;
+
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 
@@ -53,7 +57,7 @@ import javax.inject.Inject;
  * @create 2019/11/30
  * @Describe 淘宝搜索页面
  */
-public class TBSreachActivity extends BaseActivity implements View.OnClickListener, TBSreachView, ShoppingUserLikeAdapter.OnItem {
+public class TBSreachActivity extends BaseActivity implements View.OnClickListener, TBSreachView, ShoppingUserLikeAdapter.OnItem, KTTabAdapter4.OnItem {
 
     @Inject
     TBSreachPresenter mPresenter;
@@ -67,7 +71,10 @@ public class TBSreachActivity extends BaseActivity implements View.OnClickListen
     private List<SimilerGoodsBean.DataBean> mUserLikeList;
     private ShoppingUserLikeAdapter mLikeAdapter;
     private int[] usableHeightPrevious = {0};
-    private String type = "1";//默认搜索类型为极品城
+    private String type = "2";//默认搜索类型为淘宝
+    //tab
+    private KTTabAdapter4 mTabAdapter;
+    private List<String> titles;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -81,11 +88,51 @@ public class TBSreachActivity extends BaseActivity implements View.OnClickListen
     }
 
     private void initView() {
+        if (!TextUtils.isEmpty(getIntent().getStringExtra("type"))){
+            type = getIntent().getStringExtra("type");
+        }
         showKeyboardDelayed(mBinding.titleEdit);
         mDialog = (new ProgressDialogView()).createLoadingDialog(this, "正在加载...");
         mDialog.show();
         mHotText = new ArrayList<>();
         mHistroyList = new ArrayList<>();
+        //选择tab
+        CommonNavigator commonNavigator = new CommonNavigator(this);
+        titles = new ArrayList<>();
+        titles.add("淘宝");
+        titles.add("京东");
+        titles.add("拼多多");
+        mTabAdapter = new KTTabAdapter4(titles);
+        mTabAdapter.setOnClick(this);
+        mTabAdapter.setColor(getResources().getColor(R.color.color_202020),
+                getResources().getColor(R.color.color_E25838));
+        mTabAdapter.setTextSize(16f);
+        commonNavigator.setAdapter(mTabAdapter);
+        mBinding.titleContainer2.setNavigator(commonNavigator);
+        LinearLayout titleContainer = commonNavigator.getTitleContainer();
+        titleContainer.setShowDividers(LinearLayout.SHOW_DIVIDER_MIDDLE);
+        titleContainer.setDividerDrawable(new ColorDrawable(){
+            @Override
+            public int getIntrinsicWidth() {
+                return (int) getResources().getDimension(R.dimen.x130);
+            }
+        });
+        if (type.equals("2")){ //淘宝
+            mBinding.titleContainer2.onPageSelected(0);
+            mBinding.titleContainer2.onPageScrolled(0, 0.0F, 0);
+            mBinding.sreachULikeContainer.setVisibility(View.VISIBLE);
+            mBinding.sreachProcess.setVisibility(View.VISIBLE);
+        }else if (type.equals("1")){//京东
+            mBinding.titleContainer2.onPageSelected(1);
+            mBinding.titleContainer2.onPageScrolled(1, 0.0F, 0);
+            mBinding.sreachULikeContainer.setVisibility(View.GONE);
+            mBinding.sreachProcess.setVisibility(View.GONE);
+        }else {//拼多多
+            mBinding.titleContainer2.onPageSelected(2);
+            mBinding.titleContainer2.onPageScrolled(2, 0.0F, 0);
+            mBinding.sreachULikeContainer.setVisibility(View.GONE);
+            mBinding.sreachProcess.setVisibility(View.GONE);
+        }
         //猜你喜欢
         mBinding.sreachUserLike.setLayoutManager(new GridLayoutManager(this,2));
         mBinding.sreachUserLike.setNestedScrollingEnabled(false);
@@ -113,8 +160,10 @@ public class TBSreachActivity extends BaseActivity implements View.OnClickListen
             return false;
         });
         mPresenter.searchLog("1",this.bindToLifecycle());
-        Map<String,String> map =  DeviceUuidFactory.getIdfa(this);
-        mPresenter.listSimilerGoods(map,this.bindToLifecycle());
+        if (type.equals("2")){
+            Map<String,String> map =  DeviceUuidFactory.getIdfa(this);
+            mPresenter.listSimilerGoods(map,this.bindToLifecycle());
+        }
     }
 
     @Override
@@ -162,20 +211,6 @@ public class TBSreachActivity extends BaseActivity implements View.OnClickListen
                     mDialog.show();
                     mPresenter.deleteAll(this.bindToLifecycle());
                 });
-                break;
-            case R.id.sreach_jp:
-                type = "1";
-                mBinding.sreachTypeJp.setTextColor(getResources().getColor(R.color.color_E25838));
-                mBinding.sreachJpLine.setVisibility(View.VISIBLE);
-                mBinding.sreachTypeTb.setTextColor(getResources().getColor(R.color.color_9D9D9D));
-                mBinding.sreachTbLine.setVisibility(View.INVISIBLE);
-                break;
-            case R.id.sreach_tb:
-                type = "2";
-                mBinding.sreachTypeJp.setTextColor(getResources().getColor(R.color.color_9D9D9D));
-                mBinding.sreachJpLine.setVisibility(View.INVISIBLE);
-                mBinding.sreachTypeTb.setTextColor(getResources().getColor(R.color.color_E25838));
-                mBinding.sreachTbLine.setVisibility(View.VISIBLE);
                 break;
             case R.id.sreach_value:
             case R.id.title_sreach:
@@ -322,19 +357,11 @@ public class TBSreachActivity extends BaseActivity implements View.OnClickListen
             startActivity(new Intent(this, LoginActivity.class));
             return;
         }
-        String specialId2 = SPUtils.getInstance(CommonDate.USER).getString(CommonDate.relationId,"");
-        if (TextUtils.isEmpty(specialId2) || specialId2.equals("null")){
-            TaoBaoUtil.aliLogin(topAuthCode -> {
-                startActivity(new Intent(this, TaoBaoWebActivity.class)
-                        .putExtra(TaoBaoWebActivity.url, "https://oauth.taobao.com/authorize?response_type=code&client_id=25612235&redirect_uri=https://www.jipincheng.cn/qualityshop-api/api/taobao/returnUrl&state="+SPUtils.getInstance(CommonDate.USER).getString(CommonDate.token)+"&view=wap")
-                        .putExtra(TaoBaoWebActivity.title,"淘宝授权")
-                );
-            });
-        }else {
-            startActivity(new Intent(this, ShareActivity.class)
+        TaoBaoUtil.openTB(this, () -> {
+            startActivity(new Intent(TBSreachActivity.this, ShareActivity.class)
                     .putExtra("otherGoodsId",mUserLikeList.get(position).getOtherGoodsId())
             );
-        }
+        });
     }
 
     @Override
@@ -345,4 +372,24 @@ public class TBSreachActivity extends BaseActivity implements View.OnClickListen
         }
     }
 
+    //tab点击的位置
+    @Override
+    public void onClick(int position) {
+        mBinding.titleContainer2.onPageSelected(position);
+        mBinding.titleContainer2.onPageScrolled(position, 0.0F, 0);
+        if (position == 0){
+            //搜淘宝
+            type = "2";
+            mBinding.sreachULikeContainer.setVisibility(View.VISIBLE);
+            mBinding.sreachProcess.setVisibility(View.VISIBLE);
+        }else if (position == 1){//京东
+            type = "1";
+            mBinding.sreachULikeContainer.setVisibility(View.GONE);
+            mBinding.sreachProcess.setVisibility(View.GONE);
+        }else {//拼多多
+            type = "4";
+            mBinding.sreachULikeContainer.setVisibility(View.GONE);
+            mBinding.sreachProcess.setVisibility(View.GONE);
+        }
+    }
 }

@@ -2,7 +2,6 @@ package com.example.administrator.jipinshop.adapter
 
 import android.content.Context
 import android.support.v7.widget.RecyclerView
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -20,17 +19,17 @@ import com.trello.rxlifecycle2.LifecycleTransformer
 
 /**
  * @author 莫小婷
- * @create 2019/12/12
- * @Describe 首页4宫格的adapter
+ * @create 2020/4/20
+ * @Describe 宫格
  */
-class KTMainGridAdapter : RecyclerView.Adapter<KTMainGridAdapter.ViewHolder>{
+class KTMain2GridAdapter : RecyclerView.Adapter<KTMain2GridAdapter.ViewHolder>{
 
     private var mList: MutableList<TbkIndexBean.DataBean.BoxListBean>
     private var mContext: Context
     private lateinit var appStatisticalUtil: AppStatisticalUtil
     private lateinit var  transformer : LifecycleTransformer<SuccessBean>
 
-    constructor(list: MutableList<TbkIndexBean.DataBean.BoxListBean> , context: Context){
+    constructor(list: MutableList<TbkIndexBean.DataBean.BoxListBean>, context: Context){
         mList = list
         mContext = context
     }
@@ -55,21 +54,26 @@ class KTMainGridAdapter : RecyclerView.Adapter<KTMainGridAdapter.ViewHolder>{
     override fun onBindViewHolder(holder : ViewHolder, position: Int) {
         holder.run {
             mItemName.text = mList[position].title
-            GlideApp.loderCircleImage(mContext,mList[position].iconUrl,mImageView,0,0)
+            GlideApp.loderImage(mContext,mList[position].iconUrl,mImageView,0,0)
             itemView.setOnClickListener {
                 appStatisticalUtil.addEvent("shouye_gongge." + (position + 1),transformer)
                 ShopJumpUtil.openCommen(mContext,mList[position].type,mList[position].targetId,
                         mList[position].title)
             }
-            item_container.post {
-                var wight = item_container.width
-                var zz =( DistanceHelper.getAndroiodScreenwidthPixels(mContext) - (wight * 4) ) / 4
-                var result = zz / 2
-                var layoutParams =  item_container.layoutParams as LinearLayout.LayoutParams
-                layoutParams.leftMargin = result
-                layoutParams.rightMargin = result
-                item_container.layoutParams = layoutParams
+            var wight = mContext.resources.getDimension(R.dimen.x120)
+            var zz =( DistanceHelper.getAndroiodScreenwidthPixels(mContext) - (wight * 5) ) / 6
+            var result = 0f
+            if (zz > 0){
+                result = zz
             }
+            var layoutParams =  item_container.layoutParams as LinearLayout.LayoutParams
+            layoutParams.rightMargin = result.toInt()
+            if (position == 0 || position == 1){
+                layoutParams.leftMargin = result.toInt()
+            }else{
+                layoutParams.leftMargin = 0
+            }
+            item_container.layoutParams = layoutParams
         }
     }
 
@@ -85,5 +89,4 @@ class KTMainGridAdapter : RecyclerView.Adapter<KTMainGridAdapter.ViewHolder>{
             item_container = view.findViewById(R.id.item_container)
         }
     }
-
 }

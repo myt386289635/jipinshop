@@ -159,45 +159,11 @@
                     android:gravity="center"
                     android:orientation="horizontal"/>
 
-                <RelativeLayout
-                    android:id="@+id/detail_member"
-                    android:layout_below="@id/view_pager"
-                    android:background="@color/color_E25838"
-                    android:layout_width="match_parent"
-                    android:layout_height="@dimen/y56">
-
-                    <TextView
-                        android:drawablePadding="@dimen/x5"
-                        android:drawableLeft="@mipmap/detail_member"
-                        android:layout_marginLeft="@dimen/x10"
-                        android:id="@+id/detail_memberText"
-                        android:layout_centerVertical="true"
-                        android:text="升级会员等级，本商品最高可赚￥0"
-                        android:textColor="@color/color_F7D6AB"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"/>
-
-                    <TextView
-                        android:onClick="@{listener.onClick}"
-                        android:id="@+id/detail_memberGo"
-                        android:gravity="center"
-                        android:textColor="@color/color_F7D6AB"
-                        android:paddingLeft="@dimen/x25"
-                        android:paddingRight="@dimen/x25"
-                        android:layout_alignParentRight="true"
-                        android:layout_centerVertical="true"
-                        android:textSize="12sp"
-                        android:text="立即升级>"
-                        android:layout_width="wrap_content"
-                        android:layout_height="match_parent"/>
-
-                </RelativeLayout>
-
                 <LinearLayout
                     android:id="@+id/detail_newPriceContainer"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_below="@+id/detail_member"
+                    android:layout_below="@+id/view_pager"
                     android:layout_marginLeft="@dimen/x28"
                     android:layout_marginTop="@dimen/y19"
                     android:layout_marginBottom="@dimen/y10"
@@ -231,71 +197,69 @@
                     android:layout_marginBottom="@dimen/y4"
                     android:layout_toRightOf="@+id/detail_newPriceContainer"
                     android:gravity="bottom"
-                    android:text="@{@string/new_people + date.otherPrice}"
-                    android:textColor="@color/color_9D9D9D"
+                    android:text="@{@string/price + date.otherPrice}"
+                    android:textColor="@color/color_989898"
                     android:textSize="12sp"/>
 
-                <LinearLayout
-                    android:id="@+id/detail_feeContainer"
-                    android:layout_width="wrap_content"
-                    android:layout_height="@dimen/y56"
-                    android:layout_below="@+id/detail_newPriceContainer"
+                <RelativeLayout
+                    android:layout_marginRight="@dimen/x28"
                     android:layout_marginLeft="@dimen/x28"
                     android:layout_marginTop="@dimen/y20"
-                    android:background="@drawable/bg_333333"
-                    android:gravity="center_vertical"
-                    android:orientation="horizontal">
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginLeft="@dimen/x16"
-                        android:text="极品城返现"
-                        android:textColor="@color/color_FFE4C1"
-                        android:textSize="13sp"/>
-
-                    <TextView
-                        android:id="@+id/detail_free"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginLeft="@dimen/x11"
-                        android:layout_marginRight="@dimen/x16"
-                        android:text="@{@string/price + date.fee}"
-                        android:textColor="@color/color_FFE4C1"
-                        android:textSize="15sp"
-                        android:textStyle="bold"/>
-
-                </LinearLayout>
-
-                <TextView
-                    android:id="@+id/detail_freeNotice"
+                    android:id="@+id/detail_member"
+                    android:layout_below="@id/detail_oldPriceName"
+                    android:background="@drawable/bg_333333_2"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_alignTop="@+id/detail_feeContainer"
-                    android:layout_alignBottom="@id/detail_feeContainer"
-                    android:layout_marginRight="@dimen/x28"
-                    android:layout_toRightOf="@id/detail_feeContainer"
-                    android:background="@drawable/bg_ffebe6"
-                    android:drawableRight="@mipmap/right_white"
-                    android:drawableTint="@color/color_E25838"
-                    android:gravity="center_vertical"
-                    android:onClick="@{listener.onClick}"
-                    android:paddingLeft="@dimen/x16"
-                    android:paddingRight="@dimen/x16"
-                    android:text="查看极品城返现攻略"
-                    android:textColor="@color/color_E25838"
-                    android:textSize="12sp"/>
+                    android:layout_height="@dimen/y56">
+
+                    <TextView
+                        android:textSize="12sp"
+                        android:drawablePadding="@dimen/x6"
+                        android:drawableLeft="@mipmap/detail_member"
+                        android:layout_marginLeft="@dimen/x10"
+                        android:id="@+id/detail_memberText"
+                        android:layout_centerVertical="true"
+                        android:text="升级会员等级，本商品最高可赚"
+                        android:textColor="@color/color_FFE4C1"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"/>
+
+                    <TextView
+                        android:id="@+id/detail_memberPrice"
+                        android:textColor="@color/color_E25838"
+                        android:text="￥0"
+                        android:textStyle="bold"
+                        android:textSize="13sp"
+                        android:layout_centerVertical="true"
+                        android:layout_toRightOf="@id/detail_memberText"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"/>
+
+                    <TextView
+                        android:onClick="@{listener.onClick}"
+                        android:id="@+id/detail_memberGo"
+                        android:gravity="center"
+                        android:textColor="@color/color_FFE4C1"
+                        android:paddingLeft="@dimen/x25"
+                        android:paddingRight="@dimen/x25"
+                        android:layout_alignParentRight="true"
+                        android:layout_centerVertical="true"
+                        android:textSize="12sp"
+                        android:text="立即升级>"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"/>
+
+                </RelativeLayout>
 
                 <TextView
                     android:id="@+id/detail_name"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_below="@+id/detail_feeContainer"
+                    android:layout_below="@+id/detail_member"
                     android:layout_marginLeft="@dimen/x28"
                     android:layout_marginTop="@dimen/y20"
                     android:layout_marginRight="@dimen/x28"
                     android:lineSpacingExtra="@dimen/y6"
-                    android:text="@{date.otherName}"
+                    android:text=""
                     android:textColor="@color/color_202020"
                     android:textSize="16sp"/>
 

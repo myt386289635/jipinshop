@@ -11,8 +11,8 @@
         android:id="@+id/item_image"
         android:layout_marginLeft="@dimen/x15"
         android:src="@color/color_FF3939"
-        android:layout_width="@dimen/x55"
-        android:layout_height="@dimen/y55"/>
+        android:layout_width="@dimen/x50"
+        android:layout_height="@dimen/y50"/>
 
     <TextView
         android:ellipsize="end"

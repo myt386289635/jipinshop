@@ -35,7 +35,7 @@ public class TBSreachResultPresenter {
         mRepository = repository;
     }
 
-    public void searchTBGoods(Context context,String asc , String keyword, String orderByType , int page, String type , LifecycleTransformer<TBSreachResultBean> transformer){
+    public void searchTBGoods(Context context,String asc , String keyword, String orderByType , int page, String source , LifecycleTransformer<TBSreachResultBean> transformer){
         Map<String,String> hashMap =  DeviceUuidFactory.getIdfa(context);
         if (!TextUtils.isEmpty(asc)){
             hashMap.put("asc",asc);
@@ -43,7 +43,7 @@ public class TBSreachResultPresenter {
         hashMap.put("keyword",keyword);
         hashMap.put("orderByType",orderByType);
         hashMap.put("page",page + "");
-        hashMap.put("type" , type);
+        hashMap.put("source" , source);
         mRepository.searchTBGoods(hashMap)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())

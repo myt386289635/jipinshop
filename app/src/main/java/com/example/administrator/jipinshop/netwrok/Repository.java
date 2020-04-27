@@ -8,6 +8,7 @@ import com.example.administrator.jipinshop.bean.AppVersionbean;
 import com.example.administrator.jipinshop.bean.BudgetDetailBean;
 import com.example.administrator.jipinshop.bean.CircleListBean;
 import com.example.administrator.jipinshop.bean.CircleTitleBean;
+import com.example.administrator.jipinshop.bean.ClickUrlBean;
 import com.example.administrator.jipinshop.bean.CommentBean;
 import com.example.administrator.jipinshop.bean.DailyTaskBean;
 import com.example.administrator.jipinshop.bean.DefaultAddressBean;
@@ -25,6 +26,7 @@ import com.example.administrator.jipinshop.bean.FreeUserListBean;
 import com.example.administrator.jipinshop.bean.HomeCommenBean;
 import com.example.administrator.jipinshop.bean.ImageBean;
 import com.example.administrator.jipinshop.bean.InvitationBean;
+import com.example.administrator.jipinshop.bean.JDBean;
 import com.example.administrator.jipinshop.bean.LoginBean;
 import com.example.administrator.jipinshop.bean.MallBean;
 import com.example.administrator.jipinshop.bean.MallDetailBean;
@@ -70,6 +72,7 @@ import com.example.administrator.jipinshop.bean.TaobaoAccountBean;
 import com.example.administrator.jipinshop.bean.TaskFinishBean;
 import com.example.administrator.jipinshop.bean.TbCommonBean;
 import com.example.administrator.jipinshop.bean.TbkIndexBean;
+import com.example.administrator.jipinshop.bean.TeacherBean;
 import com.example.administrator.jipinshop.bean.TeamBean;
 import com.example.administrator.jipinshop.bean.TklBean;
 import com.example.administrator.jipinshop.bean.TopCategoryDetailBean;
@@ -1085,8 +1088,8 @@ public class Repository {
     /**
      * 淘客商品详情
      */
-    public Observable<TBShoppingDetailBean> tbGoodsDetail(String otherGoodsId){
-        return mAPIService.tbGoodsDetail(otherGoodsId);
+    public Observable<TBShoppingDetailBean> tbGoodsDetail(String otherGoodsId,String source){
+        return mAPIService.tbGoodsDetail(otherGoodsId,source);
     }
 
     /**
@@ -1106,8 +1109,8 @@ public class Repository {
     /**
      * 获取专属淘客链接
      */
-    public Observable<ImageBean> getGoodsClickUrl(String goodsBuyLink ,String otherGoodsId){
-        return mAPIService.getGoodsClickUrl(goodsBuyLink, otherGoodsId);
+    public Observable<ClickUrlBean> getGoodsClickUrl(String source , String otherGoodsId){
+        return mAPIService.getGoodsClickUrl(source, otherGoodsId);
     }
 
     /**
@@ -1120,8 +1123,8 @@ public class Repository {
     /**
      * 淘宝客一级分类列表
      */
-    public Observable<EvaluationTabBean> tbkCategory(){
-        return mAPIService.tbkCategory();
+    public Observable<JDBean> tbkCategory(String source){
+        return mAPIService.tbkCategory(source);
     }
 
     /**
@@ -1132,7 +1135,7 @@ public class Repository {
     }
 
     /**
-     * 精品推荐
+     * 今日推荐
      */
     public Observable<TBSreachResultBean> commendGoodsList(Map<String,String> map){
         return mAPIService.commendGoodsList(map);
@@ -1353,5 +1356,19 @@ public class Repository {
      */
     public Observable<ResponseBody> downLoadImg(String url){
         return mAPIService.downLoadImg(url);
+    }
+
+    /**
+     * 获取上级信息（头像和微信）
+     */
+    public Observable<TeacherBean> parentInfo(){
+        return mAPIService.getParentInfo();
+    }
+
+    /**
+     * 拼多多、京东专题页列表
+     */
+    public Observable<TBSreachResultBean> getOtherGoodsListByCategory( String category1Id, int page, String source){
+        return mAPIService.getOtherGoodsListByCategory(category1Id, page, source);
     }
 }

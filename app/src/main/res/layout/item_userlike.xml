@@ -61,21 +61,28 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"/>
 
+
+            <ImageView
+                android:layout_alignLeft="@id/item_name"
+                android:layout_below="@id/item_name"
+                android:layout_marginTop="@dimen/y10"
+                android:id="@+id/item_shopImg"
+                bind:src="@{date.shopIcon}"
+                android:layout_width="@dimen/x32"
+                android:layout_height="@dimen/y32"/>
+
             <TextView
                 android:layout_marginRight="@dimen/x13"
                 android:ellipsize="end"
                 android:maxLines="1"
-                android:background="@drawable/bg_opinion"
-                android:paddingRight="@dimen/x12"
-                android:paddingLeft="@dimen/x12"
-                android:paddingBottom="@dimen/y2"
-                android:paddingTop="@dimen/y2"
                 android:id="@+id/item_shopName"
                 android:textColor="@color/color_9D9D9D"
                 android:textSize="12sp"
                 android:text="@{date.shopName}"
-                android:layout_marginLeft="@dimen/x13"
-                android:layout_below="@id/item_name"
+                android:layout_marginLeft="@dimen/x7"
+                android:layout_toRightOf="@id/item_shopImg"
+                android:layout_alignTop="@id/item_shopImg"
+                android:layout_alignBottom="@id/item_shopImg"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"/>
 
@@ -139,6 +146,7 @@
                     android:layout_height="@dimen/y30"/>
 
                 <TextView
+                    android:textStyle="bold"
                     android:layout_marginTop="@dimen/y10"
                     android:id="@+id/detail_fee"
                     android:paddingRight="@dimen/x16"
@@ -147,9 +155,9 @@
                     android:layout_toRightOf="@id/detail_coupon"
                     android:gravity="center"
                     android:text="@{@string/fee + date.fee}"
-                    android:textColor="@color/color_202020"
-                    android:textSize="11sp"
-                    android:background="@drawable/bg_info"
+                    android:textColor="@color/color_835720"
+                    android:textSize="10sp"
+                    android:background="@drawable/bg_fee"
                     android:layout_width="wrap_content"
                     android:layout_height="@dimen/y30"/>
 

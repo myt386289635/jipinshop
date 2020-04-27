@@ -24,7 +24,6 @@ import com.example.administrator.jipinshop.activity.sign.SignActivity;
 import com.example.administrator.jipinshop.activity.tryout.passedMore.PassedMoreActivity;
 import com.example.administrator.jipinshop.activity.tryout.reportMore.ReportMoreActivity;
 import com.example.administrator.jipinshop.activity.tryout.shareMore.ShareMoreActivity;
-import com.example.administrator.jipinshop.activity.web.TaoBaoWebActivity;
 import com.example.administrator.jipinshop.adapter.CommenBannerAdapter;
 import com.example.administrator.jipinshop.adapter.TryDetailApplyRVAdapter;
 import com.example.administrator.jipinshop.adapter.TryDetailGVAdapter;
@@ -318,17 +317,9 @@ public class TryDetailActivity extends BaseActivity implements View.OnClickListe
                 if(mDialog != null && !mDialog.isShowing()){
                     mDialog.show();
                 }
-                String specialId = SPUtils.getInstance(CommonDate.USER).getString(CommonDate.relationId,"");
-                if (TextUtils.isEmpty(specialId) || specialId.equals("null")){
-                    TaoBaoUtil.aliLogin(topAuthCode -> {
-                        startActivity(new Intent(this, TaoBaoWebActivity.class)
-                                .putExtra(TaoBaoWebActivity.url, "https://oauth.taobao.com/authorize?response_type=code&client_id=25612235&redirect_uri=https://www.jipincheng.cn/qualityshop-api/api/taobao/returnUrl&state="+SPUtils.getInstance(CommonDate.USER).getString(CommonDate.token)+"&view=wap")
-                                .putExtra(TaoBaoWebActivity.title,"淘宝授权")
-                        );
-                    });
-                }else {
-                    mPresenter.goodsBuyLink(goodsBuyLink,this.bindToLifecycle());
-                }
+                TaoBaoUtil.openTB(this, () -> {
+                    mPresenter.goodsBuyLink(goodsBuyLink,TryDetailActivity.this.bindToLifecycle());
+                });
                 UAppUtil.goods_trier(this,0);
                 break;
             case R.id.detail_comment:

@@ -1,6 +1,6 @@
 package com.example.administrator.jipinshop.activity;
 
-import com.example.administrator.jipinshop.bean.ImageBean;
+import com.example.administrator.jipinshop.bean.ClickUrlBean;
 
 /**
  * @author 莫小婷
@@ -13,5 +13,5 @@ public interface WebVieww {
 
     void onFile(String error);
 
-    void onBuyLinkSuccess(ImageBean bean);
+    void onBuyLinkSuccess(ClickUrlBean bean);
 }

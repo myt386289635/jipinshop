@@ -14,17 +14,19 @@ import com.example.administrator.jipinshop.activity.home.MainActivity;
 import com.example.administrator.jipinshop.activity.home.article.ArticleDetailActivity;
 import com.example.administrator.jipinshop.activity.home.classification.ClassifyActivity;
 import com.example.administrator.jipinshop.activity.home.home.HomeNewActivity;
+import com.example.administrator.jipinshop.activity.home.jd_pdd.KTJDDetailActivity;
 import com.example.administrator.jipinshop.activity.login.LoginActivity;
 import com.example.administrator.jipinshop.activity.mall.MallActivity;
-import com.example.administrator.jipinshop.activity.message.MessageActivity;
+import com.example.administrator.jipinshop.activity.newpeople.NewPeopleActivity;
 import com.example.administrator.jipinshop.activity.report.detail.ReportDetailActivity;
 import com.example.administrator.jipinshop.activity.shoppingdetail.ShoppingDetailActivity;
 import com.example.administrator.jipinshop.activity.shoppingdetail.tbshoppingdetail.TBShoppingDetailActivity;
 import com.example.administrator.jipinshop.activity.sign.SignActivity;
+import com.example.administrator.jipinshop.activity.sign.invitation.InvitationNewActivity;
 import com.example.administrator.jipinshop.activity.tryout.detail.TryDetailActivity;
 import com.example.administrator.jipinshop.activity.tryout.freedetail.FreeDetailActivity;
-import com.example.administrator.jipinshop.activity.wellcome.WellComeActivity;
 import com.example.administrator.jipinshop.bean.eventbus.ChangeHomePageBus;
+import com.example.administrator.jipinshop.netwrok.RetrofitModule;
 import com.example.administrator.jipinshop.util.sp.CommonDate;
 
 import org.greenrobot.eventbus.EventBus;
@@ -236,9 +238,6 @@ public class ShopJumpUtil {
                 intent.setClass(context, SignActivity.class);
                 context.startActivity(intent);
                 break;
-            case "16"://红包主页
-                EventBus.getDefault().post(new ChangeHomePageBus(1));
-                break;
             case "17"://榜单主页
                 intent.setClass(context, HomeNewActivity.class);
                 intent.putExtra("type",HomeNewActivity.bangdan);
@@ -246,6 +245,41 @@ public class ShopJumpUtil {
                 break;
             case "18"://特惠购列表
                 intent.setClass(context, CheapBuyActivity.class);
+                context.startActivity(intent);
+                break;
+            case "19"://0元购
+                intent.setClass(context, NewPeopleActivity.class);
+                context.startActivity(intent);
+                break;
+            case "20"://邀请页面
+                intent.setClass(context, InvitationNewActivity.class);
+                context.startActivity(intent);
+                break;
+            case "21"://京东
+                intent.setClass(context, KTJDDetailActivity.class);
+                intent.putExtra("name","京东");
+                intent.putExtra("source","1");
+                context.startActivity(intent);
+                break;
+            case "22"://拼多多
+                intent.setClass(context, KTJDDetailActivity.class);
+                intent.putExtra("name","拼多多");
+                intent.putExtra("source","4");
+                context.startActivity(intent);
+                break;
+            case "23"://跳转到评测主页
+                intent.setClass(context, HomeNewActivity.class);
+                intent.putExtra("type",HomeNewActivity.evaluation);
+                context.startActivity(intent);
+                break;
+            case "24"://新手教程
+                intent.setClass(context, WebActivity.class);
+                intent.putExtra(WebActivity.url, RetrofitModule.H5_URL+"tbk-rule.html");
+                intent.putExtra(WebActivity.title,"极品城省钱攻略");
+                intent.putExtra(WebActivity.isShare,true);
+                intent.putExtra(WebActivity.shareTitle,"如何查找淘宝隐藏优惠券及下单返利？");
+                intent.putExtra(WebActivity.shareContent,"淘宝天猫90%的商品都能省，同时还有高额返利，淘好物，更省钱！");
+                intent.putExtra(WebActivity.shareImage,"https://jipincheng.cn/shengqian.png");
                 context.startActivity(intent);
                 break;
         }
@@ -316,7 +350,7 @@ public class ShopJumpUtil {
     }
 
     /**
-     * 公用页面跳转逻辑——首页模块
+     * 首页宫格通用跳转
      */
     public static void openCommen(Context context, String targetType, String target_id , String target_title){
         Intent intent = new Intent();
@@ -364,9 +398,6 @@ public class ShopJumpUtil {
                 }
                 context.startActivity(intent);
                 break;
-            case "7"://红包主页
-                EventBus.getDefault().post(new ChangeHomePageBus(1));
-                break;
             case "8"://跳转到榜单页面
                 intent.setClass(context, HomeNewActivity.class);
                 intent.putExtra("type",HomeNewActivity.bangdan);
@@ -375,6 +406,40 @@ public class ShopJumpUtil {
             case "9"://跳转到评测主页
                 intent.setClass(context, HomeNewActivity.class);
                 intent.putExtra("type",HomeNewActivity.evaluation);
+                context.startActivity(intent);
+                break;
+            case "10"://特惠购
+                intent.setClass(context, CheapBuyActivity.class);
+                context.startActivity(intent);
+                break;
+            case "11"://0元购
+                intent.setClass(context, NewPeopleActivity.class);
+                context.startActivity(intent);
+                break;
+            case "12"://京东
+                intent.setClass(context, KTJDDetailActivity.class);
+                intent.putExtra("name","京东");
+                intent.putExtra("source","1");
+                context.startActivity(intent);
+                break;
+            case "13"://拼多多
+                intent.setClass(context, KTJDDetailActivity.class);
+                intent.putExtra("name","拼多多");
+                intent.putExtra("source","4");
+                context.startActivity(intent);
+                break;
+            case "14"://新手教程
+                intent.setClass(context, WebActivity.class);
+                intent.putExtra(WebActivity.url, RetrofitModule.H5_URL+"tbk-rule.html");
+                intent.putExtra(WebActivity.title,"极品城省钱攻略");
+                intent.putExtra(WebActivity.isShare,true);
+                intent.putExtra(WebActivity.shareTitle,"如何查找淘宝隐藏优惠券及下单返利？");
+                intent.putExtra(WebActivity.shareContent,"淘宝天猫90%的商品都能省，同时还有高额返利，淘好物，更省钱！");
+                intent.putExtra(WebActivity.shareImage,"https://jipincheng.cn/shengqian.png");
+                context.startActivity(intent);
+                break;
+            case "15"://邀请页面
+                intent.setClass(context, InvitationNewActivity.class);
                 context.startActivity(intent);
                 break;
         }

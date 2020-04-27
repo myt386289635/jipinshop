@@ -199,15 +199,13 @@ class HomeTabActivity : BaseActivity(), View.OnClickListener, HomeDetailView, TB
             startActivity(Intent(this, LoginActivity::class.java))
             return
         }
-        val specialId = SPUtils.getInstance(CommonDate.USER).getString(CommonDate.relationId, "")
-        if (TextUtils.isEmpty(specialId) || specialId == "null") run {
-            TaoBaoUtil.aliLogin { topAuthCode ->
-                startActivity(Intent(this, TaoBaoWebActivity::class.java)
-                        .putExtra(TaoBaoWebActivity.url, "https://oauth.taobao.com/authorize?response_type=code&client_id=25612235&redirect_uri=https://www.jipincheng.cn/qualityshop-api/api/taobao/returnUrl&state=" + SPUtils.getInstance(CommonDate.USER).getString(CommonDate.token) + "&view=wap")
-                        .putExtra(TaoBaoWebActivity.title, "淘宝授权")
+        if (TextUtils.isEmpty(mList[position].source) || mList[position].source == "2"){
+            TaoBaoUtil.openTB(this){
+                startActivity(Intent(this, ShareActivity::class.java)
+                        .putExtra("otherGoodsId", mList[position].otherGoodsId)
                 )
             }
-        } else {
+        }else{
             startActivity(Intent(this, ShareActivity::class.java)
                     .putExtra("otherGoodsId", mList[position].otherGoodsId)
             )

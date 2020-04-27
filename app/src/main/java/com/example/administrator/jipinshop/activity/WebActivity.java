@@ -8,7 +8,6 @@ import android.net.http.SslError;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.text.TextUtils;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.ViewParent;
@@ -21,9 +20,8 @@ import android.webkit.WebViewClient;
 import com.alibaba.baichuan.android.trade.AlibcTradeSDK;
 import com.blankj.utilcode.util.SPUtils;
 import com.example.administrator.jipinshop.R;
-import com.example.administrator.jipinshop.activity.web.TaoBaoWebActivity;
 import com.example.administrator.jipinshop.base.BaseActivity;
-import com.example.administrator.jipinshop.bean.ImageBean;
+import com.example.administrator.jipinshop.bean.ClickUrlBean;
 import com.example.administrator.jipinshop.databinding.ActivityWebBinding;
 import com.example.administrator.jipinshop.util.ShareUtils;
 import com.example.administrator.jipinshop.util.TaoBaoUtil;
@@ -246,26 +244,18 @@ public class WebActivity extends BaseActivity implements View.OnClickListener, W
         ToastUtil.show(error);
     }
 
-
+    //打开淘宝
     public void openTB(String goodsId){
-        String specialId = SPUtils.getInstance(CommonDate.USER).getString(CommonDate.relationId,"");
-        if (TextUtils.isEmpty(specialId) || specialId.equals("null")){
-            TaoBaoUtil.aliLogin(topAuthCode -> {
-                startActivity(new Intent(WebActivity.this, TaoBaoWebActivity.class)
-                        .putExtra(TaoBaoWebActivity.url, "https://oauth.taobao.com/authorize?response_type=code&client_id=25612235&redirect_uri=https://www.jipincheng.cn/qualityshop-api/api/taobao/returnUrl&state="+SPUtils.getInstance(CommonDate.USER).getString(CommonDate.token)+"&view=wap")
-                        .putExtra(TaoBaoWebActivity.title,"淘宝授权")
-                );
-            });
-        }else {
+        TaoBaoUtil.openTB(this, () -> {
             mDialog = (new ProgressDialogView()).createLoadingDialog(WebActivity.this, "");
             mDialog.show();
-            mPresenter.getGoodsClickUrl("",goodsId,WebActivity.this.bindToLifecycle());
-        }
+            mPresenter.getGoodsClickUrl("2",goodsId,WebActivity.this.bindToLifecycle());
+        });
     }
 
     @Override
-    public void onBuyLinkSuccess(ImageBean bean) {
-        TaoBaoUtil.openAliHomeWeb(this,bean.getData(),bean.getOtherGoodsId());
+    public void onBuyLinkSuccess(ClickUrlBean bean) {
+        TaoBaoUtil.openAliHomeWeb(this,bean.getData().getMobileUrl(),bean.getData().getOtherGoodsId());
     }
 
     @Override

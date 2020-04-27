@@ -130,6 +130,7 @@ public class ShoppingUserLikeAdapter extends RecyclerView.Adapter {
                 viewHolder.itemView.setOnClickListener(v -> {
                     mContext.startActivity(new Intent(mContext, TBShoppingDetailActivity.class)
                             .putExtra("otherGoodsId", mList.get(position).getOtherGoodsId())
+                            .putExtra("source",mList.get(position).getSource())
                     );
                 });
                 viewHolder.binding.itemShare.setOnClickListener(v -> {

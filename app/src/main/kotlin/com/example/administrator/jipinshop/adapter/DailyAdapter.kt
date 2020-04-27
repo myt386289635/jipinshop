@@ -99,19 +99,19 @@ class DailyAdapter :RecyclerView.Adapter<DailyAdapter.ViewHolder>{
             mBinding.itemCommentContainer4.setOnClickListener {}
             mBinding.itemCommentContainer5.setOnClickListener {}
             mBinding.itemCommentCopy1.setOnClickListener {
-                mOnClickItem.onCommentClick(mList[pos].commentList[0].copyContent)
+                mOnClickItem.onCommentClick(pos,mList[pos].commentList[0].copyContent)
             }
             mBinding.itemCommentCopy2.setOnClickListener {
-                mOnClickItem.onCommentClick(mList[pos].commentList[1].copyContent)
+                mOnClickItem.onCommentClick(pos,mList[pos].commentList[1].copyContent)
             }
             mBinding.itemCommentCopy3.setOnClickListener {
-                mOnClickItem.onCommentClick(mList[pos].commentList[2].copyContent)
+                mOnClickItem.onCommentClick(pos,mList[pos].commentList[2].copyContent)
             }
             mBinding.itemCommentCopy4.setOnClickListener {
-                mOnClickItem.onCommentClick(mList[pos].commentList[3].copyContent)
+                mOnClickItem.onCommentClick(pos,mList[pos].commentList[3].copyContent)
             }
             mBinding.itemCommentCopy5.setOnClickListener {
-                mOnClickItem.onCommentClick(mList[pos].commentList[4].copyContent)
+                mOnClickItem.onCommentClick(pos,mList[pos].commentList[4].copyContent)
             }
         }
     }
@@ -155,7 +155,7 @@ class DailyAdapter :RecyclerView.Adapter<DailyAdapter.ViewHolder>{
     interface OnClickItem{
         fun onDetailClick(position: Int)
         fun onShareClick(position: Int)
-        fun onCommentClick(content: String)
+        fun onCommentClick(position: Int,content: String)
         fun onGridImage(fatherPos: Int, sonPos: Int, imgs: MutableList<String>, view: View)
     }
 }

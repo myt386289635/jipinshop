@@ -25,7 +25,6 @@ import com.example.administrator.jipinshop.activity.WebActivity;
 import com.example.administrator.jipinshop.activity.cheapgoods.CheapBuyActivity;
 import com.example.administrator.jipinshop.activity.login.LoginActivity;
 import com.example.administrator.jipinshop.activity.newpeople.detail.NewPeopleDetailActivity;
-import com.example.administrator.jipinshop.activity.web.TaoBaoWebActivity;
 import com.example.administrator.jipinshop.adapter.NewPeopleAdapter;
 import com.example.administrator.jipinshop.base.BaseActivity;
 import com.example.administrator.jipinshop.bean.ImageBean;
@@ -202,21 +201,13 @@ public class NewPeopleActivity extends BaseActivity implements OnRefreshListener
         DialogUtil.LoginDialog(this, "您将前往淘宝购买此商品，\n使用津贴立减￥"+ mList2.get(position).getUseAllowancePrice() +"，无需等待返现",
                 "确认", "取消", R.color.color_202020, R.color.color_202020,
                 false, v -> {
-                    String specialId = SPUtils.getInstance(CommonDate.USER).getString(CommonDate.relationId, "");
-                    if (TextUtils.isEmpty(specialId) || specialId.equals("null")) {
-                        TaoBaoUtil.aliLogin(topAuthCode -> {
-                            startActivity(new Intent(this, TaoBaoWebActivity.class)
-                                    .putExtra(TaoBaoWebActivity.url, "https://oauth.taobao.com/authorize?response_type=code&client_id=25612235&redirect_uri=https://www.jipincheng.cn/qualityshop-api/api/taobao/returnUrl&state=" + SPUtils.getInstance(CommonDate.USER).getString(CommonDate.token) + "&view=wap")
-                                    .putExtra(TaoBaoWebActivity.title, "淘宝授权")
-                            );
-                        });
-                    } else {
-                        mDialog = (new ProgressDialogView()).createLoadingDialog(this, "");
+                    TaoBaoUtil.openTB(this, () -> {
+                        mDialog = (new ProgressDialogView()).createLoadingDialog(NewPeopleActivity.this, "");
                         if (mDialog != null && !mDialog.isShowing()) {
                             mDialog.show();
                         }
-                        mPresenter.apply(mList2.get(position).getId(), this.bindToLifecycle());
-                    }
+                        mPresenter.apply(mList2.get(position).getId(), NewPeopleActivity.this.bindToLifecycle());
+                    });
                 });
     }
 

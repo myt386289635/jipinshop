@@ -10,23 +10,27 @@ import android.os.Looper
 import android.support.design.widget.AppBarLayout
 import android.support.v4.app.Fragment
 import android.support.v4.view.ViewPager
+import android.text.TextUtils
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.example.administrator.jipinshop.R
+import com.example.administrator.jipinshop.activity.sign.SignActivity
 import com.example.administrator.jipinshop.activity.sreach.TBSreachActivity
 import com.example.administrator.jipinshop.adapter.HomeFragmentAdapter
 import com.example.administrator.jipinshop.adapter.KTTabAdapter
 import com.example.administrator.jipinshop.base.DBBaseFragment
-import com.example.administrator.jipinshop.bean.EvaluationTabBean
+import com.example.administrator.jipinshop.bean.JDBean
+import com.example.administrator.jipinshop.bean.TeacherBean
 import com.example.administrator.jipinshop.bean.eventbus.ChangeHomePageBus
 import com.example.administrator.jipinshop.databinding.FragmentKtHomeBinding
 import com.example.administrator.jipinshop.fragment.home.commen.KTHomeCommenFragment
-import com.example.administrator.jipinshop.fragment.home.main.KTMainFragment
+import com.example.administrator.jipinshop.fragment.home.main.KTMain2Fragment
 import com.example.administrator.jipinshop.fragment.home.userlike.KTUserLikeFragment
 import com.example.administrator.jipinshop.util.ToastUtil
 import com.example.administrator.jipinshop.util.UmApp.AppStatisticalUtil
 import com.example.administrator.jipinshop.util.WeakRefHandler
+import com.example.administrator.jipinshop.view.dialog.DialogUtil
 import net.lucode.hackware.magicindicator.ViewPagerHelper
 import net.lucode.hackware.magicindicator.buildins.commonnavigator.CommonNavigator
 import org.greenrobot.eventbus.EventBus
@@ -51,6 +55,8 @@ class KTHomeFragnent : DBBaseFragment(), View.OnClickListener, ViewPager.OnPageC
     private lateinit var mTabAdapter: KTTabAdapter
     private var isChange: Boolean = true //是否开启颜色改变
     private var mColor : String = "#E25838"  //轮播图此时滑动的颜色
+    private var Tavatar: String = ""
+    private var Twechat: String = ""
 
     companion object{
         @JvmStatic //java中的静态方法
@@ -94,6 +100,7 @@ class KTHomeFragnent : DBBaseFragment(), View.OnClickListener, ViewPager.OnPageC
 
         mPresenter.getData(this.bindToLifecycle())
         appStatisticalUtil.addEvent("shouye_fenlei.1",this.bindToLifecycle())//统计精选
+        mPresenter.getParentInfo(0,this.bindToLifecycle())
     }
 
     override fun onClick(v: View) {
@@ -104,6 +111,16 @@ class KTHomeFragnent : DBBaseFragment(), View.OnClickListener, ViewPager.OnPageC
             }
             R.id.home_action -> {
                 EventBus.getDefault().post(ChangeHomePageBus(1))
+            }
+            R.id.home_sign -> {
+                startActivity(Intent(context, SignActivity::class.java))
+            }
+            R.id.home_server -> {
+                if (TextUtils.isEmpty(Twechat)){
+                    mPresenter.getParentInfo(1,this.bindToLifecycle())
+                    return
+                }
+                DialogUtil.teacherDialog(context,Twechat,Tavatar)
             }
         }
     }
@@ -141,7 +158,7 @@ class KTHomeFragnent : DBBaseFragment(), View.OnClickListener, ViewPager.OnPageC
     override fun onFile(error: String?) {
         mTitle.add("精选")
         mTitle.add("猜你喜欢")
-        mList.add(KTMainFragment.getInstance())
+        mList.add(KTMain2Fragment.getInstance())
         mList.add(KTUserLikeFragment.getInstance())
         mAdapter.notifyDataSetChanged()
         mBinding.viewPager.offscreenPageLimit = mList.size - 1
@@ -149,11 +166,11 @@ class KTHomeFragnent : DBBaseFragment(), View.OnClickListener, ViewPager.OnPageC
         ToastUtil.show(error)
     }
 
-    override fun onSuccess(bean: EvaluationTabBean) {
+    override fun onSuccess(bean: JDBean) {
         for (i in bean.data.indices){
             mTitle.add(bean.data[i].categoryName)
             when (i) {
-                0 -> mList.add(KTMainFragment.getInstance())
+                0 -> mList.add(KTMain2Fragment.getInstance())
                 1 -> mList.add(KTUserLikeFragment.getInstance())
                 else -> mList.add(KTHomeCommenFragment.getInstance(bean.data[i].categoryId, "shouye_fenlei." + (i+1)))
             }
@@ -161,6 +178,15 @@ class KTHomeFragnent : DBBaseFragment(), View.OnClickListener, ViewPager.OnPageC
         mAdapter.notifyDataSetChanged()
         mBinding.viewPager.offscreenPageLimit = mList.size - 1
         mTabAdapter.notifyDataSetChanged()
+    }
+
+    //获取上级信息
+    override fun onTeacher(type : Int,bean : TeacherBean) {
+        Tavatar = bean.data.avatar
+        Twechat = bean.data.wechat
+        if (type == 1){
+            DialogUtil.teacherDialog(context,Twechat,Tavatar)
+        }
     }
 
     /*******首页悬浮框动画隐藏效果********/

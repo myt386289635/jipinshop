@@ -78,7 +78,6 @@
         <LinearLayout
             android:orientation="horizontal"
             android:layout_marginTop="@dimen/y10"
-            android:layout_marginBottom="@dimen/y49"
             android:layout_below="@id/item_priceContainer"
             android:layout_alignRight="@id/item_image"
             android:layout_alignLeft="@id/item_image"
@@ -104,9 +103,9 @@
                 android:paddingLeft="@dimen/x12"
                 android:gravity="center"
                 android:text="@{@string/fee2 + data.fee}"
-                android:textColor="@color/color_202020"
+                android:textColor="@color/color_AD7F35"
                 android:textSize="10sp"
-                android:background="@drawable/bg_info"
+                android:background="@drawable/bg_ad7f35"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"/>
 

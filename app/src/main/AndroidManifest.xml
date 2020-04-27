@@ -568,6 +568,10 @@
         <activity android:name=".activity.wellcome.index.IndexMixActivity"
                   android:screenOrientation="portrait"/>
 
+        <!--京东、拼多多详情页面-->
+        <activity android:name=".activity.home.jd_pdd.KTJDDetailActivity"
+                  android:screenOrientation="portrait"/>
+
     </application>
 
 </manifest>

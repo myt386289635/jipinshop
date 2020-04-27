@@ -331,6 +331,7 @@ class KTHomeCommenAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>{
                         appStatisticalUtil.addEvent(commenStatistical + "_liebiao." + (pos+1),transformer)
                         mContext.startActivity(Intent(mContext, TBShoppingDetailActivity::class.java)
                                 .putExtra("otherGoodsId", mList[pos].otherGoodsId)
+                                .putExtra("source",mList[pos].source)
                         )
                     }
                 }

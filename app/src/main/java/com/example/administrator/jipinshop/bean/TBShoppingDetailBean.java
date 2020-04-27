@@ -90,6 +90,15 @@ public class TBShoppingDetailBean {
         private int goodsType;//1是极品城  2是淘宝
         private String upFee;//最高佣金
         private int level;//会员等级
+        private int tag;//标签
+
+        public int getTag() {
+            return tag;
+        }
+
+        public void setTag(int tag) {
+            this.tag = tag;
+        }
 
         public String getUpFee() {
             return new BigDecimal(upFee).stripTrailingZeros().toPlainString();

@@ -1,96 +1,102 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content">
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
 
     <RelativeLayout
-        android:layout_centerHorizontal="true"
-        android:background="@drawable/bg_dialog"
-        android:orientation="vertical"
-        android:layout_width="@dimen/x630"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
-        <TextView
-            android:id="@+id/title"
-            android:layout_marginBottom="@dimen/y30"
-            android:layout_marginTop="@dimen/y53"
+        <LinearLayout
+            android:gravity="center_horizontal"
             android:layout_centerHorizontal="true"
-            android:textSize="16sp"
-            android:textStyle="bold"
-            android:textColor="@color/color_202020"
-            android:text="奖励规则"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"/>
+            android:background="@drawable/bg_balance"
+            android:orientation="vertical"
+            android:layout_width="@dimen/x600"
+            android:layout_height="wrap_content">
 
-        <TextView
-            android:id="@+id/dialog_time"
-            android:layout_below="@id/title"
-            android:layout_centerHorizontal="true"
-            android:textColor="@color/color_565252"
-            android:textSize="15sp"
-            android:text="您将前往淘宝APP购买该商品"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"/>
+            <TextView
+                android:layout_marginTop="@dimen/y25"
+                android:textColor="@color/color_202020"
+                android:textSize="17sp"
+                android:text="专属导师"
+                android:layout_centerHorizontal="true"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
 
-        <TextView
-            android:id="@+id/dialog_actualPrice"
-            android:layout_marginTop="@dimen/y30"
-            android:layout_below="@id/dialog_time"
-            android:layout_centerHorizontal="true"
-            android:text="购买价格¥198"
-            android:textColor="@color/color_565252"
-            android:textSize="15sp"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"/>
+            <ImageView
+                android:src="@color/color_AD7F35"
+                android:id="@+id/dialog_image"
+                android:layout_marginTop="@dimen/y30"
+                android:layout_centerHorizontal="true"
+                android:layout_width="@dimen/y110"
+                android:layout_height="@dimen/x110"/>
 
-        <TextView
-            android:id="@+id/dialog_feePrice"
-            android:layout_marginTop="@dimen/y30"
-            android:layout_below="@id/dialog_actualPrice"
-            android:layout_centerHorizontal="true"
-            android:text="补贴¥198"
-            android:textColor="@color/color_565252"
-            android:textSize="15sp"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"/>
+            <TextView
+                android:id="@+id/dialog_wx"
+                android:layout_marginBottom="@dimen/y22"
+                android:textColor="@color/color_202020"
+                android:textSize="16sp"
+                android:layout_marginTop="@dimen/y18"
+                android:text="微信：7522566211"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
 
+            <TextView
+                android:layout_marginBottom="@dimen/y37"
+                android:textColor="@color/color_989898"
+                android:textSize="14sp"
+                android:text="添加导师微信，获取专属福利"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
 
-        <TextView
-            android:layout_marginTop="@dimen/y44"
-            android:layout_below="@id/dialog_feePrice"
-            android:layout_marginRight="@dimen/x56"
-            android:layout_marginLeft="@dimen/x56"
-            android:id="@+id/dialog_sure"
-            android:layout_width="match_parent"
-            android:layout_height="@dimen/y80"
-            android:background="@drawable/bg_free_dialog2"
-            android:gravity="center"
-            android:text="前往购买"
-            android:textColor="@color/color_white"
-            android:textSize="16sp"
-            android:textStyle="bold"/>
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
 
-        <TextView
-            android:layout_marginBottom="@dimen/y24"
-            android:layout_marginTop="@dimen/y24"
-            android:layout_centerHorizontal="true"
-            android:layout_below="@id/dialog_sure"
-            android:text="*每位用户仅享受一次全额返现机会哦*"
-            android:textColor="@color/color_E25838"
-            android:textSize="13sp"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"/>
+                <View
+                    android:id="@+id/dialog_line"
+                    android:background="@color/color_DEDEDE"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/y1"/>
 
+                <View
+                    android:id="@+id/dialog_line1"
+                    android:background="@color/color_DEDEDE"
+                    android:layout_centerHorizontal="true"
+                    android:layout_below="@+id/dialog_line"
+                    android:layout_width="@dimen/y1"
+                    android:layout_height="@dimen/y94"/>
 
-        <ImageView
-            android:id="@+id/dialog_cancle"
-            android:layout_alignParentRight="true"
-            android:padding="@dimen/y17"
-            android:src="@mipmap/dialog_close1"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"/>
+                <TextView
+                    android:layout_alignLeft="@+id/dialog_line1"
+                    android:gravity="center"
+                    android:textStyle="bold"
+                    android:id="@+id/dialog_sure"
+                    android:layout_alignTop="@id/dialog_line"
+                    android:layout_alignBottom="@+id/dialog_line1"
+                    android:layout_alignParentRight="true"
+                    android:textSize="16sp"
+                    android:textColor="@color/color_202020"
+                    android:text="复制"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"/>
 
+                <TextView
+                    android:layout_alignRight="@id/dialog_line1"
+                    android:gravity="center"
+                    android:layout_alignTop="@id/dialog_line"
+                    android:layout_alignBottom="@+id/dialog_line1"
+                    android:layout_alignParentLeft="true"
+                    android:id="@+id/dialog_cancle"
+                    android:textSize="16sp"
+                    android:textColor="@color/color_202020"
+                    android:text="取消"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"/>
+
+            </RelativeLayout>
+
+        </LinearLayout>
     </RelativeLayout>
 
-</RelativeLayout>
+
+</layout>

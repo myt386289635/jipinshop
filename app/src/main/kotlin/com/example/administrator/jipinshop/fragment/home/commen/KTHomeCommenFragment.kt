@@ -15,7 +15,6 @@ import com.blankj.utilcode.util.SPUtils
 import com.example.administrator.jipinshop.R
 import com.example.administrator.jipinshop.activity.login.LoginActivity
 import com.example.administrator.jipinshop.activity.share.ShareActivity
-import com.example.administrator.jipinshop.activity.web.TaoBaoWebActivity
 import com.example.administrator.jipinshop.adapter.KTHomeCommenAdapter
 import com.example.administrator.jipinshop.base.DBBaseFragment
 import com.example.administrator.jipinshop.bean.TBSreachResultBean
@@ -178,15 +177,13 @@ class KTHomeCommenFragment : DBBaseFragment(), OnLoadMoreListener, OnRefreshList
             startActivity(Intent(context, LoginActivity::class.java))
             return
         }
-        val specialId = SPUtils.getInstance(CommonDate.USER).getString(CommonDate.relationId, "")
-        if (TextUtils.isEmpty(specialId) || specialId == "null") run {
-            TaoBaoUtil.aliLogin { topAuthCode ->
-                startActivity(Intent(context, TaoBaoWebActivity::class.java)
-                        .putExtra(TaoBaoWebActivity.url, "https://oauth.taobao.com/authorize?response_type=code&client_id=25612235&redirect_uri=https://www.jipincheng.cn/qualityshop-api/api/taobao/returnUrl&state=" + SPUtils.getInstance(CommonDate.USER).getString(CommonDate.token) + "&view=wap")
-                        .putExtra(TaoBaoWebActivity.title, "淘宝授权")
+        if (TextUtils.isEmpty(mList[position].source) || mList[position].source == "2"){
+            TaoBaoUtil.openTB(context){
+                startActivity(Intent(context, ShareActivity::class.java)
+                        .putExtra("otherGoodsId", mList[position].otherGoodsId)
                 )
             }
-        } else {
+        }else{
             startActivity(Intent(context, ShareActivity::class.java)
                     .putExtra("otherGoodsId", mList[position].otherGoodsId)
             )

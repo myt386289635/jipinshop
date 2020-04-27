@@ -2,8 +2,12 @@ package com.example.administrator.jipinshop.fragment.home
 
 import android.content.Context
 import android.widget.LinearLayout
+import android.widget.Toast
 import com.example.administrator.jipinshop.bean.EvaluationTabBean
+import com.example.administrator.jipinshop.bean.JDBean
+import com.example.administrator.jipinshop.bean.TeacherBean
 import com.example.administrator.jipinshop.netwrok.Repository
+import com.example.administrator.jipinshop.util.ToastUtil
 import com.trello.rxlifecycle2.LifecycleTransformer
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.functions.Consumer
@@ -39,8 +43,8 @@ class KTHomePresenter {
         }
     }
 
-    fun  getData(transformer : LifecycleTransformer<EvaluationTabBean>){
-        repository.tbkCategory()
+    fun  getData(transformer : LifecycleTransformer<JDBean>){
+        repository.tbkCategory("2")
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .compose(transformer)
@@ -52,6 +56,22 @@ class KTHomePresenter {
                     }
                 }, Consumer {
                     mView.onFile(it.message)
+                })
+    }
+
+    fun getParentInfo(type : Int, transformer : LifecycleTransformer<TeacherBean>){
+        repository.parentInfo()
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .compose(transformer)
+                .subscribe(Consumer {
+                    if (it.code == 0){
+                        mView.onTeacher(type,it)
+                    }
+                }, Consumer {
+                    if (type == 1){
+                        ToastUtil.show("导师信息获取失败，请重新尝试")
+                    }
                 })
     }
 }

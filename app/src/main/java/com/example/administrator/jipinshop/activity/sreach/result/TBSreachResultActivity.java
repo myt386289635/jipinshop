@@ -3,12 +3,14 @@ package com.example.administrator.jipinshop.activity.sreach.result;
 import android.app.Dialog;
 import android.content.Intent;
 import android.databinding.DataBindingUtil;
+import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.GridLayoutManager;
 import android.text.TextUtils;
 import android.view.View;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.aspsine.swipetoloadlayout.OnLoadMoreListener;
@@ -18,7 +20,7 @@ import com.example.administrator.jipinshop.R;
 import com.example.administrator.jipinshop.activity.login.LoginActivity;
 import com.example.administrator.jipinshop.activity.share.ShareActivity;
 import com.example.administrator.jipinshop.activity.sreach.SreachActivity;
-import com.example.administrator.jipinshop.activity.web.TaoBaoWebActivity;
+import com.example.administrator.jipinshop.adapter.KTTabAdapter4;
 import com.example.administrator.jipinshop.adapter.TBSreachResultAdapter;
 import com.example.administrator.jipinshop.base.BaseActivity;
 import com.example.administrator.jipinshop.bean.TBSreachResultBean;
@@ -28,6 +30,8 @@ import com.example.administrator.jipinshop.util.TaoBaoUtil;
 import com.example.administrator.jipinshop.util.ToastUtil;
 import com.example.administrator.jipinshop.util.sp.CommonDate;
 import com.example.administrator.jipinshop.view.dialog.ProgressDialogView;
+
+import net.lucode.hackware.magicindicator.buildins.commonnavigator.CommonNavigator;
 
 import org.greenrobot.eventbus.EventBus;
 
@@ -41,7 +45,7 @@ import javax.inject.Inject;
  * @create 2019/12/3
  * @Describe 搜索结果页
  */
-public class TBSreachResultActivity extends BaseActivity implements View.OnClickListener, TBSreachResultView, OnLoadMoreListener, OnRefreshListener, TBSreachResultAdapter.OnItem {
+public class TBSreachResultActivity extends BaseActivity implements View.OnClickListener, TBSreachResultView, OnLoadMoreListener, OnRefreshListener, TBSreachResultAdapter.OnItem, KTTabAdapter4.OnItem {
 
     @Inject
     TBSreachResultPresenter mPresenter;
@@ -49,7 +53,6 @@ public class TBSreachResultActivity extends BaseActivity implements View.OnClick
     private ActivitySreachTbResultBinding mBinding;
     private Dialog mDialog;
     private String keyword = "";
-    private String type = "";
     private String asc = "";
     private String orderByType = "0";
     private List<TBSreachResultBean.DataBean> mList;
@@ -58,6 +61,10 @@ public class TBSreachResultActivity extends BaseActivity implements View.OnClick
     private Boolean refresh = true;
     private List<TextView> mTextViews;
     private Boolean once = true;//是否是第一次进入页面
+    //tab
+    private KTTabAdapter4 mTabAdapter;
+    private List<String> titles;
+    private String type = "";//搜索类型
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -74,16 +81,36 @@ public class TBSreachResultActivity extends BaseActivity implements View.OnClick
         type = getIntent().getStringExtra("type");
         mBinding.titleEdit.setText(keyword);
         mBinding.titleEdit.setSelection(mBinding.titleEdit.getText().length());//将光标移至文字末尾
-        if (type.equals("1")){
-            mBinding.sreachTypeJp.setTextColor(getResources().getColor(R.color.color_E25838));
-            mBinding.sreachJpLine.setVisibility(View.VISIBLE);
-            mBinding.sreachTypeTb.setTextColor(getResources().getColor(R.color.color_9D9D9D));
-            mBinding.sreachTbLine.setVisibility(View.INVISIBLE);
-        }else {
-            mBinding.sreachTypeJp.setTextColor(getResources().getColor(R.color.color_9D9D9D));
-            mBinding.sreachJpLine.setVisibility(View.INVISIBLE);
-            mBinding.sreachTypeTb.setTextColor(getResources().getColor(R.color.color_E25838));
-            mBinding.sreachTbLine.setVisibility(View.VISIBLE);
+        //选择tab
+        CommonNavigator commonNavigator = new CommonNavigator(this);
+        titles = new ArrayList<>();
+        titles.add("淘宝");
+        titles.add("京东");
+        titles.add("拼多多");
+        mTabAdapter = new KTTabAdapter4(titles);
+        mTabAdapter.setOnClick(this);
+        mTabAdapter.setColor(getResources().getColor(R.color.color_202020),
+                getResources().getColor(R.color.color_E25838));
+        mTabAdapter.setTextSize(16f);
+        commonNavigator.setAdapter(mTabAdapter);
+        mBinding.titleContainer.setNavigator(commonNavigator);
+        LinearLayout titleContainer = commonNavigator.getTitleContainer();
+        titleContainer.setShowDividers(LinearLayout.SHOW_DIVIDER_MIDDLE);
+        titleContainer.setDividerDrawable(new ColorDrawable(){
+            @Override
+            public int getIntrinsicWidth() {
+                return (int) getResources().getDimension(R.dimen.x130);
+            }
+        });
+        if (type.equals("2")){ //淘宝
+            mBinding.titleContainer.onPageSelected(0);
+            mBinding.titleContainer.onPageScrolled(0, 0.0F, 0);
+        }else if (type.equals("1")){//京东
+            mBinding.titleContainer.onPageSelected(1);
+            mBinding.titleContainer.onPageScrolled(1, 0.0F, 0);
+        }else {//拼多多
+            mBinding.titleContainer.onPageSelected(2);
+            mBinding.titleContainer.onPageScrolled(2, 0.0F, 0);
         }
         mTextViews = new ArrayList<>();
         mTextViews.add(mBinding.titleZh);
@@ -120,26 +147,6 @@ public class TBSreachResultActivity extends BaseActivity implements View.OnClick
                 mDialog = (new ProgressDialogView()).createLoadingDialog(this, "");
                 mDialog.show();
                 keyword = mBinding.titleEdit.getText().toString();
-                onRefresh();
-                break;
-            case R.id.sreach_jp:
-                type = "1";
-                mBinding.sreachTypeJp.setTextColor(getResources().getColor(R.color.color_E25838));
-                mBinding.sreachJpLine.setVisibility(View.VISIBLE);
-                mBinding.sreachTypeTb.setTextColor(getResources().getColor(R.color.color_9D9D9D));
-                mBinding.sreachTbLine.setVisibility(View.INVISIBLE);
-                mDialog = (new ProgressDialogView()).createLoadingDialog(this, "");
-                mDialog.show();
-                onRefresh();
-                break;
-            case R.id.sreach_tb:
-                type = "2";
-                mBinding.sreachTypeJp.setTextColor(getResources().getColor(R.color.color_9D9D9D));
-                mBinding.sreachJpLine.setVisibility(View.INVISIBLE);
-                mBinding.sreachTypeTb.setTextColor(getResources().getColor(R.color.color_E25838));
-                mBinding.sreachTbLine.setVisibility(View.VISIBLE);
-                mDialog = (new ProgressDialogView()).createLoadingDialog(this, "");
-                mDialog.show();
                 onRefresh();
                 break;
             case R.id.title_zh:
@@ -218,23 +225,13 @@ public class TBSreachResultActivity extends BaseActivity implements View.OnClick
             if (bean.getData() != null && bean.getData().size() != 0){
                 //有数据
                 mList.clear();
-                if (bean.getData().get(0).getGoodsType() == 3){//没有数据时
-                    if (once && type.equals("1")){//第一次进入页面且type=1
-                        ToastUtil.show("极品城暂无相关推荐");
-                        type = "2";
-                        mBinding.sreachTypeJp.setTextColor(getResources().getColor(R.color.color_9D9D9D));
-                        mBinding.sreachJpLine.setVisibility(View.INVISIBLE);
-                        mBinding.sreachTypeTb.setTextColor(getResources().getColor(R.color.color_E25838));
-                        mBinding.sreachTbLine.setVisibility(View.VISIBLE);
-                        onRefresh();
-                        once = false;
-                    }else {
-                        dissRefresh();
-                        TBSreachResultBean.DataBean headBean = new TBSreachResultBean.DataBean();
-                        headBean.setGoodsType(4);
-                        mList.add(headBean);
-                        mList.addAll(bean.getData());
-                    }
+                if (bean.getData().get(0).getGoodsType() == 3){
+                    //淘宝没有数据时
+                    dissRefresh();
+                    TBSreachResultBean.DataBean headBean = new TBSreachResultBean.DataBean();
+                    headBean.setGoodsType(4);
+                    mList.add(headBean);
+                    mList.addAll(bean.getData());
                 }else {
                     dissRefresh();
                     for (int i = 0; i < bean.getData().size(); i++) {
@@ -248,6 +245,15 @@ public class TBSreachResultActivity extends BaseActivity implements View.OnClick
                         }
                     }
                 }
+                mAdapter.notifyDataSetChanged();
+            }else {
+                //京东、拼多多没有数据时
+                dissRefresh();
+                mList.clear();
+                TBSreachResultBean.DataBean headBean = new TBSreachResultBean.DataBean();
+                headBean.setGoodsType(5);
+                mList.add(headBean);
+                mList.addAll(bean.getData());
                 mAdapter.notifyDataSetChanged();
             }
         }else {
@@ -334,12 +340,10 @@ public class TBSreachResultActivity extends BaseActivity implements View.OnClick
             startActivity(new Intent(this, LoginActivity.class));
             return;
         }
-        String specialId2 = SPUtils.getInstance(CommonDate.USER).getString(CommonDate.relationId,"");
-        if (TextUtils.isEmpty(specialId2) || specialId2.equals("null")){
-            TaoBaoUtil.aliLogin(topAuthCode -> {
-                startActivity(new Intent(this, TaoBaoWebActivity.class)
-                        .putExtra(TaoBaoWebActivity.url, "https://oauth.taobao.com/authorize?response_type=code&client_id=25612235&redirect_uri=https://www.jipincheng.cn/qualityshop-api/api/taobao/returnUrl&state="+SPUtils.getInstance(CommonDate.USER).getString(CommonDate.token)+"&view=wap")
-                        .putExtra(TaoBaoWebActivity.title,"淘宝授权")
+        if (TextUtils.isEmpty(mList.get(position).getSource()) || mList.get(position).getSource().equals("2")){
+            TaoBaoUtil.openTB(this, () -> {
+                startActivity(new Intent(TBSreachResultActivity.this, ShareActivity.class)
+                        .putExtra("otherGoodsId",mList.get(position).getOtherGoodsId())
                 );
             });
         }else {
@@ -357,4 +361,20 @@ public class TBSreachResultActivity extends BaseActivity implements View.OnClick
         }
     }
 
+    @Override
+    public void onClick(int position) {
+        mBinding.titleContainer.onPageSelected(position);
+        mBinding.titleContainer.onPageScrolled(position, 0.0F, 0);
+        if (position == 0){
+            //搜淘宝
+            type = "2";
+        }else if (position == 1){//京东
+            type = "1";
+        }else {//拼多多
+            type = "4";
+        }
+        mDialog = (new ProgressDialogView()).createLoadingDialog(this, "");
+        mDialog.show();
+        onRefresh();
+    }
 }

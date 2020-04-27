@@ -1,7 +1,10 @@
 package com.example.administrator.jipinshop.util;
 
 import android.app.Activity;
+import android.content.Context;
+import android.content.Intent;
 import android.text.TextUtils;
+import android.view.View;
 import android.webkit.WebChromeClient;
 import android.webkit.WebViewClient;
 import android.widget.Toast;
@@ -18,6 +21,10 @@ import com.alibaba.baichuan.trade.biz.core.taoke.AlibcTaokeParams;
 import com.alibaba.baichuan.trade.biz.login.AlibcLogin;
 import com.alibaba.baichuan.trade.biz.login.AlibcLoginCallback;
 import com.alibaba.baichuan.trade.common.utils.AlibcLogger;
+import com.blankj.utilcode.util.SPUtils;
+import com.example.administrator.jipinshop.activity.share.ShareActivity;
+import com.example.administrator.jipinshop.activity.web.TaoBaoWebActivity;
+import com.example.administrator.jipinshop.util.sp.CommonDate;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -134,5 +141,24 @@ public class TaoBaoUtil {
             public void onFailure(int code, String msg) {
             }
         });
+    }
+
+    //统一授权管理
+    public static void openTB(Context context , OnItem listener){
+        String specialId2 = SPUtils.getInstance(CommonDate.USER).getString(CommonDate.relationId, "");
+        if (TextUtils.isEmpty(specialId2) || specialId2.equals("null")) {
+            TaoBaoUtil.aliLogin(topAuthCode -> {
+                context.startActivity(new Intent(context, TaoBaoWebActivity.class)
+                        .putExtra(TaoBaoWebActivity.url, "https://oauth.taobao.com/authorize?response_type=code&client_id=25612235&redirect_uri=https://www.jipincheng.cn/qualityshop-api/api/taobao/returnUrl&state=" + SPUtils.getInstance(CommonDate.USER).getString(CommonDate.token) + "&view=wap")
+                        .putExtra(TaoBaoWebActivity.title, "淘宝授权")
+                );
+            });
+        } else {
+            if (listener != null) listener.go();
+        }
+    }
+
+    public interface OnItem{
+        void go();
     }
 }

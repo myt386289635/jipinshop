@@ -1,14 +1,12 @@
 package com.example.administrator.jipinshop.activity.tryout.freedetail;
 
 import android.app.Dialog;
-import android.content.Intent;
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.AppBarLayout;
 import android.support.v4.app.Fragment;
 import android.text.Html;
-import android.text.TextUtils;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.ImageView;
@@ -17,7 +15,6 @@ import android.widget.RelativeLayout;
 import com.alibaba.baichuan.android.trade.AlibcTradeSDK;
 import com.blankj.utilcode.util.SPUtils;
 import com.example.administrator.jipinshop.R;
-import com.example.administrator.jipinshop.activity.web.TaoBaoWebActivity;
 import com.example.administrator.jipinshop.adapter.HomeAdapter;
 import com.example.administrator.jipinshop.adapter.NoPageBannerAdapter;
 import com.example.administrator.jipinshop.base.BaseActivity;
@@ -137,22 +134,14 @@ public class FreeNewDetailActivity extends BaseActivity implements View.OnClickL
             case R.id.detail_invation:
                 if (mBinding.detailInvation.getText().toString().equals("立即购买")){
                     //弹框
-                    String specialId = SPUtils.getInstance(CommonDate.USER).getString(CommonDate.relationId,"");
-                    if (TextUtils.isEmpty(specialId) || specialId.equals("null")){
-                        TaoBaoUtil.aliLogin(topAuthCode -> {
-                            startActivity(new Intent(this, TaoBaoWebActivity.class)
-                                    .putExtra(TaoBaoWebActivity.url, "https://oauth.taobao.com/authorize?response_type=code&client_id=25612235&redirect_uri=https://www.jipincheng.cn/qualityshop-api/api/taobao/returnUrl&state="+SPUtils.getInstance(CommonDate.USER).getString(CommonDate.token)+"&view=wap")
-                                    .putExtra(TaoBaoWebActivity.title,"淘宝授权")
-                            );
-                        });
-                    }else {
+                    TaoBaoUtil.openTB(this, () -> {
                         DialogUtil.freeBuyDialog(this, actualPrice, freePrice, v1 -> {
                             //去购买
                             mDialog = (new ProgressDialogView()).createLoadingDialog(this, "");
                             mDialog.show();
                             mPresenter.freeAppley(freeId,this.bindToLifecycle());
                         });
-                    }
+                    });
                 }else {
                     //邀请
                     if (mShareBoardDialog == null) {

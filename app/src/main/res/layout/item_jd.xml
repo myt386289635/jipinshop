@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <RelativeLayout
+            android:background="@color/color_white"
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/y100">
+
+            <net.lucode.hackware.magicindicator.MagicIndicator
+                android:layout_centerVertical="true"
+                android:layout_marginBottom="@dimen/y15"
+                android:layout_marginTop="@dimen/y15"
+                android:id="@+id/daily_mainMenu"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"/>
+
+            <View
+                android:layout_alignParentBottom="true"
+                android:background="@color/color_DEDEDE"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/y1"/>
+
+        </RelativeLayout>
+
+        <include
+            layout="@layout/common_net_error2"
+            android:id="@+id/net_clude"/>
+
+    </LinearLayout>
+
+
+</layout>

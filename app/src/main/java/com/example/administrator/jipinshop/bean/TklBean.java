@@ -76,17 +76,26 @@ public class TklBean {
             private String otherName;
             private String otherPrice;
             private String shopName;
-            private int volume;
+            private String volume;
             private String commissionRate;
             private String fee;
             private String buyPrice;
             private String buyRate;
+            private String source;
 
             //邀请好友时返的bean
             private String avatar;
             private String nickname;
             private String invitationCode;
             private String addPoint;
+
+            public String getSource() {
+                return source;
+            }
+
+            public void setSource(String source) {
+                this.source = source;
+            }
 
             public String getAvatar() {
                 return avatar;
@@ -192,11 +201,11 @@ public class TklBean {
                 this.shopName = shopName;
             }
 
-            public int getVolume() {
+            public String getVolume() {
                 return volume;
             }
 
-            public void setVolume(int volume) {
+            public void setVolume(String volume) {
                 this.volume = volume;
             }
 

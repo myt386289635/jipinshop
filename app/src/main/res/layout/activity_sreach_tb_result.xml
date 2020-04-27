@@ -79,78 +79,18 @@
 
         </RelativeLayout>
 
-        <LinearLayout
-            android:layout_marginRight="@dimen/x30"
-            android:layout_marginLeft="@dimen/x30"
+        <RelativeLayout
             android:layout_marginTop="@dimen/y18"
-            android:weightSum="2"
-            android:orientation="horizontal"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
+            <net.lucode.hackware.magicindicator.MagicIndicator
+                android:layout_centerHorizontal="true"
+                android:id="@+id/title_container"
+                android:layout_width="wrap_content"
+                android:layout_height="@dimen/y75"/>
 
-            <RelativeLayout
-                android:onClick="@{listener.onClick}"
-                android:id="@+id/sreach_jp"
-                android:layout_weight="1"
-                android:orientation="vertical"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content">
-
-                <TextView
-                    android:id="@+id/sreach_type_jp"
-                    android:layout_centerHorizontal="true"
-                    android:textSize="18sp"
-                    android:textStyle="bold"
-                    android:textColor="@color/color_E25838"
-                    android:text="搜极品城"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"/>
-
-                <View
-                    android:id="@+id/sreach_jp_line"
-                    android:layout_marginTop="@dimen/y11"
-                    android:layout_below="@id/sreach_type_jp"
-                    android:layout_alignRight="@id/sreach_type_jp"
-                    android:layout_alignLeft="@id/sreach_type_jp"
-                    android:background="@color/color_E25838"
-                    android:layout_width="match_parent"
-                    android:layout_height="6px"/>
-
-            </RelativeLayout>
-
-            <RelativeLayout
-                android:onClick="@{listener.onClick}"
-                android:id="@+id/sreach_tb"
-                android:layout_weight="1"
-                android:orientation="vertical"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content">
-
-                <TextView
-                    android:id="@+id/sreach_type_tb"
-                    android:layout_centerHorizontal="true"
-                    android:textSize="18sp"
-                    android:textStyle="bold"
-                    android:textColor="@color/color_9D9D9D"
-                    android:text="搜淘宝"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"/>
-
-                <View
-                    android:id="@+id/sreach_tb_line"
-                    android:visibility="invisible"
-                    android:layout_marginTop="@dimen/y11"
-                    android:layout_below="@id/sreach_type_tb"
-                    android:layout_alignRight="@id/sreach_type_tb"
-                    android:layout_alignLeft="@id/sreach_type_tb"
-                    android:background="@color/color_E25838"
-                    android:layout_width="match_parent"
-                    android:layout_height="6px"/>
-
-            </RelativeLayout>
-
-        </LinearLayout>
+        </RelativeLayout>
 
         <View
             android:background="@color/color_D8D8D8"
@@ -231,6 +171,7 @@
             android:layout_height="1px"/>
 
         <com.aspsine.swipetoloadlayout.SwipeToLoadLayout
+            android:background="@color/color_F5F5F5"
             android:id="@+id/swipeToLoad"
             android:layout_width="match_parent"
             android:layout_height="match_parent">
