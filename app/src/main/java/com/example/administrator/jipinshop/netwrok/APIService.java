@@ -1,7 +1,5 @@
 package com.example.administrator.jipinshop.netwrok;
 
-import com.example.administrator.jipinshop.bean.Action11Bean;
-import com.example.administrator.jipinshop.bean.Activity11Bean;
 import com.example.administrator.jipinshop.bean.AddressBean;
 import com.example.administrator.jipinshop.bean.AllowanceRecordBean;
 import com.example.administrator.jipinshop.bean.AppVersionbean;
@@ -60,7 +58,6 @@ import com.example.administrator.jipinshop.bean.SreachBean;
 import com.example.administrator.jipinshop.bean.SreachHistoryBean;
 import com.example.administrator.jipinshop.bean.SreachResultArticlesBean;
 import com.example.administrator.jipinshop.bean.SreachResultGoodsBean;
-import com.example.administrator.jipinshop.bean.StartPageBean;
 import com.example.administrator.jipinshop.bean.SucBean;
 import com.example.administrator.jipinshop.bean.SucBeanT;
 import com.example.administrator.jipinshop.bean.SuccessBean;
@@ -162,12 +159,6 @@ public interface APIService {
      */
     @GET("api/goodsList")
     Observable<HomeCommenBean> goodRank(@QueryMap Map<String,String> param);
-
-//    /**
-//     * 榜单二级分类商品列表
-//     */
-//    @GET("api/goodsList2")
-//    Observable<SreachResultGoodsBean> goodsList2(@Query("category2Id")String category2Id,@Query("orderbyType")String orderbyType,@Query("client")String client);
 
     /**
      * 商品详情  已修改
@@ -553,12 +544,6 @@ public interface APIService {
     Observable<SuccessBean> myTrialConfirm(@Field("trialId") String trialId);
 
     /**
-     * 启动页
-     */
-    @GET("api/getStartupImgs")
-    Observable<StartPageBean> getStartupImgs();
-
-    /**
      * 获取我的某个试用品的试用报告
      */
     @GET("api/my/trial/reportInfo")
@@ -933,30 +918,6 @@ public interface APIService {
     Observable<ScoreStatusBean> getScoreStatus();
 
     /**
-     * 是否开启双11活动
-     */
-    @GET("api/v2/open11")
-    Observable<ScoreStatusBean> open11();
-
-    /**
-     * 双11活动首页
-     */
-    @GET("api/v2/activity11/index")
-    Observable<Action11Bean> activity11Index();
-
-    /**
-     * 双11活动首页商品列表
-     */
-    @GET("api/v2/activity11/goodsList")
-    Observable<SucBean<Action11Bean.DataBean.GoodsDataListBean>> activity11GoodsList(@Query("page") int page);
-
-    /**
-     * 双11活动专题商品列表
-     */
-    @GET("api/v2/activity11/category/goodsList")
-    Observable<Activity11Bean> activity11Category(@Query("articleCategoryId") String articleCategoryId, @Query("page") int page);
-
-    /**
      * 免单列表
      */
     @GET("api/v2/free/list")
@@ -1104,14 +1065,6 @@ public interface APIService {
      */
     @GET("api/welfareList")
     Observable<WelfareBean> welfareList();
-
-
-    /**
-     * 生成商品海报
-     */
-    @FormUrlEncoded
-    @POST("api/tbk/getTbkGoodsPosterImg")
-    Observable<ImageBean> getTbkGoodsPoster(@Field("otherGoodsId") String otherGoodsId);
 
     /**
      *  后台统计

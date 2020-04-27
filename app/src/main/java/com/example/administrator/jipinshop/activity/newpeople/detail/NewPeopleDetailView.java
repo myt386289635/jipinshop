@@ -20,8 +20,5 @@ public interface NewPeopleDetailView {
 
     void onDescImgs(SucBean<String> bean);
 
-    void onShareSuc(ImageBean bean,String path , String shareName);
-    void onShareFile(String path , String shareName, String shareImage);
-
     void onIsNewUser(TBShoppingDetailBean bean);
 }

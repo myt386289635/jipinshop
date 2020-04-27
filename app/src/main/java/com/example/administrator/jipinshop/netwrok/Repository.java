@@ -1,7 +1,5 @@
 package com.example.administrator.jipinshop.netwrok;
 
-import com.example.administrator.jipinshop.bean.Action11Bean;
-import com.example.administrator.jipinshop.bean.Activity11Bean;
 import com.example.administrator.jipinshop.bean.AddressBean;
 import com.example.administrator.jipinshop.bean.AllowanceRecordBean;
 import com.example.administrator.jipinshop.bean.AppVersionbean;
@@ -60,7 +58,6 @@ import com.example.administrator.jipinshop.bean.SreachBean;
 import com.example.administrator.jipinshop.bean.SreachHistoryBean;
 import com.example.administrator.jipinshop.bean.SreachResultArticlesBean;
 import com.example.administrator.jipinshop.bean.SreachResultGoodsBean;
-import com.example.administrator.jipinshop.bean.StartPageBean;
 import com.example.administrator.jipinshop.bean.SucBean;
 import com.example.administrator.jipinshop.bean.SucBeanT;
 import com.example.administrator.jipinshop.bean.SuccessBean;
@@ -213,14 +210,6 @@ public class Repository {
     public Observable<HomeCommenBean> goodRank(Map<String,String> param){
         return mAPIService.goodRank(param);
     }
-
-//    /**
-//     * 榜单二级分类商品列表
-//     */
-//    public Observable<SreachResultGoodsBean> goodsList2(String category2Id,String orderbyType){
-//        return mAPIService.goodsList2(category2Id,orderbyType,"1");
-//    }
-
 
     /**
      * 商品详情
@@ -585,13 +574,6 @@ public class Repository {
      */
     public Observable<SuccessBean> myTrialConfirm(String trialId){
         return mAPIService.myTrialConfirm(trialId);
-    }
-
-    /**
-     * 启动页
-     */
-    public Observable<StartPageBean> getStartupImgs(){
-        return mAPIService.getStartupImgs();
     }
 
     /**
@@ -1016,34 +998,6 @@ public class Repository {
     }
 
     /**
-     * 是否开启双11活动
-     */
-    public Observable<ScoreStatusBean> open11(){
-        return mAPIService.open11();
-    }
-
-    /**
-     * 双11活动首页
-     */
-    public Observable<Action11Bean> activity11Index(){
-        return mAPIService.activity11Index();
-    }
-
-    /**
-     * 双11活动首页商品列表
-     */
-    public Observable<SucBean<Action11Bean.DataBean.GoodsDataListBean>> activity11GoodsList(int page){
-        return mAPIService.activity11GoodsList(page);
-    }
-
-    /**
-     * 双11活动专题商品列表
-     */
-    public Observable<Activity11Bean> activity11Category(String articleCategoryId,int page){
-        return mAPIService.activity11Category(articleCategoryId, page);
-    }
-
-    /**
      * 免单列表
      */
     public Observable<V2FreeListBean> freeList(int page , String type){
@@ -1209,13 +1163,6 @@ public class Repository {
      */
     public Observable<WelfareBean> welfareList(){
         return mAPIService.welfareList();
-    }
-
-    /**
-     * 生成商品海报
-     */
-    public Observable<ImageBean> getTbkGoodsPoster(String otherGoodsId){
-        return mAPIService.getTbkGoodsPoster(otherGoodsId);
     }
 
     /**

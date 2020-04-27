@@ -21,6 +21,7 @@ import com.blankj.utilcode.util.SPUtils;
 import com.example.administrator.jipinshop.R;
 import com.example.administrator.jipinshop.activity.cheapgoods.CheapBuyActivity;
 import com.example.administrator.jipinshop.activity.login.LoginActivity;
+import com.example.administrator.jipinshop.activity.share.ShareActivity;
 import com.example.administrator.jipinshop.adapter.NoPageBannerAdapter;
 import com.example.administrator.jipinshop.adapter.ShoppingImageAdapter;
 import com.example.administrator.jipinshop.adapter.ShoppingParameterAdapter;
@@ -32,22 +33,17 @@ import com.example.administrator.jipinshop.bean.SimilerGoodsBean;
 import com.example.administrator.jipinshop.bean.SucBean;
 import com.example.administrator.jipinshop.bean.TBShoppingDetailBean;
 import com.example.administrator.jipinshop.databinding.ActivityNewpeopleDetailBinding;
-import com.example.administrator.jipinshop.netwrok.RetrofitModule;
 import com.example.administrator.jipinshop.util.DeviceUuidFactory;
-import com.example.administrator.jipinshop.util.ShareUtils;
 import com.example.administrator.jipinshop.util.TaoBaoUtil;
 import com.example.administrator.jipinshop.util.ToastUtil;
-import com.example.administrator.jipinshop.util.share.MobLinkUtil;
 import com.example.administrator.jipinshop.util.sp.CommonDate;
 import com.example.administrator.jipinshop.view.dialog.DialogParameter;
 import com.example.administrator.jipinshop.view.dialog.DialogQuality;
 import com.example.administrator.jipinshop.view.dialog.ProgressDialogView;
-import com.example.administrator.jipinshop.view.dialog.ShareBoardDialog;
 import com.example.administrator.jipinshop.view.textview.CenteredImageSpan;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.umeng.socialize.UMShareAPI;
-import com.umeng.socialize.bean.SHARE_MEDIA;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
@@ -61,7 +57,7 @@ import javax.inject.Inject;
  * @create 2019/11/14
  * @Describe 新人专区详情
  */
-public class NewPeopleDetailActivity extends BaseActivity implements View.OnClickListener, ShoppingQualityAdapter.OnItem, ShoppingParameterAdapter.OnItem, ShoppingUserLikeAdapter.OnItem, NewPeopleDetailView, ShareBoardDialog.onShareListener {
+public class NewPeopleDetailActivity extends BaseActivity implements View.OnClickListener, ShoppingQualityAdapter.OnItem, ShoppingParameterAdapter.OnItem, ShoppingUserLikeAdapter.OnItem, NewPeopleDetailView{
 
     @Inject
     NewPeopleDetailPresenter mPresenter;
@@ -90,11 +86,6 @@ public class NewPeopleDetailActivity extends BaseActivity implements View.OnClic
     //猜你喜欢
     private List<SimilerGoodsBean.DataBean> mUserLikeList;
     private ShoppingUserLikeAdapter mLikeAdapter;
-    //分享面板
-    private ShareBoardDialog mShareBoardDialog;
-    private int sharePosition = 0;//分享的位置
-    private String shareContent = "";
-    private String shareUrl = "";
     private int goodsType = 2;//1是极品城  2是淘宝
     private boolean isNewUser = false; //默认不是新人
     private Boolean jumpPage = false;//是否跳转特惠购页面
@@ -238,45 +229,15 @@ public class NewPeopleDetailActivity extends BaseActivity implements View.OnClic
 
     @Override
     public void onItemShare(int position) {
-        if (TextUtils.isEmpty(SPUtils.getInstance(CommonDate.USER).getString(CommonDate.token, ""))) {
+        if(TextUtils.isEmpty(SPUtils.getInstance(CommonDate.USER).getString(CommonDate.token,""))){
             startActivityForResult(new Intent(this, LoginActivity.class),201);
             return;
         }
-        sharePosition = position;
-        if (mShareBoardDialog == null) {
-            mShareBoardDialog = ShareBoardDialog.getInstance("","");
-            mShareBoardDialog.setOnShareListener(this);
-        }
-        if (!mShareBoardDialog.isAdded()) {
-            mShareBoardDialog.show(getSupportFragmentManager(), "ShareBoardDialog");
-        }
-    }
-
-    @Override
-    public void share(SHARE_MEDIA share_media) {
-        mDialog = (new ProgressDialogView()).createLoadingDialog(this, "");
-        String id = "";
-        String[] itemShareImage = {""};
-        String[] itemShareName = {""};
-        id = mUserLikeList.get(sharePosition).getOtherGoodsId();
-        itemShareImage[0] = mUserLikeList.get(sharePosition).getImg();
-        itemShareName[0] =  mUserLikeList.get(sharePosition).getOtherName();
-        String path = "pages/list/main-v2-info/main?id=" + id;
-        shareUrl = RetrofitModule.H5_URL + "share/tbGoodsDetail.html?id=" + id;
-        if (share_media.equals(SHARE_MEDIA.WEIXIN)){
-            if(mDialog != null && !mDialog.isShowing()){
-                mDialog.show();
-            }
-            mPresenter.getTbkGoodsPoster(id , path, itemShareName[0] , itemShareImage[0],this.bindToLifecycle());
-        }else {
-            MobLinkUtil.mobShare(id, "/tbkGoodsDetail", mobID -> {
-                if (!TextUtils.isEmpty(mobID)){
-                    shareUrl += "&mobid=" + mobID;
-                }
-                new ShareUtils(this, share_media,mDialog)
-                        .shareWeb(this, shareUrl, itemShareName[0], shareContent, itemShareImage[0], R.mipmap.share_logo);
-            });
-        }
+        TaoBaoUtil.openTB(this, () -> {
+            startActivity(new Intent(NewPeopleDetailActivity.this, ShareActivity.class)
+                    .putExtra("otherGoodsId",mUserLikeList.get(position).getOtherGoodsId())
+            );
+        });
     }
 
     @Override
@@ -406,18 +367,6 @@ public class NewPeopleDetailActivity extends BaseActivity implements View.OnClic
         }else {
             ToastUtil.show("暂无商品详情");
         }
-    }
-
-    @Override
-    public void onShareSuc(ImageBean bean, String path, String shareName) {
-        new ShareUtils(this, SHARE_MEDIA.WEIXIN,mDialog)
-                .shareWXMin1(this,shareUrl,bean.getData(),shareName,shareContent,path);
-    }
-
-    @Override
-    public void onShareFile(String path, String shareName, String shareImage) {
-        new ShareUtils(this, SHARE_MEDIA.WEIXIN,mDialog)
-                .shareWXMin1(this,shareUrl,shareImage,shareName,shareContent,path);
     }
 
     @Override
