@@ -40,6 +40,7 @@ import com.example.administrator.jipinshop.databinding.ActivityTbShopDetailBindi
 import com.example.administrator.jipinshop.fragment.foval.goods.FovalGoodsFragment;
 import com.example.administrator.jipinshop.util.ClickUtil;
 import com.example.administrator.jipinshop.util.DeviceUuidFactory;
+import com.example.administrator.jipinshop.util.JDUtil;
 import com.example.administrator.jipinshop.util.PDDUtil;
 import com.example.administrator.jipinshop.util.TaoBaoUtil;
 import com.example.administrator.jipinshop.util.ToastUtil;
@@ -471,9 +472,8 @@ public class TBShoppingDetailActivity extends BaseActivity implements View.OnCli
     @Override
     public void onBuyLinkSuccess(ClickUrlBean bean) {
         if (source.equals("1")){
-            //京东还未跳转
-            // TODO: 2020/4/27
-            ToastUtil.show("京东还未跳转");
+            //京东
+            JDUtil.openJD(this, bean.getData().getMobileUrl());
         }else if (source.equals("4")){
             //拼多多
             PDDUtil.jumpPDD(this,bean.getData().getSchemaUrl(),bean.getData().getMobileUrl());

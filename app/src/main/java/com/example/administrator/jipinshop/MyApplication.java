@@ -16,6 +16,7 @@ import com.example.administrator.jipinshop.netwrok.ApplicationComponent;
 import com.example.administrator.jipinshop.netwrok.ApplicationModule;
 import com.example.administrator.jipinshop.netwrok.DaggerApplicationComponent;
 import com.example.administrator.jipinshop.util.DebugHelper;
+import com.example.administrator.jipinshop.util.JDUtil;
 import com.example.administrator.jipinshop.util.share.SceneListener;
 import com.example.administrator.jipinshop.util.sp.CommonDate;
 import com.mob.moblink.MobLink;
@@ -133,6 +134,9 @@ public class MyApplication extends Application {
 
         //初始化mobLink
         MobLink.setRestoreSceneListener(new SceneListener());
+
+        //初始化京东SDK
+        JDUtil.init();
     }
     private RefWatcher mRefWatcher;
     public static RefWatcher getRefWatcher() {

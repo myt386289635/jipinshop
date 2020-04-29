@@ -246,6 +246,9 @@ dependencies {
 
     //支付宝授权SDK AAR 包所需的配置
     implementation(name:'alipaySdk-15.7.3-20200217092949-noUtdid', ext:'aar')
+
+    //集成京东sdk
+    implementation project(':jdSdk')
 }
 
 configurations {
