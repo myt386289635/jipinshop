@@ -360,6 +360,7 @@ public class TBSreachActivity extends BaseActivity implements View.OnClickListen
         TaoBaoUtil.openTB(this, () -> {
             startActivity(new Intent(TBSreachActivity.this, ShareActivity.class)
                     .putExtra("otherGoodsId",mUserLikeList.get(position).getOtherGoodsId())
+                    .putExtra("source","2")
             );
         });
     }

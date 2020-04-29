@@ -273,6 +273,7 @@
                     android:layout_height="@dimen/y120"/>
 
                 <LinearLayout
+                    android:id="@+id/share_tbButtonContainer"
                     android:layout_gravity="center_horizontal"
                     android:layout_marginTop="@dimen/y20"
                     android:orientation="horizontal"
@@ -321,6 +322,49 @@
                         android:textSize="14sp"
                         android:textColor="@color/color_202020"
                         android:layout_marginLeft="@dimen/x50"
+                        android:gravity="center_vertical"
+                        android:drawablePadding="@dimen/x10"
+                        android:drawableLeft="@drawable/share_tab"
+                        android:button="@null"
+                        android:text="邀请码"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"/>
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/share_otherButtonContainer"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_marginTop="@dimen/y20"
+                    android:orientation="horizontal"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content">
+
+                    <CheckBox
+                        android:paddingBottom="@dimen/y10"
+                        android:paddingTop="@dimen/y10"
+                        android:background="@android:color/transparent"
+                        android:id="@+id/share_other_checkBox1"
+                        android:textSize="14sp"
+                        android:textColor="@color/color_202020"
+                        android:gravity="center_vertical"
+                        android:checked="true"
+                        android:drawablePadding="@dimen/x10"
+                        android:drawableLeft="@drawable/share_tab"
+                        android:button="@null"
+                        android:text="抢购地址"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"/>
+
+                    <CheckBox
+                        android:paddingBottom="@dimen/y10"
+                        android:paddingTop="@dimen/y10"
+                        android:checked="true"
+                        android:background="@android:color/transparent"
+                        android:id="@+id/share_other_checkBox2"
+                        android:textSize="14sp"
+                        android:textColor="@color/color_202020"
+                        android:layout_marginLeft="@dimen/x60"
                         android:gravity="center_vertical"
                         android:drawablePadding="@dimen/x10"
                         android:drawableLeft="@drawable/share_tab"

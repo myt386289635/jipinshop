@@ -225,11 +225,13 @@ public class TBShoppingDetailActivity extends BaseActivity implements View.OnCli
                     TaoBaoUtil.openTB(this, () -> {
                         startActivity(new Intent(this, ShareActivity.class)
                                 .putExtra("otherGoodsId",goodsId)
+                                .putExtra("source",source)
                         );
                     });
                 }else {
                     startActivity(new Intent(this, ShareActivity.class)
                             .putExtra("otherGoodsId",goodsId)
+                            .putExtra("source",source)
                     );
                 }
                 break;
@@ -568,6 +570,7 @@ public class TBShoppingDetailActivity extends BaseActivity implements View.OnCli
         TaoBaoUtil.openTB(this, () -> {
             startActivity(new Intent(TBShoppingDetailActivity.this, ShareActivity.class)
                     .putExtra("otherGoodsId",mUserLikeList.get(position).getOtherGoodsId())
+                    .putExtra("source","2")
             );
         });
     }

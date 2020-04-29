@@ -203,11 +203,13 @@ class HomeDetailActivity : BaseActivity(), View.OnClickListener, TBSreachResultA
             TaoBaoUtil.openTB(this){
                 startActivity(Intent(this, ShareActivity::class.java)
                         .putExtra("otherGoodsId", mList[position].otherGoodsId)
+                        .putExtra("source",mList[position].source)
                 )
             }
         }else{
             startActivity(Intent(this, ShareActivity::class.java)
                     .putExtra("otherGoodsId", mList[position].otherGoodsId)
+                    .putExtra("source",mList[position].source)
             )
         }
     }

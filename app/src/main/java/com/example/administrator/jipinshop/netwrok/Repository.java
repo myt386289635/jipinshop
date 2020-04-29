@@ -1273,8 +1273,8 @@ public class Repository {
     /**
      * 获取创建分享内容
      */
-    public Observable<ShareBean> getGoodsShareInfo(String otherGoodsId, int shareImgLocation){
-        return mAPIService.getGoodsShareInfo(otherGoodsId, shareImgLocation);
+    public Observable<ShareBean> getGoodsShareInfo(String otherGoodsId, int shareImgLocation,String source){
+        return mAPIService.getGoodsShareInfo(otherGoodsId, shareImgLocation,source);
     }
 
     /**

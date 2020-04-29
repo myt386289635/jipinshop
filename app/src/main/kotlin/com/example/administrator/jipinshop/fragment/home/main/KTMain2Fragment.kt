@@ -131,6 +131,9 @@ class KTMain2Fragment : DBBaseFragment(), KTMain2View, OnLoadMoreListener, OnRef
                 mList.clear()
                 mList.addAll(bean.data)
                 mAdapter.notifyDataSetChanged()
+            }else {
+                mList.clear()
+                mAdapter.notifyDataSetChanged()
             }
         }else{
             dissLoading()
@@ -199,11 +202,13 @@ class KTMain2Fragment : DBBaseFragment(), KTMain2View, OnLoadMoreListener, OnRef
             TaoBaoUtil.openTB(context){
                 startActivity(Intent(context, ShareActivity::class.java)
                         .putExtra("otherGoodsId", mList[position].otherGoodsId)
+                        .putExtra("source",mList[position].source)
                 )
             }
         }else{
             startActivity(Intent(context, ShareActivity::class.java)
                     .putExtra("otherGoodsId", mList[position].otherGoodsId)
+                    .putExtra("source",mList[position].source)
             )
         }
     }

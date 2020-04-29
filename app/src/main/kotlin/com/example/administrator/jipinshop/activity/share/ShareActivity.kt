@@ -10,6 +10,7 @@ import android.databinding.DataBindingUtil
 import android.net.Uri
 import android.os.Bundle
 import android.support.v7.widget.LinearLayoutManager
+import android.text.TextUtils
 import android.text.method.ScrollingMovementMethod
 import android.util.SparseArray
 import android.view.View
@@ -63,6 +64,7 @@ class ShareActivity : BaseActivity(), View.OnClickListener, ShareAdapter.OnClick
     private var baseComment: String = ""
     private var iwHelper: ImageWatcherHelper? = null
     private var layDecoration: DecorationLayout? = null
+    private var source : String = "2" //默认来源是淘宝 1京东,2淘宝，4拼多多
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -74,6 +76,9 @@ class ShareActivity : BaseActivity(), View.OnClickListener, ShareAdapter.OnClick
     }
 
     private fun initView() {
+        if (!TextUtils.isEmpty(intent.getStringExtra("source"))){
+            source = intent.getStringExtra("source")
+        }
         goodsId = intent.getStringExtra("otherGoodsId")//商品id
         mBinding.shareTitle.movementMethod = ScrollingMovementMethod.getInstance()
         mBinding.shareContent.movementMethod = ScrollingMovementMethod.getInstance()
@@ -82,6 +87,13 @@ class ShareActivity : BaseActivity(), View.OnClickListener, ShareAdapter.OnClick
         }
         mPresenter.initCheckBox(mBinding)
         mPresenter.initText(mBinding)
+        if (source.equals("2")){
+            mBinding.shareTbButtonContainer.visibility = View.VISIBLE
+            mBinding.shareOtherButtonContainer.visibility = View.GONE
+        }else{
+            mBinding.shareTbButtonContainer.visibility = View.GONE
+            mBinding.shareOtherButtonContainer.visibility = View.VISIBLE
+        }
 
         mShareImages = mutableListOf()
         mList = mutableListOf()
@@ -98,14 +110,22 @@ class ShareActivity : BaseActivity(), View.OnClickListener, ShareAdapter.OnClick
             if (!it.isShowing)
                 it.show()
         }
-        mPresenter.getGoodsShareInfo(goodsId,shareImgLocation,this.bindToLifecycle())
+        mPresenter.getGoodsShareInfo(goodsId,shareImgLocation,source,this.bindToLifecycle())
     }
 
+    //淘宝选择
     override fun initShareContent(checkBox1: Boolean, checkBox2: Boolean, checkBox3: Boolean) {
         var string = baseComment + "\n"
         if (checkBox2) string += downloadUrl + "\n"
         if (checkBox3) string += invitationCode  + "\n"
         if (checkBox1) string += tkl
+        mBinding.shareContent.text = string
+    }
+
+    //京东和拼多多选择
+    override fun initShareContent_other(checkBox: Boolean) {
+        var string = baseComment + "\n" + downloadUrl + "\n"
+        if (checkBox) string += invitationCode
         mBinding.shareContent.text = string
     }
 
@@ -141,7 +161,7 @@ class ShareActivity : BaseActivity(), View.OnClickListener, ShareAdapter.OnClick
                             if (!it.isShowing)
                                 it.show()
                         }
-                        mPresenter.refreshInfo("wechat",goodsId,shareImgLocation,this@ShareActivity.bindToLifecycle())
+                        mPresenter.refreshInfo("wechat",goodsId,shareImgLocation,source,this@ShareActivity.bindToLifecycle())
                     }
                 }, Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.WRITE_EXTERNAL_STORAGE)
             }
@@ -154,7 +174,7 @@ class ShareActivity : BaseActivity(), View.OnClickListener, ShareAdapter.OnClick
                             if (!it.isShowing)
                                 it.show()
                         }
-                        mPresenter.refreshInfo("pyq",goodsId,shareImgLocation,this@ShareActivity.bindToLifecycle())
+                        mPresenter.refreshInfo("pyq",goodsId,shareImgLocation,source,this@ShareActivity.bindToLifecycle())
                     }
                 }, Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.WRITE_EXTERNAL_STORAGE)
             }
@@ -167,7 +187,7 @@ class ShareActivity : BaseActivity(), View.OnClickListener, ShareAdapter.OnClick
                             if (!it.isShowing)
                                 it.show()
                         }
-                        mPresenter.refreshInfo("qq",goodsId,shareImgLocation,this@ShareActivity.bindToLifecycle())
+                        mPresenter.refreshInfo("qq",goodsId,shareImgLocation,source,this@ShareActivity.bindToLifecycle())
                     }
                 }, Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.WRITE_EXTERNAL_STORAGE)
             }
@@ -177,7 +197,7 @@ class ShareActivity : BaseActivity(), View.OnClickListener, ShareAdapter.OnClick
                     if (!it.isShowing)
                         it.show()
                 }
-                mPresenter.refreshInfo("wb",goodsId,shareImgLocation,this.bindToLifecycle())
+                mPresenter.refreshInfo("wb",goodsId,shareImgLocation,source,this.bindToLifecycle())
             }
             R.id.share_pic -> {
                 HasPermissionsUtil.permission(this, object : HasPermissionsUtil() {
@@ -188,7 +208,7 @@ class ShareActivity : BaseActivity(), View.OnClickListener, ShareAdapter.OnClick
                             if (!it.isShowing)
                                 it.show()
                         }
-                        mPresenter.refreshInfo("pic",goodsId,shareImgLocation,this@ShareActivity.bindToLifecycle())
+                        mPresenter.refreshInfo("pic",goodsId,shareImgLocation,source,this@ShareActivity.bindToLifecycle())
                     }
                 }, Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.WRITE_EXTERNAL_STORAGE)
             }
@@ -243,7 +263,11 @@ class ShareActivity : BaseActivity(), View.OnClickListener, ShareAdapter.OnClick
         temp = bean.data.shareImg
         mBinding.shareMoney.text = "分享后复制【评论区文案】，预估收益"+ bean.data.fee +"元！"
         mBinding.shareTitle.text = bean.data.content
-        mBinding.shareContent.text = bean.data.baseComment  + "\n" + bean.data.downloadUrl + "\n" + bean.data.invitationCode +"\n" + bean.data.tkl
+        if (source.equals("2")){
+            mBinding.shareContent.text = bean.data.baseComment  + "\n" + bean.data.downloadUrl + "\n" + bean.data.invitationCode +"\n" + bean.data.tkl
+        }else{
+            mBinding.shareContent.text = bean.data.baseComment + "\n" + bean.data.downloadUrl + "\n" + bean.data.invitationCode
+        }
         mList.clear()
         mList.addAll(bean.data.imgs)
         for (i in mList.indices){

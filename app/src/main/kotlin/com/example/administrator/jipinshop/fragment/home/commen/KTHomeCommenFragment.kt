@@ -181,11 +181,13 @@ class KTHomeCommenFragment : DBBaseFragment(), OnLoadMoreListener, OnRefreshList
             TaoBaoUtil.openTB(context){
                 startActivity(Intent(context, ShareActivity::class.java)
                         .putExtra("otherGoodsId", mList[position].otherGoodsId)
+                        .putExtra("source",mList[position].source)
                 )
             }
         }else{
             startActivity(Intent(context, ShareActivity::class.java)
                     .putExtra("otherGoodsId", mList[position].otherGoodsId)
+                    .putExtra("source",mList[position].source)
             )
         }
     }

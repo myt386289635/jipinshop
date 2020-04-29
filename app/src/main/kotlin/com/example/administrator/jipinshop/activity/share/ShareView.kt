@@ -17,6 +17,7 @@ interface ShareView {
     fun onRefresh(shareImage : String,type: String)
 
     fun initShareContent(checkBox1: Boolean , checkBox2: Boolean , checkBox3: Boolean)
+    fun initShareContent_other(checkBox: Boolean)
 
     fun downLoadSuc(share_media: SHARE_MEDIA?, imageUris: ArrayList<Uri>)
 }

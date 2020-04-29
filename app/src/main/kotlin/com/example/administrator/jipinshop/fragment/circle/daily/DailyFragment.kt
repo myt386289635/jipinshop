@@ -406,7 +406,7 @@ class DailyFragment : DBBaseFragment(), KTTabAdapter2.OnClickItem, KTTabAdapter3
         if (mList[mSharePosition].goodsInfo == null){
             onShare(share_media,"")
         }else{
-            mPresenter.getGoodsShareInfo(share_media,mList[mSharePosition].goodsInfo.otherGoodsId,1,this.bindToLifecycle())
+            mPresenter.getGoodsShareInfo(share_media,mList[mSharePosition].goodsInfo.otherGoodsId,1,mList[mSharePosition].goodsInfo.source,this.bindToLifecycle())
         }
     }
 
@@ -423,7 +423,7 @@ class DailyFragment : DBBaseFragment(), KTTabAdapter2.OnClickItem, KTTabAdapter3
         if (mList[mSharePosition].goodsInfo == null){
             onShare(SHARE_MEDIA.WEIXIN_CIRCLE,"")
         }else{
-            mPresenter.getGoodsShareInfo(SHARE_MEDIA.WEIXIN_CIRCLE,mList[mSharePosition].goodsInfo.otherGoodsId,1,this.bindToLifecycle())
+            mPresenter.getGoodsShareInfo(SHARE_MEDIA.WEIXIN_CIRCLE,mList[mSharePosition].goodsInfo.otherGoodsId,1,mList[mSharePosition].goodsInfo.source,this.bindToLifecycle())
         }
     }
 

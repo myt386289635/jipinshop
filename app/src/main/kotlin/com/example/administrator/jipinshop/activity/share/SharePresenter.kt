@@ -40,7 +40,7 @@ class SharePresenter {
         mView = view
     }
 
-    //checkBox的setOnClickListener能监听到点击事件，但是不要在该方法里设置isChecked，checkBox是先改变isChecked属性后触发点击事件
+    //checkBox的setOnClickListener能监听到点击事件，checkBox是先改变isChecked属性后触发点击事件
     //点击checkBox之后会自动更改图标，不需人为控制isChecked去改变
     fun initCheckBox(mBinding: ActivityShareBinding){
         mBinding.shareCheckBox1.setOnClickListener {
@@ -66,6 +66,15 @@ class SharePresenter {
         mBinding.shareCheckBox3.setOnClickListener {
             mView.initShareContent(mBinding.shareCheckBox1.isChecked,mBinding.shareCheckBox2.isChecked,
                     mBinding.shareCheckBox3.isChecked)
+        }
+        mBinding.shareOtherCheckBox1.setOnClickListener {
+            if (!mBinding.shareOtherCheckBox1.isChecked){
+                ToastUtil.show("无法取消抢购地址选项")
+                mBinding.shareOtherCheckBox1.isChecked = true
+            }
+        }
+        mBinding.shareOtherCheckBox2.setOnClickListener {
+            mView.initShareContent_other(mBinding.shareOtherCheckBox2.isChecked)
         }
     }
 
@@ -123,8 +132,8 @@ class SharePresenter {
     /**
      * 获取创建分享内容
      */
-    fun getGoodsShareInfo(otherGoodsId: String, shareImgLocation: Int , transformer: LifecycleTransformer<ShareBean>) {
-        mRepository.getGoodsShareInfo(otherGoodsId,shareImgLocation)
+    fun getGoodsShareInfo(otherGoodsId: String, shareImgLocation: Int , source : String,transformer: LifecycleTransformer<ShareBean>) {
+        mRepository.getGoodsShareInfo(otherGoodsId,shareImgLocation,source)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .compose(transformer)
@@ -142,8 +151,8 @@ class SharePresenter {
     /**
      * 获取海报
      */
-    fun refreshInfo(type: String , otherGoodsId: String, shareImgLocation: Int , transformer: LifecycleTransformer<ShareBean>){
-        mRepository.getGoodsShareInfo(otherGoodsId,shareImgLocation)
+    fun refreshInfo(type: String , otherGoodsId: String, shareImgLocation: Int , source : String,transformer: LifecycleTransformer<ShareBean>){
+        mRepository.getGoodsShareInfo(otherGoodsId,shareImgLocation,source)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .compose(transformer)

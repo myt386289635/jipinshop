@@ -135,8 +135,8 @@ class DailyPresenter {
     /**
      * 获取创建分享内容
      */
-    fun getGoodsShareInfo(share_media: SHARE_MEDIA?, otherGoodsId: String, shareImgLocation: Int, transformer: LifecycleTransformer<ShareBean>) {
-        mRepository.getGoodsShareInfo(otherGoodsId,shareImgLocation)
+    fun getGoodsShareInfo(share_media: SHARE_MEDIA?, otherGoodsId: String, shareImgLocation: Int, source : String, transformer: LifecycleTransformer<ShareBean>) {
+        mRepository.getGoodsShareInfo(otherGoodsId,shareImgLocation,source)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .compose(transformer)

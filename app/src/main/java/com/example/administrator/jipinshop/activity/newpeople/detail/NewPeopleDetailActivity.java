@@ -236,6 +236,7 @@ public class NewPeopleDetailActivity extends BaseActivity implements View.OnClic
         TaoBaoUtil.openTB(this, () -> {
             startActivity(new Intent(NewPeopleDetailActivity.this, ShareActivity.class)
                     .putExtra("otherGoodsId",mUserLikeList.get(position).getOtherGoodsId())
+                    .putExtra("source","2")
             );
         });
     }

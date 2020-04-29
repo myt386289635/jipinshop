@@ -344,11 +344,13 @@ public class TBSreachResultActivity extends BaseActivity implements View.OnClick
             TaoBaoUtil.openTB(this, () -> {
                 startActivity(new Intent(TBSreachResultActivity.this, ShareActivity.class)
                         .putExtra("otherGoodsId",mList.get(position).getOtherGoodsId())
+                        .putExtra("source",mList.get(position).getSource())
                 );
             });
         }else {
             startActivity(new Intent(this, ShareActivity.class)
                     .putExtra("otherGoodsId",mList.get(position).getOtherGoodsId())
+                    .putExtra("source",mList.get(position).getSource())
             );
         }
     }

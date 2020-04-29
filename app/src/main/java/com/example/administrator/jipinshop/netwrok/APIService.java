@@ -1162,8 +1162,10 @@ public interface APIService {
     /**
      * 获取创建分享内容
      */
-    @GET("api/tbk/getGoodsShareInfo")
-    Observable<ShareBean> getGoodsShareInfo(@Query("otherGoodsId") String otherGoodsId, @Query("shareImgLocation") int shareImgLocation);
+    @GET("api/v3/tbk/getGoodsShareInfo")
+    Observable<ShareBean> getGoodsShareInfo(@Query("otherGoodsId") String otherGoodsId,
+                                            @Query("shareImgLocation") int shareImgLocation,
+                                            @Query("source") String source);
 
     /**
      * 生成0元购海报
