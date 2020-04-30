@@ -64,6 +64,19 @@ public class SaleProgressView extends View {
     private Bitmap bgBitmap;
     private boolean isNeedAnim;
 
+
+    public void setSideColor(int sideColor) {
+        this.sideColor = sideColor;
+    }
+
+    public void setStartColor(int startColor) {
+        this.startColor = startColor;
+    }
+
+    public void setEndColor(int endColor) {
+        this.endColor = endColor;
+    }
+
     public SaleProgressView(Context context) {
         this(context, null);
     }
@@ -92,7 +105,6 @@ public class SaleProgressView extends View {
         sidePaint = new Paint(Paint.ANTI_ALIAS_FLAG);
         sidePaint.setStyle(Paint.Style.FILL_AND_STROKE);
         sidePaint.setStrokeWidth(sideWidth);
-        sidePaint.setColor(sideColor);
 
         srcPaint = new Paint(Paint.ANTI_ALIAS_FLAG);
         srcPaint.setStyle(Paint.Style.FILL_AND_STROKE);
@@ -130,6 +142,9 @@ public class SaleProgressView extends View {
     @Override
     protected void onDraw(Canvas canvas) {
         super.onDraw(canvas);
+
+        sidePaint.setColor(sideColor);
+
         if(!isNeedAnim){
             progressCount = currentCount;
         }
