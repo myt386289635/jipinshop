@@ -43,9 +43,9 @@ class KTMyOrderActivity : BaseActivity(), View.OnClickListener {
         mFragments = ArrayList()
         mAdapter = HomeFragmentAdapter(supportFragmentManager)
         mFragments.add(KTMyOrderFragment.getInstance("0"))//全部订单
-        mFragments.add(KTMyOrderFragment.getInstance("1"))//即将到账
-        mFragments.add(KTMyOrderFragment.getInstance("2"))//已到账
-        mFragments.add(KTMyOrderFragment.getInstance("3"))//失效订单
+        mFragments.add(KTMyOrderFragment.getInstance("1"))//京东
+        mFragments.add(KTMyOrderFragment.getInstance("2"))//淘宝
+        mFragments.add(KTMyOrderFragment.getInstance("4"))//拼多多
         mAdapter.setFragments(mFragments)
         mBinding.viewPager.adapter = mAdapter
         mBinding.viewPager.offscreenPageLimit = mFragments.size - 1
@@ -75,11 +75,11 @@ class KTMyOrderActivity : BaseActivity(), View.OnClickListener {
             if (i == 0) {
                 textView.text = "全部订单"
             } else if (i == 1) {
-                textView.text = "即将到账"
+                textView.text = "淘宝"
             } else if (i == 2) {
-                textView.text = "已到账"
+                textView.text = "京东"
             } else {
-                textView.text = "失效订单"
+                textView.text = "拼多多"
             }
             mBinding.tabLayout.getTabAt(i)!!.customView = view
             val a = textView.paint.measureText(textView.text.toString()).toInt()

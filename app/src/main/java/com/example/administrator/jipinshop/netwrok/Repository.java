@@ -979,8 +979,8 @@ public class Repository {
     /**
      * 我的订单（淘宝订单）
      */
-    public Observable<OrderTBBean> myTaobaoOrderList(int page , String status){
-        return mAPIService.myTaobaoOrderList(page, status);
+    public Observable<OrderTBBean> myTaobaoOrderList(int page , String status  , String source){
+        return mAPIService.myTaobaoOrderList(page, status,source);
     }
 
     /**

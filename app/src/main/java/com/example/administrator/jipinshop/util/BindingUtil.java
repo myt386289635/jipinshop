@@ -345,17 +345,20 @@ public class BindingUtil {
     }
 
     /*******************************以下是我的订单（淘宝订单）里的************************************/
-    @BindingAdapter({"bind:TbState"})
-    public static void setTextitem_titleText(TextView view ,int TbState){
-        switch (TbState){
+    @BindingAdapter({"bind:source"})
+    public static void setTextitem_titleText(TextView view ,int source){
+        switch (source){
             case 1:
-                view.setText("即将到账");
+                view.setText("京东");
                 break;
             case 2:
-                view.setText("已到账");
+                view.setText("淘宝");
                 break;
             case 3:
-                view.setText("失效订单");
+                view.setText("天猫");
+                break;
+            case 4:
+                view.setText("拼多多");
                 break;
         }
     }

@@ -11,7 +11,6 @@
 
     <RelativeLayout
         android:background="@color/color_white"
-        android:layout_marginTop="@dimen/y20"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
@@ -19,16 +18,15 @@
             android:id="@+id/item_titleText"
             android:layout_marginLeft="@dimen/x30"
             android:gravity="center"
-            bind:TbState="@{date.status}"
-            android:textColor="@color/color_ACACAC"
-            android:textSize="14sp"
-            android:textStyle="bold"
+            bind:source="@{date.source}"
+            android:textColor="@color/color_989898"
+            android:textSize="13sp"
             android:layout_width="wrap_content"
             android:layout_height="@dimen/y76"/>
 
         <TextView
             android:id="@+id/item_titleTime"
-            android:text="@{@string/order_time + date.tkCreateTime}"
+            android:text="@{@string/order_time + date.tkPaidTime}"
             android:layout_alignParentRight="true"
             android:textColor="@color/color_9D9D9D"
             android:textSize="12sp"
@@ -89,7 +87,7 @@
             android:paddingTop="@dimen/y2"
             android:text="@{@string/order_prefree_start + date.preFee + @string/order_prefree_end}"
             android:textColor="@color/color_E25838"
-            android:background="@color/color_FFDBDB"
+            android:background="@drawable/bg_fee"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"/>
 
@@ -109,7 +107,7 @@
             android:id="@+id/item_code"
             android:textColor="@color/color_ACACAC"
             android:textSize="12sp"
-            android:text="@{@string/order_pay + date.alipayTotalPrice + @string/order_prefree_end}"
+            android:text="@{@string/order_pay + date.payPrice + @string/order_prefree_end}"
             android:layout_marginBottom="@dimen/y20"
             android:layout_above="@id/item_price"
             android:layout_toRightOf="@id/item_image"
@@ -124,6 +122,7 @@
 
 
         <RelativeLayout
+            android:id="@+id/item_bottom"
             android:layout_marginTop="@dimen/y1"
             android:layout_below="@id/item_image"
             android:layout_width="match_parent"
@@ -158,6 +157,11 @@
 
         </RelativeLayout>
 
+        <View
+            android:layout_below="@id/item_bottom"
+            android:background="@color/color_F5F5F5"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/y20"/>
 
     </RelativeLayout>
 </layout>

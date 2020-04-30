@@ -1,19 +1,22 @@
 package com.example.administrator.jipinshop.fragment.orderkt
 
+import android.app.Dialog
 import android.databinding.DataBindingUtil
 import android.os.Bundle
 import android.support.v7.widget.LinearLayoutManager
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.TextView
 import com.aspsine.swipetoloadlayout.OnLoadMoreListener
 import com.aspsine.swipetoloadlayout.OnRefreshListener
 import com.example.administrator.jipinshop.R
 import com.example.administrator.jipinshop.adapter.KTMyOrderAdapter
 import com.example.administrator.jipinshop.base.DBBaseFragment
 import com.example.administrator.jipinshop.bean.OrderTBBean
-import com.example.administrator.jipinshop.databinding.FragmentEvaluationCommonBinding
+import com.example.administrator.jipinshop.databinding.FragmentOrderBinding
 import com.example.administrator.jipinshop.util.ToastUtil
+import com.example.administrator.jipinshop.view.dialog.ProgressDialogView
 import javax.inject.Inject
 
 /**
@@ -21,24 +24,27 @@ import javax.inject.Inject
  * @create 2019/10/10
  * @Describe 全部订单、即将到账、已到账、失效订单
  */
-class KTMyOrderFragment : DBBaseFragment(), OnRefreshListener, OnLoadMoreListener, KTMyOrderView {
+class KTMyOrderFragment : DBBaseFragment(), OnRefreshListener, OnLoadMoreListener, KTMyOrderView, View.OnClickListener {
 
     @Inject
     lateinit var mPresenter: KTMyOrderPresenter
 
-    private lateinit var mBinding : FragmentEvaluationCommonBinding
+    private lateinit var mBinding : FragmentOrderBinding
     private lateinit var mList: MutableList<OrderTBBean.DataBean>
     private lateinit var mAdapter : KTMyOrderAdapter
     private var page = 1
     private var refersh: Boolean = true
     private var once : Boolean = true //第一次进入
-    private var type = ""//标志页面
+    private var source = "0"//来源标示：0全部,1京东,2淘宝，4拼多多  默认0全部
+    private var status = 0 // 状态： 0全部,1即将到账，2已到账，3订单失效   默认0全部
+    private var mDialog: Dialog? = null
+    private lateinit var mTitles: MutableList<TextView>
 
     companion object{
-        fun getInstance(type : String): KTMyOrderFragment{
+        fun getInstance(source : String): KTMyOrderFragment{
             val fragment = KTMyOrderFragment()
             val bundle = Bundle()
-            bundle.putString("type", type)
+            bundle.putString("source", source)
             fragment.arguments = bundle
             return fragment
         }
@@ -48,8 +54,8 @@ class KTMyOrderFragment : DBBaseFragment(), OnRefreshListener, OnLoadMoreListene
         super.setUserVisibleHint(isVisibleToUser)
         if (isVisibleToUser && once ){
             arguments?.let {
-                type = it.getString("type","")
-                if (type != "0"){
+                source = it.getString("source","0")
+                if (source != "0"){
                     mBinding.swipeToLoad.isRefreshing = true
                     once = false
                 }
@@ -58,7 +64,8 @@ class KTMyOrderFragment : DBBaseFragment(), OnRefreshListener, OnLoadMoreListene
     }
 
     override fun initLayout(inflater: LayoutInflater?, container: ViewGroup?): View {
-        mBinding = DataBindingUtil.inflate(inflater, R.layout.fragment_evaluation_common, container, false)
+        mBinding = DataBindingUtil.inflate(inflater, R.layout.fragment_order, container, false)
+        mBinding.listener = this
         return mBinding.root
     }
 
@@ -66,9 +73,15 @@ class KTMyOrderFragment : DBBaseFragment(), OnRefreshListener, OnLoadMoreListene
         mBaseFragmentComponent.inject(this)
         mBinding.swipeToLoad.setBackgroundColor(resources.getColor(R.color.color_F5F5F5))
         arguments?.let {
-            type = it.getString("type","")
+            source = it.getString("source","0")
         }
         mPresenter.setView(this)
+
+        mTitles = mutableListOf()
+        mTitles.add(mBinding.orderAll)
+        mTitles.add(mBinding.orderFuture)
+        mTitles.add(mBinding.orderReached)
+        mTitles.add(mBinding.orderInvalid)
 
         mBinding.recyclerView.layoutManager = LinearLayoutManager(context)
         mList = mutableListOf()
@@ -78,22 +91,56 @@ class KTMyOrderFragment : DBBaseFragment(), OnRefreshListener, OnLoadMoreListene
         mPresenter.solveScoll(mBinding.recyclerView,mBinding.swipeToLoad)
         mBinding.swipeToLoad.setOnRefreshListener(this)
         mBinding.swipeToLoad.setOnLoadMoreListener(this)
-        if (type == "0"){
+        if (source == "0"){
             mBinding.swipeToLoad.post { mBinding.swipeToLoad.isRefreshing = true }
             once = false
+        }
+    }
+
+    override fun onClick(v: View) {
+        when(v.id){
+            R.id.order_all -> {
+                //全部
+                status = 0
+                mDialog = ProgressDialogView().createLoadingDialog(context, "")
+                mDialog?.show()
+                onRefresh()
+            }
+            R.id.order_future -> {
+                //即将到账
+                status = 1
+                mDialog = ProgressDialogView().createLoadingDialog(context, "")
+                mDialog?.show()
+                onRefresh()
+            }
+            R.id.order_reached -> {
+                //已到账
+                status = 2
+                mDialog = ProgressDialogView().createLoadingDialog(context, "")
+                mDialog?.show()
+                onRefresh()
+            }
+            R.id.order_invalid -> {
+                //已失效
+                status = 3
+                mDialog = ProgressDialogView().createLoadingDialog(context, "")
+                mDialog?.show()
+                onRefresh()
+            }
         }
     }
 
     override fun onLoadMore() {
         page++
         refersh = false
-        mPresenter.getDate(page,type,this.bindToLifecycle())
+        mPresenter.getDate(page,source,status.toString(),this.bindToLifecycle())
     }
 
     override fun onRefresh() {
+        initTitle()
         page = 1
         refersh = true
-        mPresenter.getDate(page,type,this.bindToLifecycle())
+        mPresenter.getDate(page,source,status.toString(),this.bindToLifecycle())
     }
 
     fun dissRefresh() {
@@ -104,6 +151,11 @@ class KTMyOrderFragment : DBBaseFragment(), OnRefreshListener, OnLoadMoreListene
                 mBinding.swipeToLoad.isRefreshEnabled = false
             } else {
                 mBinding.swipeToLoad.isRefreshing = false
+            }
+        }
+        mDialog?.let {
+            if (it.isShowing){
+                it.dismiss()
             }
         }
     }
@@ -123,6 +175,7 @@ class KTMyOrderFragment : DBBaseFragment(), OnRefreshListener, OnLoadMoreListene
     fun initError(id: Int, title: String, content: String) {
         mBinding.netClude?.run {
             qsNet.visibility = View.VISIBLE
+            qsNet.setBackgroundColor(resources.getColor(R.color.color_F5F5F5))
             errorImage.setBackgroundResource(id)
             errorTitle.text = title
             errorContent.text = content
@@ -169,4 +222,15 @@ class KTMyOrderFragment : DBBaseFragment(), OnRefreshListener, OnLoadMoreListene
         ToastUtil.show(error)
     }
 
+    fun initTitle(){
+        for (i in mTitles.indices){
+            if (i == status){
+                mTitles[i].setBackgroundResource(R.drawable.bg_e25838_5)
+                mTitles[i].setTextColor(resources.getColor(R.color.color_E25838))
+            }else{
+                mTitles[i].setBackgroundResource(R.drawable.bg_989898)
+                mTitles[i].setTextColor(resources.getColor(R.color.color_989898))
+            }
+        }
+    }
 }

@@ -1,0 +1,163 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <data>
+        <variable
+            name="listener"
+            type="android.view.View.OnClickListener"/>
+
+    </data>
+
+    <LinearLayout
+        android:background="@color/color_F5F5F5"
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_marginTop="@dimen/y20"
+            android:background="@color/color_white"
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/y100">
+
+           <RelativeLayout
+               android:layout_weight="1"
+               android:layout_width="0dp"
+               android:layout_height="match_parent">
+
+               <TextView
+                   android:id="@+id/order_all"
+                   android:onClick="@{listener.onClick}"
+                   android:gravity="center"
+                   android:paddingBottom="@dimen/y8"
+                   android:paddingTop="@dimen/y8"
+                   android:text="全部"
+                   android:minWidth="@dimen/x140"
+                   android:minHeight="@dimen/y56"
+                   android:textColor="@color/color_E25838"
+                   android:background="@drawable/bg_e25838_5"
+                   android:layout_centerInParent="true"
+                   android:layout_width="wrap_content"
+                   android:layout_height="wrap_content"/>
+
+           </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_weight="1"
+                android:layout_width="0dp"
+                android:layout_height="match_parent">
+
+                <TextView
+                    android:id="@+id/order_future"
+                    android:onClick="@{listener.onClick}"
+                    android:minHeight="@dimen/y56"
+                    android:gravity="center"
+                    android:paddingBottom="@dimen/y8"
+                    android:paddingTop="@dimen/y8"
+                    android:minWidth="@dimen/x140"
+                    android:text="即将到账"
+                    android:textColor="@color/color_989898"
+                    android:background="@drawable/bg_989898"
+                    android:layout_centerInParent="true"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"/>
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_weight="1"
+                android:layout_width="0dp"
+                android:layout_height="match_parent">
+
+                <TextView
+                    android:id="@+id/order_reached"
+                    android:onClick="@{listener.onClick}"
+                    android:minHeight="@dimen/y56"
+                    android:gravity="center"
+                    android:paddingBottom="@dimen/y8"
+                    android:paddingTop="@dimen/y8"
+                    android:minWidth="@dimen/x140"
+                    android:text="已到账"
+                    android:textColor="@color/color_989898"
+                    android:background="@drawable/bg_989898"
+                    android:layout_centerInParent="true"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"/>
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_weight="1"
+                android:layout_width="0dp"
+                android:layout_height="match_parent">
+
+                <TextView
+                    android:id="@+id/order_invalid"
+                    android:onClick="@{listener.onClick}"
+                    android:minHeight="@dimen/y56"
+                    android:gravity="center"
+                    android:paddingBottom="@dimen/y8"
+                    android:paddingTop="@dimen/y8"
+                    android:minWidth="@dimen/x140"
+                    android:text="失效订单"
+                    android:textColor="@color/color_989898"
+                    android:background="@drawable/bg_989898"
+                    android:layout_centerInParent="true"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"/>
+
+            </RelativeLayout>
+
+        </LinearLayout>
+
+        <View
+            android:background="@color/color_E6E6E6"
+            android:layout_width="match_parent"
+            android:layout_height="1px"/>
+
+        <com.aspsine.swipetoloadlayout.SwipeToLoadLayout
+            android:id="@+id/swipeToLoad"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <com.example.administrator.jipinshop.view.textview.CustomRefreshHeadView
+                android:id="@+id/swipe_refresh_header"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:padding="20dp"/>
+
+            <LinearLayout
+                android:id="@+id/swipe_target"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical">
+
+                <android.support.v7.widget.RecyclerView
+                    android:id="@+id/recycler_view"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"/>
+
+
+                <include
+                    android:id="@+id/net_clude"
+                    layout="@layout/common_net_error"
+                    android:visibility="gone"/>
+
+
+            </LinearLayout>
+
+            <com.example.administrator.jipinshop.view.textview.LoadMoreFooterView
+                android:id="@+id/swipe_load_more_footer"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:padding="20dp"/>
+
+        </com.aspsine.swipetoloadlayout.SwipeToLoadLayout>
+
+    </LinearLayout>
+
+
+</layout>

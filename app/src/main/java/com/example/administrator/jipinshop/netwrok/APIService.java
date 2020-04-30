@@ -901,8 +901,9 @@ public interface APIService {
     /**
      * 我的订单（淘宝订单）
      */
-    @GET("api/v2/user/myTaobaoOrderList")
-    Observable<OrderTBBean> myTaobaoOrderList(@Query("page") int page , @Query("status") String status);
+    @GET("api/v3/user/myTaobaoOrderList")
+    Observable<OrderTBBean> myTaobaoOrderList(@Query("page") int page , @Query("status") String status ,
+                                              @Query("source") String source);
 
     /**
      * 鼓励评分

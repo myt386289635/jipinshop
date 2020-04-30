@@ -52,8 +52,8 @@ class KTMyOrderPresenter {
         return false
     }
 
-    fun getDate( page :Int , status : String , transformer : LifecycleTransformer<OrderTBBean>){
-        mRepository.myTaobaoOrderList(page, status)
+    fun getDate( page :Int , source : String , status : String , transformer : LifecycleTransformer<OrderTBBean>){
+        mRepository.myTaobaoOrderList(page,  status , source)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .compose(transformer)
