@@ -78,6 +78,8 @@
             android:layout_height="wrap_content"/>
 
         <TextView
+            android:textSize="12sp"
+            android:textStyle="bold"
             android:layout_toRightOf="@id/item_image"
             android:layout_alignBottom="@id/item_image"
             android:id="@+id/item_price"
@@ -85,8 +87,8 @@
             android:paddingLeft="@dimen/x4"
             android:paddingBottom="@dimen/y2"
             android:paddingTop="@dimen/y2"
-            android:text="@{@string/order_prefree_start + date.preFee + @string/order_prefree_end}"
-            android:textColor="@color/color_E25838"
+            android:text="@{@string/fee + date.preFee}"
+            android:textColor="@color/color_835720"
             android:background="@drawable/bg_fee"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"/>

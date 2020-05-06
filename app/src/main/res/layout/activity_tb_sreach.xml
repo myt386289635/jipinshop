@@ -117,17 +117,12 @@
                     <ImageView
                         android:onClick="@{listener.onClick}"
                         android:id="@+id/sreach_process"
-                        android:paddingRight="@dimen/x30"
-                        android:paddingLeft="@dimen/x30"
                         android:adjustViewBounds="true"
                         android:scaleType="fitXY"
-                        android:paddingBottom="@dimen/y13"
-                        android:paddingTop="@dimen/y17"
                         android:src="@mipmap/sreach_process"
                         android:layout_marginTop="@dimen/y23"
                         android:layout_marginRight="@dimen/x30"
                         android:layout_marginLeft="@dimen/x30"
-                        android:background="@drawable/bg_ffefeb"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"/>
 
