@@ -69,7 +69,7 @@ class SharePresenter {
         }
         mBinding.shareOtherCheckBox1.setOnClickListener {
             if (!mBinding.shareOtherCheckBox1.isChecked){
-                ToastUtil.show("无法取消抢购地址选项")
+                ToastUtil.show("必须选择抢购地址")
                 mBinding.shareOtherCheckBox1.isChecked = true
             }
         }

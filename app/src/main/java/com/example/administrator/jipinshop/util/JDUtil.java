@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Handler;
+import android.text.TextUtils;
 import android.util.Log;
 
 import com.example.administrator.jipinshop.MyApplication;
@@ -38,6 +39,10 @@ public class JDUtil {
 
     public static void openJD(Context context, String webUrl){
         //这个是即时性参数  可以设置
+        if (TextUtils.isEmpty(webUrl)){
+            ToastUtil.show("无跳转链接，跳转失败");
+            return;
+        }
         Handler handler = new Handler();
         KeplerAttachParameter mKeplerAttachParameter = new KeplerAttachParameter();
         OpenAppAction mOpenAppAction = (status, url) -> {
