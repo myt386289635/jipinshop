@@ -544,7 +544,10 @@ public class MainActivity extends RxAppCompatActivity implements MainView, ViewP
         super.onResume();
         MobclickAgent.onResume(this);
         if (!once) {
-            getClipText();//淘口令
+            //android 10 新api解释是只有当前界面获得焦点后（onResume）才能获取到剪切板内容
+            this.getWindow().getDecorView().post(() -> {
+                getClipText();//淘口令
+            });
         }
     }
 
