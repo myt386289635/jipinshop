@@ -225,6 +225,8 @@ public class LoginActivity extends BaseActivity implements LoginView, View.OnCli
                     .putExtra("openid",openid)
                     .putExtra("newpeople",newpeople)
                     ,100);
+        }else {
+            ToastUtil.show(loginBean.getMsg());
         }
     }
 
