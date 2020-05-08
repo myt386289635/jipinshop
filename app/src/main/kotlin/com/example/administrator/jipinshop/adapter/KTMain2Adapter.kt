@@ -421,7 +421,7 @@ class KTMain2Adapter : RecyclerView.Adapter<RecyclerView.ViewHolder>{
                     var isResult = getResult(linearLayoutManager)
                     //可划出去的总宽度
                     var totleWith = getTotleWith(linearLayoutManager)
-                    //线条的总宽度
+                    //线条可划出去的总宽度
                     var lineWith = mContext.resources.getDimension(R.dimen.x60)
                     //结果
                     var result  = (lineWith / totleWith) * isResult
@@ -516,9 +516,9 @@ class KTMain2Adapter : RecyclerView.Adapter<RecyclerView.ViewHolder>{
             var firstVisiableChildView = linearLayoutManager.findViewByPosition(position)
             //获取Item的宽
             var itemWidth = firstVisiableChildView?.width ?: 0
-            //算出该Item还未移出屏幕的高度
+            //算出该Item还未移出屏幕的宽度
             var itemRight = firstVisiableChildView?.right ?: 0
-            //position移出屏幕的数量*高度得出移动的距离
+            //position移出屏幕的数量*宽度得出移动的距离
             var iposition = ((position / 2 ) + 1) * itemWidth
             //因为横着的RecyclerV第一个取到的Item position为零所以计算时需要加一个宽
             var iResult = iposition - itemRight

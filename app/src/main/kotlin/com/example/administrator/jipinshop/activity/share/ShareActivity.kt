@@ -90,9 +90,11 @@ class ShareActivity : BaseActivity(), View.OnClickListener, ShareAdapter.OnClick
         if (source.equals("2")){
             mBinding.shareTbButtonContainer.visibility = View.VISIBLE
             mBinding.shareOtherButtonContainer.visibility = View.GONE
+            mBinding.shareCopy.text = "复制评论淘口令"
         }else{
             mBinding.shareTbButtonContainer.visibility = View.GONE
             mBinding.shareOtherButtonContainer.visibility = View.VISIBLE
+            mBinding.shareCopy.text = "复制评论【链接】"
         }
 
         mShareImages = mutableListOf()

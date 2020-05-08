@@ -61,18 +61,11 @@ class KTMain2GridAdapter : RecyclerView.Adapter<KTMain2GridAdapter.ViewHolder>{
                         mList[position].title)
             }
             var wight = mContext.resources.getDimension(R.dimen.x120)
-            var zz =( DistanceHelper.getAndroiodScreenwidthPixels(mContext) - (wight * 5) ) / 6
-            var result = 0f
-            if (zz > 0){
-                result = zz
-            }
-            var layoutParams =  item_container.layoutParams as LinearLayout.LayoutParams
+            var zz = (DistanceHelper.getAndroiodScreenwidthPixels(mContext) - (wight * 5)) / 5
+            var result = zz / 2
+            var layoutParams = item_container.layoutParams as LinearLayout.LayoutParams
+            layoutParams.leftMargin = result.toInt()
             layoutParams.rightMargin = result.toInt()
-            if (position == 0 || position == 1){
-                layoutParams.leftMargin = result.toInt()
-            }else{
-                layoutParams.leftMargin = 0
-            }
             item_container.layoutParams = layoutParams
         }
     }

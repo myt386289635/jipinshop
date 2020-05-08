@@ -581,7 +581,7 @@ public class DialogUtil {
         binding.dialogSure1.setOnClickListener(v -> {
             context.startActivity(new Intent(context, TBSreachResultActivity.class)
                     .putExtra("content", tkl)
-                    .putExtra("type", "1")
+                    .putExtra("type", "2")//默认淘宝搜索
             );
             dialog.dismiss();
         });

@@ -5,6 +5,7 @@ import android.content.Intent
 import android.databinding.DataBindingUtil
 import android.os.Bundle
 import android.support.v7.widget.LinearLayoutManager
+import android.text.Html
 import android.text.TextUtils
 import android.view.View
 import com.aspsine.swipetoloadlayout.OnLoadMoreListener
@@ -63,6 +64,8 @@ class KTJDDetailActivity : BaseActivity(), View.OnClickListener, OnLoadMoreListe
         }
         mBaseActivityComponent.inject(this)
         mPersenter.setView(this)
+        var str = "复制标题，<font color='#202020'>搜隐藏优惠券</font>拿返利"
+        mBinding.detailSreachLeft.text = Html.fromHtml(str)
 
         mList = mutableListOf()
         mAdListBeans = mutableListOf()
