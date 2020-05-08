@@ -126,8 +126,10 @@ class ShareActivity : BaseActivity(), View.OnClickListener, ShareAdapter.OnClick
 
     //京东和拼多多选择
     override fun initShareContent_other(checkBox: Boolean) {
-        var string = baseComment + "\n" + downloadUrl + "\n"
-        if (checkBox) string += invitationCode
+        var string = baseComment + "\n" + tkl
+        if (checkBox){
+            string = baseComment + "\n" + downloadUrl + "\n" + tkl + "\n" + invitationCode
+        }
         mBinding.shareContent.text = string
     }
 
@@ -268,7 +270,7 @@ class ShareActivity : BaseActivity(), View.OnClickListener, ShareAdapter.OnClick
         if (source.equals("2")){
             mBinding.shareContent.text = bean.data.baseComment  + "\n" + bean.data.downloadUrl + "\n" + bean.data.invitationCode +"\n" + bean.data.tkl
         }else{
-            mBinding.shareContent.text = bean.data.baseComment + "\n" + bean.data.downloadUrl + "\n" + bean.data.invitationCode
+            mBinding.shareContent.text = bean.data.baseComment + "\n" + bean.data.downloadUrl + "\n" + bean.data.tkl + "\n" + bean.data.invitationCode
         }
         mList.clear()
         mList.addAll(bean.data.imgs)
