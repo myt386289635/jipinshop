@@ -43,8 +43,8 @@ class KTMyOrderActivity : BaseActivity(), View.OnClickListener {
         mFragments = ArrayList()
         mAdapter = HomeFragmentAdapter(supportFragmentManager)
         mFragments.add(KTMyOrderFragment.getInstance("0"))//全部订单
-        mFragments.add(KTMyOrderFragment.getInstance("1"))//京东
         mFragments.add(KTMyOrderFragment.getInstance("2"))//淘宝
+        mFragments.add(KTMyOrderFragment.getInstance("1"))//京东
         mFragments.add(KTMyOrderFragment.getInstance("4"))//拼多多
         mAdapter.setFragments(mFragments)
         mBinding.viewPager.adapter = mAdapter
