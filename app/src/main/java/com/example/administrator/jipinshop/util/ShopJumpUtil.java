@@ -293,13 +293,13 @@ public class ShopJumpUtil {
             case "25"://京东商品详情
                 intent.setClass(context, TBShoppingDetailActivity.class);
                 intent.putExtra("otherGoodsId", target_id);
-                intent.putExtra("source",1);
+                intent.putExtra("source","1");
                 context.startActivity(intent);
                 break;
             case "26"://拼多多商品详情
                 intent.setClass(context, TBShoppingDetailActivity.class);
                 intent.putExtra("otherGoodsId", target_id);
-                intent.putExtra("source",4);
+                intent.putExtra("source","4");
                 context.startActivity(intent);
                 break;
         }
@@ -358,6 +358,20 @@ public class ShopJumpUtil {
                 break;
             case "18"://特惠购列表
                 intent.setClass(context, CheapBuyActivity.class);
+                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                context.startActivity(intent);
+                break;
+            case "19"://京东商品详情
+                intent.setClass(context, TBShoppingDetailActivity.class);
+                intent.putExtra("otherGoodsId", target_id);
+                intent.putExtra("source","1");
+                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                context.startActivity(intent);
+                break;
+            case "20"://拼多多商品详情
+                intent.setClass(context, TBShoppingDetailActivity.class);
+                intent.putExtra("otherGoodsId", target_id);
+                intent.putExtra("source","4");
                 intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                 context.startActivity(intent);
                 break;
@@ -469,13 +483,13 @@ public class ShopJumpUtil {
             case "16"://京东商品详情
                 intent.setClass(context, TBShoppingDetailActivity.class);
                 intent.putExtra("otherGoodsId", target_id);
-                intent.putExtra("source",1);
+                intent.putExtra("source","1");
                 context.startActivity(intent);
                 break;
             case "17"://拼多多商品详情
                 intent.setClass(context, TBShoppingDetailActivity.class);
                 intent.putExtra("otherGoodsId", target_id);
-                intent.putExtra("source",4);
+                intent.putExtra("source","4");
                 context.startActivity(intent);
                 break;
         }
