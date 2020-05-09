@@ -290,6 +290,18 @@ public class ShopJumpUtil {
                 intent.putExtra(WebActivity.shareImage,"https://jipincheng.cn/shengqian.png");
                 context.startActivity(intent);
                 break;
+            case "25"://京东商品详情
+                intent.setClass(context, TBShoppingDetailActivity.class);
+                intent.putExtra("otherGoodsId", target_id);
+                intent.putExtra("source",1);
+                context.startActivity(intent);
+                break;
+            case "26"://拼多多商品详情
+                intent.setClass(context, TBShoppingDetailActivity.class);
+                intent.putExtra("otherGoodsId", target_id);
+                intent.putExtra("source",4);
+                context.startActivity(intent);
+                break;
         }
     }
 
@@ -452,6 +464,18 @@ public class ShopJumpUtil {
                 break;
             case "15"://邀请页面
                 intent.setClass(context, InvitationNewActivity.class);
+                context.startActivity(intent);
+                break;
+            case "16"://京东商品详情
+                intent.setClass(context, TBShoppingDetailActivity.class);
+                intent.putExtra("otherGoodsId", target_id);
+                intent.putExtra("source",1);
+                context.startActivity(intent);
+                break;
+            case "17"://拼多多商品详情
+                intent.setClass(context, TBShoppingDetailActivity.class);
+                intent.putExtra("otherGoodsId", target_id);
+                intent.putExtra("source",4);
                 context.startActivity(intent);
                 break;
         }
