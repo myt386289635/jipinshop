@@ -160,10 +160,8 @@ public class TBSreachActivity extends BaseActivity implements View.OnClickListen
             return false;
         });
         mPresenter.searchLog("1",this.bindToLifecycle());
-        if (type.equals("2")){
-            Map<String,String> map =  DeviceUuidFactory.getIdfa(this);
-            mPresenter.listSimilerGoods(map,this.bindToLifecycle());
-        }
+        Map<String,String> map =  DeviceUuidFactory.getIdfa(this);
+        mPresenter.listSimilerGoods(map,this.bindToLifecycle());
     }
 
     @Override
