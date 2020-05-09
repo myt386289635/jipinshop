@@ -175,9 +175,6 @@ public class WebActivity extends BaseActivity implements View.OnClickListener, W
     //检查是否是淘客推广链接，否者打不开淘客推广链接
     private boolean checkUrlValid(String aUrl) {
         boolean result = true;
-        if (aUrl == null || aUrl.equals("") || !aUrl.contains("http")) {
-            return false;
-        }
         //淘宝推广链接
         if (aUrl.startsWith("https://s.click") || aUrl.startsWith("http://s.click")) {
             result = false;

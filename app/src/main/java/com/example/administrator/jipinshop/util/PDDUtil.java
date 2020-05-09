@@ -6,6 +6,9 @@ import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.support.annotation.NonNull;
 
+import com.example.administrator.jipinshop.activity.WebActivity;
+import com.example.administrator.jipinshop.netwrok.RetrofitModule;
+
 /**
  * @author 莫小婷
  * @create 2020/4/24
@@ -40,8 +43,10 @@ public class PDDUtil {
             Intent intent=new Intent(Intent.ACTION_VIEW, Uri.parse(url));
             context.startActivity(intent);
         }else {
-            Intent intent=new Intent(Intent.ACTION_VIEW, Uri.parse(errorUrl));
-            context.startActivity(intent);
+            context.startActivity(new Intent(context, WebActivity.class)
+                    .putExtra(WebActivity.url, errorUrl)
+                    .putExtra(WebActivity.title,"拼多多")
+            );
         }
     }
 

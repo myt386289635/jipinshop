@@ -8,6 +8,7 @@ import android.text.TextUtils;
 import android.util.Log;
 
 import com.example.administrator.jipinshop.MyApplication;
+import com.example.administrator.jipinshop.activity.WebActivity;
 import com.kepler.jd.Listener.AsyncInitListener;
 import com.kepler.jd.Listener.OpenAppAction;
 import com.kepler.jd.login.KeplerApiManager;
@@ -55,8 +56,10 @@ public class JDUtil {
                     case OpenAppAction.OpenAppAction_result_BlackUrl://url不在白名单
                     case OpenAppAction.OpenAppAction_result_NetError://网络错误
                         //异常处理 通过浏览器打开链接
-                        Intent intent=new Intent(Intent.ACTION_VIEW, Uri.parse(webUrl));
-                        context.startActivity(intent);
+                        context.startActivity(new Intent(context, WebActivity.class)
+                                .putExtra(WebActivity.url, webUrl)
+                                .putExtra(WebActivity.title,"京东")
+                        );
                         break;
                 }
             });
