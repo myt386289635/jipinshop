@@ -1052,7 +1052,7 @@ public interface APIService {
     /**
      * 商品图文描述
      */
-    @GET("api/v2/tbk/getGoodsDescImgs")
+    @GET("api/v3/tbk/getGoodsDescImgs")
     Observable<SucBean<String>> getGoodsDescImgs(@Query("otherGoodsId") String otherGoodsId);
 
     /**
