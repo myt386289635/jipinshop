@@ -177,7 +177,7 @@ public class NewPeopleDetailActivity extends BaseActivity implements View.OnClic
                 }else {
                     mDialog = (new ProgressDialogView()).createLoadingDialog(this, "");
                     mDialog.show();
-                    mPresenter.getGoodsDescImgs(otherGoodsId,this.bindToLifecycle());
+                    mPresenter.getGoodsDescImgs(otherGoodsId,"2",this.bindToLifecycle());
                 }
                 break;
             case R.id.detail_coupon:

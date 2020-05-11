@@ -195,7 +195,7 @@ public class TBShoppingDetailActivity extends BaseActivity implements View.OnCli
                 }else {
                     mDialog = (new ProgressDialogView()).createLoadingDialog(this, "");
                     mDialog.show();
-                    mPresenter.getGoodsDescImgs(goodsId,this.bindToLifecycle());
+                    mPresenter.getGoodsDescImgs(goodsId,source,this.bindToLifecycle());
                 }
                 break;
             case R.id.detail_couponImg:

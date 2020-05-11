@@ -193,8 +193,8 @@ public class TBShoppingDetailPresenter {
     /**
      * 获取商品详情
      */
-    public void getGoodsDescImgs(String otherGoodsId , LifecycleTransformer<SucBean<String>> transformer ){
-        mRepository.getGoodsDescImgs(otherGoodsId)
+    public void getGoodsDescImgs(String otherGoodsId,String source , LifecycleTransformer<SucBean<String>> transformer ){
+        mRepository.getGoodsDescImgs(otherGoodsId,source)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .compose(transformer)

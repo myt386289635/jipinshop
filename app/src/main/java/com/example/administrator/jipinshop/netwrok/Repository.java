@@ -1147,8 +1147,8 @@ public class Repository {
     /**
      * 商品图文描述
      */
-    public Observable<SucBean<String>> getGoodsDescImgs(String otherGoodsId){
-        return mAPIService.getGoodsDescImgs(otherGoodsId);
+    public Observable<SucBean<String>> getGoodsDescImgs(String otherGoodsId,String source){
+        return mAPIService.getGoodsDescImgs(otherGoodsId,source);
     }
 
     /**
