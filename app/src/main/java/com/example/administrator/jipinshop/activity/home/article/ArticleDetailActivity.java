@@ -301,9 +301,9 @@ public class ArticleDetailActivity extends BaseActivity implements View.OnClickL
                         startActivity(new Intent(this, LoginActivity.class));
                         return;
                     }
-                    mDialog = (new ProgressDialogView()).createLoadingDialog(this, "正在加载...");
-                    mDialog.show();
                     TaoBaoUtil.openTB(this, () -> {
+                        mDialog = (new ProgressDialogView()).createOtherDialog(this,"淘宝",R.mipmap.dialog_tb);
+                        mDialog.show();
                         mPresenter.goodsBuyLink(mBeans.get(0).getGoodsId(),ArticleDetailActivity.this.bindToLifecycle());
                     });
                 }
@@ -934,9 +934,9 @@ public class ArticleDetailActivity extends BaseActivity implements View.OnClickL
             startActivity(new Intent(this, LoginActivity.class));
             return;
         }
-        mDialog = (new ProgressDialogView()).createLoadingDialog(this, "正在加载...");
-        mDialog.show();
         TaoBaoUtil.openTB(this, () -> {
+            mDialog = (new ProgressDialogView()).createOtherDialog(this,"淘宝",R.mipmap.dialog_tb);
+            mDialog.show();
             mPresenter.goodsBuyLink(mBeans.get(position).getGoodsId(),ArticleDetailActivity.this.bindToLifecycle());
         });
     }

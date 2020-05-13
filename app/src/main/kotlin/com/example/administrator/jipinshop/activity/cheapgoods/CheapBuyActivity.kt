@@ -129,7 +129,7 @@ class CheapBuyActivity : BaseActivity(), View.OnClickListener, OnRefreshListener
 
     override fun onBuy(position: Int) {
         TaoBaoUtil.openTB(this){
-            mDialog = ProgressDialogView().createLoadingDialog(this, "")
+            mDialog = ProgressDialogView().createOtherDialog(this,"淘宝",R.mipmap.dialog_tb)
             mDialog?.let {
                 if (!it.isShowing){
                     it.show()

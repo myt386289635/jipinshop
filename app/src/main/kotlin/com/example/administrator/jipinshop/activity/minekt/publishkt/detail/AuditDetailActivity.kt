@@ -94,9 +94,9 @@ class AuditDetailActivity : BaseActivity(), View.OnClickListener, RelatedGoodsDi
                         startActivity(Intent(this, LoginActivity::class.java))
                         return
                     }
-                    mDialog = ProgressDialogView().createLoadingDialog(this, "")
-                    mDialog.show()
                     TaoBaoUtil.openTB(this){
+                        mDialog = ProgressDialogView().createOtherDialog(this,"淘宝",R.mipmap.dialog_tb)
+                        mDialog.show()
                         mPresenter.goodsBuyLink(mRelatedGoods[0].goodsId, this.bindToLifecycle<ImageBean>())
                     }
                 }
@@ -109,9 +109,9 @@ class AuditDetailActivity : BaseActivity(), View.OnClickListener, RelatedGoodsDi
             startActivity(Intent(this, LoginActivity::class.java))
             return
         }
-        mDialog = ProgressDialogView().createLoadingDialog(this, "")
-        mDialog.show()
         TaoBaoUtil.openTB(this){
+            mDialog = ProgressDialogView().createOtherDialog(this,"淘宝",R.mipmap.dialog_tb)
+            mDialog.show()
             mPresenter.goodsBuyLink(mRelatedGoods[position].goodsId, this.bindToLifecycle<ImageBean>())
         }
     }

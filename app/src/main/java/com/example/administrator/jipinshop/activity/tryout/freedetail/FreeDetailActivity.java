@@ -224,11 +224,11 @@ public class FreeDetailActivity extends BaseActivity implements View.OnClickList
                         ToastUtil.show("暂无商品链接");
                         return;
                     }
-                    mDialog = (new ProgressDialogView()).createLoadingDialog(this, "");
-                    if(mDialog != null && !mDialog.isShowing()){
-                        mDialog.show();
-                    }
                     TaoBaoUtil.openTB(this, () -> {
+                        mDialog = (new ProgressDialogView()).createOtherDialog(this,"淘宝",R.mipmap.dialog_tb);
+                        if(mDialog != null && !mDialog.isShowing()){
+                            mDialog.show();
+                        }
                         mPresenter.goodsBuyLink(goodsId,this.bindToLifecycle());
                     });
                 }

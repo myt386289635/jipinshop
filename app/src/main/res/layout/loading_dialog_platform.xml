@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <LinearLayout
+        android:layout_alignTop="@id/dialog_bg_image"
+        android:layout_marginTop="@dimen/y70"
+        android:layout_centerHorizontal="true"
+        android:background="@drawable/bg_classfiy"
+        android:orientation="vertical"
+        android:layout_width="@dimen/x600"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:id="@+id/dialog_title"
+            android:layout_marginTop="@dimen/y100"
+            android:layout_gravity="center_horizontal"
+            android:textStyle="bold"
+            android:textColor="@color/color_202020"
+            android:textSize="16sp"
+            android:text="买完回来拿佣金哦~"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+
+        <RelativeLayout
+            android:layout_gravity="center_horizontal"
+            android:layout_width="wrap_content"
+            android:layout_height="@dimen/y180">
+
+            <ImageView
+                android:id="@+id/dialog_jpc"
+                android:layout_centerVertical="true"
+                android:scaleType="fitCenter"
+                android:src="@mipmap/dialog_rlogo"
+                android:layout_width="@dimen/x108"
+                android:layout_height="@dimen/y108"/>
+
+            <ImageView
+                android:id="@+id/dialog_to"
+                android:layout_marginLeft="@dimen/x57"
+                android:layout_toRightOf="@id/dialog_jpc"
+                android:layout_centerVertical="true"
+                android:src="@mipmap/dialog_to"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+
+            <ImageView
+                android:id="@+id/dialog_platform"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="@dimen/x57"
+                android:layout_toRightOf="@id/dialog_to"
+                android:scaleType="fitCenter"
+                android:src="@mipmap/dialog_tb"
+                android:layout_width="@dimen/x108"
+                android:layout_height="@dimen/y108"/>
+
+        </RelativeLayout>
+
+        <View
+            android:layout_marginRight="@dimen/x42"
+            android:layout_marginLeft="@dimen/x42"
+            android:background="@color/color_D8D8D8"
+            android:layout_width="wrap_content"
+            android:layout_height="@dimen/y1"/>
+
+        <TextView
+            android:id="@+id/dialog_money"
+            android:textStyle="bold"
+            android:textColor="@color/color_E25838"
+            android:textSize="21sp"
+            android:lineSpacingExtra="@dimen/y14"
+            android:gravity="center"
+            android:text="可省￥0.00"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/y119"/>
+
+    </LinearLayout>
+
+    <ImageView
+        android:id="@+id/dialog_bg_image"
+        android:layout_centerHorizontal="true"
+        android:src="@mipmap/dialog_loading"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"/>
+
+</RelativeLayout>

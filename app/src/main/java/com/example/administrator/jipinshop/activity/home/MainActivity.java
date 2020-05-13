@@ -192,12 +192,17 @@ public class MainActivity extends RxAppCompatActivity implements MainView, ViewP
             mLoginNotice.setText("首单全免资格即将过期");
             mLoginTimeContainer.setVisibility(View.VISIBLE);
             setCountDownTimer();
-            mGuideContainer.setVisibility(View.VISIBLE);//新手指导
+            mGuideContainer.setVisibility(View.GONE);//第一次进入不显示新手指导
             mGuideOk.setVisibility(View.GONE);
+            //展示隐私协议dialog
+            DialogUtil.servceDialog(this, v -> {
+                mPresenter.getAppVersion(this.bindToLifecycle()); //版本更新
+            }, v -> {
+                //关闭App
+                finish();
+            });
         } else {
             //老人进入app
-            mGuideContainer.setVisibility(View.GONE);//新手指导
-            mGuideOk.setVisibility(View.GONE);
             mLoginNotice.setText("登录领取淘宝隐藏优惠券");
             mLoginTimeContainer.setVisibility(View.GONE);
             if (TextUtils.isEmpty(SPUtils.getInstance(CommonDate.USER).getString(CommonDate.token, "").trim())) {
@@ -205,7 +210,16 @@ public class MainActivity extends RxAppCompatActivity implements MainView, ViewP
             } else {
                 mLoginBackground.setVisibility(View.GONE);
             }
-            mPresenter.getAppVersion(this.bindToLifecycle()); //版本更新
+            // TODO: 2020/5/12 需要调用接口判断是否打开隐私协议弹窗 该弹窗在所有弹窗之前
+            if (SPUtils.getInstance().getBoolean(CommonDate.SEND, true)){
+                mGuideContainer.setVisibility(View.VISIBLE);//第二次才显示新手指导
+                mGuideOk.setVisibility(View.GONE);
+                SPUtils.getInstance().put(CommonDate.SEND,false);
+            }else {
+                mGuideContainer.setVisibility(View.GONE);
+                mGuideOk.setVisibility(View.GONE);
+                mPresenter.getAppVersion(this.bindToLifecycle()); //版本更新
+            }
         }
         mPresenter.adList(this.bindToLifecycle());//app广告
     }

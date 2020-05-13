@@ -202,7 +202,7 @@ public class NewPeopleActivity extends BaseActivity implements OnRefreshListener
                 "确认", "取消", R.color.color_202020, R.color.color_202020,
                 false, v -> {
                     TaoBaoUtil.openTB(this, () -> {
-                        mDialog = (new ProgressDialogView()).createLoadingDialog(NewPeopleActivity.this, "");
+                        mDialog = (new ProgressDialogView()).createOtherDialog(this,"淘宝",R.mipmap.dialog_tb);
                         if (mDialog != null && !mDialog.isShowing()) {
                             mDialog.show();
                         }

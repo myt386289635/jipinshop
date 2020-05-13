@@ -7,8 +7,15 @@ import android.content.ClipboardManager;
 import android.content.Context;
 import android.content.Intent;
 import android.databinding.DataBindingUtil;
+import android.graphics.Color;
 import android.graphics.Typeface;
 import android.text.Html;
+import android.text.SpannableString;
+import android.text.Spanned;
+import android.text.TextPaint;
+import android.text.method.LinkMovementMethod;
+import android.text.style.ClickableSpan;
+import android.text.style.ForegroundColorSpan;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.WindowManager;
@@ -18,10 +25,13 @@ import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.blankj.utilcode.util.SPUtils;
 import com.bumptech.glide.Glide;
 import com.example.administrator.jipinshop.R;
+import com.example.administrator.jipinshop.activity.WebActivity;
+import com.example.administrator.jipinshop.activity.home.MainActivity;
 import com.example.administrator.jipinshop.activity.shoppingdetail.tbshoppingdetail.TBShoppingDetailActivity;
 import com.example.administrator.jipinshop.activity.sreach.result.TBSreachResultActivity;
 import com.example.administrator.jipinshop.bean.PopBean;
@@ -33,6 +43,7 @@ import com.example.administrator.jipinshop.databinding.DialogNewpeopleBuyBinding
 import com.example.administrator.jipinshop.databinding.DialogOutBinding;
 import com.example.administrator.jipinshop.databinding.DialogTklBinding;
 import com.example.administrator.jipinshop.databinding.DialogUserBinding;
+import com.example.administrator.jipinshop.netwrok.RetrofitModule;
 import com.example.administrator.jipinshop.util.ShopJumpUtil;
 import com.example.administrator.jipinshop.util.ToastUtil;
 import com.example.administrator.jipinshop.util.sp.CommonDate;
@@ -721,6 +732,107 @@ public class DialogUtil {
         View view = LayoutInflater.from(context).inflate(R.layout.dialog_share_pyq, null);
         TextView dialog_cancle = view.findViewById(R.id.dialog_cancle);
         TextView dialog_sure = view.findViewById(R.id.dialog_sure);
+        dialog_cancle.setOnClickListener(v -> {
+            dialog.dismiss();
+        });
+        dialog_sure.setOnClickListener(v -> {
+            listener.onClick(v);
+            dialog.dismiss();
+        });
+        dialog.getWindow().setDimAmount(0.35f);
+        dialog.show();
+        dialog.setContentView(view);
+    }
+
+    //隐私协议dialog
+    public static void servceDialog(Context context,View.OnClickListener listener , View.OnClickListener cancleListener){
+        AlertDialog.Builder builder = new AlertDialog.Builder(context, R.style.dialog);
+        final Dialog dialog = builder.create();
+        View view = LayoutInflater.from(context).inflate(R.layout.dialog_servce, null);
+        TextView dialog_cancle = view.findViewById(R.id.dialog_cancle);
+        TextView dialog_sure = view.findViewById(R.id.dialog_sure);
+        TextView servce_content = view.findViewById(R.id.servce_content);
+        String content="依据最新法律要求，我们更新了《隐私政策》，特向您说明，在使用我们的服务时，" +
+                "我们如何收集、使用、储存和分享这些信息，以及我们为您提供的访问、更新、控制和保护这些信息的方式。\n" +
+                "请您在使用前仔细阅读《用户服务协议》及《隐私政策》，充分理解后选择“同意并继续”。";
+        SpannableString string = new SpannableString(content);
+        //设置点击效果 设置多个Span时，需要为每个span创建新的对象，否者不起作用
+        ClickableSpan clickableSpan1 = new ClickableSpan() {
+            @Override
+            public void onClick(View widget) {
+                context.startActivity(new Intent(context, WebActivity.class)
+                        .putExtra(WebActivity.url, RetrofitModule.H5_URL+"privacy.html")
+                        .putExtra(WebActivity.title,"隐私政策")
+                );
+            }
+            @Override
+            public void updateDrawState(TextPaint ds) {
+                //去掉可点击文字的下划线
+                ds.setColor(context.getResources().getColor(R.color.color_4E89FF));
+                ds.setUnderlineText(false);
+            }
+        };
+        ClickableSpan clickableSpan2 = new ClickableSpan() {
+            @Override
+            public void onClick(View widget) {
+                context.startActivity(new Intent(context, WebActivity.class)
+                        .putExtra(WebActivity.url, RetrofitModule.H5_URL+"agreement.html")
+                        .putExtra(WebActivity.title,"用户协议")
+                );
+            }
+            @Override
+            public void updateDrawState(TextPaint ds) {
+                //去掉可点击文字的下划线
+                ds.setColor(context.getResources().getColor(R.color.color_4E89FF));
+                ds.setUnderlineText(false);
+            }
+        };
+        ClickableSpan clickableSpan3 = new ClickableSpan() {
+            @Override
+            public void onClick(View widget) {
+                context.startActivity(new Intent(context, WebActivity.class)
+                        .putExtra(WebActivity.url, RetrofitModule.H5_URL+"privacy.html")
+                        .putExtra(WebActivity.title,"隐私政策")
+                );
+            }
+            @Override
+            public void updateDrawState(TextPaint ds) {
+                //去掉可点击文字的下划线
+                ds.setColor(context.getResources().getColor(R.color.color_4E89FF));
+                ds.setUnderlineText(false);
+            }
+        };
+        string.setSpan(clickableSpan1,14,20, Spanned.SPAN_INCLUSIVE_INCLUSIVE);//隐私协议
+        string.setSpan(clickableSpan2,96,104, Spanned.SPAN_INCLUSIVE_INCLUSIVE);//用户协议
+        string.setSpan(clickableSpan3,105,111, Spanned.SPAN_INCLUSIVE_INCLUSIVE);//隐私协议
+        // 设置此方法后，点击事件才能生效
+        servce_content.setMovementMethod(LinkMovementMethod.getInstance());
+        //去掉点击效果
+        servce_content.setHighlightColor(Color.TRANSPARENT);
+        servce_content.setText(string);
+        dialog_cancle.setOnClickListener(v -> {
+            cancleListener.onClick(v);
+            dialog.dismiss();
+        });
+        dialog_sure.setOnClickListener(v -> {
+            listener.onClick(v);
+            dialog.dismiss();
+        });
+        dialog.getWindow().setDimAmount(0.35f);
+        dialog.show();
+        dialog.setContentView(view);
+    }
+
+    //淘宝授权dialog
+    public static void TBLoginDialog(Context context,View.OnClickListener listener){
+        AlertDialog.Builder builder = new AlertDialog.Builder(context, R.style.dialog);
+        final Dialog dialog = builder.create();
+        View view = LayoutInflater.from(context).inflate(R.layout.dialog_tb_login, null);
+        ImageView dialog_cancle = view.findViewById(R.id.dialog_cancle);
+        TextView dialog_sure = view.findViewById(R.id.dialog_sure);
+        TextView dialog_title = view.findViewById(R.id.dialog_title);
+        String str = "授权<font color='#202020'>极品城</font>后即可<font color='#202020'>购买特价好物</font>";
+        dialog_title.setText(Html.fromHtml(str));
         dialog_cancle.setOnClickListener(v -> {
             dialog.dismiss();
         });

@@ -2,6 +2,7 @@ package com.example.administrator.jipinshop.view.dialog;
 
 import android.app.Dialog;
 import android.content.Context;
+import android.text.Html;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -51,5 +52,51 @@ public class ProgressDialogView {
                 LinearLayout.LayoutParams.WRAP_CONTENT,
                 LinearLayout.LayoutParams.WRAP_CONTENT));// 设置布局
         return loadingDialog;
+    }
+
+    /**
+     * 商品详情正在打开淘宝、京东、拼多多
+     */
+    public Dialog createPlatformDialog(Context context, String money , int imageId){
+        Dialog dialog = new Dialog(context, R.style.dialog);// 创建自定义样式dialog
+        View view = LayoutInflater.from(context).inflate(R.layout.loading_dialog_platform, null);
+
+        ImageView dialog_platform = view.findViewById(R.id.dialog_platform);
+        dialog_platform.setImageResource(imageId);
+
+        TextView dialog_title = view.findViewById(R.id.dialog_title);
+        String str = "买完<font color='#E25838'>回来拿佣金哦~</font>";
+        dialog_title.setText(Html.fromHtml(str));
+
+        TextView dialog_money = view.findViewById(R.id.dialog_money);
+        dialog_money.setText("可省￥" + money);
+
+        dialog.getWindow().setDimAmount(0.35f);
+        dialog.setContentView(view, new LinearLayout.LayoutParams(
+                LinearLayout.LayoutParams.WRAP_CONTENT,
+                LinearLayout.LayoutParams.WRAP_CONTENT));
+        dialog.setCancelable(false);
+        return dialog;
+    }
+
+
+    /**
+     * 其他页面正在打开淘宝、京东、拼多多
+     */
+    public Dialog createOtherDialog(Context context, String platformName , int imageId){
+        Dialog dialog = new Dialog(context, R.style.dialog);// 创建自定义样式dialog
+        View view = LayoutInflater.from(context).inflate(R.layout.loading_dialog_platform2, null);
+
+        ImageView dialog_platform = view.findViewById(R.id.dialog_platform);
+        dialog_platform.setImageResource(imageId);
+        TextView dialog_title = view.findViewById(R.id.dialog_title);
+        dialog_title.setText("正在打开"+platformName+"~");
+
+        dialog.getWindow().setDimAmount(0.35f);
+        dialog.setContentView(view, new LinearLayout.LayoutParams(
+                LinearLayout.LayoutParams.WRAP_CONTENT,
+                LinearLayout.LayoutParams.WRAP_CONTENT));
+        dialog.setCancelable(false);
+        return dialog;
     }
 }

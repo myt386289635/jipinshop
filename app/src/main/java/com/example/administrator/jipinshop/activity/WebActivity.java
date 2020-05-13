@@ -244,7 +244,7 @@ public class WebActivity extends BaseActivity implements View.OnClickListener, W
     //打开淘宝
     public void openTB(String goodsId){
         TaoBaoUtil.openTB(this, () -> {
-            mDialog = (new ProgressDialogView()).createLoadingDialog(WebActivity.this, "");
+            mDialog = (new ProgressDialogView()).createOtherDialog(this,"淘宝",R.mipmap.dialog_tb);
             mDialog.show();
             mPresenter.getGoodsClickUrl("2",goodsId,WebActivity.this.bindToLifecycle());
         });

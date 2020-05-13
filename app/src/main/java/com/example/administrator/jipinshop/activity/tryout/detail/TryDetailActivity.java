@@ -313,11 +313,11 @@ public class TryDetailActivity extends BaseActivity implements View.OnClickListe
                     startActivity(new Intent(this, LoginActivity.class));
                     return;
                 }
-                mDialog = (new ProgressDialogView()).createLoadingDialog(this, "");
-                if(mDialog != null && !mDialog.isShowing()){
-                    mDialog.show();
-                }
                 TaoBaoUtil.openTB(this, () -> {
+                    mDialog = (new ProgressDialogView()).createOtherDialog(this,"淘宝",R.mipmap.dialog_tb);
+                    if(mDialog != null && !mDialog.isShowing()){
+                        mDialog.show();
+                    }
                     mPresenter.goodsBuyLink(goodsBuyLink,TryDetailActivity.this.bindToLifecycle());
                 });
                 UAppUtil.goods_trier(this,0);

@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <LinearLayout
+        android:layout_centerHorizontal="true"
+        android:background="@drawable/bg_classfiy"
+        android:orientation="vertical"
+        android:layout_width="@dimen/x600"
+        android:layout_height="wrap_content">
+
+        <RelativeLayout
+            android:layout_gravity="center_horizontal"
+            android:layout_width="wrap_content"
+            android:layout_height="@dimen/y250">
+
+            <ImageView
+                android:id="@+id/dialog_jpc"
+                android:layout_centerVertical="true"
+                android:scaleType="fitCenter"
+                android:src="@mipmap/dialog_rlogo"
+                android:layout_width="@dimen/x108"
+                android:layout_height="@dimen/y108"/>
+
+            <ImageView
+                android:id="@+id/dialog_to"
+                android:layout_marginLeft="@dimen/x57"
+                android:layout_toRightOf="@id/dialog_jpc"
+                android:layout_centerVertical="true"
+                android:src="@mipmap/dialog_to"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+
+            <ImageView
+                android:id="@+id/dialog_platform"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="@dimen/x57"
+                android:layout_toRightOf="@id/dialog_to"
+                android:scaleType="fitCenter"
+                android:src="@mipmap/dialog_tb"
+                android:layout_width="@dimen/x108"
+                android:layout_height="@dimen/y108"/>
+
+        </RelativeLayout>
+
+        <TextView
+            android:layout_marginBottom="@dimen/y80"
+            android:id="@+id/dialog_title"
+            android:textStyle="bold"
+            android:textColor="@color/color_202020"
+            android:textSize="18sp"
+            android:gravity="center"
+            android:text="正在打开淘宝~"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+
+    </LinearLayout>
+
+</RelativeLayout>

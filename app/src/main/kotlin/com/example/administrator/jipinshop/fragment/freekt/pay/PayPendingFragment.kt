@@ -159,13 +159,13 @@ class PayPendingFragment : DBBaseFragment(), OnRefreshListener, OnLoadMoreListen
             ToastUtil.show("暂无商品链接")
             return
         }
-        mDialog = ProgressDialogView().createLoadingDialog(context, "")
-        mDialog?.let {
-            if (!it.isShowing) {
-                it.show()
-            }
-        }
         TaoBaoUtil.openTB(context){
+            mDialog = ProgressDialogView().createOtherDialog(context,"淘宝",R.mipmap.dialog_tb)
+            mDialog?.let {
+                if (!it.isShowing) {
+                    it.show()
+                }
+            }
             mPresenter.goodsBuyLink(mList[position].goodsId, this.bindToLifecycle())
         }
     }

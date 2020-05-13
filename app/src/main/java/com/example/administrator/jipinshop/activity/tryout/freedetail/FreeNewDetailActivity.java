@@ -137,7 +137,7 @@ public class FreeNewDetailActivity extends BaseActivity implements View.OnClickL
                     TaoBaoUtil.openTB(this, () -> {
                         DialogUtil.freeBuyDialog(this, actualPrice, freePrice, v1 -> {
                             //去购买
-                            mDialog = (new ProgressDialogView()).createLoadingDialog(this, "");
+                            mDialog = (new ProgressDialogView()).createOtherDialog(this,"淘宝",R.mipmap.dialog_tb);
                             mDialog.show();
                             mPresenter.freeAppley(freeId,this.bindToLifecycle());
                         });

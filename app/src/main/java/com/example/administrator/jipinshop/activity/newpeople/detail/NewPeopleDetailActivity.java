@@ -195,7 +195,7 @@ public class NewPeopleDetailActivity extends BaseActivity implements View.OnClic
                     return;
                 }
                 TaoBaoUtil.openTB(this, () -> {
-                    mDialog = (new ProgressDialogView()).createLoadingDialog(NewPeopleDetailActivity.this, "");
+                    mDialog = (new ProgressDialogView()).createOtherDialog(this,"淘宝",R.mipmap.dialog_tb);
                     mDialog.show();
                     mPresenter.apply(freeId,NewPeopleDetailActivity.this.bindToLifecycle());
                 });

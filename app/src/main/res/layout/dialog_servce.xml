@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <LinearLayout
+        android:layout_centerHorizontal="true"
+        android:background="@drawable/bg_classfiy"
+        android:orientation="vertical"
+        android:layout_width="@dimen/x600"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:layout_marginBottom="@dimen/y40"
+            android:layout_marginTop="@dimen/y40"
+            android:textStyle="bold"
+            android:layout_gravity="center_horizontal"
+            android:textColor="@color/color_0E0402"
+            android:textSize="21sp"
+            android:text="温馨提示"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+
+        <TextView
+            android:layout_marginBottom="@dimen/y100"
+            android:id="@+id/servce_content"
+            android:lineSpacingExtra="@dimen/y25"
+            android:textColor="@color/color_989898"
+            android:textSize="12sp"
+            android:layout_marginRight="@dimen/x35"
+            android:layout_marginLeft="@dimen/x35"
+            android:text="依据最新法律要求，我们更新了《隐私政策》，特向您说明，在使用我们的服务时，我们如何收集、使用、储存和分享这些信息，以及我们为您提供的访问、更新、控制和保护这些信息的方式。
+请您在使用前仔细阅读《隐私政策》及《隐私政策》，充分理解后选择”同意并继续“。"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+
+        <TextView
+            android:id="@+id/dialog_sure"
+            android:layout_gravity="center_horizontal"
+            android:paddingBottom="@dimen/y20"
+            android:paddingTop="@dimen/y20"
+            android:paddingRight="@dimen/x58"
+            android:paddingLeft="@dimen/x58"
+            android:textColor="@color/color_white"
+            android:textSize="17sp"
+            android:text="同意并继续"
+            android:background="@drawable/bg_4e89ff"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+
+        <TextView
+            android:id="@+id/dialog_cancle"
+            android:layout_marginTop="@dimen/y20"
+            android:paddingRight="@dimen/x30"
+            android:paddingLeft="@dimen/x30"
+            android:layout_marginBottom="@dimen/y43"
+            android:paddingTop="@dimen/y20"
+            android:paddingBottom="@dimen/y20"
+            android:layout_gravity="center_horizontal"
+            android:textColor="@color/color_9D9D9D"
+            android:textSize="17sp"
+            android:text="不同意"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+
+
+    </LinearLayout>
+
+</RelativeLayout>

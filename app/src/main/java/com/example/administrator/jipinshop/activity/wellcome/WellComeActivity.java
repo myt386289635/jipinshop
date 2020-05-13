@@ -11,6 +11,7 @@ import android.view.KeyEvent;
 import com.blankj.utilcode.util.SPUtils;
 import com.example.administrator.jipinshop.R;
 import com.example.administrator.jipinshop.activity.home.MainActivity;
+import com.example.administrator.jipinshop.activity.wellcome.index.IndexMixActivity;
 import com.example.administrator.jipinshop.base.BaseActivity;
 import com.example.administrator.jipinshop.util.permission.HasPermissionsUtil;
 import com.example.administrator.jipinshop.util.sp.CommonDate;
@@ -45,8 +46,8 @@ public class WellComeActivity extends BaseActivity {
         @Override
         public void onFinish() {
             if(SPUtils.getInstance().getBoolean(CommonDate.FIRST,true)){
-                //跳转到权限获取页面
-                startActivity(new Intent(WellComeActivity.this, ServceActivity.class));
+                //跳转到引导页
+                startActivity(new Intent(WellComeActivity.this, IndexMixActivity.class));
                 finish();
             }else {
                 if (!TextUtils.isEmpty(SPUtils.getInstance().getString(CommonDate.AD))){

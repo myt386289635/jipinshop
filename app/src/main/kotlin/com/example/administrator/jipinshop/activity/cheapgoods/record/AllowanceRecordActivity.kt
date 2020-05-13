@@ -1,5 +1,6 @@
 package com.example.administrator.jipinshop.activity.cheapgoods.record
 
+import android.app.Dialog
 import android.databinding.DataBindingUtil
 import android.os.Bundle
 import android.support.v7.widget.LinearLayoutManager
@@ -14,6 +15,7 @@ import com.example.administrator.jipinshop.bean.AllowanceRecordBean
 import com.example.administrator.jipinshop.databinding.ActivityArticleMoreBinding
 import com.example.administrator.jipinshop.util.TaoBaoUtil
 import com.example.administrator.jipinshop.util.ToastUtil
+import com.example.administrator.jipinshop.view.dialog.ProgressDialogView
 import javax.inject.Inject
 
 /**
@@ -31,6 +33,7 @@ class AllowanceRecordActivity : BaseActivity(), View.OnClickListener, OnRefreshL
     private lateinit var mAdapter: AllowanceRecordAdapter
     private var page = 1
     private var refersh: Boolean = true
+    private var mDialog: Dialog? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -121,6 +124,12 @@ class AllowanceRecordActivity : BaseActivity(), View.OnClickListener, OnRefreshL
 
     override fun onItem(pos: Int) {
         TaoBaoUtil.openTB(this){
+            mDialog = ProgressDialogView().createOtherDialog(this,"淘宝",R.mipmap.dialog_tb)
+            mDialog?.let {
+                if (!it.isShowing){
+                    it.show()
+                }
+            }
             TaoBaoUtil.openAliHomeWeb(this, mList[pos].allowanceUrl, "")
         }
     }
@@ -160,6 +169,15 @@ class AllowanceRecordActivity : BaseActivity(), View.OnClickListener, OnRefreshL
             errorImage.setBackgroundResource(id)
             errorTitle.text = title
             errorContent.text = content
+        }
+    }
+
+    override fun onResume() {
+        super.onResume()
+        mDialog?.let {
+            if (it.isShowing){
+                it.dismiss()
+            }
         }
     }
 }

@@ -19,12 +19,17 @@ import com.example.administrator.jipinshop.adapter.TBSreachResultAdapter
 import com.example.administrator.jipinshop.base.BaseActivity
 import com.example.administrator.jipinshop.bean.TBSreachResultBean
 import com.example.administrator.jipinshop.databinding.ActivityHomeDetailBinding
+import com.example.administrator.jipinshop.netwrok.RetrofitModule
+import com.example.administrator.jipinshop.util.ShareUtils
 import com.example.administrator.jipinshop.util.TaoBaoUtil
 import com.example.administrator.jipinshop.util.ToastUtil
 import com.example.administrator.jipinshop.util.UmApp.AppStatisticalUtil
 import com.example.administrator.jipinshop.util.sp.CommonDate
 import com.example.administrator.jipinshop.view.dialog.ProgressDialogView
+import com.example.administrator.jipinshop.view.dialog.ShareBoardDialog
 import com.trello.rxlifecycle2.android.ActivityEvent
+import com.umeng.socialize.UMShareAPI
+import com.umeng.socialize.bean.SHARE_MEDIA
 import java.util.*
 import javax.inject.Inject
 
@@ -33,7 +38,7 @@ import javax.inject.Inject
  * @create 2019/12/16
  * @Describe 首页模块 —— 专题页面
  */
-class HomeDetailActivity : BaseActivity(), View.OnClickListener, TBSreachResultAdapter.OnItem, OnLoadMoreListener, OnRefreshListener, HomeDetailView {
+class HomeDetailActivity : BaseActivity(), View.OnClickListener, TBSreachResultAdapter.OnItem, OnLoadMoreListener, OnRefreshListener, HomeDetailView, ShareBoardDialog.onShareListener {
 
     @Inject
     lateinit var mPresenter: HomeDetailPresenter
@@ -51,6 +56,8 @@ class HomeDetailActivity : BaseActivity(), View.OnClickListener, TBSreachResultA
     private var mDialog: Dialog? = null
     private var id = ""
     private var title = ""
+    //分享面板
+    private var mShareBoardDialog: ShareBoardDialog? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -190,6 +197,18 @@ class HomeDetailActivity : BaseActivity(), View.OnClickListener, TBSreachResultA
                     mBinding.sreachChangeImg.setImageResource(R.mipmap.sreach_change)
                 }
             }
+            R.id.detail_share ->{
+                //分享
+                if (mShareBoardDialog == null) {
+                    mShareBoardDialog = ShareBoardDialog.getInstance("","")
+                    mShareBoardDialog?.setOnShareListener(this)
+                }
+                mShareBoardDialog?.let {
+                    if (!it.isAdded){
+                        it.show(supportFragmentManager,"ShareBoardDialog")
+                    }
+                }
+            }
         }
     }
 
@@ -268,4 +287,19 @@ class HomeDetailActivity : BaseActivity(), View.OnClickListener, TBSreachResultA
         }
     }
 
+    override fun share(share_media: SHARE_MEDIA?) {
+        mDialog = ProgressDialogView().createLoadingDialog(this, "")
+        ShareUtils(this,share_media,mDialog)
+                .shareWeb(this, RetrofitModule.H5_URL + "agreement.html", "我在极品城看$title","款款商品有优惠，总有一款适合你，速来围观","",R.mipmap.share_logo)
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        UMShareAPI.get(this).onActivityResult(requestCode, resultCode, data)
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        UMShareAPI.get(this).release()
+    }
 }

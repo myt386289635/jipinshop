@@ -98,6 +98,7 @@ public class TBShoppingDetailActivity extends BaseActivity implements View.OnCli
     private boolean isCollect = false;//标志：是否收藏过此商品 false:没有
     private int goodsType = 2;//1是极品城  2是淘宝
     private String source = "2";//商品来源:1京东,2淘宝，4拼多多 默认淘宝详情
+    private String money = "0.00";//总共要省的钱
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -206,12 +207,16 @@ public class TBShoppingDetailActivity extends BaseActivity implements View.OnCli
                 }
                 if (source.equals("2")){//只有淘宝商品进行授权
                     TaoBaoUtil.openTB(this, () -> {
-                        mDialog = (new ProgressDialogView()).createLoadingDialog(TBShoppingDetailActivity.this, "");
+                        mDialog = (new ProgressDialogView()).createPlatformDialog(this,money,R.mipmap.dialog_tb);
                         mDialog.show();
                         mPresenter.getGoodsClickUrl(source, goodsId, this.bindToLifecycle());
                     });
                 }else {
-                    mDialog = (new ProgressDialogView()).createLoadingDialog(this, "");
+                    if (source.equals("1")){
+                        mDialog = (new ProgressDialogView()).createPlatformDialog(this,money,R.mipmap.dialog_jd);
+                    }else {
+                        mDialog = (new ProgressDialogView()).createPlatformDialog(this,money,R.mipmap.dialog_pdd);
+                    }
                     mDialog.show();
                     mPresenter.getGoodsClickUrl(source, goodsId, this.bindToLifecycle());
                 }
@@ -342,11 +347,12 @@ public class TBShoppingDetailActivity extends BaseActivity implements View.OnCli
         goodsType = bean.getData().getGoodsType();
         if (goodsType == 2){
             mBinding.detailDec.setVisibility(View.GONE);
-        }else {//极品城上架商品和原来一样
+        }else {//极品城上架商品
             if (bean.getData().getDescImgList() != null && bean.getData().getDescImgList().size() != 0){
-                LinearLayout.LayoutParams layoutParams = (LinearLayout.LayoutParams) mBinding.detailDec.getLayoutParams();
-                layoutParams.height = (int) getResources().getDimension(R.dimen.y600);
-                mBinding.detailDec.setLayoutParams(layoutParams);
+                mBinding.detailDecSpeach.setVisibility(View.GONE);
+//                LinearLayout.LayoutParams layoutParams = (LinearLayout.LayoutParams) mBinding.detailDec.getLayoutParams();
+//                layoutParams.height = (int) getResources().getDimension(R.dimen.y600);
+//                mBinding.detailDec.setLayoutParams(layoutParams);
                 mDetailList.addAll(bean.getData().getDescImgList());
                 mImageAdapter.notifyDataSetChanged();
             }else {
@@ -390,8 +396,10 @@ public class TBShoppingDetailActivity extends BaseActivity implements View.OnCli
         double price = free + coupon;
         if (price == 0){
             mBinding.detailFreeCode.setVisibility(View.GONE);
+            money = "0.00";
         }else {
             mBinding.detailFreeCode.setText("（省¥"+ new BigDecimal(price).setScale(2,BigDecimal.ROUND_HALF_UP).stripTrailingZeros().toPlainString() +"）");
+            money = new BigDecimal(price).setScale(2,BigDecimal.ROUND_HALF_UP).stripTrailingZeros().toPlainString();
         }
         //是否收藏过
         if(bean.getData().getCollect() == 1){

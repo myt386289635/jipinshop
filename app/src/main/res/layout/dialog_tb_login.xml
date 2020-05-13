@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <ImageView
+        android:scaleType="fitCenter"
+        android:id="@+id/dialog_bg"
+        android:layout_centerHorizontal="true"
+        android:src="@mipmap/dialog_login_bg"
+        android:layout_width="@dimen/x560"
+        android:layout_height="@dimen/y670"/>
+
+    <LinearLayout
+        android:layout_alignBottom="@id/dialog_bg"
+        android:layout_alignRight="@id/dialog_bg"
+        android:layout_alignLeft="@id/dialog_bg"
+        android:layout_alignTop="@id/dialog_bg"
+        android:layout_centerHorizontal="true"
+        android:orientation="vertical"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:textStyle="bold"
+            android:textColor="@color/color_202020"
+            android:textSize="17sp"
+            android:layout_marginTop="@dimen/y233"
+            android:text="申请淘宝授权"
+            android:layout_gravity="center_horizontal"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+
+        <TextView
+            android:id="@+id/dialog_title"
+            android:textColor="@color/color_989898"
+            android:textSize="15sp"
+            android:lineSpacingExtra="@dimen/y14"
+            android:gravity="center"
+            android:text="授权极品城后即可购买特价好物"
+            android:layout_marginTop="@dimen/y42"
+            android:layout_marginBottom="@dimen/y33"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+
+        <TextView
+            android:textColor="@color/color_989898"
+            android:textSize="14sp"
+            android:gravity="center"
+            android:text="极品城APP是淘宝联盟官方合作伙伴"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+
+        <TextView
+            android:id="@+id/dialog_sure"
+            android:gravity="center"
+            android:textSize="16sp"
+            android:text="前往淘宝授权"
+            android:textColor="@color/color_white"
+            android:background="@drawable/bg_login2"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="@dimen/y70"
+            android:layout_width="@dimen/x420"
+            android:layout_height="@dimen/y88"/>
+
+    </LinearLayout>
+
+    <ImageView
+        android:id="@+id/dialog_cancle"
+        android:layout_marginTop="@dimen/y44"
+        android:layout_below="@id/dialog_bg"
+        android:layout_centerHorizontal="true"
+        android:src="@mipmap/dialog_close"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"/>
+
+</RelativeLayout>

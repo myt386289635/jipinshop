@@ -1000,11 +1000,11 @@ public class ShoppingDetailActivity extends BaseActivity implements ShoppingComm
                     startActivity(new Intent(this, LoginActivity.class));
                     return;
                 }
-                mDialog = (new ProgressDialogView()).createLoadingDialog(this, "");
-                if(mDialog != null && !mDialog.isShowing()){
-                    mDialog.show();
-                }
                 TaoBaoUtil.openTB(this, () -> {
+                    mDialog = (new ProgressDialogView()).createOtherDialog(this,"淘宝",R.mipmap.dialog_tb);
+                    if(mDialog != null && !mDialog.isShowing()){
+                        mDialog.show();
+                    }
                     TaoBaoUtil.openAliHomeWeb(ShoppingDetailActivity.this,goodsUrl,openTBid);
                 });
                 break;

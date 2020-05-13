@@ -14,10 +14,26 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <include
-            android:id="@+id/in_clude"
-            layout="@layout/aa_title2"
-            bind:listener="@{listener}"/>
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/y88">
+
+            <include
+                android:id="@+id/in_clude"
+                layout="@layout/aa_title2"
+                bind:listener="@{listener}"/>
+
+            <ImageView
+                android:onClick="@{listener.onClick}"
+                android:id="@+id/detail_share"
+                android:paddingLeft="@dimen/x30"
+                android:paddingRight="@dimen/x30"
+                android:layout_alignParentRight="true"
+                android:src="@mipmap/qus_forward"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"/>
+
+        </RelativeLayout>
 
         <LinearLayout
             android:orientation="horizontal"
