@@ -33,10 +33,11 @@ import com.example.administrator.jipinshop.activity.info.MyInfoActivity;
 import com.example.administrator.jipinshop.activity.info.account.AccountManageActivity;
 import com.example.administrator.jipinshop.activity.info.account.change.ChangePhone2Activity;
 import com.example.administrator.jipinshop.activity.info.account.change.ChangePhoneActivity;
-import com.example.administrator.jipinshop.activity.info.bind.BindNumberActivity;
+import com.example.administrator.jipinshop.activity.login.bind.BindNumberActivity;
 import com.example.administrator.jipinshop.activity.info.editname.EditNameActivity;
 import com.example.administrator.jipinshop.activity.info.editsign.EditSignActivity;
 import com.example.administrator.jipinshop.activity.login.LoginActivity;
+import com.example.administrator.jipinshop.activity.login.input.InputLoginActivity;
 import com.example.administrator.jipinshop.activity.mall.MallActivity;
 import com.example.administrator.jipinshop.activity.mall.detail.MallDetailActivity;
 import com.example.administrator.jipinshop.activity.mall.exchange.ExchangeActivity;
@@ -162,4 +163,5 @@ public interface BaseActivityComponent {
     void inject(ShareActivity activity);
     void inject(BindWXActivity activity);
     void inject(KTJDDetailActivity activity);
+    void inject(InputLoginActivity activity);
 }

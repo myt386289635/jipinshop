@@ -9,9 +9,5 @@ import com.example.administrator.jipinshop.bean.LoginBean;
  */
 public interface LoginView {
 
-    void timerEnd();
-
-    void loginSuccess(LoginBean successBean);
-
     void loginWx(LoginBean bean,String channel,String openid);
 }

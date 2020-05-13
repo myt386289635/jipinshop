@@ -1,4 +1,4 @@
-package com.example.administrator.jipinshop.activity.info.bind;
+package com.example.administrator.jipinshop.activity.login.bind;
 
 import com.example.administrator.jipinshop.bean.LoginBean;
 

@@ -87,7 +87,7 @@
                   android:screenOrientation="portrait"/>
 
         <!--绑定手机号-->
-        <activity android:name=".activity.info.bind.BindNumberActivity"
+        <activity android:name=".activity.login.bind.BindNumberActivity"
                   android:screenOrientation="portrait"/>
 
         <!--系统消息-->
@@ -570,6 +570,10 @@
 
         <!--京东、拼多多详情页面-->
         <activity android:name=".activity.home.jd_pdd.KTJDDetailActivity"
+                  android:screenOrientation="portrait"/>
+
+        <!--输入性登录页面-->
+        <activity android:name=".activity.login.input.InputLoginActivity"
                   android:screenOrientation="portrait"/>
 
     </application>

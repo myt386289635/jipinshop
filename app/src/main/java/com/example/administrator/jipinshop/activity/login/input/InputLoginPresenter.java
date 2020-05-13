@@ -1,4 +1,4 @@
-package com.example.administrator.jipinshop.activity.info.bind;
+package com.example.administrator.jipinshop.activity.login.input;
 
 import android.content.Context;
 import android.os.CountDownTimer;
@@ -20,56 +20,31 @@ import com.trello.rxlifecycle2.LifecycleTransformer;
 import javax.inject.Inject;
 
 import io.reactivex.android.schedulers.AndroidSchedulers;
-import io.reactivex.functions.Consumer;
 import io.reactivex.schedulers.Schedulers;
 
 /**
  * @author 莫小婷
- * @create 2018/8/4
+ * @create 2020/5/13
  * @Describe
  */
-public class BindNumberPresenter {
+public class InputLoginPresenter {
 
     Repository mRepository;
+    private  InputLoginView mView;
 
-    private BindNumberView mView;
-
-    public void setView(BindNumberView view) {
+    public void setView(InputLoginView view) {
         mView = view;
     }
 
     @Inject
-    public BindNumberPresenter(Repository repository) {
+    public InputLoginPresenter(Repository repository) {
         mRepository = repository;
-    }
-
-    /**
-     * 验证码倒计时逻辑代码
-     */
-    public CountDownTimer initTimer(final Context context, final TextView textView) {
-        CountDownTimer timer = new CountDownTimer(60 * 1000, 1000) {
-            @Override
-            public void onTick(long millisUntilFinished) {
-                textView.setText(millisUntilFinished / 1000 + "s后重发 ");
-                textView.setTextColor(context.getResources().getColor(R.color.color_white));
-                textView.setBackgroundResource(R.drawable.bg_timecounter);
-            }
-
-            @Override
-            public void onFinish() {
-                textView.setText("获取验证码");
-                textView.setTextColor(context.getResources().getColor(R.color.color_white));
-                textView.setBackgroundResource(R.drawable.bg_login);
-                mView.timerEnd();
-            }
-        };
-        return timer;
     }
 
     /**
      * 为了设置登陆按钮的背景颜色
      */
-    public void initLoginButton(final EditText number, final EditText code, final Button loginButton, final TextView mLoginGetCode,Boolean[] timerEnd) {
+    public void initLoginButton(final EditText number, final EditText code, final Button loginButton) {
         number.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
@@ -94,16 +69,6 @@ public class BindNumberPresenter {
                 } else {
                     loginButton.setEnabled(false);
                     loginButton.setBackgroundResource(R.drawable.bg_login);
-                }
-
-                if(!timerEnd[0]){
-                    if(number.getText().length() == 11){
-                        mLoginGetCode.setEnabled(true);
-                        mLoginGetCode.setBackgroundResource(R.drawable.bg_login2);
-                    }else {
-                        mLoginGetCode.setEnabled(false);
-                        mLoginGetCode.setBackgroundResource(R.drawable.bg_login);
-                    }
                 }
             }
         });
@@ -138,8 +103,29 @@ public class BindNumberPresenter {
 
     }
 
-    public void pushMessage(String mobile, String ticket, String randstr,LifecycleTransformer<SuccessBean> transformer){
-        mRepository.pushMessage(mobile,"2",ticket,randstr)
+    /**
+     * 验证码倒计时逻辑代码
+     */
+    public CountDownTimer initTimer(final Context context, final TextView textView) {
+        CountDownTimer timer = new CountDownTimer(60 * 1000, 1000) {
+            @Override
+            public void onTick(long millisUntilFinished) {
+                textView.setText(millisUntilFinished / 1000 + "s");
+                textView.setTextColor(context.getResources().getColor(R.color.color_E25838));
+            }
+
+            @Override
+            public void onFinish() {
+                textView.setText("获取验证码");
+                textView.setTextColor(context.getResources().getColor(R.color.color_9D9D9D));
+                mView.timerEnd();
+            }
+        };
+        return timer;
+    }
+
+    public void pushMessage(String mobile, String ticket, String randstr, LifecycleTransformer<SuccessBean> transformer){
+        mRepository.pushMessage(mobile,"1",ticket,randstr)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .compose(transformer)
@@ -155,18 +141,32 @@ public class BindNumberPresenter {
                 });
     }
 
-    public void Login(String channel,String openid,String mobile ,String code,String invitationCode ,LifecycleTransformer<LoginBean> transformer){
-        mRepository.bindMobile(channel,openid,mobile,code,invitationCode)
+    public void login(String mobile ,String code , String invitationCode,LifecycleTransformer<LoginBean> transformer){
+        mRepository.login(mobile,code,invitationCode)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .compose(transformer)
-                .subscribe(successBean -> {
+                .subscribe(s -> {
                     if (mView != null){
-                        mView.loginSuccess(successBean);
+                        mView.loginSuccess(s);
                     }
                 }, throwable -> {
-                    Log.d("LoginPresenter", throwable.getMessage());
+                    if (!TextUtils.isEmpty(throwable.getMessage()))
+                        Log.d("LoginPresenter", throwable.getMessage());
                 });
     }
 
+    public void thirdLogin(String accessToken, String openid,String channel,LifecycleTransformer<LoginBean> transformer){
+        mRepository.thirdLogin(accessToken,openid,channel)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .compose(transformer)
+                .subscribe(userInfoBean -> {
+                    if (mView != null){
+                        mView.loginWx(userInfoBean,channel,openid);
+                    }
+                }, throwable -> {
+                    ToastUtil.show("授权登陆失败，请检查网络");
+                });
+    }
 }
