@@ -9,10 +9,12 @@ import android.text.TextUtils;
 import android.view.KeyEvent;
 
 import com.blankj.utilcode.util.SPUtils;
+import com.example.administrator.jipinshop.MyApplication;
 import com.example.administrator.jipinshop.R;
 import com.example.administrator.jipinshop.activity.home.MainActivity;
 import com.example.administrator.jipinshop.activity.wellcome.index.IndexMixActivity;
 import com.example.administrator.jipinshop.base.BaseActivity;
+import com.example.administrator.jipinshop.jpush.LoginUtil;
 import com.example.administrator.jipinshop.util.permission.HasPermissionsUtil;
 import com.example.administrator.jipinshop.util.sp.CommonDate;
 
@@ -33,6 +35,10 @@ public class WellComeActivity extends BaseActivity {
                 .init();
         if (timer != null) {
             timer.start();
+        }
+        if(TextUtils.isEmpty(SPUtils.getInstance(CommonDate.USER).getString(CommonDate.userId,"").trim())){
+            //未登录时预登陆获取手机号，为了一键登录
+            LoginUtil.getPhone(this);
         }
     }
 

@@ -1318,4 +1318,19 @@ public class Repository {
     public Observable<TBSreachResultBean> getOtherGoodsListByCategory( String category1Id, int page, String source){
         return mAPIService.getOtherGoodsListByCategory(category1Id, page, source);
     }
+
+
+    /**
+     * 一键登录
+     */
+    public Observable<LoginBean> JVerifyLogin(String loginToken){
+        return mAPIService.JVerifyLogin(loginToken);
+    }
+
+    /**
+     * 一键绑定
+     */
+    public Observable<LoginBean> JVerifyBind(String loginToken , String openid){
+        return mAPIService.JVerifyBind("1",loginToken,openid);
+    }
 }

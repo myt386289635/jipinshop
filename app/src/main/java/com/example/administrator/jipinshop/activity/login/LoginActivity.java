@@ -15,6 +15,7 @@ import android.util.Log;
 import android.view.View;
 
 import com.blankj.utilcode.util.SPUtils;
+import com.example.administrator.jipinshop.MyApplication;
 import com.example.administrator.jipinshop.R;
 import com.example.administrator.jipinshop.activity.WebActivity;
 import com.example.administrator.jipinshop.activity.login.bind.BindNumberActivity;
@@ -26,10 +27,10 @@ import com.example.administrator.jipinshop.bean.eventbus.CommonEvaluationBus;
 import com.example.administrator.jipinshop.bean.eventbus.HomeNewPeopleBus;
 import com.example.administrator.jipinshop.databinding.LoginBinding;
 import com.example.administrator.jipinshop.jpush.JPushAlias;
+import com.example.administrator.jipinshop.jpush.LoginUtil;
 import com.example.administrator.jipinshop.netwrok.RetrofitModule;
 import com.example.administrator.jipinshop.util.ToastUtil;
 import com.example.administrator.jipinshop.util.sp.CommonDate;
-import com.example.administrator.jipinshop.view.dialog.DialogUtil;
 import com.example.administrator.jipinshop.view.dialog.ProgressDialogView;
 import com.umeng.socialize.UMAuthListener;
 import com.umeng.socialize.UMShareAPI;
@@ -148,14 +149,62 @@ public class LoginActivity extends BaseActivity implements LoginView, View.OnCli
             setResult(200);
             finish();
         }else if(loginBean.getCode() == 700){
-            startActivityForResult(new Intent(LoginActivity.this,BindNumberActivity.class)
-                    .putExtra("channel",channel)
-                    .putExtra("openid",openid)
-                    .putExtra("newpeople",newpeople)
-                    ,100);
+            if (MyApplication.isJVerify){
+                //一键登录页面
+                LoginUtil.bindPhone(this, v -> {
+                    startActivityForResult(new Intent(LoginActivity.this, BindNumberActivity.class)
+                                    .putExtra("channel", channel)
+                                    .putExtra("openid", openid)
+                                    .putExtra("newpeople", newpeople)
+                            , 100);
+                }, (code, token) -> {
+                    //绑定成功
+                    mPresenter.jVerifyBind(token,openid,this.bindToLifecycle());
+                });
+            }else {
+                startActivityForResult(new Intent(LoginActivity.this, BindNumberActivity.class)
+                                .putExtra("channel", channel)
+                                .putExtra("openid", openid)
+                                .putExtra("newpeople", newpeople)
+                        , 100);
+            }
         }else {
             ToastUtil.show(loginBean.getMsg());
         }
+    }
+
+    //一键登录和一键绑定成功
+    @Override
+    public void onSuccess(LoginBean loginBean) {
+        SPUtils.getInstance(CommonDate.USER).put(CommonDate.userAcutalName,loginBean.getData().getRealname());
+        SPUtils.getInstance(CommonDate.USER).put(CommonDate.userBirthday,loginBean.getData().getBirthday());
+        SPUtils.getInstance(CommonDate.USER).put(CommonDate.userGender,loginBean.getData().getGender());
+        SPUtils.getInstance(CommonDate.USER).put(CommonDate.userMemberGrade,loginBean.getData().getRole() +"");
+        SPUtils.getInstance(CommonDate.USER).put(CommonDate.userNickImg,loginBean.getData().getAvatar());
+        SPUtils.getInstance(CommonDate.USER).put(CommonDate.userNickName,loginBean.getData().getNickname());
+        SPUtils.getInstance(CommonDate.USER).put(CommonDate.userPhone,loginBean.getData().getMobile());
+        SPUtils.getInstance(CommonDate.USER).put(CommonDate.token,loginBean.getData().getToken());
+        SPUtils.getInstance(CommonDate.USER).put(CommonDate.userPoint,loginBean.getData().getPoint());
+        SPUtils.getInstance(CommonDate.USER).put(CommonDate.bindMobile, loginBean.getData().getBindMobile() + "");
+        SPUtils.getInstance(CommonDate.USER).put(CommonDate.bindWeibo, loginBean.getData().getBindWeibo() + "");
+        SPUtils.getInstance(CommonDate.USER).put(CommonDate.bindWeixin, loginBean.getData().getBindWeixin() + "");
+        SPUtils.getInstance(CommonDate.USER).put(CommonDate.qrCode, loginBean.getData().getInvitationCode());
+        SPUtils.getInstance(CommonDate.USER).put(CommonDate.userId,loginBean.getData().getUserId());
+        SPUtils.getInstance(CommonDate.USER).put(CommonDate.relationId, loginBean.getData().getRelationId());
+
+        JPushAlias.setAlias(this,loginBean.getData().getUserId());
+        EventBus.getDefault().post(new CommonEvaluationBus(LoginActivity.refresh));//用来刷新商品、评测、发现详情以及评论列表
+
+        if (newpeople == 1 && loginBean.getData().getIsNewUser().equals("0")){
+            startActivity(new Intent(this, NewPeopleActivity.class));
+            EventBus.getDefault().post(new HomeNewPeopleBus(1));//登陆后刷新首页活动接口
+        }else {
+            EventBus.getDefault().post(new HomeNewPeopleBus(0));//登陆后刷新首页活动接口
+        }
+        ToastUtil.show("登录成功");
+        setResult(200);
+        LoginUtil.closePage();
+        finish();
     }
 
     //授权
@@ -252,18 +301,32 @@ public class LoginActivity extends BaseActivity implements LoginView, View.OnCli
         switch (view.getId()) {
             case R.id.login_wx:
                 //点击微信登陆
-                DialogUtil.LoginDialog(this, "“极品城”想要打开“微信”","打开","取消", view1 ->{
-                    authorization(SHARE_MEDIA.WEIXIN);
-                });
+                authorization(SHARE_MEDIA.WEIXIN);
                 break;
             case R.id.title_back:
                 setResult(400);
                 finish();
                 break;
             case R.id.login_input:
-                startActivityForResult(new Intent(LoginActivity.this, InputLoginActivity.class)
-                                .putExtra("newpeople",newpeople)
-                        ,300);
+                if (MyApplication.isJVerify){
+                    //一键登录页面
+                    LoginUtil.phoneLogin(this, v -> {
+                        //微信登陆
+                        authorization(SHARE_MEDIA.WEIXIN);
+                    }, v -> {
+                        //手机号登陆
+                        startActivityForResult(new Intent(LoginActivity.this, InputLoginActivity.class)
+                                        .putExtra("newpeople", newpeople)
+                                , 300);
+                    }, (code, token) -> {
+                        //授权登陆成功
+                        mPresenter.jVerifyLogin(token,this.bindToLifecycle());
+                    });
+                }else {
+                    startActivityForResult(new Intent(LoginActivity.this, InputLoginActivity.class)
+                                    .putExtra("newpeople", newpeople)
+                            , 300);
+                }
                 break;
         }
     }

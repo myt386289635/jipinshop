@@ -1206,4 +1206,19 @@ public interface APIService {
     Observable<TBSreachResultBean> getOtherGoodsListByCategory(@Query("category1Id") String category1Id,
                                                                @Query("page") int page,
                                                                @Query("source") String source);
+
+    /**
+     * 一键登录
+     */
+    @FormUrlEncoded
+    @POST("api/signOnce")
+    Observable<LoginBean> JVerifyLogin(@Field("loginToken") String loginToken);
+
+    /**
+     * 一键绑定
+     */
+    @FormUrlEncoded
+    @POST("api/bindMobileOnce")
+    Observable<LoginBean> JVerifyBind(@Field("channel") String channel, @Field("loginToken") String loginToken ,
+                                      @Field("openid") String openid);
 }

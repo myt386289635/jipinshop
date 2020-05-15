@@ -212,6 +212,8 @@ dependencies {
     implementation 'cn.jiguang.sdk:jpush:3.2.0'
     // 此处以JCore 1.2.3 版本为例。
     implementation 'cn.jiguang.sdk:jcore:1.2.7'
+    //一键登录
+    implementation 'cn.jiguang.sdk:jverification:2.6.4'
 
     //leakcanary内存溺出检测
     debugImplementation 'com.squareup.leakcanary:leakcanary-android:1.5'

@@ -14,4 +14,6 @@ public interface InputLoginView {
     void loginSuccess(LoginBean successBean);
 
     void loginWx(LoginBean bean,String channel,String openid);
+
+    void onBind(LoginBean loginBean);
 }

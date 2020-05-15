@@ -1,6 +1,7 @@
 package com.example.administrator.jipinshop.activity.login;
 
 import com.example.administrator.jipinshop.bean.LoginBean;
+import com.example.administrator.jipinshop.bean.SuccessBean;
 import com.example.administrator.jipinshop.netwrok.Repository;
 import com.example.administrator.jipinshop.util.ToastUtil;
 import com.trello.rxlifecycle2.LifecycleTransformer;
@@ -8,6 +9,7 @@ import com.trello.rxlifecycle2.LifecycleTransformer;
 import javax.inject.Inject;
 
 import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.functions.Consumer;
 import io.reactivex.schedulers.Schedulers;
 
 /**
@@ -15,7 +17,6 @@ import io.reactivex.schedulers.Schedulers;
  * @create 2018/8/4
  * @Describe
  */
-@SuppressWarnings("all")
 public class LoginPresenter {
 
     Repository mRepository;
@@ -44,4 +45,41 @@ public class LoginPresenter {
                 });
     }
 
+    /**
+     * 一键登录
+     */
+    public void jVerifyLogin(String loginToken,LifecycleTransformer<LoginBean> transformer){
+        mRepository.JVerifyLogin(loginToken)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .compose(transformer)
+                .subscribe(bean -> {
+                    if (bean.getCode() == 0){
+                        mView.onSuccess(bean);
+                    }else {
+                        ToastUtil.show(bean.getMsg());
+                    }
+                }, throwable -> {
+                    ToastUtil.show(throwable.getMessage());
+                });
+    }
+
+    /**
+     * 一键绑定
+     */
+    public void jVerifyBind(String loginToken , String openid , LifecycleTransformer<LoginBean> transformer){
+        mRepository.JVerifyBind(loginToken, openid)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .compose(transformer)
+                .subscribe(loginBean -> {
+                    if (loginBean.getCode() == 0){
+                        mView.onSuccess(loginBean);
+                    }else {
+                        ToastUtil.show(loginBean.getMsg());
+                    }
+                }, throwable -> {
+                    ToastUtil.show(throwable.getMessage());
+                });
+    }
 }

@@ -12,6 +12,7 @@ import com.blankj.utilcode.util.SPUtils;
 import com.blankj.utilcode.util.Utils;
 import com.bumptech.glide.Glide;
 import com.example.administrator.jipinshop.jpush.JPushAlias;
+import com.example.administrator.jipinshop.jpush.LoginUtil;
 import com.example.administrator.jipinshop.netwrok.ApplicationComponent;
 import com.example.administrator.jipinshop.netwrok.ApplicationModule;
 import com.example.administrator.jipinshop.netwrok.DaggerApplicationComponent;
@@ -31,6 +32,8 @@ import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
 
+import cn.jiguang.verifysdk.api.JVerificationInterface;
+import cn.jiguang.verifysdk.api.RequestCallback;
 import cn.jpush.android.api.JPushInterface;
 
 /**
@@ -43,6 +46,7 @@ public class MyApplication extends Application {
     private ApplicationComponent mApplicationComponent;
     private static MyApplication instance;
     private  int mNotificationNum = 0;
+    public static boolean isJVerify = false;//是否可以一键登录  默认否
 
     public int getNotificationNum() {
         return mNotificationNum;
@@ -116,7 +120,10 @@ public class MyApplication extends Application {
         //腾讯（已修改）
         PlatformConfig.setQQZone("1107605787", "0wJh63XVNMCo307r");
 
-        //极光初始化
+        //极光一键登录初始化
+        JVerificationInterface.setDebugMode(true);
+        JVerificationInterface.init(this);
+        //极光推送初始化
         JPushInterface.setDebugMode(true);
         JPushInterface.init(this);
         if(!TextUtils.isEmpty(SPUtils.getInstance(CommonDate.USER).getString(CommonDate.userId,"").trim())){

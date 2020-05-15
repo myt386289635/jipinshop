@@ -169,4 +169,23 @@ public class InputLoginPresenter {
                     ToastUtil.show("授权登陆失败，请检查网络");
                 });
     }
+
+    /**
+     * 一键绑定
+     */
+    public void jVerifyBind(String loginToken , String openid , LifecycleTransformer<LoginBean> transformer){
+        mRepository.JVerifyBind(loginToken, openid)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .compose(transformer)
+                .subscribe(loginBean -> {
+                    if (loginBean.getCode() == 0){
+                        mView.onBind(loginBean);
+                    }else {
+                        ToastUtil.show(loginBean.getMsg());
+                    }
+                }, throwable -> {
+                    ToastUtil.show(throwable.getMessage());
+                });
+    }
 }

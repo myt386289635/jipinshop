@@ -21,8 +21,9 @@
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:layout_centerVertical="true"
-            android:padding="@dimen/x22"
-            android:src="@mipmap/nav_back"/>
+            android:paddingLeft="@dimen/x20"
+            android:paddingRight="@dimen/x20"
+            android:src="@mipmap/nav_black_big"/>
 
 
         <TextView

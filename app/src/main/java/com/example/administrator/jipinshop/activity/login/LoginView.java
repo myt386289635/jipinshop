@@ -10,4 +10,6 @@ import com.example.administrator.jipinshop.bean.LoginBean;
 public interface LoginView {
 
     void loginWx(LoginBean bean,String channel,String openid);
+
+    void onSuccess(LoginBean loginBean);
 }
