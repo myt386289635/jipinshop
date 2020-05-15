@@ -36,10 +36,8 @@ public class WellComeActivity extends BaseActivity {
         if (timer != null) {
             timer.start();
         }
-        if(TextUtils.isEmpty(SPUtils.getInstance(CommonDate.USER).getString(CommonDate.userId,"").trim())){
-            //未登录时预登陆获取手机号，为了一键登录
-            LoginUtil.getPhone(this);
-        }
+        //预登陆获取手机号，为了一键登录
+        LoginUtil.getPhone(this);
     }
 
 
