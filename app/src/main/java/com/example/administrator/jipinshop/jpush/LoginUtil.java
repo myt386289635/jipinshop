@@ -34,7 +34,6 @@ public class LoginUtil {
     public static JVerifyUIConfig.Builder initUI(Context context , String title , String buttonText){
         JVerifyUIConfig.Builder builder = new JVerifyUIConfig.Builder()
                 .setNavColor(Color.WHITE)
-                .setVirtualButtonTransparent(false)
                 .setStatusBarDarkMode(true)
                 .setStatusBarColorWithNav(true)
                 .setNavText(title)
@@ -81,6 +80,7 @@ public class LoginUtil {
                 .setPrivacyStatusBarDarkMode(true)
                 .setPrivacyNavTitleTextBold(true)
                 .setPrivacyNavReturnBtn(right_black(context))
+                .setVirtualButtonTransparent(false)
                 .setLoadingView(loading(context),null);
         return builder;
     }
@@ -191,12 +191,11 @@ public class LoginUtil {
     private static View right_black(Context context){
         ImageView imageView = new ImageView(context);
         imageView.setImageResource(R.mipmap.nav_back);
-        RelativeLayout.LayoutParams mLayoutParams1 = new RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.WRAP_CONTENT,RelativeLayout.LayoutParams.WRAP_CONTENT);
-        mLayoutParams1.setMargins((int) context.getResources().getDimension(R.dimen.x22), 0,
-                0,
-                0);
+        RelativeLayout.LayoutParams mLayoutParams1 = new RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.WRAP_CONTENT,RelativeLayout.LayoutParams.MATCH_PARENT);
         mLayoutParams1.addRule(RelativeLayout.CENTER_VERTICAL);
         imageView.setLayoutParams(mLayoutParams1);
+        imageView.setPadding((int) context.getResources().getDimension(R.dimen.x22),0,
+                (int) context.getResources().getDimension(R.dimen.x22),0);
         return imageView;
     }
 
