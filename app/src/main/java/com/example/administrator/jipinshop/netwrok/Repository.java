@@ -1333,4 +1333,11 @@ public class Repository {
     public Observable<LoginBean> JVerifyBind(String loginToken , String openid){
         return mAPIService.JVerifyBind("1",loginToken,openid);
     }
+
+    /**
+     * 获取隐私协议版本
+     */
+    public Observable<ImageBean> getPrivateVersion(){
+        return mAPIService.getPrivateVersion();
+    }
 }

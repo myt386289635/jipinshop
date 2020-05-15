@@ -1221,4 +1221,10 @@ public interface APIService {
     @POST("api/bindMobileOnce")
     Observable<LoginBean> JVerifyBind(@Field("channel") String channel, @Field("loginToken") String loginToken ,
                                       @Field("openid") String openid);
+
+    /**
+     * 获取隐私协议版本
+     */
+    @GET("api/v3/getPrivateVersion")
+    Observable<ImageBean> getPrivateVersion();
 }

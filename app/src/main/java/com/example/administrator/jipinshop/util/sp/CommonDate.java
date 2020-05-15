@@ -19,6 +19,7 @@ public class CommonDate {
     public static final String POPID = "POPID";//活动popid为了不弹出活动
     public static final String CLIP = "clip";//粘贴板内容存稿
     public static final String AD = "AD";//广告
+    public static final String privacy = "privacy";//隐私协议版本号
 
 
     //用户数据表（sp文件名：user）

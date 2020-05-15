@@ -18,6 +18,7 @@ import com.example.administrator.jipinshop.R;
 import com.example.administrator.jipinshop.activity.login.LoginActivity;
 import com.example.administrator.jipinshop.bean.AppVersionbean;
 import com.example.administrator.jipinshop.bean.EvaluationTabBean;
+import com.example.administrator.jipinshop.bean.ImageBean;
 import com.example.administrator.jipinshop.bean.PopInfoBean;
 import com.example.administrator.jipinshop.bean.SucBean;
 import com.example.administrator.jipinshop.bean.SuccessBean;
@@ -188,5 +189,22 @@ public class MainActivityPresenter {
                     }
                 }, throwable -> {});
 
+    }
+
+    //获取隐私协议版本号
+    public void getPrivateVersion(LifecycleTransformer<ImageBean> transformer){
+        mRepository.getPrivateVersion()
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .compose(transformer)
+                .subscribe(bean -> {
+                    if (bean.getCode() == 0){
+                        mView.onStartPrivate(bean);
+                    }else {
+                        mView.onStartFile();
+                    }
+                }, throwable -> {
+                    mView.onStartFile();
+                });
     }
 }

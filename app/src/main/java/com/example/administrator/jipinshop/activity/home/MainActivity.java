@@ -30,8 +30,10 @@ import com.example.administrator.jipinshop.adapter.HomeAdapter;
 import com.example.administrator.jipinshop.base.DaggerBaseActivityComponent;
 import com.example.administrator.jipinshop.bean.AppVersionbean;
 import com.example.administrator.jipinshop.bean.EvaluationTabBean;
+import com.example.administrator.jipinshop.bean.ImageBean;
 import com.example.administrator.jipinshop.bean.PopInfoBean;
 import com.example.administrator.jipinshop.bean.SucBean;
+import com.example.administrator.jipinshop.bean.SuccessBean;
 import com.example.administrator.jipinshop.bean.TklBean;
 import com.example.administrator.jipinshop.bean.eventbus.ChangeHomePageBus;
 import com.example.administrator.jipinshop.bean.eventbus.EditNameBus;
@@ -186,6 +188,22 @@ public class MainActivity extends RxAppCompatActivity implements MainView, ViewP
         appStatisticalUtil.tab(0, this.bindToLifecycle());//统计首页
 
 //        DistanceHelper.getAndroiodScreenProperty(this);
+        mPresenter.getPrivateVersion(this.bindToLifecycle());//获取隐私协议版本号
+        mPresenter.adList(this.bindToLifecycle());//app广告
+    }
+
+    //隐私协议获取返回
+    @Override
+    public void onStartPrivate(ImageBean bean) {
+        onResult(bean.getData());
+    }
+
+    @Override
+    public void onStartFile() {
+        onResult("");
+    }
+
+    public void onResult(String currentPrivacy){
         if (SPUtils.getInstance().getBoolean(CommonDate.FIRST, true)) {
             //新人第一次进入app
             mLoginBackground.setVisibility(View.VISIBLE);
@@ -210,18 +228,36 @@ public class MainActivity extends RxAppCompatActivity implements MainView, ViewP
             } else {
                 mLoginBackground.setVisibility(View.GONE);
             }
-            // TODO: 2020/5/12 需要调用接口判断是否打开隐私协议弹窗 该弹窗在所有弹窗之前
-            if (SPUtils.getInstance().getBoolean(CommonDate.SEND, true)){
-                mGuideContainer.setVisibility(View.VISIBLE);//第二次才显示新手指导
-                mGuideOk.setVisibility(View.GONE);
-                SPUtils.getInstance().put(CommonDate.SEND,false);
-            }else {
-                mGuideContainer.setVisibility(View.GONE);
-                mGuideOk.setVisibility(View.GONE);
-                mPresenter.getAppVersion(this.bindToLifecycle()); //版本更新
+            if (!TextUtils.isEmpty(currentPrivacy) && !currentPrivacy.equals(SPUtils.getInstance().getString(CommonDate.privacy,""))) {
+                DialogUtil.servceDialog(this, v -> {
+                    if (SPUtils.getInstance().getBoolean(CommonDate.SEND, true)) {
+                        mGuideContainer.setVisibility(View.VISIBLE);//第二次才显示新手指导
+                        mGuideOk.setVisibility(View.GONE);
+                        SPUtils.getInstance().put(CommonDate.SEND, false);
+                    } else {
+                        mGuideContainer.setVisibility(View.GONE);
+                        mGuideOk.setVisibility(View.GONE);
+                        mPresenter.getAppVersion(this.bindToLifecycle()); //版本更新
+                    }
+                }, v -> {
+                    //关闭App
+                    finish();
+                });
+            } else {
+                if (SPUtils.getInstance().getBoolean(CommonDate.SEND, true)) {
+                    mGuideContainer.setVisibility(View.VISIBLE);//第二次才显示新手指导
+                    mGuideOk.setVisibility(View.GONE);
+                    SPUtils.getInstance().put(CommonDate.SEND, false);
+                } else {
+                    mGuideContainer.setVisibility(View.GONE);
+                    mGuideOk.setVisibility(View.GONE);
+                    mPresenter.getAppVersion(this.bindToLifecycle()); //版本更新
+                }
             }
         }
-        mPresenter.adList(this.bindToLifecycle());//app广告
+        if (!TextUtils.isEmpty(currentPrivacy)){//存入隐私协议版本号
+            SPUtils.getInstance().put(CommonDate.privacy,currentPrivacy);
+        }
     }
 
     private void setCountDownTimer() {
