@@ -13,6 +13,15 @@ public class TBSreachResultBean {
     private String msg;
     private int code;
     private List<DataBean> data;
+    private String shareUrl;
+
+    public String getShareUrl() {
+        return shareUrl;
+    }
+
+    public void setShareUrl(String shareUrl) {
+        this.shareUrl = shareUrl;
+    }
 
     public String getMsg() {
         return msg;

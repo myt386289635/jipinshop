@@ -58,6 +58,7 @@ class HomeDetailActivity : BaseActivity(), View.OnClickListener, TBSreachResultA
     private var title = ""
     //分享面板
     private var mShareBoardDialog: ShareBoardDialog? = null
+    private var shareUrl: String = ""
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -114,6 +115,7 @@ class HomeDetailActivity : BaseActivity(), View.OnClickListener, TBSreachResultA
     }
 
     override fun onSuccess(bean: TBSreachResultBean) {
+        shareUrl = bean.shareUrl
         if (refresh) {
             dissRefresh()
             if (bean.data != null && bean.data.size != 0) {
@@ -290,7 +292,7 @@ class HomeDetailActivity : BaseActivity(), View.OnClickListener, TBSreachResultA
     override fun share(share_media: SHARE_MEDIA?) {
         mDialog = ProgressDialogView().createLoadingDialog(this, "")
         ShareUtils(this,share_media,mDialog)
-                .shareWeb(this, RetrofitModule.H5_URL + "agreement.html", "我在极品城看$title","款款商品有优惠，总有一款适合你，速来围观","",R.mipmap.share_logo)
+                .shareWeb(this, shareUrl, "我在极品城看$title","款款商品有优惠，总有一款适合你，速来围观","",R.mipmap.share_logo)
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
