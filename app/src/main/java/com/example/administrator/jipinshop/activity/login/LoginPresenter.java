@@ -1,7 +1,6 @@
 package com.example.administrator.jipinshop.activity.login;
 
 import com.example.administrator.jipinshop.bean.LoginBean;
-import com.example.administrator.jipinshop.bean.SuccessBean;
 import com.example.administrator.jipinshop.netwrok.Repository;
 import com.example.administrator.jipinshop.util.ToastUtil;
 import com.trello.rxlifecycle2.LifecycleTransformer;
@@ -9,7 +8,6 @@ import com.trello.rxlifecycle2.LifecycleTransformer;
 import javax.inject.Inject;
 
 import io.reactivex.android.schedulers.AndroidSchedulers;
-import io.reactivex.functions.Consumer;
 import io.reactivex.schedulers.Schedulers;
 
 /**
