@@ -45,46 +45,8 @@
 
     </RelativeLayout>
 
-
     <RelativeLayout
-        android:visibility="gone"
         android:layout_below="@id/mine_address"
-        android:id="@+id/setting_opinionContainer"
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/y80">
-
-        <TextView
-            android:layout_marginLeft="@dimen/x28"
-            android:layout_centerVertical="true"
-            android:textColor="@color/color_DE151515"
-            android:textSize="15sp"
-            android:text="我要反馈"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"/>
-
-
-        <ImageView
-            android:paddingLeft="@dimen/x28"
-            android:src="@mipmap/setting_right"
-            android:id="@+id/setting_opinionImage"
-            android:paddingRight="@dimen/x28"
-            android:layout_alignParentRight="true"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"/>
-
-
-        <View
-            android:layout_marginRight="@dimen/x28"
-            android:layout_marginLeft="@dimen/x28"
-            android:layout_alignParentBottom="true"
-            android:background="@color/color_F5F5F5"
-            android:layout_width="match_parent"
-            android:layout_height="@dimen/x2"/>
-
-    </RelativeLayout>
-
-    <RelativeLayout
-        android:layout_below="@id/setting_opinionContainer"
         android:id="@+id/setting_weiChatContainer"
         android:layout_width="match_parent"
         android:layout_height="@dimen/y80">
@@ -124,7 +86,6 @@
             android:layout_height="@dimen/x2"/>
 
     </RelativeLayout>
-
 
     <RelativeLayout
         android:layout_below="@id/setting_weiChatContainer"
@@ -210,8 +171,6 @@
 
     </RelativeLayout>
 
-
-
     <RelativeLayout
         android:layout_below="@id/setting_serviceContainer"
         android:id="@+id/setting_goodContainer"
@@ -248,81 +207,8 @@
 
     </RelativeLayout>
 
-
-
     <RelativeLayout
         android:layout_below="@id/setting_goodContainer"
-        android:id="@+id/setting_userContainer"
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/y80">
-
-        <TextView
-            android:layout_marginLeft="@dimen/x28"
-            android:layout_centerVertical="true"
-            android:textColor="@color/color_DE151515"
-            android:textSize="15sp"
-            android:text="用户协议"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"/>
-
-
-        <ImageView
-            android:paddingLeft="@dimen/x28"
-            android:src="@mipmap/setting_right"
-            android:id="@+id/setting_userImage"
-            android:paddingRight="@dimen/x28"
-            android:layout_alignParentRight="true"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"/>
-
-
-        <View
-            android:layout_marginRight="@dimen/x28"
-            android:layout_marginLeft="@dimen/x28"
-            android:layout_alignParentBottom="true"
-            android:background="@color/color_F5F5F5"
-            android:layout_width="match_parent"
-            android:layout_height="@dimen/x2"/>
-
-    </RelativeLayout>
-
-    <RelativeLayout
-        android:layout_below="@id/setting_userContainer"
-        android:id="@+id/setting_xieyiContainer"
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/y80">
-
-        <TextView
-            android:layout_marginLeft="@dimen/x28"
-            android:layout_centerVertical="true"
-            android:textColor="@color/color_DE151515"
-            android:textSize="15sp"
-            android:text="隐私政策"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"/>
-
-
-        <ImageView
-            android:paddingLeft="@dimen/x28"
-            android:src="@mipmap/setting_right"
-            android:paddingRight="@dimen/x28"
-            android:layout_alignParentRight="true"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"/>
-
-
-        <View
-            android:layout_marginRight="@dimen/x28"
-            android:layout_marginLeft="@dimen/x28"
-            android:layout_alignParentBottom="true"
-            android:background="@color/color_F5F5F5"
-            android:layout_width="match_parent"
-            android:layout_height="@dimen/x2"/>
-
-    </RelativeLayout>
-
-    <RelativeLayout
-        android:layout_below="@id/setting_xieyiContainer"
         android:id="@+id/setting_verson"
         android:layout_width="match_parent"
         android:layout_height="@dimen/y80">
@@ -338,9 +224,10 @@
 
 
         <TextView
+            android:drawablePadding="@dimen/x10"
+            android:drawableRight="@mipmap/setting_right"
             android:textSize="13sp"
             android:textColor="@color/color_ACACAC"
-            android:drawablePadding="@dimen/x10"
             android:gravity="center_vertical"
             android:text="v1.0.0"
             android:id="@+id/setting_versonText"

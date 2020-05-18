@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:bind="http://schemas.android.com/apk/res-auto">
+
+    <data>
+        <variable
+            name="listener"
+            type="android.view.View.OnClickListener"/>
+
+    </data>
+
+    <RelativeLayout
+        android:background="@color/color_F5F5F5"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <include
+            android:id="@+id/in_clude"
+            layout="@layout/aa_title2"
+            bind:listener="@{listener}"/>
+
+        <TextView
+            android:layout_marginTop="@dimen/y100"
+            android:layout_centerHorizontal="true"
+            android:textColor="@color/color_0E0402"
+            android:textStyle="bold"
+            android:textSize="24sp"
+            android:layout_below="@id/in_clude"
+            android:text="注销账号:"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+
+        <TextView
+            android:id="@+id/cancel_number"
+            android:layout_marginTop="@dimen/y204"
+            android:layout_centerHorizontal="true"
+            android:textColor="@color/color_E25838"
+            android:textStyle="bold"
+            android:textSize="24sp"
+            android:layout_below="@id/in_clude"
+            android:text="138****8888"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+
+        <TextView
+            android:lineSpacingExtra="@dimen/y13"
+            android:textColor="@color/color_202020"
+            android:textSize="14sp"
+            android:layout_marginTop="@dimen/y54"
+            android:layout_marginRight="@dimen/x30"
+            android:layout_marginLeft="@dimen/x30"
+            android:layout_below="@id/cancel_number"
+            android:text="\t\t\t\t账号注销是不可恢复的操作，请你仔细考虑，谨慎操作。账户注销后，您账户中的积分、账户余额都将清空不予处理。"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+
+        <LinearLayout
+            android:layout_marginRight="@dimen/x30"
+            android:layout_marginLeft="@dimen/x30"
+            android:layout_marginBottom="@dimen/y113"
+            android:layout_alignParentBottom="true"
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/y100">
+
+            <TextView
+                android:onClick="@{listener.onClick}"
+                android:id="@+id/cancle_go"
+                android:background="@drawable/bg_dialog_white"
+                android:textColor="@color/color_202020"
+                android:gravity="center"
+                android:textSize="18sp"
+                android:text="申请注销"
+                android:layout_weight="1"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"/>
+
+            <TextView
+                android:onClick="@{listener.onClick}"
+                android:id="@+id/cancel_wait"
+                android:layout_marginLeft="@dimen/x46"
+                android:background="@drawable/bg_login2"
+                android:textColor="@color/color_white"
+                android:gravity="center"
+                android:textSize="18sp"
+                android:text="再想想"
+                android:layout_weight="1"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"/>
+
+        </LinearLayout>
+
+
+    </RelativeLayout>
+</layout>

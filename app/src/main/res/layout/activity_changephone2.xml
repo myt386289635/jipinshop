@@ -15,7 +15,7 @@
         android:layout_marginRight="@dimen/x80"
         android:layout_marginLeft="@dimen/x80"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="@dimen/y90">
 
 
         <ImageView
@@ -40,12 +40,11 @@
             android:background="@null"
             android:layout_toRightOf="@id/login_numberImg"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"/>
+            android:layout_height="match_parent"/>
 
         <View
-            android:layout_marginTop="@dimen/y42"
+            android:layout_alignParentBottom="true"
             android:background="@color/color_F5F5F5"
-            android:layout_below="@id/login_number"
             android:layout_marginLeft="@dimen/x20"
             android:layout_toRightOf="@id/login_numberImg"
             android:layout_width="match_parent"
@@ -60,7 +59,7 @@
         android:layout_marginRight="@dimen/x80"
         android:layout_marginLeft="@dimen/x80"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="@dimen/y90">
 
 
         <ImageView
@@ -70,7 +69,6 @@
             android:src="@mipmap/verification_code"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"/>
-
 
 
         <EditText
@@ -85,20 +83,22 @@
             android:background="@null"
             android:layout_toRightOf="@id/login_codeImg"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"/>
+            android:layout_height="match_parent"/>
 
         <View
-            android:layout_marginTop="@dimen/y42"
+            android:layout_alignParentBottom="true"
             android:background="@color/color_F5F5F5"
-            android:layout_below="@id/login_getCode"
             android:layout_marginLeft="@dimen/x20"
             android:layout_toRightOf="@id/login_codeImg"
             android:layout_width="match_parent"
             android:layout_height="@dimen/y2"/>
 
         <TextView
-            android:textSize="12sp"
-            android:padding="@dimen/x10"
+            android:gravity="center"
+            android:minWidth="@dimen/x177"
+            android:textSize="14sp"
+            android:paddingTop="@dimen/y7"
+            android:paddingBottom="@dimen/y7"
             android:text="获取验证码"
             android:textColor="@color/color_white"
             android:background="@drawable/bg_login"

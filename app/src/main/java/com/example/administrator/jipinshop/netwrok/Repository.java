@@ -1340,4 +1340,11 @@ public class Repository {
     public Observable<ImageBean> getPrivateVersion(){
         return mAPIService.getPrivateVersion();
     }
+
+    /**
+     * 注销账号
+     */
+    public Observable<SuccessBean> destroyAccount(String mobile,String code){
+        return mAPIService.destroyAccount(mobile, code);
+    }
 }

@@ -18,15 +18,13 @@ import android.widget.TextView;
 
 import com.blankj.utilcode.util.SPUtils;
 import com.example.administrator.jipinshop.R;
-import com.example.administrator.jipinshop.activity.WebActivity;
 import com.example.administrator.jipinshop.activity.address.MyAddressActivity;
+import com.example.administrator.jipinshop.activity.setting.about.AboutActivity;
 import com.example.administrator.jipinshop.activity.setting.bind.BindWXActivity;
-import com.example.administrator.jipinshop.activity.setting.opinion.OpinionActivity;
 import com.example.administrator.jipinshop.base.BaseActivity;
 import com.example.administrator.jipinshop.base.BaseAsyncTask;
 import com.example.administrator.jipinshop.bean.SuccessBean;
 import com.example.administrator.jipinshop.jpush.JPushAlias;
-import com.example.administrator.jipinshop.netwrok.RetrofitModule;
 import com.example.administrator.jipinshop.util.MyDataCleanManager;
 import com.example.administrator.jipinshop.util.ShopJumpUtil;
 import com.example.administrator.jipinshop.util.TaoBaoUtil;
@@ -54,10 +52,6 @@ public class SettingActivity extends BaseActivity implements CleanCacheDialog.On
     ImageView mTitleBack;
     @BindView(R.id.title_tv)
     TextView mTitleTv;
-    @BindView(R.id.setting_opinionImage)
-    ImageView mSettingOpinionImage;
-    @BindView(R.id.setting_opinionContainer)
-    RelativeLayout mSettingOpinionContainer;
     @BindView(R.id.setting_cleanImage)
     TextView mSettingCleanImage;
     @BindView(R.id.setting_cleanContainer)
@@ -70,10 +64,6 @@ public class SettingActivity extends BaseActivity implements CleanCacheDialog.On
     ImageView mSettingGoodImage;
     @BindView(R.id.setting_goodContainer)
     RelativeLayout mSettingGoodContainer;
-    @BindView(R.id.setting_userImage)
-    ImageView mSettingUserImage;
-    @BindView(R.id.setting_userContainer)
-    RelativeLayout mSettingUserContainer;
     @BindView(R.id.setting_exitLogin)
     TextView mSettingExitLogin;
     @BindView(R.id.setting_versonText)
@@ -148,10 +138,10 @@ public class SettingActivity extends BaseActivity implements CleanCacheDialog.On
         super.onDestroy();
     }
 
-    @OnClick({R.id.title_back, R.id.setting_opinionContainer, R.id.setting_cleanContainer,
-            R.id.setting_serviceContainer, R.id.setting_goodContainer, R.id.setting_userContainer,
-            R.id.setting_exitLogin, R.id.mine_address, R.id.setting_xieyiContainer,
-            R.id.setting_weiChatContainer})
+    @OnClick({R.id.title_back,R.id.setting_cleanContainer,
+            R.id.setting_serviceContainer, R.id.setting_goodContainer,
+            R.id.setting_exitLogin, R.id.mine_address,
+            R.id.setting_weiChatContainer, R.id.setting_verson})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.title_back:
@@ -188,30 +178,12 @@ public class SettingActivity extends BaseActivity implements CleanCacheDialog.On
                     }
                 }
                 return;
-            case R.id.setting_userContainer:
-                //用户协议
-                startActivity(new Intent(this, WebActivity.class)
-                        .putExtra(WebActivity.url, RetrofitModule.H5_URL + "agreement.html")
-                        .putExtra(WebActivity.title, "用户协议")
-                );
-                return;
-            case R.id.setting_xieyiContainer:
-                //隐私政策
-                startActivity(new Intent(this, WebActivity.class)
-                        .putExtra(WebActivity.url, RetrofitModule.H5_URL + "privacy.html")
-                        .putExtra(WebActivity.title, "隐私政策")
-                );
-                break;
         }
         if (TextUtils.isEmpty(SPUtils.getInstance(CommonDate.USER).getString(CommonDate.token, ""))) {
             ToastUtil.show("请先登录");
             return;
         }
         switch (view.getId()) {
-            case R.id.setting_opinionContainer:
-                //我要反馈
-                startActivity(new Intent(this, OpinionActivity.class));
-                break;
             case R.id.setting_exitLogin:
                 //退出登陆
                 DialogUtil.LoginDialog(this, "您确定要退出登录吗？", "确定", "取消", v -> {
@@ -223,6 +195,9 @@ public class SettingActivity extends BaseActivity implements CleanCacheDialog.On
             case R.id.setting_weiChatContainer:
                 //微信
                 startActivityForResult(new Intent(this, BindWXActivity.class),201);
+                break;
+            case R.id.setting_verson:
+                startActivityForResult(new Intent(this, AboutActivity.class),401);
                 break;
         }
     }
@@ -312,6 +287,12 @@ public class SettingActivity extends BaseActivity implements CleanCacheDialog.On
             }else {
                 mSettingWeiChat.setText("已填写");
             }
+        }else if (requestCode == 401 && resultCode == 201){
+            //从注销账号回来
+            JPushAlias.deleteAlias(this);
+            TaoBaoUtil.aliLogout();//淘宝退出登陆
+            setResult(201);
+            finish();
         }
     }
 }

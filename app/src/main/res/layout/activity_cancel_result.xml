@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:bind="http://schemas.android.com/apk/res-auto">
+
+    <data>
+        <variable
+            name="listener"
+            type="android.view.View.OnClickListener"/>
+    </data>
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:background="@color/color_F5F5F5"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <include
+            android:id="@+id/in_clude"
+            layout="@layout/aa_title2"
+            bind:listener="@{listener}"/>
+
+        <LinearLayout
+            android:gravity="center_horizontal"
+            android:background="@color/color_white"
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <ImageView
+                android:layout_marginTop="@dimen/y32"
+                android:src="@mipmap/cancel_result"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+
+            <TextView
+                android:layout_marginTop="@dimen/y30"
+                android:textSize="18sp"
+                android:textStyle="bold"
+                android:textColor="@color/color_202020"
+                android:text="注销申请提交成功"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+
+            <TextView
+                android:layout_marginBottom="@dimen/y61"
+                android:layout_marginTop="@dimen/y43"
+                android:textColor="@color/color_989898"
+                android:textSize="15sp"
+                android:text="系统将在7个工作日内处理完成！"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+
+        </LinearLayout>
+
+        <TextView
+            android:layout_marginTop="@dimen/y97"
+            android:layout_marginRight="@dimen/x65"
+            android:layout_marginLeft="@dimen/x65"
+            android:gravity="center"
+            android:textSize="18sp"
+            android:textColor="@color/color_white"
+            android:text="完成"
+            android:background="@drawable/bg_login2"
+            android:onClick="@{listener.onClick}"
+            android:id="@+id/cancel_result"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/y88"/>
+
+    </LinearLayout>
+</layout>

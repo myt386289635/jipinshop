@@ -576,6 +576,22 @@
         <activity android:name=".activity.login.input.InputLoginActivity"
                   android:screenOrientation="portrait"/>
 
+        <!--关于极品城页面-->
+        <activity android:name=".activity.setting.about.AboutActivity"
+                  android:screenOrientation="portrait"/>
+
+        <!--注销账号页面-->
+        <activity android:name=".activity.setting.about.cancellation.CancellationActivity"
+                  android:screenOrientation="portrait"/>
+
+        <!--手机号验证页面-->
+        <activity android:name=".activity.setting.about.cancellation.VerificationActivity"
+                  android:screenOrientation="portrait"/>
+
+        <!--注销账号结果页面-->
+        <activity android:name=".activity.setting.about.cancellation.CancelResultActivity"
+                  android:screenOrientation="portrait"/>
+
     </application>
 
 </manifest>

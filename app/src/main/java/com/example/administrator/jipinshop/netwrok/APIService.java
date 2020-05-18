@@ -1227,4 +1227,11 @@ public interface APIService {
      */
     @GET("api/v3/getPrivateVersion")
     Observable<ImageBean> getPrivateVersion();
+
+    /**
+     * 注销账号
+     */
+    @FormUrlEncoded
+    @POST("api/destroyAccount")
+    Observable<SuccessBean> destroyAccount(@Field("mobile") String mobile,@Field("code") String code);
 }
