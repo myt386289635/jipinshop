@@ -333,7 +333,7 @@ class DailyFragment : DBBaseFragment(), KTTabAdapter2.OnClickItem, KTTabAdapter3
         if (TextUtils.isEmpty(SPUtils.getInstance(CommonDate.USER).getString(CommonDate.token, ""))){
             startActivity(Intent(context,LoginActivity::class.java))
         }else{
-            if (TextUtils.isEmpty(mList[position].goodsInfo.source) || mList[position].goodsInfo.source == "2"){
+            if (mList[position].goodsInfo != null && (TextUtils.isEmpty(mList[position].goodsInfo.source) || mList[position].goodsInfo.source == "2")){
                 TaoBaoUtil.openTB(context){
                     mSharePosition = position
                     if (mShareBoardDialog == null) {
@@ -366,7 +366,7 @@ class DailyFragment : DBBaseFragment(), KTTabAdapter2.OnClickItem, KTTabAdapter3
             startActivity(Intent(context, LoginActivity::class.java))
             return
         }
-        if (TextUtils.isEmpty(mList[position].goodsInfo.source) || mList[position].goodsInfo.source == "2"){
+        if (mList[position].goodsInfo != null && (TextUtils.isEmpty(mList[position].goodsInfo.source) || mList[position].goodsInfo.source == "2")){
             TaoBaoUtil.openTB(context){
                 var clip = context!!.getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager
                 var clipData = ClipData.newPlainText("jipinshop", content)
