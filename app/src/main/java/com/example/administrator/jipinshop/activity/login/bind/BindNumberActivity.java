@@ -72,7 +72,7 @@ public class BindNumberActivity extends BaseActivity implements BindNumberView, 
         mPresenter.setView(this);
         mTimer = mPresenter.initTimer(this, mBinding.loginGetCode);
         mPresenter.initLoginButton(mBinding.loginNumber, mBinding.loginCode, mBinding.loginButton);
-        String content= "登录代表同意《极品城用户协议》及《隐私政策》";
+        String content= "登录即代表同意《极品城用户协议》及《隐私政策》";
         SpannableString string = new SpannableString(content);
         ClickableSpan clickableSpan1 = new ClickableSpan() {
             @Override

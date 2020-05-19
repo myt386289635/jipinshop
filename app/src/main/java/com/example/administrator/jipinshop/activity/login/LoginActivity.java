@@ -70,7 +70,7 @@ public class LoginActivity extends BaseActivity implements LoginView, View.OnCli
     private void initView() {
         newpeople = getIntent().getIntExtra("newpeople",0);
         mPresenter.setView(this);
-        String content= "登录代表同意《极品城用户协议》及《隐私政策》";
+        String content= "登录即代表同意《极品城用户协议》及《隐私政策》";
         SpannableString string = new SpannableString(content);
         ClickableSpan clickableSpan1 = new ClickableSpan() {
             @Override

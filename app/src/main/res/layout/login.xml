@@ -63,14 +63,12 @@
 
         <TextView
             android:layout_marginBottom="@dimen/y55"
-            android:drawablePadding="@dimen/x9"
-            android:drawableLeft="@mipmap/login_agree"
             android:layout_centerHorizontal="true"
             android:layout_alignParentBottom="true"
             android:textColor="@color/color_B0B0B0"
             android:id="@+id/login_protocol"
             android:textSize="12sp"
-            android:text="登录代表同意《极品城用户协议》及《 隐私政策》"
+            android:text="登录即代表同意《极品城用户协议》及《 隐私政策》"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"/>
 
