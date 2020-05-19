@@ -12,6 +12,7 @@ import com.example.administrator.jipinshop.base.BaseActivity;
 import com.example.administrator.jipinshop.databinding.ActivityIndexBinding;
 import com.example.administrator.jipinshop.fragment.index.IndexPicFragment;
 import com.example.administrator.jipinshop.fragment.index.IndexVideoFragment;
+import com.example.administrator.jipinshop.view.dialog.DialogUtil;
 import com.gyf.barlibrary.BarHide;
 
 import java.util.ArrayList;
@@ -41,7 +42,11 @@ public class IndexMixActivity extends BaseActivity {
     }
 
     private void initView() {
-
+        //展示隐私协议dialog
+        DialogUtil.servceDialog(this, v -> {}, v -> {
+            //关闭App
+            finish();
+        });
         mFragments = new ArrayList<>();
         mFragments.add(IndexPicFragment.getInstence());
         mFragments.add(IndexVideoFragment.getInstence());

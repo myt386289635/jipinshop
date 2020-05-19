@@ -212,13 +212,7 @@ public class MainActivity extends RxAppCompatActivity implements MainView, ViewP
             setCountDownTimer();
             mGuideContainer.setVisibility(View.GONE);//第一次进入不显示新手指导
             mGuideOk.setVisibility(View.GONE);
-            //展示隐私协议dialog
-            DialogUtil.servceDialog(this, v -> {
-                mPresenter.getAppVersion(this.bindToLifecycle()); //版本更新
-            }, v -> {
-                //关闭App
-                finish();
-            });
+            mPresenter.getAppVersion(this.bindToLifecycle()); //版本更新
         } else {
             //老人进入app
             mLoginNotice.setText("登录领取淘宝隐藏优惠券");

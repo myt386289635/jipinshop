@@ -818,6 +818,10 @@ public class DialogUtil {
             listener.onClick(v);
             dialog.dismiss();
         });
+        //设置点击屏幕不消失
+        dialog.setCanceledOnTouchOutside(false);
+        //设置点击返回键不消失
+        dialog.setCancelable(false);
         dialog.getWindow().setDimAmount(0.35f);
         dialog.show();
         dialog.setContentView(view);

@@ -285,9 +285,11 @@ public class LoginActivity extends BaseActivity implements LoginView, View.OnCli
         UMShareAPI.get(this).onActivityResult(requestCode, resultCode, data);
         if (requestCode == 100 && resultCode == 222){
             //从绑定手机页面回来本页
+            setResult(200);
             finish();
         }else if (requestCode == 300 && resultCode == 222){
             //从手机登录页面跳转绑定手机成功回来本页
+            setResult(200);
             finish();
         }else if (requestCode == 300 && resultCode == 200){
             //从手机登录页面成功回来本页

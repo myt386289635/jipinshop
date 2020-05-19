@@ -19,7 +19,6 @@ import com.example.administrator.jipinshop.adapter.TBSreachResultAdapter
 import com.example.administrator.jipinshop.base.BaseActivity
 import com.example.administrator.jipinshop.bean.TBSreachResultBean
 import com.example.administrator.jipinshop.databinding.ActivityHomeDetailBinding
-import com.example.administrator.jipinshop.netwrok.RetrofitModule
 import com.example.administrator.jipinshop.util.ShareUtils
 import com.example.administrator.jipinshop.util.TaoBaoUtil
 import com.example.administrator.jipinshop.util.ToastUtil
@@ -186,6 +185,10 @@ class HomeTabActivity : BaseActivity(), View.OnClickListener, HomeDetailView, TB
             }
             R.id.detail_share ->{
                 //分享
+                if (TextUtils.isEmpty(SPUtils.getInstance(CommonDate.USER).getString(CommonDate.token, ""))) {
+                    startActivityForResult(Intent(this, LoginActivity::class.java),301)
+                    return
+                }
                 if (mShareBoardDialog == null) {
                     mShareBoardDialog = ShareBoardDialog.getInstance("","")
                     mShareBoardDialog?.setOnShareListener(this)
@@ -297,6 +300,10 @@ class HomeTabActivity : BaseActivity(), View.OnClickListener, HomeDetailView, TB
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
         UMShareAPI.get(this).onActivityResult(requestCode, resultCode, data)
+        if (requestCode == 301 && resultCode == 200){
+            //登陆成功后回来，需要刷新分享链接
+            onRefresh()
+        }
     }
 
     override fun onDestroy() {
