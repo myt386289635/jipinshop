@@ -102,8 +102,8 @@ public class LoginActivity extends BaseActivity implements LoginView, View.OnCli
                 ds.setUnderlineText(false);
             }
         };
-        string.setSpan(clickableSpan2,6,14, Spanned.SPAN_INCLUSIVE_INCLUSIVE);//用户协议
-        string.setSpan(clickableSpan1,16,content.length() - 1, Spanned.SPAN_INCLUSIVE_INCLUSIVE);//隐私政策
+        string.setSpan(clickableSpan2,7,15, Spanned.SPAN_INCLUSIVE_INCLUSIVE);//用户协议
+        string.setSpan(clickableSpan1,17,content.length() - 1, Spanned.SPAN_INCLUSIVE_INCLUSIVE);//隐私政策
         // 设置此方法后，点击事件才能生效
         mBinding.loginProtocol.setMovementMethod(LinkMovementMethod.getInstance());
         //去掉点击效果
