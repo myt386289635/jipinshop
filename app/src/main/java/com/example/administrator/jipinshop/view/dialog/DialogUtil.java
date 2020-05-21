@@ -640,7 +640,7 @@ public class DialogUtil {
         AlertDialog.Builder builder = new AlertDialog.Builder(context, R.style.dialog);
         final Dialog dialog = builder.create();
         DialogCheapBinding binding = DataBindingUtil.inflate(LayoutInflater.from(context), R.layout.dialog_cheap, null, false);
-        binding.dialogTitle.setText("额外送你"+addAllowancePrice+"元津贴已经到账");
+        binding.dialogTitle.setText("送你"+addAllowancePrice+"元津贴已到账");
         for (int i = 0; i < list.size(); i++) {
             if (i==0){
                 binding.setDate1(list.get(i));

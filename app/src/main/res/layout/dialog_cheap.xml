@@ -28,26 +28,26 @@
             android:layout_width="@dimen/x560"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
-            android:background="@drawable/bg_db4210"
+            android:background="@drawable/bg_f33a25"
             android:orientation="vertical">
 
             <TextView
+                android:id="@+id/dialog_title"
                 android:layout_marginBottom="@dimen/y15"
                 android:layout_marginTop="@dimen/y48"
                 android:gravity="center"
-                android:text="恭喜完成首次下单"
-                android:textColor="@color/color_white"
+                android:text="送你88元津贴已到账"
+                android:textColor="@color/color_FFEC44"
                 android:textStyle="bold"
-                android:textSize="18sp"
+                android:textSize="19sp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"/>
 
             <TextView
-                android:id="@+id/dialog_title"
                 android:textColor="@color/color_white"
                 android:textStyle="bold"
-                android:textSize="18sp"
-                android:text="额外送你10元津贴已经到账"
+                android:textSize="15sp"
+                android:text="下单立减，津贴当钱花"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"/>
 
@@ -59,13 +59,13 @@
                 android:orientation="horizontal">
 
                 <RelativeLayout
-                    android:layout_width="@dimen/x160"
-                    android:layout_height="@dimen/y212">
+                    android:layout_width="@dimen/x164"
+                    android:layout_height="@dimen/y224">
 
                     <ImageView
                         android:id="@+id/dialog_img1"
                         android:layout_width="match_parent"
-                        android:layout_height="@dimen/y160"
+                        android:layout_height="@dimen/y164"
                         android:scaleType="centerCrop"
                         bind:srcTopRound="@{date1.img}"/>
 
@@ -75,38 +75,49 @@
                         android:layout_below="@id/dialog_img1"
                         android:background="@drawable/bg_balance_last">
 
-                        <TextView
-                            android:id="@+id/dialog_text1"
-                            android:gravity="center"
-                            android:textColor="@color/color_white"
-                            android:textSize="13sp"
-                            android:text="@{@string/allowance1 + date1.useAllowancePrice}"
+                        <LinearLayout
+                            android:orientation="horizontal"
+                            android:gravity="center_horizontal"
                             android:layout_centerInParent="true"
                             android:background="@mipmap/dialog_cheap_price"
                             android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"/>
+                            android:layout_height="wrap_content">
+
+                            <TextView
+                                android:textStyle="bold"
+                                android:textColor="@color/color_FFEC44"
+                                android:textSize="10sp"
+                                android:text="减￥"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"/>
+
+                            <TextView
+                                android:id="@+id/dialog_text1"
+                                android:textStyle="bold"
+                                android:textSize="19sp"
+                                android:text="@{date1.useAllowancePrice}"
+                                android:textColor="@color/color_FFEC44"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"/>
+
+                        </LinearLayout>
+
 
                     </RelativeLayout>
-
-                    <ImageView
-                        android:layout_marginLeft="@dimen/x6"
-                        android:src="@mipmap/bg_newpople10"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"/>
 
                 </RelativeLayout>
 
                 <RelativeLayout
                     android:visibility="@{date2 == null ? View.GONE : View.VISIBLE}"
-                    android:layout_width="@dimen/x160"
-                    android:layout_height="@dimen/y212"
+                    android:layout_width="@dimen/x164"
+                    android:layout_height="@dimen/y224"
                     android:layout_marginLeft="@dimen/x10"
                     android:layout_marginRight="@dimen/x10">
 
                     <ImageView
                         android:id="@+id/dialog_img2"
                         android:layout_width="match_parent"
-                        android:layout_height="@dimen/y160"
+                        android:layout_height="@dimen/y164"
                         android:scaleType="centerCrop"
                         bind:srcTopRound="@{date2.img}"/>
 
@@ -116,36 +127,46 @@
                         android:layout_below="@id/dialog_img2"
                         android:background="@drawable/bg_balance_last">
 
-                        <TextView
-                            android:id="@+id/dialog_text2"
-                            android:gravity="center"
-                            android:textColor="@color/color_white"
-                            android:textSize="13sp"
-                            android:text="@{@string/allowance1 + date2.useAllowancePrice}"
+                        <LinearLayout
+                            android:orientation="horizontal"
+                            android:gravity="center_horizontal"
                             android:layout_centerInParent="true"
                             android:background="@mipmap/dialog_cheap_price"
                             android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"/>
+                            android:layout_height="wrap_content">
+
+                            <TextView
+                                android:textStyle="bold"
+                                android:textColor="@color/color_FFEC44"
+                                android:textSize="10sp"
+                                android:text="减￥"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"/>
+
+                            <TextView
+                                android:id="@+id/dialog_text2"
+                                android:textColor="@color/color_FFEC44"
+                                android:textStyle="bold"
+                                android:textSize="19sp"
+                                android:text="@{date2.useAllowancePrice}"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"/>
+
+                        </LinearLayout>
 
                     </RelativeLayout>
-
-                    <ImageView
-                        android:layout_marginLeft="@dimen/x6"
-                        android:src="@mipmap/bg_newpople10"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"/>
 
                 </RelativeLayout>
 
                 <RelativeLayout
                     android:visibility="@{date3 == null ? View.GONE : View.VISIBLE}"
-                    android:layout_width="@dimen/x160"
-                    android:layout_height="@dimen/y212">
+                    android:layout_width="@dimen/x164"
+                    android:layout_height="@dimen/y224">
 
                     <ImageView
                         android:id="@+id/dialog_img3"
                         android:layout_width="match_parent"
-                        android:layout_height="@dimen/y160"
+                        android:layout_height="@dimen/y164"
                         android:scaleType="centerCrop"
                         bind:srcTopRound="@{date3.img}"/>
 
@@ -155,37 +176,38 @@
                         android:layout_below="@id/dialog_img3"
                         android:background="@drawable/bg_balance_last">
 
-                        <TextView
-                            android:id="@+id/dialog_text3"
-                            android:gravity="center"
-                            android:textColor="@color/color_white"
-                            android:textSize="13sp"
-                            android:text="@{@string/allowance1 + date3.useAllowancePrice}"
+                        <LinearLayout
+                            android:orientation="horizontal"
+                            android:gravity="center_horizontal"
                             android:layout_centerInParent="true"
                             android:background="@mipmap/dialog_cheap_price"
                             android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"/>
+                            android:layout_height="wrap_content">
+
+                            <TextView
+                                android:textStyle="bold"
+                                android:textColor="@color/color_FFEC44"
+                                android:textSize="10sp"
+                                android:text="减￥"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"/>
+
+                            <TextView
+                                android:id="@+id/dialog_text3"
+                                android:textColor="@color/color_FFEC44"
+                                android:textStyle="bold"
+                                android:textSize="19sp"
+                                android:text="@{date3.useAllowancePrice}"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"/>
+
+                        </LinearLayout>
 
                     </RelativeLayout>
-
-                    <ImageView
-                        android:layout_marginLeft="@dimen/x6"
-                        android:src="@mipmap/bg_newpople10"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"/>
 
                 </RelativeLayout>
 
             </LinearLayout>
-
-            <TextView
-                android:id="@+id/dialog_allowPrice"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="@dimen/y50"
-                android:text="以上商品下单立减，津贴当钱花！"
-                android:textColor="@color/color_white"
-                android:textSize="14sp"/>
 
             <ImageView
                 android:layout_marginBottom="@dimen/y44"
