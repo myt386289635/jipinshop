@@ -36,7 +36,7 @@
                 android:layout_marginBottom="@dimen/y15"
                 android:layout_marginTop="@dimen/y48"
                 android:gravity="center"
-                android:text="送你88元津贴已到账"
+                android:text="新人专享108元补贴大礼包"
                 android:textColor="@color/color_FFEC44"
                 android:textStyle="bold"
                 android:textSize="19sp"
