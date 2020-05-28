@@ -345,21 +345,25 @@ public class BindingUtil {
     }
 
     /*******************************以下是我的订单（淘宝订单）里的************************************/
-    @BindingAdapter({"bind:source"})
-    public static void setTextitem_titleText(TextView view ,int source){
-        switch (source){
-            case 1:
-                view.setText("京东");
-                break;
-            case 2:
-                view.setText("淘宝");
-                break;
-            case 3:
-                view.setText("天猫");
-                break;
-            case 4:
-                view.setText("拼多多");
-                break;
+    @BindingAdapter({"bind:source","bind:type"})
+    public static void setTextitem_titleText(TextView view ,int source, int type){
+        if (type == 3){
+            view.setText("新用户首单全返");
+        }else {
+            switch (source){
+                case 1:
+                    view.setText("京东");
+                    break;
+                case 2:
+                    view.setText("淘宝");
+                    break;
+                case 3:
+                    view.setText("天猫");
+                    break;
+                case 4:
+                    view.setText("拼多多");
+                    break;
+            }
         }
     }
 

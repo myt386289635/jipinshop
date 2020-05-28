@@ -45,7 +45,9 @@ class KTMain2ActionAdapter : RecyclerView.Adapter<KTMain2ActionAdapter.ViewHolde
             var layoutParams =  binding.itemContainer.layoutParams as GridLayoutManager.LayoutParams
             if (position % 2 == 0){
                 layoutParams.rightMargin = mContext.resources.getDimension(R.dimen.x10).toInt()
+                layoutParams.leftMargin = 0
             }else{
+                layoutParams.rightMargin = 0
                 layoutParams.leftMargin = mContext.resources.getDimension(R.dimen.x10).toInt()
             }
             binding.itemContainer.layoutParams = layoutParams

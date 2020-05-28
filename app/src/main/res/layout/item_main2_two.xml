@@ -44,41 +44,25 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
 
-                <TextView
-                    android:id="@+id/mainPeople_title"
-                    android:textStyle="bold"
-                    android:textSize="18sp"
-                    android:textColor="@color/color_white"
-                    android:layout_marginTop="@dimen/y11"
-                    android:layout_marginLeft="@dimen/x17"
-                    android:text="新人0元购"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"/>
-
-                <TextView
+                <ImageView
+                    android:layout_marginTop="@dimen/y16"
+                    android:layout_marginLeft="@dimen/x16"
                     android:id="@+id/mainPeople_reTitle"
-                    android:textColor="@color/color_white"
-                    android:textSize="12sp"
-                    android:text="下单立减，免费领"
-                    android:layout_marginTop="@dimen/y5"
-                    android:layout_marginLeft="@dimen/x17"
-                    android:layout_below="@id/mainPeople_title"
+                    android:src="@mipmap/main_text"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"/>
 
-                <TextView
-                    android:layout_marginRight="@dimen/x14"
-                    android:layout_marginTop="@dimen/y15"
+                <ImageView
+                    android:src="@mipmap/main_receive"
+                    android:layout_marginRight="@dimen/x15"
+                    android:layout_marginTop="@dimen/y34"
                     android:layout_alignParentRight="true"
-                    android:textColor="@color/color_white"
-                    android:textSize="11sp"
-                    android:text="查看更多>>"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"/>
 
                 <LinearLayout
                     android:layout_marginBottom="@dimen/y11"
-                    android:layout_marginTop="@dimen/y28"
+                    android:layout_marginTop="@dimen/y26"
                     android:layout_below="@id/mainPeople_reTitle"
                     android:weightSum="4"
                     android:layout_width="match_parent"

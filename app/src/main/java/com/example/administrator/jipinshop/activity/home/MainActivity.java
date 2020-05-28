@@ -14,7 +14,6 @@ import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
 import android.text.TextUtils;
 import android.view.View;
-import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -24,7 +23,7 @@ import com.example.administrator.jipinshop.MyApplication;
 import com.example.administrator.jipinshop.R;
 import com.example.administrator.jipinshop.activity.cheapgoods.CheapBuyActivity;
 import com.example.administrator.jipinshop.activity.login.LoginActivity;
-import com.example.administrator.jipinshop.activity.newpeople.NewPeopleActivity;
+import com.example.administrator.jipinshop.activity.newpeople.NewFreeActivity;
 import com.example.administrator.jipinshop.activity.sign.SignActivity;
 import com.example.administrator.jipinshop.adapter.HomeAdapter;
 import com.example.administrator.jipinshop.base.DaggerBaseActivityComponent;
@@ -33,7 +32,6 @@ import com.example.administrator.jipinshop.bean.EvaluationTabBean;
 import com.example.administrator.jipinshop.bean.ImageBean;
 import com.example.administrator.jipinshop.bean.PopInfoBean;
 import com.example.administrator.jipinshop.bean.SucBean;
-import com.example.administrator.jipinshop.bean.SuccessBean;
 import com.example.administrator.jipinshop.bean.TklBean;
 import com.example.administrator.jipinshop.bean.eventbus.ChangeHomePageBus;
 import com.example.administrator.jipinshop.bean.eventbus.EditNameBus;
@@ -343,7 +341,7 @@ public class MainActivity extends RxAppCompatActivity implements MainView, ViewP
             DialogUtil.newPeopleDialog(MainActivity.this, v -> {
                 getClipText();
             }, v -> {
-                startActivity(new Intent(this, NewPeopleActivity.class));
+                startActivity(new Intent(this, NewFreeActivity.class));
             });
         }
     }
@@ -363,7 +361,7 @@ public class MainActivity extends RxAppCompatActivity implements MainView, ViewP
                                     DialogUtil.newPeopleDialog(MainActivity.this, v -> {
                                         getClipText();
                                     }, v -> {
-                                        startActivity(new Intent(this, NewPeopleActivity.class));
+                                        startActivity(new Intent(this, NewFreeActivity.class));
                                     });
                                 });
                             } else {
@@ -382,7 +380,7 @@ public class MainActivity extends RxAppCompatActivity implements MainView, ViewP
                                     DialogUtil.newPeopleDialog(MainActivity.this, v -> {
                                         getClipText();
                                     }, v -> {
-                                        startActivity(new Intent(this, NewPeopleActivity.class));
+                                        startActivity(new Intent(this, NewFreeActivity.class));
                                     });
                                 });
                             } else {
@@ -400,7 +398,7 @@ public class MainActivity extends RxAppCompatActivity implements MainView, ViewP
                     DialogUtil.newPeopleDialog(MainActivity.this, v -> {
                         getClipText();
                     }, v -> {
-                        startActivity(new Intent(this, NewPeopleActivity.class));
+                        startActivity(new Intent(this, NewFreeActivity.class));
                     });
                 });
             } else {
@@ -419,7 +417,7 @@ public class MainActivity extends RxAppCompatActivity implements MainView, ViewP
                 DialogUtil.newPeopleDialog(MainActivity.this, v -> {
                     getClipText();
                 }, v -> {
-                    startActivity(new Intent(this, NewPeopleActivity.class));
+                    startActivity(new Intent(this, NewFreeActivity.class));
                 });
             });
         } else {
@@ -450,7 +448,7 @@ public class MainActivity extends RxAppCompatActivity implements MainView, ViewP
                     if (!bean.getData().get(newPos).getPopId().equals(SPUtils.getInstance().getString(CommonDate.POPID, ""))) {
                         int finalActivityPos = activityPos;
                         DialogUtil.imgDialog(MainActivity.this, bean.getData().get(newPos).getData().getImg(), v -> {
-                            startActivity(new Intent(this, NewPeopleActivity.class));
+                            startActivity(new Intent(this, NewFreeActivity.class));
                         }, v -> {
                             DialogUtil.imgDialog(MainActivity.this, bean.getData().get(finalActivityPos).getData().getImg(), v1 -> {
                                 if (TextUtils.isEmpty(SPUtils.getInstance(CommonDate.USER).getString(CommonDate.token, ""))) {
@@ -522,7 +520,7 @@ public class MainActivity extends RxAppCompatActivity implements MainView, ViewP
                     //新人弹窗
                     if (!bean.getData().get(0).getPopId().equals(SPUtils.getInstance().getString(CommonDate.POPID, ""))) {
                         DialogUtil.imgDialog(MainActivity.this, bean.getData().get(0).getData().getImg(), v -> {
-                            startActivity(new Intent(this, NewPeopleActivity.class));
+                            startActivity(new Intent(this, NewFreeActivity.class));
                         }, v -> {
                             getClipText();
                         });

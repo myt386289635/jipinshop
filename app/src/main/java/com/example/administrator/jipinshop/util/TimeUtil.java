@@ -48,5 +48,21 @@ public class TimeUtil {
         }
         return currentTime;
     }
-    
+
+
+    public static String getCountTimeByLong2(long millisUntilFinished){
+        int ss = 1000;
+        int mi = ss * 60;
+        int hh = mi * 60;
+        int dd = hh * 24;
+
+        long day = millisUntilFinished / dd;
+        long hour = ((millisUntilFinished - day * dd) / hh);
+        long minute = (millisUntilFinished- hour * hh - day * dd) / mi;
+        long second = (millisUntilFinished - hour * hh - minute * mi - day * dd) / ss;
+        long milliSecond = millisUntilFinished  - hour * hh - minute * mi - second * ss - day * dd;
+
+        String result = ((day * 24) + hour) + ":" + minute + ":" + second ;
+        return result;
+    }
 }

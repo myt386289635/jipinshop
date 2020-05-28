@@ -4,6 +4,7 @@ import android.app.Dialog
 import android.content.Intent
 import android.databinding.DataBindingUtil
 import android.os.Bundle
+import android.text.InputFilter
 import android.text.TextUtils
 import android.view.View
 import com.example.administrator.jipinshop.R
@@ -28,7 +29,7 @@ class MoneyWithdrawActivity : BaseActivity(), View.OnClickListener, MoneyWithdra
     lateinit var mPresenter : MoneyWithdrawPresenter
 
     private lateinit var mBinding: ActivityMoneyWithdrawBinding
-    private var limiMoney = 50
+    private var limiMoney : Double = 50.0
     private var mDialog: Dialog? = null
     private var alipayNickname = ""//支付宝昵称
     private var realname = ""//真实姓名
@@ -54,6 +55,24 @@ class MoneyWithdrawActivity : BaseActivity(), View.OnClickListener, MoneyWithdra
         }else{
             mBinding.withdrawBindingText.text = "已绑定"
         }
+
+        //处理输入金钱的editText，只能输入2位小数
+        mBinding.withdrawPay.filters = arrayOf(InputFilter { source, start, end, dest, dstart, dend ->
+            if (source == "." && dest.toString().isEmpty()) {
+                return@InputFilter "0."
+            }
+            if (dest.toString().contains(".") && source == ".") {
+                return@InputFilter ""
+            }
+            if (dest.toString().contains(".")) {
+                val index = dest.toString().indexOf(".")
+                val length = dest.toString().substring(index).length
+                if (length == 3) {
+                    return@InputFilter ""
+                }
+            }
+            null
+        })
     }
 
     override fun onClick(view: View) {
@@ -67,8 +86,9 @@ class MoneyWithdrawActivity : BaseActivity(), View.OnClickListener, MoneyWithdra
                 finish()
             }
             R.id.withdraw_withdraw -> {
+                limiMoney = BigDecimal(mBinding.withdrawPay.text.toString()).toDouble()
                 var money = BigDecimal(mBinding.withdrawMoney.text.toString()).toDouble()
-                if (money < limiMoney){
+                if (money < limiMoney || money <= 0){
                     ToastUtil.show("金额不足")
                     return
                 }
@@ -94,28 +114,16 @@ class MoneyWithdrawActivity : BaseActivity(), View.OnClickListener, MoneyWithdra
                         .putExtra("realName" , realname)
                 ,303)
             }
-            R.id.withdraw_money50 -> {
-                initButton()
-                mBinding.withdrawMoney50.setBackgroundResource(R.mipmap.withdraw_select)
-                limiMoney = 50
-            }
-            R.id.withdraw_money100 -> {
-                initButton()
-                mBinding.withdrawMoney100.setBackgroundResource(R.mipmap.withdraw_select)
-                limiMoney = 100
-            }
-            R.id.withdraw_money150 -> {
-                initButton()
-                mBinding.withdrawMoney150.setBackgroundResource(R.mipmap.withdraw_select)
-                limiMoney = 150
+            R.id.withdraw_moneyAll -> {
+                //全部提现
+                var money = BigDecimal(mBinding.withdrawMoney.text.toString()).toDouble()
+                if (money <= 0){
+                    ToastUtil.show("金额不足")
+                    return
+                }
+                mBinding.withdrawPay.setText(mBinding.withdrawMoney.text.toString())
             }
         }
-    }
-
-    fun initButton(){
-        mBinding.withdrawMoney50.setBackgroundResource(R.mipmap.withdraw_normal)
-        mBinding.withdrawMoney100.setBackgroundResource(R.mipmap.withdraw_normal)
-        mBinding.withdrawMoney150.setBackgroundResource(R.mipmap.withdraw_normal)
     }
 
     override fun onSuccess() {

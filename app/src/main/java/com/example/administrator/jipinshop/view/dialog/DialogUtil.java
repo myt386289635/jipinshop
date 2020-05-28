@@ -9,6 +9,7 @@ import android.content.Intent;
 import android.databinding.DataBindingUtil;
 import android.graphics.Color;
 import android.graphics.Typeface;
+import android.os.CountDownTimer;
 import android.text.Html;
 import android.text.SpannableString;
 import android.text.Spanned;
@@ -34,6 +35,7 @@ import com.example.administrator.jipinshop.activity.WebActivity;
 import com.example.administrator.jipinshop.activity.home.MainActivity;
 import com.example.administrator.jipinshop.activity.shoppingdetail.tbshoppingdetail.TBShoppingDetailActivity;
 import com.example.administrator.jipinshop.activity.sreach.result.TBSreachResultActivity;
+import com.example.administrator.jipinshop.bean.NewFreeBean;
 import com.example.administrator.jipinshop.bean.PopBean;
 import com.example.administrator.jipinshop.bean.TklBean;
 import com.example.administrator.jipinshop.databinding.DialogCheapBinding;
@@ -45,6 +47,7 @@ import com.example.administrator.jipinshop.databinding.DialogTklBinding;
 import com.example.administrator.jipinshop.databinding.DialogUserBinding;
 import com.example.administrator.jipinshop.netwrok.RetrofitModule;
 import com.example.administrator.jipinshop.util.ShopJumpUtil;
+import com.example.administrator.jipinshop.util.TimeUtil;
 import com.example.administrator.jipinshop.util.ToastUtil;
 import com.example.administrator.jipinshop.util.sp.CommonDate;
 import com.example.administrator.jipinshop.view.glide.GlideApp;
@@ -616,10 +619,58 @@ public class DialogUtil {
         AlertDialog.Builder builder = new AlertDialog.Builder(context, R.style.dialog);
         final Dialog dialog = builder.create();
         DialogOutBinding binding = DataBindingUtil.inflate(LayoutInflater.from(context), R.layout.dialog_out, null, false);
-        binding.dialogAllowPrice.setText("还有" + allowance + "元津贴仍未使用下单立减当钱花");
+        binding.dialogTime.setText("还有" + allowance + "元津贴仍未使用下单立减当钱花");
         GlideApp.loderTopRoundImage(context, strings.get(0), binding.dialogImg1, (int) context.getResources().getDimension(R.dimen.x10));
         GlideApp.loderTopRoundImage(context, strings.get(1), binding.dialogImg2, (int) context.getResources().getDimension(R.dimen.x10));
         GlideApp.loderTopRoundImage(context, strings.get(2), binding.dialogImg3, (int) context.getResources().getDimension(R.dimen.x10));
+        binding.dialogSure.setOnClickListener(v -> {
+            dialog.dismiss();
+        });
+        binding.dialogDismiss.setOnClickListener(v -> {
+            if (listener != null)
+                listener.onClick(v);
+            dialog.dismiss();
+        });
+        dialog.getWindow().setDimAmount(0.35f);
+        dialog.show();
+        dialog.setContentView(binding.getRoot());
+    }
+
+    //新人0元购免单专区 离开时弹窗
+    public static void outDialog2(Context context, NewFreeBean bean , View.OnClickListener listener){
+        AlertDialog.Builder builder = new AlertDialog.Builder(context, R.style.dialog);
+        final Dialog dialog = builder.create();
+        DialogOutBinding binding = DataBindingUtil.inflate(LayoutInflater.from(context), R.layout.dialog_out, null, false);
+        if (bean.getData().size() >= 5){
+            GlideApp.loderTopRoundImage(context, bean.getData().get(2).getImg(), binding.dialogImg1, (int) context.getResources().getDimension(R.dimen.x10));
+            GlideApp.loderTopRoundImage(context, bean.getData().get(3).getImg(), binding.dialogImg2, (int) context.getResources().getDimension(R.dimen.x10));
+            GlideApp.loderTopRoundImage(context, bean.getData().get(4).getImg(), binding.dialogImg3, (int) context.getResources().getDimension(R.dimen.x10));
+            binding.dialogText1.setText("¥"+ bean.getData().get(2).getBuyPrice());
+            binding.dialogText2.setText("¥"+ bean.getData().get(3).getBuyPrice());
+            binding.dialogText3.setText("¥"+ bean.getData().get(4).getBuyPrice());
+        }else {
+            GlideApp.loderTopRoundImage(context, bean.getData().get(0).getImg(), binding.dialogImg1, (int) context.getResources().getDimension(R.dimen.x10));
+            GlideApp.loderTopRoundImage(context, bean.getData().get(1).getImg(), binding.dialogImg2, (int) context.getResources().getDimension(R.dimen.x10));
+            GlideApp.loderTopRoundImage(context, bean.getData().get(2).getImg(), binding.dialogImg3, (int) context.getResources().getDimension(R.dimen.x10));
+            binding.dialogText1.setText("¥"+ bean.getData().get(0).getBuyPrice());
+            binding.dialogText2.setText("¥"+ bean.getData().get(1).getBuyPrice());
+            binding.dialogText3.setText("¥"+ bean.getData().get(2).getBuyPrice());
+        }
+        long endTime = bean.getEndTime();
+        long time = (endTime * 1000) - System.currentTimeMillis();
+        if (time > 0){
+            binding.dialogTime.setVisibility(View.VISIBLE);
+             new CountDownTimer(time, 1000) {
+                public void onTick(long millisUntilFinished) {
+                    binding.dialogTime.setText(TimeUtil.getCountTimeByLong2(millisUntilFinished) + "后将失效");
+                }
+                public void onFinish() {
+                    binding.dialogTime.setVisibility(View.GONE);
+                }
+            }.start();
+        }else {
+            binding.dialogTime.setVisibility(View.GONE);
+        }
         binding.dialogSure.setOnClickListener(v -> {
             dialog.dismiss();
         });
@@ -847,5 +898,23 @@ public class DialogUtil {
         dialog.getWindow().setDimAmount(0.35f);
         dialog.show();
         dialog.setContentView(view);
+    }
+
+    //红包活动时的弹窗
+    public static void hbWebDialog(Context context,View.OnClickListener listener){
+        AlertDialog.Builder builder = new AlertDialog.Builder(context, R.style.dialog);
+        DialogNewpeople2Binding binding = DataBindingUtil.inflate(LayoutInflater.from(context),R.layout.dialog_newpeople2, null,false);
+        final Dialog dialog = builder.create();
+        binding.dialogCancle.setVisibility(View.GONE);
+        binding.dialogImage.setImageResource(R.mipmap.action_hb);
+        binding.dialogImage.setOnClickListener(v -> {
+            if (listener != null){
+                listener.onClick(v);
+            }
+            dialog.dismiss();
+        });
+        dialog.getWindow().setDimAmount(0.35f);
+        dialog.show();
+        dialog.setContentView(binding.getRoot());
     }
 }

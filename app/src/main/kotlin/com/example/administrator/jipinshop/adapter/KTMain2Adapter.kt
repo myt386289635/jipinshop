@@ -29,7 +29,7 @@ import com.example.administrator.jipinshop.R
 import com.example.administrator.jipinshop.activity.WebActivity
 import com.example.administrator.jipinshop.activity.cheapgoods.CheapBuyActivity
 import com.example.administrator.jipinshop.activity.login.LoginActivity
-import com.example.administrator.jipinshop.activity.newpeople.NewPeopleActivity
+import com.example.administrator.jipinshop.activity.newpeople.NewFreeActivity
 import com.example.administrator.jipinshop.activity.shoppingdetail.tbshoppingdetail.TBShoppingDetailActivity
 import com.example.administrator.jipinshop.bean.SuccessBean
 import com.example.administrator.jipinshop.bean.TBSreachResultBean
@@ -222,7 +222,7 @@ class KTMain2Adapter : RecyclerView.Adapter<RecyclerView.ViewHolder>{
                     initUser()
                     binding.mainNewpeople.setOnClickListener {
                         appStatisticalUtil.addEvent("shouye_xinren",transformer)
-                        mContext.startActivity(Intent(mContext, NewPeopleActivity::class.java))
+                        mContext.startActivity(Intent(mContext, NewFreeActivity::class.java))
                     }
                     binding.mainOldpeople.setOnClickListener {
                         appStatisticalUtil.addEvent("shouye_tehui",transformer)

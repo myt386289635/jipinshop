@@ -198,7 +198,7 @@ public class NewPeopleActivity extends BaseActivity implements OnRefreshListener
             startActivity(new Intent(this, LoginActivity.class));
             return;
         }
-        DialogUtil.LoginDialog(this, "您将前往淘宝购买此商品，\n使用津贴立减￥"+ mList2.get(position).getUseAllowancePrice() +"，无需等待返现",
+        DialogUtil.LoginDialog(this, "您将前往淘宝购买并消耗"+mList2.get(position).getUseAllowancePrice()+"元津贴\n下单立减"+ mList2.get(position).getUseAllowancePrice() +"元，无需等待返现",
                 "确认", "取消", R.color.color_202020, R.color.color_202020,
                 false, v -> {
                     TaoBaoUtil.openTB(this, () -> {

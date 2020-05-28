@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <LinearLayout
+            android:orientation="vertical"
+            android:background="@drawable/bg_dialog_white"
+            android:layout_marginTop="@dimen/y27"
+            android:layout_marginRight="@dimen/x30"
+            android:layout_marginLeft="@dimen/x30"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:textColor="@color/color_202020"
+                android:textSize="18sp"
+                android:layout_marginTop="@dimen/y40"
+                android:layout_gravity="center_horizontal"
+                android:text="加导师微信，享更多福利"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+
+            <TextView
+                android:id="@+id/item_copy"
+                android:gravity="center"
+                android:textColor="@color/color_FFE2B5"
+                android:textSize="13sp"
+                android:text="复制微信号"
+                android:background="@drawable/bg_f65238"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginBottom="@dimen/y35"
+                android:layout_marginTop="@dimen/y24"
+                android:layout_width="@dimen/x277"
+                android:layout_height="@dimen/y60"/>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_marginBottom="@dimen/y35"
+            android:layout_marginTop="@dimen/y35"
+            android:layout_marginRight="@dimen/x30"
+            android:layout_marginLeft="@dimen/x30"
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <ImageView
+                android:id="@+id/item_one"
+                android:layout_marginRight="@dimen/x10"
+                android:src="@color/color_F65238"
+                android:layout_weight="1"
+                android:layout_width="0dp"
+                android:layout_height="@dimen/x178"/>
+
+            <ImageView
+                android:id="@+id/item_two"
+                android:src="@color/color_F65238"
+                android:layout_weight="1"
+                android:layout_width="0dp"
+                android:layout_height="@dimen/x178"/>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_marginBottom="@dimen/y43"
+            android:layout_marginRight="@dimen/x30"
+            android:layout_marginLeft="@dimen/x30"
+            android:background="@drawable/bg_line"
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:layout_marginTop="@dimen/y22"
+                android:layout_gravity="center_horizontal"
+                android:textStyle="bold"
+                android:textSize="17sp"
+                android:textColor="@color/color_FFE2B5"
+                android:text="新人免单详细规则"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+
+            <TextView
+                android:id="@+id/item_rule"
+                android:lineSpacingExtra="@dimen/y12"
+                android:layout_marginBottom="@dimen/y15"
+                android:layout_marginTop="@dimen/y19"
+                android:layout_marginRight="@dimen/x18"
+                android:layout_marginLeft="@dimen/x18"
+                android:textSize="14sp"
+                android:textColor="@color/color_FFE2B5"
+                android:text="选择本页面商品下单需先支付，确认收货后根据实付金额全额返现到您的账户中，金额可提现。所以真的是"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+
+            <TextView
+                android:layout_marginBottom="@dimen/y27"
+                android:layout_gravity="center_horizontal"
+                android:paddingBottom="@dimen/y8"
+                android:paddingTop="@dimen/y8"
+                android:paddingRight="@dimen/x24"
+                android:paddingLeft="@dimen/x24"
+                android:background="@drawable/bg_evakt"
+                android:textColor="@color/color_F54A32"
+                android:textSize="14sp"
+                android:text="如商品有多个规格，按价格最低的规格返现"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+
+        </LinearLayout>
+
+    </LinearLayout>
+</layout>

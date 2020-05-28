@@ -1,0 +1,139 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:bind="http://schemas.android.com/apk/res-auto">
+
+    <data>
+        <import type="android.view.View"/>
+        <variable
+            name="date"
+            type="com.example.administrator.jipinshop.bean.NewFreeBean.DataBean"/>
+    </data>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <RelativeLayout
+            android:layout_marginRight="@dimen/x5"
+            android:layout_marginLeft="@dimen/x30"
+            android:id="@+id/itemContainer"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/y24"
+            android:background="@drawable/bg_dialog_white">
+
+            <ImageView
+                android:scaleType="fitXY"
+                android:id="@+id/item_image"
+                bind:srcTopRound="@{date.img}"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/y335"/>
+
+            <RelativeLayout
+                android:visibility="@{date.total > 0 ? View.GONE : View.VISIBLE}"
+                android:id="@+id/item_shadow"
+                android:background="@drawable/bg_80000000_2"
+                android:layout_alignRight="@id/item_image"
+                android:layout_alignBottom="@id/item_image"
+                android:layout_alignTop="@id/item_image"
+                android:layout_alignLeft="@id/item_image"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+
+                <ImageView
+                    android:layout_centerInParent="true"
+                    android:src="@mipmap/bg_shadow"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"/>
+
+            </RelativeLayout>
+
+            <TextView
+                android:id="@+id/item_name"
+                android:layout_marginRight="@dimen/x6"
+                android:layout_marginLeft="@dimen/x6"
+                android:layout_marginTop="@dimen/y10"
+                android:ellipsize="end"
+                android:maxLines="2"
+                android:textColor="@color/color_202020"
+                android:textSize="14sp"
+                android:lineSpacingExtra="@dimen/y10"
+                android:text="@{date.otherName}"
+                android:layout_below="@id/item_image"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+
+            <LinearLayout
+                android:id="@+id/item_priceContainer"
+                android:layout_marginTop="@dimen/y5"
+                android:layout_marginRight="@dimen/x12"
+                android:layout_marginLeft="@dimen/x12"
+                android:layout_below="@id/item_name"
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:textColor="@color/color_F85D42"
+                    android:textSize="10sp"
+                    android:text="返现后￥"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"/>
+
+                <TextView
+                    android:textStyle="bold"
+                    android:textColor="@color/color_F85D42"
+                    android:textSize="18sp"
+                    android:text="@{date.buyPrice}"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"/>
+
+                <com.example.administrator.jipinshop.view.textview.TextViewDel
+                    android:text="@{@string/index_price + date.otherPrice}"
+                    android:layout_marginLeft="@dimen/x12"
+                    android:id="@+id/item_otherPrice"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="10sp"
+                    android:textColor="@color/color_989898"/>
+
+            </LinearLayout>
+
+            <TextView
+                android:layout_marginLeft="@dimen/x12"
+                android:layout_marginTop="@dimen/y14"
+                android:id="@+id/item_fee"
+                android:paddingRight="@dimen/x16"
+                android:paddingLeft="@dimen/x16"
+                android:layout_below="@id/item_priceContainer"
+                android:gravity="center"
+                android:text="@{@string/coupon3 + date.couponPrice}"
+                android:textColor="@color/color_835720"
+                android:textSize="10sp"
+                android:background="@drawable/bg_fee"
+                android:layout_width="wrap_content"
+                android:layout_height="@dimen/y30"/>
+
+            <TextView
+                android:padding="@dimen/x2"
+                android:background="@{date.total > 0 ? @drawable/bg_tab_eva : @drawable/bg_tab_eva4}"
+                android:textColor="@{date.total > 0 ? @color/color_FFE2B5 : @color/color_white}"
+                android:gravity="center"
+                android:textSize="13sp"
+                android:text="@{@string/pay + date.actualPrice + @string/fan + date.fee}"
+                android:id="@+id/item_pay"
+                android:layout_marginBottom="@dimen/y20"
+                android:layout_marginTop="@dimen/y20"
+                android:layout_marginRight="@dimen/x10"
+                android:layout_marginLeft="@dimen/x10"
+                android:layout_below="@id/item_fee"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"/>
+
+
+        </RelativeLayout>
+
+
+    </RelativeLayout>
+
+</layout>

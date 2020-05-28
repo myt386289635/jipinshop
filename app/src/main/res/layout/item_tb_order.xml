@@ -19,6 +19,7 @@
             android:layout_marginLeft="@dimen/x30"
             android:gravity="center"
             bind:source="@{date.source}"
+            bind:type="@{date.type}"
             android:textColor="@color/color_989898"
             android:textSize="13sp"
             android:layout_width="wrap_content"

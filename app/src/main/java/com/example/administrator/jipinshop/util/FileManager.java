@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.net.Uri;
+import android.os.Environment;
 import android.provider.MediaStore;
 import android.text.TextUtils;
 
@@ -33,6 +34,11 @@ public class FileManager {
         return context.getExternalFilesDir(DIRECTORY_PICTURES).getPath();
     }
 
+    //下载图片保存相册时用这个地址，因为微信获取图片可能获取不到。
+    public static String externalFiles2(){
+        return Environment.getExternalStorageDirectory().getPath();
+    }
+
     public static String editPhone(String phone){
         if(!TextUtils.isEmpty(phone)){
             String start = phone.substring(0,3);
@@ -50,10 +56,15 @@ public class FileManager {
      * @throws IOException
      */
     public static File saveFile(Bitmap bm ,Context mContext){
-        String sdDir = FileManager.externalFiles(mContext);
-        String str =  sdDir + "/"+ System.currentTimeMillis() + "bitmap.jpg";
-        File myCaptureFile = new File(str);
-        if (myCaptureFile.exists()) {
+        String sdDir = FileManager.externalFiles2();
+        String str =  sdDir + "/DCIM/Camera/";
+        File file = new File(str);
+        if (!file.exists()) {
+            file.mkdirs();
+        }
+        String pathName = file.getAbsolutePath() + "/"+  System.currentTimeMillis() + "bitmap.jpg";
+        File myCaptureFile = new File(pathName);
+        if (myCaptureFile.exists()){
             myCaptureFile.delete();
         }
         BufferedOutputStream bos = null;

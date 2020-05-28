@@ -1,5 +1,6 @@
 package com.example.administrator.jipinshop.netwrok;
 
+import com.example.administrator.jipinshop.bean.ActionHBBean;
 import com.example.administrator.jipinshop.bean.AddressBean;
 import com.example.administrator.jipinshop.bean.AllowanceRecordBean;
 import com.example.administrator.jipinshop.bean.AppVersionbean;
@@ -35,6 +36,7 @@ import com.example.administrator.jipinshop.bean.MoneyRecordBean;
 import com.example.administrator.jipinshop.bean.MyFreeBean;
 import com.example.administrator.jipinshop.bean.MyOrderBean;
 import com.example.administrator.jipinshop.bean.MyWalletBean;
+import com.example.administrator.jipinshop.bean.NewFreeBean;
 import com.example.administrator.jipinshop.bean.NewPeopleBean;
 import com.example.administrator.jipinshop.bean.OrderTBBean;
 import com.example.administrator.jipinshop.bean.OrderbyTypeBean;
@@ -87,6 +89,7 @@ import com.example.administrator.jipinshop.bean.VoteBean;
 import com.example.administrator.jipinshop.bean.WelfareBean;
 import com.example.administrator.jipinshop.bean.WithdrawBean;
 import com.example.administrator.jipinshop.bean.WithdrawDetailBean;
+import com.example.administrator.jipinshop.bean.WithdrawInfoBean;
 
 import java.util.Map;
 
@@ -1234,4 +1237,55 @@ public interface APIService {
     @FormUrlEncoded
     @POST("api/destroyAccount")
     Observable<SuccessBean> destroyAccount(@Field("mobile") String mobile,@Field("code") String code);
+
+    /**
+     * 0元购免单首页列表
+     */
+    @GET("api/v3/free/list")
+    Observable<NewFreeBean> freeList2();
+
+    /**
+     * 0元购免单详情页面
+     */
+    @GET("api/v3/free/detail")
+    Observable<TBShoppingDetailBean> freeDetail2(@Query("freeId") String freeId);
+
+    /**
+     * 0元购免单购买
+     */
+    @FormUrlEncoded
+    @POST("api/v3/free/apply")
+    Observable<ImageBean> freeApply2(@Field("otherGoodsId") String otherGoodsId);
+
+    /**
+     * 红包分享 统计
+     */
+    @GET("api/v2/hongbao/share")
+    Observable<SuccessBean> shareCount(@Query("hongbao2Id") String hongbao2Id, @Query("type") String type , @Query("shareType") String shareType);
+
+    /**
+     * 生成分享红包活动海报
+     */
+    @FormUrlEncoded
+    @POST("api/v2/hongbao/createPosterImg")
+    Observable<ImageBean> hbCreatePosterImg(@Field("hongbao2Id") String hongbao2Id);
+
+    /**
+     * 获取提现信息
+     */
+    @GET("api/v2/hongbao/getWithdrawInfo")
+    Observable<WithdrawInfoBean> getWithdrawInfo();
+
+    /**
+     * 获取0元购免单分享海报
+     */
+    @POST("api/v3/free/getIndexPosterImg")
+    Observable<ImageBean> freeGetIndexPosterImg();
+
+    /**
+     * 获取红包活动信息
+     */
+    @GET("api/v2/hongbao/getHongbaoActivityInfo")
+    Observable<ActionHBBean> getHongbaoActivityInfo();
+
 }

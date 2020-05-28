@@ -20,7 +20,7 @@ import com.blankj.utilcode.util.SPUtils;
 import com.example.administrator.jipinshop.R;
 import com.example.administrator.jipinshop.activity.WebActivity;
 import com.example.administrator.jipinshop.activity.login.LoginActivity;
-import com.example.administrator.jipinshop.activity.newpeople.NewPeopleActivity;
+import com.example.administrator.jipinshop.activity.newpeople.NewFreeActivity;
 import com.example.administrator.jipinshop.base.BaseActivity;
 import com.example.administrator.jipinshop.bean.LoginBean;
 import com.example.administrator.jipinshop.bean.SuccessBean;
@@ -152,7 +152,7 @@ public class BindNumberActivity extends BaseActivity implements BindNumberView, 
             EventBus.getDefault().post(new CommonEvaluationBus(LoginActivity.refresh));//用来刷新商品、评测、发现详情以及评论列表
 
             if ( newpeople == 1 && loginBean.getData().getIsNewUser().equals("0")){
-                startActivity(new Intent(this, NewPeopleActivity.class));
+                startActivity(new Intent(this, NewFreeActivity.class));
                 EventBus.getDefault().post(new HomeNewPeopleBus(1));//登陆后刷新首页活动接口
             }else {
                 EventBus.getDefault().post(new HomeNewPeopleBus(0));//登陆后刷新首页活动接口

@@ -121,11 +121,12 @@
             android:adjustViewBounds="true"
             android:onClick="@{listener.onClick}"
             android:id="@+id/home_action"
-            android:layout_marginBottom="@dimen/y304"
+            android:layout_marginBottom="@dimen/y120"
+            android:layout_marginRight="@dimen/x30"
             android:layout_alignParentBottom="true"
             android:layout_alignParentRight="true"
             android:src="@mipmap/tab_money"
-            android:layout_width="@dimen/x200"
+            android:layout_width="@dimen/x168"
             android:layout_height="wrap_content" />
 
     </RelativeLayout>

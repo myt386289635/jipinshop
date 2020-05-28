@@ -16,7 +16,7 @@ import com.aspsine.swipetoloadlayout.OnRefreshListener
 import com.blankj.utilcode.util.SPUtils
 import com.example.administrator.jipinshop.R
 import com.example.administrator.jipinshop.activity.WebActivity
-import com.example.administrator.jipinshop.activity.newpeople.NewPeopleActivity
+import com.example.administrator.jipinshop.activity.newpeople.NewFreeActivity
 import com.example.administrator.jipinshop.activity.sign.invitation.InvitationNewActivity
 import com.example.administrator.jipinshop.adapter.NoPageBannerAdapter
 import com.example.administrator.jipinshop.base.DBBaseFragment
@@ -123,7 +123,7 @@ class KTMemberFragment : DBBaseFragment(), View.OnClickListener, OnRefreshListen
                 startActivity(Intent(context, InvitationNewActivity::class.java))
             }
             R.id.member_newBuy -> {
-                startActivity(Intent(context, NewPeopleActivity::class.java))
+                startActivity(Intent(context, NewFreeActivity::class.java))
             }
             R.id.member_newH5 -> {
                 startActivity(Intent(context, WebActivity::class.java)

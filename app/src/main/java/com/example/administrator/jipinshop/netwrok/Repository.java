@@ -1,5 +1,6 @@
 package com.example.administrator.jipinshop.netwrok;
 
+import com.example.administrator.jipinshop.bean.ActionHBBean;
 import com.example.administrator.jipinshop.bean.AddressBean;
 import com.example.administrator.jipinshop.bean.AllowanceRecordBean;
 import com.example.administrator.jipinshop.bean.AppVersionbean;
@@ -35,6 +36,7 @@ import com.example.administrator.jipinshop.bean.MoneyRecordBean;
 import com.example.administrator.jipinshop.bean.MyFreeBean;
 import com.example.administrator.jipinshop.bean.MyOrderBean;
 import com.example.administrator.jipinshop.bean.MyWalletBean;
+import com.example.administrator.jipinshop.bean.NewFreeBean;
 import com.example.administrator.jipinshop.bean.NewPeopleBean;
 import com.example.administrator.jipinshop.bean.OrderTBBean;
 import com.example.administrator.jipinshop.bean.OrderbyTypeBean;
@@ -87,6 +89,7 @@ import com.example.administrator.jipinshop.bean.VoteBean;
 import com.example.administrator.jipinshop.bean.WelfareBean;
 import com.example.administrator.jipinshop.bean.WithdrawBean;
 import com.example.administrator.jipinshop.bean.WithdrawDetailBean;
+import com.example.administrator.jipinshop.bean.WithdrawInfoBean;
 import com.example.administrator.jipinshop.util.UpDataUtil;
 
 import java.util.Map;
@@ -1346,5 +1349,62 @@ public class Repository {
      */
     public Observable<SuccessBean> destroyAccount(String mobile,String code){
         return mAPIService.destroyAccount(mobile, code);
+    }
+
+
+    /**
+     * 0元购免单首页列表
+     */
+    public Observable<NewFreeBean> freeList2(){
+        return mAPIService.freeList2();
+    }
+
+    /**
+     * 0元购免单详情页面
+     */
+    public Observable<TBShoppingDetailBean> freeDetail2(String freeId){
+        return mAPIService.freeDetail2(freeId);
+    }
+
+    /**
+     * 0元购免单购买
+     */
+    public Observable<ImageBean> freeApply2(String otherGoodsId){
+        return mAPIService.freeApply2(otherGoodsId);
+    }
+
+    /**
+     * 红包分享 统计
+     */
+    public Observable<SuccessBean> shareCount(String hongbao2Id,String type,String shareType){
+        return mAPIService.shareCount(hongbao2Id, type, shareType);
+    }
+
+    /**
+     * 生成分享红包活动海报
+     */
+    public Observable<ImageBean> hbCreatePosterImg(String hongbao2Id){
+        return mAPIService.hbCreatePosterImg(hongbao2Id);
+    }
+
+    /**
+     * 获取提现信息
+     */
+    public Observable<WithdrawInfoBean> getWithdrawInfo(){
+        return mAPIService.getWithdrawInfo();
+    }
+
+    /**
+     * 获取0元购免单分享海报
+     */
+    public Observable<ImageBean> freeGetIndexPosterImg(){
+        return mAPIService.freeGetIndexPosterImg();
+    }
+
+    /**
+     * 获取红包活动信息
+     */
+    public Observable<ActionHBBean> getHongbaoActivityInfo(){
+        return mAPIService.getHongbaoActivityInfo();
     }
 }

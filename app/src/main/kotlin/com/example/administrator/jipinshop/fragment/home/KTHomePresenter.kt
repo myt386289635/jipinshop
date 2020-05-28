@@ -3,9 +3,7 @@ package com.example.administrator.jipinshop.fragment.home
 import android.content.Context
 import android.widget.LinearLayout
 import android.widget.Toast
-import com.example.administrator.jipinshop.bean.EvaluationTabBean
-import com.example.administrator.jipinshop.bean.JDBean
-import com.example.administrator.jipinshop.bean.TeacherBean
+import com.example.administrator.jipinshop.bean.*
 import com.example.administrator.jipinshop.netwrok.Repository
 import com.example.administrator.jipinshop.util.ToastUtil
 import com.trello.rxlifecycle2.LifecycleTransformer
@@ -72,6 +70,22 @@ class KTHomePresenter {
                     if (type == 1){
                         ToastUtil.show("导师信息获取失败，请重新尝试")
                     }
+                })
+    }
+
+    fun getHongbaoActivityInfo(transformer : LifecycleTransformer<ActionHBBean>){
+        repository.getHongbaoActivityInfo()
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .compose(transformer)
+                .subscribe(Consumer {
+                    if (it.code == 0){
+                        mView.onAction(it)
+                    }else{
+                        mView.onEndAction()
+                    }
+                }, Consumer {
+                    mView.onEndAction()
                 })
     }
 }

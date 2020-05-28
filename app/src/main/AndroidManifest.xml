@@ -592,6 +592,22 @@
         <activity android:name=".activity.setting.about.cancellation.CancelResultActivity"
                   android:screenOrientation="portrait"/>
 
+        <!--新人免单页面-->
+        <activity android:name=".activity.newpeople.NewFreeActivity"
+                  android:screenOrientation="portrait"/>
+
+        <!--新人免单详情页面-->
+        <activity android:name=".activity.newpeople.detail.NewFreeDetailActivity"
+                  android:screenOrientation="portrait"/>
+
+        <!--红包第一个web-->
+        <activity android:name=".activity.web.hb.HBWebView"
+                  android:screenOrientation="portrait"/>
+
+        <!--红包第二个web-->
+        <activity android:name=".activity.web.hb.HBWebView2"
+                  android:screenOrientation="portrait"/>
+
     </application>
 
 </manifest>

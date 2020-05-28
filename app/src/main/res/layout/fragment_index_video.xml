@@ -21,11 +21,11 @@
             android:orientation="vertical"/>
 
         <TextView
+            android:layout_below="@id/status_bar"
+           android:layout_marginTop="@dimen/y50"
+            android:layout_toRightOf="@id/index_container"
             android:id="@+id/index_time"
             android:layout_marginLeft="-10dp"
-            android:layout_toRightOf="@id/index_background"
-            android:layout_marginTop="@dimen/y76"
-            android:layout_below="@id/status_bar"
             android:gravity="center"
             android:textSize="15sp"
             android:textColor="@color/color_white"
@@ -35,48 +35,54 @@
             android:layout_height="wrap_content"/>
 
         <RelativeLayout
-            android:background="@color/pickerview_topbar_title"
-            android:layout_marginRight="@dimen/x28"
-            android:layout_marginLeft="@dimen/x28"
-            android:layout_marginTop="@dimen/y25"
-            android:layout_marginBottom="@dimen/y25"
-            android:layout_alignTop="@id/index_background"
-            android:layout_alignBottom="@id/index_background"
-            android:layout_alignRight="@+id/index_background"
-            android:layout_alignLeft="@+id/index_background"
+            android:id="@+id/index_container"
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content">
 
-            <VideoView
-                android:layout_centerInParent="true"
-                android:id="@+id/index_video"
-                android:layout_width="fill_parent"
-                android:layout_height="fill_parent"/>
+            <RelativeLayout
+                android:background="@color/pickerview_topbar_title"
+                android:layout_marginRight="@dimen/x28"
+                android:layout_marginLeft="@dimen/x28"
+                android:layout_marginTop="@dimen/y25"
+                android:layout_marginBottom="@dimen/y25"
+                android:layout_alignTop="@id/index_background"
+                android:layout_alignBottom="@id/index_background"
+                android:layout_alignRight="@+id/index_background"
+                android:layout_alignLeft="@+id/index_background"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+
+                <VideoView
+                    android:layout_centerInParent="true"
+                    android:id="@+id/index_video"
+                    android:layout_width="fill_parent"
+                    android:layout_height="fill_parent"/>
+
+                <ImageView
+                    android:id="@+id/index_videoImage"
+                    android:adjustViewBounds="true"
+                    android:scaleType="fitXY"
+                    android:layout_centerInParent="true"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"/>
+
+            </RelativeLayout>
 
             <ImageView
-                android:id="@+id/index_videoImage"
-                android:adjustViewBounds="true"
-                android:scaleType="fitXY"
-                android:layout_centerInParent="true"
-                android:layout_width="match_parent"
+                android:id="@+id/index_background"
+                android:src="@mipmap/bg_index"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"/>
 
         </RelativeLayout>
 
 
-        <ImageView
-            android:layout_below="@id/status_bar"
-            android:id="@+id/index_background"
-            android:layout_marginTop="@dimen/y113"
-            android:layout_centerHorizontal="true"
-            android:src="@mipmap/bg_index"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"/>
-
         <LinearLayout
+            android:layout_marginBottom="@dimen/y20"
+            android:layout_alignParentBottom="true"
             android:gravity="center"
-            android:layout_marginTop="@dimen/y73"
-            android:layout_below="@id/index_background"
             android:orientation="horizontal"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">

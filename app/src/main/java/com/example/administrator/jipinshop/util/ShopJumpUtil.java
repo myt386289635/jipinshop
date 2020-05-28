@@ -17,7 +17,7 @@ import com.example.administrator.jipinshop.activity.home.home.HomeNewActivity;
 import com.example.administrator.jipinshop.activity.home.jd_pdd.KTJDDetailActivity;
 import com.example.administrator.jipinshop.activity.login.LoginActivity;
 import com.example.administrator.jipinshop.activity.mall.MallActivity;
-import com.example.administrator.jipinshop.activity.newpeople.NewPeopleActivity;
+import com.example.administrator.jipinshop.activity.newpeople.NewFreeActivity;
 import com.example.administrator.jipinshop.activity.report.detail.ReportDetailActivity;
 import com.example.administrator.jipinshop.activity.shoppingdetail.ShoppingDetailActivity;
 import com.example.administrator.jipinshop.activity.shoppingdetail.tbshoppingdetail.TBShoppingDetailActivity;
@@ -256,7 +256,7 @@ public class ShopJumpUtil {
                 context.startActivity(intent);
                 break;
             case "19"://0元购
-                intent.setClass(context, NewPeopleActivity.class);
+                intent.setClass(context, NewFreeActivity.class);
                 context.startActivity(intent);
                 break;
             case "20"://邀请页面
@@ -451,7 +451,7 @@ public class ShopJumpUtil {
                 context.startActivity(intent);
                 break;
             case "11"://0元购
-                intent.setClass(context, NewPeopleActivity.class);
+                intent.setClass(context, NewFreeActivity.class);
                 context.startActivity(intent);
                 break;
             case "12"://京东

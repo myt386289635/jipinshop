@@ -49,7 +49,9 @@ import com.example.administrator.jipinshop.activity.minekt.welfare.WelfareActivi
 import com.example.administrator.jipinshop.activity.money.binding.MoneyBindActivity;
 import com.example.administrator.jipinshop.activity.money.record.MoneyRecordActivity;
 import com.example.administrator.jipinshop.activity.money.withdraw.MoneyWithdrawActivity;
+import com.example.administrator.jipinshop.activity.newpeople.NewFreeActivity;
 import com.example.administrator.jipinshop.activity.newpeople.NewPeopleActivity;
+import com.example.administrator.jipinshop.activity.newpeople.detail.NewFreeDetailActivity;
 import com.example.administrator.jipinshop.activity.newpeople.detail.NewPeopleDetailActivity;
 import com.example.administrator.jipinshop.activity.mall.order.MyOrderActivity;
 import com.example.administrator.jipinshop.activity.mall.order.detail.OrderDetailActivity;
@@ -80,6 +82,7 @@ import com.example.administrator.jipinshop.activity.tryout.passedMore.PassedMore
 import com.example.administrator.jipinshop.activity.tryout.reportMore.ReportMoreActivity;
 import com.example.administrator.jipinshop.activity.tryout.shareMore.ShareMoreActivity;
 import com.example.administrator.jipinshop.activity.web.TaoBaoWebActivity;
+import com.example.administrator.jipinshop.activity.web.hb.HBWebView2;
 import com.example.administrator.jipinshop.auto.ActivityScope;
 import com.example.administrator.jipinshop.netwrok.ApplicationComponent;
 
@@ -168,4 +171,7 @@ public interface BaseActivityComponent {
     void inject(InputLoginActivity activity);
     void inject(AboutActivity activity);
     void inject(VerificationActivity activity);
+    void inject(NewFreeActivity activity);
+    void inject(NewFreeDetailActivity activity);
+    void inject(HBWebView2 activity);
 }

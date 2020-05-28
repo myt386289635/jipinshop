@@ -1,5 +1,6 @@
 package com.example.administrator.jipinshop.fragment.home
 
+import com.example.administrator.jipinshop.bean.ActionHBBean
 import com.example.administrator.jipinshop.bean.JDBean
 import com.example.administrator.jipinshop.bean.TeacherBean
 
@@ -14,4 +15,7 @@ interface KTHomeView {
     fun onFile(error: String?)
 
     fun onTeacher(type : Int,bean : TeacherBean)
+
+    fun onAction(bean: ActionHBBean)
+    fun onEndAction()
 }

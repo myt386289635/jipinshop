@@ -5,6 +5,7 @@ import android.databinding.DataBindingUtil
 import android.os.Bundle
 import android.support.v7.widget.LinearLayoutManager
 import android.view.View
+import cn.jiguang.d.d.v
 import com.alibaba.baichuan.android.trade.AlibcTradeSDK
 import com.aspsine.swipetoloadlayout.OnRefreshListener
 import com.blankj.utilcode.util.SPUtils
@@ -128,14 +129,18 @@ class CheapBuyActivity : BaseActivity(), View.OnClickListener, OnRefreshListener
     }
 
     override fun onBuy(position: Int) {
-        TaoBaoUtil.openTB(this){
-            mDialog = ProgressDialogView().createOtherDialog(this,"淘宝",R.mipmap.dialog_tb)
-            mDialog?.let {
-                if (!it.isShowing){
-                    it.show()
+        DialogUtil.LoginDialog(this, "您将前往淘宝购买并消耗"+ mList[position].useAllowancePrice +"元津贴\n下单立减" + mList[position].useAllowancePrice + "元，无需等待返现",
+                "确认", "取消", R.color.color_202020, R.color.color_202020,
+                false) {
+            TaoBaoUtil.openTB(this){
+                mDialog = ProgressDialogView().createOtherDialog(this,"淘宝",R.mipmap.dialog_tb)
+                mDialog?.let {
+                    if (!it.isShowing){
+                        it.show()
+                    }
                 }
+                mPresenter.apply(mList[position].id, this.bindToLifecycle<ImageBean>())
             }
-            mPresenter.apply(mList[position].id, this.bindToLifecycle<ImageBean>())
         }
     }
 

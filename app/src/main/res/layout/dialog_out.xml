@@ -14,20 +14,30 @@
             android:orientation="vertical">
 
             <TextView
+                android:layout_marginBottom="@dimen/y31"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/y43"
+                android:layout_marginTop="@dimen/y37"
                 android:gravity="center"
                 android:lineSpacingExtra="@dimen/y15"
-                android:text="再看看这些新人商品\n支付0元立即购买"
-                android:textColor="@color/color_white"
-                android:textSize="18sp"
+                android:text="你有一个新人福利待领取"
+                android:textColor="@color/color_FFEC44"
+                android:textSize="19sp"
                 android:textStyle="bold"/>
+
+            <TextView
+                android:textStyle="bold"
+                android:id="@+id/dialog_time"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/y31"
+                android:text="70:24:24后失效"
+                android:textColor="@color/color_white"
+                android:textSize="16sp"/>
 
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/y44"
                 android:layout_marginBottom="@dimen/y50"
                 android:orientation="horizontal">
 
@@ -43,6 +53,7 @@
                         android:src="@color/color_F4EBDA"/>
 
                     <TextView
+                        android:id="@+id/dialog_text1"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:layout_below="@id/dialog_img1"
@@ -52,12 +63,6 @@
                         android:textColor="@color/color_DB4210"
                         android:textSize="19sp"
                         android:textStyle="bold"/>
-
-                    <ImageView
-                        android:layout_marginLeft="@dimen/x6"
-                        android:src="@mipmap/bg_newpople9"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"/>
 
                 </RelativeLayout>
 
@@ -75,6 +80,7 @@
                         android:src="@color/color_F4EBDA"/>
 
                     <TextView
+                        android:id="@+id/dialog_text2"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:layout_below="@id/dialog_img2"
@@ -84,12 +90,6 @@
                         android:textColor="@color/color_DB4210"
                         android:textSize="19sp"
                         android:textStyle="bold"/>
-
-                    <ImageView
-                        android:layout_marginLeft="@dimen/x6"
-                        android:src="@mipmap/bg_newpople9"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"/>
 
                 </RelativeLayout>
 
@@ -105,6 +105,7 @@
                         android:src="@color/color_F4EBDA"/>
 
                     <TextView
+                        android:id="@+id/dialog_text3"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:layout_below="@id/dialog_img3"
@@ -115,24 +116,9 @@
                         android:textSize="19sp"
                         android:textStyle="bold"/>
 
-                    <ImageView
-                        android:layout_marginLeft="@dimen/x6"
-                        android:src="@mipmap/bg_newpople9"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"/>
-
                 </RelativeLayout>
 
             </LinearLayout>
-
-            <TextView
-                android:id="@+id/dialog_allowPrice"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="@dimen/y50"
-                android:text="还有20元津贴仍未使用下单立减当钱花"
-                android:textColor="@color/color_white"
-                android:textSize="13sp"/>
 
             <RelativeLayout
                 android:layout_marginRight="@dimen/x30"
@@ -142,6 +128,7 @@
                 android:layout_height="wrap_content">
 
                 <TextView
+                    android:textStyle="bold"
                     android:id="@+id/dialog_dismiss"
                     android:layout_marginRight="@dimen/x10"
                     android:gravity="center"

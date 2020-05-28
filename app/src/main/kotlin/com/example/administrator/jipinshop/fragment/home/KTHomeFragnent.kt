@@ -19,16 +19,19 @@ import com.example.administrator.jipinshop.R
 import com.example.administrator.jipinshop.activity.login.LoginActivity
 import com.example.administrator.jipinshop.activity.sign.SignActivity
 import com.example.administrator.jipinshop.activity.sreach.TBSreachActivity
+import com.example.administrator.jipinshop.activity.web.hb.HBWebView
+import com.example.administrator.jipinshop.activity.web.hb.HBWebView2
 import com.example.administrator.jipinshop.adapter.HomeFragmentAdapter
 import com.example.administrator.jipinshop.adapter.KTTabAdapter
 import com.example.administrator.jipinshop.base.DBBaseFragment
+import com.example.administrator.jipinshop.bean.ActionHBBean
 import com.example.administrator.jipinshop.bean.JDBean
 import com.example.administrator.jipinshop.bean.TeacherBean
-import com.example.administrator.jipinshop.bean.eventbus.ChangeHomePageBus
 import com.example.administrator.jipinshop.databinding.FragmentKtHomeBinding
 import com.example.administrator.jipinshop.fragment.home.commen.KTHomeCommenFragment
 import com.example.administrator.jipinshop.fragment.home.main.KTMain2Fragment
 import com.example.administrator.jipinshop.fragment.home.userlike.KTUserLikeFragment
+import com.example.administrator.jipinshop.netwrok.RetrofitModule
 import com.example.administrator.jipinshop.util.ToastUtil
 import com.example.administrator.jipinshop.util.UmApp.AppStatisticalUtil
 import com.example.administrator.jipinshop.util.WeakRefHandler
@@ -36,7 +39,6 @@ import com.example.administrator.jipinshop.util.sp.CommonDate
 import com.example.administrator.jipinshop.view.dialog.DialogUtil
 import net.lucode.hackware.magicindicator.ViewPagerHelper
 import net.lucode.hackware.magicindicator.buildins.commonnavigator.CommonNavigator
-import org.greenrobot.eventbus.EventBus
 import javax.inject.Inject
 
 /**
@@ -60,6 +62,8 @@ class KTHomeFragnent : DBBaseFragment(), View.OnClickListener, ViewPager.OnPageC
     private var mColor : String = "#E25838"  //轮播图此时滑动的颜色
     private var Tavatar: String = ""
     private var Twechat: String = ""
+    private var isAction: Boolean = false //是否开启首页悬浮按钮，默认不开启false
+    private var hbId = "" //活动红包id
 
     companion object{
         @JvmStatic //java中的静态方法
@@ -101,6 +105,7 @@ class KTHomeFragnent : DBBaseFragment(), View.OnClickListener, ViewPager.OnPageC
             toRight =   ObjectAnimator.ofFloat(mBinding.homeAction, "translationX",0f , set)
         }
 
+        mPresenter.getHongbaoActivityInfo(this.bindToLifecycle())
         mPresenter.getData(this.bindToLifecycle())
         appStatisticalUtil.addEvent("shouye_fenlei.1",this.bindToLifecycle())//统计精选
         mPresenter.getParentInfo(0,this.bindToLifecycle())
@@ -113,7 +118,22 @@ class KTHomeFragnent : DBBaseFragment(), View.OnClickListener, ViewPager.OnPageC
                 startActivity(Intent(context, TBSreachActivity::class.java))
             }
             R.id.home_action -> {
-                EventBus.getDefault().post(ChangeHomePageBus(1))
+                if (!isAction){
+                    ToastUtil.show("活动未开始")
+                    return
+                }
+                if (TextUtils.isEmpty(hbId)){
+                    DialogUtil.hbWebDialog(context){
+                        startActivity(Intent(context, HBWebView::class.java)
+                                .putExtra(HBWebView.url, RetrofitModule.H5_URL + "new-free/submitRedPacket?token=" + SPUtils.getInstance(CommonDate.USER).getString(CommonDate.token))
+                        )
+                    }
+                }else{
+                    startActivity(Intent(context, HBWebView2::class.java)
+                            .putExtra(HBWebView2.url, RetrofitModule.H5_URL + "new-free/getRedPacket?token=" + SPUtils.getInstance(CommonDate.USER).getString(CommonDate.token))
+                            .putExtra(HBWebView2.title, "天天领现金")
+                    )
+                }
             }
             R.id.home_sign -> {
                 if (TextUtils.isEmpty(SPUtils.getInstance(CommonDate.USER).getString(CommonDate.token, ""))) {
@@ -150,13 +170,15 @@ class KTHomeFragnent : DBBaseFragment(), View.OnClickListener, ViewPager.OnPageC
     override fun onPageSelected(position: Int) {
         appStatisticalUtil.addEvent("shouye_fenlei." + (position + 1),this.bindToLifecycle())//统计首页分类
         if (position != 0){
-//            mBinding.homeAction.visibility = View.GONE
+            if (isAction)
+                mBinding.homeAction.visibility = View.GONE
             isChange = false
             context?.let {
                 mBinding.bgHome.setBackgroundColor(it.resources.getColor(R.color.color_E25838))
             }
         }else{
-//            mBinding.homeAction.visibility = View.VISIBLE
+            if (isAction)
+                mBinding.homeAction.visibility = View.VISIBLE
             isChange = true
             mBinding.bgHome.setBackgroundColor(Color.parseColor(mColor))
         }
@@ -194,6 +216,21 @@ class KTHomeFragnent : DBBaseFragment(), View.OnClickListener, ViewPager.OnPageC
         if (type == 1){
             DialogUtil.teacherDialog(context,Twechat,Tavatar)
         }
+    }
+
+    override fun onAction(bean: ActionHBBean) {
+        hbId = bean.data
+        isAction = bean.open != "0"
+        if (isAction){
+            mBinding.homeAction.visibility = View.VISIBLE
+        }else{
+            mBinding.homeAction.visibility = View.GONE
+        }
+    }
+
+    override fun onEndAction() {
+        isAction = false
+        mBinding.homeAction.visibility = View.GONE
     }
 
     /*******首页悬浮框动画隐藏效果********/

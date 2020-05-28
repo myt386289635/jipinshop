@@ -105,4 +105,13 @@
     <string name="buy">0 元 购</string>
     <string name="no_buy">已 抢 完</string>
     <string name="no_buy2">已抢完</string>
+    <string name="coupon3">券￥</string>
+    <string name="pay">付￥</string>
+    <string name="fan">，返￥</string>
+    <string name="pay_long">您当前需要支付￥</string>
+    <string name="fan_long">，返现￥</string>
+    <string name="end_long">将在确认收货后进行结算</string>
+    <string name="pay2_start">（新人</string>
+    <string name="pay2_end">元）</string>
+
 </resources>

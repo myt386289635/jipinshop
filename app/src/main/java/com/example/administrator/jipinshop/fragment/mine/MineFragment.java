@@ -32,7 +32,7 @@ import com.example.administrator.jipinshop.activity.minekt.orderkt.KTMyOrderActi
 import com.example.administrator.jipinshop.activity.minekt.publishkt.MyPublishActivity;
 import com.example.administrator.jipinshop.activity.minekt.userkt.UserActivity;
 import com.example.administrator.jipinshop.activity.minekt.welfare.WelfareActivity;
-import com.example.administrator.jipinshop.activity.newpeople.NewPeopleActivity;
+import com.example.administrator.jipinshop.activity.newpeople.NewFreeActivity;
 import com.example.administrator.jipinshop.activity.setting.SettingActivity;
 import com.example.administrator.jipinshop.activity.setting.opinion.OpinionActivity;
 import com.example.administrator.jipinshop.activity.sign.SignActivity;
@@ -156,7 +156,7 @@ public class MineFragment extends DBBaseFragment implements View.OnClickListener
                 return;
             case R.id.mine_newpeople:
                 //新人专区
-                startActivity(new Intent(getContext(), NewPeopleActivity.class));
+                startActivity(new Intent(getContext(), NewFreeActivity.class));
                 break;
         }
         if(TextUtils.isEmpty(SPUtils.getInstance(CommonDate.USER).getString(CommonDate.token,""))){
