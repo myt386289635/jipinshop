@@ -74,7 +74,6 @@ public class JPushReceiver extends BroadcastReceiver {
                 Intent intentDefult = new Intent();
                 intentDefult.setClass(context, MainActivity.class);
                 intentDefult.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                intentDefult.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
                 context.startActivity(intentDefult);
             }
         } else {
