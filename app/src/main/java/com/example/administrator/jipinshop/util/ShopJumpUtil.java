@@ -316,6 +316,7 @@ public class ShopJumpUtil {
                 intent.putExtra("id",target_id);
                 intent.putExtra("type","2");
                 intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
                 context.startActivity(intent);
                 break;
             case "11"://专题页面
@@ -323,12 +324,14 @@ public class ShopJumpUtil {
                 intent.putExtra("id",target_id);
                 intent.putExtra("title",target_title);
                 intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
                 context.startActivity(intent);
                 break;
             case "12"://淘宝客详情页面
                 intent.setClass(context, TBShoppingDetailActivity.class);
                 intent.putExtra("otherGoodsId", target_id);
                 intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
                 context.startActivity(intent);
                 break;
             case "13"://H5页面
@@ -336,16 +339,19 @@ public class ShopJumpUtil {
                 intent.putExtra(WebActivity.url, target_id);
                 intent.putExtra(WebActivity.title,target_title);
                 intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
                 context.startActivity(intent);
                 break;
             case "14"://极币商城
                 intent.setClass(context, MallActivity.class);
                 intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
                 context.startActivity(intent);
                 break;
             case "15"://任务中心
                 intent.setClass(context, SignActivity.class);
                 intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
                 context.startActivity(intent);
                 break;
             case "16"://红包主页
@@ -354,11 +360,14 @@ public class ShopJumpUtil {
             case "17"://榜单主页
                 intent.setClass(context, HomeNewActivity.class);
                 intent.putExtra("type",HomeNewActivity.bangdan);
+                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
                 context.startActivity(intent);
                 break;
             case "18"://特惠购列表
                 intent.setClass(context, CheapBuyActivity.class);
                 intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
                 context.startActivity(intent);
                 break;
             case "19"://京东商品详情
@@ -366,6 +375,7 @@ public class ShopJumpUtil {
                 intent.putExtra("otherGoodsId", target_id);
                 intent.putExtra("source","1");
                 intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
                 context.startActivity(intent);
                 break;
             case "20"://拼多多商品详情
@@ -373,11 +383,13 @@ public class ShopJumpUtil {
                 intent.putExtra("otherGoodsId", target_id);
                 intent.putExtra("source","4");
                 intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
                 context.startActivity(intent);
                 break;
             default://默认跳转首页
                 intent.setClass(context, MainActivity.class);
                 intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
                 context.startActivity(intent);
                 break;
         }

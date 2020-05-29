@@ -9,23 +9,14 @@ import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.app.NotificationCompat;
-import android.text.TextUtils;
 import android.util.Log;
 
-import com.blankj.utilcode.util.SPUtils;
 import com.example.administrator.jipinshop.MyApplication;
 import com.example.administrator.jipinshop.R;
-import com.example.administrator.jipinshop.activity.home.article.ArticleDetailActivity;
-import com.example.administrator.jipinshop.activity.home.classification.ClassifyActivity;
-import com.example.administrator.jipinshop.activity.login.LoginActivity;
+import com.example.administrator.jipinshop.activity.home.MainActivity;
 import com.example.administrator.jipinshop.activity.message.MessageActivity;
-import com.example.administrator.jipinshop.activity.report.detail.ReportDetailActivity;
-import com.example.administrator.jipinshop.activity.shoppingdetail.ShoppingDetailActivity;
-import com.example.administrator.jipinshop.activity.tryout.detail.TryDetailActivity;
-import com.example.administrator.jipinshop.activity.tryout.freedetail.FreeDetailActivity;
 import com.example.administrator.jipinshop.bean.JPushBean;
 import com.example.administrator.jipinshop.util.ShopJumpUtil;
-import com.example.administrator.jipinshop.util.sp.CommonDate;
 import com.google.gson.Gson;
 
 import org.greenrobot.eventbus.EventBus;
@@ -81,12 +72,9 @@ public class JPushReceiver extends BroadcastReceiver {
                 }
             }else {
                 Intent intentDefult = new Intent();
-                if (TextUtils.isEmpty(SPUtils.getInstance(CommonDate.USER).getString(CommonDate.token, "").trim())) {
-                    intentDefult.setClass(context, LoginActivity.class);
-                } else {
-                    intentDefult.setClass(context, MessageActivity.class);
-                }
+                intentDefult.setClass(context, MainActivity.class);
                 intentDefult.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                intentDefult.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
                 context.startActivity(intentDefult);
             }
         } else {
