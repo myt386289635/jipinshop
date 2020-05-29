@@ -74,6 +74,7 @@ public class HBWebView extends BaseActivity implements View.OnClickListener {
                             .putExtra(HBWebView2.url, RetrofitModule.JP_H5_URL + "new-free/getRedPacket?token="+ SPUtils.getInstance(CommonDate.USER).getString(CommonDate.token))
                             .putExtra(HBWebView2.title,"天天领现金")
                     );
+                    finish();
                 }else if (url.startsWith("http") || url.startsWith("https")) {
                     //解决第三方网页打开页面后会跳转到自定义的schame而页面出错问题
                     view.loadUrl(url);//处理http和https开头的url
