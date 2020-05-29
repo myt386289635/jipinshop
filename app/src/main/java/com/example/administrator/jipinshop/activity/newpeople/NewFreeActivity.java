@@ -127,13 +127,15 @@ public class NewFreeActivity extends BaseActivity implements View.OnClickListene
     }
 
     public void twoFinishPage(){
-        if (startPop){
-            if (mList.size() != 0){
+        if (mList.size() != 0 && mList.size() >= 3){
+            if (startPop){
                 DialogUtil.outDialog2(this, bean, v1 -> {
                     finish();
                 });
+                startPop = false;
+            }else {
+                finish();
             }
-            startPop = false;
         }else {
             finish();
         }
