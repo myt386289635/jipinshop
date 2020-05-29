@@ -60,6 +60,7 @@ public class HBWebView2 extends BaseActivity implements View.OnClickListener, Sh
     private String alipayNickname = "";
     private String realname = "";
     private String shareType = "";
+    private Boolean isRefresh = false;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -187,6 +188,7 @@ public class HBWebView2 extends BaseActivity implements View.OnClickListener, Sh
 
     @Override
     public void share(SHARE_MEDIA share_media) {
+        isRefresh = true;
         if (share_media.equals(SHARE_MEDIA.QQ)){
             type = "3";
         }else if (share_media.equals(SHARE_MEDIA.WEIXIN)){
@@ -226,6 +228,10 @@ public class HBWebView2 extends BaseActivity implements View.OnClickListener, Sh
         super.onResume();
         if (mDialog != null && mDialog.isShowing()) {
             mDialog.dismiss();
+        }
+        if (isRefresh){
+            mBinding.webView.reload();//重新加载
+            isRefresh = false;
         }
     }
 
