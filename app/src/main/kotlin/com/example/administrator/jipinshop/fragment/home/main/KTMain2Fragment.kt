@@ -188,8 +188,10 @@ class KTMain2Fragment : DBBaseFragment(), KTMain2View, OnLoadMoreListener, OnRef
 
     //轮播图的颜色
     override fun onColor(pos: Int) {
-        initColor(mAdListBeans[pos].color)
-        mBinding.mainBackground.setColorFilter(Color.parseColor("#" +mAdListBeans[pos].color))
+        if (pos < mAdListBeans.size){
+            initColor(mAdListBeans[pos].color)
+            mBinding.mainBackground.setColorFilter(Color.parseColor("#" +mAdListBeans[pos].color))
+        }
     }
 
     //今日推荐列表的分享

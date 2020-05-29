@@ -118,6 +118,10 @@ class KTHomeFragnent : DBBaseFragment(), View.OnClickListener, ViewPager.OnPageC
                 startActivity(Intent(context, TBSreachActivity::class.java))
             }
             R.id.home_action -> {
+                if (TextUtils.isEmpty(SPUtils.getInstance(CommonDate.USER).getString(CommonDate.token, ""))) {
+                    startActivity(Intent(context, LoginActivity::class.java))
+                    return
+                }
                 if (!isAction){
                     ToastUtil.show("活动未开始")
                     return
@@ -125,12 +129,12 @@ class KTHomeFragnent : DBBaseFragment(), View.OnClickListener, ViewPager.OnPageC
                 if (TextUtils.isEmpty(hbId)){
                     DialogUtil.hbWebDialog(context){
                         startActivity(Intent(context, HBWebView::class.java)
-                                .putExtra(HBWebView.url, RetrofitModule.H5_URL + "new-free/submitRedPacket?token=" + SPUtils.getInstance(CommonDate.USER).getString(CommonDate.token))
+                                .putExtra(HBWebView.url, RetrofitModule.JP_H5_URL + "new-free/submitRedPacket?token=" + SPUtils.getInstance(CommonDate.USER).getString(CommonDate.token))
                         )
                     }
                 }else{
                     startActivity(Intent(context, HBWebView2::class.java)
-                            .putExtra(HBWebView2.url, RetrofitModule.H5_URL + "new-free/getRedPacket?token=" + SPUtils.getInstance(CommonDate.USER).getString(CommonDate.token))
+                            .putExtra(HBWebView2.url, RetrofitModule.JP_H5_URL + "new-free/getRedPacket?token=" + SPUtils.getInstance(CommonDate.USER).getString(CommonDate.token))
                             .putExtra(HBWebView2.title, "天天领现金")
                     )
                 }

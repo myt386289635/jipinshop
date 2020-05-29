@@ -122,7 +122,7 @@ public class HBWebView2 extends BaseActivity implements View.OnClickListener, Sh
                 }else if (url.startsWith("https://openhb")){
                     //打开红包首页
                     startActivity(new Intent(HBWebView2.this, HBWebView.class)
-                            .putExtra(HBWebView.url, RetrofitModule.H5_URL + "new-free/submitRedPacket?token=" + SPUtils.getInstance(CommonDate.USER).getString(CommonDate.token))
+                            .putExtra(HBWebView.url, RetrofitModule.JP_H5_URL + "new-free/submitRedPacket?token=" + SPUtils.getInstance(CommonDate.USER).getString(CommonDate.token))
                     );
                 } else if (url.startsWith("http") || url.startsWith("https")) {
                     //解决第三方网页打开页面后会跳转到自定义的schame而页面出错问题

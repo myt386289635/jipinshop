@@ -71,7 +71,7 @@ public class HBWebView extends BaseActivity implements View.OnClickListener {
             public boolean shouldOverrideUrlLoading(WebView view, String url) {
                 if (url.startsWith("https://gethb")){
                     startActivity(new Intent(HBWebView.this,HBWebView2.class)
-                            .putExtra(HBWebView2.url, RetrofitModule.H5_URL + "new-free/getRedPacket?token="+ SPUtils.getInstance(CommonDate.USER).getString(CommonDate.token))
+                            .putExtra(HBWebView2.url, RetrofitModule.JP_H5_URL + "new-free/getRedPacket?token="+ SPUtils.getInstance(CommonDate.USER).getString(CommonDate.token))
                             .putExtra(HBWebView2.title,"天天领现金")
                     );
                 }else if (url.startsWith("http") || url.startsWith("https")) {
