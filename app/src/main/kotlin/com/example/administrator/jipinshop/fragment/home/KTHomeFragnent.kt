@@ -63,7 +63,6 @@ class KTHomeFragnent : DBBaseFragment(), View.OnClickListener, ViewPager.OnPageC
     private var Tavatar: String = ""
     private var Twechat: String = ""
     private var isAction: Boolean = false //是否开启首页悬浮按钮，默认不开启false
-    private var hbId = "" //活动红包id
 
     companion object{
         @JvmStatic //java中的静态方法
@@ -126,18 +125,7 @@ class KTHomeFragnent : DBBaseFragment(), View.OnClickListener, ViewPager.OnPageC
                     ToastUtil.show("活动未开始")
                     return
                 }
-                if (TextUtils.isEmpty(hbId)){
-                    DialogUtil.hbWebDialog(context){
-                        startActivity(Intent(context, HBWebView::class.java)
-                                .putExtra(HBWebView.url, RetrofitModule.JP_H5_URL + "new-free/submitRedPacket?token=" + SPUtils.getInstance(CommonDate.USER).getString(CommonDate.token))
-                        )
-                    }
-                }else{
-                    startActivity(Intent(context, HBWebView2::class.java)
-                            .putExtra(HBWebView2.url, RetrofitModule.JP_H5_URL + "new-free/getRedPacket?token=" + SPUtils.getInstance(CommonDate.USER).getString(CommonDate.token))
-                            .putExtra(HBWebView2.title, "天天领现金")
-                    )
-                }
+                mPresenter.getHongbao(this.bindToLifecycle())
             }
             R.id.home_sign -> {
                 if (TextUtils.isEmpty(SPUtils.getInstance(CommonDate.USER).getString(CommonDate.token, ""))) {
@@ -223,7 +211,6 @@ class KTHomeFragnent : DBBaseFragment(), View.OnClickListener, ViewPager.OnPageC
     }
 
     override fun onAction(bean: ActionHBBean) {
-        hbId = bean.data
         isAction = bean.open != "0"
         if (isAction){
             mBinding.homeAction.visibility = View.VISIBLE
@@ -235,6 +222,29 @@ class KTHomeFragnent : DBBaseFragment(), View.OnClickListener, ViewPager.OnPageC
     override fun onEndAction() {
         isAction = false
         mBinding.homeAction.visibility = View.GONE
+    }
+
+    override fun onHBFlie() {
+        DialogUtil.hbWebDialog(context){
+            startActivity(Intent(context, HBWebView::class.java)
+                    .putExtra(HBWebView.url, RetrofitModule.JP_H5_URL + "new-free/submitRedPacket?token=" + SPUtils.getInstance(CommonDate.USER).getString(CommonDate.token))
+            )
+        }
+    }
+
+    override fun onHBID(bean: ActionHBBean) {
+        if (TextUtils.isEmpty(bean.data)){
+            DialogUtil.hbWebDialog(context){
+                startActivity(Intent(context, HBWebView::class.java)
+                        .putExtra(HBWebView.url, RetrofitModule.JP_H5_URL + "new-free/submitRedPacket?token=" + SPUtils.getInstance(CommonDate.USER).getString(CommonDate.token))
+                )
+            }
+        }else{
+            startActivity(Intent(context, HBWebView2::class.java)
+                    .putExtra(HBWebView2.url, RetrofitModule.JP_H5_URL + "new-free/getRedPacket?token=" + SPUtils.getInstance(CommonDate.USER).getString(CommonDate.token))
+                    .putExtra(HBWebView2.title, "天天领现金")
+            )
+        }
     }
 
     /*******首页悬浮框动画隐藏效果********/

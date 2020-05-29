@@ -88,4 +88,20 @@ class KTHomePresenter {
                     mView.onEndAction()
                 })
     }
+
+    fun getHongbao(transformer : LifecycleTransformer<ActionHBBean>){
+        repository.getHongbaoActivityInfo()
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .compose(transformer)
+                .subscribe(Consumer {
+                    if (it.code == 0){
+                        mView.onHBID(it)
+                    }else{
+                        mView.onHBFlie()
+                    }
+                }, Consumer {
+                    mView.onHBFlie()
+                })
+    }
 }

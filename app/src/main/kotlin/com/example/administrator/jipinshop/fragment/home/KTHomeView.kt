@@ -18,4 +18,7 @@ interface KTHomeView {
 
     fun onAction(bean: ActionHBBean)
     fun onEndAction()
+
+    fun onHBID(bean: ActionHBBean)
+    fun onHBFlie()
 }
