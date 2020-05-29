@@ -112,7 +112,7 @@ public class NewFreeActivity extends BaseActivity implements View.OnClickListene
                 break;
             case R.id.free_bottom:
                 if (TextUtils.isEmpty(SPUtils.getInstance(CommonDate.USER).getString(CommonDate.token, ""))) {
-                    startActivity(new Intent(this, LoginActivity.class));
+                    startActivityForResult(new Intent(this, LoginActivity.class),302);
                     return;
                 }
                 if (mShareBoardDialog == null) {
@@ -305,6 +305,9 @@ public class NewFreeActivity extends BaseActivity implements View.OnClickListene
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         UMShareAPI.get(this).onActivityResult(requestCode, resultCode, data);
+        if (resultCode == 200 && requestCode == 302){
+            onRefresh();
+        }
     }
 
     @Override

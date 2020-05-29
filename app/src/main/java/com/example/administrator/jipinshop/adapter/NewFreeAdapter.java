@@ -7,12 +7,14 @@ import android.os.CountDownTimer;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.text.TextUtils;
 import android.util.SparseArray;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.RelativeLayout;
 
+import com.blankj.utilcode.util.SPUtils;
 import com.example.administrator.jipinshop.R;
 import com.example.administrator.jipinshop.bean.NewFreeBean;
 import com.example.administrator.jipinshop.databinding.ItemNewFree1Binding;
@@ -21,6 +23,7 @@ import com.example.administrator.jipinshop.databinding.ItemNewFree3Binding;
 import com.example.administrator.jipinshop.util.TimeUtil;
 import com.example.administrator.jipinshop.util.html.CustomerTagHandler_1;
 import com.example.administrator.jipinshop.util.html.HtmlParser;
+import com.example.administrator.jipinshop.util.sp.CommonDate;
 import com.example.administrator.jipinshop.view.glide.GlideApp;
 
 import java.util.List;
@@ -140,30 +143,36 @@ public class NewFreeAdapter extends RecyclerView.Adapter {
             case HEAD1:
                 HeadViewHolder holder1 = (HeadViewHolder) holder;
                 holder1.binding.itemCopy.setOnClickListener(v -> mOnClickItem.onCopy());
-                long timer = 0;
-                timer = (endTime * 1000) - System.currentTimeMillis();
-                CountDownTimer countDownTimer = countDownCounters.get(holder1.binding.itemCountDown.hashCode());
-                if (countDownTimer != null) {
-                    //将复用的倒计时清除
-                    countDownTimer.cancel();
-                }
-                if (timer > 0) {
-                    countDownTimer = new CountDownTimer(timer, 1000) {
-                        public void onTick(long millisUntilFinished) {
-                            holder1.binding.itemEndText.setVisibility(View.GONE);
-                            holder1.binding.itemCountDown.setText(TimeUtil.getCountTimeByLong2(millisUntilFinished) + "后将失效");
-                        }
-                        public void onFinish() {
-                            holder1.binding.itemCountDown.setVisibility(View.GONE);
-                            holder1.binding.itemEndText.setVisibility(View.VISIBLE);
-                        }
-                    }.start();
-                    //将此 countDownTimer 放入list.
-                    countDownCounters.put(holder1.binding.itemCountDown.hashCode(), countDownTimer);
-                }else {
-                    //到期了
+                if (TextUtils.isEmpty(SPUtils.getInstance(CommonDate.USER).getString(CommonDate.token, ""))){
                     holder1.binding.itemCountDown.setVisibility(View.GONE);
                     holder1.binding.itemEndText.setVisibility(View.VISIBLE);
+                    holder1.binding.itemEndText.setText("登陆后领取免单资格");
+                }else {
+                    long timer = 0;
+                    timer = (endTime * 1000) - System.currentTimeMillis();
+                    CountDownTimer countDownTimer = countDownCounters.get(holder1.binding.itemCountDown.hashCode());
+                    if (countDownTimer != null) {
+                        //将复用的倒计时清除
+                        countDownTimer.cancel();
+                    }
+                    if (timer > 0) {
+                        countDownTimer = new CountDownTimer(timer, 1000) {
+                            public void onTick(long millisUntilFinished) {
+                                holder1.binding.itemEndText.setVisibility(View.GONE);
+                                holder1.binding.itemCountDown.setText(TimeUtil.getCountTimeByLong2(millisUntilFinished) + "后将失效");
+                            }
+                            public void onFinish() {
+                                holder1.binding.itemCountDown.setVisibility(View.GONE);
+                                holder1.binding.itemEndText.setVisibility(View.VISIBLE);
+                            }
+                        }.start();
+                        //将此 countDownTimer 放入list.
+                        countDownCounters.put(holder1.binding.itemCountDown.hashCode(), countDownTimer);
+                    }else {
+                        //到期了
+                        holder1.binding.itemCountDown.setVisibility(View.GONE);
+                        holder1.binding.itemEndText.setVisibility(View.VISIBLE);
+                    }
                 }
                 break;
             case HEAD2:
