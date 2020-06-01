@@ -248,11 +248,7 @@ public class ShopJumpUtil {
                 context.startActivity(intent);
                 break;
             case "18"://特惠购列表
-                if (TextUtils.isEmpty(SPUtils.getInstance(CommonDate.USER).getString(CommonDate.token, ""))) {
-                    intent.setClass(context, LoginActivity.class);
-                }else {
-                    intent.setClass(context, CheapBuyActivity.class);
-                }
+                intent.setClass(context, CheapBuyActivity.class);
                 context.startActivity(intent);
                 break;
             case "19"://0元购
@@ -441,11 +437,7 @@ public class ShopJumpUtil {
                 context.startActivity(intent);
                 break;
             case "10"://特惠购
-                if (TextUtils.isEmpty(SPUtils.getInstance(CommonDate.USER).getString(CommonDate.token, ""))) {
-                    intent.setClass(context, LoginActivity.class);
-                }else {
-                    intent.setClass(context, CheapBuyActivity.class);
-                }
+                intent.setClass(context, CheapBuyActivity.class);
                 context.startActivity(intent);
                 break;
             case "11"://0元购

@@ -226,10 +226,6 @@ class KTMain2Adapter : RecyclerView.Adapter<RecyclerView.ViewHolder>{
                     }
                     binding.mainOldpeople.setOnClickListener {
                         appStatisticalUtil.addEvent("shouye_tehui",transformer)
-                        if (TextUtils.isEmpty(SPUtils.getInstance(CommonDate.USER).getString(CommonDate.token, ""))) {
-                            mContext.startActivity(Intent(mContext, LoginActivity::class.java))
-                            return@setOnClickListener
-                        }
                         mContext.startActivity(Intent(mContext, CheapBuyActivity::class.java))
                     }
                     binding.marqueeContainer.setOnClickListener {

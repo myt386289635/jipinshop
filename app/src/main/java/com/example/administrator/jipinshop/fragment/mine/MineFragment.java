@@ -158,6 +158,10 @@ public class MineFragment extends DBBaseFragment implements View.OnClickListener
                 //新人专区
                 startActivity(new Intent(getContext(), NewFreeActivity.class));
                 break;
+            case R.id.mine_allowance:
+                //津贴余额
+                startActivity(new Intent(getContext(), CheapBuyActivity.class));
+                break;
         }
         if(TextUtils.isEmpty(SPUtils.getInstance(CommonDate.USER).getString(CommonDate.token,""))){
             startActivity(new Intent(getContext(), LoginActivity.class));
@@ -259,10 +263,6 @@ public class MineFragment extends DBBaseFragment implements View.OnClickListener
             case R.id.mine_gift:
                 //福利兑换
                 startActivity(new Intent(getContext(), WelfareActivity.class));
-                break;
-            case R.id.mine_allowance:
-                //津贴余额
-                startActivity(new Intent(getContext(), CheapBuyActivity.class));
                 break;
             case R.id.mine_member:
                 //我的会员

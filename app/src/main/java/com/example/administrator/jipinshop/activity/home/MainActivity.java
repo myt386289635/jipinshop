@@ -339,7 +339,11 @@ public class MainActivity extends RxAppCompatActivity implements MainView, ViewP
             //解决从设置页面跳转回来无法弹出dialog
             //20元津贴弹窗
             DialogUtil.newPeopleDialog(MainActivity.this, v -> {
-                getClipText();
+                DialogUtil.cheapDialog(this, v12 -> {
+                    startActivity(new Intent(this, CheapBuyActivity.class));
+                }, v1 -> {
+                    getClipText();
+                });
             }, v -> {
                 startActivity(new Intent(this, NewFreeActivity.class));
             });
@@ -359,7 +363,11 @@ public class MainActivity extends RxAppCompatActivity implements MainView, ViewP
                                 NotificationUtil.OpenNotificationSetting(this, () -> {
                                     //20元津贴弹窗
                                     DialogUtil.newPeopleDialog(MainActivity.this, v -> {
-                                        getClipText();
+                                        DialogUtil.cheapDialog(this, v12 -> {
+                                            startActivity(new Intent(this, CheapBuyActivity.class));
+                                        }, v1 -> {
+                                            getClipText();
+                                        });
                                     }, v -> {
                                         startActivity(new Intent(this, NewFreeActivity.class));
                                     });
@@ -378,7 +386,11 @@ public class MainActivity extends RxAppCompatActivity implements MainView, ViewP
                                 NotificationUtil.OpenNotificationSetting(this, () -> {
                                     //20元津贴弹窗
                                     DialogUtil.newPeopleDialog(MainActivity.this, v -> {
-                                        getClipText();
+                                        DialogUtil.cheapDialog(this, v12 -> {
+                                            startActivity(new Intent(this, CheapBuyActivity.class));
+                                        }, v1 -> {
+                                            getClipText();
+                                        });
                                     }, v -> {
                                         startActivity(new Intent(this, NewFreeActivity.class));
                                     });
@@ -396,7 +408,11 @@ public class MainActivity extends RxAppCompatActivity implements MainView, ViewP
                 NotificationUtil.OpenNotificationSetting(this, () -> {
                     //20元津贴弹窗
                     DialogUtil.newPeopleDialog(MainActivity.this, v -> {
-                        getClipText();
+                        DialogUtil.cheapDialog(this, v12 -> {
+                            startActivity(new Intent(this, CheapBuyActivity.class));
+                        }, v1 -> {
+                            getClipText();
+                        });
                     }, v -> {
                         startActivity(new Intent(this, NewFreeActivity.class));
                     });
@@ -415,7 +431,11 @@ public class MainActivity extends RxAppCompatActivity implements MainView, ViewP
             NotificationUtil.OpenNotificationSetting(this, () -> {
                 //20元津贴弹窗
                 DialogUtil.newPeopleDialog(MainActivity.this, v -> {
-                    getClipText();
+                    DialogUtil.cheapDialog(this, v12 -> {
+                        startActivity(new Intent(this, CheapBuyActivity.class));
+                    }, v1 -> {
+                        getClipText();
+                    });
                 }, v -> {
                     startActivity(new Intent(this, NewFreeActivity.class));
                 });
@@ -471,8 +491,7 @@ public class MainActivity extends RxAppCompatActivity implements MainView, ViewP
                     //首返 + 活动弹窗
                     if (bean.getData().get(oldPos).getAllowanceGoodsList().size() >= 3) {
                         int finalActivityPos1 = activityPos;
-                        DialogUtil.cheapDialog(this, bean.getData().get(oldPos).getAddAllowancePrice(),
-                                bean.getData().get(oldPos).getAllowanceGoodsList(), v2 -> {
+                        DialogUtil.cheapDialog(this, v2 -> {
                                     startActivity(new Intent(this, CheapBuyActivity.class));
                                 }, v2 -> {
                                     DialogUtil.imgDialog(MainActivity.this, bean.getData().get(finalActivityPos1).getData().getImg(), v -> {
@@ -533,8 +552,7 @@ public class MainActivity extends RxAppCompatActivity implements MainView, ViewP
                 } else if (bean.getData().get(0).getType() == 3) {
                     //首单弹窗
                     if (bean.getData().get(0).getAllowanceGoodsList().size() >= 3) {
-                        DialogUtil.cheapDialog(this, bean.getData().get(0).getAddAllowancePrice(),
-                                bean.getData().get(0).getAllowanceGoodsList(), v -> {
+                        DialogUtil.cheapDialog(this, v -> {
                                     startActivity(new Intent(this, CheapBuyActivity.class));
                                 }, v -> {
                                     getClipText();
@@ -585,6 +603,11 @@ public class MainActivity extends RxAppCompatActivity implements MainView, ViewP
     protected void onResume() {
         super.onResume();
         MobclickAgent.onResume(this);
+        if (SPUtils.getInstance().getBoolean(CommonDate.CheapDialog, false)){
+            DialogUtil.cheapDialog(this, v12 -> {
+                startActivity(new Intent(this, CheapBuyActivity.class));
+            }, null);
+        }
         if (!once) {
             //android 10 新api解释是只有当前界面获得焦点后（onResume）才能获取到剪切板内容
             this.getWindow().getDecorView().post(() -> {

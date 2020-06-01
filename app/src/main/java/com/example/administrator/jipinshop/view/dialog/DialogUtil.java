@@ -294,6 +294,7 @@ public class DialogUtil {
             }
             dialog.dismiss();
         });
+        dialog.setCancelable(false);
         dialog.getWindow().setDimAmount(0.35f);
         dialog.show();
         dialog.setContentView(binding.getRoot());
@@ -685,33 +686,22 @@ public class DialogUtil {
     }
 
     //特惠购首次下单奖励弹框
-    public static void cheapDialog(Context context, String addAllowancePrice ,
-                                   List<PopBean.DataBean.AllowanceGoodsListBean> list,
-                                   View.OnClickListener listener , View.OnClickListener cancleListener){
+    public static void cheapDialog(Context context, View.OnClickListener listener , View.OnClickListener cancleListener){
         AlertDialog.Builder builder = new AlertDialog.Builder(context, R.style.dialog);
         final Dialog dialog = builder.create();
-        DialogCheapBinding binding = DataBindingUtil.inflate(LayoutInflater.from(context), R.layout.dialog_cheap, null, false);
-        binding.dialogTitle.setText("新人专享"+addAllowancePrice+"元补贴大礼包");
-        for (int i = 0; i < list.size(); i++) {
-            if (i==0){
-                binding.setDate1(list.get(i));
-            }else if (i == 1){
-                binding.setDate2(list.get(i));
-            }else if (i == 2){
-                binding.setDate3(list.get(i));
-            }
-        }
-        binding.executePendingBindings();
+        DialogNewpeople2Binding binding = DataBindingUtil.inflate(LayoutInflater.from(context), R.layout.dialog_newpeople2, null, false);
+        binding.dialogImage.setImageResource(R.mipmap.allowance_envelopes);
         binding.dialogCancle.setOnClickListener(v -> {
             if (cancleListener != null)
                 cancleListener.onClick(v);
             dialog.dismiss();
         });
-        binding.dialogSure.setOnClickListener(v -> {
+        binding.dialogImage.setOnClickListener(v -> {
             if (listener != null)
                 listener.onClick(v);
             dialog.dismiss();
         });
+        SPUtils.getInstance().put(CommonDate.CheapDialog,false);
         dialog.getWindow().setDimAmount(0.35f);
         dialog.show();
         dialog.setContentView(binding.getRoot());

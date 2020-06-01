@@ -73,6 +73,10 @@ public class NewFreeActivity extends BaseActivity implements View.OnClickListene
     }
 
     private void initView() {
+        if (SPUtils.getInstance().getBoolean(CommonDate.CheapDialog, true)){
+            //当cheapDialog没有值时默认为true，即第一次打开app没有弹出过津贴弹窗
+            SPUtils.getInstance().put(CommonDate.CheapDialog,true);//开启首页返回弹窗
+        }
         mBinding.inClude.titleTv.setText("新人免单专区");
         mBinding.swipeToLoad.setBackgroundColor(getResources().getColor(R.color.color_white));
 

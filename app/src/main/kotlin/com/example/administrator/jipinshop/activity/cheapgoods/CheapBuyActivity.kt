@@ -1,15 +1,18 @@
 package com.example.administrator.jipinshop.activity.cheapgoods
 
 import android.app.Dialog
+import android.content.Intent
 import android.databinding.DataBindingUtil
 import android.os.Bundle
 import android.support.v7.widget.LinearLayoutManager
+import android.text.TextUtils
 import android.view.View
 import cn.jiguang.d.d.v
 import com.alibaba.baichuan.android.trade.AlibcTradeSDK
 import com.aspsine.swipetoloadlayout.OnRefreshListener
 import com.blankj.utilcode.util.SPUtils
 import com.example.administrator.jipinshop.R
+import com.example.administrator.jipinshop.activity.login.LoginActivity
 import com.example.administrator.jipinshop.adapter.KTCheapBuyAdapter
 import com.example.administrator.jipinshop.base.BaseActivity
 import com.example.administrator.jipinshop.bean.ImageBean
@@ -129,6 +132,10 @@ class CheapBuyActivity : BaseActivity(), View.OnClickListener, OnRefreshListener
     }
 
     override fun onBuy(position: Int) {
+        if (TextUtils.isEmpty(SPUtils.getInstance(CommonDate.USER).getString(CommonDate.token, ""))) {
+            startActivity(Intent(this, LoginActivity::class.java))
+            return
+        }
         DialogUtil.LoginDialog(this, "您将前往淘宝购买并消耗"+ mList[position].useAllowancePrice +"元津贴\n下单立减" + mList[position].useAllowancePrice + "元，无需等待返现",
                 "确认", "取消", R.color.color_202020, R.color.color_202020,
                 false) {
@@ -169,7 +176,7 @@ class CheapBuyActivity : BaseActivity(), View.OnClickListener, OnRefreshListener
 
     override fun onDilaogSuc(bean: PopBean) {
         if (bean.data != null && bean.data.allowanceGoodsList.size >= 3){
-            DialogUtil.cheapDialog(this,bean.data.addAllowancePrice,bean.data.allowanceGoodsList,null,null)
+            DialogUtil.cheapDialog(this,null,null)
         }
     }
 

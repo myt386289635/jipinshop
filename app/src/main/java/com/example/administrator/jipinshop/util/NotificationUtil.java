@@ -95,6 +95,7 @@ public class NotificationUtil {
             dialog.dismiss();
             gotoSet((Activity) context);
         });
+        dialog.setCancelable(false);
         dialog.show();
         dialog.setContentView(view);
     }
