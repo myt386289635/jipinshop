@@ -107,6 +107,7 @@ public class NewFreeActivity extends BaseActivity implements View.OnClickListene
                             //未超时
                             twoFinishPage();
                         }else {
+                            SPUtils.getInstance().put(CommonDate.CheapDialog,false);//不开启首页返回弹窗
                             finish();
                         }
                     }
@@ -329,6 +330,7 @@ public class NewFreeActivity extends BaseActivity implements View.OnClickListene
                     //未超时
                     twoFinishPage();
                 }else {
+                    SPUtils.getInstance().put(CommonDate.CheapDialog,false);//不开启首页返回弹窗
                     super.onBackPressed();
                 }
             }
