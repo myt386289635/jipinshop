@@ -171,13 +171,6 @@ class CheapBuyActivity : BaseActivity(), View.OnClickListener, OnRefreshListener
                 it.dismiss()
             }
         }
-        mPresenter.getPopInfo(this.bindToLifecycle())
-    }
-
-    override fun onDilaogSuc(bean: PopBean) {
-        if (bean.data != null && bean.data.allowanceGoodsList.size >= 3){
-            DialogUtil.cheapDialog(this,null,null)
-        }
     }
 
     override fun onDestroy() {

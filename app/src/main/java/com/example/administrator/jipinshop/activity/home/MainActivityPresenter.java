@@ -19,6 +19,7 @@ import com.example.administrator.jipinshop.activity.login.LoginActivity;
 import com.example.administrator.jipinshop.bean.AppVersionbean;
 import com.example.administrator.jipinshop.bean.EvaluationTabBean;
 import com.example.administrator.jipinshop.bean.ImageBean;
+import com.example.administrator.jipinshop.bean.PopBean;
 import com.example.administrator.jipinshop.bean.PopInfoBean;
 import com.example.administrator.jipinshop.bean.SucBean;
 import com.example.administrator.jipinshop.bean.SuccessBean;
@@ -33,6 +34,7 @@ import java.util.List;
 import javax.inject.Inject;
 
 import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.functions.Consumer;
 import io.reactivex.schedulers.Schedulers;
 
 public class MainActivityPresenter {
@@ -205,6 +207,22 @@ public class MainActivityPresenter {
                     }
                 }, throwable -> {
                     mView.onStartFile();
+                });
+    }
+
+    public void getNewDialog(LifecycleTransformer<PopBean> transformer){
+        mRepository.getPopInfo("3")
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .compose(transformer)
+                .subscribe(popBean -> {
+                    if (popBean.getCode() == 0) {
+                        mView.onNewDialogSuc(popBean);
+                    }else {
+                        mView.onNewDialogFile();
+                    }
+                }, throwable -> {
+                    mView.onNewDialogFile();
                 });
     }
 }

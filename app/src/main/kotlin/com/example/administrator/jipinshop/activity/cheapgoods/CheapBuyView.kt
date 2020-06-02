@@ -16,6 +16,4 @@ interface CheapBuyView {
 
     fun onBuySuccess(successBean: ImageBean)
     fun onBuyFile(error: String?)
-
-    fun onDilaogSuc(bean : PopBean)
 }

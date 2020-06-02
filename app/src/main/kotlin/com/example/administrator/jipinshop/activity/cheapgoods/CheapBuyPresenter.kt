@@ -76,18 +76,4 @@ class CheapBuyPresenter {
                     }
                 }, { throwable -> mView.onBuyFile(throwable.message) })
     }
-
-    fun getPopInfo(transformer: LifecycleTransformer<PopBean>){
-        repository.getPopInfo("3")
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .compose(transformer)
-                .subscribe(Consumer {
-                    if (it.code == 0) {
-                        mView.onDilaogSuc(it)
-                    }
-                }, Consumer {
-
-                })
-    }
 }

@@ -258,7 +258,8 @@ public class NewFreeActivity extends BaseActivity implements View.OnClickListene
             new ShareUtils(this,share_media,mDialog)
                     .shareWeb(this, RetrofitModule.H5_URL + "new-free?query=\""
                                     + SPUtils.getInstance(CommonDate.USER).getString(CommonDate.userId) + "\"",
-                            "新人免单，仅剩3天！","价值30元免单礼品任意选",
+                            "我已经领到了！快来免费领取新人免单商品！",
+                            "极品城百万新人补贴，注册就送108元补贴大礼包！",
                             "https://jipincheng.cn/freeShare.png",R.mipmap.logo);
         }else {
             //还是点击时获取吧，万一出现进入页面后快速进行分享，可能会导致没有获取到海报就分享的情况

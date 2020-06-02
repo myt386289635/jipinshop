@@ -5,6 +5,7 @@ import android.app.Dialog;
 import com.example.administrator.jipinshop.bean.AppVersionbean;
 import com.example.administrator.jipinshop.bean.EvaluationTabBean;
 import com.example.administrator.jipinshop.bean.ImageBean;
+import com.example.administrator.jipinshop.bean.PopBean;
 import com.example.administrator.jipinshop.bean.PopInfoBean;
 import com.example.administrator.jipinshop.bean.SucBean;
 import com.example.administrator.jipinshop.bean.TklBean;
@@ -31,4 +32,7 @@ public interface MainView {
 
     void onStartPrivate(ImageBean bean);
     void onStartFile();
+
+    void onNewDialogSuc(PopBean bean);
+    void onNewDialogFile();
 }

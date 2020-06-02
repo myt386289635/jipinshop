@@ -30,6 +30,7 @@ import com.example.administrator.jipinshop.base.DaggerBaseActivityComponent;
 import com.example.administrator.jipinshop.bean.AppVersionbean;
 import com.example.administrator.jipinshop.bean.EvaluationTabBean;
 import com.example.administrator.jipinshop.bean.ImageBean;
+import com.example.administrator.jipinshop.bean.PopBean;
 import com.example.administrator.jipinshop.bean.PopInfoBean;
 import com.example.administrator.jipinshop.bean.SucBean;
 import com.example.administrator.jipinshop.bean.TklBean;
@@ -465,8 +466,8 @@ public class MainActivity extends RxAppCompatActivity implements MainView, ViewP
                 }
                 if (newPos != -1) {
                     //新人弹窗 + 活动弹窗
+                    int finalActivityPos = activityPos;
                     if (!bean.getData().get(newPos).getPopId().equals(SPUtils.getInstance().getString(CommonDate.POPID, ""))) {
-                        int finalActivityPos = activityPos;
                         DialogUtil.imgDialog(MainActivity.this, bean.getData().get(newPos).getData().getImg(), v -> {
                             startActivity(new Intent(this, NewFreeActivity.class));
                         }, v -> {
@@ -485,39 +486,34 @@ public class MainActivity extends RxAppCompatActivity implements MainView, ViewP
                             SPUtils.getInstance().put(CommonDate.POPID, bean.getData().get(newPos).getPopId());//未登录时存上id
                         }
                     } else {
-                        getClipText();
-                    }
-                } else if (oldPos != -1) {
-                    //首返 + 活动弹窗
-                    if (bean.getData().get(oldPos).getAllowanceGoodsList().size() >= 3) {
-                        int finalActivityPos1 = activityPos;
-                        DialogUtil.cheapDialog(this, v2 -> {
-                                    startActivity(new Intent(this, CheapBuyActivity.class));
-                                }, v2 -> {
-                                    DialogUtil.imgDialog(MainActivity.this, bean.getData().get(finalActivityPos1).getData().getImg(), v -> {
-                                        if (TextUtils.isEmpty(SPUtils.getInstance(CommonDate.USER).getString(CommonDate.token, ""))) {
-                                            startActivity(new Intent(this, LoginActivity.class));
-                                            return;
-                                        }
-                                        ShopJumpUtil.openPager(MainActivity.this, bean.getData().get(finalActivityPos1).getData().getTargetType()
-                                                , bean.getData().get(finalActivityPos1).getData().getTargetId(), "小分类");
-                                    }, v -> {
-                                        getClipText();
-                                    });
-                                });
-                    } else {
-                        int finalActivityPos2 = activityPos;
-                        DialogUtil.imgDialog(MainActivity.this, bean.getData().get(finalActivityPos2).getData().getImg(), v3 -> {
+                        DialogUtil.imgDialog(MainActivity.this, bean.getData().get(finalActivityPos).getData().getImg(), v1 -> {
                             if (TextUtils.isEmpty(SPUtils.getInstance(CommonDate.USER).getString(CommonDate.token, ""))) {
                                 startActivity(new Intent(this, LoginActivity.class));
                                 return;
                             }
-                            ShopJumpUtil.openPager(MainActivity.this, bean.getData().get(finalActivityPos2).getData().getTargetType()
-                                    , bean.getData().get(finalActivityPos2).getData().getTargetId(), "小分类");
-                        }, v3 -> {
+                            ShopJumpUtil.openPager(MainActivity.this, bean.getData().get(finalActivityPos).getData().getTargetType()
+                                    , bean.getData().get(finalActivityPos).getData().getTargetId(), "小分类");
+                        }, v1 -> {
                             getClipText();
                         });
                     }
+                } else if (oldPos != -1) {
+                    //首返 + 活动弹窗
+                    int finalActivityPos1 = activityPos;
+                    DialogUtil.cheapDialog(this, v2 -> {
+                        startActivity(new Intent(this, CheapBuyActivity.class));
+                    }, v2 -> {
+                        DialogUtil.imgDialog(MainActivity.this, bean.getData().get(finalActivityPos1).getData().getImg(), v -> {
+                            if (TextUtils.isEmpty(SPUtils.getInstance(CommonDate.USER).getString(CommonDate.token, ""))) {
+                                startActivity(new Intent(this, LoginActivity.class));
+                                return;
+                            }
+                            ShopJumpUtil.openPager(MainActivity.this, bean.getData().get(finalActivityPos1).getData().getTargetType()
+                                    , bean.getData().get(finalActivityPos1).getData().getTargetId(), "小分类");
+                        }, v -> {
+                            getClipText();
+                        });
+                    });
                 } else {
                     getClipText();
                 }
@@ -551,15 +547,11 @@ public class MainActivity extends RxAppCompatActivity implements MainView, ViewP
                     }
                 } else if (bean.getData().get(0).getType() == 3) {
                     //首单弹窗
-                    if (bean.getData().get(0).getAllowanceGoodsList().size() >= 3) {
-                        DialogUtil.cheapDialog(this, v -> {
-                                    startActivity(new Intent(this, CheapBuyActivity.class));
-                                }, v -> {
-                                    getClipText();
-                                });
-                    } else {
+                    DialogUtil.cheapDialog(this, v -> {
+                        startActivity(new Intent(this, CheapBuyActivity.class));
+                    }, v -> {
                         getClipText();
-                    }
+                    });
                 } else {
                     getClipText();
                 }
@@ -603,17 +595,37 @@ public class MainActivity extends RxAppCompatActivity implements MainView, ViewP
     protected void onResume() {
         super.onResume();
         MobclickAgent.onResume(this);
-        if (SPUtils.getInstance().getBoolean(CommonDate.CheapDialog, false)){
-            DialogUtil.cheapDialog(this, v12 -> {
-                startActivity(new Intent(this, CheapBuyActivity.class));
-            }, null);
-        }
+        mPresenter.getNewDialog(this.bindToLifecycle());//获取108元津贴弹窗问题
         if (!once) {
             //android 10 新api解释是只有当前界面获得焦点后（onResume）才能获取到剪切板内容
             this.getWindow().getDecorView().post(() -> {
                 getClipText();//淘口令
             });
         }
+    }
+
+    @Override
+    public void onNewDialogSuc(PopBean bean) {
+        if (bean.getData() != null ){
+            onCheapDialog();
+        }else {
+            if (SPUtils.getInstance().getBoolean(CommonDate.CheapDialog, false)){
+                onCheapDialog();
+            }
+        }
+    }
+
+    @Override
+    public void onNewDialogFile() {
+        if (SPUtils.getInstance().getBoolean(CommonDate.CheapDialog, false)){
+            onCheapDialog();
+        }
+    }
+
+    public void onCheapDialog(){
+        DialogUtil.cheapDialog(this, v12 -> {
+            startActivity(new Intent(this, CheapBuyActivity.class));
+        }, null);
     }
 
     @Override
