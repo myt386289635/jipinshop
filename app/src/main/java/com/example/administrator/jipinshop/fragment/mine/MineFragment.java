@@ -442,8 +442,8 @@ public class MineFragment extends DBBaseFragment implements View.OnClickListener
 
     @Override
     public void unMessageSuc(UnMessageBean unMessageBean) {
-        if(unMessageBean.getWalletCount() != 0) {
-            if (unMessageBean.getWalletCount() <= 99) {
+        if(unMessageBean.getData() != 0) {
+            if (unMessageBean.getData() <= 99) {
                 mQBadgeView.setBadgeText("" + unMessageBean.getData());
             } else {
                 mQBadgeView.setBadgeText("99+");
