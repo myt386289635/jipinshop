@@ -40,7 +40,7 @@ import com.example.administrator.jipinshop.bean.eventbus.HomeNewPeopleBus;
 import com.example.administrator.jipinshop.fragment.circle.CircleFragment;
 import com.example.administrator.jipinshop.fragment.home.KTHomeFragnent;
 import com.example.administrator.jipinshop.fragment.member.KTMemberFragment;
-import com.example.administrator.jipinshop.fragment.mine.MineFragment;
+import com.example.administrator.jipinshop.fragment.mine.KTMineFragment;
 import com.example.administrator.jipinshop.netwrok.RetrofitModule;
 import com.example.administrator.jipinshop.util.ClickUtil;
 import com.example.administrator.jipinshop.util.InputMethodManagerLeak;
@@ -111,7 +111,7 @@ public class MainActivity extends RxAppCompatActivity implements MainView, ViewP
     private List<Fragment> mFragments;
     private HomeAdapter mHomeAdapter;
     private KTMemberFragment mMemberFragment;//会员
-    private MineFragment mMineFragment;//我的
+    private KTMineFragment mMineFragment;//我的
     private CircleFragment mCircleFragment;//发圈
     private KTHomeFragnent mKTHomeFragnent;//首页
 
@@ -169,7 +169,7 @@ public class MainActivity extends RxAppCompatActivity implements MainView, ViewP
         mKTHomeFragnent = KTHomeFragnent.getInstance();
         mMemberFragment = KTMemberFragment.getInstance("1");
         mCircleFragment = CircleFragment.getInstance();
-        mMineFragment = new MineFragment();
+        mMineFragment = KTMineFragment.getInstance();
         mFragments.add(mKTHomeFragnent);
         mFragments.add(mMemberFragment);
         mFragments.add(mCircleFragment);

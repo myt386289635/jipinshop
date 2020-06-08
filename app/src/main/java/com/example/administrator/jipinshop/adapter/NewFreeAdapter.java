@@ -2,7 +2,6 @@ package com.example.administrator.jipinshop.adapter;
 
 import android.content.Context;
 import android.databinding.DataBindingUtil;
-import android.graphics.Color;
 import android.os.CountDownTimer;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.GridLayoutManager;
@@ -164,6 +163,7 @@ public class NewFreeAdapter extends RecyclerView.Adapter {
                             public void onFinish() {
                                 holder1.binding.itemCountDown.setVisibility(View.GONE);
                                 holder1.binding.itemEndText.setVisibility(View.VISIBLE);
+                                holder1.binding.itemEndText.setText("您的免单权益已经失效分享好友来抢吧!");
                             }
                         }.start();
                         //将此 countDownTimer 放入list.
@@ -172,6 +172,7 @@ public class NewFreeAdapter extends RecyclerView.Adapter {
                         //到期了
                         holder1.binding.itemCountDown.setVisibility(View.GONE);
                         holder1.binding.itemEndText.setVisibility(View.VISIBLE);
+                        holder1.binding.itemEndText.setText("您的免单权益已经失效分享好友来抢吧!");
                     }
                 }
                 break;
