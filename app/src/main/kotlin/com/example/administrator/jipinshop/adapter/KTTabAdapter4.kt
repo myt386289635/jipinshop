@@ -16,7 +16,7 @@ import net.lucode.hackware.magicindicator.buildins.commonnavigator.indicators.Li
 class KTTabAdapter4 : CommonNavigatorAdapter {
 
     private var mTitle: MutableList<String>
-    private lateinit var mOnItem: OnItem
+    private var mOnItem: OnItem? = null
     private var leftPadding = 0
     private var rightPadding = 0
     private var normalColor = 0
@@ -62,7 +62,7 @@ class KTTabAdapter4 : CommonNavigatorAdapter {
         simplePagerTitleView.normalColor = normalColor
         simplePagerTitleView.selectedColor = selectedColor
         simplePagerTitleView.setOnClickListener {
-            mOnItem.onClick(index)
+            mOnItem?.onClick(index)
         }
         return simplePagerTitleView
     }

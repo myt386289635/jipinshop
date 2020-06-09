@@ -1,0 +1,418 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+        <variable
+            name="listener"
+            type="android.view.View.OnClickListener"/>
+    </data>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <RelativeLayout
+            android:visibility="gone"
+            android:onClick="@{listener.onClick}"
+            android:layout_alignParentBottom="true"
+            android:id="@+id/team_bottomContainer"
+            android:background="@color/color_E25838"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/y90">
+
+            <TextView
+                android:visibility="gone"
+                android:id="@+id/team_rule"
+                android:layout_centerInParent="true"
+                android:gravity="center"
+                android:text="怎样激活潜在粉丝，请查看《潜在粉丝激活攻略》"
+                android:textStyle="bold"
+                android:textColor="@color/color_white"
+                android:textSize="14sp"
+                android:background="@color/color_E25838"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+
+            <RelativeLayout
+                android:layout_centerInParent="true"
+                android:visibility="gone"
+                android:id="@+id/team_teacherContainer"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+
+                <LinearLayout
+                    android:id="@+id/team_teacher"
+                    android:gravity="center"
+                    android:orientation="vertical"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content">
+
+                    <TextView
+                        android:textStyle="bold"
+                        android:textColor="@color/color_white"
+                        android:textSize="10sp"
+                        android:text="我的导师"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"/>
+
+                    <TextView
+                        android:textSize="18sp"
+                        android:textColor="@color/color_white"
+                        android:textStyle="bold"
+                        android:text="专家"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"/>
+
+                </LinearLayout>
+
+                <ImageView
+                    android:layout_marginLeft="@dimen/x10"
+                    android:layout_toRightOf="@id/team_teacher"
+                    android:layout_centerVertical="true"
+                    android:src="@mipmap/right_white"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"/>
+
+            </RelativeLayout>
+
+        </RelativeLayout>
+
+        <android.support.design.widget.CoordinatorLayout
+            android:layout_above="@id/team_bottomContainer"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <android.support.design.widget.AppBarLayout
+                app:elevation="0dp"
+                android:id="@+id/appbar"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:layout_behavior="@string/AppBarLayoutBehavior">
+
+                <android.support.design.widget.CollapsingToolbarLayout
+                    app:contentScrim="@color/color_white"
+                    app:statusBarScrim="@android:color/transparent"
+                    app:layout_scrollFlags="scroll|exitUntilCollapsed"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/y412">
+
+                    <RelativeLayout
+                        app:layout_collapseMode="parallax"
+                        app:layout_collapseParallaxMultiplier="0.7"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent">
+
+                        <ImageView
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:scaleType="centerCrop"
+                            android:src="@mipmap/bg_team"/>
+
+                        <TextView
+                            android:id="@+id/title_text"
+                            android:layout_marginTop="@dimen/y122"
+                            android:layout_centerHorizontal="true"
+                            android:textColor="@color/color_D8D8D8"
+                            android:textSize="12sp"
+                            android:text="我的粉丝"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"/>
+
+                        <TextView
+                            android:id="@+id/title_count"
+                            android:layout_below="@id/title_text"
+                            android:layout_centerHorizontal="true"
+                            android:textStyle="bold"
+                            android:textColor="@color/color_white"
+                            android:textSize="29sp"
+                            android:text="0"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"/>
+
+                        <LinearLayout
+                            android:orientation="horizontal"
+                            android:layout_marginRight="@dimen/x14"
+                            android:layout_marginLeft="@dimen/x14"
+                            android:layout_marginBottom="@dimen/y47"
+                            android:layout_alignParentBottom="true"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content">
+
+                            <LinearLayout
+                                android:gravity="center"
+                                android:layout_weight="1"
+                                android:orientation="vertical"
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content">
+
+                                <TextView
+                                    android:id="@+id/team_today_add"
+                                    android:textStyle="bold"
+                                    android:textColor="@color/color_white"
+                                    android:textSize="14sp"
+                                    android:text="0"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"/>
+
+                                <TextView
+                                    android:layout_marginTop="@dimen/y1"
+                                    android:textColor="@color/color_D8D8D8"
+                                    android:textSize="12sp"
+                                    android:text="今日新增"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"/>
+
+                            </LinearLayout>
+
+                            <View
+                                android:background="@color/color_DEDEDE"
+                                android:layout_width="@dimen/x1"
+                                android:layout_height="@dimen/y56"/>
+
+                            <LinearLayout
+                                android:gravity="center"
+                                android:layout_weight="1"
+                                android:orientation="vertical"
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content">
+
+                                <TextView
+                                    android:id="@+id/team_yesterday_add"
+                                    android:textStyle="bold"
+                                    android:textColor="@color/color_white"
+                                    android:textSize="14sp"
+                                    android:text="0"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"/>
+
+                                <TextView
+                                    android:layout_marginTop="@dimen/y1"
+                                    android:textColor="@color/color_D8D8D8"
+                                    android:textSize="12sp"
+                                    android:text="昨日新增"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"/>
+
+                            </LinearLayout>
+
+                            <View
+                                android:background="@color/color_DEDEDE"
+                                android:layout_width="@dimen/x1"
+                                android:layout_height="@dimen/y56"/>
+
+                            <LinearLayout
+                                android:gravity="center"
+                                android:layout_weight="1"
+                                android:orientation="vertical"
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content">
+
+                                <TextView
+                                    android:id="@+id/team_invite_fans"
+                                    android:textStyle="bold"
+                                    android:textColor="@color/color_white"
+                                    android:textSize="14sp"
+                                    android:text="0"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"/>
+
+                                <TextView
+                                    android:layout_marginTop="@dimen/y1"
+                                    android:textColor="@color/color_D8D8D8"
+                                    android:textSize="12sp"
+                                    android:text="直邀粉丝"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"/>
+
+                            </LinearLayout>
+
+                            <View
+                                android:background="@color/color_DEDEDE"
+                                android:layout_width="@dimen/x1"
+                                android:layout_height="@dimen/y56"/>
+
+                            <LinearLayout
+                                android:gravity="center"
+                                android:layout_weight="1"
+                                android:orientation="vertical"
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content">
+
+                                <TextView
+                                    android:id="@+id/team_other_fans"
+                                    android:textStyle="bold"
+                                    android:textColor="@color/color_white"
+                                    android:textSize="14sp"
+                                    android:text="0"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"/>
+
+                                <TextView
+                                    android:layout_marginTop="@dimen/y1"
+                                    android:textColor="@color/color_D8D8D8"
+                                    android:textSize="12sp"
+                                    android:text="其他粉丝"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"/>
+
+                            </LinearLayout>
+
+                        </LinearLayout>
+
+                    </RelativeLayout>
+
+                    <android.support.v7.widget.Toolbar
+                        android:id="@+id/tool_bar"
+                        app:layout_collapseMode="pin"
+                        app:contentInsetLeft="0dp"
+                        app:contentInsetStart="0dp"
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/y128">
+
+                        <LinearLayout
+                            android:orientation="vertical"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent">
+
+                            <LinearLayout
+                                android:id="@+id/status_bar"
+                                android:layout_width="match_parent"
+                                android:layout_height="@dimen/y40"
+                                android:background="@color/transparent"
+                                android:orientation="vertical"/>
+
+                            <RelativeLayout
+                                android:id="@+id/title_container"
+                                android:layout_width="match_parent"
+                                android:layout_height="@dimen/y88">
+
+                                <ImageView
+                                    android:layout_centerVertical="true"
+                                    android:onClick="@{listener.onClick}"
+                                    android:id="@+id/title_back"
+                                    android:layout_marginLeft="@dimen/x19"
+                                    android:padding="@dimen/x6"
+                                    android:src="@mipmap/balance_white"
+                                    android:layout_width="@dimen/x48"
+                                    android:layout_height="@dimen/y48"/>
+
+                                <TextView
+                                    android:gravity="center"
+                                    android:ellipsize="end"
+                                    android:layout_marginRight="@dimen/x24"
+                                    android:maxLines="1"
+                                    android:id="@+id/title_tv"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_centerInParent="true"
+                                    android:textColor="@color/transparent"
+                                    android:textSize="18sp"
+                                    android:textStyle="bold"
+                                    android:text="我的团队"/>
+
+                            </RelativeLayout>
+
+
+                        </LinearLayout>
+
+                    </android.support.v7.widget.Toolbar>
+
+                </android.support.design.widget.CollapsingToolbarLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/y88"
+                    android:background="@color/color_white"
+                    android:orientation="vertical">
+
+                    <net.lucode.hackware.magicindicator.MagicIndicator
+                        android:id="@+id/view_indicator"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:layout_gravity="center_horizontal" />
+
+                </LinearLayout>
+
+                <View
+                    android:background="@color/color_F5F5F5"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/y1"/>
+
+
+                <TextView
+                    android:visibility="gone"
+                    android:id="@+id/team_notice"
+                    android:paddingLeft="@dimen/x40"
+                    android:gravity="center_vertical"
+                    android:textSize="12sp"
+                    android:textColor="@color/color_DE151515"
+                    android:text="潜在用户还未登录极品城APP，快让她激活"
+                    android:background="@color/color_white"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/y80"/>
+
+                <LinearLayout
+                    android:id="@+id/team_titleNotice"
+                    android:visibility="gone"
+                    android:background="@color/color_white"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/y88">
+
+                    <com.example.administrator.jipinshop.view.textview.DrawableRightCenterTextView
+                        android:onClick="@{listener.onClick}"
+                        android:id="@+id/title_time"
+                        android:drawableRight="@mipmap/team_normal"
+                        android:drawablePadding="@dimen/x5"
+                        android:textColor="@color/color_E25838"
+                        android:textSize="14sp"
+                        android:gravity="center"
+                        android:text="注册时间"
+                        android:layout_weight="1"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"/>
+
+                    <com.example.administrator.jipinshop.view.textview.DrawableRightCenterTextView
+                        android:onClick="@{listener.onClick}"
+                        android:id="@+id/title_people"
+                        android:drawableRight="@mipmap/team_normal"
+                        android:drawablePadding="@dimen/x5"
+                        android:textColor="@color/color_DE151515"
+                        android:textSize="14sp"
+                        android:gravity="center"
+                        android:text="直邀人数"
+                        android:layout_weight="1"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"/>
+
+                    <com.example.administrator.jipinshop.view.textview.DrawableRightCenterTextView
+                        android:onClick="@{listener.onClick}"
+                        android:id="@+id/title_money"
+                        android:drawableRight="@mipmap/team_normal"
+                        android:drawablePadding="@dimen/x5"
+                        android:textColor="@color/color_DE151515"
+                        android:textSize="14sp"
+                        android:gravity="center"
+                        android:text="累计预估收益"
+                        android:layout_weight="1"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"/>
+
+                </LinearLayout>
+
+
+            </android.support.design.widget.AppBarLayout>
+
+            <com.example.administrator.jipinshop.view.viewpager.NoScrollViewPager
+                android:background="@color/color_F5F5F5"
+                android:id="@+id/view_pager"
+                app:layout_behavior="@string/appbar_scrolling_view_behavior"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"/>
+
+        </android.support.design.widget.CoordinatorLayout>
+
+    </RelativeLayout>
+
+
+</layout>

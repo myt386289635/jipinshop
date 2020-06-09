@@ -1,19 +1,29 @@
 package com.example.administrator.jipinshop.activity.balance.team;
 
 import android.databinding.DataBindingUtil;
+import android.graphics.drawable.ColorDrawable;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.v7.widget.LinearLayoutManager;
+import android.support.design.widget.AppBarLayout;
+import android.support.v4.app.Fragment;
+import android.support.v4.view.ViewPager;
+import android.view.MotionEvent;
 import android.view.View;
+import android.widget.LinearLayout;
+import android.widget.TextView;
 
-import com.aspsine.swipetoloadlayout.OnLoadMoreListener;
-import com.aspsine.swipetoloadlayout.OnRefreshListener;
 import com.example.administrator.jipinshop.R;
-import com.example.administrator.jipinshop.adapter.TeamAdapter;
+import com.example.administrator.jipinshop.adapter.HomeFragmentAdapter;
+import com.example.administrator.jipinshop.adapter.KTTabAdapter4;
 import com.example.administrator.jipinshop.base.BaseActivity;
-import com.example.administrator.jipinshop.bean.TeamBean;
-import com.example.administrator.jipinshop.databinding.ActivityMessageSystemBinding;
-import com.example.administrator.jipinshop.util.ToastUtil;
+import com.example.administrator.jipinshop.databinding.ActivityTeamBinding;
+import com.example.administrator.jipinshop.fragment.mine.team.TeamOneFragment;
+import com.example.administrator.jipinshop.fragment.mine.team.three.TeamThreeFragment;
+import com.example.administrator.jipinshop.fragment.mine.team.two.TeamTwoFragment;
+
+import net.lucode.hackware.magicindicator.ViewPagerHelper;
+import net.lucode.hackware.magicindicator.buildins.commonnavigator.CommonNavigator;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -25,38 +35,94 @@ import javax.inject.Inject;
  * @create 2019/6/5
  * @Describe 团队收入
  */
-public class TeamActivity extends BaseActivity implements View.OnClickListener, OnRefreshListener, OnLoadMoreListener, TeamView {
+public class TeamActivity extends BaseActivity implements View.OnClickListener, TeamView, ViewPager.OnPageChangeListener, KTTabAdapter4.OnItem {
 
     @Inject
     TeamPresenter mPresenter;
-    private ActivityMessageSystemBinding mBinding;
-    private List<TeamBean.DataBean> mList;
-    private TeamAdapter mAdapter;
-    private int page = 1;
-    private Boolean refersh = true;
+    private ActivityTeamBinding mBinding;
+    //tab
+    private List<String> mTitle;
+    private KTTabAdapter4 mTabAdapter;
+    private List<Fragment> mFragments;
+    private HomeFragmentAdapter mAdapter;
+    //是否显示 (是否有数据)
+    private Boolean one = false;
+    private Boolean two = false;
+    private Boolean three = false;
+    //解决手势冲突
+    float startX = 0;
+    float startY = 0;
+    float xDistance = 0;
+    float yDistance = 0;
+    //fragment
+    private TeamTwoFragment mTwoFragment;
+    private TeamThreeFragment mThreeFragment;
+    //选择
+    private Integer[] upOrDown = {1,1}; //1是向上  2是向下
+    private Integer[] select = {0,0};   //选择的位置
+    private List<TextView> mTextViews;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        mBinding = DataBindingUtil.setContentView(this,R.layout.activity_message_system);
+        mBinding = DataBindingUtil.setContentView(this,R.layout.activity_team);
         mBinding.setListener(this);
         mBaseActivityComponent.inject(this);
+        mImmersionBar.reset()
+                .transparentStatusBar()
+                .statusBarDarkFont(true, 0f)
+                .init();
         mPresenter.setView(this);
         initView();
     }
 
     private void initView() {
-        mBinding.inClude.titleTv.setText("我的团队");
+        mPresenter.setStatusBarHight(mBinding,this);
+        mPresenter.setTitleBlack(this,mBinding.appbar,mBinding);
 
-        mBinding.recyclerView.setLayoutManager(new LinearLayoutManager(this));
-        mList = new ArrayList<>();
-        mAdapter = new TeamAdapter(this, mList);
-        mBinding.recyclerView.setAdapter(mAdapter);
+        //tab
+        mTitle = new ArrayList<>();
+        mTitle.add("潜在粉丝");
+        mTitle.add("直邀粉丝");
+        mTitle.add("其他粉丝");
+        CommonNavigator commonNavigator = new CommonNavigator(this);
+        mTabAdapter = new KTTabAdapter4(mTitle);
+        mTabAdapter.setColor(getResources().getColor(R.color.color_DE151515),
+                getResources().getColor(R.color.color_E25838));
+        mTabAdapter.setTextSize(16f);
+        mTabAdapter.setOnClick(this);
+        commonNavigator.setAdapter(mTabAdapter);
+        mBinding.viewIndicator.setNavigator(commonNavigator);
+        LinearLayout titleContainer = commonNavigator.getTitleContainer();
+        titleContainer.setShowDividers(LinearLayout.SHOW_DIVIDER_MIDDLE);
+        titleContainer.setDividerDrawable(new ColorDrawable(){
+            @Override
+            public int getIntrinsicWidth() {
+                return (int) getResources().getDimension(R.dimen.x72);
+            }
+        });
+        ViewPagerHelper.bind(mBinding.viewIndicator, mBinding.viewPager);
+        mBinding.teamBottomContainer.setVisibility(View.GONE);
+        mBinding.teamNotice.setVisibility(View.GONE);
+        mBinding.teamTitleNotice.setVisibility(View.GONE);
 
-        mPresenter.solveScoll(mBinding.recyclerView,mBinding.swipeToLoad);
-        mBinding.swipeToLoad.setOnRefreshListener(this);
-        mBinding.swipeToLoad.setOnLoadMoreListener(this);
-        mBinding.swipeToLoad.post(() -> mBinding.swipeToLoad.setRefreshing(true));
+        //初始化选择title
+        mTextViews = new ArrayList<>();
+        mTextViews.add(mBinding.titleTime);
+        mTextViews.add(mBinding.titlePeople);
+        mTextViews.add(mBinding.titleMoney);
+
+        mFragments = new ArrayList<>();
+        mFragments.add(TeamOneFragment.getInstance());
+        mTwoFragment = TeamTwoFragment.getInstance();
+        mFragments.add(mTwoFragment);
+        mThreeFragment = TeamThreeFragment.getInstance();
+        mFragments.add(mThreeFragment);
+        mAdapter = new HomeFragmentAdapter(getSupportFragmentManager());
+        mAdapter.setFragments(mFragments);
+        mBinding.viewPager.setAdapter(mAdapter);
+        mBinding.viewPager.setOffscreenPageLimit(mFragments.size() - 1);
+        mBinding.viewPager.addOnPageChangeListener(this);
     }
 
     @Override
@@ -65,99 +131,169 @@ public class TeamActivity extends BaseActivity implements View.OnClickListener, 
             case R.id.title_back:
                 finish();
                 break;
+            case R.id.title_time:
+                if (select[mBinding.viewPager.getCurrentItem() - 1] == 0){
+                    if (upOrDown[mBinding.viewPager.getCurrentItem() - 1] == 1){
+                        upOrDown[mBinding.viewPager.getCurrentItem() - 1] = 2;
+                    }else {
+                        upOrDown[mBinding.viewPager.getCurrentItem() - 1] = 1;
+                    }
+                }else {
+                    upOrDown[mBinding.viewPager.getCurrentItem() - 1] = 1;
+                }
+                select[mBinding.viewPager.getCurrentItem() - 1] = 0;
+                initTitle(select[mBinding.viewPager.getCurrentItem() - 1],true);
+                break;
+            case R.id.title_people:
+                if (select[mBinding.viewPager.getCurrentItem() - 1] == 1){
+                    if (upOrDown[mBinding.viewPager.getCurrentItem() - 1] == 1){
+                        upOrDown[mBinding.viewPager.getCurrentItem() - 1] = 2;
+                    }else {
+                        upOrDown[mBinding.viewPager.getCurrentItem() - 1] = 1;
+                    }
+                }else {
+                    upOrDown[mBinding.viewPager.getCurrentItem() - 1] = 1;
+                }
+                select[mBinding.viewPager.getCurrentItem() - 1] = 1;
+                initTitle(select[mBinding.viewPager.getCurrentItem() - 1],true);
+                break;
+            case R.id.title_money:
+                if (select[mBinding.viewPager.getCurrentItem() - 1] == 2){
+                    if (upOrDown[mBinding.viewPager.getCurrentItem() - 1] == 1){
+                        upOrDown[mBinding.viewPager.getCurrentItem() - 1] = 2;
+                    }else {
+                        upOrDown[mBinding.viewPager.getCurrentItem() - 1] = 1;
+                    }
+                }else {
+                    upOrDown[mBinding.viewPager.getCurrentItem() - 1] = 1;
+                }
+                select[mBinding.viewPager.getCurrentItem() - 1] = 2;
+                initTitle(select[mBinding.viewPager.getCurrentItem() - 1],true);
+                break;
         }
     }
 
-    @Override
-    public void onRefresh() {
-        page = 1;
-        refersh = true;
-        mPresenter.getSubUserList(page,this.bindToLifecycle());
+    public AppBarLayout getBar() {
+        return mBinding.appbar;
     }
 
-    @Override
-    public void onLoadMore() {
-        page++;
-        refersh = false;
-        mPresenter.getSubUserList(page,this.bindToLifecycle());
+    //有数据（潜在粉丝）
+    public void initOnePage(){
+        one = true;
+        mBinding.teamBottomContainer.setVisibility(View.VISIBLE);
+        mBinding.teamRule.setVisibility(View.VISIBLE);
+        mBinding.teamTeacherContainer.setVisibility(View.GONE);
+        mBinding.teamNotice.setVisibility(View.VISIBLE);
+        mBinding.teamTitleNotice.setVisibility(View.GONE);
     }
 
-    /**
-     * 错误页面
-     */
-    public void initError(int id, String title, String content) {
-        mBinding.recyclerView.setVisibility(View.GONE);
-        mBinding.netClude.qsNet.setVisibility(View.VISIBLE);
-        mBinding.netClude.errorImage.setBackgroundResource(id);
-        mBinding.netClude.errorTitle.setText(title);
-        mBinding.netClude.errorContent.setText(content);
-    }
-
-    /**
-     * 停止刷新
-     */
-    public void stopResher() {
-        if (mBinding.swipeToLoad != null && mBinding.swipeToLoad.isRefreshing()) {
-            if (!mBinding.swipeToLoad.isRefreshEnabled()) {
-                mBinding.swipeToLoad.setRefreshEnabled(true);
-                mBinding.swipeToLoad.setRefreshing(false);
-                mBinding.swipeToLoad.setRefreshEnabled(false);
-            } else {
-                mBinding.swipeToLoad.setRefreshing(false);
-            }
+    //有数据 （专属粉丝和其他粉丝）
+    public void initOtherPage(int pos){
+        if (pos == 1){
+            two = true;
+        }else {
+            three = true;
         }
-    }
-
-    /**
-     * 停止加载
-     */
-    public void stopLoading() {
-        if (mBinding.swipeToLoad != null && mBinding.swipeToLoad.isLoadingMore()) {
-            if (!mBinding.swipeToLoad.isLoadMoreEnabled()) {
-                mBinding.swipeToLoad.setLoadMoreEnabled(true);
-                mBinding.swipeToLoad.setLoadingMore(false);
-                mBinding.swipeToLoad.setLoadMoreEnabled(false);
-            } else {
-                mBinding.swipeToLoad.setLoadingMore(false);
-            }
-        }
+        mBinding.teamBottomContainer.setVisibility(View.VISIBLE);
+        mBinding.teamRule.setVisibility(View.GONE);
+        mBinding.teamTeacherContainer.setVisibility(View.VISIBLE);
+        mBinding.teamNotice.setVisibility(View.GONE);
+        mBinding.teamTitleNotice.setVisibility(View.VISIBLE);
+        initTitle(select[mBinding.viewPager.getCurrentItem() - 1],false);
     }
 
     @Override
-    public void onSuccess(TeamBean bean) {
-        if (refersh){
-            stopResher();
-            if (bean.getData() != null && bean.getData().size() != 0){
-                mBinding.recyclerView.setVisibility(View.VISIBLE);
-                mBinding.netClude.qsNet.setVisibility(View.GONE);
-                mList.clear();
-                mList.addAll(bean.getData());
-                mAdapter.notifyDataSetChanged();
+    public void onPageScrolled(int i, float v, int i1) { }
+
+    @Override
+    public void onPageSelected(int position) {
+        if (position == 0){
+            if (one){
+                initOnePage();
             }else {
-                initError(R.mipmap.qs_nodata, "暂无数据", "暂时没有任何数据 ");
+                mBinding.teamBottomContainer.setVisibility(View.GONE);
+                mBinding.teamNotice.setVisibility(View.GONE);
+                mBinding.teamTitleNotice.setVisibility(View.GONE);
             }
-        }else {
-            stopLoading();
-            if (bean.getData() != null && bean.getData().size() != 0) {
-                mList.addAll(bean.getData());
-                mAdapter.notifyDataSetChanged();
-                mBinding.swipeToLoad.setLoadMoreEnabled(false);
-            } else {
-                page--;
-                ToastUtil.show("已经是最后一页了");
+        }else if (position == 1) {
+            if (two){
+                initOtherPage(position);
+            }else {
+                mBinding.teamBottomContainer.setVisibility(View.GONE);
+                mBinding.teamNotice.setVisibility(View.GONE);
+                mBinding.teamTitleNotice.setVisibility(View.GONE);
+            }
+        } else {
+            if (three){
+                initOtherPage(position);
+            }else {
+                mBinding.teamBottomContainer.setVisibility(View.GONE);
+                mBinding.teamNotice.setVisibility(View.GONE);
+                mBinding.teamTitleNotice.setVisibility(View.GONE);
             }
         }
     }
 
     @Override
-    public void onFile(String error) {
-        if(refersh){
-            stopResher();
-            initError(R.mipmap.qs_nodata, "网络出错", "哇哦，网络出错了，换个姿势下滑页面试试");
-        }else {
-            stopLoading();
-            page--;
+    public void onPageScrollStateChanged(int i) { }
+
+    //解决AppBarLayout头布局过大与ViewPager手势冲突出现的滑动卡顿问题
+    @Override
+    public boolean dispatchTouchEvent(MotionEvent ev) {
+        switch (ev.getAction()) {
+            case MotionEvent.ACTION_DOWN:
+                xDistance = yDistance = 0f;
+                startX = ev.getX();
+                startY = ev.getY();
+                break;
+            case MotionEvent.ACTION_MOVE:
+
+                break;
         }
-        ToastUtil.show(error);
+        final float curX = ev.getX();
+        final float curY = ev.getY();
+
+        xDistance += Math.abs(curX - startX);
+        yDistance += Math.abs(curY - startY);
+
+        if (xDistance >= yDistance) {
+            //横向滑动
+            mBinding.viewPager.setNoScroll(false);
+        } else {
+            //垂直滑动
+            mBinding.viewPager.setNoScroll(true);
+        }
+        return super.dispatchTouchEvent(ev);
+    }
+
+    @Override
+    public void onClick(int position) {
+        mBinding.viewPager.setCurrentItem(position);
+    }
+
+    //初始化title
+    public void initTitle(int select , boolean isRefresh){
+        for (TextView textView : mTextViews) {
+            Drawable drawable = getResources().getDrawable(R.mipmap.team_normal);
+            drawable.setBounds(0, 0, drawable.getMinimumWidth(), drawable.getMinimumHeight());
+            textView.setCompoundDrawables(null, null, drawable, null);
+            textView.setTextColor(getResources().getColor(R.color.color_DE151515));
+        }
+        Drawable drawable;
+        if (upOrDown[mBinding.viewPager.getCurrentItem() - 1] == 1){
+            drawable = getResources().getDrawable(R.mipmap.team_up);
+        }else {
+            drawable = getResources().getDrawable(R.mipmap.team_down);
+        }
+        drawable.setBounds(0, 0, drawable.getMinimumWidth(), drawable.getMinimumHeight());
+        mTextViews.get(select).setCompoundDrawables(null, null, drawable, null);
+        mTextViews.get(select).setTextColor(getResources().getColor(R.color.color_E25838));
+        if (isRefresh){
+            if (mBinding.viewPager.getCurrentItem() == 1){
+                mTwoFragment.refresh();
+            }else if (mBinding.viewPager.getCurrentItem() == 2){
+                mThreeFragment.refresh();
+            }
+        }
     }
 }
