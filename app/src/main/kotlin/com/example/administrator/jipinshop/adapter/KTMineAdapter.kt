@@ -18,6 +18,7 @@ import com.blankj.utilcode.util.SPUtils
 import com.example.administrator.jipinshop.R
 import com.example.administrator.jipinshop.activity.shoppingdetail.tbshoppingdetail.TBShoppingDetailActivity
 import com.example.administrator.jipinshop.bean.EvaluationTabBean
+import com.example.administrator.jipinshop.bean.MyWalletBean
 import com.example.administrator.jipinshop.bean.SimilerGoodsBean
 import com.example.administrator.jipinshop.bean.UserInfoBean
 import com.example.administrator.jipinshop.databinding.ItemMineHead1Binding
@@ -50,6 +51,11 @@ class KTMineAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>{
     private var mBean: UserInfoBean? = null
     private var mOnItem: OnItem? = null
     private var unMessage: Int = 0//未读数
+    private var mWalletBean : MyWalletBean? = null
+
+    fun setWallet(bean : MyWalletBean?){
+        mWalletBean = bean
+    }
 
     fun setBean(bean : UserInfoBean?){
         mBean = bean
@@ -156,10 +162,12 @@ class KTMineAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>{
                                     binding.itemGrade.setImageResource(R.mipmap.grade_public)
                                 }
                             }
-                            binding.mineWithdrawal.text = "100"//今日预估
-                            binding.mineImminent.text = "100" //本月预估
-                            binding.mineTotal.text = "100" //上月预估
-                            binding.mineWalletMoney.text = "100元" //可提现
+                            mWalletBean?.let { it ->
+                                binding.mineWithdrawal.text = it.data.preTodayFee//今日预估
+                                binding.mineImminent.text = it.data.currentMonthFee //本月预估
+                                binding.mineTotal.text = it.data.preMonthFee //上月预估
+                                binding.mineWalletMoney.text = it.data.balanceFee + "元" //可提现
+                            }
                         }else if (it.code == 602){//token失效(未登录)
                             binding.mineName.visibility = View.GONE
                             binding.mineLogin.visibility = View.VISIBLE

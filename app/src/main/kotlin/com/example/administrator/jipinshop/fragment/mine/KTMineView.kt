@@ -23,4 +23,6 @@ interface KTMineView {
     fun unMessageSuc(unMessageBean: UnMessageBean)
 
     fun onCodeSuc(dialog: Dialog, inputManager: InputMethodManager, bean: SuccessBean)
+
+    fun onCommssionSummary(bean: MyWalletBean)
 }

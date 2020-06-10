@@ -575,7 +575,7 @@ public interface APIService {
     /**
      * 佣金汇总
      */
-    @GET("api/v2/myCommssionSummary")
+    @GET("api/v3/myCommssionSummary")
     Observable<MyWalletBean> myCommssionSummary();
 
     /**

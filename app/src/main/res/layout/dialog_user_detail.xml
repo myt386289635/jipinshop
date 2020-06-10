@@ -1,0 +1,283 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <RelativeLayout
+        android:minWidth="@dimen/x600"
+        android:layout_gravity="center_horizontal"
+        android:background="@drawable/bg_dialog_white"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:id="@+id/dialog_title"
+            android:layout_marginTop="@dimen/y24"
+            android:layout_centerHorizontal="true"
+            android:textColor="@color/color_DE151515"
+            android:textStyle="bold"
+            android:textSize="15sp"
+            android:text="极品小能手"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+
+        <ImageView
+            android:padding="@dimen/x12"
+            android:id="@+id/dialog_close"
+            android:layout_alignParentRight="true"
+            android:src="@mipmap/dialog_close2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+
+        <LinearLayout
+            android:layout_marginRight="@dimen/x10"
+            android:layout_marginBottom="@dimen/y24"
+            android:layout_marginTop="@dimen/y24"
+            android:layout_below="@id/dialog_title"
+            android:id="@+id/dialog_numberContainer"
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <RelativeLayout
+                android:layout_weight="1"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:textColor="@color/color_DE151515"
+                    android:textSize="15sp"
+                    android:layout_marginTop="@dimen/y15"
+                    android:layout_centerHorizontal="true"
+                    android:id="@+id/dialog_number"
+                    android:text="手机号"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"/>
+
+                <TextView
+                    android:textColor="@color/color_DE151515"
+                    android:id="@+id/dialog_phone"
+                    android:layout_marginTop="@dimen/y5"
+                    android:layout_centerHorizontal="true"
+                    android:textSize="12sp"
+                    android:layout_below="@id/dialog_number"
+                    android:text="18612345678"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"/>
+
+                <ImageView
+                    android:layout_marginLeft="@dimen/x5"
+                    android:layout_toRightOf="@id/dialog_number"
+                    android:src="@mipmap/dialog_copy"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"/>
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_weight="1"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:textColor="@color/color_DE151515"
+                    android:textSize="15sp"
+                    android:layout_marginTop="@dimen/y15"
+                    android:layout_centerHorizontal="true"
+                    android:id="@+id/dialog_wx"
+                    android:text="微信号"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"/>
+
+                <TextView
+                    android:ellipsize="end"
+                    android:maxLines="1"
+                    android:textColor="@color/color_DE151515"
+                    android:id="@+id/dialog_wxCode"
+                    android:layout_marginTop="@dimen/y5"
+                    android:layout_centerHorizontal="true"
+                    android:textSize="12sp"
+                    android:layout_below="@id/dialog_wx"
+                    android:text="暂未填写"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"/>
+
+                <ImageView
+                    android:layout_marginLeft="@dimen/x5"
+                    android:layout_toRightOf="@id/dialog_wx"
+                    android:src="@mipmap/dialog_copy"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"/>
+
+            </RelativeLayout>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_marginBottom="@dimen/y24"
+            android:orientation="vertical"
+            android:id="@+id/dialog_bottomContainer"
+            android:layout_below="@id/dialog_numberContainer"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <LinearLayout
+                android:layout_marginRight="@dimen/x46"
+                android:layout_marginLeft="@dimen/x46"
+                android:orientation="horizontal"
+                android:elevation="@dimen/y4"
+                android:background="@drawable/bg_ffbfb0"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <RelativeLayout
+                    android:layout_marginBottom="@dimen/y20"
+                    android:layout_marginTop="@dimen/y20"
+                    android:layout_weight="1"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content">
+
+                    <TextView
+                        android:layout_marginLeft="@dimen/x40"
+                        android:id="@+id/dialog_textTag"
+                        android:text="上月预估"
+                        android:textSize="12sp"
+                        android:textColor="@color/color_white"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"/>
+
+                    <TextView
+                        android:id="@+id/dialog_monthMoney"
+                        android:layout_marginTop="@dimen/y5"
+                        android:text="￥9999"
+                        android:textStyle="bold"
+                        android:textColor="@color/color_white"
+                        android:textSize="18sp"
+                        android:layout_alignLeft="@id/dialog_textTag"
+                        android:layout_below="@id/dialog_textTag"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"/>
+
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:layout_marginBottom="@dimen/y20"
+                    android:layout_marginTop="@dimen/y20"
+                    android:layout_weight="1"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content">
+
+                    <TextView
+                        android:layout_marginLeft="@dimen/x100"
+                        android:id="@+id/dialog_textTag2"
+                        android:text="今日预估"
+                        android:textSize="12sp"
+                        android:textColor="@color/color_white"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"/>
+
+                    <TextView
+                        android:id="@+id/dialog_todayMoney"
+                        android:layout_marginTop="@dimen/y5"
+                        android:text="￥2"
+                        android:textStyle="bold"
+                        android:textColor="@color/color_white"
+                        android:textSize="18sp"
+                        android:layout_alignLeft="@id/dialog_textTag2"
+                        android:layout_below="@id/dialog_textTag2"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"/>
+
+                </RelativeLayout>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_marginLeft="@dimen/x46"
+                android:layout_marginTop="@dimen/y30"
+                android:layout_gravity="center_vertical"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:paddingLeft="@dimen/x40"
+                    android:textColor="@color/color_ACACAC"
+                    android:textSize="15sp"
+                    android:text="VIP进度"
+                    android:layout_weight="1"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"/>
+
+                <TextView
+                    android:id="@+id/dialog_progress"
+                    android:textStyle="bold"
+                    android:paddingLeft="@dimen/x80"
+                    android:textColor="@color/color_4B4745"
+                    android:textSize="18sp"
+                    android:text="5/20"
+                    android:layout_weight="1"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"/>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_marginLeft="@dimen/x46"
+                android:layout_marginTop="@dimen/y14"
+                android:layout_gravity="center_vertical"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:paddingLeft="@dimen/x40"
+                    android:textColor="@color/color_ACACAC"
+                    android:textSize="15sp"
+                    android:text="直邀人数（人）"
+                    android:layout_weight="1"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"/>
+
+                <TextView
+                    android:id="@+id/dialog_fans"
+                    android:textStyle="bold"
+                    android:paddingLeft="@dimen/x80"
+                    android:textColor="@color/color_4B4745"
+                    android:textSize="18sp"
+                    android:text="5"
+                    android:layout_weight="1"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"/>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_marginLeft="@dimen/x46"
+                android:layout_marginTop="@dimen/y14"
+                android:layout_gravity="center_vertical"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:paddingLeft="@dimen/x40"
+                    android:textColor="@color/color_ACACAC"
+                    android:textSize="15sp"
+                    android:text="最近下单时间"
+                    android:layout_weight="1"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"/>
+
+                <TextView
+                    android:id="@+id/dialog_time"
+                    android:textStyle="bold"
+                    android:paddingLeft="@dimen/x80"
+                    android:textColor="@color/color_4B4745"
+                    android:textSize="18sp"
+                    android:text="2020-5-26"
+                    android:layout_weight="1"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"/>
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+    </RelativeLayout>
+
+</layout>

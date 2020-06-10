@@ -17,6 +17,11 @@ class TeamTwoAdapter : RecyclerView.Adapter<TeamTwoAdapter.ViewHolder>{
 
     private var mList: MutableList<String>
     private var mContext : Context
+    private lateinit var mOnItem: OnItem
+
+    fun setClick(onItem: OnItem){
+        mOnItem = onItem
+    }
 
     constructor(mList: MutableList<String>, context: Context){
         this.mList = mList
@@ -54,6 +59,9 @@ class TeamTwoAdapter : RecyclerView.Adapter<TeamTwoAdapter.ViewHolder>{
                 binding.itemContainer.setBackgroundResource(R.drawable.bg_balance_other)
             }
             binding.itemContainer.layoutParams = params
+            binding.itemContainer.setOnClickListener {
+                mOnItem.onItem(position)
+            }
         }
     }
 
@@ -64,5 +72,9 @@ class TeamTwoAdapter : RecyclerView.Adapter<TeamTwoAdapter.ViewHolder>{
         constructor(binding: ItemTeam2Binding) : super(binding.root){
             this.binding = binding
         }
+    }
+
+    interface OnItem{
+        fun onItem(position: Int)
     }
 }

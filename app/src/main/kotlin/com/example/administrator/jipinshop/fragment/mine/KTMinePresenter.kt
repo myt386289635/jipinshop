@@ -125,4 +125,28 @@ class KTMinePresenter {
                     }
                 }, { throwable -> mView.onFileCommen(throwable.message) })
     }
+
+    //佣金
+    fun myCommssionSummary(transformer: LifecycleTransformer<MyWalletBean>) {
+        repository.myCommssionSummary()
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .compose(transformer)
+                .subscribe({ myWalletBean ->
+                    if (myWalletBean.code == 0) {
+                        if (mView != null) {
+                            mView.onCommssionSummary(myWalletBean)
+                        }
+                    } else {
+                        if (mView != null) {
+                            mView.onFileCommen(myWalletBean.msg)
+                        }
+                    }
+                }, { throwable ->
+                    if (mView != null) {
+                        mView.onFileCommen(throwable.message)
+                    }
+                })
+    }
+
 }

@@ -54,6 +54,43 @@ public class MyWalletBean {
         private double withdraw;
         private double totalFee;
 
+        private String preTodayFee;
+        private String preMonthFee;
+        private String currentMonthFee;
+        private String balanceFee;
+
+        public String getPreTodayFee() {
+            return preTodayFee;
+        }
+
+        public void setPreTodayFee(String preTodayFee) {
+            this.preTodayFee = preTodayFee;
+        }
+
+        public String getPreMonthFee() {
+            return preMonthFee;
+        }
+
+        public void setPreMonthFee(String preMonthFee) {
+            this.preMonthFee = preMonthFee;
+        }
+
+        public String getCurrentMonthFee() {
+            return currentMonthFee;
+        }
+
+        public void setCurrentMonthFee(String currentMonthFee) {
+            this.currentMonthFee = currentMonthFee;
+        }
+
+        public String getBalanceFee() {
+            return balanceFee;
+        }
+
+        public void setBalanceFee(String balanceFee) {
+            this.balanceFee = balanceFee;
+        }
+
         public double getPreFee() {
             return preFee;
         }

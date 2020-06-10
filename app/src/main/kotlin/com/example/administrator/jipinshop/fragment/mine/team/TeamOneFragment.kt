@@ -14,6 +14,7 @@ import com.example.administrator.jipinshop.activity.sign.invitation.InvitationNe
 import com.example.administrator.jipinshop.adapter.TeamOneAdapter
 import com.example.administrator.jipinshop.base.DBBaseFragment
 import com.example.administrator.jipinshop.databinding.FragmentTeam1Binding
+import com.example.administrator.jipinshop.view.dialog.DialogUtil
 import javax.inject.Inject
 
 /**
@@ -21,7 +22,7 @@ import javax.inject.Inject
  * @create 2020/6/8
  * @Describe
  */
-class TeamOneFragment : DBBaseFragment(), OnRefreshListener, OnLoadMoreListener, View.OnClickListener {
+class TeamOneFragment : DBBaseFragment(), OnRefreshListener, OnLoadMoreListener, View.OnClickListener, TeamOneAdapter.OnItem {
 
     @Inject
     lateinit var mPresenter: TeamOnePresenter
@@ -51,6 +52,7 @@ class TeamOneFragment : DBBaseFragment(), OnRefreshListener, OnLoadMoreListener,
         mBinding.recyclerView.layoutManager = LinearLayoutManager(context)
         mList = mutableListOf()
         mAdapter = TeamOneAdapter(mList,context!!)
+        mAdapter.setClick(this)
         mBinding.recyclerView.adapter = mAdapter
 
         mPresenter.solveScoll(mBinding.recyclerView, mBinding.swipeToLoad, (activity as TeamActivity).bar, once)
@@ -89,22 +91,22 @@ class TeamOneFragment : DBBaseFragment(), OnRefreshListener, OnLoadMoreListener,
         for (i in 0 until 10){
             mList.add("")
         }
-        (activity as TeamActivity).initOnePage()
         mAdapter.notifyDataSetChanged()
         once[0] = false
     }
 
-    /**
-     * 错误页面
-     */
+    //下级详情dialog
+    override fun onItem(position: Int) {
+        DialogUtil.userDetailDialog(context)
+    }
+
+    //错误页面
     fun initError() {
         mBinding.recyclerView.visibility = View.GONE
         mBinding.nestedScrollview.visibility = View.VISIBLE
     }
 
-    /**
-     * 停止刷新
-     */
+    //停止刷新
     fun stopResher() {
         if (mBinding.swipeToLoad.isRefreshing) {
             if (!mBinding.swipeToLoad.isRefreshEnabled) {
@@ -117,9 +119,7 @@ class TeamOneFragment : DBBaseFragment(), OnRefreshListener, OnLoadMoreListener,
         }
     }
 
-    /**
-     * 停止加载
-     */
+    //停止加载
     fun stopLoading() {
         if (mBinding.swipeToLoad.isLoadingMore) {
             if (!mBinding.swipeToLoad.isLoadMoreEnabled) {

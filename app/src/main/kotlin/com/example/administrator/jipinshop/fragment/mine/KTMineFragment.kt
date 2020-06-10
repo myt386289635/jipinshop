@@ -69,6 +69,7 @@ class KTMineFragment : DBBaseFragment(), KTMineAdapter.OnItem, KTMineView, OnLoa
     private var officialWeChat = ""//客服电话
     private var mDialog: Dialog? = null
     private var mBean : UserInfoBean? = null
+    private var balanceFee: String? = null
 
     companion object{
         @JvmStatic //java中的静态方法
@@ -119,7 +120,7 @@ class KTMineFragment : DBBaseFragment(), KTMineAdapter.OnItem, KTMineView, OnLoa
         if (!TextUtils.isEmpty(SPUtils.getInstance(CommonDate.USER).getString(CommonDate.token,"").trim())) {
             //这里防止点击广告后直接跳转广告未请求到用户姓名和登陆信息情况
             mPresenter.modelUser(this.bindUntilEvent(FragmentEvent.DESTROY_VIEW))
-//            mPresenter.myCommssionSummary(this.bindToLifecycle())//获取本人佣金
+            mPresenter.myCommssionSummary(this.bindToLifecycle())//获取本人佣金
         }
         mPresenter.unMessage(this.bindToLifecycle())
         mPresenter.adList(this.bindToLifecycle())//请求轮播图数据
@@ -158,6 +159,16 @@ class KTMineFragment : DBBaseFragment(), KTMineAdapter.OnItem, KTMineView, OnLoa
         mAdapter.setBean(userInfoBean)
         mAdapter.notifyDataSetChanged()
         ToastUtil.show(message)
+        if (error == 602){
+            SPUtils.getInstance(CommonDate.USER).clear()
+        }
+    }
+
+    //佣金
+    override fun onCommssionSummary(bean: MyWalletBean) {
+        balanceFee = bean.data.balanceFee
+        mAdapter.setWallet(bean)
+        mAdapter.notifyDataSetChanged()
     }
 
     override fun onFileCommen(error: String?) {
@@ -326,7 +337,7 @@ class KTMineFragment : DBBaseFragment(), KTMineAdapter.OnItem, KTMineView, OnLoa
             return
         }
         startActivity(Intent(context, WithdrawActivity::class.java)
-                .putExtra("price", "100") //todo 可提现的钱数
+                .putExtra("price", balanceFee)
         )
     }
 

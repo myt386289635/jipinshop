@@ -45,10 +45,6 @@ public class TeamActivity extends BaseActivity implements View.OnClickListener, 
     private KTTabAdapter4 mTabAdapter;
     private List<Fragment> mFragments;
     private HomeFragmentAdapter mAdapter;
-    //是否显示 (是否有数据)
-    private Boolean one = false;
-    private Boolean two = false;
-    private Boolean three = false;
     //解决手势冲突
     float startX = 0;
     float startY = 0;
@@ -111,6 +107,7 @@ public class TeamActivity extends BaseActivity implements View.OnClickListener, 
         mTextViews.add(mBinding.titleTime);
         mTextViews.add(mBinding.titlePeople);
         mTextViews.add(mBinding.titleMoney);
+        initOnePage();
 
         mFragments = new ArrayList<>();
         mFragments.add(TeamOneFragment.getInstance());
@@ -179,7 +176,6 @@ public class TeamActivity extends BaseActivity implements View.OnClickListener, 
 
     //有数据（潜在粉丝）
     public void initOnePage(){
-        one = true;
         mBinding.teamBottomContainer.setVisibility(View.VISIBLE);
         mBinding.teamRule.setVisibility(View.VISIBLE);
         mBinding.teamTeacherContainer.setVisibility(View.GONE);
@@ -188,12 +184,7 @@ public class TeamActivity extends BaseActivity implements View.OnClickListener, 
     }
 
     //有数据 （专属粉丝和其他粉丝）
-    public void initOtherPage(int pos){
-        if (pos == 1){
-            two = true;
-        }else {
-            three = true;
-        }
+    public void initOtherPage(){
         mBinding.teamBottomContainer.setVisibility(View.VISIBLE);
         mBinding.teamRule.setVisibility(View.GONE);
         mBinding.teamTeacherContainer.setVisibility(View.VISIBLE);
@@ -208,29 +199,9 @@ public class TeamActivity extends BaseActivity implements View.OnClickListener, 
     @Override
     public void onPageSelected(int position) {
         if (position == 0){
-            if (one){
-                initOnePage();
-            }else {
-                mBinding.teamBottomContainer.setVisibility(View.GONE);
-                mBinding.teamNotice.setVisibility(View.GONE);
-                mBinding.teamTitleNotice.setVisibility(View.GONE);
-            }
-        }else if (position == 1) {
-            if (two){
-                initOtherPage(position);
-            }else {
-                mBinding.teamBottomContainer.setVisibility(View.GONE);
-                mBinding.teamNotice.setVisibility(View.GONE);
-                mBinding.teamTitleNotice.setVisibility(View.GONE);
-            }
-        } else {
-            if (three){
-                initOtherPage(position);
-            }else {
-                mBinding.teamBottomContainer.setVisibility(View.GONE);
-                mBinding.teamNotice.setVisibility(View.GONE);
-                mBinding.teamTitleNotice.setVisibility(View.GONE);
-            }
+            initOnePage();
+        }else {
+            initOtherPage();
         }
     }
 

@@ -45,6 +45,7 @@ import com.example.administrator.jipinshop.databinding.DialogNewpeopleBuyBinding
 import com.example.administrator.jipinshop.databinding.DialogOutBinding;
 import com.example.administrator.jipinshop.databinding.DialogTklBinding;
 import com.example.administrator.jipinshop.databinding.DialogUserBinding;
+import com.example.administrator.jipinshop.databinding.DialogUserDetailBinding;
 import com.example.administrator.jipinshop.netwrok.RetrofitModule;
 import com.example.administrator.jipinshop.util.ShopJumpUtil;
 import com.example.administrator.jipinshop.util.TimeUtil;
@@ -903,6 +904,18 @@ public class DialogUtil {
             }
             dialog.dismiss();
         });
+        dialog.getWindow().setDimAmount(0.35f);
+        dialog.show();
+        dialog.setContentView(binding.getRoot());
+    }
+
+    //下级用户详情
+    public static void userDetailDialog(Context context){
+        AlertDialog.Builder builder = new AlertDialog.Builder(context, R.style.dialog);
+        DialogUserDetailBinding binding = DataBindingUtil.inflate(LayoutInflater.from(context),R.layout.dialog_user_detail, null,false);
+        final Dialog dialog = builder.create();
+        binding.dialogClose.setOnClickListener(v -> dialog.dismiss());
+
         dialog.getWindow().setDimAmount(0.35f);
         dialog.show();
         dialog.setContentView(binding.getRoot());
