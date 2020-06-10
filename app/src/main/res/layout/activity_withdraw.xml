@@ -19,6 +19,20 @@
             layout="@layout/aa_title2"
             bind:listener="@{listener}"/>
 
+        <TextView
+            android:id="@+id/withdraw_title"
+            android:onClick="@{listener.onClick}"
+            android:gravity="center"
+            android:textStyle="bold"
+            android:textSize="14sp"
+            android:textColor="@color/color_DE050505"
+            android:text="提现明细"
+            android:paddingRight="@dimen/x28"
+            android:paddingLeft="@dimen/x28"
+            android:layout_alignParentRight="true"
+            android:layout_width="wrap_content"
+            android:layout_height="@dimen/y88"/>
+
         <ScrollView
             android:layout_below="@+id/in_clude"
             android:scrollbars="none"

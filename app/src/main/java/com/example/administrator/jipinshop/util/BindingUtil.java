@@ -252,10 +252,10 @@ public class BindingUtil {
                 view.setTextColor(0xFFE25838);
                 break;
             case 0:
-                view.setTextColor(0xFF202020);
+                view.setTextColor(0xFFE25838);
                 break;
             case 1:
-                view.setTextColor(0xFF0F9D55);
+                view.setTextColor(0xFFE25838);
                 break;
         }
     }

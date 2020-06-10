@@ -12,24 +12,17 @@ import com.example.administrator.jipinshop.activity.cheapgoods.CheapBuyActivity;
 import com.example.administrator.jipinshop.activity.home.HomeDetailActivity;
 import com.example.administrator.jipinshop.activity.home.MainActivity;
 import com.example.administrator.jipinshop.activity.home.article.ArticleDetailActivity;
-import com.example.administrator.jipinshop.activity.home.classification.ClassifyActivity;
 import com.example.administrator.jipinshop.activity.home.home.HomeNewActivity;
 import com.example.administrator.jipinshop.activity.home.jd_pdd.KTJDDetailActivity;
 import com.example.administrator.jipinshop.activity.login.LoginActivity;
 import com.example.administrator.jipinshop.activity.mall.MallActivity;
 import com.example.administrator.jipinshop.activity.newpeople.NewFreeActivity;
 import com.example.administrator.jipinshop.activity.report.detail.ReportDetailActivity;
-import com.example.administrator.jipinshop.activity.shoppingdetail.ShoppingDetailActivity;
 import com.example.administrator.jipinshop.activity.shoppingdetail.tbshoppingdetail.TBShoppingDetailActivity;
 import com.example.administrator.jipinshop.activity.sign.SignActivity;
 import com.example.administrator.jipinshop.activity.sign.invitation.InvitationNewActivity;
-import com.example.administrator.jipinshop.activity.tryout.detail.TryDetailActivity;
-import com.example.administrator.jipinshop.activity.tryout.freedetail.FreeDetailActivity;
-import com.example.administrator.jipinshop.bean.eventbus.ChangeHomePageBus;
 import com.example.administrator.jipinshop.netwrok.RetrofitModule;
 import com.example.administrator.jipinshop.util.sp.CommonDate;
-
-import org.greenrobot.eventbus.EventBus;
 
 /**
  * @author 莫小婷
@@ -142,63 +135,7 @@ public class ShopJumpUtil {
      * 首页弹窗dialog跳转逻辑
      */
     public static void openPager(Context context, String targetType, String target_id , String target_title ){
-        Intent intent = new Intent();
-        switch (targetType){
-            case "1"://榜单首页
-                intent.setClass(context, HomeNewActivity.class);
-                intent.putExtra("type",HomeNewActivity.bangdan);
-                context.startActivity(intent);
-                break;
-            case "11"://跳转到小分类榜单
-                intent.setClass(context, ClassifyActivity.class);
-                intent.putExtra("title",target_title + "榜单");
-                intent.putExtra("id",target_id);
-                context.startActivity(intent);
-                break;
-            case "12"://跳转到商品详情
-                intent.setClass(context,  ShoppingDetailActivity.class);
-                intent.putExtra("goodsId",target_id);
-                context.startActivity(intent);
-                break;
-            case "2"://评测主页
-                intent.setClass(context, HomeNewActivity.class);
-                intent.putExtra("type",HomeNewActivity.evaluation);
-                context.startActivity(intent);
-                break;
-            case "21"://测评文章
-                intent.setClass(context, ArticleDetailActivity.class);
-                intent.putExtra("id",target_id);
-                intent.putExtra("type","2");
-                context.startActivity(intent);
-                break;
-            case "23"://清单详情web
-                intent.setClass(context, ArticleDetailActivity.class);
-                intent.putExtra("id",target_id);
-                intent.putExtra("type","7");
-                context.startActivity(intent);
-                break;
-            case "24"://清单详情json
-                intent.setClass(context, ReportDetailActivity.class);
-                intent.putExtra("id",target_id);
-                intent.putExtra("type","7");
-                context.startActivity(intent);
-                break;
-            case "4"://免单主页
-            case "3"://新品主页
-//                EventBus.getDefault().post(new ChangeHomePageBus(2));
-                break;
-            case "31"://试用商品详情(新品详情)
-                intent.setClass(context,  TryDetailActivity.class);
-                intent.putExtra("id",target_id);
-                intent.putExtra("pos",-1);
-                context.startActivity(intent);
-                break;
-            case "41"://免单详情
-                intent.setClass(context,  FreeDetailActivity.class);
-                intent.putExtra("id",target_id);
-                context.startActivity(intent);
-                break;
-        }
+        openBanner(context,targetType,target_id,target_title);
     }
 
     /**

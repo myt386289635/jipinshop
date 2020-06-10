@@ -1,6 +1,7 @@
 package com.example.administrator.jipinshop.activity.balance.withdraw;
 
 import android.app.Dialog;
+import android.content.Intent;
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -11,6 +12,7 @@ import android.view.View;
 import android.widget.EditText;
 
 import com.example.administrator.jipinshop.R;
+import com.example.administrator.jipinshop.activity.balance.withdraw.detail.WithdrawDetailActivity;
 import com.example.administrator.jipinshop.base.BaseActivity;
 import com.example.administrator.jipinshop.bean.TaobaoAccountBean;
 import com.example.administrator.jipinshop.bean.WithdrawBean;
@@ -95,6 +97,10 @@ public class WithdrawActivity extends BaseActivity implements View.OnClickListen
                 break;
             case R.id.title_back:
                 finish();
+                break;
+            case R.id.withdraw_title:
+                //提现明细
+                startActivity(new Intent(this, WithdrawDetailActivity.class));
                 break;
         }
     }

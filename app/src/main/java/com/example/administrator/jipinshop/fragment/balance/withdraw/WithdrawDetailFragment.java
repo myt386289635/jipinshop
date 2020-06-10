@@ -5,7 +5,6 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.LinearLayout;
 
 import com.aspsine.swipetoloadlayout.OnLoadMoreListener;
 import com.aspsine.swipetoloadlayout.OnRefreshListener;
@@ -13,12 +12,8 @@ import com.example.administrator.jipinshop.R;
 import com.example.administrator.jipinshop.adapter.WithdrawDetailAdapter;
 import com.example.administrator.jipinshop.base.DBBaseFragment;
 import com.example.administrator.jipinshop.bean.WithdrawDetailBean;
-import com.example.administrator.jipinshop.bean.eventbus.WithdrawBus;
 import com.example.administrator.jipinshop.databinding.FragmentFindCommonBinding;
 import com.example.administrator.jipinshop.util.ToastUtil;
-
-import org.greenrobot.eventbus.EventBus;
-import org.greenrobot.eventbus.Subscribe;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -35,7 +30,6 @@ public class WithdrawDetailFragment extends DBBaseFragment implements OnRefreshL
     @Inject
     WithdrawDetailPresenter mPresenter;
     private FragmentFindCommonBinding mBinding;
-    private Boolean once = true;
     private List<WithdrawDetailBean.DataBean> mList;
     private WithdrawDetailAdapter mAdapter;
     private int page = 1;
@@ -44,14 +38,6 @@ public class WithdrawDetailFragment extends DBBaseFragment implements OnRefreshL
     public static WithdrawDetailFragment getInstance() {
         WithdrawDetailFragment fragment = new WithdrawDetailFragment();
         return fragment;
-    }
-
-    @Override
-    public void setUserVisibleHint(boolean isVisibleToUser) {
-        super.setUserVisibleHint(isVisibleToUser);
-        if(isVisibleToUser && once){
-            mBinding.swipeToLoad.setRefreshing(true);
-        }
     }
 
     @Override
@@ -64,7 +50,6 @@ public class WithdrawDetailFragment extends DBBaseFragment implements OnRefreshL
     public void initView() {
         mBaseFragmentComponent.inject(this);
         mPresenter.setView(this);
-        EventBus.getDefault().register(this);
 
         mBinding.recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         mList = new ArrayList<>();
@@ -75,6 +60,7 @@ public class WithdrawDetailFragment extends DBBaseFragment implements OnRefreshL
         mPresenter.solveScoll(mBinding.recyclerView,mBinding.swipeToLoad);
         mBinding.swipeToLoad.setOnRefreshListener(this);
         mBinding.swipeToLoad.setOnLoadMoreListener(this);
+        mBinding.swipeToLoad.post(() -> mBinding.swipeToLoad.setRefreshing(true));
         mBinding.swipeToLoad.setBackgroundColor(getResources().getColor(R.color.color_F5F5F5));
     }
 
@@ -95,9 +81,6 @@ public class WithdrawDetailFragment extends DBBaseFragment implements OnRefreshL
         mBinding.netClude.errorImage.setBackgroundResource(id);
         mBinding.netClude.errorTitle.setText(title);
         mBinding.netClude.errorContent.setText(content);
-        LinearLayout.LayoutParams layoutParams = (LinearLayout.LayoutParams) mBinding.netClude.errorContainer.getLayoutParams();
-        layoutParams.topMargin = (int) getResources().getDimension(R.dimen.y50);
-        mBinding.netClude.errorContainer.setLayoutParams(layoutParams);
     }
 
     /**
@@ -150,9 +133,6 @@ public class WithdrawDetailFragment extends DBBaseFragment implements OnRefreshL
             }else {
                 initError(R.mipmap.qs_nodata, "暂无数据", "暂时没有任何数据 ");
             }
-            if(once){
-                once = false;
-            }
         }else {
             stopLoading();
             if (bean.getData() != null && bean.getData().size() != 0) {
@@ -164,7 +144,6 @@ public class WithdrawDetailFragment extends DBBaseFragment implements OnRefreshL
                 ToastUtil.show("已经是最后一页了");
             }
         }
-
     }
 
     @Override
@@ -177,27 +156,6 @@ public class WithdrawDetailFragment extends DBBaseFragment implements OnRefreshL
             page--;
         }
         ToastUtil.show(error);
-        if(once){
-            once = false;
-        }
     }
 
-    @Override
-    public void onDestroyView() {
-        super.onDestroyView();
-        EventBus.getDefault().unregister(this);
-    }
-
-    @Subscribe
-    public void setRefersh(WithdrawBus bus){
-        if (bus != null){
-            if (!mBinding.swipeToLoad.isRefreshEnabled()) {
-                mBinding.swipeToLoad.setRefreshEnabled(true);
-                mBinding.swipeToLoad.setRefreshing(true);
-                mBinding.swipeToLoad.setRefreshEnabled(false);
-            } else {
-                mBinding.swipeToLoad.setRefreshing(true);
-            }
-        }
-    }
 }
