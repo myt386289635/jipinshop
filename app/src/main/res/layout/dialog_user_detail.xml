@@ -28,7 +28,7 @@
             android:layout_height="wrap_content"/>
 
         <LinearLayout
-            android:layout_marginRight="@dimen/x10"
+            android:layout_marginRight="@dimen/x30"
             android:layout_marginBottom="@dimen/y24"
             android:layout_marginTop="@dimen/y24"
             android:layout_below="@id/dialog_title"
@@ -64,6 +64,7 @@
                     android:layout_height="wrap_content"/>
 
                 <ImageView
+                    android:id="@+id/dialog_phoneCopy"
                     android:layout_marginLeft="@dimen/x5"
                     android:layout_toRightOf="@id/dialog_number"
                     android:src="@mipmap/dialog_copy"
@@ -101,6 +102,7 @@
                     android:layout_height="wrap_content"/>
 
                 <ImageView
+                    android:id="@+id/dialog_wxCopy"
                     android:layout_marginLeft="@dimen/x5"
                     android:layout_toRightOf="@id/dialog_wx"
                     android:src="@mipmap/dialog_copy"
@@ -165,7 +167,7 @@
                     android:layout_height="wrap_content">
 
                     <TextView
-                        android:layout_marginLeft="@dimen/x100"
+                        android:layout_marginLeft="@dimen/x70"
                         android:id="@+id/dialog_textTag2"
                         android:text="今日预估"
                         android:textSize="12sp"
@@ -197,6 +199,7 @@
                 android:layout_height="wrap_content">
 
                 <TextView
+                    android:id="@+id/dialog_progressTitle"
                     android:paddingLeft="@dimen/x40"
                     android:textColor="@color/color_ACACAC"
                     android:textSize="15sp"
@@ -208,7 +211,7 @@
                 <TextView
                     android:id="@+id/dialog_progress"
                     android:textStyle="bold"
-                    android:paddingLeft="@dimen/x80"
+                    android:paddingLeft="@dimen/x50"
                     android:textColor="@color/color_4B4745"
                     android:textSize="18sp"
                     android:text="5/20"
@@ -237,7 +240,7 @@
                 <TextView
                     android:id="@+id/dialog_fans"
                     android:textStyle="bold"
-                    android:paddingLeft="@dimen/x80"
+                    android:paddingLeft="@dimen/x50"
                     android:textColor="@color/color_4B4745"
                     android:textSize="18sp"
                     android:text="5"
@@ -266,7 +269,7 @@
                 <TextView
                     android:id="@+id/dialog_time"
                     android:textStyle="bold"
-                    android:paddingLeft="@dimen/x80"
+                    android:paddingLeft="@dimen/x50"
                     android:textColor="@color/color_4B4745"
                     android:textSize="18sp"
                     android:text="2020-5-26"

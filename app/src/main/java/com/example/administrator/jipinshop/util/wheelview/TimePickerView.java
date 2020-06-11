@@ -30,7 +30,7 @@ public class TimePickerView extends BasePickerView implements View.OnClickListen
     public TimePickerView(Context context, Type type) {
         super(context);
 
-        LayoutInflater.from(context).inflate(R.layout.pickerview_time, contentContainer);
+        LayoutInflater.from(context).inflate(R.layout.pickerview_time1, contentContainer);
         // -----确定和取消按钮
         btnSubmit = findViewById(R.id.btnSubmit);
         btnSubmit.setTag(TAG_SUBMIT);

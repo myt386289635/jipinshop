@@ -6,6 +6,7 @@ import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import com.example.administrator.jipinshop.R
+import com.example.administrator.jipinshop.bean.FansBean
 import com.example.administrator.jipinshop.databinding.ItemTeam2Binding
 
 /**
@@ -15,7 +16,7 @@ import com.example.administrator.jipinshop.databinding.ItemTeam2Binding
  */
 class TeamTwoAdapter : RecyclerView.Adapter<TeamTwoAdapter.ViewHolder>{
 
-    private var mList: MutableList<String>
+    private var mList: MutableList<FansBean.DataBean>
     private var mContext : Context
     private lateinit var mOnItem: OnItem
 
@@ -23,7 +24,7 @@ class TeamTwoAdapter : RecyclerView.Adapter<TeamTwoAdapter.ViewHolder>{
         mOnItem = onItem
     }
 
-    constructor(mList: MutableList<String>, context: Context){
+    constructor(mList: MutableList<FansBean.DataBean>, context: Context){
         this.mList = mList
         this.mContext = context
     }
@@ -62,6 +63,8 @@ class TeamTwoAdapter : RecyclerView.Adapter<TeamTwoAdapter.ViewHolder>{
             binding.itemContainer.setOnClickListener {
                 mOnItem.onItem(position)
             }
+            binding.date = mList[position]
+            binding.executePendingBindings()
         }
     }
 

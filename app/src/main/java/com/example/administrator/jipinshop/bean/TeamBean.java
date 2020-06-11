@@ -1,22 +1,15 @@
 package com.example.administrator.jipinshop.bean;
 
-import java.util.List;
-
 /**
  * @author 莫小婷
  * @create 2019/6/11
  * @Describe
  */
 public class TeamBean {
-    /**
-     * msg : success
-     * code : 0
-     * data : [{"nickname":"Test1","avatar":"http://jipincheng.cn/avatar/img/20190513/4e7cb9c95757450db915a3bf8f826dc6","createTime":"2019-01-21 14:06:57","shareCommission":0,"commission":0},{"nickname":"我真的爱奇异","avatar":"http://jipincheng.cn/avatar/img/20190412/b3c178237d624bb192a6e087039a8928","createTime":"2019-05-30 13:55:29","shareCommission":0,"commission":0}]
-     */
 
     private String msg;
     private int code;
-    private List<DataBean> data;
+    private DataBean data;
 
     public String getMsg() {
         return msg;
@@ -34,67 +27,67 @@ public class TeamBean {
         this.code = code;
     }
 
-    public List<DataBean> getData() {
+    public DataBean getData() {
         return data;
     }
 
-    public void setData(List<DataBean> data) {
+    public void setData(DataBean data) {
         this.data = data;
     }
 
     public static class DataBean {
         /**
-         * nickname : Test1
-         * avatar : http://jipincheng.cn/avatar/img/20190513/4e7cb9c95757450db915a3bf8f826dc6
-         * createTime : 2019-01-21 14:06:57
-         * shareCommission : 0
-         * commission : 0
+         * total : 12
+         * todayTotal : null
+         * yesterdayTotal : 0
+         * subTotal : 0
+         * sub2Total : 0
          */
 
-        private String nickname;
-        private String avatar;
-        private String createTime;
-        private String shareCommission;
-        private String commission;
+        private String total;
+        private String todayTotal;
+        private String yesterdayTotal;
+        private String subTotal;
+        private String sub2Total;
 
-        public String getNickname() {
-            return nickname;
+        public String getTotal() {
+            return total;
         }
 
-        public void setNickname(String nickname) {
-            this.nickname = nickname;
+        public void setTotal(String total) {
+            this.total = total;
         }
 
-        public String getAvatar() {
-            return avatar;
+        public String getTodayTotal() {
+            return todayTotal;
         }
 
-        public void setAvatar(String avatar) {
-            this.avatar = avatar;
+        public void setTodayTotal(String todayTotal) {
+            this.todayTotal = todayTotal;
         }
 
-        public String getCreateTime() {
-            return createTime;
+        public String getYesterdayTotal() {
+            return yesterdayTotal;
         }
 
-        public void setCreateTime(String createTime) {
-            this.createTime = createTime;
+        public void setYesterdayTotal(String yesterdayTotal) {
+            this.yesterdayTotal = yesterdayTotal;
         }
 
-        public String getShareCommission() {
-            return shareCommission;
+        public String getSubTotal() {
+            return subTotal;
         }
 
-        public void setShareCommission(String shareCommission) {
-            this.shareCommission = shareCommission;
+        public void setSubTotal(String subTotal) {
+            this.subTotal = subTotal;
         }
 
-        public String getCommission() {
-            return commission;
+        public String getSub2Total() {
+            return sub2Total;
         }
 
-        public void setCommission(String commission) {
-            this.commission = commission;
+        public void setSub2Total(String sub2Total) {
+            this.sub2Total = sub2Total;
         }
     }
 }

@@ -14,6 +14,7 @@ import android.text.Html;
 import android.text.SpannableString;
 import android.text.Spanned;
 import android.text.TextPaint;
+import android.text.TextUtils;
 import android.text.method.LinkMovementMethod;
 import android.text.style.ClickableSpan;
 import android.text.style.ForegroundColorSpan;
@@ -37,6 +38,8 @@ import com.example.administrator.jipinshop.activity.shoppingdetail.tbshoppingdet
 import com.example.administrator.jipinshop.activity.sreach.result.TBSreachResultActivity;
 import com.example.administrator.jipinshop.bean.NewFreeBean;
 import com.example.administrator.jipinshop.bean.PopBean;
+import com.example.administrator.jipinshop.bean.SubUserBean;
+import com.example.administrator.jipinshop.bean.TeacherBean;
 import com.example.administrator.jipinshop.bean.TklBean;
 import com.example.administrator.jipinshop.databinding.DialogCheapBinding;
 import com.example.administrator.jipinshop.databinding.DialogNewpeople2Binding;
@@ -910,12 +913,77 @@ public class DialogUtil {
     }
 
     //下级用户详情
-    public static void userDetailDialog(Context context){
+    public static void userDetailDialog(Context context , SubUserBean bean){
         AlertDialog.Builder builder = new AlertDialog.Builder(context, R.style.dialog);
         DialogUserDetailBinding binding = DataBindingUtil.inflate(LayoutInflater.from(context),R.layout.dialog_user_detail, null,false);
         final Dialog dialog = builder.create();
         binding.dialogClose.setOnClickListener(v -> dialog.dismiss());
+        if (TextUtils.isEmpty(bean.getData().getMobile())){
+            binding.dialogPhone.setText("暂未填写");
+        }else {
+            binding.dialogPhone.setText(bean.getData().getMobile());
+        }
+        if (TextUtils.isEmpty(bean.getData().getWechat())){
+            binding.dialogWxCode.setText("暂未填写");
+        }else {
+            binding.dialogWxCode.setText(bean.getData().getWechat());
+        }
+        binding.dialogMonthMoney.setText("￥" + bean.getData().getPreMonthFee());
+        binding.dialogTodayMoney.setText("￥" + bean.getData().getTodayFee());
+        if (bean.getData().getLevel() == 0){
+            //普通人员
+            binding.dialogProgressTitle.setText("VIP进度");
+        }else {
+            binding.dialogProgressTitle.setText("合伙人进度");
+        }
+        binding.dialogProgress.setText(bean.getData().getSubTotal() + "/" + bean.getData().getLevelInvitedUser());
+        binding.dialogFans.setText(bean.getData().getSubTotal());
+        if (TextUtils.isEmpty(bean.getData().getLastOrderTime())){
+            binding.dialogTime.setText("无");
+        }else {
+            binding.dialogTime.setText(bean.getData().getLastOrderTime());
+        }
+        binding.dialogPhoneCopy.setOnClickListener(v -> {
+            if (!TextUtils.isEmpty(bean.getData().getMobile())){
+                ClipboardManager clip = (ClipboardManager)context.getSystemService(Context.CLIPBOARD_SERVICE);
+                ClipData clipData = ClipData.newPlainText("jipinshop", bean.getData().getMobile());
+                clip.setPrimaryClip(clipData);
+                ToastUtil.show("复制成功");
+                SPUtils.getInstance().put(CommonDate.CLIP,bean.getData().getMobile());
+            }
+        });
+        binding.dialogWxCopy.setOnClickListener(v -> {
+            if (!TextUtils.isEmpty(bean.getData().getWechat())) {
+                ClipboardManager clip = (ClipboardManager)context.getSystemService(Context.CLIPBOARD_SERVICE);
+                ClipData clipData = ClipData.newPlainText("jipinshop", bean.getData().getWechat());
+                clip.setPrimaryClip(clipData);
+                ToastUtil.show("复制成功");
+                SPUtils.getInstance().put(CommonDate.CLIP,bean.getData().getWechat());
+            }
+        });
+        dialog.getWindow().setDimAmount(0.35f);
+        dialog.show();
+        dialog.setContentView(binding.getRoot());
+    }
 
+    //专家
+    public static void userDetailDialog(Context context, TeacherBean bean){
+        AlertDialog.Builder builder = new AlertDialog.Builder(context, R.style.dialog);
+        DialogUserDetailBinding binding = DataBindingUtil.inflate(LayoutInflater.from(context),R.layout.dialog_user_detail, null,false);
+        final Dialog dialog = builder.create();
+        binding.dialogClose.setOnClickListener(v -> dialog.dismiss());
+        binding.dialogBottomContainer.setVisibility(View.GONE);
+        binding.dialogNumber.setText("邀请ID");
+        if (TextUtils.isEmpty(bean.getData().getInvitationCode())){
+            binding.dialogPhone.setText("暂未填写");
+        }else {
+            binding.dialogPhone.setText(bean.getData().getInvitationCode());
+        }
+        if (TextUtils.isEmpty(bean.getData().getWechat())){
+            binding.dialogWxCode.setText("暂未填写");
+        }else {
+            binding.dialogWxCode.setText(bean.getData().getWechat());
+        }
         dialog.getWindow().setDimAmount(0.35f);
         dialog.show();
         dialog.setContentView(binding.getRoot());

@@ -13,7 +13,11 @@ import com.example.administrator.jipinshop.activity.balance.team.TeamActivity
 import com.example.administrator.jipinshop.activity.sign.invitation.InvitationNewActivity
 import com.example.administrator.jipinshop.adapter.TeamOneAdapter
 import com.example.administrator.jipinshop.base.DBBaseFragment
+import com.example.administrator.jipinshop.bean.FansBean
+import com.example.administrator.jipinshop.bean.SubUserBean
+import com.example.administrator.jipinshop.bean.SuccessBean
 import com.example.administrator.jipinshop.databinding.FragmentTeam1Binding
+import com.example.administrator.jipinshop.util.ToastUtil
 import com.example.administrator.jipinshop.view.dialog.DialogUtil
 import javax.inject.Inject
 
@@ -22,7 +26,7 @@ import javax.inject.Inject
  * @create 2020/6/8
  * @Describe
  */
-class TeamOneFragment : DBBaseFragment(), OnRefreshListener, OnLoadMoreListener, View.OnClickListener, TeamOneAdapter.OnItem {
+class TeamOneFragment : DBBaseFragment(), OnRefreshListener, OnLoadMoreListener, View.OnClickListener, TeamOneAdapter.OnItem, KTTeamView {
 
     @Inject
     lateinit var mPresenter: TeamOnePresenter
@@ -30,7 +34,7 @@ class TeamOneFragment : DBBaseFragment(), OnRefreshListener, OnLoadMoreListener,
     private var once = arrayOf(true)
     private var page = 1
     private var refersh: Boolean = true
-    private lateinit var mList: MutableList<String>
+    private lateinit var mList: MutableList<FansBean.DataBean>
     private lateinit var mAdapter: TeamOneAdapter
 
     companion object{
@@ -48,6 +52,7 @@ class TeamOneFragment : DBBaseFragment(), OnRefreshListener, OnLoadMoreListener,
 
     override fun initView() {
         mBaseFragmentComponent.inject(this)
+        mPresenter.setView(this)
 
         mBinding.recyclerView.layoutManager = LinearLayoutManager(context)
         mList = mutableListOf()
@@ -58,7 +63,9 @@ class TeamOneFragment : DBBaseFragment(), OnRefreshListener, OnLoadMoreListener,
         mPresenter.solveScoll(mBinding.recyclerView, mBinding.swipeToLoad, (activity as TeamActivity).bar, once)
         mBinding.swipeToLoad.setOnRefreshListener(this)
         mBinding.swipeToLoad.setOnLoadMoreListener(this)
-        mBinding.swipeToLoad.isRefreshing = true
+        mBinding.swipeToLoad.post {
+            mBinding.swipeToLoad.isRefreshing = true
+        }
     }
 
     override fun onClick(v: View) {
@@ -73,31 +80,60 @@ class TeamOneFragment : DBBaseFragment(), OnRefreshListener, OnLoadMoreListener,
     override fun onLoadMore() {
         page++
         refersh = false
-
-        stopLoading()
-        for (i in 0 until 10){
-            mList.add("")
-        }
-        mAdapter.notifyDataSetChanged()
-        once[0] = false
+        mPresenter.getDate(page,this.bindToLifecycle())
     }
 
     override fun onRefresh() {
         page = 1
         refersh = true
+        mPresenter.getDate(page,this.bindToLifecycle())
+    }
 
-        stopResher()
-        mList.clear()
-        for (i in 0 until 10){
-            mList.add("")
+    override fun onSuccess(bean: FansBean) {
+        if (refersh) {
+            stopResher()
+            if (bean.data != null && bean.data.size != 0) {
+                mBinding.nestedScrollview.visibility = View.GONE
+                mBinding.recyclerView.visibility = View.VISIBLE
+                mList.clear()
+                mList.addAll(bean.data)
+                mAdapter.notifyDataSetChanged()
+            } else {
+                initError()
+            }
+        } else {
+            stopLoading()
+            if (bean.data != null && bean.data.size != 0) {
+                mList.addAll(bean.data)
+                mAdapter.notifyDataSetChanged()
+                mBinding.swipeToLoad.isLoadMoreEnabled = false
+            } else {
+                page--
+                ToastUtil.show("已经是最后一页了")
+            }
         }
-        mAdapter.notifyDataSetChanged()
         once[0] = false
+    }
+
+    override fun onFile(error: String?) {
+        if (refersh) {
+            stopResher()
+            initError()
+        } else {
+            stopLoading()
+            page--
+        }
+        once[0] = false
+        ToastUtil.show(error)
     }
 
     //下级详情dialog
     override fun onItem(position: Int) {
-        DialogUtil.userDetailDialog(context)
+       mPresenter.getSubUserDetail(mList[position].subUserId,this.bindToLifecycle())
+    }
+
+    override fun subDetail(bean: SubUserBean) {
+        DialogUtil.userDetailDialog(context, bean)
     }
 
     //错误页面

@@ -43,6 +43,15 @@ public class TeacherBean {
 
         private String avatar;
         private String wechat;
+        private String invitationCode;
+
+        public String getInvitationCode() {
+            return invitationCode;
+        }
+
+        public void setInvitationCode(String invitationCode) {
+            this.invitationCode = invitationCode;
+        }
 
         public String getAvatar() {
             return avatar;

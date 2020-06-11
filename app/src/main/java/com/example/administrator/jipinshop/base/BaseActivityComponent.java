@@ -5,6 +5,8 @@ import com.example.administrator.jipinshop.activity.WebActivity;
 import com.example.administrator.jipinshop.activity.address.MyAddressActivity;
 import com.example.administrator.jipinshop.activity.address.add.CreateAddressActivity;
 import com.example.administrator.jipinshop.activity.balance.MyWalletActivity;
+import com.example.administrator.jipinshop.activity.balance.detail.WalletDetailActivity;
+import com.example.administrator.jipinshop.activity.balance.history.WalletHistoryActivity;
 import com.example.administrator.jipinshop.activity.balance.team.TeamActivity;
 import com.example.administrator.jipinshop.activity.balance.withdraw.WithdrawActivity;
 import com.example.administrator.jipinshop.activity.cheapgoods.CheapBuyActivity;
@@ -174,4 +176,6 @@ public interface BaseActivityComponent {
     void inject(NewFreeActivity activity);
     void inject(NewFreeDetailActivity activity);
     void inject(HBWebView2 activity);
+    void inject(WalletDetailActivity activity);
+    void inject(WalletHistoryActivity activity);
 }

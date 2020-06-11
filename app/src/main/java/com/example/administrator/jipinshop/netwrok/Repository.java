@@ -16,6 +16,7 @@ import com.example.administrator.jipinshop.bean.EvaEvaBean;
 import com.example.administrator.jipinshop.bean.EvaHotBean;
 import com.example.administrator.jipinshop.bean.EvaluationListBean;
 import com.example.administrator.jipinshop.bean.EvaluationTabBean;
+import com.example.administrator.jipinshop.bean.FansBean;
 import com.example.administrator.jipinshop.bean.FindDetailBean;
 import com.example.administrator.jipinshop.bean.FindListBean;
 import com.example.administrator.jipinshop.bean.FollowBean;
@@ -60,6 +61,7 @@ import com.example.administrator.jipinshop.bean.SreachBean;
 import com.example.administrator.jipinshop.bean.SreachHistoryBean;
 import com.example.administrator.jipinshop.bean.SreachResultArticlesBean;
 import com.example.administrator.jipinshop.bean.SreachResultGoodsBean;
+import com.example.administrator.jipinshop.bean.SubUserBean;
 import com.example.administrator.jipinshop.bean.SucBean;
 import com.example.administrator.jipinshop.bean.SucBeanT;
 import com.example.administrator.jipinshop.bean.SuccessBean;
@@ -92,6 +94,7 @@ import com.example.administrator.jipinshop.bean.WithdrawDetailBean;
 import com.example.administrator.jipinshop.bean.WithdrawInfoBean;
 import com.example.administrator.jipinshop.util.UpDataUtil;
 
+import java.util.HashMap;
 import java.util.Map;
 
 import javax.inject.Inject;
@@ -640,13 +643,6 @@ public class Repository {
      */
     public Observable<SuccessBean> withdraw(String realname , String account, String amount){
         return mAPIService.withdraw(realname, account, amount);
-    }
-
-    /**
-     * 下级会员
-     */
-    public Observable<TeamBean> getSubUserList(int page){
-        return mAPIService.getSubUserList(page);
     }
 
     /**
@@ -1406,5 +1402,26 @@ public class Repository {
      */
     public Observable<ActionHBBean> getHongbaoActivityInfo(){
         return mAPIService.getHongbaoActivityInfo();
+    }
+
+    /**
+     * 我的团队
+     */
+    public Observable<TeamBean> getMyTeamInfo(){
+        return mAPIService.getMyTeamInfo();
+    }
+
+    /**
+     * 我的粉丝列表
+     */
+    public Observable<FansBean> getSubUserList(HashMap<String,String> map){
+        return mAPIService.getSubUserList(map);
+    }
+
+    /**
+     * 获取粉丝详情信息
+     */
+    public Observable<SubUserBean> getSubUserDetail(String subUserId){
+        return mAPIService.getSubUserDetail(subUserId);
     }
 }

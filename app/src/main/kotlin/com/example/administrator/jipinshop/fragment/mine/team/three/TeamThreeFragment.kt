@@ -14,7 +14,12 @@ import com.example.administrator.jipinshop.activity.balance.team.TeamActivity
 import com.example.administrator.jipinshop.activity.sign.invitation.InvitationNewActivity
 import com.example.administrator.jipinshop.adapter.TeamTwoAdapter
 import com.example.administrator.jipinshop.base.DBBaseFragment
+import com.example.administrator.jipinshop.bean.FansBean
+import com.example.administrator.jipinshop.bean.SubUserBean
+import com.example.administrator.jipinshop.bean.SuccessBean
 import com.example.administrator.jipinshop.databinding.FragmentTeam1Binding
+import com.example.administrator.jipinshop.fragment.mine.team.KTTeamView
+import com.example.administrator.jipinshop.util.ToastUtil
 import com.example.administrator.jipinshop.view.dialog.DialogUtil
 import com.example.administrator.jipinshop.view.dialog.ProgressDialogView
 import javax.inject.Inject
@@ -24,7 +29,7 @@ import javax.inject.Inject
  * @create 2020/6/9
  * @Describe
  */
-class TeamThreeFragment : DBBaseFragment(), OnRefreshListener, OnLoadMoreListener, View.OnClickListener, TeamTwoAdapter.OnItem {
+class TeamThreeFragment : DBBaseFragment(), OnRefreshListener, OnLoadMoreListener, View.OnClickListener, TeamTwoAdapter.OnItem, KTTeamView {
 
     @Inject
     lateinit var mPresenter: TeamThreePresenter
@@ -33,9 +38,10 @@ class TeamThreeFragment : DBBaseFragment(), OnRefreshListener, OnLoadMoreListene
     private var once = arrayOf(true)
     private var page = 1
     private var refersh: Boolean = true
-    private lateinit var mList: MutableList<String>
+    private lateinit var mList: MutableList<FansBean.DataBean>
     private lateinit var mAdapter: TeamTwoAdapter
     private var mDialog: Dialog? = null
+    private var orderByType : String = "1"
 
     companion object{
         @JvmStatic
@@ -65,6 +71,7 @@ class TeamThreeFragment : DBBaseFragment(), OnRefreshListener, OnLoadMoreListene
 
     override fun initView() {
         mBaseFragmentComponent.inject(this)
+        mPresenter.setView(this)
 
         mBinding.recyclerView.layoutManager = LinearLayoutManager(context)
         mList = mutableListOf()
@@ -88,31 +95,60 @@ class TeamThreeFragment : DBBaseFragment(), OnRefreshListener, OnLoadMoreListene
     override fun onLoadMore() {
         page++
         refersh = false
-
-        stopLoading()
-        for (i in 0 until 10){
-            mList.add("")
-        }
-        mAdapter.notifyDataSetChanged()
-        once[0] = false
+        mPresenter.getDate(page,orderByType,this.bindToLifecycle())
     }
 
     override fun onRefresh() {
         page = 1
         refersh = true
+        mPresenter.getDate(page,orderByType,this.bindToLifecycle())
+    }
 
-        stopResher()
-        mList.clear()
-        for (i in 0 until 10){
-            mList.add("")
+    override fun onSuccess(bean: FansBean) {
+        if (refersh) {
+            stopResher()
+            if (bean.data != null && bean.data.size != 0) {
+                mBinding.nestedScrollview.visibility = View.GONE
+                mBinding.recyclerView.visibility = View.VISIBLE
+                mList.clear()
+                mList.addAll(bean.data)
+                mAdapter.notifyDataSetChanged()
+            } else {
+                initError()
+            }
+        } else {
+            stopLoading()
+            if (bean.data != null && bean.data.size != 0) {
+                mList.addAll(bean.data)
+                mAdapter.notifyDataSetChanged()
+                mBinding.swipeToLoad.isLoadMoreEnabled = false
+            } else {
+                page--
+                ToastUtil.show("已经是最后一页了")
+            }
         }
-        mAdapter.notifyDataSetChanged()
         once[0] = false
+    }
+
+    override fun onFile(error: String?) {
+        if (refersh) {
+            stopResher()
+            initError()
+        } else {
+            stopLoading()
+            page--
+        }
+        once[0] = false
+        ToastUtil.show(error)
     }
 
     //下级详情dialog
     override fun onItem(position: Int) {
-        DialogUtil.userDetailDialog(context)
+        mPresenter.getSubUserDetail(mList[position].subUserId,this.bindToLifecycle())
+    }
+
+    override fun subDetail(bean: SubUserBean) {
+        DialogUtil.userDetailDialog(context, bean)
     }
 
     //错误页面
@@ -152,7 +188,8 @@ class TeamThreeFragment : DBBaseFragment(), OnRefreshListener, OnLoadMoreListene
         }
     }
 
-    fun refresh(){
+    fun refresh(type : String){
+        orderByType = type
         mDialog = ProgressDialogView().createLoadingDialog(context, "")
         mDialog?.show()
         onRefresh()

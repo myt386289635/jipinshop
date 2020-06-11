@@ -16,6 +16,7 @@ import com.example.administrator.jipinshop.bean.EvaEvaBean;
 import com.example.administrator.jipinshop.bean.EvaHotBean;
 import com.example.administrator.jipinshop.bean.EvaluationListBean;
 import com.example.administrator.jipinshop.bean.EvaluationTabBean;
+import com.example.administrator.jipinshop.bean.FansBean;
 import com.example.administrator.jipinshop.bean.FindDetailBean;
 import com.example.administrator.jipinshop.bean.FindListBean;
 import com.example.administrator.jipinshop.bean.FollowBean;
@@ -60,6 +61,7 @@ import com.example.administrator.jipinshop.bean.SreachBean;
 import com.example.administrator.jipinshop.bean.SreachHistoryBean;
 import com.example.administrator.jipinshop.bean.SreachResultArticlesBean;
 import com.example.administrator.jipinshop.bean.SreachResultGoodsBean;
+import com.example.administrator.jipinshop.bean.SubUserBean;
 import com.example.administrator.jipinshop.bean.SucBean;
 import com.example.administrator.jipinshop.bean.SucBeanT;
 import com.example.administrator.jipinshop.bean.SuccessBean;
@@ -91,6 +93,7 @@ import com.example.administrator.jipinshop.bean.WithdrawBean;
 import com.example.administrator.jipinshop.bean.WithdrawDetailBean;
 import com.example.administrator.jipinshop.bean.WithdrawInfoBean;
 
+import java.util.HashMap;
 import java.util.Map;
 
 import io.reactivex.Observable;
@@ -602,12 +605,6 @@ public interface APIService {
     @FormUrlEncoded
     @POST("api/withdraw")
     Observable<SuccessBean> withdraw(@Field("realname") String realname , @Field("account") String account, @Field("amount") String amount);
-
-    /**
-     * 下级会员
-     */
-    @GET("api/getSubUserList")
-    Observable<TeamBean> getSubUserList(@Query("page") int page);
 
     /**
      * 获取二维码邀请图片（多张）
@@ -1199,7 +1196,7 @@ public interface APIService {
     /**
      * 获取上级信息（头像和微信）
      */
-    @GET("api/v2/user/user/getParentInfo")
+    @GET("api/v3/user/getParentInfo")
     Observable<TeacherBean> getParentInfo();
 
     /**
@@ -1288,4 +1285,21 @@ public interface APIService {
     @GET("api/v2/hongbao/getHongbaoActivityInfo")
     Observable<ActionHBBean> getHongbaoActivityInfo();
 
+    /**
+     * 我的团队
+     */
+    @GET("api/v3/user/getMyTeamInfo")
+    Observable<TeamBean> getMyTeamInfo();
+
+    /**
+     * 我的粉丝列表
+     */
+    @GET("api/v3/user/getSubUserList")
+    Observable<FansBean> getSubUserList(@QueryMap HashMap<String,String> map);
+
+    /**
+     * 获取粉丝详情信息
+     */
+    @GET("api/v3/user/getSubUserDetail")
+    Observable<SubUserBean> getSubUserDetail(@Query("subUserId") String subUserId);
 }

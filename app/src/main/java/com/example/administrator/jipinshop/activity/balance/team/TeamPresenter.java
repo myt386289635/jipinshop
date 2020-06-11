@@ -4,17 +4,14 @@ import android.content.Context;
 import android.graphics.Color;
 import android.support.design.widget.AppBarLayout;
 import android.support.v4.graphics.ColorUtils;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
 import android.view.ViewGroup;
-import android.widget.ImageView;
-import android.widget.LinearLayout;
 
-import com.aspsine.swipetoloadlayout.SwipeToLoadLayout;
 import com.example.administrator.jipinshop.R;
+import com.example.administrator.jipinshop.bean.TeacherBean;
 import com.example.administrator.jipinshop.bean.TeamBean;
 import com.example.administrator.jipinshop.databinding.ActivityTeamBinding;
 import com.example.administrator.jipinshop.netwrok.Repository;
+import com.example.administrator.jipinshop.util.ToastUtil;
 import com.trello.rxlifecycle2.LifecycleTransformer;
 
 import javax.inject.Inject;
@@ -84,25 +81,41 @@ public class TeamPresenter {
         });
     }
 
-//    public void getSubUserList(int page, LifecycleTransformer<TeamBean> transformer){
-//        mRepository.getSubUserList(page)
-//                .subscribeOn(Schedulers.io())
-//                .observeOn(AndroidSchedulers.mainThread())
-//                .compose(transformer)
-//                .subscribe(teamBean -> {
-//                    if (teamBean.getCode() == 0){
-//                        if (mView != null){
-//                            mView.onSuccess(teamBean);
-//                        }
-//                    }else {
-//                        if (mView != null){
-//                            mView.onFile(teamBean.getMsg());
-//                        }
-//                    }
-//                }, throwable -> {
-//                    if (mView != null){
-//                        mView.onFile(throwable.getMessage());
-//                    }
-//                });
-//    }
+    public void getMyTeamInfo(LifecycleTransformer<TeamBean> transformer){
+        mRepository.getMyTeamInfo()
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .compose(transformer)
+                .subscribe(teamBean -> {
+                    if (teamBean.getCode() == 0){
+                        if (mView != null){
+                            mView.onSuccess(teamBean);
+                        }
+                    }else {
+                        if (mView != null){
+                            mView.onFile(teamBean.getMsg());
+                        }
+                    }
+                }, throwable -> {
+                    if (mView != null){
+                        mView.onFile(throwable.getMessage());
+                    }
+                });
+    }
+
+    public void getParentInfo(LifecycleTransformer<TeacherBean> transformer){
+        mRepository.parentInfo()
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .compose(transformer)
+                .subscribe(teacherBean -> {
+                    if (teacherBean.getCode() == 0) {
+                        mView.onTeacher(teacherBean);
+                    }else {
+                        ToastUtil.show("导师信息获取失败，请重新尝试");
+                    }
+                }, throwable -> {
+                    ToastUtil.show("导师信息获取失败，请重新尝试");
+                });
+    }
 }

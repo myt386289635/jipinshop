@@ -5,7 +5,16 @@ import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
 import android.view.View
 import com.aspsine.swipetoloadlayout.SwipeToLoadLayout
+import com.example.administrator.jipinshop.bean.FansBean
+import com.example.administrator.jipinshop.bean.SubUserBean
+import com.example.administrator.jipinshop.bean.SuccessBean
 import com.example.administrator.jipinshop.netwrok.Repository
+import com.example.administrator.jipinshop.util.ToastUtil
+import com.trello.rxlifecycle2.LifecycleTransformer
+import io.reactivex.android.schedulers.AndroidSchedulers
+import io.reactivex.functions.Consumer
+import io.reactivex.schedulers.Schedulers
+import java.util.HashMap
 import javax.inject.Inject
 
 /**
@@ -16,6 +25,11 @@ import javax.inject.Inject
 class TeamOnePresenter {
 
     private var repository: Repository
+    private lateinit var mView: KTTeamView
+
+    fun setView(view: KTTeamView){
+        mView = view
+    }
 
     @Inject
     constructor(repository: Repository) {
@@ -70,5 +84,40 @@ class TeamOnePresenter {
     fun isSlideToBottom(recyclerView: RecyclerView?): Boolean {
         if (recyclerView == null) return false
         return recyclerView.computeVerticalScrollExtent() + recyclerView.computeVerticalScrollOffset() >= recyclerView.computeVerticalScrollRange()
+    }
+
+    fun getDate(page : Int , transformer: LifecycleTransformer<FansBean>){
+        var map = HashMap<String,String>()
+        map["page"] = "" + page
+        map["type"] = "1"
+        repository.getSubUserList(map)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .compose(transformer)
+                .subscribe(Consumer {
+                    if (it.code == 0){
+                        mView.onSuccess(it)
+                    }else{
+                        mView.onFile(it.msg)
+                    }
+                }, Consumer {
+                    mView.onFile(it.message)
+                })
+    }
+
+    fun getSubUserDetail(subUserId : String ,transformer: LifecycleTransformer<SubUserBean>){
+        repository.getSubUserDetail(subUserId)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .compose(transformer)
+                .subscribe(Consumer {
+                    if (it.code == 0){
+                        mView.subDetail(it)
+                    }else{
+                        ToastUtil.show(it.msg)
+                    }
+                }, Consumer {
+                    ToastUtil.show(it.message)
+                })
     }
 }

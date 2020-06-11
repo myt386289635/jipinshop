@@ -49,7 +49,7 @@ public class BasePickerView {
     protected void initViews(){
         LayoutInflater layoutInflater = LayoutInflater.from(context);
         decorView = (ViewGroup) ((Activity)context).getWindow().getDecorView().findViewById(android.R.id.content);
-        rootView = (ViewGroup) layoutInflater.inflate(R.layout.layout_basepickerview, decorView, false);
+        rootView = (ViewGroup) layoutInflater.inflate(R.layout.layout_basepickerview1, decorView, false);
         rootView.setLayoutParams(new FrameLayout.LayoutParams(
                 ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT
         ));

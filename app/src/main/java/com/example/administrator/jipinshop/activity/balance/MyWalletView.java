@@ -10,8 +10,8 @@ import com.example.administrator.jipinshop.bean.ScoreStatusBean;
  */
 public interface MyWalletView {
 
-    void onSuccess(MyWalletBean bean);
-    void onFile(String error);
+//    void onSuccess(MyWalletBean bean);
+//    void onFile(String error);
 
     void onScoreSuc(ScoreStatusBean bean);
 }

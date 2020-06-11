@@ -251,6 +251,9 @@ dependencies {
 
     //集成京东sdk
     implementation project(':jdSdk')
+
+    //选择器
+    implementation 'com.contrarywind:Android-PickerView:4.1.9'
 }
 
 configurations {

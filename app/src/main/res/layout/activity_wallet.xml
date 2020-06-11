@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:app="http://schemas.android.com/apk/res-auto">
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:bind="http://schemas.android.com/tools">
 
     <data>
 
@@ -15,256 +16,710 @@
     </data>
 
     <RelativeLayout
-        android:orientation="vertical"
-        android:background="@color/color_F5F5F5"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:background="@color/color_F5F5F5"
+        android:orientation="vertical">
 
+        <include
+            android:id="@+id/in_clude"
+            layout="@layout/aa_title2"
+            bind:listener="@{listener}"/>
 
-        <!--<android.support.design.widget.CoordinatorLayout-->
-            <!--android:id="@+id/coordinator"-->
-            <!--android:layout_width="match_parent"-->
-            <!--android:layout_height="match_parent"-->
-            <!--android:background="@color/color_F5F5F5"-->
-            <!--tools:context=".HomeCommenFragment">-->
+        <TextView
+            android:onClick="@{listener.onClick}"
+            android:id="@+id/title_totleText"
+            android:layout_alignParentRight="true"
+            android:gravity="center"
+            android:textStyle="bold"
+            android:textSize="14sp"
+            android:textColor="@color/color_DE050505"
+            android:text="规则说明"
+            android:paddingRight="@dimen/x28"
+            android:paddingLeft="@dimen/x28"
+            android:layout_width="wrap_content"
+            android:layout_height="@dimen/y88"/>
 
-            <!--<android.support.design.widget.AppBarLayout-->
-                <!--android:id="@+id/appbar"-->
-                <!--android:layout_width="match_parent"-->
-                <!--android:layout_height="wrap_content"-->
-                <!--android:background="@color/color_F5F5F5"-->
-                <!--app:elevation="0dp">-->
-
-
-        <RelativeLayout
-            android:id="@+id/title"
+        <TextView
+            android:id="@+id/title_notice"
+            android:gravity="center"
+            android:layout_below="@id/in_clude"
+            android:background="@color/color_FEF4E6"
+            android:textColor="@color/color_202020"
+            android:textSize="11sp"
+            android:text="每月25号可提现上月结算收益"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:minHeight="@dimen/y80"
-            app:layout_scrollFlags="scroll|exitUntilCollapsed">
+            android:layout_height="@dimen/y62"/>
 
-            <LinearLayout
-                android:id="@+id/title_top"
+        <ScrollView
+            android:layout_below="@id/title_notice"
+            android:fillViewport="true"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+            <RelativeLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="@color/transparent"
-                android:orientation="vertical"/>
-
-            <ImageView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_alignBottom="@+id/title_container1"
-                android:layout_alignTop="@+id/title_top"
-                android:background="@mipmap/wallte_bg"/>
-
-            <TextView
-                android:layout_below="@+id/title_top"
-                android:textStyle="bold"
-                android:id="@+id/title_moneny"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/y88"
-                android:layout_marginLeft="@dimen/x60"
-                android:text="@{@string/price + bean.withdraw}"
-                android:textColor="@color/color_white"
-                android:textSize="26sp"/>
-
-            <TextView
-                android:textSize="11sp"
-                android:layout_marginLeft="@dimen/x60"
-                android:id="@+id/title_totle"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_below="@+id/title_moneny"
-                android:layout_marginTop="@dimen/y2"
-                android:text="可提余额(元)"
-                android:textColor="@color/color_B3FFFFFF"/>
-
-            <ImageView
-                android:layout_marginLeft="@dimen/x10"
-                android:layout_marginTop="@dimen/y2"
-                android:layout_below="@+id/title_moneny"
-                android:id="@+id/title_totleText"
-                android:layout_width="@dimen/x28"
-                android:layout_height="@dimen/y28"
-                android:layout_toRightOf="@+id/title_totle"
-                android:onClick="@{listener.onClick}"
-                android:scaleType="fitXY"
-                android:src="@mipmap/wallet_question"/>
-
-            <ImageView
-                android:id="@+id/title_record"
-                android:onClick="@{listener.onClick}"
-                android:layout_marginTop="@dimen/y22"
-                android:layout_alignTop="@id/title_moneny"
-                android:layout_alignParentRight="true"
-                android:src="@mipmap/wallet_record"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"/>
-
-
-            <LinearLayout
-                android:paddingBottom="@dimen/y24"
-                android:id="@+id/title_container1"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_below="@+id/title_totle"
-                android:layout_marginTop="@dimen/y56"
-                android:orientation="horizontal">
-
-                <LinearLayout
-                    android:id="@+id/mine_settlement"
-                    android:layout_width="0dp"
-                    android:layout_height="@dimen/y100"
-                    android:layout_weight="1"
-                    android:gravity="center"
-                    android:orientation="vertical">
-
-                    <TextView
-                        android:textSize="15sp"
-                        android:id="@+id/mine_settlement_value"
-                        android:textStyle="bold"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="@{@string/price + bean.preFee}"
-                        android:textColor="@color/color_white"/>
-
-                    <TextView
-                        android:textSize="11sp"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="@dimen/y8"
-                        android:text="即将到账(元)"
-                        android:textColor="@color/color_B3FFFFFF"/>
-                </LinearLayout>
+                android:layout_height="match_parent">
 
                 <View
-                    android:layout_gravity="center_vertical"
                     android:background="@color/color_white"
-                    android:layout_width="@dimen/y2"
-                    android:layout_height="@dimen/y40"/>
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/y197"/>
+
+                <RelativeLayout
+                    android:id="@+id/walletContainer"
+                    android:layout_marginTop="@dimen/y30"
+                    android:layout_marginRight="@dimen/x30"
+                    android:layout_marginLeft="@dimen/x30"
+                    android:background="@drawable/bg_wallet"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <TextView
+                        android:onClick="@{listener.onClick}"
+                        android:id="@+id/title_record"
+                        android:layout_marginTop="@dimen/y46"
+                        android:layout_alignParentRight="true"
+                        android:paddingBottom="@dimen/y4"
+                        android:paddingTop="@dimen/y4"
+                        android:paddingRight="@dimen/x15"
+                        android:paddingLeft="@dimen/x15"
+                        android:textColor="@color/color_202020"
+                        android:textSize="12sp"
+                        android:text="提现"
+                        android:background="@drawable/bg_ffe4c1"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"/>
+
+                    <TextView
+                        android:id="@+id/wallet_moneyTag"
+                        android:layout_marginTop="@dimen/y37"
+                        android:layout_centerHorizontal="true"
+                        android:textColor="@color/color_FFE4C1"
+                        android:textSize="11sp"
+                        android:text="可提现余额（元）"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"/>
+
+                    <TextView
+                        android:layout_below="@id/wallet_moneyTag"
+                        android:id="@+id/wallet_money"
+                        android:layout_centerHorizontal="true"
+                        android:textStyle="bold"
+                        android:textColor="@color/color_FFE4C1"
+                        android:textSize="29sp"
+                        android:text="888.8"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"/>
+
+                    <LinearLayout
+                        android:layout_marginBottom="@dimen/y36"
+                        android:layout_marginTop="@dimen/y48"
+                        android:orientation="horizontal"
+                        android:layout_below="@id/wallet_money"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+
+                        <LinearLayout
+                            android:orientation="vertical"
+                            android:gravity="center"
+                            android:layout_weight="1"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content">
+
+                            <TextView
+                                android:textColor="@color/color_FFE4C1"
+                                android:textSize="12sp"
+                                android:text="累计收益"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"/>
+
+                            <TextView
+                                android:id="@+id/wallet_totalMoney"
+                                android:textColor="@color/color_FFE4C1"
+                                android:textStyle="bold"
+                                android:textSize="18sp"
+                                android:text="0"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"/>
+
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:orientation="vertical"
+                            android:gravity="center"
+                            android:layout_weight="1"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content">
+
+                            <TextView
+                                android:textColor="@color/color_FFE4C1"
+                                android:textSize="12sp"
+                                android:text="累计提现"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"/>
+
+                            <TextView
+                                android:id="@+id/wallet_withdraw"
+                                android:textColor="@color/color_FFE4C1"
+                                android:textStyle="bold"
+                                android:textSize="18sp"
+                                android:text="0"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"/>
+
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:orientation="vertical"
+                            android:gravity="center"
+                            android:layout_weight="1"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content">
+
+                            <TextView
+                                android:textColor="@color/color_FFE4C1"
+                                android:textSize="12sp"
+                                android:text="未结算收益"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"/>
+
+                            <TextView
+                                android:id="@+id/wallet_accounts"
+                                android:textColor="@color/color_FFE4C1"
+                                android:textStyle="bold"
+                                android:textSize="18sp"
+                                android:text="0"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"/>
+
+                        </LinearLayout>
+
+                    </LinearLayout>
+
+                </RelativeLayout>
+
+                <TextView
+                    android:paddingTop="@dimen/y40"
+                    android:layout_marginLeft="@dimen/x30"
+                    android:layout_below="@id/walletContainer"
+                    android:textStyle="bold"
+                    android:textColor="@color/color_202020"
+                    android:textSize="15sp"
+                    android:text="今日概况"
+                    android:id="@+id/wallet_title1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"/>
+
+                <TextView
+                    android:paddingTop="@dimen/y40"
+                    android:id="@+id/wallet_today"
+                    android:onClick="@{listener.onClick}"
+                    android:textSize="12sp"
+                    android:textColor="@color/color_ACACAC"
+                    android:text="历史概况"
+                    android:paddingLeft="@dimen/x50"
+                    android:paddingRight="@dimen/x50"
+                    android:layout_alignParentRight="true"
+                    android:layout_alignBottom="@id/wallet_title1"
+                    android:layout_alignTop="@id/wallet_title1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"/>
 
                 <LinearLayout
-                    android:id="@+id/mine_withdrawable"
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1"
-                    android:gravity="center"
-                    android:orientation="vertical">
+                    android:id="@+id/wallet_todayContainer"
+                    android:background="@drawable/bg_balance"
+                    android:elevation="@dimen/y5"
+                    android:orientation="vertical"
+                    android:layout_marginTop="@dimen/y10"
+                    android:layout_below="@id/wallet_title1"
+                    android:layout_marginRight="@dimen/x20"
+                    android:layout_marginLeft="@dimen/x20"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
 
-                    <TextView
-                        android:textSize="15sp"
-                        android:id="@+id/mine_withdrawable_value"
-                        android:textStyle="bold"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="@{@string/price + bean.finalFee}"
-                        android:textColor="@color/color_white"/>
+                    <LinearLayout
+                        android:orientation="horizontal"
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/y123">
 
-                    <TextView
-                        android:textSize="11sp"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="@dimen/y8"
-                        android:text="累计到账(元)"
-                        android:textColor="@color/color_B3FFFFFF"/>
+                        <LinearLayout
+                            android:paddingLeft="@dimen/x20"
+                            android:gravity="center_vertical"
+                            android:layout_weight="1"
+                            android:orientation="vertical"
+                            android:layout_width="0dp"
+                            android:layout_height="match_parent">
+
+                            <TextView
+                                android:textColor="@color/color_ACACAC"
+                                android:textSize="12sp"
+                                android:text="预估收入"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"/>
+
+                            <TextView
+                                android:id="@+id/wallet_todayMoney"
+                                android:textStyle="bold"
+                                android:textColor="@color/color_4B4745"
+                                android:textSize="18sp"
+                                android:text="￥0"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"/>
+
+                        </LinearLayout>
+
+                        <View
+                            android:background="@color/color_F5F5F5"
+                            android:layout_width="@dimen/y1"
+                            android:layout_height="match_parent"/>
+
+                        <LinearLayout
+                            android:paddingLeft="@dimen/x20"
+                            android:gravity="center_vertical"
+                            android:layout_weight="1"
+                            android:orientation="vertical"
+                            android:layout_width="0dp"
+                            android:layout_height="match_parent">
+
+                            <TextView
+                                android:textColor="@color/color_ACACAC"
+                                android:textSize="12sp"
+                                android:text="付款订单数"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"/>
+
+                            <TextView
+                                android:id="@+id/wallet_todayOrder"
+                                android:textStyle="bold"
+                                android:textColor="@color/color_4B4745"
+                                android:textSize="18sp"
+                                android:text="0"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"/>
+
+                        </LinearLayout>
+
+                    </LinearLayout>
+
+                    <View
+                        android:background="@color/color_F5F5F5"
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/y1"/>
+
+                    <LinearLayout
+                        android:orientation="horizontal"
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/y123">
+
+                        <LinearLayout
+                            android:paddingLeft="@dimen/x20"
+                            android:gravity="center_vertical"
+                            android:layout_weight="1"
+                            android:orientation="vertical"
+                            android:layout_width="0dp"
+                            android:layout_height="match_parent">
+
+                            <TextView
+                                android:textColor="@color/color_ACACAC"
+                                android:textSize="12sp"
+                                android:text="自购订单预估收入"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"/>
+
+                            <TextView
+                                android:id="@+id/wallet_myMoney"
+                                android:textStyle="bold"
+                                android:textColor="@color/color_4B4745"
+                                android:textSize="18sp"
+                                android:text="￥0"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"/>
+
+                        </LinearLayout>
+
+                        <View
+                            android:background="@color/color_F5F5F5"
+                            android:layout_width="@dimen/y1"
+                            android:layout_height="match_parent"/>
+
+                        <LinearLayout
+                            android:paddingLeft="@dimen/x20"
+                            android:gravity="center_vertical"
+                            android:layout_weight="1"
+                            android:orientation="vertical"
+                            android:layout_width="0dp"
+                            android:layout_height="match_parent">
+
+                            <TextView
+                                android:textColor="@color/color_ACACAC"
+                                android:textSize="12sp"
+                                android:text="自购付款订单数"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"/>
+
+                            <TextView
+                                android:id="@+id/wallet_myOrder"
+                                android:textStyle="bold"
+                                android:textColor="@color/color_4B4745"
+                                android:textSize="18sp"
+                                android:text="0"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"/>
+
+                        </LinearLayout>
+
+                    </LinearLayout>
+
+                    <View
+                        android:background="@color/color_F5F5F5"
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/y1"/>
+
+                    <LinearLayout
+                        android:orientation="horizontal"
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/y123">
+
+                        <LinearLayout
+                            android:paddingLeft="@dimen/x20"
+                            android:gravity="center_vertical"
+                            android:layout_weight="1"
+                            android:orientation="vertical"
+                            android:layout_width="0dp"
+                            android:layout_height="match_parent">
+
+                            <TextView
+                                android:textColor="@color/color_ACACAC"
+                                android:textSize="12sp"
+                                android:text="粉丝订单预估收入"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"/>
+
+                            <TextView
+                                android:id="@+id/wallet_fansMoney"
+                                android:textStyle="bold"
+                                android:textColor="@color/color_4B4745"
+                                android:textSize="18sp"
+                                android:text="￥0"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"/>
+
+                        </LinearLayout>
+
+                        <View
+                            android:background="@color/color_F5F5F5"
+                            android:layout_width="@dimen/y1"
+                            android:layout_height="match_parent"/>
+
+                        <LinearLayout
+                            android:paddingLeft="@dimen/x20"
+                            android:gravity="center_vertical"
+                            android:layout_weight="1"
+                            android:orientation="vertical"
+                            android:layout_width="0dp"
+                            android:layout_height="match_parent">
+
+                            <TextView
+                                android:textColor="@color/color_ACACAC"
+                                android:textSize="12sp"
+                                android:text="粉丝付款订单数"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"/>
+
+                            <TextView
+                                android:id="@+id/wallet_fansOrder"
+                                android:textStyle="bold"
+                                android:textColor="@color/color_4B4745"
+                                android:textSize="18sp"
+                                android:text="0"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"/>
+
+                        </LinearLayout>
+
+                    </LinearLayout>
+
+                    <View
+                        android:background="@color/color_F5F5F5"
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/y1"/>
+
+                    <com.example.administrator.jipinshop.view.textview.DrawableRightCenterTextView
+                        android:onClick="@{listener.onClick}"
+                        android:drawableRight="@mipmap/right_ash1"
+                        android:id="@+id/wallet_today_detail"
+                        android:gravity="center"
+                        android:drawablePadding="@dimen/x7"
+                        android:text="查看详情"
+                        android:textSize="12sp"
+                        android:textColor="@color/color_ACACAC"
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/y75"/>
+
                 </LinearLayout>
 
-                <View
-                    android:layout_gravity="center_vertical"
-                    android:background="@color/color_white"
-                    android:layout_width="@dimen/y2"
-                    android:layout_height="@dimen/y40"/>
+                <TextView
+                    android:paddingTop="@dimen/y40"
+                    android:layout_marginLeft="@dimen/x30"
+                    android:layout_below="@id/wallet_todayContainer"
+                    android:textStyle="bold"
+                    android:textColor="@color/color_202020"
+                    android:textSize="15sp"
+                    android:text="本月概况"
+                    android:id="@+id/wallet_title2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"/>
+
+                <TextView
+                    android:paddingTop="@dimen/y40"
+                    android:id="@+id/wallet_month"
+                    android:onClick="@{listener.onClick}"
+                    android:textSize="12sp"
+                    android:textColor="@color/color_ACACAC"
+                    android:text="历史概况"
+                    android:paddingLeft="@dimen/x50"
+                    android:paddingRight="@dimen/x50"
+                    android:layout_alignParentRight="true"
+                    android:layout_alignBottom="@id/wallet_title2"
+                    android:layout_alignTop="@id/wallet_title2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"/>
 
                 <LinearLayout
-                    android:id="@+id/mine_processing"
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1"
-                    android:gravity="center"
-                    android:orientation="vertical">
+                    android:layout_marginBottom="@dimen/y40"
+                    android:background="@drawable/bg_balance"
+                    android:elevation="@dimen/y5"
+                    android:orientation="vertical"
+                    android:layout_marginTop="@dimen/y10"
+                    android:layout_below="@id/wallet_title2"
+                    android:layout_marginRight="@dimen/x20"
+                    android:layout_marginLeft="@dimen/x20"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
 
-                    <TextView
-                        android:textSize="15sp"
-                        android:id="@+id/mine_processing_value"
-                        android:textStyle="bold"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="@{@string/price + bean.totalFee}"
-                        android:textColor="@color/color_white"/>
+                    <LinearLayout
+                        android:orientation="horizontal"
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/y123">
 
-                    <TextView
-                        android:textSize="11sp"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="@dimen/y8"
-                        android:text="累计共省(元)"
-                        android:textColor="@color/color_B3FFFFFF"/>
+                        <LinearLayout
+                            android:paddingLeft="@dimen/x20"
+                            android:gravity="center_vertical"
+                            android:layout_weight="1"
+                            android:orientation="vertical"
+                            android:layout_width="0dp"
+                            android:layout_height="match_parent">
+
+                            <TextView
+                                android:textColor="@color/color_ACACAC"
+                                android:textSize="12sp"
+                                android:text="预估收入"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"/>
+
+                            <TextView
+                                android:id="@+id/wallet_monthMoney"
+                                android:textStyle="bold"
+                                android:textColor="@color/color_4B4745"
+                                android:textSize="18sp"
+                                android:text="￥0"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"/>
+
+                        </LinearLayout>
+
+                        <View
+                            android:background="@color/color_F5F5F5"
+                            android:layout_width="@dimen/y1"
+                            android:layout_height="match_parent"/>
+
+                        <LinearLayout
+                            android:paddingLeft="@dimen/x20"
+                            android:gravity="center_vertical"
+                            android:layout_weight="1"
+                            android:orientation="vertical"
+                            android:layout_width="0dp"
+                            android:layout_height="match_parent">
+
+                            <TextView
+                                android:textColor="@color/color_ACACAC"
+                                android:textSize="12sp"
+                                android:text="付款订单数"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"/>
+
+                            <TextView
+                                android:id="@+id/wallet_monthOrder"
+                                android:textStyle="bold"
+                                android:textColor="@color/color_4B4745"
+                                android:textSize="18sp"
+                                android:text="0"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"/>
+
+                        </LinearLayout>
+
+                    </LinearLayout>
+
+                    <View
+                        android:background="@color/color_F5F5F5"
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/y1"/>
+
+                    <LinearLayout
+                        android:orientation="horizontal"
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/y123">
+
+                        <LinearLayout
+                            android:paddingLeft="@dimen/x20"
+                            android:gravity="center_vertical"
+                            android:layout_weight="1"
+                            android:orientation="vertical"
+                            android:layout_width="0dp"
+                            android:layout_height="match_parent">
+
+                            <TextView
+                                android:textColor="@color/color_ACACAC"
+                                android:textSize="12sp"
+                                android:text="自购订单预估收入"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"/>
+
+                            <TextView
+                                android:id="@+id/wallet_myMonthMoney"
+                                android:textStyle="bold"
+                                android:textColor="@color/color_4B4745"
+                                android:textSize="18sp"
+                                android:text="￥0"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"/>
+
+                        </LinearLayout>
+
+                        <View
+                            android:background="@color/color_F5F5F5"
+                            android:layout_width="@dimen/y1"
+                            android:layout_height="match_parent"/>
+
+                        <LinearLayout
+                            android:paddingLeft="@dimen/x20"
+                            android:gravity="center_vertical"
+                            android:layout_weight="1"
+                            android:orientation="vertical"
+                            android:layout_width="0dp"
+                            android:layout_height="match_parent">
+
+                            <TextView
+                                android:textColor="@color/color_ACACAC"
+                                android:textSize="12sp"
+                                android:text="自购付款订单数"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"/>
+
+                            <TextView
+                                android:id="@+id/wallet_myMonthOrder"
+                                android:textStyle="bold"
+                                android:textColor="@color/color_4B4745"
+                                android:textSize="18sp"
+                                android:text="0"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"/>
+
+                        </LinearLayout>
+
+                    </LinearLayout>
+
+                    <View
+                        android:background="@color/color_F5F5F5"
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/y1"/>
+
+                    <LinearLayout
+                        android:orientation="horizontal"
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/y123">
+
+                        <LinearLayout
+                            android:paddingLeft="@dimen/x20"
+                            android:gravity="center_vertical"
+                            android:layout_weight="1"
+                            android:orientation="vertical"
+                            android:layout_width="0dp"
+                            android:layout_height="match_parent">
+
+                            <TextView
+                                android:textColor="@color/color_ACACAC"
+                                android:textSize="12sp"
+                                android:text="粉丝订单预估收入"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"/>
+
+                            <TextView
+                                android:id="@+id/wallet_fansMonthMoney"
+                                android:textStyle="bold"
+                                android:textColor="@color/color_4B4745"
+                                android:textSize="18sp"
+                                android:text="￥0"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"/>
+
+                        </LinearLayout>
+
+                        <View
+                            android:background="@color/color_F5F5F5"
+                            android:layout_width="@dimen/y1"
+                            android:layout_height="match_parent"/>
+
+                        <LinearLayout
+                            android:paddingLeft="@dimen/x20"
+                            android:gravity="center_vertical"
+                            android:layout_weight="1"
+                            android:orientation="vertical"
+                            android:layout_width="0dp"
+                            android:layout_height="match_parent">
+
+                            <TextView
+                                android:textColor="@color/color_ACACAC"
+                                android:textSize="12sp"
+                                android:text="粉丝付款订单数"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"/>
+
+                            <TextView
+                                android:id="@+id/wallet_fansMonthOrder"
+                                android:textStyle="bold"
+                                android:textColor="@color/color_4B4745"
+                                android:textSize="18sp"
+                                android:text="0"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"/>
+
+                        </LinearLayout>
+
+                    </LinearLayout>
+
+                    <View
+                        android:background="@color/color_F5F5F5"
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/y1"/>
+
+                    <com.example.administrator.jipinshop.view.textview.DrawableRightCenterTextView
+                        android:onClick="@{listener.onClick}"
+                        android:drawableRight="@mipmap/right_ash1"
+                        android:id="@+id/wallet_month_detail"
+                        android:gravity="center"
+                        android:drawablePadding="@dimen/x7"
+                        android:text="查看详情"
+                        android:textSize="12sp"
+                        android:textColor="@color/color_ACACAC"
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/y75"/>
+
                 </LinearLayout>
 
-            </LinearLayout>
-
-        </RelativeLayout>
-
-
-        <android.support.design.widget.TabLayout
-            android:layout_below="@+id/title"
-            android:id="@+id/tab_layout"
-            android:layout_width="@dimen/x336"
-            android:layout_height="@dimen/y78"
-            android:layout_marginLeft="@dimen/x28"
-            android:layout_marginRight="@dimen/x28"
-            android:layout_marginTop="@dimen/y28"/>
-
-
-            <!--</android.support.design.widget.AppBarLayout>-->
-
-            <com.example.administrator.jipinshop.view.viewpager.NoScrollViewPager
-                android:layout_below="@+id/tab_layout"
-                android:id="@+id/view_pager"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                app:layout_behavior="@string/appbar_scrolling_view_behavior"/>
-
-        <!--</android.support.design.widget.CoordinatorLayout>-->
-
-
-        <LinearLayout
-            android:id="@+id/status_bar"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@color/transparent"
-            android:orientation="vertical"/>
-
-        <RelativeLayout
-            android:id="@+id/title_container"
-            android:layout_width="match_parent"
-            android:layout_height="@dimen/y80"
-            android:layout_below="@id/status_bar"
-            android:background="@color/transparent">
-
-            <ImageView
-                android:onClick="@{listener.onClick}"
-                android:id="@+id/title_back"
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:layout_centerVertical="true"
-                android:padding="@dimen/x22"
-                android:layout_marginLeft="@dimen/x6"
-                android:src="@mipmap/balance_white"/>
-
-            <TextView
-                android:id="@+id/title_text"
-                android:visibility="invisible"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_centerInParent="true"
-                android:text="我的钱包"
-                android:textColor="@color/color_DEFFFFFF"
-                android:textSize="15sp"
-                android:textStyle="bold"/>
-
-        </RelativeLayout>
+            </RelativeLayout>
+        </ScrollView>
 
 
     </RelativeLayout>

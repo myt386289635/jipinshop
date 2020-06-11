@@ -612,6 +612,14 @@
         <activity android:name=".activity.balance.withdraw.detail.WithdrawDetailActivity"
                   android:screenOrientation="portrait"/>
 
+        <!--收益详情-->
+        <activity android:name=".activity.balance.detail.WalletDetailActivity"
+                  android:screenOrientation="portrait"/>
+
+        <!--历史概况-->
+        <activity android:name=".activity.balance.history.WalletHistoryActivity"
+                  android:screenOrientation="portrait"/>
+
     </application>
 
 </manifest>

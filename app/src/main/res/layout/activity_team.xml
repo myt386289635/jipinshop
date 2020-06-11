@@ -6,6 +6,9 @@
         <variable
             name="listener"
             type="android.view.View.OnClickListener"/>
+        <variable
+            name="date"
+            type="com.example.administrator.jipinshop.bean.TeamBean.DataBean"/>
     </data>
 
     <RelativeLayout
@@ -126,7 +129,7 @@
                             android:textStyle="bold"
                             android:textColor="@color/color_white"
                             android:textSize="29sp"
-                            android:text="0"
+                            android:text="@{date.total}"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"/>
 
@@ -151,7 +154,7 @@
                                     android:textStyle="bold"
                                     android:textColor="@color/color_white"
                                     android:textSize="14sp"
-                                    android:text="0"
+                                    android:text="@{date.todayTotal}"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"/>
 
@@ -182,7 +185,7 @@
                                     android:textStyle="bold"
                                     android:textColor="@color/color_white"
                                     android:textSize="14sp"
-                                    android:text="0"
+                                    android:text="@{date.yesterdayTotal}"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"/>
 
@@ -213,7 +216,7 @@
                                     android:textStyle="bold"
                                     android:textColor="@color/color_white"
                                     android:textSize="14sp"
-                                    android:text="0"
+                                    android:text="@{date.subTotal}"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"/>
 
@@ -244,7 +247,7 @@
                                     android:textStyle="bold"
                                     android:textColor="@color/color_white"
                                     android:textSize="14sp"
-                                    android:text="0"
+                                    android:text="@{date.sub2Total}"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"/>
 

@@ -17,10 +17,14 @@ import com.example.administrator.jipinshop.R;
 import com.example.administrator.jipinshop.adapter.HomeFragmentAdapter;
 import com.example.administrator.jipinshop.adapter.KTTabAdapter4;
 import com.example.administrator.jipinshop.base.BaseActivity;
+import com.example.administrator.jipinshop.bean.TeacherBean;
+import com.example.administrator.jipinshop.bean.TeamBean;
 import com.example.administrator.jipinshop.databinding.ActivityTeamBinding;
 import com.example.administrator.jipinshop.fragment.mine.team.TeamOneFragment;
 import com.example.administrator.jipinshop.fragment.mine.team.three.TeamThreeFragment;
 import com.example.administrator.jipinshop.fragment.mine.team.two.TeamTwoFragment;
+import com.example.administrator.jipinshop.util.ToastUtil;
+import com.example.administrator.jipinshop.view.dialog.DialogUtil;
 
 import net.lucode.hackware.magicindicator.ViewPagerHelper;
 import net.lucode.hackware.magicindicator.buildins.commonnavigator.CommonNavigator;
@@ -56,7 +60,10 @@ public class TeamActivity extends BaseActivity implements View.OnClickListener, 
     //选择
     private Integer[] upOrDown = {1,1}; //1是向上  2是向下
     private Integer[] select = {0,0};   //选择的位置
+    private String[] orderByType ={"1","1"};
     private List<TextView> mTextViews;
+
+    private TeacherBean mTeacherBean;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -120,6 +127,9 @@ public class TeamActivity extends BaseActivity implements View.OnClickListener, 
         mBinding.viewPager.setAdapter(mAdapter);
         mBinding.viewPager.setOffscreenPageLimit(mFragments.size() - 1);
         mBinding.viewPager.addOnPageChangeListener(this);
+
+        mPresenter.getMyTeamInfo(this.bindToLifecycle());
+        mPresenter.getParentInfo(this.bindToLifecycle());
     }
 
     @Override
@@ -132,11 +142,14 @@ public class TeamActivity extends BaseActivity implements View.OnClickListener, 
                 if (select[mBinding.viewPager.getCurrentItem() - 1] == 0){
                     if (upOrDown[mBinding.viewPager.getCurrentItem() - 1] == 1){
                         upOrDown[mBinding.viewPager.getCurrentItem() - 1] = 2;
+                        orderByType[mBinding.viewPager.getCurrentItem() - 1] = "2";
                     }else {
                         upOrDown[mBinding.viewPager.getCurrentItem() - 1] = 1;
+                        orderByType[mBinding.viewPager.getCurrentItem() - 1] = "1";
                     }
                 }else {
                     upOrDown[mBinding.viewPager.getCurrentItem() - 1] = 1;
+                    orderByType[mBinding.viewPager.getCurrentItem() - 1] = "1";
                 }
                 select[mBinding.viewPager.getCurrentItem() - 1] = 0;
                 initTitle(select[mBinding.viewPager.getCurrentItem() - 1],true);
@@ -145,11 +158,14 @@ public class TeamActivity extends BaseActivity implements View.OnClickListener, 
                 if (select[mBinding.viewPager.getCurrentItem() - 1] == 1){
                     if (upOrDown[mBinding.viewPager.getCurrentItem() - 1] == 1){
                         upOrDown[mBinding.viewPager.getCurrentItem() - 1] = 2;
+                        orderByType[mBinding.viewPager.getCurrentItem() - 1] = "4";
                     }else {
                         upOrDown[mBinding.viewPager.getCurrentItem() - 1] = 1;
+                        orderByType[mBinding.viewPager.getCurrentItem() - 1] = "3";
                     }
                 }else {
                     upOrDown[mBinding.viewPager.getCurrentItem() - 1] = 1;
+                    orderByType[mBinding.viewPager.getCurrentItem() - 1] = "3";
                 }
                 select[mBinding.viewPager.getCurrentItem() - 1] = 1;
                 initTitle(select[mBinding.viewPager.getCurrentItem() - 1],true);
@@ -158,14 +174,28 @@ public class TeamActivity extends BaseActivity implements View.OnClickListener, 
                 if (select[mBinding.viewPager.getCurrentItem() - 1] == 2){
                     if (upOrDown[mBinding.viewPager.getCurrentItem() - 1] == 1){
                         upOrDown[mBinding.viewPager.getCurrentItem() - 1] = 2;
+                        orderByType[mBinding.viewPager.getCurrentItem() - 1] = "6";
                     }else {
                         upOrDown[mBinding.viewPager.getCurrentItem() - 1] = 1;
+                        orderByType[mBinding.viewPager.getCurrentItem() - 1] = "5";
                     }
                 }else {
                     upOrDown[mBinding.viewPager.getCurrentItem() - 1] = 1;
+                    orderByType[mBinding.viewPager.getCurrentItem() - 1] = "5";
                 }
                 select[mBinding.viewPager.getCurrentItem() - 1] = 2;
                 initTitle(select[mBinding.viewPager.getCurrentItem() - 1],true);
+                break;
+            case R.id.team_bottomContainer:
+                if (mBinding.teamRule.getVisibility() == View.VISIBLE){
+                    //todo h5
+                }else {
+                    if (mTeacherBean != null){
+                        DialogUtil.userDetailDialog(this,mTeacherBean);
+                    }else {
+                        ToastUtil.show("导师信息获取失败，请重新尝试");
+                    }
+                }
                 break;
         }
     }
@@ -261,10 +291,26 @@ public class TeamActivity extends BaseActivity implements View.OnClickListener, 
         mTextViews.get(select).setTextColor(getResources().getColor(R.color.color_E25838));
         if (isRefresh){
             if (mBinding.viewPager.getCurrentItem() == 1){
-                mTwoFragment.refresh();
+                mTwoFragment.refresh(orderByType[0]);
             }else if (mBinding.viewPager.getCurrentItem() == 2){
-                mThreeFragment.refresh();
+                mThreeFragment.refresh(orderByType[1]);
             }
         }
+    }
+
+    @Override
+    public void onSuccess(TeamBean bean) {
+        mBinding.setDate(bean.getData());
+        mBinding.executePendingBindings();
+    }
+
+    @Override
+    public void onFile(String error) {
+        ToastUtil.show(error);
+    }
+
+    @Override
+    public void onTeacher(TeacherBean bean) {
+        mTeacherBean = bean;
     }
 }
