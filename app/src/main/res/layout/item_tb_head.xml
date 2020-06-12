@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <ImageView
+            android:id="@+id/bg_tb"
+            android:adjustViewBounds="true"
+            android:scaleType="fitXY"
+            android:src="@mipmap/bg_tb"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+
+        <RelativeLayout
+            android:id="@+id/item_search"
+            android:layout_alignBottom="@id/bg_tb"
+            android:layout_marginBottom="@dimen/y92"
+            android:layout_marginRight="@dimen/x44"
+            android:layout_marginLeft="@dimen/x44"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/y72">
+
+            <TextView
+                android:layout_alignParentRight="true"
+                android:gravity="center"
+                android:text="搜商品"
+                android:textSize="13sp"
+                android:textColor="@color/color_white"
+                android:background="@drawable/bg_tb"
+                android:layout_width="@dimen/x145"
+                android:layout_height="match_parent"/>
+
+            <TextView
+                android:layout_marginRight="@dimen/x145"
+                android:paddingLeft="@dimen/x33"
+                android:drawablePadding="@dimen/x22"
+                android:drawableLeft="@mipmap/search1"
+                android:gravity="center_vertical"
+                android:textColor="@color/color_ABABAB"
+                android:textSize="13sp"
+                android:text="输入宝贝名称或关键字"
+                android:background="@drawable/bg_sign"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"/>
+
+        </RelativeLayout>
+
+
+        <ImageView
+            android:id="@+id/userList_title"
+            android:layout_below="@id/bg_tb"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="@dimen/y29"
+            android:layout_marginBottom="@dimen/y32"
+            android:src="@mipmap/bg_userlike"/>
+
+
+    </RelativeLayout>
+</layout>

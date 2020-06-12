@@ -31,6 +31,7 @@ import com.example.administrator.jipinshop.activity.home.classification.question
 import com.example.administrator.jipinshop.activity.home.classification.questions.submit.QuestionSubmitActivity;
 import com.example.administrator.jipinshop.activity.home.jd_pdd.KTJDDetailActivity;
 import com.example.administrator.jipinshop.activity.home.newarea.NewAreaActivity;
+import com.example.administrator.jipinshop.activity.home.tb.KTTBDetailActivity;
 import com.example.administrator.jipinshop.activity.info.MyInfoActivity;
 import com.example.administrator.jipinshop.activity.info.account.AccountManageActivity;
 import com.example.administrator.jipinshop.activity.info.account.change.ChangePhone2Activity;
@@ -178,4 +179,5 @@ public interface BaseActivityComponent {
     void inject(HBWebView2 activity);
     void inject(WalletDetailActivity activity);
     void inject(WalletHistoryActivity activity);
+    void inject(KTTBDetailActivity activity);
 }

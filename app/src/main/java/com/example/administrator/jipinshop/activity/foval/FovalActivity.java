@@ -18,7 +18,6 @@ import com.example.administrator.jipinshop.base.BaseActivity;
 import com.example.administrator.jipinshop.fragment.foval.article.FovalArticleFragment;
 import com.example.administrator.jipinshop.fragment.foval.find.FovalFindFragment;
 import com.example.administrator.jipinshop.fragment.foval.goods.FovalGoodsFragment;
-import com.example.administrator.jipinshop.fragment.foval.tryout.FovalTryFragment;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -64,8 +63,6 @@ public class FovalActivity extends BaseActivity {
         mFragments.add(FovalGoodsFragment.getInstance());
         mFragments.add(FovalArticleFragment.getInstance());//问答
         mFragments.add(FovalFindFragment.getInstance("2"));//评测
-        mFragments.add(FovalFindFragment.getInstance("7"));//清单
-        mFragments.add(FovalTryFragment.getInstance());//试用报告
         mAdapter.setFragments(mFragments);
         mViewPager.setAdapter(mAdapter);
         mViewPager.setOffscreenPageLimit(mFragments.size() - 1);
@@ -88,12 +85,8 @@ public class FovalActivity extends BaseActivity {
                 textView.setText("商品");
             }else if (i == 1){
                 textView.setText("问答");
-            } else if (i == 2) {
+            } else{
                 textView.setText("评测");
-            } else if (i == 3) {
-                textView.setText("清单");
-            } else {
-                textView.setText("试用报告");
             }
             mTabLayout.getTabAt(i).setCustomView(view);
             int a = (int) textView.getPaint().measureText(textView.getText().toString());
@@ -104,7 +97,7 @@ public class FovalActivity extends BaseActivity {
         mTabLayout.post(() -> {
             //拿到tabLayout的mTabStrip属性
             LinearLayout mTabStrip = (LinearLayout) mTabLayout.getChildAt(0);
-            int totle = textLether.get(0) + textLether.get(1) + textLether.get(2) + textLether.get(3)+ textLether.get(4);
+            int totle = textLether.get(0) + textLether.get(1) + textLether.get(2);
             int dp10 = (mTabLayout.getWidth() - totle) / mFragments.size();
             for (int i = 0; i < mTabStrip.getChildCount(); i++) {
                 View tabView = mTabStrip.getChildAt(i);

@@ -14,6 +14,7 @@ import com.example.administrator.jipinshop.activity.home.MainActivity;
 import com.example.administrator.jipinshop.activity.home.article.ArticleDetailActivity;
 import com.example.administrator.jipinshop.activity.home.home.HomeNewActivity;
 import com.example.administrator.jipinshop.activity.home.jd_pdd.KTJDDetailActivity;
+import com.example.administrator.jipinshop.activity.home.tb.KTTBDetailActivity;
 import com.example.administrator.jipinshop.activity.login.LoginActivity;
 import com.example.administrator.jipinshop.activity.mall.MallActivity;
 import com.example.administrator.jipinshop.activity.newpeople.NewFreeActivity;
@@ -417,6 +418,10 @@ public class ShopJumpUtil {
                 intent.setClass(context, TBShoppingDetailActivity.class);
                 intent.putExtra("otherGoodsId", target_id);
                 intent.putExtra("source","4");
+                context.startActivity(intent);
+                break;
+            case "18"://淘宝主页
+                intent.setClass(context, KTTBDetailActivity.class);
                 context.startActivity(intent);
                 break;
         }

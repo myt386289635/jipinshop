@@ -620,6 +620,10 @@
         <activity android:name=".activity.balance.history.WalletHistoryActivity"
                   android:screenOrientation="portrait"/>
 
+        <!--淘宝详情页-->
+        <activity android:name=".activity.home.tb.KTTBDetailActivity"
+                  android:screenOrientation="portrait"/>
+
     </application>
 
 </manifest>
