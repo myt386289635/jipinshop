@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:app="http://schemas.android.com/apk/res-auto"
         xmlns:bind="http://schemas.android.com/tools">
 
     <data>
@@ -107,7 +106,7 @@
                         android:textStyle="bold"
                         android:textColor="@color/color_FFE4C1"
                         android:textSize="29sp"
-                        android:text="888.8"
+                        android:text="@{bean.balanceFee}"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"/>
 
@@ -138,7 +137,7 @@
                                 android:textColor="@color/color_FFE4C1"
                                 android:textStyle="bold"
                                 android:textSize="18sp"
-                                android:text="0"
+                                android:text="@{bean.totalFee}"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"/>
 
@@ -163,7 +162,7 @@
                                 android:textColor="@color/color_FFE4C1"
                                 android:textStyle="bold"
                                 android:textSize="18sp"
-                                android:text="0"
+                                android:text="@{bean.withdraw}"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"/>
 
@@ -188,7 +187,7 @@
                                 android:textColor="@color/color_FFE4C1"
                                 android:textStyle="bold"
                                 android:textSize="18sp"
-                                android:text="0"
+                                android:text="@{bean.preFee}"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"/>
 
@@ -262,7 +261,7 @@
                                 android:textStyle="bold"
                                 android:textColor="@color/color_4B4745"
                                 android:textSize="18sp"
-                                android:text="￥0"
+                                android:text="@{@string/price + bean.todayCommissionView.preFee}"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"/>
 
@@ -293,7 +292,7 @@
                                 android:textStyle="bold"
                                 android:textColor="@color/color_4B4745"
                                 android:textSize="18sp"
-                                android:text="0"
+                                android:text="@{bean.todayCommissionView.orderCount}"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"/>
 
@@ -331,7 +330,7 @@
                                 android:textStyle="bold"
                                 android:textColor="@color/color_4B4745"
                                 android:textSize="18sp"
-                                android:text="￥0"
+                                android:text="@{@string/price + bean.todayCommissionView.selfPreFee}"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"/>
 
@@ -362,7 +361,7 @@
                                 android:textStyle="bold"
                                 android:textColor="@color/color_4B4745"
                                 android:textSize="18sp"
-                                android:text="0"
+                                android:text="@{bean.todayCommissionView.selfOrderCount}"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"/>
 
@@ -400,7 +399,7 @@
                                 android:textStyle="bold"
                                 android:textColor="@color/color_4B4745"
                                 android:textSize="18sp"
-                                android:text="￥0"
+                                android:text="@{@string/price + bean.todayCommissionView.subPreFee}"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"/>
 
@@ -431,7 +430,7 @@
                                 android:textStyle="bold"
                                 android:textColor="@color/color_4B4745"
                                 android:textSize="18sp"
-                                android:text="0"
+                                android:text="@{bean.todayCommissionView.subOrderCount}"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"/>
 
@@ -522,7 +521,7 @@
                                 android:textStyle="bold"
                                 android:textColor="@color/color_4B4745"
                                 android:textSize="18sp"
-                                android:text="￥0"
+                                android:text="@{@string/price + bean.monthCommissionView.preFee}"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"/>
 
@@ -553,7 +552,7 @@
                                 android:textStyle="bold"
                                 android:textColor="@color/color_4B4745"
                                 android:textSize="18sp"
-                                android:text="0"
+                                android:text="@{bean.monthCommissionView.orderCount}"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"/>
 
@@ -591,7 +590,7 @@
                                 android:textStyle="bold"
                                 android:textColor="@color/color_4B4745"
                                 android:textSize="18sp"
-                                android:text="￥0"
+                                android:text="@{@string/price + bean.monthCommissionView.selfPreFee}"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"/>
 
@@ -622,7 +621,7 @@
                                 android:textStyle="bold"
                                 android:textColor="@color/color_4B4745"
                                 android:textSize="18sp"
-                                android:text="0"
+                                android:text="@{bean.monthCommissionView.selfOrderCount}"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"/>
 
@@ -660,7 +659,7 @@
                                 android:textStyle="bold"
                                 android:textColor="@color/color_4B4745"
                                 android:textSize="18sp"
-                                android:text="￥0"
+                                android:text="@{@string/price + bean.monthCommissionView.subPreFee}"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"/>
 
@@ -691,7 +690,7 @@
                                 android:textStyle="bold"
                                 android:textColor="@color/color_4B4745"
                                 android:textSize="18sp"
-                                android:text="0"
+                                android:text="@{bean.monthCommissionView.subOrderCount}"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"/>
 

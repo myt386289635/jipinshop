@@ -1424,4 +1424,11 @@ public class Repository {
     public Observable<SubUserBean> getSubUserDetail(String subUserId){
         return mAPIService.getSubUserDetail(subUserId);
     }
+
+    /**
+     * 我的收益
+     */
+    public Observable<MyWalletBean> myCommssionSum(){
+        return mAPIService.myCommssionSum();
+    }
 }

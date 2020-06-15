@@ -32,25 +32,25 @@ public class MyWalletPresenter {
     }
 
     public void myCommssionSummary(LifecycleTransformer<MyWalletBean> transformer){
-//        mRepository.myCommssionSummary()
-//                .subscribeOn(Schedulers.io())
-//                .observeOn(AndroidSchedulers.mainThread())
-//                .compose(transformer)
-//                .subscribe(myWalletBean -> {
-//                    if (myWalletBean.getCode() == 0){
-//                        if (mView != null){
-//                            mView.onSuccess(myWalletBean);
-//                        }
-//                    }else {
-//                        if (mView != null){
-//                            mView.onFile(myWalletBean.getMsg());
-//                        }
-//                    }
-//                }, throwable -> {
-//                    if (mView != null){
-//                        mView.onFile(throwable.getMessage());
-//                    }
-//                });
+        mRepository.myCommssionSum()
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .compose(transformer)
+                .subscribe(myWalletBean -> {
+                    if (myWalletBean.getCode() == 0){
+                        if (mView != null){
+                            mView.onSuccess(myWalletBean);
+                        }
+                    }else {
+                        if (mView != null){
+                            mView.onFile(myWalletBean.getMsg());
+                        }
+                    }
+                }, throwable -> {
+                    if (mView != null){
+                        mView.onFile(throwable.getMessage());
+                    }
+                });
     }
 
     public void addScore(String content, int score,Boolean scoreFlag,LifecycleTransformer<SuccessBean> transformer){

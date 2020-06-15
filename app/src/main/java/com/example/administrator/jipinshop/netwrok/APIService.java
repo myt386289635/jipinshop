@@ -1302,4 +1302,10 @@ public interface APIService {
      */
     @GET("api/v3/user/getSubUserDetail")
     Observable<SubUserBean> getSubUserDetail(@Query("subUserId") String subUserId);
+
+    /**
+     * 我的收益
+     */
+    @GET("api/v3/myCommssionSum")
+    Observable<MyWalletBean> myCommssionSum();
 }

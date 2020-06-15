@@ -49,15 +49,18 @@ public class MyWalletBean {
          * totalFee : 272.1
          */
 
-        private double preFee;
-        private double finalFee;
-        private double withdraw;
-        private double totalFee;
+        private String preFee;
+        private String finalFee;
+        private String withdraw;
+        private String totalFee;
 
         private String preTodayFee;
         private String preMonthFee;
         private String currentMonthFee;
         private String balanceFee;
+
+        private TodayCommissionViewBean todayCommissionView;
+        private MonthCommissionViewBean monthCommissionView;
 
         public String getPreTodayFee() {
             return preTodayFee;
@@ -91,36 +94,183 @@ public class MyWalletBean {
             this.balanceFee = balanceFee;
         }
 
-        public double getPreFee() {
+        public String getPreFee() {
             return preFee;
         }
 
-        public void setPreFee(double preFee) {
+        public void setPreFee(String preFee) {
             this.preFee = preFee;
         }
 
-        public double getFinalFee() {
+        public String getFinalFee() {
             return finalFee;
         }
 
-        public void setFinalFee(double finalFee) {
+        public void setFinalFee(String finalFee) {
             this.finalFee = finalFee;
         }
 
-        public double getWithdraw() {
+        public String getWithdraw() {
             return withdraw;
         }
 
-        public void setWithdraw(double withdraw) {
+        public void setWithdraw(String withdraw) {
             this.withdraw = withdraw;
         }
 
-        public double getTotalFee() {
+        public String getTotalFee() {
             return totalFee;
         }
 
-        public void setTotalFee(double totalFee) {
+        public void setTotalFee(String totalFee) {
             this.totalFee = totalFee;
+        }
+
+        public TodayCommissionViewBean getTodayCommissionView() {
+            return todayCommissionView;
+        }
+
+        public void setTodayCommissionView(TodayCommissionViewBean todayCommissionView) {
+            this.todayCommissionView = todayCommissionView;
+        }
+
+        public MonthCommissionViewBean getMonthCommissionView() {
+            return monthCommissionView;
+        }
+
+        public void setMonthCommissionView(MonthCommissionViewBean monthCommissionView) {
+            this.monthCommissionView = monthCommissionView;
+        }
+
+        public static class TodayCommissionViewBean {
+            /**
+             * preFee : 0
+             * orderCount : 0
+             * selfPreFee : 0
+             * selfOrderCount : 0
+             * subPreFee : 0
+             * subOrderCount : 0
+             */
+            private String preFee;
+            private String orderCount;
+            private String selfPreFee;
+            private String selfOrderCount;
+            private String subPreFee;
+            private String subOrderCount;
+
+            public String getPreFee() {
+                return preFee;
+            }
+
+            public void setPreFee(String preFee) {
+                this.preFee = preFee;
+            }
+
+            public String getOrderCount() {
+                return orderCount;
+            }
+
+            public void setOrderCount(String orderCount) {
+                this.orderCount = orderCount;
+            }
+
+            public String getSelfPreFee() {
+                return selfPreFee;
+            }
+
+            public void setSelfPreFee(String selfPreFee) {
+                this.selfPreFee = selfPreFee;
+            }
+
+            public String getSelfOrderCount() {
+                return selfOrderCount;
+            }
+
+            public void setSelfOrderCount(String selfOrderCount) {
+                this.selfOrderCount = selfOrderCount;
+            }
+
+            public String getSubPreFee() {
+                return subPreFee;
+            }
+
+            public void setSubPreFee(String subPreFee) {
+                this.subPreFee = subPreFee;
+            }
+
+            public String getSubOrderCount() {
+                return subOrderCount;
+            }
+
+            public void setSubOrderCount(String subOrderCount) {
+                this.subOrderCount = subOrderCount;
+            }
+        }
+
+        public static class MonthCommissionViewBean {
+            /**
+             * preFee : 1.15
+             * orderCount : 2
+             * selfPreFee : 0
+             * selfOrderCount : 0
+             * subPreFee : 1.15
+             * subOrderCount : 2
+             */
+
+            private String preFee;
+            private String orderCount;
+            private String selfPreFee;
+            private String selfOrderCount;
+            private String subPreFee;
+            private String subOrderCount;
+
+            public String getPreFee() {
+                return preFee;
+            }
+
+            public void setPreFee(String preFee) {
+                this.preFee = preFee;
+            }
+
+            public String getOrderCount() {
+                return orderCount;
+            }
+
+            public void setOrderCount(String orderCount) {
+                this.orderCount = orderCount;
+            }
+
+            public String getSelfPreFee() {
+                return selfPreFee;
+            }
+
+            public void setSelfPreFee(String selfPreFee) {
+                this.selfPreFee = selfPreFee;
+            }
+
+            public String getSelfOrderCount() {
+                return selfOrderCount;
+            }
+
+            public void setSelfOrderCount(String selfOrderCount) {
+                this.selfOrderCount = selfOrderCount;
+            }
+
+            public String getSubPreFee() {
+                return subPreFee;
+            }
+
+            public void setSubPreFee(String subPreFee) {
+                this.subPreFee = subPreFee;
+            }
+
+            public String getSubOrderCount() {
+                return subOrderCount;
+            }
+
+            public void setSubOrderCount(String subOrderCount) {
+                this.subOrderCount = subOrderCount;
+            }
         }
     }
 }
