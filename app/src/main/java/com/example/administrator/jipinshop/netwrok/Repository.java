@@ -9,6 +9,7 @@ import com.example.administrator.jipinshop.bean.CircleListBean;
 import com.example.administrator.jipinshop.bean.CircleTitleBean;
 import com.example.administrator.jipinshop.bean.ClickUrlBean;
 import com.example.administrator.jipinshop.bean.CommentBean;
+import com.example.administrator.jipinshop.bean.CommssionDetailBean;
 import com.example.administrator.jipinshop.bean.DailyTaskBean;
 import com.example.administrator.jipinshop.bean.DefaultAddressBean;
 import com.example.administrator.jipinshop.bean.EvaAttentBean;
@@ -88,6 +89,7 @@ import com.example.administrator.jipinshop.bean.UnMessageBean;
 import com.example.administrator.jipinshop.bean.UserInfoBean;
 import com.example.administrator.jipinshop.bean.V2FreeListBean;
 import com.example.administrator.jipinshop.bean.VoteBean;
+import com.example.administrator.jipinshop.bean.WalletHistoryBean;
 import com.example.administrator.jipinshop.bean.WelfareBean;
 import com.example.administrator.jipinshop.bean.WithdrawBean;
 import com.example.administrator.jipinshop.bean.WithdrawDetailBean;
@@ -1430,5 +1432,19 @@ public class Repository {
      */
     public Observable<MyWalletBean> myCommssionSum(){
         return mAPIService.myCommssionSum();
+    }
+
+    /**
+     * 历史概况
+     */
+    public Observable<WalletHistoryBean> getCommssionViewList(HashMap<String, String> map){
+        return mAPIService.getCommssionViewList(map);
+    }
+
+    /**
+     * 收益详情
+     */
+    public Observable<CommssionDetailBean> getCommssionDetail2(String orderTime , String type){
+        return mAPIService.getCommssionDetail2(orderTime, type);
     }
 }

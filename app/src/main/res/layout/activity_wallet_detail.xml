@@ -6,6 +6,10 @@
         <variable
             name="listener"
             type="android.view.View.OnClickListener"/>
+
+        <variable
+            name="date"
+            type="com.example.administrator.jipinshop.bean.CommssionDetailBean.DataBean"/>
     </data>
 
     <LinearLayout
@@ -69,7 +73,7 @@
                             android:id="@+id/wallet_todayMoney"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="￥0"
+                            android:text="@{@string/price + date.preFee}"
                             android:textColor="@color/color_4B4745"
                             android:textSize="18sp"
                             android:textStyle="bold"/>
@@ -100,7 +104,7 @@
                             android:id="@+id/wallet_todayOrder"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="0"
+                            android:text="@{date.orderCount}"
                             android:textColor="@color/color_4B4745"
                             android:textSize="18sp"
                             android:textStyle="bold"/>
@@ -204,7 +208,7 @@
                             android:textStyle="bold"
                             android:textColor="@color/color_4B4745"
                             android:textSize="18sp"
-                            android:text="￥0.00"
+                            android:text="@{@string/price + date.tbSelfPreFee}"
                             android:layout_weight="1"
                             android:layout_width="0dp"
                             android:layout_height="match_parent"/>
@@ -221,7 +225,7 @@
                             android:textStyle="bold"
                             android:textColor="@color/color_4B4745"
                             android:textSize="18sp"
-                            android:text="0"
+                            android:text="@{date.tbSelfOrderCount}"
                             android:layout_weight="1"
                             android:layout_width="0dp"
                             android:layout_height="match_parent"/>
@@ -256,7 +260,7 @@
                             android:textStyle="bold"
                             android:textColor="@color/color_4B4745"
                             android:textSize="18sp"
-                            android:text="￥0.00"
+                            android:text="@{@string/price + date.jdSelfPreFee}"
                             android:layout_weight="1"
                             android:layout_width="0dp"
                             android:layout_height="match_parent"/>
@@ -273,7 +277,7 @@
                             android:textStyle="bold"
                             android:textColor="@color/color_4B4745"
                             android:textSize="18sp"
-                            android:text="0"
+                            android:text="@{date.jdSelfOrderCount}"
                             android:layout_weight="1"
                             android:layout_width="0dp"
                             android:layout_height="match_parent"/>
@@ -308,7 +312,7 @@
                             android:textStyle="bold"
                             android:textColor="@color/color_4B4745"
                             android:textSize="18sp"
-                            android:text="￥0.00"
+                            android:text="@{@string/price + date.pddSelfPreFee}"
                             android:layout_weight="1"
                             android:layout_width="0dp"
                             android:layout_height="match_parent"/>
@@ -325,7 +329,7 @@
                             android:textStyle="bold"
                             android:textColor="@color/color_4B4745"
                             android:textSize="18sp"
-                            android:text="0"
+                            android:text="@{date.pddSelfOrderCount}"
                             android:layout_weight="1"
                             android:layout_width="0dp"
                             android:layout_height="match_parent"/>
@@ -430,7 +434,7 @@
                             android:textStyle="bold"
                             android:textColor="@color/color_4B4745"
                             android:textSize="18sp"
-                            android:text="￥0.00"
+                            android:text="@{@string/price + date.tbSubPreFee}"
                             android:layout_weight="1"
                             android:layout_width="0dp"
                             android:layout_height="match_parent"/>
@@ -447,7 +451,7 @@
                             android:textStyle="bold"
                             android:textColor="@color/color_4B4745"
                             android:textSize="18sp"
-                            android:text="0"
+                            android:text="@{date.tbSubOrderCount}"
                             android:layout_weight="1"
                             android:layout_width="0dp"
                             android:layout_height="match_parent"/>
@@ -482,7 +486,7 @@
                             android:textStyle="bold"
                             android:textColor="@color/color_4B4745"
                             android:textSize="18sp"
-                            android:text="￥0.00"
+                            android:text="@{@string/price + date.jdSubPreFee}"
                             android:layout_weight="1"
                             android:layout_width="0dp"
                             android:layout_height="match_parent"/>
@@ -499,7 +503,7 @@
                             android:textStyle="bold"
                             android:textColor="@color/color_4B4745"
                             android:textSize="18sp"
-                            android:text="0"
+                            android:text="@{date.jdSubOrderCount}"
                             android:layout_weight="1"
                             android:layout_width="0dp"
                             android:layout_height="match_parent"/>
@@ -534,7 +538,7 @@
                             android:textStyle="bold"
                             android:textColor="@color/color_4B4745"
                             android:textSize="18sp"
-                            android:text="￥0.00"
+                            android:text="@{@string/price + date.pddSubPreFee}"
                             android:layout_weight="1"
                             android:layout_width="0dp"
                             android:layout_height="match_parent"/>
@@ -551,7 +555,7 @@
                             android:textStyle="bold"
                             android:textColor="@color/color_4B4745"
                             android:textSize="18sp"
-                            android:text="0"
+                            android:text="@{date.pddSubOrderCount}"
                             android:layout_weight="1"
                             android:layout_width="0dp"
                             android:layout_height="match_parent"/>

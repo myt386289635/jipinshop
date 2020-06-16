@@ -1,5 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout xmlns:android="http://schemas.android.com/apk/res/android">
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+        <variable
+            name="date"
+            type="com.example.administrator.jipinshop.bean.WalletHistoryBean.DataBean"/>
+    </data>
 
     <LinearLayout
         android:orientation="vertical"
@@ -12,7 +19,7 @@
             android:textStyle="bold"
             android:textColor="@color/color_202020"
             android:textSize="15sp"
-            android:text="2020年5月26日"
+            tools:text="2020年5月26日"
             android:id="@+id/item_time"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"/>
@@ -53,7 +60,7 @@
                         android:textStyle="bold"
                         android:textColor="@color/color_4B4745"
                         android:textSize="18sp"
-                        android:text="￥0"
+                        android:text="@{@string/price + date.preFee}"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"/>
 
@@ -84,7 +91,7 @@
                         android:textStyle="bold"
                         android:textColor="@color/color_4B4745"
                         android:textSize="18sp"
-                        android:text="0"
+                        android:text="@{date.orderCount}"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"/>
 
@@ -122,7 +129,7 @@
                         android:textStyle="bold"
                         android:textColor="@color/color_4B4745"
                         android:textSize="18sp"
-                        android:text="￥0"
+                        android:text="@{@string/price + date.selfPreFee}"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"/>
 
@@ -153,7 +160,7 @@
                         android:textStyle="bold"
                         android:textColor="@color/color_4B4745"
                         android:textSize="18sp"
-                        android:text="0"
+                        android:text="@{date.selfOrderCount}"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"/>
 
@@ -191,7 +198,7 @@
                         android:textStyle="bold"
                         android:textColor="@color/color_4B4745"
                         android:textSize="18sp"
-                        android:text="￥0"
+                        android:text="@{@string/price + date.subPreFee}"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"/>
 
@@ -222,7 +229,7 @@
                         android:textStyle="bold"
                         android:textColor="@color/color_4B4745"
                         android:textSize="18sp"
-                        android:text="0"
+                        android:text="@{date.subOrderCount}"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"/>
 

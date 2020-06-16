@@ -3,13 +3,24 @@ package com.example.administrator.jipinshop.activity.balance.history;
 import android.content.Context;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.text.TextUtils;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
+import android.widget.TableRow;
 
 import com.aspsine.swipetoloadlayout.SwipeToLoadLayout;
+import com.example.administrator.jipinshop.bean.SuccessBean;
+import com.example.administrator.jipinshop.bean.WalletHistoryBean;
 import com.example.administrator.jipinshop.netwrok.Repository;
+import com.trello.rxlifecycle2.LifecycleTransformer;
+
+import java.util.HashMap;
 
 import javax.inject.Inject;
+
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.functions.Consumer;
+import io.reactivex.schedulers.Schedulers;
 
 /**
  * @author 莫小婷
@@ -19,6 +30,11 @@ import javax.inject.Inject;
 public class WalletHistoryPresenter {
 
     private Repository mRepository;
+    private WalletHistoryView mView;
+
+    public void setView(WalletHistoryView view) {
+        mView = view;
+    }
 
     @Inject
     public WalletHistoryPresenter(Repository repository) {
@@ -49,5 +65,26 @@ public class WalletHistoryPresenter {
                 super.onScrollStateChanged(recyclerView, newState);
             }
         });
+    }
+
+    public void getCommssionViewList(String type , String orderTime , LifecycleTransformer<WalletHistoryBean> transformer){
+        HashMap<String, String> map = new HashMap<>();
+        if (!TextUtils.isEmpty(orderTime)){
+            map.put("orderTime",orderTime);
+        }
+        map.put("type",type);
+        mRepository.getCommssionViewList(map)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .compose(transformer)
+                .subscribe(bean -> {
+                    if (bean.getCode() == 0){
+                        mView.onSuccess(bean);
+                    }else {
+                        mView.onFile(bean.getMsg());
+                    }
+                }, throwable -> {
+                    mView.onFile(throwable.getMessage());
+                });
     }
 }

@@ -15,16 +15,18 @@ import com.example.administrator.jipinshop.activity.balance.withdraw.WithdrawAct
 import com.example.administrator.jipinshop.base.BaseActivity;
 import com.example.administrator.jipinshop.bean.MyWalletBean;
 import com.example.administrator.jipinshop.bean.ScoreStatusBean;
-import com.example.administrator.jipinshop.bean.SuccessBean;
 import com.example.administrator.jipinshop.bean.eventbus.WithdrawBus;
 import com.example.administrator.jipinshop.databinding.ActivityWalletBinding;
 import com.example.administrator.jipinshop.netwrok.RetrofitModule;
+import com.example.administrator.jipinshop.util.PickerUtil;
 import com.example.administrator.jipinshop.util.ToastUtil;
 import com.example.administrator.jipinshop.view.dialog.DialogUtil;
 import com.example.administrator.jipinshop.view.dialog.ProgressDialogView;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
+
+import java.util.Date;
 
 import javax.inject.Inject;
 
@@ -75,25 +77,37 @@ public class MyWalletActivity extends BaseActivity implements View.OnClickListen
             case R.id.title_totleText:
                 //总资产解释
                 startActivity(new Intent(this, WebActivity.class)
-                        .putExtra(WebActivity.url, RetrofitModule.H5_URL+"commission-rule.html")
+                        .putExtra(WebActivity.url, RetrofitModule.H5_URL+"new-free/syRule")
                         .putExtra(WebActivity.title,"规则说明")
                 );
                 break;
             case R.id.wallet_today_detail:
                 //日详情
-                startActivity(new Intent(this, WalletDetailActivity.class));
+                Date date = new Date(System.currentTimeMillis());
+                startActivity(new Intent(this, WalletDetailActivity.class)
+                        .putExtra("type","1")
+                        .putExtra("orderTime",PickerUtil.getTime(date))
+                );
                 break;
             case R.id.wallet_month_detail:
                 //月详情
-                startActivity(new Intent(this, WalletDetailActivity.class));
+                Date date1 = new Date(System.currentTimeMillis());
+                startActivity(new Intent(this, WalletDetailActivity.class)
+                        .putExtra("type","2")
+                        .putExtra("orderTime",PickerUtil.getTime_Month(date1))
+                );
                 break;
             case R.id.wallet_today:
                 //日历史概况
-                startActivity(new Intent(this, WalletHistoryActivity.class));
+                startActivity(new Intent(this, WalletHistoryActivity.class)
+                        .putExtra("type","1")
+                );
                 break;
             case R.id.wallet_month:
                 //月历史概况
-                startActivity(new Intent(this, WalletHistoryActivity.class));
+                startActivity(new Intent(this, WalletHistoryActivity.class)
+                        .putExtra("type","2")
+                );
                 break;
         }
     }

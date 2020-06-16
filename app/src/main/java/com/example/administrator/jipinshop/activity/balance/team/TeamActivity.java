@@ -1,5 +1,6 @@
 package com.example.administrator.jipinshop.activity.balance.team;
 
+import android.content.Intent;
 import android.databinding.DataBindingUtil;
 import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.Drawable;
@@ -14,6 +15,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.example.administrator.jipinshop.R;
+import com.example.administrator.jipinshop.activity.WebActivity;
 import com.example.administrator.jipinshop.adapter.HomeFragmentAdapter;
 import com.example.administrator.jipinshop.adapter.KTTabAdapter4;
 import com.example.administrator.jipinshop.base.BaseActivity;
@@ -23,6 +25,7 @@ import com.example.administrator.jipinshop.databinding.ActivityTeamBinding;
 import com.example.administrator.jipinshop.fragment.mine.team.TeamOneFragment;
 import com.example.administrator.jipinshop.fragment.mine.team.three.TeamThreeFragment;
 import com.example.administrator.jipinshop.fragment.mine.team.two.TeamTwoFragment;
+import com.example.administrator.jipinshop.netwrok.RetrofitModule;
 import com.example.administrator.jipinshop.util.ToastUtil;
 import com.example.administrator.jipinshop.view.dialog.DialogUtil;
 
@@ -188,7 +191,10 @@ public class TeamActivity extends BaseActivity implements View.OnClickListener, 
                 break;
             case R.id.team_bottomContainer:
                 if (mBinding.teamRule.getVisibility() == View.VISIBLE){
-                    //todo h5
+                    startActivity(new Intent(this, WebActivity.class)
+                            .putExtra(WebActivity.url, "https://mp.weixin.qq.com/s/SueVp7gfAhhuRjANJCW9uQ")
+                            .putExtra(WebActivity.title,"如何激活你的潜在粉丝")
+                    );
                 }else {
                     if (mTeacherBean != null){
                         DialogUtil.userDetailDialog(this,mTeacherBean);

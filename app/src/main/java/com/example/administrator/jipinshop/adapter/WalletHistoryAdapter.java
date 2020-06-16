@@ -5,10 +5,10 @@ import android.databinding.DataBindingUtil;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
-import android.view.View;
 import android.view.ViewGroup;
 
 import com.example.administrator.jipinshop.R;
+import com.example.administrator.jipinshop.bean.WalletHistoryBean;
 import com.example.administrator.jipinshop.databinding.ItemWalletHistroyBinding;
 
 import java.util.List;
@@ -20,7 +20,7 @@ import java.util.List;
  */
 public class WalletHistoryAdapter extends RecyclerView.Adapter<WalletHistoryAdapter.ViewHolder> {
 
-    private List<String> mList;
+    private List<WalletHistoryBean.DataBean> mList;
     private Context mContext;
     private OnItem mOnItem;
 
@@ -28,7 +28,7 @@ public class WalletHistoryAdapter extends RecyclerView.Adapter<WalletHistoryAdap
         mOnItem = onItem;
     }
 
-    public WalletHistoryAdapter(List<String> list, Context context) {
+    public WalletHistoryAdapter(List<WalletHistoryBean.DataBean> list, Context context) {
         mList = list;
         mContext = context;
     }
@@ -46,6 +46,13 @@ public class WalletHistoryAdapter extends RecyclerView.Adapter<WalletHistoryAdap
         holder.mBinding.itemDetail.setOnClickListener(v -> {
             mOnItem.onItemClick(position);
         });
+        holder.mBinding.setDate(mList.get(position));
+        holder.mBinding.executePendingBindings();
+        if (mList.get(position).getDay() == 0){
+            holder.mBinding.itemTime.setText(mList.get(position).getYear() + "年" + mList.get(position).getMonth() + "月");
+        }else {
+            holder.mBinding.itemTime.setText(mList.get(position).getYear() + "年" + mList.get(position).getMonth() + "月" + mList.get(position).getDay() + "日");
+        }
     }
 
     @Override

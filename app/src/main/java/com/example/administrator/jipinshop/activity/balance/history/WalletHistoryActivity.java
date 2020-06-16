@@ -1,5 +1,6 @@
 package com.example.administrator.jipinshop.activity.balance.history;
 
+import android.app.Dialog;
 import android.content.Intent;
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
@@ -12,8 +13,11 @@ import com.example.administrator.jipinshop.R;
 import com.example.administrator.jipinshop.activity.balance.detail.WalletDetailActivity;
 import com.example.administrator.jipinshop.adapter.WalletHistoryAdapter;
 import com.example.administrator.jipinshop.base.BaseActivity;
+import com.example.administrator.jipinshop.bean.WalletHistoryBean;
 import com.example.administrator.jipinshop.databinding.ActivityWalletHistoryBinding;
 import com.example.administrator.jipinshop.util.PickerUtil;
+import com.example.administrator.jipinshop.util.ToastUtil;
+import com.example.administrator.jipinshop.view.dialog.ProgressDialogView;
 
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -26,14 +30,18 @@ import javax.inject.Inject;
  * @create 2020/6/11
  * @Describe 历史概况
  */
-public class WalletHistoryActivity extends BaseActivity implements View.OnClickListener,OnRefreshListener, WalletHistoryAdapter.OnItem {
+public class WalletHistoryActivity extends BaseActivity implements View.OnClickListener,OnRefreshListener, WalletHistoryAdapter.OnItem, WalletHistoryView {
 
     @Inject
     WalletHistoryPresenter mPresenter;
     private ActivityWalletHistoryBinding mBinding;
     private PickerUtil mPickerUtil; //时间选择器，最新选择器
-    private List<String> mList;
+    private List<WalletHistoryBean.DataBean> mList;
     private WalletHistoryAdapter mAdapter;
+    private Dialog mDialog;
+
+    private String type = "1"; // 1日历史概况，2月历史概况
+    private String orderTime = "";//时间
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -48,16 +56,15 @@ public class WalletHistoryActivity extends BaseActivity implements View.OnClickL
     }
 
     private void initView() {
+        type = getIntent().getStringExtra("type");
         mBaseActivityComponent.inject(this);
+        mPresenter.setView(this);
         mBinding.inClude.titleTv.setText("历史概况");
         mPresenter.setStatusBarHight(mBinding.statusBar,this);
         mPresenter.solveScoll(mBinding.recyclerView,mBinding.swipeToLoad);
 
         //时间选择器
         mPickerUtil = new PickerUtil();
-        Calendar startDate =  Calendar.getInstance();
-        startDate.set(2018,9,10);
-        mPickerUtil.initDayTime(this,startDate);
 
         mBinding.recyclerView.setLayoutManager(new LinearLayoutManager(this));
         mList = new ArrayList<>();
@@ -78,17 +85,15 @@ public class WalletHistoryActivity extends BaseActivity implements View.OnClickL
                 //选择时间
                 mPickerUtil.showPiker();
                 break;
+            case R.id.title_back:
+                finish();
+                break;
         }
     }
 
     @Override
     public void onRefresh() {
-        dissRefresh();
-        mList.clear();
-        for (int i = 0; i < 7; i++) {
-            mList.add("");
-        }
-        mAdapter.notifyDataSetChanged();
+        mPresenter.getCommssionViewList(type,orderTime,this.bindToLifecycle());
     }
 
     public void dissRefresh(){
@@ -100,6 +105,9 @@ public class WalletHistoryActivity extends BaseActivity implements View.OnClickL
             } else {
                 mBinding.swipeToLoad.setRefreshing(false);
             }
+        }
+        if (mDialog != null && mDialog.isShowing()) {
+            mDialog.dismiss();
         }
     }
 
@@ -113,6 +121,48 @@ public class WalletHistoryActivity extends BaseActivity implements View.OnClickL
     //进入详情
     @Override
     public void onItemClick(int position) {
-        startActivity(new Intent(this, WalletDetailActivity.class));
+        String orderTime = "";
+        if (mList.get(position).getDay() == 0){
+            orderTime = mList.get(position).getYear() + "-" + mList.get(position).getMonth();
+        }else {
+            orderTime = mList.get(position).getYear() + "-" + mList.get(position).getMonth() + "-" + mList.get(position).getDay() ;
+        }
+        startActivity(new Intent(this, WalletDetailActivity.class)
+                .putExtra("type", type)
+                .putExtra("orderTime", orderTime)
+        );
+    }
+
+    @Override
+    public void onSuccess(WalletHistoryBean bean) {
+        dissRefresh();
+        Calendar startDate =  Calendar.getInstance();
+        startDate.set(bean.getYear(),bean.getMonth() - 1,bean.getDay());
+        if (type.equals("1")){
+            //日选择器
+            mPickerUtil.initDayTime(this, startDate, date -> {
+                orderTime = date;
+                mDialog = (new ProgressDialogView()).createLoadingDialog(this, "");
+                mDialog.show();
+                onRefresh();
+            });
+        }else {
+            //月选择器
+            mPickerUtil.initMonthTime(this, startDate, date -> {
+                orderTime = date;
+                mDialog = (new ProgressDialogView()).createLoadingDialog(this, "");
+                mDialog.show();
+                onRefresh();
+            });
+        }
+        mList.clear();
+        mList.addAll(bean.getData());
+        mAdapter.notifyDataSetChanged();
+    }
+
+    @Override
+    public void onFile(String error) {
+        dissRefresh();
+        ToastUtil.show(error);
     }
 }
