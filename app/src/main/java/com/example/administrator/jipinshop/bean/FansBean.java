@@ -57,6 +57,15 @@ public class FansBean {
         private String preFee;
         private String preMonthFee;
         private String subTotal;
+        private String remark;
+
+        public String getRemark() {
+            return remark;
+        }
+
+        public void setRemark(String remark) {
+            this.remark = remark;
+        }
 
         public String getSubUserId() {
             return subUserId;
