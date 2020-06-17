@@ -99,7 +99,7 @@ class KTHomeFragnent : DBBaseFragment(), View.OnClickListener, ViewPager.OnPageC
         ViewPagerHelper.bind(mBinding.tabLayout, mBinding.viewPager)
 
         context?.let {
-            var set = it.resources.getDimension(R.dimen.x200)
+            var set = it.resources.getDimension(R.dimen.x74)
             toLeft =   ObjectAnimator.ofFloat(mBinding.homeAction, "translationX",set , 0f)
             toRight =   ObjectAnimator.ofFloat(mBinding.homeAction, "translationX",0f , set)
         }

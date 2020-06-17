@@ -950,6 +950,8 @@ public class DialogUtil {
                 clip.setPrimaryClip(clipData);
                 ToastUtil.show("复制成功");
                 SPUtils.getInstance().put(CommonDate.CLIP,bean.getData().getMobile());
+            }else {
+                ToastUtil.show("暂未填写");
             }
         });
         binding.dialogWxCopy.setOnClickListener(v -> {
@@ -959,6 +961,8 @@ public class DialogUtil {
                 clip.setPrimaryClip(clipData);
                 ToastUtil.show("复制成功");
                 SPUtils.getInstance().put(CommonDate.CLIP,bean.getData().getWechat());
+            }else {
+                ToastUtil.show("暂未填写");
             }
         });
         dialog.getWindow().setDimAmount(0.35f);
@@ -984,6 +988,28 @@ public class DialogUtil {
         }else {
             binding.dialogWxCode.setText(bean.getData().getWechat());
         }
+        binding.dialogPhoneCopy.setOnClickListener(v -> {
+            if (!TextUtils.isEmpty(bean.getData().getInvitationCode())){
+                ClipboardManager clip = (ClipboardManager)context.getSystemService(Context.CLIPBOARD_SERVICE);
+                ClipData clipData = ClipData.newPlainText("jipinshop", bean.getData().getInvitationCode());
+                clip.setPrimaryClip(clipData);
+                ToastUtil.show("复制成功");
+                SPUtils.getInstance().put(CommonDate.CLIP,bean.getData().getInvitationCode());
+            }else {
+                ToastUtil.show("暂未填写");
+            }
+        });
+        binding.dialogWxCopy.setOnClickListener(v -> {
+            if (!TextUtils.isEmpty(bean.getData().getWechat())) {
+                ClipboardManager clip = (ClipboardManager)context.getSystemService(Context.CLIPBOARD_SERVICE);
+                ClipData clipData = ClipData.newPlainText("jipinshop", bean.getData().getWechat());
+                clip.setPrimaryClip(clipData);
+                ToastUtil.show("复制成功");
+                SPUtils.getInstance().put(CommonDate.CLIP,bean.getData().getWechat());
+            }else {
+                ToastUtil.show("暂未填写");
+            }
+        });
         dialog.getWindow().setDimAmount(0.35f);
         dialog.show();
         dialog.setContentView(binding.getRoot());
