@@ -15,7 +15,6 @@ import com.example.administrator.jipinshop.adapter.TeamOneAdapter
 import com.example.administrator.jipinshop.base.DBBaseFragment
 import com.example.administrator.jipinshop.bean.FansBean
 import com.example.administrator.jipinshop.bean.SubUserBean
-import com.example.administrator.jipinshop.bean.SuccessBean
 import com.example.administrator.jipinshop.databinding.FragmentTeam1Binding
 import com.example.administrator.jipinshop.util.ToastUtil
 import com.example.administrator.jipinshop.view.dialog.DialogUtil

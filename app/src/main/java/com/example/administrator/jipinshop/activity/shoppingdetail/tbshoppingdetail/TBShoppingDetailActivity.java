@@ -258,7 +258,7 @@ public class TBShoppingDetailActivity extends BaseActivity implements View.OnCli
                         mPresenter.collectDelete(goodsId,this.bindToLifecycle());
                     }else {
                         //没有收藏
-                        mPresenter.collectInsert(goodsId,this.bindToLifecycle());
+                        mPresenter.collectInsert(goodsId,source,this.bindToLifecycle());
                     }
                 }
                 break;

@@ -112,10 +112,11 @@ public class TBShoppingDetailPresenter {
     /**
      * 添加收藏
      */
-    public void collectInsert(String goodsId , LifecycleTransformer<SuccessBean> transformer){
+    public void collectInsert(String goodsId, String source, LifecycleTransformer<SuccessBean> transformer){
         Map<String,String> hashMap = new HashMap<>();
         hashMap.put("type", "8");
         hashMap.put("targetId",goodsId);
+        hashMap.put("source",source);
         mRepository.collectInsert(hashMap)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())

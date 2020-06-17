@@ -3,6 +3,7 @@ package com.example.administrator.jipinshop.adapter
 import android.content.Context
 import android.databinding.DataBindingUtil
 import android.support.v7.widget.RecyclerView
+import android.text.TextUtils
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import com.example.administrator.jipinshop.R
@@ -65,6 +66,11 @@ class TeamOneAdapter : RecyclerView.Adapter<TeamOneAdapter.ViewHolder>{
             }
             binding.date = mList[position]
             binding.executePendingBindings()
+            if (TextUtils.isEmpty(mList[position].mobile)){
+                binding.itemNumber.text = "手机号：无"
+            }else{
+                binding.itemNumber.text = "手机号：" + mList[position].mobile
+            }
         }
     }
 

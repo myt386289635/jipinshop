@@ -940,7 +940,7 @@ public class DialogUtil {
         binding.dialogProgress.setText(bean.getData().getSubTotal() + "/" + bean.getData().getLevelInvitedUser());
         binding.dialogFans.setText(bean.getData().getSubTotal());
         if (TextUtils.isEmpty(bean.getData().getLastOrderTime())){
-            binding.dialogTime.setText("无");
+            binding.dialogTime.setText("暂未下单");
         }else {
             binding.dialogTime.setText(bean.getData().getLastOrderTime());
         }
