@@ -7,11 +7,9 @@ import android.support.v4.graphics.ColorUtils;
 import android.view.ViewGroup;
 
 import com.example.administrator.jipinshop.R;
-import com.example.administrator.jipinshop.bean.TeacherBean;
 import com.example.administrator.jipinshop.bean.TeamBean;
 import com.example.administrator.jipinshop.databinding.ActivityTeamBinding;
 import com.example.administrator.jipinshop.netwrok.Repository;
-import com.example.administrator.jipinshop.util.ToastUtil;
 import com.trello.rxlifecycle2.LifecycleTransformer;
 
 import javax.inject.Inject;
@@ -103,19 +101,4 @@ public class TeamPresenter {
                 });
     }
 
-    public void getParentInfo(LifecycleTransformer<TeacherBean> transformer){
-        mRepository.parentInfo()
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .compose(transformer)
-                .subscribe(teacherBean -> {
-                    if (teacherBean.getCode() == 0) {
-                        mView.onTeacher(teacherBean);
-                    }else {
-                        ToastUtil.show("导师信息获取失败，请重新尝试");
-                    }
-                }, throwable -> {
-                    ToastUtil.show("导师信息获取失败，请重新尝试");
-                });
-    }
 }

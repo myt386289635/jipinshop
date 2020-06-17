@@ -1,6 +1,5 @@
 package com.example.administrator.jipinshop.activity.balance.team;
 
-import com.example.administrator.jipinshop.bean.TeacherBean;
 import com.example.administrator.jipinshop.bean.TeamBean;
 
 /**
@@ -11,6 +10,4 @@ import com.example.administrator.jipinshop.bean.TeamBean;
 public interface TeamView {
     void onSuccess(TeamBean bean);
     void onFile(String error);
-
-    void onTeacher(TeacherBean bean);
 }

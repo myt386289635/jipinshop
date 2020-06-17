@@ -10,6 +10,7 @@ public class TeamBean {
     private String msg;
     private int code;
     private DataBean data;
+    private TeacherBean.DataBean parentInfo;
 
     public String getMsg() {
         return msg;
@@ -89,5 +90,13 @@ public class TeamBean {
         public void setSub2Total(String sub2Total) {
             this.sub2Total = sub2Total;
         }
+    }
+
+    public TeacherBean.DataBean getParentInfo() {
+        return parentInfo;
+    }
+
+    public void setParentInfo(TeacherBean.DataBean parentInfo) {
+        this.parentInfo = parentInfo;
     }
 }

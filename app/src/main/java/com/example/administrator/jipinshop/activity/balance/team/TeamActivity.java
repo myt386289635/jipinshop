@@ -25,7 +25,6 @@ import com.example.administrator.jipinshop.databinding.ActivityTeamBinding;
 import com.example.administrator.jipinshop.fragment.mine.team.TeamOneFragment;
 import com.example.administrator.jipinshop.fragment.mine.team.three.TeamThreeFragment;
 import com.example.administrator.jipinshop.fragment.mine.team.two.TeamTwoFragment;
-import com.example.administrator.jipinshop.netwrok.RetrofitModule;
 import com.example.administrator.jipinshop.util.ToastUtil;
 import com.example.administrator.jipinshop.view.dialog.DialogUtil;
 
@@ -66,7 +65,7 @@ public class TeamActivity extends BaseActivity implements View.OnClickListener, 
     private String[] orderByType ={"1","1"};
     private List<TextView> mTextViews;
 
-    private TeacherBean mTeacherBean;
+    private TeacherBean.DataBean mTeacherBean;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -132,7 +131,6 @@ public class TeamActivity extends BaseActivity implements View.OnClickListener, 
         mBinding.viewPager.addOnPageChangeListener(this);
 
         mPresenter.getMyTeamInfo(this.bindToLifecycle());
-        mPresenter.getParentInfo(this.bindToLifecycle());
     }
 
     @Override
@@ -308,6 +306,8 @@ public class TeamActivity extends BaseActivity implements View.OnClickListener, 
     public void onSuccess(TeamBean bean) {
         mBinding.setDate(bean.getData());
         mBinding.executePendingBindings();
+        mBinding.teamTeacherName.setText(bean.getParentInfo().getNickname());
+        mTeacherBean = bean.getParentInfo();
     }
 
     @Override
@@ -315,8 +315,4 @@ public class TeamActivity extends BaseActivity implements View.OnClickListener, 
         ToastUtil.show(error);
     }
 
-    @Override
-    public void onTeacher(TeacherBean bean) {
-        mTeacherBean = bean;
-    }
 }

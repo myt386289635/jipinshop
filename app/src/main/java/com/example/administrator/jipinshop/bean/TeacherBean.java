@@ -44,6 +44,15 @@ public class TeacherBean {
         private String avatar;
         private String wechat;
         private String invitationCode;
+        private String nickname;
+
+        public String getNickname() {
+            return nickname;
+        }
+
+        public void setNickname(String nickname) {
+            this.nickname = nickname;
+        }
 
         public String getInvitationCode() {
             return invitationCode;

@@ -472,12 +472,8 @@ public class MainActivity extends RxAppCompatActivity implements MainView, ViewP
                             startActivity(new Intent(this, NewFreeActivity.class));
                         }, v -> {
                             DialogUtil.imgDialog(MainActivity.this, bean.getData().get(finalActivityPos).getData().getImg(), v1 -> {
-                                if (TextUtils.isEmpty(SPUtils.getInstance(CommonDate.USER).getString(CommonDate.token, ""))) {
-                                    startActivity(new Intent(this, LoginActivity.class));
-                                    return;
-                                }
                                 ShopJumpUtil.openPager(MainActivity.this, bean.getData().get(finalActivityPos).getData().getTargetType()
-                                        , bean.getData().get(finalActivityPos).getData().getTargetId(), "小分类");
+                                        , bean.getData().get(finalActivityPos).getData().getTargetId(), bean.getData().get(finalActivityPos).getData().getTitle());
                             }, v1 -> {
                                 getClipText();
                             });
@@ -487,12 +483,8 @@ public class MainActivity extends RxAppCompatActivity implements MainView, ViewP
                         }
                     } else {
                         DialogUtil.imgDialog(MainActivity.this, bean.getData().get(finalActivityPos).getData().getImg(), v1 -> {
-                            if (TextUtils.isEmpty(SPUtils.getInstance(CommonDate.USER).getString(CommonDate.token, ""))) {
-                                startActivity(new Intent(this, LoginActivity.class));
-                                return;
-                            }
                             ShopJumpUtil.openPager(MainActivity.this, bean.getData().get(finalActivityPos).getData().getTargetType()
-                                    , bean.getData().get(finalActivityPos).getData().getTargetId(), "小分类");
+                                    , bean.getData().get(finalActivityPos).getData().getTargetId(), bean.getData().get(finalActivityPos).getData().getTitle());
                         }, v1 -> {
                             getClipText();
                         });
@@ -504,12 +496,8 @@ public class MainActivity extends RxAppCompatActivity implements MainView, ViewP
                         startActivity(new Intent(this, CheapBuyActivity.class));
                     }, v2 -> {
                         DialogUtil.imgDialog(MainActivity.this, bean.getData().get(finalActivityPos1).getData().getImg(), v -> {
-                            if (TextUtils.isEmpty(SPUtils.getInstance(CommonDate.USER).getString(CommonDate.token, ""))) {
-                                startActivity(new Intent(this, LoginActivity.class));
-                                return;
-                            }
                             ShopJumpUtil.openPager(MainActivity.this, bean.getData().get(finalActivityPos1).getData().getTargetType()
-                                    , bean.getData().get(finalActivityPos1).getData().getTargetId(), "小分类");
+                                    , bean.getData().get(finalActivityPos1).getData().getTargetId(), bean.getData().get(finalActivityPos1).getData().getTitle());
                         }, v -> {
                             getClipText();
                         });
@@ -522,12 +510,8 @@ public class MainActivity extends RxAppCompatActivity implements MainView, ViewP
                 if (bean.getData().get(0).getType() == 1) {
                     //系统活动弹窗
                     DialogUtil.imgDialog(MainActivity.this, bean.getData().get(0).getData().getImg(), v -> {
-                        if (TextUtils.isEmpty(SPUtils.getInstance(CommonDate.USER).getString(CommonDate.token, ""))) {
-                            startActivity(new Intent(this, LoginActivity.class));
-                            return;
-                        }
                         ShopJumpUtil.openPager(MainActivity.this, bean.getData().get(0).getData().getTargetType()
-                                , bean.getData().get(0).getData().getTargetId(), "小分类");
+                                , bean.getData().get(0).getData().getTargetId(), bean.getData().get(0).getData().getTitle());
                     }, v -> {
                         getClipText();
                     });

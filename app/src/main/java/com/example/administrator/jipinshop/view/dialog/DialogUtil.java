@@ -918,6 +918,7 @@ public class DialogUtil {
         DialogUserDetailBinding binding = DataBindingUtil.inflate(LayoutInflater.from(context),R.layout.dialog_user_detail, null,false);
         final Dialog dialog = builder.create();
         binding.dialogClose.setOnClickListener(v -> dialog.dismiss());
+        binding.dialogTitle.setText(bean.getData().getNickname());
         if (TextUtils.isEmpty(bean.getData().getMobile())){
             binding.dialogPhone.setText("暂未填写");
         }else {
@@ -971,41 +972,42 @@ public class DialogUtil {
     }
 
     //专家
-    public static void userDetailDialog(Context context, TeacherBean bean){
+    public static void userDetailDialog(Context context, TeacherBean.DataBean bean){
         AlertDialog.Builder builder = new AlertDialog.Builder(context, R.style.dialog);
         DialogUserDetailBinding binding = DataBindingUtil.inflate(LayoutInflater.from(context),R.layout.dialog_user_detail, null,false);
         final Dialog dialog = builder.create();
+        binding.dialogTitle.setText(bean.getNickname());
         binding.dialogClose.setOnClickListener(v -> dialog.dismiss());
         binding.dialogBottomContainer.setVisibility(View.GONE);
         binding.dialogNumber.setText("邀请ID");
-        if (TextUtils.isEmpty(bean.getData().getInvitationCode())){
+        if (TextUtils.isEmpty(bean.getInvitationCode())){
             binding.dialogPhone.setText("暂未填写");
         }else {
-            binding.dialogPhone.setText(bean.getData().getInvitationCode());
+            binding.dialogPhone.setText(bean.getInvitationCode());
         }
-        if (TextUtils.isEmpty(bean.getData().getWechat())){
+        if (TextUtils.isEmpty(bean.getWechat())){
             binding.dialogWxCode.setText("暂未填写");
         }else {
-            binding.dialogWxCode.setText(bean.getData().getWechat());
+            binding.dialogWxCode.setText(bean.getWechat());
         }
         binding.dialogPhoneCopy.setOnClickListener(v -> {
-            if (!TextUtils.isEmpty(bean.getData().getInvitationCode())){
+            if (!TextUtils.isEmpty(bean.getInvitationCode())){
                 ClipboardManager clip = (ClipboardManager)context.getSystemService(Context.CLIPBOARD_SERVICE);
-                ClipData clipData = ClipData.newPlainText("jipinshop", bean.getData().getInvitationCode());
+                ClipData clipData = ClipData.newPlainText("jipinshop", bean.getInvitationCode());
                 clip.setPrimaryClip(clipData);
                 ToastUtil.show("复制成功");
-                SPUtils.getInstance().put(CommonDate.CLIP,bean.getData().getInvitationCode());
+                SPUtils.getInstance().put(CommonDate.CLIP,bean.getInvitationCode());
             }else {
                 ToastUtil.show("暂未填写");
             }
         });
         binding.dialogWxCopy.setOnClickListener(v -> {
-            if (!TextUtils.isEmpty(bean.getData().getWechat())) {
+            if (!TextUtils.isEmpty(bean.getWechat())) {
                 ClipboardManager clip = (ClipboardManager)context.getSystemService(Context.CLIPBOARD_SERVICE);
-                ClipData clipData = ClipData.newPlainText("jipinshop", bean.getData().getWechat());
+                ClipData clipData = ClipData.newPlainText("jipinshop", bean.getWechat());
                 clip.setPrimaryClip(clipData);
                 ToastUtil.show("复制成功");
-                SPUtils.getInstance().put(CommonDate.CLIP,bean.getData().getWechat());
+                SPUtils.getInstance().put(CommonDate.CLIP,bean.getWechat());
             }else {
                 ToastUtil.show("暂未填写");
             }
