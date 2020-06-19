@@ -109,6 +109,15 @@ public class EvaluationTabBean {
             private int type;
             private String objectId;
             private String name;
+            private String source;
+
+            public String getSource() {
+                return source;
+            }
+
+            public void setSource(String source) {
+                this.source = source;
+            }
 
             public String getName() {
                 return name;

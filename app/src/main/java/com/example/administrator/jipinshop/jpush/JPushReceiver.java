@@ -68,7 +68,8 @@ public class JPushReceiver extends BroadcastReceiver {
                     String targetType = jPushBean.getTargetType();
                     String target_id = jPushBean.getTargetId();
                     String target_title = jPushBean.getTargetTitle();
-                    ShopJumpUtil.openJPush(context,targetType,target_id,target_title);
+                    String source= jPushBean.getSource();
+                    ShopJumpUtil.openJPush(context,targetType,target_id,target_title,source);
                 }
             }else {
                 Intent intentDefult = new Intent();

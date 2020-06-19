@@ -8,6 +8,7 @@ import android.net.http.SslError;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.text.TextUtils;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.ViewParent;
@@ -22,6 +23,7 @@ import com.blankj.utilcode.util.SPUtils;
 import com.example.administrator.jipinshop.R;
 import com.example.administrator.jipinshop.base.BaseActivity;
 import com.example.administrator.jipinshop.bean.ClickUrlBean;
+import com.example.administrator.jipinshop.bean.ImageBean;
 import com.example.administrator.jipinshop.databinding.ActivityWebBinding;
 import com.example.administrator.jipinshop.util.ShareUtils;
 import com.example.administrator.jipinshop.util.TaoBaoUtil;
@@ -48,9 +50,11 @@ public class WebActivity extends BaseActivity implements View.OnClickListener, W
     WebPresenter mPresenter;
     private ActivityWebBinding mBinding;
     private Dialog mDialog;//加载框
+    private Dialog mProgressDialog ;
     private boolean inShare = false;//是否分享  默认为不分享
     //分享面板
     private ShareBoardDialog mShareBoardDialog;
+    private String mSource = "";
 
     public static final String url = "url";
     public static final String title = "title";
@@ -58,6 +62,8 @@ public class WebActivity extends BaseActivity implements View.OnClickListener, W
     public static final String shareTitle = "shareTitle";
     public static final String shareContent = "shareContent";
     public static final String shareImage = "shareImage";
+
+    public static final String source = "source";
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -71,8 +77,11 @@ public class WebActivity extends BaseActivity implements View.OnClickListener, W
 
     private void initView() {
         inShare = getIntent().getBooleanExtra(isShare,false);
-        mDialog = (new ProgressDialogView()).createLoadingDialog(WebActivity.this, "正在加载...");
-        mDialog.show();
+        if (!TextUtils.isEmpty(getIntent().getStringExtra(source))){
+            mSource = getIntent().getStringExtra(source);
+        }
+        mProgressDialog = (new ProgressDialogView()).createLoadingDialog(WebActivity.this, "正在加载...");
+        mProgressDialog.show();
 
         mBinding.inClude.titleTv.setText(getIntent().getStringExtra(title));
         mBinding.webView.getSettings().setLoadWithOverviewMode(true);
@@ -157,18 +166,23 @@ public class WebActivity extends BaseActivity implements View.OnClickListener, W
             @Override
             public void onProgressChanged(WebView view, int newProgress) {
                 if (newProgress == 100) {// 网页加载完成
-                    if (mDialog.isShowing()) {
-                        mDialog.dismiss();
+                    if (mProgressDialog != null && mProgressDialog.isShowing()) {
+                        mProgressDialog.dismiss();
                     }
                 }
             }
         });
-        mBinding.webView.loadUrl(getIntent().getStringExtra(url));
 
         if (inShare){
             mBinding.webShare.setVisibility(View.VISIBLE);
         }else {
             mBinding.webShare.setVisibility(View.GONE);
+        }
+
+        if (!TextUtils.isEmpty(mSource) && !mSource.equals("0")){
+            mPresenter.genByAct(getIntent().getStringExtra(url),mSource,this.bindToLifecycle());
+        }else {
+            mBinding.webView.loadUrl(getIntent().getStringExtra(url));
         }
     }
 
@@ -253,6 +267,16 @@ public class WebActivity extends BaseActivity implements View.OnClickListener, W
     @Override
     public void onBuyLinkSuccess(ClickUrlBean bean) {
         TaoBaoUtil.openAliHomeWeb(this,bean.getData().getMobileUrl(),bean.getData().getOtherGoodsId());
+    }
+
+    @Override
+    public void onAction(ImageBean bean) {
+        mBinding.webView.loadUrl(bean.getData());
+    }
+
+    @Override
+    public void onActionFile() {
+        mBinding.webView.loadUrl(getIntent().getStringExtra(url));
     }
 
     @Override

@@ -136,6 +136,15 @@ public class TbkIndexBean {
             private String name;
             private String objectId;
             private String color;
+            private String source;
+
+            public String getSource() {
+                return source;
+            }
+
+            public void setSource(String source) {
+                this.source = source;
+            }
 
             public String getImg() {
                 return img;
@@ -192,6 +201,15 @@ public class TbkIndexBean {
             private String name;
             private String objectId;
             private String color;
+            private String source;
+
+            public String getSource() {
+                return source;
+            }
+
+            public void setSource(String source) {
+                this.source = source;
+            }
 
             public String getImg() {
                 return img;
@@ -252,6 +270,15 @@ public class TbkIndexBean {
             private int status;
             private String type;
             private String targetId;
+            private String source;
+
+            public String getSource() {
+                return source;
+            }
+
+            public void setSource(String source) {
+                this.source = source;
+            }
 
             public String getId() {
                 return id;
@@ -401,6 +428,15 @@ public class TbkIndexBean {
             private String name;
             private String objectId;
             private String type;
+            private String source;
+
+            public String getSource() {
+                return source;
+            }
+
+            public void setSource(String source) {
+                this.source = source;
+            }
 
             public String getImg() {
                 return img;

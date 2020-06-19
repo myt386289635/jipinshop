@@ -104,6 +104,8 @@ import javax.inject.Inject;
 import io.reactivex.Observable;
 import okhttp3.MultipartBody;
 import okhttp3.ResponseBody;
+import retrofit2.http.GET;
+import retrofit2.http.Query;
 
 public class Repository {
 
@@ -1446,5 +1448,12 @@ public class Repository {
      */
     public Observable<CommssionDetailBean> getCommssionDetail2(String orderTime , String type){
         return mAPIService.getCommssionDetail2(orderTime, type);
+    }
+
+    /**
+     * 获取专属活动链接
+     */
+    public Observable<ImageBean> genByAct(String objectId ,String source){
+        return mAPIService.genByAct(objectId, source);
     }
 }

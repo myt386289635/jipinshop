@@ -87,6 +87,15 @@ public class NewFreeBean {
         private String name;
         private String objectId;
         private Object color;
+        private String source;
+
+        public String getSource() {
+            return source;
+        }
+
+        public void setSource(String source) {
+            this.source = source;
+        }
 
         public String getImg() {
             return img;
@@ -143,6 +152,15 @@ public class NewFreeBean {
         private String name;
         private String objectId;
         private Object color;
+        private String source;
+
+        public String getSource() {
+            return source;
+        }
+
+        public void setSource(String source) {
+            this.source = source;
+        }
 
         public String getImg() {
             return img;

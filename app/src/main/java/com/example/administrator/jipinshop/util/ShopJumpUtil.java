@@ -135,14 +135,14 @@ public class ShopJumpUtil {
     /**
      * 首页弹窗dialog跳转逻辑
      */
-    public static void openPager(Context context, String targetType, String target_id , String target_title ){
-        openBanner(context,targetType,target_id,target_title);
+    public static void openPager(Context context, String targetType, String target_id , String target_title){
+        openBanner(context,targetType,target_id,target_title, "");
     }
 
     /**
      * 公用轮播图（广告位）跳转——首页模块
      */
-    public static void openBanner(Context context, String targetType, String target_id , String target_title){
+    public static void openBanner(Context context, String targetType, String target_id , String target_title,String source){
         Intent intent = new Intent();
         switch (targetType){
             case "2"://评测详情
@@ -166,6 +166,7 @@ public class ShopJumpUtil {
                 intent.setClass(context, WebActivity.class);
                 intent.putExtra(WebActivity.url, target_id);
                 intent.putExtra(WebActivity.title,target_title);
+                intent.putExtra(WebActivity.source,source);
                 context.startActivity(intent);
                 break;
             case "14"://极币商城
@@ -242,7 +243,7 @@ public class ShopJumpUtil {
     /**
      * 推送跳转
      */
-    public static void openJPush(Context context, String targetType, String target_id , String target_title){
+    public static void openJPush(Context context, String targetType, String target_id , String target_title,String source){
         Intent intent = new Intent();
         switch (targetType){
             case "2"://评测详情
@@ -269,6 +270,7 @@ public class ShopJumpUtil {
                 intent.setClass(context, WebActivity.class);
                 intent.putExtra(WebActivity.url, target_id);
                 intent.putExtra(WebActivity.title,target_title);
+                intent.putExtra(WebActivity.source, source);
                 intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                 context.startActivity(intent);
                 break;
@@ -318,7 +320,7 @@ public class ShopJumpUtil {
     /**
      * 首页宫格通用跳转
      */
-    public static void openCommen(Context context, String targetType, String target_id , String target_title){
+    public static void openCommen(Context context, String targetType, String target_id , String target_title, String source){
         Intent intent = new Intent();
         switch (targetType){
             case "3"://评测详情
@@ -345,6 +347,7 @@ public class ShopJumpUtil {
                     intent.setClass(context, WebActivity.class);
                     intent.putExtra(WebActivity.url, target_id);
                     intent.putExtra(WebActivity.title,target_title);
+                    intent.putExtra(WebActivity.source, source);
                 }
                 context.startActivity(intent);
                 break;

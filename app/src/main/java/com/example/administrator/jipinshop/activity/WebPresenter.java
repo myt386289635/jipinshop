@@ -9,6 +9,7 @@ import com.trello.rxlifecycle2.LifecycleTransformer;
 import javax.inject.Inject;
 
 import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.functions.Consumer;
 import io.reactivex.schedulers.Schedulers;
 
 /**
@@ -73,6 +74,31 @@ public class WebPresenter {
                 }, throwable -> {
                     if(mView != null){
                         mView.onFile(throwable.getMessage());
+                    }
+                });
+    }
+
+    /**
+     * 获取专属活动链接
+     */
+    public void genByAct(String objectId ,String source , LifecycleTransformer<ImageBean> transformer){
+        mRepository.genByAct(objectId, source)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .compose(transformer)
+                .subscribe(bean -> {
+                    if (bean.getCode() == 0){
+                        if (mView != null){
+                            mView.onAction(bean);
+                        }
+                    }else {
+                        if(mView != null){
+                            mView.onActionFile();
+                        }
+                    }
+                }, throwable -> {
+                    if(mView != null){
+                        mView.onActionFile();
                     }
                 });
     }

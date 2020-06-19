@@ -170,7 +170,8 @@ class KTMain2Adapter : RecyclerView.Adapter<RecyclerView.ViewHolder>{
                         override fun onClickItem(postion: Int) {
                             appStatisticalUtil.addEvent("shouye_banner." + (toRealPosition(postion) + 1),transformer)
                             ShopJumpUtil.openBanner(mContext,adListBeans[postion].type,
-                                    adListBeans[postion].objectId,adListBeans[postion].name)
+                                    adListBeans[postion].objectId,adListBeans[postion].name,
+                                    adListBeans[postion].source)
                         }
                     })
                     adListBeans.clear()
@@ -269,7 +270,8 @@ class KTMain2Adapter : RecyclerView.Adapter<RecyclerView.ViewHolder>{
                     binding.itemRv.setBackgroundColor(Color.parseColor("#" + mBean!!.data.ad2.color))
                     binding.itemImage.setOnClickListener {
                         ShopJumpUtil.openBanner(mContext,mBean!!.data.ad2.type,
-                                mBean!!.data.ad2.objectId,mBean!!.data.ad2.name)
+                                mBean!!.data.ad2.objectId,mBean!!.data.ad2.name,
+                                mBean!!.data.ad2.source)
                     }
                 }
             }

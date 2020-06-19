@@ -138,7 +138,8 @@ public class MineFragment extends DBBaseFragment implements View.OnClickListener
         });
         mPagerAdapter.setOnClickItem(postion -> {
             ShopJumpUtil.openBanner(getContext(), mAdListBeans.get(postion).getType() + "",
-                    mAdListBeans.get(postion).getObjectId(), mAdListBeans.get(postion).getName());
+                    mAdListBeans.get(postion).getObjectId(), mAdListBeans.get(postion).getName(),
+                    mAdListBeans.get(postion).getSource());
         });
 
         mPresenter.setStatusBarHight(mBinding, getContext());

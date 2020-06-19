@@ -54,7 +54,8 @@ class KTMain2ActionAdapter : RecyclerView.Adapter<KTMain2ActionAdapter.ViewHolde
             GlideApp.loderImage(mContext,mList[position].img,binding.itemImage,0,0)
             binding.itemImage.setOnClickListener {
                 ShopJumpUtil.openBanner(mContext,mList[position].type,
-                        mList[position].objectId,mList[position].name)
+                        mList[position].objectId,mList[position].name,
+                        mList[position].source)
             }
         }
     }

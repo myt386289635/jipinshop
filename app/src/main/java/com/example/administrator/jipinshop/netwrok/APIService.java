@@ -1322,4 +1322,10 @@ public interface APIService {
      */
     @GET("api/v3/getCommssionDetail")
     Observable<CommssionDetailBean> getCommssionDetail2(@Query("orderTime") String orderTime , @Query("type") String type);
+
+    /**
+     * 获取专属活动链接
+     */
+    @GET("api/v3/tbk/genByAct")
+    Observable<ImageBean> genByAct(@Query("objectId") String objectId , @Query("source") String source);
 }

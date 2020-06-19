@@ -110,7 +110,8 @@ class KTJDDetailAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder> {
                     mPagerAdapter.setOnClickItem(object : KTPagerAdapter2.OnClickItem {
                         override fun onClickItem(postion: Int) {
                             ShopJumpUtil.openBanner(mContext, mAdListBeans[postion].type,
-                                    mAdListBeans[postion].objectId, mAdListBeans[postion].name)
+                                    mAdListBeans[postion].objectId, mAdListBeans[postion].name,
+                                    mAdListBeans[postion].source)
                         }
                     })
                     adListBeans.clear()

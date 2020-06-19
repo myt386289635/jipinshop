@@ -227,7 +227,8 @@ class KTMineAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>{
                             pagerAdapter.setOnClickItem(object : KTPagerAdapter3.OnClickItem {
                                 override fun onClickItem(postion: Int) {
                                     ShopJumpUtil.openBanner(context, mAdListBeans[postion].type.toString() + "",
-                                            mAdListBeans[postion].objectId, mAdListBeans[postion].name)
+                                            mAdListBeans[postion].objectId, mAdListBeans[postion].name,
+                                            mAdListBeans[postion].source)
                                 }
                             })
                             adListBeans.clear()

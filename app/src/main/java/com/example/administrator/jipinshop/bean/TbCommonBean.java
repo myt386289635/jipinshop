@@ -145,6 +145,15 @@ public class TbCommonBean {
         private String name;
         private String objectId;
         private String color;
+        private String source;
+
+        public String getSource() {
+            return source;
+        }
+
+        public void setSource(String source) {
+            this.source = source;
+        }
 
         public String getImg() {
             return img;

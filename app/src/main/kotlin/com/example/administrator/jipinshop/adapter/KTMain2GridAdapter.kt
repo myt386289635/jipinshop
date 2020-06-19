@@ -58,7 +58,7 @@ class KTMain2GridAdapter : RecyclerView.Adapter<KTMain2GridAdapter.ViewHolder>{
             itemView.setOnClickListener {
                 appStatisticalUtil.addEvent("shouye_gongge." + (position + 1),transformer)
                 ShopJumpUtil.openCommen(mContext,mList[position].type,mList[position].targetId,
-                        mList[position].title)
+                        mList[position].title,mList[position].source)
             }
             var wight = mContext.resources.getDimension(R.dimen.x120)
             var zz = (DistanceHelper.getAndroiodScreenwidthPixels(mContext) - (wight * 5)) / 5

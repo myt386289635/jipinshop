@@ -101,6 +101,7 @@ public class AdActivity extends BaseActivity implements View.OnClickListener {
                             .putExtra("targetType",mBean.getType() + "")
                             .putExtra("target_id" , mBean.getObjectId())
                             .putExtra("target_title" , mBean.getName())
+                            .putExtra("source" , mBean.getSource())
                             .putExtra("isAd",true)//从广告页点击过来的
                     );
                 }
