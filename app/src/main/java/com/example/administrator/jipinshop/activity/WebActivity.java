@@ -12,6 +12,7 @@ import android.text.TextUtils;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.ViewParent;
+import android.webkit.JavascriptInterface;
 import android.webkit.SslErrorHandler;
 import android.webkit.WebChromeClient;
 import android.webkit.WebSettings;
@@ -25,6 +26,8 @@ import com.example.administrator.jipinshop.base.BaseActivity;
 import com.example.administrator.jipinshop.bean.ClickUrlBean;
 import com.example.administrator.jipinshop.bean.ImageBean;
 import com.example.administrator.jipinshop.databinding.ActivityWebBinding;
+import com.example.administrator.jipinshop.util.JDUtil;
+import com.example.administrator.jipinshop.util.PDDUtil;
 import com.example.administrator.jipinshop.util.ShareUtils;
 import com.example.administrator.jipinshop.util.TaoBaoUtil;
 import com.example.administrator.jipinshop.util.ToastUtil;
@@ -88,6 +91,7 @@ public class WebActivity extends BaseActivity implements View.OnClickListener, W
         mBinding.webView.getSettings().setSupportZoom(true);
         mBinding.webView.getSettings().setBuiltInZoomControls(true);
         mBinding.webView.getSettings().setUseWideViewPort(true);
+        mBinding.webView.addJavascriptInterface(new WebViewJavaScriptFunction(), "tk");
         mBinding.webView.getSettings().setJavaScriptEnabled(true);//启用支持javascript
         mBinding.webView.getSettings().setLayoutAlgorithm(WebSettings.LayoutAlgorithm.NARROW_COLUMNS);
         mBinding.webView.getSettings().setCacheMode(WebSettings.LOAD_NO_CACHE);//不使用缓存
@@ -299,6 +303,33 @@ public class WebActivity extends BaseActivity implements View.OnClickListener, W
         super.onResume();
         if(mDialog != null && mDialog.isShowing()){
             mDialog.dismiss();
+        }
+    }
+
+    public class WebViewJavaScriptFunction {
+
+        //跳转淘宝
+        @JavascriptInterface
+        public void goTaobao(String url) {
+            mDialog = (new ProgressDialogView()).createLoadingDialog(WebActivity.this, "");
+            mDialog.show();
+            TaoBaoUtil.openAliHomeWeb(WebActivity.this,url,"");
+        }
+
+        //跳转拼多多
+        @JavascriptInterface
+        public void goPDD(String url){
+            mDialog = (new ProgressDialogView()).createLoadingDialog(WebActivity.this, "");
+            mDialog.show();
+            PDDUtil.jumpPDD(WebActivity.this,url,url);
+        }
+
+        //跳转京东
+        @JavascriptInterface
+        public void goJD(String url){
+            mDialog = (new ProgressDialogView()).createLoadingDialog(WebActivity.this, "");
+            mDialog.show();
+            JDUtil.openJD(WebActivity.this, url);
         }
     }
 }
