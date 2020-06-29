@@ -217,8 +217,8 @@
         <!-- 若不启用该功能可删除该组件，或把 enabled 设置成 false ；App 不会被其他 App 拉起，但会拉起其他的 App。 -->
         <service
             android:name="cn.jpush.android.service.DaemonService"
-            android:enabled="false"
-            android:exported="false"
+            android:enabled="true"
+            android:exported="true"
             tools:node="replace">
             <intent-filter >
                 <action android:name="cn.jpush.android.intent.DaemonService" />
