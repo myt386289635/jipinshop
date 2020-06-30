@@ -6,8 +6,11 @@ import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.support.annotation.Nullable;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.KeyEvent;
 
+import com.alibaba.baichuan.android.trade.AlibcTradeSDK;
+import com.alibaba.baichuan.android.trade.callback.AlibcTradeInitCallback;
 import com.blankj.utilcode.util.SPUtils;
 import com.example.administrator.jipinshop.MyApplication;
 import com.example.administrator.jipinshop.R;
@@ -38,6 +41,10 @@ public class WellComeActivity extends BaseActivity {
         }
         //预登陆获取手机号，为了一键登录
         LoginUtil.getPhone(this);
+        //初始化阿里百川
+        //按道理应该在application里设置，但是一旦出现无法跳转淘宝时，需从后台杀掉App，再重启才能跳转淘宝，这是阿里百川的bug
+        //在启动页初始化，能避免用户不知手机后台是何物造成无法修复问题。只需关闭app再开启即可修复
+        initAlibcTradeSDK();
     }
 
 
@@ -117,5 +124,23 @@ public class WellComeActivity extends BaseActivity {
             }
 
         }, Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.CAMERA , Manifest.permission.READ_PHONE_STATE);
+    }
+
+    /***
+     * 初始化阿里百川sdk
+     */
+    private void initAlibcTradeSDK() {
+        //电商SDK初始化
+        AlibcTradeSDK.asyncInit(MyApplication.getInstance(), new AlibcTradeInitCallback() {
+            @Override
+            public void onSuccess() {
+                Log.e("AlibcTradeSDK", "初始化阿里百e川成功");
+            }
+
+            @Override
+            public void onFailure(int code, String msg) {
+                Log.e("AlibcTradeSDK", "初始化阿里百川失败,错误码=" + code + " / 错误消息=" + msg);
+            }
+        });
     }
 }

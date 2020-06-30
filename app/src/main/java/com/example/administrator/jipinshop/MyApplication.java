@@ -104,8 +104,6 @@ public class MyApplication extends Application {
                         .build();
         mApplicationComponent.inject(this);
         Utils.init(instance);
-        //初始化阿里百川
-        initAlibcTradeSDK();
 
         //初始化友盟
         UMConfigure.setLogEnabled(true);
@@ -157,28 +155,6 @@ public class MyApplication extends Application {
 
     public ApplicationComponent getComponent() {
         return mApplicationComponent;
-    }
-
-
-    /***
-     * 初始化阿里百川sdk
-     */
-    private void initAlibcTradeSDK() {
-
-        //电商SDK初始化
-        AlibcTradeSDK.asyncInit(this, new AlibcTradeInitCallback() {
-            @Override
-            public void onSuccess() {
-                Log.e("AlibcTradeSDK", "初始化阿里百e川成功");
-//                Toast.makeText(MyApplication.this, "初始化阿里百e川成功", Toast.LENGTH_SHORT).show();
-            }
-
-            @Override
-            public void onFailure(int code, String msg) {
-                Log.e("AlibcTradeSDK", "初始化阿里百川失败,错误码=" + code + " / 错误消息=" + msg);
-//                Toast.makeText(MyApplication.this, "初始化阿里百川失败,错误码=" + code + " / 错误消息=" + msg, Toast.LENGTH_SHORT).show();
-            }
-        });
     }
 
     /**
