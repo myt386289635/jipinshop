@@ -48,6 +48,7 @@ import com.example.administrator.jipinshop.bean.PointDetailBean;
 import com.example.administrator.jipinshop.bean.PopBean;
 import com.example.administrator.jipinshop.bean.PopInfoBean;
 import com.example.administrator.jipinshop.bean.PosterShareBean;
+import com.example.administrator.jipinshop.bean.PrizeLogBean;
 import com.example.administrator.jipinshop.bean.QuestionsBean;
 import com.example.administrator.jipinshop.bean.RecommendFragmentBean;
 import com.example.administrator.jipinshop.bean.ReportBean;
@@ -55,7 +56,6 @@ import com.example.administrator.jipinshop.bean.ScoreStatusBean;
 import com.example.administrator.jipinshop.bean.ShareBean;
 import com.example.administrator.jipinshop.bean.ShareInfoBean;
 import com.example.administrator.jipinshop.bean.ShoppingDetailBean;
-import com.example.administrator.jipinshop.bean.SignBean;
 import com.example.administrator.jipinshop.bean.SignInsertBean;
 import com.example.administrator.jipinshop.bean.SimilerGoodsBean;
 import com.example.administrator.jipinshop.bean.SreachBean;
@@ -104,8 +104,6 @@ import javax.inject.Inject;
 import io.reactivex.Observable;
 import okhttp3.MultipartBody;
 import okhttp3.ResponseBody;
-import retrofit2.http.GET;
-import retrofit2.http.Query;
 
 public class Repository {
 
@@ -163,13 +161,6 @@ public class Repository {
      */
     public Observable<FollowBean> concer(String page){
         return mAPIService.concer(page);
-    }
-
-    /**
-     * 查询签到7天状态
-     */
-   public Observable<SignBean> sign(){
-        return mAPIService.sign();
     }
 
     /**
@@ -1297,8 +1288,8 @@ public class Repository {
     /**
      * 申请升级
      */
-    public Observable<SuccessBean> memberUpdate(){
-        return mAPIService.memberUpdate();
+    public Observable<SuccessBean> memberUpdate(String type){
+        return mAPIService.memberUpdate(type);
     }
 
     /**
@@ -1455,5 +1446,12 @@ public class Repository {
      */
     public Observable<ImageBean> genByAct(String objectId ,String source){
         return mAPIService.genByAct(objectId, source);
+    }
+
+    /**
+     * 抽奖记录
+     */
+    public Observable<PrizeLogBean> prizeLogList(){
+        return mAPIService.prizeLogList();
     }
 }

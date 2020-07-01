@@ -48,6 +48,7 @@ import com.example.administrator.jipinshop.bean.PointDetailBean;
 import com.example.administrator.jipinshop.bean.PopBean;
 import com.example.administrator.jipinshop.bean.PopInfoBean;
 import com.example.administrator.jipinshop.bean.PosterShareBean;
+import com.example.administrator.jipinshop.bean.PrizeLogBean;
 import com.example.administrator.jipinshop.bean.QuestionsBean;
 import com.example.administrator.jipinshop.bean.RecommendFragmentBean;
 import com.example.administrator.jipinshop.bean.ReportBean;
@@ -55,7 +56,6 @@ import com.example.administrator.jipinshop.bean.ScoreStatusBean;
 import com.example.administrator.jipinshop.bean.ShareBean;
 import com.example.administrator.jipinshop.bean.ShareInfoBean;
 import com.example.administrator.jipinshop.bean.ShoppingDetailBean;
-import com.example.administrator.jipinshop.bean.SignBean;
 import com.example.administrator.jipinshop.bean.SignInsertBean;
 import com.example.administrator.jipinshop.bean.SimilerGoodsBean;
 import com.example.administrator.jipinshop.bean.SreachBean;
@@ -340,15 +340,9 @@ public interface APIService {
     Observable<PointDetailBean> pointDetail(@Query("page") String page);
 
     /**
-     * 查询签到7天状态  已签到
-     */
-    @GET("api/signinDetail")
-    Observable<SignBean> sign();
-
-    /**
      * 签到   已修改
      */
-    @POST("api/signin")
+    @POST("api/v3/point/signin")
     Observable<SignInsertBean> signInsert();
 
     /**
@@ -448,7 +442,7 @@ public interface APIService {
     /**
      * 每日任务
      */
-    @GET("api/dailytask/list")
+    @GET("api/v3/point/dailytask/index")
     Observable<DailyTaskBean> DailytaskList();
 
     /**
@@ -1179,14 +1173,14 @@ public interface APIService {
     /**
      * 会员中心
      */
-    @GET("api/user/levelIndex")
+    @GET("api/v3/user/levelIndex")
     Observable<MemberBean> memberIndex();
 
     /**
      * 申请升级
      */
-    @POST("api/user/levelUpdate")
-    Observable<SuccessBean> memberUpdate();
+    @POST("api/v3/user/levelUpdate")
+    Observable<SuccessBean> memberUpdate(@Query("type") String type);
 
     /**
      * 下载图片
@@ -1328,4 +1322,10 @@ public interface APIService {
      */
     @GET("api/v3/tbk/genByAct")
     Observable<ImageBean> genByAct(@Query("objectId") String objectId , @Query("source") String source);
+
+    /**
+     * 抽奖记录
+     */
+    @GET("api/v3/user/prizeLogList")
+    Observable<PrizeLogBean> prizeLogList();
 }

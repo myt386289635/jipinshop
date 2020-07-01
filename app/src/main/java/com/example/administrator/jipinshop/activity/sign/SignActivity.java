@@ -3,32 +3,40 @@ package com.example.administrator.jipinshop.activity.sign;
 import android.app.Dialog;
 import android.content.Intent;
 import android.databinding.DataBindingUtil;
-import android.graphics.Color;
-import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v7.widget.GridLayoutManager;
+import android.support.v7.widget.LinearLayoutManager;
 import android.text.TextUtils;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
-import android.widget.TextView;
 
 import com.blankj.utilcode.util.SPUtils;
 import com.example.administrator.jipinshop.R;
 import com.example.administrator.jipinshop.activity.WebActivity;
+import com.example.administrator.jipinshop.activity.home.home.HomeNewActivity;
 import com.example.administrator.jipinshop.activity.info.MyInfoActivity;
+import com.example.administrator.jipinshop.activity.mall.detail.MallDetailActivity;
 import com.example.administrator.jipinshop.activity.sign.detail.IntegralDetailActivity;
 import com.example.administrator.jipinshop.activity.sign.invitation.InvitationNewActivity;
-import com.example.administrator.jipinshop.adapter.ExtendableListViewAdapter;
+import com.example.administrator.jipinshop.activity.sreach.TBSreachActivity;
+import com.example.administrator.jipinshop.activity.web.dzp.BigWheelWebActivity;
+import com.example.administrator.jipinshop.activity.web.hb.HBWebView;
+import com.example.administrator.jipinshop.activity.web.hb.HBWebView2;
+import com.example.administrator.jipinshop.adapter.KTSignAdapter;
+import com.example.administrator.jipinshop.adapter.SignMallAdapter;
 import com.example.administrator.jipinshop.base.BaseActivity;
+import com.example.administrator.jipinshop.bean.ActionHBBean;
 import com.example.administrator.jipinshop.bean.DailyTaskBean;
-import com.example.administrator.jipinshop.bean.SignBean;
+import com.example.administrator.jipinshop.bean.MallBean;
 import com.example.administrator.jipinshop.bean.SignInsertBean;
 import com.example.administrator.jipinshop.bean.SuccessBean;
 import com.example.administrator.jipinshop.bean.eventbus.ChangeHomePageBus;
 import com.example.administrator.jipinshop.databinding.ActivitySignBinding;
 import com.example.administrator.jipinshop.netwrok.RetrofitModule;
+import com.example.administrator.jipinshop.util.ClickUtil;
+import com.example.administrator.jipinshop.util.ShopJumpUtil;
 import com.example.administrator.jipinshop.util.ToastUtil;
-import com.example.administrator.jipinshop.util.UmApp.UAppUtil;
 import com.example.administrator.jipinshop.util.sp.CommonDate;
 import com.example.administrator.jipinshop.view.dialog.DialogUtil;
 import com.example.administrator.jipinshop.view.dialog.ProgressDialogView;
@@ -45,7 +53,7 @@ import javax.inject.Inject;
  * @create 2018/8/23
  * @Describe 签到页面
  */
-public class SignActivity extends BaseActivity implements View.OnClickListener, SignView, ExtendableListViewAdapter.OnClickItem {
+public class SignActivity extends BaseActivity implements View.OnClickListener, SignView, SignMallAdapter.OnItemListener, KTSignAdapter.OnClickJump {
 
     public static final String eventbusTag = "SignActivity";
 
@@ -54,12 +62,17 @@ public class SignActivity extends BaseActivity implements View.OnClickListener, 
 
     private ActivitySignBinding mBinding;
     private Dialog mDialog;
-
-    private List<TextView> mTextViews, mDayTextViews;
-    private List<Integer> pointArr;
-
-    private List<DailyTaskBean.DataBean> groupList;
-    private ExtendableListViewAdapter mAdapter;
+    private DailyTaskBean.AdBean ad2;
+    private DailyTaskBean.AdBean ad1;
+    //每日任务
+    private List<DailyTaskBean.DataBean> mDayRule;
+    private KTSignAdapter mDayAdapter;
+    //完善用户信息
+    private List<DailyTaskBean.DataBean> mUserRule;
+    private KTSignAdapter mUserAdapter;
+    //极币商城
+    private List<MallBean.DataBean> mList;
+    private SignMallAdapter mMallAdapter;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -72,39 +85,40 @@ public class SignActivity extends BaseActivity implements View.OnClickListener, 
     }
 
     private void initView() {
-        mBinding.inClude.titleTv.setText("任务中心");
+        mBinding.inClude.titleTv.setText("极币中心");
 
-        mTextViews = new ArrayList<>();
-        mTextViews.add(mBinding.signOneImg);
-        mTextViews.add(mBinding.signTwoImg);
-        mTextViews.add(mBinding.signThreeImg);
-        mTextViews.add(mBinding.signForeImg);
-        mTextViews.add(mBinding.signFiveImg);
-        mTextViews.add(mBinding.signSixImg);
-        mTextViews.add(mBinding.signSunImg);
-        mDayTextViews = new ArrayList<>();
-        mDayTextViews.add(mBinding.signOneText);
-        mDayTextViews.add(mBinding.signTwoText);
-        mDayTextViews.add(mBinding.signThreeText);
-        mDayTextViews.add(mBinding.signForeText);
-        mDayTextViews.add(mBinding.signFiveText);
-        mDayTextViews.add(mBinding.signSixText);
-        mDayTextViews.add(mBinding.signSunText);
-        pointArr = new ArrayList<>();
+        //每日任务
+        mDayRule = new ArrayList<>();
+        mBinding.signDayRules.setLayoutManager(new LinearLayoutManager(this));
+        mDayAdapter = new KTSignAdapter(mDayRule,this);
+        mDayAdapter.setOnClickJump(this);
+        mDayAdapter.setType(1);
+        mBinding.signDayRules.setAdapter(mDayAdapter);
+        mBinding.signDayRules.setNestedScrollingEnabled(false);
 
-        mBinding.expandList.setSelector(new ColorDrawable(Color.TRANSPARENT));
-        groupList = new ArrayList<>();
-        mAdapter = new ExtendableListViewAdapter(groupList,this);
-        mAdapter.setOnClickItem(this);
-        mBinding.expandList.setAdapter(mAdapter);
-        mBinding.expandList.setFocusable(false);
+        //完成用户信息任务
+        mUserRule =  new ArrayList<>();
+        mBinding.signUserRules.setLayoutManager(new LinearLayoutManager(this));
+        mUserAdapter = new KTSignAdapter(mUserRule,this);
+        mUserAdapter.setOnClickJump(this);
+        mUserAdapter.setType(2);
+        mBinding.signUserRules.setAdapter(mUserAdapter);
+        mBinding.signUserRules.setNestedScrollingEnabled(false);
+
+        //积分商城
+        mList = new ArrayList<>();
+        mBinding.signMall.setLayoutManager(new GridLayoutManager(this, 2));
+        mMallAdapter = new SignMallAdapter(this, mList);
+        mMallAdapter.setOnItemListener(this);
+        mBinding.signMall.setAdapter(mMallAdapter);
+        mBinding.signMall.setNestedScrollingEnabled(false);
 
         mDialog = (new ProgressDialogView()).createLoadingDialog(this, "正在加载...");
         mDialog.show();
-        mPresenter.signInfo(this.bindToLifecycle());
+        mPresenter.sign(this.bindToLifecycle());//签到
         mPresenter.DailytaskList(this.bindToLifecycle());//每日任务
+        mPresenter.mallList(this.bindToLifecycle());//极币商城
     }
-
 
     @Override
     public void onClick(View v) {
@@ -123,147 +137,113 @@ public class SignActivity extends BaseActivity implements View.OnClickListener, 
                 //积分明细
                 startActivity(new Intent(this, IntegralDetailActivity.class));
                 break;
+            case R.id.sign_vpButton:
+                //动态按钮
+                if (ad1 == null){
+                    return;
+                }
+                if (ad1.getType().equals("16")){
+                    mPresenter.getHongbao(this.bindToLifecycle());
+                }else {
+                    ShopJumpUtil.openBanner(this,ad1.getType(),
+                            ad1.getObjectId(),ad1.getName(),
+                            ad1.getSource());
+                }
+                break;
+            case R.id.sign_h5Button:
+                //大转盘
+                if (ad2 == null){
+                    return;
+                }
+                if (ad2.getType().equals("30")){
+                    Intent intent = new Intent();
+                    intent.setClass(this, BigWheelWebActivity.class);
+                    intent.putExtra(BigWheelWebActivity.url, ad2.getObjectId());
+                    intent.putExtra(BigWheelWebActivity.title,"大转盘");
+                    intent.putExtra(BigWheelWebActivity.sign , 1);
+                    startActivity(intent);
+                }else {
+                    ShopJumpUtil.openBanner(this,ad2.getType(),
+                            ad2.getObjectId(),ad2.getName(),
+                            ad2.getSource());
+                }
+                break;
         }
     }
 
-    /**
-     * 获取签到信息成功回调
-     */
-    @Override
-    public void getInfoSuc(SignBean signBean) {
-        mBinding.signCode.setText(SPUtils.getInstance(CommonDate.USER).getInt(CommonDate.userPoint) + "");
-        for (int i = 0; i < signBean.getData().getPointArr().size(); i++) {
-            mTextViews.get(i).setText("+" + signBean.getData().getPointArr().get(i) + "");
-        }
-        for (int i = 0; i < signBean.getData().getDaysCount(); i++) {
-            mTextViews.get(i).setText("");
-            mTextViews.get(i).setBackgroundResource(R.mipmap.signin_sel);
-            mDayTextViews.get(i).setText("已签");
-            mDayTextViews.get(i).setTextColor(getResources().getColor(R.color.color_E25838));
-        }
-        pointArr.clear();
-        pointArr.addAll(signBean.getData().getPointArr());
-        if (signBean.getData().getDaysCount() >= 7){
-            mBinding.signTomorrowNum.setText("明日签到极币+" + pointArr.get(0));
-        }else {
-            mBinding.signTomorrowNum.setText("明日签到极币+" + pointArr.get(signBean.getData().getDaysCount()));
-        }
-        if (signBean.getData().getSignin() == 0){
-            //0未签到
-            mPresenter.sign(this.bindToLifecycle());//签到
-        }else {
-            //1已签到
-            if(mDialog != null && mDialog.isShowing()){
-                mDialog.dismiss();
-            }
-        }
-    }
-    /**
-     * 获取签到信息失败回调
-     */
-    @Override
-    public void getInfoFaile(String error) {
-        if(mDialog != null && mDialog.isShowing()){
-            mDialog.dismiss();
-        }
-        ToastUtil.show(error);
-    }
-
-    /**
-     * 签到成功
-     */
+    //签到成功
     @Override
     public void signSuc(SignInsertBean signInsertBean) {
         SPUtils.getInstance(CommonDate.USER).put(CommonDate.userPoint,signInsertBean.getData().getUsablePoint());
         mBinding.signCode.setText(SPUtils.getInstance(CommonDate.USER).getInt(CommonDate.userPoint) + "");
-        if (signInsertBean.getDaysCount() >= 7){
-            mBinding.signTomorrowNum.setText("明日签到极币+" + pointArr.get(0));
-        }else {
-            mBinding.signTomorrowNum.setText("明日签到极币+" + pointArr.get(signInsertBean.getDaysCount()));
-        }
-        for (int i = 0; i < 7; i++) {
-            if (i < signInsertBean.getDaysCount()){
-                mTextViews.get(i).setText("");
-                mTextViews.get(i).setBackgroundResource(R.mipmap.signin_sel);
-                mDayTextViews.get(i).setText("已签");
-                mDayTextViews.get(i).setTextColor(getResources().getColor(R.color.color_E25838));
-            }else {
-                mTextViews.get(i).setText("+" + pointArr.get(i) + "");
-                mTextViews.get(i).setBackgroundResource(R.drawable.bg_ffc0b2);
-                mDayTextViews.get(i).setText((i + 1)+ "天");
-                mDayTextViews.get(i).setTextColor(getResources().getColor(R.color.color_9D9D9D));
-            }
-        }
         if(mDialog != null && mDialog.isShowing()){
             mDialog.dismiss();
         }
         ToastUtil.show("签到成功");
     }
-    /**
-     * 签到失败
-     */
-    @Override
-    public void signFaile(String error) {
-        if(mDialog != null && mDialog.isShowing()){
-            mDialog.dismiss();
-        }
-        ToastUtil.show(error);
-    }
 
+    //任务列表
     @Override
     public void getDayList(DailyTaskBean bean) {
-        groupList.addAll(bean.getData());
-        mAdapter.notifyDataSetChanged();
-        for(int i = 0; i < mAdapter.getGroupCount(); i++){
-            mBinding.expandList.expandGroup(i);
+        if (mDialog != null && mDialog.isShowing()){
+            mDialog.dismiss();
+        }
+        ad2 = bean.getAd2();
+        ad1 = bean.getAd1();
+        mBinding.setAd(bean.getAd1());
+        mBinding.executePendingBindings();
+        mDayRule.clear();
+        mUserRule.clear();
+        mDayRule.addAll(bean.getData());
+        mUserRule.addAll(bean.getList2());
+        mDayAdapter.notifyDataSetChanged();
+        mUserAdapter.notifyDataSetChanged();
+    }
+
+    //极币商城
+    @Override
+    public void onSuccess(MallBean bean) {
+        mList.clear();
+        mList.addAll(bean.getData());
+        mMallAdapter.notifyDataSetChanged();
+    }
+
+    //跳转极币商城详情页
+    @Override
+    public void onItemIntegralDetail(int position) {
+        if (ClickUtil.isFastDoubleClick(800)) {
+            return;
+        }else{
+            startActivity(new Intent(this, MallDetailActivity.class)
+                    .putExtra("goodsId",mList.get(position).getId())
+                    .putExtra("isActivityGoods",mList.get(position).getType())
+            );
         }
     }
 
     @Override
-    public void onClickItem(int location, int position) {
-        dayJump(location);
-        //添加统计
-        UAppUtil.sign(this,groupList.get(position).getType());
+    public void onHBID(ActionHBBean bean) {
+        if (TextUtils.isEmpty(bean.getData())){
+            DialogUtil.hbWebDialog(this, v -> {
+                startActivity(new Intent(this, HBWebView.class)
+                        .putExtra(HBWebView.url, RetrofitModule.JP_H5_URL + "new-free/submitRedPacket?token=" + SPUtils.getInstance(CommonDate.USER).getString(CommonDate.token))
+                );
+            });
+        }else{
+            startActivity(new Intent(this, HBWebView2.class)
+                    .putExtra(HBWebView2.url, RetrofitModule.JP_H5_URL + "new-free/getRedPacket?token=" + SPUtils.getInstance(CommonDate.USER).getString(CommonDate.token))
+                    .putExtra(HBWebView2.title, "天天领现金")
+            );
+        }
     }
 
-    /**
-     * 每日任务的跳转逻辑
-     */
-    public void dayJump(int location){
-        switch (location){
-            case 1://跳转到首页
-                EventBus.getDefault().post(new ChangeHomePageBus(0));
-                finish();
-                break;
-            case 3://跳转到评测
-                EventBus.getDefault().post(new ChangeHomePageBus(1));
-                finish();
-                break;
-            case 4://跳转到邀请页面
-                startActivity(new Intent(this, InvitationNewActivity.class));
-                break;
-            case 6://跳转到免单首页
-//                EventBus.getDefault().post(new ChangeHomePageBus(3));
-//                finish();
-                break;
-            case 7://编辑个人资料
-                startActivity(new Intent(this, MyInfoActivity.class)
-                        .putExtra("bgImg",SPUtils.getInstance(CommonDate.USER).getString(CommonDate.bgImg))
-                        .putExtra("sign",SPUtils.getInstance(CommonDate.USER).getString(CommonDate.userSign))
-                );
-                break;
-            case 8://填写邀请码
-                DialogUtil.invitationDialog(this, (invitationCode, dialog, inputManager) -> {
-                    if (TextUtils.isEmpty(invitationCode)){
-                        ToastUtil.show("请输入邀请码");
-                        return;
-                    }
-                    mDialog = (new ProgressDialogView()).createLoadingDialog(this, "");
-                    mDialog.show();
-                    mPresenter.addInvitationCode(invitationCode, dialog, inputManager,this.bindToLifecycle());
-                });
-                break;
-        }
+    @Override
+    public void onHBFlie() {
+        DialogUtil.hbWebDialog(this, v -> {
+            startActivity(new Intent(this, HBWebView.class)
+                    .putExtra(HBWebView.url, RetrofitModule.JP_H5_URL + "new-free/submitRedPacket?token=" + SPUtils.getInstance(CommonDate.USER).getString(CommonDate.token))
+            );
+        });
     }
 
     @Override
@@ -283,5 +263,64 @@ public class SignActivity extends BaseActivity implements View.OnClickListener, 
             mDialog.dismiss();
         }
         ToastUtil.show(error);
+    }
+
+    @Override
+    public void onDayJump(int pos) {
+        dayJump(mDayRule.get(pos).getLocation());
+    }
+
+    @Override
+    public void onJump(int pos) {
+        dayJump(mUserRule.get(pos).getLocation());
+    }
+
+    //每日任务的跳转逻辑
+    public void dayJump(int location){
+        switch (location){
+            case 1://跳转到首页
+                EventBus.getDefault().post(new ChangeHomePageBus(0));
+                finish();
+                break;
+            case 3://跳转到评测
+                Intent intent = new Intent();
+                intent.setClass(this, HomeNewActivity.class);
+                intent.putExtra("type",HomeNewActivity.evaluation);
+                startActivity(intent);
+                break;
+            case 4://跳转到邀请页面
+                startActivity(new Intent(this, InvitationNewActivity.class));
+                break;
+            case 7://编辑个人资料
+                startActivity(new Intent(this, MyInfoActivity.class)
+                        .putExtra("bgImg",SPUtils.getInstance(CommonDate.USER).getString(CommonDate.bgImg))
+                        .putExtra("sign",SPUtils.getInstance(CommonDate.USER).getString(CommonDate.userSign))
+                );
+                break;
+            case 8://填写邀请码
+                DialogUtil.invitationDialog(this, (invitationCode, dialog, inputManager) -> {
+                    if (TextUtils.isEmpty(invitationCode)){
+                        ToastUtil.show("请输入邀请码");
+                        return;
+                    }
+                    mDialog = (new ProgressDialogView()).createLoadingDialog(this, "");
+                    mDialog.show();
+                    mPresenter.addInvitationCode(invitationCode, dialog, inputManager,this.bindToLifecycle());
+                });
+                break;
+            case 9:
+                //调用签到接口
+                mDialog = (new ProgressDialogView()).createLoadingDialog(this, "");
+                mDialog.show();
+                mPresenter.sign(this.bindToLifecycle());
+                break;
+            case 10://搜索
+                startActivity(new Intent(this, TBSreachActivity.class));
+                break;
+            case 11://分享发圈
+                EventBus.getDefault().post(new ChangeHomePageBus(2));
+                finish();
+                break;
+        }
     }
 }

@@ -624,6 +624,10 @@
         <activity android:name=".activity.home.tb.KTTBDetailActivity"
                   android:screenOrientation="portrait"/>
 
+        <!--大转盘web-->
+        <activity android:name=".activity.web.dzp.BigWheelWebActivity"
+                  android:screenOrientation="portrait"/>
+
     </application>
 
 </manifest>

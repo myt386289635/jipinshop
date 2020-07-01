@@ -6,8 +6,9 @@ import android.view.ViewGroup;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.LinearLayout;
 
+import com.example.administrator.jipinshop.bean.ActionHBBean;
 import com.example.administrator.jipinshop.bean.DailyTaskBean;
-import com.example.administrator.jipinshop.bean.SignBean;
+import com.example.administrator.jipinshop.bean.MallBean;
 import com.example.administrator.jipinshop.bean.SignInsertBean;
 import com.example.administrator.jipinshop.bean.SuccessBean;
 import com.example.administrator.jipinshop.netwrok.Repository;
@@ -46,37 +47,7 @@ public class SignPresenter {
         }
     }
 
-    /**
-     * 查询7天签到状态
-     * @param transformer
-     */
-    public void signInfo(LifecycleTransformer<SignBean> transformer){
-        mRepository.sign()
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .compose(transformer)
-                .subscribe(signBean -> {
-                    if(signBean.getCode() == 0){
-                        if(mView != null){
-                            mView.getInfoSuc(signBean);
-                        }
-                    }else {
-                        if(mView != null){
-                            mView.getInfoFaile(signBean.getMsg());
-                        }
-                    }
-
-                }, throwable -> {
-                    if(mView != null){
-                        mView.getInfoFaile(throwable.getMessage());
-                    }
-                });
-    }
-
-    /**
-     * 签到
-     * @param transformer
-     */
+    //签到
     public void sign(LifecycleTransformer<SignInsertBean> transformer){
         mRepository.signInsert()
                 .subscribeOn(Schedulers.io())
@@ -87,21 +58,19 @@ public class SignPresenter {
                         if(mView != null){
                             mView.signSuc(signInsertBean);
                         }
-                    }else {
+                    }else if(signInsertBean.getCode() != 630){
                         if(mView != null){
-                            mView.signFaile(signInsertBean.getMsg());
+                            mView.onFile(signInsertBean.getMsg());
                         }
                     }
                 }, throwable -> {
                     if(mView != null){
-                        mView.signFaile(throwable.getMessage());
+                        mView.onFile(throwable.getMessage());
                     }
                 });
     }
 
-    /**
-     * 每日任务
-     */
+    //每日任务
     public void DailytaskList(LifecycleTransformer<DailyTaskBean> transformer){
         mRepository.DailytaskList()
                 .subscribeOn(Schedulers.io())
@@ -114,16 +83,17 @@ public class SignPresenter {
                         }
                     }else {
                         if(mView != null){
-                            mView.getInfoFaile(dailyTaskBean.getMsg());
+                            mView.onFile(dailyTaskBean.getMsg());
                         }
                     }
                 }, throwable -> {
                     if(mView != null){
-                        mView.getInfoFaile(throwable.getMessage());
+                        mView.onFile(throwable.getMessage());
                     }
                 });
     }
 
+    //填写邀请码
     public void addInvitationCode(String invitationCode, Dialog dialog, InputMethodManager inputManager, LifecycleTransformer<SuccessBean> transformer){
         mRepository.addInvitationCode(invitationCode)
                 .subscribeOn(Schedulers.io())
@@ -137,6 +107,46 @@ public class SignPresenter {
                     }
                 }, throwable -> {
                     mView.onFile(throwable.getMessage());
+                });
+    }
+
+    //极币商城
+    public void mallList(LifecycleTransformer<MallBean> transformer){
+        mRepository.mallList("")
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .compose(transformer)
+                .subscribe(mallBean -> {
+                    if(mallBean.getCode() == 0){
+                        if(mView != null){
+                            mView.onSuccess(mallBean);
+                        }
+                    }else {
+                        if(mView != null){
+                            mView.onFile(mallBean.getMsg());
+                        }
+                    }
+                }, throwable ->{
+                    if(mView != null){
+                        mView.onFile(throwable.getMessage());
+                    }
+                });
+    }
+
+    //领取红包
+    public void getHongbao(LifecycleTransformer<ActionHBBean> transformer){
+        mRepository.getHongbaoActivityInfo()
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .compose(transformer)
+                .subscribe(actionHBBean -> {
+                    if (actionHBBean.getCode() == 0) {
+                        mView.onHBID(actionHBBean);
+                    } else {
+                        mView.onHBFlie();
+                    }
+                }, throwable -> {
+                    mView.onHBFlie();
                 });
     }
 }

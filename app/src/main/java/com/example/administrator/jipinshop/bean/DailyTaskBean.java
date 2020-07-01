@@ -8,16 +8,14 @@ import java.util.List;
  * @Describe
  */
 public class DailyTaskBean {
-
-    /**
-     * msg : success
-     * code : 0
-     * data : [{"id":"6","type":6,"point":300,"title":"评论送币","content":"评论送币","createTime":"2019-03-01 13:57:45"},{"id":"5","type":5,"point":100,"title":"阅读文章","content":"阅读文章","createTime":"2019-03-01 13:57:17"},{"id":"4","type":4,"point":60,"title":"分享内容","content":"分享内容","createTime":"2019-03-01 13:56:53"},{"id":"3","type":3,"point":50,"title":"点赞送极币","content":"点赞文章","createTime":"2019-03-01 13:56:35"},{"id":"2","type":2,"point":200,"title":"申请认证","content":"申请认证","createTime":"2019-03-01 13:55:43"},{"id":"1","type":1,"point":100,"title":"邀请好友","content":"每邀请一位好友下载APP并登录成功，奖励600极币，你邀请的好友每次邀请他人成功，你再获得300极币","createTime":"2019-03-01 13:53:45"}]
-     */
-
+    
     private String msg;
     private int code;
+    private AdBean ad2;
+    private int point;
+    private AdBean ad1;
     private List<DataBean> data;
+    private List<DataBean> list2;
 
     public String getMsg() {
         return msg;
@@ -35,6 +33,30 @@ public class DailyTaskBean {
         this.code = code;
     }
 
+    public AdBean getAd2() {
+        return ad2;
+    }
+
+    public void setAd2(AdBean ad2) {
+        this.ad2 = ad2;
+    }
+
+    public int getPoint() {
+        return point;
+    }
+
+    public void setPoint(int point) {
+        this.point = point;
+    }
+
+    public AdBean getAd1() {
+        return ad1;
+    }
+
+    public void setAd1(AdBean ad1) {
+        this.ad1 = ad1;
+    }
+
     public List<DataBean> getData() {
         return data;
     }
@@ -43,31 +65,95 @@ public class DailyTaskBean {
         this.data = data;
     }
 
-    public static class DataBean {
+    public List<DataBean> getList2() {
+        return list2;
+    }
+
+    public void setList2(List<DataBean> list2) {
+        this.list2 = list2;
+    }
+
+    public static class AdBean {
         /**
-         * id : 6
-         * type : 6
-         * point : 300
-         * title : 评论送币
-         * content : 评论送币
-         * createTime : 2019-03-01 13:57:45
+         * img : http://jipincheng.cn/activity/img/20200630/f1be1e35950649eb83f017f933756bd5
+         * type : 13
+         * name : 100%中奖，抽奖赢戴森
+         * objectId : http://40.0.0.60:8082/new-free/rafflePage
+         * color : null
+         * source : 0
          */
 
+        private String img;
+        private String type;
+        private String name;
+        private String objectId;
+        private String color;
+        private String source;
+
+        public String getImg() {
+            return img;
+        }
+
+        public void setImg(String img) {
+            this.img = img;
+        }
+
+        public String getType() {
+            return type;
+        }
+
+        public void setType(String type) {
+            this.type = type;
+        }
+
+        public String getName() {
+            return name;
+        }
+
+        public void setName(String name) {
+            this.name = name;
+        }
+
+        public String getObjectId() {
+            return objectId;
+        }
+
+        public void setObjectId(String objectId) {
+            this.objectId = objectId;
+        }
+
+        public String getColor() {
+            return color;
+        }
+
+        public void setColor(String color) {
+            this.color = color;
+        }
+
+        public String getSource() {
+            return source;
+        }
+
+        public void setSource(String source) {
+            this.source = source;
+        }
+    }
+
+    public static class DataBean {
+
         private String id;
-        private int type;
-        private int point;
-        private int location;
+        private String type;
+        private String point;
         private String title;
         private String content;
-        private String createTime;
-
-        public int getLocation() {
-            return location;
-        }
-
-        public void setLocation(int location) {
-            this.location = location;
-        }
+        private int location;
+        private String maxPoint;
+        private String iconUrl;
+        private String buttonName;
+        private String allCount;
+        private String todayCount;
+        private String status;
+        private String isshow;
 
         public String getId() {
             return id;
@@ -77,19 +163,19 @@ public class DailyTaskBean {
             this.id = id;
         }
 
-        public int getType() {
+        public String getType() {
             return type;
         }
 
-        public void setType(int type) {
+        public void setType(String type) {
             this.type = type;
         }
 
-        public int getPoint() {
+        public String getPoint() {
             return point;
         }
 
-        public void setPoint(int point) {
+        public void setPoint(String point) {
             this.point = point;
         }
 
@@ -109,12 +195,68 @@ public class DailyTaskBean {
             this.content = content;
         }
 
-        public String getCreateTime() {
-            return createTime;
+        public int getLocation() {
+            return location;
         }
 
-        public void setCreateTime(String createTime) {
-            this.createTime = createTime;
+        public void setLocation(int location) {
+            this.location = location;
+        }
+
+        public String getMaxPoint() {
+            return maxPoint;
+        }
+
+        public void setMaxPoint(String maxPoint) {
+            this.maxPoint = maxPoint;
+        }
+
+        public String getIconUrl() {
+            return iconUrl;
+        }
+
+        public void setIconUrl(String iconUrl) {
+            this.iconUrl = iconUrl;
+        }
+
+        public String getButtonName() {
+            return buttonName;
+        }
+
+        public void setButtonName(String buttonName) {
+            this.buttonName = buttonName;
+        }
+
+        public String getAllCount() {
+            return allCount;
+        }
+
+        public void setAllCount(String allCount) {
+            this.allCount = allCount;
+        }
+
+        public String getTodayCount() {
+            return todayCount;
+        }
+
+        public void setTodayCount(String todayCount) {
+            this.todayCount = todayCount;
+        }
+
+        public String getStatus() {
+            return status;
+        }
+
+        public void setStatus(String status) {
+            this.status = status;
+        }
+
+        public String getIsshow() {
+            return isshow;
+        }
+
+        public void setIsshow(String isshow) {
+            this.isshow = isshow;
         }
     }
 }

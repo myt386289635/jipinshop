@@ -85,6 +85,7 @@ import com.example.administrator.jipinshop.activity.tryout.passedMore.PassedMore
 import com.example.administrator.jipinshop.activity.tryout.reportMore.ReportMoreActivity;
 import com.example.administrator.jipinshop.activity.tryout.shareMore.ShareMoreActivity;
 import com.example.administrator.jipinshop.activity.web.TaoBaoWebActivity;
+import com.example.administrator.jipinshop.activity.web.dzp.BigWheelWebActivity;
 import com.example.administrator.jipinshop.activity.web.hb.HBWebView2;
 import com.example.administrator.jipinshop.auto.ActivityScope;
 import com.example.administrator.jipinshop.netwrok.ApplicationComponent;
@@ -180,4 +181,5 @@ public interface BaseActivityComponent {
     void inject(WalletDetailActivity activity);
     void inject(WalletHistoryActivity activity);
     void inject(KTTBDetailActivity activity);
+    void inject(BigWheelWebActivity activity);
 }

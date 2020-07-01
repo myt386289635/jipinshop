@@ -88,14 +88,221 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent">
 
+                    <LinearLayout
+                        android:orientation="vertical"
+                        android:id="@+id/member_tag"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"/>
+
                     <View
+                        android:layout_alignTop="@id/member_tag"
                         android:layout_alignBottom="@+id/member_userTitle"
-                        android:layout_alignTop="@+id/member_userContainer"
                         android:background="@color/color_222222"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"/>
 
                     <RelativeLayout
+                        android:visibility="gone"
+                        android:id="@+id/member_userContainer_copy"
+                        android:layout_marginRight="@dimen/x20"
+                        android:layout_marginLeft="@dimen/x20"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+
+                        <ImageView
+                            android:id="@+id/member_imageCopy"
+                            android:layout_marginTop="@dimen/y56"
+                            android:scaleType="fitXY"
+                            android:adjustViewBounds="true"
+                            android:src="@mipmap/member_public"
+                            android:layout_width="match_parent"
+                            android:layout_height="@dimen/y452"/>
+
+                        <com.example.administrator.jipinshop.view.glide.CircleImageView
+                            android:layout_width="@dimen/x88"
+                            android:layout_height="@dimen/y88"
+                            app:civ_border_color="@color/color_7B849C"
+                            app:civ_border_width="@dimen/x4"
+                            bind:src="@{date.avatar}"
+                            android:layout_marginTop="@dimen/y36"
+                            android:layout_marginLeft="@dimen/x21"
+                            android:layout_alignTop="@id/member_imageCopy"
+                            android:id="@+id/member_userImageCopy"/>
+
+                        <TextView
+                            android:layout_marginLeft="@dimen/x10"
+                            android:layout_marginTop="@dimen/y8"
+                            android:id="@+id/member_userNameCopy"
+                            android:layout_alignTop="@+id/member_userImageCopy"
+                            android:layout_toRightOf="@+id/member_userImageCopy"
+                            android:text="@{date.nickname}"
+                            android:textColor="@color/color_FCFCFC"
+                            android:textSize="13sp"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"/>
+
+                        <ImageView
+                            android:layout_marginBottom="@dimen/y5"
+                            android:layout_marginLeft="@dimen/x10"
+                            android:layout_toRightOf="@+id/member_userImageCopy"
+                            android:layout_alignBottom="@+id/member_userImageCopy"
+                            android:src="@mipmap/member_label1"
+                            android:id="@+id/member_userLabelCopy"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"/>
+
+                        <RelativeLayout
+                            android:layout_alignBottom="@id/member_imageCopy"
+                            android:layout_below="@id/member_userImageCopy"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content">
+
+                            <TextView
+                                android:id="@+id/member_infoTextCopy"
+                                android:layout_marginTop="@dimen/y42"
+                                android:layout_marginLeft="@dimen/x40"
+                                android:textColor="@color/color_6B6E7A"
+                                android:textSize="14sp"
+                                android:text="@{@string/member_title3 + date.monthLevelInvitedUserCount + @string/free_myinva2}"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"/>
+
+                            <View
+                                android:layout_marginRight="@dimen/x3"
+                                android:layout_marginLeft="@dimen/x3"
+                                android:layout_marginBottom="@dimen/y2"
+                                android:layout_marginTop="@dimen/y2"
+                                android:background="@drawable/member_progress"
+                                android:layout_alignLeft="@id/member_infoUserProgressCopy"
+                                android:layout_alignRight="@id/member_infoCoinProgressCopy"
+                                android:layout_alignBottom="@id/member_infoUserProgressCopy"
+                                android:layout_alignTop="@id/member_infoUserProgressCopy"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"/>
+
+                            <com.example.administrator.jipinshop.view.SaleProgressView
+                                android:layout_marginTop="@dimen/y6"
+                                android:id="@+id/member_infoUserProgressCopy"
+                                android:layout_marginLeft="@dimen/x40"
+                                android:layout_below="@id/member_infoTextCopy"
+                                android:layout_width="@dimen/x447"
+                                android:layout_height="@dimen/y10"
+                                app:nearOverText=""
+                                app:overText=""
+                                app:sideColor="#00ffffff"
+                                app:startColor="#AF7845"
+                                app:endColor="#ECCA9E"
+                                app:isNeedAnim="false"/>
+
+                            <TextView
+                                android:layout_above="@id/member_infoUserProgressCopy"
+                                android:layout_alignRight="@id/member_infoUserProgressCopy"
+                                android:textColor="@color/color_6B6E7A"
+                                android:textSize="14sp"
+                                android:text="@{date.invitedUserCount + @string/free_myinva2 + @string/member_title4 + date.monthLevelInvitedUserCount + @string/free_myinva2}"
+                                android:id="@+id/member_infoNumbeCopyr"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"/>
+
+                            <TextView
+                                android:onClick="@{listener.onClick}"
+                                android:id="@+id/member_infoUserInvationCopy"
+                                android:layout_marginRight="@dimen/x33"
+                                android:layout_alignParentRight="true"
+                                android:layout_alignBottom="@id/member_infoUserProgressCopy"
+                                android:gravity="center"
+                                android:text="去邀请"
+                                android:textColor="@color/color_white"
+                                android:textSize="10sp"
+                                android:background="@drawable/member_button"
+                                android:layout_width="@dimen/x120"
+                                android:layout_height="@dimen/y36"/>
+
+                            <TextView
+                                android:layout_below="@id/member_infoUserProgressCopy"
+                                android:id="@+id/member_infoCoinCopy"
+                                android:layout_marginTop="@dimen/y40"
+                                android:layout_marginLeft="@dimen/x40"
+                                android:textColor="@color/color_6B6E7A"
+                                android:textSize="14sp"
+                                android:text="@{date.monthLevelPoint + @string/priceEnd}"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"/>
+
+                            <View
+                                android:layout_marginRight="@dimen/x3"
+                                android:layout_marginLeft="@dimen/x3"
+                                android:layout_marginBottom="@dimen/y2"
+                                android:layout_marginTop="@dimen/y2"
+                                android:background="@drawable/member_progress"
+                                android:layout_alignLeft="@id/member_infoCoinProgressCopy"
+                                android:layout_alignRight="@id/member_infoCoinProgressCopy"
+                                android:layout_alignBottom="@id/member_infoCoinProgressCopy"
+                                android:layout_alignTop="@id/member_infoCoinProgressCopy"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"/>
+
+                            <com.example.administrator.jipinshop.view.SaleProgressView
+                                android:layout_marginTop="@dimen/y6"
+                                android:id="@+id/member_infoCoinProgressCopy"
+                                android:layout_marginLeft="@dimen/x40"
+                                android:layout_below="@id/member_infoCoinCopy"
+                                android:layout_width="@dimen/x447"
+                                android:layout_height="@dimen/y10"
+                                app:nearOverText=""
+                                app:overText=""
+                                app:sideColor="#00ffffff"
+                                app:startColor="#AF7845"
+                                app:endColor="#ECCA9E"
+                                app:isNeedAnim="false"/>
+
+                            <TextView
+                                android:layout_above="@id/member_infoCoinProgressCopy"
+                                android:layout_alignRight="@id/member_infoCoinProgressCopy"
+                                android:textColor="@color/color_6B6E7A"
+                                android:textSize="14sp"
+                                android:text="@{date.point + @string/member_title4 + date.monthLevelPoint}"
+                                android:id="@+id/member_infoCoinNumberCopy"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"/>
+
+                            <TextView
+                                android:onClick="@{listener.onClick}"
+                                android:id="@+id/member_infoCoinInvationCopy"
+                                android:layout_marginRight="@dimen/x33"
+                                android:layout_alignParentRight="true"
+                                android:layout_alignBottom="@id/member_infoCoinProgressCopy"
+                                android:gravity="center"
+                                android:text="赚极币"
+                                android:textColor="@color/color_white"
+                                android:textSize="10sp"
+                                android:background="@drawable/member_button"
+                                android:layout_width="@dimen/x120"
+                                android:layout_height="@dimen/y36"/>
+
+                            <com.example.administrator.jipinshop.view.textview.DrawableLeftCenterTextView
+                                android:id="@+id/member_up30"
+                                android:onClick="@{listener.onClick}"
+                                android:gravity="center_vertical"
+                                android:drawablePadding="@dimen/x5"
+                                android:drawableLeft="@mipmap/member_upgrade"
+                                android:text="升级30天VIP"
+                                android:textColor="@color/color_white"
+                                android:textSize="16sp"
+                                android:layout_marginBottom="@dimen/y23"
+                                android:layout_alignParentBottom="true"
+                                android:background="@drawable/member_up_button"
+                                android:layout_marginRight="@dimen/x132"
+                                android:layout_marginLeft="@dimen/x132"
+                                android:layout_width="match_parent"
+                                android:layout_height="@dimen/y73"/>
+
+                        </RelativeLayout>
+
+                    </RelativeLayout>
+
+                    <RelativeLayout
+                        android:layout_below="@id/member_userContainer_copy"
                         android:id="@+id/member_userContainer"
                         android:layout_marginRight="@dimen/x20"
                         android:layout_marginLeft="@dimen/x20"
@@ -109,7 +316,7 @@
                             android:adjustViewBounds="true"
                             android:src="@mipmap/member_public"
                             android:layout_width="match_parent"
-                            android:layout_height="wrap_content"/>
+                            android:layout_height="@dimen/y452"/>
 
                         <com.example.administrator.jipinshop.view.glide.CircleImageView
                             android:layout_width="@dimen/x88"
@@ -134,7 +341,6 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"/>
 
-
                         <ImageView
                             android:layout_marginBottom="@dimen/y5"
                             android:layout_marginLeft="@dimen/x10"
@@ -145,12 +351,174 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"/>
 
+                        <TextView
+                            android:layout_marginLeft="@dimen/x8"
+                            android:gravity="center"
+                            android:layout_toRightOf="@id/member_userLabel"
+                            android:layout_alignBottom="@id/member_userLabel"
+                            android:layout_alignTop="@id/member_userLabel"
+                            android:text=""
+                            android:textColor="@color/color_FCFCFC"
+                            android:textSize="11sp"
+                            android:id="@+id/member_time"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"/>
+
+                        <RelativeLayout
+                            android:id="@+id/member_infoContainer"
+                            android:layout_alignBottom="@id/member_image"
+                            android:layout_below="@id/member_userImage"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content">
+
+                            <TextView
+                                android:id="@+id/member_infoText"
+                                android:layout_marginTop="@dimen/y42"
+                                android:layout_marginLeft="@dimen/x40"
+                                android:textColor="@color/color_6B6E7A"
+                                android:textSize="14sp"
+                                android:text="@{@string/member_title3 + date.levelInvitedUserCount + @string/free_myinva2}"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"/>
+
+                            <View
+                                android:layout_marginRight="@dimen/x3"
+                                android:layout_marginLeft="@dimen/x3"
+                                android:layout_marginBottom="@dimen/y2"
+                                android:layout_marginTop="@dimen/y2"
+                                android:background="@drawable/member_progress"
+                                android:layout_alignLeft="@id/member_infoUserProgress"
+                                android:layout_alignRight="@id/member_infoCoinProgress"
+                                android:layout_alignBottom="@id/member_infoUserProgress"
+                                android:layout_alignTop="@id/member_infoUserProgress"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"/>
+                            
+                            <com.example.administrator.jipinshop.view.SaleProgressView
+                                android:layout_marginTop="@dimen/y6"
+                                android:id="@+id/member_infoUserProgress"
+                                android:layout_marginLeft="@dimen/x40"
+                                android:layout_below="@id/member_infoText"
+                                android:layout_width="@dimen/x447"
+                                android:layout_height="@dimen/y10"
+                                app:nearOverText=""
+                                app:overText=""
+                                app:sideColor="#00ffffff"
+                                app:startColor="#AF7845"
+                                app:endColor="#ECCA9E"
+                                app:isNeedAnim="false"/>
+
+                            <TextView
+                                android:layout_above="@id/member_infoUserProgress"
+                                android:layout_alignRight="@id/member_infoUserProgress"
+                                android:textColor="@color/color_6B6E7A"
+                                android:textSize="14sp"
+                                android:text="@{date.invitedUserCount + @string/free_myinva2 + @string/member_title4 + date.levelInvitedUserCount + @string/free_myinva2}"
+                                android:id="@+id/member_infoNumber"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"/>
+
+                            <TextView
+                                android:onClick="@{listener.onClick}"
+                                android:id="@+id/member_infoUserInvation"
+                                android:layout_marginRight="@dimen/x33"
+                                android:layout_alignParentRight="true"
+                                android:layout_alignBottom="@id/member_infoUserProgress"
+                                android:gravity="center"
+                                android:text="去邀请"
+                                android:textColor="@color/color_white"
+                                android:textSize="10sp"
+                                android:background="@drawable/member_button"
+                                android:layout_width="@dimen/x120"
+                                android:layout_height="@dimen/y36"/>
+
+                            <TextView
+                                android:layout_below="@id/member_infoUserProgress"
+                                android:id="@+id/member_infoCoin"
+                                android:layout_marginTop="@dimen/y40"
+                                android:layout_marginLeft="@dimen/x40"
+                                android:textColor="@color/color_6B6E7A"
+                                android:textSize="14sp"
+                                android:text="@{date.levelPoint + @string/priceEnd}"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"/>
+
+                            <View
+                                android:layout_marginRight="@dimen/x3"
+                                android:layout_marginLeft="@dimen/x3"
+                                android:layout_marginBottom="@dimen/y2"
+                                android:layout_marginTop="@dimen/y2"
+                                android:background="@drawable/member_progress"
+                                android:layout_alignLeft="@id/member_infoCoinProgress"
+                                android:layout_alignRight="@id/member_infoCoinProgress"
+                                android:layout_alignBottom="@id/member_infoCoinProgress"
+                                android:layout_alignTop="@id/member_infoCoinProgress"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"/>
+
+                            <com.example.administrator.jipinshop.view.SaleProgressView
+                                android:layout_marginTop="@dimen/y6"
+                                android:id="@+id/member_infoCoinProgress"
+                                android:layout_marginLeft="@dimen/x40"
+                                android:layout_below="@id/member_infoCoin"
+                                android:layout_width="@dimen/x447"
+                                android:layout_height="@dimen/y10"
+                                app:nearOverText=""
+                                app:overText=""
+                                app:sideColor="#00ffffff"
+                                app:startColor="#AF7845"
+                                app:endColor="#ECCA9E"
+                                app:isNeedAnim="false"/>
+
+                            <TextView
+                                android:layout_above="@id/member_infoCoinProgress"
+                                android:layout_alignRight="@id/member_infoCoinProgress"
+                                android:textColor="@color/color_6B6E7A"
+                                android:textSize="14sp"
+                                android:text="@{date.point + @string/member_title4 + date.levelPoint}"
+                                android:id="@+id/member_infoCoinNumber"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"/>
+
+                            <TextView
+                                android:onClick="@{listener.onClick}"
+                                android:id="@+id/member_infoCoinInvation"
+                                android:layout_marginRight="@dimen/x33"
+                                android:layout_alignParentRight="true"
+                                android:layout_alignBottom="@id/member_infoCoinProgress"
+                                android:gravity="center"
+                                android:text="赚极币"
+                                android:textColor="@color/color_white"
+                                android:textSize="10sp"
+                                android:background="@drawable/member_button"
+                                android:layout_width="@dimen/x120"
+                                android:layout_height="@dimen/y36"/>
+
+                            <com.example.administrator.jipinshop.view.textview.DrawableLeftCenterTextView
+                                android:id="@+id/member_apply"
+                                android:onClick="@{listener.onClick}"
+                                android:gravity="center_vertical"
+                                android:drawablePadding="@dimen/x5"
+                                android:drawableLeft="@mipmap/member_upgrade"
+                                android:text="升级永久VIP"
+                                android:textColor="@color/color_white"
+                                android:textSize="16sp"
+                                android:layout_marginBottom="@dimen/y23"
+                                android:layout_alignParentBottom="true"
+                                android:background="@drawable/member_up_button"
+                                android:layout_marginRight="@dimen/x132"
+                                android:layout_marginLeft="@dimen/x132"
+                                android:layout_width="match_parent"
+                                android:layout_height="@dimen/y73"/>
+
+                        </RelativeLayout>
+
                     </RelativeLayout>
 
                     <TextView
                         android:paddingBottom="@dimen/y14"
                         android:id="@+id/member_userTitle"
-                        android:layout_marginTop="@dimen/y70"
+                        android:layout_marginTop="@dimen/y58"
                         android:layout_centerHorizontal="true"
                         android:layout_below="@+id/member_userContainer"
                         android:textColor="@color/color_FAE1BF"
@@ -166,24 +534,17 @@
                         android:layout_below="@+id/member_userTitle"
                         android:background="@mipmap/member_bg"
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content">
+                        android:layout_height="@dimen/y669">
 
-                        <android.support.v4.view.ViewPager
+                        <ImageView
+                            bind:src="@{date.img}"
+                            android:scaleType="fitCenter"
                             android:id="@+id/member_viewPager"
                             android:layout_marginTop="@dimen/y45"
                             android:layout_marginRight="@dimen/x35"
                             android:layout_marginLeft="@dimen/x35"
                             android:layout_width="match_parent"
-                            android:layout_height="@dimen/y380"/>
-
-                        <LinearLayout
-                            android:layout_marginBottom="@dimen/y32"
-                            android:layout_marginTop="@dimen/y10"
-                            android:id="@+id/member_point"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:gravity="center"
-                            android:orientation="horizontal"/>
+                            android:layout_height="@dimen/y554"/>
 
                     </LinearLayout>
 
@@ -267,143 +628,103 @@
 
                     </LinearLayout>
 
+                    <RelativeLayout
+                        android:layout_below="@+id/member_newContainer"
+                        android:layout_marginRight="@dimen/x18"
+                        android:layout_marginLeft="@dimen/x18"
+                        android:layout_marginTop="@dimen/y56"
+                        android:id="@+id/member_coinContainer"
+                        android:background="@mipmap/bg_member_coin"
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/y186">
+
+                        <ImageView
+                            android:id="@+id/bg_member_coin2"
+                            android:layout_marginLeft="@dimen/x38"
+                            android:layout_centerVertical="true"
+                            android:src="@mipmap/bg_member_coin2"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"/>
+
+                        <LinearLayout
+                            android:layout_marginLeft="@dimen/x30"
+                            android:layout_centerVertical="true"
+                            android:layout_toRightOf="@id/bg_member_coin2"
+                            android:orientation="vertical"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content">
+
+                            <TextView
+                                android:textStyle="bold"
+                                android:textColor="@color/color_202020"
+                                android:textSize="15sp"
+                                android:text="我的极币"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"/>
+
+                            <TextView
+                                android:id="@+id/member_coin"
+                                android:textColor="@color/color_FCB506"
+                                android:textStyle="bold"
+                                android:textSize="22sp"
+                                android:text="0"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"/>
+
+                        </LinearLayout>
+
+                        <TextView
+                            android:onClick="@{listener.onClick}"
+                            android:id="@+id/member_coinExchange"
+                            android:layout_marginRight="@dimen/x30"
+                            android:layout_alignParentRight="true"
+                            android:layout_centerVertical="true"
+                            android:gravity="center"
+                            android:textSize="14sp"
+                            android:text="兑换"
+                            android:textColor="@color/color_white"
+                            android:background="@drawable/bg_member_coin"
+                            android:layout_width="@dimen/x133"
+                            android:layout_height="@dimen/y63"/>
+
+                    </RelativeLayout>
+
                     <ImageView
                         android:id="@+id/member_title2"
-                        android:layout_marginTop="@dimen/y60"
+                        android:layout_marginTop="@dimen/y52"
                         android:layout_centerHorizontal="true"
-                        android:layout_below="@+id/member_newContainer"
+                        android:layout_below="@+id/member_coinContainer"
                         android:src="@mipmap/member_title3"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"/>
 
-                    <LinearLayout
-                        android:id="@+id/member_progressContainer"
-                        android:layout_marginTop="@dimen/y31"
-                        android:layout_below="@+id/member_title2"
-                        android:layout_marginRight="@dimen/x20"
-                        android:layout_marginLeft="@dimen/x20"
-                        android:background="@drawable/bg_fff4e5"
-                        android:orientation="vertical"
+                    <android.support.v7.widget.RecyclerView
+                        android:layout_below="@id/member_title2"
+                        android:id="@+id/member_dayRules"
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content">
+                        android:layout_height="wrap_content"/>
 
-                        <TextView
-                            android:id="@+id/member_fans"
-                            android:layout_marginTop="@dimen/y49"
-                            android:layout_marginLeft="@dimen/x40"
-                            android:textColor="@color/color_424242"
-                            android:textStyle="bold"
-                            android:textSize="13sp"
-                            android:text="@{@string/member_title3 + date.levelInvitedUserCount + @string/free_myinva2}"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"/>
+                    <ImageView
+                        android:id="@+id/member_title4"
+                        android:layout_marginTop="@dimen/y52"
+                        android:layout_centerHorizontal="true"
+                        android:layout_below="@+id/member_dayRules"
+                        android:src="@mipmap/member_title5"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"/>
 
+                    <android.support.v7.widget.RecyclerView
+                        android:layout_below="@id/member_title4"
+                        android:id="@+id/member_userRules"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"/>
 
-                        <LinearLayout
-                            android:gravity="center_vertical"
-                            android:layout_marginTop="@dimen/y5"
-                            android:layout_marginLeft="@dimen/x40"
-                            android:orientation="horizontal"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content">
-
-                            <com.example.administrator.jipinshop.view.SaleProgressView
-                                android:id="@+id/member_fansProgress"
-                                android:layout_width="@dimen/x480"
-                                android:layout_height="@dimen/y18"
-                                android:layout_toRightOf="@+id/item_progressbar1_text"
-                                app:nearOverText=""
-                                app:overText=""
-                                app:sideColor="#424242"
-                                app:startColor="#AF7845"
-                                app:endColor="#ECCA9E"
-                                app:isNeedAnim="false"/>
-
-                            <TextView
-                                android:id="@+id/member_fansNum"
-                                android:layout_marginLeft="@dimen/x12"
-                                android:textColor="@color/color_CA8E56"
-                                android:textSize="12sp"
-                                android:text="@{date.invitedUserCount + @string/free_inva2 + date.levelInvitedUserCount + @string/free_myinva2}"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"/>
-
-                        </LinearLayout>
-
-                        <TextView
-                            android:id="@+id/member_commission"
-                            android:layout_marginTop="@dimen/y44"
-                            android:layout_marginLeft="@dimen/x40"
-                            android:textColor="@color/color_424242"
-                            android:textStyle="bold"
-                            android:textSize="13sp"
-                            android:text="@{@string/member_title4 + date.levelCommission + @string/order_prefree_end}"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"/>
-
-                        <LinearLayout
-                            android:gravity="center_vertical"
-                            android:layout_marginTop="@dimen/y5"
-                            android:layout_marginLeft="@dimen/x40"
-                            android:orientation="horizontal"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content">
-
-                            <com.example.administrator.jipinshop.view.SaleProgressView
-                                android:id="@+id/member_commissionProgress"
-                                android:layout_width="@dimen/x480"
-                                android:layout_height="@dimen/y18"
-                                android:layout_toRightOf="@+id/item_progressbar1_text"
-                                app:nearOverText=""
-                                app:overText=""
-                                app:sideColor="#424242"
-                                app:startColor="#AF7845"
-                                app:endColor="#ECCA9E"
-                                app:isNeedAnim="false"/>
-
-                            <TextView
-                                android:id="@+id/member_commissionNum"
-                                android:layout_marginLeft="@dimen/x12"
-                                android:textColor="@color/color_CA8E56"
-                                android:textSize="12sp"
-                                android:text="@{date.commission + @string/free_inva2 + date.levelCommission + @string/order_prefree_end}"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"/>
-
-                        </LinearLayout>
-
-                        <TextView
-                            android:layout_marginBottom="@dimen/y25"
-                            android:layout_marginTop="@dimen/y25"
-                            android:textColor="@color/color_424242"
-                            android:layout_marginRight="@dimen/x35"
-                            android:layout_marginLeft="@dimen/x35"
-                            android:lineSpacingExtra="@dimen/y8"
-                            android:textSize="12sp"
-                            android:text="*有效粉丝：成功登录极品城App并存在购物订单的用户视为有效粉丝。购物订单中的活动订单不包括在内（0元购、特惠购等活动）\n*升级说明：两个目标进度达到100%后，即可申请为VIP会员，审核需要1-3个工作日内完成。"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"/>
-
-                        <TextView
-                            android:onClick="@{listener.onClick}"
-                            android:id="@+id/member_apply"
-                            android:textSize="18sp"
-                            android:textColor="@color/color_FFE4AC"
-                            android:text="申请升级VIP"
-                            android:gravity="center"
-                            android:layout_gravity="center_horizontal"
-                            android:layout_marginBottom="@dimen/y22"
-                            android:background="@mipmap/member_bottom"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"/>
-
-                    </LinearLayout>
 
                     <ImageView
                         android:id="@+id/member_title3"
-                        android:layout_marginTop="@dimen/y99"
+                        android:layout_marginTop="@dimen/y60"
                         android:layout_centerHorizontal="true"
-                        android:layout_below="@+id/member_progressContainer"
+                        android:layout_below="@+id/member_userRules"
                         android:src="@mipmap/member_title4"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"/>

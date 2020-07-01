@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:bind="http://schemas.android.com/apk/res-auto">
+
+    <data>
+        <variable
+            name="listener"
+            type="android.view.View.OnClickListener"/>
+    </data>
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <include
+                bind:listener="@{listener}"
+                android:id="@+id/in_clude"
+                layout="@layout/aa_title2"/>
+
+            <TextView
+                android:gravity="center"
+                android:textColor="@color/color_DE050505"
+                android:textStyle="bold"
+                android:textSize="14sp"
+                android:text="抽奖记录"
+                android:id="@+id/web_share"
+                android:onClick="@{listener.onClick}"
+                android:paddingLeft="@dimen/x28"
+                android:paddingRight="@dimen/x28"
+                android:layout_alignParentRight="true"
+                android:layout_width="wrap_content"
+                android:layout_height="@dimen/y88"/>
+
+        </RelativeLayout>
+
+        <WebView
+            android:scrollbars="none"
+            android:id="@+id/web_view"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"/>
+
+    </LinearLayout>
+
+</layout>

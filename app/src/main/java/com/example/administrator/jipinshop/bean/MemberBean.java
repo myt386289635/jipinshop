@@ -55,16 +55,68 @@ public class MemberBean {
 
         private String avatar;
         private String nickname;
-        private int level;
-        private int invitedUserCount;
-        private int levelInvitedUserCount;
-        private int levelStatus;
-        private String commission;
-        private String levelCommission;
-        private String pAvatar;
-        private String pWechat;
+        private int level; //会员等级
+        private int invitedUserCount; //直属粉丝
+        private int levelInvitedUserCount; //需要邀请的直属粉丝
+        private int levelStatus; //会员状态 （是否在申请中）  已没用
+        private String pAvatar; //导师头像
+        private String pWechat; //导师微信
         private List<String> imgList;
         private List<MessageListBean> messageList;
+        private int point; //极币数
+        private String img;//尊享特权图片
+        private String levelEndTime;//临时会员到期时间
+        private int levelPoint;//永久会员升级积分
+        private int monthLevelPoint;//会员设计临时月度积分
+        private int monthLevelInvitedUserCount;
+
+        public int getMonthLevelInvitedUserCount() {
+            return monthLevelInvitedUserCount;
+        }
+
+        public void setMonthLevelInvitedUserCount(int monthLevelInvitedUserCount) {
+            this.monthLevelInvitedUserCount = monthLevelInvitedUserCount;
+        }
+
+        public int getLevelPoint() {
+            return levelPoint;
+        }
+
+        public void setLevelPoint(int levelPoint) {
+            this.levelPoint = levelPoint;
+        }
+
+        public int getMonthLevelPoint() {
+            return monthLevelPoint;
+        }
+
+        public void setMonthLevelPoint(int monthLevelPoint) {
+            this.monthLevelPoint = monthLevelPoint;
+        }
+
+        public String getLevelEndTime() {
+            return levelEndTime;
+        }
+
+        public void setLevelEndTime(String levelEndTime) {
+            this.levelEndTime = levelEndTime;
+        }
+
+        public String getImg() {
+            return img;
+        }
+
+        public void setImg(String img) {
+            this.img = img;
+        }
+
+        public int getPoint() {
+            return point;
+        }
+
+        public void setPoint(int point) {
+            this.point = point;
+        }
 
         public int getLevelStatus() {
             return levelStatus;
@@ -112,22 +164,6 @@ public class MemberBean {
 
         public void setLevelInvitedUserCount(int levelInvitedUserCount) {
             this.levelInvitedUserCount = levelInvitedUserCount;
-        }
-
-        public String getCommission() {
-            return commission;
-        }
-
-        public void setCommission(String commission) {
-            this.commission = commission;
-        }
-
-        public String getLevelCommission() {
-            return levelCommission;
-        }
-
-        public void setLevelCommission(String levelCommission) {
-            this.levelCommission = levelCommission;
         }
 
         public String getPAvatar() {

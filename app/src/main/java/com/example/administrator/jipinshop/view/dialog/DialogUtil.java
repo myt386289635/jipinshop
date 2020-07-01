@@ -10,6 +10,7 @@ import android.databinding.DataBindingUtil;
 import android.graphics.Color;
 import android.graphics.Typeface;
 import android.os.CountDownTimer;
+import android.support.v7.widget.LinearLayoutManager;
 import android.text.Html;
 import android.text.SpannableString;
 import android.text.Spanned;
@@ -36,12 +37,15 @@ import com.example.administrator.jipinshop.activity.WebActivity;
 import com.example.administrator.jipinshop.activity.home.MainActivity;
 import com.example.administrator.jipinshop.activity.shoppingdetail.tbshoppingdetail.TBShoppingDetailActivity;
 import com.example.administrator.jipinshop.activity.sreach.result.TBSreachResultActivity;
+import com.example.administrator.jipinshop.adapter.DialogLuckAdapter;
 import com.example.administrator.jipinshop.bean.NewFreeBean;
 import com.example.administrator.jipinshop.bean.PopBean;
+import com.example.administrator.jipinshop.bean.PrizeLogBean;
 import com.example.administrator.jipinshop.bean.SubUserBean;
 import com.example.administrator.jipinshop.bean.TeacherBean;
 import com.example.administrator.jipinshop.bean.TklBean;
 import com.example.administrator.jipinshop.databinding.DialogCheapBinding;
+import com.example.administrator.jipinshop.databinding.DialogLuckBinding;
 import com.example.administrator.jipinshop.databinding.DialogNewpeople2Binding;
 import com.example.administrator.jipinshop.databinding.DialogNewpeopleBinding;
 import com.example.administrator.jipinshop.databinding.DialogNewpeopleBuyBinding;
@@ -57,6 +61,7 @@ import com.example.administrator.jipinshop.util.sp.CommonDate;
 import com.example.administrator.jipinshop.view.glide.GlideApp;
 
 import java.math.BigDecimal;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -1011,6 +1016,22 @@ public class DialogUtil {
             }else {
                 ToastUtil.show("暂未填写");
             }
+        });
+        dialog.getWindow().setDimAmount(0.35f);
+        dialog.show();
+        dialog.setContentView(binding.getRoot());
+    }
+
+    public static void onLuckDialog(Context context , List<PrizeLogBean.DataBean> list){
+        AlertDialog.Builder builder = new AlertDialog.Builder(context, R.style.dialog);
+        DialogLuckBinding binding = DataBindingUtil.inflate(LayoutInflater.from(context),R.layout.dialog_luck, null,false);
+        final Dialog dialog = builder.create();
+        binding.dialogRv.setLayoutManager(new LinearLayoutManager(context));
+        DialogLuckAdapter adapter = new DialogLuckAdapter(list,context);
+        binding.dialogRv.setAdapter(adapter);
+        binding.dialogRv.setNestedScrollingEnabled(false);
+        binding.dialogDismiss.setOnClickListener(v -> {
+            dialog.dismiss();
         });
         dialog.getWindow().setDimAmount(0.35f);
         dialog.show();

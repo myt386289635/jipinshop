@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/y60">
+
+        <TextView
+            android:layout_marginRight="@dimen/x10"
+            android:layout_toLeftOf="@id/item_time"
+            android:ellipsize="end"
+            android:singleLine="true"
+            android:textStyle="bold"
+            android:textColor="@color/color_202020"
+            android:textSize="15sp"
+            android:layout_centerVertical="true"
+            android:id="@+id/item_title"
+            android:text="谢谢参与谢谢参与谢谢参与谢谢参与谢谢参与谢谢参与"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+
+        <TextView
+            android:textColor="@color/color_565252"
+            android:textSize="15sp"
+            android:id="@+id/item_time"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:text="2020-06-01  11:20"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+
+        <View
+            android:layout_alignParentBottom="true"
+            android:background="@color/color_979797"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/y2"/>
+
+    </RelativeLayout>
+</layout>

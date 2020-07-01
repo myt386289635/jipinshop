@@ -3,7 +3,8 @@
     android:orientation="horizontal"
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="wrap_content"
-    android:layout_height="wrap_content">
+    android:layout_height="wrap_content"
+    xmlns:tools="http://schemas.android.com/tools">
 
     <LinearLayout
         android:id="@+id/item_container"
@@ -15,10 +16,10 @@
 
         <ImageView
             android:id="@+id/item_image"
-            android:src="@color/color_E25838"
+            tools:src="@color/color_E25838"
             android:scaleType="fitCenter"
-            android:layout_width="@dimen/x104"
-            android:layout_height="@dimen/y104"/>
+            android:layout_width="@dimen/x88"
+            android:layout_height="@dimen/y88"/>
 
         <TextView
             android:layout_marginBottom="@dimen/y7"

@@ -57,7 +57,7 @@ class KTMain2GridAdapter : RecyclerView.Adapter<KTMain2GridAdapter.ViewHolder>{
             GlideApp.loderImage(mContext,mList[position].iconUrl,mImageView,0,0)
             itemView.setOnClickListener {
                 appStatisticalUtil.addEvent("shouye_gongge." + (position + 1),transformer)
-                ShopJumpUtil.openCommen(mContext,mList[position].type,mList[position].targetId,
+                ShopJumpUtil.openBanner(mContext,mList[position].type,mList[position].targetId,
                         mList[position].title,mList[position].source)
             }
             var wight = mContext.resources.getDimension(R.dimen.x120)

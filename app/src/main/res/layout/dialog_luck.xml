@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <RelativeLayout
+        android:minWidth="@dimen/x600"
+        android:layout_gravity="center_horizontal"
+        android:background="@drawable/bg_dialog_white"
+        android:layout_width="@dimen/x600"
+        android:layout_height="wrap_content">
+
+        <ImageView
+            android:id="@+id/dialog_dismiss"
+            android:layout_alignParentRight="true"
+            android:tint="@color/color_ACACAC"
+            android:paddingBottom="@dimen/y13"
+            android:paddingTop="@dimen/y13"
+            android:paddingLeft="@dimen/x9"
+            android:paddingRight="@dimen/x9"
+            android:src="@mipmap/dialog_close1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+
+        <TextView
+            android:id="@+id/dialog_title"
+            android:layout_marginTop="@dimen/y60"
+            android:layout_centerHorizontal="true"
+            android:text="抽奖记录"
+            android:textStyle="bold"
+            android:textSize="17sp"
+            android:textColor="@color/color_202020"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+
+        <ScrollView
+            android:layout_below="@id/dialog_title"
+            android:layout_marginBottom="@dimen/y67"
+            android:layout_marginRight="@dimen/x60"
+            android:layout_marginLeft="@dimen/x60"
+            android:layout_marginTop="@dimen/y50"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/y240">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <android.support.v7.widget.RecyclerView
+                    android:id="@+id/dialog_rv"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"/>
+
+            </RelativeLayout>
+
+        </ScrollView>
+
+    </RelativeLayout>
+</layout>

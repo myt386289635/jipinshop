@@ -1,12 +1,16 @@
 package com.example.administrator.jipinshop.fragment.member
 
+import android.app.Dialog
 import android.content.Context
 import android.view.ViewGroup
+import android.view.inputmethod.InputMethodManager
 import android.widget.ImageView
 import android.widget.LinearLayout
 import com.example.administrator.jipinshop.R
 import com.example.administrator.jipinshop.adapter.NoPageBannerAdapter
+import com.example.administrator.jipinshop.bean.DailyTaskBean
 import com.example.administrator.jipinshop.bean.MemberBean
+import com.example.administrator.jipinshop.bean.SignInsertBean
 import com.example.administrator.jipinshop.bean.SuccessBean
 import com.example.administrator.jipinshop.netwrok.Repository
 import com.trello.rxlifecycle2.LifecycleTransformer
@@ -61,6 +65,7 @@ class KTMemberPresenter {
         mBannerAdapter.notifyDataSetChanged()
     }
 
+    //会员信息
     fun memberIndex(transformer: LifecycleTransformer<MemberBean>) {
         repository.memberIndex()
                 .subscribeOn(Schedulers.io())
@@ -77,8 +82,9 @@ class KTMemberPresenter {
                 })
     }
 
-    fun memberUpdate(transformer: LifecycleTransformer<SuccessBean>){
-        repository.memberUpdate()
+    //会员升级
+    fun memberUpdate(type : String,transformer: LifecycleTransformer<SuccessBean>){
+        repository.memberUpdate(type)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .compose(transformer)
@@ -90,6 +96,55 @@ class KTMemberPresenter {
                     }
                 }, Consumer {
                     mView.onFile(it.message)
+                })
+    }
+
+    //每日任务
+    fun DailytaskList(transformer: LifecycleTransformer<DailyTaskBean>) {
+        repository.DailytaskList()
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .compose(transformer)
+                .subscribe({ dailyTaskBean ->
+                    if (dailyTaskBean.code == 0) {
+                        mView.getDayList(dailyTaskBean)
+                    } else {
+                        mView.onFile(dailyTaskBean.msg)
+                    }
+                }, { throwable ->
+                    mView.onFile(throwable.message)
+                })
+    }
+
+    //填写邀请码
+    fun addInvitationCode(invitationCode: String, dialog: Dialog, inputManager: InputMethodManager, transformer: LifecycleTransformer<SuccessBean>) {
+        repository.addInvitationCode(invitationCode)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .compose(transformer)
+                .subscribe({ successBean ->
+                    if (successBean.getCode() == 0) {
+                        mView.onCodeSuc(dialog, inputManager, successBean)
+                    } else {
+                        mView.onFile(successBean.getMsg())
+                    }
+                }, { throwable -> mView.onFile(throwable.message) })
+    }
+
+    //签到
+    fun sign(transformer: LifecycleTransformer<SignInsertBean>) {
+        repository.signInsert()
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .compose(transformer)
+                .subscribe({ signInsertBean ->
+                    if (signInsertBean.getCode() == 0) {
+                        mView.signSuc(signInsertBean)
+                    } else  if (signInsertBean.getCode() != 630){
+                        mView.onFile(signInsertBean.getMsg())
+                    }
+                }, { throwable ->
+                    mView.onFile(throwable.message)
                 })
     }
 }
