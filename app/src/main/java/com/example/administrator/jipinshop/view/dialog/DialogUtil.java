@@ -184,6 +184,57 @@ public class DialogUtil {
     }
 
     /**
+     * 带title的默认弹框
+     */
+    public static void listingDetele(Context context, String titleStr,String content, String sureText, String cancleText,
+                                     int titleColor, int sureColor, int cancleColor, int contentColor,
+                                     Boolean isSureCrude,Boolean isContentCrude,
+                                   final View.OnClickListener sureListener){
+        AlertDialog.Builder builder = new AlertDialog.Builder(context, R.style.dialog);
+        View view = LayoutInflater.from(context).inflate(R.layout.dialog_listing, null);
+
+        TextView title = view.findViewById(R.id.dialog_titleLine);
+        title.setText(titleStr);
+        title.setTextColor(context.getResources().getColor(titleColor));
+        title.setTextSize(17);
+
+        TextView sure = view.findViewById(R.id.dialog_sure);
+        sure.setText(sureText);
+        sure.setTextColor(context.getResources().getColor(sureColor));
+        if (isSureCrude){
+            sure.setTypeface(Typeface.defaultFromStyle(Typeface.BOLD));//加粗
+        }else {
+            sure.setTypeface(Typeface.defaultFromStyle(Typeface.NORMAL));//不加粗
+        }
+
+        TextView contentView = view.findViewById(R.id.dialog_title);
+        contentView.setText(content);
+        contentView.setTextColor(context.getResources().getColor(contentColor));
+        if (isContentCrude){
+            contentView.setTypeface(Typeface.defaultFromStyle(Typeface.BOLD));//加粗
+        }else {
+            contentView.setTypeface(Typeface.defaultFromStyle(Typeface.NORMAL));//不加粗
+        }
+        contentView.setTextSize(15);
+
+        final Dialog dialog = builder.create();
+        dialog.getWindow().setDimAmount(0.35f);
+        sure.setOnClickListener(view12 -> {
+            sureListener.onClick(view12);
+            dialog.dismiss();
+        });
+
+        TextView cancle = view.findViewById(R.id.dialog_cancle);
+        cancle.setText(cancleText);
+        cancle.setTextColor(context.getResources().getColor(cancleColor));
+        cancle.setOnClickListener(view1 -> dialog.dismiss());
+
+        dialog.show();
+        dialog.setContentView(view);
+    }
+
+
+    /**
      * 版本更新diaglog
      */
     public static void UpDateDialog(Context context, String varsonNum, String content, final View.OnClickListener updateListener, OnDismissLitener dismissLitener) {

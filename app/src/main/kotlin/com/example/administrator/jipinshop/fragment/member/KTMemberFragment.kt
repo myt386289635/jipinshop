@@ -32,7 +32,6 @@ import com.example.administrator.jipinshop.bean.MemberBean
 import com.example.administrator.jipinshop.bean.SignInsertBean
 import com.example.administrator.jipinshop.bean.SuccessBean
 import com.example.administrator.jipinshop.bean.eventbus.ChangeHomePageBus
-import com.example.administrator.jipinshop.bean.eventbus.TBShopDetailBus.finish
 import com.example.administrator.jipinshop.databinding.FragmentMemberBinding
 import com.example.administrator.jipinshop.netwrok.RetrofitModule
 import com.example.administrator.jipinshop.util.ToastUtil
@@ -56,6 +55,12 @@ class KTMemberFragment : DBBaseFragment(), View.OnClickListener, OnRefreshListen
     private lateinit var mBinding: FragmentMemberBinding
     private var once: Boolean = true
     private var level: Int = 0
+    private var monthLevelPoint: Int = 0//会员设计临时月度积分
+    private var monthLevelInvitedUserCount: Int = 0
+    private var levelInvitedUserCount: Int = 0
+    private var levelPoint: Int = 0
+    private var invitedUserCount: Int = 0 //我邀请的人数
+    private var point: Int = 0 //我目前的极币数
     //广告
     private lateinit var mAdList: MutableList<MemberBean.DataBean.MessageListBean>
     private var mDialog: Dialog? = null
@@ -174,28 +179,62 @@ class KTMemberFragment : DBBaseFragment(), View.OnClickListener, OnRefreshListen
                 }
             }
             R.id.member_up30 -> {
-                mDialog = ProgressDialogView().createLoadingDialog(context, "")
-                mDialog?.show()
-                mPresenter.memberUpdate("1",this.bindToLifecycle())
+                if (invitedUserCount < monthLevelInvitedUserCount){
+                    ToastUtil.show("不符合升级条件，请继续努力")
+                    return
+                }
+                if (point < monthLevelPoint){
+                    ToastUtil.show("不符合升级条件，请继续努力")
+                    return
+                }
+                var content = "需消耗"+ monthLevelInvitedUserCount +"名直邀用户，"+ monthLevelPoint +"极币\n升级消耗的邀请用户数量不影\n响您的分佣"
+                var title = "申请升级30天VIP"
+                DialogUtil.listingDetele(context,title,content,"立即升级","取消",
+                        R.color.color_202020,R.color.color_4A90E2,R.color.color_9D9D9D,R.color.color_565252,true,false){
+                    mDialog = ProgressDialogView().createLoadingDialog(context, "")
+                    mDialog?.show()
+                    mPresenter.memberUpdate("1",this.bindToLifecycle())
+                }
             }
             R.id.member_apply -> {
+                if (invitedUserCount < levelInvitedUserCount){
+                    ToastUtil.show("不符合升级条件，请继续努力")
+                    return
+                }
+                if (point < levelPoint){
+                    ToastUtil.show("不符合升级条件，请继续努力")
+                    return
+                }
                 var type = "1"
+                var title = ""
                 when (level){
                     0 -> { //普通人员
                         type = "2"
+                        title = "申请升级永久VIP"
                     }
                     1 -> {//vip
                         type = "3"
+                        title = "申请升级永久合伙人"
                     }
                 }
-                mDialog = ProgressDialogView().createLoadingDialog(context, "")
-                mDialog?.show()
-                mPresenter.memberUpdate(type,this.bindToLifecycle())
+                var content = "需消耗"+ levelInvitedUserCount +"名直邀用户，"+ levelPoint +"极币\n升级消耗的邀请用户数量不影\n响您的分佣"
+                DialogUtil.listingDetele(context,title,content,"立即升级","取消",
+                        R.color.color_202020,R.color.color_4A90E2,R.color.color_9D9D9D,R.color.color_565252,true,false){
+                    mDialog = ProgressDialogView().createLoadingDialog(context, "")
+                    mDialog?.show()
+                    mPresenter.memberUpdate(type,this.bindToLifecycle())
+                }
             }
         }
     }
 
     override fun onSuccess(bean: MemberBean) {
+        monthLevelPoint = bean.data.monthLevelPoint
+        monthLevelInvitedUserCount = bean.data.monthLevelInvitedUserCount
+        levelInvitedUserCount = bean.data.levelInvitedUserCount
+        levelPoint = bean.data.levelPoint
+        invitedUserCount = bean.data.invitedUserCount
+        point = bean.data.point
         mBinding.swipeToLoad.isRefreshing = false
         mBinding.date = bean.data
         mBinding.executePendingBindings()
