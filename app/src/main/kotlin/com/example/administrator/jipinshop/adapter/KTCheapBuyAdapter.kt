@@ -92,7 +92,6 @@ class KTCheapBuyAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>{
             HEAD -> {
                 var headViewHolder : HeadViewHolder = holder as HeadViewHolder
                 headViewHolder.run {
-                    binding.itemPrice.text = totalUsedAllowance
                     binding.itemCheapPrice.text = allowance
                     binding.itemRule.setOnClickListener {
                         mContent.startActivity(Intent(mContent, WebActivity::class.java)
@@ -100,28 +99,12 @@ class KTCheapBuyAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>{
                                 .putExtra(WebActivity.title, "规则说明")
                         )
                     }
-                    binding.itemPriceContainer.setOnClickListener {
-                        if (TextUtils.isEmpty(SPUtils.getInstance(CommonDate.USER).getString(CommonDate.token, ""))) {
-                            mContent.startActivity(Intent(mContent, LoginActivity::class.java))
-                            return@setOnClickListener
-                        }
-                        mContent.startActivity(Intent(mContent, AllowanceRecordActivity::class.java))
-                    }
-                    binding.itemChange.setOnClickListener {
-                        //跳转到极币商城
-                        if (TextUtils.isEmpty(SPUtils.getInstance(CommonDate.USER).getString(CommonDate.token, ""))) {
-                            mContent.startActivity(Intent(mContent, LoginActivity::class.java))
-                            return@setOnClickListener
-                        }
-                        mContent.startActivity(Intent(mContent, MallActivity::class.java))
-                    }
                 }
             }
             CONTENT -> {
                 var contentViewHolder : ContentViewHolder = holder as ContentViewHolder
                 var pos = position - 1
                 contentViewHolder.run {
-                    binding.itemContainer.setBackgroundColor(mContent.resources.getColor(R.color.color_E34310))
                     binding.itemBuy.setOnClickListener {
                         mOnClickItem?.onBuy(pos)
                     }

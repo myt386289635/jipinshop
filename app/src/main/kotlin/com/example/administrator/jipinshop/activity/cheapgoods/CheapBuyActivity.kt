@@ -12,6 +12,7 @@ import com.alibaba.baichuan.android.trade.AlibcTradeSDK
 import com.aspsine.swipetoloadlayout.OnRefreshListener
 import com.blankj.utilcode.util.SPUtils
 import com.example.administrator.jipinshop.R
+import com.example.administrator.jipinshop.activity.cheapgoods.record.AllowanceRecordActivity
 import com.example.administrator.jipinshop.activity.login.LoginActivity
 import com.example.administrator.jipinshop.adapter.KTCheapBuyAdapter
 import com.example.administrator.jipinshop.base.BaseActivity
@@ -19,6 +20,7 @@ import com.example.administrator.jipinshop.bean.ImageBean
 import com.example.administrator.jipinshop.bean.NewPeopleBean
 import com.example.administrator.jipinshop.bean.PopBean
 import com.example.administrator.jipinshop.databinding.ActivityArticleMoreBinding
+import com.example.administrator.jipinshop.databinding.ActivityCheapBuyBinding
 import com.example.administrator.jipinshop.util.TaoBaoUtil
 import com.example.administrator.jipinshop.util.ToastUtil
 import com.example.administrator.jipinshop.util.sp.CommonDate
@@ -35,14 +37,14 @@ class CheapBuyActivity : BaseActivity(), View.OnClickListener, OnRefreshListener
 
     @Inject
     lateinit var mPresenter: CheapBuyPresenter
-    private lateinit var mBinding : ActivityArticleMoreBinding
+    private lateinit var mBinding : ActivityCheapBuyBinding
     private lateinit var mList: MutableList<NewPeopleBean.DataBean.AllowanceGoodsListBean>
     private lateinit var adapter: KTCheapBuyAdapter
     private var mDialog: Dialog? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        mBinding = DataBindingUtil.setContentView(this, R.layout.activity_article_more)
+        mBinding = DataBindingUtil.setContentView(this, R.layout.activity_cheap_buy)
         mBinding.listener = this
         mBaseActivityComponent.inject(this)
         mPresenter.setView(this)
@@ -54,12 +56,12 @@ class CheapBuyActivity : BaseActivity(), View.OnClickListener, OnRefreshListener
             it.titleTv.text = "百万补贴特惠购"
         }
 
-        mBinding.recyclerView.setBackgroundColor(resources.getColor(R.color.color_E34310))
         mBinding.recyclerView.layoutManager = LinearLayoutManager(this)
         mList = mutableListOf()
         adapter = KTCheapBuyAdapter(this,mList)
         adapter.setOnClickItem(this)
         mBinding.recyclerView.adapter = this.adapter
+        mBinding.recyclerView.isNestedScrollingEnabled = false
 
         mPresenter.solveScoll(mBinding.recyclerView, mBinding.swipeToLoad)
         mBinding.swipeToLoad.setOnRefreshListener(this)
@@ -73,6 +75,14 @@ class CheapBuyActivity : BaseActivity(), View.OnClickListener, OnRefreshListener
         when(v?.id){
             R.id.title_back  ->{
                 finish()
+            }
+            R.id.detail_share -> {
+                //使用记录
+                if (TextUtils.isEmpty(SPUtils.getInstance(CommonDate.USER).getString(CommonDate.token, ""))) {
+                    startActivity(Intent(this, LoginActivity::class.java))
+                    return
+                }
+                startActivity(Intent(this, AllowanceRecordActivity::class.java))
             }
         }
     }
@@ -88,25 +98,15 @@ class CheapBuyActivity : BaseActivity(), View.OnClickListener, OnRefreshListener
             SPUtils.getInstance().put(CommonDate.FIRSTCHEAP, false)
             DialogUtil.cheapGuideDialog(this)
         }
-        if (bean.data != null && bean.data.allowanceGoodsList.size != 0) {
-            mBinding.netClude?.let {
-                it.qsNet.visibility = View.GONE
-            }
-            mBinding.recyclerView.visibility = View.VISIBLE
-            mList.clear()
-            mList.addAll(bean.data.allowanceGoodsList)
-            adapter.setTotalUsedAllowance(bean.data.totalUsedAllowance)
-            adapter.setAllowance(bean.data.allowance)
-            adapter.notifyDataSetChanged()
-        } else {
-            initError(R.mipmap.qs_nodata, "暂无数据", "暂时没有任何数据 ")
-        }
+        mList.clear()
+        mList.addAll(bean.data.allowanceGoodsList)
+        adapter.setTotalUsedAllowance(bean.data.totalUsedAllowance)
+        adapter.setAllowance(bean.data.allowance)
+        adapter.notifyDataSetChanged()
     }
 
     override fun onFile(error: String?) {
         dissRefresh()
-        initError(R.mipmap.qs_net, "网络出错", "哇哦，网络出错了，换个姿势下滑页面试试")
-        mBinding.recyclerView.visibility = View.GONE
         ToastUtil.show(error)
     }
 
@@ -119,15 +119,6 @@ class CheapBuyActivity : BaseActivity(), View.OnClickListener, OnRefreshListener
             } else {
                 mBinding.swipeToLoad.isRefreshing = false
             }
-        }
-    }
-
-    fun initError(id: Int, title: String, content: String) {
-        mBinding.netClude?.run {
-            qsNet.visibility = View.VISIBLE
-            errorImage.setBackgroundResource(id)
-            errorTitle.text = title
-            errorContent.text = content
         }
     }
 
