@@ -7,7 +7,6 @@ import android.os.Bundle
 import android.support.v7.widget.LinearLayoutManager
 import android.text.TextUtils
 import android.view.View
-import cn.jiguang.d.d.v
 import com.alibaba.baichuan.android.trade.AlibcTradeSDK
 import com.aspsine.swipetoloadlayout.OnRefreshListener
 import com.blankj.utilcode.util.SPUtils
@@ -18,8 +17,6 @@ import com.example.administrator.jipinshop.adapter.KTCheapBuyAdapter
 import com.example.administrator.jipinshop.base.BaseActivity
 import com.example.administrator.jipinshop.bean.ImageBean
 import com.example.administrator.jipinshop.bean.NewPeopleBean
-import com.example.administrator.jipinshop.bean.PopBean
-import com.example.administrator.jipinshop.databinding.ActivityArticleMoreBinding
 import com.example.administrator.jipinshop.databinding.ActivityCheapBuyBinding
 import com.example.administrator.jipinshop.util.TaoBaoUtil
 import com.example.administrator.jipinshop.util.ToastUtil

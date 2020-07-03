@@ -494,7 +494,7 @@ class KTHomeCommenAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>{
         }
         //刷新时，需要重新设置一下gridView高度
         fun setGridViewHeight() {
-            val numColumns = 4
+            val numColumns = 5
             var totalHeight = 0
             var i = 0
             while (i < mGvAdapter.count) {

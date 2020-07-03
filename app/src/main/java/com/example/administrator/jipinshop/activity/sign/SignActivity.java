@@ -16,6 +16,7 @@ import com.example.administrator.jipinshop.R;
 import com.example.administrator.jipinshop.activity.WebActivity;
 import com.example.administrator.jipinshop.activity.home.home.HomeNewActivity;
 import com.example.administrator.jipinshop.activity.info.MyInfoActivity;
+import com.example.administrator.jipinshop.activity.login.LoginActivity;
 import com.example.administrator.jipinshop.activity.mall.detail.MallDetailActivity;
 import com.example.administrator.jipinshop.activity.sign.detail.IntegralDetailActivity;
 import com.example.administrator.jipinshop.activity.sign.invitation.InvitationNewActivity;
@@ -115,8 +116,7 @@ public class SignActivity extends BaseActivity implements View.OnClickListener, 
 
         mDialog = (new ProgressDialogView()).createLoadingDialog(this, "正在加载...");
         mDialog.show();
-        mPresenter.sign(this.bindToLifecycle());//签到
-        mPresenter.DailytaskList(this.bindToLifecycle());//每日任务
+        mPresenter.sign(1,this.bindToLifecycle());//签到
         mPresenter.mallList(this.bindToLifecycle());//极币商城
     }
 
@@ -143,6 +143,10 @@ public class SignActivity extends BaseActivity implements View.OnClickListener, 
                     return;
                 }
                 if (ad1.getType().equals("16")){
+                    if(TextUtils.isEmpty(SPUtils.getInstance(CommonDate.USER).getString(CommonDate.token,""))){
+                        startActivity(new Intent(this, LoginActivity.class));
+                        return;
+                    }
                     mPresenter.getHongbao(this.bindToLifecycle());
                 }else {
                     ShopJumpUtil.openBanner(this,ad1.getType(),
@@ -152,6 +156,10 @@ public class SignActivity extends BaseActivity implements View.OnClickListener, 
                 break;
             case R.id.sign_h5Button:
                 //大转盘
+                if(TextUtils.isEmpty(SPUtils.getInstance(CommonDate.USER).getString(CommonDate.token,""))){
+                    startActivity(new Intent(this, LoginActivity.class));
+                    return;
+                }
                 if (ad2 == null){
                     return;
                 }
@@ -180,6 +188,18 @@ public class SignActivity extends BaseActivity implements View.OnClickListener, 
             mDialog.dismiss();
         }
         ToastUtil.show("签到成功");
+        mPresenter.DailytaskList(this.bindToLifecycle());//每日任务
+    }
+
+    //签到失败
+    @Override
+    public void signFile(int code,String error) {
+        if (mDialog != null && mDialog.isShowing()){
+            mDialog.dismiss();
+        }
+        if (code != 630)
+            ToastUtil.show(error);
+        mPresenter.DailytaskList(this.bindToLifecycle());//每日任务
     }
 
     //任务列表
@@ -312,7 +332,7 @@ public class SignActivity extends BaseActivity implements View.OnClickListener, 
                 //调用签到接口
                 mDialog = (new ProgressDialogView()).createLoadingDialog(this, "");
                 mDialog.show();
-                mPresenter.sign(this.bindToLifecycle());
+                mPresenter.sign(2,this.bindToLifecycle());
                 break;
             case 10://搜索
                 startActivity(new Intent(this, TBSreachActivity.class));

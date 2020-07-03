@@ -8,7 +8,6 @@ import com.example.administrator.jipinshop.R;
 import com.example.administrator.jipinshop.activity.home.article.ArticleDetailActivity;
 import com.example.administrator.jipinshop.activity.report.detail.ReportDetailActivity;
 import com.example.administrator.jipinshop.activity.shoppingdetail.tbshoppingdetail.TBShoppingDetailActivity;
-import com.example.administrator.jipinshop.activity.tryout.freedetail.FreeNewDetailActivity;
 import com.example.administrator.jipinshop.activity.wellcome.WellComeActivity;
 import com.tencent.mm.opensdk.constants.ConstantsAPI;
 import com.tencent.mm.opensdk.modelbase.BaseReq;
@@ -64,12 +63,6 @@ public class WXEntryActivity extends WXCallbackActivity implements IWXAPIEventHa
                         articleType = str[2].replace("articleType=","");
                     }
                     switch (type){
-                        case "1"://老人免单详情页
-                            Intent intent1 = new Intent(this, FreeNewDetailActivity.class);
-                            intent1.putExtra("freeId",id);
-                            intent1.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                            startActivity(intent1);
-                            break;
                         case "2"://淘宝商品详情页面
                             Intent intent2 = new Intent(this, TBShoppingDetailActivity.class);
                             intent2.putExtra("otherGoodsId",id);

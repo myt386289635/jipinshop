@@ -27,7 +27,7 @@
                 android:textColor="@color/color_DE050505"
                 android:textStyle="bold"
                 android:textSize="14sp"
-                android:text="抽奖记录"
+                android:text="分享"
                 android:id="@+id/web_share"
                 android:onClick="@{listener.onClick}"
                 android:paddingLeft="@dimen/x28"

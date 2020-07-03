@@ -1,6 +1,9 @@
 package com.example.administrator.jipinshop.activity.web.dzp;
 
 import android.app.Dialog;
+import android.content.ClipData;
+import android.content.ClipboardManager;
+import android.content.Context;
 import android.content.Intent;
 import android.databinding.DataBindingUtil;
 import android.net.http.SslError;
@@ -16,14 +19,19 @@ import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
 
+import com.blankj.utilcode.util.SPUtils;
 import com.example.administrator.jipinshop.R;
 import com.example.administrator.jipinshop.activity.sign.SignActivity;
 import com.example.administrator.jipinshop.base.BaseActivity;
 import com.example.administrator.jipinshop.bean.PrizeLogBean;
 import com.example.administrator.jipinshop.databinding.ActivityWheelWebBinding;
+import com.example.administrator.jipinshop.util.ShareUtils;
 import com.example.administrator.jipinshop.util.ToastUtil;
+import com.example.administrator.jipinshop.util.sp.CommonDate;
 import com.example.administrator.jipinshop.view.dialog.DialogUtil;
 import com.example.administrator.jipinshop.view.dialog.ProgressDialogView;
+import com.example.administrator.jipinshop.view.dialog.ShareBoardDialog2;
+import com.umeng.socialize.bean.SHARE_MEDIA;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -35,7 +43,7 @@ import javax.inject.Inject;
  * @create 2020/7/1
  * @Describe 大转盘web
  */
-public class BigWheelWebActivity extends BaseActivity implements View.OnClickListener, BigWheelWebView {
+public class BigWheelWebActivity extends BaseActivity implements View.OnClickListener, BigWheelWebView, ShareBoardDialog2.onShareListener {
 
     public static final String url = "url";
     public static final String title = "title";
@@ -47,6 +55,9 @@ public class BigWheelWebActivity extends BaseActivity implements View.OnClickLis
     private Dialog mDialog;//加载框
     private List<PrizeLogBean.DataBean> list;//抽奖记录
     private int isSign = 0;//是否是签到进来的  0否  1是
+    private ShareBoardDialog2 mShareBoardDialog;
+    private Dialog shareDialog;
+    private String mUrl;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -63,6 +74,8 @@ public class BigWheelWebActivity extends BaseActivity implements View.OnClickLis
         list = new ArrayList<>();
         mDialog = (new ProgressDialogView()).createLoadingDialog(this, "正在加载...");
         mDialog.show();
+        //分享
+        mUrl = "https://a.app.qq.com/o/simple.jsp?pkgname=com.example.administrator.jipinshop";
 
         mBinding.inClude.titleTv.setText(getIntent().getStringExtra(title));
         mBinding.webView.getSettings().setLoadWithOverviewMode(true);
@@ -86,7 +99,12 @@ public class BigWheelWebActivity extends BaseActivity implements View.OnClickLis
                     }else {
                         startActivity(new Intent(BigWheelWebActivity.this, SignActivity.class));
                     }
-                }else if (url.startsWith("http") || url.startsWith("https")) {
+                }else if (url.startsWith("https://cjlist")){
+                    //抽奖记录
+                    mDialog = (new ProgressDialogView()).createLoadingDialog(BigWheelWebActivity.this, "正在加载...");
+                    mDialog.show();
+                    mPresenter.prizeLogList(BigWheelWebActivity.this.bindToLifecycle());
+                } else if (url.startsWith("http") || url.startsWith("https")) {
                     //解决第三方网页打开页面后会跳转到自定义的schame而页面出错问题
                     view.loadUrl(url);//处理http和https开头的url
                 }
@@ -122,10 +140,14 @@ public class BigWheelWebActivity extends BaseActivity implements View.OnClickLis
                 finish();
                 break;
             case R.id.web_share:
-                //抽奖记录
-                mDialog = (new ProgressDialogView()).createLoadingDialog(this, "正在加载...");
-                mDialog.show();
-                mPresenter.prizeLogList(this.bindToLifecycle());
+                //分享
+                if (mShareBoardDialog == null) {
+                    mShareBoardDialog = ShareBoardDialog2.getInstance();
+                    mShareBoardDialog.setOnShareListener(this);
+                }
+                if (!mShareBoardDialog.isAdded()) {
+                    mShareBoardDialog.show(getSupportFragmentManager(), "ShareBoardDialog");
+                }
                 break;
         }
     }
@@ -164,5 +186,29 @@ public class BigWheelWebActivity extends BaseActivity implements View.OnClickLis
             mDialog.dismiss();
         }
         ToastUtil.show(error);
+    }
+
+    @Override
+    public void share(SHARE_MEDIA share_media) {
+        shareDialog = (new ProgressDialogView()).createLoadingDialog(this, "");
+        new ShareUtils(this,share_media,shareDialog)
+                .shareWeb(this, mUrl,"极品城APP幸运大转盘","抽奖送戴森，100%中奖，快来试手气吧~","",R.mipmap.share_logo);
+    }
+
+    @Override
+    public void onLink() {
+        ClipboardManager clip = (ClipboardManager)getSystemService(Context.CLIPBOARD_SERVICE);
+        ClipData clipData = ClipData.newPlainText("jipinshop", mUrl);
+        clip.setPrimaryClip(clipData);
+        ToastUtil.show("复制成功");
+        SPUtils.getInstance().put(CommonDate.CLIP,mUrl);
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        if (shareDialog != null && shareDialog.isShowing()) {
+            shareDialog.dismiss();
+        }
     }
 }

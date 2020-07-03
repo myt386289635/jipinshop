@@ -43,7 +43,6 @@ import com.example.administrator.jipinshop.util.UmApp.UAppUtil
 import com.example.administrator.jipinshop.util.sp.CommonDate
 import com.example.administrator.jipinshop.view.dialog.DialogUtil
 import com.example.administrator.jipinshop.view.dialog.ProgressDialogView
-import com.example.administrator.jipinshop.view.glide.GlideApp
 import com.trello.rxlifecycle2.android.FragmentEvent
 import org.greenrobot.eventbus.EventBus
 import org.greenrobot.eventbus.Subscribe

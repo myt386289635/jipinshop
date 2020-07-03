@@ -33,7 +33,6 @@ import com.example.administrator.jipinshop.fragment.home.recommend.RecommendFrag
 import com.example.administrator.jipinshop.fragment.home.userlike.KTUserLikeFragment;
 import com.example.administrator.jipinshop.fragment.member.KTMemberFragment;
 import com.example.administrator.jipinshop.fragment.mine.KTMineFragment;
-import com.example.administrator.jipinshop.fragment.mine.MineFragment;
 import com.example.administrator.jipinshop.fragment.mine.team.TeamOneFragment;
 import com.example.administrator.jipinshop.fragment.mine.team.three.TeamThreeFragment;
 import com.example.administrator.jipinshop.fragment.mine.team.two.TeamTwoFragment;
@@ -47,14 +46,6 @@ import com.example.administrator.jipinshop.fragment.sreach.article.SreachArticle
 import com.example.administrator.jipinshop.fragment.sreach.find.SreachFindFragment;
 import com.example.administrator.jipinshop.fragment.sreach.goods.SreachGoodsFragment;
 import com.example.administrator.jipinshop.fragment.sreach.tryout.SreachTryFragment;
-import com.example.administrator.jipinshop.fragment.tryout.freemodel.FreeFragment;
-import com.example.administrator.jipinshop.fragment.tryout.freemodel.FreeNewFragment;
-import com.example.administrator.jipinshop.fragment.tryout.freemodel.detail.ShopUserFragment;
-import com.example.administrator.jipinshop.fragment.tryout.freemodel.detail.ShopUserFragment2;
-import com.example.administrator.jipinshop.fragment.tryout.hot.TryCommenFragment;
-import com.example.administrator.jipinshop.fragment.tryout.mine.TrialCommonFragment;
-import com.example.administrator.jipinshop.fragment.tryout.mine.TrialReportFragment;
-import com.example.administrator.jipinshop.fragment.tryout.trymodel.TryFragment;
 import com.example.administrator.jipinshop.fragment.userkt.article.UserArticleFragment;
 import com.example.administrator.jipinshop.fragment.userkt.find.UserFindFragment;
 import com.example.administrator.jipinshop.netwrok.ApplicationComponent;
@@ -70,7 +61,6 @@ public interface BaseFragmentComponent {
     void inject(EvaluationFragment fragment);
     void inject(CommonFindFragment fragment);
     void inject(CommonEvaluationFragment fragment);
-    void inject(MineFragment fragment);
     void inject(FovalArticleFragment fragment);
     void inject(AttentionFragment fragment);
     void inject(FansFragment fragment);
@@ -81,15 +71,9 @@ public interface BaseFragmentComponent {
     void inject(FovalGoodsFragment fragment);
     void inject(FovalFindFragment fragment);
     void inject(BudgetDetailFragment fragment);
-    void inject(TryFragment fragment);
-    void inject(TryCommenFragment fragment);
     void inject(SreachTryFragment fragment);
     void inject(FovalTryFragment fragment);
-    void inject(TrialCommonFragment fragment);
-    void inject(TrialReportFragment fragment);
     void inject(WithdrawDetailFragment fragment);
-    void inject(FreeFragment fragment);
-    void inject(ShopUserFragment fragment);
     void inject(HomeNewFragment fragment);
     void inject(EvaAttentFrament fragment);
     void inject(EvaHotFragment fragment);
@@ -106,8 +90,6 @@ public interface BaseFragmentComponent {
     void inject(KTMyOrderFragment fragment);
     void inject(EvaUnPackingFragment fragment);
     void inject(EvaCompareFragment fragment);
-    void inject(FreeNewFragment fragment);
-    void inject(ShopUserFragment2 fragment);
     void inject(KTHomeFragnent fragment);
     void inject(KTUserLikeFragment fragment);
     void inject(KTHomeCommenFragment fragment);

@@ -48,7 +48,7 @@ public class SignPresenter {
     }
 
     //签到
-    public void sign(LifecycleTransformer<SignInsertBean> transformer){
+    public void sign(int type , LifecycleTransformer<SignInsertBean> transformer){
         mRepository.signInsert()
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
@@ -58,14 +58,24 @@ public class SignPresenter {
                         if(mView != null){
                             mView.signSuc(signInsertBean);
                         }
-                    }else if(signInsertBean.getCode() != 630){
-                        if(mView != null){
-                            mView.onFile(signInsertBean.getMsg());
+                    }else{
+                        if (type == 1){
+                            if (mView != null)
+                                mView.signFile(signInsertBean.getCode(),signInsertBean.getMsg());
+                        }else {
+                            if(mView != null){
+                                mView.onFile(signInsertBean.getMsg());
+                            }
                         }
                     }
                 }, throwable -> {
-                    if(mView != null){
-                        mView.onFile(throwable.getMessage());
+                    if (type == 1) {
+                        if (mView != null)
+                            mView.signFile(400,throwable.getMessage());
+                    } else {
+                        if (mView != null) {
+                            mView.onFile(throwable.getMessage());
+                        }
                     }
                 });
     }

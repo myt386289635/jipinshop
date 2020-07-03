@@ -7,8 +7,6 @@ import com.example.administrator.jipinshop.activity.home.article.ArticleDetailAc
 import com.example.administrator.jipinshop.activity.report.detail.ReportDetailActivity;
 import com.example.administrator.jipinshop.activity.shoppingdetail.ShoppingDetailActivity;
 import com.example.administrator.jipinshop.activity.shoppingdetail.tbshoppingdetail.TBShoppingDetailActivity;
-import com.example.administrator.jipinshop.activity.tryout.detail.TryDetailActivity;
-import com.example.administrator.jipinshop.activity.tryout.freedetail.FreeDetailActivity;
 import com.mob.moblink.ActionListener;
 import com.mob.moblink.MobLink;
 import com.mob.moblink.Scene;
@@ -69,17 +67,6 @@ public class MobLinkUtil {
                 intent.setClass(context, ReportDetailActivity.class);
                 intent.putExtra("id", id);
                 intent.putExtra("type", "7");
-                context.startActivity(intent);
-                break;
-            case "/free":
-                intent.setClass(context, FreeDetailActivity.class);
-                intent.putExtra("id", id);
-                context.startActivity(intent);
-                break;
-            case "/trial":
-                intent.setClass(context, TryDetailActivity.class);
-                intent.putExtra("id", id);
-                intent.putExtra("pos", -1);
                 context.startActivity(intent);
                 break;
             case "/tbkGoodsDetail":

@@ -18,6 +18,7 @@ public interface SignView {
 
     /**签到成功*/
     void signSuc(SignInsertBean signInsertBean);
+    void signFile(int code , String error);
 
     /*获取每日任务列表**/
     void getDayList(DailyTaskBean bean);

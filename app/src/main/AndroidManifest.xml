@@ -317,34 +317,6 @@
         <activity android:name=".activity.sign.invitation.InvitationNewActivity"
                   android:screenOrientation="portrait"/>
 
-        <!--查看全部试用-->
-        <activity android:name=".activity.tryout.TryAllActivity"
-                  android:screenOrientation="portrait"/>
-
-        <!--查看全部试用报告-->
-        <activity android:name=".activity.tryout.TryReportActivity"
-                  android:screenOrientation="portrait"/>
-
-        <!--试用详情页面-->
-        <activity android:name=".activity.tryout.detail.TryDetailActivity"
-                  android:screenOrientation="portrait"/>
-
-        <!--查看更多试用名单-->
-        <activity android:name=".activity.tryout.passedMore.PassedMoreActivity"
-                  android:screenOrientation="portrait"/>
-
-        <!--查看试用品查看全部试用报告-->
-        <activity android:name=".activity.tryout.reportMore.ReportMoreActivity"
-                  android:screenOrientation="portrait"/>
-
-        <!--查看更多拉赞排行页面-->
-        <activity android:name=".activity.tryout.shareMore.ShareMoreActivity"
-                  android:screenOrientation="portrait"/>
-
-        <!--我的试用-->
-        <activity android:name=".activity.tryout.mine.MineTrialActivity"
-                  android:screenOrientation="portrait"/>
-
         <!--订单详情页面-->
         <activity android:name=".activity.mall.order.detail.OrderDetailActivity"
                   android:screenOrientation="portrait"/>
@@ -373,10 +345,6 @@
 
         <!--团队收入-->
         <activity android:name=".activity.balance.team.TeamActivity"
-                  android:screenOrientation="portrait"/>
-
-        <!--免单购详情-->
-        <activity android:name=".activity.tryout.freedetail.FreeDetailActivity"
                   android:screenOrientation="portrait"/>
 
         <!--新品专区-->
@@ -463,10 +431,6 @@
 
         <!--kotlin：我的订单（淘宝订单）-->
         <activity android:name=".activity.minekt.orderkt.KTMyOrderActivity"
-                  android:screenOrientation="portrait"/>
-
-        <!--新免单详情页面-->
-        <activity android:name=".activity.tryout.freedetail.FreeNewDetailActivity"
                   android:screenOrientation="portrait"/>
 
         <!--新人专区-->
