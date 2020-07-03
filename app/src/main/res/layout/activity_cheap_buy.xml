@@ -32,7 +32,22 @@
             android:layout_width="wrap_content"
             android:layout_height="@dimen/y88"/>
 
+
+        <TextView
+            android:background="@drawable/bg_dialog_out2"
+            android:onClick="@{listener.onClick}"
+            android:id="@+id/detail_used"
+            android:layout_alignParentBottom="true"
+            android:gravity="center"
+            android:text="立即送好友津贴福利"
+            android:textStyle="bold"
+            android:textColor="@color/color_EA4F17"
+            android:textSize="18sp"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/y100"/>
+
         <com.aspsine.swipetoloadlayout.SwipeToLoadLayout
+            android:layout_above="@id/detail_used"
             android:layout_below="@id/in_clude"
             android:id="@+id/swipeToLoad"
             android:layout_width="match_parent"

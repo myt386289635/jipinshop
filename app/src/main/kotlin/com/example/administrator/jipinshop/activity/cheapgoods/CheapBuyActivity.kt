@@ -1,6 +1,9 @@
 package com.example.administrator.jipinshop.activity.cheapgoods
 
 import android.app.Dialog
+import android.content.ClipData
+import android.content.ClipboardManager
+import android.content.Context
 import android.content.Intent
 import android.databinding.DataBindingUtil
 import android.os.Bundle
@@ -18,11 +21,15 @@ import com.example.administrator.jipinshop.base.BaseActivity
 import com.example.administrator.jipinshop.bean.ImageBean
 import com.example.administrator.jipinshop.bean.NewPeopleBean
 import com.example.administrator.jipinshop.databinding.ActivityCheapBuyBinding
+import com.example.administrator.jipinshop.util.ShareUtils
 import com.example.administrator.jipinshop.util.TaoBaoUtil
 import com.example.administrator.jipinshop.util.ToastUtil
 import com.example.administrator.jipinshop.util.sp.CommonDate
 import com.example.administrator.jipinshop.view.dialog.DialogUtil
 import com.example.administrator.jipinshop.view.dialog.ProgressDialogView
+import com.example.administrator.jipinshop.view.dialog.ShareBoardDialog2
+import com.umeng.socialize.bean.SHARE_MEDIA
+import java.math.BigDecimal
 import javax.inject.Inject
 
 /**
@@ -30,7 +37,7 @@ import javax.inject.Inject
  * @create 2020/1/3
  * @Describe 特惠购
  */
-class CheapBuyActivity : BaseActivity(), View.OnClickListener, OnRefreshListener, KTCheapBuyAdapter.OnClickItem, CheapBuyView {
+class CheapBuyActivity : BaseActivity(), View.OnClickListener, OnRefreshListener, KTCheapBuyAdapter.OnClickItem, CheapBuyView, ShareBoardDialog2.onShareListener {
 
     @Inject
     lateinit var mPresenter: CheapBuyPresenter
@@ -38,6 +45,10 @@ class CheapBuyActivity : BaseActivity(), View.OnClickListener, OnRefreshListener
     private lateinit var mList: MutableList<NewPeopleBean.DataBean.AllowanceGoodsListBean>
     private lateinit var adapter: KTCheapBuyAdapter
     private var mDialog: Dialog? = null
+    private var mShareBoardDialog: ShareBoardDialog2? = null
+    private var shareUrl: String = ""
+    private var startPop: Boolean = true//是否弹出关闭确认弹窗
+    private var allowance: String? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -71,7 +82,23 @@ class CheapBuyActivity : BaseActivity(), View.OnClickListener, OnRefreshListener
     override fun onClick(v: View?) {
         when(v?.id){
             R.id.title_back  ->{
-                finish()
+                if (startPop) {
+                    if (mList.size >= 3 && !TextUtils.isEmpty(allowance)) {
+                        var money = BigDecimal(allowance).toDouble()
+                        if (money != 0.0){
+                            DialogUtil.cheapOutDialog(this, mList, allowance) {
+                                finish()
+                            }
+                            startPop = false
+                        }else{
+                            finish()
+                        }
+                    }else{
+                        finish()
+                    }
+                } else {
+                    finish()
+                }
             }
             R.id.detail_share -> {
                 //使用记录
@@ -81,7 +108,37 @@ class CheapBuyActivity : BaseActivity(), View.OnClickListener, OnRefreshListener
                 }
                 startActivity(Intent(this, AllowanceRecordActivity::class.java))
             }
+            R.id.detail_used -> {
+                //分享
+                if (TextUtils.isEmpty(SPUtils.getInstance(CommonDate.USER).getString(CommonDate.token, ""))) {
+                    startActivity(Intent(this, LoginActivity::class.java))
+                    return
+                }
+                if (mShareBoardDialog == null) {
+                    mShareBoardDialog = ShareBoardDialog2.getInstance()
+                    mShareBoardDialog?.setOnShareListener(this)
+                }
+                mShareBoardDialog?.let {
+                    if (!it.isAdded){
+                        it.show(supportFragmentManager,"ShareBoardDialog2")
+                    }
+                }
+            }
         }
+    }
+
+    override fun share(share_media: SHARE_MEDIA?) {
+        mDialog = ProgressDialogView().createLoadingDialog(this, "")
+        ShareUtils(this,share_media,mDialog)
+                .shareWeb(this, shareUrl, "测试","测试","",R.mipmap.share_logo)
+    }
+
+    override fun onLink() {
+        val clip = getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager
+        val clipData = ClipData.newPlainText("jipinshop", shareUrl)
+        clip.primaryClip = clipData
+        ToastUtil.show("复制成功")
+        SPUtils.getInstance().put(CommonDate.CLIP, shareUrl)
     }
 
     override fun onRefresh() {
@@ -95,6 +152,7 @@ class CheapBuyActivity : BaseActivity(), View.OnClickListener, OnRefreshListener
             SPUtils.getInstance().put(CommonDate.FIRSTCHEAP, false)
             DialogUtil.cheapGuideDialog(this)
         }
+        allowance = bean.data.allowance
         mList.clear()
         mList.addAll(bean.data.allowanceGoodsList)
         adapter.setTotalUsedAllowance(bean.data.totalUsedAllowance)
@@ -164,5 +222,23 @@ class CheapBuyActivity : BaseActivity(), View.OnClickListener, OnRefreshListener
     override fun onDestroy() {
         super.onDestroy()
         AlibcTradeSDK.destory()
+    }
+
+    override fun onBackPressed() {
+        if (startPop) {
+            if (mList.size >= 3 && !TextUtils.isEmpty(allowance)) {
+                var money = BigDecimal(allowance).toDouble()
+                if (money != 0.0){
+                    DialogUtil.cheapOutDialog(this, mList, allowance) { finish() }
+                    startPop = false
+                }else{
+                    super.onBackPressed()
+                }
+            }else{
+                super.onBackPressed()
+            }
+        } else {
+            super.onBackPressed()
+        }
     }
 }

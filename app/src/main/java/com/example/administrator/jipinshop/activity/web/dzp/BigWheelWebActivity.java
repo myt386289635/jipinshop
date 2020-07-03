@@ -146,7 +146,7 @@ public class BigWheelWebActivity extends BaseActivity implements View.OnClickLis
                     mShareBoardDialog.setOnShareListener(this);
                 }
                 if (!mShareBoardDialog.isAdded()) {
-                    mShareBoardDialog.show(getSupportFragmentManager(), "ShareBoardDialog");
+                    mShareBoardDialog.show(getSupportFragmentManager(), "ShareBoardDialog2");
                 }
                 break;
         }

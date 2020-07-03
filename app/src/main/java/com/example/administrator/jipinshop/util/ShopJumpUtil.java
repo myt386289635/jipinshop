@@ -8,6 +8,9 @@ import android.util.Log;
 
 import com.blankj.utilcode.util.SPUtils;
 import com.example.administrator.jipinshop.activity.WebActivity;
+import com.example.administrator.jipinshop.activity.balance.MyWalletActivity;
+import com.example.administrator.jipinshop.activity.balance.team.TeamActivity;
+import com.example.administrator.jipinshop.activity.balance.withdraw.detail.WithdrawDetailActivity;
 import com.example.administrator.jipinshop.activity.cheapgoods.CheapBuyActivity;
 import com.example.administrator.jipinshop.activity.home.HomeDetailActivity;
 import com.example.administrator.jipinshop.activity.home.MainActivity;
@@ -17,10 +20,12 @@ import com.example.administrator.jipinshop.activity.home.jd_pdd.KTJDDetailActivi
 import com.example.administrator.jipinshop.activity.home.tb.KTTBDetailActivity;
 import com.example.administrator.jipinshop.activity.login.LoginActivity;
 import com.example.administrator.jipinshop.activity.mall.MallActivity;
+import com.example.administrator.jipinshop.activity.minekt.orderkt.KTMyOrderActivity;
 import com.example.administrator.jipinshop.activity.newpeople.NewFreeActivity;
 import com.example.administrator.jipinshop.activity.report.detail.ReportDetailActivity;
 import com.example.administrator.jipinshop.activity.shoppingdetail.tbshoppingdetail.TBShoppingDetailActivity;
 import com.example.administrator.jipinshop.activity.sign.SignActivity;
+import com.example.administrator.jipinshop.activity.sign.detail.IntegralDetailActivity;
 import com.example.administrator.jipinshop.activity.sign.invitation.InvitationNewActivity;
 import com.example.administrator.jipinshop.activity.web.dzp.BigWheelWebActivity;
 import com.example.administrator.jipinshop.netwrok.RetrofitModule;
@@ -259,6 +264,46 @@ public class ShopJumpUtil {
                 intent.putExtra(BigWheelWebActivity.title,"大转盘");
                 context.startActivity(intent);
                 break;
+            case "31"://我的团队
+                if (TextUtils.isEmpty(SPUtils.getInstance(CommonDate.USER).getString(CommonDate.token, ""))) {
+                    intent.setClass(context, LoginActivity.class);
+                }else {
+                    intent.setClass(context, TeamActivity.class);
+                }
+                context.startActivity(intent);
+                break;
+            case "32"://我的订单
+                if (TextUtils.isEmpty(SPUtils.getInstance(CommonDate.USER).getString(CommonDate.token, ""))) {
+                    intent.setClass(context, LoginActivity.class);
+                }else {
+                    intent.setClass(context, KTMyOrderActivity.class);
+                }
+                context.startActivity(intent);
+                break;
+            case "33"://我的收益
+                if (TextUtils.isEmpty(SPUtils.getInstance(CommonDate.USER).getString(CommonDate.token, ""))) {
+                    intent.setClass(context, LoginActivity.class);
+                }else {
+                    intent.setClass(context, MyWalletActivity.class);
+                }
+                context.startActivity(intent);
+                break;
+            case "34"://提现明细
+                if (TextUtils.isEmpty(SPUtils.getInstance(CommonDate.USER).getString(CommonDate.token, ""))) {
+                    intent.setClass(context, LoginActivity.class);
+                }else {
+                    intent.setClass(context, WithdrawDetailActivity.class);
+                }
+                context.startActivity(intent);
+                break;
+            case "35"://极币明细
+                if (TextUtils.isEmpty(SPUtils.getInstance(CommonDate.USER).getString(CommonDate.token, ""))) {
+                    intent.setClass(context, LoginActivity.class);
+                }else {
+                    intent.setClass(context, IntegralDetailActivity.class);
+                }
+                context.startActivity(intent);
+                break;
         }
     }
 
@@ -396,6 +441,51 @@ public class ShopJumpUtil {
                 intent.setClass(context, BigWheelWebActivity.class);
                 intent.putExtra(BigWheelWebActivity.url, target_id);
                 intent.putExtra(BigWheelWebActivity.title,"大转盘");
+                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                context.startActivity(intent);
+                break;
+            case "31"://我的团队
+                if (TextUtils.isEmpty(SPUtils.getInstance(CommonDate.USER).getString(CommonDate.token, ""))) {
+                    intent.setClass(context, LoginActivity.class);
+                }else {
+                    intent.setClass(context, TeamActivity.class);
+                }
+                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                context.startActivity(intent);
+                break;
+            case "32"://我的订单
+                if (TextUtils.isEmpty(SPUtils.getInstance(CommonDate.USER).getString(CommonDate.token, ""))) {
+                    intent.setClass(context, LoginActivity.class);
+                }else {
+                    intent.setClass(context, KTMyOrderActivity.class);
+                }
+                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                context.startActivity(intent);
+                break;
+            case "33"://我的收益
+                if (TextUtils.isEmpty(SPUtils.getInstance(CommonDate.USER).getString(CommonDate.token, ""))) {
+                    intent.setClass(context, LoginActivity.class);
+                }else {
+                    intent.setClass(context, MyWalletActivity.class);
+                }
+                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                context.startActivity(intent);
+                break;
+            case "34"://提现明细
+                if (TextUtils.isEmpty(SPUtils.getInstance(CommonDate.USER).getString(CommonDate.token, ""))) {
+                    intent.setClass(context, LoginActivity.class);
+                }else {
+                    intent.setClass(context, WithdrawDetailActivity.class);
+                }
+                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                context.startActivity(intent);
+                break;
+            case "35"://极币明细
+                if (TextUtils.isEmpty(SPUtils.getInstance(CommonDate.USER).getString(CommonDate.token, ""))) {
+                    intent.setClass(context, LoginActivity.class);
+                }else {
+                    intent.setClass(context, IntegralDetailActivity.class);
+                }
                 intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                 context.startActivity(intent);
                 break;

@@ -24,13 +24,14 @@
             android:layout_height="wrap_content"/>
 
         <ImageView
+            android:scaleType="fitXY"
             android:adjustViewBounds="true"
             android:id="@+id/login_logo"
             android:layout_marginTop="@dimen/y75"
             android:layout_centerHorizontal="true"
             android:layout_below="@+id/title_back"
             android:src="@mipmap/bg_login"
-            android:layout_width="@dimen/x454"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"/>
 
         <TextView

@@ -39,12 +39,14 @@ import com.example.administrator.jipinshop.activity.shoppingdetail.tbshoppingdet
 import com.example.administrator.jipinshop.activity.sreach.result.TBSreachResultActivity;
 import com.example.administrator.jipinshop.adapter.DialogLuckAdapter;
 import com.example.administrator.jipinshop.bean.NewFreeBean;
+import com.example.administrator.jipinshop.bean.NewPeopleBean;
 import com.example.administrator.jipinshop.bean.PopBean;
 import com.example.administrator.jipinshop.bean.PrizeLogBean;
 import com.example.administrator.jipinshop.bean.SubUserBean;
 import com.example.administrator.jipinshop.bean.TeacherBean;
 import com.example.administrator.jipinshop.bean.TklBean;
 import com.example.administrator.jipinshop.databinding.DialogCheapBinding;
+import com.example.administrator.jipinshop.databinding.DialogCheapOutBinding;
 import com.example.administrator.jipinshop.databinding.DialogLuckBinding;
 import com.example.administrator.jipinshop.databinding.DialogNewpeople2Binding;
 import com.example.administrator.jipinshop.databinding.DialogNewpeopleBinding;
@@ -762,6 +764,31 @@ public class DialogUtil {
             dialog.dismiss();
         });
         SPUtils.getInstance().put(CommonDate.CheapDialog,false);
+        dialog.getWindow().setDimAmount(0.35f);
+        dialog.show();
+        dialog.setContentView(binding.getRoot());
+    }
+
+    //特惠购离开时弹窗
+    public static void cheapOutDialog(Context context, List<NewPeopleBean.DataBean.AllowanceGoodsListBean> strings, String allowance, View.OnClickListener listener){
+        AlertDialog.Builder builder = new AlertDialog.Builder(context, R.style.dialog);
+        final Dialog dialog = builder.create();
+        DialogCheapOutBinding binding = DataBindingUtil.inflate(LayoutInflater.from(context), R.layout.dialog_cheap_out, null, false);
+        binding.dialogMoney.setText(allowance + "元");
+        GlideApp.loderTopRoundImage(context, strings.get(0).getImg(), binding.dialogImg1, (int) context.getResources().getDimension(R.dimen.x10));
+        GlideApp.loderTopRoundImage(context, strings.get(1).getImg(), binding.dialogImg2, (int) context.getResources().getDimension(R.dimen.x10));
+        GlideApp.loderTopRoundImage(context, strings.get(2).getImg(), binding.dialogImg3, (int) context.getResources().getDimension(R.dimen.x10));
+        binding.dialogText1.setText("减"+strings.get(0).getUseAllowancePrice()+"元");
+        binding.dialogText2.setText("减"+strings.get(1).getUseAllowancePrice()+"元");
+        binding.dialogText3.setText("减"+strings.get(2).getUseAllowancePrice()+"元");
+        binding.dialogSure.setOnClickListener(v -> {
+            if (listener != null)
+                listener.onClick(v);
+            dialog.dismiss();
+        });
+        binding.dialogDismiss.setOnClickListener(v -> {
+            dialog.dismiss();
+        });
         dialog.getWindow().setDimAmount(0.35f);
         dialog.show();
         dialog.setContentView(binding.getRoot());
