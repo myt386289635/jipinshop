@@ -295,6 +295,7 @@ class ShareActivity : BaseActivity(), View.OnClickListener, ShareAdapter.OnClick
     override fun onRefresh(shareImage: String ,type: String) {
         temp = shareImage
         shareImages()
+        mPresenter.taskFinish(this.bindToLifecycle())
         when(type){
             "wechat" -> {
                 mPresenter.downLoadImg(this,mShareImages,SHARE_MEDIA.WEIXIN,this.bindToLifecycle())

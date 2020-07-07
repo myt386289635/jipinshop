@@ -8,10 +8,7 @@ import android.support.v7.widget.RecyclerView
 import android.text.TextUtils
 import android.view.View
 import com.aspsine.swipetoloadlayout.SwipeToLoadLayout
-import com.example.administrator.jipinshop.bean.CircleListBean
-import com.example.administrator.jipinshop.bean.CircleTitleBean
-import com.example.administrator.jipinshop.bean.ShareBean
-import com.example.administrator.jipinshop.bean.SuccessBean
+import com.example.administrator.jipinshop.bean.*
 import com.example.administrator.jipinshop.netwrok.Repository
 import com.example.administrator.jipinshop.util.FileManager
 import com.example.administrator.jipinshop.util.ToastUtil
@@ -182,6 +179,23 @@ class DailyPresenter {
                     }
                 }, Consumer {
                     mView.onTabFile(it.message)
+                })
+    }
+
+    /**
+     * 分享发圈获取极币
+     */
+    fun taskFinish(transformer: LifecycleTransformer<TaskFinishBean>) {
+        mRepository.taskFinish("25")
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .compose(transformer)
+                .subscribe({ taskFinishBean ->
+                    if (taskFinishBean.code == 0 && taskFinishBean.msg != "success") {
+                        ToastUtil.show(taskFinishBean.msg)
+                    }
+                }, { throwable ->
+
                 })
     }
 

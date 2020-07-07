@@ -394,6 +394,7 @@ class DailyFragment : DBBaseFragment(), KTTabAdapter2.OnClickItem, KTTabAdapter3
     }
 
     override fun share(share_media: SHARE_MEDIA?) {
+        mPresenter.taskFinish(this.bindToLifecycle())
         mPresenter.addShare(mList[mSharePosition].id,this.bindToLifecycle())
         var bigDecimal = BigDecimal(mList[mSharePosition].shareNumber)
         mList[mSharePosition].shareNumber = "" + (bigDecimal.toInt() + 1)
@@ -411,6 +412,7 @@ class DailyFragment : DBBaseFragment(), KTTabAdapter2.OnClickItem, KTTabAdapter3
     }
 
     override fun download(type: Int) {
+        mPresenter.taskFinish(this.bindToLifecycle())
         mPresenter.addShare(mList[mSharePosition].id,this.bindToLifecycle())
         var bigDecimal = BigDecimal(mList[mSharePosition].shareNumber)
         mList[mSharePosition].shareNumber = "" + (bigDecimal.toInt() + 1)

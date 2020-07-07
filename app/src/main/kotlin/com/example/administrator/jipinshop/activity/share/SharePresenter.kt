@@ -7,6 +7,7 @@ import android.os.Build
 import android.view.MotionEvent
 import android.widget.TextView
 import com.example.administrator.jipinshop.bean.ShareBean
+import com.example.administrator.jipinshop.bean.TaskFinishBean
 import com.example.administrator.jipinshop.databinding.ActivityShareBinding
 import com.example.administrator.jipinshop.netwrok.Repository
 import com.example.administrator.jipinshop.util.FileManager
@@ -195,6 +196,23 @@ class SharePresenter {
                     }
                 }, Consumer {
                     mView.onFile(it.message)
+                })
+    }
+
+    /**
+     * 分享商品获取极币
+     */
+    fun taskFinish(transformer: LifecycleTransformer<TaskFinishBean>) {
+        mRepository.taskFinish("20")
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .compose(transformer)
+                .subscribe({ taskFinishBean ->
+                    if (taskFinishBean.code == 0 && taskFinishBean.msg != "success") {
+                        ToastUtil.show(taskFinishBean.msg)
+                    }
+                }, { throwable ->
+
                 })
     }
 }
