@@ -119,6 +119,13 @@ class KTMain2Fragment : DBBaseFragment(), KTMain2View, OnLoadMoreListener, OnRef
         }
         mAdapter.setDate(bean)
         mAdapter.notifyDataSetChanged()
+        if (!TextUtils.isEmpty(SPUtils.getInstance(CommonDate.USER).getString(CommonDate.token, ""))){
+            if (bean.data.message != null && !TextUtils.isEmpty(bean.data.message.content)){
+                var fragment = parentFragment
+                if (fragment as? KTHomeFragnent != null)
+                    fragment.initMarquee(bean.data.message.content)
+            }
+        }
         if (type == "1"){
             mPresenter.commendGoodsList(page,source,this.bindToLifecycle())
         }

@@ -129,5 +129,44 @@
             android:layout_width="@dimen/x120"
             android:layout_height="wrap_content" />
 
+        <LinearLayout
+            android:onClick="@{listener.onClick}"
+            android:visibility="gone"
+            android:id="@+id/home_marqueeContainer"
+            android:background="@drawable/bg_ffefd5"
+            android:layout_marginBottom="@dimen/y14"
+            android:layout_marginRight="@dimen/x30"
+            android:layout_marginLeft="@dimen/x30"
+            android:layout_alignParentBottom="true"
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/y80">
+
+            <ImageView
+                android:onClick="@{listener.onClick}"
+                android:id="@+id/home_marqueeClose"
+                android:paddingRight="@dimen/x27"
+                android:paddingLeft="@dimen/x27"
+                android:tint="@color/color_8B572A"
+                android:src="@mipmap/dialog_close1"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"/>
+
+            <com.example.administrator.jipinshop.view.textview.AlwaysMarqueeTextView
+                android:ellipsize="marquee"
+                android:marqueeRepeatLimit="-1"
+                android:layout_marginRight="@dimen/x52"
+                android:id="@+id/home_marquee"
+                android:textSize="13sp"
+                android:text=""
+                android:scrollHorizontally="true"
+                android:layout_width="match_parent"
+                android:textColor="@color/color_8B572A"
+                android:layout_height="match_parent"
+                android:gravity="center_vertical"
+                android:singleLine="true"/>
+
+        </LinearLayout>
+
     </RelativeLayout>
 </layout>

@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    android:orientation="horizontal"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <TextView
+        android:ellipsize="end"
+        android:id="@+id/item_name"
+        android:textSize="13sp"
+        android:textColor="@color/color_8B572A"
+        android:gravity="center_vertical"
+        android:singleLine="true"
+        android:text="幸福的养猪幸福的养猪幸福的养猪幸福的养猪幸福的养猪幸福的养猪"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/y80"/>
+
+</RelativeLayout>

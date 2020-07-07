@@ -1454,4 +1454,19 @@ public class Repository {
     public Observable<PrizeLogBean> prizeLogList(){
         return mAPIService.prizeLogList();
     }
+
+
+    /**
+     * 获取分享数据
+     */
+    public Observable<ShareInfoBean> getShareInfo(int type){
+        return mAPIService.getShareInfo(type);
+    }
+
+    /**
+     * 关闭首页底部跑马灯消息
+     */
+    public Observable<SuccessBean> closeIndexMessage(){
+        return mAPIService.closeIndexMessage();
+    }
 }

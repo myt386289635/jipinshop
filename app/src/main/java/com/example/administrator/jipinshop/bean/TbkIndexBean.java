@@ -49,6 +49,15 @@ public class TbkIndexBean {
         private List<HotGoodsListBean> hotGoodsList;//热销榜单
         private Boolean newUser; //是否是新人
         private List<TBSreachResultBean.DataBean> commendGoodsList;//今日推荐
+        private MessageBean message;//首页横向跑马灯
+
+        public MessageBean getMessage() {
+            return message;
+        }
+
+        public void setMessage(MessageBean message) {
+            this.message = message;
+        }
 
         public List<TBSreachResultBean.DataBean> getCommendGoodsList() {
             return commendGoodsList;
@@ -598,6 +607,19 @@ public class TbkIndexBean {
 
             public void setBuyRate(String buyRate) {
                 this.buyRate = buyRate;
+            }
+        }
+
+        public static class MessageBean {
+
+            private String content;
+
+            public String getContent() {
+                return content;
+            }
+
+            public void setContent(String content) {
+                this.content = content;
             }
         }
     }

@@ -141,6 +141,10 @@ class KTHomeFragnent : DBBaseFragment(), View.OnClickListener, ViewPager.OnPageC
                 }
                 DialogUtil.teacherDialog(context,Twechat,Tavatar)
             }
+            R.id.home_marqueeClose -> {
+                mBinding.homeMarqueeContainer.visibility = View.GONE
+                mPresenter.closeIndexMessage(this.bindToLifecycle())
+            }
         }
     }
 
@@ -153,6 +157,11 @@ class KTHomeFragnent : DBBaseFragment(), View.OnClickListener, ViewPager.OnPageC
 
     fun getAppBar() : AppBarLayout{
         return mBinding.appbar
+    }
+
+    fun initMarquee(content : String){
+        mBinding.homeMarqueeContainer.visibility = View.VISIBLE
+        mBinding.homeMarquee.text = content
     }
 
     override fun onPageScrollStateChanged(p0: Int) {}

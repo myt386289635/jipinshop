@@ -8,6 +8,7 @@ import com.example.administrator.jipinshop.bean.DailyTaskBean;
 import com.example.administrator.jipinshop.bean.MallBean;
 import com.example.administrator.jipinshop.bean.SignInsertBean;
 import com.example.administrator.jipinshop.bean.SuccessBean;
+import com.example.administrator.jipinshop.bean.TeacherBean;
 
 /**
  * @author 莫小婷
@@ -30,4 +31,6 @@ public interface SignView {
 
     void onHBID(ActionHBBean bean);
     void onHBFlie();
+
+    void onTeacher(TeacherBean bean);
 }

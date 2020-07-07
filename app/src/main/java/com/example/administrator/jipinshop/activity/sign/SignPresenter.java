@@ -11,12 +11,15 @@ import com.example.administrator.jipinshop.bean.DailyTaskBean;
 import com.example.administrator.jipinshop.bean.MallBean;
 import com.example.administrator.jipinshop.bean.SignInsertBean;
 import com.example.administrator.jipinshop.bean.SuccessBean;
+import com.example.administrator.jipinshop.bean.TeacherBean;
 import com.example.administrator.jipinshop.netwrok.Repository;
+import com.example.administrator.jipinshop.util.ToastUtil;
 import com.trello.rxlifecycle2.LifecycleTransformer;
 
 import javax.inject.Inject;
 
 import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.functions.Consumer;
 import io.reactivex.schedulers.Schedulers;
 
 /**
@@ -157,6 +160,22 @@ public class SignPresenter {
                     }
                 }, throwable -> {
                     mView.onHBFlie();
+                });
+    }
+
+    public void  getParentInfo(LifecycleTransformer<TeacherBean> transformer){
+        mRepository.parentInfo()
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .compose(transformer)
+                .subscribe(bean -> {
+                    if (bean.getCode() == 0) {
+                        mView.onTeacher(bean);
+                    } else {
+                        mView.onFile(bean.getMsg());
+                    }
+                }, throwable -> {
+                    mView.onFile(throwable.getMessage());
                 });
     }
 }

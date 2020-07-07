@@ -24,6 +24,8 @@ import com.example.administrator.jipinshop.R;
 import com.example.administrator.jipinshop.activity.sign.SignActivity;
 import com.example.administrator.jipinshop.base.BaseActivity;
 import com.example.administrator.jipinshop.bean.PrizeLogBean;
+import com.example.administrator.jipinshop.bean.ShareInfoBean;
+import com.example.administrator.jipinshop.bean.SuccessBean;
 import com.example.administrator.jipinshop.databinding.ActivityWheelWebBinding;
 import com.example.administrator.jipinshop.util.ShareUtils;
 import com.example.administrator.jipinshop.util.ToastUtil;
@@ -57,7 +59,6 @@ public class BigWheelWebActivity extends BaseActivity implements View.OnClickLis
     private int isSign = 0;//是否是签到进来的  0否  1是
     private ShareBoardDialog2 mShareBoardDialog;
     private Dialog shareDialog;
-    private String mUrl;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -74,8 +75,6 @@ public class BigWheelWebActivity extends BaseActivity implements View.OnClickLis
         list = new ArrayList<>();
         mDialog = (new ProgressDialogView()).createLoadingDialog(this, "正在加载...");
         mDialog.show();
-        //分享
-        mUrl = "https://a.app.qq.com/o/simple.jsp?pkgname=com.example.administrator.jipinshop";
 
         mBinding.inClude.titleTv.setText(getIntent().getStringExtra(title));
         mBinding.webView.getSettings().setLoadWithOverviewMode(true);
@@ -185,23 +184,36 @@ public class BigWheelWebActivity extends BaseActivity implements View.OnClickLis
         if (mDialog != null && mDialog.isShowing()) {
             mDialog.dismiss();
         }
+        if (shareDialog != null && shareDialog.isShowing()) {
+            shareDialog.dismiss();
+        }
         ToastUtil.show(error);
     }
 
     @Override
     public void share(SHARE_MEDIA share_media) {
         shareDialog = (new ProgressDialogView()).createLoadingDialog(this, "");
-        new ShareUtils(this,share_media,shareDialog)
-                .shareWeb(this, mUrl,"极品城APP幸运大转盘","抽奖送戴森，100%中奖，快来试手气吧~","",R.mipmap.share_logo);
+        shareDialog.show();
+        mPresenter.initShare(share_media,this.bindToLifecycle());
+    }
+
+    @Override
+    public void initShare(SHARE_MEDIA share_media, ShareInfoBean bean) {
+        if (share_media != null){
+            new ShareUtils(this,share_media,shareDialog)
+                    .shareWeb(this, bean.getData().getLink(),bean.getData().getTitle(),bean.getData().getDesc(),bean.getData().getImgUrl(),R.mipmap.share_logo);
+        }else {
+            ClipboardManager clip = (ClipboardManager)getSystemService(Context.CLIPBOARD_SERVICE);
+            ClipData clipData = ClipData.newPlainText("jipinshop",  bean.getData().getLink());
+            clip.setPrimaryClip(clipData);
+            ToastUtil.show("复制成功");
+            SPUtils.getInstance().put(CommonDate.CLIP, bean.getData().getLink());
+        }
     }
 
     @Override
     public void onLink() {
-        ClipboardManager clip = (ClipboardManager)getSystemService(Context.CLIPBOARD_SERVICE);
-        ClipData clipData = ClipData.newPlainText("jipinshop", mUrl);
-        clip.setPrimaryClip(clipData);
-        ToastUtil.show("复制成功");
-        SPUtils.getInstance().put(CommonDate.CLIP,mUrl);
+        mPresenter.initShare(null,this.bindToLifecycle());
     }
 
     @Override

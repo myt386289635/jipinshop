@@ -39,6 +39,42 @@ public class ShareInfoBean {
 
         private String content;
         private String posterImg;
+        private String desc;
+        private String imgUrl;
+        private String link;
+        private String title;
+
+        public String getDesc() {
+            return desc;
+        }
+
+        public void setDesc(String desc) {
+            this.desc = desc;
+        }
+
+        public String getImgUrl() {
+            return imgUrl;
+        }
+
+        public void setImgUrl(String imgUrl) {
+            this.imgUrl = imgUrl;
+        }
+
+        public String getLink() {
+            return link;
+        }
+
+        public void setLink(String link) {
+            this.link = link;
+        }
+
+        public String getTitle() {
+            return title;
+        }
+
+        public void setTitle(String title) {
+            this.title = title;
+        }
 
         public String getContent() {
             return content;

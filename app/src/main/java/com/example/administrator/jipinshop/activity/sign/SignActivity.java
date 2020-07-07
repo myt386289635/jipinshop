@@ -18,6 +18,7 @@ import com.example.administrator.jipinshop.activity.home.home.HomeNewActivity;
 import com.example.administrator.jipinshop.activity.info.MyInfoActivity;
 import com.example.administrator.jipinshop.activity.login.LoginActivity;
 import com.example.administrator.jipinshop.activity.mall.detail.MallDetailActivity;
+import com.example.administrator.jipinshop.activity.setting.bind.BindWXActivity;
 import com.example.administrator.jipinshop.activity.sign.detail.IntegralDetailActivity;
 import com.example.administrator.jipinshop.activity.sign.invitation.InvitationNewActivity;
 import com.example.administrator.jipinshop.activity.sreach.TBSreachActivity;
@@ -32,11 +33,13 @@ import com.example.administrator.jipinshop.bean.DailyTaskBean;
 import com.example.administrator.jipinshop.bean.MallBean;
 import com.example.administrator.jipinshop.bean.SignInsertBean;
 import com.example.administrator.jipinshop.bean.SuccessBean;
+import com.example.administrator.jipinshop.bean.TeacherBean;
 import com.example.administrator.jipinshop.bean.eventbus.ChangeHomePageBus;
 import com.example.administrator.jipinshop.databinding.ActivitySignBinding;
 import com.example.administrator.jipinshop.netwrok.RetrofitModule;
 import com.example.administrator.jipinshop.util.ClickUtil;
 import com.example.administrator.jipinshop.util.ShopJumpUtil;
+import com.example.administrator.jipinshop.util.TaoBaoUtil;
 import com.example.administrator.jipinshop.util.ToastUtil;
 import com.example.administrator.jipinshop.util.sp.CommonDate;
 import com.example.administrator.jipinshop.view.dialog.DialogUtil;
@@ -65,6 +68,7 @@ public class SignActivity extends BaseActivity implements View.OnClickListener, 
     private Dialog mDialog;
     private DailyTaskBean.AdBean ad2;
     private DailyTaskBean.AdBean ad1;
+    private Boolean once = true;
     //每日任务
     private List<DailyTaskBean.DataBean> mDayRule;
     private KTSignAdapter mDayAdapter;
@@ -218,6 +222,7 @@ public class SignActivity extends BaseActivity implements View.OnClickListener, 
         mUserRule.addAll(bean.getList2());
         mDayAdapter.notifyDataSetChanged();
         mUserAdapter.notifyDataSetChanged();
+        once = false;
     }
 
     //极币商城
@@ -267,6 +272,14 @@ public class SignActivity extends BaseActivity implements View.OnClickListener, 
     }
 
     @Override
+    public void onTeacher(TeacherBean bean) {
+        if (mDialog != null && mDialog.isShowing()){
+            mDialog.dismiss();
+        }
+        DialogUtil.teacherDialog(this,bean.getData().getWechat(),bean.getData().getAvatar());
+    }
+
+    @Override
     public void onCodeSuc(Dialog dialog, InputMethodManager inputManager, SuccessBean bean) {
         if (mDialog != null && mDialog.isShowing()){
             mDialog.dismiss();
@@ -283,20 +296,30 @@ public class SignActivity extends BaseActivity implements View.OnClickListener, 
             mDialog.dismiss();
         }
         ToastUtil.show(error);
+        once = false;
     }
 
     @Override
     public void onDayJump(int pos) {
-        dayJump(mDayRule.get(pos).getLocation());
+        dayJump(mDayRule.get(pos).getLocation() ,mDayRule.get(pos).getLocationId());
     }
 
     @Override
     public void onJump(int pos) {
-        dayJump(mUserRule.get(pos).getLocation());
+        dayJump(mUserRule.get(pos).getLocation(), mUserRule.get(pos).getLocationId());
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        if (!once){
+            //刷新任务
+            mPresenter.DailytaskList(this.bindToLifecycle());
+        }
     }
 
     //每日任务的跳转逻辑
-    public void dayJump(int location){
+    public void dayJump(int location , String url){
         switch (location){
             case 1://跳转到首页
                 EventBus.getDefault().post(new ChangeHomePageBus(0));
@@ -340,6 +363,34 @@ public class SignActivity extends BaseActivity implements View.OnClickListener, 
             case 11://分享发圈
                 EventBus.getDefault().post(new ChangeHomePageBus(2));
                 finish();
+                break;
+            case 12://授权淘宝
+                TaoBaoUtil.openTB(this, () -> {
+                    ToastUtil.show("已完成授权");
+                });
+                break;
+            case 13://填写微信号
+                startActivity(new Intent(this, BindWXActivity.class));
+                break;
+            case 14://添加导师微信
+                mDialog = (new ProgressDialogView()).createLoadingDialog(this, "");
+                mDialog.show();
+                mPresenter.getParentInfo(this.bindToLifecycle());
+                break;
+            case 15://填写调查问卷
+                startActivity(new Intent(this, WebActivity.class)
+                        .putExtra(WebActivity.url, url)
+                        .putExtra(WebActivity.title, "调查问卷")
+                );
+                break;
+            case 16://应用市场好评
+
+                break;
+            case 17://关注公众号
+                DialogUtil.wxDialog(this, "关注公众号", "微信服务号名称：", "微信关注极品城公众号，并绑定账号");
+                break;
+            case 18://绑定小程序
+                DialogUtil.wxDialog(this, "绑定小程序", "微信小程序：", "微信搜索极品城小程序，并绑定账号");
                 break;
         }
     }

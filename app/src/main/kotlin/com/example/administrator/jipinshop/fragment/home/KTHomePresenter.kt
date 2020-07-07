@@ -104,4 +104,12 @@ class KTHomePresenter {
                     mView.onHBFlie()
                 })
     }
+
+    fun closeIndexMessage(transformer : LifecycleTransformer<SuccessBean>){
+        repository.closeIndexMessage()
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .compose(transformer)
+                .subscribe(Consumer {}, Consumer {})
+    }
 }

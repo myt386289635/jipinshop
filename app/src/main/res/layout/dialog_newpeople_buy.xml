@@ -14,6 +14,7 @@
             android:layout_height="wrap_content">
 
             <TextView
+                android:id="@+id/dialog_title"
                 android:layout_marginTop="@dimen/y25"
                 android:textColor="@color/color_202020"
                 android:textSize="17sp"
@@ -41,6 +42,7 @@
                 android:layout_height="wrap_content"/>
 
             <TextView
+                android:id="@+id/dialog_content"
                 android:layout_marginBottom="@dimen/y37"
                 android:textColor="@color/color_989898"
                 android:textSize="14sp"

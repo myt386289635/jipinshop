@@ -8,11 +8,9 @@ import android.widget.ImageView
 import android.widget.LinearLayout
 import com.example.administrator.jipinshop.R
 import com.example.administrator.jipinshop.adapter.NoPageBannerAdapter
-import com.example.administrator.jipinshop.bean.DailyTaskBean
-import com.example.administrator.jipinshop.bean.MemberBean
-import com.example.administrator.jipinshop.bean.SignInsertBean
-import com.example.administrator.jipinshop.bean.SuccessBean
+import com.example.administrator.jipinshop.bean.*
 import com.example.administrator.jipinshop.netwrok.Repository
+import com.example.administrator.jipinshop.util.ToastUtil
 import com.trello.rxlifecycle2.LifecycleTransformer
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.functions.Consumer
@@ -145,6 +143,22 @@ class KTMemberPresenter {
                     }
                 }, { throwable ->
                     mView.onFile(throwable.message)
+                })
+    }
+
+    fun getParentInfo(transformer : LifecycleTransformer<TeacherBean>){
+        repository.parentInfo()
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .compose(transformer)
+                .subscribe(Consumer {
+                    if (it.code == 0){
+                        mView.onTeacher(it)
+                    }else{
+                        mView.onFile(it.msg)
+                    }
+                }, Consumer {
+                    mView.onFile(it.message)
                 })
     }
 }

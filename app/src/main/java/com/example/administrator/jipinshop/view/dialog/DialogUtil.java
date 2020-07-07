@@ -1115,4 +1115,26 @@ public class DialogUtil {
         dialog.show();
         dialog.setContentView(binding.getRoot());
     }
+
+    public static void wxDialog(Context context ,String title , String wxCode , String content){
+        AlertDialog.Builder builder = new AlertDialog.Builder(context, R.style.dialog);
+        final Dialog dialog = builder.create();
+        DialogNewpeopleBuyBinding binding = DataBindingUtil.inflate(LayoutInflater.from(context),R.layout.dialog_newpeople_buy, null,false);
+        binding.dialogTitle.setText(title);
+        GlideApp.loderCircleImage(context,R.mipmap.logo,binding.dialogImage,0,0);
+        binding.dialogWx.setText(wxCode + "极品城");
+        binding.dialogContent.setText(content);
+        binding.dialogCancle.setOnClickListener(v -> dialog.dismiss());
+        binding.dialogSure.setOnClickListener(v -> {
+            ClipboardManager clip = (ClipboardManager)context.getSystemService(Context.CLIPBOARD_SERVICE);
+            ClipData clipData = ClipData.newPlainText("jipinshop","极品城");
+            clip.setPrimaryClip(clipData);
+            ToastUtil.show("复制成功");
+            SPUtils.getInstance().put(CommonDate.CLIP,"极品城");
+            dialog.dismiss();
+        });
+        dialog.getWindow().setDimAmount(0.35f);
+        dialog.show();
+        dialog.setContentView(binding.getRoot());
+    }
 }

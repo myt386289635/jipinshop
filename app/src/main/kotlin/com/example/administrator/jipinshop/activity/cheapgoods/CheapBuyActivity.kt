@@ -20,6 +20,7 @@ import com.example.administrator.jipinshop.adapter.KTCheapBuyAdapter
 import com.example.administrator.jipinshop.base.BaseActivity
 import com.example.administrator.jipinshop.bean.ImageBean
 import com.example.administrator.jipinshop.bean.NewPeopleBean
+import com.example.administrator.jipinshop.bean.ShareInfoBean
 import com.example.administrator.jipinshop.databinding.ActivityCheapBuyBinding
 import com.example.administrator.jipinshop.util.ShareUtils
 import com.example.administrator.jipinshop.util.TaoBaoUtil
@@ -46,7 +47,6 @@ class CheapBuyActivity : BaseActivity(), View.OnClickListener, OnRefreshListener
     private lateinit var adapter: KTCheapBuyAdapter
     private var mDialog: Dialog? = null
     private var mShareBoardDialog: ShareBoardDialog2? = null
-    private var shareUrl: String = ""
     private var startPop: Boolean = true//是否弹出关闭确认弹窗
     private var allowance: String? = null
 
@@ -129,17 +129,28 @@ class CheapBuyActivity : BaseActivity(), View.OnClickListener, OnRefreshListener
 
     override fun share(share_media: SHARE_MEDIA?) {
         mDialog = ProgressDialogView().createLoadingDialog(this, "")
-        ShareUtils(this,share_media,mDialog)
-                .shareWeb(this, shareUrl, "测试","测试","",R.mipmap.share_logo)
+        mDialog?.show()
+        mPresenter.initShare(share_media,this.bindToLifecycle())
+
     }
 
     override fun onLink() {
-        val clip = getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager
-        val clipData = ClipData.newPlainText("jipinshop", shareUrl)
-        clip.primaryClip = clipData
-        ToastUtil.show("复制成功")
-        SPUtils.getInstance().put(CommonDate.CLIP, shareUrl)
+        mPresenter.initShare(null,this.bindToLifecycle())
     }
+
+    override fun initShare(share_media: SHARE_MEDIA?, bean: ShareInfoBean) {
+       if (share_media != null){
+           ShareUtils(this,share_media,mDialog)
+                   .shareWeb(this, bean.data.link, bean.data.title,bean.data.desc,bean.data.imgUrl,R.mipmap.share_logo)
+       }else{
+           val clip = getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager
+           val clipData = ClipData.newPlainText("jipinshop", bean.data.link)
+           clip.primaryClip = clipData
+           ToastUtil.show("复制成功")
+           SPUtils.getInstance().put(CommonDate.CLIP, bean.data.link)
+       }
+    }
+
 
     override fun onRefresh() {
         mPresenter.setDate(this.bindToLifecycle())

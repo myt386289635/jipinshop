@@ -1,9 +1,11 @@
 package com.example.administrator.jipinshop.activity.web.dzp;
 
 import com.example.administrator.jipinshop.bean.PrizeLogBean;
+import com.example.administrator.jipinshop.bean.ShareInfoBean;
 import com.example.administrator.jipinshop.bean.SuccessBean;
 import com.example.administrator.jipinshop.netwrok.Repository;
 import com.trello.rxlifecycle2.LifecycleTransformer;
+import com.umeng.socialize.bean.SHARE_MEDIA;
 
 import javax.inject.Inject;
 
@@ -46,4 +48,19 @@ public class BigWheelWebPresenter {
                 });
     }
 
+    public void initShare(SHARE_MEDIA share_media,LifecycleTransformer<ShareInfoBean> transformer){
+        mRepository.getShareInfo(1)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .compose(transformer)
+                .subscribe(bean -> {
+                    if (bean.getCode() == 0){
+                        mView.initShare(share_media,bean);
+                    }else {
+                        mView.onFlie(bean.getMsg());
+                    }
+                }, throwable -> {
+                    mView.onFlie(throwable.getMessage());
+                });
+    }
 }

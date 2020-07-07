@@ -23,17 +23,16 @@ import com.example.administrator.jipinshop.activity.home.home.HomeNewActivity
 import com.example.administrator.jipinshop.activity.info.MyInfoActivity
 import com.example.administrator.jipinshop.activity.mall.MallActivity
 import com.example.administrator.jipinshop.activity.newpeople.NewFreeActivity
+import com.example.administrator.jipinshop.activity.setting.bind.BindWXActivity
 import com.example.administrator.jipinshop.activity.sign.invitation.InvitationNewActivity
 import com.example.administrator.jipinshop.activity.sreach.TBSreachActivity
 import com.example.administrator.jipinshop.adapter.KTSignAdapter
 import com.example.administrator.jipinshop.base.DBBaseFragment
-import com.example.administrator.jipinshop.bean.DailyTaskBean
-import com.example.administrator.jipinshop.bean.MemberBean
-import com.example.administrator.jipinshop.bean.SignInsertBean
-import com.example.administrator.jipinshop.bean.SuccessBean
+import com.example.administrator.jipinshop.bean.*
 import com.example.administrator.jipinshop.bean.eventbus.ChangeHomePageBus
 import com.example.administrator.jipinshop.databinding.FragmentMemberBinding
 import com.example.administrator.jipinshop.netwrok.RetrofitModule
+import com.example.administrator.jipinshop.util.TaoBaoUtil
 import com.example.administrator.jipinshop.util.ToastUtil
 import com.example.administrator.jipinshop.util.sp.CommonDate
 import com.example.administrator.jipinshop.view.dialog.DialogUtil
@@ -140,7 +139,13 @@ class KTMemberFragment : DBBaseFragment(), View.OnClickListener, OnRefreshListen
 
     override fun onClick(v: View) {
         when(v.id) {
-            R.id.member_share, R.id.member_adContainer,
+            R.id.member_share -> {
+                startActivity(Intent(context, WebActivity::class.java)
+                        .putExtra(WebActivity.url, RetrofitModule.H5_URL + "new-free/memberrule")
+                        .putExtra(WebActivity.title, "规则说明")
+                )
+            }
+            R.id.member_adContainer,
             R.id.member_infoUserInvation,R.id.member_infoUserInvationCopy -> {
                 //进入邀请好友
                 startActivity(Intent(context, InvitationNewActivity::class.java))
@@ -346,15 +351,15 @@ class KTMemberFragment : DBBaseFragment(), View.OnClickListener, OnRefreshListen
     }
 
     override fun onDayJump(pos: Int) {
-        dayJump(mDayRule[pos].location)
+        dayJump(mDayRule[pos].location, mDayRule[pos].locationId)
     }
 
     override fun onJump(pos: Int) {
-        dayJump(mUserRule[pos].location)
+        dayJump(mUserRule[pos].location , mUserRule[pos].locationId)
     }
 
     //每日任务的跳转逻辑
-    fun dayJump(location: Int) {
+    fun dayJump(location: Int , url : String?) {
         when (location) {
             1 -> {//跳转到首页
                 EventBus.getDefault().post(ChangeHomePageBus(0))
@@ -395,6 +400,32 @@ class KTMemberFragment : DBBaseFragment(), View.OnClickListener, OnRefreshListen
             11 -> {//分享发圈
                 EventBus.getDefault().post(ChangeHomePageBus(2))
             }
+            12 -> {//授权淘宝
+                TaoBaoUtil.openTB(context) { ToastUtil.show("已完成授权") }
+            }
+            13 -> {//填写微信号
+                startActivity(Intent(context, BindWXActivity::class.java))
+            }
+            14 -> {//添加导师微信
+                mDialog = ProgressDialogView().createLoadingDialog(context, "")
+                mDialog?.show()
+                mPresenter.getParentInfo(this.bindToLifecycle<TeacherBean>())
+            }
+            15 -> {//填写调查问卷
+                startActivity(Intent(context, WebActivity::class.java)
+                        .putExtra(WebActivity.url, url)
+                        .putExtra(WebActivity.title, "调查问卷")
+                )
+            }
+            16 -> {//应用市场好评
+
+            }
+            17 -> {//关注公众号
+                DialogUtil.wxDialog(context, "关注公众号", "微信服务号名称：", "微信关注极品城公众号，并绑定账号")
+            }
+            18 -> {//绑定小程序
+                DialogUtil.wxDialog(context, "绑定小程序", "微信小程序：", "微信搜索极品城小程序，并绑定账号")
+            }
         }
     }
 
@@ -419,6 +450,15 @@ class KTMemberFragment : DBBaseFragment(), View.OnClickListener, OnRefreshListen
         SPUtils.getInstance(CommonDate.USER).put(CommonDate.userPoint, signInsertBean.data.usablePoint)
         mBinding.memberCoin.text = SPUtils.getInstance(CommonDate.USER).getInt(CommonDate.userPoint).toString()
         ToastUtil.show("签到成功")
+    }
+
+    override fun onTeacher(bean: TeacherBean) {
+        mDialog?.let {
+            if (it.isShowing){
+                it.dismiss()
+            }
+        }
+        DialogUtil.teacherDialog(context, bean.data.wechat, bean.data.avatar)
     }
 
     override fun onResume() {

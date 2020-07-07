@@ -1328,4 +1328,16 @@ public interface APIService {
      */
     @GET("api/v3/user/prizeLogList")
     Observable<PrizeLogBean> prizeLogList();
+
+    /**
+     * 获取分享数据
+     */
+    @GET("api/v3/user/getShareInfo")
+    Observable<ShareInfoBean> getShareInfo(@Query("type") int type);
+
+    /**
+     * 关闭首页底部跑马灯消息
+     */
+    @POST("api/v3/tbk/closeIndexMessage")
+    Observable<SuccessBean> closeIndexMessage();
 }
