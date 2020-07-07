@@ -384,7 +384,7 @@ public class SignActivity extends BaseActivity implements View.OnClickListener, 
                 );
                 break;
             case 16://应用市场好评
-
+                ShopJumpUtil.jumpMarkets(this);
                 break;
             case 17://关注公众号
                 DialogUtil.wxDialog(this, "关注公众号", "微信服务号名称：", "微信关注极品城公众号，并绑定账号");

@@ -32,6 +32,7 @@ import com.example.administrator.jipinshop.bean.*
 import com.example.administrator.jipinshop.bean.eventbus.ChangeHomePageBus
 import com.example.administrator.jipinshop.databinding.FragmentMemberBinding
 import com.example.administrator.jipinshop.netwrok.RetrofitModule
+import com.example.administrator.jipinshop.util.ShopJumpUtil
 import com.example.administrator.jipinshop.util.TaoBaoUtil
 import com.example.administrator.jipinshop.util.ToastUtil
 import com.example.administrator.jipinshop.util.sp.CommonDate
@@ -418,7 +419,7 @@ class KTMemberFragment : DBBaseFragment(), View.OnClickListener, OnRefreshListen
                 )
             }
             16 -> {//应用市场好评
-
+                ShopJumpUtil.jumpMarkets(context)
             }
             17 -> {//关注公众号
                 DialogUtil.wxDialog(context, "关注公众号", "微信服务号名称：", "微信关注极品城公众号，并绑定账号")

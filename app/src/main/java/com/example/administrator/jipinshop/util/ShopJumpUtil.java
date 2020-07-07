@@ -38,6 +38,15 @@ import com.example.administrator.jipinshop.util.sp.CommonDate;
  */
 public class ShopJumpUtil {
 
+    /**
+     * 获取手机厂商
+     *
+     * @return  手机厂商
+     */
+    public static String getDeviceBrand() {
+        return android.os.Build.BRAND;
+    }
+
 
     /**
      * 直接跳转至应用宝
@@ -94,6 +103,25 @@ public class ShopJumpUtil {
         return toMarket(context, appPkg, "com.meizu.mstore");
     }
 
+    //跳转到华为应用商城
+    public static boolean toHuawei(Context context, String appPkg) {
+        return toMarket(context, appPkg, "com.huawei.appmarket");
+    }
+
+    //跳转到百度手机助手
+    public static boolean toBaidu(Context context, String appPkg) {
+        return toMarket(context, appPkg, "com.baidu.appsearch");
+    }
+
+    //跳转到OPPO应用商城
+    public static boolean toOppo(Context context, String appPkg) {
+        return toMarket(context, appPkg, "com.oppo.market");
+    }
+
+    //跳转到vivo应用商城
+    public static boolean toVivo(Context context, String appPkg) {
+        return toMarket(context, appPkg, "com.bbk.appstore");
+    }
 
     /**
      * 跳转各个应用商店.
@@ -119,6 +147,36 @@ public class ShopJumpUtil {
             return false;
         }
     }
+
+
+    //根据手机型号进行跳转，跳到目标应用商城
+    public static void jumpMarkets(Context context){
+        Boolean isJump = false;//目标应用商城是否跳转成功
+        String appPkg = "com.example.administrator.jipinshop";
+        String deviceBrand = ShopJumpUtil.getDeviceBrand().toLowerCase();
+        if (deviceBrand.equals("huawei")){
+            isJump = toHuawei(context,appPkg);
+        }else if (deviceBrand.equals("xiaomi")){
+            isJump = toXiaoMi(context,appPkg);
+        }else if (deviceBrand.equals("vivo")){
+            isJump = toVivo(context,appPkg);
+        }else if (deviceBrand.equals("meizu")){
+            isJump = toMeizu(context,appPkg);
+        }
+        if (!isJump){
+            //目标应用商城没有跳转到
+            if (!toQQDownload(context,appPkg)){
+                if (!to360Download(context,appPkg)){
+                    if (!toBaidu(context,appPkg)){
+                        if (!toMarket(context,appPkg,null)){
+                            ToastUtil.show("没有找到您手机里的应用商店，请确认");
+                        }
+                    }
+                }
+            }
+        }
+    }
+
 
     /**
      * 跳转文章逻辑
