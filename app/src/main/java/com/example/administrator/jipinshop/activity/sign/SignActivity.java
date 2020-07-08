@@ -212,6 +212,7 @@ public class SignActivity extends BaseActivity implements View.OnClickListener, 
         if (mDialog != null && mDialog.isShowing()){
             mDialog.dismiss();
         }
+        mBinding.signCode.setText(bean.getPoint() + "");
         ad2 = bean.getAd2();
         ad1 = bean.getAd1();
         mBinding.setAd(bean.getAd1());

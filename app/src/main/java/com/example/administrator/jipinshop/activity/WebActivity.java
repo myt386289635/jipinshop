@@ -58,6 +58,8 @@ public class WebActivity extends BaseActivity implements View.OnClickListener, W
     //分享面板
     private ShareBoardDialog mShareBoardDialog;
     private String mSource = "";
+    private Boolean isGo = false;//是否直接跳转app false否  true是
+    private Boolean isFinish = false;//是否需要关闭该页
 
     public static final String url = "url";
     public static final String title = "title";
@@ -67,6 +69,7 @@ public class WebActivity extends BaseActivity implements View.OnClickListener, W
     public static final String shareImage = "shareImage";
 
     public static final String source = "source";
+    public static final String go = "go";
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -81,7 +84,10 @@ public class WebActivity extends BaseActivity implements View.OnClickListener, W
     private void initView() {
         inShare = getIntent().getBooleanExtra(isShare,false);
         if (!TextUtils.isEmpty(getIntent().getStringExtra(source))){
-            mSource = getIntent().getStringExtra(source);
+            mSource = getIntent().getStringExtra(source);//1京东  2淘宝  4拼多多
+        }
+        if (getIntent().getBooleanExtra(go,false)){
+            isGo = getIntent().getBooleanExtra(go,false);
         }
         mProgressDialog = (new ProgressDialogView()).createLoadingDialog(WebActivity.this, "正在加载...");
         mProgressDialog.show();
@@ -276,11 +282,30 @@ public class WebActivity extends BaseActivity implements View.OnClickListener, W
     @Override
     public void onAction(ImageBean bean) {
         mBinding.webView.loadUrl(bean.getData());
+        if (isGo && !TextUtils.isEmpty(mSource) && !mSource.equals("0")){
+            isFinish = true;
+            if (mSource.equals("1")){
+                goJD(bean.getData());
+            }else if (mSource.equals("4")){
+                goPDD(bean.getData());
+            }else {
+                goTaobao(bean.getData());
+            }
+        }
     }
 
     @Override
     public void onActionFile() {
         mBinding.webView.loadUrl(getIntent().getStringExtra(url));
+        if (isGo && !TextUtils.isEmpty(mSource) && !mSource.equals("0")){
+            if (mSource.equals("1")){
+                goJD(getIntent().getStringExtra(url));
+            }else if (mSource.equals("4")){
+                goPDD(getIntent().getStringExtra(url));
+            }else {
+                goTaobao(getIntent().getStringExtra(url));
+            }
+        }
     }
 
     @Override
@@ -304,6 +329,32 @@ public class WebActivity extends BaseActivity implements View.OnClickListener, W
         if(mDialog != null && mDialog.isShowing()){
             mDialog.dismiss();
         }
+        if (isFinish){
+            if (isGo && !TextUtils.isEmpty(mSource) && !mSource.equals("0")){
+                finish();
+            }
+        }
+    }
+
+    //跳转淘宝
+    public void goTaobao(String url) {
+        mDialog = (new ProgressDialogView()).createLoadingDialog(WebActivity.this, "");
+        mDialog.show();
+        TaoBaoUtil.openAliHomeWeb(WebActivity.this,url,"");
+    }
+
+    //跳转拼多多
+    public void goPDD(String url){
+        mDialog = (new ProgressDialogView()).createLoadingDialog(WebActivity.this, "");
+        mDialog.show();
+        PDDUtil.jumpPDD(WebActivity.this,url,url);
+    }
+
+    //跳转京东
+    public void goJD(String url){
+        mDialog = (new ProgressDialogView()).createLoadingDialog(WebActivity.this, "");
+        mDialog.show();
+        JDUtil.openJD(WebActivity.this, url);
     }
 
     public class WebViewJavaScriptFunction {

@@ -362,6 +362,14 @@ public class ShopJumpUtil {
                 }
                 context.startActivity(intent);
                 break;
+            case "36"://H5直接跳app
+                intent.setClass(context, WebActivity.class);
+                intent.putExtra(WebActivity.url, target_id);
+                intent.putExtra(WebActivity.title,target_title);
+                intent.putExtra(WebActivity.source,source);
+                intent.putExtra(WebActivity.go, true);
+                context.startActivity(intent);
+                break;
         }
     }
 

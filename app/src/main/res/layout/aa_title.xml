@@ -21,8 +21,8 @@
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:layout_centerVertical="true"
-            android:paddingLeft="@dimen/x20"
-            android:paddingRight="@dimen/x20"
+            android:paddingLeft="@dimen/x30"
+            android:paddingRight="@dimen/x30"
             android:src="@mipmap/nav_black_big"/>
 
 
