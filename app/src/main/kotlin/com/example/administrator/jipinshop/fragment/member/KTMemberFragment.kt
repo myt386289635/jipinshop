@@ -443,6 +443,7 @@ class KTMemberFragment : DBBaseFragment(), View.OnClickListener, OnRefreshListen
     }
 
     override fun signSuc(signInsertBean: SignInsertBean) {
+        mPresenter.DailytaskList(this.bindToLifecycle())//刷新任务
         mDialog?.let {
             if (it.isShowing){
                 it.dismiss()
