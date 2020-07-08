@@ -298,6 +298,7 @@ public class WebActivity extends BaseActivity implements View.OnClickListener, W
     public void onActionFile() {
         mBinding.webView.loadUrl(getIntent().getStringExtra(url));
         if (isGo && !TextUtils.isEmpty(mSource) && !mSource.equals("0")){
+            isFinish = true;
             if (mSource.equals("1")){
                 goJD(getIntent().getStringExtra(url));
             }else if (mSource.equals("4")){
