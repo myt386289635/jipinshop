@@ -43,10 +43,9 @@ public class PDDUtil {
             Intent intent=new Intent(Intent.ACTION_VIEW, Uri.parse(url));
             context.startActivity(intent);
         }else {
-            context.startActivity(new Intent(context, WebActivity.class)
-                    .putExtra(WebActivity.url, errorUrl)
-                    .putExtra(WebActivity.title,"拼多多")
-            );
+            ToastUtil.show("您未安装拼多多app，正在为您打开浏览器");
+            Intent intent=new Intent(Intent.ACTION_VIEW, Uri.parse(errorUrl));
+            context.startActivity(intent);
         }
     }
 
