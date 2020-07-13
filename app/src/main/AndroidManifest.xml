@@ -592,6 +592,10 @@
         <activity android:name=".activity.web.dzp.BigWheelWebActivity"
                   android:screenOrientation="portrait"/>
 
+        <!--应用市场好评-->
+        <activity android:name=".activity.sign.market.MarketActivity"
+                  android:screenOrientation="portrait"/>
+
     </application>
 
 </manifest>

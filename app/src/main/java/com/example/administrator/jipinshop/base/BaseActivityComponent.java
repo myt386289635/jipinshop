@@ -73,6 +73,7 @@ import com.example.administrator.jipinshop.activity.sign.SignActivity;
 import com.example.administrator.jipinshop.activity.sign.detail.IntegralDetailActivity;
 import com.example.administrator.jipinshop.activity.sign.invitation.InvitationActivity;
 import com.example.administrator.jipinshop.activity.sign.invitation.InvitationNewActivity;
+import com.example.administrator.jipinshop.activity.sign.market.MarketActivity;
 import com.example.administrator.jipinshop.activity.sreach.SreachActivity;
 import com.example.administrator.jipinshop.activity.sreach.TBSreachActivity;
 import com.example.administrator.jipinshop.activity.sreach.result.SreachResultActivity;
@@ -168,4 +169,5 @@ public interface BaseActivityComponent {
     void inject(WalletHistoryActivity activity);
     void inject(KTTBDetailActivity activity);
     void inject(BigWheelWebActivity activity);
+    void inject(MarketActivity activity);
 }

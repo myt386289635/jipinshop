@@ -1,0 +1,198 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:bind="http://schemas.android.com/apk/res-auto">
+
+    <data>
+        <variable
+            name="listener"
+            type="android.view.View.OnClickListener"/>
+    </data>
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <include
+            android:id="@+id/in_clude"
+            layout="@layout/aa_title2"
+            bind:listener="@{listener}"/>
+
+        <RelativeLayout
+            android:background="@color/color_FD9922"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <ImageView
+                android:adjustViewBounds="true"
+                android:scaleType="fitStart"
+                android:src="@mipmap/market_bg"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"/>
+
+            <RelativeLayout
+                android:background="@drawable/bg_dialog"
+                android:layout_marginTop="@dimen/y223"
+                android:layout_marginBottom="@dimen/y20"
+                android:layout_marginRight="@dimen/x20"
+                android:layout_marginLeft="@dimen/x20"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <TextView
+                    android:id="@+id/market_title"
+                    android:layout_marginTop="@dimen/y90"
+                    android:textColor="@color/color_424242"
+                    android:textSize="13sp"
+                    android:layout_centerHorizontal="true"
+                    android:text="苹果手机打开APP store，安卓手机打开各大应用市场"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"/>
+
+                <TextView
+                    android:id="@+id/market_title2"
+                    android:layout_marginTop="@dimen/y4"
+                    android:layout_below="@id/market_title"
+                    android:layout_centerHorizontal="true"
+                    android:textStyle="bold"
+                    android:textSize="13sp"
+                    android:textColor="@color/color_E25838"
+                    android:text="给极品城一个五星好评"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"/>
+
+                <TextView
+                    android:onClick="@{listener.onClick}"
+                    android:layout_marginBottom="@dimen/y30"
+                    android:layout_alignBottom="@id/market_image"
+                    android:id="@+id/market_goto"
+                    android:gravity="center"
+                    android:textStyle="bold"
+                    android:textColor="@color/color_white"
+                    android:textSize="17sp"
+                    android:text="立即好评"
+                    android:layout_marginRight="@dimen/x78"
+                    android:layout_marginLeft="@dimen/x78"
+                    android:background="@drawable/bg_market"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/y90"/>
+
+                <ImageView
+                    android:adjustViewBounds="true"
+                    android:scaleType="fitXY"
+                    android:id="@+id/market_image"
+                    android:layout_marginLeft="@dimen/x88"
+                    android:layout_marginTop="@dimen/y17"
+                    android:layout_below="@id/market_title2"
+                    android:src="@mipmap/market_image"
+                    android:layout_width="@dimen/x208"
+                    android:layout_height="wrap_content"/>
+
+                <LinearLayout
+                    android:id="@+id/market_notice"
+                    android:gravity="center_horizontal"
+                    android:layout_marginTop="@dimen/y18"
+                    android:layout_centerHorizontal="true"
+                    android:layout_below="@id/market_image"
+                    android:orientation="vertical"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content">
+
+                    <TextView
+                        android:textColor="@color/color_424242"
+                        android:textSize="13sp"
+                        android:text="在极币中心戳【应用市场好评】"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"/>
+
+                    <TextView
+                        android:layout_marginBottom="@dimen/y4"
+                        android:layout_marginTop="@dimen/y4"
+                        android:textColor="@color/color_424242"
+                        android:textSize="13sp"
+                        android:text="截图并上传好评图片，待客服审核通过后"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"/>
+
+                    <LinearLayout
+                        android:orientation="horizontal"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content">
+
+                        <TextView
+                            android:textColor="@color/color_424242"
+                            android:textSize="13sp"
+                            android:text="即可获得"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"/>
+
+                        <TextView
+                            android:textStyle="bold"
+                            android:textColor="@color/color_E25838"
+                            android:textSize="13sp"
+                            android:text="极币奖励"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"/>
+
+                    </LinearLayout>
+
+                </LinearLayout>
+
+                <RelativeLayout
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginTop="@dimen/y36"
+                    android:onClick="@{listener.onClick}"
+                    android:id="@+id/market_upImage"
+                    android:layout_below="@id/market_notice"
+                    android:layout_width="@dimen/x270"
+                    android:layout_height="@dimen/y270">
+
+                    <View
+                        android:background="@drawable/bg_f5f5f5_2"
+                        android:layout_width="@dimen/x270"
+                        android:layout_height="@dimen/y270"/>
+
+                    <ImageView
+                        android:layout_centerInParent="true"
+                        android:src="@mipmap/market_add"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"/>
+
+                </RelativeLayout>
+
+                <ImageView
+                    android:id="@+id/market_shopImage"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginTop="@dimen/y36"
+                    android:layout_below="@id/market_notice"
+                    android:layout_width="@dimen/x270"
+                    android:layout_height="@dimen/y270"/>
+
+                <TextView
+                    android:lineSpacingExtra="@dimen/y8"
+                    android:gravity="center"
+                    android:id="@+id/market_upImageNotice"
+                    android:layout_marginTop="@dimen/y12"
+                    android:layout_below="@id/market_shopImage"
+                    android:textColor="@color/color_424242"
+                    android:textSize="13sp"
+                    android:text="点击上传好评图片"
+                    android:layout_centerHorizontal="true"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"/>
+
+            </RelativeLayout>
+
+            <ImageView
+                android:adjustViewBounds="true"
+                android:scaleType="fitXY"
+                android:layout_marginTop="@dimen/y187"
+                android:layout_centerHorizontal="true"
+                android:src="@mipmap/market_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+
+        </RelativeLayout>
+
+    </LinearLayout>
+</layout>

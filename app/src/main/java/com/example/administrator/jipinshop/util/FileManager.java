@@ -1,5 +1,7 @@
 package com.example.administrator.jipinshop.util;
 
+import android.content.ContentResolver;
+import android.content.ContentValues;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
@@ -13,6 +15,8 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
 
 import static android.os.Environment.DIRECTORY_PICTURES;
 
@@ -87,5 +91,75 @@ public class FileManager {
         intent.setData(uri);
         mContext.sendBroadcast(intent);
         return myCaptureFile;
+    }
+
+
+    /**
+     * 保存视频
+     */
+    public static void saveVideo(InputStream inputStream, Context context){
+        try {
+            String sdDir = FileManager.externalFiles2();
+            File file = new File(sdDir);
+            if (!file.exists()) {
+                file.mkdirs();
+            }
+            String pathName = file.getAbsolutePath() + "/" + System.currentTimeMillis() + ".mp4";
+            File myCaptureFile = new File(pathName);
+            if (myCaptureFile.exists()) {
+                myCaptureFile.delete();
+            }
+            OutputStream outputStream = null;
+            try {
+                byte[] fileReader = new byte[4096];
+                outputStream = new FileOutputStream(myCaptureFile);
+                while (true) {
+                    int read = inputStream.read(fileReader);
+                    if (read == -1) {
+                        break;
+                    }
+                    outputStream.write(fileReader, 0, read);
+                }
+                addCamera(context,myCaptureFile);
+                ToastUtil.show("保存完成");
+                outputStream.flush();
+            } catch (IOException  e) {
+                e.printStackTrace();
+                ToastUtil.show("保存失败");
+            }finally {
+                if (inputStream != null) {
+                    inputStream.close();
+                }
+                if (outputStream != null) {
+                    outputStream.close();
+                }
+            }
+        }catch (IOException e) {
+            ToastUtil.show("保存失败");
+        }
+    }
+
+    //视频文件添加到相册
+    public static void addCamera(Context context,File file){
+        ContentResolver localContentResolver = context.getContentResolver();
+        ContentValues localContentValues = getVideoContentValues(context, file, System.currentTimeMillis());
+        Uri localUri = localContentResolver.insert(MediaStore.Video.Media.EXTERNAL_CONTENT_URI, localContentValues);
+
+        Intent localIntent = new Intent("android.intent.action.MEDIA_SCANNER_SCAN_FILE");
+        localIntent.setData(localUri);
+        context.sendBroadcast(localIntent);
+    }
+
+    public static ContentValues getVideoContentValues(Context paramContext, File paramFile, long paramLong) {
+        ContentValues localContentValues = new ContentValues();
+        localContentValues.put("title", paramFile.getName());
+        localContentValues.put("_display_name", paramFile.getName());
+        localContentValues.put("mime_type", "video/3gp");
+        localContentValues.put("datetaken", Long.valueOf(paramLong));
+        localContentValues.put("date_modified", Long.valueOf(paramLong));
+        localContentValues.put("date_added", Long.valueOf(paramLong));
+        localContentValues.put("_data", paramFile.getAbsolutePath());
+        localContentValues.put("_size", Long.valueOf(paramFile.length()));
+        return localContentValues;
     }
 }

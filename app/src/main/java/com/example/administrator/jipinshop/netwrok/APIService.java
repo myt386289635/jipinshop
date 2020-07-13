@@ -317,9 +317,9 @@ public interface APIService {
     /**
      * 我要反馈  已修改
      */
-    @POST("api/feedback/add")
+    @POST("api/v3/user/feedback/add")
     @FormUrlEncoded
-    Observable<SuccessBean> feedBack(@Field("content") String content);
+    Observable<SuccessBean> feedBack(@Field("content") String content , @Field("type") String type);
 
     /**
      * 获取关注列表  已修改

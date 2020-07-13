@@ -25,6 +25,7 @@ import com.example.administrator.jipinshop.activity.mall.MallActivity
 import com.example.administrator.jipinshop.activity.newpeople.NewFreeActivity
 import com.example.administrator.jipinshop.activity.setting.bind.BindWXActivity
 import com.example.administrator.jipinshop.activity.sign.invitation.InvitationNewActivity
+import com.example.administrator.jipinshop.activity.sign.market.MarketActivity
 import com.example.administrator.jipinshop.activity.sreach.TBSreachActivity
 import com.example.administrator.jipinshop.adapter.KTSignAdapter
 import com.example.administrator.jipinshop.base.DBBaseFragment
@@ -419,7 +420,7 @@ class KTMemberFragment : DBBaseFragment(), View.OnClickListener, OnRefreshListen
                 )
             }
             16 -> {//应用市场好评
-                ShopJumpUtil.jumpMarkets(context)
+                startActivity(Intent(context, MarketActivity::class.java))
             }
             17 -> {//关注公众号
                 DialogUtil.wxDialog(context, "关注公众号", "微信服务号名称：", "微信关注极品城公众号，并绑定账号")

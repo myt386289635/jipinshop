@@ -173,8 +173,8 @@ public class Repository {
     /**
      * 我要反馈
      */
-    public Observable<SuccessBean> feedBack(String content){
-        return mAPIService.feedBack(content);
+    public Observable<SuccessBean> feedBack(String content, String type){
+        return mAPIService.feedBack(content,type);
     }
 
     /**

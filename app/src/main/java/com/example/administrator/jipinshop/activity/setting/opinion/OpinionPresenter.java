@@ -59,7 +59,7 @@ public class OpinionPresenter {
 
 
     public void feedBook(String content,LifecycleTransformer<SuccessBean> transformer){
-      mRepository.feedBack(content)
+      mRepository.feedBack(content,"1")
               .subscribeOn(Schedulers.io())
               .observeOn(AndroidSchedulers.mainThread())
               .compose(transformer)

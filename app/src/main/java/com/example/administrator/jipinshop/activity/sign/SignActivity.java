@@ -21,6 +21,7 @@ import com.example.administrator.jipinshop.activity.mall.detail.MallDetailActivi
 import com.example.administrator.jipinshop.activity.setting.bind.BindWXActivity;
 import com.example.administrator.jipinshop.activity.sign.detail.IntegralDetailActivity;
 import com.example.administrator.jipinshop.activity.sign.invitation.InvitationNewActivity;
+import com.example.administrator.jipinshop.activity.sign.market.MarketActivity;
 import com.example.administrator.jipinshop.activity.sreach.TBSreachActivity;
 import com.example.administrator.jipinshop.activity.web.dzp.BigWheelWebActivity;
 import com.example.administrator.jipinshop.activity.web.hb.HBWebView;
@@ -385,7 +386,7 @@ public class SignActivity extends BaseActivity implements View.OnClickListener, 
                 );
                 break;
             case 16://应用市场好评
-                ShopJumpUtil.jumpMarkets(this);
+                startActivity(new Intent(this, MarketActivity.class));
                 break;
             case 17://关注公众号
                 DialogUtil.wxDialog(this, "关注公众号", "微信服务号名称：", "微信关注极品城公众号，并绑定账号");
