@@ -115,7 +115,7 @@ class CheapBuyActivity : BaseActivity(), View.OnClickListener, OnRefreshListener
                     return
                 }
                 if (mShareBoardDialog == null) {
-                    mShareBoardDialog = ShareBoardDialog2.getInstance()
+                    mShareBoardDialog = ShareBoardDialog2.getInstance(0)
                     mShareBoardDialog?.setOnShareListener(this)
                 }
                 mShareBoardDialog?.let {

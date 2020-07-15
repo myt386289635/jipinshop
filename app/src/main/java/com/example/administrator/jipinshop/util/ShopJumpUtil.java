@@ -23,13 +23,18 @@ import com.example.administrator.jipinshop.activity.mall.MallActivity;
 import com.example.administrator.jipinshop.activity.minekt.orderkt.KTMyOrderActivity;
 import com.example.administrator.jipinshop.activity.newpeople.NewFreeActivity;
 import com.example.administrator.jipinshop.activity.report.detail.ReportDetailActivity;
+import com.example.administrator.jipinshop.activity.school.SchoolSpecialActivity;
+import com.example.administrator.jipinshop.activity.school.video.VideoActivity;
 import com.example.administrator.jipinshop.activity.shoppingdetail.tbshoppingdetail.TBShoppingDetailActivity;
 import com.example.administrator.jipinshop.activity.sign.SignActivity;
 import com.example.administrator.jipinshop.activity.sign.detail.IntegralDetailActivity;
 import com.example.administrator.jipinshop.activity.sign.invitation.InvitationNewActivity;
 import com.example.administrator.jipinshop.activity.web.dzp.BigWheelWebActivity;
+import com.example.administrator.jipinshop.bean.eventbus.ChangeHomePageBus;
 import com.example.administrator.jipinshop.netwrok.RetrofitModule;
 import com.example.administrator.jipinshop.util.sp.CommonDate;
+
+import org.greenrobot.eventbus.EventBus;
 
 /**
  * @author 莫小婷
@@ -370,6 +375,39 @@ public class ShopJumpUtil {
                 intent.putExtra(WebActivity.go, true);
                 context.startActivity(intent);
                 break;
+            case "37":
+                //商学院专题页
+                intent.setClass(context, SchoolSpecialActivity.class);
+                intent.putExtra("categoryId",target_id);
+                intent.putExtra("title",target_title);
+                context.startActivity(intent);
+                break;
+            case "38":
+                //商学院播放页
+                intent.setClass(context, VideoActivity.class);
+                intent.putExtra("courseId",target_id);
+                context.startActivity(intent);
+                break;
+            case "101":
+                //滑到首页第一页
+                EventBus.getDefault().post(new ChangeHomePageBus(0));
+                break;
+            case "102":
+                //滑到首页第二页
+                EventBus.getDefault().post(new ChangeHomePageBus(1));
+                break;
+            case "103":
+                //滑到首页第三页
+                EventBus.getDefault().post(new ChangeHomePageBus(2));
+                break;
+            case "104":
+                //滑到首页第四页
+                EventBus.getDefault().post(new ChangeHomePageBus(3));
+                break;
+            case "105":
+                //滑到首页第五页
+                EventBus.getDefault().post(new ChangeHomePageBus(4));
+                break;
         }
     }
 
@@ -552,6 +590,21 @@ public class ShopJumpUtil {
                 }else {
                     intent.setClass(context, IntegralDetailActivity.class);
                 }
+                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                context.startActivity(intent);
+                break;
+            case "37":
+                //商学院专题页
+                intent.setClass(context, SchoolSpecialActivity.class);
+                intent.putExtra("categoryId",target_id);
+                intent.putExtra("title",target_title);
+                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                context.startActivity(intent);
+                break;
+            case "38":
+                //商学院播放页
+                intent.setClass(context, VideoActivity.class);
+                intent.putExtra("courseId",target_id);
                 intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                 context.startActivity(intent);
                 break;

@@ -254,6 +254,10 @@ dependencies {
 
     //选择器
     implementation 'com.contrarywind:Android-PickerView:4.1.9'
+
+
+    //完整版引入  第三方视频
+    implementation 'com.shuyu:GSYVideoPlayer:6.0.3'
 }
 
 configurations {

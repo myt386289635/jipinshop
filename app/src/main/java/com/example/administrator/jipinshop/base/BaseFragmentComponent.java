@@ -42,6 +42,7 @@ import com.example.administrator.jipinshop.fragment.publishkt.inventory.publishe
 import com.example.administrator.jipinshop.fragment.publishkt.inventory.unpass.UnPassFragment;
 import com.example.administrator.jipinshop.fragment.publishkt.question.pass.PassQuesFragment;
 import com.example.administrator.jipinshop.fragment.publishkt.question.unpass.UnPassQuesFragment;
+import com.example.administrator.jipinshop.fragment.school.KTSchoolFragment;
 import com.example.administrator.jipinshop.fragment.sreach.article.SreachArticleFragment;
 import com.example.administrator.jipinshop.fragment.sreach.find.SreachFindFragment;
 import com.example.administrator.jipinshop.fragment.sreach.goods.SreachGoodsFragment;
@@ -102,4 +103,5 @@ public interface BaseFragmentComponent {
     void inject(TeamOneFragment fragment);
     void inject(TeamTwoFragment fragment);
     void inject(TeamThreeFragment fragment);
+    void inject(KTSchoolFragment fragment);
 }

@@ -596,6 +596,16 @@
         <activity android:name=".activity.sign.market.MarketActivity"
                   android:screenOrientation="portrait"/>
 
+        <!--商学院专题页-->
+        <activity android:name=".activity.school.SchoolSpecialActivity"
+                  android:screenOrientation="portrait"/>
+
+        <!--商学院视频详情页-->
+        <activity android:name=".activity.school.video.VideoActivity"
+                  android:screenOrientation="portrait"
+                  android:configChanges="orientation|keyboardHidden|screenSize"
+                  android:hardwareAccelerated="true"/>
+
     </application>
 
 </manifest>

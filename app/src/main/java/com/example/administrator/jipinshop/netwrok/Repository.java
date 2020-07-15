@@ -52,6 +52,7 @@ import com.example.administrator.jipinshop.bean.PrizeLogBean;
 import com.example.administrator.jipinshop.bean.QuestionsBean;
 import com.example.administrator.jipinshop.bean.RecommendFragmentBean;
 import com.example.administrator.jipinshop.bean.ReportBean;
+import com.example.administrator.jipinshop.bean.SchoolHomeBean;
 import com.example.administrator.jipinshop.bean.ScoreStatusBean;
 import com.example.administrator.jipinshop.bean.ShareBean;
 import com.example.administrator.jipinshop.bean.ShareInfoBean;
@@ -1468,5 +1469,26 @@ public class Repository {
      */
     public Observable<SuccessBean> closeIndexMessage(){
         return mAPIService.closeIndexMessage();
+    }
+
+    /**
+     * 商学院首页
+     */
+    public Observable<SchoolHomeBean> courseIndex(){
+        return mAPIService.courseIndex();
+    }
+
+    /**
+     * 商学院专题页
+     */
+    public Observable<SucBean<SchoolHomeBean.DataBean.CategoryListBean.CourseListBean>> listByCategoryId(String categoryId,int page){
+        return mAPIService.listByCategoryId(categoryId, page);
+    }
+
+    /**
+     * 视频详情
+     */
+    public Observable<SucBeanT<SchoolHomeBean.DataBean.CategoryListBean.CourseListBean>> videoDetail(String courseId){
+        return mAPIService.videoDetail(courseId);
     }
 }

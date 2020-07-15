@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:bind="http://schemas.android.com/apk/res-auto">
+
+    <data>
+        <variable
+            name="date"
+            type="com.example.administrator.jipinshop.bean.SchoolHomeBean.DataBean.CategoryListBean.CourseListBean"/>
+    </data>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/y223">
+
+        <ImageView
+            android:layout_marginRight="@dimen/x24"
+            android:layout_marginLeft="@dimen/x20"
+            android:layout_centerVertical="true"
+            android:id="@+id/item_image"
+            bind:srcRound="@{date.thumb}"
+            android:layout_width="@dimen/x238"
+            android:layout_height="@dimen/y162"/>
+
+        <ImageView
+            android:layout_alignLeft="@id/item_image"
+            android:layout_marginLeft="@dimen/x10"
+            android:layout_marginBottom="@dimen/y10"
+            android:layout_alignBottom="@id/item_image"
+            android:src="@mipmap/school_play"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+
+        <TextView
+            android:lineSpacingExtra="@dimen/y8"
+            android:id="@+id/item_name"
+            android:ellipsize="end"
+            android:textSize="12sp"
+            android:textColor="@color/color_202020"
+            android:text="@{date.title}"
+            android:layout_alignTop="@id/item_image"
+            android:layout_marginRight="@dimen/x20"
+            android:layout_toRightOf="@id/item_image"
+            android:minLines="2"
+            android:maxLines="2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+
+        <TextView
+            android:id="@+id/item_like"
+            android:drawablePadding="@dimen/x7"
+            android:drawableLeft="@mipmap/school_good"
+            android:layout_toRightOf="@id/item_image"
+            android:layout_alignBottom="@id/item_image"
+            android:textColor="@color/color_9D9D9D"
+            android:textSize="10sp"
+            android:text="@{date.liked}"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+
+        <TextView
+            android:id="@+id/item_share"
+            android:layout_marginLeft="@dimen/x183"
+            android:drawablePadding="@dimen/x7"
+            android:drawableLeft="@mipmap/school_share"
+            android:layout_toRightOf="@id/item_image"
+            android:layout_alignBottom="@id/item_image"
+            android:textColor="@color/color_9D9D9D"
+            android:textSize="10sp"
+            android:text="@{date.share}"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+
+        <TextView
+            android:textColor="@color/color_9D9D9D"
+            android:textSize="10sp"
+            android:gravity="center"
+            android:text="@{date.reading + @string/school_1}"
+            android:layout_above="@id/item_like"
+            android:layout_toRightOf="@id/item_image"
+            android:layout_below="@id/item_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+
+        <View
+            android:background="@color/color_D8D8D8"
+            android:layout_alignParentBottom="true"
+            android:layout_marginRight="@dimen/x20"
+            android:layout_marginLeft="@dimen/x20"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/y1"/>
+
+    </RelativeLayout>
+</layout>

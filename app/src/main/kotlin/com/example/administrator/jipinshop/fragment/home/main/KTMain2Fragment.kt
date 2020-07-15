@@ -15,7 +15,6 @@ import com.blankj.utilcode.util.SPUtils
 import com.example.administrator.jipinshop.R
 import com.example.administrator.jipinshop.activity.login.LoginActivity
 import com.example.administrator.jipinshop.activity.share.ShareActivity
-import com.example.administrator.jipinshop.activity.web.TaoBaoWebActivity
 import com.example.administrator.jipinshop.adapter.KTMain2Adapter
 import com.example.administrator.jipinshop.base.DBBaseFragment
 import com.example.administrator.jipinshop.bean.TBSreachResultBean
@@ -119,11 +118,16 @@ class KTMain2Fragment : DBBaseFragment(), KTMain2View, OnLoadMoreListener, OnRef
         }
         mAdapter.setDate(bean)
         mAdapter.notifyDataSetChanged()
-        if (!TextUtils.isEmpty(SPUtils.getInstance(CommonDate.USER).getString(CommonDate.token, ""))){
-            if (bean.data.message != null && !TextUtils.isEmpty(bean.data.message.content)){
-                var fragment = parentFragment
-                if (fragment as? KTHomeFragnent != null)
-                    fragment.initMarquee(bean.data.message.content)
+        var fragment = parentFragment
+        if (fragment as? KTHomeFragnent != null){
+            if (!TextUtils.isEmpty(SPUtils.getInstance(CommonDate.USER).getString(CommonDate.token, ""))){
+                if (bean.data.message != null && !TextUtils.isEmpty(bean.data.message.content)){
+                        fragment.initMarquee(bean.data.message.content)
+                }else{
+                    fragment.initMarquee("")
+                }
+            }else{
+                fragment.initMarquee("")
             }
         }
         if (type == "1"){

@@ -52,6 +52,7 @@ import com.example.administrator.jipinshop.bean.PrizeLogBean;
 import com.example.administrator.jipinshop.bean.QuestionsBean;
 import com.example.administrator.jipinshop.bean.RecommendFragmentBean;
 import com.example.administrator.jipinshop.bean.ReportBean;
+import com.example.administrator.jipinshop.bean.SchoolHomeBean;
 import com.example.administrator.jipinshop.bean.ScoreStatusBean;
 import com.example.administrator.jipinshop.bean.ShareBean;
 import com.example.administrator.jipinshop.bean.ShareInfoBean;
@@ -1340,4 +1341,23 @@ public interface APIService {
      */
     @POST("api/v3/tbk/closeIndexMessage")
     Observable<SuccessBean> closeIndexMessage();
+
+    /**
+     * 商学院首页
+     */
+    @GET("api/course/index")
+    Observable<SchoolHomeBean> courseIndex();
+
+    /**
+     * 商学院专题页
+     */
+    @GET("api/course/listByCategoryId")
+    Observable<SucBean<SchoolHomeBean.DataBean.CategoryListBean.CourseListBean>> listByCategoryId(@Query("categoryId") String categoryId, @Query("page") int page);
+
+    /**
+     * 视频详情
+     */
+    @GET("api/course/videoDetail")
+    Observable<SucBeanT<SchoolHomeBean.DataBean.CategoryListBean.CourseListBean>> videoDetail(@Query("courseId") String courseId);
+
 }

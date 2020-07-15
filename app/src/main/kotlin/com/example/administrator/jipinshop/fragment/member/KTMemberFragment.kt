@@ -33,7 +33,6 @@ import com.example.administrator.jipinshop.bean.*
 import com.example.administrator.jipinshop.bean.eventbus.ChangeHomePageBus
 import com.example.administrator.jipinshop.databinding.FragmentMemberBinding
 import com.example.administrator.jipinshop.netwrok.RetrofitModule
-import com.example.administrator.jipinshop.util.ShopJumpUtil
 import com.example.administrator.jipinshop.util.TaoBaoUtil
 import com.example.administrator.jipinshop.util.ToastUtil
 import com.example.administrator.jipinshop.util.sp.CommonDate
@@ -71,6 +70,8 @@ class KTMemberFragment : DBBaseFragment(), View.OnClickListener, OnRefreshListen
     //完善用户信息
     private lateinit var mUserRule: MutableList<DailyTaskBean.DataBean>
     private lateinit var mUserAdapter: KTSignAdapter
+
+    private var type = "1" // 1:fragment 2:activity
 
     companion object{
         @JvmStatic
@@ -124,7 +125,8 @@ class KTMemberFragment : DBBaseFragment(), View.OnClickListener, OnRefreshListen
         //广告
         mAdList = mutableListOf()
         arguments?.let {
-            if (it.getString("type","2") == "2"){
+            type = it.getString("type","1")
+            if (it.getString("type","1") == "2"){
                 mBinding.swipeToLoad.post {
                     mBinding.swipeToLoad.isRefreshing = true
                     once = false
@@ -365,6 +367,11 @@ class KTMemberFragment : DBBaseFragment(), View.OnClickListener, OnRefreshListen
         when (location) {
             1 -> {//跳转到首页
                 EventBus.getDefault().post(ChangeHomePageBus(0))
+                if (type == "2"){
+                    activity?.let {
+                        it.finish()
+                    }
+                }
             }
             3 -> {//跳转到评测
                 startActivity(Intent(context, HomeNewActivity::class.java)
@@ -400,7 +407,12 @@ class KTMemberFragment : DBBaseFragment(), View.OnClickListener, OnRefreshListen
                 startActivity(Intent(context, TBSreachActivity::class.java))
             }
             11 -> {//分享发圈
-                EventBus.getDefault().post(ChangeHomePageBus(2))
+                EventBus.getDefault().post(ChangeHomePageBus(3))
+                if (type == "2"){
+                    activity?.let {
+                        it.finish()
+                    }
+                }
             }
             12 -> {//授权淘宝
                 TaoBaoUtil.openTB(context) { ToastUtil.show("已完成授权") }

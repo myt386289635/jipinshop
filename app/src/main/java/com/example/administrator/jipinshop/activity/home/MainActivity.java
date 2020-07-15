@@ -41,6 +41,7 @@ import com.example.administrator.jipinshop.fragment.circle.CircleFragment;
 import com.example.administrator.jipinshop.fragment.home.KTHomeFragnent;
 import com.example.administrator.jipinshop.fragment.member.KTMemberFragment;
 import com.example.administrator.jipinshop.fragment.mine.KTMineFragment;
+import com.example.administrator.jipinshop.fragment.school.KTSchoolFragment;
 import com.example.administrator.jipinshop.netwrok.RetrofitModule;
 import com.example.administrator.jipinshop.util.ClickUtil;
 import com.example.administrator.jipinshop.util.InputMethodManagerLeak;
@@ -114,6 +115,7 @@ public class MainActivity extends RxAppCompatActivity implements MainView, ViewP
     private KTMineFragment mMineFragment;//我的
     private CircleFragment mCircleFragment;//发圈
     private KTHomeFragnent mKTHomeFragnent;//首页
+    private KTSchoolFragment mSchoolFragment;//商学院
 
     private Unbinder mButterKnife;
     private ImmersionBar mImmersionBar;
@@ -168,10 +170,12 @@ public class MainActivity extends RxAppCompatActivity implements MainView, ViewP
         mFragments = new ArrayList<>();
 
         mKTHomeFragnent = KTHomeFragnent.getInstance();
+        mSchoolFragment = KTSchoolFragment.getInstance();
         mMemberFragment = KTMemberFragment.getInstance("1");
         mCircleFragment = CircleFragment.getInstance();
         mMineFragment = KTMineFragment.getInstance();
         mFragments.add(mKTHomeFragnent);
+        mFragments.add(mSchoolFragment);
         mFragments.add(mMemberFragment);
         mFragments.add(mCircleFragment);
         mFragments.add(mMineFragment);
@@ -637,7 +641,7 @@ public class MainActivity extends RxAppCompatActivity implements MainView, ViewP
             mLoginBackground.setVisibility(View.GONE);
         }
         //改变状态栏颜色
-        if (i == 1) {
+        if (i == 2) {
             mImmersionBar.reset()
                     .transparentStatusBar()
                     .statusBarDarkFont(false, 0f)

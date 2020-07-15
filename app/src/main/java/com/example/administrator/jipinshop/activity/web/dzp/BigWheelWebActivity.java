@@ -141,7 +141,7 @@ public class BigWheelWebActivity extends BaseActivity implements View.OnClickLis
             case R.id.web_share:
                 //分享
                 if (mShareBoardDialog == null) {
-                    mShareBoardDialog = ShareBoardDialog2.getInstance();
+                    mShareBoardDialog = ShareBoardDialog2.getInstance(0);
                     mShareBoardDialog.setOnShareListener(this);
                 }
                 if (!mShareBoardDialog.isAdded()) {

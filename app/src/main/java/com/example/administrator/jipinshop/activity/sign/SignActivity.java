@@ -363,7 +363,7 @@ public class SignActivity extends BaseActivity implements View.OnClickListener, 
                 startActivity(new Intent(this, TBSreachActivity.class));
                 break;
             case 11://分享发圈
-                EventBus.getDefault().post(new ChangeHomePageBus(2));
+                EventBus.getDefault().post(new ChangeHomePageBus(3));
                 finish();
                 break;
             case 12://授权淘宝

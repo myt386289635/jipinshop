@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <data>
+        <variable
+            name="listener"
+            type="android.view.View.OnClickListener"/>
+    </data>
+
+    <RelativeLayout
+        android:background="@color/color_white"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:id="@+id/status_bar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"/>
+
+        <RelativeLayout
+            android:layout_below="@id/status_bar"
+            android:onClick="@{listener.onClick}"
+            android:background="@drawable/bg_e25838_6"
+            android:layout_marginBottom="@dimen/y30"
+            android:layout_marginTop="@dimen/y30"
+            android:layout_marginRight="@dimen/x20"
+            android:layout_marginLeft="@dimen/x20"
+            android:id="@+id/school_searchContainer"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/y66">
+
+            <TextView
+                android:layout_marginLeft="@dimen/x20"
+                android:layout_centerVertical="true"
+                android:drawablePadding="@dimen/x5"
+                android:textColor="@color/color_9D9D9D"
+                android:textSize="14sp"
+                android:text="搜索你想要的课程"
+                android:drawableLeft="@mipmap/search1"
+                android:drawableTint="@color/color_E25838"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+
+            <TextView
+                android:gravity="center"
+                android:textSize="14sp"
+                android:textColor="@color/color_white"
+                android:text="搜索"
+                android:background="@drawable/bg_free_dialog2"
+                android:layout_alignParentRight="true"
+                android:layout_width="@dimen/x104"
+                android:layout_height="match_parent"/>
+
+        </RelativeLayout>
+
+        <com.aspsine.swipetoloadlayout.SwipeToLoadLayout
+            android:layout_below="@+id/school_searchContainer"
+            android:id="@+id/swipeToLoad"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <com.example.administrator.jipinshop.view.textview.CustomRefreshHeadView
+                android:id="@+id/swipe_refresh_header"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:padding="20dp"/>
+
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/swipe_target"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"/>
+
+        </com.aspsine.swipetoloadlayout.SwipeToLoadLayout>
+
+    </RelativeLayout>
+</layout>

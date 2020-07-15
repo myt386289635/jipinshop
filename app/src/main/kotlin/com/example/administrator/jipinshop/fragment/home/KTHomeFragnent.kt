@@ -160,8 +160,12 @@ class KTHomeFragnent : DBBaseFragment(), View.OnClickListener, ViewPager.OnPageC
     }
 
     fun initMarquee(content : String){
-        mBinding.homeMarqueeContainer.visibility = View.VISIBLE
-        mBinding.homeMarquee.text = content
+        if (TextUtils.isEmpty(content)){
+            mBinding.homeMarqueeContainer.visibility = View.GONE
+        }else{
+            mBinding.homeMarqueeContainer.visibility = View.VISIBLE
+            mBinding.homeMarquee.text = content
+        }
     }
 
     override fun onPageScrollStateChanged(p0: Int) {}

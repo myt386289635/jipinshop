@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:bind="http://schemas.android.com/apk/res-auto">
+
+    <data>
+        <variable
+            name="date"
+            type="com.example.administrator.jipinshop.bean.SchoolHomeBean.DataBean.CategoryListBean.CourseListBean"/>
+    </data>
+
+    <RelativeLayout
+        android:id="@+id/item_container"
+        android:layout_marginBottom="@dimen/y30"
+        android:layout_marginTop="@dimen/y30"
+        android:layout_marginLeft="@dimen/x20"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+
+        <ImageView
+            android:id="@+id/item_image"
+            bind:srcRound="@{date.thumb}"
+            android:layout_width="@dimen/x238"
+            android:layout_height="@dimen/y162"/>
+
+        <ImageView
+            android:layout_marginLeft="@dimen/x10"
+            android:layout_marginBottom="@dimen/y10"
+            android:layout_alignBottom="@id/item_image"
+            android:src="@mipmap/school_play"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+
+        <TextView
+            android:ellipsize="end"
+            android:textColor="@color/color_202020"
+            android:textSize="12sp"
+            android:id="@+id/item_title"
+            android:lineSpacingExtra="@dimen/y8"
+            android:layout_marginBottom="@dimen/y8"
+            android:minLines="2"
+            android:maxLines="2"
+            android:layout_marginTop="@dimen/y16"
+            android:layout_below="@id/item_image"
+            android:layout_alignRight="@id/item_image"
+            android:layout_alignLeft="@id/item_image"
+            android:text="@{date.title}"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+
+        <TextView
+            android:id="@+id/item_lookNum"
+            android:drawablePadding="@dimen/x7"
+            android:drawableLeft="@mipmap/school_look"
+            android:textColor="@color/color_9D9D9D"
+            android:textSize="10sp"
+            android:layout_below="@id/item_title"
+            android:text="@{date.reading + @string/school_1}"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+
+    </RelativeLayout>
+</layout>

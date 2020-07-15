@@ -210,11 +210,6 @@ class KTMain2Adapter : RecyclerView.Adapter<RecyclerView.ViewHolder>{
                                 binding.peopleText3.setTv(true)
                                 binding.peopleText3.setColor(R.color.color_9D9D9D)
                             }
-                            3 -> {
-                                binding.fore = mBean!!.data.allowanceGoodsList[3]
-                                binding.peopleText4.setTv(true)
-                                binding.peopleText4.setColor(R.color.color_9D9D9D)
-                            }
                         }
                     }
                     binding.executePendingBindings()

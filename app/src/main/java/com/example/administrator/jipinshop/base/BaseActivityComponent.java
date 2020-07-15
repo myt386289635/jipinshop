@@ -61,6 +61,8 @@ import com.example.administrator.jipinshop.activity.newpeople.detail.NewPeopleDe
 import com.example.administrator.jipinshop.activity.report.cover.CoverReportActivity;
 import com.example.administrator.jipinshop.activity.report.create.CreateReportActivity;
 import com.example.administrator.jipinshop.activity.report.detail.ReportDetailActivity;
+import com.example.administrator.jipinshop.activity.school.SchoolSpecialActivity;
+import com.example.administrator.jipinshop.activity.school.video.VideoActivity;
 import com.example.administrator.jipinshop.activity.setting.SettingActivity;
 import com.example.administrator.jipinshop.activity.setting.about.AboutActivity;
 import com.example.administrator.jipinshop.activity.setting.about.cancellation.VerificationActivity;
@@ -170,4 +172,6 @@ public interface BaseActivityComponent {
     void inject(KTTBDetailActivity activity);
     void inject(BigWheelWebActivity activity);
     void inject(MarketActivity activity);
+    void inject(SchoolSpecialActivity activity);
+    void inject(VideoActivity activity);
 }

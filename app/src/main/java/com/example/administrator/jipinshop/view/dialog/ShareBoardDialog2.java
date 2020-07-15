@@ -21,22 +21,26 @@ public class ShareBoardDialog2 extends BottomSheetDialogFragment implements View
 
     private DialogShareBoard2Binding mBinding;
     private onShareListener mOnShareListener;
+    private int type = 0;//分享类型  0是原样  1是保存视频
 
     public void setOnShareListener(onShareListener onShareListener) {
         mOnShareListener = onShareListener;
     }
 
-    public static ShareBoardDialog2 getInstance() {
+    public static ShareBoardDialog2 getInstance(int type) {
         ShareBoardDialog2 fragment = new ShareBoardDialog2();
+        Bundle bundle = new Bundle();
+        bundle.putInt("type",type);
+        fragment.setArguments(bundle);
         return fragment;
     }
-
 
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         mBinding = DataBindingUtil.inflate(inflater,R.layout.dialog_share_board2, container, false);
         mBinding.setListener(this);
+        setView();
         return mBinding.getRoot();
     }
 
@@ -44,6 +48,15 @@ public class ShareBoardDialog2 extends BottomSheetDialogFragment implements View
     public void onStart() {
         super.onStart();
         getDialog().getWindow().setDimAmount(0.35f);
+    }
+
+    public void setView(){
+        if (getArguments() != null)
+            type = getArguments().getInt("type", 0);
+        if (type == 1){
+            mBinding.shareLinkImage.setImageResource(R.mipmap.share_video);
+            mBinding.shareLinkText.setText("保存视频");
+        }
     }
 
     @Override
