@@ -2,6 +2,7 @@ package com.example.administrator.jipinshop.activity.school.video
 
 import com.example.administrator.jipinshop.bean.SchoolHomeBean
 import com.example.administrator.jipinshop.bean.SucBeanT
+import com.example.administrator.jipinshop.bean.VoteBean
 import okhttp3.ResponseBody
 
 /**
@@ -15,4 +16,7 @@ interface VideoView {
     fun onFile(error : String?)
 
     fun onVideo(it : ResponseBody)
+
+    fun onVote(successBean: VoteBean)
+    fun onDelVote(successBean: VoteBean)
 }

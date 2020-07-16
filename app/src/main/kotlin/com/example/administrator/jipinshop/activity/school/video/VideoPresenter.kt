@@ -4,9 +4,11 @@ import android.content.Context
 import android.graphics.BitmapFactory
 import android.net.Uri
 import android.os.Build
+import android.view.View
 import android.widget.LinearLayout
 import com.example.administrator.jipinshop.bean.SchoolHomeBean
 import com.example.administrator.jipinshop.bean.SucBeanT
+import com.example.administrator.jipinshop.bean.VoteBean
 import com.example.administrator.jipinshop.netwrok.Repository
 import com.example.administrator.jipinshop.util.FileManager
 import com.trello.rxlifecycle2.LifecycleTransformer
@@ -17,6 +19,7 @@ import io.reactivex.functions.Consumer
 import io.reactivex.schedulers.Schedulers
 import okhttp3.ResponseBody
 import java.util.ArrayList
+import java.util.HashMap
 import javax.inject.Inject
 
 /**
@@ -75,6 +78,51 @@ class VideoPresenter {
                     mView.onVideo(it)
                 }, Consumer {
                     mView.onFile(it.message)
+                })
+    }
+
+
+    /**
+     * 添加点赞
+     */
+    fun snapInsert( id: String, transformer: LifecycleTransformer<VoteBean>) {
+        val hashMap = HashMap<String, String>()
+        hashMap["type"] = "7"
+        hashMap["targetId"] = id
+        mRepository.snapInsert(hashMap)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .compose(transformer)
+                .subscribe({ successBean ->
+                    if (successBean.code == 0 || successBean.code == 602) {
+                        mView.onVote(successBean)
+                    } else {
+                        mView.onFile(successBean.msg)
+                    }
+                }, { throwable ->
+                    mView.onFile(throwable.message)
+                })
+    }
+
+    /**
+     * 删除点赞
+     */
+    fun snapDelete(id: String, transformer: LifecycleTransformer<VoteBean>) {
+        val hashMap = HashMap<String, String>()
+        hashMap["type"] = "7"
+        hashMap["targetId"] = id
+        mRepository.snapDelete(hashMap)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .compose(transformer)
+                .subscribe({ successBean ->
+                    if (successBean.code == 0 || successBean.code == 602) {
+                        mView.onDelVote(successBean)
+                    } else {
+                        mView.onFile(successBean.msg)
+                    }
+                }, { throwable ->
+                    mView.onFile(throwable.message)
                 })
     }
 }

@@ -227,6 +227,15 @@ public class SchoolHomeBean {
                 private String liked;
                 private String createTime;
                 private String updateTme;
+                private String isLike;
+
+                public String getIsLike() {
+                    return isLike;
+                }
+
+                public void setIsLike(String isLike) {
+                    this.isLike = isLike;
+                }
 
                 public String getId() {
                     return id;

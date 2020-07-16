@@ -61,6 +61,7 @@
                 android:layout_height="match_parent">
 
                 <ImageView
+                    android:id="@+id/video_likeImage"
                     android:src="@mipmap/video_like"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"/>

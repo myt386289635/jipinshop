@@ -1,22 +1,29 @@
 package com.example.administrator.jipinshop.activity.school.video
 
 import android.app.Dialog
+import android.content.Intent
 import android.databinding.DataBindingUtil
 import android.os.Bundle
 import android.view.View
+import com.blankj.utilcode.util.SPUtils
 import com.example.administrator.jipinshop.R
+import com.example.administrator.jipinshop.activity.login.LoginActivity
 import com.example.administrator.jipinshop.base.BaseActivity
 import com.example.administrator.jipinshop.bean.SchoolHomeBean
 import com.example.administrator.jipinshop.bean.SucBeanT
+import com.example.administrator.jipinshop.bean.VoteBean
 import com.example.administrator.jipinshop.databinding.ActivityVideoBinding
+import com.example.administrator.jipinshop.util.ClickUtil
 import com.example.administrator.jipinshop.util.FileManager
 import com.example.administrator.jipinshop.util.ToastUtil
+import com.example.administrator.jipinshop.util.sp.CommonDate
 import com.example.administrator.jipinshop.view.dialog.ProgressDialogView
 import com.example.administrator.jipinshop.view.dialog.ShareBoardDialog2
 import com.shuyu.gsyvideoplayer.GSYVideoManager
 import com.shuyu.gsyvideoplayer.utils.OrientationUtils
 import com.umeng.socialize.bean.SHARE_MEDIA
 import okhttp3.ResponseBody
+import java.math.BigDecimal
 import javax.inject.Inject
 
 
@@ -35,6 +42,9 @@ class VideoActivity : BaseActivity(), View.OnClickListener, VideoView, ShareBoar
     private var orientationUtils : OrientationUtils? = null
     private var mShareBoardDialog: ShareBoardDialog2? = null
     private var mUrl = ""
+    //标志：是否点赞过此视频  false:没有
+    private var isSnap = false
+    private var liked: String = "0"//点赞数
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -59,7 +69,6 @@ class VideoActivity : BaseActivity(), View.OnClickListener, VideoView, ShareBoar
                 it.show()
         }
         mPresenter.getVideo(courseId,this.bindToLifecycle())
-
     }
 
     override fun onClick(v: View) {
@@ -68,7 +77,19 @@ class VideoActivity : BaseActivity(), View.OnClickListener, VideoView, ShareBoar
 
             }
             R.id.video_likeContainer -> {
-
+                //点赞
+                if (ClickUtil.isFastDoubleClick(1000)) {
+                    ToastUtil.show("您点击太快了，请休息会再点")
+                    return
+                } else {
+                    if (isSnap) {
+                        //点赞过了
+                        mPresenter.snapDelete(courseId, this.bindToLifecycle<VoteBean>())
+                    } else {
+                        //没有点赞
+                        mPresenter.snapInsert(courseId, this.bindToLifecycle<VoteBean>())
+                    }
+                }
             }
             R.id.video_shareContainer -> {
                 if (mShareBoardDialog == null) {
@@ -107,8 +128,16 @@ class VideoActivity : BaseActivity(), View.OnClickListener, VideoView, ShareBoar
             finish()
         }
         //初始化其他数据
-        binding.videoLike.text = bean.data.liked
+        liked = bean.data.liked
+        binding.videoLike.text = initGoods(liked)
         binding.videoShare.text = bean.data.share
+        if (bean.data.isLike == "1"){
+            isSnap = true
+            binding.videoLikeImage.setImageResource(R.mipmap.video_liked)
+        }else{
+            isSnap = false
+            binding.videoLikeImage.setImageResource(R.mipmap.video_like)
+        }
     }
 
     override fun onFile(error: String?) {
@@ -118,6 +147,34 @@ class VideoActivity : BaseActivity(), View.OnClickListener, VideoView, ShareBoar
             }
         }
         ToastUtil.show(error)
+    }
+
+    //点赞
+    override fun onVote(successBean: VoteBean) {
+        if(successBean.code == 0){
+            isSnap = true
+            liked = "" + (BigDecimal(liked).toInt() + 1)
+            binding.videoLike.text =  initGoods(liked)
+            binding.videoLikeImage.setImageResource(R.mipmap.video_liked)
+        }else{
+            //602
+            startActivity(Intent(this, LoginActivity::class.java))
+            SPUtils.getInstance(CommonDate.USER).clear()
+        }
+    }
+
+    //取消点赞
+    override fun onDelVote(successBean: VoteBean) {
+        if(successBean.code == 0){
+            isSnap = false
+            liked = "" + (BigDecimal(liked).toInt() - 1)
+            binding.videoLike.text = initGoods(liked)
+            binding.videoLikeImage.setImageResource(R.mipmap.video_like)
+        }else{
+            //602
+            startActivity(Intent(this, LoginActivity::class.java))
+            SPUtils.getInstance(CommonDate.USER).clear()
+        }
     }
 
     override fun onPause() {
@@ -166,4 +223,17 @@ class VideoActivity : BaseActivity(), View.OnClickListener, VideoView, ShareBoar
 
     }
 
+    //设置点赞数
+    fun initGoods(vote: String) : String{
+        var result = ""
+        var voteNum = BigDecimal(vote).toDouble()
+        if (voteNum >= 10000){
+            var voteA = BigDecimal(vote)
+            var voteB = BigDecimal("10000")
+            result = voteA.divide(voteB,1,BigDecimal.ROUND_HALF_DOWN).toPlainString() + "万"
+        }else {
+            result = BigDecimal(voteNum).setScale(1,BigDecimal.ROUND_HALF_DOWN).stripTrailingZeros().toPlainString()
+        }
+        return result
+    }
 }
