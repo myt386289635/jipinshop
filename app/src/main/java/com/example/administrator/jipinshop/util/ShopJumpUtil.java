@@ -593,6 +593,15 @@ public class ShopJumpUtil {
                 intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                 context.startActivity(intent);
                 break;
+            case "36"://H5直接跳app
+                intent.setClass(context, WebActivity.class);
+                intent.putExtra(WebActivity.url, target_id);
+                intent.putExtra(WebActivity.title,target_title);
+                intent.putExtra(WebActivity.source,source);
+                intent.putExtra(WebActivity.go, true);
+                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                context.startActivity(intent);
+                break;
             case "37":
                 //商学院专题页
                 intent.setClass(context, SchoolSpecialActivity.class);

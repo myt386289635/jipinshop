@@ -7,6 +7,7 @@ import android.os.Build
 import android.view.View
 import android.widget.LinearLayout
 import com.example.administrator.jipinshop.bean.SchoolHomeBean
+import com.example.administrator.jipinshop.bean.SucBean
 import com.example.administrator.jipinshop.bean.SucBeanT
 import com.example.administrator.jipinshop.bean.VoteBean
 import com.example.administrator.jipinshop.netwrok.Repository
@@ -123,6 +124,22 @@ class VideoPresenter {
                     }
                 }, { throwable ->
                     mView.onFile(throwable.message)
+                })
+    }
+
+    fun initCourses(categoryId : String, transformer: LifecycleTransformer<SucBean<SchoolHomeBean.DataBean.CategoryListBean.CourseListBean>>){
+        mRepository.listByCategoryId(categoryId, 0)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .compose(transformer)
+                .subscribe(Consumer {
+                    if (it.code == 0){
+                        mView.onList(it)
+                    }else{
+                        mView.onFile(it.msg)
+                    }
+                }, Consumer {
+                    mView.onFile(it.message)
                 })
     }
 }

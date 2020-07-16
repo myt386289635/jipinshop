@@ -1,6 +1,7 @@
 package com.example.administrator.jipinshop.activity.school.video
 
 import com.example.administrator.jipinshop.bean.SchoolHomeBean
+import com.example.administrator.jipinshop.bean.SucBean
 import com.example.administrator.jipinshop.bean.SucBeanT
 import com.example.administrator.jipinshop.bean.VoteBean
 import okhttp3.ResponseBody
@@ -19,4 +20,6 @@ interface VideoView {
 
     fun onVote(successBean: VoteBean)
     fun onDelVote(successBean: VoteBean)
+
+    fun onList(bean: SucBean<SchoolHomeBean.DataBean.CategoryListBean.CourseListBean>)
 }

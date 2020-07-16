@@ -10,6 +10,7 @@ import com.example.administrator.jipinshop.R
 import com.example.administrator.jipinshop.activity.login.LoginActivity
 import com.example.administrator.jipinshop.base.BaseActivity
 import com.example.administrator.jipinshop.bean.SchoolHomeBean
+import com.example.administrator.jipinshop.bean.SucBean
 import com.example.administrator.jipinshop.bean.SucBeanT
 import com.example.administrator.jipinshop.bean.VoteBean
 import com.example.administrator.jipinshop.databinding.ActivityVideoBinding
@@ -17,8 +18,10 @@ import com.example.administrator.jipinshop.util.ClickUtil
 import com.example.administrator.jipinshop.util.FileManager
 import com.example.administrator.jipinshop.util.ToastUtil
 import com.example.administrator.jipinshop.util.sp.CommonDate
+import com.example.administrator.jipinshop.view.dialog.PopView
 import com.example.administrator.jipinshop.view.dialog.ProgressDialogView
 import com.example.administrator.jipinshop.view.dialog.ShareBoardDialog2
+import com.example.administrator.jipinshop.view.dialog.VideoPop
 import com.shuyu.gsyvideoplayer.GSYVideoManager
 import com.shuyu.gsyvideoplayer.utils.OrientationUtils
 import com.umeng.socialize.bean.SHARE_MEDIA
@@ -32,7 +35,7 @@ import javax.inject.Inject
  * @create 2020/7/15
  * @Describe 商学院视频详情页
  */
-class VideoActivity : BaseActivity(), View.OnClickListener, VideoView, ShareBoardDialog2.onShareListener {
+class VideoActivity : BaseActivity(), View.OnClickListener, VideoView, ShareBoardDialog2.onShareListener, VideoPop.OnClick {
 
     @Inject
     lateinit var mPresenter: VideoPresenter
@@ -45,6 +48,10 @@ class VideoActivity : BaseActivity(), View.OnClickListener, VideoView, ShareBoar
     //标志：是否点赞过此视频  false:没有
     private var isSnap = false
     private var liked: String = "0"//点赞数
+    //pop菜单
+    private lateinit var mPop: VideoPop
+    private var SendSet = 0 //播放的位置
+    private lateinit var mSendTitle : MutableList<SchoolHomeBean.DataBean.CategoryListBean.CourseListBean> //视频列表
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -62,6 +69,8 @@ class VideoActivity : BaseActivity(), View.OnClickListener, VideoView, ShareBoar
     private fun initView() {
         courseId = intent.getStringExtra("courseId")
         mPresenter.setStatusBarHight(binding.statusBar,this)
+        mPop = VideoPop(this,this)
+        mSendTitle = mutableListOf()
 
         mDialog = ProgressDialogView().createLoadingDialog(this, "")
         mDialog?.let {
@@ -74,7 +83,7 @@ class VideoActivity : BaseActivity(), View.OnClickListener, VideoView, ShareBoar
     override fun onClick(v: View) {
         when(v.id){
             R.id.video_listContainer -> {
-
+                mPop.show(binding.videoBottomContainer,mSendTitle,SendSet)
             }
             R.id.video_likeContainer -> {
                 //点赞
@@ -106,6 +115,7 @@ class VideoActivity : BaseActivity(), View.OnClickListener, VideoView, ShareBoar
     }
 
     override fun onSuccess(bean: SucBeanT<SchoolHomeBean.DataBean.CategoryListBean.CourseListBean>) {
+        mPresenter.initCourses(bean.data.categoryId,this.bindToLifecycle())
         mDialog?.let {
             if (it.isShowing){
                 it.dismiss()
@@ -137,6 +147,18 @@ class VideoActivity : BaseActivity(), View.OnClickListener, VideoView, ShareBoar
         }else{
             isSnap = false
             binding.videoLikeImage.setImageResource(R.mipmap.video_like)
+        }
+    }
+
+    //初始化课程列表
+    override fun onList(bean: SucBean<SchoolHomeBean.DataBean.CategoryListBean.CourseListBean>) {
+        mSendTitle.clear()
+        mSendTitle.addAll(bean.data)
+        for (i in mSendTitle.indices){
+            if (mUrl == mSendTitle[i].video){
+                SendSet = i
+                break
+            }
         }
     }
 
@@ -176,6 +198,17 @@ class VideoActivity : BaseActivity(), View.OnClickListener, VideoView, ShareBoar
             //602
             startActivity(Intent(this, LoginActivity::class.java))
             SPUtils.getInstance(CommonDate.USER).clear()
+        }
+    }
+
+    //切换视频
+    override fun onPopItemOnClick(pos: Int) {
+        if (SendSet != pos){
+            SendSet = pos
+            binding.itemPlayer.onVideoReset()
+            binding.itemPlayer.loadCoverImage(mSendTitle[pos].video, R.color.transparent)
+            binding.itemPlayer.setUp(mSendTitle[pos].video, true,mSendTitle[pos].title)
+            binding.itemPlayer.startPlayLogic()
         }
     }
 
