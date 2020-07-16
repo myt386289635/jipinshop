@@ -6,10 +6,7 @@ import android.net.Uri
 import android.os.Build
 import android.view.View
 import android.widget.LinearLayout
-import com.example.administrator.jipinshop.bean.SchoolHomeBean
-import com.example.administrator.jipinshop.bean.SucBean
-import com.example.administrator.jipinshop.bean.SucBeanT
-import com.example.administrator.jipinshop.bean.VoteBean
+import com.example.administrator.jipinshop.bean.*
 import com.example.administrator.jipinshop.netwrok.Repository
 import com.example.administrator.jipinshop.util.FileManager
 import com.trello.rxlifecycle2.LifecycleTransformer
@@ -141,5 +138,14 @@ class VideoPresenter {
                 }, Consumer {
                     mView.onFile(it.message)
                 })
+    }
+
+    //添加转发数
+    fun addShareCourse(courseId : String , transformer : LifecycleTransformer<SuccessBean> ){
+        mRepository.addShareCourse(courseId)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .compose(transformer)
+                .subscribe(Consumer {}, Consumer {})
     }
 }

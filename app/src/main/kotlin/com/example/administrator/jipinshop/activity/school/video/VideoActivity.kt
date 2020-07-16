@@ -48,6 +48,7 @@ class VideoActivity : BaseActivity(), View.OnClickListener, VideoView, ShareBoar
     //标志：是否点赞过此视频  false:没有
     private var isSnap = false
     private var liked: String = "0"//点赞数
+    private var mShare: String = "0"
     //pop菜单
     private lateinit var mPop: VideoPop
     private var SendSet = 0 //播放的位置
@@ -107,7 +108,10 @@ class VideoActivity : BaseActivity(), View.OnClickListener, VideoView, ShareBoar
                 }
                 mShareBoardDialog?.let {
                     if (!it.isAdded){
+                        mPresenter.addShareCourse(courseId,this.bindToLifecycle())
                         it.show(supportFragmentManager,"ShareBoardDialog2")
+                        mShare = "" + (BigDecimal(mShare).toInt() + 1)
+                        binding.videoShare.text = initGoods(mShare)
                     }
                 }
             }
@@ -138,9 +142,10 @@ class VideoActivity : BaseActivity(), View.OnClickListener, VideoView, ShareBoar
             finish()
         }
         //初始化其他数据
+        mShare = bean.data.share
         liked = bean.data.liked
         binding.videoLike.text = initGoods(liked)
-        binding.videoShare.text = bean.data.share
+        binding.videoShare.text = initGoods(mShare)
         if (bean.data.isLike == "1"){
             isSnap = true
             binding.videoLikeImage.setImageResource(R.mipmap.video_liked)
@@ -258,7 +263,7 @@ class VideoActivity : BaseActivity(), View.OnClickListener, VideoView, ShareBoar
 
     }
 
-    //设置点赞数
+    //设置点赞数、分享数
     fun initGoods(vote: String) : String{
         var result = ""
         var voteNum = BigDecimal(vote).toDouble()
@@ -267,7 +272,7 @@ class VideoActivity : BaseActivity(), View.OnClickListener, VideoView, ShareBoar
             var voteB = BigDecimal("10000")
             result = voteA.divide(voteB,1,BigDecimal.ROUND_HALF_DOWN).toPlainString() + "万"
         }else {
-            result = BigDecimal(voteNum).setScale(1,BigDecimal.ROUND_HALF_DOWN).stripTrailingZeros().toPlainString()
+            result = BigDecimal(vote).setScale(1,BigDecimal.ROUND_HALF_DOWN).stripTrailingZeros().toPlainString()
         }
         return result
     }

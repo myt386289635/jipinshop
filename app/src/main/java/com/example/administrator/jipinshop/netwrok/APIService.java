@@ -1365,4 +1365,10 @@ public interface APIService {
      */
     @GET("api/v3/user/feedback/get")
     Observable<ImageBean> feedbackGet();
+
+    /**
+     * 添加转发次数
+     */
+    @GET("api/course/addShare")
+    Observable<SuccessBean> addShareCourse(@Query("courseId") String courseId);
 }
