@@ -105,6 +105,7 @@ import javax.inject.Inject;
 import io.reactivex.Observable;
 import okhttp3.MultipartBody;
 import okhttp3.ResponseBody;
+import retrofit2.http.GET;
 
 public class Repository {
 
@@ -1490,5 +1491,12 @@ public class Repository {
      */
     public Observable<SucBeanT<SchoolHomeBean.DataBean.CategoryListBean.CourseListBean>> videoDetail(String courseId){
         return mAPIService.videoDetail(courseId);
+    }
+
+    /**
+     * 获取应用市场反馈结果
+     */
+    public Observable<ImageBean> feedbackGet(){
+        return mAPIService.feedbackGet();
     }
 }

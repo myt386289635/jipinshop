@@ -13,6 +13,7 @@ import java.io.File;
 import javax.inject.Inject;
 
 import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.functions.Consumer;
 import io.reactivex.schedulers.Schedulers;
 import okhttp3.MediaType;
 import okhttp3.MultipartBody;
@@ -79,6 +80,22 @@ public class MarketPresenter {
                     }
                 }, throwable -> {
                     mView.uploadPicFailed(throwable.getMessage());
+                });
+    }
+
+    public void feedbackGet(LifecycleTransformer<ImageBean> transformer){
+        mRepository.feedbackGet()
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .compose(transformer)
+                .subscribe(bean -> {
+                    if (bean.getCode()== 0){
+                        mView.onSuccess(bean);
+                    }else {
+                        mView.onFile();
+                    }
+                }, throwable -> {
+                    mView.onFile();
                 });
     }
 }

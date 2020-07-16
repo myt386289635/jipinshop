@@ -1360,4 +1360,9 @@ public interface APIService {
     @GET("api/course/videoDetail")
     Observable<SucBeanT<SchoolHomeBean.DataBean.CategoryListBean.CourseListBean>> videoDetail(@Query("courseId") String courseId);
 
+    /**
+     * 获取应用市场反馈结果
+     */
+    @GET("api/v3/user/feedback/get")
+    Observable<ImageBean> feedbackGet();
 }

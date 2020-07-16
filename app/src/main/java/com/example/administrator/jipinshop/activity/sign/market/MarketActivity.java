@@ -4,10 +4,12 @@ import android.app.Dialog;
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.text.TextUtils;
 import android.view.View;
 
 import com.example.administrator.jipinshop.R;
 import com.example.administrator.jipinshop.base.BaseActivity;
+import com.example.administrator.jipinshop.bean.ImageBean;
 import com.example.administrator.jipinshop.databinding.ActivityMarketBinding;
 import com.example.administrator.jipinshop.util.ImageCompressUtil;
 import com.example.administrator.jipinshop.util.ShopJumpUtil;
@@ -45,7 +47,25 @@ public class MarketActivity extends BaseActivity implements View.OnClickListener
 
     private void initView() {
         mBinding.inClude.titleTv.setText("应用市场好评");
+        mPresenter.feedbackGet(this.bindToLifecycle());
+    }
 
+    @Override
+    public void onSuccess(ImageBean bean) {
+        if (!TextUtils.isEmpty(bean.getData())){
+            mBinding.marketUpImage.setVisibility(View.GONE);
+            GlideApp.loderImage(this,bean.getData(),mBinding.marketShopImage,0,0);
+            mBinding.marketUpImageNotice.setText("好评截图已上传，请等待客服审核\n通过后即可获得极币奖励~");
+        }else {
+            mBinding.marketUpImage.setVisibility(View.VISIBLE);
+            mBinding.marketUpImageNotice.setText("点击上传好评图片");
+        }
+    }
+
+    @Override
+    public void onFile() {
+        mBinding.marketUpImage.setVisibility(View.VISIBLE);
+        mBinding.marketUpImageNotice.setText("点击上传好评图片");
     }
 
     @Override

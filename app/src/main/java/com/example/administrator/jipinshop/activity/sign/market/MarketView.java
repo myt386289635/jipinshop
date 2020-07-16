@@ -2,6 +2,8 @@ package com.example.administrator.jipinshop.activity.sign.market;
 
 import android.app.Dialog;
 
+import com.example.administrator.jipinshop.bean.ImageBean;
+
 /**
  * @author 莫小婷
  * @create 2020/7/13
@@ -14,4 +16,7 @@ public interface MarketView {
     void uploadPicFailed(String error);
 
     void OpinionSuccess(String content);
+
+    void onSuccess(ImageBean bean);
+    void onFile();
 }
