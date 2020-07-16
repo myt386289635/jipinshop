@@ -42,7 +42,7 @@ class VideoActivity : BaseActivity(), View.OnClickListener, VideoView, ShareBoar
         binding.listener = this
         mImmersionBar.reset()
                 .transparentStatusBar()
-                .statusBarDarkFont(true, 0f)
+                .statusBarDarkFont(false, 0f)
                 .init()
         mBaseActivityComponent.inject(this)
         mPresenter.setView(this)
@@ -59,6 +59,7 @@ class VideoActivity : BaseActivity(), View.OnClickListener, VideoView, ShareBoar
                 it.show()
         }
         mPresenter.getVideo(courseId,this.bindToLifecycle())
+
     }
 
     override fun onClick(v: View) {
@@ -89,6 +90,7 @@ class VideoActivity : BaseActivity(), View.OnClickListener, VideoView, ShareBoar
                 it.dismiss()
             }
         }
+        //配置视频播放
         mUrl = bean.data.video
         orientationUtils = OrientationUtils(this, binding.itemPlayer)
         //初始化不打开外部的旋转
@@ -104,6 +106,9 @@ class VideoActivity : BaseActivity(), View.OnClickListener, VideoView, ShareBoar
         binding.itemPlayer.backButton.setOnClickListener {
             finish()
         }
+        //初始化其他数据
+        binding.videoLike.text = bean.data.liked
+        binding.videoShare.text = bean.data.share
     }
 
     override fun onFile(error: String?) {

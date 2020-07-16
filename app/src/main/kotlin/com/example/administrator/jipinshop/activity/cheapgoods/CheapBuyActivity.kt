@@ -158,11 +158,6 @@ class CheapBuyActivity : BaseActivity(), View.OnClickListener, OnRefreshListener
 
     override fun onSuccess(bean: NewPeopleBean) {
         dissRefresh()
-        //特惠购新手指导
-        if (SPUtils.getInstance().getBoolean(CommonDate.FIRSTCHEAP, true)) {
-            SPUtils.getInstance().put(CommonDate.FIRSTCHEAP, false)
-            DialogUtil.cheapGuideDialog(this)
-        }
         allowance = bean.data.allowance
         mList.clear()
         mList.addAll(bean.data.allowanceGoodsList)

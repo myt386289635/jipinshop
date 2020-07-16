@@ -18,7 +18,6 @@ import android.text.TextPaint;
 import android.text.TextUtils;
 import android.text.method.LinkMovementMethod;
 import android.text.style.ClickableSpan;
-import android.text.style.ForegroundColorSpan;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.WindowManager;
@@ -28,24 +27,20 @@ import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.blankj.utilcode.util.SPUtils;
 import com.bumptech.glide.Glide;
 import com.example.administrator.jipinshop.R;
 import com.example.administrator.jipinshop.activity.WebActivity;
-import com.example.administrator.jipinshop.activity.home.MainActivity;
 import com.example.administrator.jipinshop.activity.shoppingdetail.tbshoppingdetail.TBShoppingDetailActivity;
 import com.example.administrator.jipinshop.activity.sreach.result.TBSreachResultActivity;
 import com.example.administrator.jipinshop.adapter.DialogLuckAdapter;
 import com.example.administrator.jipinshop.bean.NewFreeBean;
 import com.example.administrator.jipinshop.bean.NewPeopleBean;
-import com.example.administrator.jipinshop.bean.PopBean;
 import com.example.administrator.jipinshop.bean.PrizeLogBean;
 import com.example.administrator.jipinshop.bean.SubUserBean;
 import com.example.administrator.jipinshop.bean.TeacherBean;
 import com.example.administrator.jipinshop.bean.TklBean;
-import com.example.administrator.jipinshop.databinding.DialogCheapBinding;
 import com.example.administrator.jipinshop.databinding.DialogCheapOutBinding;
 import com.example.administrator.jipinshop.databinding.DialogLuckBinding;
 import com.example.administrator.jipinshop.databinding.DialogNewpeople2Binding;
@@ -63,7 +58,6 @@ import com.example.administrator.jipinshop.util.sp.CommonDate;
 import com.example.administrator.jipinshop.view.glide.GlideApp;
 
 import java.math.BigDecimal;
-import java.util.ArrayList;
 import java.util.List;
 
 /**

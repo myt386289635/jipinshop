@@ -13,8 +13,6 @@ public class CommonDate {
     public static final String EvaluationTab = "EvaluationTab";//评测的tab
     public static final String FindTab = "FindTab";//发现的tab
     public static final String SEND = "send";//是否是第二次启动app
-    public static final String FIRSTSHOP = "FIRSTSHOP";//新人首次进入商品详情打开商品详情引导页
-    public static final String FIRSTCHEAP = "FIRSTCHEAP";//新人首次进入特惠购打开新手指导
     public static final String FIRSTNEWPEOPLE = "FIRSTNEWPEOPLE";//新人首次进入0元购页面打开新手指导
     public static final String POPID = "POPID";//活动popid为了不弹出活动
     public static final String CLIP = "clip";//粘贴板内容存稿

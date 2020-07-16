@@ -47,7 +47,6 @@ import com.example.administrator.jipinshop.util.ToastUtil;
 import com.example.administrator.jipinshop.util.sp.CommonDate;
 import com.example.administrator.jipinshop.view.dialog.DialogParameter;
 import com.example.administrator.jipinshop.view.dialog.DialogQuality;
-import com.example.administrator.jipinshop.view.dialog.DialogUtil;
 import com.example.administrator.jipinshop.view.dialog.ProgressDialogView;
 import com.example.administrator.jipinshop.view.textview.CenteredImageSpan;
 import com.google.gson.Gson;
@@ -421,13 +420,6 @@ public class TBShoppingDetailActivity extends BaseActivity implements View.OnCli
         }
         if (mProgressDialog != null && mProgressDialog.isShowing()){
             mProgressDialog.dismiss();
-        }
-        if (coupon != 0 || free != 0){
-            //优惠券有效或者有补贴
-            if(SPUtils.getInstance().getBoolean(CommonDate.FIRSTSHOP,true)){
-                SPUtils.getInstance().put(CommonDate.FIRSTSHOP,false);
-                DialogUtil.shopGuideDialog(this);
-            }
         }
         if (bean.getData().getLevel() == 2){
             mBinding.detailMember.setVisibility(View.GONE);
