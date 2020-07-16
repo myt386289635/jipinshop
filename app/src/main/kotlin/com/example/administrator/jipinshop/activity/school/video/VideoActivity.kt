@@ -156,6 +156,7 @@ class VideoActivity : BaseActivity(), View.OnClickListener, VideoView, ShareBoar
             liked = "" + (BigDecimal(liked).toInt() + 1)
             binding.videoLike.text =  initGoods(liked)
             binding.videoLikeImage.setImageResource(R.mipmap.video_liked)
+            ToastUtil.show("点赞成功")
         }else{
             //602
             startActivity(Intent(this, LoginActivity::class.java))
@@ -170,6 +171,7 @@ class VideoActivity : BaseActivity(), View.OnClickListener, VideoView, ShareBoar
             liked = "" + (BigDecimal(liked).toInt() - 1)
             binding.videoLike.text = initGoods(liked)
             binding.videoLikeImage.setImageResource(R.mipmap.video_like)
+            ToastUtil.show("取消点赞")
         }else{
             //602
             startActivity(Intent(this, LoginActivity::class.java))
