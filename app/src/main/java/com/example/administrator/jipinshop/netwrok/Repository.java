@@ -74,6 +74,7 @@ import com.example.administrator.jipinshop.bean.TabBean;
 import com.example.administrator.jipinshop.bean.TaobaoAccountBean;
 import com.example.administrator.jipinshop.bean.TaskFinishBean;
 import com.example.administrator.jipinshop.bean.TbCommonBean;
+import com.example.administrator.jipinshop.bean.TbOrderBean;
 import com.example.administrator.jipinshop.bean.TbkIndexBean;
 import com.example.administrator.jipinshop.bean.TeacherBean;
 import com.example.administrator.jipinshop.bean.TeamBean;
@@ -1525,5 +1526,19 @@ public class Repository {
      */
     public Observable<SucBean<SchoolHomeBean.DataBean.CategoryListBean.CourseListBean>> courseSearch(int page, String word){
         return mAPIService.courseSearch(page, word);
+    }
+
+    /**
+     * 查询关联订单
+     */
+    public Observable<TbOrderBean> searchTbOrder(String tradeId){
+        return mAPIService.searchTbOrder(tradeId);
+    }
+
+    /**
+     * 找回订单
+     */
+    public Observable<SuccessBean> findBackTbOrder(String tradeId){
+        return mAPIService.findBackTbOrder(tradeId);
     }
 }

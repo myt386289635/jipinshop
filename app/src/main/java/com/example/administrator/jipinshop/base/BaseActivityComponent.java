@@ -49,6 +49,8 @@ import com.example.administrator.jipinshop.activity.mall.order.detail.OrderDetai
 import com.example.administrator.jipinshop.activity.message.MessageActivity;
 import com.example.administrator.jipinshop.activity.message.detail.MsgDetailActivity;
 import com.example.administrator.jipinshop.activity.minekt.publishkt.detail.AuditDetailActivity;
+import com.example.administrator.jipinshop.activity.minekt.recovery.OrderRecoveryActivity;
+import com.example.administrator.jipinshop.activity.minekt.recovery.OrderRecoveryResultActivity;
 import com.example.administrator.jipinshop.activity.minekt.userkt.UserActivity;
 import com.example.administrator.jipinshop.activity.minekt.welfare.WelfareActivity;
 import com.example.administrator.jipinshop.activity.money.binding.MoneyBindActivity;
@@ -178,4 +180,6 @@ public interface BaseActivityComponent {
     void inject(VideoActivity activity);
     void inject(SchoolSearchActivity activity);
     void inject(SchoolResultActivity activity);
+    void inject(OrderRecoveryActivity activity);
+    void inject(OrderRecoveryResultActivity activity);
 }

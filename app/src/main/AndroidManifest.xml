@@ -616,6 +616,14 @@
                   android:screenOrientation="portrait"
                   android:windowSoftInputMode="adjustResize|stateHidden"/>
 
+        <!--订单找回-->
+        <activity android:name=".activity.minekt.recovery.OrderRecoveryActivity"
+                  android:screenOrientation="portrait"/>
+
+        <!--确认找回结果页-->
+        <activity android:name=".activity.minekt.recovery.OrderRecoveryResultActivity"
+                  android:screenOrientation="portrait"/>
+
     </application>
 
 </manifest>

@@ -316,6 +316,9 @@ class KTMineAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>{
                     binding.mineInvation.setOnClickListener {
                         mOnItem?.onInvationDialog()
                     }
+                    binding.mineRecovery.setOnClickListener {
+                        mOnItem?.onOrderRecovery()
+                    }
                 }
             }
             CONTENT -> {
@@ -527,5 +530,6 @@ class KTMineAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>{
         fun onMall()//极币商城
         fun onRule()//任务中心
         fun onInvationDialog()//邀请码dialog
+        fun onOrderRecovery() //订单找回
     }
 }

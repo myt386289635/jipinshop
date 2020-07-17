@@ -106,11 +106,24 @@
             </LinearLayout>
 
             <LinearLayout
-                android:layout_marginBottom="@dimen/y22"
                 android:weightSum="4"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal">
+
+                <TextView
+                    android:paddingTop="@dimen/y26"
+                    android:paddingBottom="@dimen/y26"
+                    android:id="@+id/mine_recovery"
+                    android:gravity="center"
+                    android:textSize="13sp"
+                    android:textColor="@color/color_202020"
+                    android:layout_weight="1"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:drawableTop="@mipmap/mine_recovery"
+                    android:drawablePadding="@dimen/y16"
+                    android:text="订单找回"/>
 
                 <TextView
                     android:id="@+id/mine_opinion"
@@ -153,6 +166,15 @@
                     android:drawableTop="@mipmap/mine_newpeople"
                     android:drawablePadding="@dimen/y16"
                     android:text="极币中心"/>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_marginBottom="@dimen/y22"
+                android:weightSum="4"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
 
                 <TextView
                     android:paddingTop="@dimen/y26"

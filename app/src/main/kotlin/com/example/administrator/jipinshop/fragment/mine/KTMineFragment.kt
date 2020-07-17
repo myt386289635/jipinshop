@@ -24,6 +24,7 @@ import com.example.administrator.jipinshop.activity.login.LoginActivity
 import com.example.administrator.jipinshop.activity.mall.MallActivity
 import com.example.administrator.jipinshop.activity.message.MessageActivity
 import com.example.administrator.jipinshop.activity.minekt.orderkt.KTMyOrderActivity
+import com.example.administrator.jipinshop.activity.minekt.recovery.OrderRecoveryActivity
 import com.example.administrator.jipinshop.activity.minekt.userkt.UserActivity
 import com.example.administrator.jipinshop.activity.minekt.welfare.WelfareActivity
 import com.example.administrator.jipinshop.activity.setting.SettingActivity
@@ -451,6 +452,15 @@ class KTMineFragment : DBBaseFragment(), KTMineAdapter.OnItem, KTMineView, OnLoa
             mDialog?.show()
             mPresenter.addInvitationCode(invitationCode, dialog, inputManager, this.bindToLifecycle<SuccessBean>())
         }
+    }
+
+    //订单找回
+    override fun onOrderRecovery() {
+        if (TextUtils.isEmpty(SPUtils.getInstance(CommonDate.USER).getString(CommonDate.token, ""))) {
+            startActivity(Intent(context, LoginActivity::class.java))
+            return
+        }
+        startActivity(Intent(context, OrderRecoveryActivity::class.java))
     }
 
     override fun onCodeSuc(dialog: Dialog, inputManager: InputMethodManager, bean: SuccessBean) {

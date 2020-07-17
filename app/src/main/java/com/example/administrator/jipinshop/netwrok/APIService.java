@@ -74,6 +74,7 @@ import com.example.administrator.jipinshop.bean.TabBean;
 import com.example.administrator.jipinshop.bean.TaobaoAccountBean;
 import com.example.administrator.jipinshop.bean.TaskFinishBean;
 import com.example.administrator.jipinshop.bean.TbCommonBean;
+import com.example.administrator.jipinshop.bean.TbOrderBean;
 import com.example.administrator.jipinshop.bean.TbkIndexBean;
 import com.example.administrator.jipinshop.bean.TeacherBean;
 import com.example.administrator.jipinshop.bean.TeamBean;
@@ -1389,4 +1390,17 @@ public interface APIService {
      */
     @GET("api/course/search")
     Observable<SucBean<SchoolHomeBean.DataBean.CategoryListBean.CourseListBean>> courseSearch(@Query("page") int page, @Query("word") String word);
+
+    /**
+     * 查询关联订单
+     */
+    @GET("api/v3/tbk/searchTbOrder")
+    Observable<TbOrderBean> searchTbOrder(@Query("tradeId") String tradeId);
+
+    /**
+     * 找回订单
+     */
+    @FormUrlEncoded
+    @POST("api/v3/tbk/findBackTbOrder")
+    Observable<SuccessBean> findBackTbOrder(@Field("tradeId") String tradeId);
 }

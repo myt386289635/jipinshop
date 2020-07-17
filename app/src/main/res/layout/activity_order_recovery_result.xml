@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:bind="http://schemas.android.com/apk/res-auto">
+
+    <data>
+        <variable
+            name="listener"
+            type="android.view.View.OnClickListener"/>
+    </data>
+
+    <RelativeLayout
+        android:background="@color/color_white"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <include
+            layout="@layout/aa_title2"
+            bind:listener="@{listener}"
+            android:id="@+id/in_clude"/>
+
+        <RelativeLayout
+            android:visibility="gone"
+            android:id="@+id/order_date"
+            android:layout_below="@id/in_clude"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <TextView
+                android:onClick="@{listener.onClick}"
+                android:gravity="center"
+                android:textSize="17sp"
+                android:textStyle="bold"
+                android:text="确认找回"
+                android:textColor="@color/color_white"
+                android:background="@drawable/bg_recovery"
+                android:id="@+id/order_bottom"
+                android:layout_alignParentBottom="true"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/y98"/>
+
+            <android.support.v7.widget.RecyclerView
+                android:layout_above="@id/order_bottom"
+                android:id="@+id/order_rv"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"/>
+
+        </RelativeLayout>
+
+        <LinearLayout
+            android:visibility="gone"
+            android:id="@+id/order_noDate"
+            android:orientation="vertical"
+            android:layout_marginTop="@dimen/y188"
+            android:layout_centerHorizontal="true"
+            android:layout_below="@id/in_clude"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <ImageView
+                android:layout_marginRight="@dimen/x20"
+                android:layout_marginLeft="@dimen/x20"
+                android:adjustViewBounds="true"
+                android:scaleType="fitXY"
+                android:src="@mipmap/recovery_none"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"/>
+
+            <TextView
+                android:onClick="@{listener.onClick}"
+                android:id="@+id/order_finish"
+                android:gravity="center"
+                android:textStyle="bold"
+                android:textColor="@color/color_white"
+                android:textSize="17sp"
+                android:text="重新查询"
+                android:background="@drawable/bg_recovery_over"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="@dimen/y78"
+                android:layout_width="@dimen/x564"
+                android:layout_height="@dimen/y86"/>
+
+        </LinearLayout>
+
+    </RelativeLayout>
+
+</layout>

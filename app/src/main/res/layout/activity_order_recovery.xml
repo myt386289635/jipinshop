@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:bind="http://schemas.android.com/apk/res-auto">
+
+    <data>
+        <variable
+            name="listener"
+            type="android.view.View.OnClickListener"/>
+    </data>
+
+    <LinearLayout
+        android:background="@color/color_white"
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <include
+            layout="@layout/aa_title2"
+            bind:listener="@{listener}"
+            android:id="@+id/in_clude"/>
+
+        <RelativeLayout
+            android:background="@drawable/bg_e25838_6"
+            android:layout_marginBottom="@dimen/y40"
+            android:layout_marginTop="@dimen/y40"
+            android:layout_marginRight="@dimen/x20"
+            android:layout_marginLeft="@dimen/x20"
+            android:id="@+id/school_searchContainer"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/y66">
+
+            <ImageView
+                android:id="@+id/search_image"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="@dimen/x20"
+                android:tint="@color/color_E25838"
+                android:src="@mipmap/search1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+
+            <EditText
+                android:singleLine="true"
+                android:imeOptions="actionDone"
+                android:id="@+id/search_edit"
+                android:textColor="@color/color_333333"
+                android:layout_marginRight="@dimen/x5"
+                android:layout_toLeftOf="@id/search_search"
+                android:background="@color/transparent"
+                android:layout_toRightOf="@id/search_image"
+                android:layout_marginLeft="@dimen/x5"
+                android:layout_centerVertical="true"
+                android:textColorHint="@color/color_9D9D9D"
+                android:textSize="14sp"
+                android:hint="搜索你想要的课程"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"/>
+
+            <TextView
+                android:onClick="@{listener.onClick}"
+                android:id="@+id/search_search"
+                android:gravity="center"
+                android:textSize="14sp"
+                android:textColor="@color/color_white"
+                android:text="搜索"
+                android:background="@drawable/bg_free_dialog2"
+                android:layout_alignParentRight="true"
+                android:layout_width="@dimen/x104"
+                android:layout_height="match_parent"/>
+
+        </RelativeLayout>
+
+        <ImageView
+            android:src="@mipmap/recovery_bg"
+            android:layout_marginRight="@dimen/x18"
+            android:layout_marginLeft="@dimen/x18"
+            android:scaleType="fitXY"
+            android:adjustViewBounds="true"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+
+    </LinearLayout>
+</layout>
