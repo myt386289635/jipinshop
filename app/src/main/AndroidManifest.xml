@@ -606,6 +606,16 @@
                   android:configChanges="orientation|keyboardHidden|screenSize"
                   android:hardwareAccelerated="true"/>
 
+        <!--商学院搜索首页-->
+        <activity android:name=".activity.school.search.SchoolSearchActivity"
+                  android:screenOrientation="portrait"
+                  android:windowSoftInputMode="adjustResize|stateHidden"/>
+
+        <!--商学院搜索结果页-->
+        <activity android:name=".activity.school.search.result.SchoolResultActivity"
+                  android:screenOrientation="portrait"
+                  android:windowSoftInputMode="adjustResize|stateHidden"/>
+
     </application>
 
 </manifest>

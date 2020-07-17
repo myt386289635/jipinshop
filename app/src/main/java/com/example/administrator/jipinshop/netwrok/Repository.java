@@ -1505,4 +1505,25 @@ public class Repository {
     public Observable<SuccessBean> addShareCourse(String courseId){
         return mAPIService.addShareCourse(courseId);
     }
+
+    /**
+     * 搜索记录
+     */
+    public Observable<SreachHistoryBean> searchCourseLog(){
+        return mAPIService.searchCourseLog();
+    }
+
+    /**
+     * 删除全部搜索记录
+     */
+    public Observable<SuccessBean> searchCourseDeleteAll(){
+        return mAPIService.searchCourseDeleteAll();
+    }
+
+    /**
+     * 搜索课程
+     */
+    public Observable<SucBean<SchoolHomeBean.DataBean.CategoryListBean.CourseListBean>> courseSearch(int page, String word){
+        return mAPIService.courseSearch(page, word);
+    }
 }

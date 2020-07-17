@@ -1,0 +1,156 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+        <variable
+            name="listener"
+            type="android.view.View.OnClickListener"/>
+    </data>
+
+    <com.example.administrator.jipinshop.view.relativeLayout.FullScreenLinearLayout
+        android:id="@+id/school_contanier"
+        android:orientation="vertical"
+        android:background="@color/color_white"
+        android:fitsSystemWindows="true"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <RelativeLayout
+            android:id="@+id/title_container"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/y128">
+
+            <ImageView
+                android:onClick="@{listener.onClick}"
+                android:id="@+id/title_back"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:paddingLeft="@dimen/x20"
+                android:paddingRight="@dimen/x30"
+                android:src="@mipmap/nav_black_big"/>
+
+            <RelativeLayout
+                android:layout_marginRight="@dimen/x20"
+                android:layout_toRightOf="@id/title_back"
+                android:layout_centerVertical="true"
+                android:background="@drawable/bg_e25838_6"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/y66">
+
+                <ImageView
+                    android:id="@+id/search_image"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="@dimen/x20"
+                    android:tint="@color/color_E25838"
+                    android:src="@mipmap/search1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"/>
+
+                <EditText
+                    android:singleLine="true"
+                    android:imeOptions="actionDone"
+                    android:id="@+id/search_edit"
+                    android:textColor="@color/color_333333"
+                    android:layout_marginRight="@dimen/x5"
+                    android:layout_toLeftOf="@id/search_search"
+                    android:background="@color/transparent"
+                    android:layout_toRightOf="@id/search_image"
+                    android:layout_marginLeft="@dimen/x5"
+                    android:layout_centerVertical="true"
+                    android:textColorHint="@color/color_9D9D9D"
+                    android:textSize="14sp"
+                    android:hint="搜索你想要的课程"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"/>
+
+                <TextView
+                    android:onClick="@{listener.onClick}"
+                    android:id="@+id/search_search"
+                    android:gravity="center"
+                    android:textSize="14sp"
+                    android:textColor="@color/color_white"
+                    android:text="搜索"
+                    android:background="@drawable/bg_free_dialog2"
+                    android:layout_alignParentRight="true"
+                    android:layout_width="@dimen/x104"
+                    android:layout_height="match_parent"/>
+
+            </RelativeLayout>
+
+            <View
+                android:layout_alignParentBottom="true"
+                android:background="@color/color_D8D8D8"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/y1"/>
+
+        </RelativeLayout>
+
+        <TextView
+            android:layout_marginTop="@dimen/y30"
+            android:layout_marginLeft="@dimen/x20"
+            android:textStyle="bold"
+            android:textColor="@color/color_DE151515"
+            android:textSize="15sp"
+            android:text="热门搜索"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+
+        <com.google.android.flexbox.FlexboxLayout
+            android:layout_marginTop="@dimen/y30"
+            android:layout_below="@id/sreach_title"
+            android:layout_marginLeft="@dimen/x10"
+            android:id="@+id/search_hot"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="@dimen/x30"
+            app:alignItems="flex_start"
+            app:flexWrap="wrap"
+            app:justifyContent="flex_start"/>
+
+        <RelativeLayout
+            android:layout_marginTop="@dimen/y30"
+            android:id="@+id/sreach_hisContainer"
+            android:layout_below="@id/search_hot"
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:gravity="center"
+                android:layout_alignBottom="@id/search_delete"
+                android:layout_alignTop="@id/search_delete"
+                android:id="@+id/sreach_title1"
+                android:layout_marginLeft="@dimen/x20"
+                android:textStyle="bold"
+                android:textColor="@color/color_DE151515"
+                android:textSize="15sp"
+                android:text="历史搜索"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+
+            <ImageView
+                android:id="@+id/search_delete"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_marginRight="@dimen/x28"
+                android:onClick="@{listener.onClick}"
+                android:src="@mipmap/history_delete1"/>
+
+            <com.google.android.flexbox.FlexboxLayout
+                android:layout_marginTop="@dimen/y30"
+                android:layout_below="@id/search_delete"
+                android:layout_marginLeft="@dimen/x10"
+                android:id="@+id/search_history"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="@dimen/x30"
+                app:alignItems="flex_start"
+                app:flexWrap="wrap"
+                app:justifyContent="flex_start"/>
+
+        </RelativeLayout>
+
+    </com.example.administrator.jipinshop.view.relativeLayout.FullScreenLinearLayout>
+</layout>

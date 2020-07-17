@@ -1,5 +1,6 @@
 package com.example.administrator.jipinshop.fragment.school
 
+import android.content.Intent
 import android.databinding.DataBindingUtil
 import android.support.v7.widget.LinearLayoutManager
 import android.view.LayoutInflater
@@ -7,6 +8,7 @@ import android.view.View
 import android.view.ViewGroup
 import com.aspsine.swipetoloadlayout.OnRefreshListener
 import com.example.administrator.jipinshop.R
+import com.example.administrator.jipinshop.activity.school.search.SchoolSearchActivity
 import com.example.administrator.jipinshop.adapter.KTSchoolAdapter
 import com.example.administrator.jipinshop.base.DBBaseFragment
 import com.example.administrator.jipinshop.bean.SchoolHomeBean
@@ -64,7 +66,7 @@ class KTSchoolFragment : DBBaseFragment(), View.OnClickListener, OnRefreshListen
         when(v.id){
             R.id.school_searchContainer -> {
                 //商学院搜索
-
+                startActivity(Intent(context, SchoolSearchActivity::class.java))
             }
         }
     }

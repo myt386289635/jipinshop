@@ -62,6 +62,8 @@ import com.example.administrator.jipinshop.activity.report.cover.CoverReportActi
 import com.example.administrator.jipinshop.activity.report.create.CreateReportActivity;
 import com.example.administrator.jipinshop.activity.report.detail.ReportDetailActivity;
 import com.example.administrator.jipinshop.activity.school.SchoolSpecialActivity;
+import com.example.administrator.jipinshop.activity.school.search.SchoolSearchActivity;
+import com.example.administrator.jipinshop.activity.school.search.result.SchoolResultActivity;
 import com.example.administrator.jipinshop.activity.school.video.VideoActivity;
 import com.example.administrator.jipinshop.activity.setting.SettingActivity;
 import com.example.administrator.jipinshop.activity.setting.about.AboutActivity;
@@ -174,4 +176,6 @@ public interface BaseActivityComponent {
     void inject(MarketActivity activity);
     void inject(SchoolSpecialActivity activity);
     void inject(VideoActivity activity);
+    void inject(SchoolSearchActivity activity);
+    void inject(SchoolResultActivity activity);
 }

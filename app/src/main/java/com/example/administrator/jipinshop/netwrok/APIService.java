@@ -1371,4 +1371,22 @@ public interface APIService {
      */
     @GET("api/course/addShare")
     Observable<SuccessBean> addShareCourse(@Query("courseId") String courseId);
+
+    /**
+     * 搜索记录
+     */
+    @GET("api/course/search/log")
+    Observable<SreachHistoryBean> searchCourseLog();
+
+    /**
+     * 删除全部搜索记录
+     */
+    @GET("api/course/search/deleteAll")
+    Observable<SuccessBean> searchCourseDeleteAll();
+
+    /**
+     * 搜索课程
+     */
+    @GET("api/course/search")
+    Observable<SucBean<SchoolHomeBean.DataBean.CategoryListBean.CourseListBean>> courseSearch(@Query("page") int page, @Query("word") String word);
 }
