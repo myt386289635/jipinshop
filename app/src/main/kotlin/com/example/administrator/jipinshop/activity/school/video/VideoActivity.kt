@@ -44,7 +44,7 @@ class VideoActivity : BaseActivity(), View.OnClickListener, VideoView, ShareBoar
     private var courseId : String = ""
     private var orientationUtils : OrientationUtils? = null
     private var mShareBoardDialog: ShareBoardDialog2? = null
-    private var mUrl = ""
+    private var mUrl = "" //记录当前视频的地址，用来下载视频和判断该视频在列表中的位置
     //标志：是否点赞过此视频  false:没有
     private var isSnap = false
     private var liked: String = "0"//点赞数
@@ -128,8 +128,7 @@ class VideoActivity : BaseActivity(), View.OnClickListener, VideoView, ShareBoar
         //配置视频播放
         mUrl = bean.data.video
         orientationUtils = OrientationUtils(this, binding.itemPlayer)
-        //初始化不打开外部的旋转
-        orientationUtils?.isEnable = false
+        orientationUtils?.isEnable = false //初始化不打开外部的旋转
         binding.itemPlayer.loadCoverImage(bean.data.video, R.color.transparent)
         binding.itemPlayer.setUp(bean.data.video, true, bean.data.title)
         binding.itemPlayer.titleTextView.visibility = View.VISIBLE//增加title
@@ -214,6 +213,19 @@ class VideoActivity : BaseActivity(), View.OnClickListener, VideoView, ShareBoar
             binding.itemPlayer.loadCoverImage(mSendTitle[pos].video, R.color.transparent)
             binding.itemPlayer.setUp(mSendTitle[pos].video, true,mSendTitle[pos].title)
             binding.itemPlayer.startPlayLogic()
+            //初始化其他数据
+            mUrl = mSendTitle[pos].video
+            mShare = mSendTitle[pos].share
+            liked = mSendTitle[pos].liked
+            binding.videoLike.text = initGoods(liked)
+            binding.videoShare.text = initGoods(mShare)
+            if (mSendTitle[pos].isLike == "1"){
+                isSnap = true
+                binding.videoLikeImage.setImageResource(R.mipmap.video_liked)
+            }else{
+                isSnap = false
+                binding.videoLikeImage.setImageResource(R.mipmap.video_like)
+            }
         }
     }
 
