@@ -48,7 +48,7 @@ class VideoPresenter {
         }
     }
 
-    fun getVideo(courseId : String, transformer: LifecycleTransformer<SucBeanT<SchoolHomeBean.DataBean.CategoryListBean.CourseListBean>>){
+    fun getVideo(courseId : String, transformer: LifecycleTransformer<VideoBean>){
         mRepository.videoDetail(courseId)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())

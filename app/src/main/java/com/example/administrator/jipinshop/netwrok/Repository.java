@@ -90,6 +90,7 @@ import com.example.administrator.jipinshop.bean.TryReportBean;
 import com.example.administrator.jipinshop.bean.UnMessageBean;
 import com.example.administrator.jipinshop.bean.UserInfoBean;
 import com.example.administrator.jipinshop.bean.V2FreeListBean;
+import com.example.administrator.jipinshop.bean.VideoBean;
 import com.example.administrator.jipinshop.bean.VoteBean;
 import com.example.administrator.jipinshop.bean.WalletHistoryBean;
 import com.example.administrator.jipinshop.bean.WelfareBean;
@@ -1489,7 +1490,7 @@ public class Repository {
     /**
      * 视频详情
      */
-    public Observable<SucBeanT<SchoolHomeBean.DataBean.CategoryListBean.CourseListBean>> videoDetail(String courseId){
+    public Observable<VideoBean> videoDetail(String courseId){
         return mAPIService.videoDetail(courseId);
     }
 

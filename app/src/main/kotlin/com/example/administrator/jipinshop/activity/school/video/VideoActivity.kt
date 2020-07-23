@@ -11,14 +11,14 @@ import com.example.administrator.jipinshop.activity.login.LoginActivity
 import com.example.administrator.jipinshop.base.BaseActivity
 import com.example.administrator.jipinshop.bean.SchoolHomeBean
 import com.example.administrator.jipinshop.bean.SucBean
-import com.example.administrator.jipinshop.bean.SucBeanT
+import com.example.administrator.jipinshop.bean.VideoBean
 import com.example.administrator.jipinshop.bean.VoteBean
 import com.example.administrator.jipinshop.databinding.ActivityVideoBinding
 import com.example.administrator.jipinshop.util.ClickUtil
 import com.example.administrator.jipinshop.util.FileManager
+import com.example.administrator.jipinshop.util.ShareUtils
 import com.example.administrator.jipinshop.util.ToastUtil
 import com.example.administrator.jipinshop.util.sp.CommonDate
-import com.example.administrator.jipinshop.view.dialog.PopView
 import com.example.administrator.jipinshop.view.dialog.ProgressDialogView
 import com.example.administrator.jipinshop.view.dialog.ShareBoardDialog2
 import com.example.administrator.jipinshop.view.dialog.VideoPop
@@ -53,6 +53,8 @@ class VideoActivity : BaseActivity(), View.OnClickListener, VideoView, ShareBoar
     private lateinit var mPop: VideoPop
     private var SendSet = 0 //播放的位置
     private lateinit var mSendTitle : MutableList<SchoolHomeBean.DataBean.CategoryListBean.CourseListBean> //视频列表
+    //分享的东西
+    private var shareInfo: VideoBean.ShareInfoBean? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -112,13 +114,14 @@ class VideoActivity : BaseActivity(), View.OnClickListener, VideoView, ShareBoar
                         it.show(supportFragmentManager,"ShareBoardDialog2")
                         mShare = "" + (BigDecimal(mShare).toInt() + 1)
                         binding.videoShare.text = initGoods(mShare)
+                        mSendTitle[SendSet].share = mShare
                     }
                 }
             }
         }
     }
 
-    override fun onSuccess(bean: SucBeanT<SchoolHomeBean.DataBean.CategoryListBean.CourseListBean>) {
+    override fun onSuccess(bean: VideoBean) {
         mPresenter.initCourses(bean.data.categoryId,this.bindToLifecycle())
         mDialog?.let {
             if (it.isShowing){
@@ -152,6 +155,7 @@ class VideoActivity : BaseActivity(), View.OnClickListener, VideoView, ShareBoar
             isSnap = false
             binding.videoLikeImage.setImageResource(R.mipmap.video_like)
         }
+        shareInfo = bean.shareInfo
     }
 
     //初始化课程列表
@@ -181,6 +185,8 @@ class VideoActivity : BaseActivity(), View.OnClickListener, VideoView, ShareBoar
             isSnap = true
             liked = "" + (BigDecimal(liked).toInt() + 1)
             binding.videoLike.text =  initGoods(liked)
+            mSendTitle[SendSet].liked = liked
+            mSendTitle[SendSet].isLike = "1"
             binding.videoLikeImage.setImageResource(R.mipmap.video_liked)
             ToastUtil.show("点赞成功")
         }else{
@@ -196,6 +202,8 @@ class VideoActivity : BaseActivity(), View.OnClickListener, VideoView, ShareBoar
             isSnap = false
             liked = "" + (BigDecimal(liked).toInt() - 1)
             binding.videoLike.text = initGoods(liked)
+            mSendTitle[SendSet].liked = liked
+            mSendTitle[SendSet].isLike = "0"
             binding.videoLikeImage.setImageResource(R.mipmap.video_like)
             ToastUtil.show("取消点赞")
         }else{
@@ -214,6 +222,7 @@ class VideoActivity : BaseActivity(), View.OnClickListener, VideoView, ShareBoar
             binding.itemPlayer.setUp(mSendTitle[pos].video, true,mSendTitle[pos].title)
             binding.itemPlayer.startPlayLogic()
             //初始化其他数据
+            courseId = mSendTitle[pos].id
             mUrl = mSendTitle[pos].video
             mShare = mSendTitle[pos].share
             liked = mSendTitle[pos].liked
@@ -272,7 +281,11 @@ class VideoActivity : BaseActivity(), View.OnClickListener, VideoView, ShareBoar
 
     //分享
     override fun share(share_media: SHARE_MEDIA?) {
-
+        shareInfo?.let {
+            mDialog = ProgressDialogView().createLoadingDialog(this, "")
+            ShareUtils(this,share_media,mDialog)
+                    .shareWeb(this, it.link, it.title, it.desc, it.imgUrl,R.mipmap.share_logo)
+        }
     }
 
     //设置点赞数、分享数
