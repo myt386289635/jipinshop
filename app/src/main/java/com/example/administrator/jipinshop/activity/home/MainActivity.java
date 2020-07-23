@@ -135,9 +135,7 @@ public class MainActivity extends RxAppCompatActivity implements MainView, ViewP
             String target_id = getIntent().getStringExtra("target_id");
             String target_title = getIntent().getStringExtra("target_title");
             String source = getIntent().getStringExtra("source");
-            if (!targetType.equals("16")) {
-                ShopJumpUtil.openBanner(this, targetType, target_id, target_title,source);
-            }
+            ShopJumpUtil.openBanner(this, targetType, target_id, target_title,source);
         }
         setContentView(R.layout.activity_main);
         if (null == sFirstInstance) {

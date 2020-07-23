@@ -126,7 +126,6 @@ public class MyApplication extends Application {
         JPushInterface.init(this);
         if(!TextUtils.isEmpty(SPUtils.getInstance(CommonDate.USER).getString(CommonDate.userId,"").trim())){
             ///登陆
-//            JPushInterface.stopPush(this);//停止推送
             JPushAlias.setAlias(this,SPUtils.getInstance(CommonDate.USER).getString(CommonDate.userId,""));
         }
 

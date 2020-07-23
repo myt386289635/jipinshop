@@ -18,8 +18,12 @@ import com.example.administrator.jipinshop.activity.home.MainActivity;
 import com.example.administrator.jipinshop.activity.wellcome.index.IndexMixActivity;
 import com.example.administrator.jipinshop.base.BaseActivity;
 import com.example.administrator.jipinshop.jpush.LoginUtil;
+import com.example.administrator.jipinshop.util.ShopJumpUtil;
 import com.example.administrator.jipinshop.util.permission.HasPermissionsUtil;
 import com.example.administrator.jipinshop.util.sp.CommonDate;
+import com.huawei.hms.push.HmsMessaging;
+
+import cn.jpush.android.api.JPushInterface;
 
 /**
  * @author 莫小婷
@@ -45,6 +49,17 @@ public class WellComeActivity extends BaseActivity {
         //按道理应该在application里设置，但是一旦出现无法跳转淘宝时，需从后台杀掉App，再重启才能跳转淘宝，这是阿里百川的bug
         //在启动页初始化，能避免用户不知手机后台是何物造成无法修复问题。只需关闭app再开启即可修复
         initAlibcTradeSDK();
+        //初始化各个推送SDK
+        initPush();
+    }
+
+    private void initPush() {
+        String deviceBrand = ShopJumpUtil.getDeviceBrand().toLowerCase();
+        if (deviceBrand.equals("huawei")){
+            JPushInterface.stopPush(this);//极光停止推送
+            HmsMessaging hmsMessaging = HmsMessaging.getInstance(this);
+            hmsMessaging.setAutoInitEnabled(true);
+        }
     }
 
 

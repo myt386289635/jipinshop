@@ -2,6 +2,7 @@ apply plugin: 'com.android.application'
 apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
 apply plugin: 'kotlin-kapt'
+apply plugin: 'com.huawei.agconnect'
 
 apply plugin: 'com.mob.sdk'//mobLink
 MobSDK {
@@ -258,6 +259,9 @@ dependencies {
 
     //完整版引入  第三方视频
     implementation 'com.shuyu:GSYVideoPlayer:6.0.3'
+
+    //华为推送
+    implementation 'com.huawei.hms:push:5.0.0.300'
 }
 
 configurations {

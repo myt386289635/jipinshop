@@ -624,6 +624,30 @@
         <activity android:name=".activity.minekt.recovery.OrderRecoveryResultActivity"
                   android:screenOrientation="portrait"/>
 
+        <!--华为推送-->
+        <service
+            android:name=".jpush.huawei.MyHmsMessageService"
+            android:exported="false">
+            <intent-filter>
+                <action android:name="com.huawei.push.action.MESSAGING_EVENT"/>
+            </intent-filter>
+        </service>
+
+        <activity android:name=".jpush.huawei.HmsActivity"
+                  android:screenOrientation="portrait"
+                  android:exported="true">
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
+                <data
+                    android:host="com.huawei.codelabpush"
+                    android:path="/deeplink"
+                    android:scheme="jpcpush" />
+            </intent-filter>
+        </activity>
+        <!--华为推送结束-->
+
     </application>
 
 </manifest>
