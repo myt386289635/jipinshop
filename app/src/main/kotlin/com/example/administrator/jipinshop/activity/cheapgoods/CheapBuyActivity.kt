@@ -61,7 +61,7 @@ class CheapBuyActivity : BaseActivity(), View.OnClickListener, OnRefreshListener
 
     private fun initView() {
         mBinding.inClude?.let {
-            it.titleTv.text = "百万补贴特惠购"
+            it.titleTv.text = "官方百万津贴专区"
         }
 
         mBinding.recyclerView.layoutManager = LinearLayoutManager(this)
