@@ -1404,4 +1404,10 @@ public interface APIService {
     @FormUrlEncoded
     @POST("api/v3/tbk/findBackTbOrder")
     Observable<SuccessBean> findBackTbOrder(@Field("tradeId") String tradeId);
+
+    /**
+     * 添加消息推送token
+     */
+    @GET("api/addToken")
+    Observable<SuccessBean> addToken(@Query("messageToken") String token);
 }

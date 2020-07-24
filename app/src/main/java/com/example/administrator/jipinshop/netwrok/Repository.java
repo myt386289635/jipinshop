@@ -1542,4 +1542,11 @@ public class Repository {
     public Observable<SuccessBean> findBackTbOrder(String tradeId){
         return mAPIService.findBackTbOrder(tradeId);
     }
+
+    /**
+     * 添加消息推送token
+     */
+    public Observable<SuccessBean> addToken(String token){
+        return mAPIService.addToken(token);
+    }
 }
