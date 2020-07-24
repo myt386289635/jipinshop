@@ -86,7 +86,7 @@ class KTCheapBuyAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>{
             HEAD -> {
                 var headViewHolder : HeadViewHolder = holder as HeadViewHolder
                 headViewHolder.run {
-                    binding.itemCheapPrice.text = allowance
+                    binding.itemCheapPrice.text =  BigDecimal(allowance).stripTrailingZeros().toPlainString() + "元"
                     binding.itemRule.setOnClickListener {
                         mContent.startActivity(Intent(mContent, WebActivity::class.java)
                                 .putExtra(WebActivity.url, RetrofitModule.H5_URL + "th-rule.html")

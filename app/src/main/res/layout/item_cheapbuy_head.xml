@@ -55,7 +55,7 @@
             android:textColor="@color/color_EA5018"
             android:textStyle="bold"
             android:textSize="38sp"
-            android:text="0"
+            android:text="0元"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"/>
 
