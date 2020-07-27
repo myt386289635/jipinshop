@@ -17,6 +17,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.blankj.utilcode.util.SPUtils;
+import com.example.administrator.jipinshop.MyApplication;
 import com.example.administrator.jipinshop.R;
 import com.example.administrator.jipinshop.activity.address.MyAddressActivity;
 import com.example.administrator.jipinshop.activity.setting.about.AboutActivity;
@@ -34,6 +35,7 @@ import com.example.administrator.jipinshop.util.sp.CommonDate;
 import com.example.administrator.jipinshop.view.dialog.CleanCacheDialog;
 import com.example.administrator.jipinshop.view.dialog.DialogUtil;
 import com.example.administrator.jipinshop.view.dialog.ProgressDialogView;
+import com.xiaomi.mipush.sdk.MiPushClient;
 
 import javax.inject.Inject;
 
@@ -237,6 +239,10 @@ public class SettingActivity extends BaseActivity implements CleanCacheDialog.On
     public void loginOutSuccess(SuccessBean msg) {
         if (msg.getCode() == 0) {
             JPushAlias.deleteAlias(this);
+            String deviceBrand = ShopJumpUtil.getDeviceBrand().toLowerCase();
+            if (deviceBrand.equals("xiaomi")){
+                MiPushClient.unsetAlias(MyApplication.getInstance(),SPUtils.getInstance(CommonDate.USER).getString(CommonDate.userId),null);
+            }
             TaoBaoUtil.aliLogout();//淘宝退出登陆
             setResult(201);
             finish();
@@ -290,6 +296,10 @@ public class SettingActivity extends BaseActivity implements CleanCacheDialog.On
         }else if (requestCode == 401 && resultCode == 201){
             //从注销账号回来
             JPushAlias.deleteAlias(this);
+            String deviceBrand = ShopJumpUtil.getDeviceBrand().toLowerCase();
+            if (deviceBrand.equals("xiaomi")){
+                MiPushClient.unsetAlias(MyApplication.getInstance(),SPUtils.getInstance(CommonDate.USER).getString(CommonDate.userId),null);
+            }
             TaoBaoUtil.aliLogout();//淘宝退出登陆
             setResult(201);
             finish();

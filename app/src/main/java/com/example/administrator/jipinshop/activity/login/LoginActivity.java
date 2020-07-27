@@ -29,6 +29,7 @@ import com.example.administrator.jipinshop.databinding.LoginBinding;
 import com.example.administrator.jipinshop.jpush.JPushAlias;
 import com.example.administrator.jipinshop.jpush.LoginUtil;
 import com.example.administrator.jipinshop.netwrok.RetrofitModule;
+import com.example.administrator.jipinshop.util.ShopJumpUtil;
 import com.example.administrator.jipinshop.util.ToastUtil;
 import com.example.administrator.jipinshop.util.sp.CommonDate;
 import com.example.administrator.jipinshop.view.dialog.ProgressDialogView;
@@ -36,6 +37,7 @@ import com.umeng.socialize.UMAuthListener;
 import com.umeng.socialize.UMShareAPI;
 import com.umeng.socialize.UMShareConfig;
 import com.umeng.socialize.bean.SHARE_MEDIA;
+import com.xiaomi.mipush.sdk.MiPushClient;
 
 import org.greenrobot.eventbus.EventBus;
 
@@ -137,6 +139,10 @@ public class LoginActivity extends BaseActivity implements LoginView, View.OnCli
             SPUtils.getInstance(CommonDate.USER).put(CommonDate.relationId, loginBean.getData().getRelationId());
 
             JPushAlias.setAlias(this,loginBean.getData().getUserId());
+            String deviceBrand = ShopJumpUtil.getDeviceBrand().toLowerCase();
+            if (deviceBrand.equals("xiaomi")){
+                MiPushClient.setAlias(MyApplication.getInstance(),loginBean.getData().getUserId(),null);
+            }
             EventBus.getDefault().post(new CommonEvaluationBus(LoginActivity.refresh));//用来刷新商品、评测、发现详情以及评论列表
 
             if (newpeople == 1 && loginBean.getData().getIsNewUser().equals("0")){
@@ -193,6 +199,10 @@ public class LoginActivity extends BaseActivity implements LoginView, View.OnCli
         SPUtils.getInstance(CommonDate.USER).put(CommonDate.relationId, loginBean.getData().getRelationId());
 
         JPushAlias.setAlias(this,loginBean.getData().getUserId());
+        String deviceBrand = ShopJumpUtil.getDeviceBrand().toLowerCase();
+        if (deviceBrand.equals("xiaomi")){
+            MiPushClient.setAlias(MyApplication.getInstance(),loginBean.getData().getUserId(),null);
+        }
         EventBus.getDefault().post(new CommonEvaluationBus(LoginActivity.refresh));//用来刷新商品、评测、发现详情以及评论列表
 
         if (newpeople == 1 && loginBean.getData().getIsNewUser().equals("0")){

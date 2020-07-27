@@ -22,6 +22,7 @@ import com.example.administrator.jipinshop.util.ShopJumpUtil;
 import com.example.administrator.jipinshop.util.permission.HasPermissionsUtil;
 import com.example.administrator.jipinshop.util.sp.CommonDate;
 import com.huawei.hms.push.HmsMessaging;
+import com.xiaomi.mipush.sdk.MiPushClient;
 
 import cn.jpush.android.api.JPushInterface;
 
@@ -59,6 +60,13 @@ public class WellComeActivity extends BaseActivity {
             JPushInterface.stopPush(this);//极光停止推送
             HmsMessaging hmsMessaging = HmsMessaging.getInstance(this);
             hmsMessaging.setAutoInitEnabled(true);
+        }else if (deviceBrand.equals("xiaomi")){
+            JPushInterface.stopPush(this);//极光停止推送
+            MiPushClient.registerPush(MyApplication.getInstance(), "2882303761517901504", "5721790192504");
+            if(!TextUtils.isEmpty(SPUtils.getInstance(CommonDate.USER).getString(CommonDate.userId,"").trim())){
+                ///登陆
+                MiPushClient.setAlias(MyApplication.getInstance(),SPUtils.getInstance(CommonDate.USER).getString(CommonDate.userId,""),null);
+            }
         }
     }
 
