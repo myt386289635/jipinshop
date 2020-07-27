@@ -701,6 +701,27 @@
         </receiver>
         <!--小米推送结束-->
 
+        <!--vivo推送-->
+        <!--Vivo Push需要配置的service、activity-->
+        <service
+            android:name="com.vivo.push.sdk.service.CommandClientService"
+            android:exported="true"/>
+        <!--Vivo Push开放平台中应用的appid 和api key-->
+        <meta-data
+            android:name="com.vivo.push.api_key"
+            android:value="48da61767b8d22dc6b4cd8da22bf1da2"/>
+        <meta-data
+            android:name="com.vivo.push.app_id"
+            android:value="100245222"/>
+        <!-- push 应用定义消息 receiver 声明 -->
+        <receiver android:name=".jpush.vivo.VivoMessageReceiver">
+            <intent-filter>
+                <!-- 接收 push 消息 -->
+                <action android:name="com.vivo.pushclient.action.RECEIVE"/>
+            </intent-filter>
+        </receiver>
+        <!--vivo推送结束-->
+
     </application>
 
 </manifest>

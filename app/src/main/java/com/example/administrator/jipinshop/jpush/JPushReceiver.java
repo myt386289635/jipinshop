@@ -1,9 +1,11 @@
 package com.example.administrator.jipinshop.jpush;
 
+import android.app.ActivityManager;
 import android.app.Notification;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.content.BroadcastReceiver;
+import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Build;
@@ -21,8 +23,11 @@ import com.google.gson.Gson;
 
 import org.greenrobot.eventbus.EventBus;
 
+import java.util.List;
+
 import cn.jpush.android.api.JPushInterface;
 
+import static android.content.Context.ACTIVITY_SERVICE;
 import static android.content.Context.NOTIFICATION_SERVICE;
 
 /**
@@ -69,7 +74,19 @@ public class JPushReceiver extends BroadcastReceiver {
                     String target_id = jPushBean.getTargetId();
                     String target_title = jPushBean.getTargetTitle();
                     String source= jPushBean.getSource();
-                    ShopJumpUtil.openJPush(context,targetType,target_id,target_title,source);
+                    if (isExistMainActivity(context)){//是否已经启动MainActivity
+                        ShopJumpUtil.openBanner(context, targetType, target_id, target_title,source);
+                    }else {
+                        //启动APP的代码
+                        context.startActivity(new Intent(context, MainActivity.class)
+                                .putExtra("targetType",targetType)
+                                .putExtra("target_id" , target_id)
+                                .putExtra("target_title" , target_title)
+                                .putExtra("source" , source)
+                                .putExtra("isAd",true)//从广告页点击过来的
+                                .setFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+                        );
+                    }
                 }
             }else {
                 Intent intentDefult = new Intent();
@@ -129,4 +146,21 @@ public class JPushReceiver extends BroadcastReceiver {
 
     }
 
+
+    private boolean isExistMainActivity(Context context) {
+        Intent intent = new Intent(context, MainActivity.class);
+        ComponentName cmpName = intent.resolveActivity(context.getPackageManager());
+        boolean flag = false;
+        if (cmpName != null) {// 说明系统中存在这个activity
+            ActivityManager am = (ActivityManager) context.getSystemService(ACTIVITY_SERVICE);
+            List<ActivityManager.RunningTaskInfo> taskInfoList = am.getRunningTasks(10);//获取从栈顶开始往下查找的10个activity
+            for (ActivityManager.RunningTaskInfo taskInfo : taskInfoList) {
+                if (taskInfo.baseActivity.equals(cmpName)) {// 说明它已经启动了
+                    flag = true;
+                    break;//跳出循环，优化效率
+                }
+            }
+        }
+        return flag;//true 存在 falese 不存在
+    }
 }

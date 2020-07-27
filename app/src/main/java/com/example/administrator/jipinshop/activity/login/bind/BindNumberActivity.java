@@ -35,6 +35,7 @@ import com.example.administrator.jipinshop.util.ToastUtil;
 import com.example.administrator.jipinshop.util.sp.CommonDate;
 import com.example.administrator.jipinshop.view.dialog.ProgressDialogView;
 import com.tencent.captchasdk.TCaptchaDialog;
+import com.vivo.push.PushClient;
 import com.xiaomi.mipush.sdk.MiPushClient;
 
 import org.greenrobot.eventbus.EventBus;
@@ -155,6 +156,9 @@ public class BindNumberActivity extends BaseActivity implements BindNumberView, 
             String deviceBrand = ShopJumpUtil.getDeviceBrand().toLowerCase();
             if (deviceBrand.equals("xiaomi")){
                 MiPushClient.setAlias(MyApplication.getInstance(),loginBean.getData().getUserId(),null);
+            }else if (deviceBrand.equals("vivo")){
+                PushClient.getInstance(MyApplication.getInstance()).
+                        bindAlias(loginBean.getData().getUserId(), i -> { });
             }
             EventBus.getDefault().post(new CommonEvaluationBus(LoginActivity.refresh));//用来刷新商品、评测、发现详情以及评论列表
 

@@ -135,7 +135,10 @@ public class MainActivity extends RxAppCompatActivity implements MainView, ViewP
             String target_id = getIntent().getStringExtra("target_id");
             String target_title = getIntent().getStringExtra("target_title");
             String source = getIntent().getStringExtra("source");
-            ShopJumpUtil.openBanner(this, targetType, target_id, target_title,source);
+            if (!targetType.equals("101") && !targetType.equals("102") && !targetType.equals("103")
+                    && !targetType.equals("104") && !targetType.equals("105")){
+                ShopJumpUtil.openBanner(this, targetType, target_id, target_title,source);
+            }
         }
         setContentView(R.layout.activity_main);
         if (null == sFirstInstance) {
@@ -253,6 +256,17 @@ public class MainActivity extends RxAppCompatActivity implements MainView, ViewP
         }
         if (!TextUtils.isEmpty(currentPrivacy)){//存入隐私协议版本号
             SPUtils.getInstance().put(CommonDate.privacy,currentPrivacy);
+        }
+        //需要滑动app的变态需求
+        if (getIntent().getBooleanExtra("isAd", false)) {
+            String targetType = getIntent().getStringExtra("targetType");
+            String target_id = getIntent().getStringExtra("target_id");
+            String target_title = getIntent().getStringExtra("target_title");
+            String source = getIntent().getStringExtra("source");
+            if (targetType.equals("101") || targetType.equals("102")|| targetType.equals("103")
+                    ||targetType.equals("104")|| targetType.equals("105")){
+                ShopJumpUtil.openBanner(this, targetType, target_id, target_title,source);
+            }
         }
     }
 

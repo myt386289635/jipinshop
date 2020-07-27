@@ -35,6 +35,7 @@ import com.example.administrator.jipinshop.util.sp.CommonDate;
 import com.example.administrator.jipinshop.view.dialog.CleanCacheDialog;
 import com.example.administrator.jipinshop.view.dialog.DialogUtil;
 import com.example.administrator.jipinshop.view.dialog.ProgressDialogView;
+import com.vivo.push.PushClient;
 import com.xiaomi.mipush.sdk.MiPushClient;
 
 import javax.inject.Inject;
@@ -242,6 +243,9 @@ public class SettingActivity extends BaseActivity implements CleanCacheDialog.On
             String deviceBrand = ShopJumpUtil.getDeviceBrand().toLowerCase();
             if (deviceBrand.equals("xiaomi")){
                 MiPushClient.unsetAlias(MyApplication.getInstance(),SPUtils.getInstance(CommonDate.USER).getString(CommonDate.userId),null);
+            }else if (deviceBrand.equals("vivo")){
+                PushClient.getInstance(MyApplication.getInstance()).
+                        unBindAlias(SPUtils.getInstance(CommonDate.USER).getString(CommonDate.userId, ""), i -> { });
             }
             TaoBaoUtil.aliLogout();//淘宝退出登陆
             setResult(201);
@@ -299,6 +303,9 @@ public class SettingActivity extends BaseActivity implements CleanCacheDialog.On
             String deviceBrand = ShopJumpUtil.getDeviceBrand().toLowerCase();
             if (deviceBrand.equals("xiaomi")){
                 MiPushClient.unsetAlias(MyApplication.getInstance(),SPUtils.getInstance(CommonDate.USER).getString(CommonDate.userId),null);
+            }else if (deviceBrand.equals("vivo")){
+                PushClient.getInstance(MyApplication.getInstance()).
+                        unBindAlias(SPUtils.getInstance(CommonDate.USER).getString(CommonDate.userId, ""), i -> { });
             }
             TaoBaoUtil.aliLogout();//淘宝退出登陆
             setResult(201);

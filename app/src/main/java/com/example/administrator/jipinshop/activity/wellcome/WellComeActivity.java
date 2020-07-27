@@ -22,6 +22,8 @@ import com.example.administrator.jipinshop.util.ShopJumpUtil;
 import com.example.administrator.jipinshop.util.permission.HasPermissionsUtil;
 import com.example.administrator.jipinshop.util.sp.CommonDate;
 import com.huawei.hms.push.HmsMessaging;
+import com.vivo.push.IPushActionListener;
+import com.vivo.push.PushClient;
 import com.xiaomi.mipush.sdk.MiPushClient;
 
 import cn.jpush.android.api.JPushInterface;
@@ -64,8 +66,15 @@ public class WellComeActivity extends BaseActivity {
             JPushInterface.stopPush(this);//极光停止推送
             MiPushClient.registerPush(MyApplication.getInstance(), "2882303761517901504", "5721790192504");
             if(!TextUtils.isEmpty(SPUtils.getInstance(CommonDate.USER).getString(CommonDate.userId,"").trim())){
-                ///登陆
                 MiPushClient.setAlias(MyApplication.getInstance(),SPUtils.getInstance(CommonDate.USER).getString(CommonDate.userId,""),null);
+            }
+        }else if (deviceBrand.equals("vivo")){
+            JPushInterface.stopPush(this);//极光停止推送
+            PushClient.getInstance(MyApplication.getInstance()).initialize();
+            PushClient.getInstance(MyApplication.getInstance()).turnOnPush(state -> {});
+            if(!TextUtils.isEmpty(SPUtils.getInstance(CommonDate.USER).getString(CommonDate.userId,"").trim())){
+                PushClient.getInstance(MyApplication.getInstance()).
+                        bindAlias(SPUtils.getInstance(CommonDate.USER).getString(CommonDate.userId, ""), i -> {});
             }
         }
     }

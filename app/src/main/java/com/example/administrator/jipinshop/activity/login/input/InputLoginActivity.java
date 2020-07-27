@@ -42,6 +42,7 @@ import com.umeng.socialize.UMAuthListener;
 import com.umeng.socialize.UMShareAPI;
 import com.umeng.socialize.UMShareConfig;
 import com.umeng.socialize.bean.SHARE_MEDIA;
+import com.vivo.push.PushClient;
 import com.xiaomi.mipush.sdk.MiPushClient;
 
 import org.greenrobot.eventbus.EventBus;
@@ -280,6 +281,9 @@ public class InputLoginActivity extends BaseActivity implements View.OnClickList
             String deviceBrand = ShopJumpUtil.getDeviceBrand().toLowerCase();
             if (deviceBrand.equals("xiaomi")){
                 MiPushClient.setAlias(MyApplication.getInstance(),loginBean.getData().getUserId(),null);
+            }else if (deviceBrand.equals("vivo")){
+                PushClient.getInstance(MyApplication.getInstance()).
+                        bindAlias(loginBean.getData().getUserId(), i -> { });
             }
             EventBus.getDefault().post(new CommonEvaluationBus(LoginActivity.refresh));//用来刷新商品、评测、发现详情以及评论列表
 
@@ -320,6 +324,9 @@ public class InputLoginActivity extends BaseActivity implements View.OnClickList
             String deviceBrand = ShopJumpUtil.getDeviceBrand().toLowerCase();
             if (deviceBrand.equals("xiaomi")){
                 MiPushClient.setAlias(MyApplication.getInstance(),loginBean.getData().getUserId(),null);
+            }else if (deviceBrand.equals("vivo")){
+                PushClient.getInstance(MyApplication.getInstance()).
+                        bindAlias(loginBean.getData().getUserId(), i -> { });
             }
             EventBus.getDefault().post(new CommonEvaluationBus(LoginActivity.refresh));//用来刷新商品、评测、发现详情以及评论列表
 
@@ -379,6 +386,9 @@ public class InputLoginActivity extends BaseActivity implements View.OnClickList
         String deviceBrand = ShopJumpUtil.getDeviceBrand().toLowerCase();
         if (deviceBrand.equals("xiaomi")){
             MiPushClient.setAlias(MyApplication.getInstance(),loginBean.getData().getUserId(),null);
+        }else if (deviceBrand.equals("vivo")){
+            PushClient.getInstance(MyApplication.getInstance()).
+                    bindAlias(loginBean.getData().getUserId(), i -> { });
         }
         EventBus.getDefault().post(new CommonEvaluationBus(LoginActivity.refresh));//用来刷新商品、评测、发现详情以及评论列表
 

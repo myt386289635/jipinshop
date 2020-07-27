@@ -262,6 +262,9 @@ dependencies {
 
     //华为推送
     implementation 'com.huawei.hms:push:5.0.0.300'
+
+    //vivo推送
+    implementation(name:'vivo_pushsdk-v2.9.0.0', ext:'aar')
 }
 
 configurations {
