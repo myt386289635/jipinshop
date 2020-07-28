@@ -21,10 +21,13 @@ import com.example.administrator.jipinshop.jpush.LoginUtil;
 import com.example.administrator.jipinshop.util.ShopJumpUtil;
 import com.example.administrator.jipinshop.util.permission.HasPermissionsUtil;
 import com.example.administrator.jipinshop.util.sp.CommonDate;
+import com.heytap.msp.push.HeytapPushManager;
+import com.heytap.msp.push.callback.ICallBackResultService;
 import com.huawei.hms.push.HmsMessaging;
-import com.vivo.push.IPushActionListener;
 import com.vivo.push.PushClient;
 import com.xiaomi.mipush.sdk.MiPushClient;
+
+import javax.inject.Inject;
 
 import cn.jpush.android.api.JPushInterface;
 
@@ -35,10 +38,14 @@ import cn.jpush.android.api.JPushInterface;
  */
 public class WellComeActivity extends BaseActivity {
 
+    @Inject
+    WellComePresenter mPresenter;
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_wellcome);
+        mBaseActivityComponent.inject(this);
         mImmersionBar.reset()
                 .transparentStatusBar()
                 .statusBarDarkFont(true, 0f)
@@ -75,6 +82,36 @@ public class WellComeActivity extends BaseActivity {
             if(!TextUtils.isEmpty(SPUtils.getInstance(CommonDate.USER).getString(CommonDate.userId,"").trim())){
                 PushClient.getInstance(MyApplication.getInstance()).
                         bindAlias(SPUtils.getInstance(CommonDate.USER).getString(CommonDate.userId, ""), i -> {});
+            }
+        }else if (deviceBrand.equals("oppo")){
+            HeytapPushManager.init(MyApplication.getInstance(),true);
+            if (HeytapPushManager.isSupportPush()){
+                JPushInterface.stopPush(this);//极光停止推送
+                HeytapPushManager.register(MyApplication.getInstance(), "ac4720cb3ae742679670d39262fcb748",
+                        "27f45959fb504ab48dab29cd90efdcd4", new ICallBackResultService() {
+                            //注册的结果,如果注册成功,registerID就是客户端的唯一身份标识
+                            @Override
+                            public void onRegister(int responseCode, String registerID) {
+                                if (responseCode == 0){
+                                    //注册成功  上传registerId给后台
+                                    mPresenter.sendRegTokenToServer(registerID,WellComeActivity.this.bindToLifecycle());
+                                }else {
+                                    HeytapPushManager.getRegister();//注册失败进行重试
+                                }
+                            }
+                            //反注册的结果
+                            @Override
+                            public void onUnRegister(int responseCode) { }
+                            //获取设置推送时间的执行结果
+                            @Override
+                            public void onSetPushTime(int responseCode, String pushTime) { }
+                            //获取当前的push状态返回,根据返回码判断当前的push状态,返回码具体含义可以参考[错误码]
+                            @Override
+                            public void onGetPushStatus(int responseCode,int status) { }
+                            //获取当前通知栏状态，返回码具体含义可以参考[错误码]
+                            @Override
+                            public void onGetNotificationStatus(int responseCode,int status) { }
+                        });
             }
         }
     }

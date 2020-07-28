@@ -265,6 +265,9 @@ dependencies {
 
     //vivo推送
     implementation(name:'vivo_pushsdk-v2.9.0.0', ext:'aar')
+
+    //oppo推送
+    implementation(name:'com.heytap.msp-push-2.1.0', ext:'aar')
 }
 
 configurations {

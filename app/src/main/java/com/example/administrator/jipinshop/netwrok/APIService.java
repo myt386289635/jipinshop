@@ -1409,5 +1409,5 @@ public interface APIService {
      * 添加消息推送token
      */
     @GET("api/addToken")
-    Observable<SuccessBean> addToken(@Query("messageToken") String token);
+    Observable<SuccessBean> addToken(@Query("type") int type ,@Query("messageToken") String token);
 }

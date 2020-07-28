@@ -40,7 +40,7 @@ public class MyHmsMessageService extends HmsMessageService {
     }
 
     private void sendRegTokenToServer(String token) {
-        mRepository.addToken(token)
+        mRepository.addToken(1,token)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(bean -> {}, throwable -> {});

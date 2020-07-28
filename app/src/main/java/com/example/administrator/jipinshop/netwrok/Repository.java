@@ -1546,7 +1546,7 @@ public class Repository {
     /**
      * 添加消息推送token
      */
-    public Observable<SuccessBean> addToken(String token){
-        return mAPIService.addToken(token);
+    public Observable<SuccessBean> addToken(int type, String token){
+        return mAPIService.addToken(type,token);
     }
 }
