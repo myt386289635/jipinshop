@@ -90,7 +90,7 @@ public class WellComeActivity extends BaseActivity {
         }else if (deviceBrand.equals("oppo")){
             HeytapPushManager.init(MyApplication.getInstance(),true);
             if (HeytapPushManager.isSupportPush()){
-//                JPushInterface.stopPush(this);//极光停止推送
+                JPushInterface.stopPush(this);//极光停止推送
                 HeytapPushManager.register(MyApplication.getInstance(), "ac4720cb3ae742679670d39262fcb748",
                         "27f45959fb504ab48dab29cd90efdcd4", new ICallBackResultService() {
                             //注册的结果,如果注册成功,registerID就是客户端的唯一身份标识
@@ -98,7 +98,6 @@ public class WellComeActivity extends BaseActivity {
                             public void onRegister(int responseCode, String registerID) {
                                 if (responseCode == 0){
                                     //注册成功  上传registerId给后台
-                                    Log.e("WellComeActivity", registerID);
                                     mPresenter.sendRegTokenToServer(registerID,WellComeActivity.this.bindToLifecycle());
                                 }else {
                                     HeytapPushManager.getRegister();//注册失败进行重试
@@ -106,20 +105,16 @@ public class WellComeActivity extends BaseActivity {
                             }
                             //反注册的结果
                             @Override
-                            public void onUnRegister(int responseCode) { }
+                            public void onUnRegister(int responseCode) {}
                             //获取设置推送时间的执行结果
                             @Override
-                            public void onSetPushTime(int responseCode, String pushTime) { }
+                            public void onSetPushTime(int responseCode, String pushTime) {}
                             //获取当前的push状态返回,根据返回码判断当前的push状态,返回码具体含义可以参考[错误码]
                             @Override
-                            public void onGetPushStatus(int responseCode,int status) {
-                                Log.e("WellComeActivity", "onGetPushStatus:" + responseCode + "-->status: " + status);
-                            }
+                            public void onGetPushStatus(int responseCode,int status) {}
                             //获取当前通知栏状态，返回码具体含义可以参考[错误码]
                             @Override
-                            public void onGetNotificationStatus(int responseCode,int status) {
-                                Log.e("WellComeActivity", "onGetNotificationStatus:" + responseCode+ "-->status: " + status);
-                            }
+                            public void onGetNotificationStatus(int responseCode,int status) {}
                         });
                 notifyChannel(MyApplication.getInstance());//oppo设置通知通道 兼容Android8.0及以上机型
             }

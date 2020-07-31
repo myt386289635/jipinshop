@@ -1,8 +1,9 @@
-package com.example.administrator.jipinshop.jpush.huawei;
+package com.example.administrator.jipinshop.jpush.oppo;
 
 import android.app.ActivityManager;
 import android.content.ComponentName;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 
@@ -15,21 +16,22 @@ import java.util.List;
 
 /**
  * @author 莫小婷
- * @create 2020/7/23
- * @Describe 华为、小米、vivo推送中转activity
+ * @create 2020/7/31
+ * @Describe oppo推送中转页面
  */
-public class HmsActivity extends BaseActivity {
+public class OppoJump extends BaseActivity {
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_wx);
         Intent intent = getIntent();
-        if (intent != null){
-            String targetType = intent.getStringExtra("targetType");
-            String targetId = intent.getStringExtra("targetId");
-            String targetTitle = intent.getStringExtra("targetTitle");
-            String source = intent.getStringExtra("source");
+        Uri uri = intent.getData();
+        if (uri != null) {
+            String targetType = uri.getQueryParameter("targetType");
+            String targetId = uri.getQueryParameter("targetId");
+            String targetTitle = uri.getQueryParameter("targetTitle");
+            String source = uri.getQueryParameter("source");
             if (isExistMainActivity()) {//是否已经启动MainActivity
                 //跳转到具体页面的代码
                 ShopJumpUtil.openBanner(this, targetType, targetId, targetTitle,source);

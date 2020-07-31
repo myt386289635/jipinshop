@@ -742,6 +742,19 @@
                 <action android:name="com.heytap.msp.push.RECEIVE_MCS_MESSAGE"/>
             </intent-filter>
         </service> <!--兼容Q版本-->
+        <activity android:name=".jpush.oppo.OppoJump"
+                  android:screenOrientation="portrait"
+                  android:exported="true">
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
+                <data
+                    android:host="com.oppo.cn"
+                    android:path="/deeplink"
+                    android:scheme="oppo" />
+            </intent-filter>
+        </activity>
         <!--oppo推送结束-->
 
     </application>
