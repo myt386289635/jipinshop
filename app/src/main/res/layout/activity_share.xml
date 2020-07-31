@@ -20,31 +20,38 @@
             layout="@layout/aa_title2"
             bind:listener="@{listener}"/>
 
-        <TextView
-            android:onClick="@{listener.onClick}"
-            android:id="@+id/share_help"
-            android:paddingLeft="@dimen/x28"
-            android:paddingRight="@dimen/x28"
-            android:gravity="center_vertical"
-            android:textSize="14sp"
-            android:textColor="@color/color_0E0402"
-            android:text="帮助"
-            android:layout_alignParentRight="true"
-            android:layout_width="wrap_content"
-            android:layout_height="@dimen/y88"/>
-
-        <TextView
-            android:layout_below="@id/share_help"
-            android:id="@+id/share_money"
-            android:paddingLeft="@dimen/x28"
-            android:gravity="center_vertical"
-            tools:text="分享后复制【评论区文案】，预估收益3.88元！"
-            android:textStyle="bold"
-            android:textSize="14sp"
-            android:textColor="@color/color_E25838"
-            android:background="@color/color_FFE4E4"
+        <RelativeLayout
+            android:layout_marginTop="@dimen/y32"
+            android:layout_below="@id/in_clude"
+            android:id="@+id/share_titleContainer1"
             android:layout_width="match_parent"
-            android:layout_height="@dimen/y80"/>
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:onClick="@{listener.onClick}"
+                android:id="@+id/share_all"
+                android:layout_marginRight="@dimen/x30"
+                android:layout_alignParentRight="true"
+                android:gravity="center"
+                android:text="全选"
+                android:textStyle="bold"
+                android:textColor="@color/color_E25838"
+                android:textSize="12sp"
+                android:background="@drawable/bg_1ae25838"
+                android:layout_width="@dimen/x152"
+                android:layout_height="@dimen/y54"/>
+
+            <TextView
+                android:layout_marginLeft="@dimen/x30"
+                android:layout_centerVertical="true"
+                android:textStyle="bold"
+                android:textColor="@color/color_202020"
+                android:textSize="15sp"
+                android:text="选择图片"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+
+        </RelativeLayout>
 
         <LinearLayout
             android:id="@+id/share_bottomLayout"
@@ -208,7 +215,7 @@
             android:scrollbars="none"
             android:fillViewport="true"
             android:layout_above="@id/share_bottomLayout"
-            android:layout_below="@id/share_money"
+            android:layout_below="@id/share_titleContainer1"
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
@@ -218,20 +225,41 @@
                 android:layout_height="match_parent">
 
                 <android.support.v7.widget.RecyclerView
-                    android:layout_marginBottom="@dimen/y28"
-                    android:layout_marginTop="@dimen/y28"
+                    android:layout_marginBottom="@dimen/y32"
+                    android:layout_marginTop="@dimen/y20"
                     android:id="@+id/share_images"
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/y188"/>
 
-                <TextView
-                    android:textStyle="bold"
-                    android:textColor="@color/color_202020"
-                    android:textSize="14sp"
-                    android:layout_marginLeft="@dimen/x30"
-                    android:text="分享文案"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"/>
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <TextView
+                        android:onClick="@{listener.onClick}"
+                        android:id="@+id/share_copyTitle"
+                        android:layout_marginRight="@dimen/x30"
+                        android:layout_alignParentRight="true"
+                        android:gravity="center"
+                        android:text="复制文案"
+                        android:textStyle="bold"
+                        android:textColor="@color/color_E25838"
+                        android:textSize="12sp"
+                        android:background="@drawable/bg_1ae25838"
+                        android:layout_width="@dimen/x152"
+                        android:layout_height="@dimen/y54"/>
+
+                    <TextView
+                        android:layout_marginLeft="@dimen/x30"
+                        android:layout_centerVertical="true"
+                        android:textStyle="bold"
+                        android:textColor="@color/color_202020"
+                        android:textSize="15sp"
+                        android:text="分享文案"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"/>
+
+                </RelativeLayout>
 
                 <TextView
                     android:id="@+id/share_title"
@@ -250,11 +278,42 @@
                     android:paddingRight="@dimen/x10"
                     android:paddingLeft="@dimen/x10"
                     android:background="@color/color_F5F5F5"
-                    android:layout_marginTop="@dimen/y20"
+                    android:layout_marginTop="@dimen/y14"
                     android:layout_marginRight="@dimen/x30"
                     android:layout_marginLeft="@dimen/x30"
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/y200"/>
+
+                <RelativeLayout
+                    android:layout_marginTop="@dimen/y32"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <TextView
+                        android:onClick="@{listener.onClick}"
+                        android:id="@+id/share_copy"
+                        android:layout_marginRight="@dimen/x30"
+                        android:layout_alignParentRight="true"
+                        android:gravity="center"
+                        android:text="复制评论"
+                        android:textStyle="bold"
+                        android:textColor="@color/color_E25838"
+                        android:textSize="12sp"
+                        android:background="@drawable/bg_1ae25838"
+                        android:layout_width="@dimen/x152"
+                        android:layout_height="@dimen/y54"/>
+
+                    <TextView
+                        android:layout_marginLeft="@dimen/x30"
+                        android:layout_centerVertical="true"
+                        android:textStyle="bold"
+                        android:textColor="@color/color_202020"
+                        android:textSize="15sp"
+                        android:text="商品评论"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"/>
+
+                </RelativeLayout>
 
                 <TextView
                     android:id="@+id/share_content"
@@ -266,129 +325,27 @@
                     android:paddingRight="@dimen/x10"
                     android:paddingLeft="@dimen/x10"
                     android:background="@color/color_F5F5F5"
-                    android:layout_marginTop="@dimen/y20"
+                    android:layout_marginTop="@dimen/y8"
                     android:layout_marginRight="@dimen/x30"
                     android:layout_marginLeft="@dimen/x30"
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/y120"/>
 
-                <LinearLayout
-                    android:id="@+id/share_tbButtonContainer"
-                    android:layout_gravity="center_horizontal"
-                    android:layout_marginTop="@dimen/y20"
-                    android:orientation="horizontal"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content">
-
-                    <CheckBox
-                        android:paddingBottom="@dimen/y10"
-                        android:paddingTop="@dimen/y10"
-                        android:background="@android:color/transparent"
-                        android:id="@+id/share_checkBox1"
-                        android:textSize="14sp"
-                        android:textColor="@color/color_202020"
-                        android:gravity="center_vertical"
-                        android:checked="true"
-                        android:drawablePadding="@dimen/x10"
-                        android:drawableLeft="@drawable/share_tab"
-                        android:button="@null"
-                        android:text="淘口令"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"/>
-
-                    <CheckBox
-                        android:paddingBottom="@dimen/y10"
-                        android:paddingTop="@dimen/y10"
-                        android:checked="true"
-                        android:background="@android:color/transparent"
-                        android:id="@+id/share_checkBox2"
-                        android:textSize="14sp"
-                        android:textColor="@color/color_202020"
-                        android:layout_marginLeft="@dimen/x50"
-                        android:gravity="center_vertical"
-                        android:drawablePadding="@dimen/x10"
-                        android:drawableLeft="@drawable/share_tab"
-                        android:button="@null"
-                        android:text="下载链接"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"/>
-
-                    <CheckBox
-                        android:paddingBottom="@dimen/y10"
-                        android:paddingTop="@dimen/y10"
-                        android:checked="true"
-                        android:background="@android:color/transparent"
-                        android:id="@+id/share_checkBox3"
-                        android:textSize="14sp"
-                        android:textColor="@color/color_202020"
-                        android:layout_marginLeft="@dimen/x50"
-                        android:gravity="center_vertical"
-                        android:drawablePadding="@dimen/x10"
-                        android:drawableLeft="@drawable/share_tab"
-                        android:button="@null"
-                        android:text="邀请码"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"/>
-
-                </LinearLayout>
-
-                <LinearLayout
-                    android:id="@+id/share_otherButtonContainer"
-                    android:layout_gravity="center_horizontal"
-                    android:layout_marginTop="@dimen/y20"
-                    android:orientation="horizontal"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content">
-
-                    <CheckBox
-                        android:paddingBottom="@dimen/y10"
-                        android:paddingTop="@dimen/y10"
-                        android:background="@android:color/transparent"
-                        android:id="@+id/share_other_checkBox1"
-                        android:textSize="14sp"
-                        android:textColor="@color/color_202020"
-                        android:gravity="center_vertical"
-                        android:checked="true"
-                        android:drawablePadding="@dimen/x10"
-                        android:drawableLeft="@drawable/share_tab"
-                        android:button="@null"
-                        android:text="抢购地址"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"/>
-
-                    <CheckBox
-                        android:paddingBottom="@dimen/y10"
-                        android:paddingTop="@dimen/y10"
-                        android:checked="true"
-                        android:background="@android:color/transparent"
-                        android:id="@+id/share_other_checkBox2"
-                        android:textSize="14sp"
-                        android:textColor="@color/color_202020"
-                        android:layout_marginLeft="@dimen/x60"
-                        android:gravity="center_vertical"
-                        android:drawablePadding="@dimen/x10"
-                        android:drawableLeft="@drawable/share_tab"
-                        android:button="@null"
-                        android:text="邀请码"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"/>
-
-                </LinearLayout>
-
-                <TextView
+                <CheckBox
                     android:onClick="@{listener.onClick}"
-                    android:id="@+id/share_copy"
-                    android:layout_gravity="center_horizontal"
-                    android:layout_marginTop="@dimen/y30"
-                    android:paddingBottom="@dimen/y7"
-                    android:paddingTop="@dimen/y7"
-                    android:paddingRight="@dimen/x45"
-                    android:paddingLeft="@dimen/x45"
-                    android:text="复制评论淘口令"
-                    android:textStyle="bold"
-                    android:textSize="16sp"
-                    android:textColor="@color/color_white"
-                    android:background="@drawable/bg_withdraw"
+                    android:layout_marginLeft="@dimen/x30"
+                    android:paddingBottom="@dimen/y20"
+                    android:paddingTop="@dimen/y20"
+                    android:background="@android:color/transparent"
+                    android:id="@+id/share_checkBox"
+                    android:textSize="14sp"
+                    android:textColor="@color/color_202020"
+                    android:gravity="center_vertical"
+                    android:checked="true"
+                    android:drawablePadding="@dimen/x10"
+                    android:drawableLeft="@drawable/share_tab"
+                    android:button="@null"
+                    android:text="显示极品城佣金"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"/>
 

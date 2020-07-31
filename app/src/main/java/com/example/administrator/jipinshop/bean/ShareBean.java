@@ -1,6 +1,5 @@
 package com.example.administrator.jipinshop.bean;
 
-import java.math.BigDecimal;
 import java.util.List;
 
 /**
@@ -52,9 +51,6 @@ public class ShareBean {
         private String content;
         private String shareImg;
         private String downloadUrl;
-        private String tkl;
-        private String invitationCode;
-        private String fee;
         private String baseComment;
         private List<String> imgs;
 
@@ -88,30 +84,6 @@ public class ShareBean {
 
         public void setDownloadUrl(String downloadUrl) {
             this.downloadUrl = downloadUrl;
-        }
-
-        public String getTkl() {
-            return tkl;
-        }
-
-        public void setTkl(String tkl) {
-            this.tkl = tkl;
-        }
-
-        public String getInvitationCode() {
-            return invitationCode;
-        }
-
-        public void setInvitationCode(String invitationCode) {
-            this.invitationCode = invitationCode;
-        }
-
-        public String getFee() {
-            return new BigDecimal(fee).stripTrailingZeros().toPlainString();
-        }
-
-        public void setFee(String fee) {
-            this.fee = fee;
         }
 
         public List<String> getImgs() {

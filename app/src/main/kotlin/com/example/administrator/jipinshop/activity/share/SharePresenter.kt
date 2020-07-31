@@ -19,7 +19,7 @@ import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.functions.Consumer
 import io.reactivex.schedulers.Schedulers
 import okhttp3.ResponseBody
-import java.util.ArrayList
+import java.util.*
 import javax.inject.Inject
 
 /**
@@ -39,44 +39,6 @@ class SharePresenter {
 
     fun setView(view: ShareView){
         mView = view
-    }
-
-    //checkBox的setOnClickListener能监听到点击事件，checkBox是先改变isChecked属性后触发点击事件
-    //点击checkBox之后会自动更改图标，不需人为控制isChecked去改变
-    fun initCheckBox(mBinding: ActivityShareBinding){
-        mBinding.shareCheckBox1.setOnClickListener {
-            if (!mBinding.shareCheckBox2.isChecked && !mBinding.shareCheckBox1.isChecked) {
-                //下载链接没选，正在取消淘口令
-                ToastUtil.show("淘口令与下载链接必须选择其中一个")
-                mBinding.shareCheckBox1.isChecked = true
-                return@setOnClickListener
-            }
-            mView.initShareContent(mBinding.shareCheckBox1.isChecked,mBinding.shareCheckBox2.isChecked,
-                    mBinding.shareCheckBox3.isChecked)
-        }
-        mBinding.shareCheckBox2.setOnClickListener {
-            if (!mBinding.shareCheckBox1.isChecked && !mBinding.shareCheckBox2.isChecked) {
-                //淘口令没选，正在取消下载链接
-                ToastUtil.show("淘口令与下载链接必须选择其中一个")
-                mBinding.shareCheckBox2.isChecked = true
-                return@setOnClickListener
-            }
-            mView.initShareContent(mBinding.shareCheckBox1.isChecked,mBinding.shareCheckBox2.isChecked,
-                    mBinding.shareCheckBox3.isChecked)
-        }
-        mBinding.shareCheckBox3.setOnClickListener {
-            mView.initShareContent(mBinding.shareCheckBox1.isChecked,mBinding.shareCheckBox2.isChecked,
-                    mBinding.shareCheckBox3.isChecked)
-        }
-        mBinding.shareOtherCheckBox1.setOnClickListener {
-            if (!mBinding.shareOtherCheckBox1.isChecked){
-                ToastUtil.show("必须选择抢购地址")
-                mBinding.shareOtherCheckBox1.isChecked = true
-            }
-        }
-        mBinding.shareOtherCheckBox2.setOnClickListener {
-            mView.initShareContent_other(mBinding.shareOtherCheckBox2.isChecked)
-        }
     }
 
     //解决scrollView嵌套滑动textView时出现的滑动冲突

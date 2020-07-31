@@ -17,18 +17,15 @@ import android.view.View
 import android.widget.ImageView
 import com.blankj.utilcode.util.SPUtils
 import com.example.administrator.jipinshop.R
-import com.example.administrator.jipinshop.activity.WebActivity
 import com.example.administrator.jipinshop.adapter.ShareAdapter
 import com.example.administrator.jipinshop.base.BaseActivity
 import com.example.administrator.jipinshop.bean.ShareBean
 import com.example.administrator.jipinshop.databinding.ActivityShareBinding
-import com.example.administrator.jipinshop.netwrok.RetrofitModule
 import com.example.administrator.jipinshop.util.ShareUtils
 import com.example.administrator.jipinshop.util.ToastUtil
 import com.example.administrator.jipinshop.util.permission.HasPermissionsUtil
 import com.example.administrator.jipinshop.util.share.PlatformUtil
 import com.example.administrator.jipinshop.util.sp.CommonDate
-import com.example.administrator.jipinshop.view.dialog.DialogUtil
 import com.example.administrator.jipinshop.view.dialog.ProgressDialogView
 import com.example.administrator.jipinshop.view.pick.CustomLoadingUIProvider2
 import com.example.administrator.jipinshop.view.pick.DecorationLayout
@@ -59,8 +56,6 @@ class ShareActivity : BaseActivity(), View.OnClickListener, ShareAdapter.OnClick
     private var mDialog: Dialog? = null
     private var mProgressDialog : Dialog? = null
     private var downloadUrl: String = ""
-    private var tkl: String = ""
-    private var invitationCode: String = ""
     private var baseComment: String = ""
     private var iwHelper: ImageWatcherHelper? = null
     private var layDecoration: DecorationLayout? = null
@@ -83,19 +78,9 @@ class ShareActivity : BaseActivity(), View.OnClickListener, ShareAdapter.OnClick
         mBinding.shareTitle.movementMethod = ScrollingMovementMethod.getInstance()
         mBinding.shareContent.movementMethod = ScrollingMovementMethod.getInstance()
         mBinding.inClude?.let {
-            it.titleTv.text = "创建分享"
+            it.titleTv.text = "分享商品"
         }
-        mPresenter.initCheckBox(mBinding)
         mPresenter.initText(mBinding)
-        if (source.equals("2")){
-            mBinding.shareTbButtonContainer.visibility = View.VISIBLE
-            mBinding.shareOtherButtonContainer.visibility = View.GONE
-            mBinding.shareCopy.text = "复制评论淘口令"
-        }else{
-            mBinding.shareTbButtonContainer.visibility = View.GONE
-            mBinding.shareOtherButtonContainer.visibility = View.VISIBLE
-            mBinding.shareCopy.text = "复制评论【链接】"
-        }
 
         mShareImages = mutableListOf()
         mList = mutableListOf()
@@ -112,25 +97,7 @@ class ShareActivity : BaseActivity(), View.OnClickListener, ShareAdapter.OnClick
             if (!it.isShowing)
                 it.show()
         }
-        mPresenter.getGoodsShareInfo(goodsId,shareImgLocation,source,this.bindToLifecycle())
-    }
-
-    //淘宝选择
-    override fun initShareContent(checkBox1: Boolean, checkBox2: Boolean, checkBox3: Boolean) {
-        var string = baseComment + "\n"
-        if (checkBox2) string += downloadUrl + "\n"
-        if (checkBox3) string += invitationCode  + "\n"
-        if (checkBox1) string += tkl
-        mBinding.shareContent.text = string
-    }
-
-    //京东和拼多多选择
-    override fun initShareContent_other(checkBox: Boolean) {
-        var string = baseComment + "\n" + tkl
-        if (checkBox){
-            string = baseComment + "\n" + downloadUrl + "\n" + tkl + "\n" + invitationCode
-        }
-        mBinding.shareContent.text = string
+        mPresenter.getGoodsShareInfo(goodsId,0,source,this.bindToLifecycle())
     }
 
     override fun onClick(v: View) {
@@ -138,23 +105,36 @@ class ShareActivity : BaseActivity(), View.OnClickListener, ShareAdapter.OnClick
             R.id.title_back -> {
                 finish()
             }
-            R.id.share_help -> {
-                startActivity(Intent(this,WebActivity::class.java)
-                        .putExtra(WebActivity.url, RetrofitModule.H5_URL + "new-free/shareHelp")
-                        .putExtra(WebActivity.title, "3步学会分享赚钱")
-                )
-            }
             R.id.share_copy -> {
                 var clip = getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager
                 var clipData = ClipData.newPlainText("jipinshop", mBinding.shareContent.text.toString())
                 clip.primaryClip = clipData
                 SPUtils.getInstance().put(CommonDate.CLIP, mBinding.shareContent.text.toString())
-                DialogUtil.LoginDialog(this,"评论内容复制成功","去微信粘贴","暂不粘贴"){
-                    var intent : Intent? = PlatformUtil.sharePYQ_images(this)
-                    intent?.let {
-                        startActivity(intent)
-                    }
+                ToastUtil.show("已复制评论内容到粘贴板")
+            }
+            R.id.share_checkBox -> {
+                if (mBinding.shareCheckBox.isChecked){
+                    mBinding.shareContent.text = baseComment + "\n" + downloadUrl
+                }else{
+                    mBinding.shareContent.text = baseComment
                 }
+            }
+            R.id.share_all -> {
+                //照片全选
+                for (i in mSet.indices){
+                    mSet[i] = 1
+                }
+                shareImgLocation = 1
+                mAdapter.setPosition(0)
+                mAdapter.notifyDataSetChanged()
+            }
+            R.id.share_copyTitle -> {
+                //复制文案
+                var clip = getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager
+                var clipData = ClipData.newPlainText("jipinshop", mBinding.shareTitle.text.toString())
+                clip.primaryClip = clipData
+                SPUtils.getInstance().put(CommonDate.CLIP, mBinding.shareTitle.text.toString())
+                ToastUtil.show("已复制分享文案到粘贴板")
             }
             R.id.share_wechat -> {
                 HasPermissionsUtil.permission(this, object : HasPermissionsUtil() {
@@ -262,16 +242,9 @@ class ShareActivity : BaseActivity(), View.OnClickListener, ShareAdapter.OnClick
         }
         baseComment = bean.data.baseComment
         downloadUrl = bean.data.downloadUrl
-        tkl = bean.data.tkl
-        invitationCode = bean.data.invitationCode
         temp = bean.data.shareImg
-        mBinding.shareMoney.text = "分享后复制【评论区文案】，预估收益"+ bean.data.fee +"元！"
         mBinding.shareTitle.text = bean.data.content
-        if (source.equals("2")){
-            mBinding.shareContent.text = bean.data.baseComment  + "\n" + bean.data.downloadUrl + "\n" + bean.data.invitationCode +"\n" + bean.data.tkl
-        }else{
-            mBinding.shareContent.text = bean.data.baseComment + "\n" + bean.data.downloadUrl + "\n" + bean.data.tkl + "\n" + bean.data.invitationCode
-        }
+        mBinding.shareContent.text = bean.data.baseComment + "\n" + bean.data.downloadUrl
         mList.clear()
         mList.addAll(bean.data.imgs)
         for (i in mList.indices){
@@ -307,7 +280,7 @@ class ShareActivity : BaseActivity(), View.OnClickListener, ShareAdapter.OnClick
                     var clipData = ClipData.newPlainText("jipinshop", mBinding.shareTitle.text.toString())
                     clip.primaryClip = clipData
                     SPUtils.getInstance().put(CommonDate.CLIP, mBinding.shareTitle.text.toString())
-                    ToastUtil.show("文案已复制到粘贴板,分享后长按粘贴")
+                    ToastUtil.show("已复制分享文案到粘贴板")
                     ShareUtils(this@ShareActivity, SHARE_MEDIA.WEIXIN_CIRCLE, mDialog)
                             .shareImage(this@ShareActivity,temp)
                 }else{
@@ -322,12 +295,12 @@ class ShareActivity : BaseActivity(), View.OnClickListener, ShareAdapter.OnClick
                 var clipData = ClipData.newPlainText("jipinshop", mBinding.shareTitle.text.toString())
                 clip.primaryClip = clipData
                 SPUtils.getInstance().put(CommonDate.CLIP, mBinding.shareTitle.text.toString())
-                ToastUtil.show("文案已复制到粘贴板,分享后长按粘贴")
+                ToastUtil.show("已复制分享文案到粘贴板")
                 ShareUtils(this, SHARE_MEDIA.SINA ,mDialog)
                         .shareImages(this, mBinding.shareTitle.text.toString(),mShareImages)
             }
             "pic" -> {
-                mPresenter.downLoadImg(this,mShareImages,SHARE_MEDIA.WEIXIN_CIRCLE,this.bindToLifecycle())
+                mPresenter.downLoadImg(this,mShareImages,null,this.bindToLifecycle())
             }
         }
     }
@@ -351,29 +324,32 @@ class ShareActivity : BaseActivity(), View.OnClickListener, ShareAdapter.OnClick
         var clipData = ClipData.newPlainText("jipinshop", mBinding.shareTitle.text.toString())
         clip.primaryClip = clipData
         SPUtils.getInstance().put(CommonDate.CLIP, mBinding.shareTitle.text.toString())
-        when(share_media){
-            SHARE_MEDIA.WEIXIN -> {
-                ToastUtil.show("文案已复制到粘贴板,分享后长按粘贴")
-                var intent: Intent? = PlatformUtil.shareWX_images(this@ShareActivity, imageUris)
-                intent?.let {
-                    startActivityForResult(intent, 301)
+        if(share_media != null){
+            when(share_media){
+                SHARE_MEDIA.WEIXIN -> {
+                    ToastUtil.show("已复制分享文案到粘贴板")
+                    var intent: Intent? = PlatformUtil.shareWX_images(this@ShareActivity, imageUris)
+                    intent?.let {
+                        startActivity(intent)
+                    }
                 }
-            }
-            SHARE_MEDIA.QQ -> {
-                ToastUtil.show("文案已复制到粘贴板,分享后长按粘贴")
-                var intent: Intent? = PlatformUtil.shareQQ_images(this@ShareActivity, imageUris)
-                intent?.let {
-                    startActivityForResult(intent, 302)
+                SHARE_MEDIA.QQ -> {
+                    ToastUtil.show("已复制分享文案到粘贴板")
+                    var intent: Intent? = PlatformUtil.shareQQ_images(this@ShareActivity, imageUris)
+                    intent?.let {
+                        startActivity(intent)
+                    }
                 }
-            }
-            SHARE_MEDIA.WEIXIN_CIRCLE -> {
-                DialogUtil.sharePYQDialog(this@ShareActivity){
+                SHARE_MEDIA.WEIXIN_CIRCLE -> {
+                    ToastUtil.show("已复制分享文案到粘贴板")
                     var intent : Intent? = PlatformUtil.sharePYQ_images(this@ShareActivity)
                     intent?.let {
                         startActivity(intent)
                     }
                 }
             }
+        }else{
+            ToastUtil.show("图片已保存到相册")
         }
     }
 
