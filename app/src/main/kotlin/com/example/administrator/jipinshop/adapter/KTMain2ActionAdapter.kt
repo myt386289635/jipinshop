@@ -6,14 +6,14 @@ import android.support.v7.widget.GridLayoutManager
 import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import android.widget.RelativeLayout
-import android.widget.Toast
 import com.example.administrator.jipinshop.R
+import com.example.administrator.jipinshop.bean.SuccessBean
 import com.example.administrator.jipinshop.bean.TbkIndexBean
 import com.example.administrator.jipinshop.databinding.ItemMain2ActionBinding
 import com.example.administrator.jipinshop.util.ShopJumpUtil
-import com.example.administrator.jipinshop.util.ToastUtil
+import com.example.administrator.jipinshop.util.UmApp.AppStatisticalUtil
 import com.example.administrator.jipinshop.view.glide.GlideApp
+import com.trello.rxlifecycle2.LifecycleTransformer
 
 
 /**
@@ -25,10 +25,20 @@ class KTMain2ActionAdapter : RecyclerView.Adapter<KTMain2ActionAdapter.ViewHolde
 
     private var mContext: Context
     private var mList:MutableList<TbkIndexBean.DataBean.ActivityListBean>
+    private lateinit var appStatisticalUtil: AppStatisticalUtil
+    private lateinit var transformer : LifecycleTransformer<SuccessBean>
 
     constructor(context: Context , list: MutableList<TbkIndexBean.DataBean.ActivityListBean>){
         mContext = context
         mList = list
+    }
+
+    fun setAppStatisticalUtil(appStatisticalUtil : AppStatisticalUtil){
+        this.appStatisticalUtil = appStatisticalUtil
+    }
+
+    fun setTransformer(transformer : LifecycleTransformer<SuccessBean>){
+        this.transformer = transformer
     }
 
     override fun onCreateViewHolder(viewGroup: ViewGroup, type: Int): ViewHolder {
@@ -53,6 +63,7 @@ class KTMain2ActionAdapter : RecyclerView.Adapter<KTMain2ActionAdapter.ViewHolde
             binding.itemContainer.layoutParams = layoutParams
             GlideApp.loderImage(mContext,mList[position].img,binding.itemImage,0,0)
             binding.itemImage.setOnClickListener {
+                appStatisticalUtil.addEvent("shouye_louceng." + (position + 1),transformer)
                 ShopJumpUtil.openBanner(mContext,mList[position].type,
                         mList[position].objectId,mList[position].name,
                         mList[position].source)

@@ -11,7 +11,6 @@ import android.support.v4.view.ViewPager
 import android.support.v7.widget.GridLayoutManager
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
-import android.text.TextUtils
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -19,7 +18,6 @@ import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.RelativeLayout
 import android.widget.TextView
-import com.blankj.utilcode.util.SPUtils
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.DataSource
 import com.bumptech.glide.load.engine.GlideException
@@ -28,7 +26,6 @@ import com.bumptech.glide.request.target.Target
 import com.example.administrator.jipinshop.R
 import com.example.administrator.jipinshop.activity.WebActivity
 import com.example.administrator.jipinshop.activity.cheapgoods.CheapBuyActivity
-import com.example.administrator.jipinshop.activity.login.LoginActivity
 import com.example.administrator.jipinshop.activity.newpeople.NewFreeActivity
 import com.example.administrator.jipinshop.activity.shoppingdetail.tbshoppingdetail.TBShoppingDetailActivity
 import com.example.administrator.jipinshop.bean.SuccessBean
@@ -38,10 +35,8 @@ import com.example.administrator.jipinshop.databinding.*
 import com.example.administrator.jipinshop.netwrok.RetrofitModule
 import com.example.administrator.jipinshop.util.DistanceHelper
 import com.example.administrator.jipinshop.util.ShopJumpUtil
-import com.example.administrator.jipinshop.util.ToastUtil
 import com.example.administrator.jipinshop.util.UmApp.AppStatisticalUtil
 import com.example.administrator.jipinshop.util.WeakRefHandler
-import com.example.administrator.jipinshop.util.sp.CommonDate
 import com.example.administrator.jipinshop.view.glide.GlideApp
 import com.example.administrator.jipinshop.view.viewpager.TouchViewPager
 import com.trello.rxlifecycle2.LifecycleTransformer
@@ -264,6 +259,7 @@ class KTMain2Adapter : RecyclerView.Adapter<RecyclerView.ViewHolder>{
                     adapter.notifyDataSetChanged()
                     binding.itemRv.setBackgroundColor(Color.parseColor("#" + mBean!!.data.ad2.color))
                     binding.itemImage.setOnClickListener {
+                        appStatisticalUtil.addEvent("shouye_banner.huodong",transformer)
                         ShopJumpUtil.openBanner(mContext,mBean!!.data.ad2.type,
                                 mBean!!.data.ad2.objectId,mBean!!.data.ad2.name,
                                 mBean!!.data.ad2.source)
@@ -337,7 +333,13 @@ class KTMain2Adapter : RecyclerView.Adapter<RecyclerView.ViewHolder>{
                         mOnItem.onItemShare(pos)
                     }
                     itemView.setOnClickListener { v ->
-                        appStatisticalUtil.addEvent("shouye_tuijian." + (pos+1),transformer)
+                        if (mList[pos].source == "1"){
+                            appStatisticalUtil.addEvent("shouye_jingdong." + (pos+1),transformer)
+                        }else if (mList[pos].source == "4"){
+                            appStatisticalUtil.addEvent("shouye_pinduoduo." + (pos+1),transformer)
+                        }else{
+                            appStatisticalUtil.addEvent("shouye_taobao." + (pos+1),transformer)
+                        }
                         mContext.startActivity(Intent(mContext, TBShoppingDetailActivity::class.java)
                                 .putExtra("otherGoodsId", mList[pos].otherGoodsId)
                                 .putExtra("source",mList[pos].source)
@@ -568,6 +570,8 @@ class KTMain2Adapter : RecyclerView.Adapter<RecyclerView.ViewHolder>{
             var gridLayoutManager = GridLayoutManager(mContext,2)
             binding.itemRv.layoutManager = gridLayoutManager
             adapter = KTMain2ActionAdapter(mContext,actionList)
+            adapter.setAppStatisticalUtil(appStatisticalUtil)
+            adapter.setTransformer(transformer)
             binding.itemRv.adapter = adapter
             binding.itemRv.isNestedScrollingEnabled = false
         }
