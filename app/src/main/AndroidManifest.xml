@@ -29,6 +29,10 @@
                 android:protectionLevel="signature" />
     <uses-permission android:name="com.example.administrator.jipinshop.permission.MIPUSH_RECEIVE" />
 
+    <!--oppo推送需要-->
+    <uses-permission android:name="com.coloros.mcs.permission.RECIEVE_MCS_MESSAGE"/>
+    <uses-permission android:name="com.heytap.mcs.permission.RECIEVE_MCS_MESSAGE"/>
+
     <application
         tools:replace="android:allowBackup"
         android:name=".MyApplication"
@@ -721,6 +725,24 @@
             </intent-filter>
         </receiver>
         <!--vivo推送结束-->
+
+        <!--oppo推送-->
+        <service
+            android:name="com.heytap.msp.push.service.CompatibleDataMessageCallbackService"
+            android:permission="com.coloros.mcs.permission.SEND_MCS_MESSAGE">
+            <intent-filter>
+                <action android:name="com.coloros.mcs.action.RECEIVE_MCS_MESSAGE"/>
+            </intent-filter>
+        </service> <!--兼容Q以下版本-->
+        <service
+            android:name="com.heytap.msp.push.service.DataMessageCallbackService"
+            android:permission="com.heytap.mcs.permission.SEND_PUSH_MESSAGE">
+            <intent-filter>
+                <action android:name="com.heytap.mcs.action.RECEIVE_MCS_MESSAGE"/>
+                <action android:name="com.heytap.msp.push.RECEIVE_MCS_MESSAGE"/>
+            </intent-filter>
+        </service> <!--兼容Q版本-->
+        <!--oppo推送结束-->
 
     </application>
 
