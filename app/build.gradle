@@ -268,6 +268,9 @@ dependencies {
 
     //oppo推送
     implementation(name:'com.heytap.msp-push-2.1.0', ext:'aar')
+    
+    //魅族推送
+    implementation(name:'push-internal-3.9.7', ext:'aar')
 }
 
 configurations {

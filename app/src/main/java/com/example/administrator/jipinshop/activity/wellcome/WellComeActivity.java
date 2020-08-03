@@ -29,6 +29,7 @@ import com.example.administrator.jipinshop.util.sp.CommonDate;
 import com.heytap.msp.push.HeytapPushManager;
 import com.heytap.msp.push.callback.ICallBackResultService;
 import com.huawei.hms.push.HmsMessaging;
+import com.meizu.cloud.pushsdk.PushManager;
 import com.vivo.push.PushClient;
 import com.xiaomi.mipush.sdk.MiPushClient;
 
@@ -118,6 +119,9 @@ public class WellComeActivity extends BaseActivity {
                         });
                 notifyChannel(MyApplication.getInstance());//oppo设置通知通道 兼容Android8.0及以上机型
             }
+        }else if (deviceBrand.equals("meizu")){
+            JPushInterface.stopPush(this);//极光停止推送
+            PushManager.register(this, "133208", "26040f18468d4c4d908125012aed5375");
         }
     }
 

@@ -33,6 +33,18 @@
     <uses-permission android:name="com.coloros.mcs.permission.RECIEVE_MCS_MESSAGE"/>
     <uses-permission android:name="com.heytap.mcs.permission.RECIEVE_MCS_MESSAGE"/>
 
+    <!--魅族推送需要-->
+    <!-- 兼容 Flyme5 以下版本，魅族内部接入 PushSDK 必填，不然无法收到消息-->
+    <uses-permission android:name="com.meizu.flyme.push.permission.RECEIVE" />
+    <permission android:name="com.example.administrator.jipinshop.push.permission.MESSAGE"
+                android:protectionLevel="signature"/>
+    <uses-permission android:name="com.example.administrator.jipinshop.push.permission.MESSAGE" />
+    <!-- 兼容 Flyme3 配置权限-->
+    <uses-permission android:name="com.meizu.c2dm.permission.RECEIVE" />
+    <permission android:name="com.example.administrator.jipinshop.permission.C2D_MESSAGE"
+                android:protectionLevel="signature"/>
+    <uses-permission android:name="com.example.administrator.jipinshop.permission.C2D_MESSAGE"/>
+
     <application
         tools:replace="android:allowBackup"
         android:name=".MyApplication"
@@ -643,6 +655,7 @@
         </service>
         <activity android:name=".jpush.huawei.HmsActivity"
                   android:screenOrientation="portrait"
+                  android:launchMode="singleTask"
                   android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.VIEW" />
@@ -728,14 +741,14 @@
 
         <!--oppo推送-->
         <service
-            android:name="com.heytap.msp.push.service.CompatibleDataMessageCallbackService"
+            android:name=".jpush.oppo.PushMessageService"
             android:permission="com.coloros.mcs.permission.SEND_MCS_MESSAGE">
             <intent-filter>
                 <action android:name="com.coloros.mcs.action.RECEIVE_MCS_MESSAGE"/>
             </intent-filter>
         </service> <!--兼容Q以下版本-->
         <service
-            android:name="com.heytap.msp.push.service.DataMessageCallbackService"
+            android:name=".jpush.oppo.AppPushMessageService"
             android:permission="com.heytap.mcs.permission.SEND_PUSH_MESSAGE">
             <intent-filter>
                 <action android:name="com.heytap.mcs.action.RECEIVE_MCS_MESSAGE"/>
@@ -756,6 +769,20 @@
             </intent-filter>
         </activity>
         <!--oppo推送结束-->
+
+        <!--魅族推送开始-->
+        <!-- push 应用定义消息 receiver 声明 -->
+        <receiver android:name=".jpush.meizu.MyPushMsgReceiver">
+            <intent-filter>
+                <action android:name="com.meizu.flyme.push.intent.MESSAGE" />
+                <action android:name="com.meizu.flyme.push.intent.REGISTER.FEEDBACK" />
+                <action android:name="com.meizu.flyme.push.intent.UNREGISTER.FEEDBACK"/>
+                <action android:name="com.meizu.c2dm.intent.REGISTRATION" />
+                <action android:name="com.meizu.c2dm.intent.RECEIVE" />
+                <category android:name="com.example.administrator.jipinshop" />
+            </intent-filter>
+        </receiver>
+        <!--魅族推送结束-->
 
     </application>
 

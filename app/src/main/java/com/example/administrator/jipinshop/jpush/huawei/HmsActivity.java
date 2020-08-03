@@ -16,7 +16,7 @@ import java.util.List;
 /**
  * @author 莫小婷
  * @create 2020/7/23
- * @Describe 华为、小米、vivo推送中转activity
+ * @Describe 华为、小米、vivo、魅族推送中转activity
  */
 public class HmsActivity extends BaseActivity {
 
