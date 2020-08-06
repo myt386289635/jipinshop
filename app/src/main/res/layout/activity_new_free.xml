@@ -19,16 +19,22 @@
             layout="@layout/aa_title2"
             bind:listener="@{listener}"/>
 
-        <ImageView
+        <RelativeLayout
             android:onClick="@{listener.onClick}"
-            android:background="@color/color_D33C0C"
-            android:visibility="gone"
-            android:adjustViewBounds="true"
-            android:src="@mipmap/bg_newfree1"
             android:id="@+id/free_bottom"
             android:layout_alignParentBottom="true"
+            android:background="@color/color_D33C0C"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"/>
+            android:layout_height="@dimen/y100">
+
+            <ImageView
+                android:layout_centerInParent="true"
+                android:id="@+id/free_image"
+                android:src="@mipmap/bg_newfree1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+
+        </RelativeLayout>
 
         <com.aspsine.swipetoloadlayout.SwipeToLoadLayout
             android:layout_above="@id/free_bottom"

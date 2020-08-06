@@ -13,6 +13,8 @@ import android.support.annotation.Nullable;
 import android.support.v7.widget.GridLayoutManager;
 import android.text.TextUtils;
 import android.view.View;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 
 import com.aspsine.swipetoloadlayout.OnRefreshListener;
 import com.blankj.utilcode.util.SPUtils;
@@ -61,6 +63,7 @@ public class NewFreeActivity extends BaseActivity implements View.OnClickListene
     private ShareBoardDialog4 mShareBoardDialog;
     private Boolean startPop = true;//是否弹出关闭确认弹窗
     private NewFreeBean bean = null;
+    private Animation animation;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -73,12 +76,11 @@ public class NewFreeActivity extends BaseActivity implements View.OnClickListene
     }
 
     private void initView() {
-        if (SPUtils.getInstance().getBoolean(CommonDate.CheapDialog, true)){
-            //当cheapDialog没有值时默认为true，即第一次打开app没有弹出过津贴弹窗
-            SPUtils.getInstance().put(CommonDate.CheapDialog,true);//开启首页返回弹窗
-        }
+        startPop = getIntent().getBooleanExtra("startPop",true);
         mBinding.inClude.titleTv.setText("新人免单专区");
         mBinding.swipeToLoad.setBackgroundColor(getResources().getColor(R.color.color_white));
+        animation = AnimationUtils.loadAnimation(this, R.anim.free_scale);
+        mBinding.freeImage.startAnimation(animation);
 
         mList = new ArrayList<>();
         mAdapter = new NewFreeAdapter(this,mList);
@@ -107,7 +109,6 @@ public class NewFreeActivity extends BaseActivity implements View.OnClickListene
                             //未超时
                             twoFinishPage();
                         }else {
-                            SPUtils.getInstance().put(CommonDate.CheapDialog,false);//不开启首页返回弹窗
                             finish();
                         }
                     }
@@ -221,6 +222,7 @@ public class NewFreeActivity extends BaseActivity implements View.OnClickListene
             mBinding.netClude.qsNet.setVisibility(View.GONE);
             mBinding.recyclerView.setVisibility(View.VISIBLE);
             mBinding.freeBottom.setVisibility(View.VISIBLE);
+            animation.start();//动画
             mList.clear();
             mList.addAll(bean.getData());
             mAdapter.setAd1(bean.getAd1());
@@ -330,7 +332,6 @@ public class NewFreeActivity extends BaseActivity implements View.OnClickListene
                     //未超时
                     twoFinishPage();
                 }else {
-                    SPUtils.getInstance().put(CommonDate.CheapDialog,false);//不开启首页返回弹窗
                     super.onBackPressed();
                 }
             }

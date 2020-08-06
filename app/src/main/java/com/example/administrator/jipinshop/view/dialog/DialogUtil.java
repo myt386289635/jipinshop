@@ -21,8 +21,6 @@ import android.text.style.ClickableSpan;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.WindowManager;
-import android.view.animation.Animation;
-import android.view.animation.AnimationUtils;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -44,9 +42,9 @@ import com.example.administrator.jipinshop.bean.TklBean;
 import com.example.administrator.jipinshop.databinding.DialogCheapOutBinding;
 import com.example.administrator.jipinshop.databinding.DialogLuckBinding;
 import com.example.administrator.jipinshop.databinding.DialogNewpeople2Binding;
-import com.example.administrator.jipinshop.databinding.DialogNewpeopleBinding;
 import com.example.administrator.jipinshop.databinding.DialogNewpeopleBuyBinding;
 import com.example.administrator.jipinshop.databinding.DialogOutBinding;
+import com.example.administrator.jipinshop.databinding.DialogParityBinding;
 import com.example.administrator.jipinshop.databinding.DialogTklBinding;
 import com.example.administrator.jipinshop.databinding.DialogUserBinding;
 import com.example.administrator.jipinshop.databinding.DialogUserDetailBinding;
@@ -299,31 +297,18 @@ public class DialogUtil {
         dialog.setContentView(view);
     }
 
-    /**
-     * 用户首次下载 20元津贴弹窗
-     */
-    public static void NewPeopleDialog(Context context, final View.OnClickListener cancleListener ,
-                                       final View.OnClickListener sureListener) {
+    //比价弹窗
+    public static void parityDialog(Context context, final View.OnClickListener sureListener) {
         AlertDialog.Builder builder = new AlertDialog.Builder(context, R.style.dialog);
-        DialogNewpeopleBinding binding = DataBindingUtil.inflate(LayoutInflater.from(context),R.layout.dialog_newpeople, null,false);
+        DialogParityBinding binding = DataBindingUtil.inflate(LayoutInflater.from(context),R.layout.dialog_parity, null,false);
         final Dialog dialog = builder.create();
-        Animation animation = AnimationUtils.loadAnimation(context, R.anim.free_scale);
-        binding.dialogSure.startAnimation(animation);
+        binding.dialogBackground.setOnClickListener(v -> dialog.dismiss());
         binding.dialogCancle.setOnClickListener(v -> {
-            if (cancleListener != null)
-                cancleListener.onClick(v);
             dialog.dismiss();
         });
-        binding.dialogSure.setOnClickListener(v -> {
-            binding.dialogBackground.setVisibility(View.GONE);
-            binding.dialogSure.setVisibility(View.GONE);
-            binding.dialogBackgroundResult.setVisibility(View.VISIBLE);
-            binding.dialogSureResult.setVisibility(View.VISIBLE);
-        });
-        binding.dialogSureResult.setOnClickListener(v -> {
-            if (sureListener != null){
+        binding.dialogParity.setOnClickListener(v -> {
+            if (sureListener != null)
                 sureListener.onClick(v);
-            }
             dialog.dismiss();
         });
         dialog.getWindow().setDimAmount(0.35f);
@@ -757,7 +742,6 @@ public class DialogUtil {
                 listener.onClick(v);
             dialog.dismiss();
         });
-        SPUtils.getInstance().put(CommonDate.CheapDialog,false);
         dialog.getWindow().setDimAmount(0.35f);
         dialog.show();
         dialog.setContentView(binding.getRoot());
@@ -833,18 +817,25 @@ public class DialogUtil {
         dialog.setContentView(view);
     }
 
-    //特惠购页面新手指导
-    public static void cheapGuideDialog(Context context) {
+    //首次新手教程弹窗
+    public static void noviceTutorialDialog(Context context, View.OnClickListener listener , View.OnClickListener cancleListener){
         AlertDialog.Builder builder = new AlertDialog.Builder(context, R.style.dialog);
         final Dialog dialog = builder.create();
-        View view = LayoutInflater.from(context).inflate(R.layout.dialog_cheap_guide, null);
-        ImageView dialog_cancle = view.findViewById(R.id.dialog_cancle);
-        dialog_cancle.setOnClickListener(v -> {
+        DialogNewpeople2Binding binding = DataBindingUtil.inflate(LayoutInflater.from(context), R.layout.dialog_newpeople2, null, false);
+        binding.dialogImage.setImageResource(R.mipmap.novice_tutorial);
+        binding.dialogCancle.setOnClickListener(v -> {
+            if (cancleListener != null)
+                cancleListener.onClick(v);
             dialog.dismiss();
         });
-        dialog.getWindow().setDimAmount(0.8f);
+        binding.dialogImage.setOnClickListener(v -> {
+            if (listener != null)
+                listener.onClick(v);
+            dialog.dismiss();
+        });
+        dialog.getWindow().setDimAmount(0.35f);
         dialog.show();
-        dialog.setContentView(view);
+        dialog.setContentView(binding.getRoot());
     }
 
     //打开朋友圈

@@ -34,7 +34,6 @@ import java.util.List;
 import javax.inject.Inject;
 
 import io.reactivex.android.schedulers.AndroidSchedulers;
-import io.reactivex.functions.Consumer;
 import io.reactivex.schedulers.Schedulers;
 
 public class MainActivityPresenter {
@@ -218,11 +217,7 @@ public class MainActivityPresenter {
                 .subscribe(popBean -> {
                     if (popBean.getCode() == 0) {
                         mView.onNewDialogSuc(popBean);
-                    }else {
-                        mView.onNewDialogFile();
                     }
-                }, throwable -> {
-                    mView.onNewDialogFile();
-                });
+                }, throwable -> {});
     }
 }

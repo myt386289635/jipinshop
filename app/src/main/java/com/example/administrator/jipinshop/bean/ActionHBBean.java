@@ -11,6 +11,15 @@ public class ActionHBBean {
     private int code;
     private String data;
     private String open;
+    private String img;
+
+    public String getImg() {
+        return img;
+    }
+
+    public void setImg(String img) {
+        this.img = img;
+    }
 
     public String getMsg() {
         return msg;

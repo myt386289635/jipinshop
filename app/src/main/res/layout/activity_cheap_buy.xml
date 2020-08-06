@@ -33,18 +33,28 @@
             android:layout_height="@dimen/y88"/>
 
 
-        <TextView
-            android:background="@drawable/bg_dialog_out2"
+        <RelativeLayout
+            android:background="@color/color_FE6109"
+            android:layout_alignParentBottom="true"
             android:onClick="@{listener.onClick}"
             android:id="@+id/detail_used"
-            android:layout_alignParentBottom="true"
-            android:gravity="center"
-            android:text="立即送好友津贴福利"
-            android:textStyle="bold"
-            android:textColor="@color/color_EA4F17"
-            android:textSize="18sp"
             android:layout_width="match_parent"
-            android:layout_height="@dimen/y100"/>
+            android:layout_height="@dimen/y100">
+
+            <TextView
+                android:id="@+id/detail_text"
+                android:layout_centerInParent="true"
+                android:background="@drawable/bg_dialog_out2"
+                android:gravity="center"
+                android:text="立即送好友津贴福利"
+                android:textStyle="bold"
+                android:textColor="@color/color_EA4F17"
+                android:textSize="16sp"
+                android:layout_width="@dimen/x589"
+                android:layout_height="@dimen/y76"/>
+
+        </RelativeLayout>
+
 
         <com.aspsine.swipetoloadlayout.SwipeToLoadLayout
             android:layout_above="@id/detail_used"

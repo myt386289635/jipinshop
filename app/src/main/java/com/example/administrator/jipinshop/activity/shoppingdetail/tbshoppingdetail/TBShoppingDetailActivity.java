@@ -23,6 +23,7 @@ import com.blankj.utilcode.util.SPUtils;
 import com.example.administrator.jipinshop.R;
 import com.example.administrator.jipinshop.activity.home.home.HomeNewActivity;
 import com.example.administrator.jipinshop.activity.login.LoginActivity;
+import com.example.administrator.jipinshop.activity.school.video.VideoActivity;
 import com.example.administrator.jipinshop.activity.share.ShareActivity;
 import com.example.administrator.jipinshop.adapter.NoPageBannerAdapter;
 import com.example.administrator.jipinshop.adapter.ShoppingImageAdapter;
@@ -47,6 +48,7 @@ import com.example.administrator.jipinshop.util.ToastUtil;
 import com.example.administrator.jipinshop.util.sp.CommonDate;
 import com.example.administrator.jipinshop.view.dialog.DialogParameter;
 import com.example.administrator.jipinshop.view.dialog.DialogQuality;
+import com.example.administrator.jipinshop.view.dialog.DialogUtil;
 import com.example.administrator.jipinshop.view.dialog.ProgressDialogView;
 import com.example.administrator.jipinshop.view.textview.CenteredImageSpan;
 import com.google.gson.Gson;
@@ -427,6 +429,12 @@ public class TBShoppingDetailActivity extends BaseActivity implements View.OnCli
             mBinding.detailMember.setVisibility(View.VISIBLE);
             mBinding.detailMemberPrice.setText("￥" + bean.getData().getUpFee());
         }
+        //比价弹窗
+        DialogUtil.parityDialog(this, v -> {
+            startActivity(new Intent(this, VideoActivity.class)
+                    .putExtra("courseId", "")
+            );
+        });
     }
 
     @Override

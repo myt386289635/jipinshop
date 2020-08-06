@@ -231,6 +231,15 @@ public class NewFreeBean {
         private String otherName;
         private String otherPrice;
         private String buyPrice;
+        private String soldTotal;
+
+        public String getSoldTotal() {
+            return soldTotal;
+        }
+
+        public void setSoldTotal(String soldTotal) {
+            this.soldTotal = soldTotal;
+        }
 
         public String getId() {
             return id;

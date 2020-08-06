@@ -18,7 +18,6 @@ public class CommonDate {
     public static final String CLIP = "clip";//粘贴板内容存稿
     public static final String AD = "AD";//广告
     public static final String privacy = "privacy";//隐私协议版本号
-    public static final String CheapDialog = "CheapDialog"; //控制特惠购弹窗只弹一次
 
 
     //用户数据表（sp文件名：user）

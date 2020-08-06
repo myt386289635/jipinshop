@@ -34,5 +34,4 @@ public interface MainView {
     void onStartFile();
 
     void onNewDialogSuc(PopBean bean);
-    void onNewDialogFile();
 }

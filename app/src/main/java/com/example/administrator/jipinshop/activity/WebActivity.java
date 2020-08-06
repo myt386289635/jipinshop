@@ -2,8 +2,10 @@ package com.example.administrator.jipinshop.activity;
 
 import android.app.Dialog;
 import android.content.Intent;
+import android.content.pm.ResolveInfo;
 import android.databinding.DataBindingUtil;
 import android.graphics.Bitmap;
+import android.net.Uri;
 import android.net.http.SslError;
 import android.os.Build;
 import android.os.Bundle;
@@ -38,7 +40,9 @@ import com.umeng.socialize.UMShareAPI;
 import com.umeng.socialize.bean.SHARE_MEDIA;
 
 import java.io.UnsupportedEncodingException;
+import java.net.URISyntaxException;
 import java.net.URLDecoder;
+import java.util.List;
 
 import javax.inject.Inject;
 
@@ -148,6 +152,34 @@ public class WebActivity extends BaseActivity implements View.OnClickListener, W
                     }else if(url.startsWith("http") || url.startsWith("https")){
                         //解决第三方网页打开页面后会跳转到自定义的schame而页面出错问题
                         view.loadUrl(url);//处理http和https开头的url
+                    }else if (url.startsWith("intent://")){
+                        //处理intent协议
+                        Intent intent;
+                        try {
+                            intent = Intent.parseUri(url, Intent.URI_INTENT_SCHEME);
+                            intent.addCategory("android.intent.category.BROWSABLE");
+                            intent.setComponent(null);
+                            intent.setSelector(null);
+                            List<ResolveInfo> resolves = getPackageManager().queryIntentActivities(intent,0);
+                            if(resolves.size() >0){
+                                startActivityIfNeeded(intent, -1);
+                            }
+                        } catch (URISyntaxException e) {
+                            e.printStackTrace();
+                        }
+                    }else if (!url.startsWith("http")){
+                        //处理自定义scheme协议
+                        try {
+                            // 以下固定写法
+                            final Intent intent = new Intent(Intent.ACTION_VIEW,
+                                    Uri.parse(url));
+                            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK
+                                    | Intent.FLAG_ACTIVITY_SINGLE_TOP);
+                            startActivity(intent);
+                        } catch (Exception e) {
+                            // 防止没有安装的情况
+                            e.printStackTrace();
+                        }
                     }
                     return true;
                 }
@@ -281,7 +313,6 @@ public class WebActivity extends BaseActivity implements View.OnClickListener, W
 
     @Override
     public void onAction(ImageBean bean) {
-        mBinding.webView.loadUrl(bean.getData());
         if (isGo && !TextUtils.isEmpty(mSource) && !mSource.equals("0")){
             isFinish = true;
             if (mSource.equals("1")){
@@ -291,12 +322,13 @@ public class WebActivity extends BaseActivity implements View.OnClickListener, W
             }else {
                 goTaobao(bean.getData());
             }
+        }else {
+            mBinding.webView.loadUrl(bean.getData());
         }
     }
 
     @Override
     public void onActionFile() {
-        mBinding.webView.loadUrl(getIntent().getStringExtra(url));
         if (isGo && !TextUtils.isEmpty(mSource) && !mSource.equals("0")){
             isFinish = true;
             if (mSource.equals("1")){
@@ -306,6 +338,8 @@ public class WebActivity extends BaseActivity implements View.OnClickListener, W
             }else {
                 goTaobao(getIntent().getStringExtra(url));
             }
+        }else {
+            mBinding.webView.loadUrl(getIntent().getStringExtra(url));
         }
     }
 

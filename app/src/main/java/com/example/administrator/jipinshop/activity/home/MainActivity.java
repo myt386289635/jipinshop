@@ -21,6 +21,7 @@ import android.widget.TextView;
 import com.blankj.utilcode.util.SPUtils;
 import com.example.administrator.jipinshop.MyApplication;
 import com.example.administrator.jipinshop.R;
+import com.example.administrator.jipinshop.activity.WebActivity;
 import com.example.administrator.jipinshop.activity.cheapgoods.CheapBuyActivity;
 import com.example.administrator.jipinshop.activity.login.LoginActivity;
 import com.example.administrator.jipinshop.activity.newpeople.NewFreeActivity;
@@ -65,6 +66,7 @@ import com.gyf.barlibrary.ImmersionBar;
 import com.mob.moblink.MobLink;
 import com.mob.moblink.Scene;
 import com.mob.moblink.SceneRestorable;
+import com.trello.rxlifecycle2.android.ActivityEvent;
 import com.trello.rxlifecycle2.components.support.RxAppCompatActivity;
 import com.umeng.analytics.MobclickAgent;
 
@@ -376,69 +378,18 @@ public class MainActivity extends RxAppCompatActivity implements MainView, ViewP
                 //可以取消
                 UpDataUtil.newInstance().downloadApk(this, versionbean.getData().getVersionName(), false,
                         versionbean.getData().getContent(), versionbean.getData().getDownloadUrl(), () -> {
-                            if (SPUtils.getInstance().getBoolean(CommonDate.FIRST, true)) {
-                                //新人第一次进入app
-                                NotificationUtil.OpenNotificationSetting(this, () -> {
-                                    //20元津贴弹窗
-                                    DialogUtil.newPeopleDialog(MainActivity.this, v -> {
-                                        DialogUtil.cheapDialog(this, v12 -> {
-                                            startActivity(new Intent(this, CheapBuyActivity.class));
-                                        }, v1 -> {
-                                            getClipText();
-                                        });
-                                    }, v -> {
-                                        startActivity(new Intent(this, NewFreeActivity.class));
-                                    });
-                                });
-                            } else {
-                                //老人进入app
-                                mPresenter.getPopInfo(this.bindToLifecycle()); //活动弹窗
-                            }
+                            onFile();
                         });//第一版
             } else {
                 //必须强制更新
                 UpDataUtil.newInstance().downloadApk(this, versionbean.getData().getVersionName(), true,
                         versionbean.getData().getContent(), versionbean.getData().getDownloadUrl(), () -> {
-                            if (SPUtils.getInstance().getBoolean(CommonDate.FIRST, true)) {
-                                //新人第一次进入app
-                                NotificationUtil.OpenNotificationSetting(this, () -> {
-                                    //20元津贴弹窗
-                                    DialogUtil.newPeopleDialog(MainActivity.this, v -> {
-                                        DialogUtil.cheapDialog(this, v12 -> {
-                                            startActivity(new Intent(this, CheapBuyActivity.class));
-                                        }, v1 -> {
-                                            getClipText();
-                                        });
-                                    }, v -> {
-                                        startActivity(new Intent(this, NewFreeActivity.class));
-                                    });
-                                });
-                            } else {
-                                //老人进入app
-                                mPresenter.getPopInfo(this.bindToLifecycle()); //活动弹窗
-                            }
+                            onFile();
                         });//第一版
             }
 
         } else {
-            if (SPUtils.getInstance().getBoolean(CommonDate.FIRST, true)) {
-                //新人第一次进入app
-                NotificationUtil.OpenNotificationSetting(this, () -> {
-                    //20元津贴弹窗
-                    DialogUtil.newPeopleDialog(MainActivity.this, v -> {
-                        DialogUtil.cheapDialog(this, v12 -> {
-                            startActivity(new Intent(this, CheapBuyActivity.class));
-                        }, v1 -> {
-                            getClipText();
-                        });
-                    }, v -> {
-                        startActivity(new Intent(this, NewFreeActivity.class));
-                    });
-                });
-            } else {
-                //老人进入app
-                mPresenter.getPopInfo(this.bindToLifecycle()); //活动弹窗
-            }
+            onFile();
         }
     }
 
@@ -447,21 +398,48 @@ public class MainActivity extends RxAppCompatActivity implements MainView, ViewP
         if (SPUtils.getInstance().getBoolean(CommonDate.FIRST, true)) {
             //新人第一次进入app
             NotificationUtil.OpenNotificationSetting(this, () -> {
-                //20元津贴弹窗
+                //新人0元购
                 DialogUtil.newPeopleDialog(MainActivity.this, v -> {
-                    DialogUtil.cheapDialog(this, v12 -> {
-                        startActivity(new Intent(this, CheapBuyActivity.class));
-                    }, v1 -> {
-                        getClipText();
-                    });
+                    onCheapDialog();
                 }, v -> {
-                    startActivity(new Intent(this, NewFreeActivity.class));
+                    startActivity(new Intent(this, NewFreeActivity.class)
+                            .putExtra("startPop",false)
+                    );
+                    onCheapDialog();
                 });
             });
         } else {
             //老人进入app
             mPresenter.getPopInfo(this.bindToLifecycle()); //活动弹窗
         }
+    }
+
+    //新手教程
+    public void NoviceTutorial(){
+        DialogUtil.noviceTutorialDialog(this, v -> {
+            Intent intent = new Intent();
+            intent.setClass(this, WebActivity.class);
+            intent.putExtra(WebActivity.url, RetrofitModule.H5_URL+"tbk-rule.html");
+            intent.putExtra(WebActivity.title,"极品城省钱攻略");
+            intent.putExtra(WebActivity.isShare,true);
+            intent.putExtra(WebActivity.shareTitle,"如何查找淘宝隐藏优惠券及下单返利？");
+            intent.putExtra(WebActivity.shareContent,"淘宝天猫90%的商品都能省，同时还有高额返利，淘好物，更省钱！");
+            intent.putExtra(WebActivity.shareImage,"https://jipincheng.cn/shengqian.png");
+            startActivity(intent);
+            getClipText();
+        }, v -> getClipText());
+    }
+
+    //特惠购首次下单奖励弹框
+    public void onCheapDialog(){
+        DialogUtil.cheapDialog(this, v12 -> {
+            startActivity(new Intent(this, CheapBuyActivity.class)
+                    .putExtra("startPop",false)
+            );
+            NoviceTutorial();
+        }, v1 -> {
+            NoviceTutorial();
+        });
     }
 
     @Override
@@ -608,25 +586,10 @@ public class MainActivity extends RxAppCompatActivity implements MainView, ViewP
     @Override
     public void onNewDialogSuc(PopBean bean) {
         if (bean.getData() != null ){
-            onCheapDialog();
-        }else {
-            if (SPUtils.getInstance().getBoolean(CommonDate.CheapDialog, false)){
-                onCheapDialog();
-            }
+            DialogUtil.cheapDialog(this, v12 -> {
+                startActivity(new Intent(this, CheapBuyActivity.class));
+            }, null);
         }
-    }
-
-    @Override
-    public void onNewDialogFile() {
-        if (SPUtils.getInstance().getBoolean(CommonDate.CheapDialog, false)){
-            onCheapDialog();
-        }
-    }
-
-    public void onCheapDialog(){
-        DialogUtil.cheapDialog(this, v12 -> {
-            startActivity(new Intent(this, CheapBuyActivity.class));
-        }, null);
     }
 
     @Override
@@ -636,9 +599,7 @@ public class MainActivity extends RxAppCompatActivity implements MainView, ViewP
     }
 
     @Override
-    public void onPageScrolled(int i, float v, int i1) {
-
-    }
+    public void onPageScrolled(int i, float v, int i1) { }
 
     @Override
     public void onPageSelected(int i) {
@@ -667,9 +628,7 @@ public class MainActivity extends RxAppCompatActivity implements MainView, ViewP
     }
 
     @Override
-    public void onPageScrollStateChanged(int i) {
-
-    }
+    public void onPageScrollStateChanged(int i) { }
 
     @Override
     public void onReturnSceneData(Scene scene) {
@@ -684,7 +643,6 @@ public class MainActivity extends RxAppCompatActivity implements MainView, ViewP
         MobLink.updateNewIntent(getIntent(), this);
     }
 
-
     public void getClipText() {
         ClipboardManager cm = (ClipboardManager) getSystemService(CLIPBOARD_SERVICE);
         ClipData clipData = cm.getPrimaryClip();
@@ -693,7 +651,7 @@ public class MainActivity extends RxAppCompatActivity implements MainView, ViewP
             if (item != null && item.getText() != null) {//小米手机会崩溃
                 String content = item.getText().toString();
                 if (!TextUtils.isEmpty(content.trim()) && !content.equals(SPUtils.getInstance().getString(CommonDate.CLIP, ""))) {
-                    mPresenter.getGoodsByTkl(content, this.bindToLifecycle());
+                    mPresenter.getGoodsByTkl(content, this.bindUntilEvent(ActivityEvent.DESTROY));
                 }
             }
         }

@@ -10,6 +10,7 @@ import android.os.Bundle
 import android.support.v7.widget.LinearLayoutManager
 import android.text.TextUtils
 import android.view.View
+import android.view.animation.AnimationUtils
 import com.alibaba.baichuan.android.trade.AlibcTradeSDK
 import com.aspsine.swipetoloadlayout.OnRefreshListener
 import com.blankj.utilcode.util.SPUtils
@@ -60,9 +61,13 @@ class CheapBuyActivity : BaseActivity(), View.OnClickListener, OnRefreshListener
     }
 
     private fun initView() {
+        startPop = intent.getBooleanExtra("startPop", true)
         mBinding.inClude?.let {
             it.titleTv.text = "官方百万津贴专区"
         }
+        var animation = AnimationUtils.loadAnimation(this, R.anim.free_scale)
+        mBinding.detailText.startAnimation(animation)
+        animation.start()//动画
 
         mBinding.recyclerView.layoutManager = LinearLayoutManager(this)
         mList = mutableListOf()

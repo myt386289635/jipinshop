@@ -37,6 +37,7 @@ import com.example.administrator.jipinshop.util.UmApp.AppStatisticalUtil
 import com.example.administrator.jipinshop.util.WeakRefHandler
 import com.example.administrator.jipinshop.util.sp.CommonDate
 import com.example.administrator.jipinshop.view.dialog.DialogUtil
+import com.example.administrator.jipinshop.view.glide.GlideApp
 import net.lucode.hackware.magicindicator.ViewPagerHelper
 import net.lucode.hackware.magicindicator.buildins.commonnavigator.CommonNavigator
 import javax.inject.Inject
@@ -227,6 +228,7 @@ class KTHomeFragnent : DBBaseFragment(), View.OnClickListener, ViewPager.OnPageC
         isAction = bean.open != "0"
         if (isAction){
             mBinding.homeAction.visibility = View.VISIBLE
+            GlideApp.loderImage(context,bean.img,mBinding.homeAction,0,0)
         }else{
             mBinding.homeAction.visibility = View.GONE
         }
