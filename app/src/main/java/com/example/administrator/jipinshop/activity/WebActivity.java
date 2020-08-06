@@ -264,7 +264,7 @@ public class WebActivity extends BaseActivity implements View.OnClickListener, W
     }
 
     /**
-     * 对图片进行重置大小，宽度就是手机屏幕宽度，高度根据宽度比便自动缩放
+     * 隐藏h5页面的某些样式
      **/
     private void imgReset() {
         String jsFunction="javascript:function startHide() {"
