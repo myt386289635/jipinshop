@@ -35,7 +35,7 @@
 
         </RelativeLayout>
 
-        <WebView
+        <com.example.administrator.jipinshop.view.webview.MeiTuanWebView
             android:scrollbars="none"
             android:id="@+id/web_view"
             android:layout_width="match_parent"

@@ -11,6 +11,7 @@ import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.text.TextUtils;
+import android.util.DisplayMetrics;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.ViewParent;
@@ -103,9 +104,29 @@ public class WebActivity extends BaseActivity implements View.OnClickListener, W
         mBinding.webView.getSettings().setUseWideViewPort(true);
         mBinding.webView.addJavascriptInterface(new WebViewJavaScriptFunction(), "tk");
         mBinding.webView.getSettings().setJavaScriptEnabled(true);//启用支持javascript
-        mBinding.webView.getSettings().setLayoutAlgorithm(WebSettings.LayoutAlgorithm.NARROW_COLUMNS);
+        mBinding.webView.getSettings().setLayoutAlgorithm(WebSettings.LayoutAlgorithm.SINGLE_COLUMN);
         mBinding.webView.getSettings().setCacheMode(WebSettings.LOAD_NO_CACHE);//不使用缓存
+        mBinding.webView.getSettings().setTextZoom(100);
         mBinding.webView.getSettings().setDomStorageEnabled(true);// 开启 DOM storage API 功能
+        //通过屏幕密度调整分辨率
+        WebSettings settings = mBinding.webView.getSettings();
+        int screenDensity = getResources().getDisplayMetrics().densityDpi;
+        WebSettings.ZoomDensity zoomDensity = WebSettings.ZoomDensity.MEDIUM;
+        switch (screenDensity) {
+            case DisplayMetrics.DENSITY_LOW:
+                zoomDensity = WebSettings.ZoomDensity.CLOSE;
+                break;
+            case DisplayMetrics.DENSITY_MEDIUM:
+                zoomDensity = WebSettings.ZoomDensity.MEDIUM;
+                break;
+            case DisplayMetrics.DENSITY_HIGH:
+            case DisplayMetrics.DENSITY_XHIGH:
+            case DisplayMetrics.DENSITY_XXHIGH:
+            default:
+                zoomDensity = WebSettings.ZoomDensity.FAR;
+                break;
+        }
+        settings.setDefaultZoom(zoomDensity);
         // 设置允许加载混合内容 https与http混合使用的网址
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             mBinding.webView.getSettings().setMixedContentMode(WebSettings.MIXED_CONTENT_ALWAYS_ALLOW);
@@ -222,6 +243,10 @@ public class WebActivity extends BaseActivity implements View.OnClickListener, W
         }
 
         if (!TextUtils.isEmpty(mSource) && !mSource.equals("0")){
+            if (mSource.equals("5")){
+                //美团专属
+                mBinding.webView.setOnDrawListener(() -> imgReset());
+            }
             mPresenter.genByAct(getIntent().getStringExtra(url),mSource,this.bindToLifecycle());
         }else {
             mBinding.webView.loadUrl(getIntent().getStringExtra(url));
@@ -236,6 +261,20 @@ public class WebActivity extends BaseActivity implements View.OnClickListener, W
             result = false;
         }
         return result;
+    }
+
+    /**
+     * 对图片进行重置大小，宽度就是手机屏幕宽度，高度根据宽度比便自动缩放
+     **/
+    private void imgReset() {
+        String jsFunction="javascript:function startHide() {"
+                + "document.getElementsByClassName('scrolling-text-single-container')[0].style.display='none';"
+                + "document.getElementsByClassName('countdown-day-container')[0].style.display='none'"
+                + "}";
+        //注入 js函数
+        mBinding.webView.loadUrl(jsFunction);
+        //调用 js函数
+        mBinding.webView.loadUrl("javascript:startHide();");
     }
 
     @Override
