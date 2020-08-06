@@ -100,6 +100,8 @@ public class TBShoppingDetailActivity extends BaseActivity implements View.OnCli
     private int goodsType = 2;//1是极品城  2是淘宝
     private String source = "2";//商品来源:1京东,2淘宝，4拼多多 默认淘宝详情
     private String money = "0.00";//总共要省的钱
+    //比价弹窗需要
+    private String parity = "";
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -121,6 +123,7 @@ public class TBShoppingDetailActivity extends BaseActivity implements View.OnCli
             source = getIntent().getStringExtra("source");//商品来源
         }
         goodsId = getIntent().getStringExtra("otherGoodsId");//商品id
+        parity = getIntent().getStringExtra("parity");
         mPresenter.setStatusBarHight(mBinding.statusBar,this);
 
         //banner
@@ -430,11 +433,16 @@ public class TBShoppingDetailActivity extends BaseActivity implements View.OnCli
             mBinding.detailMemberPrice.setText("￥" + bean.getData().getUpFee());
         }
         //比价弹窗
-        DialogUtil.parityDialog(this, v -> {
-            startActivity(new Intent(this, VideoActivity.class)
-                    .putExtra("courseId", "")
-            );
-        });
+        if (!TextUtils.isEmpty(parity)){
+            double freeparity = new BigDecimal(parity).doubleValue();
+            if (freeparity - free != 0){
+                DialogUtil.parityDialog(this, v -> {
+                    startActivity(new Intent(this, VideoActivity.class)
+                            .putExtra("courseId", bean.getCourseId())
+                    );
+                });
+            }
+        }
     }
 
     @Override

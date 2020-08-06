@@ -15,6 +15,15 @@ public class TBShoppingDetailBean {
     private DataBean data;
     private AllowanceGoodsBean allowanceGoods;
     private boolean isNewUser;
+    private String courseId;
+
+    public String getCourseId() {
+        return courseId;
+    }
+
+    public void setCourseId(String courseId) {
+        this.courseId = courseId;
+    }
 
     public boolean isNewUser() {
         return isNewUser;

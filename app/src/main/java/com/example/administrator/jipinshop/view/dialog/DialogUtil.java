@@ -645,6 +645,7 @@ public class DialogUtil {
             context.startActivity(new Intent(context, TBShoppingDetailActivity.class)
                     .putExtra("otherGoodsId", bean.getData().getData().getOtherGoodsId())
                     .putExtra("source",bean.getData().getData().getSource())
+                    .putExtra("parity",bean.getData().getData().getFee())
             );
             dialog.dismiss();
         });
