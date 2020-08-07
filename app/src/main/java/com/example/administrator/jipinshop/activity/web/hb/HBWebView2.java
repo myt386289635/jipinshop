@@ -121,9 +121,52 @@ public class HBWebView2 extends BaseActivity implements View.OnClickListener, Sh
                     }
                 }else if (url.startsWith("https://openhb")){
                     //打开红包首页
-                    startActivity(new Intent(HBWebView2.this, HBWebView.class)
-                            .putExtra(HBWebView.url, RetrofitModule.JP_H5_URL + "new-free/submitRedPacket?token=" + SPUtils.getInstance(CommonDate.USER).getString(CommonDate.token))
+                    startActivity(new Intent(HBWebView2.this, HBWebView2.class)
+                            .putExtra(HBWebView2.url, RetrofitModule.JP_H5_URL + "new-free/getRedPacket?isfirst=true&token=" + SPUtils.getInstance(CommonDate.USER).getString(CommonDate.token))
+                            .putExtra(HBWebView2.title, "天天领现金")
                     );
+                }else if (url.startsWith("https://sharewxf")){
+                    //shareType=6时跳转到提现页面，否则直接打开微信好友
+                    String[] parameter = url.split("\\?");
+                    String[] parames = parameter[1].split("&");
+                    shareType = parames[0].replace("shareType=","");
+                    hbId = parames[1].replace("hbId=","");
+                    if (shareType.equals("6")) {//到提现
+                        startActivityForResult(new Intent(HBWebView2.this, MoneyWithdrawActivity.class)
+                                        .putExtra("money", currentMoney)
+                                        .putExtra("name", alipayNickname)
+                                        .putExtra("realName", realname)
+                                , 300);
+                    } else {
+                        type = "1";
+                        mDialog = (new ProgressDialogView()).createLoadingDialog(HBWebView2.this, "");
+                        if (mDialog != null && !mDialog.isShowing()) {
+                            mDialog.show();
+                        }
+                        mPresenter.shareCount(hbId,type,shareType,HBWebView2.this.bindToLifecycle());
+                        mPresenter.hbCreatePosterImg(hbId,SHARE_MEDIA.WEIXIN,HBWebView2.this.bindToLifecycle());
+                    }
+                }else if (url.startsWith("https://sharewxq")){
+                    //shareType=6时跳转到提现页面，否则直接打开微信朋友圈
+                    String[] parameter = url.split("\\?");
+                    String[] parames = parameter[1].split("&");
+                    shareType = parames[0].replace("shareType=","");
+                    hbId = parames[1].replace("hbId=","");
+                    if (shareType.equals("6")) {//到提现
+                        startActivityForResult(new Intent(HBWebView2.this, MoneyWithdrawActivity.class)
+                                        .putExtra("money", currentMoney)
+                                        .putExtra("name", alipayNickname)
+                                        .putExtra("realName", realname)
+                                , 300);
+                    } else {
+                        type = "2";
+                        mDialog = (new ProgressDialogView()).createLoadingDialog(HBWebView2.this, "");
+                        if (mDialog != null && !mDialog.isShowing()) {
+                            mDialog.show();
+                        }
+                        mPresenter.shareCount(hbId,type,shareType,HBWebView2.this.bindToLifecycle());
+                        mPresenter.hbCreatePosterImg(hbId,SHARE_MEDIA.WEIXIN_CIRCLE,HBWebView2.this.bindToLifecycle());
+                    }
                 } else if (url.startsWith("http") || url.startsWith("https")) {
                     //解决第三方网页打开页面后会跳转到自定义的schame而页面出错问题
                     view.loadUrl(url);//处理http和https开头的url

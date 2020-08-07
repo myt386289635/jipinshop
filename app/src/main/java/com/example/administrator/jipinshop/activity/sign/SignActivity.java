@@ -24,7 +24,6 @@ import com.example.administrator.jipinshop.activity.sign.invitation.InvitationNe
 import com.example.administrator.jipinshop.activity.sign.market.MarketActivity;
 import com.example.administrator.jipinshop.activity.sreach.TBSreachActivity;
 import com.example.administrator.jipinshop.activity.web.dzp.BigWheelWebActivity;
-import com.example.administrator.jipinshop.activity.web.hb.HBWebView;
 import com.example.administrator.jipinshop.activity.web.hb.HBWebView2;
 import com.example.administrator.jipinshop.adapter.KTSignAdapter;
 import com.example.administrator.jipinshop.adapter.SignMallAdapter;
@@ -252,8 +251,9 @@ public class SignActivity extends BaseActivity implements View.OnClickListener, 
     public void onHBID(ActionHBBean bean) {
         if (TextUtils.isEmpty(bean.getData())){
             DialogUtil.hbWebDialog(this, v -> {
-                startActivity(new Intent(this, HBWebView.class)
-                        .putExtra(HBWebView.url, RetrofitModule.JP_H5_URL + "new-free/submitRedPacket?token=" + SPUtils.getInstance(CommonDate.USER).getString(CommonDate.token))
+                startActivity(new Intent(this, HBWebView2.class)
+                        .putExtra(HBWebView2.url, RetrofitModule.JP_H5_URL + "new-free/getRedPacket?isfirst=true&token=" + SPUtils.getInstance(CommonDate.USER).getString(CommonDate.token))
+                        .putExtra(HBWebView2.title, "天天领现金")
                 );
             });
         }else{
@@ -267,8 +267,9 @@ public class SignActivity extends BaseActivity implements View.OnClickListener, 
     @Override
     public void onHBFlie() {
         DialogUtil.hbWebDialog(this, v -> {
-            startActivity(new Intent(this, HBWebView.class)
-                    .putExtra(HBWebView.url, RetrofitModule.JP_H5_URL + "new-free/submitRedPacket?token=" + SPUtils.getInstance(CommonDate.USER).getString(CommonDate.token))
+            startActivity(new Intent(this, HBWebView2.class)
+                    .putExtra(HBWebView2.url, RetrofitModule.JP_H5_URL + "new-free/getRedPacket?isfirst=true&token=" + SPUtils.getInstance(CommonDate.USER).getString(CommonDate.token))
+                    .putExtra(HBWebView2.title, "天天领现金")
             );
         });
     }

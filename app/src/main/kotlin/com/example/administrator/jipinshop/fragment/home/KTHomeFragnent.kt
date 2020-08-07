@@ -19,7 +19,6 @@ import com.example.administrator.jipinshop.R
 import com.example.administrator.jipinshop.activity.login.LoginActivity
 import com.example.administrator.jipinshop.activity.sign.SignActivity
 import com.example.administrator.jipinshop.activity.sreach.TBSreachActivity
-import com.example.administrator.jipinshop.activity.web.hb.HBWebView
 import com.example.administrator.jipinshop.activity.web.hb.HBWebView2
 import com.example.administrator.jipinshop.adapter.HomeFragmentAdapter
 import com.example.administrator.jipinshop.adapter.KTTabAdapter
@@ -241,8 +240,9 @@ class KTHomeFragnent : DBBaseFragment(), View.OnClickListener, ViewPager.OnPageC
 
     override fun onHBFlie() {
         DialogUtil.hbWebDialog(context){
-            startActivity(Intent(context, HBWebView::class.java)
-                    .putExtra(HBWebView.url, RetrofitModule.JP_H5_URL + "new-free/submitRedPacket?token=" + SPUtils.getInstance(CommonDate.USER).getString(CommonDate.token))
+            startActivity(Intent(context, HBWebView2::class.java)
+                    .putExtra(HBWebView2.url, RetrofitModule.JP_H5_URL + "new-free/getRedPacket?isfirst=true&token=" + SPUtils.getInstance(CommonDate.USER).getString(CommonDate.token))
+                    .putExtra(HBWebView2.title, "天天领现金")
             )
         }
     }
@@ -250,8 +250,9 @@ class KTHomeFragnent : DBBaseFragment(), View.OnClickListener, ViewPager.OnPageC
     override fun onHBID(bean: ActionHBBean) {
         if (TextUtils.isEmpty(bean.data)){
             DialogUtil.hbWebDialog(context){
-                startActivity(Intent(context, HBWebView::class.java)
-                        .putExtra(HBWebView.url, RetrofitModule.JP_H5_URL + "new-free/submitRedPacket?token=" + SPUtils.getInstance(CommonDate.USER).getString(CommonDate.token))
+                startActivity(Intent(context, HBWebView2::class.java)
+                        .putExtra(HBWebView2.url, RetrofitModule.JP_H5_URL + "new-free/getRedPacket?isfirst=true&token=" + SPUtils.getInstance(CommonDate.USER).getString(CommonDate.token))
+                        .putExtra(HBWebView2.title, "天天领现金")
                 )
             }
         }else{
