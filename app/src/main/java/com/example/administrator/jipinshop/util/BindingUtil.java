@@ -363,6 +363,9 @@ public class BindingUtil {
                 case 4:
                     view.setText("拼多多");
                     break;
+                case 5:
+                    view.setText("美团");
+                    break;
             }
         }
     }
