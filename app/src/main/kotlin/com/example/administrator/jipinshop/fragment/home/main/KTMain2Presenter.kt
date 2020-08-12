@@ -1,19 +1,16 @@
 package com.example.administrator.jipinshop.fragment.home.main
 
-import android.content.Context
 import android.support.design.widget.AppBarLayout
 import android.support.v7.widget.GridLayoutManager
 import android.support.v7.widget.RecyclerView
-import android.text.TextUtils
 import android.view.View
 import android.widget.ImageView
 import com.aspsine.swipetoloadlayout.SwipeToLoadLayout
-import com.example.administrator.jipinshop.bean.SimilerGoodsBean
+import com.example.administrator.jipinshop.bean.ActionHBBean
 import com.example.administrator.jipinshop.bean.TBSreachResultBean
 import com.example.administrator.jipinshop.bean.TbkIndexBean
 import com.example.administrator.jipinshop.fragment.home.KTHomeFragnent
 import com.example.administrator.jipinshop.netwrok.Repository
-import com.example.administrator.jipinshop.util.DeviceUuidFactory
 import com.trello.rxlifecycle2.LifecycleTransformer
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.functions.Consumer
@@ -132,6 +129,22 @@ class KTMain2Presenter {
                     }
                 }, Consumer {
                     mView.onFile(it.message)
+                })
+    }
+
+    fun getHongbao(transformer : LifecycleTransformer<ActionHBBean>){
+        repository.getHongbaoActivityInfo()
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .compose(transformer)
+                .subscribe(Consumer {
+                    if (it.code == 0){
+                        mView.onHBID(it)
+                    }else{
+                        mView.onHBFlie()
+                    }
+                }, Consumer {
+                    mView.onHBFlie()
                 })
     }
 }

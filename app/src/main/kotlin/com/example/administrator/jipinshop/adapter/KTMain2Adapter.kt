@@ -175,6 +175,11 @@ class KTMain2Adapter : RecyclerView.Adapter<RecyclerView.ViewHolder>{
                     //九宫格
                     gridList.clear()
                     gridList.addAll(mBean!!.data.boxList)
+                    gridAdapter.setOnClick(object : KTMain2GridAdapter.OnClickHb{
+                        override fun onHb() {
+                            mOnItem.onHb()
+                        }
+                    })
                     if (gridList.size > 10){
                         binding.gridPoint.visibility = View.VISIBLE
                     }else{
@@ -640,5 +645,6 @@ class KTMain2Adapter : RecyclerView.Adapter<RecyclerView.ViewHolder>{
         fun onColor(pos: Int)
         fun onItemShare(position: Int)
         fun onSelect(source : String)
+        fun onHb()
     }
 }
