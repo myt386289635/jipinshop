@@ -86,6 +86,10 @@ class MoneyWithdrawActivity : BaseActivity(), View.OnClickListener, MoneyWithdra
                 finish()
             }
             R.id.withdraw_withdraw -> {
+                if (TextUtils.isEmpty(mBinding.withdrawPay.text.toString())){
+                    ToastUtil.show("请输入提现金额")
+                    return
+                }
                 limiMoney = BigDecimal(mBinding.withdrawPay.text.toString()).toDouble()
                 var money = BigDecimal(mBinding.withdrawMoney.text.toString()).toDouble()
                 if (money < limiMoney || money <= 0){

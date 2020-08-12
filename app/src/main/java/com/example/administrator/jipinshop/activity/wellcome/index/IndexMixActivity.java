@@ -11,7 +11,6 @@ import com.example.administrator.jipinshop.adapter.HomeAdapter;
 import com.example.administrator.jipinshop.base.BaseActivity;
 import com.example.administrator.jipinshop.databinding.ActivityIndexBinding;
 import com.example.administrator.jipinshop.fragment.index.IndexPicFragment;
-import com.example.administrator.jipinshop.fragment.index.IndexVideoFragment;
 import com.example.administrator.jipinshop.view.dialog.DialogUtil;
 import com.gyf.barlibrary.BarHide;
 
@@ -49,7 +48,6 @@ public class IndexMixActivity extends BaseActivity {
         });
         mFragments = new ArrayList<>();
         mFragments.add(IndexPicFragment.getInstence());
-        mFragments.add(IndexVideoFragment.getInstence());
         mAdapter = new HomeAdapter(getSupportFragmentManager());
         mAdapter.setFragments(mFragments);
         mBinding.viewPager.setAdapter(mAdapter);

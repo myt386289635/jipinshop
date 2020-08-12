@@ -9,6 +9,7 @@ import com.example.administrator.jipinshop.R;
 import com.example.administrator.jipinshop.base.BaseActivity;
 import com.example.administrator.jipinshop.fragment.evaluationkt.EvaluationNewFragment;
 import com.example.administrator.jipinshop.fragment.home.HomeNewFragment;
+import com.example.administrator.jipinshop.fragment.index.IndexVideoFragment;
 import com.example.administrator.jipinshop.fragment.member.KTMemberFragment;
 
 /**
@@ -21,6 +22,7 @@ public class HomeNewActivity extends BaseActivity {
     public static final int bangdan = 1;//榜单
     public static final int member = 2;//会员
     public static final int evaluation =3;//评测
+    public static final int indexVideo = 4;//引导页的视频
 
     // 定义
     private FragmentManager supportFragmentManager;
@@ -47,6 +49,8 @@ public class HomeNewActivity extends BaseActivity {
             fragmentTransaction.add(R.id.home_fragment, KTMemberFragment.getInstance("2")).commit();
         }else if (type == evaluation){
             fragmentTransaction.add(R.id.home_fragment, new EvaluationNewFragment()).commit();
+        }else if (type == indexVideo){
+            fragmentTransaction.add(R.id.home_fragment, IndexVideoFragment.getInstence()).commit();
         }
     }
 }

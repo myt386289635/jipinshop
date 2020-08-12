@@ -14,6 +14,7 @@ import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
 import android.text.TextUtils;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -56,6 +57,7 @@ import com.example.administrator.jipinshop.util.share.MobLinkUtil;
 import com.example.administrator.jipinshop.util.sp.CommonDate;
 import com.example.administrator.jipinshop.view.dialog.DialogUtil;
 import com.example.administrator.jipinshop.view.dialog.ProgressDialogView;
+import com.example.administrator.jipinshop.view.glide.GlideApp;
 import com.example.administrator.jipinshop.view.pick.CustomLoadingUIProvider2;
 import com.example.administrator.jipinshop.view.pick.DecorationLayout;
 import com.example.administrator.jipinshop.view.pick.GlideSimpleLoader;
@@ -104,12 +106,21 @@ public class MainActivity extends RxAppCompatActivity implements MainView, ViewP
     LinearLayout mLoginTimeContainer;
     @BindView(R.id.login_background)
     RelativeLayout mLoginBackground;
-    @BindView(R.id.status_bar)
-    LinearLayout mStatusBar;
+    //新人指导
     @BindView(R.id.guide_container)
     RelativeLayout mGuideContainer;
-    @BindView(R.id.guide_ok)
-    RelativeLayout mGuideOk;
+    @BindView(R.id.guide_head1)
+    ImageView mGuideHead1;
+    @BindView(R.id.next_one)
+    RelativeLayout mNextOne;
+    @BindView(R.id.next_two)
+    RelativeLayout mNextTwo;
+    @BindView(R.id.next_three)
+    RelativeLayout mNextThree;
+    @BindView(R.id.guide_head2)
+    ImageView mGuideHead2;
+    @BindView(R.id.status_bar)
+    LinearLayout mStatusBar;
 
     private List<Fragment> mFragments;
     private HomeAdapter mHomeAdapter;
@@ -128,6 +139,7 @@ public class MainActivity extends RxAppCompatActivity implements MainView, ViewP
     private Dialog mDialog;
     private ImageWatcherHelper iwHelper;
     private DecorationLayout layDecoration;
+    private Boolean isGuide = false;//是否需要打开新手指导
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -138,8 +150,8 @@ public class MainActivity extends RxAppCompatActivity implements MainView, ViewP
             String target_title = getIntent().getStringExtra("target_title");
             String source = getIntent().getStringExtra("source");
             if (!targetType.equals("101") && !targetType.equals("102") && !targetType.equals("103")
-                    && !targetType.equals("104") && !targetType.equals("105")){
-                ShopJumpUtil.openBanner(this, targetType, target_id, target_title,source);
+                    && !targetType.equals("104") && !targetType.equals("105")) {
+                ShopJumpUtil.openBanner(this, targetType, target_id, target_title, source);
             }
         }
         setContentView(R.layout.activity_main);
@@ -191,10 +203,8 @@ public class MainActivity extends RxAppCompatActivity implements MainView, ViewP
         mViewPager.addOnPageChangeListener(this);
         mPresenter.initTabLayout(this, mTabLayout);
         mPresenter.initTab(this, mTabLayout, mFragments);//初始化tab拦截事件
-        mPresenter.setStatusBarHight(mStatusBar,this);
         appStatisticalUtil.tab(0, this.bindToLifecycle());//统计首页
 
-//        DistanceHelper.getAndroiodScreenProperty(this);
         mPresenter.getPrivateVersion(this.bindToLifecycle());//获取隐私协议版本号
         mPresenter.adList(this.bindToLifecycle());//app广告
     }
@@ -210,16 +220,24 @@ public class MainActivity extends RxAppCompatActivity implements MainView, ViewP
         onResult("");
     }
 
-    public void onResult(String currentPrivacy){
+    public void onResult(String currentPrivacy) {
+        isGuide = getIntent().getBooleanExtra("isGuide", false);
         if (SPUtils.getInstance().getBoolean(CommonDate.FIRST, true)) {
             //新人第一次进入app
             mLoginBackground.setVisibility(View.VISIBLE);
             mLoginNotice.setText("首单全免资格即将过期");
             mLoginTimeContainer.setVisibility(View.VISIBLE);
             setCountDownTimer();
-            mGuideContainer.setVisibility(View.GONE);//第一次进入不显示新手指导
-            mGuideOk.setVisibility(View.GONE);
-            mPresenter.getAppVersion(this.bindToLifecycle()); //版本更新
+            if (isGuide) {
+                //新手指导
+                mPresenter.setStatusBarHight(mStatusBar,this);
+                GlideApp.loderImage(this, R.drawable.guide_head, mGuideHead1, 0, 0);
+                GlideApp.loderImage(this, R.drawable.guide_head, mGuideHead2, 0, 0);
+                mGuideContainer.setVisibility(View.VISIBLE);
+            } else {
+                mGuideContainer.setVisibility(View.GONE);//第一次进入不显示新手指导
+                mPresenter.getAppVersion(this.bindToLifecycle()); //版本更新
+            }
         } else {
             //老人进入app
             mLoginNotice.setText("登录领取淘宝隐藏优惠券");
@@ -229,35 +247,20 @@ public class MainActivity extends RxAppCompatActivity implements MainView, ViewP
             } else {
                 mLoginBackground.setVisibility(View.GONE);
             }
-            if (!TextUtils.isEmpty(currentPrivacy) && !currentPrivacy.equals(SPUtils.getInstance().getString(CommonDate.privacy,""))) {
+            mGuideContainer.setVisibility(View.GONE);
+            if (!TextUtils.isEmpty(currentPrivacy) && !currentPrivacy.equals(SPUtils.getInstance().getString(CommonDate.privacy, ""))) {
                 DialogUtil.servceDialog(this, v -> {
-                    if (SPUtils.getInstance().getBoolean(CommonDate.SEND, true)) {
-                        mGuideContainer.setVisibility(View.VISIBLE);//第二次才显示新手指导
-                        mGuideOk.setVisibility(View.GONE);
-                        SPUtils.getInstance().put(CommonDate.SEND, false);
-                    } else {
-                        mGuideContainer.setVisibility(View.GONE);
-                        mGuideOk.setVisibility(View.GONE);
-                        mPresenter.getAppVersion(this.bindToLifecycle()); //版本更新
-                    }
+                    mPresenter.getAppVersion(this.bindToLifecycle()); //版本更新
                 }, v -> {
                     //关闭App
                     finish();
                 });
             } else {
-                if (SPUtils.getInstance().getBoolean(CommonDate.SEND, true)) {
-                    mGuideContainer.setVisibility(View.VISIBLE);//第二次才显示新手指导
-                    mGuideOk.setVisibility(View.GONE);
-                    SPUtils.getInstance().put(CommonDate.SEND, false);
-                } else {
-                    mGuideContainer.setVisibility(View.GONE);
-                    mGuideOk.setVisibility(View.GONE);
-                    mPresenter.getAppVersion(this.bindToLifecycle()); //版本更新
-                }
+                mPresenter.getAppVersion(this.bindToLifecycle()); //版本更新
             }
         }
-        if (!TextUtils.isEmpty(currentPrivacy)){//存入隐私协议版本号
-            SPUtils.getInstance().put(CommonDate.privacy,currentPrivacy);
+        if (!TextUtils.isEmpty(currentPrivacy)) {//存入隐私协议版本号
+            SPUtils.getInstance().put(CommonDate.privacy, currentPrivacy);
         }
         //需要滑动app的变态需求
         if (getIntent().getBooleanExtra("isAd", false)) {
@@ -265,9 +268,9 @@ public class MainActivity extends RxAppCompatActivity implements MainView, ViewP
             String target_id = getIntent().getStringExtra("target_id");
             String target_title = getIntent().getStringExtra("target_title");
             String source = getIntent().getStringExtra("source");
-            if (targetType.equals("101") || targetType.equals("102")|| targetType.equals("103")
-                    ||targetType.equals("104")|| targetType.equals("105")){
-                ShopJumpUtil.openBanner(this, targetType, target_id, target_title,source);
+            if (targetType.equals("101") || targetType.equals("102") || targetType.equals("103")
+                    || targetType.equals("104") || targetType.equals("105")) {
+                ShopJumpUtil.openBanner(this, targetType, target_id, target_title, source);
             }
         }
     }
@@ -400,10 +403,12 @@ public class MainActivity extends RxAppCompatActivity implements MainView, ViewP
             NotificationUtil.OpenNotificationSetting(this, () -> {
                 //新人0元购
                 DialogUtil.newPeopleDialog(MainActivity.this, v -> {
+                    appStatisticalUtil.addEvent("tc.xr_close", this.bindToLifecycle());
                     onCheapDialog();
                 }, v -> {
+                    appStatisticalUtil.addEvent("tc.xr_enter", this.bindUntilEvent(ActivityEvent.DESTROY));
                     startActivity(new Intent(this, NewFreeActivity.class)
-                            .putExtra("startPop",false)
+                            .putExtra("startPop", false)
                     );
                     onCheapDialog();
                 });
@@ -415,29 +420,35 @@ public class MainActivity extends RxAppCompatActivity implements MainView, ViewP
     }
 
     //新手教程
-    public void NoviceTutorial(){
+    public void NoviceTutorial() {
         DialogUtil.noviceTutorialDialog(this, v -> {
+            appStatisticalUtil.addEvent("tc.jc_enter", this.bindUntilEvent(ActivityEvent.DESTROY));
             Intent intent = new Intent();
             intent.setClass(this, WebActivity.class);
-            intent.putExtra(WebActivity.url, RetrofitModule.H5_URL+"tbk-rule.html");
-            intent.putExtra(WebActivity.title,"极品城省钱攻略");
-            intent.putExtra(WebActivity.isShare,true);
-            intent.putExtra(WebActivity.shareTitle,"如何查找淘宝隐藏优惠券及下单返利？");
-            intent.putExtra(WebActivity.shareContent,"淘宝天猫90%的商品都能省，同时还有高额返利，淘好物，更省钱！");
-            intent.putExtra(WebActivity.shareImage,"https://jipincheng.cn/shengqian.png");
+            intent.putExtra(WebActivity.url, RetrofitModule.H5_URL + "tbk-rule.html");
+            intent.putExtra(WebActivity.title, "极品城省钱攻略");
+            intent.putExtra(WebActivity.isShare, true);
+            intent.putExtra(WebActivity.shareTitle, "如何查找淘宝隐藏优惠券及下单返利？");
+            intent.putExtra(WebActivity.shareContent, "淘宝天猫90%的商品都能省，同时还有高额返利，淘好物，更省钱！");
+            intent.putExtra(WebActivity.shareImage, "https://jipincheng.cn/shengqian.png");
             startActivity(intent);
             getClipText();
-        }, v -> getClipText());
+        }, v -> {
+            appStatisticalUtil.addEvent("tc.jc_close", this.bindToLifecycle());
+            getClipText();
+        });
     }
 
     //特惠购首次下单奖励弹框
-    public void onCheapDialog(){
+    public void onCheapDialog() {
         DialogUtil.cheapDialog(this, v12 -> {
+            appStatisticalUtil.addEvent("tc.thg_enter", this.bindUntilEvent(ActivityEvent.DESTROY));
             startActivity(new Intent(this, CheapBuyActivity.class)
-                    .putExtra("startPop",false)
+                    .putExtra("startPop", false)
             );
             NoviceTutorial();
         }, v1 -> {
+            appStatisticalUtil.addEvent("tc.thg_close", this.bindToLifecycle());
             NoviceTutorial();
         });
     }
@@ -585,7 +596,7 @@ public class MainActivity extends RxAppCompatActivity implements MainView, ViewP
 
     @Override
     public void onNewDialogSuc(PopBean bean) {
-        if (bean.getData() != null ){
+        if (bean.getData() != null) {
             DialogUtil.cheapDialog(this, v12 -> {
                 startActivity(new Intent(this, CheapBuyActivity.class));
             }, null);
@@ -599,7 +610,8 @@ public class MainActivity extends RxAppCompatActivity implements MainView, ViewP
     }
 
     @Override
-    public void onPageScrolled(int i, float v, int i1) { }
+    public void onPageScrolled(int i, float v, int i1) {
+    }
 
     @Override
     public void onPageSelected(int i) {
@@ -628,7 +640,8 @@ public class MainActivity extends RxAppCompatActivity implements MainView, ViewP
     }
 
     @Override
-    public void onPageScrollStateChanged(int i) { }
+    public void onPageScrollStateChanged(int i) {
+    }
 
     @Override
     public void onReturnSceneData(Scene scene) {
@@ -707,7 +720,8 @@ public class MainActivity extends RxAppCompatActivity implements MainView, ViewP
         }
     }
 
-    @OnClick({R.id.login_go,R.id.guide_sreach,R.id.guide_ok,R.id.dialog_cancle,R.id.guide_container})
+    @OnClick({R.id.login_go, R.id.guide_container, R.id.guide_image1, R.id.guide_image2, R.id.guide_image3,
+            R.id.guide_dismiss1, R.id.guide_dismiss2, R.id.guide_dismiss3, R.id.guide_ok})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.login_go:
@@ -718,12 +732,46 @@ public class MainActivity extends RxAppCompatActivity implements MainView, ViewP
                     }
                 }
                 break;
-            case R.id.guide_sreach:
-                mGuideOk.setVisibility(View.VISIBLE);
+            case R.id.guide_image1:
+                //进入第二部
+                appStatisticalUtil.addEvent("yindao3_next", this.bindToLifecycle());
+                mNextOne.setVisibility(View.GONE);
+                mNextTwo.setVisibility(View.VISIBLE);
+                break;
+            case R.id.guide_image2:
+                //进入第三步
+                appStatisticalUtil.addEvent("yindao4_next", this.bindToLifecycle());
+                mNextOne.setVisibility(View.GONE);
+                mNextTwo.setVisibility(View.GONE);
+                mNextThree.setVisibility(View.VISIBLE);
+                break;
+            case R.id.guide_image3:
+                //点击第三步的图片
+                appStatisticalUtil.addEvent("yindao5_close", this.bindToLifecycle());
+                mGuideContainer.setVisibility(View.GONE);
+                mPresenter.getAppVersion(this.bindToLifecycle()); //版本更新
+                break;
+            case R.id.guide_dismiss1:
+                //第一步里的跳过
+                appStatisticalUtil.addEvent("yindao3_tiaoguo", this.bindToLifecycle());
+                mGuideContainer.setVisibility(View.GONE);
+                mPresenter.getAppVersion(this.bindToLifecycle()); //版本更新
+                break;
+            case R.id.guide_dismiss2:
+                //第二步里的逃过
+                appStatisticalUtil.addEvent("yindao4_tiaoguo", this.bindToLifecycle());
+                mGuideContainer.setVisibility(View.GONE);
+                mPresenter.getAppVersion(this.bindToLifecycle()); //版本更新
+                break;
+            case R.id.guide_dismiss3:
+                //第三步里的跳过
+                appStatisticalUtil.addEvent("yindao5_tiaoguo", this.bindToLifecycle());
+                mGuideContainer.setVisibility(View.GONE);
+                mPresenter.getAppVersion(this.bindToLifecycle()); //版本更新
                 break;
             case R.id.guide_ok:
-                mGuideOk.setVisibility(View.GONE);
-            case R.id.dialog_cancle:
+                //第三步里的我知道了
+                appStatisticalUtil.addEvent("yindao5_zhidao", this.bindToLifecycle());
                 mGuideContainer.setVisibility(View.GONE);
                 mPresenter.getAppVersion(this.bindToLifecycle()); //版本更新
                 break;

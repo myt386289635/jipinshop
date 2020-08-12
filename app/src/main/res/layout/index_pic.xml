@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <data>
+        <variable
+            name="listener"
+            type="android.view.View.OnClickListener"/>
+    </data>
+
+    <RelativeLayout
+        android:background="@color/color_white"
+        android:id="@+id/Container"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <ImageView
+            android:src="@mipmap/guide_android5"
+            android:scaleType="fitCenter"
+            android:id="@+id/recommend_img_rotate"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"/>
+
+        <LinearLayout
+            android:layout_marginBottom="@dimen/y60"
+            android:layout_alignParentBottom="true"
+            android:gravity="center"
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:onClick="@{listener.onClick}"
+                android:id="@+id/index_video"
+                android:gravity="center"
+                android:textColor="@color/color_white"
+                android:textSize="18sp"
+                android:text="查看视频教程"
+                android:background="@drawable/bg_index"
+                android:layout_width="@dimen/x297"
+                android:layout_height="@dimen/y88"/>
+
+
+            <TextView
+                android:onClick="@{listener.onClick}"
+                android:id="@+id/index_main"
+                android:layout_marginLeft="@dimen/x45"
+                android:gravity="center"
+                android:textColor="@color/color_white"
+                android:textSize="18sp"
+                android:text="直接进入首页"
+                android:background="@drawable/bg_index"
+                android:layout_width="@dimen/x297"
+                android:layout_height="@dimen/y88"/>
+
+        </LinearLayout>
+
+    </RelativeLayout>
+
+</layout>
+

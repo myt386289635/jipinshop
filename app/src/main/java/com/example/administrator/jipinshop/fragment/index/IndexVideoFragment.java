@@ -18,6 +18,10 @@ import com.example.administrator.jipinshop.activity.home.MainActivity;
 import com.example.administrator.jipinshop.base.DBBaseFragment;
 import com.example.administrator.jipinshop.databinding.FragmentIndexVideoBinding;
 import com.example.administrator.jipinshop.util.ToastUtil;
+import com.example.administrator.jipinshop.util.UmApp.AppStatisticalUtil;
+import com.trello.rxlifecycle2.android.FragmentEvent;
+
+import javax.inject.Inject;
 
 import static com.umeng.socialize.utils.ContextUtil.getPackageName;
 
@@ -28,6 +32,8 @@ import static com.umeng.socialize.utils.ContextUtil.getPackageName;
  */
 public class IndexVideoFragment extends DBBaseFragment implements View.OnClickListener, MediaPlayer.OnCompletionListener, MediaPlayer.OnPreparedListener {
 
+    @Inject
+    AppStatisticalUtil appStatisticalUtil;
     private FragmentIndexVideoBinding mBinding;
     private boolean isPlay = false; //是否播放完毕  默认为否
     private int downTimer = 13;
@@ -39,25 +45,6 @@ public class IndexVideoFragment extends DBBaseFragment implements View.OnClickLi
     }
 
     @Override
-    public void setUserVisibleHint(boolean isVisibleToUser) {
-        super.setUserVisibleHint(isVisibleToUser);
-        if (mBinding != null && mBinding.indexVideo != null) {
-            if (isVisibleToUser) {
-                if (!mBinding.indexVideo.isPlaying() && !isPlay) {
-                    mBinding.indexVideo.start();
-                    startTimer();
-                }
-            } else {
-                if (mBinding.indexVideo.canPause()) {
-                    mBinding.indexVideo.pause();
-                    if (timer != null)
-                        timer.cancel();
-                }
-            }
-        }
-    }
-
-    @Override
     public View initLayout(LayoutInflater inflater, ViewGroup container) {
         mBinding = DataBindingUtil.inflate(inflater, R.layout.fragment_index_video, container, false);
         mBinding.setListener(this);
@@ -66,6 +53,7 @@ public class IndexVideoFragment extends DBBaseFragment implements View.OnClickLi
 
     @Override
     public void initView() {
+        mBaseFragmentComponent.inject(this);
         setStatusBarHight(mBinding.statusBar, getContext());
         String uri = "android.resource://" + getPackageName() + "/" + R.raw.jipinshop;
         mBinding.indexVideo.setVideoPath(uri);
@@ -79,6 +67,10 @@ public class IndexVideoFragment extends DBBaseFragment implements View.OnClickLi
                 .load(uri)
                 .into(mBinding.indexVideoImage);
         mBinding.indexVideoImage.setVisibility(View.VISIBLE);
+        if (!mBinding.indexVideo.isPlaying() && !isPlay) {
+            mBinding.indexVideo.start();
+            startTimer();
+        }
     }
 
     @Override
@@ -111,6 +103,7 @@ public class IndexVideoFragment extends DBBaseFragment implements View.OnClickLi
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.index_reStart:
+                appStatisticalUtil.addEvent("yindao2_chongbo",this.bindToLifecycle());
                 if (!mBinding.indexVideo.isPlaying()) {
                     isPlay = false;
                     downTimer = 13;
@@ -122,6 +115,7 @@ public class IndexVideoFragment extends DBBaseFragment implements View.OnClickLi
                 }
                 break;
             case R.id.index_goto:
+                appStatisticalUtil.addEvent("yindao2_tiyan",this.bindUntilEvent(FragmentEvent.DESTROY_VIEW));
                 startActivity(new Intent(getContext(), MainActivity.class));
                 if (getActivity() != null) {
                     getActivity().finish();

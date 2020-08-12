@@ -1,25 +1,31 @@
 package com.example.administrator.jipinshop.fragment.index;
 
-import android.graphics.Color;
+import android.content.Intent;
+import android.databinding.DataBindingUtil;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
-import android.widget.RelativeLayout;
 
 import com.example.administrator.jipinshop.R;
+import com.example.administrator.jipinshop.activity.home.MainActivity;
+import com.example.administrator.jipinshop.activity.home.home.HomeNewActivity;
 import com.example.administrator.jipinshop.base.DBBaseFragment;
+import com.example.administrator.jipinshop.databinding.IndexPicBinding;
+import com.example.administrator.jipinshop.util.UmApp.AppStatisticalUtil;
+import com.trello.rxlifecycle2.android.FragmentEvent;
+
+import javax.inject.Inject;
 
 /**
  * @author 莫小婷
  * @create 2020/4/17
  * @Describe 引导页图片
  */
-public class IndexPicFragment extends DBBaseFragment {
+public class IndexPicFragment extends DBBaseFragment implements View.OnClickListener {
 
-    private ImageView mImageView;
-    private ImageView index_into;
-    private RelativeLayout mContainer;
+    @Inject
+    AppStatisticalUtil appStatisticalUtil;
+    private IndexPicBinding mBinding;
 
     public static IndexPicFragment getInstence(){
         IndexPicFragment fragment = new IndexPicFragment();
@@ -28,17 +34,36 @@ public class IndexPicFragment extends DBBaseFragment {
 
     @Override
     public View initLayout(LayoutInflater inflater, ViewGroup container) {
-        View view =  inflater.inflate(R.layout.item_index,container,false);
-        mImageView = view.findViewById(R.id.recommend_img_rotate);
-        index_into = view.findViewById(R.id.index_into);
-        mContainer = view.findViewById(R.id.Container);
-        return view;
+        mBinding =  DataBindingUtil.inflate(inflater,R.layout.index_pic,container,false);
+        mBinding.setListener(this);
+        return mBinding.getRoot();
     }
 
     @Override
     public void initView() {
-        index_into.setVisibility(View.GONE);
-        mContainer.setBackgroundColor(Color.WHITE);
-        mImageView.setImageResource(R.mipmap.guide_android5);
+        mBaseFragmentComponent.inject(this);
+    }
+
+    @Override
+    public void onClick(View v) {
+        switch (v.getId()){
+            case R.id.index_video:
+                //查看视频
+                appStatisticalUtil.addEvent("yindao1_shipin",this.bindUntilEvent(FragmentEvent.DESTROY_VIEW));
+                startActivity(new Intent(getContext(), HomeNewActivity.class)
+                        .putExtra("type", HomeNewActivity.indexVideo)
+                );
+                break;
+            case R.id.index_main:
+                //进入首页
+                appStatisticalUtil.addEvent("yindao1_shouye",this.bindUntilEvent(FragmentEvent.DESTROY_VIEW));
+                startActivity(new Intent(getContext(), MainActivity.class)
+                        .putExtra("isGuide",true)
+                );
+                if (getActivity() != null) {
+                    getActivity().finish();
+                }
+                break;
+        }
     }
 }
