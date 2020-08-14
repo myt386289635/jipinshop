@@ -419,26 +419,6 @@ public class MainActivity extends RxAppCompatActivity implements MainView, ViewP
         }
     }
 
-    //新手教程
-    public void NoviceTutorial() {
-        DialogUtil.noviceTutorialDialog(this, v -> {
-            appStatisticalUtil.addEvent("tc.jc_enter", this.bindUntilEvent(ActivityEvent.DESTROY));
-            Intent intent = new Intent();
-            intent.setClass(this, WebActivity.class);
-            intent.putExtra(WebActivity.url, RetrofitModule.H5_URL + "tbk-rule.html");
-            intent.putExtra(WebActivity.title, "极品城省钱攻略");
-            intent.putExtra(WebActivity.isShare, true);
-            intent.putExtra(WebActivity.shareTitle, "如何查找淘宝隐藏优惠券及下单返利？");
-            intent.putExtra(WebActivity.shareContent, "淘宝天猫90%的商品都能省，同时还有高额返利，淘好物，更省钱！");
-            intent.putExtra(WebActivity.shareImage, "https://jipincheng.cn/shengqian.png");
-            startActivity(intent);
-            getClipText();
-        }, v -> {
-            appStatisticalUtil.addEvent("tc.jc_close", this.bindToLifecycle());
-            getClipText();
-        });
-    }
-
     //特惠购首次下单奖励弹框
     public void onCheapDialog() {
         DialogUtil.cheapDialog(this, v12 -> {
@@ -446,10 +426,10 @@ public class MainActivity extends RxAppCompatActivity implements MainView, ViewP
             startActivity(new Intent(this, CheapBuyActivity.class)
                     .putExtra("startPop", false)
             );
-            NoviceTutorial();
+            getClipText();
         }, v1 -> {
             appStatisticalUtil.addEvent("tc.thg_close", this.bindToLifecycle());
-            NoviceTutorial();
+            getClipText();
         });
     }
 

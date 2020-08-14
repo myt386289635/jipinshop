@@ -181,15 +181,15 @@
         </RelativeLayout>
 
         <RelativeLayout
-            android:layout_below="@id/status_bar"
             android:visibility="gone"
+            android:layout_below="@id/status_bar"
             android:id="@+id/next_two"
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
             <ImageView
                 android:id="@+id/guide_image2"
-                android:scaleType="centerCrop"
+                android:scaleType="fitXY"
                 android:src="@mipmap/guide_home3"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"/>
@@ -222,7 +222,7 @@
 
             <ImageView
                 android:id="@+id/guide_image3"
-                android:scaleType="centerCrop"
+                android:scaleType="fitXY"
                 android:src="@mipmap/guide_home4"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"/>

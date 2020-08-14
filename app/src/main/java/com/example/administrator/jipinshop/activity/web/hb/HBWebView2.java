@@ -52,6 +52,7 @@ public class HBWebView2 extends BaseActivity implements View.OnClickListener, Sh
     private ActivityWebBinding mBinding;
     public static final String url = "url";
     private Dialog mDialog;//加载框
+    private Dialog mProgressDialog ;
     public static final String title = "title";
     private ShareBoardDialog4 mShareBoardDialog;
     private String hbId = "";//红包id
@@ -73,8 +74,8 @@ public class HBWebView2 extends BaseActivity implements View.OnClickListener, Sh
 
     private void initView() {
         mBinding.inClude.titleTv.setText(getIntent().getStringExtra(title));
-        mDialog = (new ProgressDialogView()).createLoadingDialog(this, "正在加载...");
-        mDialog.show();
+        mProgressDialog = (new ProgressDialogView()).createLoadingDialog(this, "正在加载...");
+        mProgressDialog.show();
 
         mBinding.webView.getSettings().setLoadWithOverviewMode(true);
         mBinding.webView.getSettings().setSupportZoom(true);
@@ -187,8 +188,8 @@ public class HBWebView2 extends BaseActivity implements View.OnClickListener, Sh
             @Override
             public void onProgressChanged(WebView view, int newProgress) {
                 if (newProgress == 100) {// 网页加载完成
-                    if (mDialog.isShowing()) {
-                        mDialog.dismiss();
+                    if (mProgressDialog != null && mProgressDialog.isShowing()) {
+                        mProgressDialog.dismiss();
                     }
                 }
             }
