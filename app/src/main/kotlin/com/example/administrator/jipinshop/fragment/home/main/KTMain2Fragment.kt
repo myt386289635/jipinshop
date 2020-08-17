@@ -15,20 +15,16 @@ import com.blankj.utilcode.util.SPUtils
 import com.example.administrator.jipinshop.R
 import com.example.administrator.jipinshop.activity.login.LoginActivity
 import com.example.administrator.jipinshop.activity.share.ShareActivity
-import com.example.administrator.jipinshop.activity.web.hb.HBWebView2
 import com.example.administrator.jipinshop.adapter.KTMain2Adapter
 import com.example.administrator.jipinshop.base.DBBaseFragment
-import com.example.administrator.jipinshop.bean.ActionHBBean
 import com.example.administrator.jipinshop.bean.TBSreachResultBean
 import com.example.administrator.jipinshop.bean.TbkIndexBean
 import com.example.administrator.jipinshop.databinding.FragmentKtMainBinding
 import com.example.administrator.jipinshop.fragment.home.KTHomeFragnent
-import com.example.administrator.jipinshop.netwrok.RetrofitModule
 import com.example.administrator.jipinshop.util.TaoBaoUtil
 import com.example.administrator.jipinshop.util.ToastUtil
 import com.example.administrator.jipinshop.util.UmApp.AppStatisticalUtil
 import com.example.administrator.jipinshop.util.sp.CommonDate
-import com.example.administrator.jipinshop.view.dialog.DialogUtil
 import com.example.administrator.jipinshop.view.dialog.ProgressDialogView
 import com.trello.rxlifecycle2.android.FragmentEvent
 import javax.inject.Inject
@@ -239,41 +235,6 @@ class KTMain2Fragment : DBBaseFragment(), KTMain2View, OnLoadMoreListener, OnRef
         mDialog?.show()
         mPresenter.commendGoodsList(page,this.source,this.bindToLifecycle())
     }
-
-    //宫格里的红包
-    override fun onHb() {
-        if (TextUtils.isEmpty(SPUtils.getInstance(CommonDate.USER).getString(CommonDate.token, ""))) {
-            startActivity(Intent(context, LoginActivity::class.java))
-            return
-        }
-        mPresenter.getHongbao(this.bindToLifecycle())
-    }
-
-    override fun onHBID(bean: ActionHBBean) {
-        if (TextUtils.isEmpty(bean.data)){
-            DialogUtil.hbWebDialog(context){
-                startActivity(Intent(context, HBWebView2::class.java)
-                        .putExtra(HBWebView2.url, RetrofitModule.JP_H5_URL + "new-free/getRedPacket?isfirst=true&token=" + SPUtils.getInstance(CommonDate.USER).getString(CommonDate.token))
-                        .putExtra(HBWebView2.title, "天天领现金")
-                )
-            }
-        }else{
-            startActivity(Intent(context, HBWebView2::class.java)
-                    .putExtra(HBWebView2.url, RetrofitModule.JP_H5_URL + "new-free/getRedPacket?token=" + SPUtils.getInstance(CommonDate.USER).getString(CommonDate.token))
-                    .putExtra(HBWebView2.title, "天天领现金")
-            )
-        }
-    }
-
-    override fun onHBFlie() {
-        DialogUtil.hbWebDialog(context){
-            startActivity(Intent(context, HBWebView2::class.java)
-                    .putExtra(HBWebView2.url, RetrofitModule.JP_H5_URL + "new-free/getRedPacket?isfirst=true&token=" + SPUtils.getInstance(CommonDate.USER).getString(CommonDate.token))
-                    .putExtra(HBWebView2.title, "天天领现金")
-            )
-        }
-    }
-
 
     private fun initColor(color : String){
         var fragment = parentFragment

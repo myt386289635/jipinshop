@@ -5,10 +5,10 @@ import android.content.ComponentName;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v7.app.AppCompatActivity;
 
 import com.example.administrator.jipinshop.R;
 import com.example.administrator.jipinshop.activity.home.MainActivity;
-import com.example.administrator.jipinshop.base.BaseActivity;
 import com.example.administrator.jipinshop.util.ShopJumpUtil;
 
 import java.util.List;
@@ -18,7 +18,7 @@ import java.util.List;
  * @create 2020/7/23
  * @Describe 华为、小米、vivo、魅族推送中转activity
  */
-public class HmsActivity extends BaseActivity {
+public class HmsActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {

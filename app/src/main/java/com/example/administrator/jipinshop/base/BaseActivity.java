@@ -9,6 +9,7 @@ import android.view.inputmethod.InputMethodManager;
 
 import com.example.administrator.jipinshop.MyApplication;
 import com.example.administrator.jipinshop.R;
+import com.example.administrator.jipinshop.util.AppManager;
 import com.example.administrator.jipinshop.util.DebugHelper;
 import com.example.administrator.jipinshop.util.InputMethodManagerLeak;
 import com.example.administrator.jipinshop.util.MainThreadPoster;
@@ -46,6 +47,7 @@ public class BaseActivity extends RxAppCompatActivity {
             //适配9.0刘海
             NotchUtil.notch(this);
         }
+        AppManager.getAppManager().addActivity(this);
     }
 
 
@@ -61,6 +63,7 @@ public class BaseActivity extends RxAppCompatActivity {
         mImm = null;
         MainThreadPoster.clear(HANDLER_TOKEN);
         super.onDestroy();
+        AppManager.getAppManager().finishActivity(this);
     }
 
 

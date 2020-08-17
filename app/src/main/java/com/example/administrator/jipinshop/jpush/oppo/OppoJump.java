@@ -6,10 +6,10 @@ import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v7.app.AppCompatActivity;
 
 import com.example.administrator.jipinshop.R;
 import com.example.administrator.jipinshop.activity.home.MainActivity;
-import com.example.administrator.jipinshop.base.BaseActivity;
 import com.example.administrator.jipinshop.util.ShopJumpUtil;
 
 import java.util.List;
@@ -19,7 +19,7 @@ import java.util.List;
  * @create 2020/7/31
  * @Describe oppo推送中转页面
  */
-public class OppoJump extends BaseActivity {
+public class OppoJump extends AppCompatActivity {
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {

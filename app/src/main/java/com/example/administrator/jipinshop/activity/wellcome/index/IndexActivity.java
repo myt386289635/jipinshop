@@ -2,11 +2,9 @@ package com.example.administrator.jipinshop.activity.wellcome.index;
 
 import android.content.Intent;
 import android.databinding.DataBindingUtil;
-import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.view.ViewPager;
-import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
@@ -15,10 +13,9 @@ import android.widget.LinearLayout;
 import com.example.administrator.jipinshop.R;
 import com.example.administrator.jipinshop.activity.home.MainActivity;
 import com.example.administrator.jipinshop.adapter.IndexAdapter;
+import com.example.administrator.jipinshop.base.BaseActivity;
 import com.example.administrator.jipinshop.databinding.ActivityIndexBinding;
-import com.example.administrator.jipinshop.util.NotchUtil;
 import com.gyf.barlibrary.BarHide;
-import com.gyf.barlibrary.ImmersionBar;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -28,14 +25,13 @@ import java.util.List;
  * @create 2018/9/1
  * @Describe 引导页(纯图片)
  */
-public class IndexActivity extends AppCompatActivity implements IndexAdapter.OnLick, ViewPager.OnPageChangeListener {
+public class IndexActivity extends BaseActivity implements IndexAdapter.OnLick, ViewPager.OnPageChangeListener {
 
     private ActivityIndexBinding mBinding;
 
     private IndexAdapter mAdapter;
     private List<Integer> mList;
     private List<ImageView> point;
-    private ImmersionBar mImmersionBar;
 
     private Boolean tag = true;
 
@@ -43,12 +39,8 @@ public class IndexActivity extends AppCompatActivity implements IndexAdapter.OnL
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         mBinding = DataBindingUtil.setContentView(this, R.layout.activity_index);
-        if (Build.VERSION.SDK_INT >= 28) {
-            //适配9.0刘海
-            NotchUtil.notch(this);
-        }
-        mImmersionBar = ImmersionBar.with(this);
-        mImmersionBar.transparentStatusBar()
+        mImmersionBar.reset()
+                .transparentStatusBar()
                 .hideBar(BarHide.FLAG_HIDE_NAVIGATION_BAR)
                 .statusBarDarkFont(true, 0f)
                 .init();
@@ -67,16 +59,9 @@ public class IndexActivity extends AppCompatActivity implements IndexAdapter.OnL
     }
 
     @Override
-    protected void onDestroy() {
-        if (mImmersionBar != null)
-            mImmersionBar.destroy(); //必须调用该方法，防止内存泄漏
-        super.onDestroy();
-    }
-
-    @Override
     public void onLinkgo() {
         if(tag){
-            startActivity(new Intent(IndexActivity.this, MainActivity.class));
+            startActivity(new Intent(this, MainActivity.class));
             finish();
             tag = false;
         }

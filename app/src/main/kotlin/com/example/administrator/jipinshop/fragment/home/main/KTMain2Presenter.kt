@@ -6,7 +6,6 @@ import android.support.v7.widget.RecyclerView
 import android.view.View
 import android.widget.ImageView
 import com.aspsine.swipetoloadlayout.SwipeToLoadLayout
-import com.example.administrator.jipinshop.bean.ActionHBBean
 import com.example.administrator.jipinshop.bean.TBSreachResultBean
 import com.example.administrator.jipinshop.bean.TbkIndexBean
 import com.example.administrator.jipinshop.fragment.home.KTHomeFragnent
@@ -129,22 +128,6 @@ class KTMain2Presenter {
                     }
                 }, Consumer {
                     mView.onFile(it.message)
-                })
-    }
-
-    fun getHongbao(transformer : LifecycleTransformer<ActionHBBean>){
-        repository.getHongbaoActivityInfo()
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .compose(transformer)
-                .subscribe(Consumer {
-                    if (it.code == 0){
-                        mView.onHBID(it)
-                    }else{
-                        mView.onHBFlie()
-                    }
-                }, Consumer {
-                    mView.onHBFlie()
                 })
     }
 }

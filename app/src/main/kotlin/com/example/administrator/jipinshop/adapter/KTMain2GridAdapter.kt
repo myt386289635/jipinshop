@@ -28,11 +28,6 @@ class KTMain2GridAdapter : RecyclerView.Adapter<KTMain2GridAdapter.ViewHolder>{
     private var mContext: Context
     private lateinit var appStatisticalUtil: AppStatisticalUtil
     private lateinit var  transformer : LifecycleTransformer<SuccessBean>
-    private lateinit var mOnClickHb: OnClickHb
-
-    fun setOnClick(onClickHb: OnClickHb){
-        mOnClickHb = onClickHb
-    }
 
     constructor(list: MutableList<TbkIndexBean.DataBean.BoxListBean>, context: Context){
         mList = list
@@ -62,12 +57,8 @@ class KTMain2GridAdapter : RecyclerView.Adapter<KTMain2GridAdapter.ViewHolder>{
             GlideApp.loderImage(mContext,mList[position].iconUrl,mImageView,0,0)
             itemView.setOnClickListener {
                 appStatisticalUtil.addEvent("shouye_gongge." + (position + 1),transformer)
-                if (mList[position].type == "16"){
-                    mOnClickHb.onHb()
-                }else{
-                    ShopJumpUtil.openBanner(mContext,mList[position].type,mList[position].targetId,
-                            mList[position].title,mList[position].source)
-                }
+                ShopJumpUtil.openBanner(mContext,mList[position].type,mList[position].targetId,
+                        mList[position].title,mList[position].source)
             }
             var wight = mContext.resources.getDimension(R.dimen.x120)
             var zz = (DistanceHelper.getAndroiodScreenwidthPixels(mContext) - (wight * 5)) / 5
@@ -90,9 +81,5 @@ class KTMain2GridAdapter : RecyclerView.Adapter<KTMain2GridAdapter.ViewHolder>{
             mImageView = view.findViewById(R.id.item_image)
             item_container = view.findViewById(R.id.item_container)
         }
-    }
-
-    interface OnClickHb{
-        fun onHb()
     }
 }

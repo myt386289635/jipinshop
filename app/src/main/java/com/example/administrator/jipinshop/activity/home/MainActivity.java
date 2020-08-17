@@ -5,30 +5,23 @@ import android.app.Dialog;
 import android.content.ClipData;
 import android.content.ClipboardManager;
 import android.content.Intent;
-import android.os.Build;
+import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.support.annotation.Nullable;
-import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
 import android.text.TextUtils;
 import android.view.View;
-import android.widget.ImageView;
-import android.widget.LinearLayout;
-import android.widget.RelativeLayout;
-import android.widget.TextView;
 
 import com.blankj.utilcode.util.SPUtils;
-import com.example.administrator.jipinshop.MyApplication;
 import com.example.administrator.jipinshop.R;
-import com.example.administrator.jipinshop.activity.WebActivity;
 import com.example.administrator.jipinshop.activity.cheapgoods.CheapBuyActivity;
 import com.example.administrator.jipinshop.activity.login.LoginActivity;
 import com.example.administrator.jipinshop.activity.newpeople.NewFreeActivity;
 import com.example.administrator.jipinshop.activity.sign.SignActivity;
 import com.example.administrator.jipinshop.adapter.HomeAdapter;
-import com.example.administrator.jipinshop.base.DaggerBaseActivityComponent;
+import com.example.administrator.jipinshop.base.BaseActivity;
 import com.example.administrator.jipinshop.bean.AppVersionbean;
 import com.example.administrator.jipinshop.bean.EvaluationTabBean;
 import com.example.administrator.jipinshop.bean.ImageBean;
@@ -39,6 +32,7 @@ import com.example.administrator.jipinshop.bean.TklBean;
 import com.example.administrator.jipinshop.bean.eventbus.ChangeHomePageBus;
 import com.example.administrator.jipinshop.bean.eventbus.EditNameBus;
 import com.example.administrator.jipinshop.bean.eventbus.HomeNewPeopleBus;
+import com.example.administrator.jipinshop.databinding.ActivityMainBinding;
 import com.example.administrator.jipinshop.fragment.circle.CircleFragment;
 import com.example.administrator.jipinshop.fragment.home.KTHomeFragnent;
 import com.example.administrator.jipinshop.fragment.member.KTMemberFragment;
@@ -46,8 +40,6 @@ import com.example.administrator.jipinshop.fragment.mine.KTMineFragment;
 import com.example.administrator.jipinshop.fragment.school.KTSchoolFragment;
 import com.example.administrator.jipinshop.netwrok.RetrofitModule;
 import com.example.administrator.jipinshop.util.ClickUtil;
-import com.example.administrator.jipinshop.util.InputMethodManagerLeak;
-import com.example.administrator.jipinshop.util.NotchUtil;
 import com.example.administrator.jipinshop.util.NotificationUtil;
 import com.example.administrator.jipinshop.util.ShopJumpUtil;
 import com.example.administrator.jipinshop.util.ToastUtil;
@@ -61,15 +53,12 @@ import com.example.administrator.jipinshop.view.glide.GlideApp;
 import com.example.administrator.jipinshop.view.pick.CustomLoadingUIProvider2;
 import com.example.administrator.jipinshop.view.pick.DecorationLayout;
 import com.example.administrator.jipinshop.view.pick.GlideSimpleLoader;
-import com.example.administrator.jipinshop.view.viewpager.NoScrollViewPager;
 import com.github.ielse.imagewatcher.ImageWatcherHelper;
 import com.google.gson.Gson;
-import com.gyf.barlibrary.ImmersionBar;
 import com.mob.moblink.MobLink;
 import com.mob.moblink.Scene;
 import com.mob.moblink.SceneRestorable;
 import com.trello.rxlifecycle2.android.ActivityEvent;
-import com.trello.rxlifecycle2.components.support.RxAppCompatActivity;
 import com.umeng.analytics.MobclickAgent;
 
 import org.greenrobot.eventbus.EventBus;
@@ -80,48 +69,14 @@ import java.util.List;
 
 import javax.inject.Inject;
 
-import butterknife.BindView;
-import butterknife.ButterKnife;
-import butterknife.OnClick;
-import butterknife.Unbinder;
-
-public class MainActivity extends RxAppCompatActivity implements MainView, ViewPager.OnPageChangeListener, SceneRestorable, ImageWatcherHelper.Provider {
+public class MainActivity extends BaseActivity implements MainView, ViewPager.OnPageChangeListener, SceneRestorable, ImageWatcherHelper.Provider, View.OnClickListener {
 
     @Inject
     MainActivityPresenter mPresenter;
     @Inject
     AppStatisticalUtil appStatisticalUtil;
 
-    @BindView(R.id.view_pager)
-    NoScrollViewPager mViewPager;
-    @BindView(R.id.tab_layout)
-    TabLayout mTabLayout;
-    @BindView(R.id.login_notice)
-    TextView mLoginNotice;
-    @BindView(R.id.dialog_minute)
-    TextView mDialogMinute;
-    @BindView(R.id.dialog_second)
-    TextView mDialogSecond;
-    @BindView(R.id.login_timeContainer)
-    LinearLayout mLoginTimeContainer;
-    @BindView(R.id.login_background)
-    RelativeLayout mLoginBackground;
-    //新人指导
-    @BindView(R.id.guide_container)
-    RelativeLayout mGuideContainer;
-    @BindView(R.id.guide_head1)
-    ImageView mGuideHead1;
-    @BindView(R.id.next_one)
-    RelativeLayout mNextOne;
-    @BindView(R.id.next_two)
-    RelativeLayout mNextTwo;
-    @BindView(R.id.next_three)
-    RelativeLayout mNextThree;
-    @BindView(R.id.guide_head2)
-    ImageView mGuideHead2;
-    @BindView(R.id.status_bar)
-    LinearLayout mStatusBar;
-
+    private ActivityMainBinding mBinding;
     private List<Fragment> mFragments;
     private HomeAdapter mHomeAdapter;
     private KTMemberFragment mMemberFragment;//会员
@@ -130,8 +85,6 @@ public class MainActivity extends RxAppCompatActivity implements MainView, ViewP
     private KTHomeFragnent mKTHomeFragnent;//首页
     private KTSchoolFragment mSchoolFragment;//商学院
 
-    private Unbinder mButterKnife;
-    private ImmersionBar mImmersionBar;
     private long exitTime = 0;
     private static Activity sFirstInstance;
     private Boolean once = true; // 是否是第一次弹出
@@ -154,34 +107,28 @@ public class MainActivity extends RxAppCompatActivity implements MainView, ViewP
                 ShopJumpUtil.openBanner(this, targetType, target_id, target_title, source);
             }
         }
-        setContentView(R.layout.activity_main);
+        mBinding = DataBindingUtil.setContentView(this,R.layout.activity_main);
+        mBinding.setListener(this);
         if (null == sFirstInstance) {
             sFirstInstance = this;
         } else if (this != sFirstInstance) {
             // 防止微信跳转过来，多个MainActivity界面(是singletop)
             finish();
         }
-        mButterKnife = ButterKnife.bind(this);
-        if (Build.VERSION.SDK_INT >= 28) {
-            //适配9.0刘海
-            NotchUtil.notch(this);
-        }
         initView();
     }
 
     private void initView() {
-        DaggerBaseActivityComponent.builder()
-                .applicationComponent(MyApplication.getInstance().getComponent())
-                .build().inject(this);
-        mImmersionBar = ImmersionBar.with(this);
-        mImmersionBar.transparentStatusBar()
+        mBaseActivityComponent.inject(this);
+        mImmersionBar.reset()
+                .transparentStatusBar()
                 .statusBarDarkFont(true, 0f)
                 .init();
         mPresenter.setView(this);
         EventBus.getDefault().register(this);
         pickImages();//初始化浏览图片
 
-        mViewPager.setNoScroll(true);
+        mBinding.viewPager.setNoScroll(true);
         mFragments = new ArrayList<>();
 
         mKTHomeFragnent = KTHomeFragnent.getInstance();
@@ -197,12 +144,12 @@ public class MainActivity extends RxAppCompatActivity implements MainView, ViewP
 
         mHomeAdapter = new HomeAdapter(getSupportFragmentManager());
         mHomeAdapter.setFragments(mFragments);
-        mViewPager.setAdapter(mHomeAdapter);
-        mViewPager.setOffscreenPageLimit(mFragments.size() - 1);
-        mTabLayout.setupWithViewPager(mViewPager);
-        mViewPager.addOnPageChangeListener(this);
-        mPresenter.initTabLayout(this, mTabLayout);
-        mPresenter.initTab(this, mTabLayout, mFragments);//初始化tab拦截事件
+        mBinding.viewPager.setAdapter(mHomeAdapter);
+        mBinding.viewPager.setOffscreenPageLimit(mFragments.size() - 1);
+        mBinding.tabLayout.setupWithViewPager(mBinding.viewPager);
+        mBinding.viewPager.addOnPageChangeListener(this);
+        mPresenter.initTabLayout(this, mBinding.tabLayout);
+        mPresenter.initTab(this, mBinding.tabLayout, mFragments);//初始化tab拦截事件
         appStatisticalUtil.tab(0, this.bindToLifecycle());//统计首页
 
         mPresenter.getPrivateVersion(this.bindToLifecycle());//获取隐私协议版本号
@@ -224,30 +171,30 @@ public class MainActivity extends RxAppCompatActivity implements MainView, ViewP
         isGuide = getIntent().getBooleanExtra("isGuide", false);
         if (SPUtils.getInstance().getBoolean(CommonDate.FIRST, true)) {
             //新人第一次进入app
-            mLoginBackground.setVisibility(View.VISIBLE);
-            mLoginNotice.setText("首单全免资格即将过期");
-            mLoginTimeContainer.setVisibility(View.VISIBLE);
+            mBinding.loginBackground.setVisibility(View.VISIBLE);
+            mBinding.loginNotice.setText("首单全免资格即将过期");
+            mBinding.loginTimeContainer.setVisibility(View.VISIBLE);
             setCountDownTimer();
             if (isGuide) {
                 //新手指导
-                mPresenter.setStatusBarHight(mStatusBar,this);
-                GlideApp.loderImage(this, R.drawable.guide_head, mGuideHead1, 0, 0);
-                GlideApp.loderImage(this, R.drawable.guide_head, mGuideHead2, 0, 0);
-                mGuideContainer.setVisibility(View.VISIBLE);
+                mPresenter.setStatusBarHight(mBinding.statusBar,this);
+                GlideApp.loderImage(this, R.drawable.guide_head, mBinding.guideHead1, 0, 0);
+                GlideApp.loderImage(this, R.drawable.guide_head, mBinding.guideHead2, 0, 0);
+                mBinding.guideContainer.setVisibility(View.VISIBLE);
             } else {
-                mGuideContainer.setVisibility(View.GONE);//第一次进入不显示新手指导
+                mBinding.guideContainer.setVisibility(View.GONE);//第一次进入不显示新手指导
                 mPresenter.getAppVersion(this.bindToLifecycle()); //版本更新
             }
         } else {
             //老人进入app
-            mLoginNotice.setText("登录领取淘宝隐藏优惠券");
-            mLoginTimeContainer.setVisibility(View.GONE);
+            mBinding.loginNotice.setText("登录领取淘宝隐藏优惠券");
+            mBinding.loginTimeContainer.setVisibility(View.GONE);
             if (TextUtils.isEmpty(SPUtils.getInstance(CommonDate.USER).getString(CommonDate.token, "").trim())) {
-                mLoginBackground.setVisibility(View.VISIBLE);
+                mBinding.loginBackground.setVisibility(View.VISIBLE);
             } else {
-                mLoginBackground.setVisibility(View.GONE);
+                mBinding.loginBackground.setVisibility(View.GONE);
             }
-            mGuideContainer.setVisibility(View.GONE);
+            mBinding.guideContainer.setVisibility(View.GONE);
             if (!TextUtils.isEmpty(currentPrivacy) && !currentPrivacy.equals(SPUtils.getInstance().getString(CommonDate.privacy, ""))) {
                 DialogUtil.servceDialog(this, v -> {
                     mPresenter.getAppVersion(this.bindToLifecycle()); //版本更新
@@ -296,22 +243,19 @@ public class MainActivity extends RxAppCompatActivity implements MainView, ViewP
                 if (s_minute.length() == 1) {
                     s_minute = "0" + s_minute;
                 }
-                mDialogMinute.setText(s_minute);
-                mDialogSecond.setText(s_second);
+                mBinding.dialogMinute.setText(s_minute);
+                mBinding.dialogSecond.setText(s_second);
             }
 
             public void onFinish() {
-                mLoginNotice.setText("登录领取淘宝隐藏优惠券");
-                mLoginTimeContainer.setVisibility(View.GONE);
+                mBinding.loginNotice.setText("登录领取淘宝隐藏优惠券");
+                mBinding.loginTimeContainer.setVisibility(View.GONE);
             }
         }.start();
     }
 
     @Override
     protected void onDestroy() {
-        InputMethodManagerLeak.fixInputMethodManagerLeak(null, this);
-        mImmersionBar.destroy();
-        mButterKnife.unbind();
         EventBus.getDefault().unregister(this);
         if (sFirstInstance == this) {
             sFirstInstance = null;
@@ -545,7 +489,7 @@ public class MainActivity extends RxAppCompatActivity implements MainView, ViewP
     @Subscribe
     public void changePage(ChangeHomePageBus bus) {
         if (bus != null) {
-            mViewPager.setCurrentItem(bus.getPage());
+            mBinding.viewPager.setCurrentItem(bus.getPage());
         }
     }
 
@@ -555,9 +499,9 @@ public class MainActivity extends RxAppCompatActivity implements MainView, ViewP
             if (newPeopleBus.getAddPoint() != 1) {
                 mPresenter.getPopInfo(MainActivity.this.bindToLifecycle());
             }
-            mLoginNotice.setText("登录领取淘宝隐藏优惠券");
-            mLoginTimeContainer.setVisibility(View.GONE);
-            mLoginBackground.setVisibility(View.GONE);
+            mBinding.loginNotice.setText("登录领取淘宝隐藏优惠券");
+            mBinding.loginTimeContainer.setVisibility(View.GONE);
+            mBinding.loginBackground.setVisibility(View.GONE);
         }
     }
 
@@ -598,12 +542,12 @@ public class MainActivity extends RxAppCompatActivity implements MainView, ViewP
         appStatisticalUtil.tab(i, this.bindToLifecycle());//统计榜单
         if (i == 0) {
             if (TextUtils.isEmpty(SPUtils.getInstance(CommonDate.USER).getString(CommonDate.token, "").trim())) {
-                mLoginBackground.setVisibility(View.VISIBLE);
+                mBinding.loginBackground.setVisibility(View.VISIBLE);
             } else {
-                mLoginBackground.setVisibility(View.GONE);
+                mBinding.loginBackground.setVisibility(View.GONE);
             }
         } else {
-            mLoginBackground.setVisibility(View.GONE);
+            mBinding.loginBackground.setVisibility(View.GONE);
         }
         //改变状态栏颜色
         if (i == 2) {
@@ -700,9 +644,8 @@ public class MainActivity extends RxAppCompatActivity implements MainView, ViewP
         }
     }
 
-    @OnClick({R.id.login_go, R.id.guide_container, R.id.guide_image1, R.id.guide_image2, R.id.guide_image3,
-            R.id.guide_dismiss1, R.id.guide_dismiss2, R.id.guide_dismiss3, R.id.guide_ok})
-    public void onViewClicked(View view) {
+    @Override
+    public void onClick(View view) {
         switch (view.getId()) {
             case R.id.login_go:
                 if (TextUtils.isEmpty(SPUtils.getInstance(CommonDate.USER).getString(CommonDate.token, "").trim())) {
@@ -715,44 +658,44 @@ public class MainActivity extends RxAppCompatActivity implements MainView, ViewP
             case R.id.guide_image1:
                 //进入第二部
                 appStatisticalUtil.addEvent("yindao3_next", this.bindToLifecycle());
-                mNextOne.setVisibility(View.GONE);
-                mNextTwo.setVisibility(View.VISIBLE);
+                mBinding.nextOne.setVisibility(View.GONE);
+                mBinding.nextTwo.setVisibility(View.VISIBLE);
                 break;
             case R.id.guide_image2:
                 //进入第三步
                 appStatisticalUtil.addEvent("yindao4_next", this.bindToLifecycle());
-                mNextOne.setVisibility(View.GONE);
-                mNextTwo.setVisibility(View.GONE);
-                mNextThree.setVisibility(View.VISIBLE);
+                mBinding.nextOne.setVisibility(View.GONE);
+                mBinding.nextTwo.setVisibility(View.GONE);
+                mBinding.nextThree.setVisibility(View.VISIBLE);
                 break;
             case R.id.guide_image3:
                 //点击第三步的图片
                 appStatisticalUtil.addEvent("yindao5_close", this.bindToLifecycle());
-                mGuideContainer.setVisibility(View.GONE);
+                mBinding.guideContainer.setVisibility(View.GONE);
                 mPresenter.getAppVersion(this.bindToLifecycle()); //版本更新
                 break;
             case R.id.guide_dismiss1:
                 //第一步里的跳过
                 appStatisticalUtil.addEvent("yindao3_tiaoguo", this.bindToLifecycle());
-                mGuideContainer.setVisibility(View.GONE);
+                mBinding.guideContainer.setVisibility(View.GONE);
                 mPresenter.getAppVersion(this.bindToLifecycle()); //版本更新
                 break;
             case R.id.guide_dismiss2:
                 //第二步里的逃过
                 appStatisticalUtil.addEvent("yindao4_tiaoguo", this.bindToLifecycle());
-                mGuideContainer.setVisibility(View.GONE);
+                mBinding.guideContainer.setVisibility(View.GONE);
                 mPresenter.getAppVersion(this.bindToLifecycle()); //版本更新
                 break;
             case R.id.guide_dismiss3:
                 //第三步里的跳过
                 appStatisticalUtil.addEvent("yindao5_tiaoguo", this.bindToLifecycle());
-                mGuideContainer.setVisibility(View.GONE);
+                mBinding.guideContainer.setVisibility(View.GONE);
                 mPresenter.getAppVersion(this.bindToLifecycle()); //版本更新
                 break;
             case R.id.guide_ok:
                 //第三步里的我知道了
                 appStatisticalUtil.addEvent("yindao5_zhidao", this.bindToLifecycle());
-                mGuideContainer.setVisibility(View.GONE);
+                mBinding.guideContainer.setVisibility(View.GONE);
                 mPresenter.getAppVersion(this.bindToLifecycle()); //版本更新
                 break;
         }

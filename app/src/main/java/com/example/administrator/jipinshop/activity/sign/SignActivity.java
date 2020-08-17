@@ -146,17 +146,9 @@ public class SignActivity extends BaseActivity implements View.OnClickListener, 
                 if (ad1 == null){
                     return;
                 }
-                if (ad1.getType().equals("16")){
-                    if(TextUtils.isEmpty(SPUtils.getInstance(CommonDate.USER).getString(CommonDate.token,""))){
-                        startActivity(new Intent(this, LoginActivity.class));
-                        return;
-                    }
-                    mPresenter.getHongbao(this.bindToLifecycle());
-                }else {
-                    ShopJumpUtil.openBanner(this,ad1.getType(),
-                            ad1.getObjectId(),ad1.getName(),
-                            ad1.getSource());
-                }
+                ShopJumpUtil.openBanner(this,ad1.getType(),
+                        ad1.getObjectId(),ad1.getName(),
+                        ad1.getSource());
                 break;
             case R.id.sign_h5Button:
                 //大转盘

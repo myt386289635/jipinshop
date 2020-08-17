@@ -5,7 +5,9 @@ import android.content.Intent;
 import android.net.Uri;
 import android.text.TextUtils;
 import android.util.Log;
+import android.view.View;
 
+import com.blankj.utilcode.util.AppUtils;
 import com.blankj.utilcode.util.SPUtils;
 import com.example.administrator.jipinshop.activity.WebActivity;
 import com.example.administrator.jipinshop.activity.balance.MyWalletActivity;
@@ -29,11 +31,24 @@ import com.example.administrator.jipinshop.activity.sign.SignActivity;
 import com.example.administrator.jipinshop.activity.sign.detail.IntegralDetailActivity;
 import com.example.administrator.jipinshop.activity.sign.invitation.InvitationNewActivity;
 import com.example.administrator.jipinshop.activity.web.dzp.BigWheelWebActivity;
+import com.example.administrator.jipinshop.activity.web.hb.HBWebView2;
+import com.example.administrator.jipinshop.bean.ActionHBBean;
 import com.example.administrator.jipinshop.bean.eventbus.ChangeHomePageBus;
+import com.example.administrator.jipinshop.netwrok.ApplicationComponent;
+import com.example.administrator.jipinshop.netwrok.ApplicationModule;
+import com.example.administrator.jipinshop.netwrok.DaggerApplicationComponent;
+import com.example.administrator.jipinshop.netwrok.Repository;
 import com.example.administrator.jipinshop.netwrok.RetrofitModule;
 import com.example.administrator.jipinshop.util.sp.CommonDate;
+import com.example.administrator.jipinshop.view.dialog.DialogUtil;
 
 import org.greenrobot.eventbus.EventBus;
+
+import javax.inject.Inject;
+
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.functions.Consumer;
+import io.reactivex.schedulers.Schedulers;
 
 /**
  * @author 莫小婷
@@ -41,6 +56,17 @@ import org.greenrobot.eventbus.EventBus;
  * @Describe
  */
 public class ShopJumpUtil {
+
+    @Inject
+    Repository mRepository;
+
+
+    public ShopJumpUtil(Context context) {
+        ApplicationComponent mApplicationComponent =
+                DaggerApplicationComponent.builder().applicationModule(new ApplicationModule(context))
+                        .build();
+        mApplicationComponent.inject(this);
+    }
 
     /**
      * 获取手机厂商
@@ -249,7 +275,14 @@ public class ShopJumpUtil {
                 }
                 context.startActivity(intent);
                 break;
-            case "16"://只在极币中心可用 红包功能
+            case "16"://红包中心
+                if (TextUtils.isEmpty(SPUtils.getInstance(CommonDate.USER).getString(CommonDate.token, ""))) {
+                    intent.setClass(context, LoginActivity.class);
+                    context.startActivity(intent);
+                }else {
+                    ShopJumpUtil shopJumpUtil = new ShopJumpUtil(context);
+                    shopJumpUtil.openHB(context);
+                }
                 break;
             case "17"://榜单主页
                 intent.setClass(context, HomeNewActivity.class);
@@ -410,4 +443,32 @@ public class ShopJumpUtil {
         }
     }
 
+    /****跳转时的网络请求****/
+    public void openHB(Context context){
+        mRepository.getHongbaoActivityInfo()
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(bean -> {
+                    if (TextUtils.isEmpty(bean.getData())){
+                        DialogUtil.hbWebDialog(AppManager.getAppManager().currentActivity(), v -> {
+                            context.startActivity(new Intent(context, HBWebView2.class)
+                                    .putExtra(HBWebView2.url, RetrofitModule.JP_H5_URL + "new-free/getRedPacket?isfirst=true&token=" + SPUtils.getInstance(CommonDate.USER).getString(CommonDate.token))
+                                    .putExtra(HBWebView2.title, "天天领现金")
+                            );
+                        });
+                    }else{
+                        context.startActivity(new Intent(context, HBWebView2.class)
+                                .putExtra(HBWebView2.url, RetrofitModule.JP_H5_URL + "new-free/getRedPacket?token=" + SPUtils.getInstance(CommonDate.USER).getString(CommonDate.token))
+                                .putExtra(HBWebView2.title, "天天领现金")
+                        );
+                    }
+                }, throwable -> {
+                    DialogUtil.hbWebDialog(context, v -> {
+                        context.startActivity(new Intent(context, HBWebView2.class)
+                                .putExtra(HBWebView2.url, RetrofitModule.JP_H5_URL + "new-free/getRedPacket?isfirst=true&token=" + SPUtils.getInstance(CommonDate.USER).getString(CommonDate.token))
+                                .putExtra(HBWebView2.title, "天天领现金")
+                        );
+                    });
+                });
+    }
 }
