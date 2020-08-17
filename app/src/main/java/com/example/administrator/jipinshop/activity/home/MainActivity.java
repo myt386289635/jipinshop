@@ -178,8 +178,8 @@ public class MainActivity extends BaseActivity implements MainView, ViewPager.On
             if (isGuide) {
                 //新手指导
                 mPresenter.setStatusBarHight(mBinding.statusBar,this);
-                GlideApp.loderImage(this, R.drawable.guide_head, mBinding.guideHead1, 0, 0);
-                GlideApp.loderImage(this, R.drawable.guide_head, mBinding.guideHead2, 0, 0);
+                GlideApp.loderImage(this, "https://jipincheng.cn/guide_head.gif", mBinding.guideHead1, 0, 0);
+                GlideApp.loderImage(this, "https://jipincheng.cn/guide_head.gif", mBinding.guideHead2, 0, 0);
                 mBinding.guideContainer.setVisibility(View.VISIBLE);
             } else {
                 mBinding.guideContainer.setVisibility(View.GONE);//第一次进入不显示新手指导

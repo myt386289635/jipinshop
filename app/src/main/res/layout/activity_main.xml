@@ -185,7 +185,6 @@
                     android:layout_marginTop="-80dp"
                     android:layout_below="@id/guide_image1"
                     android:layout_centerHorizontal="true"
-                    android:src="@drawable/guide_head"
                     android:layout_width="@dimen/x300"
                     android:layout_height="@dimen/y300"/>
 
@@ -220,7 +219,6 @@
                     android:id="@+id/guide_head2"
                     android:layout_marginTop="@dimen/y490"
                     android:layout_alignParentRight="true"
-                    android:src="@drawable/guide_head"
                     android:layout_width="@dimen/x300"
                     android:layout_height="@dimen/y300"/>
 
