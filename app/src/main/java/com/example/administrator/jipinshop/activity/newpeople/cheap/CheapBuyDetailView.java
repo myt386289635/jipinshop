@@ -1,8 +1,7 @@
-package com.example.administrator.jipinshop.activity.newpeople.detail;
+package com.example.administrator.jipinshop.activity.newpeople.cheap;
 
 import com.example.administrator.jipinshop.bean.ImageBean;
 import com.example.administrator.jipinshop.bean.SimilerGoodsBean;
-import com.example.administrator.jipinshop.bean.SucBean;
 import com.example.administrator.jipinshop.bean.TBShoppingDetailBean;
 
 /**
@@ -10,15 +9,13 @@ import com.example.administrator.jipinshop.bean.TBShoppingDetailBean;
  * @create 2020/3/5
  * @Describe
  */
-public interface NewPeopleDetailView {
+public interface CheapBuyDetailView {
     void onSuccess(TBShoppingDetailBean bean);
     void onFile(String error);
 
     void LikeSuccess(SimilerGoodsBean bean);
 
     void onBuySuccess(ImageBean successBean);
-
-    void onDescImgs(SucBean<String> bean);
 
     void onIsNewUser(TBShoppingDetailBean bean);
 }

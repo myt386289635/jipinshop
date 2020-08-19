@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:bind="http://schemas.android.com/apk/res-auto">
+        xmlns:bind="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools">
 
     <data>
         <import type="android.view.View"/>
@@ -48,6 +49,13 @@
 
             </RelativeLayout>
 
+            <ImageView
+                android:id="@+id/item_tag"
+                android:layout_margin="@dimen/x10"
+                tools:src="@mipmap/new_welfare"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+
             <TextView
                 android:id="@+id/item_name"
                 android:layout_marginRight="@dimen/x6"
@@ -76,7 +84,7 @@
                 <TextView
                     android:textColor="@color/color_F85D42"
                     android:textSize="10sp"
-                    android:text="返现后￥"
+                    android:text="新人价￥"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"/>
 
@@ -89,6 +97,7 @@
                     android:layout_height="wrap_content"/>
 
                 <com.example.administrator.jipinshop.view.textview.TextViewDel
+                    android:visibility="gone"
                     android:text="@{@string/index_price + date.otherPrice}"
                     android:layout_marginLeft="@dimen/x12"
                     android:id="@+id/item_otherPrice"

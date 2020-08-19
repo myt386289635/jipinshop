@@ -1,5 +1,6 @@
 package com.example.administrator.jipinshop.bean;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 /**
@@ -243,6 +244,15 @@ public class NewPeopleBean {
             private String otherPrice;
             private String buyPrice;
             private String couponPrice;
+            private String isBuy; //0 没买 1买过
+
+            public String getIsBuy() {
+                return isBuy;
+            }
+
+            public void setIsBuy(String isBuy) {
+                this.isBuy = isBuy;
+            }
 
             public String getCouponPrice() {
                 return couponPrice;
@@ -301,7 +311,7 @@ public class NewPeopleBean {
             }
 
             public String getUseAllowancePrice() {
-                return useAllowancePrice;
+                return new BigDecimal(useAllowancePrice).stripTrailingZeros().toPlainString();
             }
 
             public void setUseAllowancePrice(String useAllowancePrice) {

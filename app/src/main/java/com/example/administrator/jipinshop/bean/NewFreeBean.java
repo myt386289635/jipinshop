@@ -232,6 +232,15 @@ public class NewFreeBean {
         private String otherPrice;
         private String buyPrice;
         private String soldTotal;
+        private String isBuy; //0 没买 1买过
+
+        public String getIsBuy() {
+            return isBuy;
+        }
+
+        public void setIsBuy(String isBuy) {
+            this.isBuy = isBuy;
+        }
 
         public String getSoldTotal() {
             return soldTotal;

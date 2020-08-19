@@ -193,17 +193,17 @@ dependencies {
     implementation 'com.taobao.android:mtopsdk_allinone_open:3.1.2.5@jar'
 
     //applink（必须）
-    implementation 'com.alibaba.sdk.android:alibc_link_partner:4.1.10@aar'
+    implementation 'com.alibaba.sdk.android:alibc_link_partner:4.1.15@aar'
 
     //UT
-    implementation 'com.taobao.android:utdid4all:1.1.5.3_proguard'
+    implementation 'com.taobao.android:utdid4all:1.5.2'
     implementation 'com.alibaba.mtl:app-monitor-sdk:2.6.4.5_for_bc'
 
     //电商SDK（必须）
-    implementation 'com.alibaba.sdk.android:AlibcTradeCommon:4.0.0.2@aar'
-    implementation 'com.alibaba.sdk.android:AlibcTradeBiz:4.0.0.2@aar'
-    implementation 'com.alibaba.sdk.android:nb_trade:4.0.0.2@aar'
-    implementation 'com.alibaba:fastjson:1.2.41'
+    implementation 'com.alibaba.sdk.android:AlibcTradeCommon:4.0.0.15@aar'
+    implementation 'com.alibaba.sdk.android:AlibcTradeBiz:4.0.0.15@aar'
+    implementation 'com.alibaba.sdk.android:nb_trade:4.0.0.15@aar'
+    implementation 'com.alibaba:fastjson:1.1.71.android'
 
     //multidex
     implementation 'com.android.support:multidex:1.0.2'

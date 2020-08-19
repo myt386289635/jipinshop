@@ -192,6 +192,11 @@ public class NewFreeAdapter extends RecyclerView.Adapter {
                 int pos = position - 1;
                 holder3.binding.setDate(mList.get(pos));
                 holder3.binding.executePendingBindings();
+                if (mList.get(pos).getIsBuy().equals("1")){
+                    holder3.binding.itemTag.setImageResource(R.mipmap.new_purchased);
+                }else {
+                    holder3.binding.itemTag.setImageResource(R.mipmap.new_welfare);
+                }
                 holder3.binding.itemOtherPrice.setTv(true);
                 holder3.binding.itemOtherPrice.setColor(R.color.color_989898);
                 holder3.binding.itemImage.post(() -> {

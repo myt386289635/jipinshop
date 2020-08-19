@@ -109,11 +109,7 @@ public class NewFreeDetailPresenter {
                 .observeOn(AndroidSchedulers.mainThread())
                 .compose(transformer)
                 .subscribe(bean -> {
-                    if (bean.getCode() == 0){
-                        mView.onBuySuccess(bean);
-                    }else {
-                        mView.onFile(bean.getMsg());
-                    }
+                    mView.onBuySuccess(bean);
                 }, throwable -> {
                     mView.onFile(throwable.getMessage());
                 });

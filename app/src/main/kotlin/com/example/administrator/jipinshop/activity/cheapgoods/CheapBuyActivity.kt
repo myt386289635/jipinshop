@@ -17,14 +17,13 @@ import com.blankj.utilcode.util.SPUtils
 import com.example.administrator.jipinshop.R
 import com.example.administrator.jipinshop.activity.cheapgoods.record.AllowanceRecordActivity
 import com.example.administrator.jipinshop.activity.login.LoginActivity
+import com.example.administrator.jipinshop.activity.newpeople.cheap.CheapBuyDetailActivity
 import com.example.administrator.jipinshop.adapter.KTCheapBuyAdapter
 import com.example.administrator.jipinshop.base.BaseActivity
-import com.example.administrator.jipinshop.bean.ImageBean
 import com.example.administrator.jipinshop.bean.NewPeopleBean
 import com.example.administrator.jipinshop.bean.ShareInfoBean
 import com.example.administrator.jipinshop.databinding.ActivityCheapBuyBinding
 import com.example.administrator.jipinshop.util.ShareUtils
-import com.example.administrator.jipinshop.util.TaoBaoUtil
 import com.example.administrator.jipinshop.util.ToastUtil
 import com.example.administrator.jipinshop.util.sp.CommonDate
 import com.example.administrator.jipinshop.view.dialog.DialogUtil
@@ -63,7 +62,7 @@ class CheapBuyActivity : BaseActivity(), View.OnClickListener, OnRefreshListener
     private fun initView() {
         startPop = intent.getBooleanExtra("startPop", true)
         mBinding.inClude?.let {
-            it.titleTv.text = "官方百万津贴专区"
+            it.titleTv.text = "官方百万补贴专区"
         }
         var animation = AnimationUtils.loadAnimation(this, R.anim.free_scale)
         mBinding.detailText.startAnimation(animation)
@@ -186,39 +185,18 @@ class CheapBuyActivity : BaseActivity(), View.OnClickListener, OnRefreshListener
                 mBinding.swipeToLoad.isRefreshing = false
             }
         }
-    }
-
-    override fun onBuy(position: Int) {
-        if (TextUtils.isEmpty(SPUtils.getInstance(CommonDate.USER).getString(CommonDate.token, ""))) {
-            startActivity(Intent(this, LoginActivity::class.java))
-            return
-        }
-        DialogUtil.LoginDialog(this, "您将前往淘宝购买并消耗"+ mList[position].useAllowancePrice +"元津贴\n下单立减" + mList[position].useAllowancePrice + "元，无需等待返现",
-                "确认", "取消", R.color.color_202020, R.color.color_202020,
-                false) {
-            TaoBaoUtil.openTB(this){
-                mDialog = ProgressDialogView().createOtherDialog(this,"淘宝",R.mipmap.dialog_tb)
-                mDialog?.let {
-                    if (!it.isShowing){
-                        it.show()
-                    }
-                }
-                mPresenter.apply(mList[position].id, this.bindToLifecycle<ImageBean>())
-            }
-        }
-    }
-
-    override fun onBuySuccess(bean: ImageBean) {
-        TaoBaoUtil.openAliHomeWeb(this, bean.data, bean.otherGoodsId)
-    }
-
-    override fun onBuyFile(error: String?) {
         mDialog?.let {
             if (it.isShowing){
                 it.dismiss()
             }
         }
-        ToastUtil.show(error)
+    }
+
+    override fun onBuy(position: Int) {
+        startActivity(Intent(this, CheapBuyDetailActivity::class.java)
+                .putExtra("freeId", mList[position].id)
+                .putExtra("otherGoodsId", mList[position].otherGoodsId)
+        )
     }
 
     override fun onResume() {

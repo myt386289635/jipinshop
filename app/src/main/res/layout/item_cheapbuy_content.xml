@@ -1,0 +1,155 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:bind="http://schemas.android.com/apk/res-auto">
+
+    <data>
+        <variable
+            name="data"
+            type="com.example.administrator.jipinshop.bean.NewPeopleBean.DataBean.AllowanceGoodsListBean"/>
+    </data>
+
+    <RelativeLayout
+        android:id="@+id/itemContainer"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <RelativeLayout
+            android:layout_marginBottom="@dimen/y23"
+            android:background="@drawable/bg_balance"
+            android:layout_marginRight="@dimen/x20"
+            android:layout_marginLeft="@dimen/x20"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <ImageView
+                android:layout_marginRight="@dimen/x33"
+                bind:srcRound="@{data.img}"
+                android:id="@+id/item_image"
+                android:layout_marginBottom="@dimen/y30"
+                android:layout_marginTop="@dimen/y30"
+                android:layout_marginLeft="@dimen/x13"
+                android:layout_width="@dimen/x220"
+                android:layout_height="@dimen/y220"/>
+
+            <TextView
+                android:id="@+id/item_name"
+                android:textColor="@color/color_565252"
+                android:textSize="14sp"
+                android:layout_marginRight="@dimen/x22"
+                android:layout_marginTop="@dimen/y4"
+                android:layout_alignTop="@id/item_image"
+                android:ellipsize="end"
+                android:maxLines="1"
+                android:layout_toRightOf="@id/item_image"
+                android:text="@{data.goodsName}"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+
+            <ImageView
+                android:id="@+id/item_tag"
+                android:layout_marginTop="@dimen/y10"
+                android:layout_marginLeft="@dimen/x10"
+                android:layout_alignLeft="@id/item_image"
+                android:layout_alignTop="@id/item_image"
+                android:src="@mipmap/bg_cheap6"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+
+            <RelativeLayout
+                android:layout_marginRight="@dimen/x22"
+                android:id="@+id/item_priceContainer"
+                android:layout_below="@id/item_name"
+                android:layout_toRightOf="@id/item_image"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/y121">
+
+                <ImageView
+                    android:adjustViewBounds="true"
+                    android:layout_centerHorizontal="true"
+                    android:scaleType="fitXY"
+                    android:src="@mipmap/bg_cheap7"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"/>
+
+                <TextView
+                    android:layout_marginBottom="@dimen/y24"
+                    android:layout_alignParentBottom="true"
+                    android:textStyle="bold"
+                    android:textColor="@color/color_white"
+                    android:textSize="13sp"
+                    android:id="@+id/item_allowance"
+                    android:text="@{data.useAllowancePrice + @string/order_prefree_end}"
+                    android:layout_centerHorizontal="true"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"/>
+
+                <TextView
+                    android:layout_marginLeft="@dimen/x25"
+                    android:layout_marginBottom="@dimen/y10"
+                    android:layout_alignParentBottom="true"
+                    android:textColor="@color/color_9D9D9D"
+                    android:textSize="10sp"
+                    android:text="@{@string/cheap_1 + data.otherPrice}"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"/>
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:background="@mipmap/bg_cheap8"
+                android:layout_marginTop="@dimen/y10"
+                android:layout_below="@id/item_priceContainer"
+                android:layout_marginRight="@dimen/x22"
+                android:layout_toRightOf="@id/item_image"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/y66">
+
+                <ImageView
+                    android:id="@+id/item_line"
+                    android:layout_centerHorizontal="true"
+                    android:adjustViewBounds="true"
+                    android:scaleType="fitXY"
+                    android:src="@mipmap/bg_cheap10"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"/>
+
+                <ImageView
+                    android:scaleType="centerInside"
+                    android:src="@mipmap/bg_cheap9"
+                    android:layout_toRightOf="@id/item_line"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"/>
+
+                <LinearLayout
+                    android:layout_marginLeft="@dimen/x14"
+                    android:layout_centerVertical="true"
+                    android:orientation="horizontal"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content">
+
+                    <TextView
+                        android:id="@+id/item_priceText"
+                        android:textSize="12sp"
+                        android:textStyle="bold"
+                        android:textColor="@color/color_white"
+                        android:text="补贴价¥"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"/>
+
+                    <TextView
+                        android:id="@+id/item_price"
+                        android:text="@{data.buyPrice}"
+                        android:textSize="17sp"
+                        android:textStyle="bold"
+                        android:textColor="@color/color_white"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"/>
+
+                </LinearLayout>
+
+            </RelativeLayout>
+
+        </RelativeLayout>
+
+    </RelativeLayout>
+</layout>

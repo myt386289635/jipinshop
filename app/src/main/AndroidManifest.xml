@@ -454,12 +454,8 @@
         <activity android:name=".activity.minekt.orderkt.KTMyOrderActivity"
                   android:screenOrientation="portrait"/>
 
-        <!--新人专区-->
-        <activity android:name=".activity.newpeople.NewPeopleActivity"
-                  android:screenOrientation="portrait"/>
-
-        <!--新人专区详情页-->
-        <activity android:name=".activity.newpeople.detail.NewPeopleDetailActivity"
+        <!--特惠购详情页-->
+        <activity android:name=".activity.newpeople.cheap.CheapBuyDetailActivity"
                   android:screenOrientation="portrait"/>
 
         <!--淘宝商品详情页面-->

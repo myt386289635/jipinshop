@@ -1,4 +1,4 @@
-package com.example.administrator.jipinshop.activity.newpeople.detail;
+package com.example.administrator.jipinshop.activity.newpeople.cheap;
 
 import android.content.Context;
 import android.view.ViewGroup;
@@ -28,17 +28,17 @@ import io.reactivex.schedulers.Schedulers;
  * @create 2019/11/14
  * @Describe
  */
-public class NewPeopleDetailPresenter {
+public class CheapBuyDetailPresenter {
 
     private Repository mRepository;
-    private NewPeopleDetailView mView;
+    private CheapBuyDetailView mView;
 
-    public void setView(NewPeopleDetailView view) {
+    public void setView(CheapBuyDetailView view) {
         mView = view;
     }
 
     @Inject
-    public NewPeopleDetailPresenter(Repository repository) {
+    public CheapBuyDetailPresenter(Repository repository) {
         mRepository = repository;
     }
 
@@ -120,31 +120,6 @@ public class NewPeopleDetailPresenter {
                     }
                 }, throwable -> {
                     mView.onFile(throwable.getMessage());
-                });
-    }
-
-    /**
-     * 获取商品详情
-     */
-    public void getGoodsDescImgs(String otherGoodsId ,String source, LifecycleTransformer<SucBean<String>> transformer ){
-        mRepository.getGoodsDescImgs(otherGoodsId,source)
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .compose(transformer)
-                .subscribe(bean -> {
-                    if (bean.getCode() == 0){
-                        if (mView != null){
-                            mView.onDescImgs(bean);
-                        }
-                    }else {
-                        if(mView != null){
-                            mView.onFile(bean.getMsg());
-                        }
-                    }
-                }, throwable -> {
-                    if(mView != null){
-                        mView.onFile(throwable.getMessage());
-                    }
                 });
     }
 

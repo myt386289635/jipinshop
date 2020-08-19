@@ -1,4 +1,4 @@
-package com.example.administrator.jipinshop.activity.newpeople.detail;
+package com.example.administrator.jipinshop.activity.newpeople.cheap;
 
 import android.app.Dialog;
 import android.content.Intent;
@@ -7,8 +7,6 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
-import android.text.SpannableString;
-import android.text.Spanned;
 import android.text.TextUtils;
 import android.view.Gravity;
 import android.view.View;
@@ -19,7 +17,6 @@ import android.widget.LinearLayout;
 import com.alibaba.baichuan.android.trade.AlibcTradeSDK;
 import com.blankj.utilcode.util.SPUtils;
 import com.example.administrator.jipinshop.R;
-import com.example.administrator.jipinshop.activity.cheapgoods.CheapBuyActivity;
 import com.example.administrator.jipinshop.activity.login.LoginActivity;
 import com.example.administrator.jipinshop.activity.share.ShareActivity;
 import com.example.administrator.jipinshop.adapter.NoPageBannerAdapter;
@@ -30,7 +27,6 @@ import com.example.administrator.jipinshop.adapter.ShoppingUserLikeAdapter;
 import com.example.administrator.jipinshop.base.BaseActivity;
 import com.example.administrator.jipinshop.bean.ImageBean;
 import com.example.administrator.jipinshop.bean.SimilerGoodsBean;
-import com.example.administrator.jipinshop.bean.SucBean;
 import com.example.administrator.jipinshop.bean.TBShoppingDetailBean;
 import com.example.administrator.jipinshop.databinding.ActivityNewpeopleDetailBinding;
 import com.example.administrator.jipinshop.util.DeviceUuidFactory;
@@ -39,8 +35,8 @@ import com.example.administrator.jipinshop.util.ToastUtil;
 import com.example.administrator.jipinshop.util.sp.CommonDate;
 import com.example.administrator.jipinshop.view.dialog.DialogParameter;
 import com.example.administrator.jipinshop.view.dialog.DialogQuality;
+import com.example.administrator.jipinshop.view.dialog.DialogUtil;
 import com.example.administrator.jipinshop.view.dialog.ProgressDialogView;
-import com.example.administrator.jipinshop.view.textview.CenteredImageSpan;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.umeng.socialize.UMShareAPI;
@@ -55,19 +51,19 @@ import javax.inject.Inject;
 /**
  * @author 莫小婷
  * @create 2019/11/14
- * @Describe 新人专区详情
+ * @Describe 特惠购详情页
  */
-public class NewPeopleDetailActivity extends BaseActivity implements View.OnClickListener, ShoppingQualityAdapter.OnItem, ShoppingParameterAdapter.OnItem, ShoppingUserLikeAdapter.OnItem, NewPeopleDetailView{
+public class CheapBuyDetailActivity extends BaseActivity implements View.OnClickListener, ShoppingQualityAdapter.OnItem, ShoppingParameterAdapter.OnItem, ShoppingUserLikeAdapter.OnItem, CheapBuyDetailView {
 
     @Inject
-    NewPeopleDetailPresenter mPresenter;
+    CheapBuyDetailPresenter mPresenter;
 
     private ActivityNewpeopleDetailBinding mBinding;
     private String freeId = "";//商品id
     private String otherGoodsId = "";
-    private int goodsTotle = 0;//默认为无法购买
     private Dialog mDialog;
     private Dialog mProgressDialog;
+    private String useAllowancePrice = "0";//该商品补贴
     //banner
     private NoPageBannerAdapter mBannerAdapter;
     private List<String> mBannerList;
@@ -86,9 +82,6 @@ public class NewPeopleDetailActivity extends BaseActivity implements View.OnClic
     //猜你喜欢
     private List<SimilerGoodsBean.DataBean> mUserLikeList;
     private ShoppingUserLikeAdapter mLikeAdapter;
-    private int goodsType = 2;//1是极品城  2是淘宝
-    private boolean isNewUser = false; //默认不是新人
-    private Boolean jumpPage = false;//是否跳转特惠购页面
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -107,7 +100,6 @@ public class NewPeopleDetailActivity extends BaseActivity implements View.OnClic
     private void initView() {
         freeId = getIntent().getStringExtra("freeId");
         otherGoodsId = getIntent().getStringExtra("otherGoodsId");
-        goodsTotle = getIntent().getIntExtra("goodsTotle",0);
         mPresenter.setStatusBarHight(mBinding.statusBar,this);
 
         //banner
@@ -168,36 +160,18 @@ public class NewPeopleDetailActivity extends BaseActivity implements View.OnClic
             case R.id.title_back:
                 finish();
                 break;
-            case R.id.detail_decSpeach:
-                if (goodsType == 1){
-                    mBinding.detailDecSpeach.setVisibility(View.GONE);
-                    LinearLayout.LayoutParams layoutParams = (LinearLayout.LayoutParams) mBinding.detailDec.getLayoutParams();
-                    layoutParams.height = ViewGroup.LayoutParams.WRAP_CONTENT;
-                    mBinding.detailDec.setLayoutParams(layoutParams);
-                }else {
-                    mDialog = (new ProgressDialogView()).createLoadingDialog(this, "");
-                    mDialog.show();
-                    mPresenter.getGoodsDescImgs(otherGoodsId,"2",this.bindToLifecycle());
-                }
-                break;
             case R.id.detail_coupon:
             case R.id.detail_bottom:
                 if (TextUtils.isEmpty(SPUtils.getInstance(CommonDate.USER).getString(CommonDate.token, ""))) {
-                    startActivityForResult(new Intent(this, LoginActivity.class),201);
+                    startActivity(new Intent(this, LoginActivity.class));
                     return;
                 }
-                if (!isNewUser){
-                    ToastUtil.show("您已不是新用户，无法参加0元购活动");
-                    return;
-                }
-                if (goodsTotle <= 0){
-                    ToastUtil.show("当前商品已抢光，再看看其他商品吧");
-                    return;
-                }
-                TaoBaoUtil.openTB(this, () -> {
-                    mDialog = (new ProgressDialogView()).createOtherDialog(this,"淘宝",R.mipmap.dialog_tb);
-                    mDialog.show();
-                    mPresenter.apply(freeId,NewPeopleDetailActivity.this.bindToLifecycle());
+                DialogUtil.cheapBuyDialog(this, useAllowancePrice, v1 -> {
+                    TaoBaoUtil.openTB(CheapBuyDetailActivity.this, () -> {
+                        mDialog = new ProgressDialogView().createOtherDialog(CheapBuyDetailActivity.this, "淘宝", R.mipmap.dialog_tb);
+                        mDialog.show();
+                        mPresenter.apply(freeId, this.bindToLifecycle());
+                    });
                 });
                 break;
         }
@@ -234,7 +208,7 @@ public class NewPeopleDetailActivity extends BaseActivity implements View.OnClic
             return;
         }
         TaoBaoUtil.openTB(this, () -> {
-            startActivity(new Intent(NewPeopleDetailActivity.this, ShareActivity.class)
+            startActivity(new Intent(CheapBuyDetailActivity.this, ShareActivity.class)
                     .putExtra("otherGoodsId",mUserLikeList.get(position).getOtherGoodsId())
                     .putExtra("source","2")
             );
@@ -243,16 +217,14 @@ public class NewPeopleDetailActivity extends BaseActivity implements View.OnClic
 
     @Override
     public void onSuccess(TBShoppingDetailBean bean) {
-        isNewUser = bean.isNewUser();
+        useAllowancePrice = bean.getAllowanceGoods().getUseAllowancePrice();
         mBinding.setDate(bean.getData());
         mBinding.executePendingBindings();
         mBinding.detailOldPriceName.setTv(true);
         mBinding.detailOldPriceName.setColor(R.color.color_9D9D9D);
         //商品名称
-        SpannableString string = new SpannableString("   " + bean.getAllowanceGoods().getGoodsName());
-        CenteredImageSpan imageSpan = new CenteredImageSpan(this,R.mipmap.bg_newpeople_tag);
-        string.setSpan(imageSpan, 0, 1, Spanned.SPAN_INCLUSIVE_EXCLUSIVE);
-        mBinding.detailName.setText(string);
+        mBinding.detailName.setText(bean.getAllowanceGoods().getGoodsName());
+        mBinding.detailAllowance.setText(bean.getAllowanceGoods().getAllowance() + "元");
         //轮播图
         mBannerList.addAll(bean.getData().getImgList());
         mPresenter.initBanner(mBannerList, this, point, mBinding.detailPoint, mBannerAdapter);
@@ -279,20 +251,12 @@ public class NewPeopleDetailActivity extends BaseActivity implements View.OnClic
             mBinding.detailLine2.setVisibility(View.GONE);
         }
         //商品详情
-        goodsType = bean.getData().getGoodsType();
-        if (goodsType == 2){
-            mBinding.detailDec.setVisibility(View.GONE);
-        }else {//极品城上架商品和原来一样
-            if (bean.getData().getDescImgList() != null && bean.getData().getDescImgList().size() != 0){
-                LinearLayout.LayoutParams layoutParams = (LinearLayout.LayoutParams) mBinding.detailDec.getLayoutParams();
-                layoutParams.height = (int) getResources().getDimension(R.dimen.y600);
-                mBinding.detailDec.setLayoutParams(layoutParams);
-                mDetailList.addAll(bean.getData().getDescImgList());
-                mImageAdapter.notifyDataSetChanged();
-            }else {
-                mBinding.detailDecContainer.setVisibility(View.GONE);
-            }
-        }
+        mBinding.detailDecSpeach.setVisibility(View.GONE);
+        LinearLayout.LayoutParams layoutParams = (LinearLayout.LayoutParams) mBinding.detailDec.getLayoutParams();
+        layoutParams.height = ViewGroup.LayoutParams.WRAP_CONTENT;
+        mBinding.detailDec.setLayoutParams(layoutParams);
+        mDetailList.addAll(bean.getData().getDescImgList());
+        mImageAdapter.notifyDataSetChanged();
         //推荐理由
         if (!TextUtils.isEmpty(bean.getData().getRecommendReason())){
             mBinding.detailReason.setDesc(bean.getData().getRecommendReason());
@@ -317,13 +281,11 @@ public class NewPeopleDetailActivity extends BaseActivity implements View.OnClic
         }
         //优惠券
         double coupon = new BigDecimal(bean.getData().getCouponPrice()).doubleValue();
-        double useAllowancePrice = new BigDecimal(bean.getAllowanceGoods().getUseAllowancePrice()).doubleValue();
-        if (coupon != 0 && useAllowancePrice != 0){
-            mBinding.detailCouponText.setText("领"+bean.getData().getCouponPrice()+"元优惠券，津贴"+bean.getAllowanceGoods().getUseAllowancePrice()+"元");
-        }else if (coupon != 0){
-            mBinding.detailCouponText.setText("领"+bean.getData().getCouponPrice()+"元优惠券");
+        mBinding.detailFee.setText(bean.getAllowanceGoods().getUseAllowancePrice());
+        if (coupon == 0){
+            mBinding.detailCouponContainer.setVisibility(View.GONE);
         }else {
-            mBinding.detailCouponText.setText("领津贴"+bean.getAllowanceGoods().getUseAllowancePrice()+"元");
+            mBinding.detailCouponContainer.setVisibility(View.VISIBLE);
         }
         if (mProgressDialog != null && mProgressDialog.isShowing()){
             mProgressDialog.dismiss();
@@ -350,24 +312,7 @@ public class NewPeopleDetailActivity extends BaseActivity implements View.OnClic
 
     @Override
     public void onBuySuccess(ImageBean bean) {
-        jumpPage = true;
         TaoBaoUtil.openAliHomeWeb(this, bean.getData(), bean.getOtherGoodsId());
-    }
-
-    @Override
-    public void onDescImgs(SucBean<String> bean) {
-        if (mDialog != null && mDialog.isShowing()){
-            mDialog.dismiss();
-        }
-        if (bean.getData() != null && bean.getData().size() != 0){
-            mBinding.detailDec.setVisibility(View.VISIBLE);
-            mBinding.detailDecSpeach.setVisibility(View.GONE);
-            mDetailList.clear();
-            mDetailList.addAll(bean.getData());
-            mImageAdapter.notifyDataSetChanged();
-        }else {
-            ToastUtil.show("暂无商品详情");
-        }
     }
 
     @Override
@@ -375,12 +320,6 @@ public class NewPeopleDetailActivity extends BaseActivity implements View.OnClic
         super.onResume();
         if (mDialog != null && mDialog.isShowing()){
             mDialog.dismiss();
-        }
-        if (jumpPage){
-            //跳转到特惠购页面
-            startActivity(new Intent(this, CheapBuyActivity.class));
-            finish();
-            jumpPage = false;
         }
     }
 
@@ -394,10 +333,10 @@ public class NewPeopleDetailActivity extends BaseActivity implements View.OnClic
         }
     }
 
-
+    //从登陆回来
     @Override
     public void onIsNewUser(TBShoppingDetailBean bean) {
-        isNewUser = bean.isNewUser();
+        mBinding.detailAllowance.setText(bean.getAllowanceGoods().getAllowance() + "元");
     }
 
     @Override

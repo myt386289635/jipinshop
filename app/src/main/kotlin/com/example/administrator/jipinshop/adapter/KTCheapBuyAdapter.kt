@@ -10,8 +10,8 @@ import android.view.ViewGroup
 import com.example.administrator.jipinshop.R
 import com.example.administrator.jipinshop.activity.WebActivity
 import com.example.administrator.jipinshop.bean.NewPeopleBean
+import com.example.administrator.jipinshop.databinding.ItemCheapbuyContentBinding
 import com.example.administrator.jipinshop.databinding.ItemCheapbuyHeadBinding
-import com.example.administrator.jipinshop.databinding.ItemNewForeBinding
 import com.example.administrator.jipinshop.netwrok.RetrofitModule
 import java.math.BigDecimal
 
@@ -65,7 +65,7 @@ class KTCheapBuyAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>{
                 holder = HeadViewHolder(itemCheapbuyHeadBinding)
             }
             CONTENT -> {
-                var itemNewForeBinding = DataBindingUtil.inflate<ItemNewForeBinding>(LayoutInflater.from(mContent) , R.layout.item_new_fore, viewGroup, false)
+                var itemNewForeBinding = DataBindingUtil.inflate<ItemCheapbuyContentBinding>(LayoutInflater.from(mContent) , R.layout.item_cheapbuy_content, viewGroup, false)
                 holder = ContentViewHolder(itemNewForeBinding)
             }
         }
@@ -99,25 +99,16 @@ class KTCheapBuyAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>{
                 var contentViewHolder : ContentViewHolder = holder as ContentViewHolder
                 var pos = position - 1
                 contentViewHolder.run {
-                    binding.itemBuy.setOnClickListener {
-                        mOnClickItem?.onBuy(pos)
-                    }
-                    var coupon = BigDecimal(mList[pos].couponPrice).toDouble()
-                    if (coupon == 0.0) {
-                        binding.itemCoupon.visibility = View.GONE
-                    } else {
-                        binding.itemCoupon.visibility = View.VISIBLE
-                    }
-                    var allowance = BigDecimal(mList[pos].useAllowancePrice).toDouble()
-                    if (allowance == 0.0) {
-                        binding.itemAllowance.visibility = View.GONE
-                    } else {
-                        binding.itemAllowance.visibility = View.VISIBLE
-                    }
-                    binding.itemPriceOld.setTv(true)
-                    binding.itemPriceOld.setColor(R.color.color_9D9D9D)
                     binding.data = mList[pos]
                     binding.executePendingBindings()
+                    if (mList[pos].isBuy == "1"){
+                        binding.itemTag.setImageResource(R.mipmap.bg_cheap11)
+                    }else{
+                        binding.itemTag.setImageResource(R.mipmap.bg_cheap6)
+                    }
+                    itemView.setOnClickListener {
+                        mOnClickItem?.onBuy(pos)
+                    }
                 }
             }
         }
@@ -125,9 +116,9 @@ class KTCheapBuyAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>{
 
     inner class ContentViewHolder: RecyclerView.ViewHolder{
 
-        var binding: ItemNewForeBinding
+        var binding: ItemCheapbuyContentBinding
 
-        constructor(binding: ItemNewForeBinding) : super(binding.root){
+        constructor(binding: ItemCheapbuyContentBinding) : super(binding.root){
             this.binding = binding
         }
     }

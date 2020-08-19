@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <RelativeLayout
+        android:layout_gravity="center_horizontal"
+        android:layout_width="@dimen/x600"
+        android:layout_height="wrap_content">
+
+        <LinearLayout
+            android:gravity="center"
+            android:layout_marginTop="@dimen/y119"
+            android:background="@drawable/bg_balance"
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <LinearLayout
+                android:layout_marginTop="@dimen/y132"
+                android:gravity="center_horizontal"
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:textColor="@color/color_202020"
+                    android:textSize="16sp"
+                    android:text="本次购买使用"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"/>
+
+                <TextView
+                    android:id="@+id/dialog_money"
+                    android:textStyle="bold"
+                    android:textColor="@color/color_E25838"
+                    android:textSize="26sp"
+                    android:text="0元"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"/>
+
+                <TextView
+                    android:textColor="@color/color_202020"
+                    android:textSize="16sp"
+                    android:text="补贴"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"/>
+
+            </LinearLayout>
+
+            <TextView
+                android:layout_marginTop="@dimen/y5"
+                android:textColor="@color/color_202020"
+                android:textSize="16sp"
+                android:text="下单立减无需等待返现"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+
+
+            <LinearLayout
+                android:layout_marginBottom="@dimen/y40"
+                android:layout_marginTop="@dimen/y40"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:id="@+id/dialog_dismiss"
+                    android:gravity="center"
+                    android:textStyle="bold"
+                    android:textColor="@color/color_E25838"
+                    android:textSize="16sp"
+                    android:text="取消"
+                    android:background="@drawable/bg_e25838_3"
+                    android:layout_width="@dimen/x190"
+                    android:layout_height="@dimen/y60"/>
+
+                <TextView
+                    android:layout_marginLeft="@dimen/x80"
+                    android:id="@+id/dialog_sure"
+                    android:gravity="center"
+                    android:textStyle="bold"
+                    android:textColor="@color/color_white"
+                    android:textSize="16sp"
+                    android:text="确认购买"
+                    android:background="@drawable/bg_tab_eva"
+                    android:layout_width="@dimen/x190"
+                    android:layout_height="@dimen/y60"/>
+
+            </LinearLayout>
+
+
+        </LinearLayout>
+
+        <ImageView
+            android:src="@mipmap/dialog_cheap"
+            android:layout_centerHorizontal="true"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+
+    </RelativeLayout>
+
+
+</layout>

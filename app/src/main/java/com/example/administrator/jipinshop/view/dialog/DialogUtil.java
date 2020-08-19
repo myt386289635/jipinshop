@@ -20,7 +20,10 @@ import android.text.method.LinkMovementMethod;
 import android.text.style.ClickableSpan;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.Window;
 import android.view.WindowManager;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -39,10 +42,12 @@ import com.example.administrator.jipinshop.bean.PrizeLogBean;
 import com.example.administrator.jipinshop.bean.SubUserBean;
 import com.example.administrator.jipinshop.bean.TeacherBean;
 import com.example.administrator.jipinshop.bean.TklBean;
+import com.example.administrator.jipinshop.databinding.DialogCheapBuyBinding;
 import com.example.administrator.jipinshop.databinding.DialogCheapOutBinding;
 import com.example.administrator.jipinshop.databinding.DialogLuckBinding;
 import com.example.administrator.jipinshop.databinding.DialogNewpeople2Binding;
 import com.example.administrator.jipinshop.databinding.DialogNewpeopleBuyBinding;
+import com.example.administrator.jipinshop.databinding.DialogNonewBinding;
 import com.example.administrator.jipinshop.databinding.DialogOutBinding;
 import com.example.administrator.jipinshop.databinding.DialogParityBinding;
 import com.example.administrator.jipinshop.databinding.DialogTklBinding;
@@ -818,18 +823,16 @@ public class DialogUtil {
         dialog.setContentView(view);
     }
 
-    //首次新手教程弹窗
-    public static void noviceTutorialDialog(Context context, View.OnClickListener listener , View.OnClickListener cancleListener){
+    //特惠购购买时弹窗
+    public static void cheapBuyDialog(Context context, String useAllowancePrice, View.OnClickListener listener){
         AlertDialog.Builder builder = new AlertDialog.Builder(context, R.style.dialog);
         final Dialog dialog = builder.create();
-        DialogNewpeople2Binding binding = DataBindingUtil.inflate(LayoutInflater.from(context), R.layout.dialog_newpeople2, null, false);
-        binding.dialogImage.setImageResource(R.mipmap.novice_tutorial);
-        binding.dialogCancle.setOnClickListener(v -> {
-            if (cancleListener != null)
-                cancleListener.onClick(v);
+        DialogCheapBuyBinding binding = DataBindingUtil.inflate(LayoutInflater.from(context), R.layout.dialog_cheap_buy, null, false);
+        binding.dialogMoney.setText(useAllowancePrice + "元");
+        binding.dialogDismiss.setOnClickListener(v -> {
             dialog.dismiss();
         });
-        binding.dialogImage.setOnClickListener(v -> {
+        binding.dialogSure.setOnClickListener(v -> {
             if (listener != null)
                 listener.onClick(v);
             dialog.dismiss();
@@ -1120,6 +1123,34 @@ public class DialogUtil {
             dialog.dismiss();
         });
         dialog.getWindow().setDimAmount(0.35f);
+        dialog.show();
+        dialog.setContentView(binding.getRoot());
+    }
+
+    //0元购详情失去免单资格
+    public static void noBuyDialog(Context context , View.OnClickListener listener){
+        AlertDialog.Builder builder = new AlertDialog.Builder(context, R.style.dialog);
+        DialogNonewBinding binding = DataBindingUtil.inflate(LayoutInflater.from(context),R.layout.dialog_nonew, null,false);
+        final Dialog dialog = builder.create();
+        Animation animation = AnimationUtils.loadAnimation(context, R.anim.free_scale);
+        binding.dialogSure.startAnimation(animation);
+        binding.dialogCancle.setOnClickListener(v -> {
+            dialog.dismiss();
+        });
+        binding.dialogSure.setOnClickListener(v -> {
+            if (listener != null)
+                listener.onClick(v);
+            dialog.dismiss();
+        });
+        Window window = dialog.getWindow();
+        if (window != null){
+            window.getDecorView().setPadding(0, 0, 0, 0);
+            WindowManager.LayoutParams layoutParams = window.getAttributes();
+            layoutParams.width = WindowManager.LayoutParams.MATCH_PARENT;
+            layoutParams.horizontalMargin = 0;
+            window.setAttributes(layoutParams);
+            window.setDimAmount(0.35f);
+        }
         dialog.show();
         dialog.setContentView(binding.getRoot());
     }

@@ -138,7 +138,7 @@ class KTMemberPresenter {
                 .subscribe({ signInsertBean ->
                     if (signInsertBean.getCode() == 0) {
                         mView.signSuc(signInsertBean)
-                    } else  if (signInsertBean.getCode() != 630){
+                    } else {
                         mView.onFile(signInsertBean.getMsg())
                     }
                 }, { throwable ->

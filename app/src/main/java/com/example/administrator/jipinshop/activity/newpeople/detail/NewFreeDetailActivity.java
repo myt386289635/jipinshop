@@ -40,13 +40,12 @@ import com.example.administrator.jipinshop.util.ToastUtil;
 import com.example.administrator.jipinshop.util.sp.CommonDate;
 import com.example.administrator.jipinshop.view.dialog.DialogParameter;
 import com.example.administrator.jipinshop.view.dialog.DialogQuality;
+import com.example.administrator.jipinshop.view.dialog.DialogUtil;
 import com.example.administrator.jipinshop.view.dialog.ProgressDialogView;
 import com.example.administrator.jipinshop.view.textview.CenteredImageSpan;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
-import com.umeng.socialize.UMShareAPI;
 
-import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -333,7 +332,18 @@ public class NewFreeDetailActivity extends BaseActivity implements View.OnClickL
 
     @Override
     public void onBuySuccess(ImageBean bean) {
-        jumpPage = false;
-        TaoBaoUtil.openAliHomeWeb(this, bean.getData(), bean.getOtherGoodsId());
+        if (bean.getCode() == 0){
+            jumpPage = false;
+            TaoBaoUtil.openAliHomeWeb(this, bean.getData(), bean.getOtherGoodsId());
+        }else if (bean.getCode() == 630){
+            if (mDialog != null && mDialog.isShowing()){
+                mDialog.dismiss();
+            }
+            DialogUtil.noBuyDialog(this, v -> {
+                finish();
+            });
+        }else {
+            onFile(bean.getMsg());
+        }
     }
 }

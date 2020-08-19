@@ -449,6 +449,15 @@ public class TBShoppingDetailBean {
         private String couponPrice;
         private String goodsName;
         private String useAllowancePrice;
+        private String allowance;
+
+        public String getAllowance() {
+            return allowance;
+        }
+
+        public void setAllowance(String allowance) {
+            this.allowance = allowance;
+        }
 
         public String getCouponPrice() {
             return couponPrice;

@@ -57,9 +57,8 @@ import com.example.administrator.jipinshop.activity.money.binding.MoneyBindActiv
 import com.example.administrator.jipinshop.activity.money.record.MoneyRecordActivity;
 import com.example.administrator.jipinshop.activity.money.withdraw.MoneyWithdrawActivity;
 import com.example.administrator.jipinshop.activity.newpeople.NewFreeActivity;
-import com.example.administrator.jipinshop.activity.newpeople.NewPeopleActivity;
 import com.example.administrator.jipinshop.activity.newpeople.detail.NewFreeDetailActivity;
-import com.example.administrator.jipinshop.activity.newpeople.detail.NewPeopleDetailActivity;
+import com.example.administrator.jipinshop.activity.newpeople.cheap.CheapBuyDetailActivity;
 import com.example.administrator.jipinshop.activity.report.cover.CoverReportActivity;
 import com.example.administrator.jipinshop.activity.report.create.CreateReportActivity;
 import com.example.administrator.jipinshop.activity.report.detail.ReportDetailActivity;
@@ -150,8 +149,7 @@ public interface BaseActivityComponent {
     void inject(EditSignActivity activity);
     void inject(AuditDetailActivity activity);
     void inject(TaoBaoWebActivity activity);
-    void inject(NewPeopleActivity activity);
-    void inject(NewPeopleDetailActivity activity);
+    void inject(CheapBuyDetailActivity activity);
     void inject(TBShoppingDetailActivity activity);
     void inject(TBSreachActivity activity);
     void inject(TBSreachResultActivity activity);

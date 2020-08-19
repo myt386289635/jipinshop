@@ -261,10 +261,9 @@
                     android:layout_height="wrap_content">
 
                     <TextView
-                        android:textStyle="bold"
                         android:textColor="@color/color_FFDDA6"
                         android:textSize="13sp"
-                        android:text="官方百万津贴"
+                        android:text="官方百万补贴"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"/>
 
@@ -276,7 +275,7 @@
                         android:layout_marginTop="@dimen/y16"
                         android:textColor="@color/color_FFDDA6"
                         android:textSize="15sp"
-                        android:text="送你88元津贴"
+                        android:text="送你108元补贴"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"/>
 
