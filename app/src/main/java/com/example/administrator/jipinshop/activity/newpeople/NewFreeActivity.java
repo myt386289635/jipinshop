@@ -187,9 +187,11 @@ public class NewFreeActivity extends BaseActivity implements View.OnClickListene
             ToastUtil.show("当前商品已售罄，看看其他商品吧");
             return;
         }
-        startActivity(new Intent(this, NewFreeDetailActivity.class)
+        startActivityForResult(new Intent(this, NewFreeDetailActivity.class)
                 .putExtra("freeId",mList.get(position).getId())
-                .putExtra("otherGoodsId", mList.get(position).getOtherGoodsId()));
+                .putExtra("otherGoodsId", mList.get(position).getOtherGoodsId())
+                ,500
+        );
     }
 
     @Override
@@ -315,6 +317,19 @@ public class NewFreeActivity extends BaseActivity implements View.OnClickListene
         UMShareAPI.get(this).onActivityResult(requestCode, resultCode, data);
         if (resultCode == 200 && requestCode == 302){
             onRefresh();
+        }else if (resultCode == 200 && requestCode == 500){
+            //从详情回来
+            if (TextUtils.isEmpty(SPUtils.getInstance(CommonDate.USER).getString(CommonDate.token, ""))) {
+                startActivityForResult(new Intent(this, LoginActivity.class),302);
+                return;
+            }
+            if (mShareBoardDialog == null) {
+                mShareBoardDialog = ShareBoardDialog4.getInstance("保存图片");
+                mShareBoardDialog.setOnShareListener(this);
+            }
+            if (!mShareBoardDialog.isAdded()) {
+                mShareBoardDialog.show(getSupportFragmentManager(), "ShareBoardDialog4");
+            }
         }
     }
 

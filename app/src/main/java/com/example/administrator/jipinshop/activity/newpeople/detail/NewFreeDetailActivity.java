@@ -340,6 +340,7 @@ public class NewFreeDetailActivity extends BaseActivity implements View.OnClickL
                 mDialog.dismiss();
             }
             DialogUtil.noBuyDialog(this, v -> {
+                setResult(200);
                 finish();
             });
         }else {
