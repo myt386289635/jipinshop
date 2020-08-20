@@ -33,6 +33,7 @@ import com.example.administrator.jipinshop.util.ShopJumpUtil;
 import com.example.administrator.jipinshop.util.ToastUtil;
 import com.example.administrator.jipinshop.util.sp.CommonDate;
 import com.example.administrator.jipinshop.view.dialog.ProgressDialogView;
+import com.example.administrator.jipinshop.view.glide.GlideApp;
 import com.umeng.socialize.UMAuthListener;
 import com.umeng.socialize.UMShareAPI;
 import com.umeng.socialize.UMShareConfig;
@@ -73,6 +74,7 @@ public class LoginActivity extends BaseActivity implements LoginView, View.OnCli
     private void initView() {
         newpeople = getIntent().getIntExtra("newpeople",0);
         mPresenter.setView(this);
+        GlideApp.loderImage(this,"https://jipincheng.cn/login.png",mBinding.loginLogo,R.mipmap.bg_login,R.mipmap.bg_login);
         String content= "登录即代表同意《极品城用户协议》及《隐私政策》";
         SpannableString string = new SpannableString(content);
         ClickableSpan clickableSpan1 = new ClickableSpan() {

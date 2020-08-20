@@ -8,7 +8,6 @@
         android:scaleType="fitCenter"
         android:id="@+id/dialog_bg"
         android:layout_centerHorizontal="true"
-        android:src="@mipmap/dialog_login_bg"
         android:layout_width="@dimen/x560"
         android:layout_height="@dimen/y670"/>
 

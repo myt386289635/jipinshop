@@ -949,9 +949,12 @@ public class DialogUtil {
         AlertDialog.Builder builder = new AlertDialog.Builder(context, R.style.dialog);
         final Dialog dialog = builder.create();
         View view = LayoutInflater.from(context).inflate(R.layout.dialog_tb_login, null);
+        ImageView dialog_bg = view.findViewById(R.id.dialog_bg);
         ImageView dialog_cancle = view.findViewById(R.id.dialog_cancle);
         TextView dialog_sure = view.findViewById(R.id.dialog_sure);
         TextView dialog_title = view.findViewById(R.id.dialog_title);
+        GlideApp.loderImage(context,"https://jipincheng.cn/tbshouquan.png",
+                dialog_bg,R.mipmap.dialog_login_bg,R.mipmap.dialog_login_bg);
         String str = "授权<font color='#202020'>极品城</font>后即可<font color='#202020'>购买特价好物</font>";
         dialog_title.setText(Html.fromHtml(str));
         dialog_cancle.setOnClickListener(v -> {

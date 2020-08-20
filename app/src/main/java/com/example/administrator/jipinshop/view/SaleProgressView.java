@@ -63,6 +63,7 @@ public class SaleProgressView extends View {
     private float baseLineY;
     private Bitmap bgBitmap;
     private boolean isNeedAnim;
+    private DecimalFormat mDecimalFormat ;
 
 
     public void setSideColor(int sideColor) {
@@ -117,6 +118,7 @@ public class SaleProgressView extends View {
         mPorterDuffXfermode = new PorterDuffXfermode(PorterDuff.Mode.SRC_IN);
         nearOverTextWidth = textPaint.measureText(nearOverText);
         overTextWidth = textPaint.measureText(overText);
+        mDecimalFormat =  new DecimalFormat("0.00");
     }
 
     @Override
@@ -152,7 +154,7 @@ public class SaleProgressView extends View {
         if (totalCount == 0) {
             scale = 0.0f;
         } else {
-            scale = Float.parseFloat(new DecimalFormat("0.00").format((float) progressCount / (float) totalCount));
+            scale = Float.parseFloat(mDecimalFormat.format((float) progressCount / (float) totalCount));
         }
 
         drawSide(canvas);

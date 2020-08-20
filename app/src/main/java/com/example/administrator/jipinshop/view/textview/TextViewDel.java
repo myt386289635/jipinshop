@@ -17,10 +17,11 @@ import com.example.administrator.jipinshop.util.DistanceHelper;
 public class TextViewDel extends AppCompatTextView {
     private boolean flag;
     private int mColor = R.color.color_E31436;
+    private Paint paint;
 
     public TextViewDel(Context context, AttributeSet attrs) {
         super(context, attrs);
-
+        paint = new Paint();
     }
 
     @Override
@@ -29,7 +30,6 @@ public class TextViewDel extends AppCompatTextView {
         super.onDraw(canvas);
 
         if (flag) {
-            Paint paint = new Paint();
             // 设置直线的颜色
             paint.setColor(getResources().getColor(mColor));
             // 设置直线没有锯齿

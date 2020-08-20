@@ -37,6 +37,7 @@ public class CollapsibleTextView2 extends LinearLayout implements View.OnClickLi
     private boolean flag;
     private Boolean originOnce = true;
     private int totleLine;
+    private Runnable mRunnable;
 
     public CollapsibleTextView2(Context context) {
         this(context, null);
@@ -79,6 +80,7 @@ public class CollapsibleTextView2 extends LinearLayout implements View.OnClickLi
         originOnce = true;
         totleLine = 0;
         flag = false;
+        mRunnable = new InnerRunnable();
     }
 
     @Override
@@ -102,7 +104,7 @@ public class CollapsibleTextView2 extends LinearLayout implements View.OnClickLi
                 desc_img.setVisibility(VISIBLE);
                 desc.setMaxLines(Integer.MAX_VALUE);
             } else {
-                post(new InnerRunnable());
+                post(mRunnable);
             }
         }
     }

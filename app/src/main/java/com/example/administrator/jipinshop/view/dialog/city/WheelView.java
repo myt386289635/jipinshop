@@ -9,6 +9,7 @@ import android.graphics.Paint;
 import android.graphics.Rect;
 import android.graphics.drawable.Drawable;
 import android.os.Handler;
+import android.os.Looper;
 import android.os.Message;
 import android.support.v4.content.ContextCompat;
 import android.util.AttributeSet;
@@ -19,6 +20,7 @@ import android.view.View;
 
 import com.example.administrator.jipinshop.R;
 import com.example.administrator.jipinshop.util.DistanceHelper;
+import com.example.administrator.jipinshop.util.WeakRefHandler;
 
 import java.util.List;
 import java.util.Timer;
@@ -58,10 +60,9 @@ public class WheelView extends View {
     private Timer timer;
     private MyTimerTask mTask;
     private float mLastDownY;
-    Handler updateHandler = new Handler() {
-
+    Handler updateHandler = new WeakRefHandler(new Handler.Callback() {
         @Override
-        public void handleMessage(Message msg) {
+        public boolean handleMessage(Message msg) {
             if (Math.abs(mMoveLen) < SPEED) {
                 // 如果偏移量少于最少偏移量
                 mMoveLen = 0;
@@ -80,9 +81,9 @@ public class WheelView extends View {
                 mMoveLen = mMoveLen - mMoveLen / Math.abs(mMoveLen) * SPEED;
             }
             invalidate();
+            return false;
         }
-
-    };
+    });
 
     private void resetCurrentSelect() {
         if (currentItem < 0) {
