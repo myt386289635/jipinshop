@@ -23,9 +23,9 @@ import com.example.administrator.jipinshop.activity.address.MyAddressActivity;
 import com.example.administrator.jipinshop.activity.setting.about.AboutActivity;
 import com.example.administrator.jipinshop.activity.setting.bind.BindWXActivity;
 import com.example.administrator.jipinshop.base.BaseActivity;
-import com.example.administrator.jipinshop.base.BaseAsyncTask;
 import com.example.administrator.jipinshop.bean.SuccessBean;
 import com.example.administrator.jipinshop.jpush.JPushAlias;
+import com.example.administrator.jipinshop.util.ClearTask;
 import com.example.administrator.jipinshop.util.MyDataCleanManager;
 import com.example.administrator.jipinshop.util.ShopJumpUtil;
 import com.example.administrator.jipinshop.util.TaoBaoUtil;
@@ -227,7 +227,7 @@ public class SettingActivity extends BaseActivity implements CleanCacheDialog.On
         if (mClearTask != null) {
             mClearTask.cancel(true);
         }
-        mClearTask = new ClearTask(SettingActivity.this);
+        mClearTask = new ClearTask(SettingActivity.this,mSettingCleanImage);
         mClearTask.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
     }
 
@@ -253,37 +253,6 @@ public class SettingActivity extends BaseActivity implements CleanCacheDialog.On
             ToastUtil.show("退出登录成功");
         } else {
             ToastUtil.show(msg.getMsg());
-        }
-    }
-
-
-    class ClearTask extends BaseAsyncTask<Void, Void, Void> {
-
-        public ClearTask(Context context) {
-            super(context);
-        }
-
-        @Override
-        protected void onPreExecute() {
-            super.onPreExecute();
-            //开始清除时候
-//            clearLoading.setVisibility(View.VISIBLE);
-//            tvCacheNum.setVisibility(View.GONE);
-        }
-
-        @Override
-        protected Void realDoInBackground(Void... voids) {
-            MyDataCleanManager.clearAllCache(getApplicationContext());
-//            clearAllCache();
-            return null;
-        }
-
-        @Override
-        protected void realOnPostExecute(Void aVoid) {
-//            clearLoading.setVisibility(View.GONE);
-//            tvCacheNum.setVisibility(View.VISIBLE);
-            mSettingCleanImage.setText(MyDataCleanManager.getFormatSize(0L));
-            ToastUtil.show("内存已清空");
         }
     }
 

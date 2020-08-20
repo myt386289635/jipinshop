@@ -1,15 +1,15 @@
 package com.example.administrator.jipinshop.view.textview;
 
 import android.content.Context;
+import android.support.v7.widget.AppCompatTextView;
 import android.util.AttributeSet;
-import android.widget.TextView;
 
 /**
  * @author 莫小婷
  * @create 2020/7/6
  * @Describe 横向跑马灯  解决textView获取焦点的问题
  */
-public class AlwaysMarqueeTextView extends TextView {
+public class AlwaysMarqueeTextView extends AppCompatTextView {
 
     public AlwaysMarqueeTextView(Context context){
         super(context);

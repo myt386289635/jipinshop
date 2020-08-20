@@ -86,7 +86,6 @@ public class MainActivity extends BaseActivity implements MainView, ViewPager.On
     private KTSchoolFragment mSchoolFragment;//商学院
 
     private long exitTime = 0;
-    private static Activity sFirstInstance;
     private Boolean once = true; // 是否是第一次弹出
     private CountDownTimer mCountDownTimerUtils;//定时器
     private Dialog mDialog;
@@ -109,12 +108,6 @@ public class MainActivity extends BaseActivity implements MainView, ViewPager.On
         }
         mBinding = DataBindingUtil.setContentView(this,R.layout.activity_main);
         mBinding.setListener(this);
-        if (null == sFirstInstance) {
-            sFirstInstance = this;
-        } else if (this != sFirstInstance) {
-            // 防止微信跳转过来，多个MainActivity界面(是singletop)
-            finish();
-        }
         initView();
     }
 
@@ -257,9 +250,6 @@ public class MainActivity extends BaseActivity implements MainView, ViewPager.On
     @Override
     protected void onDestroy() {
         EventBus.getDefault().unregister(this);
-        if (sFirstInstance == this) {
-            sFirstInstance = null;
-        }
         if (mCountDownTimerUtils != null) {
             mCountDownTimerUtils.cancel();
             mCountDownTimerUtils = null;

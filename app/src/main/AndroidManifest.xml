@@ -85,7 +85,8 @@
 
         <!--首页-->
         <activity android:name=".activity.home.MainActivity"
-                  android:screenOrientation="portrait"/>
+                  android:screenOrientation="portrait"
+                  android:launchMode="singleTask"/>
 
         <!--搜索页面-->
         <activity

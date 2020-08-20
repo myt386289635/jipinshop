@@ -3,9 +3,9 @@ package com.example.administrator.jipinshop.view.tab;
 import android.content.Context;
 import android.graphics.Paint;
 import android.graphics.Rect;
+import android.support.v7.widget.AppCompatTextView;
 import android.text.TextUtils;
 import android.view.Gravity;
-import android.widget.TextView;
 
 import net.lucode.hackware.magicindicator.buildins.commonnavigator.abs.IMeasurablePagerTitleView;
 
@@ -14,7 +14,7 @@ import net.lucode.hackware.magicindicator.buildins.commonnavigator.abs.IMeasurab
  * @create 2019/12/11
  * @Describe 带文本的指示器标题
  */
-public class SimpleCommenPagerTitleView extends TextView implements IMeasurablePagerTitleView {
+public class SimpleCommenPagerTitleView extends AppCompatTextView implements IMeasurablePagerTitleView {
 
     protected int mSelectedColor;
     protected int mNormalColor;
