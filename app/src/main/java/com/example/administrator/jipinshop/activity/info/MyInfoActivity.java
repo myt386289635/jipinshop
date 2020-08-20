@@ -18,8 +18,8 @@ import com.example.administrator.jipinshop.bean.SuccessBean;
 import com.example.administrator.jipinshop.bean.eventbus.EditNameBus;
 import com.example.administrator.jipinshop.databinding.ActivityMyinfoBinding;
 import com.example.administrator.jipinshop.util.ImageCompressUtil;
+import com.example.administrator.jipinshop.util.PickerUtil;
 import com.example.administrator.jipinshop.util.ToastUtil;
-import com.example.administrator.jipinshop.util.WheelViewUtil;
 import com.example.administrator.jipinshop.util.sp.CommonDate;
 import com.example.administrator.jipinshop.view.dialog.ProgressDialogView;
 import com.example.administrator.jipinshop.view.dialog.SelectPicDialog;
@@ -29,11 +29,8 @@ import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 
 import java.io.File;
-import java.util.ArrayList;
 
 import javax.inject.Inject;
-
-import static com.example.administrator.jipinshop.util.wheelview.TimePickerView.Type.YEAR_MONTH_DAY;
 
 /**
  * @author 莫小婷
@@ -46,10 +43,10 @@ public class MyInfoActivity extends BaseActivity implements SelectPicDialog.Choo
     private ActivityMyinfoBinding mBinding;
     @Inject
     MyInfoPresenter mPresenter;
-    //性别选择器  数据
-    private ArrayList<String> wheelList;
     private boolean falg = false;
     private String sign = "";
+    private PickerUtil mPickerUtil; //时间选择器
+    private PickerUtil mSexPickerUtil; //性别选择器
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -103,9 +100,20 @@ public class MyInfoActivity extends BaseActivity implements SelectPicDialog.Choo
             mBinding.infoSign.setText(sign);
         }
 
-        wheelList = new ArrayList<>();
-        wheelList.add("女");
-        wheelList.add("男");
+        //时间选择器
+        mPickerUtil = new PickerUtil();
+        mPickerUtil.initBirth(this, mBinding.infoBirth.getText().toString(), date -> {
+            Dialog mDialog = (new ProgressDialogView()).createLoadingDialog(MyInfoActivity.this, "请求中...");
+            mDialog.show();
+            mPresenter.SaveUserInfo("3", date, MyInfoActivity.this.bindToLifecycle(), mDialog);
+        });
+        //性别选择器
+        mSexPickerUtil = new PickerUtil();
+        mSexPickerUtil.initSex(this, sex -> {
+            Dialog mDialog = (new ProgressDialogView()).createLoadingDialog(MyInfoActivity.this, "请求中...");
+            mDialog.show();
+            mPresenter.SaveUserInfo("2", sex, MyInfoActivity.this.bindToLifecycle(), mDialog);
+        });
     }
 
     /**
@@ -148,18 +156,10 @@ public class MyInfoActivity extends BaseActivity implements SelectPicDialog.Choo
                 );
                 break;
             case R.id.info_sexContainer:
-                WheelViewUtil.alertBottomWheelOption(this, wheelList, (view1, postion) -> {
-                    Dialog mDialog = (new ProgressDialogView()).createLoadingDialog(MyInfoActivity.this, "请求中...");
-                    mDialog.show();
-                    mPresenter.SaveUserInfo("2", wheelList.get(postion), MyInfoActivity.this.bindToLifecycle(), mDialog);
-                });
+                mSexPickerUtil.showTextPiker();
                 break;
             case R.id.info_birthContainer:
-                WheelViewUtil.alertTimerPicker(this,1900,mBinding.infoBirth.getText().toString(), YEAR_MONTH_DAY, "yyyy-MM-dd", (WheelViewUtil.TimerPickerCallBack) date -> {
-                    Dialog mDialog = (new ProgressDialogView()).createLoadingDialog(MyInfoActivity.this, "请求中...");
-                    mDialog.show();
-                    mPresenter.SaveUserInfo("3", date, MyInfoActivity.this.bindToLifecycle(), mDialog);
-                });
+                mPickerUtil.showPiker();
                 break;
             case R.id.info_numberContainer:
                 //跳转到绑定账号页面
