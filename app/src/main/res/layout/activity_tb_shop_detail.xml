@@ -208,7 +208,7 @@
                     android:textStyle="bold"
                     android:layout_marginTop="@dimen/y4"
                     android:gravity="center"
-                    android:text="@{@string/fee + date.fee}"
+                    android:text="@{@string/shop_1 + date.fee}"
                     android:background="@mipmap/bg_fee"
                     android:layout_marginLeft="@dimen/x22"
                     android:layout_alignTop="@id/detail_newPriceContainer"
@@ -222,46 +222,63 @@
                     android:layout_marginTop="@dimen/y20"
                     android:id="@+id/detail_member"
                     android:layout_below="@id/detail_oldPriceName"
-                    android:background="@drawable/bg_333333_2"
                     android:layout_width="match_parent"
-                    android:layout_height="@dimen/y56">
+                    android:background="@mipmap/detail_bj"
+                    android:layout_height="wrap_content">
+
+                    <ImageView
+                        android:id="@+id/detail_memberImage"
+                        android:layout_marginRight="@dimen/x6"
+                        android:layout_marginLeft="@dimen/x10"
+                        android:layout_marginTop="@dimen/y20"
+                        android:src="@mipmap/detail_member"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"/>
 
                     <TextView
-                        android:textSize="12sp"
-                        android:drawablePadding="@dimen/x6"
-                        android:drawableLeft="@mipmap/detail_member"
-                        android:layout_marginLeft="@dimen/x10"
+                        android:layout_marginTop="@dimen/y17"
+                        android:layout_toRightOf="@id/detail_memberImage"
+                        android:textSize="13sp"
                         android:id="@+id/detail_memberText"
-                        android:layout_centerVertical="true"
-                        android:text="升级会员等级，本商品最高可赚"
+                        android:text="加入极品会员本商品可返"
                         android:textColor="@color/color_FFE4C1"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"/>
 
                     <TextView
+                        android:gravity="center"
+                        android:layout_alignBottom="@id/detail_memberText"
+                        android:layout_alignTop="@id/detail_memberText"
                         android:id="@+id/detail_memberPrice"
                         android:textColor="@color/color_E25838"
                         android:text="￥0"
                         android:textStyle="bold"
-                        android:textSize="13sp"
-                        android:layout_centerVertical="true"
+                        android:textSize="14sp"
                         android:layout_toRightOf="@id/detail_memberText"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"/>
 
                     <TextView
+                        android:id="@+id/detail_memberNotice"
+                        android:layout_marginBottom="@dimen/y12"
+                        android:layout_marginTop="@dimen/y8"
+                        android:layout_below="@id/detail_memberText"
+                        android:layout_alignLeft="@id/detail_memberText"
+                        android:textSize="11sp"
+                        android:textColor="@color/color_FFE4C1"
+                        android:text="立享成本价，返利100%，每年省9600元"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"/>
+
+                    <ImageView
+                        android:layout_marginRight="@dimen/x20"
+                        android:src="@mipmap/detail_opening"
                         android:onClick="@{listener.onClick}"
                         android:id="@+id/detail_memberGo"
-                        android:gravity="center"
-                        android:textColor="@color/color_FFE4C1"
-                        android:paddingLeft="@dimen/x25"
-                        android:paddingRight="@dimen/x25"
                         android:layout_alignParentRight="true"
                         android:layout_centerVertical="true"
-                        android:textSize="12sp"
-                        android:text="立即升级>"
                         android:layout_width="wrap_content"
-                        android:layout_height="match_parent"/>
+                        android:layout_height="wrap_content"/>
 
                 </RelativeLayout>
 
@@ -658,21 +675,33 @@
                         android:layout_height="wrap_content"
                         android:layout_below="@id/detail_decTitle"/>
 
-                    <TextView
-                        android:id="@+id/detail_decSpeach"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_below="@id/detail_dec"
-                        android:layout_gravity="center_horizontal"
-                        android:drawableRight="@mipmap/right_down"
-                        android:drawablePadding="@dimen/x5"
-                        android:drawableTint="@color/color_9D9D9D"
-                        android:onClick="@{listener.onClick}"
+                    <LinearLayout
+                        android:gravity="center_vertical"
                         android:paddingTop="@dimen/y37"
                         android:paddingBottom="@dimen/y17"
-                        android:text="点击查看完整详情"
-                        android:textColor="@color/color_9D9D9D"
-                        android:textSize="13sp"/>
+                        android:layout_gravity="center_horizontal"
+                        android:id="@+id/detail_decSpeach"
+                        android:onClick="@{listener.onClick}"
+                        android:layout_below="@id/detail_dec"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginRight="@dimen/x5"
+                            android:text="点击查看完整详情"
+                            android:textColor="@color/color_9D9D9D"
+                            android:textSize="13sp"/>
+
+                        <ImageView
+                            android:id="@+id/detail_down"
+                            android:src="@mipmap/detail_down"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"/>
+
+                    </LinearLayout>
+
 
                     <View
                         android:id="@+id/detail_line4"

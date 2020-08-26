@@ -15,6 +15,8 @@ import android.text.TextUtils;
 import android.view.Gravity;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 
@@ -193,10 +195,12 @@ public class TBShoppingDetailActivity extends BaseActivity implements View.OnCli
                 break;
             case R.id.detail_decSpeach:
                 if (goodsType == 1){
-                    mBinding.detailDecSpeach.setVisibility(View.GONE);
-                    LinearLayout.LayoutParams layoutParams = (LinearLayout.LayoutParams) mBinding.detailDec.getLayoutParams();
-                    layoutParams.height = ViewGroup.LayoutParams.WRAP_CONTENT;
-                    mBinding.detailDec.setLayoutParams(layoutParams);
+                    if (mDetailList.size() != 0){
+                        mBinding.detailDecSpeach.setVisibility(View.GONE);
+                        mBinding.detailDec.setVisibility(View.VISIBLE);
+                    }else {
+                        ToastUtil.show("暂无商品详情");
+                    }
                 }else {
                     mDialog = (new ProgressDialogView()).createLoadingDialog(this, "");
                     mDialog.show();
@@ -349,19 +353,15 @@ public class TBShoppingDetailActivity extends BaseActivity implements View.OnCli
         }
         //商品详情
         goodsType = bean.getData().getGoodsType();
-        if (goodsType == 2){
-            mBinding.detailDec.setVisibility(View.GONE);
-        }else {//极品城上架商品
-            if (bean.getData().getDescImgList() != null && bean.getData().getDescImgList().size() != 0){
-                mBinding.detailDecSpeach.setVisibility(View.GONE);
-//                LinearLayout.LayoutParams layoutParams = (LinearLayout.LayoutParams) mBinding.detailDec.getLayoutParams();
-//                layoutParams.height = (int) getResources().getDimension(R.dimen.y600);
-//                mBinding.detailDec.setLayoutParams(layoutParams);
-                mDetailList.addAll(bean.getData().getDescImgList());
-                mImageAdapter.notifyDataSetChanged();
-            }else {
-                mBinding.detailDecContainer.setVisibility(View.GONE);
-            }
+        mBinding.detailDec.setVisibility(View.GONE);
+        mBinding.detailDecSpeach.setVisibility(View.VISIBLE);
+        Animation animation = AnimationUtils.loadAnimation(this, R.anim.down_anim);
+        mBinding.detailDown.startAnimation(animation);
+        animation.start();
+        mDetailList.clear();
+        if (bean.getData().getDescImgList() != null && bean.getData().getDescImgList().size() != 0){
+            mDetailList.addAll(bean.getData().getDescImgList());
+            mImageAdapter.notifyDataSetChanged();
         }
         //推荐理由
         if (!TextUtils.isEmpty(bean.getData().getRecommendReason())){
@@ -426,11 +426,22 @@ public class TBShoppingDetailActivity extends BaseActivity implements View.OnCli
         if (mProgressDialog != null && mProgressDialog.isShowing()){
             mProgressDialog.dismiss();
         }
+        //todo 会员信息
         if (bean.getData().getLevel() == 2){
-            mBinding.detailMember.setVisibility(View.GONE);
+            mBinding.detailMemberPrice.setVisibility(View.GONE);
+            mBinding.detailMemberNotice.setVisibility(View.GONE);
+            mBinding.detailMemberGo.setVisibility(View.GONE);
+            mBinding.detailMemberText.setVisibility(View.GONE);
+            mBinding.detailMemberImage.setVisibility(View.GONE);
+            mBinding.detailMember.setBackgroundResource(R.mipmap.detail_bj2);
         }else {
-            mBinding.detailMember.setVisibility(View.VISIBLE);
+            mBinding.detailMemberPrice.setVisibility(View.VISIBLE);
+            mBinding.detailMemberNotice.setVisibility(View.VISIBLE);
+            mBinding.detailMemberGo.setVisibility(View.VISIBLE);
+            mBinding.detailMemberText.setVisibility(View.VISIBLE);
+            mBinding.detailMemberImage.setVisibility(View.VISIBLE);
             mBinding.detailMemberPrice.setText("￥" + bean.getData().getUpFee());
+            mBinding.detailMember.setBackgroundResource(R.mipmap.detail_bj);
         }
         //比价弹窗
         if (!TextUtils.isEmpty(parity)){
@@ -536,6 +547,28 @@ public class TBShoppingDetailActivity extends BaseActivity implements View.OnCli
 
     @Override
     public void onCollect(TBShoppingDetailBean bean) {
+        //优惠券
+        double coupon = new BigDecimal(bean.getData().getCouponPrice()).doubleValue();
+        if (coupon == 0){//没有优惠券
+            mBinding.detailCouponContainer.setVisibility(View.GONE);
+        }else {
+            mBinding.detailCouponContainer.setVisibility(View.VISIBLE);
+        }
+        double free = new BigDecimal(bean.getData().getFee()).doubleValue();
+        mBinding.detailShareCode.setText("（赚¥"+ new BigDecimal(free).setScale(2,BigDecimal.ROUND_HALF_UP).stripTrailingZeros().toPlainString() +"）");
+        if (free == 0){//没有补贴
+            mBinding.detailShareCode.setVisibility(View.GONE);
+        }else {
+            mBinding.detailShareCode.setVisibility(View.VISIBLE);
+        }
+        double price = free + coupon;
+        if (price == 0){
+            mBinding.detailFreeCode.setVisibility(View.GONE);
+            money = "0.00";
+        }else {
+            mBinding.detailFreeCode.setText("（省¥"+ new BigDecimal(price).setScale(2,BigDecimal.ROUND_HALF_UP).stripTrailingZeros().toPlainString() +"）");
+            money = new BigDecimal(price).setScale(2,BigDecimal.ROUND_HALF_UP).stripTrailingZeros().toPlainString();
+        }
         //是否收藏过
         if(bean.getData().getCollect() == 1){
             isCollect = true;
@@ -554,11 +587,22 @@ public class TBShoppingDetailActivity extends BaseActivity implements View.OnCli
             mBinding.titleFavor.setCompoundDrawables(null,drawable,null,null);
             mBinding.titleFavor.setText("收藏");
         }
+        //todo 会员信息
         if (bean.getData().getLevel() == 2){
-            mBinding.detailMember.setVisibility(View.GONE);
+            mBinding.detailMemberPrice.setVisibility(View.GONE);
+            mBinding.detailMemberNotice.setVisibility(View.GONE);
+            mBinding.detailMemberGo.setVisibility(View.GONE);
+            mBinding.detailMemberText.setVisibility(View.GONE);
+            mBinding.detailMemberImage.setVisibility(View.GONE);
+            mBinding.detailMember.setBackgroundResource(R.mipmap.detail_bj2);
         }else {
-            mBinding.detailMember.setVisibility(View.VISIBLE);
+            mBinding.detailMemberPrice.setVisibility(View.VISIBLE);
+            mBinding.detailMemberNotice.setVisibility(View.VISIBLE);
+            mBinding.detailMemberGo.setVisibility(View.VISIBLE);
+            mBinding.detailMemberText.setVisibility(View.VISIBLE);
+            mBinding.detailMemberImage.setVisibility(View.VISIBLE);
             mBinding.detailMemberPrice.setText("￥" + bean.getData().getUpFee());
+            mBinding.detailMember.setBackgroundResource(R.mipmap.detail_bj);
         }
     }
 

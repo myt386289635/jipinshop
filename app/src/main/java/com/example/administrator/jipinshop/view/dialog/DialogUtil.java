@@ -762,9 +762,9 @@ public class DialogUtil {
         GlideApp.loderTopRoundImage(context, strings.get(0).getImg(), binding.dialogImg1, (int) context.getResources().getDimension(R.dimen.x10));
         GlideApp.loderTopRoundImage(context, strings.get(1).getImg(), binding.dialogImg2, (int) context.getResources().getDimension(R.dimen.x10));
         GlideApp.loderTopRoundImage(context, strings.get(2).getImg(), binding.dialogImg3, (int) context.getResources().getDimension(R.dimen.x10));
-        binding.dialogText1.setText("减"+strings.get(0).getUseAllowancePrice()+"元");
-        binding.dialogText2.setText("减"+strings.get(1).getUseAllowancePrice()+"元");
-        binding.dialogText3.setText("减"+strings.get(2).getUseAllowancePrice()+"元");
+        binding.dialogText1.setText("补贴"+strings.get(0).getUseAllowancePrice()+"元");
+        binding.dialogText2.setText("补贴"+strings.get(1).getUseAllowancePrice()+"元");
+        binding.dialogText3.setText("补贴"+strings.get(2).getUseAllowancePrice()+"元");
         binding.dialogSure.setOnClickListener(v -> {
             if (listener != null)
                 listener.onClick(v);

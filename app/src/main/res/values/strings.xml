@@ -71,7 +71,7 @@
     <string name="order_pay">付款：</string>
     <string name="order_number">订单号：</string>
     <string name="coupon">优惠券 ¥</string>
-    <string name="fee">返 ¥</string>
+    <string name="fee">会员返 ¥</string>
     <string name="free_start">需邀请</string>
     <string name="free_end">人可享</string>
     <string name="free_buyed">已抢</string>
@@ -91,7 +91,7 @@
     <string name="allowance">津贴 ¥</string>
     <string name="allowance1">减 ¥</string>
     <string name="record">创建时间：</string>
-    <string name="allowance2">津贴减 ¥</string>
+    <string name="allowance2">补贴减 ¥</string>
     <string name="money_time">申请时间：</string>
     <string name="daily_price">券后价¥</string>
 
@@ -105,11 +105,11 @@
     <string name="buy">0 元 购</string>
     <string name="no_buy">已 抢 完</string>
     <string name="no_buy2">已抢完</string>
-    <string name="coupon3">券￥</string>
-    <string name="pay">付￥</string>
-    <string name="fan">，返￥</string>
-    <string name="pay_long">您当前需要支付￥</string>
-    <string name="fan_long">，返现￥</string>
+    <string name="coupon3">券¥</string>
+    <string name="pay">付¥</string>
+    <string name="fan">，返¥</string>
+    <string name="pay_long">您当前需要支付¥</string>
+    <string name="fan_long">，返现¥</string>
     <string name="end_long">将在确认收货后进行结算</string>
     <string name="pay2_start">（新人</string>
     <string name="pay2_end">元）</string>
@@ -119,5 +119,13 @@
 
     <string name="school_1">人学习</string>
     <string name="cheap_1">原价¥</string>
+    <string name="shop_1">返 ¥</string>
+    <string name="member_1">淘宝原价\n¥</string>
+    <string name="member_2">返现平台\n¥</string>
+    <string name="member_3">极品城会员\n¥</string>
+    <string name="member_4">立减\n</string>
+    <string name="member_5">月卡¥</string>
+    <string name="member_6">年卡¥</string>
+    <string name="member_7">可省¥</string>
 
 </resources>

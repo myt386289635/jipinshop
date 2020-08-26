@@ -254,6 +254,7 @@ public class NewFreeActivity extends BaseActivity implements View.OnClickListene
 
     @Override
     public void share(SHARE_MEDIA share_media) {
+        mPresenter.taskFinish(this.bindToLifecycle());
         mDialog = (new ProgressDialogView()).createLoadingDialog(this, "");
         if (mDialog != null && !mDialog.isShowing()) {
             mDialog.show();
@@ -274,6 +275,7 @@ public class NewFreeActivity extends BaseActivity implements View.OnClickListene
 
     @Override
     public void download(int type) {
+        mPresenter.taskFinish(this.bindToLifecycle());
         mDialog = (new ProgressDialogView()).createLoadingDialog(this, "");
         if (mDialog != null && !mDialog.isShowing()) {
             mDialog.show();

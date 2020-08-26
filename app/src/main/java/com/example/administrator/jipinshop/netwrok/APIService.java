@@ -32,6 +32,7 @@ import com.example.administrator.jipinshop.bean.LoginBean;
 import com.example.administrator.jipinshop.bean.MallBean;
 import com.example.administrator.jipinshop.bean.MallDetailBean;
 import com.example.administrator.jipinshop.bean.MemberBean;
+import com.example.administrator.jipinshop.bean.MemberNewBean;
 import com.example.administrator.jipinshop.bean.MoneyBean;
 import com.example.administrator.jipinshop.bean.MoneyPopBean;
 import com.example.administrator.jipinshop.bean.MoneyRecordBean;
@@ -1410,4 +1411,11 @@ public interface APIService {
      */
     @GET("api/addToken")
     Observable<SuccessBean> addToken(@Query("type") int type ,@Query("messageToken") String token);
+
+    /**
+     * 新会员接口
+     */
+    @GET("api/v4/user/levelIndex")
+    Observable<MemberNewBean> levelIndex();
+
 }

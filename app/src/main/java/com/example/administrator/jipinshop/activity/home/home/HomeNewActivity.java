@@ -10,7 +10,7 @@ import com.example.administrator.jipinshop.base.BaseActivity;
 import com.example.administrator.jipinshop.fragment.evaluationkt.EvaluationNewFragment;
 import com.example.administrator.jipinshop.fragment.home.HomeNewFragment;
 import com.example.administrator.jipinshop.fragment.index.IndexVideoFragment;
-import com.example.administrator.jipinshop.fragment.member.KTMemberFragment;
+import com.example.administrator.jipinshop.fragment.member.MemberFragment;
 
 /**
  * @author 莫小婷
@@ -46,7 +46,7 @@ public class HomeNewActivity extends BaseActivity {
                     .transparentStatusBar()
                     .statusBarDarkFont(false, 0f)
                     .init();
-            fragmentTransaction.add(R.id.home_fragment, KTMemberFragment.getInstance("2")).commit();
+            fragmentTransaction.add(R.id.home_fragment, MemberFragment.getInstance("2")).commit();
         }else if (type == evaluation){
             fragmentTransaction.add(R.id.home_fragment, new EvaluationNewFragment()).commit();
         }else if (type == indexVideo){

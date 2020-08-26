@@ -1,6 +1,5 @@
 package com.example.administrator.jipinshop.activity.home;
 
-import android.app.Activity;
 import android.app.Dialog;
 import android.content.ClipData;
 import android.content.ClipboardManager;
@@ -35,7 +34,7 @@ import com.example.administrator.jipinshop.bean.eventbus.HomeNewPeopleBus;
 import com.example.administrator.jipinshop.databinding.ActivityMainBinding;
 import com.example.administrator.jipinshop.fragment.circle.CircleFragment;
 import com.example.administrator.jipinshop.fragment.home.KTHomeFragnent;
-import com.example.administrator.jipinshop.fragment.member.KTMemberFragment;
+import com.example.administrator.jipinshop.fragment.member.MemberFragment;
 import com.example.administrator.jipinshop.fragment.mine.KTMineFragment;
 import com.example.administrator.jipinshop.fragment.school.KTSchoolFragment;
 import com.example.administrator.jipinshop.netwrok.RetrofitModule;
@@ -79,7 +78,7 @@ public class MainActivity extends BaseActivity implements MainView, ViewPager.On
     private ActivityMainBinding mBinding;
     private List<Fragment> mFragments;
     private HomeAdapter mHomeAdapter;
-    private KTMemberFragment mMemberFragment;//会员
+    private MemberFragment mMemberFragment;//新版会员
     private KTMineFragment mMineFragment;//我的
     private CircleFragment mCircleFragment;//发圈
     private KTHomeFragnent mKTHomeFragnent;//首页
@@ -126,7 +125,7 @@ public class MainActivity extends BaseActivity implements MainView, ViewPager.On
 
         mKTHomeFragnent = KTHomeFragnent.getInstance();
         mSchoolFragment = KTSchoolFragment.getInstance();
-        mMemberFragment = KTMemberFragment.getInstance("1");
+        mMemberFragment = MemberFragment.getInstance("1");
         mCircleFragment = CircleFragment.getInstance();
         mMineFragment = KTMineFragment.getInstance();
         mFragments.add(mKTHomeFragnent);

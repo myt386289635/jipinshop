@@ -32,6 +32,7 @@ import com.example.administrator.jipinshop.bean.LoginBean;
 import com.example.administrator.jipinshop.bean.MallBean;
 import com.example.administrator.jipinshop.bean.MallDetailBean;
 import com.example.administrator.jipinshop.bean.MemberBean;
+import com.example.administrator.jipinshop.bean.MemberNewBean;
 import com.example.administrator.jipinshop.bean.MoneyBean;
 import com.example.administrator.jipinshop.bean.MoneyPopBean;
 import com.example.administrator.jipinshop.bean.MoneyRecordBean;
@@ -1548,5 +1549,12 @@ public class Repository {
      */
     public Observable<SuccessBean> addToken(int type, String token){
         return mAPIService.addToken(type,token);
+    }
+
+    /**
+     * 新会员接口
+     */
+    public Observable<MemberNewBean> levelIndex(){
+        return mAPIService.levelIndex();
     }
 }

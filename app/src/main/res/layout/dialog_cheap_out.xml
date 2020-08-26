@@ -21,7 +21,7 @@
                 android:textColor="@color/color_F93931"
                 android:textStyle="bold"
                 android:textSize="15sp"
-                android:text="再看看这些商品吧，都能用津贴"
+                android:text="再看看这些商品吧，都能用补贴"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"/>
 
@@ -31,7 +31,7 @@
                 android:layout_marginTop="@dimen/y2"
                 android:textColor="@color/color_F93931"
                 android:textSize="12sp"
-                android:text="以下商品下单立减，津贴当钱花！"
+                android:text="以下商品下单立减，补贴当钱花！"
                 android:layout_below="@id/dialog_title"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"/>
@@ -62,7 +62,7 @@
                         android:layout_below="@id/dialog_img1"
                         android:background="@drawable/bg_cheap_dialog"
                         android:gravity="center"
-                        tools:text="减4.5元"
+                        tools:text="补贴4.5元"
                         android:textColor="@color/color_white"
                         android:textSize="12sp"
                         android:textStyle="bold"/>
@@ -89,7 +89,7 @@
                         android:layout_below="@id/dialog_img2"
                         android:background="@drawable/bg_cheap_dialog"
                         android:gravity="center"
-                        tools:text="减4.5元"
+                        tools:text="补贴4.5元"
                         android:textColor="@color/color_white"
                         android:textSize="12sp"
                         android:textStyle="bold"/>
@@ -114,7 +114,7 @@
                         android:layout_below="@id/dialog_img3"
                         android:background="@drawable/bg_cheap_dialog"
                         android:gravity="center"
-                        tools:text="减4.5元"
+                        tools:text="补贴4.5元"
                         android:textColor="@color/color_white"
                         android:textSize="12sp"
                         android:textStyle="bold"/>
@@ -183,7 +183,7 @@
                 <TextView
                     android:textSize="16sp"
                     android:textColor="@color/color_white"
-                    android:text="津贴未使用"
+                    android:text="补贴未使用"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"/>
 

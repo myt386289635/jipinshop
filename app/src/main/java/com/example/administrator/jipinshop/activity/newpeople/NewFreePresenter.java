@@ -6,7 +6,9 @@ import android.support.v7.widget.RecyclerView;
 import com.aspsine.swipetoloadlayout.SwipeToLoadLayout;
 import com.example.administrator.jipinshop.bean.ImageBean;
 import com.example.administrator.jipinshop.bean.NewFreeBean;
+import com.example.administrator.jipinshop.bean.TaskFinishBean;
 import com.example.administrator.jipinshop.netwrok.Repository;
+import com.example.administrator.jipinshop.util.ToastUtil;
 import com.trello.rxlifecycle2.LifecycleTransformer;
 import com.umeng.socialize.bean.SHARE_MEDIA;
 
@@ -84,4 +86,15 @@ public class NewFreePresenter {
                     mView.onCommenFile(throwable.getMessage());
                 });
     }
+
+    //分享免单
+    public void taskFinish(LifecycleTransformer<TaskFinishBean> transformer){
+        mRepository.taskFinish("22")
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .compose(transformer)
+                .subscribe(taskFinishBean -> {
+                }, throwable ->{});
+    }
+
 }

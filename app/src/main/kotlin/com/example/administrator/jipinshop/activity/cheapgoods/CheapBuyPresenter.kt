@@ -5,7 +5,9 @@ import android.support.v7.widget.RecyclerView
 import com.aspsine.swipetoloadlayout.SwipeToLoadLayout
 import com.example.administrator.jipinshop.bean.NewPeopleBean
 import com.example.administrator.jipinshop.bean.ShareInfoBean
+import com.example.administrator.jipinshop.bean.TaskFinishBean
 import com.example.administrator.jipinshop.netwrok.Repository
+import com.example.administrator.jipinshop.util.ToastUtil
 import com.trello.rxlifecycle2.LifecycleTransformer
 import com.umeng.socialize.bean.SHARE_MEDIA
 import io.reactivex.android.schedulers.AndroidSchedulers
@@ -74,5 +76,15 @@ class CheapBuyPresenter {
                         mView.onFile(bean.msg)
                     }
                 }, { throwable -> mView.onFile(throwable.message) })
+    }
+
+    //分享特惠购
+    fun taskFinish(transformer: LifecycleTransformer<TaskFinishBean>) {
+        repository.taskFinish("23")
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .compose(transformer)
+                .subscribe({ taskFinishBean ->
+                }, { throwable -> })
     }
 }

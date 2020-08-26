@@ -135,7 +135,6 @@ class CheapBuyActivity : BaseActivity(), View.OnClickListener, OnRefreshListener
         mDialog = ProgressDialogView().createLoadingDialog(this, "")
         mDialog?.show()
         mPresenter.initShare(share_media,this.bindToLifecycle())
-
     }
 
     override fun onLink() {
@@ -143,6 +142,7 @@ class CheapBuyActivity : BaseActivity(), View.OnClickListener, OnRefreshListener
     }
 
     override fun initShare(share_media: SHARE_MEDIA?, bean: ShareInfoBean) {
+        mPresenter.taskFinish(this.bindToLifecycle())
        if (share_media != null){
            ShareUtils(this,share_media,mDialog)
                    .shareWeb(this, bean.data.link, bean.data.title,bean.data.desc,bean.data.imgUrl,R.mipmap.share_logo)

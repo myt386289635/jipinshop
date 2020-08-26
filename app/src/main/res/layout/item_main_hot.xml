@@ -46,6 +46,8 @@
             android:layout_height="wrap_content">
 
             <TextView
+                android:drawablePadding="@dimen/x4"
+                android:drawableLeft="@mipmap/shop_v"
                 android:textStyle="bold"
                 android:textSize="11sp"
                 android:textColor="@color/color_E25838"
@@ -96,6 +98,7 @@
                 android:layout_height="wrap_content"/>
 
             <TextView
+                android:drawableLeft="@mipmap/item_v"
                 android:layout_marginLeft="@dimen/x2"
                 android:minHeight="@dimen/y26"
                 android:id="@+id/detail_fee"
