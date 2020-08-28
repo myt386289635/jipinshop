@@ -99,7 +99,6 @@ class KTMemberFragment : DBBaseFragment(), View.OnClickListener, OnRefreshListen
     }
 
     override fun initView() {
-        mBaseFragmentComponent.inject(this)
         mPresenter.setView(this)
         mPresenter.setStatusBarHight(mBinding.statusBar,context!!)
         mBinding.swipeToLoad.setOnRefreshListener(this)

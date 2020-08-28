@@ -199,6 +199,9 @@ public class MemberFragment extends DBBaseFragment implements View.OnClickListen
                 break;
             case R.id.member_shop1Container:
                 //商品详情
+                if (TextUtils.isEmpty(otherGoodsId)){
+                    return;
+                }
                 startActivity(new Intent(getContext(), TBShoppingDetailActivity.class)
                         .putExtra("otherGoodsId", otherGoodsId)
                         .putExtra("source",source)

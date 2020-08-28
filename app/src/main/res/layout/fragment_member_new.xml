@@ -63,6 +63,7 @@
             android:layout_height="match_parent"/>
 
         <RelativeLayout
+            android:visibility="gone"
             android:layout_alignParentBottom="true"
             android:id="@+id/member_payContainer"
             android:background="@color/color_white"
