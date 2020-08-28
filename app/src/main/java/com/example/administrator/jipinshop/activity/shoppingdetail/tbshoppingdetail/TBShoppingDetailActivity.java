@@ -426,8 +426,8 @@ public class TBShoppingDetailActivity extends BaseActivity implements View.OnCli
         if (mProgressDialog != null && mProgressDialog.isShowing()){
             mProgressDialog.dismiss();
         }
-        //todo 会员信息
-        if (bean.getData().getLevel() == 2){
+        //会员信息
+        if (bean.getData().getLevel() != 0){
             mBinding.detailMemberPrice.setVisibility(View.GONE);
             mBinding.detailMemberNotice.setVisibility(View.GONE);
             mBinding.detailMemberGo.setVisibility(View.GONE);

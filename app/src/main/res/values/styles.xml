@@ -123,4 +123,9 @@
         <item name="android:windowExitAnimation">@anim/top_middle_out</item>
     </style>
 
+    <style name="AnimPop" parent="@android:style/Animation">
+        <item name="android:windowEnterAnimation">@anim/popshow</item>
+        <item name="android:windowExitAnimation">@anim/popdiss</item>
+    </style>
+
 </resources>

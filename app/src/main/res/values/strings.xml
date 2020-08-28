@@ -127,5 +127,6 @@
     <string name="member_5">月卡¥</string>
     <string name="member_6">年卡¥</string>
     <string name="member_7">可省¥</string>
+    <string name="member_8">到期</string>
 
 </resources>

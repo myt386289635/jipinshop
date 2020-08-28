@@ -39,7 +39,7 @@ public class MemberNewBean {
 
     public static class DataBean {
 
-        private int level;
+        private int level;//0 普通 ， 1 月卡 ，2年卡
         private String avatar;
         private String nickname;
         private String levelEndTime;
@@ -57,6 +57,24 @@ public class MemberNewBean {
         private String preYearEndTime;
         private List<MessageListBean> messageList;
         private List<VipBoxListBean> vipBoxList;
+        private List<VipBoxListBean> monthBoxList;
+        private List<VipBoxListBean> yearBoxList;
+
+        public List<VipBoxListBean> getMonthBoxList() {
+            return monthBoxList;
+        }
+
+        public void setMonthBoxList(List<VipBoxListBean> monthBoxList) {
+            this.monthBoxList = monthBoxList;
+        }
+
+        public List<VipBoxListBean> getYearBoxList() {
+            return yearBoxList;
+        }
+
+        public void setYearBoxList(List<VipBoxListBean> yearBoxList) {
+            this.yearBoxList = yearBoxList;
+        }
 
         public int getLevel() {
             return level;
@@ -306,6 +324,24 @@ public class MemberNewBean {
             private String price;
             private String lowPrice;
             private String fee;
+            private String otherGoodsId;
+            private String source;
+
+            public String getOtherGoodsId() {
+                return otherGoodsId;
+            }
+
+            public void setOtherGoodsId(String otherGoodsId) {
+                this.otherGoodsId = otherGoodsId;
+            }
+
+            public String getSource() {
+                return source;
+            }
+
+            public void setSource(String source) {
+                this.source = source;
+            }
 
             public String getTitle1() {
                 return title1;

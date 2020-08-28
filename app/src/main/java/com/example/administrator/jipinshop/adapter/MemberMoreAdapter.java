@@ -25,10 +25,12 @@ public class MemberMoreAdapter extends RecyclerView.Adapter<MemberMoreAdapter.Vi
 
     private List<MemberNewBean.DataBean.VipBoxListBean> mList;
     private Context mContext;
+    private String type = "1";//1是fragment  2是pop里
 
-    public MemberMoreAdapter(List<MemberNewBean.DataBean.VipBoxListBean> list, Context context) {
+    public MemberMoreAdapter(List<MemberNewBean.DataBean.VipBoxListBean> list, Context context, String type) {
         mList = list;
         mContext = context;
+        this.type = type;
     }
 
     @NonNull
@@ -42,7 +44,14 @@ public class MemberMoreAdapter extends RecyclerView.Adapter<MemberMoreAdapter.Vi
     public void onBindViewHolder(@NonNull ViewHolder viewHolder, int position) {
         viewHolder.mBinding.itemName.setText(mList.get(position).getTitle());
         GlideApp.loderImage(mContext,mList.get(position).getIconUrl(),viewHolder.mBinding.itemImage,0,0);
-        int zWidth = (int) (DistanceHelper.getAndroiodScreenwidthPixels(mContext) - mContext.getResources().getDimension(R.dimen.x20) - mContext.getResources().getDimension(R.dimen.x20));
+        int zWidth;
+        if (type.equals("1")){
+            viewHolder.mBinding.itemName.setTextColor(mContext.getResources().getColor(R.color.color_F4CB95));
+            zWidth = (int) (DistanceHelper.getAndroiodScreenwidthPixels(mContext) - mContext.getResources().getDimension(R.dimen.x20) - mContext.getResources().getDimension(R.dimen.x20));
+        }else {
+            viewHolder.mBinding.itemName.setTextColor(mContext.getResources().getColor(R.color.color_D5A460));
+            zWidth = DistanceHelper.getAndroiodScreenwidthPixels(mContext);
+        }
         RelativeLayout.LayoutParams layoutParams = (RelativeLayout.LayoutParams) viewHolder.mBinding.itemContainer.getLayoutParams();
         layoutParams.width = zWidth / 3;
         viewHolder.mBinding.itemContainer.setLayoutParams(layoutParams);
