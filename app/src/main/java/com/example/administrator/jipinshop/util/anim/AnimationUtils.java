@@ -30,7 +30,7 @@ public class AnimationUtils {
         } else
         if(state == AnimationState.STATE_HIDDEN){
             start = 1f;
-            view.setVisibility(View.INVISIBLE);
+            view.setVisibility(View.GONE);
         }
         AlphaAnimation animation = new AlphaAnimation(start, end);
         animation.setDuration(duration);

@@ -1,11 +1,15 @@
 package com.example.administrator.jipinshop.fragment.member;
 
+import android.app.Dialog;
 import android.content.ClipData;
 import android.content.ClipboardManager;
 import android.content.Context;
 import android.content.Intent;
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Looper;
+import android.os.Message;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -15,7 +19,9 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
+import android.widget.Toast;
 
+import com.alipay.sdk.app.PayTask;
 import com.aspsine.swipetoloadlayout.OnRefreshListener;
 import com.blankj.utilcode.util.SPUtils;
 import com.example.administrator.jipinshop.R;
@@ -26,16 +32,28 @@ import com.example.administrator.jipinshop.adapter.MemberMoreAdapter;
 import com.example.administrator.jipinshop.adapter.MemberShopAdapter;
 import com.example.administrator.jipinshop.base.DBBaseFragment;
 import com.example.administrator.jipinshop.bean.MemberNewBean;
+import com.example.administrator.jipinshop.bean.PayResultBean;
+import com.example.administrator.jipinshop.bean.eventbus.PayBus;
 import com.example.administrator.jipinshop.databinding.FragmentMemberNewBinding;
 import com.example.administrator.jipinshop.util.DistanceHelper;
 import com.example.administrator.jipinshop.util.ToastUtil;
+import com.example.administrator.jipinshop.util.WeakRefHandler;
 import com.example.administrator.jipinshop.util.anim.AnimationUtils;
 import com.example.administrator.jipinshop.util.sp.CommonDate;
+import com.example.administrator.jipinshop.view.dialog.DialogUtil;
 import com.example.administrator.jipinshop.view.dialog.MemberBuyPop;
 import com.example.administrator.jipinshop.view.dialog.MemberRenewPop;
+import com.example.administrator.jipinshop.wxapi.WXPayEntryActivity;
+import com.tencent.mm.opensdk.modelpay.PayReq;
+import com.tencent.mm.opensdk.openapi.IWXAPI;
+import com.tencent.mm.opensdk.openapi.WXAPIFactory;
+
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 import javax.inject.Inject;
 
@@ -63,6 +81,8 @@ public class MemberFragment extends DBBaseFragment implements View.OnClickListen
     private List<MemberNewBean.DataBean.VipBoxListBean> yearBoxList;
     private String preMonthEndTime = "";
     private String preYearEndTime = "";
+    private IWXAPI msgApi;//微信支付
+    private String level;//1是月卡 2是年卡
     //广告
     private List<MemberNewBean.DataBean.MessageListBean> mAdList;
     //更多权益
@@ -71,6 +91,24 @@ public class MemberFragment extends DBBaseFragment implements View.OnClickListen
     //商品列表
     private List<MemberNewBean.DataBean.OrderLevelDataBean.OrderListBean> mOrderList;
     private MemberShopAdapter mShopAdapter;
+    //支付宝支付回调
+    private Handler.Callback mCallback = msg -> {
+        if (msg.what == 101){
+            //支付宝支付回调
+            PayResultBean payResult = new PayResultBean((Map<String, String>) msg.obj);
+            String resultInfo = payResult.getResult();//同步返回需要验证的信息
+            String resultStatus = payResult.getResultStatus();
+            // 判断resultStatus 为9000则代表支付成功
+            if (TextUtils.equals(resultStatus, "9000")) {
+                //成功
+
+            } else {
+                //失败
+            }
+        }
+        return true;
+    };
+    private Handler mHandler = new WeakRefHandler(mCallback, Looper.getMainLooper());
 
     public static MemberFragment getInstance(String type){
         MemberFragment fragment = new MemberFragment();
@@ -85,7 +123,6 @@ public class MemberFragment extends DBBaseFragment implements View.OnClickListen
         super.setUserVisibleHint(isVisibleToUser);
         if (isVisibleToUser && once) {
             mBinding.swipeToLoad.setRefreshing(true);
-            once = false;
         }
     }
 
@@ -93,6 +130,7 @@ public class MemberFragment extends DBBaseFragment implements View.OnClickListen
     public View initLayout(LayoutInflater inflater, ViewGroup container) {
         mBinding = DataBindingUtil.inflate(inflater, R.layout.fragment_member_new,container,false);
         mBinding.setListener(this);
+        EventBus.getDefault().register(this);
         return mBinding.getRoot();
     }
 
@@ -103,6 +141,11 @@ public class MemberFragment extends DBBaseFragment implements View.OnClickListen
         mPresenter.setStatusBarHight(mBinding.statusBar,getContext());
         mBinding.swipeToLoad.setOnRefreshListener(this);
         type = getArguments().getString("type","1");
+
+        //初始化微信支付
+        msgApi = WXAPIFactory.createWXAPI(getContext(), null);
+        msgApi.registerApp("wxfd2e92db2568030a");
+
         //初始化pop
         monthBoxList = new ArrayList<>();
         yearBoxList = new ArrayList<>();
@@ -145,7 +188,6 @@ public class MemberFragment extends DBBaseFragment implements View.OnClickListen
         if (type.equals("2")){
             mBinding.swipeToLoad.post(() -> {
                 mBinding.swipeToLoad.setRefreshing(true);
-                once = false;
             });
             mBinding.memberBlack.setVisibility(View.VISIBLE);
         }
@@ -164,11 +206,19 @@ public class MemberFragment extends DBBaseFragment implements View.OnClickListen
                 break;
             case R.id.member_month:
                 //购买月卡
+                if (TextUtils.isEmpty(monthPrice) || TextUtils.isEmpty(monthPriceBefore)){
+                    ToastUtil.show("网络错误，请稍后尝试");
+                    return;
+                }
                 AnimationUtils.showAndHiddenAnimation(mBinding.memberShadow, AnimationUtils.AnimationState.STATE_SHOW,100);
                 mBuyPop.show(mBinding.memberPayContainer,"1",monthPrice,monthPriceBefore);
                 break;
             case R.id.member_year:
                 //购买年卡
+                if (TextUtils.isEmpty(yearPrice) || TextUtils.isEmpty(yearPriceBefore)){
+                    ToastUtil.show("网络错误，请稍后尝试");
+                    return;
+                }
                 AnimationUtils.showAndHiddenAnimation(mBinding.memberShadow, AnimationUtils.AnimationState.STATE_SHOW,100);
                 mBuyPop.show(mBinding.memberPayContainer,"2",yearPrice,yearPriceBefore);
                 break;
@@ -330,12 +380,14 @@ public class MemberFragment extends DBBaseFragment implements View.OnClickListen
                 mBinding.memberUserPay.setTextColor(getContext().getResources().getColor(R.color.color_E7C19F));
             }
         }
+        once = false;
     }
 
     @Override
     public void onFile(String error) {
         mBinding.swipeToLoad.setRefreshing(false);
         ToastUtil.show(error);
+        once = false;
     }
 
     @Override
@@ -346,20 +398,57 @@ public class MemberFragment extends DBBaseFragment implements View.OnClickListen
         }
     }
 
-    ///1是月卡 2是年卡    //1是支付宝 2是微信
+    ///level 1是月卡 2是年卡    //type 1是支付宝 2是微信
     @Override
     public void onBuyMember(String level, String type) {
+        this.level = level;
         AnimationUtils.showAndHiddenAnimation(mBinding.memberShadow, AnimationUtils.AnimationState.STATE_HIDDEN,100);
         if (type.equals("1")){
-            ToastUtil.show("支付宝支付");
-
+            Runnable payRunnable = () -> {
+                PayTask alipay = new PayTask(getActivity());
+                Map<String,String> result = alipay.payV2("app_id=2015052600090779&biz_content=%7B%22timeout_express%22%3A%2230m%22%2C%22seller_id%22%3A%22%22%2C%22product_code%22%3A%22QUICK_MSECURITY_PAY%22%2C%22total_amount%22%3A%220.02%22%2C%22subject%22%3A%221%22%2C%22body%22%3A%22%E6%88%91%E6%98%AF%E6%B5%8B%E8%AF%95%E6%95%B0%E6%8D%AE%22%2C%22out_trade_no%22%3A%22314VYGIAGG7ZOYY%22%7D&charset=utf-8&method=alipay.trade.app.pay&sign_type=RSA2&timestamp=2016-08-15%2012%3A12%3A15&version=1.0&sign=MsbylYkCzlfYLy9PeRwUUIg9nZPeN9SfXPNavUCroGKR5Kqvx0nEnd3eRmKxJuthNUx4ERCXe552EV9PfwexqW%2B1wbKOdYtDIb4%2B7PL3Pc94RZL0zKaWcaY3tSL89%2FuAVUsQuFqEJdhIukuKygrXucvejOUgTCfoUdwTi7z%2BZzQ%3D",true);
+                Message msg = new Message();
+                msg.what = 101;
+                msg.obj = result;
+                mHandler.sendMessage(msg);
+            };
+            //必须异步调用
+            Thread payThread = new Thread(payRunnable);
+            payThread.start();
         }else {
-            ToastUtil.show("微信支付");
+            PayReq request = new PayReq();
+            request.appId = "wxd930ea5d5a258f4f";
+            request.partnerId = "1900000109";
+            request.prepayId= "1101000000140415649af9fc314aa427";
+            request.packageValue = "Sign=WXPay";
+            request.nonceStr= "1101000000140429eb40476f8896f4c9";
+            request.timeStamp= "1398746574";
+            request.sign= "7FFECB600D7157C5AA49810D2D8F28BC2811827B";
+            msgApi.sendReq(request);
         }
     }
 
     @Override
     public void onDismiss() {
         AnimationUtils.showAndHiddenAnimation(mBinding.memberShadow, AnimationUtils.AnimationState.STATE_HIDDEN,100);
+    }
+
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        EventBus.getDefault().unregister(this);
+    }
+
+    @Subscribe
+    public void onPayResult(PayBus bus){
+        if (bus != null){
+            if (bus.getType().equals(WXPayEntryActivity.pay_success)){
+                DialogUtil.paySucDialog(getContext(),"2021-03-08");
+            }else if (bus.getType().equals(WXPayEntryActivity.pay_faile)){
+                DialogUtil.payFileDialog(getContext(), type -> {
+                    onBuyMember(level,type);
+                });
+            }
+        }
     }
 }

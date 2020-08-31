@@ -50,6 +50,8 @@ import com.example.administrator.jipinshop.databinding.DialogNewpeopleBuyBinding
 import com.example.administrator.jipinshop.databinding.DialogNonewBinding;
 import com.example.administrator.jipinshop.databinding.DialogOutBinding;
 import com.example.administrator.jipinshop.databinding.DialogParityBinding;
+import com.example.administrator.jipinshop.databinding.DialogPayFileBinding;
+import com.example.administrator.jipinshop.databinding.DialogPaySuccessBinding;
 import com.example.administrator.jipinshop.databinding.DialogTklBinding;
 import com.example.administrator.jipinshop.databinding.DialogUserBinding;
 import com.example.administrator.jipinshop.databinding.DialogUserDetailBinding;
@@ -1156,5 +1158,53 @@ public class DialogUtil {
         }
         dialog.show();
         dialog.setContentView(binding.getRoot());
+    }
+
+    //支付成功弹窗
+    public static void paySucDialog(Context context, String endTime){
+        AlertDialog.Builder builder = new AlertDialog.Builder(context, R.style.dialog);
+        DialogPaySuccessBinding binding = DataBindingUtil.inflate(LayoutInflater.from(context),R.layout.dialog_pay_success, null,false);
+        final Dialog dialog = builder.create();
+        binding.dialogContent.setText("恭喜成为极品城会员\n" + endTime + "日后到期");
+        binding.dialogDismiss.setOnClickListener(v -> {
+            dialog.dismiss();
+        });
+        dialog.getWindow().setDimAmount(0.35f);
+        dialog.show();
+        dialog.setContentView(binding.getRoot());
+    }
+
+    //支付失败弹窗 //type 1是支付宝 2是微信
+    public static void payFileDialog(Context context,OnPayListener listener){
+        AlertDialog.Builder builder = new AlertDialog.Builder(context, R.style.dialog);
+        DialogPayFileBinding binding = DataBindingUtil.inflate(LayoutInflater.from(context),R.layout.dialog_pay_file, null,false);
+        final Dialog dialog = builder.create();
+        binding.dialogAlipay.setChecked(true);
+        final String[] type = {"1"};
+        binding.dialogAlipay.setOnCheckedChangeListener((buttonView, isChecked) -> {
+            binding.dialogWxpay.setChecked(!isChecked);
+        });
+        binding.dialogWxpay.setOnCheckedChangeListener((buttonView, isChecked) -> {
+            binding.dialogAlipay.setChecked(!isChecked);
+        });
+        binding.dialogDismiss.setOnClickListener(v -> {
+            dialog.dismiss();
+        });
+        binding.dialogSure.setOnClickListener(v -> {
+            if (binding.dialogAlipay.isChecked()){
+                type[0] = "1";
+            }else if (binding.dialogWxpay.isChecked()){
+                type[0] = "2";
+            }
+            listener.onPay(type[0]);
+            dialog.dismiss();
+        });
+        dialog.getWindow().setDimAmount(0.35f);
+        dialog.show();
+        dialog.setContentView(binding.getRoot());
+    }
+
+    public interface OnPayListener {
+        void onPay(String type);
     }
 }
