@@ -121,12 +121,20 @@ class KTMain2Fragment : DBBaseFragment(), KTMain2View, OnLoadMoreListener, OnRef
         var fragment = parentFragment
         if (fragment as? KTHomeFragnent != null){
             if (!TextUtils.isEmpty(SPUtils.getInstance(CommonDate.USER).getString(CommonDate.token, ""))){
-                if (bean.data.message != null && !TextUtils.isEmpty(bean.data.message.content)){
-                        fragment.initMarquee(bean.data.message.content)
-                }else{
+                if(SPUtils.getInstance().getBoolean(CommonDate.memberNotice, true)){
+                    fragment.initMemberNotice(true)
                     fragment.initMarquee("")
+                    SPUtils.getInstance().put(CommonDate.memberNotice, false)
+                }else{
+                    fragment.initMemberNotice(false)
+                    if (bean.data.message != null && !TextUtils.isEmpty(bean.data.message.content)){
+                        fragment.initMarquee(bean.data.message.content)
+                    }else{
+                        fragment.initMarquee("")
+                    }
                 }
             }else{
+                fragment.initMemberNotice(false)
                 fragment.initMarquee("")
             }
         }

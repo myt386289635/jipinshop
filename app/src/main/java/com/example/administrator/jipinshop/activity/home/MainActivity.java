@@ -544,6 +544,7 @@ public class MainActivity extends BaseActivity implements MainView, ViewPager.On
                     .transparentStatusBar()
                     .statusBarDarkFont(false, 0f)
                     .init();
+            mBinding.memberNoticeContainer.setVisibility(View.GONE);
         } else {
             mImmersionBar.reset()
                     .transparentStatusBar()
@@ -644,6 +645,9 @@ public class MainActivity extends BaseActivity implements MainView, ViewPager.On
                     }
                 }
                 break;
+            case R.id.member_notice_close:
+                mBinding.memberNoticeContainer.setVisibility(View.GONE);
+                break;
             case R.id.guide_image1:
                 //进入第二部
                 appStatisticalUtil.addEvent("yindao3_next", this.bindToLifecycle());
@@ -687,6 +691,15 @@ public class MainActivity extends BaseActivity implements MainView, ViewPager.On
                 mBinding.guideContainer.setVisibility(View.GONE);
                 mPresenter.getAppVersion(this.bindToLifecycle()); //版本更新
                 break;
+        }
+    }
+
+    //新版会员提示语
+    public void memberNotice(Boolean isShow){
+        if (isShow){
+            mBinding.memberNoticeContainer.setVisibility(View.VISIBLE);
+        }else {
+            mBinding.memberNoticeContainer.setVisibility(View.GONE);
         }
     }
 }

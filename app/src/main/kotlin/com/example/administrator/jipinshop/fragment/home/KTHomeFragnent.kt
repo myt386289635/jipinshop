@@ -16,6 +16,7 @@ import android.view.View
 import android.view.ViewGroup
 import com.blankj.utilcode.util.SPUtils
 import com.example.administrator.jipinshop.R
+import com.example.administrator.jipinshop.activity.home.MainActivity
 import com.example.administrator.jipinshop.activity.login.LoginActivity
 import com.example.administrator.jipinshop.activity.sign.SignActivity
 import com.example.administrator.jipinshop.activity.sreach.TBSreachActivity
@@ -166,6 +167,10 @@ class KTHomeFragnent : DBBaseFragment(), View.OnClickListener, ViewPager.OnPageC
             mBinding.homeMarqueeContainer.visibility = View.VISIBLE
             mBinding.homeMarquee.text = content
         }
+    }
+
+    fun initMemberNotice(isShow : Boolean){
+        (activity as MainActivity).memberNotice(isShow)
     }
 
     override fun onPageScrollStateChanged(p0: Int) {}

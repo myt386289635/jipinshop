@@ -38,6 +38,54 @@
             android:layout_height="@dimen/y2"/>
 
         <RelativeLayout
+            android:visibility="gone"
+            android:layout_above="@id/tab_layout"
+            android:id="@+id/member_noticeContainer"
+            android:layout_centerHorizontal="true"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+
+            <LinearLayout
+                android:background="@drawable/bg_ffe1bd"
+                android:id="@+id/member_notice"
+                android:orientation="horizontal"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:paddingBottom="@dimen/y6"
+                    android:paddingTop="@dimen/y6"
+                    android:paddingRight="@dimen/x24"
+                    android:paddingLeft="@dimen/x24"
+                    android:drawablePadding="@dimen/x24"
+                    android:textColor="@color/color_5C300B"
+                    android:textSize="14sp"
+                    android:text="极品城会员全新升级，点击了解详情"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"/>
+
+                <ImageView
+                    android:id="@+id/member_notice_close"
+                    android:layout_marginRight="@dimen/x24"
+                    android:layout_gravity="center_vertical"
+                    android:onClick="@{listener.onClick}"
+                    android:tint="@color/color_5C300B"
+                    android:src="@mipmap/dialog_close1"
+                    android:layout_width="@dimen/x24"
+                    android:layout_height="@dimen/y24"/>
+
+            </LinearLayout>
+
+            <ImageView
+                android:layout_centerHorizontal="true"
+                android:layout_below="@id/member_notice"
+                android:src="@mipmap/bg_riangle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+
+        </RelativeLayout>
+
+        <RelativeLayout
             android:id="@+id/login_background"
             android:background="#7D000000"
             android:layout_above="@id/tab_layout"
