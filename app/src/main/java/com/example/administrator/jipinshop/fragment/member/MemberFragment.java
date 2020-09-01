@@ -19,7 +19,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
-import android.widget.Toast;
 
 import com.alipay.sdk.app.PayTask;
 import com.aspsine.swipetoloadlayout.OnRefreshListener;
@@ -31,8 +30,10 @@ import com.example.administrator.jipinshop.activity.sign.invitation.InvitationNe
 import com.example.administrator.jipinshop.adapter.MemberMoreAdapter;
 import com.example.administrator.jipinshop.adapter.MemberShopAdapter;
 import com.example.administrator.jipinshop.base.DBBaseFragment;
+import com.example.administrator.jipinshop.bean.ImageBean;
 import com.example.administrator.jipinshop.bean.MemberNewBean;
 import com.example.administrator.jipinshop.bean.PayResultBean;
+import com.example.administrator.jipinshop.bean.WxPayBean;
 import com.example.administrator.jipinshop.bean.eventbus.PayBus;
 import com.example.administrator.jipinshop.databinding.FragmentMemberNewBinding;
 import com.example.administrator.jipinshop.util.DistanceHelper;
@@ -43,6 +44,7 @@ import com.example.administrator.jipinshop.util.sp.CommonDate;
 import com.example.administrator.jipinshop.view.dialog.DialogUtil;
 import com.example.administrator.jipinshop.view.dialog.MemberBuyPop;
 import com.example.administrator.jipinshop.view.dialog.MemberRenewPop;
+import com.example.administrator.jipinshop.view.dialog.ProgressDialogView;
 import com.example.administrator.jipinshop.wxapi.WXPayEntryActivity;
 import com.tencent.mm.opensdk.modelpay.PayReq;
 import com.tencent.mm.opensdk.openapi.IWXAPI;
@@ -83,6 +85,8 @@ public class MemberFragment extends DBBaseFragment implements View.OnClickListen
     private String preYearEndTime = "";
     private IWXAPI msgApi;//微信支付
     private String level;//1是月卡 2是年卡
+    private Dialog mDialog;
+    private String endTime = "";//付款后的会员到期时间
     //广告
     private List<MemberNewBean.DataBean.MessageListBean> mAdList;
     //更多权益
@@ -96,14 +100,16 @@ public class MemberFragment extends DBBaseFragment implements View.OnClickListen
         if (msg.what == 101){
             //支付宝支付回调
             PayResultBean payResult = new PayResultBean((Map<String, String>) msg.obj);
-            String resultInfo = payResult.getResult();//同步返回需要验证的信息
             String resultStatus = payResult.getResultStatus();
             // 判断resultStatus 为9000则代表支付成功
             if (TextUtils.equals(resultStatus, "9000")) {
                 //成功
-
+                DialogUtil.paySucDialog(getContext(),endTime);
             } else {
                 //失败
+                DialogUtil.payFileDialog(getContext(), type -> {
+                    onBuyMember(level,type);
+                });
             }
         }
         return true;
@@ -403,29 +409,57 @@ public class MemberFragment extends DBBaseFragment implements View.OnClickListen
     public void onBuyMember(String level, String type) {
         this.level = level;
         AnimationUtils.showAndHiddenAnimation(mBinding.memberShadow, AnimationUtils.AnimationState.STATE_HIDDEN,100);
+        mDialog = (new ProgressDialogView()).createLoadingDialog(getContext(), "");
+        mDialog.show();
         if (type.equals("1")){
-            Runnable payRunnable = () -> {
-                PayTask alipay = new PayTask(getActivity());
-                Map<String,String> result = alipay.payV2("app_id=2015052600090779&biz_content=%7B%22timeout_express%22%3A%2230m%22%2C%22seller_id%22%3A%22%22%2C%22product_code%22%3A%22QUICK_MSECURITY_PAY%22%2C%22total_amount%22%3A%220.02%22%2C%22subject%22%3A%221%22%2C%22body%22%3A%22%E6%88%91%E6%98%AF%E6%B5%8B%E8%AF%95%E6%95%B0%E6%8D%AE%22%2C%22out_trade_no%22%3A%22314VYGIAGG7ZOYY%22%7D&charset=utf-8&method=alipay.trade.app.pay&sign_type=RSA2&timestamp=2016-08-15%2012%3A12%3A15&version=1.0&sign=MsbylYkCzlfYLy9PeRwUUIg9nZPeN9SfXPNavUCroGKR5Kqvx0nEnd3eRmKxJuthNUx4ERCXe552EV9PfwexqW%2B1wbKOdYtDIb4%2B7PL3Pc94RZL0zKaWcaY3tSL89%2FuAVUsQuFqEJdhIukuKygrXucvejOUgTCfoUdwTi7z%2BZzQ%3D",true);
-                Message msg = new Message();
-                msg.what = 101;
-                msg.obj = result;
-                mHandler.sendMessage(msg);
-            };
-            //必须异步调用
-            Thread payThread = new Thread(payRunnable);
-            payThread.start();
+            mPresenter.alipay(level,this.bindToLifecycle());
         }else {
-            PayReq request = new PayReq();
-            request.appId = "wxd930ea5d5a258f4f";
-            request.partnerId = "1900000109";
-            request.prepayId= "1101000000140415649af9fc314aa427";
-            request.packageValue = "Sign=WXPay";
-            request.nonceStr= "1101000000140429eb40476f8896f4c9";
-            request.timeStamp= "1398746574";
-            request.sign= "7FFECB600D7157C5AA49810D2D8F28BC2811827B";
-            msgApi.sendReq(request);
+            mPresenter.wxpay(level,this.bindToLifecycle());
         }
+    }
+
+    @Override
+    public void onWxPay(WxPayBean bean) {
+        if(mDialog != null && mDialog.isShowing()){
+            mDialog.dismiss();
+        }
+        endTime = bean.getData().getOutTradeNo();//支付后的会员到期时间
+        PayReq request = new PayReq();
+        request.appId = bean.getData().getAppid();
+        request.partnerId = bean.getData().getPartnerid();
+        request.prepayId = bean.getData().getPrepayid();
+        request.packageValue = bean.getData().getPackageValue();
+        request.nonceStr = bean.getData().getNoncestr();
+        request.timeStamp = bean.getData().getTimestamp();
+        request.sign = bean.getData().getSign();
+        msgApi.sendReq(request);
+    }
+
+    @Override
+    public void onAlipay(ImageBean bean) {
+        if(mDialog != null && mDialog.isShowing()){
+            mDialog.dismiss();
+        }
+        endTime = bean.getOtherGoodsId();//支付后的会员到期时间
+        Runnable payRunnable = () -> {
+            PayTask alipay = new PayTask(getActivity());
+            Map<String,String> result = alipay.payV2(bean.getData(),true);
+            Message msg = new Message();
+            msg.what = 101;
+            msg.obj = result;
+            mHandler.sendMessage(msg);
+        };
+        //必须异步调用
+        Thread payThread = new Thread(payRunnable);
+        payThread.start();
+    }
+
+    @Override
+    public void onCommenFile(String error) {
+        if(mDialog != null && mDialog.isShowing()){
+            mDialog.dismiss();
+        }
+        ToastUtil.show(error);
     }
 
     @Override
@@ -443,7 +477,7 @@ public class MemberFragment extends DBBaseFragment implements View.OnClickListen
     public void onPayResult(PayBus bus){
         if (bus != null){
             if (bus.getType().equals(WXPayEntryActivity.pay_success)){
-                DialogUtil.paySucDialog(getContext(),"2021-03-08");
+                DialogUtil.paySucDialog(getContext(),endTime);
             }else if (bus.getType().equals(WXPayEntryActivity.pay_faile)){
                 DialogUtil.payFileDialog(getContext(), type -> {
                     onBuyMember(level,type);

@@ -10,8 +10,10 @@ import android.widget.TextView;
 import android.widget.ViewFlipper;
 
 import com.example.administrator.jipinshop.R;
+import com.example.administrator.jipinshop.bean.ImageBean;
 import com.example.administrator.jipinshop.bean.MemberNewBean;
 import com.example.administrator.jipinshop.bean.SuccessBean;
+import com.example.administrator.jipinshop.bean.WxPayBean;
 import com.example.administrator.jipinshop.netwrok.Repository;
 import com.example.administrator.jipinshop.view.glide.GlideApp;
 import com.trello.rxlifecycle2.LifecycleTransformer;
@@ -66,6 +68,7 @@ public class MemberPresenter {
         viewFlipper.startFlipping();
     }
 
+    //获取会员信息
     public void levelIndex(LifecycleTransformer<MemberNewBean> transformer){
         mRepository.levelIndex()
                 .subscribeOn(Schedulers.io())
@@ -79,6 +82,40 @@ public class MemberPresenter {
                     }
                 }, throwable -> {
                     mView.onFile(throwable.getMessage());
+                });
+    }
+
+    //获取微信支付信息
+    public void wxpay(String type , LifecycleTransformer<WxPayBean> transformer){
+        mRepository.wxpay(type)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .compose(transformer)
+                .subscribe(bean -> {
+                    if (bean.getCode() == 0){
+                        mView.onWxPay(bean);
+                    }else {
+                        mView.onCommenFile(bean.getMsg());
+                    }
+                }, throwable -> {
+                    mView.onCommenFile(throwable.getMessage());
+                });
+    }
+
+    //获取支付宝支付信息
+    public void alipay(String type , LifecycleTransformer<ImageBean> transformer){
+        mRepository.alipay(type)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .compose(transformer)
+                .subscribe(bean -> {
+                    if (bean.getCode() == 0){
+                        mView.onAlipay(bean);
+                    }else {
+                        mView.onCommenFile(bean.getMsg());
+                    }
+                }, throwable -> {
+                    mView.onCommenFile(throwable.getMessage());
                 });
     }
 }
