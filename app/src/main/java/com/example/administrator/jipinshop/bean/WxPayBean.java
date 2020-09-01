@@ -10,6 +10,15 @@ public class WxPayBean {
     private String msg;
     private int code;
     private DataBean data;
+    private String endTime;
+
+    public String getEndTime() {
+        return endTime;
+    }
+
+    public void setEndTime(String endTime) {
+        this.endTime = endTime;
+    }
 
     public String getMsg() {
         return msg;

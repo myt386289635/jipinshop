@@ -17,6 +17,15 @@ public class ImageBean {
     private int code;
     private String data;
     private String otherGoodsId;
+    private String endTime;//支付后使用
+
+    public String getEndTime() {
+        return endTime;
+    }
+
+    public void setEndTime(String endTime) {
+        this.endTime = endTime;
+    }
 
     public String getOtherGoodsId() {
         return otherGoodsId;

@@ -423,7 +423,7 @@ public class MemberFragment extends DBBaseFragment implements View.OnClickListen
         if(mDialog != null && mDialog.isShowing()){
             mDialog.dismiss();
         }
-        endTime = bean.getData().getOutTradeNo();//支付后的会员到期时间
+        endTime = bean.getEndTime();//支付后的会员到期时间
         PayReq request = new PayReq();
         request.appId = bean.getData().getAppid();
         request.partnerId = bean.getData().getPartnerid();
@@ -440,7 +440,7 @@ public class MemberFragment extends DBBaseFragment implements View.OnClickListen
         if(mDialog != null && mDialog.isShowing()){
             mDialog.dismiss();
         }
-        endTime = bean.getOtherGoodsId();//支付后的会员到期时间
+        endTime = bean.getEndTime();//支付后的会员到期时间
         Runnable payRunnable = () -> {
             PayTask alipay = new PayTask(getActivity());
             Map<String,String> result = alipay.payV2(bean.getData(),true);
