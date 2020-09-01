@@ -32,6 +32,7 @@
             android:layout_height="wrap_content"/>
 
         <View
+            android:id="@+id/main_line"
             android:layout_above="@id/tab_layout"
             android:background="@color/color_F5F5F5"
             android:layout_width="match_parent"
@@ -182,6 +183,15 @@
             </LinearLayout>
 
         </RelativeLayout>
+
+        <View
+            android:visibility="gone"
+            android:id="@+id/member_guideBg"
+            android:layout_alignBottom="@id/tab_layout"
+            android:layout_alignTop="@id/main_line"
+            android:background="@color/color_B3000000"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
 
         <!--新手指导-->
         <RelativeLayout

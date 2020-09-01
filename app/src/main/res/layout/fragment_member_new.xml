@@ -869,7 +869,6 @@
 
         </com.aspsine.swipetoloadlayout.SwipeToLoadLayout>
 
-
         <View
             android:onClick="@{listener.onClick}"
             android:visibility="gone"
@@ -877,6 +876,175 @@
             android:background="@color/color_80000000"
             android:layout_width="match_parent"
             android:layout_height="match_parent"/>
+
+        <RelativeLayout
+            android:visibility="gone"
+            android:id="@+id/member_guideContainer"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <LinearLayout
+                android:background="@color/color_B3000000"
+                android:id="@+id/status_bar2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"/>
+
+            <RelativeLayout
+                android:onClick="@{listener.onClick}"
+                android:id="@+id/guide_next1Container"
+                android:layout_below="@id/status_bar2"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <View
+                    android:id="@+id/guide_bg1"
+                    android:background="@color/color_B3000000"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/y250"/>
+
+                <View
+                    android:layout_marginTop="@dimen/y215"
+                    android:layout_below="@id/guide_bg1"
+                    android:background="@color/color_B3000000"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"/>
+
+                <ImageView
+                    android:id="@+id/guide_image1"
+                    android:layout_marginLeft="@dimen/x145"
+                    android:layout_alignBottom="@id/guide_bg1"
+                    android:src="@mipmap/member1_guide2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"/>
+
+                <ImageView
+                    android:layout_alignParentRight="true"
+                    android:layout_marginRight="@dimen/x183"
+                    android:layout_alignBottom="@id/guide_bg1"
+                    android:src="@mipmap/member1_guide3"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"/>
+
+                <ImageView
+                    android:adjustViewBounds="true"
+                    android:scaleType="fitXY"
+                    android:layout_marginLeft="@dimen/x145"
+                    android:layout_marginBottom="@dimen/y5"
+                    android:layout_above="@id/guide_image1"
+                    android:src="@mipmap/member1_guide1"
+                    android:layout_width="@dimen/x354"
+                    android:layout_height="wrap_content"/>
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:visibility="gone"
+                android:onClick="@{listener.onClick}"
+                android:id="@+id/guide_next2Container"
+                android:layout_below="@id/status_bar2"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <View
+                    android:id="@+id/guide_bg2"
+                    android:background="@color/color_B3000000"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/y250"/>
+
+                <View
+                    android:id="@+id/guide_bg22"
+                    android:layout_marginTop="@dimen/y215"
+                    android:layout_below="@id/guide_bg2"
+                    android:background="@color/color_B3000000"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"/>
+
+                <ImageView
+                    android:id="@+id/guide_image2"
+                    android:layout_centerHorizontal="true"
+                    android:layout_alignTop="@id/guide_bg22"
+                    android:src="@mipmap/member1_guide4"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"/>
+
+                <ImageView
+                    android:layout_marginRight="@dimen/x27"
+                    android:layout_marginTop="@dimen/y5"
+                    android:layout_alignParentRight="true"
+                    android:layout_below="@id/guide_image2"
+                    android:adjustViewBounds="true"
+                    android:scaleType="fitXY"
+                    android:src="@mipmap/member1_guide5"
+                    android:layout_width="@dimen/x503"
+                    android:layout_height="wrap_content"/>
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:visibility="gone"
+                android:onClick="@{listener.onClick}"
+                android:id="@+id/guide_next3Container"
+                android:layout_below="@id/status_bar2"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <TextView
+                    android:id="@+id/guide_bg3"
+                    android:layout_alignParentBottom="true"
+                    android:background="@color/color_B3000000"
+                    android:paddingBottom="@dimen/y12"
+                    android:paddingTop="@dimen/y10"
+                    android:textSize="11sp"
+                    android:text=""
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"/>
+
+                <View
+                    android:id="@+id/guide_bg32"
+                    android:layout_marginBottom="@dimen/y96"
+                    android:background="@color/color_B3000000"
+                    android:layout_above="@id/guide_bg3"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"/>
+
+                <ImageView
+                    android:id="@+id/guide_image3"
+                    android:layout_marginBottom="@dimen/y5"
+                    android:layout_marginLeft="@dimen/x257"
+                    android:layout_alignBottom="@id/guide_bg32"
+                    android:src="@mipmap/member1_guide3"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"/>
+
+                <ImageView
+                    android:layout_marginBottom="@dimen/y5"
+                    android:layout_marginLeft="@dimen/x165"
+                    android:layout_above="@id/guide_image3"
+                    android:adjustViewBounds="true"
+                    android:scaleType="fitXY"
+                    android:src="@mipmap/member1_guide6"
+                    android:layout_width="@dimen/x304"
+                    android:layout_height="wrap_content"/>
+
+            </RelativeLayout>
+
+            <TextView
+                android:id="@+id/guide_goto"
+                android:onClick="@{listener.onClick}"
+                android:layout_marginRight="@dimen/x20"
+                android:layout_marginTop="@dimen/y20"
+                android:layout_alignParentRight="true"
+                android:layout_below="@id/status_bar2"
+                android:gravity="center"
+                android:textColor="@color/color_202020"
+                android:background="@drawable/bg_dialog"
+                android:textSize="13sp"
+                android:text="跳过"
+                android:layout_width="@dimen/x100"
+                android:layout_height="@dimen/y42"/>
+
+        </RelativeLayout>
 
     </RelativeLayout>
 </layout>

@@ -25,6 +25,7 @@ import com.aspsine.swipetoloadlayout.OnRefreshListener;
 import com.blankj.utilcode.util.SPUtils;
 import com.example.administrator.jipinshop.R;
 import com.example.administrator.jipinshop.activity.cheapgoods.CheapBuyActivity;
+import com.example.administrator.jipinshop.activity.home.MainActivity;
 import com.example.administrator.jipinshop.activity.shoppingdetail.tbshoppingdetail.TBShoppingDetailActivity;
 import com.example.administrator.jipinshop.activity.sign.invitation.InvitationNewActivity;
 import com.example.administrator.jipinshop.adapter.MemberMoreAdapter;
@@ -144,7 +145,7 @@ public class MemberFragment extends DBBaseFragment implements View.OnClickListen
     public void initView() {
         mBaseFragmentComponent.inject(this);
         mPresenter.setView(this);
-        mPresenter.setStatusBarHight(mBinding.statusBar,getContext());
+        mPresenter.setStatusBarHight(mBinding.statusBar,mBinding.statusBar2,getContext());
         mBinding.swipeToLoad.setOnRefreshListener(this);
         type = getArguments().getString("type","1");
 
@@ -270,6 +271,21 @@ public class MemberFragment extends DBBaseFragment implements View.OnClickListen
                 if (mRenewPop != null && mRenewPop.isShowing())
                     mRenewPop.dismiss();
                 break;
+            case R.id.guide_next1Container:
+                mBinding.guideNext1Container.setVisibility(View.GONE);
+                mBinding.guideNext2Container.setVisibility(View.VISIBLE);
+                mBinding.guideNext3Container.setVisibility(View.GONE);
+                break;
+            case R.id.guide_next2Container:
+                mBinding.guideNext1Container.setVisibility(View.GONE);
+                mBinding.guideNext2Container.setVisibility(View.GONE);
+                mBinding.guideNext3Container.setVisibility(View.VISIBLE);
+                break;
+            case R.id.guide_goto:
+            case R.id.guide_next3Container:
+                mBinding.memberGuideContainer.setVisibility(View.GONE);
+                ((MainActivity)getActivity()).memberGuide(false);
+                break;
         }
     }
 
@@ -362,6 +378,15 @@ public class MemberFragment extends DBBaseFragment implements View.OnClickListen
             mBinding.memberTitle1.setText("开通VIP可享更多权益");
             mBinding.memberMonthTitle.setText("每月");
             mBinding.memberVipContainer.setVisibility(View.VISIBLE);
+            if (SPUtils.getInstance().getBoolean(CommonDate.memberGuide, true)){
+                //第一次登陆是非会员，出来新手指导
+                mBinding.memberGuideContainer.setVisibility(View.VISIBLE);
+                mBinding.guideNext1Container.setVisibility(View.VISIBLE);
+                mBinding.guideNext2Container.setVisibility(View.GONE);
+                mBinding.guideNext3Container.setVisibility(View.GONE);
+                ((MainActivity)getActivity()).memberGuide(true);
+                SPUtils.getInstance().put(CommonDate.memberGuide,false);
+            }
         }else {
             mBinding.memberVipContainer.setVisibility(View.GONE);
             mBinding.memberPayContainer.setVisibility(View.GONE);
@@ -384,6 +409,9 @@ public class MemberFragment extends DBBaseFragment implements View.OnClickListen
                 mBinding.memberUserTime.setTextColor(getContext().getResources().getColor(R.color.color_433A37));
                 mBinding.memberUserPay.setBackgroundResource(R.drawable.bg_342f2f);
                 mBinding.memberUserPay.setTextColor(getContext().getResources().getColor(R.color.color_E7C19F));
+            }
+            if (SPUtils.getInstance().getBoolean(CommonDate.memberGuide, true)){
+                SPUtils.getInstance().put(CommonDate.memberGuide,false);//第一次登陆是会员，之后就不再出现新手指导
             }
         }
         once = false;

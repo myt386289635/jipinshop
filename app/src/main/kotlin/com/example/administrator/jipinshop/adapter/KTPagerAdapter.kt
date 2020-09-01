@@ -58,8 +58,8 @@ class KTPagerAdapter : PagerAdapter{
     //给ImageView设置显示的图片
     override fun instantiateItem(container: ViewGroup, position: Int): Any {
 
-        val view = LayoutInflater.from(mContext).inflate(R.layout.item_common_banner, container, false)
-        val imageView = view.findViewById<View>(R.id.recommend_img_rotate) as ImageView
+        var view = LayoutInflater.from(mContext).inflate(R.layout.item_common_banner, container, false)
+        var imageView = view.findViewById<ImageView>(R.id.recommend_img_rotate)
         if (imgCenter) {
             imageView.scaleType = ImageView.ScaleType.CENTER_CROP
         }

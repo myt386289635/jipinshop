@@ -17,6 +17,7 @@ public class CommonDate {
     public static final String AD = "AD";//广告
     public static final String privacy = "privacy";//隐私协议版本号
     public static final String memberNotice = "memberNotice";//新版本会员提示语
+    public static final String memberGuide = "memberGuide";//会员新手指导
 
 
     //用户数据表（sp文件名：user）

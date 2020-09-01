@@ -702,4 +702,13 @@ public class MainActivity extends BaseActivity implements MainView, ViewPager.On
             mBinding.memberNoticeContainer.setVisibility(View.GONE);
         }
     }
+
+    //会员引导页蒙尘
+    public void memberGuide(Boolean isShow){
+        if (isShow){
+            mBinding.memberGuideBg.setVisibility(View.VISIBLE);
+        }else {
+            mBinding.memberGuideBg.setVisibility(View.GONE);
+        }
+    }
 }
