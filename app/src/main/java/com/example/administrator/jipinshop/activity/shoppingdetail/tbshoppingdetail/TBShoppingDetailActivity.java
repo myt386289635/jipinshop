@@ -14,11 +14,9 @@ import android.text.Spanned;
 import android.text.TextUtils;
 import android.view.Gravity;
 import android.view.View;
-import android.view.ViewGroup;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 
 import com.alibaba.baichuan.android.trade.AlibcTradeSDK;
 import com.blankj.utilcode.util.SPUtils;
@@ -52,6 +50,7 @@ import com.example.administrator.jipinshop.view.dialog.DialogParameter;
 import com.example.administrator.jipinshop.view.dialog.DialogQuality;
 import com.example.administrator.jipinshop.view.dialog.DialogUtil;
 import com.example.administrator.jipinshop.view.dialog.ProgressDialogView;
+import com.example.administrator.jipinshop.view.scrollView.MyScrollView;
 import com.example.administrator.jipinshop.view.textview.CenteredImageSpan;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
@@ -104,6 +103,8 @@ public class TBShoppingDetailActivity extends BaseActivity implements View.OnCli
     private String money = "0.00";//总共要省的钱
     //比价弹窗需要
     private String parity = "";
+    //是否开启底部会员弹框
+    private Boolean isStart = false;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -127,6 +128,20 @@ public class TBShoppingDetailActivity extends BaseActivity implements View.OnCli
         goodsId = getIntent().getStringExtra("otherGoodsId");//商品id
         parity = getIntent().getStringExtra("parity");
         mPresenter.setStatusBarHight(mBinding.statusBar,this);
+        mBinding.swipeTarget.setOnScrollListener(scrollY -> {
+            if (scrollY >= mBinding.detailName.getTop()){
+                if (isStart){
+                    if (mBinding.detailMemberContainer.getVisibility() != View.VISIBLE)
+                        mBinding.detailMemberContainer.setVisibility(View.VISIBLE);
+                }else {
+                    if (mBinding.detailMemberContainer.getVisibility() != View.GONE)
+                        mBinding.detailMemberContainer.setVisibility(View.GONE);
+                }
+            }else {
+                if (mBinding.detailMemberContainer.getVisibility() != View.GONE)
+                    mBinding.detailMemberContainer.setVisibility(View.GONE);
+            }
+        });
 
         //banner
         mBannerAdapter = new NoPageBannerAdapter(this);
@@ -270,6 +285,7 @@ public class TBShoppingDetailActivity extends BaseActivity implements View.OnCli
                     }
                 }
                 break;
+            case R.id.detail_bottomMemberGo:
             case R.id.detail_memberGo:
                 if(TextUtils.isEmpty(SPUtils.getInstance(CommonDate.USER).getString(CommonDate.token,""))){
                     startActivityForResult(new Intent(this, LoginActivity.class),201);
@@ -278,6 +294,10 @@ public class TBShoppingDetailActivity extends BaseActivity implements View.OnCli
                 startActivity(new Intent(this, HomeNewActivity.class)
                         .putExtra("type",HomeNewActivity.member)
                 );
+                break;
+            case R.id.detail_memberClose:
+                isStart = false;
+                mBinding.detailMemberContainer.setVisibility(View.GONE);
                 break;
         }
     }
@@ -434,13 +454,16 @@ public class TBShoppingDetailActivity extends BaseActivity implements View.OnCli
             mBinding.detailMemberText.setVisibility(View.GONE);
             mBinding.detailMemberImage.setVisibility(View.GONE);
             mBinding.detailMember.setBackgroundResource(R.mipmap.detail_bj2);
+            isStart = false;
         }else {
+            isStart = true;
             mBinding.detailMemberPrice.setVisibility(View.VISIBLE);
             mBinding.detailMemberNotice.setVisibility(View.VISIBLE);
             mBinding.detailMemberGo.setVisibility(View.VISIBLE);
             mBinding.detailMemberText.setVisibility(View.VISIBLE);
             mBinding.detailMemberImage.setVisibility(View.VISIBLE);
             mBinding.detailMemberPrice.setText("￥" + bean.getData().getUpFee());
+            mBinding.detailBottomMemberPrice.setText("￥" + bean.getData().getUpFee());
             mBinding.detailMember.setBackgroundResource(R.mipmap.detail_bj);
         }
         //比价弹窗

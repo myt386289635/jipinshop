@@ -134,7 +134,7 @@
 
         </RelativeLayout>
 
-        <ScrollView
+        <com.example.administrator.jipinshop.view.scrollView.MyScrollView
             android:id="@+id/swipe_target"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
@@ -729,7 +729,7 @@
                     android:layout_below="@id/detail_userLikeImage"/>
 
             </RelativeLayout>
-        </ScrollView>
+        </com.example.administrator.jipinshop.view.scrollView.MyScrollView>
 
         <RelativeLayout
             android:id="@+id/head_contanier"
@@ -761,6 +761,65 @@
                     android:src="@mipmap/balance_white"/>
 
             </RelativeLayout>
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:visibility="gone"
+            android:id="@+id/detail_memberContainer"
+            android:background="@drawable/bg_666666"
+            android:layout_marginRight="@dimen/x20"
+            android:layout_marginLeft="@dimen/x20"
+            android:layout_marginBottom="@dimen/y10"
+            android:layout_above="@id/detail_bottom"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/y72">
+
+            <ImageView
+                android:onClick="@{listener.onClick}"
+                android:id="@+id/detail_memberClose"
+                android:paddingLeft="@dimen/x20"
+                android:paddingRight="@dimen/x20"
+                android:layout_alignParentRight="true"
+                android:tint="@color/color_white"
+                android:src="@mipmap/dialog_close1"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"/>
+
+            <TextView
+                android:layout_marginLeft="@dimen/x23"
+                android:layout_centerVertical="true"
+                android:drawablePadding="@dimen/x6"
+                android:drawableLeft="@mipmap/detail_member"
+                android:textSize="13sp"
+                android:id="@+id/detail_bottomMemberText"
+                android:text="加入极品会员本商品可返"
+                android:textColor="@color/color_FFE4C1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+
+            <TextView
+                android:gravity="center"
+                android:layout_alignBottom="@id/detail_bottomMemberText"
+                android:layout_alignTop="@id/detail_bottomMemberText"
+                android:id="@+id/detail_bottomMemberPrice"
+                android:textColor="@color/color_E25838"
+                android:text="￥0"
+                android:textStyle="bold"
+                android:textSize="14sp"
+                android:layout_toRightOf="@id/detail_bottomMemberText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+
+            <ImageView
+                android:layout_marginLeft="@dimen/x28"
+                android:layout_toRightOf="@id/detail_bottomMemberPrice"
+                android:src="@mipmap/detail_opening"
+                android:onClick="@{listener.onClick}"
+                android:id="@+id/detail_bottomMemberGo"
+                android:layout_centerVertical="true"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
 
         </RelativeLayout>
 
