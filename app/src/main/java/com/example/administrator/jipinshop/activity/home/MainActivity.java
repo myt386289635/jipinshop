@@ -545,6 +545,7 @@ public class MainActivity extends BaseActivity implements MainView, ViewPager.On
                     .statusBarDarkFont(false, 0f)
                     .init();
             mBinding.memberNoticeContainer.setVisibility(View.GONE);
+            SPUtils.getInstance().put(CommonDate.memberNotice, false);
         } else {
             mImmersionBar.reset()
                     .transparentStatusBar()
@@ -647,6 +648,7 @@ public class MainActivity extends BaseActivity implements MainView, ViewPager.On
                 break;
             case R.id.member_notice_close:
                 mBinding.memberNoticeContainer.setVisibility(View.GONE);
+                SPUtils.getInstance().put(CommonDate.memberNotice, false);
                 break;
             case R.id.guide_image1:
                 //进入第二部

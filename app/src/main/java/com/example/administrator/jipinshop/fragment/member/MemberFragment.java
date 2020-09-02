@@ -193,6 +193,7 @@ public class MemberFragment extends DBBaseFragment implements View.OnClickListen
         mBinding.memberShopList.setAdapter(mShopAdapter);
 
         if (type.equals("2")){
+            SPUtils.getInstance().put(CommonDate.memberNotice, false);
             mBinding.swipeToLoad.post(() -> {
                 mBinding.swipeToLoad.setRefreshing(true);
             });

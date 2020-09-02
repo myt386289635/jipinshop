@@ -124,7 +124,6 @@ class KTMain2Fragment : DBBaseFragment(), KTMain2View, OnLoadMoreListener, OnRef
                 if(SPUtils.getInstance().getBoolean(CommonDate.memberNotice, true)){
                     fragment.initMemberNotice(true)
                     fragment.initMarquee("")
-                    SPUtils.getInstance().put(CommonDate.memberNotice, false)
                 }else{
                     fragment.initMemberNotice(false)
                     if (bean.data.message != null && !TextUtils.isEmpty(bean.data.message.content)){
