@@ -8,9 +8,11 @@ package com.example.administrator.jipinshop.bean.eventbus;
 public class PayBus {
 
     private String type;
+    private String flag;
 
-    public PayBus(String type) {
+    public PayBus(String type, String flag) {
         this.type = type;
+        this.flag = flag;
     }
 
     public String getType() {
@@ -19,5 +21,13 @@ public class PayBus {
 
     public void setType(String type) {
         this.type = type;
+    }
+
+    public String getFlag() {
+        return flag;
+    }
+
+    public void setFlag(String flag) {
+        this.flag = flag;
     }
 }

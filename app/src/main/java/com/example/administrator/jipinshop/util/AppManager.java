@@ -93,4 +93,18 @@ public class AppManager {
             System.exit(0);
         } catch (Exception e) { }
     }
+
+    /**
+     * 查找指定类名的Activity
+     */
+    public boolean sreachActivity(Class<?> cls){
+        boolean isHas = false;
+        for (Activity activity : activityStack) {
+            if(activity.getClass().equals(cls) ){
+                isHas = true;
+                break;
+            }
+        }
+        return isHas;
+    }
 }

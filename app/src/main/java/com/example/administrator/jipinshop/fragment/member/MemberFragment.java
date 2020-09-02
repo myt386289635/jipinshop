@@ -508,12 +508,14 @@ public class MemberFragment extends DBBaseFragment implements View.OnClickListen
     @Subscribe
     public void onPayResult(PayBus bus){
         if (bus != null){
-            if (bus.getType().equals(WXPayEntryActivity.pay_success)){
-                DialogUtil.paySucDialog(getContext(),endTime);
-            }else if (bus.getType().equals(WXPayEntryActivity.pay_faile)){
-                DialogUtil.payFileDialog(getContext(), type -> {
-                    onBuyMember(level,type);
-                });
+            if (type.equals(bus.getFlag())){
+                if (bus.getType().equals(WXPayEntryActivity.pay_success)) {
+                    DialogUtil.paySucDialog(getContext(), endTime);
+                } else if (bus.getType().equals(WXPayEntryActivity.pay_faile)) {
+                    DialogUtil.payFileDialog(getContext(), type -> {
+                        onBuyMember(level, type);
+                    });
+                }
             }
         }
     }
