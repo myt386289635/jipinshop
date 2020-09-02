@@ -284,7 +284,9 @@ public class MemberFragment extends DBBaseFragment implements View.OnClickListen
             case R.id.guide_goto:
             case R.id.guide_next3Container:
                 mBinding.memberGuideContainer.setVisibility(View.GONE);
-                ((MainActivity)getActivity()).memberGuide(false);
+                if (type.equals("1")){
+                    ((MainActivity)getActivity()).memberGuide(false);
+                }
                 break;
         }
     }
@@ -384,7 +386,9 @@ public class MemberFragment extends DBBaseFragment implements View.OnClickListen
                 mBinding.guideNext1Container.setVisibility(View.VISIBLE);
                 mBinding.guideNext2Container.setVisibility(View.GONE);
                 mBinding.guideNext3Container.setVisibility(View.GONE);
-                ((MainActivity)getActivity()).memberGuide(true);
+                if (type.equals("1")){
+                    ((MainActivity)getActivity()).memberGuide(true);
+                }
                 SPUtils.getInstance().put(CommonDate.memberGuide,false);
             }
         }else {
