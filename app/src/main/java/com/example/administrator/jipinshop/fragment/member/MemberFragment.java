@@ -39,6 +39,7 @@ import com.example.administrator.jipinshop.bean.eventbus.PayBus;
 import com.example.administrator.jipinshop.databinding.FragmentMemberNewBinding;
 import com.example.administrator.jipinshop.util.DistanceHelper;
 import com.example.administrator.jipinshop.util.ToastUtil;
+import com.example.administrator.jipinshop.util.UmApp.AppStatisticalUtil;
 import com.example.administrator.jipinshop.util.WeakRefHandler;
 import com.example.administrator.jipinshop.util.anim.AnimationUtils;
 import com.example.administrator.jipinshop.util.sp.CommonDate;
@@ -69,6 +70,9 @@ public class MemberFragment extends DBBaseFragment implements View.OnClickListen
 
     @Inject
     MemberPresenter mPresenter;
+    @Inject
+    AppStatisticalUtil appStatisticalUtil;
+
     private FragmentMemberNewBinding mBinding;
     private String type = "1";// 1:fragment 2:activity
     private Boolean once = true;
@@ -218,6 +222,7 @@ public class MemberFragment extends DBBaseFragment implements View.OnClickListen
                     ToastUtil.show("网络错误，请稍后尝试");
                     return;
                 }
+                appStatisticalUtil.addEvent("yueka.click", this.bindToLifecycle());
                 AnimationUtils.showAndHiddenAnimation(mBinding.memberShadow, AnimationUtils.AnimationState.STATE_SHOW,100);
                 mBuyPop.show(mBinding.memberPayContainer,"1",monthPrice,monthPriceBefore);
                 break;
@@ -227,6 +232,7 @@ public class MemberFragment extends DBBaseFragment implements View.OnClickListen
                     ToastUtil.show("网络错误，请稍后尝试");
                     return;
                 }
+                appStatisticalUtil.addEvent("nianka.click", this.bindToLifecycle());
                 AnimationUtils.showAndHiddenAnimation(mBinding.memberShadow, AnimationUtils.AnimationState.STATE_SHOW,100);
                 mBuyPop.show(mBinding.memberPayContainer,"2",yearPrice,yearPriceBefore);
                 break;
