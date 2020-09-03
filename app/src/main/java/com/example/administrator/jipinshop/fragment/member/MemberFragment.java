@@ -24,6 +24,7 @@ import com.alipay.sdk.app.PayTask;
 import com.aspsine.swipetoloadlayout.OnRefreshListener;
 import com.blankj.utilcode.util.SPUtils;
 import com.example.administrator.jipinshop.R;
+import com.example.administrator.jipinshop.activity.WebActivity;
 import com.example.administrator.jipinshop.activity.cheapgoods.CheapBuyActivity;
 import com.example.administrator.jipinshop.activity.home.MainActivity;
 import com.example.administrator.jipinshop.activity.shoppingdetail.tbshoppingdetail.TBShoppingDetailActivity;
@@ -37,6 +38,7 @@ import com.example.administrator.jipinshop.bean.PayResultBean;
 import com.example.administrator.jipinshop.bean.WxPayBean;
 import com.example.administrator.jipinshop.bean.eventbus.PayBus;
 import com.example.administrator.jipinshop.databinding.FragmentMemberNewBinding;
+import com.example.administrator.jipinshop.netwrok.RetrofitModule;
 import com.example.administrator.jipinshop.util.DistanceHelper;
 import com.example.administrator.jipinshop.util.ToastUtil;
 import com.example.administrator.jipinshop.util.UmApp.AppStatisticalUtil;
@@ -209,7 +211,11 @@ public class MemberFragment extends DBBaseFragment implements View.OnClickListen
     public void onClick(View v) {
         switch (v.getId()){
             case R.id.member_share:
-                // TODO: 2020/8/27 规则说明
+                //规则说明
+                startActivity(new Intent(getContext(), WebActivity.class)
+                        .putExtra(WebActivity.url, RetrofitModule.H5_URL + "new-free/memberrule")
+                        .putExtra(WebActivity.title, "规则说明")
+                );
                 break;
             case R.id.member_black:
                 if (getActivity() != null){
@@ -237,7 +243,11 @@ public class MemberFragment extends DBBaseFragment implements View.OnClickListen
                 mBuyPop.show(mBinding.memberPayContainer,"2",yearPrice,yearPriceBefore);
                 break;
             case R.id.member_rule:
-                // TODO: 2020/8/27 会员规则
+                //会员规则
+                startActivity(new Intent(getContext(), WebActivity.class)
+                        .putExtra(WebActivity.url, RetrofitModule.H5_URL + "new-free/memberAgreement")
+                        .putExtra(WebActivity.title, "会员协议")
+                );
                 break;
             case R.id.member_userPay:
                 //续费
