@@ -94,6 +94,7 @@ public class MemberFragment extends DBBaseFragment implements View.OnClickListen
     private String level;//1是月卡 2是年卡
     private Dialog mDialog;
     private String endTime = "";//付款后的会员到期时间
+    private int userLevel = 0;//用户身份的
     //广告
     private List<MemberNewBean.DataBean.MessageListBean> mAdList;
     //更多权益
@@ -114,7 +115,7 @@ public class MemberFragment extends DBBaseFragment implements View.OnClickListen
                 DialogUtil.paySucDialog(getContext(),endTime);
             } else {
                 //失败
-                DialogUtil.payFileDialog(getContext(), type -> {
+                DialogUtil.payFileDialog(getContext(),userLevel, type -> {
                     onBuyMember(level,type);
                 });
             }
@@ -390,6 +391,7 @@ public class MemberFragment extends DBBaseFragment implements View.OnClickListen
         }
         mShopAdapter.notifyDataSetChanged();
         //身份处理  0 普通 ， 1 月卡 ，2年卡
+        userLevel = bean.getData().getLevel();
         if (bean.getData().getLevel() == 0){
             mBinding.memberPayContainer.setVisibility(View.VISIBLE);
             mBinding.memberAdContainer.setVisibility(View.VISIBLE);
@@ -529,7 +531,7 @@ public class MemberFragment extends DBBaseFragment implements View.OnClickListen
                 if (bus.getType().equals(WXPayEntryActivity.pay_success)) {
                     DialogUtil.paySucDialog(getContext(), endTime);
                 } else if (bus.getType().equals(WXPayEntryActivity.pay_faile)) {
-                    DialogUtil.payFileDialog(getContext(), type -> {
+                    DialogUtil.payFileDialog(getContext(),userLevel,  type -> {
                         onBuyMember(level, type);
                     });
                 }

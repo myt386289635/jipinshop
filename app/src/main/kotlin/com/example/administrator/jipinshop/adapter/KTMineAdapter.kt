@@ -239,10 +239,10 @@ class KTMineAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>{
                         }
                         if (it.code == 0) {//请求成功
                             binding.mineTeamCount.text = it.data.teamCount
-                            if (it.data.level == 2){
-                                binding.mineMemberContainer.visibility = View.GONE
-                            }else{
+                            if (it.data.level == 0){
                                 binding.mineMemberContainer.visibility = View.VISIBLE
+                            }else{
+                                binding.mineMemberContainer.visibility = View.GONE
                             }
                         }else if (it.code == 602) {//token失效(未登录)
                             binding.mineTeamCount.text = "0"

@@ -86,6 +86,12 @@ public class MemberRenewPop extends PopupWindow {
         mBinding.popWxpay.setOnCheckedChangeListener((buttonView, isChecked) -> {
             mBinding.popAlipay.setChecked(!isChecked);
         });
+        mBinding.popYearContainer.setOnClickListener(v -> {
+            mBinding.popYearCheckBox.setChecked(true);
+        });
+        mBinding.popMonthContainer.setOnClickListener(v -> {
+            mBinding.popMonthCheckBox.setChecked(true);
+        });
         mBinding.popYearCheckBox.setOnCheckedChangeListener((buttonView, isChecked) -> {
             mBinding.popMonthCheckBox.setChecked(!isChecked);
             if (isChecked){

@@ -768,7 +768,7 @@
                             android:textColor="@color/color_E25838"
                             android:textSize="12sp"
                             android:gravity="center"
-                            android:text="@{@string/member_4 + bean.levelDetail2.lowPrice + @string/order_prefree_end}"
+                            android:text="@{@string/member_4 + bean.levelDetail2.fee + @string/order_prefree_end}"
                             android:minWidth="@dimen/x150"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"/>
