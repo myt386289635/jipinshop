@@ -4,15 +4,11 @@ import android.app.Application;
 import android.content.Context;
 import android.support.multidex.MultiDex;
 import android.text.TextUtils;
-import android.util.Log;
 
-import com.alibaba.baichuan.android.trade.AlibcTradeSDK;
-import com.alibaba.baichuan.android.trade.callback.AlibcTradeInitCallback;
 import com.blankj.utilcode.util.SPUtils;
 import com.blankj.utilcode.util.Utils;
 import com.bumptech.glide.Glide;
 import com.example.administrator.jipinshop.jpush.JPushAlias;
-import com.example.administrator.jipinshop.jpush.LoginUtil;
 import com.example.administrator.jipinshop.netwrok.ApplicationComponent;
 import com.example.administrator.jipinshop.netwrok.ApplicationModule;
 import com.example.administrator.jipinshop.netwrok.DaggerApplicationComponent;
@@ -33,7 +29,6 @@ import java.io.FileReader;
 import java.io.IOException;
 
 import cn.jiguang.verifysdk.api.JVerificationInterface;
-import cn.jiguang.verifysdk.api.RequestCallback;
 import cn.jpush.android.api.JPushInterface;
 
 /**

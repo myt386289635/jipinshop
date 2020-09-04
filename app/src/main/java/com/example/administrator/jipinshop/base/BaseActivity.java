@@ -1,6 +1,8 @@
 package com.example.administrator.jipinshop.base;
 
 import android.app.Service;
+import android.content.res.Configuration;
+import android.content.res.Resources;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -112,5 +114,15 @@ public class BaseActivity extends RxAppCompatActivity {
     public void onPause() {
         super.onPause();
         MobclickAgent.onPause(this);
+    }
+
+    @Override
+    public Resources getResources() {
+        // 加载系统默认设置，字体不随用户设置变化
+        Resources res = super.getResources();
+        Configuration config=new Configuration();
+        config.setToDefaults();
+        res.updateConfiguration(config,res.getDisplayMetrics() );
+        return res;
     }
 }
