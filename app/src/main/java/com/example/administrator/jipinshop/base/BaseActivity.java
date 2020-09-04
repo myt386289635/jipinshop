@@ -120,9 +120,11 @@ public class BaseActivity extends RxAppCompatActivity {
     public Resources getResources() {
         // 加载系统默认设置，字体不随用户设置变化
         Resources res = super.getResources();
-        Configuration config=new Configuration();
-        config.setToDefaults();
-        res.updateConfiguration(config,res.getDisplayMetrics() );
+        if (res.getConfiguration().fontScale != 1) {
+            Configuration config=new Configuration();
+            config.setToDefaults();
+            res.updateConfiguration(config,res.getDisplayMetrics() );
+        }
         return res;
     }
 }
