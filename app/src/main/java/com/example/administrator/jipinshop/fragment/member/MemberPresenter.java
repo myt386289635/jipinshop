@@ -1,6 +1,7 @@
 package com.example.administrator.jipinshop.fragment.member;
 
 import android.content.Context;
+import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -69,6 +70,22 @@ public class MemberPresenter {
         }
         viewFlipper.setFlipInterval(3000);
         viewFlipper.startFlipping();
+    }
+
+    public void initBanner(List<Fragment> mBannerList , Context context , List<ImageView> point, LinearLayout mDetailPoint){
+        for (int i = 0; i < mBannerList.size(); i++) {
+            ImageView imageView = new ImageView(context);
+            point.add(imageView);
+            if (i == 0) {
+                imageView.setImageResource(R.drawable.banner_down3);
+            } else {
+                imageView.setImageResource(R.drawable.banner_up3);
+            }
+            LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+            layoutParams.leftMargin =context.getResources().getDimensionPixelSize(R.dimen.x4);
+            layoutParams.rightMargin = context.getResources().getDimensionPixelSize(R.dimen.x4);
+            mDetailPoint.addView(imageView, layoutParams);
+        }
     }
 
     //获取会员信息

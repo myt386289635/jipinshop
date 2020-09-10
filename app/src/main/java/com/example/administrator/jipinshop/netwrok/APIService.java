@@ -1318,7 +1318,7 @@ public interface APIService {
     /**
      * 新会员接口
      */
-    @GET("api/v4/user/levelIndex")
+    @GET("api/v5/user/levelIndex")
     Observable<MemberNewBean> levelIndex();
 
     /**

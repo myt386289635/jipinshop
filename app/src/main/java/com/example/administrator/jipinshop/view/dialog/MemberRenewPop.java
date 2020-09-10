@@ -58,7 +58,7 @@ public class MemberRenewPop extends PopupWindow {
         mList = new ArrayList<>();
         yearList = new ArrayList<>();
         monthList = new ArrayList<>();
-        mMoreAdapter = new MemberMoreAdapter(mList,mContext,"2");
+        mMoreAdapter = new MemberMoreAdapter(mList,mContext);
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(mContext, LinearLayout.HORIZONTAL,false);
         mBinding.popMore.setLayoutManager(linearLayoutManager);
         mBinding.popMore.setNestedScrollingEnabled(false);
@@ -100,7 +100,7 @@ public class MemberRenewPop extends PopupWindow {
                 mBinding.popRenew.setText("续费成功后会员延续至" + yearEndTime);
                 mList.clear();
                 mList.addAll(yearList);
-                if (mList.size() > 3){
+                if (mList.size() > 4){
                     mBinding.popPointContainer.setVisibility(View.VISIBLE);
                 }else{
                     mBinding.popPointContainer.setVisibility(View.GONE);
@@ -118,7 +118,7 @@ public class MemberRenewPop extends PopupWindow {
                 mBinding.popRenew.setText("续费成功后会员延续至" + monthEndTime);
                 mList.clear();
                 mList.addAll(monthList);
-                if (mList.size() > 3){
+                if (mList.size() > 4){
                     mBinding.popPointContainer.setVisibility(View.VISIBLE);
                 }else{
                     mBinding.popPointContainer.setVisibility(View.GONE);

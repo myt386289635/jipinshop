@@ -10,14 +10,27 @@
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="@dimen/y183">
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:textStyle="bold"
+            android:textColor="@color/color_424242"
+            android:textSize="16sp"
+            android:layout_marginTop="@dimen/y40"
+            android:layout_marginLeft="@dimen/x20"
+            android:id="@+id/item_tag"
+            android:text="@{bean.tag}"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
 
         <ImageView
+            android:layout_below="@id/item_tag"
+            android:layout_marginBottom="@dimen/y24"
+            android:layout_marginTop="@dimen/y24"
             android:layout_marginRight="@dimen/x34"
             bind:srcRound="@{bean.itemImg}"
             android:id="@+id/item_image"
             android:layout_marginLeft="@dimen/x20"
-            android:layout_centerVertical="true"
             android:layout_width="@dimen/x136"
             android:layout_height="@dimen/y136"/>
 
@@ -42,14 +55,16 @@
             android:layout_alignBottom="@id/item_image"
             android:textColor="@color/color_202020"
             android:textSize="15sp"
-            android:text="100%返现"
+            android:text="@{bean.itemTag}"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"/>
 
         <TextView
+            android:gravity="center"
+            android:layout_alignBottom="@id/item_image"
+            android:layout_alignTop="@id/item_image"
             android:layout_marginRight="@dimen/x20"
             android:layout_alignParentRight="true"
-            android:layout_centerVertical="true"
             android:textStyle="bold"
             android:textSize="16sp"
             android:textColor="@color/color_E25838"
@@ -59,7 +74,7 @@
             android:layout_height="wrap_content"/>
 
         <View
-            android:layout_alignParentBottom="true"
+            android:layout_below="@id/item_image"
             android:background="@color/color_DEDEDE"
             android:layout_marginRight="@dimen/x20"
             android:layout_marginLeft="@dimen/x20"

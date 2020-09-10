@@ -14,17 +14,18 @@
 
             <ImageView
                 android:id="@+id/item_image"
-                android:src="@color/color_E25838"
                 android:scaleType="fitCenter"
                 android:layout_width="@dimen/x44"
                 android:layout_height="@dimen/y44"/>
 
             <TextView
+                android:lineSpacingExtra="@dimen/y8"
+                android:gravity="center"
                 android:layout_marginTop="@dimen/y18"
                 android:id="@+id/item_name"
                 android:textColor="@color/color_F4CB95"
                 android:textSize="11sp"
-                android:text="自购100%佣金"
+                android:text=""
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"/>
 

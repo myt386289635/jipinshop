@@ -10,14 +10,15 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
 import android.os.Message;
-import android.support.annotation.NonNull;
+import android.support.v4.app.Fragment;
+import android.support.v4.view.ViewPager;
+import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.LinearLayout;
+import android.widget.ImageView;
 import android.widget.RelativeLayout;
 
 import com.alipay.sdk.app.PayTask;
@@ -29,8 +30,11 @@ import com.example.administrator.jipinshop.activity.cheapgoods.CheapBuyActivity;
 import com.example.administrator.jipinshop.activity.home.MainActivity;
 import com.example.administrator.jipinshop.activity.shoppingdetail.tbshoppingdetail.TBShoppingDetailActivity;
 import com.example.administrator.jipinshop.activity.sign.invitation.InvitationNewActivity;
-import com.example.administrator.jipinshop.adapter.MemberMoreAdapter;
+import com.example.administrator.jipinshop.adapter.HomeAdapter;
+import com.example.administrator.jipinshop.adapter.MemberFreeAdapter;
 import com.example.administrator.jipinshop.adapter.MemberShopAdapter;
+import com.example.administrator.jipinshop.adapter.MemberSignAdapter;
+import com.example.administrator.jipinshop.adapter.MemberVideoAdapter;
 import com.example.administrator.jipinshop.base.DBBaseFragment;
 import com.example.administrator.jipinshop.bean.ImageBean;
 import com.example.administrator.jipinshop.bean.MemberNewBean;
@@ -38,8 +42,8 @@ import com.example.administrator.jipinshop.bean.PayResultBean;
 import com.example.administrator.jipinshop.bean.WxPayBean;
 import com.example.administrator.jipinshop.bean.eventbus.PayBus;
 import com.example.administrator.jipinshop.databinding.FragmentMemberNewBinding;
+import com.example.administrator.jipinshop.fragment.member.cheap.CheapFragment;
 import com.example.administrator.jipinshop.netwrok.RetrofitModule;
-import com.example.administrator.jipinshop.util.DistanceHelper;
 import com.example.administrator.jipinshop.util.ToastUtil;
 import com.example.administrator.jipinshop.util.UmApp.AppStatisticalUtil;
 import com.example.administrator.jipinshop.util.WeakRefHandler;
@@ -49,6 +53,7 @@ import com.example.administrator.jipinshop.view.dialog.DialogUtil;
 import com.example.administrator.jipinshop.view.dialog.MemberBuyPop;
 import com.example.administrator.jipinshop.view.dialog.MemberRenewPop;
 import com.example.administrator.jipinshop.view.dialog.ProgressDialogView;
+import com.example.administrator.jipinshop.view.glide.GlideApp;
 import com.example.administrator.jipinshop.wxapi.WXPayEntryActivity;
 import com.tencent.mm.opensdk.modelpay.PayReq;
 import com.tencent.mm.opensdk.openapi.IWXAPI;
@@ -68,7 +73,7 @@ import javax.inject.Inject;
  * @create 2020/8/25
  * @Describe 新版会员页面
  */
-public class MemberFragment extends DBBaseFragment implements View.OnClickListener, OnRefreshListener, MemberView, MemberBuyPop.OnClick, MemberRenewPop.OnClick {
+public class MemberFragment extends DBBaseFragment implements View.OnClickListener, OnRefreshListener, MemberView, MemberBuyPop.OnClick, MemberRenewPop.OnClick, ViewPager.OnPageChangeListener, MemberVideoAdapter.OnItem {
 
     @Inject
     MemberPresenter mPresenter;
@@ -86,8 +91,6 @@ public class MemberFragment extends DBBaseFragment implements View.OnClickListen
     private String monthPriceBefore = "";
     private String yearPrice = "";
     private String yearPriceBefore = "";
-    private List<MemberNewBean.DataBean.VipBoxListBean> monthBoxList;
-    private List<MemberNewBean.DataBean.VipBoxListBean> yearBoxList;
     private String preMonthEndTime = "";
     private String preYearEndTime = "";
     private IWXAPI msgApi;//微信支付
@@ -95,14 +98,31 @@ public class MemberFragment extends DBBaseFragment implements View.OnClickListen
     private Dialog mDialog;
     private String endTime = "";//付款后的会员到期时间
     private int userLevel = 0;//用户身份的
+    //更多权益
+    private List<MemberNewBean.DataBean.VipBoxListBean> monthBoxList;
+    private List<MemberNewBean.DataBean.VipBoxListBean> yearBoxList;
     //广告
     private List<MemberNewBean.DataBean.MessageListBean> mAdList;
-    //更多权益
-    private List<MemberNewBean.DataBean.VipBoxListBean> mMoreList;
-    private MemberMoreAdapter mMoreAdapter;
+    //每月0元购
+    private List<MemberNewBean.DataBean.LevelDetail3Bean.ListBean> mFreeList;
+    private MemberFreeAdapter mFreeAdapter;
     //商品列表
     private List<MemberNewBean.DataBean.OrderLevelDataBean.OrderListBean> mOrderList;
     private MemberShopAdapter mShopAdapter;
+    //特惠购列表
+    private List<MemberNewBean.DataBean.LevelDetail4Bean.ListBeanX> mCheapList;
+    private List<Fragment> mFragments;
+    private HomeAdapter mHomeAdapter;
+    private List<ImageView> point;
+    //会员极币任务
+    private List<MemberNewBean.DataBean.LevelDetail6Bean.ListBeanXX> mSignList;
+    private MemberSignAdapter mSignAdapter;
+    //视频会员月卡
+    private List<MemberNewBean.DataBean.LevelDetail7Bean.ListBeanXXX> mVideoList;
+    private MemberVideoAdapter mVideoAdapter;
+    //吃喝玩乐
+    private List<MemberNewBean.DataBean.LevelDetail7Bean.ListBeanXXX> mPlayList;
+    private MemberVideoAdapter mPlayAdapter;
     //支付宝支付回调
     private Handler.Callback mCallback = msg -> {
         if (msg.what == 101){
@@ -123,6 +143,7 @@ public class MemberFragment extends DBBaseFragment implements View.OnClickListen
         return true;
     };
     private Handler mHandler = new WeakRefHandler(mCallback, Looper.getMainLooper());
+    private Boolean isSpace = false;//是否展开的。默认为false
 
     public static MemberFragment getInstance(String type){
         MemberFragment fragment = new MemberFragment();
@@ -168,36 +189,53 @@ public class MemberFragment extends DBBaseFragment implements View.OnClickListen
 
         //广告
         mAdList = new ArrayList<>();
-        //更多权益
-        mMoreList = new ArrayList<>();
-        mMoreAdapter = new MemberMoreAdapter(mMoreList,getContext(),"1");
-        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getContext(), LinearLayout.HORIZONTAL,false);
-        mBinding.memberMore.setLayoutManager(linearLayoutManager);
-        mBinding.memberMore.setNestedScrollingEnabled(false);
-        mBinding.memberMore.setAdapter(mMoreAdapter);
-        mBinding.memberMore.addOnScrollListener(new RecyclerView.OnScrollListener() {
-            @Override
-            public void onScrolled(@NonNull RecyclerView recyclerView, int dx, int dy) {
-                super.onScrolled(recyclerView, dx, dy);
-                //划出去的宽度
-                int isResult = getResult(linearLayoutManager);
-                //可划出去的总宽度
-                double totleWith = getTotleWith(linearLayoutManager);
-                //线条可划出去的总宽度
-                double lineWith = getContext().getResources().getDimension(R.dimen.x60);
-                //结果
-                double result  = (lineWith / totleWith) * isResult;
-                RelativeLayout.LayoutParams layoutParams = (RelativeLayout.LayoutParams) mBinding.memberPoint.getLayoutParams();
-                layoutParams.leftMargin = (int) result;
-                mBinding.memberPoint.setLayoutParams(layoutParams);
-            }
-        });
         //商品列表
         mOrderList = new ArrayList<>();
         mShopAdapter = new MemberShopAdapter(mOrderList,getContext());
         mBinding.memberShopList.setLayoutManager(new LinearLayoutManager(getContext()));
         mBinding.memberShopList.setNestedScrollingEnabled(false);
         mBinding.memberShopList.setAdapter(mShopAdapter);
+        mBinding.memberShopList.setFocusable(false);//拒绝首次进入页面时滑动
+        //每月0元购
+        mFreeList = new ArrayList<>();
+        mBinding.memberFree.setLayoutManager(new GridLayoutManager(getContext(),3));
+        mBinding.memberFree.setNestedScrollingEnabled(false);
+        mFreeAdapter = new MemberFreeAdapter(mFreeList,getContext());
+        mBinding.memberFree.setAdapter(mFreeAdapter);
+        mBinding.memberFree.setFocusable(false);//拒绝首次进入页面时滑动
+        //特惠购列表
+        point = new ArrayList<>();
+        mCheapList = new ArrayList<>();
+        mFragments = new ArrayList<>();
+        mFragments.add(CheapFragment.getInstence(0));
+        mFragments.add(CheapFragment.getInstence(6));
+        mHomeAdapter = new HomeAdapter(getChildFragmentManager());
+        mHomeAdapter.setFragments(mFragments);
+        mBinding.memberCheap.setAdapter(mHomeAdapter);
+        mPresenter.initBanner(mFragments,getContext(),point,mBinding.memberPoint);
+        mBinding.memberCheap.addOnPageChangeListener(this);
+        //会员极币任务
+        mSignList = new ArrayList<>();
+        mSignAdapter = new MemberSignAdapter(mSignList,getContext());
+        mBinding.memberSign.setLayoutManager(new LinearLayoutManager(getContext()));
+        mBinding.memberSign.setNestedScrollingEnabled(false);
+        mBinding.memberSign.setAdapter(mSignAdapter);
+        mBinding.memberSign.setFocusable(false);
+        //视频
+        mVideoList = new ArrayList<>();
+        mVideoAdapter = new MemberVideoAdapter(mVideoList,getContext());
+        mBinding.memberVideo.setLayoutManager(new GridLayoutManager(getContext(),4));
+        mBinding.memberVideo.setNestedScrollingEnabled(false);
+        mBinding.memberVideo.setAdapter(mVideoAdapter);
+        mBinding.memberVideo.setFocusable(false);
+        //吃喝玩了
+        mPlayList = new ArrayList<>();
+        mPlayAdapter = new MemberVideoAdapter(mPlayList,getContext());
+        mPlayAdapter.setOnItem(this);
+        mBinding.memberPlay.setLayoutManager(new GridLayoutManager(getContext(),4));
+        mBinding.memberPlay.setNestedScrollingEnabled(false);
+        mBinding.memberPlay.setAdapter(mPlayAdapter);
+        mBinding.memberPlay.setFocusable(false);
 
         if (type.equals("2")){
             SPUtils.getInstance().put(CommonDate.memberNotice, false);
@@ -289,6 +327,29 @@ public class MemberFragment extends DBBaseFragment implements View.OnClickListen
                 if (mRenewPop != null && mRenewPop.isShowing())
                     mRenewPop.dismiss();
                 break;
+            case R.id.member_playUp:
+            case R.id.member_playMore:
+                //吃喝玩乐展开更多
+                RelativeLayout.LayoutParams layoutParams = (RelativeLayout.LayoutParams) mBinding.memberPlayContainer.getLayoutParams();
+                if (!isSpace){
+                    //未展开
+                    layoutParams.height = RelativeLayout.LayoutParams.WRAP_CONTENT;
+                    isSpace  = true;
+                    mBinding.memberPlayUp.setVisibility(View.VISIBLE);
+                    mBinding.memberPlayMore.setVisibility(View.GONE);
+                }else {
+                    //已展开
+                    layoutParams.height = (int) getResources().getDimension(R.dimen.y693);
+                    isSpace = false;
+                    mBinding.memberPlayMore.setVisibility(View.VISIBLE);
+                    mBinding.memberPlayUp.setVisibility(View.GONE);
+                }
+                mBinding.memberPlayContainer.setLayoutParams(layoutParams);
+                break;
+            case R.id.member_familyAdd:
+                //todo 全家共享
+                ToastUtil.show("全家共享");
+                break;
             case R.id.guide_next1Container:
                 mBinding.guideNext1Container.setVisibility(View.GONE);
                 mBinding.guideNext2Container.setVisibility(View.VISIBLE);
@@ -314,40 +375,6 @@ public class MemberFragment extends DBBaseFragment implements View.OnClickListen
         mPresenter.levelIndex(this.bindToLifecycle());
     }
 
-    private int getResult(LinearLayoutManager linearLayoutManager){
-        //找到即将移出屏幕Item的position,position是移出屏幕item的数量
-        int position = linearLayoutManager.findFirstVisibleItemPosition();
-        //根据position找到这个Item
-        View firstVisiableChildView = linearLayoutManager.findViewByPosition(position);
-        //获取Item的宽
-        int itemWidth = 0;
-        //算出该Item还未移出屏幕的高度
-        int itemRight = 0;
-        if (firstVisiableChildView != null){
-            itemWidth = firstVisiableChildView.getWidth();
-            itemRight = firstVisiableChildView.getRight();
-        }
-        //position移出屏幕的数量*高度得出移动的距离
-        int iposition = position * itemWidth;
-        //因为横着的RecyclerV第一个取到的Item position为零所以计算时需要加一个宽
-        int iResult = iposition - itemRight + itemWidth;
-        return  iResult;
-    }
-
-    private double getTotleWith(LinearLayoutManager linearLayoutManager){
-        //找到即将移出屏幕Item的position,position是移出屏幕item的数量
-        int position = linearLayoutManager.findFirstVisibleItemPosition();
-        //根据position找到这个Item
-        View firstVisiableChildView = linearLayoutManager.findViewByPosition(position);
-        //获取Item的宽
-        int itemWidth = 0;
-        if (firstVisiableChildView != null){
-            itemWidth = firstVisiableChildView.getWidth();
-        }
-        double zWidth = (DistanceHelper.getAndroiodScreenwidthPixels(getContext()) - getContext().getResources().getDimension(R.dimen.x20) - getContext().getResources().getDimension(R.dimen.x20));
-        return ((itemWidth * mMoreList.size()) - zWidth);
-    }
-
     @Override
     public void onSuccess(MemberNewBean bean) {
         mBinding.swipeToLoad.setRefreshing(false);
@@ -371,25 +398,91 @@ public class MemberFragment extends DBBaseFragment implements View.OnClickListen
         mBinding.memberMonthOtherCost.setColor(R.color.color_white);
         mBinding.memberYearOtherCost.setTv(true);
         mBinding.memberYearOtherCost.setColor(R.color.color_white);
+        GlideApp.loderImage(getContext(),bean.getData().getBoxImg(),mBinding.memberMore,0,0);
         //广告
         mAdList.clear();
         mAdList.addAll(bean.getData().getMessageList());
         mPresenter.adFlipper(getContext(),mBinding.viewFlipper,mAdList);
-        //更多权益
-        mMoreList.clear();
-        mMoreList.addAll(bean.getData().getVipBoxList());
-        if (mMoreList.size() > 3){
-            mBinding.memberPointContainer.setVisibility(View.VISIBLE);
-        }else{
-            mBinding.memberPointContainer.setVisibility(View.GONE);
-        }
-        mMoreAdapter.notifyDataSetChanged();
         //商品列表
         mOrderList.clear();
         if (bean.getData().getOrderLevelData() != null){
             mOrderList.addAll(bean.getData().getOrderLevelData().getOrderList());
         }
         mShopAdapter.notifyDataSetChanged();
+        //每月0元购
+        mFreeList.clear();
+        mFreeList.addAll(bean.getData().getLevelDetail3().getList());
+        mFreeAdapter.notifyDataSetChanged();
+        if (TextUtils.isEmpty(bean.getData().getLevelDetail3().getTitle3())){
+            mBinding.memberFreeFee.setVisibility(View.GONE);
+        }else {
+            mBinding.memberFreeFee.setVisibility(View.VISIBLE);
+        }
+        if (TextUtils.isEmpty(bean.getData().getLevelDetail3().getTitle4())){
+            mBinding.memberFreeTitle.setVisibility(View.GONE);
+        }else {
+            mBinding.memberFreeTitle.setVisibility(View.VISIBLE);
+        }
+        //特惠购列表
+        mCheapList.clear();
+        mCheapList.addAll(bean.getData().getLevelDetail4().getList());
+        ((CheapFragment)mFragments.get(0)).setDate(mCheapList);
+        ((CheapFragment)mFragments.get(1)).setDate(mCheapList);
+        if (mCheapList.get(5).getStatus() == 0 || mCheapList.get(5).getStatus() == 2){
+            mBinding.memberCheap.setCurrentItem(0);
+        }else {
+            mBinding.memberCheap.setCurrentItem(1);
+        }
+        if (TextUtils.isEmpty(bean.getData().getLevelDetail4().getTitle3())){
+            mBinding.memberMonthFee.setVisibility(View.GONE);
+        }else {
+            mBinding.memberMonthFee.setVisibility(View.VISIBLE);
+        }
+        if (TextUtils.isEmpty(bean.getData().getLevelDetail4().getTitle4())){
+            mBinding.memberMonthTitle.setVisibility(View.GONE);
+        }else {
+            mBinding.memberMonthTitle.setVisibility(View.VISIBLE);
+        }
+        //会员极币任务
+        mSignList.clear();
+        mSignList.addAll(bean.getData().getLevelDetail6().getList());
+        mSignAdapter.notifyDataSetChanged();
+        //一家人共享
+        GlideApp.loderCircleImage(getContext(),bean.getData().getLevelDetail5().getList().get(0),mBinding.memberFamilyOne,0,0);
+        GlideApp.loderCircleImage(getContext(),bean.getData().getLevelDetail5().getList().get(1),mBinding.memberFamilyTwo,0,0);
+        GlideApp.loderCircleImage(getContext(),bean.getData().getLevelDetail5().getList().get(2),mBinding.memberFamilyThree,0,0);
+        GlideApp.loderCircleImage(getContext(),bean.getData().getLevelDetail5().getList().get(3),mBinding.memberFamilyFore,0,0);
+        if (TextUtils.isEmpty(bean.getData().getLevelDetail5().getTitle3())){
+            mBinding.memberFamilyTitle.setVisibility(View.GONE);
+        }else {
+            mBinding.memberFamilyTitle.setVisibility(View.VISIBLE);
+        }
+        if (TextUtils.isEmpty(bean.getData().getLevelDetail4().getTitle4())){
+            mBinding.memberFamilyFee.setVisibility(View.GONE);
+        }else {
+            mBinding.memberFamilyFee.setVisibility(View.VISIBLE);
+        }
+        //视频
+        mVideoList.clear();
+        mVideoList.addAll(bean.getData().getLevelDetail7().getList());
+        mVideoAdapter.notifyDataSetChanged();
+        //吃喝玩了
+        mPlayList.clear();
+        mPlayList.addAll(bean.getData().getLevelDetail8().getList());
+        mPlayAdapter.notifyDataSetChanged();
+        mBinding.memberPlayUp.setVisibility(View.GONE);
+        RelativeLayout.LayoutParams layoutParams = (RelativeLayout.LayoutParams) mBinding.memberPlayContainer.getLayoutParams();
+        if (mPlayList.size() > 16){
+            isSpace = false;
+            mBinding.memberPlayMore.setVisibility(View.VISIBLE);
+            layoutParams.height = (int) getResources().getDimension(R.dimen.y693);
+        }else {
+            isSpace = true;
+            layoutParams.height = RelativeLayout.LayoutParams.WRAP_CONTENT;
+            mBinding.memberPlayContainer.setPadding(0,0,0, (int) getResources().getDimension(R.dimen.y40));
+            mBinding.memberPlayMore.setVisibility(View.GONE);
+        }
+        mBinding.memberPlayContainer.setLayoutParams(layoutParams);
         //身份处理  0 普通 ， 1 月卡 ，2年卡
         userLevel = bean.getData().getLevel();
         if (bean.getData().getLevel() == 0){
@@ -537,5 +630,28 @@ public class MemberFragment extends DBBaseFragment implements View.OnClickListen
                 }
             }
         }
+    }
+
+    @Override
+    public void onPageScrolled(int i, float v, int i1) {}
+
+    @Override
+    public void onPageSelected(int position) {
+        for (int i = 0; i < point.size(); i++) {
+            if (i == position % mFragments.size()){
+                point.get(i).setImageResource(R.drawable.banner_down3);
+            }else {
+                point.get(i).setImageResource(R.drawable.banner_up3);
+            }
+        }
+    }
+
+    @Override
+    public void onPageScrollStateChanged(int i) {}
+
+    // todo 吃喝玩乐跳转
+    @Override
+    public void onItem(int position) {
+        ToastUtil.show("点击了" + position);
     }
 }
