@@ -17,6 +17,7 @@ import com.example.administrator.jipinshop.activity.evakt.send.SubmitActivity;
 import com.example.administrator.jipinshop.activity.evakt.send.corve.SubmitCorveActivity;
 import com.example.administrator.jipinshop.activity.evakt.send.goods.AddGoodsActivity;
 import com.example.administrator.jipinshop.activity.evakt.unbox.UnboxActivity;
+import com.example.administrator.jipinshop.activity.family.FamilyActivity;
 import com.example.administrator.jipinshop.activity.follow.FollowActivity;
 import com.example.administrator.jipinshop.activity.home.HomeDetailActivity;
 import com.example.administrator.jipinshop.activity.home.HomeTabActivity;
@@ -182,4 +183,5 @@ public interface BaseActivityComponent {
     void inject(OrderRecoveryActivity activity);
     void inject(OrderRecoveryResultActivity activity);
     void inject(WellComeActivity mainActivity);
+    void inject(FamilyActivity mainActivity);
 }

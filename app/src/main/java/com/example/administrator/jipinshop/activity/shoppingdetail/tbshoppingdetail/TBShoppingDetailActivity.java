@@ -610,21 +610,24 @@ public class TBShoppingDetailActivity extends BaseActivity implements View.OnCli
             mBinding.titleFavor.setCompoundDrawables(null,drawable,null,null);
             mBinding.titleFavor.setText("收藏");
         }
-        //todo 会员信息
-        if (bean.getData().getLevel() == 2){
+        //会员信息
+        if (bean.getData().getLevel() != 0){
             mBinding.detailMemberPrice.setVisibility(View.GONE);
             mBinding.detailMemberNotice.setVisibility(View.GONE);
             mBinding.detailMemberGo.setVisibility(View.GONE);
             mBinding.detailMemberText.setVisibility(View.GONE);
             mBinding.detailMemberImage.setVisibility(View.GONE);
             mBinding.detailMember.setBackgroundResource(R.mipmap.detail_bj2);
+            isStart = false;
         }else {
+            isStart = true;
             mBinding.detailMemberPrice.setVisibility(View.VISIBLE);
             mBinding.detailMemberNotice.setVisibility(View.VISIBLE);
             mBinding.detailMemberGo.setVisibility(View.VISIBLE);
             mBinding.detailMemberText.setVisibility(View.VISIBLE);
             mBinding.detailMemberImage.setVisibility(View.VISIBLE);
             mBinding.detailMemberPrice.setText("￥" + bean.getData().getUpFee());
+            mBinding.detailBottomMemberPrice.setText("￥" + bean.getData().getUpFee());
             mBinding.detailMember.setBackgroundResource(R.mipmap.detail_bj);
         }
     }

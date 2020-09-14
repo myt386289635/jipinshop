@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <RelativeLayout
+        android:layout_gravity="center_horizontal"
+        android:background="@drawable/bg_dialog_white"
+        android:layout_width="@dimen/x600"
+        android:layout_height="wrap_content">
+
+        <ImageView
+            android:padding="@dimen/x20"
+            android:id="@+id/dialog_close"
+            android:layout_alignParentRight="true"
+            android:src="@mipmap/dialog_close1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+
+        <ImageView
+            android:id="@+id/dialog_image"
+            android:src="@mipmap/rlogo"
+            android:layout_marginTop="@dimen/y64"
+            android:layout_centerHorizontal="true"
+            android:layout_width="@dimen/x136"
+            android:layout_height="@dimen/y136"/>
+
+        <TextView
+            android:id="@+id/dialog_name"
+            android:textColor="@color/color_202020"
+            android:textStyle="bold"
+            android:textSize="17sp"
+            android:layout_marginBottom="@dimen/y17"
+            android:layout_marginTop="@dimen/y20"
+            android:layout_below="@id/dialog_image"
+            android:layout_centerHorizontal="true"
+            android:text="liex请求共享特权"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+
+        <TextView
+            android:layout_marginBottom="@dimen/y61"
+            android:layout_below="@id/dialog_name"
+            android:layout_centerHorizontal="true"
+            android:id="@+id/dialog_content"
+            android:lineSpacingExtra="@dimen/y10"
+            android:gravity="center"
+            android:textColor="@color/color_565252"
+            android:textSize="15sp"
+            android:text="成员加入后无法移除，\n您最多可以再邀请3位成员共享特权"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+
+        <RelativeLayout
+            android:id="@+id/dialog_bottomContainer"
+            android:layout_below="@id/dialog_content"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <View
+                android:id="@+id/dialog_line"
+                android:background="@color/color_DEDEDE"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/y1"/>
+
+            <View
+                android:id="@+id/dialog_line1"
+                android:background="@color/color_DEDEDE"
+                android:layout_centerHorizontal="true"
+                android:layout_below="@+id/dialog_line"
+                android:layout_width="@dimen/y1"
+                android:layout_height="@dimen/y102"/>
+
+            <TextView
+                android:layout_alignLeft="@+id/dialog_line1"
+                android:gravity="center"
+                android:textStyle="bold"
+                android:id="@+id/dialog_sure"
+                android:layout_alignTop="@id/dialog_line"
+                android:layout_alignBottom="@+id/dialog_line1"
+                android:layout_alignParentRight="true"
+                android:textSize="16sp"
+                android:textColor="@color/color_4A90E2"
+                android:text="通过请求"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+
+            <TextView
+                android:layout_alignRight="@id/dialog_line1"
+                android:gravity="center"
+                android:layout_alignTop="@id/dialog_line"
+                android:layout_alignBottom="@+id/dialog_line1"
+                android:layout_alignParentLeft="true"
+                android:id="@+id/dialog_cancle"
+                android:textSize="16sp"
+                android:textColor="@color/color_4A90E2"
+                android:text="拒绝请求"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+
+        </RelativeLayout>
+
+    </RelativeLayout>
+</layout>

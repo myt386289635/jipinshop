@@ -27,7 +27,9 @@ import com.blankj.utilcode.util.SPUtils;
 import com.example.administrator.jipinshop.R;
 import com.example.administrator.jipinshop.activity.WebActivity;
 import com.example.administrator.jipinshop.activity.cheapgoods.CheapBuyActivity;
+import com.example.administrator.jipinshop.activity.family.FamilyActivity;
 import com.example.administrator.jipinshop.activity.home.MainActivity;
+import com.example.administrator.jipinshop.activity.home.article.ArticleDetailActivity;
 import com.example.administrator.jipinshop.activity.shoppingdetail.tbshoppingdetail.TBShoppingDetailActivity;
 import com.example.administrator.jipinshop.activity.sign.invitation.InvitationNewActivity;
 import com.example.administrator.jipinshop.adapter.HomeAdapter;
@@ -44,6 +46,7 @@ import com.example.administrator.jipinshop.bean.eventbus.PayBus;
 import com.example.administrator.jipinshop.databinding.FragmentMemberNewBinding;
 import com.example.administrator.jipinshop.fragment.member.cheap.CheapFragment;
 import com.example.administrator.jipinshop.netwrok.RetrofitModule;
+import com.example.administrator.jipinshop.util.ShopJumpUtil;
 import com.example.administrator.jipinshop.util.ToastUtil;
 import com.example.administrator.jipinshop.util.UmApp.AppStatisticalUtil;
 import com.example.administrator.jipinshop.util.WeakRefHandler;
@@ -347,8 +350,8 @@ public class MemberFragment extends DBBaseFragment implements View.OnClickListen
                 mBinding.memberPlayContainer.setLayoutParams(layoutParams);
                 break;
             case R.id.member_familyAdd:
-                //todo 全家共享
-                ToastUtil.show("全家共享");
+                //全家共享
+                startActivity(new Intent(getContext(), FamilyActivity.class));
                 break;
             case R.id.guide_next1Container:
                 mBinding.guideNext1Container.setVisibility(View.GONE);
@@ -649,9 +652,15 @@ public class MemberFragment extends DBBaseFragment implements View.OnClickListen
     @Override
     public void onPageScrollStateChanged(int i) {}
 
-    // todo 吃喝玩乐跳转
+    //吃喝玩乐跳转
     @Override
     public void onItem(int position) {
-        ToastUtil.show("点击了" + position);
+        if (userLevel == 0){
+            ToastUtil.show("仅限VIP会员享受优惠");
+            return;
+        }
+        ShopJumpUtil.openBanner(getContext(),mPlayList.get(position).getType(),
+                mPlayList.get(position).getTargetId(),mPlayList.get(position).getTitle(),
+                mPlayList.get(position).getSource());
     }
 }

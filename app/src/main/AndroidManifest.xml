@@ -784,6 +784,10 @@
             android:launchMode="singleTop"
             android:screenOrientation="portrait"/>
 
-    </application>
+        <!--家庭会员共享-->
+        <activity android:name=".activity.family.FamilyActivity"
+                  android:screenOrientation="portrait"/>
+
+ </application>
 
 </manifest>

@@ -44,6 +44,7 @@ import com.example.administrator.jipinshop.bean.TeacherBean;
 import com.example.administrator.jipinshop.bean.TklBean;
 import com.example.administrator.jipinshop.databinding.DialogCheapBuyBinding;
 import com.example.administrator.jipinshop.databinding.DialogCheapOutBinding;
+import com.example.administrator.jipinshop.databinding.DialogFamilyBinding;
 import com.example.administrator.jipinshop.databinding.DialogLuckBinding;
 import com.example.administrator.jipinshop.databinding.DialogNewpeople2Binding;
 import com.example.administrator.jipinshop.databinding.DialogNewpeopleBuyBinding;
@@ -1213,5 +1214,39 @@ public class DialogUtil {
 
     public interface OnPayListener {
         void onPay(String type);
+    }
+
+    //家庭dialog
+    public static void familyDialog(Context context , int status, View.OnClickListener listener){
+        AlertDialog.Builder builder = new AlertDialog.Builder(context, R.style.dialog);
+        DialogFamilyBinding binding = DataBindingUtil.inflate(LayoutInflater.from(context),R.layout.dialog_family, null,false);
+        final Dialog dialog = builder.create();
+        String html;
+        if (status == 1){
+            //已加入
+            binding.dialogBottomContainer.setVisibility(View.GONE);
+            binding.dialogName.setText("liex");
+            html = "2020-08-31共享特权<br>累计节省<font color='#E25838'>"+ 26321.35 +"</font>元";
+        }else {
+            //待加入
+            binding.dialogBottomContainer.setVisibility(View.VISIBLE);
+            binding.dialogName.setText("liex请求共享特权");
+            html = "成员加入后无法移除，<br>您最多可以再邀请<font color='#E25838'>" + 3 + "</font>位成员共享特权";
+        }
+        binding.dialogContent.setText(Html.fromHtml(html));
+        binding.dialogCancle.setOnClickListener(v -> {
+            dialog.dismiss();
+        });
+        binding.dialogClose.setOnClickListener(v -> {
+            dialog.dismiss();
+        });
+        binding.dialogSure.setOnClickListener(v -> {
+            if (listener != null){
+                listener.onClick(v);
+            }
+        });
+        dialog.getWindow().setDimAmount(0.35f);
+        dialog.show();
+        dialog.setContentView(binding.getRoot());
     }
 }
