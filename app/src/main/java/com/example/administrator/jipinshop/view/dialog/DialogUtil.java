@@ -36,6 +36,7 @@ import com.example.administrator.jipinshop.activity.WebActivity;
 import com.example.administrator.jipinshop.activity.shoppingdetail.tbshoppingdetail.TBShoppingDetailActivity;
 import com.example.administrator.jipinshop.activity.sreach.result.TBSreachResultActivity;
 import com.example.administrator.jipinshop.adapter.DialogLuckAdapter;
+import com.example.administrator.jipinshop.bean.FamilyBean;
 import com.example.administrator.jipinshop.bean.NewFreeBean;
 import com.example.administrator.jipinshop.bean.NewPeopleBean;
 import com.example.administrator.jipinshop.bean.PrizeLogBean;
@@ -56,6 +57,7 @@ import com.example.administrator.jipinshop.databinding.DialogPaySuccessBinding;
 import com.example.administrator.jipinshop.databinding.DialogTklBinding;
 import com.example.administrator.jipinshop.databinding.DialogUserBinding;
 import com.example.administrator.jipinshop.databinding.DialogUserDetailBinding;
+import com.example.administrator.jipinshop.databinding.DialogZeroBuyBinding;
 import com.example.administrator.jipinshop.netwrok.RetrofitModule;
 import com.example.administrator.jipinshop.util.ShopJumpUtil;
 import com.example.administrator.jipinshop.util.TimeUtil;
@@ -306,10 +308,16 @@ public class DialogUtil {
     }
 
     //比价弹窗
-    public static void parityDialog(Context context, final View.OnClickListener sureListener) {
+    public static void parityDialog(Context context, String source,final View.OnClickListener sureListener) {
         AlertDialog.Builder builder = new AlertDialog.Builder(context, R.style.dialog);
         DialogParityBinding binding = DataBindingUtil.inflate(LayoutInflater.from(context),R.layout.dialog_parity, null,false);
         final Dialog dialog = builder.create();
+        if (source.equals("4")){
+            //拼多多
+            binding.dialogTitle.setText("本提示与拼多多比价订单佣金调整政策相关，");
+        }else {
+            binding.dialogTitle.setText("本提示与淘宝比价订单佣金调整政策相关，");
+        }
         binding.dialogBackground.setOnClickListener(v -> dialog.dismiss());
         binding.dialogCancle.setOnClickListener(v -> {
             dialog.dismiss();
@@ -955,11 +963,8 @@ public class DialogUtil {
         ImageView dialog_bg = view.findViewById(R.id.dialog_bg);
         ImageView dialog_cancle = view.findViewById(R.id.dialog_cancle);
         TextView dialog_sure = view.findViewById(R.id.dialog_sure);
-        TextView dialog_title = view.findViewById(R.id.dialog_title);
         GlideApp.loderImage(context,"https://jipincheng.cn/tbshouquan.png",
                 dialog_bg,R.mipmap.dialog_login_bg,R.mipmap.dialog_login_bg);
-        String str = "授权<font color='#202020'>极品城</font>后即可<font color='#202020'>购买特价好物</font>";
-        dialog_title.setText(Html.fromHtml(str));
         dialog_cancle.setOnClickListener(v -> {
             dialog.dismiss();
         });
@@ -1217,21 +1222,21 @@ public class DialogUtil {
     }
 
     //家庭dialog
-    public static void familyDialog(Context context , int status, View.OnClickListener listener){
+    public static void familyDialog(Context context , FamilyBean.DataBean bean ,String totle, View.OnClickListener listener){
         AlertDialog.Builder builder = new AlertDialog.Builder(context, R.style.dialog);
         DialogFamilyBinding binding = DataBindingUtil.inflate(LayoutInflater.from(context),R.layout.dialog_family, null,false);
         final Dialog dialog = builder.create();
         String html;
-        if (status == 1){
+        if (bean.getStatus().equals("1")){
             //已加入
             binding.dialogBottomContainer.setVisibility(View.GONE);
-            binding.dialogName.setText("liex");
-            html = "2020-08-31共享特权<br>累计节省<font color='#E25838'>"+ 26321.35 +"</font>元";
+            binding.dialogName.setText(bean.getNickename());
+            html = bean.getCreateTime() + "共享特权<br>累计节省<font color='#E25838'>"+ bean.getTotalFee() +"</font>元";
         }else {
             //待加入
             binding.dialogBottomContainer.setVisibility(View.VISIBLE);
-            binding.dialogName.setText("liex请求共享特权");
-            html = "成员加入后无法移除，<br>您最多可以再邀请<font color='#E25838'>" + 3 + "</font>位成员共享特权";
+            binding.dialogName.setText(bean.getNickename() + "请求共享特权");
+            html = "成员加入后无法移除，<br>您最多可以再邀请<font color='#E25838'>" + totle + "</font>位成员共享特权";
         }
         binding.dialogContent.setText(Html.fromHtml(html));
         binding.dialogCancle.setOnClickListener(v -> {
@@ -1241,9 +1246,28 @@ public class DialogUtil {
             dialog.dismiss();
         });
         binding.dialogSure.setOnClickListener(v -> {
+            dialog.dismiss();
             if (listener != null){
                 listener.onClick(v);
             }
+        });
+        dialog.getWindow().setDimAmount(0.35f);
+        dialog.show();
+        dialog.setContentView(binding.getRoot());
+    }
+
+    //0元购购买时弹窗
+    public static void zeroBuyDialog(Context context, View.OnClickListener listener){
+        AlertDialog.Builder builder = new AlertDialog.Builder(context, R.style.dialog);
+        final Dialog dialog = builder.create();
+        DialogZeroBuyBinding binding = DataBindingUtil.inflate(LayoutInflater.from(context), R.layout.dialog_zero_buy, null, false);
+        binding.dialogDismiss.setOnClickListener(v -> {
+            dialog.dismiss();
+        });
+        binding.dialogSure.setOnClickListener(v -> {
+            if (listener != null)
+                listener.onClick(v);
+            dialog.dismiss();
         });
         dialog.getWindow().setDimAmount(0.35f);
         dialog.show();

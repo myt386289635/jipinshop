@@ -96,6 +96,7 @@
                     android:layout_height="wrap_content">
 
                     <TextView
+                        android:id="@+id/detail_allowanceText"
                         android:textColor="@color/color_E25838"
                         android:textSize="10sp"
                         android:text="可用补贴"

@@ -45,7 +45,7 @@
             android:layout_marginTop="@dimen/y8"
             android:layout_below="@id/family_title"
             android:layout_centerHorizontal="true"
-            android:text="累计为家庭成员节省****元"
+            android:text="添加家庭成员，每年可省38400元"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"/>
 

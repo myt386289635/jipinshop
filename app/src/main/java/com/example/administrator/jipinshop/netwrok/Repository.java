@@ -1475,4 +1475,46 @@ public class Repository {
         return mAPIService.alipay(type);
     }
 
+    /**
+     * 家庭成员列表
+     */
+    public Observable<FamilyBean> familyList(){
+        return mAPIService.familyList();
+    }
+
+    /**
+     * 家庭确认加入
+     */
+    public Observable<SuccessBean> familyConfirm(String id , String userId){
+        return mAPIService.familyConfirm(id, userId);
+    }
+
+    /**
+     * 会员0元购首页
+     */
+    public Observable<NewFreeBean> vipIndex(){
+        return mAPIService.vipIndex();
+    }
+
+    /**
+     * 会员商品详情
+     */
+    public Observable<TBShoppingDetailBean> zeroDetail(String allowanceGoodsId){
+        return mAPIService.zeroDetail(allowanceGoodsId);
+    }
+
+    /**
+     * 会员0元购抢购
+     */
+    public Observable<ImageBean> zeroApply(String allowanceGoodsId){
+        return mAPIService.zeroApply(allowanceGoodsId);
+    }
+
+    /**
+     * 领取津贴
+     */
+    public Observable<SuccessBean> addAllowance(String id){
+        return mAPIService.addAllowance(id);
+    }
+
 }

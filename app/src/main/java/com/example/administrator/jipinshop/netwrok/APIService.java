@@ -1334,4 +1334,44 @@ public interface APIService {
     @FormUrlEncoded
     @POST("api/order/alipay/pay")
     Observable<ImageBean> alipay(@Field("type") String type);
+
+    /**
+     * 家庭成员列表
+     */
+    @GET("api/family/list")
+    Observable<FamilyBean> familyList();
+
+    /**
+     * 家庭确认加入
+     */
+    @FormUrlEncoded
+    @POST("api/family/confirm")
+    Observable<SuccessBean> familyConfirm(@Field("id") String id , @Field("userId") String userId);
+
+    /**
+     * 会员0元购首页
+     */
+    @GET("api/v2/allowance/vipIndex")
+    Observable<NewFreeBean> vipIndex();
+
+    /**
+     * 会员商品详情
+     */
+    @GET("api/v2/allowance/vipDetail")
+    Observable<TBShoppingDetailBean> zeroDetail(@Query("allowanceGoodsId") String allowanceGoodsId);
+
+    /**
+     * 会员0元购抢购
+     */
+    @FormUrlEncoded
+    @POST("api/v2/allowance/vipApply")
+    Observable<ImageBean> zeroApply(@Field("allowanceGoodsId") String allowanceGoodsId);
+
+    /**
+     * 领取津贴
+     */
+    @FormUrlEncoded
+    @POST("api/allowance/addAllowance")
+    Observable<SuccessBean> addAllowance(@Field("id") String id);
+
 }

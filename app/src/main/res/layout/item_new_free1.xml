@@ -39,6 +39,7 @@
         </RelativeLayout>
 
         <ImageView
+            android:id="@+id/item_bg"
             android:layout_marginBottom="@dimen/y30"
             android:scaleType="fitXY"
             android:adjustViewBounds="true"

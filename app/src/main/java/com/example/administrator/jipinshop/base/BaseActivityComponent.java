@@ -17,7 +17,7 @@ import com.example.administrator.jipinshop.activity.evakt.send.SubmitActivity;
 import com.example.administrator.jipinshop.activity.evakt.send.corve.SubmitCorveActivity;
 import com.example.administrator.jipinshop.activity.evakt.send.goods.AddGoodsActivity;
 import com.example.administrator.jipinshop.activity.evakt.unbox.UnboxActivity;
-import com.example.administrator.jipinshop.activity.family.FamilyActivity;
+import com.example.administrator.jipinshop.activity.member.family.FamilyActivity;
 import com.example.administrator.jipinshop.activity.follow.FollowActivity;
 import com.example.administrator.jipinshop.activity.home.HomeDetailActivity;
 import com.example.administrator.jipinshop.activity.home.HomeTabActivity;
@@ -47,6 +47,8 @@ import com.example.administrator.jipinshop.activity.mall.detail.MallDetailActivi
 import com.example.administrator.jipinshop.activity.mall.exchange.ExchangeActivity;
 import com.example.administrator.jipinshop.activity.mall.order.MyOrderActivity;
 import com.example.administrator.jipinshop.activity.mall.order.detail.OrderDetailActivity;
+import com.example.administrator.jipinshop.activity.member.zero.ZeroActivity;
+import com.example.administrator.jipinshop.activity.member.zero.detail.ZeroDetailActivity;
 import com.example.administrator.jipinshop.activity.message.MessageActivity;
 import com.example.administrator.jipinshop.activity.message.detail.MsgDetailActivity;
 import com.example.administrator.jipinshop.activity.minekt.publishkt.detail.AuditDetailActivity;
@@ -184,4 +186,6 @@ public interface BaseActivityComponent {
     void inject(OrderRecoveryResultActivity activity);
     void inject(WellComeActivity mainActivity);
     void inject(FamilyActivity mainActivity);
+    void inject(ZeroActivity mainActivity);
+    void inject(ZeroDetailActivity mainActivity);
 }

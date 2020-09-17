@@ -785,7 +785,15 @@
             android:screenOrientation="portrait"/>
 
         <!--家庭会员共享-->
-        <activity android:name=".activity.family.FamilyActivity"
+        <activity android:name=".activity.member.family.FamilyActivity"
+                  android:screenOrientation="portrait"/>
+
+        <!--O元购-->
+        <activity android:name=".activity.member.zero.ZeroActivity"
+                  android:screenOrientation="portrait"/>
+
+        <!--0元购详情-->
+        <activity android:name=".activity.member.zero.detail.ZeroDetailActivity"
                   android:screenOrientation="portrait"/>
 
  </application>

@@ -26,6 +26,7 @@
             android:layout_height="wrap_content"/>
 
         <ImageView
+            android:id="@+id/item_vip"
             android:layout_marginLeft="@dimen/x20"
             android:layout_toRightOf="@id/item_name"
             android:layout_centerVertical="true"

@@ -105,6 +105,7 @@ public class TBShoppingDetailActivity extends BaseActivity implements View.OnCli
     private String parity = "";
     //是否开启底部会员弹框
     private Boolean isStart = false;
+    private String level = "0";//用户身份
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -291,9 +292,11 @@ public class TBShoppingDetailActivity extends BaseActivity implements View.OnCli
                     startActivityForResult(new Intent(this, LoginActivity.class),201);
                     return;
                 }
-                startActivity(new Intent(this, HomeNewActivity.class)
-                        .putExtra("type",HomeNewActivity.member)
-                );
+                if (!level.equals("0")){
+                    startActivity(new Intent(this, HomeNewActivity.class)
+                            .putExtra("type",HomeNewActivity.member)
+                    );
+                }
                 break;
             case R.id.detail_memberClose:
                 isStart = false;
@@ -447,30 +450,24 @@ public class TBShoppingDetailActivity extends BaseActivity implements View.OnCli
             mProgressDialog.dismiss();
         }
         //会员信息
+        level = bean.getData().getLevel() + "";
         if (bean.getData().getLevel() != 0){
-            mBinding.detailMemberPrice.setVisibility(View.GONE);
-            mBinding.detailMemberNotice.setVisibility(View.GONE);
-            mBinding.detailMemberGo.setVisibility(View.GONE);
-            mBinding.detailMemberText.setVisibility(View.GONE);
-            mBinding.detailMemberImage.setVisibility(View.GONE);
-            mBinding.detailMember.setBackgroundResource(R.mipmap.detail_bj2);
+            mBinding.detailMemberText.setText("尊享专属优惠，比普通用户多返");
+            mBinding.detailMemberPrice.setText("￥" + bean.getData().getUpFee());
+            mBinding.detailMemberGo.setImageResource(R.mipmap.detail_opening2);
             isStart = false;
         }else {
             isStart = true;
-            mBinding.detailMemberPrice.setVisibility(View.VISIBLE);
-            mBinding.detailMemberNotice.setVisibility(View.VISIBLE);
-            mBinding.detailMemberGo.setVisibility(View.VISIBLE);
-            mBinding.detailMemberText.setVisibility(View.VISIBLE);
-            mBinding.detailMemberImage.setVisibility(View.VISIBLE);
+            mBinding.detailMemberText.setText("加入极品会员本商品可返");
             mBinding.detailMemberPrice.setText("￥" + bean.getData().getUpFee());
             mBinding.detailBottomMemberPrice.setText("￥" + bean.getData().getUpFee());
-            mBinding.detailMember.setBackgroundResource(R.mipmap.detail_bj);
+            mBinding.detailMemberGo.setImageResource(R.mipmap.detail_opening);
         }
         //比价弹窗
         if (!TextUtils.isEmpty(parity)){
             double freeparity = new BigDecimal(parity).doubleValue();
             if (freeparity - free != 0){
-                DialogUtil.parityDialog(this, v -> {
+                DialogUtil.parityDialog(this,source, v -> {
                     startActivity(new Intent(this, VideoActivity.class)
                             .putExtra("courseId", bean.getCourseId())
                     );
@@ -612,23 +609,16 @@ public class TBShoppingDetailActivity extends BaseActivity implements View.OnCli
         }
         //会员信息
         if (bean.getData().getLevel() != 0){
-            mBinding.detailMemberPrice.setVisibility(View.GONE);
-            mBinding.detailMemberNotice.setVisibility(View.GONE);
-            mBinding.detailMemberGo.setVisibility(View.GONE);
-            mBinding.detailMemberText.setVisibility(View.GONE);
-            mBinding.detailMemberImage.setVisibility(View.GONE);
-            mBinding.detailMember.setBackgroundResource(R.mipmap.detail_bj2);
+            mBinding.detailMemberText.setText("尊享专属优惠，比普通用户多返");
+            mBinding.detailMemberPrice.setText("￥" + bean.getData().getUpFee());
+            mBinding.detailMemberGo.setImageResource(R.mipmap.detail_opening2);
             isStart = false;
         }else {
             isStart = true;
-            mBinding.detailMemberPrice.setVisibility(View.VISIBLE);
-            mBinding.detailMemberNotice.setVisibility(View.VISIBLE);
-            mBinding.detailMemberGo.setVisibility(View.VISIBLE);
-            mBinding.detailMemberText.setVisibility(View.VISIBLE);
-            mBinding.detailMemberImage.setVisibility(View.VISIBLE);
+            mBinding.detailMemberText.setText("加入极品会员本商品可返");
             mBinding.detailMemberPrice.setText("￥" + bean.getData().getUpFee());
             mBinding.detailBottomMemberPrice.setText("￥" + bean.getData().getUpFee());
-            mBinding.detailMember.setBackgroundResource(R.mipmap.detail_bj);
+            mBinding.detailMemberGo.setImageResource(R.mipmap.detail_opening);
         }
     }
 

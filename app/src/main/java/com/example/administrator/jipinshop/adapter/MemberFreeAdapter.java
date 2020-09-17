@@ -1,14 +1,15 @@
 package com.example.administrator.jipinshop.adapter;
 
 import android.content.Context;
+import android.content.Intent;
 import android.databinding.DataBindingUtil;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
-import android.view.View;
 import android.view.ViewGroup;
 
 import com.example.administrator.jipinshop.R;
+import com.example.administrator.jipinshop.activity.member.zero.ZeroActivity;
 import com.example.administrator.jipinshop.bean.MemberNewBean;
 import com.example.administrator.jipinshop.databinding.ItemFreeMemberBinding;
 import com.example.administrator.jipinshop.util.ToastUtil;
@@ -24,6 +25,11 @@ public class MemberFreeAdapter extends RecyclerView.Adapter<MemberFreeAdapter.Vi
 
     private List<MemberNewBean.DataBean.LevelDetail3Bean.ListBean> mList;
     private Context mContext;
+    private int userLevel = 0;//用户身份的
+
+    public void setUserLevel(int userLevel) {
+        this.userLevel = userLevel;
+    }
 
     public MemberFreeAdapter(List<MemberNewBean.DataBean.LevelDetail3Bean.ListBean> list, Context context) {
         mList = list;
@@ -44,8 +50,12 @@ public class MemberFreeAdapter extends RecyclerView.Adapter<MemberFreeAdapter.Vi
         viewHolder.mBinding.itemOtherPrice.setTv(true);
         viewHolder.mBinding.itemOtherPrice.setColor(R.color.color_9D9D9D);
         viewHolder.itemView.setOnClickListener(v -> {
-            // todo 每月0元购
-            ToastUtil.show("每月0元购");
+            //每月0元购
+            if (userLevel == 0){
+                ToastUtil.show("仅限VIP会员享受优惠");
+                return;
+            }
+            mContext.startActivity(new Intent(mContext, ZeroActivity.class));
         });
     }
 

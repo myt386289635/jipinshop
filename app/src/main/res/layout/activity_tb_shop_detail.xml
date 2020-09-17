@@ -266,7 +266,7 @@
                         android:layout_alignLeft="@id/detail_memberText"
                         android:textSize="11sp"
                         android:textColor="@color/color_FFE4C1"
-                        android:text="立享成本价，返利100%，每年省9600元"
+                        android:text="立享成本价，返利100%，每年多省9600元"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"/>
 

@@ -27,9 +27,8 @@ import com.blankj.utilcode.util.SPUtils;
 import com.example.administrator.jipinshop.R;
 import com.example.administrator.jipinshop.activity.WebActivity;
 import com.example.administrator.jipinshop.activity.cheapgoods.CheapBuyActivity;
-import com.example.administrator.jipinshop.activity.family.FamilyActivity;
+import com.example.administrator.jipinshop.activity.member.family.FamilyActivity;
 import com.example.administrator.jipinshop.activity.home.MainActivity;
-import com.example.administrator.jipinshop.activity.home.article.ArticleDetailActivity;
 import com.example.administrator.jipinshop.activity.shoppingdetail.tbshoppingdetail.TBShoppingDetailActivity;
 import com.example.administrator.jipinshop.activity.sign.invitation.InvitationNewActivity;
 import com.example.administrator.jipinshop.adapter.HomeAdapter;
@@ -301,6 +300,7 @@ public class MemberFragment extends DBBaseFragment implements View.OnClickListen
                 //人员广告
                 startActivity(new Intent(getContext(), InvitationNewActivity.class));
                 break;
+            case R.id.member_copyServer:
             case R.id.member_copy:
                 //复制导师微信
                 ClipboardManager clip = (ClipboardManager) getContext().getSystemService(Context.CLIPBOARD_SERVICE);
@@ -349,9 +349,11 @@ public class MemberFragment extends DBBaseFragment implements View.OnClickListen
                 }
                 mBinding.memberPlayContainer.setLayoutParams(layoutParams);
                 break;
-            case R.id.member_familyAdd:
+            case R.id.member_family:
                 //全家共享
-                startActivity(new Intent(getContext(), FamilyActivity.class));
+                startActivity(new Intent(getContext(), FamilyActivity.class)
+                        .putExtra("userLevel", userLevel)
+                );
                 break;
             case R.id.guide_next1Container:
                 mBinding.guideNext1Container.setVisibility(View.GONE);
@@ -415,6 +417,7 @@ public class MemberFragment extends DBBaseFragment implements View.OnClickListen
         //每月0元购
         mFreeList.clear();
         mFreeList.addAll(bean.getData().getLevelDetail3().getList());
+        mFreeAdapter.setUserLevel(bean.getData().getLevel());
         mFreeAdapter.notifyDataSetChanged();
         if (TextUtils.isEmpty(bean.getData().getLevelDetail3().getTitle3())){
             mBinding.memberFreeFee.setVisibility(View.GONE);
@@ -460,7 +463,7 @@ public class MemberFragment extends DBBaseFragment implements View.OnClickListen
         }else {
             mBinding.memberFamilyTitle.setVisibility(View.VISIBLE);
         }
-        if (TextUtils.isEmpty(bean.getData().getLevelDetail4().getTitle4())){
+        if (TextUtils.isEmpty(bean.getData().getLevelDetail5().getTitle4())){
             mBinding.memberFamilyFee.setVisibility(View.GONE);
         }else {
             mBinding.memberFamilyFee.setVisibility(View.VISIBLE);
@@ -469,6 +472,21 @@ public class MemberFragment extends DBBaseFragment implements View.OnClickListen
         mVideoList.clear();
         mVideoList.addAll(bean.getData().getLevelDetail7().getList());
         mVideoAdapter.notifyDataSetChanged();
+        if (TextUtils.isEmpty(bean.getData().getLevelDetail7().getTitle3())){
+            mBinding.memberVideoTitle.setVisibility(View.GONE);
+        }else {
+            mBinding.memberVideoTitle.setVisibility(View.VISIBLE);
+        }
+        if (TextUtils.isEmpty(bean.getData().getLevelDetail7().getTitle4())){
+            mBinding.memberVideoFee.setVisibility(View.GONE);
+        }else {
+            mBinding.memberVideoFee.setVisibility(View.VISIBLE);
+        }
+        if (bean.getData().getLevel() == 2 && bean.getData().getLevelDetail7().getTitle3().equals("待领取")){
+            mBinding.memberServerContainer.setVisibility(View.VISIBLE);
+        }else {
+            mBinding.memberServerContainer.setVisibility(View.GONE);
+        }
         //吃喝玩了
         mPlayList.clear();
         mPlayList.addAll(bean.getData().getLevelDetail8().getList());

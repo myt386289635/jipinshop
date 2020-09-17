@@ -851,6 +851,7 @@
                         android:layout_height="wrap_content"/>
 
                     <RelativeLayout
+                        android:onClick="@{listener.onClick}"
                         android:id="@+id/member_family"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -893,7 +894,6 @@
 
                         <TextView
                             android:id="@+id/member_familyAdd"
-                            android:onClick="@{listener.onClick}"
                             android:gravity="center"
                             android:textStyle="bold"
                             android:textColor="@color/color_white"
@@ -909,56 +909,9 @@
 
                     </RelativeLayout>
 
-                    <!--会员积分-->
-                    <ImageView
-                        android:layout_below="@+id/member_family"
-                        android:id="@+id/member_bg8"
-                        android:layout_marginTop="@dimen/y55"
-                        android:scaleType="fitXY"
-                        android:layout_marginRight="@dimen/x20"
-                        android:layout_marginLeft="@dimen/x20"
-                        android:src="@mipmap/member1_bg3"
-                        android:layout_width="match_parent"
-                        android:layout_height="@dimen/y271"/>
-
-                    <TextView
-                        android:id="@+id/member_title8"
-                        android:layout_marginLeft="@dimen/x20"
-                        android:layout_marginTop="@dimen/y42"
-                        android:layout_alignLeft="@id/member_bg8"
-                        android:layout_alignTop="@id/member_bg8"
-                        android:textStyle="bold"
-                        android:textColor="@color/color_774A12"
-                        android:textSize="16sp"
-                        android:text="@{bean.levelDetail6.title1}"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"/>
-
-                    <TextView
-                        android:layout_marginTop="@dimen/y15"
-                        android:id="@+id/member_content8"
-                        android:layout_alignLeft="@id/member_title8"
-                        android:layout_below="@id/member_title8"
-                        android:textColor="@color/color_774A12"
-                        android:textSize="12sp"
-                        android:text="@{bean.levelDetail6.title2}"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"/>
-
-                    <android.support.v7.widget.RecyclerView
-                        android:id="@+id/member_sign"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_alignTop="@id/member_bg8"
-                        android:layout_marginLeft="@dimen/x40"
-                        android:layout_marginTop="@dimen/y165"
-                        android:layout_marginRight="@dimen/x40"
-                        android:background="@drawable/bg_dialog"
-                        android:elevation="@dimen/y8"/>
-
                     <!--视频会员卡-->
                     <ImageView
-                        android:layout_below="@+id/member_sign"
+                        android:layout_below="@+id/member_family"
                         android:id="@+id/member_bg9"
                         android:layout_marginTop="@dimen/y55"
                         android:scaleType="fitXY"
@@ -969,7 +922,7 @@
                         android:layout_height="@dimen/y271"/>
 
                     <LinearLayout
-                        android:layout_below="@+id/member_sign"
+                        android:layout_below="@+id/member_family"
                         android:gravity="center"
                         android:orientation="vertical"
                         android:id="@+id/member_videoContainer"
@@ -985,7 +938,7 @@
                             android:textColor="@color/color_996A31"
                             android:textStyle="bold"
                             android:textSize="12sp"
-                            android:text="@{bean.levelDetail7.title4}"
+                            android:text="@{bean.levelDetail7.title3}"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"/>
 
@@ -994,7 +947,7 @@
                             android:textColor="@color/color_E25838"
                             android:textStyle="bold"
                             android:textSize="21sp"
-                            android:text="@{bean.levelDetail7.title3}"
+                            android:text="@{bean.levelDetail7.title4}"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"/>
 
@@ -1024,22 +977,62 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"/>
 
-                    <android.support.v7.widget.RecyclerView
-                        android:paddingTop="@dimen/y10"
-                        android:paddingBottom="@dimen/y40"
-                        android:id="@+id/member_video"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_alignTop="@id/member_bg9"
+                    <RelativeLayout
+                        android:elevation="@dimen/y8"
                         android:layout_marginLeft="@dimen/x40"
                         android:layout_marginTop="@dimen/y165"
                         android:layout_marginRight="@dimen/x40"
                         android:background="@drawable/bg_dialog"
-                        android:elevation="@dimen/y8"/>
+                        android:layout_alignTop="@id/member_bg9"
+                        android:id="@+id/member_videoContainer1"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+
+                        <android.support.v7.widget.RecyclerView
+                            android:paddingTop="@dimen/y10"
+                            android:paddingBottom="@dimen/y40"
+                            android:id="@+id/member_video"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"/>
+
+                        <LinearLayout
+                            android:id="@+id/member_serverContainer"
+                            android:layout_marginBottom="@dimen/y32"
+                            android:layout_centerHorizontal="true"
+                            android:layout_below="@id/member_video"
+                            android:gravity="center"
+                            android:orientation="horizontal"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content">
+
+                            <TextView
+                                android:textColor="@color/color_774A12"
+                                android:textSize="13sp"
+                                android:id="@+id/member_server"
+                                android:text="@{@string/member_10 + bean.officialWechat + @string/member_11}"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"/>
+
+                            <TextView
+                                android:gravity="center"
+                                android:onClick="@{listener.onClick}"
+                                android:layout_marginLeft="@dimen/x14"
+                                android:textSize="13sp"
+                                android:textColor="@color/color_white"
+                                android:text="复制微信"
+                                android:background="@drawable/bg_d5a460"
+                                android:id="@+id/member_copyServer"
+                                android:layout_width="@dimen/x146"
+                                android:layout_height="@dimen/y46"/>
+
+                        </LinearLayout>
+
+                    </RelativeLayout>
+
 
                     <!--吃喝玩了-->
                     <ImageView
-                        android:layout_below="@id/member_video"
+                        android:layout_below="@id/member_videoContainer1"
                         android:id="@+id/member_bg10"
                         android:layout_marginTop="@dimen/y55"
                         android:scaleType="fitXY"
@@ -1124,10 +1117,57 @@
 
                     </RelativeLayout>
 
+                    <!--会员积分-->
+                    <ImageView
+                        android:layout_below="@+id/member_playContainer"
+                        android:id="@+id/member_bg8"
+                        android:layout_marginTop="@dimen/y55"
+                        android:scaleType="fitXY"
+                        android:layout_marginRight="@dimen/x20"
+                        android:layout_marginLeft="@dimen/x20"
+                        android:src="@mipmap/member1_bg3"
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/y271"/>
+
+                    <TextView
+                        android:id="@+id/member_title8"
+                        android:layout_marginLeft="@dimen/x20"
+                        android:layout_marginTop="@dimen/y42"
+                        android:layout_alignLeft="@id/member_bg8"
+                        android:layout_alignTop="@id/member_bg8"
+                        android:textStyle="bold"
+                        android:textColor="@color/color_774A12"
+                        android:textSize="16sp"
+                        android:text="@{bean.levelDetail6.title1}"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"/>
+
+                    <TextView
+                        android:layout_marginTop="@dimen/y15"
+                        android:id="@+id/member_content8"
+                        android:layout_alignLeft="@id/member_title8"
+                        android:layout_below="@id/member_title8"
+                        android:textColor="@color/color_774A12"
+                        android:textSize="12sp"
+                        android:text="@{bean.levelDetail6.title2}"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"/>
+
+                    <android.support.v7.widget.RecyclerView
+                        android:id="@+id/member_sign"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_alignTop="@id/member_bg8"
+                        android:layout_marginLeft="@dimen/x40"
+                        android:layout_marginTop="@dimen/y165"
+                        android:layout_marginRight="@dimen/x40"
+                        android:background="@drawable/bg_dialog"
+                        android:elevation="@dimen/y8"/>
+
                     <!--会员充值数量-->
                     <TextView
                         android:id="@+id/member_notice"
-                        android:layout_below="@id/member_playContainer"
+                        android:layout_below="@id/member_sign"
                         android:layout_marginTop="@dimen/y40"
                         android:lineSpacingExtra="@dimen/y5"
                         android:textStyle="bold"

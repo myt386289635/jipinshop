@@ -24,30 +24,32 @@
         <TextView
             android:textStyle="bold"
             android:textColor="@color/color_202020"
-            android:textSize="17sp"
+            android:textSize="20sp"
             android:layout_marginTop="@dimen/y233"
-            android:text="申请淘宝授权"
+            android:text="授权淘宝"
             android:layout_gravity="center_horizontal"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"/>
 
         <TextView
+            android:textStyle="bold"
             android:id="@+id/dialog_title"
             android:textColor="@color/color_989898"
-            android:textSize="15sp"
+            android:textSize="16sp"
             android:lineSpacingExtra="@dimen/y14"
             android:gravity="center"
-            android:text="授权极品城后即可购买特价好物"
-            android:layout_marginTop="@dimen/y42"
-            android:layout_marginBottom="@dimen/y33"
+            android:text="享受全场优惠券免费领"
+            android:layout_marginTop="@dimen/y51"
+            android:layout_marginBottom="@dimen/y12"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"/>
 
         <TextView
+            android:textStyle="bold"
             android:textColor="@color/color_989898"
-            android:textSize="14sp"
+            android:textSize="16sp"
             android:gravity="center"
-            android:text="极品城APP是淘宝联盟官方合作伙伴"
+            android:text="自购&amp;分享100%佣金，0利润"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"/>
 
@@ -55,7 +57,7 @@
             android:id="@+id/dialog_sure"
             android:gravity="center"
             android:textSize="16sp"
-            android:text="前往淘宝授权"
+            android:text="一键授权"
             android:textColor="@color/color_white"
             android:background="@drawable/bg_login2"
             android:layout_gravity="center_horizontal"

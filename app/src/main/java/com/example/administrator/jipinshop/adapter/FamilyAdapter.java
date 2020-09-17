@@ -5,10 +5,13 @@ import android.databinding.DataBindingUtil;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
+import android.view.View;
 import android.view.ViewGroup;
 
 import com.example.administrator.jipinshop.R;
+import com.example.administrator.jipinshop.bean.FamilyBean;
 import com.example.administrator.jipinshop.databinding.ItemFamilyBinding;
+import com.example.administrator.jipinshop.view.glide.GlideApp;
 
 import java.util.List;
 
@@ -19,7 +22,7 @@ import java.util.List;
  */
 public class FamilyAdapter extends RecyclerView.Adapter<FamilyAdapter.ViewHolder> {
 
-    private List<String> mList;
+    private List<FamilyBean.DataBean> mList;
     private Context mContext;
     private OnItem mOnItem;
 
@@ -27,7 +30,7 @@ public class FamilyAdapter extends RecyclerView.Adapter<FamilyAdapter.ViewHolder
         mOnItem = onItem;
     }
 
-    public FamilyAdapter(List<String> list, Context context) {
+    public FamilyAdapter(List<FamilyBean.DataBean> list, Context context) {
         mList = list;
         mContext = context;
     }
@@ -45,16 +48,22 @@ public class FamilyAdapter extends RecyclerView.Adapter<FamilyAdapter.ViewHolder
             viewHolder.mBinding.itemImage.setImageResource(R.mipmap.bg_family_2);
             viewHolder.mBinding.itemName.setText("邀请成员");
             viewHolder.mBinding.itemTag.setText("");
+            viewHolder.mBinding.itemVip.setVisibility(View.GONE);
         } else {
-            //模拟数据
-            viewHolder.mBinding.itemImage.setImageResource(R.mipmap.rlogo);
-            viewHolder.mBinding.itemName.setText("测试人员" + position);
-            if (position == 0) {
+            GlideApp.loderCircleImage(mContext,mList.get(position).getAvatar(),viewHolder.mBinding.itemImage,0,0);
+            viewHolder.mBinding.itemName.setText(mList.get(position).getNickename());
+            if (mList.get(position).getIsMe().equals("1")) {//0不是 1是
                 viewHolder.mBinding.itemTag.setText("本人");
-            } else if (position == 1) {
+            } else if (mList.get(position).getStatus().equals("1")) {//0是待确认  1是已确认
                 viewHolder.mBinding.itemTag.setText("已加入");
             } else {
                 viewHolder.mBinding.itemTag.setText("待确认");
+            }
+            if (mList.get(position).getLevel().equals("0")){
+                //普通会员
+                viewHolder.mBinding.itemVip.setVisibility(View.GONE);
+            }else {//VIP
+                viewHolder.mBinding.itemVip.setVisibility(View.VISIBLE);
             }
         }
         viewHolder.itemView.setOnClickListener(v -> {

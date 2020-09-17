@@ -16,6 +16,24 @@ public class NewFreeBean {
     private Ad2Bean ad2;
     private Ad1Bean ad1;
     private List<DataBean> data;
+    private String refreshTime;//0元购刷新时间
+    private int status;//本月是否领取
+
+    public String getRefreshTime() {
+        return refreshTime;
+    }
+
+    public void setRefreshTime(String refreshTime) {
+        this.refreshTime = refreshTime;
+    }
+
+    public int getStatus() {
+        return status;
+    }
+
+    public void setStatus(int status) {
+        this.status = status;
+    }
 
     public String getMsg() {
         return msg;
@@ -233,6 +251,15 @@ public class NewFreeBean {
         private String buyPrice;
         private String soldTotal;
         private String isBuy; //0 没买 1买过
+        private String goodsName;
+
+        public String getGoodsName() {
+            return goodsName;
+        }
+
+        public void setGoodsName(String goodsName) {
+            this.goodsName = goodsName;
+        }
 
         public String getIsBuy() {
             return isBuy;
