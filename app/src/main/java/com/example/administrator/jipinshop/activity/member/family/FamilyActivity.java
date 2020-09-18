@@ -11,6 +11,7 @@ import com.example.administrator.jipinshop.R;
 import com.example.administrator.jipinshop.adapter.FamilyAdapter;
 import com.example.administrator.jipinshop.base.BaseActivity;
 import com.example.administrator.jipinshop.bean.FamilyBean;
+import com.example.administrator.jipinshop.bean.ShareInfoBean;
 import com.example.administrator.jipinshop.databinding.ActivityFamilyBinding;
 import com.example.administrator.jipinshop.util.ShareUtils;
 import com.example.administrator.jipinshop.util.ToastUtil;
@@ -60,13 +61,17 @@ public class FamilyActivity extends BaseActivity implements View.OnClickListener
         mAdapter = new FamilyAdapter(mList,this);
         mAdapter.setOnItem(this);
         mBinding.familyRv.setAdapter(mAdapter);
+
+        mDialog = (new ProgressDialogView()).createLoadingDialog(this, "");
+        mDialog.show();
     }
 
     @Override
     protected void onResume() {
         super.onResume();
-        mDialog = (new ProgressDialogView()).createLoadingDialog(this, "");
-        mDialog.show();
+        if (mDialog != null && mDialog.isShowing()) {
+            mDialog.dismiss();
+        }
         mPresenter.familyList(this.bindToLifecycle());
     }
 
@@ -87,9 +92,9 @@ public class FamilyActivity extends BaseActivity implements View.OnClickListener
                 ToastUtil.show("购买VIP后可邀请家庭成员");
                 return;
             }
-            String path = "pages/ev/ev-info/main?evListVal=";
-            new ShareUtils(this, SHARE_MEDIA.WEIXIN)
-                    .shareWXMin1(this, "","", "", "", path);
+            mDialog = (new ProgressDialogView()).createLoadingDialog(this, "");
+            mDialog.show();
+            mPresenter.initShare(this.bindToLifecycle());
         }else if (mList.get(position).getStatus().equals("1")){
             //已加入
             if (userLevel != 0){
@@ -137,5 +142,13 @@ public class FamilyActivity extends BaseActivity implements View.OnClickListener
         mList.get(position).setStatus("1");
         mAdapter.notifyDataSetChanged();
         ToastUtil.show("加入成功");
+    }
+
+    @Override
+    public void initShare(ShareInfoBean bean) {
+        String path = bean.getData().getLink();
+        new ShareUtils(this, SHARE_MEDIA.WEIXIN, mDialog)
+                .shareWXMin1(this, "https://www.jipincheng.cn",bean.getData().getImgUrl(),
+                        bean.getData().getTitle(), bean.getData().getDesc(), path);
     }
 }

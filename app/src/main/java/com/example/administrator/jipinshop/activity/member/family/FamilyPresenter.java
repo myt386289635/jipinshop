@@ -1,9 +1,11 @@
 package com.example.administrator.jipinshop.activity.member.family;
 
 import com.example.administrator.jipinshop.bean.FamilyBean;
+import com.example.administrator.jipinshop.bean.ShareInfoBean;
 import com.example.administrator.jipinshop.bean.SuccessBean;
 import com.example.administrator.jipinshop.netwrok.Repository;
 import com.trello.rxlifecycle2.LifecycleTransformer;
+import com.umeng.socialize.bean.SHARE_MEDIA;
 
 import javax.inject.Inject;
 
@@ -56,6 +58,22 @@ public class FamilyPresenter {
                         mView.onConfirm(position);
                     }else {
                         mView.onFile(successBean.getMsg());
+                    }
+                }, throwable -> {
+                    mView.onFile(throwable.getMessage());
+                });
+    }
+
+    public void initShare(LifecycleTransformer<ShareInfoBean> transformer){
+        mRepository.getShareInfo(3)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .compose(transformer)
+                .subscribe(bean -> {
+                    if (bean.getCode() == 0){
+                        mView.initShare(bean);
+                    }else {
+                        mView.onFile(bean.getMsg());
                     }
                 }, throwable -> {
                     mView.onFile(throwable.getMessage());
