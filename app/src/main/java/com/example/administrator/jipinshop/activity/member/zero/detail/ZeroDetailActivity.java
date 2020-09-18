@@ -103,6 +103,10 @@ public class ZeroDetailActivity extends BaseActivity implements View.OnClickList
     public void onClick(View v) {
         switch (v.getId()){
             case R.id.title_back:
+                Intent intent = new Intent();
+                intent.putExtra("status",status);
+                intent.putExtra("refreshTime",refreshTime);
+                setResult(200,intent);
                 finish();
                 break;
             case R.id.detail_coupon:
@@ -272,6 +276,7 @@ public class ZeroDetailActivity extends BaseActivity implements View.OnClickList
 
     @Override
     public void onBuySuccess(ImageBean bean) {
+        status = 0;//设置成本月已领
         TaoBaoUtil.openAliHomeWeb(this, bean.getData(), bean.getOtherGoodsId());
     }
 
@@ -346,5 +351,14 @@ public class ZeroDetailActivity extends BaseActivity implements View.OnClickList
         if (mDialog != null && mDialog.isShowing()){
             mDialog.dismiss();
         }
+    }
+
+    @Override
+    public void onBackPressed() {
+        Intent intent = new Intent();
+        intent.putExtra("status",status);
+        intent.putExtra("refreshTime",refreshTime);
+        setResult(200,intent);
+        super.onBackPressed();
     }
 }

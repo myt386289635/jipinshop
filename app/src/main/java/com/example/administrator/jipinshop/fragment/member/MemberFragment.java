@@ -420,14 +420,14 @@ public class MemberFragment extends DBBaseFragment implements View.OnClickListen
         mFreeAdapter.setUserLevel(bean.getData().getLevel());
         mFreeAdapter.notifyDataSetChanged();
         if (TextUtils.isEmpty(bean.getData().getLevelDetail3().getTitle3())){
-            mBinding.memberFreeFee.setVisibility(View.GONE);
-        }else {
-            mBinding.memberFreeFee.setVisibility(View.VISIBLE);
-        }
-        if (TextUtils.isEmpty(bean.getData().getLevelDetail3().getTitle4())){
             mBinding.memberFreeTitle.setVisibility(View.GONE);
         }else {
             mBinding.memberFreeTitle.setVisibility(View.VISIBLE);
+        }
+        if (TextUtils.isEmpty(bean.getData().getLevelDetail3().getTitle4())){
+            mBinding.memberFreeFee.setVisibility(View.GONE);
+        }else {
+            mBinding.memberFreeFee.setVisibility(View.VISIBLE);
         }
         //特惠购列表
         mCheapList.clear();
@@ -440,14 +440,14 @@ public class MemberFragment extends DBBaseFragment implements View.OnClickListen
             mBinding.memberCheap.setCurrentItem(1);
         }
         if (TextUtils.isEmpty(bean.getData().getLevelDetail4().getTitle3())){
-            mBinding.memberMonthFee.setVisibility(View.GONE);
-        }else {
-            mBinding.memberMonthFee.setVisibility(View.VISIBLE);
-        }
-        if (TextUtils.isEmpty(bean.getData().getLevelDetail4().getTitle4())){
             mBinding.memberMonthTitle.setVisibility(View.GONE);
         }else {
             mBinding.memberMonthTitle.setVisibility(View.VISIBLE);
+        }
+        if (TextUtils.isEmpty(bean.getData().getLevelDetail4().getTitle4())){
+            mBinding.memberMonthFee.setVisibility(View.GONE);
+        }else {
+            mBinding.memberMonthFee.setVisibility(View.VISIBLE);
         }
         //会员极币任务
         mSignList.clear();
@@ -511,7 +511,6 @@ public class MemberFragment extends DBBaseFragment implements View.OnClickListen
             mBinding.memberAdContainer.setVisibility(View.VISIBLE);
             mBinding.memberMemberContainer.setVisibility(View.GONE);
             mBinding.memberTitle1.setText("开通VIP可享更多权益");
-            mBinding.memberMonthTitle.setText("每月");
             mBinding.memberVipContainer.setVisibility(View.VISIBLE);
             if (SPUtils.getInstance().getBoolean(CommonDate.memberGuide, true)){
                 //第一次登陆是非会员，出来新手指导
@@ -529,7 +528,6 @@ public class MemberFragment extends DBBaseFragment implements View.OnClickListen
             mBinding.memberPayContainer.setVisibility(View.GONE);
             mBinding.memberAdContainer.setVisibility(View.GONE);
             mBinding.memberMemberContainer.setVisibility(View.VISIBLE);
-            mBinding.memberMonthTitle.setText("补贴余额");
             if (bean.getData().getLevel() == 1){
                 mBinding.memberTitle1.setText("月卡VIP特权");
                 mBinding.memberTab.setImageResource(R.mipmap.member1_month_tab);

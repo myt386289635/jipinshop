@@ -225,7 +225,7 @@ public class ZeroActivity extends BaseActivity implements View.OnClickListener, 
                 .putExtra("otherGoodsId", mList.get(position).getOtherGoodsId())
                 .putExtra("status",status)
                 .putExtra("refreshTime",refreshTime)
-        ,200);
+        ,300);
     }
 
     @Override
@@ -282,4 +282,20 @@ public class ZeroActivity extends BaseActivity implements View.OnClickListener, 
         ToastUtil.show(error);
     }
 
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == 300 && resultCode == 200){
+            if (data != null){
+                status = data.getIntExtra("status", 0);
+                refreshTime = data.getStringExtra("refreshTime");
+                if (status == 0) {
+                    mAdapter.setTitle("本月已领，" + refreshTime + "刷新资格");
+                } else {
+                    mAdapter.setTitle("本月未领，" + refreshTime + "刷新资格");
+                }
+                mAdapter.notifyDataSetChanged();
+            }
+        }
+    }
 }

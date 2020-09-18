@@ -633,7 +633,7 @@
                             android:textColor="@color/color_996A31"
                             android:textStyle="bold"
                             android:textSize="12sp"
-                            android:text="@{bean.levelDetail3.title4}"
+                            android:text="@{bean.levelDetail3.title3}"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"/>
 
@@ -642,7 +642,7 @@
                             android:textColor="@color/color_E25838"
                             android:textStyle="bold"
                             android:textSize="21sp"
-                            android:text="@{bean.levelDetail3.title3}"
+                            android:text="@{bean.levelDetail3.title4}"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"/>
 
@@ -714,7 +714,7 @@
                             android:textColor="@color/color_996A31"
                             android:textStyle="bold"
                             android:textSize="12sp"
-                            android:text="@{bean.levelDetail4.title4}"
+                            android:text="@{bean.levelDetail4.title3}"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"/>
 
@@ -723,7 +723,7 @@
                             android:textColor="@color/color_E25838"
                             android:textStyle="bold"
                             android:textSize="21sp"
-                            android:text="@{bean.levelDetail4.title3}"
+                            android:text="@{bean.levelDetail4.title4}"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"/>
 
@@ -1294,7 +1294,7 @@
                     android:layout_height="@dimen/y250"/>
 
                 <View
-                    android:layout_marginTop="@dimen/y215"
+                    android:layout_marginTop="@dimen/y328"
                     android:layout_below="@id/guide_bg1"
                     android:background="@color/color_B3000000"
                     android:layout_width="match_parent"
