@@ -34,7 +34,6 @@ import com.example.administrator.jipinshop.util.ShareUtils;
 import com.example.administrator.jipinshop.util.ToastUtil;
 import com.example.administrator.jipinshop.util.sp.CommonDate;
 import com.example.administrator.jipinshop.view.dialog.ProgressDialogView;
-import com.example.administrator.jipinshop.view.dialog.ShareBoardDialog4;
 import com.umeng.socialize.UMShareAPI;
 import com.umeng.socialize.bean.SHARE_MEDIA;
 
@@ -45,7 +44,7 @@ import javax.inject.Inject;
  * @create 2020/5/27
  * @Describe
  */
-public class HBWebView2 extends BaseActivity implements View.OnClickListener, ShareBoardDialog4.onShareListener, HBWebView2View {
+public class HBWebView2 extends BaseActivity implements View.OnClickListener,HBWebView2View {
 
     @Inject
     HBWebView2Presenter mPresenter;
@@ -54,7 +53,6 @@ public class HBWebView2 extends BaseActivity implements View.OnClickListener, Sh
     private Dialog mDialog;//加载框
     private Dialog mProgressDialog ;
     public static final String title = "title";
-    private ShareBoardDialog4 mShareBoardDialog;
     private String hbId = "";//红包id
     private  String type = "";
     private String currentMoney = "";
@@ -112,13 +110,14 @@ public class HBWebView2 extends BaseActivity implements View.OnClickListener, Sh
                                         .putExtra("realName", realname)
                                 , 300);
                     } else {
-                        if (mShareBoardDialog == null) {
-                            mShareBoardDialog = ShareBoardDialog4.getInstance("保存图片");
-                            mShareBoardDialog.setOnShareListener(HBWebView2.this);
+                        //微信分享
+                        type = "1";
+                        mDialog = (new ProgressDialogView()).createLoadingDialog(HBWebView2.this, "");
+                        if (mDialog != null && !mDialog.isShowing()) {
+                            mDialog.show();
                         }
-                        if (!mShareBoardDialog.isAdded()) {
-                            mShareBoardDialog.show(getSupportFragmentManager(), "ShareBoardDialog4");
-                        }
+                        mPresenter.shareCount(hbId,type,shareType,HBWebView2.this.bindToLifecycle());
+                        mPresenter.hbCreatePosterImg(hbId,SHARE_MEDIA.WEIXIN,HBWebView2.this.bindToLifecycle());
                     }
                 }else if (url.startsWith("https://openhb")){
                     //打开红包首页
@@ -230,36 +229,6 @@ public class HBWebView2 extends BaseActivity implements View.OnClickListener, Sh
     }
 
     @Override
-    public void share(SHARE_MEDIA share_media) {
-        if (share_media.equals(SHARE_MEDIA.QQ)){
-            type = "3";
-        }else if (share_media.equals(SHARE_MEDIA.WEIXIN)){
-            type = "1";
-        }else if (share_media.equals(SHARE_MEDIA.WEIXIN_CIRCLE)){
-            type = "2";
-        }else if (share_media.equals(SHARE_MEDIA.SINA)){
-            type = "4";
-        }
-        mDialog = (new ProgressDialogView()).createLoadingDialog(this, "");
-        if (mDialog != null && !mDialog.isShowing()) {
-            mDialog.show();
-        }
-        mPresenter.shareCount(hbId,this.type,shareType,this.bindToLifecycle());
-        mPresenter.hbCreatePosterImg(hbId,share_media,this.bindToLifecycle());
-    }
-
-    @Override
-    public void download(int type) {
-        this.type = "5";
-        mDialog = (new ProgressDialogView()).createLoadingDialog(this, "");
-        if (mDialog != null && !mDialog.isShowing()) {
-            mDialog.show();
-        }
-        mPresenter.shareCount(hbId,this.type,shareType,this.bindToLifecycle());
-        mPresenter.hbCreatePosterImg(hbId,null,this.bindToLifecycle());
-    }
-
-    @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         UMShareAPI.get(this).onActivityResult(requestCode, resultCode, data);
@@ -277,7 +246,9 @@ public class HBWebView2 extends BaseActivity implements View.OnClickListener, Sh
     public void onSuccess(ImageBean imageBean,SHARE_MEDIA share_media) {
         if (share_media != null){
             new ShareUtils(this, share_media, mDialog)
-                    .shareImage(this,imageBean.getData());
+                    .shareWeb(this,imageBean.getUrl(),
+                            imageBean.getTitle(),imageBean.getDesc(),
+                            imageBean.getImg(),R.mipmap.share_logo);
         }else {
             Glide.with(this)
                     .asBitmap()

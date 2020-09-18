@@ -116,7 +116,8 @@ public class ZeroDetailActivity extends BaseActivity implements View.OnClickList
                     return;
                 }
                 if (status == 0){
-                    ToastUtil.show("本月已领，"+ refreshTime +"刷新资格后可领");
+                    DialogUtil.SingleDialog(this,"本月已领，"+ refreshTime +"刷新资格后可领",
+                            "知道了",null);
                     return;
                 }
                 DialogUtil.zeroBuyDialog(this, v1 -> {
@@ -146,6 +147,7 @@ public class ZeroDetailActivity extends BaseActivity implements View.OnClickList
         drawable.setBounds(0, 0, drawable.getMinimumWidth(),
                 drawable.getMinimumHeight());
         mBinding.detailNewPrice.setCompoundDrawables(drawable, null, null, null);
+        mBinding.detailBottom.setText("立即领取");
 
         //banner
         mBannerAdapter = new NoPageBannerAdapter(this);
