@@ -100,6 +100,7 @@ public class MemberFragment extends DBBaseFragment implements View.OnClickListen
     private Dialog mDialog;
     private String endTime = "";//付款后的会员到期时间
     private int userLevel = 0;//用户身份的
+    private int openFamily = 1; //0关闭，1开启
     //更多权益
     private List<MemberNewBean.DataBean.VipBoxListBean> monthBoxList;
     private List<MemberNewBean.DataBean.VipBoxListBean> yearBoxList;
@@ -351,9 +352,11 @@ public class MemberFragment extends DBBaseFragment implements View.OnClickListen
                 break;
             case R.id.member_family:
                 //全家共享
-                startActivity(new Intent(getContext(), FamilyActivity.class)
-                        .putExtra("userLevel", userLevel)
-                );
+                if (openFamily == 1){
+                    startActivity(new Intent(getContext(), FamilyActivity.class)
+                            .putExtra("userLevel", userLevel)
+                    );
+                }
                 break;
             case R.id.guide_next1Container:
                 mBinding.guideNext1Container.setVisibility(View.GONE);
@@ -396,6 +399,7 @@ public class MemberFragment extends DBBaseFragment implements View.OnClickListen
         yearBoxList.addAll(bean.getData().getYearBoxList());
         preMonthEndTime = bean.getData().getPreMonthEndTime();
         preYearEndTime = bean.getData().getPreYearEndTime();
+        openFamily = bean.getOpenFamily();
 
         mBinding.setBean(bean.getData());
         mBinding.executePendingBindings();

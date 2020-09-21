@@ -1,7 +1,5 @@
 package com.example.administrator.jipinshop.bean;
 
-import com.google.gson.annotations.SerializedName;
-
 import java.util.List;
 
 /**
@@ -14,6 +12,15 @@ public class MemberNewBean {
     private String msg;
     private int code;
     private DataBean data;
+    private int openFamily; //0关闭，1开启
+
+    public int getOpenFamily() {
+        return openFamily;
+    }
+
+    public void setOpenFamily(int openFamily) {
+        this.openFamily = openFamily;
+    }
 
     public String getMsg() {
         return msg;
