@@ -167,16 +167,8 @@ public class MainActivity extends BaseActivity implements MainView, ViewPager.On
             mBinding.loginNotice.setText("首单全免资格即将过期");
             mBinding.loginTimeContainer.setVisibility(View.VISIBLE);
             setCountDownTimer();
-            if (isGuide) {
-                //新手指导
-                mPresenter.setStatusBarHight(mBinding.statusBar,this);
-                GlideApp.loderImage(this, "https://jipincheng.cn/guide_head.gif", mBinding.guideHead1, 0, 0);
-                GlideApp.loderImage(this, "https://jipincheng.cn/guide_head.gif", mBinding.guideHead2, 0, 0);
-                mBinding.guideContainer.setVisibility(View.VISIBLE);
-            } else {
-                mBinding.guideContainer.setVisibility(View.GONE);//第一次进入不显示新手指导
-                mPresenter.getAppVersion(this.bindToLifecycle()); //版本更新
-            }
+            mBinding.guideContainer.setVisibility(View.GONE);
+            mPresenter.getAppVersion(this.bindToLifecycle()); //版本更新
         } else {
             //老人进入app
             mBinding.loginNotice.setText("登录领取淘宝隐藏优惠券");
@@ -295,13 +287,14 @@ public class MainActivity extends BaseActivity implements MainView, ViewPager.On
             //解决从设置页面跳转回来无法弹出dialog
             //20元津贴弹窗
             DialogUtil.newPeopleDialog(MainActivity.this, v -> {
-                DialogUtil.cheapDialog(this, v12 -> {
-                    startActivity(new Intent(this, CheapBuyActivity.class));
-                }, v1 -> {
-                    getClipText();
-                });
+                appStatisticalUtil.addEvent("tc.xr_close", this.bindToLifecycle());
+                onCheapDialog();
             }, v -> {
-                startActivity(new Intent(this, NewFreeActivity.class));
+                appStatisticalUtil.addEvent("tc.xr_enter", this.bindUntilEvent(ActivityEvent.DESTROY));
+                startActivity(new Intent(this, NewFreeActivity.class)
+                        .putExtra("startPop", false)
+                );
+                onCheapDialog();
             });
         }
     }
@@ -359,11 +352,24 @@ public class MainActivity extends BaseActivity implements MainView, ViewPager.On
             startActivity(new Intent(this, CheapBuyActivity.class)
                     .putExtra("startPop", false)
             );
-            getClipText();
+            onGuide();
         }, v1 -> {
             appStatisticalUtil.addEvent("tc.thg_close", this.bindToLifecycle());
-            getClipText();
+            onGuide();
         });
+    }
+
+    //新手指导
+    public void onGuide(){
+        if (isGuide) {
+            //新手指导
+            mPresenter.setStatusBarHight(mBinding.statusBar,this);
+            GlideApp.loderImage(this, "https://jipincheng.cn/guide_head.gif", mBinding.guideHead1, 0, 0);
+            GlideApp.loderImage(this, "https://jipincheng.cn/guide_head.gif", mBinding.guideHead2, 0, 0);
+            mBinding.guideContainer.setVisibility(View.VISIBLE);
+        }else {
+            getClipText();
+        }
     }
 
     @Override
@@ -667,31 +673,31 @@ public class MainActivity extends BaseActivity implements MainView, ViewPager.On
                 //点击第三步的图片
                 appStatisticalUtil.addEvent("yindao5_close", this.bindToLifecycle());
                 mBinding.guideContainer.setVisibility(View.GONE);
-                mPresenter.getAppVersion(this.bindToLifecycle()); //版本更新
+                getClipText();
                 break;
             case R.id.guide_dismiss1:
                 //第一步里的跳过
                 appStatisticalUtil.addEvent("yindao3_tiaoguo", this.bindToLifecycle());
                 mBinding.guideContainer.setVisibility(View.GONE);
-                mPresenter.getAppVersion(this.bindToLifecycle()); //版本更新
+                getClipText();
                 break;
             case R.id.guide_dismiss2:
                 //第二步里的逃过
                 appStatisticalUtil.addEvent("yindao4_tiaoguo", this.bindToLifecycle());
                 mBinding.guideContainer.setVisibility(View.GONE);
-                mPresenter.getAppVersion(this.bindToLifecycle()); //版本更新
+                getClipText();
                 break;
             case R.id.guide_dismiss3:
                 //第三步里的跳过
                 appStatisticalUtil.addEvent("yindao5_tiaoguo", this.bindToLifecycle());
                 mBinding.guideContainer.setVisibility(View.GONE);
-                mPresenter.getAppVersion(this.bindToLifecycle()); //版本更新
+                getClipText();
                 break;
             case R.id.guide_ok:
                 //第三步里的我知道了
                 appStatisticalUtil.addEvent("yindao5_zhidao", this.bindToLifecycle());
                 mBinding.guideContainer.setVisibility(View.GONE);
-                mPresenter.getAppVersion(this.bindToLifecycle()); //版本更新
+                getClipText();
                 break;
         }
     }

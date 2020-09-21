@@ -48,6 +48,7 @@ import com.example.administrator.jipinshop.netwrok.RetrofitModule;
 import com.example.administrator.jipinshop.util.ShopJumpUtil;
 import com.example.administrator.jipinshop.util.ToastUtil;
 import com.example.administrator.jipinshop.util.UmApp.AppStatisticalUtil;
+import com.example.administrator.jipinshop.util.UmApp.StatisticalUtil;
 import com.example.administrator.jipinshop.util.WeakRefHandler;
 import com.example.administrator.jipinshop.util.anim.AnimationUtils;
 import com.example.administrator.jipinshop.util.sp.CommonDate;
@@ -135,6 +136,11 @@ public class MemberFragment extends DBBaseFragment implements View.OnClickListen
             // 判断resultStatus 为9000则代表支付成功
             if (TextUtils.equals(resultStatus, "9000")) {
                 //成功
+                if (level.equals("1")){
+                    StatisticalUtil.onPayEvent(getContext(),"月卡",monthPrice);
+                }else {
+                    StatisticalUtil.onPayEvent(getContext(),"年卡",yearPrice);
+                }
                 DialogUtil.paySucDialog(getContext(),endTime);
             } else {
                 //失败
@@ -645,6 +651,11 @@ public class MemberFragment extends DBBaseFragment implements View.OnClickListen
         if (bus != null){
             if (type.equals(bus.getFlag())){
                 if (bus.getType().equals(WXPayEntryActivity.pay_success)) {
+                    if (level.equals("1")){
+                        StatisticalUtil.onPayEvent(getContext(),"月卡",monthPrice);
+                    }else {
+                        StatisticalUtil.onPayEvent(getContext(),"年卡",yearPrice);
+                    }
                     DialogUtil.paySucDialog(getContext(), endTime);
                 } else if (bus.getType().equals(WXPayEntryActivity.pay_faile)) {
                     DialogUtil.payFileDialog(getContext(),userLevel,  type -> {

@@ -31,6 +31,7 @@ import com.example.administrator.jipinshop.jpush.LoginUtil;
 import com.example.administrator.jipinshop.netwrok.RetrofitModule;
 import com.example.administrator.jipinshop.util.ShopJumpUtil;
 import com.example.administrator.jipinshop.util.ToastUtil;
+import com.example.administrator.jipinshop.util.UmApp.StatisticalUtil;
 import com.example.administrator.jipinshop.util.sp.CommonDate;
 import com.example.administrator.jipinshop.view.dialog.ProgressDialogView;
 import com.example.administrator.jipinshop.view.glide.GlideApp;
@@ -157,6 +158,7 @@ public class LoginActivity extends BaseActivity implements LoginView, View.OnCli
             }else {
                 EventBus.getDefault().post(new HomeNewPeopleBus(0));//登陆后刷新首页活动接口
             }
+            StatisticalUtil.onRegisterEvent(this);//统计注册
             ToastUtil.show("登录成功");
             setResult(200);
             finish();
@@ -220,6 +222,7 @@ public class LoginActivity extends BaseActivity implements LoginView, View.OnCli
         }else {
             EventBus.getDefault().post(new HomeNewPeopleBus(0));//登陆后刷新首页活动接口
         }
+        StatisticalUtil.onRegisterEvent(this);//统计注册
         ToastUtil.show("登录成功");
         setResult(200);
         LoginUtil.closePage();
@@ -304,14 +307,17 @@ public class LoginActivity extends BaseActivity implements LoginView, View.OnCli
         UMShareAPI.get(this).onActivityResult(requestCode, resultCode, data);
         if (requestCode == 100 && resultCode == 222){
             //从绑定手机页面回来本页
+            StatisticalUtil.onRegisterEvent(this);//统计注册
             setResult(200);
             finish();
         }else if (requestCode == 300 && resultCode == 222){
             //从手机登录页面跳转绑定手机成功回来本页
+            StatisticalUtil.onRegisterEvent(this);//统计注册
             setResult(200);
             finish();
         }else if (requestCode == 300 && resultCode == 200){
             //从手机登录页面成功回来本页
+            StatisticalUtil.onRegisterEvent(this);//统计注册
             setResult(200);
             finish();
         }

@@ -2,8 +2,11 @@ package com.example.administrator.jipinshop.util.UmApp;
 
 import android.content.Context;
 
+import com.blankj.utilcode.util.SPUtils;
+import com.example.administrator.jipinshop.util.sp.CommonDate;
 import com.umeng.analytics.MobclickAgent;
 
+import java.util.HashMap;
 import java.util.Map;
 
 /**
@@ -55,6 +58,22 @@ public class StatisticalUtil {
      */
     public static void onEventValue(Context context, String eventID, Map<String, String> map, int du){
         MobclickAgent.onEventValue(context, eventID , map, du);
+    }
+
+    //统计支付成功
+    public static void onPayEvent(Context context,String title , String amount){
+        Map successPayMap = new HashMap();
+        successPayMap.put("userid", SPUtils.getInstance(CommonDate.USER).getString(CommonDate.userId));
+        successPayMap.put("item", title);
+        successPayMap.put("amount", amount);
+        MobclickAgent.onEvent(context,"__finish_payment", successPayMap);
+    }
+
+    //统计注册
+    public static void onRegisterEvent(Context context){
+        Map regMap = new HashMap();
+        regMap.put("userid", SPUtils.getInstance(CommonDate.USER).getString(CommonDate.userId));
+        MobclickAgent.onEvent(context, "__register", regMap);
     }
 
 }
