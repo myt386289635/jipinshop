@@ -225,6 +225,7 @@ public class ZeroActivity extends BaseActivity implements View.OnClickListener, 
                 .putExtra("otherGoodsId", mList.get(position).getOtherGoodsId())
                 .putExtra("status",status)
                 .putExtra("refreshTime",refreshTime)
+                .putExtra("isBuy", mList.get(position).getIsBuy())
         ,300);
     }
 

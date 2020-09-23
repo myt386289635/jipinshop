@@ -102,6 +102,7 @@ public class MemberFragment extends DBBaseFragment implements View.OnClickListen
     private String endTime = "";//付款后的会员到期时间
     private int userLevel = 0;//用户身份的
     private int openFamily = 1; //0关闭，1开启
+    private int guide = 1;//新手指导第几步 默认第一部
     //更多权益
     private List<MemberNewBean.DataBean.VipBoxListBean> monthBoxList;
     private List<MemberNewBean.DataBean.VipBoxListBean> yearBoxList;
@@ -349,7 +350,7 @@ public class MemberFragment extends DBBaseFragment implements View.OnClickListen
                     mBinding.memberPlayMore.setVisibility(View.GONE);
                 }else {
                     //已展开
-                    layoutParams.height = (int) getResources().getDimension(R.dimen.y693);
+                    layoutParams.height = (int) getResources().getDimension(R.dimen.y801);
                     isSpace = false;
                     mBinding.memberPlayMore.setVisibility(View.VISIBLE);
                     mBinding.memberPlayUp.setVisibility(View.GONE);
@@ -364,18 +365,24 @@ public class MemberFragment extends DBBaseFragment implements View.OnClickListen
                     );
                 }
                 break;
-            case R.id.guide_next1Container:
-                mBinding.guideNext1Container.setVisibility(View.GONE);
-                mBinding.guideNext2Container.setVisibility(View.VISIBLE);
-                mBinding.guideNext3Container.setVisibility(View.GONE);
-                break;
-            case R.id.guide_next2Container:
-                mBinding.guideNext1Container.setVisibility(View.GONE);
-                mBinding.guideNext2Container.setVisibility(View.GONE);
-                mBinding.guideNext3Container.setVisibility(View.VISIBLE);
+            case R.id.guide_next:
+                if (guide == 1){
+                    mBinding.guideNext.setImageResource(R.mipmap.member1_guide2);
+                }else if (guide == 2){
+                    mBinding.guideNext.setImageResource(R.mipmap.member1_guide3);
+                }else if (guide == 3){
+                    mBinding.guideNext.setImageResource(R.mipmap.member1_guide4);
+                }else if (guide == 4){
+                    mBinding.guideNext.setImageResource(R.mipmap.member1_guide5);
+                }else {//再点就退出了
+                    mBinding.memberGuideContainer.setVisibility(View.GONE);
+                    if (type.equals("1")){
+                        ((MainActivity)getActivity()).memberGuide(false);
+                    }
+                }
+                guide++;
                 break;
             case R.id.guide_goto:
-            case R.id.guide_next3Container:
                 mBinding.memberGuideContainer.setVisibility(View.GONE);
                 if (type.equals("1")){
                     ((MainActivity)getActivity()).memberGuide(false);
@@ -506,7 +513,7 @@ public class MemberFragment extends DBBaseFragment implements View.OnClickListen
         if (mPlayList.size() > 16){
             isSpace = false;
             mBinding.memberPlayMore.setVisibility(View.VISIBLE);
-            layoutParams.height = (int) getResources().getDimension(R.dimen.y693);
+            layoutParams.height = (int) getResources().getDimension(R.dimen.y801);
         }else {
             isSpace = true;
             layoutParams.height = RelativeLayout.LayoutParams.WRAP_CONTENT;
@@ -525,9 +532,8 @@ public class MemberFragment extends DBBaseFragment implements View.OnClickListen
             if (SPUtils.getInstance().getBoolean(CommonDate.memberGuide, true)){
                 //第一次登陆是非会员，出来新手指导
                 mBinding.memberGuideContainer.setVisibility(View.VISIBLE);
-                mBinding.guideNext1Container.setVisibility(View.VISIBLE);
-                mBinding.guideNext2Container.setVisibility(View.GONE);
-                mBinding.guideNext3Container.setVisibility(View.GONE);
+                mBinding.guideNext.setImageResource(R.mipmap.member1_guide1);
+                guide = 1;
                 if (type.equals("1")){
                     ((MainActivity)getActivity()).memberGuide(true);
                 }

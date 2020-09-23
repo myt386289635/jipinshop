@@ -231,18 +231,22 @@ public class TBShoppingDetailActivity extends BaseActivity implements View.OnCli
                 }
                 if (source.equals("2")){//只有淘宝商品进行授权
                     TaoBaoUtil.openTB(this, () -> {
-                        mDialog = (new ProgressDialogView()).createPlatformDialog(this,money,R.mipmap.dialog_tb);
+                        mDialog = (new ProgressDialogView()).createPlatformDialog(this, money, R.mipmap.dialog_tb, v1 -> {
+                            mPresenter.getGoodsClickUrl(source, goodsId, this.bindToLifecycle());
+                        });
                         mDialog.show();
-                        mPresenter.getGoodsClickUrl(source, goodsId, this.bindToLifecycle());
                     });
                 }else {
                     if (source.equals("1")){
-                        mDialog = (new ProgressDialogView()).createPlatformDialog(this,money,R.mipmap.dialog_jd);
+                        mDialog = (new ProgressDialogView()).createPlatformDialog(this, money, R.mipmap.dialog_jd, v12 -> {
+                            mPresenter.getGoodsClickUrl(source, goodsId, this.bindToLifecycle());
+                        });
                     }else {
-                        mDialog = (new ProgressDialogView()).createPlatformDialog(this,money,R.mipmap.dialog_pdd);
+                        mDialog = (new ProgressDialogView()).createPlatformDialog(this, money, R.mipmap.dialog_pdd, v13 -> {
+                            mPresenter.getGoodsClickUrl(source, goodsId, this.bindToLifecycle());
+                        });
                     }
                     mDialog.show();
-                    mPresenter.getGoodsClickUrl(source, goodsId, this.bindToLifecycle());
                 }
                 break;
             case R.id.detail_share:

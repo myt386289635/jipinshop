@@ -164,7 +164,7 @@ public class MainActivity extends BaseActivity implements MainView, ViewPager.On
         if (SPUtils.getInstance().getBoolean(CommonDate.FIRST, true)) {
             //新人第一次进入app
             mBinding.loginBackground.setVisibility(View.VISIBLE);
-            mBinding.loginNotice.setText("首单全免资格即将过期");
+            mBinding.loginNotice.setText("新人0元免单资格即将过期");
             mBinding.loginTimeContainer.setVisibility(View.VISIBLE);
             setCountDownTimer();
             mBinding.guideContainer.setVisibility(View.GONE);

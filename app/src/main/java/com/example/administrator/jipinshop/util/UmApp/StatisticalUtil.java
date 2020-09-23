@@ -62,7 +62,7 @@ public class StatisticalUtil {
 
     //统计支付成功
     public static void onPayEvent(Context context,String title , String amount){
-        Map successPayMap = new HashMap();
+        Map<String,String> successPayMap = new HashMap<>();
         successPayMap.put("userid", SPUtils.getInstance(CommonDate.USER).getString(CommonDate.userId));
         successPayMap.put("item", title);
         successPayMap.put("amount", amount);
@@ -71,7 +71,7 @@ public class StatisticalUtil {
 
     //统计注册
     public static void onRegisterEvent(Context context){
-        Map regMap = new HashMap();
+        Map<String,String> regMap = new HashMap<>();
         regMap.put("userid", SPUtils.getInstance(CommonDate.USER).getString(CommonDate.userId));
         MobclickAgent.onEvent(context, "__register", regMap);
     }
