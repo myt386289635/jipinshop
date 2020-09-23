@@ -330,6 +330,9 @@ public class SignActivity extends BaseActivity implements View.OnClickListener, 
             case 4://跳转到邀请页面
                 startActivity(new Intent(this, InvitationNewActivity.class));
                 break;
+            case 6://跳转到新人免单
+                startActivity(new Intent(this, NewFreeActivity.class));
+                break;
             case 7://编辑个人资料
                 startActivity(new Intent(this, MyInfoActivity.class)
                         .putExtra("bgImg",SPUtils.getInstance(CommonDate.USER).getString(CommonDate.bgImg))
@@ -387,9 +390,6 @@ public class SignActivity extends BaseActivity implements View.OnClickListener, 
                 break;
             case 18://绑定小程序
                 DialogUtil.wxDialog(this, "绑定小程序", "微信小程序：", "微信搜索极品城小程序，并绑定账号");
-                break;
-            case 19://跳转到新人免单
-                startActivity(new Intent(this, NewFreeActivity.class));
                 break;
         }
     }
