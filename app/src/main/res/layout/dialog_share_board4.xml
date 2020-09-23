@@ -15,11 +15,12 @@
         android:layout_height="wrap_content">
 
         <TextView
-            android:layout_marginTop="@dimen/y20"
+            android:layout_marginBottom="@dimen/y38"
+            android:layout_marginTop="@dimen/y60"
             android:layout_gravity="center_horizontal"
             android:textColor="@color/color_565252"
             android:textSize="16sp"
-            android:text="分享到"
+            android:text="分享至"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"/>
 
@@ -36,7 +37,7 @@
                 android:gravity="center"
                 android:layout_weight="1"
                 android:layout_width="0dp"
-                android:layout_height="@dimen/y198">
+                android:layout_height="@dimen/y182">
 
                 <ImageView
                     android:src="@mipmap/share_wecha_other"
@@ -44,7 +45,7 @@
                     android:layout_height="@dimen/y80"/>
 
                 <TextView
-                    android:layout_marginTop="@dimen/y20"
+                    android:layout_marginTop="@dimen/y9"
                     android:textColor="@color/color_565252"
                     android:textSize="13sp"
                     android:text="微信"
@@ -60,7 +61,7 @@
                 android:gravity="center"
                 android:layout_weight="1"
                 android:layout_width="0dp"
-                android:layout_height="@dimen/y198">
+                android:layout_height="@dimen/y182">
 
                 <ImageView
                     android:src="@mipmap/share_pyq_other"
@@ -68,7 +69,7 @@
                     android:layout_height="@dimen/y80"/>
 
                 <TextView
-                    android:layout_marginTop="@dimen/y20"
+                    android:layout_marginTop="@dimen/y9"
                     android:textColor="@color/color_565252"
                     android:textSize="13sp"
                     android:text="朋友圈"
@@ -84,7 +85,7 @@
                 android:gravity="center"
                 android:layout_weight="1"
                 android:layout_width="0dp"
-                android:layout_height="@dimen/y198">
+                android:layout_height="@dimen/y182">
 
                 <ImageView
                     android:src="@mipmap/share_qq_other"
@@ -92,7 +93,7 @@
                     android:layout_height="@dimen/y80"/>
 
                 <TextView
-                    android:layout_marginTop="@dimen/y20"
+                    android:layout_marginTop="@dimen/y9"
                     android:textColor="@color/color_565252"
                     android:textSize="13sp"
                     android:text="QQ"
@@ -108,7 +109,7 @@
                 android:gravity="center"
                 android:layout_weight="1"
                 android:layout_width="0dp"
-                android:layout_height="@dimen/y198">
+                android:layout_height="@dimen/y182">
 
                 <ImageView
                     android:src="@mipmap/share_weibo_other"
@@ -116,7 +117,7 @@
                     android:layout_height="@dimen/y80"/>
 
                 <TextView
-                    android:layout_marginTop="@dimen/y20"
+                    android:layout_marginTop="@dimen/y9"
                     android:textColor="@color/color_565252"
                     android:textSize="13sp"
                     android:text="微博"
@@ -132,7 +133,7 @@
                 android:gravity="center"
                 android:layout_weight="1"
                 android:layout_width="0dp"
-                android:layout_height="@dimen/y198">
+                android:layout_height="@dimen/y182">
 
                 <ImageView
                     android:src="@mipmap/share_pic_other"
@@ -141,7 +142,7 @@
 
                 <TextView
                     android:id="@+id/share_picText"
-                    android:layout_marginTop="@dimen/y20"
+                    android:layout_marginTop="@dimen/y9"
                     android:textColor="@color/color_565252"
                     android:textSize="13sp"
                     android:text="批量存图"

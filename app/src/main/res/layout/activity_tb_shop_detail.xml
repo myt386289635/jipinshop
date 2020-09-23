@@ -50,20 +50,20 @@
                     android:layout_height="@dimen/y80">
 
                     <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="立即分享"
-                        android:textColor="@color/color_white"
-                        android:textSize="13sp"/>
-
-                    <TextView
                         android:textStyle="bold"
                         android:id="@+id/detail_shareCode"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="（赚¥0.00）"
+                        android:text="¥0.00"
                         android:textColor="@color/color_white"
-                        android:textSize="13sp"/>
+                        android:textSize="16sp"/>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="分享赚"
+                        android:textColor="@color/color_white"
+                        android:textSize="11sp"/>
 
                 </LinearLayout>
 
@@ -78,20 +78,20 @@
                     android:layout_height="@dimen/y80">
 
                     <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="立即购买"
-                        android:textColor="@color/color_white"
-                        android:textSize="13sp"/>
-
-                    <TextView
                         android:textStyle="bold"
                         android:id="@+id/detail_freeCode"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="（省¥0.00）"
+                        android:text="¥0.00"
                         android:textColor="@color/color_white"
-                        android:textSize="13sp"/>
+                        android:textSize="16sp"/>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="购买返"
+                        android:textColor="@color/color_white"
+                        android:textSize="11sp"/>
 
                 </LinearLayout>
 
@@ -240,20 +240,22 @@
                         android:layout_toRightOf="@id/detail_memberImage"
                         android:textSize="13sp"
                         android:id="@+id/detail_memberText"
-                        android:text="加入极品会员本商品可返"
+                        android:text="加入极品会员，本商品可返"
                         android:textColor="@color/color_FFE4C1"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"/>
 
                     <TextView
+                        android:layout_marginTop="@dimen/y10"
+                        android:padding="@dimen/x2"
+                        android:layout_marginLeft="@dimen/x7"
+                        android:background="@drawable/bg_ffe4c1_1"
                         android:gravity="center"
-                        android:layout_alignBottom="@id/detail_memberText"
-                        android:layout_alignTop="@id/detail_memberText"
                         android:id="@+id/detail_memberPrice"
                         android:textColor="@color/color_E25838"
                         android:text="￥0"
                         android:textStyle="bold"
-                        android:textSize="14sp"
+                        android:textSize="15sp"
                         android:layout_toRightOf="@id/detail_memberText"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"/>

@@ -18,6 +18,7 @@ import com.example.administrator.jipinshop.activity.home.home.HomeNewActivity;
 import com.example.administrator.jipinshop.activity.info.MyInfoActivity;
 import com.example.administrator.jipinshop.activity.login.LoginActivity;
 import com.example.administrator.jipinshop.activity.mall.detail.MallDetailActivity;
+import com.example.administrator.jipinshop.activity.newpeople.NewFreeActivity;
 import com.example.administrator.jipinshop.activity.setting.bind.BindWXActivity;
 import com.example.administrator.jipinshop.activity.sign.detail.IntegralDetailActivity;
 import com.example.administrator.jipinshop.activity.sign.invitation.InvitationNewActivity;
@@ -386,6 +387,9 @@ public class SignActivity extends BaseActivity implements View.OnClickListener, 
                 break;
             case 18://绑定小程序
                 DialogUtil.wxDialog(this, "绑定小程序", "微信小程序：", "微信搜索极品城小程序，并绑定账号");
+                break;
+            case 19://跳转到新人免单
+                startActivity(new Intent(this, NewFreeActivity.class));
                 break;
         }
     }

@@ -420,7 +420,7 @@ public class TBShoppingDetailActivity extends BaseActivity implements View.OnCli
             mBinding.detailCouponContainer.setVisibility(View.VISIBLE);
         }
         double free = new BigDecimal(bean.getData().getFee()).doubleValue();
-        mBinding.detailShareCode.setText("（赚¥"+ new BigDecimal(free).setScale(2,BigDecimal.ROUND_HALF_UP).stripTrailingZeros().toPlainString() +"）");
+        mBinding.detailShareCode.setText("¥"+ new BigDecimal(free).setScale(2,BigDecimal.ROUND_HALF_UP).stripTrailingZeros().toPlainString());
         if (free == 0){//没有补贴
             mBinding.detailShareCode.setVisibility(View.GONE);
         }
@@ -429,7 +429,7 @@ public class TBShoppingDetailActivity extends BaseActivity implements View.OnCli
             mBinding.detailFreeCode.setVisibility(View.GONE);
             money = "0.00";
         }else {
-            mBinding.detailFreeCode.setText("（省¥"+ new BigDecimal(price).setScale(2,BigDecimal.ROUND_HALF_UP).stripTrailingZeros().toPlainString() +"）");
+            mBinding.detailFreeCode.setText("¥"+ new BigDecimal(price).setScale(2,BigDecimal.ROUND_HALF_UP).stripTrailingZeros().toPlainString());
             money = new BigDecimal(price).setScale(2,BigDecimal.ROUND_HALF_UP).stripTrailingZeros().toPlainString();
         }
         //是否收藏过
@@ -462,7 +462,7 @@ public class TBShoppingDetailActivity extends BaseActivity implements View.OnCli
             isStart = false;
         }else {
             isStart = true;
-            mBinding.detailMemberText.setText("加入极品会员本商品可返");
+            mBinding.detailMemberText.setText("加入极品会员，本商品可返");
             mBinding.detailMemberPrice.setText("￥" + bean.getData().getUpFee());
             mBinding.detailBottomMemberPrice.setText("￥" + bean.getData().getUpFee());
             mBinding.detailMemberGo.setImageResource(R.mipmap.detail_opening);
@@ -579,7 +579,7 @@ public class TBShoppingDetailActivity extends BaseActivity implements View.OnCli
             mBinding.detailCouponContainer.setVisibility(View.VISIBLE);
         }
         double free = new BigDecimal(bean.getData().getFee()).doubleValue();
-        mBinding.detailShareCode.setText("（赚¥"+ new BigDecimal(free).setScale(2,BigDecimal.ROUND_HALF_UP).stripTrailingZeros().toPlainString() +"）");
+        mBinding.detailShareCode.setText("¥"+ new BigDecimal(free).setScale(2,BigDecimal.ROUND_HALF_UP).stripTrailingZeros().toPlainString());
         if (free == 0){//没有补贴
             mBinding.detailShareCode.setVisibility(View.GONE);
         }else {
@@ -590,7 +590,7 @@ public class TBShoppingDetailActivity extends BaseActivity implements View.OnCli
             mBinding.detailFreeCode.setVisibility(View.GONE);
             money = "0.00";
         }else {
-            mBinding.detailFreeCode.setText("（省¥"+ new BigDecimal(price).setScale(2,BigDecimal.ROUND_HALF_UP).stripTrailingZeros().toPlainString() +"）");
+            mBinding.detailFreeCode.setText("¥"+ new BigDecimal(price).setScale(2,BigDecimal.ROUND_HALF_UP).stripTrailingZeros().toPlainString());
             money = new BigDecimal(price).setScale(2,BigDecimal.ROUND_HALF_UP).stripTrailingZeros().toPlainString();
         }
         //是否收藏过
@@ -619,7 +619,7 @@ public class TBShoppingDetailActivity extends BaseActivity implements View.OnCli
             isStart = false;
         }else {
             isStart = true;
-            mBinding.detailMemberText.setText("加入极品会员本商品可返");
+            mBinding.detailMemberText.setText("加入极品会员，本商品可返");
             mBinding.detailMemberPrice.setText("￥" + bean.getData().getUpFee());
             mBinding.detailBottomMemberPrice.setText("￥" + bean.getData().getUpFee());
             mBinding.detailMemberGo.setImageResource(R.mipmap.detail_opening);
