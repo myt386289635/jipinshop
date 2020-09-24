@@ -88,7 +88,7 @@
             android:paddingLeft="@dimen/x15"
             android:paddingBottom="@dimen/y2"
             android:paddingTop="@dimen/y2"
-            android:text="@{@string/shop_1 + date.preFee}"
+            android:text=""
             android:textColor="@color/color_835720"
             android:background="@drawable/bg_fee"
             android:layout_width="wrap_content"

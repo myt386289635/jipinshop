@@ -421,15 +421,18 @@ public class TBShoppingDetailActivity extends BaseActivity implements View.OnCli
         }
         double free = new BigDecimal(bean.getData().getFee()).doubleValue();
         mBinding.detailShareCode.setText("¥"+ new BigDecimal(free).setScale(2,BigDecimal.ROUND_HALF_UP).stripTrailingZeros().toPlainString());
+        mBinding.detailFreeCode.setText("¥"+ new BigDecimal(free).setScale(2,BigDecimal.ROUND_HALF_UP).stripTrailingZeros().toPlainString());
         if (free == 0){//没有补贴
             mBinding.detailShareCode.setVisibility(View.GONE);
+            mBinding.detailFreeCode.setVisibility(View.GONE);
+        }else {
+            mBinding.detailShareCode.setVisibility(View.VISIBLE);
+            mBinding.detailFreeCode.setVisibility(View.VISIBLE);
         }
         double price = free + coupon;
         if (price == 0){
-            mBinding.detailFreeCode.setVisibility(View.GONE);
             money = "0.00";
         }else {
-            mBinding.detailFreeCode.setText("¥"+ new BigDecimal(price).setScale(2,BigDecimal.ROUND_HALF_UP).stripTrailingZeros().toPlainString());
             money = new BigDecimal(price).setScale(2,BigDecimal.ROUND_HALF_UP).stripTrailingZeros().toPlainString();
         }
         //是否收藏过
@@ -580,17 +583,18 @@ public class TBShoppingDetailActivity extends BaseActivity implements View.OnCli
         }
         double free = new BigDecimal(bean.getData().getFee()).doubleValue();
         mBinding.detailShareCode.setText("¥"+ new BigDecimal(free).setScale(2,BigDecimal.ROUND_HALF_UP).stripTrailingZeros().toPlainString());
+        mBinding.detailFreeCode.setText("¥"+ new BigDecimal(free).setScale(2,BigDecimal.ROUND_HALF_UP).stripTrailingZeros().toPlainString());
         if (free == 0){//没有补贴
             mBinding.detailShareCode.setVisibility(View.GONE);
+            mBinding.detailFreeCode.setVisibility(View.GONE);
         }else {
             mBinding.detailShareCode.setVisibility(View.VISIBLE);
+            mBinding.detailFreeCode.setVisibility(View.VISIBLE);
         }
         double price = free + coupon;
         if (price == 0){
-            mBinding.detailFreeCode.setVisibility(View.GONE);
             money = "0.00";
         }else {
-            mBinding.detailFreeCode.setText("¥"+ new BigDecimal(price).setScale(2,BigDecimal.ROUND_HALF_UP).stripTrailingZeros().toPlainString());
             money = new BigDecimal(price).setScale(2,BigDecimal.ROUND_HALF_UP).stripTrailingZeros().toPlainString();
         }
         //是否收藏过

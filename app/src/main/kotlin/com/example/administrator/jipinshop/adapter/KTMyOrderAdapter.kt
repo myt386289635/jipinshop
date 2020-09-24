@@ -49,6 +49,11 @@ class KTMyOrderAdapter : RecyclerView.Adapter<KTMyOrderAdapter.ViewHolder>{
                 ToastUtil.show("复制成功")
                 SPUtils.getInstance().put(CommonDate.CLIP, holder.mBinding.itemOrder.text.toString().replace("订单号：", ""))
             }
+            if (mList[position].level == 0){
+                it.itemPrice.text = "返 ¥" + mList[position].preFee
+            }else{
+                it.itemPrice.text = "会员返 ¥" + mList[position].preFee
+            }
         }
     }
 

@@ -231,16 +231,16 @@ public class MemberFragment extends DBBaseFragment implements View.OnClickListen
         mBinding.memberSign.setNestedScrollingEnabled(false);
         mBinding.memberSign.setAdapter(mSignAdapter);
         mBinding.memberSign.setFocusable(false);
-        //视频
+        //视频月卡
         mVideoList = new ArrayList<>();
-        mVideoAdapter = new MemberVideoAdapter(mVideoList,getContext());
+        mVideoAdapter = new MemberVideoAdapter(mVideoList,getContext(),1);
         mBinding.memberVideo.setLayoutManager(new GridLayoutManager(getContext(),4));
         mBinding.memberVideo.setNestedScrollingEnabled(false);
         mBinding.memberVideo.setAdapter(mVideoAdapter);
         mBinding.memberVideo.setFocusable(false);
-        //吃喝玩了
+        //吃喝玩乐
         mPlayList = new ArrayList<>();
-        mPlayAdapter = new MemberVideoAdapter(mPlayList,getContext());
+        mPlayAdapter = new MemberVideoAdapter(mPlayList,getContext(),2);
         mPlayAdapter.setOnItem(this);
         mBinding.memberPlay.setLayoutManager(new GridLayoutManager(getContext(),4));
         mBinding.memberPlay.setNestedScrollingEnabled(false);

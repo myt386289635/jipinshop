@@ -72,7 +72,7 @@
                     android:textSize="15sp"
                     android:layout_marginLeft="@dimen/x7"
                     android:singleLine="true"
-                    android:hint="搜商品名称或粘贴标题"
+                    android:hint="复制标题，搜隐藏优惠券拿返利"
                     android:background="@null"
                     android:id="@+id/title_edit"
                     android:layout_width="match_parent"

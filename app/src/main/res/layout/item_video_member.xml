@@ -13,6 +13,7 @@
         android:layout_height="wrap_content">
 
         <ImageView
+            android:layout_marginBottom="@dimen/y7"
             android:id="@+id/item_image"
             bind:srcCircle="@{bean.iconUrl}"
             android:layout_marginTop="@dimen/y30"
@@ -23,7 +24,6 @@
         <TextView
             android:textColor="@color/color_9D9D9D"
             android:textSize="11sp"
-            android:layout_marginTop="@dimen/y7"
             android:id="@+id/item_name"
             android:layout_below="@id/item_image"
             android:layout_centerHorizontal="true"
@@ -37,7 +37,7 @@
             android:id="@+id/item_tag"
             android:layout_below="@id/item_name"
             android:layout_centerHorizontal="true"
-            android:text="@{bean.title}"
+            android:text=""
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"/>
 

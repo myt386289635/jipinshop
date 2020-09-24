@@ -5,6 +5,7 @@ import android.databinding.DataBindingUtil;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
+import android.view.View;
 import android.view.ViewGroup;
 
 import com.example.administrator.jipinshop.R;
@@ -23,14 +24,16 @@ public class MemberVideoAdapter extends RecyclerView.Adapter<MemberVideoAdapter.
     private List<MemberNewBean.DataBean.LevelDetail7Bean.ListBeanXXX> mList;
     private Context mContext;
     private OnItem mOnItem;
+    private int type = 1;//1是会员月卡  2是吃喝玩乐
 
     public void setOnItem(OnItem onItem) {
         mOnItem = onItem;
     }
 
-    public MemberVideoAdapter(List<MemberNewBean.DataBean.LevelDetail7Bean.ListBeanXXX> list, Context context) {
+    public MemberVideoAdapter(List<MemberNewBean.DataBean.LevelDetail7Bean.ListBeanXXX> list, Context context , int type) {
         mList = list;
         mContext = context;
+        this.type = type;
     }
 
     @NonNull
@@ -48,6 +51,13 @@ public class MemberVideoAdapter extends RecyclerView.Adapter<MemberVideoAdapter.
             if (mOnItem != null)
                 mOnItem.onItem(position);
         });
+        if (type == 1){//会员月卡
+            viewHolder.mBinding.itemName.setVisibility(View.GONE);
+            viewHolder.mBinding.itemTag.setText(mList.get(position).getTitle());
+        }else {
+            viewHolder.mBinding.itemName.setVisibility(View.VISIBLE);
+            viewHolder.mBinding.itemTag.setText(mList.get(position).getSubTitle());
+        }
     }
 
     @Override
