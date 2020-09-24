@@ -364,10 +364,7 @@ public class DialogUtil {
         View view = LayoutInflater.from(context).inflate(R.layout.dialog_img, null);
         ImageView dialog_img = view.findViewById(R.id.dialog_img);
         ImageView dialog_cancle = view.findViewById(R.id.dialog_cancle);
-        Glide.with(context)
-                .asBitmap()
-                .load(resource)
-                .into(dialog_img);
+        GlideApp.loderImage(context,resource,dialog_img,0,0);
         final Dialog dialog = builder.create();
         dialog.getWindow().setDimAmount(0.35f);
         dialog_cancle.setOnClickListener(v -> {

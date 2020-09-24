@@ -64,7 +64,7 @@ public class ZeroDetailActivity extends BaseActivity implements View.OnClickList
     private String otherGoodsId = "";
     private int status = 1;  //本月是否领取  0已领  1未领
     private String refreshTime = "";//0元购刷新时间
-    private String isBuy = "0";//该商品是否是已领的商品 0 没买 1买过
+    private String isBuy = "0"; //该商品是否是已领的商品 0没买  1买过不跳过去  -1买过跳过去
     private Dialog mDialog;
     private Dialog mProgressDialog;
     //banner
@@ -116,8 +116,7 @@ public class ZeroDetailActivity extends BaseActivity implements View.OnClickList
                     startActivity(new Intent(this, LoginActivity.class));
                     return;
                 }
-                // TODO: 2020/9/23 领取商品
-                if (status == 0 && isBuy.equals("0")){
+                if (status == 0 && !isBuy.equals("-1")){
                     DialogUtil.SingleDialog(this,"本月已领，"+ refreshTime +"刷新资格后可领",
                             "知道了",null);
                     return;
@@ -138,7 +137,6 @@ public class ZeroDetailActivity extends BaseActivity implements View.OnClickList
         otherGoodsId = getIntent().getStringExtra("otherGoodsId");
         status = getIntent().getIntExtra("status", 1);
         refreshTime  = getIntent().getStringExtra("refreshTime");
-        isBuy = getIntent().getStringExtra("isBuy");
         mPresenter.setStatusBarHight(mBinding.statusBar,this);
         mBinding.detailAllowance.setVisibility(View.GONE);
         if (status == 0){
@@ -210,6 +208,7 @@ public class ZeroDetailActivity extends BaseActivity implements View.OnClickList
         mBinding.executePendingBindings();
         mBinding.detailOldPriceName.setTv(true);
         mBinding.detailOldPriceName.setColor(R.color.color_9D9D9D);
+        isBuy = bean.getAllowanceGoods().getIsBuy();
         //商品名称
         mBinding.detailName.setText(bean.getAllowanceGoods().getGoodsName());
         //轮播图
@@ -282,6 +281,7 @@ public class ZeroDetailActivity extends BaseActivity implements View.OnClickList
     @Override
     public void onBuySuccess(ImageBean bean) {
         status = 0;//设置成本月已领
+        isBuy = "-1";//已买且可以再跳
         TaoBaoUtil.openAliHomeWeb(this, bean.getData(), bean.getOtherGoodsId());
     }
 

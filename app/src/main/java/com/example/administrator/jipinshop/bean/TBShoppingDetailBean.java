@@ -450,6 +450,15 @@ public class TBShoppingDetailBean {
         private String goodsName;
         private String useAllowancePrice;
         private String allowance;
+        private String isBuy;
+
+        public String getIsBuy() {
+            return isBuy;
+        }
+
+        public void setIsBuy(String isBuy) {
+            this.isBuy = isBuy;
+        }
 
         public String getAllowance() {
             return allowance;
