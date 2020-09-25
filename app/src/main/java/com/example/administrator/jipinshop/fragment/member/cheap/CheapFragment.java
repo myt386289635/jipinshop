@@ -16,6 +16,7 @@ import com.example.administrator.jipinshop.databinding.FragmentCheapMemberBindin
 import com.example.administrator.jipinshop.util.ToastUtil;
 import com.example.administrator.jipinshop.view.dialog.ProgressDialogView;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -36,10 +37,11 @@ public class CheapFragment extends DBBaseFragment implements MemberCheapAdapter.
     private MemberCheapAdapter mAdapter;
     private Dialog mDialog;
 
-    public static CheapFragment getInstence(int number){
+    public static CheapFragment getInstence(int number,List<MemberNewBean.DataBean.LevelDetail4Bean.ListBeanX> list){
         CheapFragment fragment = new CheapFragment();
         Bundle bundle = new Bundle();
         bundle.putInt("number", number);
+        bundle.putSerializable("data", (Serializable) list);
         fragment.setArguments(bundle);
         return fragment;
     }
@@ -55,6 +57,10 @@ public class CheapFragment extends DBBaseFragment implements MemberCheapAdapter.
     public void initView() {
         mPresenter.setView(this);
         mList = new ArrayList<>();
+        List<MemberNewBean.DataBean.LevelDetail4Bean.ListBeanX> list =
+                (List<MemberNewBean.DataBean.LevelDetail4Bean.ListBeanX>) getArguments().getSerializable("data");
+        if (list != null)
+            mList.addAll(list);
         mBinding.recyclerView.setLayoutManager(new GridLayoutManager(getContext(),2));
         mBinding.recyclerView.setNestedScrollingEnabled(false);
         mAdapter = new MemberCheapAdapter(mList,getContext());
@@ -62,12 +68,6 @@ public class CheapFragment extends DBBaseFragment implements MemberCheapAdapter.
         mAdapter.setNumber(getArguments().getInt("number",0));
         mBinding.recyclerView.setAdapter(mAdapter);
         mBinding.recyclerView.setFocusable(false);//拒绝首次进入页面时滑动
-    }
-
-    public void setDate(List<MemberNewBean.DataBean.LevelDetail4Bean.ListBeanX> list){
-        mList.clear();
-        mList.addAll(list);
-        mAdapter.notifyDataSetChanged();
     }
 
     @Override

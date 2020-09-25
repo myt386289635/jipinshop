@@ -14,8 +14,6 @@ interface KTHomeView {
     fun onSuccess(bean: JDBean)
     fun onFile(error: String?)
 
-    fun onTeacher(type : Int,bean : TeacherBean)
-
     fun onAction(bean: ActionHBBean)
     fun onEndAction()
 

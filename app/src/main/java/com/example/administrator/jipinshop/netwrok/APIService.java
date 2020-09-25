@@ -23,98 +23,97 @@ import retrofit2.http.Url;
 public interface APIService {
 
     /**
-     * 榜单首页接口  已修改
+     * 榜单首页接口
      */
     @GET("api/getTopGoodsList")
     Observable<RecommendFragmentBean> ranklist();
 
     /**
-     * 登陆接口   已修改
+     * 登陆接口
      */
     @FormUrlEncoded
     @POST("api/mobileLogin")
     Observable<LoginBean> login(@Field("mobile") String mobile,@Field("code") String code,@Field("invitationCode")String invitationCode);
 
-
     /**
-     * 发送验证码    已修改
+     * 发送验证码
      */
     @FormUrlEncoded
     @POST("api/sendMessage")
     Observable<SuccessBean> pushMessage(@Field("mobile") String mobile,@Field("type") String type,@Field("ticket") String ticket, @Field("randstr") String randstr);
 
     /**
-     * 退出登陆    已修改
+     * 退出登陆
      */
     @POST("api/logout")
     Observable<SuccessBean> logout();
 
     /**
-     * 取消关注  已修改
+     * 取消关注
      */
     @FormUrlEncoded
     @POST("api/follow/delete")
     Observable<SuccessBean> concernDelete(@Field("attentionUserId") String attentionUserId);
 
     /**
-     * 添加关注   已修改
+     * 添加关注
      */
     @POST("api/follow")
     @FormUrlEncoded
     Observable<SuccessBean> concernInsert(@Field("attentionUserId") String attentionUserId);
 
     /**
-     * 榜单tab的字段   已修改
+     * 榜单tab的字段
      */
     @GET("api/v2/goodsCategoryList")
     Observable<TabBean> goodsCategory();
 
     /**
-     * 榜单一级分类商品列表  已修改
+     * 榜单一级分类商品列表
      */
     @GET("api/goodsList")
     Observable<HomeCommenBean> goodRank(@QueryMap Map<String,String> param);
 
     /**
-     * 商品详情  已修改
+     * 商品详情
      */
     @GET("api/getGoodsInfo")
     Observable<ShoppingDetailBean> goodsRankDetailList(@Query("goodsId") String goodsId);
 
     /**
-     * 添加收藏    已修改
+     * 添加收藏
      */
     @FormUrlEncoded
     @POST("api/collect/add")
     Observable<SuccessBean> collectInsert(@FieldMap Map<String,String> param);
 
     /**
-     * 删除收藏    已修改
+     * 删除收藏
      */
     @GET("api/collect/delete")
     Observable<SuccessBean> collectDelete(@QueryMap Map<String,String> param);
 
     /**
-     * 添加点赞   已修改
+     * 添加点赞
      */
     @FormUrlEncoded
     @POST("api/vote/add")
     Observable<VoteBean> snapInsert(@FieldMap Map<String,String> param);
 
     /**
-     * 删除点赞    已修改
+     * 删除点赞
      */
     @GET("api/vote/delete")
     Observable<VoteBean> snapDelete(@QueryMap Map<String,String> param);
 
     /**
-     * 查看评论列表   已修改
+     * 查看评论列表
      */
     @GET("api/comment/list")
     Observable<CommentBean> comment(@QueryMap Map<String,String> param);
 
     /**
-     * 添加评论     已修改
+     * 添加评论
      */
     @FormUrlEncoded
     @POST("api/comment/add")
@@ -123,7 +122,7 @@ public interface APIService {
                                           @Field("type") String type);
 
     /**
-     * 版本更新   已修改
+     * 版本更新
      */
     @GET("api/getAppVersion")
     Observable<AppVersionbean> getAppVersion(@Query("type") String type , @Query("clientVersionCode") String clientVersionCode);
@@ -136,7 +135,7 @@ public interface APIService {
     Observable<PagerStateBean> pagerState(@Query("type") String type ,@Query("targetId") String targetId);
 
     /**
-     * 获取用户信息  已修改
+     * 获取用户信息
      */
     @GET("api/user/getUserInfo")
     Observable<UserInfoBean> modelUser();
@@ -160,94 +159,100 @@ public interface APIService {
     Observable<SuccessBean> searchDelete(@Query("id") String id);
 
     /**
-     * 获取发现tab 已修改
+     * 获取发现tab
      */
     @GET("api/found/categoryList")
     Observable<EvaluationTabBean> findTab();
 
     /**
-     * 获取发现列表  已修改
+     * 获取发现列表
      */
     @GET("api/found/list")
     Observable<FindListBean> findLis(@Query("categoryId") String categoryId,@Query("page") String page);
 
     /**
-     * 获取评测tab  已修改
+     * 获取评测tab
      */
     @GET("api/evaluation/categoryList")
     Observable<EvaluationTabBean> evaTab();
 
     /**
-     * 获取评测列表  已修改
+     * 获取评测列表
      */
     @GET("api/evaluation/list")
     Observable<EvaluationListBean> evaluationList(@Query("categoryId")String categoryId , @Query("page") String page);
 
     /**
-     * 文章详情   已修改
+     * 文章详情
      */
     @GET("api/article/detail")
     Observable<FindDetailBean> findDetail(@Query("articleId") String articleId,@Query("type") String type ,@Query("client") String client);
 
     /**
-     * 获取未读消息  已修改
+     * 获取未读消息
      */
     @GET("api/v2/message/count")
     Observable<UnMessageBean> unMessage();
 
     /**
-     * 获取消息列表详情内容  已修改
+     * 获取消息列表详情内容
      */
-    @GET("api/message/selectAll")
+    @GET("api/v2/message/selectAll")
     Observable<SystemMessageBean> messageAll(@Query("page") String page ,@Query("type") String type);
 
     /**
-     * 查看未读消息  已修改
+     * 查看未读消息
      */
-    @GET("api/message/selectById")
+    @GET("api/v2/message/selectById")
     Observable<SuccessBean> readMsg(@Query("id") String id);
 
     /**
-     * 上传图片  已修改
+     * 全部设置为已读
+     */
+    @POST("api/v2/message/updateAll")
+    Observable<SuccessBean> readMsgAll();
+
+    /**
+     * 上传图片
      */
     @POST("api/uploadImage")
     @Multipart
     Observable<ImageBean> importCustomer(@Part MultipartBody.Part importFile);
 
     /**
-     * 用户信息修改  已修改
+     * 用户信息修改
      */
     @FormUrlEncoded
     @POST("api/user/update")
     Observable<SuccessBean> userUpdate(@FieldMap Map<String,String> param);
 
     /**
-     * 我要反馈  已修改
+     * 我要反馈
      */
     @POST("api/v3/user/feedback/add")
     @FormUrlEncoded
     Observable<SuccessBean> feedBack(@Field("content") String content , @Field("type") String type);
 
     /**
-     * 获取关注列表  已修改
+     * 获取关注列表
      */
     @GET("api/follow/list")
     Observable<FollowBean> concer(@Query("page") String page);
 
     /**
-     * 获取粉丝列表  已修改
+     * 获取粉丝列表
      */
     @GET("api/fans/list")
     Observable<FollowBean> fansList(@Query("page") String page);
 
     /**
-     * 积分明细 已修该
+     * 积分明细
      */
     @GET("api/point/list")
     Observable<PointDetailBean> pointDetail(@Query("page") String page);
 
     /**
-     * 签到   已修改
+     * 签到
      */
     @POST("api/v3/point/signin")
     Observable<SignInsertBean> signInsert();

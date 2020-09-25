@@ -1,5 +1,6 @@
 package com.example.administrator.jipinshop.bean;
 
+import java.io.Serializable;
 import java.util.List;
 
 /**
@@ -882,7 +883,7 @@ public class MemberNewBean {
                 this.list = list;
             }
 
-            public static class ListBeanX {
+            public static class ListBeanX implements Serializable {
                 /**
                  * id : 1
                  * month : 1

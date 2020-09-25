@@ -1,10 +1,10 @@
 package com.example.administrator.jipinshop.activity.message;
 
-import android.content.Context;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 
 import com.aspsine.swipetoloadlayout.SwipeToLoadLayout;
+import com.example.administrator.jipinshop.bean.SuccessBean;
 import com.example.administrator.jipinshop.bean.SystemMessageBean;
 import com.example.administrator.jipinshop.netwrok.Repository;
 import com.trello.rxlifecycle2.LifecycleTransformer;
@@ -85,6 +85,32 @@ public class MessagePresenter {
                 >= recyclerView.computeVerticalScrollRange())
             return true;
         return false;
+    }
+
+    //已读
+    public void readMsg(String id,LifecycleTransformer<SuccessBean> ransformer){
+        mRepository.readMsg(id)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .compose(ransformer)
+                .subscribe(successBean -> {}, throwable -> {});
+    }
+
+    //全部已读
+    public void readMsgAll(LifecycleTransformer<SuccessBean> ransformer){
+        mRepository.readMsgAll()
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .compose(ransformer)
+                .subscribe(bean -> {
+                    if (bean.getCode() == 0){
+                        mView.onSuc();
+                    }else {
+                        mView.onFile(bean.getMsg());
+                    }
+                }, throwable -> {
+                    mView.onFile(throwable.getMessage());
+                });
     }
 
 }

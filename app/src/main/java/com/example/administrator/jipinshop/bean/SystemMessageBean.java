@@ -62,9 +62,27 @@ public class SystemMessageBean {
         private String title;
         private String content;
         private String createTime;
-        private int type;
+        private String type;
         private int status;
         private int dataFlag;
+        private String targetId;
+        private String source;
+
+        public String getSource() {
+            return source;
+        }
+
+        public void setSource(String source) {
+            this.source = source;
+        }
+
+        public String getTargetId() {
+            return targetId;
+        }
+
+        public void setTargetId(String targetId) {
+            this.targetId = targetId;
+        }
 
         public String getMessageUserId() {
             return messageUserId;
@@ -114,11 +132,11 @@ public class SystemMessageBean {
             this.createTime = createTime;
         }
 
-        public int getType() {
+        public String getType() {
             return type;
         }
 
-        public void setType(int type) {
+        public void setType(String type) {
             this.type = type;
         }
 

@@ -27,11 +27,11 @@ import com.blankj.utilcode.util.SPUtils;
 import com.example.administrator.jipinshop.R;
 import com.example.administrator.jipinshop.activity.WebActivity;
 import com.example.administrator.jipinshop.activity.cheapgoods.CheapBuyActivity;
-import com.example.administrator.jipinshop.activity.member.family.FamilyActivity;
 import com.example.administrator.jipinshop.activity.home.MainActivity;
+import com.example.administrator.jipinshop.activity.member.family.FamilyActivity;
 import com.example.administrator.jipinshop.activity.shoppingdetail.tbshoppingdetail.TBShoppingDetailActivity;
 import com.example.administrator.jipinshop.activity.sign.invitation.InvitationNewActivity;
-import com.example.administrator.jipinshop.adapter.HomeAdapter;
+import com.example.administrator.jipinshop.adapter.HomePageAdapter;
 import com.example.administrator.jipinshop.adapter.MemberFreeAdapter;
 import com.example.administrator.jipinshop.adapter.MemberShopAdapter;
 import com.example.administrator.jipinshop.adapter.MemberSignAdapter;
@@ -117,7 +117,7 @@ public class MemberFragment extends DBBaseFragment implements View.OnClickListen
     //特惠购列表
     private List<MemberNewBean.DataBean.LevelDetail4Bean.ListBeanX> mCheapList;
     private List<Fragment> mFragments;
-    private HomeAdapter mHomeAdapter;
+    private HomePageAdapter mHomeAdapter;
     private List<ImageView> point;
     //会员极币任务
     private List<MemberNewBean.DataBean.LevelDetail6Bean.ListBeanXX> mSignList;
@@ -217,12 +217,9 @@ public class MemberFragment extends DBBaseFragment implements View.OnClickListen
         point = new ArrayList<>();
         mCheapList = new ArrayList<>();
         mFragments = new ArrayList<>();
-        mFragments.add(CheapFragment.getInstence(0));
-        mFragments.add(CheapFragment.getInstence(6));
-        mHomeAdapter = new HomeAdapter(getChildFragmentManager());
+        mHomeAdapter = new HomePageAdapter(getChildFragmentManager());
         mHomeAdapter.setFragments(mFragments);
         mBinding.memberCheap.setAdapter(mHomeAdapter);
-        mPresenter.initBanner(mFragments,getContext(),point,mBinding.memberPoint);
         mBinding.memberCheap.addOnPageChangeListener(this);
         //会员极币任务
         mSignList = new ArrayList<>();
@@ -449,8 +446,11 @@ public class MemberFragment extends DBBaseFragment implements View.OnClickListen
         //特惠购列表
         mCheapList.clear();
         mCheapList.addAll(bean.getData().getLevelDetail4().getList());
-        ((CheapFragment)mFragments.get(0)).setDate(mCheapList);
-        ((CheapFragment)mFragments.get(1)).setDate(mCheapList);
+        mFragments.clear();
+        mFragments.add(CheapFragment.getInstence(0,mCheapList));
+        mFragments.add(CheapFragment.getInstence(6,mCheapList));
+        mHomeAdapter.updateData(mFragments);
+        mPresenter.initBanner(mFragments,getContext(),point,mBinding.memberPoint);
         if (mCheapList.get(5).getStatus() == 0 || mCheapList.get(5).getStatus() == 2){
             mBinding.memberCheap.setCurrentItem(0);
         }else {

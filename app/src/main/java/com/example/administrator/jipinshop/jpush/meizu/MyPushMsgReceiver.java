@@ -6,6 +6,7 @@ import android.text.TextUtils;
 import android.util.Log;
 
 import com.example.administrator.jipinshop.bean.JPushBean;
+import com.example.administrator.jipinshop.jpush.JPushReceiver;
 import com.example.administrator.jipinshop.jpush.huawei.HmsActivity;
 import com.example.administrator.jipinshop.netwrok.ApplicationComponent;
 import com.example.administrator.jipinshop.netwrok.ApplicationModule;
@@ -19,6 +20,8 @@ import com.meizu.cloud.pushsdk.platform.message.RegisterStatus;
 import com.meizu.cloud.pushsdk.platform.message.SubAliasStatus;
 import com.meizu.cloud.pushsdk.platform.message.SubTagsStatus;
 import com.meizu.cloud.pushsdk.platform.message.UnRegisterStatus;
+
+import org.greenrobot.eventbus.EventBus;
 
 import javax.inject.Inject;
 
@@ -82,6 +85,17 @@ public class MyPushMsgReceiver extends MzPushMessageReceiver {
      */
     @Override
     public void onSubAliasStatus(Context context, SubAliasStatus subAliasStatus) { }
+
+    /**
+     * 当推送的通知栏消息展示后且应用进程存在时会在此方法回调
+     * @param context
+     * @param mzPushMessage
+     */
+    @Override
+    public void onNotificationArrived(Context context, MzPushMessage mzPushMessage) {
+        EventBus.getDefault().post(JPushReceiver.TAG);
+    }
+
 
     /**
      * 当用户点击通知栏消息后会在此方法回调

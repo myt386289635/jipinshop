@@ -11,4 +11,7 @@ public interface MessageView {
 
     void Success(SystemMessageBean systemMessageBean);
     void Faile(String error);
+
+    void onSuc();
+    void onFile(String error);
 }

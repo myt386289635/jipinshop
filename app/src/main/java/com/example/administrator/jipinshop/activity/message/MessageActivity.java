@@ -1,5 +1,6 @@
 package com.example.administrator.jipinshop.activity.message;
 
+import android.app.Dialog;
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -15,7 +16,9 @@ import com.example.administrator.jipinshop.base.BaseActivity;
 import com.example.administrator.jipinshop.bean.SystemMessageBean;
 import com.example.administrator.jipinshop.databinding.ActivityMessageSystemBinding;
 import com.example.administrator.jipinshop.jpush.JPushReceiver;
+import com.example.administrator.jipinshop.util.ShopJumpUtil;
 import com.example.administrator.jipinshop.util.ToastUtil;
+import com.example.administrator.jipinshop.view.dialog.ProgressDialogView;
 import com.trello.rxlifecycle2.android.ActivityEvent;
 
 import org.greenrobot.eventbus.EventBus;
@@ -31,7 +34,7 @@ import javax.inject.Inject;
  * @create 2018/8/4
  * @Describe
  */
-public class MessageActivity extends BaseActivity implements View.OnClickListener, OnRefreshListener, OnLoadMoreListener, MessageView {
+public class MessageActivity extends BaseActivity implements View.OnClickListener, OnRefreshListener, OnLoadMoreListener, MessageView, SystemMessageAdapter.OnItem {
 
     public static final String tag = "SystemMsgDetailActivity2SystemMessageActivity";
 
@@ -39,17 +42,12 @@ public class MessageActivity extends BaseActivity implements View.OnClickListene
     MessagePresenter mPresenter;
 
     private ActivityMessageSystemBinding mBinding;
-
     private SystemMessageAdapter mAdapter;
     private List<SystemMessageBean.DataBean> mList;
-
-    /**
-     * 页数
-     */
+    private Dialog mDialog;
+    //页数
     private int page = 1;
-    /**
-     * 记录是刷新还是加载
-     */
+    //记录是刷新还是加载
     private Boolean refersh = true;
 
     @Override
@@ -64,10 +62,12 @@ public class MessageActivity extends BaseActivity implements View.OnClickListene
     }
 
     private void initView() {
+        mBinding.messageTitle.setVisibility(View.VISIBLE);
         mBinding.inClude.titleTv.setText("系统消息");
         mBinding.recyclerView.setLayoutManager(new LinearLayoutManager(this));
         mList = new ArrayList<>();
         mAdapter = new SystemMessageAdapter(this, mList);
+        mAdapter.setOnItem(this);
         mBinding.recyclerView.setAdapter(mAdapter);
 
         mPresenter.solveScoll(mBinding.recyclerView,mBinding.swipeToLoad);
@@ -81,6 +81,12 @@ public class MessageActivity extends BaseActivity implements View.OnClickListene
         switch (v.getId()){
             case R.id.title_back:
                 finish();
+                break;
+            case R.id.message_title:
+                //全部已读
+                mDialog = (new ProgressDialogView()).createLoadingDialog(this, "");
+                mDialog.show();
+                mPresenter.readMsgAll(this.bindToLifecycle());
                 break;
         }
     }
@@ -156,6 +162,26 @@ public class MessageActivity extends BaseActivity implements View.OnClickListene
         ToastUtil.show(error);
     }
 
+    @Override
+    public void onSuc() {
+        if (mDialog != null && mDialog.isShowing()) {
+            mDialog.dismiss();
+        }
+        for (int i = 0; i < mList.size(); i++) {
+            mList.get(i).setStatus(1);
+        }
+        mAdapter.notifyDataSetChanged();
+        ToastUtil.show("已读成功");
+    }
+
+    @Override
+    public void onFile(String error) {
+        if (mDialog != null && mDialog.isShowing()) {
+            mDialog.dismiss();
+        }
+        ToastUtil.show(error);
+    }
+
     public void dissRefresh(){
         if (mBinding.swipeToLoad != null && mBinding.swipeToLoad.isRefreshing()) {
             if (!mBinding.swipeToLoad.isRefreshEnabled()) {
@@ -205,6 +231,18 @@ public class MessageActivity extends BaseActivity implements View.OnClickListene
                     mBinding.swipeToLoad.setRefreshing(true);
                 }
             }
+        }
+    }
+
+    @Override
+    public void onItemClick(int position) {
+        mList.get(position).setStatus(1);
+        mAdapter.notifyDataSetChanged();
+        mPresenter.readMsg(mList.get(position).getMessageUserId(),this.bindUntilEvent(ActivityEvent.DESTROY));
+        if (!mList.get(position).getType().equals("0")){
+            ShopJumpUtil.openBanner(this,mList.get(position).getType(),
+                    mList.get(position).getTargetId(),mList.get(position).getTitle(),
+                    mList.get(position).getSource());
         }
     }
 }

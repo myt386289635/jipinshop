@@ -60,7 +60,8 @@
             android:layout_marginRight="@dimen/x15"
             android:id="@+id/home_server"
             android:layout_alignParentRight="true"
-            android:src="@mipmap/home_server"
+            android:tint="@color/color_white"
+            android:src="@mipmap/nav_message"
             android:layout_width="wrap_content"
             android:layout_height="@dimen/y70"/>
 

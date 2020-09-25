@@ -18,6 +18,7 @@ import com.blankj.utilcode.util.SPUtils
 import com.example.administrator.jipinshop.R
 import com.example.administrator.jipinshop.activity.home.MainActivity
 import com.example.administrator.jipinshop.activity.login.LoginActivity
+import com.example.administrator.jipinshop.activity.message.MessageActivity
 import com.example.administrator.jipinshop.activity.sign.SignActivity
 import com.example.administrator.jipinshop.activity.sreach.TBSreachActivity
 import com.example.administrator.jipinshop.activity.web.hb.HBWebView2
@@ -26,11 +27,13 @@ import com.example.administrator.jipinshop.adapter.KTTabAdapter
 import com.example.administrator.jipinshop.base.DBBaseFragment
 import com.example.administrator.jipinshop.bean.ActionHBBean
 import com.example.administrator.jipinshop.bean.JDBean
-import com.example.administrator.jipinshop.bean.TeacherBean
+import com.example.administrator.jipinshop.bean.UnMessageBean
+import com.example.administrator.jipinshop.bean.eventbus.EditNameBus
 import com.example.administrator.jipinshop.databinding.FragmentKtHomeBinding
 import com.example.administrator.jipinshop.fragment.home.commen.KTHomeCommenFragment
 import com.example.administrator.jipinshop.fragment.home.main.KTMain2Fragment
 import com.example.administrator.jipinshop.fragment.home.userlike.KTUserLikeFragment
+import com.example.administrator.jipinshop.fragment.mine.KTMineFragment
 import com.example.administrator.jipinshop.netwrok.RetrofitModule
 import com.example.administrator.jipinshop.util.ToastUtil
 import com.example.administrator.jipinshop.util.UmApp.AppStatisticalUtil
@@ -40,6 +43,10 @@ import com.example.administrator.jipinshop.view.dialog.DialogUtil
 import com.example.administrator.jipinshop.view.glide.GlideApp
 import net.lucode.hackware.magicindicator.ViewPagerHelper
 import net.lucode.hackware.magicindicator.buildins.commonnavigator.CommonNavigator
+import org.greenrobot.eventbus.EventBus
+import org.greenrobot.eventbus.Subscribe
+import q.rorbin.badgeview.QBadgeView
+import java.math.BigDecimal
 import javax.inject.Inject
 
 /**
@@ -61,9 +68,8 @@ class KTHomeFragnent : DBBaseFragment(), View.OnClickListener, ViewPager.OnPageC
     private lateinit var mTabAdapter: KTTabAdapter
     private var isChange: Boolean = true //是否开启颜色改变
     private var mColor : String = "#E25838"  //轮播图此时滑动的颜色
-    private var Tavatar: String = ""
-    private var Twechat: String = ""
     private var isAction: Boolean = false //是否开启首页悬浮按钮，默认不开启false
+    private lateinit var mQBadgeView : QBadgeView
 
     companion object{
         @JvmStatic //java中的静态方法
@@ -79,10 +85,13 @@ class KTHomeFragnent : DBBaseFragment(), View.OnClickListener, ViewPager.OnPageC
     }
 
     override fun initView() {
+        EventBus.getDefault().register(this)
         mBaseFragmentComponent.inject(this)
         mPresenter.setStatusBarHight(mBinding.statusBar,context!!)
         mPresenter.setView(this)
         mBinding.bgHome.setBackgroundColor(Color.parseColor("#E25838"))//默认主题颜色
+        mQBadgeView = QBadgeView(context)
+        mPresenter.initBadgeView(mQBadgeView, mBinding.homeServer)
 
         mAdapter = HomeFragmentAdapter(childFragmentManager)
         mList = mutableListOf()
@@ -108,7 +117,6 @@ class KTHomeFragnent : DBBaseFragment(), View.OnClickListener, ViewPager.OnPageC
         mPresenter.getHongbaoActivityInfo(this.bindToLifecycle())
         mPresenter.getData(this.bindToLifecycle())
         appStatisticalUtil.addEvent("shouye_fenlei.1",this.bindToLifecycle())//统计精选
-        mPresenter.getParentInfo(0,this.bindToLifecycle())
     }
 
     override fun onClick(v: View) {
@@ -136,11 +144,11 @@ class KTHomeFragnent : DBBaseFragment(), View.OnClickListener, ViewPager.OnPageC
                 startActivity(Intent(context, SignActivity::class.java))
             }
             R.id.home_server -> {
-                if (TextUtils.isEmpty(Twechat)){
-                    mPresenter.getParentInfo(1,this.bindToLifecycle())
+                if (TextUtils.isEmpty(SPUtils.getInstance(CommonDate.USER).getString(CommonDate.token, ""))) {
+                    startActivity(Intent(context, LoginActivity::class.java))
                     return
                 }
-                DialogUtil.teacherDialog(context,Twechat,Tavatar)
+                startActivity(Intent(context, MessageActivity::class.java))
             }
             R.id.home_marqueeClose -> {
                 mBinding.homeMarqueeContainer.visibility = View.GONE
@@ -219,15 +227,6 @@ class KTHomeFragnent : DBBaseFragment(), View.OnClickListener, ViewPager.OnPageC
         mTabAdapter.notifyDataSetChanged()
     }
 
-    //获取上级信息
-    override fun onTeacher(type : Int,bean : TeacherBean) {
-        Tavatar = bean.data.avatar
-        Twechat = bean.data.wechat
-        if (type == 1){
-            DialogUtil.teacherDialog(context,Twechat,Tavatar)
-        }
-    }
-
     override fun onAction(bean: ActionHBBean) {
         isAction = bean.open != "0"
         if (isAction){
@@ -265,6 +264,23 @@ class KTHomeFragnent : DBBaseFragment(), View.OnClickListener, ViewPager.OnPageC
                     .putExtra(HBWebView2.url, RetrofitModule.JP_H5_URL + "new-free/getRedPacket?token=" + SPUtils.getInstance(CommonDate.USER).getString(CommonDate.token))
                     .putExtra(HBWebView2.title, "天天领现金")
             )
+        }
+    }
+
+    //获取未读消息成功回调
+    @Subscribe
+    fun unMessageSuc(bus: EditNameBus) {
+        if (bus.tag == KTMineFragment.MsgRefersh) {
+            var msg = BigDecimal(bus.count).toInt()
+            if (msg <= 99) {
+                if (msg > 0){
+                    mQBadgeView.badgeText = "" + msg
+                }else {
+                    mQBadgeView.hide(false)
+                }
+            } else {
+                mQBadgeView.badgeText = "99+"
+            }
         }
     }
 
@@ -337,6 +353,7 @@ class KTHomeFragnent : DBBaseFragment(), View.OnClickListener, ViewPager.OnPageC
     override fun onDestroyView() {
         super.onDestroyView()
         mHandler.removeCallbacksAndMessages(null)
+        EventBus.getDefault().unregister(this)
     }
     /**************结束****************/
 }

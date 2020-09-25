@@ -73,6 +73,8 @@ public class MemberPresenter {
     }
 
     public void initBanner(List<Fragment> mBannerList , Context context , List<ImageView> point, LinearLayout mDetailPoint){
+        mDetailPoint.removeAllViews();
+        point.clear();
         for (int i = 0; i < mBannerList.size(); i++) {
             ImageView imageView = new ImageView(context);
             point.add(imageView);

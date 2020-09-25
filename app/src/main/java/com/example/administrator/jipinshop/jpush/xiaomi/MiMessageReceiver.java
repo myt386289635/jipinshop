@@ -3,11 +3,14 @@ package com.example.administrator.jipinshop.jpush.xiaomi;
 import android.content.Context;
 import android.util.Log;
 
+import com.example.administrator.jipinshop.jpush.JPushReceiver;
 import com.xiaomi.mipush.sdk.ErrorCode;
 import com.xiaomi.mipush.sdk.MiPushClient;
 import com.xiaomi.mipush.sdk.MiPushCommandMessage;
 import com.xiaomi.mipush.sdk.MiPushMessage;
 import com.xiaomi.mipush.sdk.PushMessageReceiver;
+
+import org.greenrobot.eventbus.EventBus;
 
 /**
  * @author 莫小婷
@@ -20,6 +23,7 @@ public class MiMessageReceiver extends PushMessageReceiver {
     @Override
     public void onReceivePassThroughMessage(Context context, MiPushMessage miPushMessage) {
         super.onReceivePassThroughMessage(context, miPushMessage);
+        EventBus.getDefault().post(JPushReceiver.TAG);
     }
 
     //方法用来接收服务器向客户端发送的通知消息，这个回调方法会在用户手动点击通知后触发。
@@ -34,6 +38,7 @@ public class MiMessageReceiver extends PushMessageReceiver {
     public void onNotificationMessageArrived(Context context, MiPushMessage miPushMessage) {
         super.onNotificationMessageArrived(context, miPushMessage);
         Log.i("Mi--->Arrived:", miPushMessage.toString());
+        EventBus.getDefault().post(JPushReceiver.TAG);
     }
 
     //方法用来接收客户端向服务器发送注册命令后的响应结果。

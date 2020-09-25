@@ -76,6 +76,9 @@ class KTMineFragment : DBBaseFragment(), KTMineAdapter.OnItem, KTMineView, OnLoa
         fun getInstance() : KTMineFragment {
             return KTMineFragment()
         }
+
+        @JvmField
+        val MsgRefersh = "MsgRefersh"
     }
 
     override fun setUserVisibleHint(isVisibleToUser: Boolean) {
@@ -207,6 +210,7 @@ class KTMineFragment : DBBaseFragment(), KTMineAdapter.OnItem, KTMineView, OnLoa
 
     //消息未读数
     override fun unMessageSuc(unMessageBean: UnMessageBean) {
+        EventBus.getDefault().post(EditNameBus(MsgRefersh, "" + unMessageBean.data))
         mAdapter.setUnMessage(unMessageBean.data)
         mAdapter.notifyDataSetChanged()
     }

@@ -3,11 +3,9 @@
         xmlns:bind="http://schemas.android.com/apk/res-auto">
 
     <data>
-
         <variable
             name="listener"
             type="android.view.View.OnClickListener"/>
-
     </data>
 
     <RelativeLayout
@@ -17,8 +15,22 @@
 
         <include
             android:id="@+id/in_clude"
-            layout="@layout/aa_title"
+            layout="@layout/aa_title2"
             bind:listener="@{listener}"/>
+
+        <TextView
+            android:onClick="@{listener.onClick}"
+            android:visibility="gone"
+            android:id="@+id/message_title"
+            android:textColor="@color/color_DE050505"
+            android:textSize="15sp"
+            android:paddingRight="@dimen/x28"
+            android:paddingLeft="@dimen/x28"
+            android:gravity="center"
+            android:text="全部已读"
+            android:layout_alignParentRight="true"
+            android:layout_width="wrap_content"
+            android:layout_height="@dimen/y88"/>
 
         <com.aspsine.swipetoloadlayout.SwipeToLoadLayout
             android:id="@+id/swipeToLoad"

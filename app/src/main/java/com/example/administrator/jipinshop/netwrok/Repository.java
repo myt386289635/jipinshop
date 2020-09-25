@@ -190,6 +190,13 @@ public class Repository {
     }
 
     /**
+     * 全部设置为已读
+     */
+    public Observable<SuccessBean> readMsgAll(){
+        return mAPIService.readMsgAll();
+    }
+
+    /**
      * 获取评测tab
      */
     public Observable<EvaluationTabBean> evaTab(){

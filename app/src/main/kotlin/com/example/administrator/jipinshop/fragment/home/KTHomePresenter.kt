@@ -1,15 +1,19 @@
 package com.example.administrator.jipinshop.fragment.home
 
 import android.content.Context
+import android.view.Gravity
+import android.widget.ImageView
 import android.widget.LinearLayout
-import android.widget.Toast
-import com.example.administrator.jipinshop.bean.*
+import com.example.administrator.jipinshop.bean.ActionHBBean
+import com.example.administrator.jipinshop.bean.JDBean
+import com.example.administrator.jipinshop.bean.SuccessBean
 import com.example.administrator.jipinshop.netwrok.Repository
-import com.example.administrator.jipinshop.util.ToastUtil
 import com.trello.rxlifecycle2.LifecycleTransformer
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.functions.Consumer
 import io.reactivex.schedulers.Schedulers
+import q.rorbin.badgeview.Badge
+import q.rorbin.badgeview.QBadgeView
 import javax.inject.Inject
 
 
@@ -30,6 +34,16 @@ class KTHomePresenter {
     @Inject
     constructor(repository: Repository) {
         this.repository = repository
+    }
+
+    fun initBadgeView(mQBadgeView: QBadgeView, imageView: ImageView) {
+        mQBadgeView.bindTarget(imageView)
+                .setBadgeTextSize(8f, true)
+                .setBadgeGravity(Gravity.END or Gravity.TOP)
+                .setBadgePadding(2f, true)
+                .setGravityOffset(3f, 3f, true)
+                .setBadgeBackgroundColor(-0x1cebca)
+                .setOnDragStateChangedListener(null)
     }
 
     fun setStatusBarHight( StatusBar: LinearLayout, context: Context) {
@@ -54,22 +68,6 @@ class KTHomePresenter {
                     }
                 }, Consumer {
                     mView.onFile(it.message)
-                })
-    }
-
-    fun getParentInfo(type : Int, transformer : LifecycleTransformer<TeacherBean>){
-        repository.parentInfo()
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .compose(transformer)
-                .subscribe(Consumer {
-                    if (it.code == 0){
-                        mView.onTeacher(type,it)
-                    }
-                }, Consumer {
-                    if (type == 1){
-                        ToastUtil.show("导师信息获取失败，请重新尝试")
-                    }
                 })
     }
 
