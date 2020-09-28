@@ -236,6 +236,7 @@
                         android:layout_height="wrap_content"/>
 
                     <TextView
+                        android:textStyle="bold"
                         android:layout_marginTop="@dimen/y17"
                         android:layout_toRightOf="@id/detail_memberImage"
                         android:textSize="13sp"
@@ -246,16 +247,16 @@
                         android:layout_height="wrap_content"/>
 
                     <TextView
-                        android:layout_marginTop="@dimen/y10"
+                        android:layout_marginTop="@dimen/y15"
                         android:padding="@dimen/x2"
-                        android:layout_marginLeft="@dimen/x7"
+                        android:layout_marginLeft="@dimen/x2"
                         android:background="@drawable/bg_ffe4c1_1"
                         android:gravity="center"
                         android:id="@+id/detail_memberPrice"
                         android:textColor="@color/color_E25838"
                         android:text="￥0"
                         android:textStyle="bold"
-                        android:textSize="15sp"
+                        android:textSize="12sp"
                         android:layout_toRightOf="@id/detail_memberText"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"/>
@@ -273,7 +274,7 @@
                         android:layout_height="wrap_content"/>
 
                     <ImageView
-                        android:layout_marginRight="@dimen/x20"
+                        android:layout_marginRight="@dimen/x10"
                         android:src="@mipmap/detail_opening"
                         android:onClick="@{listener.onClick}"
                         android:id="@+id/detail_memberGo"

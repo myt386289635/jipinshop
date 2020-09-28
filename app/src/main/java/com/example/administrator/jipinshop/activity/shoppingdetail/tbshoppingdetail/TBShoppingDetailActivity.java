@@ -459,7 +459,7 @@ public class TBShoppingDetailActivity extends BaseActivity implements View.OnCli
         //会员信息
         level = bean.getData().getLevel() + "";
         if (bean.getData().getLevel() != 0){
-            mBinding.detailMemberText.setText("尊享专属优惠，比普通用户多返");
+            mBinding.detailMemberText.setText("尊享专属优惠比普通用户多返");
             mBinding.detailMemberPrice.setText("￥" + bean.getData().getUpFee());
             mBinding.detailMemberGo.setImageResource(R.mipmap.detail_opening2);
             isStart = false;
@@ -617,7 +617,7 @@ public class TBShoppingDetailActivity extends BaseActivity implements View.OnCli
         }
         //会员信息
         if (bean.getData().getLevel() != 0){
-            mBinding.detailMemberText.setText("尊享专属优惠，比普通用户多返");
+            mBinding.detailMemberText.setText("尊享专属优惠比普通用户多返");
             mBinding.detailMemberPrice.setText("￥" + bean.getData().getUpFee());
             mBinding.detailMemberGo.setImageResource(R.mipmap.detail_opening2);
             isStart = false;
