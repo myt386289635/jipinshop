@@ -248,7 +248,10 @@
 
                     <TextView
                         android:layout_marginTop="@dimen/y15"
-                        android:padding="@dimen/x2"
+                        android:paddingLeft="@dimen/x2"
+                        android:paddingRight="@dimen/x6"
+                        android:paddingTop="@dimen/y2"
+                        android:paddingBottom="@dimen/y1"
                         android:layout_marginLeft="@dimen/x2"
                         android:background="@drawable/bg_ffe4c1_1"
                         android:gravity="center"
@@ -376,12 +379,13 @@
                                 android:orientation="vertical">
 
                                 <TextView
+                                    android:textStyle="bold"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
                                     android:layout_marginLeft="@dimen/x6"
                                     android:layout_marginBottom="@dimen/y1"
                                     android:includeFontPadding="false"
-                                    android:text="优惠券"
+                                    android:text="极品城专属优惠券"
                                     android:textColor="@color/color_E25838"
                                     android:textSize="13sp"/>
 

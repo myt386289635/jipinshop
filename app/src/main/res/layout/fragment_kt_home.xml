@@ -31,7 +31,7 @@
             android:layout_below="@id/status_bar"
             android:background="@drawable/bg_ffffff_3"
             android:layout_marginTop="@dimen/y7"
-            android:text="搜商品名称或粘贴标题"
+            android:text="复制标题，搜隐藏优惠券拿返利"
             android:textSize="15sp"
             android:drawablePadding="@dimen/x7"
             android:gravity="center_vertical"

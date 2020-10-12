@@ -160,7 +160,7 @@ public class MainActivity extends BaseActivity implements MainView, ViewPager.On
     }
 
     public void onResult(String currentPrivacy) {
-        isGuide = getIntent().getBooleanExtra("isGuide", false);
+//        isGuide = getIntent().getBooleanExtra("isGuide", false);
         if (SPUtils.getInstance().getBoolean(CommonDate.FIRST, true)) {
             //新人第一次进入app
             mBinding.loginBackground.setVisibility(View.VISIBLE);
