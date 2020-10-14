@@ -89,6 +89,7 @@ import com.example.administrator.jipinshop.activity.sreach.result.TBSreachResult
 import com.example.administrator.jipinshop.activity.web.TaoBaoWebActivity;
 import com.example.administrator.jipinshop.activity.web.dzp.BigWheelWebActivity;
 import com.example.administrator.jipinshop.activity.web.hb.HBWebView2;
+import com.example.administrator.jipinshop.activity.web.invite.InviteActionWebActivity;
 import com.example.administrator.jipinshop.activity.wellcome.WellComeActivity;
 import com.example.administrator.jipinshop.auto.ActivityScope;
 import com.example.administrator.jipinshop.netwrok.ApplicationComponent;
@@ -184,8 +185,9 @@ public interface BaseActivityComponent {
     void inject(SchoolResultActivity activity);
     void inject(OrderRecoveryActivity activity);
     void inject(OrderRecoveryResultActivity activity);
-    void inject(WellComeActivity mainActivity);
-    void inject(FamilyActivity mainActivity);
-    void inject(ZeroActivity mainActivity);
-    void inject(ZeroDetailActivity mainActivity);
+    void inject(WellComeActivity activity);
+    void inject(FamilyActivity activity);
+    void inject(ZeroActivity activity);
+    void inject(ZeroDetailActivity activity);
+    void inject(InviteActionWebActivity activity);
 }

@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:bind="http://schemas.android.com/apk/res-auto"
-        xmlns:app="http://schemas.android.com/apk/res-auto">
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools">
 
     <data>
         <variable
@@ -321,17 +322,30 @@
                     <!--更多权益-->
                     <View
                         android:id="@+id/member_bg"
-                        android:layout_alignTop="@id/member_title1"
+                        android:layout_alignTop="@id/member_moneyNotice"
                         android:layout_alignBottom="@id/member_moreContainer"
                         android:background="@color/color_222222"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"/>
 
                     <TextView
+                        android:lineSpacingExtra="@dimen/y8"
+                        android:textSize="12sp"
+                        android:textColor="@color/color_FAE1BF"
+                        android:layout_marginRight="@dimen/x20"
+                        android:layout_marginLeft="@dimen/x20"
+                        android:paddingTop="@dimen/y30"
+                        android:id="@+id/member_moneyNotice"
+                        android:layout_below="@id/member_userContainer"
+                        tools:text="极品城承诺：极品会员有效期内最终返利金额若低于会员费，平台将退还全额会员费"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"/>
+
+                    <TextView
                         android:id="@+id/member_title1"
                         android:layout_marginBottom="@dimen/y30"
-                        android:paddingTop="@dimen/y30"
-                        android:layout_below="@id/member_userContainer"
+                        android:layout_marginTop="@dimen/y30"
+                        android:layout_below="@id/member_moneyNotice"
                         android:layout_centerHorizontal="true"
                         android:textStyle="bold"
                         android:textSize="21sp"

@@ -5,14 +5,18 @@ import android.content.Intent;
 import android.databinding.DataBindingUtil;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.blankj.utilcode.util.SPUtils;
 import com.example.administrator.jipinshop.R;
+import com.example.administrator.jipinshop.activity.login.LoginActivity;
 import com.example.administrator.jipinshop.activity.sign.SignActivity;
 import com.example.administrator.jipinshop.bean.MemberNewBean;
 import com.example.administrator.jipinshop.databinding.ItemSignMemberBinding;
+import com.example.administrator.jipinshop.util.sp.CommonDate;
 
 import java.util.List;
 
@@ -43,6 +47,10 @@ public class MemberSignAdapter extends RecyclerView.Adapter<MemberSignAdapter.Vi
         viewHolder.mBinding.setBean(mList.get(i));
         viewHolder.mBinding.executePendingBindings();
         viewHolder.itemView.setOnClickListener(v -> {
+            if (TextUtils.isEmpty(SPUtils.getInstance(CommonDate.USER).getString(CommonDate.token, "").trim())) {
+                mContext.startActivity(new Intent(mContext, LoginActivity.class));
+                return;
+            }
             mContext.startActivity(new Intent(mContext, SignActivity.class));
         });
     }

@@ -5,14 +5,18 @@ import android.content.Intent;
 import android.databinding.DataBindingUtil;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
 
+import com.blankj.utilcode.util.SPUtils;
 import com.example.administrator.jipinshop.R;
+import com.example.administrator.jipinshop.activity.login.LoginActivity;
 import com.example.administrator.jipinshop.activity.member.zero.ZeroActivity;
 import com.example.administrator.jipinshop.bean.MemberNewBean;
 import com.example.administrator.jipinshop.databinding.ItemFreeMemberBinding;
 import com.example.administrator.jipinshop.util.ToastUtil;
+import com.example.administrator.jipinshop.util.sp.CommonDate;
 
 import java.util.List;
 
@@ -51,6 +55,10 @@ public class MemberFreeAdapter extends RecyclerView.Adapter<MemberFreeAdapter.Vi
         viewHolder.mBinding.itemOtherPrice.setColor(R.color.color_9D9D9D);
         viewHolder.itemView.setOnClickListener(v -> {
             //每月0元购
+            if (TextUtils.isEmpty(SPUtils.getInstance(CommonDate.USER).getString(CommonDate.token, "").trim())) {
+                mContext.startActivity(new Intent(mContext, LoginActivity.class));
+                return;
+            }
             if (userLevel == 0){
                 ToastUtil.show("仅限VIP会员享受优惠");
                 return;

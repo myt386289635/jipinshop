@@ -3,9 +3,12 @@ package com.example.administrator.jipinshop.activity.wellcome;
 import android.Manifest;
 import android.app.Activity;
 import android.app.Application;
+import android.app.Notification;
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
+import android.content.ContentResolver;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.CountDownTimer;
@@ -75,6 +78,7 @@ public class WellComeActivity extends BaseActivity {
             JPushInterface.stopPush(this);//极光停止推送
             HmsMessaging hmsMessaging = HmsMessaging.getInstance(this);
             hmsMessaging.setAutoInitEnabled(true);
+            notifyChannel(MyApplication.getInstance());//华为设置通知通道 兼容Android8.0及以上机型
         }else if (deviceBrand.equals("xiaomi")){
             JPushInterface.stopPush(this);//极光停止推送
             MiPushClient.registerPush(MyApplication.getInstance(), "2882303761517901504", "5721790192504");
@@ -225,11 +229,13 @@ public class WellComeActivity extends BaseActivity {
     //oppo 设置通知通道 兼容Android8.0及以上机型
     private static void notifyChannel(Application context) {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            String channelId = "default";
-            String channelName = "Default_Channel";
-            String channelDescription = "this is default channel!";
-            NotificationChannel mNotificationChannel = new NotificationChannel(channelId, channelName, NotificationManager.IMPORTANCE_DEFAULT);
+            String channelId = "jpc_sys";
+            String channelName = "系统消息";
+            String channelDescription = "系统消息";
+            NotificationChannel mNotificationChannel = new NotificationChannel(channelId, channelName, NotificationManager.IMPORTANCE_HIGH);
             mNotificationChannel.setDescription(channelDescription);
+            Uri mUri = Uri.parse("android.resource://com.example.administrator.jipinshop/raw/tone");
+            mNotificationChannel.setSound(mUri,Notification.AUDIO_ATTRIBUTES_DEFAULT);
             ((NotificationManager)context.getSystemService(Activity.NOTIFICATION_SERVICE)).createNotificationChannel(mNotificationChannel);
         }
     }

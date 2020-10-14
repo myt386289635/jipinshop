@@ -81,7 +81,7 @@ public class MainActivityPresenter {
             int finalI = i;
             tab.setOnTouchListener((view, event) -> {
                 if (event.getAction() == MotionEvent.ACTION_DOWN){
-                    if (finalI == 2 || finalI == mFragments.size()-1){
+                    if (finalI == mFragments.size()-1){
                         if (TextUtils.isEmpty(SPUtils.getInstance(CommonDate.USER).getString(CommonDate.token, "").trim())) {
                             if (ClickUtil.isFastDoubleClick(800)) {
                             } else {

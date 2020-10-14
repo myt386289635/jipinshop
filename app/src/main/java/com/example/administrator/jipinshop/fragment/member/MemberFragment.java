@@ -14,6 +14,8 @@ import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
+import android.text.SpannableString;
+import android.text.Spanned;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -28,6 +30,7 @@ import com.example.administrator.jipinshop.R;
 import com.example.administrator.jipinshop.activity.WebActivity;
 import com.example.administrator.jipinshop.activity.cheapgoods.CheapBuyActivity;
 import com.example.administrator.jipinshop.activity.home.MainActivity;
+import com.example.administrator.jipinshop.activity.login.LoginActivity;
 import com.example.administrator.jipinshop.activity.member.family.FamilyActivity;
 import com.example.administrator.jipinshop.activity.shoppingdetail.tbshoppingdetail.TBShoppingDetailActivity;
 import com.example.administrator.jipinshop.activity.sign.invitation.InvitationNewActivity;
@@ -57,6 +60,7 @@ import com.example.administrator.jipinshop.view.dialog.MemberBuyPop;
 import com.example.administrator.jipinshop.view.dialog.MemberRenewPop;
 import com.example.administrator.jipinshop.view.dialog.ProgressDialogView;
 import com.example.administrator.jipinshop.view.glide.GlideApp;
+import com.example.administrator.jipinshop.view.textview.CenteredImageSpan;
 import com.example.administrator.jipinshop.wxapi.WXPayEntryActivity;
 import com.tencent.mm.opensdk.modelpay.PayReq;
 import com.tencent.mm.opensdk.openapi.IWXAPI;
@@ -270,6 +274,10 @@ public class MemberFragment extends DBBaseFragment implements View.OnClickListen
                 break;
             case R.id.member_month:
                 //购买月卡
+                if (TextUtils.isEmpty(SPUtils.getInstance(CommonDate.USER).getString(CommonDate.token, "").trim())) {
+                    startActivity(new Intent(getContext(), LoginActivity.class));
+                    return;
+                }
                 if (TextUtils.isEmpty(monthPrice) || TextUtils.isEmpty(monthPriceBefore)){
                     ToastUtil.show("网络错误，请稍后尝试");
                     return;
@@ -280,6 +288,10 @@ public class MemberFragment extends DBBaseFragment implements View.OnClickListen
                 break;
             case R.id.member_year:
                 //购买年卡
+                if (TextUtils.isEmpty(SPUtils.getInstance(CommonDate.USER).getString(CommonDate.token, "").trim())) {
+                    startActivity(new Intent(getContext(), LoginActivity.class));
+                    return;
+                }
                 if (TextUtils.isEmpty(yearPrice) || TextUtils.isEmpty(yearPriceBefore)){
                     ToastUtil.show("网络错误，请稍后尝试");
                     return;
@@ -303,11 +315,19 @@ public class MemberFragment extends DBBaseFragment implements View.OnClickListen
                 break;
             case R.id.member_adContainer:
                 //人员广告
+                if (TextUtils.isEmpty(SPUtils.getInstance(CommonDate.USER).getString(CommonDate.token, "").trim())) {
+                    startActivity(new Intent(getContext(), LoginActivity.class));
+                    return;
+                }
                 startActivity(new Intent(getContext(), InvitationNewActivity.class));
                 break;
             case R.id.member_copyServer:
             case R.id.member_copy:
                 //复制导师微信
+                if (TextUtils.isEmpty(SPUtils.getInstance(CommonDate.USER).getString(CommonDate.token, "").trim())) {
+                    startActivity(new Intent(getContext(), LoginActivity.class));
+                    return;
+                }
                 ClipboardManager clip = (ClipboardManager) getContext().getSystemService(Context.CLIPBOARD_SERVICE);
                 ClipData clipData = ClipData.newPlainText("jipinshop", mBinding.memberWxCode.getText().toString().replace(getResources().getString(R.string.member_wx),""));
                 clip.setPrimaryClip(clipData);
@@ -316,10 +336,18 @@ public class MemberFragment extends DBBaseFragment implements View.OnClickListen
                 break;
             case R.id.member_shop2Container:
                 //跳转到特惠购
+                if (TextUtils.isEmpty(SPUtils.getInstance(CommonDate.USER).getString(CommonDate.token, "").trim())) {
+                    startActivity(new Intent(getContext(), LoginActivity.class));
+                    return;
+                }
                 startActivity(new Intent(getContext(), CheapBuyActivity.class));
                 break;
             case R.id.member_shop1Container:
                 //商品详情
+                if (TextUtils.isEmpty(SPUtils.getInstance(CommonDate.USER).getString(CommonDate.token, "").trim())) {
+                    startActivity(new Intent(getContext(), LoginActivity.class));
+                    return;
+                }
                 if (TextUtils.isEmpty(otherGoodsId)){
                     return;
                 }
@@ -356,6 +384,10 @@ public class MemberFragment extends DBBaseFragment implements View.OnClickListen
                 break;
             case R.id.member_family:
                 //全家共享
+                if (TextUtils.isEmpty(SPUtils.getInstance(CommonDate.USER).getString(CommonDate.token, "").trim())) {
+                    startActivity(new Intent(getContext(), LoginActivity.class));
+                    return;
+                }
                 if (openFamily == 1){
                     startActivity(new Intent(getContext(), FamilyActivity.class)
                             .putExtra("userLevel", userLevel)
@@ -418,6 +450,10 @@ public class MemberFragment extends DBBaseFragment implements View.OnClickListen
         mBinding.memberYearOtherCost.setTv(true);
         mBinding.memberYearOtherCost.setColor(R.color.color_white);
         GlideApp.loderImage(getContext(),bean.getData().getBoxImg(),mBinding.memberMore,0,0);
+        SpannableString string = new SpannableString("   " + "极品城承诺：极品会员有效期内最终返利金额若低于会员费，平台将退还全额会员费");
+        CenteredImageSpan imageSpan = new CenteredImageSpan(getContext(),R.mipmap.member1_notice);
+        string.setSpan(imageSpan, 0, 1, Spanned.SPAN_INCLUSIVE_EXCLUSIVE);
+        mBinding.memberMoneyNotice.setText(string);
         //广告
         mAdList.clear();
         mAdList.addAll(bean.getData().getMessageList());
@@ -578,7 +614,7 @@ public class MemberFragment extends DBBaseFragment implements View.OnClickListen
     @Override
     public void onResume() {
         super.onResume();
-        if (!once && !TextUtils.isEmpty(SPUtils.getInstance(CommonDate.USER).getString(CommonDate.token,""))){
+        if (!once){
             mPresenter.levelIndex(this.bindToLifecycle());
         }
     }
@@ -692,6 +728,10 @@ public class MemberFragment extends DBBaseFragment implements View.OnClickListen
     //吃喝玩乐跳转
     @Override
     public void onItem(int position) {
+        if (TextUtils.isEmpty(SPUtils.getInstance(CommonDate.USER).getString(CommonDate.token, "").trim())) {
+            startActivity(new Intent(getContext(), LoginActivity.class));
+            return;
+        }
         if (userLevel == 0){
             ToastUtil.show("仅限VIP会员享受优惠");
             return;

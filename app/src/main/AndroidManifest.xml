@@ -796,6 +796,10 @@
         <activity android:name=".activity.member.zero.detail.ZeroDetailActivity"
                   android:screenOrientation="portrait"/>
 
+        <!--拉新活动-->
+        <activity android:name=".activity.web.invite.InviteActionWebActivity"
+                  android:screenOrientation="portrait"/>
+
  </application>
 
 </manifest>

@@ -32,6 +32,7 @@ import com.example.administrator.jipinshop.activity.sign.detail.IntegralDetailAc
 import com.example.administrator.jipinshop.activity.sign.invitation.InvitationNewActivity;
 import com.example.administrator.jipinshop.activity.web.dzp.BigWheelWebActivity;
 import com.example.administrator.jipinshop.activity.web.hb.HBWebView2;
+import com.example.administrator.jipinshop.activity.web.invite.InviteActionWebActivity;
 import com.example.administrator.jipinshop.bean.ActionHBBean;
 import com.example.administrator.jipinshop.bean.eventbus.ChangeHomePageBus;
 import com.example.administrator.jipinshop.netwrok.ApplicationComponent;
@@ -418,6 +419,17 @@ public class ShopJumpUtil {
                 //商学院播放页
                 intent.setClass(context, VideoActivity.class);
                 intent.putExtra("courseId",target_id);
+                context.startActivity(intent);
+                break;
+            case "39":
+                //拉新活动
+                if (TextUtils.isEmpty(SPUtils.getInstance(CommonDate.USER).getString(CommonDate.token, ""))) {
+                    intent.setClass(context, LoginActivity.class);
+                }else {
+                    intent.setClass(context, InviteActionWebActivity.class);
+                    intent.putExtra(InviteActionWebActivity.url, target_id);
+                    intent.putExtra(InviteActionWebActivity.title,target_title);
+                }
                 context.startActivity(intent);
                 break;
             case "101":
