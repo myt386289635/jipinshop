@@ -4,6 +4,7 @@ import android.text.TextUtils
 import com.example.administrator.jipinshop.bean.TBSreachResultBean
 import com.example.administrator.jipinshop.bean.TaskFinishBean
 import com.example.administrator.jipinshop.netwrok.Repository
+import com.example.administrator.jipinshop.util.ToastUtil
 import com.trello.rxlifecycle2.LifecycleTransformer
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.functions.Consumer
@@ -83,6 +84,9 @@ class HomeDetailPresenter {
                 .observeOn(AndroidSchedulers.mainThread())
                 .compose(transformer)
                 .subscribe({ taskFinishBean ->
+                    if (taskFinishBean.code == 0 && taskFinishBean.msg != "success") {
+                        ToastUtil.show(taskFinishBean.msg)
+                    }
                 }, { throwable -> })
     }
 
