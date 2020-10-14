@@ -450,7 +450,7 @@ public class MemberFragment extends DBBaseFragment implements View.OnClickListen
         mBinding.memberYearOtherCost.setTv(true);
         mBinding.memberYearOtherCost.setColor(R.color.color_white);
         GlideApp.loderImage(getContext(),bean.getData().getBoxImg(),mBinding.memberMore,0,0);
-        SpannableString string = new SpannableString("   " + "极品城承诺：极品会员有效期内最终返利金额若低于会员费，平台将退还全额会员费");
+        SpannableString string = new SpannableString("   " + bean.getRemind());
         CenteredImageSpan imageSpan = new CenteredImageSpan(getContext(),R.mipmap.member1_notice);
         string.setSpan(imageSpan, 0, 1, Spanned.SPAN_INCLUSIVE_EXCLUSIVE);
         mBinding.memberMoneyNotice.setText(string);

@@ -171,53 +171,17 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"/>
 
-                <RelativeLayout
+                <ImageView
+                    android:adjustViewBounds="true"
+                    android:onClick="@{listener.onClick}"
                     android:id="@+id/sign_h5Container"
                     android:layout_width="match_parent"
-                    android:layout_height="@dimen/y186"
+                    android:layout_height="wrap_content"
                     android:layout_below="@+id/sign_title1"
                     android:layout_marginLeft="@dimen/x18"
                     android:layout_marginTop="@dimen/y30"
                     android:layout_marginRight="@dimen/x18"
-                    android:background="@mipmap/bg_member_coin">
-
-                    <ImageView
-                        android:id="@+id/sign_bg3"
-                        android:layout_marginLeft="@dimen/x11"
-                        android:layout_centerVertical="true"
-                        android:src="@mipmap/sign_bg3"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"/>
-
-                    <TextView
-                        android:textStyle="bold"
-                        android:textColor="@color/color_202020"
-                        android:textSize="15sp"
-                        android:text="100%中奖，抽奖赢戴森"
-                        android:layout_marginLeft="@dimen/x14"
-                        android:layout_toRightOf="@id/sign_bg3"
-                        android:layout_centerVertical="true"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"/>
-
-                    <TextView
-                        android:onClick="@{listener.onClick}"
-                        android:id="@+id/sign_h5Button"
-                        android:layout_marginRight="@dimen/x30"
-                        android:layout_alignParentRight="true"
-                        android:layout_centerVertical="true"
-                        android:gravity="center"
-                        android:textSize="14sp"
-                        android:text="去玩"
-                        android:paddingRight="@dimen/x28"
-                        android:paddingLeft="@dimen/x28"
-                        android:minWidth="@dimen/x139"
-                        android:textColor="@color/color_white"
-                        android:background="@drawable/bg_member_coin"
-                        android:layout_width="wrap_content"
-                        android:layout_height="@dimen/y66"/>
-
-                </RelativeLayout>
+                    android:src="@mipmap/sign_lucky"/>
 
                 <ImageView
                     android:id="@+id/sign_title2"

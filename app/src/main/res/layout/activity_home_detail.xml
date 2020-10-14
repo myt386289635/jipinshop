@@ -36,6 +36,37 @@
         </RelativeLayout>
 
         <LinearLayout
+            android:visibility="gone"
+            android:gravity="center"
+            android:orientation="horizontal"
+            android:id="@+id/detail_timeCotianer"
+            android:background="@color/color_fff1d5"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/y68">
+
+            <TextView
+                android:id="@+id/detail_time"
+                android:textColor="@color/color_774A12"
+                android:textSize="14sp"
+                android:text="浏览商品赚钱中，30秒后领取极币"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+
+            <TextView
+                android:visibility="gone"
+                android:gravity="center"
+                android:drawablePadding="@dimen/x1"
+                android:drawableLeft="@mipmap/detail_ok"
+                android:id="@+id/detail_ok"
+                android:textColor="@color/color_774A12"
+                android:textSize="14sp"
+                android:text="极币奖励已到帐"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+
+        </LinearLayout>
+
+        <LinearLayout
             android:orientation="horizontal"
             android:layout_width="match_parent"
             android:layout_height="@dimen/y80">

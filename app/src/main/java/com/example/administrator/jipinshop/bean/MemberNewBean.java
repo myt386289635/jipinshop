@@ -14,6 +14,15 @@ public class MemberNewBean {
     private int code;
     private DataBean data;
     private int openFamily; //0关闭，1开启
+    private String remind;
+
+    public String getRemind() {
+        return remind;
+    }
+
+    public void setRemind(String remind) {
+        this.remind = remind;
+    }
 
     public int getOpenFamily() {
         return openFamily;

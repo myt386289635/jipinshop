@@ -14,6 +14,7 @@ import android.view.inputmethod.InputMethodManager;
 import com.blankj.utilcode.util.SPUtils;
 import com.example.administrator.jipinshop.R;
 import com.example.administrator.jipinshop.activity.WebActivity;
+import com.example.administrator.jipinshop.activity.home.HomeDetailActivity;
 import com.example.administrator.jipinshop.activity.home.home.HomeNewActivity;
 import com.example.administrator.jipinshop.activity.info.MyInfoActivity;
 import com.example.administrator.jipinshop.activity.login.LoginActivity;
@@ -45,6 +46,7 @@ import com.example.administrator.jipinshop.util.ToastUtil;
 import com.example.administrator.jipinshop.util.sp.CommonDate;
 import com.example.administrator.jipinshop.view.dialog.DialogUtil;
 import com.example.administrator.jipinshop.view.dialog.ProgressDialogView;
+import com.example.administrator.jipinshop.view.glide.GlideApp;
 
 import org.greenrobot.eventbus.EventBus;
 
@@ -151,7 +153,7 @@ public class SignActivity extends BaseActivity implements View.OnClickListener, 
                         ad1.getObjectId(),ad1.getName(),
                         ad1.getSource());
                 break;
-            case R.id.sign_h5Button:
+            case R.id.sign_h5Container:
                 //大转盘
                 if(TextUtils.isEmpty(SPUtils.getInstance(CommonDate.USER).getString(CommonDate.token,""))){
                     startActivity(new Intent(this, LoginActivity.class));
@@ -297,12 +299,12 @@ public class SignActivity extends BaseActivity implements View.OnClickListener, 
 
     @Override
     public void onDayJump(int pos) {
-        dayJump(mDayRule.get(pos).getLocation() ,mDayRule.get(pos).getLocationId());
+        dayJump(mDayRule.get(pos).getLocation() ,mDayRule.get(pos).getLocationId(),mDayRule.get(pos).getLocationTitle());
     }
 
     @Override
     public void onJump(int pos) {
-        dayJump(mUserRule.get(pos).getLocation(), mUserRule.get(pos).getLocationId());
+        dayJump(mUserRule.get(pos).getLocation(), mUserRule.get(pos).getLocationId(), mUserRule.get(pos).getLocationTitle());
     }
 
     @Override
@@ -315,7 +317,7 @@ public class SignActivity extends BaseActivity implements View.OnClickListener, 
     }
 
     //每日任务的跳转逻辑
-    public void dayJump(int location , String url){
+    public void dayJump(int location , String id , String title){
         switch (location){
             case 1://跳转到首页
                 EventBus.getDefault().post(new ChangeHomePageBus(0));
@@ -378,7 +380,7 @@ public class SignActivity extends BaseActivity implements View.OnClickListener, 
                 break;
             case 15://填写调查问卷
                 startActivity(new Intent(this, WebActivity.class)
-                        .putExtra(WebActivity.url, url)
+                        .putExtra(WebActivity.url, id)
                         .putExtra(WebActivity.title, "调查问卷")
                 );
                 break;
@@ -390,6 +392,13 @@ public class SignActivity extends BaseActivity implements View.OnClickListener, 
                 break;
             case 18://绑定小程序
                 DialogUtil.wxDialog(this, "绑定小程序", "微信小程序：", "微信搜索极品城小程序，并绑定账号");
+                break;
+            case 19://专题页
+                startActivity(new Intent(this, HomeDetailActivity.class)
+                        .putExtra("id", id)
+                        .putExtra("title", title)
+                        .putExtra("isSign", true)
+                );
                 break;
         }
     }

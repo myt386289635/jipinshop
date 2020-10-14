@@ -2,6 +2,7 @@ package com.example.administrator.jipinshop.activity.home
 
 import android.text.TextUtils
 import com.example.administrator.jipinshop.bean.TBSreachResultBean
+import com.example.administrator.jipinshop.bean.TaskFinishBean
 import com.example.administrator.jipinshop.netwrok.Repository
 import com.trello.rxlifecycle2.LifecycleTransformer
 import io.reactivex.android.schedulers.AndroidSchedulers
@@ -73,6 +74,16 @@ class HomeDetailPresenter {
                 }, Consumer {
                     mView.onFile(it.message)
                 })
+    }
+
+    //浏览商品
+    fun taskFinish(transformer: LifecycleTransformer<TaskFinishBean>) {
+        repository.taskFinish("17")
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .compose(transformer)
+                .subscribe({ taskFinishBean ->
+                }, { throwable -> })
     }
 
 }

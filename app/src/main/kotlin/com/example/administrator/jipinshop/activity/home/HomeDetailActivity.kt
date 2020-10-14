@@ -5,7 +5,9 @@ import android.content.Intent
 import android.databinding.DataBindingUtil
 import android.graphics.drawable.Drawable
 import android.os.Bundle
+import android.os.CountDownTimer
 import android.support.v7.widget.GridLayoutManager
+import android.text.Html
 import android.text.TextUtils
 import android.view.View
 import android.widget.TextView
@@ -15,6 +17,8 @@ import com.blankj.utilcode.util.SPUtils
 import com.example.administrator.jipinshop.R
 import com.example.administrator.jipinshop.activity.login.LoginActivity
 import com.example.administrator.jipinshop.activity.share.ShareActivity
+import com.example.administrator.jipinshop.activity.wellcome.AdActivity
+import com.example.administrator.jipinshop.activity.wellcome.index.IndexMixActivity
 import com.example.administrator.jipinshop.adapter.TBSreachResultAdapter
 import com.example.administrator.jipinshop.base.BaseActivity
 import com.example.administrator.jipinshop.bean.TBSreachResultBean
@@ -58,6 +62,21 @@ class HomeDetailActivity : BaseActivity(), View.OnClickListener, TBSreachResultA
     //分享面板
     private var mShareBoardDialog: ShareBoardDialog? = null
     private var shareUrl: String = ""
+    //签到进入需要
+    private var isSign = false //是否是签到过来的，默认是false
+    private var timer: CountDownTimer? = object : CountDownTimer(30*1000, 1000) {
+        override fun onTick(millisUntilFinished: Long) {
+            var downTimer = (millisUntilFinished / 1000).toInt()
+            var html = "浏览商品赚钱中，<font color='#E25838'><b>"+ downTimer +"秒</b></font>后领取极币"
+            mBinding.detailTime.text = Html.fromHtml(html)
+        }
+
+        override fun onFinish() {
+            mBinding.detailTime.visibility = View.GONE
+            mBinding.detailOk.visibility = View.VISIBLE
+            mPresenter.taskFinish(this@HomeDetailActivity.bindUntilEvent(ActivityEvent.DESTROY))
+        }
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -71,8 +90,19 @@ class HomeDetailActivity : BaseActivity(), View.OnClickListener, TBSreachResultA
     private fun initView() {
         id = intent.getStringExtra("id")
         title = intent.getStringExtra("title")
+        isSign = intent.getBooleanExtra("isSign",false)
         mBinding.inClude?.let {
             it.titleTv.text = title
+        }
+        if (isSign){
+            mBinding.detailTimeCotianer.visibility = View.VISIBLE
+            mBinding.detailTime.visibility = View.VISIBLE
+            mBinding.detailOk.visibility = View.GONE
+            var html = "浏览商品赚钱中，<font color='#E25838'><b>30秒</b></font>后领取极币"
+            mBinding.detailTime.text = Html.fromHtml(html)
+            timer?.start()
+        }else{
+            mBinding.detailTimeCotianer.visibility = View.GONE
         }
 
         mTextViews = ArrayList()
@@ -310,5 +340,6 @@ class HomeDetailActivity : BaseActivity(), View.OnClickListener, TBSreachResultA
     override fun onDestroy() {
         super.onDestroy()
         UMShareAPI.get(this).release()
+        timer?.cancel()
     }
 }

@@ -155,6 +155,15 @@ public class DailyTaskBean {
         private String status;
         private String isshow;
         private String locationId;//调查问卷地址
+        private String locationTitle;
+
+        public String getLocationTitle() {
+            return locationTitle;
+        }
+
+        public void setLocationTitle(String locationTitle) {
+            this.locationTitle = locationTitle;
+        }
 
         public String getLocationId() {
             return locationId;
