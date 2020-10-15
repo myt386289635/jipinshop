@@ -1379,4 +1379,9 @@ public interface APIService {
     @POST("api/allowance/addAllowance")
     Observable<SuccessBean> addAllowance(@Field("id") String id);
 
+    /**
+     * 获取首页浮窗活动信息
+     */
+    @GET("api/getIndexActivityInfo")
+    Observable<SucBeanT<TbkIndexBean.DataBean.Ad1ListBean>> getIndexActivityInfo();
 }

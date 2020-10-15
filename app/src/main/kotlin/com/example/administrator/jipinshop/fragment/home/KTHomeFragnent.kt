@@ -21,25 +21,23 @@ import com.example.administrator.jipinshop.activity.login.LoginActivity
 import com.example.administrator.jipinshop.activity.message.MessageActivity
 import com.example.administrator.jipinshop.activity.sign.SignActivity
 import com.example.administrator.jipinshop.activity.sreach.TBSreachActivity
-import com.example.administrator.jipinshop.activity.web.hb.HBWebView2
 import com.example.administrator.jipinshop.adapter.HomeFragmentAdapter
 import com.example.administrator.jipinshop.adapter.KTTabAdapter
 import com.example.administrator.jipinshop.base.DBBaseFragment
-import com.example.administrator.jipinshop.bean.ActionHBBean
 import com.example.administrator.jipinshop.bean.JDBean
-import com.example.administrator.jipinshop.bean.UnMessageBean
+import com.example.administrator.jipinshop.bean.SucBeanT
+import com.example.administrator.jipinshop.bean.TbkIndexBean
 import com.example.administrator.jipinshop.bean.eventbus.EditNameBus
 import com.example.administrator.jipinshop.databinding.FragmentKtHomeBinding
 import com.example.administrator.jipinshop.fragment.home.commen.KTHomeCommenFragment
 import com.example.administrator.jipinshop.fragment.home.main.KTMain2Fragment
 import com.example.administrator.jipinshop.fragment.home.userlike.KTUserLikeFragment
 import com.example.administrator.jipinshop.fragment.mine.KTMineFragment
-import com.example.administrator.jipinshop.netwrok.RetrofitModule
+import com.example.administrator.jipinshop.util.ShopJumpUtil
 import com.example.administrator.jipinshop.util.ToastUtil
 import com.example.administrator.jipinshop.util.UmApp.AppStatisticalUtil
 import com.example.administrator.jipinshop.util.WeakRefHandler
 import com.example.administrator.jipinshop.util.sp.CommonDate
-import com.example.administrator.jipinshop.view.dialog.DialogUtil
 import com.example.administrator.jipinshop.view.glide.GlideApp
 import net.lucode.hackware.magicindicator.ViewPagerHelper
 import net.lucode.hackware.magicindicator.buildins.commonnavigator.CommonNavigator
@@ -69,6 +67,7 @@ class KTHomeFragnent : DBBaseFragment(), View.OnClickListener, ViewPager.OnPageC
     private var isChange: Boolean = true //是否开启颜色改变
     private var mColor : String = "#E25838"  //轮播图此时滑动的颜色
     private var isAction: Boolean = false //是否开启首页悬浮按钮，默认不开启false
+    private var ad : TbkIndexBean.DataBean.Ad1ListBean? = null
     private lateinit var mQBadgeView : QBadgeView
 
     companion object{
@@ -114,7 +113,7 @@ class KTHomeFragnent : DBBaseFragment(), View.OnClickListener, ViewPager.OnPageC
             toRight =   ObjectAnimator.ofFloat(mBinding.homeAction, "translationX",0f , set)
         }
 
-        mPresenter.getHongbaoActivityInfo(this.bindToLifecycle())
+        mPresenter.getIndexActivityInfo(this.bindToLifecycle())
         mPresenter.getData(this.bindToLifecycle())
         appStatisticalUtil.addEvent("shouye_fenlei.1",this.bindToLifecycle())//统计精选
     }
@@ -134,7 +133,8 @@ class KTHomeFragnent : DBBaseFragment(), View.OnClickListener, ViewPager.OnPageC
                     ToastUtil.show("活动未开始")
                     return
                 }
-                mPresenter.getHongbao(this.bindToLifecycle())
+                ShopJumpUtil.openBanner(context,ad?.type,
+                        ad?.objectId,ad?.name, ad?.source)
             }
             R.id.home_sign -> {
                 if (TextUtils.isEmpty(SPUtils.getInstance(CommonDate.USER).getString(CommonDate.token, ""))) {
@@ -227,11 +227,12 @@ class KTHomeFragnent : DBBaseFragment(), View.OnClickListener, ViewPager.OnPageC
         mTabAdapter.notifyDataSetChanged()
     }
 
-    override fun onAction(bean: ActionHBBean) {
-        isAction = bean.open != "0"
+    override fun onAction(bean: SucBeanT<TbkIndexBean.DataBean.Ad1ListBean>?) {
+        isAction = bean?.data != null
         if (isAction){
             mBinding.homeAction.visibility = View.VISIBLE
-            GlideApp.loderImage(context,bean.img,mBinding.homeAction,0,0)
+            GlideApp.loderImage(context,bean?.data?.img,mBinding.homeAction,0,0)
+            ad = bean?.data
         }else{
             mBinding.homeAction.visibility = View.GONE
         }
@@ -240,31 +241,6 @@ class KTHomeFragnent : DBBaseFragment(), View.OnClickListener, ViewPager.OnPageC
     override fun onEndAction() {
         isAction = false
         mBinding.homeAction.visibility = View.GONE
-    }
-
-    override fun onHBFlie() {
-        DialogUtil.hbWebDialog(context){
-            startActivity(Intent(context, HBWebView2::class.java)
-                    .putExtra(HBWebView2.url, RetrofitModule.JP_H5_URL + "new-free/getRedPacket?isfirst=true&token=" + SPUtils.getInstance(CommonDate.USER).getString(CommonDate.token))
-                    .putExtra(HBWebView2.title, "天天领现金")
-            )
-        }
-    }
-
-    override fun onHBID(bean: ActionHBBean) {
-        if (TextUtils.isEmpty(bean.data)){
-            DialogUtil.hbWebDialog(context){
-                startActivity(Intent(context, HBWebView2::class.java)
-                        .putExtra(HBWebView2.url, RetrofitModule.JP_H5_URL + "new-free/getRedPacket?isfirst=true&token=" + SPUtils.getInstance(CommonDate.USER).getString(CommonDate.token))
-                        .putExtra(HBWebView2.title, "天天领现金")
-                )
-            }
-        }else{
-            startActivity(Intent(context, HBWebView2::class.java)
-                    .putExtra(HBWebView2.url, RetrofitModule.JP_H5_URL + "new-free/getRedPacket?token=" + SPUtils.getInstance(CommonDate.USER).getString(CommonDate.token))
-                    .putExtra(HBWebView2.title, "天天领现金")
-            )
-        }
     }
 
     //获取未读消息成功回调

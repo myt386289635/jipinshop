@@ -6,20 +6,17 @@ import android.view.ViewGroup;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.LinearLayout;
 
-import com.example.administrator.jipinshop.bean.ActionHBBean;
 import com.example.administrator.jipinshop.bean.DailyTaskBean;
 import com.example.administrator.jipinshop.bean.MallBean;
 import com.example.administrator.jipinshop.bean.SignInsertBean;
 import com.example.administrator.jipinshop.bean.SuccessBean;
 import com.example.administrator.jipinshop.bean.TeacherBean;
 import com.example.administrator.jipinshop.netwrok.Repository;
-import com.example.administrator.jipinshop.util.ToastUtil;
 import com.trello.rxlifecycle2.LifecycleTransformer;
 
 import javax.inject.Inject;
 
 import io.reactivex.android.schedulers.AndroidSchedulers;
-import io.reactivex.functions.Consumer;
 import io.reactivex.schedulers.Schedulers;
 
 /**
@@ -143,23 +140,6 @@ public class SignPresenter {
                     if(mView != null){
                         mView.onFile(throwable.getMessage());
                     }
-                });
-    }
-
-    //领取红包
-    public void getHongbao(LifecycleTransformer<ActionHBBean> transformer){
-        mRepository.getHongbaoActivityInfo()
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .compose(transformer)
-                .subscribe(actionHBBean -> {
-                    if (actionHBBean.getCode() == 0) {
-                        mView.onHBID(actionHBBean);
-                    } else {
-                        mView.onHBFlie();
-                    }
-                }, throwable -> {
-                    mView.onHBFlie();
                 });
     }
 

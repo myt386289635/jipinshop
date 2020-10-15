@@ -4,15 +4,15 @@ import android.content.Context
 import android.view.Gravity
 import android.widget.ImageView
 import android.widget.LinearLayout
-import com.example.administrator.jipinshop.bean.ActionHBBean
 import com.example.administrator.jipinshop.bean.JDBean
+import com.example.administrator.jipinshop.bean.SucBeanT
 import com.example.administrator.jipinshop.bean.SuccessBean
+import com.example.administrator.jipinshop.bean.TbkIndexBean
 import com.example.administrator.jipinshop.netwrok.Repository
 import com.trello.rxlifecycle2.LifecycleTransformer
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.functions.Consumer
 import io.reactivex.schedulers.Schedulers
-import q.rorbin.badgeview.Badge
 import q.rorbin.badgeview.QBadgeView
 import javax.inject.Inject
 
@@ -71,8 +71,8 @@ class KTHomePresenter {
                 })
     }
 
-    fun getHongbaoActivityInfo(transformer : LifecycleTransformer<ActionHBBean>){
-        repository.getHongbaoActivityInfo()
+    fun getIndexActivityInfo(transformer : LifecycleTransformer<SucBeanT<TbkIndexBean.DataBean.Ad1ListBean>>){
+        repository.getIndexActivityInfo()
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .compose(transformer)
@@ -84,22 +84,6 @@ class KTHomePresenter {
                     }
                 }, Consumer {
                     mView.onEndAction()
-                })
-    }
-
-    fun getHongbao(transformer : LifecycleTransformer<ActionHBBean>){
-        repository.getHongbaoActivityInfo()
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .compose(transformer)
-                .subscribe(Consumer {
-                    if (it.code == 0){
-                        mView.onHBID(it)
-                    }else{
-                        mView.onHBFlie()
-                    }
-                }, Consumer {
-                    mView.onHBFlie()
                 })
     }
 

@@ -11,6 +11,7 @@ import javax.inject.Inject;
 import io.reactivex.Observable;
 import okhttp3.MultipartBody;
 import okhttp3.ResponseBody;
+import retrofit2.http.GET;
 
 public class Repository {
 
@@ -1524,4 +1525,10 @@ public class Repository {
         return mAPIService.addAllowance(id);
     }
 
+    /**
+     * 获取首页浮窗活动信息
+     */
+    public Observable<SucBeanT<TbkIndexBean.DataBean.Ad1ListBean>> getIndexActivityInfo(){
+        return mAPIService.getIndexActivityInfo();
+    }
 }

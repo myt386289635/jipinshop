@@ -1,8 +1,6 @@
 package com.example.administrator.jipinshop.fragment.home
 
-import com.example.administrator.jipinshop.bean.ActionHBBean
-import com.example.administrator.jipinshop.bean.JDBean
-import com.example.administrator.jipinshop.bean.TeacherBean
+import com.example.administrator.jipinshop.bean.*
 
 /**
  * @author 莫小婷
@@ -14,9 +12,6 @@ interface KTHomeView {
     fun onSuccess(bean: JDBean)
     fun onFile(error: String?)
 
-    fun onAction(bean: ActionHBBean)
+    fun onAction(bean: SucBeanT<TbkIndexBean.DataBean.Ad1ListBean>?)
     fun onEndAction()
-
-    fun onHBID(bean: ActionHBBean)
-    fun onHBFlie()
 }
