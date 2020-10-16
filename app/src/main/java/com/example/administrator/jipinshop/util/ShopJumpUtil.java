@@ -427,7 +427,7 @@ public class ShopJumpUtil {
                     intent.setClass(context, LoginActivity.class);
                 }else {
                     intent.setClass(context, InviteActionWebActivity.class);
-                    intent.putExtra(InviteActionWebActivity.url, target_id);
+                    intent.putExtra(InviteActionWebActivity.url, target_id + SPUtils.getInstance(CommonDate.USER).getString(CommonDate.token, ""));
                     intent.putExtra(InviteActionWebActivity.title,target_title);
                 }
                 context.startActivity(intent);
