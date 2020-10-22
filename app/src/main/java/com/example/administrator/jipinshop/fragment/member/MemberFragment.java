@@ -34,6 +34,7 @@ import com.example.administrator.jipinshop.activity.cheapgoods.CheapBuyActivity;
 import com.example.administrator.jipinshop.activity.home.MainActivity;
 import com.example.administrator.jipinshop.activity.login.LoginActivity;
 import com.example.administrator.jipinshop.activity.member.family.FamilyActivity;
+import com.example.administrator.jipinshop.activity.member.zero.ZeroActivity;
 import com.example.administrator.jipinshop.activity.sign.invitation.InvitationNewActivity;
 import com.example.administrator.jipinshop.adapter.HomePageAdapter;
 import com.example.administrator.jipinshop.adapter.KTPagerAdapter3;
@@ -85,7 +86,7 @@ import javax.inject.Inject;
  * @create 2020/8/25
  * @Describe 新版会员页面
  */
-public class MemberFragment extends DBBaseFragment implements View.OnClickListener, OnRefreshListener, MemberView, MemberBuyPop.OnClick, MemberRenewPop.OnClick, ViewPager.OnPageChangeListener, MemberVideoAdapter.OnItem, MemberMoreAllAdapter.OnItem {
+public class MemberFragment extends DBBaseFragment implements View.OnClickListener, OnRefreshListener, MemberView, MemberBuyPop.OnClick, MemberRenewPop.OnClick, ViewPager.OnPageChangeListener, MemberVideoAdapter.OnItem, MemberMoreAllAdapter.OnItem, MemberFreeAdapter.OnItemClick {
 
     @Inject
     MemberPresenter mPresenter;
@@ -255,6 +256,7 @@ public class MemberFragment extends DBBaseFragment implements View.OnClickListen
         mBinding.memberFree.setLayoutManager(new GridLayoutManager(getContext(),3));
         mBinding.memberFree.setNestedScrollingEnabled(false);
         mFreeAdapter = new MemberFreeAdapter(mFreeList,getContext());
+        mFreeAdapter.setOnItemClick(this);
         mBinding.memberFree.setAdapter(mFreeAdapter);
         mBinding.memberFree.setFocusable(false);//拒绝首次进入页面时滑动
         //特惠购列表
@@ -470,6 +472,15 @@ public class MemberFragment extends DBBaseFragment implements View.OnClickListen
                     startActivity(new Intent(getContext(), LoginActivity.class));
                     return;
                 }
+                if (userLevel == 0){
+                    if (TextUtils.isEmpty(monthPrice) || TextUtils.isEmpty(monthPriceBefore)){
+                        ToastUtil.show("网络错误，请稍后尝试");
+                        return;
+                    }
+                    AnimationUtils.showAndHiddenAnimation(mBinding.memberShadow, AnimationUtils.AnimationState.STATE_SHOW,100);
+                    mBuyPop.show(mBinding.memberPayContainer,"1",monthPrice,monthPriceBefore);
+                    return;
+                }
                 if (openFamily == 1){
                     startActivity(new Intent(getContext(), FamilyActivity.class)
                             .putExtra("userLevel", userLevel)
@@ -552,7 +563,6 @@ public class MemberFragment extends DBBaseFragment implements View.OnClickListen
         //每月0元购
         mFreeList.clear();
         mFreeList.addAll(bean.getData().getLevelDetail3().getList());
-        mFreeAdapter.setUserLevel(bean.getData().getLevel());
         mFreeAdapter.notifyDataSetChanged();
         if (TextUtils.isEmpty(bean.getData().getLevelDetail3().getTitle3())){
             mBinding.memberFreeTitle.setVisibility(View.GONE);
@@ -834,7 +844,12 @@ public class MemberFragment extends DBBaseFragment implements View.OnClickListen
             return;
         }
         if (userLevel == 0){
-            ToastUtil.show("仅限VIP会员享受优惠");
+            if (TextUtils.isEmpty(monthPrice) || TextUtils.isEmpty(monthPriceBefore)){
+                ToastUtil.show("网络错误，请稍后尝试");
+                return;
+            }
+            AnimationUtils.showAndHiddenAnimation(mBinding.memberShadow, AnimationUtils.AnimationState.STATE_SHOW,100);
+            mBuyPop.show(mBinding.memberPayContainer,"1",monthPrice,monthPriceBefore);
             return;
         }
         ShopJumpUtil.openBanner(getContext(),mPlayList.get(position).getType(),
@@ -913,5 +928,24 @@ public class MemberFragment extends DBBaseFragment implements View.OnClickListen
             mBinding.memberAd.setCurrentItem(0,false);
         }
         mBinding.memberAd.setOffscreenPageLimit(pagerList.size() - 1);//防止图片重叠的情况
+    }
+
+    //每月0元购跳转
+    @Override
+    public void onZeroBuy() {
+        if (TextUtils.isEmpty(SPUtils.getInstance(CommonDate.USER).getString(CommonDate.token, "").trim())) {
+            startActivity(new Intent(getContext(), LoginActivity.class));
+            return;
+        }
+        if (userLevel == 0){
+            if (TextUtils.isEmpty(monthPrice) || TextUtils.isEmpty(monthPriceBefore)){
+                ToastUtil.show("网络错误，请稍后尝试");
+                return;
+            }
+            AnimationUtils.showAndHiddenAnimation(mBinding.memberShadow, AnimationUtils.AnimationState.STATE_SHOW,100);
+            mBuyPop.show(mBinding.memberPayContainer,"1",monthPrice,monthPriceBefore);
+            return;
+        }
+        startActivity(new Intent(getContext(), ZeroActivity.class));
     }
 }
