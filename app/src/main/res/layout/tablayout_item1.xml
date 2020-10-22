@@ -8,6 +8,7 @@
     <TextView
         android:id="@+id/tab_item1"
         android:gravity="center"
+        android:drawableTint="@color/color_white"
         android:drawableTop="@drawable/tablayout_item1"
         android:layout_gravity="center"
         android:layout_width="wrap_content"
@@ -15,5 +16,5 @@
         android:text="会员中心"
         android:drawablePadding="@dimen/y2"
         android:textSize="11sp"
-        android:textColor="@drawable/item_color"/>
+        android:textColor="@drawable/item_color2"/>
 </LinearLayout>

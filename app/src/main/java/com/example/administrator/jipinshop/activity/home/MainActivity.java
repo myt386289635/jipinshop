@@ -32,7 +32,7 @@ import com.example.administrator.jipinshop.bean.eventbus.ChangeHomePageBus;
 import com.example.administrator.jipinshop.bean.eventbus.EditNameBus;
 import com.example.administrator.jipinshop.bean.eventbus.HomeNewPeopleBus;
 import com.example.administrator.jipinshop.databinding.ActivityMainBinding;
-import com.example.administrator.jipinshop.fragment.circle.CircleFragment;
+import com.example.administrator.jipinshop.fragment.evaluationkt.EvaluationNewFragment;
 import com.example.administrator.jipinshop.fragment.home.KTHomeFragnent;
 import com.example.administrator.jipinshop.fragment.member.MemberFragment;
 import com.example.administrator.jipinshop.fragment.mine.KTMineFragment;
@@ -80,7 +80,7 @@ public class MainActivity extends BaseActivity implements MainView, ViewPager.On
     private HomeAdapter mHomeAdapter;
     private MemberFragment mMemberFragment;//新版会员
     private KTMineFragment mMineFragment;//我的
-    private CircleFragment mCircleFragment;//发圈
+    private EvaluationNewFragment mCircleFragment;//评测
     private KTHomeFragnent mKTHomeFragnent;//首页
     private KTSchoolFragment mSchoolFragment;//商学院
 
@@ -126,7 +126,7 @@ public class MainActivity extends BaseActivity implements MainView, ViewPager.On
         mKTHomeFragnent = KTHomeFragnent.getInstance();
         mSchoolFragment = KTSchoolFragment.getInstance();
         mMemberFragment = MemberFragment.getInstance("1");
-        mCircleFragment = CircleFragment.getInstance();
+        mCircleFragment = EvaluationNewFragment.getInstance("1");
         mMineFragment = KTMineFragment.getInstance();
         mFragments.add(mKTHomeFragnent);
         mFragments.add(mSchoolFragment);

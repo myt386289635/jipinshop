@@ -8,7 +8,6 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import com.example.administrator.jipinshop.R
 import com.example.administrator.jipinshop.bean.EvaluationTabBean
-import com.example.administrator.jipinshop.bean.TbCommonBean
 import com.example.administrator.jipinshop.view.glide.GlideApp
 
 /**
@@ -44,8 +43,8 @@ class KTPagerAdapter3 : PagerAdapter {
         mAdListBeans = list
     }
 
-    override fun isViewFromObject(view: View, p1: Any): Boolean {
-        return view == p1
+    override fun isViewFromObject(view: View, `object`: Any): Boolean {
+        return view === `object`
     }
 
     override fun getCount(): Int {

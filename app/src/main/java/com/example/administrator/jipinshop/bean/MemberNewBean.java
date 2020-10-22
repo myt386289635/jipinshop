@@ -85,6 +85,24 @@ public class MemberNewBean {
         private List<VipBoxListBean> vipBoxList;
         private List<VipBoxListBean> monthBoxList;
         private List<VipBoxListBean> yearBoxList;
+        private TbkIndexBean.DataBean.Ad1ListBean ad;
+        private List<EvaluationTabBean.DataBean.AdListBean> adList;
+
+        public List<EvaluationTabBean.DataBean.AdListBean> getAdList() {
+            return adList;
+        }
+
+        public void setAdList(List<EvaluationTabBean.DataBean.AdListBean> adList) {
+            this.adList = adList;
+        }
+
+        public TbkIndexBean.DataBean.Ad1ListBean getAd() {
+            return ad;
+        }
+
+        public void setAd(TbkIndexBean.DataBean.Ad1ListBean ad) {
+            this.ad = ad;
+        }
 
         public String getBoxImg() {
             return boxImg;
@@ -963,8 +981,17 @@ public class MemberNewBean {
             private String title2;
             private String title3;
             private String title4;
+            private String title5;
             private int status;
             private List<String> list;
+
+            public String getTitle5() {
+                return title5;
+            }
+
+            public void setTitle5(String title5) {
+                this.title5 = title5;
+            }
 
             public String getTitle1() {
                 return title1;
@@ -1026,6 +1053,7 @@ public class MemberNewBean {
             private String title1;
             private String title2;
             private String title3;
+            private String title4;
             private List<ListBeanXX> list;
 
             public String getTitle1() {
@@ -1058,6 +1086,14 @@ public class MemberNewBean {
 
             public void setList(List<ListBeanXX> list) {
                 this.list = list;
+            }
+
+            public String getTitle4() {
+                return title4;
+            }
+
+            public void setTitle4(String title4) {
+                this.title4 = title4;
             }
 
             public static class ListBeanXX {

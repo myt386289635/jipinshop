@@ -340,6 +340,8 @@ public class DialogUtil {
         AlertDialog.Builder builder = new AlertDialog.Builder(context, R.style.dialog);
         DialogNewpeople2Binding binding = DataBindingUtil.inflate(LayoutInflater.from(context),R.layout.dialog_newpeople2, null,false);
         final Dialog dialog = builder.create();
+        String url = "https://jipincheng.cn/app_first?" + System.currentTimeMillis();
+        GlideApp.loderImage(context,url,binding.dialogImage,0,0);
         binding.dialogCancle.setOnClickListener(v -> {
             if (cancleListener != null)
                 cancleListener.onClick(v);

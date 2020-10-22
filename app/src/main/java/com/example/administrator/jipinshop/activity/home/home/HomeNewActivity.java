@@ -48,7 +48,7 @@ public class HomeNewActivity extends BaseActivity {
                     .init();
             fragmentTransaction.add(R.id.home_fragment, MemberFragment.getInstance("2")).commit();
         }else if (type == evaluation){
-            fragmentTransaction.add(R.id.home_fragment, new EvaluationNewFragment()).commit();
+            fragmentTransaction.add(R.id.home_fragment, EvaluationNewFragment.getInstance("2")).commit();
         }else if (type == indexVideo){
             fragmentTransaction.add(R.id.home_fragment, IndexVideoFragment.getInstence()).commit();
         }

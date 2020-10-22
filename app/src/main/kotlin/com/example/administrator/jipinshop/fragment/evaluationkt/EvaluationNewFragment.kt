@@ -4,6 +4,7 @@ import android.content.Context
 import android.content.Intent
 import android.content.res.ColorStateList
 import android.databinding.DataBindingUtil
+import android.os.Bundle
 import android.support.v4.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -30,7 +31,19 @@ class EvaluationNewFragment : DBBaseFragment(), View.OnClickListener {
     private var mList: MutableList<Fragment> = mutableListOf()
     private var mTitle : ArrayList<String> = arrayListOf("关注","推荐","开箱","横评")
     private lateinit var mAdapter : HomeFragmentAdapter
-//    private var boolean : Boolean = true
+    private var boolean : Boolean = true
+    private var type = "1" // 1:fragment 2:activity
+
+    companion object{
+        @JvmStatic
+        fun getInstance(type: String): EvaluationNewFragment {
+            var fragment = EvaluationNewFragment()
+            var bundle = Bundle()
+            bundle.putString("type",type)//1:fragment 2:activity
+            fragment.arguments = bundle
+            return fragment
+        }
+    }
 
     override fun initLayout(inflater: LayoutInflater, container: ViewGroup): View {
         mBinding = DataBindingUtil.inflate(inflater,R.layout.fragment_evaluation_new,container,false)
@@ -59,31 +72,43 @@ class EvaluationNewFragment : DBBaseFragment(), View.OnClickListener {
         }
 
         mAdapter = HomeFragmentAdapter(childFragmentManager)
-        mList.add(EvaAttentFrament())
-        mList.add(EvaHotFragment())
-        mList.add(EvaUnPackingFragment())
-        mList.add(EvaCompareFragment())
         mAdapter.setFragments(mList)
         mAdapter.setTitle(mTitle)
         mBinding.viewPager.adapter = mAdapter
         mBinding.tabLayout.setupWithViewPager(mBinding.viewPager)
-        mBinding.viewPager.offscreenPageLimit = mList.size - 1
-        mBinding.viewPager.currentItem = 1
+        arguments?.let {
+            type = it.getString("type","1")
+            if (type == "2"){
+                mBinding.titleBack.visibility = View.VISIBLE
+                mList.add(EvaAttentFrament())
+                mList.add(EvaHotFragment())
+                mList.add(EvaUnPackingFragment())
+                mList.add(EvaCompareFragment())
+                mAdapter.notifyDataSetChanged()
+                mBinding.viewPager.offscreenPageLimit = mList.size - 1
+                mBinding.viewPager.currentItem = 1
+            }else{
+                mBinding.titleBack.visibility = View.GONE
+            }
+        }
     }
 
-//    override fun setUserVisibleHint(isVisibleToUser: Boolean) {
-//        super.setUserVisibleHint(isVisibleToUser)
-//        if (isVisibleToUser && boolean){
-//            mList.add(EvaAttentFrament())
-//            mList.add(EvaHotFragment())
-//            mList.add(EvaUnPackingFragment())
-//            mList.add(EvaCompareFragment())
-//            mAdapter.notifyDataSetChanged()
-//            mBinding.viewPager.offscreenPageLimit = mList.size - 1
-//            mBinding.viewPager.currentItem = 1
-//            boolean = false
-//        }
-//    }
+    override fun setUserVisibleHint(isVisibleToUser: Boolean) {
+        super.setUserVisibleHint(isVisibleToUser)
+        arguments?.let {
+            type = it.getString("type","1")
+        }
+        if (isVisibleToUser && boolean && type == "1"){
+            mList.add(EvaAttentFrament())
+            mList.add(EvaHotFragment())
+            mList.add(EvaUnPackingFragment())
+            mList.add(EvaCompareFragment())
+            mAdapter.notifyDataSetChanged()
+            mBinding.viewPager.offscreenPageLimit = mList.size - 1
+            mBinding.viewPager.currentItem = 1
+            boolean = false
+        }
+    }
 
     fun setStatusBarHight(statusBar: LinearLayout, context: Context){
         var resourceId = context.resources.getIdentifier("status_bar_height", "dimen", "android")

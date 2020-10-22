@@ -20,7 +20,9 @@ import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.Animation;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 
 import com.alipay.sdk.app.PayTask;
@@ -32,14 +34,16 @@ import com.example.administrator.jipinshop.activity.cheapgoods.CheapBuyActivity;
 import com.example.administrator.jipinshop.activity.home.MainActivity;
 import com.example.administrator.jipinshop.activity.login.LoginActivity;
 import com.example.administrator.jipinshop.activity.member.family.FamilyActivity;
-import com.example.administrator.jipinshop.activity.shoppingdetail.tbshoppingdetail.TBShoppingDetailActivity;
 import com.example.administrator.jipinshop.activity.sign.invitation.InvitationNewActivity;
 import com.example.administrator.jipinshop.adapter.HomePageAdapter;
+import com.example.administrator.jipinshop.adapter.KTPagerAdapter3;
 import com.example.administrator.jipinshop.adapter.MemberFreeAdapter;
+import com.example.administrator.jipinshop.adapter.MemberMoreAllAdapter;
 import com.example.administrator.jipinshop.adapter.MemberShopAdapter;
 import com.example.administrator.jipinshop.adapter.MemberSignAdapter;
 import com.example.administrator.jipinshop.adapter.MemberVideoAdapter;
 import com.example.administrator.jipinshop.base.DBBaseFragment;
+import com.example.administrator.jipinshop.bean.EvaluationTabBean;
 import com.example.administrator.jipinshop.bean.ImageBean;
 import com.example.administrator.jipinshop.bean.MemberNewBean;
 import com.example.administrator.jipinshop.bean.PayResultBean;
@@ -61,6 +65,7 @@ import com.example.administrator.jipinshop.view.dialog.MemberRenewPop;
 import com.example.administrator.jipinshop.view.dialog.ProgressDialogView;
 import com.example.administrator.jipinshop.view.glide.GlideApp;
 import com.example.administrator.jipinshop.view.textview.CenteredImageSpan;
+import com.example.administrator.jipinshop.view.viewpager.TouchViewPager;
 import com.example.administrator.jipinshop.wxapi.WXPayEntryActivity;
 import com.tencent.mm.opensdk.modelpay.PayReq;
 import com.tencent.mm.opensdk.openapi.IWXAPI;
@@ -80,7 +85,7 @@ import javax.inject.Inject;
  * @create 2020/8/25
  * @Describe 新版会员页面
  */
-public class MemberFragment extends DBBaseFragment implements View.OnClickListener, OnRefreshListener, MemberView, MemberBuyPop.OnClick, MemberRenewPop.OnClick, ViewPager.OnPageChangeListener, MemberVideoAdapter.OnItem {
+public class MemberFragment extends DBBaseFragment implements View.OnClickListener, OnRefreshListener, MemberView, MemberBuyPop.OnClick, MemberRenewPop.OnClick, ViewPager.OnPageChangeListener, MemberVideoAdapter.OnItem, MemberMoreAllAdapter.OnItem {
 
     @Inject
     MemberPresenter mPresenter;
@@ -110,6 +115,8 @@ public class MemberFragment extends DBBaseFragment implements View.OnClickListen
     //更多权益
     private List<MemberNewBean.DataBean.VipBoxListBean> monthBoxList;
     private List<MemberNewBean.DataBean.VipBoxListBean> yearBoxList;
+    private List<MemberNewBean.DataBean.VipBoxListBean> vipBoxList;
+    private MemberMoreAllAdapter mMoreAllAdapter;
     //广告
     private List<MemberNewBean.DataBean.MessageListBean> mAdList;
     //每月0元购
@@ -132,29 +139,49 @@ public class MemberFragment extends DBBaseFragment implements View.OnClickListen
     //吃喝玩乐
     private List<MemberNewBean.DataBean.LevelDetail7Bean.ListBeanXXX> mPlayList;
     private MemberVideoAdapter mPlayAdapter;
+    //轮播图
+    private KTPagerAdapter3 pagerAdapter;
+    private List<ImageView> pagerPoint;
+    private List<EvaluationTabBean.DataBean.AdListBean> pagerList;
+    private int currentItem = 0;
+    private int count = 0;
     //支付宝支付回调
-    private Handler.Callback mCallback = msg -> {
-        if (msg.what == 101){
-            //支付宝支付回调
-            PayResultBean payResult = new PayResultBean((Map<String, String>) msg.obj);
-            String resultStatus = payResult.getResultStatus();
-            // 判断resultStatus 为9000则代表支付成功
-            if (TextUtils.equals(resultStatus, "9000")) {
-                //成功
-                if (level.equals("1")){
-                    StatisticalUtil.onPayEvent(getContext(),"月卡",monthPrice);
-                }else {
-                    StatisticalUtil.onPayEvent(getContext(),"年卡",yearPrice);
+    private Handler.Callback mCallback = new Handler.Callback() {
+        @Override
+        public boolean handleMessage(Message msg) {
+            if (msg.what == 101){
+                //支付宝支付回调
+                PayResultBean payResult = new PayResultBean((Map<String, String>) msg.obj);
+                String resultStatus = payResult.getResultStatus();
+                // 判断resultStatus 为9000则代表支付成功
+                if (TextUtils.equals(resultStatus, "9000")) {
+                    //成功
+                    if (level.equals("1")){
+                        StatisticalUtil.onPayEvent(getContext(),"月卡",monthPrice);
+                    }else {
+                        StatisticalUtil.onPayEvent(getContext(),"年卡",yearPrice);
+                    }
+                    DialogUtil.paySucDialog(getContext(),endTime);
+                } else {
+                    //失败
+                    DialogUtil.payFileDialog(getContext(),userLevel, type -> {
+                        onBuyMember(level,type);
+                    });
                 }
-                DialogUtil.paySucDialog(getContext(),endTime);
-            } else {
-                //失败
-                DialogUtil.payFileDialog(getContext(),userLevel, type -> {
-                    onBuyMember(level,type);
-                });
+            }else if (msg.what == 100){
+                if (count > 1){
+                    currentItem = currentItem % (count + 1) + 1;
+                    if (currentItem == 1) {
+                        mBinding.memberAd.setCurrentItem(currentItem, false);
+                        mHandler.sendEmptyMessage(100);
+                    }else{
+                        mBinding.memberAd.setCurrentItem(currentItem);
+                        mHandler.sendEmptyMessageDelayed(100,5000);
+                    }
+                }
             }
+            return true;
         }
-        return true;
     };
     private Handler mHandler = new WeakRefHandler(mCallback, Looper.getMainLooper());
     private Boolean isSpace = false;//是否展开的。默认为false
@@ -190,6 +217,11 @@ public class MemberFragment extends DBBaseFragment implements View.OnClickListen
         mPresenter.setStatusBarHight(mBinding.statusBar,mBinding.statusBar2,getContext());
         mBinding.swipeToLoad.setOnRefreshListener(this);
         type = getArguments().getString("type","1");
+        //呼吸灯动画
+        Animation animation = android.view.animation.AnimationUtils.loadAnimation(getContext(), R.anim.free_scale);
+        mBinding.memberMonth.startAnimation(animation);
+        mBinding.memberYear.startAnimation(animation);
+        mBinding.memberUserPay.startAnimation(animation);
 
         //初始化微信支付
         msgApi = WXAPIFactory.createWXAPI(getContext(), null);
@@ -203,6 +235,14 @@ public class MemberFragment extends DBBaseFragment implements View.OnClickListen
 
         //广告
         mAdList = new ArrayList<>();
+        //更多权益
+        vipBoxList = new ArrayList<>();
+        mMoreAllAdapter = new MemberMoreAllAdapter(vipBoxList,getContext());
+        mMoreAllAdapter.setOnItem(this);
+        mBinding.memberMoreContainer.setLayoutManager(new GridLayoutManager(getContext(),4));
+        mBinding.memberMoreContainer.setAdapter(mMoreAllAdapter);
+        mBinding.memberMoreContainer.setNestedScrollingEnabled(false);
+        mBinding.memberMoreContainer.setFocusable(false);//拒绝首次进入页面时滑动
         //商品列表
         mOrderList = new ArrayList<>();
         mShopAdapter = new MemberShopAdapter(mOrderList,getContext());
@@ -247,6 +287,62 @@ public class MemberFragment extends DBBaseFragment implements View.OnClickListen
         mBinding.memberPlay.setNestedScrollingEnabled(false);
         mBinding.memberPlay.setAdapter(mPlayAdapter);
         mBinding.memberPlay.setFocusable(false);
+        //人物广告
+        pagerAdapter = new KTPagerAdapter3(getContext());
+        pagerPoint  = new ArrayList<>();
+        pagerList = new ArrayList<>();
+        pagerAdapter.setList(pagerList);
+        pagerAdapter.setPoint(pagerPoint);
+        pagerAdapter.setImgCenter(false);
+        mBinding.memberAd.setAdapter(pagerAdapter);
+        mBinding.memberAd.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+            @Override
+            public void onPageScrolled(int i, float v, int i1) {}
+
+            @Override
+            public void onPageSelected(int position) {
+                for (int i = 0; i < pagerPoint.size(); i++) {
+                    if (i == toRealPosition(position)) {
+                        pagerPoint.get(i).setImageResource(R.drawable.banner_down);
+                    } else {
+                        pagerPoint.get(i).setImageResource(R.drawable.banner_up);
+                    }
+                }
+                currentItem = position;
+            }
+
+            @Override
+            public void onPageScrollStateChanged(int state) {
+                switch (state) {
+                    case 0://No operation
+                        if (currentItem == 0) {
+                            mBinding.memberAd.setCurrentItem(count, false);
+                        } else if (currentItem == count + 1) {
+                            mBinding.memberAd.setCurrentItem(1, false);
+                        }
+                        break;
+                    case 1:
+                        if (currentItem == count + 1) {
+                            mBinding.memberAd.setCurrentItem(1, false);
+                        } else if (currentItem == 0) {
+                            mBinding.memberAd.setCurrentItem(count, false);
+                        }
+                        break;
+                }
+            }
+        });
+        mBinding.memberAd.setOnTouchListener(new TouchViewPager.OnTouchListener() {
+            @Override
+            public void startAutoPlay() {
+                mHandler.removeMessages(100);
+                mHandler.sendEmptyMessageDelayed(100,5000);
+            }
+
+            @Override
+            public void stopAutoPlay() {
+                mHandler.removeMessages(100);
+            }
+        });
 
         if (type.equals("2")){
             SPUtils.getInstance().put(CommonDate.memberNotice, false);
@@ -342,20 +438,6 @@ public class MemberFragment extends DBBaseFragment implements View.OnClickListen
                 }
                 startActivity(new Intent(getContext(), CheapBuyActivity.class));
                 break;
-            case R.id.member_shop1Container:
-                //商品详情
-                if (TextUtils.isEmpty(SPUtils.getInstance(CommonDate.USER).getString(CommonDate.token, "").trim())) {
-                    startActivity(new Intent(getContext(), LoginActivity.class));
-                    return;
-                }
-                if (TextUtils.isEmpty(otherGoodsId)){
-                    return;
-                }
-                startActivity(new Intent(getContext(), TBShoppingDetailActivity.class)
-                        .putExtra("otherGoodsId", otherGoodsId)
-                        .putExtra("source",source)
-                );
-                break;
             case R.id.member_shadow:
                 AnimationUtils.showAndHiddenAnimation(mBinding.memberShadow, AnimationUtils.AnimationState.STATE_HIDDEN,100);
                 if (mBuyPop != null && mBuyPop.isShowing())
@@ -449,7 +531,6 @@ public class MemberFragment extends DBBaseFragment implements View.OnClickListen
         mBinding.memberMonthOtherCost.setColor(R.color.color_white);
         mBinding.memberYearOtherCost.setTv(true);
         mBinding.memberYearOtherCost.setColor(R.color.color_white);
-        GlideApp.loderImage(getContext(),bean.getData().getBoxImg(),mBinding.memberMore,0,0);
         SpannableString string = new SpannableString("   " + bean.getRemind());
         CenteredImageSpan imageSpan = new CenteredImageSpan(getContext(),R.mipmap.member1_notice);
         string.setSpan(imageSpan, 0, 1, Spanned.SPAN_INCLUSIVE_EXCLUSIVE);
@@ -458,6 +539,10 @@ public class MemberFragment extends DBBaseFragment implements View.OnClickListen
         mAdList.clear();
         mAdList.addAll(bean.getData().getMessageList());
         mPresenter.adFlipper(getContext(),mBinding.viewFlipper,mAdList);
+        //更多权益
+        vipBoxList.clear();
+        vipBoxList.addAll(bean.getData().getVipBoxList());
+        mMoreAllAdapter.notifyDataSetChanged();
         //商品列表
         mOrderList.clear();
         if (bean.getData().getOrderLevelData() != null){
@@ -557,6 +642,22 @@ public class MemberFragment extends DBBaseFragment implements View.OnClickListen
             mBinding.memberPlayMore.setVisibility(View.GONE);
         }
         mBinding.memberPlayContainer.setLayoutParams(layoutParams);
+        //人物广告
+        pagerList.clear();
+        if (bean.getData().getAdList().size() > 1){
+            for (int i = 0; i <= bean.getData().getAdList().size() + 1; i++) {//轮播图数据
+                if (i == 0){//加入最后一个
+                    pagerList.add(bean.getData().getAdList().get(bean.getData().getAdList().size() - 1));
+                }else if ( i == (bean.getData().getAdList().size() + 1)){//加入第一个
+                    pagerList.add(bean.getData().getAdList().get(0));
+                }else {//正常数据
+                    pagerList.add(bean.getData().getAdList().get(i - 1));
+                }
+            }
+        }else{
+            pagerList.addAll(bean.getData().getAdList());
+        }
+        initBanner();
         //身份处理  0 普通 ， 1 月卡 ，2年卡
         userLevel = bean.getData().getLevel();
         if (bean.getData().getLevel() == 0){
@@ -739,5 +840,78 @@ public class MemberFragment extends DBBaseFragment implements View.OnClickListen
         ShopJumpUtil.openBanner(getContext(),mPlayList.get(position).getType(),
                 mPlayList.get(position).getTargetId(),mPlayList.get(position).getTitle(),
                 mPlayList.get(position).getSource());
+    }
+
+    //点击会员权益滑动到固定位置
+    @Override
+    public void onItemSlide(int position) {
+        switch (vipBoxList.get(position).getType()){
+            case 1001://滑动到权限一
+                mBinding.swipeTarget.scrollTo(0,mBinding.memberBg3.getTop());
+                break;
+            case 1002://滑动到权限二
+                mBinding.swipeTarget.scrollTo(0,mBinding.memberBg5.getTop());
+                break;
+            case 1003://滑动到权限三
+                mBinding.swipeTarget.scrollTo(0,mBinding.memberBg4.getTop());
+                break;
+            case 1004://滑动到权限4
+                mBinding.swipeTarget.scrollTo(0,mBinding.memberBg7.getTop());
+                break;
+            case 1005://滑动到权限5
+                mBinding.swipeTarget.scrollTo(0,mBinding.memberBg9.getTop());
+                break;
+            case 1006://滑动到权限6
+                mBinding.swipeTarget.scrollTo(0,mBinding.memberBg8.getTop());
+                break;
+            case 1007://滑动到权限7
+                mBinding.swipeTarget.scrollTo(0,mBinding.memberBg10.getTop());
+                break;
+        }
+    }
+
+    //返回真实的位置
+    public int toRealPosition(int position) {
+        int realPosition = 0;
+        if (count != 0) {
+            realPosition = (position - 1) % count;
+        }
+        if (realPosition < 0)
+            realPosition += count;
+        return realPosition;
+    }
+
+    public void initBanner() {
+        if (pagerList.size() > 1){
+            count = pagerList.size() - 2;
+        }else{
+            count = pagerList.size();
+        }
+        mHandler.removeMessages(100);//刷新时，要删除handler的请求
+        mHandler.sendEmptyMessageDelayed(100,5000);
+        pagerPoint.clear();
+        mBinding.memberAdPoint.removeAllViews();
+        for (int i = 0; i < count; i++) {
+            ImageView imageView = new ImageView(getContext());
+            pagerPoint.add(imageView);
+            if (i == 0) {
+                imageView.setImageResource(R.drawable.banner_down);
+            } else {
+                imageView.setImageResource(R.drawable.banner_up);
+            }
+            LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+            layoutParams.leftMargin = getResources().getDimensionPixelSize(R.dimen.x4);
+            layoutParams.rightMargin = getResources().getDimensionPixelSize(R.dimen.x4);
+            mBinding.memberAdPoint.addView(imageView, layoutParams);
+        }
+        pagerAdapter.notifyDataSetChanged();
+        if (count > 1){
+            mBinding.memberAdPoint.setVisibility(View.VISIBLE);
+            mBinding.memberAd.setCurrentItem(1,false);
+        }else{
+            mBinding.memberAdPoint.setVisibility(View.INVISIBLE);
+            mBinding.memberAd.setCurrentItem(0,false);
+        }
+        mBinding.memberAd.setOffscreenPageLimit(pagerList.size() - 1);//防止图片重叠的情况
     }
 }
