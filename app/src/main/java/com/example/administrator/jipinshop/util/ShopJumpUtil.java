@@ -230,8 +230,8 @@ public class ShopJumpUtil {
     /**
      * 首页弹窗dialog跳转逻辑
      */
-    public static void openPager(Context context, String targetType, String target_id , String target_title){
-        openBanner(context,targetType,target_id,target_title, "");
+    public static void openPager(Context context, String targetType, String target_id , String target_title , String source){
+        openBanner(context,targetType,target_id,target_title, source);
     }
 
     /**

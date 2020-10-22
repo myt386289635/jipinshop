@@ -398,7 +398,8 @@ public class MainActivity extends BaseActivity implements MainView, ViewPager.On
                         }, v -> {
                             DialogUtil.imgDialog(MainActivity.this, bean.getData().get(finalActivityPos).getData().getImg(), v1 -> {
                                 ShopJumpUtil.openPager(MainActivity.this, bean.getData().get(finalActivityPos).getData().getTargetType()
-                                        , bean.getData().get(finalActivityPos).getData().getTargetId(), bean.getData().get(finalActivityPos).getData().getTitle());
+                                        , bean.getData().get(finalActivityPos).getData().getTargetId(), bean.getData().get(finalActivityPos).getData().getTitle(),
+                                        bean.getData().get(finalActivityPos).getData().getSource());
                             }, v1 -> {
                                 getClipText();
                             });
@@ -409,7 +410,8 @@ public class MainActivity extends BaseActivity implements MainView, ViewPager.On
                     } else {
                         DialogUtil.imgDialog(MainActivity.this, bean.getData().get(finalActivityPos).getData().getImg(), v1 -> {
                             ShopJumpUtil.openPager(MainActivity.this, bean.getData().get(finalActivityPos).getData().getTargetType()
-                                    , bean.getData().get(finalActivityPos).getData().getTargetId(), bean.getData().get(finalActivityPos).getData().getTitle());
+                                    , bean.getData().get(finalActivityPos).getData().getTargetId(), bean.getData().get(finalActivityPos).getData().getTitle(),
+                                    bean.getData().get(finalActivityPos).getData().getSource());
                         }, v1 -> {
                             getClipText();
                         });
@@ -422,7 +424,8 @@ public class MainActivity extends BaseActivity implements MainView, ViewPager.On
                     }, v2 -> {
                         DialogUtil.imgDialog(MainActivity.this, bean.getData().get(finalActivityPos1).getData().getImg(), v -> {
                             ShopJumpUtil.openPager(MainActivity.this, bean.getData().get(finalActivityPos1).getData().getTargetType()
-                                    , bean.getData().get(finalActivityPos1).getData().getTargetId(), bean.getData().get(finalActivityPos1).getData().getTitle());
+                                    , bean.getData().get(finalActivityPos1).getData().getTargetId(), bean.getData().get(finalActivityPos1).getData().getTitle(),
+                                    bean.getData().get(finalActivityPos1).getData().getSource());
                         }, v -> {
                             getClipText();
                         });
@@ -436,7 +439,8 @@ public class MainActivity extends BaseActivity implements MainView, ViewPager.On
                     //系统活动弹窗
                     DialogUtil.imgDialog(MainActivity.this, bean.getData().get(0).getData().getImg(), v -> {
                         ShopJumpUtil.openPager(MainActivity.this, bean.getData().get(0).getData().getTargetType()
-                                , bean.getData().get(0).getData().getTargetId(), bean.getData().get(0).getData().getTitle());
+                                , bean.getData().get(0).getData().getTargetId(), bean.getData().get(0).getData().getTitle(),
+                                bean.getData().get(0).getData().getSource());
                     }, v -> {
                         getClipText();
                     });
