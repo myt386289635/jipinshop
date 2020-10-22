@@ -41,7 +41,9 @@ import com.example.administrator.jipinshop.view.dialog.ShareBoardDialog;
 import com.umeng.socialize.UMShareAPI;
 import com.umeng.socialize.bean.SHARE_MEDIA;
 
+import java.io.UnsupportedEncodingException;
 import java.net.URISyntaxException;
+import java.net.URLDecoder;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -168,6 +170,27 @@ public class WebActivity extends BaseActivity implements View.OnClickListener, W
                             // 防止没有安装的情况
                             e.printStackTrace();
                         }
+                    }else if (url.startsWith("https://login.m.taobao.com")) {
+                         //淘客web链接里跳转到淘宝app
+                         String[] urlValue = url.split("redirectURL=");
+                         if (urlValue.length == 2) {
+                             try {
+                                 String decoded_url = URLDecoder.decode(urlValue[1], "UTF-8");
+                                 if (decoded_url.contains("itemId=")) {
+                                     String[] str = decoded_url.split("itemId=");
+                                     if (str.length == 2) {
+                                         String[] value = str[1].split("&");
+                                         openTB(value[0]);
+                                     } else {
+                                         ToastUtil.show("未获得跳转链接");
+                                     }
+                                 } else {
+                                     ToastUtil.show("未获得跳转链接");
+                                 }
+                             } catch (UnsupportedEncodingException e) {
+                                 e.printStackTrace();
+                             }
+                         }
                     }else if(url.startsWith("http") || url.startsWith("https")){
                          HashMap<String, String> lStringStringHashMap = new HashMap<>();
                          if (!TextUtils.isEmpty(mReffer)) {
@@ -176,7 +199,7 @@ public class WebActivity extends BaseActivity implements View.OnClickListener, W
                          } else {
                              view.loadUrl(url, lStringStringHashMap);
                          }
-                     }
+                    }
                     return true;
                 }
             }
