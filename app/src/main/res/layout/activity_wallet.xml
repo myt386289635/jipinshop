@@ -390,7 +390,7 @@
                             <TextView
                                 android:textColor="@color/color_ACACAC"
                                 android:textSize="12sp"
-                                android:text="粉丝订单预估收入"
+                                android:text="其他订单预估收入"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"/>
 
@@ -421,7 +421,7 @@
                             <TextView
                                 android:textColor="@color/color_ACACAC"
                                 android:textSize="12sp"
-                                android:text="粉丝付款订单数"
+                                android:text="其他付款订单数"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"/>
 
@@ -650,7 +650,7 @@
                             <TextView
                                 android:textColor="@color/color_ACACAC"
                                 android:textSize="12sp"
-                                android:text="粉丝订单预估收入"
+                                android:text="其他订单预估收入"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"/>
 
@@ -681,7 +681,7 @@
                             <TextView
                                 android:textColor="@color/color_ACACAC"
                                 android:textSize="12sp"
-                                android:text="粉丝付款订单数"
+                                android:text="其他付款订单数"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"/>
 

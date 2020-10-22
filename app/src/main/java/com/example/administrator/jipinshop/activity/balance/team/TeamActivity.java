@@ -16,17 +16,16 @@ import android.widget.TextView;
 
 import com.example.administrator.jipinshop.R;
 import com.example.administrator.jipinshop.activity.WebActivity;
+import com.example.administrator.jipinshop.activity.sign.invitation.InvitationNewActivity;
 import com.example.administrator.jipinshop.adapter.HomeFragmentAdapter;
 import com.example.administrator.jipinshop.adapter.KTTabAdapter4;
 import com.example.administrator.jipinshop.base.BaseActivity;
-import com.example.administrator.jipinshop.bean.TeacherBean;
 import com.example.administrator.jipinshop.bean.TeamBean;
 import com.example.administrator.jipinshop.databinding.ActivityTeamBinding;
 import com.example.administrator.jipinshop.fragment.mine.team.TeamOneFragment;
 import com.example.administrator.jipinshop.fragment.mine.team.three.TeamThreeFragment;
 import com.example.administrator.jipinshop.fragment.mine.team.two.TeamTwoFragment;
 import com.example.administrator.jipinshop.util.ToastUtil;
-import com.example.administrator.jipinshop.view.dialog.DialogUtil;
 
 import net.lucode.hackware.magicindicator.ViewPagerHelper;
 import net.lucode.hackware.magicindicator.buildins.commonnavigator.CommonNavigator;
@@ -65,8 +64,6 @@ public class TeamActivity extends BaseActivity implements View.OnClickListener, 
     private String[] orderByType ={"1","1"};
     private List<TextView> mTextViews;
 
-    private TeacherBean.DataBean mTeacherBean;
-
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -89,7 +86,6 @@ public class TeamActivity extends BaseActivity implements View.OnClickListener, 
         mTitle = new ArrayList<>();
         mTitle.add("潜在粉丝");
         mTitle.add("直邀粉丝");
-        mTitle.add("其他粉丝");
         CommonNavigator commonNavigator = new CommonNavigator(this);
         mTabAdapter = new KTTabAdapter4(mTitle);
         mTabAdapter.setColor(getResources().getColor(R.color.color_DE151515),
@@ -103,7 +99,7 @@ public class TeamActivity extends BaseActivity implements View.OnClickListener, 
         titleContainer.setDividerDrawable(new ColorDrawable(){
             @Override
             public int getIntrinsicWidth() {
-                return (int) getResources().getDimension(R.dimen.x72);
+                return (int) getResources().getDimension(R.dimen.x160);
             }
         });
         ViewPagerHelper.bind(mBinding.viewIndicator, mBinding.viewPager);
@@ -123,7 +119,7 @@ public class TeamActivity extends BaseActivity implements View.OnClickListener, 
         mTwoFragment = TeamTwoFragment.getInstance();
         mFragments.add(mTwoFragment);
         mThreeFragment = TeamThreeFragment.getInstance();
-        mFragments.add(mThreeFragment);
+//        mFragments.add(mThreeFragment);
         mAdapter = new HomeFragmentAdapter(getSupportFragmentManager());
         mAdapter.setFragments(mFragments);
         mBinding.viewPager.setAdapter(mAdapter);
@@ -194,11 +190,8 @@ public class TeamActivity extends BaseActivity implements View.OnClickListener, 
                             .putExtra(WebActivity.title,"如何激活你的潜在粉丝")
                     );
                 }else {
-                    if (mTeacherBean != null){
-                        DialogUtil.userDetailDialog(this,mTeacherBean);
-                    }else {
-                        ToastUtil.show("导师信息获取失败，请重新尝试");
-                    }
+                    //邀请好友
+                    startActivity(new Intent(this, InvitationNewActivity.class));
                 }
                 break;
         }
@@ -306,8 +299,6 @@ public class TeamActivity extends BaseActivity implements View.OnClickListener, 
     public void onSuccess(TeamBean bean) {
         mBinding.setDate(bean.getData());
         mBinding.executePendingBindings();
-        mBinding.teamTeacherName.setText(bean.getParentInfo().getNickname());
-        mTeacherBean = bean.getParentInfo();
     }
 
     @Override

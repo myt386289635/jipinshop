@@ -19,9 +19,9 @@ class TeamOneAdapter : RecyclerView.Adapter<TeamOneAdapter.ViewHolder>{
 
     private var mList: MutableList<FansBean.DataBean>
     private var mContext : Context
-    private lateinit var mOnItem: OnItem
+    private var mOnItem: OnItem? = null
 
-    fun setClick(onItem: OnItem){
+    fun setClick(onItem: OnItem?){
         mOnItem = onItem
     }
 
@@ -62,7 +62,7 @@ class TeamOneAdapter : RecyclerView.Adapter<TeamOneAdapter.ViewHolder>{
             }
             binding.itemContainer.layoutParams = params
             binding.itemContainer.setOnClickListener {
-                mOnItem.onItem(position)
+                mOnItem?.onItem(position)
             }
             binding.date = mList[position]
             binding.executePendingBindings()

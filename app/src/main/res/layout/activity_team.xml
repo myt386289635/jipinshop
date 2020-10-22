@@ -44,35 +44,18 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content">
 
-                <LinearLayout
-                    android:id="@+id/team_teacher"
-                    android:gravity="center"
-                    android:orientation="vertical"
+                <TextView
+                    android:id="@+id/team_teacherName"
+                    android:textSize="14sp"
+                    android:textColor="@color/color_white"
+                    android:textStyle="bold"
+                    android:text="邀请好友开启省钱生活"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content">
-
-                    <TextView
-                        android:textStyle="bold"
-                        android:textColor="@color/color_white"
-                        android:textSize="10sp"
-                        android:text="我的导师"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"/>
-
-                    <TextView
-                        android:id="@+id/team_teacherName"
-                        android:textSize="18sp"
-                        android:textColor="@color/color_white"
-                        android:textStyle="bold"
-                        android:text="专家"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"/>
-
-                </LinearLayout>
+                    android:layout_height="wrap_content"/>
 
                 <ImageView
                     android:layout_marginLeft="@dimen/x10"
-                    android:layout_toRightOf="@id/team_teacher"
+                    android:layout_toRightOf="@id/team_teacherName"
                     android:layout_centerVertical="true"
                     android:src="@mipmap/right_white"
                     android:layout_width="wrap_content"
@@ -119,7 +102,7 @@
                             android:layout_centerHorizontal="true"
                             android:textColor="@color/color_D8D8D8"
                             android:textSize="12sp"
-                            android:text="我的粉丝"
+                            android:text="累积邀请"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"/>
 
@@ -225,7 +208,7 @@
                                     android:layout_marginTop="@dimen/y1"
                                     android:textColor="@color/color_D8D8D8"
                                     android:textSize="12sp"
-                                    android:text="直邀粉丝"
+                                    android:text="激活粉丝"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"/>
 
@@ -256,7 +239,7 @@
                                     android:layout_marginTop="@dimen/y1"
                                     android:textColor="@color/color_D8D8D8"
                                     android:textSize="12sp"
-                                    android:text="其他粉丝"
+                                    android:text="潜在粉丝"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"/>
 
@@ -310,10 +293,10 @@
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
                                     android:layout_centerInParent="true"
-                                    android:textColor="@color/transparent"
+                                    android:textColor="@color/color_white"
                                     android:textSize="18sp"
                                     android:textStyle="bold"
-                                    android:text="我的团队"/>
+                                    android:text="我的好友"/>
 
                             </RelativeLayout>
 
@@ -377,6 +360,7 @@
                         android:layout_height="match_parent"/>
 
                     <com.example.administrator.jipinshop.view.textview.DrawableRightCenterTextView
+                        android:visibility="gone"
                         android:onClick="@{listener.onClick}"
                         android:id="@+id/title_people"
                         android:drawableRight="@mipmap/team_normal"

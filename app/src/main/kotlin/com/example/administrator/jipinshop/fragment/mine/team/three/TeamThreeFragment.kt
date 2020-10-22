@@ -76,7 +76,7 @@ class TeamThreeFragment : DBBaseFragment(), OnRefreshListener, OnLoadMoreListene
         mBinding.recyclerView.layoutManager = LinearLayoutManager(context)
         mList = mutableListOf()
         mAdapter = TeamTwoAdapter(mList,context!!)
-        mAdapter.setClick(this)
+//        mAdapter.setClick(this)
         mBinding.recyclerView.adapter = mAdapter
 
         mPresenter.solveScoll(mBinding.recyclerView, mBinding.swipeToLoad, (activity as TeamActivity).bar, once)

@@ -61,6 +61,7 @@
             android:layout_height="wrap_content"/>
 
         <TextView
+            android:visibility="gone"
             android:gravity="center_vertical"
             android:layout_alignBottom="@id/item_image"
             android:layout_alignTop="@id/item_image"
@@ -136,6 +137,7 @@
             </LinearLayout>
 
             <LinearLayout
+                android:visibility="gone"
                 android:orientation="vertical"
                 android:gravity="center"
                 android:layout_weight="1"

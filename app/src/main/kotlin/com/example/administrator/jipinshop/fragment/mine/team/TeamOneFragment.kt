@@ -56,7 +56,7 @@ class TeamOneFragment : DBBaseFragment(), OnRefreshListener, OnLoadMoreListener,
         mBinding.recyclerView.layoutManager = LinearLayoutManager(context)
         mList = mutableListOf()
         mAdapter = TeamOneAdapter(mList,context!!)
-        mAdapter.setClick(this)
+//        mAdapter.setClick(this)
         mBinding.recyclerView.adapter = mAdapter
 
         mPresenter.solveScoll(mBinding.recyclerView, mBinding.swipeToLoad, (activity as TeamActivity).bar, once)

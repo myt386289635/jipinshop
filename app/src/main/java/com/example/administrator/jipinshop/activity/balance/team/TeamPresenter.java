@@ -54,7 +54,7 @@ public class TeamPresenter {
                 mBinding.titleBack.setColorFilter(Color.WHITE);
                 mBinding.titleContainer.setBackgroundColor(Color.TRANSPARENT);
                 mBinding.statusBar.setBackgroundColor(Color.TRANSPARENT);
-                mBinding.titleTv.setTextColor(Color.TRANSPARENT);
+                mBinding.titleTv.setTextColor(Color.WHITE);
             }else if(Math.abs(verticalOffset) >= appBarLayout1.getTotalScrollRange()){
                 //折叠
                 mBinding.titleBack.setColorFilter(Color.BLACK);
@@ -73,7 +73,7 @@ public class TeamPresenter {
                 mBinding.titleContainer.setBackgroundColor(bgColor);
                 mBinding.statusBar.setBackgroundColor(bgColor);
                 //标题颜色设置
-                int tvColor = ColorUtils.blendARGB(Color.TRANSPARENT, context.getResources().getColor(R.color.color_202020), max);
+                int tvColor = ColorUtils.blendARGB(Color.WHITE, context.getResources().getColor(R.color.color_202020), max);
                 mBinding.titleTv.setTextColor(tvColor);
             }
         });
