@@ -1,5 +1,6 @@
 package com.example.administrator.jipinshop.activity;
 
+import android.annotation.TargetApi;
 import android.app.Dialog;
 import android.content.Intent;
 import android.content.pm.ResolveInfo;
@@ -18,12 +19,13 @@ import android.view.ViewParent;
 import android.webkit.JavascriptInterface;
 import android.webkit.SslErrorHandler;
 import android.webkit.WebChromeClient;
+import android.webkit.WebResourceRequest;
+import android.webkit.WebResourceResponse;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
 
 import com.alibaba.baichuan.android.trade.AlibcTradeSDK;
-import com.blankj.utilcode.util.SPUtils;
 import com.example.administrator.jipinshop.R;
 import com.example.administrator.jipinshop.base.BaseActivity;
 import com.example.administrator.jipinshop.bean.ClickUrlBean;
@@ -34,16 +36,15 @@ import com.example.administrator.jipinshop.util.PDDUtil;
 import com.example.administrator.jipinshop.util.ShareUtils;
 import com.example.administrator.jipinshop.util.TaoBaoUtil;
 import com.example.administrator.jipinshop.util.ToastUtil;
-import com.example.administrator.jipinshop.util.sp.CommonDate;
 import com.example.administrator.jipinshop.view.dialog.ProgressDialogView;
 import com.example.administrator.jipinshop.view.dialog.ShareBoardDialog;
 import com.umeng.socialize.UMShareAPI;
 import com.umeng.socialize.bean.SHARE_MEDIA;
 
-import java.io.UnsupportedEncodingException;
 import java.net.URISyntaxException;
-import java.net.URLDecoder;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.inject.Inject;
 
@@ -65,6 +66,7 @@ public class WebActivity extends BaseActivity implements View.OnClickListener, W
     private String mSource = "";
     private Boolean isGo = false;//是否直接跳转app false否  true是
     private Boolean isFinish = false;//是否需要关闭该页
+    private String mReffer = "";//支付时需要
 
     public static final String url = "url";
     public static final String title = "title";
@@ -138,42 +140,7 @@ public class WebActivity extends BaseActivity implements View.OnClickListener, W
                     super.shouldOverrideUrlLoading(view,url);
                     return false;
                 } else {
-                    if (url.startsWith("https://www.jipincheng.cn/qualityshop-api/api/taobao/returnUrl")){
-                        //淘宝授权登陆 没有使用
-                        String code = url.replace("https://www.jipincheng.cn/qualityshop-api/api/taobao/returnUrl?code=","").split("&")[0];
-                        String state = url.replace("https://www.jipincheng.cn/qualityshop-api/api/taobao/returnUrl?code=","").split("&")[1].replace("state=","");
-                        mPresenter.taobaoReturnUrl(code, state,WebActivity.this.bindToLifecycle());
-                    }else if (url.startsWith("https://login.m.taobao.com")){
-                        //淘客web链接里跳转到淘宝app
-                        String[] urlValue = url.split("redirectURL=");
-                        if (urlValue.length == 2) {
-                            try {
-                                String decoded_url = URLDecoder.decode(urlValue[1], "UTF-8");
-                                if (decoded_url.contains("itemId=")){
-                                    String[] str = decoded_url.split("itemId=");
-                                    if (str.length == 2) {
-                                        String[] value = str[1].split("&");
-                                        openTB(value[0]);
-                                    }else {
-                                        ToastUtil.show("未获得跳转链接");
-                                    }
-                                }else {
-                                    if(url.startsWith("http") || url.startsWith("https")){
-                                        //解决第三方网页打开页面后会跳转到自定义的schame而页面出错问题
-                                        view.loadUrl(url);//处理http和https开头的url
-                                    }
-                                }
-                            } catch (UnsupportedEncodingException e) {
-                                e.printStackTrace();
-                            }
-                        }else if(url.startsWith("http") || url.startsWith("https")){
-                            //解决第三方网页打开页面后会跳转到自定义的schame而页面出错问题
-                            view.loadUrl(url);//处理http和https开头的url
-                        }
-                    }else if(url.startsWith("http") || url.startsWith("https")){
-                        //解决第三方网页打开页面后会跳转到自定义的schame而页面出错问题
-                        view.loadUrl(url);//处理http和https开头的url
-                    }else if (url.startsWith("intent://")){
+                     if (url.startsWith("intent://")){
                         //处理intent协议
                         Intent intent;
                         try {
@@ -201,7 +168,15 @@ public class WebActivity extends BaseActivity implements View.OnClickListener, W
                             // 防止没有安装的情况
                             e.printStackTrace();
                         }
-                    }
+                    }else if(url.startsWith("http") || url.startsWith("https")){
+                         HashMap<String, String> lStringStringHashMap = new HashMap<>();
+                         if (!TextUtils.isEmpty(mReffer)) {
+                             lStringStringHashMap.put("referer", mReffer);//H5支付时需要
+                             view.loadUrl(url, lStringStringHashMap);
+                         } else {
+                             view.loadUrl(url, lStringStringHashMap);
+                         }
+                     }
                     return true;
                 }
             }
@@ -222,6 +197,20 @@ public class WebActivity extends BaseActivity implements View.OnClickListener, W
             @Override
             public void onPageFinished(WebView view, String url) {
                 super.onPageFinished(view, url);
+            }
+
+            // Handle API 21+
+            @TargetApi(Build.VERSION_CODES.LOLLIPOP)
+            @Override
+            public WebResourceResponse shouldInterceptRequest(WebView view, WebResourceRequest request) {
+                ///获取请求url
+                String url = request.getUrl().toString();
+                ///获取RequestHeader中的所有 key value
+                Map<String, String> lRequestHeaders = request.getRequestHeaders();
+                if (lRequestHeaders.containsKey("Referer")) {
+                    mReffer = lRequestHeaders.get("Referer");//H5支付时需要
+                }
+                return super.shouldInterceptRequest(view, request);
             }
         });
         //判断页面加载过程
@@ -316,16 +305,6 @@ public class WebActivity extends BaseActivity implements View.OnClickListener, W
         super.onDestroy();
         UMShareAPI.get(this).release();
         AlibcTradeSDK.destory();
-    }
-
-    @Override
-    public void onSuccess() {
-        if (mDialog != null && mDialog.isShowing()) {
-            mDialog.dismiss();
-        }
-        SPUtils.getInstance(CommonDate.USER).put(CommonDate.relationId, "--");//临时数据
-        ToastUtil.show("授权成功");
-        finish();
     }
 
     @Override

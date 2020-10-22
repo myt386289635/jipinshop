@@ -10,8 +10,6 @@ import com.example.administrator.jipinshop.bean.ImageBean;
  */
 public interface WebVieww {
 
-    void onSuccess();
-
     void onFile(String error);
 
     void onBuyLinkSuccess(ClickUrlBean bean);
