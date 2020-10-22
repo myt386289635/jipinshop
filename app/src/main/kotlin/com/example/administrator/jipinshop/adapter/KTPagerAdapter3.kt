@@ -22,6 +22,7 @@ class KTPagerAdapter3 : PagerAdapter {
     private lateinit var point: List<ImageView>
     private var imgCenter: Boolean = true
     private var mOnClickItem: OnClickItem? = null
+    private var mCurrentPosition = 0
 
     fun setOnClickItem(onClickItem: OnClickItem) {
         mOnClickItem = onClickItem
@@ -67,10 +68,26 @@ class KTPagerAdapter3 : PagerAdapter {
         imageView.setOnClickListener {
             mOnClickItem?.onClickItem(position)
         }
+        view.tag = mAdListBeans[position].img
         container.addView(view)
         return view
     }
 
+    //刷新需要
+    override fun setPrimaryItem(container: ViewGroup, position: Int, `object`: Any) {
+        super.setPrimaryItem(container as View, position, `object`)
+        //记录当前滑动页位置
+        if(mCurrentPosition != position) {
+            mCurrentPosition = position
+        }
+    }
+
+    //比较当前滑动页的tag与创建时view的tag是否一致，不一致刷新页面
+    override fun getItemPosition(`object`: Any): Int {
+        return if (mAdListBeans[mCurrentPosition].img != (`object` as View).tag) {
+            POSITION_NONE
+        } else POSITION_UNCHANGED
+    }
 
     override fun destroyItem(container: ViewGroup, position: Int, `object`: Any) {
 
