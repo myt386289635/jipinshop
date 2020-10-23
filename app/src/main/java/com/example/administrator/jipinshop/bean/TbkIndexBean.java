@@ -42,7 +42,7 @@ public class TbkIndexBean {
 
         private Ad2Bean ad2; //活动图
         private List<Ad1ListBean> ad1List;//轮播图
-        private List<BoxListBean> boxList;//宫格
+        private List<BoxCategoryListBean> boxCategoryList;//宫格
         private List<MessageListBean> messageList;//人物轮播
         private List<AllowanceGoodsListBean> allowanceGoodsList;//新人专区、老人专区
         private List<ActivityListBean> activityList;//活动位
@@ -99,14 +99,6 @@ public class TbkIndexBean {
             this.ad1List = ad1List;
         }
 
-        public List<BoxListBean> getBoxList() {
-            return boxList;
-        }
-
-        public void setBoxList(List<BoxListBean> boxList) {
-            this.boxList = boxList;
-        }
-
         public List<MessageListBean> getMessageList() {
             return messageList;
         }
@@ -129,6 +121,14 @@ public class TbkIndexBean {
 
         public void setHotGoodsList(List<HotGoodsListBean> hotGoodsList) {
             this.hotGoodsList = hotGoodsList;
+        }
+
+        public List<BoxCategoryListBean> getBoxCategoryList() {
+            return boxCategoryList;
+        }
+
+        public void setBoxCategoryList(List<BoxCategoryListBean> boxCategoryList) {
+            this.boxCategoryList = boxCategoryList;
         }
 
         public static class Ad2Bean {
@@ -261,88 +261,145 @@ public class TbkIndexBean {
             }
         }
 
-        public static class BoxListBean {
+        public static class BoxCategoryListBean {
             /**
-             * id : 1b06bce3023042d4a96f67b99a81fe1e
-             * iconUrl : http://jipincheng.cn/category/img/20191214/eb48cffce5bc4a0e93338421a10ea2a4
-             * title : 品质大牌
-             * orderNum : 1
-             * status : 1
-             * type : 1
-             * targetId : de9657d51a3a4653925fff405d96deb9
+             * categoryId : null
+             * categoryTitle : null
+             * list : [{"id":"287ca208b592495e97c659b3acad9100","iconUrl":"http://jipincheng.cn/category/img/20200811/116be0f9778c4716bed8c902a348c0a7","title":"淘宝","subTitle":null,"orderNum":1,"status":1,"type":13,"targetId":"42","source":"11","categoryId":null}]
              */
 
-            private String id;
-            private String iconUrl;
-            private String title;
-            private int orderNum;
-            private int status;
-            private String type;
-            private String targetId;
-            private String source;
+            private String categoryId;
+            private String categoryTitle;
+            private List<ListBean> list;
 
-            public String getSource() {
-                return source;
+            public String getCategoryId() {
+                return categoryId;
             }
 
-            public void setSource(String source) {
-                this.source = source;
+            public void setCategoryId(String categoryId) {
+                this.categoryId = categoryId;
             }
 
-            public String getId() {
-                return id;
+            public String getCategoryTitle() {
+                return categoryTitle;
             }
 
-            public void setId(String id) {
-                this.id = id;
+            public void setCategoryTitle(String categoryTitle) {
+                this.categoryTitle = categoryTitle;
             }
 
-            public String getIconUrl() {
-                return iconUrl;
+            public List<ListBean> getList() {
+                return list;
             }
 
-            public void setIconUrl(String iconUrl) {
-                this.iconUrl = iconUrl;
+            public void setList(List<ListBean> list) {
+                this.list = list;
             }
 
-            public String getTitle() {
-                return title;
-            }
+            public static class ListBean {
+                /**
+                 * id : 287ca208b592495e97c659b3acad9100
+                 * iconUrl : http://jipincheng.cn/category/img/20200811/116be0f9778c4716bed8c902a348c0a7
+                 * title : 淘宝
+                 * subTitle : null
+                 * orderNum : 1
+                 * status : 1
+                 * type : 13
+                 * targetId : 42
+                 * source : 11
+                 * categoryId : null
+                 */
 
-            public void setTitle(String title) {
-                this.title = title;
-            }
+                private String id;
+                private String iconUrl;
+                private String title;
+                private String subTitle;
+                private String orderNum;
+                private String status;
+                private String type;
+                private String targetId;
+                private String source;
+                private String categoryId;
 
-            public int getOrderNum() {
-                return orderNum;
-            }
+                public String getId() {
+                    return id;
+                }
 
-            public void setOrderNum(int orderNum) {
-                this.orderNum = orderNum;
-            }
+                public void setId(String id) {
+                    this.id = id;
+                }
 
-            public int getStatus() {
-                return status;
-            }
+                public String getIconUrl() {
+                    return iconUrl;
+                }
 
-            public void setStatus(int status) {
-                this.status = status;
-            }
+                public void setIconUrl(String iconUrl) {
+                    this.iconUrl = iconUrl;
+                }
 
-            public String getType() {
-                return type;
-            }
+                public String getTitle() {
+                    return title;
+                }
 
-            public void setType(String type) {
-                this.type = type;
-            }
+                public void setTitle(String title) {
+                    this.title = title;
+                }
 
-            public String getTargetId() {
-                return targetId;
-            }
+                public String getSubTitle() {
+                    return subTitle;
+                }
 
-            public void setTargetId(String targetId) {
-                this.targetId = targetId;
+                public void setSubTitle(String subTitle) {
+                    this.subTitle = subTitle;
+                }
+
+                public String getOrderNum() {
+                    return orderNum;
+                }
+
+                public void setOrderNum(String orderNum) {
+                    this.orderNum = orderNum;
+                }
+
+                public String getStatus() {
+                    return status;
+                }
+
+                public void setStatus(String status) {
+                    this.status = status;
+                }
+
+                public String getType() {
+                    return type;
+                }
+
+                public void setType(String type) {
+                    this.type = type;
+                }
+
+                public String getTargetId() {
+                    return targetId;
+                }
+
+                public void setTargetId(String targetId) {
+                    this.targetId = targetId;
+                }
+
+                public String getSource() {
+                    return source;
+                }
+
+                public void setSource(String source) {
+                    this.source = source;
+                }
+
+                public String getCategoryId() {
+                    return categoryId;
+                }
+
+                public void setCategoryId(String categoryId) {
+                    this.categoryId = categoryId;
+                }
             }
         }
 

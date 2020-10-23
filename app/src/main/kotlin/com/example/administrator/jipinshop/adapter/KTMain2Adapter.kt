@@ -7,6 +7,7 @@ import android.graphics.Color
 import android.graphics.drawable.Drawable
 import android.os.Handler
 import android.os.Looper
+import android.support.v4.app.Fragment
 import android.support.v4.view.ViewPager
 import android.support.v7.widget.GridLayoutManager
 import android.support.v7.widget.LinearLayoutManager
@@ -32,6 +33,7 @@ import com.example.administrator.jipinshop.bean.SuccessBean
 import com.example.administrator.jipinshop.bean.TBSreachResultBean
 import com.example.administrator.jipinshop.bean.TbkIndexBean
 import com.example.administrator.jipinshop.databinding.*
+import com.example.administrator.jipinshop.fragment.home.main.tab.CommonTabFragment
 import com.example.administrator.jipinshop.netwrok.RetrofitModule
 import com.example.administrator.jipinshop.util.DistanceHelper
 import com.example.administrator.jipinshop.util.ShopJumpUtil
@@ -39,7 +41,9 @@ import com.example.administrator.jipinshop.util.UmApp.AppStatisticalUtil
 import com.example.administrator.jipinshop.util.WeakRefHandler
 import com.example.administrator.jipinshop.view.glide.GlideApp
 import com.example.administrator.jipinshop.view.viewpager.TouchViewPager
+import com.google.gson.Gson
 import com.trello.rxlifecycle2.LifecycleTransformer
+import net.lucode.hackware.magicindicator.buildins.commonnavigator.CommonNavigator
 import java.math.BigDecimal
 
 /**
@@ -63,6 +67,7 @@ class KTMain2Adapter : RecyclerView.Adapter<RecyclerView.ViewHolder>{
     private lateinit var mOnItem: OnItem
     private lateinit var appStatisticalUtil: AppStatisticalUtil
     private lateinit var transformer : LifecycleTransformer<SuccessBean>
+    private lateinit var mPagerAdapter: HomePageAdapter
 
     constructor(list: MutableList<TBSreachResultBean.DataBean>, context: Context){
         mList = list
@@ -87,6 +92,10 @@ class KTMain2Adapter : RecyclerView.Adapter<RecyclerView.ViewHolder>{
 
     fun setAdList(adListBeans: MutableList<TbkIndexBean.DataBean.Ad1ListBean>){
         this.mAdListBeans = adListBeans
+    }
+
+    fun setPagerAdapter(pagerAdapter: HomePageAdapter) {
+        mPagerAdapter = pagerAdapter
     }
 
     override fun getItemViewType(position: Int): Int {
@@ -173,14 +182,14 @@ class KTMain2Adapter : RecyclerView.Adapter<RecyclerView.ViewHolder>{
                     adListBeans.addAll(mAdListBeans)
                     initBanner()
                     //九宫格
-                    gridList.clear()
-                    gridList.addAll(mBean!!.data.boxList)
-                    if (gridList.size > 10){
-                        binding.gridPoint.visibility = View.VISIBLE
-                    }else{
-                        binding.gridPoint.visibility = View.GONE
+                    mBean?.let {
+                        tabs.clear()
+                        for (i in it.data.boxCategoryList.indices){
+                            tabs.add(it.data.boxCategoryList[i].categoryTitle)
+                        }
+                        tabAdapter.notifyDataSetChanged()
+                        initViewPager(it.data.boxCategoryList)
                     }
-                    gridAdapter.notifyDataSetChanged()
                 }
             }
             HEAD2 ->{
@@ -376,8 +385,10 @@ class KTMain2Adapter : RecyclerView.Adapter<RecyclerView.ViewHolder>{
         }
         var handler = WeakRefHandler(mCallback, Looper.getMainLooper())
         //九宫格
-        var gridList: MutableList<TbkIndexBean.DataBean.BoxListBean>
-        var gridAdapter: KTMain2GridAdapter
+        var tabs: MutableList<String?>
+        var tabAdapter: KTTabAdapter5
+        var tabFragments: MutableList<Fragment>
+        private var gridPoint : MutableList<ImageView>
 
         constructor(binding: ItemMain2OneBinding) : super(binding.root){
             this.binding = binding
@@ -401,28 +412,31 @@ class KTMain2Adapter : RecyclerView.Adapter<RecyclerView.ViewHolder>{
 
             })
             //九宫格
-            gridList = mutableListOf()
-            gridAdapter = KTMain2GridAdapter(gridList,mContext)
-            gridAdapter.setAppStatisticalUtil(appStatisticalUtil)
-            gridAdapter.setTransformer(transformer)
-            var linearLayoutManager = GridLayoutManager(mContext,2,LinearLayout.HORIZONTAL,false)
-            binding.gridViewpager.layoutManager= linearLayoutManager
-            binding.gridViewpager.adapter = gridAdapter
-            binding.gridViewpager.isNestedScrollingEnabled = false
-            binding.gridViewpager.addOnScrollListener(object : RecyclerView.OnScrollListener() {
-                override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
-                    super.onScrolled(recyclerView, dx, dy)
-                    //划出去的宽度
-                    var isResult = getResult(linearLayoutManager)
-                    //可划出去的总宽度
-                    var totleWith = getTotleWith(linearLayoutManager)
-                    //线条可划出去的总宽度
-                    var lineWith = mContext.resources.getDimension(R.dimen.x60)
-                    //结果
-                    var result  = (lineWith / totleWith) * isResult
-                    var layoutParams =  binding.point.layoutParams as RelativeLayout.LayoutParams
-                    layoutParams.leftMargin = result.toInt()
-                    binding.point.layoutParams = layoutParams
+            var commonNavigator = CommonNavigator(mContext)
+            tabs = mutableListOf()
+            tabAdapter = KTTabAdapter5(tabs,binding.mainGrid,binding.mainMenu)
+            commonNavigator.adapter = tabAdapter
+            binding.mainMenu.navigator = commonNavigator
+            gridPoint = mutableListOf()
+
+            tabFragments = mutableListOf()
+            mPagerAdapter.setFragments(tabFragments)
+            binding.mainGrid.adapter = mPagerAdapter
+            binding.mainGrid.addOnPageChangeListener(object : ViewPager.OnPageChangeListener{
+                override fun onPageScrollStateChanged(state: Int) {}
+
+                override fun onPageScrolled(p0: Int, p1: Float, p2: Int) {}
+
+                override fun onPageSelected(position: Int) {
+                    binding.mainMenu.onPageSelected(position)
+                    binding.mainMenu.onPageScrolled(position,0.0F, 0)
+                    for (i in gridPoint.indices) {
+                        if (i == position) {
+                            gridPoint[i].setImageResource(R.drawable.banner_down4)
+                        } else {
+                            gridPoint[i].setImageResource(R.drawable.banner_up4)
+                        }
+                    }
                 }
             })
         }
@@ -504,32 +518,24 @@ class KTMain2Adapter : RecyclerView.Adapter<RecyclerView.ViewHolder>{
             return realPosition
         }
 
-        fun getResult(linearLayoutManager: GridLayoutManager) : Int{
-            //找到即将移出屏幕Item的position,position是移出屏幕item的数量
-            var position = linearLayoutManager.findFirstVisibleItemPosition()
-            //根据position找到这个Item
-            var firstVisiableChildView = linearLayoutManager.findViewByPosition(position)
-            //获取Item的宽
-            var itemWidth = firstVisiableChildView?.width ?: 0
-            //算出该Item还未移出屏幕的宽度
-            var itemRight = firstVisiableChildView?.right ?: 0
-            //position移出屏幕的数量*宽度得出移动的距离
-            var iposition = ((position / 2 ) + 1) * itemWidth
-            //因为横着的RecyclerV第一个取到的Item position为零所以计算时需要加一个宽
-            var iResult = iposition - itemRight
-            return  iResult
-        }
-
-        fun getTotleWith(linearLayoutManager: GridLayoutManager) : Int{
-            //找到即将移出屏幕Item的position,position是移出屏幕item的数量
-            var position = linearLayoutManager.findFirstVisibleItemPosition()
-            //根据position找到这个Item
-            var firstVisiableChildView = linearLayoutManager.findViewByPosition(position)
-            //获取Item的宽
-            var itemWidth = firstVisiableChildView?.width ?: 0
-            //总宽度
-            var totle = (gridList.size % 2) + (gridList.size / 2)
-            return ((itemWidth * totle) - DistanceHelper.getAndroiodScreenwidthPixels(mContext))
+        //初始化宫格
+        fun initViewPager(list: MutableList<TbkIndexBean.DataBean.BoxCategoryListBean>) {
+            tabFragments.clear()//清空数据
+            gridPoint.clear()
+            binding.point.removeAllViews()
+            var date = Gson().toJson(mBean?.data,TbkIndexBean.DataBean::class.java)
+            for (i in list.indices){
+                tabFragments.add(CommonTabFragment.getInstance(date,i))
+                var imageView = ImageView(mContext)
+                gridPoint.add(imageView)
+                if (i == binding.mainGrid.currentItem) {
+                    imageView.setImageResource(R.drawable.banner_down4)
+                } else {
+                    imageView.setImageResource(R.drawable.banner_up4)
+                }
+                binding.point.addView(imageView)
+            }
+            mPagerAdapter.updateData(tabFragments)
         }
     }
 

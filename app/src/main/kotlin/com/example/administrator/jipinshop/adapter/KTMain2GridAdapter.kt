@@ -5,69 +5,72 @@ import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.BaseAdapter
 import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.TextView
 import com.example.administrator.jipinshop.R
-import com.example.administrator.jipinshop.bean.SuccessBean
 import com.example.administrator.jipinshop.bean.TbkIndexBean
-import com.example.administrator.jipinshop.util.DistanceHelper
 import com.example.administrator.jipinshop.util.ShopJumpUtil
-import com.example.administrator.jipinshop.util.UmApp.AppStatisticalUtil
 import com.example.administrator.jipinshop.view.glide.GlideApp
-import com.trello.rxlifecycle2.LifecycleTransformer
 
 /**
  * @author 莫小婷
  * @create 2020/4/20
  * @Describe 宫格
  */
-class KTMain2GridAdapter : RecyclerView.Adapter<KTMain2GridAdapter.ViewHolder>{
+class KTMain2GridAdapter : BaseAdapter{
 
-    private var mList: MutableList<TbkIndexBean.DataBean.BoxListBean>
+    private var mList: MutableList<TbkIndexBean.DataBean.BoxCategoryListBean.ListBean>
     private var mContext: Context
-    private lateinit var appStatisticalUtil: AppStatisticalUtil
-    private lateinit var  transformer : LifecycleTransformer<SuccessBean>
+//    private lateinit var appStatisticalUtil: AppStatisticalUtil
+//    private lateinit var  transformer : LifecycleTransformer<SuccessBean>
 
-    constructor(list: MutableList<TbkIndexBean.DataBean.BoxListBean>, context: Context){
+    constructor(list: MutableList<TbkIndexBean.DataBean.BoxCategoryListBean.ListBean>, context: Context){
         mList = list
         mContext = context
     }
 
-    fun setAppStatisticalUtil(appStatisticalUtil : AppStatisticalUtil){
-        this.appStatisticalUtil = appStatisticalUtil
-    }
+//    fun setAppStatisticalUtil(appStatisticalUtil : AppStatisticalUtil){
+//        this.appStatisticalUtil = appStatisticalUtil
+//    }
+//
+//    fun setTransformer(transformer : LifecycleTransformer<SuccessBean>){
+//        this.transformer = transformer
+//    }
 
-    fun setTransformer(transformer : LifecycleTransformer<SuccessBean>){
-        this.transformer = transformer
-    }
-
-    override fun onCreateViewHolder(viewGroup: ViewGroup, type: Int): ViewHolder {
-        var view = LayoutInflater.from(mContext).inflate(R.layout.kthome_tab, viewGroup, false)
-        return ViewHolder(view)
-    }
-
-    override fun getItemCount(): Int {
-        return mList.size
-    }
-
-    override fun onBindViewHolder(holder : ViewHolder, position: Int) {
+    override fun getView(position: Int, convertView: View?, parent: ViewGroup?): View {
+        var holder: ViewHolder?
+        var view = convertView
+        if (view == null) {
+            view = LayoutInflater.from(mContext).inflate(R.layout.kthome_tab, parent, false)
+            holder = ViewHolder(view)
+            view.tag = holder
+        } else {
+            holder = view.tag as ViewHolder
+        }
         holder.run {
             mItemName.text = mList[position].title
             GlideApp.loderImage(mContext,mList[position].iconUrl,mImageView,0,0)
             itemView.setOnClickListener {
-                appStatisticalUtil.addEvent("shouye_gongge." + (position + 1),transformer)
+                //                appStatisticalUtil.addEvent("shouye_gongge." + (position + 1),transformer)
                 ShopJumpUtil.openBanner(mContext,mList[position].type,mList[position].targetId,
                         mList[position].title,mList[position].source)
             }
-            var wight = mContext.resources.getDimension(R.dimen.x120)
-            var zz = (DistanceHelper.getAndroiodScreenwidthPixels(mContext) - (wight * 5)) / 5
-            var result = zz / 2
-            var layoutParams = item_container.layoutParams as LinearLayout.LayoutParams
-            layoutParams.leftMargin = result.toInt()
-            layoutParams.rightMargin = result.toInt()
-            item_container.layoutParams = layoutParams
         }
+        return view!!
+    }
+
+    override fun getItem(position: Int): Any {
+        return mList[position]
+    }
+
+    override fun getItemId(position: Int): Long {
+        return position.toLong()
+    }
+
+    override fun getCount(): Int {
+        return mList.size
     }
 
     inner class ViewHolder : RecyclerView.ViewHolder{

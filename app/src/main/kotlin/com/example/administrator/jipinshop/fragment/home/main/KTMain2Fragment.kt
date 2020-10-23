@@ -15,6 +15,7 @@ import com.blankj.utilcode.util.SPUtils
 import com.example.administrator.jipinshop.R
 import com.example.administrator.jipinshop.activity.login.LoginActivity
 import com.example.administrator.jipinshop.activity.share.ShareActivity
+import com.example.administrator.jipinshop.adapter.HomePageAdapter
 import com.example.administrator.jipinshop.adapter.KTMain2Adapter
 import com.example.administrator.jipinshop.base.DBBaseFragment
 import com.example.administrator.jipinshop.bean.TBSreachResultBean
@@ -46,6 +47,7 @@ class KTMain2Fragment : DBBaseFragment(), KTMain2View, OnLoadMoreListener, OnRef
     private lateinit var mList: MutableList<TBSreachResultBean.DataBean>//今日推荐列表
     private lateinit var mAdListBeans: MutableList<TbkIndexBean.DataBean.Ad1ListBean> //轮播图列表
     private lateinit var mAdapter: KTMain2Adapter
+    private lateinit var mPagerAdapter: HomePageAdapter
     private var mDialog: Dialog? = null
     private var source : String = "2" //1:京东 2:淘宝 4拼多多  默认淘宝
 
@@ -69,6 +71,8 @@ class KTMain2Fragment : DBBaseFragment(), KTMain2View, OnLoadMoreListener, OnRef
         mList = mutableListOf()
         mAdListBeans = mutableListOf()
         mAdapter = KTMain2Adapter(mList,context!!)
+        mPagerAdapter = HomePageAdapter(childFragmentManager)
+        mAdapter.setPagerAdapter(mPagerAdapter)
         mAdapter.setAdList(mAdListBeans)
         mAdapter.setOnClick(this)
         mAdapter.setAppStatisticalUtil(appStatisticalUtil)

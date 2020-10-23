@@ -2,17 +2,16 @@
 <LinearLayout
     android:orientation="horizontal"
     xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="wrap_content"
+    android:layout_width="match_parent"
     android:layout_height="wrap_content"
     xmlns:tools="http://schemas.android.com/tools">
 
     <LinearLayout
         android:id="@+id/item_container"
-        android:layout_marginTop="@dimen/y16"
-        android:gravity="center"
+        android:gravity="center_horizontal"
         android:orientation="vertical"
-        android:layout_width="@dimen/x120"
-        android:layout_height="wrap_content">
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/y136">
 
         <ImageView
             android:id="@+id/item_image"
@@ -22,8 +21,7 @@
             android:layout_height="@dimen/y88"/>
 
         <TextView
-            android:layout_marginBottom="@dimen/y7"
-            android:layout_marginTop="@dimen/y7"
+            android:layout_marginTop="@dimen/y2"
             android:id="@+id/item_name"
             android:textColor="@color/color_202020"
             android:textSize="11sp"

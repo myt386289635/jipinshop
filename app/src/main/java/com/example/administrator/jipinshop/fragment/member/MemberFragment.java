@@ -305,9 +305,9 @@ public class MemberFragment extends DBBaseFragment implements View.OnClickListen
             public void onPageSelected(int position) {
                 for (int i = 0; i < pagerPoint.size(); i++) {
                     if (i == toRealPosition(position)) {
-                        pagerPoint.get(i).setImageResource(R.drawable.banner_down);
+                        pagerPoint.get(i).setImageResource(R.drawable.banner_down3);
                     } else {
-                        pagerPoint.get(i).setImageResource(R.drawable.banner_up);
+                        pagerPoint.get(i).setImageResource(R.drawable.banner_up3);
                     }
                 }
                 currentItem = position;
@@ -910,9 +910,9 @@ public class MemberFragment extends DBBaseFragment implements View.OnClickListen
             ImageView imageView = new ImageView(getContext());
             pagerPoint.add(imageView);
             if (i == 0) {
-                imageView.setImageResource(R.drawable.banner_down);
+                imageView.setImageResource(R.drawable.banner_down3);
             } else {
-                imageView.setImageResource(R.drawable.banner_up);
+                imageView.setImageResource(R.drawable.banner_up3);
             }
             LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
             layoutParams.leftMargin = getResources().getDimensionPixelSize(R.dimen.x4);

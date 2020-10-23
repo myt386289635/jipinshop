@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content">
+
+    <View
+        android:layout_centerVertical="true"
+        android:background="@color/color_D8D8D8"
+        android:layout_width="@dimen/x1"
+        android:layout_height="@dimen/y28"/>
+    
+    <TextView
+        android:paddingRight="@dimen/x10"
+        android:paddingLeft="@dimen/x10"
+        android:layout_centerVertical="true"
+        android:gravity="center_horizontal"
+        android:id="@+id/item_text"
+        android:layout_marginRight="@dimen/x24"
+        android:layout_marginLeft="@dimen/x24"
+        android:text="购物"
+        android:textSize="13sp"
+        android:textColor="@color/color_202020"
+        android:background="@mipmap/main_tab"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"/>
+
+    <View
+        android:layout_toRightOf="@id/item_text"
+        android:layout_centerVertical="true"
+        android:background="@color/color_D8D8D8"
+        android:layout_width="@dimen/x2"
+        android:layout_height="@dimen/y28"/>
+
+</RelativeLayout>
