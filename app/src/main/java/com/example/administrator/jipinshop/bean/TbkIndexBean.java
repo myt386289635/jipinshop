@@ -44,12 +44,22 @@ public class TbkIndexBean {
         private List<Ad1ListBean> ad1List;//轮播图
         private List<BoxCategoryListBean> boxCategoryList;//宫格
         private List<MessageListBean> messageList;//人物轮播
-        private List<AllowanceGoodsListBean> allowanceGoodsList;//新人专区、老人专区
+        private List<AllowanceGoodsListBean> allowanceGoodsList;//新人专区
+        private List<AllowanceGoodsListBean> allowanceGoodsList2;//老人专区
         private List<ActivityListBean> activityList;//活动位
         private List<HotGoodsListBean> hotGoodsList;//热销榜单
         private Boolean newUser; //是否是新人
         private List<TBSreachResultBean.DataBean> commendGoodsList;//今日推荐
         private MessageBean message;//首页横向跑马灯
+        private long userEndTime;//倒计时
+
+        public long getUserEndTime() {
+            return userEndTime;
+        }
+
+        public void setUserEndTime(long userEndTime) {
+            this.userEndTime = userEndTime;
+        }
 
         public MessageBean getMessage() {
             return message;
@@ -129,6 +139,14 @@ public class TbkIndexBean {
 
         public void setBoxCategoryList(List<BoxCategoryListBean> boxCategoryList) {
             this.boxCategoryList = boxCategoryList;
+        }
+
+        public List<AllowanceGoodsListBean> getAllowanceGoodsList2() {
+            return allowanceGoodsList2;
+        }
+
+        public void setAllowanceGoodsList2(List<AllowanceGoodsListBean> allowanceGoodsList2) {
+            this.allowanceGoodsList2 = allowanceGoodsList2;
         }
 
         public static class Ad2Bean {

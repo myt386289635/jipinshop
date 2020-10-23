@@ -5,6 +5,7 @@ import android.content.Intent
 import android.databinding.DataBindingUtil
 import android.graphics.Color
 import android.graphics.drawable.Drawable
+import android.os.CountDownTimer
 import android.os.Handler
 import android.os.Looper
 import android.support.v4.app.Fragment
@@ -12,6 +13,7 @@ import android.support.v4.view.ViewPager
 import android.support.v7.widget.GridLayoutManager
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
+import android.util.SparseArray
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -68,10 +70,13 @@ class KTMain2Adapter : RecyclerView.Adapter<RecyclerView.ViewHolder>{
     private lateinit var appStatisticalUtil: AppStatisticalUtil
     private lateinit var transformer : LifecycleTransformer<SuccessBean>
     private lateinit var mPagerAdapter: HomePageAdapter
+    //用于退出 Activity,避免 Countdown，造成资源浪费。
+    private var countDownCounters: SparseArray<CountDownTimer>
 
     constructor(list: MutableList<TBSreachResultBean.DataBean>, context: Context){
         mList = list
         mContext = context
+        this.countDownCounters = SparseArray()
     }
 
     fun setDate(bean: TbkIndexBean?){
@@ -195,28 +200,74 @@ class KTMain2Adapter : RecyclerView.Adapter<RecyclerView.ViewHolder>{
             HEAD2 ->{
                 var twoViewHolder: TwoViewHolder  = holder as TwoViewHolder
                 twoViewHolder.run {
-                    binding.size = mBean!!.data.allowanceGoodsList.size
                     binding.user = mBean!!.data.newUser
-                    for (i in mBean!!.data.allowanceGoodsList.indices){
-                        when(i){
+                    //新人
+                    for (i in mBean!!.data.allowanceGoodsList.indices) {
+                        when (i) {
                             0 -> {
-                                binding.one = mBean!!.data.allowanceGoodsList[0]
-                                binding.peopleText1.setTv(true)
-                                binding.peopleText1.setColor(R.color.color_9D9D9D)
+                                binding.new1 = mBean!!.data.allowanceGoodsList[0]
                             }
                             1 -> {
-                                binding.two = mBean!!.data.allowanceGoodsList[1]
-                                binding.peopleText2.setTv(true)
-                                binding.peopleText2.setColor(R.color.color_9D9D9D)
+                                binding.new2 = mBean!!.data.allowanceGoodsList[1]
                             }
                             2 -> {
-                                binding.three = mBean!!.data.allowanceGoodsList[2]
-                                binding.peopleText3.setTv(true)
-                                binding.peopleText3.setColor(R.color.color_9D9D9D)
+                                binding.new3 = mBean!!.data.allowanceGoodsList[2]
+                            }
+                        }
+                    }
+                    //老人
+                    for (i in mBean!!.data.allowanceGoodsList2.indices) {
+                        when (i) {
+                            0 -> {
+                                binding.old1 = mBean!!.data.allowanceGoodsList2[0]
+                            }
+                            1 -> {
+                                binding.old2 = mBean!!.data.allowanceGoodsList2[1]
+                            }
+                            2 -> {
+                                binding.old3 = mBean!!.data.allowanceGoodsList2[2]
+                            }
+                            3 -> {
+                                binding.old4 = mBean!!.data.allowanceGoodsList2[3]
                             }
                         }
                     }
                     binding.executePendingBindings()
+                    //倒计时
+                    var timer: Long = 0
+                    timer = (mBean!!.data.userEndTime * 1000) - System.currentTimeMillis()
+                    var countDownTimer :CountDownTimer? = countDownCounters.get(binding.mainNewpeople.hashCode())
+                    countDownTimer?.cancel()
+                    if (timer > 0) {
+                        countDownTimer = object : CountDownTimer(timer, 1000) {
+                            override fun onTick(millisUntilFinished: Long) {
+                                val ss = 1000
+                                val mi = ss * 60
+                                val hh = mi * 60
+                                val dd = hh * 24
+                                val day = millisUntilFinished / dd
+                                val hour = (millisUntilFinished - day * dd) / hh
+                                val minute = (millisUntilFinished - hour * hh - day * dd) / mi
+                                val second = (millisUntilFinished - hour * hh - minute * mi - day * dd) / ss
+
+                                binding.timeHour.text = "" + ((day * 24) + hour)
+                                binding.timeMinute.text = "" + minute
+                                binding.timeSecond.text = "" + second
+                            }
+
+                            override fun onFinish() {
+                                binding.timeHour.text = "0"
+                                binding.timeMinute.text = "0"
+                                binding.timeSecond.text = "0"
+                            }
+                        }.start()
+                        countDownCounters.put(binding.mainNewpeople.hashCode(), countDownTimer)
+                    }else{
+                        binding.timeHour.text = "0"
+                        binding.timeMinute.text = "0"
+                        binding.timeSecond.text = "0"
+                    }
+                    //广告
                     userList.clear()
                     userList.addAll(mBean!!.data.messageList)
                     initUser()
@@ -227,6 +278,10 @@ class KTMain2Adapter : RecyclerView.Adapter<RecyclerView.ViewHolder>{
                     binding.mainOldpeople.setOnClickListener {
                         appStatisticalUtil.addEvent("shouye_tehui",transformer)
                         mContext.startActivity(Intent(mContext, CheapBuyActivity::class.java))
+                    }
+                    binding.mainPeopleReTitle.setOnClickListener {
+                        appStatisticalUtil.addEvent("shouye_xinren",transformer)
+                        mContext.startActivity(Intent(mContext, NewFreeActivity::class.java))
                     }
                     binding.marqueeContainer.setOnClickListener {
                         appStatisticalUtil.addEvent("shouye_pmd",transformer)
