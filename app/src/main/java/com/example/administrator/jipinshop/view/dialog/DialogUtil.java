@@ -33,6 +33,7 @@ import com.blankj.utilcode.util.SPUtils;
 import com.bumptech.glide.Glide;
 import com.example.administrator.jipinshop.R;
 import com.example.administrator.jipinshop.activity.WebActivity;
+import com.example.administrator.jipinshop.activity.home.home.HomeNewActivity;
 import com.example.administrator.jipinshop.activity.shoppingdetail.tbshoppingdetail.TBShoppingDetailActivity;
 import com.example.administrator.jipinshop.activity.sreach.result.TBSreachResultActivity;
 import com.example.administrator.jipinshop.adapter.DialogLuckAdapter;
@@ -47,6 +48,7 @@ import com.example.administrator.jipinshop.databinding.DialogCheapBuyBinding;
 import com.example.administrator.jipinshop.databinding.DialogCheapOutBinding;
 import com.example.administrator.jipinshop.databinding.DialogFamilyBinding;
 import com.example.administrator.jipinshop.databinding.DialogLuckBinding;
+import com.example.administrator.jipinshop.databinding.DialogMemberBuyBinding;
 import com.example.administrator.jipinshop.databinding.DialogNewpeople2Binding;
 import com.example.administrator.jipinshop.databinding.DialogNewpeopleBuyBinding;
 import com.example.administrator.jipinshop.databinding.DialogNonewBinding;
@@ -1053,46 +1055,25 @@ public class DialogUtil {
         dialog.setContentView(binding.getRoot());
     }
 
-    //专家
-    public static void userDetailDialog(Context context, TeacherBean.DataBean bean){
+    //购买时会员提示弹窗
+    public static void buyMemberDialog(Context context, String buyFree, String upFree , View.OnClickListener listener){
         AlertDialog.Builder builder = new AlertDialog.Builder(context, R.style.dialog);
-        DialogUserDetailBinding binding = DataBindingUtil.inflate(LayoutInflater.from(context),R.layout.dialog_user_detail, null,false);
+        DialogMemberBuyBinding binding = DataBindingUtil.inflate(LayoutInflater.from(context),R.layout.dialog_member_buy, null,false);
         final Dialog dialog = builder.create();
-        binding.dialogTitle.setText(bean.getNickname());
-        binding.dialogClose.setOnClickListener(v -> dialog.dismiss());
-        binding.dialogBottomContainer.setVisibility(View.GONE);
-        binding.dialogNumber.setText("邀请ID");
-        if (TextUtils.isEmpty(bean.getInvitationCode())){
-            binding.dialogPhone.setText("暂未填写");
-        }else {
-            binding.dialogPhone.setText(bean.getInvitationCode());
-        }
-        if (TextUtils.isEmpty(bean.getWechat())){
-            binding.dialogWxCode.setText("暂未填写");
-        }else {
-            binding.dialogWxCode.setText(bean.getWechat());
-        }
-        binding.dialogPhoneCopy.setOnClickListener(v -> {
-            if (!TextUtils.isEmpty(bean.getInvitationCode())){
-                ClipboardManager clip = (ClipboardManager)context.getSystemService(Context.CLIPBOARD_SERVICE);
-                ClipData clipData = ClipData.newPlainText("jipinshop", bean.getInvitationCode());
-                clip.setPrimaryClip(clipData);
-                ToastUtil.show("复制成功");
-                SPUtils.getInstance().put(CommonDate.CLIP,bean.getInvitationCode());
-            }else {
-                ToastUtil.show("暂未填写");
-            }
+        binding.dialogUpFree.setText("办理会员（本单可返￥"+ upFree +"）");
+        binding.dialogBuy.setText("直接购买（本单可返￥"+ buyFree +"）");
+        binding.dialogUpFree.setOnClickListener(v -> {
+            context.startActivity(new Intent(context, HomeNewActivity.class)
+                    .putExtra("type",HomeNewActivity.member)
+            );
+            dialog.dismiss();
         });
-        binding.dialogWxCopy.setOnClickListener(v -> {
-            if (!TextUtils.isEmpty(bean.getWechat())) {
-                ClipboardManager clip = (ClipboardManager)context.getSystemService(Context.CLIPBOARD_SERVICE);
-                ClipData clipData = ClipData.newPlainText("jipinshop", bean.getWechat());
-                clip.setPrimaryClip(clipData);
-                ToastUtil.show("复制成功");
-                SPUtils.getInstance().put(CommonDate.CLIP,bean.getWechat());
-            }else {
-                ToastUtil.show("暂未填写");
-            }
+        binding.dialogBuy.setOnClickListener(v -> {
+            listener.onClick(v);
+            dialog.dismiss();
+        });
+        binding.dialogDismiss.setOnClickListener(v -> {
+            dialog.dismiss();
         });
         dialog.getWindow().setDimAmount(0.35f);
         dialog.show();
@@ -1166,11 +1147,15 @@ public class DialogUtil {
     }
 
     //支付成功弹窗
-    public static void paySucDialog(Context context, String endTime){
+    public static void paySucDialog(Context context, String level){
         AlertDialog.Builder builder = new AlertDialog.Builder(context, R.style.dialog);
         DialogPaySuccessBinding binding = DataBindingUtil.inflate(LayoutInflater.from(context),R.layout.dialog_pay_success, null,false);
         final Dialog dialog = builder.create();
-        binding.dialogContent.setText("恭喜成为极品城会员\n" + endTime + "日后到期");
+        if (level.equals("1")){
+            binding.dialogImage.setImageResource(R.mipmap.pay_success2);
+        }else {
+            binding.dialogImage.setImageResource(R.mipmap.pay_success);
+        }
         binding.dialogDismiss.setOnClickListener(v -> {
             dialog.dismiss();
         });

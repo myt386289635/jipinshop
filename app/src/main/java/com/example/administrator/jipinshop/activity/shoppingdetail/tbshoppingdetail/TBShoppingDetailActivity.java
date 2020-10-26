@@ -106,6 +106,8 @@ public class TBShoppingDetailActivity extends BaseActivity implements View.OnCli
     //是否开启底部会员弹框
     private Boolean isStart = false;
     private String level = "0";//用户身份
+    private String UpFee = "";
+    private String fee = "";
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -231,22 +233,36 @@ public class TBShoppingDetailActivity extends BaseActivity implements View.OnCli
                 }
                 if (source.equals("2")){//只有淘宝商品进行授权
                     TaoBaoUtil.openTB(this, () -> {
-                        mDialog = (new ProgressDialogView()).createPlatformDialog(this, money, R.mipmap.dialog_tb, v1 -> {
-                            mPresenter.getGoodsClickUrl(source, goodsId, this.bindToLifecycle());
-                        });
-                        mDialog.show();
+                        if (level.equals("0")){
+                            //非会员弹窗
+                            DialogUtil.buyMemberDialog(this, fee, UpFee, v14 -> {
+                                mPresenter.getGoodsClickUrl(source, goodsId, this.bindToLifecycle());
+                            });
+                        }else {
+                            mDialog = (new ProgressDialogView()).createPlatformDialog(this, money, R.mipmap.dialog_tb, v1 -> {
+                                mPresenter.getGoodsClickUrl(source, goodsId, this.bindToLifecycle());
+                            });
+                            mDialog.show();
+                        }
                     });
                 }else {
-                    if (source.equals("1")){
-                        mDialog = (new ProgressDialogView()).createPlatformDialog(this, money, R.mipmap.dialog_jd, v12 -> {
+                    if (level.equals("0")){
+                        //非会员弹窗
+                        DialogUtil.buyMemberDialog(this, fee, UpFee, v14 -> {
                             mPresenter.getGoodsClickUrl(source, goodsId, this.bindToLifecycle());
                         });
                     }else {
-                        mDialog = (new ProgressDialogView()).createPlatformDialog(this, money, R.mipmap.dialog_pdd, v13 -> {
-                            mPresenter.getGoodsClickUrl(source, goodsId, this.bindToLifecycle());
-                        });
+                        if (source.equals("1")){
+                            mDialog = (new ProgressDialogView()).createPlatformDialog(this, money, R.mipmap.dialog_jd, v12 -> {
+                                mPresenter.getGoodsClickUrl(source, goodsId, this.bindToLifecycle());
+                            });
+                        }else {
+                            mDialog = (new ProgressDialogView()).createPlatformDialog(this, money, R.mipmap.dialog_pdd, v13 -> {
+                                mPresenter.getGoodsClickUrl(source, goodsId, this.bindToLifecycle());
+                            });
+                        }
+                        mDialog.show();
                     }
-                    mDialog.show();
                 }
                 break;
             case R.id.detail_share:
@@ -296,7 +312,7 @@ public class TBShoppingDetailActivity extends BaseActivity implements View.OnCli
                     startActivityForResult(new Intent(this, LoginActivity.class),201);
                     return;
                 }
-                if (!level.equals("0")){
+                if (level.equals("0")){
                     startActivity(new Intent(this, HomeNewActivity.class)
                             .putExtra("type",HomeNewActivity.member)
                     );
@@ -458,6 +474,8 @@ public class TBShoppingDetailActivity extends BaseActivity implements View.OnCli
         }
         //会员信息
         level = bean.getData().getLevel() + "";
+        UpFee = bean.getData().getUpFee() + "";
+        fee = bean.getData().getFee() + "";
         if (bean.getData().getLevel() != 0){
             mBinding.detailMemberText.setText("尊享专属优惠比普通用户多返");
             mBinding.detailMemberPrice.setText("￥" + bean.getData().getUpFee());

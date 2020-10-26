@@ -162,7 +162,7 @@ public class MemberFragment extends DBBaseFragment implements View.OnClickListen
                     }else {
                         StatisticalUtil.onPayEvent(getContext(),"年卡",yearPrice);
                     }
-                    DialogUtil.paySucDialog(getContext(),endTime);
+                    DialogUtil.paySucDialog(getContext(),level);
                 } else {
                     //失败
                     DialogUtil.payFileDialog(getContext(),userLevel, type -> {
@@ -809,7 +809,7 @@ public class MemberFragment extends DBBaseFragment implements View.OnClickListen
                     }else {
                         StatisticalUtil.onPayEvent(getContext(),"年卡",yearPrice);
                     }
-                    DialogUtil.paySucDialog(getContext(), endTime);
+                    DialogUtil.paySucDialog(getContext(), level);
                 } else if (bus.getType().equals(WXPayEntryActivity.pay_faile)) {
                     DialogUtil.payFileDialog(getContext(),userLevel,  type -> {
                         onBuyMember(level, type);
