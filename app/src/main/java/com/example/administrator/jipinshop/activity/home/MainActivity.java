@@ -6,7 +6,6 @@ import android.content.ClipboardManager;
 import android.content.Intent;
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
-import android.os.CountDownTimer;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
@@ -86,7 +85,6 @@ public class MainActivity extends BaseActivity implements MainView, ViewPager.On
 
     private long exitTime = 0;
     private Boolean once = true; // 是否是第一次弹出
-    private CountDownTimer mCountDownTimerUtils;//定时器
     private Dialog mDialog;
     private ImageWatcherHelper iwHelper;
     private DecorationLayout layDecoration;
@@ -161,18 +159,15 @@ public class MainActivity extends BaseActivity implements MainView, ViewPager.On
 
     public void onResult(String currentPrivacy) {
 //        isGuide = getIntent().getBooleanExtra("isGuide", false);
+        mBinding.loginNotice.setText("登录领取淘宝隐藏优惠券");
+        mBinding.loginTimeContainer.setVisibility(View.GONE);
         if (SPUtils.getInstance().getBoolean(CommonDate.FIRST, true)) {
             //新人第一次进入app
             mBinding.loginBackground.setVisibility(View.VISIBLE);
-            mBinding.loginNotice.setText("新人0元免单资格即将过期");
-            mBinding.loginTimeContainer.setVisibility(View.VISIBLE);
-            setCountDownTimer();
             mBinding.guideContainer.setVisibility(View.GONE);
             mPresenter.getAppVersion(this.bindToLifecycle()); //版本更新
         } else {
             //老人进入app
-            mBinding.loginNotice.setText("登录领取淘宝隐藏优惠券");
-            mBinding.loginTimeContainer.setVisibility(View.GONE);
             if (TextUtils.isEmpty(SPUtils.getInstance(CommonDate.USER).getString(CommonDate.token, "").trim())) {
                 mBinding.loginBackground.setVisibility(View.VISIBLE);
             } else {
@@ -206,45 +201,9 @@ public class MainActivity extends BaseActivity implements MainView, ViewPager.On
         }
     }
 
-    private void setCountDownTimer() {
-        long time = 30 * 60;
-        mCountDownTimerUtils = new CountDownTimer(time * 1000, 1000) {
-
-            public void onTick(long millisUntilFinished) {
-                int ss = 1000;
-                int mi = ss * 60;
-                int hh = mi * 60;
-                int dd = hh * 24;
-                long day = millisUntilFinished / dd;
-                long hour = ((millisUntilFinished - day * dd) / hh);
-                long minute = (millisUntilFinished - hour * hh - day * dd) / mi;
-                long second = (millisUntilFinished - hour * hh - minute * mi - day * dd) / ss;
-                String s_minute = minute + "";
-                String s_second = second + "";
-                if (s_second.length() == 1) {
-                    s_second = "0" + s_second;
-                }
-                if (s_minute.length() == 1) {
-                    s_minute = "0" + s_minute;
-                }
-                mBinding.dialogMinute.setText(s_minute);
-                mBinding.dialogSecond.setText(s_second);
-            }
-
-            public void onFinish() {
-                mBinding.loginNotice.setText("登录领取淘宝隐藏优惠券");
-                mBinding.loginTimeContainer.setVisibility(View.GONE);
-            }
-        }.start();
-    }
-
     @Override
     protected void onDestroy() {
         EventBus.getDefault().unregister(this);
-        if (mCountDownTimerUtils != null) {
-            mCountDownTimerUtils.cancel();
-            mCountDownTimerUtils = null;
-        }
         super.onDestroy();
     }
 
