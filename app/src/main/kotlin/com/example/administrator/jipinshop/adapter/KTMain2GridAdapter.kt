@@ -10,9 +10,12 @@ import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.TextView
 import com.example.administrator.jipinshop.R
+import com.example.administrator.jipinshop.bean.SuccessBean
 import com.example.administrator.jipinshop.bean.TbkIndexBean
 import com.example.administrator.jipinshop.util.ShopJumpUtil
+import com.example.administrator.jipinshop.util.UmApp.AppStatisticalUtil
 import com.example.administrator.jipinshop.view.glide.GlideApp
+import com.trello.rxlifecycle2.LifecycleTransformer
 
 /**
  * @author 莫小婷
@@ -23,21 +26,23 @@ class KTMain2GridAdapter : BaseAdapter{
 
     private var mList: MutableList<TbkIndexBean.DataBean.BoxCategoryListBean.ListBean>
     private var mContext: Context
-//    private lateinit var appStatisticalUtil: AppStatisticalUtil
-//    private lateinit var  transformer : LifecycleTransformer<SuccessBean>
+    private lateinit var appStatisticalUtil: AppStatisticalUtil
+    private lateinit var  transformer : LifecycleTransformer<SuccessBean>
+    private var mUtil = ""
 
-    constructor(list: MutableList<TbkIndexBean.DataBean.BoxCategoryListBean.ListBean>, context: Context){
+    constructor(list: MutableList<TbkIndexBean.DataBean.BoxCategoryListBean.ListBean>, context: Context , util : String){
         mList = list
         mContext = context
+        mUtil = util
     }
 
-//    fun setAppStatisticalUtil(appStatisticalUtil : AppStatisticalUtil){
-//        this.appStatisticalUtil = appStatisticalUtil
-//    }
-//
-//    fun setTransformer(transformer : LifecycleTransformer<SuccessBean>){
-//        this.transformer = transformer
-//    }
+    fun setAppStatisticalUtil(appStatisticalUtil : AppStatisticalUtil){
+        this.appStatisticalUtil = appStatisticalUtil
+    }
+
+    fun setTransformer(transformer : LifecycleTransformer<SuccessBean>){
+        this.transformer = transformer
+    }
 
     override fun getView(position: Int, convertView: View?, parent: ViewGroup?): View {
         var holder: ViewHolder?
@@ -53,7 +58,7 @@ class KTMain2GridAdapter : BaseAdapter{
             mItemName.text = mList[position].title
             GlideApp.loderImage(mContext,mList[position].iconUrl,mImageView,0,0)
             itemView.setOnClickListener {
-                //                appStatisticalUtil.addEvent("shouye_gongge." + (position + 1),transformer)
+                appStatisticalUtil.addEvent(mUtil + (position + 1),transformer)
                 ShopJumpUtil.openBanner(mContext,mList[position].type,mList[position].targetId,
                         mList[position].title,mList[position].source)
             }

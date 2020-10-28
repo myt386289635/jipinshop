@@ -9,7 +9,10 @@ import com.example.administrator.jipinshop.R
 import com.example.administrator.jipinshop.adapter.KTMain2GridAdapter
 import com.example.administrator.jipinshop.base.DBBaseFragment
 import com.example.administrator.jipinshop.bean.TbkIndexBean
+import com.example.administrator.jipinshop.util.UmApp.AppStatisticalUtil
 import com.google.gson.Gson
+import com.trello.rxlifecycle2.android.FragmentEvent
+import javax.inject.Inject
 
 /**
  * @author 莫小婷
@@ -17,6 +20,9 @@ import com.google.gson.Gson
  * @Describe
  */
 class CommonTabFragment : DBBaseFragment(){
+
+    @Inject
+    lateinit var appStatisticalUtil: AppStatisticalUtil
 
     //位置和数据
     private lateinit var bean: TbkIndexBean.DataBean
@@ -45,6 +51,7 @@ class CommonTabFragment : DBBaseFragment(){
     }
 
     override fun initView() {
+        mBaseFragmentComponent.inject(this)
         arguments?.let {
             bean = Gson().fromJson(it.getString("date"),TbkIndexBean.DataBean::class.java)
             position = it.getInt("position", 0)
@@ -52,7 +59,9 @@ class CommonTabFragment : DBBaseFragment(){
 
         list = mutableListOf()
         list.addAll(bean.boxCategoryList[position].list)
-        mAdapter = KTMain2GridAdapter(list,context!!)
+        mAdapter = KTMain2GridAdapter(list,context!!,"shouye_gongge." + (position + 1) + ".")
+        mAdapter.setAppStatisticalUtil(appStatisticalUtil)
+        mAdapter.setTransformer(this.bindUntilEvent(FragmentEvent.DESTROY_VIEW))
         gridView.adapter = mAdapter
     }
 
