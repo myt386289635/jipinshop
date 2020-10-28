@@ -30,7 +30,7 @@ class KTSchoolGVAdapter : RecyclerView.Adapter<KTSchoolGVAdapter.ViewHolder>{
     }
 
     override fun onCreateViewHolder(viewGroup: ViewGroup, type: Int): ViewHolder {
-        var view = LayoutInflater.from(mContext).inflate(R.layout.kthome_tab, viewGroup, false)
+        var view = LayoutInflater.from(mContext).inflate(R.layout.ktschool_tab, viewGroup, false)
         return ViewHolder(view)
     }
 
