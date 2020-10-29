@@ -85,7 +85,7 @@ public class TeamActivity extends BaseActivity implements View.OnClickListener, 
         //tab
         mTitle = new ArrayList<>();
         mTitle.add("潜在粉丝");
-        mTitle.add("直邀粉丝");
+        mTitle.add("激活粉丝");
         CommonNavigator commonNavigator = new CommonNavigator(this);
         mTabAdapter = new KTTabAdapter4(mTitle);
         mTabAdapter.setColor(getResources().getColor(R.color.color_DE151515),
