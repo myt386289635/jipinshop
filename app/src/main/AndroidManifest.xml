@@ -808,6 +808,10 @@
         <activity android:name=".activity.mine.welfare.OfficialWelfareActivity"
                   android:screenOrientation="portrait"/>
 
+        <!--H5现金签到-->
+        <activity android:name=".activity.web.sign.H5SignWebActivity"
+                  android:screenOrientation="portrait"/>
+
  </application>
 
 </manifest>

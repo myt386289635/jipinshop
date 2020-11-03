@@ -33,6 +33,7 @@ import com.example.administrator.jipinshop.activity.sign.invitation.InvitationNe
 import com.example.administrator.jipinshop.activity.web.dzp.BigWheelWebActivity;
 import com.example.administrator.jipinshop.activity.web.hb.HBWebView2;
 import com.example.administrator.jipinshop.activity.web.invite.InviteActionWebActivity;
+import com.example.administrator.jipinshop.activity.web.sign.H5SignWebActivity;
 import com.example.administrator.jipinshop.bean.ActionHBBean;
 import com.example.administrator.jipinshop.bean.eventbus.ChangeHomePageBus;
 import com.example.administrator.jipinshop.netwrok.ApplicationComponent;
@@ -429,6 +430,17 @@ public class ShopJumpUtil {
                     intent.setClass(context, InviteActionWebActivity.class);
                     intent.putExtra(InviteActionWebActivity.url, target_id + SPUtils.getInstance(CommonDate.USER).getString(CommonDate.token, ""));
                     intent.putExtra(InviteActionWebActivity.title,target_title);
+                }
+                context.startActivity(intent);
+                break;
+            case "40":
+                //H5现金签到
+                if (TextUtils.isEmpty(SPUtils.getInstance(CommonDate.USER).getString(CommonDate.token, ""))) {
+                    intent.setClass(context, LoginActivity.class);
+                }else {
+                    intent.setClass(context, H5SignWebActivity.class);
+                    intent.putExtra(H5SignWebActivity.url, target_id + SPUtils.getInstance(CommonDate.USER).getString(CommonDate.token, ""));
+                    intent.putExtra(H5SignWebActivity.title,target_title);
                 }
                 context.startActivity(intent);
                 break;
