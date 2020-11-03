@@ -5,136 +5,215 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
-        <RelativeLayout
-            android:background="@drawable/bg_dc3f1b"
-            android:layout_marginRight="@dimen/x30"
-            android:layout_marginLeft="@dimen/x30"
-            android:id="@+id/mine_memberContainer"
-            android:layout_marginBottom="@dimen/y5"
-            android:layout_marginTop="@dimen/y25"
-            android:layout_width="match_parent"
-            android:layout_height="@dimen/y66">
-
-            <TextView
-                android:drawablePadding="@dimen/x18"
-                android:drawableLeft="@mipmap/detail_member"
-                android:layout_marginLeft="@dimen/x15"
-                android:id="@+id/detail_memberText"
-                android:layout_centerVertical="true"
-                android:text="升级VIP享更多权益"
-                android:textColor="@color/color_F7D6AB"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"/>
-
-            <TextView
-                android:id="@+id/mine_member"
-                android:layout_marginRight="@dimen/x20"
-                android:layout_alignParentRight="true"
-                android:layout_centerVertical="true"
-                android:paddingBottom="@dimen/y5"
-                android:paddingTop="@dimen/y5"
-                android:paddingRight="@dimen/x12"
-                android:paddingLeft="@dimen/x12"
-                android:background="@drawable/bg_f4cb95"
-                android:textColor="@color/color_DC3F1B"
-                android:textSize="12sp"
-                android:text="立即升级>"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"/>
-
-        </RelativeLayout>
-
         <LinearLayout
-            android:layout_marginTop="@dimen/y20"
-            android:layout_marginRight="@dimen/x30"
-            android:layout_marginLeft="@dimen/x30"
-            android:id="@+id/mine_headbootomContainer"
-            android:layout_below="@+id/mine_memberContainer"
-            android:background="@drawable/bg_balance"
+            android:id="@+id/mine_moneyContainer"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/x30"
+            android:layout_marginTop="@dimen/y20"
+            android:layout_marginRight="@dimen/x30"
+            android:background="@drawable/bg_balance"
             android:orientation="vertical">
 
             <TextView
-                android:layout_marginBottom="@dimen/y18"
-                android:layout_marginTop="@dimen/y18"
-                android:layout_marginLeft="@dimen/x22"
-                android:textColor="@color/color_9D9D9D"
-                android:textSize="13sp"
-                android:text="会员详情"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"/>
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/x22"
+                android:layout_marginTop="@dimen/y18"
+                android:layout_marginBottom="@dimen/y18"
+                android:text="我的资产"
+                android:textColor="@color/color_9D9D9D"
+                android:textSize="13sp"/>
 
             <View
-                android:background="@color/color_DEDEDE"
                 android:layout_width="match_parent"
-                android:layout_height="1px"/>
+                android:layout_height="1px"
+                android:background="@color/color_DEDEDE"/>
 
             <LinearLayout
-                android:orientation="horizontal"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
 
                 <LinearLayout
-                    android:id="@+id/mine_withdraw"
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1"
+                    android:id="@+id/mine_withdrawContainer"
                     android:gravity="center_horizontal"
-                    android:orientation="vertical">
-
-                    <ImageView
-                        android:scaleType="fitXY"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="@dimen/y22"
-                        android:src="@mipmap/mine_reward"/>
+                    android:orientation="vertical"
+                    android:layout_weight="1"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content">
 
                     <TextView
-                        android:textSize="13sp"
+                        android:gravity="center"
+                        android:layout_marginTop="@dimen/y19"
+                        android:id="@+id/mine_withdrawable"
+                        android:drawablePadding="@dimen/y7"
+                        android:textColor="@color/color_4B4745"
+                        android:textStyle="bold"
+                        android:textSize="14sp"
+                        android:drawableTop="@mipmap/mine_withdrawable"
+                        android:text="0元"
                         android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="@dimen/y10"
-                        android:text="提现"
-                        android:textColor="@color/color_202020"/>
+                        android:layout_height="wrap_content"/>
+
+                    <TextView
+                        android:layout_marginBottom="@dimen/y27"
+                        android:textColor="@color/color_9D9D9D"
+                        android:textSize="12sp"
+                        android:text="可提余额"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"/>
+
                 </LinearLayout>
 
+                <View
+                    android:layout_gravity="center_vertical"
+                    android:background="@color/color_DEDEDE"
+                    android:layout_width="@dimen/x1"
+                    android:layout_height="@dimen/y117"/>
+
                 <LinearLayout
-                    android:id="@+id/mine_team"
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1"
+                    android:id="@+id/mine_withdrawingContainer"
                     android:gravity="center_horizontal"
-                    android:orientation="vertical">
-
-                    <ImageView
-                        android:scaleType="fitXY"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="@dimen/y22"
-                        android:src="@mipmap/mine_trial"/>
+                    android:orientation="vertical"
+                    android:layout_weight="1"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content">
 
                     <TextView
-                        android:textSize="13sp"
+                        android:gravity="center"
+                        android:layout_marginTop="@dimen/y19"
+                        android:id="@+id/mine_withdrawing"
+                        android:drawablePadding="@dimen/y7"
+                        android:textColor="@color/color_4B4745"
+                        android:textStyle="bold"
+                        android:textSize="14sp"
+                        android:drawableTop="@mipmap/mine_withdrawing"
+                        android:text="0元"
                         android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="@dimen/y10"
-                        android:text="我的团队"
-                        android:textColor="@color/color_202020"/>
+                        android:layout_height="wrap_content"/>
 
                     <TextView
-                        android:id="@+id/mine_teamCount"
-                        android:layout_marginTop="@dimen/y3"
-                        android:layout_marginBottom="@dimen/y16"
-                        android:textColor="@color/color_ACACAC"
-                        android:textSize="11sp"
+                        android:layout_marginBottom="@dimen/y27"
+                        android:textColor="@color/color_9D9D9D"
+                        android:textSize="12sp"
+                        android:text="待结算金额"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"/>
+
+                </LinearLayout>
+
+                <View
+                    android:layout_gravity="center_vertical"
+                    android:background="@color/color_DEDEDE"
+                    android:layout_width="@dimen/x1"
+                    android:layout_height="@dimen/y117"/>
+
+                <LinearLayout
+                    android:id="@+id/mine_butieContainer"
+                    android:gravity="center_horizontal"
+                    android:orientation="vertical"
+                    android:layout_weight="1"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content">
+
+                    <TextView
+                        android:gravity="center"
+                        android:layout_marginTop="@dimen/y19"
+                        android:id="@+id/mine_butie"
+                        android:drawablePadding="@dimen/y7"
+                        android:textColor="@color/color_4B4745"
+                        android:textStyle="bold"
+                        android:textSize="14sp"
+                        android:drawableTop="@mipmap/mine_butie"
+                        android:text="0元"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"/>
+
+                    <TextView
+                        android:layout_marginBottom="@dimen/y27"
+                        android:textColor="@color/color_9D9D9D"
+                        android:textSize="12sp"
+                        android:text="补贴余额"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"/>
+
+                </LinearLayout>
+
+                <View
+                    android:layout_gravity="center_vertical"
+                    android:background="@color/color_DEDEDE"
+                    android:layout_width="@dimen/x1"
+                    android:layout_height="@dimen/y117"/>
+
+                <LinearLayout
+                    android:id="@+id/mine_jinbiContainer"
+                    android:gravity="center_horizontal"
+                    android:orientation="vertical"
+                    android:layout_weight="1"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content">
+
+                    <TextView
+                        android:gravity="center"
+                        android:layout_marginTop="@dimen/y19"
+                        android:id="@+id/mine_jinbi"
+                        android:drawablePadding="@dimen/y7"
+                        android:textColor="@color/color_4B4745"
+                        android:textStyle="bold"
+                        android:textSize="14sp"
+                        android:drawableTop="@mipmap/mine_jinbi"
                         android:text="0"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"/>
+
+                    <TextView
+                        android:layout_marginBottom="@dimen/y27"
+                        android:textColor="@color/color_9D9D9D"
+                        android:textSize="12sp"
+                        android:text="极币余额"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"/>
+
                 </LinearLayout>
 
+            </LinearLayout>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/mine_orderContainer"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/mine_moneyContainer"
+            android:layout_marginLeft="@dimen/x30"
+            android:layout_marginTop="@dimen/y20"
+            android:layout_marginRight="@dimen/x30"
+            android:background="@drawable/bg_balance"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/x22"
+                android:layout_marginTop="@dimen/y18"
+                android:layout_marginBottom="@dimen/y18"
+                android:text="我的订单"
+                android:textColor="@color/color_9D9D9D"
+                android:textSize="13sp"/>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1px"
+                android:background="@color/color_DEDEDE"/>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
                 <LinearLayout
-                    android:id="@+id/mine_order"
+                    android:id="@+id/mine_orderAll"
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:layout_weight="1"
@@ -142,23 +221,24 @@
                     android:orientation="vertical">
 
                     <ImageView
-                        android:scaleType="fitXY"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="@dimen/y22"
-                        android:src="@mipmap/order"/>
+                        android:scaleType="fitXY"
+                        android:src="@mipmap/mine_reward"/>
 
                     <TextView
-                        android:textSize="13sp"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="@dimen/y10"
-                        android:text="我的订单"
-                        android:textColor="@color/color_202020"/>
+                        android:layout_marginBottom="@dimen/y46"
+                        android:text="全部订单"
+                        android:textColor="@color/color_202020"
+                        android:textSize="13sp"/>
                 </LinearLayout>
 
                 <LinearLayout
-                    android:id="@+id/mine_invitation"
+                    android:id="@+id/mine_orderwill"
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:layout_weight="1"
@@ -166,19 +246,71 @@
                     android:orientation="vertical">
 
                     <ImageView
-                        android:scaleType="fitXY"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="@dimen/y22"
-                        android:src="@mipmap/mine_shopping"/>
+                        android:scaleType="fitXY"
+                        android:src="@mipmap/mine_orderwill"/>
 
                     <TextView
-                        android:textSize="13sp"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="@dimen/y10"
-                        android:text="邀请好友"
-                        android:textColor="@color/color_202020"/>
+                        android:layout_marginBottom="@dimen/y46"
+                        android:text="即将到账"
+                        android:textColor="@color/color_202020"
+                        android:textSize="13sp"/>
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/mine_orderaccount"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:gravity="center_horizontal"
+                    android:orientation="vertical">
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/y22"
+                        android:scaleType="fitXY"
+                        android:src="@mipmap/mine_orderaccount"/>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/y10"
+                        android:layout_marginBottom="@dimen/y46"
+                        android:text="已到账"
+                        android:textColor="@color/color_202020"
+                        android:textSize="13sp"/>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/mine_orderinvalid"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:gravity="center_horizontal"
+                    android:orientation="vertical">
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/y22"
+                        android:scaleType="fitXY"
+                        android:src="@mipmap/mine_orderinvalid"/>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/y10"
+                        android:layout_marginBottom="@dimen/y46"
+                        android:text="失效订单"
+                        android:textColor="@color/color_202020"
+                        android:textSize="13sp"/>
                 </LinearLayout>
 
             </LinearLayout>
@@ -187,13 +319,13 @@
 
         <com.example.administrator.jipinshop.view.viewpager.TouchViewPager
             android:id="@+id/view_pager"
-            android:visibility="gone"
             android:layout_width="match_parent"
             android:layout_height="@dimen/y188"
-            android:layout_below="@+id/mine_headbootomContainer"
+            android:layout_below="@+id/mine_orderContainer"
             android:layout_marginLeft="@dimen/x30"
             android:layout_marginTop="@dimen/y20"
-            android:layout_marginRight="@dimen/x30"/>
+            android:layout_marginRight="@dimen/x30"
+            android:visibility="gone"/>
 
     </RelativeLayout>
 </layout>

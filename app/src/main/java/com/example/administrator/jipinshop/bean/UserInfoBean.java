@@ -102,6 +102,24 @@ public class UserInfoBean {
         private String wechat; //(微信号)
         private int level;  //(会员等级 0普通 1vip 2合伙人)
         private String levelStatus;//（会员升级状态：0审核中，1正常）
+        private String officialWeChatQR;//官方客服群二维码
+        private String levelEndTime;//会员到期时间
+
+        public String getLevelEndTime() {
+            return levelEndTime;
+        }
+
+        public void setLevelEndTime(String levelEndTime) {
+            this.levelEndTime = levelEndTime;
+        }
+
+        public String getOfficialWeChatQR() {
+            return officialWeChatQR;
+        }
+
+        public void setOfficialWeChatQR(String officialWeChatQR) {
+            this.officialWeChatQR = officialWeChatQR;
+        }
 
         public String getWechat() {
             return wechat;

@@ -9,6 +9,7 @@ import com.example.administrator.jipinshop.activity.balance.detail.WalletDetailA
 import com.example.administrator.jipinshop.activity.balance.history.WalletHistoryActivity;
 import com.example.administrator.jipinshop.activity.balance.team.TeamActivity;
 import com.example.administrator.jipinshop.activity.balance.withdraw.WithdrawActivity;
+import com.example.administrator.jipinshop.activity.mine.browse.BrowseActivity;
 import com.example.administrator.jipinshop.activity.cheapgoods.CheapBuyActivity;
 import com.example.administrator.jipinshop.activity.cheapgoods.record.AllowanceRecordActivity;
 import com.example.administrator.jipinshop.activity.commenlist.CommenListActivity;
@@ -51,6 +52,7 @@ import com.example.administrator.jipinshop.activity.member.zero.ZeroActivity;
 import com.example.administrator.jipinshop.activity.member.zero.detail.ZeroDetailActivity;
 import com.example.administrator.jipinshop.activity.message.MessageActivity;
 import com.example.administrator.jipinshop.activity.message.detail.MsgDetailActivity;
+import com.example.administrator.jipinshop.activity.mine.welfare.OfficialWelfareActivity;
 import com.example.administrator.jipinshop.activity.minekt.publishkt.detail.AuditDetailActivity;
 import com.example.administrator.jipinshop.activity.minekt.recovery.OrderRecoveryActivity;
 import com.example.administrator.jipinshop.activity.minekt.recovery.OrderRecoveryResultActivity;
@@ -190,4 +192,6 @@ public interface BaseActivityComponent {
     void inject(ZeroActivity activity);
     void inject(ZeroDetailActivity activity);
     void inject(InviteActionWebActivity activity);
+    void inject(BrowseActivity activity);
+    void inject(OfficialWelfareActivity activity);
 }

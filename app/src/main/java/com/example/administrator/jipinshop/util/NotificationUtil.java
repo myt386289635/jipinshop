@@ -29,7 +29,7 @@ public class NotificationUtil {
      * 可以通过NotificationManagerCompat 中的 areNotificationsEnabled()来判断是否开启通知权限。NotificationManagerCompat 在 android.support.v4.app包中，是API 22.1.0 中加入的。而 areNotificationsEnabled()则是在 API 24.1.0之后加入的。
      * areNotificationsEnabled 只对 API 19 及以上版本有效，低于API 19 会一直返回true
      */
-    private static boolean isNotificationEnabled(Context context) {
+    public static boolean isNotificationEnabled(Context context) {
         boolean isOpened = false;
         try {
             isOpened = NotificationManagerCompat.from(context).areNotificationsEnabled();
@@ -60,7 +60,7 @@ public class NotificationUtil {
     /**
      * 假设没有开启通知权限，点击之后就需要跳转到 APP的通知设置界面，对应的Action是：Settings.ACTION_APP_NOTIFICATION_SETTINGS, 这个Action是 API 26 后增加的
      * 如果在部分手机中无法精确的跳转到 APP对应的通知设置界面，那么我们就考虑直接跳转到 APP信息界面，对应的Action是：Settings.ACTION_APPLICATION_DETAILS_SETTINGS*/
-    private static void gotoSet(Activity context) {
+    public static void gotoSet(Activity context) {
         Intent intent = new Intent();
         if (Build.VERSION.SDK_INT >= 26) {
             // android 8.0引导

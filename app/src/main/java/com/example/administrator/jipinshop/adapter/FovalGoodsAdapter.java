@@ -54,7 +54,6 @@ public class FovalGoodsAdapter extends RecyclerView.Adapter<FovalGoodsAdapter.Vi
         viewHolder.binding.executePendingBindings();
         viewHolder.binding.itemLineContainer.setVisibility(View.VISIBLE);
         viewHolder.binding.itemGridContainer.setVisibility(View.GONE);
-        viewHolder.binding.itemShopName.setVisibility(View.GONE);
         viewHolder.binding.itemVolume.setVisibility(View.GONE);
         viewHolder.binding.itemShare.setVisibility(View.GONE);
         viewHolder.binding.detailOtherPrice.setTv(true);

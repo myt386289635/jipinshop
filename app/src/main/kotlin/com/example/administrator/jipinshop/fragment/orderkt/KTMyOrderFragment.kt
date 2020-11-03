@@ -41,10 +41,11 @@ class KTMyOrderFragment : DBBaseFragment(), OnRefreshListener, OnLoadMoreListene
     private lateinit var mTitles: MutableList<TextView>
 
     companion object{
-        fun getInstance(source : String): KTMyOrderFragment{
+        fun getInstance(source : String, status : Int): KTMyOrderFragment{
             val fragment = KTMyOrderFragment()
             val bundle = Bundle()
             bundle.putString("source", source)
+            bundle.putInt("status", status)
             fragment.arguments = bundle
             return fragment
         }
@@ -74,6 +75,7 @@ class KTMyOrderFragment : DBBaseFragment(), OnRefreshListener, OnLoadMoreListene
         mBinding.swipeToLoad.setBackgroundColor(resources.getColor(R.color.color_F5F5F5))
         arguments?.let {
             source = it.getString("source","0")
+            status = it.getInt("status",0)
         }
         mPresenter.setView(this)
 

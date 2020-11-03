@@ -1,5 +1,6 @@
 package com.example.administrator.jipinshop.adapter
 
+import android.app.Activity
 import android.content.Context
 import android.content.Intent
 import android.databinding.DataBindingUtil
@@ -9,7 +10,6 @@ import android.support.v4.view.ViewPager
 import android.support.v7.widget.GridLayoutManager
 import android.support.v7.widget.RecyclerView
 import android.text.TextUtils
-import android.view.Gravity
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -25,12 +25,12 @@ import com.example.administrator.jipinshop.databinding.ItemMineHead1Binding
 import com.example.administrator.jipinshop.databinding.ItemMineHead2Binding
 import com.example.administrator.jipinshop.databinding.ItemMineHead3Binding
 import com.example.administrator.jipinshop.databinding.ItemUserlikeBinding
+import com.example.administrator.jipinshop.util.NotificationUtil
 import com.example.administrator.jipinshop.util.ShopJumpUtil
 import com.example.administrator.jipinshop.util.WeakRefHandler
 import com.example.administrator.jipinshop.util.sp.CommonDate
 import com.example.administrator.jipinshop.view.glide.GlideApp
 import com.example.administrator.jipinshop.view.viewpager.TouchViewPager
-import q.rorbin.badgeview.QBadgeView
 import java.math.BigDecimal
 
 /**
@@ -50,7 +50,6 @@ class KTMineAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>{
     private var context : Context
     private var mBean: UserInfoBean? = null
     private var mOnItem: OnItem? = null
-    private var unMessage: Int = 0//未读数
     private var mWalletBean : MyWalletBean? = null
 
     fun setWallet(bean : MyWalletBean?){
@@ -67,10 +66,6 @@ class KTMineAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>{
 
     fun setAdList(adListBeans: MutableList<EvaluationTabBean.DataBean.AdListBean>){
         this.mAdListBeans = adListBeans
-    }
-
-    fun setUnMessage(unMessage: Int){
-        this.unMessage = unMessage
     }
 
     constructor(list: MutableList<SimilerGoodsBean.DataBean>, context: Context) {
@@ -138,11 +133,6 @@ class KTMineAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>{
                 head1ViewHolder.run {
                     mBean?.let {
                         if (it.code == 0){//请求成功
-                            binding.mineName.visibility = View.VISIBLE
-                            binding.mineLogin.visibility = View.GONE
-                            binding.mineInfo.visibility = View.VISIBLE
-                            binding.mineCopyContainer.visibility = View.VISIBLE//复制邀请码
-                            binding.mineIntegral.text = "邀请码：" + SPUtils.getInstance(CommonDate.USER).getString(CommonDate.qrCode, "000000")
                             binding.mineName.text = SPUtils.getInstance(CommonDate.USER).getString(CommonDate.userNickName)
                             if (!TextUtils.isEmpty(SPUtils.getInstance(CommonDate.USER).getString(CommonDate.userNickImg))) {
                                 GlideApp.loderImage(context, SPUtils.getInstance(CommonDate.USER).getString(CommonDate.userNickImg), binding.mineImage, R.mipmap.logo, 0)
@@ -152,49 +142,58 @@ class KTMineAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>{
                             } else {
                                 GlideApp.loderImage(context, it.data.bgImg, binding.mineBackground, 0, 0)
                             }
-                            if (it.data.level == 2) {
-                                //2合伙人
+                            if (it.data.level == 2) {//年卡
                                 binding.itemGrade.setImageResource(R.mipmap.grade_partner)
-                            } else {
-                                if (it.data.level == 1) {
-                                    binding.itemGrade.setImageResource(R.mipmap.grade_vip)
-                                } else {
-                                    binding.itemGrade.setImageResource(R.mipmap.grade_public)
-                                }
+                                binding.mineMemberTime.text = "到期：" + it.data.levelEndTime
+                                binding.mineMemberTime.visibility = View.VISIBLE
+                                binding.mineMemberOpen.text = "续费"
+                            } else  if (it.data.level == 1){
+                                binding.itemGrade.setImageResource(R.mipmap.grade_vip)
+                                binding.mineMemberTime.text = "到期：" + it.data.levelEndTime
+                                binding.mineMemberTime.visibility = View.VISIBLE
+                                binding.mineMemberOpen.text = "续费"
+                            }else {
+                                binding.itemGrade.setImageResource(R.mipmap.grade_public)
+                                binding.mineMemberTime.visibility = View.GONE
+                                binding.mineMemberOpen.text = "开通会员"
                             }
-                            mWalletBean?.let { it ->
-                                binding.mineWithdrawal.text = it.data.preTodayFee//今日预估
-                                binding.mineImminent.text = it.data.currentMonthFee //本月预估
-                                binding.mineTotal.text = it.data.preMonthFee //上月预估
-                                binding.mineWalletMoney.text = it.data.balanceFee + "元" //可提现
+                            mWalletBean?.let { bean ->
+                                binding.mineMemberInfoTitle.text = bean.data.title1
+                                binding.mineMemberInfoContent.text = bean.data.title2
+                                GlideApp.loderImage(context,bean.data.img,binding.mineMemberInfo,0,0)
                             }
                         }else if (it.code == 602){//token失效(未登录)
-                            binding.mineName.visibility = View.GONE
-                            binding.mineLogin.visibility = View.VISIBLE
-                            binding.mineInfo.visibility = View.GONE
                             GlideApp.loderImage(context, R.drawable.logo, binding.mineImage, 0, 0)
                             binding.mineBackground.setImageResource(R.mipmap.mine_imagebg_dafult)
-                            binding.mineWithdrawal.text = "0"//今日预估
-                            binding.mineImminent.text = "0" //本月预估
-                            binding.mineTotal.text = "0" //上月预估
-                            binding.mineWalletMoney.text = "0元" //可提现
-                            binding.mineCopyContainer.visibility = View.GONE//复制邀请码
+                            binding.mineName.text = "登录拿返现"
                             binding.itemGrade.setImageResource(R.mipmap.grade_public)
+                            binding.mineMemberTime.visibility = View.GONE
+                            binding.mineMemberOpen.text = "开通会员"
                         }else{//其他错误
-                            binding.mineName.visibility = View.VISIBLE
-                            binding.mineLogin.visibility = View.GONE
-                            binding.mineInfo.visibility = View.VISIBLE
                             binding.mineName.text = SPUtils.getInstance(CommonDate.USER).getString(CommonDate.userNickName)
                             if (!TextUtils.isEmpty(SPUtils.getInstance(CommonDate.USER).getString(CommonDate.userNickImg))) {
                                 GlideApp.loderImage(context, SPUtils.getInstance(CommonDate.USER).getString(CommonDate.userNickImg), binding.mineImage, R.mipmap.logo, 0)
                             }
-                            binding.mineCopyContainer.visibility = View.VISIBLE//复制邀请码
-                            binding.mineIntegral.text = "邀请码：" + SPUtils.getInstance(CommonDate.USER).getString(CommonDate.qrCode, "000000")
+                            if (TextUtils.isEmpty(SPUtils.getInstance(CommonDate.USER).getString(CommonDate.bgImg))) {
+                                binding.mineBackground.setImageResource(R.mipmap.mine_imagebg_dafult)
+                            } else {
+                                GlideApp.loderImage(context, SPUtils.getInstance(CommonDate.USER).getString(CommonDate.bgImg), binding.mineBackground, R.mipmap.mine_imagebg_dafult, 0)
+                            }
+                            binding.itemGrade.setImageResource(R.mipmap.grade_public)
+                            binding.mineMemberTime.visibility = View.GONE
+                            binding.mineMemberOpen.text = "开通会员"
                             SPUtils.getInstance(CommonDate.USER).put(CommonDate.userPoint, 0)
                         }
-                        binding.mineLogin.setOnClickListener {
-                            //跳转到登陆页面
-                            mOnItem?.onLogin()
+                        if (NotificationUtil.isNotificationEnabled(context)){
+                            binding.mineNoticeContainer.visibility = View.INVISIBLE
+                        }else {
+                            binding.mineNoticeContainer.visibility = View.VISIBLE
+                        }
+                        binding.mineNotice.setOnClickListener {
+                            binding.mineNoticeContainer.visibility = View.INVISIBLE
+                        }
+                        binding.mineNoticeGo.setOnClickListener {
+                            NotificationUtil.gotoSet(context as Activity)
                         }
                         binding.mineName.setOnClickListener {
                             mOnItem?.onUserInfo()
@@ -202,20 +201,13 @@ class KTMineAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>{
                         binding.mineImage.setOnClickListener {
                             mOnItem?.onUserInfo()
                         }
-                        binding.mineInfo.setOnClickListener {
-                            mOnItem?.onUserInfo()
+                        binding.mineMemberOpen.setOnClickListener {
+                            mOnItem?.onMember()
                         }
-                        binding.mineCopy.setOnClickListener {
-                            mOnItem?.onCopy(binding.mineIntegral.text.toString().replace("邀请码：", ""))
-                        }
-                        binding.mineWallet.setOnClickListener {
-                            mOnItem?.onWallet()
-                        }
-                        binding.mineWalletBottomContainer.setOnClickListener {
-                            mOnItem?.onWallet()
+                        binding.mineMemberInfoContainer.setOnClickListener {
+                            mOnItem?.onMember()
                         }
                     }
-
                 }
             }
             HEAD2 -> {
@@ -238,33 +230,41 @@ class KTMineAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>{
                             binding.viewPager.visibility = View.GONE
                         }
                         if (it.code == 0) {//请求成功
-                            binding.mineTeamCount.text = it.data.teamCount
-                            if (it.data.level == 0){
-                                binding.mineMemberContainer.visibility = View.VISIBLE
-                            }else{
-                                binding.mineMemberContainer.visibility = View.GONE
+                            mWalletBean?.let { bean ->
+                                binding.mineWithdrawable.text = "${bean.data.balanceFee}元"
+                                binding.mineWithdrawing.text = "${bean.data.preFee}元"
+                                binding.mineButie.text = "${bean.data.allowance}元"
+                                binding.mineJinbi.text = bean.data.point
                             }
-                        }else if (it.code == 602) {//token失效(未登录)
-                            binding.mineTeamCount.text = "0"
-                            binding.mineMemberContainer.visibility = View.VISIBLE
-                        }else{
-                            binding.mineTeamCount.text = "0"
-                            binding.mineMemberContainer.visibility = View.VISIBLE
+                        }else{//未请求成功
+                            binding.mineWithdrawable.text = "0元"
+                            binding.mineWithdrawing.text = "0元"
+                            binding.mineButie.text = "0元"
+                            binding.mineJinbi.text = "0"
                         }
-                        binding.mineMember.setOnClickListener {
-                            mOnItem?.onMember()
+                        binding.mineWithdrawContainer.setOnClickListener {
+                            mOnItem?.onWallet()
                         }
-                        binding.mineWithdraw.setOnClickListener {
-                            mOnItem?.onWithdraw()
+                        binding.mineWithdrawingContainer.setOnClickListener {
+                            mOnItem?.onWallet()
                         }
-                        binding.mineTeam.setOnClickListener {
-                            mOnItem?.onTeam()
+                        binding.mineButieContainer.setOnClickListener {
+                            mOnItem?.onCheapBuy()
                         }
-                        binding.mineOrder.setOnClickListener {
-                            mOnItem?.onOrder()
+                        binding.mineJinbiContainer.setOnClickListener {
+                            mOnItem?.onRule()
                         }
-                        binding.mineInvitation.setOnClickListener {
-                            mOnItem?.onInvitation()
+                        binding.mineOrderAll.setOnClickListener {
+                            mOnItem?.onOrder(0)
+                        }
+                        binding.mineOrderwill.setOnClickListener {
+                            mOnItem?.onOrder(1)
+                        }
+                        binding.mineOrderaccount.setOnClickListener {
+                            mOnItem?.onOrder(2)
+                        }
+                        binding.mineOrderinvalid.setOnClickListener {
+                            mOnItem?.onOrder(3)
                         }
                     }
                 }
@@ -272,15 +272,6 @@ class KTMineAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>{
             HEAD3 -> {
                 var head3ViewHolder : Head3ViewHolder = holder as Head3ViewHolder
                 head3ViewHolder.run {
-                    if (unMessage != 0) {
-                        if (unMessage <= 99) {
-                            mQBadgeView.setBadgeText("" + unMessage)
-                        } else {
-                            mQBadgeView.setBadgeText("99+")
-                        }
-                    } else {
-                        mQBadgeView.hide(false)
-                    }
                     mBean?.let {
                         if (it.code == 0) {//请求成功
                             if (it.data.pid == "0") {
@@ -288,18 +279,23 @@ class KTMineAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>{
                             } else {
                                 binding.mineInvation.visibility = View.GONE
                             }
+                            list.clear()
+                            mWalletBean?.let { bean ->
+                                list.addAll(bean.data.adList)
+                            }
+                            adapter.notifyDataSetChanged()
                         }else{
                             binding.mineInvation.visibility = View.GONE
                         }
                     }
-                    binding.mineMessage.setOnClickListener {
+                    binding.mineBrowse.setOnClickListener {
                         mOnItem?.onMessage()
                     }
                     binding.mineFover.setOnClickListener {
                         mOnItem?.onFover()
                     }
-                    binding.mineGift.setOnClickListener {
-                        mOnItem?.onGift()
+                    binding.mineRecovery.setOnClickListener {
+                        mOnItem?.onOrderRecovery()
                     }
                     binding.mineSetting.setOnClickListener {
                         mOnItem?.onSetting()
@@ -313,11 +309,23 @@ class KTMineAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>{
                     binding.mineRule.setOnClickListener {
                         mOnItem?.onRule()
                     }
+                    binding.mineGift.setOnClickListener {
+                        mOnItem?.onGift()
+                    }
+                    binding.mineTeam.setOnClickListener {
+                        mOnItem?.onTeam()
+                    }
+                    binding.mineInvitation.setOnClickListener {
+                        mOnItem?.onInvitation()
+                    }
+                    binding.mineWelfare.setOnClickListener {
+                        mOnItem?.onWelfare()
+                    }
+                    binding.mineCourse.setOnClickListener {
+                        mOnItem?.onCourse()
+                    }
                     binding.mineInvation.setOnClickListener {
                         mOnItem?.onInvationDialog()
-                    }
-                    binding.mineRecovery.setOnClickListener {
-                        mOnItem?.onOrderRecovery()
                     }
                 }
             }
@@ -479,6 +487,7 @@ class KTMineAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>{
             handler.removeCallbacksAndMessages(null)//刷新时，要删除handler的请求
             handler.sendEmptyMessageDelayed(100,5000)
             binding.viewPager.setCurrentItem(1,false)
+            binding.viewPager.offscreenPageLimit = mAdListBeans.size - 1//防止图片重叠的情况
             pagerAdapter.notifyDataSetChanged()
         }
     }
@@ -486,17 +495,16 @@ class KTMineAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>{
     inner class Head3ViewHolder : RecyclerView.ViewHolder{
 
         var binding: ItemMineHead3Binding
-        var mQBadgeView: QBadgeView
+        var list: MutableList<MyWalletBean.DataBean.AdListBean>
+        var adapter: KTMineGirdAdapter
 
         constructor(binding: ItemMineHead3Binding) : super(binding.root){
             this.binding = binding
-            mQBadgeView = QBadgeView(context)
-            mQBadgeView.bindTarget(binding.mineMessageImg)
-                    .setBadgeTextSize(8f, true)
-                    .setBadgeGravity(Gravity.END or Gravity.TOP)
-                    .setBadgePadding(2f, true)
-                    .setGravityOffset(0f, 0f, true)
-                    .setBadgeBackgroundColor(-0x10000)
+
+            list = mutableListOf()
+            binding.mineActionRv.layoutManager = GridLayoutManager(context,4)
+            adapter = KTMineGirdAdapter(list,context)
+            binding.mineActionRv.adapter = adapter
         }
     }
 
@@ -511,25 +519,26 @@ class KTMineAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>{
 
     interface OnItem {
         fun onItemShare(position: Int)
-        fun onLogin()//跳转到登陆页面
+
         fun onUserInfo()//跳转到用户主页
-        fun onCopy(code: String)//复制邀请码
-        fun onWallet()//进入钱包
+        fun onMember()//进入会员页面
 
-        fun onMember()//进入会员
-        fun onWithdraw()//进入提现
-        fun onTeam()//进入团队
-        fun onOrder() //进入我的订单
-        fun onInvitation() //进入邀请页面
+        fun onWallet()//进入我的收益
+        fun onCheapBuy() //特惠购
+        fun onOrder(status: Int) //我的订单
 
-        fun onMessage()//消息通知
+        fun onMessage()//浏览足迹
         fun onFover()//收藏夹
         fun onGift()//福利兑换
         fun onSetting()//设置
         fun onOpinion()//反馈
         fun onMall()//极币商城
-        fun onRule()//任务中心
+        fun onRule()//极币中心
         fun onInvationDialog()//邀请码dialog
         fun onOrderRecovery() //订单找回
+        fun onTeam()//进入团队
+        fun onInvitation() //进入邀请页面
+        fun onWelfare() //官方福利群
+        fun onCourse() //新人教程
     }
 }

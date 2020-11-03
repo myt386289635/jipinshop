@@ -1,9 +1,6 @@
 package com.example.administrator.jipinshop.fragment.mine
 
 import android.app.Dialog
-import android.content.ClipData
-import android.content.ClipboardManager
-import android.content.Context
 import android.content.Intent
 import android.databinding.DataBindingUtil
 import android.support.v7.widget.GridLayoutManager
@@ -15,14 +12,15 @@ import android.view.inputmethod.InputMethodManager
 import com.aspsine.swipetoloadlayout.OnLoadMoreListener
 import com.blankj.utilcode.util.SPUtils
 import com.example.administrator.jipinshop.R
+import com.example.administrator.jipinshop.activity.WebActivity
 import com.example.administrator.jipinshop.activity.balance.MyWalletActivity
 import com.example.administrator.jipinshop.activity.balance.team.TeamActivity
-import com.example.administrator.jipinshop.activity.balance.withdraw.WithdrawActivity
+import com.example.administrator.jipinshop.activity.cheapgoods.CheapBuyActivity
 import com.example.administrator.jipinshop.activity.foval.FovalActivity
-import com.example.administrator.jipinshop.activity.home.home.HomeNewActivity
 import com.example.administrator.jipinshop.activity.login.LoginActivity
 import com.example.administrator.jipinshop.activity.mall.MallActivity
-import com.example.administrator.jipinshop.activity.message.MessageActivity
+import com.example.administrator.jipinshop.activity.mine.browse.BrowseActivity
+import com.example.administrator.jipinshop.activity.mine.welfare.OfficialWelfareActivity
 import com.example.administrator.jipinshop.activity.minekt.orderkt.KTMyOrderActivity
 import com.example.administrator.jipinshop.activity.minekt.recovery.OrderRecoveryActivity
 import com.example.administrator.jipinshop.activity.minekt.userkt.UserActivity
@@ -35,9 +33,11 @@ import com.example.administrator.jipinshop.activity.sign.invitation.InvitationNe
 import com.example.administrator.jipinshop.adapter.KTMineAdapter
 import com.example.administrator.jipinshop.base.DBBaseFragment
 import com.example.administrator.jipinshop.bean.*
+import com.example.administrator.jipinshop.bean.eventbus.ChangeHomePageBus
 import com.example.administrator.jipinshop.bean.eventbus.EditNameBus
 import com.example.administrator.jipinshop.databinding.FragmentKtMineBinding
 import com.example.administrator.jipinshop.jpush.JPushReceiver
+import com.example.administrator.jipinshop.netwrok.RetrofitModule
 import com.example.administrator.jipinshop.util.TaoBaoUtil
 import com.example.administrator.jipinshop.util.ToastUtil
 import com.example.administrator.jipinshop.util.UmApp.UAppUtil
@@ -67,9 +67,9 @@ class KTMineFragment : DBBaseFragment(), KTMineAdapter.OnItem, KTMineView, OnLoa
     private var page = 1
     private var refersh: Boolean = true
     private var officialWeChat = ""//客服电话
+    private var officialWeChatQR = "" //客服二维码
     private var mDialog: Dialog? = null
     private var mBean : UserInfoBean? = null
-    private var balanceFee: String? = null
 
     companion object{
         @JvmStatic //java中的静态方法
@@ -106,7 +106,6 @@ class KTMineFragment : DBBaseFragment(), KTMineAdapter.OnItem, KTMineView, OnLoa
         mAdapter = KTMineAdapter(mList,context!!)
         mAdapter.setOnItem(this)
         mAdapter.setAdList(mAdListBeans)
-        mAdapter.setUnMessage(0)
         mBinding.swipeTarget.adapter = mAdapter
 
         mBinding.swipeToLoad.setOnLoadMoreListener(this)
@@ -151,6 +150,7 @@ class KTMineFragment : DBBaseFragment(), KTMineAdapter.OnItem, KTMineView, OnLoa
 
         mBean = userInfoBean
         officialWeChat = userInfoBean.data.officialWeChat
+        officialWeChatQR = userInfoBean.data.officialWeChatQR
         mAdapter.setBean(userInfoBean)
         mAdapter.notifyDataSetChanged()
     }
@@ -169,7 +169,6 @@ class KTMineFragment : DBBaseFragment(), KTMineAdapter.OnItem, KTMineView, OnLoa
 
     //佣金
     override fun onCommssionSummary(bean: MyWalletBean) {
-        balanceFee = bean.data.balanceFee
         mAdapter.setWallet(bean)
         mAdapter.notifyDataSetChanged()
     }
@@ -211,8 +210,6 @@ class KTMineFragment : DBBaseFragment(), KTMineAdapter.OnItem, KTMineView, OnLoa
     //消息未读数
     override fun unMessageSuc(unMessageBean: UnMessageBean) {
         EventBus.getDefault().post(EditNameBus(MsgRefersh, "" + unMessageBean.data))
-        mAdapter.setUnMessage(unMessageBean.data)
-        mAdapter.notifyDataSetChanged()
     }
 
     //猜你喜欢
@@ -283,11 +280,6 @@ class KTMineFragment : DBBaseFragment(), KTMineAdapter.OnItem, KTMineView, OnLoa
         }
     }
 
-    //跳转到登陆
-    override fun onLogin() {
-        startActivity(Intent(context, LoginActivity::class.java))
-    }
-
     //跳转到个人主页
     override fun onUserInfo() {
         if (TextUtils.isEmpty(SPUtils.getInstance(CommonDate.USER).getString(CommonDate.token, ""))) {
@@ -299,21 +291,12 @@ class KTMineFragment : DBBaseFragment(), KTMineAdapter.OnItem, KTMineView, OnLoa
         )
     }
 
-    //复制邀请码
-    override fun onCopy(code: String) {
-        if (TextUtils.isEmpty(SPUtils.getInstance(CommonDate.USER).getString(CommonDate.token, ""))) {
-            startActivity(Intent(context, LoginActivity::class.java))
-            return
-        }
-        val clip = context!!.getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager
-        val clipData = ClipData.newPlainText("jipinshop", code)
-        clip.primaryClip = clipData
-        ToastUtil.show("复制成功")
-        SPUtils.getInstance().put(CommonDate.CLIP, code)
-        UAppUtil.mine(context, 13)
+    //进入会员页面
+    override fun onMember() {
+        EventBus.getDefault().post(ChangeHomePageBus(2))
     }
 
-    //钱包页面
+    //我的收益
     override fun onWallet() {
         if (TextUtils.isEmpty(SPUtils.getInstance(CommonDate.USER).getString(CommonDate.token, ""))) {
             startActivity(Intent(context, LoginActivity::class.java))
@@ -323,29 +306,7 @@ class KTMineFragment : DBBaseFragment(), KTMineAdapter.OnItem, KTMineView, OnLoa
         UAppUtil.mine(context, 7)
     }
 
-    //会员
-    override fun onMember() {
-        if (TextUtils.isEmpty(SPUtils.getInstance(CommonDate.USER).getString(CommonDate.token, ""))) {
-            startActivity(Intent(context, LoginActivity::class.java))
-            return
-        }
-        startActivity(Intent(context, HomeNewActivity::class.java)
-                .putExtra("type", HomeNewActivity.member)
-        )
-    }
-
-    //提现页面
-    override fun onWithdraw() {
-        if (TextUtils.isEmpty(SPUtils.getInstance(CommonDate.USER).getString(CommonDate.token, ""))) {
-            startActivity(Intent(context, LoginActivity::class.java))
-            return
-        }
-        startActivity(Intent(context, WithdrawActivity::class.java)
-                .putExtra("price", balanceFee)
-        )
-    }
-
-    //我的团队
+    //我的好友
     override fun onTeam() {
         if (TextUtils.isEmpty(SPUtils.getInstance(CommonDate.USER).getString(CommonDate.token, ""))) {
             startActivity(Intent(context, LoginActivity::class.java))
@@ -355,12 +316,14 @@ class KTMineFragment : DBBaseFragment(), KTMineAdapter.OnItem, KTMineView, OnLoa
     }
 
     //我的订单
-    override fun onOrder() {
+    override fun onOrder(status: Int) {
         if (TextUtils.isEmpty(SPUtils.getInstance(CommonDate.USER).getString(CommonDate.token, ""))) {
             startActivity(Intent(context, LoginActivity::class.java))
             return
         }
-        startActivity(Intent(context, KTMyOrderActivity::class.java))
+        startActivity(Intent(context, KTMyOrderActivity::class.java)
+                .putExtra("status",status)
+        )
     }
 
     //我的邀请
@@ -372,14 +335,13 @@ class KTMineFragment : DBBaseFragment(), KTMineAdapter.OnItem, KTMineView, OnLoa
         startActivity(Intent(context, InvitationNewActivity::class.java))
     }
 
-    //消息通知
+    //浏览足迹
     override fun onMessage() {
         if (TextUtils.isEmpty(SPUtils.getInstance(CommonDate.USER).getString(CommonDate.token, ""))) {
             startActivity(Intent(context, LoginActivity::class.java))
             return
         }
-        startActivity(Intent(context, MessageActivity::class.java))
-        UAppUtil.mine(context, 8)
+        startActivity(Intent(context, BrowseActivity::class.java))
     }
 
     //收藏夹
@@ -439,6 +401,35 @@ class KTMineFragment : DBBaseFragment(), KTMineAdapter.OnItem, KTMineView, OnLoa
         }
         startActivity(Intent(context, SignActivity::class.java))
         UAppUtil.mine(context, 9)
+    }
+
+    //打开特惠购
+    override fun onCheapBuy() {
+        startActivity(Intent(context, CheapBuyActivity::class.java))
+    }
+
+    //打开官方福利群
+    override fun onWelfare() {
+        if (TextUtils.isEmpty(SPUtils.getInstance(CommonDate.USER).getString(CommonDate.token, ""))) {
+            startActivity(Intent(context, LoginActivity::class.java))
+            return
+        }
+        startActivity(Intent(context, OfficialWelfareActivity::class.java)
+                .putExtra("officialWeChat",officialWeChat)
+                .putExtra("officialWeChatQR",officialWeChatQR)
+        )
+    }
+
+    //打开新人教程
+    override fun onCourse() {
+        startActivity(Intent(context, WebActivity::class.java)
+                .putExtra(WebActivity.url, RetrofitModule.H5_URL + "tbk-rule.html")
+                .putExtra(WebActivity.title, "极品城省钱攻略")
+                .putExtra(WebActivity.isShare, true)
+                .putExtra(WebActivity.shareTitle, "如何查找淘宝隐藏优惠券及下单返利？")
+                .putExtra(WebActivity.shareContent, "淘宝天猫90%的商品都能省，同时还有高额返利，淘好物，更省钱！")
+                .putExtra(WebActivity.shareImage, "https://jipincheng.cn/shengqian.png")
+        )
     }
 
     //邀请码dialog

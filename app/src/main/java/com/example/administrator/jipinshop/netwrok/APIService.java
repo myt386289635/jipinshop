@@ -486,7 +486,7 @@ public interface APIService {
     /**
      * 佣金汇总
      */
-    @GET("api/v3/myCommssionSummary")
+    @GET("api/v4/myCommssionSummary")
     Observable<MyWalletBean> myCommssionSummary();
 
     /**
@@ -1384,4 +1384,10 @@ public interface APIService {
      */
     @GET("api/getIndexActivityInfo")
     Observable<SucBeanT<TbkIndexBean.DataBean.Ad1ListBean>> getIndexActivityInfo();
+
+    /**
+     * 浏览记录
+     */
+    @GET("api/v4/tbk/goodsHistory")
+    Observable<TBSreachResultBean> goodsHistory(@Query("page") int page);
 }

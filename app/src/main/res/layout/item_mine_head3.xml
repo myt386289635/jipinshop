@@ -2,68 +2,41 @@
 <layout xmlns:android="http://schemas.android.com/apk/res/android">
 
     <LinearLayout
-        android:orientation="vertical"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
 
         <LinearLayout
-            android:layout_marginBottom="@dimen/y20"
-            android:layout_marginTop="@dimen/y20"
-            android:layout_marginRight="@dimen/x30"
-            android:layout_marginLeft="@dimen/x30"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/view_pager"
+            android:layout_marginLeft="@dimen/x30"
+            android:layout_marginTop="@dimen/y20"
+            android:layout_marginRight="@dimen/x30"
+            android:layout_marginBottom="@dimen/y20"
             android:background="@drawable/bg_balance"
             android:orientation="vertical">
 
             <TextView
-                android:layout_marginBottom="@dimen/y18"
-                android:layout_marginTop="@dimen/y18"
-                android:layout_marginLeft="@dimen/x22"
-                android:textColor="@color/color_9D9D9D"
-                android:textSize="13sp"
-                android:text="我的工具"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"/>
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/x22"
+                android:layout_marginTop="@dimen/y28"
+                android:layout_marginBottom="@dimen/y17"
+                android:text="我的服务"
+                android:textColor="@color/color_9D9D9D"
+                android:textSize="13sp"/>
 
             <View
-                android:background="@color/color_DEDEDE"
                 android:layout_width="match_parent"
-                android:layout_height="@dimen/y1"/>
+                android:layout_height="@dimen/y1"
+                android:background="@color/color_DEDEDE"/>
 
             <LinearLayout
-                android:orientation="horizontal"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
-
-                <LinearLayout
-                    android:id="@+id/mine_message"
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1"
-                    android:gravity="center"
-                    android:orientation="vertical">
-
-                    <ImageView
-                        android:id="@+id/mine_messageImg"
-                        android:scaleType="fitXY"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:src="@mipmap/message"/>
-
-                    <TextView
-                        android:textSize="13sp"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="@dimen/y16"
-                        android:text="消息通知"
-                        android:textColor="@color/color_202020"/>
-                </LinearLayout>
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
 
                 <TextView
-                    android:paddingTop="@dimen/y26"
-                    android:paddingBottom="@dimen/y26"
                     android:id="@+id/mine_fover"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
@@ -71,59 +44,61 @@
                     android:drawableTop="@mipmap/mine_release"
                     android:drawablePadding="@dimen/y16"
                     android:gravity="center"
-                    android:text="收藏夹"
+                    android:paddingTop="@dimen/y26"
+                    android:paddingBottom="@dimen/y26"
+                    android:text="我的收藏"
                     android:textColor="@color/color_202020"
                     android:textSize="13sp"/>
 
                 <TextView
-                    android:id="@+id/mine_gift"
+                    android:id="@+id/mine_browse"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:drawableTop="@mipmap/mine_gift"
+                    android:drawableTop="@mipmap/mine_browse"
                     android:drawablePadding="@dimen/y16"
                     android:gravity="center"
                     android:paddingTop="@dimen/y26"
                     android:paddingBottom="@dimen/y26"
-                    android:text="福利兑换"
+                    android:text="浏览足迹"
                     android:textColor="@color/color_202020"
                     android:textSize="13sp"/>
 
                 <TextView
-                    android:paddingTop="@dimen/y26"
-                    android:paddingBottom="@dimen/y26"
-                    android:id="@+id/mine_setting"
-                    android:gravity="center"
-                    android:textSize="13sp"
-                    android:textColor="@color/color_202020"
-                    android:layout_weight="1"
+                    android:id="@+id/mine_recovery"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:drawableTop="@mipmap/mine_recovery"
+                    android:drawablePadding="@dimen/y16"
+                    android:gravity="center"
+                    android:paddingTop="@dimen/y26"
+                    android:paddingBottom="@dimen/y26"
+                    android:text="订单找回"
+                    android:textColor="@color/color_202020"
+                    android:textSize="13sp"/>
+
+                <TextView
+                    android:id="@+id/mine_setting"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
                     android:drawableTop="@mipmap/setting"
                     android:drawablePadding="@dimen/y16"
-                    android:text="设置"/>
+                    android:gravity="center"
+                    android:paddingTop="@dimen/y26"
+                    android:paddingBottom="@dimen/y26"
+                    android:text="设置"
+                    android:textColor="@color/color_202020"
+                    android:textSize="13sp"/>
 
             </LinearLayout>
 
             <LinearLayout
-                android:weightSum="4"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal">
-
-                <TextView
-                    android:paddingTop="@dimen/y26"
-                    android:paddingBottom="@dimen/y26"
-                    android:id="@+id/mine_recovery"
-                    android:gravity="center"
-                    android:textSize="13sp"
-                    android:textColor="@color/color_202020"
-                    android:layout_weight="1"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:drawableTop="@mipmap/mine_recovery"
-                    android:drawablePadding="@dimen/y16"
-                    android:text="订单找回"/>
+                android:orientation="horizontal"
+                android:weightSum="4">
 
                 <TextView
                     android:id="@+id/mine_opinion"
@@ -135,7 +110,7 @@
                     android:gravity="center"
                     android:paddingTop="@dimen/y26"
                     android:paddingBottom="@dimen/y26"
-                    android:text="反馈中心"
+                    android:text="帮助中心"
                     android:textColor="@color/color_202020"
                     android:textSize="13sp"/>
 
@@ -154,51 +129,161 @@
                     android:textSize="13sp"/>
 
                 <TextView
-                    android:paddingTop="@dimen/y26"
-                    android:paddingBottom="@dimen/y26"
                     android:id="@+id/mine_rule"
-                    android:gravity="center"
-                    android:textSize="13sp"
-                    android:textColor="@color/color_202020"
-                    android:layout_weight="1"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
+                    android:layout_weight="1"
                     android:drawableTop="@mipmap/mine_newpeople"
                     android:drawablePadding="@dimen/y16"
-                    android:text="极币中心"/>
+                    android:gravity="center"
+                    android:paddingTop="@dimen/y26"
+                    android:paddingBottom="@dimen/y26"
+                    android:text="极币中心"
+                    android:textColor="@color/color_202020"
+                    android:textSize="13sp"/>
+
+                <TextView
+                    android:id="@+id/mine_gift"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:drawableTop="@mipmap/mine_gift"
+                    android:drawablePadding="@dimen/y16"
+                    android:gravity="center"
+                    android:paddingTop="@dimen/y26"
+                    android:paddingBottom="@dimen/y26"
+                    android:text="福利兑换"
+                    android:textColor="@color/color_202020"
+                    android:textSize="13sp"/>
 
             </LinearLayout>
 
             <LinearLayout
-                android:layout_marginBottom="@dimen/y22"
-                android:weightSum="4"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal">
+                android:orientation="horizontal"
+                android:weightSum="4">
 
                 <TextView
-                    android:paddingTop="@dimen/y26"
-                    android:paddingBottom="@dimen/y26"
-                    android:id="@+id/mine_invation"
-                    android:gravity="center"
-                    android:textSize="13sp"
-                    android:textColor="@color/color_202020"
-                    android:layout_weight="1"
+                    android:id="@+id/mine_team"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:drawableTop="@mipmap/mine_trial"
+                    android:drawablePadding="@dimen/y16"
+                    android:gravity="center"
+                    android:paddingTop="@dimen/y26"
+                    android:paddingBottom="@dimen/y26"
+                    android:text="我的好友"
+                    android:textColor="@color/color_202020"
+                    android:textSize="13sp"/>
+
+                <TextView
+                    android:id="@+id/mine_invitation"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:drawableTop="@mipmap/mine_shopping"
+                    android:drawablePadding="@dimen/y16"
+                    android:gravity="center"
+                    android:paddingTop="@dimen/y26"
+                    android:paddingBottom="@dimen/y26"
+                    android:text="邀请好友"
+                    android:textColor="@color/color_202020"
+                    android:textSize="13sp"/>
+
+                <TextView
+                    android:id="@+id/mine_welfare"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:drawableTop="@mipmap/mine_welfare"
+                    android:drawablePadding="@dimen/y16"
+                    android:gravity="center"
+                    android:paddingTop="@dimen/y26"
+                    android:paddingBottom="@dimen/y26"
+                    android:text="官方福利群"
+                    android:textColor="@color/color_202020"
+                    android:textSize="13sp"/>
+
+                <TextView
+                    android:id="@+id/mine_course"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:drawableTop="@mipmap/mine_course"
+                    android:drawablePadding="@dimen/y16"
+                    android:gravity="center"
+                    android:paddingTop="@dimen/y26"
+                    android:paddingBottom="@dimen/y26"
+                    android:text="新人教程"
+                    android:textColor="@color/color_202020"
+                    android:textSize="13sp"/>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/y22"
+                android:orientation="horizontal"
+                android:weightSum="4">
+
+                <TextView
+                    android:id="@+id/mine_invation"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
                     android:drawableTop="@mipmap/mine_invation"
                     android:drawablePadding="@dimen/y16"
-                    android:text="邀请码"/>
+                    android:gravity="center"
+                    android:paddingTop="@dimen/y26"
+                    android:paddingBottom="@dimen/y26"
+                    android:text="邀请码"
+                    android:textColor="@color/color_202020"
+                    android:textSize="13sp"/>
 
             </LinearLayout>
 
         </LinearLayout>
 
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/x30"
+            android:layout_marginTop="@dimen/y20"
+            android:layout_marginRight="@dimen/x30"
+            android:layout_marginBottom="@dimen/y20"
+            android:background="@drawable/bg_balance"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/x22"
+                android:layout_marginTop="@dimen/y28"
+                android:layout_marginBottom="@dimen/y17"
+                android:text="精选活动"
+                android:textColor="@color/color_9D9D9D"
+                android:textSize="13sp"/>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/y1"
+                android:background="@color/color_DEDEDE"/>
+
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/mine_actionRv"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"/>
+
+        </LinearLayout>
+
         <ImageView
-            android:layout_gravity="center_horizontal"
             android:id="@+id/detail_userLikeImage"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
             android:layout_marginTop="@dimen/y20"
             android:layout_marginBottom="@dimen/y30"
             android:src="@mipmap/bg_userlike"/>

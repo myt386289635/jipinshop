@@ -27,6 +27,7 @@ class KTMyOrderActivity : BaseActivity(), View.OnClickListener {
     private lateinit var mBinding : ActivityOrderBinding
     private lateinit var mFragments: MutableList<Fragment>
     private lateinit var mAdapter: HomeFragmentAdapter
+    private var status = 0
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -36,16 +37,17 @@ class KTMyOrderActivity : BaseActivity(), View.OnClickListener {
     }
 
     private fun initView() {
+        status = intent.getIntExtra("status",0)
         mBinding.inClude?.let {
             it.titleTv.text = "我的订单"
             it.titleLine.visibility = View.INVISIBLE
         }
         mFragments = ArrayList()
         mAdapter = HomeFragmentAdapter(supportFragmentManager)
-        mFragments.add(KTMyOrderFragment.getInstance("0"))//全部订单
-        mFragments.add(KTMyOrderFragment.getInstance("2"))//淘宝
-        mFragments.add(KTMyOrderFragment.getInstance("1"))//京东
-        mFragments.add(KTMyOrderFragment.getInstance("4"))//拼多多
+        mFragments.add(KTMyOrderFragment.getInstance("0",status))//全部订单
+        mFragments.add(KTMyOrderFragment.getInstance("2",status))//淘宝
+        mFragments.add(KTMyOrderFragment.getInstance("1",status))//京东
+        mFragments.add(KTMyOrderFragment.getInstance("4",status))//拼多多
         mAdapter.setFragments(mFragments)
         mBinding.viewPager.adapter = mAdapter
         mBinding.viewPager.offscreenPageLimit = mFragments.size - 1

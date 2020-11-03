@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:bind="http://schemas.android.com/apk/res-auto">
+
+    <data>
+        <variable
+            name="listener"
+            type="android.view.View.OnClickListener"/>
+    </data>
+
+    <RelativeLayout
+        android:background="@color/color_F5F5F5"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <include
+            android:id="@+id/in_clude"
+            layout="@layout/aa_title2"
+            bind:listener="@{listener}"/>
+
+        <RelativeLayout
+            android:layout_below="@id/in_clude"
+            android:layout_marginTop="@dimen/y25"
+            android:layout_marginRight="@dimen/x25"
+            android:layout_marginLeft="@dimen/x25"
+            android:background="@mipmap/official_bg1"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/y902">
+
+            <RelativeLayout
+                android:layout_centerVertical="true"
+                android:layout_marginRight="@dimen/x64"
+                android:layout_marginLeft="@dimen/x64"
+                android:background="@mipmap/official_bg2"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/y750">
+
+                <TextView
+                    android:layout_marginTop="@dimen/y67"
+                    android:layout_centerHorizontal="true"
+                    android:textStyle="bold"
+                    android:textSize="18sp"
+                    android:textColor="@color/color_202020"
+                    android:text="官方福利群"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"/>
+
+                <RelativeLayout
+                    android:id="@+id/official_codeContainer"
+                    android:layout_marginTop="@dimen/y235"
+                    android:layout_centerHorizontal="true"
+                    android:background="@mipmap/official_bg3"
+                    android:layout_width="@dimen/x260"
+                    android:layout_height="@dimen/y260">
+
+                    <ImageView
+                        android:id="@+id/official_code"
+                        android:layout_margin="@dimen/x16"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"/>
+
+                </RelativeLayout>
+
+                <TextView
+                    android:gravity="center"
+                    android:textColor="@color/color_565252"
+                    android:textSize="14sp"
+                    android:lineSpacingExtra="@dimen/y8"
+                    android:layout_marginTop="@dimen/y13"
+                    android:layout_below="@id/official_codeContainer"
+                    android:layout_marginRight="@dimen/x44"
+                    android:layout_marginLeft="@dimen/x44"
+                    android:text="进入极品城官方福利群，获取最新免单动态，每月再省1000元"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"/>
+
+                <TextView
+                    android:onClick="@{listener.onClick}"
+                    android:id="@+id/official_save"
+                    android:layout_marginLeft="@dimen/x57"
+                    android:layout_marginBottom="@dimen/y38"
+                    android:layout_alignParentBottom="true"
+                    android:gravity="center"
+                    android:textStyle="bold"
+                    android:textSize="14sp"
+                    android:textColor="@color/color_white"
+                    android:text="保存二维码"
+                    android:background="@drawable/bg_index"
+                    android:layout_width="@dimen/x184"
+                    android:layout_height="@dimen/y70"/>
+
+                <TextView
+                    android:onClick="@{listener.onClick}"
+                    android:id="@+id/official_vx"
+                    android:layout_marginRight="@dimen/x57"
+                    android:layout_marginBottom="@dimen/y38"
+                    android:layout_alignParentBottom="true"
+                    android:layout_alignParentRight="true"
+                    android:gravity="center"
+                    android:textStyle="bold"
+                    android:textSize="14sp"
+                    android:textColor="@color/color_white"
+                    android:text="复制微信号"
+                    android:background="@drawable/bg_index"
+                    android:layout_width="@dimen/x184"
+                    android:layout_height="@dimen/y70"/>
+
+            </RelativeLayout>
+
+        </RelativeLayout>
+
+
+    </RelativeLayout>
+</layout>
