@@ -23,6 +23,7 @@ import com.example.administrator.jipinshop.activity.newpeople.cheap.CheapBuyDeta
 import com.example.administrator.jipinshop.base.BaseActivity;
 import com.example.administrator.jipinshop.databinding.ActivityWheelWebBinding;
 import com.example.administrator.jipinshop.netwrok.RetrofitModule;
+import com.example.administrator.jipinshop.view.dialog.DialogUtil;
 import com.example.administrator.jipinshop.view.dialog.ProgressDialogView;
 import com.umeng.socialize.UMShareAPI;
 
@@ -37,6 +38,7 @@ public class H5SignWebActivity extends BaseActivity implements View.OnClickListe
     public static final String url = "url";
     public static final String title = "title";
     private Dialog mProgressDialog ;
+    private Boolean startPop = true;//是否弹出关闭确认弹窗
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -112,7 +114,7 @@ public class H5SignWebActivity extends BaseActivity implements View.OnClickListe
     public void onClick(View v) {
         switch (v.getId()){
             case R.id.title_back:
-                finish();
+                twoFinishPage();
                 break;
             case R.id.web_share:
                 startActivity(new Intent(this, WebActivity.class)
@@ -120,6 +122,17 @@ public class H5SignWebActivity extends BaseActivity implements View.OnClickListe
                         .putExtra(WebActivity.title, "活动规则")
                 );
                 break;
+        }
+    }
+
+    public void twoFinishPage(){
+        if (startPop) {
+            DialogUtil.outH5Dialog(this, v1 -> {
+                finish();
+            });
+            startPop = false;
+        } else {
+            finish();
         }
     }
 
@@ -143,5 +156,10 @@ public class H5SignWebActivity extends BaseActivity implements View.OnClickListe
         }
         UMShareAPI.get(this).release();
         super.onDestroy();
+    }
+
+    @Override
+    public void onBackPressed() {
+        twoFinishPage();
     }
 }

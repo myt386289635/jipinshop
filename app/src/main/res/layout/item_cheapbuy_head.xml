@@ -45,7 +45,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"/>
 
-        <TextView
+        <com.example.administrator.jipinshop.view.textview.RunTextView
             android:layout_marginLeft="@dimen/x172"
             android:layout_alignLeft="@id/item_bg"
             android:gravity="center_vertical"
@@ -55,7 +55,19 @@
             android:textColor="@color/color_EA5018"
             android:textStyle="bold"
             android:textSize="38sp"
-            android:text="0元"
+            android:text="0"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+
+        <TextView
+            android:layout_toRightOf="@id/item_cheapPrice"
+            android:gravity="center_vertical"
+            android:layout_alignBottom="@id/item_bg"
+            android:layout_alignTop="@id/item_bg"
+            android:textColor="@color/color_EA5018"
+            android:textStyle="bold"
+            android:textSize="38sp"
+            android:text="元"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"/>
 

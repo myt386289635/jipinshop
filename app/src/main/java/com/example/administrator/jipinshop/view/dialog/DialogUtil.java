@@ -53,6 +53,7 @@ import com.example.administrator.jipinshop.databinding.DialogNewpeople2Binding;
 import com.example.administrator.jipinshop.databinding.DialogNewpeopleBuyBinding;
 import com.example.administrator.jipinshop.databinding.DialogNonewBinding;
 import com.example.administrator.jipinshop.databinding.DialogOutBinding;
+import com.example.administrator.jipinshop.databinding.DialogOutH5Binding;
 import com.example.administrator.jipinshop.databinding.DialogParityBinding;
 import com.example.administrator.jipinshop.databinding.DialogPayFileBinding;
 import com.example.administrator.jipinshop.databinding.DialogPaySuccessBinding;
@@ -674,19 +675,15 @@ public class DialogUtil {
         dialog.setContentView(binding.getRoot());
     }
 
-    //新人0元购专区 离开时弹框
-    public static void outDialog(Context context, List<String> strings, String allowance, View.OnClickListener listener) {
+    //H5签到活动页面 离开时弹框
+    public static void outH5Dialog(Context context, View.OnClickListener listener) {
         AlertDialog.Builder builder = new AlertDialog.Builder(context, R.style.dialog);
         final Dialog dialog = builder.create();
-        DialogOutBinding binding = DataBindingUtil.inflate(LayoutInflater.from(context), R.layout.dialog_out, null, false);
-        binding.dialogTime.setText("还有" + allowance + "元津贴仍未使用下单立减当钱花");
-        GlideApp.loderTopRoundImage(context, strings.get(0), binding.dialogImg1, (int) context.getResources().getDimension(R.dimen.x10));
-        GlideApp.loderTopRoundImage(context, strings.get(1), binding.dialogImg2, (int) context.getResources().getDimension(R.dimen.x10));
-        GlideApp.loderTopRoundImage(context, strings.get(2), binding.dialogImg3, (int) context.getResources().getDimension(R.dimen.x10));
-        binding.dialogSure.setOnClickListener(v -> {
+        DialogOutH5Binding binding = DataBindingUtil.inflate(LayoutInflater.from(context), R.layout.dialog_out_h5, null, false);
+        binding.dialogCancle.setOnClickListener(v -> {
             dialog.dismiss();
         });
-        binding.dialogDismiss.setOnClickListener(v -> {
+        binding.dialogSure.setOnClickListener(v -> {
             if (listener != null)
                 listener.onClick(v);
             dialog.dismiss();
