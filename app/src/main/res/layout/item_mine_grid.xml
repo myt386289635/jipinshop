@@ -16,7 +16,7 @@
             android:layout_marginTop="@dimen/y22"
             android:layout_centerHorizontal="true"
             android:id="@+id/item_image"
-            bind:src="@{bean.img}"
+            bind:src="@{bean.iconUrl}"
             android:layout_width="@dimen/x60"
             android:layout_height="@dimen/y60"/>
 
@@ -29,7 +29,7 @@
             android:gravity="center"
             android:layout_below="@id/item_image"
             android:layout_marginBottom="@dimen/y22"
-            android:text="@{bean.name}"
+            android:text="@{bean.title}"
             android:textColor="@color/color_202020"
             android:textSize="13sp"/>
 

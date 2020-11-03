@@ -202,19 +202,63 @@ public class MyWalletBean {
 
         public static class AdListBean {
 
-            private String img;
+            private String id;
+            private String iconUrl;
+            private String title;
+            private String subTitle;
+            private String orderNum;
+            private String status;
             private String type;
-            private String name;
-            private String objectId;
-            private String color;
+            private String targetId;
             private String source;
+            private String categoryId;
 
-            public String getImg() {
-                return img;
+            public String getId() {
+                return id;
             }
 
-            public void setImg(String img) {
-                this.img = img;
+            public void setId(String id) {
+                this.id = id;
+            }
+
+            public String getIconUrl() {
+                return iconUrl;
+            }
+
+            public void setIconUrl(String iconUrl) {
+                this.iconUrl = iconUrl;
+            }
+
+            public String getTitle() {
+                return title;
+            }
+
+            public void setTitle(String title) {
+                this.title = title;
+            }
+
+            public String getSubTitle() {
+                return subTitle;
+            }
+
+            public void setSubTitle(String subTitle) {
+                this.subTitle = subTitle;
+            }
+
+            public String getOrderNum() {
+                return orderNum;
+            }
+
+            public void setOrderNum(String orderNum) {
+                this.orderNum = orderNum;
+            }
+
+            public String getStatus() {
+                return status;
+            }
+
+            public void setStatus(String status) {
+                this.status = status;
             }
 
             public String getType() {
@@ -225,28 +269,12 @@ public class MyWalletBean {
                 this.type = type;
             }
 
-            public String getName() {
-                return name;
+            public String getTargetId() {
+                return targetId;
             }
 
-            public void setName(String name) {
-                this.name = name;
-            }
-
-            public String getObjectId() {
-                return objectId;
-            }
-
-            public void setObjectId(String objectId) {
-                this.objectId = objectId;
-            }
-
-            public String getColor() {
-                return color;
-            }
-
-            public void setColor(String color) {
-                this.color = color;
+            public void setTargetId(String targetId) {
+                this.targetId = targetId;
             }
 
             public String getSource() {
@@ -255,6 +283,14 @@ public class MyWalletBean {
 
             public void setSource(String source) {
                 this.source = source;
+            }
+
+            public String getCategoryId() {
+                return categoryId;
+            }
+
+            public void setCategoryId(String categoryId) {
+                this.categoryId = categoryId;
             }
         }
 
