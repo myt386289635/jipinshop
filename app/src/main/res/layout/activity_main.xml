@@ -72,7 +72,7 @@
                     android:drawablePadding="@dimen/x24"
                     android:textColor="@color/color_5C300B"
                     android:textSize="14sp"
-                    android:text="极品城会员新增3大权益，点击了解详情"
+                    android:text="极品城会员新增7大权益，点击了解详情"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"/>
 
