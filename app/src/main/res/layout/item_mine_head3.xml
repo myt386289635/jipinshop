@@ -216,7 +216,7 @@
                     android:gravity="center"
                     android:paddingTop="@dimen/y26"
                     android:paddingBottom="@dimen/y26"
-                    android:text="新人教程"
+                    android:text="省钱教程"
                     android:textColor="@color/color_202020"
                     android:textSize="13sp"/>
 
@@ -228,6 +228,20 @@
                 android:layout_marginBottom="@dimen/y22"
                 android:orientation="horizontal"
                 android:weightSum="4">
+
+                <TextView
+                    android:id="@+id/mine_server"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:drawableTop="@mipmap/mine_service"
+                    android:drawablePadding="@dimen/y16"
+                    android:gravity="center"
+                    android:paddingTop="@dimen/y26"
+                    android:paddingBottom="@dimen/y26"
+                    android:text="官方客服"
+                    android:textColor="@color/color_202020"
+                    android:textSize="13sp"/>
 
                 <TextView
                     android:id="@+id/mine_invation"

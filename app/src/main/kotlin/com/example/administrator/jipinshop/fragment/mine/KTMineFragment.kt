@@ -1,6 +1,9 @@
 package com.example.administrator.jipinshop.fragment.mine
 
 import android.app.Dialog
+import android.content.ClipData
+import android.content.ClipboardManager
+import android.content.Context
 import android.content.Intent
 import android.databinding.DataBindingUtil
 import android.support.v7.widget.GridLayoutManager
@@ -12,7 +15,6 @@ import android.view.inputmethod.InputMethodManager
 import com.aspsine.swipetoloadlayout.OnLoadMoreListener
 import com.blankj.utilcode.util.SPUtils
 import com.example.administrator.jipinshop.R
-import com.example.administrator.jipinshop.activity.WebActivity
 import com.example.administrator.jipinshop.activity.balance.MyWalletActivity
 import com.example.administrator.jipinshop.activity.balance.team.TeamActivity
 import com.example.administrator.jipinshop.activity.cheapgoods.CheapBuyActivity
@@ -37,7 +39,6 @@ import com.example.administrator.jipinshop.bean.eventbus.ChangeHomePageBus
 import com.example.administrator.jipinshop.bean.eventbus.EditNameBus
 import com.example.administrator.jipinshop.databinding.FragmentKtMineBinding
 import com.example.administrator.jipinshop.jpush.JPushReceiver
-import com.example.administrator.jipinshop.netwrok.RetrofitModule
 import com.example.administrator.jipinshop.util.TaoBaoUtil
 import com.example.administrator.jipinshop.util.ToastUtil
 import com.example.administrator.jipinshop.util.UmApp.UAppUtil
@@ -420,16 +421,20 @@ class KTMineFragment : DBBaseFragment(), KTMineAdapter.OnItem, KTMineView, OnLoa
         )
     }
 
-    //打开新人教程
+    //官方客服
+    override fun onServer() {
+        DialogUtil.LoginDialog(context, "官方客服微信：$officialWeChat", "复制", "取消") { v ->
+            var clip = context!!.getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager
+            var clipData = ClipData.newPlainText("jipinshop", officialWeChat)
+            clip.primaryClip = clipData
+            ToastUtil.show("微信号复制成功")
+            SPUtils.getInstance().put(CommonDate.CLIP, officialWeChat)
+        }
+    }
+
+    //进入省钱流程
     override fun onCourse() {
-        startActivity(Intent(context, WebActivity::class.java)
-                .putExtra(WebActivity.url, RetrofitModule.H5_URL + "tbk-rule.html")
-                .putExtra(WebActivity.title, "极品城省钱攻略")
-                .putExtra(WebActivity.isShare, true)
-                .putExtra(WebActivity.shareTitle, "如何查找淘宝隐藏优惠券及下单返利？")
-                .putExtra(WebActivity.shareContent, "淘宝天猫90%的商品都能省，同时还有高额返利，淘好物，更省钱！")
-                .putExtra(WebActivity.shareImage, "https://jipincheng.cn/shengqian.png")
-        )
+        EventBus.getDefault().post(ChangeHomePageBus(1))
     }
 
     //邀请码dialog

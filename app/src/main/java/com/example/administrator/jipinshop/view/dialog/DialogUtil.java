@@ -338,12 +338,12 @@ public class DialogUtil {
     /**
      * 用户首次下载 30元购物津贴
      */
-    public static void newPeopleDialog(Context context, final View.OnClickListener cancleListener ,
+    public static void newPeopleDialog(Context context , String url, final View.OnClickListener cancleListener ,
                                        final View.OnClickListener sureListener){
         AlertDialog.Builder builder = new AlertDialog.Builder(context, R.style.dialog);
         DialogNewpeople2Binding binding = DataBindingUtil.inflate(LayoutInflater.from(context),R.layout.dialog_newpeople2, null,false);
         final Dialog dialog = builder.create();
-        String url = "https://jipincheng.cn/app_first?" + System.currentTimeMillis();
+        url = url + System.currentTimeMillis();
         GlideApp.loderImage(context,url,binding.dialogImage,0,0);
         binding.dialogCancle.setOnClickListener(v -> {
             if (cancleListener != null)

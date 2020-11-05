@@ -130,6 +130,7 @@
     </RelativeLayout>
 
     <RelativeLayout
+        android:visibility="gone"
         android:layout_below="@id/setting_cleanContainer"
         android:id="@+id/setting_serviceContainer"
         android:layout_width="match_parent"

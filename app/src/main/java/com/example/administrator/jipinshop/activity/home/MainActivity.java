@@ -245,7 +245,7 @@ public class MainActivity extends BaseActivity implements MainView, ViewPager.On
         if (requestCode == 401) {//监听从设置页面返回来后调用
             //解决从设置页面跳转回来无法弹出dialog
             //20元津贴弹窗
-            DialogUtil.newPeopleDialog(MainActivity.this, v -> {
+            DialogUtil.newPeopleDialog(MainActivity.this, "https://jipincheng.cn/app_first?",v -> {
                 appStatisticalUtil.addEvent("tc.xr_close", this.bindToLifecycle());
                 onCheapDialog();
             }, v -> {
@@ -287,7 +287,7 @@ public class MainActivity extends BaseActivity implements MainView, ViewPager.On
             //新人第一次进入app
             NotificationUtil.OpenNotificationSetting(this, () -> {
                 //新人0元购
-                DialogUtil.newPeopleDialog(MainActivity.this, v -> {
+                DialogUtil.newPeopleDialog(MainActivity.this,"https://jipincheng.cn/app_first?", v -> {
                     appStatisticalUtil.addEvent("tc.xr_close", this.bindToLifecycle());
                     onCheapDialog();
                 }, v -> {
@@ -318,7 +318,7 @@ public class MainActivity extends BaseActivity implements MainView, ViewPager.On
         });
     }
 
-    //新手指导
+    //新手指导和其他操作，现在不要新手指导了
     public void onGuide(){
         if (isGuide) {
             //新手指导
@@ -327,7 +327,12 @@ public class MainActivity extends BaseActivity implements MainView, ViewPager.On
             GlideApp.loderImage(this, "https://jipincheng.cn/guide_head.gif", mBinding.guideHead2, 0, 0);
             mBinding.guideContainer.setVisibility(View.VISIBLE);
         }else {
-            getClipText();
+            DialogUtil.newPeopleDialog(MainActivity.this,"https://jipincheng.cn/app_vip1?", v -> {
+                getClipText();
+            }, v -> {
+                EventBus.getDefault().post(new ChangeHomePageBus(2));
+                getClipText();
+            });
         }
     }
 
