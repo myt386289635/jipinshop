@@ -279,10 +279,6 @@ class KTMain2Adapter : RecyclerView.Adapter<RecyclerView.ViewHolder>{
                         appStatisticalUtil.addEvent("shouye_tehui",transformer)
                         mContext.startActivity(Intent(mContext, CheapBuyActivity::class.java))
                     }
-                    binding.mainPeopleReTitle.setOnClickListener {
-                        appStatisticalUtil.addEvent("shouye_xinren",transformer)
-                        mContext.startActivity(Intent(mContext, NewFreeActivity::class.java))
-                    }
                     binding.marqueeContainer.setOnClickListener {
                         appStatisticalUtil.addEvent("shouye_pmd",transformer)
                         mContext.startActivity(Intent(mContext, WebActivity::class.java)

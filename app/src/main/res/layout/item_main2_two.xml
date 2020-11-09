@@ -40,9 +40,10 @@
         android:layout_height="wrap_content">
 
         <LinearLayout
+            android:id="@+id/main_newpeople"
             android:orientation="vertical"
             android:visibility="@{user ? View.VISIBLE : View.GONE}"
-            android:layout_marginBottom="@dimen/y30"
+            android:layout_marginBottom="@dimen/y24"
             android:layout_marginRight="@dimen/x30"
             android:layout_marginLeft="@dimen/x30"
             android:layout_width="match_parent"
@@ -161,7 +162,6 @@
                     android:layout_height="@dimen/y187"/>
 
                 <LinearLayout
-                    android:id="@+id/main_newpeople"
                     android:layout_marginLeft="@dimen/x4"
                     android:layout_marginRight="@dimen/x24"
                     android:layout_marginBottom="@dimen/y28"
@@ -292,299 +292,298 @@
 
                 </LinearLayout>
 
-                <LinearLayout
-                    android:id="@+id/main_oldpeople"
-                    android:layout_marginBottom="@dimen/y24"
-                    android:orientation="vertical"
-                    android:background="@drawable/bg_balance"
-                    android:layout_marginRight="@dimen/x25"
-                    android:layout_marginLeft="@dimen/x27"
-                    android:layout_marginTop="@dimen/y40"
-                    android:layout_below="@+id/mainPeople_reTitle"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
-
-                    <ImageView
-                        android:adjustViewBounds="true"
-                        android:scaleType="fitXY"
-                        android:src="@mipmap/main_receive"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"/>
-
-                    <LinearLayout
-                        android:paddingRight="@dimen/x8"
-                        android:paddingLeft="@dimen/x8"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="@dimen/y15"
-                        android:layout_marginBottom="@dimen/y15"
-                        android:orientation="horizontal">
-
-                        <RelativeLayout
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="1">
-
-                            <RelativeLayout
-                                android:padding="@dimen/x3"
-                                android:background="@mipmap/main_bg"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content">
-
-                                <ImageView
-                                    android:layout_centerHorizontal="true"
-                                    android:id="@+id/item_oldImage1"
-                                    bind:srcTopRound="@{old1.img}"
-                                    android:layout_width="@dimen/x147"
-                                    android:layout_height="@dimen/y147"/>
-
-                                <TextView
-                                    android:paddingLeft="@dimen/x5"
-                                    android:minHeight="@dimen/y28"
-                                    android:text="@{@string/allowance2 + old1.useAllowancePrice}"
-                                    android:textSize="10sp"
-                                    android:textColor="@color/color_white"
-                                    android:layout_alignBottom="@id/item_oldImage1"
-                                    android:background="@color/color_FFAA23"
-                                    android:layout_alignRight="@id/item_oldImage1"
-                                    android:layout_alignLeft="@id/item_oldImage1"
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"/>
-
-                                <RelativeLayout
-                                    android:background="@drawable/bg_balance_last"
-                                    android:layout_below="@id/item_oldImage1"
-                                    android:layout_alignRight="@id/item_oldImage1"
-                                    android:layout_alignLeft="@id/item_oldImage1"
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content">
-
-                                    <TextView
-                                        android:id="@+id/item_buy1"
-                                        android:layout_marginLeft="@dimen/x5"
-                                        android:gravity="center"
-                                        android:text="@{@string/price + old1.buyPrice}"
-                                        android:textStyle="bold"
-                                        android:textColor="@color/color_EA5018"
-                                        android:layout_width="wrap_content"
-                                        android:layout_height="wrap_content"/>
-
-                                    <TextView
-                                        android:layout_marginBottom="@dimen/y5"
-                                        android:layout_marginLeft="@dimen/x5"
-                                        android:textColor="@color/color_565252"
-                                        android:textSize="10sp"
-                                        android:layout_below="@id/item_buy1"
-                                        android:text="@{@string/index_price + old1.otherPrice}"
-                                        android:layout_width="wrap_content"
-                                        android:layout_height="wrap_content"/>
-
-                                </RelativeLayout>
-
-                            </RelativeLayout>
-
-                        </RelativeLayout>
-
-                        <RelativeLayout
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="1">
-
-                            <RelativeLayout
-                                android:padding="@dimen/x3"
-                                android:background="@mipmap/main_bg"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content">
-
-                                <ImageView
-                                    android:layout_centerHorizontal="true"
-                                    android:id="@+id/item_oldImage2"
-                                    bind:srcTopRound="@{old2.img}"
-                                    android:layout_width="@dimen/x147"
-                                    android:layout_height="@dimen/y147"/>
-
-                                <TextView
-                                    android:paddingLeft="@dimen/x5"
-                                    android:minHeight="@dimen/y28"
-                                    android:text="@{@string/allowance2 + old2.useAllowancePrice}"
-                                    android:textSize="10sp"
-                                    android:textColor="@color/color_white"
-                                    android:layout_alignBottom="@id/item_oldImage2"
-                                    android:background="@color/color_FFAA23"
-                                    android:layout_alignRight="@id/item_oldImage2"
-                                    android:layout_alignLeft="@id/item_oldImage2"
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"/>
-
-                                <RelativeLayout
-                                    android:background="@drawable/bg_balance_last"
-                                    android:layout_below="@id/item_oldImage2"
-                                    android:layout_alignRight="@id/item_oldImage2"
-                                    android:layout_alignLeft="@id/item_oldImage2"
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content">
-
-                                    <TextView
-                                        android:id="@+id/item_buy2"
-                                        android:layout_marginLeft="@dimen/x5"
-                                        android:gravity="center"
-                                        android:text="@{@string/price + old2.buyPrice}"
-                                        android:textStyle="bold"
-                                        android:textColor="@color/color_EA5018"
-                                        android:layout_width="wrap_content"
-                                        android:layout_height="wrap_content"/>
-
-                                    <TextView
-                                        android:layout_marginBottom="@dimen/y5"
-                                        android:layout_marginLeft="@dimen/x5"
-                                        android:textColor="@color/color_565252"
-                                        android:textSize="10sp"
-                                        android:layout_below="@id/item_buy2"
-                                        android:text="@{@string/index_price + old2.otherPrice}"
-                                        android:layout_width="wrap_content"
-                                        android:layout_height="wrap_content"/>
-
-                                </RelativeLayout>
-
-                            </RelativeLayout>
-
-                        </RelativeLayout>
-
-                        <RelativeLayout
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="1">
-
-                            <RelativeLayout
-                                android:padding="@dimen/x3"
-                                android:background="@mipmap/main_bg"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content">
-
-                                <ImageView
-                                    android:layout_centerHorizontal="true"
-                                    android:id="@+id/item_oldImage3"
-                                    bind:srcTopRound="@{old3.img}"
-                                    android:layout_width="@dimen/x147"
-                                    android:layout_height="@dimen/y147"/>
-
-                                <TextView
-                                    android:paddingLeft="@dimen/x5"
-                                    android:minHeight="@dimen/y28"
-                                    android:text="@{@string/allowance2 + old3.useAllowancePrice}"
-                                    android:textSize="10sp"
-                                    android:textColor="@color/color_white"
-                                    android:layout_alignBottom="@id/item_oldImage3"
-                                    android:background="@color/color_FFAA23"
-                                    android:layout_alignRight="@id/item_oldImage3"
-                                    android:layout_alignLeft="@id/item_oldImage3"
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"/>
-
-                                <RelativeLayout
-                                    android:background="@drawable/bg_balance_last"
-                                    android:layout_below="@id/item_oldImage3"
-                                    android:layout_alignRight="@id/item_oldImage3"
-                                    android:layout_alignLeft="@id/item_oldImage3"
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content">
-
-                                    <TextView
-                                        android:id="@+id/item_buy3"
-                                        android:layout_marginLeft="@dimen/x5"
-                                        android:gravity="center"
-                                        android:text="@{@string/price + old3.buyPrice}"
-                                        android:textStyle="bold"
-                                        android:textColor="@color/color_EA5018"
-                                        android:layout_width="wrap_content"
-                                        android:layout_height="wrap_content"/>
-
-                                    <TextView
-                                        android:layout_marginBottom="@dimen/y5"
-                                        android:layout_marginLeft="@dimen/x5"
-                                        android:textColor="@color/color_565252"
-                                        android:textSize="10sp"
-                                        android:layout_below="@id/item_buy3"
-                                        android:text="@{@string/index_price + old3.otherPrice}"
-                                        android:layout_width="wrap_content"
-                                        android:layout_height="wrap_content"/>
-
-                                </RelativeLayout>
-
-                            </RelativeLayout>
-
-                        </RelativeLayout>
-
-                        <RelativeLayout
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="1">
-
-                            <RelativeLayout
-                                android:padding="@dimen/x3"
-                                android:background="@mipmap/main_bg"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content">
-
-                                <ImageView
-                                    android:layout_centerHorizontal="true"
-                                    android:id="@+id/item_oldImage4"
-                                    bind:srcTopRound="@{old4.img}"
-                                    android:layout_width="@dimen/x147"
-                                    android:layout_height="@dimen/y147"/>
-
-                                <TextView
-                                    android:paddingLeft="@dimen/x5"
-                                    android:minHeight="@dimen/y28"
-                                    android:text="@{@string/allowance2 + old4.useAllowancePrice}"
-                                    android:textSize="10sp"
-                                    android:textColor="@color/color_white"
-                                    android:layout_alignBottom="@id/item_oldImage4"
-                                    android:background="@color/color_FFAA23"
-                                    android:layout_alignRight="@id/item_oldImage4"
-                                    android:layout_alignLeft="@id/item_oldImage4"
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"/>
-
-                                <RelativeLayout
-                                    android:background="@drawable/bg_balance_last"
-                                    android:layout_below="@id/item_oldImage4"
-                                    android:layout_alignRight="@id/item_oldImage4"
-                                    android:layout_alignLeft="@id/item_oldImage4"
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content">
-
-                                    <TextView
-                                        android:id="@+id/item_buy4"
-                                        android:layout_marginLeft="@dimen/x5"
-                                        android:gravity="center"
-                                        android:text="@{@string/price + old4.buyPrice}"
-                                        android:textStyle="bold"
-                                        android:textColor="@color/color_EA5018"
-                                        android:layout_width="wrap_content"
-                                        android:layout_height="wrap_content"/>
-
-                                    <TextView
-                                        android:layout_marginBottom="@dimen/y5"
-                                        android:layout_marginLeft="@dimen/x5"
-                                        android:textColor="@color/color_565252"
-                                        android:textSize="10sp"
-                                        android:layout_below="@id/item_buy4"
-                                        android:text="@{@string/index_price + old4.otherPrice}"
-                                        android:layout_width="wrap_content"
-                                        android:layout_height="wrap_content"/>
-
-                                </RelativeLayout>
-
-                            </RelativeLayout>
-
-                        </RelativeLayout>
-
-                    </LinearLayout>
-
-                </LinearLayout>
-
             </RelativeLayout>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/main_oldpeople"
+            android:layout_marginBottom="@dimen/y24"
+            android:orientation="vertical"
+            android:background="@drawable/bg_balance"
+            android:layout_marginRight="@dimen/x30"
+            android:layout_marginLeft="@dimen/x30"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <ImageView
+                android:adjustViewBounds="true"
+                android:scaleType="fitXY"
+                android:src="@mipmap/main_receive"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"/>
+
+            <LinearLayout
+                android:background="@drawable/bg_ffece7"
+                android:paddingRight="@dimen/x8"
+                android:paddingLeft="@dimen/x8"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingTop="@dimen/y15"
+                android:paddingBottom="@dimen/y15"
+                android:orientation="horizontal">
+
+                <RelativeLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1">
+
+                    <RelativeLayout
+                        android:padding="@dimen/x3"
+                        android:background="@mipmap/main_bg"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content">
+
+                        <ImageView
+                            android:layout_centerHorizontal="true"
+                            android:id="@+id/item_oldImage1"
+                            bind:srcTopRound="@{old1.img}"
+                            android:layout_width="@dimen/x147"
+                            android:layout_height="@dimen/y147"/>
+
+                        <TextView
+                            android:paddingLeft="@dimen/x5"
+                            android:minHeight="@dimen/y28"
+                            android:text="@{@string/allowance2 + old1.useAllowancePrice}"
+                            android:textSize="10sp"
+                            android:textColor="@color/color_white"
+                            android:layout_alignBottom="@id/item_oldImage1"
+                            android:background="@color/color_FFAA23"
+                            android:layout_alignRight="@id/item_oldImage1"
+                            android:layout_alignLeft="@id/item_oldImage1"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"/>
+
+                        <RelativeLayout
+                            android:background="@drawable/bg_balance_last"
+                            android:layout_below="@id/item_oldImage1"
+                            android:layout_alignRight="@id/item_oldImage1"
+                            android:layout_alignLeft="@id/item_oldImage1"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content">
+
+                            <TextView
+                                android:id="@+id/item_buy1"
+                                android:layout_marginLeft="@dimen/x5"
+                                android:gravity="center"
+                                android:text="@{@string/price + old1.buyPrice}"
+                                android:textStyle="bold"
+                                android:textColor="@color/color_EA5018"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"/>
+
+                            <TextView
+                                android:layout_marginBottom="@dimen/y5"
+                                android:layout_marginLeft="@dimen/x5"
+                                android:textColor="@color/color_565252"
+                                android:textSize="10sp"
+                                android:layout_below="@id/item_buy1"
+                                android:text="@{@string/index_price + old1.otherPrice}"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"/>
+
+                        </RelativeLayout>
+
+                    </RelativeLayout>
+
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1">
+
+                    <RelativeLayout
+                        android:padding="@dimen/x3"
+                        android:background="@mipmap/main_bg"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content">
+
+                        <ImageView
+                            android:layout_centerHorizontal="true"
+                            android:id="@+id/item_oldImage2"
+                            bind:srcTopRound="@{old2.img}"
+                            android:layout_width="@dimen/x147"
+                            android:layout_height="@dimen/y147"/>
+
+                        <TextView
+                            android:paddingLeft="@dimen/x5"
+                            android:minHeight="@dimen/y28"
+                            android:text="@{@string/allowance2 + old2.useAllowancePrice}"
+                            android:textSize="10sp"
+                            android:textColor="@color/color_white"
+                            android:layout_alignBottom="@id/item_oldImage2"
+                            android:background="@color/color_FFAA23"
+                            android:layout_alignRight="@id/item_oldImage2"
+                            android:layout_alignLeft="@id/item_oldImage2"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"/>
+
+                        <RelativeLayout
+                            android:background="@drawable/bg_balance_last"
+                            android:layout_below="@id/item_oldImage2"
+                            android:layout_alignRight="@id/item_oldImage2"
+                            android:layout_alignLeft="@id/item_oldImage2"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content">
+
+                            <TextView
+                                android:id="@+id/item_buy2"
+                                android:layout_marginLeft="@dimen/x5"
+                                android:gravity="center"
+                                android:text="@{@string/price + old2.buyPrice}"
+                                android:textStyle="bold"
+                                android:textColor="@color/color_EA5018"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"/>
+
+                            <TextView
+                                android:layout_marginBottom="@dimen/y5"
+                                android:layout_marginLeft="@dimen/x5"
+                                android:textColor="@color/color_565252"
+                                android:textSize="10sp"
+                                android:layout_below="@id/item_buy2"
+                                android:text="@{@string/index_price + old2.otherPrice}"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"/>
+
+                        </RelativeLayout>
+
+                    </RelativeLayout>
+
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1">
+
+                    <RelativeLayout
+                        android:padding="@dimen/x3"
+                        android:background="@mipmap/main_bg"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content">
+
+                        <ImageView
+                            android:layout_centerHorizontal="true"
+                            android:id="@+id/item_oldImage3"
+                            bind:srcTopRound="@{old3.img}"
+                            android:layout_width="@dimen/x147"
+                            android:layout_height="@dimen/y147"/>
+
+                        <TextView
+                            android:paddingLeft="@dimen/x5"
+                            android:minHeight="@dimen/y28"
+                            android:text="@{@string/allowance2 + old3.useAllowancePrice}"
+                            android:textSize="10sp"
+                            android:textColor="@color/color_white"
+                            android:layout_alignBottom="@id/item_oldImage3"
+                            android:background="@color/color_FFAA23"
+                            android:layout_alignRight="@id/item_oldImage3"
+                            android:layout_alignLeft="@id/item_oldImage3"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"/>
+
+                        <RelativeLayout
+                            android:background="@drawable/bg_balance_last"
+                            android:layout_below="@id/item_oldImage3"
+                            android:layout_alignRight="@id/item_oldImage3"
+                            android:layout_alignLeft="@id/item_oldImage3"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content">
+
+                            <TextView
+                                android:id="@+id/item_buy3"
+                                android:layout_marginLeft="@dimen/x5"
+                                android:gravity="center"
+                                android:text="@{@string/price + old3.buyPrice}"
+                                android:textStyle="bold"
+                                android:textColor="@color/color_EA5018"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"/>
+
+                            <TextView
+                                android:layout_marginBottom="@dimen/y5"
+                                android:layout_marginLeft="@dimen/x5"
+                                android:textColor="@color/color_565252"
+                                android:textSize="10sp"
+                                android:layout_below="@id/item_buy3"
+                                android:text="@{@string/index_price + old3.otherPrice}"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"/>
+
+                        </RelativeLayout>
+
+                    </RelativeLayout>
+
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1">
+
+                    <RelativeLayout
+                        android:padding="@dimen/x3"
+                        android:background="@mipmap/main_bg"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content">
+
+                        <ImageView
+                            android:layout_centerHorizontal="true"
+                            android:id="@+id/item_oldImage4"
+                            bind:srcTopRound="@{old4.img}"
+                            android:layout_width="@dimen/x147"
+                            android:layout_height="@dimen/y147"/>
+
+                        <TextView
+                            android:paddingLeft="@dimen/x5"
+                            android:minHeight="@dimen/y28"
+                            android:text="@{@string/allowance2 + old4.useAllowancePrice}"
+                            android:textSize="10sp"
+                            android:textColor="@color/color_white"
+                            android:layout_alignBottom="@id/item_oldImage4"
+                            android:background="@color/color_FFAA23"
+                            android:layout_alignRight="@id/item_oldImage4"
+                            android:layout_alignLeft="@id/item_oldImage4"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"/>
+
+                        <RelativeLayout
+                            android:background="@drawable/bg_balance_last"
+                            android:layout_below="@id/item_oldImage4"
+                            android:layout_alignRight="@id/item_oldImage4"
+                            android:layout_alignLeft="@id/item_oldImage4"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content">
+
+                            <TextView
+                                android:id="@+id/item_buy4"
+                                android:layout_marginLeft="@dimen/x5"
+                                android:gravity="center"
+                                android:text="@{@string/price + old4.buyPrice}"
+                                android:textStyle="bold"
+                                android:textColor="@color/color_EA5018"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"/>
+
+                            <TextView
+                                android:layout_marginBottom="@dimen/y5"
+                                android:layout_marginLeft="@dimen/x5"
+                                android:textColor="@color/color_565252"
+                                android:textSize="10sp"
+                                android:layout_below="@id/item_buy4"
+                                android:text="@{@string/index_price + old4.otherPrice}"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"/>
+
+                        </RelativeLayout>
+
+                    </RelativeLayout>
+
+                </RelativeLayout>
+
+            </LinearLayout>
 
         </LinearLayout>
 
