@@ -35,6 +35,7 @@ import com.example.administrator.jipinshop.fragment.evaluationkt.EvaluationNewFr
 import com.example.administrator.jipinshop.fragment.home.KTHomeFragnent;
 import com.example.administrator.jipinshop.fragment.member.MemberFragment;
 import com.example.administrator.jipinshop.fragment.mine.KTMineFragment;
+import com.example.administrator.jipinshop.fragment.play.PlayFragment;
 import com.example.administrator.jipinshop.fragment.school.KTSchoolFragment;
 import com.example.administrator.jipinshop.netwrok.RetrofitModule;
 import com.example.administrator.jipinshop.util.ClickUtil;
@@ -81,7 +82,7 @@ public class MainActivity extends BaseActivity implements MainView, ViewPager.On
     private KTMineFragment mMineFragment;//我的
     private EvaluationNewFragment mCircleFragment;//评测
     private KTHomeFragnent mKTHomeFragnent;//首页
-    private KTSchoolFragment mSchoolFragment;//商学院
+    private PlayFragment mPlayFragment;//吃喝玩乐
 
     private long exitTime = 0;
     private Boolean once = true; // 是否是第一次弹出
@@ -122,12 +123,12 @@ public class MainActivity extends BaseActivity implements MainView, ViewPager.On
         mFragments = new ArrayList<>();
 
         mKTHomeFragnent = KTHomeFragnent.getInstance();
-        mSchoolFragment = KTSchoolFragment.getInstance();
+        mPlayFragment = PlayFragment.getInstance();
         mMemberFragment = MemberFragment.getInstance("1");
         mCircleFragment = EvaluationNewFragment.getInstance("1");
         mMineFragment = KTMineFragment.getInstance();
         mFragments.add(mKTHomeFragnent);
-        mFragments.add(mSchoolFragment);
+        mFragments.add(mPlayFragment);
         mFragments.add(mMemberFragment);
         mFragments.add(mCircleFragment);
         mFragments.add(mMineFragment);

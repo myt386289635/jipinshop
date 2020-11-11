@@ -19,6 +19,7 @@ import com.example.administrator.jipinshop.activity.balance.MyWalletActivity
 import com.example.administrator.jipinshop.activity.balance.team.TeamActivity
 import com.example.administrator.jipinshop.activity.cheapgoods.CheapBuyActivity
 import com.example.administrator.jipinshop.activity.foval.FovalActivity
+import com.example.administrator.jipinshop.activity.home.home.HomeNewActivity
 import com.example.administrator.jipinshop.activity.login.LoginActivity
 import com.example.administrator.jipinshop.activity.mall.MallActivity
 import com.example.administrator.jipinshop.activity.mine.browse.BrowseActivity
@@ -434,7 +435,9 @@ class KTMineFragment : DBBaseFragment(), KTMineAdapter.OnItem, KTMineView, OnLoa
 
     //进入省钱流程
     override fun onCourse() {
-        EventBus.getDefault().post(ChangeHomePageBus(1))
+        startActivity(Intent(context, HomeNewActivity::class.java)
+                .putExtra("type", HomeNewActivity.school)
+        )
     }
 
     //邀请码dialog

@@ -19,7 +19,7 @@ import javax.inject.Inject
 /**
  * @author 莫小婷
  * @create 2020/7/14
- * @Describe 商学院
+ * @Describe 省钱教程
  */
 class KTSchoolFragment : DBBaseFragment(), View.OnClickListener, OnRefreshListener, KTSchoolView {
 
@@ -33,14 +33,6 @@ class KTSchoolFragment : DBBaseFragment(), View.OnClickListener, OnRefreshListen
         @JvmStatic
         fun getInstance(): KTSchoolFragment {
             return KTSchoolFragment()
-        }
-    }
-
-    override fun setUserVisibleHint(isVisibleToUser: Boolean) {
-        super.setUserVisibleHint(isVisibleToUser)
-        if (isVisibleToUser && once) {
-            mBinding.swipeToLoad.isRefreshing = true
-            once = false
         }
     }
 
@@ -60,6 +52,7 @@ class KTSchoolFragment : DBBaseFragment(), View.OnClickListener, OnRefreshListen
         mBinding.swipeTarget.adapter = mAdapter
 
         mBinding.swipeToLoad.setOnRefreshListener(this)
+        mBinding.swipeToLoad.isRefreshing = true
     }
 
     override fun onClick(v: View) {
@@ -67,6 +60,11 @@ class KTSchoolFragment : DBBaseFragment(), View.OnClickListener, OnRefreshListen
             R.id.school_searchContainer -> {
                 //商学院搜索
                 startActivity(Intent(context, SchoolSearchActivity::class.java))
+            }
+            R.id.school_balck -> {
+                activity?.let {
+                    it.finish()
+                }
             }
         }
     }
@@ -79,6 +77,7 @@ class KTSchoolFragment : DBBaseFragment(), View.OnClickListener, OnRefreshListen
         mBinding.swipeToLoad.isRefreshing = false
         mAdapter.setDate(bean)
         mAdapter.notifyDataSetChanged()
+        once = false
     }
 
     override fun onFile(error: String?) {

@@ -11,6 +11,7 @@ import javax.inject.Inject;
 import io.reactivex.Observable;
 import okhttp3.MultipartBody;
 import okhttp3.ResponseBody;
+import retrofit2.http.GET;
 
 public class Repository {
 
@@ -1536,5 +1537,12 @@ public class Repository {
      */
     public Observable<TBSreachResultBean> goodsHistory(int page){
         return mAPIService.goodsHistory(page);
+    }
+
+    /**
+     * 吃喝玩乐列表
+     */
+    public Observable<PlayBean> boxListAll(){
+        return mAPIService.boxListAll();
     }
 }

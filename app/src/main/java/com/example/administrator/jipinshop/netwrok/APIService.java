@@ -1390,4 +1390,10 @@ public interface APIService {
      */
     @GET("api/v4/tbk/goodsHistory")
     Observable<TBSreachResultBean> goodsHistory(@Query("page") int page);
+
+    /**
+     * 吃喝玩乐列表
+     */
+    @GET("api/box/listAll")
+    Observable<PlayBean> boxListAll();
 }

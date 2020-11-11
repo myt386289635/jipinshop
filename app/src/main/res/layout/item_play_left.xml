@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    android:id="@+id/item_container"
+    android:background="@color/color_white"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="@dimen/y106"
+    xmlns:tools="http://schemas.android.com/tools">
+    
+    <View
+        android:id="@+id/item_tag"
+        android:layout_centerVertical="true"
+        android:background="@color/color_E25838"
+        android:layout_width="@dimen/x8"
+        android:layout_height="@dimen/y32"/>
+
+    <TextView
+        android:textStyle="bold"
+        android:textColor="@color/color_E25838"
+        android:textSize="15sp"
+        tools:text="影音娱乐"
+        android:id="@+id/item_text"
+        android:gravity="center"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"/>
+
+</RelativeLayout>

@@ -7,6 +7,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.RelativeLayout;
 
 import com.example.administrator.jipinshop.R;
 import com.example.administrator.jipinshop.bean.MemberNewBean;
@@ -24,7 +25,7 @@ public class MemberVideoAdapter extends RecyclerView.Adapter<MemberVideoAdapter.
     private List<MemberNewBean.DataBean.LevelDetail7Bean.ListBeanXXX> mList;
     private Context mContext;
     private OnItem mOnItem;
-    private int type = 1;//1是会员月卡  2是吃喝玩乐
+    private int type = 1;//1是会员月卡  2是会员里的吃喝玩乐 3是fragment的吃喝玩乐
 
     public void setOnItem(OnItem onItem) {
         mOnItem = onItem;
@@ -54,6 +55,15 @@ public class MemberVideoAdapter extends RecyclerView.Adapter<MemberVideoAdapter.
         if (type == 1){//会员月卡
             viewHolder.mBinding.itemName.setVisibility(View.GONE);
             viewHolder.mBinding.itemTag.setText(mList.get(position).getTitle());
+        }else if (type == 3){//fragment的吃喝玩乐
+            viewHolder.mBinding.itemName.setVisibility(View.VISIBLE);
+            viewHolder.mBinding.itemTag.setText(mList.get(position).getSubTitle());
+            RelativeLayout.LayoutParams layoutParams = (RelativeLayout.LayoutParams) viewHolder.mBinding.itemImage.getLayoutParams();
+            layoutParams.topMargin = 0;
+            viewHolder.mBinding.itemImage.setLayoutParams(layoutParams);
+            RelativeLayout.LayoutParams itemTagLp = (RelativeLayout.LayoutParams) viewHolder.mBinding.itemTag.getLayoutParams();
+            itemTagLp.bottomMargin = (int) mContext.getResources().getDimension(R.dimen.y30);
+            viewHolder.mBinding.itemTag.setLayoutParams(itemTagLp);
         }else {
             viewHolder.mBinding.itemName.setVisibility(View.VISIBLE);
             viewHolder.mBinding.itemTag.setText(mList.get(position).getSubTitle());

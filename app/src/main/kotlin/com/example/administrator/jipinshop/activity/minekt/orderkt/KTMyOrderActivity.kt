@@ -48,6 +48,7 @@ class KTMyOrderActivity : BaseActivity(), View.OnClickListener {
         mFragments.add(KTMyOrderFragment.getInstance("2",status))//淘宝
         mFragments.add(KTMyOrderFragment.getInstance("1",status))//京东
         mFragments.add(KTMyOrderFragment.getInstance("4",status))//拼多多
+        mFragments.add(KTMyOrderFragment.getInstance("100",status))//其他
         mAdapter.setFragments(mFragments)
         mBinding.viewPager.adapter = mAdapter
         mBinding.viewPager.offscreenPageLimit = mFragments.size - 1
@@ -80,8 +81,10 @@ class KTMyOrderActivity : BaseActivity(), View.OnClickListener {
                 textView.text = "淘宝"
             } else if (i == 2) {
                 textView.text = "京东"
-            } else {
+            } else if (i == 3) {
                 textView.text = "拼多多"
+            } else {
+                textView.text = "其他"
             }
             mBinding.tabLayout.getTabAt(i)!!.customView = view
             val a = textView.paint.measureText(textView.text.toString()).toInt()
@@ -92,7 +95,7 @@ class KTMyOrderActivity : BaseActivity(), View.OnClickListener {
         mBinding.tabLayout.post {
             //拿到tabLayout的mTabStrip属性
             val mTabStrip = mBinding.tabLayout.getChildAt(0) as LinearLayout
-            val totle = textLether[0] + textLether[1] + textLether[2] + textLether[3]
+            val totle = textLether[0] + textLether[1] + textLether[2] + textLether[3] + textLether[4]
             val dp10 = (mBinding.tabLayout.width - totle) / textLether.size
             for (i in 0 until mTabStrip.childCount) {
                 val tabView = mTabStrip.getChildAt(i)

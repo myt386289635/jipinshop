@@ -18,14 +18,25 @@
             android:layout_height="wrap_content"
             android:orientation="vertical"/>
 
+        <ImageView
+            android:onClick="@{listener.onClick}"
+            android:paddingRight="@dimen/x20"
+            android:id="@+id/school_balck"
+            android:paddingLeft="@dimen/x20"
+            android:layout_alignBottom="@id/school_searchContainer"
+            android:layout_alignTop="@id/school_searchContainer"
+            android:src="@mipmap/nav_black_big"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+
         <RelativeLayout
+            android:layout_toRightOf="@id/school_balck"
             android:layout_below="@id/status_bar"
             android:onClick="@{listener.onClick}"
             android:background="@drawable/bg_e25838_6"
             android:layout_marginBottom="@dimen/y30"
             android:layout_marginTop="@dimen/y30"
             android:layout_marginRight="@dimen/x20"
-            android:layout_marginLeft="@dimen/x20"
             android:id="@+id/school_searchContainer"
             android:layout_width="match_parent"
             android:layout_height="@dimen/y66">
