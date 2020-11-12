@@ -110,6 +110,15 @@ public class EvaluationTabBean {
             private String objectId;
             private String name;
             private String source;
+            private String remark;
+
+            public String getRemark() {
+                return remark;
+            }
+
+            public void setRemark(String remark) {
+                this.remark = remark;
+            }
 
             public String getSource() {
                 return source;

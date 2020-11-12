@@ -7,7 +7,6 @@ import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
 
-import com.blankj.utilcode.util.AppUtils;
 import com.blankj.utilcode.util.SPUtils;
 import com.example.administrator.jipinshop.activity.WebActivity;
 import com.example.administrator.jipinshop.activity.balance.MyWalletActivity;
@@ -34,7 +33,6 @@ import com.example.administrator.jipinshop.activity.web.dzp.BigWheelWebActivity;
 import com.example.administrator.jipinshop.activity.web.hb.HBWebView2;
 import com.example.administrator.jipinshop.activity.web.invite.InviteActionWebActivity;
 import com.example.administrator.jipinshop.activity.web.sign.H5SignWebActivity;
-import com.example.administrator.jipinshop.bean.ActionHBBean;
 import com.example.administrator.jipinshop.bean.eventbus.ChangeHomePageBus;
 import com.example.administrator.jipinshop.netwrok.ApplicationComponent;
 import com.example.administrator.jipinshop.netwrok.ApplicationModule;
@@ -49,7 +47,6 @@ import org.greenrobot.eventbus.EventBus;
 import javax.inject.Inject;
 
 import io.reactivex.android.schedulers.AndroidSchedulers;
-import io.reactivex.functions.Consumer;
 import io.reactivex.schedulers.Schedulers;
 
 /**
@@ -231,14 +228,16 @@ public class ShopJumpUtil {
     /**
      * 首页弹窗dialog跳转逻辑
      */
-    public static void openPager(Context context, String targetType, String target_id , String target_title , String source){
-        openBanner(context,targetType,target_id,target_title, source);
+    public static void openPager(Context context, String targetType, String target_id ,
+                                 String target_title , String source,String remark){
+        openBanner(context,targetType,target_id,target_title, source,remark);
     }
 
     /**
      * 公用轮播图（广告位）跳转——首页模块
      */
-    public static void openBanner(Context context, String targetType, String target_id , String target_title,String source){
+    public static void openBanner(Context context, String targetType, String target_id ,
+                                  String target_title,String source , String remark){
         Intent intent = new Intent();
         switch (targetType){
             case "2"://评测详情
@@ -258,12 +257,31 @@ public class ShopJumpUtil {
                 intent.putExtra("otherGoodsId", target_id);
                 context.startActivity(intent);
                 break;
+            case "42"://H5加提示
             case "13"://H5页面
-                intent.setClass(context, WebActivity.class);
-                intent.putExtra(WebActivity.url, target_id);
-                intent.putExtra(WebActivity.title,target_title);
-                intent.putExtra(WebActivity.source,source);
-                context.startActivity(intent);
+                if (TextUtils.isEmpty(SPUtils.getInstance(CommonDate.USER).getString(CommonDate.token, ""))) {
+                    intent.setClass(context, LoginActivity.class);
+                    context.startActivity(intent);
+                }else {
+                    if ((source.equals("10") || source.equals("11") || source.equals("12"))
+                    && SPUtils.getInstance(CommonDate.USER).getString(CommonDate.userMemberGrade,"0").equals("0")){
+                        DialogUtil.memberGuideDialog(AppManager.getAppManager().currentActivity(), v -> {
+                            context.startActivity(new Intent(context, WebActivity.class)
+                                    .putExtra(WebActivity.url, target_id)
+                                    .putExtra(WebActivity.title,target_title)
+                                    .putExtra(WebActivity.source,source)
+                                    .putExtra(WebActivity.remark,remark)
+                            );
+                        });
+                    }else {
+                        intent.setClass(context, WebActivity.class);
+                        intent.putExtra(WebActivity.url, target_id);
+                        intent.putExtra(WebActivity.title,target_title);
+                        intent.putExtra(WebActivity.source,source);
+                        intent.putExtra(WebActivity.remark,remark);
+                        context.startActivity(intent);
+                    }
+                }
                 break;
             case "14"://极币商城
                 intent.setClass(context, MallActivity.class);
@@ -487,7 +505,7 @@ public class ShopJumpUtil {
                         );
                     }
                 }, throwable -> {
-                    DialogUtil.hbWebDialog(context, v -> {
+                    DialogUtil.hbWebDialog(AppManager.getAppManager().currentActivity(), v -> {
                         context.startActivity(new Intent(context, HBWebView2.class)
                                 .putExtra(HBWebView2.url, RetrofitModule.JP_H5_URL + "new-free/getRedPacket?isfirst=true&token=" + SPUtils.getInstance(CommonDate.USER).getString(CommonDate.token))
                                 .putExtra(HBWebView2.title, "天天领现金")

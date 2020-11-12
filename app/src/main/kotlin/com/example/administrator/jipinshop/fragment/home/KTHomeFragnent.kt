@@ -134,7 +134,7 @@ class KTHomeFragnent : DBBaseFragment(), View.OnClickListener, ViewPager.OnPageC
                     return
                 }
                 ShopJumpUtil.openBanner(context,ad?.type,
-                        ad?.objectId,ad?.name, ad?.source)
+                        ad?.objectId,ad?.name, ad?.source, ad?.remark)
             }
             R.id.home_sign -> {
                 if (TextUtils.isEmpty(SPUtils.getInstance(CommonDate.USER).getString(CommonDate.token, ""))) {

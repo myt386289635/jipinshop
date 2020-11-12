@@ -44,7 +44,7 @@ class KTSchoolGVAdapter : RecyclerView.Adapter<KTSchoolGVAdapter.ViewHolder>{
             GlideApp.loderImage(mContext,mList[position].iconUrl,mImageView,0,0)
             itemView.setOnClickListener {
                 ShopJumpUtil.openBanner(mContext,mList[position].type,mList[position].targetId,
-                        mList[position].title,mList[position].source)
+                        mList[position].title,mList[position].source,mList[position].remark)
             }
             var wight = mContext.resources.getDimension(R.dimen.x120)
             var zz = (DistanceHelper.getAndroiodScreenwidthPixels(mContext) - (wight * 4)) / 4

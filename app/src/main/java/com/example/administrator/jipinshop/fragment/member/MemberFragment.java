@@ -854,7 +854,7 @@ public class MemberFragment extends DBBaseFragment implements View.OnClickListen
         }
         ShopJumpUtil.openBanner(getContext(),mPlayList.get(position).getType(),
                 mPlayList.get(position).getTargetId(),mPlayList.get(position).getTitle(),
-                mPlayList.get(position).getSource());
+                mPlayList.get(position).getSource() , mPlayList.get(position).getRemark());
     }
 
     //点击会员权益滑动到固定位置

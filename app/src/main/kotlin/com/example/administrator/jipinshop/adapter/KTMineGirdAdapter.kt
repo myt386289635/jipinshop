@@ -40,7 +40,7 @@ class KTMineGirdAdapter : RecyclerView.Adapter<KTMineGirdAdapter.ViewHolder>{
             binding.executePendingBindings()
             itemView.setOnClickListener {
                 ShopJumpUtil.openBanner(mContent,mList[position].type,mList[position].targetId,
-                        mList[position].title,mList[position].source)
+                        mList[position].title,mList[position].source, mList[position].remark)
             }
         }
     }

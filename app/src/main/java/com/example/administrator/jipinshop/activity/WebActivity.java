@@ -69,6 +69,7 @@ public class WebActivity extends BaseActivity implements View.OnClickListener, W
     private Boolean isGo = false;//是否直接跳转app false否  true是
     private Boolean isFinish = false;//是否需要关闭该页
     private String mReffer = "";//支付时需要
+    private String isRemark = "";//web的提示
 
     public static final String url = "url";
     public static final String title = "title";
@@ -76,6 +77,7 @@ public class WebActivity extends BaseActivity implements View.OnClickListener, W
     public static final String shareTitle = "shareTitle";
     public static final String shareContent = "shareContent";
     public static final String shareImage = "shareImage";
+    public static final String remark = "remark";
 
     public static final String source = "source";
     public static final String go = "go";
@@ -97,6 +99,13 @@ public class WebActivity extends BaseActivity implements View.OnClickListener, W
         }
         if (getIntent().getBooleanExtra(go,false)){
             isGo = getIntent().getBooleanExtra(go,false);
+        }
+        isRemark = getIntent().getStringExtra(remark);
+        if (TextUtils.isEmpty(isRemark)){
+            mBinding.webNotice.setVisibility(View.GONE);
+        }else {
+            mBinding.webNotice.setVisibility(View.VISIBLE);
+            mBinding.webNotice.setText(isRemark);
         }
         mProgressDialog = (new ProgressDialogView()).createLoadingDialog(WebActivity.this, "正在加载...");
         mProgressDialog.show();

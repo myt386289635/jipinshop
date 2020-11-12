@@ -89,7 +89,7 @@ class KTSchoolAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>{
                         override fun onClickItem(postion: Int) {
                             ShopJumpUtil.openBanner(mContext,adListBeans[postion].type,
                                     adListBeans[postion].objectId,adListBeans[postion].name,
-                                    adListBeans[postion].source)
+                                    adListBeans[postion].source,adListBeans[postion].remark)
                         }
                     })
                     mBean?.let {

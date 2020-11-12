@@ -67,6 +67,15 @@ public class SystemMessageBean {
         private int dataFlag;
         private String targetId;
         private String source;
+        private String remark;
+
+        public String getRemark() {
+            return remark;
+        }
+
+        public void setRemark(String remark) {
+            this.remark = remark;
+        }
 
         public String getSource() {
             return source;

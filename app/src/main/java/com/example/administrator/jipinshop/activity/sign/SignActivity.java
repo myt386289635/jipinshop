@@ -151,7 +151,7 @@ public class SignActivity extends BaseActivity implements View.OnClickListener, 
                 }
                 ShopJumpUtil.openBanner(this,ad1.getType(),
                         ad1.getObjectId(),ad1.getName(),
-                        ad1.getSource());
+                        ad1.getSource() , ad1.getRemark());
                 break;
             case R.id.sign_h5Container:
                 //大转盘
@@ -172,7 +172,7 @@ public class SignActivity extends BaseActivity implements View.OnClickListener, 
                 }else {
                     ShopJumpUtil.openBanner(this,ad2.getType(),
                             ad2.getObjectId(),ad2.getName(),
-                            ad2.getSource());
+                            ad2.getSource(),ad2.getRemark());
                 }
                 break;
         }

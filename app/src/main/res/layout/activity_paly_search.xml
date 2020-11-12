@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+        <variable
+            name="listener"
+            type="android.view.View.OnClickListener"/>
+    </data>
+
+    <LinearLayout
+        android:background="@color/color_white"
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:id="@+id/status_bar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/color_F5F5F5"
+            android:orientation="vertical"/>
+
+        <RelativeLayout
+            android:background="@color/color_F5F5F5"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/y104">
+
+            <TextView
+                android:onClick="@{listener.onClick}"
+                android:textColor="@color/color_9D9D9D"
+                android:textSize="15sp"
+                android:gravity="center"
+                android:layout_centerVertical="true"
+                android:layout_alignParentRight="true"
+                android:id="@+id/search_cancle"
+                android:text="取消"
+                android:layout_width="@dimen/x118"
+                android:layout_height="match_parent"/>
+
+            <RelativeLayout
+                android:layout_toLeftOf="@id/search_cancle"
+                android:background="@drawable/bg_ffffff_3"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="@dimen/x30"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/y72">
+
+                <ImageView
+                    android:id="@+id/search_search"
+                    android:layout_marginRight="@dimen/x12"
+                    android:layout_marginLeft="@dimen/x36"
+                    android:layout_centerVertical="true"
+                    android:tint="@color/color_9D9D9D"
+                    android:src="@mipmap/nav_search"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"/>
+
+                <ImageView
+                    android:id="@+id/search_close"
+                    android:onClick="@{listener.onClick}"
+                    android:paddingLeft="@dimen/x16"
+                    android:paddingRight="@dimen/x16"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:src="@mipmap/nickname_close"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"/>
+
+                <EditText
+                    android:id="@+id/search_edit"
+                    android:textColor="@color/color_202020"
+                    android:textColorHint="@color/color_202020"
+                    android:textSize="13sp"
+                    android:hint="搜索商城"
+                    android:layout_toRightOf="@id/search_search"
+                    android:layout_toLeftOf="@id/search_close"
+                    android:background="@color/transparent"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"/>
+
+
+            </RelativeLayout>
+
+        </RelativeLayout>
+
+        <com.google.android.flexbox.FlexboxLayout
+            android:layout_marginTop="@dimen/y16"
+            android:id="@+id/search_flex"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="@dimen/x30"
+            app:alignItems="flex_start"
+            app:flexWrap="wrap"
+            app:justifyContent="flex_start"/>
+
+    </LinearLayout>
+</layout>

@@ -111,7 +111,7 @@ class KTJDDetailAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder> {
                         override fun onClickItem(postion: Int) {
                             ShopJumpUtil.openBanner(mContext, mAdListBeans[postion].type,
                                     mAdListBeans[postion].objectId, mAdListBeans[postion].name,
-                                    mAdListBeans[postion].source)
+                                    mAdListBeans[postion].source,mAdListBeans[postion].remark)
                         }
                     })
                     adListBeans.clear()

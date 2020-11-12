@@ -1,69 +1,86 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-    android:layout_gravity="center_horizontal"
-    android:orientation="vertical"
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content">
-
-    <ImageView
-        android:layout_gravity="center_horizontal"
-        android:src="@mipmap/shop_guide"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"/>
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
 
     <LinearLayout
-        android:layout_marginTop="@dimen/y34"
         android:layout_gravity="center_horizontal"
-        android:orientation="horizontal"
+        android:orientation="vertical"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content">
 
-        <ImageView
-            android:src="@mipmap/shop_guide1"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"/>
+        <RelativeLayout
+            android:orientation="vertical"
+            android:layout_width="@dimen/x640"
+            android:layout_height="wrap_content">
 
-        <TextView
-            android:lineSpacingExtra="@dimen/y8"
-            android:textSize="15sp"
-            android:textColor="@color/color_white"
-            android:layout_marginLeft="@dimen/x24"
-            android:text="极品城让利用户，下单商品可享受高额返现"
-            android:layout_width="@dimen/x420"
+            <ImageView
+                android:id="@+id/item_bg"
+                android:adjustViewBounds="true"
+                android:scaleType="fitXY"
+                android:layout_gravity="center_horizontal"
+                android:src="@mipmap/shop_guide1"
+                android:layout_width="@dimen/x640"
+                android:layout_height="wrap_content"/>
+
+            <TextView
+                android:id="@+id/item_title"
+                android:textStyle="bold"
+                android:textSize="18sp"
+                android:textColor="@color/color_835720"
+                android:layout_marginTop="@dimen/y66"
+                android:layout_marginLeft="@dimen/x76"
+                android:text="会员专属吃喝玩乐福利"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+
+            <TextView
+                android:layout_marginTop="@dimen/y10"
+                android:textColor="@color/color_835720"
+                android:textStyle="bold"
+                android:text="最高可返40%"
+                android:textSize="15sp"
+                android:layout_marginLeft="@dimen/x76"
+                android:layout_below="@id/item_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+
+            <TextView
+                android:id="@+id/item_go"
+                android:gravity="center"
+                android:textColor="@color/color_835720"
+                android:textStyle="bold"
+                android:textSize="16sp"
+                android:text="直接购买（暂无返现）"
+                android:background="@drawable/bg_835720_1"
+                android:layout_marginBottom="@dimen/y30"
+                android:layout_alignBottom="@id/item_bg"
+                android:layout_centerHorizontal="true"
+                android:layout_width="@dimen/x488"
+                android:layout_height="@dimen/y82"/>
+
+            <TextView
+                android:layout_above="@+id/item_go"
+                android:id="@+id/item_goMember"
+                android:gravity="center"
+                android:textColor="@color/color_white"
+                android:textStyle="bold"
+                android:textSize="16sp"
+                android:text="立即办理（最高返40%）"
+                android:background="@drawable/bg_835720_2"
+                android:layout_marginBottom="@dimen/y28"
+                android:layout_centerHorizontal="true"
+                android:layout_width="@dimen/x488"
+                android:layout_height="@dimen/y82"/>
+
+        </RelativeLayout>
+
+        <ImageView
+            android:id="@+id/dialog_dismiss"
+            android:layout_marginTop="@dimen/y150"
+            android:layout_gravity="center_horizontal"
+            android:src="@mipmap/dialog_close"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"/>
 
     </LinearLayout>
 
-    <LinearLayout
-        android:layout_marginTop="@dimen/y34"
-        android:layout_gravity="center_horizontal"
-        android:orientation="horizontal"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content">
-
-        <ImageView
-            android:src="@mipmap/shop_guide2"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"/>
-
-        <TextView
-            android:lineSpacingExtra="@dimen/y8"
-            android:textSize="15sp"
-            android:textColor="@color/color_white"
-            android:layout_marginLeft="@dimen/x24"
-            android:text="极品城为您精选商家，获取专享粉丝优惠券，点击可领；"
-            android:layout_width="@dimen/x420"
-            android:layout_height="wrap_content"/>
-
-    </LinearLayout>
-
-    <ImageView
-        android:id="@+id/dialog_cancle"
-        android:layout_marginTop="@dimen/y71"
-        android:layout_gravity="center_horizontal"
-        android:src="@mipmap/shop_guide3"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"/>
-
-</LinearLayout>
+</layout>

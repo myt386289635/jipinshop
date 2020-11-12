@@ -36,7 +36,6 @@ import com.example.administrator.jipinshop.fragment.home.KTHomeFragnent;
 import com.example.administrator.jipinshop.fragment.member.MemberFragment;
 import com.example.administrator.jipinshop.fragment.mine.KTMineFragment;
 import com.example.administrator.jipinshop.fragment.play.PlayFragment;
-import com.example.administrator.jipinshop.fragment.school.KTSchoolFragment;
 import com.example.administrator.jipinshop.netwrok.RetrofitModule;
 import com.example.administrator.jipinshop.util.ClickUtil;
 import com.example.administrator.jipinshop.util.NotificationUtil;
@@ -99,9 +98,10 @@ public class MainActivity extends BaseActivity implements MainView, ViewPager.On
             String target_id = getIntent().getStringExtra("target_id");
             String target_title = getIntent().getStringExtra("target_title");
             String source = getIntent().getStringExtra("source");
+            String remark = getIntent().getStringExtra("remark");
             if (!targetType.equals("101") && !targetType.equals("102") && !targetType.equals("103")
                     && !targetType.equals("104") && !targetType.equals("105")) {
-                ShopJumpUtil.openBanner(this, targetType, target_id, target_title, source);
+                ShopJumpUtil.openBanner(this, targetType, target_id, target_title, source,remark);
             }
         }
         mBinding = DataBindingUtil.setContentView(this,R.layout.activity_main);
@@ -195,9 +195,10 @@ public class MainActivity extends BaseActivity implements MainView, ViewPager.On
             String target_id = getIntent().getStringExtra("target_id");
             String target_title = getIntent().getStringExtra("target_title");
             String source = getIntent().getStringExtra("source");
+            String remark = getIntent().getStringExtra("remark");
             if (targetType.equals("101") || targetType.equals("102") || targetType.equals("103")
                     || targetType.equals("104") || targetType.equals("105")) {
-                ShopJumpUtil.openBanner(this, targetType, target_id, target_title, source);
+                ShopJumpUtil.openBanner(this, targetType, target_id, target_title, source,remark);
             }
         }
     }
@@ -364,7 +365,7 @@ public class MainActivity extends BaseActivity implements MainView, ViewPager.On
                             DialogUtil.imgDialog(MainActivity.this, bean.getData().get(finalActivityPos).getData().getImg(), v1 -> {
                                 ShopJumpUtil.openPager(MainActivity.this, bean.getData().get(finalActivityPos).getData().getTargetType()
                                         , bean.getData().get(finalActivityPos).getData().getTargetId(), bean.getData().get(finalActivityPos).getData().getTitle(),
-                                        bean.getData().get(finalActivityPos).getData().getSource());
+                                        bean.getData().get(finalActivityPos).getData().getSource(),bean.getData().get(finalActivityPos).getData().getRemark());
                             }, v1 -> {
                                 getClipText();
                             });
@@ -376,7 +377,7 @@ public class MainActivity extends BaseActivity implements MainView, ViewPager.On
                         DialogUtil.imgDialog(MainActivity.this, bean.getData().get(finalActivityPos).getData().getImg(), v1 -> {
                             ShopJumpUtil.openPager(MainActivity.this, bean.getData().get(finalActivityPos).getData().getTargetType()
                                     , bean.getData().get(finalActivityPos).getData().getTargetId(), bean.getData().get(finalActivityPos).getData().getTitle(),
-                                    bean.getData().get(finalActivityPos).getData().getSource());
+                                    bean.getData().get(finalActivityPos).getData().getSource(),bean.getData().get(finalActivityPos).getData().getRemark());
                         }, v1 -> {
                             getClipText();
                         });
@@ -390,7 +391,7 @@ public class MainActivity extends BaseActivity implements MainView, ViewPager.On
                         DialogUtil.imgDialog(MainActivity.this, bean.getData().get(finalActivityPos1).getData().getImg(), v -> {
                             ShopJumpUtil.openPager(MainActivity.this, bean.getData().get(finalActivityPos1).getData().getTargetType()
                                     , bean.getData().get(finalActivityPos1).getData().getTargetId(), bean.getData().get(finalActivityPos1).getData().getTitle(),
-                                    bean.getData().get(finalActivityPos1).getData().getSource());
+                                    bean.getData().get(finalActivityPos1).getData().getSource(),bean.getData().get(finalActivityPos1).getData().getRemark());
                         }, v -> {
                             getClipText();
                         });
@@ -405,7 +406,7 @@ public class MainActivity extends BaseActivity implements MainView, ViewPager.On
                     DialogUtil.imgDialog(MainActivity.this, bean.getData().get(0).getData().getImg(), v -> {
                         ShopJumpUtil.openPager(MainActivity.this, bean.getData().get(0).getData().getTargetType()
                                 , bean.getData().get(0).getData().getTargetId(), bean.getData().get(0).getData().getTitle(),
-                                bean.getData().get(0).getData().getSource());
+                                bean.getData().get(0).getData().getSource(),bean.getData().get(0).getData().getRemark());
                     }, v -> {
                         getClipText();
                     });

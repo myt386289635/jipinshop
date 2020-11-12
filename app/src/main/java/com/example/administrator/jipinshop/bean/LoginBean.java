@@ -90,6 +90,15 @@ public class LoginBean {
         private String invitationCode;//邀请码
         private String relationId;//是否登陆过淘宝
         private String isNewUser;//是否下过单
+        private String level;
+
+        public String getLevel() {
+            return level;
+        }
+
+        public void setLevel(String level) {
+            this.level = level;
+        }
 
         public String getIsNewUser() {
             return isNewUser;

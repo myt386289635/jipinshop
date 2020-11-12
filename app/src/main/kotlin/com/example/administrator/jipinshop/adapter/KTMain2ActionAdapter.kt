@@ -66,7 +66,7 @@ class KTMain2ActionAdapter : RecyclerView.Adapter<KTMain2ActionAdapter.ViewHolde
                 appStatisticalUtil.addEvent("shouye_louceng." + (position + 1),transformer)
                 ShopJumpUtil.openBanner(mContext,mList[position].type,
                         mList[position].objectId,mList[position].name,
-                        mList[position].source)
+                        mList[position].source,mList[position].remark)
             }
         }
     }

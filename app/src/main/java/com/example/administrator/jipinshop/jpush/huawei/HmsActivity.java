@@ -30,9 +30,10 @@ public class HmsActivity extends AppCompatActivity {
             String targetId = intent.getStringExtra("targetId");
             String targetTitle = intent.getStringExtra("targetTitle");
             String source = intent.getStringExtra("source");
+            String remark = intent.getStringExtra("remark");
             if (isExistMainActivity()) {//是否已经启动MainActivity
                 //跳转到具体页面的代码
-                ShopJumpUtil.openBanner(this, targetType, targetId, targetTitle,source);
+                ShopJumpUtil.openBanner(this, targetType, targetId, targetTitle,source,remark);
             } else {
                 //启动APP的代码
                 startActivity(new Intent(this, MainActivity.class)
@@ -40,6 +41,7 @@ public class HmsActivity extends AppCompatActivity {
                         .putExtra("target_id" , targetId)
                         .putExtra("target_title" , targetTitle)
                         .putExtra("source" , source)
+                        .putExtra("remark", remark)
                         .putExtra("isAd",true)//从广告页点击过来的
                 );
             }

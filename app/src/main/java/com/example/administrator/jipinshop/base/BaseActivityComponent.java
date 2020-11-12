@@ -86,6 +86,8 @@ import com.example.administrator.jipinshop.activity.sign.invitation.InvitationNe
 import com.example.administrator.jipinshop.activity.sign.market.MarketActivity;
 import com.example.administrator.jipinshop.activity.sreach.SreachActivity;
 import com.example.administrator.jipinshop.activity.sreach.TBSreachActivity;
+import com.example.administrator.jipinshop.activity.sreach.play.PlaySreachActivity;
+import com.example.administrator.jipinshop.activity.sreach.play.result.PlaySreachResultActivity;
 import com.example.administrator.jipinshop.activity.sreach.result.SreachResultActivity;
 import com.example.administrator.jipinshop.activity.sreach.result.TBSreachResultActivity;
 import com.example.administrator.jipinshop.activity.web.TaoBaoWebActivity;
@@ -194,4 +196,6 @@ public interface BaseActivityComponent {
     void inject(InviteActionWebActivity activity);
     void inject(BrowseActivity activity);
     void inject(OfficialWelfareActivity activity);
+    void inject(PlaySreachActivity activity);
+    void inject(PlaySreachResultActivity activity);
 }

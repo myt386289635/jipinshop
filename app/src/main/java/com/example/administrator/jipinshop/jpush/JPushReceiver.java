@@ -74,8 +74,9 @@ public class JPushReceiver extends BroadcastReceiver {
                     String target_id = jPushBean.getTargetId();
                     String target_title = jPushBean.getTargetTitle();
                     String source= jPushBean.getSource();
+                    String remark = jPushBean.getRemark();
                     if (isExistMainActivity(context)){//是否已经启动MainActivity
-                        ShopJumpUtil.openBanner(context, targetType, target_id, target_title,source);
+                        ShopJumpUtil.openBanner(context, targetType, target_id, target_title,source,remark);
                     }else {
                         //启动APP的代码
                         context.startActivity(new Intent(context, MainActivity.class)
@@ -83,6 +84,7 @@ public class JPushReceiver extends BroadcastReceiver {
                                 .putExtra("target_id" , target_id)
                                 .putExtra("target_title" , target_title)
                                 .putExtra("source" , source)
+                                .putExtra("remark",remark)
                                 .putExtra("isAd",true)//从广告页点击过来的
                                 .setFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
                         );

@@ -178,7 +178,7 @@ class KTHomeCommenAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>{
                             appStatisticalUtil.addEvent(commenStatistical + "_banner." + (toRealPosition(postion) + 1), transformer)
                             ShopJumpUtil.openBanner(mContext, mAdListBeans[postion].type,
                                     mAdListBeans[postion].objectId, mAdListBeans[postion].name,
-                                    mAdListBeans[postion].source)
+                                    mAdListBeans[postion].source,mAdListBeans[postion].remark)
 //                            ToastUtil.show("点击位置：" + toRealPosition(postion))
                         }
                     })

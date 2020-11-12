@@ -89,6 +89,15 @@ public class DailyTaskBean {
         private String objectId;
         private String color;
         private String source;
+        private String remark;
+
+        public String getRemark() {
+            return remark;
+        }
+
+        public void setRemark(String remark) {
+            this.remark = remark;
+        }
 
         public String getImg() {
             return img;

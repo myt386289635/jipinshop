@@ -18,6 +18,15 @@ public class JPushBean {
     private String targetTitle;
     private String targetType;
     private String source;
+    private String remark;
+
+    public String getRemark() {
+        return remark;
+    }
+
+    public void setRemark(String remark) {
+        this.remark = remark;
+    }
 
     public String getSource() {
         return source;

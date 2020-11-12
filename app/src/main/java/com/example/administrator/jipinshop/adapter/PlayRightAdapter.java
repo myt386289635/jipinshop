@@ -11,7 +11,7 @@ import android.widget.TextView;
 import com.example.administrator.jipinshop.R;
 import com.example.administrator.jipinshop.bean.MemberNewBean;
 import com.example.administrator.jipinshop.bean.PlayBean;
-import com.example.administrator.jipinshop.util.ToastUtil;
+import com.example.administrator.jipinshop.util.ShopJumpUtil;
 import com.example.administrator.jipinshop.view.itemDecoration.SectionedBaseAdapter;
 
 import java.util.ArrayList;
@@ -68,7 +68,11 @@ public class PlayRightAdapter extends SectionedBaseAdapter {
         holder.list.clear();
         holder.list.addAll(mList.get(section).getList());
         holder.adapter.setOnItem(pos -> {
-            ToastUtil.show("点击了" + pos);
+            ShopJumpUtil.openBanner(mContext, mList.get(section).getList().get(position).getType() + "",
+                    mList.get(section).getList().get(position).getTargetId(),
+                    mList.get(section).getList().get(position).getTitle(),
+                    mList.get(section).getList().get(position).getSource(),
+                    mList.get(section).getList().get(position).getRemark());
         });
         holder.adapter.notifyDataSetChanged();
         return convertView;

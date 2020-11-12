@@ -242,7 +242,7 @@ public class MessageActivity extends BaseActivity implements View.OnClickListene
         if (!mList.get(position).getType().equals("0")){
             ShopJumpUtil.openBanner(this,mList.get(position).getType(),
                     mList.get(position).getTargetId(),mList.get(position).getTitle(),
-                    mList.get(position).getSource());
+                    mList.get(position).getSource(), mList.get(position).getRemark());
         }
     }
 }

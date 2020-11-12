@@ -812,6 +812,14 @@
         <activity android:name=".activity.web.sign.H5SignWebActivity"
                   android:screenOrientation="portrait"/>
 
+        <!--吃喝玩乐搜索主页-->
+        <activity android:name=".activity.sreach.play.PlaySreachActivity"
+                  android:screenOrientation="portrait"/>
+
+        <!--吃喝玩乐搜索结果页-->
+        <activity android:name=".activity.sreach.play.result.PlaySreachResultActivity"
+                  android:screenOrientation="portrait"/>
+
  </application>
 
 </manifest>

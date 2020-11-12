@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <data>
+        <variable
+            name="listener"
+            type="android.view.View.OnClickListener"/>
+    </data>
+
+    <LinearLayout
+        android:background="@color/color_white"
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:id="@+id/status_bar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/color_F5F5F5"
+            android:orientation="vertical"/>
+
+        <RelativeLayout
+            android:background="@color/color_F5F5F5"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/y104">
+
+            <ImageView
+                android:onClick="@{listener.onClick}"
+                android:id="@+id/search_black"
+                android:paddingRight="@dimen/x30"
+                android:paddingLeft="@dimen/x30"
+                android:tint="@color/color_9D9D9D"
+                android:src="@mipmap/nav_black_big"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"/>
+
+            <RelativeLayout
+                android:layout_toRightOf="@id/search_black"
+                android:layout_marginRight="@dimen/x30"
+                android:background="@drawable/bg_ffffff_3"
+                android:layout_centerVertical="true"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/y72">
+
+                <ImageView
+                    android:id="@+id/search_search"
+                    android:layout_marginRight="@dimen/x12"
+                    android:layout_marginLeft="@dimen/x36"
+                    android:layout_centerVertical="true"
+                    android:tint="@color/color_9D9D9D"
+                    android:src="@mipmap/nav_search"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"/>
+
+                <ImageView
+                    android:id="@+id/search_close"
+                    android:onClick="@{listener.onClick}"
+                    android:paddingLeft="@dimen/x16"
+                    android:paddingRight="@dimen/x16"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:src="@mipmap/nickname_close"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"/>
+
+                <EditText
+                    android:id="@+id/search_edit"
+                    android:textColor="@color/color_202020"
+                    android:textColorHint="@color/color_202020"
+                    android:textSize="13sp"
+                    android:hint="搜索商城"
+                    android:layout_toRightOf="@id/search_search"
+                    android:layout_toLeftOf="@id/search_close"
+                    android:background="@color/transparent"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"/>
+
+
+            </RelativeLayout>
+
+        </RelativeLayout>
+
+        <com.aspsine.swipetoloadlayout.SwipeToLoadLayout
+            android:background="@color/color_white"
+            android:id="@+id/swipeToLoad"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <com.example.administrator.jipinshop.view.textview.CustomRefreshHeadView
+                android:id="@+id/swipe_refresh_header"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:padding="20dp"/>
+
+            <LinearLayout
+                android:id="@+id/swipe_target"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical">
+
+                <android.support.v7.widget.RecyclerView
+                    android:id="@+id/recycler_view"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"/>
+
+                <include
+                    android:id="@+id/net_clude"
+                    layout="@layout/common_net_error"
+                    android:visibility="gone"/>
+
+            </LinearLayout>
+
+        </com.aspsine.swipetoloadlayout.SwipeToLoadLayout>
+
+    </LinearLayout>
+</layout>

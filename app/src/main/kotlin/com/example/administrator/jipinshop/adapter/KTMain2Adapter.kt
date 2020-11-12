@@ -180,7 +180,7 @@ class KTMain2Adapter : RecyclerView.Adapter<RecyclerView.ViewHolder>{
                             appStatisticalUtil.addEvent("shouye_banner." + (toRealPosition(postion) + 1),transformer)
                             ShopJumpUtil.openBanner(mContext,adListBeans[postion].type,
                                     adListBeans[postion].objectId,adListBeans[postion].name,
-                                    adListBeans[postion].source)
+                                    adListBeans[postion].source,adListBeans[postion].remark)
                         }
                     })
                     adListBeans.clear()
@@ -322,7 +322,7 @@ class KTMain2Adapter : RecyclerView.Adapter<RecyclerView.ViewHolder>{
                         appStatisticalUtil.addEvent("shouye_banner.huodong",transformer)
                         ShopJumpUtil.openBanner(mContext,mBean!!.data.ad2.type,
                                 mBean!!.data.ad2.objectId,mBean!!.data.ad2.name,
-                                mBean!!.data.ad2.source)
+                                mBean!!.data.ad2.source,mBean!!.data.ad2.remark)
                     }
                 }
             }

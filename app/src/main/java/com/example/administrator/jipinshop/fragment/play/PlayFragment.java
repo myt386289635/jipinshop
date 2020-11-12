@@ -1,5 +1,6 @@
 package com.example.administrator.jipinshop.fragment.play;
 
+import android.content.Intent;
 import android.databinding.DataBindingUtil;
 import android.os.Handler;
 import android.os.Looper;
@@ -14,6 +15,7 @@ import android.widget.LinearLayout;
 
 import com.aspsine.swipetoloadlayout.OnRefreshListener;
 import com.example.administrator.jipinshop.R;
+import com.example.administrator.jipinshop.activity.sreach.play.PlaySreachActivity;
 import com.example.administrator.jipinshop.adapter.KTPagerAdapter3;
 import com.example.administrator.jipinshop.adapter.PlayLeftAdapter;
 import com.example.administrator.jipinshop.adapter.PlayRightAdapter;
@@ -304,7 +306,7 @@ public class PlayFragment extends DBBaseFragment implements OnRefreshListener, P
     public void onClickItem(int postion) {
         ShopJumpUtil.openBanner(getContext(), pagerList.get(postion).getType() + "",
                 pagerList.get(postion).getObjectId(), pagerList.get(postion).getName(),
-                pagerList.get(postion).getSource());
+                pagerList.get(postion).getSource(), pagerList.get(postion).getRemark());
     }
 
     @Override
@@ -312,7 +314,7 @@ public class PlayFragment extends DBBaseFragment implements OnRefreshListener, P
         switch (v.getId()){
             case R.id.paly_search:
                 //进入搜索
-
+                startActivity(new Intent(getContext(), PlaySreachActivity.class));
                 break;
         }
     }

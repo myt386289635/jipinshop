@@ -8,12 +8,13 @@
             type="android.view.View.OnClickListener"/>
     </data>
 
-    <LinearLayout
+    <RelativeLayout
         android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
         <RelativeLayout
+            android:id="@+id/web_titleConatiner"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
@@ -37,11 +38,26 @@
 
         <com.example.administrator.jipinshop.view.webview.MeiTuanWebView
             android:scrollbars="none"
+            android:layout_below="@id/web_titleConatiner"
+            android:layout_above="@id/web_notice"
             android:id="@+id/web_view"
             android:layout_width="match_parent"
             android:layout_height="match_parent"/>
+        
+        <TextView
+            android:visibility="gone"
+            android:gravity="center"
+            android:background="@drawable/bg_web_notice"
+            android:textStyle="bold"
+            android:textColor="@color/color_white"
+            android:textSize="18sp"
+            android:text=""
+            android:id="@+id/web_notice"
+            android:layout_alignParentBottom="true"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/y98"/>
 
-    </LinearLayout>
+    </RelativeLayout>
 
 
 </layout>

@@ -138,7 +138,7 @@ class KTMineFragment : DBBaseFragment(), KTMineAdapter.OnItem, KTMineView, OnLoa
         SPUtils.getInstance(CommonDate.USER).put(CommonDate.userNickImg, userInfoBean.data.avatar)
         SPUtils.getInstance(CommonDate.USER).put(CommonDate.userNickName, userInfoBean.data.nickname)
         SPUtils.getInstance(CommonDate.USER).put(CommonDate.userPhone, userInfoBean.data.mobile)
-        SPUtils.getInstance(CommonDate.USER).put(CommonDate.userMemberGrade, userInfoBean.data.role.toString() + "")
+        SPUtils.getInstance(CommonDate.USER).put(CommonDate.userMemberGrade, userInfoBean.data.level.toString())
         SPUtils.getInstance(CommonDate.USER).put(CommonDate.userPoint, userInfoBean.data.point)
         SPUtils.getInstance(CommonDate.USER).put(CommonDate.bindMobile, userInfoBean.data.bindMobile.toString() + "")
         SPUtils.getInstance(CommonDate.USER).put(CommonDate.bindWeibo, userInfoBean.data.bindWeibo.toString() + "")

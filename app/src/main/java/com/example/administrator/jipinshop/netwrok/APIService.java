@@ -1396,4 +1396,10 @@ public interface APIService {
      */
     @GET("api/box/listAll")
     Observable<PlayBean> boxListAll();
+
+    /**
+     * 吃喝玩乐搜索
+     */
+    @GET("api/box/search")
+    Observable<SucBean<TbkIndexBean.DataBean.BoxCategoryListBean.ListBean>> boxSearch(@Query("keyword") String keyword);
 }

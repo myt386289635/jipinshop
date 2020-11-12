@@ -44,6 +44,7 @@ import com.example.administrator.jipinshop.bean.PrizeLogBean;
 import com.example.administrator.jipinshop.bean.SubUserBean;
 import com.example.administrator.jipinshop.bean.TeacherBean;
 import com.example.administrator.jipinshop.bean.TklBean;
+import com.example.administrator.jipinshop.bean.eventbus.ChangeHomePageBus;
 import com.example.administrator.jipinshop.databinding.DialogCheapBuyBinding;
 import com.example.administrator.jipinshop.databinding.DialogCheapOutBinding;
 import com.example.administrator.jipinshop.databinding.DialogFamilyBinding;
@@ -57,6 +58,7 @@ import com.example.administrator.jipinshop.databinding.DialogOutH5Binding;
 import com.example.administrator.jipinshop.databinding.DialogParityBinding;
 import com.example.administrator.jipinshop.databinding.DialogPayFileBinding;
 import com.example.administrator.jipinshop.databinding.DialogPaySuccessBinding;
+import com.example.administrator.jipinshop.databinding.DialogShopGuideBinding;
 import com.example.administrator.jipinshop.databinding.DialogTklBinding;
 import com.example.administrator.jipinshop.databinding.DialogUserBinding;
 import com.example.administrator.jipinshop.databinding.DialogUserDetailBinding;
@@ -67,6 +69,8 @@ import com.example.administrator.jipinshop.util.TimeUtil;
 import com.example.administrator.jipinshop.util.ToastUtil;
 import com.example.administrator.jipinshop.util.sp.CommonDate;
 import com.example.administrator.jipinshop.view.glide.GlideApp;
+
+import org.greenrobot.eventbus.EventBus;
 
 import java.math.BigDecimal;
 import java.util.List;
@@ -524,20 +528,26 @@ public class DialogUtil {
         void onScore(int score, String content, Boolean scoreFlag);
     }
 
-    /**
-     * 新人首次进入商品详情时弹出新手引导
-     */
-    public static void shopGuideDialog(Context context) {
+    //公用非会员提示弹窗
+    public static void memberGuideDialog(Context context , View.OnClickListener clickListener) {
         AlertDialog.Builder builder = new AlertDialog.Builder(context, R.style.dialog);
         final Dialog dialog = builder.create();
-        View view = LayoutInflater.from(context).inflate(R.layout.dialog_shop_guide, null);
-        ImageView dialog_cancle = view.findViewById(R.id.dialog_cancle);
-        dialog_cancle.setOnClickListener(v -> {
+        DialogShopGuideBinding binding = DataBindingUtil.inflate(LayoutInflater.from(context),R.layout.dialog_shop_guide, null,false);
+        binding.itemGo.setOnClickListener(v -> {
+            dialog.dismiss();
+            if (clickListener != null)
+                clickListener.onClick(v);
+        });
+        binding.itemGoMember.setOnClickListener(v -> {
+            EventBus.getDefault().post(new ChangeHomePageBus(2));
+            dialog.dismiss();
+        });
+        binding.dialogDismiss.setOnClickListener(v -> {
             dialog.dismiss();
         });
         dialog.getWindow().setDimAmount(0.8f);
         dialog.show();
-        dialog.setContentView(view);
+        dialog.setContentView(binding.getRoot());
     }
 
     /**

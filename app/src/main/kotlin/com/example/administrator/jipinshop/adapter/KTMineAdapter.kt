@@ -220,7 +220,7 @@ class KTMineAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>{
                                 override fun onClickItem(postion: Int) {
                                     ShopJumpUtil.openBanner(context, mAdListBeans[postion].type.toString() + "",
                                             mAdListBeans[postion].objectId, mAdListBeans[postion].name,
-                                            mAdListBeans[postion].source)
+                                            mAdListBeans[postion].source , mAdListBeans[postion].remark)
                                 }
                             })
                             adListBeans.clear()

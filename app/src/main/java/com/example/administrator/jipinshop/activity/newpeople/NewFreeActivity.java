@@ -206,13 +206,13 @@ public class NewFreeActivity extends BaseActivity implements View.OnClickListene
     @Override
     public void onLeft(NewFreeBean.Ad1Bean ad1) {
         ShopJumpUtil.openBanner(this,ad1.getType(),
-                ad1.getObjectId(),ad1.getName(),ad1.getSource());
+                ad1.getObjectId(),ad1.getName(),ad1.getSource() , ad1.getRemark());
     }
 
     @Override
     public void onRight(NewFreeBean.Ad2Bean ad2) {
         ShopJumpUtil.openBanner(this,ad2.getType(),
-                ad2.getObjectId(),ad2.getName(),ad2.getSource());
+                ad2.getObjectId(),ad2.getName(),ad2.getSource() , ad2.getRemark());
     }
 
     @Override

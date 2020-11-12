@@ -47,7 +47,7 @@
                 android:gravity="center_vertical"
                 android:text="搜索商城"
                 android:paddingLeft="@dimen/x36"
-                android:drawableLeft="@mipmap/search1"
+                android:drawableLeft="@mipmap/nav_search"
                 android:drawableTint="@color/color_9D9D9D"
                 android:background="@drawable/bg_ffffff_3"
                 android:layout_marginRight="@dimen/x30"

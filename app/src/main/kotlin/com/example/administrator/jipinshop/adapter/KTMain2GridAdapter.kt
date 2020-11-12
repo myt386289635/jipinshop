@@ -60,7 +60,7 @@ class KTMain2GridAdapter : BaseAdapter{
             itemView.setOnClickListener {
                 appStatisticalUtil.addEvent(mUtil + (position + 1),transformer)
                 ShopJumpUtil.openBanner(mContext,mList[position].type,mList[position].targetId,
-                        mList[position].title,mList[position].source)
+                        mList[position].title,mList[position].source,mList[position].remark)
             }
         }
         return view!!

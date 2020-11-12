@@ -27,7 +27,7 @@ public class CommonDate {
     public static final String userNickName = "userNickName";//用户昵称
     public static final String userNickImg = "userNickImg";//用户头像
     public static final String userAcutalName = "userAcutalName";//用户真实姓名
-    public static final String userMemberGrade = "userMemberGrade";//用户角色  0：公司编辑 1：普通用户 2：达人用户
+    public static final String userMemberGrade = "userMemberGrade";//用户level 0：普通  1：月卡  2：年卡
     public static final String userGender = "userGender";//用户性别
     public static final String userBirthday = "userBirthday";//用户生日
     public static final String userPhone = "userPhone";//用户手机号
