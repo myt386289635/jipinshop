@@ -38,6 +38,7 @@ import com.example.administrator.jipinshop.base.DBBaseFragment
 import com.example.administrator.jipinshop.bean.*
 import com.example.administrator.jipinshop.bean.eventbus.ChangeHomePageBus
 import com.example.administrator.jipinshop.bean.eventbus.EditNameBus
+import com.example.administrator.jipinshop.bean.eventbus.HomeRefresh
 import com.example.administrator.jipinshop.databinding.FragmentKtMineBinding
 import com.example.administrator.jipinshop.jpush.JPushReceiver
 import com.example.administrator.jipinshop.util.TaoBaoUtil
@@ -509,6 +510,7 @@ class KTMineFragment : DBBaseFragment(), KTMineAdapter.OnItem, KTMineView, OnLoa
                 mAdapter.setBean(userInfoBean)
                 mAdapter.notifyDataSetChanged()
                 SPUtils.getInstance(CommonDate.USER).clear()
+                EventBus.getDefault().post(HomeRefresh(HomeRefresh.tag))//用来刷新首页的
             }
         }
     }

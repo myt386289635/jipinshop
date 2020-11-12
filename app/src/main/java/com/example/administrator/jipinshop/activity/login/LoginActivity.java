@@ -25,6 +25,7 @@ import com.example.administrator.jipinshop.base.BaseActivity;
 import com.example.administrator.jipinshop.bean.LoginBean;
 import com.example.administrator.jipinshop.bean.eventbus.CommonEvaluationBus;
 import com.example.administrator.jipinshop.bean.eventbus.HomeNewPeopleBus;
+import com.example.administrator.jipinshop.bean.eventbus.HomeRefresh;
 import com.example.administrator.jipinshop.databinding.LoginBinding;
 import com.example.administrator.jipinshop.jpush.JPushAlias;
 import com.example.administrator.jipinshop.jpush.LoginUtil;
@@ -151,7 +152,7 @@ public class LoginActivity extends BaseActivity implements LoginView, View.OnCli
                         bindAlias(loginBean.getData().getUserId(), i -> { });
             }
             EventBus.getDefault().post(new CommonEvaluationBus(LoginActivity.refresh));//用来刷新商品、评测、发现详情以及评论列表
-
+            EventBus.getDefault().post(new HomeRefresh(HomeRefresh.tag));//用来刷新首页的
             if (newpeople == 1 && loginBean.getData().getIsNewUser().equals("0")){
                 startActivity(new Intent(this, NewFreeActivity.class));
                 EventBus.getDefault().post(new HomeNewPeopleBus(1));//登陆后刷新首页活动接口
@@ -215,7 +216,7 @@ public class LoginActivity extends BaseActivity implements LoginView, View.OnCli
                     bindAlias(loginBean.getData().getUserId(), i -> { });
         }
         EventBus.getDefault().post(new CommonEvaluationBus(LoginActivity.refresh));//用来刷新商品、评测、发现详情以及评论列表
-
+        EventBus.getDefault().post(new HomeRefresh(HomeRefresh.tag));//用来刷新首页的
         if (newpeople == 1 && loginBean.getData().getIsNewUser().equals("0")){
             startActivity(new Intent(this, NewFreeActivity.class));
             EventBus.getDefault().post(new HomeNewPeopleBus(1));//登陆后刷新首页活动接口

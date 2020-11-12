@@ -20,6 +20,7 @@ import com.example.administrator.jipinshop.adapter.KTMain2Adapter
 import com.example.administrator.jipinshop.base.DBBaseFragment
 import com.example.administrator.jipinshop.bean.TBSreachResultBean
 import com.example.administrator.jipinshop.bean.TbkIndexBean
+import com.example.administrator.jipinshop.bean.eventbus.HomeRefresh
 import com.example.administrator.jipinshop.databinding.FragmentKtMainBinding
 import com.example.administrator.jipinshop.fragment.home.KTHomeFragnent
 import com.example.administrator.jipinshop.util.TaoBaoUtil
@@ -28,6 +29,8 @@ import com.example.administrator.jipinshop.util.UmApp.AppStatisticalUtil
 import com.example.administrator.jipinshop.util.sp.CommonDate
 import com.example.administrator.jipinshop.view.dialog.ProgressDialogView
 import com.trello.rxlifecycle2.android.FragmentEvent
+import org.greenrobot.eventbus.EventBus
+import org.greenrobot.eventbus.Subscribe
 import javax.inject.Inject
 
 /**
@@ -59,6 +62,7 @@ class KTMain2Fragment : DBBaseFragment(), KTMain2View, OnLoadMoreListener, OnRef
 
     override fun initLayout(inflater: LayoutInflater?, container: ViewGroup?): View {
         mBinding = DataBindingUtil.inflate(inflater, R.layout.fragment_kt_main, container, false)
+        EventBus.getDefault().register(this)
         return mBinding.root
     }
 
@@ -256,10 +260,24 @@ class KTMain2Fragment : DBBaseFragment(), KTMain2View, OnLoadMoreListener, OnRef
 
     override fun onResume() {
         super.onResume()
-        mPresenter.getDate("2",this.bindToLifecycle())//用来实时更新首页数据
         mDialog?.let {
             if (it.isShowing){
                 it.dismiss()
+            }
+        }
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        EventBus.getDefault().unregister(this)
+    }
+
+    //用来实时更新首页数据
+    @Subscribe
+    fun refresh(bus: HomeRefresh?){
+        bus?.let {
+            if (it.flag == HomeRefresh.tag){
+                mPresenter.getDate("2",this.bindToLifecycle())
             }
         }
     }
