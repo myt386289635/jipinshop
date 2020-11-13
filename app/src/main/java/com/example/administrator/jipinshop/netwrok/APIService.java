@@ -882,7 +882,7 @@ public interface APIService {
      * 搜索结果
      */
     @GET("api/v3/tbk/searchGoods")
-    Observable<TBSreachResultBean> searchTBGoods(@QueryMap(encoded = true) Map<String,String> map);
+    Observable<TBSreachResultBean> searchTBGoods(@QueryMap Map<String,String> map);
 
     /**
      * 获取专属淘客链接
