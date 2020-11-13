@@ -35,6 +35,8 @@ import net.lucode.hackware.magicindicator.buildins.commonnavigator.CommonNavigat
 
 import org.greenrobot.eventbus.EventBus;
 
+import java.io.UnsupportedEncodingException;
+import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -207,7 +209,12 @@ public class TBSreachResultActivity extends BaseActivity implements View.OnClick
     public void onLoadMore() {
         refresh = false;
         page++;
-        mPresenter.searchTBGoods(this,asc,keyword,orderByType,page,type,this.bindToLifecycle());
+        try {
+            keyword = URLEncoder.encode(keyword, "UTF-8");
+        } catch (UnsupportedEncodingException e) {
+            e.printStackTrace();
+        }
+        mPresenter.searchTBGoods(this,asc,keyword ,orderByType,page,type,this.bindToLifecycle());
     }
 
     @Override
@@ -215,6 +222,11 @@ public class TBSreachResultActivity extends BaseActivity implements View.OnClick
         refresh = true;
         page = 1;
         mBinding.swipeTarget.scrollToPosition(0);
+        try {
+            keyword = URLEncoder.encode(keyword, "UTF-8");
+        } catch (UnsupportedEncodingException e) {
+            e.printStackTrace();
+        }
         mPresenter.searchTBGoods(this,asc,keyword,orderByType,page,type,this.bindToLifecycle());
     }
 
