@@ -244,6 +244,20 @@
                     android:textSize="13sp"/>
 
                 <TextView
+                    android:id="@+id/mine_applets"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:drawableTop="@mipmap/mine_applets"
+                    android:drawablePadding="@dimen/y16"
+                    android:gravity="center"
+                    android:paddingTop="@dimen/y26"
+                    android:paddingBottom="@dimen/y26"
+                    android:text="小程序"
+                    android:textColor="@color/color_202020"
+                    android:textSize="13sp"/>
+
+                <TextView
                     android:id="@+id/mine_invation"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"

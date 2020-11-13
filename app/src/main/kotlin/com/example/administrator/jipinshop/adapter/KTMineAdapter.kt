@@ -330,6 +330,9 @@ class KTMineAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>{
                     binding.mineServer.setOnClickListener {
                         mOnItem?.onServer()
                     }
+                    binding.mineApplets.setOnClickListener {
+                        mOnItem?.applets()
+                    }
                 }
             }
             CONTENT -> {
@@ -544,5 +547,6 @@ class KTMineAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>{
         fun onWelfare() //官方福利群
         fun onCourse() //进入省钱教程
         fun onServer() //官方客服
+        fun applets() //小程序
     }
 }

@@ -47,6 +47,9 @@ import com.example.administrator.jipinshop.util.UmApp.UAppUtil
 import com.example.administrator.jipinshop.util.sp.CommonDate
 import com.example.administrator.jipinshop.view.dialog.DialogUtil
 import com.example.administrator.jipinshop.view.dialog.ProgressDialogView
+import com.tencent.mm.opensdk.modelbiz.WXLaunchMiniProgram
+import com.tencent.mm.opensdk.openapi.IWXAPI
+import com.tencent.mm.opensdk.openapi.WXAPIFactory
 import com.trello.rxlifecycle2.android.FragmentEvent
 import org.greenrobot.eventbus.EventBus
 import org.greenrobot.eventbus.Subscribe
@@ -465,6 +468,16 @@ class KTMineFragment : DBBaseFragment(), KTMineAdapter.OnItem, KTMineView, OnLoa
             return
         }
         startActivity(Intent(context, OrderRecoveryActivity::class.java))
+    }
+
+    //进入小程序
+    override fun applets() {
+        var api = WXAPIFactory.createWXAPI(context, "wxfd2e92db2568030a")
+        var req = WXLaunchMiniProgram.Req()
+        req.userName = "gh_b0a86c45468d"
+        req.path = "pages/tabMain/main/main"
+        req.miniprogramType = WXLaunchMiniProgram.Req.MINIPTOGRAM_TYPE_RELEASE // 可选打开 开发版1体验版2和正式版0
+        api.sendReq(req)
     }
 
     override fun onCodeSuc(dialog: Dialog, inputManager: InputMethodManager, bean: SuccessBean) {
