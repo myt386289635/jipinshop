@@ -203,12 +203,14 @@
                     android:textSize="12sp"/>
 
                 <TextView
+                    android:paddingRight="@dimen/x18"
+                    android:paddingLeft="@dimen/x18"
+                    android:id="@+id/shop_fee"
                     android:textColor="@color/color_835720"
                     android:textSize="14sp"
                     android:textStyle="bold"
                     android:layout_marginTop="@dimen/y4"
                     android:gravity="center"
-                    android:text="@{@string/shop_1 + date.fee}"
                     android:background="@mipmap/bg_fee"
                     android:layout_marginLeft="@dimen/x22"
                     android:layout_alignTop="@id/detail_newPriceContainer"
@@ -252,7 +254,7 @@
                         android:paddingRight="@dimen/x6"
                         android:paddingTop="@dimen/y2"
                         android:paddingBottom="@dimen/y1"
-                        android:layout_marginLeft="@dimen/x2"
+                        android:layout_marginLeft="@dimen/x12"
                         android:background="@drawable/bg_ffe4c1_1"
                         android:gravity="center"
                         android:id="@+id/detail_memberPrice"

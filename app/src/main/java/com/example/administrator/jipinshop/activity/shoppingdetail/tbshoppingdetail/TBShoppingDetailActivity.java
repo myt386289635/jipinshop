@@ -477,9 +477,10 @@ public class TBShoppingDetailActivity extends BaseActivity implements View.OnCli
         UpFee = bean.getData().getUpFee() + "";
         fee = bean.getData().getFee() + "";
         if (bean.getData().getLevel() != 0){
-            mBinding.detailMemberText.setText("尊享专属优惠比普通用户多返");
+            mBinding.detailMemberText.setText("尊享会员专属优惠，比普通用户多返");
             mBinding.detailMemberPrice.setText("￥" + bean.getData().getUpFee());
-            mBinding.detailMemberGo.setImageResource(R.mipmap.detail_opening2);
+            mBinding.detailMemberGo.setVisibility(View.GONE);
+            mBinding.shopFee.setText("会员返 ¥" + fee);
             isStart = false;
         }else {
             isStart = true;
@@ -487,6 +488,8 @@ public class TBShoppingDetailActivity extends BaseActivity implements View.OnCli
             mBinding.detailMemberPrice.setText("￥" + bean.getData().getUpFee());
             mBinding.detailBottomMemberPrice.setText("￥" + bean.getData().getUpFee());
             mBinding.detailMemberGo.setImageResource(R.mipmap.detail_opening);
+            mBinding.detailMemberGo.setVisibility(View.VISIBLE);
+            mBinding.shopFee.setText("返 ¥" + fee);
         }
         //比价弹窗
         if (!TextUtils.isEmpty(parity)){
