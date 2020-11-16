@@ -8,10 +8,13 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import com.blankj.utilcode.util.SPUtils;
 import com.example.administrator.jipinshop.R;
 import com.example.administrator.jipinshop.bean.MemberNewBean;
 import com.example.administrator.jipinshop.bean.PlayBean;
 import com.example.administrator.jipinshop.util.ShopJumpUtil;
+import com.example.administrator.jipinshop.util.sp.CommonDate;
+import com.example.administrator.jipinshop.view.dialog.DialogUtil;
 import com.example.administrator.jipinshop.view.itemDecoration.SectionedBaseAdapter;
 
 import java.util.ArrayList;
@@ -56,7 +59,7 @@ public class PlayRightAdapter extends SectionedBaseAdapter {
 
     //内容布局
     @Override
-    public View getItemView(int section, int position, View convertView, ViewGroup parent) {
+    public View getItemView(int section, int pos, View convertView, ViewGroup parent) {
         ViewHolder holder;
         if (convertView == null) {
             convertView = LayoutInflater.from(mContext).inflate(R.layout.item_play_right,parent,false);
@@ -67,12 +70,24 @@ public class PlayRightAdapter extends SectionedBaseAdapter {
         }
         holder.list.clear();
         holder.list.addAll(mList.get(section).getList());
-        holder.adapter.setOnItem(pos -> {
-            ShopJumpUtil.openBanner(mContext, mList.get(section).getList().get(position).getType() + "",
-                    mList.get(section).getList().get(position).getTargetId(),
-                    mList.get(section).getList().get(position).getTitle(),
-                    mList.get(section).getList().get(position).getSource(),
-                    mList.get(section).getList().get(position).getRemark());
+        holder.adapter.setOnItem(position -> {
+            if ((mList.get(section).getList().get(position).getType().equals("13") || mList.get(section).getList().get(position).getType().equals("42")) &&
+                    (mList.get(section).getList().get(position).getSource().equals("10") || mList.get(section).getList().get(position).getSource().equals("11") || mList.get(section).getList().get(position).getSource().equals("12")) &&
+                    SPUtils.getInstance(CommonDate.USER).getString(CommonDate.userMemberGrade, "0").equals("0")) {
+                DialogUtil.memberGuideDialog(mContext, v -> {
+                    ShopJumpUtil.openBanner(mContext, mList.get(section).getList().get(position).getType() + "",
+                            mList.get(section).getList().get(position).getTargetId(),
+                            mList.get(section).getList().get(position).getTitle(),
+                            mList.get(section).getList().get(position).getSource(),
+                            mList.get(section).getList().get(position).getRemark());
+                });
+            }else{
+                ShopJumpUtil.openBanner(mContext, mList.get(section).getList().get(position).getType() + "",
+                        mList.get(section).getList().get(position).getTargetId(),
+                        mList.get(section).getList().get(position).getTitle(),
+                        mList.get(section).getList().get(position).getSource(),
+                        mList.get(section).getList().get(position).getRemark());
+            }
         });
         holder.adapter.notifyDataSetChanged();
         return convertView;

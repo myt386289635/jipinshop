@@ -7,10 +7,13 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
 
+import com.blankj.utilcode.util.SPUtils;
 import com.example.administrator.jipinshop.R;
 import com.example.administrator.jipinshop.bean.TbkIndexBean;
 import com.example.administrator.jipinshop.databinding.ItemPlayResultBinding;
 import com.example.administrator.jipinshop.util.ShopJumpUtil;
+import com.example.administrator.jipinshop.util.sp.CommonDate;
+import com.example.administrator.jipinshop.view.dialog.DialogUtil;
 
 import java.util.List;
 
@@ -42,9 +45,19 @@ public class PlaySreachResultAdapter extends RecyclerView.Adapter<PlaySreachResu
         viewHolder.mBinding.setBean(mList.get(position));
         viewHolder.mBinding.executePendingBindings();
         viewHolder.itemView.setOnClickListener(v -> {
-            ShopJumpUtil.openBanner(mContext, mList.get(position).getType() + "",
-                    mList.get(position).getTargetId(), mList.get(position).getTitle(),
-                    mList.get(position).getSource(),mList.get(position).getRemark());
+            if ((mList.get(position).getType().equals("13") || mList.get(position).getType().equals("42")) &&
+                    (mList.get(position).getSource().equals("10") || mList.get(position).getSource().equals("11") || mList.get(position).getSource().equals("12")) &&
+                    SPUtils.getInstance(CommonDate.USER).getString(CommonDate.userMemberGrade, "0").equals("0")) {
+                DialogUtil.memberGuideDialog(mContext, v1 -> {
+                    ShopJumpUtil.openBanner(mContext, mList.get(position).getType() + "",
+                            mList.get(position).getTargetId(), mList.get(position).getTitle(),
+                            mList.get(position).getSource(), mList.get(position).getRemark());
+                });
+            } else {
+                ShopJumpUtil.openBanner(mContext, mList.get(position).getType() + "",
+                        mList.get(position).getTargetId(), mList.get(position).getTitle(),
+                        mList.get(position).getSource(), mList.get(position).getRemark());
+            }
         });
     }
 

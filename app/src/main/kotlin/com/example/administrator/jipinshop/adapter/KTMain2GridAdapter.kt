@@ -9,11 +9,14 @@ import android.widget.BaseAdapter
 import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.TextView
+import com.blankj.utilcode.util.SPUtils
 import com.example.administrator.jipinshop.R
 import com.example.administrator.jipinshop.bean.SuccessBean
 import com.example.administrator.jipinshop.bean.TbkIndexBean
 import com.example.administrator.jipinshop.util.ShopJumpUtil
 import com.example.administrator.jipinshop.util.UmApp.AppStatisticalUtil
+import com.example.administrator.jipinshop.util.sp.CommonDate
+import com.example.administrator.jipinshop.view.dialog.DialogUtil
 import com.example.administrator.jipinshop.view.glide.GlideApp
 import com.trello.rxlifecycle2.LifecycleTransformer
 
@@ -59,8 +62,17 @@ class KTMain2GridAdapter : BaseAdapter{
             GlideApp.loderImage(mContext,mList[position].iconUrl,mImageView,0,0)
             itemView.setOnClickListener {
                 appStatisticalUtil.addEvent(mUtil + (position + 1),transformer)
-                ShopJumpUtil.openBanner(mContext,mList[position].type,mList[position].targetId,
-                        mList[position].title,mList[position].source,mList[position].remark)
+                if ((mList[position].type == "13" || mList[position].type == "42") &&
+                        (mList[position].source == "10" || mList[position].source == "11" || mList[position].source == "12") &&
+                        SPUtils.getInstance(CommonDate.USER).getString(CommonDate.userMemberGrade, "0") == "0") {
+                    DialogUtil.memberGuideDialog(mContext) { v ->
+                        ShopJumpUtil.openBanner(mContext, mList[position].type, mList[position].targetId,
+                                mList[position].title, mList[position].source, mList[position].remark)
+                    }
+                }else{
+                    ShopJumpUtil.openBanner(mContext,mList[position].type,mList[position].targetId,
+                            mList[position].title,mList[position].source,mList[position].remark)
+                }
             }
         }
         return view!!

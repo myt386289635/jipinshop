@@ -5,7 +5,6 @@ import android.content.Intent;
 import android.net.Uri;
 import android.text.TextUtils;
 import android.util.Log;
-import android.view.View;
 
 import com.blankj.utilcode.util.SPUtils;
 import com.example.administrator.jipinshop.activity.WebActivity;
@@ -259,29 +258,12 @@ public class ShopJumpUtil {
                 break;
             case "42"://H5加提示
             case "13"://H5页面
-                if (TextUtils.isEmpty(SPUtils.getInstance(CommonDate.USER).getString(CommonDate.token, ""))) {
-                    intent.setClass(context, LoginActivity.class);
-                    context.startActivity(intent);
-                }else {
-                    if ((source.equals("10") || source.equals("11") || source.equals("12"))
-                    && SPUtils.getInstance(CommonDate.USER).getString(CommonDate.userMemberGrade,"0").equals("0")){
-                        DialogUtil.memberGuideDialog(AppManager.getAppManager().currentActivity(), v -> {
-                            context.startActivity(new Intent(context, WebActivity.class)
-                                    .putExtra(WebActivity.url, target_id)
-                                    .putExtra(WebActivity.title,target_title)
-                                    .putExtra(WebActivity.source,source)
-                                    .putExtra(WebActivity.remark,remark)
-                            );
-                        });
-                    }else {
-                        intent.setClass(context, WebActivity.class);
-                        intent.putExtra(WebActivity.url, target_id);
-                        intent.putExtra(WebActivity.title,target_title);
-                        intent.putExtra(WebActivity.source,source);
-                        intent.putExtra(WebActivity.remark,remark);
-                        context.startActivity(intent);
-                    }
-                }
+                intent.setClass(context, WebActivity.class);
+                intent.putExtra(WebActivity.url, target_id);
+                intent.putExtra(WebActivity.title,target_title);
+                intent.putExtra(WebActivity.source,source);
+                intent.putExtra(WebActivity.remark,remark);
+                context.startActivity(intent);
                 break;
             case "14"://极币商城
                 intent.setClass(context, MallActivity.class);
