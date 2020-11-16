@@ -1,14 +1,17 @@
 package com.example.administrator.jipinshop.adapter;
 
 import android.content.Context;
+import android.content.Intent;
 import android.databinding.DataBindingUtil;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
+import android.view.View;
 import android.view.ViewGroup;
 
 import com.blankj.utilcode.util.SPUtils;
 import com.example.administrator.jipinshop.R;
+import com.example.administrator.jipinshop.activity.home.home.HomeNewActivity;
 import com.example.administrator.jipinshop.bean.TbkIndexBean;
 import com.example.administrator.jipinshop.databinding.ItemPlayResultBinding;
 import com.example.administrator.jipinshop.util.ShopJumpUtil;
@@ -52,6 +55,10 @@ public class PlaySreachResultAdapter extends RecyclerView.Adapter<PlaySreachResu
                     ShopJumpUtil.openBanner(mContext, mList.get(position).getType() + "",
                             mList.get(position).getTargetId(), mList.get(position).getTitle(),
                             mList.get(position).getSource(), mList.get(position).getRemark());
+                }, v12 -> {
+                    mContext.startActivity(new Intent(mContext, HomeNewActivity.class)
+                            .putExtra("type",HomeNewActivity.member)
+                    );
                 });
             } else {
                 ShopJumpUtil.openBanner(mContext, mList.get(position).getType() + "",

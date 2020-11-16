@@ -30,7 +30,6 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.blankj.utilcode.util.SPUtils;
-import com.bumptech.glide.Glide;
 import com.example.administrator.jipinshop.R;
 import com.example.administrator.jipinshop.activity.WebActivity;
 import com.example.administrator.jipinshop.activity.home.home.HomeNewActivity;
@@ -42,7 +41,6 @@ import com.example.administrator.jipinshop.bean.NewFreeBean;
 import com.example.administrator.jipinshop.bean.NewPeopleBean;
 import com.example.administrator.jipinshop.bean.PrizeLogBean;
 import com.example.administrator.jipinshop.bean.SubUserBean;
-import com.example.administrator.jipinshop.bean.TeacherBean;
 import com.example.administrator.jipinshop.bean.TklBean;
 import com.example.administrator.jipinshop.bean.eventbus.ChangeHomePageBus;
 import com.example.administrator.jipinshop.databinding.DialogCheapBuyBinding;
@@ -550,32 +548,28 @@ public class DialogUtil {
         dialog.setContentView(binding.getRoot());
     }
 
-    /**
-     * 新免单详情购买弹框
-     */
-    public static void freeBuyDialog(Context context, String actualPrice, String freePrice, View.OnClickListener listener) {
+    //公用非会员提示弹窗
+    public static void memberGuideDialog(Context context , View.OnClickListener clickListener, View.OnClickListener go) {
         AlertDialog.Builder builder = new AlertDialog.Builder(context, R.style.dialog);
         final Dialog dialog = builder.create();
-        View view = LayoutInflater.from(context).inflate(R.layout.dialog_free_buy, null);
-        TextView dialog_time = view.findViewById(R.id.dialog_time);
-        String html = "您需在<b>一小时内</b>前往淘宝APP购买";
-        dialog_time.setText(Html.fromHtml(html));
-        TextView dialog_actualPrice = view.findViewById(R.id.dialog_actualPrice);
-        String html2 = "购买价格<font color='#E25838'><b>¥" + actualPrice + "</b></font>";
-        dialog_actualPrice.setText(Html.fromHtml(html2));
-        TextView dialog_feePrice = view.findViewById(R.id.dialog_feePrice);
-        String html3 = "补贴<font color='#E25838'><b>¥" + freePrice + "</b></font>";
-        dialog_feePrice.setText(Html.fromHtml(html3));
-        TextView dialog_cancle = view.findViewById(R.id.dialog_cancle);
-        TextView dialog_sure = view.findViewById(R.id.dialog_sure);
-        dialog.getWindow().setDimAmount(0.35f);
-        dialog_cancle.setOnClickListener(v -> dialog.dismiss());
-        dialog_sure.setOnClickListener(v -> {
-            listener.onClick(v);
+        DialogShopGuideBinding binding = DataBindingUtil.inflate(LayoutInflater.from(context),R.layout.dialog_shop_guide, null,false);
+        binding.itemGo.setOnClickListener(v -> {
+            dialog.dismiss();
+            if (clickListener != null)
+                clickListener.onClick(v);
+        });
+        binding.itemGoMember.setOnClickListener(v -> {
+            dialog.dismiss();
+            if (go != null){
+                go.onClick(v);
+            }
+        });
+        binding.dialogDismiss.setOnClickListener(v -> {
             dialog.dismiss();
         });
+        dialog.getWindow().setDimAmount(0.8f);
         dialog.show();
-        dialog.setContentView(view);
+        dialog.setContentView(binding.getRoot());
     }
 
     /**
