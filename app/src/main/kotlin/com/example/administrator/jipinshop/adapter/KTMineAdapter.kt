@@ -21,10 +21,7 @@ import com.example.administrator.jipinshop.bean.EvaluationTabBean
 import com.example.administrator.jipinshop.bean.MyWalletBean
 import com.example.administrator.jipinshop.bean.SimilerGoodsBean
 import com.example.administrator.jipinshop.bean.UserInfoBean
-import com.example.administrator.jipinshop.databinding.ItemMineHead1Binding
-import com.example.administrator.jipinshop.databinding.ItemMineHead2Binding
-import com.example.administrator.jipinshop.databinding.ItemMineHead3Binding
-import com.example.administrator.jipinshop.databinding.ItemUserlikeBinding
+import com.example.administrator.jipinshop.databinding.*
 import com.example.administrator.jipinshop.util.NotificationUtil
 import com.example.administrator.jipinshop.util.ShopJumpUtil
 import com.example.administrator.jipinshop.util.WeakRefHandler
@@ -43,6 +40,7 @@ class KTMineAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>{
     private val HEAD1 = 1
     private val HEAD2 = 2
     private val HEAD3 = 3
+    private val HEAD4 = 5
     private val CONTENT = 4
 
     private var mList: MutableList<SimilerGoodsBean.DataBean>
@@ -78,6 +76,7 @@ class KTMineAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>{
             0 -> HEAD1
             1 -> HEAD2
             2 -> HEAD3
+            3 -> HEAD4
             else -> CONTENT
         }
     }
@@ -113,6 +112,10 @@ class KTMineAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>{
                 var itemMineHead3Binding = DataBindingUtil.inflate<ItemMineHead3Binding>(LayoutInflater.from(context), R.layout.item_mine_head3, viewGroup, false)
                 holder = Head3ViewHolder(itemMineHead3Binding)
             }
+            HEAD4 -> {
+                var itemMineHead4Binding = DataBindingUtil.inflate<ItemMineHead4Binding>(LayoutInflater.from(context), R.layout.item_mine_head4, viewGroup, false)
+                holder = Head4ViewHolder(itemMineHead4Binding)
+            }
             CONTENT -> {
                 var binding = DataBindingUtil.inflate<ItemUserlikeBinding>(LayoutInflater.from(context), R.layout.item_userlike, viewGroup, false)
                 holder = ViewHolder(binding)
@@ -122,7 +125,7 @@ class KTMineAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>{
     }
 
     override fun getItemCount(): Int {
-        return mList.size + 3
+        return mList.size + 4
     }
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, pos: Int) {
@@ -279,11 +282,6 @@ class KTMineAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>{
                             } else {
                                 binding.mineInvation.visibility = View.GONE
                             }
-                            list.clear()
-                            mWalletBean?.let { bean ->
-                                list.addAll(bean.data.adList)
-                            }
-                            adapter.notifyDataSetChanged()
                         }else{
                             binding.mineInvation.visibility = View.GONE
                         }
@@ -335,10 +333,24 @@ class KTMineAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>{
                     }
                 }
             }
+            HEAD4 -> {
+                var head4ViewHolder : Head4ViewHolder = holder as Head4ViewHolder
+                head4ViewHolder.run {
+                    mBean?.let {
+                        if (it.code == 0) {//请求成功
+                            list.clear()
+                            mWalletBean?.let { bean ->
+                                list.addAll(bean.data.adList)
+                            }
+                            adapter.notifyDataSetChanged()
+                        }
+                    }
+                }
+            }
             CONTENT -> {
                 var contentViewHolder : ViewHolder = holder as ViewHolder
                 contentViewHolder.run {
-                    var position = pos - 3
+                    var position = pos - 4
                     binding.date = mList[position]
                     binding.executePendingBindings()
                     binding.detailOtherPrice.setTv(true)
@@ -501,11 +513,18 @@ class KTMineAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>{
     inner class Head3ViewHolder : RecyclerView.ViewHolder{
 
         var binding: ItemMineHead3Binding
-        var list: MutableList<MyWalletBean.DataBean.AdListBean>
-        var adapter: KTMineGirdAdapter
 
         constructor(binding: ItemMineHead3Binding) : super(binding.root){
             this.binding = binding
+        }
+    }
+
+    inner class Head4ViewHolder : RecyclerView.ViewHolder{
+
+        var list: MutableList<MyWalletBean.DataBean.AdListBean>
+        var adapter: KTMineGirdAdapter
+
+        constructor(binding: ItemMineHead4Binding) : super(binding.root){
 
             list = mutableListOf()
             binding.mineActionRv.layoutManager = GridLayoutManager(context,4)

@@ -275,46 +275,5 @@
 
         </LinearLayout>
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="@dimen/x30"
-            android:layout_marginTop="@dimen/y20"
-            android:layout_marginRight="@dimen/x30"
-            android:layout_marginBottom="@dimen/y20"
-            android:background="@drawable/bg_balance"
-            android:orientation="vertical">
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="@dimen/x22"
-                android:layout_marginTop="@dimen/y28"
-                android:layout_marginBottom="@dimen/y17"
-                android:text="精选活动"
-                android:textColor="@color/color_9D9D9D"
-                android:textSize="13sp"/>
-
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="@dimen/y1"
-                android:background="@color/color_DEDEDE"/>
-
-            <android.support.v7.widget.RecyclerView
-                android:id="@+id/mine_actionRv"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"/>
-
-        </LinearLayout>
-
-        <ImageView
-            android:id="@+id/detail_userLikeImage"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_horizontal"
-            android:layout_marginTop="@dimen/y20"
-            android:layout_marginBottom="@dimen/y30"
-            android:src="@mipmap/bg_userlike"/>
-
     </LinearLayout>
 </layout>
