@@ -8,6 +8,7 @@ import android.os.Handler
 import android.os.Looper
 import android.support.v4.view.ViewPager
 import android.support.v7.widget.GridLayoutManager
+import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
 import android.text.TextUtils
 import android.view.LayoutInflater
@@ -343,6 +344,11 @@ class KTMineAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>{
                                 list.addAll(bean.data.adList)
                             }
                             adapter.notifyDataSetChanged()
+                            adList.clear()
+                            for (i in 0 .. 5){
+                                adList.add("http://jipincheng.cn/activity/img/20191225/291ac833254e4aa7afeac6659412511c")
+                            }
+                            adAdapter.notifyDataSetChanged()
                         }
                     }
                 }
@@ -521,15 +527,24 @@ class KTMineAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>{
 
     inner class Head4ViewHolder : RecyclerView.ViewHolder{
 
+        //精选活动
         var list: MutableList<MyWalletBean.DataBean.AdListBean>
         var adapter: KTMineGirdAdapter
+        //我的页面广告
+        var adList : MutableList<String>
+        var adAdapter: KTMineAdAdapter
 
         constructor(binding: ItemMineHead4Binding) : super(binding.root){
-
+            //精选活动
             list = mutableListOf()
             binding.mineActionRv.layoutManager = GridLayoutManager(context,4)
             adapter = KTMineGirdAdapter(list,context)
             binding.mineActionRv.adapter = adapter
+            //我的页面广告
+            adList = mutableListOf()
+            binding.mineAdRV.layoutManager = LinearLayoutManager(context,LinearLayoutManager.HORIZONTAL,false)
+            adAdapter = KTMineAdAdapter(context,adList)
+            binding.mineAdRV.adapter = adAdapter
         }
     }
 

@@ -15,7 +15,7 @@
         <ImageView
             android:layout_marginBottom="@dimen/y7"
             android:id="@+id/item_image"
-            bind:srcCircle="@{bean.iconUrl}"
+            bind:src="@{bean.iconUrl}"
             android:layout_marginTop="@dimen/y30"
             android:layout_centerHorizontal="true"
             android:layout_width="@dimen/x72"
