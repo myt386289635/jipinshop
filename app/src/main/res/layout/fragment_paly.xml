@@ -29,7 +29,7 @@
             android:textColor="@color/color_white"
             android:textStyle="bold"
             android:textSize="18sp"
-            android:text="商城返利"
+            android:text="吃喝玩乐"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"/>
 

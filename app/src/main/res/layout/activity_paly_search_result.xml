@@ -65,6 +65,8 @@
                     android:layout_height="match_parent"/>
 
                 <EditText
+                    android:imeOptions="actionDone"
+                    android:singleLine="true"
                     android:id="@+id/search_edit"
                     android:textColor="@color/color_202020"
                     android:textColorHint="@color/color_202020"

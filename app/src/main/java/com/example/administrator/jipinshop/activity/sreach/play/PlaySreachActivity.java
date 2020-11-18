@@ -48,11 +48,16 @@ public class PlaySreachActivity extends BaseActivity implements View.OnClickList
         mBinding.setListener(this);
         mBaseActivityComponent.inject(this);
         mPresenter.setView(this);
+        mImmersionBar.reset()
+                .transparentStatusBar()
+                .statusBarDarkFont(true, 0f)
+                .init();
         initView();
     }
 
     private void initView() {
         showKeyboardDelayed(mBinding.searchEdit);
+        mPresenter.setStatusBarHight(mBinding.statusBar,this);
         mDialog = (new ProgressDialogView()).createLoadingDialog(this, "正在加载...");
         mDialog.show();
         mHotText = new ArrayList<>();

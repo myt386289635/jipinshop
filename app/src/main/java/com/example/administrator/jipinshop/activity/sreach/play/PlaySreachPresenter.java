@@ -3,7 +3,9 @@ package com.example.administrator.jipinshop.activity.sreach.play;
 import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.example.administrator.jipinshop.R;
@@ -36,6 +38,15 @@ public class PlaySreachPresenter {
     @Inject
     public PlaySreachPresenter(Repository repository) {
         mRepository = repository;
+    }
+
+    public void setStatusBarHight(LinearLayout StatusBar , Context context){
+        int resourceId = context.getResources().getIdentifier("status_bar_height", "dimen", "android");
+        if (resourceId > 0) {
+            int statusBarHeight = context.getResources().getDimensionPixelSize(resourceId);
+            ViewGroup.LayoutParams layoutParams = StatusBar.getLayoutParams();
+            layoutParams.height = statusBarHeight;
+        }
     }
 
     public void initHot(final Context context, final FlexboxLayout flexboxLayout, List<SreachHistoryBean.DataBean.HotWordListBean> hotText) {

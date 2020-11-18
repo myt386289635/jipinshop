@@ -46,10 +46,15 @@ public class PlaySreachResultActivity extends BaseActivity implements View.OnCli
         mBinding.setListener(this);
         mBaseActivityComponent.inject(this);
         mPresenter.setView(this);
+        mImmersionBar.reset()
+                .transparentStatusBar()
+                .statusBarDarkFont(true, 0f)
+                .init();
         initView();
     }
 
     private void initView() {
+        mPresenter.setStatusBarHight(mBinding.statusBar,this);
         keyword = getIntent().getStringExtra("content");
         mBinding.searchEdit.setText(keyword);
         mBinding.searchEdit.setSelection(mBinding.searchEdit.getText().length());//将光标移至文字末尾
