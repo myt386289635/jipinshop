@@ -160,7 +160,7 @@ public class MainActivity extends BaseActivity implements MainView, ViewPager.On
 
     public void onResult(String currentPrivacy) {
 //        isGuide = getIntent().getBooleanExtra("isGuide", false);
-        mBinding.loginNotice.setText("登录领取淘宝隐藏优惠券");
+        mBinding.loginNotice.setText("登录开启网购省钱之旅");
         mBinding.loginTimeContainer.setVisibility(View.GONE);
         if (SPUtils.getInstance().getBoolean(CommonDate.FIRST, true)) {
             //新人第一次进入app
@@ -464,7 +464,7 @@ public class MainActivity extends BaseActivity implements MainView, ViewPager.On
             if (newPeopleBus.getAddPoint() != 1) {
                 mPresenter.getPopInfo(MainActivity.this.bindToLifecycle());
             }
-            mBinding.loginNotice.setText("登录领取淘宝隐藏优惠券");
+            mBinding.loginNotice.setText("登录开启网购省钱之旅");
             mBinding.loginTimeContainer.setVisibility(View.GONE);
             mBinding.loginBackground.setVisibility(View.GONE);
         }

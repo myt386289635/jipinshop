@@ -64,7 +64,7 @@
                 android:textColor="@color/color_white"
                 android:textStyle="bold"
                 android:textSize="16sp"
-                android:text="立即办理（最高返40%）"
+                android:text="加入会员（最高返40%）"
                 android:background="@drawable/bg_835720_2"
                 android:layout_marginBottom="@dimen/y28"
                 android:layout_centerHorizontal="true"
