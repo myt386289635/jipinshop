@@ -47,7 +47,7 @@
         <TextView
             android:visibility="gone"
             android:gravity="center"
-            android:background="@drawable/bg_web_notice"
+            android:background="@drawable/bg_paly"
             android:textStyle="bold"
             android:textColor="@color/color_white"
             android:textSize="18sp"

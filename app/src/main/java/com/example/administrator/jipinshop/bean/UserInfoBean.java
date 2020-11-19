@@ -104,6 +104,15 @@ public class UserInfoBean {
         private String levelStatus;//（会员升级状态：0审核中，1正常）
         private String officialWeChatQR;//官方客服群二维码
         private String levelEndTime;//会员到期时间
+        private String memberLevel;//加入家庭里也算会员
+
+        public String getMemberLevel() {
+            return memberLevel;
+        }
+
+        public void setMemberLevel(String memberLevel) {
+            this.memberLevel = memberLevel;
+        }
 
         public String getLevelEndTime() {
             return levelEndTime;

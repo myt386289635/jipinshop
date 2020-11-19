@@ -91,6 +91,15 @@ public class LoginBean {
         private String relationId;//是否登陆过淘宝
         private String isNewUser;//是否下过单
         private String level;
+        private String memberLevel;//加入家庭里也算会员
+
+        public String getMemberLevel() {
+            return memberLevel;
+        }
+
+        public void setMemberLevel(String memberLevel) {
+            this.memberLevel = memberLevel;
+        }
 
         public String getLevel() {
             return level;

@@ -308,10 +308,6 @@ public class TBShoppingDetailActivity extends BaseActivity implements View.OnCli
                 break;
             case R.id.detail_bottomMemberGo:
             case R.id.detail_memberGo:
-                if(TextUtils.isEmpty(SPUtils.getInstance(CommonDate.USER).getString(CommonDate.token,""))){
-                    startActivityForResult(new Intent(this, LoginActivity.class),201);
-                    return;
-                }
                 if (level.equals("0")){
                     startActivity(new Intent(this, HomeNewActivity.class)
                             .putExtra("type",HomeNewActivity.member)
