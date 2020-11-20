@@ -178,7 +178,7 @@ public class NewFreeAdapter extends RecyclerView.Adapter {
                 break;
             case HEAD2:
                 Head2ViewHolder holder2 = (Head2ViewHolder) holder;
-                String html = "选择本页面商品下单需先支付，确认收货后根据实付金额全额返现到您的账户中，金额可提现。" +
+                String html = "选择本页面商品下单需先支付，确认收货后7天根据实付金额全额返现到您的账户中，金额可提现。" +
                         "所以真的是<b><font size='19'>免单！ </font></b><b><font size='15'>（仅限APP内第一单）</font></b>";
                 holder2.binding.itemRule.setText(HtmlParser.buildSpannedText(html,new CustomerTagHandler_1()));
                 holder2.binding.itemCopy.setOnClickListener(v -> mOnClickItem.onCopy());
