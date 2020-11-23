@@ -60,6 +60,8 @@ public class MemberVideoAdapter extends RecyclerView.Adapter<MemberVideoAdapter.
             viewHolder.mBinding.itemTag.setText(mList.get(position).getSubTitle());
             RelativeLayout.LayoutParams layoutParams = (RelativeLayout.LayoutParams) viewHolder.mBinding.itemImage.getLayoutParams();
             layoutParams.topMargin = 0;
+            layoutParams.width = (int) mContext.getResources().getDimension(R.dimen.x100);
+            layoutParams.height = (int) mContext.getResources().getDimension(R.dimen.y100);
             viewHolder.mBinding.itemImage.setLayoutParams(layoutParams);
             RelativeLayout.LayoutParams itemTagLp = (RelativeLayout.LayoutParams) viewHolder.mBinding.itemTag.getLayoutParams();
             itemTagLp.bottomMargin = (int) mContext.getResources().getDimension(R.dimen.y30);
