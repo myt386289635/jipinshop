@@ -1,23 +1,48 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <com.aspsine.swipetoloadlayout.SwipeToLoadLayout
-        android:background="@color/color_F5F5F5"
-        android:id="@+id/swipeToLoad"
+    <data>
+        <variable
+            name="listener"
+            type="android.view.View.OnClickListener"/>
+    </data>
+
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <android.support.v7.widget.RecyclerView
-            android:id="@+id/swipe_target"
+        <com.aspsine.swipetoloadlayout.SwipeToLoadLayout
+            android:background="@color/color_F5F5F5"
+            android:id="@+id/swipeToLoad"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"/>
+            android:layout_height="match_parent">
 
-        <com.example.administrator.jipinshop.view.textview.LoadMoreFooterView
-            android:id="@+id/swipe_load_more_footer"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:gravity="center"
-            android:padding="20dp"/>
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/swipe_target"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"/>
 
-    </com.aspsine.swipetoloadlayout.SwipeToLoadLayout>
+            <com.example.administrator.jipinshop.view.textview.LoadMoreFooterView
+                android:id="@+id/swipe_load_more_footer"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:padding="20dp"/>
+
+        </com.aspsine.swipetoloadlayout.SwipeToLoadLayout>
+
+        <ImageView
+            android:onClick="@{listener.onClick}"
+            android:visibility="gone"
+            android:id="@+id/mine_server"
+            android:layout_marginRight="@dimen/x30"
+            android:layout_alignParentRight="true"
+            android:layout_marginBottom="@dimen/y347"
+            android:layout_alignParentBottom="true"
+            android:src="@mipmap/mine_customer"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+
+    </RelativeLayout>
+
 </layout>

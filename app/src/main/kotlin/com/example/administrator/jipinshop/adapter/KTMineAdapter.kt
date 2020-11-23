@@ -4,6 +4,7 @@ import android.app.Activity
 import android.content.Context
 import android.content.Intent
 import android.databinding.DataBindingUtil
+import android.graphics.Color
 import android.os.Handler
 import android.os.Looper
 import android.support.v4.view.ViewPager
@@ -18,10 +19,7 @@ import android.widget.RelativeLayout
 import com.blankj.utilcode.util.SPUtils
 import com.example.administrator.jipinshop.R
 import com.example.administrator.jipinshop.activity.shoppingdetail.tbshoppingdetail.TBShoppingDetailActivity
-import com.example.administrator.jipinshop.bean.EvaluationTabBean
-import com.example.administrator.jipinshop.bean.MyWalletBean
-import com.example.administrator.jipinshop.bean.SimilerGoodsBean
-import com.example.administrator.jipinshop.bean.UserInfoBean
+import com.example.administrator.jipinshop.bean.*
 import com.example.administrator.jipinshop.databinding.*
 import com.example.administrator.jipinshop.util.NotificationUtil
 import com.example.administrator.jipinshop.util.ShopJumpUtil
@@ -190,11 +188,14 @@ class KTMineAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>{
                         }
                         if (NotificationUtil.isNotificationEnabled(context)){
                             binding.mineNoticeContainer.visibility = View.INVISIBLE
+                            binding.statusBar.setBackgroundColor(Color.TRANSPARENT)
                         }else {
                             binding.mineNoticeContainer.visibility = View.VISIBLE
+                            binding.statusBar.setBackgroundResource(R.drawable.bg_mine_notice)
                         }
                         binding.mineNotice.setOnClickListener {
                             binding.mineNoticeContainer.visibility = View.INVISIBLE
+                            binding.statusBar.setBackgroundColor(Color.TRANSPARENT)
                         }
                         binding.mineNoticeGo.setOnClickListener {
                             NotificationUtil.gotoSet(context as Activity)
@@ -340,14 +341,17 @@ class KTMineAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>{
                     mBean?.let {
                         if (it.code == 0) {//请求成功
                             list.clear()
+                            adList.clear()
                             mWalletBean?.let { bean ->
                                 list.addAll(bean.data.adList)
+                                if (bean.data.imgList.size > 0){
+                                    mBinding.mineAdRV.visibility = View.VISIBLE
+                                    adList.addAll(bean.data.imgList)
+                                }else{
+                                    mBinding.mineAdRV.visibility = View.GONE
+                                }
                             }
                             adapter.notifyDataSetChanged()
-                            adList.clear()
-                            for (i in 0 .. 5){
-                                adList.add("http://jipincheng.cn/activity/img/20191225/291ac833254e4aa7afeac6659412511c")
-                            }
                             adAdapter.notifyDataSetChanged()
                         }
                     }
@@ -527,14 +531,16 @@ class KTMineAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>{
 
     inner class Head4ViewHolder : RecyclerView.ViewHolder{
 
+        var mBinding: ItemMineHead4Binding
         //精选活动
         var list: MutableList<MyWalletBean.DataBean.AdListBean>
         var adapter: KTMineGirdAdapter
         //我的页面广告
-        var adList : MutableList<String>
+        var adList : MutableList<TbkIndexBean.DataBean.Ad1ListBean>
         var adAdapter: KTMineAdAdapter
 
         constructor(binding: ItemMineHead4Binding) : super(binding.root){
+            this.mBinding = binding
             //精选活动
             list = mutableListOf()
             binding.mineActionRv.layoutManager = GridLayoutManager(context,4)

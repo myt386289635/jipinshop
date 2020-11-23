@@ -50,7 +50,11 @@ class KTMyOrderAdapter : RecyclerView.Adapter<KTMyOrderAdapter.ViewHolder>{
                 SPUtils.getInstance().put(CommonDate.CLIP, holder.mBinding.itemOrder.text.toString().replace("订单号：", ""))
             }
             if (mList[position].level == 0){
-                it.itemPrice.text = "返 ¥" + mList[position].preFee
+                if (mList[position].isgroup == "1"){
+                    it.itemPrice.text = "拼团返 ¥" + mList[position].preFee
+                }else{
+                    it.itemPrice.text = "返 ¥" + mList[position].preFee
+                }
             }else{
                 it.itemPrice.text = "会员返 ¥" + mList[position].preFee
             }

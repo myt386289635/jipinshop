@@ -7,7 +7,9 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import android.widget.RelativeLayout
 import com.example.administrator.jipinshop.R
+import com.example.administrator.jipinshop.bean.TbkIndexBean
 import com.example.administrator.jipinshop.databinding.ItemMineAdBinding
+import com.example.administrator.jipinshop.util.ShopJumpUtil
 import com.example.administrator.jipinshop.view.glide.GlideApp
 
 /**
@@ -18,9 +20,9 @@ import com.example.administrator.jipinshop.view.glide.GlideApp
 class KTMineAdAdapter : RecyclerView.Adapter<KTMineAdAdapter.ViewHolder>{
 
     private var mContent : Context
-    private var mList: MutableList<String>
+    private var mList: MutableList<TbkIndexBean.DataBean.Ad1ListBean>
 
-    constructor(mContent: Context, mList: MutableList<String>) : super() {
+    constructor(mContent: Context, mList: MutableList<TbkIndexBean.DataBean.Ad1ListBean>) : super() {
         this.mContent = mContent
         this.mList = mList
     }
@@ -36,7 +38,7 @@ class KTMineAdAdapter : RecyclerView.Adapter<KTMineAdAdapter.ViewHolder>{
 
     override fun onBindViewHolder(holder: ViewHolder, pos: Int) {
         holder.run {
-            GlideApp.loderImage(mContent,mList[pos],binding.itemImage,0,0)
+            GlideApp.loderImage(mContent,mList[pos].img,binding.itemImage,0,0)
             var layoutParams = binding.itemImage.layoutParams as RelativeLayout.LayoutParams
             if (pos == 0){
                 layoutParams.leftMargin = mContent.resources.getDimension(R.dimen.x30).toInt()
@@ -49,6 +51,11 @@ class KTMineAdAdapter : RecyclerView.Adapter<KTMineAdAdapter.ViewHolder>{
                 layoutParams.rightMargin = mContent.resources.getDimension(R.dimen.x6).toInt()
             }
             binding.itemImage.layoutParams = layoutParams
+            itemView.setOnClickListener {
+                ShopJumpUtil.openBanner(mContent, mList[pos].type,
+                        mList[pos].objectId, mList[pos].name,
+                        mList[pos].source , mList[pos].remark)
+            }
         }
     }
 

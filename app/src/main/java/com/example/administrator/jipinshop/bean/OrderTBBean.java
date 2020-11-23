@@ -64,6 +64,15 @@ public class OrderTBBean {
         private String appEarningTime;
         private int type;
         private int level;
+        private String isgroup;//0不拼团，1拼团
+
+        public String getIsgroup() {
+            return isgroup;
+        }
+
+        public void setIsgroup(String isgroup) {
+            this.isgroup = isgroup;
+        }
 
         public int getLevel() {
             return level;

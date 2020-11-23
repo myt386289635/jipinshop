@@ -71,6 +71,15 @@ public class MyWalletBean {
         private String currentMonthFee;
         private TodayCommissionViewBean todayCommissionView;
         private MonthCommissionViewBean monthCommissionView;
+        private List<TbkIndexBean.DataBean.Ad1ListBean> imgList;
+
+        public List<TbkIndexBean.DataBean.Ad1ListBean> getImgList() {
+            return imgList;
+        }
+
+        public void setImgList(List<TbkIndexBean.DataBean.Ad1ListBean> imgList) {
+            this.imgList = imgList;
+        }
 
         public String getFinalFee() {
             return finalFee;

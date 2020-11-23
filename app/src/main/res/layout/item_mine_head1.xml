@@ -11,13 +11,6 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
-            <LinearLayout
-                android:id="@+id/status_bar"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="@color/transparent"
-                android:orientation="vertical"/>
-
             <ImageView
                 android:scaleType="centerCrop"
                 android:id="@+id/mine_background"
@@ -25,11 +18,17 @@
                 android:src="@mipmap/mine_imagebg_dafult"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/y392"/>
+
+            <LinearLayout
+                android:id="@+id/status_bar"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/bg_mine_notice"
+                android:orientation="vertical"/>
             
             <RelativeLayout
                 android:id="@+id/mine_noticeContainer"
-                android:background="@color/color_4DFFFFFF"
-                android:layout_marginTop="@dimen/y5"
+                android:background="@drawable/bg_mine_notice"
                 android:layout_below="@id/status_bar"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/y66">
