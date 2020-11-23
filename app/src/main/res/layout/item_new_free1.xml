@@ -16,7 +16,7 @@
                 android:textSize="14sp"
                 android:layout_marginLeft="@dimen/x30"
                 android:layout_centerVertical="true"
-                android:text="添加官方账号微信获取更多福利"
+                android:text="添加官方客服微信，享更多免单福利！"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"/>
 

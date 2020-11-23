@@ -21,7 +21,7 @@
                 android:textSize="18sp"
                 android:layout_marginTop="@dimen/y40"
                 android:layout_gravity="center_horizontal"
-                android:text="加导师微信，享更多福利"
+                android:text="添加官方客服微信，享更多免单福利！"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"/>
 
