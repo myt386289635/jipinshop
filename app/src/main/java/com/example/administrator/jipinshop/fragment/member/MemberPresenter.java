@@ -13,7 +13,6 @@ import android.widget.ViewFlipper;
 import com.example.administrator.jipinshop.R;
 import com.example.administrator.jipinshop.bean.ImageBean;
 import com.example.administrator.jipinshop.bean.MemberNewBean;
-import com.example.administrator.jipinshop.bean.SuccessBean;
 import com.example.administrator.jipinshop.bean.WxPayBean;
 import com.example.administrator.jipinshop.netwrok.Repository;
 import com.example.administrator.jipinshop.view.glide.GlideApp;
@@ -45,15 +44,12 @@ public class MemberPresenter {
         mRepository = repository;
     }
 
-    public void setStatusBarHight(LinearLayout StatusBar ,LinearLayout StatusBar1, Context context){
+    public void setStatusBarHight(LinearLayout StatusBar , Context context){
         int resourceId = context.getResources().getIdentifier("status_bar_height", "dimen", "android");
         if (resourceId > 0) {
             int statusBarHeight = context.getResources().getDimensionPixelSize(resourceId);
             ViewGroup.LayoutParams layoutParams = StatusBar.getLayoutParams();
             layoutParams.height = statusBarHeight;
-
-            ViewGroup.LayoutParams layoutParams1 = StatusBar1.getLayoutParams();
-            layoutParams1.height = statusBarHeight;
         }
     }
 

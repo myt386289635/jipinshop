@@ -31,7 +31,6 @@ import com.blankj.utilcode.util.SPUtils;
 import com.example.administrator.jipinshop.R;
 import com.example.administrator.jipinshop.activity.WebActivity;
 import com.example.administrator.jipinshop.activity.cheapgoods.CheapBuyActivity;
-import com.example.administrator.jipinshop.activity.home.MainActivity;
 import com.example.administrator.jipinshop.activity.login.LoginActivity;
 import com.example.administrator.jipinshop.activity.member.family.FamilyActivity;
 import com.example.administrator.jipinshop.activity.member.zero.ZeroActivity;
@@ -96,8 +95,6 @@ public class MemberFragment extends DBBaseFragment implements View.OnClickListen
     private FragmentMemberNewBinding mBinding;
     private String type = "1";// 1:fragment 2:activity
     private Boolean once = true;
-    private String otherGoodsId = "";
-    private String source = "";
     private MemberBuyPop mBuyPop;//购买弹窗
     private MemberRenewPop mRenewPop;//续费弹窗
     private String monthPrice = "";
@@ -109,10 +106,8 @@ public class MemberFragment extends DBBaseFragment implements View.OnClickListen
     private IWXAPI msgApi;//微信支付
     private String level;//1是月卡 2是年卡
     private Dialog mDialog;
-    private String endTime = "";//付款后的会员到期时间
     private int userLevel = 0;//用户身份的
     private int openFamily = 1; //0关闭，1开启
-    private int guide = 1;//新手指导第几步 默认第一部
     //更多权益
     private List<MemberNewBean.DataBean.VipBoxListBean> monthBoxList;
     private List<MemberNewBean.DataBean.VipBoxListBean> yearBoxList;
@@ -215,7 +210,7 @@ public class MemberFragment extends DBBaseFragment implements View.OnClickListen
     public void initView() {
         mBaseFragmentComponent.inject(this);
         mPresenter.setView(this);
-        mPresenter.setStatusBarHight(mBinding.statusBar,mBinding.statusBar2,getContext());
+        mPresenter.setStatusBarHight(mBinding.statusBar,getContext());
         mBinding.swipeToLoad.setOnRefreshListener(this);
         type = getArguments().getString("type","1");
         //呼吸灯动画
@@ -487,29 +482,6 @@ public class MemberFragment extends DBBaseFragment implements View.OnClickListen
                     );
                 }
                 break;
-            case R.id.guide_next:
-                if (guide == 1){
-                    mBinding.guideNext.setImageResource(R.mipmap.member1_guide2);
-                }else if (guide == 2){
-                    mBinding.guideNext.setImageResource(R.mipmap.member1_guide3);
-                }else if (guide == 3){
-                    mBinding.guideNext.setImageResource(R.mipmap.member1_guide4);
-                }else if (guide == 4){
-                    mBinding.guideNext.setImageResource(R.mipmap.member1_guide5);
-                }else {//再点就退出了
-                    mBinding.memberGuideContainer.setVisibility(View.GONE);
-                    if (type.equals("1")){
-                        ((MainActivity)getActivity()).memberGuide(false);
-                    }
-                }
-                guide++;
-                break;
-            case R.id.guide_goto:
-                mBinding.memberGuideContainer.setVisibility(View.GONE);
-                if (type.equals("1")){
-                    ((MainActivity)getActivity()).memberGuide(false);
-                }
-                break;
         }
     }
 
@@ -522,8 +494,6 @@ public class MemberFragment extends DBBaseFragment implements View.OnClickListen
     public void onSuccess(MemberNewBean bean) {
         mBinding.swipeToLoad.setRefreshing(false);
 
-        otherGoodsId = bean.getData().getLevelDetail1().getOtherGoodsId();
-        source = bean.getData().getLevelDetail1().getSource();
         monthPrice = bean.getData().getMonthPrice();
         monthPriceBefore = bean.getData().getMonthPriceBefore();
         yearPrice = bean.getData().getYearPrice();
@@ -676,16 +646,6 @@ public class MemberFragment extends DBBaseFragment implements View.OnClickListen
             mBinding.memberMemberContainer.setVisibility(View.GONE);
             mBinding.memberTitle1.setText("开通VIP可享更多权益");
             mBinding.memberVipContainer.setVisibility(View.VISIBLE);
-            if (SPUtils.getInstance().getBoolean(CommonDate.memberGuide, true)){
-                //第一次登陆是非会员，出来新手指导
-                mBinding.memberGuideContainer.setVisibility(View.VISIBLE);
-                mBinding.guideNext.setImageResource(R.mipmap.member1_guide1);
-                guide = 1;
-                if (type.equals("1")){
-                    ((MainActivity)getActivity()).memberGuide(true);
-                }
-                SPUtils.getInstance().put(CommonDate.memberGuide,false);
-            }
         }else {
             mBinding.memberVipContainer.setVisibility(View.GONE);
             mBinding.memberPayContainer.setVisibility(View.GONE);
@@ -707,9 +667,6 @@ public class MemberFragment extends DBBaseFragment implements View.OnClickListen
                 mBinding.memberUserTime.setTextColor(getContext().getResources().getColor(R.color.color_433A37));
                 mBinding.memberUserPay.setBackgroundResource(R.drawable.bg_342f2f);
                 mBinding.memberUserPay.setTextColor(getContext().getResources().getColor(R.color.color_E7C19F));
-            }
-            if (SPUtils.getInstance().getBoolean(CommonDate.memberGuide, true)){
-                SPUtils.getInstance().put(CommonDate.memberGuide,false);//第一次登陆是会员，之后就不再出现新手指导
             }
         }
         once = false;
@@ -749,7 +706,6 @@ public class MemberFragment extends DBBaseFragment implements View.OnClickListen
         if(mDialog != null && mDialog.isShowing()){
             mDialog.dismiss();
         }
-        endTime = bean.getEndTime();//支付后的会员到期时间
         PayReq request = new PayReq();
         request.appId = bean.getData().getAppid();
         request.partnerId = bean.getData().getPartnerid();
@@ -766,7 +722,6 @@ public class MemberFragment extends DBBaseFragment implements View.OnClickListen
         if(mDialog != null && mDialog.isShowing()){
             mDialog.dismiss();
         }
-        endTime = bean.getEndTime();//支付后的会员到期时间
         Runnable payRunnable = () -> {
             PayTask alipay = new PayTask(getActivity());
             Map<String,String> result = alipay.payV2(bean.getData(),true);

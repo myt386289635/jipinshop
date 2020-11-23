@@ -47,7 +47,6 @@ import com.example.administrator.jipinshop.util.share.MobLinkUtil;
 import com.example.administrator.jipinshop.util.sp.CommonDate;
 import com.example.administrator.jipinshop.view.dialog.DialogUtil;
 import com.example.administrator.jipinshop.view.dialog.ProgressDialogView;
-import com.example.administrator.jipinshop.view.glide.GlideApp;
 import com.example.administrator.jipinshop.view.pick.CustomLoadingUIProvider2;
 import com.example.administrator.jipinshop.view.pick.DecorationLayout;
 import com.example.administrator.jipinshop.view.pick.GlideSimpleLoader;
@@ -88,7 +87,6 @@ public class MainActivity extends BaseActivity implements MainView, ViewPager.On
     private Dialog mDialog;
     private ImageWatcherHelper iwHelper;
     private DecorationLayout layDecoration;
-    private Boolean isGuide = false;//是否需要打开新手指导
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -159,13 +157,11 @@ public class MainActivity extends BaseActivity implements MainView, ViewPager.On
     }
 
     public void onResult(String currentPrivacy) {
-//        isGuide = getIntent().getBooleanExtra("isGuide", false);
         mBinding.loginNotice.setText("登录开启网购省钱之旅");
         mBinding.loginTimeContainer.setVisibility(View.GONE);
         if (SPUtils.getInstance().getBoolean(CommonDate.FIRST, true)) {
             //新人第一次进入app
             mBinding.loginBackground.setVisibility(View.VISIBLE);
-            mBinding.guideContainer.setVisibility(View.GONE);
             mPresenter.getAppVersion(this.bindToLifecycle()); //版本更新
         } else {
             //老人进入app
@@ -174,7 +170,6 @@ public class MainActivity extends BaseActivity implements MainView, ViewPager.On
             } else {
                 mBinding.loginBackground.setVisibility(View.GONE);
             }
-            mBinding.guideContainer.setVisibility(View.GONE);
             if (!TextUtils.isEmpty(currentPrivacy) && !currentPrivacy.equals(SPUtils.getInstance().getString(CommonDate.privacy, ""))) {
                 DialogUtil.servceDialog(this, v -> {
                     mPresenter.getAppVersion(this.bindToLifecycle()); //版本更新
@@ -320,22 +315,14 @@ public class MainActivity extends BaseActivity implements MainView, ViewPager.On
         });
     }
 
-    //新手指导和其他操作，现在不要新手指导了
+    //其他操作，现在不要新手指导了
     public void onGuide(){
-        if (isGuide) {
-            //新手指导
-            mPresenter.setStatusBarHight(mBinding.statusBar,this);
-            GlideApp.loderImage(this, "https://jipincheng.cn/guide_head.gif", mBinding.guideHead1, 0, 0);
-            GlideApp.loderImage(this, "https://jipincheng.cn/guide_head.gif", mBinding.guideHead2, 0, 0);
-            mBinding.guideContainer.setVisibility(View.VISIBLE);
-        }else {
-            DialogUtil.newPeopleDialog(MainActivity.this,"https://jipincheng.cn/app_vip1?", v -> {
-                getClipText();
-            }, v -> {
-                EventBus.getDefault().post(new ChangeHomePageBus(2));
-                getClipText();
-            });
-        }
+        DialogUtil.newPeopleDialog(MainActivity.this,"https://jipincheng.cn/app_vip1?", v -> {
+            getClipText();
+        }, v -> {
+            EventBus.getDefault().post(new ChangeHomePageBus(2));
+            getClipText();
+        });
     }
 
     @Override
@@ -626,49 +613,6 @@ public class MainActivity extends BaseActivity implements MainView, ViewPager.On
                 mBinding.memberNoticeContainer.setVisibility(View.GONE);
                 SPUtils.getInstance().put(CommonDate.memberNotice, false);
                 break;
-            case R.id.guide_image1:
-                //进入第二部
-                appStatisticalUtil.addEvent("yindao3_next", this.bindToLifecycle());
-                mBinding.nextOne.setVisibility(View.GONE);
-                mBinding.nextTwo.setVisibility(View.VISIBLE);
-                break;
-            case R.id.guide_image2:
-                //进入第三步
-                appStatisticalUtil.addEvent("yindao4_next", this.bindToLifecycle());
-                mBinding.nextOne.setVisibility(View.GONE);
-                mBinding.nextTwo.setVisibility(View.GONE);
-                mBinding.nextThree.setVisibility(View.VISIBLE);
-                break;
-            case R.id.guide_image3:
-                //点击第三步的图片
-                appStatisticalUtil.addEvent("yindao5_close", this.bindToLifecycle());
-                mBinding.guideContainer.setVisibility(View.GONE);
-                getClipText();
-                break;
-            case R.id.guide_dismiss1:
-                //第一步里的跳过
-                appStatisticalUtil.addEvent("yindao3_tiaoguo", this.bindToLifecycle());
-                mBinding.guideContainer.setVisibility(View.GONE);
-                getClipText();
-                break;
-            case R.id.guide_dismiss2:
-                //第二步里的逃过
-                appStatisticalUtil.addEvent("yindao4_tiaoguo", this.bindToLifecycle());
-                mBinding.guideContainer.setVisibility(View.GONE);
-                getClipText();
-                break;
-            case R.id.guide_dismiss3:
-                //第三步里的跳过
-                appStatisticalUtil.addEvent("yindao5_tiaoguo", this.bindToLifecycle());
-                mBinding.guideContainer.setVisibility(View.GONE);
-                getClipText();
-                break;
-            case R.id.guide_ok:
-                //第三步里的我知道了
-                appStatisticalUtil.addEvent("yindao5_zhidao", this.bindToLifecycle());
-                mBinding.guideContainer.setVisibility(View.GONE);
-                getClipText();
-                break;
         }
     }
 
@@ -681,12 +625,4 @@ public class MainActivity extends BaseActivity implements MainView, ViewPager.On
         }
     }
 
-    //会员引导页蒙尘
-    public void memberGuide(Boolean isShow){
-        if (isShow){
-            mBinding.memberGuideBg.setVisibility(View.VISIBLE);
-        }else {
-            mBinding.memberGuideBg.setVisibility(View.GONE);
-        }
-    }
 }

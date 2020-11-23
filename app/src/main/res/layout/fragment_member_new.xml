@@ -1344,51 +1344,5 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"/>
 
-        <RelativeLayout
-            android:visibility="gone"
-            android:id="@+id/member_guideContainer"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
-
-            <LinearLayout
-                android:background="@color/color_B3000000"
-                android:id="@+id/status_bar2"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical"/>
-
-            <View
-                android:layout_below="@id/status_bar2"
-                android:id="@+id/member_guideTitle"
-                android:background="@color/color_B3000000"
-                android:layout_width="match_parent"
-                android:layout_height="@dimen/y88"/>
-
-            <ImageView
-                android:src="@mipmap/member1_guide1"
-                android:scaleType="fitXY"
-                android:onClick="@{listener.onClick}"
-                android:id="@+id/guide_next"
-                android:layout_below="@id/member_guideTitle"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"/>
-
-            <TextView
-                android:id="@+id/guide_goto"
-                android:onClick="@{listener.onClick}"
-                android:layout_marginRight="@dimen/x20"
-                android:layout_marginTop="@dimen/y20"
-                android:layout_alignParentRight="true"
-                android:layout_below="@id/status_bar2"
-                android:gravity="center"
-                android:textColor="@color/color_202020"
-                android:background="@drawable/bg_dialog"
-                android:textSize="13sp"
-                android:text="跳过"
-                android:layout_width="@dimen/x100"
-                android:layout_height="@dimen/y42"/>
-
-        </RelativeLayout>
-
     </RelativeLayout>
 </layout>

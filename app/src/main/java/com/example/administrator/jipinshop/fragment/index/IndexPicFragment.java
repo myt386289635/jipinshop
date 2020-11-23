@@ -57,9 +57,7 @@ public class IndexPicFragment extends DBBaseFragment implements View.OnClickList
             case R.id.index_main:
                 //进入首页
                 appStatisticalUtil.addEvent("yindao1_shouye",this.bindUntilEvent(FragmentEvent.DESTROY_VIEW));
-                startActivity(new Intent(getContext(), MainActivity.class)
-                        .putExtra("isGuide",true)
-                );
+                startActivity(new Intent(getContext(), MainActivity.class));
                 if (getActivity() != null) {
                     getActivity().finish();
                 }
