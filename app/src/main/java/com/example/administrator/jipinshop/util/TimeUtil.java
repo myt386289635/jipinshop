@@ -65,4 +65,39 @@ public class TimeUtil {
         String result = ((day * 24) + hour) + ":" + minute + ":" + second ;
         return result;
     }
+
+    public static String getCountTimeByLong3(long millisUntilFinished){
+        int ss = 1000;
+        int mi = ss * 60;
+        int hh = mi * 60;
+        int dd = hh * 24;
+
+        long day = millisUntilFinished / dd;
+        long hour = ((millisUntilFinished - day * dd) / hh);
+        long minute = (millisUntilFinished- hour * hh - day * dd) / mi;
+        long second = (millisUntilFinished - hour * hh - minute * mi - day * dd) / ss;
+        long milliSecond = millisUntilFinished  - hour * hh - minute * mi - second * ss - day * dd;
+
+        long time = ((day * 24) + hour);
+        String sTime;
+        if (time < 10){
+            sTime = "0" + time;
+        }else {
+            sTime = "" + time;
+        }
+        String sMinute;
+        if (minute < 10){
+            sMinute = "0" + minute;
+        }else {
+            sMinute = "" + minute;
+        }
+        String sSecond;
+        if (second < 10){
+            sSecond = "0" + second;
+        }else {
+            sSecond = "" + second;
+        }
+        String result = sTime + ":" +  sMinute + ":" + sSecond;
+        return result;
+    }
 }

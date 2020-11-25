@@ -317,11 +317,37 @@
 
         </LinearLayout>
 
+        <LinearLayout
+            android:visibility="gone"
+            android:background="@drawable/bg_balance"
+            android:layout_marginRight="@dimen/x30"
+            android:layout_marginLeft="@dimen/x30"
+            android:layout_marginTop="@dimen/y20"
+            android:id="@+id/mine_teamContainer"
+            android:layout_below="@id/mine_orderContainer"
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/y154">
+
+            <android.support.v4.view.ViewPager
+                android:id="@+id/mine_teamVP"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/y128"/>
+
+            <LinearLayout
+                android:id="@+id/mine_teamPoint"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:orientation="horizontal"/>
+
+        </LinearLayout>
+
         <com.example.administrator.jipinshop.view.viewpager.TouchViewPager
             android:id="@+id/view_pager"
             android:layout_width="match_parent"
             android:layout_height="@dimen/y188"
-            android:layout_below="@+id/mine_orderContainer"
+            android:layout_below="@+id/mine_teamContainer"
             android:layout_marginLeft="@dimen/x30"
             android:layout_marginTop="@dimen/y20"
             android:layout_marginRight="@dimen/x30"

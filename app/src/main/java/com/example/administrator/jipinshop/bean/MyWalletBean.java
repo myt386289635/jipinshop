@@ -72,6 +72,15 @@ public class MyWalletBean {
         private TodayCommissionViewBean todayCommissionView;
         private MonthCommissionViewBean monthCommissionView;
         private List<TbkIndexBean.DataBean.Ad1ListBean> imgList;
+        private List<GroupListBean> groupList;
+
+        public List<GroupListBean> getGroupList() {
+            return groupList;
+        }
+
+        public void setGroupList(List<GroupListBean> groupList) {
+            this.groupList = groupList;
+        }
 
         public List<TbkIndexBean.DataBean.Ad1ListBean> getImgList() {
             return imgList;
@@ -440,6 +449,163 @@ public class MyWalletBean {
 
             public void setSubOrderCount(String subOrderCount) {
                 this.subOrderCount = subOrderCount;
+            }
+        }
+
+        public static class GroupListBean {
+
+            private String id;
+            private String createUserId;
+            private String joinUserId;
+            private String source;
+            private String otherGoodsId;
+            private String startTime;
+            private String endTime;
+            private long timeToEndTime;
+            private String createTime;
+            private String status;
+            private String count;
+            private String leftCount;
+            private String tradeId;
+            private String avatar;
+            private String img;
+            private String fee;
+            private String upFee;
+
+            public String getId() {
+                return id;
+            }
+
+            public void setId(String id) {
+                this.id = id;
+            }
+
+            public String getCreateUserId() {
+                return createUserId;
+            }
+
+            public void setCreateUserId(String createUserId) {
+                this.createUserId = createUserId;
+            }
+
+            public String getJoinUserId() {
+                return joinUserId;
+            }
+
+            public void setJoinUserId(String joinUserId) {
+                this.joinUserId = joinUserId;
+            }
+
+            public String getSource() {
+                return source;
+            }
+
+            public void setSource(String source) {
+                this.source = source;
+            }
+
+            public String getOtherGoodsId() {
+                return otherGoodsId;
+            }
+
+            public void setOtherGoodsId(String otherGoodsId) {
+                this.otherGoodsId = otherGoodsId;
+            }
+
+            public String getStartTime() {
+                return startTime;
+            }
+
+            public void setStartTime(String startTime) {
+                this.startTime = startTime;
+            }
+
+            public String getEndTime() {
+                return endTime;
+            }
+
+            public void setEndTime(String endTime) {
+                this.endTime = endTime;
+            }
+
+            public long getTimeToEndTime() {
+                return timeToEndTime;
+            }
+
+            public void setTimeToEndTime(long timeToEndTime) {
+                this.timeToEndTime = timeToEndTime;
+            }
+
+            public String getCreateTime() {
+                return createTime;
+            }
+
+            public void setCreateTime(String createTime) {
+                this.createTime = createTime;
+            }
+
+            public String getStatus() {
+                return status;
+            }
+
+            public void setStatus(String status) {
+                this.status = status;
+            }
+
+            public String getCount() {
+                return count;
+            }
+
+            public void setCount(String count) {
+                this.count = count;
+            }
+
+            public String getLeftCount() {
+                return leftCount;
+            }
+
+            public void setLeftCount(String leftCount) {
+                this.leftCount = leftCount;
+            }
+
+            public String getTradeId() {
+                return tradeId;
+            }
+
+            public void setTradeId(String tradeId) {
+                this.tradeId = tradeId;
+            }
+
+            public String getAvatar() {
+                return avatar;
+            }
+
+            public void setAvatar(String avatar) {
+                this.avatar = avatar;
+            }
+
+            public String getImg() {
+                return img;
+            }
+
+            public void setImg(String img) {
+                this.img = img;
+            }
+
+            public String getFee() {
+                return fee;
+            }
+
+            public void setFee(String fee) {
+                this.fee = fee;
+            }
+
+            public String getUpFee() {
+                return upFee;
+            }
+
+            public void setUpFee(String upFee) {
+                this.upFee = upFee;
             }
         }
     }

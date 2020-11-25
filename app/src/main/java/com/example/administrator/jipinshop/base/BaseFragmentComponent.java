@@ -37,6 +37,7 @@ import com.example.administrator.jipinshop.fragment.index.IndexVideoFragment;
 import com.example.administrator.jipinshop.fragment.member.MemberFragment;
 import com.example.administrator.jipinshop.fragment.member.cheap.CheapFragment;
 import com.example.administrator.jipinshop.fragment.mine.KTMineFragment;
+import com.example.administrator.jipinshop.fragment.mine.group.KTMyGroupFragment;
 import com.example.administrator.jipinshop.fragment.mine.team.TeamOneFragment;
 import com.example.administrator.jipinshop.fragment.mine.team.three.TeamThreeFragment;
 import com.example.administrator.jipinshop.fragment.mine.team.two.TeamTwoFragment;
@@ -114,4 +115,5 @@ public interface BaseFragmentComponent {
     void inject(CheapFragment fragment);
     void inject(CommonTabFragment fragment);
     void inject(PlayFragment fragment);
+    void inject(KTMyGroupFragment fragment);
 }

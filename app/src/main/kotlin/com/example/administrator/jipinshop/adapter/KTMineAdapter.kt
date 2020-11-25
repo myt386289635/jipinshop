@@ -7,6 +7,7 @@ import android.databinding.DataBindingUtil
 import android.graphics.Color
 import android.os.Handler
 import android.os.Looper
+import android.support.v4.app.Fragment
 import android.support.v4.view.ViewPager
 import android.support.v7.widget.GridLayoutManager
 import android.support.v7.widget.LinearLayoutManager
@@ -15,18 +16,22 @@ import android.text.TextUtils
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
+import android.widget.LinearLayout
 import android.widget.RelativeLayout
 import com.blankj.utilcode.util.SPUtils
 import com.example.administrator.jipinshop.R
 import com.example.administrator.jipinshop.activity.shoppingdetail.tbshoppingdetail.TBShoppingDetailActivity
 import com.example.administrator.jipinshop.bean.*
 import com.example.administrator.jipinshop.databinding.*
+import com.example.administrator.jipinshop.fragment.mine.group.KTMyGroupFragment
 import com.example.administrator.jipinshop.util.NotificationUtil
 import com.example.administrator.jipinshop.util.ShopJumpUtil
 import com.example.administrator.jipinshop.util.WeakRefHandler
 import com.example.administrator.jipinshop.util.sp.CommonDate
 import com.example.administrator.jipinshop.view.glide.GlideApp
 import com.example.administrator.jipinshop.view.viewpager.TouchViewPager
+import com.google.gson.Gson
 import java.math.BigDecimal
 
 /**
@@ -48,6 +53,7 @@ class KTMineAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>{
     private var mBean: UserInfoBean? = null
     private var mOnItem: OnItem? = null
     private var mWalletBean : MyWalletBean? = null
+    private lateinit var teamAdapter: HomePageAdapter
 
     fun setWallet(bean : MyWalletBean?){
         mWalletBean = bean
@@ -59,6 +65,10 @@ class KTMineAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>{
 
     fun setOnItem(onItem: OnItem) {
         mOnItem = onItem
+    }
+
+    fun setTeamAdapter(pagerAdapter: HomePageAdapter) {
+        teamAdapter = pagerAdapter
     }
 
     fun setAdList(adListBeans: MutableList<EvaluationTabBean.DataBean.AdListBean>){
@@ -240,12 +250,20 @@ class KTMineAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>{
                                 binding.mineWithdrawing.text = "${bean.data.preFee}元"
                                 binding.mineButie.text = "${bean.data.allowance}元"
                                 binding.mineJinbi.text = bean.data.point
+                                //拼团信息
+                                if (bean.data.groupList.size > 0){
+                                    binding.mineTeamContainer.visibility = View.VISIBLE
+                                    initViewPager(bean.data.groupList)
+                                }else{
+                                    binding.mineTeamContainer.visibility = View.GONE
+                                }
                             }
                         }else{//未请求成功
                             binding.mineWithdrawable.text = "0元"
                             binding.mineWithdrawing.text = "0元"
                             binding.mineButie.text = "0元"
                             binding.mineJinbi.text = "0"
+                            binding.mineTeamContainer.visibility = View.GONE
                         }
                         binding.mineWithdrawContainer.setOnClickListener {
                             mOnItem?.onWallet()
@@ -458,6 +476,9 @@ class KTMineAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>{
             true
         }
         var handler = WeakRefHandler(mCallback, Looper.getMainLooper())
+        //成团数据
+        var teamFragments : MutableList<Fragment>
+        private var teamPoint : MutableList<ImageView>
 
         constructor(binding: ItemMineHead2Binding) : super(binding.root){
             this.binding = binding
@@ -475,6 +496,27 @@ class KTMineAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>{
 
                 override fun stopAutoPlay() {
                     handler.removeCallbacksAndMessages(null)
+                }
+
+            })
+            //成团数据
+            teamFragments = mutableListOf()
+            teamPoint = mutableListOf()
+            teamAdapter.setFragments(teamFragments)
+            binding.mineTeamVP.adapter = teamAdapter
+            binding.mineTeamVP.addOnPageChangeListener(object : ViewPager.OnPageChangeListener{
+                override fun onPageScrollStateChanged(p0: Int) {}
+
+                override fun onPageScrolled(p0: Int, p1: Float, p2: Int) {}
+
+                override fun onPageSelected(position: Int) {
+                    for (i in teamPoint.indices) {
+                        if (i == position) {
+                            teamPoint[i].setImageResource(R.drawable.banner_down2)
+                        } else {
+                            teamPoint[i].setImageResource(R.drawable.banner_up2)
+                        }
+                    }
                 }
 
             })
@@ -517,6 +559,29 @@ class KTMineAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>{
             binding.viewPager.setCurrentItem(1,false)
             binding.viewPager.offscreenPageLimit = mAdListBeans.size - 1//防止图片重叠的情况
             pagerAdapter.notifyDataSetChanged()
+        }
+
+        //初始化成团数据
+        fun initViewPager(list: MutableList<MyWalletBean.DataBean.GroupListBean>) {
+            teamFragments.clear()//清空数据
+            teamPoint.clear()
+            binding.mineTeamPoint.removeAllViews()
+            var date = Gson().toJson(mWalletBean?.data,MyWalletBean.DataBean::class.java)
+            for (i in list.indices){
+                teamFragments.add(KTMyGroupFragment.getInstance(date,i))
+                var imageView = ImageView(context)
+                teamPoint.add(imageView)
+                if (i == binding.mineTeamVP.currentItem) {
+                    imageView.setImageResource(R.drawable.banner_down2)
+                } else {
+                    imageView.setImageResource(R.drawable.banner_up2)
+                }
+                var layoutParams = LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT)
+                layoutParams.leftMargin = context.resources.getDimension(R.dimen.x4).toInt()
+                layoutParams.rightMargin = context.resources.getDimension(R.dimen.x4).toInt()
+                binding.mineTeamPoint.addView(imageView,layoutParams)
+            }
+            teamAdapter.updateData(teamFragments)
         }
     }
 

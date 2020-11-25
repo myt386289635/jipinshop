@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <data>
+        <variable
+            name="listener"
+            type="android.view.View.OnClickListener"/>
+    </data>
+
+    <RelativeLayout
+        android:onClick="@{listener.onClick}"
+        android:id="@+id/group_container"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/y128">
+
+        <ImageView
+            android:id="@+id/group_image"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="@dimen/x16"
+            android:layout_width="@dimen/x96"
+            android:layout_height="@dimen/y96"/>
+
+        <LinearLayout
+            android:layout_alignTop="@id/group_image"
+            android:layout_toRightOf="@id/group_image"
+            android:layout_marginLeft="@dimen/x12"
+            android:layout_marginTop="@dimen/y8"
+            android:orientation="horizontal"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:textColor="@color/color_E25838"
+                android:textStyle="bold"
+                android:textSize="15sp"
+                android:text="待成团"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+
+            <TextView
+                android:textColor="@color/color_7C7C7C"
+                android:layout_marginLeft="@dimen/x8"
+                android:textSize="13sp"
+                android:text="剩余"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+
+            <TextView
+                android:id="@+id/group_time"
+                android:textColor="@color/color_7C7C7C"
+                android:textStyle="bold"
+                android:layout_marginLeft="@dimen/x8"
+                android:textSize="13sp"
+                android:text="00:00:00"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+
+            <TextView
+                android:textColor="@color/color_7C7C7C"
+                android:layout_marginLeft="@dimen/x8"
+                android:textSize="13sp"
+                android:text="结束"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_alignBottom="@id/group_image"
+            android:layout_toRightOf="@id/group_image"
+            android:layout_marginLeft="@dimen/x12"
+            android:layout_marginBottom="@dimen/y8"
+            android:orientation="horizontal"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:textColor="@color/color_202020"
+                android:textSize="12sp"
+                android:text="再邀请"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+
+            <TextView
+                android:id="@+id/group_people"
+                android:textColor="@color/color_E25838"
+                android:textSize="12sp"
+                android:text="1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+
+            <TextView
+                android:textColor="@color/color_202020"
+                android:textSize="12sp"
+                android:text="人即可多返"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+
+            <TextView
+                android:id="@+id/group_price"
+                android:textColor="@color/color_E25838"
+                android:textSize="12sp"
+                android:text="￥0"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+
+        </LinearLayout>
+
+        <TextView
+            android:onClick="@{listener.onClick}"
+            android:id="@+id/group_share"
+            android:layout_marginRight="@dimen/x20"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:paddingRight="@dimen/x16"
+            android:paddingLeft="@dimen/x16"
+            android:paddingBottom="@dimen/y10"
+            android:paddingTop="@dimen/y10"
+            android:textSize="14sp"
+            android:text="邀请好友组团"
+            android:textColor="@color/color_white"
+            android:background="@drawable/bg_recovery_over"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+
+    </RelativeLayout>
+</layout>

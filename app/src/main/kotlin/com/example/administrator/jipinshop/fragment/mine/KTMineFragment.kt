@@ -33,6 +33,7 @@ import com.example.administrator.jipinshop.activity.setting.opinion.OpinionActiv
 import com.example.administrator.jipinshop.activity.share.ShareActivity
 import com.example.administrator.jipinshop.activity.sign.SignActivity
 import com.example.administrator.jipinshop.activity.sign.invitation.InvitationNewActivity
+import com.example.administrator.jipinshop.adapter.HomePageAdapter
 import com.example.administrator.jipinshop.adapter.KTMineAdapter
 import com.example.administrator.jipinshop.base.DBBaseFragment
 import com.example.administrator.jipinshop.bean.*
@@ -48,7 +49,6 @@ import com.example.administrator.jipinshop.util.sp.CommonDate
 import com.example.administrator.jipinshop.view.dialog.DialogUtil
 import com.example.administrator.jipinshop.view.dialog.ProgressDialogView
 import com.tencent.mm.opensdk.modelbiz.WXLaunchMiniProgram
-import com.tencent.mm.opensdk.openapi.IWXAPI
 import com.tencent.mm.opensdk.openapi.WXAPIFactory
 import com.trello.rxlifecycle2.android.FragmentEvent
 import org.greenrobot.eventbus.EventBus
@@ -60,7 +60,7 @@ import javax.inject.Inject
  * @create 2020/6/5
  * @Describe
  */
-class KTMineFragment : DBBaseFragment(), KTMineAdapter.OnItem, KTMineView, OnLoadMoreListener {
+class KTMineFragment : DBBaseFragment(), KTMineAdapter.OnItem, KTMineView, OnLoadMoreListener, View.OnClickListener {
 
     @Inject
     lateinit var mPresenter: KTMinePresenter
@@ -98,6 +98,7 @@ class KTMineFragment : DBBaseFragment(), KTMineAdapter.OnItem, KTMineView, OnLoa
 
     override fun initLayout(inflater: LayoutInflater?, container: ViewGroup?): View {
         mBinding = DataBindingUtil.inflate(inflater, R.layout.fragment_kt_mine, container, false)
+        mBinding.listener = this
         EventBus.getDefault().register(this)
         return mBinding.root
     }
@@ -112,9 +113,19 @@ class KTMineFragment : DBBaseFragment(), KTMineAdapter.OnItem, KTMineView, OnLoa
         mAdapter = KTMineAdapter(mList,context!!)
         mAdapter.setOnItem(this)
         mAdapter.setAdList(mAdListBeans)
+        mAdapter.setTeamAdapter(HomePageAdapter(childFragmentManager))
         mBinding.swipeTarget.adapter = mAdapter
 
         mBinding.swipeToLoad.setOnLoadMoreListener(this)
+    }
+
+    override fun onClick(v: View) {
+        when(v.id){
+            R.id.mine_server -> {
+                //联系客服
+                onServer()
+            }
+        }
     }
 
     override fun onLoadMore() {

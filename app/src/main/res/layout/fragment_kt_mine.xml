@@ -33,7 +33,6 @@
 
         <ImageView
             android:onClick="@{listener.onClick}"
-            android:visibility="gone"
             android:id="@+id/mine_server"
             android:layout_marginRight="@dimen/x30"
             android:layout_alignParentRight="true"
