@@ -824,6 +824,10 @@
         <activity android:name=".activity.mine.group.MyGroupActivity"
                   android:screenOrientation="portrait"/>
 
+        <!--外卖集合-->
+        <activity android:name=".activity.home.food.TakeOutActivity"
+                  android:screenOrientation="portrait"/>
+
  </application>
 
 </manifest>

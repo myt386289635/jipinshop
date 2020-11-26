@@ -14,6 +14,7 @@ import com.example.administrator.jipinshop.activity.balance.withdraw.detail.With
 import com.example.administrator.jipinshop.activity.cheapgoods.CheapBuyActivity;
 import com.example.administrator.jipinshop.activity.home.HomeDetailActivity;
 import com.example.administrator.jipinshop.activity.home.article.ArticleDetailActivity;
+import com.example.administrator.jipinshop.activity.home.food.TakeOutActivity;
 import com.example.administrator.jipinshop.activity.home.home.HomeNewActivity;
 import com.example.administrator.jipinshop.activity.home.jd_pdd.KTJDDetailActivity;
 import com.example.administrator.jipinshop.activity.home.tb.KTTBDetailActivity;
@@ -445,8 +446,9 @@ public class ShopJumpUtil {
                 }
                 context.startActivity(intent);
                 break;
-            case "43"://todo 外卖页面
-
+            case "43"://外卖页面
+                intent.setClass(context, TakeOutActivity.class);
+                context.startActivity(intent);
                 break;
             case "44"://拼团页面
                 if (TextUtils.isEmpty(SPUtils.getInstance(CommonDate.USER).getString(CommonDate.token, ""))) {
