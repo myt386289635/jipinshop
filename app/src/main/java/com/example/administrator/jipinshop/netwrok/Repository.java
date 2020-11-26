@@ -1551,4 +1551,11 @@ public class Repository {
     public Observable<SucBean<TbkIndexBean.DataBean.BoxCategoryListBean.ListBean>> boxSearch(String keyword){
         return mAPIService.boxSearch(keyword);
     }
+
+    /**
+     * 获取拼团信息
+     */
+    public Observable<GroupInfoBean> groupInfo(String groupId){
+        return mAPIService.groupInfo(groupId);
+    }
 }

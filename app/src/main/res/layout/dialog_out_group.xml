@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <RelativeLayout
+        android:background="@drawable/bg_dialog"
+        android:layout_gravity="center_horizontal"
+        android:layout_width="@dimen/x630"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:id="@+id/dialog_title"
+            android:gravity="center"
+            android:textStyle="bold"
+            android:textSize="19sp"
+            android:text="您还未完成拼团"
+            android:textColor="@color/color_white"
+            android:background="@mipmap/bg_group3"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+
+        <ImageView
+            android:layout_marginRight="@dimen/x16"
+            android:id="@+id/dialog_image"
+            android:layout_marginTop="@dimen/y30"
+            android:layout_marginLeft="@dimen/x37"
+            android:layout_below="@id/dialog_title"
+            android:layout_width="@dimen/x156"
+            android:layout_height="@dimen/y156"/>
+
+        <TextView
+            android:ellipsize="end"
+            android:maxLines="2"
+            android:id="@+id/dialog_name"
+            android:layout_marginTop="@dimen/y1"
+            android:layout_marginRight="@dimen/x37"
+            android:lineSpacingExtra="@dimen/y8"
+            android:textColor="@color/color_565252"
+            android:textSize="14sp"
+            android:layout_alignTop="@id/dialog_image"
+            android:layout_toRightOf="@id/dialog_image"
+            android:text="学生宿舍榨汁机家用炸学生宿舍榨汁机家用炸"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+
+        <TextView
+            android:id="@+id/dialog_priceText"
+            android:textColor="@color/color_202020"
+            android:textSize="18sp"
+            android:layout_toRightOf="@id/dialog_image"
+            android:layout_alignBottom="@id/dialog_image"
+            android:text="拼成返"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+
+        <TextView
+            android:id="@+id/dialog_price"
+            android:textColor="@color/color_E25838"
+            android:textStyle="bold"
+            android:text="￥0"
+            android:textSize="30sp"
+            android:layout_alignBottom="@id/dialog_priceText"
+            android:layout_toRightOf="@id/dialog_priceText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+        
+        <TextView
+            android:layout_marginTop="@dimen/y30"
+            android:layout_below="@id/dialog_priceText"
+            android:layout_alignLeft="@id/dialog_priceText"
+            android:id="@+id/dialog_fee"
+            android:text="未拼成少返￥0"
+            android:textSize="16sp"
+            android:textColor="@color/color_202020"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+
+        <TextView
+            android:background="@drawable/bg_e25838_3"
+            android:id="@+id/dialog_cancle"
+            android:gravity="center"
+            android:textColor="@color/color_E25838"
+            android:textStyle="bold"
+            android:textSize="19sp"
+            android:text="残忍拒绝"
+            android:layout_marginBottom="@dimen/y33"
+            android:layout_marginLeft="@dimen/x36"
+            android:layout_marginTop="@dimen/y119"
+            android:layout_below="@id/dialog_image"
+            android:layout_width="@dimen/x250"
+            android:layout_height="@dimen/y72"/>
+
+        <TextView
+            android:id="@+id/dialog_sure"
+            android:gravity="center"
+            android:textColor="@color/color_white"
+            android:textStyle="bold"
+            android:textSize="19sp"
+            android:text="继续拼团"
+            android:background="@drawable/bg_group"
+            android:layout_alignParentRight="true"
+            android:layout_marginBottom="@dimen/y33"
+            android:layout_marginRight="@dimen/x36"
+            android:layout_marginTop="@dimen/y119"
+            android:layout_below="@id/dialog_image"
+            android:layout_width="@dimen/x250"
+            android:layout_height="@dimen/y72"/>
+
+    </RelativeLayout>
+</layout>

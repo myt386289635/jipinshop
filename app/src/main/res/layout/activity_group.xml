@@ -1,0 +1,248 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <data>
+        <variable
+            name="listener"
+            type="android.view.View.OnClickListener"/>
+    </data>
+
+    <RelativeLayout
+        android:background="@color/color_white"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <ImageView
+            android:scaleType="centerCrop"
+            android:id="@+id/group_bg"
+            android:adjustViewBounds="true"
+            android:src="@mipmap/bg_group"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/y568"/>
+
+        <LinearLayout
+            android:id="@+id/status_bar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/transparent"
+            android:orientation="vertical"/>
+
+        <RelativeLayout
+            android:layout_below="@id/status_bar"
+            android:id="@+id/group_titleContainer"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/y80">
+
+            <ImageView
+                android:tint="@color/color_white"
+                android:onClick="@{listener.onClick}"
+                android:id="@+id/title_back"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_centerVertical="true"
+                android:paddingLeft="@dimen/x30"
+                android:paddingRight="@dimen/x30"
+                android:src="@mipmap/nav_black_big"/>
+
+            <TextView
+                android:gravity="center"
+                android:ellipsize="end"
+                android:layout_marginRight="@dimen/x24"
+                android:maxLines="1"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_centerInParent="true"
+                android:textColor="@color/color_white"
+                android:textSize="18sp"
+                android:textStyle="bold"
+                android:text="拼团享全返"/>
+
+            <TextView
+                android:id="@+id/group_share"
+                android:onClick="@{listener.onClick}"
+                android:gravity="center"
+                android:paddingLeft="@dimen/x30"
+                android:paddingRight="@dimen/x30"
+                android:textColor="@color/color_white"
+                android:textSize="18sp"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:text="分享"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"/>
+
+        </RelativeLayout>
+
+        <ScrollView
+            android:layout_below="@id/group_titleContainer"
+            android:scrollbars="none"
+            android:fillViewport="true"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <LinearLayout
+                android:orientation="vertical"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <RelativeLayout
+                    android:id="@+id/group_container"
+                    android:background="@drawable/bg_balance_one"
+                    android:layout_marginRight="@dimen/x30"
+                    android:layout_marginLeft="@dimen/x30"
+                    android:layout_marginTop="@dimen/y288"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/y192">
+
+                    <ImageView
+                        android:layout_marginRight="@dimen/x16"
+                        android:id="@+id/group_image"
+                        android:layout_alignParentBottom="true"
+                        android:layout_marginLeft="@dimen/x44"
+                        android:layout_width="@dimen/x158"
+                        android:layout_height="@dimen/y158"/>
+
+                    <TextView
+                        android:ellipsize="end"
+                        android:maxLines="2"
+                        android:id="@+id/group_name"
+                        android:lineSpacingExtra="@dimen/y8"
+                        android:layout_marginRight="@dimen/x44"
+                        android:textColor="@color/color_565252"
+                        android:textSize="14sp"
+                        android:text="学生宿舍榨汁机家用炸学生宿舍榨汁机家用炸"
+                        android:layout_toRightOf="@id/group_image"
+                        android:layout_alignTop="@id/group_image"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"/>
+
+                    <TextView
+                        android:id="@+id/group_priceText"
+                        android:textColor="@color/color_202020"
+                        android:textSize="18sp"
+                        android:layout_toRightOf="@id/group_image"
+                        android:layout_alignParentBottom="true"
+                        android:text="拼成返"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"/>
+
+                    <TextView
+                        android:id="@+id/group_price"
+                        android:textColor="@color/color_E25838"
+                        android:textStyle="bold"
+                        android:text="￥9.99"
+                        android:textSize="30sp"
+                        android:layout_alignParentBottom="true"
+                        android:layout_toRightOf="@id/group_priceText"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"/>
+
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:background="@color/color_white"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <TextView
+                        android:id="@+id/group_price2"
+                        android:layout_marginTop="@dimen/y7"
+                        android:layout_marginLeft="@dimen/x248"
+                        android:textColor="@color/color_202020"
+                        android:textSize="18sp"
+                        android:text="未拼成返￥1.99"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"/>
+
+                    <TextView
+                        android:id="@+id/group_time"
+                        android:textColor="@color/color_202020"
+                        android:layout_marginTop="@dimen/y32"
+                        android:text="还差1人拼团成功，时间仅剩04:24:49"
+                        android:layout_centerHorizontal="true"
+                        android:layout_below="@id/group_price2"
+                        android:textSize="16sp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"/>
+                    
+                    <LinearLayout
+                        android:id="@+id/group_peopleContainer"
+                        android:layout_marginTop="@dimen/y37"
+                        android:layout_below="@id/group_time"
+                        android:layout_centerHorizontal="true"
+                        android:orientation="horizontal"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content">
+
+                        <RelativeLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content">
+                            
+                            <ImageView
+                                android:id="@+id/group_grouper"
+                                android:layout_marginTop="@dimen/y10"
+                                android:src="@mipmap/bg_group2"
+                                android:layout_width="@dimen/x82"
+                                android:layout_height="@dimen/y82"/>
+
+                            <TextView
+                                android:background="@drawable/bg_e25838_7"
+                                android:textColor="@color/color_white"
+                                android:gravity="center"
+                                android:textSize="10sp"
+                                android:text="团长"
+                                android:layout_centerHorizontal="true"
+                                android:layout_width="@dimen/x60"
+                                android:layout_height="@dimen/y26"/>
+                            
+                        </RelativeLayout>
+
+                        <ImageView
+                            android:id="@+id/group_member"
+                            android:layout_marginLeft="@dimen/x32"
+                            android:layout_marginTop="@dimen/y10"
+                            android:src="@mipmap/bg_group2"
+                            android:layout_width="@dimen/x82"
+                            android:layout_height="@dimen/y82"/>
+
+                    </LinearLayout>
+                    
+                    <TextView
+                        android:id="@+id/group_invation"
+                        android:onClick="@{listener.onClick}"
+                        android:background="@drawable/bg_group"
+                        android:textColor="@color/color_white"
+                        android:textStyle="bold"
+                        android:textSize="19sp"
+                        android:gravity="center"
+                        android:text="邀请好友参团，成团返￥99.99"
+                        android:layout_marginRight="@dimen/x74"
+                        android:layout_marginLeft="@dimen/x74"
+                        android:layout_marginBottom="@dimen/y44"
+                        android:layout_marginTop="@dimen/y40"
+                        android:layout_below="@id/group_peopleContainer"
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/y88"/>
+
+                </RelativeLayout>
+
+                <ImageView
+                    android:background="@color/color_white"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:paddingTop="@dimen/y32"
+                    android:paddingBottom="@dimen/y32"
+                    android:src="@mipmap/bg_userlike"/>
+
+                <com.example.administrator.jipinshop.view.recyclerView.NoScrollRecyclerView
+                    android:id="@+id/sreach_userLike"
+                    android:background="@color/color_white"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"/>
+
+            </LinearLayout>
+        </ScrollView>
+
+    </RelativeLayout>
+</layout>

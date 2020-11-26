@@ -1402,4 +1402,10 @@ public interface APIService {
      */
     @GET("api/box/search")
     Observable<SucBean<TbkIndexBean.DataBean.BoxCategoryListBean.ListBean>> boxSearch(@Query("keyword") String keyword);
+
+    /**
+     * 获取拼团信息
+     */
+    @GET("api/group/info")
+    Observable<GroupInfoBean> groupInfo(@Query("groupId") String groupId);
 }

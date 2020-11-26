@@ -820,6 +820,10 @@
         <activity android:name=".activity.sreach.play.result.PlaySreachResultActivity"
                   android:screenOrientation="portrait"/>
 
+        <!--拼团详情-->
+        <activity android:name=".activity.mine.group.MyGroupActivity"
+                  android:screenOrientation="portrait"/>
+
  </application>
 
 </manifest>

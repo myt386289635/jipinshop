@@ -19,6 +19,7 @@ import com.example.administrator.jipinshop.activity.home.jd_pdd.KTJDDetailActivi
 import com.example.administrator.jipinshop.activity.home.tb.KTTBDetailActivity;
 import com.example.administrator.jipinshop.activity.login.LoginActivity;
 import com.example.administrator.jipinshop.activity.mall.MallActivity;
+import com.example.administrator.jipinshop.activity.mine.group.MyGroupActivity;
 import com.example.administrator.jipinshop.activity.minekt.orderkt.KTMyOrderActivity;
 import com.example.administrator.jipinshop.activity.newpeople.NewFreeActivity;
 import com.example.administrator.jipinshop.activity.report.detail.ReportDetailActivity;
@@ -441,6 +442,18 @@ public class ShopJumpUtil {
                     intent.setClass(context, H5SignWebActivity.class);
                     intent.putExtra(H5SignWebActivity.url, target_id + SPUtils.getInstance(CommonDate.USER).getString(CommonDate.token, ""));
                     intent.putExtra(H5SignWebActivity.title,target_title);
+                }
+                context.startActivity(intent);
+                break;
+            case "43"://todo 外卖页面
+
+                break;
+            case "44"://拼团页面
+                if (TextUtils.isEmpty(SPUtils.getInstance(CommonDate.USER).getString(CommonDate.token, ""))) {
+                    intent.setClass(context, LoginActivity.class);
+                }else {
+                    intent.setClass(context, MyGroupActivity.class);
+                    intent.putExtra("id", target_id);
                 }
                 context.startActivity(intent);
                 break;

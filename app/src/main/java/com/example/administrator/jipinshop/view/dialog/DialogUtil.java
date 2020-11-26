@@ -37,6 +37,7 @@ import com.example.administrator.jipinshop.activity.shoppingdetail.tbshoppingdet
 import com.example.administrator.jipinshop.activity.sreach.result.TBSreachResultActivity;
 import com.example.administrator.jipinshop.adapter.DialogLuckAdapter;
 import com.example.administrator.jipinshop.bean.FamilyBean;
+import com.example.administrator.jipinshop.bean.GroupInfoBean;
 import com.example.administrator.jipinshop.bean.NewFreeBean;
 import com.example.administrator.jipinshop.bean.NewPeopleBean;
 import com.example.administrator.jipinshop.bean.PrizeLogBean;
@@ -52,6 +53,7 @@ import com.example.administrator.jipinshop.databinding.DialogNewpeople2Binding;
 import com.example.administrator.jipinshop.databinding.DialogNewpeopleBuyBinding;
 import com.example.administrator.jipinshop.databinding.DialogNonewBinding;
 import com.example.administrator.jipinshop.databinding.DialogOutBinding;
+import com.example.administrator.jipinshop.databinding.DialogOutGroupBinding;
 import com.example.administrator.jipinshop.databinding.DialogOutH5Binding;
 import com.example.administrator.jipinshop.databinding.DialogParityBinding;
 import com.example.administrator.jipinshop.databinding.DialogPayFileBinding;
@@ -1253,6 +1255,35 @@ public class DialogUtil {
             if (listener != null)
                 listener.onClick(v);
             dialog.dismiss();
+        });
+        dialog.getWindow().setDimAmount(0.35f);
+        dialog.show();
+        dialog.setContentView(binding.getRoot());
+    }
+
+    //拼团退出弹框
+    public static void groupOutDialog(Context context , GroupInfoBean.DataBean bean , View.OnClickListener listener){
+        if (bean == null){
+            return;
+        }
+        AlertDialog.Builder builder = new AlertDialog.Builder(context, R.style.dialog);
+        final Dialog dialog = builder.create();
+        DialogOutGroupBinding binding = DataBindingUtil.inflate(LayoutInflater.from(context), R.layout.dialog_out_group, null, false);
+        GlideApp.loderRoundImage(context,bean.getImg(),binding.dialogImage);
+        binding.dialogName.setText(bean.getGoodsName());
+        binding.dialogPrice.setText("￥" + bean.getUpFee());
+        BigDecimal bigDecimal = new BigDecimal(bean.getUpFee());//拼成返
+        BigDecimal bigDecimal1 = new BigDecimal(bean.getFee());//未拼成返
+        String html = "未拼成少返<b><font color='#E25838'>￥"+
+                bigDecimal.subtract(bigDecimal1).stripTrailingZeros().toPlainString() + "</font></b>";
+        binding.dialogFee.setText(Html.fromHtml(html));
+        binding.dialogSure.setOnClickListener(v -> {
+            dialog.dismiss();
+        });
+        binding.dialogCancle.setOnClickListener(v -> {
+            dialog.dismiss();
+            if (listener != null)
+                listener.onClick(v);
         });
         dialog.getWindow().setDimAmount(0.35f);
         dialog.show();

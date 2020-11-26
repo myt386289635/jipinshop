@@ -52,6 +52,7 @@ import com.example.administrator.jipinshop.activity.member.zero.ZeroActivity;
 import com.example.administrator.jipinshop.activity.member.zero.detail.ZeroDetailActivity;
 import com.example.administrator.jipinshop.activity.message.MessageActivity;
 import com.example.administrator.jipinshop.activity.message.detail.MsgDetailActivity;
+import com.example.administrator.jipinshop.activity.mine.group.MyGroupActivity;
 import com.example.administrator.jipinshop.activity.mine.welfare.OfficialWelfareActivity;
 import com.example.administrator.jipinshop.activity.minekt.publishkt.detail.AuditDetailActivity;
 import com.example.administrator.jipinshop.activity.minekt.recovery.OrderRecoveryActivity;
@@ -198,4 +199,5 @@ public interface BaseActivityComponent {
     void inject(OfficialWelfareActivity activity);
     void inject(PlaySreachActivity activity);
     void inject(PlaySreachResultActivity activity);
+    void inject(MyGroupActivity activity);
 }
