@@ -270,18 +270,28 @@ public class TBShoppingDetailActivity extends BaseActivity implements View.OnCli
                     startActivityForResult(new Intent(this, LoginActivity.class),201);
                     return;
                 }
-                if (source.equals("2")){
-                    TaoBaoUtil.openTB(this, () -> {
+                if (level.equals("0")){
+                    //非会员是拼团逻辑
+                    mDialog = (new ProgressDialogView()).createPlatformGroupDialog(this, source, UpFee, fee, v15 -> {
+                        //todo 区分拼团还是加入的逻辑
+                        mPresenter.groupCreate(goodsId,source,this.bindToLifecycle());
+                    });
+                    mDialog.show();
+                }else {
+                    //会员是分享逻辑
+                    if (source.equals("2")){
+                        TaoBaoUtil.openTB(this, () -> {
+                            startActivity(new Intent(this, ShareActivity.class)
+                                    .putExtra("otherGoodsId",goodsId)
+                                    .putExtra("source",source)
+                            );
+                        });
+                    }else {
                         startActivity(new Intent(this, ShareActivity.class)
                                 .putExtra("otherGoodsId",goodsId)
                                 .putExtra("source",source)
                         );
-                    });
-                }else {
-                    startActivity(new Intent(this, ShareActivity.class)
-                            .putExtra("otherGoodsId",goodsId)
-                            .putExtra("source",source)
-                    );
+                    }
                 }
                 break;
             case R.id.detail_home:
@@ -432,15 +442,6 @@ public class TBShoppingDetailActivity extends BaseActivity implements View.OnCli
             mBinding.detailCouponContainer.setVisibility(View.VISIBLE);
         }
         double free = new BigDecimal(bean.getData().getFee()).doubleValue();
-        mBinding.detailShareCode.setText("¥"+ new BigDecimal(free).setScale(2,BigDecimal.ROUND_HALF_UP).stripTrailingZeros().toPlainString());
-        mBinding.detailFreeCode.setText("¥"+ new BigDecimal(free).setScale(2,BigDecimal.ROUND_HALF_UP).stripTrailingZeros().toPlainString());
-        if (free == 0){//没有补贴
-            mBinding.detailShareCode.setVisibility(View.GONE);
-            mBinding.detailFreeCode.setVisibility(View.GONE);
-        }else {
-            mBinding.detailShareCode.setVisibility(View.VISIBLE);
-            mBinding.detailFreeCode.setVisibility(View.VISIBLE);
-        }
         double price = free + coupon;
         if (price == 0){
             money = "0.00";
@@ -472,13 +473,17 @@ public class TBShoppingDetailActivity extends BaseActivity implements View.OnCli
         level = bean.getData().getLevel() + "";
         UpFee = bean.getData().getUpFee() + "";
         fee = bean.getData().getFee() + "";
-        if (bean.getData().getLevel() != 0){
+        if (bean.getData().getLevel() != 0){//会员
             mBinding.detailMemberText.setText("尊享会员专属优惠，比普通用户多返");
             mBinding.detailMemberPrice.setText("￥" + bean.getData().getUpFee());
             mBinding.detailMemberGo.setVisibility(View.GONE);
             mBinding.shopFee.setText("会员返 ¥" + fee);
             isStart = false;
-        }else {
+            mBinding.detailShareCode.setText("¥"+ new BigDecimal(free).setScale(2,BigDecimal.ROUND_HALF_UP).stripTrailingZeros().toPlainString());
+            mBinding.detailShareCodeText.setText("分享赚");
+            mBinding.detailFreeCode.setText("¥"+ new BigDecimal(free).setScale(2,BigDecimal.ROUND_HALF_UP).stripTrailingZeros().toPlainString());
+            mBinding.detailFreeCodeText.setText("购买返");
+        }else {//非会员
             isStart = true;
             mBinding.detailMemberText.setText("加入极品会员，本商品可返");
             mBinding.detailMemberPrice.setText("￥" + bean.getData().getUpFee());
@@ -486,6 +491,10 @@ public class TBShoppingDetailActivity extends BaseActivity implements View.OnCli
             mBinding.detailMemberGo.setImageResource(R.mipmap.detail_opening);
             mBinding.detailMemberGo.setVisibility(View.VISIBLE);
             mBinding.shopFee.setText("返 ¥" + fee);
+            mBinding.detailShareCode.setText("返¥"+ new BigDecimal(bean.getData().getUpFee()).setScale(2,BigDecimal.ROUND_HALF_UP).stripTrailingZeros().toPlainString());
+            mBinding.detailShareCodeText.setText("拼团买");
+            mBinding.detailFreeCode.setText("返¥"+ new BigDecimal(free).setScale(2,BigDecimal.ROUND_HALF_UP).stripTrailingZeros().toPlainString());
+            mBinding.detailFreeCodeText.setText("直接买");
         }
         //比价弹窗
         if (!TextUtils.isEmpty(parity)){
@@ -599,15 +608,6 @@ public class TBShoppingDetailActivity extends BaseActivity implements View.OnCli
             mBinding.detailCouponContainer.setVisibility(View.VISIBLE);
         }
         double free = new BigDecimal(bean.getData().getFee()).doubleValue();
-        mBinding.detailShareCode.setText("¥"+ new BigDecimal(free).setScale(2,BigDecimal.ROUND_HALF_UP).stripTrailingZeros().toPlainString());
-        mBinding.detailFreeCode.setText("¥"+ new BigDecimal(free).setScale(2,BigDecimal.ROUND_HALF_UP).stripTrailingZeros().toPlainString());
-        if (free == 0){//没有补贴
-            mBinding.detailShareCode.setVisibility(View.GONE);
-            mBinding.detailFreeCode.setVisibility(View.GONE);
-        }else {
-            mBinding.detailShareCode.setVisibility(View.VISIBLE);
-            mBinding.detailFreeCode.setVisibility(View.VISIBLE);
-        }
         double price = free + coupon;
         if (price == 0){
             money = "0.00";
@@ -639,6 +639,10 @@ public class TBShoppingDetailActivity extends BaseActivity implements View.OnCli
             mBinding.detailMemberGo.setVisibility(View.GONE);
             mBinding.shopFee.setText("会员返 ¥" + fee);
             isStart = false;
+            mBinding.detailShareCode.setText("¥"+ new BigDecimal(free).setScale(2,BigDecimal.ROUND_HALF_UP).stripTrailingZeros().toPlainString());
+            mBinding.detailShareCodeText.setText("分享赚");
+            mBinding.detailFreeCode.setText("¥"+ new BigDecimal(free).setScale(2,BigDecimal.ROUND_HALF_UP).stripTrailingZeros().toPlainString());
+            mBinding.detailFreeCodeText.setText("购买返");
         }else {
             isStart = true;
             mBinding.detailMemberText.setText("加入极品会员，本商品可返");
@@ -647,7 +651,17 @@ public class TBShoppingDetailActivity extends BaseActivity implements View.OnCli
             mBinding.detailMemberGo.setImageResource(R.mipmap.detail_opening);
             mBinding.detailMemberGo.setVisibility(View.VISIBLE);
             mBinding.shopFee.setText("返 ¥" + fee);
+            mBinding.detailShareCode.setText("返¥"+ new BigDecimal(bean.getData().getUpFee()).setScale(2,BigDecimal.ROUND_HALF_UP).stripTrailingZeros().toPlainString());
+            mBinding.detailShareCodeText.setText("拼团买");
+            mBinding.detailFreeCode.setText("返¥"+ new BigDecimal(free).setScale(2,BigDecimal.ROUND_HALF_UP).stripTrailingZeros().toPlainString());
+            mBinding.detailFreeCodeText.setText("直接买");
         }
+    }
+
+    //拼团成功后获取购买链接
+    @Override
+    public void onCreateGroup() {
+        mPresenter.getGoodsClickUrl(source, goodsId, this.bindToLifecycle());
     }
 
     @Subscribe

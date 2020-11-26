@@ -1408,4 +1408,11 @@ public interface APIService {
      */
     @GET("api/group/info")
     Observable<GroupInfoBean> groupInfo(@Query("groupId") String groupId);
+
+    /**
+     * 拼团创建
+     */
+    @FormUrlEncoded
+    @POST("api/group/create")
+    Observable<SuccessBean> groupCreate(@Field("otherGoodsId") String otherGoodsId , @Field("source") String source);
 }

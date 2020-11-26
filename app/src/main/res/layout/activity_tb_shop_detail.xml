@@ -59,6 +59,7 @@
                         android:textSize="16sp"/>
 
                     <TextView
+                        android:id="@+id/detail_shareCodeText"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="分享赚"
@@ -87,6 +88,7 @@
                         android:textSize="16sp"/>
 
                     <TextView
+                        android:id="@+id/detail_freeCodeText"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="购买返"

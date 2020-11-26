@@ -2,6 +2,7 @@ package com.example.administrator.jipinshop.view.dialog;
 
 import android.app.Dialog;
 import android.content.Context;
+import android.databinding.DataBindingUtil;
 import android.os.CountDownTimer;
 import android.text.Html;
 import android.text.TextUtils;
@@ -14,6 +15,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.example.administrator.jipinshop.R;
+import com.example.administrator.jipinshop.databinding.LoadingDialogPlatformGroupBinding;
 
 /**
  * @author 莫小婷
@@ -111,6 +113,46 @@ public class ProgressDialogView {
                 LinearLayout.LayoutParams.WRAP_CONTENT,
                 LinearLayout.LayoutParams.WRAP_CONTENT));
         dialog.setCancelable(false);
+        return dialog;
+    }
+
+    //商品详情拼团正在打开 1京东,2淘宝，4拼多多
+    public Dialog createPlatformGroupDialog(Context context, String source ,
+                                            String UpFee , String fee, View.OnClickListener listener){
+        Dialog dialog = new Dialog(context, R.style.dialog);// 创建自定义样式dialog
+        LoadingDialogPlatformGroupBinding binding = DataBindingUtil.inflate(LayoutInflater.from(context),R.layout.loading_dialog_platform_group, null,false);
+        if (source.equals("2")){
+            binding.dialogPlatform.setImageResource(R.mipmap.dialog_tb);
+        }else if (source.equals("1")){
+            binding.dialogPlatform.setImageResource(R.mipmap.dialog_jd);
+        }else {
+            binding.dialogPlatform.setImageResource(R.mipmap.dialog_pdd);
+        }
+        binding.dialogPrice.setText("￥" + UpFee);
+        String html = "未拼成返<b><font color='#E25838'>￥"+ fee + "</font></b>";
+        binding.dialogFee.setText(Html.fromHtml(html));
+        CountDownTimer timer  = new CountDownTimer(1500,500) {
+            @Override
+            public void onTick(long l) {}
+
+            @Override
+            public void onFinish() {
+                if (listener != null)
+                    listener.onClick(binding.getRoot());
+            }
+        };
+        timer.start();
+        dialog.setOnDismissListener(dialogInterface -> {
+            if (timer != null) {
+                timer.cancel();
+            }
+        });
+        dialog.getWindow().setDimAmount(0.35f);
+        dialog.setContentView(binding.getRoot(), new LinearLayout.LayoutParams(
+                LinearLayout.LayoutParams.WRAP_CONTENT,
+                LinearLayout.LayoutParams.WRAP_CONTENT));
+        dialog.setCancelable(false);
+        dialog.setCanceledOnTouchOutside(false);
         return dialog;
     }
 }

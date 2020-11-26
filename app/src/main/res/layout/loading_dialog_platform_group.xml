@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <LinearLayout
+            android:layout_alignTop="@id/dialog_bg_image"
+            android:layout_marginTop="@dimen/y109"
+            android:layout_centerHorizontal="true"
+            android:background="@drawable/bg_classfiy"
+            android:orientation="vertical"
+            android:layout_width="@dimen/x568"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:id="@+id/dialog_title"
+                android:layout_marginTop="@dimen/y110"
+                android:layout_gravity="center_horizontal"
+                android:textStyle="bold"
+                android:textColor="@color/color_202020"
+                android:textSize="21sp"
+                android:text="先下单，后拼团"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+
+            <LinearLayout
+                android:layout_marginTop="@dimen/y12"
+                android:layout_gravity="center_horizontal"
+                android:orientation="horizontal"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:textColor="@color/color_202020"
+                    android:textSize="18sp"
+                    android:text="拼成返"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"/>
+
+                <TextView
+                    android:id="@+id/dialog_price"
+                    android:textColor="@color/color_E25838"
+                    android:textStyle="bold"
+                    android:text="￥0"
+                    android:textSize="30sp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"/>
+
+            </LinearLayout>
+
+            <TextView
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="@dimen/y12"
+                android:id="@+id/dialog_fee"
+                android:text="未拼成返￥1.99"
+                android:textSize="18sp"
+                android:textColor="@color/color_202020"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+
+            <RelativeLayout
+                android:layout_marginTop="@dimen/y35"
+                android:layout_marginBottom="@dimen/y35"
+                android:layout_gravity="center_horizontal"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+
+                <ImageView
+                    android:id="@+id/dialog_jpc"
+                    android:layout_centerVertical="true"
+                    android:scaleType="fitCenter"
+                    android:src="@mipmap/dialog_rlogo"
+                    android:layout_width="@dimen/x84"
+                    android:layout_height="@dimen/y84"/>
+
+                <ImageView
+                    android:id="@+id/dialog_to"
+                    android:layout_marginLeft="@dimen/x35"
+                    android:layout_toRightOf="@id/dialog_jpc"
+                    android:layout_centerVertical="true"
+                    android:src="@mipmap/dialog_to2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"/>
+
+                <ImageView
+                    android:id="@+id/dialog_platform"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="@dimen/x35"
+                    android:layout_toRightOf="@id/dialog_to"
+                    android:scaleType="fitCenter"
+                    android:src="@mipmap/dialog_tb"
+                    android:layout_width="@dimen/x84"
+                    android:layout_height="@dimen/y84"/>
+
+            </RelativeLayout>
+
+        </LinearLayout>
+
+        <ImageView
+            android:id="@+id/dialog_bg_image"
+            android:layout_centerHorizontal="true"
+            android:src="@mipmap/dialog_loading2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+
+    </RelativeLayout>
+</layout>

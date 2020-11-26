@@ -8,7 +8,6 @@ import android.widget.LinearLayout;
 import com.example.administrator.jipinshop.R;
 import com.example.administrator.jipinshop.adapter.NoPageBannerAdapter;
 import com.example.administrator.jipinshop.bean.ClickUrlBean;
-import com.example.administrator.jipinshop.bean.ImageBean;
 import com.example.administrator.jipinshop.bean.SimilerGoodsBean;
 import com.example.administrator.jipinshop.bean.SucBean;
 import com.example.administrator.jipinshop.bean.SuccessBean;
@@ -213,6 +212,23 @@ public class TBShoppingDetailPresenter {
                     if(mView != null){
                         mView.onFile(throwable.getMessage());
                     }
+                });
+    }
+
+    //拼团创建
+    public void groupCreate(String otherGoodsId , String source , LifecycleTransformer<SuccessBean> transformer){
+        mRepository.groupCreate(otherGoodsId, source)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .compose(transformer)
+                .subscribe(bean -> {
+                    if (bean.getCode() == 0){
+                        mView.onCreateGroup();
+                    }else {
+                        mView.onFile(bean.getMsg());
+                    }
+                }, throwable -> {
+                    mView.onFile(throwable.getMessage());
                 });
     }
 

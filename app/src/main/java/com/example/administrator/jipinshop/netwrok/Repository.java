@@ -1558,4 +1558,12 @@ public class Repository {
     public Observable<GroupInfoBean> groupInfo(String groupId){
         return mAPIService.groupInfo(groupId);
     }
+
+    /**
+     * 拼团创建
+     */
+    public Observable<SuccessBean> groupCreate(String otherGoodsId ,String source){
+        return mAPIService.groupCreate(otherGoodsId, source);
+    }
+
 }

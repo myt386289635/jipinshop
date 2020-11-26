@@ -25,4 +25,6 @@ public interface TBShoppingDetailView {
     void onDescImgs(SucBean<String> bean);
 
     void onCollect(TBShoppingDetailBean bean);
+
+    void onCreateGroup();
 }

@@ -191,14 +191,13 @@ public class MyGroupActivity extends BaseActivity implements View.OnClickListene
 
     @Override
     public void onBackPressed() {
-        super.onBackPressed();
         if (startPop){
             DialogUtil.groupOutDialog(this, bean, v1 -> {
-                finish();
+                super.onBackPressed();
             });
             startPop = false;
         }else {
-            finish();
+            super.onBackPressed();
         }
     }
 }
