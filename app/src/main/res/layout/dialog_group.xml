@@ -1,0 +1,153 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <LinearLayout
+        android:layout_gravity="center_horizontal"
+        android:orientation="vertical"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+
+        <RelativeLayout
+            android:id="@+id/dialog_container"
+            android:background="@drawable/bg_dialog"
+            android:layout_width="@dimen/x630"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:id="@+id/dialog_title"
+                android:gravity="center"
+                android:textStyle="bold"
+                android:textSize="19sp"
+                android:text="已成功获取到订单信息"
+                android:textColor="@color/color_white"
+                android:background="@mipmap/bg_group3"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"/>
+
+            <ImageView
+                android:layout_marginRight="@dimen/x16"
+                android:id="@+id/dialog_image"
+                android:layout_marginTop="@dimen/y30"
+                android:layout_marginLeft="@dimen/x37"
+                android:layout_below="@id/dialog_title"
+                android:layout_width="@dimen/x156"
+                android:layout_height="@dimen/y156"/>
+
+            <TextView
+                android:ellipsize="end"
+                android:maxLines="2"
+                android:id="@+id/dialog_name"
+                android:layout_marginTop="@dimen/y1"
+                android:layout_marginRight="@dimen/x37"
+                android:lineSpacingExtra="@dimen/y8"
+                android:textColor="@color/color_565252"
+                android:textSize="14sp"
+                android:layout_alignTop="@id/dialog_image"
+                android:layout_toRightOf="@id/dialog_image"
+                android:text="学生宿舍榨汁机家用炸学生宿舍榨汁机家用炸"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+
+            <TextView
+                android:id="@+id/dialog_priceText"
+                android:textColor="@color/color_202020"
+                android:textSize="18sp"
+                android:layout_toRightOf="@id/dialog_image"
+                android:layout_alignBottom="@id/dialog_image"
+                android:text="拼成返"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+
+            <TextView
+                android:id="@+id/dialog_price"
+                android:textColor="@color/color_E25838"
+                android:textStyle="bold"
+                android:text="￥0"
+                android:textSize="30sp"
+                android:layout_alignBottom="@id/dialog_priceText"
+                android:layout_toRightOf="@id/dialog_priceText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+
+            <TextView
+                android:id="@+id/dialog_time"
+                android:textColor="@color/color_202020"
+                android:layout_marginTop="@dimen/y32"
+                android:text="还差1人拼团成功，时间仅剩04:24:49"
+                android:layout_centerHorizontal="true"
+                android:layout_below="@id/dialog_image"
+                android:textSize="16sp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+
+            <LinearLayout
+                android:id="@+id/group_peopleContainer"
+                android:layout_marginTop="@dimen/y37"
+                android:layout_below="@id/dialog_time"
+                android:layout_centerHorizontal="true"
+                android:orientation="horizontal"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+
+                <RelativeLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content">
+
+                    <ImageView
+                        android:id="@+id/group_grouper"
+                        android:layout_marginTop="@dimen/y10"
+                        android:src="@mipmap/bg_group2"
+                        android:layout_width="@dimen/x82"
+                        android:layout_height="@dimen/y82"/>
+
+                    <TextView
+                        android:background="@drawable/bg_e25838_7"
+                        android:textColor="@color/color_white"
+                        android:gravity="center"
+                        android:textSize="10sp"
+                        android:text="团长"
+                        android:layout_centerHorizontal="true"
+                        android:layout_width="@dimen/x60"
+                        android:layout_height="@dimen/y26"/>
+
+                </RelativeLayout>
+
+                <ImageView
+                    android:id="@+id/group_member"
+                    android:layout_marginLeft="@dimen/x32"
+                    android:layout_marginTop="@dimen/y10"
+                    android:src="@mipmap/bg_group2"
+                    android:layout_width="@dimen/x82"
+                    android:layout_height="@dimen/y82"/>
+
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/group_invation"
+                android:background="@drawable/bg_group"
+                android:textColor="@color/color_white"
+                android:textStyle="bold"
+                android:textSize="19sp"
+                android:gravity="center"
+                android:text="邀请好友参团，成团返￥99.99"
+                android:layout_marginRight="@dimen/x25"
+                android:layout_marginLeft="@dimen/x25"
+                android:layout_marginBottom="@dimen/y40"
+                android:layout_marginTop="@dimen/y40"
+                android:layout_below="@id/group_peopleContainer"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/y88"/>
+
+        </RelativeLayout>
+
+        <ImageView
+            android:id="@+id/dialog_cancle"
+            android:layout_marginTop="@dimen/y140"
+            android:layout_gravity="center_horizontal"
+            android:src="@mipmap/dialog_close"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+
+    </LinearLayout>
+
+</layout>

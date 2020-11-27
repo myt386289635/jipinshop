@@ -7,6 +7,7 @@ import com.example.administrator.jipinshop.bean.EvaluationTabBean;
 import com.example.administrator.jipinshop.bean.ImageBean;
 import com.example.administrator.jipinshop.bean.PopBean;
 import com.example.administrator.jipinshop.bean.PopInfoBean;
+import com.example.administrator.jipinshop.bean.ShareInfoBean;
 import com.example.administrator.jipinshop.bean.SucBean;
 import com.example.administrator.jipinshop.bean.TklBean;
 
@@ -34,4 +35,8 @@ public interface MainView {
     void onStartFile();
 
     void onNewDialogSuc(PopBean bean);
+
+    void onGroupDialogSuc(PopBean bean);
+
+    void initShare(ShareInfoBean bean);
 }

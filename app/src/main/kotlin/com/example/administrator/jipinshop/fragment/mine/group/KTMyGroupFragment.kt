@@ -1,5 +1,6 @@
 package com.example.administrator.jipinshop.fragment.mine.group
 
+import android.app.Dialog
 import android.content.Intent
 import android.databinding.DataBindingUtil
 import android.os.Bundle
@@ -14,24 +15,34 @@ import com.example.administrator.jipinshop.activity.login.LoginActivity
 import com.example.administrator.jipinshop.activity.mine.group.MyGroupActivity
 import com.example.administrator.jipinshop.base.DBBaseFragment
 import com.example.administrator.jipinshop.bean.MyWalletBean
+import com.example.administrator.jipinshop.bean.ShareInfoBean
 import com.example.administrator.jipinshop.databinding.FragmentGroupBinding
+import com.example.administrator.jipinshop.util.ShareUtils
 import com.example.administrator.jipinshop.util.TimeUtil
+import com.example.administrator.jipinshop.util.ToastUtil
 import com.example.administrator.jipinshop.util.sp.CommonDate
+import com.example.administrator.jipinshop.view.dialog.ProgressDialogView
 import com.example.administrator.jipinshop.view.glide.GlideApp
 import com.google.gson.Gson
+import com.umeng.socialize.bean.SHARE_MEDIA
+import javax.inject.Inject
 
 /**
  * @author 莫小婷
  * @create 2020/11/25
  * @Describe
  */
-class KTMyGroupFragment : DBBaseFragment(), View.OnClickListener {
+class KTMyGroupFragment : DBBaseFragment(), View.OnClickListener, KTMyGroupView {
+
+    @Inject
+    lateinit var mPresenter: KTMyGroupPresenter
 
     private lateinit var mBinding: FragmentGroupBinding
     private var position = 0
     private lateinit var bean: MyWalletBean.DataBean
     private var timer = 0L
     private lateinit var countDownTimer : CountDownTimer
+    private var mDialog: Dialog? = null
 
     companion object{
         //position父类位置
@@ -53,6 +64,7 @@ class KTMyGroupFragment : DBBaseFragment(), View.OnClickListener {
 
     override fun initView() {
         mBaseFragmentComponent.inject(this)
+        mPresenter.setView(this)
         arguments?.let {
             position = it.getInt("position", 0)
             bean = Gson().fromJson(it.getString("date"),MyWalletBean.DataBean::class.java)
@@ -87,9 +99,35 @@ class KTMyGroupFragment : DBBaseFragment(), View.OnClickListener {
                )
            }
            R.id.group_share -> {
-               //todo 分享
+               //分享
+               mDialog = ProgressDialogView().createLoadingDialog(context, "")
+               mDialog?.show()
+               mPresenter.initShare(bean.groupList[position].id, this.bindToLifecycle())
            }
        }
     }
 
+    override fun initShare(bean: ShareInfoBean) {
+        ShareUtils(context, SHARE_MEDIA.WEIXIN, mDialog)
+                .shareWeb(activity, bean.data.link, bean.data.title,
+                        bean.data.desc, bean.data.imgUrl, R.mipmap.share_logo)
+    }
+
+    override fun onFile(error: String?) {
+        mDialog?.let {
+            if(it.isShowing){
+                it.dismiss()
+            }
+        }
+        ToastUtil.show(error)
+    }
+
+    override fun onResume() {
+        super.onResume()
+        mDialog?.let {
+            if (it.isShowing){
+                it.dismiss()
+            }
+        }
+    }
 }

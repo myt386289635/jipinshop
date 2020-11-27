@@ -1373,8 +1373,15 @@ public class Repository {
     /**
      * 获取分享数据
      */
+    public Observable<ShareInfoBean> getShareInfo(int type,String groupId){
+        return mAPIService.getShareInfo(type,groupId);
+    }
+
+    /**
+     * 获取分享数据
+     */
     public Observable<ShareInfoBean> getShareInfo(int type){
-        return mAPIService.getShareInfo(type);
+        return getShareInfo(type,"");
     }
 
     /**
@@ -1566,4 +1573,10 @@ public class Repository {
         return mAPIService.groupCreate(otherGoodsId, source);
     }
 
+    /**
+     * 获取首页拼团弹窗信息
+     */
+    public Observable<PopBean> getGroupDialog(){
+        return mAPIService.getGroupDialog("4");
+    }
 }

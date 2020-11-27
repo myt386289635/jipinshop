@@ -13,14 +13,17 @@ import android.view.View;
 
 import com.blankj.utilcode.util.SPUtils;
 import com.example.administrator.jipinshop.R;
+import com.example.administrator.jipinshop.activity.home.MainActivity;
 import com.example.administrator.jipinshop.activity.login.LoginActivity;
 import com.example.administrator.jipinshop.activity.share.ShareActivity;
 import com.example.administrator.jipinshop.adapter.ShoppingUserLikeAdapter;
 import com.example.administrator.jipinshop.base.BaseActivity;
 import com.example.administrator.jipinshop.bean.GroupInfoBean;
+import com.example.administrator.jipinshop.bean.ShareInfoBean;
 import com.example.administrator.jipinshop.bean.SimilerGoodsBean;
 import com.example.administrator.jipinshop.databinding.ActivityGroupBinding;
 import com.example.administrator.jipinshop.util.DeviceUuidFactory;
+import com.example.administrator.jipinshop.util.ShareUtils;
 import com.example.administrator.jipinshop.util.TaoBaoUtil;
 import com.example.administrator.jipinshop.util.TimeUtil;
 import com.example.administrator.jipinshop.util.ToastUtil;
@@ -28,6 +31,7 @@ import com.example.administrator.jipinshop.util.sp.CommonDate;
 import com.example.administrator.jipinshop.view.dialog.DialogUtil;
 import com.example.administrator.jipinshop.view.dialog.ProgressDialogView;
 import com.example.administrator.jipinshop.view.glide.GlideApp;
+import com.umeng.socialize.bean.SHARE_MEDIA;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -92,6 +96,9 @@ public class MyGroupActivity extends BaseActivity implements View.OnClickListene
             case R.id.group_invation:
             case R.id.group_share:
                 //分享
+                mDialog = (new ProgressDialogView()).createLoadingDialog(this, "");
+                mDialog.show();
+                mPresenter.initShare(id,this.bindToLifecycle());
                 break;
             case R.id.title_back:
                 if (startPop){
@@ -179,6 +186,21 @@ public class MyGroupActivity extends BaseActivity implements View.OnClickListene
         }
         Map<String,String> map =  DeviceUuidFactory.getIdfa(this);
         mPresenter.listSimilerGoods(map,this.bindToLifecycle());
+    }
+
+    @Override
+    public void initShare(ShareInfoBean bean) {
+        new ShareUtils(this, SHARE_MEDIA.WEIXIN,mDialog)
+                .shareWeb(this, bean.getData().getLink(),bean.getData().getTitle(),
+                        bean.getData().getDesc(),bean.getData().getImgUrl(),R.mipmap.share_logo);
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        if(mDialog != null && mDialog.isShowing()){
+            mDialog.dismiss();
+        }
     }
 
     @Override

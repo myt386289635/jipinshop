@@ -21,6 +21,7 @@ import com.example.administrator.jipinshop.bean.EvaluationTabBean;
 import com.example.administrator.jipinshop.bean.ImageBean;
 import com.example.administrator.jipinshop.bean.PopBean;
 import com.example.administrator.jipinshop.bean.PopInfoBean;
+import com.example.administrator.jipinshop.bean.ShareInfoBean;
 import com.example.administrator.jipinshop.bean.SucBean;
 import com.example.administrator.jipinshop.bean.SuccessBean;
 import com.example.administrator.jipinshop.bean.TklBean;
@@ -28,12 +29,14 @@ import com.example.administrator.jipinshop.netwrok.Repository;
 import com.example.administrator.jipinshop.util.ClickUtil;
 import com.example.administrator.jipinshop.util.sp.CommonDate;
 import com.trello.rxlifecycle2.LifecycleTransformer;
+import com.umeng.socialize.bean.SHARE_MEDIA;
 
 import java.util.List;
 
 import javax.inject.Inject;
 
 import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.functions.Consumer;
 import io.reactivex.schedulers.Schedulers;
 
 public class MainActivityPresenter {
@@ -219,5 +222,37 @@ public class MainActivityPresenter {
                         mView.onNewDialogSuc(popBean);
                     }
                 }, throwable -> {});
+    }
+
+    public void getGroupDialog(LifecycleTransformer<PopBean> transformer){
+        mRepository.getGroupDialog()
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .compose(transformer)
+                .subscribe(bean -> {
+                    if (bean.getCode() == 0) {
+                        mView.onGroupDialogSuc(bean);
+                    }else {
+                        mView.onGroupDialogSuc(null);
+                    }
+                }, throwable -> {
+                    mView.onGroupDialogSuc(null);
+                });
+    }
+
+    public void initShare(String groupId ,LifecycleTransformer<ShareInfoBean> transformer){
+        mRepository.getShareInfo(5,groupId)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .compose(transformer)
+                .subscribe(bean -> {
+                    if (bean.getCode() == 0){
+                        mView.initShare(bean);
+                    }else {
+                        mView.onInvitationFile(bean.getMsg());
+                    }
+                }, throwable -> {
+                    mView.onInvitationFile(throwable.getMessage());
+                });
     }
 }

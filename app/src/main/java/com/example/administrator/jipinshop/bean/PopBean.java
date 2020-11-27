@@ -43,6 +43,15 @@ public class PopBean {
         private String popId;
         private String addAllowancePrice;
         private List<AllowanceGoodsListBean> allowanceGoodsList;
+        private GroupInfoBean.DataBean groupGoods;
+
+        public GroupInfoBean.DataBean getGroupGoods() {
+            return groupGoods;
+        }
+
+        public void setGroupGoods(GroupInfoBean.DataBean groupGoods) {
+            this.groupGoods = groupGoods;
+        }
 
         public String getType() {
             return type;

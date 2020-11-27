@@ -1,6 +1,7 @@
 package com.example.administrator.jipinshop.activity.mine.group;
 
 import com.example.administrator.jipinshop.bean.GroupInfoBean;
+import com.example.administrator.jipinshop.bean.ShareInfoBean;
 import com.example.administrator.jipinshop.bean.SimilerGoodsBean;
 
 /**
@@ -14,4 +15,6 @@ public interface MyGroupView {
     void onFaile(String error);
 
     void onSuccess(GroupInfoBean bean);
+
+    void initShare(ShareInfoBean bean);
 }

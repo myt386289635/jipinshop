@@ -7,6 +7,7 @@ import android.widget.RelativeLayout;
 
 import com.example.administrator.jipinshop.R;
 import com.example.administrator.jipinshop.bean.GroupInfoBean;
+import com.example.administrator.jipinshop.bean.ShareInfoBean;
 import com.example.administrator.jipinshop.bean.SimilerGoodsBean;
 import com.example.administrator.jipinshop.bean.SuccessBean;
 import com.example.administrator.jipinshop.netwrok.Repository;
@@ -90,6 +91,22 @@ public class MyGroupPresenter {
                         mView.onFaile(bean.getMsg());
                     }
                 },throwable -> {
+                    mView.onFaile(throwable.getMessage());
+                });
+    }
+
+    public void initShare(String groupId ,LifecycleTransformer<ShareInfoBean> transformer){
+        mRepository.getShareInfo(5,groupId)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .compose(transformer)
+                .subscribe(bean -> {
+                    if (bean.getCode() == 0){
+                        mView.initShare(bean);
+                    }else {
+                        mView.onFaile(bean.getMsg());
+                    }
+                }, throwable -> {
                     mView.onFaile(throwable.getMessage());
                 });
     }

@@ -1245,7 +1245,7 @@ public interface APIService {
      * 获取分享数据
      */
     @GET("api/v3/user/getShareInfo")
-    Observable<ShareInfoBean> getShareInfo(@Query("type") int type);
+    Observable<ShareInfoBean> getShareInfo(@Query("type") int type , @Query("groupId") String groupId);
 
     /**
      * 关闭首页底部跑马灯消息
@@ -1415,4 +1415,10 @@ public interface APIService {
     @FormUrlEncoded
     @POST("api/group/create")
     Observable<SuccessBean> groupCreate(@Field("otherGoodsId") String otherGoodsId , @Field("source") String source);
+
+    /**
+     * 获取首页拼团弹窗信息
+     */
+    @GET("api/v4/getPopInfo")
+    Observable<PopBean> getGroupDialog(@Query("type") String type);
 }

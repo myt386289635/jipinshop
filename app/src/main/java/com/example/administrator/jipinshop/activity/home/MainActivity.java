@@ -25,6 +25,7 @@ import com.example.administrator.jipinshop.bean.EvaluationTabBean;
 import com.example.administrator.jipinshop.bean.ImageBean;
 import com.example.administrator.jipinshop.bean.PopBean;
 import com.example.administrator.jipinshop.bean.PopInfoBean;
+import com.example.administrator.jipinshop.bean.ShareInfoBean;
 import com.example.administrator.jipinshop.bean.SucBean;
 import com.example.administrator.jipinshop.bean.TklBean;
 import com.example.administrator.jipinshop.bean.eventbus.ChangeHomePageBus;
@@ -39,6 +40,7 @@ import com.example.administrator.jipinshop.fragment.play.PlayFragment;
 import com.example.administrator.jipinshop.netwrok.RetrofitModule;
 import com.example.administrator.jipinshop.util.ClickUtil;
 import com.example.administrator.jipinshop.util.NotificationUtil;
+import com.example.administrator.jipinshop.util.ShareUtils;
 import com.example.administrator.jipinshop.util.ShopJumpUtil;
 import com.example.administrator.jipinshop.util.ToastUtil;
 import com.example.administrator.jipinshop.util.UmApp.AppStatisticalUtil;
@@ -57,6 +59,7 @@ import com.mob.moblink.Scene;
 import com.mob.moblink.SceneRestorable;
 import com.trello.rxlifecycle2.android.ActivityEvent;
 import com.umeng.analytics.MobclickAgent;
+import com.umeng.socialize.bean.SHARE_MEDIA;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
@@ -461,15 +464,19 @@ public class MainActivity extends BaseActivity implements MainView, ViewPager.On
     protected void onResume() {
         super.onResume();
         MobclickAgent.onResume(this);
-        mPresenter.getNewDialog(this.bindToLifecycle());//获取108元津贴弹窗问题
+        mPresenter.getGroupDialog(this.bindToLifecycle());//拼团下单后弹窗
         if (!once) {
             //android 10 新api解释是只有当前界面获得焦点后（onResume）才能获取到剪切板内容
             this.getWindow().getDecorView().post(() -> {
                 getClipText();//淘口令
             });
         }
+        if (mDialog != null && mDialog.isShowing()) {
+            mDialog.dismiss();
+        }
     }
 
+    //首次下单后弹框
     @Override
     public void onNewDialogSuc(PopBean bean) {
         if (bean.getData() != null) {
@@ -477,6 +484,31 @@ public class MainActivity extends BaseActivity implements MainView, ViewPager.On
                 startActivity(new Intent(this, CheapBuyActivity.class));
             }, null);
         }
+    }
+
+    //拼团下单后弹窗
+    @Override
+    public void onGroupDialogSuc(PopBean bean) {
+        if (bean != null && bean.getData() != null){
+            DialogUtil.groupDialog(this, bean.getData().getGroupGoods(), v -> {
+                //分享
+                mDialog = (new ProgressDialogView()).createLoadingDialog(MainActivity.this, "");
+                mDialog.show();
+                mPresenter.initShare(bean.getData().getGroupGoods().getId(),this.bindToLifecycle());
+            }, v -> {
+                mPresenter.getNewDialog(this.bindUntilEvent(ActivityEvent.DESTROY));//获取108元津贴弹窗问题
+            });
+        }else {
+            mPresenter.getNewDialog(this.bindToLifecycle());//获取108元津贴弹窗问题
+        }
+    }
+
+    //拼团分享
+    @Override
+    public void initShare(ShareInfoBean bean) {
+        new ShareUtils(this, SHARE_MEDIA.WEIXIN,mDialog)
+                .shareWeb(this, bean.getData().getLink(),bean.getData().getTitle(),
+                        bean.getData().getDesc(),bean.getData().getImgUrl(),R.mipmap.share_logo);
     }
 
     @Override
