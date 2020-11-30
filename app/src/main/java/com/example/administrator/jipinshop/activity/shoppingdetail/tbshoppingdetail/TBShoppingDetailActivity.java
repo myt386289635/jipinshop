@@ -50,7 +50,6 @@ import com.example.administrator.jipinshop.view.dialog.DialogParameter;
 import com.example.administrator.jipinshop.view.dialog.DialogQuality;
 import com.example.administrator.jipinshop.view.dialog.DialogUtil;
 import com.example.administrator.jipinshop.view.dialog.ProgressDialogView;
-import com.example.administrator.jipinshop.view.scrollView.MyScrollView;
 import com.example.administrator.jipinshop.view.textview.CenteredImageSpan;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
@@ -108,6 +107,8 @@ public class TBShoppingDetailActivity extends BaseActivity implements View.OnCli
     private String level = "0";//用户身份
     private String UpFee = "";
     private String fee = "";
+    private Boolean isH5 = false;//是否从h5跳转过来
+    private String groupId = "";//拼团id
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -129,6 +130,8 @@ public class TBShoppingDetailActivity extends BaseActivity implements View.OnCli
             source = getIntent().getStringExtra("source");//商品来源
         }
         goodsId = getIntent().getStringExtra("otherGoodsId");//商品id
+        groupId = getIntent().getStringExtra("groupid");//拼团id
+        isH5 = getIntent().getBooleanExtra("isH5",false);//是否是h5过来的
         parity = getIntent().getStringExtra("parity");
         mPresenter.setStatusBarHight(mBinding.statusBar,this);
         mBinding.swipeTarget.setOnScrollListener(scrollY -> {
@@ -273,8 +276,11 @@ public class TBShoppingDetailActivity extends BaseActivity implements View.OnCli
                 if (level.equals("0")){
                     //非会员是拼团逻辑
                     mDialog = (new ProgressDialogView()).createPlatformGroupDialog(this, source, UpFee, fee, v15 -> {
-                        //todo 区分拼团还是加入的逻辑
-                        mPresenter.groupCreate(goodsId,source,this.bindToLifecycle());
+                        if (isH5){//加入
+                            mPresenter.groupJoin(groupId,this.bindToLifecycle());
+                        }else {//拼团
+                            mPresenter.groupCreate(goodsId,source,this.bindToLifecycle());
+                        }
                     });
                     mDialog.show();
                 }else {

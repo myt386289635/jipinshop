@@ -22,6 +22,7 @@ import java.util.Map;
 import javax.inject.Inject;
 
 import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.functions.Consumer;
 import io.reactivex.schedulers.Schedulers;
 
 /**
@@ -232,4 +233,20 @@ public class TBShoppingDetailPresenter {
                 });
     }
 
+    //拼团加入
+    public void groupJoin(String groupId , LifecycleTransformer<SuccessBean> transformer){
+        mRepository.groupJoin(groupId)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .compose(transformer)
+                .subscribe(bean -> {
+                    if (bean.getCode() == 0){
+                        mView.onCreateGroup();
+                    }else {
+                        mView.onFile(bean.getMsg());
+                    }
+                }, throwable -> {
+                    mView.onFile(throwable.getMessage());
+                });
+    }
 }

@@ -1417,6 +1417,13 @@ public interface APIService {
     Observable<SuccessBean> groupCreate(@Field("otherGoodsId") String otherGoodsId , @Field("source") String source);
 
     /**
+     * 拼团加入
+     */
+    @FormUrlEncoded
+    @POST("api/group/join")
+    Observable<SuccessBean> groupJoin(@Field("groupId") String groupId);
+
+    /**
      * 获取首页拼团弹窗信息
      */
     @GET("api/v4/getPopInfo")

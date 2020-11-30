@@ -1574,6 +1574,13 @@ public class Repository {
     }
 
     /**
+     * 拼团加入
+     */
+    public Observable<SuccessBean> groupJoin(String groupId){
+        return mAPIService.groupJoin(groupId);
+    }
+
+    /**
      * 获取首页拼团弹窗信息
      */
     public Observable<PopBean> getGroupDialog(){
