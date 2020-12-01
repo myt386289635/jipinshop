@@ -5,7 +5,6 @@ import android.content.ClipData;
 import android.content.ClipboardManager;
 import android.content.Intent;
 import android.databinding.DataBindingUtil;
-import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -18,7 +17,6 @@ import com.example.administrator.jipinshop.R;
 import com.example.administrator.jipinshop.activity.cheapgoods.CheapBuyActivity;
 import com.example.administrator.jipinshop.activity.login.LoginActivity;
 import com.example.administrator.jipinshop.activity.newpeople.NewFreeActivity;
-import com.example.administrator.jipinshop.activity.shoppingdetail.tbshoppingdetail.TBShoppingDetailActivity;
 import com.example.administrator.jipinshop.activity.sign.SignActivity;
 import com.example.administrator.jipinshop.adapter.HomeAdapter;
 import com.example.administrator.jipinshop.base.BaseActivity;
@@ -105,18 +103,6 @@ public class MainActivity extends BaseActivity implements MainView, ViewPager.On
             if (!targetType.equals("101") && !targetType.equals("102") && !targetType.equals("103")
                     && !targetType.equals("104") && !targetType.equals("105")) {
                 ShopJumpUtil.openBanner(this, targetType, target_id, target_title, source,remark);
-            }
-        }
-        if (getIntent().getAction() != null && getIntent().getAction().equals(Intent.ACTION_VIEW)){
-            Uri uri = getIntent().getData();
-            if (uri != null && uri.getHost() != null && uri.getHost().equals("group")){
-                //跳转到详情
-                startActivity(new Intent(this, TBShoppingDetailActivity.class)
-                        .putExtra("otherGoodsId", uri.getQueryParameter("id"))
-                        .putExtra("source",uri.getQueryParameter("source"))
-                        .putExtra("groupid",uri.getQueryParameter("groupid"))
-                        .putExtra("isH5",true)
-                );
             }
         }
         mBinding = DataBindingUtil.setContentView(this,R.layout.activity_main);

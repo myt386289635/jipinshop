@@ -72,20 +72,20 @@
                 <action android:name="android.intent.action.MAIN"/>
                 <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
-        </activity>
-
-        <!--首页-->
-        <activity android:name=".activity.home.MainActivity"
-                  android:screenOrientation="portrait"
-                  android:launchMode="singleTask">
             <intent-filter>
                 <data
+                    android:host="index"
                     android:scheme="jipincheng" />
                 <category android:name="android.intent.category.DEFAULT"/>
                 <action android:name="android.intent.action.VIEW"/>
                 <category android:name="android.intent.category.BROWSABLE"/>
             </intent-filter>
         </activity>
+
+        <!--首页-->
+        <activity android:name=".activity.home.MainActivity"
+                  android:screenOrientation="portrait"
+                  android:launchMode="singleTask"/>
 
         <!--搜索页面-->
         <activity
@@ -460,7 +460,16 @@
 
         <!--淘宝商品详情页面-->
         <activity android:name=".activity.shoppingdetail.tbshoppingdetail.TBShoppingDetailActivity"
-                  android:screenOrientation="portrait"/>
+                  android:screenOrientation="portrait">
+            <intent-filter>
+                <data
+                    android:host="group"
+                    android:scheme="jipincheng" />
+                <category android:name="android.intent.category.DEFAULT"/>
+                <action android:name="android.intent.action.VIEW"/>
+                <category android:name="android.intent.category.BROWSABLE"/>
+            </intent-filter>
+        </activity>
 
         <!--淘客搜索-->
         <activity android:name=".activity.sreach.TBSreachActivity"

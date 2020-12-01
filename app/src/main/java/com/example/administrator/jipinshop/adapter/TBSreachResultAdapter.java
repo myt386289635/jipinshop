@@ -223,7 +223,7 @@ public class TBSreachResultAdapter extends RecyclerView.Adapter {
                     mContext.startActivity(new Intent(mContext, TBShoppingDetailActivity.class)
                             .putExtra("otherGoodsId", mList.get(position).getOtherGoodsId())
                             .putExtra("source",mList.get(position).getSource())
-                            .putExtra("parity",mList.get(position).getFee())
+                            .putExtra("parity",mList.get(position).getCommissionRate())
                     );
                 });
                 break;

@@ -4,6 +4,7 @@ import android.app.Dialog;
 import android.content.Intent;
 import android.databinding.DataBindingUtil;
 import android.graphics.drawable.Drawable;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.graphics.drawable.DrawableCompat;
@@ -130,8 +131,15 @@ public class TBShoppingDetailActivity extends BaseActivity implements View.OnCli
             source = getIntent().getStringExtra("source");//商品来源
         }
         goodsId = getIntent().getStringExtra("otherGoodsId");//商品id
-        groupId = getIntent().getStringExtra("groupid");//拼团id
-        isH5 = getIntent().getBooleanExtra("isH5",false);//是否是h5过来的
+        if (getIntent().getAction() != null && getIntent().getAction().equals(Intent.ACTION_VIEW)) {
+            Uri uri = getIntent().getData();
+            if (uri != null) {
+                groupId = uri.getQueryParameter("groupid");//拼团id
+                goodsId = uri.getQueryParameter("id");
+                source = uri.getQueryParameter("source");
+                isH5 = true;//是否是h5过来的
+            }
+        }
         parity = getIntent().getStringExtra("parity");
         mPresenter.setStatusBarHight(mBinding.statusBar,this);
         mBinding.swipeTarget.setOnScrollListener(scrollY -> {
@@ -518,7 +526,8 @@ public class TBShoppingDetailActivity extends BaseActivity implements View.OnCli
         //比价弹窗
         if (!TextUtils.isEmpty(parity)){
             double freeparity = new BigDecimal(parity).doubleValue();
-            if (freeparity - free != 0){
+            double commissionRate = new BigDecimal(bean.getData().getCommissionRate()).doubleValue();
+            if (freeparity - commissionRate != 0){
                 DialogUtil.parityDialog(this,source, v -> {
                     startActivity(new Intent(this, VideoActivity.class)
                             .putExtra("courseId", bean.getCourseId())
