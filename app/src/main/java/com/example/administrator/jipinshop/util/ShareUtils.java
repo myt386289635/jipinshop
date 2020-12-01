@@ -30,7 +30,6 @@ import java.util.List;
  */
 public class ShareUtils {
 
-
     private Context mContext;
     private SHARE_MEDIA mSHARE_media;
     private Dialog mDialog;
