@@ -40,7 +40,7 @@ public class TakeOutAdapter extends RecyclerView.Adapter<TakeOutAdapter.ViewHold
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder viewHolder, int position) {
-        GlideApp.loderRoundImage(mContext,mList.get(position).getImg(),viewHolder.mBinding.itemImage);
+        GlideApp.loderImage(mContext,mList.get(position).getImg(),viewHolder.mBinding.itemImage,0,0);
         viewHolder.mBinding.itemImage.setOnClickListener(v -> {
             ShopJumpUtil.openBanner(mContext,mList.get(position).getType() + "",
                     mList.get(position).getObjectId(),mList.get(position).getName(),mList.get(position).getSource()
