@@ -9,11 +9,7 @@ import android.support.annotation.Nullable;
 import android.text.TextUtils;
 
 import com.bumptech.glide.Glide;
-import com.bumptech.glide.load.DataSource;
-import com.bumptech.glide.load.engine.GlideException;
-import com.bumptech.glide.request.RequestListener;
 import com.bumptech.glide.request.target.SimpleTarget;
-import com.bumptech.glide.request.target.Target;
 import com.bumptech.glide.request.transition.Transition;
 import com.example.administrator.jipinshop.R;
 import com.example.administrator.jipinshop.view.dialog.ProgressDialogView;
@@ -21,12 +17,10 @@ import com.umeng.socialize.Config;
 import com.umeng.socialize.ShareAction;
 import com.umeng.socialize.UMShareListener;
 import com.umeng.socialize.bean.SHARE_MEDIA;
-import com.umeng.socialize.editorpage.ShareActivity;
 import com.umeng.socialize.media.UMImage;
 import com.umeng.socialize.media.UMMin;
 import com.umeng.socialize.media.UMWeb;
 
-import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -222,7 +216,7 @@ public class ShareUtils {
             if(mDialog != null && mDialog.isShowing()){
                 mDialog.dismiss();
             }
-            ToastUtil.show("分享成功");
+//            ToastUtil.show("分享成功");
         }
 
         /**
@@ -235,7 +229,7 @@ public class ShareUtils {
             if(mDialog != null && mDialog.isShowing()){
                 mDialog.dismiss();
             }
-            ToastUtil.show("分享失败");
+//            ToastUtil.show("分享失败");
         }
 
         /**
@@ -247,7 +241,7 @@ public class ShareUtils {
             if(mDialog != null && mDialog.isShowing()){
                 mDialog.dismiss();
             }
-            ToastUtil.show("分享取消");
+//            ToastUtil.show("分享取消");
         }
     };
 
@@ -286,7 +280,7 @@ public class ShareUtils {
             if(mDialog != null && mDialog.isShowing()){
                 mDialog.dismiss();
             }
-            ToastUtil.show("分享失败");
+//            ToastUtil.show("分享失败");
         }
 
         /**
@@ -298,7 +292,7 @@ public class ShareUtils {
             if(mDialog != null && mDialog.isShowing()){
                 mDialog.dismiss();
             }
-            ToastUtil.show("分享取消");
+//            ToastUtil.show("分享取消");
         }
     };
 }
