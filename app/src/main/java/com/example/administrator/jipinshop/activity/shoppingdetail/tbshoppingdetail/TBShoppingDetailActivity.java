@@ -275,14 +275,27 @@ public class TBShoppingDetailActivity extends BaseActivity implements View.OnCli
                 }
                 if (level.equals("0")){
                     //非会员是拼团逻辑
-                    mDialog = (new ProgressDialogView()).createPlatformGroupDialog(this, source, UpFee, fee, v15 -> {
-                        if (isH5){//加入
-                            mPresenter.groupJoin(groupId,this.bindToLifecycle());
-                        }else {//拼团
-                            mPresenter.groupCreate(goodsId,source,this.bindToLifecycle());
-                        }
-                    });
-                    mDialog.show();
+                    if (source.equals("2")){
+                        TaoBaoUtil.openTB(this, () -> {
+                            mDialog = (new ProgressDialogView()).createPlatformGroupDialog(this, source, UpFee, fee, v15 -> {
+                                if (isH5){//加入
+                                    mPresenter.groupJoin(groupId,this.bindToLifecycle());
+                                }else {//拼团
+                                    mPresenter.groupCreate(goodsId,source,this.bindToLifecycle());
+                                }
+                            });
+                            mDialog.show();
+                        });
+                    }else {
+                        mDialog = (new ProgressDialogView()).createPlatformGroupDialog(this, source, UpFee, fee, v15 -> {
+                            if (isH5){//加入
+                                mPresenter.groupJoin(groupId,this.bindToLifecycle());
+                            }else {//拼团
+                                mPresenter.groupCreate(goodsId,source,this.bindToLifecycle());
+                            }
+                        });
+                        mDialog.show();
+                    }
                 }else {
                     //会员是分享逻辑
                     if (source.equals("2")){
