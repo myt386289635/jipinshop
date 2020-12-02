@@ -181,7 +181,8 @@ public class MyGroupActivity extends BaseActivity implements View.OnClickListene
             }.start();
         }else {
             startPop = false;
-            mBinding.groupTime.setText("恭喜拼团成功，返现￥" + bean.getData().getUpFee());
+            mBinding.groupTime.setVisibility(View.GONE);
+            mBinding.groupInvation.setText("恭喜拼团成功，成团返"+bean.getData().getUpFee()+"元");
         }
         Map<String,String> map =  DeviceUuidFactory.getIdfa(this);
         mPresenter.listSimilerGoods(map,this.bindToLifecycle());
