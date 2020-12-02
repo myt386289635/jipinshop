@@ -834,5 +834,23 @@
 
         </RelativeLayout>
 
+        <TextView
+            android:visibility="gone"
+            android:onClick="@{listener.onClick}"
+            android:id="@+id/detail_group"
+            android:elevation="6.5dp"
+            android:layout_marginRight="@dimen/x28"
+            android:layout_marginBottom="@dimen/y17"
+            android:layout_above="@id/detail_bottom"
+            android:layout_alignParentRight="true"
+            android:background="@drawable/bg_tab_eva"
+            android:gravity="center"
+            android:textSize="14sp"
+            android:textColor="@color/color_white"
+            android:textStyle="bold"
+            android:text="查看\n拼团"
+            android:layout_width="@dimen/x92"
+            android:layout_height="@dimen/y92"/>
+
     </RelativeLayout>
 </layout>

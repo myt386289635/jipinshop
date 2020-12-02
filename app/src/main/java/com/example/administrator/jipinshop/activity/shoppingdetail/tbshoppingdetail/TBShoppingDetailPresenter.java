@@ -8,6 +8,8 @@ import android.widget.LinearLayout;
 import com.example.administrator.jipinshop.R;
 import com.example.administrator.jipinshop.adapter.NoPageBannerAdapter;
 import com.example.administrator.jipinshop.bean.ClickUrlBean;
+import com.example.administrator.jipinshop.bean.PopBean;
+import com.example.administrator.jipinshop.bean.ShareInfoBean;
 import com.example.administrator.jipinshop.bean.SimilerGoodsBean;
 import com.example.administrator.jipinshop.bean.SucBean;
 import com.example.administrator.jipinshop.bean.SuccessBean;
@@ -242,6 +244,39 @@ public class TBShoppingDetailPresenter {
                 .subscribe(bean -> {
                     if (bean.getCode() == 0){
                         mView.onCreateGroup();
+                    }else {
+                        mView.onFile(bean.getMsg());
+                    }
+                }, throwable -> {
+                    mView.onFile(throwable.getMessage());
+                });
+    }
+
+    //查看拼团
+    public void getGroupDialog(LifecycleTransformer<PopBean> transformer){
+        mRepository.getGroupDialog()
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .compose(transformer)
+                .subscribe(bean -> {
+                    if (bean.getCode() == 0) {
+                        mView.onGroupDialogSuc(bean);
+                    }else {
+                        mView.onGroupDialogSuc(null);
+                    }
+                }, throwable -> {
+                    mView.onGroupDialogSuc(null);
+                });
+    }
+
+    public void initShare(String groupId ,LifecycleTransformer<ShareInfoBean> transformer){
+        mRepository.getShareInfo(5,groupId)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .compose(transformer)
+                .subscribe(bean -> {
+                    if (bean.getCode() == 0){
+                        mView.initShare(bean);
                     }else {
                         mView.onFile(bean.getMsg());
                     }

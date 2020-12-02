@@ -22,6 +22,7 @@ import android.widget.ImageView;
 import com.alibaba.baichuan.android.trade.AlibcTradeSDK;
 import com.blankj.utilcode.util.SPUtils;
 import com.example.administrator.jipinshop.R;
+import com.example.administrator.jipinshop.activity.home.MainActivity;
 import com.example.administrator.jipinshop.activity.home.home.HomeNewActivity;
 import com.example.administrator.jipinshop.activity.login.LoginActivity;
 import com.example.administrator.jipinshop.activity.school.video.VideoActivity;
@@ -33,6 +34,8 @@ import com.example.administrator.jipinshop.adapter.ShoppingQualityAdapter;
 import com.example.administrator.jipinshop.adapter.ShoppingUserLikeAdapter;
 import com.example.administrator.jipinshop.base.BaseActivity;
 import com.example.administrator.jipinshop.bean.ClickUrlBean;
+import com.example.administrator.jipinshop.bean.PopBean;
+import com.example.administrator.jipinshop.bean.ShareInfoBean;
 import com.example.administrator.jipinshop.bean.SimilerGoodsBean;
 import com.example.administrator.jipinshop.bean.SucBean;
 import com.example.administrator.jipinshop.bean.TBShoppingDetailBean;
@@ -44,6 +47,7 @@ import com.example.administrator.jipinshop.util.ClickUtil;
 import com.example.administrator.jipinshop.util.DeviceUuidFactory;
 import com.example.administrator.jipinshop.util.JDUtil;
 import com.example.administrator.jipinshop.util.PDDUtil;
+import com.example.administrator.jipinshop.util.ShareUtils;
 import com.example.administrator.jipinshop.util.TaoBaoUtil;
 import com.example.administrator.jipinshop.util.ToastUtil;
 import com.example.administrator.jipinshop.util.sp.CommonDate;
@@ -54,7 +58,9 @@ import com.example.administrator.jipinshop.view.dialog.ProgressDialogView;
 import com.example.administrator.jipinshop.view.textview.CenteredImageSpan;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
+import com.trello.rxlifecycle2.android.ActivityEvent;
 import com.umeng.socialize.UMShareAPI;
+import com.umeng.socialize.bean.SHARE_MEDIA;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
@@ -156,6 +162,7 @@ public class TBShoppingDetailActivity extends BaseActivity implements View.OnCli
                     mBinding.detailMemberContainer.setVisibility(View.GONE);
             }
         });
+        mBinding.detailGroup.setVisibility(View.GONE);//一开始隐藏
 
         //banner
         mBannerAdapter = new NoPageBannerAdapter(this);
@@ -354,6 +361,12 @@ public class TBShoppingDetailActivity extends BaseActivity implements View.OnCli
             case R.id.detail_memberClose:
                 isStart = false;
                 mBinding.detailMemberContainer.setVisibility(View.GONE);
+                break;
+            case R.id.detail_group:
+                //查看拼团
+                mDialog = (new ProgressDialogView()).createLoadingDialog(this, "");
+                mDialog.show();
+                mPresenter.getGroupDialog(this.bindToLifecycle());//拼团下单后弹窗
                 break;
         }
     }
@@ -689,7 +702,34 @@ public class TBShoppingDetailActivity extends BaseActivity implements View.OnCli
     //拼团成功后获取购买链接
     @Override
     public void onCreateGroup() {
+        mBinding.detailGroup.setVisibility(View.VISIBLE);
         mPresenter.getGoodsClickUrl(source, goodsId, this.bindToLifecycle());
+    }
+
+    //点击查看拼团
+    @Override
+    public void onGroupDialogSuc(PopBean bean) {
+        if (mDialog != null && mDialog.isShowing()){
+            mDialog.dismiss();
+        }
+        if (bean != null && bean.getData() != null){
+            DialogUtil.groupDialog(this, bean.getData().getGroupGoods(), v -> {
+                //分享
+                mDialog = (new ProgressDialogView()).createLoadingDialog(this, "");
+                mDialog.show();
+                mPresenter.initShare(bean.getData().getGroupGoods().getId(),this.bindToLifecycle());
+            }, v -> {});
+        }else {
+            ToastUtil.show("拼团订单正在查询中，请稍后尝试");
+        }
+    }
+
+    //分享拼团
+    @Override
+    public void initShare(ShareInfoBean bean) {
+        new ShareUtils(this, SHARE_MEDIA.WEIXIN,mDialog)
+                .shareWeb(this, bean.getData().getLink(),bean.getData().getTitle(),
+                        bean.getData().getDesc(),bean.getData().getImgUrl(),R.mipmap.share_logo);
     }
 
     @Subscribe

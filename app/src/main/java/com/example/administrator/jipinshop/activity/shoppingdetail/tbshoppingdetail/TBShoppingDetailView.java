@@ -2,6 +2,8 @@ package com.example.administrator.jipinshop.activity.shoppingdetail.tbshoppingde
 
 import com.example.administrator.jipinshop.bean.ClickUrlBean;
 import com.example.administrator.jipinshop.bean.ImageBean;
+import com.example.administrator.jipinshop.bean.PopBean;
+import com.example.administrator.jipinshop.bean.ShareInfoBean;
 import com.example.administrator.jipinshop.bean.SimilerGoodsBean;
 import com.example.administrator.jipinshop.bean.SucBean;
 import com.example.administrator.jipinshop.bean.TBShoppingDetailBean;
@@ -27,4 +29,6 @@ public interface TBShoppingDetailView {
     void onCollect(TBShoppingDetailBean bean);
 
     void onCreateGroup();
+    void onGroupDialogSuc(PopBean bean);
+    void initShare(ShareInfoBean bean);
 }
