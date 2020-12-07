@@ -164,6 +164,7 @@ class KTMineFragment : DBBaseFragment(), KTMineAdapter.OnItem, KTMineView, OnLoa
         SPUtils.getInstance(CommonDate.USER).put(CommonDate.userSign, userInfoBean.data.detail)
         SPUtils.getInstance(CommonDate.USER).put(CommonDate.bgImg, userInfoBean.data.bgImg)
         SPUtils.getInstance(CommonDate.USER).put(CommonDate.wechat, userInfoBean.data.wechat)
+        SPUtils.getInstance(CommonDate.USER).put(CommonDate.isNewUser, userInfoBean.data.isNewUser)
 
         mBean = userInfoBean
         officialWeChat = userInfoBean.data.officialWeChat

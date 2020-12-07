@@ -18,6 +18,7 @@ import com.blankj.utilcode.util.SPUtils;
 import com.example.administrator.jipinshop.MyApplication;
 import com.example.administrator.jipinshop.R;
 import com.example.administrator.jipinshop.activity.WebActivity;
+import com.example.administrator.jipinshop.activity.home.MainActivity;
 import com.example.administrator.jipinshop.activity.login.bind.BindNumberActivity;
 import com.example.administrator.jipinshop.activity.login.input.InputLoginActivity;
 import com.example.administrator.jipinshop.activity.newpeople.NewFreeActivity;
@@ -35,7 +36,6 @@ import com.example.administrator.jipinshop.util.ToastUtil;
 import com.example.administrator.jipinshop.util.UmApp.StatisticalUtil;
 import com.example.administrator.jipinshop.util.sp.CommonDate;
 import com.example.administrator.jipinshop.view.dialog.ProgressDialogView;
-import com.example.administrator.jipinshop.view.glide.GlideApp;
 import com.umeng.socialize.UMAuthListener;
 import com.umeng.socialize.UMShareAPI;
 import com.umeng.socialize.UMShareConfig;
@@ -70,13 +70,17 @@ public class LoginActivity extends BaseActivity implements LoginView, View.OnCli
         mBinding = DataBindingUtil.setContentView(this,R.layout.login);
         mBinding.setListener(this);
         mBaseActivityComponent.inject(this);
+        mImmersionBar.reset()
+                .transparentStatusBar()
+                .statusBarDarkFont(false, 0f)
+                .init();
+        mPresenter.setView(this);
         initView();
     }
 
     private void initView() {
         newpeople = getIntent().getIntExtra("newpeople",0);
-        mPresenter.setView(this);
-        GlideApp.loderImage(this,"https://jipincheng.cn/login.png",mBinding.loginLogo,R.mipmap.bg_login,R.mipmap.bg_login);
+        mPresenter.setStatusBarHight(mBinding.statusBar,this);
         String content= "登录即代表同意《极品城用户协议》及《隐私政策》";
         SpannableString string = new SpannableString(content);
         ClickableSpan clickableSpan1 = new ClickableSpan() {
@@ -90,7 +94,7 @@ public class LoginActivity extends BaseActivity implements LoginView, View.OnCli
             @Override
             public void updateDrawState(TextPaint ds) {
                 //去掉可点击文字的下划线
-                ds.setColor(getResources().getColor(R.color.color_4E89FF));
+                ds.setColor(getResources().getColor(R.color.color_FAE1BF));
                 ds.setUnderlineText(false);
             }
         };
@@ -105,7 +109,7 @@ public class LoginActivity extends BaseActivity implements LoginView, View.OnCli
             @Override
             public void updateDrawState(TextPaint ds) {
                 //去掉可点击文字的下划线
-                ds.setColor(getResources().getColor(R.color.color_4E89FF));
+                ds.setColor(getResources().getColor(R.color.color_FAE1BF));
                 ds.setUnderlineText(false);
             }
         };
@@ -142,6 +146,7 @@ public class LoginActivity extends BaseActivity implements LoginView, View.OnCli
             SPUtils.getInstance(CommonDate.USER).put(CommonDate.qrCode, loginBean.getData().getInvitationCode());
             SPUtils.getInstance(CommonDate.USER).put(CommonDate.userId,loginBean.getData().getUserId());
             SPUtils.getInstance(CommonDate.USER).put(CommonDate.relationId, loginBean.getData().getRelationId());
+            SPUtils.getInstance(CommonDate.USER).put(CommonDate.isNewUser, loginBean.getData().getIsNewUser());
 
             JPushAlias.setAlias(this,loginBean.getData().getUserId());
             String deviceBrand = ShopJumpUtil.getDeviceBrand().toLowerCase();
@@ -162,7 +167,7 @@ public class LoginActivity extends BaseActivity implements LoginView, View.OnCli
             StatisticalUtil.onRegisterEvent(this);//统计注册
             ToastUtil.show("登录成功");
             setResult(200);
-            finish();
+            onBack();
         }else if(loginBean.getCode() == 700){
             if (MyApplication.isJVerify){
                 //一键登录页面
@@ -206,6 +211,7 @@ public class LoginActivity extends BaseActivity implements LoginView, View.OnCli
         SPUtils.getInstance(CommonDate.USER).put(CommonDate.qrCode, loginBean.getData().getInvitationCode());
         SPUtils.getInstance(CommonDate.USER).put(CommonDate.userId,loginBean.getData().getUserId());
         SPUtils.getInstance(CommonDate.USER).put(CommonDate.relationId, loginBean.getData().getRelationId());
+        SPUtils.getInstance(CommonDate.USER).put(CommonDate.isNewUser, loginBean.getData().getIsNewUser());
 
         JPushAlias.setAlias(this,loginBean.getData().getUserId());
         String deviceBrand = ShopJumpUtil.getDeviceBrand().toLowerCase();
@@ -227,7 +233,7 @@ public class LoginActivity extends BaseActivity implements LoginView, View.OnCli
         ToastUtil.show("登录成功");
         setResult(200);
         LoginUtil.closePage();
-        finish();
+        onBack();
     }
 
     //授权
@@ -310,17 +316,17 @@ public class LoginActivity extends BaseActivity implements LoginView, View.OnCli
             //从绑定手机页面回来本页
             StatisticalUtil.onRegisterEvent(this);//统计注册
             setResult(200);
-            finish();
+            onBack();
         }else if (requestCode == 300 && resultCode == 222){
             //从手机登录页面跳转绑定手机成功回来本页
             StatisticalUtil.onRegisterEvent(this);//统计注册
             setResult(200);
-            finish();
+            onBack();
         }else if (requestCode == 300 && resultCode == 200){
             //从手机登录页面成功回来本页
             StatisticalUtil.onRegisterEvent(this);//统计注册
             setResult(200);
-            finish();
+            onBack();
         }
     }
 
@@ -333,7 +339,7 @@ public class LoginActivity extends BaseActivity implements LoginView, View.OnCli
                 break;
             case R.id.title_back:
                 setResult(400);
-                finish();
+                onBack();
                 break;
             case R.id.login_input:
                 if (MyApplication.isJVerify){
@@ -362,6 +368,16 @@ public class LoginActivity extends BaseActivity implements LoginView, View.OnCli
     @Override
     public void onBackPressed() {
         setResult(400);
-        super.onBackPressed();
+        onBack();
+    }
+
+    //返回逻辑
+    public void onBack(){
+        if (SPUtils.getInstance().getBoolean(CommonDate.FIRST,true)){
+            startActivity(new Intent(this, MainActivity.class));
+            finish();
+        }else {
+            finish();
+        }
     }
 }

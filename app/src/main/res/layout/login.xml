@@ -11,61 +11,120 @@
     <RelativeLayout
         android:focusable="true"
         android:focusableInTouchMode="true"
-        android:background="@color/color_white"
+        android:background="@mipmap/login_bg"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <ImageView
+        <LinearLayout
+            android:id="@+id/status_bar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/transparent"
+            android:orientation="vertical"/>
+
+        <TextView
+            android:drawablePadding="@dimen/x4"
+            android:drawableRight="@mipmap/login_right"
+            android:layout_marginRight="@dimen/x20"
+            android:layout_below="@id/status_bar"
+            android:paddingTop="@dimen/y39"
+            android:paddingBottom="@dimen/y39"
+            android:layout_alignParentRight="true"
+            android:textStyle="bold"
+            android:textSize="16sp"
+            android:textColor="@color/color_FAE1BF"
+            android:text="暂不登录"
             android:onClick="@{listener.onClick}"
             android:id="@+id/title_back"
-            android:padding="@dimen/x22"
-            android:src="@mipmap/nav_back"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"/>
 
-        <ImageView
-            android:layout_marginRight="@dimen/x78"
-            android:layout_marginLeft="@dimen/x78"
-            android:id="@+id/login_logo"
-            android:layout_marginTop="@dimen/y75"
+        <TextView
+            android:id="@+id/login_title"
             android:layout_centerHorizontal="true"
-            android:layout_below="@+id/title_back"
-            android:layout_width="match_parent"
-            android:layout_height="@dimen/y524"/>
+            android:layout_below="@id/title_back"
+            android:layout_marginTop="@dimen/y96"
+            android:textStyle="bold"
+            android:textColor="@color/color_FAE1BF"
+            android:textSize="31sp"
+            android:text="极品城VIP会员特权"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
 
         <TextView
+            android:layout_centerHorizontal="true"
+            android:layout_below="@id/login_title"
+            android:textStyle="bold"
+            android:textColor="@color/color_774A12"
+            android:textSize="13sp"
             android:gravity="center"
-            android:textSize="18sp"
-            android:layout_marginTop="@dimen/y254"
-            android:layout_below="@id/login_logo"
+            android:text="汇聚100大电商平台，超300项尊享特权"
+            android:background="@drawable/bg_f8dbb5"
+            android:layout_width="@dimen/x500"
+            android:layout_height="@dimen/y44"/>
+
+        <ImageView
+            android:id="@+id/login_content1"
+            android:layout_marginTop="@dimen/y107"
+            android:layout_below="@id/login_title"
+            android:scaleType="fitXY"
+            android:adjustViewBounds="true"
+            android:layout_marginRight="@dimen/x20"
+            android:layout_marginLeft="@dimen/x20"
+            android:src="@mipmap/login_content1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+
+        <ImageView
+            android:id="@+id/login_content2"
+            android:src="@mipmap/login_content2"
+            android:scaleType="fitXY"
+            android:adjustViewBounds="true"
+            android:layout_marginTop="@dimen/y31"
+            android:layout_below="@id/login_content1"
+            android:layout_marginRight="@dimen/x20"
+            android:layout_marginLeft="@dimen/x20"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+
+        <TextView
+            android:layout_marginTop="@dimen/y83"
+            android:layout_below="@id/login_content2"
+            android:gravity="center"
+            android:textSize="16sp"
             android:onClick="@{listener.onClick}"
             android:background="@drawable/bg_3eb135"
-            android:textColor="@color/color_white"
+            android:textColor="@color/color_835720"
+            android:textStyle="bold"
             android:text="微信登录"
             android:id="@+id/login_wx"
-            android:layout_marginRight="@dimen/x65"
-            android:layout_marginLeft="@dimen/x65"
+            android:layout_marginRight="@dimen/x20"
+            android:layout_marginLeft="@dimen/x20"
             android:layout_width="match_parent"
             android:layout_height="@dimen/y88"/>
 
         <TextView
+            android:layout_marginTop="@dimen/y44"
+            android:background="@drawable/bg_d42304"
+            android:layout_marginRight="@dimen/x20"
+            android:layout_marginLeft="@dimen/x20"
             android:onClick="@{listener.onClick}"
             android:id="@+id/login_input"
-            android:paddingBottom="@dimen/y30"
-            android:paddingTop="@dimen/y30"
-            android:textColor="@color/color_202020"
-            android:textSize="18sp"
+            android:textColor="@color/color_FAE1BF"
+            android:gravity="center"
+            android:textStyle="bold"
+            android:textSize="16sp"
             android:layout_below="@id/login_wx"
             android:layout_centerHorizontal="true"
-            android:text="手机号登录>"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"/>
+            android:text="手机号登录"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/y88"/>
 
         <TextView
-            android:layout_marginBottom="@dimen/y55"
+            android:layout_marginTop="@dimen/y18"
+            android:layout_below="@id/login_input"
             android:layout_centerHorizontal="true"
-            android:layout_alignParentBottom="true"
-            android:textColor="@color/color_B0B0B0"
+            android:textColor="@color/color_FAE1BF"
             android:id="@+id/login_protocol"
             android:textSize="12sp"
             android:text="登录即代表同意《极品城用户协议》及《 隐私政策》"

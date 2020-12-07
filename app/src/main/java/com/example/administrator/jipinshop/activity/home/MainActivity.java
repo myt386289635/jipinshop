@@ -161,18 +161,16 @@ public class MainActivity extends BaseActivity implements MainView, ViewPager.On
 
     public void onResult(String currentPrivacy) {
         mBinding.loginNotice.setText("登录开启网购省钱之旅");
-        mBinding.loginTimeContainer.setVisibility(View.GONE);
-        if (SPUtils.getInstance().getBoolean(CommonDate.FIRST, true)) {
-            //新人第一次进入app
+        if (TextUtils.isEmpty(SPUtils.getInstance(CommonDate.USER).getString(CommonDate.token, "").trim())) {
             mBinding.loginBackground.setVisibility(View.VISIBLE);
+        } else {
+            mBinding.loginBackground.setVisibility(View.GONE);
+        }
+        if (SPUtils.getInstance().getBoolean(CommonDate.FIRST, true)) {
+            //首次进入app
             mPresenter.getAppVersion(this.bindToLifecycle()); //版本更新
         } else {
-            //老人进入app
-            if (TextUtils.isEmpty(SPUtils.getInstance(CommonDate.USER).getString(CommonDate.token, "").trim())) {
-                mBinding.loginBackground.setVisibility(View.VISIBLE);
-            } else {
-                mBinding.loginBackground.setVisibility(View.GONE);
-            }
+            //二次进入app
             if (!TextUtils.isEmpty(currentPrivacy) && !currentPrivacy.equals(SPUtils.getInstance().getString(CommonDate.privacy, ""))) {
                 DialogUtil.servceDialog(this, v -> {
                     mPresenter.getAppVersion(this.bindToLifecycle()); //版本更新
@@ -284,22 +282,30 @@ public class MainActivity extends BaseActivity implements MainView, ViewPager.On
     @Override
     public void onFile() {//版本更新没有弹出
         if (SPUtils.getInstance().getBoolean(CommonDate.FIRST, true)) {
-            //新人第一次进入app
-            NotificationUtil.OpenNotificationSetting(this, () -> {
-                //新人0元购
-                DialogUtil.newPeopleDialog(MainActivity.this,"https://jipincheng.cn/app_first?", v -> {
-                    appStatisticalUtil.addEvent("tc.xr_close", this.bindToLifecycle());
-                    onCheapDialog();
-                }, v -> {
-                    appStatisticalUtil.addEvent("tc.xr_enter", this.bindUntilEvent(ActivityEvent.DESTROY));
-                    startActivity(new Intent(this, NewFreeActivity.class)
-                            .putExtra("startPop", false)
-                    );
-                    onCheapDialog();
+            //首次进入app
+            if (SPUtils.getInstance(CommonDate.USER).getString(CommonDate.isNewUser,"0").equals("0")){
+                //新用户
+                NotificationUtil.OpenNotificationSetting(this, () -> {
+                    //免单
+                    DialogUtil.newPeopleDialog(MainActivity.this,"https://jipincheng.cn/app_first?", v -> {
+                        appStatisticalUtil.addEvent("tc.xr_close", this.bindToLifecycle());
+                        onCheapDialog();
+                    }, v -> {
+                        appStatisticalUtil.addEvent("tc.xr_enter", this.bindUntilEvent(ActivityEvent.DESTROY));
+                        startActivity(new Intent(this, NewFreeActivity.class)
+                                .putExtra("startPop", false)
+                        );
+                        onCheapDialog();
+                    });
                 });
-            });
+            }else {
+                //老用户
+                NotificationUtil.OpenNotificationSetting(this, () -> {
+                    mPresenter.getPopInfo(this.bindToLifecycle()); //活动弹窗
+                });
+            }
         } else {
-            //老人进入app
+            //二次进入app
             mPresenter.getPopInfo(this.bindToLifecycle()); //活动弹窗
         }
     }
@@ -455,7 +461,6 @@ public class MainActivity extends BaseActivity implements MainView, ViewPager.On
                 mPresenter.getPopInfo(MainActivity.this.bindToLifecycle());
             }
             mBinding.loginNotice.setText("登录开启网购省钱之旅");
-            mBinding.loginTimeContainer.setVisibility(View.GONE);
             mBinding.loginBackground.setVisibility(View.GONE);
         }
     }

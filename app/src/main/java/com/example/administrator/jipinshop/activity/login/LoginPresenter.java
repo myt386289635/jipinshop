@@ -1,5 +1,9 @@
 package com.example.administrator.jipinshop.activity.login;
 
+import android.content.Context;
+import android.view.ViewGroup;
+import android.widget.LinearLayout;
+
 import com.example.administrator.jipinshop.bean.LoginBean;
 import com.example.administrator.jipinshop.netwrok.Repository;
 import com.example.administrator.jipinshop.util.ToastUtil;
@@ -27,6 +31,15 @@ public class LoginPresenter {
     @Inject
     public LoginPresenter(Repository repository) {
         mRepository = repository;
+    }
+
+    public void setStatusBarHight(LinearLayout StatusBar , Context context){
+        int resourceId = context.getResources().getIdentifier("status_bar_height", "dimen", "android");
+        if (resourceId > 0) {
+            int statusBarHeight = context.getResources().getDimensionPixelSize(resourceId);
+            ViewGroup.LayoutParams layoutParams = StatusBar.getLayoutParams();
+            layoutParams.height = statusBarHeight;
+        }
     }
 
     public void thirdLogin(String accessToken, String openid,String channel,LifecycleTransformer<LoginBean> transformer){

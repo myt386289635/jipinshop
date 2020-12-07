@@ -8,61 +8,91 @@
         android:layout_centerHorizontal="true"
         android:background="@drawable/bg_classfiy"
         android:orientation="vertical"
-        android:layout_width="@dimen/x600"
+        android:layout_width="@dimen/x668"
         android:layout_height="wrap_content">
+
+        <ImageView
+            android:layout_marginTop="@dimen/y44"
+            android:src="@drawable/logo"
+            android:layout_gravity="center_horizontal"
+            android:layout_width="@dimen/x96"
+            android:layout_height="@dimen/y96"/>
 
         <TextView
             android:layout_marginBottom="@dimen/y40"
-            android:layout_marginTop="@dimen/y40"
+            android:layout_marginTop="@dimen/y14"
             android:textStyle="bold"
             android:layout_gravity="center_horizontal"
-            android:textColor="@color/color_0E0402"
-            android:textSize="21sp"
-            android:text="温馨提示"
+            android:textColor="@color/color_E25838"
+            android:textSize="16sp"
+            android:text="淘宝、京东、拼多多官方合作平台"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"/>
 
         <TextView
-            android:layout_marginBottom="@dimen/y100"
+            android:layout_marginBottom="@dimen/y12"
+            android:textColor="@color/color_202020"
+            android:lineSpacingExtra="@dimen/y10"
+            android:layout_marginRight="@dimen/x46"
+            android:layout_marginLeft="@dimen/x46"
+            android:textSize="14sp"
+            android:text="感谢您对极品城一直的信任！为消费者“淘好物，更省钱”是我们的使命，平台定位“只推荐不赚佣”，佣金100%返给用户。"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+
+        <TextView
+            android:layout_marginBottom="@dimen/y12"
             android:id="@+id/servce_content"
-            android:lineSpacingExtra="@dimen/y25"
-            android:textColor="@color/color_989898"
-            android:textSize="12sp"
-            android:layout_marginRight="@dimen/x35"
-            android:layout_marginLeft="@dimen/x35"
-            android:text="依据最新法律要求，我们更新了《隐私政策》，特向您说明，在使用我们的服务时，我们如何收集、使用、储存和分享这些信息，以及我们为您提供的访问、更新、控制和保护这些信息的方式。
-请您在使用前仔细阅读《隐私政策》及《隐私政策》，充分理解后选择”同意并继续“。"
+            android:lineSpacingExtra="@dimen/y10"
+            android:textColor="@color/color_202020"
+            android:textSize="14sp"
+            android:layout_marginRight="@dimen/x46"
+            android:layout_marginLeft="@dimen/x46"
+            android:text="依据最新法律要求，我们更新了《隐私政策》，特向您说明，在使用我们的服务时，我们如何收集、使用、储存和分享这些信息，以及我们为您提供的访问、更新、控制和保护这些信息的方式。"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"/>
 
         <TextView
+            android:id="@+id/servce_content2"
+            android:layout_marginBottom="@dimen/y30"
+            android:textColor="@color/color_202020"
+            android:lineSpacingExtra="@dimen/y10"
+            android:layout_marginRight="@dimen/x46"
+            android:layout_marginLeft="@dimen/x46"
+            android:textSize="14sp"
+            android:text="请您在使用前仔细阅读《用户服务协议》及《隐私政策》，充分理解后选择“同意并继续”。"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+
+        <TextView
+            android:gravity="center"
             android:id="@+id/dialog_sure"
             android:layout_gravity="center_horizontal"
-            android:paddingBottom="@dimen/y20"
-            android:paddingTop="@dimen/y20"
-            android:paddingRight="@dimen/x58"
-            android:paddingLeft="@dimen/x58"
+            android:layout_marginRight="@dimen/x46"
+            android:layout_marginLeft="@dimen/x46"
             android:textColor="@color/color_white"
-            android:textSize="17sp"
+            android:textSize="16sp"
+            android:textStyle="bold"
             android:text="同意并继续"
             android:background="@drawable/bg_4e89ff"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"/>
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/y78"/>
 
         <TextView
+            android:background="@drawable/bg_attentioned_new"
+            android:gravity="center"
+            android:layout_marginRight="@dimen/x46"
+            android:layout_marginLeft="@dimen/x46"
             android:id="@+id/dialog_cancle"
-            android:layout_marginTop="@dimen/y20"
-            android:paddingRight="@dimen/x30"
-            android:paddingLeft="@dimen/x30"
-            android:layout_marginBottom="@dimen/y43"
-            android:paddingTop="@dimen/y20"
-            android:paddingBottom="@dimen/y20"
+            android:layout_marginTop="@dimen/y24"
+            android:layout_marginBottom="@dimen/y25"
             android:layout_gravity="center_horizontal"
             android:textColor="@color/color_9D9D9D"
-            android:textSize="17sp"
+            android:textStyle="bold"
+            android:textSize="16sp"
             android:text="不同意"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"/>
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/y78"/>
 
 
     </LinearLayout>

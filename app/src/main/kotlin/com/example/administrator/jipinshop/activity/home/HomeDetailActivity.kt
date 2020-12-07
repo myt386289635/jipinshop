@@ -17,8 +17,6 @@ import com.blankj.utilcode.util.SPUtils
 import com.example.administrator.jipinshop.R
 import com.example.administrator.jipinshop.activity.login.LoginActivity
 import com.example.administrator.jipinshop.activity.share.ShareActivity
-import com.example.administrator.jipinshop.activity.wellcome.AdActivity
-import com.example.administrator.jipinshop.activity.wellcome.index.IndexMixActivity
 import com.example.administrator.jipinshop.adapter.TBSreachResultAdapter
 import com.example.administrator.jipinshop.base.BaseActivity
 import com.example.administrator.jipinshop.bean.TBSreachResultBean

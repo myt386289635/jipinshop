@@ -817,29 +817,6 @@ public class DialogUtil {
         dialog.setContentView(binding.getRoot());
     }
 
-    //赚钱红包页面弹框
-    public static void bedDialog(Context context, String money , View.OnClickListener listener){
-        AlertDialog.Builder builder = new AlertDialog.Builder(context, R.style.dialog);
-        View view = LayoutInflater.from(context).inflate(R.layout.dialog_money, null);
-        final Dialog dialog = builder.create();
-        ImageView dialog_cancle = view.findViewById(R.id.dialog_cancle);
-        TextView dialog_money = view.findViewById(R.id.dialog_money);
-        TextView dialog_sure = view.findViewById(R.id.dialog_sure);
-        dialog_cancle.setOnClickListener(view1 -> {
-            dialog.dismiss();
-        });
-        dialog_sure.setOnClickListener(view12 -> {
-            if (listener != null){
-                listener.onClick(view12);
-            }
-            dialog.dismiss();
-        });
-        dialog_money.setText(money);
-        dialog.getWindow().setDimAmount(0.35f);
-        dialog.show();
-        dialog.setContentView(view);
-    }
-
     //特惠购购买时弹窗
     public static void cheapBuyDialog(Context context, String useAllowancePrice, View.OnClickListener listener){
         AlertDialog.Builder builder = new AlertDialog.Builder(context, R.style.dialog);
@@ -886,9 +863,9 @@ public class DialogUtil {
         TextView dialog_cancle = view.findViewById(R.id.dialog_cancle);
         TextView dialog_sure = view.findViewById(R.id.dialog_sure);
         TextView servce_content = view.findViewById(R.id.servce_content);
-        String content="依据最新法律要求，我们更新了《隐私政策》，特向您说明，在使用我们的服务时，" +
-                "我们如何收集、使用、储存和分享这些信息，以及我们为您提供的访问、更新、控制和保护这些信息的方式。\n" +
-                "请您在使用前仔细阅读《用户服务协议》及《隐私政策》，充分理解后选择“同意并继续”。";
+        TextView servce_content2 = view.findViewById(R.id.servce_content2);
+        String content= "依据最新法律要求，我们更新了《隐私政策》，特向您说明，在使用我们的服务时，" +
+                "我们如何收集、使用、储存和分享这些信息，以及我们为您提供的访问、更新、控制和保护这些信息的方式。";
         SpannableString string = new SpannableString(content);
         //设置点击效果 设置多个Span时，需要为每个span创建新的对象，否者不起作用
         ClickableSpan clickableSpan1 = new ClickableSpan() {
@@ -902,10 +879,19 @@ public class DialogUtil {
             @Override
             public void updateDrawState(TextPaint ds) {
                 //去掉可点击文字的下划线
-                ds.setColor(context.getResources().getColor(R.color.color_4E89FF));
+                ds.setColor(context.getResources().getColor(R.color.color_E25838));
                 ds.setUnderlineText(false);
             }
         };
+        string.setSpan(clickableSpan1,14,20, Spanned.SPAN_INCLUSIVE_INCLUSIVE);//隐私协议
+        // 设置此方法后，点击事件才能生效
+        servce_content.setMovementMethod(LinkMovementMethod.getInstance());
+        //去掉点击效果
+        servce_content.setHighlightColor(Color.TRANSPARENT);
+        servce_content.setText(string);
+
+        String content2= "请您在使用前仔细阅读《用户服务协议》及《隐私政策》，充分理解后选择“同意并继续”。";
+        SpannableString string2 = new SpannableString(content2);
         ClickableSpan clickableSpan2 = new ClickableSpan() {
             @Override
             public void onClick(View widget) {
@@ -917,7 +903,7 @@ public class DialogUtil {
             @Override
             public void updateDrawState(TextPaint ds) {
                 //去掉可点击文字的下划线
-                ds.setColor(context.getResources().getColor(R.color.color_4E89FF));
+                ds.setColor(context.getResources().getColor(R.color.color_E25838));
                 ds.setUnderlineText(false);
             }
         };
@@ -932,18 +918,15 @@ public class DialogUtil {
             @Override
             public void updateDrawState(TextPaint ds) {
                 //去掉可点击文字的下划线
-                ds.setColor(context.getResources().getColor(R.color.color_4E89FF));
+                ds.setColor(context.getResources().getColor(R.color.color_E25838));
                 ds.setUnderlineText(false);
             }
         };
-        string.setSpan(clickableSpan1,14,20, Spanned.SPAN_INCLUSIVE_INCLUSIVE);//隐私协议
-        string.setSpan(clickableSpan2,96,104, Spanned.SPAN_INCLUSIVE_INCLUSIVE);//用户协议
-        string.setSpan(clickableSpan3,105,111, Spanned.SPAN_INCLUSIVE_INCLUSIVE);//隐私协议
-        // 设置此方法后，点击事件才能生效
-        servce_content.setMovementMethod(LinkMovementMethod.getInstance());
-        //去掉点击效果
-        servce_content.setHighlightColor(Color.TRANSPARENT);
-        servce_content.setText(string);
+        string2.setSpan(clickableSpan2,10,18, Spanned.SPAN_INCLUSIVE_INCLUSIVE);//用户协议
+        string2.setSpan(clickableSpan3,19,25, Spanned.SPAN_INCLUSIVE_INCLUSIVE);//隐私协议
+        servce_content2.setMovementMethod(LinkMovementMethod.getInstance());
+        servce_content2.setHighlightColor(Color.TRANSPARENT);
+        servce_content2.setText(string2);
         dialog_cancle.setOnClickListener(v -> {
             cancleListener.onClick(v);
             dialog.dismiss();

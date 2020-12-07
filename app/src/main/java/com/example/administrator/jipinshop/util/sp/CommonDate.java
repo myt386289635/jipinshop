@@ -39,5 +39,6 @@ public class CommonDate {
     public static final String bgImg="bgImg";//用户背景图片
     public static final String userSign="userSign";//用户签名
     public static final String wechat = "wechat";//微信号
+    public static final String isNewUser = "isNewUser";//是否是新人（0表示新用户，其他表示老用户）
 
 }

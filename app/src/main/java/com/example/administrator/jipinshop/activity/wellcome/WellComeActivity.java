@@ -6,7 +6,6 @@ import android.app.Application;
 import android.app.Notification;
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
-import android.content.ContentResolver;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Build;
@@ -23,12 +22,13 @@ import com.blankj.utilcode.util.SPUtils;
 import com.example.administrator.jipinshop.MyApplication;
 import com.example.administrator.jipinshop.R;
 import com.example.administrator.jipinshop.activity.home.MainActivity;
-import com.example.administrator.jipinshop.activity.wellcome.index.IndexMixActivity;
+import com.example.administrator.jipinshop.activity.login.LoginActivity;
 import com.example.administrator.jipinshop.base.BaseActivity;
 import com.example.administrator.jipinshop.jpush.LoginUtil;
 import com.example.administrator.jipinshop.util.ShopJumpUtil;
 import com.example.administrator.jipinshop.util.permission.HasPermissionsUtil;
 import com.example.administrator.jipinshop.util.sp.CommonDate;
+import com.example.administrator.jipinshop.view.dialog.DialogUtil;
 import com.heytap.msp.push.HeytapPushManager;
 import com.heytap.msp.push.callback.ICallBackResultService;
 import com.huawei.hms.push.HmsMessaging;
@@ -59,9 +59,6 @@ public class WellComeActivity extends BaseActivity {
                 .transparentStatusBar()
                 .statusBarDarkFont(true, 0f)
                 .init();
-        if (timer != null) {
-            timer.start();
-        }
         //预登陆获取手机号，为了一键登录
         LoginUtil.getPhone(this);
         //初始化阿里百川
@@ -70,6 +67,18 @@ public class WellComeActivity extends BaseActivity {
         initAlibcTradeSDK();
         //初始化各个推送SDK
         initPush();
+        //开始
+        if(SPUtils.getInstance().getBoolean(CommonDate.FIRST,true)){
+            //展示隐私协议dialog
+            DialogUtil.servceDialog(this, v -> {
+                permission();
+            }, v -> {
+                //关闭App
+                finish();
+            });
+        }else {
+            permission();
+        }
     }
 
     private void initPush() {
@@ -139,8 +148,8 @@ public class WellComeActivity extends BaseActivity {
         @Override
         public void onFinish() {
             if(SPUtils.getInstance().getBoolean(CommonDate.FIRST,true)){
-                //跳转到引导页
-                startActivity(new Intent(WellComeActivity.this, IndexMixActivity.class));
+                //跳转到登陆
+                startActivity(new Intent(WellComeActivity.this, LoginActivity.class));
                 finish();
             }else {
                 if (!TextUtils.isEmpty(SPUtils.getInstance().getString(CommonDate.AD))){
@@ -205,7 +214,7 @@ public class WellComeActivity extends BaseActivity {
                 }
             }
 
-        }, Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.CAMERA , Manifest.permission.READ_PHONE_STATE);
+        }, Manifest.permission.READ_PHONE_STATE);
     }
 
     /***

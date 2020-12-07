@@ -152,6 +152,7 @@ public class BindNumberActivity extends BaseActivity implements BindNumberView, 
             SPUtils.getInstance(CommonDate.USER).put(CommonDate.qrCode, loginBean.getData().getInvitationCode());
             SPUtils.getInstance(CommonDate.USER).put(CommonDate.userId,loginBean.getData().getUserId());
             SPUtils.getInstance(CommonDate.USER).put(CommonDate.relationId, loginBean.getData().getRelationId());
+            SPUtils.getInstance(CommonDate.USER).put(CommonDate.isNewUser, loginBean.getData().getIsNewUser());
 
             JPushAlias.setAlias(this,loginBean.getData().getUserId());
             String deviceBrand = ShopJumpUtil.getDeviceBrand().toLowerCase();
