@@ -128,7 +128,7 @@
                 android:layout_centerVertical="true"
                 android:textColor="@color/color_white"
                 android:textSize="14sp"
-                android:text="新人0元免单资格即将过期"
+                android:text="登录开启网购省钱之旅"
                 android:id="@+id/login_notice"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"/>

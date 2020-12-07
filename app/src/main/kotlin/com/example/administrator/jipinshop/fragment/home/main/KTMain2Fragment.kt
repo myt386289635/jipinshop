@@ -132,17 +132,25 @@ class KTMain2Fragment : DBBaseFragment(), KTMain2View, OnLoadMoreListener, OnRef
                 if(SPUtils.getInstance().getBoolean(CommonDate.memberNotice, true)){
                     fragment.initMemberNotice(true)
                     fragment.initMarquee("")
+                    fragment.initAuth(false)
                 }else{
                     fragment.initMemberNotice(false)
                     if (bean.data.message != null && !TextUtils.isEmpty(bean.data.message.content)){
                         fragment.initMarquee(bean.data.message.content)
                     }else{
                         fragment.initMarquee("")
+                        var specialId2 = SPUtils.getInstance(CommonDate.USER).getString(CommonDate.relationId, "")
+                        if (TextUtils.isEmpty(specialId2) || specialId2 == "null"){
+                            fragment.initAuth(true)
+                        }else{
+                            fragment.initAuth(false)
+                        }
                     }
                 }
-            }else{
+            }else{//未登录
                 fragment.initMemberNotice(false)
                 fragment.initMarquee("")
+                fragment.initAuth(false)
             }
         }
         if (type == "1"){

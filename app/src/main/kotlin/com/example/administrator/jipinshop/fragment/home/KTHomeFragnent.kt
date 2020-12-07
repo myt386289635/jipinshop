@@ -21,6 +21,7 @@ import com.example.administrator.jipinshop.activity.login.LoginActivity
 import com.example.administrator.jipinshop.activity.message.MessageActivity
 import com.example.administrator.jipinshop.activity.sign.SignActivity
 import com.example.administrator.jipinshop.activity.sreach.TBSreachActivity
+import com.example.administrator.jipinshop.activity.web.TaoBaoWebActivity
 import com.example.administrator.jipinshop.adapter.HomeFragmentAdapter
 import com.example.administrator.jipinshop.adapter.KTTabAdapter
 import com.example.administrator.jipinshop.base.DBBaseFragment
@@ -34,6 +35,7 @@ import com.example.administrator.jipinshop.fragment.home.main.KTMain2Fragment
 import com.example.administrator.jipinshop.fragment.home.userlike.KTUserLikeFragment
 import com.example.administrator.jipinshop.fragment.mine.KTMineFragment
 import com.example.administrator.jipinshop.util.ShopJumpUtil
+import com.example.administrator.jipinshop.util.TaoBaoUtil
 import com.example.administrator.jipinshop.util.ToastUtil
 import com.example.administrator.jipinshop.util.UmApp.AppStatisticalUtil
 import com.example.administrator.jipinshop.util.WeakRefHandler
@@ -154,6 +156,15 @@ class KTHomeFragnent : DBBaseFragment(), View.OnClickListener, ViewPager.OnPageC
                 mBinding.homeMarqueeContainer.visibility = View.GONE
                 mPresenter.closeIndexMessage(this.bindToLifecycle())
             }
+            R.id.auth_go -> {
+                //授权
+                TaoBaoUtil.aliLogin { topAuthCode ->
+                    startActivity(Intent(context, TaoBaoWebActivity::class.java)
+                            .putExtra(TaoBaoWebActivity.url, "https://oauth.taobao.com/authorize?response_type=code&client_id=25612235&redirect_uri=https://www.jipincheng.cn/qualityshop-api/api/taobao/returnUrl&state=" + SPUtils.getInstance(CommonDate.USER).getString(CommonDate.token) + "&view=wap")
+                            .putExtra(TaoBaoWebActivity.title, "淘宝授权")
+                    )
+                }
+            }
         }
     }
 
@@ -179,6 +190,26 @@ class KTHomeFragnent : DBBaseFragment(), View.OnClickListener, ViewPager.OnPageC
 
     fun initMemberNotice(isShow : Boolean){
         (activity as MainActivity).memberNotice(isShow)
+    }
+
+    fun initAuth(isShow : Boolean){
+        if (isShow){
+            mBinding.authTbContainer.visibility = View.VISIBLE
+        }else{
+            mBinding.authTbContainer.visibility = View.GONE
+        }
+    }
+
+    override fun onResume() {
+        super.onResume()
+        if (mBinding.authTbContainer.visibility == View.VISIBLE){
+            var specialId2 = SPUtils.getInstance(CommonDate.USER).getString(CommonDate.relationId, "")
+            if (TextUtils.isEmpty(specialId2) || specialId2 == "null"){
+                mBinding.authTbContainer.visibility = View.VISIBLE
+            }else{
+                mBinding.authTbContainer.visibility = View.GONE
+            }
+        }
     }
 
     override fun onPageScrollStateChanged(p0: Int) {}
