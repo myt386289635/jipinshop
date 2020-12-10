@@ -100,4 +100,43 @@ public class TimeUtil {
         String result = sTime + ":" +  sMinute + ":" + sSecond;
         return result;
     }
+
+    public static String getMinuteByLong(long millisUntilFinished){
+        int ss = 1000;
+        int mi = ss * 60;
+        int hh = mi * 60;
+        int dd = hh * 24;
+
+        long day = millisUntilFinished / dd;
+        long hour = ((millisUntilFinished - day * dd) / hh);
+        long minute = (millisUntilFinished- hour * hh - day * dd) / mi;
+
+        String sMinute;
+        if (minute < 10){
+            sMinute = "0" + minute;
+        }else {
+            sMinute = "" + minute;
+        }
+        return sMinute;
+    }
+
+    public static String getSecondByLong(long millisUntilFinished){
+        int ss = 1000;
+        int mi = ss * 60;
+        int hh = mi * 60;
+        int dd = hh * 24;
+
+        long day = millisUntilFinished / dd;
+        long hour = ((millisUntilFinished - day * dd) / hh);
+        long minute = (millisUntilFinished- hour * hh - day * dd) / mi;
+        long second = (millisUntilFinished - hour * hh - minute * mi - day * dd) / ss;
+
+        String sSecond;
+        if (second < 10){
+            sSecond = "0" + second;
+        }else {
+            sSecond = "" + second;
+        }
+        return sSecond;
+    }
 }

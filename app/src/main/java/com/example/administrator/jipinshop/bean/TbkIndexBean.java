@@ -357,6 +357,15 @@ public class TbkIndexBean {
                 private String source;
                 private String categoryId;
                 private String remark;
+                private String popStatus;//1显示弹框，0不显示
+
+                public String getPopStatus() {
+                    return popStatus;
+                }
+
+                public void setPopStatus(String popStatus) {
+                    this.popStatus = popStatus;
+                }
 
                 public String getRemark() {
                     return remark;

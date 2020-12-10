@@ -836,6 +836,10 @@
         <activity android:name=".activity.home.food.TakeOutActivity"
                   android:screenOrientation="portrait"/>
 
+        <!--会员购买页-->
+        <activity android:name=".activity.member.buy.MemberBuyActivity"
+                  android:screenOrientation="portrait"/>
+
  </application>
 
 </manifest>

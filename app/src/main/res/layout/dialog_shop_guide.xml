@@ -26,47 +26,22 @@
                 android:textStyle="bold"
                 android:textSize="18sp"
                 android:textColor="@color/color_835720"
-                android:layout_marginTop="@dimen/y66"
+                android:layout_marginTop="@dimen/y52"
                 android:layout_marginLeft="@dimen/x76"
-                android:text="会员专属吃喝玩乐福利"
+                android:text="您还不是极品VIP会员"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"/>
 
             <TextView
-                android:layout_marginTop="@dimen/y10"
-                android:textColor="@color/color_835720"
-                android:textStyle="bold"
-                android:text="最高可返40%"
-                android:textSize="15sp"
-                android:layout_marginLeft="@dimen/x76"
-                android:layout_below="@id/item_title"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"/>
-
-            <TextView
-                android:id="@+id/item_go"
-                android:gravity="center"
-                android:textColor="@color/color_835720"
-                android:textStyle="bold"
-                android:textSize="16sp"
-                android:text="直接购买（暂无返现）"
-                android:background="@drawable/bg_835720_1"
-                android:layout_marginBottom="@dimen/y30"
                 android:layout_alignBottom="@id/item_bg"
-                android:layout_centerHorizontal="true"
-                android:layout_width="@dimen/x488"
-                android:layout_height="@dimen/y82"/>
-
-            <TextView
-                android:layout_above="@+id/item_go"
                 android:id="@+id/item_goMember"
                 android:gravity="center"
                 android:textColor="@color/color_white"
                 android:textStyle="bold"
                 android:textSize="16sp"
-                android:text="加入会员（最高返40%）"
+                android:text="加入会员"
                 android:background="@drawable/bg_835720_2"
-                android:layout_marginBottom="@dimen/y28"
+                android:layout_marginBottom="@dimen/y60"
                 android:layout_centerHorizontal="true"
                 android:layout_width="@dimen/x488"
                 android:layout_height="@dimen/y82"/>

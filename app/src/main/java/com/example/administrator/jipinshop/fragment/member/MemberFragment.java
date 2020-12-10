@@ -39,7 +39,6 @@ import com.example.administrator.jipinshop.adapter.HomePageAdapter;
 import com.example.administrator.jipinshop.adapter.KTPagerAdapter3;
 import com.example.administrator.jipinshop.adapter.MemberFreeAdapter;
 import com.example.administrator.jipinshop.adapter.MemberMoreAllAdapter;
-import com.example.administrator.jipinshop.adapter.MemberShopAdapter;
 import com.example.administrator.jipinshop.adapter.MemberSignAdapter;
 import com.example.administrator.jipinshop.adapter.MemberVideoAdapter;
 import com.example.administrator.jipinshop.base.DBBaseFragment;
@@ -118,9 +117,6 @@ public class MemberFragment extends DBBaseFragment implements View.OnClickListen
     //每月0元购
     private List<MemberNewBean.DataBean.LevelDetail3Bean.ListBean> mFreeList;
     private MemberFreeAdapter mFreeAdapter;
-    //商品列表
-    private List<MemberNewBean.DataBean.OrderLevelDataBean.OrderListBean> mOrderList;
-    private MemberShopAdapter mShopAdapter;
     //特惠购列表
     private List<MemberNewBean.DataBean.LevelDetail4Bean.ListBeanX> mCheapList;
     private List<Fragment> mFragments;
@@ -239,13 +235,6 @@ public class MemberFragment extends DBBaseFragment implements View.OnClickListen
         mBinding.memberMoreContainer.setAdapter(mMoreAllAdapter);
         mBinding.memberMoreContainer.setNestedScrollingEnabled(false);
         mBinding.memberMoreContainer.setFocusable(false);//拒绝首次进入页面时滑动
-        //商品列表
-        mOrderList = new ArrayList<>();
-        mShopAdapter = new MemberShopAdapter(mOrderList,getContext());
-        mBinding.memberShopList.setLayoutManager(new LinearLayoutManager(getContext()));
-        mBinding.memberShopList.setNestedScrollingEnabled(false);
-        mBinding.memberShopList.setAdapter(mShopAdapter);
-        mBinding.memberShopList.setFocusable(false);//拒绝首次进入页面时滑动
         //每月0元购
         mFreeList = new ArrayList<>();
         mBinding.memberFree.setLayoutManager(new GridLayoutManager(getContext(),3));
@@ -354,11 +343,15 @@ public class MemberFragment extends DBBaseFragment implements View.OnClickListen
     public void onClick(View v) {
         switch (v.getId()){
             case R.id.member_share:
-                //规则说明
-                startActivity(new Intent(getContext(), WebActivity.class)
-                        .putExtra(WebActivity.url, RetrofitModule.H5_URL + "new-free/memberrule")
-                        .putExtra(WebActivity.title, "规则说明")
-                );
+                //咨询客服
+                String wx = mBinding.memberWxCode.getText().toString().replace(getResources().getString(R.string.member_wx),"");
+                DialogUtil.LoginDialog(getContext(), "官方客服微信：" + wx, "复制", "取消", v1 -> {
+                    ClipboardManager clip = (ClipboardManager) getContext().getSystemService(Context.CLIPBOARD_SERVICE);
+                    ClipData clipData = ClipData.newPlainText("jipinshop", wx);
+                    clip.setPrimaryClip(clipData);
+                    ToastUtil.show("微信号复制成功");
+                    SPUtils.getInstance().put(CommonDate.CLIP, wx);
+                });
                 break;
             case R.id.member_black:
                 if (getActivity() != null){
@@ -524,13 +517,9 @@ public class MemberFragment extends DBBaseFragment implements View.OnClickListen
         vipBoxList.clear();
         vipBoxList.addAll(bean.getData().getVipBoxList());
         mMoreAllAdapter.notifyDataSetChanged();
-        //商品列表
-        mOrderList.clear();
-        if (bean.getData().getOrderLevelData() != null){
-            mOrderList.addAll(bean.getData().getOrderLevelData().getOrderList());
-        }
-        mShopAdapter.notifyDataSetChanged();
-        //每月0元购
+        //特权一
+//        GlideApp.loderImage(getContext(),bean.getData().getLevelDetail1().getImg(),mBinding.memberMoney,0,0);
+        //特权二
         mFreeList.clear();
         mFreeList.addAll(bean.getData().getLevelDetail3().getList());
         mFreeAdapter.notifyDataSetChanged();
@@ -544,7 +533,7 @@ public class MemberFragment extends DBBaseFragment implements View.OnClickListen
         }else {
             mBinding.memberFreeFee.setVisibility(View.VISIBLE);
         }
-        //特惠购列表
+        //特权三
         mCheapList.clear();
         mCheapList.addAll(bean.getData().getLevelDetail4().getList());
         mFragments.clear();
@@ -586,7 +575,7 @@ public class MemberFragment extends DBBaseFragment implements View.OnClickListen
         }else {
             mBinding.memberFamilyFee.setVisibility(View.VISIBLE);
         }
-        //视频
+        //特权五 视频
         mVideoList.clear();
         mVideoList.addAll(bean.getData().getLevelDetail7().getList());
         mVideoAdapter.notifyDataSetChanged();
@@ -645,9 +634,7 @@ public class MemberFragment extends DBBaseFragment implements View.OnClickListen
             mBinding.memberAdContainer.setVisibility(View.VISIBLE);
             mBinding.memberMemberContainer.setVisibility(View.GONE);
             mBinding.memberTitle1.setText("开通VIP可享更多权益");
-            mBinding.memberVipContainer.setVisibility(View.VISIBLE);
         }else {
-            mBinding.memberVipContainer.setVisibility(View.GONE);
             mBinding.memberPayContainer.setVisibility(View.GONE);
             mBinding.memberAdContainer.setVisibility(View.GONE);
             mBinding.memberMemberContainer.setVisibility(View.VISIBLE);

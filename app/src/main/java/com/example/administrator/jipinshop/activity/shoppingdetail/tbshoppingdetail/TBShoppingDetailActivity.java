@@ -533,7 +533,7 @@ public class TBShoppingDetailActivity extends BaseActivity implements View.OnCli
             mBinding.shopFee.setText("返 ¥" + fee);
             mBinding.detailShareCode.setText("返¥"+ new BigDecimal(bean.getData().getUpFee()).setScale(2,BigDecimal.ROUND_HALF_UP).stripTrailingZeros().toPlainString());
             mBinding.detailShareCodeText.setText("拼团买");
-            mBinding.detailFreeCode.setText("返¥"+ new BigDecimal(free).setScale(2,BigDecimal.ROUND_HALF_UP).stripTrailingZeros().toPlainString());
+            mBinding.detailFreeCode.setText("返¥"+ new BigDecimal(bean.getData().getUpFee()).setScale(2,BigDecimal.ROUND_HALF_UP).stripTrailingZeros().toPlainString());
             mBinding.detailFreeCodeText.setText("直接买");
         }
         //比价弹窗

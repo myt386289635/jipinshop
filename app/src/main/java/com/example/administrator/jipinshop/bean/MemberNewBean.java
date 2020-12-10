@@ -447,6 +447,15 @@ public class MemberNewBean {
             private String fee;
             private String otherGoodsId;
             private String source;
+            private String img;
+
+            public String getImg() {
+                return img;
+            }
+
+            public void setImg(String img) {
+                this.img = img;
+            }
 
             public String getOtherGoodsId() {
                 return otherGoodsId;
@@ -1055,6 +1064,15 @@ public class MemberNewBean {
             private String title3;
             private String title4;
             private List<ListBeanXX> list;
+            private String img;
+
+            public String getImg() {
+                return img;
+            }
+
+            public void setImg(String img) {
+                this.img = img;
+            }
 
             public String getTitle1() {
                 return title1;
@@ -1215,6 +1233,15 @@ public class MemberNewBean {
                 private String source;
                 private String subTitle;
                 private String remark;
+                private String popStatus;
+
+                public String getPopStatus() {
+                    return popStatus;
+                }
+
+                public void setPopStatus(String popStatus) {
+                    this.popStatus = popStatus;
+                }
 
                 public String getRemark() {
                     return remark;
@@ -1431,6 +1458,15 @@ public class MemberNewBean {
             private int type;
             private String targetId;
             private String source;
+            private String subTitle;
+
+            public String getSubTitle() {
+                return subTitle;
+            }
+
+            public void setSubTitle(String subTitle) {
+                this.subTitle = subTitle;
+            }
 
             public String getId() {
                 return id;

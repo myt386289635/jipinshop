@@ -90,8 +90,6 @@ public class ProgressDialogView {
         dialog.setContentView(view, new LinearLayout.LayoutParams(
                 LinearLayout.LayoutParams.WRAP_CONTENT,
                 LinearLayout.LayoutParams.WRAP_CONTENT));
-        dialog.setCancelable(false);
-        dialog.setCanceledOnTouchOutside(false);
         return dialog;
     }
 
@@ -112,7 +110,6 @@ public class ProgressDialogView {
         dialog.setContentView(view, new LinearLayout.LayoutParams(
                 LinearLayout.LayoutParams.WRAP_CONTENT,
                 LinearLayout.LayoutParams.WRAP_CONTENT));
-        dialog.setCancelable(false);
         return dialog;
     }
 
@@ -151,8 +148,6 @@ public class ProgressDialogView {
         dialog.setContentView(binding.getRoot(), new LinearLayout.LayoutParams(
                 LinearLayout.LayoutParams.WRAP_CONTENT,
                 LinearLayout.LayoutParams.WRAP_CONTENT));
-        dialog.setCancelable(false);
-        dialog.setCanceledOnTouchOutside(false);
         return dialog;
     }
 }

@@ -45,6 +45,7 @@ public class MemberMoreAllAdapter extends RecyclerView.Adapter<MemberMoreAllAdap
     public void onBindViewHolder(@NonNull ViewHolder viewHolder, int i) {
         viewHolder.mBinding.itemName.setText(mList.get(i).getTitle());
         GlideApp.loderImage(mContext,mList.get(i).getIconUrl(),viewHolder.mBinding.itemImage,0,0);
+        viewHolder.mBinding.itemDesc.setText(mList.get(i).getSubTitle());
         viewHolder.mBinding.itemContainer.setOnClickListener(v -> {
             if (mOnItem != null) {
                 mOnItem.onItemSlide(i);

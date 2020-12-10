@@ -48,14 +48,9 @@ public class PlaySreachResultAdapter extends RecyclerView.Adapter<PlaySreachResu
         viewHolder.mBinding.setBean(mList.get(position));
         viewHolder.mBinding.executePendingBindings();
         viewHolder.itemView.setOnClickListener(v -> {
-            if ((mList.get(position).getType().equals("13") || mList.get(position).getType().equals("42")) &&
-                    (mList.get(position).getSource().equals("10") || mList.get(position).getSource().equals("11") || mList.get(position).getSource().equals("12")) &&
+            if (mList.get(position).getPopStatus().equals("1") &&
                     SPUtils.getInstance(CommonDate.USER).getString(CommonDate.userMemberGrade, "0").equals("0")) {
-                DialogUtil.memberGuideDialog(mContext, v1 -> {
-                    ShopJumpUtil.openBanner(mContext, mList.get(position).getType() + "",
-                            mList.get(position).getTargetId(), mList.get(position).getTitle(),
-                            mList.get(position).getSource(), mList.get(position).getRemark());
-                }, v12 -> {
+                DialogUtil.memberGuideDialog(mContext, v12 -> {
                     mContext.startActivity(new Intent(mContext, HomeNewActivity.class)
                             .putExtra("type",HomeNewActivity.member)
                     );

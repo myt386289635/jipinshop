@@ -10,10 +10,10 @@
             android:gravity="center_horizontal"
             android:orientation="vertical"
             android:layout_width="match_parent"
-            android:layout_height="@dimen/y160">
+            android:layout_height="@dimen/y171">
 
             <ImageView
-                android:layout_marginTop="@dimen/y42"
+                android:layout_marginTop="@dimen/y37"
                 android:id="@+id/item_image"
                 android:scaleType="fitCenter"
                 android:layout_width="@dimen/x44"
@@ -22,11 +22,22 @@
             <TextView
                 android:lineSpacingExtra="@dimen/y6"
                 android:gravity="center"
-                android:layout_marginTop="@dimen/y15"
+                android:layout_marginTop="@dimen/y16"
                 android:id="@+id/item_name"
                 android:textColor="@color/color_F4CB95"
                 android:textSize="11sp"
-                android:text="分享100%佣金"
+                android:text=""
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+
+            <TextView
+                android:lineSpacingExtra="@dimen/y6"
+                android:gravity="center"
+                android:layout_marginTop="@dimen/y4"
+                android:id="@+id/item_desc"
+                android:textColor="@color/color_F4CB95"
+                android:textSize="10sp"
+                android:text=""
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"/>
 

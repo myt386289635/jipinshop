@@ -71,16 +71,9 @@ public class PlayRightAdapter extends SectionedBaseAdapter {
         holder.list.clear();
         holder.list.addAll(mList.get(section).getList());
         holder.adapter.setOnItem(position -> {
-            if ((mList.get(section).getList().get(position).getType().equals("13") || mList.get(section).getList().get(position).getType().equals("42")) &&
-                    (mList.get(section).getList().get(position).getSource().equals("10") || mList.get(section).getList().get(position).getSource().equals("11") || mList.get(section).getList().get(position).getSource().equals("12")) &&
+            if ( mList.get(section).getList().get(position).getPopStatus().equals("1") &&
                     SPUtils.getInstance(CommonDate.USER).getString(CommonDate.userMemberGrade, "0").equals("0")) {
-                DialogUtil.memberGuideDialog(mContext, v -> {
-                    ShopJumpUtil.openBanner(mContext, mList.get(section).getList().get(position).getType() + "",
-                            mList.get(section).getList().get(position).getTargetId(),
-                            mList.get(section).getList().get(position).getTitle(),
-                            mList.get(section).getList().get(position).getSource(),
-                            mList.get(section).getList().get(position).getRemark());
-                });
+                DialogUtil.memberGuideDialog(mContext);
             }else{
                 ShopJumpUtil.openBanner(mContext, mList.get(section).getList().get(position).getType() + "",
                         mList.get(section).getList().get(position).getTargetId(),

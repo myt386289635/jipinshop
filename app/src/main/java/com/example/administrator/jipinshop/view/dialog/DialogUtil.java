@@ -45,6 +45,7 @@ import com.example.administrator.jipinshop.bean.PrizeLogBean;
 import com.example.administrator.jipinshop.bean.SubUserBean;
 import com.example.administrator.jipinshop.bean.TklBean;
 import com.example.administrator.jipinshop.bean.eventbus.ChangeHomePageBus;
+import com.example.administrator.jipinshop.databinding.DialogBuyOutBinding;
 import com.example.administrator.jipinshop.databinding.DialogCheapBuyBinding;
 import com.example.administrator.jipinshop.databinding.DialogCheapOutBinding;
 import com.example.administrator.jipinshop.databinding.DialogFamilyBinding;
@@ -98,9 +99,9 @@ public class DialogUtil {
         TextView sure = view.findViewById(R.id.dialog_sure);
         sure.setText(sureText);
         sure.setTextColor(context.getResources().getColor(sureColor));
-        if (isCrude){
+        if (isCrude) {
             sure.setTypeface(Typeface.defaultFromStyle(Typeface.BOLD));//加粗
-        }else {
+        } else {
             sure.setTypeface(Typeface.defaultFromStyle(Typeface.NORMAL));//不加粗
         }
         final Dialog dialog = builder.create();
@@ -119,7 +120,7 @@ public class DialogUtil {
 
     /**
      * 右边需要加粗的(默认弹框)
-     *  颜色都是202020
+     * 颜色都是202020
      */
     public static void LoginDialog(Context context, String titleStr,
                                    String sureText, String cancleText,
@@ -146,8 +147,8 @@ public class DialogUtil {
     /**
      * 单个确认框
      */
-    public static void SingleDialog(Context context,String titleStr, String sureText,
-                                      final View.OnClickListener sureListener) {
+    public static void SingleDialog(Context context, String titleStr, String sureText,
+                                    final View.OnClickListener sureListener) {
         AlertDialog.Builder builder = new AlertDialog.Builder(context, R.style.dialog);
         View view = LayoutInflater.from(context).inflate(R.layout.dialog_question, null);
         TextView sure = view.findViewById(R.id.dialog_sure);
@@ -170,7 +171,7 @@ public class DialogUtil {
      * 带有温馨提示的默认弹框
      */
     public static void listingDetele(Context context, String titleStr,
-                                     String sureText, String cancleText,Boolean isCrude,
+                                     String sureText, String cancleText, Boolean isCrude,
                                      final View.OnClickListener sureListener) {
         AlertDialog.Builder builder = new AlertDialog.Builder(context, R.style.dialog);
         View view = LayoutInflater.from(context).inflate(R.layout.dialog_listing, null);
@@ -178,9 +179,9 @@ public class DialogUtil {
         title.setText(titleStr);
         TextView sure = view.findViewById(R.id.dialog_sure);
         sure.setText(sureText);
-        if (isCrude){
+        if (isCrude) {
             sure.setTypeface(Typeface.defaultFromStyle(Typeface.BOLD));//加粗
-        }else {
+        } else {
             sure.setTypeface(Typeface.defaultFromStyle(Typeface.NORMAL));//不加粗
         }
         final Dialog dialog = builder.create();
@@ -199,10 +200,10 @@ public class DialogUtil {
     /**
      * 带title的默认弹框
      */
-    public static void listingDetele(Context context, String titleStr,String content, String sureText, String cancleText,
+    public static void listingDetele(Context context, String titleStr, String content, String sureText, String cancleText,
                                      int titleColor, int sureColor, int cancleColor, int contentColor,
-                                     Boolean isSureCrude,Boolean isContentCrude,
-                                   final View.OnClickListener sureListener){
+                                     Boolean isSureCrude, Boolean isContentCrude,
+                                     final View.OnClickListener sureListener) {
         AlertDialog.Builder builder = new AlertDialog.Builder(context, R.style.dialog);
         View view = LayoutInflater.from(context).inflate(R.layout.dialog_listing, null);
 
@@ -214,18 +215,18 @@ public class DialogUtil {
         TextView sure = view.findViewById(R.id.dialog_sure);
         sure.setText(sureText);
         sure.setTextColor(context.getResources().getColor(sureColor));
-        if (isSureCrude){
+        if (isSureCrude) {
             sure.setTypeface(Typeface.defaultFromStyle(Typeface.BOLD));//加粗
-        }else {
+        } else {
             sure.setTypeface(Typeface.defaultFromStyle(Typeface.NORMAL));//不加粗
         }
 
         TextView contentView = view.findViewById(R.id.dialog_title);
         contentView.setText(content);
         contentView.setTextColor(context.getResources().getColor(contentColor));
-        if (isContentCrude){
+        if (isContentCrude) {
             contentView.setTypeface(Typeface.defaultFromStyle(Typeface.BOLD));//加粗
-        }else {
+        } else {
             contentView.setTypeface(Typeface.defaultFromStyle(Typeface.NORMAL));//不加粗
         }
         contentView.setTextSize(15);
@@ -317,14 +318,14 @@ public class DialogUtil {
     }
 
     //比价弹窗
-    public static void parityDialog(Context context, String source,final View.OnClickListener sureListener) {
+    public static void parityDialog(Context context, String source, final View.OnClickListener sureListener) {
         AlertDialog.Builder builder = new AlertDialog.Builder(context, R.style.dialog);
-        DialogParityBinding binding = DataBindingUtil.inflate(LayoutInflater.from(context),R.layout.dialog_parity, null,false);
+        DialogParityBinding binding = DataBindingUtil.inflate(LayoutInflater.from(context), R.layout.dialog_parity, null, false);
         final Dialog dialog = builder.create();
-        if (source.equals("4")){
+        if (source.equals("4")) {
             //拼多多
             binding.dialogTitle.setText("本提示与拼多多比价订单佣金调整政策相关，");
-        }else {
+        } else {
             binding.dialogTitle.setText("本提示与淘宝比价订单佣金调整政策相关，");
         }
         binding.dialogBackground.setOnClickListener(v -> dialog.dismiss());
@@ -344,20 +345,20 @@ public class DialogUtil {
     /**
      * 用户首次下载 30元购物津贴
      */
-    public static void newPeopleDialog(Context context , String url, final View.OnClickListener cancleListener ,
-                                       final View.OnClickListener sureListener){
+    public static void newPeopleDialog(Context context, String url, final View.OnClickListener cancleListener,
+                                       final View.OnClickListener sureListener) {
         AlertDialog.Builder builder = new AlertDialog.Builder(context, R.style.dialog);
-        DialogNewpeople2Binding binding = DataBindingUtil.inflate(LayoutInflater.from(context),R.layout.dialog_newpeople2, null,false);
+        DialogNewpeople2Binding binding = DataBindingUtil.inflate(LayoutInflater.from(context), R.layout.dialog_newpeople2, null, false);
         final Dialog dialog = builder.create();
         url = url + System.currentTimeMillis();
-        GlideApp.loderImage(context,url,binding.dialogImage,0,0);
+        GlideApp.loderImage(context, url, binding.dialogImage, 0, 0);
         binding.dialogCancle.setOnClickListener(v -> {
             if (cancleListener != null)
                 cancleListener.onClick(v);
             dialog.dismiss();
         });
         binding.dialogImage.setOnClickListener(v -> {
-            if (sureListener != null){
+            if (sureListener != null) {
                 sureListener.onClick(v);
             }
             dialog.dismiss();
@@ -375,7 +376,7 @@ public class DialogUtil {
         View view = LayoutInflater.from(context).inflate(R.layout.dialog_img, null);
         ImageView dialog_img = view.findViewById(R.id.dialog_img);
         ImageView dialog_cancle = view.findViewById(R.id.dialog_cancle);
-        GlideApp.loderImage(context,resource,dialog_img,0,0);
+        GlideApp.loderImage(context, resource, dialog_img, 0, 0);
         final Dialog dialog = builder.create();
         dialog.getWindow().setDimAmount(0.35f);
         dialog_cancle.setOnClickListener(v -> {
@@ -531,15 +532,10 @@ public class DialogUtil {
     }
 
     //公用非会员提示弹窗
-    public static void memberGuideDialog(Context context , View.OnClickListener clickListener) {
+    public static void memberGuideDialog(Context context) {
         AlertDialog.Builder builder = new AlertDialog.Builder(context, R.style.dialog);
         final Dialog dialog = builder.create();
-        DialogShopGuideBinding binding = DataBindingUtil.inflate(LayoutInflater.from(context),R.layout.dialog_shop_guide, null,false);
-        binding.itemGo.setOnClickListener(v -> {
-            dialog.dismiss();
-            if (clickListener != null)
-                clickListener.onClick(v);
-        });
+        DialogShopGuideBinding binding = DataBindingUtil.inflate(LayoutInflater.from(context), R.layout.dialog_shop_guide, null, false);
         binding.itemGoMember.setOnClickListener(v -> {
             EventBus.getDefault().post(new ChangeHomePageBus(2));
             dialog.dismiss();
@@ -553,18 +549,13 @@ public class DialogUtil {
     }
 
     //公用非会员提示弹窗
-    public static void memberGuideDialog(Context context , View.OnClickListener clickListener, View.OnClickListener go) {
+    public static void memberGuideDialog(Context context, View.OnClickListener go) {
         AlertDialog.Builder builder = new AlertDialog.Builder(context, R.style.dialog);
         final Dialog dialog = builder.create();
-        DialogShopGuideBinding binding = DataBindingUtil.inflate(LayoutInflater.from(context),R.layout.dialog_shop_guide, null,false);
-        binding.itemGo.setOnClickListener(v -> {
-            dialog.dismiss();
-            if (clickListener != null)
-                clickListener.onClick(v);
-        });
+        DialogShopGuideBinding binding = DataBindingUtil.inflate(LayoutInflater.from(context), R.layout.dialog_shop_guide, null, false);
         binding.itemGoMember.setOnClickListener(v -> {
             dialog.dismiss();
-            if (go != null){
+            if (go != null) {
                 go.onClick(v);
             }
         });
@@ -579,19 +570,19 @@ public class DialogUtil {
     /**
      * 首页专属导师弹窗
      */
-    public static void teacherDialog(Context context,String Twechat , String Tavatar) {
+    public static void teacherDialog(Context context, String Twechat, String Tavatar) {
         AlertDialog.Builder builder = new AlertDialog.Builder(context, R.style.dialog);
         final Dialog dialog = builder.create();
-        DialogNewpeopleBuyBinding binding = DataBindingUtil.inflate(LayoutInflater.from(context),R.layout.dialog_newpeople_buy, null,false);
+        DialogNewpeopleBuyBinding binding = DataBindingUtil.inflate(LayoutInflater.from(context), R.layout.dialog_newpeople_buy, null, false);
         binding.dialogWx.setText("微信：" + Twechat);
-        GlideApp.loderCircleImage(context,Tavatar,binding.dialogImage,R.mipmap.rlogo,0);
+        GlideApp.loderCircleImage(context, Tavatar, binding.dialogImage, R.mipmap.rlogo, 0);
         binding.dialogCancle.setOnClickListener(v -> dialog.dismiss());
         binding.dialogSure.setOnClickListener(v -> {
-            ClipboardManager clip = (ClipboardManager)context.getSystemService(Context.CLIPBOARD_SERVICE);
-            ClipData clipData = ClipData.newPlainText("jipinshop", binding.dialogWx.getText().toString().replace("微信：",""));
+            ClipboardManager clip = (ClipboardManager) context.getSystemService(Context.CLIPBOARD_SERVICE);
+            ClipData clipData = ClipData.newPlainText("jipinshop", binding.dialogWx.getText().toString().replace("微信：", ""));
             clip.setPrimaryClip(clipData);
             ToastUtil.show("复制成功");
-            SPUtils.getInstance().put(CommonDate.CLIP,binding.dialogWx.getText().toString().replace("微信：",""));
+            SPUtils.getInstance().put(CommonDate.CLIP, binding.dialogWx.getText().toString().replace("微信：", ""));
             dialog.dismiss();
         });
         dialog.getWindow().setDimAmount(0.35f);
@@ -670,8 +661,8 @@ public class DialogUtil {
         binding.dialogSure2.setOnClickListener(v -> {
             context.startActivity(new Intent(context, TBShoppingDetailActivity.class)
                     .putExtra("otherGoodsId", bean.getData().getData().getOtherGoodsId())
-                    .putExtra("source",bean.getData().getData().getSource())
-                    .putExtra("parity",bean.getData().getData().getCommissionRate())
+                    .putExtra("source", bean.getData().getData().getSource())
+                    .putExtra("parity", bean.getData().getData().getCommissionRate())
             );
             dialog.dismiss();
         });
@@ -702,38 +693,39 @@ public class DialogUtil {
     }
 
     //新人0元购免单专区 离开时弹窗
-    public static void outDialog2(Context context, NewFreeBean bean , View.OnClickListener listener){
+    public static void outDialog2(Context context, NewFreeBean bean, View.OnClickListener listener) {
         AlertDialog.Builder builder = new AlertDialog.Builder(context, R.style.dialog);
         final Dialog dialog = builder.create();
         DialogOutBinding binding = DataBindingUtil.inflate(LayoutInflater.from(context), R.layout.dialog_out, null, false);
-        if (bean.getData().size() >= 5){
+        if (bean.getData().size() >= 5) {
             GlideApp.loderTopRoundImage(context, bean.getData().get(2).getImg(), binding.dialogImg1, (int) context.getResources().getDimension(R.dimen.x10));
             GlideApp.loderTopRoundImage(context, bean.getData().get(3).getImg(), binding.dialogImg2, (int) context.getResources().getDimension(R.dimen.x10));
             GlideApp.loderTopRoundImage(context, bean.getData().get(4).getImg(), binding.dialogImg3, (int) context.getResources().getDimension(R.dimen.x10));
-            binding.dialogText1.setText("¥"+ bean.getData().get(2).getBuyPrice());
-            binding.dialogText2.setText("¥"+ bean.getData().get(3).getBuyPrice());
-            binding.dialogText3.setText("¥"+ bean.getData().get(4).getBuyPrice());
-        }else {
+            binding.dialogText1.setText("¥" + bean.getData().get(2).getBuyPrice());
+            binding.dialogText2.setText("¥" + bean.getData().get(3).getBuyPrice());
+            binding.dialogText3.setText("¥" + bean.getData().get(4).getBuyPrice());
+        } else {
             GlideApp.loderTopRoundImage(context, bean.getData().get(0).getImg(), binding.dialogImg1, (int) context.getResources().getDimension(R.dimen.x10));
             GlideApp.loderTopRoundImage(context, bean.getData().get(1).getImg(), binding.dialogImg2, (int) context.getResources().getDimension(R.dimen.x10));
             GlideApp.loderTopRoundImage(context, bean.getData().get(2).getImg(), binding.dialogImg3, (int) context.getResources().getDimension(R.dimen.x10));
-            binding.dialogText1.setText("¥"+ bean.getData().get(0).getBuyPrice());
-            binding.dialogText2.setText("¥"+ bean.getData().get(1).getBuyPrice());
-            binding.dialogText3.setText("¥"+ bean.getData().get(2).getBuyPrice());
+            binding.dialogText1.setText("¥" + bean.getData().get(0).getBuyPrice());
+            binding.dialogText2.setText("¥" + bean.getData().get(1).getBuyPrice());
+            binding.dialogText3.setText("¥" + bean.getData().get(2).getBuyPrice());
         }
         long endTime = bean.getEndTime();
         long time = (endTime * 1000) - System.currentTimeMillis();
-        if (time > 0){
+        if (time > 0) {
             binding.dialogTime.setVisibility(View.VISIBLE);
-             new CountDownTimer(time, 1000) {
+            new CountDownTimer(time, 1000) {
                 public void onTick(long millisUntilFinished) {
                     binding.dialogTime.setText(TimeUtil.getCountTimeByLong2(millisUntilFinished) + "后将失效");
                 }
+
                 public void onFinish() {
                     binding.dialogTime.setVisibility(View.GONE);
                 }
             }.start();
-        }else {
+        } else {
             binding.dialogTime.setVisibility(View.GONE);
         }
         binding.dialogSure.setOnClickListener(v -> {
@@ -750,7 +742,7 @@ public class DialogUtil {
     }
 
     //特惠购首次下单奖励弹框
-    public static void cheapDialog(Context context, View.OnClickListener listener , View.OnClickListener cancleListener){
+    public static void cheapDialog(Context context, View.OnClickListener listener, View.OnClickListener cancleListener) {
         AlertDialog.Builder builder = new AlertDialog.Builder(context, R.style.dialog);
         final Dialog dialog = builder.create();
         DialogNewpeople2Binding binding = DataBindingUtil.inflate(LayoutInflater.from(context), R.layout.dialog_newpeople2, null, false);
@@ -771,7 +763,7 @@ public class DialogUtil {
     }
 
     //特惠购离开时弹窗
-    public static void cheapOutDialog(Context context, List<NewPeopleBean.DataBean.AllowanceGoodsListBean> strings, String allowance, View.OnClickListener listener){
+    public static void cheapOutDialog(Context context, List<NewPeopleBean.DataBean.AllowanceGoodsListBean> strings, String allowance, View.OnClickListener listener) {
         AlertDialog.Builder builder = new AlertDialog.Builder(context, R.style.dialog);
         final Dialog dialog = builder.create();
         DialogCheapOutBinding binding = DataBindingUtil.inflate(LayoutInflater.from(context), R.layout.dialog_cheap_out, null, false);
@@ -779,9 +771,9 @@ public class DialogUtil {
         GlideApp.loderTopRoundImage(context, strings.get(0).getImg(), binding.dialogImg1, (int) context.getResources().getDimension(R.dimen.x10));
         GlideApp.loderTopRoundImage(context, strings.get(1).getImg(), binding.dialogImg2, (int) context.getResources().getDimension(R.dimen.x10));
         GlideApp.loderTopRoundImage(context, strings.get(2).getImg(), binding.dialogImg3, (int) context.getResources().getDimension(R.dimen.x10));
-        binding.dialogText1.setText("补贴"+strings.get(0).getUseAllowancePrice()+"元");
-        binding.dialogText2.setText("补贴"+strings.get(1).getUseAllowancePrice()+"元");
-        binding.dialogText3.setText("补贴"+strings.get(2).getUseAllowancePrice()+"元");
+        binding.dialogText1.setText("补贴" + strings.get(0).getUseAllowancePrice() + "元");
+        binding.dialogText2.setText("补贴" + strings.get(1).getUseAllowancePrice() + "元");
+        binding.dialogText3.setText("补贴" + strings.get(2).getUseAllowancePrice() + "元");
         binding.dialogSure.setOnClickListener(v -> {
             if (listener != null)
                 listener.onClick(v);
@@ -796,11 +788,11 @@ public class DialogUtil {
     }
 
     //关联上下级用户弹窗
-    public static void userDialog(Context context,TklBean bean, final OnInvitationListener sureListener) {
+    public static void userDialog(Context context, TklBean bean, final OnInvitationListener sureListener) {
         AlertDialog.Builder builder = new AlertDialog.Builder(context, R.style.dialog);
-        DialogUserBinding binding = DataBindingUtil.inflate(LayoutInflater.from(context),R.layout.dialog_user, null,false);
+        DialogUserBinding binding = DataBindingUtil.inflate(LayoutInflater.from(context), R.layout.dialog_user, null, false);
         final Dialog dialog = builder.create();
-        String html = "关联成功奖励<font color='#E25838'>"+bean.getAddPoint()+"极币</font>";
+        String html = "关联成功奖励<font color='#E25838'>" + bean.getAddPoint() + "极币</font>";
         binding.dialogContent2.setText(Html.fromHtml(html));
         binding.setData(bean.getData().getData());
         binding.executePendingBindings();
@@ -809,7 +801,7 @@ public class DialogUtil {
         });
         binding.dialogSure.setOnClickListener(v -> {
             if (sureListener != null)
-                sureListener.invitation(bean.getData().getData().getInvitationCode(),dialog,null);
+                sureListener.invitation(bean.getData().getData().getInvitationCode(), dialog, null);
             dialog.dismiss();
         });
         dialog.getWindow().setDimAmount(0.35f);
@@ -818,7 +810,7 @@ public class DialogUtil {
     }
 
     //特惠购购买时弹窗
-    public static void cheapBuyDialog(Context context, String useAllowancePrice, View.OnClickListener listener){
+    public static void cheapBuyDialog(Context context, String useAllowancePrice, View.OnClickListener listener) {
         AlertDialog.Builder builder = new AlertDialog.Builder(context, R.style.dialog);
         final Dialog dialog = builder.create();
         DialogCheapBuyBinding binding = DataBindingUtil.inflate(LayoutInflater.from(context), R.layout.dialog_cheap_buy, null, false);
@@ -837,7 +829,7 @@ public class DialogUtil {
     }
 
     //打开朋友圈
-    public static void sharePYQDialog(Context context, View.OnClickListener listener){
+    public static void sharePYQDialog(Context context, View.OnClickListener listener) {
         AlertDialog.Builder builder = new AlertDialog.Builder(context, R.style.dialog);
         final Dialog dialog = builder.create();
         View view = LayoutInflater.from(context).inflate(R.layout.dialog_share_pyq, null);
@@ -856,7 +848,7 @@ public class DialogUtil {
     }
 
     //隐私协议dialog
-    public static void servceDialog(Context context,View.OnClickListener listener , View.OnClickListener cancleListener){
+    public static void servceDialog(Context context, View.OnClickListener listener, View.OnClickListener cancleListener) {
         AlertDialog.Builder builder = new AlertDialog.Builder(context, R.style.dialog);
         final Dialog dialog = builder.create();
         View view = LayoutInflater.from(context).inflate(R.layout.dialog_servce, null);
@@ -864,7 +856,7 @@ public class DialogUtil {
         TextView dialog_sure = view.findViewById(R.id.dialog_sure);
         TextView servce_content = view.findViewById(R.id.servce_content);
         TextView servce_content2 = view.findViewById(R.id.servce_content2);
-        String content= "依据最新法律要求，我们更新了《隐私政策》，特向您说明，在使用我们的服务时，" +
+        String content = "依据最新法律要求，我们更新了《隐私政策》，特向您说明，在使用我们的服务时，" +
                 "我们如何收集、使用、储存和分享这些信息，以及我们为您提供的访问、更新、控制和保护这些信息的方式。";
         SpannableString string = new SpannableString(content);
         //设置点击效果 设置多个Span时，需要为每个span创建新的对象，否者不起作用
@@ -872,10 +864,11 @@ public class DialogUtil {
             @Override
             public void onClick(View widget) {
                 context.startActivity(new Intent(context, WebActivity.class)
-                        .putExtra(WebActivity.url, RetrofitModule.H5_URL+"privacy.html")
-                        .putExtra(WebActivity.title,"隐私政策")
+                        .putExtra(WebActivity.url, RetrofitModule.H5_URL + "privacy.html")
+                        .putExtra(WebActivity.title, "隐私政策")
                 );
             }
+
             @Override
             public void updateDrawState(TextPaint ds) {
                 //去掉可点击文字的下划线
@@ -883,23 +876,24 @@ public class DialogUtil {
                 ds.setUnderlineText(false);
             }
         };
-        string.setSpan(clickableSpan1,14,20, Spanned.SPAN_INCLUSIVE_INCLUSIVE);//隐私协议
+        string.setSpan(clickableSpan1, 14, 20, Spanned.SPAN_INCLUSIVE_INCLUSIVE);//隐私协议
         // 设置此方法后，点击事件才能生效
         servce_content.setMovementMethod(LinkMovementMethod.getInstance());
         //去掉点击效果
         servce_content.setHighlightColor(Color.TRANSPARENT);
         servce_content.setText(string);
 
-        String content2= "请您在使用前仔细阅读《用户服务协议》及《隐私政策》，充分理解后选择“同意并继续”。";
+        String content2 = "请您在使用前仔细阅读《用户服务协议》及《隐私政策》，充分理解后选择“同意并继续”。";
         SpannableString string2 = new SpannableString(content2);
         ClickableSpan clickableSpan2 = new ClickableSpan() {
             @Override
             public void onClick(View widget) {
                 context.startActivity(new Intent(context, WebActivity.class)
-                        .putExtra(WebActivity.url, RetrofitModule.H5_URL+"agreement.html")
-                        .putExtra(WebActivity.title,"用户协议")
+                        .putExtra(WebActivity.url, RetrofitModule.H5_URL + "agreement.html")
+                        .putExtra(WebActivity.title, "用户协议")
                 );
             }
+
             @Override
             public void updateDrawState(TextPaint ds) {
                 //去掉可点击文字的下划线
@@ -911,10 +905,11 @@ public class DialogUtil {
             @Override
             public void onClick(View widget) {
                 context.startActivity(new Intent(context, WebActivity.class)
-                        .putExtra(WebActivity.url, RetrofitModule.H5_URL+"privacy.html")
-                        .putExtra(WebActivity.title,"隐私政策")
+                        .putExtra(WebActivity.url, RetrofitModule.H5_URL + "privacy.html")
+                        .putExtra(WebActivity.title, "隐私政策")
                 );
             }
+
             @Override
             public void updateDrawState(TextPaint ds) {
                 //去掉可点击文字的下划线
@@ -922,8 +917,8 @@ public class DialogUtil {
                 ds.setUnderlineText(false);
             }
         };
-        string2.setSpan(clickableSpan2,10,18, Spanned.SPAN_INCLUSIVE_INCLUSIVE);//用户协议
-        string2.setSpan(clickableSpan3,19,25, Spanned.SPAN_INCLUSIVE_INCLUSIVE);//隐私协议
+        string2.setSpan(clickableSpan2, 10, 18, Spanned.SPAN_INCLUSIVE_INCLUSIVE);//用户协议
+        string2.setSpan(clickableSpan3, 19, 25, Spanned.SPAN_INCLUSIVE_INCLUSIVE);//隐私协议
         servce_content2.setMovementMethod(LinkMovementMethod.getInstance());
         servce_content2.setHighlightColor(Color.TRANSPARENT);
         servce_content2.setText(string2);
@@ -945,15 +940,15 @@ public class DialogUtil {
     }
 
     //淘宝授权dialog
-    public static void TBLoginDialog(Context context,View.OnClickListener listener){
+    public static void TBLoginDialog(Context context, View.OnClickListener listener) {
         AlertDialog.Builder builder = new AlertDialog.Builder(context, R.style.dialog);
         final Dialog dialog = builder.create();
         View view = LayoutInflater.from(context).inflate(R.layout.dialog_tb_login, null);
         ImageView dialog_bg = view.findViewById(R.id.dialog_bg);
         ImageView dialog_cancle = view.findViewById(R.id.dialog_cancle);
         TextView dialog_sure = view.findViewById(R.id.dialog_sure);
-        GlideApp.loderImage(context,"https://jipincheng.cn/tbshouquan.png",
-                dialog_bg,R.mipmap.dialog_login_bg,R.mipmap.dialog_login_bg);
+        GlideApp.loderImage(context, "https://jipincheng.cn/tbshouquan.png",
+                dialog_bg, R.mipmap.dialog_login_bg, R.mipmap.dialog_login_bg);
         dialog_cancle.setOnClickListener(v -> {
             dialog.dismiss();
         });
@@ -967,14 +962,14 @@ public class DialogUtil {
     }
 
     //红包活动时的弹窗
-    public static void hbWebDialog(Context context,View.OnClickListener listener){
+    public static void hbWebDialog(Context context, View.OnClickListener listener) {
         AlertDialog.Builder builder = new AlertDialog.Builder(context, R.style.dialog);
-        DialogNewpeople2Binding binding = DataBindingUtil.inflate(LayoutInflater.from(context),R.layout.dialog_newpeople2, null,false);
+        DialogNewpeople2Binding binding = DataBindingUtil.inflate(LayoutInflater.from(context), R.layout.dialog_newpeople2, null, false);
         final Dialog dialog = builder.create();
         binding.dialogCancle.setVisibility(View.GONE);
         binding.dialogImage.setImageResource(R.mipmap.action_hb);
         binding.dialogImage.setOnClickListener(v -> {
-            if (listener != null){
+            if (listener != null) {
                 listener.onClick(v);
             }
             dialog.dismiss();
@@ -985,56 +980,56 @@ public class DialogUtil {
     }
 
     //下级用户详情
-    public static void userDetailDialog(Context context , SubUserBean bean){
+    public static void userDetailDialog(Context context, SubUserBean bean) {
         AlertDialog.Builder builder = new AlertDialog.Builder(context, R.style.dialog);
-        DialogUserDetailBinding binding = DataBindingUtil.inflate(LayoutInflater.from(context),R.layout.dialog_user_detail, null,false);
+        DialogUserDetailBinding binding = DataBindingUtil.inflate(LayoutInflater.from(context), R.layout.dialog_user_detail, null, false);
         final Dialog dialog = builder.create();
         binding.dialogClose.setOnClickListener(v -> dialog.dismiss());
         binding.dialogTitle.setText(bean.getData().getNickname());
-        if (TextUtils.isEmpty(bean.getData().getMobile())){
+        if (TextUtils.isEmpty(bean.getData().getMobile())) {
             binding.dialogPhone.setText("暂未填写");
-        }else {
+        } else {
             binding.dialogPhone.setText(bean.getData().getMobile());
         }
-        if (TextUtils.isEmpty(bean.getData().getWechat())){
+        if (TextUtils.isEmpty(bean.getData().getWechat())) {
             binding.dialogWxCode.setText("暂未填写");
-        }else {
+        } else {
             binding.dialogWxCode.setText(bean.getData().getWechat());
         }
         binding.dialogMonthMoney.setText("￥" + bean.getData().getPreMonthFee());
         binding.dialogTodayMoney.setText("￥" + bean.getData().getTodayFee());
-        if (bean.getData().getLevel() == 0){
+        if (bean.getData().getLevel() == 0) {
             //普通人员
             binding.dialogProgressTitle.setText("VIP进度");
-        }else {
+        } else {
             binding.dialogProgressTitle.setText("合伙人进度");
         }
         binding.dialogProgress.setText(bean.getData().getSubTotal() + "/" + bean.getData().getLevelInvitedUser());
         binding.dialogFans.setText(bean.getData().getSubTotal());
-        if (TextUtils.isEmpty(bean.getData().getLastOrderTime())){
+        if (TextUtils.isEmpty(bean.getData().getLastOrderTime())) {
             binding.dialogTime.setText("暂未下单");
-        }else {
+        } else {
             binding.dialogTime.setText(bean.getData().getLastOrderTime());
         }
         binding.dialogPhoneCopy.setOnClickListener(v -> {
-            if (!TextUtils.isEmpty(bean.getData().getMobile())){
-                ClipboardManager clip = (ClipboardManager)context.getSystemService(Context.CLIPBOARD_SERVICE);
+            if (!TextUtils.isEmpty(bean.getData().getMobile())) {
+                ClipboardManager clip = (ClipboardManager) context.getSystemService(Context.CLIPBOARD_SERVICE);
                 ClipData clipData = ClipData.newPlainText("jipinshop", bean.getData().getMobile());
                 clip.setPrimaryClip(clipData);
                 ToastUtil.show("复制成功");
-                SPUtils.getInstance().put(CommonDate.CLIP,bean.getData().getMobile());
-            }else {
+                SPUtils.getInstance().put(CommonDate.CLIP, bean.getData().getMobile());
+            } else {
                 ToastUtil.show("暂未填写");
             }
         });
         binding.dialogWxCopy.setOnClickListener(v -> {
             if (!TextUtils.isEmpty(bean.getData().getWechat())) {
-                ClipboardManager clip = (ClipboardManager)context.getSystemService(Context.CLIPBOARD_SERVICE);
+                ClipboardManager clip = (ClipboardManager) context.getSystemService(Context.CLIPBOARD_SERVICE);
                 ClipData clipData = ClipData.newPlainText("jipinshop", bean.getData().getWechat());
                 clip.setPrimaryClip(clipData);
                 ToastUtil.show("复制成功");
-                SPUtils.getInstance().put(CommonDate.CLIP,bean.getData().getWechat());
-            }else {
+                SPUtils.getInstance().put(CommonDate.CLIP, bean.getData().getWechat());
+            } else {
                 ToastUtil.show("暂未填写");
             }
         });
@@ -1044,15 +1039,15 @@ public class DialogUtil {
     }
 
     //购买时会员提示弹窗
-    public static void buyMemberDialog(Context context, String buyFree, String upFree , View.OnClickListener listener){
+    public static void buyMemberDialog(Context context, String buyFree, String upFree, View.OnClickListener listener) {
         AlertDialog.Builder builder = new AlertDialog.Builder(context, R.style.dialog);
-        DialogMemberBuyBinding binding = DataBindingUtil.inflate(LayoutInflater.from(context),R.layout.dialog_member_buy, null,false);
+        DialogMemberBuyBinding binding = DataBindingUtil.inflate(LayoutInflater.from(context), R.layout.dialog_member_buy, null, false);
         final Dialog dialog = builder.create();
-        binding.dialogUpFree.setText("办理会员（本单可返￥"+ upFree +"）");
-        binding.dialogBuy.setText("直接购买（本单可返￥"+ buyFree +"）");
+        binding.dialogUpFree.setText("办理会员（本单可返￥" + upFree + "）");
+        binding.dialogBuy.setText("直接购买（本单可返￥" + buyFree + "）");
         binding.dialogUpFree.setOnClickListener(v -> {
             context.startActivity(new Intent(context, HomeNewActivity.class)
-                    .putExtra("type",HomeNewActivity.member)
+                    .putExtra("type", HomeNewActivity.member)
             );
             dialog.dismiss();
         });
@@ -1068,12 +1063,12 @@ public class DialogUtil {
         dialog.setContentView(binding.getRoot());
     }
 
-    public static void onLuckDialog(Context context , List<PrizeLogBean.DataBean> list){
+    public static void onLuckDialog(Context context, List<PrizeLogBean.DataBean> list) {
         AlertDialog.Builder builder = new AlertDialog.Builder(context, R.style.dialog);
-        DialogLuckBinding binding = DataBindingUtil.inflate(LayoutInflater.from(context),R.layout.dialog_luck, null,false);
+        DialogLuckBinding binding = DataBindingUtil.inflate(LayoutInflater.from(context), R.layout.dialog_luck, null, false);
         final Dialog dialog = builder.create();
         binding.dialogRv.setLayoutManager(new LinearLayoutManager(context));
-        DialogLuckAdapter adapter = new DialogLuckAdapter(list,context);
+        DialogLuckAdapter adapter = new DialogLuckAdapter(list, context);
         binding.dialogRv.setAdapter(adapter);
         binding.dialogRv.setNestedScrollingEnabled(false);
         binding.dialogDismiss.setOnClickListener(v -> {
@@ -1084,21 +1079,21 @@ public class DialogUtil {
         dialog.setContentView(binding.getRoot());
     }
 
-    public static void wxDialog(Context context ,String title , String wxCode , String content){
+    public static void wxDialog(Context context, String title, String wxCode, String content) {
         AlertDialog.Builder builder = new AlertDialog.Builder(context, R.style.dialog);
         final Dialog dialog = builder.create();
-        DialogNewpeopleBuyBinding binding = DataBindingUtil.inflate(LayoutInflater.from(context),R.layout.dialog_newpeople_buy, null,false);
+        DialogNewpeopleBuyBinding binding = DataBindingUtil.inflate(LayoutInflater.from(context), R.layout.dialog_newpeople_buy, null, false);
         binding.dialogTitle.setText(title);
-        GlideApp.loderCircleImage(context,R.mipmap.logo,binding.dialogImage,0,0);
+        GlideApp.loderCircleImage(context, R.mipmap.logo, binding.dialogImage, 0, 0);
         binding.dialogWx.setText(wxCode + "极品城");
         binding.dialogContent.setText(content);
         binding.dialogCancle.setOnClickListener(v -> dialog.dismiss());
         binding.dialogSure.setOnClickListener(v -> {
-            ClipboardManager clip = (ClipboardManager)context.getSystemService(Context.CLIPBOARD_SERVICE);
-            ClipData clipData = ClipData.newPlainText("jipinshop","极品城");
+            ClipboardManager clip = (ClipboardManager) context.getSystemService(Context.CLIPBOARD_SERVICE);
+            ClipData clipData = ClipData.newPlainText("jipinshop", "极品城");
             clip.setPrimaryClip(clipData);
             ToastUtil.show("复制成功");
-            SPUtils.getInstance().put(CommonDate.CLIP,"极品城");
+            SPUtils.getInstance().put(CommonDate.CLIP, "极品城");
             dialog.dismiss();
         });
         dialog.getWindow().setDimAmount(0.35f);
@@ -1107,9 +1102,9 @@ public class DialogUtil {
     }
 
     //0元购详情失去免单资格
-    public static void noBuyDialog(Context context , View.OnClickListener listener){
+    public static void noBuyDialog(Context context, View.OnClickListener listener) {
         AlertDialog.Builder builder = new AlertDialog.Builder(context, R.style.dialog);
-        DialogNonewBinding binding = DataBindingUtil.inflate(LayoutInflater.from(context),R.layout.dialog_nonew, null,false);
+        DialogNonewBinding binding = DataBindingUtil.inflate(LayoutInflater.from(context), R.layout.dialog_nonew, null, false);
         final Dialog dialog = builder.create();
         Animation animation = AnimationUtils.loadAnimation(context, R.anim.free_scale);
         binding.dialogSure.startAnimation(animation);
@@ -1122,7 +1117,7 @@ public class DialogUtil {
             dialog.dismiss();
         });
         Window window = dialog.getWindow();
-        if (window != null){
+        if (window != null) {
             window.getDecorView().setPadding(0, 0, 0, 0);
             WindowManager.LayoutParams layoutParams = window.getAttributes();
             layoutParams.width = WindowManager.LayoutParams.MATCH_PARENT;
@@ -1135,13 +1130,13 @@ public class DialogUtil {
     }
 
     //支付成功弹窗
-    public static void paySucDialog(Context context, String level){
+    public static void paySucDialog(Context context, String level) {
         AlertDialog.Builder builder = new AlertDialog.Builder(context, R.style.dialog);
-        DialogPaySuccessBinding binding = DataBindingUtil.inflate(LayoutInflater.from(context),R.layout.dialog_pay_success, null,false);
+        DialogPaySuccessBinding binding = DataBindingUtil.inflate(LayoutInflater.from(context), R.layout.dialog_pay_success, null, false);
         final Dialog dialog = builder.create();
-        if (level.equals("1")){
+        if (level.equals("1")) {
             binding.dialogImage.setImageResource(R.mipmap.pay_success2);
-        }else {
+        } else {
             binding.dialogImage.setImageResource(R.mipmap.pay_success);
         }
         binding.dialogDismiss.setOnClickListener(v -> {
@@ -1153,9 +1148,9 @@ public class DialogUtil {
     }
 
     //支付失败弹窗 //type 1是支付宝 2是微信
-    public static void payFileDialog(Context context , int userLevel ,OnPayListener listener){
+    public static void payFileDialog(Context context, int userLevel, OnPayListener listener) {
         AlertDialog.Builder builder = new AlertDialog.Builder(context, R.style.dialog);
-        DialogPayFileBinding binding = DataBindingUtil.inflate(LayoutInflater.from(context),R.layout.dialog_pay_file, null,false);
+        DialogPayFileBinding binding = DataBindingUtil.inflate(LayoutInflater.from(context), R.layout.dialog_pay_file, null, false);
         final Dialog dialog = builder.create();
         binding.dialogAlipay.setChecked(true);
         final String[] type = {"1"};
@@ -1169,18 +1164,18 @@ public class DialogUtil {
             dialog.dismiss();
         });
         binding.dialogSure.setOnClickListener(v -> {
-            if (binding.dialogAlipay.isChecked()){
+            if (binding.dialogAlipay.isChecked()) {
                 type[0] = "1";
-            }else if (binding.dialogWxpay.isChecked()){
+            } else if (binding.dialogWxpay.isChecked()) {
                 type[0] = "2";
             }
             listener.onPay(type[0]);
             dialog.dismiss();
         });
-        if (userLevel == 0){// 0 普通 ， 1 月卡 ，2年卡
+        if (userLevel == 0) {// 0 普通 ， 1 月卡 ，2年卡
             binding.dialogTitle.setText("确定放弃购买VIP吗？");
             binding.dialogSure.setText("购买VIP会员");
-        }else {
+        } else {
             binding.dialogTitle.setText("确定放弃续费VIP吗？");
             binding.dialogSure.setText("续费VIP会员");
         }
@@ -1194,17 +1189,17 @@ public class DialogUtil {
     }
 
     //家庭dialog
-    public static void familyDialog(Context context , FamilyBean.DataBean bean ,String totle, View.OnClickListener listener){
+    public static void familyDialog(Context context, FamilyBean.DataBean bean, String totle, View.OnClickListener listener) {
         AlertDialog.Builder builder = new AlertDialog.Builder(context, R.style.dialog);
-        DialogFamilyBinding binding = DataBindingUtil.inflate(LayoutInflater.from(context),R.layout.dialog_family, null,false);
+        DialogFamilyBinding binding = DataBindingUtil.inflate(LayoutInflater.from(context), R.layout.dialog_family, null, false);
         final Dialog dialog = builder.create();
         String html;
-        if (bean.getStatus().equals("1")){
+        if (bean.getStatus().equals("1")) {
             //已加入
             binding.dialogBottomContainer.setVisibility(View.GONE);
             binding.dialogName.setText(bean.getNickename());
-            html = bean.getCreateTime() + "共享特权<br>累计节省<font color='#E25838'>"+ bean.getTotalFee() +"</font>元";
-        }else {
+            html = bean.getCreateTime() + "共享特权<br>累计节省<font color='#E25838'>" + bean.getTotalFee() + "</font>元";
+        } else {
             //待加入
             binding.dialogBottomContainer.setVisibility(View.VISIBLE);
             binding.dialogName.setText(bean.getNickename() + "请求共享特权");
@@ -1219,7 +1214,7 @@ public class DialogUtil {
         });
         binding.dialogSure.setOnClickListener(v -> {
             dialog.dismiss();
-            if (listener != null){
+            if (listener != null) {
                 listener.onClick(v);
             }
         });
@@ -1229,7 +1224,7 @@ public class DialogUtil {
     }
 
     //0元购购买时弹窗
-    public static void zeroBuyDialog(Context context, View.OnClickListener listener){
+    public static void zeroBuyDialog(Context context, View.OnClickListener listener) {
         AlertDialog.Builder builder = new AlertDialog.Builder(context, R.style.dialog);
         final Dialog dialog = builder.create();
         DialogZeroBuyBinding binding = DataBindingUtil.inflate(LayoutInflater.from(context), R.layout.dialog_zero_buy, null, false);
@@ -1247,19 +1242,19 @@ public class DialogUtil {
     }
 
     //拼团退出弹框
-    public static void groupOutDialog(Context context , GroupInfoBean.DataBean bean , View.OnClickListener listener){
-        if (bean == null){
+    public static void groupOutDialog(Context context, GroupInfoBean.DataBean bean, View.OnClickListener listener) {
+        if (bean == null) {
             return;
         }
         AlertDialog.Builder builder = new AlertDialog.Builder(context, R.style.dialog);
         final Dialog dialog = builder.create();
         DialogOutGroupBinding binding = DataBindingUtil.inflate(LayoutInflater.from(context), R.layout.dialog_out_group, null, false);
-        GlideApp.loderRoundImage(context,bean.getImg(),binding.dialogImage);
+        GlideApp.loderRoundImage(context, bean.getImg(), binding.dialogImage);
         binding.dialogName.setText(bean.getGoodsName());
         binding.dialogPrice.setText("￥" + bean.getUpFee());
         BigDecimal bigDecimal = new BigDecimal(bean.getUpFee());//拼成返
         BigDecimal bigDecimal1 = new BigDecimal(bean.getFee());//未拼成返
-        String html = "未拼成少返<b><font color='#E25838'>￥"+
+        String html = "未拼成少返<b><font color='#E25838'>￥" +
                 bigDecimal.subtract(bigDecimal1).stripTrailingZeros().toPlainString() + "</font></b>";
         binding.dialogFee.setText(Html.fromHtml(html));
         binding.dialogSure.setOnClickListener(v -> {
@@ -1276,20 +1271,20 @@ public class DialogUtil {
     }
 
     //首页拼团信息弹框
-    public static void groupDialog(Context context, GroupInfoBean.DataBean bean ,
-                                   View.OnClickListener listener , View.OnClickListener cancleListener){
+    public static void groupDialog(Context context, GroupInfoBean.DataBean bean,
+                                   View.OnClickListener listener, View.OnClickListener cancleListener) {
         AlertDialog.Builder builder = new AlertDialog.Builder(context, R.style.dialog);
         final Dialog dialog = builder.create();
         DialogGroupBinding binding = DataBindingUtil.inflate(LayoutInflater.from(context), R.layout.dialog_group, null, false);
-        GlideApp.loderRoundImage(context,bean.getImg(),binding.dialogImage);
+        GlideApp.loderRoundImage(context, bean.getImg(), binding.dialogImage);
         binding.dialogName.setText(bean.getGoodsName());
         binding.dialogPrice.setText("￥" + bean.getUpFee());
         binding.groupInvation.setText("邀请好友参团，成团返￥" + bean.getUpFee());
         for (int i = 0; i < bean.getAvatarList().size(); i++) {
-            if (i == 0){
-                GlideApp.loderCircleImage(context,bean.getAvatarList().get(i),binding.groupGrouper,0,0);
-            }else if (i == 1){
-                GlideApp.loderCircleImage(context,bean.getAvatarList().get(i),binding.groupMember,0,0);
+            if (i == 0) {
+                GlideApp.loderCircleImage(context, bean.getAvatarList().get(i), binding.groupGrouper, 0, 0);
+            } else if (i == 1) {
+                GlideApp.loderCircleImage(context, bean.getAvatarList().get(i), binding.groupMember, 0, 0);
             }
         }
         long timer = (bean.getTimeToEndTime() * 1000) - System.currentTimeMillis();
@@ -1311,8 +1306,9 @@ public class DialogUtil {
                     binding.dialogTime.setText(Html.fromHtml(html));
                 }
             }.start();
-        }else {
-            binding.dialogTime.setText("恭喜拼团成功，返现￥" + bean.getUpFee());
+        } else {
+            binding.dialogTime.setVisibility(View.GONE);
+            binding.groupInvation.setText("恭喜拼团成功，成团返"+bean.getUpFee()+"元");
         }
         CountDownTimer finalCountDownTimer = countDownTimer;
         dialog.setOnDismissListener(dialogInterface -> {
@@ -1337,6 +1333,27 @@ public class DialogUtil {
             dialog.dismiss();
             if (cancleListener != null)
                 cancleListener.onClick(v);
+        });
+        dialog.getWindow().setDimAmount(0.35f);
+        dialog.show();
+        dialog.setContentView(binding.getRoot());
+    }
+
+    //会员购买订单退出时弹窗
+    public static void buyOutDialog(Context context, View.OnClickListener clickListener) {
+        AlertDialog.Builder builder = new AlertDialog.Builder(context, R.style.dialog);
+        final Dialog dialog = builder.create();
+        DialogBuyOutBinding binding = DataBindingUtil.inflate(LayoutInflater.from(context), R.layout.dialog_buy_out, null, false);
+        binding.dialogDismiss.setOnClickListener(v -> {
+            dialog.dismiss();
+        });
+        binding.dialogCancle.setOnClickListener(v -> {
+            if (clickListener != null)
+                clickListener.onClick(v);
+            dialog.dismiss();
+        });
+        binding.dialogSure.setOnClickListener(v -> {
+            dialog.dismiss();
         });
         dialog.getWindow().setDimAmount(0.35f);
         dialog.show();
