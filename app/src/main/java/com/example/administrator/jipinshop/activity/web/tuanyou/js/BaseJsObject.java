@@ -1,12 +1,19 @@
 package com.example.administrator.jipinshop.activity.web.tuanyou.js;
 
 import android.app.Activity;
-import android.app.AlertDialog;
-import android.content.DialogInterface;
+import android.content.Context;
+import android.content.Intent;
+import android.content.pm.PackageInfo;
+import android.net.Uri;
 import android.text.TextUtils;
 import android.util.Log;
 import android.webkit.JavascriptInterface;
 import android.widget.Toast;
+
+import com.example.administrator.jipinshop.R;
+import com.example.administrator.jipinshop.util.ToastUtil;
+
+import java.math.BigDecimal;
 
 /**
  * <br>
@@ -51,6 +58,9 @@ class BaseJsObject {
      * @return 返回数据给h5
      * @JavascriptInterface 这个注解必须添加，否则js调不到这个方法
      * 这个方法名称也必须要和h5保持一致
+     *
+     * 高德地图和腾讯地图是GCJ02,百度地图的坐标系是BD09
+     * 给的是高德地图的经纬度
      */
     @JavascriptInterface
     public void startNavigate(String startLat, String startLng, String endLat, String endLng) {
@@ -61,23 +71,82 @@ class BaseJsObject {
             return;
         }
 
-        final AlertDialog.Builder builder = new AlertDialog.Builder(activity);
-        builder.setTitle("提示");
-        builder.setMessage("请调用自己的导航\n开始经纬度:" +
-                startLat + "    " + startLng +
-                "\n结束经纬度:" + endLat + "    " + endLng);
-
-        builder.setPositiveButton("确定",
-                new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        dialog.dismiss();
-                    }
-                });
-
-        builder.setCancelable(false);
-        builder.show();
+        if (checkMapAppsIsExist(activity, "com.baidu.BaiduMap")) {
+            //百度地图
+            Intent intent = new Intent(Intent.ACTION_VIEW);
+            intent.setData(Uri.parse("baidumap://map/direction?origin=name:我的位置"
+                    + "|latlng:"+bd_enLat(startLat,startLng) +"," + bd_enlng(startLat,startLng)
+                    + "&destination=name:"
+                    + "终点"
+                    + "|latlng:" + bd_enLat(endLat,endLng) + "," + bd_enlng(endLat,endLng)
+                    + "&mode=driving&target=1&coord_type=bd09ll&car_type=TIME"));
+            activity.startActivity(intent);
+        } else if (checkMapAppsIsExist(activity, "com.autonavi.minimap")) {
+            //高德地图
+            Intent intent = new Intent(Intent.ACTION_VIEW);
+            intent.setPackage("com.autonavi.minimap");
+            intent.addCategory("android.intent.category.DEFAULT");
+            intent.setData(Uri.parse("androidamap://route?sourceApplication=" + R.string.app_name
+                    + "&sname=我的位置&dlat=" + endLat
+                    + "&dlon=" + endLng
+                    + "&dname=" + "终点"
+                    + "&dev=0&m=0&t=0"));
+            activity.startActivity(intent);
+        } else if (checkMapAppsIsExist(activity, "com.tencent.map")) {
+            //腾讯地图
+            Intent intent = new Intent(Intent.ACTION_VIEW);
+            intent.setData(Uri.parse("qqmap://map/routeplan?type=drive&from=我的位置&fromcoord=0,0"
+                    + "&to=" + "终点"
+                    + "&tocoord=" + endLat + "," + endLng
+                    + "&policy=0&referer=myapp"));
+            activity.startActivity(intent);
+        } else {
+            //没有地图app
+            String url = "http://api.map.baidu.com/direction?origin=latlng:" +
+                    bd_enLat(startLat,startLng)+","+ bd_enlng(startLat,startLng) +
+                    "|name:我的位置&destination=name:终点|latlng:" + bd_enLat(endLat,endLng) + "," +
+                    bd_enlng(endLat,endLng) + "&mode=driving&target=1&coord_type=bd09ll&car_type=TIME" +
+                    "&region=杭州&output=html";
+            Intent ExeIntent = new Intent();
+            ExeIntent.setAction("android.intent.action.VIEW");
+            ExeIntent.setData(Uri.parse(url));
+            activity.startActivity(ExeIntent);
+            ToastUtil.show("您未安装百度地图，正在为您打开浏览器");
+        }
 
     }
 
+    //检测地图应用是否安装
+    public boolean checkMapAppsIsExist(Context context, String packagename) {
+        PackageInfo packageInfo;
+        try {
+            packageInfo = context.getPackageManager().getPackageInfo(packagename, 0);
+        } catch (Exception e) {
+            packageInfo = null;
+            e.printStackTrace();
+        }
+        return packageInfo != null;
+    }
+
+    //高德坐标转百度（传入经度、纬度）
+    public String bd_enLat(String gg_lat , String gg_lng) {
+        double X_PI = Math.PI * 3000.0 / 180.0;
+        double y = new BigDecimal(gg_lat).doubleValue();
+        double x = new BigDecimal(gg_lng).doubleValue();
+        double z = Math.sqrt(x * x + y * y) + 0.00002 * Math.sin(y * X_PI);
+        double theta = Math.atan2(y, x) + 0.000003 * Math.cos(x * X_PI);
+        double bd_lat = z * Math.sin(theta) + 0.006;
+        return bd_lat + "";
+    }
+
+    //高德坐标转百度（传入经度、纬度）
+    public String bd_enlng(String gg_lat , String gg_lng) {
+        double X_PI = Math.PI * 3000.0 / 180.0;
+        double y = new BigDecimal(gg_lat).doubleValue();
+        double x = new BigDecimal(gg_lng).doubleValue();
+        double z = Math.sqrt(x * x + y * y) + 0.00002 * Math.sin(y * X_PI);
+        double theta = Math.atan2(y, x) + 0.000003 * Math.cos(x * X_PI);
+        double bd_lng = z * Math.cos(theta) + 0.0065;
+        return bd_lng + "";
+    }
 }
