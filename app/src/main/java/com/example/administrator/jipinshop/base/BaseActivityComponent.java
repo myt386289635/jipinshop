@@ -97,6 +97,7 @@ import com.example.administrator.jipinshop.activity.web.TaoBaoWebActivity;
 import com.example.administrator.jipinshop.activity.web.dzp.BigWheelWebActivity;
 import com.example.administrator.jipinshop.activity.web.hb.HBWebView2;
 import com.example.administrator.jipinshop.activity.web.invite.InviteActionWebActivity;
+import com.example.administrator.jipinshop.activity.web.tuanyou.CZBWebActivity;
 import com.example.administrator.jipinshop.activity.wellcome.WellComeActivity;
 import com.example.administrator.jipinshop.auto.ActivityScope;
 import com.example.administrator.jipinshop.netwrok.ApplicationComponent;
@@ -204,4 +205,5 @@ public interface BaseActivityComponent {
     void inject(MyGroupActivity activity);
     void inject(TakeOutActivity activity);
     void inject(MemberBuyActivity activity);
+    void inject(CZBWebActivity activity);
 }

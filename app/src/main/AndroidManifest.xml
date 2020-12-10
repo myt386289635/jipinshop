@@ -840,6 +840,10 @@
         <activity android:name=".activity.member.buy.MemberBuyActivity"
                   android:screenOrientation="portrait"/>
 
+        <!--团油web-->
+        <activity android:name=".activity.web.tuanyou.CZBWebActivity"
+                  android:screenOrientation="portrait"/>
+
  </application>
 
 </manifest>
