@@ -461,10 +461,14 @@ public class ShopJumpUtil {
                 context.startActivity(intent);
                 break;
             case "45"://团油
-                intent.setClass(context, CZBWebActivity.class);
-                intent.putExtra(CZBWebActivity.url, target_id);
-                intent.putExtra(CZBWebActivity.title,target_title);
-                intent.putExtra(CZBWebActivity.source,source);
+                if (TextUtils.isEmpty(SPUtils.getInstance(CommonDate.USER).getString(CommonDate.token, ""))) {
+                    intent.setClass(context, LoginActivity.class);
+                }else {
+                    intent.setClass(context, CZBWebActivity.class);
+                    intent.putExtra(CZBWebActivity.url, target_id);
+                    intent.putExtra(CZBWebActivity.title,target_title);
+                    intent.putExtra(CZBWebActivity.source,source);
+                }
                 context.startActivity(intent);
                 break;
             case "101":
