@@ -45,6 +45,10 @@
                 android:protectionLevel="signature"/>
     <uses-permission android:name="com.example.administrator.jipinshop.permission.C2D_MESSAGE"/>
 
+    <!--团油定位-->
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"/>
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>
+
     <application
         tools:replace="android:allowBackup"
         android:name=".MyApplication"

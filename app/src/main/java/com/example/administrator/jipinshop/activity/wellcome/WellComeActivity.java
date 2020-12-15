@@ -214,7 +214,7 @@ public class WellComeActivity extends BaseActivity {
                 }
             }
 
-        }, Manifest.permission.READ_PHONE_STATE);
+        }, Manifest.permission.ACCESS_FINE_LOCATION);
     }
 
     /***
