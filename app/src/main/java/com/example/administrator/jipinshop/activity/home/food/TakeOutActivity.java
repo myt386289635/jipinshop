@@ -55,7 +55,7 @@ public class TakeOutActivity extends BaseActivity implements View.OnClickListene
 
         mPresenter.solveScoll(mBinding.recyclerView,mBinding.swipeToLoad);
         mBinding.swipeToLoad.setOnRefreshListener(this);
-        mBinding.swipeToLoad.setLoadingMore(false);
+        mBinding.swipeToLoad.setLoadMoreEnabled(false);
         mBinding.swipeToLoad.post(() -> mBinding.swipeToLoad.setRefreshing(true));
     }
 

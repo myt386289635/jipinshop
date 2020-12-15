@@ -41,7 +41,6 @@ public class TakeOutPresenter {
                 RecyclerView.LayoutManager layoutManager = mRecyclerView.getLayoutManager();
                 LinearLayoutManager linearManager = (LinearLayoutManager) layoutManager;
                 mSwipeToLoad.setRefreshEnabled(linearManager.findFirstCompletelyVisibleItemPosition() == 0);
-                mSwipeToLoad.setLoadMoreEnabled(isSlideToBottom(mRecyclerView));
             }
 
             @Override
@@ -49,17 +48,6 @@ public class TakeOutPresenter {
                 super.onScrollStateChanged(recyclerView, newState);
             }
         });
-    }
-
-    /**
-     * 判断RecyclerView是否滑动到底部
-     */
-    public static boolean isSlideToBottom(RecyclerView recyclerView) {
-        if (recyclerView == null) return false;
-        if (recyclerView.computeVerticalScrollExtent() + recyclerView.computeVerticalScrollOffset()
-                >= recyclerView.computeVerticalScrollRange())
-            return true;
-        return false;
     }
 
     //app广告数据
