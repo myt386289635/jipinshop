@@ -254,7 +254,11 @@ public class TBShoppingDetailActivity extends BaseActivity implements View.OnCli
                         if (level.equals("0")){
                             //非会员弹窗
                             DialogUtil.buyMemberDialog(this, fee, UpFee, v14 -> {
-                                mPresenter.getGoodsClickUrl(source, goodsId, this.bindToLifecycle());
+                                if (isH5){//加入
+                                    mPresenter.groupJoin(groupId,this.bindToLifecycle());
+                                }else {
+                                    mPresenter.getGoodsClickUrl(source, goodsId, this.bindToLifecycle());
+                                }
                             });
                         }else {
                             mDialog = (new ProgressDialogView()).createPlatformDialog(this, money, R.mipmap.dialog_tb, v1 -> {
@@ -267,7 +271,11 @@ public class TBShoppingDetailActivity extends BaseActivity implements View.OnCli
                     if (level.equals("0")){
                         //非会员弹窗
                         DialogUtil.buyMemberDialog(this, fee, UpFee, v14 -> {
-                            mPresenter.getGoodsClickUrl(source, goodsId, this.bindToLifecycle());
+                            if (isH5){//加入
+                                mPresenter.groupJoin(groupId,this.bindToLifecycle());
+                            }else {
+                                mPresenter.getGoodsClickUrl(source, goodsId, this.bindToLifecycle());
+                            }
                         });
                     }else {
                         if (source.equals("1")){
