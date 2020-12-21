@@ -234,7 +234,7 @@ public class MemberBuyActivity extends BaseActivity implements View.OnClickListe
                 html = "加入极品城会员，每年可省<font color='#E25838'>24000元</font>";
             }else {//续费
                 mBinding.buyNoticeTag.setText("会员续费");
-                html = "续费成功后会员延续至<font color='#E25838'>"+mBean.getData().get(1).getPreLevelEndTime()+"</font>";
+                html = "续费成功后会员延续至<font color='#E25838'>"+mBean.getData().get(1).getPreYearLevelEndTime()+"</font>";
             }
             mBinding.buyNotice.setText(mBean.getData().get(1).getRemark3());
             mBinding.buyNoticeTimeOne.setText(Html.fromHtml(html));

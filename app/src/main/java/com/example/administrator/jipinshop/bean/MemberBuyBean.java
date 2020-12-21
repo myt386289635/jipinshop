@@ -58,6 +58,15 @@ public class MemberBuyBean {
         private String remark3;
         private String img;
         private String preLevelEndTime;
+        private String preYearLevelEndTime;
+
+        public String getPreYearLevelEndTime() {
+            return preYearLevelEndTime;
+        }
+
+        public void setPreYearLevelEndTime(String preYearLevelEndTime) {
+            this.preYearLevelEndTime = preYearLevelEndTime;
+        }
 
         public String getPreLevelEndTime() {
             return preLevelEndTime;
