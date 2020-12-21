@@ -6,6 +6,15 @@
         <variable
             name="listener"
             type="android.view.View.OnClickListener"/>
+        <variable
+            name="money"
+            type="com.example.administrator.jipinshop.bean.MemberBuyBean.DataBean"/>
+        <variable
+            name="year"
+            type="com.example.administrator.jipinshop.bean.MemberBuyBean.DataBean"/>
+        <variable
+            name="week"
+            type="com.example.administrator.jipinshop.bean.MemberBuyBean.DataBean"/>
     </data>
 
     <RelativeLayout
@@ -75,7 +84,7 @@
                         android:textStyle="bold"
                         android:textColor="@color/color_E25838"
                         android:textSize="26sp"
-                        android:text="88"
+                        android:text="0"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"/>
 
@@ -84,7 +93,7 @@
                         android:textColor="@color/color_202020"
                         android:textSize="13sp"
                         android:layout_marginLeft="@dimen/x12"
-                        android:text="已优惠201元"
+                        android:text="已优惠0元"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"/>
 
@@ -190,13 +199,14 @@
                         android:layout_marginRight="@dimen/x30"
                         android:layout_alignParentRight="true"
                         android:layout_centerVertical="true"
-                        android:text="13185717757"
+                        android:text=""
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"/>
 
                 </RelativeLayout>
 
                 <RelativeLayout
+                    android:visibility="gone"
                     android:id="@+id/buy_type1Container"
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/y266">
@@ -252,7 +262,7 @@
                                 android:textStyle="bold"
                                 android:textColor="@color/color_E25838"
                                 android:textSize="32sp"
-                                android:text="9.9"
+                                android:text="@{money.price}"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"/>
 
@@ -261,7 +271,7 @@
                                 android:id="@+id/month_other"
                                 android:textSize="12sp"
                                 android:textColor="@color/color_9D9D9D"
-                                android:text="￥39"
+                                android:text="@{@string/price + money.priceBefore}"
                                 android:layout_marginLeft="@dimen/x4"
                                 android:layout_height="wrap_content"/>
 
@@ -274,7 +284,7 @@
                             android:layout_marginBottom="@dimen/y21"
                             android:textColor="@color/color_996A31"
                             android:textSize="12sp"
-                            android:text="赠送11个月"
+                            android:text="@{money.remark2}"
                             android:layout_alignParentBottom="true"
                             android:layout_centerHorizontal="true"
                             android:layout_width="match_parent"
@@ -290,7 +300,7 @@
                         android:textColor="@color/color_white"
                         android:padding="@dimen/y5"
                         android:textSize="10sp"
-                        android:text="限时免费升级12个月卡"
+                        android:text="@{money.remark1}"
                         android:background="@drawable/bg_e25838_8"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"/>
@@ -353,7 +363,7 @@
                                     android:textStyle="bold"
                                     android:textColor="@color/color_E25838"
                                     android:textSize="32sp"
-                                    android:text="88"
+                                    android:text="@{year.price}"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"/>
 
@@ -362,7 +372,7 @@
                                     android:id="@+id/year_other"
                                     android:textSize="12sp"
                                     android:textColor="@color/color_9D9D9D"
-                                    android:text="￥289"
+                                    android:text="@{@string/price + year.priceBefore}"
                                     android:layout_marginLeft="@dimen/x4"
                                     android:layout_height="wrap_content"/>
 
@@ -375,7 +385,7 @@
                                 android:layout_marginBottom="@dimen/y21"
                                 android:textColor="@color/color_9D9D9D"
                                 android:textSize="12sp"
-                                android:text="送视频会员月卡"
+                                android:text="@{year.remark2}"
                                 android:layout_alignParentBottom="true"
                                 android:layout_centerHorizontal="true"
                                 android:layout_width="match_parent"
@@ -435,7 +445,7 @@
                                     android:textStyle="bold"
                                     android:textColor="@color/color_E25838"
                                     android:textSize="32sp"
-                                    android:text="0.01"
+                                    android:text="@{week.price}"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"/>
 
@@ -448,7 +458,7 @@
                                 android:layout_marginBottom="@dimen/y21"
                                 android:textColor="@color/color_9D9D9D"
                                 android:textSize="12sp"
-                                android:text="新用户专享福利"
+                                android:text="@{week.remark2}"
                                 android:layout_alignParentBottom="true"
                                 android:layout_centerHorizontal="true"
                                 android:layout_width="match_parent"
@@ -463,7 +473,6 @@
                 </RelativeLayout>
 
                 <RelativeLayout
-                    android:visibility="gone"
                     android:id="@+id/buy_type2Container"
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/y266">
@@ -519,7 +528,7 @@
                                 android:textStyle="bold"
                                 android:textColor="@color/color_E25838"
                                 android:textSize="32sp"
-                                android:text="9.9"
+                                android:text="@{money.price}"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"/>
 
@@ -528,7 +537,7 @@
                                 android:id="@+id/month_other_other"
                                 android:textSize="12sp"
                                 android:textColor="@color/color_9D9D9D"
-                                android:text="￥39"
+                                android:text="@{@string/price + money.priceBefore}"
                                 android:layout_marginLeft="@dimen/x4"
                                 android:layout_height="wrap_content"/>
 
@@ -541,7 +550,7 @@
                             android:layout_marginBottom="@dimen/y21"
                             android:textColor="@color/color_996A31"
                             android:textSize="12sp"
-                            android:text="赠送11个月"
+                            android:text="@{money.remark2}"
                             android:layout_alignParentBottom="true"
                             android:layout_centerHorizontal="true"
                             android:layout_width="match_parent"
@@ -557,7 +566,7 @@
                         android:textColor="@color/color_white"
                         android:padding="@dimen/y5"
                         android:textSize="10sp"
-                        android:text="限时免费升级12个月卡"
+                        android:text="@{money.remark1}"
                         android:background="@drawable/bg_e25838_8"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"/>
@@ -613,7 +622,7 @@
                                 android:textStyle="bold"
                                 android:textColor="@color/color_E25838"
                                 android:textSize="32sp"
-                                android:text="88"
+                                android:text="@{year.price}"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"/>
 
@@ -622,7 +631,7 @@
                                 android:id="@+id/year_other_other"
                                 android:textSize="12sp"
                                 android:textColor="@color/color_9D9D9D"
-                                android:text="￥289"
+                                android:text="@{@string/price + year.priceBefore}"
                                 android:layout_marginLeft="@dimen/x4"
                                 android:layout_height="wrap_content"/>
 
@@ -635,7 +644,7 @@
                             android:layout_marginBottom="@dimen/y21"
                             android:textColor="@color/color_9D9D9D"
                             android:textSize="12sp"
-                            android:text="送视频会员月卡"
+                            android:text="@{year.remark2}"
                             android:layout_alignParentBottom="true"
                             android:layout_centerHorizontal="true"
                             android:layout_width="match_parent"
@@ -671,7 +680,7 @@
                         android:textSize="14sp"
                         android:layout_marginLeft="@dimen/x3"
                         android:layout_marginTop="@dimen/y20"
-                        android:text="会员月卡限时福利，购买后额外赠送11个月会员期，购买月卡享受12个月会员资格"
+                        android:text=""
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"/>
 
@@ -689,7 +698,7 @@
                         android:textStyle="bold"
                         android:textSize="14sp"
                         android:textColor="@color/color_FAE1BF"
-                        android:text="会员续费"
+                        android:text="会员专享"
                         android:background="@drawable/bg_member8"
                         android:layout_marginLeft="@dimen/x30"
                         android:layout_centerVertical="true"
@@ -707,13 +716,14 @@
 
                         <TextView
                             android:id="@+id/buy_noticeTimeOne"
-                            android:text="续费成功后会员延续至2020-08-04"
+                            android:text="加入极品城会员，每年可省24000元"
                             android:textSize="14sp"
                             android:textColor="@color/color_202020"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"/>
 
                         <TextView
+                            android:visibility="gone"
                             android:layout_marginTop="@dimen/y2"
                             android:id="@+id/buy_noticeTimeTwo"
                             android:text="月卡会员延续至2020-08-04"

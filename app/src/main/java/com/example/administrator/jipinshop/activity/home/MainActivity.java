@@ -311,15 +311,15 @@ public class MainActivity extends BaseActivity implements MainView, ViewPager.On
 
     //特惠购首次下单奖励弹框
     public void onCheapDialog() {
-        DialogUtil.cheapDialog(this, v12 -> {
+        DialogUtil.newPeopleDialog(this,"https://jipincheng.cn/app_second?",v12 -> {
+            appStatisticalUtil.addEvent("tc.thg_close", this.bindToLifecycle());
+            getClipText();
+        }, v1 -> {
             appStatisticalUtil.addEvent("tc.thg_enter", this.bindUntilEvent(ActivityEvent.DESTROY));
             startActivity(new Intent(this, CheapBuyActivity.class)
                     .putExtra("startPop", false)
             );
-            onGuide();
-        }, v1 -> {
-            appStatisticalUtil.addEvent("tc.thg_close", this.bindToLifecycle());
-            onGuide();
+            getClipText();
         });
     }
 
@@ -380,9 +380,7 @@ public class MainActivity extends BaseActivity implements MainView, ViewPager.On
                 } else if (oldPos != -1) {
                     //首返 + 活动弹窗
                     int finalActivityPos1 = activityPos;
-                    DialogUtil.cheapDialog(this, v2 -> {
-                        startActivity(new Intent(this, CheapBuyActivity.class));
-                    }, v2 -> {
+                    DialogUtil.newPeopleDialog(this,"https://jipincheng.cn/app_second?" , v2 -> {
                         DialogUtil.imgDialog(MainActivity.this, bean.getData().get(finalActivityPos1).getData().getImg(), v -> {
                             ShopJumpUtil.openPager(MainActivity.this, bean.getData().get(finalActivityPos1).getData().getTargetType()
                                     , bean.getData().get(finalActivityPos1).getData().getTargetId(), bean.getData().get(finalActivityPos1).getData().getTitle(),
@@ -390,6 +388,8 @@ public class MainActivity extends BaseActivity implements MainView, ViewPager.On
                         }, v -> {
                             getClipText();
                         });
+                    }, v2 -> {
+                        startActivity(new Intent(this, CheapBuyActivity.class));
                     });
                 } else {
                     getClipText();
@@ -421,10 +421,10 @@ public class MainActivity extends BaseActivity implements MainView, ViewPager.On
                     }
                 } else if (bean.getData().get(0).getType() == 3) {
                     //首单弹窗
-                    DialogUtil.cheapDialog(this, v -> {
-                        startActivity(new Intent(this, CheapBuyActivity.class));
-                    }, v -> {
+                    DialogUtil.newPeopleDialog(this,"https://jipincheng.cn/app_second?", v -> {
                         getClipText();
+                    }, v -> {
+                        startActivity(new Intent(this, CheapBuyActivity.class));
                     });
                 } else {
                     getClipText();
@@ -483,9 +483,9 @@ public class MainActivity extends BaseActivity implements MainView, ViewPager.On
     @Override
     public void onNewDialogSuc(PopBean bean) {
         if (bean.getData() != null) {
-            DialogUtil.cheapDialog(this, v12 -> {
+            DialogUtil.newPeopleDialog(this, "https://jipincheng.cn/app_second?", null, v -> {
                 startActivity(new Intent(this, CheapBuyActivity.class));
-            }, null);
+            });
         }
     }
 

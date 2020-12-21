@@ -1586,4 +1586,11 @@ public class Repository {
     public Observable<PopBean> getGroupDialog(){
         return mAPIService.getGroupDialog("4");
     }
+
+    /**
+     * 获取会员购买订单信息
+     */
+    public Observable<MemberBuyBean> listVipList(){
+        return mAPIService.listVipList();
+    }
 }

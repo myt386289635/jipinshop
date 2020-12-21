@@ -1,6 +1,5 @@
 package com.example.administrator.jipinshop.fragment.member;
 
-import android.app.Dialog;
 import android.content.ClipData;
 import android.content.ClipboardManager;
 import android.content.Context;
@@ -13,7 +12,6 @@ import android.os.Message;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
 import android.support.v7.widget.GridLayoutManager;
-import android.support.v7.widget.LinearLayoutManager;
 import android.text.SpannableString;
 import android.text.Spanned;
 import android.text.TextUtils;
@@ -25,13 +23,12 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 
-import com.alipay.sdk.app.PayTask;
 import com.aspsine.swipetoloadlayout.OnRefreshListener;
 import com.blankj.utilcode.util.SPUtils;
 import com.example.administrator.jipinshop.R;
-import com.example.administrator.jipinshop.activity.WebActivity;
 import com.example.administrator.jipinshop.activity.cheapgoods.CheapBuyActivity;
 import com.example.administrator.jipinshop.activity.login.LoginActivity;
+import com.example.administrator.jipinshop.activity.member.buy.MemberBuyActivity;
 import com.example.administrator.jipinshop.activity.member.family.FamilyActivity;
 import com.example.administrator.jipinshop.activity.member.zero.ZeroActivity;
 import com.example.administrator.jipinshop.activity.sign.invitation.InvitationNewActivity;
@@ -39,43 +36,24 @@ import com.example.administrator.jipinshop.adapter.HomePageAdapter;
 import com.example.administrator.jipinshop.adapter.KTPagerAdapter3;
 import com.example.administrator.jipinshop.adapter.MemberFreeAdapter;
 import com.example.administrator.jipinshop.adapter.MemberMoreAllAdapter;
-import com.example.administrator.jipinshop.adapter.MemberSignAdapter;
 import com.example.administrator.jipinshop.adapter.MemberVideoAdapter;
 import com.example.administrator.jipinshop.base.DBBaseFragment;
 import com.example.administrator.jipinshop.bean.EvaluationTabBean;
-import com.example.administrator.jipinshop.bean.ImageBean;
 import com.example.administrator.jipinshop.bean.MemberNewBean;
-import com.example.administrator.jipinshop.bean.PayResultBean;
-import com.example.administrator.jipinshop.bean.WxPayBean;
-import com.example.administrator.jipinshop.bean.eventbus.PayBus;
 import com.example.administrator.jipinshop.databinding.FragmentMemberNewBinding;
 import com.example.administrator.jipinshop.fragment.member.cheap.CheapFragment;
-import com.example.administrator.jipinshop.netwrok.RetrofitModule;
 import com.example.administrator.jipinshop.util.ShopJumpUtil;
 import com.example.administrator.jipinshop.util.ToastUtil;
 import com.example.administrator.jipinshop.util.UmApp.AppStatisticalUtil;
-import com.example.administrator.jipinshop.util.UmApp.StatisticalUtil;
 import com.example.administrator.jipinshop.util.WeakRefHandler;
-import com.example.administrator.jipinshop.util.anim.AnimationUtils;
 import com.example.administrator.jipinshop.util.sp.CommonDate;
 import com.example.administrator.jipinshop.view.dialog.DialogUtil;
-import com.example.administrator.jipinshop.view.dialog.MemberBuyPop;
-import com.example.administrator.jipinshop.view.dialog.MemberRenewPop;
-import com.example.administrator.jipinshop.view.dialog.ProgressDialogView;
 import com.example.administrator.jipinshop.view.glide.GlideApp;
 import com.example.administrator.jipinshop.view.textview.CenteredImageSpan;
 import com.example.administrator.jipinshop.view.viewpager.TouchViewPager;
-import com.example.administrator.jipinshop.wxapi.WXPayEntryActivity;
-import com.tencent.mm.opensdk.modelpay.PayReq;
-import com.tencent.mm.opensdk.openapi.IWXAPI;
-import com.tencent.mm.opensdk.openapi.WXAPIFactory;
-
-import org.greenrobot.eventbus.EventBus;
-import org.greenrobot.eventbus.Subscribe;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 
 import javax.inject.Inject;
 
@@ -84,7 +62,7 @@ import javax.inject.Inject;
  * @create 2020/8/25
  * @Describe 新版会员页面
  */
-public class MemberFragment extends DBBaseFragment implements View.OnClickListener, OnRefreshListener, MemberView, MemberBuyPop.OnClick, MemberRenewPop.OnClick, ViewPager.OnPageChangeListener, MemberVideoAdapter.OnItem, MemberMoreAllAdapter.OnItem, MemberFreeAdapter.OnItemClick {
+public class MemberFragment extends DBBaseFragment implements View.OnClickListener, OnRefreshListener, MemberView,  ViewPager.OnPageChangeListener, MemberVideoAdapter.OnItem, MemberMoreAllAdapter.OnItem, MemberFreeAdapter.OnItemClick {
 
     @Inject
     MemberPresenter mPresenter;
@@ -94,22 +72,9 @@ public class MemberFragment extends DBBaseFragment implements View.OnClickListen
     private FragmentMemberNewBinding mBinding;
     private String type = "1";// 1:fragment 2:activity
     private Boolean once = true;
-    private MemberBuyPop mBuyPop;//购买弹窗
-    private MemberRenewPop mRenewPop;//续费弹窗
-    private String monthPrice = "";
-    private String monthPriceBefore = "";
-    private String yearPrice = "";
-    private String yearPriceBefore = "";
-    private String preMonthEndTime = "";
-    private String preYearEndTime = "";
-    private IWXAPI msgApi;//微信支付
-    private String level;//1是月卡 2是年卡
-    private Dialog mDialog;
     private int userLevel = 0;//用户身份的
     private int openFamily = 1; //0关闭，1开启
     //更多权益
-    private List<MemberNewBean.DataBean.VipBoxListBean> monthBoxList;
-    private List<MemberNewBean.DataBean.VipBoxListBean> yearBoxList;
     private List<MemberNewBean.DataBean.VipBoxListBean> vipBoxList;
     private MemberMoreAllAdapter mMoreAllAdapter;
     //广告
@@ -122,9 +87,6 @@ public class MemberFragment extends DBBaseFragment implements View.OnClickListen
     private List<Fragment> mFragments;
     private HomePageAdapter mHomeAdapter;
     private List<ImageView> point;
-    //会员极币任务
-    private List<MemberNewBean.DataBean.LevelDetail6Bean.ListBeanXX> mSignList;
-    private MemberSignAdapter mSignAdapter;
     //视频会员月卡
     private List<MemberNewBean.DataBean.LevelDetail7Bean.ListBeanXXX> mVideoList;
     private MemberVideoAdapter mVideoAdapter;
@@ -141,26 +103,7 @@ public class MemberFragment extends DBBaseFragment implements View.OnClickListen
     private Handler.Callback mCallback = new Handler.Callback() {
         @Override
         public boolean handleMessage(Message msg) {
-            if (msg.what == 101){
-                //支付宝支付回调
-                PayResultBean payResult = new PayResultBean((Map<String, String>) msg.obj);
-                String resultStatus = payResult.getResultStatus();
-                // 判断resultStatus 为9000则代表支付成功
-                if (TextUtils.equals(resultStatus, "9000")) {
-                    //成功
-                    if (level.equals("1")){
-                        StatisticalUtil.onPayEvent(getContext(),"月卡",monthPrice);
-                    }else {
-                        StatisticalUtil.onPayEvent(getContext(),"年卡",yearPrice);
-                    }
-                    DialogUtil.paySucDialog(getContext(),level);
-                } else {
-                    //失败
-                    DialogUtil.payFileDialog(getContext(),userLevel, type -> {
-                        onBuyMember(level,type);
-                    });
-                }
-            }else if (msg.what == 100){
+            if (msg.what == 100){
                 if (count > 1){
                     currentItem = currentItem % (count + 1) + 1;
                     if (currentItem == 1) {
@@ -198,7 +141,6 @@ public class MemberFragment extends DBBaseFragment implements View.OnClickListen
     public View initLayout(LayoutInflater inflater, ViewGroup container) {
         mBinding = DataBindingUtil.inflate(inflater, R.layout.fragment_member_new,container,false);
         mBinding.setListener(this);
-        EventBus.getDefault().register(this);
         return mBinding.getRoot();
     }
 
@@ -211,19 +153,7 @@ public class MemberFragment extends DBBaseFragment implements View.OnClickListen
         type = getArguments().getString("type","1");
         //呼吸灯动画
         Animation animation = android.view.animation.AnimationUtils.loadAnimation(getContext(), R.anim.free_scale);
-        mBinding.memberMonth.startAnimation(animation);
-        mBinding.memberYear.startAnimation(animation);
         mBinding.memberUserPay.startAnimation(animation);
-
-        //初始化微信支付
-        msgApi = WXAPIFactory.createWXAPI(getContext(), null);
-        msgApi.registerApp("wxfd2e92db2568030a");
-
-        //初始化pop
-        monthBoxList = new ArrayList<>();
-        yearBoxList = new ArrayList<>();
-        mBuyPop = new MemberBuyPop(getContext(),this);
-        mRenewPop = new MemberRenewPop(getContext(),this);
 
         //广告
         mAdList = new ArrayList<>();
@@ -251,13 +181,6 @@ public class MemberFragment extends DBBaseFragment implements View.OnClickListen
         mHomeAdapter.setFragments(mFragments);
         mBinding.memberCheap.setAdapter(mHomeAdapter);
         mBinding.memberCheap.addOnPageChangeListener(this);
-        //会员极币任务
-        mSignList = new ArrayList<>();
-        mSignAdapter = new MemberSignAdapter(mSignList,getContext());
-        mBinding.memberSign.setLayoutManager(new LinearLayoutManager(getContext()));
-        mBinding.memberSign.setNestedScrollingEnabled(false);
-        mBinding.memberSign.setAdapter(mSignAdapter);
-        mBinding.memberSign.setFocusable(false);
         //视频月卡
         mVideoList = new ArrayList<>();
         mVideoAdapter = new MemberVideoAdapter(mVideoList,getContext(),1);
@@ -358,46 +281,26 @@ public class MemberFragment extends DBBaseFragment implements View.OnClickListen
                     getActivity().finish();
                 }
                 break;
-            case R.id.member_month:
-                //购买月卡
+            case R.id.member_buy:
+                //购买
                 if (TextUtils.isEmpty(SPUtils.getInstance(CommonDate.USER).getString(CommonDate.token, "").trim())) {
                     startActivity(new Intent(getContext(), LoginActivity.class));
                     return;
                 }
-                if (TextUtils.isEmpty(monthPrice) || TextUtils.isEmpty(monthPriceBefore)){
-                    ToastUtil.show("网络错误，请稍后尝试");
-                    return;
-                }
-                appStatisticalUtil.addEvent("yueka.click", this.bindToLifecycle());
-                AnimationUtils.showAndHiddenAnimation(mBinding.memberShadow, AnimationUtils.AnimationState.STATE_SHOW,100);
-                mBuyPop.show(mBinding.memberPayContainer,"1",monthPrice,monthPriceBefore);
-                break;
-            case R.id.member_year:
-                //购买年卡
-                if (TextUtils.isEmpty(SPUtils.getInstance(CommonDate.USER).getString(CommonDate.token, "").trim())) {
-                    startActivity(new Intent(getContext(), LoginActivity.class));
-                    return;
-                }
-                if (TextUtils.isEmpty(yearPrice) || TextUtils.isEmpty(yearPriceBefore)){
-                    ToastUtil.show("网络错误，请稍后尝试");
-                    return;
-                }
-                appStatisticalUtil.addEvent("nianka.click", this.bindToLifecycle());
-                AnimationUtils.showAndHiddenAnimation(mBinding.memberShadow, AnimationUtils.AnimationState.STATE_SHOW,100);
-                mBuyPop.show(mBinding.memberPayContainer,"2",yearPrice,yearPriceBefore);
-                break;
-            case R.id.member_rule:
-                //会员规则
-                startActivity(new Intent(getContext(), WebActivity.class)
-                        .putExtra(WebActivity.url, RetrofitModule.H5_URL + "new-free/memberAgreement")
-                        .putExtra(WebActivity.title, "会员协议")
-                );
+                appStatisticalUtil.addEvent("huiyuan.click", this.bindToLifecycle());
+                startActivityForResult(new Intent(getContext(), MemberBuyActivity.class)
+                        .putExtra("isBuy","1")
+                ,300);
                 break;
             case R.id.member_userPay:
                 //续费
-                AnimationUtils.showAndHiddenAnimation(mBinding.memberShadow, AnimationUtils.AnimationState.STATE_SHOW,100);
-                mRenewPop.show(mBinding.memberPayContainer,monthPrice,monthPriceBefore,yearPrice,yearPriceBefore,
-                        preYearEndTime,preMonthEndTime,yearBoxList,monthBoxList);
+                if (TextUtils.isEmpty(SPUtils.getInstance(CommonDate.USER).getString(CommonDate.token, "").trim())) {
+                    startActivity(new Intent(getContext(), LoginActivity.class));
+                    return;
+                }
+                startActivityForResult(new Intent(getContext(), MemberBuyActivity.class)
+                        .putExtra("isBuy","2")
+                ,300);
                 break;
             case R.id.member_adContainer:
                 //人员广告
@@ -428,13 +331,6 @@ public class MemberFragment extends DBBaseFragment implements View.OnClickListen
                 }
                 startActivity(new Intent(getContext(), CheapBuyActivity.class));
                 break;
-            case R.id.member_shadow:
-                AnimationUtils.showAndHiddenAnimation(mBinding.memberShadow, AnimationUtils.AnimationState.STATE_HIDDEN,100);
-                if (mBuyPop != null && mBuyPop.isShowing())
-                    mBuyPop.dismiss();
-                if (mRenewPop != null && mRenewPop.isShowing())
-                    mRenewPop.dismiss();
-                break;
             case R.id.member_playUp:
             case R.id.member_playMore:
                 //吃喝玩乐展开更多
@@ -461,12 +357,9 @@ public class MemberFragment extends DBBaseFragment implements View.OnClickListen
                     return;
                 }
                 if (userLevel == 0){
-                    if (TextUtils.isEmpty(monthPrice) || TextUtils.isEmpty(monthPriceBefore)){
-                        ToastUtil.show("网络错误，请稍后尝试");
-                        return;
-                    }
-                    AnimationUtils.showAndHiddenAnimation(mBinding.memberShadow, AnimationUtils.AnimationState.STATE_SHOW,100);
-                    mBuyPop.show(mBinding.memberPayContainer,"1",monthPrice,monthPriceBefore);
+                    startActivityForResult(new Intent(getContext(), MemberBuyActivity.class)
+                            .putExtra("isBuy","1")
+                    ,300);
                     return;
                 }
                 if (openFamily == 1){
@@ -486,25 +379,9 @@ public class MemberFragment extends DBBaseFragment implements View.OnClickListen
     @Override
     public void onSuccess(MemberNewBean bean) {
         mBinding.swipeToLoad.setRefreshing(false);
-
-        monthPrice = bean.getData().getMonthPrice();
-        monthPriceBefore = bean.getData().getMonthPriceBefore();
-        yearPrice = bean.getData().getYearPrice();
-        yearPriceBefore = bean.getData().getYearPriceBefore();
-        monthBoxList.clear();
-        monthBoxList.addAll(bean.getData().getMonthBoxList());
-        yearBoxList.clear();
-        yearBoxList.addAll(bean.getData().getYearBoxList());
-        preMonthEndTime = bean.getData().getPreMonthEndTime();
-        preYearEndTime = bean.getData().getPreYearEndTime();
         openFamily = bean.getOpenFamily();
-
         mBinding.setBean(bean.getData());
         mBinding.executePendingBindings();
-        mBinding.memberMonthOtherCost.setTv(true);
-        mBinding.memberMonthOtherCost.setColor(R.color.color_white);
-        mBinding.memberYearOtherCost.setTv(true);
-        mBinding.memberYearOtherCost.setColor(R.color.color_white);
         SpannableString string = new SpannableString("   " + bean.getRemind());
         CenteredImageSpan imageSpan = new CenteredImageSpan(getContext(),R.mipmap.member1_notice);
         string.setSpan(imageSpan, 0, 1, Spanned.SPAN_INCLUSIVE_EXCLUSIVE);
@@ -518,7 +395,7 @@ public class MemberFragment extends DBBaseFragment implements View.OnClickListen
         vipBoxList.addAll(bean.getData().getVipBoxList());
         mMoreAllAdapter.notifyDataSetChanged();
         //特权一
-//        GlideApp.loderImage(getContext(),bean.getData().getLevelDetail1().getImg(),mBinding.memberMoney,0,0);
+        GlideApp.loderImage(getContext(),bean.getData().getLevelDetail1().getImg(),mBinding.memberMoney,0,0);
         //特权二
         mFreeList.clear();
         mFreeList.addAll(bean.getData().getLevelDetail3().getList());
@@ -556,11 +433,7 @@ public class MemberFragment extends DBBaseFragment implements View.OnClickListen
         }else {
             mBinding.memberMonthFee.setVisibility(View.VISIBLE);
         }
-        //会员极币任务
-        mSignList.clear();
-        mSignList.addAll(bean.getData().getLevelDetail6().getList());
-        mSignAdapter.notifyDataSetChanged();
-        //一家人共享
+        //特权四
         GlideApp.loderCircleImage(getContext(),bean.getData().getLevelDetail5().getList().get(0),mBinding.memberFamilyOne,0,0);
         GlideApp.loderCircleImage(getContext(),bean.getData().getLevelDetail5().getList().get(1),mBinding.memberFamilyTwo,0,0);
         GlideApp.loderCircleImage(getContext(),bean.getData().getLevelDetail5().getList().get(2),mBinding.memberFamilyThree,0,0);
@@ -594,7 +467,9 @@ public class MemberFragment extends DBBaseFragment implements View.OnClickListen
         }else {
             mBinding.memberServerContainer.setVisibility(View.GONE);
         }
-        //吃喝玩了
+        //特权六 会员极币
+        GlideApp.loderImage(getContext(),bean.getData().getLevelDetail6().getImg(),mBinding.memberSignImg,0,0);
+        //特权七
         mPlayList.clear();
         mPlayList.addAll(bean.getData().getLevelDetail8().getList());
         mPlayAdapter.notifyDataSetChanged();
@@ -630,13 +505,13 @@ public class MemberFragment extends DBBaseFragment implements View.OnClickListen
         //身份处理  0 普通 ， 1 月卡 ，2年卡
         userLevel = bean.getData().getLevel();
         if (bean.getData().getLevel() == 0){
-            mBinding.memberPayContainer.setVisibility(View.VISIBLE);
             mBinding.memberAdContainer.setVisibility(View.VISIBLE);
             mBinding.memberMemberContainer.setVisibility(View.GONE);
             mBinding.memberTitle1.setText("开通VIP可享更多权益");
+            mBinding.memberNoMemberContainer.setVisibility(View.VISIBLE);
         }else {
-            mBinding.memberPayContainer.setVisibility(View.GONE);
             mBinding.memberAdContainer.setVisibility(View.GONE);
+            mBinding.memberNoMemberContainer.setVisibility(View.GONE);
             mBinding.memberMemberContainer.setVisibility(View.VISIBLE);
             if (bean.getData().getLevel() == 1){
                 mBinding.memberTitle1.setText("月卡VIP特权");
@@ -644,16 +519,25 @@ public class MemberFragment extends DBBaseFragment implements View.OnClickListen
                 mBinding.memberMemberContainer.setBackgroundResource(R.mipmap.member1_month_bg);
                 mBinding.memberUserName.setTextColor(getContext().getResources().getColor(R.color.color_E7C19F));
                 mBinding.memberUserTime.setTextColor(getContext().getResources().getColor(R.color.color_E7C19F));
+                mBinding.memberUserPay.setVisibility(View.VISIBLE);
                 mBinding.memberUserPay.setBackgroundResource(R.drawable.bg_e8a971);
                 mBinding.memberUserPay.setTextColor(getContext().getResources().getColor(R.color.color_white));
-            }else {
+            }else if (bean.getData().getLevel() == 2){
                 mBinding.memberTitle1.setText("年卡VIP特权");
                 mBinding.memberTab.setImageResource(R.mipmap.member1_year_tab);
                 mBinding.memberMemberContainer.setBackgroundResource(R.mipmap.member1_year_bg);
                 mBinding.memberUserName.setTextColor(getContext().getResources().getColor(R.color.color_433A37));
                 mBinding.memberUserTime.setTextColor(getContext().getResources().getColor(R.color.color_433A37));
+                mBinding.memberUserPay.setVisibility(View.VISIBLE);
                 mBinding.memberUserPay.setBackgroundResource(R.drawable.bg_342f2f);
                 mBinding.memberUserPay.setTextColor(getContext().getResources().getColor(R.color.color_E7C19F));
+            }else {
+                mBinding.memberTitle1.setText("周卡VIP特权");
+                mBinding.memberTab.setImageResource(R.mipmap.member1_week_tab);
+                mBinding.memberMemberContainer.setBackgroundResource(R.mipmap.member1_month_bg);
+                mBinding.memberUserName.setTextColor(getContext().getResources().getColor(R.color.color_E7C19F));
+                mBinding.memberUserTime.setTextColor(getContext().getResources().getColor(R.color.color_E7C19F));
+                mBinding.memberUserPay.setVisibility(View.GONE);
             }
         }
         once = false;
@@ -671,93 +555,6 @@ public class MemberFragment extends DBBaseFragment implements View.OnClickListen
         super.onResume();
         if (!once){
             mPresenter.levelIndex(this.bindToLifecycle());
-        }
-    }
-
-    ///level 1是月卡 2是年卡    //type 1是支付宝 2是微信
-    @Override
-    public void onBuyMember(String level, String type) {
-        this.level = level;
-        AnimationUtils.showAndHiddenAnimation(mBinding.memberShadow, AnimationUtils.AnimationState.STATE_HIDDEN,100);
-        mDialog = (new ProgressDialogView()).createLoadingDialog(getContext(), "");
-        mDialog.show();
-        if (type.equals("1")){
-            mPresenter.alipay(level,this.bindToLifecycle());
-        }else {
-            mPresenter.wxpay(level,this.bindToLifecycle());
-        }
-    }
-
-    @Override
-    public void onWxPay(WxPayBean bean) {
-        if(mDialog != null && mDialog.isShowing()){
-            mDialog.dismiss();
-        }
-        PayReq request = new PayReq();
-        request.appId = bean.getData().getAppid();
-        request.partnerId = bean.getData().getPartnerid();
-        request.prepayId = bean.getData().getPrepayid();
-        request.packageValue = bean.getData().getPackageValue();
-        request.nonceStr = bean.getData().getNoncestr();
-        request.timeStamp = bean.getData().getTimestamp();
-        request.sign = bean.getData().getSign();
-        msgApi.sendReq(request);
-    }
-
-    @Override
-    public void onAlipay(ImageBean bean) {
-        if(mDialog != null && mDialog.isShowing()){
-            mDialog.dismiss();
-        }
-        Runnable payRunnable = () -> {
-            PayTask alipay = new PayTask(getActivity());
-            Map<String,String> result = alipay.payV2(bean.getData(),true);
-            Message msg = new Message();
-            msg.what = 101;
-            msg.obj = result;
-            mHandler.sendMessage(msg);
-        };
-        //必须异步调用
-        Thread payThread = new Thread(payRunnable);
-        payThread.start();
-    }
-
-    @Override
-    public void onCommenFile(String error) {
-        if(mDialog != null && mDialog.isShowing()){
-            mDialog.dismiss();
-        }
-        ToastUtil.show(error);
-    }
-
-    @Override
-    public void onDismiss() {
-        AnimationUtils.showAndHiddenAnimation(mBinding.memberShadow, AnimationUtils.AnimationState.STATE_HIDDEN,100);
-    }
-
-    @Override
-    public void onDestroyView() {
-        super.onDestroyView();
-        EventBus.getDefault().unregister(this);
-    }
-
-    @Subscribe
-    public void onPayResult(PayBus bus){
-        if (bus != null){
-            if (type.equals(bus.getFlag())){
-                if (bus.getType().equals(WXPayEntryActivity.pay_success)) {
-                    if (level.equals("1")){
-                        StatisticalUtil.onPayEvent(getContext(),"月卡",monthPrice);
-                    }else {
-                        StatisticalUtil.onPayEvent(getContext(),"年卡",yearPrice);
-                    }
-                    DialogUtil.paySucDialog(getContext(), level);
-                } else if (bus.getType().equals(WXPayEntryActivity.pay_faile)) {
-                    DialogUtil.payFileDialog(getContext(),userLevel,  type -> {
-                        onBuyMember(level, type);
-                    });
-                }
-            }
         }
     }
 
@@ -786,12 +583,9 @@ public class MemberFragment extends DBBaseFragment implements View.OnClickListen
             return;
         }
         if (userLevel == 0){
-            if (TextUtils.isEmpty(monthPrice) || TextUtils.isEmpty(monthPriceBefore)){
-                ToastUtil.show("网络错误，请稍后尝试");
-                return;
-            }
-            AnimationUtils.showAndHiddenAnimation(mBinding.memberShadow, AnimationUtils.AnimationState.STATE_SHOW,100);
-            mBuyPop.show(mBinding.memberPayContainer,"1",monthPrice,monthPriceBefore);
+            startActivityForResult(new Intent(getContext(), MemberBuyActivity.class)
+                    .putExtra("isBuy","1")
+            ,300);
             return;
         }
         ShopJumpUtil.openBanner(getContext(),mPlayList.get(position).getType(),
@@ -880,14 +674,20 @@ public class MemberFragment extends DBBaseFragment implements View.OnClickListen
             return;
         }
         if (userLevel == 0){
-            if (TextUtils.isEmpty(monthPrice) || TextUtils.isEmpty(monthPriceBefore)){
-                ToastUtil.show("网络错误，请稍后尝试");
-                return;
-            }
-            AnimationUtils.showAndHiddenAnimation(mBinding.memberShadow, AnimationUtils.AnimationState.STATE_SHOW,100);
-            mBuyPop.show(mBinding.memberPayContainer,"1",monthPrice,monthPriceBefore);
+            startActivityForResult(new Intent(getContext(), MemberBuyActivity.class)
+                    .putExtra("isBuy","1")
+            ,300);
             return;
         }
         startActivity(new Intent(getContext(), ZeroActivity.class));
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == 300 && resultCode == 200){//支付会员成功返回弹出弹框
+            String level = data.getStringExtra("level");
+            DialogUtil.paySucDialog(getContext(),level);
+        }
     }
 }

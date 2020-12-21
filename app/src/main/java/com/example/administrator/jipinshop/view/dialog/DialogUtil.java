@@ -741,27 +741,6 @@ public class DialogUtil {
         dialog.setContentView(binding.getRoot());
     }
 
-    //特惠购首次下单奖励弹框
-    public static void cheapDialog(Context context, View.OnClickListener listener, View.OnClickListener cancleListener) {
-        AlertDialog.Builder builder = new AlertDialog.Builder(context, R.style.dialog);
-        final Dialog dialog = builder.create();
-        DialogNewpeople2Binding binding = DataBindingUtil.inflate(LayoutInflater.from(context), R.layout.dialog_newpeople2, null, false);
-        binding.dialogImage.setImageResource(R.mipmap.allowance_envelopes);
-        binding.dialogCancle.setOnClickListener(v -> {
-            if (cancleListener != null)
-                cancleListener.onClick(v);
-            dialog.dismiss();
-        });
-        binding.dialogImage.setOnClickListener(v -> {
-            if (listener != null)
-                listener.onClick(v);
-            dialog.dismiss();
-        });
-        dialog.getWindow().setDimAmount(0.35f);
-        dialog.show();
-        dialog.setContentView(binding.getRoot());
-    }
-
     //特惠购离开时弹窗
     public static void cheapOutDialog(Context context, List<NewPeopleBean.DataBean.AllowanceGoodsListBean> strings, String allowance, View.OnClickListener listener) {
         AlertDialog.Builder builder = new AlertDialog.Builder(context, R.style.dialog);
@@ -1136,8 +1115,10 @@ public class DialogUtil {
         final Dialog dialog = builder.create();
         if (level.equals("1")) {
             binding.dialogImage.setImageResource(R.mipmap.pay_success2);
-        } else {
+        } else if (level.equals("2")){
             binding.dialogImage.setImageResource(R.mipmap.pay_success);
+        } else {
+            binding.dialogImage.setImageResource(R.mipmap.pay_success3);
         }
         binding.dialogDismiss.setOnClickListener(v -> {
             dialog.dismiss();

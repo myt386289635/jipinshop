@@ -16,6 +16,33 @@ public class TaobaoAccountBean {
     private String msg;
     private int code;
     private DataBean data;
+    private String level;
+    private String rate;
+    private String officialWechat;
+
+    public String getOfficialWechat() {
+        return officialWechat;
+    }
+
+    public void setOfficialWechat(String officialWechat) {
+        this.officialWechat = officialWechat;
+    }
+
+    public String getLevel() {
+        return level;
+    }
+
+    public void setLevel(String level) {
+        this.level = level;
+    }
+
+    public String getRate() {
+        return rate;
+    }
+
+    public void setRate(String rate) {
+        this.rate = rate;
+    }
 
     public String getMsg() {
         return msg;

@@ -5,10 +5,8 @@ import android.os.Bundle;
 import android.util.Log;
 
 import com.example.administrator.jipinshop.R;
-import com.example.administrator.jipinshop.activity.home.home.HomeNewActivity;
 import com.example.administrator.jipinshop.base.BaseActivity;
 import com.example.administrator.jipinshop.bean.eventbus.PayBus;
-import com.example.administrator.jipinshop.util.AppManager;
 import com.tencent.mm.opensdk.constants.ConstantsAPI;
 import com.tencent.mm.opensdk.modelbase.BaseReq;
 import com.tencent.mm.opensdk.modelbase.BaseResp;
@@ -61,18 +59,10 @@ public class WXPayEntryActivity extends BaseActivity implements IWXAPIEventHandl
             Log.d(TAG,"onPayFinish,errCode="+resp.errCode);
             if (resp.errCode == 0){
                 //支付成功
-                if (AppManager.getAppManager().sreachActivity(HomeNewActivity.class)){
-                    EventBus.getDefault().post(new PayBus(WXPayEntryActivity.pay_success,"2"));
-                }else {
-                    EventBus.getDefault().post(new PayBus(WXPayEntryActivity.pay_success,"1"));
-                }
+                EventBus.getDefault().post(new PayBus(WXPayEntryActivity.pay_success));
             }else {
                 //支付失败
-                if (AppManager.getAppManager().sreachActivity(HomeNewActivity.class)){
-                    EventBus.getDefault().post(new PayBus(WXPayEntryActivity.pay_faile,"2"));
-                }else {
-                    EventBus.getDefault().post(new PayBus(WXPayEntryActivity.pay_faile,"1"));
-                }
+                EventBus.getDefault().post(new PayBus(WXPayEntryActivity.pay_faile));
             }
             finish();
         }

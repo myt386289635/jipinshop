@@ -1428,4 +1428,10 @@ public interface APIService {
      */
     @GET("api/v4/getPopInfo")
     Observable<PopBean> getGroupDialog(@Query("type") String type);
+
+    /**
+     * 获取会员购买订单信息
+     */
+    @GET("api/order/listVipList")
+    Observable<MemberBuyBean> listVipList();
 }

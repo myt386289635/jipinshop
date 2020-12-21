@@ -46,6 +46,20 @@
                 android:layout_width="@dimen/x488"
                 android:layout_height="@dimen/y82"/>
 
+            <TextView
+                android:layout_marginRight="@dimen/x92"
+                android:layout_marginTop="-20dp"
+                android:layout_alignTop="@id/item_goMember"
+                android:layout_alignParentRight="true"
+                android:textStyle="bold"
+                android:textColor="@color/color_C35E07"
+                android:textSize="14sp"
+                android:gravity="center"
+                android:background="@mipmap/dialog_need"
+                android:text="限时仅需0.01元"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+
         </RelativeLayout>
 
         <ImageView
