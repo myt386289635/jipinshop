@@ -209,16 +209,18 @@
                     android:visibility="gone"
                     android:id="@+id/buy_type1Container"
                     android:layout_width="match_parent"
-                    android:layout_height="@dimen/y266">
+                    android:layout_height="wrap_content">
 
                     <RelativeLayout
+                        android:layout_marginBottom="@dimen/y24"
+                        android:layout_marginTop="@dimen/y24"
                         android:onClick="@{listener.onClick}"
                         android:layout_marginLeft="@dimen/x11"
                         android:layout_centerVertical="true"
                         android:id="@+id/month_container"
                         android:background="@drawable/bg_member_buy"
                         android:layout_width="@dimen/x250"
-                        android:layout_height="@dimen/y218">
+                        android:layout_height="wrap_content">
 
                         <CheckBox
                             android:checked="true"
@@ -242,7 +244,8 @@
                             android:layout_height="wrap_content"/>
 
                         <LinearLayout
-                            android:layout_marginTop="@dimen/y20"
+                            android:id="@+id/month_other_price_container"
+                            android:layout_marginTop="@dimen/y8"
                             android:layout_below="@id/pop_monthTitle"
                             android:layout_centerHorizontal="true"
                             android:orientation="horizontal"
@@ -278,14 +281,15 @@
                         </LinearLayout>
 
                         <TextView
+                            android:layout_marginTop="@dimen/y12"
+                            android:layout_below="@+id/month_other_price_container"
                             android:background="@drawable/bg_fae1bf_1"
                             android:gravity="center"
                             android:id="@+id/month_tag"
-                            android:layout_marginBottom="@dimen/y21"
+                            android:layout_marginBottom="@dimen/y20"
                             android:textColor="@color/color_996A31"
                             android:textSize="12sp"
                             android:text="@{money.remark2}"
-                            android:layout_alignParentBottom="true"
                             android:layout_centerHorizontal="true"
                             android:layout_width="match_parent"
                             android:layout_marginLeft="@dimen/x21"
@@ -306,6 +310,8 @@
                         android:layout_height="wrap_content"/>
 
                     <LinearLayout
+                        android:layout_marginBottom="@dimen/y24"
+                        android:layout_marginTop="@dimen/y24"
                         android:layout_marginRight="@dimen/x11"
                         android:layout_marginLeft="@dimen/x11"
                         android:layout_toRightOf="@id/month_container"
@@ -320,7 +326,7 @@
                             android:background="@drawable/bg_member_nobuy"
                             android:layout_width="0dp"
                             android:layout_weight="1"
-                            android:layout_height="@dimen/y218">
+                            android:layout_height="wrap_content">
 
                             <CheckBox
                                 android:paddingTop="@dimen/y12"
@@ -343,7 +349,8 @@
                                 android:layout_height="wrap_content"/>
 
                             <LinearLayout
-                                android:layout_marginTop="@dimen/y20"
+                                android:id="@+id/year_other_price_container"
+                                android:layout_marginTop="@dimen/y8"
                                 android:layout_below="@id/pop_yearTitle"
                                 android:layout_centerHorizontal="true"
                                 android:orientation="horizontal"
@@ -379,14 +386,15 @@
                             </LinearLayout>
 
                             <TextView
+                                android:layout_marginTop="@dimen/y12"
+                                android:layout_below="@+id/year_other_price_container"
                                 android:background="@drawable/bg_f1f1f1"
                                 android:gravity="center"
                                 android:id="@+id/year_tag"
-                                android:layout_marginBottom="@dimen/y21"
+                                android:layout_marginBottom="@dimen/y20"
                                 android:textColor="@color/color_9D9D9D"
                                 android:textSize="12sp"
                                 android:text="@{year.remark2}"
-                                android:layout_alignParentBottom="true"
                                 android:layout_centerHorizontal="true"
                                 android:layout_width="match_parent"
                                 android:layout_marginLeft="@dimen/x14"
@@ -402,7 +410,7 @@
                             android:background="@drawable/bg_member_nobuy"
                             android:layout_width="0dp"
                             android:layout_weight="1"
-                            android:layout_height="@dimen/y218">
+                            android:layout_height="wrap_content">
 
                             <CheckBox
                                 android:paddingTop="@dimen/y12"
@@ -425,7 +433,8 @@
                                 android:layout_height="wrap_content"/>
 
                             <LinearLayout
-                                android:layout_marginTop="@dimen/y20"
+                                android:id="@+id/week_other_price_container"
+                                android:layout_marginTop="@dimen/y8"
                                 android:layout_below="@id/pop_weekTitle"
                                 android:layout_centerHorizontal="true"
                                 android:orientation="horizontal"
@@ -452,14 +461,15 @@
                             </LinearLayout>
 
                             <TextView
+                                android:layout_marginTop="@dimen/y12"
+                                android:layout_below="@+id/week_other_price_container"
                                 android:background="@drawable/bg_f1f1f1"
                                 android:gravity="center"
                                 android:id="@+id/week_tag"
-                                android:layout_marginBottom="@dimen/y21"
+                                android:layout_marginBottom="@dimen/y20"
                                 android:textColor="@color/color_9D9D9D"
                                 android:textSize="12sp"
                                 android:text="@{week.remark2}"
-                                android:layout_alignParentBottom="true"
                                 android:layout_centerHorizontal="true"
                                 android:layout_width="match_parent"
                                 android:layout_marginLeft="@dimen/x14"
@@ -475,16 +485,18 @@
                 <RelativeLayout
                     android:id="@+id/buy_type2Container"
                     android:layout_width="match_parent"
-                    android:layout_height="@dimen/y266">
+                    android:layout_height="wrap_content">
 
                     <RelativeLayout
+                        android:layout_marginBottom="@dimen/y24"
+                        android:layout_marginTop="@dimen/y24"
                         android:onClick="@{listener.onClick}"
                         android:layout_marginLeft="@dimen/x90"
                         android:layout_centerVertical="true"
                         android:id="@+id/month_other_container"
                         android:background="@drawable/bg_member_buy"
                         android:layout_width="@dimen/x250"
-                        android:layout_height="@dimen/y218">
+                        android:layout_height="wrap_content">
 
                         <CheckBox
                             android:checked="true"
@@ -508,7 +520,8 @@
                             android:layout_height="wrap_content"/>
 
                         <LinearLayout
-                            android:layout_marginTop="@dimen/y20"
+                            android:id="@+id/month_price_container"
+                            android:layout_marginTop="@dimen/y8"
                             android:layout_below="@id/pop_other_monthTitle"
                             android:layout_centerHorizontal="true"
                             android:orientation="horizontal"
@@ -544,14 +557,15 @@
                         </LinearLayout>
 
                         <TextView
+                            android:layout_marginTop="@dimen/y12"
+                            android:layout_below="@+id/month_price_container"
                             android:background="@drawable/bg_fae1bf_1"
                             android:gravity="center"
                             android:id="@+id/month_other_tag"
-                            android:layout_marginBottom="@dimen/y21"
+                            android:layout_marginBottom="@dimen/y20"
                             android:textColor="@color/color_996A31"
                             android:textSize="12sp"
                             android:text="@{money.remark2}"
-                            android:layout_alignParentBottom="true"
                             android:layout_centerHorizontal="true"
                             android:layout_width="match_parent"
                             android:layout_marginLeft="@dimen/x21"
@@ -572,6 +586,8 @@
                         android:layout_height="wrap_content"/>
 
                     <RelativeLayout
+                        android:layout_marginBottom="@dimen/y24"
+                        android:layout_marginTop="@dimen/y24"
                         android:onClick="@{listener.onClick}"
                         android:layout_marginRight="@dimen/x90"
                         android:layout_alignParentRight="true"
@@ -579,7 +595,7 @@
                         android:id="@+id/year_other_container"
                         android:background="@drawable/bg_member_nobuy"
                         android:layout_width="@dimen/x228"
-                        android:layout_height="@dimen/y218">
+                        android:layout_height="wrap_content">
 
                         <CheckBox
                             android:paddingTop="@dimen/y12"
@@ -602,7 +618,8 @@
                             android:layout_height="wrap_content"/>
 
                         <LinearLayout
-                            android:layout_marginTop="@dimen/y20"
+                            android:id="@+id/year_price_container"
+                            android:layout_marginTop="@dimen/y8"
                             android:layout_below="@id/pop_other_yearTitle"
                             android:layout_centerHorizontal="true"
                             android:orientation="horizontal"
@@ -638,14 +655,15 @@
                         </LinearLayout>
 
                         <TextView
+                            android:layout_marginTop="@dimen/y12"
+                            android:layout_below="@+id/year_price_container"
                             android:background="@drawable/bg_f1f1f1"
                             android:gravity="center"
                             android:id="@+id/year_other_tag"
-                            android:layout_marginBottom="@dimen/y21"
+                            android:layout_marginBottom="@dimen/y20"
                             android:textColor="@color/color_9D9D9D"
                             android:textSize="12sp"
                             android:text="@{year.remark2}"
-                            android:layout_alignParentBottom="true"
                             android:layout_centerHorizontal="true"
                             android:layout_width="match_parent"
                             android:layout_marginLeft="@dimen/x14"

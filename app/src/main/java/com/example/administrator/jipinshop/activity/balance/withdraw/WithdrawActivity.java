@@ -19,7 +19,7 @@ import android.widget.EditText;
 import com.blankj.utilcode.util.SPUtils;
 import com.example.administrator.jipinshop.R;
 import com.example.administrator.jipinshop.activity.balance.withdraw.detail.WithdrawDetailActivity;
-import com.example.administrator.jipinshop.activity.home.home.HomeNewActivity;
+import com.example.administrator.jipinshop.activity.member.buy.MemberBuyActivity;
 import com.example.administrator.jipinshop.base.BaseActivity;
 import com.example.administrator.jipinshop.bean.TaobaoAccountBean;
 import com.example.administrator.jipinshop.bean.WithdrawBean;
@@ -46,7 +46,7 @@ public class WithdrawActivity extends BaseActivity implements View.OnClickListen
     @Inject
     WithdrawPresenter mPresenter;
     private ActivityWithdrawBinding mBinding;
-    private double minWithdraw = 50;
+    private double minWithdraw = 5;
     private Dialog mDialog;
     private String officialWeChat = "";//客服
     private String level = "0";//用户级别
@@ -63,13 +63,15 @@ public class WithdrawActivity extends BaseActivity implements View.OnClickListen
     }
 
     private void initView() {
-        mDialog = (new ProgressDialogView()).createLoadingDialog(this, "正在加载...");
-        mDialog.show();
-        mPresenter.taobaoAccount(this.bindToLifecycle());
         mBinding.inClude.titleTv.setText("我要提现");
         mPresenter.initMoneyEdit(mBinding);
         mBinding.withdrawMoney.setText(getIntent().getStringExtra("price"));
         mBinding.withdrawPay.addTextChangedListener(this);
+
+        mDialog = (new ProgressDialogView()).createLoadingDialog(this, "正在加载...");
+        mDialog.show();
+        mPresenter.taobaoAccount(this.bindToLifecycle());
+        mPresenter.getWithdrawNote(this.bindToLifecycle());//请求提示语
     }
 
     @Override
@@ -124,10 +126,20 @@ public class WithdrawActivity extends BaseActivity implements View.OnClickListen
                 });
                 break;
             case R.id.withdraw_notice:
-                //跳转到会员页面
-                startActivity(new Intent(this, HomeNewActivity.class)
-                        .putExtra("type",HomeNewActivity.member)
-                );
+                //跳转到购买会员
+                if (level.equals("0")){
+                    //购买
+                    startActivityForResult(new Intent(this, MemberBuyActivity.class)
+                                    .putExtra("isBuy","1")
+                                    .putExtra("level","2")
+                            ,300);
+                }else {
+                    //续费
+                    startActivityForResult(new Intent(this, MemberBuyActivity.class)
+                                    .putExtra("isBuy","2")
+                                    .putExtra("level","2")
+                            ,300);
+                }
                 break;
         }
     }
@@ -162,30 +174,12 @@ public class WithdrawActivity extends BaseActivity implements View.OnClickListen
     @Override
     public void onSuccess(WithdrawBean bean) {
         minWithdraw = new BigDecimal(bean.getMinWithdraw()).doubleValue();
-        String html;
-        double r = new BigDecimal(rate).doubleValue();
-        if (level.equals("2")){
-            html = "年卡会员免收手续费";
-        }else {
-            html = "提现收取<font color='#E25838'>"+  new BigDecimal((r * 100 ) + "").stripTrailingZeros().toPlainString()
-                    + "%</font>提现费，实际到账<font color='#E25838'>￥0</font>";
-        }
-        mBinding.withdrawNodeMoney.setText(Html.fromHtml(html));
         mBinding.withdrawMode.setText(bean.getWithdrawNote());
     }
 
     @Override
     public void onFile(String error) {
         ToastUtil.show(error);
-        String html;
-        double r = new BigDecimal(rate).doubleValue();
-        if (level.equals("2")){
-            html = "年卡会员免收手续费";
-        }else {
-            html = "提现收取<font color='#E25838'>"+ new BigDecimal((r * 100 ) + "").stripTrailingZeros().toPlainString()
-                    + "%</font>提现费，实际到账<font color='#E25838'>￥0</font>";
-        }
-        mBinding.withdrawNodeMoney.setText(Html.fromHtml(html));
     }
 
     @Override
@@ -220,7 +214,15 @@ public class WithdrawActivity extends BaseActivity implements View.OnClickListen
         officialWeChat = bean.getOfficialWechat();//客服
         level = bean.getLevel();//用户级别
         rate = bean.getRate();//手续费
-        mPresenter.getWithdrawNote(this.bindToLifecycle());//请求提示语
+        String html;
+        double r = new BigDecimal(rate).doubleValue();
+        if (level.equals("2")){
+            html = "年卡会员免收手续费";
+        }else {
+            html = "提现收取<font color='#E25838'>"+  new BigDecimal((r * 100 ) + "").stripTrailingZeros().toPlainString()
+                    + "%</font>提现费，实际到账<font color='#E25838'>￥0</font>";
+        }
+        mBinding.withdrawNodeMoney.setText(Html.fromHtml(html));
     }
 
     @Override
@@ -258,5 +260,16 @@ public class WithdrawActivity extends BaseActivity implements View.OnClickListen
             }
         }
         mBinding.withdrawNodeMoney.setText(Html.fromHtml(html));
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == 300 && resultCode == 200){//支付会员成功返回弹出弹框
+            String level = data.getStringExtra("level");
+            DialogUtil.paySucDialog(this,level);
+            mBinding.withdrawPay.setText("");
+            mPresenter.taobaoAccount(this.bindToLifecycle());
+        }
     }
 }

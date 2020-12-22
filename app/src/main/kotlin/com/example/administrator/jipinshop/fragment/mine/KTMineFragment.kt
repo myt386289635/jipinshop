@@ -22,6 +22,7 @@ import com.example.administrator.jipinshop.activity.foval.FovalActivity
 import com.example.administrator.jipinshop.activity.home.home.HomeNewActivity
 import com.example.administrator.jipinshop.activity.login.LoginActivity
 import com.example.administrator.jipinshop.activity.mall.MallActivity
+import com.example.administrator.jipinshop.activity.member.buy.MemberBuyActivity
 import com.example.administrator.jipinshop.activity.mine.browse.BrowseActivity
 import com.example.administrator.jipinshop.activity.mine.welfare.OfficialWelfareActivity
 import com.example.administrator.jipinshop.activity.minekt.orderkt.KTMyOrderActivity
@@ -76,6 +77,7 @@ class KTMineFragment : DBBaseFragment(), KTMineAdapter.OnItem, KTMineView, OnLoa
     private var officialWeChatQR = "" //客服二维码
     private var mDialog: Dialog? = null
     private var mBean : UserInfoBean? = null
+    private var level : Int = 0 //默认普通会员
 
     companion object{
         @JvmStatic //java中的静态方法
@@ -169,6 +171,7 @@ class KTMineFragment : DBBaseFragment(), KTMineAdapter.OnItem, KTMineView, OnLoa
         mBean = userInfoBean
         officialWeChat = userInfoBean.data.officialWeChat
         officialWeChatQR = userInfoBean.data.officialWeChatQR
+        level = userInfoBean.data.level
         mAdapter.setBean(userInfoBean)
         mAdapter.notifyDataSetChanged()
     }
@@ -492,6 +495,19 @@ class KTMineFragment : DBBaseFragment(), KTMineAdapter.OnItem, KTMineView, OnLoa
         api.sendReq(req)
     }
 
+    //进入会员购买页
+    override fun onMemberBuy() {
+        if (level == 0){
+            //购买
+            startActivityForResult(Intent(context, MemberBuyActivity::class.java)
+                    .putExtra("isBuy", "1"), 300)
+        }else{
+            //续费
+            startActivityForResult(Intent(context, MemberBuyActivity::class.java)
+                    .putExtra("isBuy", "2"), 300)
+        }
+    }
+
     override fun onCodeSuc(dialog: Dialog, inputManager: InputMethodManager, bean: SuccessBean) {
         mDialog?.let {
             if (it.isShowing){
@@ -528,14 +544,20 @@ class KTMineFragment : DBBaseFragment(), KTMineAdapter.OnItem, KTMineView, OnLoa
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
-        when (resultCode) {
-            201 -> { //退出登陆成功
-                var userInfoBean = UserInfoBean()
-                userInfoBean.code = 602
-                mAdapter.setBean(userInfoBean)
-                mAdapter.notifyDataSetChanged()
-                SPUtils.getInstance(CommonDate.USER).clear()
-                EventBus.getDefault().post(HomeRefresh(HomeRefresh.tag))//用来刷新首页的
+        if (requestCode == 300 && resultCode == 200){
+            //购买会员成功后返回
+            var level = data?.getStringExtra("level")
+            DialogUtil.paySucDialog(context, level)
+        }else{
+            when (resultCode) {
+                201 -> { //退出登陆成功
+                    var userInfoBean = UserInfoBean()
+                    userInfoBean.code = 602
+                    mAdapter.setBean(userInfoBean)
+                    mAdapter.notifyDataSetChanged()
+                    SPUtils.getInstance(CommonDate.USER).clear()
+                    EventBus.getDefault().post(HomeRefresh(HomeRefresh.tag))//用来刷新首页的
+                }
             }
         }
     }

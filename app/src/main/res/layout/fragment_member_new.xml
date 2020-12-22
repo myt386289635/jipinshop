@@ -417,89 +417,95 @@
                     </RelativeLayout>
 
                     <!--每月0元好礼-->
-                    <ImageView
+                    <RelativeLayout
+                        android:id="@+id/member_freeFContainer"
                         android:layout_below="@id/member_moneyContainer"
-                        android:id="@+id/member_bg5"
-                        android:layout_marginTop="@dimen/y55"
-                        android:scaleType="fitXY"
-                        android:layout_marginRight="@dimen/x20"
-                        android:layout_marginLeft="@dimen/x20"
-                        android:background="@drawable/bg_member2"
                         android:layout_width="match_parent"
-                        android:layout_height="@dimen/y271"/>
-
-                    <LinearLayout
-                        android:layout_below="@id/member_moneyContainer"
-                        android:gravity="center"
-                        android:orientation="vertical"
-                        android:id="@+id/member_freeContainer"
-                        android:layout_marginRight="@dimen/x23"
-                        android:layout_marginTop="@dimen/y47"
-                        android:layout_alignRight="@id/member_bg5"
-                        android:background="@mipmap/member1_bg4"
-                        android:layout_width="@dimen/x268"
                         android:layout_height="wrap_content">
 
+                        <ImageView
+                            android:id="@+id/member_bg5"
+                            android:layout_marginTop="@dimen/y55"
+                            android:scaleType="fitXY"
+                            android:layout_marginRight="@dimen/x20"
+                            android:layout_marginLeft="@dimen/x20"
+                            android:background="@drawable/bg_member2"
+                            android:layout_width="match_parent"
+                            android:layout_height="@dimen/y271"/>
+
+                        <LinearLayout
+                            android:gravity="center"
+                            android:orientation="vertical"
+                            android:id="@+id/member_freeContainer"
+                            android:layout_marginRight="@dimen/x23"
+                            android:layout_marginTop="@dimen/y47"
+                            android:layout_alignRight="@id/member_bg5"
+                            android:background="@mipmap/member1_bg4"
+                            android:layout_width="@dimen/x268"
+                            android:layout_height="wrap_content">
+
+                            <TextView
+                                android:id="@+id/member_freeTitle"
+                                android:textColor="@color/color_996A31"
+                                android:textStyle="bold"
+                                android:textSize="12sp"
+                                android:text="@{bean.levelDetail3.title3}"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"/>
+
+                            <TextView
+                                android:id="@+id/member_freeFee"
+                                android:textColor="@color/color_E25838"
+                                android:textStyle="bold"
+                                android:textSize="21sp"
+                                android:text="@{bean.levelDetail3.title4}"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"/>
+
+                        </LinearLayout>
+
                         <TextView
-                            android:id="@+id/member_freeTitle"
-                            android:textColor="@color/color_996A31"
+                            android:id="@+id/member_title6"
+                            android:layout_marginLeft="@dimen/x20"
+                            android:layout_marginTop="@dimen/y42"
+                            android:layout_alignLeft="@id/member_bg5"
+                            android:layout_alignTop="@id/member_bg5"
                             android:textStyle="bold"
+                            android:textColor="@color/color_white"
+                            android:textSize="16sp"
+                            android:text="@{bean.levelDetail3.title1}"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"/>
+
+                        <TextView
+                            android:layout_marginTop="@dimen/y15"
+                            android:id="@+id/member_content6"
+                            android:layout_alignLeft="@id/member_title6"
+                            android:layout_below="@id/member_title6"
+                            android:textColor="@color/color_white"
                             android:textSize="12sp"
-                            android:text="@{bean.levelDetail3.title3}"
+                            android:text="@{bean.levelDetail3.title2}"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"/>
 
-                        <TextView
-                            android:id="@+id/member_freeFee"
-                            android:textColor="@color/color_E25838"
-                            android:textStyle="bold"
-                            android:textSize="21sp"
-                            android:text="@{bean.levelDetail3.title4}"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"/>
+                        <android.support.v7.widget.RecyclerView
+                            android:paddingLeft="@dimen/x10"
+                            android:paddingRight="@dimen/x10"
+                            android:id="@+id/member_free"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_alignTop="@id/member_bg5"
+                            android:layout_marginLeft="@dimen/x40"
+                            android:layout_marginTop="@dimen/y165"
+                            android:layout_marginRight="@dimen/x40"
+                            android:background="@drawable/bg_dialog"
+                            android:elevation="@dimen/y8"/>
 
-                    </LinearLayout>
-
-                    <TextView
-                        android:id="@+id/member_title6"
-                        android:layout_marginLeft="@dimen/x20"
-                        android:layout_marginTop="@dimen/y42"
-                        android:layout_alignLeft="@id/member_bg5"
-                        android:layout_alignTop="@id/member_bg5"
-                        android:textStyle="bold"
-                        android:textColor="@color/color_white"
-                        android:textSize="16sp"
-                        android:text="@{bean.levelDetail3.title1}"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"/>
-
-                    <TextView
-                        android:layout_marginTop="@dimen/y15"
-                        android:id="@+id/member_content6"
-                        android:layout_alignLeft="@id/member_title6"
-                        android:layout_below="@id/member_title6"
-                        android:textColor="@color/color_white"
-                        android:textSize="12sp"
-                        android:text="@{bean.levelDetail3.title2}"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"/>
-
-                    <android.support.v7.widget.RecyclerView
-                        android:paddingLeft="@dimen/x10"
-                        android:paddingRight="@dimen/x10"
-                        android:id="@+id/member_free"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_alignTop="@id/member_bg5"
-                        android:layout_marginLeft="@dimen/x40"
-                        android:layout_marginTop="@dimen/y165"
-                        android:layout_marginRight="@dimen/x40"
-                        android:background="@drawable/bg_dialog"
-                        android:elevation="@dimen/y8"/>
+                    </RelativeLayout>
 
                     <!--特惠购-->
                     <ImageView
-                        android:layout_below="@id/member_free"
+                        android:layout_below="@id/member_freeFContainer"
                         android:id="@+id/member_bg4"
                         android:layout_marginTop="@dimen/y55"
                         android:scaleType="fitXY"
@@ -510,7 +516,7 @@
                         android:layout_height="@dimen/y271"/>
 
                     <LinearLayout
-                        android:layout_below="@id/member_free"
+                        android:layout_below="@id/member_freeFContainer"
                         android:gravity="center"
                         android:orientation="vertical"
                         android:id="@+id/member_monthContainer"
@@ -733,128 +739,134 @@
                     </RelativeLayout>
 
                     <!--视频会员卡-->
-                    <ImageView
-                        android:layout_below="@+id/member_family"
-                        android:id="@+id/member_bg9"
-                        android:layout_marginTop="@dimen/y55"
-                        android:scaleType="fitXY"
-                        android:layout_marginRight="@dimen/x20"
-                        android:layout_marginLeft="@dimen/x20"
-                        android:background="@drawable/bg_member5"
-                        android:layout_width="match_parent"
-                        android:layout_height="@dimen/y271"/>
-
-                    <LinearLayout
-                        android:layout_below="@+id/member_family"
-                        android:gravity="center"
-                        android:orientation="vertical"
-                        android:id="@+id/member_videoContainer"
-                        android:layout_marginRight="@dimen/x23"
-                        android:layout_marginTop="@dimen/y47"
-                        android:layout_alignRight="@id/member_bg7"
-                        android:background="@mipmap/member1_bg4"
-                        android:layout_width="@dimen/x268"
-                        android:layout_height="wrap_content">
-
-                        <TextView
-                            android:id="@+id/member_videoTitle"
-                            android:textColor="@color/color_996A31"
-                            android:textStyle="bold"
-                            android:textSize="12sp"
-                            android:text="@{bean.levelDetail7.title3}"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"/>
-
-                        <TextView
-                            android:id="@+id/member_videoFee"
-                            android:textColor="@color/color_E25838"
-                            android:textStyle="bold"
-                            android:textSize="21sp"
-                            android:text="@{bean.levelDetail7.title4}"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"/>
-
-                    </LinearLayout>
-
-                    <TextView
-                        android:id="@+id/member_title9"
-                        android:layout_marginLeft="@dimen/x20"
-                        android:layout_marginTop="@dimen/y42"
-                        android:layout_alignLeft="@id/member_bg9"
-                        android:layout_alignTop="@id/member_bg9"
-                        android:textStyle="bold"
-                        android:textColor="@color/color_white"
-                        android:textSize="16sp"
-                        android:text="@{bean.levelDetail7.title1}"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"/>
-
-                    <TextView
-                        android:layout_marginTop="@dimen/y15"
-                        android:id="@+id/member_content9"
-                        android:layout_alignLeft="@id/member_title9"
-                        android:layout_below="@id/member_title9"
-                        android:textColor="@color/color_white"
-                        android:textSize="12sp"
-                        android:text="@{bean.levelDetail7.title2}"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"/>
-
                     <RelativeLayout
-                        android:elevation="@dimen/y8"
-                        android:layout_marginLeft="@dimen/x40"
-                        android:layout_marginTop="@dimen/y165"
-                        android:layout_marginRight="@dimen/x40"
-                        android:background="@drawable/bg_dialog"
-                        android:layout_alignTop="@id/member_bg9"
-                        android:id="@+id/member_videoContainer1"
+                        android:id="@+id/member_videoFContainer"
+                        android:layout_below="@+id/member_family"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content">
 
-                        <android.support.v7.widget.RecyclerView
-                            android:paddingTop="@dimen/y10"
-                            android:paddingBottom="@dimen/y40"
-                            android:id="@+id/member_video"
+                        <ImageView
+                            android:id="@+id/member_bg9"
+                            android:layout_marginTop="@dimen/y55"
+                            android:scaleType="fitXY"
+                            android:layout_marginRight="@dimen/x20"
+                            android:layout_marginLeft="@dimen/x20"
+                            android:background="@drawable/bg_member5"
                             android:layout_width="match_parent"
-                            android:layout_height="wrap_content"/>
+                            android:layout_height="@dimen/y271"/>
 
                         <LinearLayout
-                            android:id="@+id/member_serverContainer"
-                            android:layout_marginBottom="@dimen/y32"
-                            android:layout_centerHorizontal="true"
-                            android:layout_below="@id/member_video"
                             android:gravity="center"
-                            android:orientation="horizontal"
-                            android:layout_width="wrap_content"
+                            android:orientation="vertical"
+                            android:id="@+id/member_videoContainer"
+                            android:layout_marginRight="@dimen/x23"
+                            android:layout_marginTop="@dimen/y47"
+                            android:layout_alignRight="@id/member_bg9"
+                            android:background="@mipmap/member1_bg4"
+                            android:layout_width="@dimen/x268"
                             android:layout_height="wrap_content">
 
                             <TextView
-                                android:textColor="@color/color_774A12"
-                                android:textSize="13sp"
-                                android:id="@+id/member_server"
-                                android:text="@{@string/member_10 + bean.officialWechat + @string/member_11}"
+                                android:id="@+id/member_videoTitle"
+                                android:textColor="@color/color_996A31"
+                                android:textStyle="bold"
+                                android:textSize="12sp"
+                                android:text="@{bean.levelDetail7.title3}"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"/>
 
                             <TextView
-                                android:gravity="center"
-                                android:onClick="@{listener.onClick}"
-                                android:layout_marginLeft="@dimen/x14"
-                                android:textSize="13sp"
-                                android:textColor="@color/color_white"
-                                android:text="复制微信"
-                                android:background="@drawable/bg_d5a460"
-                                android:id="@+id/member_copyServer"
-                                android:layout_width="@dimen/x146"
-                                android:layout_height="@dimen/y46"/>
+                                android:id="@+id/member_videoFee"
+                                android:textColor="@color/color_E25838"
+                                android:textStyle="bold"
+                                android:textSize="21sp"
+                                android:text="@{bean.levelDetail7.title4}"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"/>
 
                         </LinearLayout>
+
+                        <TextView
+                            android:id="@+id/member_title9"
+                            android:layout_marginLeft="@dimen/x20"
+                            android:layout_marginTop="@dimen/y42"
+                            android:layout_alignLeft="@id/member_bg9"
+                            android:layout_alignTop="@id/member_bg9"
+                            android:textStyle="bold"
+                            android:textColor="@color/color_white"
+                            android:textSize="16sp"
+                            android:text="@{bean.levelDetail7.title1}"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"/>
+
+                        <TextView
+                            android:layout_marginTop="@dimen/y15"
+                            android:id="@+id/member_content9"
+                            android:layout_alignLeft="@id/member_title9"
+                            android:layout_below="@id/member_title9"
+                            android:textColor="@color/color_white"
+                            android:textSize="12sp"
+                            android:text="@{bean.levelDetail7.title2}"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"/>
+
+                        <RelativeLayout
+                            android:elevation="@dimen/y8"
+                            android:layout_marginLeft="@dimen/x40"
+                            android:layout_marginTop="@dimen/y165"
+                            android:layout_marginRight="@dimen/x40"
+                            android:background="@drawable/bg_dialog"
+                            android:layout_alignTop="@id/member_bg9"
+                            android:id="@+id/member_videoContainer1"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content">
+
+                            <android.support.v7.widget.RecyclerView
+                                android:paddingTop="@dimen/y10"
+                                android:paddingBottom="@dimen/y40"
+                                android:id="@+id/member_video"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"/>
+
+                            <LinearLayout
+                                android:id="@+id/member_serverContainer"
+                                android:layout_marginBottom="@dimen/y32"
+                                android:layout_centerHorizontal="true"
+                                android:layout_below="@id/member_video"
+                                android:gravity="center"
+                                android:orientation="horizontal"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content">
+
+                                <TextView
+                                    android:textColor="@color/color_774A12"
+                                    android:textSize="13sp"
+                                    android:id="@+id/member_server"
+                                    android:text="@{@string/member_10 + bean.officialWechat + @string/member_11}"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"/>
+
+                                <TextView
+                                    android:gravity="center"
+                                    android:onClick="@{listener.onClick}"
+                                    android:layout_marginLeft="@dimen/x14"
+                                    android:textSize="13sp"
+                                    android:textColor="@color/color_white"
+                                    android:text="复制微信"
+                                    android:background="@drawable/bg_d5a460"
+                                    android:id="@+id/member_copyServer"
+                                    android:layout_width="@dimen/x146"
+                                    android:layout_height="@dimen/y46"/>
+
+                            </LinearLayout>
+
+                        </RelativeLayout>
 
                     </RelativeLayout>
 
                     <!--会员积分-->
                     <ImageView
-                        android:layout_below="@+id/member_videoContainer1"
+                        android:layout_below="@+id/member_videoFContainer"
                         android:id="@+id/member_bg8"
                         android:layout_marginTop="@dimen/y55"
                         android:scaleType="fitXY"
@@ -865,7 +877,7 @@
                         android:layout_height="@dimen/y271"/>
 
                     <LinearLayout
-                        android:layout_below="@+id/member_videoContainer1"
+                        android:layout_below="@+id/member_videoFContainer"
                         android:gravity="center"
                         android:orientation="vertical"
                         android:id="@+id/member_signContainer"

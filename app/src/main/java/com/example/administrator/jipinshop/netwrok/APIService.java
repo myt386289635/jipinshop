@@ -1323,7 +1323,7 @@ public interface APIService {
     /**
      * 新会员接口
      */
-    @GET("api/v5/user/levelIndex")
+    @GET("api/v6/user/levelIndex")
     Observable<MemberNewBean> levelIndex();
 
     /**

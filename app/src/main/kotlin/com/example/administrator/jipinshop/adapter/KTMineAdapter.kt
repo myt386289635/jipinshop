@@ -159,12 +159,17 @@ class KTMineAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>{
                                 binding.mineMemberTime.text = "到期：" + it.data.levelEndTime
                                 binding.mineMemberTime.visibility = View.VISIBLE
                                 binding.mineMemberOpen.text = "续费"
-                            } else  if (it.data.level == 1){
+                            } else  if (it.data.level == 1){//月卡
                                 binding.itemGrade.setImageResource(R.mipmap.grade_vip)
                                 binding.mineMemberTime.text = "到期：" + it.data.levelEndTime
                                 binding.mineMemberTime.visibility = View.VISIBLE
                                 binding.mineMemberOpen.text = "续费"
-                            }else {
+                            }else if (it.data.level == 3){//周卡
+                                binding.itemGrade.setImageResource(R.mipmap.grade_week)
+                                binding.mineMemberTime.text = "到期：" + it.data.levelEndTime
+                                binding.mineMemberTime.visibility = View.VISIBLE
+                                binding.mineMemberOpen.text = "续费"
+                            } else {
                                 binding.itemGrade.setImageResource(R.mipmap.grade_public)
                                 binding.mineMemberTime.visibility = View.GONE
                                 binding.mineMemberOpen.text = "开通会员"
@@ -217,7 +222,7 @@ class KTMineAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>{
                             mOnItem?.onUserInfo()
                         }
                         binding.mineMemberOpen.setOnClickListener {
-                            mOnItem?.onMember()
+                            mOnItem?.onMemberBuy()
                         }
                         binding.mineMemberInfoContainer.setOnClickListener {
                             mOnItem?.onMember()
@@ -633,6 +638,7 @@ class KTMineAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>{
 
         fun onUserInfo()//跳转到用户主页
         fun onMember()//进入会员页面
+        fun onMemberBuy()//进入会员购买页
 
         fun onWallet()//进入我的收益
         fun onCheapBuy() //特惠购

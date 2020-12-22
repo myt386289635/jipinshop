@@ -12,6 +12,15 @@ public class MemberBuyBean {
     private String msg;
     private int code;
     private List<DataBean> data;
+    private String officialWechat;
+
+    public String getOfficialWechat() {
+        return officialWechat;
+    }
+
+    public void setOfficialWechat(String officialWechat) {
+        this.officialWechat = officialWechat;
+    }
 
     public String getMsg() {
         return msg;

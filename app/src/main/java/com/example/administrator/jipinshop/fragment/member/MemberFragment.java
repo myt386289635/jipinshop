@@ -51,6 +51,7 @@ import com.example.administrator.jipinshop.view.dialog.DialogUtil;
 import com.example.administrator.jipinshop.view.glide.GlideApp;
 import com.example.administrator.jipinshop.view.textview.CenteredImageSpan;
 import com.example.administrator.jipinshop.view.viewpager.TouchViewPager;
+import com.trello.rxlifecycle2.android.FragmentEvent;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -287,7 +288,7 @@ public class MemberFragment extends DBBaseFragment implements View.OnClickListen
                     startActivity(new Intent(getContext(), LoginActivity.class));
                     return;
                 }
-                appStatisticalUtil.addEvent("huiyuan.click", this.bindToLifecycle());
+                appStatisticalUtil.addEvent("huiyuan.click", this.bindUntilEvent(FragmentEvent.DESTROY_VIEW));
                 startActivityForResult(new Intent(getContext(), MemberBuyActivity.class)
                         .putExtra("isBuy","1")
                 ,300);
@@ -396,19 +397,25 @@ public class MemberFragment extends DBBaseFragment implements View.OnClickListen
         mMoreAllAdapter.notifyDataSetChanged();
         //特权一
         GlideApp.loderImage(getContext(),bean.getData().getLevelDetail1().getImg(),mBinding.memberMoney,0,0);
-        //特权二
-        mFreeList.clear();
-        mFreeList.addAll(bean.getData().getLevelDetail3().getList());
-        mFreeAdapter.notifyDataSetChanged();
-        if (TextUtils.isEmpty(bean.getData().getLevelDetail3().getTitle3())){
-            mBinding.memberFreeTitle.setVisibility(View.GONE);
+        if (bean.getData().getLevelDetail3() == null){
+            //周卡月卡没有特权二
+            mBinding.memberFreeFContainer.setVisibility(View.GONE);
         }else {
-            mBinding.memberFreeTitle.setVisibility(View.VISIBLE);
-        }
-        if (TextUtils.isEmpty(bean.getData().getLevelDetail3().getTitle4())){
-            mBinding.memberFreeFee.setVisibility(View.GONE);
-        }else {
-            mBinding.memberFreeFee.setVisibility(View.VISIBLE);
+            //特权二
+            mBinding.memberFreeFContainer.setVisibility(View.VISIBLE);
+            mFreeList.clear();
+            mFreeList.addAll(bean.getData().getLevelDetail3().getList());
+            mFreeAdapter.notifyDataSetChanged();
+            if (TextUtils.isEmpty(bean.getData().getLevelDetail3().getTitle3())){
+                mBinding.memberFreeTitle.setVisibility(View.GONE);
+            }else {
+                mBinding.memberFreeTitle.setVisibility(View.VISIBLE);
+            }
+            if (TextUtils.isEmpty(bean.getData().getLevelDetail3().getTitle4())){
+                mBinding.memberFreeFee.setVisibility(View.GONE);
+            }else {
+                mBinding.memberFreeFee.setVisibility(View.VISIBLE);
+            }
         }
         //特权三
         mCheapList.clear();
@@ -449,23 +456,28 @@ public class MemberFragment extends DBBaseFragment implements View.OnClickListen
             mBinding.memberFamilyFee.setVisibility(View.VISIBLE);
         }
         //特权五 视频
-        mVideoList.clear();
-        mVideoList.addAll(bean.getData().getLevelDetail7().getList());
-        mVideoAdapter.notifyDataSetChanged();
-        if (TextUtils.isEmpty(bean.getData().getLevelDetail7().getTitle3())){
-            mBinding.memberVideoTitle.setVisibility(View.GONE);
+        if (bean.getData().getLevel() == 1 || bean.getData().getLevel() == 3){
+            mBinding.memberVideoFContainer.setVisibility(View.GONE);
         }else {
-            mBinding.memberVideoTitle.setVisibility(View.VISIBLE);
-        }
-        if (TextUtils.isEmpty(bean.getData().getLevelDetail7().getTitle4())){
-            mBinding.memberVideoFee.setVisibility(View.GONE);
-        }else {
-            mBinding.memberVideoFee.setVisibility(View.VISIBLE);
-        }
-        if (bean.getData().getLevel() == 2 && bean.getData().getLevelDetail7().getTitle3().equals("待领取")){
-            mBinding.memberServerContainer.setVisibility(View.VISIBLE);
-        }else {
-            mBinding.memberServerContainer.setVisibility(View.GONE);
+            mBinding.memberVideoFContainer.setVisibility(View.VISIBLE);
+            mVideoList.clear();
+            mVideoList.addAll(bean.getData().getLevelDetail7().getList());
+            mVideoAdapter.notifyDataSetChanged();
+            if (TextUtils.isEmpty(bean.getData().getLevelDetail7().getTitle3())){
+                mBinding.memberVideoTitle.setVisibility(View.GONE);
+            }else {
+                mBinding.memberVideoTitle.setVisibility(View.VISIBLE);
+            }
+            if (TextUtils.isEmpty(bean.getData().getLevelDetail7().getTitle4())){
+                mBinding.memberVideoFee.setVisibility(View.GONE);
+            }else {
+                mBinding.memberVideoFee.setVisibility(View.VISIBLE);
+            }
+            if (bean.getData().getLevel() == 2 && bean.getData().getLevelDetail7().getTitle3().equals("待领取")){
+                mBinding.memberServerContainer.setVisibility(View.VISIBLE);
+            }else {
+                mBinding.memberServerContainer.setVisibility(View.GONE);
+            }
         }
         //特权六 会员极币
         GlideApp.loderImage(getContext(),bean.getData().getLevelDetail6().getImg(),mBinding.memberSignImg,0,0);
@@ -537,7 +549,9 @@ public class MemberFragment extends DBBaseFragment implements View.OnClickListen
                 mBinding.memberMemberContainer.setBackgroundResource(R.mipmap.member1_month_bg);
                 mBinding.memberUserName.setTextColor(getContext().getResources().getColor(R.color.color_E7C19F));
                 mBinding.memberUserTime.setTextColor(getContext().getResources().getColor(R.color.color_E7C19F));
-                mBinding.memberUserPay.setVisibility(View.GONE);
+                mBinding.memberUserPay.setVisibility(View.VISIBLE);
+                mBinding.memberUserPay.setBackgroundResource(R.drawable.bg_e8a971);
+                mBinding.memberUserPay.setTextColor(getContext().getResources().getColor(R.color.color_white));
             }
         }
         once = false;

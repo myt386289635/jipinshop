@@ -1,6 +1,9 @@
 package com.example.administrator.jipinshop.activity.member.buy;
 
 import android.app.Dialog;
+import android.content.ClipData;
+import android.content.ClipboardManager;
+import android.content.Context;
 import android.content.Intent;
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
@@ -65,6 +68,7 @@ public class MemberBuyActivity extends BaseActivity implements View.OnClickListe
     private Dialog mDialog;
     private IWXAPI msgApi;//微信支付
     private MemberBuyBean mBean = null;
+    private String wx = "";//客服
     //支付宝支付回调
     private Handler.Callback mCallback = msg -> {
         if (msg.what == 101){
@@ -107,6 +111,9 @@ public class MemberBuyActivity extends BaseActivity implements View.OnClickListe
 
     private void initView() {
         isBuy = getIntent().getStringExtra("isBuy");
+        if (!TextUtils.isEmpty(getIntent().getStringExtra("level"))){
+            level = getIntent().getStringExtra("level");
+        }
         mBinding.inClude.titleTv.setText("确认订单");
         countDownTimer = new CountDownTimer(15 * 60 * 1000, 1000) {
             @Override
@@ -123,6 +130,13 @@ public class MemberBuyActivity extends BaseActivity implements View.OnClickListe
             }
         }.start();
         mPresenter.initCheckBox(this,mBinding);
+        if (level.equals("2")){
+            mBinding.yearCheckBox.setChecked(true);
+            mBinding.yearOtherCheckBox.setChecked(true);
+        }else {
+            mBinding.monthCheckBox.setChecked(true);
+            mBinding.monthOtherCheckBox.setChecked(true);
+        }
 
         //初始化微信支付
         msgApi = WXAPIFactory.createWXAPI(this, null);
@@ -140,7 +154,13 @@ public class MemberBuyActivity extends BaseActivity implements View.OnClickListe
                 twoFinishPage();
                 break;
             case R.id.buy_official:
-                ToastUtil.show("咨询客服");
+                DialogUtil.LoginDialog(this, "官方客服微信：" + wx, "复制", "取消", v1 -> {
+                    ClipboardManager clip = (ClipboardManager) getSystemService(Context.CLIPBOARD_SERVICE);
+                    ClipData clipData = ClipData.newPlainText("jipinshop", wx);
+                    clip.setPrimaryClip(clipData);
+                    ToastUtil.show("微信号复制成功");
+                    SPUtils.getInstance().put(CommonDate.CLIP, wx);
+                });
                 break;
             case R.id.month_container:
                 //月卡
@@ -181,6 +201,7 @@ public class MemberBuyActivity extends BaseActivity implements View.OnClickListe
         mBean = bean;
         monthPrice = bean.getData().get(0).getPrice();
         yearPrice = bean.getData().get(1).getPrice();
+        wx = bean.getOfficialWechat();
         if (bean.getData().size() == 2){
             //没有周卡
             mBinding.buyType2Container.setVisibility(View.VISIBLE);
