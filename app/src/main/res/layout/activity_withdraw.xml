@@ -56,6 +56,7 @@
                     android:layout_height="wrap_content">
 
                     <TextView
+                        android:visibility="gone"
                         android:paddingRight="@dimen/x5"
                         android:paddingLeft="@dimen/x9"
                         android:onClick="@{listener.onClick}"
@@ -72,9 +73,8 @@
                         android:layout_height="@dimen/y52"/>
 
                     <TextView
-                        android:layout_below="@id/withdraw_notice"
                         android:id="@+id/withdraw_money"
-                        android:layout_marginTop="@dimen/y5"
+                        android:layout_marginTop="@dimen/y77"
                         android:textColor="@color/color_E31436"
                         android:textStyle="bold"
                         android:textSize="30sp"

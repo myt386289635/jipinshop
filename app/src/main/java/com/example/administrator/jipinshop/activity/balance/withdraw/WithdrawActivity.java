@@ -218,9 +218,11 @@ public class WithdrawActivity extends BaseActivity implements View.OnClickListen
         double r = new BigDecimal(rate).doubleValue();
         if (level.equals("2")){
             html = "年卡会员免收手续费";
+            mBinding.withdrawNotice.setVisibility(View.GONE);
         }else {
             html = "提现收取<font color='#E25838'>"+  new BigDecimal((r * 100 ) + "").stripTrailingZeros().toPlainString()
                     + "%</font>提现费，实际到账<font color='#E25838'>￥0</font>";
+            mBinding.withdrawNotice.setVisibility(View.VISIBLE);
         }
         mBinding.withdrawNodeMoney.setText(Html.fromHtml(html));
     }

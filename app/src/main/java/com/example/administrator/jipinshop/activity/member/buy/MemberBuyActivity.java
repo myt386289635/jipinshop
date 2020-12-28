@@ -130,13 +130,6 @@ public class MemberBuyActivity extends BaseActivity implements View.OnClickListe
             }
         }.start();
         mPresenter.initCheckBox(this,mBinding);
-        if (level.equals("2")){
-            mBinding.yearCheckBox.setChecked(true);
-            mBinding.yearOtherCheckBox.setChecked(true);
-        }else {
-            mBinding.monthCheckBox.setChecked(true);
-            mBinding.monthOtherCheckBox.setChecked(true);
-        }
 
         //初始化微信支付
         msgApi = WXAPIFactory.createWXAPI(this, null);
@@ -202,14 +195,21 @@ public class MemberBuyActivity extends BaseActivity implements View.OnClickListe
         monthPrice = bean.getData().get(0).getPrice();
         yearPrice = bean.getData().get(1).getPrice();
         wx = bean.getOfficialWechat();
-        if (bean.getData().size() == 2){
+        if (level.equals("2")){
+            mBinding.yearOtherContainer2.setVisibility(View.VISIBLE);
+            mBinding.buyType2Container.setVisibility(View.GONE);
+            mBinding.buyType1Container.setVisibility(View.GONE);
+            mBinding.setYear(bean.getData().get(1));
+        }else if (bean.getData().size() == 2){
             //没有周卡
+            mBinding.yearOtherContainer2.setVisibility(View.GONE);
             mBinding.buyType2Container.setVisibility(View.VISIBLE);
             mBinding.buyType1Container.setVisibility(View.GONE);
             mBinding.setMoney(bean.getData().get(0));
             mBinding.setYear(bean.getData().get(1));
         }else {
             //有周卡
+            mBinding.yearOtherContainer2.setVisibility(View.GONE);
             mBinding.buyType2Container.setVisibility(View.GONE);
             mBinding.buyType1Container.setVisibility(View.VISIBLE);
             mBinding.setMoney(bean.getData().get(0));

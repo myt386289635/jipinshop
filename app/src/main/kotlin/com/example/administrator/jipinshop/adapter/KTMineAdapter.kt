@@ -213,7 +213,7 @@ class KTMineAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>{
                             binding.statusBar.setBackgroundColor(Color.TRANSPARENT)
                         }
                         binding.mineNoticeGo.setOnClickListener {
-                            NotificationUtil.gotoSet(context as Activity)
+                            NotificationUtil.gotoSet(context as Activity, 4011)
                         }
                         binding.mineName.setOnClickListener {
                             mOnItem?.onUserInfo()
@@ -226,6 +226,9 @@ class KTMineAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>{
                         }
                         binding.mineMemberInfoContainer.setOnClickListener {
                             mOnItem?.onMember()
+                        }
+                        binding.mineSetting.setOnClickListener {
+                            mOnItem?.onSetting()
                         }
                     }
                 }
@@ -300,17 +303,6 @@ class KTMineAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>{
             HEAD3 -> {
                 var head3ViewHolder : Head3ViewHolder = holder as Head3ViewHolder
                 head3ViewHolder.run {
-                    mBean?.let {
-                        if (it.code == 0) {//请求成功
-                            if (it.data.pid == "0") {
-                                binding.mineInvation.visibility = View.VISIBLE
-                            } else {
-                                binding.mineInvation.visibility = View.GONE
-                            }
-                        }else{
-                            binding.mineInvation.visibility = View.GONE
-                        }
-                    }
                     binding.mineBrowse.setOnClickListener {
                         mOnItem?.onMessage()
                     }
@@ -319,9 +311,6 @@ class KTMineAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>{
                     }
                     binding.mineRecovery.setOnClickListener {
                         mOnItem?.onOrderRecovery()
-                    }
-                    binding.mineSetting.setOnClickListener {
-                        mOnItem?.onSetting()
                     }
                     binding.mineOpinion.setOnClickListener {
                         mOnItem?.onOpinion()
@@ -346,9 +335,6 @@ class KTMineAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>{
                     }
                     binding.mineCourse.setOnClickListener {
                         mOnItem?.onCourse()
-                    }
-                    binding.mineInvation.setOnClickListener {
-                        mOnItem?.onInvationDialog()
                     }
                     binding.mineServer.setOnClickListener {
                         mOnItem?.onServer()

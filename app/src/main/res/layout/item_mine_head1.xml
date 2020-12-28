@@ -25,6 +25,19 @@
                 android:layout_height="wrap_content"
                 android:background="@drawable/bg_mine_notice"
                 android:orientation="vertical"/>
+
+            <ImageView
+                android:layout_below="@id/status_bar"
+                android:id="@+id/mine_setting"
+                android:layout_marginTop="@dimen/y10"
+                android:paddingLeft="@dimen/x27"
+                android:layout_alignParentRight="true"
+                android:paddingRight="@dimen/x27"
+                android:paddingTop="@dimen/y10"
+                android:paddingBottom="@dimen/y10"
+                android:src="@mipmap/setting"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
             
             <RelativeLayout
                 android:id="@+id/mine_noticeContainer"
