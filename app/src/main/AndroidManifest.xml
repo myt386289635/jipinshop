@@ -848,6 +848,10 @@
         <activity android:name=".activity.web.tuanyou.CZBWebActivity"
                   android:screenOrientation="portrait"/>
 
+        <!--热销榜单-->
+        <activity android:name=".activity.home.hot.HomeHotActivity"
+                  android:screenOrientation="portrait"/>
+
  </application>
 
 </manifest>

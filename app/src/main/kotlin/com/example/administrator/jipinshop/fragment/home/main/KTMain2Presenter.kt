@@ -3,8 +3,6 @@ package com.example.administrator.jipinshop.fragment.home.main
 import android.support.design.widget.AppBarLayout
 import android.support.v7.widget.GridLayoutManager
 import android.support.v7.widget.RecyclerView
-import android.view.View
-import android.widget.ImageView
 import com.aspsine.swipetoloadlayout.SwipeToLoadLayout
 import com.example.administrator.jipinshop.bean.TBSreachResultBean
 import com.example.administrator.jipinshop.bean.TbkIndexBean
@@ -36,7 +34,7 @@ class KTMain2Presenter {
     }
 
     //解决冲突问题
-    fun solveScoll(mainBackground : ImageView, mRecyclerView: RecyclerView,
+    fun solveScoll(mRecyclerView: RecyclerView,
                    mSwipeToLoad: SwipeToLoadLayout, appBarLayout: AppBarLayout,
                    fragment: KTHomeFragnent) {
         var layoutManager = mRecyclerView.layoutManager
@@ -46,11 +44,6 @@ class KTMain2Presenter {
                 super.onScrolled(recyclerView, dx, dy)
                 mSwipeToLoad.isRefreshEnabled = linearManager.findFirstCompletelyVisibleItemPosition() == 0
                 mSwipeToLoad.isLoadMoreEnabled = isSlideToBottom(mRecyclerView)
-                mainBackground.visibility = if (linearManager.findFirstCompletelyVisibleItemPosition() == 0) {
-                    View.VISIBLE
-                } else {
-                    View.GONE
-                }
             }
 
             override fun onScrollStateChanged(recyclerView: RecyclerView, newState: Int) {
@@ -72,21 +65,14 @@ class KTMain2Presenter {
                 //展开
                 mSwipeToLoad.isRefreshEnabled = linearManager.findFirstCompletelyVisibleItemPosition() == 0
                 mSwipeToLoad.isLoadMoreEnabled = false
-                mainBackground.visibility = if (linearManager.findFirstCompletelyVisibleItemPosition() == 0) {
-                    View.VISIBLE
-                } else {
-                    View.GONE
-                }
             } else if (Math.abs(verticalOffset) >= appBarLayout.totalScrollRange) {
                 //折叠
                 mSwipeToLoad.isLoadMoreEnabled = isSlideToBottom(mRecyclerView)
                 mSwipeToLoad.isRefreshEnabled = false
-                mainBackground.visibility = View.INVISIBLE
             } else {
                 //过程
                 mSwipeToLoad.isRefreshEnabled = false
                 mSwipeToLoad.isLoadMoreEnabled = false
-                mainBackground.visibility = View.VISIBLE
             }
         })
     }

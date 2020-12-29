@@ -52,6 +52,42 @@ public class TbkIndexBean {
         private List<TBSreachResultBean.DataBean> commendGoodsList;//今日推荐
         private MessageBean message;//首页横向跑马灯
         private long userEndTime;//倒计时
+        private List<BoxCategoryListBean.ListBean> boxList;//顶部宫格
+        private List<AllowanceGoodsListBean> allowanceGoodsList3;//会员0元购
+        private int level;//用户身份
+        private List<HotGoodsListBean> seckillGoodsList;//秒杀商品
+
+        public List<AllowanceGoodsListBean> getAllowanceGoodsList3() {
+            return allowanceGoodsList3;
+        }
+
+        public void setAllowanceGoodsList3(List<AllowanceGoodsListBean> allowanceGoodsList3) {
+            this.allowanceGoodsList3 = allowanceGoodsList3;
+        }
+
+        public List<HotGoodsListBean> getSeckillGoodsList() {
+            return seckillGoodsList;
+        }
+
+        public void setSeckillGoodsList(List<HotGoodsListBean> seckillGoodsList) {
+            this.seckillGoodsList = seckillGoodsList;
+        }
+
+        public int getLevel() {
+            return level;
+        }
+
+        public void setLevel(int level) {
+            this.level = level;
+        }
+
+        public List<BoxCategoryListBean.ListBean> getBoxList() {
+            return boxList;
+        }
+
+        public void setBoxList(List<BoxCategoryListBean.ListBean> boxList) {
+            this.boxList = boxList;
+        }
 
         public long getUserEndTime() {
             return userEndTime;
@@ -500,6 +536,24 @@ public class TbkIndexBean {
             private String totalCouponPrice;
             private String buyPrice;
             private String useAllowancePrice;
+            private String allowanceGoodsId;
+            private String otherGoodsId;
+
+            public String getAllowanceGoodsId() {
+                return allowanceGoodsId;
+            }
+
+            public void setAllowanceGoodsId(String allowanceGoodsId) {
+                this.allowanceGoodsId = allowanceGoodsId;
+            }
+
+            public String getOtherGoodsId() {
+                return otherGoodsId;
+            }
+
+            public void setOtherGoodsId(String otherGoodsId) {
+                this.otherGoodsId = otherGoodsId;
+            }
 
             public String getUseAllowancePrice() {
                 return useAllowancePrice;

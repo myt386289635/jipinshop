@@ -10,7 +10,7 @@ import android.view.ViewGroup
 import com.example.administrator.jipinshop.R
 import com.example.administrator.jipinshop.activity.shoppingdetail.tbshoppingdetail.TBShoppingDetailActivity
 import com.example.administrator.jipinshop.bean.SuccessBean
-import com.example.administrator.jipinshop.bean.TbkIndexBean
+import com.example.administrator.jipinshop.bean.TBSreachResultBean
 import com.example.administrator.jipinshop.databinding.ItemMainHotBinding
 import com.example.administrator.jipinshop.util.UmApp.AppStatisticalUtil
 import com.trello.rxlifecycle2.LifecycleTransformer
@@ -19,16 +19,17 @@ import java.math.BigDecimal
 /**
  * @author 莫小婷
  * @create 2020/4/21
- * @Describe
+ * @Describe 热销榜单
  */
 class KTMain2HotAdapter : RecyclerView.Adapter<KTMain2HotAdapter.ViewHolder>{
 
-    private var mList: MutableList<TbkIndexBean.DataBean.HotGoodsListBean>
+    private var mList: MutableList<TBSreachResultBean.DataBean>
     private var mContext: Context
     private lateinit var appStatisticalUtil: AppStatisticalUtil
     private lateinit var  transformer : LifecycleTransformer<SuccessBean>
+    private lateinit var mOnItem: OnItem
 
-    constructor(list: MutableList<TbkIndexBean.DataBean.HotGoodsListBean>, context: Context){
+    constructor(list: MutableList<TBSreachResultBean.DataBean>, context: Context){
         mList = list
         mContext = context
     }
@@ -39,6 +40,10 @@ class KTMain2HotAdapter : RecyclerView.Adapter<KTMain2HotAdapter.ViewHolder>{
 
     fun setTransformer(transformer : LifecycleTransformer<SuccessBean>){
         this.transformer = transformer
+    }
+
+    fun setOnClick(onItem: OnItem){
+        mOnItem = onItem
     }
 
     override fun onCreateViewHolder(viewGroup: ViewGroup, type: Int): ViewHolder {
@@ -91,9 +96,11 @@ class KTMain2HotAdapter : RecyclerView.Adapter<KTMain2HotAdapter.ViewHolder>{
                         .putExtra("source",mList[position].source)
                 )
             }
+            binding.itemGridShare.setOnClickListener {
+                mOnItem.onItemShare(position)
+            }
         }
     }
-
 
     class ViewHolder : RecyclerView.ViewHolder{
 
@@ -102,5 +109,9 @@ class KTMain2HotAdapter : RecyclerView.Adapter<KTMain2HotAdapter.ViewHolder>{
         constructor(binding: ItemMainHotBinding) : super(binding.root) {
             this.binding = binding
         }
+    }
+
+    interface OnItem{
+        fun onItemShare(position: Int)
     }
 }

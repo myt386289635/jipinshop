@@ -10,6 +10,7 @@ import com.example.administrator.jipinshop.activity.balance.history.WalletHistor
 import com.example.administrator.jipinshop.activity.balance.team.TeamActivity;
 import com.example.administrator.jipinshop.activity.balance.withdraw.WithdrawActivity;
 import com.example.administrator.jipinshop.activity.home.food.TakeOutActivity;
+import com.example.administrator.jipinshop.activity.home.hot.HomeHotActivity;
 import com.example.administrator.jipinshop.activity.member.buy.MemberBuyActivity;
 import com.example.administrator.jipinshop.activity.mine.browse.BrowseActivity;
 import com.example.administrator.jipinshop.activity.cheapgoods.CheapBuyActivity;
@@ -206,4 +207,5 @@ public interface BaseActivityComponent {
     void inject(TakeOutActivity activity);
     void inject(MemberBuyActivity activity);
     void inject(CZBWebActivity activity);
+    void inject(HomeHotActivity activity);
 }

@@ -66,8 +66,6 @@ class KTHomeFragnent : DBBaseFragment(), View.OnClickListener, ViewPager.OnPageC
     private lateinit var mList: MutableList<Fragment>
     private lateinit var mTitle: MutableList<String>
     private lateinit var mTabAdapter: KTTabAdapter
-    private var isChange: Boolean = true //是否开启颜色改变
-    private var mColor : String = "#E25838"  //轮播图此时滑动的颜色
     private var isAction: Boolean = false //是否开启首页悬浮按钮，默认不开启false
     private var ad : TbkIndexBean.DataBean.Ad1ListBean? = null
     private lateinit var mQBadgeView : QBadgeView
@@ -90,7 +88,6 @@ class KTHomeFragnent : DBBaseFragment(), View.OnClickListener, ViewPager.OnPageC
         mBaseFragmentComponent.inject(this)
         mPresenter.setStatusBarHight(mBinding.statusBar,context!!)
         mPresenter.setView(this)
-        mBinding.bgHome.setBackgroundColor(Color.parseColor("#E25838"))//默认主题颜色
         mQBadgeView = QBadgeView(context)
         mPresenter.initBadgeView(mQBadgeView, mBinding.homeServer)
 
@@ -168,13 +165,6 @@ class KTHomeFragnent : DBBaseFragment(), View.OnClickListener, ViewPager.OnPageC
         }
     }
 
-    fun initColor(color : String){
-        if (isChange){
-            mBinding.bgHome.setBackgroundColor(Color.parseColor(color))
-        }
-        mColor = color
-    }
-
     fun getAppBar() : AppBarLayout{
         return mBinding.appbar
     }
@@ -221,15 +211,9 @@ class KTHomeFragnent : DBBaseFragment(), View.OnClickListener, ViewPager.OnPageC
         if (position != 0){
             if (isAction)
                 mBinding.homeAction.visibility = View.GONE
-            isChange = false
-            context?.let {
-                mBinding.bgHome.setBackgroundColor(it.resources.getColor(R.color.color_E25838))
-            }
         }else{
             if (isAction)
                 mBinding.homeAction.visibility = View.VISIBLE
-            isChange = true
-            mBinding.bgHome.setBackgroundColor(Color.parseColor(mColor))
         }
     }
 

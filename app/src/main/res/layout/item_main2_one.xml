@@ -2,45 +2,52 @@
 <layout xmlns:android="http://schemas.android.com/apk/res/android">
 
     <RelativeLayout
+        android:background="@color/color_white"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
-        <com.example.administrator.jipinshop.view.viewpager.TouchViewPager
-            android:layout_marginRight="@dimen/x30"
-            android:layout_marginLeft="@dimen/x30"
-            android:id="@+id/main_viewpager"
+        <ImageView
+            android:background="@color/color_E25838"
             android:layout_width="match_parent"
-            android:layout_height="@dimen/y280"/>
+            android:layout_height="@dimen/y234"/>
 
-        <LinearLayout
-            android:id="@+id/main_point"
+        <android.support.v7.widget.RecyclerView
+            android:layout_marginLeft="@dimen/x40"
+            android:layout_marginRight="@dimen/x40"
+            android:id="@+id/main_rv"
+            android:layout_marginBottom="@dimen/y10"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/main_viewpager"
-            android:layout_marginTop="-18dp"
-            android:gravity="center"
-            android:orientation="horizontal"/>
+            android:layout_height="@dimen/y142"/>
 
-        <net.lucode.hackware.magicindicator.MagicIndicator
-            android:layout_below="@+id/main_viewpager"
-            android:id="@+id/main_menu"
+        <RelativeLayout
+            android:layout_marginRight="@dimen/x10"
+            android:layout_marginLeft="@dimen/x10"
+            android:layout_marginTop="@dimen/y152"
+            android:background="@drawable/bg_dialog_white"
             android:layout_width="match_parent"
-            android:layout_height="@dimen/y77"/>
+            android:layout_height="wrap_content">
 
-        <com.example.administrator.jipinshop.view.viewpager.MyViewPager
-            android:id="@+id/main_grid"
-            android:layout_below="@id/main_menu"
-            android:layout_width="match_parent"
-            android:layout_height="@dimen/y423"/>
+            <net.lucode.hackware.magicindicator.MagicIndicator
+                android:id="@+id/main_menu"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/y82"/>
 
-        <LinearLayout
-            android:layout_below="@id/main_grid"
-            android:id="@+id/point"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="@dimen/y24"
-            android:gravity="center"
-            android:orientation="horizontal"/>
+            <com.example.administrator.jipinshop.view.viewpager.MyViewPager
+                android:id="@+id/main_grid"
+                android:layout_below="@id/main_menu"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/y423"/>
+
+            <LinearLayout
+                android:layout_below="@id/main_grid"
+                android:id="@+id/point"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/y30"
+                android:gravity="center"
+                android:orientation="horizontal"/>
+
+        </RelativeLayout>
 
     </RelativeLayout>
 </layout>

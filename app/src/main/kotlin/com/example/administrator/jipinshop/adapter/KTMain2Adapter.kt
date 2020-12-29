@@ -6,12 +6,9 @@ import android.databinding.DataBindingUtil
 import android.graphics.Color
 import android.graphics.drawable.Drawable
 import android.os.CountDownTimer
-import android.os.Handler
-import android.os.Looper
 import android.support.v4.app.Fragment
 import android.support.v4.view.ViewPager
 import android.support.v7.widget.GridLayoutManager
-import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
 import android.util.SparseArray
 import android.view.LayoutInflater
@@ -29,7 +26,11 @@ import com.bumptech.glide.request.target.Target
 import com.example.administrator.jipinshop.R
 import com.example.administrator.jipinshop.activity.WebActivity
 import com.example.administrator.jipinshop.activity.cheapgoods.CheapBuyActivity
+import com.example.administrator.jipinshop.activity.home.hot.HomeHotActivity
+import com.example.administrator.jipinshop.activity.member.buy.MemberBuyActivity
+import com.example.administrator.jipinshop.activity.member.zero.ZeroActivity
 import com.example.administrator.jipinshop.activity.newpeople.NewFreeActivity
+import com.example.administrator.jipinshop.activity.newpeople.cheap.CheapBuyDetailActivity
 import com.example.administrator.jipinshop.activity.shoppingdetail.tbshoppingdetail.TBShoppingDetailActivity
 import com.example.administrator.jipinshop.bean.SuccessBean
 import com.example.administrator.jipinshop.bean.TBSreachResultBean
@@ -39,10 +40,9 @@ import com.example.administrator.jipinshop.fragment.home.main.tab.CommonTabFragm
 import com.example.administrator.jipinshop.netwrok.RetrofitModule
 import com.example.administrator.jipinshop.util.DistanceHelper
 import com.example.administrator.jipinshop.util.ShopJumpUtil
+import com.example.administrator.jipinshop.util.ToastUtil
 import com.example.administrator.jipinshop.util.UmApp.AppStatisticalUtil
-import com.example.administrator.jipinshop.util.WeakRefHandler
 import com.example.administrator.jipinshop.view.glide.GlideApp
-import com.example.administrator.jipinshop.view.viewpager.TouchViewPager
 import com.google.gson.Gson
 import com.trello.rxlifecycle2.LifecycleTransformer
 import net.lucode.hackware.magicindicator.buildins.commonnavigator.CommonNavigator
@@ -64,7 +64,6 @@ class KTMain2Adapter : RecyclerView.Adapter<RecyclerView.ViewHolder>{
 
     private var mContext: Context
     private var mList: MutableList<TBSreachResultBean.DataBean> //今日推荐列表
-    private lateinit var mAdListBeans: MutableList<TbkIndexBean.DataBean.Ad1ListBean> //轮播图列表
     private var mBean: TbkIndexBean? = null //全部数据
     private lateinit var mOnItem: OnItem
     private lateinit var appStatisticalUtil: AppStatisticalUtil
@@ -93,10 +92,6 @@ class KTMain2Adapter : RecyclerView.Adapter<RecyclerView.ViewHolder>{
 
     fun setTransformer(transformer : LifecycleTransformer<SuccessBean>){
         this.transformer = transformer
-    }
-
-    fun setAdList(adListBeans: MutableList<TbkIndexBean.DataBean.Ad1ListBean>){
-        this.mAdListBeans = adListBeans
     }
 
     fun setPagerAdapter(pagerAdapter: HomePageAdapter) {
@@ -175,19 +170,12 @@ class KTMain2Adapter : RecyclerView.Adapter<RecyclerView.ViewHolder>{
             HEAD1 ->{
                 var oneViewHolder : OneViewHolder = holder as OneViewHolder
                 oneViewHolder.run {
-                    pagerAdapter.setOnClickItem(object : KTPagerAdapter.OnClickItem {
-                        override fun onClickItem(postion: Int) {
-                            appStatisticalUtil.addEvent("shouye_banner." + (toRealPosition(postion) + 1),transformer)
-                            ShopJumpUtil.openBanner(mContext,adListBeans[postion].type,
-                                    adListBeans[postion].objectId,adListBeans[postion].name,
-                                    adListBeans[postion].source,adListBeans[postion].remark)
-                        }
-                    })
-                    adListBeans.clear()
-                    adListBeans.addAll(mAdListBeans)
-                    initBanner()
-                    //九宫格
                     mBean?.let {
+                        //顶部宫格
+                        mTopTabs.clear()
+                        mTopTabs.addAll(it.data.boxList)
+                        mTopAdapter.notifyDataSetChanged()
+                        //九宫格
                         tabs.clear()
                         for (i in it.data.boxCategoryList.indices){
                             tabs.add(it.data.boxCategoryList[i].categoryTitle)
@@ -212,23 +200,6 @@ class KTMain2Adapter : RecyclerView.Adapter<RecyclerView.ViewHolder>{
                             }
                             2 -> {
                                 binding.new3 = mBean!!.data.allowanceGoodsList[2]
-                            }
-                        }
-                    }
-                    //老人
-                    for (i in mBean!!.data.allowanceGoodsList2.indices) {
-                        when (i) {
-                            0 -> {
-                                binding.old1 = mBean!!.data.allowanceGoodsList2[0]
-                            }
-                            1 -> {
-                                binding.old2 = mBean!!.data.allowanceGoodsList2[1]
-                            }
-                            2 -> {
-                                binding.old3 = mBean!!.data.allowanceGoodsList2[2]
-                            }
-                            3 -> {
-                                binding.old4 = mBean!!.data.allowanceGoodsList2[3]
                             }
                         }
                     }
@@ -274,10 +245,6 @@ class KTMain2Adapter : RecyclerView.Adapter<RecyclerView.ViewHolder>{
                     binding.mainNewpeople.setOnClickListener {
                         appStatisticalUtil.addEvent("shouye_xinren",transformer)
                         mContext.startActivity(Intent(mContext, NewFreeActivity::class.java))
-                    }
-                    binding.mainOldpeople.setOnClickListener {
-                        appStatisticalUtil.addEvent("shouye_tehui",transformer)
-                        mContext.startActivity(Intent(mContext, CheapBuyActivity::class.java))
                     }
                     binding.marqueeContainer.setOnClickListener {
                         appStatisticalUtil.addEvent("shouye_pmd",transformer)
@@ -329,9 +296,113 @@ class KTMain2Adapter : RecyclerView.Adapter<RecyclerView.ViewHolder>{
             HEAD4 ->{
                 var foreViewHolder: ForeViewHolder = holder as ForeViewHolder
                 foreViewHolder.run {
-                    hotShopList.clear()
-                    hotShopList.addAll(mBean!!.data.hotGoodsList)
-                    adapter.notifyDataSetChanged()
+                    for (i in mBean!!.data.allowanceGoodsList2.indices) {
+                        when (i) {
+                            0 -> {
+                                binding.fee1 = mBean!!.data.allowanceGoodsList2[0]
+                                binding.feeOneContainer.setOnClickListener {
+                                    mContext.startActivity(Intent(mContext, CheapBuyDetailActivity::class.java)
+                                            .putExtra("freeId", mBean!!.data.allowanceGoodsList2[0].allowanceGoodsId)
+                                            .putExtra("otherGoodsId", mBean!!.data.allowanceGoodsList2[0].otherGoodsId)
+                                    )
+                                }
+                            }
+                            1 -> {
+                                binding.fee2 = mBean!!.data.allowanceGoodsList2[1]
+                                binding.feeTwoContainer.setOnClickListener {
+                                    mContext.startActivity(Intent(mContext, CheapBuyDetailActivity::class.java)
+                                            .putExtra("freeId", mBean!!.data.allowanceGoodsList2[1].allowanceGoodsId)
+                                            .putExtra("otherGoodsId", mBean!!.data.allowanceGoodsList2[1].otherGoodsId)
+                                    )
+                                }
+                            }
+                        }
+                    }
+                    for (i in mBean!!.data.hotGoodsList.indices) {
+                        when (i) {
+                            0 -> {
+                                binding.hot1 = mBean!!.data.hotGoodsList[0]
+                                binding.hotOneContainer.setOnClickListener {
+                                    appStatisticalUtil.addEvent("shouye_bangdan.1" , transformer)
+                                    mContext.startActivity(Intent(mContext, TBShoppingDetailActivity::class.java)
+                                            .putExtra("otherGoodsId", mBean!!.data.hotGoodsList[0].otherGoodsId)
+                                            .putExtra("source",mBean!!.data.hotGoodsList[0].source)
+                                    )
+                                }
+                            }
+                            1 -> {
+                                binding.hot2 = mBean!!.data.hotGoodsList[1]
+                                binding.hotTwoContainer.setOnClickListener {
+                                    appStatisticalUtil.addEvent("shouye_bangdan.2" , transformer)
+                                    mContext.startActivity(Intent(mContext, TBShoppingDetailActivity::class.java)
+                                            .putExtra("otherGoodsId", mBean!!.data.hotGoodsList[1].otherGoodsId)
+                                            .putExtra("source",mBean!!.data.hotGoodsList[1].source)
+                                    )
+                                }
+                            }
+                        }
+                    }
+                    for (i in mBean!!.data.allowanceGoodsList3.indices){
+                        when (i) {
+                            0 -> {
+                                binding.zero1 = mBean!!.data.allowanceGoodsList3[0]
+                            }
+                            1 -> {
+                                binding.zero2 = mBean!!.data.allowanceGoodsList3[1]
+                            }
+                        }
+                    }
+                    for (i in mBean!!.data.seckillGoodsList.indices){
+                        when (i) {
+                            0 -> {
+                                binding.ms1 = mBean!!.data.seckillGoodsList[0]
+                            }
+                            1 -> {
+                                binding.ms2 = mBean!!.data.seckillGoodsList[1]
+                            }
+                        }
+                    }
+                    binding.hotOneCost.setTv(true)
+                    binding.hotOneCost.setColor(R.color.color_9D9D9D)
+                    binding.hotTwoCost.setTv(true)
+                    binding.hotTwoCost.setColor(R.color.color_9D9D9D)
+                    binding.feeOneCost.setTv(true)
+                    binding.feeOneCost.setColor(R.color.color_9D9D9D)
+                    binding.feeTwoCost.setTv(true)
+                    binding.feeTwoCost.setColor(R.color.color_9D9D9D)
+                    binding.zeroOneCost.setTv(true)
+                    binding.zeroOneCost.setColor(R.color.color_9D9D9D)
+                    binding.zeroTwoCost.setTv(true)
+                    binding.zeroTwoCost.setColor(R.color.color_9D9D9D)
+                    binding.msOneCost.setTv(true)
+                    binding.msOneCost.setColor(R.color.color_9D9D9D)
+                    binding.msTwoCost.setTv(true)
+                    binding.msTwoCost.setColor(R.color.color_9D9D9D)
+                    binding.executePendingBindings()
+                    binding.feeContainer.setOnClickListener {
+                        appStatisticalUtil.addEvent("shouye_tehui",transformer)
+                        mContext.startActivity(Intent(mContext, CheapBuyActivity::class.java))
+                    }
+                    binding.hotContainer.setOnClickListener {
+                        mContext.startActivity(Intent(mContext, HomeHotActivity::class.java))
+                    }
+                    binding.zeroContainer.setOnClickListener {
+                        if(mBean!!.data.level == 2){
+                            mContext.startActivity(Intent(mContext, ZeroActivity::class.java))
+                        }else if (mBean!!.data.level == 0){
+                            mContext.startActivity(Intent(mContext, MemberBuyActivity::class.java)
+                                    .putExtra("isBuy", "1")
+                            )
+                        }else {
+                            mContext.startActivity(Intent(mContext, MemberBuyActivity::class.java)
+                                    .putExtra("isBuy", "2")
+                                    .putExtra("level", "2")
+                            )
+                        }
+                    }
+                    binding.msContainer.setOnClickListener {
+                        ToastUtil.show("跳转秒杀")
+                    }
                 }
             }
             HEAD5 ->{
@@ -410,31 +481,12 @@ class KTMain2Adapter : RecyclerView.Adapter<RecyclerView.ViewHolder>{
         }
     }
 
-    inner class OneViewHolder : RecyclerView.ViewHolder, ViewPager.OnPageChangeListener {
+    inner class OneViewHolder : RecyclerView.ViewHolder {
 
         lateinit var binding : ItemMain2OneBinding
-        //轮播图
-        var pagerAdapter: KTPagerAdapter
-        var point: MutableList<ImageView>
-        var adListBeans : MutableList<TbkIndexBean.DataBean.Ad1ListBean>
-        private var currentItem: Int = 0
-        private var count : Int = 0
-        private var mCallback : Handler.Callback = Handler.Callback {
-            if (it.what == 100) {
-                if (count > 1){
-                    currentItem = currentItem % (count + 1) + 1
-                    if (currentItem == 1) {
-                        binding.mainViewpager.setCurrentItem(currentItem, false)
-                        handler.sendEmptyMessage(100)
-                    }else{
-                        binding.mainViewpager.currentItem = currentItem
-                        handler.sendEmptyMessageDelayed(100,5000)
-                    }
-                }
-            }
-            true
-        }
-        var handler = WeakRefHandler(mCallback, Looper.getMainLooper())
+        //顶部宫格
+        var mTopTabs: MutableList<TbkIndexBean.DataBean.BoxCategoryListBean.ListBean>
+        var mTopAdapter: KTMain2TopGridAdapter
         //九宫格
         var tabs: MutableList<String?>
         var tabAdapter: KTTabAdapter5
@@ -443,25 +495,11 @@ class KTMain2Adapter : RecyclerView.Adapter<RecyclerView.ViewHolder>{
 
         constructor(binding: ItemMain2OneBinding) : super(binding.root){
             this.binding = binding
-            pagerAdapter = KTPagerAdapter(mContext)
-            point = mutableListOf()
-            adListBeans = mutableListOf()
-            pagerAdapter.setList(adListBeans)
-            pagerAdapter.setPoint(point)
-            pagerAdapter.setImgCenter(true)
-            binding.mainViewpager.adapter = pagerAdapter
-            binding.mainViewpager.addOnPageChangeListener(this)
-            binding.mainViewpager.setOnTouchListener(object : TouchViewPager.OnTouchListener {
-                override fun startAutoPlay() {
-                    handler.removeCallbacksAndMessages(null)
-                    handler.sendEmptyMessageDelayed(100,5000)
-                }
-
-                override fun stopAutoPlay() {
-                    handler.removeCallbacksAndMessages(null)
-                }
-
-            })
+            //顶部宫格
+            mTopTabs = mutableListOf()
+            binding.mainRv.layoutManager = GridLayoutManager(mContext,4)
+            mTopAdapter = KTMain2TopGridAdapter(mContext,mTopTabs)
+            binding.mainRv.adapter = mTopAdapter
             //九宫格
             var commonNavigator = CommonNavigator(mContext)
             tabs = mutableListOf()
@@ -490,83 +528,6 @@ class KTMain2Adapter : RecyclerView.Adapter<RecyclerView.ViewHolder>{
                     }
                 }
             })
-        }
-
-        override fun onPageScrollStateChanged(state: Int) {
-            when (state) {
-                0//No operation
-                -> if (currentItem === 0) {
-                    binding.mainViewpager.setCurrentItem(count, false)
-                } else if (currentItem === count + 1) {
-                    binding.mainViewpager.setCurrentItem(1, false)
-                }
-                1//start Sliding
-                -> if (currentItem === count + 1) {
-                    binding.mainViewpager.setCurrentItem(1, false)
-                } else if (currentItem === 0) {
-                    binding.mainViewpager.setCurrentItem(count, false)
-                }
-                2//end Sliding
-                -> {
-                }
-            }
-        }
-
-        override fun onPageScrolled(p0: Int, p1: Float, p2: Int) {}
-
-        override fun onPageSelected(position: Int) {
-            for (i in point.indices) {
-                if (i == toRealPosition(position)) {
-                    point[i].setImageResource(R.drawable.banner_down)
-                } else {
-                    point[i].setImageResource(R.drawable.banner_up)
-                }
-            }
-            currentItem = position
-            mOnItem.onColor(position)
-        }
-
-        fun initBanner() {
-            count = adListBeans.size - 2
-            handler.removeCallbacksAndMessages(null)//刷新时，要删除handler的请求
-            handler.sendEmptyMessageDelayed(100,5000)
-            binding.mainViewpager.setCurrentItem(1,false)
-            point.clear()
-            binding.mainPoint.removeAllViews()
-            for (i in 0 until count) {
-                val imageView = ImageView(mContext)
-                point.add(imageView)
-                if (i == 0) {
-                    imageView.setImageResource(R.drawable.banner_down)
-                } else {
-                    imageView.setImageResource(R.drawable.banner_up)
-                }
-                val layoutParams = LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT)
-                layoutParams.leftMargin = mContext.resources.getDimensionPixelSize(R.dimen.x4)
-                layoutParams.rightMargin = mContext.resources.getDimensionPixelSize(R.dimen.x4)
-                binding.mainPoint.addView(imageView, layoutParams)
-            }
-            pagerAdapter.notifyDataSetChanged()
-            if (count > 1){
-                binding.mainPoint.visibility = View.VISIBLE
-            }else{
-                binding.mainPoint.visibility = View.INVISIBLE
-            }
-        }
-
-        /**
-         * 返回真实的位置
-         * @param position
-         * @return 下标从0开始
-         */
-        fun toRealPosition(position: Int): Int {
-            var realPosition: Int = 0
-            if (count !== 0) {
-                realPosition = (position - 1) % count
-            }
-            if (realPosition < 0)
-                realPosition += count
-            return realPosition
         }
 
         //初始化宫格
@@ -638,17 +599,9 @@ class KTMain2Adapter : RecyclerView.Adapter<RecyclerView.ViewHolder>{
     inner class ForeViewHolder : RecyclerView.ViewHolder{
 
         var binding: ItemMain2ForeBinding
-        var hotShopList: MutableList<TbkIndexBean.DataBean.HotGoodsListBean>
-        var adapter: KTMain2HotAdapter
 
         constructor(binding: ItemMain2ForeBinding) : super(binding.root){
             this.binding = binding
-            hotShopList = mutableListOf()
-            binding.itemRecycler.layoutManager= LinearLayoutManager(mContext,LinearLayout.HORIZONTAL,false)
-            adapter = KTMain2HotAdapter(hotShopList,mContext)
-            adapter.setAppStatisticalUtil(appStatisticalUtil)
-            adapter.setTransformer(transformer)
-            binding.itemRecycler.adapter = adapter
         }
     }
 
@@ -694,7 +647,6 @@ class KTMain2Adapter : RecyclerView.Adapter<RecyclerView.ViewHolder>{
     }
 
     interface OnItem{
-        fun onColor(pos: Int)
         fun onItemShare(position: Int)
         fun onSelect(source : String)
     }

@@ -1,5 +1,42 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout xmlns:android="http://schemas.android.com/apk/res/android">
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
+        xmlns:bind="http://schemas.android.com/apk/res-auto">
+
+    <data>
+        <!--百万补贴数据-->
+        <variable
+            name="fee1"
+            type="com.example.administrator.jipinshop.bean.TbkIndexBean.DataBean.AllowanceGoodsListBean"/>
+        <variable
+            name="fee2"
+            type="com.example.administrator.jipinshop.bean.TbkIndexBean.DataBean.AllowanceGoodsListBean"/>
+
+        <!--热销榜单数据-->
+        <variable
+            name="hot1"
+            type="com.example.administrator.jipinshop.bean.TbkIndexBean.DataBean.HotGoodsListBean"/>
+        <variable
+            name="hot2"
+            type="com.example.administrator.jipinshop.bean.TbkIndexBean.DataBean.HotGoodsListBean"/>
+
+        <!--会员0元购-->
+        <variable
+            name="zero1"
+            type="com.example.administrator.jipinshop.bean.TbkIndexBean.DataBean.AllowanceGoodsListBean"/>
+        <variable
+            name="zero2"
+            type="com.example.administrator.jipinshop.bean.TbkIndexBean.DataBean.AllowanceGoodsListBean"/>
+
+        <!--限时秒杀-->
+        <variable
+            name="ms1"
+            type="com.example.administrator.jipinshop.bean.TbkIndexBean.DataBean.HotGoodsListBean"/>
+        <variable
+            name="ms2"
+            type="com.example.administrator.jipinshop.bean.TbkIndexBean.DataBean.HotGoodsListBean"/>
+
+    </data>
 
     <LinearLayout
         android:orientation="vertical"
@@ -11,26 +48,743 @@
             android:layout_width="match_parent"
             android:layout_height="@dimen/y24"/>
 
-        <TextView
-            android:drawablePadding="@dimen/x2"
-            android:drawableLeft="@mipmap/home_hot"
-            android:layout_gravity="center_horizontal"
-            android:layout_marginBottom="@dimen/y25"
-            android:layout_marginTop="@dimen/y25"
-            android:textColor="@color/color_565252"
-            android:textStyle="bold"
-            android:textSize="17sp"
-            android:text="热销榜单"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"/>
-
-        <android.support.v7.widget.RecyclerView
-            android:id="@+id/item_recycler"
+        <LinearLayout
+            android:weightSum="2"
+            android:layout_margin="@dimen/x30"
+            android:orientation="horizontal"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"/>
+            android:layout_height="wrap_content">
+
+            <LinearLayout
+                android:id="@+id/ms_container"
+                android:orientation="vertical"
+                android:background="@drawable/bg_home_hot"
+                android:layout_weight="1"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content">
+
+                <LinearLayout
+                    android:gravity="center_vertical"
+                    android:layout_marginLeft="@dimen/x5"
+                    android:orientation="horizontal"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/y88">
+
+                    <TextView
+                        android:drawablePadding="@dimen/x2"
+                        android:textStyle="bold"
+                        android:textSize="17sp"
+                        android:textColor="@color/color_565252"
+                        android:text="限时\n秒杀"
+                        android:drawableLeft="@mipmap/main_miaosa"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"/>
+
+                    <TextView
+                        android:id="@+id/main_ms_minutes"
+                        android:text="0"
+                        android:paddingRight="@dimen/x5"
+                        android:paddingLeft="@dimen/x5"
+                        android:layout_marginLeft="@dimen/x20"
+                        android:textColor="@color/color_white"
+                        android:gravity="center"
+                        android:minWidth="@dimen/x36"
+                        android:background="@drawable/bg_ffffff_4"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"/>
+
+                    <TextView
+                        android:layout_marginLeft="@dimen/x4"
+                        android:textSize="12sp"
+                        android:textColor="@color/color_E25838"
+                        android:text=":"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"/>
+
+                    <TextView
+                        android:id="@+id/main_ms_second"
+                        android:text="0"
+                        android:paddingRight="@dimen/x5"
+                        android:paddingLeft="@dimen/x5"
+                        android:layout_marginLeft="@dimen/x4"
+                        android:textColor="@color/color_white"
+                        android:gravity="center"
+                        android:minWidth="@dimen/x36"
+                        android:background="@drawable/bg_ffffff_4"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"/>
+
+                    <TextView
+                        android:textStyle="bold"
+                        android:textColor="@color/color_9D9D9D"
+                        android:textSize="12sp"
+                        android:layout_marginRight="@dimen/x5"
+                        android:gravity="right"
+                        android:text="更多>"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"/>
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_marginRight="@dimen/x5"
+                    android:layout_marginLeft="@dimen/x5"
+                    android:weightSum="2"
+                    android:orientation="horizontal"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <LinearLayout
+                        android:orientation="vertical"
+                        android:layout_weight="1"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content">
+
+                        <ImageView
+                            android:id="@+id/ms_one_image"
+                            bind:srcRound="@{ms1.img}"
+                            android:layout_width="match_parent"
+                            android:layout_height="@dimen/y150"/>
+
+                        <com.example.administrator.jipinshop.view.textview.DrawableLeftCenterTextView
+                            android:text="@{@string/fee2 + ms1.fee}"
+                            android:id="@+id/ms_one_fee"
+                            android:gravity="center_vertical"
+                            android:textColor="@color/color_AD7F35"
+                            android:textSize="10sp"
+                            android:drawableLeft="@mipmap/item_v"
+                            android:background="@drawable/bg_ad7f35"
+                            android:layout_marginTop="@dimen/y6"
+                            android:layout_width="match_parent"
+                            android:layout_height="@dimen/y30"/>
+
+                        <LinearLayout
+                            android:layout_gravity="center_horizontal"
+                            android:orientation="horizontal"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content">
+
+                            <TextView
+                                android:textStyle="bold"
+                                android:textColor="@color/color_E25838"
+                                android:text="¥"
+                                android:textSize="11sp"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"/>
+
+                            <TextView
+                                android:id="@+id/ms_one_price"
+                                android:textStyle="bold"
+                                android:textColor="@color/color_E25838"
+                                android:textSize="13sp"
+                                android:text="@{ms1.buyPrice}"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"/>
+
+                            <com.example.administrator.jipinshop.view.textview.TextViewDel
+                                android:layout_width="wrap_content"
+                                android:text="@{@string/price + ms1.otherPrice}"
+                                android:textSize="11sp"
+                                android:id="@+id/ms_one_cost"
+                                android:layout_marginLeft="@dimen/x6"
+                                android:textColor="@color/color_9D9D9D"
+                                android:layout_height="wrap_content"/>
+
+                        </LinearLayout>
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:orientation="vertical"
+                        android:layout_marginLeft="@dimen/x13"
+                        android:layout_weight="1"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content">
+
+                        <ImageView
+                            android:id="@+id/ms_two_image"
+                            bind:srcRound="@{ms2.img}"
+                            android:layout_width="match_parent"
+                            android:layout_height="@dimen/y150"/>
+
+                        <com.example.administrator.jipinshop.view.textview.DrawableLeftCenterTextView
+                            android:text="@{@string/fee2 + ms2.fee}"
+                            android:id="@+id/ms_two_fee"
+                            android:gravity="center_vertical"
+                            android:textColor="@color/color_AD7F35"
+                            android:textSize="10sp"
+                            android:drawableLeft="@mipmap/item_v"
+                            android:background="@drawable/bg_ad7f35"
+                            android:layout_marginTop="@dimen/y6"
+                            android:layout_width="match_parent"
+                            android:layout_height="@dimen/y30"/>
+
+                        <LinearLayout
+                            android:layout_gravity="center_horizontal"
+                            android:orientation="horizontal"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content">
+
+                            <TextView
+                                android:textStyle="bold"
+                                android:textColor="@color/color_E25838"
+                                android:text="¥"
+                                android:textSize="11sp"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"/>
+
+                            <TextView
+                                android:id="@+id/ms_two_price"
+                                android:textStyle="bold"
+                                android:textColor="@color/color_E25838"
+                                android:textSize="13sp"
+                                android:text="@{ms2.buyPrice}"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"/>
+
+                            <com.example.administrator.jipinshop.view.textview.TextViewDel
+                                android:layout_width="wrap_content"
+                                android:text="@{@string/price + ms2.otherPrice}"
+                                android:textSize="11sp"
+                                android:id="@+id/ms_two_cost"
+                                android:layout_marginLeft="@dimen/x6"
+                                android:textColor="@color/color_9D9D9D"
+                                android:layout_height="wrap_content"/>
+
+                        </LinearLayout>
+
+                    </LinearLayout>
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/zero_container"
+                android:orientation="vertical"
+                android:background="@drawable/bg_home_hot"
+                android:layout_marginLeft="@dimen/x16"
+                android:layout_weight="1"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content">
+
+                <LinearLayout
+                    android:gravity="center_vertical"
+                    android:layout_marginLeft="@dimen/x5"
+                    android:orientation="horizontal"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/y88">
+
+                    <TextView
+                        android:drawablePadding="@dimen/x2"
+                        android:textStyle="bold"
+                        android:textSize="17sp"
+                        android:textColor="@color/color_565252"
+                        android:text="会员0元购"
+                        android:drawableLeft="@mipmap/main_zero"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"/>
+
+                    <TextView
+                        android:textStyle="bold"
+                        android:textColor="@color/color_9D9D9D"
+                        android:textSize="12sp"
+                        android:layout_marginRight="@dimen/x5"
+                        android:gravity="right"
+                        android:text="更多>"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"/>
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_marginRight="@dimen/x5"
+                    android:layout_marginLeft="@dimen/x5"
+                    android:weightSum="2"
+                    android:orientation="horizontal"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <LinearLayout
+                        android:orientation="vertical"
+                        android:layout_weight="1"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content">
+
+                        <ImageView
+                            android:id="@+id/zero_one_image"
+                            bind:srcRound="@{zero1.img}"
+                            android:layout_width="match_parent"
+                            android:layout_height="@dimen/y150"/>
+
+                        <TextView
+                            android:text="@{@string/allowance2 + zero1.useAllowancePrice}"
+                            android:id="@+id/zero_one_fee"
+                            android:gravity="center"
+                            android:textColor="@color/color_white"
+                            android:textSize="10sp"
+                            android:background="@color/color_FFAA23"
+                            android:layout_marginTop="@dimen/y6"
+                            android:layout_width="match_parent"
+                            android:layout_height="@dimen/y30"/>
+
+                        <LinearLayout
+                            android:layout_gravity="center_horizontal"
+                            android:orientation="horizontal"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content">
+
+                            <TextView
+                                android:textStyle="bold"
+                                android:textColor="@color/color_E25838"
+                                android:text="¥"
+                                android:textSize="11sp"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"/>
+
+                            <TextView
+                                android:id="@+id/zero_one_price"
+                                android:textStyle="bold"
+                                android:textColor="@color/color_E25838"
+                                android:textSize="13sp"
+                                android:text="@{zero1.buyPrice}"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"/>
+
+                            <com.example.administrator.jipinshop.view.textview.TextViewDel
+                                android:layout_width="wrap_content"
+                                android:text="@{@string/price + zero1.otherPrice}"
+                                android:textSize="11sp"
+                                android:id="@+id/zero_one_cost"
+                                android:layout_marginLeft="@dimen/x6"
+                                android:textColor="@color/color_9D9D9D"
+                                android:layout_height="wrap_content"/>
+
+                        </LinearLayout>
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_marginLeft="@dimen/x13"
+                        android:orientation="vertical"
+                        android:layout_weight="1"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content">
+
+                        <ImageView
+                            android:id="@+id/zero_two_image"
+                            bind:srcRound="@{zero2.img}"
+                            android:layout_width="match_parent"
+                            android:layout_height="@dimen/y150"/>
+
+                        <TextView
+                            android:text="@{@string/allowance2 + zero2.useAllowancePrice}"
+                            android:id="@+id/zero_two_fee"
+                            android:gravity="center"
+                            android:textColor="@color/color_white"
+                            android:textSize="10sp"
+                            android:background="@color/color_FFAA23"
+                            android:layout_marginTop="@dimen/y6"
+                            android:layout_width="match_parent"
+                            android:layout_height="@dimen/y30"/>
+
+                        <LinearLayout
+                            android:layout_gravity="center_horizontal"
+                            android:orientation="horizontal"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content">
+
+                            <TextView
+                                android:textStyle="bold"
+                                android:textColor="@color/color_E25838"
+                                android:text="¥"
+                                android:textSize="11sp"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"/>
+
+                            <TextView
+                                android:id="@+id/zero_two_price"
+                                android:textStyle="bold"
+                                android:textColor="@color/color_E25838"
+                                android:textSize="13sp"
+                                android:text="@{zero2.buyPrice}"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"/>
+
+                            <com.example.administrator.jipinshop.view.textview.TextViewDel
+                                android:layout_width="wrap_content"
+                                android:text="@{@string/price + zero2.otherPrice}"
+                                android:textSize="11sp"
+                                android:id="@+id/zero_two_cost"
+                                android:layout_marginLeft="@dimen/x6"
+                                android:textColor="@color/color_9D9D9D"
+                                android:layout_height="wrap_content"/>
+
+                        </LinearLayout>
+
+                    </LinearLayout>
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_marginLeft="@dimen/x30"
+            android:layout_marginRight="@dimen/x30"
+            android:layout_marginBottom="@dimen/x30"
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <LinearLayout
+                android:orientation="vertical"
+                android:background="@drawable/bg_home_hot"
+                android:layout_weight="1"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content">
+
+                <LinearLayout
+                    android:id="@+id/fee_container"
+                    android:gravity="center_vertical"
+                    android:layout_marginLeft="@dimen/x5"
+                    android:orientation="horizontal"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/y88">
+
+                    <TextView
+                        android:drawablePadding="@dimen/x2"
+                        android:textStyle="bold"
+                        android:textSize="17sp"
+                        android:textColor="@color/color_565252"
+                        android:text="百万补贴"
+                        android:drawableLeft="@mipmap/main_fee"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"/>
+
+                    <TextView
+                        android:textStyle="bold"
+                        android:textColor="@color/color_9D9D9D"
+                        android:textSize="12sp"
+                        android:layout_marginRight="@dimen/x5"
+                        android:gravity="right"
+                        android:text="更多>"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"/>
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_marginRight="@dimen/x5"
+                    android:layout_marginLeft="@dimen/x5"
+                    android:weightSum="2"
+                    android:orientation="horizontal"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <LinearLayout
+                        android:id="@+id/fee_oneContainer"
+                        android:orientation="vertical"
+                        android:layout_weight="1"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content">
+
+                        <ImageView
+                            android:id="@+id/fee_one_image"
+                            bind:srcRound="@{fee1.img}"
+                            android:layout_width="match_parent"
+                            android:layout_height="@dimen/y150"/>
+
+                        <TextView
+                            android:text="@{@string/allowance2 + fee1.useAllowancePrice}"
+                            android:id="@+id/fee_one_fee"
+                            android:gravity="center"
+                            android:textColor="@color/color_white"
+                            android:textSize="10sp"
+                            android:background="@color/color_FFAA23"
+                            android:layout_marginTop="@dimen/y6"
+                            android:layout_width="match_parent"
+                            android:layout_height="@dimen/y30"/>
+
+                        <LinearLayout
+                            android:layout_gravity="center_horizontal"
+                            android:orientation="horizontal"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content">
+
+                            <TextView
+                                android:textStyle="bold"
+                                android:textColor="@color/color_E25838"
+                                android:text="¥"
+                                android:textSize="11sp"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"/>
+
+                            <TextView
+                                android:id="@+id/fee_one_price"
+                                android:textStyle="bold"
+                                android:textColor="@color/color_E25838"
+                                android:textSize="13sp"
+                                android:text="@{fee1.buyPrice}"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"/>
+
+                            <com.example.administrator.jipinshop.view.textview.TextViewDel
+                                android:layout_width="wrap_content"
+                                android:text="@{@string/price + fee1.otherPrice}"
+                                android:textSize="11sp"
+                                android:id="@+id/fee_one_cost"
+                                android:layout_marginLeft="@dimen/x6"
+                                android:textColor="@color/color_9D9D9D"
+                                android:layout_height="wrap_content"/>
+
+                        </LinearLayout>
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:id="@+id/fee_twoContainer"
+                        android:layout_marginLeft="@dimen/x13"
+                        android:orientation="vertical"
+                        android:layout_weight="1"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content">
+
+                        <ImageView
+                            android:id="@+id/fee_two_image"
+                            bind:srcRound="@{fee2.img}"
+                            android:layout_width="match_parent"
+                            android:layout_height="@dimen/y150"/>
+
+                        <TextView
+                            android:text="@{@string/allowance2 + fee2.useAllowancePrice}"
+                            android:id="@+id/fee_two_fee"
+                            android:gravity="center"
+                            android:textColor="@color/color_white"
+                            android:textSize="10sp"
+                            android:background="@color/color_FFAA23"
+                            android:layout_marginTop="@dimen/y6"
+                            android:layout_width="match_parent"
+                            android:layout_height="@dimen/y30"/>
+
+                        <LinearLayout
+                            android:layout_gravity="center_horizontal"
+                            android:orientation="horizontal"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content">
+
+                            <TextView
+                                android:textStyle="bold"
+                                android:textColor="@color/color_E25838"
+                                android:text="¥"
+                                android:textSize="11sp"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"/>
+
+                            <TextView
+                                android:id="@+id/fee_two_price"
+                                android:textStyle="bold"
+                                android:textColor="@color/color_E25838"
+                                android:textSize="13sp"
+                                android:text="@{fee2.buyPrice}"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"/>
+
+                            <com.example.administrator.jipinshop.view.textview.TextViewDel
+                                android:layout_width="wrap_content"
+                                android:text="@{@string/price + fee2.otherPrice}"
+                                android:textSize="11sp"
+                                android:id="@+id/fee_two_cost"
+                                android:layout_marginLeft="@dimen/x6"
+                                android:textColor="@color/color_9D9D9D"
+                                android:layout_height="wrap_content"/>
+
+                        </LinearLayout>
+
+                    </LinearLayout>
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:orientation="vertical"
+                android:background="@drawable/bg_home_hot"
+                android:layout_marginLeft="@dimen/x16"
+                android:layout_weight="1"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content">
+
+                <LinearLayout
+                    android:id="@+id/hot_container"
+                    android:gravity="center_vertical"
+                    android:layout_marginLeft="@dimen/x5"
+                    android:orientation="horizontal"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/y88">
+
+                    <TextView
+                        android:drawablePadding="@dimen/x2"
+                        android:textStyle="bold"
+                        android:textSize="17sp"
+                        android:textColor="@color/color_565252"
+                        android:text="热销榜单"
+                        android:drawableLeft="@mipmap/main_hot"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"/>
+
+                    <TextView
+                        android:textStyle="bold"
+                        android:textColor="@color/color_9D9D9D"
+                        android:textSize="12sp"
+                        android:layout_marginRight="@dimen/x5"
+                        android:gravity="right"
+                        android:text="更多>"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"/>
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_marginRight="@dimen/x5"
+                    android:layout_marginLeft="@dimen/x5"
+                    android:weightSum="2"
+                    android:orientation="horizontal"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <LinearLayout
+                        android:id="@+id/hot_oneContainer"
+                        android:orientation="vertical"
+                        android:layout_weight="1"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content">
+
+                        <ImageView
+                            android:id="@+id/hot_one_image"
+                            bind:srcRound="@{hot1.img}"
+                            android:layout_width="match_parent"
+                            android:layout_height="@dimen/y150"/>
+
+                        <com.example.administrator.jipinshop.view.textview.DrawableLeftCenterTextView
+                            android:text="@{@string/fee2 + hot1.fee}"
+                            android:id="@+id/hot_one_fee"
+                            android:gravity="center_vertical"
+                            android:textColor="@color/color_AD7F35"
+                            android:textSize="10sp"
+                            android:drawableLeft="@mipmap/item_v"
+                            android:background="@drawable/bg_ad7f35"
+                            android:layout_marginTop="@dimen/y6"
+                            android:layout_width="match_parent"
+                            android:layout_height="@dimen/y30"/>
+
+                        <LinearLayout
+                            android:layout_gravity="center_horizontal"
+                            android:orientation="horizontal"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content">
+
+                            <TextView
+                                android:textStyle="bold"
+                                android:textColor="@color/color_E25838"
+                                android:text="¥"
+                                android:textSize="11sp"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"/>
+
+                            <TextView
+                                android:id="@+id/hot_one_price"
+                                android:textStyle="bold"
+                                android:textColor="@color/color_E25838"
+                                android:textSize="13sp"
+                                android:text="@{hot1.buyPrice}"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"/>
+
+                            <com.example.administrator.jipinshop.view.textview.TextViewDel
+                                android:layout_width="wrap_content"
+                                android:text="@{@string/price + hot1.otherPrice}"
+                                android:textSize="11sp"
+                                android:id="@+id/hot_one_cost"
+                                android:layout_marginLeft="@dimen/x6"
+                                android:textColor="@color/color_9D9D9D"
+                                android:layout_height="wrap_content"/>
+
+                        </LinearLayout>
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:id="@+id/hot_twoContainer"
+                        android:orientation="vertical"
+                        android:layout_marginLeft="@dimen/x13"
+                        android:layout_weight="1"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content">
+
+                        <ImageView
+                            android:id="@+id/hot_two_image"
+                            bind:srcRound="@{hot2.img}"
+                            android:layout_width="match_parent"
+                            android:layout_height="@dimen/y150"/>
+
+                        <com.example.administrator.jipinshop.view.textview.DrawableLeftCenterTextView
+                            android:text="@{@string/fee2 + hot2.fee}"
+                            android:id="@+id/hot_two_fee"
+                            android:gravity="center_vertical"
+                            android:textColor="@color/color_AD7F35"
+                            android:textSize="10sp"
+                            android:drawableLeft="@mipmap/item_v"
+                            android:background="@drawable/bg_ad7f35"
+                            android:layout_marginTop="@dimen/y6"
+                            android:layout_width="match_parent"
+                            android:layout_height="@dimen/y30"/>
+
+                        <LinearLayout
+                            android:layout_gravity="center_horizontal"
+                            android:orientation="horizontal"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content">
+
+                            <TextView
+                                android:textStyle="bold"
+                                android:textColor="@color/color_E25838"
+                                android:text="¥"
+                                android:textSize="11sp"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"/>
+
+                            <TextView
+                                android:id="@+id/hot_two_price"
+                                android:textStyle="bold"
+                                android:textColor="@color/color_E25838"
+                                android:textSize="13sp"
+                                android:text="@{hot2.buyPrice}"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"/>
+
+                            <com.example.administrator.jipinshop.view.textview.TextViewDel
+                                android:layout_width="wrap_content"
+                                android:text="@{@string/price + hot2.otherPrice}"
+                                android:textSize="11sp"
+                                android:id="@+id/hot_two_cost"
+                                android:layout_marginLeft="@dimen/x6"
+                                android:textColor="@color/color_9D9D9D"
+                                android:layout_height="wrap_content"/>
+
+                        </LinearLayout>
+
+                    </LinearLayout>
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+        </LinearLayout>
 
         <View
-            android:layout_marginTop="@dimen/y36"
+            android:layout_marginTop="@dimen/y10"
             android:background="@color/color_F5F5F5"
             android:layout_width="match_parent"
             android:layout_height="@dimen/y24"/>

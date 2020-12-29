@@ -5,49 +5,44 @@
     <data>
         <variable
             name="data"
-            type="com.example.administrator.jipinshop.bean.TbkIndexBean.DataBean.HotGoodsListBean"/>
+            type="com.example.administrator.jipinshop.bean.TBSreachResultBean.DataBean"/>
     </data>
 
     <RelativeLayout
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
         <ImageView
-            android:layout_marginTop="@dimen/y18"
-            android:layout_marginRight="@dimen/x20"
-            android:layout_marginLeft="@dimen/x20"
+            android:layout_margin="@dimen/x30"
             android:scaleType="centerCrop"
             android:id="@+id/item_image"
             bind:src="@{data.img}"
-            android:layout_width="@dimen/x200"
-            android:layout_height="@dimen/y200"/>
+            android:layout_width="@dimen/x220"
+            android:layout_height="@dimen/y220"/>
 
         <TextView
+            android:layout_marginTop="@dimen/y4"
             android:id="@+id/item_name"
-            android:textColor="@color/color_202020"
-            android:textSize="13sp"
-            android:layout_marginTop="@dimen/y15"
+            android:textColor="@color/color_565252"
+            android:textSize="14sp"
             android:singleLine="true"
-            android:layout_alignRight="@id/item_image"
-            android:layout_alignLeft="@id/item_image"
+            android:ellipsize="end"
+            android:layout_toRightOf="@id/item_image"
             android:text="@{data.otherName}"
-            android:layout_below="@id/item_image"
+            android:layout_alignTop="@id/item_image"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"/>
 
         <LinearLayout
+            android:layout_marginBottom="@dimen/y23"
+            android:layout_alignBottom="@id/item_image"
             android:id="@+id/item_priceContainer"
-            android:layout_alignRight="@id/item_image"
-            android:layout_alignLeft="@id/item_image"
-            android:layout_marginTop="@dimen/y12"
-            android:layout_below="@id/item_name"
+            android:layout_toRightOf="@id/item_image"
             android:orientation="horizontal"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content">
 
             <TextView
-                android:drawablePadding="@dimen/x4"
-                android:drawableLeft="@mipmap/shop_v"
                 android:textStyle="bold"
                 android:textSize="11sp"
                 android:textColor="@color/color_E25838"
@@ -60,7 +55,7 @@
                 android:textStyle="bold"
                 android:textColor="@color/color_E25838"
                 android:text="@{data.buyPrice}"
-                android:textSize="16sp"
+                android:textSize="18sp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"/>
 
@@ -77,42 +72,59 @@
 
         </LinearLayout>
 
-        <LinearLayout
+        <RelativeLayout
+            android:layout_marginRight="@dimen/x30"
             android:orientation="horizontal"
-            android:layout_marginTop="@dimen/y10"
-            android:layout_below="@id/item_priceContainer"
-            android:layout_alignRight="@id/item_image"
-            android:layout_alignLeft="@id/item_image"
-            android:layout_width="wrap_content"
+            android:layout_marginTop="@dimen/y13"
+            android:layout_below="@id/item_name"
+            android:layout_toRightOf="@id/item_image"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
             <TextView
+                android:layout_centerVertical="true"
+                android:layout_marginRight="@dimen/x10"
                 android:minHeight="@dimen/y26"
                 android:gravity="center"
                 android:id="@+id/detail_coupon"
-                android:text="@{@string/coupon2 + data.couponPrice}"
+                android:text="@{@string/detail_coupon + data.couponPrice}"
                 android:textSize="10sp"
-                android:textColor="@color/color_E25838"
-                android:background="@mipmap/home_coupon"
+                android:textColor="@color/color_white"
+                android:textStyle="bold"
+                android:background="@mipmap/bg_coupon1"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"/>
 
             <TextView
-                android:drawableLeft="@mipmap/item_v"
-                android:layout_marginLeft="@dimen/x2"
+                android:layout_toRightOf="@id/detail_coupon"
+                android:layout_centerVertical="true"
+                android:textStyle="bold"
                 android:minHeight="@dimen/y26"
                 android:id="@+id/detail_fee"
-                android:paddingRight="@dimen/x12"
-                android:paddingLeft="@dimen/x12"
+                android:paddingRight="@dimen/x16"
+                android:paddingLeft="@dimen/x16"
                 android:gravity="center"
-                android:text="@{@string/fee2 + data.fee}"
-                android:textColor="@color/color_AD7F35"
+                android:text="@{@string/fee + data.fee}"
+                android:textColor="@color/color_835720"
                 android:textSize="10sp"
-                android:background="@drawable/bg_ad7f35"
+                android:background="@drawable/bg_fee"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"/>
+                android:layout_height="@dimen/y30"/>
 
-        </LinearLayout>
+            <ImageView
+                android:layout_alignParentRight="true"
+                android:layout_gravity="right"
+                android:id="@+id/item_gridShare"
+                android:paddingBottom="@dimen/y13"
+                android:paddingTop="@dimen/y13"
+                android:paddingRight="@dimen/x15"
+                android:paddingLeft="@dimen/x15"
+                android:tint="@color/color_9D9D9D"
+                android:src="@mipmap/qus_forward"
+                android:layout_width="@dimen/x66"
+                android:layout_height="@dimen/y62"/>
+
+        </RelativeLayout>
 
         <ImageView
             android:id="@+id/item_sort"
@@ -123,6 +135,34 @@
             android:src="@mipmap/home_sort1"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"/>
+
+        <TextView
+            android:layout_marginRight="@dimen/x30"
+            android:layout_marginBottom="@dimen/y19"
+            android:layout_alignBottom="@id/item_image"
+            android:layout_alignParentRight="true"
+            android:paddingBottom="@dimen/y3"
+            android:paddingTop="@dimen/y3"
+            android:paddingRight="@dimen/x12"
+            android:paddingLeft="@dimen/x12"
+            android:background="@drawable/bg_ffffff_4"
+            android:textColor="@color/color_white"
+            android:textStyle="bold"
+            android:textSize="13sp"
+            android:drawablePadding="@dimen/x2"
+            android:drawableTint="@color/color_white"
+            android:drawableRight="@mipmap/login_right"
+            android:text="立即抢购"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+
+        <View
+            android:layout_marginRight="@dimen/x30"
+            android:layout_marginLeft="@dimen/x30"
+            android:layout_below="@id/item_image"
+            android:background="@color/color_DEDEDE"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/y1"/>
 
     </RelativeLayout>
 </layout>

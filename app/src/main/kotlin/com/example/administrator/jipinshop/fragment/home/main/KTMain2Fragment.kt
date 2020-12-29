@@ -48,7 +48,6 @@ class KTMain2Fragment : DBBaseFragment(), KTMain2View, OnLoadMoreListener, OnRef
     private var page = 1
     private var refersh: Boolean = true
     private lateinit var mList: MutableList<TBSreachResultBean.DataBean>//今日推荐列表
-    private lateinit var mAdListBeans: MutableList<TbkIndexBean.DataBean.Ad1ListBean> //轮播图列表
     private lateinit var mAdapter: KTMain2Adapter
     private lateinit var mPagerAdapter: HomePageAdapter
     private var mDialog: Dialog? = null
@@ -73,11 +72,9 @@ class KTMain2Fragment : DBBaseFragment(), KTMain2View, OnLoadMoreListener, OnRef
 
         mBinding.swipeTarget.layoutManager = GridLayoutManager(context,2)
         mList = mutableListOf()
-        mAdListBeans = mutableListOf()
         mAdapter = KTMain2Adapter(mList,context!!)
         mPagerAdapter = HomePageAdapter(childFragmentManager)
         mAdapter.setPagerAdapter(mPagerAdapter)
-        mAdapter.setAdList(mAdListBeans)
         mAdapter.setOnClick(this)
         mAdapter.setAppStatisticalUtil(appStatisticalUtil)
         mAdapter.setTransformer(this.bindUntilEvent(FragmentEvent.DESTROY_VIEW))
@@ -85,7 +82,7 @@ class KTMain2Fragment : DBBaseFragment(), KTMain2View, OnLoadMoreListener, OnRef
 
         var fragment = parentFragment
         if (fragment as? KTHomeFragnent != null)
-            mPresenter.solveScoll(mBinding.mainBackground,mBinding.swipeTarget,
+            mPresenter.solveScoll(mBinding.swipeTarget,
                     mBinding.swipeToLoad,fragment.getAppBar(),fragment)
         mBinding.swipeToLoad.setOnLoadMoreListener(this)
         mBinding.swipeToLoad.setOnRefreshListener(this)
@@ -109,21 +106,6 @@ class KTMain2Fragment : DBBaseFragment(), KTMain2View, OnLoadMoreListener, OnRef
     }
 
     override fun onSuccess(type: String, bean: TbkIndexBean) {
-        //轮播图数据
-        mAdListBeans.clear()
-        for (i in 0 .. (bean.data.ad1List.size + 1)){
-            when (i) {
-                0 -> {//加入最后一个
-                    mAdListBeans.add(bean.data.ad1List[bean.data.ad1List.size - 1])
-                }
-                bean.data.ad1List.size + 1 -> {//加入第一个
-                    mAdListBeans.add(bean.data.ad1List[0])
-                }
-                else -> {//正常数据
-                    mAdListBeans.add(bean.data.ad1List[i - 1])
-                }
-            }
-        }
         mAdapter.setDate(bean)
         mAdapter.notifyDataSetChanged()
         var fragment = parentFragment
@@ -220,14 +202,6 @@ class KTMain2Fragment : DBBaseFragment(), KTMain2View, OnLoadMoreListener, OnRef
         }
     }
 
-    //轮播图的颜色
-    override fun onColor(pos: Int) {
-        if (pos < mAdListBeans.size){
-            initColor(mAdListBeans[pos].color)
-            mBinding.mainBackground.setColorFilter(Color.parseColor("#" +mAdListBeans[pos].color))
-        }
-    }
-
     //今日推荐列表的分享
     override fun onItemShare(position: Int) {
         if (TextUtils.isEmpty(SPUtils.getInstance(CommonDate.USER).getString(CommonDate.token, ""))) {
@@ -257,13 +231,6 @@ class KTMain2Fragment : DBBaseFragment(), KTMain2View, OnLoadMoreListener, OnRef
         mDialog = ProgressDialogView().createLoadingDialog(context, "")
         mDialog?.show()
         mPresenter.commendGoodsList(page,this.source,this.bindToLifecycle())
-    }
-
-    private fun initColor(color : String){
-        var fragment = parentFragment
-        if (fragment as? KTHomeFragnent != null) {
-            fragment.initColor("#$color")
-        }
     }
 
     override fun onResume() {
