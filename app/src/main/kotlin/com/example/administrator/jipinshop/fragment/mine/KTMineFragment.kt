@@ -557,6 +557,7 @@ class KTMineFragment : DBBaseFragment(), KTMineAdapter.OnItem, KTMineView, OnLoa
                     mAdapter.notifyDataSetChanged()
                     SPUtils.getInstance(CommonDate.USER).clear()
                     EventBus.getDefault().post(HomeRefresh(HomeRefresh.tag))//用来刷新首页的
+                    EventBus.getDefault().post(ChangeHomePageBus(0))//滑动到第一页
                 }
             }
         }

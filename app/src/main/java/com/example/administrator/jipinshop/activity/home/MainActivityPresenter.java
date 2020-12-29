@@ -81,17 +81,14 @@ public class MainActivityPresenter {
     public void initTab(Context context , TabLayout tabLayout , List<Fragment> mFragments){
         for (int i = 0; i < mFragments.size(); i++) {
             View tab = (View) tabLayout.getTabAt(i).getCustomView().getParent();
-            int finalI = i;
             tab.setOnTouchListener((view, event) -> {
                 if (event.getAction() == MotionEvent.ACTION_DOWN){
-                    if (finalI == mFragments.size()-1){
-                        if (TextUtils.isEmpty(SPUtils.getInstance(CommonDate.USER).getString(CommonDate.token, "").trim())) {
-                            if (ClickUtil.isFastDoubleClick(800)) {
-                            } else {
-                                context.startActivity(new Intent(context, LoginActivity.class));
-                            }
-                            return true; // 拦截
+                    if (TextUtils.isEmpty(SPUtils.getInstance(CommonDate.USER).getString(CommonDate.token, "").trim())) {
+                        if (ClickUtil.isFastDoubleClick(800)) {
+                        } else {
+                            context.startActivity(new Intent(context, LoginActivity.class));
                         }
+                        return true; // 拦截
                     }
                 }
                 return false;// 不拦截

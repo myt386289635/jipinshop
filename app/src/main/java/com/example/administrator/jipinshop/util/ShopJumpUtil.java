@@ -243,33 +243,53 @@ public class ShopJumpUtil {
         Intent intent = new Intent();
         switch (targetType){
             case "2"://评测详情
-                intent.setClass(context, ArticleDetailActivity.class);
-                intent.putExtra("id",target_id);
-                intent.putExtra("type","2");
+                if (TextUtils.isEmpty(SPUtils.getInstance(CommonDate.USER).getString(CommonDate.token, ""))) {
+                    intent.setClass(context, LoginActivity.class);
+                }else {
+                    intent.setClass(context, ArticleDetailActivity.class);
+                    intent.putExtra("id",target_id);
+                    intent.putExtra("type","2");
+                }
                 context.startActivity(intent);
                 break;
             case "11"://专题页面
-                intent.setClass(context, HomeDetailActivity.class);
-                intent.putExtra("id",target_id);
-                intent.putExtra("title",target_title);
+                if (TextUtils.isEmpty(SPUtils.getInstance(CommonDate.USER).getString(CommonDate.token, ""))) {
+                    intent.setClass(context, LoginActivity.class);
+                }else {
+                    intent.setClass(context, HomeDetailActivity.class);
+                    intent.putExtra("id",target_id);
+                    intent.putExtra("title",target_title);
+                }
                 context.startActivity(intent);
                 break;
             case "12"://淘宝客详情页面
-                intent.setClass(context, TBShoppingDetailActivity.class);
-                intent.putExtra("otherGoodsId", target_id);
+                if (TextUtils.isEmpty(SPUtils.getInstance(CommonDate.USER).getString(CommonDate.token, ""))) {
+                    intent.setClass(context, LoginActivity.class);
+                }else {
+                    intent.setClass(context, TBShoppingDetailActivity.class);
+                    intent.putExtra("otherGoodsId", target_id);
+                }
                 context.startActivity(intent);
                 break;
             case "42"://H5加提示
             case "13"://H5页面
-                intent.setClass(context, WebActivity.class);
-                intent.putExtra(WebActivity.url, target_id);
-                intent.putExtra(WebActivity.title,target_title);
-                intent.putExtra(WebActivity.source,source);
-                intent.putExtra(WebActivity.remark,remark);
+                if (TextUtils.isEmpty(SPUtils.getInstance(CommonDate.USER).getString(CommonDate.token, ""))) {
+                    intent.setClass(context, LoginActivity.class);
+                }else {
+                    intent.setClass(context, WebActivity.class);
+                    intent.putExtra(WebActivity.url, target_id);
+                    intent.putExtra(WebActivity.title,target_title);
+                    intent.putExtra(WebActivity.source,source);
+                    intent.putExtra(WebActivity.remark,remark);
+                }
                 context.startActivity(intent);
                 break;
             case "14"://极币商城
-                intent.setClass(context, MallActivity.class);
+                if (TextUtils.isEmpty(SPUtils.getInstance(CommonDate.USER).getString(CommonDate.token, ""))) {
+                    intent.setClass(context, LoginActivity.class);
+                }else {
+                    intent.setClass(context, MallActivity.class);
+                }
                 context.startActivity(intent);
                 break;
             case "15"://任务中心
@@ -290,78 +310,134 @@ public class ShopJumpUtil {
                 }
                 break;
             case "17"://榜单主页
-                intent.setClass(context, HomeNewActivity.class);
-                intent.putExtra("type",HomeNewActivity.bangdan);
+                if (TextUtils.isEmpty(SPUtils.getInstance(CommonDate.USER).getString(CommonDate.token, ""))) {
+                    intent.setClass(context, LoginActivity.class);
+                }else {
+                    intent.setClass(context, HomeNewActivity.class);
+                    intent.putExtra("type",HomeNewActivity.bangdan);
+                }
                 context.startActivity(intent);
                 break;
             case "18"://特惠购列表
-                intent.setClass(context, CheapBuyActivity.class);
+                if (TextUtils.isEmpty(SPUtils.getInstance(CommonDate.USER).getString(CommonDate.token, ""))) {
+                    intent.setClass(context, LoginActivity.class);
+                }else {
+                    intent.setClass(context, CheapBuyActivity.class);
+                }
                 context.startActivity(intent);
                 break;
             case "19"://0元购
-                intent.setClass(context, NewFreeActivity.class);
+                if (TextUtils.isEmpty(SPUtils.getInstance(CommonDate.USER).getString(CommonDate.token, ""))) {
+                    intent.setClass(context, LoginActivity.class);
+                }else {
+                    intent.setClass(context, NewFreeActivity.class);
+                }
                 context.startActivity(intent);
                 break;
             case "20"://邀请页面
-                intent.setClass(context, InvitationNewActivity.class);
+                if (TextUtils.isEmpty(SPUtils.getInstance(CommonDate.USER).getString(CommonDate.token, ""))) {
+                    intent.setClass(context, LoginActivity.class);
+                }else {
+                    intent.setClass(context, InvitationNewActivity.class);
+                }
                 context.startActivity(intent);
                 break;
             case "21"://京东
-                intent.setClass(context, KTJDDetailActivity.class);
-                intent.putExtra("name","京东");
-                intent.putExtra("source","1");
+                if (TextUtils.isEmpty(SPUtils.getInstance(CommonDate.USER).getString(CommonDate.token, ""))) {
+                    intent.setClass(context, LoginActivity.class);
+                }else {
+                    intent.setClass(context, KTJDDetailActivity.class);
+                    intent.putExtra("name","京东");
+                    intent.putExtra("source","1");
+                }
                 context.startActivity(intent);
                 break;
             case "22"://拼多多
-                intent.setClass(context, KTJDDetailActivity.class);
-                intent.putExtra("name","拼多多");
-                intent.putExtra("source","4");
+                if (TextUtils.isEmpty(SPUtils.getInstance(CommonDate.USER).getString(CommonDate.token, ""))) {
+                    intent.setClass(context, LoginActivity.class);
+                }else {
+                    intent.setClass(context, KTJDDetailActivity.class);
+                    intent.putExtra("name","拼多多");
+                    intent.putExtra("source","4");
+                }
                 context.startActivity(intent);
                 break;
             case "23"://跳转到评测主页
-                intent.setClass(context, HomeNewActivity.class);
-                intent.putExtra("type",HomeNewActivity.evaluation);
+                if (TextUtils.isEmpty(SPUtils.getInstance(CommonDate.USER).getString(CommonDate.token, ""))) {
+                    intent.setClass(context, LoginActivity.class);
+                }else {
+                    intent.setClass(context, HomeNewActivity.class);
+                    intent.putExtra("type",HomeNewActivity.evaluation);
+                }
                 context.startActivity(intent);
                 break;
             case "24"://新手教程
-                intent.setClass(context, WebActivity.class);
-                intent.putExtra(WebActivity.url, RetrofitModule.H5_URL+"tbk-rule.html");
-                intent.putExtra(WebActivity.title,"极品城省钱攻略");
-                intent.putExtra(WebActivity.isShare,true);
-                intent.putExtra(WebActivity.shareTitle,"如何查找淘宝隐藏优惠券及下单返利？");
-                intent.putExtra(WebActivity.shareContent,"淘宝天猫90%的商品都能省，同时还有高额返利，淘好物，更省钱！");
-                intent.putExtra(WebActivity.shareImage,"https://jipincheng.cn/shengqian.png");
+                if (TextUtils.isEmpty(SPUtils.getInstance(CommonDate.USER).getString(CommonDate.token, ""))) {
+                    intent.setClass(context, LoginActivity.class);
+                }else {
+                    intent.setClass(context, WebActivity.class);
+                    intent.putExtra(WebActivity.url, RetrofitModule.H5_URL+"tbk-rule.html");
+                    intent.putExtra(WebActivity.title,"极品城省钱攻略");
+                    intent.putExtra(WebActivity.isShare,true);
+                    intent.putExtra(WebActivity.shareTitle,"如何查找淘宝隐藏优惠券及下单返利？");
+                    intent.putExtra(WebActivity.shareContent,"淘宝天猫90%的商品都能省，同时还有高额返利，淘好物，更省钱！");
+                    intent.putExtra(WebActivity.shareImage,"https://jipincheng.cn/shengqian.png");
+                }
                 context.startActivity(intent);
                 break;
             case "25"://京东商品详情
-                intent.setClass(context, TBShoppingDetailActivity.class);
-                intent.putExtra("otherGoodsId", target_id);
-                intent.putExtra("source","1");
+                if (TextUtils.isEmpty(SPUtils.getInstance(CommonDate.USER).getString(CommonDate.token, ""))) {
+                    intent.setClass(context, LoginActivity.class);
+                }else {
+                    intent.setClass(context, TBShoppingDetailActivity.class);
+                    intent.putExtra("otherGoodsId", target_id);
+                    intent.putExtra("source","1");
+                }
                 context.startActivity(intent);
                 break;
             case "26"://拼多多商品详情
-                intent.setClass(context, TBShoppingDetailActivity.class);
-                intent.putExtra("otherGoodsId", target_id);
-                intent.putExtra("source","4");
+                if (TextUtils.isEmpty(SPUtils.getInstance(CommonDate.USER).getString(CommonDate.token, ""))) {
+                    intent.setClass(context, LoginActivity.class);
+                }else {
+                    intent.setClass(context, TBShoppingDetailActivity.class);
+                    intent.putExtra("otherGoodsId", target_id);
+                    intent.putExtra("source","4");
+                }
                 context.startActivity(intent);
                 break;
             case "27"://会员中心
-                intent.setClass(context, HomeNewActivity.class);
-                intent.putExtra("type",HomeNewActivity.member);
+                if (TextUtils.isEmpty(SPUtils.getInstance(CommonDate.USER).getString(CommonDate.token, ""))) {
+                    intent.setClass(context, LoginActivity.class);
+                }else {
+                    intent.setClass(context, HomeNewActivity.class);
+                    intent.putExtra("type",HomeNewActivity.member);
+                }
                 context.startActivity(intent);
                 break;
             case "28"://淘宝主页
-                intent.setClass(context, KTTBDetailActivity.class);
+                if (TextUtils.isEmpty(SPUtils.getInstance(CommonDate.USER).getString(CommonDate.token, ""))) {
+                    intent.setClass(context, LoginActivity.class);
+                }else {
+                    intent.setClass(context, KTTBDetailActivity.class);
+                }
                 context.startActivity(intent);
                 break;
             case "29"://0元购
-                intent.setClass(context, NewFreeActivity.class);
+                if (TextUtils.isEmpty(SPUtils.getInstance(CommonDate.USER).getString(CommonDate.token, ""))) {
+                    intent.setClass(context, LoginActivity.class);
+                }else {
+                    intent.setClass(context, NewFreeActivity.class);
+                }
                 context.startActivity(intent);
                 break;
             case "30"://大转盘
-                intent.setClass(context, BigWheelWebActivity.class);
-                intent.putExtra(BigWheelWebActivity.url, target_id);
-                intent.putExtra(BigWheelWebActivity.title,"大转盘");
+                if (TextUtils.isEmpty(SPUtils.getInstance(CommonDate.USER).getString(CommonDate.token, ""))) {
+                    intent.setClass(context, LoginActivity.class);
+                }else {
+                    intent.setClass(context, BigWheelWebActivity.class);
+                    intent.putExtra(BigWheelWebActivity.url, target_id);
+                    intent.putExtra(BigWheelWebActivity.title,"大转盘");
+                }
                 context.startActivity(intent);
                 break;
             case "31"://我的团队
@@ -405,24 +481,36 @@ public class ShopJumpUtil {
                 context.startActivity(intent);
                 break;
             case "36"://H5直接跳app
-                intent.setClass(context, WebActivity.class);
-                intent.putExtra(WebActivity.url, target_id);
-                intent.putExtra(WebActivity.title,target_title);
-                intent.putExtra(WebActivity.source,source);
-                intent.putExtra(WebActivity.go, true);
+                if (TextUtils.isEmpty(SPUtils.getInstance(CommonDate.USER).getString(CommonDate.token, ""))) {
+                    intent.setClass(context, LoginActivity.class);
+                }else {
+                    intent.setClass(context, WebActivity.class);
+                    intent.putExtra(WebActivity.url, target_id);
+                    intent.putExtra(WebActivity.title,target_title);
+                    intent.putExtra(WebActivity.source,source);
+                    intent.putExtra(WebActivity.go, true);
+                }
                 context.startActivity(intent);
                 break;
             case "37":
                 //商学院专题页
-                intent.setClass(context, SchoolSpecialActivity.class);
-                intent.putExtra("categoryId",target_id);
-                intent.putExtra("title",target_title);
+                if (TextUtils.isEmpty(SPUtils.getInstance(CommonDate.USER).getString(CommonDate.token, ""))) {
+                    intent.setClass(context, LoginActivity.class);
+                }else {
+                    intent.setClass(context, SchoolSpecialActivity.class);
+                    intent.putExtra("categoryId",target_id);
+                    intent.putExtra("title",target_title);
+                }
                 context.startActivity(intent);
                 break;
             case "38":
                 //商学院播放页
-                intent.setClass(context, VideoActivity.class);
-                intent.putExtra("courseId",target_id);
+                if (TextUtils.isEmpty(SPUtils.getInstance(CommonDate.USER).getString(CommonDate.token, ""))) {
+                    intent.setClass(context, LoginActivity.class);
+                }else {
+                    intent.setClass(context, VideoActivity.class);
+                    intent.putExtra("courseId",target_id);
+                }
                 context.startActivity(intent);
                 break;
             case "39":
@@ -448,7 +536,11 @@ public class ShopJumpUtil {
                 context.startActivity(intent);
                 break;
             case "43"://外卖页面
-                intent.setClass(context, TakeOutActivity.class);
+                if (TextUtils.isEmpty(SPUtils.getInstance(CommonDate.USER).getString(CommonDate.token, ""))) {
+                    intent.setClass(context, LoginActivity.class);
+                }else {
+                    intent.setClass(context, TakeOutActivity.class);
+                }
                 context.startActivity(intent);
                 break;
             case "44"://拼团页面
@@ -473,23 +565,48 @@ public class ShopJumpUtil {
                 break;
             case "101":
                 //滑到首页第一页
-                EventBus.getDefault().post(new ChangeHomePageBus(0));
+                if (TextUtils.isEmpty(SPUtils.getInstance(CommonDate.USER).getString(CommonDate.token, ""))) {
+                    intent.setClass(context, LoginActivity.class);
+                    context.startActivity(intent);
+                }else {
+                    EventBus.getDefault().post(new ChangeHomePageBus(0));
+                }
                 break;
             case "102":
                 //滑到首页第二页
-                EventBus.getDefault().post(new ChangeHomePageBus(1));
+                if (TextUtils.isEmpty(SPUtils.getInstance(CommonDate.USER).getString(CommonDate.token, ""))) {
+                    intent.setClass(context, LoginActivity.class);
+                    context.startActivity(intent);
+                }else {
+                    EventBus.getDefault().post(new ChangeHomePageBus(1));
+                }
                 break;
             case "103":
                 //滑到首页第三页
-                EventBus.getDefault().post(new ChangeHomePageBus(2));
+                if (TextUtils.isEmpty(SPUtils.getInstance(CommonDate.USER).getString(CommonDate.token, ""))) {
+                    intent.setClass(context, LoginActivity.class);
+                    context.startActivity(intent);
+                }else {
+                    EventBus.getDefault().post(new ChangeHomePageBus(2));
+                }
                 break;
             case "104":
                 //滑到首页第四页
-                EventBus.getDefault().post(new ChangeHomePageBus(3));
+                if (TextUtils.isEmpty(SPUtils.getInstance(CommonDate.USER).getString(CommonDate.token, ""))) {
+                    intent.setClass(context, LoginActivity.class);
+                    context.startActivity(intent);
+                }else {
+                    EventBus.getDefault().post(new ChangeHomePageBus(3));
+                }
                 break;
             case "105":
                 //滑到首页第五页
-                EventBus.getDefault().post(new ChangeHomePageBus(4));
+                if (TextUtils.isEmpty(SPUtils.getInstance(CommonDate.USER).getString(CommonDate.token, ""))) {
+                    intent.setClass(context, LoginActivity.class);
+                    context.startActivity(intent);
+                }else {
+                    EventBus.getDefault().post(new ChangeHomePageBus(4));
+                }
                 break;
         }
     }

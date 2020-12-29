@@ -42,7 +42,8 @@ class KTHomePresenter {
                 .setBadgeGravity(Gravity.END or Gravity.TOP)
                 .setBadgePadding(2f, true)
                 .setGravityOffset(3f, 3f, true)
-                .setBadgeBackgroundColor(-0x1cebca)
+                .setBadgeBackgroundColor(-0x51e41)
+                .setBadgeTextColor(-0x1da7c8)
                 .setOnDragStateChangedListener(null)
     }
 

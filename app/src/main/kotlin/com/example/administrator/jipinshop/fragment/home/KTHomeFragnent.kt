@@ -120,6 +120,10 @@ class KTHomeFragnent : DBBaseFragment(), View.OnClickListener, ViewPager.OnPageC
     override fun onClick(v: View) {
         when(v.id){
             R.id.home_sreach -> {
+                if (TextUtils.isEmpty(SPUtils.getInstance(CommonDate.USER).getString(CommonDate.token, ""))) {
+                    startActivity(Intent(context, LoginActivity::class.java))
+                    return
+                }
                 appStatisticalUtil.addEvent("shouye_sousuo",this.bindToLifecycle())//统计搜索
                 startActivity(Intent(context, TBSreachActivity::class.java))
             }

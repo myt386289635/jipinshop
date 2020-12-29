@@ -10,6 +10,7 @@ import android.support.v4.app.Fragment
 import android.support.v4.view.ViewPager
 import android.support.v7.widget.GridLayoutManager
 import android.support.v7.widget.RecyclerView
+import android.text.TextUtils
 import android.util.SparseArray
 import android.view.LayoutInflater
 import android.view.View
@@ -18,6 +19,7 @@ import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.RelativeLayout
 import android.widget.TextView
+import com.blankj.utilcode.util.SPUtils
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.DataSource
 import com.bumptech.glide.load.engine.GlideException
@@ -27,6 +29,7 @@ import com.example.administrator.jipinshop.R
 import com.example.administrator.jipinshop.activity.WebActivity
 import com.example.administrator.jipinshop.activity.cheapgoods.CheapBuyActivity
 import com.example.administrator.jipinshop.activity.home.hot.HomeHotActivity
+import com.example.administrator.jipinshop.activity.login.LoginActivity
 import com.example.administrator.jipinshop.activity.member.buy.MemberBuyActivity
 import com.example.administrator.jipinshop.activity.member.zero.ZeroActivity
 import com.example.administrator.jipinshop.activity.newpeople.NewFreeActivity
@@ -42,6 +45,7 @@ import com.example.administrator.jipinshop.util.DistanceHelper
 import com.example.administrator.jipinshop.util.ShopJumpUtil
 import com.example.administrator.jipinshop.util.ToastUtil
 import com.example.administrator.jipinshop.util.UmApp.AppStatisticalUtil
+import com.example.administrator.jipinshop.util.sp.CommonDate
 import com.example.administrator.jipinshop.view.glide.GlideApp
 import com.google.gson.Gson
 import com.trello.rxlifecycle2.LifecycleTransformer
@@ -243,10 +247,18 @@ class KTMain2Adapter : RecyclerView.Adapter<RecyclerView.ViewHolder>{
                     userList.addAll(mBean!!.data.messageList)
                     initUser()
                     binding.mainNewpeople.setOnClickListener {
+                        if (TextUtils.isEmpty(SPUtils.getInstance(CommonDate.USER).getString(CommonDate.token, ""))) {
+                            mContext.startActivity(Intent(mContext, LoginActivity::class.java))
+                            return@setOnClickListener
+                        }
                         appStatisticalUtil.addEvent("shouye_xinren",transformer)
                         mContext.startActivity(Intent(mContext, NewFreeActivity::class.java))
                     }
                     binding.marqueeContainer.setOnClickListener {
+                        if (TextUtils.isEmpty(SPUtils.getInstance(CommonDate.USER).getString(CommonDate.token, ""))) {
+                            mContext.startActivity(Intent(mContext, LoginActivity::class.java))
+                            return@setOnClickListener
+                        }
                         appStatisticalUtil.addEvent("shouye_pmd",transformer)
                         mContext.startActivity(Intent(mContext, WebActivity::class.java)
                                 .putExtra(WebActivity.url, RetrofitModule.H5_URL + "newZn.html")
@@ -301,6 +313,10 @@ class KTMain2Adapter : RecyclerView.Adapter<RecyclerView.ViewHolder>{
                             0 -> {
                                 binding.fee1 = mBean!!.data.allowanceGoodsList2[0]
                                 binding.feeOneContainer.setOnClickListener {
+                                    if (TextUtils.isEmpty(SPUtils.getInstance(CommonDate.USER).getString(CommonDate.token, ""))) {
+                                        mContext.startActivity(Intent(mContext, LoginActivity::class.java))
+                                        return@setOnClickListener
+                                    }
                                     mContext.startActivity(Intent(mContext, CheapBuyDetailActivity::class.java)
                                             .putExtra("freeId", mBean!!.data.allowanceGoodsList2[0].allowanceGoodsId)
                                             .putExtra("otherGoodsId", mBean!!.data.allowanceGoodsList2[0].otherGoodsId)
@@ -310,6 +326,10 @@ class KTMain2Adapter : RecyclerView.Adapter<RecyclerView.ViewHolder>{
                             1 -> {
                                 binding.fee2 = mBean!!.data.allowanceGoodsList2[1]
                                 binding.feeTwoContainer.setOnClickListener {
+                                    if (TextUtils.isEmpty(SPUtils.getInstance(CommonDate.USER).getString(CommonDate.token, ""))) {
+                                        mContext.startActivity(Intent(mContext, LoginActivity::class.java))
+                                        return@setOnClickListener
+                                    }
                                     mContext.startActivity(Intent(mContext, CheapBuyDetailActivity::class.java)
                                             .putExtra("freeId", mBean!!.data.allowanceGoodsList2[1].allowanceGoodsId)
                                             .putExtra("otherGoodsId", mBean!!.data.allowanceGoodsList2[1].otherGoodsId)
@@ -323,6 +343,10 @@ class KTMain2Adapter : RecyclerView.Adapter<RecyclerView.ViewHolder>{
                             0 -> {
                                 binding.hot1 = mBean!!.data.hotGoodsList[0]
                                 binding.hotOneContainer.setOnClickListener {
+                                    if (TextUtils.isEmpty(SPUtils.getInstance(CommonDate.USER).getString(CommonDate.token, ""))) {
+                                        mContext.startActivity(Intent(mContext, LoginActivity::class.java))
+                                        return@setOnClickListener
+                                    }
                                     appStatisticalUtil.addEvent("shouye_bangdan.1" , transformer)
                                     mContext.startActivity(Intent(mContext, TBShoppingDetailActivity::class.java)
                                             .putExtra("otherGoodsId", mBean!!.data.hotGoodsList[0].otherGoodsId)
@@ -333,6 +357,10 @@ class KTMain2Adapter : RecyclerView.Adapter<RecyclerView.ViewHolder>{
                             1 -> {
                                 binding.hot2 = mBean!!.data.hotGoodsList[1]
                                 binding.hotTwoContainer.setOnClickListener {
+                                    if (TextUtils.isEmpty(SPUtils.getInstance(CommonDate.USER).getString(CommonDate.token, ""))) {
+                                        mContext.startActivity(Intent(mContext, LoginActivity::class.java))
+                                        return@setOnClickListener
+                                    }
                                     appStatisticalUtil.addEvent("shouye_bangdan.2" , transformer)
                                     mContext.startActivity(Intent(mContext, TBShoppingDetailActivity::class.java)
                                             .putExtra("otherGoodsId", mBean!!.data.hotGoodsList[1].otherGoodsId)
@@ -380,13 +408,25 @@ class KTMain2Adapter : RecyclerView.Adapter<RecyclerView.ViewHolder>{
                     binding.msTwoCost.setColor(R.color.color_9D9D9D)
                     binding.executePendingBindings()
                     binding.feeContainer.setOnClickListener {
+                        if (TextUtils.isEmpty(SPUtils.getInstance(CommonDate.USER).getString(CommonDate.token, ""))) {
+                            mContext.startActivity(Intent(mContext, LoginActivity::class.java))
+                            return@setOnClickListener
+                        }
                         appStatisticalUtil.addEvent("shouye_tehui",transformer)
                         mContext.startActivity(Intent(mContext, CheapBuyActivity::class.java))
                     }
                     binding.hotContainer.setOnClickListener {
+                        if (TextUtils.isEmpty(SPUtils.getInstance(CommonDate.USER).getString(CommonDate.token, ""))) {
+                            mContext.startActivity(Intent(mContext, LoginActivity::class.java))
+                            return@setOnClickListener
+                        }
                         mContext.startActivity(Intent(mContext, HomeHotActivity::class.java))
                     }
                     binding.zeroContainer.setOnClickListener {
+                        if (TextUtils.isEmpty(SPUtils.getInstance(CommonDate.USER).getString(CommonDate.token, ""))) {
+                            mContext.startActivity(Intent(mContext, LoginActivity::class.java))
+                            return@setOnClickListener
+                        }
                         if(mBean!!.data.level == 2){
                             mContext.startActivity(Intent(mContext, ZeroActivity::class.java))
                         }else if (mBean!!.data.level == 0){
@@ -401,6 +441,10 @@ class KTMain2Adapter : RecyclerView.Adapter<RecyclerView.ViewHolder>{
                         }
                     }
                     binding.msContainer.setOnClickListener {
+                        if (TextUtils.isEmpty(SPUtils.getInstance(CommonDate.USER).getString(CommonDate.token, ""))) {
+                            mContext.startActivity(Intent(mContext, LoginActivity::class.java))
+                            return@setOnClickListener
+                        }
                         ToastUtil.show("跳转秒杀")
                     }
                 }
@@ -464,6 +508,10 @@ class KTMain2Adapter : RecyclerView.Adapter<RecyclerView.ViewHolder>{
                         mOnItem.onItemShare(pos)
                     }
                     itemView.setOnClickListener { v ->
+                        if (TextUtils.isEmpty(SPUtils.getInstance(CommonDate.USER).getString(CommonDate.token, ""))) {
+                            mContext.startActivity(Intent(mContext, LoginActivity::class.java))
+                            return@setOnClickListener
+                        }
                         if (mList[pos].source == "1"){
                             appStatisticalUtil.addEvent("shouye_jingdong." + (pos+1),transformer)
                         }else if (mList[pos].source == "4"){

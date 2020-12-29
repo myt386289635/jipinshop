@@ -1,7 +1,9 @@
 package com.example.administrator.jipinshop.adapter
 
 import android.content.Context
+import android.content.Intent
 import android.support.v7.widget.RecyclerView
+import android.text.TextUtils
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -11,6 +13,7 @@ import android.widget.LinearLayout
 import android.widget.TextView
 import com.blankj.utilcode.util.SPUtils
 import com.example.administrator.jipinshop.R
+import com.example.administrator.jipinshop.activity.login.LoginActivity
 import com.example.administrator.jipinshop.bean.SuccessBean
 import com.example.administrator.jipinshop.bean.TbkIndexBean
 import com.example.administrator.jipinshop.util.ShopJumpUtil
@@ -61,6 +64,10 @@ class KTMain2GridAdapter : BaseAdapter{
             mItemName.text = mList[position].title
             GlideApp.loderImage(mContext,mList[position].iconUrl,mImageView,0,0)
             itemView.setOnClickListener {
+                if (TextUtils.isEmpty(SPUtils.getInstance(CommonDate.USER).getString(CommonDate.token, ""))) {
+                    mContext.startActivity(Intent(mContext, LoginActivity::class.java))
+                    return@setOnClickListener
+                }
                 appStatisticalUtil.addEvent(mUtil + (position + 1),transformer)
                 if (mList[position].popStatus == "1" &&
                         SPUtils.getInstance(CommonDate.USER).getString(CommonDate.userMemberGrade, "0") == "0") {
