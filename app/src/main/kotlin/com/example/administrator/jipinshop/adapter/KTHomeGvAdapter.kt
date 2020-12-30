@@ -2,17 +2,21 @@ package com.example.administrator.jipinshop.adapter
 
 import android.content.Context
 import android.content.Intent
+import android.text.TextUtils
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.BaseAdapter
 import android.widget.ImageView
 import android.widget.TextView
+import com.blankj.utilcode.util.SPUtils
 import com.example.administrator.jipinshop.R
 import com.example.administrator.jipinshop.activity.home.HomeTabActivity
+import com.example.administrator.jipinshop.activity.login.LoginActivity
 import com.example.administrator.jipinshop.bean.SuccessBean
 import com.example.administrator.jipinshop.bean.TbCommonBean
 import com.example.administrator.jipinshop.util.UmApp.AppStatisticalUtil
+import com.example.administrator.jipinshop.util.sp.CommonDate
 import com.example.administrator.jipinshop.view.glide.GlideApp
 import com.trello.rxlifecycle2.LifecycleTransformer
 
@@ -60,6 +64,10 @@ class KTHomeGvAdapter : BaseAdapter {
             item_text.text = mGvListBeans[position].categoryName
             GlideApp.loderCircleImage(mContext,mGvListBeans[position].img,item_image,0,0)
             view!!.setOnClickListener {
+                if (TextUtils.isEmpty(SPUtils.getInstance(CommonDate.USER).getString(CommonDate.token, ""))) {
+                    mContext.startActivity(Intent(mContext, LoginActivity::class.java))
+                    return@setOnClickListener
+                }
                 appStatisticalUtil.addEvent(commenStatistical + "_gongge." + (position + 1) , transformer)
                 mContext.startActivity(Intent(mContext, HomeTabActivity::class.java)
                         .putExtra("id", mGvListBeans[position].categoryId)
