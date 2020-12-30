@@ -64,8 +64,9 @@
                 android:layout_height="wrap_content">
 
                 <LinearLayout
+                    android:layout_marginRight="@dimen/x10"
                     android:gravity="center_vertical"
-                    android:layout_marginLeft="@dimen/x5"
+                    android:layout_marginLeft="@dimen/x10"
                     android:orientation="horizontal"
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/y88">
@@ -85,7 +86,7 @@
                         android:text="0"
                         android:paddingRight="@dimen/x5"
                         android:paddingLeft="@dimen/x5"
-                        android:layout_marginLeft="@dimen/x20"
+                        android:layout_marginLeft="@dimen/x5"
                         android:textColor="@color/color_white"
                         android:gravity="center"
                         android:minWidth="@dimen/x36"
@@ -118,7 +119,6 @@
                         android:textStyle="bold"
                         android:textColor="@color/color_9D9D9D"
                         android:textSize="12sp"
-                        android:layout_marginRight="@dimen/x5"
                         android:gravity="right"
                         android:text="更多>"
                         android:layout_width="match_parent"
@@ -269,8 +269,9 @@
                 android:layout_height="wrap_content">
 
                 <LinearLayout
+                    android:layout_marginRight="@dimen/x10"
                     android:gravity="center_vertical"
-                    android:layout_marginLeft="@dimen/x5"
+                    android:layout_marginLeft="@dimen/x10"
                     android:orientation="horizontal"
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/y88">
@@ -289,7 +290,6 @@
                         android:textStyle="bold"
                         android:textColor="@color/color_9D9D9D"
                         android:textSize="12sp"
-                        android:layout_marginRight="@dimen/x5"
                         android:gravity="right"
                         android:text="更多>"
                         android:layout_width="match_parent"
@@ -448,7 +448,8 @@
                 <LinearLayout
                     android:id="@+id/fee_container"
                     android:gravity="center_vertical"
-                    android:layout_marginLeft="@dimen/x5"
+                    android:layout_marginRight="@dimen/x10"
+                    android:layout_marginLeft="@dimen/x10"
                     android:orientation="horizontal"
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/y88">
@@ -467,7 +468,6 @@
                         android:textStyle="bold"
                         android:textColor="@color/color_9D9D9D"
                         android:textSize="12sp"
-                        android:layout_marginRight="@dimen/x5"
                         android:gravity="right"
                         android:text="更多>"
                         android:layout_width="match_parent"
@@ -619,7 +619,8 @@
                 <LinearLayout
                     android:id="@+id/hot_container"
                     android:gravity="center_vertical"
-                    android:layout_marginLeft="@dimen/x5"
+                    android:layout_marginRight="@dimen/x10"
+                    android:layout_marginLeft="@dimen/x10"
                     android:orientation="horizontal"
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/y88">
@@ -638,7 +639,6 @@
                         android:textStyle="bold"
                         android:textColor="@color/color_9D9D9D"
                         android:textSize="12sp"
-                        android:layout_marginRight="@dimen/x5"
                         android:gravity="right"
                         android:text="更多>"
                         android:layout_width="match_parent"

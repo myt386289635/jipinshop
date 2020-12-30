@@ -390,6 +390,39 @@ class KTMain2Adapter : RecyclerView.Adapter<RecyclerView.ViewHolder>{
                             }
                         }
                     }
+                    //倒计时
+                    var timer: Long = 0
+                    timer = (mBean!!.data.seckillEndTime * 1000) - System.currentTimeMillis()
+                    var countDownTimer :CountDownTimer? = countDownCounters.get(binding.msContainer.hashCode())
+                    countDownTimer?.cancel()
+                    if (timer > 0) {
+                        countDownTimer = object : CountDownTimer(timer, 1000) {
+                            override fun onTick(millisUntilFinished: Long) {
+                                val ss = 1000
+                                val mi = ss * 60
+                                val hh = mi * 60
+                                val dd = hh * 24
+                                val day = millisUntilFinished / dd
+                                val hour = (millisUntilFinished - day * dd) / hh
+                                val minute = (millisUntilFinished - hour * hh - day * dd) / mi
+                                val second = (millisUntilFinished - hour * hh - minute * mi - day * dd) / ss
+
+                                var shour = ((day * 24) + hour) * 60
+                                binding.mainMsMinutes.text = "" + (minute + shour)
+                                binding.mainMsSecond.text = "" + second
+                            }
+
+                            override fun onFinish() {
+                                binding.mainMsMinutes.text = "0"
+                                binding.mainMsSecond.text = "0"
+                            }
+                        }.start()
+                        countDownCounters.put(binding.msContainer.hashCode(), countDownTimer)
+                    }else {
+                        binding.mainMsMinutes.text = "0"
+                        binding.mainMsSecond.text = "0"
+                    }
+                    //初始化UI
                     binding.hotOneCost.setTv(true)
                     binding.hotOneCost.setColor(R.color.color_9D9D9D)
                     binding.hotTwoCost.setTv(true)

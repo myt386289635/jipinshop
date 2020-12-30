@@ -56,6 +56,15 @@ public class TbkIndexBean {
         private List<AllowanceGoodsListBean> allowanceGoodsList3;//会员0元购
         private int level;//用户身份
         private List<HotGoodsListBean> seckillGoodsList;//秒杀商品
+        private long seckillEndTime;//秒杀结束时间戳
+
+        public long getSeckillEndTime() {
+            return seckillEndTime;
+        }
+
+        public void setSeckillEndTime(long seckillEndTime) {
+            this.seckillEndTime = seckillEndTime;
+        }
 
         public List<AllowanceGoodsListBean> getAllowanceGoodsList3() {
             return allowanceGoodsList3;
