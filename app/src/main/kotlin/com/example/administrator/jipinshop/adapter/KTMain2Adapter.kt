@@ -29,6 +29,7 @@ import com.example.administrator.jipinshop.R
 import com.example.administrator.jipinshop.activity.WebActivity
 import com.example.administrator.jipinshop.activity.cheapgoods.CheapBuyActivity
 import com.example.administrator.jipinshop.activity.home.hot.HomeHotActivity
+import com.example.administrator.jipinshop.activity.home.seckill.SeckillActivity
 import com.example.administrator.jipinshop.activity.login.LoginActivity
 import com.example.administrator.jipinshop.activity.member.buy.MemberBuyActivity
 import com.example.administrator.jipinshop.activity.member.zero.ZeroActivity
@@ -478,7 +479,7 @@ class KTMain2Adapter : RecyclerView.Adapter<RecyclerView.ViewHolder>{
                             mContext.startActivity(Intent(mContext, LoginActivity::class.java))
                             return@setOnClickListener
                         }
-                        ToastUtil.show("跳转秒杀")
+                        mContext.startActivity(Intent(mContext, SeckillActivity::class.java))
                     }
                 }
             }

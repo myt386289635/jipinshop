@@ -1593,4 +1593,19 @@ public class Repository {
     public Observable<MemberBuyBean> listVipList(){
         return mAPIService.listVipList();
     }
+
+    /**
+     * 秒杀分类列表
+     */
+    public Observable<SeckillTabBean> categoryList(){
+        return mAPIService.categoryList();
+    }
+
+    /**
+     * 秒杀商品列表
+     */
+    public Observable<SeckillBean> seckillList(String categoryId , int page){
+        return mAPIService.seckillList(categoryId, page);
+    }
+
 }

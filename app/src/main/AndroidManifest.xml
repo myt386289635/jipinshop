@@ -852,6 +852,14 @@
         <activity android:name=".activity.home.hot.HomeHotActivity"
                   android:screenOrientation="portrait"/>
 
+        <!--秒杀主页-->
+        <activity android:name=".activity.home.seckill.SeckillActivity"
+                  android:screenOrientation="portrait"/>
+
+        <!--秒杀详情页-->
+        <activity android:name=".activity.home.seckill.detail.SeckillDetailActivity"
+                  android:screenOrientation="portrait"/>
+
  </application>
 
 </manifest>

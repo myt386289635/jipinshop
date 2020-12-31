@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <data>
+        <variable
+            name="listener"
+            type="android.view.View.OnClickListener"/>
+    </data>
+
+    <RelativeLayout
+        android:background="@color/color_F1F1F1"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <ImageView
+            android:layout_alignBottom="@id/seckill_menu"
+            android:layout_alignTop="@id/status_bar"
+            android:background="@drawable/bg_seckill"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+
+        <LinearLayout
+            android:id="@+id/status_bar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/transparent"
+            android:orientation="vertical"/>
+
+        <RelativeLayout
+            android:id="@+id/seckill_titleContainer"
+            android:layout_below="@id/status_bar"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/y88">
+
+            <ImageView
+                android:tint="@color/color_white"
+                android:onClick="@{listener.onClick}"
+                android:id="@+id/title_back"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:paddingLeft="@dimen/x30"
+                android:paddingRight="@dimen/x30"
+                android:src="@mipmap/nav_black_big"/>
+
+            <ImageView
+                android:src="@mipmap/seckill_title"
+                android:layout_centerInParent="true"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+
+        </RelativeLayout>
+
+        <net.lucode.hackware.magicindicator.MagicIndicator
+            android:layout_below="@id/seckill_titleContainer"
+            android:id="@+id/seckill_menu"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/y143"/>
+
+        <com.aspsine.swipetoloadlayout.SwipeToLoadLayout
+            android:layout_below="@id/seckill_menu"
+            android:id="@+id/swipeToLoad"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <com.example.administrator.jipinshop.view.textview.CustomRefreshHeadView
+                android:id="@+id/swipe_refresh_header"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:padding="20dp"/>
+
+            <LinearLayout
+                android:id="@+id/swipe_target"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical">
+
+                <android.support.v7.widget.RecyclerView
+                    android:id="@+id/recycler_view"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"/>
+
+                <include
+                    android:id="@+id/net_clude"
+                    layout="@layout/common_net_error"
+                    android:visibility="gone"/>
+
+            </LinearLayout>
+
+            <com.example.administrator.jipinshop.view.textview.LoadMoreFooterView
+                android:id="@+id/swipe_load_more_footer"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:padding="20dp"/>
+
+        </com.aspsine.swipetoloadlayout.SwipeToLoadLayout>
+
+    </RelativeLayout>
+</layout>

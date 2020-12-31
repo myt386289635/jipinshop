@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="@dimen/y143">
+
+    <LinearLayout
+        android:gravity="center"
+        android:orientation="vertical"
+        android:layout_marginRight="@dimen/x25"
+        android:layout_marginLeft="@dimen/x25"
+        android:layout_width="@dimen/x130"
+        android:layout_height="@dimen/y143">
+
+        <TextView
+            android:id="@+id/item_title"
+            android:textColor="@color/color_FACBC4"
+            android:textSize="21sp"
+            android:text="12:00"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+
+        <TextView
+            android:id="@+id/item_decs"
+            android:gravity="center"
+            android:paddingBottom="@dimen/y1"
+            android:paddingTop="@dimen/y1"
+            android:background="@drawable/bg_classfiy"
+            android:layout_marginTop="@dimen/y1"
+            android:text="即将开始"
+            android:textColor="@color/color_FACBC4"
+            android:textSize="13sp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+
+    </LinearLayout>
+
+</RelativeLayout>

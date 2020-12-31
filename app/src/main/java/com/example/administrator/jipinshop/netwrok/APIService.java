@@ -1434,4 +1434,17 @@ public interface APIService {
      */
     @GET("api/order/listVipList")
     Observable<MemberBuyBean> listVipList();
+
+    /**
+     * 秒杀分类列表
+     */
+    @GET("api/seckill/categoryList")
+    Observable<SeckillTabBean> categoryList();
+
+    /**
+     * 秒杀商品列表
+     */
+    @GET("api/seckill/list")
+    Observable<SeckillBean> seckillList(@Query("categoryId") String categoryId , @Query("page") int page);
+
 }
