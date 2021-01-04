@@ -1608,4 +1608,10 @@ public class Repository {
         return mAPIService.seckillList(categoryId, page);
     }
 
+    /**
+     * 秒杀详情
+     */
+    public Observable<TBShoppingDetailBean> seckillDetail(String seckillGoodsId){
+        return mAPIService.seckillDetail(seckillGoodsId);
+    }
 }

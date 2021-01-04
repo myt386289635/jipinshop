@@ -245,8 +245,9 @@ public class SeckillActivity extends BaseActivity implements View.OnClickListene
     @Override
     public void onDetail(int position) {
         startActivity(new Intent(this, SeckillDetailActivity.class)
-                .putExtra("otherGoodsId", "")
-                .putExtra("source", "")
+                .putExtra("otherGoodsId", mList.get(position).getOtherGoodsId())
+                .putExtra("source", mList.get(position).getSource())
+                .putExtra("id",mList.get(position).getId())
         );
     }
 }

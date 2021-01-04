@@ -16,6 +16,15 @@ public class TBShoppingDetailBean {
     private AllowanceGoodsBean allowanceGoods;
     private boolean isNewUser;
     private String courseId;
+    private long seckillEndTime;//秒杀倒计时
+
+    public long getSeckillEndTime() {
+        return seckillEndTime;
+    }
+
+    public void setSeckillEndTime(long seckillEndTime) {
+        this.seckillEndTime = seckillEndTime;
+    }
 
     public String getCourseId() {
         return courseId;

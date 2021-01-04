@@ -79,6 +79,15 @@ public class SeckillBean {
         private String fee;
         private String buyPrice;
         private String buyRate;
+        private String id;
+
+        public String getId() {
+            return id;
+        }
+
+        public void setId(String id) {
+            this.id = id;
+        }
 
         public String getOtherGoodsId() {
             return otherGoodsId;

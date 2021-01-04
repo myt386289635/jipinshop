@@ -12,6 +12,7 @@ import com.example.administrator.jipinshop.activity.balance.withdraw.WithdrawAct
 import com.example.administrator.jipinshop.activity.home.food.TakeOutActivity;
 import com.example.administrator.jipinshop.activity.home.hot.HomeHotActivity;
 import com.example.administrator.jipinshop.activity.home.seckill.SeckillActivity;
+import com.example.administrator.jipinshop.activity.home.seckill.detail.SeckillDetailActivity;
 import com.example.administrator.jipinshop.activity.member.buy.MemberBuyActivity;
 import com.example.administrator.jipinshop.activity.mine.browse.BrowseActivity;
 import com.example.administrator.jipinshop.activity.cheapgoods.CheapBuyActivity;
@@ -210,4 +211,5 @@ public interface BaseActivityComponent {
     void inject(CZBWebActivity activity);
     void inject(HomeHotActivity activity);
     void inject(SeckillActivity activity);
+    void inject(SeckillDetailActivity activity);
 }

@@ -50,7 +50,8 @@
             app:nearOverText=""
             app:overText=""
             app:sideColor="@color/color_D8D8D8"
-            app:startColor="@color/color_FED480"/>
+            app:startColor="@color/color_FED480"
+            app:isNeedAnim="false"/>
 
         <TextView
             android:id="@+id/item_progressbarNotice"

@@ -1447,4 +1447,10 @@ public interface APIService {
     @GET("api/seckill/list")
     Observable<SeckillBean> seckillList(@Query("categoryId") String categoryId , @Query("page") int page);
 
+    /**
+     * 秒杀详情
+     */
+    @GET("api/seckill/detail")
+    Observable<TBShoppingDetailBean> seckillDetail(@Query("seckillGoodsId") String seckillGoodsId);
+
 }
