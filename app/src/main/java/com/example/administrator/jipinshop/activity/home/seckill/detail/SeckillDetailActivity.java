@@ -215,10 +215,9 @@ public class SeckillDetailActivity extends BaseActivity implements View.OnClickL
                                 mPresenter.getGoodsClickUrl(source, goodsId, this.bindToLifecycle());
                             });
                         }else {
-                            mDialog = (new ProgressDialogView()).createPlatformDialog(this, money, R.mipmap.dialog_tb, v1 -> {
-                                mPresenter.getGoodsClickUrl(source, goodsId, this.bindToLifecycle());
-                            });
+                            mDialog = (new ProgressDialogView()).createPlatformDialog(this, money, R.mipmap.dialog_tb);
                             mDialog.show();
+                            mPresenter.getGoodsClickUrl(source, goodsId, this.bindToLifecycle());
                         }
                     });
                 }else {
@@ -229,15 +228,12 @@ public class SeckillDetailActivity extends BaseActivity implements View.OnClickL
                         });
                     }else {
                         if (source.equals("1")){
-                            mDialog = (new ProgressDialogView()).createPlatformDialog(this, money, R.mipmap.dialog_jd, v12 -> {
-                                mPresenter.getGoodsClickUrl(source, goodsId, this.bindToLifecycle());
-                            });
+                            mDialog = (new ProgressDialogView()).createPlatformDialog(this, money, R.mipmap.dialog_jd);
                         }else {
-                            mDialog = (new ProgressDialogView()).createPlatformDialog(this, money, R.mipmap.dialog_pdd, v13 -> {
-                                mPresenter.getGoodsClickUrl(source, goodsId, this.bindToLifecycle());
-                            });
+                            mDialog = (new ProgressDialogView()).createPlatformDialog(this, money, R.mipmap.dialog_pdd);
                         }
                         mDialog.show();
+                        mPresenter.getGoodsClickUrl(source, goodsId, this.bindToLifecycle());
                     }
                 }
                 break;
@@ -250,16 +246,14 @@ public class SeckillDetailActivity extends BaseActivity implements View.OnClickL
                     //非会员是拼团逻辑
                     if (source.equals("2")){
                         TaoBaoUtil.openTB(this, () -> {
-                            mDialog = (new ProgressDialogView()).createPlatformGroupDialog(this, source, UpFee, fee, v15 -> {
-                                mPresenter.groupCreate(goodsId,source,this.bindToLifecycle());
-                            });
+                            mDialog = (new ProgressDialogView()).createPlatformGroupDialog(this, source, UpFee, fee);
                             mDialog.show();
-                        });
-                    }else {
-                        mDialog = (new ProgressDialogView()).createPlatformGroupDialog(this, source, UpFee, fee, v15 -> {
                             mPresenter.groupCreate(goodsId,source,this.bindToLifecycle());
                         });
+                    }else {
+                        mDialog = (new ProgressDialogView()).createPlatformGroupDialog(this, source, UpFee, fee);
                         mDialog.show();
+                        mPresenter.groupCreate(goodsId,source,this.bindToLifecycle());
                     }
                 }else {
                     //会员是分享逻辑

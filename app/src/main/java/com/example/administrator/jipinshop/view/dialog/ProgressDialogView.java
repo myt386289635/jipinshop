@@ -3,7 +3,6 @@ package com.example.administrator.jipinshop.view.dialog;
 import android.app.Dialog;
 import android.content.Context;
 import android.databinding.DataBindingUtil;
-import android.os.CountDownTimer;
 import android.text.Html;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
@@ -60,7 +59,7 @@ public class ProgressDialogView {
     /**
      * 商品详情正在打开淘宝、京东、拼多多
      */
-    public Dialog createPlatformDialog(Context context, String money , int imageId , View.OnClickListener listener){
+    public Dialog createPlatformDialog(Context context, String money , int imageId){
         Dialog dialog = new Dialog(context, R.style.dialog);// 创建自定义样式dialog
         View view = LayoutInflater.from(context).inflate(R.layout.loading_dialog_platform, null);
         ImageView dialog_platform = view.findViewById(R.id.dialog_platform);
@@ -70,22 +69,6 @@ public class ProgressDialogView {
         dialog_title.setText(Html.fromHtml(str));
         TextView dialog_money = view.findViewById(R.id.dialog_money);
         dialog_money.setText("可省￥" + money);
-        CountDownTimer timer  = new CountDownTimer(2000,1000) {
-            @Override
-            public void onTick(long l) {}
-
-            @Override
-            public void onFinish() {
-                if (listener != null)
-                    listener.onClick(view);
-            }
-        };
-        timer.start();
-        dialog.setOnDismissListener(dialogInterface -> {
-            if (timer != null) {
-                timer.cancel();
-            }
-        });
         dialog.getWindow().setDimAmount(0.35f);
         dialog.setContentView(view, new LinearLayout.LayoutParams(
                 LinearLayout.LayoutParams.WRAP_CONTENT,
@@ -114,8 +97,7 @@ public class ProgressDialogView {
     }
 
     //商品详情拼团正在打开 1京东,2淘宝，4拼多多
-    public Dialog createPlatformGroupDialog(Context context, String source ,
-                                            String UpFee , String fee, View.OnClickListener listener){
+    public Dialog createPlatformGroupDialog(Context context, String source , String UpFee , String fee){
         Dialog dialog = new Dialog(context, R.style.dialog);// 创建自定义样式dialog
         LoadingDialogPlatformGroupBinding binding = DataBindingUtil.inflate(LayoutInflater.from(context),R.layout.loading_dialog_platform_group, null,false);
         if (source.equals("2")){
@@ -128,22 +110,6 @@ public class ProgressDialogView {
         binding.dialogPrice.setText("￥" + UpFee);
         String html = "未拼成返<b><font color='#E25838'>￥"+ fee + "</font></b>";
         binding.dialogFee.setText(Html.fromHtml(html));
-        CountDownTimer timer  = new CountDownTimer(1500,500) {
-            @Override
-            public void onTick(long l) {}
-
-            @Override
-            public void onFinish() {
-                if (listener != null)
-                    listener.onClick(binding.getRoot());
-            }
-        };
-        timer.start();
-        dialog.setOnDismissListener(dialogInterface -> {
-            if (timer != null) {
-                timer.cancel();
-            }
-        });
         dialog.getWindow().setDimAmount(0.35f);
         dialog.setContentView(binding.getRoot(), new LinearLayout.LayoutParams(
                 LinearLayout.LayoutParams.WRAP_CONTENT,

@@ -481,6 +481,10 @@ public class ShopJumpUtil {
                 context.startActivity(intent);
                 break;
             case "36"://H5直接跳app
+                if (!PDDUtil.checkHasInstalledApp(context)){
+                    ToastUtil.show("您未安装拼多多app，无法打开页面");
+                    return;
+                }
                 if (TextUtils.isEmpty(SPUtils.getInstance(CommonDate.USER).getString(CommonDate.token, ""))) {
                     intent.setClass(context, LoginActivity.class);
                 }else {
