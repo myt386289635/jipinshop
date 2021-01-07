@@ -463,10 +463,6 @@ class KTMain2Adapter : RecyclerView.Adapter<RecyclerView.ViewHolder>{
                         }
                         if(mBean!!.data.level == 2){
                             mContext.startActivity(Intent(mContext, ZeroActivity::class.java))
-                        }else if (mBean!!.data.level == 0){
-                            mContext.startActivity(Intent(mContext, MemberBuyActivity::class.java)
-                                    .putExtra("isBuy", "1")
-                            )
                         }else {
                             mContext.startActivity(Intent(mContext, MemberBuyActivity::class.java)
                                     .putExtra("isBuy", "2")
