@@ -439,6 +439,7 @@
             android:layout_height="wrap_content">
 
             <LinearLayout
+                android:id="@+id/fee_container"
                 android:orientation="vertical"
                 android:background="@drawable/bg_home_hot"
                 android:layout_weight="1"
@@ -446,7 +447,7 @@
                 android:layout_height="wrap_content">
 
                 <LinearLayout
-                    android:id="@+id/fee_container"
+
                     android:gravity="center_vertical"
                     android:layout_marginRight="@dimen/x10"
                     android:layout_marginLeft="@dimen/x10"
@@ -609,6 +610,7 @@
             </LinearLayout>
 
             <LinearLayout
+                android:id="@+id/hot_container"
                 android:orientation="vertical"
                 android:background="@drawable/bg_home_hot"
                 android:layout_marginLeft="@dimen/x16"
@@ -617,7 +619,6 @@
                 android:layout_height="wrap_content">
 
                 <LinearLayout
-                    android:id="@+id/hot_container"
                     android:gravity="center_vertical"
                     android:layout_marginRight="@dimen/x10"
                     android:layout_marginLeft="@dimen/x10"

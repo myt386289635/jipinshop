@@ -34,7 +34,6 @@ import com.example.administrator.jipinshop.activity.login.LoginActivity
 import com.example.administrator.jipinshop.activity.member.buy.MemberBuyActivity
 import com.example.administrator.jipinshop.activity.member.zero.ZeroActivity
 import com.example.administrator.jipinshop.activity.newpeople.NewFreeActivity
-import com.example.administrator.jipinshop.activity.newpeople.cheap.CheapBuyDetailActivity
 import com.example.administrator.jipinshop.activity.shoppingdetail.tbshoppingdetail.TBShoppingDetailActivity
 import com.example.administrator.jipinshop.bean.SuccessBean
 import com.example.administrator.jipinshop.bean.TBSreachResultBean
@@ -44,9 +43,9 @@ import com.example.administrator.jipinshop.fragment.home.main.tab.CommonTabFragm
 import com.example.administrator.jipinshop.netwrok.RetrofitModule
 import com.example.administrator.jipinshop.util.DistanceHelper
 import com.example.administrator.jipinshop.util.ShopJumpUtil
-import com.example.administrator.jipinshop.util.ToastUtil
 import com.example.administrator.jipinshop.util.UmApp.AppStatisticalUtil
 import com.example.administrator.jipinshop.util.sp.CommonDate
+import com.example.administrator.jipinshop.view.dialog.DialogUtil
 import com.example.administrator.jipinshop.view.glide.GlideApp
 import com.google.gson.Gson
 import com.trello.rxlifecycle2.LifecycleTransformer
@@ -313,29 +312,9 @@ class KTMain2Adapter : RecyclerView.Adapter<RecyclerView.ViewHolder>{
                         when (i) {
                             0 -> {
                                 binding.fee1 = mBean!!.data.allowanceGoodsList2[0]
-                                binding.feeOneContainer.setOnClickListener {
-                                    if (TextUtils.isEmpty(SPUtils.getInstance(CommonDate.USER).getString(CommonDate.token, ""))) {
-                                        mContext.startActivity(Intent(mContext, LoginActivity::class.java))
-                                        return@setOnClickListener
-                                    }
-                                    mContext.startActivity(Intent(mContext, CheapBuyDetailActivity::class.java)
-                                            .putExtra("freeId", mBean!!.data.allowanceGoodsList2[0].allowanceGoodsId)
-                                            .putExtra("otherGoodsId", mBean!!.data.allowanceGoodsList2[0].otherGoodsId)
-                                    )
-                                }
                             }
                             1 -> {
                                 binding.fee2 = mBean!!.data.allowanceGoodsList2[1]
-                                binding.feeTwoContainer.setOnClickListener {
-                                    if (TextUtils.isEmpty(SPUtils.getInstance(CommonDate.USER).getString(CommonDate.token, ""))) {
-                                        mContext.startActivity(Intent(mContext, LoginActivity::class.java))
-                                        return@setOnClickListener
-                                    }
-                                    mContext.startActivity(Intent(mContext, CheapBuyDetailActivity::class.java)
-                                            .putExtra("freeId", mBean!!.data.allowanceGoodsList2[1].allowanceGoodsId)
-                                            .putExtra("otherGoodsId", mBean!!.data.allowanceGoodsList2[1].otherGoodsId)
-                                    )
-                                }
                             }
                         }
                     }
@@ -343,31 +322,9 @@ class KTMain2Adapter : RecyclerView.Adapter<RecyclerView.ViewHolder>{
                         when (i) {
                             0 -> {
                                 binding.hot1 = mBean!!.data.hotGoodsList[0]
-                                binding.hotOneContainer.setOnClickListener {
-                                    if (TextUtils.isEmpty(SPUtils.getInstance(CommonDate.USER).getString(CommonDate.token, ""))) {
-                                        mContext.startActivity(Intent(mContext, LoginActivity::class.java))
-                                        return@setOnClickListener
-                                    }
-                                    appStatisticalUtil.addEvent("shouye_bangdan.1" , transformer)
-                                    mContext.startActivity(Intent(mContext, TBShoppingDetailActivity::class.java)
-                                            .putExtra("otherGoodsId", mBean!!.data.hotGoodsList[0].otherGoodsId)
-                                            .putExtra("source",mBean!!.data.hotGoodsList[0].source)
-                                    )
-                                }
                             }
                             1 -> {
                                 binding.hot2 = mBean!!.data.hotGoodsList[1]
-                                binding.hotTwoContainer.setOnClickListener {
-                                    if (TextUtils.isEmpty(SPUtils.getInstance(CommonDate.USER).getString(CommonDate.token, ""))) {
-                                        mContext.startActivity(Intent(mContext, LoginActivity::class.java))
-                                        return@setOnClickListener
-                                    }
-                                    appStatisticalUtil.addEvent("shouye_bangdan.2" , transformer)
-                                    mContext.startActivity(Intent(mContext, TBShoppingDetailActivity::class.java)
-                                            .putExtra("otherGoodsId", mBean!!.data.hotGoodsList[1].otherGoodsId)
-                                            .putExtra("source",mBean!!.data.hotGoodsList[1].source)
-                                    )
-                                }
                             }
                         }
                     }
@@ -464,10 +421,12 @@ class KTMain2Adapter : RecyclerView.Adapter<RecyclerView.ViewHolder>{
                         if(mBean!!.data.level == 2){
                             mContext.startActivity(Intent(mContext, ZeroActivity::class.java))
                         }else {
-                            mContext.startActivity(Intent(mContext, MemberBuyActivity::class.java)
-                                    .putExtra("isBuy", "2")
-                                    .putExtra("level", "2")
-                            )
+                            DialogUtil.memberGuideDialog(mContext) { v12 ->
+                                mContext.startActivity(Intent(mContext, MemberBuyActivity::class.java)
+                                        .putExtra("isBuy", "2")
+                                        .putExtra("level", "2")
+                                )
+                            }
                         }
                     }
                     binding.msContainer.setOnClickListener {
