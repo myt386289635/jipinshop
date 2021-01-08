@@ -62,7 +62,9 @@ public class SeckillAdapter extends RecyclerView.Adapter<SeckillAdapter.ViewHold
                 BigDecimal totle = new BigDecimal(mList.get(i).getTotal() + "");
                 BigDecimal soldTotal = new BigDecimal(mList.get(i).getSoldTotal() + "");
                 double value = soldTotal.divide(totle,2,BigDecimal.ROUND_HALF_UP).doubleValue();
-                viewHolder.mBinding.itemProgressbarNotice.setText("已抢"+(value * 100)+"%");
+                String num = new BigDecimal((value * 100) + "")
+                        .setScale(0,BigDecimal.ROUND_HALF_UP).stripTrailingZeros().toPlainString();
+                viewHolder.mBinding.itemProgressbarNotice.setText("已抢"+num+"%");
                 viewHolder.mBinding.itemProgressbarNotice.setTextColor(mContext.getResources().getColor(R.color.color_C66D10));
                 viewHolder.mBinding.itemProgressbar.setSideColor(mContext.getResources().getColor(R.color.color_F1F1F1));
                 viewHolder.mBinding.itemProgressbar.setTotalAndCurrentCount(mList.get(i).getTotal(),mList.get(i).getSoldTotal());
