@@ -120,7 +120,7 @@ class KTMain2Adapter : RecyclerView.Adapter<RecyclerView.ViewHolder>{
             gridLayoutManager!!.spanSizeLookup = object : GridLayoutManager.SpanSizeLookup() {
                 override fun getSpanSize(position: Int): Int {
                     return if (getItemViewType(position) == CONTENT) {
-                        gridLayoutManager.spanCount
+                        1
                     } else {
                         gridLayoutManager.spanCount
                     }
@@ -463,19 +463,23 @@ class KTMain2Adapter : RecyclerView.Adapter<RecyclerView.ViewHolder>{
                     binding.executePendingBindings()
                     val coupon1 = BigDecimal(mList[pos].couponPrice).toDouble()
                     val free1 = BigDecimal(mList[pos].fee).toDouble()
-                    binding.itemLine.setBackgroundColor(mContext.resources.getColor(R.color.color_DEDEDE))
-                    var lineLayout =  binding.itemLine.layoutParams as LinearLayout.LayoutParams
-                    lineLayout.height = 1
-                    lineLayout.rightMargin = mContext.resources.getDimension(R.dimen.x30).toInt()
-                    lineLayout.leftMargin = mContext.resources.getDimension(R.dimen.x30).toInt()
-                    binding.itemLine.layoutParams = lineLayout
-                    if (pos == 0){
-                        binding.itemLine.visibility = View.GONE
-                    }else{
-                        binding.itemLine.visibility = View.VISIBLE
+                    binding.itemLine.visibility = View.GONE
+                    binding.itemLineContainer.visibility = View.GONE
+                    binding.itemGridContainer.visibility = View.VISIBLE
+                    binding.itemGridImage.post {
+                        val layoutParams = binding.itemGridImage.layoutParams
+                        layoutParams.height = binding.itemGridImage.width
+                        binding.itemGridImage.layoutParams = layoutParams
                     }
-                    binding.itemLineContainer.visibility = View.VISIBLE
-                    binding.itemGridContainer.visibility = View.GONE
+                    val layoutParams = binding.itemGridContainer1.layoutParams as RelativeLayout.LayoutParams
+                    if (pos % 2 != 0) {
+                        layoutParams.leftMargin = mContext.resources.getDimension(R.dimen.x10).toInt()
+                        layoutParams.rightMargin = mContext.resources.getDimension(R.dimen.x20).toInt()
+                    } else {
+                        layoutParams.leftMargin = mContext.resources.getDimension(R.dimen.x20).toInt()
+                        layoutParams.rightMargin = mContext.resources.getDimension(R.dimen.x10).toInt()
+                    }
+                    binding.itemGridContainer1.setLayoutParams(layoutParams)
                     binding.detailOtherPrice.setTv(true)
                     binding.detailOtherPrice.setColor(R.color.color_9D9D9D)
                     if (coupon1 == 0.0) {//没有优惠券
