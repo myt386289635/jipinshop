@@ -148,7 +148,7 @@ public class MyWalletActivity extends BaseActivity implements View.OnClickListen
     public void setRefersh(WithdrawBus bus){
         if (bus != null){
             mPresenter.myCommssionSummary(this.bindToLifecycle());
-            mPresenter.getScoreStatus(this.bindToLifecycle());
+//            mPresenter.getScoreStatus(this.bindToLifecycle());
         }
     }
 }

@@ -512,7 +512,7 @@ public interface APIService {
      */
     @FormUrlEncoded
     @POST("api/withdraw")
-    Observable<SuccessBean> withdraw(@Field("realname") String realname , @Field("account") String account, @Field("amount") String amount);
+    Observable<SucBeanT<String>> withdraw(@Field("realname") String realname , @Field("account") String account, @Field("amount") String amount);
 
     /**
      * 获取二维码邀请图片（多张）

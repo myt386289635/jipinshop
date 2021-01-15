@@ -203,10 +203,10 @@ class KTHomeCommenFragment : DBBaseFragment(), OnLoadMoreListener, OnRefreshList
     override fun changeList() {
         if (mAdapter.getLayoutType() == 1) {
             mAdapter.setLayoutType(2)//网格
-            mAdapter.notifyItemRangeChanged(2, mList.size)
+            mAdapter.notifyDataSetChanged()
         } else {
             mAdapter.setLayoutType(1)//横向
-            mAdapter.notifyItemRangeChanged(2, mList.size)
+            mAdapter.notifyDataSetChanged()
         }
     }
 

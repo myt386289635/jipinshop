@@ -146,13 +146,12 @@
                             android:layout_width="match_parent"
                             android:layout_height="@dimen/y150"/>
 
-                        <com.example.administrator.jipinshop.view.textview.DrawableLeftCenterTextView
-                            android:text="@{@string/fee2 + ms1.fee}"
+                        <TextView
+                            android:text="@{@string/home_1 + ms1.fee}"
                             android:id="@+id/ms_one_fee"
-                            android:gravity="center_vertical"
+                            android:gravity="center"
                             android:textColor="@color/color_AD7F35"
                             android:textSize="10sp"
-                            android:drawableLeft="@mipmap/item_v"
                             android:background="@drawable/bg_ad7f35"
                             android:layout_marginTop="@dimen/y6"
                             android:layout_width="match_parent"
@@ -207,13 +206,12 @@
                             android:layout_width="match_parent"
                             android:layout_height="@dimen/y150"/>
 
-                        <com.example.administrator.jipinshop.view.textview.DrawableLeftCenterTextView
-                            android:text="@{@string/fee2 + ms2.fee}"
+                        <TextView
+                            android:text="@{@string/home_1 + ms2.fee}"
                             android:id="@+id/ms_two_fee"
-                            android:gravity="center_vertical"
+                            android:gravity="center"
                             android:textColor="@color/color_AD7F35"
                             android:textSize="10sp"
-                            android:drawableLeft="@mipmap/item_v"
                             android:background="@drawable/bg_ad7f35"
                             android:layout_marginTop="@dimen/y6"
                             android:layout_width="match_parent"
@@ -668,13 +666,12 @@
                             android:layout_width="match_parent"
                             android:layout_height="@dimen/y150"/>
 
-                        <com.example.administrator.jipinshop.view.textview.DrawableLeftCenterTextView
-                            android:text="@{@string/fee2 + hot1.fee}"
+                        <TextView
+                            android:text="@{@string/home_1 + hot1.fee}"
                             android:id="@+id/hot_one_fee"
-                            android:gravity="center_vertical"
+                            android:gravity="center"
                             android:textColor="@color/color_AD7F35"
                             android:textSize="10sp"
-                            android:drawableLeft="@mipmap/item_v"
                             android:background="@drawable/bg_ad7f35"
                             android:layout_marginTop="@dimen/y6"
                             android:layout_width="match_parent"
@@ -730,13 +727,12 @@
                             android:layout_width="match_parent"
                             android:layout_height="@dimen/y150"/>
 
-                        <com.example.administrator.jipinshop.view.textview.DrawableLeftCenterTextView
-                            android:text="@{@string/fee2 + hot2.fee}"
+                        <TextView
+                            android:text="@{@string/home_1 + hot2.fee}"
                             android:id="@+id/hot_two_fee"
-                            android:gravity="center_vertical"
+                            android:gravity="center"
                             android:textColor="@color/color_AD7F35"
                             android:textSize="10sp"
-                            android:drawableLeft="@mipmap/item_v"
                             android:background="@drawable/bg_ad7f35"
                             android:layout_marginTop="@dimen/y6"
                             android:layout_width="match_parent"

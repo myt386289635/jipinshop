@@ -35,6 +35,7 @@ import com.example.administrator.jipinshop.activity.WebActivity;
 import com.example.administrator.jipinshop.activity.home.home.HomeNewActivity;
 import com.example.administrator.jipinshop.activity.mine.group.MyGroupActivity;
 import com.example.administrator.jipinshop.activity.shoppingdetail.tbshoppingdetail.TBShoppingDetailActivity;
+import com.example.administrator.jipinshop.activity.sign.SignActivity;
 import com.example.administrator.jipinshop.activity.sreach.result.TBSreachResultActivity;
 import com.example.administrator.jipinshop.adapter.DialogLuckAdapter;
 import com.example.administrator.jipinshop.bean.FamilyBean;
@@ -1324,21 +1325,24 @@ public class DialogUtil {
         dialog.setContentView(binding.getRoot());
     }
 
-    //会员购买订单退出时弹窗
-    public static void buyOutDialog(Context context, View.OnClickListener clickListener) {
+    //提现成功时弹窗
+    public static void withdrawDialog(Context context , String price , String cost , String rate, View.OnClickListener listener) {
         AlertDialog.Builder builder = new AlertDialog.Builder(context, R.style.dialog);
         final Dialog dialog = builder.create();
         DialogBuyOutBinding binding = DataBindingUtil.inflate(LayoutInflater.from(context), R.layout.dialog_buy_out, null, false);
-        binding.dialogDismiss.setOnClickListener(v -> {
+        binding.dialogPrice.setText("¥" + price);
+        binding.dialogCost.setText(cost);
+        binding.dialogNotice.setText("分享好友，即可获得会员费"+ rate +"%奖励哦~");
+        binding.dialogCostContainer.setOnClickListener(v -> {
             dialog.dismiss();
+            context.startActivity(new Intent(context, SignActivity.class));
         });
-        binding.dialogCancle.setOnClickListener(v -> {
-            if (clickListener != null)
-                clickListener.onClick(v);
+        binding.dialogDismiss.setOnClickListener(v -> {
             dialog.dismiss();
         });
         binding.dialogSure.setOnClickListener(v -> {
             dialog.dismiss();
+            listener.onClick(v);
         });
         dialog.getWindow().setDimAmount(0.35f);
         dialog.show();

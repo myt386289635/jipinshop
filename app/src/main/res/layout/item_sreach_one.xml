@@ -96,7 +96,6 @@
                 android:layout_alignBottom="@id/item_image"
                 android:layout_marginTop="@dimen/y8"
                 android:layout_toRightOf="@id/item_image"
-                android:layout_marginLeft="@dimen/x13"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content">
 
@@ -107,8 +106,6 @@
                     android:layout_height="wrap_content">
 
                     <TextView
-                        android:drawablePadding="@dimen/x4"
-                        android:drawableLeft="@mipmap/shop_v"
                         android:textStyle="bold"
                         android:textSize="11sp"
                         android:textColor="@color/color_E25838"
@@ -280,7 +277,7 @@
                     android:id="@+id/item_priceCon"
                     android:layout_marginTop="@dimen/y8"
                     android:layout_below="@id/itemGird_shopName"
-                    android:layout_marginLeft="@dimen/x13"
+                    android:layout_alignLeft="@id/item_name"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content">
 
@@ -291,8 +288,6 @@
                         android:layout_height="wrap_content">
 
                         <TextView
-                            android:drawablePadding="@dimen/x4"
-                            android:drawableLeft="@mipmap/shop_v"
                             android:textStyle="bold"
                             android:textSize="11sp"
                             android:textColor="@color/color_E25838"
@@ -362,7 +357,7 @@
                     android:text="@{date.volume + @string/detail_buyNum}"
                     android:layout_marginBottom="@dimen/y16"
                     android:layout_marginTop="@dimen/y16"
-                    android:layout_marginLeft="@dimen/x13"
+                    android:layout_alignLeft="@id/item_name"
                     android:layout_below="@id/item_priceCon"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"/>

@@ -3,46 +3,110 @@
 
     <RelativeLayout
         android:layout_gravity="center_horizontal"
-        android:layout_width="@dimen/x630"
+        android:layout_width="@dimen/x604"
         android:layout_height="wrap_content">
 
         <ImageView
+            android:layout_alignBottom="@id/dialog_sure"
             android:id="@+id/dialog_image"
-            android:scaleType="fitXY"
             android:adjustViewBounds="true"
-            android:src="@mipmap/member1_bg8"
+            android:scaleType="fitXY"
+            android:src="@mipmap/withdraw_bg1"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"/>
 
+        <LinearLayout
+            android:layout_marginTop="@dimen/y180"
+            android:layout_centerHorizontal="true"
+            android:orientation="horizontal"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:textColor="@color/color_white"
+                android:textSize="15sp"
+                android:text="提现金额："
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+
+            <TextView
+                android:id="@+id/dialog_price"
+                android:textStyle="bold"
+                android:textColor="@color/color_white"
+                android:textSize="21sp"
+                android:text="¥2000"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+
+        </LinearLayout>
+        
+        <RelativeLayout
+            android:id="@+id/dialog_costContainer"
+            android:layout_marginTop="@dimen/y261"
+            android:layout_marginRight="@dimen/x23"
+            android:layout_marginLeft="@dimen/x23"
+            android:background="@mipmap/withdraw_bg2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:id="@+id/dialog_cost"
+                android:layout_marginLeft="@dimen/x25"
+                android:layout_centerVertical="true"
+                android:drawablePadding="@dimen/x6"
+                android:drawableLeft="@mipmap/withdraw_bg3"
+                android:textColor="@color/color_E25838"
+                android:textStyle="bold"
+                android:textSize="21sp"
+                android:text="20"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+
+            <TextView
+                android:layout_marginLeft="@dimen/x207"
+                android:layout_centerVertical="true"
+                android:textSize="15sp"
+                android:textColor="@color/color_DE151515"
+                android:text="极币奖励"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+
+            <TextView
+                android:layout_marginRight="@dimen/x25"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:textColor="@color/color_846436"
+                android:textSize="15sp"
+                android:text="查\n看"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+
+        </RelativeLayout>
+
         <TextView
-            android:id="@+id/dialog_cancle"
-            android:layout_marginLeft="@dimen/x70"
-            android:layout_marginBottom="@dimen/y78"
-            android:layout_alignBottom="@+id/dialog_image"
-            android:gravity="center"
-            android:textStyle="bold"
-            android:textSize="15sp"
-            android:text="放弃支付"
+            android:id="@+id/dialog_notice"
             android:textColor="@color/color_white"
-            android:background="@drawable/bg_ffffff_5"
-            android:layout_width="@dimen/x181"
-            android:layout_height="@dimen/y72"/>
+            android:layout_marginTop="@dimen/y27"
+            android:textSize="12sp"
+            android:layout_below="@id/dialog_costContainer"
+            android:layout_centerHorizontal="true"
+            android:text="分享好友，即可获得会员费20%奖励哦~"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
 
         <ImageView
             android:id="@+id/dialog_sure"
-            android:layout_toRightOf="@id/dialog_cancle"
-            android:layout_alignRight="@id/dialog_image"
-            android:scaleType="fitCenter"
-            android:layout_marginRight="@dimen/x60"
-            android:layout_alignTop="@id/dialog_cancle"
-            android:layout_alignBottom="@id/dialog_cancle"
-            android:src="@mipmap/member1_bg9"
-            android:layout_width="match_parent"
+            android:paddingBottom="@dimen/y25"
+            android:layout_marginTop="@dimen/y8"
+            android:layout_below="@id/dialog_notice"
+            android:layout_centerHorizontal="true"
+            android:src="@mipmap/withdraw_bg4"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"/>
 
         <ImageView
             android:id="@+id/dialog_dismiss"
-            android:layout_marginTop="@dimen/y70"
+            android:layout_marginTop="@dimen/y74"
             android:layout_below="@id/dialog_image"
             android:layout_centerHorizontal="true"
             android:src="@mipmap/dialog_close"

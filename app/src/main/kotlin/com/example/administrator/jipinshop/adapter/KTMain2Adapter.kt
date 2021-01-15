@@ -480,23 +480,23 @@ class KTMain2Adapter : RecyclerView.Adapter<RecyclerView.ViewHolder>{
                         layoutParams.leftMargin = mContext.resources.getDimension(R.dimen.x20).toInt()
                         layoutParams.rightMargin = mContext.resources.getDimension(R.dimen.x10).toInt()
                     }
-                    binding.itemGridContainer1.setLayoutParams(layoutParams)
-                    binding.detailOtherPrice.setTv(true)
-                    binding.detailOtherPrice.setColor(R.color.color_9D9D9D)
+                    binding.itemGridContainer1.layoutParams = layoutParams
+                    binding.detailGirdOtherPrice.setTv(true)
+                    binding.detailGirdOtherPrice.setColor(R.color.color_9D9D9D)
                     if (coupon1 == 0.0) {//没有优惠券
-                        binding.detailCoupon.visibility = View.GONE
+                        binding.detailGirdCoupon.visibility = View.GONE
                     } else {
-                        binding.detailCoupon.visibility = View.VISIBLE
+                        binding.detailGirdCoupon.visibility = View.VISIBLE
                     }
                     if (free1 == 0.0) {//没有补贴
-                        binding.detailFee.visibility = View.GONE
+                        binding.detailGirdFee.visibility = View.GONE
                     } else {
-                        binding.detailFee.visibility = View.VISIBLE
+                        binding.detailGirdFee.visibility = View.VISIBLE
                     }
                     if (coupon1 == 0.0 && free1 == 0.0) {
-                        binding.detailOtherPrice.visibility = View.GONE
+                        binding.detailGirdOtherPrice.visibility = View.GONE
                     } else {
-                        binding.detailOtherPrice.visibility = View.VISIBLE
+                        binding.detailGirdOtherPrice.visibility = View.VISIBLE
                     }
                     binding.itemShare.setOnClickListener { v ->
                         mOnItem.onItemShare(pos)

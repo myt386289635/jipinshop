@@ -5,6 +5,7 @@ import android.text.TextUtils;
 import android.view.View;
 
 import com.example.administrator.jipinshop.bean.ShareInfoBean;
+import com.example.administrator.jipinshop.bean.SucBeanT;
 import com.example.administrator.jipinshop.bean.SuccessBean;
 import com.example.administrator.jipinshop.bean.TaobaoAccountBean;
 import com.example.administrator.jipinshop.bean.WithdrawBean;
@@ -100,7 +101,7 @@ public class WithdrawPresenter {
                 });
     }
 
-    public void withdraw(String realname , String account, String amount,LifecycleTransformer<SuccessBean> transformer){
+    public void withdraw(String realname , String account, String amount,LifecycleTransformer<SucBeanT<String>> transformer){
         mRepository.withdraw(realname, account, amount)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
@@ -108,7 +109,7 @@ public class WithdrawPresenter {
                 .subscribe(successBean -> {
                     if (successBean.getCode() == 0){
                         if (mView != null){
-                            mView.onWithdrawSuccess();
+                            mView.onWithdrawSuccess(successBean.getData());
                         }
                     }else {
                         if (mView != null){
@@ -145,14 +146,14 @@ public class WithdrawPresenter {
     }
 
     //会员购买分享
-    public void initShare(LifecycleTransformer<ShareInfoBean> transformer){
-        mRepository.getShareInfo(7)
+    public void initShare(int type ,SHARE_MEDIA share_media,LifecycleTransformer<ShareInfoBean> transformer){
+        mRepository.getShareInfo(type)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .compose(transformer)
                 .subscribe(bean -> {
                     if (bean.getCode() == 0){
-                        mView.initShare(bean);
+                        mView.initShare(share_media,bean);
                     }else {
                         mView.onWithdrawFile(bean.getMsg());
                     }

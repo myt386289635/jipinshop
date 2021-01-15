@@ -550,7 +550,7 @@ public class Repository {
     /**
      * 提现
      */
-    public Observable<SuccessBean> withdraw(String realname , String account, String amount){
+    public Observable<SucBeanT<String>> withdraw(String realname , String account, String amount){
         return mAPIService.withdraw(realname, account, amount);
     }
 
