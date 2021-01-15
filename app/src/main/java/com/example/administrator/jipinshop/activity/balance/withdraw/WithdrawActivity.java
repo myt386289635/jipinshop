@@ -21,14 +21,18 @@ import com.example.administrator.jipinshop.R;
 import com.example.administrator.jipinshop.activity.balance.withdraw.detail.WithdrawDetailActivity;
 import com.example.administrator.jipinshop.activity.member.buy.MemberBuyActivity;
 import com.example.administrator.jipinshop.base.BaseActivity;
+import com.example.administrator.jipinshop.bean.ShareInfoBean;
 import com.example.administrator.jipinshop.bean.TaobaoAccountBean;
 import com.example.administrator.jipinshop.bean.WithdrawBean;
 import com.example.administrator.jipinshop.bean.eventbus.WithdrawBus;
 import com.example.administrator.jipinshop.databinding.ActivityWithdrawBinding;
+import com.example.administrator.jipinshop.util.ShareUtils;
 import com.example.administrator.jipinshop.util.ToastUtil;
 import com.example.administrator.jipinshop.util.sp.CommonDate;
 import com.example.administrator.jipinshop.view.dialog.DialogUtil;
 import com.example.administrator.jipinshop.view.dialog.ProgressDialogView;
+import com.umeng.socialize.UMShareAPI;
+import com.umeng.socialize.bean.SHARE_MEDIA;
 
 import org.greenrobot.eventbus.EventBus;
 
@@ -267,11 +271,26 @@ public class WithdrawActivity extends BaseActivity implements View.OnClickListen
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
+        UMShareAPI.get(this).onActivityResult(requestCode, resultCode, data);
         if (requestCode == 300 && resultCode == 200){//支付会员成功返回弹出弹框
             String level = data.getStringExtra("level");
-            DialogUtil.paySucDialog(this,level);
+            DialogUtil.paySucDialog(this, level, v -> {
+                mPresenter.initShare(this.bindToLifecycle());
+            });
             mBinding.withdrawPay.setText("");
             mPresenter.taobaoAccount(this.bindToLifecycle());
         }
+    }
+
+    @Override
+    public void initShare(ShareInfoBean bean) {
+        new ShareUtils(this, SHARE_MEDIA.WEIXIN)
+                .shareImage(this, bean.getData().getImgUrl());
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        UMShareAPI.get(this).release();
     }
 }

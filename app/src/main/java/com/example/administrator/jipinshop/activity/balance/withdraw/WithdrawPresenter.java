@@ -4,12 +4,14 @@ import android.text.InputFilter;
 import android.text.TextUtils;
 import android.view.View;
 
+import com.example.administrator.jipinshop.bean.ShareInfoBean;
 import com.example.administrator.jipinshop.bean.SuccessBean;
 import com.example.administrator.jipinshop.bean.TaobaoAccountBean;
 import com.example.administrator.jipinshop.bean.WithdrawBean;
 import com.example.administrator.jipinshop.databinding.ActivityWithdrawBinding;
 import com.example.administrator.jipinshop.netwrok.Repository;
 import com.trello.rxlifecycle2.LifecycleTransformer;
+import com.umeng.socialize.bean.SHARE_MEDIA;
 
 import javax.inject.Inject;
 
@@ -139,6 +141,23 @@ public class WithdrawPresenter {
                     if (mView != null){
                         mView.onWithdrawFile(throwable.getMessage());
                     }
+                });
+    }
+
+    //会员购买分享
+    public void initShare(LifecycleTransformer<ShareInfoBean> transformer){
+        mRepository.getShareInfo(7)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .compose(transformer)
+                .subscribe(bean -> {
+                    if (bean.getCode() == 0){
+                        mView.initShare(bean);
+                    }else {
+                        mView.onWithdrawFile(bean.getMsg());
+                    }
+                }, throwable -> {
+                    mView.onWithdrawFile(throwable.getMessage());
                 });
     }
 }

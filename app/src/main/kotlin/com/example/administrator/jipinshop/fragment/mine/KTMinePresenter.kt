@@ -7,6 +7,7 @@ import com.example.administrator.jipinshop.bean.*
 import com.example.administrator.jipinshop.netwrok.Repository
 import com.example.administrator.jipinshop.util.DeviceUuidFactory
 import com.trello.rxlifecycle2.LifecycleTransformer
+import com.umeng.socialize.bean.SHARE_MEDIA
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.functions.Consumer
 import io.reactivex.schedulers.Schedulers
@@ -149,4 +150,18 @@ class KTMinePresenter {
                 })
     }
 
+    //会员购买分享
+    fun initShare(transformer: LifecycleTransformer<ShareInfoBean>) {
+        repository.getShareInfo(7)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .compose(transformer)
+                .subscribe({ bean ->
+                    if (bean.code == 0) {
+                        mView.initShare(bean)
+                    } else {
+                        mView.onFileCommen(bean.msg)
+                    }
+                }, { throwable -> mView.onFileCommen(throwable.message) })
+    }
 }

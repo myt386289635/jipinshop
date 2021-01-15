@@ -1453,4 +1453,11 @@ public interface APIService {
     @GET("api/seckill/detail")
     Observable<TBShoppingDetailBean> seckillDetail(@Query("seckillGoodsId") String seckillGoodsId);
 
+    /**
+     * 极币支付
+     */
+    @FormUrlEncoded
+    @POST("api/order/point/pay")
+    Observable<SuccessBean> pointPay(@Field("type") int type);
+
 }

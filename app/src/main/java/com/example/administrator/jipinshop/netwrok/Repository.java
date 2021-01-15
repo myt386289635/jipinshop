@@ -1614,4 +1614,11 @@ public class Repository {
     public Observable<TBShoppingDetailBean> seckillDetail(String seckillGoodsId){
         return mAPIService.seckillDetail(seckillGoodsId);
     }
+
+    /**
+     * 极币支付
+     */
+    public Observable<SuccessBean> pointPay(int type){
+        return mAPIService.pointPay(type);
+    }
 }

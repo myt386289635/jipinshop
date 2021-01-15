@@ -12,6 +12,7 @@ import android.widget.ViewFlipper;
 
 import com.example.administrator.jipinshop.R;
 import com.example.administrator.jipinshop.bean.MemberNewBean;
+import com.example.administrator.jipinshop.bean.ShareInfoBean;
 import com.example.administrator.jipinshop.netwrok.Repository;
 import com.example.administrator.jipinshop.view.glide.GlideApp;
 import com.trello.rxlifecycle2.LifecycleTransformer;
@@ -98,6 +99,23 @@ public class MemberPresenter {
                     }
                 }, throwable -> {
                     mView.onFile(throwable.getMessage());
+                });
+    }
+
+    //会员购买分享
+    public void initShare(LifecycleTransformer<ShareInfoBean> transformer){
+        mRepository.getShareInfo(7)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .compose(transformer)
+                .subscribe(bean -> {
+                    if (bean.getCode() == 0){
+                        mView.initShare(bean);
+                    }else {
+                        mView.onCommenFile(bean.getMsg());
+                    }
+                }, throwable -> {
+                    mView.onCommenFile(throwable.getMessage());
                 });
     }
 }

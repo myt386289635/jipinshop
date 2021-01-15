@@ -1,7 +1,9 @@
 package com.example.administrator.jipinshop.activity.balance.withdraw;
 
+import com.example.administrator.jipinshop.bean.ShareInfoBean;
 import com.example.administrator.jipinshop.bean.TaobaoAccountBean;
 import com.example.administrator.jipinshop.bean.WithdrawBean;
+import com.umeng.socialize.bean.SHARE_MEDIA;
 
 /**
  * @author 莫小婷
@@ -17,4 +19,5 @@ public interface WithdrawView {
     void onWithdrawFile(String error);
 
     void onSuccessAccount(TaobaoAccountBean bean);
+    void initShare(ShareInfoBean bean);
 }

@@ -72,6 +72,7 @@
                         android:layout_height="wrap_content"/>
 
                     <TextView
+                        android:id="@+id/buy_tag"
                         android:textColor="@color/color_E25838"
                         android:textStyle="bold"
                         android:textSize="16sp"
@@ -100,6 +101,8 @@
                 </LinearLayout>
 
                 <TextView
+                    android:onClick="@{listener.onClick}"
+                    android:id="@+id/member_rule"
                     android:textColor="@color/color_9D9D9D"
                     android:textSize="13sp"
                     android:text="开通会员代表接受《会员服务协议》"
@@ -264,7 +267,7 @@
                                 android:id="@+id/month_price"
                                 android:textStyle="bold"
                                 android:textColor="@color/color_E25838"
-                                android:textSize="32sp"
+                                android:textSize="26sp"
                                 android:text="@{money.price}"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"/>
@@ -369,7 +372,7 @@
                                     android:id="@+id/year_price"
                                     android:textStyle="bold"
                                     android:textColor="@color/color_E25838"
-                                    android:textSize="32sp"
+                                    android:textSize="26sp"
                                     android:text="@{year.price}"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"/>
@@ -432,7 +435,7 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"/>
 
-                            <LinearLayout
+                            <RelativeLayout
                                 android:id="@+id/week_other_price_container"
                                 android:layout_marginTop="@dimen/y8"
                                 android:layout_below="@id/pop_weekTitle"
@@ -442,23 +445,28 @@
                                 android:layout_height="wrap_content">
 
                                 <TextView
+                                    android:layout_marginBottom="@dimen/y10"
+                                    android:layout_alignBottom="@id/week_price"
+                                    android:id="@+id/week_name"
                                     android:textStyle="bold"
                                     android:textColor="@color/color_E25838"
-                                    android:textSize="18sp"
-                                    android:text="￥"
+                                    android:textSize="13sp"
+                                    android:text="极币"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"/>
 
                                 <TextView
+                                    android:layout_toRightOf="@id/week_name"
+                                    android:layout_centerHorizontal="true"
                                     android:id="@+id/week_price"
                                     android:textStyle="bold"
                                     android:textColor="@color/color_E25838"
-                                    android:textSize="32sp"
+                                    android:textSize="26sp"
                                     android:text="@{week.price}"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"/>
 
-                            </LinearLayout>
+                            </RelativeLayout>
 
                             <TextView
                                 android:layout_marginTop="@dimen/y12"
@@ -540,7 +548,7 @@
                                 android:id="@+id/month_other_price"
                                 android:textStyle="bold"
                                 android:textColor="@color/color_E25838"
-                                android:textSize="32sp"
+                                android:textSize="26sp"
                                 android:text="@{money.price}"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"/>
@@ -638,7 +646,7 @@
                                 android:id="@+id/year_other_price"
                                 android:textStyle="bold"
                                 android:textColor="@color/color_E25838"
-                                android:textSize="32sp"
+                                android:textSize="26sp"
                                 android:text="@{year.price}"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"/>
@@ -727,7 +735,7 @@
                             android:id="@+id/year_other_price2"
                             android:textStyle="bold"
                             android:textColor="@color/color_E25838"
-                            android:textSize="32sp"
+                            android:textSize="26sp"
                             android:text="@{year.price}"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"/>
@@ -851,6 +859,7 @@
                     android:layout_height="wrap_content"/>
 
                 <RelativeLayout
+                    android:id="@+id/buy_container"
                     android:layout_marginTop="@dimen/y24"
                     android:background="@color/color_white"
                     android:layout_width="match_parent"

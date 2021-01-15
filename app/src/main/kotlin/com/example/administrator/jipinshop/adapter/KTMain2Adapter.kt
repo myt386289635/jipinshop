@@ -28,6 +28,7 @@ import com.bumptech.glide.request.target.Target
 import com.example.administrator.jipinshop.R
 import com.example.administrator.jipinshop.activity.WebActivity
 import com.example.administrator.jipinshop.activity.cheapgoods.CheapBuyActivity
+import com.example.administrator.jipinshop.activity.home.home.HomeNewActivity
 import com.example.administrator.jipinshop.activity.home.hot.HomeHotActivity
 import com.example.administrator.jipinshop.activity.home.seckill.SeckillActivity
 import com.example.administrator.jipinshop.activity.login.LoginActivity
@@ -422,9 +423,9 @@ class KTMain2Adapter : RecyclerView.Adapter<RecyclerView.ViewHolder>{
                             mContext.startActivity(Intent(mContext, ZeroActivity::class.java))
                         }else {
                             DialogUtil.memberGuideDialog(mContext) { v12 ->
-                                mContext.startActivity(Intent(mContext, MemberBuyActivity::class.java)
-                                        .putExtra("isBuy", "2")
-                                        .putExtra("level", "2")
+                                mContext.startActivity(Intent(mContext, HomeNewActivity::class.java)
+                                        .putExtra("type", HomeNewActivity.member)
+                                        .putExtra("isyear" , true)
                                 )
                             }
                         }

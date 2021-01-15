@@ -125,7 +125,7 @@ public class MainActivity extends BaseActivity implements MainView, ViewPager.On
 
         mKTHomeFragnent = KTHomeFragnent.getInstance();
         mPlayFragment = PlayFragment.getInstance();
-        mMemberFragment = MemberFragment.getInstance("1");
+        mMemberFragment = MemberFragment.getInstance("1",false);
         mCircleFragment = EvaluationNewFragment.getInstance("1");
         mMineFragment = KTMineFragment.getInstance();
         mFragments.add(mKTHomeFragnent);

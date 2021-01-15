@@ -48,7 +48,8 @@ public class HomeNewActivity extends BaseActivity {
                     .transparentStatusBar()
                     .statusBarDarkFont(false, 0f)
                     .init();
-            fragmentTransaction.add(R.id.home_fragment, MemberFragment.getInstance("2")).commit();
+            fragmentTransaction.add(R.id.home_fragment, MemberFragment.getInstance("2",
+                    getIntent().getBooleanExtra("isyear",false))).commit();
         }else if (type == evaluation){
             fragmentTransaction.add(R.id.home_fragment, EvaluationNewFragment.getInstance("2")).commit();
         }else if (type == indexVideo){

@@ -13,6 +13,7 @@ public interface MemberBuyView {
 
     void onSuccess(MemberBuyBean bean);
 
+    void onPoint();
     void onWxPay(WxPayBean bean);
     void onAlipay(ImageBean bean);
     void onCommenFile(String error);

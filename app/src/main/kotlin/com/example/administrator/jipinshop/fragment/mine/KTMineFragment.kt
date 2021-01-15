@@ -43,6 +43,7 @@ import com.example.administrator.jipinshop.bean.eventbus.EditNameBus
 import com.example.administrator.jipinshop.bean.eventbus.HomeRefresh
 import com.example.administrator.jipinshop.databinding.FragmentKtMineBinding
 import com.example.administrator.jipinshop.jpush.JPushReceiver
+import com.example.administrator.jipinshop.util.ShareUtils
 import com.example.administrator.jipinshop.util.TaoBaoUtil
 import com.example.administrator.jipinshop.util.ToastUtil
 import com.example.administrator.jipinshop.util.UmApp.UAppUtil
@@ -52,6 +53,7 @@ import com.example.administrator.jipinshop.view.dialog.ProgressDialogView
 import com.tencent.mm.opensdk.modelbiz.WXLaunchMiniProgram
 import com.tencent.mm.opensdk.openapi.WXAPIFactory
 import com.trello.rxlifecycle2.android.FragmentEvent
+import com.umeng.socialize.bean.SHARE_MEDIA
 import org.greenrobot.eventbus.EventBus
 import org.greenrobot.eventbus.Subscribe
 import javax.inject.Inject
@@ -547,7 +549,9 @@ class KTMineFragment : DBBaseFragment(), KTMineAdapter.OnItem, KTMineView, OnLoa
         if (requestCode == 300 && resultCode == 200){
             //购买会员成功后返回
             var level = data?.getStringExtra("level")
-            DialogUtil.paySucDialog(context, level)
+            DialogUtil.paySucDialog(context, level){
+                mPresenter.initShare(this.bindToLifecycle())
+            }
         }else{
             when (resultCode) {
                 201 -> { //退出登陆成功
@@ -561,5 +565,11 @@ class KTMineFragment : DBBaseFragment(), KTMineAdapter.OnItem, KTMineView, OnLoa
                 }
             }
         }
+    }
+
+    //会员购买分享
+    override fun initShare(bean: ShareInfoBean) {
+        ShareUtils(activity, SHARE_MEDIA.WEIXIN)
+                .shareImage(activity, bean.data.imgUrl)
     }
 }

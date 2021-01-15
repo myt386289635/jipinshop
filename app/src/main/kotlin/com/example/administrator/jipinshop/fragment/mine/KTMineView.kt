@@ -25,4 +25,6 @@ interface KTMineView {
     fun onCodeSuc(dialog: Dialog, inputManager: InputMethodManager, bean: SuccessBean)
 
     fun onCommssionSummary(bean: MyWalletBean)
+
+    fun initShare(bean: ShareInfoBean)
 }

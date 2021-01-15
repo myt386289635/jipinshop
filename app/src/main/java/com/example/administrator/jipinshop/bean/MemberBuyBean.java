@@ -13,6 +13,15 @@ public class MemberBuyBean {
     private int code;
     private List<DataBean> data;
     private String officialWechat;
+    private int point;
+
+    public int getPoint() {
+        return point;
+    }
+
+    public void setPoint(int point) {
+        this.point = point;
+    }
 
     public String getOfficialWechat() {
         return officialWechat;

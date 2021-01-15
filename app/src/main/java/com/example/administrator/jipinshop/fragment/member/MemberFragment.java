@@ -40,8 +40,10 @@ import com.example.administrator.jipinshop.adapter.MemberVideoAdapter;
 import com.example.administrator.jipinshop.base.DBBaseFragment;
 import com.example.administrator.jipinshop.bean.EvaluationTabBean;
 import com.example.administrator.jipinshop.bean.MemberNewBean;
+import com.example.administrator.jipinshop.bean.ShareInfoBean;
 import com.example.administrator.jipinshop.databinding.FragmentMemberNewBinding;
 import com.example.administrator.jipinshop.fragment.member.cheap.CheapFragment;
+import com.example.administrator.jipinshop.util.ShareUtils;
 import com.example.administrator.jipinshop.util.ShopJumpUtil;
 import com.example.administrator.jipinshop.util.ToastUtil;
 import com.example.administrator.jipinshop.util.UmApp.AppStatisticalUtil;
@@ -52,6 +54,7 @@ import com.example.administrator.jipinshop.view.glide.GlideApp;
 import com.example.administrator.jipinshop.view.textview.CenteredImageSpan;
 import com.example.administrator.jipinshop.view.viewpager.TouchViewPager;
 import com.trello.rxlifecycle2.android.FragmentEvent;
+import com.umeng.socialize.bean.SHARE_MEDIA;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -121,11 +124,13 @@ public class MemberFragment extends DBBaseFragment implements View.OnClickListen
     };
     private Handler mHandler = new WeakRefHandler(mCallback, Looper.getMainLooper());
     private Boolean isSpace = false;//是否展开的。默认为false
+    private Boolean isyear = false;//是否打开仅年卡购买
 
-    public static MemberFragment getInstance(String type){
+    public static MemberFragment getInstance(String type , boolean isyear){
         MemberFragment fragment = new MemberFragment();
         Bundle bundle = new Bundle();
         bundle.putString("type",type);//1:fragment 2:activity
+        bundle.putBoolean("isyear", isyear);
         fragment.setArguments(bundle);
         return fragment;
     }
@@ -152,6 +157,7 @@ public class MemberFragment extends DBBaseFragment implements View.OnClickListen
         mPresenter.setStatusBarHight(mBinding.statusBar,getContext());
         mBinding.swipeToLoad.setOnRefreshListener(this);
         type = getArguments().getString("type","1");
+        isyear = getArguments().getBoolean("isyear",false);
         //呼吸灯动画
         Animation animation = android.view.animation.AnimationUtils.loadAnimation(getContext(), R.anim.free_scale);
         mBinding.memberUserPay.startAnimation(animation);
@@ -289,9 +295,16 @@ public class MemberFragment extends DBBaseFragment implements View.OnClickListen
                     return;
                 }
                 appStatisticalUtil.addEvent("huiyuan.click", this.bindUntilEvent(FragmentEvent.DESTROY_VIEW));
-                startActivityForResult(new Intent(getContext(), MemberBuyActivity.class)
-                        .putExtra("isBuy","1")
-                ,300);
+                if (isyear){
+                    startActivityForResult(new Intent(getContext(), MemberBuyActivity.class)
+                                    .putExtra("isBuy","1")
+                                    .putExtra("level","2")
+                            ,300);
+                }else {
+                    startActivityForResult(new Intent(getContext(), MemberBuyActivity.class)
+                                    .putExtra("isBuy","1")
+                            ,300);
+                }
                 break;
             case R.id.member_userPay:
                 //续费
@@ -299,9 +312,16 @@ public class MemberFragment extends DBBaseFragment implements View.OnClickListen
                     startActivity(new Intent(getContext(), LoginActivity.class));
                     return;
                 }
-                startActivityForResult(new Intent(getContext(), MemberBuyActivity.class)
-                        .putExtra("isBuy","2")
-                ,300);
+                if (isyear){
+                    startActivityForResult(new Intent(getContext(), MemberBuyActivity.class)
+                                    .putExtra("isBuy","2")
+                                    .putExtra("level","2")
+                            ,300);
+                }else {
+                    startActivityForResult(new Intent(getContext(), MemberBuyActivity.class)
+                                    .putExtra("isBuy","2")
+                            ,300);
+                }
                 break;
             case R.id.member_adContainer:
                 //人员广告
@@ -701,7 +721,20 @@ public class MemberFragment extends DBBaseFragment implements View.OnClickListen
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == 300 && resultCode == 200){//支付会员成功返回弹出弹框
             String level = data.getStringExtra("level");
-            DialogUtil.paySucDialog(getContext(),level);
+            DialogUtil.paySucDialog(getContext(), level, v -> {
+                mPresenter.initShare(this.bindToLifecycle());
+            });
         }
+    }
+
+    @Override
+    public void onCommenFile(String error) {
+        ToastUtil.show(error);
+    }
+
+    @Override
+    public void initShare(ShareInfoBean bean) {
+        new ShareUtils(getActivity(), SHARE_MEDIA.WEIXIN)
+                .shareImage(getActivity(), bean.getData().getImgUrl());
     }
 }

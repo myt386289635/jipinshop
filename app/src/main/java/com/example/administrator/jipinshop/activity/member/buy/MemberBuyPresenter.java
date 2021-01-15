@@ -1,11 +1,11 @@
 package com.example.administrator.jipinshop.activity.member.buy;
 
 import android.content.Context;
-import android.view.View;
 
 import com.example.administrator.jipinshop.R;
 import com.example.administrator.jipinshop.bean.ImageBean;
 import com.example.administrator.jipinshop.bean.MemberBuyBean;
+import com.example.administrator.jipinshop.bean.SuccessBean;
 import com.example.administrator.jipinshop.bean.WxPayBean;
 import com.example.administrator.jipinshop.databinding.ActivityMemberBuyBinding;
 import com.example.administrator.jipinshop.netwrok.Repository;
@@ -159,6 +159,23 @@ public class MemberBuyPresenter {
                         mView.onSuccess(bean);
                     }else if (bean.getCode() == 0){
                         mView.onCommenFile("接口错误，请联系管理员");
+                    }else {
+                        mView.onCommenFile(bean.getMsg());
+                    }
+                }, throwable -> {
+                    mView.onCommenFile(throwable.getMessage());
+                });
+    }
+
+    //极币支付
+    public void pointPay(int type , LifecycleTransformer<SuccessBean> transformer){
+        mRepository.pointPay(type)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .compose(transformer)
+                .subscribe(bean -> {
+                    if (bean.getCode() == 0){
+                        mView.onPoint();
                     }else {
                         mView.onCommenFile(bean.getMsg());
                     }

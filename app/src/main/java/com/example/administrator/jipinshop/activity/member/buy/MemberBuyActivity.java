@@ -19,6 +19,8 @@ import android.view.View;
 import com.alipay.sdk.app.PayTask;
 import com.blankj.utilcode.util.SPUtils;
 import com.example.administrator.jipinshop.R;
+import com.example.administrator.jipinshop.activity.WebActivity;
+import com.example.administrator.jipinshop.activity.web.invite.InviteActionWebActivity;
 import com.example.administrator.jipinshop.base.BaseActivity;
 import com.example.administrator.jipinshop.bean.ImageBean;
 import com.example.administrator.jipinshop.bean.MemberBuyBean;
@@ -26,6 +28,7 @@ import com.example.administrator.jipinshop.bean.PayResultBean;
 import com.example.administrator.jipinshop.bean.WxPayBean;
 import com.example.administrator.jipinshop.bean.eventbus.PayBus;
 import com.example.administrator.jipinshop.databinding.ActivityMemberBuyBinding;
+import com.example.administrator.jipinshop.netwrok.RetrofitModule;
 import com.example.administrator.jipinshop.util.TimeUtil;
 import com.example.administrator.jipinshop.util.ToastUtil;
 import com.example.administrator.jipinshop.util.UmApp.StatisticalUtil;
@@ -177,11 +180,24 @@ public class MemberBuyActivity extends BaseActivity implements View.OnClickListe
                 break;
             case R.id.buy_buy:
                 //购买
-                if (mBinding.buyAlipay.isChecked()){
-                    onBuyMember(level,"1");
+                if (level.equals("3")){
+                    //支付周卡
+                    mDialog = (new ProgressDialogView()).createLoadingDialog(this, "");
+                    mDialog.show();
+                    mPresenter.pointPay(3,this.bindToLifecycle());
                 }else {
-                    onBuyMember(level,"2");
+                    if (mBinding.buyAlipay.isChecked()){
+                        onBuyMember(level,"1");
+                    }else {
+                        onBuyMember(level,"2");
+                    }
                 }
+                break;
+            case R.id.member_rule:
+                startActivity(new Intent(this, WebActivity.class)
+                        .putExtra(WebActivity.url, RetrofitModule.JP_H5_URL + "new-free/memberAgreement")
+                        .putExtra(WebActivity.title,"会员服务协议")
+                );
                 break;
         }
     }
@@ -249,6 +265,9 @@ public class MemberBuyActivity extends BaseActivity implements View.OnClickListe
             double priceBefore = new BigDecimal(mBean.getData().get(0).getPriceBefore()).doubleValue();
             String money = new BigDecimal((priceBefore - price) + "").stripTrailingZeros().toPlainString();
             mBinding.buyCheapMoney.setText("已优惠"+ money +"元");
+            mBinding.buyContainer.setVisibility(View.VISIBLE);
+            mBinding.buyTag.setText("￥");
+            mBinding.buyBuy.setText("确认支付");
         }else if (level.equals("2")){
             if (isBuy.equals("1")){//购买
                 mBinding.buyNoticeTag.setText("会员专享");
@@ -265,6 +284,9 @@ public class MemberBuyActivity extends BaseActivity implements View.OnClickListe
             double priceBefore = new BigDecimal(mBean.getData().get(1).getPriceBefore()).doubleValue();
             String money = new BigDecimal((priceBefore - price) + "").stripTrailingZeros().toPlainString();
             mBinding.buyCheapMoney.setText("已优惠"+ money +"元");
+            mBinding.buyContainer.setVisibility(View.VISIBLE);
+            mBinding.buyTag.setText("￥");
+            mBinding.buyBuy.setText("确认支付");
         }else if (level.equals("3")){
             if (isBuy.equals("1")){//购买
                 mBinding.buyNoticeTag.setText("会员专享");
@@ -278,6 +300,14 @@ public class MemberBuyActivity extends BaseActivity implements View.OnClickListe
             GlideApp.loderImage(this,mBean.getData().get(2).getImg(),mBinding.buyNoticeImage,0,0);
             mBinding.buyMoney.setText(mBean.getData().get(2).getPrice());
             mBinding.buyCheapMoney.setText("");
+            mBinding.buyContainer.setVisibility(View.GONE);
+            mBinding.buyTag.setText("极币");
+            double point = new BigDecimal(mBean.getData().get(2).getPrice()).doubleValue();
+            if (mBean.getPoint() >= point){
+                mBinding.buyBuy.setText("确认兑换");
+            }else {
+                mBinding.buyBuy.setText("极币不足\n去赚取");
+            }
         }
     }
 
@@ -353,6 +383,18 @@ public class MemberBuyActivity extends BaseActivity implements View.OnClickListe
         //必须异步调用
         Thread payThread = new Thread(payRunnable);
         payThread.start();
+    }
+
+    //周卡支付结果
+    @Override
+    public void onPoint() {
+        if(mDialog != null && mDialog.isShowing()){
+            mDialog.dismiss();
+        }
+        Intent intent = new Intent();
+        intent.putExtra("level",level);
+        setResult(200,intent);
+        finish();
     }
 
     @Override

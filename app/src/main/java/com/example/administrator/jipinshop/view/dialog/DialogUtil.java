@@ -1109,7 +1109,7 @@ public class DialogUtil {
     }
 
     //支付成功弹窗
-    public static void paySucDialog(Context context, String level) {
+    public static void paySucDialog(Context context, String level , View.OnClickListener listener) {
         AlertDialog.Builder builder = new AlertDialog.Builder(context, R.style.dialog);
         DialogPaySuccessBinding binding = DataBindingUtil.inflate(LayoutInflater.from(context), R.layout.dialog_pay_success, null, false);
         final Dialog dialog = builder.create();
@@ -1121,6 +1121,10 @@ public class DialogUtil {
             binding.dialogImage.setImageResource(R.mipmap.pay_success3);
         }
         binding.dialogDismiss.setOnClickListener(v -> {
+            dialog.dismiss();
+        });
+        binding.dialogImage.setOnClickListener(v -> {
+            listener.onClick(v);
             dialog.dismiss();
         });
         dialog.getWindow().setDimAmount(0.35f);
