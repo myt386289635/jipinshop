@@ -25,6 +25,7 @@ import com.bumptech.glide.request.transition.Transition;
 import com.example.administrator.jipinshop.R;
 import com.example.administrator.jipinshop.activity.balance.withdraw.detail.WithdrawDetailActivity;
 import com.example.administrator.jipinshop.activity.member.buy.MemberBuyActivity;
+import com.example.administrator.jipinshop.activity.shoppingdetail.ShoppingDetailActivity;
 import com.example.administrator.jipinshop.base.BaseActivity;
 import com.example.administrator.jipinshop.bean.ShareInfoBean;
 import com.example.administrator.jipinshop.bean.TaobaoAccountBean;
@@ -38,6 +39,7 @@ import com.example.administrator.jipinshop.util.sp.CommonDate;
 import com.example.administrator.jipinshop.view.dialog.DialogUtil;
 import com.example.administrator.jipinshop.view.dialog.ProgressDialogView;
 import com.example.administrator.jipinshop.view.dialog.ShareBoardDialog4;
+import com.trello.rxlifecycle2.android.ActivityEvent;
 import com.umeng.socialize.UMShareAPI;
 import com.umeng.socialize.bean.SHARE_MEDIA;
 
@@ -195,14 +197,14 @@ public class WithdrawActivity extends BaseActivity implements View.OnClickListen
     }
 
     @Override
-    public void onWithdrawSuccess(String data) {
+    public void onWithdrawSuccess(WithdrawBean bean) {
         if (mDialog != null && mDialog.isShowing()){
             mDialog.dismiss();
         }
         EventBus.getDefault().post(new WithdrawBus(mBinding.withdrawPay.getText().toString()));
-        mBinding.withdrawMoney.setText(data);
+        mBinding.withdrawMoney.setText(bean.getData());
         DialogUtil.withdrawDialog(this, mBinding.withdrawPay.getText().toString(),
-                "20", "10", v -> {
+                bean.getPoint(), bean.getShareContent(), v -> {
                     if (mShareBoardDialog == null) {
                         mShareBoardDialog = ShareBoardDialog4.getInstance("批量存图");
                         mShareBoardDialog.setOnShareListener(this);
@@ -294,6 +296,7 @@ public class WithdrawActivity extends BaseActivity implements View.OnClickListen
             String level = data.getStringExtra("level");
             DialogUtil.paySucDialog(this, level, v -> {
                 mPresenter.initShare(7,SHARE_MEDIA.WEIXIN,this.bindToLifecycle());
+                mPresenter.taskFinish("27",this.bindUntilEvent(ActivityEvent.DESTROY));
             });
             mBinding.withdrawPay.setText("");
             mPresenter.taobaoAccount(this.bindToLifecycle());
@@ -337,6 +340,7 @@ public class WithdrawActivity extends BaseActivity implements View.OnClickListen
         mDialog = (new ProgressDialogView()).createLoadingDialog(this, "");
         mDialog.show();
         mPresenter.initShare(6,share_media,this.bindToLifecycle());
+        mPresenter.taskFinish("26",this.bindUntilEvent(ActivityEvent.DESTROY));
     }
 
     @Override
@@ -344,5 +348,6 @@ public class WithdrawActivity extends BaseActivity implements View.OnClickListen
         mDialog = (new ProgressDialogView()).createLoadingDialog(this, "");
         mDialog.show();
         mPresenter.initShare(6,null,this.bindToLifecycle());
+        mPresenter.taskFinish("26",this.bindUntilEvent(ActivityEvent.DESTROY));
     }
 }

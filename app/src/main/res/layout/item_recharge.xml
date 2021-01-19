@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout
+    xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <ImageView
+            android:id="@+id/item_image"
+            android:layout_marginBottom="@dimen/y18"
+            android:layout_marginRight="@dimen/x7"
+            android:layout_marginLeft="@dimen/x7"
+            android:scaleType="fitCenter"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/y184"/>
+
+    </RelativeLayout>
+</layout>

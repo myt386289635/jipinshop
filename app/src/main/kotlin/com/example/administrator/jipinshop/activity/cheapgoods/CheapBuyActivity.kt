@@ -165,8 +165,7 @@ class CheapBuyActivity : BaseActivity(), View.OnClickListener, OnRefreshListener
         allowance = bean.data.allowance
         mList.clear()
         mList.addAll(bean.data.allowanceGoodsList)
-        adapter.setTotalUsedAllowance(bean.data.totalUsedAllowance)
-        adapter.setAllowance(bean.data.allowance)
+        adapter.setBean(bean)
         adapter.notifyDataSetChanged()
     }
 

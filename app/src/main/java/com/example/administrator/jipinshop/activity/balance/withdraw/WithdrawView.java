@@ -15,7 +15,7 @@ public interface WithdrawView {
     void onSuccess(WithdrawBean bean);
     void onFile(String error);
 
-    void onWithdrawSuccess(String data);
+    void onWithdrawSuccess(WithdrawBean bean);
     void onWithdrawFile(String error);
 
     void onSuccessAccount(TaobaoAccountBean bean);

@@ -11,6 +11,10 @@ import android.view.animation.AccelerateDecelerateInterpolator;
  * @author 莫小婷
  * @create 2020/11/3
  * @Describe 仿支付宝数字滚动效果
+ * 使用：
+ *
+ *   var money = BigDecimal(allowance).stripTrailingZeros().toPlainString()
+ *   textview.runWithAnimation(BigDecimal(money).toFloat(),"","0")
  */
 public class RunTextView extends AppCompatTextView {
     //动画时长

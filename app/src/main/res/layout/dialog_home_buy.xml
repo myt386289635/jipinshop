@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout
+    xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <RelativeLayout
+        android:layout_gravity="center_horizontal"
+        android:layout_width="@dimen/x604"
+        android:layout_height="wrap_content">
+
+        <ImageView
+            android:id="@+id/dialog_image"
+            android:adjustViewBounds="true"
+            android:scaleType="fitXY"
+            android:src="@mipmap/bg_home_dialog"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/y702"/>
+
+        <TextView
+            android:layout_marginTop="@dimen/y327"
+            android:layout_centerHorizontal="true"
+            android:textColor="@color/color_353535"
+            android:textStyle="bold"
+            android:textSize="21sp"
+            android:text="恭喜购买成功"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+
+        <TextView
+            android:layout_marginTop="@dimen/y400"
+            android:layout_centerHorizontal="true"
+            android:textColor="@color/color_353535"
+            android:textSize="14sp"
+            android:text="获得官方现金补贴"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+
+        <TextView
+            android:id="@+id/dialog_fee"
+            android:layout_marginTop="@dimen/y454"
+            android:layout_centerHorizontal="true"
+            android:gravity="center"
+            android:drawablePadding="@dimen/x13"
+            android:drawableLeft="@mipmap/bg_home_dialog1"
+            android:textColor="@color/color_F87A0F"
+            android:textStyle="bold"
+            android:textSize="26sp"
+            android:text="¥30"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+
+        <TextView
+            android:id="@+id/dialog_sure"
+            android:layout_marginBottom="@dimen/y46"
+            android:layout_alignBottom="@id/dialog_image"
+            android:layout_marginLeft="@dimen/x32"
+            android:gravity="center"
+            android:textStyle="bold"
+            android:textSize="18sp"
+            android:text="立即使用"
+            android:textColor="@color/color_white"
+            android:background="@drawable/bg_group"
+            android:layout_width="@dimen/x250"
+            android:layout_height="@dimen/y84"/>
+
+        <TextView
+            android:id="@+id/dialog_share"
+            android:layout_alignRight="@id/dialog_image"
+            android:layout_marginBottom="@dimen/y46"
+            android:layout_alignBottom="@id/dialog_image"
+            android:layout_marginRight="@dimen/x32"
+            android:gravity="center"
+            android:textStyle="bold"
+            android:textSize="18sp"
+            android:text="立即分享"
+            android:textColor="@color/color_white"
+            android:background="@drawable/bg_group"
+            android:layout_width="@dimen/x250"
+            android:layout_height="@dimen/y84"/>
+
+        <TextView
+            android:id="@+id/dialog_cost"
+            android:layout_marginTop="-22dp"
+            android:layout_alignRight="@id/dialog_share"
+            android:layout_alignTop="@+id/dialog_share"
+            android:textStyle="bold"
+            android:textColor="@color/color_C35E07"
+            android:paddingRight="@dimen/x20"
+            android:paddingLeft="@dimen/x20"
+            android:gravity="center"
+            android:text="+20极币"
+            android:background="@drawable/bg_ffd536"
+            android:layout_width="wrap_content"
+            android:layout_height="@dimen/y50"/>
+
+        <ImageView
+            android:id="@+id/dialog_dismiss"
+            android:layout_marginTop="@dimen/y74"
+            android:layout_below="@id/dialog_image"
+            android:layout_centerHorizontal="true"
+            android:src="@mipmap/dialog_close"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+
+    </RelativeLayout>
+</layout>

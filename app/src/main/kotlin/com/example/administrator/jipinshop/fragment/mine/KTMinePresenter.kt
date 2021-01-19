@@ -6,6 +6,7 @@ import android.view.inputmethod.InputMethodManager
 import com.example.administrator.jipinshop.bean.*
 import com.example.administrator.jipinshop.netwrok.Repository
 import com.example.administrator.jipinshop.util.DeviceUuidFactory
+import com.example.administrator.jipinshop.util.ToastUtil
 import com.trello.rxlifecycle2.LifecycleTransformer
 import com.umeng.socialize.bean.SHARE_MEDIA
 import io.reactivex.android.schedulers.AndroidSchedulers
@@ -163,5 +164,14 @@ class KTMinePresenter {
                         mView.onFileCommen(bean.msg)
                     }
                 }, { throwable -> mView.onFileCommen(throwable.message) })
+    }
+
+    //分享会员获得极币
+    fun taskFinish(transformer: LifecycleTransformer<TaskFinishBean>) {
+        repository.taskFinish("27")
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .compose(transformer)
+                .subscribe({}, {})
     }
 }

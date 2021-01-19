@@ -551,6 +551,7 @@ class KTMineFragment : DBBaseFragment(), KTMineAdapter.OnItem, KTMineView, OnLoa
             var level = data?.getStringExtra("level")
             DialogUtil.paySucDialog(context, level){
                 mPresenter.initShare(this.bindToLifecycle())
+                mPresenter.taskFinish(this.bindUntilEvent<TaskFinishBean>(FragmentEvent.DESTROY_VIEW))
             }
         }else{
             when (resultCode) {

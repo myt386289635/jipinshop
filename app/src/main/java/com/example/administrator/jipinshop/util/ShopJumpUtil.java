@@ -17,6 +17,7 @@ import com.example.administrator.jipinshop.activity.home.article.ArticleDetailAc
 import com.example.administrator.jipinshop.activity.home.food.TakeOutActivity;
 import com.example.administrator.jipinshop.activity.home.home.HomeNewActivity;
 import com.example.administrator.jipinshop.activity.home.jd_pdd.KTJDDetailActivity;
+import com.example.administrator.jipinshop.activity.home.recharge.RechargeActivity;
 import com.example.administrator.jipinshop.activity.home.tb.KTTBDetailActivity;
 import com.example.administrator.jipinshop.activity.login.LoginActivity;
 import com.example.administrator.jipinshop.activity.mall.MallActivity;
@@ -564,6 +565,14 @@ public class ShopJumpUtil {
                     intent.putExtra(CZBWebActivity.url, target_id);
                     intent.putExtra(CZBWebActivity.title,target_title);
                     intent.putExtra(CZBWebActivity.source,source);
+                }
+                context.startActivity(intent);
+                break;
+            case "46"://充值页面
+                if (TextUtils.isEmpty(SPUtils.getInstance(CommonDate.USER).getString(CommonDate.token, ""))) {
+                    intent.setClass(context, LoginActivity.class);
+                }else {
+                    intent.setClass(context, RechargeActivity.class);
                 }
                 context.startActivity(intent);
                 break;

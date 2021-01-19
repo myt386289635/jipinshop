@@ -24,7 +24,7 @@
 
         <ImageView
             android:id="@+id/item_bg"
-            android:layout_marginTop="@dimen/y375"
+            android:layout_marginTop="@dimen/y279"
             android:adjustViewBounds="true"
             android:scaleType="fitXY"
             android:layout_marginRight="@dimen/x20"
@@ -45,29 +45,91 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"/>
 
-        <com.example.administrator.jipinshop.view.textview.RunTextView
-            android:layout_marginLeft="@dimen/x172"
-            android:layout_alignLeft="@id/item_bg"
-            android:gravity="center_vertical"
-            android:layout_alignBottom="@id/item_bg"
+        <LinearLayout
+            android:layout_marginBottom="@dimen/y9"
+            android:layout_marginTop="@dimen/y7"
+            android:orientation="vertical"
+            android:layout_marginRight="@dimen/x20"
+            android:layout_marginLeft="@dimen/x440"
             android:layout_alignTop="@id/item_bg"
-            android:id="@+id/item_cheapPrice"
-            android:textColor="@color/color_EA5018"
-            android:textStyle="bold"
-            android:textSize="38sp"
-            android:text="0"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"/>
+            android:layout_alignBottom="@id/item_bg"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <LinearLayout
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                android:layout_weight="1"
+                android:layout_width="match_parent"
+                android:layout_height="0dp">
+
+                <TextView
+                    android:gravity="center_vertical"
+                    android:layout_alignBottom="@id/item_bg"
+                    android:id="@+id/item_tempPrice"
+                    android:textColor="@color/color_EA5018"
+                    android:textStyle="bold"
+                    android:textSize="24sp"
+                    android:text="0"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"/>
+
+                <TextView
+                    android:layout_toRightOf="@id/item_cheapPrice"
+                    android:layout_alignBottom="@id/item_bg"
+                    android:textColor="@color/color_EA5018"
+                    android:textStyle="bold"
+                    android:textSize="24sp"
+                    android:text="元"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"/>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                android:layout_weight="1"
+                android:layout_width="match_parent"
+                android:layout_height="0dp">
+
+                <TextView
+                    android:gravity="center_vertical"
+                    android:layout_alignBottom="@id/item_bg"
+                    android:id="@+id/item_cheapPrice"
+                    android:textColor="@color/color_EA5018"
+                    android:textStyle="bold"
+                    android:textSize="24sp"
+                    android:text="0"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"/>
+
+                <TextView
+                    android:layout_toRightOf="@id/item_cheapPrice"
+                    android:layout_alignBottom="@id/item_bg"
+                    android:textColor="@color/color_EA5018"
+                    android:textStyle="bold"
+                    android:textSize="24sp"
+                    android:text="元"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"/>
+
+            </LinearLayout>
+
+        </LinearLayout>
 
         <TextView
-            android:layout_toRightOf="@id/item_cheapPrice"
-            android:gravity="center_vertical"
-            android:layout_alignBottom="@id/item_bg"
-            android:layout_alignTop="@id/item_bg"
-            android:textColor="@color/color_EA5018"
             android:textStyle="bold"
-            android:textSize="38sp"
-            android:text="元"
+            android:textColor="@color/color_E25838"
+            android:id="@+id/item_time"
+            android:gravity="center"
+            android:textSize="13sp"
+            android:layout_marginBottom="@dimen/y32"
+            android:layout_marginLeft="@dimen/x24"
+            android:layout_alignLeft="@id/item_bg"
+            android:layout_alignBottom="@id/item_bg"
+            android:text="0秒"
+            android:minWidth="@dimen/x160"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"/>
 

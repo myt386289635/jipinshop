@@ -32,6 +32,7 @@ import android.widget.TextView;
 import com.blankj.utilcode.util.SPUtils;
 import com.example.administrator.jipinshop.R;
 import com.example.administrator.jipinshop.activity.WebActivity;
+import com.example.administrator.jipinshop.activity.cheapgoods.CheapBuyActivity;
 import com.example.administrator.jipinshop.activity.home.home.HomeNewActivity;
 import com.example.administrator.jipinshop.activity.mine.group.MyGroupActivity;
 import com.example.administrator.jipinshop.activity.shoppingdetail.tbshoppingdetail.TBShoppingDetailActivity;
@@ -51,6 +52,7 @@ import com.example.administrator.jipinshop.databinding.DialogCheapBuyBinding;
 import com.example.administrator.jipinshop.databinding.DialogCheapOutBinding;
 import com.example.administrator.jipinshop.databinding.DialogFamilyBinding;
 import com.example.administrator.jipinshop.databinding.DialogGroupBinding;
+import com.example.administrator.jipinshop.databinding.DialogHomeBuyBinding;
 import com.example.administrator.jipinshop.databinding.DialogLuckBinding;
 import com.example.administrator.jipinshop.databinding.DialogMemberBuyBinding;
 import com.example.administrator.jipinshop.databinding.DialogNewpeople2Binding;
@@ -1332,7 +1334,7 @@ public class DialogUtil {
         DialogBuyOutBinding binding = DataBindingUtil.inflate(LayoutInflater.from(context), R.layout.dialog_buy_out, null, false);
         binding.dialogPrice.setText("¥" + price);
         binding.dialogCost.setText(cost);
-        binding.dialogNotice.setText("分享好友，即可获得会员费"+ rate +"%奖励哦~");
+        binding.dialogNotice.setText(rate);
         binding.dialogCostContainer.setOnClickListener(v -> {
             dialog.dismiss();
             context.startActivity(new Intent(context, SignActivity.class));
@@ -1348,4 +1350,31 @@ public class DialogUtil {
         dialog.show();
         dialog.setContentView(binding.getRoot());
     }
+
+    //每次下单后都需要弹出该弹窗
+    public static void buyNoticeDialog(Context context , String fee, String cost,
+                                       View.OnClickListener runlistener , View.OnClickListener shareListener){
+        AlertDialog.Builder builder = new AlertDialog.Builder(context, R.style.dialog);
+        final Dialog dialog = builder.create();
+        DialogHomeBuyBinding binding = DataBindingUtil.inflate(LayoutInflater.from(context), R.layout.dialog_home_buy, null, false);
+        binding.dialogFee.setText("¥" + fee);
+        binding.dialogCost.setText("+"+ cost +"极币");
+        binding.dialogSure.setOnClickListener(v -> {
+            context.startActivity(new Intent(context, CheapBuyActivity.class));
+            runlistener.onClick(v);
+            dialog.dismiss();
+        });
+        binding.dialogDismiss.setOnClickListener(v -> {
+            runlistener.onClick(v);
+            dialog.dismiss();
+        });
+        binding.dialogShare.setOnClickListener(v -> {
+            dialog.dismiss();
+            shareListener.onClick(v);
+        });
+        dialog.getWindow().setDimAmount(0.35f);
+        dialog.show();
+        dialog.setContentView(binding.getRoot());
+    }
+
 }

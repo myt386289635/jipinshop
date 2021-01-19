@@ -53,6 +53,7 @@ import com.example.administrator.jipinshop.view.dialog.DialogUtil;
 import com.example.administrator.jipinshop.view.glide.GlideApp;
 import com.example.administrator.jipinshop.view.textview.CenteredImageSpan;
 import com.example.administrator.jipinshop.view.viewpager.TouchViewPager;
+import com.trello.rxlifecycle2.android.ActivityEvent;
 import com.trello.rxlifecycle2.android.FragmentEvent;
 import com.umeng.socialize.bean.SHARE_MEDIA;
 
@@ -723,6 +724,7 @@ public class MemberFragment extends DBBaseFragment implements View.OnClickListen
             String level = data.getStringExtra("level");
             DialogUtil.paySucDialog(getContext(), level, v -> {
                 mPresenter.initShare(this.bindToLifecycle());
+                mPresenter.taskFinish(this.bindUntilEvent(FragmentEvent.DESTROY_VIEW));
             });
         }
     }

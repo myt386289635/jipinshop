@@ -8,6 +8,7 @@ import com.example.administrator.jipinshop.bean.ShareInfoBean;
 import com.example.administrator.jipinshop.bean.SucBeanT;
 import com.example.administrator.jipinshop.bean.SuccessBean;
 import com.example.administrator.jipinshop.bean.TaobaoAccountBean;
+import com.example.administrator.jipinshop.bean.TaskFinishBean;
 import com.example.administrator.jipinshop.bean.WithdrawBean;
 import com.example.administrator.jipinshop.databinding.ActivityWithdrawBinding;
 import com.example.administrator.jipinshop.netwrok.Repository;
@@ -101,7 +102,7 @@ public class WithdrawPresenter {
                 });
     }
 
-    public void withdraw(String realname , String account, String amount,LifecycleTransformer<SucBeanT<String>> transformer){
+    public void withdraw(String realname , String account, String amount,LifecycleTransformer<WithdrawBean> transformer){
         mRepository.withdraw(realname, account, amount)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
@@ -109,7 +110,7 @@ public class WithdrawPresenter {
                 .subscribe(successBean -> {
                     if (successBean.getCode() == 0){
                         if (mView != null){
-                            mView.onWithdrawSuccess(successBean.getData());
+                            mView.onWithdrawSuccess(successBean);
                         }
                     }else {
                         if (mView != null){
@@ -160,5 +161,16 @@ public class WithdrawPresenter {
                 }, throwable -> {
                     mView.onWithdrawFile(throwable.getMessage());
                 });
+    }
+
+    /**
+     * 分享获取极币
+     */
+    public void taskFinish(String type, LifecycleTransformer<TaskFinishBean> transformer){
+        mRepository.taskFinish(type)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .compose(transformer)
+                .subscribe(taskFinishBean -> { }, throwable ->{ });
     }
 }

@@ -11,6 +11,7 @@ import com.example.administrator.jipinshop.activity.balance.team.TeamActivity;
 import com.example.administrator.jipinshop.activity.balance.withdraw.WithdrawActivity;
 import com.example.administrator.jipinshop.activity.home.food.TakeOutActivity;
 import com.example.administrator.jipinshop.activity.home.hot.HomeHotActivity;
+import com.example.administrator.jipinshop.activity.home.recharge.RechargeActivity;
 import com.example.administrator.jipinshop.activity.home.seckill.SeckillActivity;
 import com.example.administrator.jipinshop.activity.home.seckill.detail.SeckillDetailActivity;
 import com.example.administrator.jipinshop.activity.member.buy.MemberBuyActivity;
@@ -212,4 +213,5 @@ public interface BaseActivityComponent {
     void inject(HomeHotActivity activity);
     void inject(SeckillActivity activity);
     void inject(SeckillDetailActivity activity);
+    void inject(RechargeActivity activity);
 }

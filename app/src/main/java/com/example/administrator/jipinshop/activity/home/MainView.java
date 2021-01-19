@@ -10,6 +10,7 @@ import com.example.administrator.jipinshop.bean.PopInfoBean;
 import com.example.administrator.jipinshop.bean.ShareInfoBean;
 import com.example.administrator.jipinshop.bean.SucBean;
 import com.example.administrator.jipinshop.bean.TklBean;
+import com.umeng.socialize.bean.SHARE_MEDIA;
 
 /**
  * @author 莫小婷
@@ -35,8 +36,9 @@ public interface MainView {
     void onStartFile();
 
     void onNewDialogSuc(PopBean bean);
-
     void onGroupDialogSuc(PopBean bean);
+    void onBuyDialogSuc(PopInfoBean bean);
 
     void initShare(ShareInfoBean bean);
+    void buyShare(SHARE_MEDIA share_media , ShareInfoBean bean);
 }

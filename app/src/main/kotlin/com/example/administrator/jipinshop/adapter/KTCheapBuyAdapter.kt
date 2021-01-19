@@ -3,9 +3,11 @@ package com.example.administrator.jipinshop.adapter
 import android.content.Context
 import android.content.Intent
 import android.databinding.DataBindingUtil
+import android.os.CountDownTimer
 import android.support.v7.widget.RecyclerView
+import android.util.SparseArray
+import android.util.TimeUtils
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
 import com.example.administrator.jipinshop.R
 import com.example.administrator.jipinshop.activity.WebActivity
@@ -13,7 +15,7 @@ import com.example.administrator.jipinshop.bean.NewPeopleBean
 import com.example.administrator.jipinshop.databinding.ItemCheapbuyContentBinding
 import com.example.administrator.jipinshop.databinding.ItemCheapbuyHeadBinding
 import com.example.administrator.jipinshop.netwrok.RetrofitModule
-import java.math.BigDecimal
+import com.example.administrator.jipinshop.util.TimeUtil
 
 /**
  * @author 莫小婷
@@ -28,15 +30,11 @@ class KTCheapBuyAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>{
     private var mList: MutableList<NewPeopleBean.DataBean.AllowanceGoodsListBean>
     private var mContent: Context
     private var mOnClickItem: OnClickItem? = null
-    private var totalUsedAllowance: String = "0"
-    private var allowance: String = "0"
+    private var mBean: NewPeopleBean? = null
+    private var countDownCounters: SparseArray<CountDownTimer>
 
-    fun setAllowance(allowance: String){
-        this.allowance = allowance
-    }
-
-    fun setTotalUsedAllowance(totalUsedAllowance: String){
-        this.totalUsedAllowance = totalUsedAllowance
+    fun setBean(bean: NewPeopleBean?){
+        mBean = bean
     }
 
     fun setOnClickItem(onClickItem: OnClickItem?) {
@@ -47,6 +45,7 @@ class KTCheapBuyAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>{
     constructor(context: Context, mList: MutableList<NewPeopleBean.DataBean.AllowanceGoodsListBean>){
         mContent = context
         this.mList = mList
+        this.countDownCounters = SparseArray()
     }
 
     override fun getItemViewType(position: Int): Int {
@@ -86,8 +85,28 @@ class KTCheapBuyAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>{
             HEAD -> {
                 var headViewHolder : HeadViewHolder = holder as HeadViewHolder
                 headViewHolder.run {
-                    var money = BigDecimal(allowance).stripTrailingZeros().toPlainString()
-                    binding.itemCheapPrice.runWithAnimation(BigDecimal(money).toFloat(),"","0")
+                    mBean?.let {
+                        binding.itemCheapPrice.text = it.data.allowance
+                        binding.itemTempPrice.text = it.data.tmpAllowance
+                        //倒计时
+                        var timer = (it.data.endTime * 1000) - System.currentTimeMillis()
+                        var countDownTimer :CountDownTimer? = countDownCounters.get(binding.itemTime.hashCode())
+                        countDownTimer?.cancel()
+                        if (timer > 0) {
+                            countDownTimer = object : CountDownTimer(timer, 1000) {
+                                override fun onTick(millisUntilFinished: Long) {
+                                    binding.itemTime.text = TimeUtil.getCountTimeByLong4(millisUntilFinished)
+                                }
+
+                                override fun onFinish() {
+                                    binding.itemTime.text = "0秒"
+                                }
+                            }.start()
+                            countDownCounters.put(binding.itemTime.hashCode(), countDownTimer)
+                        }else{
+                            binding.itemTime.text = "0秒"
+                        }
+                    }
                     binding.itemRule.setOnClickListener {
                         mContent.startActivity(Intent(mContent, WebActivity::class.java)
                                 .putExtra(WebActivity.url, RetrofitModule.H5_URL + "th-rule.html")

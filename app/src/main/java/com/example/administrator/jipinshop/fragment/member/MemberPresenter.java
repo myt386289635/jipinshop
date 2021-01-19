@@ -13,6 +13,7 @@ import android.widget.ViewFlipper;
 import com.example.administrator.jipinshop.R;
 import com.example.administrator.jipinshop.bean.MemberNewBean;
 import com.example.administrator.jipinshop.bean.ShareInfoBean;
+import com.example.administrator.jipinshop.bean.TaskFinishBean;
 import com.example.administrator.jipinshop.netwrok.Repository;
 import com.example.administrator.jipinshop.view.glide.GlideApp;
 import com.trello.rxlifecycle2.LifecycleTransformer;
@@ -117,5 +118,16 @@ public class MemberPresenter {
                 }, throwable -> {
                     mView.onCommenFile(throwable.getMessage());
                 });
+    }
+
+    /**
+     * 分享获取极币
+     */
+    public void taskFinish(LifecycleTransformer<TaskFinishBean> transformer){
+        mRepository.taskFinish("27")
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .compose(transformer)
+                .subscribe(taskFinishBean -> { }, throwable ->{ });
     }
 }

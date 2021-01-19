@@ -37,6 +37,30 @@ public class TimeUtil {
         return result;
     }
 
+    public static String getCountTimeByLong4(long millisUntilFinished){
+        int ss = 1000;
+        int mi = ss * 60;
+        int hh = mi * 60;
+        int dd = hh * 24;
+
+        long day = millisUntilFinished / dd;
+        long hour = ((millisUntilFinished - day * dd) / hh);
+        long minute = (millisUntilFinished- hour * hh - day * dd) / mi;
+        long second = (millisUntilFinished - hour * hh - minute * mi - day * dd) / ss;
+
+        String result = "";
+        if(day != 0){
+            result = day + "天" + hour + "时" + minute + "分" + second + "秒";
+        }else if(hour != 0){
+            result = hour + "时" + minute + "分" + second + "秒";
+        }else if(minute != 0){
+            result = minute + "分" + second + "秒";
+        }else if(second != 0){
+            result = second + "秒";
+        }
+        return result;
+    }
+
     public static long dateAddOneDay(String time){
         long currentTime = 0l;
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");

@@ -860,6 +860,10 @@
         <activity android:name=".activity.home.seckill.detail.SeckillDetailActivity"
                   android:screenOrientation="portrait"/>
 
+        <!--充值集合页面-->
+        <activity android:name=".activity.home.recharge.RechargeActivity"
+                  android:screenOrientation="portrait"/>
+
  </application>
 
 </manifest>

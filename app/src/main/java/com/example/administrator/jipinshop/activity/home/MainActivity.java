@@ -3,6 +3,7 @@ package com.example.administrator.jipinshop.activity.home;
 import android.app.Dialog;
 import android.content.ClipData;
 import android.content.ClipboardManager;
+import android.content.Context;
 import android.content.Intent;
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
@@ -49,6 +50,7 @@ import com.example.administrator.jipinshop.util.share.MobLinkUtil;
 import com.example.administrator.jipinshop.util.sp.CommonDate;
 import com.example.administrator.jipinshop.view.dialog.DialogUtil;
 import com.example.administrator.jipinshop.view.dialog.ProgressDialogView;
+import com.example.administrator.jipinshop.view.dialog.ShareBoardDialog2;
 import com.example.administrator.jipinshop.view.pick.CustomLoadingUIProvider2;
 import com.example.administrator.jipinshop.view.pick.DecorationLayout;
 import com.example.administrator.jipinshop.view.pick.GlideSimpleLoader;
@@ -69,7 +71,7 @@ import java.util.List;
 
 import javax.inject.Inject;
 
-public class MainActivity extends BaseActivity implements MainView, ViewPager.OnPageChangeListener, SceneRestorable, ImageWatcherHelper.Provider, View.OnClickListener {
+public class MainActivity extends BaseActivity implements MainView, ViewPager.OnPageChangeListener, SceneRestorable, ImageWatcherHelper.Provider, View.OnClickListener, ShareBoardDialog2.onShareListener {
 
     @Inject
     MainActivityPresenter mPresenter;
@@ -90,6 +92,9 @@ public class MainActivity extends BaseActivity implements MainView, ViewPager.On
     private Dialog mDialog;
     private ImageWatcherHelper iwHelper;
     private DecorationLayout layDecoration;
+    private ShareBoardDialog2 mShareBoardDialog;//下单后弹窗需要分享
+    private int buyPop = 0;//下单的弹窗数
+    private PopInfoBean bean = null;//下单的弹窗数据
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -467,7 +472,10 @@ public class MainActivity extends BaseActivity implements MainView, ViewPager.On
     protected void onResume() {
         super.onResume();
         MobclickAgent.onResume(this);
-        mPresenter.getGroupDialog(this.bindToLifecycle());//拼团下单后弹窗
+        //每次下单后的弹窗提示
+        if (buyPop <= 0){
+            mPresenter.getbuyDialog(this.bindToLifecycle());
+        }
         if (!once) {
             //android 10 新api解释是只有当前界面获得焦点后（onResume）才能获取到剪切板内容
             this.getWindow().getDecorView().post(() -> {
@@ -476,6 +484,73 @@ public class MainActivity extends BaseActivity implements MainView, ViewPager.On
         }
         if (mDialog != null && mDialog.isShowing()) {
             mDialog.dismiss();
+        }
+    }
+
+    @Override
+    public void onBuyDialogSuc(PopInfoBean bean) {
+        if (bean.getData().size() != 0){
+            this.bean = bean;
+            onBuyNotice(bean.getData().size() - 1);//弹出
+        }else {
+            mPresenter.getGroupDialog(this.bindToLifecycle());//拼团下单后弹窗
+        }
+    }
+
+    //每次下单后进入首页弹出该弹窗
+    public void onBuyNotice(int size){
+        if (bean == null) return;//数据错误
+        buyPop = size;
+        DialogUtil.buyNoticeDialog(this, bean.getData().get(buyPop).getAddAllowancePrice(),
+                bean.getData().get(buyPop).getPoint() +"", v -> {
+            //循环逻辑
+            if (buyPop > 0){
+                onBuyNotice(buyPop - 1);
+            }else {
+                mPresenter.getGroupDialog(this.bindToLifecycle());//拼团下单后弹窗
+            }
+        }, v -> {
+            //分享逻辑
+            if (mShareBoardDialog == null) {
+                mShareBoardDialog = ShareBoardDialog2.getInstance(0);
+                mShareBoardDialog.setOnShareListener(this);
+            }
+            mShareBoardDialog.show(getSupportFragmentManager(),"ShareBoardDialog2");
+        });
+    }
+
+    //下单弹窗分享
+    @Override
+    public void share(SHARE_MEDIA share_media) {
+        mDialog = new ProgressDialogView().createLoadingDialog(this, "");
+        mDialog.show();
+        mPresenter.buyShare(share_media,this.bindToLifecycle());
+    }
+
+    //下单弹窗分享
+    @Override
+    public void onLink() {
+        mPresenter.buyShare(null,this.bindToLifecycle());
+    }
+
+    @Override
+    public void buyShare(SHARE_MEDIA share_media, ShareInfoBean bean) {
+        mPresenter.taskFinish(this.bindUntilEvent(ActivityEvent.DESTROY));
+        if (buyPop > 0){
+            onBuyNotice(buyPop - 1);
+        }else {
+            mPresenter.getGroupDialog(this.bindToLifecycle());//拼团下单后弹窗
+        }
+        if (share_media != null){
+           new ShareUtils(this,share_media,mDialog)
+                    .shareWeb(this, bean.getData().getLink(), bean.getData().getTitle() ,
+                            bean.getData().getDesc(),bean.getData().getImgUrl(),R.mipmap.share_logo);
+        }else{
+            ClipboardManager clip = (ClipboardManager) getSystemService(Context.CLIPBOARD_SERVICE);
+            ClipData clipData = ClipData.newPlainText("jipinshop",  bean.getData().getLink());
+            clip.setPrimaryClip(clipData);
+            ToastUtil.show("复制成功");
+            SPUtils.getInstance().put(CommonDate.CLIP,  bean.getData().getLink());
         }
     }
 

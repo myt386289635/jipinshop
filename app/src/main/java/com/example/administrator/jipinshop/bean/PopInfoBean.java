@@ -49,6 +49,15 @@ public class PopInfoBean {
         private DataBean data;
         private String addAllowancePrice;
         private List<PopBean.DataBean.AllowanceGoodsListBean> allowanceGoodsList;
+        private int point;
+
+        public int getPoint() {
+            return point;
+        }
+
+        public void setPoint(int point) {
+            this.point = point;
+        }
 
         public String getAddAllowancePrice() {
             return addAllowancePrice;

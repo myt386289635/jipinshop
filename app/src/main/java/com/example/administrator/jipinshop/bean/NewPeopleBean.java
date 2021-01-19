@@ -51,6 +51,24 @@ public class NewPeopleBean {
         private String officialWeChat;
         private List<NewAllowanceGoodsListBean> newAllowanceGoodsList;
         private List<AllowanceGoodsListBean> allowanceGoodsList;
+        private String tmpAllowance;
+        private long endTime;
+
+        public String getTmpAllowance() {
+            return new BigDecimal(tmpAllowance).stripTrailingZeros().toPlainString();
+        }
+
+        public void setTmpAllowance(String tmpAllowance) {
+            this.tmpAllowance = tmpAllowance;
+        }
+
+        public long getEndTime() {
+            return endTime;
+        }
+
+        public void setEndTime(long endTime) {
+            this.endTime = endTime;
+        }
 
         public String getTotalUsedAllowance() {
             return totalUsedAllowance;
@@ -61,7 +79,7 @@ public class NewPeopleBean {
         }
 
         public String getAllowance() {
-            return allowance;
+            return new BigDecimal(allowance).stripTrailingZeros().toPlainString();
         }
 
         public void setAllowance(String allowance) {

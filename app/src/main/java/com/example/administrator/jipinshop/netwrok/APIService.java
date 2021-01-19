@@ -396,68 +396,6 @@ public interface APIService {
     Observable<InvitationBean> invitation();
 
     /**
-     * 试用首页
-     */
-    @GET("api/trial/index")
-    Observable<TryBean> tryIndex();
-
-    /**
-     * 查看全部试用
-     */
-    @GET("api/trial/list")
-    Observable<TryAllBean> tryAllList(@Query("page") String page);
-
-    /**
-     * 查看全部试用报告
-     */
-    @GET("api/trial/reportList")
-    Observable<TryReportBean> tryReportList(@Query("page") String page,@Query("orderbyType") String orderbyType);
-
-    /**
-     * 试用详情
-     */
-    @GET("api/trial/detail")
-    Observable<TryDetailBean> tryDetail(@Query("trialId") String trialId);
-
-    /**
-     * 申请试用
-     */
-    @FormUrlEncoded
-    @POST("api/trial/apply")
-    Observable<TryApplyBean> tryApply(@Field("trialId") String trialId);
-
-    /**
-     * 试用名单列表
-     */
-    @GET("api/trial/passedUserList")
-    Observable<PassedMoreBean> passedUserList(@Query("trialId") String trialId);
-
-    /**
-     * 试用品查看全部试用报告
-     */
-    @GET("api/trial/reportAllList")
-    Observable<TryReportBean> reportAllList(@Query("page") String page , @Query("trialId") String goodsId);
-
-    /**
-     * 拉赞排行
-     */
-    @GET("api/trial/voteUserList")
-    Observable<SucBean<TryDetailBean.DataBean.ApplyUserListBean>> voteUserList(@Query("page") String page , @Query("trialId") String trialId);
-
-    /**
-     * 我的试用列表
-     */
-    @GET("api/my/trial/list")
-    Observable<TrialCommonBean> myTrialList(@Query("status") String status , @Query("page") String page);
-
-    /**
-     * 确认参与
-     */
-    @FormUrlEncoded
-    @POST("api/trial/confirm")
-    Observable<SuccessBean> myTrialConfirm(@Field("trialId") String trialId);
-
-    /**
      * 获取我的某个试用品的试用报告
      */
     @GET("api/my/trial/reportInfo")
@@ -476,12 +414,6 @@ public interface APIService {
     @FormUrlEncoded
     @POST("api/trial/addReport")
     Observable<SuccessBean> submitReport(@Field("trialId") String trialId,@Field("title") String title, @Field("img") String img , @Field("content") String content);
-
-    /**
-     * 我的试用报告
-     */
-    @GET("api/my/trial/reportList")
-    Observable<SreachResultArticlesBean> myReportList(@Query("page") String page);
 
     /**
      * 佣金汇总
@@ -512,7 +444,7 @@ public interface APIService {
      */
     @FormUrlEncoded
     @POST("api/withdraw")
-    Observable<SucBeanT<String>> withdraw(@Field("realname") String realname , @Field("account") String account, @Field("amount") String amount);
+    Observable<WithdrawBean> withdraw(@Field("realname") String realname , @Field("account") String account, @Field("amount") String amount);
 
     /**
      * 获取二维码邀请图片（多张）
@@ -543,31 +475,6 @@ public interface APIService {
      */
     @GET("api/adList")
     Observable<SucBean<EvaluationTabBean.DataBean.AdListBean>> adList(@Query("location") String location);
-
-    /**
-     * 免单列表
-     */
-    @GET("api/free/list")
-    Observable<FreeBean> freeList(@Query("page") int page);
-
-    /**
-     * 免单详情
-     */
-    @GET("api/free/detail")
-    Observable<FreeDetailBean> freeDetail(@Query("freeId") String freeId, @Query("fromId") String fromId , @Query("fromType") String fromType);
-
-    /**
-     * 免单抢购
-     */
-    @FormUrlEncoded
-    @POST("api/free/apply")
-    Observable<FreeDetailBean> freeApply(@Field("freeId") String freeId);
-
-    /**
-     * 参与名单列表
-     */
-    @GET("api/v2/free/freeUserList")
-    Observable<FreeUserListBean> freeUserList(@Query("freeId") String freeId , @Query("page") int page);
 
     /**
      * 榜单推荐分类列表
@@ -795,12 +702,6 @@ public interface APIService {
     Observable<SuccessBean> questionDelete(@Field("questionId") String questionId);
 
     /**
-     * 获取弹窗信息
-     */
-    @GET("api/v3/getPopInfo")
-    Observable<PopInfoBean> getPopInfo();
-
-    /**
      * 我的免单记录
      */
     @GET("api/v3/user/freeList")
@@ -825,38 +726,6 @@ public interface APIService {
      */
     @GET("api/v2/getScoreStatus")
     Observable<ScoreStatusBean> getScoreStatus();
-
-    /**
-     * 免单列表
-     */
-    @GET("api/v2/free/list")
-    Observable<V2FreeListBean> freeList(@Query("page") int page , @Query("type") String type);
-
-    /**
-     * 免单详情
-     */
-    @GET("api/v2/free/detail")
-    Observable<FreeDetailBean> freeDetail(@Query("freeId") String freeId);
-
-    /**
-     * 免单抢购
-     */
-    @FormUrlEncoded
-    @POST("api/v2/free/apply")
-    Observable<ImageBean> freeApply2(@Field("freeId") String freeId , @Field("type") String type);
-
-    /**
-     * 生成邀请免单首页海报
-     */
-    @POST("api/v2/free/getShareInfo")
-    Observable<PosterShareBean> createFreePosterIndex();
-
-    /**
-     * 生成邀请免单详情页海报
-     */
-    @FormUrlEncoded
-    @POST("api/v2/free/createFreePoster")
-    Observable<ImageBean> createFreePoster(@Field("freeId") String freeId);
 
     /**
      * 填写邀请码
@@ -933,12 +802,6 @@ public interface APIService {
     Observable<TBSreachResultBean> getGoodsListByCategory2(@QueryMap Map<String,String> map);
 
     /**
-     * 新人0元购首页
-     */
-    @GET("api/allowance/newIndex")
-    Observable<NewPeopleBean> newIndex();
-
-    /**
      * 抢购
      */
     @FormUrlEncoded
@@ -952,10 +815,22 @@ public interface APIService {
     Observable<NewPeopleBean> allowanceIndex();
 
     /**
-     * 首次下单 获取弹窗信息
+     * 首次下单获取弹窗信息、获取首页拼团弹窗信息
      */
-    @GET("api/v3/getPopInfo")
+    @GET("api/v4/getPopInfo")
     Observable<PopBean> getPopInfo(@Query("type") String type);
+
+    /**
+     * 获取弹窗信息
+     */
+    @GET("api/v4/getPopInfo")
+    Observable<PopInfoBean> getPopInfo();
+
+    /**
+     * 获取下单弹窗信息
+     */
+    @GET("api/v4/getPopInfo")
+    Observable<PopInfoBean> getPopInfoOther(@Query("type") String type);
 
     /**
      * 商品图文描述
@@ -982,25 +857,6 @@ public interface APIService {
     Observable<SuccessBean> addEvent(@Query("eventId") String eventId);
 
     /**
-     * 红包首页
-     */
-    @GET("api/hongbao/index")
-    Observable<MoneyBean> hongbaoIndex();
-
-    /**
-     * 红包分享海报
-     */
-    @GET("api/hongbao/user/getShareInfo")
-    Observable<ShareInfoBean> shareInfo();
-
-    /**
-     * 拆红包
-     */
-    @FormUrlEncoded
-    @POST("api/hongbao/open")
-    Observable<SuccessBean> openMoney(@Field("id") String id);
-
-    /**
      * 提现申请
      */
     @FormUrlEncoded
@@ -1012,18 +868,6 @@ public interface APIService {
      */
     @GET("api/hongbao/withdrawLog")
     Observable<MoneyRecordBean> withdrawLog();
-
-    /**
-     * 红包页获取弹窗信息
-     */
-    @GET("api/hongbao/getPopInfo")
-    Observable<MoneyPopBean> hongbaoPopInfo();
-
-    /**
-     * 领取所有红包
-     */
-    @POST("api/hongbao/openAll")
-    Observable<SuccessBean> openAllMoney();
 
     /**
      * 支付宝授权登录回调地址
@@ -1075,24 +919,6 @@ public interface APIService {
     Observable<ShareBean> getGoodsShareInfo(@Query("otherGoodsId") String otherGoodsId,
                                             @Query("shareImgLocation") int shareImgLocation,
                                             @Query("source") String source);
-
-    /**
-     * 生成0元购海报
-     */
-    @POST("api/allowance/getIndexPosterImg")
-    Observable<ImageBean> getIndexPosterImg();
-
-    /**
-     * 会员中心
-     */
-    @GET("api/v3/user/levelIndex")
-    Observable<MemberBean> memberIndex();
-
-    /**
-     * 申请升级
-     */
-    @POST("api/v3/user/levelUpdate")
-    Observable<SuccessBean> memberUpdate(@Query("type") String type);
 
     /**
      * 下载图片
@@ -1422,12 +1248,6 @@ public interface APIService {
     @FormUrlEncoded
     @POST("api/group/join")
     Observable<SuccessBean> groupJoin(@Field("groupId") String groupId);
-
-    /**
-     * 获取首页拼团弹窗信息
-     */
-    @GET("api/v4/getPopInfo")
-    Observable<PopBean> getGroupDialog(@Query("type") String type);
 
     /**
      * 获取会员购买订单信息

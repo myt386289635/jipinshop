@@ -21,6 +21,35 @@ public class WithdrawBean {
     private String withdrawNote;
     private String minWithdraw;
 
+    //提现成功时需要的数据
+    private String data;
+    private String point;
+    private String shareContent;
+
+    public String getData() {
+        return data;
+    }
+
+    public void setData(String data) {
+        this.data = data;
+    }
+
+    public String getPoint() {
+        return point;
+    }
+
+    public void setPoint(String point) {
+        this.point = point;
+    }
+
+    public String getShareContent() {
+        return shareContent;
+    }
+
+    public void setShareContent(String shareContent) {
+        this.shareContent = shareContent;
+    }
+
     public String getMsg() {
         return msg;
     }

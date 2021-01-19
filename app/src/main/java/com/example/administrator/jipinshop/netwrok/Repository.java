@@ -1,6 +1,95 @@
 package com.example.administrator.jipinshop.netwrok;
 
-import com.example.administrator.jipinshop.bean.*;
+import com.example.administrator.jipinshop.bean.ActionHBBean;
+import com.example.administrator.jipinshop.bean.AddressBean;
+import com.example.administrator.jipinshop.bean.AllowanceRecordBean;
+import com.example.administrator.jipinshop.bean.AppVersionbean;
+import com.example.administrator.jipinshop.bean.BudgetDetailBean;
+import com.example.administrator.jipinshop.bean.CircleListBean;
+import com.example.administrator.jipinshop.bean.CircleTitleBean;
+import com.example.administrator.jipinshop.bean.ClickUrlBean;
+import com.example.administrator.jipinshop.bean.CommentBean;
+import com.example.administrator.jipinshop.bean.CommssionDetailBean;
+import com.example.administrator.jipinshop.bean.DailyTaskBean;
+import com.example.administrator.jipinshop.bean.DefaultAddressBean;
+import com.example.administrator.jipinshop.bean.EvaAttentBean;
+import com.example.administrator.jipinshop.bean.EvaEvaBean;
+import com.example.administrator.jipinshop.bean.EvaHotBean;
+import com.example.administrator.jipinshop.bean.EvaluationListBean;
+import com.example.administrator.jipinshop.bean.EvaluationTabBean;
+import com.example.administrator.jipinshop.bean.FamilyBean;
+import com.example.administrator.jipinshop.bean.FansBean;
+import com.example.administrator.jipinshop.bean.FindDetailBean;
+import com.example.administrator.jipinshop.bean.FindListBean;
+import com.example.administrator.jipinshop.bean.FollowBean;
+import com.example.administrator.jipinshop.bean.GroupInfoBean;
+import com.example.administrator.jipinshop.bean.HomeCommenBean;
+import com.example.administrator.jipinshop.bean.ImageBean;
+import com.example.administrator.jipinshop.bean.InvitationBean;
+import com.example.administrator.jipinshop.bean.JDBean;
+import com.example.administrator.jipinshop.bean.LoginBean;
+import com.example.administrator.jipinshop.bean.MallBean;
+import com.example.administrator.jipinshop.bean.MallDetailBean;
+import com.example.administrator.jipinshop.bean.MemberBuyBean;
+import com.example.administrator.jipinshop.bean.MemberNewBean;
+import com.example.administrator.jipinshop.bean.MoneyRecordBean;
+import com.example.administrator.jipinshop.bean.MyFreeBean;
+import com.example.administrator.jipinshop.bean.MyOrderBean;
+import com.example.administrator.jipinshop.bean.MyWalletBean;
+import com.example.administrator.jipinshop.bean.NewFreeBean;
+import com.example.administrator.jipinshop.bean.NewPeopleBean;
+import com.example.administrator.jipinshop.bean.OrderTBBean;
+import com.example.administrator.jipinshop.bean.OrderbyTypeBean;
+import com.example.administrator.jipinshop.bean.PagerStateBean;
+import com.example.administrator.jipinshop.bean.PlayBean;
+import com.example.administrator.jipinshop.bean.PointDetailBean;
+import com.example.administrator.jipinshop.bean.PopBean;
+import com.example.administrator.jipinshop.bean.PopInfoBean;
+import com.example.administrator.jipinshop.bean.PrizeLogBean;
+import com.example.administrator.jipinshop.bean.QuestionsBean;
+import com.example.administrator.jipinshop.bean.RecommendFragmentBean;
+import com.example.administrator.jipinshop.bean.ReportBean;
+import com.example.administrator.jipinshop.bean.SchoolHomeBean;
+import com.example.administrator.jipinshop.bean.ScoreStatusBean;
+import com.example.administrator.jipinshop.bean.SeckillBean;
+import com.example.administrator.jipinshop.bean.SeckillTabBean;
+import com.example.administrator.jipinshop.bean.ShareBean;
+import com.example.administrator.jipinshop.bean.ShareInfoBean;
+import com.example.administrator.jipinshop.bean.ShoppingDetailBean;
+import com.example.administrator.jipinshop.bean.SignInsertBean;
+import com.example.administrator.jipinshop.bean.SimilerGoodsBean;
+import com.example.administrator.jipinshop.bean.SreachBean;
+import com.example.administrator.jipinshop.bean.SreachHistoryBean;
+import com.example.administrator.jipinshop.bean.SreachResultArticlesBean;
+import com.example.administrator.jipinshop.bean.SreachResultGoodsBean;
+import com.example.administrator.jipinshop.bean.SubUserBean;
+import com.example.administrator.jipinshop.bean.SucBean;
+import com.example.administrator.jipinshop.bean.SucBeanT;
+import com.example.administrator.jipinshop.bean.SuccessBean;
+import com.example.administrator.jipinshop.bean.SystemMessageBean;
+import com.example.administrator.jipinshop.bean.TBShoppingDetailBean;
+import com.example.administrator.jipinshop.bean.TBSreachResultBean;
+import com.example.administrator.jipinshop.bean.TabBean;
+import com.example.administrator.jipinshop.bean.TaobaoAccountBean;
+import com.example.administrator.jipinshop.bean.TaskFinishBean;
+import com.example.administrator.jipinshop.bean.TbCommonBean;
+import com.example.administrator.jipinshop.bean.TbOrderBean;
+import com.example.administrator.jipinshop.bean.TbkIndexBean;
+import com.example.administrator.jipinshop.bean.TeacherBean;
+import com.example.administrator.jipinshop.bean.TeamBean;
+import com.example.administrator.jipinshop.bean.TklBean;
+import com.example.administrator.jipinshop.bean.TopCategoryDetailBean;
+import com.example.administrator.jipinshop.bean.TopCategorysListBean;
+import com.example.administrator.jipinshop.bean.UnMessageBean;
+import com.example.administrator.jipinshop.bean.UserInfoBean;
+import com.example.administrator.jipinshop.bean.VideoBean;
+import com.example.administrator.jipinshop.bean.VoteBean;
+import com.example.administrator.jipinshop.bean.WalletHistoryBean;
+import com.example.administrator.jipinshop.bean.WelfareBean;
+import com.example.administrator.jipinshop.bean.WithdrawBean;
+import com.example.administrator.jipinshop.bean.WithdrawDetailBean;
+import com.example.administrator.jipinshop.bean.WithdrawInfoBean;
+import com.example.administrator.jipinshop.bean.WxPayBean;
 import com.example.administrator.jipinshop.util.UpDataUtil;
 
 import java.util.HashMap;
@@ -422,76 +511,6 @@ public class Repository {
     }
 
     /**
-     * 试用首页
-     */
-    public Observable<TryBean> tryIndex(){
-        return mAPIService.tryIndex();
-    }
-
-    /**
-     * 查看全部试用列表
-     */
-    public Observable<TryAllBean> tryAllList(String page){
-        return mAPIService.tryAllList(page);
-    }
-
-    /**
-     * 查看全部试用报告
-     */
-    public Observable<TryReportBean> tryReportList(String page,String orderbyType){
-        return mAPIService.tryReportList(page,orderbyType);
-    }
-
-    /**
-     * 试用详情
-     */
-    public Observable<TryDetailBean> tryDetail(String trialId){
-        return mAPIService.tryDetail(trialId);
-    }
-
-    /**
-     * 申请试用
-     */
-    public Observable<TryApplyBean> tryApply(String trialId){
-        return mAPIService.tryApply(trialId);
-    }
-
-    /**
-     * 试用名单列表
-     */
-    public  Observable<PassedMoreBean> passedUserList(String trialId){
-        return mAPIService.passedUserList(trialId);
-    }
-
-    /**
-     * 试用品查看全部试用报告
-     */
-    public  Observable<TryReportBean> reportAllList( String page ,String trialId){
-        return mAPIService.reportAllList(page, trialId);
-    }
-
-    /**
-     * 拉赞排行
-     */
-    public Observable<SucBean<TryDetailBean.DataBean.ApplyUserListBean>> voteUserList( String page , String trialId){
-        return mAPIService.voteUserList(page, trialId);
-    }
-
-    /**
-     * 我的试用列表
-     */
-    public Observable<TrialCommonBean> myTrialList(String status,String page){
-        return mAPIService.myTrialList(status, page);
-    }
-
-    /**
-     * 确认参与
-     */
-    public Observable<SuccessBean> myTrialConfirm(String trialId){
-        return mAPIService.myTrialConfirm(trialId);
-    }
-
-    /**
      * 获取我的某个试用品的试用报告
      */
     public Observable<ReportBean> myReportInfo(String trialId){
@@ -510,13 +529,6 @@ public class Repository {
      */
     public Observable<SuccessBean> submitReport(String trialId, String title, String img , String content){
         return mAPIService.submitReport(trialId, title, img, content);
-    }
-
-    /**
-     * 我的试用报告  （成功报告）
-     */
-    public Observable<SreachResultArticlesBean> myReportList(String page){
-        return mAPIService.myReportList(page);
     }
 
     /**
@@ -550,7 +562,7 @@ public class Repository {
     /**
      * 提现
      */
-    public Observable<SucBeanT<String>> withdraw(String realname , String account, String amount){
+    public Observable<WithdrawBean> withdraw(String realname , String account, String amount){
         return mAPIService.withdraw(realname, account, amount);
     }
 
@@ -587,34 +599,6 @@ public class Repository {
      */
     public Observable<SucBean<EvaluationTabBean.DataBean.AdListBean>> adList(String location){
         return mAPIService.adList(location);
-    }
-
-    /**
-     * 免单列表
-     */
-    public Observable<FreeBean> freeList(int page){
-        return mAPIService.freeList(page);
-    }
-
-    /**
-     * 免单详情
-     */
-    public Observable<FreeDetailBean> freeDetail(String freeId, String fromId ,String fromType){
-        return mAPIService.freeDetail(freeId,fromId,fromType);
-    }
-
-    /**
-     * 免单抢购
-     */
-    public Observable<FreeDetailBean> freeApply(String freeId){
-        return mAPIService.freeApply(freeId);
-    }
-
-    /**
-     * 参与名单列表
-     */
-    public Observable<FreeUserListBean> freeUserList(String freeId , int page){
-        return mAPIService.freeUserList(freeId, page);
     }
 
     /**
@@ -906,41 +890,6 @@ public class Repository {
     }
 
     /**
-     * 免单列表
-     */
-    public Observable<V2FreeListBean> freeList(int page , String type){
-        return mAPIService.freeList(page, type);
-    }
-
-    /**
-     * 免单详情
-     */
-    public Observable<FreeDetailBean> freeDetail(String freeId){
-        return mAPIService.freeDetail(freeId);
-    }
-
-    /**
-     * 免单抢购
-     */
-    public Observable<ImageBean> freeApply2(String freeId,String type){
-        return mAPIService.freeApply2(freeId,type);
-    }
-
-    /**
-     * 生成邀请免单首页海报
-     */
-    public Observable<PosterShareBean> createFreePosterIndex(){
-        return mAPIService.createFreePosterIndex();
-    }
-
-    /**
-     * 生成邀请免单详情页海报
-     */
-    public Observable<ImageBean> createFreePoster(String freeId){
-        return mAPIService.createFreePoster(freeId);
-    }
-
-    /**
      * 填写邀请码
      */
     public Observable<SuccessBean> addInvitationCode(String invitationCode){
@@ -1025,13 +974,6 @@ public class Repository {
     }
 
     /**
-     * 新人0元购首页
-     */
-    public Observable<NewPeopleBean> newIndex(){
-        return mAPIService.newIndex();
-    }
-
-    /**
      * 抢购
      */
     public Observable<ImageBean> allowanceApply(String allowanceGoodsId){
@@ -1046,7 +988,7 @@ public class Repository {
     }
 
     /**
-     * 首次下单 获取弹窗信息
+     * 首次下单获取弹窗信息
      */
     public Observable<PopBean> getPopInfo(String type){
         return mAPIService.getPopInfo(type);
@@ -1081,27 +1023,6 @@ public class Repository {
     }
 
     /**
-     * 红包首页
-     */
-    public Observable<MoneyBean> hongbaoIndex(){
-        return mAPIService.hongbaoIndex();
-    }
-
-    /**
-     * 红包分享海报
-     */
-    public Observable<ShareInfoBean> shareInfo(){
-        return mAPIService.shareInfo();
-    }
-
-    /**
-     * 拆红包
-     */
-    public Observable<SuccessBean> openMoney(String id){
-        return mAPIService.openMoney(id);
-    }
-
-    /**
      * 提现申请
      */
     public Observable<SuccessBean> withdraw(String amount){
@@ -1113,20 +1034,6 @@ public class Repository {
      */
     public Observable<MoneyRecordBean> withdrawLog(){
         return mAPIService.withdrawLog();
-    }
-
-    /**
-     * 红包页获取弹窗信息
-     */
-    public Observable<MoneyPopBean> hongbaoPopInfo(){
-        return mAPIService.hongbaoPopInfo();
-    }
-
-    /**
-     * 领取所有红包
-     */
-    public Observable<SuccessBean> openAllMoney(){
-        return mAPIService.openAllMoney();
     }
 
     /**
@@ -1183,27 +1090,6 @@ public class Repository {
      */
     public Observable<ShareBean> getGoodsShareInfo(String otherGoodsId, int shareImgLocation,String source){
         return mAPIService.getGoodsShareInfo(otherGoodsId, shareImgLocation,source);
-    }
-
-    /**
-     * 生成0元购海报
-     */
-    public Observable<ImageBean> getIndexPosterImg(){
-        return mAPIService.getIndexPosterImg();
-    }
-
-    /**
-     * 会员中心
-     */
-    public Observable<MemberBean> memberIndex(){
-        return mAPIService.memberIndex();
-    }
-
-    /**
-     * 申请升级
-     */
-    public Observable<SuccessBean> memberUpdate(String type){
-        return mAPIService.memberUpdate(type);
     }
 
     /**
@@ -1584,7 +1470,7 @@ public class Repository {
      * 获取首页拼团弹窗信息
      */
     public Observable<PopBean> getGroupDialog(){
-        return mAPIService.getGroupDialog("4");
+        return mAPIService.getPopInfo("4");
     }
 
     /**
@@ -1620,5 +1506,12 @@ public class Repository {
      */
     public Observable<SuccessBean> pointPay(int type){
         return mAPIService.pointPay(type);
+    }
+
+    /**
+     * 获取下单弹窗信息
+     */
+    public Observable<PopInfoBean> getPopInfoOther(String type){
+        return mAPIService.getPopInfoOther(type);
     }
 }
