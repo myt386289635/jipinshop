@@ -20,6 +20,7 @@ import com.alipay.sdk.app.PayTask;
 import com.blankj.utilcode.util.SPUtils;
 import com.example.administrator.jipinshop.R;
 import com.example.administrator.jipinshop.activity.WebActivity;
+import com.example.administrator.jipinshop.activity.sign.SignActivity;
 import com.example.administrator.jipinshop.activity.web.invite.InviteActionWebActivity;
 import com.example.administrator.jipinshop.base.BaseActivity;
 import com.example.administrator.jipinshop.bean.ImageBean;
@@ -182,9 +183,18 @@ public class MemberBuyActivity extends BaseActivity implements View.OnClickListe
                 //购买
                 if (level.equals("3")){
                     //支付周卡
-                    mDialog = (new ProgressDialogView()).createLoadingDialog(this, "");
-                    mDialog.show();
-                    mPresenter.pointPay(3,this.bindToLifecycle());
+                    if (mBean == null){
+                        ToastUtil.show("正在请求数据，请稍等");
+                        return;
+                    }
+                    double point = new BigDecimal(mBean.getData().get(2).getPrice()).doubleValue();
+                    if (mBean.getPoint() >= point){
+                        mDialog = (new ProgressDialogView()).createLoadingDialog(this, "");
+                        mDialog.show();
+                        mPresenter.pointPay(3,this.bindToLifecycle());
+                    }else {
+                        startActivity(new Intent(this, SignActivity.class));
+                    }
                 }else {
                     if (mBinding.buyAlipay.isChecked()){
                         onBuyMember(level,"1");
