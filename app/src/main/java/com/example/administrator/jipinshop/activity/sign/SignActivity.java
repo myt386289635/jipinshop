@@ -400,6 +400,12 @@ public class SignActivity extends BaseActivity implements View.OnClickListener, 
                         .putExtra("isSign", true)
                 );
                 break;
+            case 20://专题页(无倒计时)
+                startActivity(new Intent(this, HomeDetailActivity.class)
+                        .putExtra("id", id)
+                        .putExtra("title", title)
+                );
+                break;
         }
     }
 }
