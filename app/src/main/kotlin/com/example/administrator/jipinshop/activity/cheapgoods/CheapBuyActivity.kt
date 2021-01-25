@@ -12,6 +12,7 @@ import android.text.TextUtils
 import android.view.View
 import android.view.animation.AnimationUtils
 import com.alibaba.baichuan.android.trade.AlibcTradeSDK
+import com.aspsine.swipetoloadlayout.OnLoadMoreListener
 import com.aspsine.swipetoloadlayout.OnRefreshListener
 import com.blankj.utilcode.util.SPUtils
 import com.example.administrator.jipinshop.R
@@ -36,9 +37,9 @@ import javax.inject.Inject
 /**
  * @author 莫小婷
  * @create 2020/1/3
- * @Describe 特惠购
+ * @Describe 官方百万补贴专区
  */
-class CheapBuyActivity : BaseActivity(), View.OnClickListener, OnRefreshListener, KTCheapBuyAdapter.OnClickItem, CheapBuyView, ShareBoardDialog2.onShareListener {
+class CheapBuyActivity : BaseActivity(), View.OnClickListener, OnRefreshListener, KTCheapBuyAdapter.OnClickItem, CheapBuyView, ShareBoardDialog2.onShareListener, OnLoadMoreListener {
 
     @Inject
     lateinit var mPresenter: CheapBuyPresenter
@@ -49,6 +50,8 @@ class CheapBuyActivity : BaseActivity(), View.OnClickListener, OnRefreshListener
     private var mShareBoardDialog: ShareBoardDialog2? = null
     private var startPop: Boolean = true//是否弹出关闭确认弹窗
     private var allowance: String? = null
+    private var page = 1
+    private var refersh: Boolean = true
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -77,7 +80,7 @@ class CheapBuyActivity : BaseActivity(), View.OnClickListener, OnRefreshListener
 
         mPresenter.solveScoll(mBinding.recyclerView, mBinding.swipeToLoad)
         mBinding.swipeToLoad.setOnRefreshListener(this)
-        mBinding.swipeToLoad.isLoadMoreEnabled = false
+        mBinding.swipeToLoad.setOnLoadMoreListener(this)
         mBinding.swipeToLoad.post {
             mBinding.swipeToLoad.isRefreshing = true
         }
@@ -157,20 +160,52 @@ class CheapBuyActivity : BaseActivity(), View.OnClickListener, OnRefreshListener
 
 
     override fun onRefresh() {
-        mPresenter.setDate(this.bindToLifecycle())
+        page = 1
+        refersh = true
+        mPresenter.setDate(page,this.bindToLifecycle())
+    }
+
+    override fun onLoadMore() {
+        page++
+        refersh = false
+        mPresenter.setDate(page,this.bindToLifecycle())
     }
 
     override fun onSuccess(bean: NewPeopleBean) {
-        dissRefresh()
-        allowance = bean.data.allowance
-        mList.clear()
-        mList.addAll(bean.data.allowanceGoodsList)
-        adapter.setBean(bean)
-        adapter.notifyDataSetChanged()
+        mBinding.detailText.text = "立即送好友福利，得极币"+bean.addPoint+"个"
+        if (refersh) {
+            dissRefresh()
+            if (bean.data != null && bean.data.allowanceGoodsList.size != 0) {
+                allowance = bean.data.allowance
+                mList.clear()
+                mList.addAll(bean.data.allowanceGoodsList)
+                adapter.setBean(bean)
+                adapter.notifyDataSetChanged()
+            }else {
+                ToastUtil.show("暂无数据")
+            }
+        } else {
+            dissLoading()
+            if (bean.data != null && bean.data.allowanceGoodsList.size != 0) {
+                mList.addAll(bean.data.allowanceGoodsList)
+                allowance = bean.data.allowance
+                adapter.setBean(bean)
+                adapter.notifyDataSetChanged()
+                mBinding.swipeToLoad.isLoadMoreEnabled = false
+            } else {
+                page--
+                ToastUtil.show("已经是最后一页了")
+            }
+        }
     }
 
     override fun onFile(error: String?) {
-        dissRefresh()
+        if (refersh) {
+            dissRefresh()
+        } else {
+            dissLoading()
+            page--
+        }
         ToastUtil.show(error)
     }
 
@@ -187,6 +222,18 @@ class CheapBuyActivity : BaseActivity(), View.OnClickListener, OnRefreshListener
         mDialog?.let {
             if (it.isShowing){
                 it.dismiss()
+            }
+        }
+    }
+
+    fun dissLoading() {
+        if (mBinding.swipeToLoad.isLoadingMore) {
+            if (!mBinding.swipeToLoad.isLoadMoreEnabled) {
+                mBinding.swipeToLoad.isLoadMoreEnabled = true
+                mBinding.swipeToLoad.isLoadingMore = false
+                mBinding.swipeToLoad.isLoadMoreEnabled = false
+            } else {
+                mBinding.swipeToLoad.isLoadingMore = false
             }
         }
     }

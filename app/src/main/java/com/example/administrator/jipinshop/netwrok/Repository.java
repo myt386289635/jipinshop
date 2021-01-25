@@ -983,8 +983,8 @@ public class Repository {
     /**
      * 特惠购首页
      */
-    public Observable<NewPeopleBean> allowanceIndex(){
-        return mAPIService.allowanceIndex();
+    public Observable<NewPeopleBean> allowanceIndex(int page){
+        return mAPIService.allowanceIndex(page);
     }
 
     /**

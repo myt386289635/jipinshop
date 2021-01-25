@@ -34,22 +34,30 @@ class CheapBuyPresenter {
         this.repository = repository
     }
 
-    fun solveScoll(mRecyclerView: RecyclerView, mSwipeToLoad: SwipeToLoadLayout) {
-        mRecyclerView.addOnScrollListener(object : RecyclerView.OnScrollListener() {
+    fun solveScoll(recyclerView: RecyclerView, swipeToLoadLayout: SwipeToLoadLayout){
+        recyclerView.addOnScrollListener(object : RecyclerView.OnScrollListener(){
+
             override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
                 super.onScrolled(recyclerView, dx, dy)
                 var layoutManager : LinearLayoutManager = recyclerView.layoutManager as LinearLayoutManager
-                mSwipeToLoad.isRefreshEnabled = (layoutManager.findFirstCompletelyVisibleItemPosition() == 0)
-            }
-
-            override fun onScrollStateChanged(recyclerView: RecyclerView, newState: Int) {
-                super.onScrollStateChanged(recyclerView, newState)
+                swipeToLoadLayout.isRefreshEnabled = (layoutManager.findFirstCompletelyVisibleItemPosition() == 0)
+                swipeToLoadLayout.isLoadMoreEnabled = isSlideToBottom(recyclerView)
             }
         })
     }
 
-    fun setDate(transformer : LifecycleTransformer<NewPeopleBean>){
-        repository.allowanceIndex()
+    fun isSlideToBottom(recyclerView: RecyclerView?) : Boolean{
+        if (recyclerView == null){
+            return false
+        }
+        if (recyclerView.computeVerticalScrollExtent() + recyclerView.computeVerticalScrollOffset()
+                >= recyclerView.computeVerticalScrollRange())
+            return true
+        return false
+    }
+
+    fun setDate(page : Int ,transformer : LifecycleTransformer<NewPeopleBean>){
+        repository.allowanceIndex(page)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .compose(transformer)

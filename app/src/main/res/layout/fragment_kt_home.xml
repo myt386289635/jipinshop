@@ -199,7 +199,7 @@
                 android:layout_centerVertical="true"
                 android:textColor="@color/color_white"
                 android:textSize="14sp"
-                android:text="授权淘宝享受更多内部优惠"
+                android:text="一键授权 立享全网优惠"
                 android:id="@+id/auth_notice"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"/>

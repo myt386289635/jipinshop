@@ -18,7 +18,6 @@
 
         <TextView
             android:id="@+id/refresh_text"
-            android:textColor="@color/color_9D9D9D"
             android:textSize="12sp"
             android:layout_marginLeft="@dimen/x10"
             android:layout_gravity="center_vertical"

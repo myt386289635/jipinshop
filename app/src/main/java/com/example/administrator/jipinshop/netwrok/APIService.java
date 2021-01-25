@@ -812,7 +812,7 @@ public interface APIService {
      * 特惠购首页
      */
     @GET("api/allowance/index")
-    Observable<NewPeopleBean> allowanceIndex();
+    Observable<NewPeopleBean> allowanceIndex(@Query("page") int page);
 
     /**
      * 首次下单获取弹窗信息、获取首页拼团弹窗信息
