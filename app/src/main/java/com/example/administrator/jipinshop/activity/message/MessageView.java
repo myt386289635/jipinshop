@@ -14,4 +14,5 @@ public interface MessageView {
 
     void onSuc();
     void onFile(String error);
+    void onDelete(int position);
 }

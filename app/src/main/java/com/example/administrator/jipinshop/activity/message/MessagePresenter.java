@@ -12,6 +12,7 @@ import com.trello.rxlifecycle2.LifecycleTransformer;
 import javax.inject.Inject;
 
 import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.functions.Consumer;
 import io.reactivex.schedulers.Schedulers;
 
 /**
@@ -105,6 +106,23 @@ public class MessagePresenter {
                 .subscribe(bean -> {
                     if (bean.getCode() == 0){
                         mView.onSuc();
+                    }else {
+                        mView.onFile(bean.getMsg());
+                    }
+                }, throwable -> {
+                    mView.onFile(throwable.getMessage());
+                });
+    }
+
+    //根据id删除消息
+    public void deleteById(int position , String id , LifecycleTransformer<SuccessBean> ransformer){
+        mRepository.deleteById(id)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .compose(ransformer)
+                .subscribe(bean -> {
+                    if (bean.getCode() == 0){
+                        mView.onDelete(position);
                     }else {
                         mView.onFile(bean.getMsg());
                     }

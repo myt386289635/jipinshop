@@ -1514,4 +1514,11 @@ public class Repository {
     public Observable<PopInfoBean> getPopInfoOther(String type){
         return mAPIService.getPopInfoOther(type);
     }
+
+    /**
+     * 根据id删除消息
+     */
+    public Observable<SuccessBean> deleteById(String id){
+        return mAPIService.deleteById(id);
+    }
 }

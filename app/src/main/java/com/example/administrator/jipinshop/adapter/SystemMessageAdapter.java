@@ -49,6 +49,10 @@ public class SystemMessageAdapter extends RecyclerView.Adapter<SystemMessageAdap
         holder.itemView.setOnClickListener(v -> {
             mOnItem.onItemClick(position);
         });
+        holder.itemView.setOnLongClickListener(v -> {
+            mOnItem.onItemLongClick(position);
+            return false;
+        });
         if (mList.get(position).getStatus() == 0) {
             //未读
             holder.item_unred.setVisibility(View.VISIBLE);
@@ -87,5 +91,6 @@ public class SystemMessageAdapter extends RecyclerView.Adapter<SystemMessageAdap
 
     public interface OnItem{
         void onItemClick(int position);
+        void onItemLongClick(int position);
     }
 }

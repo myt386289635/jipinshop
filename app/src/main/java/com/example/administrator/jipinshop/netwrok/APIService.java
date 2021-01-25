@@ -1,6 +1,95 @@
 package com.example.administrator.jipinshop.netwrok;
 
-import com.example.administrator.jipinshop.bean.*;
+import com.example.administrator.jipinshop.bean.ActionHBBean;
+import com.example.administrator.jipinshop.bean.AddressBean;
+import com.example.administrator.jipinshop.bean.AllowanceRecordBean;
+import com.example.administrator.jipinshop.bean.AppVersionbean;
+import com.example.administrator.jipinshop.bean.BudgetDetailBean;
+import com.example.administrator.jipinshop.bean.CircleListBean;
+import com.example.administrator.jipinshop.bean.CircleTitleBean;
+import com.example.administrator.jipinshop.bean.ClickUrlBean;
+import com.example.administrator.jipinshop.bean.CommentBean;
+import com.example.administrator.jipinshop.bean.CommssionDetailBean;
+import com.example.administrator.jipinshop.bean.DailyTaskBean;
+import com.example.administrator.jipinshop.bean.DefaultAddressBean;
+import com.example.administrator.jipinshop.bean.EvaAttentBean;
+import com.example.administrator.jipinshop.bean.EvaEvaBean;
+import com.example.administrator.jipinshop.bean.EvaHotBean;
+import com.example.administrator.jipinshop.bean.EvaluationListBean;
+import com.example.administrator.jipinshop.bean.EvaluationTabBean;
+import com.example.administrator.jipinshop.bean.FamilyBean;
+import com.example.administrator.jipinshop.bean.FansBean;
+import com.example.administrator.jipinshop.bean.FindDetailBean;
+import com.example.administrator.jipinshop.bean.FindListBean;
+import com.example.administrator.jipinshop.bean.FollowBean;
+import com.example.administrator.jipinshop.bean.GroupInfoBean;
+import com.example.administrator.jipinshop.bean.HomeCommenBean;
+import com.example.administrator.jipinshop.bean.ImageBean;
+import com.example.administrator.jipinshop.bean.InvitationBean;
+import com.example.administrator.jipinshop.bean.JDBean;
+import com.example.administrator.jipinshop.bean.LoginBean;
+import com.example.administrator.jipinshop.bean.MallBean;
+import com.example.administrator.jipinshop.bean.MallDetailBean;
+import com.example.administrator.jipinshop.bean.MemberBuyBean;
+import com.example.administrator.jipinshop.bean.MemberNewBean;
+import com.example.administrator.jipinshop.bean.MoneyRecordBean;
+import com.example.administrator.jipinshop.bean.MyFreeBean;
+import com.example.administrator.jipinshop.bean.MyOrderBean;
+import com.example.administrator.jipinshop.bean.MyWalletBean;
+import com.example.administrator.jipinshop.bean.NewFreeBean;
+import com.example.administrator.jipinshop.bean.NewPeopleBean;
+import com.example.administrator.jipinshop.bean.OrderTBBean;
+import com.example.administrator.jipinshop.bean.OrderbyTypeBean;
+import com.example.administrator.jipinshop.bean.PagerStateBean;
+import com.example.administrator.jipinshop.bean.PlayBean;
+import com.example.administrator.jipinshop.bean.PointDetailBean;
+import com.example.administrator.jipinshop.bean.PopBean;
+import com.example.administrator.jipinshop.bean.PopInfoBean;
+import com.example.administrator.jipinshop.bean.PrizeLogBean;
+import com.example.administrator.jipinshop.bean.QuestionsBean;
+import com.example.administrator.jipinshop.bean.RecommendFragmentBean;
+import com.example.administrator.jipinshop.bean.ReportBean;
+import com.example.administrator.jipinshop.bean.SchoolHomeBean;
+import com.example.administrator.jipinshop.bean.ScoreStatusBean;
+import com.example.administrator.jipinshop.bean.SeckillBean;
+import com.example.administrator.jipinshop.bean.SeckillTabBean;
+import com.example.administrator.jipinshop.bean.ShareBean;
+import com.example.administrator.jipinshop.bean.ShareInfoBean;
+import com.example.administrator.jipinshop.bean.ShoppingDetailBean;
+import com.example.administrator.jipinshop.bean.SignInsertBean;
+import com.example.administrator.jipinshop.bean.SimilerGoodsBean;
+import com.example.administrator.jipinshop.bean.SreachBean;
+import com.example.administrator.jipinshop.bean.SreachHistoryBean;
+import com.example.administrator.jipinshop.bean.SreachResultArticlesBean;
+import com.example.administrator.jipinshop.bean.SreachResultGoodsBean;
+import com.example.administrator.jipinshop.bean.SubUserBean;
+import com.example.administrator.jipinshop.bean.SucBean;
+import com.example.administrator.jipinshop.bean.SucBeanT;
+import com.example.administrator.jipinshop.bean.SuccessBean;
+import com.example.administrator.jipinshop.bean.SystemMessageBean;
+import com.example.administrator.jipinshop.bean.TBShoppingDetailBean;
+import com.example.administrator.jipinshop.bean.TBSreachResultBean;
+import com.example.administrator.jipinshop.bean.TabBean;
+import com.example.administrator.jipinshop.bean.TaobaoAccountBean;
+import com.example.administrator.jipinshop.bean.TaskFinishBean;
+import com.example.administrator.jipinshop.bean.TbCommonBean;
+import com.example.administrator.jipinshop.bean.TbOrderBean;
+import com.example.administrator.jipinshop.bean.TbkIndexBean;
+import com.example.administrator.jipinshop.bean.TeacherBean;
+import com.example.administrator.jipinshop.bean.TeamBean;
+import com.example.administrator.jipinshop.bean.TklBean;
+import com.example.administrator.jipinshop.bean.TopCategoryDetailBean;
+import com.example.administrator.jipinshop.bean.TopCategorysListBean;
+import com.example.administrator.jipinshop.bean.UnMessageBean;
+import com.example.administrator.jipinshop.bean.UserInfoBean;
+import com.example.administrator.jipinshop.bean.VideoBean;
+import com.example.administrator.jipinshop.bean.VoteBean;
+import com.example.administrator.jipinshop.bean.WalletHistoryBean;
+import com.example.administrator.jipinshop.bean.WelfareBean;
+import com.example.administrator.jipinshop.bean.WithdrawBean;
+import com.example.administrator.jipinshop.bean.WithdrawDetailBean;
+import com.example.administrator.jipinshop.bean.WithdrawInfoBean;
+import com.example.administrator.jipinshop.bean.WxPayBean;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -1279,5 +1368,12 @@ public interface APIService {
     @FormUrlEncoded
     @POST("api/order/point/pay")
     Observable<SuccessBean> pointPay(@Field("type") int type);
+
+    /**
+     * 根据id删除消息
+     */
+    @FormUrlEncoded
+    @POST("api/v2/message/deleteById")
+    Observable<SuccessBean> deleteById(@Field("id") String id);
 
 }

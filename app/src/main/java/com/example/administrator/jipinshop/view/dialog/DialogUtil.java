@@ -55,6 +55,7 @@ import com.example.administrator.jipinshop.databinding.DialogGroupBinding;
 import com.example.administrator.jipinshop.databinding.DialogHomeBuyBinding;
 import com.example.administrator.jipinshop.databinding.DialogLuckBinding;
 import com.example.administrator.jipinshop.databinding.DialogMemberBuyBinding;
+import com.example.administrator.jipinshop.databinding.DialogMessageDeteleBinding;
 import com.example.administrator.jipinshop.databinding.DialogNewpeople2Binding;
 import com.example.administrator.jipinshop.databinding.DialogNewpeopleBuyBinding;
 import com.example.administrator.jipinshop.databinding.DialogNonewBinding;
@@ -1377,4 +1378,18 @@ public class DialogUtil {
         dialog.setContentView(binding.getRoot());
     }
 
+    //消息中心删除弹窗
+    public static void messageDetele(Context context , View.OnClickListener listener){
+        AlertDialog.Builder builder = new AlertDialog.Builder(context, R.style.dialog);
+        final Dialog dialog = builder.create();
+        DialogMessageDeteleBinding binding = DataBindingUtil.inflate(LayoutInflater.from(context),
+                R.layout.dialog_message_detele, null, false);
+        binding.dialogTitle.setOnClickListener(v -> {
+            dialog.dismiss();
+            listener.onClick(v);
+        });
+        dialog.getWindow().setDimAmount(0.35f);
+        dialog.show();
+        dialog.setContentView(binding.getRoot());
+    }
 }

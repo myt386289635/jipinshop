@@ -18,6 +18,7 @@ import com.example.administrator.jipinshop.databinding.ActivityMessageSystemBind
 import com.example.administrator.jipinshop.jpush.JPushReceiver;
 import com.example.administrator.jipinshop.util.ShopJumpUtil;
 import com.example.administrator.jipinshop.util.ToastUtil;
+import com.example.administrator.jipinshop.view.dialog.DialogUtil;
 import com.example.administrator.jipinshop.view.dialog.ProgressDialogView;
 import com.trello.rxlifecycle2.android.ActivityEvent;
 
@@ -124,6 +125,7 @@ public class MessageActivity extends BaseActivity implements View.OnClickListene
         if (systemMessageBean.getData() != null && systemMessageBean.getData().size() != 0){
             //有数据
             mBinding.netClude.qsNet.setVisibility(View.GONE);
+            mBinding.recyclerView.setVisibility(View.VISIBLE);
             if(refersh){
                 mList.clear();
             }
@@ -243,6 +245,31 @@ public class MessageActivity extends BaseActivity implements View.OnClickListene
             ShopJumpUtil.openBanner(this,mList.get(position).getType(),
                     mList.get(position).getTargetId(),mList.get(position).getTitle(),
                     mList.get(position).getSource(), mList.get(position).getRemark());
+        }
+    }
+
+    @Override
+    public void onItemLongClick(int position) {
+        DialogUtil.messageDetele(this, v -> {
+            mDialog = (new ProgressDialogView()).createLoadingDialog(this, "");
+            mDialog.show();
+            mPresenter.deleteById(position , mList.get(position).getMessageUserId(),this.bindToLifecycle());
+        });
+    }
+
+    @Override
+    public void onDelete(int position) {
+        if (mDialog != null && mDialog.isShowing()) {
+            mDialog.dismiss();
+        }
+        mList.remove(position);
+        mAdapter.notifyItemRemoved(position);
+        if(position != mList.size()) {
+            mAdapter.notifyItemRangeChanged(position,mList.size() - position);
+        }
+        if (mList.size() == 0){
+            initError(R.mipmap.qs_news, "暂无消息", "还没有任何消息哦，先休息一下吧");
+            mBinding.recyclerView.setVisibility(View.GONE);
         }
     }
 }
