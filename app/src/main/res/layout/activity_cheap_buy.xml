@@ -42,15 +42,18 @@
             android:layout_height="@dimen/y100">
 
             <TextView
+                android:paddingRight="@dimen/x10"
+                android:paddingLeft="@dimen/x10"
                 android:id="@+id/detail_text"
                 android:layout_centerInParent="true"
                 android:background="@drawable/bg_dialog_out2"
                 android:gravity="center"
-                android:text="立即送好友福利，得极币0个"
+                android:text="立即送好友福利"
                 android:textStyle="bold"
                 android:textColor="@color/color_EA4F17"
                 android:textSize="16sp"
-                android:layout_width="@dimen/x589"
+                android:minWidth="@dimen/x589"
+                android:layout_width="wrap_content"
                 android:layout_height="@dimen/y76"/>
 
         </RelativeLayout>

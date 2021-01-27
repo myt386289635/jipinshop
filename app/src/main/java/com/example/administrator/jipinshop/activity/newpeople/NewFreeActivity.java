@@ -22,11 +22,13 @@ import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.target.SimpleTarget;
 import com.bumptech.glide.request.transition.Transition;
 import com.example.administrator.jipinshop.R;
+import com.example.administrator.jipinshop.activity.WebActivity;
 import com.example.administrator.jipinshop.activity.login.LoginActivity;
 import com.example.administrator.jipinshop.activity.newpeople.detail.NewFreeDetailActivity;
 import com.example.administrator.jipinshop.adapter.NewFreeAdapter;
 import com.example.administrator.jipinshop.base.BaseActivity;
 import com.example.administrator.jipinshop.bean.ImageBean;
+import com.example.administrator.jipinshop.bean.MemberNewBean;
 import com.example.administrator.jipinshop.bean.NewFreeBean;
 import com.example.administrator.jipinshop.databinding.ActivityNewFreeBinding;
 import com.example.administrator.jipinshop.netwrok.RetrofitModule;
@@ -64,6 +66,7 @@ public class NewFreeActivity extends BaseActivity implements View.OnClickListene
     private Boolean startPop = true;//是否弹出关闭确认弹窗
     private NewFreeBean bean = null;
     private Animation animation;
+    private List<MemberNewBean.DataBean.MessageListBean> messageList;//人物轮播
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -78,15 +81,20 @@ public class NewFreeActivity extends BaseActivity implements View.OnClickListene
     private void initView() {
         startPop = getIntent().getBooleanExtra("startPop",true);
         mBinding.inClude.titleTv.setText("新人免单专区");
+        mBinding.inClude.titleLine.setVisibility(View.GONE);
         mBinding.swipeToLoad.setBackgroundColor(getResources().getColor(R.color.color_white));
         animation = AnimationUtils.loadAnimation(this, R.anim.free_scale);
         mBinding.freeImage.startAnimation(animation);
+        mBinding.titleRule.setVisibility(View.VISIBLE);
+        mBinding.titleAd.setVisibility(View.VISIBLE);
+        mBinding.freeImage.setText("立即送好友福利，好友成为会员，得会员佣金");
 
         mList = new ArrayList<>();
         mAdapter = new NewFreeAdapter(this,mList);
         mAdapter.setOnClickItem(this);
         mBinding.recyclerView.setLayoutManager(new GridLayoutManager(this,2));
         mBinding.recyclerView.setAdapter(mAdapter);
+        messageList = new ArrayList<>();
 
         mPresenter.solveScoll(mBinding.recyclerView, mBinding.swipeToLoad);
         mBinding.swipeToLoad.setOnRefreshListener(this);
@@ -128,6 +136,13 @@ public class NewFreeActivity extends BaseActivity implements View.OnClickListene
                 if (!mShareBoardDialog.isAdded()) {
                     mShareBoardDialog.show(getSupportFragmentManager(), "ShareBoardDialog4");
                 }
+                break;
+            case R.id.title_rule:
+                //新人免单规则
+                startActivity(new Intent(this, WebActivity.class)
+                        .putExtra(WebActivity.url, RetrofitModule.JP_H5_URL + "new-free/mdRule")
+                        .putExtra(WebActivity.title,"活动规则")
+                );
                 break;
         }
     }
@@ -225,6 +240,11 @@ public class NewFreeActivity extends BaseActivity implements View.OnClickListene
             mBinding.recyclerView.setVisibility(View.VISIBLE);
             mBinding.freeBottom.setVisibility(View.VISIBLE);
             animation.start();//动画
+            //广告
+            messageList.clear();
+            messageList.addAll(bean.getMessageList());
+            mPresenter.adFlipper(this,mBinding.viewFlipper,messageList);
+            //数据
             mList.clear();
             mList.addAll(bean.getData());
             mAdapter.setAd1(bean.getAd1());

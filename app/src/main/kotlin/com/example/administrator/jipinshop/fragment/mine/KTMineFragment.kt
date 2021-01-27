@@ -377,15 +377,6 @@ class KTMineFragment : DBBaseFragment(), KTMineAdapter.OnItem, KTMineView, OnLoa
         UAppUtil.mine(context, 10)
     }
 
-    //福利兑换
-    override fun onGift() {
-        if (TextUtils.isEmpty(SPUtils.getInstance(CommonDate.USER).getString(CommonDate.token, ""))) {
-            startActivity(Intent(context, LoginActivity::class.java))
-            return
-        }
-        startActivity(Intent(context, WelfareActivity::class.java))
-    }
-
     //设置
     override fun onSetting() {
         if (TextUtils.isEmpty(SPUtils.getInstance(CommonDate.USER).getString(CommonDate.token, ""))) {
@@ -404,16 +395,6 @@ class KTMineFragment : DBBaseFragment(), KTMineAdapter.OnItem, KTMineView, OnLoa
             return
         }
         startActivity(Intent(context, OpinionActivity::class.java))
-    }
-
-    //极币商城
-    override fun onMall() {
-        if (TextUtils.isEmpty(SPUtils.getInstance(CommonDate.USER).getString(CommonDate.token, ""))) {
-            startActivity(Intent(context, LoginActivity::class.java))
-            return
-        }
-        startActivity(Intent(context, MallActivity::class.java))
-        UAppUtil.mine(context, 5)
     }
 
     //任务中心

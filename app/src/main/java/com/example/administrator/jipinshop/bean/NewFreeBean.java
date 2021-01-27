@@ -18,6 +18,24 @@ public class NewFreeBean {
     private List<DataBean> data;
     private String refreshTime;//0元购刷新时间
     private int status;//本月是否领取
+    private String addPoint;//分享获得极币
+    private List<MemberNewBean.DataBean.MessageListBean> messageList;//人物轮播
+
+    public List<MemberNewBean.DataBean.MessageListBean> getMessageList() {
+        return messageList;
+    }
+
+    public void setMessageList(List<MemberNewBean.DataBean.MessageListBean> messageList) {
+        this.messageList = messageList;
+    }
+
+    public String getAddPoint() {
+        return addPoint;
+    }
+
+    public void setAddPoint(String addPoint) {
+        this.addPoint = addPoint;
+    }
 
     public String getRefreshTime() {
         return refreshTime;

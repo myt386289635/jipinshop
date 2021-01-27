@@ -315,14 +315,8 @@ class KTMineAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>{
                     binding.mineOpinion.setOnClickListener {
                         mOnItem?.onOpinion()
                     }
-                    binding.mineMall.setOnClickListener {
-                        mOnItem?.onMall()
-                    }
                     binding.mineRule.setOnClickListener {
                         mOnItem?.onRule()
-                    }
-                    binding.mineGift.setOnClickListener {
-                        mOnItem?.onGift()
                     }
                     binding.mineTeam.setOnClickListener {
                         mOnItem?.onTeam()
@@ -632,10 +626,8 @@ class KTMineAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>{
 
         fun onMessage()//浏览足迹
         fun onFover()//收藏夹
-        fun onGift()//福利兑换
         fun onSetting()//设置
         fun onOpinion()//反馈
-        fun onMall()//极币商城
         fun onRule()//极币中心
         fun onInvationDialog()//邀请码dialog
         fun onOrderRecovery() //订单找回

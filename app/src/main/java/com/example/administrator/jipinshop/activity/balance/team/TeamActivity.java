@@ -84,8 +84,8 @@ public class TeamActivity extends BaseActivity implements View.OnClickListener, 
 
         //tab
         mTitle = new ArrayList<>();
-        mTitle.add("潜在粉丝");
-        mTitle.add("激活粉丝");
+        mTitle.add("潜在好友");
+        mTitle.add("激活好友");
         CommonNavigator commonNavigator = new CommonNavigator(this);
         mTabAdapter = new KTTabAdapter4(mTitle);
         mTabAdapter.setColor(getResources().getColor(R.color.color_DE151515),
@@ -187,7 +187,7 @@ public class TeamActivity extends BaseActivity implements View.OnClickListener, 
                 if (mBinding.teamRule.getVisibility() == View.VISIBLE){
                     startActivity(new Intent(this, WebActivity.class)
                             .putExtra(WebActivity.url, "https://mp.weixin.qq.com/s/SueVp7gfAhhuRjANJCW9uQ")
-                            .putExtra(WebActivity.title,"如何激活你的潜在粉丝")
+                            .putExtra(WebActivity.title,"如何激活你的潜在好友")
                     );
                 }else {
                     //邀请好友
@@ -201,7 +201,7 @@ public class TeamActivity extends BaseActivity implements View.OnClickListener, 
         return mBinding.appbar;
     }
 
-    //有数据（潜在粉丝）
+    //有数据（潜在好友）
     public void initOnePage(){
         mBinding.teamBottomContainer.setVisibility(View.VISIBLE);
         mBinding.teamRule.setVisibility(View.VISIBLE);
@@ -210,7 +210,7 @@ public class TeamActivity extends BaseActivity implements View.OnClickListener, 
         mBinding.teamTitleNotice.setVisibility(View.GONE);
     }
 
-    //有数据 （专属粉丝和其他粉丝）
+    //有数据 （专属好友和其他好友）
     public void initOtherPage(){
         mBinding.teamBottomContainer.setVisibility(View.VISIBLE);
         mBinding.teamRule.setVisibility(View.GONE);

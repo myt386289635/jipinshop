@@ -70,6 +70,7 @@ class CheapBuyActivity : BaseActivity(), View.OnClickListener, OnRefreshListener
         var animation = AnimationUtils.loadAnimation(this, R.anim.free_scale)
         mBinding.detailText.startAnimation(animation)
         animation.start()//动画
+        mBinding.detailText.text = "立即送好友福利，好友成为会员，得会员佣金"
 
         mBinding.recyclerView.layoutManager = LinearLayoutManager(this)
         mList = mutableListOf()
@@ -172,7 +173,6 @@ class CheapBuyActivity : BaseActivity(), View.OnClickListener, OnRefreshListener
     }
 
     override fun onSuccess(bean: NewPeopleBean) {
-        mBinding.detailText.text = "立即送好友福利，得极币"+bean.addPoint+"个"
         if (refersh) {
             dissRefresh()
             if (bean.data != null && bean.data.allowanceGoodsList.size != 0) {

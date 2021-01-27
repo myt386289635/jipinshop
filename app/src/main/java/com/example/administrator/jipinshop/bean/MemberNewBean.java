@@ -1404,6 +1404,15 @@ public class MemberNewBean {
             private String avatar;
             private String content;
             private int type;
+            private String time;
+
+            public String getTime() {
+                return time;
+            }
+
+            public void setTime(String time) {
+                this.time = time;
+            }
 
             public String getId() {
                 return id;

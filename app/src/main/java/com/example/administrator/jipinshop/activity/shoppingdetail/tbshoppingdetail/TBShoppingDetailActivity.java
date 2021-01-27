@@ -605,6 +605,9 @@ public class TBShoppingDetailActivity extends BaseActivity implements View.OnCli
         }else {
             TaoBaoUtil.openAliHomeWeb(this,bean.getData().getMobileUrl(),bean.getData().getOtherGoodsId());
         }
+        if (mDialog != null && mDialog.isShowing()){
+            mDialog.dismiss();
+        }
     }
 
     @Override

@@ -1,16 +1,27 @@
 package com.example.administrator.jipinshop.activity.newpeople;
 
+import android.content.Context;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.widget.ImageView;
+import android.widget.TextView;
+import android.widget.ViewFlipper;
 
 import com.aspsine.swipetoloadlayout.SwipeToLoadLayout;
+import com.example.administrator.jipinshop.R;
 import com.example.administrator.jipinshop.bean.ImageBean;
+import com.example.administrator.jipinshop.bean.MemberNewBean;
 import com.example.administrator.jipinshop.bean.NewFreeBean;
 import com.example.administrator.jipinshop.bean.TaskFinishBean;
 import com.example.administrator.jipinshop.netwrok.Repository;
 import com.example.administrator.jipinshop.util.ToastUtil;
+import com.example.administrator.jipinshop.view.glide.GlideApp;
 import com.trello.rxlifecycle2.LifecycleTransformer;
 import com.umeng.socialize.bean.SHARE_MEDIA;
+
+import java.util.List;
 
 import javax.inject.Inject;
 
@@ -53,6 +64,22 @@ public class NewFreePresenter {
                 super.onScrollStateChanged(recyclerView, newState);
             }
         });
+    }
+
+    public void adFlipper(Context context , ViewFlipper viewFlipper , List<MemberNewBean.DataBean.MessageListBean> adList){
+        viewFlipper.removeAllViews();
+        for (int i = 0; i < adList.size(); i++) {
+            View view = LayoutInflater.from(context).inflate(R.layout.view_flipper2,null);
+            ImageView item_image = view.findViewById(R.id.item_image);
+            TextView item_name = view.findViewById(R.id.item_name);
+            TextView item_time = view.findViewById(R.id.item_time);
+            item_name.setText(adList.get(i).getContent());
+            item_time.setText(adList.get(i).getTime());
+            GlideApp.loderCircleImage(context,adList.get(i).getAvatar(),item_image,0,0);
+            viewFlipper.addView(view);
+        }
+        viewFlipper.setFlipInterval(3000);
+        viewFlipper.startFlipping();
     }
 
     public void getData(LifecycleTransformer<NewFreeBean> transformer){

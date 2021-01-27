@@ -79,16 +79,16 @@
                     android:textSize="13sp"/>
 
                 <TextView
-                    android:id="@+id/mine_gift"
+                    android:id="@+id/mine_server"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:drawableTop="@mipmap/mine_gift"
+                    android:drawableTop="@mipmap/mine_service"
                     android:drawablePadding="@dimen/y16"
                     android:gravity="center"
                     android:paddingTop="@dimen/y26"
                     android:paddingBottom="@dimen/y26"
-                    android:text="福利兑换"
+                    android:text="官方客服"
                     android:textColor="@color/color_202020"
                     android:textSize="13sp"/>
 
@@ -115,16 +115,16 @@
                     android:textSize="13sp"/>
 
                 <TextView
-                    android:id="@+id/mine_mall"
+                    android:id="@+id/mine_applets"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:drawableTop="@mipmap/mine_sign"
+                    android:drawableTop="@mipmap/mine_applets"
                     android:drawablePadding="@dimen/y16"
                     android:gravity="center"
                     android:paddingTop="@dimen/y26"
                     android:paddingBottom="@dimen/y26"
-                    android:text="极币商城"
+                    android:text="小程序"
                     android:textColor="@color/color_202020"
                     android:textSize="13sp"/>
 
@@ -152,7 +152,7 @@
                     android:gravity="center"
                     android:paddingTop="@dimen/y26"
                     android:paddingBottom="@dimen/y26"
-                    android:text="省钱教程"
+                    android:text="新人教程"
                     android:textColor="@color/color_202020"
                     android:textSize="13sp"/>
 
@@ -203,43 +203,6 @@
                     android:paddingTop="@dimen/y26"
                     android:paddingBottom="@dimen/y26"
                     android:text="官方福利群"
-                    android:textColor="@color/color_202020"
-                    android:textSize="13sp"/>
-
-                <TextView
-                    android:id="@+id/mine_applets"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:drawableTop="@mipmap/mine_applets"
-                    android:drawablePadding="@dimen/y16"
-                    android:gravity="center"
-                    android:paddingTop="@dimen/y26"
-                    android:paddingBottom="@dimen/y26"
-                    android:text="小程序"
-                    android:textColor="@color/color_202020"
-                    android:textSize="13sp"/>
-
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="@dimen/y22"
-                android:orientation="horizontal"
-                android:weightSum="4">
-
-                <TextView
-                    android:id="@+id/mine_server"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:drawableTop="@mipmap/mine_service"
-                    android:drawablePadding="@dimen/y16"
-                    android:gravity="center"
-                    android:paddingTop="@dimen/y26"
-                    android:paddingBottom="@dimen/y26"
-                    android:text="官方客服"
                     android:textColor="@color/color_202020"
                     android:textSize="13sp"/>
 

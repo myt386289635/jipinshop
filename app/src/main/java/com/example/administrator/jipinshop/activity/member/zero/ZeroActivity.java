@@ -82,7 +82,8 @@ public class ZeroActivity extends BaseActivity implements View.OnClickListener, 
         mBinding.swipeToLoad.setBackgroundColor(getResources().getColor(R.color.color_white));
         animation = AnimationUtils.loadAnimation(this, R.anim.free_scale);
         mBinding.freeImage.startAnimation(animation);
-        mBinding.freeImage.setImageResource(R.mipmap.zero_bg2);
+        mBinding.freeImage.setText("立即送好友0元福利");
+        mBinding.titleRule.setVisibility(View.GONE);
 
         mList = new ArrayList<>();
         mAdapter = new ZeroAdapter(this,mList);

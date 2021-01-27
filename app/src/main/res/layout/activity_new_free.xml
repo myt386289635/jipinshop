@@ -19,6 +19,40 @@
             layout="@layout/aa_title2"
             bind:listener="@{listener}"/>
 
+        <TextView
+            android:onClick="@{listener.onClick}"
+            android:visibility="gone"
+            android:id="@+id/title_rule"
+            android:gravity="center"
+            android:paddingRight="@dimen/x28"
+            android:paddingLeft="@dimen/x28"
+            android:textStyle="bold"
+            android:textSize="14sp"
+            android:textColor="@color/color_DE050505"
+            android:text="规则"
+            android:layout_alignParentRight="true"
+            android:layout_width="wrap_content"
+            android:layout_height="@dimen/y88"/>
+
+        <FrameLayout
+            android:visibility="gone"
+            android:background="@color/color_F6F6F6"
+            android:id="@+id/title_ad"
+            android:layout_below="@id/in_clude"
+            android:layout_centerVertical="true"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/y58">
+
+            <ViewFlipper
+                android:id="@+id/view_flipper"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inAnimation="@anim/anim_in"
+                android:outAnimation="@anim/anim_out"
+                android:layout_gravity="center"/>
+
+        </FrameLayout>
+
         <RelativeLayout
             android:onClick="@{listener.onClick}"
             android:id="@+id/free_bottom"
@@ -27,18 +61,26 @@
             android:layout_width="match_parent"
             android:layout_height="@dimen/y100">
 
-            <ImageView
-                android:layout_centerInParent="true"
+            <TextView
+                android:paddingRight="@dimen/x10"
+                android:paddingLeft="@dimen/x10"
                 android:id="@+id/free_image"
-                android:src="@mipmap/bg_newfree1"
+                android:layout_centerInParent="true"
+                android:background="@drawable/bg_dialog_out2"
+                android:gravity="center"
+                android:text="立即送好友福利"
+                android:textStyle="bold"
+                android:textColor="@color/color_EA4F17"
+                android:textSize="16sp"
+                android:minWidth="@dimen/x589"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"/>
+                android:layout_height="@dimen/y76"/>
 
         </RelativeLayout>
 
         <com.aspsine.swipetoloadlayout.SwipeToLoadLayout
             android:layout_above="@id/free_bottom"
-            android:layout_below="@id/in_clude"
+            android:layout_below="@id/title_ad"
             android:id="@+id/swipeToLoad"
             android:layout_width="match_parent"
             android:layout_height="match_parent">
