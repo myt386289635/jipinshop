@@ -24,12 +24,10 @@ import com.bumptech.glide.request.transition.Transition;
 import com.example.administrator.jipinshop.R;
 import com.example.administrator.jipinshop.activity.login.LoginActivity;
 import com.example.administrator.jipinshop.activity.member.zero.detail.ZeroDetailActivity;
-import com.example.administrator.jipinshop.activity.newpeople.NewFreeActivity;
 import com.example.administrator.jipinshop.adapter.ZeroAdapter;
 import com.example.administrator.jipinshop.base.BaseActivity;
 import com.example.administrator.jipinshop.bean.ImageBean;
 import com.example.administrator.jipinshop.bean.NewFreeBean;
-import com.example.administrator.jipinshop.bean.ShareInfoBean;
 import com.example.administrator.jipinshop.databinding.ActivityNewFreeBinding;
 import com.example.administrator.jipinshop.netwrok.RetrofitModule;
 import com.example.administrator.jipinshop.util.FileManager;
@@ -38,7 +36,6 @@ import com.example.administrator.jipinshop.util.ShopJumpUtil;
 import com.example.administrator.jipinshop.util.ToastUtil;
 import com.example.administrator.jipinshop.util.sp.CommonDate;
 import com.example.administrator.jipinshop.view.dialog.ProgressDialogView;
-import com.example.administrator.jipinshop.view.dialog.ShareBoardDialog2;
 import com.example.administrator.jipinshop.view.dialog.ShareBoardDialog4;
 import com.umeng.socialize.UMShareAPI;
 import com.umeng.socialize.bean.SHARE_MEDIA;
@@ -84,6 +81,7 @@ public class ZeroActivity extends BaseActivity implements View.OnClickListener, 
         mBinding.freeImage.startAnimation(animation);
         mBinding.freeImage.setText("立即送好友0元福利");
         mBinding.titleRule.setVisibility(View.GONE);
+        mBinding.freeNotice.setVisibility(View.GONE);
 
         mList = new ArrayList<>();
         mAdapter = new ZeroAdapter(this,mList);

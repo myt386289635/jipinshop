@@ -41,6 +41,7 @@ import com.example.administrator.jipinshop.util.UmApp.AppStatisticalUtil
 import com.example.administrator.jipinshop.util.WeakRefHandler
 import com.example.administrator.jipinshop.util.sp.CommonDate
 import com.example.administrator.jipinshop.view.glide.GlideApp
+import com.trello.rxlifecycle2.android.FragmentEvent
 import net.lucode.hackware.magicindicator.ViewPagerHelper
 import net.lucode.hackware.magicindicator.buildins.commonnavigator.CommonNavigator
 import org.greenrobot.eventbus.EventBus
@@ -124,7 +125,7 @@ class KTHomeFragnent : DBBaseFragment(), View.OnClickListener, ViewPager.OnPageC
                     startActivity(Intent(context, LoginActivity::class.java))
                     return
                 }
-                appStatisticalUtil.addEvent("shouye_sousuo",this.bindToLifecycle())//统计搜索
+                appStatisticalUtil.addEvent("shouye_sousuo",this.bindUntilEvent(FragmentEvent.DESTROY_VIEW))//统计搜索
                 startActivity(Intent(context, TBSreachActivity::class.java))
             }
             R.id.home_action -> {
@@ -159,6 +160,7 @@ class KTHomeFragnent : DBBaseFragment(), View.OnClickListener, ViewPager.OnPageC
             }
             R.id.auth_go -> {
                 //授权
+                appStatisticalUtil.addEvent("auth_taobao",this.bindUntilEvent(FragmentEvent.DESTROY_VIEW))
                 TaoBaoUtil.aliLogin { topAuthCode ->
                     startActivity(Intent(context, TaoBaoWebActivity::class.java)
                             .putExtra(TaoBaoWebActivity.url, "https://oauth.taobao.com/authorize?response_type=code&client_id=25612235&redirect_uri=https://www.jipincheng.cn/qualityshop-api/api/taobao/returnUrl&state=" + SPUtils.getInstance(CommonDate.USER).getString(CommonDate.token) + "&view=wap")

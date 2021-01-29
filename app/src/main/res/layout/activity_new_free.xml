@@ -62,6 +62,8 @@
             android:layout_height="@dimen/y100">
 
             <TextView
+                android:layout_marginRight="@dimen/x55"
+                android:layout_marginLeft="@dimen/x55"
                 android:paddingRight="@dimen/x10"
                 android:paddingLeft="@dimen/x10"
                 android:id="@+id/free_image"
@@ -72,8 +74,7 @@
                 android:textStyle="bold"
                 android:textColor="@color/color_EA4F17"
                 android:textSize="16sp"
-                android:minWidth="@dimen/x589"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="@dimen/y76"/>
 
         </RelativeLayout>
@@ -114,6 +115,25 @@
             </LinearLayout>
 
         </com.aspsine.swipetoloadlayout.SwipeToLoadLayout>
+
+        <TextView
+            android:visibility="gone"
+            android:id="@+id/free_notice"
+            android:layout_marginRight="@dimen/x55"
+            android:paddingBottom="@dimen/y6"
+            android:paddingTop="@dimen/y6"
+            android:paddingRight="@dimen/x20"
+            android:paddingLeft="@dimen/x20"
+            android:background="@drawable/bg_c72d17"
+            android:layout_alignRight="@id/free_bottom"
+            android:layout_marginTop="-13dp"
+            android:layout_alignTop="@id/free_bottom"
+            android:textColor="@color/color_FEDDA9"
+            android:textStyle="bold"
+            android:textSize="14sp"
+            android:text="好友加入会员，赚20%会员佣金"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
 
     </RelativeLayout>
 

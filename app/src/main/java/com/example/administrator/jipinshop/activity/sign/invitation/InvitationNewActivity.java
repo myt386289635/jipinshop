@@ -58,7 +58,7 @@ public class InvitationNewActivity extends BaseActivity implements View.OnClickL
     }
 
     private void initView() {
-        mBinding.inClude.titleTv.setText("邀请好友");
+        mBinding.inClude.titleTv.setText("邀请有礼");
         mList = new ArrayList<>();
         mDialog = (new ProgressDialogView()).createLoadingDialog(this, "");
         mDialog.show();

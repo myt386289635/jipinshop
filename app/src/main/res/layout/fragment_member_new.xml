@@ -285,34 +285,6 @@
                             android:layout_width="wrap_content"
                             android:layout_height="@dimen/y44"/>
 
-                        <TextView
-                            android:onClick="@{listener.onClick}"
-                            android:id="@+id/member_buy"
-                            android:gravity="center"
-                            android:textStyle="bold"
-                            android:textSize="16sp"
-                            android:textColor="@color/color_835720"
-                            android:text="立即办理"
-                            android:background="@drawable/bg_f8dbb5"
-                            android:layout_marginTop="@dimen/y32"
-                            android:layout_below="@id/member_bg22"
-                            android:layout_centerHorizontal="true"
-                            android:layout_width="@dimen/x520"
-                            android:layout_height="@dimen/y80"/>
-
-                        <TextView
-                            android:layout_marginTop="-20dp"
-                            android:layout_alignTop="@id/member_buy"
-                            android:layout_alignRight="@id/member_buy"
-                            android:textStyle="bold"
-                            android:textColor="@color/color_C35E07"
-                            android:textSize="14sp"
-                            android:gravity="center"
-                            android:background="@mipmap/dialog_need"
-                            android:text="限时免费加入"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"/>
-
                     </RelativeLayout>
 
                     <TextView
@@ -1272,6 +1244,40 @@
             </ScrollView>
 
         </com.aspsine.swipetoloadlayout.SwipeToLoadLayout>
+
+        <RelativeLayout
+            android:id="@+id/member_buyContainer"
+            android:layout_marginBottom="@dimen/y36"
+            android:layout_alignParentBottom="true"
+            android:layout_centerHorizontal="true"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:onClick="@{listener.onClick}"
+                android:id="@+id/member_buy"
+                android:gravity="center"
+                android:textStyle="bold"
+                android:textSize="16sp"
+                android:textColor="@color/color_835720"
+                android:text="立即加入"
+                android:background="@drawable/bg_f8dbb5"
+                android:layout_marginTop="@dimen/y32"
+                android:layout_width="@dimen/x520"
+                android:layout_height="@dimen/y80"/>
+
+            <TextView
+                android:layout_alignRight="@id/member_buy"
+                android:textStyle="bold"
+                android:textColor="@color/color_C35E07"
+                android:textSize="14sp"
+                android:gravity="center"
+                android:background="@mipmap/dialog_need"
+                android:text="限时免费加入"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+
+        </RelativeLayout>
 
     </RelativeLayout>
 </layout>

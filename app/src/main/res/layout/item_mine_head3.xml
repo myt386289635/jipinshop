@@ -188,7 +188,7 @@
                     android:gravity="center"
                     android:paddingTop="@dimen/y26"
                     android:paddingBottom="@dimen/y26"
-                    android:text="邀请好友"
+                    android:text="邀请有礼"
                     android:textColor="@color/color_202020"
                     android:textSize="13sp"/>
 

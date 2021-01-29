@@ -33,9 +33,11 @@ import com.example.administrator.jipinshop.jpush.LoginUtil;
 import com.example.administrator.jipinshop.netwrok.RetrofitModule;
 import com.example.administrator.jipinshop.util.ShopJumpUtil;
 import com.example.administrator.jipinshop.util.ToastUtil;
+import com.example.administrator.jipinshop.util.UmApp.AppStatisticalUtil;
 import com.example.administrator.jipinshop.util.UmApp.StatisticalUtil;
 import com.example.administrator.jipinshop.util.sp.CommonDate;
 import com.example.administrator.jipinshop.view.dialog.ProgressDialogView;
+import com.trello.rxlifecycle2.android.ActivityEvent;
 import com.umeng.socialize.UMAuthListener;
 import com.umeng.socialize.UMShareAPI;
 import com.umeng.socialize.UMShareConfig;
@@ -60,6 +62,8 @@ public class LoginActivity extends BaseActivity implements LoginView, View.OnCli
 
     @Inject
     LoginPresenter mPresenter;
+    @Inject
+    AppStatisticalUtil appStatisticalUtil;
     private LoginBinding mBinding;
 
     private int newpeople = 0;//判断是否是从弹框点击来的  0 不是从弹框点击来的  1 是从新人弹框点击来的
@@ -335,6 +339,7 @@ public class LoginActivity extends BaseActivity implements LoginView, View.OnCli
         switch (view.getId()) {
             case R.id.login_wx:
                 //点击微信登陆
+                appStatisticalUtil.addEvent("login_weixin",this.bindUntilEvent(ActivityEvent.DESTROY));
                 authorization(SHARE_MEDIA.WEIXIN);
                 break;
             case R.id.title_back:
@@ -342,6 +347,7 @@ public class LoginActivity extends BaseActivity implements LoginView, View.OnCli
                 onBack();
                 break;
             case R.id.login_input:
+                appStatisticalUtil.addEvent("login_mobile",this.bindUntilEvent(ActivityEvent.DESTROY));
                 if (MyApplication.isJVerify){
                     //一键登录页面
                     LoginUtil.phoneLogin(this, v -> {

@@ -90,6 +90,21 @@
             android:layout_height="@dimen/y88"/>
 
         <TextView
+            android:paddingRight="@dimen/x28"
+            android:paddingLeft="@dimen/x28"
+            android:layout_marginTop="-20dp"
+            android:layout_alignTop="@id/login_wx"
+            android:layout_alignRight="@id/login_wx"
+            android:textStyle="bold"
+            android:textColor="@color/color_C35E07"
+            android:textSize="14sp"
+            android:gravity="center"
+            android:background="@mipmap/dialog_need"
+            android:text="登录即领108元红包"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+
+        <TextView
             android:layout_marginTop="@dimen/y44"
             android:background="@drawable/bg_d42304"
             android:layout_marginRight="@dimen/x20"

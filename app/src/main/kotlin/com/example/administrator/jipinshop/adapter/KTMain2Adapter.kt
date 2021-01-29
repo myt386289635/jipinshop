@@ -541,6 +541,8 @@ class KTMain2Adapter : RecyclerView.Adapter<RecyclerView.ViewHolder>{
             mTopTabs = mutableListOf()
             binding.mainRv.layoutManager = GridLayoutManager(mContext,4)
             mTopAdapter = KTMain2TopGridAdapter(mContext,mTopTabs)
+            mTopAdapter.setAppStatisticalUtil(appStatisticalUtil)
+            mTopAdapter.setTransformer(transformer)
             binding.mainRv.adapter = mTopAdapter
             //九宫格
             var commonNavigator = CommonNavigator(mContext)

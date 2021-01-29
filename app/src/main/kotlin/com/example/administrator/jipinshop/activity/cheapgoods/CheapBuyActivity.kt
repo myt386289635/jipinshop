@@ -10,7 +10,6 @@ import android.os.Bundle
 import android.support.v7.widget.LinearLayoutManager
 import android.text.TextUtils
 import android.view.View
-import android.view.animation.AnimationUtils
 import com.alibaba.baichuan.android.trade.AlibcTradeSDK
 import com.aspsine.swipetoloadlayout.OnLoadMoreListener
 import com.aspsine.swipetoloadlayout.OnRefreshListener
@@ -65,12 +64,8 @@ class CheapBuyActivity : BaseActivity(), View.OnClickListener, OnRefreshListener
     private fun initView() {
         startPop = intent.getBooleanExtra("startPop", true)
         mBinding.inClude?.let {
-            it.titleTv.text = "官方百万补贴专区"
+            it.titleTv.text = "官方百万补贴"
         }
-        var animation = AnimationUtils.loadAnimation(this, R.anim.free_scale)
-        mBinding.detailText.startAnimation(animation)
-        animation.start()//动画
-        mBinding.detailText.text = "立即送好友福利，好友成为会员，得会员佣金"
 
         mBinding.recyclerView.layoutManager = LinearLayoutManager(this)
         mList = mutableListOf()

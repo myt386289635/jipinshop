@@ -38,7 +38,7 @@
             android:textSize="16sp"
             android:lineSpacingExtra="@dimen/y14"
             android:gravity="center"
-            android:text="享受全场优惠券免费领"
+            android:text="淘宝官方要求授权后购买或分享"
             android:layout_marginTop="@dimen/y51"
             android:layout_marginBottom="@dimen/y12"
             android:layout_width="match_parent"
@@ -49,7 +49,7 @@
             android:textColor="@color/color_989898"
             android:textSize="16sp"
             android:gravity="center"
-            android:text="自购&amp;分享100%佣金，0利润"
+            android:text="商品才能产生佣金收益或返利"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"/>
 

@@ -542,9 +542,11 @@ public class MemberFragment extends DBBaseFragment implements View.OnClickListen
             mBinding.memberMemberContainer.setVisibility(View.GONE);
             mBinding.memberTitle1.setText("开通VIP可享更多权益");
             mBinding.memberNoMemberContainer.setVisibility(View.VISIBLE);
+            mBinding.memberBuyContainer.setVisibility(View.VISIBLE);
         }else {
             mBinding.memberAdContainer.setVisibility(View.GONE);
             mBinding.memberNoMemberContainer.setVisibility(View.GONE);
+            mBinding.memberBuyContainer.setVisibility(View.GONE);
             mBinding.memberMemberContainer.setVisibility(View.VISIBLE);
             if (bean.getData().getLevel() == 1){
                 mBinding.memberTitle1.setText("月卡VIP特权");

@@ -65,7 +65,6 @@ public class NewFreeActivity extends BaseActivity implements View.OnClickListene
     private ShareBoardDialog4 mShareBoardDialog;
     private Boolean startPop = true;//是否弹出关闭确认弹窗
     private NewFreeBean bean = null;
-    private Animation animation;
     private List<MemberNewBean.DataBean.MessageListBean> messageList;//人物轮播
 
     @Override
@@ -83,11 +82,10 @@ public class NewFreeActivity extends BaseActivity implements View.OnClickListene
         mBinding.inClude.titleTv.setText("新人免单专区");
         mBinding.inClude.titleLine.setVisibility(View.GONE);
         mBinding.swipeToLoad.setBackgroundColor(getResources().getColor(R.color.color_white));
-        animation = AnimationUtils.loadAnimation(this, R.anim.free_scale);
-        mBinding.freeImage.startAnimation(animation);
         mBinding.titleRule.setVisibility(View.VISIBLE);
         mBinding.titleAd.setVisibility(View.VISIBLE);
-        mBinding.freeImage.setText("立即送好友福利，好友成为会员，得会员佣金");
+        mBinding.freeNotice.setVisibility(View.VISIBLE);
+        mBinding.freeImage.setText("立即送好友0元免单福利");
 
         mList = new ArrayList<>();
         mAdapter = new NewFreeAdapter(this,mList);
@@ -239,7 +237,6 @@ public class NewFreeActivity extends BaseActivity implements View.OnClickListene
             mBinding.netClude.qsNet.setVisibility(View.GONE);
             mBinding.recyclerView.setVisibility(View.VISIBLE);
             mBinding.freeBottom.setVisibility(View.VISIBLE);
-            animation.start();//动画
             //广告
             messageList.clear();
             messageList.addAll(bean.getMessageList());

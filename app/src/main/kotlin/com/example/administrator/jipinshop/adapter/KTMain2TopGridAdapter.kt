@@ -10,12 +10,15 @@ import android.view.ViewGroup
 import com.blankj.utilcode.util.SPUtils
 import com.example.administrator.jipinshop.R
 import com.example.administrator.jipinshop.activity.login.LoginActivity
+import com.example.administrator.jipinshop.bean.SuccessBean
 import com.example.administrator.jipinshop.bean.TbkIndexBean
 import com.example.administrator.jipinshop.databinding.ItemMain2GridBinding
 import com.example.administrator.jipinshop.util.ShopJumpUtil
+import com.example.administrator.jipinshop.util.UmApp.AppStatisticalUtil
 import com.example.administrator.jipinshop.util.sp.CommonDate
 import com.example.administrator.jipinshop.view.dialog.DialogUtil
 import com.example.administrator.jipinshop.view.glide.GlideApp
+import com.trello.rxlifecycle2.LifecycleTransformer
 
 /**
  * @author 莫小婷
@@ -26,12 +29,21 @@ class KTMain2TopGridAdapter : RecyclerView.Adapter<KTMain2TopGridAdapter.ViewHol
 
     private var mContext: Context
     private var mList:MutableList<TbkIndexBean.DataBean.BoxCategoryListBean.ListBean>
+    private lateinit var appStatisticalUtil: AppStatisticalUtil
+    private lateinit var transformer : LifecycleTransformer<SuccessBean>
 
     constructor(mContext: Context, mList: MutableList<TbkIndexBean.DataBean.BoxCategoryListBean.ListBean>){
         this.mContext = mContext
         this.mList = mList
     }
 
+    fun setAppStatisticalUtil(appStatisticalUtil : AppStatisticalUtil){
+        this.appStatisticalUtil = appStatisticalUtil
+    }
+
+    fun setTransformer(transformer : LifecycleTransformer<SuccessBean>){
+        this.transformer = transformer
+    }
 
     override fun onCreateViewHolder(viewGroup: ViewGroup, type: Int): ViewHolder {
         var itemMain2GridBinding = DataBindingUtil.inflate<ItemMain2GridBinding>(LayoutInflater.from(mContext), R.layout.item_main2_grid, viewGroup, false)
@@ -51,6 +63,7 @@ class KTMain2TopGridAdapter : RecyclerView.Adapter<KTMain2TopGridAdapter.ViewHol
                     mContext.startActivity(Intent(mContext, LoginActivity::class.java))
                     return@setOnClickListener
                 }
+                appStatisticalUtil.addEvent("shouye_top_gongge." + (position + 1),transformer)
                 if (mList[position].popStatus == "1" &&
                         SPUtils.getInstance(CommonDate.USER).getString(CommonDate.userMemberGrade, "0") == "0") {
                     DialogUtil.memberGuideDialog(mContext)
