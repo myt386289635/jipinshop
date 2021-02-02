@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:bind="http://schemas.android.com/apk/res-auto">
+
+    <data>
+        <variable
+            name="date"
+            type="com.example.administrator.jipinshop.bean.SimilerGoodsBean.DataBean"/>
+    </data>
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <ImageView
+            android:layout_marginTop="@dimen/y30"
+            bind:src="@{date.img}"
+            android:layout_gravity="center_horizontal"
+            android:id="@+id/item_image"
+            android:layout_width="@dimen/x210"
+            android:layout_height="@dimen/y210"/>
+
+        <TextView
+            android:layout_gravity="center_horizontal"
+            android:text="@{@string/allowance2 + date.fee}"
+            android:id="@+id/item_fee"
+            android:gravity="center"
+            android:textColor="@color/color_white"
+            android:textSize="10sp"
+            android:background="@color/color_FFAA23"
+            android:layout_marginTop="@dimen/y14"
+            android:layout_width="@dimen/x210"
+            android:layout_height="@dimen/y30"/>
+
+        <LinearLayout
+            android:layout_gravity="center_horizontal"
+            android:orientation="horizontal"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:textStyle="bold"
+                android:textColor="@color/color_E25838"
+                android:text="¥"
+                android:textSize="11sp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+
+            <TextView
+                android:id="@+id/item_price"
+                android:textStyle="bold"
+                android:textColor="@color/color_E25838"
+                android:textSize="16sp"
+                android:text="@{date.buyPrice}"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+
+            <com.example.administrator.jipinshop.view.textview.TextViewDel
+                android:layout_width="wrap_content"
+                android:text="@{@string/price + date.otherPrice}"
+                android:textSize="13sp"
+                android:id="@+id/item_cost"
+                android:layout_marginLeft="@dimen/x8"
+                android:textColor="@color/color_9D9D9D"
+                android:layout_height="wrap_content"/>
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+</layout>

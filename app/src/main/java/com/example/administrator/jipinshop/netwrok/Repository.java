@@ -1521,4 +1521,11 @@ public class Repository {
     public Observable<SuccessBean> deleteById(String id){
         return mAPIService.deleteById(id);
     }
+
+    /**
+     * 相似推荐
+     */
+    public Observable<SimilerGoodsBean> listLikeGoods(String otherGoodsId){
+        return mAPIService.listLikeGoods(otherGoodsId);
+    }
 }

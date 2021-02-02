@@ -437,77 +437,37 @@
                 <View
                     android:id="@+id/detail_line"
                     android:layout_width="match_parent"
-                    android:layout_height="@dimen/y20"
+                    android:layout_height="@dimen/y1"
                     android:layout_below="@id/detail_couponContainer"
                     android:layout_marginTop="@dimen/y36"
                     android:background="@color/color_F5F5F5"/>
 
-                <!--功能分析-->
-                <LinearLayout
-                    android:id="@+id/detail_qualityContainer"
+                <TextView
+                    android:layout_below="@id/detail_line"
+                    android:id="@+id/detail_recommendLine"
+                    android:layout_marginTop="@dimen/y20"
+                    android:layout_centerHorizontal="true"
+                    android:drawablePadding="@dimen/x5"
+                    android:textStyle="bold"
+                    android:textSize="17sp"
+                    android:textColor="@color/color_565252"
+                    android:drawableLeft="@mipmap/detail_good"
+                    android:text="高佣推荐"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"/>
+
+                <android.support.v7.widget.RecyclerView
+                    android:layout_below="@id/detail_recommendLine"
+                    android:id="@+id/detail_recommend"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_below="@+id/detail_line"
-                    android:orientation="vertical">
-
-                    <TextView
-                        android:drawableTint="@color/color_E25838"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginLeft="@dimen/x24"
-                        android:layout_marginTop="@dimen/y30"
-                        android:drawableLeft="@mipmap/quality"
-                        android:drawablePadding="@dimen/x8"
-                        android:gravity="center_vertical"
-                        android:text="功能评分"
-                        android:textColor="@color/color_DE151515"
-                        android:textSize="15sp"
-                        android:textStyle="bold"/>
-
-                    <android.support.v7.widget.RecyclerView
-                        android:id="@+id/detail_quality"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="@dimen/y30"/>
-
-                </LinearLayout>
-
-                <!--产品参数-->
-                <LinearLayout
-                    android:id="@+id/detail_parameterContainer"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_below="@id/detail_qualityContainer"
-                    android:orientation="vertical">
-
-                    <TextView
-                        android:drawableTint="@color/color_E25838"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginLeft="@dimen/x24"
-                        android:layout_marginTop="@dimen/y30"
-                        android:drawableLeft="@mipmap/parameter"
-                        android:drawablePadding="@dimen/x8"
-                        android:gravity="center_vertical"
-                        android:text="产品参数"
-                        android:textColor="@color/color_DE151515"
-                        android:textSize="15sp"
-                        android:textStyle="bold"/>
-
-                    <android.support.v7.widget.RecyclerView
-                        android:id="@+id/detail_parameter"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="@dimen/y30"/>
-
-                </LinearLayout>
+                    android:layout_height="wrap_content"/>
 
                 <View
                     android:id="@+id/detail_line2"
                     android:layout_width="match_parent"
-                    android:layout_height="@dimen/y20"
-                    android:layout_below="@id/detail_parameterContainer"
-                    android:layout_marginTop="@dimen/y44"
+                    android:layout_height="@dimen/y1"
+                    android:layout_below="@id/detail_recommend"
+                    android:layout_marginTop="@dimen/y36"
                     android:background="@color/color_F5F5F5"/>
 
                 <ImageView

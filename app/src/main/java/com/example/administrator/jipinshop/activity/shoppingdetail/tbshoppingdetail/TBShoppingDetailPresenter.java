@@ -92,11 +92,8 @@ public class TBShoppingDetailPresenter {
                 });
     }
 
-    public void listSimilerGoods(Map<String,String> map,String otherGoodsId, LifecycleTransformer<SimilerGoodsBean> transformer){
-        Map<String,String> parament = new HashMap<>();
-        parament.putAll(map);
-        parament.put("otherGoodsId",otherGoodsId);
-        mRepository.listSimilerGoods(parament)
+    public void listSimilerGoods(Map<String,String> map, LifecycleTransformer<SimilerGoodsBean> transformer){
+        mRepository.listSimilerGoods(map)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .compose(transformer)
@@ -277,6 +274,23 @@ public class TBShoppingDetailPresenter {
                 .subscribe(bean -> {
                     if (bean.getCode() == 0){
                         mView.initShare(bean);
+                    }else {
+                        mView.onFile(bean.getMsg());
+                    }
+                }, throwable -> {
+                    mView.onFile(throwable.getMessage());
+                });
+    }
+
+    //相似推荐
+    public void listLikeGoods(String otherGoodsId ,LifecycleTransformer<SimilerGoodsBean> transformer){
+        mRepository.listLikeGoods(otherGoodsId)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .compose(transformer)
+                .subscribe(bean -> {
+                    if (bean.getCode() == 0){
+                        mView.recommend(bean);
                     }else {
                         mView.onFile(bean.getMsg());
                     }

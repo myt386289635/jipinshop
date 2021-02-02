@@ -1376,4 +1376,10 @@ public interface APIService {
     @POST("api/v2/message/deleteById")
     Observable<SuccessBean> deleteById(@Field("id") String id);
 
+    /**
+     * 相似推荐
+     */
+    @GET("api/tbk/listLikeGoods")
+    Observable<SimilerGoodsBean> listLikeGoods(@Query("otherGoodsId") String otherGoodsId);
+
 }

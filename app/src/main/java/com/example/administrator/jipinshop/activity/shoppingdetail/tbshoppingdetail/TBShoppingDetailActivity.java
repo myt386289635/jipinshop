@@ -22,15 +22,13 @@ import android.widget.ImageView;
 import com.alibaba.baichuan.android.trade.AlibcTradeSDK;
 import com.blankj.utilcode.util.SPUtils;
 import com.example.administrator.jipinshop.R;
-import com.example.administrator.jipinshop.activity.home.MainActivity;
 import com.example.administrator.jipinshop.activity.home.home.HomeNewActivity;
 import com.example.administrator.jipinshop.activity.login.LoginActivity;
 import com.example.administrator.jipinshop.activity.school.video.VideoActivity;
 import com.example.administrator.jipinshop.activity.share.ShareActivity;
 import com.example.administrator.jipinshop.adapter.NoPageBannerAdapter;
 import com.example.administrator.jipinshop.adapter.ShoppingImageAdapter;
-import com.example.administrator.jipinshop.adapter.ShoppingParameterAdapter;
-import com.example.administrator.jipinshop.adapter.ShoppingQualityAdapter;
+import com.example.administrator.jipinshop.adapter.ShoppingRecommendAdapter;
 import com.example.administrator.jipinshop.adapter.ShoppingUserLikeAdapter;
 import com.example.administrator.jipinshop.base.BaseActivity;
 import com.example.administrator.jipinshop.bean.ClickUrlBean;
@@ -51,14 +49,9 @@ import com.example.administrator.jipinshop.util.ShareUtils;
 import com.example.administrator.jipinshop.util.TaoBaoUtil;
 import com.example.administrator.jipinshop.util.ToastUtil;
 import com.example.administrator.jipinshop.util.sp.CommonDate;
-import com.example.administrator.jipinshop.view.dialog.DialogParameter;
-import com.example.administrator.jipinshop.view.dialog.DialogQuality;
 import com.example.administrator.jipinshop.view.dialog.DialogUtil;
 import com.example.administrator.jipinshop.view.dialog.ProgressDialogView;
 import com.example.administrator.jipinshop.view.textview.CenteredImageSpan;
-import com.google.gson.Gson;
-import com.google.gson.reflect.TypeToken;
-import com.trello.rxlifecycle2.android.ActivityEvent;
 import com.umeng.socialize.UMShareAPI;
 import com.umeng.socialize.bean.SHARE_MEDIA;
 
@@ -77,7 +70,7 @@ import javax.inject.Inject;
  * @create 2019/11/25
  * @Describe 淘宝商品详情
  */
-public class TBShoppingDetailActivity extends BaseActivity implements View.OnClickListener, ShoppingQualityAdapter.OnItem, ShoppingParameterAdapter.OnItem, TBShoppingDetailView, ShoppingUserLikeAdapter.OnItem {
+public class TBShoppingDetailActivity extends BaseActivity implements View.OnClickListener, TBShoppingDetailView, ShoppingUserLikeAdapter.OnItem {
 
     @Inject
     TBShoppingDetailPresenter mPresenter;
@@ -89,14 +82,9 @@ public class TBShoppingDetailActivity extends BaseActivity implements View.OnCli
     private NoPageBannerAdapter mBannerAdapter;
     private List<String> mBannerList;
     private List<ImageView> point;
-    //功能评分
-    private List<TBShoppingDetailBean.DataBean.ScoreOptionsListBean> mQualityList;
-    private ShoppingQualityAdapter mQualityAdapter;
-    private DialogQuality mDialogQuality;
-    //产品参数
-    private List<TBShoppingDetailBean.DataBean.ParametersListBean> mParameterList;
-    private ShoppingParameterAdapter mParameterAdapter;
-    private DialogParameter mDialogParameter;
+    //高佣推荐
+    private List<SimilerGoodsBean.DataBean> mRecommendList;
+    private ShoppingRecommendAdapter mRecommendAdapter;
     //商品详情
     private List<String> mDetailList;
     private ShoppingImageAdapter mImageAdapter;
@@ -174,19 +162,16 @@ public class TBShoppingDetailActivity extends BaseActivity implements View.OnCli
         mBannerAdapter.setImgCenter(true);
         mBinding.viewPager.setAdapter(mBannerAdapter);
 
-        //功能评分
-        mBinding.detailQuality.setLayoutManager(new LinearLayoutManager(this,LinearLayoutManager.HORIZONTAL,false));
-        mQualityList = new ArrayList<>();
-        mQualityAdapter = new ShoppingQualityAdapter(mQualityList,this);
-        mQualityAdapter.setOnItem(this);
-        mBinding.detailQuality.setAdapter(mQualityAdapter);
-
-        //产品参数
-        mBinding.detailParameter.setLayoutManager(new LinearLayoutManager(this,LinearLayoutManager.HORIZONTAL,false));
-        mParameterList = new ArrayList<>();
-        mParameterAdapter = new ShoppingParameterAdapter(mParameterList,this);
-        mParameterAdapter.setOnItem(this);
-        mBinding.detailParameter.setAdapter(mParameterAdapter);
+        //高佣推荐
+        mRecommendList = new ArrayList<>();
+        mBinding.detailRecommend.setLayoutManager(new GridLayoutManager(this,3){
+            @Override
+            public boolean canScrollVertically() {
+                return false;
+            }
+        });
+        mRecommendAdapter = new ShoppingRecommendAdapter(mRecommendList,this);
+        mBinding.detailRecommend.setAdapter(mRecommendAdapter);
 
         //商品详情
         mDetailList = new ArrayList<>();
@@ -212,11 +197,12 @@ public class TBShoppingDetailActivity extends BaseActivity implements View.OnCli
         mProgressDialog = (new ProgressDialogView()).createLoadingDialog(this, "正在加载...");
         mProgressDialog.show();
         mPresenter.tbGoodsDetail(1,goodsId,source,this.bindToLifecycle());
+        mPresenter.listLikeGoods(goodsId,this.bindToLifecycle());
         if (source.equals("2")){//只有淘宝商品有猜你喜欢
             mBinding.detailUserLikeImage.setVisibility(View.VISIBLE);
             mBinding.detailUserLike.setVisibility(View.VISIBLE);
             Map<String,String> map =  DeviceUuidFactory.getIdfa(this);
-            mPresenter.listSimilerGoods(map,goodsId,this.bindToLifecycle());
+            mPresenter.listSimilerGoods(map,this.bindToLifecycle());
         }else {
             mBinding.detailUserLikeImage.setVisibility(View.GONE);
             mBinding.detailUserLike.setVisibility(View.GONE);
@@ -373,30 +359,6 @@ public class TBShoppingDetailActivity extends BaseActivity implements View.OnCli
         }
     }
 
-    //功能评分
-    @Override
-    public void onItemQuality() {
-        String json = new Gson().toJson(mQualityList,new TypeToken<List<TBShoppingDetailBean.DataBean.ScoreOptionsListBean>>(){}.getType());
-        if (mDialogQuality == null) {
-            mDialogQuality = DialogQuality.getInstance(json);
-        }
-        if (!mDialogQuality.isAdded()) {
-            mDialogQuality.show(getSupportFragmentManager(), "mDialogQuality");
-        }
-    }
-
-    //产品参数
-    @Override
-    public void onItemParameter() {
-        String json = new Gson().toJson(mParameterList,new TypeToken<List<TBShoppingDetailBean.DataBean.ParametersListBean>>(){}.getType());
-        if (mDialogParameter == null) {
-            mDialogParameter = DialogParameter.getInstance(json);
-        }
-        if (!mDialogParameter.isAdded()) {
-            mDialogParameter.show(getSupportFragmentManager(), "mDialogParameter");
-        }
-    }
-
     @Override
     public void onSuccess(TBShoppingDetailBean bean) {
         mBinding.setDate(bean.getData());
@@ -420,28 +382,6 @@ public class TBShoppingDetailActivity extends BaseActivity implements View.OnCli
         //轮播图
         mBannerList.addAll(bean.getData().getImgList());
         mPresenter.initBanner(mBannerList, this, point, mBinding.detailPoint, mBannerAdapter);
-        //功能评分
-        if (bean.getData().getScoreOptionsList() != null && bean.getData().getScoreOptionsList().size() != 0){
-            TBShoppingDetailBean.DataBean.ScoreOptionsListBean scoreOptionsListBean = new TBShoppingDetailBean.DataBean.ScoreOptionsListBean();
-            scoreOptionsListBean.setName("综合评分");
-            scoreOptionsListBean.setScore(bean.getData().getScore());
-            mQualityList.add(scoreOptionsListBean);
-            mQualityList.addAll(bean.getData().getScoreOptionsList());
-            mQualityAdapter.notifyDataSetChanged();
-        }else {
-            mBinding.detailQualityContainer.setVisibility(View.GONE);
-        }
-        //产品参数
-        if (bean.getData().getParametersList() != null && bean.getData().getParametersList().size() !=0){
-            mParameterList.addAll(bean.getData().getParametersList());
-            mParameterAdapter.notifyDataSetChanged();
-        }else {
-            mBinding.detailParameterContainer.setVisibility(View.GONE);
-        }
-        if (mBinding.detailQualityContainer.getVisibility() == View.GONE &&
-                mBinding.detailParameterContainer.getVisibility() == View.GONE){
-            mBinding.detailLine2.setVisibility(View.GONE);
-        }
         //商品详情
         goodsType = bean.getData().getGoodsType();
         mBinding.detailDec.setVisibility(View.GONE);
@@ -568,6 +508,13 @@ public class TBShoppingDetailActivity extends BaseActivity implements View.OnCli
         mUserLikeList.clear();
         mUserLikeList.addAll(bean.getData());
         mLikeAdapter.notifyDataSetChanged();
+    }
+
+    @Override
+    public void recommend(SimilerGoodsBean bean) {
+        mRecommendList.clear();
+        mRecommendList.addAll(bean.getData());
+        mRecommendAdapter.notifyDataSetChanged();
     }
 
     @Override
