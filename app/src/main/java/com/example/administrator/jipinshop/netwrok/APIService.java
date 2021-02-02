@@ -538,7 +538,7 @@ public interface APIService {
     /**
      * 获取二维码邀请图片（多张）
      */
-    @GET("api/user/getQRcodeImgs")
+    @GET("api/v2/user/getQRcodeImgs")
     Observable<InvitationBean> getQRcodeImgs();
 
     /**
