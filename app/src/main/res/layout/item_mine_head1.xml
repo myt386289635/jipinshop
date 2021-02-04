@@ -171,7 +171,7 @@
                 android:id="@+id/mine_memberInfoTitle"
                 android:textColor="@color/color_FFE4C1"
                 android:textStyle="bold"
-                android:text="开通会员立享8大特权"
+                android:text="开通会员立享7大特权"
                 android:textSize="15sp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"/>
