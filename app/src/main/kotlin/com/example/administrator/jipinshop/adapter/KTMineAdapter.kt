@@ -629,7 +629,7 @@ class KTMineAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>{
         fun onSetting()//设置
         fun onOpinion()//反馈
         fun onRule()//极币中心
-        fun onInvationDialog()//邀请码dialog
+        fun onInvationDialog()//邀请码dialog（没有使用）
         fun onOrderRecovery() //订单找回
         fun onTeam()//进入团队
         fun onInvitation() //进入邀请页面
