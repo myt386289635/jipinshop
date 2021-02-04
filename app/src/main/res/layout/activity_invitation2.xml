@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:bind="http://schemas.android.com/apk/res-auto">
+        xmlns:bind="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools">
 
     <data>
 
@@ -30,7 +31,7 @@
             android:background="@color/color_E25838"
             android:lineSpacingExtra="@dimen/y6"
             android:padding="@dimen/x28"
-            android:text="1.分享给好友，好友通过分享链接下载注册、填写邀请码；邀请一人可获得200极币;
+            tools:text="1.分享给好友，好友通过分享链接下载注册、填写邀请码；邀请一人可获得200极币;
 2.被邀请的好友在“极品城”购买任何商品，您都会获得50%佣金."
             android:textColor="@color/color_white"
             android:textSize="15sp"/>

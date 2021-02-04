@@ -24,7 +24,7 @@
 
         <TextView
             android:layout_gravity="center_horizontal"
-            android:text="@{@string/allowance2 + date.fee}"
+            android:text="@{@string/fee + date.fee}"
             android:id="@+id/item_fee"
             android:gravity="center"
             android:textColor="@color/color_white"

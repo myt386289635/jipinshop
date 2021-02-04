@@ -41,6 +41,8 @@ public class ShoppingRecommendAdapter extends RecyclerView.Adapter<ShoppingRecom
     @Override
     public void onBindViewHolder(@NonNull ViewHolder viewHolder, int position) {
         viewHolder.mBinding.setDate(mRecommendList.get(position));
+        viewHolder.mBinding.itemCost.setTv(true);
+        viewHolder.mBinding.itemCost.setColor(R.color.color_9D9D9D);
         viewHolder.mBinding.executePendingBindings();
         viewHolder.itemView.setOnClickListener(v -> {
             mContext.startActivity(new Intent(mContext, TBShoppingDetailActivity.class)

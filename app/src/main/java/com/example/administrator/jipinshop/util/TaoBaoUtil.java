@@ -114,9 +114,7 @@ public class TaoBaoUtil {
             }
 
             @Override
-            public void onFailure(int code, String msg) {
-                ToastUtil.show("登录失败 ");
-            }
+            public void onFailure(int code, String msg) { }
         });
     }
 
