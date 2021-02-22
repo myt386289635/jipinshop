@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <RelativeLayout
+        android:background="@color/color_white"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <com.example.administrator.jipinshop.view.viewpager.NoScrollViewPager
+            android:id="@+id/view_pager"
+            android:layout_above="@id/tab_layout"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"/>
+
+        <android.support.design.widget.TabLayout
+            app:tabGravity="fill"
+            app:tabMode="fixed"
+            app:tabIndicatorHeight="0dp"
+            app:tabBackground="@color/transparent"
+            android:background="@color/color_white"
+            android:id="@+id/tab_layout"
+            android:layout_alignParentBottom="true"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+
+        <View
+            android:id="@+id/main_line"
+            android:layout_above="@id/tab_layout"
+            android:background="@color/color_F5F5F5"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/y2"/>
+
+    </RelativeLayout>
+</layout>

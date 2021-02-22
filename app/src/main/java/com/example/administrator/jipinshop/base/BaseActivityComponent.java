@@ -9,13 +9,6 @@ import com.example.administrator.jipinshop.activity.balance.detail.WalletDetailA
 import com.example.administrator.jipinshop.activity.balance.history.WalletHistoryActivity;
 import com.example.administrator.jipinshop.activity.balance.team.TeamActivity;
 import com.example.administrator.jipinshop.activity.balance.withdraw.WithdrawActivity;
-import com.example.administrator.jipinshop.activity.home.food.TakeOutActivity;
-import com.example.administrator.jipinshop.activity.home.hot.HomeHotActivity;
-import com.example.administrator.jipinshop.activity.home.recharge.RechargeActivity;
-import com.example.administrator.jipinshop.activity.home.seckill.SeckillActivity;
-import com.example.administrator.jipinshop.activity.home.seckill.detail.SeckillDetailActivity;
-import com.example.administrator.jipinshop.activity.member.buy.MemberBuyActivity;
-import com.example.administrator.jipinshop.activity.mine.browse.BrowseActivity;
 import com.example.administrator.jipinshop.activity.cheapgoods.CheapBuyActivity;
 import com.example.administrator.jipinshop.activity.cheapgoods.record.AllowanceRecordActivity;
 import com.example.administrator.jipinshop.activity.commenlist.CommenListActivity;
@@ -24,7 +17,6 @@ import com.example.administrator.jipinshop.activity.evakt.send.SubmitActivity;
 import com.example.administrator.jipinshop.activity.evakt.send.corve.SubmitCorveActivity;
 import com.example.administrator.jipinshop.activity.evakt.send.goods.AddGoodsActivity;
 import com.example.administrator.jipinshop.activity.evakt.unbox.UnboxActivity;
-import com.example.administrator.jipinshop.activity.member.family.FamilyActivity;
 import com.example.administrator.jipinshop.activity.follow.FollowActivity;
 import com.example.administrator.jipinshop.activity.home.HomeDetailActivity;
 import com.example.administrator.jipinshop.activity.home.HomeTabActivity;
@@ -37,8 +29,11 @@ import com.example.administrator.jipinshop.activity.home.classification.encyclop
 import com.example.administrator.jipinshop.activity.home.classification.questions.QuestionsActivity;
 import com.example.administrator.jipinshop.activity.home.classification.questions.detail.QuestionDetailActivity;
 import com.example.administrator.jipinshop.activity.home.classification.questions.submit.QuestionSubmitActivity;
+import com.example.administrator.jipinshop.activity.home.food.TakeOutActivity;
 import com.example.administrator.jipinshop.activity.home.jd_pdd.KTJDDetailActivity;
 import com.example.administrator.jipinshop.activity.home.newarea.NewAreaActivity;
+import com.example.administrator.jipinshop.activity.home.recharge.RechargeActivity;
+import com.example.administrator.jipinshop.activity.home.seckill.detail.SeckillDetailActivity;
 import com.example.administrator.jipinshop.activity.home.tb.KTTBDetailActivity;
 import com.example.administrator.jipinshop.activity.info.MyInfoActivity;
 import com.example.administrator.jipinshop.activity.info.account.AccountManageActivity;
@@ -54,10 +49,13 @@ import com.example.administrator.jipinshop.activity.mall.detail.MallDetailActivi
 import com.example.administrator.jipinshop.activity.mall.exchange.ExchangeActivity;
 import com.example.administrator.jipinshop.activity.mall.order.MyOrderActivity;
 import com.example.administrator.jipinshop.activity.mall.order.detail.OrderDetailActivity;
+import com.example.administrator.jipinshop.activity.member.buy.MemberBuyActivity;
+import com.example.administrator.jipinshop.activity.member.family.FamilyActivity;
 import com.example.administrator.jipinshop.activity.member.zero.ZeroActivity;
 import com.example.administrator.jipinshop.activity.member.zero.detail.ZeroDetailActivity;
 import com.example.administrator.jipinshop.activity.message.MessageActivity;
 import com.example.administrator.jipinshop.activity.message.detail.MsgDetailActivity;
+import com.example.administrator.jipinshop.activity.mine.browse.BrowseActivity;
 import com.example.administrator.jipinshop.activity.mine.group.MyGroupActivity;
 import com.example.administrator.jipinshop.activity.mine.welfare.OfficialWelfareActivity;
 import com.example.administrator.jipinshop.activity.minekt.publishkt.detail.AuditDetailActivity;
@@ -69,8 +67,8 @@ import com.example.administrator.jipinshop.activity.money.binding.MoneyBindActiv
 import com.example.administrator.jipinshop.activity.money.record.MoneyRecordActivity;
 import com.example.administrator.jipinshop.activity.money.withdraw.MoneyWithdrawActivity;
 import com.example.administrator.jipinshop.activity.newpeople.NewFreeActivity;
-import com.example.administrator.jipinshop.activity.newpeople.detail.NewFreeDetailActivity;
 import com.example.administrator.jipinshop.activity.newpeople.cheap.CheapBuyDetailActivity;
+import com.example.administrator.jipinshop.activity.newpeople.detail.NewFreeDetailActivity;
 import com.example.administrator.jipinshop.activity.report.cover.CoverReportActivity;
 import com.example.administrator.jipinshop.activity.report.create.CreateReportActivity;
 import com.example.administrator.jipinshop.activity.report.detail.ReportDetailActivity;
@@ -210,8 +208,6 @@ public interface BaseActivityComponent {
     void inject(TakeOutActivity activity);
     void inject(MemberBuyActivity activity);
     void inject(CZBWebActivity activity);
-    void inject(HomeHotActivity activity);
-    void inject(SeckillActivity activity);
     void inject(SeckillDetailActivity activity);
     void inject(RechargeActivity activity);
 }

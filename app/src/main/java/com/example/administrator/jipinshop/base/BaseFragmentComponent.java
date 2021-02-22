@@ -1,5 +1,9 @@
 package com.example.administrator.jipinshop.base;
 
+import com.example.administrator.jipinshop.activity.home.comprehensive.HomeDetailFragment;
+import com.example.administrator.jipinshop.activity.home.comprehensive.zCheapBuyFragment;
+import com.example.administrator.jipinshop.activity.home.hot.HomeHotFragment;
+import com.example.administrator.jipinshop.activity.home.seckill.SeckillFragment;
 import com.example.administrator.jipinshop.auto.FragmentScope;
 import com.example.administrator.jipinshop.fragment.balance.budget.BudgetDetailFragment;
 import com.example.administrator.jipinshop.fragment.balance.withdraw.WithdrawDetailFragment;
@@ -114,4 +118,8 @@ public interface BaseFragmentComponent {
     void inject(CommonTabFragment fragment);
     void inject(PlayFragment fragment);
     void inject(KTMyGroupFragment fragment);
+    void inject(HomeDetailFragment fragment);
+    void inject(zCheapBuyFragment fragment);
+    void inject(SeckillFragment fragment);
+    void inject(HomeHotFragment fragment);
 }

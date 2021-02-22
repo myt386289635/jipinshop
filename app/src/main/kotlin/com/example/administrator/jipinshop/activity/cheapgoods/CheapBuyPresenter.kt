@@ -1,7 +1,9 @@
 package com.example.administrator.jipinshop.activity.cheapgoods
 
+import android.content.Context
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
+import android.widget.LinearLayout
 import com.aspsine.swipetoloadlayout.SwipeToLoadLayout
 import com.example.administrator.jipinshop.bean.NewPeopleBean
 import com.example.administrator.jipinshop.bean.ShareInfoBean
@@ -32,6 +34,15 @@ class CheapBuyPresenter {
     @Inject
     constructor(repository: Repository) {
         this.repository = repository
+    }
+
+    fun setStatusBarHight(StatusBar: LinearLayout, context: Context) {
+        val resourceId = context.resources.getIdentifier("status_bar_height", "dimen", "android")
+        if (resourceId > 0) {
+            val statusBarHeight = context.resources.getDimensionPixelSize(resourceId)
+            val layoutParams = StatusBar.layoutParams
+            layoutParams.height = statusBarHeight
+        }
     }
 
     fun solveScoll(recyclerView: RecyclerView, swipeToLoadLayout: SwipeToLoadLayout){

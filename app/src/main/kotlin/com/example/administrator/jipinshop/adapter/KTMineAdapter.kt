@@ -297,6 +297,9 @@ class KTMineAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>{
                         binding.mineOrderinvalid.setOnClickListener {
                             mOnItem?.onOrder(3)
                         }
+                        binding.mineWithdraw.setOnClickListener {
+                            mOnItem?.onWithdraw()
+                        }
                     }
                 }
             }
@@ -623,6 +626,7 @@ class KTMineAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>{
         fun onWallet()//进入我的收益
         fun onCheapBuy() //特惠购
         fun onOrder(status: Int) //我的订单
+        fun onWithdraw() //进入提现页面
 
         fun onMessage()//浏览足迹
         fun onFover()//收藏夹

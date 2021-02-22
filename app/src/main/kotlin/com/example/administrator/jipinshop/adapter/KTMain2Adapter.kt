@@ -16,7 +16,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
-import android.widget.LinearLayout
 import android.widget.RelativeLayout
 import android.widget.TextView
 import com.blankj.utilcode.util.SPUtils
@@ -27,12 +26,9 @@ import com.bumptech.glide.request.RequestListener
 import com.bumptech.glide.request.target.Target
 import com.example.administrator.jipinshop.R
 import com.example.administrator.jipinshop.activity.WebActivity
-import com.example.administrator.jipinshop.activity.cheapgoods.CheapBuyActivity
+import com.example.administrator.jipinshop.activity.home.comprehensive.ComprehensiveActivity
 import com.example.administrator.jipinshop.activity.home.home.HomeNewActivity
-import com.example.administrator.jipinshop.activity.home.hot.HomeHotActivity
-import com.example.administrator.jipinshop.activity.home.seckill.SeckillActivity
 import com.example.administrator.jipinshop.activity.login.LoginActivity
-import com.example.administrator.jipinshop.activity.member.buy.MemberBuyActivity
 import com.example.administrator.jipinshop.activity.member.zero.ZeroActivity
 import com.example.administrator.jipinshop.activity.newpeople.NewFreeActivity
 import com.example.administrator.jipinshop.activity.shoppingdetail.tbshoppingdetail.TBShoppingDetailActivity
@@ -405,14 +401,18 @@ class KTMain2Adapter : RecyclerView.Adapter<RecyclerView.ViewHolder>{
                             return@setOnClickListener
                         }
                         appStatisticalUtil.addEvent("shouye_tehui",transformer)
-                        mContext.startActivity(Intent(mContext, CheapBuyActivity::class.java))
+                        mContext.startActivity(Intent(mContext, ComprehensiveActivity::class.java)
+                                .putExtra("page", 3)
+                        )
                     }
                     binding.hotContainer.setOnClickListener {
                         if (TextUtils.isEmpty(SPUtils.getInstance(CommonDate.USER).getString(CommonDate.token, ""))) {
                             mContext.startActivity(Intent(mContext, LoginActivity::class.java))
                             return@setOnClickListener
                         }
-                        mContext.startActivity(Intent(mContext, HomeHotActivity::class.java))
+                        mContext.startActivity(Intent(mContext, ComprehensiveActivity::class.java)
+                                .putExtra("page", 4)
+                        )
                     }
                     binding.zeroContainer.setOnClickListener {
                         if (TextUtils.isEmpty(SPUtils.getInstance(CommonDate.USER).getString(CommonDate.token, ""))) {
@@ -435,7 +435,9 @@ class KTMain2Adapter : RecyclerView.Adapter<RecyclerView.ViewHolder>{
                             mContext.startActivity(Intent(mContext, LoginActivity::class.java))
                             return@setOnClickListener
                         }
-                        mContext.startActivity(Intent(mContext, SeckillActivity::class.java))
+                        mContext.startActivity(Intent(mContext, ComprehensiveActivity::class.java)
+                                .putExtra("page", 2)
+                        )
                     }
                 }
             }

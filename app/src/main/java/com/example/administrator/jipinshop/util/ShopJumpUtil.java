@@ -14,6 +14,7 @@ import com.example.administrator.jipinshop.activity.balance.withdraw.detail.With
 import com.example.administrator.jipinshop.activity.cheapgoods.CheapBuyActivity;
 import com.example.administrator.jipinshop.activity.home.HomeDetailActivity;
 import com.example.administrator.jipinshop.activity.home.article.ArticleDetailActivity;
+import com.example.administrator.jipinshop.activity.home.comprehensive.ComprehensiveActivity;
 import com.example.administrator.jipinshop.activity.home.food.TakeOutActivity;
 import com.example.administrator.jipinshop.activity.home.home.HomeNewActivity;
 import com.example.administrator.jipinshop.activity.home.jd_pdd.KTJDDetailActivity;
@@ -327,7 +328,8 @@ public class ShopJumpUtil {
                 }
                 context.startActivity(intent);
                 break;
-            case "19"://0元购
+            case "29":
+            case "19"://新人免单
                 if (TextUtils.isEmpty(SPUtils.getInstance(CommonDate.USER).getString(CommonDate.token, ""))) {
                     intent.setClass(context, LoginActivity.class);
                 }else {
@@ -420,14 +422,6 @@ public class ShopJumpUtil {
                     intent.setClass(context, LoginActivity.class);
                 }else {
                     intent.setClass(context, KTTBDetailActivity.class);
-                }
-                context.startActivity(intent);
-                break;
-            case "29"://0元购
-                if (TextUtils.isEmpty(SPUtils.getInstance(CommonDate.USER).getString(CommonDate.token, ""))) {
-                    intent.setClass(context, LoginActivity.class);
-                }else {
-                    intent.setClass(context, NewFreeActivity.class);
                 }
                 context.startActivity(intent);
                 break;
@@ -573,6 +567,51 @@ public class ShopJumpUtil {
                     intent.setClass(context, LoginActivity.class);
                 }else {
                     intent.setClass(context, RechargeActivity.class);
+                }
+                context.startActivity(intent);
+                break;
+            case "49"://综合页-9.9包邮
+                if (TextUtils.isEmpty(SPUtils.getInstance(CommonDate.USER).getString(CommonDate.token, ""))) {
+                    intent.setClass(context, LoginActivity.class);
+                }else {
+                    intent.setClass(context, ComprehensiveActivity.class);
+                    intent.putExtra("page", 0);
+                }
+                context.startActivity(intent);
+                break;
+            case "50"://综合页-一元购
+                if (TextUtils.isEmpty(SPUtils.getInstance(CommonDate.USER).getString(CommonDate.token, ""))) {
+                    intent.setClass(context, LoginActivity.class);
+                }else {
+                    intent.setClass(context, ComprehensiveActivity.class);
+                    intent.putExtra("page", 1);
+                }
+                context.startActivity(intent);
+                break;
+            case "51"://综合页-秒杀
+                if (TextUtils.isEmpty(SPUtils.getInstance(CommonDate.USER).getString(CommonDate.token, ""))) {
+                    intent.setClass(context, LoginActivity.class);
+                }else {
+                    intent.setClass(context, ComprehensiveActivity.class);
+                    intent.putExtra("page", 2);
+                }
+                context.startActivity(intent);
+                break;
+            case "52"://综合页-百万补贴
+                if (TextUtils.isEmpty(SPUtils.getInstance(CommonDate.USER).getString(CommonDate.token, ""))) {
+                    intent.setClass(context, LoginActivity.class);
+                }else {
+                    intent.setClass(context, ComprehensiveActivity.class);
+                    intent.putExtra("page", 3);
+                }
+                context.startActivity(intent);
+                break;
+            case "53"://综合页-热销榜单
+                if (TextUtils.isEmpty(SPUtils.getInstance(CommonDate.USER).getString(CommonDate.token, ""))) {
+                    intent.setClass(context, LoginActivity.class);
+                }else {
+                    intent.setClass(context, ComprehensiveActivity.class);
+                    intent.putExtra("page", 4);
                 }
                 context.startActivity(intent);
                 break;

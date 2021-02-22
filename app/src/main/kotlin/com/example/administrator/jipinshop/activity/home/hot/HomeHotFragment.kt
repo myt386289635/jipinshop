@@ -2,10 +2,11 @@ package com.example.administrator.jipinshop.activity.home.hot
 
 import android.content.Intent
 import android.databinding.DataBindingUtil
-import android.os.Bundle
 import android.support.v7.widget.LinearLayoutManager
 import android.text.TextUtils
+import android.view.LayoutInflater
 import android.view.View
+import android.view.ViewGroup
 import com.aspsine.swipetoloadlayout.OnLoadMoreListener
 import com.aspsine.swipetoloadlayout.OnRefreshListener
 import com.blankj.utilcode.util.SPUtils
@@ -13,14 +14,14 @@ import com.example.administrator.jipinshop.R
 import com.example.administrator.jipinshop.activity.login.LoginActivity
 import com.example.administrator.jipinshop.activity.share.ShareActivity
 import com.example.administrator.jipinshop.adapter.KTMain2HotAdapter
-import com.example.administrator.jipinshop.base.BaseActivity
+import com.example.administrator.jipinshop.base.DBBaseFragment
 import com.example.administrator.jipinshop.bean.TBSreachResultBean
 import com.example.administrator.jipinshop.databinding.ActivityArticleMoreBinding
 import com.example.administrator.jipinshop.util.TaoBaoUtil
 import com.example.administrator.jipinshop.util.ToastUtil
 import com.example.administrator.jipinshop.util.UmApp.AppStatisticalUtil
 import com.example.administrator.jipinshop.util.sp.CommonDate
-import com.trello.rxlifecycle2.android.ActivityEvent
+import com.trello.rxlifecycle2.android.FragmentEvent
 import javax.inject.Inject
 
 /**
@@ -28,7 +29,7 @@ import javax.inject.Inject
  * @create 2020/12/29
  * @Describe 热销榜单
  */
-class HomeHotActivity : BaseActivity(), View.OnClickListener, HomeHotView, OnRefreshListener, OnLoadMoreListener, KTMain2HotAdapter.OnItem {
+class HomeHotFragment : DBBaseFragment(), View.OnClickListener, HomeHotView, OnRefreshListener, OnLoadMoreListener, KTMain2HotAdapter.OnItem {
 
     @Inject
     lateinit var mPresenter : HomeHotPresenter
@@ -41,25 +42,25 @@ class HomeHotActivity : BaseActivity(), View.OnClickListener, HomeHotView, OnRef
     private lateinit var  adapter : KTMain2HotAdapter
     private lateinit var mList : MutableList<TBSreachResultBean.DataBean>
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        mBinding = DataBindingUtil.setContentView(this, R.layout.activity_article_more)
+    override fun initLayout(inflater: LayoutInflater?, container: ViewGroup?): View {
+        mBinding = DataBindingUtil.inflate(inflater, R.layout.activity_article_more,container,false)
         mBinding.listener = this
-        mBaseActivityComponent.inject(this)
+        mBaseFragmentComponent.inject(this)
         mPresenter.setView(this)
-        initView()
+        return mBinding.root
     }
 
-    private fun initView() {
+    override fun initView() {
         mBinding.inClude?.let {
             it.titleTv.text = "热销榜单"
         }
+        mPresenter.setStatusBarHight(mBinding.statusBar, context!!)
 
-        mBinding.recyclerView.layoutManager = LinearLayoutManager(this)
+        mBinding.recyclerView.layoutManager = LinearLayoutManager(context)
         mList = mutableListOf()
-        adapter = KTMain2HotAdapter(mList,this)
+        adapter = KTMain2HotAdapter(mList,context!!)
         adapter.setAppStatisticalUtil(appStatisticalUtil)
-        adapter.setTransformer(this.bindUntilEvent(ActivityEvent.DESTROY))
+        adapter.setTransformer(this.bindUntilEvent(FragmentEvent.DESTROY_VIEW))
         adapter.setOnClick(this)
         mBinding.recyclerView.adapter = this.adapter
 
@@ -74,7 +75,7 @@ class HomeHotActivity : BaseActivity(), View.OnClickListener, HomeHotView, OnRef
     override fun onClick(v: View?) {
         when(v?.id){
             R.id.title_back  ->{
-                finish()
+                activity?.finish()
             }
         }
     }
@@ -133,18 +134,18 @@ class HomeHotActivity : BaseActivity(), View.OnClickListener, HomeHotView, OnRef
 
     override fun onItemShare(position: Int) {
         if (TextUtils.isEmpty(SPUtils.getInstance(CommonDate.USER).getString(CommonDate.token, ""))) {
-            startActivity(Intent(this, LoginActivity::class.java))
+            startActivity(Intent(context, LoginActivity::class.java))
             return
         }
         if (TextUtils.isEmpty(mList[position].source) || mList[position].source == "2"){
-            TaoBaoUtil.openTB(this){
-                startActivity(Intent(this, ShareActivity::class.java)
+            TaoBaoUtil.openTB(context){
+                startActivity(Intent(context, ShareActivity::class.java)
                         .putExtra("otherGoodsId", mList[position].otherGoodsId)
                         .putExtra("source",mList[position].source)
                 )
             }
         }else{
-            startActivity(Intent(this, ShareActivity::class.java)
+            startActivity(Intent(context, ShareActivity::class.java)
                     .putExtra("otherGoodsId", mList[position].otherGoodsId)
                     .putExtra("source",mList[position].source)
             )

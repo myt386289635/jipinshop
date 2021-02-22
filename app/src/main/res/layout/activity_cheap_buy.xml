@@ -13,12 +13,23 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
+        <LinearLayout
+            android:id="@+id/status_bar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/color_white"
+            android:orientation="vertical"/>
+
         <include
+            android:layout_below="@id/status_bar"
             layout="@layout/aa_title2"
             bind:listener="@{listener}"
-            android:id="@+id/in_clude"/>
+            android:id="@+id/in_clude"
+            android:layout_height="@dimen/y88"
+            android:layout_width="match_parent"/>
 
         <TextView
+            android:layout_below="@id/status_bar"
             android:gravity="center"
             android:textColor="@color/color_DE050505"
             android:textStyle="bold"

@@ -17,6 +17,7 @@ import com.blankj.utilcode.util.SPUtils
 import com.example.administrator.jipinshop.R
 import com.example.administrator.jipinshop.activity.balance.MyWalletActivity
 import com.example.administrator.jipinshop.activity.balance.team.TeamActivity
+import com.example.administrator.jipinshop.activity.balance.withdraw.WithdrawActivity
 import com.example.administrator.jipinshop.activity.cheapgoods.CheapBuyActivity
 import com.example.administrator.jipinshop.activity.foval.FovalActivity
 import com.example.administrator.jipinshop.activity.home.home.HomeNewActivity
@@ -80,6 +81,7 @@ class KTMineFragment : DBBaseFragment(), KTMineAdapter.OnItem, KTMineView, OnLoa
     private var mDialog: Dialog? = null
     private var mBean : UserInfoBean? = null
     private var level : Int = 0 //默认普通会员
+    private var withdraw : String = "0" //用户可提现金额
 
     companion object{
         @JvmStatic //java中的静态方法
@@ -192,6 +194,7 @@ class KTMineFragment : DBBaseFragment(), KTMineAdapter.OnItem, KTMineView, OnLoa
 
     //佣金
     override fun onCommssionSummary(bean: MyWalletBean) {
+        withdraw = bean.data.balanceFee
         mAdapter.setWallet(bean)
         mAdapter.notifyDataSetChanged()
     }
@@ -489,6 +492,13 @@ class KTMineFragment : DBBaseFragment(), KTMineAdapter.OnItem, KTMineView, OnLoa
             startActivityForResult(Intent(context, MemberBuyActivity::class.java)
                     .putExtra("isBuy", "2"), 300)
         }
+    }
+
+    //进入提现页面
+    override fun onWithdraw() {
+        startActivity(Intent(context, WithdrawActivity::class.java)
+                .putExtra("price", "¥$withdraw")
+        )
     }
 
     override fun onCodeSuc(dialog: Dialog, inputManager: InputMethodManager, bean: SuccessBean) {

@@ -7,7 +7,9 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.LinearLayoutManager;
 import android.text.TextUtils;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 
 import com.aspsine.swipetoloadlayout.OnLoadMoreListener;
 import com.aspsine.swipetoloadlayout.OnRefreshListener;
@@ -19,6 +21,7 @@ import com.example.administrator.jipinshop.activity.share.ShareActivity;
 import com.example.administrator.jipinshop.adapter.KTTabAdapter6;
 import com.example.administrator.jipinshop.adapter.SeckillAdapter;
 import com.example.administrator.jipinshop.base.BaseActivity;
+import com.example.administrator.jipinshop.base.DBBaseFragment;
 import com.example.administrator.jipinshop.bean.SeckillBean;
 import com.example.administrator.jipinshop.bean.SeckillTabBean;
 import com.example.administrator.jipinshop.databinding.ActivitySeckillBinding;
@@ -37,9 +40,9 @@ import javax.inject.Inject;
 /**
  * @author 莫小婷
  * @create 2020/12/30
- * @Describe 秒杀主页
+ * @Describe 秒杀主页(变成fragment了)
  */
-public class SeckillActivity extends BaseActivity implements View.OnClickListener, OnRefreshListener, OnLoadMoreListener, SeckillView, KTTabAdapter6.OnClickItem, SeckillAdapter.OnItem {
+public class SeckillFragment extends DBBaseFragment implements View.OnClickListener, OnRefreshListener, OnLoadMoreListener, SeckillView, KTTabAdapter6.OnClickItem, SeckillAdapter.OnItem {
 
     @Inject
     SeckillPresenter mPresenter;
@@ -55,32 +58,28 @@ public class SeckillActivity extends BaseActivity implements View.OnClickListene
     private SeckillAdapter mAdapter;
 
     @Override
-    protected void onCreate(@Nullable Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        mBinding = DataBindingUtil.setContentView(this,R.layout.activity_seckill);
+    public View initLayout(LayoutInflater inflater, ViewGroup container) {
+        mBinding = DataBindingUtil.inflate(inflater,R.layout.activity_seckill,container,false);
         mBinding.setListener(this);
-        mBaseActivityComponent.inject(this);
-        mImmersionBar.reset()
-                .transparentStatusBar()
-                .statusBarDarkFont(true, 0f)
-                .init();
-        initView();
+        mBaseFragmentComponent.inject(this);
+        return mBinding.getRoot();
     }
 
-    private void initView() {
-        mPresenter.setStatusBarHight(mBinding.statusBar,this);
+    @Override
+    public void initView() {
+        mPresenter.setStatusBarHight(mBinding.statusBar,getContext());
         mPresenter.setView(this);
 
-        CommonNavigator commonNavigator = new CommonNavigator(this);
+        CommonNavigator commonNavigator = new CommonNavigator(getContext());
         tabs = new ArrayList<>();
         mTabAdapter = new KTTabAdapter6(tabs,this);
         commonNavigator.setAdapter(mTabAdapter);
         mBinding.seckillMenu.setNavigator(commonNavigator);
 
         mList = new ArrayList<>();
-        mAdapter = new SeckillAdapter(this,mList);
+        mAdapter = new SeckillAdapter(getContext(),mList);
         mAdapter.setOnItem(this);
-        mBinding.recyclerView.setLayoutManager(new LinearLayoutManager(this));
+        mBinding.recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         mBinding.recyclerView.setAdapter(mAdapter);
 
         mPresenter.solveScoll(mBinding.recyclerView,mBinding.swipeToLoad);
@@ -89,11 +88,13 @@ public class SeckillActivity extends BaseActivity implements View.OnClickListene
         mPresenter.categoryList(this.bindToLifecycle());
     }
 
+
     @Override
     public void onClick(View v) {
         switch (v.getId()){
             case R.id.title_back:
-                finish();
+                if (getActivity() != null)
+                    getActivity().finish();
                 break;
         }
     }
@@ -182,7 +183,7 @@ public class SeckillActivity extends BaseActivity implements View.OnClickListene
         this.index = index;
         mBinding.seckillMenu.onPageSelected(index);
         mBinding.seckillMenu.onPageScrolled(index,0.0F, 0);
-        mDialog = (new ProgressDialogView()).createLoadingDialog(this, "");
+        mDialog = (new ProgressDialogView()).createLoadingDialog(getContext(), "");
         mDialog.show();
         onRefresh();
     }
@@ -224,18 +225,18 @@ public class SeckillActivity extends BaseActivity implements View.OnClickListene
     @Override
     public void onItemShare(int position) {
         if (TextUtils.isEmpty(SPUtils.getInstance(CommonDate.USER).getString(CommonDate.token, ""))) {
-            startActivity(new Intent(this, LoginActivity.class));
+            startActivity(new Intent(getContext(), LoginActivity.class));
             return;
         }
         if (TextUtils.isEmpty(mList.get(position).getSource()) || mList.get(position).getSource().equals("2")){
-            TaoBaoUtil.openTB(this, () -> {
-                startActivity(new Intent(this, ShareActivity.class)
+            TaoBaoUtil.openTB(getContext(), () -> {
+                startActivity(new Intent(getContext(), ShareActivity.class)
                         .putExtra("otherGoodsId", mList.get(position).getOtherGoodsId())
                         .putExtra("source",mList.get(position).getSource())
                 );
             });
         }else{
-            startActivity(new Intent(this, ShareActivity.class)
+            startActivity(new Intent(getContext(), ShareActivity.class)
                     .putExtra("otherGoodsId", mList.get(position).getOtherGoodsId())
                     .putExtra("source",mList.get(position).getSource())
             );
@@ -244,7 +245,7 @@ public class SeckillActivity extends BaseActivity implements View.OnClickListene
 
     @Override
     public void onDetail(int position) {
-        startActivity(new Intent(this, SeckillDetailActivity.class)
+        startActivity(new Intent(getContext(), SeckillDetailActivity.class)
                 .putExtra("otherGoodsId", mList.get(position).getOtherGoodsId())
                 .putExtra("source", mList.get(position).getSource())
                 .putExtra("id",mList.get(position).getId())

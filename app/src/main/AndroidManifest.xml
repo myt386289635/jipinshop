@@ -848,20 +848,16 @@
         <activity android:name=".activity.web.tuanyou.CZBWebActivity"
                   android:screenOrientation="portrait"/>
 
-        <!--热销榜单-->
-        <activity android:name=".activity.home.hot.HomeHotActivity"
-                  android:screenOrientation="portrait"/>
-
-        <!--秒杀主页-->
-        <activity android:name=".activity.home.seckill.SeckillActivity"
-                  android:screenOrientation="portrait"/>
-
         <!--秒杀详情页-->
         <activity android:name=".activity.home.seckill.detail.SeckillDetailActivity"
                   android:screenOrientation="portrait"/>
 
         <!--充值集合页面-->
         <activity android:name=".activity.home.recharge.RechargeActivity"
+                  android:screenOrientation="portrait"/>
+
+        <!--综合页-->
+        <activity android:name=".activity.home.comprehensive.ComprehensiveActivity"
                   android:screenOrientation="portrait"/>
 
  </application>
