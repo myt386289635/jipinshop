@@ -13,7 +13,7 @@
         android:layout_height="match_parent">
 
         <ImageView
-            android:layout_alignBottom="@id/seckill_menu"
+            android:layout_alignBottom="@id/seckill_menu2"
             android:layout_alignTop="@id/status_bar"
             android:background="@drawable/bg_seckill"
             android:layout_width="match_parent"
@@ -54,10 +54,16 @@
             android:layout_below="@id/seckill_titleContainer"
             android:id="@+id/seckill_menu"
             android:layout_width="match_parent"
-            android:layout_height="@dimen/y143"/>
+            android:layout_height="@dimen/y102"/>
+
+        <net.lucode.hackware.magicindicator.MagicIndicator
+            android:layout_below="@id/seckill_menu"
+            android:id="@+id/seckill_menu2"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/y94"/>
 
         <com.aspsine.swipetoloadlayout.SwipeToLoadLayout
-            android:layout_below="@id/seckill_menu"
+            android:layout_below="@id/seckill_menu2"
             android:id="@+id/swipeToLoad"
             android:layout_width="match_parent"
             android:layout_height="match_parent">

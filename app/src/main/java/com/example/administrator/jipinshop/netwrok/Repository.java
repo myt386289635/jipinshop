@@ -1490,8 +1490,8 @@ public class Repository {
     /**
      * 秒杀商品列表
      */
-    public Observable<SeckillBean> seckillList(String categoryId , int page){
-        return mAPIService.seckillList(categoryId, page);
+    public Observable<SeckillBean> seckillList(String  category2Id,String categoryId , int page){
+        return mAPIService.seckillList(category2Id ,categoryId, page);
     }
 
     /**

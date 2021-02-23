@@ -3,8 +3,6 @@ package com.example.administrator.jipinshop.activity.home.seckill;
 import android.app.Dialog;
 import android.content.Intent;
 import android.databinding.DataBindingUtil;
-import android.os.Bundle;
-import android.support.annotation.Nullable;
 import android.support.v7.widget.LinearLayoutManager;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
@@ -19,8 +17,8 @@ import com.example.administrator.jipinshop.activity.home.seckill.detail.SeckillD
 import com.example.administrator.jipinshop.activity.login.LoginActivity;
 import com.example.administrator.jipinshop.activity.share.ShareActivity;
 import com.example.administrator.jipinshop.adapter.KTTabAdapter6;
+import com.example.administrator.jipinshop.adapter.KTTabAdapter7;
 import com.example.administrator.jipinshop.adapter.SeckillAdapter;
-import com.example.administrator.jipinshop.base.BaseActivity;
 import com.example.administrator.jipinshop.base.DBBaseFragment;
 import com.example.administrator.jipinshop.bean.SeckillBean;
 import com.example.administrator.jipinshop.bean.SeckillTabBean;
@@ -42,15 +40,18 @@ import javax.inject.Inject;
  * @create 2020/12/30
  * @Describe 秒杀主页(变成fragment了)
  */
-public class SeckillFragment extends DBBaseFragment implements View.OnClickListener, OnRefreshListener, OnLoadMoreListener, SeckillView, KTTabAdapter6.OnClickItem, SeckillAdapter.OnItem {
+public class SeckillFragment extends DBBaseFragment implements View.OnClickListener, OnRefreshListener, OnLoadMoreListener, SeckillView, KTTabAdapter6.OnClickItem, SeckillAdapter.OnItem, KTTabAdapter7.OnClickItem {
 
     @Inject
     SeckillPresenter mPresenter;
 
     private ActivitySeckillBinding mBinding;
-    private List<SeckillTabBean.DataBean> tabs;
+    private List<SeckillTabBean.DataBean> tabs;//菜单一数据
     private KTTabAdapter6 mTabAdapter;
     private int index = 0; //选中的位置
+    private List<SeckillTabBean.List2Bean> tabs2;//菜单二数据
+    private KTTabAdapter7 mTab2Adapter;
+    private int index2 = 0; //选中的位置
     private Dialog mDialog;
     private int page = 1;
     private Boolean refersh = true;
@@ -75,6 +76,14 @@ public class SeckillFragment extends DBBaseFragment implements View.OnClickListe
         mTabAdapter = new KTTabAdapter6(tabs,this);
         commonNavigator.setAdapter(mTabAdapter);
         mBinding.seckillMenu.setNavigator(commonNavigator);
+
+        CommonNavigator commonNavigator2 = new CommonNavigator(getContext());
+        commonNavigator2.setLeftPadding((int) getContext().getResources().getDimension(R.dimen.x10));
+        commonNavigator2.setRightPadding((int) getContext().getResources().getDimension(R.dimen.x10));
+        tabs2 = new ArrayList<>();
+        mTab2Adapter = new KTTabAdapter7(tabs2,this);
+        commonNavigator2.setAdapter(mTab2Adapter);
+        mBinding.seckillMenu2.setNavigator(commonNavigator2);
 
         mList = new ArrayList<>();
         mAdapter = new SeckillAdapter(getContext(),mList);
@@ -103,14 +112,14 @@ public class SeckillFragment extends DBBaseFragment implements View.OnClickListe
     public void onRefresh() {
         page = 1;
         refersh = true;
-        mPresenter.seckillList(tabs.get(index).getId(),page,this.bindToLifecycle());
+        mPresenter.seckillList(tabs2.get(index2).getId() ,tabs.get(index).getId(),page,this.bindToLifecycle());
     }
 
     @Override
     public void onLoadMore() {
         page++;
         refersh = false;
-        mPresenter.seckillList(tabs.get(index).getId(),page,this.bindToLifecycle());
+        mPresenter.seckillList(tabs2.get(index2).getId() ,tabs.get(index).getId(),page,this.bindToLifecycle());
     }
 
     @Override
@@ -126,6 +135,12 @@ public class SeckillFragment extends DBBaseFragment implements View.OnClickListe
         }
         mBinding.seckillMenu.onPageSelected(index);
         mBinding.seckillMenu.onPageScrolled(index,0.0F, 0);
+        //菜单2
+        tabs2.clear();
+        tabs2.addAll(bean.getList2());
+        mTab2Adapter.notifyDataSetChanged();
+        mBinding.seckillMenu2.onPageSelected(index2);
+        mBinding.seckillMenu2.onPageScrolled(index2,0.0F, 0);
         mBinding.swipeToLoad.post(() -> mBinding.swipeToLoad.setRefreshing(true));
     }
 
@@ -148,7 +163,7 @@ public class SeckillFragment extends DBBaseFragment implements View.OnClickListe
                 mList.addAll(bean.getData());
                 mAdapter.notifyDataSetChanged();
             }else {
-                initError(R.mipmap.qs_nodata, "暂无数据", "暂时没有任何数据 ");
+                initError(R.mipmap.qs_ms, "暂无商品", "");
                 mBinding.recyclerView.setVisibility(View.GONE);
             }
         }else {
@@ -168,7 +183,7 @@ public class SeckillFragment extends DBBaseFragment implements View.OnClickListe
     public void onContentFile(String error) {
         if(refersh){
             dissRefresh();
-            initError(R.mipmap.qs_net, "网络出错", "哇哦，网络出错了，换个姿势下滑页面试试");
+            initError(R.mipmap.qs_ms, "网络出错", "哇哦，网络出错了，换个姿势下滑页面试试");
             mBinding.recyclerView.setVisibility(View.GONE);
         }else {
             dissLoading();
@@ -183,6 +198,16 @@ public class SeckillFragment extends DBBaseFragment implements View.OnClickListe
         this.index = index;
         mBinding.seckillMenu.onPageSelected(index);
         mBinding.seckillMenu.onPageScrolled(index,0.0F, 0);
+        mDialog = (new ProgressDialogView()).createLoadingDialog(getContext(), "");
+        mDialog.show();
+        onRefresh();
+    }
+
+    @Override
+    public void onSelectSecMenu(int index) {
+        this.index2 = index;
+        mBinding.seckillMenu2.onPageSelected(index);
+        mBinding.seckillMenu2.onPageScrolled(index,0.0F, 0);
         mDialog = (new ProgressDialogView()).createLoadingDialog(getContext(), "");
         mDialog.show();
         onRefresh();

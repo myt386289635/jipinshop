@@ -89,8 +89,8 @@ public class SeckillPresenter {
                 });
     }
 
-    public void seckillList(String categoryId , int page , LifecycleTransformer<SeckillBean> transformer){
-        mRepository.seckillList(categoryId, page)
+    public void seckillList(String  category2Id ,String categoryId , int page , LifecycleTransformer<SeckillBean> transformer){
+        mRepository.seckillList(category2Id ,categoryId, page)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .compose(transformer)

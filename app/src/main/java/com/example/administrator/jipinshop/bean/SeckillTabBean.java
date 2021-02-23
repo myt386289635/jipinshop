@@ -19,6 +19,15 @@ public class SeckillTabBean {
     private String msg;
     private int code;
     private List<DataBean> data;
+    private List<List2Bean> list2;
+
+    public List<List2Bean> getList2() {
+        return list2;
+    }
+
+    public void setList2(List<List2Bean> list2) {
+        this.list2 = list2;
+    }
 
     public String getMsg() {
         return msg;
@@ -107,6 +116,37 @@ public class SeckillTabBean {
 
         public void setStatus(int status) {
             this.status = status;
+        }
+    }
+
+    public static class List2Bean{
+
+        private String id;
+        private String orderNum;
+        private String title;
+
+        public String getId() {
+            return id;
+        }
+
+        public void setId(String id) {
+            this.id = id;
+        }
+
+        public String getOrderNum() {
+            return orderNum;
+        }
+
+        public void setOrderNum(String orderNum) {
+            this.orderNum = orderNum;
+        }
+
+        public String getTitle() {
+            return title;
+        }
+
+        public void setTitle(String title) {
+            this.title = title;
         }
     }
 }

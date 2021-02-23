@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="@dimen/y94">
+
+    <TextView
+        android:background="@drawable/bg_fc1a19"
+        android:textColor="@color/color_white"
+        android:textSize="13sp"
+        android:id="@+id/item_text"
+        android:layout_marginRight="@dimen/x15"
+        android:layout_marginLeft="@dimen/x15"
+        android:gravity="center"
+        android:paddingRight="@dimen/x26"
+        android:paddingLeft="@dimen/x26"
+        android:layout_centerVertical="true"
+        android:text="热销"
+        android:layout_width="wrap_content"
+        android:layout_height="@dimen/y42"/>
+
+</RelativeLayout>

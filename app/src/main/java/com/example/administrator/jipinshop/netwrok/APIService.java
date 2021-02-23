@@ -1354,7 +1354,9 @@ public interface APIService {
      * 秒杀商品列表
      */
     @GET("api/seckill/list")
-    Observable<SeckillBean> seckillList(@Query("categoryId") String categoryId , @Query("page") int page);
+    Observable<SeckillBean> seckillList(@Query("category2Id") String  category2Id,
+                                        @Query("categoryId") String categoryId ,
+                                        @Query("page") int page);
 
     /**
      * 秒杀详情
