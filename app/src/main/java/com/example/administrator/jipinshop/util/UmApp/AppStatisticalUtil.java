@@ -29,6 +29,13 @@ public class AppStatisticalUtil {
                 .subscribe(successBean -> {}, throwable -> {});
     }
 
+    public void addEvent(String eventId){
+        repository.addEvent(eventId)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(successBean -> {}, throwable -> {});
+    }
+
     /**
      * 统计底部tab的点击量
      */

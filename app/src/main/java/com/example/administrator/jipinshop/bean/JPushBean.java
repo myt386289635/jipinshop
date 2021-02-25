@@ -19,6 +19,15 @@ public class JPushBean {
     private String targetType;
     private String source;
     private String remark;
+    private String jpcMsgId;
+
+    public String getJpcMsgId() {
+        return jpcMsgId;
+    }
+
+    public void setJpcMsgId(String jpcMsgId) {
+        this.jpcMsgId = jpcMsgId;
+    }
 
     public String getRemark() {
         return remark;

@@ -12,6 +12,7 @@ import com.example.administrator.jipinshop.netwrok.ApplicationComponent;
 import com.example.administrator.jipinshop.netwrok.ApplicationModule;
 import com.example.administrator.jipinshop.netwrok.DaggerApplicationComponent;
 import com.example.administrator.jipinshop.netwrok.Repository;
+import com.example.administrator.jipinshop.util.UmApp.AppStatisticalUtil;
 import com.google.gson.Gson;
 import com.meizu.cloud.pushsdk.MzPushMessageReceiver;
 import com.meizu.cloud.pushsdk.handler.MzPushMessage;
@@ -37,6 +38,8 @@ public class MyPushMsgReceiver extends MzPushMessageReceiver {
 
     @Inject
     Repository mRepository;
+    @Inject
+    AppStatisticalUtil mStatisticalUtil;
 
     /**
      * 调用订阅方法后，会在此方法回调结果
@@ -110,6 +113,8 @@ public class MyPushMsgReceiver extends MzPushMessageReceiver {
             String targetId = jPushBean.getTargetId();
             String targetTitle = jPushBean.getTargetTitle();
             String source= jPushBean.getSource();
+            String messageId = jPushBean.getJpcMsgId();
+            mStatisticalUtil.addEvent("push_click." + messageId);
             context.startActivity(new Intent(context, HmsActivity.class)
                     .putExtra("targetType",targetType)
                     .putExtra("targetId" , targetId)

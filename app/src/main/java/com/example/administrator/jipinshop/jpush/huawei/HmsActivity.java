@@ -9,9 +9,15 @@ import android.support.v7.app.AppCompatActivity;
 
 import com.example.administrator.jipinshop.R;
 import com.example.administrator.jipinshop.activity.home.MainActivity;
+import com.example.administrator.jipinshop.netwrok.ApplicationComponent;
+import com.example.administrator.jipinshop.netwrok.ApplicationModule;
+import com.example.administrator.jipinshop.netwrok.DaggerApplicationComponent;
 import com.example.administrator.jipinshop.util.ShopJumpUtil;
+import com.example.administrator.jipinshop.util.UmApp.AppStatisticalUtil;
 
 import java.util.List;
+
+import javax.inject.Inject;
 
 /**
  * @author 莫小婷
@@ -20,10 +26,17 @@ import java.util.List;
  */
 public class HmsActivity extends AppCompatActivity {
 
+    @Inject
+    AppStatisticalUtil mStatisticalUtil;
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_wx);
+        ApplicationComponent mApplicationComponent =
+                DaggerApplicationComponent.builder().applicationModule(new ApplicationModule(this))
+                        .build();
+        mApplicationComponent.inject(this);
         Intent intent = getIntent();
         if (intent != null){
             String targetType = intent.getStringExtra("targetType");
@@ -31,6 +44,8 @@ public class HmsActivity extends AppCompatActivity {
             String targetTitle = intent.getStringExtra("targetTitle");
             String source = intent.getStringExtra("source");
             String remark = intent.getStringExtra("remark");
+            String jpcMsgId = intent.getStringExtra("jpcMsgId");
+            mStatisticalUtil.addEvent("push_click." + jpcMsgId);
             if (isExistMainActivity()) {//是否已经启动MainActivity
                 //跳转到具体页面的代码
                 ShopJumpUtil.openBanner(this, targetType, targetId, targetTitle,source,remark);

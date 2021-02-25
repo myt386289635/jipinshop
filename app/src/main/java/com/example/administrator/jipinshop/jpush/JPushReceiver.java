@@ -18,12 +18,18 @@ import com.example.administrator.jipinshop.R;
 import com.example.administrator.jipinshop.activity.home.MainActivity;
 import com.example.administrator.jipinshop.activity.message.MessageActivity;
 import com.example.administrator.jipinshop.bean.JPushBean;
+import com.example.administrator.jipinshop.netwrok.ApplicationComponent;
+import com.example.administrator.jipinshop.netwrok.ApplicationModule;
+import com.example.administrator.jipinshop.netwrok.DaggerApplicationComponent;
 import com.example.administrator.jipinshop.util.ShopJumpUtil;
+import com.example.administrator.jipinshop.util.UmApp.AppStatisticalUtil;
 import com.google.gson.Gson;
 
 import org.greenrobot.eventbus.EventBus;
 
 import java.util.List;
+
+import javax.inject.Inject;
 
 import cn.jpush.android.api.JPushInterface;
 
@@ -42,6 +48,9 @@ public class JPushReceiver extends BroadcastReceiver {
 
     private NotificationManager nm;
 
+    @Inject
+    AppStatisticalUtil mStatisticalUtil;
+
 
     @Override
     public void onReceive(Context context, Intent intent) {
@@ -50,6 +59,10 @@ public class JPushReceiver extends BroadcastReceiver {
         }
 
         Bundle bundle = intent.getExtras();
+        ApplicationComponent mApplicationComponent =
+                DaggerApplicationComponent.builder().applicationModule(new ApplicationModule(context))
+                        .build();
+        mApplicationComponent.inject(this);
 
         if (JPushInterface.ACTION_REGISTRATION_ID.equals(intent.getAction())) {
             Log.e(TAG, "JPush用户注册成功");
@@ -75,6 +88,8 @@ public class JPushReceiver extends BroadcastReceiver {
                     String target_title = jPushBean.getTargetTitle();
                     String source= jPushBean.getSource();
                     String remark = jPushBean.getRemark();
+                    String messageId = jPushBean.getJpcMsgId();
+                    mStatisticalUtil.addEvent("push_click." + messageId);
                     if (isExistMainActivity(context)){//是否已经启动MainActivity
                         ShopJumpUtil.openBanner(context, targetType, target_id, target_title,source,remark);
                     }else {

@@ -25,6 +25,7 @@ import com.example.administrator.jipinshop.netwrok.ApplicationComponent;
 import com.example.administrator.jipinshop.netwrok.ApplicationModule;
 import com.example.administrator.jipinshop.netwrok.DaggerApplicationComponent;
 import com.example.administrator.jipinshop.netwrok.Repository;
+import com.example.administrator.jipinshop.util.UmApp.AppStatisticalUtil;
 import com.example.administrator.jipinshop.util.sp.CommonDate;
 import com.example.administrator.jipinshop.view.dialog.DialogUtil;
 
@@ -44,7 +45,7 @@ import io.reactivex.schedulers.Schedulers;
 public class TaoBaoUtil {
 
     @Inject
-    Repository mRepository;
+    AppStatisticalUtil mStatisticalUtil;
 
     public TaoBaoUtil(Context context) {
         ApplicationComponent mApplicationComponent =
@@ -180,10 +181,7 @@ public class TaoBaoUtil {
     }
 
     public void addEvent(String eventId ){
-        mRepository.addEvent(eventId)
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(successBean -> {}, throwable -> {});
+        mStatisticalUtil.addEvent(eventId);
     }
 
     public interface OnItem{
