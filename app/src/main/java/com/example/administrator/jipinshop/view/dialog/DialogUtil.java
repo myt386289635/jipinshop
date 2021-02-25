@@ -923,7 +923,7 @@ public class DialogUtil {
     }
 
     //淘宝授权dialog
-    public static void TBLoginDialog(Context context, View.OnClickListener listener) {
+    public static void TBLoginDialog(Context context, View.OnClickListener listener ,View.OnClickListener cancleListener ) {
         AlertDialog.Builder builder = new AlertDialog.Builder(context, R.style.dialog);
         final Dialog dialog = builder.create();
         View view = LayoutInflater.from(context).inflate(R.layout.dialog_tb_login, null);
@@ -933,6 +933,7 @@ public class DialogUtil {
         GlideApp.loderImage(context, "https://jipincheng.cn/tbshouquan.png",
                 dialog_bg, R.mipmap.dialog_login_bg, R.mipmap.dialog_login_bg);
         dialog_cancle.setOnClickListener(v -> {
+            cancleListener.onClick(v);
             dialog.dismiss();
         });
         dialog_sure.setOnClickListener(v -> {

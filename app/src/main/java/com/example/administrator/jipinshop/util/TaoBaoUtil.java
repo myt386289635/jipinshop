@@ -21,11 +21,20 @@ import com.alibaba.baichuan.trade.biz.login.AlibcLoginCallback;
 import com.alibaba.baichuan.trade.common.utils.AlibcLogger;
 import com.blankj.utilcode.util.SPUtils;
 import com.example.administrator.jipinshop.activity.web.TaoBaoWebActivity;
+import com.example.administrator.jipinshop.netwrok.ApplicationComponent;
+import com.example.administrator.jipinshop.netwrok.ApplicationModule;
+import com.example.administrator.jipinshop.netwrok.DaggerApplicationComponent;
+import com.example.administrator.jipinshop.netwrok.Repository;
 import com.example.administrator.jipinshop.util.sp.CommonDate;
 import com.example.administrator.jipinshop.view.dialog.DialogUtil;
 
 import java.util.HashMap;
 import java.util.Map;
+
+import javax.inject.Inject;
+
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.schedulers.Schedulers;
 
 /**
  * @author 莫小婷
@@ -33,6 +42,16 @@ import java.util.Map;
  * @Describe
  */
 public class TaoBaoUtil {
+
+    @Inject
+    Repository mRepository;
+
+    public TaoBaoUtil(Context context) {
+        ApplicationComponent mApplicationComponent =
+                DaggerApplicationComponent.builder().applicationModule(new ApplicationModule(context))
+                        .build();
+        mApplicationComponent.inject(this);
+    }
 
     /****
      * 跳转淘宝首页
@@ -141,19 +160,30 @@ public class TaoBaoUtil {
 
     //统一授权管理
     public static void openTB(Context context , OnItem listener){
+        TaoBaoUtil taoBaoUtil = new TaoBaoUtil(context);//为了统计
         String specialId2 = SPUtils.getInstance(CommonDate.USER).getString(CommonDate.relationId, "");
         if (TextUtils.isEmpty(specialId2) || specialId2.equals("null")) {
             DialogUtil.TBLoginDialog(context, v -> {
+                taoBaoUtil.addEvent("auth_tb_click");
                 TaoBaoUtil.aliLogin(topAuthCode -> {
                     context.startActivity(new Intent(context, TaoBaoWebActivity.class)
                             .putExtra(TaoBaoWebActivity.url, "https://oauth.taobao.com/authorize?response_type=code&client_id=25612235&redirect_uri=https://www.jipincheng.cn/qualityshop-api/api/taobao/returnUrl&state=" + SPUtils.getInstance(CommonDate.USER).getString(CommonDate.token) + "&view=wap")
                             .putExtra(TaoBaoWebActivity.title, "淘宝授权")
                     );
                 });
+            }, v -> {
+                taoBaoUtil.addEvent("auth_tb_close");
             });
         } else {
             if (listener != null) listener.go();
         }
+    }
+
+    public void addEvent(String eventId ){
+        mRepository.addEvent(eventId)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(successBean -> {}, throwable -> {});
     }
 
     public interface OnItem{

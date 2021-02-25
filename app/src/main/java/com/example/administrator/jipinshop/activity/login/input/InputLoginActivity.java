@@ -36,9 +36,11 @@ import com.example.administrator.jipinshop.jpush.LoginUtil;
 import com.example.administrator.jipinshop.netwrok.RetrofitModule;
 import com.example.administrator.jipinshop.util.ShopJumpUtil;
 import com.example.administrator.jipinshop.util.ToastUtil;
+import com.example.administrator.jipinshop.util.UmApp.AppStatisticalUtil;
 import com.example.administrator.jipinshop.util.sp.CommonDate;
 import com.example.administrator.jipinshop.view.dialog.ProgressDialogView;
 import com.tencent.captchasdk.TCaptchaDialog;
+import com.trello.rxlifecycle2.android.ActivityEvent;
 import com.umeng.socialize.UMAuthListener;
 import com.umeng.socialize.UMShareAPI;
 import com.umeng.socialize.UMShareConfig;
@@ -62,6 +64,8 @@ public class InputLoginActivity extends BaseActivity implements View.OnClickList
     private ActivityBindNumberBinding mBinding;
     @Inject
     InputLoginPresenter mPresenter;
+    @Inject
+    AppStatisticalUtil appStatisticalUtil;
 
     private CountDownTimer mTimer;
     private Boolean[] timerStart = {false};
@@ -175,6 +179,7 @@ public class InputLoginActivity extends BaseActivity implements View.OnClickList
                         invitationCode ,this.<LoginBean>bindToLifecycle());
                 break;
             case R.id.login_wx:
+                appStatisticalUtil.addEvent("login_weixin",this.bindUntilEvent(ActivityEvent.DESTROY));
                 authorization(SHARE_MEDIA.WEIXIN);
                 break;
         }
