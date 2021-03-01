@@ -1,7 +1,7 @@
 package com.example.administrator.jipinshop.base;
 
 import com.example.administrator.jipinshop.activity.home.comprehensive.HomeDetailFragment;
-import com.example.administrator.jipinshop.activity.home.comprehensive.zCheapBuyFragment;
+import com.example.administrator.jipinshop.activity.cheapgoods.zCheapBuyFragment;
 import com.example.administrator.jipinshop.activity.home.hot.HomeHotFragment;
 import com.example.administrator.jipinshop.activity.home.seckill.SeckillFragment;
 import com.example.administrator.jipinshop.auto.FragmentScope;

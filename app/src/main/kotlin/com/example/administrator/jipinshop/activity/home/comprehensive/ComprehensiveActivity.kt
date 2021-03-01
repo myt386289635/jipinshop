@@ -6,6 +6,7 @@ import android.os.Bundle
 import android.support.v4.app.Fragment
 import android.view.LayoutInflater
 import com.example.administrator.jipinshop.R
+import com.example.administrator.jipinshop.activity.cheapgoods.zCheapBuyFragment
 import com.example.administrator.jipinshop.activity.home.hot.HomeHotFragment
 import com.example.administrator.jipinshop.activity.home.seckill.SeckillFragment
 import com.example.administrator.jipinshop.adapter.HomeFragmentAdapter

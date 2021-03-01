@@ -1,4 +1,4 @@
-package com.example.administrator.jipinshop.activity.home.comprehensive
+package com.example.administrator.jipinshop.activity.cheapgoods
 
 import android.app.Dialog
 import android.content.ClipData
@@ -7,7 +7,6 @@ import android.content.Context
 import android.content.Intent
 import android.databinding.DataBindingUtil
 import android.os.Bundle
-import android.support.v4.content.ContextCompat.getSystemService
 import android.support.v7.widget.LinearLayoutManager
 import android.text.TextUtils
 import android.view.LayoutInflater
@@ -18,8 +17,6 @@ import com.aspsine.swipetoloadlayout.OnLoadMoreListener
 import com.aspsine.swipetoloadlayout.OnRefreshListener
 import com.blankj.utilcode.util.SPUtils
 import com.example.administrator.jipinshop.R
-import com.example.administrator.jipinshop.activity.cheapgoods.CheapBuyPresenter
-import com.example.administrator.jipinshop.activity.cheapgoods.CheapBuyView
 import com.example.administrator.jipinshop.activity.cheapgoods.record.AllowanceRecordActivity
 import com.example.administrator.jipinshop.activity.login.LoginActivity
 import com.example.administrator.jipinshop.activity.newpeople.cheap.CheapBuyDetailActivity
@@ -27,7 +24,6 @@ import com.example.administrator.jipinshop.adapter.KTCheapBuyAdapter
 import com.example.administrator.jipinshop.base.DBBaseFragment
 import com.example.administrator.jipinshop.bean.NewPeopleBean
 import com.example.administrator.jipinshop.bean.ShareInfoBean
-import com.example.administrator.jipinshop.bean.eventbus.TBShopDetailBus.finish
 import com.example.administrator.jipinshop.databinding.ActivityCheapBuyBinding
 import com.example.administrator.jipinshop.util.ShareUtils
 import com.example.administrator.jipinshop.util.ToastUtil

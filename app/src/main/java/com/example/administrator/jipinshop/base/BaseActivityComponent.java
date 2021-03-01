@@ -9,7 +9,6 @@ import com.example.administrator.jipinshop.activity.balance.detail.WalletDetailA
 import com.example.administrator.jipinshop.activity.balance.history.WalletHistoryActivity;
 import com.example.administrator.jipinshop.activity.balance.team.TeamActivity;
 import com.example.administrator.jipinshop.activity.balance.withdraw.WithdrawActivity;
-import com.example.administrator.jipinshop.activity.cheapgoods.CheapBuyActivity;
 import com.example.administrator.jipinshop.activity.cheapgoods.record.AllowanceRecordActivity;
 import com.example.administrator.jipinshop.activity.commenlist.CommenListActivity;
 import com.example.administrator.jipinshop.activity.evakt.comparison.ComparActivity;
@@ -169,7 +168,6 @@ public interface BaseActivityComponent {
     void inject(TBSreachResultActivity activity);
     void inject(HomeDetailActivity activity);
     void inject(HomeTabActivity activity);
-    void inject(CheapBuyActivity activity);
     void inject(AllowanceRecordActivity activity);
     void inject(WelfareActivity activity);
     void inject(MoneyWithdrawActivity activity);
