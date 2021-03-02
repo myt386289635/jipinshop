@@ -8,26 +8,24 @@
             type="com.example.administrator.jipinshop.bean.NewPeopleBean.DataBean.AllowanceGoodsListBean"/>
     </data>
 
-    <RelativeLayout
+    <LinearLayout
+        android:orientation="vertical"
         android:id="@+id/itemContainer"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
         <RelativeLayout
-            android:layout_marginBottom="@dimen/y23"
-            android:background="@drawable/bg_balance"
             android:layout_marginRight="@dimen/x20"
             android:layout_marginLeft="@dimen/x20"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="@dimen/y278">
 
             <ImageView
-                android:layout_marginRight="@dimen/x33"
+                android:layout_centerVertical="true"
+                android:layout_marginRight="@dimen/x32"
                 bind:srcRound="@{data.img}"
                 android:id="@+id/item_image"
-                android:layout_marginBottom="@dimen/y30"
-                android:layout_marginTop="@dimen/y30"
-                android:layout_marginLeft="@dimen/x13"
+                android:layout_marginLeft="@dimen/x11"
                 android:layout_width="@dimen/x220"
                 android:layout_height="@dimen/y220"/>
 
@@ -35,8 +33,7 @@
                 android:id="@+id/item_name"
                 android:textColor="@color/color_565252"
                 android:textSize="14sp"
-                android:layout_marginRight="@dimen/x22"
-                android:layout_marginTop="@dimen/y4"
+                android:layout_marginRight="@dimen/x23"
                 android:layout_alignTop="@id/item_image"
                 android:ellipsize="end"
                 android:maxLines="1"
@@ -55,51 +52,98 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"/>
 
-            <RelativeLayout
-                android:layout_marginRight="@dimen/x22"
-                android:id="@+id/item_priceContainer"
-                android:layout_below="@id/item_name"
+            <TextView
+                android:id="@+id/item_saled"
+                android:layout_marginTop="@dimen/y6"
                 android:layout_toRightOf="@id/item_image"
-                android:layout_width="match_parent"
-                android:layout_height="@dimen/y121">
+                android:layout_below="@id/item_name"
+                android:textColor="@color/color_9D9D9D"
+                android:textSize="11sp"
+                android:text="@{@string/cheap_2 + data.soldTotal + @string/free_count2}"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
 
-                <ImageView
-                    android:adjustViewBounds="true"
-                    android:layout_centerHorizontal="true"
-                    android:scaleType="fitXY"
-                    android:src="@mipmap/bg_cheap7"
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"/>
+            <TextView
+                android:textStyle="bold"
+                android:layout_toRightOf="@id/item_image"
+                android:gravity="center"
+                android:layout_marginTop="@dimen/y6"
+                android:layout_marginRight="@dimen/x10"
+                android:id="@+id/detail_coupon"
+                android:text="@{@string/cheap_3 + data.couponPrice}"
+                android:textSize="10sp"
+                android:textColor="@color/color_white"
+                android:background="@mipmap/bg_coupon1"
+                android:layout_below="@id/item_saled"
+                android:layout_width="wrap_content"
+                android:layout_height="@dimen/y30"/>
+
+            <TextView
+                android:layout_below="@id/item_saled"
+                android:textStyle="bold"
+                android:layout_marginTop="@dimen/y6"
+                android:id="@+id/detail_fee"
+                android:paddingRight="@dimen/x16"
+                android:paddingLeft="@dimen/x16"
+                android:layout_toRightOf="@id/detail_coupon"
+                android:gravity="center"
+                android:text="@{@string/cheap_4 + data.fee}"
+                android:textColor="@color/color_835720"
+                android:textSize="10sp"
+                android:background="@drawable/bg_fee"
+                android:layout_width="wrap_content"
+                android:layout_height="@dimen/y30"/>
+
+            <LinearLayout
+                android:id="@+id/item_priceContainer"
+                android:layout_marginTop="@dimen/y12"
+                android:layout_below="@id/detail_fee"
+                android:layout_toRightOf="@id/item_image"
+                android:orientation="horizontal"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
 
                 <TextView
-                    android:layout_marginBottom="@dimen/y24"
-                    android:layout_alignParentBottom="true"
-                    android:textStyle="bold"
-                    android:textColor="@color/color_white"
-                    android:textSize="13sp"
-                    android:id="@+id/item_allowance"
-                    android:text="@{data.useAllowancePrice + @string/order_prefree_end}"
-                    android:layout_centerHorizontal="true"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"/>
-
-                <TextView
-                    android:layout_marginLeft="@dimen/x25"
-                    android:layout_marginBottom="@dimen/y10"
-                    android:layout_alignParentBottom="true"
                     android:textColor="@color/color_9D9D9D"
-                    android:textSize="10sp"
-                    android:text="@{@string/cheap_1 + data.otherPrice}"
+                    android:textSize="11sp"
+                    android:text="补贴后："
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"/>
 
-            </RelativeLayout>
+                <TextView
+                    android:textStyle="bold"
+                    android:textColor="@color/color_E25838"
+                    android:textSize="11sp"
+                    android:text="¥"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"/>
+
+                <TextView
+                    android:id="@+id/item_price"
+                    android:textStyle="bold"
+                    android:textColor="@color/color_E25838"
+                    android:textSize="16sp"
+                    android:text="@{data.buyPrice}"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"/>
+
+                <com.example.administrator.jipinshop.view.textview.TextViewDel
+                    android:text="@{@string/price + data.otherPrice}"
+                    android:layout_marginLeft="@dimen/x8"
+                    android:id="@+id/item_otherPrice"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="11sp"
+                    android:textColor="@color/color_9D9D9D"/>
+
+            </LinearLayout>
 
             <RelativeLayout
-                android:background="@mipmap/bg_cheap8"
-                android:layout_marginTop="@dimen/y10"
+                android:layout_marginTop="@dimen/y4"
                 android:layout_below="@id/item_priceContainer"
-                android:layout_marginRight="@dimen/x22"
+                android:id="@+id/item_feeContainer"
+                android:background="@mipmap/bg_cheap8"
+                android:layout_marginRight="@dimen/x23"
                 android:layout_toRightOf="@id/item_image"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/y66">
@@ -132,13 +176,13 @@
                         android:textSize="12sp"
                         android:textStyle="bold"
                         android:textColor="@color/color_white"
-                        android:text="补贴后¥"
+                        android:text="补贴:¥"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"/>
 
                     <TextView
-                        android:id="@+id/item_price"
-                        android:text="@{data.buyPrice}"
+                        android:id="@+id/item_fee"
+                        android:text="@{data.useAllowancePrice}"
                         android:textSize="17sp"
                         android:textStyle="bold"
                         android:textColor="@color/color_white"
@@ -151,5 +195,12 @@
 
         </RelativeLayout>
 
-    </RelativeLayout>
+        <View
+            android:layout_marginRight="@dimen/x20"
+            android:layout_marginLeft="@dimen/x20"
+            android:background="@color/color_DEDEDE"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/y1"/>
+
+    </LinearLayout>
 </layout>

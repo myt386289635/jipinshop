@@ -265,13 +265,31 @@ public class NewPeopleBean {
             private int count;
             private int validDay;
             private String img;
-            private String useAllowancePrice;
+            private String useAllowancePrice;//津贴补贴
             private int type;
             private int status;
             private String otherPrice;
-            private String buyPrice;
+            private String buyPrice;//到手价（补贴后）
             private String couponPrice;
             private String isBuy; //0 没买 1买过
+            private String fee;//返现金额
+            private String soldTotal;//销售数量
+
+            public String getFee() {
+                return fee;
+            }
+
+            public void setFee(String fee) {
+                this.fee = fee;
+            }
+
+            public String getSoldTotal() {
+                return soldTotal;
+            }
+
+            public void setSoldTotal(String soldTotal) {
+                this.soldTotal = soldTotal;
+            }
 
             public String getIsBuy() {
                 return isBuy;

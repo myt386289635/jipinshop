@@ -4,14 +4,15 @@ import android.content.Context
 import android.content.Intent
 import android.databinding.DataBindingUtil
 import android.os.CountDownTimer
+import android.support.v7.widget.GridLayoutManager
 import android.support.v7.widget.RecyclerView
 import android.util.SparseArray
-import android.util.TimeUtils
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import com.example.administrator.jipinshop.R
 import com.example.administrator.jipinshop.activity.WebActivity
 import com.example.administrator.jipinshop.bean.NewPeopleBean
+import com.example.administrator.jipinshop.databinding.ItemCheapbuyContent2Binding
 import com.example.administrator.jipinshop.databinding.ItemCheapbuyContentBinding
 import com.example.administrator.jipinshop.databinding.ItemCheapbuyHeadBinding
 import com.example.administrator.jipinshop.netwrok.RetrofitModule
@@ -26,6 +27,7 @@ class KTCheapBuyAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>{
 
     private val HEAD = 1
     private val CONTENT = 2
+    private val HEAD2 = 3
 
     private var mList: MutableList<NewPeopleBean.DataBean.AllowanceGoodsListBean>
     private var mContent: Context
@@ -51,8 +53,27 @@ class KTCheapBuyAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>{
     override fun getItemViewType(position: Int): Int {
         return if (position == 0){
             HEAD
-        }else {
+        }else if ( position <= 3){
+            HEAD2
+        } else {
             CONTENT
+        }
+    }
+
+    //为RecyclerView添加头布局
+    override fun onAttachedToRecyclerView(recyclerView: RecyclerView) {
+        val layoutManager = recyclerView.layoutManager
+        if (layoutManager is GridLayoutManager) {
+            val gridLayoutManager = layoutManager as GridLayoutManager?
+            gridLayoutManager!!.spanSizeLookup = object : GridLayoutManager.SpanSizeLookup() {
+                override fun getSpanSize(position: Int): Int {
+                    return if (getItemViewType(position) == HEAD2) {
+                        1
+                    } else {
+                        gridLayoutManager.spanCount
+                    }
+                }
+            }
         }
     }
 
@@ -62,6 +83,10 @@ class KTCheapBuyAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>{
             HEAD -> {
                 var itemCheapbuyHeadBinding = DataBindingUtil.inflate<ItemCheapbuyHeadBinding>(LayoutInflater.from(mContent), R.layout.item_cheapbuy_head, viewGroup, false)
                 holder = HeadViewHolder(itemCheapbuyHeadBinding)
+            }
+            HEAD2 -> {
+                var itemContentBinding = DataBindingUtil.inflate<ItemCheapbuyContent2Binding>(LayoutInflater.from(mContent) , R.layout.item_cheapbuy_content2, viewGroup, false)
+                holder = ContentViewHolder2(itemContentBinding)
             }
             CONTENT -> {
                 var itemNewForeBinding = DataBindingUtil.inflate<ItemCheapbuyContentBinding>(LayoutInflater.from(mContent) , R.layout.item_cheapbuy_content, viewGroup, false)
@@ -86,8 +111,8 @@ class KTCheapBuyAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>{
                 var headViewHolder : HeadViewHolder = holder as HeadViewHolder
                 headViewHolder.run {
                     mBean?.let {
-                        binding.itemCheapPrice.text = it.data.allowance
-                        binding.itemTempPrice.text = it.data.tmpAllowance
+                        binding.itemCheapPrice.text = it.data.allowance + "元"
+                        binding.itemTempPrice.text = it.data.tmpAllowance + "元"
                         //倒计时
                         var timer = (it.data.endTime * 1000) - System.currentTimeMillis()
                         var countDownTimer :CountDownTimer? = countDownCounters.get(binding.itemTime.hashCode())
@@ -115,6 +140,22 @@ class KTCheapBuyAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>{
                     }
                 }
             }
+            HEAD2 -> {
+                var viewHolder : ContentViewHolder2 = holder as ContentViewHolder2
+                var pos = position - 1
+                viewHolder.run {
+                    binding.data = mList[pos]
+                    binding.executePendingBindings()
+                    if (mList[pos].isBuy == "1"){
+                        binding.itemTag.setImageResource(R.mipmap.bg_cheap11)
+                    }else{
+                        binding.itemTag.setImageResource(R.mipmap.bg_cheap6)
+                    }
+                    itemView.setOnClickListener {
+                        mOnClickItem?.onBuy(pos)
+                    }
+                }
+            }
             CONTENT -> {
                 var contentViewHolder : ContentViewHolder = holder as ContentViewHolder
                 var pos = position - 1
@@ -126,6 +167,8 @@ class KTCheapBuyAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>{
                     }else{
                         binding.itemTag.setImageResource(R.mipmap.bg_cheap6)
                     }
+                    binding.itemOtherPrice.setTv(true)
+                    binding.itemOtherPrice.setColor(R.color.color_9D9D9D)
                     itemView.setOnClickListener {
                         mOnClickItem?.onBuy(pos)
                     }
@@ -143,6 +186,14 @@ class KTCheapBuyAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>{
         }
     }
 
+    inner class ContentViewHolder2 :  RecyclerView.ViewHolder{
+
+        var binding: ItemCheapbuyContent2Binding
+
+        constructor(binding: ItemCheapbuyContent2Binding) : super(binding.root){
+            this.binding = binding
+        }
+    }
 
     inner class HeadViewHolder: RecyclerView.ViewHolder{
 

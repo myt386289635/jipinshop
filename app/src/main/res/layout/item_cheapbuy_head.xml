@@ -2,6 +2,7 @@
 <layout xmlns:android="http://schemas.android.com/apk/res/android">
 
     <RelativeLayout
+        android:background="@mipmap/bg_cheap1"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
@@ -22,9 +23,38 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"/>
 
+        <LinearLayout
+            android:id="@+id/item_cheapContainer"
+            android:layout_marginTop="@dimen/y212"
+            android:layout_centerHorizontal="true"
+            android:orientation="horizontal"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:textColor="@color/color_white"
+                android:textStyle="bold"
+                android:textSize="15sp"
+                android:text="补贴总额"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+
+            <TextView
+                android:layout_marginLeft="@dimen/x4"
+                android:id="@+id/item_cheapPrice"
+                android:textColor="@color/color_white"
+                android:textStyle="bold"
+                android:textSize="33sp"
+                android:text="0元"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+
+        </LinearLayout>
+
         <ImageView
+            android:layout_below="@id/item_cheapContainer"
             android:id="@+id/item_bg"
-            android:layout_marginTop="@dimen/y279"
+            android:layout_marginTop="@dimen/y27"
             android:adjustViewBounds="true"
             android:scaleType="fitXY"
             android:layout_marginRight="@dimen/x20"
@@ -34,9 +64,9 @@
             android:layout_height="wrap_content"/>
 
         <ImageView
-            android:layout_marginTop="@dimen/y39"
+            android:layout_marginTop="@dimen/y20"
             android:layout_below="@id/item_bg"
-            android:layout_marginBottom="@dimen/y40"
+            android:layout_marginBottom="@dimen/y20"
             android:scaleType="fitXY"
             android:layout_marginRight="@dimen/x20"
             android:layout_marginLeft="@dimen/x20"
@@ -46,75 +76,32 @@
             android:layout_height="wrap_content"/>
 
         <LinearLayout
-            android:layout_marginBottom="@dimen/y9"
-            android:layout_marginTop="@dimen/y7"
-            android:orientation="vertical"
-            android:layout_marginRight="@dimen/x20"
-            android:layout_marginLeft="@dimen/x440"
-            android:layout_alignTop="@id/item_bg"
+            android:layout_marginLeft="@dimen/x267"
             android:layout_alignBottom="@id/item_bg"
-            android:layout_width="match_parent"
+            android:layout_alignTop="@id/item_bg"
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content">
 
-            <LinearLayout
+            <TextView
                 android:gravity="center_vertical"
-                android:orientation="horizontal"
-                android:layout_weight="1"
-                android:layout_width="match_parent"
-                android:layout_height="0dp">
+                android:textColor="@color/color_EA5018"
+                android:textStyle="bold"
+                android:textSize="13sp"
+                android:text="即将到期:"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
 
-                <TextView
-                    android:gravity="center_vertical"
-                    android:layout_alignBottom="@id/item_bg"
-                    android:id="@+id/item_tempPrice"
-                    android:textColor="@color/color_EA5018"
-                    android:textStyle="bold"
-                    android:textSize="24sp"
-                    android:text="0"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"/>
-
-                <TextView
-                    android:layout_toRightOf="@id/item_cheapPrice"
-                    android:layout_alignBottom="@id/item_bg"
-                    android:textColor="@color/color_EA5018"
-                    android:textStyle="bold"
-                    android:textSize="24sp"
-                    android:text="元"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"/>
-
-            </LinearLayout>
-
-            <LinearLayout
-                android:gravity="center_vertical"
-                android:orientation="horizontal"
-                android:layout_weight="1"
-                android:layout_width="match_parent"
-                android:layout_height="0dp">
-
-                <TextView
-                    android:gravity="center_vertical"
-                    android:layout_alignBottom="@id/item_bg"
-                    android:id="@+id/item_cheapPrice"
-                    android:textColor="@color/color_EA5018"
-                    android:textStyle="bold"
-                    android:textSize="24sp"
-                    android:text="0"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"/>
-
-                <TextView
-                    android:layout_toRightOf="@id/item_cheapPrice"
-                    android:layout_alignBottom="@id/item_bg"
-                    android:textColor="@color/color_EA5018"
-                    android:textStyle="bold"
-                    android:textSize="24sp"
-                    android:text="元"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"/>
-
-            </LinearLayout>
+            <TextView
+                android:layout_marginLeft="@dimen/x4"
+                android:id="@+id/item_tempPrice"
+                android:textColor="@color/color_EA5018"
+                android:textStyle="bold"
+                android:textSize="13sp"
+                android:text="0元"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
 
         </LinearLayout>
 
@@ -124,7 +111,7 @@
             android:id="@+id/item_time"
             android:gravity="center"
             android:textSize="13sp"
-            android:layout_marginBottom="@dimen/y32"
+            android:layout_marginBottom="@dimen/y4"
             android:layout_marginLeft="@dimen/x24"
             android:layout_alignLeft="@id/item_bg"
             android:layout_alignBottom="@id/item_bg"

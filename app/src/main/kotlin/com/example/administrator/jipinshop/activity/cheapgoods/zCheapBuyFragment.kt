@@ -7,7 +7,7 @@ import android.content.Context
 import android.content.Intent
 import android.databinding.DataBindingUtil
 import android.os.Bundle
-import android.support.v7.widget.LinearLayoutManager
+import android.support.v7.widget.GridLayoutManager
 import android.text.TextUtils
 import android.view.LayoutInflater
 import android.view.View
@@ -82,14 +82,12 @@ class zCheapBuyFragment : DBBaseFragment(), View.OnClickListener, OnRefreshListe
         }
         mPresenter.setStatusBarHight(mBinding.statusBar, context!!)
 
-        mBinding.recyclerView.layoutManager = LinearLayoutManager(context)
+        mBinding.swipeTarget.layoutManager = GridLayoutManager(context, 3)
         mList = mutableListOf()
         adapter = KTCheapBuyAdapter(context!!,mList)
         adapter.setOnClickItem(this)
-        mBinding.recyclerView.adapter = this.adapter
-        mBinding.recyclerView.isNestedScrollingEnabled = false
+        mBinding.swipeTarget.adapter = this.adapter
 
-        mPresenter.solveScoll(mBinding.recyclerView, mBinding.swipeToLoad)
         mBinding.swipeToLoad.setOnRefreshListener(this)
         mBinding.swipeToLoad.setOnLoadMoreListener(this)
         mBinding.swipeToLoad.post {
@@ -201,7 +199,6 @@ class zCheapBuyFragment : DBBaseFragment(), View.OnClickListener, OnRefreshListe
                 allowance = bean.data.allowance
                 adapter.setBean(bean)
                 adapter.notifyDataSetChanged()
-                mBinding.swipeToLoad.isLoadMoreEnabled = false
             } else {
                 page--
                 ToastUtil.show("已经是最后一页了")
@@ -221,13 +218,7 @@ class zCheapBuyFragment : DBBaseFragment(), View.OnClickListener, OnRefreshListe
 
     fun dissRefresh() {
         if (mBinding.swipeToLoad.isRefreshing) {
-            if (!mBinding.swipeToLoad.isRefreshEnabled) {
-                mBinding.swipeToLoad.isRefreshEnabled = true
-                mBinding.swipeToLoad.isRefreshing = false
-                mBinding.swipeToLoad.isRefreshEnabled = false
-            } else {
-                mBinding.swipeToLoad.isRefreshing = false
-            }
+            mBinding.swipeToLoad.isRefreshing = false
         }
         mDialog?.let {
             if (it.isShowing){
@@ -238,13 +229,7 @@ class zCheapBuyFragment : DBBaseFragment(), View.OnClickListener, OnRefreshListe
 
     fun dissLoading() {
         if (mBinding.swipeToLoad.isLoadingMore) {
-            if (!mBinding.swipeToLoad.isLoadMoreEnabled) {
-                mBinding.swipeToLoad.isLoadMoreEnabled = true
-                mBinding.swipeToLoad.isLoadingMore = false
-                mBinding.swipeToLoad.isLoadMoreEnabled = false
-            } else {
-                mBinding.swipeToLoad.isLoadingMore = false
-            }
+            mBinding.swipeToLoad.isLoadingMore = false
         }
     }
 
