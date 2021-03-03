@@ -47,6 +47,7 @@
             </LinearLayout>
 
             <TextView
+                android:visibility="gone"
                 android:layout_marginTop="@dimen/y5"
                 android:textColor="@color/color_202020"
                 android:textSize="16sp"

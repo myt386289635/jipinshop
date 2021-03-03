@@ -124,7 +124,7 @@ class zCheapBuyFragment : DBBaseFragment(), View.OnClickListener, OnRefreshListe
                 }
                 startActivity(Intent(context, AllowanceRecordActivity::class.java))
             }
-            R.id.detail_used -> {
+            R.id.detail_text -> {
                 //分享
                 if (TextUtils.isEmpty(SPUtils.getInstance(CommonDate.USER).getString(CommonDate.token, ""))) {
                     startActivity(Intent(context, LoginActivity::class.java))
