@@ -268,6 +268,7 @@
                 </RelativeLayout>
 
                 <TextView
+                    android:lineSpacingExtra="@dimen/y10"
                     android:layout_marginTop="@dimen/y22"
                     android:layout_below="@+id/withdraw_payContainer"
                     android:id="@+id/withdraw_mode"
@@ -275,9 +276,12 @@
                     android:layout_marginLeft="@dimen/x60"
                     android:textSize="13sp"
                     android:textColor="@color/color_E25838"
-                    android:text="*提现审核时间每月25号—30号17:30前，审核通过后在24小时内到账（周六、周末不计算）；
-*提现时请务必正确填写支付宝账号与真实姓名；
-*每月提现上月30号之前确认收货的订单佣金。"
+                    android:text="1、年卡用户不收取提现费\n2、新人0元购订单不收取提现费
+\n3、申请提现后台有工作人员审核，提现在审核通过后预计3个工作日内到支付宝账号
+\n4、新人免单提现审核通过后预计7个工作日到支付宝账号节假日延后
+\n5、提现时请务必正确填写支付宝账号与正式姓名
+\n6、每月提现上月30号之前确认收货的订单佣金
+\n7、春节期间提现订单，将在5个工作日内处理完成"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"/>
 

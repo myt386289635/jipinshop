@@ -10,10 +10,8 @@ import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
-import android.text.Editable;
 import android.text.Html;
 import android.text.TextUtils;
-import android.text.TextWatcher;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.EditText;
@@ -25,7 +23,6 @@ import com.bumptech.glide.request.transition.Transition;
 import com.example.administrator.jipinshop.R;
 import com.example.administrator.jipinshop.activity.balance.withdraw.detail.WithdrawDetailActivity;
 import com.example.administrator.jipinshop.activity.member.buy.MemberBuyActivity;
-import com.example.administrator.jipinshop.activity.shoppingdetail.ShoppingDetailActivity;
 import com.example.administrator.jipinshop.base.BaseActivity;
 import com.example.administrator.jipinshop.bean.ShareInfoBean;
 import com.example.administrator.jipinshop.bean.TaobaoAccountBean;
@@ -54,7 +51,7 @@ import javax.inject.Inject;
  * @create 2019/6/5
  * @Describe 我要提现
  */
-public class WithdrawActivity extends BaseActivity implements View.OnClickListener, WithdrawView, TextWatcher, ShareBoardDialog4.onShareListener {
+public class WithdrawActivity extends BaseActivity implements View.OnClickListener, WithdrawView, ShareBoardDialog4.onShareListener {
 
     @Inject
     WithdrawPresenter mPresenter;
@@ -80,7 +77,6 @@ public class WithdrawActivity extends BaseActivity implements View.OnClickListen
         mBinding.inClude.titleTv.setText("我要提现");
         mPresenter.initMoneyEdit(mBinding);
         mBinding.withdrawMoney.setText(getIntent().getStringExtra("price"));
-        mBinding.withdrawPay.addTextChangedListener(this);
 
         mDialog = (new ProgressDialogView()).createLoadingDialog(this, "正在加载...");
         mDialog.show();
@@ -241,49 +237,12 @@ public class WithdrawActivity extends BaseActivity implements View.OnClickListen
         String html;
         double r = new BigDecimal(rate).doubleValue();
         if (level.equals("2")){
-            html = "年卡会员免收手续费";
+            html = "年卡会员不收取提现手续费";
             mBinding.withdrawNotice.setVisibility(View.GONE);
         }else {
             html = "提现收取<font color='#E25838'>"+  new BigDecimal((r * 100 ) + "").stripTrailingZeros().toPlainString()
-                    + "%</font>提现费，实际到账<font color='#E25838'>￥0</font>";
+                    + "%</font>提现手续费";
             mBinding.withdrawNotice.setVisibility(View.VISIBLE);
-        }
-        mBinding.withdrawNodeMoney.setText(Html.fromHtml(html));
-    }
-
-    @Override
-    public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-
-    }
-
-    @Override
-    public void onTextChanged(CharSequence s, int start, int before, int count) {
-
-    }
-
-    @Override
-    public void afterTextChanged(Editable s) {
-        double money = 0;
-        double r = new BigDecimal(rate).doubleValue();
-        String html = "";
-        if (!TextUtils.isEmpty(s.toString())){
-            if (level.equals("2")){
-                html = "年卡会员免收手续费";
-            }else {
-                money = new BigDecimal(s.toString()).doubleValue();
-                double rateMoney =  money * r;
-                String pay = new BigDecimal((money - rateMoney) + "").setScale(2, BigDecimal.ROUND_HALF_UP).toPlainString();
-                html = "提现收取<font color='#E25838'>"+ new BigDecimal((r * 100 ) + "").stripTrailingZeros().toPlainString()
-                        + "%</font>提现费，实际到账<font color='#E25838'>￥"
-                        + pay +"</font>";
-            }
-        }else {
-            if (level.equals("2")){
-                html = "年卡会员免收手续费";
-            }else {
-                html = "提现收取<font color='#E25838'>"+ new BigDecimal((r * 100 ) + "").stripTrailingZeros().toPlainString()
-                        + "%</font>提现费，实际到账<font color='#E25838'>￥0</font>";
-            }
         }
         mBinding.withdrawNodeMoney.setText(Html.fromHtml(html));
     }
