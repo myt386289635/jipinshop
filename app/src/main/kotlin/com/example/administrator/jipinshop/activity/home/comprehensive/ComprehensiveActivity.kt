@@ -38,10 +38,10 @@ class ComprehensiveActivity : BaseActivity(){
     private fun initView() {
         page = intent.getIntExtra("page",0)
         mFragments = ArrayList()
-        mFragments.add(HomeDetailFragment.getInstance("7","9.9包邮"))//9.9包邮
-        mFragments.add(HomeDetailFragment.getInstance("8","1元购"))//一元购
+        mFragments.add(HomeDetailFragment.getInstance("7","9.9包邮" , "1"))//9.9包邮
+        mFragments.add(HomeDetailFragment.getInstance("8","1元购", "1"))//一元购
         mFragments.add(SeckillFragment())//限时秒杀
-        mFragments.add(zCheapBuyFragment.getInstance(true))//百万补贴
+        mFragments.add(zCheapBuyFragment.getInstance(true,"1"))//百万补贴
         mFragments.add(HomeHotFragment())//热销榜单
         mAdapter = HomeFragmentAdapter(supportFragmentManager)
         mAdapter.setFragments(mFragments)

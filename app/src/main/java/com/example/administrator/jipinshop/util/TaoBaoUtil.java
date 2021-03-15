@@ -59,6 +59,10 @@ public class TaoBaoUtil {
      */
     public static void openAliHomeWeb(Activity context, String url,String id) {
         if (TextUtils.isEmpty(id)){
+            if (TextUtils.isEmpty(url)){
+                ToastUtil.show("跳转链接为空");
+                return;
+            }
             AlibcShowParams showParams = new AlibcShowParams();
             showParams.setOpenType(OpenType.Native);
             showParams.setClientType("taobao");

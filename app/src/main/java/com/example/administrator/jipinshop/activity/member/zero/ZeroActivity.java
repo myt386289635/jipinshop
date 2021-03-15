@@ -28,7 +28,7 @@ import com.example.administrator.jipinshop.adapter.ZeroAdapter;
 import com.example.administrator.jipinshop.base.BaseActivity;
 import com.example.administrator.jipinshop.bean.ImageBean;
 import com.example.administrator.jipinshop.bean.NewFreeBean;
-import com.example.administrator.jipinshop.databinding.ActivityNewFreeBinding;
+import com.example.administrator.jipinshop.databinding.ActivityZeroBinding;
 import com.example.administrator.jipinshop.netwrok.RetrofitModule;
 import com.example.administrator.jipinshop.util.FileManager;
 import com.example.administrator.jipinshop.util.ShareUtils;
@@ -54,7 +54,7 @@ public class ZeroActivity extends BaseActivity implements View.OnClickListener, 
 
     @Inject
     ZeroPresenter mPresenter;
-    private ActivityNewFreeBinding mBinding;
+    private ActivityZeroBinding mBinding;
     private Dialog mDialog;
     private Animation animation;
     private List<NewFreeBean.DataBean> mList;
@@ -67,7 +67,7 @@ public class ZeroActivity extends BaseActivity implements View.OnClickListener, 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        mBinding = DataBindingUtil.setContentView(this, R.layout.activity_new_free);
+        mBinding = DataBindingUtil.setContentView(this, R.layout.activity_zero);
         mBinding.setListener(this);
         mBaseActivityComponent.inject(this);
         mPresenter.setView(this);

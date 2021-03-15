@@ -16,6 +16,7 @@ import android.widget.RelativeLayout;
 import com.blankj.utilcode.util.SPUtils;
 import com.example.administrator.jipinshop.R;
 import com.example.administrator.jipinshop.bean.NewFreeBean;
+import com.example.administrator.jipinshop.databinding.ItemHeadFreeBinding;
 import com.example.administrator.jipinshop.databinding.ItemNewFree1Binding;
 import com.example.administrator.jipinshop.databinding.ItemNewFree2Binding;
 import com.example.administrator.jipinshop.databinding.ItemNewFree3Binding;
@@ -120,7 +121,7 @@ public class NewFreeAdapter extends RecyclerView.Adapter {
         RecyclerView.ViewHolder holder = null;
         switch (viewType) {
             case HEAD1:
-                ItemNewFree1Binding binding = DataBindingUtil.inflate(LayoutInflater.from(mContext),R.layout.item_new_free1,viewGroup,false);
+                ItemHeadFreeBinding binding = DataBindingUtil.inflate(LayoutInflater.from(mContext),R.layout.item_head_free,viewGroup,false);
                 holder = new HeadViewHolder(binding);
                 break;
             case HEAD2:
@@ -158,7 +159,10 @@ public class NewFreeAdapter extends RecyclerView.Adapter {
                         countDownTimer = new CountDownTimer(timer, 1000) {
                             public void onTick(long millisUntilFinished) {
                                 holder1.binding.itemEndText.setVisibility(View.GONE);
-                                holder1.binding.itemCountDown.setText(TimeUtil.getCountTimeByLong2(millisUntilFinished) + "后将失效");
+                                holder1.binding.itemCountDown.setVisibility(View.VISIBLE);
+                                holder1.binding.itemMinter.setText(TimeUtil.getMinuteByLong(millisUntilFinished));
+                                holder1.binding.itemSecond.setText(TimeUtil.getSecondByLong(millisUntilFinished));
+                                holder1.binding.itemHour.setText(TimeUtil.getHourByLong(millisUntilFinished));
                             }
                             public void onFinish() {
                                 holder1.binding.itemCountDown.setVisibility(View.GONE);
@@ -178,9 +182,6 @@ public class NewFreeAdapter extends RecyclerView.Adapter {
                 break;
             case HEAD2:
                 Head2ViewHolder holder2 = (Head2ViewHolder) holder;
-                String html = "选择本页面商品下单需先支付，确认收货后7天根据实付金额全额返现到您的账户中，金额可提现。" +
-                        "所以真的是<b><font size='19'>免单！ </font></b><b><font size='15'>（仅限APP内第一单）</font></b>";
-                holder2.binding.itemRule.setText(HtmlParser.buildSpannedText(html,new CustomerTagHandler_1()));
                 holder2.binding.itemCopy.setOnClickListener(v -> mOnClickItem.onCopy());
                 holder2.binding.itemOne.setOnClickListener(v -> mOnClickItem.onLeft(ad1));
                 holder2.binding.itemTwo.setOnClickListener(v -> mOnClickItem.onRight(ad2));
@@ -231,9 +232,9 @@ public class NewFreeAdapter extends RecyclerView.Adapter {
 
     class HeadViewHolder extends RecyclerView.ViewHolder{
 
-        private ItemNewFree1Binding binding;
+        private ItemHeadFreeBinding binding;
 
-        public HeadViewHolder(@NonNull ItemNewFree1Binding binding ) {
+        public HeadViewHolder(@NonNull ItemHeadFreeBinding binding ) {
             super(binding.getRoot());
             this.binding = binding;
         }

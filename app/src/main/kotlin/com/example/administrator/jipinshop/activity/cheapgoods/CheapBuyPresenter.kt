@@ -1,15 +1,17 @@
 package com.example.administrator.jipinshop.activity.cheapgoods
 
 import android.content.Context
+import android.support.design.widget.AppBarLayout
+import android.support.v7.widget.GridLayoutManager
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
+import android.view.View
 import android.widget.LinearLayout
 import com.aspsine.swipetoloadlayout.SwipeToLoadLayout
 import com.example.administrator.jipinshop.bean.NewPeopleBean
 import com.example.administrator.jipinshop.bean.ShareInfoBean
 import com.example.administrator.jipinshop.bean.TaskFinishBean
 import com.example.administrator.jipinshop.netwrok.Repository
-import com.example.administrator.jipinshop.util.ToastUtil
 import com.trello.rxlifecycle2.LifecycleTransformer
 import com.umeng.socialize.bean.SHARE_MEDIA
 import io.reactivex.android.schedulers.AndroidSchedulers
@@ -45,14 +47,42 @@ class CheapBuyPresenter {
         }
     }
 
-    fun solveScoll(recyclerView: RecyclerView, swipeToLoadLayout: SwipeToLoadLayout){
-        recyclerView.addOnScrollListener(object : RecyclerView.OnScrollListener(){
-
+    //解决冲突问题
+    fun solveScoll(mRecyclerView: RecyclerView, mSwipeToLoad: SwipeToLoadLayout,
+                   appBarLayout: AppBarLayout, once: Array<Boolean>) {
+        val layoutManager = mRecyclerView.layoutManager
+        val gridLayoutManager = layoutManager as GridLayoutManager?
+        mRecyclerView.addOnScrollListener(object : RecyclerView.OnScrollListener() {
             override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
                 super.onScrolled(recyclerView, dx, dy)
-                var layoutManager : LinearLayoutManager = recyclerView.layoutManager as LinearLayoutManager
-                swipeToLoadLayout.isRefreshEnabled = (layoutManager.findFirstCompletelyVisibleItemPosition() == 0)
-                swipeToLoadLayout.isLoadMoreEnabled = isSlideToBottom(recyclerView)
+                mSwipeToLoad.isRefreshEnabled = gridLayoutManager!!.findFirstCompletelyVisibleItemPosition() == 0
+                mSwipeToLoad.isLoadMoreEnabled = isSlideToBottom(mRecyclerView)
+            }
+
+            override fun onScrollStateChanged(recyclerView: RecyclerView, newState: Int) {
+                super.onScrollStateChanged(recyclerView, newState)
+            }
+        })
+        appBarLayout.addOnOffsetChangedListener(AppBarLayout.OnOffsetChangedListener { appBarLayout1, verticalOffset ->
+            if (once[0] || mRecyclerView.visibility == View.GONE) {
+                mSwipeToLoad.isRefreshEnabled = true
+                if (mRecyclerView.visibility == View.GONE) {
+                    mSwipeToLoad.isLoadMoreEnabled = false
+                }
+            } else {
+                if (verticalOffset == 0) {
+                    //展开
+                    mSwipeToLoad.isRefreshEnabled = gridLayoutManager!!.findFirstCompletelyVisibleItemPosition() == 0
+                    mSwipeToLoad.isLoadMoreEnabled = false
+                } else if (Math.abs(verticalOffset) >= appBarLayout1.getTotalScrollRange()) {
+                    //折叠
+                    mSwipeToLoad.isLoadMoreEnabled = isSlideToBottom(mRecyclerView)
+                    mSwipeToLoad.isRefreshEnabled = false
+                } else {
+                    //过程
+                    mSwipeToLoad.isRefreshEnabled = false
+                    mSwipeToLoad.isLoadMoreEnabled = false
+                }
             }
         })
     }

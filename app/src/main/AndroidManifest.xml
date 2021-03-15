@@ -860,6 +860,10 @@
         <activity android:name=".activity.home.comprehensive.ComprehensiveActivity"
                   android:screenOrientation="portrait"/>
 
+        <!--新人五重礼-->
+        <activity android:name=".activity.home.newGift.NewGiftActivity"
+                  android:screenOrientation="portrait"/>
+
  </application>
 
 </manifest>

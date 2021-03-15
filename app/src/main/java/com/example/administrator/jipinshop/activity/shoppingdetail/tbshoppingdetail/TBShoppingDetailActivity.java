@@ -543,6 +543,9 @@ public class TBShoppingDetailActivity extends BaseActivity implements View.OnCli
 
     @Override
     public void onBuyLinkSuccess(ClickUrlBean bean) {
+        if (mDialog != null && mDialog.isShowing()){
+            mDialog.dismiss();
+        }
         if (source.equals("1")){
             //京东
             JDUtil.openJD(this, bean.getData().getMobileUrl());
@@ -551,9 +554,6 @@ public class TBShoppingDetailActivity extends BaseActivity implements View.OnCli
             PDDUtil.jumpPDD(this,bean.getData().getSchemaUrl(),bean.getData().getMobileUrl());
         }else {
             TaoBaoUtil.openAliHomeWeb(this,bean.getData().getMobileUrl(),bean.getData().getOtherGoodsId());
-        }
-        if (mDialog != null && mDialog.isShowing()){
-            mDialog.dismiss();
         }
     }
 

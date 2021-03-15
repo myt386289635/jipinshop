@@ -51,12 +51,21 @@ public class TbkIndexBean {
         private Boolean newUser; //是否是新人
         private List<TBSreachResultBean.DataBean> commendGoodsList;//今日推荐
         private MessageBean message;//首页横向跑马灯
-        private long userEndTime;//倒计时
+        private long userEndTime;//新人倒计时
         private List<BoxCategoryListBean.ListBean> boxList;//顶部宫格
         private List<AllowanceGoodsListBean> allowanceGoodsList3;//会员0元购
         private int level;//用户身份
         private List<HotGoodsListBean> seckillGoodsList;//秒杀商品
         private long seckillEndTime;//秒杀结束时间戳
+        private List<Ad1ListBean> newActivityList;//新人五重礼
+
+        public List<Ad1ListBean> getNewActivityList() {
+            return newActivityList;
+        }
+
+        public void setNewActivityList(List<Ad1ListBean> newActivityList) {
+            this.newActivityList = newActivityList;
+        }
 
         public long getSeckillEndTime() {
             return seckillEndTime;

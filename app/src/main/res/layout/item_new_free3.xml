@@ -78,7 +78,7 @@
                 android:layout_marginLeft="@dimen/x12"
                 android:layout_below="@id/item_name"
                 android:orientation="horizontal"
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content">
 
                 <TextView
@@ -109,28 +109,19 @@
             </LinearLayout>
 
             <TextView
-                android:layout_marginBottom="@dimen/y20"
-                android:layout_marginLeft="@dimen/x12"
-                android:layout_marginTop="@dimen/y14"
+                android:layout_alignParentRight="true"
+                android:layout_marginRight="@dimen/x12"
                 android:id="@+id/item_fee"
-                android:layout_below="@id/item_priceContainer"
+                android:layout_alignBottom="@id/item_priceContainer"
                 android:gravity="center"
-                android:text="@{@string/free_buyed + date.soldTotal + @string/free_count2}"
+                android:text="@{@string/cheap_2 + date.soldTotal + @string/free_count2}"
                 android:textColor="@color/color_E25838"
                 android:textSize="10sp"
                 android:layout_width="wrap_content"
                 android:layout_height="@dimen/y30"/>
 
-            <ImageView
-                android:layout_marginRight="@dimen/x18"
-                android:layout_alignParentRight="true"
-                android:layout_marginBottom="@dimen/y14"
-                android:layout_above="@id/item_pay"
-                android:src="@mipmap/bg_newfree2"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"/>
-
             <TextView
+                android:layout_marginTop="@dimen/y20"
                 android:padding="@dimen/x2"
                 android:background="@{date.total > 0 ? @drawable/bg_tab_eva : @drawable/bg_tab_eva4}"
                 android:textColor="@{date.total > 0 ? @color/color_FFE2B5 : @color/color_white}"

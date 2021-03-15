@@ -12,11 +12,13 @@
             android:layout_height="@dimen/y76">
 
             <TextView
+                android:drawablePadding="@dimen/x4"
+                android:drawableLeft="@mipmap/bg_newfree3"
                 android:textColor="@color/color_white"
                 android:textSize="14sp"
                 android:layout_marginLeft="@dimen/x30"
                 android:layout_centerVertical="true"
-                android:text="添加官方客服微信，享更多免单福利！"
+                android:text="添加官方微信账号获取更多福利"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"/>
 
@@ -44,35 +46,77 @@
             android:scaleType="fitXY"
             android:adjustViewBounds="true"
             android:layout_below="@id/item_titleContainer"
-            android:src="@mipmap/zero_bg"
+            android:src="@mipmap/bg_newfree"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"/>
 
-        <TextView
+        <LinearLayout
             android:id="@+id/item_countDown"
-            android:paddingBottom="@dimen/y5"
-            android:paddingTop="@dimen/y5"
-            android:paddingRight="@dimen/x32"
-            android:paddingLeft="@dimen/x32"
-            android:textSize="16sp"
-            android:textColor="@color/color_white"
-            android:layout_marginTop="@dimen/y224"
+            android:layout_marginTop="@dimen/y130"
             android:layout_below="@id/item_titleContainer"
             android:layout_centerHorizontal="true"
-            tools:text="23:59:59后将失效"
-            android:background="@drawable/bg_db200b"
+            android:orientation="horizontal"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"/>
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:textStyle="bold"
+                android:textSize="15sp"
+                android:textColor="@color/color_white"
+                android:text="倒计时："
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+
+            <TextView
+                android:id="@+id/item_hour"
+                android:textColor="@color/color_E25838"
+                android:textStyle="bold"
+                android:textSize="12sp"
+                android:gravity="center"
+                android:minWidth="@dimen/x36"
+                android:background="@drawable/bg_dialog_white"
+                android:text="0"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+
+            <TextView
+                android:id="@+id/item_minter"
+                android:layout_marginLeft="@dimen/x16"
+                android:textColor="@color/color_E25838"
+                android:textStyle="bold"
+                android:textSize="12sp"
+                android:gravity="center"
+                android:minWidth="@dimen/x36"
+                android:background="@drawable/bg_dialog_white"
+                android:text="0"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+
+            <TextView
+                android:id="@+id/item_second"
+                android:layout_marginLeft="@dimen/x16"
+                android:textColor="@color/color_E25838"
+                android:textStyle="bold"
+                android:textSize="12sp"
+                android:gravity="center"
+                android:minWidth="@dimen/x36"
+                android:background="@drawable/bg_dialog_white"
+                android:text="0"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+
+        </LinearLayout>
+
 
         <TextView
             android:visibility="gone"
             android:id="@+id/item_endText"
-            android:layout_marginTop="@dimen/y220"
+            android:layout_marginTop="@dimen/y130"
             android:layout_below="@id/item_titleContainer"
             android:layout_centerHorizontal="true"
-            android:textSize="16sp"
+            android:textSize="15sp"
             android:textColor="@color/color_white"
-            android:text="您的免单权益已经失效分享好友来抢吧!"
+            android:text="您的免单权益已经失效，分享给好友来抢"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"/>
 

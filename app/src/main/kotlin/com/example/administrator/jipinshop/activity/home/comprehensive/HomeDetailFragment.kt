@@ -17,6 +17,7 @@ import com.blankj.utilcode.util.SPUtils
 import com.example.administrator.jipinshop.R
 import com.example.administrator.jipinshop.activity.home.HomeDetailPresenter
 import com.example.administrator.jipinshop.activity.home.HomeDetailView
+import com.example.administrator.jipinshop.activity.home.newGift.NewGiftActivity
 import com.example.administrator.jipinshop.activity.login.LoginActivity
 import com.example.administrator.jipinshop.activity.share.ShareActivity
 import com.example.administrator.jipinshop.adapter.TBSreachResultAdapter
@@ -62,14 +63,18 @@ class HomeDetailFragment :  DBBaseFragment(), View.OnClickListener, TBSreachResu
     //分享面板
     private var mShareBoardDialog: ShareBoardDialog? = null
     private var shareUrl: String = ""
+    //区分从哪个页进来的  1:综合页  2：新人五重礼
+    private var type = "1" //默认综合页
+    private val once = arrayOf(true)//记录第一次进入页面标示
 
     companion object{
         @JvmStatic //java中的静态方法
-        fun getInstance(id : String , title : String) : HomeDetailFragment {
+        fun getInstance(id : String , title : String , type: String) : HomeDetailFragment {
             var fragment = HomeDetailFragment()
             var bundle = Bundle()
             bundle.putString("id" , id)
             bundle.putString("title" , title)
+            bundle.putString("type",type)
             fragment.arguments = bundle
             return fragment
         }
@@ -87,12 +92,12 @@ class HomeDetailFragment :  DBBaseFragment(), View.OnClickListener, TBSreachResu
         arguments?.let {
             id = it.getString("id")
             title = it.getString("title")
+            type = it.getString("type")
         }
         mBinding.inClude?.let {
             it.titleTv.text = title
         }
         mBinding.detailTimeCotianer.visibility = View.GONE
-        mPresenter.setStatusBarHight(mBinding.statusBar, context!!)
 
         mTextViews = ArrayList()
         mTextViews.add(mBinding.titleZh)
@@ -110,6 +115,16 @@ class HomeDetailFragment :  DBBaseFragment(), View.OnClickListener, TBSreachResu
         mAdapter.layoutType = 1//默认横向布局
         mAdapter.setOnItem(this)
         mBinding.swipeTarget.adapter = mAdapter
+
+        if (type == "2"){
+            //新人五重礼
+            mBinding.statusBar.visibility = View.GONE
+            mBinding.titleContainer.visibility = View.GONE
+            mPresenter.solveScoll(mBinding.swipeTarget, mBinding.swipeToLoad,
+                    (activity as NewGiftActivity).bar, once)
+        }else{
+            mPresenter.setStatusBarHight(mBinding.statusBar, context!!)
+        }
 
         mBinding.swipeToLoad.setOnLoadMoreListener(this)
         mBinding.swipeToLoad.setOnRefreshListener(this)
@@ -151,6 +166,7 @@ class HomeDetailFragment :  DBBaseFragment(), View.OnClickListener, TBSreachResu
                 ToastUtil.show("已经是最后一页了")
             }
         }
+        once[0] = false
     }
 
     override fun onFile(error: String?) {
@@ -161,6 +177,7 @@ class HomeDetailFragment :  DBBaseFragment(), View.OnClickListener, TBSreachResu
             page--
         }
         ToastUtil.show(error)
+        once[0] = false
     }
 
 
@@ -287,7 +304,13 @@ class HomeDetailFragment :  DBBaseFragment(), View.OnClickListener, TBSreachResu
 
     fun dissRefresh() {
         if (mBinding.swipeToLoad != null && mBinding.swipeToLoad.isRefreshing) {
-            mBinding.swipeToLoad.isRefreshing = false
+            if (!mBinding.swipeToLoad.isRefreshEnabled) {
+                mBinding.swipeToLoad.isRefreshEnabled = true
+                mBinding.swipeToLoad.isRefreshing = false
+                mBinding.swipeToLoad.isRefreshEnabled = false
+            } else {
+                mBinding.swipeToLoad.isRefreshing = false
+            }
         }
         mDialog?.let {
             if(it.isShowing){
@@ -298,7 +321,13 @@ class HomeDetailFragment :  DBBaseFragment(), View.OnClickListener, TBSreachResu
 
     fun dissLoading() {
         if (mBinding.swipeToLoad != null && mBinding.swipeToLoad.isLoadingMore) {
-            mBinding.swipeToLoad.isLoadingMore = false
+            if (!mBinding.swipeToLoad.isLoadMoreEnabled) {
+                mBinding.swipeToLoad.isLoadMoreEnabled = true
+                mBinding.swipeToLoad.isLoadingMore = false
+                mBinding.swipeToLoad.isLoadMoreEnabled = false
+            } else {
+                mBinding.swipeToLoad.isLoadingMore = false
+            }
         }
     }
 

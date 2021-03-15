@@ -190,67 +190,30 @@ class KTMain2Adapter : RecyclerView.Adapter<RecyclerView.ViewHolder>{
                 var twoViewHolder: TwoViewHolder  = holder as TwoViewHolder
                 twoViewHolder.run {
                     binding.user = mBean!!.data.newUser
-                    //新人
-                    for (i in mBean!!.data.allowanceGoodsList.indices) {
-                        when (i) {
-                            0 -> {
-                                binding.new1 = mBean!!.data.allowanceGoodsList[0]
-                            }
-                            1 -> {
-                                binding.new2 = mBean!!.data.allowanceGoodsList[1]
-                            }
-                            2 -> {
-                                binding.new3 = mBean!!.data.allowanceGoodsList[2]
+                    //新人五重礼
+                    var imageViews = mutableListOf(binding.mainNew1, binding.mainNew2,
+                            binding.mainNew3,binding.mainNew4,binding.mainNew5)
+                    for (i in mBean!!.data.newActivityList.indices){
+                        when(i){
+                            0,1,2,3,4 -> {
+                                GlideApp.loderImage(mContext,mBean!!.data.newActivityList[i].img,imageViews[i],0,0)
+                                imageViews[i].setOnClickListener {
+                                    if (TextUtils.isEmpty(SPUtils.getInstance(CommonDate.USER).getString(CommonDate.token, ""))) {
+                                        mContext.startActivity(Intent(mContext, LoginActivity::class.java))
+                                        return@setOnClickListener
+                                    }
+                                    ShopJumpUtil.openBanner(mContext,mBean!!.data.newActivityList[i].type,
+                                            mBean!!.data.newActivityList[i].objectId,mBean!!.data.newActivityList[i].name,
+                                            mBean!!.data.newActivityList[i].source,mBean!!.data.newActivityList[i].remark)
+                                }
                             }
                         }
                     }
                     binding.executePendingBindings()
-                    //倒计时
-                    var timer: Long = 0
-                    timer = (mBean!!.data.userEndTime * 1000) - System.currentTimeMillis()
-                    var countDownTimer :CountDownTimer? = countDownCounters.get(binding.mainNewpeople.hashCode())
-                    countDownTimer?.cancel()
-                    if (timer > 0) {
-                        countDownTimer = object : CountDownTimer(timer, 1000) {
-                            override fun onTick(millisUntilFinished: Long) {
-                                val ss = 1000
-                                val mi = ss * 60
-                                val hh = mi * 60
-                                val dd = hh * 24
-                                val day = millisUntilFinished / dd
-                                val hour = (millisUntilFinished - day * dd) / hh
-                                val minute = (millisUntilFinished - hour * hh - day * dd) / mi
-                                val second = (millisUntilFinished - hour * hh - minute * mi - day * dd) / ss
-
-                                binding.timeHour.text = "" + ((day * 24) + hour)
-                                binding.timeMinute.text = "" + minute
-                                binding.timeSecond.text = "" + second
-                            }
-
-                            override fun onFinish() {
-                                binding.timeHour.text = "0"
-                                binding.timeMinute.text = "0"
-                                binding.timeSecond.text = "0"
-                            }
-                        }.start()
-                        countDownCounters.put(binding.mainNewpeople.hashCode(), countDownTimer)
-                    }else{
-                        binding.timeHour.text = "0"
-                        binding.timeMinute.text = "0"
-                        binding.timeSecond.text = "0"
-                    }
                     //广告
                     userList.clear()
                     userList.addAll(mBean!!.data.messageList)
                     initUser()
-                    binding.mainNewpeople.setOnClickListener {
-                        if (TextUtils.isEmpty(SPUtils.getInstance(CommonDate.USER).getString(CommonDate.token, ""))) {
-                            mContext.startActivity(Intent(mContext, LoginActivity::class.java))
-                            return@setOnClickListener
-                        }
-                        appStatisticalUtil.addEvent("shouye_xinren",transformer)
-                        mContext.startActivity(Intent(mContext, NewFreeActivity::class.java))
-                    }
                     binding.marqueeContainer.setOnClickListener {
                         if (TextUtils.isEmpty(SPUtils.getInstance(CommonDate.USER).getString(CommonDate.token, ""))) {
                             mContext.startActivity(Intent(mContext, LoginActivity::class.java))

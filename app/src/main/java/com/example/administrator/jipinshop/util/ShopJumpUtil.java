@@ -18,6 +18,7 @@ import com.example.administrator.jipinshop.activity.home.comprehensive.Comprehen
 import com.example.administrator.jipinshop.activity.home.food.TakeOutActivity;
 import com.example.administrator.jipinshop.activity.home.home.HomeNewActivity;
 import com.example.administrator.jipinshop.activity.home.jd_pdd.KTJDDetailActivity;
+import com.example.administrator.jipinshop.activity.home.newGift.NewGiftActivity;
 import com.example.administrator.jipinshop.activity.home.recharge.RechargeActivity;
 import com.example.administrator.jipinshop.activity.home.tb.KTTBDetailActivity;
 import com.example.administrator.jipinshop.activity.login.LoginActivity;
@@ -612,6 +613,51 @@ public class ShopJumpUtil {
                 }else {
                     intent.setClass(context, ComprehensiveActivity.class);
                     intent.putExtra("page", 4);
+                }
+                context.startActivity(intent);
+                break;
+            case "54"://新人五重礼-新人免单
+                if (TextUtils.isEmpty(SPUtils.getInstance(CommonDate.USER).getString(CommonDate.token, ""))) {
+                    intent.setClass(context, LoginActivity.class);
+                }else {
+                    intent.setClass(context, NewGiftActivity.class);
+                    intent.putExtra("currentItem", 0);
+                }
+                context.startActivity(intent);
+                break;
+            case "55"://新人五重礼-百万补贴
+                if (TextUtils.isEmpty(SPUtils.getInstance(CommonDate.USER).getString(CommonDate.token, ""))) {
+                    intent.setClass(context, LoginActivity.class);
+                }else {
+                    intent.setClass(context, NewGiftActivity.class);
+                    intent.putExtra("currentItem", 1);
+                }
+                context.startActivity(intent);
+                break;
+            case "56"://新人五重礼-外卖
+                if (TextUtils.isEmpty(SPUtils.getInstance(CommonDate.USER).getString(CommonDate.token, ""))) {
+                    intent.setClass(context, LoginActivity.class);
+                }else {
+                    intent.setClass(context, NewGiftActivity.class);
+                    intent.putExtra("currentItem", 2);
+                }
+                context.startActivity(intent);
+                break;
+            case "57"://新人五重礼-视频
+                if (TextUtils.isEmpty(SPUtils.getInstance(CommonDate.USER).getString(CommonDate.token, ""))) {
+                    intent.setClass(context, LoginActivity.class);
+                }else {
+                    intent.setClass(context, NewGiftActivity.class);
+                    intent.putExtra("currentItem", 3);
+                }
+                context.startActivity(intent);
+                break;
+            case "58"://新人五重礼-1元购
+                if (TextUtils.isEmpty(SPUtils.getInstance(CommonDate.USER).getString(CommonDate.token, ""))) {
+                    intent.setClass(context, LoginActivity.class);
+                }else {
+                    intent.setClass(context, NewGiftActivity.class);
+                    intent.putExtra("currentItem", 4);
                 }
                 context.startActivity(intent);
                 break;

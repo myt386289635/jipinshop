@@ -18,6 +18,7 @@ import com.aspsine.swipetoloadlayout.OnRefreshListener
 import com.blankj.utilcode.util.SPUtils
 import com.example.administrator.jipinshop.R
 import com.example.administrator.jipinshop.activity.cheapgoods.record.AllowanceRecordActivity
+import com.example.administrator.jipinshop.activity.home.newGift.NewGiftActivity
 import com.example.administrator.jipinshop.activity.login.LoginActivity
 import com.example.administrator.jipinshop.activity.newpeople.cheap.CheapBuyDetailActivity
 import com.example.administrator.jipinshop.adapter.KTCheapBuyAdapter
@@ -53,13 +54,17 @@ class zCheapBuyFragment : DBBaseFragment(), View.OnClickListener, OnRefreshListe
     private var allowance: String? = null
     private var page = 1
     private var refersh: Boolean = true
+    //区分从哪个页进来的  1:综合页  2：新人五重礼 3:单开页
+    private var type = "1" //默认综合页
+    private val once = arrayOf(true)//记录第一次进入页面标示
 
     companion object{
         @JvmStatic //java中的静态方法
-        fun getInstance(startPop : Boolean) : zCheapBuyFragment {
+        fun getInstance(startPop : Boolean , type : String) : zCheapBuyFragment {
             var fragment = zCheapBuyFragment()
             var bundle = Bundle()
             bundle.putBoolean("startPop" , startPop)
+            bundle.putString("type", type)
             fragment.arguments = bundle
             return fragment
         }
@@ -76,17 +81,27 @@ class zCheapBuyFragment : DBBaseFragment(), View.OnClickListener, OnRefreshListe
     override fun initView() {
         arguments?.let {
             startPop = it.getBoolean("startPop", true)
+            type = it.getString("type")
         }
         mBinding.inClude?.let {
             it.titleTv.text = "官方百万补贴"
         }
-        mPresenter.setStatusBarHight(mBinding.statusBar, context!!)
 
         mBinding.swipeTarget.layoutManager = GridLayoutManager(context, 3)
         mList = mutableListOf()
         adapter = KTCheapBuyAdapter(context!!,mList)
         adapter.setOnClickItem(this)
         mBinding.swipeTarget.adapter = this.adapter
+
+        if (type == "2"){
+            //新人五重礼
+            mBinding.statusBar.visibility = View.GONE
+            mBinding.inClude?.container?.visibility = View.GONE
+            mPresenter.solveScoll(mBinding.swipeTarget, mBinding.swipeToLoad,
+                    (activity as NewGiftActivity).bar, once)
+        }else{
+            mPresenter.setStatusBarHight(mBinding.statusBar, context!!)
+        }
 
         mBinding.swipeToLoad.setOnRefreshListener(this)
         mBinding.swipeToLoad.setOnLoadMoreListener(this)
@@ -204,6 +219,7 @@ class zCheapBuyFragment : DBBaseFragment(), View.OnClickListener, OnRefreshListe
                 ToastUtil.show("已经是最后一页了")
             }
         }
+        once[0] = false
     }
 
     override fun onFile(error: String?) {
@@ -214,11 +230,18 @@ class zCheapBuyFragment : DBBaseFragment(), View.OnClickListener, OnRefreshListe
             page--
         }
         ToastUtil.show(error)
+        once[0] = false
     }
 
     fun dissRefresh() {
         if (mBinding.swipeToLoad.isRefreshing) {
-            mBinding.swipeToLoad.isRefreshing = false
+            if (!mBinding.swipeToLoad.isRefreshEnabled) {
+                mBinding.swipeToLoad.isRefreshEnabled = true
+                mBinding.swipeToLoad.isRefreshing = false
+                mBinding.swipeToLoad.isRefreshEnabled = false
+            } else {
+                mBinding.swipeToLoad.isRefreshing = false
+            }
         }
         mDialog?.let {
             if (it.isShowing){
@@ -229,7 +252,13 @@ class zCheapBuyFragment : DBBaseFragment(), View.OnClickListener, OnRefreshListe
 
     fun dissLoading() {
         if (mBinding.swipeToLoad.isLoadingMore) {
-            mBinding.swipeToLoad.isLoadingMore = false
+            if (!mBinding.swipeToLoad.isLoadMoreEnabled) {
+                mBinding.swipeToLoad.isLoadMoreEnabled = true
+                mBinding.swipeToLoad.isLoadingMore = false
+                mBinding.swipeToLoad.isLoadMoreEnabled = false
+            } else {
+                mBinding.swipeToLoad.isLoadingMore = false
+            }
         }
     }
 

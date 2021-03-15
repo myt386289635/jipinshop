@@ -163,4 +163,17 @@ public class TimeUtil {
         }
         return sSecond;
     }
+
+    public static String getHourByLong(long millisUntilFinished){
+        int ss = 1000;
+        int mi = ss * 60;
+        int hh = mi * 60;
+        int dd = hh * 24;
+
+        long day = millisUntilFinished / dd;
+        long hour = ((millisUntilFinished - day * dd) / hh);
+
+        String result = ((day * 24) + hour) + "";
+        return result;
+    }
 }

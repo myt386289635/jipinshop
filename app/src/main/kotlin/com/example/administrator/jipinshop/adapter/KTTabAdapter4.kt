@@ -47,6 +47,7 @@ class KTTabAdapter4 : CommonNavigatorAdapter {
         this.textSize = textSize
     }
 
+    //指示器默认文字是否加粗
     fun isBold(bold: Boolean){
         isBold = bold
     }
@@ -55,10 +56,8 @@ class KTTabAdapter4 : CommonNavigatorAdapter {
         var simplePagerTitleView = ColorFlipPagerTitleView(context, leftPadding, rightPadding)
         simplePagerTitleView.text = mTitle[index]
         simplePagerTitleView.textSize = textSize
-        if (isBold){
-            var paint =  simplePagerTitleView.paint
-            paint.isFakeBoldText = true
-        }
+        var paint =  simplePagerTitleView.paint
+        paint.isFakeBoldText = isBold
         simplePagerTitleView.normalColor = normalColor
         simplePagerTitleView.selectedColor = selectedColor
         simplePagerTitleView.setOnClickListener {

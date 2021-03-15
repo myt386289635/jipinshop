@@ -8,17 +8,6 @@
         <variable
             name="user"
             type="Boolean"/>
-
-        <variable
-            name="new1"
-            type="com.example.administrator.jipinshop.bean.TbkIndexBean.DataBean.AllowanceGoodsListBean"/>
-        <variable
-            name="new2"
-            type="com.example.administrator.jipinshop.bean.TbkIndexBean.DataBean.AllowanceGoodsListBean"/>
-        <variable
-            name="new3"
-            type="com.example.administrator.jipinshop.bean.TbkIndexBean.DataBean.AllowanceGoodsListBean"/>
-
     </data>
 
     <LinearLayout
@@ -48,239 +37,83 @@
                     android:textColor="@color/color_white"
                     android:layout_centerVertical="true"
                     android:textSize="16sp"
-                    android:text="新人专场"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"/>
-
-                <TextView
-                    android:id="@+id/time_second"
-                    android:layout_marginRight="@dimen/x27"
-                    android:layout_centerVertical="true"
-                    android:layout_alignParentRight="true"
-                    android:gravity="center"
-                    android:paddingRight="@dimen/x10"
-                    android:paddingLeft="@dimen/x10"
-                    android:textColor="@color/color_E25838"
-                    android:textSize="12sp"
-                    android:text="0"
-                    android:background="@drawable/bg_333333_2"
-                    android:minWidth="@dimen/x44"
-                    android:minHeight="@dimen/y33"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"/>
-
-                <TextView
-                    android:id="@+id/time_secondTag"
-                    android:layout_marginLeft="@dimen/x10"
-                    android:layout_marginRight="@dimen/x10"
-                    android:layout_toLeftOf="@id/time_second"
-                    android:layout_centerVertical="true"
-                    android:textColor="@color/color_white"
-                    android:text=":"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"/>
-
-                <TextView
-                    android:layout_toLeftOf="@id/time_secondTag"
-                    android:id="@+id/time_minute"
-                    android:layout_centerVertical="true"
-                    android:gravity="center"
-                    android:paddingRight="@dimen/x10"
-                    android:paddingLeft="@dimen/x10"
-                    android:textColor="@color/color_E25838"
-                    android:textSize="12sp"
-                    android:text="0"
-                    android:background="@drawable/bg_333333_2"
-                    android:minWidth="@dimen/x44"
-                    android:minHeight="@dimen/y33"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"/>
-
-                <TextView
-                    android:id="@+id/time_minuteTag"
-                    android:layout_marginLeft="@dimen/x10"
-                    android:layout_marginRight="@dimen/x10"
-                    android:layout_toLeftOf="@id/time_minute"
-                    android:layout_centerVertical="true"
-                    android:textColor="@color/color_white"
-                    android:text=":"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"/>
-
-                <TextView
-                    android:layout_toLeftOf="@id/time_minuteTag"
-                    android:id="@+id/time_hour"
-                    android:layout_centerVertical="true"
-                    android:gravity="center"
-                    android:paddingRight="@dimen/x10"
-                    android:paddingLeft="@dimen/x10"
-                    android:textColor="@color/color_E25838"
-                    android:textSize="12sp"
-                    android:text="0"
-                    android:background="@drawable/bg_333333_2"
-                    android:minWidth="@dimen/x44"
-                    android:minHeight="@dimen/y33"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"/>
-
-                <TextView
-                    android:layout_marginRight="@dimen/x8"
-                    android:layout_toLeftOf="@id/time_hour"
-                    android:layout_centerVertical="true"
-                    android:textColor="@color/color_white"
-                    android:textSize="12sp"
-                    android:text="距结束"
+                    android:text="新人五重礼"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"/>
 
             </RelativeLayout>
 
-            <RelativeLayout
+            <LinearLayout
+                android:orientation="vertical"
                 android:background="@drawable/bg_ffece7"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
 
-                <ImageView
-                    android:scaleType="fitEnd"
-                    android:id="@+id/mainPeople_reTitle"
-                    android:layout_marginLeft="@dimen/x3"
-                    android:layout_marginTop="@dimen/y15"
-                    android:src="@mipmap/main_text"
-                    android:layout_width="wrap_content"
-                    android:layout_height="@dimen/y187"/>
-
                 <LinearLayout
-                    android:layout_marginLeft="@dimen/x4"
-                    android:layout_marginRight="@dimen/x24"
-                    android:layout_marginBottom="@dimen/y28"
-                    android:layout_marginTop="@dimen/y28"
-                    android:layout_toRightOf="@id/mainPeople_reTitle"
-                    android:weightSum="3"
+                    android:layout_margin="@dimen/x16"
+                    android:orientation="horizontal"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
+                    android:layout_height="@dimen/y254">
 
-                    <RelativeLayout
-                        android:background="@drawable/bg_balance"
-                        android:id="@+id/peopleContainer1"
-                        android:layout_weight="1"
+                    <ImageView
+                        android:scaleType="centerCrop"
+                        android:layout_marginRight="@dimen/x16"
+                        android:id="@+id/main_new1"
                         android:layout_width="0dp"
-                        android:layout_height="wrap_content">
+                        android:layout_weight="1"
+                        android:layout_height="match_parent"/>
+
+                    <LinearLayout
+                        android:layout_weight="1"
+                        android:orientation="vertical"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent">
 
                         <ImageView
-                            bind:srcTopRound="@{new1.img}"
-                            android:id="@+id/people_image1"
+                            android:scaleType="centerCrop"
+                            android:id="@+id/main_new2"
+                            android:layout_marginBottom="@dimen/y16"
+                            android:layout_weight="1"
                             android:layout_width="match_parent"
-                            android:layout_height="@dimen/y128"/>
-
-                        <LinearLayout
-                            android:layout_marginBottom="@dimen/y9"
-                            android:layout_marginTop="@dimen/y9"
-                            android:paddingRight="@dimen/x3"
-                            android:paddingLeft="@dimen/x3"
-                            android:gravity="center"
-                            android:background="@drawable/bg_ffffff_4"
-                            android:layout_below="@id/people_image1"
-                            android:layout_centerHorizontal="true"
-                            android:minWidth="@dimen/x120"
-                            android:orientation="horizontal"
-                            android:layout_width="wrap_content"
-                            android:layout_height="@dimen/y34">
-
-                            <TextView
-                                android:textColor="@color/color_white"
-                                android:textStyle="bold"
-                                android:textSize="14sp"
-                                android:text="@{@string/price + new1.buyPrice}"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"/>
-
-                        </LinearLayout>
-
-                    </RelativeLayout>
-
-                    <RelativeLayout
-                        android:layout_marginRight="@dimen/x26"
-                        android:layout_marginLeft="@dimen/x26"
-                        android:background="@drawable/bg_balance"
-                        android:id="@+id/peopleContainer2"
-                        android:layout_weight="1"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content">
+                            android:layout_height="0dp"/>
 
                         <ImageView
-                            bind:srcTopRound="@{new2.img}"
-                            android:id="@+id/people_image2"
+                            android:scaleType="centerCrop"
+                            android:id="@+id/main_new3"
+                            android:layout_weight="1"
                             android:layout_width="match_parent"
-                            android:layout_height="@dimen/y128"/>
+                            android:layout_height="0dp"/>
 
-                        <LinearLayout
-                            android:layout_marginBottom="@dimen/y9"
-                            android:layout_marginTop="@dimen/y9"
-                            android:paddingRight="@dimen/x3"
-                            android:paddingLeft="@dimen/x3"
-                            android:gravity="center"
-                            android:background="@drawable/bg_ffffff_4"
-                            android:layout_below="@id/people_image2"
-                            android:layout_centerHorizontal="true"
-                            android:minWidth="@dimen/x120"
-                            android:orientation="horizontal"
-                            android:layout_width="wrap_content"
-                            android:layout_height="@dimen/y34">
-
-                            <TextView
-                                android:textColor="@color/color_white"
-                                android:textStyle="bold"
-                                android:textSize="14sp"
-                                android:text="@{@string/price + new2.buyPrice}"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"/>
-
-                        </LinearLayout>
-
-                    </RelativeLayout>
-
-                    <RelativeLayout
-                        android:background="@drawable/bg_balance"
-                        android:id="@+id/peopleContainer3"
-                        android:layout_weight="1"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content">
-
-                        <ImageView
-                            bind:srcTopRound="@{new3.img}"
-                            android:id="@+id/people_image3"
-                            android:layout_width="match_parent"
-                            android:layout_height="@dimen/y128"/>
-
-                        <LinearLayout
-                            android:layout_marginBottom="@dimen/y9"
-                            android:layout_marginTop="@dimen/y9"
-                            android:paddingRight="@dimen/x3"
-                            android:paddingLeft="@dimen/x3"
-                            android:gravity="center"
-                            android:background="@drawable/bg_ffffff_4"
-                            android:layout_below="@id/people_image3"
-                            android:layout_centerHorizontal="true"
-                            android:minWidth="@dimen/x120"
-                            android:orientation="horizontal"
-                            android:layout_width="wrap_content"
-                            android:layout_height="@dimen/y34">
-
-                            <TextView
-                                android:textColor="@color/color_white"
-                                android:textStyle="bold"
-                                android:textSize="14sp"
-                                android:text="@{@string/price + new3.buyPrice}"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"/>
-
-                        </LinearLayout>
-
-                    </RelativeLayout>
+                    </LinearLayout>
 
                 </LinearLayout>
 
-            </RelativeLayout>
+                <LinearLayout
+                    android:layout_marginRight="@dimen/x16"
+                    android:layout_marginBottom="@dimen/y16"
+                    android:layout_marginLeft="@dimen/x16"
+                    android:orientation="horizontal"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/y119">
+
+                    <ImageView
+                        android:scaleType="centerCrop"
+                        android:id="@+id/main_new4"
+                        android:layout_marginRight="@dimen/y16"
+                        android:layout_weight="1"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"/>
+
+                    <ImageView
+                        android:scaleType="centerCrop"
+                        android:id="@+id/main_new5"
+                        android:layout_weight="1"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"/>
+
+                </LinearLayout>
+
+            </LinearLayout>
 
         </LinearLayout>
 

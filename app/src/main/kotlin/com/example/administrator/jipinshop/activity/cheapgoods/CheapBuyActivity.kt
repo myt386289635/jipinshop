@@ -28,7 +28,7 @@ class CheapBuyActivity : BaseActivity() {
         startPop = intent.getBooleanExtra("startPop", true)
         fragmentManager = supportFragmentManager
         fragmentTransaction = fragmentManager.beginTransaction()
-        fragmentTransaction.add(R.id.home_fragment, zCheapBuyFragment.getInstance(startPop)).commit()
+        fragmentTransaction.add(R.id.home_fragment, zCheapBuyFragment.getInstance(startPop,"3")).commit()
     }
 
 }

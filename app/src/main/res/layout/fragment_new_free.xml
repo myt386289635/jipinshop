@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout
+    xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <data>
+        <variable
+            name="listener"
+            type="android.view.View.OnClickListener"/>
+    </data>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <RelativeLayout
+            android:id="@+id/free_bottom"
+            android:layout_alignParentBottom="true"
+            android:background="@color/color_D33C0C"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:onClick="@{listener.onClick}"
+                android:layout_marginTop="-8dp"
+                android:layout_marginBottom="@dimen/y18"
+                android:layout_below="@+id/free_notice"
+                android:layout_marginRight="@dimen/x55"
+                android:layout_marginLeft="@dimen/x55"
+                android:paddingRight="@dimen/x10"
+                android:paddingLeft="@dimen/x10"
+                android:id="@+id/free_image"
+                android:layout_centerInParent="true"
+                android:background="@drawable/bg_dialog_out2"
+                android:gravity="center"
+                android:text="立即送好友0元免单福利"
+                android:textStyle="bold"
+                android:textColor="@color/color_EA4F17"
+                android:textSize="16sp"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/y76"/>
+
+            <TextView
+                android:layout_marginTop="@dimen/y18"
+                android:layout_alignParentRight="true"
+                android:id="@+id/free_notice"
+                android:layout_marginRight="@dimen/x55"
+                android:paddingBottom="@dimen/y6"
+                android:paddingTop="@dimen/y6"
+                android:paddingRight="@dimen/x20"
+                android:paddingLeft="@dimen/x20"
+                android:background="@drawable/bg_c72d17"
+                android:textColor="@color/color_FEDDA9"
+                android:textStyle="bold"
+                android:textSize="14sp"
+                android:text="好友加入会员，赚20%会员佣金"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+
+        </RelativeLayout>
+
+        <com.aspsine.swipetoloadlayout.SwipeToLoadLayout
+            android:layout_above="@id/free_bottom"
+            android:id="@+id/swipeToLoad"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <com.example.administrator.jipinshop.view.textview.CustomRefreshHeadView
+                android:id="@+id/swipe_refresh_header"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:padding="20dp"/>
+
+            <LinearLayout
+                android:id="@+id/swipe_target"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical">
+
+                <android.support.v7.widget.RecyclerView
+                    android:visibility="gone"
+                    android:background="@color/color_F5F5F5"
+                    android:id="@+id/recycler_view"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"/>
+
+
+                <include
+                    android:id="@+id/net_clude"
+                    layout="@layout/common_net_error"
+                    android:visibility="gone"/>
+
+            </LinearLayout>
+
+        </com.aspsine.swipetoloadlayout.SwipeToLoadLayout>
+
+    </RelativeLayout>
+</layout>

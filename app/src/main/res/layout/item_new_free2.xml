@@ -16,6 +16,8 @@
             android:layout_height="wrap_content">
 
             <TextView
+                android:drawablePadding="@dimen/x4"
+                android:drawableLeft="@mipmap/bg_newfree3"
                 android:id="@+id/item_title"
                 android:textColor="@color/color_202020"
                 android:textSize="18sp"
@@ -71,7 +73,7 @@
             android:layout_marginBottom="@dimen/y43"
             android:layout_marginRight="@dimen/x30"
             android:layout_marginLeft="@dimen/x30"
-            android:background="@drawable/bg_line"
+            android:background="@drawable/bg_dialog_white"
             android:orientation="vertical"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
@@ -79,37 +81,27 @@
             <TextView
                 android:layout_marginTop="@dimen/y22"
                 android:layout_gravity="center_horizontal"
-                android:textStyle="bold"
-                android:textSize="17sp"
-                android:textColor="@color/color_FFE2B5"
-                android:text="新人免单详细规则"
+                android:textSize="18sp"
+                android:textColor="@color/color_202020"
+                android:text="新人免单规则"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"/>
 
             <TextView
                 android:id="@+id/item_rule"
-                android:lineSpacingExtra="@dimen/y12"
-                android:layout_marginBottom="@dimen/y15"
-                android:layout_marginTop="@dimen/y19"
-                android:layout_marginRight="@dimen/x18"
-                android:layout_marginLeft="@dimen/x18"
+                android:lineSpacingExtra="@dimen/y10"
+                android:layout_marginBottom="@dimen/y18"
+                android:layout_marginTop="@dimen/y14"
+                android:layout_marginRight="@dimen/x14"
+                android:layout_marginLeft="@dimen/x14"
                 android:textSize="14sp"
-                android:textColor="@color/color_FFE2B5"
-                android:text="选择本页面商品下单需先支付，确认收货后根据实付金额全额返现到您的账户中，金额可提现。所以真的是"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"/>
-
-            <TextView
-                android:layout_marginBottom="@dimen/y27"
-                android:layout_gravity="center_horizontal"
-                android:paddingBottom="@dimen/y8"
-                android:paddingTop="@dimen/y8"
-                android:paddingRight="@dimen/x24"
-                android:paddingLeft="@dimen/x24"
-                android:background="@drawable/bg_evakt"
-                android:textColor="@color/color_F54A32"
-                android:textSize="14sp"
-                android:text="如商品有多个规格，按价格最低的规格返现"
+                android:textColor="@color/color_202020"
+                android:text="1、每个新人享受免单一次，72小时内有效，从进入免单页面时间开始计算。
+\n2、新用户是指在极品城未有过支付行为的用户。
+\n3、如果商品有多个规格，只返现价格最低的那款商品的价格。
+\n4、返现时间为新人免单的返利金额在确认收货后，申请提现后7天后到账。
+\n5、返现金额为实付金额。返现金额可全部进行提现。
+\n6、返现路径：我的-提现。"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"/>
 

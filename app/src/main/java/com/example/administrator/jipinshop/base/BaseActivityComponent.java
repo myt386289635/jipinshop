@@ -203,7 +203,6 @@ public interface BaseActivityComponent {
     void inject(PlaySreachActivity activity);
     void inject(PlaySreachResultActivity activity);
     void inject(MyGroupActivity activity);
-    void inject(TakeOutActivity activity);
     void inject(MemberBuyActivity activity);
     void inject(CZBWebActivity activity);
     void inject(SeckillDetailActivity activity);
