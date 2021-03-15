@@ -15,6 +15,24 @@ public class MemberNewBean {
     private DataBean data;
     private int openFamily; //0关闭，1开启
     private String remind;
+    private String buttonName;
+    private String vipMessage;
+
+    public String getButtonName() {
+        return buttonName;
+    }
+
+    public void setButtonName(String buttonName) {
+        this.buttonName = buttonName;
+    }
+
+    public String getVipMessage() {
+        return vipMessage;
+    }
+
+    public void setVipMessage(String vipMessage) {
+        this.vipMessage = vipMessage;
+    }
 
     public String getRemind() {
         return remind;

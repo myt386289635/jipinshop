@@ -403,6 +403,7 @@ public class MemberFragment extends DBBaseFragment implements View.OnClickListen
         mBinding.swipeToLoad.setRefreshing(false);
         openFamily = bean.getOpenFamily();
         mBinding.setBean(bean.getData());
+        mBinding.setDate(bean);
         mBinding.executePendingBindings();
         SpannableString string = new SpannableString("   " + bean.getRemind());
         CenteredImageSpan imageSpan = new CenteredImageSpan(getContext(),R.mipmap.member1_notice);

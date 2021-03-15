@@ -1,5 +1,6 @@
 package com.example.administrator.jipinshop.activity.home.newGift;
 
+import android.app.Dialog;
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -16,21 +17,30 @@ import com.example.administrator.jipinshop.activity.newpeople.NewFreeFragment;
 import com.example.administrator.jipinshop.adapter.HomeFragmentAdapter;
 import com.example.administrator.jipinshop.adapter.KTTabAdapter8;
 import com.example.administrator.jipinshop.base.BaseActivity;
+import com.example.administrator.jipinshop.bean.ShareInfoBean;
 import com.example.administrator.jipinshop.databinding.ActivityNewGiftBinding;
+import com.example.administrator.jipinshop.util.ShareUtils;
 import com.example.administrator.jipinshop.util.ToastUtil;
+import com.example.administrator.jipinshop.view.dialog.ProgressDialogView;
 import com.example.administrator.jipinshop.view.glide.GlideApp;
+import com.umeng.socialize.bean.SHARE_MEDIA;
 
 import net.lucode.hackware.magicindicator.buildins.commonnavigator.CommonNavigator;
 
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.inject.Inject;
+
 /**
  * @author 莫小婷
  * @create 2021/3/8
  * @Describe 新人五重礼
  */
-public class NewGiftActivity extends BaseActivity implements View.OnClickListener, KTTabAdapter8.OnItem {
+public class NewGiftActivity extends BaseActivity implements View.OnClickListener, KTTabAdapter8.OnItem, NewGiftView {
+
+    @Inject
+    NewGiftPresenter mPresenter;
 
     private ActivityNewGiftBinding mBinding;
     //tab
@@ -39,12 +49,15 @@ public class NewGiftActivity extends BaseActivity implements View.OnClickListene
     private List<Fragment> mFragments;
     private HomeFragmentAdapter mAdapter;
     private int currentItem = 0;//当前页
+    private Dialog mDialog;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         mBinding = DataBindingUtil.setContentView(this,R.layout.activity_new_gift);
         mBinding.setListener(this);
+        mBaseActivityComponent.inject(this);
+        mPresenter.setView(this);
         initView();
     }
 
@@ -90,7 +103,9 @@ public class NewGiftActivity extends BaseActivity implements View.OnClickListene
                 finish();
                 break;
             case R.id.gift_share:
-                ToastUtil.show("分享");
+                mDialog = (new ProgressDialogView()).createLoadingDialog(this, "");
+                mDialog.show();
+                mPresenter.initShare(this.bindToLifecycle());
                 break;
         }
     }
@@ -105,5 +120,20 @@ public class NewGiftActivity extends BaseActivity implements View.OnClickListene
 
     public AppBarLayout getBar(){
         return mBinding.appbar;
+    }
+
+    @Override
+    public void initShare(ShareInfoBean bean) {
+        new ShareUtils(this, SHARE_MEDIA.WEIXIN, mDialog)
+                .shareWeb(this, bean.getData().getLink(),bean.getData().getTitle(),bean.getData().getDesc(),
+                        bean.getData().getImgUrl(),R.mipmap.share_logo);
+    }
+
+    @Override
+    public void onFile(String error) {
+        if (mDialog != null && mDialog.isShowing()) {
+            mDialog.dismiss();
+        }
+        ToastUtil.show(error);
     }
 }

@@ -11,6 +11,9 @@
         <variable
             name="bean"
             type="com.example.administrator.jipinshop.bean.MemberNewBean.DataBean"/>
+        <variable
+            name="date"
+            type="com.example.administrator.jipinshop.bean.MemberNewBean"/>
     </data>
 
     <RelativeLayout
@@ -1260,20 +1263,22 @@
                 android:textStyle="bold"
                 android:textSize="16sp"
                 android:textColor="@color/color_835720"
-                android:text="立即加入"
+                android:text="@{date.buttonName}"
                 android:background="@drawable/bg_f8dbb5"
                 android:layout_marginTop="@dimen/y32"
                 android:layout_width="@dimen/x520"
                 android:layout_height="@dimen/y80"/>
 
             <TextView
+                android:paddingRight="@dimen/x24"
+                android:paddingLeft="@dimen/x24"
                 android:layout_alignRight="@id/member_buy"
                 android:textStyle="bold"
                 android:textColor="@color/color_C35E07"
                 android:textSize="14sp"
                 android:gravity="center"
                 android:background="@mipmap/dialog_need"
-                android:text="限时免费加入"
+                android:text="@{date.vipMessage}"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"/>
 
