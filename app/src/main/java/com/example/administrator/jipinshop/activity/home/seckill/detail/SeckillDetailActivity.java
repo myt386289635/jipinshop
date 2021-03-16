@@ -97,6 +97,8 @@ public class SeckillDetailActivity extends BaseActivity implements View.OnClickL
     private String UpFee = "";
     private String fee = "";
     private CountDownTimer countDownTimer;//倒计时
+    //刷新页面
+    private Boolean buyRefresh = false;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -213,6 +215,11 @@ public class SeckillDetailActivity extends BaseActivity implements View.OnClickL
                             //非会员弹窗
                             DialogUtil.buyMemberDialog(this, fee, UpFee, v14 -> {
                                 mPresenter.getGoodsClickUrl(source, goodsId, this.bindToLifecycle());
+                            }, v1 -> {
+                                buyRefresh = true;
+                                startActivity(new Intent(this, HomeNewActivity.class)
+                                        .putExtra("type",HomeNewActivity.member)
+                                );
                             });
                         }else {
                             mDialog = (new ProgressDialogView()).createPlatformDialog(this, money, R.mipmap.dialog_tb);
@@ -225,6 +232,11 @@ public class SeckillDetailActivity extends BaseActivity implements View.OnClickL
                         //非会员弹窗
                         DialogUtil.buyMemberDialog(this, fee, UpFee, v14 -> {
                             mPresenter.getGoodsClickUrl(source, goodsId, this.bindToLifecycle());
+                        }, v12 -> {
+                            buyRefresh = true;
+                            startActivity(new Intent(this, HomeNewActivity.class)
+                                    .putExtra("type",HomeNewActivity.member)
+                            );
                         });
                     }else {
                         if (source.equals("1")){
@@ -297,6 +309,7 @@ public class SeckillDetailActivity extends BaseActivity implements View.OnClickL
             case R.id.detail_bottomMemberGo:
             case R.id.detail_memberGo:
                 if (level.equals("0")){
+                    buyRefresh = true;
                     startActivity(new Intent(this, HomeNewActivity.class)
                             .putExtra("type",HomeNewActivity.member)
                     );
@@ -508,7 +521,10 @@ public class SeckillDetailActivity extends BaseActivity implements View.OnClickL
             mBinding.titleFavor.setText("收藏");
         }
         //会员信息
-        if (bean.getData().getLevel() != 0){
+        level = bean.getData().getLevel() + "";
+        UpFee = bean.getData().getUpFee() + "";
+        fee = bean.getData().getFee() + "";
+        if (bean.getData().getLevel() != 0){//会员
             mBinding.detailMemberText.setText("尊享会员专属优惠，比普通用户多返");
             mBinding.detailMemberPrice.setText("￥" + bean.getData().getUpFee());
             mBinding.detailMemberGo.setVisibility(View.GONE);
@@ -518,7 +534,7 @@ public class SeckillDetailActivity extends BaseActivity implements View.OnClickL
             mBinding.detailShareCodeText.setText("分享赚");
             mBinding.detailFreeCode.setText("¥"+ new BigDecimal(free).setScale(2,BigDecimal.ROUND_HALF_UP).stripTrailingZeros().toPlainString());
             mBinding.detailFreeCodeText.setText("购买返");
-        }else {
+        }else {//非会员
             isStart = true;
             mBinding.detailMemberText.setText("加入极品会员，本商品可返");
             mBinding.detailMemberPrice.setText("￥" + bean.getData().getUpFee());
@@ -528,7 +544,7 @@ public class SeckillDetailActivity extends BaseActivity implements View.OnClickL
             mBinding.shopFee.setText("返 ¥" + fee);
             mBinding.detailShareCode.setText("返¥"+ new BigDecimal(bean.getData().getUpFee()).setScale(2,BigDecimal.ROUND_HALF_UP).stripTrailingZeros().toPlainString());
             mBinding.detailShareCodeText.setText("拼团买");
-            mBinding.detailFreeCode.setText("返¥"+ new BigDecimal(free).setScale(2,BigDecimal.ROUND_HALF_UP).stripTrailingZeros().toPlainString());
+            mBinding.detailFreeCode.setText("返¥"+ new BigDecimal(bean.getData().getUpFee()).setScale(2,BigDecimal.ROUND_HALF_UP).stripTrailingZeros().toPlainString());
             mBinding.detailFreeCodeText.setText("直接买");
         }
     }
@@ -635,6 +651,10 @@ public class SeckillDetailActivity extends BaseActivity implements View.OnClickL
     @Override
     protected void onResume() {
         super.onResume();
+        if (buyRefresh){
+            buyRefresh = false;
+            mPresenter.seckillDetail(2,id,this.bindToLifecycle());
+        }
         if (mDialog != null && mDialog.isShowing()){
             mDialog.dismiss();
         }

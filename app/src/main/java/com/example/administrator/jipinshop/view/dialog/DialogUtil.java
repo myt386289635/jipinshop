@@ -1023,16 +1023,15 @@ public class DialogUtil {
     }
 
     //购买时会员提示弹窗
-    public static void buyMemberDialog(Context context, String buyFree, String upFree, View.OnClickListener listener) {
+    public static void buyMemberDialog(Context context, String buyFree, String upFree,
+                                       View.OnClickListener listener , View.OnClickListener buyListener) {
         AlertDialog.Builder builder = new AlertDialog.Builder(context, R.style.dialog);
         DialogMemberBuyBinding binding = DataBindingUtil.inflate(LayoutInflater.from(context), R.layout.dialog_member_buy, null, false);
         final Dialog dialog = builder.create();
         binding.dialogUpFree.setText("办理会员（本单可返￥" + upFree + "）");
         binding.dialogBuy.setText("直接购买（本单可返￥" + buyFree + "）");
         binding.dialogUpFree.setOnClickListener(v -> {
-            context.startActivity(new Intent(context, HomeNewActivity.class)
-                    .putExtra("type", HomeNewActivity.member)
-            );
+            buyListener.onClick(v);
             dialog.dismiss();
         });
         binding.dialogBuy.setOnClickListener(v -> {
