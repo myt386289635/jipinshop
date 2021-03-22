@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout
+    xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <LinearLayout
+            android:layout_marginTop="@dimen/y40"
+            android:layout_marginRight="@dimen/x20"
+            android:layout_marginLeft="@dimen/x20"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/y86">
+
+            <TextView
+                android:textStyle="bold"
+                android:textSize="18sp"
+                android:text="新人任务"
+                android:gravity="center"
+                android:textColor="@color/color_white"
+                android:id="@+id/item_ruleLeft"
+                android:background="@drawable/bg_sign11"
+                android:layout_weight="1"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"/>
+
+            <TextView
+                android:gravity="center"
+                android:textColor="@color/color_white"
+                android:textStyle="bold"
+                android:textSize="18sp"
+                android:text="日常任务"
+                android:background="@drawable/bg_d8d8d8_5"
+                android:id="@+id/item_ruleRight"
+                android:layout_weight="1"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"/>
+
+        </LinearLayout>
+
+        <android.support.v7.widget.RecyclerView
+            android:paddingBottom="@dimen/y30"
+            android:background="@drawable/bg_ffffff"
+            android:id="@+id/item_rule"
+            android:layout_marginLeft="@dimen/x20"
+            android:layout_marginRight="@dimen/x20"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+
+    </LinearLayout>
+</layout>

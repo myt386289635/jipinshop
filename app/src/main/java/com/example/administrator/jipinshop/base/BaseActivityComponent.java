@@ -28,7 +28,6 @@ import com.example.administrator.jipinshop.activity.home.classification.encyclop
 import com.example.administrator.jipinshop.activity.home.classification.questions.QuestionsActivity;
 import com.example.administrator.jipinshop.activity.home.classification.questions.detail.QuestionDetailActivity;
 import com.example.administrator.jipinshop.activity.home.classification.questions.submit.QuestionSubmitActivity;
-import com.example.administrator.jipinshop.activity.home.food.TakeOutActivity;
 import com.example.administrator.jipinshop.activity.home.jd_pdd.KTJDDetailActivity;
 import com.example.administrator.jipinshop.activity.home.newGift.NewGiftActivity;
 import com.example.administrator.jipinshop.activity.home.newarea.NewAreaActivity;
@@ -84,7 +83,6 @@ import com.example.administrator.jipinshop.activity.setting.opinion.OpinionActiv
 import com.example.administrator.jipinshop.activity.share.ShareActivity;
 import com.example.administrator.jipinshop.activity.shoppingdetail.ShoppingDetailActivity;
 import com.example.administrator.jipinshop.activity.shoppingdetail.tbshoppingdetail.TBShoppingDetailActivity;
-import com.example.administrator.jipinshop.activity.sign.SignActivity;
 import com.example.administrator.jipinshop.activity.sign.detail.IntegralDetailActivity;
 import com.example.administrator.jipinshop.activity.sign.invitation.InvitationActivity;
 import com.example.administrator.jipinshop.activity.sign.invitation.InvitationNewActivity;
@@ -124,7 +122,6 @@ public interface BaseActivityComponent {
     void inject(SettingActivity settingActivity);
     void inject(MyInfoActivity activity);
     void inject(EditNameActivity activity);
-    void inject(SignActivity activity);
     void inject(MsgDetailActivity activity);
     void inject(AccountManageActivity activity);
     void inject(ChangePhoneActivity activity);

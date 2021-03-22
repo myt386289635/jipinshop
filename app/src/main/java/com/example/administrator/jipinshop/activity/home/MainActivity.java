@@ -18,7 +18,7 @@ import com.example.administrator.jipinshop.R;
 import com.example.administrator.jipinshop.activity.cheapgoods.CheapBuyActivity;
 import com.example.administrator.jipinshop.activity.login.LoginActivity;
 import com.example.administrator.jipinshop.activity.newpeople.NewFreeActivity;
-import com.example.administrator.jipinshop.activity.sign.SignActivity;
+import com.example.administrator.jipinshop.activity.sign.SignFragment;
 import com.example.administrator.jipinshop.adapter.HomeAdapter;
 import com.example.administrator.jipinshop.base.BaseActivity;
 import com.example.administrator.jipinshop.bean.AppVersionbean;
@@ -33,7 +33,6 @@ import com.example.administrator.jipinshop.bean.eventbus.ChangeHomePageBus;
 import com.example.administrator.jipinshop.bean.eventbus.EditNameBus;
 import com.example.administrator.jipinshop.bean.eventbus.HomeNewPeopleBus;
 import com.example.administrator.jipinshop.databinding.ActivityMainBinding;
-import com.example.administrator.jipinshop.fragment.evaluationkt.EvaluationNewFragment;
 import com.example.administrator.jipinshop.fragment.home.KTHomeFragnent;
 import com.example.administrator.jipinshop.fragment.member.MemberFragment;
 import com.example.administrator.jipinshop.fragment.mine.KTMineFragment;
@@ -83,7 +82,7 @@ public class MainActivity extends BaseActivity implements MainView, ViewPager.On
     private HomeAdapter mHomeAdapter;
     private MemberFragment mMemberFragment;//新版会员
     private KTMineFragment mMineFragment;//我的
-    private EvaluationNewFragment mCircleFragment;//评测
+    private SignFragment mSignFragment;//赚钱页面
     private KTHomeFragnent mKTHomeFragnent;//首页
     private PlayFragment mPlayFragment;//吃喝玩乐
 
@@ -131,12 +130,12 @@ public class MainActivity extends BaseActivity implements MainView, ViewPager.On
         mKTHomeFragnent = KTHomeFragnent.getInstance();
         mPlayFragment = PlayFragment.getInstance();
         mMemberFragment = MemberFragment.getInstance("1",false);
-        mCircleFragment = EvaluationNewFragment.getInstance("1");
+        mSignFragment = SignFragment.getInstance("1");
         mMineFragment = KTMineFragment.getInstance();
         mFragments.add(mKTHomeFragnent);
         mFragments.add(mPlayFragment);
         mFragments.add(mMemberFragment);
-        mFragments.add(mCircleFragment);
+        mFragments.add(mSignFragment);
         mFragments.add(mMineFragment);
 
         mHomeAdapter = new HomeAdapter(getSupportFragmentManager());
@@ -684,7 +683,7 @@ public class MainActivity extends BaseActivity implements MainView, ViewPager.On
             dialog.dismiss();
         }
         ToastUtil.show("关联成功");
-        EventBus.getDefault().post(new EditNameBus(SignActivity.eventbusTag));
+        EventBus.getDefault().post(new EditNameBus(KTMineFragment.eventbusTag));
     }
 
     @Override

@@ -1,58 +1,93 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
-    android:layout_marginBottom="@dimen/x20"
-    android:layout_marginTop="@dimen/x36"
-    android:id="@+id/item_container"
+<layout
     xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
     xmlns:tools="http://schemas.android.com/tools">
 
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
 
-    <ImageView
-        android:layout_centerHorizontal="true"
-        android:scaleType="centerCrop"
-        tools:src="@color/color_E31436"
-        android:id="@+id/item_image"
-        android:layout_width="@dimen/x330"
-        android:layout_height="@dimen/y330"/>
+        <RelativeLayout
+            android:background="@color/color_white"
+            android:layout_marginLeft="@dimen/x20"
+            android:id="@+id/item_container"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <ImageView
+                android:layout_marginLeft="@dimen/x20"
+                android:scaleType="centerCrop"
+                tools:src="@color/color_E31436"
+                android:id="@+id/item_image"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/y325"/>
+
+            <ImageView
+                android:visibility="gone"
+                android:id="@+id/item_tag"
+                android:layout_marginTop="@dimen/y8"
+                android:layout_marginLeft="@dimen/x8"
+                android:layout_alignLeft="@+id/item_image"
+                android:src="@mipmap/mall_newpeople"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+
+            <TextView
+                android:gravity="center_vertical"
+                android:minLines="2"
+                android:layout_alignRight="@+id/item_image"
+                android:layout_alignLeft="@+id/item_image"
+                android:id="@+id/item_name"
+                android:layout_marginTop="@dimen/y12"
+                android:textColor="@color/color_202020"
+                android:layout_below="@id/item_image"
+                android:ellipsize="end"
+                android:textSize="12sp"
+                android:maxLines="2"
+                android:lineSpacingExtra="@dimen/y8"
+                tools:text="飞利浦HD9103/11双"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+
+            <TextView
+                android:layout_alignLeft="@+id/item_name"
+                android:layout_marginTop="@dimen/y8"
+                android:layout_below="@id/item_name"
+                android:id="@+id/item_code"
+                android:textSize="16sp"
+                android:textStyle="bold"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/color_E31436"
+                tools:text="10000极币"/>
+
+            <com.example.administrator.jipinshop.view.textview.TextViewDel
+                android:id="@+id/item_price"
+                android:layout_toRightOf="@id/item_code"
+                android:layout_alignBottom="@id/item_code"
+                android:layout_marginLeft="@dimen/x8"
+                android:textSize="12sp"
+                android:textColor="@color/color_ACACAC"
+                android:textStyle="bold"
+                tools:text="100元"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+
+            <TextView
+                android:id="@+id/item_saled"
+                android:layout_marginBottom="@dimen/y36"
+                android:textStyle="bold"
+                android:textColor="@color/color_ACACAC"
+                android:textSize="12sp"
+                android:layout_marginTop="@dimen/y2"
+                android:layout_below="@id/item_code"
+                android:layout_alignLeft="@id/item_code"
+                tools:text="已售：1263件"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+
+        </RelativeLayout>
+    </RelativeLayout>
 
 
-    <ImageView
-        android:visibility="gone"
-        android:id="@+id/item_tag"
-        android:layout_marginTop="@dimen/y8"
-        android:layout_marginLeft="@dimen/x8"
-        android:layout_alignLeft="@+id/item_image"
-        android:src="@mipmap/mall_newpeople"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"/>
-
-
-    <TextView
-        android:layout_alignRight="@+id/item_image"
-        android:layout_alignLeft="@+id/item_image"
-        android:id="@+id/item_name"
-        android:layout_marginTop="@dimen/x24"
-        android:textColor="@color/color_DE151515"
-        android:layout_below="@id/item_image"
-        android:ellipsize="end"
-        android:maxLines="1"
-        tools:text="飞利浦HD9103/11双层简洁"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"/>
-
-
-    <TextView
-        android:layout_alignRight="@+id/item_name"
-        android:layout_alignLeft="@+id/item_name"
-        android:layout_marginTop="@dimen/y8"
-        android:layout_below="@id/item_name"
-        android:id="@+id/item_code"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textColor="@color/color_E31436"
-        tools:text="10000极币"/>
-
-
-</RelativeLayout>
+</layout>

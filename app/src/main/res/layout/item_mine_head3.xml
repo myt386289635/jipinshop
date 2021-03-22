@@ -133,12 +133,12 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:drawableTop="@mipmap/mine_newpeople"
+                    android:drawableTop="@mipmap/mine_sign"
                     android:drawablePadding="@dimen/y16"
                     android:gravity="center"
                     android:paddingTop="@dimen/y26"
                     android:paddingBottom="@dimen/y26"
-                    android:text="极币中心"
+                    android:text="赚现金"
                     android:textColor="@color/color_202020"
                     android:textSize="13sp"/>
 

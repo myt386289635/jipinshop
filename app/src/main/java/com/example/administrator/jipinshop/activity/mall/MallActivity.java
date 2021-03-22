@@ -2,7 +2,6 @@ package com.example.administrator.jipinshop.activity.mall;
 
 import android.content.Intent;
 import android.databinding.DataBindingUtil;
-import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.GridLayoutManager;
@@ -22,7 +21,6 @@ import com.example.administrator.jipinshop.databinding.ActivityMallBinding;
 import com.example.administrator.jipinshop.util.ClickUtil;
 import com.example.administrator.jipinshop.util.ToastUtil;
 import com.example.administrator.jipinshop.util.UmApp.UAppUtil;
-import com.trello.rxlifecycle2.android.ActivityEvent;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
@@ -44,16 +42,11 @@ public class MallActivity extends BaseActivity implements View.OnClickListener, 
     private ActivityMallBinding mBinding;
 
     private List<MallBean.DataBean> mList;
+    private List<MallBean.DataBean> mHot;
     private MallAdapter mAdapter;
-
-    /**
-     * 页数
-     */
-    private int page = 1;
-    /**
-     * 记录是刷新还是加载
-     */
-    private Boolean refersh = true;
+    private int page = 2;//页数
+    private Boolean refersh = true;//记录是刷新还是加载
+    private int from = 0;//1 赚钱页过来  0 其他页过来
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -67,15 +60,15 @@ public class MallActivity extends BaseActivity implements View.OnClickListener, 
     }
 
     private void initView() {
+        from = getIntent().getIntExtra("from",0);
         mBinding.inClude.titleTv.setText("极币商城");
-        mBinding.swipeToLoad.setBackgroundColor(Color.WHITE);
-        mBinding.recyclerView.setLayoutManager(new GridLayoutManager(this, 2));
+        mBinding.swipeTarget.setLayoutManager(new GridLayoutManager(this, 2));
         mList = new ArrayList<>();
-        mAdapter = new MallAdapter(this, mList);
+        mHot = new ArrayList<>();
+        mAdapter = new MallAdapter(this, mList,mHot);
         mAdapter.setOnItemListener(this);
-        mBinding.recyclerView.setAdapter(mAdapter);
+        mBinding.swipeTarget.setAdapter(mAdapter);
 
-        mPresenter.solveScoll(mBinding.recyclerView,mBinding.swipeToLoad);
         mBinding.swipeToLoad.setOnRefreshListener(this);
         mBinding.swipeToLoad.setOnLoadMoreListener(this);
         mBinding.swipeToLoad.post(() -> mBinding.swipeToLoad.setRefreshing(true));
@@ -96,23 +89,21 @@ public class MallActivity extends BaseActivity implements View.OnClickListener, 
 
     @Override
     public void onRefresh() {
-        page = 1;
+        page = 2;
         refersh = true;
-        mPresenter.mallList(page,this.bindUntilEvent(ActivityEvent.DESTROY));
+        mPresenter.hotList(this.bindToLifecycle());
     }
 
     @Override
     public void onLoadMore() {
         page++;
         refersh = false;
-        mPresenter.mallList(page,this.bindUntilEvent(ActivityEvent.DESTROY));
+        mPresenter.mallList(page,this.bindToLifecycle());
     }
 
-    /**
-     * 跳转极币商城详情页
-     */
+    //更多兑换
     @Override
-    public void onItemIntegralDetail(int position) {
+    public void onMoreDetail(int position) {
         if (ClickUtil.isFastDoubleClick(800)) {
             return;
         }else{
@@ -123,9 +114,26 @@ public class MallActivity extends BaseActivity implements View.OnClickListener, 
         }
     }
 
+    //热门兑换
+    @Override
+    public void onHotDetail(int position) {
+        if (ClickUtil.isFastDoubleClick(800)) {
+            return;
+        }else{
+            startActivity(new Intent(this, MallDetailActivity.class)
+                    .putExtra("goodsId",mHot.get(position).getId())
+                    .putExtra("isActivityGoods",mHot.get(position).getType())
+            );
+        }
+    }
+
     @Override
     public void onHead() {
-        startActivity(new Intent(this, SignActivity.class));
+        if (from == 1){//从赚钱页打开极币商城
+            finish();
+        }else {
+            startActivity(new Intent(this, SignActivity.class));
+        }
     }
 
     public void dissRefresh(){
@@ -152,40 +160,38 @@ public class MallActivity extends BaseActivity implements View.OnClickListener, 
         }
     }
 
-    public void initError(int id, String title, String content) {
-        mBinding.netClude.qsNet.setVisibility(View.VISIBLE);
-        mBinding.netClude.errorImage.setBackgroundResource(id);
-        mBinding.netClude.errorTitle.setText(title);
-        mBinding.netClude.errorContent.setText(content);
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        EventBus.getDefault().unregister(this);
+    }
+
+    //每日任务里点击跳转后，需要关闭的页面
+    @Subscribe
+    public void changePage(ChangeHomePageBus bus){
+        if(bus != null){
+            finish();
+        }
     }
 
     @Override
     public void onSuccess(MallBean bean) {
-        if(refersh){
+        if (refersh){
             dissRefresh();
+            if (bean.getData() != null && bean.getData().size() != 0){
+                //有数据
+                mList.clear();
+                mList.addAll(bean.getData());
+            }else {
+                ToastUtil.show("暂无数据");
+            }
+            mAdapter.notifyDataSetChanged();//刷新热门兑换
         }else {
             dissLoading();
-        }
-        if (bean.getData() != null && bean.getData().size() != 0){
-            //有数据
-            mBinding.netClude.qsNet.setVisibility(View.GONE);
-            mBinding.recyclerView.setVisibility(View.VISIBLE);
-            if(refersh){
-                mList.clear();
-            }
-            mList.addAll(bean.getData());
-            mAdapter.notifyDataSetChanged();
-            if(!refersh){
-                mBinding.swipeToLoad.setLoadMoreEnabled(false);
-            }
-        }else {
-            //没有数据
-            if(refersh){
-                //刷新时
-                initError(R.mipmap.qs_nodata, "暂无商品", "还没有任何商品哦!~");
-                mBinding.recyclerView.setVisibility(View.GONE);
+            if (bean.getData() != null && bean.getData().size() != 0){
+                mList.addAll(bean.getData());
+                mAdapter.notifyDataSetChanged();
             }else {
-                //加载时
                 page--;
                 ToastUtil.show("已经是最后一页了");
             }
@@ -196,8 +202,6 @@ public class MallActivity extends BaseActivity implements View.OnClickListener, 
     public void onFile(String error) {
         if(refersh){
             dissRefresh();
-            initError(R.mipmap.qs_net, "网络出错", "哇哦，网络出错了，换个姿势下滑页面试试");
-            mBinding.recyclerView.setVisibility(View.GONE);
         }else {
             dissLoading();
             page--;
@@ -206,18 +210,15 @@ public class MallActivity extends BaseActivity implements View.OnClickListener, 
     }
 
     @Override
-    protected void onDestroy() {
-        super.onDestroy();
-        EventBus.getDefault().unregister(this);
+    public void onHot(MallBean bean) {
+        mHot.clear();
+        mHot.addAll(bean.getData());
+        mPresenter.mallList(page,this.bindToLifecycle());
     }
 
-    /**
-     * 每日任务里点击跳转后，需要关闭的页面
-     */
-    @Subscribe
-    public void changePage(ChangeHomePageBus bus){
-        if(bus != null){
-            finish();
-        }
+    @Override
+    public void onHotFile(String error) {
+        ToastUtil.show(error);
+        mPresenter.mallList(page,this.bindToLifecycle());
     }
 }

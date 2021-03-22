@@ -11,6 +11,7 @@
     </data>
 
     <RelativeLayout
+        android:background="@color/color_F5F5F5"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical">
@@ -21,9 +22,10 @@
             bind:listener="@{listener}"/>
 
         <TextView
+            android:textStyle="bold"
             android:onClick="@{listener.onClick}"
-            android:textColor="@color/pickerview_topbar_title"
-            android:textSize="13sp"
+            android:textColor="@color/color_DE050505"
+            android:textSize="14sp"
             android:paddingLeft="@dimen/x30"
             android:paddingRight="@dimen/x30"
             android:layout_alignParentRight="true"
@@ -37,8 +39,7 @@
             android:id="@+id/swipeToLoad"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_below="@id/in_clude"
-            android:background="@color/color_white">
+            android:layout_below="@id/in_clude">
 
             <com.example.administrator.jipinshop.view.textview.CustomRefreshHeadView
                 android:id="@+id/swipe_refresh_header"
@@ -47,25 +48,10 @@
                 android:gravity="center"
                 android:padding="20dp"/>
 
-            <LinearLayout
+            <android.support.v7.widget.RecyclerView
                 android:id="@+id/swipe_target"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:orientation="vertical">
-
-
-                <android.support.v7.widget.RecyclerView
-                    android:id="@+id/recycler_view"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"/>
-
-
-                <include
-                    android:id="@+id/net_clude"
-                    layout="@layout/common_net_error"
-                    android:visibility="gone"/>
-
-            </LinearLayout>
+                android:layout_height="match_parent"/>
 
             <com.example.administrator.jipinshop.view.textview.LoadMoreFooterView
                 android:id="@+id/swipe_load_more_footer"

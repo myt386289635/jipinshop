@@ -66,6 +66,8 @@ import com.example.administrator.jipinshop.databinding.DialogParityBinding;
 import com.example.administrator.jipinshop.databinding.DialogPayFileBinding;
 import com.example.administrator.jipinshop.databinding.DialogPaySuccessBinding;
 import com.example.administrator.jipinshop.databinding.DialogShopGuideBinding;
+import com.example.administrator.jipinshop.databinding.DialogSign1Binding;
+import com.example.administrator.jipinshop.databinding.DialogSignBinding;
 import com.example.administrator.jipinshop.databinding.DialogTklBinding;
 import com.example.administrator.jipinshop.databinding.DialogUserBinding;
 import com.example.administrator.jipinshop.databinding.DialogUserDetailBinding;
@@ -1388,6 +1390,49 @@ public class DialogUtil {
             dialog.dismiss();
             listener.onClick(v);
         });
+        dialog.getWindow().setDimAmount(0.35f);
+        dialog.show();
+        dialog.setContentView(binding.getRoot());
+    }
+
+    //签到1-6天
+    public static void signDialog(Context context , String bottonName, String content ,
+                                  int backImage, View.OnClickListener listener){
+        AlertDialog.Builder builder = new AlertDialog.Builder(context, R.style.dialog);
+        final Dialog dialog = builder.create();
+        DialogSignBinding binding = DataBindingUtil.inflate(LayoutInflater.from(context),
+                R.layout.dialog_sign, null, false);
+        binding.dialogSure.setOnClickListener(v -> {
+            dialog.dismiss();
+            if (listener != null)
+                listener.onClick(v);
+        });
+        binding.dialogDismiss.setOnClickListener(v -> {
+            dialog.dismiss();
+        });
+        binding.dialogContent.setText(content);
+        binding.dialogSure.setText(bottonName);
+        binding.dialogBg.setImageResource(backImage);
+        dialog.getWindow().setDimAmount(0.35f);
+        dialog.show();
+        dialog.setContentView(binding.getRoot());
+    }
+
+    //签到第7天
+    public static void signSvn(Context context , int addPoint , View.OnClickListener listener){
+        AlertDialog.Builder builder = new AlertDialog.Builder(context, R.style.dialog);
+        final Dialog dialog = builder.create();
+        DialogSign1Binding binding = DataBindingUtil.inflate(LayoutInflater.from(context),
+                R.layout.dialog_sign1, null, false);
+        binding.dialogBg.setOnClickListener(v -> {
+            dialog.dismiss();
+            if (listener != null)
+                listener.onClick(v);
+        });
+        binding.dialogDismiss.setOnClickListener(v -> {
+            dialog.dismiss();
+        });
+        binding.dialogContent.setText("恭喜你，获得"+ addPoint +"极币");
         dialog.getWindow().setDimAmount(0.35f);
         dialog.show();
         dialog.setContentView(binding.getRoot());

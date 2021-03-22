@@ -3,12 +3,13 @@ package com.example.administrator.jipinshop.activity.sign;
 import android.app.Dialog;
 import android.view.inputmethod.InputMethodManager;
 
-import com.example.administrator.jipinshop.bean.ActionHBBean;
 import com.example.administrator.jipinshop.bean.DailyTaskBean;
 import com.example.administrator.jipinshop.bean.MallBean;
+import com.example.administrator.jipinshop.bean.ShareInfoBean;
 import com.example.administrator.jipinshop.bean.SignInsertBean;
 import com.example.administrator.jipinshop.bean.SuccessBean;
 import com.example.administrator.jipinshop.bean.TeacherBean;
+import com.umeng.socialize.bean.SHARE_MEDIA;
 
 /**
  * @author 莫小婷
@@ -17,20 +18,15 @@ import com.example.administrator.jipinshop.bean.TeacherBean;
  */
 public interface SignView {
 
-    /**签到成功*/
+//    /**签到成功*/
     void signSuc(SignInsertBean signInsertBean);
-    void signFile(int code , String error);
+    void noSignSuc(SignInsertBean bean);//补签成功
 
-    /*获取每日任务列表**/
-    void getDayList(DailyTaskBean bean);
-
+    /*赚钱页面**/
+    void onIndex(DailyTaskBean bean);
     void onCodeSuc(Dialog dialog, InputMethodManager inputManager, SuccessBean bean);
     void onFile(String error);
-
     void onSuccess(MallBean bean);
-
-    void onHBID(ActionHBBean bean);
-    void onHBFlie();
-
     void onTeacher(TeacherBean bean);
+    void initShare(SHARE_MEDIA share_media, ShareInfoBean bean);
 }

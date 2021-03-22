@@ -73,6 +73,24 @@ public class MallBean {
         private int up;
         private String createTime;
         private int type;//类型：0普通商品，1活动商品
+        private String otherPrice;
+        private String soldTotal;
+
+        public String getSoldTotal() {
+            return soldTotal;
+        }
+
+        public void setSoldTotal(String soldTotal) {
+            this.soldTotal = soldTotal;
+        }
+
+        public String getOtherPrice() {
+            return otherPrice;
+        }
+
+        public void setOtherPrice(String otherPrice) {
+            this.otherPrice = otherPrice;
+        }
 
         public int getType() {
             return type;

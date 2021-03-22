@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout
+    xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <RelativeLayout
+        android:layout_gravity="center_horizontal"
+        android:layout_width="@dimen/x580"
+        android:layout_height="wrap_content">
+
+        <ImageView
+            android:id="@+id/dialog_bg"
+            android:adjustViewBounds="true"
+            android:scaleType="fitXY"
+            android:src="@mipmap/sign_bg4"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+
+        <ImageView
+            android:id="@+id/dialog_dismiss"
+            android:layout_marginTop="@dimen/y74"
+            android:layout_below="@id/dialog_bg"
+            android:layout_centerHorizontal="true"
+            android:src="@mipmap/dialog_close"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+
+        <TextView
+            android:id="@+id/dialog_sure"
+            android:gravity="center"
+            android:textColor="@color/color_white"
+            android:textStyle="bold"
+            android:textSize="16sp"
+            android:text="签到成功"
+            android:layout_marginBottom="@dimen/y50"
+            android:layout_centerHorizontal="true"
+            android:layout_alignBottom="@id/dialog_bg"
+            android:background="@drawable/bg_sign9"
+            android:layout_width="@dimen/x389"
+            android:layout_height="@dimen/y68"/>
+
+        <TextView
+            android:id="@+id/dialog_content"
+            android:textStyle="bold"
+            android:textColor="@color/color_FF5732"
+            android:layout_marginBottom="@dimen/y33"
+            android:textSize="18sp"
+            android:layout_above="@id/dialog_sure"
+            android:layout_centerHorizontal="true"
+            android:text="连续签到7天最高获得100极币"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+
+    </RelativeLayout>
+</layout>

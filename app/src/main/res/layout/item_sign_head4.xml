@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout
+    xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <LinearLayout
+        android:background="@color/color_F5F5F5"
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_marginRight="@dimen/x20"
+            android:layout_marginLeft="@dimen/x20"
+            android:layout_marginTop="@dimen/y40"
+            android:background="@drawable/bg_dialog_white"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:layout_marginBottom="@dimen/y30"
+                android:layout_marginTop="@dimen/y30"
+                android:layout_marginLeft="@dimen/x20"
+                android:textColor="@color/color_835720"
+                android:textStyle="bold"
+                android:textSize="18sp"
+                android:text="热门兑换"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+
+            <com.example.administrator.jipinshop.view.recyclerView.MyRecyclerView
+                android:id="@+id/item_hot"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"/>
+
+        </LinearLayout>
+
+        <TextView
+            android:layout_marginTop="@dimen/y40"
+            android:paddingLeft="@dimen/x20"
+            android:background="@drawable/bg_balance_one"
+            android:paddingBottom="@dimen/y30"
+            android:paddingTop="@dimen/y30"
+            android:layout_marginRight="@dimen/x20"
+            android:layout_marginLeft="@dimen/x20"
+            android:textColor="@color/color_835720"
+            android:textStyle="bold"
+            android:textSize="18sp"
+            android:text="更多兑换"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+
+    </LinearLayout>
+
+</layout>

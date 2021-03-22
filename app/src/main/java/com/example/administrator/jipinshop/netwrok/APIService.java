@@ -343,8 +343,15 @@ public interface APIService {
     /**
      * 签到
      */
-    @POST("api/v3/point/signin")
+    @POST("api/v4/point/signin")
     Observable<SignInsertBean> signInsert();
+
+    /**
+     * 补签
+     */
+    @FormUrlEncoded
+    @POST("api/v4/point/signin2")
+    Observable<SignInsertBean> noSignin(@Field("day") int day);
 
     /**
      * app端第三方授权登录
@@ -441,10 +448,10 @@ public interface APIService {
     Observable<SuccessBean> orderConfirm(@Field("orderId") String orderId);
 
     /**
-     * 每日任务
+     * 赚钱页面
      */
-    @GET("api/v3/point/dailytask/index")
-    Observable<DailyTaskBean> DailytaskList();
+    @GET("api/v4/point/dailytask/index")
+    Observable<DailyTaskBean> DailytaskIndex();
 
     /**
      * 完成任务领取极币

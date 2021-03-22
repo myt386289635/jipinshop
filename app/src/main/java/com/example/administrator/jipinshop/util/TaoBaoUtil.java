@@ -65,12 +65,10 @@ public class TaoBaoUtil {
             showParams.setBackUrl("alisdk://");
             showParams.setNativeOpenFailedMode(AlibcFailModeType.AlibcNativeFailModeJumpH5);
 
-            AlibcTaokeParams taokeParams = new AlibcTaokeParams("", "", "");
-
             Map<String, String> trackParams = new HashMap<>();
             AlibcTrade.openByUrl(context, "", url, null,
                     new WebViewClient(), new WebChromeClient(),
-                    showParams, taokeParams, trackParams, new AlibcTradeCallback() {
+                    showParams, null, trackParams, new AlibcTradeCallback() {
                         @Override
                         public void onTradeSuccess(AlibcTradeResult tradeResult) {
                             AlibcLogger.i("AlibcTradeSDK", "request success");
@@ -92,11 +90,10 @@ public class TaoBaoUtil {
             showParams.setBackUrl("alisdk://");
             showParams.setNativeOpenFailedMode(AlibcFailModeType.AlibcNativeFailModeJumpH5);
 
-            AlibcTaokeParams taokeParams = new AlibcTaokeParams("", "", "");
             Map<String, String> trackParams = new HashMap<>();
 
             AlibcTrade.openByBizCode(context, page, null, new WebViewClient(),
-                    new WebChromeClient(), "detail", showParams, taokeParams,
+                    new WebChromeClient(), "detail", showParams, null,
                     trackParams, new AlibcTradeCallback() {
                         @Override
                         public void onTradeSuccess(AlibcTradeResult tradeResult) {

@@ -12,7 +12,7 @@
         android:layout_gravity="center_horizontal"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="好物评测"
+        android:text="赚钱"
         android:drawablePadding="@dimen/y2"
         android:textSize="11sp"
         android:textColor="@drawable/item_color"/>

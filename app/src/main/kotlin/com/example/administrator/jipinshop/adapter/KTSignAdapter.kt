@@ -13,16 +13,16 @@ import com.example.administrator.jipinshop.databinding.ItemRuleBinding
 /**
  * @author 莫小婷
  * @create 2020/6/28
- * @Describe 签到adapter
+ * @Describe 赚钱——任务列表adapter
  */
 class KTSignAdapter : RecyclerView.Adapter<KTSignAdapter.ViewHolder>{
 
-    private var mList: MutableList<DailyTaskBean.DataBean>
+    private var mList: MutableList<DailyTaskBean.DataBean.ListBean>
     private var mContext: Context
-    private var type = 1 //1 每日任务  2完善个人信息
+    private var type = 1 //1 日常任务  0新人任务
     private lateinit var mOnClick: OnClickJump
 
-    constructor(mList: MutableList<DailyTaskBean.DataBean>, mContext: Context) : super() {
+    constructor(mList: MutableList<DailyTaskBean.DataBean.ListBean>, mContext: Context){
         this.mList = mList
         this.mContext = mContext
     }
@@ -48,7 +48,7 @@ class KTSignAdapter : RecyclerView.Adapter<KTSignAdapter.ViewHolder>{
     override fun onBindViewHolder(holder: ViewHolder, pos: Int) {
         holder.run {
             if (type == 1){
-                binding.itemOk.text = "明日再来"
+                binding.itemOk.text = "明天再来"
             }else{
                 binding.itemOk.text = "已完成"
             }
@@ -62,11 +62,7 @@ class KTSignAdapter : RecyclerView.Adapter<KTSignAdapter.ViewHolder>{
                 binding.itemGoto.visibility = View.GONE
             }
             binding.itemGoto.setOnClickListener {
-                if (type == 1){
-                    mOnClick.onDayJump(pos)
-                }else{
-                    mOnClick.onJump(pos)
-                }
+                mOnClick.onJump(pos)
             }
         }
     }
@@ -81,7 +77,6 @@ class KTSignAdapter : RecyclerView.Adapter<KTSignAdapter.ViewHolder>{
     }
 
     interface OnClickJump{
-        fun onDayJump(pos: Int)
         fun onJump(pos: Int)
     }
 }

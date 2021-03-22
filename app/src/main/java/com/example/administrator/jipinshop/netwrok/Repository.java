@@ -167,6 +167,13 @@ public class Repository {
     }
 
     /**
+     * 补签
+     */
+    public Observable<SignInsertBean> noSignin(int day){
+        return mAPIService.noSignin(day);
+    }
+
+    /**
      * 我要反馈
      */
     public Observable<SuccessBean> feedBack(String content, String type){
@@ -462,10 +469,10 @@ public class Repository {
     }
 
     /**
-     * 每日任务
+     * 赚钱页面
      */
-    public Observable<DailyTaskBean> DailytaskList(){
-        return mAPIService.DailytaskList();
+    public Observable<DailyTaskBean> DailytaskIndex(){
+        return mAPIService.DailytaskIndex();
     }
 
     /**

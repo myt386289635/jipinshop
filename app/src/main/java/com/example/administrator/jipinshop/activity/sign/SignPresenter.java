@@ -2,17 +2,23 @@ package com.example.administrator.jipinshop.activity.sign;
 
 import android.app.Dialog;
 import android.content.Context;
+import android.support.annotation.NonNull;
+import android.support.v7.widget.RecyclerView;
 import android.view.ViewGroup;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 
 import com.example.administrator.jipinshop.bean.DailyTaskBean;
 import com.example.administrator.jipinshop.bean.MallBean;
+import com.example.administrator.jipinshop.bean.ShareInfoBean;
 import com.example.administrator.jipinshop.bean.SignInsertBean;
 import com.example.administrator.jipinshop.bean.SuccessBean;
+import com.example.administrator.jipinshop.bean.TaskFinishBean;
 import com.example.administrator.jipinshop.bean.TeacherBean;
 import com.example.administrator.jipinshop.netwrok.Repository;
 import com.trello.rxlifecycle2.LifecycleTransformer;
+import com.umeng.socialize.bean.SHARE_MEDIA;
 
 import javax.inject.Inject;
 
@@ -47,59 +53,68 @@ public class SignPresenter {
         }
     }
 
+    public void scrollTitle(RecyclerView recyclerView, RelativeLayout container){
+        final float[] a = {0};
+        recyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
+            @Override
+            public void onScrolled(@NonNull RecyclerView recyclerView, int dx, int dy) {
+                super.onScrolled(recyclerView, dx, dy);
+                a[0] = a[0] + dy;//由于这块不会出现item插入\移动\删除，因此累加Y轴偏移量是可行的
+                float b = a[0] / 1000;
+                float max = (float) Math.min(1, b * 2);
+                container.setAlpha(max);
+            }
+        });
+    }
+
     //签到
-    public void sign(int type , LifecycleTransformer<SignInsertBean> transformer){
+    public void sign(LifecycleTransformer<SignInsertBean> transformer){
         mRepository.signInsert()
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .compose(transformer)
                 .subscribe(signInsertBean -> {
                     if(signInsertBean.getCode() == 0){
-                        if(mView != null){
-                            mView.signSuc(signInsertBean);
-                        }
+                        mView.signSuc(signInsertBean);
                     }else{
-                        if (type == 1){
-                            if (mView != null)
-                                mView.signFile(signInsertBean.getCode(),signInsertBean.getMsg());
-                        }else {
-                            if(mView != null){
-                                mView.onFile(signInsertBean.getMsg());
-                            }
-                        }
+                        mView.onFile(signInsertBean.getMsg());
                     }
                 }, throwable -> {
-                    if (type == 1) {
-                        if (mView != null)
-                            mView.signFile(400,throwable.getMessage());
-                    } else {
-                        if (mView != null) {
-                            mView.onFile(throwable.getMessage());
-                        }
-                    }
+                    mView.onFile(throwable.getMessage());
                 });
     }
 
-    //每日任务
-    public void DailytaskList(LifecycleTransformer<DailyTaskBean> transformer){
-        mRepository.DailytaskList()
+    //补签
+    public void noSign(int day,LifecycleTransformer<SignInsertBean> transformer){
+        mRepository.noSignin(day)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .compose(transformer)
+                .subscribe(signInsertBean -> {
+                    if(signInsertBean.getCode() == 0){
+                        mView.noSignSuc(signInsertBean);
+                    }else{
+                        mView.onFile(signInsertBean.getMsg());
+                    }
+                }, throwable -> {
+                    mView.onFile(throwable.getMessage());
+                });
+    }
+
+    //赚钱页面
+    public void getData(LifecycleTransformer<DailyTaskBean> transformer){
+        mRepository.DailytaskIndex()
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .compose(transformer)
                 .subscribe(dailyTaskBean -> {
                     if(dailyTaskBean.getCode() == 0){
-                        if(mView != null){
-                            mView.getDayList(dailyTaskBean);
-                        }
+                        mView.onIndex(dailyTaskBean);
                     }else {
-                        if(mView != null){
-                            mView.onFile(dailyTaskBean.getMsg());
-                        }
+                        mView.onFile(dailyTaskBean.getMsg());
                     }
                 }, throwable -> {
-                    if(mView != null){
-                        mView.onFile(throwable.getMessage());
-                    }
+                    mView.onFile(throwable.getMessage());
                 });
     }
 
@@ -121,25 +136,19 @@ public class SignPresenter {
     }
 
     //极币商城
-    public void mallList(LifecycleTransformer<MallBean> transformer){
-        mRepository.mallList("")
+    public void mallList(int page ,LifecycleTransformer<MallBean> transformer){
+        mRepository.mallList(page + "")
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .compose(transformer)
                 .subscribe(mallBean -> {
                     if(mallBean.getCode() == 0){
-                        if(mView != null){
-                            mView.onSuccess(mallBean);
-                        }
+                        mView.onSuccess(mallBean);
                     }else {
-                        if(mView != null){
-                            mView.onFile(mallBean.getMsg());
-                        }
+                        mView.onFile(mallBean.getMsg());
                     }
                 }, throwable ->{
-                    if(mView != null){
-                        mView.onFile(throwable.getMessage());
-                    }
+                    mView.onFile(throwable.getMessage());
                 });
     }
 
@@ -157,5 +166,31 @@ public class SignPresenter {
                 }, throwable -> {
                     mView.onFile(throwable.getMessage());
                 });
+    }
+
+    //获取分享信息
+    public void initShare(SHARE_MEDIA share_media, LifecycleTransformer<ShareInfoBean> transformer){
+        mRepository.getShareInfo(10)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .compose(transformer)
+                .subscribe(bean -> {
+                    if (bean.getCode() == 0){
+                        mView.initShare(share_media,bean);
+                    }else {
+                        mView.onFile(bean.getMsg());
+                    }
+                }, throwable -> {
+                    mView.onFile(throwable.getMessage());
+                });
+    }
+
+    //分享获取极币
+    public void taskFinish(LifecycleTransformer<TaskFinishBean> transformer){
+        mRepository.taskFinish("30")
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .compose(transformer)
+                .subscribe(taskFinishBean -> { }, throwable ->{ });
     }
 }

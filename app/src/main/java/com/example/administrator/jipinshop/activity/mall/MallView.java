@@ -10,4 +10,7 @@ import com.example.administrator.jipinshop.bean.MallBean;
 public interface MallView {
     void onSuccess(MallBean bean);
     void onFile(String error);
+
+    void onHot(MallBean bean);
+    void onHotFile(String error);
 }

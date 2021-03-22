@@ -22,14 +22,12 @@ import com.example.administrator.jipinshop.activity.cheapgoods.CheapBuyActivity
 import com.example.administrator.jipinshop.activity.foval.FovalActivity
 import com.example.administrator.jipinshop.activity.home.home.HomeNewActivity
 import com.example.administrator.jipinshop.activity.login.LoginActivity
-import com.example.administrator.jipinshop.activity.mall.MallActivity
 import com.example.administrator.jipinshop.activity.member.buy.MemberBuyActivity
 import com.example.administrator.jipinshop.activity.mine.browse.BrowseActivity
 import com.example.administrator.jipinshop.activity.mine.welfare.OfficialWelfareActivity
 import com.example.administrator.jipinshop.activity.minekt.orderkt.KTMyOrderActivity
 import com.example.administrator.jipinshop.activity.minekt.recovery.OrderRecoveryActivity
 import com.example.administrator.jipinshop.activity.minekt.userkt.UserActivity
-import com.example.administrator.jipinshop.activity.minekt.welfare.WelfareActivity
 import com.example.administrator.jipinshop.activity.setting.SettingActivity
 import com.example.administrator.jipinshop.activity.setting.opinion.OpinionActivity
 import com.example.administrator.jipinshop.activity.share.ShareActivity
@@ -91,6 +89,9 @@ class KTMineFragment : DBBaseFragment(), KTMineAdapter.OnItem, KTMineView, OnLoa
 
         @JvmField
         val MsgRefersh = "MsgRefersh"
+
+        @JvmField
+        val eventbusTag = "SignActivity"
     }
 
     override fun setUserVisibleHint(isVisibleToUser: Boolean) {
@@ -519,7 +520,7 @@ class KTMineFragment : DBBaseFragment(), KTMineAdapter.OnItem, KTMineView, OnLoa
 
     @Subscribe
     fun eidtInfo(bus: EditNameBus?) {
-       if (bus != null && bus.tag == SignActivity.eventbusTag) {
+       if (bus != null && bus.tag == eventbusTag) {
             //首页绑定上下级时需要刷新我的页面
            mBean?.let {
                it.data.pid = "1"

@@ -7,6 +7,7 @@ import com.example.administrator.jipinshop.activity.home.hot.HomeHotFragment;
 import com.example.administrator.jipinshop.activity.home.newGift.video.NewVideoFragment;
 import com.example.administrator.jipinshop.activity.home.seckill.SeckillFragment;
 import com.example.administrator.jipinshop.activity.newpeople.NewFreeFragment;
+import com.example.administrator.jipinshop.activity.sign.SignFragment;
 import com.example.administrator.jipinshop.auto.FragmentScope;
 import com.example.administrator.jipinshop.fragment.balance.budget.BudgetDetailFragment;
 import com.example.administrator.jipinshop.fragment.balance.withdraw.WithdrawDetailFragment;
@@ -128,4 +129,5 @@ public interface BaseFragmentComponent {
     void inject(NewFreeFragment fragment);
     void inject(TakeOutFragment fragment);
     void inject(NewVideoFragment fragment);
+    void inject(SignFragment fragment);
 }
