@@ -234,7 +234,7 @@ public class SignAdapter extends RecyclerView.Adapter {
                 });
                 head1ViewHolder.mBinding.itemRule.setOnClickListener(v -> {
                     mContext.startActivity(new Intent(mContext, WebActivity.class)
-                            .putExtra(WebActivity.url, RetrofitModule.H5_URL + "rule.html")
+                            .putExtra(WebActivity.url, RetrofitModule.H5_URL + "new-free/signInRulev2")
                             .putExtra(WebActivity.title, "规则说明")
                     );
                 });
