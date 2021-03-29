@@ -11,7 +11,7 @@
         layout="@layout/aa_title"/>
 
     <RelativeLayout
-        android:layout_below="@id/setting_titleContainer"
+        android:layout_below="@+id/setting_titleContainer"
         android:id="@+id/mine_address"
         android:layout_width="match_parent"
         android:layout_height="@dimen/y80">
@@ -46,7 +46,7 @@
     </RelativeLayout>
 
     <RelativeLayout
-        android:layout_below="@id/mine_address"
+        android:layout_below="@+id/mine_address"
         android:id="@+id/setting_weiChatContainer"
         android:layout_width="match_parent"
         android:layout_height="@dimen/y80">
@@ -88,7 +88,7 @@
     </RelativeLayout>
 
     <RelativeLayout
-        android:layout_below="@id/setting_weiChatContainer"
+        android:layout_below="@+id/setting_weiChatContainer"
         android:id="@+id/setting_cleanContainer"
         android:layout_width="match_parent"
         android:layout_height="@dimen/y80">
@@ -131,7 +131,7 @@
 
     <RelativeLayout
         android:visibility="gone"
-        android:layout_below="@id/setting_cleanContainer"
+        android:layout_below="@+id/setting_cleanContainer"
         android:id="@+id/setting_serviceContainer"
         android:layout_width="match_parent"
         android:layout_height="@dimen/y80">
@@ -173,7 +173,7 @@
     </RelativeLayout>
 
     <RelativeLayout
-        android:layout_below="@id/setting_serviceContainer"
+        android:layout_below="@+id/setting_serviceContainer"
         android:id="@+id/setting_goodContainer"
         android:layout_width="match_parent"
         android:layout_height="@dimen/y80">
@@ -209,7 +209,7 @@
     </RelativeLayout>
 
     <RelativeLayout
-        android:layout_below="@id/setting_goodContainer"
+        android:layout_below="@+id/setting_goodContainer"
         android:id="@+id/setting_verson"
         android:layout_width="match_parent"
         android:layout_height="@dimen/y80">

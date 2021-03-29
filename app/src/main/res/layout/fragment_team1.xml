@@ -129,7 +129,7 @@
                         android:layout_centerHorizontal="true"
                         android:layout_marginBottom="@dimen/y30"
                         android:layout_marginTop="@dimen/y30"
-                        android:layout_below="@id/empty"
+                        android:layout_below="@+id/empty"
                         android:layout_width="@dimen/x300"
                         android:layout_height="@dimen/y70"/>
 

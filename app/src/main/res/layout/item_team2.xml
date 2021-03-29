@@ -33,16 +33,16 @@
             android:textSize="15sp"
             android:textStyle="bold"
             android:layout_marginTop="@dimen/y10"
-            android:layout_toRightOf="@id/item_image"
-            android:layout_alignTop="@id/item_image"
+            android:layout_toRightOf="@+id/item_image"
+            android:layout_alignTop="@+id/item_image"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"/>
 
         <TextView
             android:id="@+id/item_number"
             android:layout_marginTop="@dimen/y10"
-            android:layout_toRightOf="@id/item_image"
-            android:layout_below="@id/item_name"
+            android:layout_toRightOf="@+id/item_image"
+            android:layout_below="@+id/item_name"
             android:textColor="@color/color_DE151515"
             android:textSize="12sp"
             android:text="@{@string/phone + date.mobile}"
@@ -52,8 +52,8 @@
         <TextView
             android:id="@+id/item_time"
             android:layout_marginTop="@dimen/y10"
-            android:layout_toRightOf="@id/item_image"
-            android:layout_below="@id/item_number"
+            android:layout_toRightOf="@+id/item_image"
+            android:layout_below="@+id/item_number"
             android:textColor="@color/color_DE151515"
             android:textSize="12sp"
             android:text="@{@string/create + date.createTime}"
@@ -63,8 +63,8 @@
         <TextView
             android:visibility="gone"
             android:gravity="center_vertical"
-            android:layout_alignBottom="@id/item_image"
-            android:layout_alignTop="@id/item_image"
+            android:layout_alignBottom="@+id/item_image"
+            android:layout_alignTop="@+id/item_image"
             android:layout_marginRight="@dimen/x20"
             android:layout_alignParentRight="true"
             android:drawablePadding="@dimen/x6"
@@ -80,7 +80,7 @@
             android:id="@+id/item_moneyContainer"
             android:layout_marginBottom="@dimen/y30"
             android:layout_marginTop="@dimen/y50"
-            android:layout_below="@id/item_image"
+            android:layout_below="@+id/item_image"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
@@ -166,7 +166,7 @@
         </LinearLayout>
 
         <View
-            android:layout_below="@id/item_moneyContainer"
+            android:layout_below="@+id/item_moneyContainer"
             android:background="@color/color_F5F5F5"
             android:layout_width="match_parent"
             android:layout_height="@dimen/y1"/>

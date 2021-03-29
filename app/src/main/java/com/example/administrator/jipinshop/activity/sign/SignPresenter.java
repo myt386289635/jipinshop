@@ -186,8 +186,8 @@ public class SignPresenter {
     }
 
     //分享获取极币
-    public void taskFinish(LifecycleTransformer<TaskFinishBean> transformer){
-        mRepository.taskFinish("30")
+    public void taskFinish(String type ,LifecycleTransformer<TaskFinishBean> transformer){
+        mRepository.taskFinish(type)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .compose(transformer)

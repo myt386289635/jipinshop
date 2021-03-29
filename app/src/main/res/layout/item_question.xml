@@ -33,7 +33,7 @@
 
         <ImageView
             android:layout_marginTop="@dimen/y5"
-            android:layout_alignTop="@id/item_title"
+            android:layout_alignTop="@+id/item_title"
             android:layout_marginLeft="@dimen/x30"
             android:src="@mipmap/que_ask"
             android:layout_width="wrap_content"
@@ -42,7 +42,7 @@
 
         <RelativeLayout
             android:visibility="@{date.answer == null ? View.GONE : View.VISIBLE}"
-            android:layout_below="@id/item_title"
+            android:layout_below="@+id/item_title"
             android:id="@+id/item_questionContainer"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
@@ -70,9 +70,9 @@
                 android:text="@{date.answer.userNickname}"
                 android:gravity="center"
                 android:layout_marginLeft="@dimen/x20"
-                android:layout_toRightOf="@id/item_image"
-                android:layout_alignBottom="@id/item_image"
-                android:layout_alignTop="@id/item_image"
+                android:layout_toRightOf="@+id/item_image"
+                android:layout_alignBottom="@+id/item_image"
+                android:layout_alignTop="@+id/item_image"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"/>
 
@@ -87,8 +87,8 @@
                 android:maxLines="3"
                 android:text="@{date.answer.content}"
                 android:layout_marginTop="@dimen/y20"
-                android:layout_below="@id/item_image"
-                android:layout_alignLeft="@id/item_image"
+                android:layout_below="@+id/item_image"
+                android:layout_alignLeft="@+id/item_image"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"/>
 
@@ -102,14 +102,14 @@
             android:textSize="13sp"
             android:text="@{date.answer == null ?  @string/question_all : @string/question_start + date.answerCount + @string/question_end}"
             android:layout_marginTop="@dimen/y16"
-            android:layout_below="@id/item_questionContainer"
+            android:layout_below="@+id/item_questionContainer"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"/>
 
 
         <View
             android:layout_marginTop="@dimen/y22"
-            android:layout_below="@id/item_totel"
+            android:layout_below="@+id/item_totel"
             android:layout_marginRight="@dimen/x30"
             android:layout_marginLeft="@dimen/x30"
             android:background="@color/color_DEDEDE"

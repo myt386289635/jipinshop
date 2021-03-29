@@ -34,8 +34,8 @@
             android:layout_height="@dimen/y88"/>
 
         <com.aspsine.swipetoloadlayout.SwipeToLoadLayout
-            android:layout_above="@id/detail_bottomContainer"
-            android:layout_below="@id/in_clude"
+            android:layout_above="@+id/detail_bottomContainer"
+            android:layout_below="@+id/in_clude"
             android:id="@+id/swipeToLoad"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
@@ -105,7 +105,7 @@
                 android:textColorHint="@color/color_9E9E9E"
                 android:paddingLeft="@dimen/x13"
                 android:hint="输入回答"
-                android:layout_toLeftOf="@id/item_comment"
+                android:layout_toLeftOf="@+id/item_comment"
                 android:layout_marginLeft="@dimen/x30"
                 android:layout_marginBottom="@dimen/y10"
                 android:layout_marginTop="@dimen/y10"
@@ -142,7 +142,7 @@
                     android:textColor="@color/color_202020"
                     android:textStyle="bold"
                     android:textColorHint="@color/color_9E9E9E"
-                    android:layout_above="@id/detail_totalNum"
+                    android:layout_above="@+id/detail_totalNum"
                     android:maxLength="500"
                     android:id="@+id/detail_edit"
                     android:textSize="14sp"
@@ -182,7 +182,7 @@
                 android:textSize="16sp"
                 android:textColor="@color/color_9E9E9E"
                 android:text="发送"
-                android:layout_below="@id/detail_editContainer"
+                android:layout_below="@+id/detail_editContainer"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"/>
 

@@ -23,7 +23,7 @@
             android:onClick="@{listener.onClick}"
             android:textColor="@color/color_989898"
             android:textSize="13sp"
-            android:layout_toLeftOf="@id/detail_sreachRight"
+            android:layout_toLeftOf="@+id/detail_sreachRight"
             android:id="@+id/detail_sreachLeft"
             android:paddingLeft="@dimen/x17"
             android:drawablePadding="@dimen/x17"
@@ -32,7 +32,7 @@
             android:drawableTint="@color/color_E25838"
             android:text="复制标题，搜隐藏优惠券拿返利"
             android:background="@drawable/bg_f5f5f5_7"
-            android:layout_below="@id/in_clude"
+            android:layout_below="@+id/in_clude"
             android:layout_marginLeft="@dimen/x30"
             android:layout_width="match_parent"
             android:layout_height="@dimen/y88"/>
@@ -49,20 +49,20 @@
             android:id="@+id/detail_sreachRight"
             android:layout_marginRight="@dimen/x30"
             android:layout_alignParentRight="true"
-            android:layout_alignTop="@id/detail_sreachLeft"
+            android:layout_alignTop="@+id/detail_sreachLeft"
             android:layout_width="wrap_content"
             android:layout_height="@dimen/y88"/>
 
         <View
             android:id="@+id/detail_line"
             android:layout_marginTop="@dimen/y30"
-            android:layout_below="@id/detail_sreachRight"
+            android:layout_below="@+id/detail_sreachRight"
             android:background="@color/color_DEDEDE"
             android:layout_width="match_parent"
             android:layout_height="@dimen/y1"/>
 
         <com.aspsine.swipetoloadlayout.SwipeToLoadLayout
-            android:layout_below="@id/detail_line"
+            android:layout_below="@+id/detail_line"
             android:id="@+id/swipeToLoad"
             android:layout_width="match_parent"
             android:layout_height="match_parent">

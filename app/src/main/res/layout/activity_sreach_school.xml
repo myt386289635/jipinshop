@@ -32,7 +32,7 @@
 
             <RelativeLayout
                 android:layout_marginRight="@dimen/x20"
-                android:layout_toRightOf="@id/title_back"
+                android:layout_toRightOf="@+id/title_back"
                 android:layout_centerVertical="true"
                 android:background="@drawable/bg_e25838_6"
                 android:layout_width="match_parent"
@@ -53,9 +53,9 @@
                     android:id="@+id/search_edit"
                     android:textColor="@color/color_333333"
                     android:layout_marginRight="@dimen/x5"
-                    android:layout_toLeftOf="@id/search_search"
+                    android:layout_toLeftOf="@+id/search_search"
                     android:background="@color/transparent"
-                    android:layout_toRightOf="@id/search_image"
+                    android:layout_toRightOf="@+id/search_image"
                     android:layout_marginLeft="@dimen/x5"
                     android:layout_centerVertical="true"
                     android:textColorHint="@color/color_9D9D9D"
@@ -98,7 +98,7 @@
 
         <com.google.android.flexbox.FlexboxLayout
             android:layout_marginTop="@dimen/y30"
-            android:layout_below="@id/sreach_title"
+            android:layout_below="@+id/sreach_title"
             android:layout_marginLeft="@dimen/x10"
             android:id="@+id/search_hot"
             android:layout_width="match_parent"
@@ -111,15 +111,15 @@
         <RelativeLayout
             android:layout_marginTop="@dimen/y30"
             android:id="@+id/sreach_hisContainer"
-            android:layout_below="@id/search_hot"
+            android:layout_below="@+id/search_hot"
             android:orientation="horizontal"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
             <TextView
                 android:gravity="center"
-                android:layout_alignBottom="@id/search_delete"
-                android:layout_alignTop="@id/search_delete"
+                android:layout_alignBottom="@+id/search_delete"
+                android:layout_alignTop="@+id/search_delete"
                 android:id="@+id/sreach_title1"
                 android:layout_marginLeft="@dimen/x20"
                 android:textStyle="bold"
@@ -140,7 +140,7 @@
 
             <com.google.android.flexbox.FlexboxLayout
                 android:layout_marginTop="@dimen/y30"
-                android:layout_below="@id/search_delete"
+                android:layout_below="@+id/search_delete"
                 android:layout_marginLeft="@dimen/x10"
                 android:id="@+id/search_history"
                 android:layout_width="match_parent"

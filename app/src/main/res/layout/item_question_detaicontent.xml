@@ -30,7 +30,7 @@
             android:textSize="16sp"
             android:textColor="@color/color_202020"
             android:textStyle="bold"
-            android:layout_toRightOf="@id/item_image"
+            android:layout_toRightOf="@+id/item_image"
             android:text="@{date.userNickname}"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"/>
@@ -41,8 +41,8 @@
             android:textSize="13sp"
             android:text="@{date.createTime}"
             android:layout_marginTop="@dimen/y10"
-            android:layout_below="@id/item_name"
-            android:layout_toRightOf="@id/item_image"
+            android:layout_below="@+id/item_name"
+            android:layout_toRightOf="@+id/item_image"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"/>
 
@@ -70,7 +70,7 @@
             android:text="@{date.content}"
             android:textColor="@color/color_202020"
             android:layout_marginTop="@dimen/y22"
-            android:layout_below="@id/item_time"
+            android:layout_below="@+id/item_time"
             android:layout_marginRight="@dimen/x30"
             android:layout_marginLeft="@dimen/x30"
             android:layout_width="match_parent"

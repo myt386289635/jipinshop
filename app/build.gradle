@@ -60,8 +60,8 @@ android {
         applicationId "com.example.administrator.jipinshop"
         minSdkVersion 19
         targetSdkVersion 26
-        versionCode 71
-        versionName "4.2.0"
+        versionCode 72
+        versionName "4.3.0"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
         // dex突破65535的限制
         multiDexEnabled true
@@ -271,6 +271,16 @@ dependencies {
     
     //魅族推送
     implementation(name:'push-internal-3.9.7', ext:'aar')
+
+    //广告
+    implementation(name: 'ad_lib_1.00.08', ext: 'aar')
+    implementation(name: 'play-services-basement-8.3.0', ext: 'aar')
+    implementation(name: 'open_ad_sdk', ext: 'aar')//CSJ
+    implementation(name: 'GDTSDK.unionNormal.4.332.1202', ext: 'aar')//GDT
+    implementation(name: 'Baidu_MobAds_SDK-release', ext: 'aar')//BD
+    implementation(name: 'windAd-2.23.0', ext: 'aar')//SigMob
+    implementation(name: 'kssdk-ad-3.3.7-publishRelease', ext: 'aar')//KS
+
 }
 
 configurations {

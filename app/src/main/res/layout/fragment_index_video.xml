@@ -21,9 +21,9 @@
             android:orientation="vertical"/>
 
         <TextView
-            android:layout_below="@id/status_bar"
+            android:layout_below="@+id/status_bar"
            android:layout_marginTop="@dimen/y50"
-            android:layout_toRightOf="@id/index_container"
+            android:layout_toRightOf="@+id/index_container"
             android:id="@+id/index_time"
             android:layout_marginLeft="-10dp"
             android:gravity="center"
@@ -47,8 +47,8 @@
                 android:layout_marginLeft="@dimen/x28"
                 android:layout_marginTop="@dimen/y25"
                 android:layout_marginBottom="@dimen/y25"
-                android:layout_alignTop="@id/index_background"
-                android:layout_alignBottom="@id/index_background"
+                android:layout_alignTop="@+id/index_background"
+                android:layout_alignBottom="@+id/index_background"
                 android:layout_alignRight="@+id/index_background"
                 android:layout_alignLeft="@+id/index_background"
                 android:layout_width="wrap_content"

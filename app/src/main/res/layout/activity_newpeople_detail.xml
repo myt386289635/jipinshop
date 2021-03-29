@@ -37,7 +37,7 @@
             android:id="@+id/swipe_target"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_above="@id/detail_bottom"
+            android:layout_above="@+id/detail_bottom"
             android:fillViewport="true"
             android:scrollbars="none">
 
@@ -54,7 +54,7 @@
                     android:id="@+id/detail_point"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_below="@id/view_pager"
+                    android:layout_below="@+id/view_pager"
                     android:layout_marginTop="-18dp"
                     android:gravity="center"
                     android:orientation="horizontal"/>
@@ -79,7 +79,7 @@
                     android:id="@+id/detail_oldPriceName"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_alignBottom="@id/detail_newPrice"
+                    android:layout_alignBottom="@+id/detail_newPrice"
                     android:layout_marginLeft="@dimen/x20"
                     android:layout_marginBottom="@dimen/y4"
                     android:layout_toRightOf="@+id/detail_newPrice"
@@ -91,7 +91,7 @@
                 <LinearLayout
                     android:layout_marginRight="@dimen/x28"
                     android:layout_alignParentRight="true"
-                    android:layout_alignBottom="@id/detail_newPrice"
+                    android:layout_alignBottom="@+id/detail_newPrice"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content">
 
@@ -131,7 +131,7 @@
                     android:id="@+id/detail_buyNum"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_below="@id/detail_name"
+                    android:layout_below="@+id/detail_name"
                     android:layout_marginLeft="@dimen/x28"
                     android:layout_marginTop="@dimen/y15"
                     android:text="@{date.volume + @string/detail_buyNum}"
@@ -142,7 +142,7 @@
                     android:id="@+id/detail_buyAddress"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_below="@id/detail_name"
+                    android:layout_below="@+id/detail_name"
                     android:layout_alignParentRight="true"
                     android:layout_marginTop="@dimen/y15"
                     android:layout_marginRight="@dimen/x28"
@@ -247,7 +247,7 @@
                     android:id="@+id/detail_line"
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/y20"
-                    android:layout_below="@id/detail_coupon"
+                    android:layout_below="@+id/detail_coupon"
                     android:layout_marginTop="@dimen/y36"
                     android:background="@color/color_F5F5F5"/>
 
@@ -286,7 +286,7 @@
                     android:id="@+id/detail_parameterContainer"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_below="@id/detail_qualityContainer"
+                    android:layout_below="@+id/detail_qualityContainer"
                     android:orientation="vertical">
 
                     <TextView
@@ -315,7 +315,7 @@
                     android:id="@+id/detail_line2"
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/y20"
-                    android:layout_below="@id/detail_parameterContainer"
+                    android:layout_below="@+id/detail_parameterContainer"
                     android:layout_marginTop="@dimen/y44"
                     android:background="@color/color_F5F5F5"/>
 
@@ -323,7 +323,7 @@
                     android:id="@+id/detail_shopImage"
                     android:layout_width="@dimen/x80"
                     android:layout_height="@dimen/y80"
-                    android:layout_below="@id/detail_line2"
+                    android:layout_below="@+id/detail_line2"
                     android:layout_marginLeft="@dimen/x28"
                     android:layout_marginTop="@dimen/y30"
                     android:layout_marginRight="@dimen/x18"
@@ -337,9 +337,9 @@
                     android:id="@+id/detail_shopName"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_alignBottom="@id/detail_shopImage"
-                    android:layout_alignTop="@id/detail_shopImage"
-                    android:layout_toRightOf="@id/detail_shopImage"
+                    android:layout_alignBottom="@+id/detail_shopImage"
+                    android:layout_alignTop="@+id/detail_shopImage"
+                    android:layout_toRightOf="@+id/detail_shopImage"
                     android:text="@{date.shopName}"
                     android:textColor="@color/color_202020"
                     android:textSize="14sp"/>
@@ -347,8 +347,8 @@
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_alignBottom="@id/detail_shopImage"
-                    android:layout_toRightOf="@id/detail_shopImage"
+                    android:layout_alignBottom="@+id/detail_shopImage"
+                    android:layout_toRightOf="@+id/detail_shopImage"
                     android:orientation="horizontal"
                     android:weightSum="3">
 
@@ -429,14 +429,14 @@
                     android:id="@+id/detail_line3"
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/y20"
-                    android:layout_below="@id/detail_shopImage"
+                    android:layout_below="@+id/detail_shopImage"
                     android:background="@color/color_F5F5F5"/>
 
                 <LinearLayout
                     android:id="@+id/detail_reasonContainer"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_below="@id/detail_line3"
+                    android:layout_below="@+id/detail_line3"
                     android:orientation="vertical">
 
                     <TextView
@@ -472,7 +472,7 @@
                     android:id="@+id/detail_decContainer"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_below="@id/detail_reasonContainer">
+                    android:layout_below="@+id/detail_reasonContainer">
 
                     <TextView
                         android:id="@+id/detail_decTitle"
@@ -493,13 +493,13 @@
                         android:id="@+id/detail_dec"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_below="@id/detail_decTitle"/>
+                        android:layout_below="@+id/detail_decTitle"/>
 
                     <TextView
                         android:id="@+id/detail_decSpeach"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_below="@id/detail_dec"
+                        android:layout_below="@+id/detail_dec"
                         android:layout_gravity="center_horizontal"
                         android:drawableRight="@mipmap/right_down"
                         android:drawablePadding="@dimen/x5"
@@ -515,7 +515,7 @@
                         android:id="@+id/detail_line4"
                         android:layout_width="match_parent"
                         android:layout_height="@dimen/y20"
-                        android:layout_below="@id/detail_decSpeach"
+                        android:layout_below="@+id/detail_decSpeach"
                         android:layout_marginTop="@dimen/y20"
                         android:background="@color/color_F5F5F5"/>
                 </LinearLayout>
@@ -524,7 +524,7 @@
                     android:id="@+id/detail_userLikeImage"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_below="@id/detail_decContainer"
+                    android:layout_below="@+id/detail_decContainer"
                     android:layout_centerHorizontal="true"
                     android:layout_marginTop="@dimen/y29"
                     android:layout_marginBottom="@dimen/y32"
@@ -534,7 +534,7 @@
                     android:id="@+id/detail_userLike"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_below="@id/detail_userLikeImage"/>
+                    android:layout_below="@+id/detail_userLikeImage"/>
 
             </RelativeLayout>
         </ScrollView>

@@ -52,7 +52,7 @@
                 <TextView
                     android:id="@+id/market_title2"
                     android:layout_marginTop="@dimen/y4"
-                    android:layout_below="@id/market_title"
+                    android:layout_below="@+id/market_title"
                     android:layout_centerHorizontal="true"
                     android:textStyle="bold"
                     android:textSize="13sp"
@@ -64,7 +64,7 @@
                 <TextView
                     android:onClick="@{listener.onClick}"
                     android:layout_marginBottom="@dimen/y30"
-                    android:layout_alignBottom="@id/market_image"
+                    android:layout_alignBottom="@+id/market_image"
                     android:id="@+id/market_goto"
                     android:gravity="center"
                     android:textStyle="bold"
@@ -83,7 +83,7 @@
                     android:id="@+id/market_image"
                     android:layout_marginLeft="@dimen/x88"
                     android:layout_marginTop="@dimen/y17"
-                    android:layout_below="@id/market_title2"
+                    android:layout_below="@+id/market_title2"
                     android:src="@mipmap/market_image"
                     android:layout_width="@dimen/x208"
                     android:layout_height="wrap_content"/>
@@ -93,7 +93,7 @@
                     android:gravity="center_horizontal"
                     android:layout_marginTop="@dimen/y18"
                     android:layout_centerHorizontal="true"
-                    android:layout_below="@id/market_image"
+                    android:layout_below="@+id/market_image"
                     android:orientation="vertical"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content">
@@ -143,7 +143,7 @@
                     android:layout_marginTop="@dimen/y36"
                     android:onClick="@{listener.onClick}"
                     android:id="@+id/market_upImage"
-                    android:layout_below="@id/market_notice"
+                    android:layout_below="@+id/market_notice"
                     android:layout_width="@dimen/x270"
                     android:layout_height="@dimen/y270">
 
@@ -164,7 +164,7 @@
                     android:id="@+id/market_shopImage"
                     android:layout_centerHorizontal="true"
                     android:layout_marginTop="@dimen/y36"
-                    android:layout_below="@id/market_notice"
+                    android:layout_below="@+id/market_notice"
                     android:layout_width="@dimen/x270"
                     android:layout_height="@dimen/y270"/>
 
@@ -173,7 +173,7 @@
                     android:gravity="center"
                     android:id="@+id/market_upImageNotice"
                     android:layout_marginTop="@dimen/y12"
-                    android:layout_below="@id/market_shopImage"
+                    android:layout_below="@+id/market_shopImage"
                     android:textColor="@color/color_424242"
                     android:textSize="13sp"
                     android:text="点击上传好评图片"

@@ -7,7 +7,7 @@
         android:layout_height="wrap_content">
 
         <ImageView
-            android:layout_alignBottom="@id/dialog_sure"
+            android:layout_alignBottom="@+id/dialog_sure"
             android:id="@+id/dialog_image"
             android:adjustViewBounds="true"
             android:scaleType="fitXY"
@@ -88,7 +88,7 @@
             android:textColor="@color/color_white"
             android:layout_marginTop="@dimen/y27"
             android:textSize="12sp"
-            android:layout_below="@id/dialog_costContainer"
+            android:layout_below="@+id/dialog_costContainer"
             android:layout_centerHorizontal="true"
             android:text="分享好友，即可获得会员费20%奖励哦~"
             android:layout_width="wrap_content"
@@ -98,7 +98,7 @@
             android:id="@+id/dialog_sure"
             android:paddingBottom="@dimen/y25"
             android:layout_marginTop="@dimen/y8"
-            android:layout_below="@id/dialog_notice"
+            android:layout_below="@+id/dialog_notice"
             android:layout_centerHorizontal="true"
             android:src="@mipmap/withdraw_bg4"
             android:layout_width="wrap_content"
@@ -107,7 +107,7 @@
         <ImageView
             android:id="@+id/dialog_dismiss"
             android:layout_marginTop="@dimen/y74"
-            android:layout_below="@id/dialog_image"
+            android:layout_below="@+id/dialog_image"
             android:layout_centerHorizontal="true"
             android:src="@mipmap/dialog_close"
             android:layout_width="wrap_content"

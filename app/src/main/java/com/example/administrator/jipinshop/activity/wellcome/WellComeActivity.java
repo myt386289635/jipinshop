@@ -21,9 +21,9 @@ import com.alibaba.baichuan.android.trade.callback.AlibcTradeInitCallback;
 import com.blankj.utilcode.util.SPUtils;
 import com.example.administrator.jipinshop.MyApplication;
 import com.example.administrator.jipinshop.R;
-import com.example.administrator.jipinshop.activity.home.MainActivity;
-import com.example.administrator.jipinshop.activity.login.LoginActivity;
+import com.example.administrator.jipinshop.activity.wellcome.ad.SplashAdActivity;
 import com.example.administrator.jipinshop.base.BaseActivity;
+import com.example.administrator.jipinshop.bean.eventbus.CommenBus;
 import com.example.administrator.jipinshop.jpush.LoginUtil;
 import com.example.administrator.jipinshop.util.ShopJumpUtil;
 import com.example.administrator.jipinshop.util.permission.HasPermissionsUtil;
@@ -35,6 +35,9 @@ import com.huawei.hms.push.HmsMessaging;
 import com.meizu.cloud.pushsdk.PushManager;
 import com.vivo.push.PushClient;
 import com.xiaomi.mipush.sdk.MiPushClient;
+
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
 
 import javax.inject.Inject;
 
@@ -59,6 +62,7 @@ public class WellComeActivity extends BaseActivity {
                 .transparentStatusBar()
                 .statusBarDarkFont(true, 0f)
                 .init();
+        EventBus.getDefault().register(this);
         //预登陆获取手机号，为了一键登录
         LoginUtil.getPhone(this);
         //初始化阿里百川
@@ -139,7 +143,7 @@ public class WellComeActivity extends BaseActivity {
     }
 
 
-    CountDownTimer timer = new CountDownTimer(1500, 500) {
+    CountDownTimer timer = new CountDownTimer(1000, 1000) {
         @Override
         public void onTick(long millisUntilFinished) {
 
@@ -147,19 +151,13 @@ public class WellComeActivity extends BaseActivity {
 
         @Override
         public void onFinish() {
-            if(SPUtils.getInstance().getBoolean(CommonDate.FIRST,true)){
-                //跳转到登陆
-                startActivity(new Intent(WellComeActivity.this, LoginActivity.class));
+            if (!TextUtils.isEmpty(SPUtils.getInstance().getString(CommonDate.AD))){
+                //跳转广告
+                startActivity(new Intent(WellComeActivity.this, AdActivity.class));
                 finish();
             }else {
-                if (!TextUtils.isEmpty(SPUtils.getInstance().getString(CommonDate.AD))){
-                    //跳转广告
-                    startActivity(new Intent(WellComeActivity.this, AdActivity.class));
-                    finish();
-                }else {
-                    startActivity(new Intent(WellComeActivity.this, MainActivity.class));
-                    finish();
-                }
+               //跳转他们的广告
+                startActivity(new Intent(WellComeActivity.this, SplashAdActivity.class));
             }
         }
     };
@@ -169,6 +167,7 @@ public class WellComeActivity extends BaseActivity {
         if (timer != null) {
             timer.cancel();
         }
+        EventBus.getDefault().unregister(this);
         super.onDestroy();
     }
 
@@ -246,6 +245,13 @@ public class WellComeActivity extends BaseActivity {
             Uri mUri = Uri.parse("android.resource://com.example.administrator.jipinshop/raw/tone");
             mNotificationChannel.setSound(mUri,Notification.AUDIO_ATTRIBUTES_DEFAULT);
             ((NotificationManager)context.getSystemService(Activity.NOTIFICATION_SERVICE)).createNotificationChannel(mNotificationChannel);
+        }
+    }
+
+    @Subscribe
+    public void finish(CommenBus bus){
+        if (bus != null && bus.getTag().equals(SplashAdActivity.finish)){
+            finish();
         }
     }
 }

@@ -23,7 +23,7 @@
 
         <TextView
             android:id="@+id/detail_tag"
-            android:layout_below="@id/in_clude"
+            android:layout_below="@+id/in_clude"
             android:gravity="center"
             android:textStyle="bold"
             android:textSize="15sp"
@@ -47,8 +47,8 @@
             android:layout_height="@dimen/y98"/>
 
         <ScrollView
-            android:layout_above="@id/detail_buy"
-            android:layout_below="@id/detail_tag"
+            android:layout_above="@+id/detail_buy"
+            android:layout_below="@+id/detail_tag"
             android:id="@+id/scroll_View"
             android:fillViewport="true"
             android:scrollbars="none"
@@ -75,7 +75,7 @@
                     android:layout_marginBottom="@dimen/y46"
                     android:layout_marginTop="@dimen/y46"
                     android:layout_marginLeft="@dimen/x30"
-                    android:layout_below="@id/detail_title"
+                    android:layout_below="@+id/detail_title"
                     android:id="@+id/detail_UserImage"
                     android:layout_width="@dimen/x70"
                     android:layout_height="@dimen/x70"
@@ -84,7 +84,7 @@
 
 
                 <TextView
-                    android:layout_alignTop="@id/detail_UserImage"
+                    android:layout_alignTop="@+id/detail_UserImage"
                     android:textStyle="bold"
                     android:id="@+id/detail_UserName"
                     android:layout_width="wrap_content"
@@ -101,7 +101,7 @@
                     android:id="@+id/detail_time"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_alignBottom="@id/detail_UserImage"
+                    android:layout_alignBottom="@+id/detail_UserImage"
                     android:layout_toRightOf="@+id/detail_UserImage"
                     android:text="2019-6-25  12:11"
                     android:textColor="@color/color_ACACAC"
@@ -118,7 +118,7 @@
         </ScrollView>
 
         <include
-            android:layout_below="@id/in_clude"
+            android:layout_below="@+id/in_clude"
             android:layout_height="match_parent"
             android:layout_width="match_parent"
             android:id="@+id/net_clude"

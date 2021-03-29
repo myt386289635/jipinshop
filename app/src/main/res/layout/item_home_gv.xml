@@ -16,7 +16,7 @@
         android:layout_marginBottom="@dimen/y7"
         android:layout_marginTop="@dimen/y18"
         android:layout_centerHorizontal="true"
-        android:layout_below="@id/item_image"
+        android:layout_below="@+id/item_image"
         android:textColor="@color/color_565252"
         android:textSize="11sp"
         android:ellipsize="end"

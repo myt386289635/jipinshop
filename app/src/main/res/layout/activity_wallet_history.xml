@@ -21,7 +21,7 @@
             android:orientation="vertical"/>
 
         <include
-            android:layout_below="@id/status_bar"
+            android:layout_below="@+id/status_bar"
             android:id="@+id/in_clude"
             layout="@layout/aa_title2"
             bind:listener="@{listener}"
@@ -29,7 +29,7 @@
             android:layout_width="match_parent"/>
 
         <TextView
-            android:layout_below="@id/status_bar"
+            android:layout_below="@+id/status_bar"
             android:id="@+id/history_time"
             android:onClick="@{listener.onClick}"
             android:layout_alignParentRight="true"
@@ -47,7 +47,7 @@
             android:id="@+id/swipeToLoad"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_below="@id/in_clude"
+            android:layout_below="@+id/in_clude"
             android:background="@color/color_F5F5F5">
 
             <com.example.administrator.jipinshop.view.textview.CustomRefreshHeadView

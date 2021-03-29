@@ -19,7 +19,7 @@
                 android:layout_height="wrap_content"/>
 
             <LinearLayout
-                android:layout_alignBottom="@id/dialog_background"
+                android:layout_alignBottom="@+id/dialog_background"
                 android:layout_marginBottom="@dimen/y50"
                 android:layout_centerHorizontal="true"
                 android:orientation="vertical"

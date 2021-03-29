@@ -21,7 +21,7 @@
         <RelativeLayout
             android:visibility="gone"
             android:id="@+id/order_date"
-            android:layout_below="@id/in_clude"
+            android:layout_below="@+id/in_clude"
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
@@ -39,7 +39,7 @@
                 android:layout_height="@dimen/y98"/>
 
             <android.support.v7.widget.RecyclerView
-                android:layout_above="@id/order_bottom"
+                android:layout_above="@+id/order_bottom"
                 android:id="@+id/order_rv"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"/>
@@ -52,7 +52,7 @@
             android:orientation="vertical"
             android:layout_marginTop="@dimen/y188"
             android:layout_centerHorizontal="true"
-            android:layout_below="@id/in_clude"
+            android:layout_below="@+id/in_clude"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 

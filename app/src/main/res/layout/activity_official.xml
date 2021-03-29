@@ -19,7 +19,7 @@
             bind:listener="@{listener}"/>
 
         <RelativeLayout
-            android:layout_below="@id/in_clude"
+            android:layout_below="@+id/in_clude"
             android:layout_marginTop="@dimen/y25"
             android:layout_marginRight="@dimen/x25"
             android:layout_marginLeft="@dimen/x25"
@@ -67,7 +67,7 @@
                     android:textSize="14sp"
                     android:lineSpacingExtra="@dimen/y8"
                     android:layout_marginTop="@dimen/y13"
-                    android:layout_below="@id/official_codeContainer"
+                    android:layout_below="@+id/official_codeContainer"
                     android:layout_marginRight="@dimen/x44"
                     android:layout_marginLeft="@dimen/x44"
                     android:text="进入极品城官方福利群，获取最新免单动态，每月再省1000元"

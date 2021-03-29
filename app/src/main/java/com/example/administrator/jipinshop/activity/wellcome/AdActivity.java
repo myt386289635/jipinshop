@@ -12,11 +12,16 @@ import android.widget.TextView;
 import com.blankj.utilcode.util.SPUtils;
 import com.example.administrator.jipinshop.R;
 import com.example.administrator.jipinshop.activity.home.MainActivity;
+import com.example.administrator.jipinshop.activity.wellcome.ad.SplashAdActivity;
 import com.example.administrator.jipinshop.base.BaseActivity;
 import com.example.administrator.jipinshop.bean.EvaluationTabBean;
+import com.example.administrator.jipinshop.bean.eventbus.CommenBus;
 import com.example.administrator.jipinshop.util.sp.CommonDate;
 import com.example.administrator.jipinshop.view.glide.GlideApp;
 import com.google.gson.Gson;
+
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
 
 /**
  * @author 莫小婷
@@ -33,6 +38,7 @@ public class AdActivity extends BaseActivity implements View.OnClickListener {
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_ad);
+        EventBus.getDefault().register(this);
         mImmersionBar.reset()
                 .transparentStatusBar()
                 .statusBarDarkFont(true, 0f)
@@ -60,8 +66,7 @@ public class AdActivity extends BaseActivity implements View.OnClickListener {
 
         @Override
         public void onFinish() {
-            startActivity(new Intent(AdActivity.this, MainActivity.class));
-            finish();
+            startActivity(new Intent(AdActivity.this, SplashAdActivity.class));
         }
     };
 
@@ -70,6 +75,7 @@ public class AdActivity extends BaseActivity implements View.OnClickListener {
         if (timer != null) {
             timer.cancel();
         }
+        EventBus.getDefault().unregister(this);
         super.onDestroy();
     }
 
@@ -88,8 +94,7 @@ public class AdActivity extends BaseActivity implements View.OnClickListener {
                 if (timer != null) {
                     timer.cancel();
                 }
-                startActivity(new Intent(AdActivity.this, MainActivity.class));
-                finish();
+                startActivity(new Intent(AdActivity.this, SplashAdActivity.class));
                 break;
             case R.id.ad_image:
                 if (mBean.getType() != 0){
@@ -107,6 +112,13 @@ public class AdActivity extends BaseActivity implements View.OnClickListener {
                     );
                 }
                 break;
+        }
+    }
+
+    @Subscribe
+    public void finish(CommenBus bus){
+        if (bus != null && bus.getTag().equals(SplashAdActivity.finish)){
+            finish();
         }
     }
 }

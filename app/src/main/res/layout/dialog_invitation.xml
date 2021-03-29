@@ -39,7 +39,7 @@
             android:textSize="15sp"
             android:layout_marginTop="@dimen/y40"
             android:layout_centerHorizontal="true"
-            android:layout_below="@id/dialog_title"
+            android:layout_below="@+id/dialog_title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"/>
 
@@ -55,14 +55,14 @@
             android:layout_marginLeft="@dimen/x55"
             android:text=""
             android:background="@null"
-            android:layout_below="@id/dialog_title2"
+            android:layout_below="@+id/dialog_title2"
             android:layout_width="match_parent"
             android:layout_height="@dimen/y70"/>
 
         <View
             android:layout_marginRight="@dimen/x55"
             android:layout_marginLeft="@dimen/x55"
-            android:layout_below="@id/dialog_edit"
+            android:layout_below="@+id/dialog_edit"
             android:background="@color/color_979797"
             android:layout_width="match_parent"
             android:layout_height="@dimen/y1"/>
@@ -71,7 +71,7 @@
         <TextView
             android:layout_marginBottom="@dimen/y45"
             android:layout_marginTop="@dimen/y45"
-            android:layout_below="@id/dialog_edit"
+            android:layout_below="@+id/dialog_edit"
             android:id="@+id/dialog_sure"
             android:gravity="center"
             android:textStyle="bold"

@@ -55,7 +55,7 @@
                         android:layout_height="wrap_content"/>
 
                     <TextView
-                        android:layout_above="@id/home_tag"
+                        android:layout_above="@+id/home_tag"
                         android:layout_marginLeft="@dimen/x28"
                         android:textStyle="bold"
                         android:textSize="33sp"
@@ -109,8 +109,8 @@
                             android:layout_height="@dimen/y80"/>
 
                         <ImageView
-                            android:layout_alignBottom="@id/home_sreach"
-                            android:layout_alignTop="@id/home_sreach"
+                            android:layout_alignBottom="@+id/home_sreach"
+                            android:layout_alignTop="@+id/home_sreach"
                             android:layout_marginRight="@dimen/x37"
                             android:layout_alignRight="@+id/home_sreach"
                             android:src="@mipmap/search"

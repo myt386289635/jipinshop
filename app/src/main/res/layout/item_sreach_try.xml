@@ -21,8 +21,8 @@
         android:textSize="16sp"
         android:lineSpacingExtra="@dimen/y7"
         android:textColor="@color/color_202020"
-        android:layout_alignTop="@id/item_image"
-        android:layout_toRightOf="@id/item_image"
+        android:layout_alignTop="@+id/item_image"
+        android:layout_toRightOf="@+id/item_image"
         tools:text="asdasdasdasdasd"
         android:ellipsize="end"
         android:maxLines="3"
@@ -33,7 +33,7 @@
         android:id="@+id/item_userImg"
         tools:src="@color/color_202020"
         android:layout_marginBottom="@dimen/y22"
-        android:layout_toRightOf="@id/item_image"
+        android:layout_toRightOf="@+id/item_image"
         android:layout_above="@+id/item_pv"
         android:layout_width="@dimen/x60"
         android:layout_height="@dimen/y60"/>
@@ -41,9 +41,9 @@
     <TextView
         android:id="@+id/item_userName"
         android:layout_marginLeft="@dimen/x20"
-        android:layout_toRightOf="@id/item_userImg"
-        android:layout_alignBottom="@id/item_userImg"
-        android:layout_alignTop="@id/item_userImg"
+        android:layout_toRightOf="@+id/item_userImg"
+        android:layout_alignBottom="@+id/item_userImg"
+        android:layout_alignTop="@+id/item_userImg"
         android:gravity="center"
         android:textStyle="bold"
         android:textColor="@color/color_ACACAC"
@@ -52,8 +52,8 @@
         android:layout_height="wrap_content"/>
 
     <TextView
-        android:layout_toRightOf="@id/item_image"
-        android:layout_alignBottom="@id/item_image"
+        android:layout_toRightOf="@+id/item_image"
+        android:layout_alignBottom="@+id/item_image"
         android:id="@+id/item_pv"
         android:textColor="@color/color_ACACAC"
         android:textSize="12sp"
@@ -65,7 +65,7 @@
         android:id="@+id/item_line"
         android:layout_marginRight="@dimen/x30"
         android:layout_marginLeft="@dimen/x30"
-        android:layout_below="@id/item_image"
+        android:layout_below="@+id/item_image"
         android:background="@color/color_DEDEDE"
         android:layout_width="match_parent"
         android:layout_height="@dimen/y1"/>

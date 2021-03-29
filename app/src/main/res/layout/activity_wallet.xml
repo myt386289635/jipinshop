@@ -42,7 +42,7 @@
         <TextView
             android:id="@+id/title_notice"
             android:gravity="center"
-            android:layout_below="@id/in_clude"
+            android:layout_below="@+id/in_clude"
             android:background="@color/color_FEF4E6"
             android:textColor="@color/color_202020"
             android:textSize="11sp"
@@ -51,7 +51,7 @@
             android:layout_height="@dimen/y62"/>
 
         <ScrollView
-            android:layout_below="@id/title_notice"
+            android:layout_below="@+id/title_notice"
             android:fillViewport="true"
             android:layout_width="match_parent"
             android:layout_height="match_parent">
@@ -100,7 +100,7 @@
                         android:layout_height="wrap_content"/>
 
                     <TextView
-                        android:layout_below="@id/wallet_moneyTag"
+                        android:layout_below="@+id/wallet_moneyTag"
                         android:id="@+id/wallet_money"
                         android:layout_centerHorizontal="true"
                         android:textStyle="bold"
@@ -114,7 +114,7 @@
                         android:layout_marginBottom="@dimen/y36"
                         android:layout_marginTop="@dimen/y48"
                         android:orientation="horizontal"
-                        android:layout_below="@id/wallet_money"
+                        android:layout_below="@+id/wallet_money"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content">
 
@@ -200,7 +200,7 @@
                 <TextView
                     android:paddingTop="@dimen/y40"
                     android:layout_marginLeft="@dimen/x30"
-                    android:layout_below="@id/walletContainer"
+                    android:layout_below="@+id/walletContainer"
                     android:textStyle="bold"
                     android:textColor="@color/color_202020"
                     android:textSize="15sp"
@@ -219,8 +219,8 @@
                     android:paddingLeft="@dimen/x50"
                     android:paddingRight="@dimen/x50"
                     android:layout_alignParentRight="true"
-                    android:layout_alignBottom="@id/wallet_title1"
-                    android:layout_alignTop="@id/wallet_title1"
+                    android:layout_alignBottom="@+id/wallet_title1"
+                    android:layout_alignTop="@+id/wallet_title1"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"/>
 
@@ -230,7 +230,7 @@
                     android:elevation="@dimen/y5"
                     android:orientation="vertical"
                     android:layout_marginTop="@dimen/y10"
-                    android:layout_below="@id/wallet_title1"
+                    android:layout_below="@+id/wallet_title1"
                     android:layout_marginRight="@dimen/x20"
                     android:layout_marginLeft="@dimen/x20"
                     android:layout_width="match_parent"
@@ -460,7 +460,7 @@
                 <TextView
                     android:paddingTop="@dimen/y40"
                     android:layout_marginLeft="@dimen/x30"
-                    android:layout_below="@id/wallet_todayContainer"
+                    android:layout_below="@+id/wallet_todayContainer"
                     android:textStyle="bold"
                     android:textColor="@color/color_202020"
                     android:textSize="15sp"
@@ -479,8 +479,8 @@
                     android:paddingLeft="@dimen/x50"
                     android:paddingRight="@dimen/x50"
                     android:layout_alignParentRight="true"
-                    android:layout_alignBottom="@id/wallet_title2"
-                    android:layout_alignTop="@id/wallet_title2"
+                    android:layout_alignBottom="@+id/wallet_title2"
+                    android:layout_alignTop="@+id/wallet_title2"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"/>
 
@@ -490,7 +490,7 @@
                     android:elevation="@dimen/y5"
                     android:orientation="vertical"
                     android:layout_marginTop="@dimen/y10"
-                    android:layout_below="@id/wallet_title2"
+                    android:layout_below="@+id/wallet_title2"
                     android:layout_marginRight="@dimen/x20"
                     android:layout_marginLeft="@dimen/x20"
                     android:layout_width="match_parent"

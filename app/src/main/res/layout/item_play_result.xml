@@ -27,8 +27,8 @@
             android:textColor="@color/color_9D9D9D"
             android:textSize="11sp"
             android:text="@{bean.title}"
-            android:layout_toRightOf="@id/item_image"
-            android:layout_alignTop="@id/item_image"
+            android:layout_toRightOf="@+id/item_image"
+            android:layout_alignTop="@+id/item_image"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"/>
 
@@ -37,8 +37,8 @@
             android:textSize="12sp"
             android:text="@{bean.subTitle}"
             android:layout_marginBottom="@dimen/y4"
-            android:layout_alignBottom="@id/item_image"
-            android:layout_toRightOf="@id/item_image"
+            android:layout_alignBottom="@+id/item_image"
+            android:layout_toRightOf="@+id/item_image"
             android:id="@+id/item_decs"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"/>

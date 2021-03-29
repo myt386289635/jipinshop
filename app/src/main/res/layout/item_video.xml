@@ -17,7 +17,7 @@
 
         <LinearLayout
             android:layout_marginRight="@dimen/x30"
-            android:layout_toLeftOf="@id/item_play"
+            android:layout_toLeftOf="@+id/item_play"
             android:layout_centerVertical="true"
             android:orientation="vertical"
             android:layout_width="match_parent"

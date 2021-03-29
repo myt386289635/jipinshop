@@ -27,7 +27,7 @@
                 android:orientation="vertical"/>
 
             <ImageView
-                android:layout_below="@id/status_bar"
+                android:layout_below="@+id/status_bar"
                 android:id="@+id/mine_setting"
                 android:layout_marginTop="@dimen/y10"
                 android:paddingLeft="@dimen/x27"
@@ -42,7 +42,7 @@
             <RelativeLayout
                 android:id="@+id/mine_noticeContainer"
                 android:background="@drawable/bg_mine_notice"
-                android:layout_below="@id/status_bar"
+                android:layout_below="@+id/status_bar"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/y66">
 
@@ -161,7 +161,7 @@
             android:layout_marginLeft="@dimen/x30"
             android:layout_marginTop="-33dp"
             android:id="@+id/mine_memberInfoContainer"
-            android:layout_below="@id/container"
+            android:layout_below="@+id/container"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
@@ -180,7 +180,7 @@
                 android:id="@+id/mine_memberInfoContent"
                 android:layout_marginBottom="@dimen/y17"
                 android:layout_marginTop="@dimen/y2"
-                android:layout_below="@id/mine_memberInfoTitle"
+                android:layout_below="@+id/mine_memberInfoTitle"
                 android:textSize="11sp"
                 android:layout_marginLeft="@dimen/x20"
                 android:textColor="@color/color_FFE4C1"
@@ -190,8 +190,8 @@
 
             <TextView
                 android:gravity="center_vertical"
-                android:layout_alignBottom="@id/mine_memberInfoContent"
-                android:layout_alignTop="@id/mine_memberInfoTitle"
+                android:layout_alignBottom="@+id/mine_memberInfoContent"
+                android:layout_alignTop="@+id/mine_memberInfoTitle"
                 android:layout_marginRight="@dimen/x20"
                 android:drawablePadding="@dimen/x4"
                 android:drawableTint="@color/color_FFE4C1"
@@ -208,7 +208,7 @@
                 android:layout_marginRight="@dimen/x20"
                 android:layout_marginLeft="@dimen/x20"
                 android:layout_marginBottom="@dimen/y28"
-                android:layout_below="@id/mine_memberInfoContent"
+                android:layout_below="@+id/mine_memberInfoContent"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/y162"/>
 

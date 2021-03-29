@@ -29,7 +29,7 @@
 
         <RelativeLayout
             android:background="@drawable/bg_cheap_member"
-            android:layout_toLeftOf="@id/item_button"
+            android:layout_toLeftOf="@+id/item_button"
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 

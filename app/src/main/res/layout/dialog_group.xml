@@ -29,7 +29,7 @@
                 android:id="@+id/dialog_image"
                 android:layout_marginTop="@dimen/y30"
                 android:layout_marginLeft="@dimen/x37"
-                android:layout_below="@id/dialog_title"
+                android:layout_below="@+id/dialog_title"
                 android:layout_width="@dimen/x156"
                 android:layout_height="@dimen/y156"/>
 
@@ -42,8 +42,8 @@
                 android:lineSpacingExtra="@dimen/y8"
                 android:textColor="@color/color_565252"
                 android:textSize="14sp"
-                android:layout_alignTop="@id/dialog_image"
-                android:layout_toRightOf="@id/dialog_image"
+                android:layout_alignTop="@+id/dialog_image"
+                android:layout_toRightOf="@+id/dialog_image"
                 android:text="学生宿舍榨汁机家用炸学生宿舍榨汁机家用炸"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"/>
@@ -52,8 +52,8 @@
                 android:id="@+id/dialog_priceText"
                 android:textColor="@color/color_202020"
                 android:textSize="18sp"
-                android:layout_toRightOf="@id/dialog_image"
-                android:layout_alignBottom="@id/dialog_image"
+                android:layout_toRightOf="@+id/dialog_image"
+                android:layout_alignBottom="@+id/dialog_image"
                 android:text="拼成返"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"/>
@@ -64,8 +64,8 @@
                 android:textStyle="bold"
                 android:text="￥0"
                 android:textSize="30sp"
-                android:layout_alignBottom="@id/dialog_priceText"
-                android:layout_toRightOf="@id/dialog_priceText"
+                android:layout_alignBottom="@+id/dialog_priceText"
+                android:layout_toRightOf="@+id/dialog_priceText"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"/>
 
@@ -75,7 +75,7 @@
                 android:layout_marginTop="@dimen/y32"
                 android:text="还差1人拼团成功，时间仅剩04:24:49"
                 android:layout_centerHorizontal="true"
-                android:layout_below="@id/dialog_image"
+                android:layout_below="@+id/dialog_image"
                 android:textSize="16sp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"/>
@@ -83,7 +83,7 @@
             <LinearLayout
                 android:id="@+id/group_peopleContainer"
                 android:layout_marginTop="@dimen/y37"
-                android:layout_below="@id/dialog_time"
+                android:layout_below="@+id/dialog_time"
                 android:layout_centerHorizontal="true"
                 android:orientation="horizontal"
                 android:layout_width="wrap_content"
@@ -134,7 +134,7 @@
                 android:layout_marginLeft="@dimen/x25"
                 android:layout_marginBottom="@dimen/y40"
                 android:layout_marginTop="@dimen/y40"
-                android:layout_below="@id/group_peopleContainer"
+                android:layout_below="@+id/group_peopleContainer"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/y88"/>
 

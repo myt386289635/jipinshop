@@ -25,7 +25,7 @@
             android:textColor="@color/color_0E0402"
             android:textStyle="bold"
             android:textSize="24sp"
-            android:layout_below="@id/in_clude"
+            android:layout_below="@+id/in_clude"
             android:text="注销账号:"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"/>
@@ -37,7 +37,7 @@
             android:textColor="@color/color_E25838"
             android:textStyle="bold"
             android:textSize="24sp"
-            android:layout_below="@id/in_clude"
+            android:layout_below="@+id/in_clude"
             android:text="138****8888"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"/>
@@ -49,7 +49,7 @@
             android:layout_marginTop="@dimen/y54"
             android:layout_marginRight="@dimen/x30"
             android:layout_marginLeft="@dimen/x30"
-            android:layout_below="@id/cancel_number"
+            android:layout_below="@+id/cancel_number"
             android:text="\t\t\t\t账号注销是不可恢复的操作，请你仔细考虑，谨慎操作。账户注销后，您账户中的积分、账户余额都将清空不予处理。"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"/>

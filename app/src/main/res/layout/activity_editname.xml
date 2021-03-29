@@ -45,7 +45,7 @@
             android:maxLength="20"
             android:layout_marginRight="@dimen/x28"
             android:singleLine="true"
-            android:layout_toLeftOf="@id/edit_close"
+            android:layout_toLeftOf="@+id/edit_close"
             android:textColorHint="@color/color_ACACAC"
             android:textColor="@color/color_DE151515"
             android:id="@+id/edit_edit"

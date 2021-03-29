@@ -23,9 +23,9 @@
         android:singleLine="true"
         android:text="幸福的养猪幸福的养猪幸福的养猪幸福的养猪幸福的养猪幸福的养猪"
         android:layout_marginLeft="@dimen/x20"
-        android:layout_toRightOf="@id/item_image"
-        android:layout_alignBottom="@id/item_image"
-        android:layout_alignTop="@id/item_image"
+        android:layout_toRightOf="@+id/item_image"
+        android:layout_alignBottom="@+id/item_image"
+        android:layout_alignTop="@+id/item_image"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"/>
 

@@ -41,8 +41,8 @@
                 android:maxLines="1"
                 android:text="@{data.title}"
                 android:layout_marginTop="@dimen/y16"
-                android:layout_alignTop="@id/item_image"
-                android:layout_toRightOf="@id/item_image"
+                android:layout_alignTop="@+id/item_image"
+                android:layout_toRightOf="@+id/item_image"
                 android:layout_marginLeft="@dimen/x25"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"/>
@@ -54,8 +54,8 @@
                 android:textSize="13sp"
                 android:text="@{data.createTime}"
                 android:layout_marginLeft="@dimen/x25"
-                android:layout_alignBottom="@id/item_image"
-                android:layout_toRightOf="@id/item_image"
+                android:layout_alignBottom="@+id/item_image"
+                android:layout_toRightOf="@+id/item_image"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"/>
 
@@ -63,7 +63,7 @@
                 android:layout_marginBottom="@dimen/y26"
                 android:layout_marginRight="@dimen/x30"
                 android:layout_alignParentRight="true"
-                android:layout_alignBottom="@id/item_image"
+                android:layout_alignBottom="@+id/item_image"
                 android:orientation="horizontal"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content">
@@ -95,9 +95,9 @@
                 android:textSize="13sp"
                 android:textColor="@color/color_FF0000"
                 android:layout_marginLeft="@dimen/x25"
-                android:layout_above="@id/item_time"
-                android:layout_below="@id/item_name"
-                android:layout_toRightOf="@id/item_image"
+                android:layout_above="@+id/item_time"
+                android:layout_below="@+id/item_name"
+                android:layout_toRightOf="@+id/item_image"
                 android:gravity="center_vertical"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"/>

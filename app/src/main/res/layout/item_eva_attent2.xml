@@ -33,8 +33,8 @@
             android:text="@{data.user.nickname}"
             android:layout_marginLeft="@dimen/x23"
             android:layout_marginTop="@dimen/y14"
-            android:layout_alignTop="@id/item_userImg"
-            android:layout_toRightOf="@id/item_userImg"
+            android:layout_alignTop="@+id/item_userImg"
+            android:layout_toRightOf="@+id/item_userImg"
             android:layout_width="@dimen/x364"
             android:layout_height="wrap_content"/>
 
@@ -47,8 +47,8 @@
             android:ellipsize="end"
             android:singleLine="true"
             android:layout_marginLeft="@dimen/x23"
-            android:layout_toRightOf="@id/item_userImg"
-            android:layout_alignBottom="@id/item_userImg"
+            android:layout_toRightOf="@+id/item_userImg"
+            android:layout_alignBottom="@+id/item_userImg"
             android:layout_width="@dimen/x364"
             android:layout_height="wrap_content"/>
 
@@ -64,7 +64,7 @@
             android:text="@{data.title}"
             android:layout_marginLeft="@dimen/x30"
             android:layout_marginTop="@dimen/y39"
-            android:layout_below="@id/item_userImg"
+            android:layout_below="@+id/item_userImg"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"/>
         
@@ -72,7 +72,7 @@
             bind:srcRound="@{data.img}"
             android:id="@+id/item_image"
             android:layout_marginTop="@dimen/y30"
-            android:layout_below="@id/item_title"
+            android:layout_below="@+id/item_title"
             android:layout_marginRight="@dimen/x30"
             android:layout_marginLeft="@dimen/x30"
             android:layout_width="match_parent"
@@ -83,7 +83,7 @@
             android:layout_marginRight="@dimen/x45"
             android:layout_alignParentRight="true"
             android:layout_marginTop="@dimen/y40"
-            android:layout_below="@id/item_image"
+            android:layout_below="@+id/item_image"
             android:id="@+id/item_pv"
             android:textColor="@color/color_ACACAC"
             android:textSize="12sp"
@@ -93,7 +93,7 @@
 
         <TextView
             android:layout_marginTop="@dimen/y14"
-            android:layout_alignTop="@id/item_userImg"
+            android:layout_alignTop="@+id/item_userImg"
             android:gravity="center"
             android:id="@+id/item_attention"
             android:layout_marginRight="@dimen/x30"

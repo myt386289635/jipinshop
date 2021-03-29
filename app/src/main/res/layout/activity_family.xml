@@ -22,14 +22,14 @@
             android:scaleType="fitXY"
             android:src="@mipmap/bg_family"
             android:layout_marginTop="@dimen/y406"
-            android:layout_below="@id/in_clude"
+            android:layout_below="@+id/in_clude"
             android:layout_width="match_parent"
             android:layout_height="match_parent"/>
 
         <TextView
             android:id="@+id/family_title"
             android:layout_marginTop="@dimen/y40"
-            android:layout_below="@id/in_clude"
+            android:layout_below="@+id/in_clude"
             android:layout_centerHorizontal="true"
             android:textColor="@color/color_527097"
             android:textSize="18sp"
@@ -43,7 +43,7 @@
             android:textColor="@color/color_527097"
             android:textSize="13sp"
             android:layout_marginTop="@dimen/y8"
-            android:layout_below="@id/family_title"
+            android:layout_below="@+id/family_title"
             android:layout_centerHorizontal="true"
             android:text="添加家庭成员，每年可省38400元"
             android:layout_width="wrap_content"
@@ -52,7 +52,7 @@
         <ImageView
             android:id="@+id/family_image"
             android:layout_marginTop="@dimen/y32"
-            android:layout_below="@id/family_content"
+            android:layout_below="@+id/family_content"
             android:layout_centerHorizontal="true"
             android:scaleType="fitXY"
             android:adjustViewBounds="true"
@@ -68,7 +68,7 @@
             android:layout_marginLeft="@dimen/x20"
             android:layout_marginBottom="@dimen/y30"
             android:layout_marginTop="@dimen/y30"
-            android:layout_below="@id/family_image"
+            android:layout_below="@+id/family_image"
             android:layout_width="match_parent"
             android:layout_height="match_parent"/>
 

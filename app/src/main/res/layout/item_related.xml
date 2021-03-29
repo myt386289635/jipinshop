@@ -43,7 +43,7 @@
         android:layout_height="wrap_content"/>
 
     <View
-        android:layout_below="@id/item_image"
+        android:layout_below="@+id/item_image"
         android:layout_marginTop="@dimen/y48"
         android:layout_marginRight="@dimen/x28"
         android:layout_marginLeft="@dimen/x28"

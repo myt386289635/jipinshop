@@ -52,7 +52,7 @@
         android:layout_marginRight="@dimen/x40"
         android:layout_marginLeft="@dimen/x40"
         android:layout_marginBottom="@dimen/y40"
-        android:layout_below="@id/dialog_content2"
+        android:layout_below="@+id/dialog_content2"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 

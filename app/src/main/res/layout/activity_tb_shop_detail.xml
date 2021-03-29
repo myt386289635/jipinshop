@@ -100,7 +100,7 @@
             </LinearLayout>
 
             <LinearLayout
-                android:layout_toLeftOf="@id/detail_buyContainer"
+                android:layout_toLeftOf="@+id/detail_buyContainer"
                 android:orientation="horizontal"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent">
@@ -140,7 +140,7 @@
             android:id="@+id/swipe_target"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_above="@id/detail_bottom"
+            android:layout_above="@+id/detail_bottom"
             android:fillViewport="true"
             android:scrollbars="none">
 
@@ -157,7 +157,7 @@
                     android:id="@+id/detail_point"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_below="@id/view_pager"
+                    android:layout_below="@+id/view_pager"
                     android:layout_marginTop="-18dp"
                     android:gravity="center"
                     android:orientation="horizontal"/>
@@ -195,7 +195,7 @@
                     android:id="@+id/detail_oldPriceName"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_alignBottom="@id/detail_newPriceContainer"
+                    android:layout_alignBottom="@+id/detail_newPriceContainer"
                     android:layout_marginLeft="@dimen/x20"
                     android:layout_marginBottom="@dimen/y4"
                     android:layout_toRightOf="@+id/detail_newPriceContainer"
@@ -215,8 +215,8 @@
                     android:gravity="center"
                     android:background="@mipmap/bg_fee"
                     android:layout_marginLeft="@dimen/x22"
-                    android:layout_alignTop="@id/detail_newPriceContainer"
-                    android:layout_toRightOf="@id/detail_oldPriceName"
+                    android:layout_alignTop="@+id/detail_newPriceContainer"
+                    android:layout_toRightOf="@+id/detail_oldPriceName"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"/>
 
@@ -225,7 +225,7 @@
                     android:layout_marginLeft="@dimen/x28"
                     android:layout_marginTop="@dimen/y20"
                     android:id="@+id/detail_member"
-                    android:layout_below="@id/detail_oldPriceName"
+                    android:layout_below="@+id/detail_oldPriceName"
                     android:layout_width="match_parent"
                     android:background="@mipmap/detail_bj"
                     android:layout_height="wrap_content">
@@ -242,7 +242,7 @@
                     <TextView
                         android:textStyle="bold"
                         android:layout_marginTop="@dimen/y17"
-                        android:layout_toRightOf="@id/detail_memberImage"
+                        android:layout_toRightOf="@+id/detail_memberImage"
                         android:textSize="13sp"
                         android:id="@+id/detail_memberText"
                         android:text="加入极品会员，本商品可返"
@@ -264,7 +264,7 @@
                         android:text="￥0"
                         android:textStyle="bold"
                         android:textSize="12sp"
-                        android:layout_toRightOf="@id/detail_memberText"
+                        android:layout_toRightOf="@+id/detail_memberText"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"/>
 
@@ -272,8 +272,8 @@
                         android:id="@+id/detail_memberNotice"
                         android:layout_marginBottom="@dimen/y12"
                         android:layout_marginTop="@dimen/y8"
-                        android:layout_below="@id/detail_memberText"
-                        android:layout_alignLeft="@id/detail_memberText"
+                        android:layout_below="@+id/detail_memberText"
+                        android:layout_alignLeft="@+id/detail_memberText"
                         android:textSize="11sp"
                         android:textColor="@color/color_FFE4C1"
                         android:text="立享成本价，返利100%，每年多省9600元"
@@ -309,7 +309,7 @@
                     android:id="@+id/detail_buyNum"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_below="@id/detail_name"
+                    android:layout_below="@+id/detail_name"
                     android:layout_marginLeft="@dimen/x28"
                     android:layout_marginTop="@dimen/y15"
                     android:text="@{date.volume + @string/detail_buyNum}"
@@ -320,7 +320,7 @@
                     android:id="@+id/detail_buyAddress"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_below="@id/detail_name"
+                    android:layout_below="@+id/detail_name"
                     android:layout_alignParentRight="true"
                     android:layout_marginTop="@dimen/y15"
                     android:layout_marginRight="@dimen/x28"
@@ -438,12 +438,12 @@
                     android:id="@+id/detail_line"
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/y1"
-                    android:layout_below="@id/detail_couponContainer"
+                    android:layout_below="@+id/detail_couponContainer"
                     android:layout_marginTop="@dimen/y36"
                     android:background="@color/color_F5F5F5"/>
 
                 <TextView
-                    android:layout_below="@id/detail_line"
+                    android:layout_below="@+id/detail_line"
                     android:id="@+id/detail_recommendLine"
                     android:layout_marginTop="@dimen/y20"
                     android:layout_centerHorizontal="true"
@@ -457,7 +457,7 @@
                     android:layout_height="wrap_content"/>
 
                 <android.support.v7.widget.RecyclerView
-                    android:layout_below="@id/detail_recommendLine"
+                    android:layout_below="@+id/detail_recommendLine"
                     android:id="@+id/detail_recommend"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"/>
@@ -466,7 +466,7 @@
                     android:id="@+id/detail_line2"
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/y1"
-                    android:layout_below="@id/detail_recommend"
+                    android:layout_below="@+id/detail_recommend"
                     android:layout_marginTop="@dimen/y36"
                     android:background="@color/color_F5F5F5"/>
 
@@ -474,7 +474,7 @@
                     android:id="@+id/detail_shopImage"
                     android:layout_width="@dimen/x80"
                     android:layout_height="@dimen/y80"
-                    android:layout_below="@id/detail_line2"
+                    android:layout_below="@+id/detail_line2"
                     android:layout_marginLeft="@dimen/x28"
                     android:layout_marginTop="@dimen/y30"
                     android:layout_marginRight="@dimen/x18"
@@ -488,9 +488,9 @@
                     android:id="@+id/detail_shopName"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_alignBottom="@id/detail_shopImage"
-                    android:layout_alignTop="@id/detail_shopImage"
-                    android:layout_toRightOf="@id/detail_shopImage"
+                    android:layout_alignBottom="@+id/detail_shopImage"
+                    android:layout_alignTop="@+id/detail_shopImage"
+                    android:layout_toRightOf="@+id/detail_shopImage"
                     android:text="@{date.shopName}"
                     android:textColor="@color/color_202020"
                     android:textSize="14sp"/>
@@ -498,8 +498,8 @@
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_alignBottom="@id/detail_shopImage"
-                    android:layout_toRightOf="@id/detail_shopImage"
+                    android:layout_alignBottom="@+id/detail_shopImage"
+                    android:layout_toRightOf="@+id/detail_shopImage"
                     android:orientation="horizontal"
                     android:weightSum="3">
 
@@ -580,14 +580,14 @@
                     android:id="@+id/detail_line3"
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/y20"
-                    android:layout_below="@id/detail_shopImage"
+                    android:layout_below="@+id/detail_shopImage"
                     android:background="@color/color_F5F5F5"/>
 
                 <LinearLayout
                     android:id="@+id/detail_reasonContainer"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_below="@id/detail_line3"
+                    android:layout_below="@+id/detail_line3"
                     android:orientation="vertical">
 
                     <TextView
@@ -623,7 +623,7 @@
                     android:id="@+id/detail_decContainer"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_below="@id/detail_reasonContainer">
+                    android:layout_below="@+id/detail_reasonContainer">
 
                     <TextView
                         android:id="@+id/detail_decTitle"
@@ -644,7 +644,7 @@
                         android:id="@+id/detail_dec"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_below="@id/detail_decTitle"/>
+                        android:layout_below="@+id/detail_decTitle"/>
 
                     <LinearLayout
                         android:gravity="center_vertical"
@@ -653,7 +653,7 @@
                         android:layout_gravity="center_horizontal"
                         android:id="@+id/detail_decSpeach"
                         android:onClick="@{listener.onClick}"
-                        android:layout_below="@id/detail_dec"
+                        android:layout_below="@+id/detail_dec"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content">
 
@@ -678,7 +678,7 @@
                         android:id="@+id/detail_line4"
                         android:layout_width="match_parent"
                         android:layout_height="@dimen/y20"
-                        android:layout_below="@id/detail_decSpeach"
+                        android:layout_below="@+id/detail_decSpeach"
                         android:layout_marginTop="@dimen/y20"
                         android:background="@color/color_F5F5F5"/>
                 </LinearLayout>
@@ -687,7 +687,7 @@
                     android:id="@+id/detail_userLikeImage"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_below="@id/detail_decContainer"
+                    android:layout_below="@+id/detail_decContainer"
                     android:layout_centerHorizontal="true"
                     android:layout_marginTop="@dimen/y29"
                     android:layout_marginBottom="@dimen/y32"
@@ -697,7 +697,7 @@
                     android:id="@+id/detail_userLike"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_below="@id/detail_userLikeImage"/>
+                    android:layout_below="@+id/detail_userLikeImage"/>
 
             </RelativeLayout>
         </com.example.administrator.jipinshop.view.scrollView.MyScrollView>
@@ -742,7 +742,7 @@
             android:layout_marginRight="@dimen/x20"
             android:layout_marginLeft="@dimen/x20"
             android:layout_marginBottom="@dimen/y10"
-            android:layout_above="@id/detail_bottom"
+            android:layout_above="@+id/detail_bottom"
             android:layout_width="match_parent"
             android:layout_height="@dimen/y72">
 
@@ -771,20 +771,20 @@
 
             <TextView
                 android:gravity="center"
-                android:layout_alignBottom="@id/detail_bottomMemberText"
-                android:layout_alignTop="@id/detail_bottomMemberText"
+                android:layout_alignBottom="@+id/detail_bottomMemberText"
+                android:layout_alignTop="@+id/detail_bottomMemberText"
                 android:id="@+id/detail_bottomMemberPrice"
                 android:textColor="@color/color_E25838"
                 android:text="￥0"
                 android:textStyle="bold"
                 android:textSize="14sp"
-                android:layout_toRightOf="@id/detail_bottomMemberText"
+                android:layout_toRightOf="@+id/detail_bottomMemberText"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"/>
 
             <ImageView
                 android:layout_marginLeft="@dimen/x28"
-                android:layout_toRightOf="@id/detail_bottomMemberPrice"
+                android:layout_toRightOf="@+id/detail_bottomMemberPrice"
                 android:src="@mipmap/detail_opening"
                 android:onClick="@{listener.onClick}"
                 android:id="@+id/detail_bottomMemberGo"
@@ -801,7 +801,7 @@
             android:elevation="6.5dp"
             android:layout_marginRight="@dimen/x28"
             android:layout_marginBottom="@dimen/y17"
-            android:layout_above="@id/detail_bottom"
+            android:layout_above="@+id/detail_bottom"
             android:layout_alignParentRight="true"
             android:background="@drawable/bg_tab_eva"
             android:gravity="center"

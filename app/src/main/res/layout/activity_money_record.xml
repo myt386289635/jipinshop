@@ -32,7 +32,7 @@
 
         <RelativeLayout
             android:id="@+id/record_title"
-            android:layout_below="@id/in_clude"
+            android:layout_below="@+id/in_clude"
             android:background="@color/color_E25838"
             android:layout_width="match_parent"
             android:layout_height="@dimen/y80">
@@ -85,7 +85,7 @@
 
         <com.aspsine.swipetoloadlayout.SwipeToLoadLayout
             android:background="@color/color_white"
-            android:layout_below="@id/record_title"
+            android:layout_below="@+id/record_title"
             android:id="@+id/swipeToLoad"
             android:layout_width="match_parent"
             android:layout_height="match_parent">

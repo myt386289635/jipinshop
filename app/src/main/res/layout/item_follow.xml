@@ -24,7 +24,7 @@
         android:maxWidth="@dimen/x300"
         android:id="@+id/item_name"
         android:layout_centerVertical="true"
-        android:layout_toRightOf="@id/item_image"
+        android:layout_toRightOf="@+id/item_image"
         android:textStyle="bold"
         android:textColor="@color/color_DE151515"
         android:text="Vicky买买买"
@@ -33,8 +33,8 @@
 
 
     <View
-        android:layout_toRightOf="@id/item_image"
-        android:layout_below="@id/item_image"
+        android:layout_toRightOf="@+id/item_image"
+        android:layout_below="@+id/item_image"
         android:background="@color/color_F5F5F5"
         android:layout_width="match_parent"
         android:layout_height="@dimen/x2"/>

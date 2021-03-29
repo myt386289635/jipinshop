@@ -58,6 +58,7 @@ import com.google.gson.Gson;
 import com.mob.moblink.MobLink;
 import com.mob.moblink.Scene;
 import com.mob.moblink.SceneRestorable;
+import com.qubian.mob.utils.RequestPermission;
 import com.trello.rxlifecycle2.android.ActivityEvent;
 import com.umeng.analytics.MobclickAgent;
 import com.umeng.socialize.bean.SHARE_MEDIA;
@@ -115,6 +116,7 @@ public class MainActivity extends BaseActivity implements MainView, ViewPager.On
     }
 
     private void initView() {
+        RequestPermission.RequestPermissionIfNecessary(this);//第三方广告需要请求的
         mBaseActivityComponent.inject(this);
         mImmersionBar.reset()
                 .transparentStatusBar()

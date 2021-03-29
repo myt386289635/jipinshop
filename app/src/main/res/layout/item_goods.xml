@@ -74,8 +74,8 @@
                 android:text="@{@string/classify_sort + position}"
                 android:textStyle="bold"
                 android:background="@drawable/bg_goods_sort"
-                android:layout_alignTop="@id/item_image"
-                android:layout_alignLeft="@id/item_image"
+                android:layout_alignTop="@+id/item_image"
+                android:layout_alignLeft="@+id/item_image"
                 android:layout_width="@dimen/x78"
                 android:layout_height="@dimen/y43"/>
 
@@ -140,9 +140,9 @@
                     android:text="@{@string/price + date.otherPrice}"
                     android:layout_marginLeft="@dimen/x15"
                     android:layout_marginBottom="@dimen/y1"
-                    android:layout_toRightOf="@id/item_priceContainer"
+                    android:layout_toRightOf="@+id/item_priceContainer"
                     android:id="@+id/detail_otherPrice"
-                    android:layout_alignBottom="@id/item_priceContainer"
+                    android:layout_alignBottom="@+id/item_priceContainer"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textSize="12sp"
@@ -157,7 +157,7 @@
                     android:textSize="11sp"
                     android:textColor="@color/color_white"
                     android:background="@mipmap/bg_coupon"
-                    android:layout_below="@id/item_priceContainer"
+                    android:layout_below="@+id/item_priceContainer"
                     android:layout_width="wrap_content"
                     android:layout_height="@dimen/y35"/>
 
@@ -166,8 +166,8 @@
                     android:id="@+id/detail_fee"
                     android:paddingRight="@dimen/x16"
                     android:paddingLeft="@dimen/x16"
-                    android:layout_below="@id/item_priceContainer"
-                    android:layout_toRightOf="@id/detail_coupon"
+                    android:layout_below="@+id/item_priceContainer"
+                    android:layout_toRightOf="@+id/detail_coupon"
                     android:gravity="center"
                     android:text="@{@string/fee + date.fee}"
                     android:textColor="@color/color_202020"

@@ -21,7 +21,7 @@
             android:layout_height="wrap_content"
             android:layout_marginRight="@dimen/x28"
             android:layout_marginTop="@dimen/x40"
-            android:layout_toRightOf="@id/item_image">
+            android:layout_toRightOf="@+id/item_image">
 
 
             <TextView
@@ -51,7 +51,7 @@
                 android:id="@+id/item_content"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_below="@id/item_name"
+                android:layout_below="@+id/item_name"
                 android:layout_marginTop="@dimen/x42"
                 android:lineSpacingExtra="@dimen/x8"
                 android:text="与水直接接触的内胆、不锈钢材质安全放心,不易生锈、结垢、无异味、易清洁。"
@@ -61,7 +61,7 @@
                 android:id="@+id/item_bottomLayout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_below="@id/item_content"
+                android:layout_below="@+id/item_content"
                 android:layout_marginTop="@dimen/x24">
 
                 <TextView
@@ -81,7 +81,7 @@
                     android:layout_marginLeft="@dimen/x20"
                     android:layout_marginRight="@dimen/x20"
                     android:layout_marginTop="@dimen/x24"
-                    android:layout_toRightOf="@id/item_time"
+                    android:layout_toRightOf="@+id/item_time"
                     android:background="@drawable/bg_shixinyuan"/>
 
 
@@ -89,7 +89,7 @@
                     android:id="@+id/item_reply"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_toRightOf="@id/item_yuan"
+                    android:layout_toRightOf="@+id/item_yuan"
                     android:text="回复"
                     android:textColor="@color/color_ACACAC"
                     android:textSize="13sp"/>
@@ -101,7 +101,7 @@
                 android:id="@+id/recycler_view"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_below="@id/item_bottomLayout"
+                android:layout_below="@+id/item_bottomLayout"
                 android:layout_marginTop="@dimen/x24"/>
 
         </RelativeLayout>

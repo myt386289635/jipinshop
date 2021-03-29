@@ -47,6 +47,7 @@ import com.example.administrator.jipinshop.util.sp.CommonDate;
 import com.example.administrator.jipinshop.view.dialog.DialogUtil;
 import com.example.administrator.jipinshop.view.dialog.ProgressDialogView;
 import com.example.administrator.jipinshop.view.dialog.ShareBoardDialog2;
+import com.qubian.mob.AdManager;
 import com.trello.rxlifecycle2.android.FragmentEvent;
 import com.umeng.socialize.bean.SHARE_MEDIA;
 
@@ -375,13 +376,13 @@ public class SignFragment extends DBBaseFragment implements View.OnClickListener
         mDialog = (new ProgressDialogView()).createLoadingDialog(getContext(), "");
         mDialog.show();
         mPresenter.initShare(share_media,this.bindToLifecycle());
-        mPresenter.taskFinish(this.bindToLifecycle());
+        mPresenter.taskFinish("30",this.bindToLifecycle());
     }
 
     @Override
     public void onLink() {
         mPresenter.initShare(null,this.bindToLifecycle());
-        mPresenter.taskFinish(this.bindToLifecycle());
+        mPresenter.taskFinish("30",this.bindToLifecycle());
     }
 
     @Override
@@ -485,7 +486,45 @@ public class SignFragment extends DBBaseFragment implements View.OnClickListener
                         .putExtra("title", title)
                 );
                 break;
+            case 21://观看激励视频
+                lookAd();
+                break;
         }
+    }
+
+    public void lookAd(){
+        mDialog = (new ProgressDialogView()).createLoadingDialog(getContext(), "");
+        mDialog.show();
+        AdManager.loadRewardVideoAd("1371288606810849283", "","", "极品城", AdManager.Orientation.VIDEO_VERTICAL, getActivity(), new AdManager.RewardVideoAdLoadListener() {
+            @Override
+            public void onAdFail(String s) {//广告加载失败
+                if (mDialog != null && mDialog.isShowing()){
+                    mDialog.dismiss();
+                }
+                ToastUtil.show(s);
+            }
+
+            @Override
+            public void onAdClose() {//视频被关闭
+                if (mDialog != null && mDialog.isShowing()){
+                    mDialog.dismiss();
+                }
+            }
+
+            @Override
+            public void onRewardVideoCached() {
+                //视频广告加载完成，此时播放视频不卡顿
+                if (mDialog != null && mDialog.isShowing()){
+                    mDialog.dismiss();
+                }
+                AdManager.playRewardVideoAd(getActivity());//播放
+            }
+
+            @Override
+            public void onRewardVerify() {//激励视频触发激励（观看视频大于一定时长或者视频播放完毕）
+                mPresenter.taskFinish("31",SignFragment.this.bindToLifecycle());
+            }
+        });
     }
 
     @Override
@@ -507,4 +546,10 @@ public class SignFragment extends DBBaseFragment implements View.OnClickListener
         DialogUtil.teacherDialog(getContext(),bean.getData().getWechat(),bean.getData().getAvatar());
     }
 
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        //释放所有激励视频广告资源，建议onDestroy中调用
+        AdManager.destroyRewardVideoAdAll();
+    }
 }

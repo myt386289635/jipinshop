@@ -33,7 +33,7 @@
             android:textSize="16sp"
             android:textColor="@color/color_white"
             android:background="@drawable/bg_evaluation"
-            android:layout_alignBottom="@id/content_image"
+            android:layout_alignBottom="@+id/content_image"
             android:layout_width="match_parent"
             android:layout_height="@dimen/x100"/>
 
@@ -72,7 +72,7 @@
         <TextView
             android:id="@+id/content_lookNum"
             android:layout_marginRight="@dimen/x70"
-            android:layout_toLeftOf="@id/content_commentNum"
+            android:layout_toLeftOf="@+id/content_commentNum"
             android:drawablePadding="@dimen/x16"
             android:gravity="center_vertical"
             android:textSize="13sp"

@@ -42,7 +42,7 @@
             <TextView
                 android:layout_marginRight="@dimen/x42"
                 android:layout_marginTop="-20dp"
-                android:layout_alignTop="@id/dialog_upFree"
+                android:layout_alignTop="@+id/dialog_upFree"
                 android:layout_alignParentRight="true"
                 android:textStyle="bold"
                 android:textColor="@color/color_C35E07"
@@ -54,7 +54,7 @@
                 android:layout_height="wrap_content"/>
 
             <TextView
-                android:layout_below="@id/dialog_upFree"
+                android:layout_below="@+id/dialog_upFree"
                 android:layout_marginBottom="@dimen/y53"
                 android:layout_marginTop="@dimen/y32"
                 android:id="@+id/dialog_buy"

@@ -25,7 +25,7 @@
             android:text="免费送好友"
             android:layout_marginBottom="@dimen/y70"
             android:layout_centerHorizontal="true"
-            android:layout_alignBottom="@id/dialog_bg"
+            android:layout_alignBottom="@+id/dialog_bg"
             android:background="@drawable/bg_fee97c"
             android:layout_width="@dimen/x190"
             android:layout_height="@dimen/y60"/>
@@ -33,7 +33,7 @@
         <ImageView
             android:id="@+id/dialog_cancle"
             android:layout_marginTop="@dimen/y117"
-            android:layout_below="@id/dialog_bg"
+            android:layout_below="@+id/dialog_bg"
             android:layout_centerHorizontal="true"
             android:src="@mipmap/dialog_close"
             android:layout_width="wrap_content"

@@ -61,7 +61,7 @@
             android:layout_alignTop="@+id/item_image"
             android:layout_marginRight="@dimen/x28"
             android:layout_marginLeft="@dimen/x28"
-            android:layout_toRightOf="@id/item_image"
+            android:layout_toRightOf="@+id/item_image"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"/>
 

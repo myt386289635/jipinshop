@@ -32,20 +32,20 @@
             android:textSize="14sp"
             android:text="更多"
             android:layout_marginRight="@dimen/x20"
-            android:layout_alignBottom="@id/item_title"
-            android:layout_alignTop="@id/item_title"
+            android:layout_alignBottom="@+id/item_title"
+            android:layout_alignTop="@+id/item_title"
             android:layout_alignParentRight="true"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"/>
 
         <com.example.administrator.jipinshop.view.recyclerView.MyRecyclerView
             android:id="@+id/item_rv"
-            android:layout_below="@id/item_title"
+            android:layout_below="@+id/item_title"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"/>
 
         <View
-            android:layout_below="@id/item_rv"
+            android:layout_below="@+id/item_rv"
             android:background="@color/color_F5F5F5"
             android:layout_width="match_parent"
             android:layout_height="@dimen/y10"/>

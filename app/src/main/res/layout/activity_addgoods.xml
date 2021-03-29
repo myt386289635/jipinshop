@@ -29,7 +29,7 @@
         <RelativeLayout
             android:layout_marginBottom="@dimen/y9"
             android:layout_marginTop="@dimen/y9"
-            android:layout_toLeftOf="@id/cancel"
+            android:layout_toLeftOf="@+id/cancel"
             android:layout_marginLeft="@dimen/x30"
             android:background="@color/color_F5F5F5"
             android:layout_width="match_parent"
@@ -38,7 +38,7 @@
             <EditText
                 android:singleLine="true"
                 android:paddingRight="@dimen/x10"
-                android:layout_toLeftOf="@id/goods_sreach"
+                android:layout_toLeftOf="@+id/goods_sreach"
                 android:id="@+id/goods_edit"
                 android:paddingLeft="@dimen/x30"
                 android:layout_centerVertical="true"
@@ -63,14 +63,14 @@
         </RelativeLayout>
 
         <View
-            android:layout_below="@id/cancel"
+            android:layout_below="@+id/cancel"
             android:background="@color/color_DEDEDE"
             android:layout_width="match_parent"
             android:layout_height="@dimen/y1"/>
 
         <com.aspsine.swipetoloadlayout.SwipeToLoadLayout
             android:layout_marginTop="@dimen/y1"
-            android:layout_below="@id/cancel"
+            android:layout_below="@+id/cancel"
             android:id="@+id/swipeToLoad"
             android:layout_width="match_parent"
             android:layout_height="match_parent"

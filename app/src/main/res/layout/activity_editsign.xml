@@ -34,7 +34,7 @@
         android:layout_marginLeft="@dimen/x30"
         android:layout_marginTop="@dimen/y34"
         android:background="@null"
-        android:layout_below="@id/edit_save"
+        android:layout_below="@+id/edit_save"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"/>
 
@@ -46,7 +46,7 @@
         android:textStyle="bold"
         android:textColor="@color/color_D8D8D8"
         android:layout_marginTop="@dimen/y220"
-        android:layout_below="@id/edit_save"
+        android:layout_below="@+id/edit_save"
         android:text="0/36"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"/>

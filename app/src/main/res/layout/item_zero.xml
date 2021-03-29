@@ -34,10 +34,10 @@
                 android:visibility="@{date.total > 0 ? View.GONE : View.VISIBLE}"
                 android:id="@+id/item_shadow"
                 android:background="@drawable/bg_80000000_2"
-                android:layout_alignRight="@id/item_image"
-                android:layout_alignBottom="@id/item_image"
-                android:layout_alignTop="@id/item_image"
-                android:layout_alignLeft="@id/item_image"
+                android:layout_alignRight="@+id/item_image"
+                android:layout_alignBottom="@+id/item_image"
+                android:layout_alignTop="@+id/item_image"
+                android:layout_alignLeft="@+id/item_image"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content">
 
@@ -67,7 +67,7 @@
                 android:textSize="14sp"
                 android:lineSpacingExtra="@dimen/y10"
                 android:text="@{date.goodsName}"
-                android:layout_below="@id/item_image"
+                android:layout_below="@+id/item_image"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"/>
 
@@ -76,7 +76,7 @@
                 android:layout_marginTop="@dimen/y5"
                 android:layout_marginRight="@dimen/x12"
                 android:layout_marginLeft="@dimen/x12"
-                android:layout_below="@id/item_name"
+                android:layout_below="@+id/item_name"
                 android:orientation="horizontal"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
@@ -103,7 +103,7 @@
                 android:layout_marginLeft="@dimen/x12"
                 android:layout_marginTop="@dimen/y14"
                 android:id="@+id/item_fee"
-                android:layout_below="@id/item_priceContainer"
+                android:layout_below="@+id/item_priceContainer"
                 android:gravity="center"
                 android:text="@{@string/free_buyed + date.soldTotal + @string/free_count2}"
                 android:textColor="@color/color_E25838"
@@ -113,7 +113,7 @@
 
             <ImageView
                 android:layout_marginTop="@dimen/y5"
-                android:layout_below="@id/item_priceContainer"
+                android:layout_below="@+id/item_priceContainer"
                 android:layout_marginRight="@dimen/x18"
                 android:layout_alignParentRight="true"
                 android:layout_marginBottom="@dimen/y14"

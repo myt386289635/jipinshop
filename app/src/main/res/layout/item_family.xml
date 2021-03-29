@@ -19,7 +19,7 @@
             android:textColor="@color/color_565252"
             android:textSize="14sp"
             android:layout_marginLeft="@dimen/x21"
-            android:layout_toRightOf="@id/item_image"
+            android:layout_toRightOf="@+id/item_image"
             android:layout_centerVertical="true"
             android:text="用户名"
             android:layout_width="wrap_content"
@@ -28,7 +28,7 @@
         <ImageView
             android:id="@+id/item_vip"
             android:layout_marginLeft="@dimen/x20"
-            android:layout_toRightOf="@id/item_name"
+            android:layout_toRightOf="@+id/item_name"
             android:layout_centerVertical="true"
             android:src="@mipmap/bg_family_3"
             android:layout_width="wrap_content"

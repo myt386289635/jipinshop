@@ -24,7 +24,7 @@
 
         <TextView
             android:id="@+id/item_name"
-            android:layout_toRightOf="@id/item_image"
+            android:layout_toRightOf="@+id/item_image"
             android:textStyle="bold"
             android:textColor="@color/color_424242"
             android:textSize="15sp"
@@ -35,10 +35,10 @@
         <TextView
             android:id="@+id/item_code"
             android:gravity="center"
-            android:layout_alignBottom="@id/item_name"
-            android:layout_alignTop="@id/item_name"
+            android:layout_alignBottom="@+id/item_name"
+            android:layout_alignTop="@+id/item_name"
             android:layout_marginLeft="@dimen/x10"
-            android:layout_toRightOf="@id/item_name"
+            android:layout_toRightOf="@+id/item_name"
             android:text="@{@string/sign_1 + date.point}"
             android:textStyle="bold"
             android:textSize="13sp"
@@ -53,8 +53,8 @@
             android:textStyle="bold"
             android:textColor="@color/color_ACACAC"
             android:textSize="13sp"
-            android:layout_toRightOf="@id/item_image"
-            android:layout_alignBottom="@id/item_image"
+            android:layout_toRightOf="@+id/item_image"
+            android:layout_alignBottom="@+id/item_image"
             android:text="@{date.content}"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"/>

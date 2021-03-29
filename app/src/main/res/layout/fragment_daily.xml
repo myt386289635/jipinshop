@@ -40,7 +40,7 @@
             <net.lucode.hackware.magicindicator.MagicIndicator
                 android:id="@+id/daily_menu"
                 android:layout_centerVertical="true"
-                android:layout_toLeftOf="@id/daily_down"
+                android:layout_toLeftOf="@+id/daily_down"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"/>
 

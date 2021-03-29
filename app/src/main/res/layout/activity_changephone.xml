@@ -52,7 +52,7 @@
 
         <EditText
             android:inputType="number"
-            android:layout_toLeftOf="@id/login_getCode"
+            android:layout_toLeftOf="@+id/login_getCode"
             android:layout_centerVertical="true"
             android:textSize="14sp"
             android:layout_marginLeft="@dimen/x20"
@@ -60,16 +60,16 @@
             android:hint="输入验证码"
             android:id="@+id/login_code"
             android:background="@null"
-            android:layout_toRightOf="@id/login_codeImg"
+            android:layout_toRightOf="@+id/login_codeImg"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"/>
 
         <View
             android:layout_marginTop="@dimen/x42"
             android:background="@color/color_F5F5F5"
-            android:layout_below="@id/login_getCode"
+            android:layout_below="@+id/login_getCode"
             android:layout_marginLeft="@dimen/x20"
-            android:layout_toRightOf="@id/login_codeImg"
+            android:layout_toRightOf="@+id/login_codeImg"
             android:layout_width="match_parent"
             android:layout_height="@dimen/x2"/>
 

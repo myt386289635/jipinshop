@@ -52,8 +52,8 @@ public class HasPermissionsUtil implements HasPermissmionsListener{
      */
     private static void showSettingDialog(Context context,HasPermissionsUtil hasPermissionsUtil, final List<String> permissions) {
         List<String> permissionNames = Permission.transformText(context, permissions);
-        String message = "点击设置打开" + permissionNames.get(0) + "权限";
-        String title = "该操作需要访问您的" + permissionNames.get(0) + "权限";
+        String message = "点击设置打开权限";
+        String title = "该操作需要访问权限";
         AlertDialog mDialog = new AlertDialog.Builder(context)
                 .setCancelable(false)
                 .setTitle(title)

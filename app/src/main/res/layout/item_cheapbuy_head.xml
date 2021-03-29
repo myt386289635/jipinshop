@@ -52,7 +52,7 @@
         </LinearLayout>
 
         <ImageView
-            android:layout_below="@id/item_cheapContainer"
+            android:layout_below="@+id/item_cheapContainer"
             android:id="@+id/item_bg"
             android:layout_marginTop="@dimen/y27"
             android:adjustViewBounds="true"
@@ -65,7 +65,7 @@
 
         <ImageView
             android:layout_marginTop="@dimen/y20"
-            android:layout_below="@id/item_bg"
+            android:layout_below="@+id/item_bg"
             android:layout_marginBottom="@dimen/y20"
             android:scaleType="fitXY"
             android:layout_marginRight="@dimen/x20"
@@ -77,8 +77,8 @@
 
         <LinearLayout
             android:layout_marginLeft="@dimen/x267"
-            android:layout_alignBottom="@id/item_bg"
-            android:layout_alignTop="@id/item_bg"
+            android:layout_alignBottom="@+id/item_bg"
+            android:layout_alignTop="@+id/item_bg"
             android:gravity="center_vertical"
             android:orientation="horizontal"
             android:layout_width="wrap_content"
@@ -113,8 +113,8 @@
             android:textSize="13sp"
             android:layout_marginBottom="@dimen/y4"
             android:layout_marginLeft="@dimen/x24"
-            android:layout_alignLeft="@id/item_bg"
-            android:layout_alignBottom="@id/item_bg"
+            android:layout_alignLeft="@+id/item_bg"
+            android:layout_alignBottom="@+id/item_bg"
             android:text="0秒"
             android:minWidth="@dimen/x160"
             android:layout_width="wrap_content"

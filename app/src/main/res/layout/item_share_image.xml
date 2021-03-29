@@ -23,9 +23,9 @@
             android:textColor="@color/color_white"
             android:textSize="11sp"
             android:text="二维码推广图"
-            android:layout_alignBottom="@id/item_image"
-            android:layout_alignRight="@id/item_image"
-            android:layout_alignLeft="@id/item_image"
+            android:layout_alignBottom="@+id/item_image"
+            android:layout_alignRight="@+id/item_image"
+            android:layout_alignLeft="@+id/item_image"
             android:layout_width="match_parent"
             android:layout_height="@dimen/y34"/>
 
@@ -34,7 +34,7 @@
             android:paddingTop="@dimen/y10"
             android:paddingRight="@dimen/x10"
             android:paddingBottom="@dimen/y10"
-            android:layout_alignRight="@id/item_image"
+            android:layout_alignRight="@+id/item_image"
             android:button="@drawable/share_tab"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"/>

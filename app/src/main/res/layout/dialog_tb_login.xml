@@ -12,10 +12,10 @@
         android:layout_height="@dimen/y670"/>
 
     <LinearLayout
-        android:layout_alignBottom="@id/dialog_bg"
-        android:layout_alignRight="@id/dialog_bg"
-        android:layout_alignLeft="@id/dialog_bg"
-        android:layout_alignTop="@id/dialog_bg"
+        android:layout_alignBottom="@+id/dialog_bg"
+        android:layout_alignRight="@+id/dialog_bg"
+        android:layout_alignLeft="@+id/dialog_bg"
+        android:layout_alignTop="@+id/dialog_bg"
         android:layout_centerHorizontal="true"
         android:orientation="vertical"
         android:layout_width="wrap_content"
@@ -70,7 +70,7 @@
     <ImageView
         android:id="@+id/dialog_cancle"
         android:layout_marginTop="@dimen/y44"
-        android:layout_below="@id/dialog_bg"
+        android:layout_below="@+id/dialog_bg"
         android:layout_centerHorizontal="true"
         android:src="@mipmap/dialog_close2"
         android:layout_width="wrap_content"

@@ -31,7 +31,7 @@
             android:layout_marginRight="@dimen/x30"
             android:layout_marginBottom="@dimen/y24"
             android:layout_marginTop="@dimen/y24"
-            android:layout_below="@id/dialog_title"
+            android:layout_below="@+id/dialog_title"
             android:id="@+id/dialog_numberContainer"
             android:orientation="horizontal"
             android:layout_width="match_parent"
@@ -58,7 +58,7 @@
                     android:layout_marginTop="@dimen/y5"
                     android:layout_centerHorizontal="true"
                     android:textSize="12sp"
-                    android:layout_below="@id/dialog_number"
+                    android:layout_below="@+id/dialog_number"
                     android:text="18612345678"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"/>
@@ -66,7 +66,7 @@
                 <ImageView
                     android:id="@+id/dialog_phoneCopy"
                     android:layout_marginLeft="@dimen/x5"
-                    android:layout_toRightOf="@id/dialog_number"
+                    android:layout_toRightOf="@+id/dialog_number"
                     android:src="@mipmap/dialog_copy"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"/>
@@ -96,7 +96,7 @@
                     android:layout_marginTop="@dimen/y5"
                     android:layout_centerHorizontal="true"
                     android:textSize="12sp"
-                    android:layout_below="@id/dialog_wx"
+                    android:layout_below="@+id/dialog_wx"
                     android:text="暂未填写"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"/>
@@ -104,7 +104,7 @@
                 <ImageView
                     android:id="@+id/dialog_wxCopy"
                     android:layout_marginLeft="@dimen/x5"
-                    android:layout_toRightOf="@id/dialog_wx"
+                    android:layout_toRightOf="@+id/dialog_wx"
                     android:src="@mipmap/dialog_copy"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"/>
@@ -116,7 +116,7 @@
             android:layout_marginBottom="@dimen/y24"
             android:orientation="vertical"
             android:id="@+id/dialog_bottomContainer"
-            android:layout_below="@id/dialog_numberContainer"
+            android:layout_below="@+id/dialog_numberContainer"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
@@ -152,8 +152,8 @@
                         android:textStyle="bold"
                         android:textColor="@color/color_white"
                         android:textSize="18sp"
-                        android:layout_alignLeft="@id/dialog_textTag"
-                        android:layout_below="@id/dialog_textTag"
+                        android:layout_alignLeft="@+id/dialog_textTag"
+                        android:layout_below="@+id/dialog_textTag"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"/>
 
@@ -182,8 +182,8 @@
                         android:textStyle="bold"
                         android:textColor="@color/color_white"
                         android:textSize="18sp"
-                        android:layout_alignLeft="@id/dialog_textTag2"
-                        android:layout_below="@id/dialog_textTag2"
+                        android:layout_alignLeft="@+id/dialog_textTag2"
+                        android:layout_below="@+id/dialog_textTag2"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"/>
 

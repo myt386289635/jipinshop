@@ -37,16 +37,16 @@
         android:layout_marginRight="@dimen/x30"
         android:layout_marginLeft="@dimen/x30"
         android:id="@+id/dialog_rv"
-        android:layout_below="@id/dialog_title"
+        android:layout_below="@+id/dialog_title"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"/>
 
     <LinearLayout
         android:background="@color/color_F5F5F5"
         android:layout_marginLeft="@dimen/x165"
-        android:layout_alignLeft="@id/dialog_rv"
-        android:layout_alignBottom="@id/dialog_rv"
-        android:layout_alignTop="@id/dialog_rv"
+        android:layout_alignLeft="@+id/dialog_rv"
+        android:layout_alignBottom="@+id/dialog_rv"
+        android:layout_alignTop="@+id/dialog_rv"
         android:layout_width="1px"
         android:layout_height="wrap_content"/>
 

@@ -34,15 +34,15 @@
             android:textSize="14sp"
             android:text="@{data.otherName}"
             android:layout_marginTop="@dimen/y5"
-            android:layout_toRightOf="@id/item_image"
-            android:layout_alignTop="@id/item_image"
+            android:layout_toRightOf="@+id/item_image"
+            android:layout_alignTop="@+id/item_image"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"/>
 
         <com.example.administrator.jipinshop.view.SaleProgressView
-            android:layout_toRightOf="@id/item_image"
+            android:layout_toRightOf="@+id/item_image"
             android:layout_marginTop="@dimen/y18"
-            android:layout_below="@id/item_name"
+            android:layout_below="@+id/item_name"
             android:id="@+id/item_progressbar"
             android:layout_width="@dimen/x250"
             android:layout_height="@dimen/y26"
@@ -57,18 +57,18 @@
             android:id="@+id/item_progressbarNotice"
             android:gravity="center"
             android:textSize="11sp"
-            android:layout_alignTop="@id/item_progressbar"
+            android:layout_alignTop="@+id/item_progressbar"
             android:textColor="@color/color_white"
             android:text="已抢完"
-            android:layout_alignRight="@id/item_progressbar"
-            android:layout_alignLeft="@id/item_progressbar"
+            android:layout_alignRight="@+id/item_progressbar"
+            android:layout_alignLeft="@+id/item_progressbar"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"/>
 
         <TextView
             android:layout_marginTop="@dimen/y24"
-            android:layout_toRightOf="@id/item_image"
-            android:layout_below="@id/item_progressbar"
+            android:layout_toRightOf="@+id/item_image"
+            android:layout_below="@+id/item_progressbar"
             android:layout_marginRight="@dimen/x10"
             android:minHeight="@dimen/y26"
             android:gravity="center"
@@ -83,8 +83,8 @@
 
         <TextView
             android:layout_marginTop="@dimen/y24"
-            android:layout_below="@id/item_progressbar"
-            android:layout_toRightOf="@id/item_coupon"
+            android:layout_below="@+id/item_progressbar"
+            android:layout_toRightOf="@+id/item_coupon"
             android:textStyle="bold"
             android:minHeight="@dimen/y26"
             android:id="@+id/item_fee"
@@ -100,8 +100,8 @@
 
         <LinearLayout
             android:layout_marginBottom="@dimen/y11"
-            android:layout_alignBottom="@id/item_image"
-            android:layout_toRightOf="@id/item_image"
+            android:layout_alignBottom="@+id/item_image"
+            android:layout_toRightOf="@+id/item_image"
             android:orientation="horizontal"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content">
@@ -138,7 +138,7 @@
 
         <TextView
             android:id="@+id/item_buy"
-            android:layout_alignBottom="@id/item_image"
+            android:layout_alignBottom="@+id/item_image"
             android:layout_marginRight="@dimen/x30"
             android:layout_alignParentRight="true"
             android:gravity="center"
@@ -152,7 +152,7 @@
 
         <ImageView
             android:layout_marginRight="@dimen/x18"
-            android:layout_below="@id/item_name"
+            android:layout_below="@+id/item_name"
             android:layout_alignParentRight="true"
             android:id="@+id/item_share"
             android:paddingBottom="@dimen/y13"

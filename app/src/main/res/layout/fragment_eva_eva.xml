@@ -34,7 +34,7 @@
                 android:layout_height="@dimen/y88"/>
 
             <android.support.v7.widget.RecyclerView
-                android:layout_below="@id/tab_layout"
+                android:layout_below="@+id/tab_layout"
                 android:id="@+id/recycler_view"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"/>

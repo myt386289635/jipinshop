@@ -51,7 +51,7 @@
         <TextView
             android:id="@+id/dialog_sure"
             android:layout_marginBottom="@dimen/y46"
-            android:layout_alignBottom="@id/dialog_image"
+            android:layout_alignBottom="@+id/dialog_image"
             android:layout_marginLeft="@dimen/x32"
             android:gravity="center"
             android:textStyle="bold"
@@ -64,9 +64,9 @@
 
         <TextView
             android:id="@+id/dialog_share"
-            android:layout_alignRight="@id/dialog_image"
+            android:layout_alignRight="@+id/dialog_image"
             android:layout_marginBottom="@dimen/y46"
-            android:layout_alignBottom="@id/dialog_image"
+            android:layout_alignBottom="@+id/dialog_image"
             android:layout_marginRight="@dimen/x32"
             android:gravity="center"
             android:textStyle="bold"
@@ -80,7 +80,7 @@
         <TextView
             android:id="@+id/dialog_cost"
             android:layout_marginTop="-22dp"
-            android:layout_alignRight="@id/dialog_share"
+            android:layout_alignRight="@+id/dialog_share"
             android:layout_alignTop="@+id/dialog_share"
             android:textStyle="bold"
             android:textColor="@color/color_C35E07"
@@ -95,7 +95,7 @@
         <ImageView
             android:id="@+id/dialog_dismiss"
             android:layout_marginTop="@dimen/y74"
-            android:layout_below="@id/dialog_image"
+            android:layout_below="@+id/dialog_image"
             android:layout_centerHorizontal="true"
             android:src="@mipmap/dialog_close"
             android:layout_width="wrap_content"

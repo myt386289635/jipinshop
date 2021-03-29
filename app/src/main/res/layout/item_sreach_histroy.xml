@@ -26,7 +26,7 @@
         android:padding="@dimen/x5"
         android:id="@+id/histroy_delete"
         android:layout_marginTop="@dimen/x20"
-        android:layout_alignRight="@id/histroy_item"
+        android:layout_alignRight="@+id/histroy_item"
         android:src="@mipmap/search_close"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"/>

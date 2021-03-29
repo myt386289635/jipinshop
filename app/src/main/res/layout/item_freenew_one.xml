@@ -13,8 +13,8 @@
             android:layout_height="@dimen/y472"/>
 
         <RelativeLayout
-            android:layout_alignTop="@id/bg_free"
-            android:layout_alignBottom="@id/bg_free"
+            android:layout_alignTop="@+id/bg_free"
+            android:layout_alignBottom="@+id/bg_free"
             android:id="@+id/free_invitationContanier"
             android:orientation="vertical"
             android:layout_width="match_parent"
@@ -31,7 +31,7 @@
                 android:layout_height="wrap_content"/>
 
             <ImageView
-                android:layout_above="@id/free_invitation"
+                android:layout_above="@+id/free_invitation"
                 android:layout_centerHorizontal="true"
                 android:id="@+id/bg_free1"
                 android:src="@mipmap/bg_free1"
@@ -40,7 +40,7 @@
 
             <TextView
                 android:layout_marginTop="@dimen/y18"
-                android:layout_above="@id/bg_free1"
+                android:layout_above="@+id/bg_free1"
                 android:id="@+id/free_rule"
                 android:paddingBottom="@dimen/y13"
                 android:paddingTop="@dimen/y16"
@@ -58,7 +58,7 @@
 
         <RelativeLayout
             android:background="@color/color_E25838"
-            android:layout_below="@id/bg_free"
+            android:layout_below="@+id/bg_free"
             android:layout_width="match_parent"
             android:layout_height="@dimen/y110">
 

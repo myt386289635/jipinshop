@@ -22,7 +22,7 @@
 
         <RelativeLayout
             android:layout_marginTop="@dimen/y32"
-            android:layout_below="@id/in_clude"
+            android:layout_below="@+id/in_clude"
             android:id="@+id/share_titleContainer1"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
@@ -214,8 +214,8 @@
         <ScrollView
             android:scrollbars="none"
             android:fillViewport="true"
-            android:layout_above="@id/share_bottomLayout"
-            android:layout_below="@id/share_titleContainer1"
+            android:layout_above="@+id/share_bottomLayout"
+            android:layout_below="@+id/share_titleContainer1"
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 

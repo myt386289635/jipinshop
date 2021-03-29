@@ -30,7 +30,7 @@
             android:textSize="17sp"
             android:layout_marginBottom="@dimen/y17"
             android:layout_marginTop="@dimen/y20"
-            android:layout_below="@id/dialog_image"
+            android:layout_below="@+id/dialog_image"
             android:layout_centerHorizontal="true"
             android:text="liex请求共享特权"
             android:layout_width="wrap_content"
@@ -38,7 +38,7 @@
 
         <TextView
             android:layout_marginBottom="@dimen/y61"
-            android:layout_below="@id/dialog_name"
+            android:layout_below="@+id/dialog_name"
             android:layout_centerHorizontal="true"
             android:id="@+id/dialog_content"
             android:lineSpacingExtra="@dimen/y10"
@@ -51,7 +51,7 @@
 
         <RelativeLayout
             android:id="@+id/dialog_bottomContainer"
-            android:layout_below="@id/dialog_content"
+            android:layout_below="@+id/dialog_content"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
@@ -74,7 +74,7 @@
                 android:gravity="center"
                 android:textStyle="bold"
                 android:id="@+id/dialog_sure"
-                android:layout_alignTop="@id/dialog_line"
+                android:layout_alignTop="@+id/dialog_line"
                 android:layout_alignBottom="@+id/dialog_line1"
                 android:layout_alignParentRight="true"
                 android:textSize="16sp"
@@ -84,9 +84,9 @@
                 android:layout_height="wrap_content"/>
 
             <TextView
-                android:layout_alignRight="@id/dialog_line1"
+                android:layout_alignRight="@+id/dialog_line1"
                 android:gravity="center"
-                android:layout_alignTop="@id/dialog_line"
+                android:layout_alignTop="@+id/dialog_line"
                 android:layout_alignBottom="@+id/dialog_line1"
                 android:layout_alignParentLeft="true"
                 android:id="@+id/dialog_cancle"

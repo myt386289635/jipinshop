@@ -35,7 +35,7 @@
             android:layout_marginRight="@dimen/x20"
             android:layout_marginLeft="@dimen/x20"
             android:layout_marginTop="@dimen/y32"
-            android:layout_below="@id/pop_title"
+            android:layout_below="@+id/pop_title"
             android:layout_width="match_parent"
             android:layout_height="@dimen/y152">
 
@@ -102,7 +102,7 @@
             android:textColor="@color/color_DE151515"
             android:textSize="15sp"
             android:text="支付宝支付"
-            android:layout_below="@id/pop_priceContainer"
+            android:layout_below="@+id/pop_priceContainer"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"/>
 
@@ -112,7 +112,7 @@
             android:paddingBottom="@dimen/y20"
             android:id="@+id/pop_alipay"
             android:layout_alignParentRight="true"
-            android:layout_below="@id/pop_priceContainer"
+            android:layout_below="@+id/pop_priceContainer"
             android:layout_marginTop="@dimen/y22"
             android:button="@drawable/bg_pay"
             android:layout_width="wrap_content"
@@ -126,7 +126,7 @@
             android:textColor="@color/color_DE151515"
             android:textSize="15sp"
             android:text="微信支付"
-            android:layout_below="@id/pop_alipay"
+            android:layout_below="@+id/pop_alipay"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"/>
 
@@ -137,7 +137,7 @@
             android:paddingBottom="@dimen/y20"
             android:id="@+id/pop_wxpay"
             android:layout_alignParentRight="true"
-            android:layout_below="@id/pop_alipay"
+            android:layout_below="@+id/pop_alipay"
             android:layout_marginTop="@dimen/y22"
             android:button="@drawable/bg_pay"
             android:layout_width="wrap_content"
@@ -161,7 +161,7 @@
 
         <LinearLayout
             android:layout_marginLeft="@dimen/x20"
-            android:layout_alignBottom="@id/pop_pay"
+            android:layout_alignBottom="@+id/pop_pay"
             android:orientation="horizontal"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content">

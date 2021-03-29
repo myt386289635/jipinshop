@@ -58,7 +58,7 @@
 
             <LinearLayout
                 android:orientation="vertical"
-                android:layout_below="@id/item_score_container"
+                android:layout_below="@+id/item_score_container"
                 android:layout_centerHorizontal="true"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content">
@@ -87,7 +87,7 @@
                         android:layout_centerInParent="true"
                         android:layout_centerVertical="true"
                         android:layout_marginLeft="@dimen/x8"
-                        android:layout_toRightOf="@id/item_progressbar1_text"
+                        android:layout_toRightOf="@+id/item_progressbar1_text"
                         app:endColor="@color/color_E25838"
                         app:nearOverText=""
                         app:overText=""
@@ -100,7 +100,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="@dimen/x20"
-                        android:layout_toRightOf="@id/item_progressbar1"
+                        android:layout_toRightOf="@+id/item_progressbar1"
                         android:text="0分"
                         android:textColor="@color/color_ACACAC"
                         android:textSize="13sp"/>
@@ -133,7 +133,7 @@
                         android:layout_centerInParent="true"
                         android:layout_centerVertical="true"
                         android:layout_marginLeft="@dimen/x8"
-                        android:layout_toRightOf="@id/item_progressbar2_text"
+                        android:layout_toRightOf="@+id/item_progressbar2_text"
                         app:endColor="@color/color_E25838"
                         app:nearOverText=""
                         app:overText=""
@@ -146,7 +146,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="@dimen/x20"
-                        android:layout_toRightOf="@id/item_progressbar2"
+                        android:layout_toRightOf="@+id/item_progressbar2"
                         android:text="0分"
                         android:textColor="@color/color_ACACAC"
                         android:textSize="13sp"/>
@@ -179,7 +179,7 @@
                         android:layout_centerInParent="true"
                         android:layout_centerVertical="true"
                         android:layout_marginLeft="@dimen/x8"
-                        android:layout_toRightOf="@id/item_progressbar3_text"
+                        android:layout_toRightOf="@+id/item_progressbar3_text"
                         app:endColor="@color/color_E25838"
                         app:nearOverText=""
                         app:overText=""
@@ -192,7 +192,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="@dimen/x20"
-                        android:layout_toRightOf="@id/item_progressbar3"
+                        android:layout_toRightOf="@+id/item_progressbar3"
                         android:text="0分"
                         android:textColor="@color/color_ACACAC"
                         android:textSize="13sp"/>
@@ -225,7 +225,7 @@
                         android:layout_centerInParent="true"
                         android:layout_centerVertical="true"
                         android:layout_marginLeft="@dimen/x8"
-                        android:layout_toRightOf="@id/item_progressbar4_text"
+                        android:layout_toRightOf="@+id/item_progressbar4_text"
                         app:endColor="@color/color_E25838"
                         app:nearOverText=""
                         app:overText=""
@@ -237,7 +237,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="@dimen/x20"
-                        android:layout_toRightOf="@id/item_progressbar4"
+                        android:layout_toRightOf="@+id/item_progressbar4"
                         android:text="0分"
                         android:textColor="@color/color_ACACAC"
                         android:textSize="13sp"/>
@@ -282,7 +282,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="@dimen/x20"
-                        android:layout_toRightOf="@id/item_progressbar5"
+                        android:layout_toRightOf="@+id/item_progressbar5"
                         android:text="0分"
                         android:textColor="@color/color_ACACAC"
                         android:textSize="13sp"/>

@@ -66,7 +66,7 @@
                 android:paddingRight="@dimen/x25"
                 android:id="@+id/detail_share"
                 android:onClick="@{listener.onClick}"
-                android:layout_toLeftOf="@id/bottom_favor"
+                android:layout_toLeftOf="@+id/bottom_favor"
                 android:src="@mipmap/qus_forward"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"/>
@@ -74,7 +74,7 @@
             <RelativeLayout
                 android:visibility="gone"
                 android:id="@+id/head_contanier"
-                android:layout_toRightOf="@id/title_back"
+                android:layout_toRightOf="@+id/title_back"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent">
 
@@ -90,15 +90,15 @@
 
                 <ImageView
                     android:id="@+id/head_grade"
-                    android:layout_alignRight="@id/head_userImage"
-                    android:layout_alignBottom="@id/head_userImage"
+                    android:layout_alignRight="@+id/head_userImage"
+                    android:layout_alignBottom="@+id/head_userImage"
                     android:src="@mipmap/grade_peroson"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"/>
 
                 <TextView
                     android:layout_marginLeft="@dimen/x10"
-                    android:layout_toRightOf="@id/head_userImage"
+                    android:layout_toRightOf="@+id/head_userImage"
                     android:layout_centerVertical="true"
                     android:textColor="@color/color_DE151515"
                     android:textSize="15sp"
@@ -108,7 +108,7 @@
                     android:layout_height="wrap_content"/>
 
                 <TextView
-                    android:layout_toRightOf="@id/head_userName"
+                    android:layout_toRightOf="@+id/head_userName"
                     android:id="@+id/head_attention"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -197,7 +197,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="@dimen/x24"
                         android:layout_toRightOf="@+id/detail_UserImage"
-                        android:layout_alignBottom="@id/detail_UserImage"
+                        android:layout_alignBottom="@+id/detail_UserImage"
                         tools:text="45分钟前"
                         android:textColor="@color/color_ACACAC"
                         android:textSize="12sp"/>
@@ -356,7 +356,7 @@
                     android:id="@+id/detail_relatedArticle"
                     android:layout_marginLeft="@dimen/x28"
                     android:layout_marginTop="@dimen/y56"
-                    android:layout_below="@id/detail_Line1"
+                    android:layout_below="@+id/detail_Line1"
                     android:textStyle="bold"
                     android:textSize="18sp"
                     android:textColor="@color/color_DE050505"
@@ -445,9 +445,9 @@
                     android:text="¥0.00"
                     android:layout_marginLeft="@dimen/x15"
                     android:layout_marginBottom="@dimen/y6"
-                    android:layout_toRightOf="@id/detail_actualPrice"
+                    android:layout_toRightOf="@+id/detail_actualPrice"
                     android:id="@+id/detail_otherPrice"
-                    android:layout_alignBottom="@id/detail_actualPrice"
+                    android:layout_alignBottom="@+id/detail_actualPrice"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textSize="13sp"
@@ -462,7 +462,7 @@
                     android:textSize="11sp"
                     android:textColor="@color/color_white"
                     android:background="@mipmap/bg_coupon"
-                    android:layout_below="@id/detail_actualPrice"
+                    android:layout_below="@+id/detail_actualPrice"
                     android:layout_width="wrap_content"
                     android:layout_height="@dimen/y35"/>
 
@@ -470,8 +470,8 @@
                     android:id="@+id/detail_fee"
                     android:paddingRight="@dimen/x16"
                     android:paddingLeft="@dimen/x16"
-                    android:layout_below="@id/detail_actualPrice"
-                    android:layout_toRightOf="@id/detail_coupon"
+                    android:layout_below="@+id/detail_actualPrice"
+                    android:layout_toRightOf="@+id/detail_coupon"
                     android:gravity="center"
                     android:text="返 ¥0.00"
                     android:textColor="@color/color_202020"

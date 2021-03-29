@@ -49,7 +49,7 @@
             android:id="@+id/item_unred"
             android:layout_width="@dimen/x16"
             android:layout_height="@dimen/x16"
-            android:layout_toRightOf="@id/item_name"
+            android:layout_toRightOf="@+id/item_name"
             android:src="@drawable/message_center_red"/>
 
     </RelativeLayout>
@@ -59,7 +59,7 @@
         android:id="@+id/item_line"
         android:layout_width="match_parent"
         android:layout_height="@dimen/x2"
-        android:layout_below="@id/item_title_contanier"
+        android:layout_below="@+id/item_title_contanier"
         android:layout_marginTop="@dimen/x24"
         android:background="@color/color_F5F5F5"/>
 
@@ -67,7 +67,7 @@
         android:id="@+id/item_content"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@id/item_line"
+        android:layout_below="@+id/item_line"
         android:layout_marginBottom="@dimen/x32"
         android:layout_marginLeft="@dimen/x16"
         android:layout_marginRight="@dimen/x16"
@@ -84,7 +84,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentRight="true"
-        android:layout_below="@id/item_content"
+        android:layout_below="@+id/item_content"
         android:layout_marginBottom="@dimen/x16"
         android:layout_marginRight="@dimen/x16"
         android:drawablePadding="@dimen/x10"

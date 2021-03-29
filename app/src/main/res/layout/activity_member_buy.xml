@@ -130,8 +130,8 @@
         
         <ScrollView
             android:background="@color/color_F5F5F5"
-            android:layout_above="@id/buy_bottomContainer"
-            android:layout_below="@id/in_clude"
+            android:layout_above="@+id/buy_bottomContainer"
+            android:layout_below="@+id/in_clude"
             android:layout_width="match_parent"
             android:layout_height="match_parent">
             <LinearLayout
@@ -159,8 +159,8 @@
                         android:layout_height="wrap_content"/>
 
                     <TextView
-                        android:layout_toRightOf="@id/buy_image"
-                        android:layout_alignTop="@id/buy_image"
+                        android:layout_toRightOf="@+id/buy_image"
+                        android:layout_alignTop="@+id/buy_image"
                         android:textColor="@color/color_202020"
                         android:textStyle="bold"
                         android:textSize="18sp"
@@ -170,8 +170,8 @@
 
                     <TextView
                         android:id="@+id/buy_countTime"
-                        android:layout_toRightOf="@id/buy_image"
-                        android:layout_alignBottom="@id/buy_image"
+                        android:layout_toRightOf="@+id/buy_image"
+                        android:layout_alignBottom="@+id/buy_image"
                         android:textColor="@color/color_202020"
                         android:textSize="14sp"
                         android:text="请在15分0秒内完成支付"
@@ -249,7 +249,7 @@
                         <LinearLayout
                             android:id="@+id/month_other_price_container"
                             android:layout_marginTop="@dimen/y8"
-                            android:layout_below="@id/pop_monthTitle"
+                            android:layout_below="@+id/pop_monthTitle"
                             android:layout_centerHorizontal="true"
                             android:orientation="horizontal"
                             android:layout_width="wrap_content"
@@ -317,7 +317,7 @@
                         android:layout_marginTop="@dimen/y24"
                         android:layout_marginRight="@dimen/x11"
                         android:layout_marginLeft="@dimen/x11"
-                        android:layout_toRightOf="@id/month_container"
+                        android:layout_toRightOf="@+id/month_container"
                         android:layout_centerVertical="true"
                         android:orientation="horizontal"
                         android:layout_width="match_parent"
@@ -354,7 +354,7 @@
                             <LinearLayout
                                 android:id="@+id/year_other_price_container"
                                 android:layout_marginTop="@dimen/y8"
-                                android:layout_below="@id/pop_yearTitle"
+                                android:layout_below="@+id/pop_yearTitle"
                                 android:layout_centerHorizontal="true"
                                 android:orientation="horizontal"
                                 android:layout_width="wrap_content"
@@ -438,7 +438,7 @@
                             <RelativeLayout
                                 android:id="@+id/week_other_price_container"
                                 android:layout_marginTop="@dimen/y8"
-                                android:layout_below="@id/pop_weekTitle"
+                                android:layout_below="@+id/pop_weekTitle"
                                 android:layout_centerHorizontal="true"
                                 android:orientation="horizontal"
                                 android:layout_width="wrap_content"
@@ -446,7 +446,7 @@
 
                                 <TextView
                                     android:layout_marginBottom="@dimen/y10"
-                                    android:layout_alignBottom="@id/week_price"
+                                    android:layout_alignBottom="@+id/week_price"
                                     android:id="@+id/week_name"
                                     android:textStyle="bold"
                                     android:textColor="@color/color_E25838"
@@ -456,7 +456,7 @@
                                     android:layout_height="wrap_content"/>
 
                                 <TextView
-                                    android:layout_toRightOf="@id/week_name"
+                                    android:layout_toRightOf="@+id/week_name"
                                     android:layout_centerHorizontal="true"
                                     android:id="@+id/week_price"
                                     android:textStyle="bold"
@@ -530,7 +530,7 @@
                         <LinearLayout
                             android:id="@+id/month_price_container"
                             android:layout_marginTop="@dimen/y8"
-                            android:layout_below="@id/pop_other_monthTitle"
+                            android:layout_below="@+id/pop_other_monthTitle"
                             android:layout_centerHorizontal="true"
                             android:orientation="horizontal"
                             android:layout_width="wrap_content"
@@ -628,7 +628,7 @@
                         <LinearLayout
                             android:id="@+id/year_price_container"
                             android:layout_marginTop="@dimen/y8"
-                            android:layout_below="@id/pop_other_yearTitle"
+                            android:layout_below="@+id/pop_other_yearTitle"
                             android:layout_centerHorizontal="true"
                             android:orientation="horizontal"
                             android:layout_width="wrap_content"
@@ -717,7 +717,7 @@
                     <LinearLayout
                         android:id="@+id/year_price_container2"
                         android:layout_marginTop="@dimen/y8"
-                        android:layout_below="@id/pop_other_yearTitle2"
+                        android:layout_below="@+id/pop_other_yearTitle2"
                         android:layout_centerHorizontal="true"
                         android:orientation="horizontal"
                         android:layout_width="wrap_content"
@@ -823,7 +823,7 @@
                         android:layout_marginBottom="@dimen/y20"
                         android:layout_marginTop="@dimen/y20"
                         android:orientation="vertical"
-                        android:layout_toRightOf="@id/buy_noticeTag"
+                        android:layout_toRightOf="@+id/buy_noticeTag"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content">
 
@@ -877,7 +877,7 @@
 
                     <TextView
                         android:layout_marginTop="@dimen/y20"
-                        android:layout_below="@id/buy_payNotice"
+                        android:layout_below="@+id/buy_payNotice"
                         android:layout_marginLeft="@dimen/x30"
                         android:drawablePadding="@dimen/x9"
                         android:drawableLeft="@mipmap/pay_alipay"
@@ -889,7 +889,7 @@
 
                     <CheckBox
                         android:checked="true"
-                        android:layout_below="@id/buy_payNotice"
+                        android:layout_below="@+id/buy_payNotice"
                         android:paddingTop="@dimen/y17"
                         android:paddingRight="@dimen/x30"
                         android:paddingBottom="@dimen/y17"
@@ -908,7 +908,7 @@
                         android:textColor="@color/color_DE151515"
                         android:textSize="15sp"
                         android:text="微信支付"
-                        android:layout_below="@id/buy_alipay"
+                        android:layout_below="@+id/buy_alipay"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"/>
 
@@ -919,7 +919,7 @@
                         android:paddingBottom="@dimen/y17"
                         android:id="@+id/buy_wxpay"
                         android:layout_alignParentRight="true"
-                        android:layout_below="@id/buy_alipay"
+                        android:layout_below="@+id/buy_alipay"
                         android:layout_marginTop="@dimen/y3"
                         android:layout_marginBottom="@dimen/y13"
                         android:button="@drawable/bg_pay"

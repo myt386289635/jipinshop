@@ -70,7 +70,7 @@
 
         <ImageView
             android:layout_marginRight="@dimen/x4"
-            android:layout_toLeftOf="@id/item_lookNum"
+            android:layout_toLeftOf="@+id/item_lookNum"
             android:layout_centerVertical="true"
             android:src="@mipmap/recommend_browse"
             android:layout_width="wrap_content"

@@ -25,7 +25,7 @@
         <ImageView
             android:layout_marginLeft="@dimen/x10"
             android:layout_marginBottom="@dimen/y10"
-            android:layout_alignBottom="@id/item_image"
+            android:layout_alignBottom="@+id/item_image"
             android:src="@mipmap/school_play"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"/>
@@ -40,9 +40,9 @@
             android:minLines="2"
             android:maxLines="2"
             android:layout_marginTop="@dimen/y16"
-            android:layout_below="@id/item_image"
-            android:layout_alignRight="@id/item_image"
-            android:layout_alignLeft="@id/item_image"
+            android:layout_below="@+id/item_image"
+            android:layout_alignRight="@+id/item_image"
+            android:layout_alignLeft="@+id/item_image"
             android:text="@{date.title}"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"/>
@@ -53,7 +53,7 @@
             android:drawableLeft="@mipmap/school_look"
             android:textColor="@color/color_9D9D9D"
             android:textSize="10sp"
-            android:layout_below="@id/item_title"
+            android:layout_below="@+id/item_title"
             android:text="@{date.reading + @string/school_1}"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"/>

@@ -23,7 +23,7 @@
         android:textColor="@color/color_ACACAC"
         tools:text="2018-08-12 16:38"
         android:layout_marginLeft="@dimen/x28"
-        android:layout_below="@id/item_name"
+        android:layout_below="@+id/item_name"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"/>
 
@@ -39,11 +39,11 @@
 
 
     <View
-        android:layout_alignRight="@id/item_code"
-        android:layout_alignLeft="@id/item_time"
+        android:layout_alignRight="@+id/item_code"
+        android:layout_alignLeft="@+id/item_time"
         android:layout_marginBottom="@dimen/x2"
         android:layout_marginTop="@dimen/x18"
-        android:layout_below="@id/item_time"
+        android:layout_below="@+id/item_time"
         android:background="@color/color_F5F5F5"
         android:layout_width="match_parent"
         android:layout_height="@dimen/x2"/>

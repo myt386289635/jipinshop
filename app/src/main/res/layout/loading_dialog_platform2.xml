@@ -27,7 +27,7 @@
             <ImageView
                 android:id="@+id/dialog_to"
                 android:layout_marginLeft="@dimen/x57"
-                android:layout_toRightOf="@id/dialog_jpc"
+                android:layout_toRightOf="@+id/dialog_jpc"
                 android:layout_centerVertical="true"
                 android:src="@mipmap/dialog_to"
                 android:layout_width="wrap_content"
@@ -37,7 +37,7 @@
                 android:id="@+id/dialog_platform"
                 android:layout_centerVertical="true"
                 android:layout_marginLeft="@dimen/x57"
-                android:layout_toRightOf="@id/dialog_to"
+                android:layout_toRightOf="@+id/dialog_to"
                 android:scaleType="fitCenter"
                 android:src="@mipmap/dialog_tb"
                 android:layout_width="@dimen/x108"

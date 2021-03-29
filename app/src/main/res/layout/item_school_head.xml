@@ -16,7 +16,7 @@
             android:id="@+id/main_point"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@id/main_viewpager"
+            android:layout_below="@+id/main_viewpager"
             android:layout_marginTop="-18dp"
             android:gravity="center"
             android:orientation="horizontal"/>
@@ -24,7 +24,7 @@
         <android.support.v7.widget.RecyclerView
             android:layout_marginTop="@dimen/y24"
             android:layout_marginBottom="@dimen/y16"
-            android:layout_below="@id/main_viewpager"
+            android:layout_below="@+id/main_viewpager"
             android:id="@+id/grid_viewpager"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"/>
@@ -34,7 +34,7 @@
             android:id="@+id/grid_point"
             android:background="@color/color_D8D8D8"
             android:layout_centerHorizontal="true"
-            android:layout_below="@id/grid_viewpager"
+            android:layout_below="@+id/grid_viewpager"
             android:layout_marginBottom="@dimen/y24"
             android:layout_width="@dimen/x120"
             android:layout_height="@dimen/y5">
@@ -48,7 +48,7 @@
         </RelativeLayout>
         
         <View
-            android:layout_below="@id/grid_point"
+            android:layout_below="@+id/grid_point"
             android:background="@color/color_F5F5F5"
             android:layout_width="match_parent"
             android:layout_height="@dimen/y10"/>

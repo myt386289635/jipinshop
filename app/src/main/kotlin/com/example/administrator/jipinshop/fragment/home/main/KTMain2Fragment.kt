@@ -96,7 +96,7 @@ class KTMain2Fragment : DBBaseFragment(), KTMain2View, OnLoadMoreListener, OnRef
         page = 1
         refersh = true
         appStatisticalUtil.addEvent("shouye_loding",this.bindToLifecycle())
-        mPresenter.getDate("1",this.bindToLifecycle())
+        mPresenter.getDate("1",this.bindUntilEvent(FragmentEvent.DESTROY_VIEW))
     }
 
     override fun onLoadMore() {
@@ -136,7 +136,7 @@ class KTMain2Fragment : DBBaseFragment(), KTMain2View, OnLoadMoreListener, OnRef
             }
         }
         if (type == "1"){
-            mPresenter.commendGoodsList(page,source,this.bindToLifecycle())
+            mPresenter.commendGoodsList(page,source,this.bindUntilEvent(FragmentEvent.DESTROY_VIEW))
         }
     }
 

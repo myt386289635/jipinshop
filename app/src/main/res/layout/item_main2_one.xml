@@ -34,12 +34,12 @@
 
             <com.example.administrator.jipinshop.view.viewpager.MyViewPager
                 android:id="@+id/main_grid"
-                android:layout_below="@id/main_menu"
+                android:layout_below="@+id/main_menu"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/y423"/>
 
             <LinearLayout
-                android:layout_below="@id/main_grid"
+                android:layout_below="@+id/main_grid"
                 android:id="@+id/point"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"

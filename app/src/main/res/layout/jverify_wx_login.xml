@@ -16,7 +16,7 @@
 
     <TextView
         android:id="@+id/item_name"
-        android:layout_below="@id/item_image"
+        android:layout_below="@+id/item_image"
         android:textSize="14sp"
         android:textColor="@color/color_9D9D9D"
         android:layout_marginTop="@dimen/y12"

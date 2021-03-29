@@ -28,7 +28,7 @@
             android:layout_marginRight="@dimen/x28"
             android:layout_alignParentRight="true"
             android:layout_marginBottom="@dimen/y6"
-            android:layout_alignBottom="@id/title"
+            android:layout_alignBottom="@+id/title"
             android:src="@mipmap/search_close"
             android:layout_width="@dimen/x40"
             android:layout_height="@dimen/y40"/>

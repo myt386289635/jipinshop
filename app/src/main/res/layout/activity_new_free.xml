@@ -36,7 +36,7 @@
         <FrameLayout
             android:background="@color/color_F6F6F6"
             android:id="@+id/title_ad"
-            android:layout_below="@id/in_clude"
+            android:layout_below="@+id/in_clude"
             android:layout_centerVertical="true"
             android:layout_width="match_parent"
             android:layout_height="@dimen/y58">
@@ -52,7 +52,7 @@
         </FrameLayout>
 
         <FrameLayout
-            android:layout_below="@id/title_ad"
+            android:layout_below="@+id/title_ad"
             android:id="@+id/home_fragment"
             android:layout_width="match_parent"
             android:layout_height="match_parent"/>

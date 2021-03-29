@@ -36,7 +36,7 @@
             android:layout_height="wrap_content"/>
 
         <ImageView
-            android:layout_alignTop="@id/item_title"
+            android:layout_alignTop="@+id/item_title"
             android:layout_marginLeft="@dimen/x30"
             android:src="@mipmap/que_ask"
             android:layout_width="wrap_content"
@@ -45,7 +45,7 @@
         <RelativeLayout
             android:id="@+id/item_reasonContainer"
             android:layout_marginTop="@dimen/y36"
-            android:layout_below="@id/item_title"
+            android:layout_below="@+id/item_title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content">
 
@@ -77,7 +77,7 @@
                 android:visibility="@{type == -1 ? View.VISIBLE : View.GONE}"
                 android:lineSpacingExtra="@dimen/y6"
                 android:layout_marginRight="@dimen/x30"
-                android:layout_toRightOf="@id/item_reasonTitle"
+                android:layout_toRightOf="@+id/item_reasonTitle"
                 android:id="@+id/item_reason"
                 android:textStyle="bold"
                 android:textColor="@color/color_FF0000"
@@ -91,7 +91,7 @@
                 android:visibility="@{type == -1 ? View.VISIBLE : View.GONE}"
                 android:layout_marginRight="@dimen/x30"
                 android:layout_marginTop="@dimen/y14"
-                android:layout_below="@id/item_reason"
+                android:layout_below="@+id/item_reason"
                 android:layout_alignParentRight="true"
                 android:id="@+id/item_delete"
                 android:textSize="13sp"
@@ -106,7 +106,7 @@
 
         <View
             android:layout_marginTop="@dimen/y24"
-            android:layout_below="@id/item_reasonContainer"
+            android:layout_below="@+id/item_reasonContainer"
             android:layout_marginRight="@dimen/x30"
             android:layout_marginLeft="@dimen/x30"
             android:background="@color/color_DEDEDE"

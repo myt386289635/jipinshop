@@ -59,7 +59,7 @@
         </RelativeLayout>
 
         <com.aspsine.swipetoloadlayout.SwipeToLoadLayout
-            android:layout_above="@id/free_bottom"
+            android:layout_above="@+id/free_bottom"
             android:id="@+id/swipeToLoad"
             android:layout_width="match_parent"
             android:layout_height="match_parent">

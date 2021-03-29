@@ -24,7 +24,7 @@
         android:layout_height="wrap_content"/>
 
     <ImageView
-        android:layout_below="@id/status_bar"
+        android:layout_below="@+id/status_bar"
         android:id="@+id/title_back"
         android:padding="@dimen/x22"
         android:src="@mipmap/nav_back"
@@ -33,7 +33,7 @@
 
 
     <android.support.v7.widget.CardView
-        android:layout_below="@id/user_image"
+        android:layout_below="@+id/user_image"
         app:cardPreventCornerOverlap="false"
         app:cardBackgroundColor="@color/color_white"
         android:layout_marginTop="@dimen/x_88"
@@ -62,8 +62,8 @@
             <TextView
                 android:id="@+id/user_name"
                 android:layout_marginLeft="@dimen/x24"
-                android:layout_toRightOf="@id/user_headImage"
-                android:layout_alignTop="@id/user_headImage"
+                android:layout_toRightOf="@+id/user_headImage"
+                android:layout_alignTop="@+id/user_headImage"
                 android:textStyle="bold"
                 android:textColor="@color/color_DE151515"
                 android:text="F买遍全球无敌手"
@@ -75,8 +75,8 @@
                 android:id="@+id/user_attentionNum"
                 android:textColor="@color/color_ACACAC"
                 android:layout_marginLeft="@dimen/x24"
-                android:layout_toRightOf="@id/user_headImage"
-                android:layout_alignBottom="@id/user_headImage"
+                android:layout_toRightOf="@+id/user_headImage"
+                android:layout_alignBottom="@+id/user_headImage"
                 android:textSize="13sp"
                 android:text="粉丝数:0"
                 android:layout_width="wrap_content"
@@ -86,7 +86,7 @@
             <TextView
                 android:gravity="center"
                 android:layout_marginTop="@dimen/x_20"
-                android:layout_alignTop="@id/user_name"
+                android:layout_alignTop="@+id/user_name"
                 android:id="@+id/item_attention"
                 android:layout_marginRight="@dimen/x28"
                 android:layout_alignParentRight="true"

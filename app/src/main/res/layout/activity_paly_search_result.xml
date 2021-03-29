@@ -36,7 +36,7 @@
                 android:layout_height="match_parent"/>
 
             <RelativeLayout
-                android:layout_toRightOf="@id/search_black"
+                android:layout_toRightOf="@+id/search_black"
                 android:layout_marginRight="@dimen/x30"
                 android:background="@drawable/bg_ffffff_3"
                 android:layout_centerVertical="true"
@@ -72,8 +72,8 @@
                     android:textColorHint="@color/color_202020"
                     android:textSize="13sp"
                     android:hint="搜索商城"
-                    android:layout_toRightOf="@id/search_search"
-                    android:layout_toLeftOf="@id/search_close"
+                    android:layout_toRightOf="@+id/search_search"
+                    android:layout_toLeftOf="@+id/search_close"
                     android:background="@color/transparent"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"/>

@@ -83,7 +83,7 @@
                 android:layout_marginTop="@dimen/y4"
                 android:layout_marginRight="@dimen/x20"
                 android:layout_marginLeft="@dimen/x20"
-                android:layout_below="@id/item_shop"
+                android:layout_below="@+id/item_shop"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/y188"/>
 

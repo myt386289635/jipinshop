@@ -23,7 +23,7 @@
             android:orientation="vertical"/>
 
         <include
-            android:layout_below="@id/status_bar"
+            android:layout_below="@+id/status_bar"
             layout="@layout/aa_title2"
             bind:listener="@{listener}"
             android:id="@+id/in_clude"
@@ -31,7 +31,7 @@
             android:layout_width="match_parent"/>
 
         <ImageView
-            android:layout_below="@id/status_bar"
+            android:layout_below="@+id/status_bar"
             android:visibility="gone"
             android:layout_alignParentRight="true"
             android:paddingLeft="@dimen/x25"
@@ -52,12 +52,12 @@
             android:text="您可以前往各平台将【积分商城】内获得的会员码进行兑换"
             android:background="@color/color_FFE4E4"
             android:id="@+id/detail_node"
-            android:layout_below="@id/in_clude"
+            android:layout_below="@+id/in_clude"
             android:layout_width="match_parent"
             android:layout_height="@dimen/y80"/>
 
         <com.aspsine.swipetoloadlayout.SwipeToLoadLayout
-            android:layout_below="@id/detail_node"
+            android:layout_below="@+id/detail_node"
             android:id="@+id/swipeToLoad"
             android:layout_width="match_parent"
             android:layout_height="match_parent"

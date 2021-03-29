@@ -34,7 +34,7 @@
             android:layout_height="wrap_content"/>
 
         <TextView
-            android:layout_toRightOf="@id/item_name"
+            android:layout_toRightOf="@+id/item_name"
             android:id="@+id/item_head"
             android:layout_marginTop="@dimen/x32"
             android:layout_marginLeft="@dimen/x8"
@@ -51,7 +51,7 @@
             android:layout_marginRight="@dimen/x24"
             android:layout_marginLeft="@dimen/x12"
             android:layout_marginTop="@dimen/x32"
-            android:layout_toRightOf="@id/item_head"
+            android:layout_toRightOf="@+id/item_head"
             android:textColor="@color/color_151515"
             tools:text="赞同楼主观点赞同楼主观点赞同楼主观点赞同楼主观点赞同楼主观点"
             android:layout_width="wrap_content"
@@ -62,7 +62,7 @@
             android:visibility="gone"
             android:layout_marginBottom="@dimen/x32"
             android:layout_marginLeft="@dimen/x24"
-            android:layout_below="@id/item_content"
+            android:layout_below="@+id/item_content"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 

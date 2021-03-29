@@ -47,7 +47,7 @@
             android:textColor="@color/color_white"
             android:background="@color/color_E25838"
             android:id="@+id/report_reason"
-            android:layout_below="@id/in_clude"
+            android:layout_below="@+id/in_clude"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"/>
 

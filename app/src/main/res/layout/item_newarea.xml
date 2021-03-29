@@ -37,7 +37,7 @@
             android:layout_marginRight="@dimen/x28"
             android:layout_marginLeft="@dimen/x28"
             android:layout_marginTop="@dimen/y30"
-            android:layout_below="@id/item_title"
+            android:layout_below="@+id/item_title"
             android:layout_width="match_parent"
             android:layout_height="@dimen/y358"/>
 
@@ -45,7 +45,7 @@
         <RelativeLayout
             android:layout_marginBottom="@dimen/y30"
             android:layout_marginTop="@dimen/y42"
-            android:layout_below="@id/item_image"
+            android:layout_below="@+id/item_image"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
@@ -60,8 +60,8 @@
             <ImageView
                 android:visibility="gone"
                 android:id="@+id/item_grade"
-                android:layout_alignRight="@id/item_head"
-                android:layout_alignBottom="@id/item_head"
+                android:layout_alignRight="@+id/item_head"
+                android:layout_alignBottom="@+id/item_head"
                 android:src="@mipmap/grade_peroson"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"/>
@@ -70,7 +70,7 @@
             <TextView
                 android:layout_marginLeft="@dimen/x19"
                 android:layout_centerVertical="true"
-                android:layout_toRightOf="@id/item_head"
+                android:layout_toRightOf="@+id/item_head"
                 android:textColor="@color/color_ACACAC"
                 android:textSize="12sp"
                 android:text="@{date.user.nickname}"

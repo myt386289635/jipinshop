@@ -162,13 +162,13 @@
                                 android:layout_height="@dimen/y82"
                                 android:layout_marginTop="@dimen/y28"
                                 android:layout_marginLeft="@dimen/x38"
-                                android:layout_below="@id/member_tab"
-                                android:layout_alignLeft="@id/member_tab"/>
+                                android:layout_below="@+id/member_tab"
+                                android:layout_alignLeft="@+id/member_tab"/>
 
                             <TextView
                                 android:layout_marginTop="@dimen/y2"
-                                android:layout_alignTop="@id/member_userImage"
-                                android:layout_toRightOf="@id/member_userImage"
+                                android:layout_alignTop="@+id/member_userImage"
+                                android:layout_toRightOf="@+id/member_userImage"
                                 android:id="@+id/member_userName"
                                 android:textColor="@color/color_E7C19F"
                                 android:textStyle="bold"
@@ -179,8 +179,8 @@
 
                             <TextView
                                 android:layout_marginBottom="@dimen/y2"
-                                android:layout_alignBottom="@id/member_userImage"
-                                android:layout_toRightOf="@id/member_userImage"
+                                android:layout_alignBottom="@+id/member_userImage"
+                                android:layout_toRightOf="@+id/member_userImage"
                                 android:id="@+id/member_userTime"
                                 android:textColor="@color/color_E7C19F"
                                 android:textSize="13sp"
@@ -215,14 +215,14 @@
                         android:layout_marginLeft="@dimen/x20"
                         android:paddingTop="@dimen/y30"
                         android:id="@+id/member_moneyNotice"
-                        android:layout_below="@id/member_userContainer"
+                        android:layout_below="@+id/member_userContainer"
                         tools:text="极品城承诺：极品会员有效期内最终返利金额若低于会员费，平台将退还全额会员费"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"/>
 
                     <RelativeLayout
                         android:id="@+id/member_noMemberContainer"
-                        android:layout_below="@id/member_moneyNotice"
+                        android:layout_below="@+id/member_moneyNotice"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content">
 
@@ -236,7 +236,7 @@
 
                         <LinearLayout
                             android:id="@+id/member_bg2"
-                            android:layout_below="@id/member_bg1"
+                            android:layout_below="@+id/member_bg1"
                             android:layout_centerHorizontal="true"
                             android:orientation="horizontal"
                             android:background="@drawable/bg_fae1bf"
@@ -267,7 +267,7 @@
                         <ImageView
                             android:id="@+id/member_bg22"
                             android:layout_marginTop="@dimen/y13"
-                            android:layout_below="@id/member_bg2"
+                            android:layout_below="@+id/member_bg2"
                             android:layout_centerHorizontal="true"
                             android:src="@mipmap/member1_bg2"
                             android:layout_width="wrap_content"
@@ -283,7 +283,7 @@
                             android:drawableLeft="@mipmap/member1_bg3"
                             android:layout_marginBottom="@dimen/y27"
                             android:textColor="@color/color_FAE1BF"
-                            android:layout_alignBottom="@id/member_bg22"
+                            android:layout_alignBottom="@+id/member_bg22"
                             android:text="一人办理会员，可免费邀请3位家人共享全返权益"
                             android:layout_width="wrap_content"
                             android:layout_height="@dimen/y44"/>
@@ -294,7 +294,7 @@
                         android:id="@+id/member_title1"
                         android:layout_marginBottom="@dimen/y30"
                         android:layout_marginTop="@dimen/y30"
-                        android:layout_below="@id/member_noMemberContainer"
+                        android:layout_below="@+id/member_noMemberContainer"
                         android:layout_centerHorizontal="true"
                         android:textStyle="bold"
                         android:textSize="21sp"
@@ -318,7 +318,7 @@
                     <ImageView
                         android:id="@+id/member_bg3"
                         android:layout_marginTop="@dimen/y40"
-                        android:layout_below="@id/member_moreContainer"
+                        android:layout_below="@+id/member_moreContainer"
                         android:scaleType="fitXY"
                         android:layout_marginRight="@dimen/x20"
                         android:layout_marginLeft="@dimen/x20"
@@ -332,8 +332,8 @@
                         android:id="@+id/member_yearContainer"
                         android:layout_marginRight="@dimen/x23"
                         android:layout_marginTop="@dimen/y31"
-                        android:layout_below="@id/member_moreContainer"
-                        android:layout_alignRight="@id/member_bg3"
+                        android:layout_below="@+id/member_moreContainer"
+                        android:layout_alignRight="@+id/member_bg3"
                         android:background="@mipmap/member1_bg4"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content">
@@ -361,8 +361,8 @@
                         android:id="@+id/member_title3"
                         android:layout_marginLeft="@dimen/x20"
                         android:layout_marginTop="@dimen/y42"
-                        android:layout_alignLeft="@id/member_bg3"
-                        android:layout_alignTop="@id/member_bg3"
+                        android:layout_alignLeft="@+id/member_bg3"
+                        android:layout_alignTop="@+id/member_bg3"
                         android:textStyle="bold"
                         android:textColor="@color/color_white"
                         android:textSize="16sp"
@@ -373,8 +373,8 @@
                     <TextView
                         android:layout_marginTop="@dimen/y15"
                         android:id="@+id/member_content3"
-                        android:layout_alignLeft="@id/member_title3"
-                        android:layout_below="@id/member_title3"
+                        android:layout_alignLeft="@+id/member_title3"
+                        android:layout_below="@+id/member_title3"
                         android:textColor="@color/color_white"
                         android:textSize="12sp"
                         android:text="@{bean.levelDetail1.title2}"
@@ -385,7 +385,7 @@
                         android:elevation="@dimen/y8"
                         android:id="@+id/member_moneyContainer"
                         android:background="@drawable/bg_dialog"
-                        android:layout_alignTop="@id/member_bg3"
+                        android:layout_alignTop="@+id/member_bg3"
                         android:layout_marginTop="@dimen/y165"
                         android:layout_marginRight="@dimen/x40"
                         android:layout_marginLeft="@dimen/x40"
@@ -407,7 +407,7 @@
                     <!--每月0元好礼-->
                     <RelativeLayout
                         android:id="@+id/member_freeFContainer"
-                        android:layout_below="@id/member_moneyContainer"
+                        android:layout_below="@+id/member_moneyContainer"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content">
 
@@ -427,7 +427,7 @@
                             android:id="@+id/member_freeContainer"
                             android:layout_marginRight="@dimen/x23"
                             android:layout_marginTop="@dimen/y47"
-                            android:layout_alignRight="@id/member_bg5"
+                            android:layout_alignRight="@+id/member_bg5"
                             android:background="@mipmap/member1_bg4"
                             android:layout_width="@dimen/x268"
                             android:layout_height="wrap_content">
@@ -456,8 +456,8 @@
                             android:id="@+id/member_title6"
                             android:layout_marginLeft="@dimen/x20"
                             android:layout_marginTop="@dimen/y42"
-                            android:layout_alignLeft="@id/member_bg5"
-                            android:layout_alignTop="@id/member_bg5"
+                            android:layout_alignLeft="@+id/member_bg5"
+                            android:layout_alignTop="@+id/member_bg5"
                             android:textStyle="bold"
                             android:textColor="@color/color_white"
                             android:textSize="16sp"
@@ -468,8 +468,8 @@
                         <TextView
                             android:layout_marginTop="@dimen/y15"
                             android:id="@+id/member_content6"
-                            android:layout_alignLeft="@id/member_title6"
-                            android:layout_below="@id/member_title6"
+                            android:layout_alignLeft="@+id/member_title6"
+                            android:layout_below="@+id/member_title6"
                             android:textColor="@color/color_white"
                             android:textSize="12sp"
                             android:text="@{bean.levelDetail3.title2}"
@@ -482,7 +482,7 @@
                             android:id="@+id/member_free"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:layout_alignTop="@id/member_bg5"
+                            android:layout_alignTop="@+id/member_bg5"
                             android:layout_marginLeft="@dimen/x40"
                             android:layout_marginTop="@dimen/y165"
                             android:layout_marginRight="@dimen/x40"
@@ -493,7 +493,7 @@
 
                     <!--特惠购-->
                     <ImageView
-                        android:layout_below="@id/member_freeFContainer"
+                        android:layout_below="@+id/member_freeFContainer"
                         android:id="@+id/member_bg4"
                         android:layout_marginTop="@dimen/y55"
                         android:scaleType="fitXY"
@@ -504,13 +504,13 @@
                         android:layout_height="@dimen/y271"/>
 
                     <LinearLayout
-                        android:layout_below="@id/member_freeFContainer"
+                        android:layout_below="@+id/member_freeFContainer"
                         android:gravity="center"
                         android:orientation="vertical"
                         android:id="@+id/member_monthContainer"
                         android:layout_marginRight="@dimen/x23"
                         android:layout_marginTop="@dimen/y47"
-                        android:layout_alignRight="@id/member_bg4"
+                        android:layout_alignRight="@+id/member_bg4"
                         android:background="@mipmap/member1_bg4"
                         android:layout_width="@dimen/x268"
                         android:layout_height="wrap_content">
@@ -539,8 +539,8 @@
                         android:id="@+id/member_title4"
                         android:layout_marginLeft="@dimen/x20"
                         android:layout_marginTop="@dimen/y42"
-                        android:layout_alignLeft="@id/member_bg4"
-                        android:layout_alignTop="@id/member_bg4"
+                        android:layout_alignLeft="@+id/member_bg4"
+                        android:layout_alignTop="@+id/member_bg4"
                         android:textStyle="bold"
                         android:textColor="@color/color_white"
                         android:textSize="16sp"
@@ -551,8 +551,8 @@
                     <TextView
                         android:layout_marginTop="@dimen/y15"
                         android:id="@+id/member_content4"
-                        android:layout_alignLeft="@id/member_title4"
-                        android:layout_below="@id/member_title4"
+                        android:layout_alignLeft="@+id/member_title4"
+                        android:layout_below="@+id/member_title4"
                         android:textColor="@color/color_white"
                         android:textSize="12sp"
                         android:text="@{bean.levelDetail4.title2}"
@@ -562,7 +562,7 @@
                     <RelativeLayout
                         android:onClick="@{listener.onClick}"
                         android:id="@+id/member_shop2Container"
-                        android:layout_alignTop="@id/member_bg4"
+                        android:layout_alignTop="@+id/member_bg4"
                         android:layout_marginTop="@dimen/y165"
                         android:layout_marginRight="@dimen/x40"
                         android:layout_marginLeft="@dimen/x40"
@@ -582,7 +582,7 @@
                             android:id="@+id/member_point"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
-                            android:layout_below="@id/member_cheap"
+                            android:layout_below="@+id/member_cheap"
                             android:gravity="center"
                             android:orientation="horizontal"/>
 
@@ -607,7 +607,7 @@
                         android:id="@+id/member_familyContainer"
                         android:layout_marginRight="@dimen/x23"
                         android:layout_marginTop="@dimen/y47"
-                        android:layout_alignRight="@id/member_bg7"
+                        android:layout_alignRight="@+id/member_bg7"
                         android:background="@mipmap/member1_bg4"
                         android:layout_width="@dimen/x268"
                         android:layout_height="wrap_content">
@@ -636,8 +636,8 @@
                         android:id="@+id/member_title7"
                         android:layout_marginLeft="@dimen/x20"
                         android:layout_marginTop="@dimen/y42"
-                        android:layout_alignLeft="@id/member_bg7"
-                        android:layout_alignTop="@id/member_bg7"
+                        android:layout_alignLeft="@+id/member_bg7"
+                        android:layout_alignTop="@+id/member_bg7"
                         android:textStyle="bold"
                         android:textColor="@color/color_white"
                         android:textSize="16sp"
@@ -648,8 +648,8 @@
                     <TextView
                         android:layout_marginTop="@dimen/y15"
                         android:id="@+id/member_content7"
-                        android:layout_alignLeft="@id/member_title7"
-                        android:layout_below="@id/member_title7"
+                        android:layout_alignLeft="@+id/member_title7"
+                        android:layout_below="@+id/member_title7"
                         android:textColor="@color/color_white"
                         android:textSize="12sp"
                         android:text="@{bean.levelDetail5.title2}"
@@ -661,7 +661,7 @@
                         android:id="@+id/member_family"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_alignTop="@id/member_bg7"
+                        android:layout_alignTop="@+id/member_bg7"
                         android:layout_marginLeft="@dimen/x40"
                         android:layout_marginTop="@dimen/y165"
                         android:layout_marginRight="@dimen/x40"
@@ -677,14 +677,14 @@
                             android:layout_height="@dimen/y82"/>
 
                         <ImageView
-                            android:layout_below="@id/member_familyOne"
+                            android:layout_below="@+id/member_familyOne"
                             android:id="@+id/member_familyTwo"
                             android:layout_marginLeft="@dimen/x95"
                             android:layout_width="@dimen/x82"
                             android:layout_height="@dimen/y82"/>
 
                         <ImageView
-                            android:layout_below="@id/member_familyOne"
+                            android:layout_below="@+id/member_familyOne"
                             android:id="@+id/member_familyThree"
                             android:layout_centerHorizontal="true"
                             android:layout_width="@dimen/x82"
@@ -692,7 +692,7 @@
 
                         <ImageView
                             android:layout_alignParentRight="true"
-                            android:layout_below="@id/member_familyOne"
+                            android:layout_below="@+id/member_familyOne"
                             android:id="@+id/member_familyFore"
                             android:layout_marginRight="@dimen/x95"
                             android:layout_width="@dimen/x82"
@@ -708,7 +708,7 @@
                             android:background="@drawable/bg_f39169"
                             android:layout_marginTop="@dimen/y40"
                             android:layout_centerHorizontal="true"
-                            android:layout_below="@id/member_familyThree"
+                            android:layout_below="@+id/member_familyThree"
                             android:layout_width="@dimen/x312"
                             android:layout_height="@dimen/y76"/>
 
@@ -717,7 +717,7 @@
                             android:textSize="12sp"
                             android:layout_marginBottom="@dimen/y20"
                             android:layout_marginTop="@dimen/y20"
-                            android:layout_below="@id/member_familyAdd"
+                            android:layout_below="@+id/member_familyAdd"
                             android:layout_centerHorizontal="true"
                             android:id="@+id/member_familyAddNotice"
                             android:text="@{bean.levelDetail5.title5}"
@@ -749,7 +749,7 @@
                             android:id="@+id/member_videoContainer"
                             android:layout_marginRight="@dimen/x23"
                             android:layout_marginTop="@dimen/y47"
-                            android:layout_alignRight="@id/member_bg9"
+                            android:layout_alignRight="@+id/member_bg9"
                             android:background="@mipmap/member1_bg4"
                             android:layout_width="@dimen/x268"
                             android:layout_height="wrap_content">
@@ -778,8 +778,8 @@
                             android:id="@+id/member_title9"
                             android:layout_marginLeft="@dimen/x20"
                             android:layout_marginTop="@dimen/y42"
-                            android:layout_alignLeft="@id/member_bg9"
-                            android:layout_alignTop="@id/member_bg9"
+                            android:layout_alignLeft="@+id/member_bg9"
+                            android:layout_alignTop="@+id/member_bg9"
                             android:textStyle="bold"
                             android:textColor="@color/color_white"
                             android:textSize="16sp"
@@ -790,8 +790,8 @@
                         <TextView
                             android:layout_marginTop="@dimen/y15"
                             android:id="@+id/member_content9"
-                            android:layout_alignLeft="@id/member_title9"
-                            android:layout_below="@id/member_title9"
+                            android:layout_alignLeft="@+id/member_title9"
+                            android:layout_below="@+id/member_title9"
                             android:textColor="@color/color_white"
                             android:textSize="12sp"
                             android:text="@{bean.levelDetail7.title2}"
@@ -804,7 +804,7 @@
                             android:layout_marginTop="@dimen/y165"
                             android:layout_marginRight="@dimen/x40"
                             android:background="@drawable/bg_dialog"
-                            android:layout_alignTop="@id/member_bg9"
+                            android:layout_alignTop="@+id/member_bg9"
                             android:id="@+id/member_videoContainer1"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content">
@@ -820,7 +820,7 @@
                                 android:id="@+id/member_serverContainer"
                                 android:layout_marginBottom="@dimen/y32"
                                 android:layout_centerHorizontal="true"
-                                android:layout_below="@id/member_video"
+                                android:layout_below="@+id/member_video"
                                 android:gravity="center"
                                 android:orientation="horizontal"
                                 android:layout_width="wrap_content"
@@ -871,7 +871,7 @@
                         android:id="@+id/member_signContainer"
                         android:layout_marginRight="@dimen/x23"
                         android:layout_marginTop="@dimen/y47"
-                        android:layout_alignRight="@id/member_bg7"
+                        android:layout_alignRight="@+id/member_bg7"
                         android:background="@mipmap/member1_bg4"
                         android:layout_width="@dimen/x268"
                         android:layout_height="wrap_content">
@@ -900,8 +900,8 @@
                         android:id="@+id/member_title8"
                         android:layout_marginLeft="@dimen/x20"
                         android:layout_marginTop="@dimen/y42"
-                        android:layout_alignLeft="@id/member_bg8"
-                        android:layout_alignTop="@id/member_bg8"
+                        android:layout_alignLeft="@+id/member_bg8"
+                        android:layout_alignTop="@+id/member_bg8"
                         android:textStyle="bold"
                         android:textColor="@color/color_white"
                         android:textSize="16sp"
@@ -912,8 +912,8 @@
                     <TextView
                         android:layout_marginTop="@dimen/y15"
                         android:id="@+id/member_content8"
-                        android:layout_alignLeft="@id/member_title8"
-                        android:layout_below="@id/member_title8"
+                        android:layout_alignLeft="@+id/member_title8"
+                        android:layout_below="@+id/member_title8"
                         android:textColor="@color/color_white"
                         android:textSize="12sp"
                         android:text="@{bean.levelDetail6.title2}"
@@ -924,7 +924,7 @@
                         android:elevation="@dimen/y8"
                         android:id="@+id/member_sign"
                         android:background="@drawable/bg_dialog"
-                        android:layout_alignTop="@id/member_bg8"
+                        android:layout_alignTop="@+id/member_bg8"
                         android:layout_marginTop="@dimen/y165"
                         android:layout_marginRight="@dimen/x40"
                         android:layout_marginLeft="@dimen/x40"
@@ -945,7 +945,7 @@
 
                     <!--吃喝玩了-->
                     <ImageView
-                        android:layout_below="@id/member_sign"
+                        android:layout_below="@+id/member_sign"
                         android:id="@+id/member_bg10"
                         android:layout_marginTop="@dimen/y55"
                         android:scaleType="fitXY"
@@ -961,7 +961,7 @@
                         android:orientation="vertical"
                         android:layout_marginRight="@dimen/x23"
                         android:layout_marginTop="@dimen/y47"
-                        android:layout_alignRight="@id/member_bg7"
+                        android:layout_alignRight="@+id/member_bg7"
                         android:background="@mipmap/member1_bg4"
                         android:layout_width="@dimen/x268"
                         android:layout_height="wrap_content">
@@ -990,8 +990,8 @@
                         android:id="@+id/member_title10"
                         android:layout_marginLeft="@dimen/x20"
                         android:layout_marginTop="@dimen/y42"
-                        android:layout_alignLeft="@id/member_bg10"
-                        android:layout_alignTop="@id/member_bg10"
+                        android:layout_alignLeft="@+id/member_bg10"
+                        android:layout_alignTop="@+id/member_bg10"
                         android:textStyle="bold"
                         android:textColor="@color/color_white"
                         android:textSize="16sp"
@@ -1002,8 +1002,8 @@
                     <TextView
                         android:layout_marginTop="@dimen/y15"
                         android:id="@+id/member_content10"
-                        android:layout_alignLeft="@id/member_title10"
-                        android:layout_below="@id/member_title10"
+                        android:layout_alignLeft="@+id/member_title10"
+                        android:layout_below="@+id/member_title10"
                         android:textColor="@color/color_white"
                         android:textSize="12sp"
                         android:text="@{bean.levelDetail8.title2}"
@@ -1013,7 +1013,7 @@
                     <RelativeLayout
                         android:id="@+id/member_playContainer"
                         android:elevation="@dimen/y8"
-                        android:layout_alignTop="@id/member_bg10"
+                        android:layout_alignTop="@+id/member_bg10"
                         android:layout_marginLeft="@dimen/x40"
                         android:layout_marginTop="@dimen/y165"
                         android:layout_marginRight="@dimen/x40"
@@ -1055,7 +1055,7 @@
                             android:text="收起"
                             android:drawableTint="@color/color_774A12"
                             android:id="@+id/member_playUp"
-                            android:layout_below="@id/member_play"
+                            android:layout_below="@+id/member_play"
                             android:layout_width="match_parent"
                             android:layout_height="@dimen/y107"/>
 
@@ -1079,7 +1079,7 @@
                     <!--会员充值数量-->
                     <RelativeLayout
                         android:id="@+id/member_notice"
-                        android:layout_below="@id/member_moreImage"
+                        android:layout_below="@+id/member_moreImage"
                         android:layout_marginTop="@dimen/y40"
                         android:paddingLeft="@dimen/x32"
                         android:gravity="center_vertical"
@@ -1166,7 +1166,7 @@
                         android:id="@+id/member_adPoint"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_below="@id/member_ad"
+                        android:layout_below="@+id/member_ad"
                         android:layout_marginTop="-25dp"
                         android:gravity="center"
                         android:orientation="horizontal"/>
@@ -1272,7 +1272,7 @@
             <TextView
                 android:paddingRight="@dimen/x24"
                 android:paddingLeft="@dimen/x24"
-                android:layout_alignRight="@id/member_buy"
+                android:layout_alignRight="@+id/member_buy"
                 android:textStyle="bold"
                 android:textColor="@color/color_C35E07"
                 android:textSize="14sp"

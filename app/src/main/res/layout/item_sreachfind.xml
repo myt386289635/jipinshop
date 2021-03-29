@@ -20,7 +20,7 @@
         android:lineSpacingExtra="@dimen/x6"
         android:textStyle="bold"
         android:layout_marginTop="@dimen/y32"
-        android:layout_below="@id/item_image"
+        android:layout_below="@+id/item_image"
         android:ellipsize="end"
         android:maxLines="2"
         android:id="@+id/item_title"
@@ -35,7 +35,7 @@
     <RelativeLayout
         android:id="@+id/item_tag"
         android:layout_marginTop="@dimen/y42"
-        android:layout_below="@id/item_title"
+        android:layout_below="@+id/item_title"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
@@ -50,8 +50,8 @@
         <ImageView
             android:visibility="gone"
             android:id="@+id/item_grade"
-            android:layout_alignRight="@id/item_head"
-            android:layout_alignBottom="@id/item_head"
+            android:layout_alignRight="@+id/item_head"
+            android:layout_alignBottom="@+id/item_head"
             android:src="@mipmap/grade_peroson"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"/>
@@ -60,7 +60,7 @@
         <TextView
             android:layout_marginLeft="@dimen/x24"
             android:layout_centerVertical="true"
-            android:layout_toRightOf="@id/item_head"
+            android:layout_toRightOf="@+id/item_head"
             android:textColor="@color/color_DE151515"
             android:textSize="15sp"
             android:text="资深编辑"
@@ -85,7 +85,7 @@
     <View
         android:layout_marginBottom="@dimen/y36"
         android:layout_marginTop="@dimen/y32"
-        android:layout_below="@id/item_tag"
+        android:layout_below="@+id/item_tag"
         android:background="@color/color_F5F5F5"
         android:layout_width="match_parent"
         android:layout_height="@dimen/y12"/>

@@ -27,7 +27,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/y10"
             android:gravity="center"
-            android:layout_below="@id/item_image"
+            android:layout_below="@+id/item_image"
             android:layout_marginBottom="@dimen/y22"
             android:text="@{bean.title}"
             android:textColor="@color/color_202020"

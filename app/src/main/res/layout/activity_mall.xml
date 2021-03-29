@@ -39,7 +39,7 @@
             android:id="@+id/swipeToLoad"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_below="@id/in_clude">
+            android:layout_below="@+id/in_clude">
 
             <com.example.administrator.jipinshop.view.textview.CustomRefreshHeadView
                 android:id="@+id/swipe_refresh_header"

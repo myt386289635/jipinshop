@@ -34,7 +34,7 @@
                 android:layout_height="match_parent"/>
 
             <RelativeLayout
-                android:layout_toRightOf="@id/title_back"
+                android:layout_toRightOf="@+id/title_back"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:background="@drawable/bg_sreach"
@@ -46,7 +46,7 @@
                     android:id="@+id/sreach_edit"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:layout_toLeftOf="@id/sreach_nav"
+                    android:layout_toLeftOf="@+id/sreach_nav"
                     android:background="@null"
                     android:cursorVisible="true"
                     android:hint="输入查询商品名称"
@@ -73,14 +73,14 @@
         </RelativeLayout>
 
         <View
-            android:layout_below="@id/sreach_head"
+            android:layout_below="@+id/sreach_head"
             android:background="@color/color_DEDEDE"
             android:layout_width="match_parent"
             android:layout_height="@dimen/y1"/>
 
         <ScrollView
             android:scrollbars="none"
-            android:layout_below="@id/sreach_head"
+            android:layout_below="@+id/sreach_head"
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
@@ -126,7 +126,7 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_alignBottom="@id/search_delete"
+                        android:layout_alignBottom="@+id/search_delete"
                         android:layout_marginLeft="@dimen/x30"
                         android:text="历史搜索"
                         android:textColor="@color/color_9D9D9D"

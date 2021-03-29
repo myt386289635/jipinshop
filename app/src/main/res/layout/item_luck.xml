@@ -7,7 +7,7 @@
 
         <TextView
             android:layout_marginRight="@dimen/x10"
-            android:layout_toLeftOf="@id/item_time"
+            android:layout_toLeftOf="@+id/item_time"
             android:ellipsize="end"
             android:singleLine="true"
             android:textStyle="bold"

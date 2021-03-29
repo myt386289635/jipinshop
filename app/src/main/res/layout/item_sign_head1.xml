@@ -19,7 +19,7 @@
             android:orientation="vertical"/>
 
         <RelativeLayout
-            android:layout_below="@id/status_bar"
+            android:layout_below="@+id/status_bar"
             android:id="@+id/title_container"
             android:layout_width="match_parent"
             android:layout_height="@dimen/y88">
@@ -67,7 +67,7 @@
             android:id="@+id/item_codeContainer"
             android:gravity="center"
             android:orientation="horizontal"
-            android:layout_below="@id/title_container"
+            android:layout_below="@+id/title_container"
             android:layout_marginTop="@dimen/y10"
             android:layout_centerHorizontal="true"
             android:layout_width="wrap_content"
@@ -96,7 +96,7 @@
             android:textColor="@color/color_white"
             android:textSize="12sp"
             android:layout_centerHorizontal="true"
-            android:layout_below="@id/item_codeContainer"
+            android:layout_below="@+id/item_codeContainer"
             android:text="100极币=1元"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"/>
@@ -109,7 +109,7 @@
             android:paddingLeft="@dimen/x18"
             android:layout_marginRight="@dimen/x23"
             android:layout_marginTop="@dimen/y118"
-            android:layout_below="@id/status_bar"
+            android:layout_below="@+id/status_bar"
             android:layout_alignParentRight="true"
             android:textStyle="bold"
             android:textColor="@color/color_white"
@@ -121,7 +121,7 @@
 
         <RelativeLayout
             android:layout_marginTop="@dimen/y34"
-            android:layout_below="@id/item_notice"
+            android:layout_below="@+id/item_notice"
             android:layout_marginRight="@dimen/x20"
             android:layout_marginLeft="@dimen/x20"
             android:background="@drawable/bg_sign5"
@@ -150,7 +150,7 @@
 
                 <TextView
                     android:layout_centerHorizontal="true"
-                    android:layout_below="@id/item_sign7Title"
+                    android:layout_below="@+id/item_sign7Title"
                     android:id="@+id/item_sign7"
                     android:layout_marginTop="@dimen/y15"
                     android:textColor="@color/color_white"
@@ -163,7 +163,7 @@
                 <TextView
                     android:id="@+id/item_sign7Code"
                     android:layout_centerHorizontal="true"
-                    android:layout_below="@id/item_sign7"
+                    android:layout_below="@+id/item_sign7"
                     android:textColor="@color/color_white"
                     android:textSize="10sp"
                     android:layout_marginTop="@dimen/y15"
@@ -173,7 +173,7 @@
 
                 <ImageView
                     android:layout_centerHorizontal="true"
-                    android:layout_below="@id/item_sign7Code"
+                    android:layout_below="@+id/item_sign7Code"
                     android:scaleType="fitXY"
                     android:adjustViewBounds="true"
                     android:src="@mipmap/sign_bg1"
@@ -186,8 +186,8 @@
             <RelativeLayout
                 android:layout_marginRight="@dimen/x15"
                 android:layout_marginLeft="@dimen/x11"
-                android:layout_alignTop="@id/item_sign7Container"
-                android:layout_toLeftOf="@id/item_sign7Container"
+                android:layout_alignTop="@+id/item_sign7Container"
+                android:layout_toLeftOf="@+id/item_sign7Container"
                 android:orientation="horizontal"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/y150">
@@ -328,8 +328,8 @@
             <RelativeLayout
                 android:layout_marginRight="@dimen/x15"
                 android:layout_marginLeft="@dimen/x11"
-                android:layout_alignBottom="@id/item_sign7Container"
-                android:layout_toLeftOf="@id/item_sign7Container"
+                android:layout_alignBottom="@+id/item_sign7Container"
+                android:layout_toLeftOf="@+id/item_sign7Container"
                 android:orientation="horizontal"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/y150">
@@ -471,7 +471,7 @@
                 android:id="@+id/item_signNotice"
                 android:layout_marginBottom="@dimen/y16"
                 android:layout_marginTop="@dimen/y13"
-                android:layout_below="@id/item_sign7Container"
+                android:layout_below="@+id/item_sign7Container"
                 android:layout_marginRight="@dimen/x11"
                 android:layout_marginLeft="@dimen/x11"
                 android:lineSpacingExtra="@dimen/y9"
@@ -485,7 +485,7 @@
                 android:id="@+id/item_sign"
                 android:layout_marginBottom="@dimen/y20"
                 android:layout_marginTop="@dimen/y16"
-                android:layout_below="@id/item_signNotice"
+                android:layout_below="@+id/item_signNotice"
                 android:layout_centerHorizontal="true"
                 android:gravity="center"
                 android:textStyle="bold"

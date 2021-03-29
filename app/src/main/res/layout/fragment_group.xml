@@ -21,8 +21,8 @@
             android:layout_height="@dimen/y96"/>
 
         <LinearLayout
-            android:layout_alignTop="@id/group_image"
-            android:layout_toRightOf="@id/group_image"
+            android:layout_alignTop="@+id/group_image"
+            android:layout_toRightOf="@+id/group_image"
             android:layout_marginLeft="@dimen/x12"
             android:layout_marginTop="@dimen/y8"
             android:orientation="horizontal"
@@ -66,8 +66,8 @@
         </LinearLayout>
 
         <LinearLayout
-            android:layout_alignBottom="@id/group_image"
-            android:layout_toRightOf="@id/group_image"
+            android:layout_alignBottom="@+id/group_image"
+            android:layout_toRightOf="@+id/group_image"
             android:layout_marginLeft="@dimen/x12"
             android:layout_marginBottom="@dimen/y8"
             android:orientation="horizontal"

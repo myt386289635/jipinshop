@@ -28,7 +28,7 @@
             android:lineSpacingExtra="@dimen/x15"
             android:textStyle="bold"
             android:layout_marginTop="@dimen/y33"
-            android:layout_below="@id/item_image"
+            android:layout_below="@+id/item_image"
             android:ellipsize="end"
             android:maxLines="2"
             android:id="@+id/item_title"
@@ -43,7 +43,7 @@
         <ImageView
             android:layout_marginBottom="@dimen/y32"
             android:layout_marginTop="@dimen/y35"
-            android:layout_below="@id/item_title"
+            android:layout_below="@+id/item_title"
             android:id="@+id/item_userImg"
             bind:srcCircle="@{data.user.avatar}"
             android:layout_marginLeft="@dimen/x30"
@@ -52,12 +52,12 @@
 
         <TextView
             android:gravity="center"
-            android:layout_alignBottom="@id/item_userImg"
-            android:layout_alignTop="@id/item_userImg"
+            android:layout_alignBottom="@+id/item_userImg"
+            android:layout_alignTop="@+id/item_userImg"
             android:textStyle="bold"
             android:layout_marginLeft="@dimen/x24"
             android:layout_centerVertical="true"
-            android:layout_toRightOf="@id/item_userImg"
+            android:layout_toRightOf="@+id/item_userImg"
             android:textColor="@color/color_ACACAC"
             android:textSize="12sp"
             android:text="@{data.user.nickname}"
@@ -67,8 +67,8 @@
 
         <TextView
             android:gravity="center"
-            android:layout_alignBottom="@id/item_userImg"
-            android:layout_alignTop="@id/item_userImg"
+            android:layout_alignBottom="@+id/item_userImg"
+            android:layout_alignTop="@+id/item_userImg"
             android:layout_marginRight="@dimen/x30"
             android:layout_alignParentRight="true"
             android:text="@{data.pv + @string/pv}"

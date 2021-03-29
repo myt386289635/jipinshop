@@ -32,7 +32,7 @@
             android:layout_height="wrap_content"/>
 
         <ScrollView
-            android:layout_below="@id/dialog_title"
+            android:layout_below="@+id/dialog_title"
             android:layout_marginBottom="@dimen/y67"
             android:layout_marginRight="@dimen/x60"
             android:layout_marginLeft="@dimen/x60"

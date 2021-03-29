@@ -36,10 +36,10 @@
             android:id="@+id/item_shopName"
             android:textColor="@color/color_ACACAC"
             android:textSize="14sp"
-            android:layout_toRightOf="@id/item_shopImg"
+            android:layout_toRightOf="@+id/item_shopImg"
             android:gravity="center_vertical"
-            android:layout_alignBottom="@id/item_shopImg"
-            android:layout_alignTop="@id/item_shopImg"
+            android:layout_alignBottom="@+id/item_shopImg"
+            android:layout_alignTop="@+id/item_shopImg"
             android:text="@{date.shopName + @string/my_free_shopname}"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"/>
@@ -52,14 +52,14 @@
             android:textSize="12sp"
             android:layout_marginRight="@dimen/x30"
             android:layout_alignParentRight="true"
-            android:layout_alignBottom="@id/item_shopImg"
-            android:layout_alignTop="@id/item_shopImg"
+            android:layout_alignBottom="@+id/item_shopImg"
+            android:layout_alignTop="@+id/item_shopImg"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"/>
 
         <View
             android:id="@+id/item_tag"
-            android:layout_below="@id/item_shopImg"
+            android:layout_below="@+id/item_shopImg"
             android:background="@color/color_E6E6E6"
             android:layout_width="match_parent"
             android:layout_height="@dimen/y1"/>
@@ -68,7 +68,7 @@
             android:id="@+id/item_image"
             bind:srcRound="@{date.img}"
             android:layout_margin="@dimen/x30"
-            android:layout_below="@id/item_tag"
+            android:layout_below="@+id/item_tag"
             android:layout_width="@dimen/x180"
             android:layout_height="@dimen/y180"/>
 
@@ -80,15 +80,15 @@
             android:ellipsize="end"
             android:singleLine="true"
             android:text="@{date.name}"
-            android:layout_alignTop="@id/item_image"
-            android:layout_toRightOf="@id/item_image"
+            android:layout_alignTop="@+id/item_image"
+            android:layout_toRightOf="@+id/item_image"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"/>
 
         <TextView
             android:id="@+id/item_textTag"
-            android:layout_alignBottom="@id/item_image"
-            android:layout_toRightOf="@id/item_image"
+            android:layout_alignBottom="@+id/item_image"
+            android:layout_toRightOf="@+id/item_image"
             android:paddingBottom="@dimen/y6"
             android:paddingTop="@dimen/y6"
             android:paddingRight="@dimen/x14"
@@ -105,9 +105,9 @@
             android:id="@+id/item_freeNotice"
             android:layout_marginLeft="@dimen/x16"
             android:gravity="center_vertical"
-            android:layout_alignBottom="@id/item_textTag"
-            android:layout_alignTop="@id/item_textTag"
-            android:layout_toRightOf="@id/item_textTag"
+            android:layout_alignBottom="@+id/item_textTag"
+            android:layout_alignTop="@+id/item_textTag"
+            android:layout_toRightOf="@+id/item_textTag"
             android:textColor="@color/color_E25838"
             android:textSize="13sp"
             bind:myFreeType="@{type}"
@@ -123,9 +123,9 @@
             android:textColor="@color/color_424242"
             android:gravity="center_vertical"
             android:text="@{@string/price + date.actualPrice}"
-            android:layout_toRightOf="@id/item_image"
-            android:layout_above="@id/item_textTag"
-            android:layout_below="@id/item_name"
+            android:layout_toRightOf="@+id/item_image"
+            android:layout_above="@+id/item_textTag"
+            android:layout_below="@+id/item_name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"/>
 
@@ -134,10 +134,10 @@
             android:textColor="@color/color_9D9D9D"
             android:textSize="12sp"
             android:layout_marginLeft="@dimen/x16"
-            android:layout_toRightOf="@id/item_price"
+            android:layout_toRightOf="@+id/item_price"
             android:gravity="center_vertical"
-            android:layout_above="@id/item_textTag"
-            android:layout_below="@id/item_name"
+            android:layout_above="@+id/item_textTag"
+            android:layout_below="@+id/item_name"
             android:text="@{@string/price + date.otherPrice}"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"/>

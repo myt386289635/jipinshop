@@ -47,7 +47,7 @@
                 android:orientation="vertical"/>
 
             <include
-                android:layout_below="@id/status_bar"
+                android:layout_below="@+id/status_bar"
                 android:id="@+id/in_clude"
                 layout="@layout/aa_title2"
                 bind:listener="@{listener}"
@@ -55,7 +55,7 @@
                 android:layout_width="match_parent"/>
 
             <TextView
-                android:layout_below="@id/status_bar"
+                android:layout_below="@+id/status_bar"
                 android:gravity="center"
                 android:paddingLeft="@dimen/x28"
                 android:onClick="@{listener.onClick}"

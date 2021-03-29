@@ -30,10 +30,10 @@
             android:text="@{data.goodsName}"
             android:textColor="@color/color_202020"
             android:textSize="16sp"
-            android:layout_alignTop="@id/item_image"
+            android:layout_alignTop="@+id/item_image"
             android:layout_marginTop="@dimen/y4"
             android:layout_marginLeft="@dimen/x32"
-            android:layout_toRightOf="@id/item_image"
+            android:layout_toRightOf="@+id/item_image"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"/>
 
@@ -57,14 +57,14 @@
             android:text="@{@string/price  + data.otherPrice}"
             android:layout_marginBottom="@dimen/y4"
             android:layout_marginLeft="@dimen/x32"
-            android:layout_toRightOf="@id/item_image"
-            android:layout_alignBottom="@id/item_image"
+            android:layout_toRightOf="@+id/item_image"
+            android:layout_alignBottom="@+id/item_image"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"/>
 
 
         <View
-            android:layout_below="@id/item_image"
+            android:layout_below="@+id/item_image"
             android:layout_marginRight="@dimen/x30"
             android:layout_marginLeft="@dimen/x30"
             android:background="@color/color_DEDEDE"

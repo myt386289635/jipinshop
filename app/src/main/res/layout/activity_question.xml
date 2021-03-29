@@ -31,7 +31,7 @@
             android:layout_height="@dimen/y88"/>
 
         <com.aspsine.swipetoloadlayout.SwipeToLoadLayout
-            android:layout_below="@id/in_clude"
+            android:layout_below="@+id/in_clude"
             android:id="@+id/swipeToLoad"
             android:layout_width="match_parent"
             android:layout_height="match_parent"

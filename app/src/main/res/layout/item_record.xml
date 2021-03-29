@@ -31,7 +31,7 @@
             android:layout_marginRight="@dimen/x10"
             android:layout_marginLeft="@dimen/x10"
             android:background="@color/color_DEDEDE"
-            android:layout_below="@id/item_time"
+            android:layout_below="@+id/item_time"
             android:layout_width="match_parent"
             android:layout_height="1px"/>
 
@@ -42,7 +42,7 @@
             android:layout_marginLeft="@dimen/x14"
             android:layout_marginBottom="@dimen/y25"
             android:layout_marginTop="@dimen/y25"
-            android:layout_below="@id/item_time"
+            android:layout_below="@+id/item_time"
             android:layout_width="@dimen/x180"
             android:layout_height="@dimen/y180"/>
 
@@ -51,8 +51,8 @@
             android:ellipsize="end"
             android:singleLine="true"
             android:layout_marginTop="@dimen/y2"
-            android:layout_alignTop="@id/item_image"
-            android:layout_toRightOf="@id/item_image"
+            android:layout_alignTop="@+id/item_image"
+            android:layout_toRightOf="@+id/item_image"
             android:text="@{date.goodsName}"
             android:id="@+id/item_name"
             android:layout_width="wrap_content"
@@ -61,8 +61,8 @@
         <LinearLayout
             android:id="@+id/item_priceContainer"
             android:layout_marginBottom="@dimen/y4"
-            android:layout_toRightOf="@id/item_image"
-            android:layout_alignBottom="@id/item_image"
+            android:layout_toRightOf="@+id/item_image"
+            android:layout_alignBottom="@+id/item_image"
             android:orientation="horizontal"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content">
@@ -87,9 +87,9 @@
         </LinearLayout>
 
         <com.example.administrator.jipinshop.view.textview.TextViewDel
-            android:layout_toRightOf="@id/item_image"
+            android:layout_toRightOf="@+id/item_image"
             android:layout_marginBottom="@dimen/y15"
-            android:layout_above="@id/item_priceContainer"
+            android:layout_above="@+id/item_priceContainer"
             android:id="@+id/item_price_old"
             android:text="@{@string/new_people + date.otherPrice}"
             android:textSize="12sp"
@@ -100,7 +100,7 @@
         <TextView
             android:layout_marginRight="@dimen/x30"
             android:layout_alignParentRight="true"
-            android:layout_alignBottom="@id/item_priceContainer"
+            android:layout_alignBottom="@+id/item_priceContainer"
             android:id="@+id/item_allowance"
             android:gravity="center"
             android:textColor="@color/color_white"

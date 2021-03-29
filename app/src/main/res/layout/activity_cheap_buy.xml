@@ -21,7 +21,7 @@
             android:orientation="vertical"/>
 
         <include
-            android:layout_below="@id/status_bar"
+            android:layout_below="@+id/status_bar"
             layout="@layout/aa_title2"
             bind:listener="@{listener}"
             android:id="@+id/in_clude"
@@ -29,7 +29,7 @@
             android:layout_width="match_parent"/>
 
         <TextView
-            android:layout_below="@id/status_bar"
+            android:layout_below="@+id/status_bar"
             android:gravity="center"
             android:textColor="@color/color_DE050505"
             android:textStyle="bold"
@@ -53,7 +53,7 @@
 
             <TextView
                 android:layout_marginTop="-8dp"
-                android:layout_below="@id/detail_notice"
+                android:layout_below="@+id/detail_notice"
                 android:layout_marginBottom="@dimen/y20"
                 android:onClick="@{listener.onClick}"
                 android:paddingRight="@dimen/x10"
@@ -91,8 +91,8 @@
 
         <com.aspsine.swipetoloadlayout.SwipeToLoadLayout
             android:background="@color/color_white"
-            android:layout_above="@id/detail_used"
-            android:layout_below="@id/in_clude"
+            android:layout_above="@+id/detail_used"
+            android:layout_below="@+id/in_clude"
             android:id="@+id/swipeToLoad"
             android:layout_width="match_parent"
             android:layout_height="match_parent">

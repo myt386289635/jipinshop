@@ -347,7 +347,7 @@
             android:layout_marginLeft="@dimen/x30"
             android:layout_marginTop="@dimen/y20"
             android:id="@+id/mine_teamContainer"
-            android:layout_below="@id/mine_orderContainer"
+            android:layout_below="@+id/mine_orderContainer"
             android:orientation="vertical"
             android:layout_width="match_parent"
             android:layout_height="@dimen/y154">

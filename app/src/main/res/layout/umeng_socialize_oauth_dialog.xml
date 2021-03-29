@@ -73,7 +73,7 @@
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
             android:layout_marginLeft="15dp"
-            android:layout_toRightOf="@id/umeng_socialize_follow_check"
+            android:layout_toRightOf="@+id/umeng_socialize_follow_check"
             android:text="关注官方微博"
             android:textColor="#f8f8f8"
             android:textSize="16sp"
@@ -84,8 +84,8 @@
         <!--android:id="@+id/webView_container"-->
         <!--android:layout_width="match_parent"-->
         <!--android:layout_height="match_parent"-->
-        <!--android:layout_above="@id/umeng_socialize_follow"-->
-        <!--android:layout_below="@id/umeng_socialize_titlebar"-->
+        <!--android:layout_above="@+id/umeng_socialize_follow"-->
+        <!--android:layout_below="@+id/umeng_socialize_titlebar"-->
         <!--android:orientation="horizontal"-->
         <!--android:visibility="visible" />-->
 
@@ -94,15 +94,15 @@
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
         android:background="#F2F5F6"
-        android:layout_above="@id/umeng_socialize_follow"
-        android:layout_below="@id/umeng_socialize_titlebar"
+        android:layout_above="@+id/umeng_socialize_follow"
+        android:layout_below="@+id/umeng_socialize_titlebar"
         android:visibility="visible" />
 
     <RelativeLayout
         android:id="@+id/progress_bar_parent"
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
-        android:layout_below="@id/umeng_socialize_titlebar"
+        android:layout_below="@+id/umeng_socialize_titlebar"
         android:background="#F2F5F6" >
 
         <LinearLayout

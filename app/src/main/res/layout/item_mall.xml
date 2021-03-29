@@ -40,7 +40,7 @@
                 android:id="@+id/item_name"
                 android:layout_marginTop="@dimen/y12"
                 android:textColor="@color/color_202020"
-                android:layout_below="@id/item_image"
+                android:layout_below="@+id/item_image"
                 android:ellipsize="end"
                 android:textSize="12sp"
                 android:maxLines="2"
@@ -52,7 +52,7 @@
             <TextView
                 android:layout_alignLeft="@+id/item_name"
                 android:layout_marginTop="@dimen/y8"
-                android:layout_below="@id/item_name"
+                android:layout_below="@+id/item_name"
                 android:id="@+id/item_code"
                 android:textSize="16sp"
                 android:textStyle="bold"
@@ -63,8 +63,8 @@
 
             <com.example.administrator.jipinshop.view.textview.TextViewDel
                 android:id="@+id/item_price"
-                android:layout_toRightOf="@id/item_code"
-                android:layout_alignBottom="@id/item_code"
+                android:layout_toRightOf="@+id/item_code"
+                android:layout_alignBottom="@+id/item_code"
                 android:layout_marginLeft="@dimen/x8"
                 android:textSize="12sp"
                 android:textColor="@color/color_ACACAC"
@@ -80,8 +80,8 @@
                 android:textColor="@color/color_ACACAC"
                 android:textSize="12sp"
                 android:layout_marginTop="@dimen/y2"
-                android:layout_below="@id/item_code"
-                android:layout_alignLeft="@id/item_code"
+                android:layout_below="@+id/item_code"
+                android:layout_alignLeft="@+id/item_code"
                 tools:text="已售：1263件"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"/>

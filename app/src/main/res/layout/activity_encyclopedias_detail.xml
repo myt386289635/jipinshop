@@ -36,7 +36,7 @@
 
         <ScrollView
             android:fillViewport="true"
-            android:layout_below="@id/in_clude"
+            android:layout_below="@+id/in_clude"
             android:scrollbars="none"
             android:layout_width="match_parent"
             android:layout_height="match_parent">
@@ -100,7 +100,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="@dimen/x24"
-                        android:layout_alignBottom="@id/detail_UserImage"
+                        android:layout_alignBottom="@+id/detail_UserImage"
                         android:layout_toRightOf="@+id/detail_UserImage"
                         android:text="2019-6-25  12:11"
                         android:textColor="@color/color_ACACAC"
@@ -173,7 +173,7 @@
 
                     <android.support.v7.widget.RecyclerView
                         android:visibility="gone"
-                        android:layout_below="@id/detail_commonTitle"
+                        android:layout_below="@+id/detail_commonTitle"
                         android:id="@+id/detail_common"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"/>
@@ -196,7 +196,7 @@
 
 
                     <TextView
-                        android:layout_below="@id/detail_commonTitle"
+                        android:layout_below="@+id/detail_commonTitle"
                         android:id="@+id/detail_commentTv"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"

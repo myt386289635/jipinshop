@@ -32,7 +32,7 @@
         <com.google.android.flexbox.FlexboxLayout
             android:layout_marginTop="@dimen/y10"
             android:layout_marginBottom="@dimen/y4"
-            android:layout_below="@id/pop_dismiss"
+            android:layout_below="@+id/pop_dismiss"
             android:id="@+id/pop_content"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

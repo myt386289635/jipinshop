@@ -17,6 +17,7 @@ import com.example.administrator.jipinshop.util.JDUtil;
 import com.example.administrator.jipinshop.util.share.SceneListener;
 import com.example.administrator.jipinshop.util.sp.CommonDate;
 import com.mob.moblink.MobLink;
+import com.qubian.mob.AdManager;
 import com.squareup.leakcanary.LeakCanary;
 import com.squareup.leakcanary.RefWatcher;
 import com.tencent.bugly.crashreport.CrashReport;
@@ -136,6 +137,10 @@ public class MyApplication extends Application {
 
         //初始化京东SDK
         JDUtil.init();
+
+        //初始化广告sdk
+        AdManager.init(this, "1370311636681769027");
+
     }
     private RefWatcher mRefWatcher;
     public static RefWatcher getRefWatcher() {

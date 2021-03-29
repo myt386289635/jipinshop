@@ -49,7 +49,7 @@
             android:textColorHint="@color/color_D8D8D8"
             android:hint="提出问题，让大家给你推荐什么值得买吧，并使用问号结尾"
             android:background="@null"
-            android:layout_below="@id/in_clude"
+            android:layout_below="@+id/in_clude"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"/>
 
@@ -57,7 +57,7 @@
             android:id="@+id/question_text"
             android:layout_marginRight="@dimen/x40"
             android:layout_alignParentRight="true"
-            android:layout_below="@id/question_edit"
+            android:layout_below="@+id/question_edit"
             android:layout_marginTop="@dimen/y32"
             android:text="0/36"
             android:textStyle="bold"

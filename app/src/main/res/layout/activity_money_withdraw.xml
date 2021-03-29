@@ -32,8 +32,8 @@
             android:layout_height="@dimen/y100"/>
 
         <ScrollView
-            android:layout_above="@id/withdraw_withdraw"
-            android:layout_below="@id/in_clude"
+            android:layout_above="@+id/withdraw_withdraw"
+            android:layout_below="@+id/in_clude"
             android:background="@color/color_F5F5F5"
             android:scrollbars="none"
             android:layout_width="match_parent"
@@ -61,7 +61,7 @@
                     <LinearLayout
                         android:layout_marginLeft="@dimen/x30"
                         android:layout_marginTop="@dimen/y10"
-                        android:layout_below="@id/withdraw_title"
+                        android:layout_below="@+id/withdraw_title"
                         android:orientation="horizontal"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content">
@@ -186,8 +186,8 @@
                             android:inputType="number"
                             android:digits="0123456789."
                             android:id="@+id/withdraw_pay"
-                            android:layout_toLeftOf="@id/withdraw_moneyAll"
-                            android:layout_toRightOf="@id/withdraw_moneyTag"
+                            android:layout_toLeftOf="@+id/withdraw_moneyAll"
+                            android:layout_toRightOf="@+id/withdraw_moneyTag"
                             android:background="@color/transparent"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"/>

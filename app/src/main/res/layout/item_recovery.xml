@@ -70,8 +70,8 @@
                 android:layout_marginTop="@dimen/y4"
                 android:id="@+id/item_name"
                 android:layout_marginRight="@dimen/x45"
-                android:layout_toRightOf="@id/item_image"
-                android:layout_alignTop="@id/item_image"
+                android:layout_toRightOf="@+id/item_image"
+                android:layout_alignTop="@+id/item_image"
                 android:minLines="2"
                 android:maxLines="2"
                 android:layout_width="match_parent"
@@ -82,8 +82,8 @@
                 android:id="@+id/item_fee"
                 android:paddingRight="@dimen/x16"
                 android:paddingLeft="@dimen/x16"
-                android:layout_alignBottom="@id/item_image"
-                android:layout_toRightOf="@id/item_image"
+                android:layout_alignBottom="@+id/item_image"
+                android:layout_toRightOf="@+id/item_image"
                 android:gravity="center"
                 android:text="@{@string/fee + date.preFee}"
                 android:textColor="@color/color_835720"
@@ -94,9 +94,9 @@
 
             <RelativeLayout
                 android:layout_marginRight="@dimen/x30"
-                android:layout_above="@id/item_fee"
-                android:layout_toRightOf="@id/item_image"
-                android:layout_below="@id/item_name"
+                android:layout_above="@+id/item_fee"
+                android:layout_toRightOf="@+id/item_image"
+                android:layout_below="@+id/item_name"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
 

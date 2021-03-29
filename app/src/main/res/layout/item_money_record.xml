@@ -28,8 +28,8 @@
             <TextView
                 android:layout_marginTop="@dimen/y12"
                 android:id="@+id/item_name"
-                android:layout_alignTop="@id/item_image"
-                android:layout_toRightOf="@id/item_image"
+                android:layout_alignTop="@+id/item_image"
+                android:layout_toRightOf="@+id/item_image"
                 android:textColor="@color/color_202020"
                 android:textSize="16sp"
                 android:text="@{data.alipayNickname}"
@@ -39,8 +39,8 @@
             <TextView
                 android:id="@+id/item_time"
                 android:layout_marginBottom="@dimen/y12"
-                android:layout_toRightOf="@id/item_image"
-                android:layout_alignBottom="@id/item_image"
+                android:layout_toRightOf="@+id/item_image"
+                android:layout_alignBottom="@+id/item_image"
                 android:textColor="@color/color_9D9D9D"
                 android:textSize="13sp"
                 android:text="@{@string/money_time + data.createTime}"

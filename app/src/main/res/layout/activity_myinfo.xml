@@ -52,8 +52,8 @@
 
                 <ImageView
                     android:layout_marginRight="@dimen/x20"
-                    android:layout_alignRight="@id/info_image"
-                    android:layout_alignBottom="@id/info_image"
+                    android:layout_alignRight="@+id/info_image"
+                    android:layout_alignBottom="@+id/info_image"
                     android:src="@mipmap/info_userimage"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"/>
@@ -80,7 +80,7 @@
                 android:id="@+id/info_backage"
                 android:layout_marginBottom="@dimen/y24"
                 android:layout_marginLeft="@dimen/x30"
-                android:layout_alignBottom="@id/info_bg"
+                android:layout_alignBottom="@+id/info_bg"
                 android:background="@drawable/bg_info"
                 android:layout_width="@dimen/x180"
                 android:layout_height="@dimen/y60">
@@ -169,7 +169,7 @@
                 android:includeFontPadding="false"
                 android:id="@+id/info_sign"
                 android:layout_width="match_parent"
-                android:layout_toRightOf="@id/info_signText"
+                android:layout_toRightOf="@+id/info_signText"
                 android:layout_height="wrap_content"
                 android:layout_alignParentRight="true"
                 android:layout_centerVertical="true"

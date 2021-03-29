@@ -38,8 +38,8 @@
 
             <TextView
                 android:id="@+id/item_rote"
-                android:layout_alignRight="@id/item_image"
-                android:layout_alignTop="@id/item_image"
+                android:layout_alignRight="@+id/item_image"
+                android:layout_alignTop="@+id/item_image"
                 android:gravity="center"
                 android:text="@{date.buyRate + @string/buy_rote}"
                 android:textColor="@color/color_white"
@@ -62,15 +62,15 @@
                 android:textSize="14sp"
                 android:textColor="@color/color_565252"
                 android:layout_marginTop="@dimen/y6"
-                android:layout_alignTop="@id/item_image"
-                android:layout_toRightOf="@id/item_image"
+                android:layout_alignTop="@+id/item_image"
+                android:layout_toRightOf="@+id/item_image"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"/>
 
             <ImageView
                 android:layout_marginTop="@dimen/y13"
-                android:layout_below="@id/item_title"
-                android:layout_toRightOf="@id/item_image"
+                android:layout_below="@+id/item_title"
+                android:layout_toRightOf="@+id/item_image"
                 android:id="@+id/item_shopImg"
                 bind:src="@{date.shopIcon}"
                 android:layout_width="@dimen/x32"
@@ -82,20 +82,20 @@
                 android:layout_marginRight="@dimen/x26"
                 android:ellipsize="end"
                 android:maxLines="1"
-                android:layout_alignTop="@id/item_shopImg"
-                android:layout_alignBottom="@id/item_shopImg"
+                android:layout_alignTop="@+id/item_shopImg"
+                android:layout_alignBottom="@+id/item_shopImg"
                 android:id="@+id/item_shopName"
                 android:textColor="@color/color_9D9D9D"
                 android:textSize="12sp"
                 android:text="@{date.shopName}"
-                android:layout_toRightOf="@id/item_shopImg"
+                android:layout_toRightOf="@+id/item_shopImg"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"/>
 
             <RelativeLayout
-                android:layout_alignBottom="@id/item_image"
+                android:layout_alignBottom="@+id/item_image"
                 android:layout_marginTop="@dimen/y8"
-                android:layout_toRightOf="@id/item_image"
+                android:layout_toRightOf="@+id/item_image"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content">
 
@@ -129,9 +129,9 @@
                     android:text="@{@string/price + date.otherPrice}"
                     android:layout_marginLeft="@dimen/x15"
                     android:layout_marginBottom="@dimen/y1"
-                    android:layout_toRightOf="@id/item_priceContainer"
+                    android:layout_toRightOf="@+id/item_priceContainer"
                     android:id="@+id/detail_otherPrice"
-                    android:layout_alignBottom="@id/item_priceContainer"
+                    android:layout_alignBottom="@+id/item_priceContainer"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textSize="13sp"
@@ -141,11 +141,11 @@
                     android:id="@+id/item_volume"
                     android:layout_marginLeft="@dimen/x15"
                     android:layout_marginBottom="@dimen/y2"
-                    android:layout_alignBottom="@id/item_priceContainer"
+                    android:layout_alignBottom="@+id/item_priceContainer"
                     android:text="@{date.volume + @string/detail_buyNum}"
                     android:textColor="@color/color_9D9D9D"
                     android:textSize="11sp"
-                    android:layout_toRightOf="@id/detail_otherPrice"
+                    android:layout_toRightOf="@+id/detail_otherPrice"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"/>
 
@@ -158,7 +158,7 @@
                     android:textSize="11sp"
                     android:textColor="@color/color_white"
                     android:background="@mipmap/bg_coupon1"
-                    android:layout_below="@id/item_priceContainer"
+                    android:layout_below="@+id/item_priceContainer"
                     android:layout_width="wrap_content"
                     android:layout_height="@dimen/y30"/>
 
@@ -168,8 +168,8 @@
                     android:id="@+id/detail_fee"
                     android:paddingRight="@dimen/x16"
                     android:paddingLeft="@dimen/x16"
-                    android:layout_below="@id/item_priceContainer"
-                    android:layout_toRightOf="@id/detail_coupon"
+                    android:layout_below="@+id/item_priceContainer"
+                    android:layout_toRightOf="@+id/detail_coupon"
                     android:gravity="center"
                     android:text="@{@string/fee + date.fee}"
                     android:textColor="@color/color_835720"
@@ -189,7 +189,7 @@
                 android:layout_alignParentRight="true"
                 android:tint="@color/color_9D9D9D"
                 android:src="@mipmap/qus_forward"
-                android:layout_alignBottom="@id/item_image"
+                android:layout_alignBottom="@+id/item_image"
                 android:layout_width="@dimen/x96"
                 android:layout_height="@dimen/y40"/>
 
@@ -218,8 +218,8 @@
 
                 <TextView
                     android:id="@+id/itemGrid_rote"
-                    android:layout_alignRight="@id/itemGrid_image"
-                    android:layout_alignTop="@id/itemGrid_image"
+                    android:layout_alignRight="@+id/itemGrid_image"
+                    android:layout_alignTop="@+id/itemGrid_image"
                     android:gravity="center"
                     android:text="@{date.buyRate + @string/buy_rote}"
                     android:textColor="@color/color_white"
@@ -244,14 +244,14 @@
                     android:layout_marginRight="@dimen/x8"
                     android:layout_marginLeft="@dimen/x8"
                     android:layout_marginTop="@dimen/y10"
-                    android:layout_below="@id/itemGrid_image"
+                    android:layout_below="@+id/itemGrid_image"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"/>
 
 
                 <ImageView
-                    android:layout_alignLeft="@id/item_name"
-                    android:layout_below="@id/item_name"
+                    android:layout_alignLeft="@+id/item_name"
+                    android:layout_below="@+id/item_name"
                     android:layout_marginTop="@dimen/y10"
                     android:id="@+id/itemGrid_shopImg"
                     bind:src="@{date.shopIcon}"
@@ -267,17 +267,17 @@
                     android:textSize="12sp"
                     android:text="@{date.shopName}"
                     android:layout_marginLeft="@dimen/x7"
-                    android:layout_toRightOf="@id/itemGrid_shopImg"
-                    android:layout_alignTop="@id/itemGrid_shopImg"
-                    android:layout_alignBottom="@id/itemGrid_shopImg"
+                    android:layout_toRightOf="@+id/itemGrid_shopImg"
+                    android:layout_alignTop="@+id/itemGrid_shopImg"
+                    android:layout_alignBottom="@+id/itemGrid_shopImg"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"/>
 
                 <RelativeLayout
                     android:id="@+id/item_priceCon"
                     android:layout_marginTop="@dimen/y8"
-                    android:layout_below="@id/itemGird_shopName"
-                    android:layout_alignLeft="@id/item_name"
+                    android:layout_below="@+id/itemGird_shopName"
+                    android:layout_alignLeft="@+id/item_name"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content">
 
@@ -311,9 +311,9 @@
                         android:text="@{@string/price + date.otherPrice}"
                         android:layout_marginLeft="@dimen/x15"
                         android:layout_marginBottom="@dimen/y1"
-                        android:layout_toRightOf="@id/itemGird_priceContainer"
+                        android:layout_toRightOf="@+id/itemGird_priceContainer"
                         android:id="@+id/detailGird_otherPrice"
-                        android:layout_alignBottom="@id/itemGird_priceContainer"
+                        android:layout_alignBottom="@+id/itemGird_priceContainer"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:textSize="13sp"
@@ -328,7 +328,7 @@
                         android:textSize="11sp"
                         android:textColor="@color/color_white"
                         android:background="@mipmap/bg_coupon1"
-                        android:layout_below="@id/itemGird_priceContainer"
+                        android:layout_below="@+id/itemGird_priceContainer"
                         android:layout_width="wrap_content"
                         android:layout_height="@dimen/y30"/>
 
@@ -338,8 +338,8 @@
                         android:id="@+id/detailGird_fee"
                         android:paddingRight="@dimen/x16"
                         android:paddingLeft="@dimen/x16"
-                        android:layout_below="@id/itemGird_priceContainer"
-                        android:layout_toRightOf="@id/detailGird_coupon"
+                        android:layout_below="@+id/itemGird_priceContainer"
+                        android:layout_toRightOf="@+id/detailGird_coupon"
                         android:gravity="center"
                         android:text="@{@string/fee + date.fee}"
                         android:textColor="@color/color_835720"
@@ -357,8 +357,8 @@
                     android:text="@{date.volume + @string/detail_buyNum}"
                     android:layout_marginBottom="@dimen/y16"
                     android:layout_marginTop="@dimen/y16"
-                    android:layout_alignLeft="@id/item_name"
-                    android:layout_below="@id/item_priceCon"
+                    android:layout_alignLeft="@+id/item_name"
+                    android:layout_below="@+id/item_priceCon"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"/>
 
@@ -366,7 +366,7 @@
                     android:id="@+id/item_gridShare"
                     android:paddingBottom="@dimen/y13"
                     android:paddingTop="@dimen/y13"
-                    android:layout_below="@id/item_priceCon"
+                    android:layout_below="@+id/item_priceCon"
                     android:paddingRight="@dimen/x15"
                     android:paddingLeft="@dimen/x15"
                     android:layout_alignParentRight="true"

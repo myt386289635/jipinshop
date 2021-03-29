@@ -37,8 +37,8 @@
             android:layout_marginTop="@dimen/y16"
             android:textColor="@color/color_202020"
             android:layout_marginRight="@dimen/x30"
-            android:layout_alignTop="@id/item_image"
-            android:layout_toRightOf="@id/item_image"
+            android:layout_alignTop="@+id/item_image"
+            android:layout_toRightOf="@+id/item_image"
             android:ellipsize="end"
             android:maxLines="1"
             android:textSize="15sp"
@@ -52,8 +52,8 @@
             android:textColor="@color/color_ACACAC"
             android:textSize="12sp"
             android:layout_marginBottom="@dimen/y25"
-            android:layout_alignBottom="@id/item_image"
-            android:layout_toRightOf="@id/item_image"
+            android:layout_alignBottom="@+id/item_image"
+            android:layout_toRightOf="@+id/item_image"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"/>
 
@@ -65,7 +65,7 @@
             android:textSize="12sp"
             android:layout_marginRight="@dimen/x30"
             android:layout_marginBottom="@dimen/y25"
-            android:layout_alignBottom="@id/item_image"
+            android:layout_alignBottom="@+id/item_image"
             android:layout_alignParentRight="true"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"/>
@@ -76,16 +76,16 @@
             android:textSize="13sp"
             android:text="审核中"
             android:gravity="center_vertical"
-            android:layout_above="@id/item_time"
-            android:layout_toRightOf="@id/item_image"
-            android:layout_below="@id/item_name"
+            android:layout_above="@+id/item_time"
+            android:layout_toRightOf="@+id/item_image"
+            android:layout_below="@+id/item_name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"/>
 
         <View
             android:layout_marginRight="@dimen/x30"
             android:layout_marginLeft="@dimen/x30"
-            android:layout_below="@id/item_image"
+            android:layout_below="@+id/item_image"
             android:background="@color/color_DEDEDE"
             android:layout_width="match_parent"
             android:layout_height="@dimen/y1"/>

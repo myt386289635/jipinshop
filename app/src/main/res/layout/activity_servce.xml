@@ -31,7 +31,7 @@
             android:text="将获取以下权限进行更好的服务"
             android:layout_marginTop="@dimen/y8"
             android:layout_marginLeft="@dimen/x30"
-            android:layout_below="@id/servce_name"
+            android:layout_below="@+id/servce_name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"/>
         
@@ -41,7 +41,7 @@
             android:background="@drawable/bg_evakt"
             android:layout_marginRight="@dimen/x30"
             android:layout_marginLeft="@dimen/x30"
-            android:layout_below="@id/servce_content"
+            android:layout_below="@+id/servce_content"
             android:layout_width="match_parent"
             android:layout_height="@dimen/y166">
 
@@ -55,7 +55,7 @@
 
             <LinearLayout
                 android:layout_marginLeft="@dimen/x23"
-                android:layout_toRightOf="@id/servce1_image"
+                android:layout_toRightOf="@+id/servce1_image"
                 android:layout_centerVertical="true"
                 android:orientation="vertical"
                 android:layout_width="wrap_content"
@@ -96,7 +96,7 @@
             android:background="@drawable/bg_evakt"
             android:layout_marginRight="@dimen/x30"
             android:layout_marginLeft="@dimen/x30"
-            android:layout_below="@id/servce1"
+            android:layout_below="@+id/servce1"
             android:layout_width="match_parent"
             android:layout_height="@dimen/y166">
 
@@ -111,7 +111,7 @@
 
             <LinearLayout
                 android:layout_marginLeft="@dimen/x23"
-                android:layout_toRightOf="@id/servce2_image"
+                android:layout_toRightOf="@+id/servce2_image"
                 android:layout_centerVertical="true"
                 android:orientation="vertical"
                 android:layout_width="wrap_content"
@@ -153,7 +153,7 @@
             android:background="@drawable/bg_evakt"
             android:layout_marginRight="@dimen/x30"
             android:layout_marginLeft="@dimen/x30"
-            android:layout_below="@id/servce2"
+            android:layout_below="@+id/servce2"
             android:layout_width="match_parent"
             android:layout_height="@dimen/y166">
 
@@ -168,7 +168,7 @@
 
             <LinearLayout
                 android:layout_marginLeft="@dimen/x23"
-                android:layout_toRightOf="@id/servce3_image"
+                android:layout_toRightOf="@+id/servce3_image"
                 android:layout_centerVertical="true"
                 android:orientation="vertical"
                 android:layout_width="wrap_content"
@@ -204,7 +204,7 @@
         </RelativeLayout>
 
         <RelativeLayout
-            android:layout_below="@id/servce3"
+            android:layout_below="@+id/servce3"
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 

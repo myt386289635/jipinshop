@@ -29,8 +29,8 @@
             android:textSize="15sp"
             android:text="@{date.title}"
             android:layout_marginTop="@dimen/y16"
-            android:layout_alignTop="@id/item_image"
-            android:layout_toRightOf="@id/item_image"
+            android:layout_alignTop="@+id/item_image"
+            android:layout_toRightOf="@+id/item_image"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"/>
 
@@ -38,7 +38,7 @@
             android:id="@+id/item_change"
             android:layout_marginRight="@dimen/x28"
             android:layout_alignParentRight="true"
-            android:layout_alignBottom="@id/item_image"
+            android:layout_alignBottom="@+id/item_image"
             android:gravity="center"
             android:minWidth="@dimen/x166"
             android:minHeight="@dimen/y55"
@@ -51,7 +51,7 @@
             android:layout_height="wrap_content"/>
 
         <View
-            android:layout_below="@id/item_image"
+            android:layout_below="@+id/item_image"
             android:background="@color/color_F5F5F5"
             android:layout_width="match_parent"
             android:layout_height="@dimen/y2"/>

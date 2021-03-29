@@ -93,7 +93,7 @@
             android:onClick="@{listener.onClick}"
             android:id="@+id/add_goods"
             android:layout_marginTop="@dimen/y440"
-            android:layout_below="@id/in_clude"
+            android:layout_below="@+id/in_clude"
             android:layout_width="match_parent"
             android:layout_height="@dimen/y110">
 
@@ -115,7 +115,7 @@
                 android:textColor="@color/color_202020"
                 android:textSize="18sp"
                 android:layout_centerVertical="true"
-                android:layout_toRightOf="@id/add_tag"
+                android:layout_toRightOf="@+id/add_tag"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"/>
 
@@ -140,8 +140,8 @@
         <android.support.v7.widget.RecyclerView
             android:visibility="gone"
             android:id="@+id/recycler_view"
-            android:layout_above="@id/cover_save"
-            android:layout_below="@id/add_goods"
+            android:layout_above="@+id/cover_save"
+            android:layout_below="@+id/add_goods"
             android:layout_width="match_parent"
             android:layout_height="match_parent"/>
         
