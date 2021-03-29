@@ -46,12 +46,12 @@ public class SplashAdActivity extends Activity {
     }
 
     public void onJump(){
-        finish();
         if(SPUtils.getInstance().getBoolean(CommonDate.FIRST,true)){
             startActivity(new Intent(SplashAdActivity.this, LoginActivity.class));
         }else {
             startActivity(new Intent(SplashAdActivity.this, MainActivity.class));
         }
+        finish();
         EventBus.getDefault().post(new CommenBus(SplashAdActivity.finish));
     }
 

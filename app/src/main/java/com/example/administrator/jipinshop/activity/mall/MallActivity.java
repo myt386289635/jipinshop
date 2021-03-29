@@ -129,11 +129,7 @@ public class MallActivity extends BaseActivity implements View.OnClickListener, 
 
     @Override
     public void onHead() {
-        if (from == 1){//从赚钱页打开极币商城
-            finish();
-        }else {
-            startActivity(new Intent(this, SignActivity.class));
-        }
+        startActivity(new Intent(this, SignActivity.class));
     }
 
     public void dissRefresh(){

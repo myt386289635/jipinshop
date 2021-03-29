@@ -16,6 +16,7 @@ import android.view.View;
 import com.blankj.utilcode.util.SPUtils;
 import com.example.administrator.jipinshop.R;
 import com.example.administrator.jipinshop.activity.cheapgoods.CheapBuyActivity;
+import com.example.administrator.jipinshop.activity.home.newGift.NewGiftActivity;
 import com.example.administrator.jipinshop.activity.login.LoginActivity;
 import com.example.administrator.jipinshop.activity.newpeople.NewFreeActivity;
 import com.example.administrator.jipinshop.activity.sign.SignFragment;
@@ -247,17 +248,8 @@ public class MainActivity extends BaseActivity implements MainView, ViewPager.On
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == 401) {//监听从设置页面返回来后调用
             //解决从设置页面跳转回来无法弹出dialog
-            //20元津贴弹窗
-            DialogUtil.newPeopleDialog(MainActivity.this, "https://jipincheng.cn/app_first?",v -> {
-                appStatisticalUtil.addEvent("tc.xr_close", this.bindToLifecycle());
-                onCheapDialog();
-            }, v -> {
-                appStatisticalUtil.addEvent("tc.xr_enter", this.bindUntilEvent(ActivityEvent.DESTROY));
-                startActivity(new Intent(this, NewFreeActivity.class)
-                        .putExtra("startPop", false)
-                );
-                onCheapDialog();
-            });
+            //新人五重礼
+            onNew();
         }
     }
 
@@ -291,17 +283,8 @@ public class MainActivity extends BaseActivity implements MainView, ViewPager.On
             if (SPUtils.getInstance(CommonDate.USER).getString(CommonDate.isNewUser,"0").equals("0")){
                 //新用户
                 NotificationUtil.OpenNotificationSetting(this, () -> {
-                    //免单
-                    DialogUtil.newPeopleDialog(MainActivity.this,"https://jipincheng.cn/app_first?", v -> {
-                        appStatisticalUtil.addEvent("tc.xr_close", this.bindToLifecycle());
-                        onCheapDialog();
-                    }, v -> {
-                        appStatisticalUtil.addEvent("tc.xr_enter", this.bindUntilEvent(ActivityEvent.DESTROY));
-                        startActivity(new Intent(this, NewFreeActivity.class)
-                                .putExtra("startPop", false)
-                        );
-                        onCheapDialog();
-                    });
+                    //新人五重礼
+                    onNew();
                 });
             }else {
                 //老用户
@@ -313,6 +296,24 @@ public class MainActivity extends BaseActivity implements MainView, ViewPager.On
             //二次进入app
             mPresenter.getPopInfo(this.bindToLifecycle()); //活动弹窗
         }
+    }
+
+    //进入app的第一个弹窗
+    public void onNew(){
+        DialogUtil.newPeopleDialog(MainActivity.this,"https://jipincheng.cn/app_first?", v -> {
+            appStatisticalUtil.addEvent("tc.xr_close", this.bindToLifecycle());
+            getClipText();
+        }, v -> {
+            appStatisticalUtil.addEvent("tc.xr_enter", this.bindUntilEvent(ActivityEvent.DESTROY));
+            if (TextUtils.isEmpty(SPUtils.getInstance(CommonDate.USER).getString(CommonDate.token, ""))) {
+                startActivity(new Intent(this, LoginActivity.class));
+                return;
+            }
+            startActivity(new Intent(this, NewGiftActivity.class)
+                    .putExtra("currentItem", 0)
+            );
+            getClipText();
+        });
     }
 
     //特惠购首次下单奖励弹框
