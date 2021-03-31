@@ -912,11 +912,6 @@
         </provider>
         <!--广告第三方结束-->
 
-        <!--开屏广告-->
-        <activity android:name=".activity.wellcome.ad.SplashAdActivity"
-                  android:screenOrientation="portrait"
-                  android:theme="@style/transparent_activity"/>
-
     </application>
 
 </manifest>

@@ -162,7 +162,9 @@ public class SignFragment extends DBBaseFragment implements View.OnClickListener
     @Override
     public void onResume() {
         super.onResume();
-        if (!once){
+        if (!once &&
+                !TextUtils.isEmpty(SPUtils.getInstance(CommonDate.USER).getString(CommonDate.token,"").trim())){
+            //登陆之后且不是第一次进入
             mPresenter.getData(this.bindToLifecycle());
         }
     }

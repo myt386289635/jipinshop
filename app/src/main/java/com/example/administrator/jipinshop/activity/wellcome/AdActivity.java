@@ -6,22 +6,20 @@ import android.os.CountDownTimer;
 import android.support.annotation.Nullable;
 import android.view.KeyEvent;
 import android.view.View;
+import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.blankj.utilcode.util.SPUtils;
 import com.example.administrator.jipinshop.R;
 import com.example.administrator.jipinshop.activity.home.MainActivity;
-import com.example.administrator.jipinshop.activity.wellcome.ad.SplashAdActivity;
+import com.example.administrator.jipinshop.activity.login.LoginActivity;
 import com.example.administrator.jipinshop.base.BaseActivity;
 import com.example.administrator.jipinshop.bean.EvaluationTabBean;
-import com.example.administrator.jipinshop.bean.eventbus.CommenBus;
+import com.example.administrator.jipinshop.util.ADUtil;
 import com.example.administrator.jipinshop.util.sp.CommonDate;
 import com.example.administrator.jipinshop.view.glide.GlideApp;
 import com.google.gson.Gson;
-
-import org.greenrobot.eventbus.EventBus;
-import org.greenrobot.eventbus.Subscribe;
 
 /**
  * @author 莫小婷
@@ -33,12 +31,12 @@ public class AdActivity extends BaseActivity implements View.OnClickListener {
     private ImageView mImageView;
     private TextView mTextView;
     private EvaluationTabBean.DataBean.AdListBean mBean;
+    private FrameLayout mSplashContainer;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_ad);
-        EventBus.getDefault().register(this);
         mImmersionBar.reset()
                 .transparentStatusBar()
                 .statusBarDarkFont(true, 0f)
@@ -47,6 +45,7 @@ public class AdActivity extends BaseActivity implements View.OnClickListener {
     }
 
     private void initView() {
+        mSplashContainer = findViewById(R.id.home_fragment);
         mImageView = findViewById(R.id.ad_image);
         mTextView = findViewById(R.id.ad_jump);
         if (timer != null) {
@@ -66,7 +65,14 @@ public class AdActivity extends BaseActivity implements View.OnClickListener {
 
         @Override
         public void onFinish() {
-            startActivity(new Intent(AdActivity.this, SplashAdActivity.class));
+            ADUtil.playAD(AdActivity.this, mSplashContainer, () -> {
+                if(SPUtils.getInstance().getBoolean(CommonDate.FIRST,true)){
+                    startActivity(new Intent(AdActivity.this, LoginActivity.class));
+                }else {
+                    startActivity(new Intent(AdActivity.this, MainActivity.class));
+                }
+                finish();
+            });
         }
     };
 
@@ -75,7 +81,6 @@ public class AdActivity extends BaseActivity implements View.OnClickListener {
         if (timer != null) {
             timer.cancel();
         }
-        EventBus.getDefault().unregister(this);
         super.onDestroy();
     }
 
@@ -94,7 +99,14 @@ public class AdActivity extends BaseActivity implements View.OnClickListener {
                 if (timer != null) {
                     timer.cancel();
                 }
-                startActivity(new Intent(AdActivity.this, SplashAdActivity.class));
+                ADUtil.playAD(AdActivity.this, mSplashContainer, () -> {
+                    if(SPUtils.getInstance().getBoolean(CommonDate.FIRST,true)){
+                        startActivity(new Intent(AdActivity.this, LoginActivity.class));
+                    }else {
+                        startActivity(new Intent(AdActivity.this, MainActivity.class));
+                    }
+                    finish();
+                });
                 break;
             case R.id.ad_image:
                 if (mBean.getType() != 0){
@@ -115,10 +127,4 @@ public class AdActivity extends BaseActivity implements View.OnClickListener {
         }
     }
 
-    @Subscribe
-    public void finish(CommenBus bus){
-        if (bus != null && bus.getTag().equals(SplashAdActivity.finish)){
-            finish();
-        }
-    }
 }
