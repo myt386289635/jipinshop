@@ -1,10 +1,11 @@
-package com.example.administrator.jipinshop.activity.message;
+package com.example.administrator.jipinshop.activity.message.system;
 
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 
 import com.aspsine.swipetoloadlayout.SwipeToLoadLayout;
-import com.example.administrator.jipinshop.bean.MessageBean;
+import com.example.administrator.jipinshop.bean.MessageAllBean;
+import com.example.administrator.jipinshop.bean.SuccessBean;
 import com.example.administrator.jipinshop.netwrok.Repository;
 import com.trello.rxlifecycle2.LifecycleTransformer;
 
@@ -15,21 +16,21 @@ import io.reactivex.schedulers.Schedulers;
 
 /**
  * @author 莫小婷
- * @create 2018/8/4
+ * @create 2021/4/1
  * @Describe
  */
-public class MessagePresenter {
+public class MessageSystemPresenter {
 
     private Repository mRepository;
-    private MessageView mView;
-
-    public void setView(MessageView view) {
-        mView = view;
-    }
+    private MessageSystemView mView;
 
     @Inject
-    public MessagePresenter(Repository repository) {
+    public MessageSystemPresenter(Repository repository) {
         mRepository = repository;
+    }
+
+    public void setView(MessageSystemView view) {
+        mView = view;
     }
 
     public void solveScoll(RecyclerView mRecyclerView, final SwipeToLoadLayout mSwipeToLoad){
@@ -40,6 +41,7 @@ public class MessagePresenter {
                 RecyclerView.LayoutManager layoutManager = mRecyclerView.getLayoutManager();
                 LinearLayoutManager linearManager = (LinearLayoutManager) layoutManager;
                 mSwipeToLoad.setRefreshEnabled(linearManager.findFirstCompletelyVisibleItemPosition() == 0);
+                mSwipeToLoad.setLoadMoreEnabled(isSlideToBottom(mRecyclerView));
             }
 
             @Override
@@ -49,8 +51,17 @@ public class MessagePresenter {
         });
     }
 
-    public void message(LifecycleTransformer<MessageBean> ransformer){
-        mRepository.message()
+    //判断RecyclerView是否滑动到底部
+    public static boolean isSlideToBottom(RecyclerView recyclerView) {
+        if (recyclerView == null) return false;
+        if (recyclerView.computeVerticalScrollExtent() + recyclerView.computeVerticalScrollOffset()
+                >= recyclerView.computeVerticalScrollRange())
+            return true;
+        return false;
+    }
+
+    public void messageAll(int page , String categoryId ,LifecycleTransformer<MessageAllBean> ransformer){
+        mRepository.messageAll(page, categoryId)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .compose(ransformer)
@@ -63,5 +74,14 @@ public class MessagePresenter {
                 }, throwable -> {
                     mView.onFile(throwable.getMessage());
                 });
+    }
+
+    //已读
+    public void readMsg(String id,LifecycleTransformer<SuccessBean> ransformer){
+        mRepository.readMsg(id)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .compose(ransformer)
+                .subscribe(successBean -> {}, throwable -> {});
     }
 }

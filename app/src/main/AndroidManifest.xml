@@ -115,7 +115,7 @@
         <activity android:name=".activity.login.bind.BindNumberActivity"
                   android:screenOrientation="portrait"/>
 
-        <!--系统消息-->
+        <!--消息首页-->
         <activity android:name=".activity.message.MessageActivity"
                   android:screenOrientation="portrait"/>
 
@@ -911,6 +911,18 @@
                 android:resource="@xml/sigmob_provider_paths" />
         </provider>
         <!--广告第三方结束-->
+
+        <!--系统消息、佣金消息-->
+        <activity android:name=".activity.message.system.MessageSystemActivity"
+                  android:screenOrientation="portrait"/>
+
+        <!--每日好货-->
+        <activity android:name=".activity.message.sdaily.MessageDailyActivity"
+                  android:screenOrientation="portrait"/>
+
+        <!--活动公告、福利消息-->
+        <activity android:name=".activity.message.saction.MessageActionActivity"
+                  android:screenOrientation="portrait"/>
 
     </application>
 

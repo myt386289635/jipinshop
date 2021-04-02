@@ -54,6 +54,9 @@ import com.example.administrator.jipinshop.activity.member.zero.ZeroActivity;
 import com.example.administrator.jipinshop.activity.member.zero.detail.ZeroDetailActivity;
 import com.example.administrator.jipinshop.activity.message.MessageActivity;
 import com.example.administrator.jipinshop.activity.message.detail.MsgDetailActivity;
+import com.example.administrator.jipinshop.activity.message.saction.MessageActionActivity;
+import com.example.administrator.jipinshop.activity.message.sdaily.MessageDailyActivity;
+import com.example.administrator.jipinshop.activity.message.system.MessageSystemActivity;
 import com.example.administrator.jipinshop.activity.mine.browse.BrowseActivity;
 import com.example.administrator.jipinshop.activity.mine.group.MyGroupActivity;
 import com.example.administrator.jipinshop.activity.mine.welfare.OfficialWelfareActivity;
@@ -206,4 +209,7 @@ public interface BaseActivityComponent {
     void inject(SeckillDetailActivity activity);
     void inject(RechargeActivity activity);
     void inject(NewGiftActivity activity);
+    void inject(MessageSystemActivity activity);
+    void inject(MessageDailyActivity activity);
+    void inject(MessageActionActivity activity);
 }

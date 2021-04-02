@@ -32,6 +32,7 @@ import com.example.administrator.jipinshop.bean.MallBean;
 import com.example.administrator.jipinshop.bean.MallDetailBean;
 import com.example.administrator.jipinshop.bean.MemberBuyBean;
 import com.example.administrator.jipinshop.bean.MemberNewBean;
+import com.example.administrator.jipinshop.bean.MessageAllBean;
 import com.example.administrator.jipinshop.bean.MoneyRecordBean;
 import com.example.administrator.jipinshop.bean.MyFreeBean;
 import com.example.administrator.jipinshop.bean.MyOrderBean;
@@ -66,7 +67,7 @@ import com.example.administrator.jipinshop.bean.SubUserBean;
 import com.example.administrator.jipinshop.bean.SucBean;
 import com.example.administrator.jipinshop.bean.SucBeanT;
 import com.example.administrator.jipinshop.bean.SuccessBean;
-import com.example.administrator.jipinshop.bean.SystemMessageBean;
+import com.example.administrator.jipinshop.bean.MessageBean;
 import com.example.administrator.jipinshop.bean.TBShoppingDetailBean;
 import com.example.administrator.jipinshop.bean.TBSreachResultBean;
 import com.example.administrator.jipinshop.bean.TabBean;
@@ -286,20 +287,21 @@ public interface APIService {
     /**
      * 获取消息列表详情内容
      */
-    @GET("api/v2/message/selectAll")
-    Observable<SystemMessageBean> messageAll(@Query("page") String page ,@Query("type") String type);
+    @GET("api/v3/message/selectAll")
+    Observable<MessageAllBean> messageAll(@Query("page") int page , @Query("categoryId") String categoryId);
 
     /**
-     * 查看未读消息
+     * 消息分类
+     */
+    @GET("api/v3/message/categoryList")
+    Observable<MessageBean> message();
+
+
+    /**
+     * 查看未读消息 已读
      */
     @GET("api/v2/message/selectById")
     Observable<SuccessBean> readMsg(@Query("id") String id);
-
-    /**
-     * 全部设置为已读
-     */
-    @POST("api/v2/message/updateAll")
-    Observable<SuccessBean> readMsgAll();
 
     /**
      * 上传图片
@@ -1377,13 +1379,6 @@ public interface APIService {
     @FormUrlEncoded
     @POST("api/order/point/pay")
     Observable<SuccessBean> pointPay(@Field("type") int type);
-
-    /**
-     * 根据id删除消息
-     */
-    @FormUrlEncoded
-    @POST("api/v2/message/deleteById")
-    Observable<SuccessBean> deleteById(@Field("id") String id);
 
     /**
      * 相似推荐

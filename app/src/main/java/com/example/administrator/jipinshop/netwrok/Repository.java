@@ -32,6 +32,7 @@ import com.example.administrator.jipinshop.bean.MallBean;
 import com.example.administrator.jipinshop.bean.MallDetailBean;
 import com.example.administrator.jipinshop.bean.MemberBuyBean;
 import com.example.administrator.jipinshop.bean.MemberNewBean;
+import com.example.administrator.jipinshop.bean.MessageAllBean;
 import com.example.administrator.jipinshop.bean.MoneyRecordBean;
 import com.example.administrator.jipinshop.bean.MyFreeBean;
 import com.example.administrator.jipinshop.bean.MyOrderBean;
@@ -66,7 +67,7 @@ import com.example.administrator.jipinshop.bean.SubUserBean;
 import com.example.administrator.jipinshop.bean.SucBean;
 import com.example.administrator.jipinshop.bean.SucBeanT;
 import com.example.administrator.jipinshop.bean.SuccessBean;
-import com.example.administrator.jipinshop.bean.SystemMessageBean;
+import com.example.administrator.jipinshop.bean.MessageBean;
 import com.example.administrator.jipinshop.bean.TBShoppingDetailBean;
 import com.example.administrator.jipinshop.bean.TBSreachResultBean;
 import com.example.administrator.jipinshop.bean.TabBean;
@@ -100,6 +101,8 @@ import javax.inject.Inject;
 import io.reactivex.Observable;
 import okhttp3.MultipartBody;
 import okhttp3.ResponseBody;
+import retrofit2.http.GET;
+import retrofit2.http.Query;
 
 public class Repository {
 
@@ -272,24 +275,24 @@ public class Repository {
     }
 
     /**
-     * 获取消息列表详情内容
+     *  消息分类
      */
-    public Observable<SystemMessageBean> messageAll(String page,String type){
-        return mAPIService.messageAll(page,type);
+    public Observable<MessageBean> message(){
+        return mAPIService.message();
     }
 
     /**
-     * 查看未读消息
+     * 获取消息列表详情内容
+     */
+    public Observable<MessageAllBean> messageAll(int page , String categoryId){
+        return mAPIService.messageAll(page,categoryId);
+    }
+
+    /**
+     * 查看未读消息 已读
      */
     public Observable<SuccessBean> readMsg(String messageId){
         return mAPIService.readMsg(messageId);
-    }
-
-    /**
-     * 全部设置为已读
-     */
-    public Observable<SuccessBean> readMsgAll(){
-        return mAPIService.readMsgAll();
     }
 
     /**
@@ -1520,13 +1523,6 @@ public class Repository {
      */
     public Observable<PopInfoBean> getPopInfoOther(String type){
         return mAPIService.getPopInfoOther(type);
-    }
-
-    /**
-     * 根据id删除消息
-     */
-    public Observable<SuccessBean> deleteById(String id){
-        return mAPIService.deleteById(id);
     }
 
     /**

@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:bind="http://schemas.android.com/apk/res-auto">
+
+    <data>
+        <import type="android.view.View"/>
+        <variable
+            name="bean"
+            type="com.example.administrator.jipinshop.bean.MessageAllBean.DataBean"/>
+    </data>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <LinearLayout
+            android:id="@+id/item_timeContainer"
+            android:layout_marginLeft="@dimen/x20"
+            android:layout_marginTop="@dimen/y30"
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+
+            <ImageView
+                android:src="@mipmap/bg_message"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+
+            <TextView
+                android:textColor="@color/color_202020"
+                android:textSize="12sp"
+                android:layout_marginLeft="@dimen/x20"
+                android:text="@{bean.messagePushTime}"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+
+        </LinearLayout>
+
+        <RelativeLayout
+            android:id="@+id/item_container"
+            android:layout_marginTop="@dimen/y17"
+            android:minHeight="@dimen/y172"
+            android:layout_below="@id/item_timeContainer"
+            android:layout_marginRight="@dimen/x20"
+            android:layout_marginLeft="@dimen/x64"
+            android:background="@drawable/bg_dialog_white"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <ImageView
+                android:layout_marginRight="@dimen/x12"
+                bind:src="@{bean.messageImg}"
+                android:id="@+id/item_image"
+                android:layout_marginLeft="@dimen/x13"
+                android:layout_centerVertical="true"
+                android:layout_width="@dimen/x82"
+                android:layout_height="@dimen/y82"/>
+
+            <TextView
+                android:id="@+id/item_name"
+                android:textColor="@color/color_DE151515"
+                android:textStyle="bold"
+                android:textSize="15sp"
+                android:text="@{bean.title}"
+                android:layout_marginTop="@dimen/y42"
+                android:layout_toRightOf="@id/item_image"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+
+            <TextView
+                android:layout_marginBottom="@dimen/y42"
+                android:lineSpacingExtra="@dimen/y9"
+                android:id="@+id/item_content"
+                android:textColor="@color/color_ACACAC"
+                android:textSize="13sp"
+                android:text="@{bean.messageContent}"
+                android:layout_toRightOf="@id/item_image"
+                android:layout_below="@id/item_name"
+                android:layout_marginTop="@dimen/y10"
+                android:layout_marginRight="@dimen/x140"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"/>
+
+            <TextView
+                android:visibility="@{bean.type == 0 ? View.GONE : View.VISIBLE}"
+                android:id="@+id/item_go"
+                android:paddingRight="@dimen/x12"
+                android:paddingLeft="@dimen/x12"
+                android:textColor="@color/color_DEFFFFFF"
+                android:textSize="12sp"
+                android:gravity="center"
+                android:minWidth="@dimen/x120"
+                android:text="立即查看"
+                android:background="@drawable/bg_free_dialog2"
+                android:layout_marginRight="@dimen/x20"
+                android:layout_alignParentRight="true"
+                android:layout_marginTop="@dimen/y42"
+                android:layout_width="wrap_content"
+                android:layout_height="@dimen/y43"/>
+
+        </RelativeLayout>
+
+        <View
+            android:background="@color/color_D8D8D8"
+            android:layout_marginLeft="@dimen/x32"
+            android:layout_alignBottom="@id/item_container"
+            android:layout_alignTop="@id/item_container"
+            android:layout_width="1px"
+            android:layout_height="wrap_content"/>
+
+
+    </RelativeLayout>
+
+</layout>

@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:bind="http://schemas.android.com/apk/res-auto">
+
+    <data>
+        <variable
+            name="bean"
+            type="com.example.administrator.jipinshop.bean.MessageBean.DataBean"/>
+    </data>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/y172"
+        android:layout_marginLeft="@dimen/x20"
+        android:layout_marginRight="@dimen/x20"
+        android:layout_marginTop="@dimen/y20"
+        android:background="@drawable/bg_balance">
+
+        <ImageView
+            android:layout_marginRight="@dimen/x12"
+            android:id="@+id/item_image"
+            bind:src="@{bean.img}"
+            android:layout_marginLeft="@dimen/x12"
+            android:layout_centerVertical="true"
+            android:layout_width="@dimen/x82"
+            android:layout_height="@dimen/y82"/>
+
+        <TextView
+            android:textColor="@color/color_DE151515"
+            android:textStyle="bold"
+            android:textSize="15sp"
+            android:id="@+id/item_name"
+            android:layout_toRightOf="@id/item_image"
+            android:layout_alignTop="@id/item_image"
+            android:text="@{bean.title}"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+
+        <TextView
+            android:layout_marginBottom="@dimen/y2"
+            android:textColor="@color/color_ACACAC"
+            android:textSize="13sp"
+            android:layout_marginTop="@dimen/y4"
+            android:layout_toRightOf="@id/item_image"
+            android:layout_alignBottom="@id/item_image"
+            android:ellipsize="end"
+            android:maxLines="1"
+            android:text="@{bean.content}"
+            android:layout_width="@dimen/x510"
+            android:layout_height="wrap_content"/>
+
+        <ImageView
+            android:layout_marginRight="@dimen/x34"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:tint="@color/color_ACACAC"
+            android:src="@mipmap/right"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+
+    </RelativeLayout>
+</layout>

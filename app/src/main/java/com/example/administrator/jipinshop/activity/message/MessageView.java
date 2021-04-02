@@ -1,6 +1,6 @@
 package com.example.administrator.jipinshop.activity.message;
 
-import com.example.administrator.jipinshop.bean.SystemMessageBean;
+import com.example.administrator.jipinshop.bean.MessageBean;
 
 /**
  * @author 莫小婷
@@ -9,10 +9,6 @@ import com.example.administrator.jipinshop.bean.SystemMessageBean;
  */
 public interface MessageView {
 
-    void Success(SystemMessageBean systemMessageBean);
-    void Faile(String error);
-
-    void onSuc();
+    void onSuccess(MessageBean bean);
     void onFile(String error);
-    void onDelete(int position);
 }
