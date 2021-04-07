@@ -18,7 +18,7 @@
                 android:gravity="center"
                 android:textStyle="bold"
                 android:textSize="19sp"
-                android:text="已成功获取到订单信息"
+                android:text="恭喜您，邀请成功"
                 android:textColor="@color/color_white"
                 android:background="@mipmap/bg_group3"
                 android:layout_width="match_parent"
@@ -54,7 +54,7 @@
                 android:textSize="18sp"
                 android:layout_toRightOf="@+id/dialog_image"
                 android:layout_alignBottom="@+id/dialog_image"
-                android:text="拼成返"
+                android:text="邀请成功返"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"/>
 
@@ -72,71 +72,38 @@
             <TextView
                 android:id="@+id/dialog_time"
                 android:textColor="@color/color_202020"
-                android:layout_marginTop="@dimen/y32"
-                android:text="还差1人拼团成功，时间仅剩04:24:49"
-                android:layout_centerHorizontal="true"
+                android:layout_marginTop="@dimen/y9"
+                android:text="未邀请成功返￥1.99"
+                android:layout_alignLeft="@id/dialog_priceText"
                 android:layout_below="@+id/dialog_image"
                 android:textSize="16sp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"/>
 
-            <LinearLayout
-                android:id="@+id/group_peopleContainer"
-                android:layout_marginTop="@dimen/y37"
-                android:layout_below="@+id/dialog_time"
+            <ImageView
                 android:layout_centerHorizontal="true"
-                android:orientation="horizontal"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content">
-
-                <RelativeLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content">
-
-                    <ImageView
-                        android:id="@+id/group_grouper"
-                        android:layout_marginTop="@dimen/y10"
-                        android:src="@mipmap/bg_group2"
-                        android:layout_width="@dimen/x82"
-                        android:layout_height="@dimen/y82"/>
-
-                    <TextView
-                        android:background="@drawable/bg_e25838_7"
-                        android:textColor="@color/color_white"
-                        android:gravity="center"
-                        android:textSize="10sp"
-                        android:text="团长"
-                        android:layout_centerHorizontal="true"
-                        android:layout_width="@dimen/x60"
-                        android:layout_height="@dimen/y26"/>
-
-                </RelativeLayout>
-
-                <ImageView
-                    android:id="@+id/group_member"
-                    android:layout_marginLeft="@dimen/x32"
-                    android:layout_marginTop="@dimen/y10"
-                    android:src="@mipmap/bg_group2"
-                    android:layout_width="@dimen/x82"
-                    android:layout_height="@dimen/y82"/>
-
-            </LinearLayout>
+                android:layout_marginBottom="@dimen/y22"
+                android:layout_below="@id/dialog_time"
+                android:id="@+id/group_grouper"
+                android:layout_marginTop="@dimen/y40"
+                android:src="@mipmap/bg_group2"
+                android:layout_width="@dimen/x82"
+                android:layout_height="@dimen/y82"/>
 
             <TextView
+                android:layout_centerHorizontal="true"
                 android:id="@+id/group_invation"
-                android:background="@drawable/bg_group"
-                android:textColor="@color/color_white"
+                android:textColor="@color/color_E25838"
                 android:textStyle="bold"
-                android:textSize="19sp"
+                android:textSize="16sp"
                 android:gravity="center"
-                android:text="邀请好友参团，成团返￥99.99"
+                android:text="本次已获得100%返现"
                 android:layout_marginRight="@dimen/x25"
                 android:layout_marginLeft="@dimen/x25"
                 android:layout_marginBottom="@dimen/y40"
-                android:layout_marginTop="@dimen/y40"
-                android:layout_below="@+id/group_peopleContainer"
-                android:layout_width="match_parent"
-                android:layout_height="@dimen/y88"/>
+                android:layout_below="@+id/group_grouper"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
 
         </RelativeLayout>
 

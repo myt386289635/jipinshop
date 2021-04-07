@@ -8,7 +8,6 @@
     </data>
 
     <RelativeLayout
-        android:onClick="@{listener.onClick}"
         android:id="@+id/group_container"
         android:layout_width="match_parent"
         android:layout_height="@dimen/y128">
@@ -33,7 +32,7 @@
                 android:textColor="@color/color_E25838"
                 android:textStyle="bold"
                 android:textSize="15sp"
-                android:text="待成团"
+                android:text="待邀请"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"/>
 
@@ -117,7 +116,7 @@
             android:paddingBottom="@dimen/y10"
             android:paddingTop="@dimen/y10"
             android:textSize="14sp"
-            android:text="邀请好友组团"
+            android:text="邀请好友注册"
             android:textColor="@color/color_white"
             android:background="@drawable/bg_group"
             android:layout_width="wrap_content"

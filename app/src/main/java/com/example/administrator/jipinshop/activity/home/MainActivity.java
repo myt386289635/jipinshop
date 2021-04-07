@@ -556,26 +556,11 @@ public class MainActivity extends BaseActivity implements MainView, ViewPager.On
         }
     }
 
-    //首次下单后弹框
-    @Override
-    public void onNewDialogSuc(PopBean bean) {
-        if (bean.getData() != null) {
-            DialogUtil.newPeopleDialog(this, "https://jipincheng.cn/app_second?", null, v -> {
-                startActivity(new Intent(this, CheapBuyActivity.class));
-            });
-        }
-    }
-
-    //拼团下单后弹窗
+    //拼团成功弹窗
     @Override
     public void onGroupDialogSuc(PopBean bean) {
         if (bean != null && bean.getData() != null){
             DialogUtil.groupDialog(this, bean.getData().getGroupGoods(), v -> {
-                //分享
-                mDialog = (new ProgressDialogView()).createLoadingDialog(MainActivity.this, "");
-                mDialog.show();
-                mPresenter.initShare(bean.getData().getGroupGoods().getId(),this.bindToLifecycle());
-            }, v -> {
                 mPresenter.getNewDialog(this.bindUntilEvent(ActivityEvent.DESTROY));//获取108元津贴弹窗问题
             });
         }else {
@@ -583,12 +568,14 @@ public class MainActivity extends BaseActivity implements MainView, ViewPager.On
         }
     }
 
-    //拼团分享
+    //首次下单获取108元津贴弹框
     @Override
-    public void initShare(ShareInfoBean bean) {
-        new ShareUtils(this, SHARE_MEDIA.WEIXIN,mDialog)
-                .shareWeb(this, bean.getData().getLink(),bean.getData().getTitle(),
-                        bean.getData().getDesc(),bean.getData().getImgUrl(),R.mipmap.share_logo);
+    public void onNewDialogSuc(PopBean bean) {
+        if (bean.getData() != null) {
+            DialogUtil.newPeopleDialog(this, "https://jipincheng.cn/app_second?", null, v -> {
+                startActivity(new Intent(this, CheapBuyActivity.class));
+            });
+        }
     }
 
     @Override

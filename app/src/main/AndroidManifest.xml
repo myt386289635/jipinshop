@@ -924,6 +924,10 @@
         <activity android:name=".activity.message.saction.MessageActionActivity"
                   android:screenOrientation="portrait"/>
 
+        <!--客服与帮助-->
+        <activity android:name=".activity.web.server.ServerWebActivity"
+                  android:screenOrientation="portrait"/>
+
     </application>
 
 </manifest>

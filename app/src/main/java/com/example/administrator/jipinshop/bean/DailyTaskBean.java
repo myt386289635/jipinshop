@@ -257,8 +257,8 @@ public class DailyTaskBean {
             private String title;
             private String content;
             private int location;
-            private Object locationTitle;
-            private Object locationId;
+            private String locationTitle;
+            private String locationId;
             private int maxPoint;
             private String iconUrl;
             private String buttonName;
@@ -315,19 +315,19 @@ public class DailyTaskBean {
                 this.location = location;
             }
 
-            public Object getLocationTitle() {
+            public String getLocationTitle() {
                 return locationTitle;
             }
 
-            public void setLocationTitle(Object locationTitle) {
+            public void setLocationTitle(String locationTitle) {
                 this.locationTitle = locationTitle;
             }
 
-            public Object getLocationId() {
+            public String getLocationId() {
                 return locationId;
             }
 
-            public void setLocationId(Object locationId) {
+            public void setLocationId(String locationId) {
                 this.locationId = locationId;
             }
 

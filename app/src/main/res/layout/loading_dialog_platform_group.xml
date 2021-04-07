@@ -21,7 +21,7 @@
                 android:textStyle="bold"
                 android:textColor="@color/color_202020"
                 android:textSize="21sp"
-                android:text="先下单，后拼团"
+                android:text="先下单，后邀请"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"/>
 
@@ -35,7 +35,7 @@
                 <TextView
                     android:textColor="@color/color_202020"
                     android:textSize="18sp"
-                    android:text="拼成返"
+                    android:text="邀请成功返"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"/>
 
@@ -54,7 +54,7 @@
                 android:layout_gravity="center_horizontal"
                 android:layout_marginTop="@dimen/y12"
                 android:id="@+id/dialog_fee"
-                android:text="未拼成返￥1.99"
+                android:text="未邀请成功返￥1.99"
                 android:textSize="18sp"
                 android:textColor="@color/color_202020"
                 android:layout_width="wrap_content"

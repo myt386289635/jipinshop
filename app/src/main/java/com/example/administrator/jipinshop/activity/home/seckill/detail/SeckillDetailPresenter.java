@@ -8,10 +8,10 @@ import android.widget.LinearLayout;
 import com.example.administrator.jipinshop.R;
 import com.example.administrator.jipinshop.adapter.NoPageBannerAdapter;
 import com.example.administrator.jipinshop.bean.ClickUrlBean;
-import com.example.administrator.jipinshop.bean.PopBean;
 import com.example.administrator.jipinshop.bean.ShareInfoBean;
 import com.example.administrator.jipinshop.bean.SimilerGoodsBean;
 import com.example.administrator.jipinshop.bean.SucBean;
+import com.example.administrator.jipinshop.bean.SucBeanT;
 import com.example.administrator.jipinshop.bean.SuccessBean;
 import com.example.administrator.jipinshop.bean.TBShoppingDetailBean;
 import com.example.administrator.jipinshop.netwrok.Repository;
@@ -226,9 +226,9 @@ public class SeckillDetailPresenter {
                 });
     }
 
-    //查看拼团
-    public void getGroupDialog(LifecycleTransformer<PopBean> transformer){
-        mRepository.getGroupDialog()
+    //查看拼团状态
+    public void groupStatus(String otherGoodsId, LifecycleTransformer<SucBeanT<String>> transformer){
+        mRepository.groupStatus(otherGoodsId)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .compose(transformer)
@@ -243,8 +243,9 @@ public class SeckillDetailPresenter {
                 });
     }
 
-    public void initShare(String groupId ,LifecycleTransformer<ShareInfoBean> transformer){
-        mRepository.getShareInfo(5,groupId)
+    //拼团分享
+    public void initShare(LifecycleTransformer<ShareInfoBean> transformer){
+        mRepository.getShareInfo(5)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .compose(transformer)

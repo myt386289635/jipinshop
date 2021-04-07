@@ -39,6 +39,5 @@ public interface MainView {
     void onGroupDialogSuc(PopBean bean);
     void onBuyDialogSuc(PopInfoBean bean);
 
-    void initShare(ShareInfoBean bean);
     void buyShare(SHARE_MEDIA share_media , ShareInfoBean bean);
 }

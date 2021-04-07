@@ -32,10 +32,11 @@ import com.example.administrator.jipinshop.adapter.ShoppingRecommendAdapter;
 import com.example.administrator.jipinshop.adapter.ShoppingUserLikeAdapter;
 import com.example.administrator.jipinshop.base.BaseActivity;
 import com.example.administrator.jipinshop.bean.ClickUrlBean;
-import com.example.administrator.jipinshop.bean.PopBean;
 import com.example.administrator.jipinshop.bean.ShareInfoBean;
 import com.example.administrator.jipinshop.bean.SimilerGoodsBean;
 import com.example.administrator.jipinshop.bean.SucBean;
+import com.example.administrator.jipinshop.bean.SucBeanT;
+import com.example.administrator.jipinshop.bean.SuccessBean;
 import com.example.administrator.jipinshop.bean.TBShoppingDetailBean;
 import com.example.administrator.jipinshop.bean.eventbus.ChangeHomePageBus;
 import com.example.administrator.jipinshop.bean.eventbus.TBShopDetailBus;
@@ -102,8 +103,6 @@ public class TBShoppingDetailActivity extends BaseActivity implements View.OnCli
     private String level = "0";//用户身份
     private String UpFee = "";
     private String fee = "";
-    private Boolean isH5 = false;//是否从h5跳转过来
-    private String groupId = "";//拼团id
     //刷新页面
     private Boolean buyRefresh = false;
 
@@ -128,12 +127,10 @@ public class TBShoppingDetailActivity extends BaseActivity implements View.OnCli
         }
         goodsId = getIntent().getStringExtra("otherGoodsId");//商品id
         if (getIntent().getAction() != null && getIntent().getAction().equals(Intent.ACTION_VIEW)) {
-            Uri uri = getIntent().getData();
+            Uri uri = getIntent().getData();//H5跳转过来
             if (uri != null) {
-                groupId = uri.getQueryParameter("groupid");//拼团id
                 goodsId = uri.getQueryParameter("id");
                 source = uri.getQueryParameter("source");
-                isH5 = true;//是否是h5过来的
             }
         }
         parity = getIntent().getStringExtra("parity");
@@ -152,7 +149,6 @@ public class TBShoppingDetailActivity extends BaseActivity implements View.OnCli
                     mBinding.detailMemberContainer.setVisibility(View.GONE);
             }
         });
-        mBinding.detailGroup.setVisibility(View.GONE);//一开始隐藏
 
         //banner
         mBannerAdapter = new NoPageBannerAdapter(this);
@@ -242,11 +238,7 @@ public class TBShoppingDetailActivity extends BaseActivity implements View.OnCli
                         if (level.equals("0")){
                             //非会员弹窗
                             DialogUtil.buyMemberDialog(this, fee, UpFee, v14 -> {
-                                if (isH5) {//加入
-                                    mPresenter.groupJoin(groupId, this.bindToLifecycle());
-                                } else {
-                                    mPresenter.getGoodsClickUrl(source, goodsId, this.bindToLifecycle());
-                                }
+                                mPresenter.getGoodsClickUrl(source, goodsId, this.bindToLifecycle());
                             }, v1 -> {
                                 buyRefresh = true;
                                 startActivity(new Intent(this, HomeNewActivity.class)
@@ -263,11 +255,7 @@ public class TBShoppingDetailActivity extends BaseActivity implements View.OnCli
                     if (level.equals("0")){
                         //非会员弹窗
                         DialogUtil.buyMemberDialog(this, fee, UpFee, v14 -> {
-                            if (isH5) {//加入
-                                mPresenter.groupJoin(groupId, this.bindToLifecycle());
-                            } else {
-                                mPresenter.getGoodsClickUrl(source, goodsId, this.bindToLifecycle());
-                            }
+                            mPresenter.getGoodsClickUrl(source, goodsId, this.bindToLifecycle());
                         }, v12 -> {
                             buyRefresh = true;
                             startActivity(new Intent(this, HomeNewActivity.class)
@@ -296,20 +284,12 @@ public class TBShoppingDetailActivity extends BaseActivity implements View.OnCli
                         TaoBaoUtil.openTB(this, () -> {
                             mDialog = (new ProgressDialogView()).createPlatformGroupDialog(this, source, UpFee, fee);
                             mDialog.show();
-                            if (isH5){//加入
-                                mPresenter.groupJoin(groupId,this.bindToLifecycle());
-                            }else {//拼团
-                                mPresenter.groupCreate(goodsId,source,this.bindToLifecycle());
-                            }
+                            mPresenter.groupCreate(goodsId,source,this.bindToLifecycle());
                         });
                     }else {
                         mDialog = (new ProgressDialogView()).createPlatformGroupDialog(this, source, UpFee, fee);
                         mDialog.show();
-                        if (isH5){//加入
-                            mPresenter.groupJoin(groupId,this.bindToLifecycle());
-                        }else {//拼团
-                            mPresenter.groupCreate(goodsId,source,this.bindToLifecycle());
-                        }
+                        mPresenter.groupCreate(goodsId,source,this.bindToLifecycle());
                     }
                 }else {
                     //会员是分享逻辑
@@ -363,11 +343,9 @@ public class TBShoppingDetailActivity extends BaseActivity implements View.OnCli
                 isStart = false;
                 mBinding.detailMemberContainer.setVisibility(View.GONE);
                 break;
-            case R.id.detail_group:
+            case R.id.detail_invationContainer:
                 //查看拼团
-                mDialog = (new ProgressDialogView()).createLoadingDialog(this, "");
-                mDialog.show();
-                mPresenter.getGroupDialog(this.bindToLifecycle());//拼团下单后弹窗
+                lookTean();
                 break;
         }
     }
@@ -478,6 +456,7 @@ public class TBShoppingDetailActivity extends BaseActivity implements View.OnCli
             mBinding.detailShareCodeText.setText("分享赚");
             mBinding.detailFreeCode.setText("¥"+ new BigDecimal(free).setScale(2,BigDecimal.ROUND_HALF_UP).stripTrailingZeros().toPlainString());
             mBinding.detailFreeCodeText.setText("购买返");
+            mBinding.detailInvationContainer.setVisibility(View.GONE);
         }else {//非会员
             isStart = true;
             mBinding.detailMemberText.setText("加入极品会员，本商品可返");
@@ -486,10 +465,11 @@ public class TBShoppingDetailActivity extends BaseActivity implements View.OnCli
             mBinding.detailMemberGo.setImageResource(R.mipmap.detail_opening);
             mBinding.detailMemberGo.setVisibility(View.VISIBLE);
             mBinding.shopFee.setText("返 ¥" + fee);
-            mBinding.detailShareCode.setText("返¥"+ new BigDecimal(bean.getData().getUpFee()).setScale(2,BigDecimal.ROUND_HALF_UP).stripTrailingZeros().toPlainString());
-            mBinding.detailShareCodeText.setText("拼团买");
-            mBinding.detailFreeCode.setText("返¥"+ new BigDecimal(bean.getData().getUpFee()).setScale(2,BigDecimal.ROUND_HALF_UP).stripTrailingZeros().toPlainString());
-            mBinding.detailFreeCodeText.setText("直接买");
+            mBinding.detailShareCode.setText("¥"+ new BigDecimal(bean.getData().getUpFee()).setScale(2,BigDecimal.ROUND_HALF_UP).stripTrailingZeros().toPlainString());
+            mBinding.detailShareCodeText.setText("邀请返");
+            mBinding.detailFreeCode.setText("¥"+ new BigDecimal(bean.getData().getUpFee()).setScale(2,BigDecimal.ROUND_HALF_UP).stripTrailingZeros().toPlainString());
+            mBinding.detailFreeCodeText.setText("购买返");
+            mBinding.detailInvationContainer.setVisibility(View.VISIBLE);
         }
         //比价弹窗
         if (!TextUtils.isEmpty(parity)){
@@ -656,6 +636,7 @@ public class TBShoppingDetailActivity extends BaseActivity implements View.OnCli
             mBinding.detailShareCodeText.setText("分享赚");
             mBinding.detailFreeCode.setText("¥"+ new BigDecimal(free).setScale(2,BigDecimal.ROUND_HALF_UP).stripTrailingZeros().toPlainString());
             mBinding.detailFreeCodeText.setText("购买返");
+            mBinding.detailInvationContainer.setVisibility(View.GONE);
         }else {//非会员
             isStart = true;
             mBinding.detailMemberText.setText("加入极品会员，本商品可返");
@@ -664,44 +645,50 @@ public class TBShoppingDetailActivity extends BaseActivity implements View.OnCli
             mBinding.detailMemberGo.setImageResource(R.mipmap.detail_opening);
             mBinding.detailMemberGo.setVisibility(View.VISIBLE);
             mBinding.shopFee.setText("返 ¥" + fee);
-            mBinding.detailShareCode.setText("返¥"+ new BigDecimal(bean.getData().getUpFee()).setScale(2,BigDecimal.ROUND_HALF_UP).stripTrailingZeros().toPlainString());
-            mBinding.detailShareCodeText.setText("拼团买");
-            mBinding.detailFreeCode.setText("返¥"+ new BigDecimal(bean.getData().getUpFee()).setScale(2,BigDecimal.ROUND_HALF_UP).stripTrailingZeros().toPlainString());
-            mBinding.detailFreeCodeText.setText("直接买");
+            mBinding.detailShareCode.setText("¥"+ new BigDecimal(bean.getData().getUpFee()).setScale(2,BigDecimal.ROUND_HALF_UP).stripTrailingZeros().toPlainString());
+            mBinding.detailShareCodeText.setText("邀请返");
+            mBinding.detailFreeCode.setText("¥"+ new BigDecimal(bean.getData().getUpFee()).setScale(2,BigDecimal.ROUND_HALF_UP).stripTrailingZeros().toPlainString());
+            mBinding.detailFreeCodeText.setText("购买返");
+            mBinding.detailInvationContainer.setVisibility(View.VISIBLE);
         }
     }
 
     //拼团成功后获取购买链接
     @Override
     public void onCreateGroup() {
-        mBinding.detailGroup.setVisibility(View.VISIBLE);
         mPresenter.getGoodsClickUrl(source, goodsId, this.bindToLifecycle());
     }
 
-    //点击查看拼团
+    //获取拼团状态
+    public void lookTean(){
+        mDialog = (new ProgressDialogView()).createLoadingDialog(this, "");
+        mDialog.show();
+        mPresenter.groupStatus(goodsId,this.bindToLifecycle());
+    }
+
+    //获取拼团状态回调
     @Override
-    public void onGroupDialogSuc(PopBean bean) {
-        if (mDialog != null && mDialog.isShowing()){
-            mDialog.dismiss();
-        }
-        if (bean != null && bean.getData() != null){
-            DialogUtil.groupDialog(this, bean.getData().getGroupGoods(), v -> {
-                //分享
-                mDialog = (new ProgressDialogView()).createLoadingDialog(this, "");
-                mDialog.show();
-                mPresenter.initShare(bean.getData().getGroupGoods().getId(),this.bindToLifecycle());
-            }, v -> {});
+    public void onGroupDialogSuc(SucBeanT<String> bean) {//0未下单，1下单成功
+        if (bean != null && bean.getData().equals("1")){
+            mPresenter.initShare(this.bindToLifecycle());
         }else {
-            ToastUtil.show("拼团订单正在查询中，请稍后尝试");
+            if (mDialog != null && mDialog.isShowing()){
+                mDialog.dismiss();
+            }
+            DialogUtil.listingDetele(this, "订单消息", "很抱歉未找到您的订单，您可以选择重试\n或在个人中心-待邀请列表",
+                    "重试", "关闭", R.color.color_202020, R.color.color_4A90E2, R.color.color_9D9D9D, R.color.color_565252,
+                    true, false, v13 -> {
+                        //重试
+                        lookTean();
+                    });
         }
     }
 
-    //分享拼团
     @Override
     public void initShare(ShareInfoBean bean) {
-        new ShareUtils(this, SHARE_MEDIA.WEIXIN,mDialog)
-                .shareWeb(this, bean.getData().getLink(),bean.getData().getTitle(),
-                        bean.getData().getDesc(),bean.getData().getImgUrl(),R.mipmap.share_logo);
+        new ShareUtils(this, SHARE_MEDIA.WEIXIN, mDialog)
+                .shareWeb(this, bean.getData().getLink(),bean.getData().getTitle(),bean.getData().getDesc(),
+                        bean.getData().getImgUrl(),R.mipmap.share_logo);
     }
 
     @Subscribe

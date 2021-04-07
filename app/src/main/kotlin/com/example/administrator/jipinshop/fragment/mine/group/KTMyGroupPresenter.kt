@@ -26,8 +26,8 @@ class KTMyGroupPresenter {
         this.repository = repository
     }
 
-    fun initShare(groupId : String , transformer: LifecycleTransformer<ShareInfoBean>) {
-        repository.getShareInfo(5,groupId)
+    fun initShare(transformer: LifecycleTransformer<ShareInfoBean>) {
+        repository.getShareInfo(5)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .compose(transformer)

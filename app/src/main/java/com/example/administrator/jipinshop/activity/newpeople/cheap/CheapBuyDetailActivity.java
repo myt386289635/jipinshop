@@ -28,7 +28,7 @@ import com.example.administrator.jipinshop.base.BaseActivity;
 import com.example.administrator.jipinshop.bean.ImageBean;
 import com.example.administrator.jipinshop.bean.SimilerGoodsBean;
 import com.example.administrator.jipinshop.bean.TBShoppingDetailBean;
-import com.example.administrator.jipinshop.databinding.ActivityNewpeopleDetailBinding;
+import com.example.administrator.jipinshop.databinding.ActivityCheapbuyDetailBinding;
 import com.example.administrator.jipinshop.util.DeviceUuidFactory;
 import com.example.administrator.jipinshop.util.TaoBaoUtil;
 import com.example.administrator.jipinshop.util.ToastUtil;
@@ -58,7 +58,7 @@ public class CheapBuyDetailActivity extends BaseActivity implements View.OnClick
     @Inject
     CheapBuyDetailPresenter mPresenter;
 
-    private ActivityNewpeopleDetailBinding mBinding;
+    private ActivityCheapbuyDetailBinding mBinding;
     private String freeId = "";//商品id
     private String otherGoodsId = "";
     private Dialog mDialog;
@@ -86,7 +86,7 @@ public class CheapBuyDetailActivity extends BaseActivity implements View.OnClick
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        mBinding = DataBindingUtil.setContentView(this, R.layout.activity_newpeople_detail);
+        mBinding = DataBindingUtil.setContentView(this, R.layout.activity_cheapbuy_detail);
         mBinding.setListener(this);
         mImmersionBar.reset()
                 .transparentStatusBar()
@@ -221,10 +221,10 @@ public class CheapBuyDetailActivity extends BaseActivity implements View.OnClick
         mBinding.setDate(bean.getData());
         mBinding.executePendingBindings();
         mBinding.detailOldPriceName.setTv(true);
-        mBinding.detailOldPriceName.setColor(R.color.color_9D9D9D);
+        mBinding.detailOldPriceName.setColor(R.color.color_white);
         //商品名称
         mBinding.detailName.setText(bean.getAllowanceGoods().getGoodsName());
-        mBinding.detailAllowance.setText(bean.getAllowanceGoods().getAllowance() + "元");
+        mBinding.detailAllowance.setText(bean.getAllowanceGoods().getAllowance());
         //轮播图
         mBannerList.addAll(bean.getData().getImgList());
         mPresenter.initBanner(mBannerList, this, point, mBinding.detailPoint, mBannerAdapter);

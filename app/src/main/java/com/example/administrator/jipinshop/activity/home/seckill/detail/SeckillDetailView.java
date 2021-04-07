@@ -1,10 +1,10 @@
 package com.example.administrator.jipinshop.activity.home.seckill.detail;
 
 import com.example.administrator.jipinshop.bean.ClickUrlBean;
-import com.example.administrator.jipinshop.bean.PopBean;
 import com.example.administrator.jipinshop.bean.ShareInfoBean;
 import com.example.administrator.jipinshop.bean.SimilerGoodsBean;
 import com.example.administrator.jipinshop.bean.SucBean;
+import com.example.administrator.jipinshop.bean.SucBeanT;
 import com.example.administrator.jipinshop.bean.TBShoppingDetailBean;
 
 /**
@@ -24,6 +24,6 @@ public interface SeckillDetailView {
     void onCreateGroup();
     void onSucCollectInsert();
     void onSucCollectDelete();
-    void onGroupDialogSuc(PopBean bean);
+    void onGroupDialogSuc(SucBeanT<String> bean);
     void initShare(ShareInfoBean bean);
 }

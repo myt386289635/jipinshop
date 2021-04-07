@@ -259,13 +259,13 @@ public class SignFragment extends DBBaseFragment implements View.OnClickListener
         if (set == 0){
             //左边
             dayJump(mBean.getData().getList1().get(position).getLocation(),
-                    mBean.getData().getList1().get(position).getId(),
-                    mBean.getData().getList1().get(position).getTitle());
+                    mBean.getData().getList1().get(position).getLocationId(),
+                    mBean.getData().getList1().get(position).getLocationTitle());
         }else {
             //右边
             dayJump(mBean.getData().getList2().get(position).getLocation(),
-                    mBean.getData().getList2().get(position).getId(),
-                    mBean.getData().getList2().get(position).getTitle());
+                    mBean.getData().getList2().get(position).getLocationId(),
+                    mBean.getData().getList2().get(position).getLocationTitle());
         }
     }
 

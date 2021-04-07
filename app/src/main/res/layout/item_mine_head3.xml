@@ -88,7 +88,7 @@
                     android:gravity="center"
                     android:paddingTop="@dimen/y26"
                     android:paddingBottom="@dimen/y26"
-                    android:text="官方客服"
+                    android:text="添加客服"
                     android:textColor="@color/color_202020"
                     android:textSize="13sp"/>
 
@@ -203,6 +203,20 @@
                     android:paddingTop="@dimen/y26"
                     android:paddingBottom="@dimen/y26"
                     android:text="官方福利群"
+                    android:textColor="@color/color_202020"
+                    android:textSize="13sp"/>
+
+                <TextView
+                    android:id="@+id/mine_help"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:drawableTop="@mipmap/mine_help"
+                    android:drawablePadding="@dimen/y16"
+                    android:gravity="center"
+                    android:paddingTop="@dimen/y26"
+                    android:paddingBottom="@dimen/y26"
+                    android:text="客服与帮助"
                     android:textColor="@color/color_202020"
                     android:textSize="13sp"/>
 

@@ -238,22 +238,6 @@ public class MainActivityPresenter {
                 });
     }
 
-    public void initShare(String groupId ,LifecycleTransformer<ShareInfoBean> transformer){
-        mRepository.getShareInfo(5,groupId)
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .compose(transformer)
-                .subscribe(bean -> {
-                    if (bean.getCode() == 0){
-                        mView.initShare(bean);
-                    }else {
-                        mView.onInvitationFile(bean.getMsg());
-                    }
-                }, throwable -> {
-                    mView.onInvitationFile(throwable.getMessage());
-                });
-    }
-
     //下单分享获得极币
     public void taskFinish(LifecycleTransformer<TaskFinishBean> transformer){
         mRepository.taskFinish("28")

@@ -108,7 +108,7 @@ public class ProgressDialogView {
             binding.dialogPlatform.setImageResource(R.mipmap.dialog_pdd);
         }
         binding.dialogPrice.setText("￥" + UpFee);
-        String html = "未拼成返<b><font color='#E25838'>￥"+ fee + "</font></b>";
+        String html = "未邀请成功返<b><font color='#E25838'>￥"+ fee + "</font></b>";
         binding.dialogFee.setText(Html.fromHtml(html));
         dialog.getWindow().setDimAmount(0.35f);
         dialog.setContentView(binding.getRoot(), new LinearLayout.LayoutParams(

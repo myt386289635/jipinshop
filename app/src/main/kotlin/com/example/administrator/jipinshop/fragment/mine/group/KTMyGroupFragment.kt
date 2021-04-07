@@ -1,18 +1,13 @@
 package com.example.administrator.jipinshop.fragment.mine.group
 
 import android.app.Dialog
-import android.content.Intent
 import android.databinding.DataBindingUtil
 import android.os.Bundle
 import android.os.CountDownTimer
-import android.text.TextUtils
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import com.blankj.utilcode.util.SPUtils
 import com.example.administrator.jipinshop.R
-import com.example.administrator.jipinshop.activity.login.LoginActivity
-import com.example.administrator.jipinshop.activity.mine.group.MyGroupActivity
 import com.example.administrator.jipinshop.base.DBBaseFragment
 import com.example.administrator.jipinshop.bean.MyWalletBean
 import com.example.administrator.jipinshop.bean.ShareInfoBean
@@ -20,7 +15,6 @@ import com.example.administrator.jipinshop.databinding.FragmentGroupBinding
 import com.example.administrator.jipinshop.util.ShareUtils
 import com.example.administrator.jipinshop.util.TimeUtil
 import com.example.administrator.jipinshop.util.ToastUtil
-import com.example.administrator.jipinshop.util.sp.CommonDate
 import com.example.administrator.jipinshop.view.dialog.ProgressDialogView
 import com.example.administrator.jipinshop.view.glide.GlideApp
 import com.google.gson.Gson
@@ -88,21 +82,11 @@ class KTMyGroupFragment : DBBaseFragment(), View.OnClickListener, KTMyGroupView 
 
     override fun onClick(v: View) {
        when(v.id){
-           R.id.group_container -> {
-               //进入详情
-               if (TextUtils.isEmpty(SPUtils.getInstance(CommonDate.USER).getString(CommonDate.token, ""))) {
-                   startActivity(Intent(context, LoginActivity::class.java))
-                   return
-               }
-               startActivity(Intent(context, MyGroupActivity::class.java)
-                       .putExtra("id", bean.groupList[position].id)
-               )
-           }
            R.id.group_share -> {
                //分享
                mDialog = ProgressDialogView().createLoadingDialog(context, "")
                mDialog?.show()
-               mPresenter.initShare(bean.groupList[position].id, this.bindToLifecycle())
+               mPresenter.initShare(this.bindToLifecycle())
            }
        }
     }

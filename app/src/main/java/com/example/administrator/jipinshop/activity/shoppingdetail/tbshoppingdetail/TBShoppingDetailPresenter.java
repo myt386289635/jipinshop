@@ -12,6 +12,7 @@ import com.example.administrator.jipinshop.bean.PopBean;
 import com.example.administrator.jipinshop.bean.ShareInfoBean;
 import com.example.administrator.jipinshop.bean.SimilerGoodsBean;
 import com.example.administrator.jipinshop.bean.SucBean;
+import com.example.administrator.jipinshop.bean.SucBeanT;
 import com.example.administrator.jipinshop.bean.SuccessBean;
 import com.example.administrator.jipinshop.bean.TBShoppingDetailBean;
 import com.example.administrator.jipinshop.netwrok.Repository;
@@ -107,9 +108,7 @@ public class TBShoppingDetailPresenter {
                 });
     }
 
-    /**
-     * 添加收藏
-     */
+    //添加收藏
     public void collectInsert(String goodsId, String source, LifecycleTransformer<SuccessBean> transformer){
         Map<String,String> hashMap = new HashMap<>();
         hashMap.put("type", "8");
@@ -136,9 +135,7 @@ public class TBShoppingDetailPresenter {
                 });
     }
 
-    /**
-     * 删除收藏
-     */
+    //删除收藏
     public void collectDelete(String goodsId , LifecycleTransformer<SuccessBean> transformer){
         Map<String,String> hashMap = new HashMap<>();
         hashMap.put("type", "8");
@@ -164,9 +161,7 @@ public class TBShoppingDetailPresenter {
                 });
     }
 
-    /**
-     * 获取专属淘客链接
-     */
+    //获取专属淘客链接
     public void getGoodsClickUrl(String source , String otherGoodsId , LifecycleTransformer<ClickUrlBean> transformer){
         mRepository.getGoodsClickUrl(source, otherGoodsId)
                 .subscribeOn(Schedulers.io())
@@ -189,9 +184,7 @@ public class TBShoppingDetailPresenter {
                 });
     }
 
-    /**
-     * 获取商品详情
-     */
+    //获取商品详情
     public void getGoodsDescImgs(String otherGoodsId,String source , LifecycleTransformer<SucBean<String>> transformer ){
         mRepository.getGoodsDescImgs(otherGoodsId,source)
                 .subscribeOn(Schedulers.io())
@@ -231,26 +224,9 @@ public class TBShoppingDetailPresenter {
                 });
     }
 
-    //拼团加入
-    public void groupJoin(String groupId , LifecycleTransformer<SuccessBean> transformer){
-        mRepository.groupJoin(groupId)
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .compose(transformer)
-                .subscribe(bean -> {
-                    if (bean.getCode() == 0){
-                        mView.onCreateGroup();
-                    }else {
-                        mView.onFile(bean.getMsg());
-                    }
-                }, throwable -> {
-                    mView.onFile(throwable.getMessage());
-                });
-    }
-
-    //查看拼团
-    public void getGroupDialog(LifecycleTransformer<PopBean> transformer){
-        mRepository.getGroupDialog()
+    //查看拼团状态
+    public void groupStatus(String otherGoodsId, LifecycleTransformer<SucBeanT<String>> transformer){
+        mRepository.groupStatus(otherGoodsId)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .compose(transformer)
@@ -265,8 +241,9 @@ public class TBShoppingDetailPresenter {
                 });
     }
 
-    public void initShare(String groupId ,LifecycleTransformer<ShareInfoBean> transformer){
-        mRepository.getShareInfo(5,groupId)
+    //拼团分享
+    public void initShare(LifecycleTransformer<ShareInfoBean> transformer){
+        mRepository.getShareInfo(5)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .compose(transformer)

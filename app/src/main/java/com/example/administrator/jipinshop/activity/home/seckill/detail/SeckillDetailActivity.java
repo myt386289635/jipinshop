@@ -34,6 +34,7 @@ import com.example.administrator.jipinshop.bean.PopBean;
 import com.example.administrator.jipinshop.bean.ShareInfoBean;
 import com.example.administrator.jipinshop.bean.SimilerGoodsBean;
 import com.example.administrator.jipinshop.bean.SucBean;
+import com.example.administrator.jipinshop.bean.SucBeanT;
 import com.example.administrator.jipinshop.bean.TBShoppingDetailBean;
 import com.example.administrator.jipinshop.bean.eventbus.ChangeHomePageBus;
 import com.example.administrator.jipinshop.bean.eventbus.TBShopDetailBus;
@@ -136,7 +137,6 @@ public class SeckillDetailActivity extends BaseActivity implements View.OnClickL
                     mBinding.detailMemberContainer.setVisibility(View.GONE);
             }
         });
-        mBinding.detailGroup.setVisibility(View.GONE);//一开始隐藏
 
         //banner
         mBannerAdapter = new NoPageBannerAdapter(this);
@@ -319,11 +319,9 @@ public class SeckillDetailActivity extends BaseActivity implements View.OnClickL
                 isStart = false;
                 mBinding.detailMemberContainer.setVisibility(View.GONE);
                 break;
-            case R.id.detail_group:
+            case R.id.detail_invationContainer:
                 //查看拼团
-                mDialog = (new ProgressDialogView()).createLoadingDialog(this, "");
-                mDialog.show();
-                mPresenter.getGroupDialog(this.bindToLifecycle());//拼团下单后弹窗
+                lookTean();
                 break;
         }
     }
@@ -452,6 +450,7 @@ public class SeckillDetailActivity extends BaseActivity implements View.OnClickL
             mBinding.detailShareCodeText.setText("分享赚");
             mBinding.detailFreeCode.setText("¥"+ new BigDecimal(free).setScale(2,BigDecimal.ROUND_HALF_UP).stripTrailingZeros().toPlainString());
             mBinding.detailFreeCodeText.setText("购买返");
+            mBinding.detailInvationContainer.setVisibility(View.GONE);
         }else {//非会员
             isStart = true;
             mBinding.detailMemberText.setText("加入极品会员，本商品可返");
@@ -460,10 +459,11 @@ public class SeckillDetailActivity extends BaseActivity implements View.OnClickL
             mBinding.detailMemberGo.setImageResource(R.mipmap.detail_opening);
             mBinding.detailMemberGo.setVisibility(View.VISIBLE);
             mBinding.shopFee.setText("返 ¥" + fee);
-            mBinding.detailShareCode.setText("返¥"+ new BigDecimal(bean.getData().getUpFee()).setScale(2,BigDecimal.ROUND_HALF_UP).stripTrailingZeros().toPlainString());
-            mBinding.detailShareCodeText.setText("拼团买");
-            mBinding.detailFreeCode.setText("返¥"+ new BigDecimal(bean.getData().getUpFee()).setScale(2,BigDecimal.ROUND_HALF_UP).stripTrailingZeros().toPlainString());
-            mBinding.detailFreeCodeText.setText("直接买");
+            mBinding.detailShareCode.setText("¥"+ new BigDecimal(bean.getData().getUpFee()).setScale(2,BigDecimal.ROUND_HALF_UP).stripTrailingZeros().toPlainString());
+            mBinding.detailShareCodeText.setText("邀请返");
+            mBinding.detailFreeCode.setText("¥"+ new BigDecimal(bean.getData().getUpFee()).setScale(2,BigDecimal.ROUND_HALF_UP).stripTrailingZeros().toPlainString());
+            mBinding.detailFreeCodeText.setText("购买返");
+            mBinding.detailInvationContainer.setVisibility(View.VISIBLE);
         }
         //倒计时
         long timer = (bean.getSeckillEndTime() * 1000) - System.currentTimeMillis();
@@ -534,6 +534,7 @@ public class SeckillDetailActivity extends BaseActivity implements View.OnClickL
             mBinding.detailShareCodeText.setText("分享赚");
             mBinding.detailFreeCode.setText("¥"+ new BigDecimal(free).setScale(2,BigDecimal.ROUND_HALF_UP).stripTrailingZeros().toPlainString());
             mBinding.detailFreeCodeText.setText("购买返");
+            mBinding.detailInvationContainer.setVisibility(View.GONE);
         }else {//非会员
             isStart = true;
             mBinding.detailMemberText.setText("加入极品会员，本商品可返");
@@ -542,10 +543,11 @@ public class SeckillDetailActivity extends BaseActivity implements View.OnClickL
             mBinding.detailMemberGo.setImageResource(R.mipmap.detail_opening);
             mBinding.detailMemberGo.setVisibility(View.VISIBLE);
             mBinding.shopFee.setText("返 ¥" + fee);
-            mBinding.detailShareCode.setText("返¥"+ new BigDecimal(bean.getData().getUpFee()).setScale(2,BigDecimal.ROUND_HALF_UP).stripTrailingZeros().toPlainString());
-            mBinding.detailShareCodeText.setText("拼团买");
-            mBinding.detailFreeCode.setText("返¥"+ new BigDecimal(bean.getData().getUpFee()).setScale(2,BigDecimal.ROUND_HALF_UP).stripTrailingZeros().toPlainString());
-            mBinding.detailFreeCodeText.setText("直接买");
+            mBinding.detailShareCode.setText("¥"+ new BigDecimal(bean.getData().getUpFee()).setScale(2,BigDecimal.ROUND_HALF_UP).stripTrailingZeros().toPlainString());
+            mBinding.detailShareCodeText.setText("邀请返");
+            mBinding.detailFreeCode.setText("¥"+ new BigDecimal(bean.getData().getUpFee()).setScale(2,BigDecimal.ROUND_HALF_UP).stripTrailingZeros().toPlainString());
+            mBinding.detailFreeCodeText.setText("购买返");
+            mBinding.detailInvationContainer.setVisibility(View.VISIBLE);
         }
     }
 
@@ -581,8 +583,39 @@ public class SeckillDetailActivity extends BaseActivity implements View.OnClickL
     //拼团成功后获取购买链接
     @Override
     public void onCreateGroup() {
-        mBinding.detailGroup.setVisibility(View.VISIBLE);
         mPresenter.getGoodsClickUrl(source, goodsId, this.bindToLifecycle());
+    }
+
+    //获取拼团状态
+    public void lookTean(){
+        mDialog = (new ProgressDialogView()).createLoadingDialog(this, "");
+        mDialog.show();
+        mPresenter.groupStatus(goodsId,this.bindToLifecycle());
+    }
+
+    //获取拼团状态回调
+    @Override
+    public void onGroupDialogSuc(SucBeanT<String> bean) {//0未下单，1下单成功
+        if (bean != null && bean.getData().equals("1")){
+            mPresenter.initShare(this.bindToLifecycle());
+        }else {
+            if (mDialog != null && mDialog.isShowing()){
+                mDialog.dismiss();
+            }
+            DialogUtil.listingDetele(this, "订单消息", "很抱歉未找到您的订单，您可以选择重试\n或在个人中心-待邀请列表",
+                    "重试", "关闭", R.color.color_202020, R.color.color_4A90E2, R.color.color_9D9D9D, R.color.color_565252,
+                    true, false, v13 -> {
+                        //重试
+                        lookTean();
+                    });
+        }
+    }
+
+    @Override
+    public void initShare(ShareInfoBean bean) {
+        new ShareUtils(this, SHARE_MEDIA.WEIXIN, mDialog)
+                .shareWeb(this, bean.getData().getLink(),bean.getData().getTitle(),bean.getData().getDesc(),
+                        bean.getData().getImgUrl(),R.mipmap.share_logo);
     }
 
     //添加收藏
@@ -607,31 +640,6 @@ public class SeckillDetailActivity extends BaseActivity implements View.OnClickL
         DrawableCompat.setTint(drawable, getResources().getColor(R.color.color_565252));
         mBinding.titleFavor.setCompoundDrawables(null,drawable,null,null);
         mBinding.titleFavor.setText("收藏");
-    }
-
-    //点击查看拼团
-    @Override
-    public void onGroupDialogSuc(PopBean bean) {
-        if (mDialog != null && mDialog.isShowing()){
-            mDialog.dismiss();
-        }
-        if (bean != null && bean.getData() != null){
-            DialogUtil.groupDialog(this, bean.getData().getGroupGoods(), v -> {
-                //分享
-                mDialog = (new ProgressDialogView()).createLoadingDialog(this, "");
-                mDialog.show();
-                mPresenter.initShare(bean.getData().getGroupGoods().getId(),this.bindToLifecycle());
-            }, v -> {});
-        }else {
-            ToastUtil.show("拼团订单正在查询中，请稍后尝试");
-        }
-    }
-
-    @Override
-    public void initShare(ShareInfoBean bean) {
-        new ShareUtils(this, SHARE_MEDIA.WEIXIN,mDialog)
-                .shareWeb(this, bean.getData().getLink(),bean.getData().getTitle(),
-                        bean.getData().getDesc(),bean.getData().getImgUrl(),R.mipmap.share_logo);
     }
 
     @Override

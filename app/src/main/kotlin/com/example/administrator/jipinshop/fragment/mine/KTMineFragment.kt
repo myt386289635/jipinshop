@@ -439,6 +439,11 @@ class KTMineFragment : DBBaseFragment(), KTMineAdapter.OnItem, KTMineView, OnLoa
         }
     }
 
+    //客服与帮助
+    override fun onHelp() {
+        ToastUtil.show("客服与帮助")
+    }
+
     //进入省钱流程
     override fun onCourse() {
         startActivity(Intent(context, HomeNewActivity::class.java)

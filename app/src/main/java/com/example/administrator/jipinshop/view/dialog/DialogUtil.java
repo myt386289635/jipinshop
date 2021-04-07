@@ -1263,63 +1263,18 @@ public class DialogUtil {
 
     //首页拼团信息弹框
     public static void groupDialog(Context context, GroupInfoBean.DataBean bean,
-                                   View.OnClickListener listener, View.OnClickListener cancleListener) {
+                                   View.OnClickListener cancleListener) {
         AlertDialog.Builder builder = new AlertDialog.Builder(context, R.style.dialog);
         final Dialog dialog = builder.create();
         DialogGroupBinding binding = DataBindingUtil.inflate(LayoutInflater.from(context), R.layout.dialog_group, null, false);
         GlideApp.loderRoundImage(context, bean.getImg(), binding.dialogImage);
         binding.dialogName.setText(bean.getGoodsName());
         binding.dialogPrice.setText("￥" + bean.getUpFee());
-        binding.groupInvation.setText("邀请好友参团，成团返￥" + bean.getUpFee());
-        for (int i = 0; i < bean.getAvatarList().size(); i++) {
-            if (i == 0) {
-                GlideApp.loderCircleImage(context, bean.getAvatarList().get(i), binding.groupGrouper, 0, 0);
-            } else if (i == 1) {
-                GlideApp.loderCircleImage(context, bean.getAvatarList().get(i), binding.groupMember, 0, 0);
-            }
+        String html = "未邀请成功返<b><font color='#E25838'>￥"+ bean.getFee() + "</font></b>";
+        binding.dialogTime.setText(Html.fromHtml(html));
+        if (bean.getAvatarList().size() >= 1) {
+            GlideApp.loderCircleImage(context, bean.getAvatarList().get(0), binding.groupGrouper, 0, 0);
         }
-        long timer = (bean.getTimeToEndTime() * 1000) - System.currentTimeMillis();
-        CountDownTimer countDownTimer = null;
-        if (timer > 0) {//开始倒计
-            countDownTimer = new CountDownTimer(timer, 1000) {
-                @Override
-                public void onTick(long millisUntilFinished) {
-                    String html = "还差<b><font color='#E25838'>" + bean.getLeftCount() +
-                            "人</font></b>拼团成功，时间仅剩<b><font color='#E25838'>" +
-                            TimeUtil.getCountTimeByLong3(millisUntilFinished) + "</font></b>";
-                    binding.dialogTime.setText(Html.fromHtml(html));
-                }
-
-                @Override
-                public void onFinish() {
-                    String html = "还差<b><font color='#E25838'>" + bean.getLeftCount() +
-                            "人</font></b>拼团成功，时间仅剩<b><font color='#E25838'>00:00:00</font></b>";
-                    binding.dialogTime.setText(Html.fromHtml(html));
-                }
-            }.start();
-        } else {
-            binding.dialogTime.setVisibility(View.GONE);
-            binding.groupInvation.setText("恭喜拼团成功，成团返"+bean.getUpFee()+"元");
-        }
-        CountDownTimer finalCountDownTimer = countDownTimer;
-        dialog.setOnDismissListener(dialogInterface -> {
-            if (finalCountDownTimer != null) {
-                finalCountDownTimer.cancel();
-            }
-        });
-        binding.groupInvation.setOnClickListener(v -> {
-            dialog.dismiss();
-            if (listener != null)
-                listener.onClick(v);
-        });
-        binding.dialogContainer.setOnClickListener(v -> {
-            dialog.dismiss();
-            context.startActivity(new Intent(context, MyGroupActivity.class)
-                    .putExtra("id", bean.getId())
-            );
-            if (cancleListener != null)
-                cancleListener.onClick(v);
-        });
         binding.dialogCancle.setOnClickListener(v -> {
             dialog.dismiss();
             if (cancleListener != null)

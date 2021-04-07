@@ -15,5 +15,5 @@
         android:text="会员"
         android:drawablePadding="@dimen/y2"
         android:textSize="11sp"
-        android:textColor="@drawable/item_color2"/>
+        android:textColor="@drawable/item_color"/>
 </LinearLayout>

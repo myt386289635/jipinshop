@@ -1470,10 +1470,10 @@ public class Repository {
     }
 
     /**
-     * 拼团加入
+     * 查看拼团状态
      */
-    public Observable<SuccessBean> groupJoin(String groupId){
-        return mAPIService.groupJoin(groupId);
+    public Observable<SucBeanT<String>> groupStatus(String otherGoodsId){
+        return mAPIService.groupStatus(otherGoodsId);
     }
 
     /**

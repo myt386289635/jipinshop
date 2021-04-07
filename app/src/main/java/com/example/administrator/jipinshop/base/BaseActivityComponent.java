@@ -100,6 +100,7 @@ import com.example.administrator.jipinshop.activity.web.TaoBaoWebActivity;
 import com.example.administrator.jipinshop.activity.web.dzp.BigWheelWebActivity;
 import com.example.administrator.jipinshop.activity.web.hb.HBWebView2;
 import com.example.administrator.jipinshop.activity.web.invite.InviteActionWebActivity;
+import com.example.administrator.jipinshop.activity.web.server.ServerWebActivity;
 import com.example.administrator.jipinshop.activity.web.tuanyou.CZBWebActivity;
 import com.example.administrator.jipinshop.activity.wellcome.WellComeActivity;
 import com.example.administrator.jipinshop.auto.ActivityScope;
@@ -212,4 +213,5 @@ public interface BaseActivityComponent {
     void inject(MessageSystemActivity activity);
     void inject(MessageDailyActivity activity);
     void inject(MessageActionActivity activity);
+    void inject(ServerWebActivity activity);
 }

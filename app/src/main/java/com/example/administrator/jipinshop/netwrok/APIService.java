@@ -1341,11 +1341,10 @@ public interface APIService {
     Observable<SuccessBean> groupCreate(@Field("otherGoodsId") String otherGoodsId , @Field("source") String source);
 
     /**
-     * 拼团加入
+     * 查看拼团状态
      */
-    @FormUrlEncoded
-    @POST("api/group/join")
-    Observable<SuccessBean> groupJoin(@Field("groupId") String groupId);
+    @GET("api/group/status")
+    Observable<SucBeanT<String>> groupStatus(@Query("otherGoodsId") String otherGoodsId);
 
     /**
      * 获取会员购买订单信息
