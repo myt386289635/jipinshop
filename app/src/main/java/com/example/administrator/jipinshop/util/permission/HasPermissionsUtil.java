@@ -54,6 +54,10 @@ public class HasPermissionsUtil implements HasPermissmionsListener{
         List<String> permissionNames = Permission.transformText(context, permissions);
         String message = "点击设置打开权限";
         String title = "该操作需要访问权限";
+        if (permissionNames.size() >= 1){
+            message = "点击设置打开" + permissionNames.get(0) + "权限";
+            title = "该操作需要访问您的" + permissionNames.get(0) + "权限";
+        }
         AlertDialog mDialog = new AlertDialog.Builder(context)
                 .setCancelable(false)
                 .setTitle(title)
@@ -81,6 +85,31 @@ public class HasPermissionsUtil implements HasPermissmionsListener{
                 })
                 .start();
     }
+
+    //给欢迎页使用，如果权限被拒以后不再弹出去设置弹框（老板傻逼不想要）
+    public static void permission2(Context context,HasPermissionsUtil hasPermissionsUtil,String... permissions){
+        if (AndPermission.hasPermissions(context, permissions)) {
+            //有权限了
+            hasPermissionsUtil.hasPermissionsSuccess();
+        } else {
+            requestPermission2(context,hasPermissionsUtil,permissions);
+        }
+    }
+
+    private static void requestPermission2(Context context,HasPermissionsUtil hasPermissionsUtil,String... permissions) {
+        AndPermission.with(context)
+                .runtime()
+                .permission(permissions)
+                .rationale(new RuntimeRationale())
+                .onGranted(permissions1 -> {
+                    hasPermissionsUtil.hasPermissionsSuccess();
+                })
+                .onDenied(permissions12 -> {
+                    hasPermissionsUtil.hasPermissionsFaile();
+                })
+                .start();
+    }
+
 
     @Override
     public void hasPermissionsSuccess() {

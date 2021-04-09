@@ -1,6 +1,7 @@
 package com.example.administrator.jipinshop.activity.web.server;
 
 import android.app.Dialog;
+import android.content.Intent;
 import android.databinding.DataBindingUtil;
 import android.net.http.SslError;
 import android.os.Build;
@@ -16,9 +17,15 @@ import android.webkit.WebView;
 import android.webkit.WebViewClient;
 
 import com.example.administrator.jipinshop.R;
+import com.example.administrator.jipinshop.activity.WebActivity;
+import com.example.administrator.jipinshop.activity.setting.opinion.OpinionActivity;
 import com.example.administrator.jipinshop.base.BaseActivity;
 import com.example.administrator.jipinshop.databinding.ActivityWebBinding;
+import com.example.administrator.jipinshop.netwrok.RetrofitModule;
 import com.example.administrator.jipinshop.view.dialog.ProgressDialogView;
+
+import java.io.UnsupportedEncodingException;
+import java.net.URLDecoder;
 
 /**
  * @author 莫小婷
@@ -62,10 +69,36 @@ public class ServerWebActivity extends BaseActivity implements View.OnClickListe
         mBinding.webView.setWebViewClient(new WebViewClient() {
             @Override
             public boolean shouldOverrideUrlLoading(WebView view, String url) {
-                if (url.startsWith("https://txhb")){
-                    //跳转到提现
+                if (url.startsWith("https://tofeedback")){
+                    //跳转到反馈中心
+                    startActivity(new Intent(ServerWebActivity.this, OpinionActivity.class));
+                }else if (url.startsWith("https://toqlist")){
+                    //跳转到其他web里
+                    String str = url.replace("https://toqlist/?","");
+                    String[] newStr = str.split("&");
+                    String id = newStr[0].replace("id=","");
+                    String title = newStr[1].replace("title=","");
+                    try {
+                        startActivity(new Intent(ServerWebActivity.this, WebActivity.class)
+                                .putExtra(WebActivity.url , RetrofitModule.JP_H5_URL + "new-free/questionList?id=" + id)
+                                .putExtra(WebActivity.title , URLDecoder.decode(title, "UTF-8"))
+                        );
+                    } catch (UnsupportedEncodingException e) {
+                        e.printStackTrace();
+                        startActivity(new Intent(ServerWebActivity.this, WebActivity.class)
+                                .putExtra(WebActivity.url , RetrofitModule.JP_H5_URL + "new-free/questionList?id=" + id)
+                                .putExtra(WebActivity.title , "自助服务")
+                        );
+                    }
 
-                }else if (url.startsWith("http") || url.startsWith("https")) {
+                }else if (url.startsWith("https://toqinfo")){
+                    //跳转到其他web里
+                    String qInfo = url.replace("https://toqinfo/?qInfo=","");
+                    startActivity(new Intent(ServerWebActivity.this, WebActivity.class)
+                            .putExtra(WebActivity.url , RetrofitModule.JP_H5_URL + "new-free/questionInfo?qInfo=" + qInfo)
+                            .putExtra(WebActivity.title , "常见问题")
+                    );
+                } else if (url.startsWith("http") || url.startsWith("https")) {
                     //解决第三方网页打开页面后会跳转到自定义的schame而页面出错问题
                     view.loadUrl(url);//处理http和https开头的url
                 }
@@ -98,7 +131,7 @@ public class ServerWebActivity extends BaseActivity implements View.OnClickListe
     public void onClick(View v) {
         switch (v.getId()){
             case R.id.title_back:
-                finish();
+                goBack();
                 break;
         }
     }
@@ -124,4 +157,17 @@ public class ServerWebActivity extends BaseActivity implements View.OnClickListe
         super.onDestroy();
     }
 
+    //返回上一级
+    public void goBack() {
+        if (mBinding.webView.canGoBack()) {
+            mBinding.webView.goBack();
+        } else {
+            finish();
+        }
+    }
+
+    @Override
+    public void onBackPressed() {
+        goBack();
+    }
 }

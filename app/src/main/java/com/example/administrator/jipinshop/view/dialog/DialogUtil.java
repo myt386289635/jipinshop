@@ -5,6 +5,7 @@ import android.app.Dialog;
 import android.content.ClipData;
 import android.content.ClipboardManager;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.databinding.DataBindingUtil;
 import android.graphics.Color;
@@ -30,6 +31,9 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.blankj.utilcode.util.SPUtils;
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
+import com.bumptech.glide.request.RequestOptions;
 import com.example.administrator.jipinshop.R;
 import com.example.administrator.jipinshop.activity.WebActivity;
 import com.example.administrator.jipinshop.activity.cheapgoods.CheapBuyActivity;
@@ -51,6 +55,7 @@ import com.example.administrator.jipinshop.databinding.DialogBuyOutBinding;
 import com.example.administrator.jipinshop.databinding.DialogCheapBuyBinding;
 import com.example.administrator.jipinshop.databinding.DialogCheapOutBinding;
 import com.example.administrator.jipinshop.databinding.DialogFamilyBinding;
+import com.example.administrator.jipinshop.databinding.DialogFirstimgBinding;
 import com.example.administrator.jipinshop.databinding.DialogGroupBinding;
 import com.example.administrator.jipinshop.databinding.DialogHomeBuyBinding;
 import com.example.administrator.jipinshop.databinding.DialogLuckBinding;
@@ -348,9 +353,7 @@ public class DialogUtil {
         dialog.setContentView(binding.getRoot());
     }
 
-    /**
-     * 用户首次下载 30元购物津贴
-     */
+    //用户首次下载 30元购物津贴
     public static void newPeopleDialog(Context context, String url, final View.OnClickListener cancleListener,
                                        final View.OnClickListener sureListener) {
         AlertDialog.Builder builder = new AlertDialog.Builder(context, R.style.dialog);
@@ -375,6 +378,52 @@ public class DialogUtil {
         dialog.setContentView(binding.getRoot());
     }
 
+    //首次下载显示五重礼抽奖动画效果
+    public static void fristDialog(Context context, final View.OnClickListener cancleListener,
+                                   final View.OnClickListener sureListener){
+        AlertDialog.Builder builder = new AlertDialog.Builder(context, R.style.dialog);
+        DialogFirstimgBinding binding = DataBindingUtil.inflate(LayoutInflater.from(context), R.layout.dialog_firstimg, null, false);
+        final Dialog dialog = builder.create();
+        RequestOptions options = new RequestOptions()
+                .diskCacheStrategy(DiskCacheStrategy.RESOURCE);
+        Glide.with(context)
+                .asGif()
+                .load(R.drawable.main_frist)
+                .apply(options)
+                .into(binding.dialogBg);
+        Glide.with(context)
+                .asGif()
+                .load(R.drawable.main_pmd)
+                .apply(options)
+                .into(binding.dialogPmd);
+        binding.dialogResult.setVisibility(View.GONE);
+        CountDownTimer timer =  new CountDownTimer(2000, 1000) {
+            public void onTick(long millisUntilFinished) {}
+
+            public void onFinish() {
+                binding.dialogResult.setVisibility(View.VISIBLE);
+            }
+        }.start();
+        dialog.setOnDismissListener(dialog1 -> {
+            if (timer != null)
+                timer.cancel();
+        });
+        binding.dialogDismiss.setOnClickListener(v -> {
+            if (cancleListener != null)
+                cancleListener.onClick(v);
+            dialog.dismiss();
+        });
+        binding.dialogResult.setOnClickListener(v -> {
+            if (sureListener != null) {
+                sureListener.onClick(v);
+            }
+            dialog.dismiss();
+        });
+        dialog.setCancelable(false);
+        dialog.getWindow().setDimAmount(0.35f);
+        dialog.show();
+        dialog.setContentView(binding.getRoot());
+    }
 
     //活动弹窗  后台设置的活动
     public static void imgDialog(Context context, String resource, final View.OnClickListener sureListener, View.OnClickListener dissListener) {

@@ -33,6 +33,7 @@ import com.example.administrator.jipinshop.activity.setting.opinion.OpinionActiv
 import com.example.administrator.jipinshop.activity.share.ShareActivity
 import com.example.administrator.jipinshop.activity.sign.SignActivity
 import com.example.administrator.jipinshop.activity.sign.invitation.InvitationNewActivity
+import com.example.administrator.jipinshop.activity.web.server.ServerWebActivity
 import com.example.administrator.jipinshop.adapter.HomePageAdapter
 import com.example.administrator.jipinshop.adapter.KTMineAdapter
 import com.example.administrator.jipinshop.base.DBBaseFragment
@@ -42,6 +43,7 @@ import com.example.administrator.jipinshop.bean.eventbus.EditNameBus
 import com.example.administrator.jipinshop.bean.eventbus.HomeRefresh
 import com.example.administrator.jipinshop.databinding.FragmentKtMineBinding
 import com.example.administrator.jipinshop.jpush.JPushReceiver
+import com.example.administrator.jipinshop.netwrok.RetrofitModule
 import com.example.administrator.jipinshop.util.ShareUtils
 import com.example.administrator.jipinshop.util.TaoBaoUtil
 import com.example.administrator.jipinshop.util.ToastUtil
@@ -130,7 +132,7 @@ class KTMineFragment : DBBaseFragment(), KTMineAdapter.OnItem, KTMineView, OnLoa
         when(v.id){
             R.id.mine_server -> {
                 //联系客服
-                onServer()
+                onHelp()
             }
         }
     }
@@ -441,7 +443,9 @@ class KTMineFragment : DBBaseFragment(), KTMineAdapter.OnItem, KTMineView, OnLoa
 
     //客服与帮助
     override fun onHelp() {
-        ToastUtil.show("客服与帮助")
+        startActivity(Intent(context, ServerWebActivity::class.java)
+                .putExtra(ServerWebActivity.url, RetrofitModule.JP_H5_URL + "new-free/helpServices")
+        )
     }
 
     //进入省钱流程

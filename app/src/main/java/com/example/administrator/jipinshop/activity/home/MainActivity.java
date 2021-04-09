@@ -300,7 +300,7 @@ public class MainActivity extends BaseActivity implements MainView, ViewPager.On
 
     //进入app的第一个弹窗
     public void onNew(){
-        DialogUtil.newPeopleDialog(MainActivity.this,"https://jipincheng.cn/app_first?", v -> {
+        DialogUtil.fristDialog(MainActivity.this, v -> {
             appStatisticalUtil.addEvent("tc.xr_close", this.bindToLifecycle());
             getClipText();
         }, v -> {

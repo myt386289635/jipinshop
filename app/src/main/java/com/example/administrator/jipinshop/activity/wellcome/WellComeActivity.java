@@ -186,7 +186,7 @@ public class WellComeActivity extends BaseActivity {
     }
 
     public void permission(){
-        HasPermissionsUtil.permission(this, new HasPermissionsUtil(){
+        HasPermissionsUtil.permission2(this, new HasPermissionsUtil(){
             @Override
             public void hasPermissionsSuccess() {
                 super.hasPermissionsSuccess();
@@ -203,23 +203,8 @@ public class WellComeActivity extends BaseActivity {
                 }
             }
 
-            @Override
-            public void rePermissionsFaile() {
-                super.rePermissionsFaile();
-                if (timer != null) {
-                    timer.start();
-                }
-            }
-
-            @Override
-            public void settingPermissions() {
-                super.settingPermissions();
-                if (timer != null) {
-                    timer.start();
-                }
-            }
-
-        }, Manifest.permission.ACCESS_FINE_LOCATION);
+        }, Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.WRITE_EXTERNAL_STORAGE,
+                Manifest.permission.READ_PHONE_STATE , Manifest.permission.READ_EXTERNAL_STORAGE );
     }
 
     /***

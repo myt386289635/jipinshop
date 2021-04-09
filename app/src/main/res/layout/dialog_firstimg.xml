@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout
+    xmlns:android="http://schemas.android.com/apk/res/android">
+
+
+    <RelativeLayout
+        android:layout_gravity="center_horizontal"
+        android:layout_width="@dimen/x546"
+        android:layout_height="wrap_content">
+
+        <ImageView
+            android:id="@+id/dialog_bg"
+            android:scaleType="fitXY"
+            android:adjustViewBounds="true"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/y620"/>
+
+        <ImageView
+            android:id="@+id/dialog_pmd"
+            android:layout_marginBottom="@dimen/y73"
+            android:layout_alignBottom="@id/dialog_bg"
+            android:layout_centerHorizontal="true"
+            android:layout_width="@dimen/x398"
+            android:layout_height="@dimen/y398"/>
+
+        <ImageView
+            android:visibility="gone"
+            android:src="@mipmap/main_dialog"
+            android:id="@+id/dialog_result"
+            android:layout_marginBottom="@dimen/y73"
+            android:layout_alignBottom="@id/dialog_bg"
+            android:layout_centerHorizontal="true"
+            android:layout_width="@dimen/x398"
+            android:layout_height="@dimen/y398"/>
+
+        <ImageView
+            android:id="@+id/dialog_dismiss"
+            android:layout_marginTop="@dimen/y74"
+            android:layout_below="@+id/dialog_bg"
+            android:layout_centerHorizontal="true"
+            android:src="@mipmap/dialog_close"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+
+    </RelativeLayout>
+</layout>
