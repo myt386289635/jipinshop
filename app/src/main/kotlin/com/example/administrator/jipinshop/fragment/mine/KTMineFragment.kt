@@ -444,7 +444,8 @@ class KTMineFragment : DBBaseFragment(), KTMineAdapter.OnItem, KTMineView, OnLoa
     //客服与帮助
     override fun onHelp() {
         startActivity(Intent(context, ServerWebActivity::class.java)
-                .putExtra(ServerWebActivity.url, RetrofitModule.JP_H5_URL + "new-free/helpServices")
+                .putExtra(ServerWebActivity.url, RetrofitModule.JP_H5_URL + "new-free/helpServices?userId="
+                        + SPUtils.getInstance(CommonDate.USER).getString(CommonDate.userId))
         )
     }
 
