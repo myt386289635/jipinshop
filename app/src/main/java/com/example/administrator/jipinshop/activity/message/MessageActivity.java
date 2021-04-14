@@ -8,15 +8,20 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.view.View;
 
 import com.aspsine.swipetoloadlayout.OnRefreshListener;
+import com.blankj.utilcode.util.SPUtils;
 import com.example.administrator.jipinshop.R;
 import com.example.administrator.jipinshop.activity.message.saction.MessageActionActivity;
 import com.example.administrator.jipinshop.activity.message.sdaily.MessageDailyActivity;
 import com.example.administrator.jipinshop.activity.message.system.MessageSystemActivity;
+import com.example.administrator.jipinshop.activity.web.server.ServerWebActivity;
 import com.example.administrator.jipinshop.adapter.MessageAdapter;
 import com.example.administrator.jipinshop.base.BaseActivity;
 import com.example.administrator.jipinshop.bean.MessageBean;
 import com.example.administrator.jipinshop.databinding.ActivityMessageSystemBinding;
+import com.example.administrator.jipinshop.netwrok.RetrofitModule;
 import com.example.administrator.jipinshop.util.ToastUtil;
+import com.example.administrator.jipinshop.util.sp.CommonDate;
+import com.trello.rxlifecycle2.android.ActivityEvent;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -49,7 +54,7 @@ public class MessageActivity extends BaseActivity implements View.OnClickListene
 
     private void initView() {
         mBinding.inClude.titleTv.setText("消息");
-        mBinding.messageTitle.setVisibility(View.GONE);
+        mBinding.messageTitle.setVisibility(View.VISIBLE);
 
         mBinding.recyclerView.setLayoutManager(new LinearLayoutManager(this));
         mList = new ArrayList<>();
@@ -69,11 +74,27 @@ public class MessageActivity extends BaseActivity implements View.OnClickListene
             case R.id.title_back:
                 finish();
                 break;
+            case R.id.message_title:
+                mPresenter.readMsg("",this.bindUntilEvent(ActivityEvent.DESTROY));
+                for (MessageBean.DataBean bean : mList) {
+                    bean.setCount(0);
+                }
+                mAdapter.notifyDataSetChanged();
+                break;
+            case R.id.message_help:
+                startActivity(new Intent(this, ServerWebActivity.class)
+                        .putExtra(ServerWebActivity.url, RetrofitModule.JP_H5_URL + "new-free/helpServices?userId="
+                                + SPUtils.getInstance(CommonDate.USER).getString(CommonDate.userId))
+                );
+                break;
         }
     }
 
     @Override
     public void onItemClick(int position) {
+        mPresenter.readMsg(mList.get(position).getId(),this.bindUntilEvent(ActivityEvent.DESTROY));
+        mList.get(position).setCount(0);
+        mAdapter.notifyDataSetChanged();
         switch (mList.get(position).getId()){
             case "1"://每日好货
                 startActivity(new Intent(this, MessageDailyActivity.class)

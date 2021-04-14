@@ -275,14 +275,14 @@ public class Repository {
     }
 
     /**
-     *  消息分类
+     *  消息首页
      */
     public Observable<MessageBean> message(){
         return mAPIService.message();
     }
 
     /**
-     * 获取消息列表详情内容
+     * 获取各类消息列表
      */
     public Observable<MessageAllBean> messageAll(int page , String categoryId){
         return mAPIService.messageAll(page,categoryId);
@@ -291,8 +291,8 @@ public class Repository {
     /**
      * 查看未读消息 已读
      */
-    public Observable<SuccessBean> readMsg(String messageId){
-        return mAPIService.readMsg(messageId);
+    public Observable<SuccessBean> readMsg(String categoryId){
+        return mAPIService.readMsg(categoryId);
     }
 
     /**

@@ -21,7 +21,6 @@ import com.blankj.utilcode.util.SPUtils;
 import com.example.administrator.jipinshop.R;
 import com.example.administrator.jipinshop.activity.WebActivity;
 import com.example.administrator.jipinshop.activity.sign.SignActivity;
-import com.example.administrator.jipinshop.activity.web.invite.InviteActionWebActivity;
 import com.example.administrator.jipinshop.base.BaseActivity;
 import com.example.administrator.jipinshop.bean.ImageBean;
 import com.example.administrator.jipinshop.bean.MemberBuyBean;
@@ -62,13 +61,12 @@ public class MemberBuyActivity extends BaseActivity implements View.OnClickListe
     MemberBuyPresenter mPresenter;
 
     private ActivityMemberBuyBinding mBinding;
-    private String level = "1";//1是月卡 2是年卡 3是周卡
+    private String level = "1";//购买时选择的哪种卡  1是月卡 2是年卡 3是周卡
     private String isBuy = "1"; //1是购买  2续费
     private CountDownTimer countDownTimer;//倒计时
     private Boolean startPop = true;//是否弹出关闭确认弹窗
     private String monthPrice = "";//月卡价格统计时候需要
     private String yearPrice = "";//年卡价格统计时候需要
-    private int userLevel = 0;//用户身份的
     private Dialog mDialog;
     private IWXAPI msgApi;//微信支付
     private MemberBuyBean mBean = null;
@@ -93,7 +91,7 @@ public class MemberBuyActivity extends BaseActivity implements View.OnClickListe
                 finish();
             } else {
                 //失败
-                DialogUtil.payFileDialog(this,userLevel, type -> {
+                DialogUtil.payFileDialog(this,isBuy,"1", type -> {
                     onBuyMember(level,type);
                 });
             }
@@ -436,7 +434,7 @@ public class MemberBuyActivity extends BaseActivity implements View.OnClickListe
                 setResult(200,intent);
                 finish();
             } else if (bus.getType().equals(WXPayEntryActivity.pay_faile)) {
-                DialogUtil.payFileDialog(this,userLevel,  type -> {
+                DialogUtil.payFileDialog(this,isBuy,"2",  type -> {
                     onBuyMember(level, type);
                 });
             }

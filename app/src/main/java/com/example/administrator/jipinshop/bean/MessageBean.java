@@ -57,6 +57,15 @@ public class MessageBean {
         private String content;
         private String img;
         private String orderNum;
+        private int count;
+
+        public int getCount() {
+            return count;
+        }
+
+        public void setCount(int count) {
+            this.count = count;
+        }
 
         public String getId() {
             return id;

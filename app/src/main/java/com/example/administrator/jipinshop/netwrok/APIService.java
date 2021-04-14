@@ -285,13 +285,13 @@ public interface APIService {
     Observable<UnMessageBean> unMessage();
 
     /**
-     * 获取消息列表详情内容
+     * 获取各类消息列表
      */
     @GET("api/v3/message/selectAll")
     Observable<MessageAllBean> messageAll(@Query("page") int page , @Query("categoryId") String categoryId);
 
     /**
-     * 消息分类
+     * 消息首页
      */
     @GET("api/v3/message/categoryList")
     Observable<MessageBean> message();
@@ -300,8 +300,9 @@ public interface APIService {
     /**
      * 查看未读消息 已读
      */
-    @GET("api/v2/message/selectById")
-    Observable<SuccessBean> readMsg(@Query("id") String id);
+    @FormUrlEncoded
+    @POST("api/v3/message/updateAll")
+    Observable<SuccessBean> readMsg(@Field("categoryId") String categoryId);
 
     /**
      * 上传图片

@@ -5,7 +5,6 @@ import android.support.v7.widget.RecyclerView;
 
 import com.aspsine.swipetoloadlayout.SwipeToLoadLayout;
 import com.example.administrator.jipinshop.bean.MessageAllBean;
-import com.example.administrator.jipinshop.bean.SuccessBean;
 import com.example.administrator.jipinshop.netwrok.Repository;
 import com.trello.rxlifecycle2.LifecycleTransformer;
 
@@ -74,14 +73,5 @@ public class MessageSystemPresenter {
                 }, throwable -> {
                     mView.onFile(throwable.getMessage());
                 });
-    }
-
-    //已读
-    public void readMsg(String id,LifecycleTransformer<SuccessBean> ransformer){
-        mRepository.readMsg(id)
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .compose(ransformer)
-                .subscribe(successBean -> {}, throwable -> {});
     }
 }

@@ -165,7 +165,6 @@ public class MessageDailyActivity extends BaseActivity implements View.OnClickLi
 
     @Override
     public void onItem(int position) {
-        mPresenter.readMsg(mList.get(position).getMessageUserId(),this.bindUntilEvent(ActivityEvent.DESTROY));
         ShopJumpUtil.openBanner(this,mList.get(position).getType() + "",
                 mList.get(position).getTargetId(),mList.get(position).getTitle(),
                 mList.get(position).getSource(), mList.get(position).getRemark());

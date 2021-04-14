@@ -10,7 +10,6 @@ import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
-import android.text.Html;
 import android.text.TextUtils;
 import android.view.MotionEvent;
 import android.view.View;
@@ -22,7 +21,6 @@ import com.bumptech.glide.request.target.SimpleTarget;
 import com.bumptech.glide.request.transition.Transition;
 import com.example.administrator.jipinshop.R;
 import com.example.administrator.jipinshop.activity.balance.withdraw.detail.WithdrawDetailActivity;
-import com.example.administrator.jipinshop.activity.member.buy.MemberBuyActivity;
 import com.example.administrator.jipinshop.base.BaseActivity;
 import com.example.administrator.jipinshop.bean.ShareInfoBean;
 import com.example.administrator.jipinshop.bean.TaobaoAccountBean;
@@ -59,8 +57,6 @@ public class WithdrawActivity extends BaseActivity implements View.OnClickListen
     private double minWithdraw = 5;
     private Dialog mDialog;
     private String officialWeChat = "";//客服
-    private String level = "0";//用户级别
-    private String rate = "0";//提现手续费
     private ShareBoardDialog4 mShareBoardDialog;
 
     @Override
@@ -134,22 +130,6 @@ public class WithdrawActivity extends BaseActivity implements View.OnClickListen
                     ToastUtil.show("微信号复制成功");
                     SPUtils.getInstance().put(CommonDate.CLIP, officialWeChat);
                 });
-                break;
-            case R.id.withdraw_notice:
-                //跳转到购买会员
-                if (level.equals("0")){
-                    //购买
-                    startActivityForResult(new Intent(this, MemberBuyActivity.class)
-                                    .putExtra("isBuy","1")
-                                    .putExtra("level","2")
-                            ,300);
-                }else {
-                    //续费
-                    startActivityForResult(new Intent(this, MemberBuyActivity.class)
-                                    .putExtra("isBuy","2")
-                                    .putExtra("level","2")
-                            ,300);
-                }
                 break;
         }
     }
@@ -232,34 +212,12 @@ public class WithdrawActivity extends BaseActivity implements View.OnClickListen
             mBinding.withdrawNumberText.setVisibility(View.GONE);
         }
         officialWeChat = bean.getOfficialWechat();//客服
-        level = bean.getLevel();//用户级别
-        rate = bean.getRate();//手续费
-        String html;
-        double r = new BigDecimal(rate).doubleValue();
-        if (level.equals("2")){
-            html = "年卡会员不收取提现手续费";
-            mBinding.withdrawNotice.setVisibility(View.GONE);
-        }else {
-            html = "提现收取<font color='#E25838'>"+  new BigDecimal((r * 100 ) + "").stripTrailingZeros().toPlainString()
-                    + "%</font>提现手续费";
-            mBinding.withdrawNotice.setVisibility(View.VISIBLE);
-        }
-        mBinding.withdrawNodeMoney.setText(Html.fromHtml(html));
     }
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         UMShareAPI.get(this).onActivityResult(requestCode, resultCode, data);
-        if (requestCode == 300 && resultCode == 200){//支付会员成功返回弹出弹框
-            String level = data.getStringExtra("level");
-            DialogUtil.paySucDialog(this, level, v -> {
-                mPresenter.initShare(7,SHARE_MEDIA.WEIXIN,this.bindToLifecycle());
-                mPresenter.taskFinish("27",this.bindUntilEvent(ActivityEvent.DESTROY));
-            });
-            mBinding.withdrawPay.setText("");
-            mPresenter.taobaoAccount(this.bindToLifecycle());
-        }
     }
 
     @Override

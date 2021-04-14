@@ -4,6 +4,7 @@
     xmlns:bind="http://schemas.android.com/apk/res-auto">
 
     <data>
+        <import type="android.view.View"/>
         <variable
             name="bean"
             type="com.example.administrator.jipinshop.bean.MessageBean.DataBean"/>
@@ -25,6 +26,17 @@
             android:layout_centerVertical="true"
             android:layout_width="@dimen/x82"
             android:layout_height="@dimen/y82"/>
+
+        <View
+            android:visibility="@{bean.count == 0 ? View.GONE : View.VISIBLE}"
+            android:id="@+id/item_nuMsg"
+            android:layout_marginRight="-5dp"
+            android:layout_marginTop="-5dp"
+            android:layout_alignRight="@id/item_image"
+            android:layout_alignTop="@id/item_image"
+            android:background="@drawable/bg_yuan"
+            android:layout_width="@dimen/x18"
+            android:layout_height="@dimen/y18"/>
 
         <TextView
             android:textColor="@color/color_DE151515"

@@ -10,142 +10,140 @@
             android:gravity="center_horizontal"
             android:orientation="vertical"
             android:layout_centerHorizontal="true"
-            android:layout_width="@dimen/x620"
+            android:layout_width="@dimen/x580"
             android:layout_height="wrap_content">
 
             <TextView
                 android:id="@+id/dialog_title"
                 android:textStyle="bold"
-                android:textColor="@color/color_D5A460"
+                android:textColor="@color/color_6B4B39"
                 android:textSize="16sp"
-                android:layout_marginTop="@dimen/y24"
+                android:layout_marginTop="@dimen/y41"
                 android:layout_centerHorizontal="true"
-                android:text="确定放弃购买VIP吗？"
+                android:text="确定放弃购买极品VIP会员吗？"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"/>
 
             <TextView
-                android:layout_marginBottom="@dimen/y20"
+                android:layout_marginBottom="@dimen/y33"
                 android:textColor="@color/color_AB834C"
-                android:layout_marginTop="@dimen/y2"
+                android:layout_marginTop="@dimen/y13"
                 android:layout_centerHorizontal="true"
                 android:text="2935846位用户好评过VIP会员"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"/>
 
-            <LinearLayout
-                android:layout_marginRight="@dimen/x32"
-                android:layout_marginLeft="@dimen/x32"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
-
-                <TextView
-                    android:textColor="@color/color_202020"
-                    android:paddingRight="@dimen/x21"
-                    android:paddingLeft="@dimen/x21"
-                    android:paddingBottom="@dimen/y14"
-                    android:paddingTop="@dimen/y14"
-                    android:background="@drawable/bg_fcefef"
-                    android:text="续费划算（5318）"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"/>
-
-                <TextView
-                    android:layout_marginLeft="@dimen/x14"
-                    android:gravity="center"
-                    android:textColor="@color/color_202020"
-                    android:paddingBottom="@dimen/y14"
-                    android:paddingTop="@dimen/y14"
-                    android:background="@drawable/bg_fcefef"
-                    android:text="能省不少钱（7164）"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"/>
-
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_marginTop="@dimen/y12"
-                android:layout_marginRight="@dimen/x32"
-                android:layout_marginLeft="@dimen/x32"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
-
-                <TextView
-                    android:textColor="@color/color_202020"
-                    android:paddingRight="@dimen/x21"
-                    android:paddingLeft="@dimen/x21"
-                    android:paddingBottom="@dimen/y14"
-                    android:paddingTop="@dimen/y14"
-                    android:background="@drawable/bg_fcefef"
-                    android:text="真的可以提现（946）"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"/>
-
-                <TextView
-                    android:layout_marginLeft="@dimen/x14"
-                    android:gravity="center"
-                    android:textColor="@color/color_202020"
-                    android:paddingBottom="@dimen/y14"
-                    android:paddingTop="@dimen/y14"
-                    android:background="@drawable/bg_fcefef"
-                    android:text="一直在用（218）"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"/>
-
-            </LinearLayout>
-
             <RelativeLayout
-                android:layout_marginTop="@dimen/y30"
+                android:paddingRight="@dimen/x10"
+                android:paddingLeft="@dimen/x10"
+                android:layout_marginBottom="@dimen/y14"
+                android:background="@drawable/bg_fcefef"
+                android:layout_marginRight="@dimen/x50"
+                android:layout_marginLeft="@dimen/x50"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                android:layout_height="@dimen/y60">
 
                 <TextView
                     android:layout_centerVertical="true"
-                    android:layout_marginLeft="@dimen/x32"
-                    android:drawablePadding="@dimen/x9"
-                    android:drawableLeft="@mipmap/pay_alipay"
-                    android:textColor="@color/color_DE151515"
-                    android:textSize="15sp"
-                    android:text="支付宝支付"
+                    android:textSize="12sp"
+                    android:textColor="@color/color_797778"
+                    android:text="网购真的省了很多钱"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"/>
 
-                <CheckBox
-                    android:paddingTop="@dimen/y20"
-                    android:paddingRight="@dimen/x32"
-                    android:paddingBottom="@dimen/y20"
-                    android:id="@+id/dialog_alipay"
+                <TextView
                     android:layout_alignParentRight="true"
-                    android:button="@drawable/bg_pay"
+                    android:layout_centerVertical="true"
+                    android:textSize="12sp"
+                    android:textColor="@color/color_797778"
+                    android:text="（12365人）"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"/>
 
             </RelativeLayout>
 
             <RelativeLayout
-                android:layout_marginTop="@dimen/y10"
+                android:paddingRight="@dimen/x10"
+                android:paddingLeft="@dimen/x10"
+                android:layout_marginBottom="@dimen/y14"
+                android:background="@drawable/bg_fcefef"
+                android:layout_marginRight="@dimen/x50"
+                android:layout_marginLeft="@dimen/x50"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                android:layout_height="@dimen/y60">
 
                 <TextView
                     android:layout_centerVertical="true"
-                    android:layout_marginLeft="@dimen/x32"
-                    android:drawablePadding="@dimen/x9"
-                    android:drawableLeft="@mipmap/pay_wechat"
-                    android:textColor="@color/color_DE151515"
-                    android:textSize="15sp"
-                    android:text="微信支付"
+                    android:textSize="12sp"
+                    android:textColor="@color/color_797778"
+                    android:text="提现速度很快"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"/>
 
-                <CheckBox
-                    android:gravity="center"
-                    android:paddingTop="@dimen/y20"
-                    android:paddingRight="@dimen/x32"
-                    android:paddingBottom="@dimen/y20"
-                    android:id="@+id/dialog_wxpay"
+                <TextView
                     android:layout_alignParentRight="true"
-                    android:button="@drawable/bg_pay"
+                    android:layout_centerVertical="true"
+                    android:textSize="12sp"
+                    android:textColor="@color/color_797778"
+                    android:text="（8023人）"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"/>
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:paddingRight="@dimen/x10"
+                android:paddingLeft="@dimen/x10"
+                android:layout_marginBottom="@dimen/y14"
+                android:background="@drawable/bg_fcefef"
+                android:layout_marginRight="@dimen/x50"
+                android:layout_marginLeft="@dimen/x50"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/y60">
+
+                <TextView
+                    android:layout_centerVertical="true"
+                    android:textSize="12sp"
+                    android:textColor="@color/color_797778"
+                    android:text="返利比其他平台高很多"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"/>
+
+                <TextView
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:textSize="12sp"
+                    android:textColor="@color/color_797778"
+                    android:text="（6598人）"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"/>
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:paddingRight="@dimen/x10"
+                android:paddingLeft="@dimen/x10"
+                android:layout_marginBottom="@dimen/y14"
+                android:background="@drawable/bg_fcefef"
+                android:layout_marginRight="@dimen/x50"
+                android:layout_marginLeft="@dimen/x50"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/y60">
+
+                <TextView
+                    android:layout_centerVertical="true"
+                    android:textSize="12sp"
+                    android:textColor="@color/color_797778"
+                    android:text="身边朋友都在用"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"/>
+
+                <TextView
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:textSize="12sp"
+                    android:textColor="@color/color_797778"
+                    android:text="（2946人）"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"/>
 
@@ -154,34 +152,33 @@
             <LinearLayout
                 android:layout_marginTop="@dimen/y20"
                 android:layout_marginBottom="@dimen/y40"
-                android:layout_marginRight="@dimen/x32"
-                android:layout_marginLeft="@dimen/x32"
+                android:layout_marginRight="@dimen/x40"
+                android:layout_marginLeft="@dimen/x40"
                 android:orientation="horizontal"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
 
                 <TextView
                     android:id="@+id/dialog_dismiss"
-                    android:textColor="@color/color_9D9D9D"
+                    android:textColor="@color/color_797778"
                     android:textSize="16sp"
                     android:gravity="center"
                     android:text="确认放弃"
-                    android:background="@drawable/bg_9d9d9d_1"
-                    android:layout_weight="1"
-                    android:layout_width="0dp"
+                    android:background="@drawable/bg_login"
+                    android:layout_width="@dimen/x160"
                     android:layout_height="@dimen/y76"/>
 
                 <TextView
                     android:id="@+id/dialog_sure"
-                    android:background="@drawable/bg_free_dialog2"
-                    android:layout_marginLeft="@dimen/x36"
+                    android:background="@drawable/bg_ffffff_4"
+                    android:layout_marginLeft="@dimen/x24"
                     android:layout_weight="1"
                     android:layout_width="0dp"
                     android:layout_height="@dimen/y76"
                     android:textColor="@color/color_white"
                     android:textSize="16sp"
                     android:gravity="center"
-                    android:text="购买VIP会员"/>
+                    android:text="立即支付"/>
 
             </LinearLayout>
 

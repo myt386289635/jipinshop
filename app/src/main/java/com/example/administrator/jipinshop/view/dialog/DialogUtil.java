@@ -1188,36 +1188,21 @@ public class DialogUtil {
     }
 
     //支付失败弹窗 //type 1是支付宝 2是微信
-    public static void payFileDialog(Context context, int userLevel, OnPayListener listener) {
+    public static void payFileDialog(Context context, String isBuy , String type, OnPayListener listener) {
         AlertDialog.Builder builder = new AlertDialog.Builder(context, R.style.dialog);
         DialogPayFileBinding binding = DataBindingUtil.inflate(LayoutInflater.from(context), R.layout.dialog_pay_file, null, false);
         final Dialog dialog = builder.create();
-        binding.dialogAlipay.setChecked(true);
-        final String[] type = {"1"};
-        binding.dialogAlipay.setOnCheckedChangeListener((buttonView, isChecked) -> {
-            binding.dialogWxpay.setChecked(!isChecked);
-        });
-        binding.dialogWxpay.setOnCheckedChangeListener((buttonView, isChecked) -> {
-            binding.dialogAlipay.setChecked(!isChecked);
-        });
         binding.dialogDismiss.setOnClickListener(v -> {
             dialog.dismiss();
         });
         binding.dialogSure.setOnClickListener(v -> {
-            if (binding.dialogAlipay.isChecked()) {
-                type[0] = "1";
-            } else if (binding.dialogWxpay.isChecked()) {
-                type[0] = "2";
-            }
-            listener.onPay(type[0]);
+            listener.onPay(type);
             dialog.dismiss();
         });
-        if (userLevel == 0) {// 0 普通 ， 1 月卡 ，2年卡
-            binding.dialogTitle.setText("确定放弃购买VIP吗？");
-            binding.dialogSure.setText("购买VIP会员");
+        if (isBuy.equals("1")) {// 1是购买  2续费
+            binding.dialogTitle.setText("确定放弃购买极品VIP会员吗？");
         } else {
-            binding.dialogTitle.setText("确定放弃续费VIP吗？");
-            binding.dialogSure.setText("续费VIP会员");
+            binding.dialogTitle.setText("确定放弃续费极品VIP会员吗？");
         }
         dialog.getWindow().setDimAmount(0.35f);
         dialog.show();

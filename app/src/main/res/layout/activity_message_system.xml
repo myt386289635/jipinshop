@@ -75,6 +75,25 @@
 
         </com.aspsine.swipetoloadlayout.SwipeToLoadLayout>
 
+        <com.example.administrator.jipinshop.view.textview.DrawableLeftCenterTextView
+            android:textStyle="bold"
+            android:textSize="15sp"
+            android:onClick="@{listener.onClick}"
+            android:visibility="gone"
+            android:id="@+id/message_help"
+            android:text="在线客服"
+            android:gravity="center_vertical"
+            android:drawablePadding="@dimen/x10"
+            android:drawableTint="@color/color_DEFFFFFF"
+            android:drawableLeft="@mipmap/mine_help"
+            android:textColor="@color/color_DEFFFFFF"
+            android:background="@drawable/bg_e25838_7"
+            android:layout_marginBottom="@dimen/y48"
+            android:layout_alignParentBottom="true"
+            android:layout_centerHorizontal="true"
+            android:layout_width="@dimen/x550"
+            android:layout_height="@dimen/y88"/>
+
     </RelativeLayout>
 
 </layout>
