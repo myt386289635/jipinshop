@@ -17,6 +17,4 @@ public interface MemberBuyView {
     void onWxPay(WxPayBean bean);
     void onAlipay(ImageBean bean);
     void onCommenFile(String error);
-
-    void onInit(String userLevel);
 }

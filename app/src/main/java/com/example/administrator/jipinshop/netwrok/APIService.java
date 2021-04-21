@@ -1252,17 +1252,23 @@ public interface APIService {
     Observable<MemberNewBean> levelIndex();
 
     /**
+     * 购买会员页面
+     */
+    @GET("api/v2/order/listVipList")
+    Observable<MemberBuyBean> listVipList();
+
+    /**
      * 微信支付
      */
     @FormUrlEncoded
-    @POST("api/order/wxpay/pay")
+    @POST("api/v2/order/wxpay/pay")
     Observable<WxPayBean> wxpay(@Field("type") String type);
 
     /**
      * 支付宝支付
      */
     @FormUrlEncoded
-    @POST("api/order/alipay/pay")
+    @POST("api/v2/order/alipay/pay")
     Observable<ImageBean> alipay(@Field("type") String type);
 
     /**
@@ -1346,12 +1352,6 @@ public interface APIService {
      */
     @GET("api/group/status")
     Observable<SucBeanT<String>> groupStatus(@Query("otherGoodsId") String otherGoodsId);
-
-    /**
-     * 获取会员购买订单信息
-     */
-    @GET("api/order/listVipList")
-    Observable<MemberBuyBean> listVipList();
 
     /**
      * 秒杀分类列表

@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout
+    xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="@dimen/y266">
+
+        <RelativeLayout
+            android:layout_marginRight="@dimen/x10"
+            android:layout_marginLeft="@dimen/x10"
+            android:layout_marginBottom="@dimen/y24"
+            android:layout_marginTop="@dimen/y24"
+            android:layout_gravity="center_horizontal"
+            android:id="@+id/item_container"
+            android:background="@drawable/bg_member_nobuy"
+            android:layout_width="@dimen/x200"
+            android:layout_height="match_parent">
+
+            <CheckBox
+                android:clickable="false"
+                android:paddingTop="@dimen/y12"
+                android:paddingRight="@dimen/x12"
+                android:paddingBottom="@dimen/y12"
+                android:id="@+id/item_checkBox"
+                android:layout_alignParentRight="true"
+                android:button="@drawable/bg_pay_member"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+
+            <TextView
+                android:id="@+id/item_title"
+                android:layout_marginTop="@dimen/y42"
+                android:layout_centerHorizontal="true"
+                android:textColor="@color/color_DE151515"
+                android:textSize="16sp"
+                android:text="会员年卡"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+
+            <LinearLayout
+                android:layout_marginTop="@dimen/y8"
+                android:id="@+id/item_priceContainer"
+                android:layout_below="@+id/item_title"
+                android:layout_centerHorizontal="true"
+                android:orientation="horizontal"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:id="@+id/item_tag"
+                    android:textStyle="bold"
+                    android:textColor="@color/color_E25838"
+                    android:textSize="18sp"
+                    android:text="￥"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"/>
+
+                <TextView
+                    android:id="@+id/item_price"
+                    android:textStyle="bold"
+                    android:textColor="@color/color_E25838"
+                    android:textSize="26sp"
+                    android:text="9.9"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"/>
+
+            </LinearLayout>
+
+            <com.example.administrator.jipinshop.view.textview.TextViewDel
+                android:layout_marginTop="@dimen/y8"
+                android:layout_below="@id/item_priceContainer"
+                android:layout_width="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:id="@+id/item_otherPrice"
+                android:textSize="12sp"
+                android:textColor="@color/color_9D9D9D"
+                android:text="原价:￥39"
+                android:layout_height="wrap_content"/>
+
+        </RelativeLayout>
+
+
+    </RelativeLayout>
+
+
+</layout>

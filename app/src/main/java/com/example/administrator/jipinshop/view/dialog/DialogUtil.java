@@ -1168,9 +1168,9 @@ public class DialogUtil {
         AlertDialog.Builder builder = new AlertDialog.Builder(context, R.style.dialog);
         DialogPaySuccessBinding binding = DataBindingUtil.inflate(LayoutInflater.from(context), R.layout.dialog_pay_success, null, false);
         final Dialog dialog = builder.create();
-        if (level.equals("1")) {
+        if (level.equals("1") || level.equals("4")) {
             binding.dialogImage.setImageResource(R.mipmap.pay_success2);
-        } else if (level.equals("2")){
+        } else if (level.equals("2")|| level.equals("5")){
             binding.dialogImage.setImageResource(R.mipmap.pay_success);
         } else {
             binding.dialogImage.setImageResource(R.mipmap.pay_success3);

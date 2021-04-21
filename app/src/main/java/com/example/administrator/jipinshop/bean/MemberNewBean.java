@@ -76,7 +76,7 @@ public class MemberNewBean {
 
     public static class DataBean {
 
-        private int level;//0 普通 ， 1 月卡 ，2年卡
+        private int level;//0 普通 ， 1 月卡 ，2年卡 3周卡
         private String boxImg;//更多权益
         private String avatar;
         private String nickname;
@@ -105,6 +105,15 @@ public class MemberNewBean {
         private List<VipBoxListBean> yearBoxList;
         private TbkIndexBean.DataBean.Ad1ListBean ad;
         private List<EvaluationTabBean.DataBean.AdListBean> adList;
+        private String recommend;  //0不包 1包月 2包年
+
+        public String getRecommend() {
+            return recommend;
+        }
+
+        public void setRecommend(String recommend) {
+            this.recommend = recommend;
+        }
 
         public List<EvaluationTabBean.DataBean.AdListBean> getAdList() {
             return adList;

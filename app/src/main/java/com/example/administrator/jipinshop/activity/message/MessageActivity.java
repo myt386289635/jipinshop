@@ -55,6 +55,7 @@ public class MessageActivity extends BaseActivity implements View.OnClickListene
     private void initView() {
         mBinding.inClude.titleTv.setText("消息");
         mBinding.messageTitle.setVisibility(View.VISIBLE);
+        mBinding.messageHelp.setVisibility(View.VISIBLE);
 
         mBinding.recyclerView.setLayoutManager(new LinearLayoutManager(this));
         mList = new ArrayList<>();

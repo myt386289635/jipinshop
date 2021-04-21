@@ -12,6 +12,7 @@ import android.os.Handler;
 import android.os.Looper;
 import android.os.Message;
 import android.support.annotation.Nullable;
+import android.support.v7.widget.LinearLayoutManager;
 import android.text.Html;
 import android.text.TextUtils;
 import android.view.View;
@@ -21,6 +22,7 @@ import com.blankj.utilcode.util.SPUtils;
 import com.example.administrator.jipinshop.R;
 import com.example.administrator.jipinshop.activity.WebActivity;
 import com.example.administrator.jipinshop.activity.sign.SignActivity;
+import com.example.administrator.jipinshop.adapter.MemberBuyAdapter;
 import com.example.administrator.jipinshop.base.BaseActivity;
 import com.example.administrator.jipinshop.bean.ImageBean;
 import com.example.administrator.jipinshop.bean.MemberBuyBean;
@@ -46,6 +48,8 @@ import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 
 import java.math.BigDecimal;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 
 import javax.inject.Inject;
@@ -55,13 +59,13 @@ import javax.inject.Inject;
  * @create 2020/12/7
  * @Describe 会员购买和续费页面
  */
-public class MemberBuyActivity extends BaseActivity implements View.OnClickListener, MemberBuyView {
+public class MemberBuyActivity extends BaseActivity implements View.OnClickListener, MemberBuyView, MemberBuyAdapter.OnItem {
 
     @Inject
     MemberBuyPresenter mPresenter;
 
     private ActivityMemberBuyBinding mBinding;
-    private String level = "1";//购买时选择的哪种卡  1是月卡 2是年卡 3是周卡
+    private String level = "1";//购买时选择的哪种卡  1是月卡 2是年卡 3是周卡  4是包月  5是包年
     private String isBuy = "1"; //1是购买  2续费
     private CountDownTimer countDownTimer;//倒计时
     private Boolean startPop = true;//是否弹出关闭确认弹窗
@@ -71,6 +75,9 @@ public class MemberBuyActivity extends BaseActivity implements View.OnClickListe
     private IWXAPI msgApi;//微信支付
     private MemberBuyBean mBean = null;
     private String wx = "";//客服
+    private MemberBuyAdapter mAdapter;
+    private List<MemberBuyBean.DataBean> mList;
+    private int set = 0;//选中的是哪个位置  默认选中的是0
     //支付宝支付回调
     private Handler.Callback mCallback = msg -> {
         if (msg.what == 101){
@@ -114,7 +121,7 @@ public class MemberBuyActivity extends BaseActivity implements View.OnClickListe
     private void initView() {
         isBuy = getIntent().getStringExtra("isBuy");
         if (!TextUtils.isEmpty(getIntent().getStringExtra("level"))){
-            level = getIntent().getStringExtra("level");
+            level = getIntent().getStringExtra("level");//打开时是否需要单独显示为年卡
         }
         mBinding.inClude.titleTv.setText("确认订单");
         countDownTimer = new CountDownTimer(15 * 60 * 1000, 1000) {
@@ -137,6 +144,13 @@ public class MemberBuyActivity extends BaseActivity implements View.OnClickListe
         msgApi = WXAPIFactory.createWXAPI(this, null);
         msgApi.registerApp("wxfd2e92db2568030a");
 
+        mBinding.buyChoose.setLayoutManager(new LinearLayoutManager(this,LinearLayoutManager.HORIZONTAL,false));
+        mList = new ArrayList<>();
+        mAdapter = new MemberBuyAdapter(mList,this);
+        mAdapter.setSet(set);
+        mAdapter.setOnItem(this);
+        mBinding.buyChoose.setAdapter(mAdapter);
+
         mDialog = (new ProgressDialogView()).createLoadingDialog(this, "");
         mDialog.show();
         mPresenter.listVipList(this.bindToLifecycle());
@@ -157,26 +171,6 @@ public class MemberBuyActivity extends BaseActivity implements View.OnClickListe
                     SPUtils.getInstance().put(CommonDate.CLIP, wx);
                 });
                 break;
-            case R.id.month_container:
-                //月卡
-                mBinding.monthCheckBox.setChecked(true);
-                break;
-            case R.id.year_container:
-                //年卡
-                mBinding.yearCheckBox.setChecked(true);
-                break;
-            case R.id.week_container:
-                //周卡
-                mBinding.weekCheckBox.setChecked(true);
-                break;
-            case R.id.month_other_container:
-                //月卡
-                mBinding.monthOtherCheckBox.setChecked(true);
-                break;
-            case R.id.year_other_container:
-                //年卡
-                mBinding.yearOtherCheckBox.setChecked(true);
-                break;
             case R.id.buy_buy:
                 //购买
                 if (level.equals("3")){
@@ -185,7 +179,7 @@ public class MemberBuyActivity extends BaseActivity implements View.OnClickListe
                         ToastUtil.show("正在请求数据，请稍等");
                         return;
                     }
-                    double point = new BigDecimal(mBean.getData().get(2).getPrice()).doubleValue();
+                    double point = new BigDecimal(mList.get(set).getPrice()).doubleValue();
                     if (mBean.getPoint() >= point){
                         mDialog = (new ProgressDialogView()).createLoadingDialog(this, "");
                         mDialog.show();
@@ -197,15 +191,26 @@ public class MemberBuyActivity extends BaseActivity implements View.OnClickListe
                     if (mBinding.buyAlipay.isChecked()){
                         onBuyMember(level,"1");
                     }else {
+                        if (level.equals("4") || level.equals("5")){
+                            ToastUtil.show("包月包年功能请用支付宝支付");
+                            return;
+                        }
                         onBuyMember(level,"2");
                     }
                 }
                 break;
             case R.id.member_rule:
-                startActivity(new Intent(this, WebActivity.class)
-                        .putExtra(WebActivity.url, RetrofitModule.JP_H5_URL + "new-free/memberAgreement")
-                        .putExtra(WebActivity.title,"会员服务协议")
-                );
+                if (mList.get(set).getLevel() == 4 || mList.get(set).getLevel() == 5){
+                    startActivity(new Intent(this, WebActivity.class)
+                            .putExtra(WebActivity.url, RetrofitModule.JP_H5_URL + "new-free/mAutoRenew")
+                            .putExtra(WebActivity.title,"会员连续包月自动续费协议")
+                    );
+                }else {
+                    startActivity(new Intent(this, WebActivity.class)
+                            .putExtra(WebActivity.url, RetrofitModule.JP_H5_URL + "new-free/memberAgreement")
+                            .putExtra(WebActivity.title,"会员服务协议")
+                    );
+                }
                 break;
         }
     }
@@ -219,104 +224,57 @@ public class MemberBuyActivity extends BaseActivity implements View.OnClickListe
         monthPrice = bean.getData().get(0).getPrice();
         yearPrice = bean.getData().get(1).getPrice();
         wx = bean.getOfficialWechat();
-        if (level.equals("2")){
-            mBinding.yearOtherContainer2.setVisibility(View.VISIBLE);
-            mBinding.buyType2Container.setVisibility(View.GONE);
-            mBinding.buyType1Container.setVisibility(View.GONE);
-            mBinding.setYear(bean.getData().get(1));
-        }else if (bean.getData().size() == 2){
-            //没有周卡
-            mBinding.yearOtherContainer2.setVisibility(View.GONE);
-            mBinding.buyType2Container.setVisibility(View.VISIBLE);
-            mBinding.buyType1Container.setVisibility(View.GONE);
-            mBinding.setMoney(bean.getData().get(0));
-            mBinding.setYear(bean.getData().get(1));
-        }else {
-            //有周卡
-            mBinding.yearOtherContainer2.setVisibility(View.GONE);
-            mBinding.buyType2Container.setVisibility(View.GONE);
-            mBinding.buyType1Container.setVisibility(View.VISIBLE);
-            mBinding.setMoney(bean.getData().get(0));
-            mBinding.setYear(bean.getData().get(1));
-            mBinding.setWeek(bean.getData().get(2));
-        }
-        initText();
         mBinding.buyPhone.setText(SPUtils.getInstance(CommonDate.USER).getString(CommonDate.userPhone));
-        mBinding.monthOther.setTv(true);
-        mBinding.monthOther.setColor(R.color.color_9D9D9D);
-        mBinding.monthOtherOther.setTv(true);
-        mBinding.monthOtherOther.setColor(R.color.color_9D9D9D);
-        mBinding.yearOther.setTv(true);
-        mBinding.yearOther.setColor(R.color.color_9D9D9D);
-        mBinding.yearOtherOther.setTv(true);
-        mBinding.yearOtherOther.setColor(R.color.color_9D9D9D);
+        //显示数据
+        set = 0;
+        mList.clear();
+        mList.addAll(bean.getData());
+        mAdapter.setSet(set);
+        mAdapter.notifyDataSetChanged();
+        level = mList.get(set).getLevel() + "";//购买的哪个卡
+        initText();
     }
 
     public void initText(){//1是月卡 2是年卡 3是周卡
-        if (mBean == null){
-            return;
-        }
         String html = "";
-        if (level.equals("1")){
-            if (isBuy.equals("1")){//购买
-                mBinding.buyNoticeTag.setText("会员专享");
-                html = "加入极品城会员，每年可省<font color='#E25838'>24000元</font>";
-            }else {//续费
-                mBinding.buyNoticeTag.setText("会员续费");
-                html = "续费成功后会员延续至<font color='#E25838'>"+mBean.getData().get(0).getPreLevelEndTime()+"</font>";
-            }
-            mBinding.buyNotice.setText(mBean.getData().get(0).getRemark3());
-            mBinding.buyNoticeTimeOne.setText(Html.fromHtml(html));
-            GlideApp.loderImage(this,mBean.getData().get(0).getImg(),mBinding.buyNoticeImage,0,0);
-            mBinding.buyMoney.setText(mBean.getData().get(0).getPrice());
-            double price = new BigDecimal(mBean.getData().get(0).getPrice()).doubleValue();
-            double priceBefore = new BigDecimal(mBean.getData().get(0).getPriceBefore()).doubleValue();
-            String money = new BigDecimal((priceBefore - price) + "").stripTrailingZeros().toPlainString();
-            mBinding.buyCheapMoney.setText("已优惠"+ money +"元");
-            mBinding.buyContainer.setVisibility(View.VISIBLE);
-            mBinding.buyTag.setText("￥");
-            mBinding.buyBuy.setText("确认支付");
-        }else if (level.equals("2")){
-            if (isBuy.equals("1")){//购买
-                mBinding.buyNoticeTag.setText("会员专享");
-                html = "加入极品城会员，每年可省<font color='#E25838'>24000元</font>";
-            }else {//续费
-                mBinding.buyNoticeTag.setText("会员续费");
-                html = "续费成功后会员延续至<font color='#E25838'>"+mBean.getData().get(1).getPreYearLevelEndTime()+"</font>";
-            }
-            mBinding.buyNotice.setText(mBean.getData().get(1).getRemark3());
-            mBinding.buyNoticeTimeOne.setText(Html.fromHtml(html));
-            GlideApp.loderImage(this,mBean.getData().get(1).getImg(),mBinding.buyNoticeImage,0,0);
-            mBinding.buyMoney.setText(mBean.getData().get(1).getPrice());
-            double price = new BigDecimal(mBean.getData().get(1).getPrice()).doubleValue();
-            double priceBefore = new BigDecimal(mBean.getData().get(1).getPriceBefore()).doubleValue();
-            String money = new BigDecimal((priceBefore - price) + "").stripTrailingZeros().toPlainString();
-            mBinding.buyCheapMoney.setText("已优惠"+ money +"元");
-            mBinding.buyContainer.setVisibility(View.VISIBLE);
-            mBinding.buyTag.setText("￥");
-            mBinding.buyBuy.setText("确认支付");
-        }else if (level.equals("3")){
-            if (isBuy.equals("1")){//购买
-                mBinding.buyNoticeTag.setText("会员专享");
-                html = "加入极品城会员，每年可省<font color='#E25838'>24000元</font>";
-            }else {//续费
-                mBinding.buyNoticeTag.setText("会员续费");
-                html = "续费成功后会员延续至<font color='#E25838'>"+mBean.getData().get(2).getPreLevelEndTime()+"</font>";
-            }
-            mBinding.buyNotice.setText(mBean.getData().get(2).getRemark3());
-            mBinding.buyNoticeTimeOne.setText(Html.fromHtml(html));
-            GlideApp.loderImage(this,mBean.getData().get(2).getImg(),mBinding.buyNoticeImage,0,0);
-            mBinding.buyMoney.setText(mBean.getData().get(2).getPrice());
-            mBinding.buyCheapMoney.setText("");
+        if (isBuy.equals("1")){//购买
+            mBinding.buyNoticeTag.setText("会员专享");
+            html = "加入极品城会员，每年可省<font color='#E25838'>24000元</font>";
+        }else {//续费
+            mBinding.buyNoticeTag.setText("会员续费");
+            html = "续费成功后会员延续至<font color='#E25838'>"+mList.get(set).getPreLevelEndTime()+"</font>";
+        }
+        mBinding.buyNoticeTimeOne.setText(Html.fromHtml(html));
+        mBinding.buyNotice.setText(mList.get(set).getRemark3());
+        GlideApp.loderImage(this,mList.get(set).getImg(),mBinding.buyNoticeImage,0,0);
+        mBinding.buyMoney.setText(mList.get(set).getPrice());
+        double price = new BigDecimal(mList.get(set).getPrice()).doubleValue();
+        double priceBefore = new BigDecimal(mList.get(set).getPriceBefore()).doubleValue();
+        String money = new BigDecimal((priceBefore - price) + "").stripTrailingZeros().toPlainString();
+        String rule = "";
+        if (mList.get(set).getLevel() == 3){//选中周卡
+            mBinding.buyCheapMoney.setText("已优惠"+ money +"极币");
             mBinding.buyContainer.setVisibility(View.GONE);
             mBinding.buyTag.setText("极币");
-            double point = new BigDecimal(mBean.getData().get(2).getPrice()).doubleValue();
+            double point = new BigDecimal(mList.get(set).getPrice()).doubleValue();
             if (mBean.getPoint() >= point){
                 mBinding.buyBuy.setText("确认兑换");
             }else {
                 mBinding.buyBuy.setText("极币不足\n去赚取");
             }
+            rule = "开通会员代表接受<font color='#3E85FB'>《会员服务协议》</font>";
+        }else {//非周卡
+            mBinding.buyCheapMoney.setText("已优惠"+ money +"元");
+            mBinding.buyContainer.setVisibility(View.VISIBLE);
+            mBinding.buyTag.setText("￥");
+            mBinding.buyBuy.setText("确认支付");
+            if (mList.get(set).getLevel() == 4 || mList.get(set).getLevel() == 5){
+                rule = "开通会员代表接受<font color='#3E85FB'>《会员连续包月自动续费协议》</font>";
+            }else {
+                rule = "开通会员代表接受<font color='#3E85FB'>《会员服务协议》</font>";
+            }
         }
+        mBinding.memberRule.setText(Html.fromHtml(rule));
     }
 
     @Override
@@ -415,8 +373,11 @@ public class MemberBuyActivity extends BaseActivity implements View.OnClickListe
 
     //初始化文案
     @Override
-    public void onInit(String userLevel) {
-        this.level = userLevel;
+    public void onItem(int position) {
+        set = position;
+        mAdapter.setSet(set);
+        mAdapter.notifyDataSetChanged();
+        level = mList.get(position).getLevel() + "";//购买的哪个卡
         initText();
     }
 

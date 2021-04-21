@@ -6,15 +6,6 @@
         <variable
             name="listener"
             type="android.view.View.OnClickListener"/>
-        <variable
-            name="money"
-            type="com.example.administrator.jipinshop.bean.MemberBuyBean.DataBean"/>
-        <variable
-            name="year"
-            type="com.example.administrator.jipinshop.bean.MemberBuyBean.DataBean"/>
-        <variable
-            name="week"
-            type="com.example.administrator.jipinshop.bean.MemberBuyBean.DataBean"/>
     </data>
 
     <RelativeLayout
@@ -44,7 +35,7 @@
             android:id="@+id/buy_bottomContainer"
             android:layout_alignParentBottom="true"
             android:layout_width="match_parent"
-            android:layout_height="@dimen/y123">
+            android:layout_height="wrap_content">
 
             <View
                 android:background="@color/color_D8D8D8"
@@ -52,6 +43,8 @@
                 android:layout_height="@dimen/y1"/>
 
             <LinearLayout
+                android:layout_marginBottom="@dimen/y20"
+                android:layout_marginTop="@dimen/y36"
                 android:layout_centerVertical="true"
                 android:layout_marginLeft="@dimen/x30"
                 android:orientation="vertical"
@@ -112,6 +105,7 @@
             </LinearLayout>
 
             <TextView
+                android:layout_marginTop="@dimen/y23"
                 android:onClick="@{listener.onClick}"
                 android:id="@+id/buy_buy"
                 android:gravity="center"
@@ -122,7 +116,6 @@
                 android:background="@drawable/bg_e25838_7"
                 android:layout_marginRight="@dimen/x30"
                 android:layout_alignParentRight="true"
-                android:layout_centerVertical="true"
                 android:layout_width="@dimen/x210"
                 android:layout_height="@dimen/y72"/>
 
@@ -209,563 +202,14 @@
                 </RelativeLayout>
 
                 <RelativeLayout
-                    android:visibility="gone"
-                    android:id="@+id/buy_type1Container"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
+                    android:layout_height="@dimen/y266">
 
-                    <RelativeLayout
-                        android:layout_marginBottom="@dimen/y24"
-                        android:layout_marginTop="@dimen/y24"
-                        android:onClick="@{listener.onClick}"
-                        android:layout_marginLeft="@dimen/x11"
-                        android:layout_centerVertical="true"
-                        android:id="@+id/month_container"
-                        android:background="@drawable/bg_member_buy"
-                        android:layout_width="@dimen/x250"
-                        android:layout_height="wrap_content">
-
-                        <CheckBox
-                            android:checked="true"
-                            android:paddingTop="@dimen/y12"
-                            android:paddingRight="@dimen/x12"
-                            android:paddingBottom="@dimen/y12"
-                            android:id="@+id/month_checkBox"
-                            android:layout_alignParentRight="true"
-                            android:button="@drawable/bg_pay_member"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"/>
-
-                        <TextView
-                            android:id="@+id/pop_monthTitle"
-                            android:layout_marginTop="@dimen/y26"
-                            android:layout_centerHorizontal="true"
-                            android:textColor="@color/color_DE151515"
-                            android:textSize="16sp"
-                            android:text="会员月卡"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"/>
-
-                        <LinearLayout
-                            android:id="@+id/month_other_price_container"
-                            android:layout_marginTop="@dimen/y8"
-                            android:layout_below="@+id/pop_monthTitle"
-                            android:layout_centerHorizontal="true"
-                            android:orientation="horizontal"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content">
-
-                            <TextView
-                                android:textStyle="bold"
-                                android:textColor="@color/color_E25838"
-                                android:textSize="18sp"
-                                android:text="￥"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"/>
-
-                            <TextView
-                                android:id="@+id/month_price"
-                                android:textStyle="bold"
-                                android:textColor="@color/color_E25838"
-                                android:textSize="26sp"
-                                android:text="@{money.price}"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"/>
-
-                            <com.example.administrator.jipinshop.view.textview.TextViewDel
-                                android:layout_width="wrap_content"
-                                android:id="@+id/month_other"
-                                android:textSize="12sp"
-                                android:textColor="@color/color_9D9D9D"
-                                android:text="@{@string/price + money.priceBefore}"
-                                android:layout_marginLeft="@dimen/x4"
-                                android:layout_height="wrap_content"/>
-
-                        </LinearLayout>
-
-                        <TextView
-                            android:layout_marginTop="@dimen/y12"
-                            android:layout_below="@+id/month_other_price_container"
-                            android:background="@drawable/bg_fae1bf_1"
-                            android:gravity="center"
-                            android:id="@+id/month_tag"
-                            android:layout_marginBottom="@dimen/y20"
-                            android:textColor="@color/color_996A31"
-                            android:textSize="12sp"
-                            android:text="@{money.remark2}"
-                            android:layout_centerHorizontal="true"
-                            android:layout_width="match_parent"
-                            android:layout_marginLeft="@dimen/x21"
-                            android:layout_marginRight="@dimen/x27"
-                            android:layout_height="@dimen/y33"/>
-
-                    </RelativeLayout>
-
-                    <TextView
-                        android:layout_marginTop="@dimen/y6"
-                        android:layout_marginLeft="@dimen/x5"
-                        android:textColor="@color/color_white"
-                        android:padding="@dimen/y5"
-                        android:textSize="10sp"
-                        android:text="@{money.remark1}"
-                        android:background="@drawable/bg_e25838_8"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"/>
-
-                    <LinearLayout
-                        android:layout_marginBottom="@dimen/y24"
-                        android:layout_marginTop="@dimen/y24"
-                        android:layout_marginRight="@dimen/x11"
-                        android:layout_marginLeft="@dimen/x11"
-                        android:layout_toRightOf="@+id/month_container"
-                        android:layout_centerVertical="true"
-                        android:orientation="horizontal"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content">
-
-                        <RelativeLayout
-                            android:onClick="@{listener.onClick}"
-                            android:id="@+id/year_container"
-                            android:background="@drawable/bg_member_nobuy"
-                            android:layout_width="0dp"
-                            android:layout_weight="1"
-                            android:layout_height="wrap_content">
-
-                            <CheckBox
-                                android:paddingTop="@dimen/y12"
-                                android:paddingRight="@dimen/x12"
-                                android:paddingBottom="@dimen/y12"
-                                android:id="@+id/year_checkBox"
-                                android:layout_alignParentRight="true"
-                                android:button="@drawable/bg_pay_member"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"/>
-
-                            <TextView
-                                android:id="@+id/pop_yearTitle"
-                                android:layout_marginTop="@dimen/y26"
-                                android:layout_centerHorizontal="true"
-                                android:textColor="@color/color_DE151515"
-                                android:textSize="16sp"
-                                android:text="会员年卡"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"/>
-
-                            <LinearLayout
-                                android:id="@+id/year_other_price_container"
-                                android:layout_marginTop="@dimen/y8"
-                                android:layout_below="@+id/pop_yearTitle"
-                                android:layout_centerHorizontal="true"
-                                android:orientation="horizontal"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content">
-
-                                <TextView
-                                    android:textStyle="bold"
-                                    android:textColor="@color/color_E25838"
-                                    android:textSize="18sp"
-                                    android:text="￥"
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"/>
-
-                                <TextView
-                                    android:id="@+id/year_price"
-                                    android:textStyle="bold"
-                                    android:textColor="@color/color_E25838"
-                                    android:textSize="26sp"
-                                    android:text="@{year.price}"
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"/>
-
-                                <com.example.administrator.jipinshop.view.textview.TextViewDel
-                                    android:layout_width="wrap_content"
-                                    android:id="@+id/year_other"
-                                    android:textSize="12sp"
-                                    android:textColor="@color/color_9D9D9D"
-                                    android:text="@{@string/price + year.priceBefore}"
-                                    android:layout_marginLeft="@dimen/x4"
-                                    android:layout_height="wrap_content"/>
-
-                            </LinearLayout>
-
-                            <TextView
-                                android:layout_marginTop="@dimen/y12"
-                                android:layout_below="@+id/year_other_price_container"
-                                android:background="@drawable/bg_f1f1f1"
-                                android:gravity="center"
-                                android:id="@+id/year_tag"
-                                android:layout_marginBottom="@dimen/y20"
-                                android:textColor="@color/color_9D9D9D"
-                                android:textSize="12sp"
-                                android:text="@{year.remark2}"
-                                android:layout_centerHorizontal="true"
-                                android:layout_width="match_parent"
-                                android:layout_marginLeft="@dimen/x14"
-                                android:layout_marginRight="@dimen/x12"
-                                android:layout_height="@dimen/y33"/>
-
-                        </RelativeLayout>
-
-                        <RelativeLayout
-                            android:onClick="@{listener.onClick}"
-                            android:layout_marginLeft="@dimen/x11"
-                            android:id="@+id/week_container"
-                            android:background="@drawable/bg_member_nobuy"
-                            android:layout_width="0dp"
-                            android:layout_weight="1"
-                            android:layout_height="wrap_content">
-
-                            <CheckBox
-                                android:paddingTop="@dimen/y12"
-                                android:paddingRight="@dimen/x12"
-                                android:paddingBottom="@dimen/y12"
-                                android:id="@+id/week_checkBox"
-                                android:layout_alignParentRight="true"
-                                android:button="@drawable/bg_pay_member"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"/>
-
-                            <TextView
-                                android:id="@+id/pop_weekTitle"
-                                android:layout_marginTop="@dimen/y26"
-                                android:layout_centerHorizontal="true"
-                                android:textColor="@color/color_DE151515"
-                                android:textSize="16sp"
-                                android:text="体验周卡"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"/>
-
-                            <RelativeLayout
-                                android:id="@+id/week_other_price_container"
-                                android:layout_marginTop="@dimen/y8"
-                                android:layout_below="@+id/pop_weekTitle"
-                                android:layout_centerHorizontal="true"
-                                android:orientation="horizontal"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content">
-
-                                <TextView
-                                    android:layout_marginBottom="@dimen/y10"
-                                    android:layout_alignBottom="@+id/week_price"
-                                    android:id="@+id/week_name"
-                                    android:textStyle="bold"
-                                    android:textColor="@color/color_E25838"
-                                    android:textSize="13sp"
-                                    android:text="极币"
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"/>
-
-                                <TextView
-                                    android:layout_toRightOf="@+id/week_name"
-                                    android:layout_centerHorizontal="true"
-                                    android:id="@+id/week_price"
-                                    android:textStyle="bold"
-                                    android:textColor="@color/color_E25838"
-                                    android:textSize="26sp"
-                                    android:text="@{week.price}"
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"/>
-
-                            </RelativeLayout>
-
-                            <TextView
-                                android:layout_marginTop="@dimen/y12"
-                                android:layout_below="@+id/week_other_price_container"
-                                android:background="@drawable/bg_f1f1f1"
-                                android:gravity="center"
-                                android:id="@+id/week_tag"
-                                android:layout_marginBottom="@dimen/y20"
-                                android:textColor="@color/color_9D9D9D"
-                                android:textSize="12sp"
-                                android:text="@{week.remark2}"
-                                android:layout_centerHorizontal="true"
-                                android:layout_width="match_parent"
-                                android:layout_marginLeft="@dimen/x14"
-                                android:layout_marginRight="@dimen/x12"
-                                android:layout_height="@dimen/y33"/>
-
-                        </RelativeLayout>
-
-                    </LinearLayout>
-
-                </RelativeLayout>
-
-                <RelativeLayout
-                    android:id="@+id/buy_type2Container"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
-
-                    <RelativeLayout
-                        android:layout_marginBottom="@dimen/y24"
-                        android:layout_marginTop="@dimen/y24"
-                        android:onClick="@{listener.onClick}"
-                        android:layout_marginLeft="@dimen/x90"
-                        android:layout_centerVertical="true"
-                        android:id="@+id/month_other_container"
-                        android:background="@drawable/bg_member_buy"
-                        android:layout_width="@dimen/x250"
-                        android:layout_height="wrap_content">
-
-                        <CheckBox
-                            android:checked="true"
-                            android:paddingTop="@dimen/y12"
-                            android:paddingRight="@dimen/x12"
-                            android:paddingBottom="@dimen/y12"
-                            android:id="@+id/month_other_checkBox"
-                            android:layout_alignParentRight="true"
-                            android:button="@drawable/bg_pay_member"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"/>
-
-                        <TextView
-                            android:id="@+id/pop_other_monthTitle"
-                            android:layout_marginTop="@dimen/y26"
-                            android:layout_centerHorizontal="true"
-                            android:textColor="@color/color_DE151515"
-                            android:textSize="16sp"
-                            android:text="会员月卡"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"/>
-
-                        <LinearLayout
-                            android:id="@+id/month_price_container"
-                            android:layout_marginTop="@dimen/y8"
-                            android:layout_below="@+id/pop_other_monthTitle"
-                            android:layout_centerHorizontal="true"
-                            android:orientation="horizontal"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content">
-
-                            <TextView
-                                android:textStyle="bold"
-                                android:textColor="@color/color_E25838"
-                                android:textSize="18sp"
-                                android:text="￥"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"/>
-
-                            <TextView
-                                android:id="@+id/month_other_price"
-                                android:textStyle="bold"
-                                android:textColor="@color/color_E25838"
-                                android:textSize="26sp"
-                                android:text="@{money.price}"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"/>
-
-                            <com.example.administrator.jipinshop.view.textview.TextViewDel
-                                android:layout_width="wrap_content"
-                                android:id="@+id/month_other_other"
-                                android:textSize="12sp"
-                                android:textColor="@color/color_9D9D9D"
-                                android:text="@{@string/price + money.priceBefore}"
-                                android:layout_marginLeft="@dimen/x4"
-                                android:layout_height="wrap_content"/>
-
-                        </LinearLayout>
-
-                        <TextView
-                            android:layout_marginTop="@dimen/y12"
-                            android:layout_below="@+id/month_price_container"
-                            android:background="@drawable/bg_fae1bf_1"
-                            android:gravity="center"
-                            android:id="@+id/month_other_tag"
-                            android:layout_marginBottom="@dimen/y20"
-                            android:textColor="@color/color_996A31"
-                            android:textSize="12sp"
-                            android:text="@{money.remark2}"
-                            android:layout_centerHorizontal="true"
-                            android:layout_width="match_parent"
-                            android:layout_marginLeft="@dimen/x21"
-                            android:layout_marginRight="@dimen/x27"
-                            android:layout_height="@dimen/y33"/>
-
-                    </RelativeLayout>
-
-                    <TextView
-                        android:layout_marginTop="@dimen/y6"
-                        android:layout_marginLeft="@dimen/x84"
-                        android:textColor="@color/color_white"
-                        android:padding="@dimen/y5"
-                        android:textSize="10sp"
-                        android:text="@{money.remark1}"
-                        android:background="@drawable/bg_e25838_8"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"/>
-
-                    <RelativeLayout
-                        android:layout_marginBottom="@dimen/y24"
-                        android:layout_marginTop="@dimen/y24"
-                        android:onClick="@{listener.onClick}"
-                        android:layout_marginRight="@dimen/x90"
-                        android:layout_alignParentRight="true"
-                        android:layout_centerVertical="true"
-                        android:id="@+id/year_other_container"
-                        android:background="@drawable/bg_member_nobuy"
-                        android:layout_width="@dimen/x228"
-                        android:layout_height="wrap_content">
-
-                        <CheckBox
-                            android:paddingTop="@dimen/y12"
-                            android:paddingRight="@dimen/x12"
-                            android:paddingBottom="@dimen/y12"
-                            android:id="@+id/year_other_checkBox"
-                            android:layout_alignParentRight="true"
-                            android:button="@drawable/bg_pay_member"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"/>
-
-                        <TextView
-                            android:id="@+id/pop_other_yearTitle"
-                            android:layout_marginTop="@dimen/y26"
-                            android:layout_centerHorizontal="true"
-                            android:textColor="@color/color_DE151515"
-                            android:textSize="16sp"
-                            android:text="会员年卡"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"/>
-
-                        <LinearLayout
-                            android:id="@+id/year_price_container"
-                            android:layout_marginTop="@dimen/y8"
-                            android:layout_below="@+id/pop_other_yearTitle"
-                            android:layout_centerHorizontal="true"
-                            android:orientation="horizontal"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content">
-
-                            <TextView
-                                android:textStyle="bold"
-                                android:textColor="@color/color_E25838"
-                                android:textSize="18sp"
-                                android:text="￥"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"/>
-
-                            <TextView
-                                android:id="@+id/year_other_price"
-                                android:textStyle="bold"
-                                android:textColor="@color/color_E25838"
-                                android:textSize="26sp"
-                                android:text="@{year.price}"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"/>
-
-                            <com.example.administrator.jipinshop.view.textview.TextViewDel
-                                android:layout_width="wrap_content"
-                                android:id="@+id/year_other_other"
-                                android:textSize="12sp"
-                                android:textColor="@color/color_9D9D9D"
-                                android:text="@{@string/price + year.priceBefore}"
-                                android:layout_marginLeft="@dimen/x4"
-                                android:layout_height="wrap_content"/>
-
-                        </LinearLayout>
-
-                        <TextView
-                            android:layout_marginTop="@dimen/y12"
-                            android:layout_below="@+id/year_price_container"
-                            android:background="@drawable/bg_f1f1f1"
-                            android:gravity="center"
-                            android:id="@+id/year_other_tag"
-                            android:layout_marginBottom="@dimen/y20"
-                            android:textColor="@color/color_9D9D9D"
-                            android:textSize="12sp"
-                            android:text="@{year.remark2}"
-                            android:layout_centerHorizontal="true"
-                            android:layout_width="match_parent"
-                            android:layout_marginLeft="@dimen/x14"
-                            android:layout_marginRight="@dimen/x12"
-                            android:layout_height="@dimen/y33"/>
-
-                    </RelativeLayout>
-
-                </RelativeLayout>
-
-                <RelativeLayout
-                    android:visibility="gone"
-                    android:layout_marginBottom="@dimen/y24"
-                    android:layout_marginTop="@dimen/y24"
-                    android:onClick="@{listener.onClick}"
-                    android:layout_gravity="center_horizontal"
-                    android:id="@+id/year_other_container2"
-                    android:background="@drawable/bg_member_buy"
-                    android:layout_width="@dimen/x228"
-                    android:layout_height="wrap_content">
-
-                    <CheckBox
-                        android:checked="true"
-                        android:paddingTop="@dimen/y12"
-                        android:paddingRight="@dimen/x12"
-                        android:paddingBottom="@dimen/y12"
-                        android:id="@+id/year_other_checkBox2"
-                        android:layout_alignParentRight="true"
-                        android:button="@drawable/bg_pay_member"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"/>
-
-                    <TextView
-                        android:id="@+id/pop_other_yearTitle2"
-                        android:layout_marginTop="@dimen/y26"
+                    <android.support.v7.widget.RecyclerView
+                        android:id="@+id/buy_choose"
                         android:layout_centerHorizontal="true"
-                        android:textColor="@color/color_DE151515"
-                        android:textSize="16sp"
-                        android:text="会员年卡"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"/>
-
-                    <LinearLayout
-                        android:id="@+id/year_price_container2"
-                        android:layout_marginTop="@dimen/y8"
-                        android:layout_below="@+id/pop_other_yearTitle2"
-                        android:layout_centerHorizontal="true"
-                        android:orientation="horizontal"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content">
-
-                        <TextView
-                            android:textStyle="bold"
-                            android:textColor="@color/color_E25838"
-                            android:textSize="18sp"
-                            android:text="￥"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"/>
-
-                        <TextView
-                            android:id="@+id/year_other_price2"
-                            android:textStyle="bold"
-                            android:textColor="@color/color_E25838"
-                            android:textSize="26sp"
-                            android:text="@{year.price}"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"/>
-
-                        <com.example.administrator.jipinshop.view.textview.TextViewDel
-                            android:layout_width="wrap_content"
-                            android:id="@+id/year_other_other2"
-                            android:textSize="12sp"
-                            android:textColor="@color/color_9D9D9D"
-                            android:text="@{@string/price + year.priceBefore}"
-                            android:layout_marginLeft="@dimen/x4"
-                            android:layout_height="wrap_content"/>
-
-                    </LinearLayout>
-
-                    <TextView
-                        android:layout_marginTop="@dimen/y12"
-                        android:layout_below="@+id/year_price_container2"
-                        android:background="@drawable/bg_fae1bf_1"
-                        android:gravity="center"
-                        android:id="@+id/year_other_tag2"
-                        android:layout_marginBottom="@dimen/y20"
-                        android:textColor="@color/color_996A31"
-                        android:textSize="12sp"
-                        android:text="@{year.remark2}"
-                        android:layout_centerHorizontal="true"
-                        android:layout_width="match_parent"
-                        android:layout_marginLeft="@dimen/x14"
-                        android:layout_marginRight="@dimen/x12"
-                        android:layout_height="@dimen/y33"/>
 
                 </RelativeLayout>
 
@@ -880,20 +324,19 @@
                         android:layout_below="@+id/buy_payNotice"
                         android:layout_marginLeft="@dimen/x30"
                         android:drawablePadding="@dimen/x9"
-                        android:drawableLeft="@mipmap/pay_alipay"
+                        android:drawableLeft="@mipmap/pay_wechat"
                         android:textColor="@color/color_DE151515"
                         android:textSize="15sp"
-                        android:text="支付宝支付"
+                        android:text="微信支付"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"/>
 
                     <CheckBox
-                        android:checked="true"
                         android:layout_below="@+id/buy_payNotice"
                         android:paddingTop="@dimen/y17"
                         android:paddingRight="@dimen/x30"
                         android:paddingBottom="@dimen/y17"
-                        android:id="@+id/buy_alipay"
+                        android:id="@+id/buy_wxpay"
                         android:layout_alignParentRight="true"
                         android:layout_marginTop="@dimen/y3"
                         android:button="@drawable/bg_pay"
@@ -904,22 +347,23 @@
                         android:layout_marginLeft="@dimen/x30"
                         android:layout_marginTop="@dimen/y13"
                         android:drawablePadding="@dimen/x9"
-                        android:drawableLeft="@mipmap/pay_wechat"
+                        android:drawableLeft="@mipmap/pay_alipay"
                         android:textColor="@color/color_DE151515"
                         android:textSize="15sp"
-                        android:text="微信支付"
-                        android:layout_below="@+id/buy_alipay"
+                        android:text="支付宝支付"
+                        android:layout_below="@+id/buy_wxpay"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"/>
 
                     <CheckBox
+                        android:checked="true"
                         android:gravity="center"
                         android:paddingTop="@dimen/y17"
                         android:paddingRight="@dimen/x30"
                         android:paddingBottom="@dimen/y17"
-                        android:id="@+id/buy_wxpay"
+                        android:id="@+id/buy_alipay"
                         android:layout_alignParentRight="true"
-                        android:layout_below="@+id/buy_alipay"
+                        android:layout_below="@+id/buy_wxpay"
                         android:layout_marginTop="@dimen/y3"
                         android:layout_marginBottom="@dimen/y13"
                         android:button="@drawable/bg_pay"

@@ -66,7 +66,8 @@
                 android:text="@{bean.title}"
                 android:layout_marginTop="@dimen/y42"
                 android:layout_toRightOf="@id/item_image"
-                android:layout_width="wrap_content"
+                android:layout_marginRight="@dimen/x150"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"/>
 
             <TextView
@@ -79,7 +80,7 @@
                 android:layout_toRightOf="@id/item_image"
                 android:layout_below="@id/item_name"
                 android:layout_marginTop="@dimen/y10"
-                android:layout_marginRight="@dimen/x140"
+                android:layout_marginRight="@dimen/x150"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"/>
 
