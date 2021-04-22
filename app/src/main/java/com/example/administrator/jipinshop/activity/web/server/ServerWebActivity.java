@@ -50,7 +50,7 @@ public class ServerWebActivity extends BaseActivity implements View.OnClickListe
     }
 
     private void initView() {
-        mBinding.inClude.titleTv.setText("帮助与客服");
+        mBinding.inClude.titleTv.setText("人工客服");
         mProgressDialog = (new ProgressDialogView()).createLoadingDialog(this, "正在加载...");
         mProgressDialog.show();
 

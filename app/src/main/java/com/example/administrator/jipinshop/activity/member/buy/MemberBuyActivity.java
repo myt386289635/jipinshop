@@ -188,13 +188,15 @@ public class MemberBuyActivity extends BaseActivity implements View.OnClickListe
                         startActivity(new Intent(this, SignActivity.class));
                     }
                 }else {
+                    if (level.equals("4") || level.equals("5")){
+                       if (!mBinding.buyAlipay.isChecked()){
+                           ToastUtil.show("请选择支付方式");
+                           return;
+                       }
+                    }
                     if (mBinding.buyAlipay.isChecked()){
                         onBuyMember(level,"1");
                     }else {
-                        if (level.equals("4") || level.equals("5")){
-                            ToastUtil.show("包月包年功能请用支付宝支付");
-                            return;
-                        }
                         onBuyMember(level,"2");
                     }
                 }
@@ -272,6 +274,13 @@ public class MemberBuyActivity extends BaseActivity implements View.OnClickListe
                 rule = "开通会员代表接受<font color='#3E85FB'>《会员连续包月自动续费协议》</font>";
             }else {
                 rule = "开通会员代表接受<font color='#3E85FB'>《会员服务协议》</font>";
+            }
+            if (mList.get(set).getLevel() == 4 || mList.get(set).getLevel() == 5){
+                mBinding.buyWxName.setVisibility(View.GONE);
+                mBinding.buyWxpay.setVisibility(View.GONE);
+            }else {
+                mBinding.buyWxName.setVisibility(View.VISIBLE);
+                mBinding.buyWxpay.setVisibility(View.VISIBLE);
             }
         }
         mBinding.memberRule.setText(Html.fromHtml(rule));

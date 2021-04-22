@@ -320,6 +320,7 @@
                         android:layout_height="wrap_content"/>
 
                     <TextView
+                        android:id="@+id/buy_wxName"
                         android:layout_marginTop="@dimen/y20"
                         android:layout_below="@+id/buy_payNotice"
                         android:layout_marginLeft="@dimen/x30"

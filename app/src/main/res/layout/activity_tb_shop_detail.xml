@@ -464,7 +464,7 @@
                         android:textStyle="bold"
                         android:textColor="@color/color_white"
                         android:textSize="13sp"
-                        android:text="已下单，点我邀请好友，获得100%返利"
+                        android:text="已下单？点我邀请好友，获得100%返利"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"/>
 

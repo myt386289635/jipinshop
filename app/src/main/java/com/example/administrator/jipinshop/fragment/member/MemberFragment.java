@@ -554,9 +554,11 @@ public class MemberFragment extends DBBaseFragment implements View.OnClickListen
                 //包月处理
                 if (bean.getData().getRecommend().equals("1")){//0不包 1包月
                     mBinding.memberUserPay.setVisibility(View.GONE);
+                    mBinding.memberUserTime.setVisibility(View.GONE);
                     mBinding.memberTab.setImageResource(R.mipmap.member1_month_tab1);
                 }else {
                     mBinding.memberUserPay.setVisibility(View.VISIBLE);
+                    mBinding.memberUserTime.setVisibility(View.VISIBLE);
                     mBinding.memberTab.setImageResource(R.mipmap.member1_month_tab);
                     mBinding.memberUserPay.setBackgroundResource(R.drawable.bg_e8a971);
                     mBinding.memberUserPay.setTextColor(getContext().getResources().getColor(R.color.color_white));
@@ -569,9 +571,11 @@ public class MemberFragment extends DBBaseFragment implements View.OnClickListen
                 //包年处理
                 if (bean.getData().getRecommend().equals("2")){//0不包 2包年
                     mBinding.memberUserPay.setVisibility(View.GONE);
+                    mBinding.memberUserTime.setVisibility(View.GONE);
                     mBinding.memberTab.setImageResource(R.mipmap.member1_year_tab1);
                 }else {
                     mBinding.memberUserPay.setVisibility(View.VISIBLE);
+                    mBinding.memberUserTime.setVisibility(View.VISIBLE);
                     mBinding.memberTab.setImageResource(R.mipmap.member1_year_tab);
                     mBinding.memberUserPay.setBackgroundResource(R.drawable.bg_342f2f);
                     mBinding.memberUserPay.setTextColor(getContext().getResources().getColor(R.color.color_E7C19F));
@@ -582,6 +586,7 @@ public class MemberFragment extends DBBaseFragment implements View.OnClickListen
             }else {
                 mBinding.memberTitle1.setText("周卡VIP特权");
                 mBinding.memberTab.setImageResource(R.mipmap.member1_week_tab);
+                mBinding.memberUserTime.setVisibility(View.VISIBLE);
                 mBinding.memberMemberContainer.setBackgroundResource(R.mipmap.member1_month_bg);
                 mBinding.memberUserName.setTextColor(getContext().getResources().getColor(R.color.color_E7C19F));
                 mBinding.memberUserTime.setTextColor(getContext().getResources().getColor(R.color.color_E7C19F));

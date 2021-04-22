@@ -105,6 +105,15 @@ public class UserInfoBean {
         private String officialWeChatQR;//官方客服群二维码
         private String levelEndTime;//会员到期时间
         private String memberLevel;//加入家庭里也算会员
+        private int recommend;//0不包 1包月 2包年
+
+        public int getRecommend() {
+            return recommend;
+        }
+
+        public void setRecommend(int recommend) {
+            this.recommend = recommend;
+        }
 
         public String getMemberLevel() {
             return memberLevel;

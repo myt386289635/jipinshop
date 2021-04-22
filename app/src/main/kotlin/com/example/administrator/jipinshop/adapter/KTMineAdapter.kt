@@ -157,22 +157,36 @@ class KTMineAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>{
                             if (it.data.level == 2) {//年卡
                                 binding.itemGrade.setImageResource(R.mipmap.grade_partner)
                                 binding.mineMemberTime.text = "到期：" + it.data.levelEndTime
-                                binding.mineMemberTime.visibility = View.VISIBLE
                                 binding.mineMemberOpen.text = "续费"
+                                if (it.data.recommend == 0){
+                                    binding.mineMemberTime.visibility = View.VISIBLE
+                                    binding.mineMemberOpen.visibility = View.VISIBLE
+                                }else{
+                                    binding.mineMemberOpen.visibility = View.GONE
+                                    binding.mineMemberTime.visibility = View.GONE
+                                }
                             } else  if (it.data.level == 1){//月卡
                                 binding.itemGrade.setImageResource(R.mipmap.grade_vip)
                                 binding.mineMemberTime.text = "到期：" + it.data.levelEndTime
-                                binding.mineMemberTime.visibility = View.VISIBLE
                                 binding.mineMemberOpen.text = "续费"
+                                if (it.data.recommend == 0){
+                                    binding.mineMemberTime.visibility = View.VISIBLE
+                                    binding.mineMemberOpen.visibility = View.VISIBLE
+                                }else{
+                                    binding.mineMemberOpen.visibility = View.GONE
+                                    binding.mineMemberTime.visibility = View.GONE
+                                }
                             }else if (it.data.level == 3){//周卡
                                 binding.itemGrade.setImageResource(R.mipmap.grade_week)
                                 binding.mineMemberTime.text = "到期：" + it.data.levelEndTime
                                 binding.mineMemberTime.visibility = View.VISIBLE
                                 binding.mineMemberOpen.text = "续费"
+                                binding.mineMemberOpen.visibility = View.VISIBLE
                             } else {
                                 binding.itemGrade.setImageResource(R.mipmap.grade_public)
                                 binding.mineMemberTime.visibility = View.GONE
                                 binding.mineMemberOpen.text = "开通会员"
+                                binding.mineMemberOpen.visibility = View.VISIBLE
                             }
                             mWalletBean?.let { bean ->
                                 binding.mineMemberInfoTitle.text = bean.data.title1
@@ -186,6 +200,7 @@ class KTMineAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>{
                             binding.itemGrade.setImageResource(R.mipmap.grade_public)
                             binding.mineMemberTime.visibility = View.GONE
                             binding.mineMemberOpen.text = "开通会员"
+                            binding.mineMemberOpen.visibility = View.VISIBLE
                         }else{//其他错误
                             binding.mineName.text = SPUtils.getInstance(CommonDate.USER).getString(CommonDate.userNickName)
                             if (!TextUtils.isEmpty(SPUtils.getInstance(CommonDate.USER).getString(CommonDate.userNickImg))) {
@@ -199,6 +214,7 @@ class KTMineAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>{
                             binding.itemGrade.setImageResource(R.mipmap.grade_public)
                             binding.mineMemberTime.visibility = View.GONE
                             binding.mineMemberOpen.text = "开通会员"
+                            binding.mineMemberOpen.visibility = View.VISIBLE
                             SPUtils.getInstance(CommonDate.USER).put(CommonDate.userPoint, 0)
                         }
                         if (NotificationUtil.isNotificationEnabled(context)){
@@ -314,12 +330,6 @@ class KTMineAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>{
                     }
                     binding.mineRecovery.setOnClickListener {
                         mOnItem?.onOrderRecovery()
-                    }
-                    binding.mineOpinion.setOnClickListener {
-                        mOnItem?.onOpinion()
-                    }
-                    binding.mineRule.setOnClickListener {
-                        mOnItem?.onRule()
                     }
                     binding.mineTeam.setOnClickListener {
                         mOnItem?.onTeam()
@@ -634,7 +644,6 @@ class KTMineAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>{
         fun onMessage()//浏览足迹
         fun onFover()//收藏夹
         fun onSetting()//设置
-        fun onOpinion()//反馈
         fun onRule()//极币中心
         fun onInvationDialog()//邀请码dialog（没有使用）
         fun onOrderRecovery() //订单找回

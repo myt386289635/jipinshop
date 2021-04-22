@@ -394,15 +394,6 @@ class KTMineFragment : DBBaseFragment(), KTMineAdapter.OnItem, KTMineView, OnLoa
         UAppUtil.mine(context, 12)
     }
 
-    //反馈中心
-    override fun onOpinion() {
-        if (TextUtils.isEmpty(SPUtils.getInstance(CommonDate.USER).getString(CommonDate.token, ""))) {
-            startActivity(Intent(context, LoginActivity::class.java))
-            return
-        }
-        startActivity(Intent(context, OpinionActivity::class.java))
-    }
-
     //任务中心
     override fun onRule() {
         if (TextUtils.isEmpty(SPUtils.getInstance(CommonDate.USER).getString(CommonDate.token, ""))) {
