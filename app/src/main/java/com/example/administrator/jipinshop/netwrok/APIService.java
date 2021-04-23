@@ -914,22 +914,16 @@ public interface APIService {
     Observable<NewPeopleBean> allowanceIndex(@Query("page") int page);
 
     /**
-     * 首次下单获取弹窗信息、获取首页拼团弹窗信息
+     * 获取首页邀请返弹窗信息
      */
     @GET("api/v4/getPopInfo")
     Observable<PopBean> getPopInfo(@Query("type") String type);
 
     /**
-     * 获取弹窗信息
+     * 获取首页系统活动弹窗信息
      */
     @GET("api/v4/getPopInfo")
     Observable<PopInfoBean> getPopInfo();
-
-    /**
-     * 获取下单弹窗信息
-     */
-    @GET("api/v4/getPopInfo")
-    Observable<PopInfoBean> getPopInfoOther(@Query("type") String type);
 
     /**
      * 商品图文描述

@@ -72,7 +72,7 @@ import java.util.List;
 
 import javax.inject.Inject;
 
-public class MainActivity extends BaseActivity implements MainView, ViewPager.OnPageChangeListener, SceneRestorable, ImageWatcherHelper.Provider, View.OnClickListener, ShareBoardDialog2.onShareListener {
+public class MainActivity extends BaseActivity implements MainView, ViewPager.OnPageChangeListener, SceneRestorable, ImageWatcherHelper.Provider, View.OnClickListener {
 
     @Inject
     MainActivityPresenter mPresenter;
@@ -93,9 +93,6 @@ public class MainActivity extends BaseActivity implements MainView, ViewPager.On
     private Dialog mDialog;
     private ImageWatcherHelper iwHelper;
     private DecorationLayout layDecoration;
-    private ShareBoardDialog2 mShareBoardDialog;//下单后弹窗需要分享
-    private int buyPop = 0;//下单的弹窗数
-    private PopInfoBean bean = null;//下单的弹窗数据
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -281,7 +278,7 @@ public class MainActivity extends BaseActivity implements MainView, ViewPager.On
         if (SPUtils.getInstance().getBoolean(CommonDate.FIRST, true)) {
             //首次进入app
             if (SPUtils.getInstance(CommonDate.USER).getString(CommonDate.isNewUser,"0").equals("0")){
-                //新用户
+                //新用户或未登录
                 NotificationUtil.OpenNotificationSetting(this, () -> {
                     //新人五重礼
                     onNew();
@@ -316,127 +313,17 @@ public class MainActivity extends BaseActivity implements MainView, ViewPager.On
         });
     }
 
-    //特惠购首次下单奖励弹框
-    public void onCheapDialog() {
-        DialogUtil.newPeopleDialog(this,"https://jipincheng.cn/app_second?",v12 -> {
-            appStatisticalUtil.addEvent("tc.thg_close", this.bindToLifecycle());
-            getClipText();
-        }, v1 -> {
-            appStatisticalUtil.addEvent("tc.thg_enter", this.bindUntilEvent(ActivityEvent.DESTROY));
-            startActivity(new Intent(this, CheapBuyActivity.class)
-                    .putExtra("startPop", false)
-            );
-            getClipText();
-        });
-    }
-
-    //其他操作，现在不要新手指导了
-    public void onGuide(){
-        DialogUtil.newPeopleDialog(MainActivity.this,"https://jipincheng.cn/app_vip1?", v -> {
-            getClipText();
-        }, v -> {
-            EventBus.getDefault().post(new ChangeHomePageBus(2));
-            getClipText();
-        });
-    }
-
     @Override
     public void onDialogSuc(PopInfoBean bean) {
         if (bean.getData() != null && bean.getData().size() != 0) {//有弹窗
-            if (bean.getData().size() > 1) {
-                //有2个以上弹窗  目前逻辑：新人、活动、首单弹窗都只会有一个;新人与首单互斥
-                int newPos = -1;//新人弹窗的位置
-                int activityPos = -1;//活动弹窗的位置
-                int oldPos = -1;//首返弹窗的位置
-                for (int i = 0; i < bean.getData().size(); i++) {
-                    if (bean.getData().get(i).getType() == 0) {
-                        newPos = i;
-                    } else if (bean.getData().get(i).getType() == 1) {
-                        activityPos = i;
-                    } else if (bean.getData().get(i).getType() == 3) {
-                        oldPos = i;
-                    }
-                }
-                if (newPos != -1) {
-                    //新人弹窗 + 活动弹窗
-                    int finalActivityPos = activityPos;
-                    if (!bean.getData().get(newPos).getPopId().equals(SPUtils.getInstance().getString(CommonDate.POPID, ""))) {
-                        DialogUtil.imgDialog(MainActivity.this, bean.getData().get(newPos).getData().getImg(), v -> {
-                            startActivity(new Intent(this, NewFreeActivity.class));
-                        }, v -> {
-                            DialogUtil.imgDialog(MainActivity.this, bean.getData().get(finalActivityPos).getData().getImg(), v1 -> {
-                                ShopJumpUtil.openPager(MainActivity.this, bean.getData().get(finalActivityPos).getData().getTargetType()
-                                        , bean.getData().get(finalActivityPos).getData().getTargetId(), bean.getData().get(finalActivityPos).getData().getTitle(),
-                                        bean.getData().get(finalActivityPos).getData().getSource(),bean.getData().get(finalActivityPos).getData().getRemark());
-                            }, v1 -> {
-                                getClipText();
-                            });
-                        });
-                        if (TextUtils.isEmpty(SPUtils.getInstance(CommonDate.USER).getString(CommonDate.token, ""))) {
-                            SPUtils.getInstance().put(CommonDate.POPID, bean.getData().get(newPos).getPopId());//未登录时存上id
-                        }
-                    } else {
-                        DialogUtil.imgDialog(MainActivity.this, bean.getData().get(finalActivityPos).getData().getImg(), v1 -> {
-                            ShopJumpUtil.openPager(MainActivity.this, bean.getData().get(finalActivityPos).getData().getTargetType()
-                                    , bean.getData().get(finalActivityPos).getData().getTargetId(), bean.getData().get(finalActivityPos).getData().getTitle(),
-                                    bean.getData().get(finalActivityPos).getData().getSource(),bean.getData().get(finalActivityPos).getData().getRemark());
-                        }, v1 -> {
-                            getClipText();
-                        });
-                    }
-                } else if (oldPos != -1) {
-                    //首返 + 活动弹窗
-                    int finalActivityPos1 = activityPos;
-                    DialogUtil.newPeopleDialog(this,"https://jipincheng.cn/app_second?" , v2 -> {
-                        DialogUtil.imgDialog(MainActivity.this, bean.getData().get(finalActivityPos1).getData().getImg(), v -> {
-                            ShopJumpUtil.openPager(MainActivity.this, bean.getData().get(finalActivityPos1).getData().getTargetType()
-                                    , bean.getData().get(finalActivityPos1).getData().getTargetId(), bean.getData().get(finalActivityPos1).getData().getTitle(),
-                                    bean.getData().get(finalActivityPos1).getData().getSource(),bean.getData().get(finalActivityPos1).getData().getRemark());
-                        }, v -> {
-                            getClipText();
-                        });
-                    }, v2 -> {
-                        startActivity(new Intent(this, CheapBuyActivity.class));
-                    });
-                } else {
-                    getClipText();
-                }
-            } else {
-                //只有一个弹窗
-                if (bean.getData().get(0).getType() == 1) {
-                    //系统活动弹窗
-                    DialogUtil.imgDialog(MainActivity.this, bean.getData().get(0).getData().getImg(), v -> {
-                        ShopJumpUtil.openPager(MainActivity.this, bean.getData().get(0).getData().getTargetType()
-                                , bean.getData().get(0).getData().getTargetId(), bean.getData().get(0).getData().getTitle(),
-                                bean.getData().get(0).getData().getSource(),bean.getData().get(0).getData().getRemark());
-                    }, v -> {
-                        getClipText();
-                    });
-                } else if (bean.getData().get(0).getType() == 0) {
-                    //新人弹窗
-                    if (!bean.getData().get(0).getPopId().equals(SPUtils.getInstance().getString(CommonDate.POPID, ""))) {
-                        DialogUtil.imgDialog(MainActivity.this, bean.getData().get(0).getData().getImg(), v -> {
-                            startActivity(new Intent(this, NewFreeActivity.class));
-                        }, v -> {
-                            getClipText();
-                        });
-                        if (TextUtils.isEmpty(SPUtils.getInstance(CommonDate.USER).getString(CommonDate.token, ""))) {
-                            SPUtils.getInstance().put(CommonDate.POPID, bean.getData().get(0).getPopId());//未登录时存上id
-                        }
-                    } else {
-                        getClipText();
-                    }
-                } else if (bean.getData().get(0).getType() == 3) {
-                    //首单弹窗
-                    DialogUtil.newPeopleDialog(this,"https://jipincheng.cn/app_second?", v -> {
-                        getClipText();
-                    }, v -> {
-                        startActivity(new Intent(this, CheapBuyActivity.class));
-                    });
-                } else {
-                    getClipText();
-                }
-            }
+            //系统活动弹窗
+            DialogUtil.imgDialog(MainActivity.this, bean.getData().get(0).getData().getImg(), v -> {
+                ShopJumpUtil.openPager(MainActivity.this, bean.getData().get(0).getData().getTargetType()
+                        , bean.getData().get(0).getData().getTargetId(), bean.getData().get(0).getData().getTitle(),
+                        bean.getData().get(0).getData().getSource(),bean.getData().get(0).getData().getRemark());
+            }, v -> {
+                getClipText();
+            });
         } else {
             getClipText();
         }
@@ -474,10 +361,8 @@ public class MainActivity extends BaseActivity implements MainView, ViewPager.On
     protected void onResume() {
         super.onResume();
         MobclickAgent.onResume(this);
-        //每次下单后的弹窗提示
-        if (buyPop <= 0){
-            mPresenter.getbuyDialog(this.bindToLifecycle());
-        }
+        //拼团下单后弹窗
+        mPresenter.getGroupDialog(this.bindToLifecycle());
         if (!once) {
             //android 10 新api解释是只有当前界面获得焦点后（onResume）才能获取到剪切板内容
             this.getWindow().getDecorView().post(() -> {
@@ -489,92 +374,11 @@ public class MainActivity extends BaseActivity implements MainView, ViewPager.On
         }
     }
 
-    @Override
-    public void onBuyDialogSuc(PopInfoBean bean) {
-        if (bean.getData().size() != 0){
-            this.bean = bean;
-            onBuyNotice(bean.getData().size() - 1);//弹出
-        }else {
-            mPresenter.getGroupDialog(this.bindToLifecycle());//拼团下单后弹窗
-        }
-    }
-
-    //每次下单后进入首页弹出该弹窗
-    public void onBuyNotice(int size){
-        if (bean == null) return;//数据错误
-        buyPop = size;
-        DialogUtil.buyNoticeDialog(this, bean.getData().get(buyPop).getAddAllowancePrice(),
-                bean.getData().get(buyPop).getPoint() +"", v -> {
-            //循环逻辑
-            if (buyPop > 0){
-                onBuyNotice(buyPop - 1);
-            }else {
-                mPresenter.getGroupDialog(this.bindToLifecycle());//拼团下单后弹窗
-            }
-        }, v -> {
-            //分享逻辑
-            if (mShareBoardDialog == null) {
-                mShareBoardDialog = ShareBoardDialog2.getInstance(0);
-                mShareBoardDialog.setOnShareListener(this);
-            }
-            mShareBoardDialog.show(getSupportFragmentManager(),"ShareBoardDialog2");
-        });
-    }
-
-    //下单弹窗分享
-    @Override
-    public void share(SHARE_MEDIA share_media) {
-        mDialog = new ProgressDialogView().createLoadingDialog(this, "");
-        mDialog.show();
-        mPresenter.buyShare(share_media,this.bindToLifecycle());
-    }
-
-    //下单弹窗分享
-    @Override
-    public void onLink() {
-        mPresenter.buyShare(null,this.bindToLifecycle());
-    }
-
-    @Override
-    public void buyShare(SHARE_MEDIA share_media, ShareInfoBean bean) {
-        mPresenter.taskFinish(this.bindUntilEvent(ActivityEvent.DESTROY));
-        if (buyPop > 0){
-            onBuyNotice(buyPop - 1);
-        }else {
-            mPresenter.getGroupDialog(this.bindToLifecycle());//拼团下单后弹窗
-        }
-        if (share_media != null){
-           new ShareUtils(this,share_media,mDialog)
-                    .shareWeb(this, bean.getData().getLink(), bean.getData().getTitle() ,
-                            bean.getData().getDesc(),bean.getData().getImgUrl(),R.mipmap.share_logo);
-        }else{
-            ClipboardManager clip = (ClipboardManager) getSystemService(Context.CLIPBOARD_SERVICE);
-            ClipData clipData = ClipData.newPlainText("jipinshop",  bean.getData().getLink());
-            clip.setPrimaryClip(clipData);
-            ToastUtil.show("复制成功");
-            SPUtils.getInstance().put(CommonDate.CLIP,  bean.getData().getLink());
-        }
-    }
-
     //拼团成功弹窗
     @Override
     public void onGroupDialogSuc(PopBean bean) {
         if (bean != null && bean.getData() != null){
-            DialogUtil.groupDialog(this, bean.getData().getGroupGoods(), v -> {
-                mPresenter.getNewDialog(this.bindUntilEvent(ActivityEvent.DESTROY));//获取108元津贴弹窗问题
-            });
-        }else {
-            mPresenter.getNewDialog(this.bindToLifecycle());//获取108元津贴弹窗问题
-        }
-    }
-
-    //首次下单获取108元津贴弹框
-    @Override
-    public void onNewDialogSuc(PopBean bean) {
-        if (bean.getData() != null) {
-            DialogUtil.newPeopleDialog(this, "https://jipincheng.cn/app_second?", null, v -> {
-                startActivity(new Intent(this, CheapBuyActivity.class));
-            });
+            DialogUtil.groupDialog(this, bean.getData().getGroupGoods(), v -> { });
         }
     }
 

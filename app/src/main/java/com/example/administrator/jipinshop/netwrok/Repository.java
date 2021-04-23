@@ -998,13 +998,6 @@ public class Repository {
     }
 
     /**
-     * 首次下单获取弹窗信息
-     */
-    public Observable<PopBean> getPopInfo(String type){
-        return mAPIService.getPopInfo(type);
-    }
-
-    /**
      * 商品图文描述
      */
     public Observable<SucBean<String>> getGoodsDescImgs(String otherGoodsId,String source){
@@ -1516,13 +1509,6 @@ public class Repository {
      */
     public Observable<SuccessBean> pointPay(int type){
         return mAPIService.pointPay(type);
-    }
-
-    /**
-     * 获取下单弹窗信息
-     */
-    public Observable<PopInfoBean> getPopInfoOther(String type){
-        return mAPIService.getPopInfoOther(type);
     }
 
     /**

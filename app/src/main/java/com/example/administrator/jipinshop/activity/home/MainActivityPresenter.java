@@ -21,23 +21,19 @@ import com.example.administrator.jipinshop.bean.EvaluationTabBean;
 import com.example.administrator.jipinshop.bean.ImageBean;
 import com.example.administrator.jipinshop.bean.PopBean;
 import com.example.administrator.jipinshop.bean.PopInfoBean;
-import com.example.administrator.jipinshop.bean.ShareInfoBean;
 import com.example.administrator.jipinshop.bean.SucBean;
 import com.example.administrator.jipinshop.bean.SuccessBean;
-import com.example.administrator.jipinshop.bean.TaskFinishBean;
 import com.example.administrator.jipinshop.bean.TklBean;
 import com.example.administrator.jipinshop.netwrok.Repository;
 import com.example.administrator.jipinshop.util.ClickUtil;
 import com.example.administrator.jipinshop.util.sp.CommonDate;
 import com.trello.rxlifecycle2.LifecycleTransformer;
-import com.umeng.socialize.bean.SHARE_MEDIA;
 
 import java.util.List;
 
 import javax.inject.Inject;
 
 import io.reactivex.android.schedulers.AndroidSchedulers;
-import io.reactivex.functions.Consumer;
 import io.reactivex.schedulers.Schedulers;
 
 public class MainActivityPresenter {
@@ -210,18 +206,7 @@ public class MainActivityPresenter {
                 });
     }
 
-    public void getNewDialog(LifecycleTransformer<PopBean> transformer){
-        mRepository.getPopInfo("3")
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .compose(transformer)
-                .subscribe(popBean -> {
-                    if (popBean.getCode() == 0) {
-                        mView.onNewDialogSuc(popBean);
-                    }
-                }, throwable -> {});
-    }
-
+    //邀请返成功弹框
     public void getGroupDialog(LifecycleTransformer<PopBean> transformer){
         mRepository.getGroupDialog()
                 .subscribeOn(Schedulers.io())
@@ -236,44 +221,5 @@ public class MainActivityPresenter {
                 }, throwable -> {
                     mView.onGroupDialogSuc(null);
                 });
-    }
-
-    //下单分享获得极币
-    public void taskFinish(LifecycleTransformer<TaskFinishBean> transformer){
-        mRepository.taskFinish("28")
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .compose(transformer)
-                .subscribe(taskFinishBean -> { }, throwable ->{ });
-    }
-
-    //下单分享数据
-    public void buyShare(SHARE_MEDIA share_media,LifecycleTransformer<ShareInfoBean> transformer){
-        mRepository.getShareInfo(8)
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .compose(transformer)
-                .subscribe(bean -> {
-                    if (bean.getCode() == 0){
-                        mView.buyShare(share_media , bean);
-                    }else {
-                        mView.onInvitationFile(bean.getMsg());
-                    }
-                }, throwable -> {
-                    mView.onInvitationFile(throwable.getMessage());
-                });
-    }
-
-    //获取下单弹窗
-    public void getbuyDialog(LifecycleTransformer<PopInfoBean> transformer){
-        mRepository.getPopInfoOther("5")
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .compose(transformer)
-                .subscribe(popBean -> {
-                    if (popBean.getCode() == 0) {
-                        mView.onBuyDialogSuc(popBean);
-                    }
-                }, throwable -> {});
     }
 }
