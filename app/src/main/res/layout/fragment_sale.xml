@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout
+    xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <data>
+        <variable
+            name="listener"
+            type="android.view.View.OnClickListener"/>
+    </data>
+
+    <LinearLayout
+        android:background="@color/color_white"
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:id="@+id/status_bar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/color_white"
+            android:orientation="vertical"/>
+
+        <TextView
+            android:gravity="center"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            android:textColor="@color/color_202020"
+            android:text="热销"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/y88"/>
+
+        <LinearLayout
+            android:layout_marginRight="@dimen/x30"
+            android:layout_marginLeft="@dimen/x30"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/y78">
+
+            <com.example.administrator.jipinshop.view.textview.DrawableLeftCenterTextView
+                android:gravity="center_vertical"
+                android:id="@+id/sale_titleLeft"
+                android:onClick="@{listener.onClick}"
+                android:drawablePadding="@dimen/x6"
+                android:background="@drawable/bg_e25838_8"
+                android:textColor="@color/color_white"
+                android:textSize="16sp"
+                android:drawableLeft="@mipmap/sale_1"
+                android:text="2小时热销榜"
+                android:layout_weight="1"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"/>
+
+            <TextView
+                android:onClick="@{listener.onClick}"
+                android:background="@drawable/bg_e25838_90"
+                android:id="@+id/sale_titleRight"
+                android:textColor="@color/color_E25838"
+                android:gravity="center"
+                android:textSize="16sp"
+                android:text="24小时热销榜"
+                android:layout_weight="1"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"/>
+
+
+        </LinearLayout>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <net.lucode.hackware.magicindicator.MagicIndicator
+                android:layout_centerHorizontal="true"
+                android:id="@+id/title_container"
+                android:layout_width="wrap_content"
+                android:layout_height="@dimen/y87"/>
+
+        </RelativeLayout>
+
+        <View
+            android:background="@color/color_D8D8D8"
+            android:layout_width="match_parent"
+            android:layout_height="1px"/>
+
+        <RelativeLayout
+            android:visibility="gone"
+            android:id="@+id/sale_tbCategoryContainer"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/y77">
+
+            <net.lucode.hackware.magicindicator.MagicIndicator
+                android:layout_centerHorizontal="true"
+                android:id="@+id/sale_tbCategory"
+                android:layout_width="wrap_content"
+                android:layout_height="@dimen/y87"/>
+
+        </RelativeLayout>
+
+        <com.aspsine.swipetoloadlayout.SwipeToLoadLayout
+            android:id="@+id/swipeToLoad"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <com.example.administrator.jipinshop.view.textview.CustomRefreshHeadView
+                android:id="@+id/swipe_refresh_header"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:padding="20dp"/>
+
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/swipe_target"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"/>
+
+            <com.example.administrator.jipinshop.view.textview.LoadMoreFooterView
+                android:id="@+id/swipe_load_more_footer"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:padding="20dp"/>
+
+        </com.aspsine.swipetoloadlayout.SwipeToLoadLayout>
+
+    </LinearLayout>
+
+</layout>

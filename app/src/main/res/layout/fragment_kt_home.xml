@@ -42,14 +42,13 @@
 
         <ImageView
             android:onClick="@{listener.onClick}"
-            android:paddingRight="@dimen/x15"
-            android:paddingLeft="@dimen/x15"
-            android:layout_marginLeft="@dimen/x15"
+            android:layout_marginRight="@dimen/x15"
+            android:layout_marginLeft="@dimen/x30"
             android:id="@+id/home_sign"
-            android:src="@mipmap/home_sign"
             android:layout_alignTop="@+id/home_sreach"
-            android:layout_width="wrap_content"
-            android:layout_height="@dimen/y70"/>
+            android:layout_alignBottom="@+id/home_sreach"
+            android:layout_width="@dimen/x50"
+            android:layout_height="wrap_content"/>
 
         <ImageView
             android:onClick="@{listener.onClick}"
@@ -91,12 +90,6 @@
                     android:layout_centerHorizontal="true"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"/>
-
-                <net.lucode.hackware.magicindicator.MagicIndicator
-                    android:id="@+id/tab_layout"
-                    android:layout_below="@+id/home_tag"
-                    android:layout_width="match_parent"
-                    android:layout_height="@dimen/y60"/>
 
                 <View
                     android:id="@+id/home_line"

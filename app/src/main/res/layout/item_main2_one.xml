@@ -6,23 +6,9 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
-        <ImageView
-            android:background="@color/color_E25838"
-            android:layout_width="match_parent"
-            android:layout_height="@dimen/y234"/>
-
-        <android.support.v7.widget.RecyclerView
-            android:layout_marginLeft="@dimen/x40"
-            android:layout_marginRight="@dimen/x40"
-            android:id="@+id/main_rv"
-            android:layout_marginBottom="@dimen/y10"
-            android:layout_width="match_parent"
-            android:layout_height="@dimen/y142"/>
-
         <RelativeLayout
             android:layout_marginRight="@dimen/x10"
             android:layout_marginLeft="@dimen/x10"
-            android:layout_marginTop="@dimen/y152"
             android:background="@drawable/bg_dialog_white"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">

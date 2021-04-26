@@ -4,17 +4,18 @@ import android.animation.Animator
 import android.animation.ObjectAnimator
 import android.content.Intent
 import android.databinding.DataBindingUtil
-import android.graphics.Color
 import android.os.Handler
 import android.os.Looper
 import android.support.design.widget.AppBarLayout
 import android.support.v4.app.Fragment
-import android.support.v4.view.ViewPager
 import android.text.TextUtils
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.blankj.utilcode.util.SPUtils
+import com.bumptech.glide.Glide
+import com.bumptech.glide.load.engine.DiskCacheStrategy
+import com.bumptech.glide.request.RequestOptions
 import com.example.administrator.jipinshop.R
 import com.example.administrator.jipinshop.activity.home.MainActivity
 import com.example.administrator.jipinshop.activity.login.LoginActivity
@@ -23,16 +24,12 @@ import com.example.administrator.jipinshop.activity.sign.SignActivity
 import com.example.administrator.jipinshop.activity.sreach.TBSreachActivity
 import com.example.administrator.jipinshop.activity.web.TaoBaoWebActivity
 import com.example.administrator.jipinshop.adapter.HomeFragmentAdapter
-import com.example.administrator.jipinshop.adapter.KTTabAdapter
 import com.example.administrator.jipinshop.base.DBBaseFragment
-import com.example.administrator.jipinshop.bean.JDBean
 import com.example.administrator.jipinshop.bean.SucBeanT
 import com.example.administrator.jipinshop.bean.TbkIndexBean
 import com.example.administrator.jipinshop.bean.eventbus.EditNameBus
 import com.example.administrator.jipinshop.databinding.FragmentKtHomeBinding
-import com.example.administrator.jipinshop.fragment.home.commen.KTHomeCommenFragment
 import com.example.administrator.jipinshop.fragment.home.main.KTMain2Fragment
-import com.example.administrator.jipinshop.fragment.home.userlike.KTUserLikeFragment
 import com.example.administrator.jipinshop.fragment.mine.KTMineFragment
 import com.example.administrator.jipinshop.util.ShopJumpUtil
 import com.example.administrator.jipinshop.util.TaoBaoUtil
@@ -42,8 +39,6 @@ import com.example.administrator.jipinshop.util.WeakRefHandler
 import com.example.administrator.jipinshop.util.sp.CommonDate
 import com.example.administrator.jipinshop.view.glide.GlideApp
 import com.trello.rxlifecycle2.android.FragmentEvent
-import net.lucode.hackware.magicindicator.ViewPagerHelper
-import net.lucode.hackware.magicindicator.buildins.commonnavigator.CommonNavigator
 import org.greenrobot.eventbus.EventBus
 import org.greenrobot.eventbus.Subscribe
 import q.rorbin.badgeview.QBadgeView
@@ -55,7 +50,7 @@ import javax.inject.Inject
  * @create 2019/12/11
  * @Describe
  */
-class KTHomeFragnent : DBBaseFragment(), View.OnClickListener, ViewPager.OnPageChangeListener, KTHomeView {
+class KTHomeFragnent : DBBaseFragment(), View.OnClickListener, KTHomeView {
 
     @Inject
     lateinit var mPresenter: KTHomePresenter
@@ -65,8 +60,6 @@ class KTHomeFragnent : DBBaseFragment(), View.OnClickListener, ViewPager.OnPageC
     private lateinit var mBinding : FragmentKtHomeBinding
     private lateinit var mAdapter : HomeFragmentAdapter
     private lateinit var mList: MutableList<Fragment>
-    private lateinit var mTitle: MutableList<String>
-    private lateinit var mTabAdapter: KTTabAdapter
     private var isAction: Boolean = false //是否开启首页悬浮按钮，默认不开启false
     private var ad : TbkIndexBean.DataBean.Ad1ListBean? = null
     private lateinit var mQBadgeView : QBadgeView
@@ -91,21 +84,21 @@ class KTHomeFragnent : DBBaseFragment(), View.OnClickListener, ViewPager.OnPageC
         mPresenter.setView(this)
         mQBadgeView = QBadgeView(context)
         mPresenter.initBadgeView(mQBadgeView, mBinding.homeServer)
+        //加载Gif
+        val options = RequestOptions()
+                .diskCacheStrategy(DiskCacheStrategy.RESOURCE)
+        Glide.with(context!!)
+                .asGif()
+                .load(R.drawable.home_sign)
+                .apply(options)
+                .into(mBinding.homeSign)
 
         mAdapter = HomeFragmentAdapter(childFragmentManager)
         mList = mutableListOf()
-        mTitle = mutableListOf()
+        mList.add(KTMain2Fragment.getInstance())
         mAdapter.setFragments(mList)
         mBinding.viewPager.adapter = mAdapter
-        mBinding.viewPager.addOnPageChangeListener(this)
-
-        var commonNavigator = CommonNavigator(context)
-        commonNavigator.leftPadding = context!!.resources.getDimension(R.dimen.x20).toInt()
-        commonNavigator.rightPadding = context!!.resources.getDimension(R.dimen.x20).toInt()
-        mTabAdapter = KTTabAdapter(mTitle,mBinding.viewPager)
-        commonNavigator.adapter = mTabAdapter
-        mBinding.tabLayout.navigator = commonNavigator
-        ViewPagerHelper.bind(mBinding.tabLayout, mBinding.viewPager)
+        mBinding.viewPager.offscreenPageLimit = mList.size - 1
 
         context?.let {
             var set = it.resources.getDimension(R.dimen.x74)
@@ -114,7 +107,6 @@ class KTHomeFragnent : DBBaseFragment(), View.OnClickListener, ViewPager.OnPageC
         }
 
         mPresenter.getIndexActivityInfo(this.bindToLifecycle())
-        mPresenter.getData(this.bindToLifecycle())
         appStatisticalUtil.addEvent("shouye_fenlei.1",this.bindToLifecycle())//统计精选
     }
 
@@ -206,46 +198,6 @@ class KTHomeFragnent : DBBaseFragment(), View.OnClickListener, ViewPager.OnPageC
                 mBinding.authTbContainer.visibility = View.GONE
             }
         }
-    }
-
-    override fun onPageScrollStateChanged(p0: Int) {}
-
-    override fun onPageScrolled(p0: Int, p1: Float, p2: Int) {}
-
-    override fun onPageSelected(position: Int) {
-        appStatisticalUtil.addEvent("shouye_fenlei." + (position + 1),this.bindToLifecycle())//统计首页分类
-        if (position != 0){
-            if (isAction)
-                mBinding.homeAction.visibility = View.GONE
-        }else{
-            if (isAction)
-                mBinding.homeAction.visibility = View.VISIBLE
-        }
-    }
-
-    override fun onFile(error: String?) {
-        mTitle.add("精选")
-        mTitle.add("猜你喜欢")
-        mList.add(KTMain2Fragment.getInstance())
-        mList.add(KTUserLikeFragment.getInstance())
-        mAdapter.notifyDataSetChanged()
-        mBinding.viewPager.offscreenPageLimit = mList.size - 1
-        mTabAdapter.notifyDataSetChanged()
-        ToastUtil.show(error)
-    }
-
-    override fun onSuccess(bean: JDBean) {
-        for (i in bean.data.indices){
-            mTitle.add(bean.data[i].categoryName)
-            when (i) {
-                0 -> mList.add(KTMain2Fragment.getInstance())
-                1 -> mList.add(KTUserLikeFragment.getInstance())
-                else -> mList.add(KTHomeCommenFragment.getInstance(bean.data[i].categoryId, "shouye_fenlei." + (i+1)))
-            }
-        }
-        mAdapter.notifyDataSetChanged()
-        mBinding.viewPager.offscreenPageLimit = mList.size - 1
-        mTabAdapter.notifyDataSetChanged()
     }
 
     override fun onAction(bean: SucBeanT<TbkIndexBean.DataBean.Ad1ListBean>?) {

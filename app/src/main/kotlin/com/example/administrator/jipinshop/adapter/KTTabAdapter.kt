@@ -1,37 +1,36 @@
 package com.example.administrator.jipinshop.adapter
 
 import android.content.Context
-import android.support.v4.view.ViewPager
 import com.example.administrator.jipinshop.R
 import com.example.administrator.jipinshop.view.tab.ColorFlipPagerTitleView
-import net.lucode.hackware.magicindicator.buildins.UIUtil
 import net.lucode.hackware.magicindicator.buildins.commonnavigator.abs.CommonNavigatorAdapter
 import net.lucode.hackware.magicindicator.buildins.commonnavigator.abs.IPagerIndicator
 import net.lucode.hackware.magicindicator.buildins.commonnavigator.abs.IPagerTitleView
-import net.lucode.hackware.magicindicator.buildins.commonnavigator.indicators.LinePagerIndicator
 
 /**
  * @author 莫小婷
  * @create 2019/12/11
- * @Describe 正常有title和下划线的tab
+ * @Describe 正常有title  无下划线
  */
 class KTTabAdapter : CommonNavigatorAdapter{
 
     private var mTitle: MutableList<String>
-    private var mViewPager: ViewPager
+    private var mOnClickItem: OnClickItem
 
-    constructor(title: MutableList<String> ,viewPager: ViewPager){
+    constructor(title: MutableList<String>, onClickItem: OnClickItem){
         mTitle = title
-        mViewPager = viewPager
+        mOnClickItem = onClickItem
     }
 
     override fun getTitleView(context: Context, index: Int): IPagerTitleView {
-        var simplePagerTitleView = ColorFlipPagerTitleView(context, context.resources.getDimension(R.dimen.x20).toInt(), context.resources.getDimension(R.dimen.x20).toInt())
+        var simplePagerTitleView = ColorFlipPagerTitleView(context, context.resources.getDimension(R.dimen.x30).toInt(), context.resources.getDimension(R.dimen.x30).toInt())
         simplePagerTitleView.text = mTitle[index]
-        simplePagerTitleView.normalColor = context.resources.getColor(R.color.color_white)
-        simplePagerTitleView.selectedColor = context.resources.getColor(R.color.color_white)
+        var paint =  simplePagerTitleView.paint
+        paint.isFakeBoldText = true
+        simplePagerTitleView.normalColor = context.resources.getColor(R.color.color_202020)
+        simplePagerTitleView.selectedColor = context.resources.getColor(R.color.color_E25838)
         simplePagerTitleView.setOnClickListener {
-            mViewPager.currentItem = index
+            mOnClickItem.onMenu(index)
         }
         return simplePagerTitleView
     }
@@ -40,13 +39,11 @@ class KTTabAdapter : CommonNavigatorAdapter{
         return mTitle.size
     }
 
-    override fun getIndicator(context: Context): IPagerIndicator {
-        var indicator = LinePagerIndicator(context)
-        indicator.mode = LinePagerIndicator.MODE_WRAP_CONTENT
-        indicator.lineHeight = UIUtil.dip2px(context, 2.5).toFloat()
-        indicator.roundRadius = UIUtil.dip2px(context, 1.25).toFloat()
-        indicator.setColors(context.resources.getColor(R.color.color_white))
-        return indicator
+    override fun getIndicator(context: Context): IPagerIndicator? {
+        return null
     }
 
+    interface OnClickItem{
+        fun onMenu(index: Int)
+    }
 }

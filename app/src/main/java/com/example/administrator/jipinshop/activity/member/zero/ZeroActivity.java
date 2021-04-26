@@ -24,6 +24,7 @@ import com.bumptech.glide.request.transition.Transition;
 import com.example.administrator.jipinshop.R;
 import com.example.administrator.jipinshop.activity.login.LoginActivity;
 import com.example.administrator.jipinshop.activity.member.zero.detail.ZeroDetailActivity;
+import com.example.administrator.jipinshop.activity.web.server.ServerWebActivity;
 import com.example.administrator.jipinshop.adapter.ZeroAdapter;
 import com.example.administrator.jipinshop.base.BaseActivity;
 import com.example.administrator.jipinshop.bean.ImageBean;
@@ -60,7 +61,6 @@ public class ZeroActivity extends BaseActivity implements View.OnClickListener, 
     private List<NewFreeBean.DataBean> mList;
     private ShareBoardDialog4 mShareBoardDialog;
     private ZeroAdapter mAdapter;
-    private String officialWeChat = "jpkele";//客服微信
     private int status = 1;  //本月是否领取  0已领  1未领
     private String refreshTime = "";//0元购刷新时间
 
@@ -229,11 +229,10 @@ public class ZeroActivity extends BaseActivity implements View.OnClickListener, 
 
     @Override
     public void onCopy() {
-        ClipboardManager clip = (ClipboardManager) this.getSystemService(Context.CLIPBOARD_SERVICE);
-        ClipData clipData = ClipData.newPlainText("jipinshop", officialWeChat);
-        clip.setPrimaryClip(clipData);
-        ToastUtil.show("微信号复制成功");
-        SPUtils.getInstance().put(CommonDate.CLIP, officialWeChat);
+        startActivity(new Intent(this, ServerWebActivity.class)
+                .putExtra(ServerWebActivity.url, RetrofitModule.JP_H5_URL + "new-free/helpServices?userId="
+                        + SPUtils.getInstance(CommonDate.USER).getString(CommonDate.userId))
+        );
     }
 
     @Override
@@ -252,7 +251,6 @@ public class ZeroActivity extends BaseActivity implements View.OnClickListener, 
     public void onSuccess(NewFreeBean bean) {
         stopResher();
         if (bean.getData() != null && bean.getData().size() != 0) {
-            officialWeChat = bean.getOfficialWechat();
             status = bean.getStatus();
             mBinding.netClude.qsNet.setVisibility(View.GONE);
             mBinding.recyclerView.setVisibility(View.VISIBLE);

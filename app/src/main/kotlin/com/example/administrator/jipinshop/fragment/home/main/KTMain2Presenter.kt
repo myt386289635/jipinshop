@@ -1,5 +1,6 @@
 package com.example.administrator.jipinshop.fragment.home.main
 
+import android.content.Context
 import android.support.design.widget.AppBarLayout
 import android.support.v7.widget.GridLayoutManager
 import android.support.v7.widget.RecyclerView
@@ -8,6 +9,7 @@ import com.example.administrator.jipinshop.bean.TBSreachResultBean
 import com.example.administrator.jipinshop.bean.TbkIndexBean
 import com.example.administrator.jipinshop.fragment.home.KTHomeFragnent
 import com.example.administrator.jipinshop.netwrok.Repository
+import com.example.administrator.jipinshop.util.DeviceUuidFactory
 import com.trello.rxlifecycle2.LifecycleTransformer
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.functions.Consumer
@@ -98,10 +100,10 @@ class KTMain2Presenter {
                 })
     }
 
-    fun commendGoodsList(page : Int , source : String ,transformer: LifecycleTransformer<TBSreachResultBean>){
-        var map = HashMap<String, String>()
+    fun commendGoodsList(context : Context , page : Int , type : String ,transformer: LifecycleTransformer<TBSreachResultBean>){
+        var map : MutableMap<String, String> = DeviceUuidFactory.getIdfa(context)
         map["page"] = "" + page
-        map["source"] = source
+        map["type"] = type
         repository.commendGoodsList(map)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())

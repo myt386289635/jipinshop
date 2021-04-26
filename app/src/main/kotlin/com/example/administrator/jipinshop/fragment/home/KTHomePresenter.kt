@@ -4,7 +4,6 @@ import android.content.Context
 import android.view.Gravity
 import android.widget.ImageView
 import android.widget.LinearLayout
-import com.example.administrator.jipinshop.bean.JDBean
 import com.example.administrator.jipinshop.bean.SucBeanT
 import com.example.administrator.jipinshop.bean.SuccessBean
 import com.example.administrator.jipinshop.bean.TbkIndexBean
@@ -54,22 +53,6 @@ class KTHomePresenter {
             val layoutParams = StatusBar.layoutParams
             layoutParams.height = statusBarHeight
         }
-    }
-
-    fun  getData(transformer : LifecycleTransformer<JDBean>){
-        repository.tbkCategory("2")
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .compose(transformer)
-                .subscribe(Consumer {
-                    if (it.code == 0){
-                        mView.onSuccess(it)
-                    }else{
-                        mView.onFile(it.msg)
-                    }
-                }, Consumer {
-                    mView.onFile(it.message)
-                })
     }
 
     fun getIndexActivityInfo(transformer : LifecycleTransformer<SucBeanT<TbkIndexBean.DataBean.Ad1ListBean>>){

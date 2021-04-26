@@ -879,7 +879,7 @@ public interface APIService {
     /**
      * 今日推荐
      */
-    @GET("api/v3/tbk/commendGoodsList")
+    @GET("api/v4/tbk/commendGoodsList")
     Observable<TBSreachResultBean> commendGoodsList(@QueryMap Map<String,String> map);
 
     /**

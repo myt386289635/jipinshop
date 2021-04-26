@@ -60,10 +60,10 @@ class KTJDDetailPresenter {
                 })
     }
 
-    fun commendGoodsList(page : Int , source : String ,transformer: LifecycleTransformer<TBSreachResultBean>){
+    fun commendGoodsList(page : Int , type : String ,transformer: LifecycleTransformer<TBSreachResultBean>){
         var map = HashMap<String, String>()
         map["page"] = "" + page
-        map["source"] = source
+        map["type"] = type
         repository.commendGoodsList(map)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())

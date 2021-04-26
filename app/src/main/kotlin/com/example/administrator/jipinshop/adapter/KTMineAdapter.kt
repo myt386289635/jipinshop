@@ -155,24 +155,26 @@ class KTMineAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>{
                                 GlideApp.loderImage(context, it.data.bgImg, binding.mineBackground, 0, 0)
                             }
                             if (it.data.level == 2) {//年卡
-                                binding.itemGrade.setImageResource(R.mipmap.grade_partner)
                                 binding.mineMemberTime.text = "到期：" + it.data.levelEndTime
                                 binding.mineMemberOpen.text = "续费"
                                 if (it.data.recommend == 0){
+                                    binding.itemGrade.setImageResource(R.mipmap.grade_partner)
                                     binding.mineMemberTime.visibility = View.VISIBLE
                                     binding.mineMemberOpen.visibility = View.VISIBLE
                                 }else{
+                                    binding.itemGrade.setImageResource(R.mipmap.grade_partner1)
                                     binding.mineMemberOpen.visibility = View.GONE
                                     binding.mineMemberTime.visibility = View.GONE
                                 }
                             } else  if (it.data.level == 1){//月卡
-                                binding.itemGrade.setImageResource(R.mipmap.grade_vip)
                                 binding.mineMemberTime.text = "到期：" + it.data.levelEndTime
                                 binding.mineMemberOpen.text = "续费"
                                 if (it.data.recommend == 0){
+                                    binding.itemGrade.setImageResource(R.mipmap.grade_vip)
                                     binding.mineMemberTime.visibility = View.VISIBLE
                                     binding.mineMemberOpen.visibility = View.VISIBLE
                                 }else{
+                                    binding.itemGrade.setImageResource(R.mipmap.grade_vip1)
                                     binding.mineMemberOpen.visibility = View.GONE
                                     binding.mineMemberTime.visibility = View.GONE
                                 }

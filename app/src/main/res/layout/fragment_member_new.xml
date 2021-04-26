@@ -1202,35 +1202,16 @@
                             android:layout_width="@dimen/x98"
                             android:layout_height="@dimen/y98"/>
 
-                        <LinearLayout
-                            android:orientation="horizontal"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content">
-
-                            <TextView
-                                android:id="@+id/member_wxCode"
-                                android:gravity="center_vertical"
-                                android:paddingRight="@dimen/x30"
-                                android:paddingLeft="@dimen/x16"
-                                android:textColor="@color/color_5B5757"
-                                android:textSize="13sp"
-                                android:text="@{@string/member_wx + bean.officialWechat}"
-                                android:background="@drawable/bg_member_copy_left"
-                                android:layout_width="wrap_content"
-                                android:layout_height="@dimen/y60"/>
-
-                            <TextView
-                                android:onClick="@{listener.onClick}"
-                                android:id="@+id/member_copy"
-                                android:gravity="center"
-                                android:text="复制"
-                                android:textSize="13sp"
-                                android:textColor="@color/color_FAE1BF"
-                                android:background="@drawable/bg_member_copy_right"
-                                android:layout_width="@dimen/x125"
-                                android:layout_height="@dimen/y60"/>
-
-                        </LinearLayout>
+                        <TextView
+                            android:onClick="@{listener.onClick}"
+                            android:id="@+id/member_copy"
+                            android:gravity="center"
+                            android:text="在线客服"
+                            android:textSize="14sp"
+                            android:textColor="@color/color_FAE1BF"
+                            android:background="@drawable/bg_member_copy"
+                            android:layout_width="@dimen/x276"
+                            android:layout_height="@dimen/y60"/>
 
                         <TextView
                             android:layout_marginBottom="@dimen/y61"

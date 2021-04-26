@@ -47,7 +47,6 @@ public class TbkIndexBean {
         private List<AllowanceGoodsListBean> allowanceGoodsList;//新人专区
         private List<AllowanceGoodsListBean> allowanceGoodsList2;//老人专区
         private List<ActivityListBean> activityList;//活动位
-        private List<HotGoodsListBean> hotGoodsList;//热销榜单
         private Boolean newUser; //是否是新人
         private List<TBSreachResultBean.DataBean> commendGoodsList;//今日推荐
         private MessageBean message;//首页横向跑马灯
@@ -58,6 +57,34 @@ public class TbkIndexBean {
         private List<HotGoodsListBean> seckillGoodsList;//秒杀商品
         private long seckillEndTime;//秒杀结束时间戳
         private List<Ad1ListBean> newActivityList;//新人五重礼
+        private Ad2Bean ad3;  // 热销榜单跳转位置
+        private List<HotGoodsListBean> hotGoodsList;//热销榜单
+        private String hotGoodsFeeName; //热销榜单里的文案
+        private List<HotGoodsListBean> returnGoodsList;//买多少送多少
+
+        public String getHotGoodsFeeName() {
+            return hotGoodsFeeName;
+        }
+
+        public void setHotGoodsFeeName(String hotGoodsFeeName) {
+            this.hotGoodsFeeName = hotGoodsFeeName;
+        }
+
+        public List<HotGoodsListBean> getReturnGoodsList() {
+            return returnGoodsList;
+        }
+
+        public void setReturnGoodsList(List<HotGoodsListBean> returnGoodsList) {
+            this.returnGoodsList = returnGoodsList;
+        }
+
+        public Ad2Bean getAd3() {
+            return ad3;
+        }
+
+        public void setAd3(Ad2Bean ad3) {
+            this.ad3 = ad3;
+        }
 
         public List<Ad1ListBean> getNewActivityList() {
             return newActivityList;

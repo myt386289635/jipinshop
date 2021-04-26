@@ -12,11 +12,13 @@
             android:layout_height="@dimen/y76">
 
             <TextView
+                android:drawablePadding="@dimen/x4"
+                android:drawableLeft="@mipmap/bg_newfree3"
                 android:textColor="@color/color_white"
                 android:textSize="14sp"
                 android:layout_marginLeft="@dimen/x30"
                 android:layout_centerVertical="true"
-                android:text="添加官方客服微信，享更多免单福利！"
+                android:text="联系客服，获得更多福利"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"/>
 
@@ -31,7 +33,7 @@
                 android:paddingLeft="@dimen/x13"
                 android:textColor="@color/color_DB200B"
                 android:textSize="13sp"
-                android:text="复制微信"
+                android:text="联系客服"
                 android:background="@drawable/bg_evakt"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"/>

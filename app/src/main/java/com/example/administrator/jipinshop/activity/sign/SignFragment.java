@@ -48,6 +48,9 @@ import com.example.administrator.jipinshop.view.dialog.DialogUtil;
 import com.example.administrator.jipinshop.view.dialog.ProgressDialogView;
 import com.example.administrator.jipinshop.view.dialog.ShareBoardDialog2;
 import com.qubian.mob.AdManager;
+import com.tencent.mm.opensdk.modelbiz.WXLaunchMiniProgram;
+import com.tencent.mm.opensdk.openapi.IWXAPI;
+import com.tencent.mm.opensdk.openapi.WXAPIFactory;
 import com.trello.rxlifecycle2.android.FragmentEvent;
 import com.umeng.socialize.bean.SHARE_MEDIA;
 
@@ -473,7 +476,12 @@ public class SignFragment extends DBBaseFragment implements View.OnClickListener
                 DialogUtil.wxDialog(getContext(), "关注公众号", "微信服务号名称：", "微信关注极品城公众号，并绑定账号");
                 break;
             case 18://绑定小程序
-                DialogUtil.wxDialog(getContext(), "绑定小程序", "微信小程序：", "微信搜索极品城小程序，并绑定账号");
+                IWXAPI api = WXAPIFactory.createWXAPI(getContext(), "wxfd2e92db2568030a");
+                WXLaunchMiniProgram.Req req = new WXLaunchMiniProgram.Req();
+                req.userName = "gh_b0a86c45468d";
+                req.path = "pages/tabMain/main/main";
+                req.miniprogramType = WXLaunchMiniProgram.Req.MINIPTOGRAM_TYPE_RELEASE;// 可选打开 开发版1体验版2和正式版0
+                api.sendReq(req);
                 break;
             case 19://专题页
                 startActivity(new Intent(getContext(), HomeDetailActivity.class)

@@ -22,6 +22,7 @@ import com.blankj.utilcode.util.SPUtils;
 import com.example.administrator.jipinshop.R;
 import com.example.administrator.jipinshop.activity.WebActivity;
 import com.example.administrator.jipinshop.activity.sign.SignActivity;
+import com.example.administrator.jipinshop.activity.web.server.ServerWebActivity;
 import com.example.administrator.jipinshop.adapter.MemberBuyAdapter;
 import com.example.administrator.jipinshop.base.BaseActivity;
 import com.example.administrator.jipinshop.bean.ImageBean;
@@ -163,13 +164,10 @@ public class MemberBuyActivity extends BaseActivity implements View.OnClickListe
                 twoFinishPage();
                 break;
             case R.id.buy_official:
-                DialogUtil.LoginDialog(this, "官方客服微信：" + wx, "复制", "取消", v1 -> {
-                    ClipboardManager clip = (ClipboardManager) getSystemService(Context.CLIPBOARD_SERVICE);
-                    ClipData clipData = ClipData.newPlainText("jipinshop", wx);
-                    clip.setPrimaryClip(clipData);
-                    ToastUtil.show("微信号复制成功");
-                    SPUtils.getInstance().put(CommonDate.CLIP, wx);
-                });
+                startActivity(new Intent(this, ServerWebActivity.class)
+                        .putExtra(ServerWebActivity.url, RetrofitModule.JP_H5_URL + "new-free/helpServices?userId="
+                                + SPUtils.getInstance(CommonDate.USER).getString(CommonDate.userId))
+                );
                 break;
             case R.id.buy_buy:
                 //购买

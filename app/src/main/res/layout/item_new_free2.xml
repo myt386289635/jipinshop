@@ -23,16 +23,16 @@
                 android:textSize="18sp"
                 android:layout_marginTop="@dimen/y40"
                 android:layout_gravity="center_horizontal"
-                android:text="添加官方客服微信，享更多免单福利！"
+                android:text="联系客服，获得更多福利"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"/>
 
             <TextView
                 android:id="@+id/item_copy"
                 android:gravity="center"
-                android:textColor="@color/color_FFE2B5"
+                android:textColor="@color/color_white"
                 android:textSize="13sp"
-                android:text="复制微信号"
+                android:text="在线客服"
                 android:background="@drawable/bg_f65238"
                 android:layout_gravity="center_horizontal"
                 android:layout_marginBottom="@dimen/y35"

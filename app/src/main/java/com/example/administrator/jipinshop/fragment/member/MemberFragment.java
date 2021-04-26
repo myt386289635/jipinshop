@@ -32,6 +32,7 @@ import com.example.administrator.jipinshop.activity.member.buy.MemberBuyActivity
 import com.example.administrator.jipinshop.activity.member.family.FamilyActivity;
 import com.example.administrator.jipinshop.activity.member.zero.ZeroActivity;
 import com.example.administrator.jipinshop.activity.sign.invitation.InvitationNewActivity;
+import com.example.administrator.jipinshop.activity.web.server.ServerWebActivity;
 import com.example.administrator.jipinshop.adapter.HomePageAdapter;
 import com.example.administrator.jipinshop.adapter.KTPagerAdapter3;
 import com.example.administrator.jipinshop.adapter.MemberFreeAdapter;
@@ -43,6 +44,7 @@ import com.example.administrator.jipinshop.bean.MemberNewBean;
 import com.example.administrator.jipinshop.bean.ShareInfoBean;
 import com.example.administrator.jipinshop.databinding.FragmentMemberNewBinding;
 import com.example.administrator.jipinshop.fragment.member.cheap.CheapFragment;
+import com.example.administrator.jipinshop.netwrok.RetrofitModule;
 import com.example.administrator.jipinshop.util.ShareUtils;
 import com.example.administrator.jipinshop.util.ShopJumpUtil;
 import com.example.administrator.jipinshop.util.ToastUtil;
@@ -79,6 +81,7 @@ public class MemberFragment extends DBBaseFragment implements View.OnClickListen
     private Boolean once = true;
     private int userLevel = 0;//用户身份的
     private int openFamily = 1; //0关闭，1开启
+    private String wx = "";//客服微信号
     //更多权益
     private List<MemberNewBean.DataBean.VipBoxListBean> vipBoxList;
     private MemberMoreAllAdapter mMoreAllAdapter;
@@ -159,9 +162,6 @@ public class MemberFragment extends DBBaseFragment implements View.OnClickListen
         mBinding.swipeToLoad.setOnRefreshListener(this);
         type = getArguments().getString("type","1");
         isyear = getArguments().getBoolean("isyear",false);
-        //呼吸灯动画
-        Animation animation = android.view.animation.AnimationUtils.loadAnimation(getContext(), R.anim.free_scale);
-        mBinding.memberUserPay.startAnimation(animation);
 
         //广告
         mAdList = new ArrayList<>();
@@ -273,16 +273,13 @@ public class MemberFragment extends DBBaseFragment implements View.OnClickListen
     @Override
     public void onClick(View v) {
         switch (v.getId()){
+            case R.id.member_copy:
             case R.id.member_share:
                 //咨询客服
-                String wx = mBinding.memberWxCode.getText().toString().replace(getResources().getString(R.string.member_wx),"");
-                DialogUtil.LoginDialog(getContext(), "官方客服微信：" + wx, "复制", "取消", v1 -> {
-                    ClipboardManager clip = (ClipboardManager) getContext().getSystemService(Context.CLIPBOARD_SERVICE);
-                    ClipData clipData = ClipData.newPlainText("jipinshop", wx);
-                    clip.setPrimaryClip(clipData);
-                    ToastUtil.show("微信号复制成功");
-                    SPUtils.getInstance().put(CommonDate.CLIP, wx);
-                });
+                startActivity(new Intent(getContext(), ServerWebActivity.class)
+                        .putExtra(ServerWebActivity.url, RetrofitModule.JP_H5_URL + "new-free/helpServices?userId="
+                                + SPUtils.getInstance(CommonDate.USER).getString(CommonDate.userId))
+                );
                 break;
             case R.id.member_black:
                 if (getActivity() != null){
@@ -333,16 +330,15 @@ public class MemberFragment extends DBBaseFragment implements View.OnClickListen
                 startActivity(new Intent(getContext(), InvitationNewActivity.class));
                 break;
             case R.id.member_copyServer:
-            case R.id.member_copy:
                 //复制导师微信
                 if (TextUtils.isEmpty(SPUtils.getInstance(CommonDate.USER).getString(CommonDate.token, "").trim())) {
                     startActivity(new Intent(getContext(), LoginActivity.class));
                     return;
                 }
                 ClipboardManager clip = (ClipboardManager) getContext().getSystemService(Context.CLIPBOARD_SERVICE);
-                ClipData clipData = ClipData.newPlainText("jipinshop", mBinding.memberWxCode.getText().toString().replace(getResources().getString(R.string.member_wx),""));
+                ClipData clipData = ClipData.newPlainText("jipinshop", wx);
                 clip.setPrimaryClip(clipData);
-                SPUtils.getInstance().put(CommonDate.CLIP,  mBinding.memberWxCode.getText().toString().replace(getResources().getString(R.string.member_wx),""));
+                SPUtils.getInstance().put(CommonDate.CLIP,  wx);
                 ToastUtil.show("复制成功");
                 break;
             case R.id.member_shop2Container:
@@ -402,6 +398,7 @@ public class MemberFragment extends DBBaseFragment implements View.OnClickListen
     public void onSuccess(MemberNewBean bean) {
         mBinding.swipeToLoad.setRefreshing(false);
         openFamily = bean.getOpenFamily();
+        wx = bean.getData().getOfficialWechat();
         mBinding.setBean(bean.getData());
         mBinding.setDate(bean);
         mBinding.executePendingBindings();
@@ -553,6 +550,7 @@ public class MemberFragment extends DBBaseFragment implements View.OnClickListen
                 mBinding.memberTitle1.setText("月卡VIP特权");
                 //包月处理
                 if (bean.getData().getRecommend().equals("1")){//0不包 1包月
+                    mBinding.memberUserPay.setAnimation(null);
                     mBinding.memberUserPay.setVisibility(View.GONE);
                     mBinding.memberUserTime.setVisibility(View.GONE);
                     mBinding.memberTab.setImageResource(R.mipmap.member1_month_tab1);
@@ -562,6 +560,9 @@ public class MemberFragment extends DBBaseFragment implements View.OnClickListen
                     mBinding.memberTab.setImageResource(R.mipmap.member1_month_tab);
                     mBinding.memberUserPay.setBackgroundResource(R.drawable.bg_e8a971);
                     mBinding.memberUserPay.setTextColor(getContext().getResources().getColor(R.color.color_white));
+                    //呼吸灯动画
+                    Animation animation = android.view.animation.AnimationUtils.loadAnimation(getContext(), R.anim.free_scale);
+                    mBinding.memberUserPay.startAnimation(animation);
                 }
                 mBinding.memberMemberContainer.setBackgroundResource(R.mipmap.member1_month_bg);
                 mBinding.memberUserName.setTextColor(getContext().getResources().getColor(R.color.color_E7C19F));
@@ -570,6 +571,7 @@ public class MemberFragment extends DBBaseFragment implements View.OnClickListen
                 mBinding.memberTitle1.setText("年卡VIP特权");
                 //包年处理
                 if (bean.getData().getRecommend().equals("2")){//0不包 2包年
+                    mBinding.memberUserPay.setAnimation(null);
                     mBinding.memberUserPay.setVisibility(View.GONE);
                     mBinding.memberUserTime.setVisibility(View.GONE);
                     mBinding.memberTab.setImageResource(R.mipmap.member1_year_tab1);
@@ -579,6 +581,9 @@ public class MemberFragment extends DBBaseFragment implements View.OnClickListen
                     mBinding.memberTab.setImageResource(R.mipmap.member1_year_tab);
                     mBinding.memberUserPay.setBackgroundResource(R.drawable.bg_342f2f);
                     mBinding.memberUserPay.setTextColor(getContext().getResources().getColor(R.color.color_E7C19F));
+                    //呼吸灯动画
+                    Animation animation = android.view.animation.AnimationUtils.loadAnimation(getContext(), R.anim.free_scale);
+                    mBinding.memberUserPay.startAnimation(animation);
                 }
                 mBinding.memberMemberContainer.setBackgroundResource(R.mipmap.member1_year_bg);
                 mBinding.memberUserName.setTextColor(getContext().getResources().getColor(R.color.color_433A37));
@@ -593,6 +598,9 @@ public class MemberFragment extends DBBaseFragment implements View.OnClickListen
                 mBinding.memberUserPay.setVisibility(View.VISIBLE);
                 mBinding.memberUserPay.setBackgroundResource(R.drawable.bg_e8a971);
                 mBinding.memberUserPay.setTextColor(getContext().getResources().getColor(R.color.color_white));
+                //呼吸灯动画
+                Animation animation = android.view.animation.AnimationUtils.loadAnimation(getContext(), R.anim.free_scale);
+                mBinding.memberUserPay.startAnimation(animation);
             }
         }
         once = false;

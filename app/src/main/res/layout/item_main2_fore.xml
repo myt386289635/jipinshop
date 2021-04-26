@@ -19,14 +19,20 @@
         <variable
             name="hot2"
             type="com.example.administrator.jipinshop.bean.TbkIndexBean.DataBean.HotGoodsListBean"/>
+        <variable
+            name="hotBean"
+            type="com.example.administrator.jipinshop.bean.TbkIndexBean.DataBean.Ad2Bean"/>
+        <variable
+            name="hotText"
+            type="String"/>
 
-        <!--会员0元购-->
+        <!--买多少送多少-->
         <variable
-            name="zero1"
-            type="com.example.administrator.jipinshop.bean.TbkIndexBean.DataBean.AllowanceGoodsListBean"/>
+            name="return1"
+            type="com.example.administrator.jipinshop.bean.TbkIndexBean.DataBean.HotGoodsListBean"/>
         <variable
-            name="zero2"
-            type="com.example.administrator.jipinshop.bean.TbkIndexBean.DataBean.AllowanceGoodsListBean"/>
+            name="return2"
+            type="com.example.administrator.jipinshop.bean.TbkIndexBean.DataBean.HotGoodsListBean"/>
 
         <!--限时秒杀-->
         <variable
@@ -71,13 +77,17 @@
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/y88">
 
+                    <ImageView
+                        android:src="@mipmap/main_miaosa"
+                        android:layout_width="@dimen/x32"
+                        android:layout_height="@dimen/y32"/>
+
                     <TextView
-                        android:drawablePadding="@dimen/x2"
+                        android:layout_marginLeft="@dimen/x2"
                         android:textStyle="bold"
                         android:textSize="17sp"
                         android:textColor="@color/color_565252"
                         android:text="限时\n秒杀"
-                        android:drawableLeft="@mipmap/main_miaosa"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"/>
 
@@ -274,13 +284,17 @@
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/y88">
 
+                    <ImageView
+                        android:src="@mipmap/main_zero"
+                        android:layout_width="@dimen/x32"
+                        android:layout_height="@dimen/y32"/>
+
                     <TextView
-                        android:drawablePadding="@dimen/x2"
+                        android:layout_marginLeft="@dimen/x8"
                         android:textStyle="bold"
                         android:textSize="17sp"
                         android:textColor="@color/color_565252"
-                        android:text="会员0元购"
-                        android:drawableLeft="@mipmap/main_zero"
+                        android:text="买多少\n送多少"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"/>
 
@@ -311,17 +325,17 @@
 
                         <ImageView
                             android:id="@+id/zero_one_image"
-                            bind:srcRound="@{zero1.img}"
+                            bind:srcRound="@{return1.img}"
                             android:layout_width="match_parent"
                             android:layout_height="@dimen/y150"/>
 
                         <TextView
-                            android:text="@{@string/allowance2 + zero1.useAllowancePrice}"
+                            android:text="@{@string/home_1 + return1.fee}"
                             android:id="@+id/zero_one_fee"
                             android:gravity="center"
-                            android:textColor="@color/color_white"
+                            android:textColor="@color/color_AD7F35"
                             android:textSize="10sp"
-                            android:background="@color/color_FFAA23"
+                            android:background="@drawable/bg_ad7f35"
                             android:layout_marginTop="@dimen/y6"
                             android:layout_width="match_parent"
                             android:layout_height="@dimen/y30"/>
@@ -345,13 +359,13 @@
                                 android:textStyle="bold"
                                 android:textColor="@color/color_E25838"
                                 android:textSize="13sp"
-                                android:text="@{zero1.buyPrice}"
+                                android:text="@{return1.buyPrice}"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"/>
 
                             <com.example.administrator.jipinshop.view.textview.TextViewDel
                                 android:layout_width="wrap_content"
-                                android:text="@{@string/price + zero1.otherPrice}"
+                                android:text="@{@string/price + return1.otherPrice}"
                                 android:textSize="11sp"
                                 android:id="@+id/zero_one_cost"
                                 android:layout_marginLeft="@dimen/x6"
@@ -371,17 +385,17 @@
 
                         <ImageView
                             android:id="@+id/zero_two_image"
-                            bind:srcRound="@{zero2.img}"
+                            bind:srcRound="@{return2.img}"
                             android:layout_width="match_parent"
                             android:layout_height="@dimen/y150"/>
 
                         <TextView
-                            android:text="@{@string/allowance2 + zero2.useAllowancePrice}"
+                            android:text="@{@string/home_1 + return2.fee}"
                             android:id="@+id/zero_two_fee"
                             android:gravity="center"
-                            android:textColor="@color/color_white"
+                            android:textColor="@color/color_AD7F35"
                             android:textSize="10sp"
-                            android:background="@color/color_FFAA23"
+                            android:background="@drawable/bg_ad7f35"
                             android:layout_marginTop="@dimen/y6"
                             android:layout_width="match_parent"
                             android:layout_height="@dimen/y30"/>
@@ -405,13 +419,13 @@
                                 android:textStyle="bold"
                                 android:textColor="@color/color_E25838"
                                 android:textSize="13sp"
-                                android:text="@{zero2.buyPrice}"
+                                android:text="@{return2.buyPrice}"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"/>
 
                             <com.example.administrator.jipinshop.view.textview.TextViewDel
                                 android:layout_width="wrap_content"
-                                android:text="@{@string/price + zero2.otherPrice}"
+                                android:text="@{@string/price + return2.otherPrice}"
                                 android:textSize="11sp"
                                 android:id="@+id/zero_two_cost"
                                 android:layout_marginLeft="@dimen/x6"
@@ -445,7 +459,6 @@
                 android:layout_height="wrap_content">
 
                 <LinearLayout
-
                     android:gravity="center_vertical"
                     android:layout_marginRight="@dimen/x10"
                     android:layout_marginLeft="@dimen/x10"
@@ -453,13 +466,17 @@
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/y88">
 
+                    <ImageView
+                        android:src="@mipmap/main_fee"
+                        android:layout_width="@dimen/x32"
+                        android:layout_height="@dimen/y32"/>
+
                     <TextView
-                        android:drawablePadding="@dimen/x2"
+                        android:layout_marginLeft="@dimen/x2"
                         android:textStyle="bold"
                         android:textSize="17sp"
                         android:textColor="@color/color_565252"
                         android:text="百万补贴"
-                        android:drawableLeft="@mipmap/main_fee"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"/>
 
@@ -624,13 +641,17 @@
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/y88">
 
+                    <ImageView
+                        bind:src="@{hotBean.img}"
+                        android:layout_width="@dimen/x32"
+                        android:layout_height="@dimen/y32"/>
+
                     <TextView
-                        android:drawablePadding="@dimen/x2"
+                        android:layout_marginLeft="@dimen/x2"
                         android:textStyle="bold"
                         android:textSize="17sp"
                         android:textColor="@color/color_565252"
-                        android:text="热销榜单"
-                        android:drawableLeft="@mipmap/main_hot"
+                        android:text="@{hotBean.name}"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"/>
 
@@ -667,7 +688,7 @@
                             android:layout_height="@dimen/y150"/>
 
                         <TextView
-                            android:text="@{@string/home_1 + hot1.fee}"
+                            android:text="@{hotText + hot1.fee}"
                             android:id="@+id/hot_one_fee"
                             android:gravity="center"
                             android:textColor="@color/color_AD7F35"
@@ -728,7 +749,7 @@
                             android:layout_height="@dimen/y150"/>
 
                         <TextView
-                            android:text="@{@string/home_1 + hot2.fee}"
+                            android:text="@{hotText + hot2.fee}"
                             android:id="@+id/hot_two_fee"
                             android:gravity="center"
                             android:textColor="@color/color_AD7F35"

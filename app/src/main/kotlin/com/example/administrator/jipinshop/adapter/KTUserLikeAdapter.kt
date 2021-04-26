@@ -24,21 +24,21 @@ import java.math.BigDecimal
 /**
  * @author 莫小婷
  * @create 2019/12/13
- * @Describe 首页 猜你喜欢
+ * @Describe 热销模块
  */
 class KTUserLikeAdapter : RecyclerView.Adapter<KTUserLikeAdapter.ViewHolder>{
 
     private var mList: MutableList<SimilerGoodsBean.DataBean>
     private var mContext: Context
     private var mOnItem: OnItem? = null
-    private lateinit var appStatisticalUtil: AppStatisticalUtil
+    private var appStatisticalUtil: AppStatisticalUtil? = null
     private lateinit var  transformer : LifecycleTransformer<SuccessBean>
 
     fun setOnItem(onItem: OnItem) {
         mOnItem = onItem
     }
 
-    fun setAppStatisticalUtil(appStatisticalUtil : AppStatisticalUtil){
+    fun setAppStatisticalUtil(appStatisticalUtil : AppStatisticalUtil?){
         this.appStatisticalUtil = appStatisticalUtil
     }
 
@@ -108,7 +108,6 @@ class KTUserLikeAdapter : RecyclerView.Adapter<KTUserLikeAdapter.ViewHolder>{
                     mContext.startActivity(Intent(mContext, LoginActivity::class.java))
                     return@setOnClickListener
                 }
-                appStatisticalUtil.addEvent("shouye.cnxh_liebiao." + (position + 1),transformer)//猜你喜欢列表统计
                 mContext.startActivity(Intent(mContext, TBShoppingDetailActivity::class.java)
                         .putExtra("otherGoodsId", mList[position].otherGoodsId)
                         .putExtra("source",mList[position].source)

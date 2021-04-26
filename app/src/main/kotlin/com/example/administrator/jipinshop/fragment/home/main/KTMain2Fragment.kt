@@ -51,7 +51,7 @@ class KTMain2Fragment : DBBaseFragment(), KTMain2View, OnLoadMoreListener, OnRef
     private lateinit var mAdapter: KTMain2Adapter
     private lateinit var mPagerAdapter: HomePageAdapter
     private var mDialog: Dialog? = null
-    private var source : String = "2" //1:京东 2:淘宝 4拼多多  默认淘宝
+    private var type : String = "1" //1:淘宝 2:猜你喜欢 3猫超，4京东，5拼多多  默认淘宝
 
     companion object{
         fun getInstance() : KTMain2Fragment {
@@ -102,7 +102,7 @@ class KTMain2Fragment : DBBaseFragment(), KTMain2View, OnLoadMoreListener, OnRef
     override fun onLoadMore() {
         page++
         refersh = false
-        mPresenter.commendGoodsList(page,source,this.bindToLifecycle())
+        mPresenter.commendGoodsList(context!!,page,type,this.bindToLifecycle())
     }
 
     override fun onSuccess(type: String, bean: TbkIndexBean) {
@@ -136,7 +136,7 @@ class KTMain2Fragment : DBBaseFragment(), KTMain2View, OnLoadMoreListener, OnRef
             }
         }
         if (type == "1"){
-            mPresenter.commendGoodsList(page,source,this.bindUntilEvent(FragmentEvent.DESTROY_VIEW))
+            mPresenter.commendGoodsList(context!!,page,this.type,this.bindUntilEvent(FragmentEvent.DESTROY_VIEW))
         }
     }
 
@@ -225,12 +225,12 @@ class KTMain2Fragment : DBBaseFragment(), KTMain2View, OnLoadMoreListener, OnRef
 
     //今日推荐的选择
     override fun onSelect(source : String) {
-        this.source = source
+        this.type = source
         page = 1
         refersh = true
         mDialog = ProgressDialogView().createLoadingDialog(context, "")
         mDialog?.show()
-        mPresenter.commendGoodsList(page,this.source,this.bindToLifecycle())
+        mPresenter.commendGoodsList(context!!,page,this.type,this.bindToLifecycle())
     }
 
     override fun onResume() {

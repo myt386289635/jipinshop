@@ -46,6 +46,7 @@ class KTJDDetailActivity : BaseActivity(), View.OnClickListener, OnLoadMoreListe
     private var page = 1
     private var refersh: Boolean = true
     private var source = "-1" //1京东 2淘宝 4拼多多
+    private var type = "-1" //4京东， 5拼多多
     private var mDialog: Dialog? = null
     private var set = 0 //位置默认是0
 
@@ -58,6 +59,7 @@ class KTJDDetailActivity : BaseActivity(), View.OnClickListener, OnLoadMoreListe
 
     private fun initView() {
         source = intent.getStringExtra("source")
+        type = intent.getStringExtra("type")
         mBinding.inClude?.let {
             it.titleLine.visibility = View.GONE
             it.titleTv.text = intent.getStringExtra("name")
@@ -108,7 +110,7 @@ class KTJDDetailActivity : BaseActivity(), View.OnClickListener, OnLoadMoreListe
         page++
         refersh = false
         if (mTitles[set].type == 1){
-            mPersenter.commendGoodsList(page,source,this.bindToLifecycle())
+            mPersenter.commendGoodsList(page,type,this.bindToLifecycle())
         }else{
             mPersenter.getOtherGoodsListByCategory(mTitles[set].categoryId,page,source,this.bindToLifecycle())
         }
@@ -138,7 +140,7 @@ class KTJDDetailActivity : BaseActivity(), View.OnClickListener, OnLoadMoreListe
         mAdapter.notifyDataSetChanged()//刷新title
         if (mTitles[set].type == 1){
             //获取今日推荐
-            mPersenter.commendGoodsList(page,source,this.bindToLifecycle())
+            mPersenter.commendGoodsList(page,type,this.bindToLifecycle())
         }else {
             //常规列表商品
             mPersenter.getOtherGoodsListByCategory(mTitles[set].categoryId,page,source,this.bindToLifecycle())
@@ -222,7 +224,7 @@ class KTJDDetailActivity : BaseActivity(), View.OnClickListener, OnLoadMoreListe
         mDialog?.show()
         if (mTitles[set].type == 1){
             //获取今日推荐
-            mPersenter.commendGoodsList(page,source,this.bindToLifecycle())
+            mPersenter.commendGoodsList(page,type,this.bindToLifecycle())
         }else {
             //常规列表商品
             mPersenter.getOtherGoodsListByCategory(mTitles[set].categoryId,page,source,this.bindToLifecycle())

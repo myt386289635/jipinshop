@@ -116,7 +116,6 @@ public class ZeroAdapter extends RecyclerView.Adapter {
             case HEAD2:
                 Head2ViewHolder holder2 = (Head2ViewHolder) holder;
                 holder2.binding.itemBottom.setVisibility(View.GONE);
-                holder2.binding.itemTitle.setText("加专属VIP客服微信，享更多福利");
                 holder2.binding.itemCopy.setOnClickListener(v -> mOnClickItem.onCopy());
                 holder2.binding.itemOne.setOnClickListener(v -> mOnClickItem.onLeft(mAd1Bean));
                 holder2.binding.itemTwo.setOnClickListener(v -> mOnClickItem.onRight(mAd2Bean));

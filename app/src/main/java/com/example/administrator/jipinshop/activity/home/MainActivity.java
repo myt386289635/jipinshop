@@ -3,7 +3,6 @@ package com.example.administrator.jipinshop.activity.home;
 import android.app.Dialog;
 import android.content.ClipData;
 import android.content.ClipboardManager;
-import android.content.Context;
 import android.content.Intent;
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
@@ -15,10 +14,8 @@ import android.view.View;
 
 import com.blankj.utilcode.util.SPUtils;
 import com.example.administrator.jipinshop.R;
-import com.example.administrator.jipinshop.activity.cheapgoods.CheapBuyActivity;
 import com.example.administrator.jipinshop.activity.home.newGift.NewGiftActivity;
 import com.example.administrator.jipinshop.activity.login.LoginActivity;
-import com.example.administrator.jipinshop.activity.newpeople.NewFreeActivity;
 import com.example.administrator.jipinshop.activity.sign.SignFragment;
 import com.example.administrator.jipinshop.adapter.HomeAdapter;
 import com.example.administrator.jipinshop.base.BaseActivity;
@@ -27,7 +24,6 @@ import com.example.administrator.jipinshop.bean.EvaluationTabBean;
 import com.example.administrator.jipinshop.bean.ImageBean;
 import com.example.administrator.jipinshop.bean.PopBean;
 import com.example.administrator.jipinshop.bean.PopInfoBean;
-import com.example.administrator.jipinshop.bean.ShareInfoBean;
 import com.example.administrator.jipinshop.bean.SucBean;
 import com.example.administrator.jipinshop.bean.TklBean;
 import com.example.administrator.jipinshop.bean.eventbus.ChangeHomePageBus;
@@ -37,11 +33,10 @@ import com.example.administrator.jipinshop.databinding.ActivityMainBinding;
 import com.example.administrator.jipinshop.fragment.home.KTHomeFragnent;
 import com.example.administrator.jipinshop.fragment.member.MemberFragment;
 import com.example.administrator.jipinshop.fragment.mine.KTMineFragment;
-import com.example.administrator.jipinshop.fragment.play.PlayFragment;
+import com.example.administrator.jipinshop.fragment.sale.SaleHotFragment;
 import com.example.administrator.jipinshop.netwrok.RetrofitModule;
 import com.example.administrator.jipinshop.util.ClickUtil;
 import com.example.administrator.jipinshop.util.NotificationUtil;
-import com.example.administrator.jipinshop.util.ShareUtils;
 import com.example.administrator.jipinshop.util.ShopJumpUtil;
 import com.example.administrator.jipinshop.util.ToastUtil;
 import com.example.administrator.jipinshop.util.UmApp.AppStatisticalUtil;
@@ -50,7 +45,6 @@ import com.example.administrator.jipinshop.util.share.MobLinkUtil;
 import com.example.administrator.jipinshop.util.sp.CommonDate;
 import com.example.administrator.jipinshop.view.dialog.DialogUtil;
 import com.example.administrator.jipinshop.view.dialog.ProgressDialogView;
-import com.example.administrator.jipinshop.view.dialog.ShareBoardDialog2;
 import com.example.administrator.jipinshop.view.pick.CustomLoadingUIProvider2;
 import com.example.administrator.jipinshop.view.pick.DecorationLayout;
 import com.example.administrator.jipinshop.view.pick.GlideSimpleLoader;
@@ -62,7 +56,6 @@ import com.mob.moblink.SceneRestorable;
 import com.qubian.mob.utils.RequestPermission;
 import com.trello.rxlifecycle2.android.ActivityEvent;
 import com.umeng.analytics.MobclickAgent;
-import com.umeng.socialize.bean.SHARE_MEDIA;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
@@ -86,7 +79,7 @@ public class MainActivity extends BaseActivity implements MainView, ViewPager.On
     private KTMineFragment mMineFragment;//我的
     private SignFragment mSignFragment;//赚钱页面
     private KTHomeFragnent mKTHomeFragnent;//首页
-    private PlayFragment mPlayFragment;//吃喝玩乐
+    private SaleHotFragment mSaleHotFragment;//热销榜单
 
     private long exitTime = 0;
     private Boolean once = true; // 是否是第一次弹出
@@ -128,12 +121,12 @@ public class MainActivity extends BaseActivity implements MainView, ViewPager.On
         mFragments = new ArrayList<>();
 
         mKTHomeFragnent = KTHomeFragnent.getInstance();
-        mPlayFragment = PlayFragment.getInstance();
+        mSaleHotFragment = SaleHotFragment.getInstance();
         mMemberFragment = MemberFragment.getInstance("1",false);
         mSignFragment = SignFragment.getInstance("1");
         mMineFragment = KTMineFragment.getInstance();
         mFragments.add(mKTHomeFragnent);
-        mFragments.add(mPlayFragment);
+        mFragments.add(mSaleHotFragment);
         mFragments.add(mMemberFragment);
         mFragments.add(mSignFragment);
         mFragments.add(mMineFragment);
@@ -321,6 +314,7 @@ public class MainActivity extends BaseActivity implements MainView, ViewPager.On
                 ShopJumpUtil.openPager(MainActivity.this, bean.getData().get(0).getData().getTargetType()
                         , bean.getData().get(0).getData().getTargetId(), bean.getData().get(0).getData().getTitle(),
                         bean.getData().get(0).getData().getSource(),bean.getData().get(0).getData().getRemark());
+                getClipText();
             }, v -> {
                 getClipText();
             });

@@ -21,12 +21,14 @@ import com.bumptech.glide.request.target.SimpleTarget;
 import com.bumptech.glide.request.transition.Transition;
 import com.example.administrator.jipinshop.R;
 import com.example.administrator.jipinshop.activity.balance.withdraw.detail.WithdrawDetailActivity;
+import com.example.administrator.jipinshop.activity.web.server.ServerWebActivity;
 import com.example.administrator.jipinshop.base.BaseActivity;
 import com.example.administrator.jipinshop.bean.ShareInfoBean;
 import com.example.administrator.jipinshop.bean.TaobaoAccountBean;
 import com.example.administrator.jipinshop.bean.WithdrawBean;
 import com.example.administrator.jipinshop.bean.eventbus.WithdrawBus;
 import com.example.administrator.jipinshop.databinding.ActivityWithdrawBinding;
+import com.example.administrator.jipinshop.netwrok.RetrofitModule;
 import com.example.administrator.jipinshop.util.FileManager;
 import com.example.administrator.jipinshop.util.ShareUtils;
 import com.example.administrator.jipinshop.util.ToastUtil;
@@ -123,13 +125,10 @@ public class WithdrawActivity extends BaseActivity implements View.OnClickListen
                 startActivity(new Intent(this, WithdrawDetailActivity.class));
                 break;
             case R.id.mine_server:
-                DialogUtil.LoginDialog(this, "官方客服微信：" + officialWeChat, "复制", "取消", v1 -> {
-                    ClipboardManager clip = (ClipboardManager) this.getSystemService(Context.CLIPBOARD_SERVICE);
-                    ClipData clipData = ClipData.newPlainText("jipinshop", officialWeChat);
-                    clip.setPrimaryClip(clipData);
-                    ToastUtil.show("微信号复制成功");
-                    SPUtils.getInstance().put(CommonDate.CLIP, officialWeChat);
-                });
+                startActivity(new Intent(this, ServerWebActivity.class)
+                        .putExtra(ServerWebActivity.url, RetrofitModule.JP_H5_URL + "new-free/helpServices?userId="
+                                + SPUtils.getInstance(CommonDate.USER).getString(CommonDate.userId))
+                );
                 break;
         }
     }

@@ -353,6 +353,7 @@ public class ShopJumpUtil {
                     intent.setClass(context, KTJDDetailActivity.class);
                     intent.putExtra("name","京东");
                     intent.putExtra("source","1");
+                    intent.putExtra("type","4");
                 }
                 context.startActivity(intent);
                 break;
@@ -363,6 +364,7 @@ public class ShopJumpUtil {
                     intent.setClass(context, KTJDDetailActivity.class);
                     intent.putExtra("name","拼多多");
                     intent.putExtra("source","4");
+                    intent.putExtra("type","5");
                 }
                 context.startActivity(intent);
                 break;

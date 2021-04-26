@@ -30,7 +30,6 @@ import com.example.administrator.jipinshop.activity.home.comprehensive.Comprehen
 import com.example.administrator.jipinshop.activity.home.home.HomeNewActivity
 import com.example.administrator.jipinshop.activity.login.LoginActivity
 import com.example.administrator.jipinshop.activity.member.zero.ZeroActivity
-import com.example.administrator.jipinshop.activity.newpeople.NewFreeActivity
 import com.example.administrator.jipinshop.activity.shoppingdetail.tbshoppingdetail.TBShoppingDetailActivity
 import com.example.administrator.jipinshop.bean.SuccessBean
 import com.example.administrator.jipinshop.bean.TBSreachResultBean
@@ -40,6 +39,7 @@ import com.example.administrator.jipinshop.fragment.home.main.tab.CommonTabFragm
 import com.example.administrator.jipinshop.netwrok.RetrofitModule
 import com.example.administrator.jipinshop.util.DistanceHelper
 import com.example.administrator.jipinshop.util.ShopJumpUtil
+import com.example.administrator.jipinshop.util.ToastUtil
 import com.example.administrator.jipinshop.util.UmApp.AppStatisticalUtil
 import com.example.administrator.jipinshop.util.sp.CommonDate
 import com.example.administrator.jipinshop.view.dialog.DialogUtil
@@ -172,10 +172,6 @@ class KTMain2Adapter : RecyclerView.Adapter<RecyclerView.ViewHolder>{
                 var oneViewHolder : OneViewHolder = holder as OneViewHolder
                 oneViewHolder.run {
                     mBean?.let {
-                        //顶部宫格
-                        mTopTabs.clear()
-                        mTopTabs.addAll(it.data.boxList)
-                        mTopAdapter.notifyDataSetChanged()
                         //九宫格
                         tabs.clear()
                         for (i in it.data.boxCategoryList.indices){
@@ -268,6 +264,8 @@ class KTMain2Adapter : RecyclerView.Adapter<RecyclerView.ViewHolder>{
             HEAD4 ->{
                 var foreViewHolder: ForeViewHolder = holder as ForeViewHolder
                 foreViewHolder.run {
+                    binding.hotBean = mBean!!.data.ad3
+                    binding.hotText = mBean!!.data.hotGoodsFeeName
                     for (i in mBean!!.data.allowanceGoodsList2.indices) {
                         when (i) {
                             0 -> {
@@ -278,7 +276,7 @@ class KTMain2Adapter : RecyclerView.Adapter<RecyclerView.ViewHolder>{
                             }
                         }
                     }
-                    for (i in mBean!!.data.hotGoodsList.indices) {
+                    for (i in mBean!!.data.hotGoodsList.indices) {//动态配置
                         when (i) {
                             0 -> {
                                 binding.hot1 = mBean!!.data.hotGoodsList[0]
@@ -291,10 +289,10 @@ class KTMain2Adapter : RecyclerView.Adapter<RecyclerView.ViewHolder>{
                     for (i in mBean!!.data.allowanceGoodsList3.indices){
                         when (i) {
                             0 -> {
-                                binding.zero1 = mBean!!.data.allowanceGoodsList3[0]
+                                binding.return1 = mBean!!.data.returnGoodsList[0]
                             }
                             1 -> {
-                                binding.zero2 = mBean!!.data.allowanceGoodsList3[1]
+                                binding.return2 = mBean!!.data.returnGoodsList[1]
                             }
                         }
                     }
@@ -373,25 +371,17 @@ class KTMain2Adapter : RecyclerView.Adapter<RecyclerView.ViewHolder>{
                             mContext.startActivity(Intent(mContext, LoginActivity::class.java))
                             return@setOnClickListener
                         }
-                        mContext.startActivity(Intent(mContext, ComprehensiveActivity::class.java)
-                                .putExtra("page", 4)
-                        )
+                        ShopJumpUtil.openBanner(mContext,mBean!!.data.ad3.type,
+                                mBean!!.data.ad3.objectId,mBean!!.data.ad3.name,
+                                mBean!!.data.ad3.source,mBean!!.data.ad3.remark)
                     }
                     binding.zeroContainer.setOnClickListener {
                         if (TextUtils.isEmpty(SPUtils.getInstance(CommonDate.USER).getString(CommonDate.token, ""))) {
                             mContext.startActivity(Intent(mContext, LoginActivity::class.java))
                             return@setOnClickListener
                         }
-                        if(mBean!!.data.level == 2){
-                            mContext.startActivity(Intent(mContext, ZeroActivity::class.java))
-                        }else {
-                            DialogUtil.memberGuideDialog(mContext) { v12 ->
-                                mContext.startActivity(Intent(mContext, HomeNewActivity::class.java)
-                                        .putExtra("type", HomeNewActivity.member)
-                                        .putExtra("isyear" , true)
-                                )
-                            }
-                        }
+                        //todo 买多少送多少
+                        ToastUtil.show("买多少送多少")
                     }
                     binding.msContainer.setOnClickListener {
                         if (TextUtils.isEmpty(SPUtils.getInstance(CommonDate.USER).getString(CommonDate.token, ""))) {
@@ -409,15 +399,23 @@ class KTMain2Adapter : RecyclerView.Adapter<RecyclerView.ViewHolder>{
                 fiveViewHolder.run {
                     binding.itemTb.setOnClickListener {
                         selectTitle(0)
-                        mOnItem.onSelect("2")
-                    }
-                    binding.itemJd.setOnClickListener {
-                        selectTitle(1)
                         mOnItem.onSelect("1")
                     }
-                    binding.itemPdd.setOnClickListener {
+                    binding.itemLike.setOnClickListener {
+                        selectTitle(1)
+                        mOnItem.onSelect("2")
+                    }
+                    binding.itemMc.setOnClickListener {
                         selectTitle(2)
+                        mOnItem.onSelect("3")
+                    }
+                    binding.itemJd.setOnClickListener {
+                        selectTitle(3)
                         mOnItem.onSelect("4")
+                    }
+                    binding.itemPdd.setOnClickListener {
+                        selectTitle(4)
+                        mOnItem.onSelect("5")
                     }
                 }
             }
@@ -491,9 +489,6 @@ class KTMain2Adapter : RecyclerView.Adapter<RecyclerView.ViewHolder>{
     inner class OneViewHolder : RecyclerView.ViewHolder {
 
         lateinit var binding : ItemMain2OneBinding
-        //顶部宫格
-        var mTopTabs: MutableList<TbkIndexBean.DataBean.BoxCategoryListBean.ListBean>
-        var mTopAdapter: KTMain2TopGridAdapter
         //九宫格
         var tabs: MutableList<String?>
         var tabAdapter: KTTabAdapter5
@@ -502,13 +497,6 @@ class KTMain2Adapter : RecyclerView.Adapter<RecyclerView.ViewHolder>{
 
         constructor(binding: ItemMain2OneBinding) : super(binding.root){
             this.binding = binding
-            //顶部宫格
-            mTopTabs = mutableListOf()
-            binding.mainRv.layoutManager = GridLayoutManager(mContext,4)
-            mTopAdapter = KTMain2TopGridAdapter(mContext,mTopTabs)
-            mTopAdapter.setAppStatisticalUtil(appStatisticalUtil)
-            mTopAdapter.setTransformer(transformer)
-            binding.mainRv.adapter = mTopAdapter
             //九宫格
             var commonNavigator = CommonNavigator(mContext)
             tabs = mutableListOf()
@@ -618,29 +606,26 @@ class KTMain2Adapter : RecyclerView.Adapter<RecyclerView.ViewHolder>{
 
         var binding: ItemMain2FiveBinding
         var mTitle: MutableList<TextView>
-        var mDec: MutableList<TextView>
 
         constructor(binding: ItemMain2FiveBinding) : super(binding.root){
             this.binding = binding
 
             mTitle = mutableListOf()
-            mDec = mutableListOf()
             mTitle.add(binding.itemTbTitle)
+            mTitle.add(binding.itemLikeTitle)
+            mTitle.add(binding.itemMcTitle)
             mTitle.add(binding.itemJdTitle)
             mTitle.add(binding.itemPddTitle)
-            mDec.add(binding.itemTbDec)
-            mDec.add(binding.itemJdDec)
-            mDec.add(binding.itemPddDec)
         }
 
         fun selectTitle(position: Int){
             for (i in mTitle.indices){
                 if (i  == position){
                     mTitle[i].setTextColor(mContext.resources.getColor(R.color.color_E25838))
-                    mDec[i].setTextColor(mContext.resources.getColor(R.color.color_E25838))
+                    mTitle[i].paint.isFakeBoldText = true
                 }else{
                     mTitle[i].setTextColor(mContext.resources.getColor(R.color.color_565252))
-                    mDec[i].setTextColor(mContext.resources.getColor(R.color.color_9D9D9D))
+                    mTitle[i].paint.isFakeBoldText = false
                 }
             }
         }

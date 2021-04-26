@@ -9,9 +9,6 @@ import com.example.administrator.jipinshop.bean.*
  */
 interface KTHomeView {
 
-    fun onSuccess(bean: JDBean)
-    fun onFile(error: String?)
-
     fun onAction(bean: SucBeanT<TbkIndexBean.DataBean.Ad1ListBean>?)
     fun onEndAction()
 }

@@ -24,6 +24,7 @@ import com.example.administrator.jipinshop.R;
 import com.example.administrator.jipinshop.activity.home.newGift.NewGiftActivity;
 import com.example.administrator.jipinshop.activity.login.LoginActivity;
 import com.example.administrator.jipinshop.activity.newpeople.detail.NewFreeDetailActivity;
+import com.example.administrator.jipinshop.activity.web.server.ServerWebActivity;
 import com.example.administrator.jipinshop.adapter.NewFreeAdapter;
 import com.example.administrator.jipinshop.base.DBBaseFragment;
 import com.example.administrator.jipinshop.bean.ImageBean;
@@ -167,11 +168,10 @@ public class NewFreeFragment extends DBBaseFragment implements View.OnClickListe
 
     @Override
     public void onCopy() {
-        ClipboardManager clip = (ClipboardManager) getContext().getSystemService(Context.CLIPBOARD_SERVICE);
-        ClipData clipData = ClipData.newPlainText("jipinshop", officialWeChat);
-        clip.setPrimaryClip(clipData);
-        ToastUtil.show("微信号复制成功");
-        SPUtils.getInstance().put(CommonDate.CLIP, officialWeChat);
+        startActivity(new Intent(getContext(), ServerWebActivity.class)
+                .putExtra(ServerWebActivity.url, RetrofitModule.JP_H5_URL + "new-free/helpServices?userId="
+                        + SPUtils.getInstance(CommonDate.USER).getString(CommonDate.userId))
+        );
     }
 
     @Override
