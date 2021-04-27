@@ -38,6 +38,7 @@ import com.example.administrator.jipinshop.bean.SuccessBean;
 import com.example.administrator.jipinshop.bean.TeacherBean;
 import com.example.administrator.jipinshop.bean.eventbus.ChangeHomePageBus;
 import com.example.administrator.jipinshop.databinding.ActivitySignBinding;
+import com.example.administrator.jipinshop.netwrok.RetrofitModule;
 import com.example.administrator.jipinshop.util.ClickUtil;
 import com.example.administrator.jipinshop.util.ShareUtils;
 import com.example.administrator.jipinshop.util.TaoBaoUtil;
@@ -470,10 +471,18 @@ public class SignFragment extends DBBaseFragment implements View.OnClickListener
                 );
                 break;
             case 16://应用市场好评
-                startActivity(new Intent(getContext(), MarketActivity.class));
+                startActivity(new Intent(getContext(), MarketActivity.class)
+                        .putExtra(MarketActivity.url, RetrofitModule.JP_H5_URL + "new-free/appAppraise?token="
+                                + SPUtils.getInstance(CommonDate.USER).getString(CommonDate.token))
+                        .putExtra(MarketActivity.title, "应用市场好评")
+                );
                 break;
             case 17://关注公众号
-                DialogUtil.wxDialog(getContext(), "关注公众号", "微信服务号名称：", "微信关注极品城公众号，并绑定账号");
+                startActivity(new Intent(getContext(), MarketActivity.class)
+                        .putExtra(MarketActivity.url, RetrofitModule.JP_H5_URL + "new-free/attentionWeChat?token="
+                                + SPUtils.getInstance(CommonDate.USER).getString(CommonDate.token))
+                        .putExtra(MarketActivity.title, "关注公众号")
+                );
                 break;
             case 18://绑定小程序
                 IWXAPI api = WXAPIFactory.createWXAPI(getContext(), "wxfd2e92db2568030a");

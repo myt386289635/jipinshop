@@ -1191,12 +1191,6 @@ public interface APIService {
     Observable<VideoBean> videoDetail(@Query("courseId") String courseId);
 
     /**
-     * 获取应用市场反馈结果
-     */
-    @GET("api/v3/user/feedback/get")
-    Observable<ImageBean> feedbackGet();
-
-    /**
      * 添加转发次数
      */
     @GET("api/course/addShare")

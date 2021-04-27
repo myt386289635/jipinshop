@@ -33,6 +33,7 @@ import com.example.administrator.jipinshop.bean.MallDetailBean;
 import com.example.administrator.jipinshop.bean.MemberBuyBean;
 import com.example.administrator.jipinshop.bean.MemberNewBean;
 import com.example.administrator.jipinshop.bean.MessageAllBean;
+import com.example.administrator.jipinshop.bean.MessageBean;
 import com.example.administrator.jipinshop.bean.MoneyRecordBean;
 import com.example.administrator.jipinshop.bean.MyFreeBean;
 import com.example.administrator.jipinshop.bean.MyOrderBean;
@@ -67,7 +68,6 @@ import com.example.administrator.jipinshop.bean.SubUserBean;
 import com.example.administrator.jipinshop.bean.SucBean;
 import com.example.administrator.jipinshop.bean.SucBeanT;
 import com.example.administrator.jipinshop.bean.SuccessBean;
-import com.example.administrator.jipinshop.bean.MessageBean;
 import com.example.administrator.jipinshop.bean.TBShoppingDetailBean;
 import com.example.administrator.jipinshop.bean.TBSreachResultBean;
 import com.example.administrator.jipinshop.bean.TabBean;
@@ -101,8 +101,6 @@ import javax.inject.Inject;
 import io.reactivex.Observable;
 import okhttp3.MultipartBody;
 import okhttp3.ResponseBody;
-import retrofit2.http.GET;
-import retrofit2.http.Query;
 
 public class Repository {
 
@@ -1299,13 +1297,6 @@ public class Repository {
      */
     public Observable<VideoBean> videoDetail(String courseId){
         return mAPIService.videoDetail(courseId);
-    }
-
-    /**
-     * 获取应用市场反馈结果
-     */
-    public Observable<ImageBean> feedbackGet(){
-        return mAPIService.feedbackGet();
     }
 
     /**
