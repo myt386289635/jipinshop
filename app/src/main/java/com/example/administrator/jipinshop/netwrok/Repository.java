@@ -8,6 +8,7 @@ import com.example.administrator.jipinshop.bean.BudgetDetailBean;
 import com.example.administrator.jipinshop.bean.CircleListBean;
 import com.example.administrator.jipinshop.bean.CircleTitleBean;
 import com.example.administrator.jipinshop.bean.ClickUrlBean;
+import com.example.administrator.jipinshop.bean.CommenBean;
 import com.example.administrator.jipinshop.bean.CommentBean;
 import com.example.administrator.jipinshop.bean.CommssionDetailBean;
 import com.example.administrator.jipinshop.bean.DailyTaskBean;
@@ -1507,5 +1508,33 @@ public class Repository {
      */
     public Observable<SimilerGoodsBean> listLikeGoods(String otherGoodsId){
         return mAPIService.listLikeGoods(otherGoodsId);
+    }
+
+    /**
+     * 获取商品详情里评论信息
+     */
+    public Observable<CommenBean> getFeedback(String otherGoodsId){
+        return mAPIService.getFeedback(otherGoodsId);
+    }
+
+    /**
+     * 获取店铺地址
+     */
+    public Observable<ImageBean> getShopUrl(String otherGoodsId){
+        return mAPIService.getShopUrl(otherGoodsId);
+    }
+
+    /**
+     * 获取买多少返多少专属购买链接
+     */
+    public Observable<ClickUrlBean> getReturnGoodsClickUrl(String otherGoodsId){
+        return mAPIService.getReturnGoodsClickUrl(otherGoodsId);
+    }
+
+    /**
+     * 获取买多少返多少弹窗信息
+     */
+    public Observable<PopBean> getReturnGoodsInfo(String otherGoodsId){
+        return mAPIService.getReturnGoodsInfo(otherGoodsId);
     }
 }

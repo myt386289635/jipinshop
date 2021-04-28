@@ -1,4 +1,4 @@
-package com.example.administrator.jipinshop.activity.shoppingdetail.tbshoppingdetail;
+package com.example.administrator.jipinshop.activity.home.sell.detail;
 
 import android.content.Context;
 import android.view.ViewGroup;
@@ -14,7 +14,6 @@ import com.example.administrator.jipinshop.bean.PopBean;
 import com.example.administrator.jipinshop.bean.ShareInfoBean;
 import com.example.administrator.jipinshop.bean.SimilerGoodsBean;
 import com.example.administrator.jipinshop.bean.SucBean;
-import com.example.administrator.jipinshop.bean.SucBeanT;
 import com.example.administrator.jipinshop.bean.SuccessBean;
 import com.example.administrator.jipinshop.bean.TBShoppingDetailBean;
 import com.example.administrator.jipinshop.netwrok.Repository;
@@ -31,20 +30,20 @@ import io.reactivex.schedulers.Schedulers;
 
 /**
  * @author 莫小婷
- * @create 2019/11/26
+ * @create 2021/4/28
  * @Describe
  */
-public class TBShoppingDetailPresenter {
+public class SellDetailPresenter {
 
     private Repository mRepository;
-    private TBShoppingDetailView mView;
+    private SellDetailView mView;
 
-    public void setView(TBShoppingDetailView view) {
+    public void setView(SellDetailView view) {
         mView = view;
     }
 
     @Inject
-    public TBShoppingDetailPresenter(Repository repository) {
+    public SellDetailPresenter(Repository repository) {
         mRepository = repository;
     }
 
@@ -110,6 +109,86 @@ public class TBShoppingDetailPresenter {
                 });
     }
 
+    //相似推荐
+    public void listLikeGoods(String otherGoodsId ,LifecycleTransformer<SimilerGoodsBean> transformer){
+        mRepository.listLikeGoods(otherGoodsId)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .compose(transformer)
+                .subscribe(bean -> {
+                    if (bean.getCode() == 0){
+                        mView.recommend(bean);
+                    }else {
+                        mView.onFile(bean.getMsg());
+                    }
+                }, throwable -> {
+                    mView.onFile(throwable.getMessage());
+                });
+    }
+
+    //获取评论
+    public void getFeedback(String otherGoodsId,LifecycleTransformer<CommenBean> transformer){
+        mRepository.getFeedback(otherGoodsId)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .compose(transformer)
+                .subscribe(bean -> {
+                    if (bean.getCode() == 0){
+                        mView.onComment(bean);
+                    }else {
+                        mView.onFile(bean.getMsg());
+                    }
+                }, throwable -> {
+                    mView.onFile(throwable.getMessage());
+                });
+    }
+
+    //获取商品详情
+    public void getGoodsDescImgs(String otherGoodsId,String source , LifecycleTransformer<SucBean<String>> transformer ){
+        mRepository.getGoodsDescImgs(otherGoodsId,source)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .compose(transformer)
+                .subscribe(bean -> {
+                    if (bean.getCode() == 0){
+                        if (mView != null){
+                            mView.onDescImgs(bean);
+                        }
+                    }else {
+                        if(mView != null){
+                            mView.onFile(bean.getMsg());
+                        }
+                    }
+                }, throwable -> {
+                    if(mView != null){
+                        mView.onFile(throwable.getMessage());
+                    }
+                });
+    }
+
+    //获取专属淘客链接
+    public void getReturnGoodsClickUrl(String otherGoodsId , LifecycleTransformer<ClickUrlBean> transformer){
+        mRepository.getReturnGoodsClickUrl(otherGoodsId)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .compose(transformer)
+                .subscribe(bean -> {
+                    if (bean.getCode() == 0){
+                        if (mView != null){
+                            mView.onBuyLinkSuccess(bean);
+                        }
+                    }else {
+                        if(mView != null){
+                            mView.onFile(bean.getMsg());
+                        }
+                    }
+                }, throwable -> {
+                    if(mView != null){
+                        mView.onFile(throwable.getMessage());
+                    }
+                });
+    }
+
     //添加收藏
     public void collectInsert(String goodsId, String source, LifecycleTransformer<SuccessBean> transformer){
         Map<String,String> hashMap = new HashMap<>();
@@ -163,137 +242,6 @@ public class TBShoppingDetailPresenter {
                 });
     }
 
-    //获取专属淘客链接
-    public void getGoodsClickUrl(String source , String otherGoodsId , LifecycleTransformer<ClickUrlBean> transformer){
-        mRepository.getGoodsClickUrl(source, otherGoodsId)
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .compose(transformer)
-                .subscribe(bean -> {
-                    if (bean.getCode() == 0){
-                        if (mView != null){
-                            mView.onBuyLinkSuccess(bean);
-                        }
-                    }else {
-                        if(mView != null){
-                            mView.onFile(bean.getMsg());
-                        }
-                    }
-                }, throwable -> {
-                    if(mView != null){
-                        mView.onFile(throwable.getMessage());
-                    }
-                });
-    }
-
-    //获取商品详情
-    public void getGoodsDescImgs(String otherGoodsId,String source , LifecycleTransformer<SucBean<String>> transformer ){
-        mRepository.getGoodsDescImgs(otherGoodsId,source)
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .compose(transformer)
-                .subscribe(bean -> {
-                    if (bean.getCode() == 0){
-                        if (mView != null){
-                            mView.onDescImgs(bean);
-                        }
-                    }else {
-                        if(mView != null){
-                            mView.onFile(bean.getMsg());
-                        }
-                    }
-                }, throwable -> {
-                    if(mView != null){
-                        mView.onFile(throwable.getMessage());
-                    }
-                });
-    }
-
-    //拼团创建
-    public void groupCreate(String otherGoodsId , String source , LifecycleTransformer<SuccessBean> transformer){
-        mRepository.groupCreate(otherGoodsId, source)
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .compose(transformer)
-                .subscribe(bean -> {
-                    if (bean.getCode() == 0){
-                        mView.onCreateGroup();
-                    }else {
-                        mView.onFile(bean.getMsg());
-                    }
-                }, throwable -> {
-                    mView.onFile(throwable.getMessage());
-                });
-    }
-
-    //查看拼团状态
-    public void groupStatus(String otherGoodsId, LifecycleTransformer<SucBeanT<String>> transformer){
-        mRepository.groupStatus(otherGoodsId)
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .compose(transformer)
-                .subscribe(bean -> {
-                    if (bean.getCode() == 0) {
-                        mView.onGroupDialogSuc(bean);
-                    }else {
-                        mView.onGroupDialogSuc(null);
-                    }
-                }, throwable -> {
-                    mView.onGroupDialogSuc(null);
-                });
-    }
-
-    //拼团分享
-    public void initShare(LifecycleTransformer<ShareInfoBean> transformer){
-        mRepository.getShareInfo(5)
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .compose(transformer)
-                .subscribe(bean -> {
-                    if (bean.getCode() == 0){
-                        mView.initShare(bean);
-                    }else {
-                        mView.onFile(bean.getMsg());
-                    }
-                }, throwable -> {
-                    mView.onFile(throwable.getMessage());
-                });
-    }
-
-    //相似推荐
-    public void listLikeGoods(String otherGoodsId ,LifecycleTransformer<SimilerGoodsBean> transformer){
-        mRepository.listLikeGoods(otherGoodsId)
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .compose(transformer)
-                .subscribe(bean -> {
-                    if (bean.getCode() == 0){
-                        mView.recommend(bean);
-                    }else {
-                        mView.onFile(bean.getMsg());
-                    }
-                }, throwable -> {
-                    mView.onFile(throwable.getMessage());
-                });
-    }
-
-    //获取评论
-    public void getFeedback(String otherGoodsId,LifecycleTransformer<CommenBean> transformer){
-        mRepository.getFeedback(otherGoodsId)
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .compose(transformer)
-                .subscribe(bean -> {
-                    if (bean.getCode() == 0){
-                        mView.onComment(bean);
-                    }else {
-                        mView.onFile(bean.getMsg());
-                    }
-                }, throwable -> {
-                    mView.onFile(throwable.getMessage());
-                });
-    }
-
     //获取店铺id
     public void getShopUrl(String otherGoodsId,LifecycleTransformer<ImageBean> transformer){
         mRepository.getShopUrl(otherGoodsId)
@@ -303,6 +251,40 @@ public class TBShoppingDetailPresenter {
                 .subscribe(bean -> {
                     if (bean.getCode() == 0){
                         mView.onShop(bean);
+                    }else {
+                        mView.onFile(bean.getMsg());
+                    }
+                }, throwable -> {
+                    mView.onFile(throwable.getMessage());
+                });
+    }
+
+    //弹窗
+    public void  getReturnGoodsInfo(String otherGoodsId,LifecycleTransformer<PopBean> transformer){
+        mRepository.getReturnGoodsInfo(otherGoodsId)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .compose(transformer)
+                .subscribe(bean -> {
+                    if (bean.getCode() == 0){
+                        mView.onPop(bean);
+                    }else {
+                        mView.onFile(bean.getMsg());
+                    }
+                }, throwable -> {
+                    mView.onFile(throwable.getMessage());
+                });
+    }
+
+    //分享五重礼
+    public void initShare(LifecycleTransformer<ShareInfoBean> transformer){
+        mRepository.getShareInfo(9)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .compose(transformer)
+                .subscribe(bean -> {
+                    if (bean.getCode() == 0){
+                        mView.initShare(bean);
                     }else {
                         mView.onFile(bean.getMsg());
                     }

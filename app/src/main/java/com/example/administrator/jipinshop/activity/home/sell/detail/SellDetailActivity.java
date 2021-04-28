@@ -1,10 +1,9 @@
-package com.example.administrator.jipinshop.activity.shoppingdetail.tbshoppingdetail;
+package com.example.administrator.jipinshop.activity.home.sell.detail;
 
 import android.app.Dialog;
 import android.content.Intent;
 import android.databinding.DataBindingUtil;
 import android.graphics.drawable.Drawable;
-import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.graphics.drawable.DrawableCompat;
@@ -24,7 +23,6 @@ import com.blankj.utilcode.util.SPUtils;
 import com.example.administrator.jipinshop.R;
 import com.example.administrator.jipinshop.activity.home.home.HomeNewActivity;
 import com.example.administrator.jipinshop.activity.login.LoginActivity;
-import com.example.administrator.jipinshop.activity.school.video.VideoActivity;
 import com.example.administrator.jipinshop.activity.share.ShareActivity;
 import com.example.administrator.jipinshop.adapter.NoPageBannerAdapter;
 import com.example.administrator.jipinshop.adapter.ShoppingImageAdapter;
@@ -34,19 +32,17 @@ import com.example.administrator.jipinshop.base.BaseActivity;
 import com.example.administrator.jipinshop.bean.ClickUrlBean;
 import com.example.administrator.jipinshop.bean.CommenBean;
 import com.example.administrator.jipinshop.bean.ImageBean;
+import com.example.administrator.jipinshop.bean.PopBean;
 import com.example.administrator.jipinshop.bean.ShareInfoBean;
 import com.example.administrator.jipinshop.bean.SimilerGoodsBean;
 import com.example.administrator.jipinshop.bean.SucBean;
-import com.example.administrator.jipinshop.bean.SucBeanT;
 import com.example.administrator.jipinshop.bean.TBShoppingDetailBean;
 import com.example.administrator.jipinshop.bean.eventbus.ChangeHomePageBus;
 import com.example.administrator.jipinshop.bean.eventbus.TBShopDetailBus;
-import com.example.administrator.jipinshop.databinding.ActivityTbShopDetailBinding;
+import com.example.administrator.jipinshop.databinding.ActivitySellDetailBinding;
 import com.example.administrator.jipinshop.fragment.foval.goods.FovalGoodsFragment;
 import com.example.administrator.jipinshop.util.ClickUtil;
 import com.example.administrator.jipinshop.util.DeviceUuidFactory;
-import com.example.administrator.jipinshop.util.JDUtil;
-import com.example.administrator.jipinshop.util.PDDUtil;
 import com.example.administrator.jipinshop.util.ShareUtils;
 import com.example.administrator.jipinshop.util.TaoBaoUtil;
 import com.example.administrator.jipinshop.util.ToastUtil;
@@ -69,17 +65,24 @@ import javax.inject.Inject;
 
 /**
  * @author 莫小婷
- * @create 2019/11/25
- * @Describe 淘宝商品详情
+ * @create 2021/4/27
+ * @Describe 买多少返多少 详情页
  */
-public class TBShoppingDetailActivity extends BaseActivity implements View.OnClickListener, TBShoppingDetailView, ShoppingUserLikeAdapter.OnItem {
+public class SellDetailActivity extends BaseActivity implements View.OnClickListener, SellDetailView, ShoppingUserLikeAdapter.OnItem {
 
     @Inject
-    TBShoppingDetailPresenter mPresenter;
-    private ActivityTbShopDetailBinding mBinding;
+    SellDetailPresenter mPresenter;
+
+    private ActivitySellDetailBinding mBinding;
     private String goodsId = "";//商品id
+    private String source = "2";//商品来源:1京东,2淘宝，4拼多多 默认淘宝详情
     private Dialog mDialog;
     private Dialog mProgressDialog;
+    //是否开启底部会员弹框
+    private Boolean isStart = false;
+    private String level = "0";//用户身份
+    private String UpFee = "";
+    private String fee = "";
     //banner
     private NoPageBannerAdapter mBannerAdapter;
     private List<String> mBannerList;
@@ -95,23 +98,16 @@ public class TBShoppingDetailActivity extends BaseActivity implements View.OnCli
     private ShoppingUserLikeAdapter mLikeAdapter;
     private boolean isCollect = false;//标志：是否收藏过此商品 false:没有
     private int goodsType = 2;//1是极品城  2是淘宝
-    private String source = "2";//商品来源:1京东,2淘宝，4拼多多 默认淘宝详情
     private String money = "0.00";//总共要省的钱
-    //比价弹窗需要
-    private String parity = "";
-    //是否开启底部会员弹框
-    private Boolean isStart = false;
-    private String level = "0";//用户身份
-    private String UpFee = "";
-    private String fee = "";
+    //查看全部评论时的跳转Url
+    private String commenUrl = "";
     //刷新页面
     private Boolean buyRefresh = false;
-    private String commenUrl = "";
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        mBinding = DataBindingUtil.setContentView(this,R.layout.activity_tb_shop_detail);
+        mBinding = DataBindingUtil.setContentView(this, R.layout.activity_sell_detail);
         mBinding.setListener(this);
         mBaseActivityComponent.inject(this);
         mImmersionBar.reset()
@@ -128,14 +124,6 @@ public class TBShoppingDetailActivity extends BaseActivity implements View.OnCli
             source = getIntent().getStringExtra("source");//商品来源
         }
         goodsId = getIntent().getStringExtra("otherGoodsId");//商品id
-        if (getIntent().getAction() != null && getIntent().getAction().equals(Intent.ACTION_VIEW)) {
-            Uri uri = getIntent().getData();//H5跳转过来
-            if (uri != null) {
-                goodsId = uri.getQueryParameter("id");
-                source = uri.getQueryParameter("source");
-            }
-        }
-        parity = getIntent().getStringExtra("parity");
         mPresenter.setStatusBarHight(mBinding.statusBar,this);
         mBinding.swipeTarget.setOnScrollListener(scrollY -> {
             if (scrollY >= mBinding.detailName.getTop()){
@@ -212,161 +200,6 @@ public class TBShoppingDetailActivity extends BaseActivity implements View.OnCli
             mBinding.detailCommentGo.setVisibility(View.GONE);
             mBinding.detailCommentLayout.setVisibility(View.GONE);
             mBinding.detailGoShop.setVisibility(View.GONE);
-        }
-    }
-
-    @Override
-    public void onClick(View v) {
-        switch (v.getId()){
-            case R.id.title_back:
-                finish();
-                break;
-            case R.id.detail_decSpeach:
-                if (goodsType == 1){
-                    if (mDetailList.size() != 0){
-                        mBinding.detailDecSpeach.setVisibility(View.GONE);
-                        mBinding.detailDec.setVisibility(View.VISIBLE);
-                    }else {
-                        ToastUtil.show("暂无商品详情");
-                    }
-                }else {
-                    mDialog = (new ProgressDialogView()).createLoadingDialog(this, "");
-                    mDialog.show();
-                    mPresenter.getGoodsDescImgs(goodsId,source,this.bindToLifecycle());
-                }
-                break;
-            case R.id.detail_couponImg:
-            case R.id.detail_buy:
-                if(TextUtils.isEmpty(SPUtils.getInstance(CommonDate.USER).getString(CommonDate.token,""))){
-                    startActivityForResult(new Intent(this, LoginActivity.class),201);
-                    return;
-                }
-                if (source.equals("2")){//只有淘宝商品进行授权
-                    TaoBaoUtil.openTB(this, () -> {
-                        if (level.equals("0")){
-                            //非会员弹窗
-                            DialogUtil.buyMemberDialog(this, fee, UpFee, v14 -> {
-                                mPresenter.getGoodsClickUrl(source, goodsId, this.bindToLifecycle());
-                            }, v1 -> {
-                                buyRefresh = true;
-                                startActivity(new Intent(this, HomeNewActivity.class)
-                                        .putExtra("type",HomeNewActivity.member)
-                                );
-                            });
-                        }else {
-                            mDialog = (new ProgressDialogView()).createPlatformDialog(this, money, R.mipmap.dialog_tb);
-                            mDialog.show();
-                            mPresenter.getGoodsClickUrl(source, goodsId, this.bindToLifecycle());
-                        }
-                    });
-                }else {
-                    if (level.equals("0")){
-                        //非会员弹窗
-                        DialogUtil.buyMemberDialog(this, fee, UpFee, v14 -> {
-                            mPresenter.getGoodsClickUrl(source, goodsId, this.bindToLifecycle());
-                        }, v12 -> {
-                            buyRefresh = true;
-                            startActivity(new Intent(this, HomeNewActivity.class)
-                                    .putExtra("type",HomeNewActivity.member)
-                            );
-                        });
-                    }else {
-                        if (source.equals("1")){
-                            mDialog = (new ProgressDialogView()).createPlatformDialog(this, money, R.mipmap.dialog_jd);
-                        }else {
-                            mDialog = (new ProgressDialogView()).createPlatformDialog(this, money, R.mipmap.dialog_pdd);
-                        }
-                        mDialog.show();
-                        mPresenter.getGoodsClickUrl(source, goodsId, this.bindToLifecycle());
-                    }
-                }
-                break;
-            case R.id.detail_share:
-                if(TextUtils.isEmpty(SPUtils.getInstance(CommonDate.USER).getString(CommonDate.token,""))){
-                    startActivityForResult(new Intent(this, LoginActivity.class),201);
-                    return;
-                }
-                if (level.equals("0")){
-                    //非会员是拼团逻辑
-                    if (source.equals("2")){
-                        TaoBaoUtil.openTB(this, () -> {
-                            mDialog = (new ProgressDialogView()).createPlatformGroupDialog(this, source, UpFee, fee);
-                            mDialog.show();
-                            mPresenter.groupCreate(goodsId,source,this.bindToLifecycle());
-                        });
-                    }else {
-                        mDialog = (new ProgressDialogView()).createPlatformGroupDialog(this, source, UpFee, fee);
-                        mDialog.show();
-                        mPresenter.groupCreate(goodsId,source,this.bindToLifecycle());
-                    }
-                }else {
-                    //会员是分享逻辑
-                    if (source.equals("2")){
-                        TaoBaoUtil.openTB(this, () -> {
-                            startActivity(new Intent(this, ShareActivity.class)
-                                    .putExtra("otherGoodsId",goodsId)
-                                    .putExtra("source",source)
-                            );
-                        });
-                    }else {
-                        startActivity(new Intent(this, ShareActivity.class)
-                                .putExtra("otherGoodsId",goodsId)
-                                .putExtra("source",source)
-                        );
-                    }
-                }
-                break;
-            case R.id.detail_home:
-                EventBus.getDefault().post(new TBShopDetailBus(TBShopDetailBus.finish));
-                EventBus.getDefault().post(new ChangeHomePageBus(0));
-                break;
-            case R.id.title_favor:
-                if(TextUtils.isEmpty(SPUtils.getInstance(CommonDate.USER).getString(CommonDate.token,""))){
-                    startActivityForResult(new Intent(this, LoginActivity.class),201);
-                    return;
-                }
-                if (ClickUtil.isFastDoubleClick(1000)) {
-                    ToastUtil.show("您点击太快了，请休息会再点");
-                    return;
-                }else{
-                    if(isCollect){
-                        //收藏过了
-                        mPresenter.collectDelete(goodsId,this.bindToLifecycle());
-                    }else {
-                        //没有收藏
-                        mPresenter.collectInsert(goodsId,source,this.bindToLifecycle());
-                    }
-                }
-                break;
-            case R.id.detail_bottomMemberGo:
-            case R.id.detail_memberGo:
-                if (level.equals("0")){
-                    buyRefresh = true;
-                    startActivity(new Intent(this, HomeNewActivity.class)
-                            .putExtra("type",HomeNewActivity.member)
-                    );
-                }
-                break;
-            case R.id.detail_memberClose:
-                isStart = false;
-                mBinding.detailMemberContainer.setVisibility(View.GONE);
-                break;
-            case R.id.detail_invationContainer:
-                //查看拼团
-                lookTean();
-                break;
-            case R.id.detail_goShop:
-                //进入商店
-                mDialog = (new ProgressDialogView()).createLoadingDialog(this, "");
-                mDialog.show();
-                mPresenter.getShopUrl(goodsId,this.bindToLifecycle());
-                break;
-            case R.id.detail_commentGo:
-                //查看全部评论
-                mDialog = (new ProgressDialogView()).createLoadingDialog(this, "");
-                mDialog.show();
-                TaoBaoUtil.openAliHomeWeb(this,commenUrl,"");
-                break;
         }
     }
 
@@ -472,10 +305,8 @@ public class TBShoppingDetailActivity extends BaseActivity implements View.OnCli
             mBinding.detailMemberGo.setVisibility(View.GONE);
             mBinding.shopFee.setText("会员返 ¥" + fee);
             isStart = false;
-            mBinding.detailShareCode.setText("¥"+ new BigDecimal(free).setScale(2,BigDecimal.ROUND_HALF_UP).stripTrailingZeros().toPlainString());
-            mBinding.detailShareCodeText.setText("分享赚");
-            mBinding.detailFreeCode.setText("¥"+ new BigDecimal(free).setScale(2,BigDecimal.ROUND_HALF_UP).stripTrailingZeros().toPlainString());
-            mBinding.detailFreeCodeText.setText("购买返");
+            mBinding.detailFreeCode.setText("返:"+ new BigDecimal(bean.getData().getBuyPrice()).setScale(2,BigDecimal.ROUND_HALF_UP).stripTrailingZeros().toPlainString());
+            mBinding.detailFreeCodeText.setText("直接买");
             mBinding.detailInvationContainer.setVisibility(View.GONE);
             mBinding.detailImgNotice.setVisibility(View.GONE);
         }else {//非会员
@@ -486,24 +317,10 @@ public class TBShoppingDetailActivity extends BaseActivity implements View.OnCli
             mBinding.detailMemberGo.setImageResource(R.mipmap.detail_opening);
             mBinding.detailMemberGo.setVisibility(View.VISIBLE);
             mBinding.shopFee.setText("返 ¥" + fee);
-            mBinding.detailShareCode.setText("¥"+ new BigDecimal(bean.getData().getUpFee()).setScale(2,BigDecimal.ROUND_HALF_UP).stripTrailingZeros().toPlainString());
-            mBinding.detailShareCodeText.setText("邀请返");
-            mBinding.detailFreeCode.setText("¥"+ new BigDecimal(bean.getData().getUpFee()).setScale(2,BigDecimal.ROUND_HALF_UP).stripTrailingZeros().toPlainString());
-            mBinding.detailFreeCodeText.setText("购买返");
+            mBinding.detailFreeCode.setText("返:"+ new BigDecimal(bean.getData().getBuyPrice()).setScale(2,BigDecimal.ROUND_HALF_UP).stripTrailingZeros().toPlainString());
+            mBinding.detailFreeCodeText.setText("直接买");
             mBinding.detailInvationContainer.setVisibility(View.GONE);
             mBinding.detailImgNotice.setVisibility(View.VISIBLE);
-        }
-        //比价弹窗
-        if (!TextUtils.isEmpty(parity)){
-            double freeparity = new BigDecimal(parity).doubleValue();
-            double commissionRate = new BigDecimal(bean.getData().getCommissionRate()).doubleValue();
-            if (freeparity - commissionRate != 0){
-                DialogUtil.parityDialog(this,source, v -> {
-                    startActivity(new Intent(this, VideoActivity.class)
-                            .putExtra("courseId", bean.getCourseId())
-                    );
-                });
-            }
         }
     }
 
@@ -516,125 +333,6 @@ public class TBShoppingDetailActivity extends BaseActivity implements View.OnCli
             mProgressDialog.dismiss();
         }
         ToastUtil.show(error);
-    }
-
-    @Override
-    public void LikeSuccess(SimilerGoodsBean bean) {
-        mUserLikeList.clear();
-        mUserLikeList.addAll(bean.getData());
-        mLikeAdapter.notifyDataSetChanged();
-    }
-
-    @Override
-    public void recommend(SimilerGoodsBean bean) {
-        mRecommendList.clear();
-        mRecommendList.addAll(bean.getData());
-        mRecommendAdapter.notifyDataSetChanged();
-    }
-
-    //评论列表
-    @Override
-    public void onComment(CommenBean bean) {
-        if (bean.getData() == null){
-            mBinding.detailCommentLayout.setVisibility(View.GONE);
-            mBinding.detailCommentNum.setText("宝贝评价(0)");
-        }else {
-            mBinding.detailCommentLayout.setVisibility(View.VISIBLE);
-            mBinding.setCommen(bean);
-            mBinding.executePendingBindings();
-        }
-        commenUrl = bean.getUrl();
-    }
-
-    //跳转到店铺
-    @Override
-    public void onShop(ImageBean bean) {
-        if (TextUtils.isEmpty(bean.getData())){
-            if (mDialog != null && mDialog.isShowing()){
-                mDialog.dismiss();
-            }
-            ToastUtil.show("获取店铺地址失败");
-            return;
-        }
-        TaoBaoUtil.openAliHomeWeb(this,bean.getData(),"");
-    }
-
-    @Override
-    public void onSucCollectInsert() {
-        EventBus.getDefault().post(FovalGoodsFragment.CollectResher);//刷新我的收藏列表
-        isCollect = true;
-        Drawable drawable= getResources().getDrawable(R.mipmap.com_favored);
-        drawable.setBounds(0, 0, drawable.getMinimumWidth(), drawable.getMinimumHeight());
-        drawable = DrawableCompat.wrap(drawable);
-        DrawableCompat.setTint(drawable, getResources().getColor(R.color.color_FF0000));
-        mBinding.titleFavor.setCompoundDrawables(null,drawable,null,null);
-        mBinding.titleFavor.setText("已收藏");
-    }
-
-    @Override
-    public void onSucCollectDelete() {
-        EventBus.getDefault().post(FovalGoodsFragment.CollectResher);//刷新我的收藏列表
-        isCollect = false;
-        Drawable drawable= getResources().getDrawable(R.mipmap.com_favor);
-        drawable.setBounds(0, 0, drawable.getMinimumWidth(), drawable.getMinimumHeight());
-        drawable = DrawableCompat.wrap(drawable);
-        DrawableCompat.setTint(drawable, getResources().getColor(R.color.color_565252));
-        mBinding.titleFavor.setCompoundDrawables(null,drawable,null,null);
-        mBinding.titleFavor.setText("收藏");
-    }
-
-    @Override
-    public void onBuyLinkSuccess(ClickUrlBean bean) {
-        if (mDialog != null && mDialog.isShowing()){
-            mDialog.dismiss();
-        }
-        if (source.equals("1")){
-            //京东
-            JDUtil.openJD(this, bean.getData().getMobileUrl());
-        }else if (source.equals("4")){
-            //拼多多
-            PDDUtil.jumpPDD(this,bean.getData().getSchemaUrl(),bean.getData().getMobileUrl());
-        }else {
-            TaoBaoUtil.openAliHomeWeb(this,bean.getData().getMobileUrl(),bean.getData().getOtherGoodsId());
-        }
-    }
-
-    @Override
-    public void onDescImgs(SucBean<String> bean) {
-        if (mDialog != null && mDialog.isShowing()){
-            mDialog.dismiss();
-        }
-        if (bean.getData() != null && bean.getData().size() != 0){
-            mBinding.detailDec.setVisibility(View.VISIBLE);
-            mBinding.detailDecSpeach.setVisibility(View.GONE);
-            mDetailList.clear();
-            mDetailList.addAll(bean.getData());
-            mImageAdapter.notifyDataSetChanged();
-        }else {
-            ToastUtil.show("暂无商品详情");
-        }
-    }
-
-    @Override
-    protected void onResume() {
-        super.onResume();
-        if (buyRefresh){
-            buyRefresh = false;
-            mPresenter.tbGoodsDetail(2,goodsId,source,this.bindToLifecycle());
-        }
-        if (mDialog != null && mDialog.isShowing()){
-            mDialog.dismiss();
-        }
-    }
-
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-        UMShareAPI.get(this).onActivityResult(requestCode, resultCode, data);
-        if (requestCode == 201 && resultCode == 200){
-            //登陆后刷新收藏
-            mPresenter.tbGoodsDetail(2,goodsId,source,this.bindToLifecycle());
-        }
     }
 
     @Override
@@ -681,8 +379,6 @@ public class TBShoppingDetailActivity extends BaseActivity implements View.OnCli
             mBinding.detailMemberGo.setVisibility(View.GONE);
             mBinding.shopFee.setText("会员返 ¥" + fee);
             isStart = false;
-            mBinding.detailShareCode.setText("¥"+ new BigDecimal(free).setScale(2,BigDecimal.ROUND_HALF_UP).stripTrailingZeros().toPlainString());
-            mBinding.detailShareCodeText.setText("分享赚");
             mBinding.detailFreeCode.setText("¥"+ new BigDecimal(free).setScale(2,BigDecimal.ROUND_HALF_UP).stripTrailingZeros().toPlainString());
             mBinding.detailFreeCodeText.setText("购买返");
             mBinding.detailInvationContainer.setVisibility(View.GONE);
@@ -695,8 +391,6 @@ public class TBShoppingDetailActivity extends BaseActivity implements View.OnCli
             mBinding.detailMemberGo.setImageResource(R.mipmap.detail_opening);
             mBinding.detailMemberGo.setVisibility(View.VISIBLE);
             mBinding.shopFee.setText("返 ¥" + fee);
-            mBinding.detailShareCode.setText("¥"+ new BigDecimal(bean.getData().getUpFee()).setScale(2,BigDecimal.ROUND_HALF_UP).stripTrailingZeros().toPlainString());
-            mBinding.detailShareCodeText.setText("邀请返");
             mBinding.detailFreeCode.setText("¥"+ new BigDecimal(bean.getData().getUpFee()).setScale(2,BigDecimal.ROUND_HALF_UP).stripTrailingZeros().toPlainString());
             mBinding.detailFreeCodeText.setText("购买返");
             mBinding.detailInvationContainer.setVisibility(View.GONE);
@@ -704,30 +398,117 @@ public class TBShoppingDetailActivity extends BaseActivity implements View.OnCli
         }
     }
 
-    //拼团成功后获取购买链接
     @Override
-    public void onCreateGroup() {
+    public void LikeSuccess(SimilerGoodsBean bean) {
+        mUserLikeList.clear();
+        mUserLikeList.addAll(bean.getData());
+        mLikeAdapter.notifyDataSetChanged();
+    }
+
+    @Override
+    public void recommend(SimilerGoodsBean bean) {
+        mRecommendList.clear();
+        mRecommendList.addAll(bean.getData());
+        mRecommendAdapter.notifyDataSetChanged();
+    }
+
+    @Override
+    public void onComment(CommenBean bean) {
+        if (bean.getData() == null){
+            mBinding.detailCommentLayout.setVisibility(View.GONE);
+            mBinding.detailCommentNum.setText("宝贝评价(0)");
+        }else {
+            mBinding.detailCommentLayout.setVisibility(View.VISIBLE);
+            mBinding.setCommen(bean);
+            mBinding.executePendingBindings();
+        }
+        commenUrl = bean.getUrl();
+    }
+
+    @Override
+    public void onDescImgs(SucBean<String> bean) {
+        if (mDialog != null && mDialog.isShowing()){
+            mDialog.dismiss();
+        }
+        if (bean.getData() != null && bean.getData().size() != 0){
+            mBinding.detailDec.setVisibility(View.VISIBLE);
+            mBinding.detailDecSpeach.setVisibility(View.GONE);
+            mDetailList.clear();
+            mDetailList.addAll(bean.getData());
+            mImageAdapter.notifyDataSetChanged();
+        }else {
+            ToastUtil.show("暂无商品详情");
+        }
+    }
+
+    @Override
+    public void onBuyLinkSuccess(ClickUrlBean bean) {
+        if (mDialog != null && mDialog.isShowing()){
+            mDialog.dismiss();
+        }
         mBinding.detailInvationContainer.setVisibility(View.VISIBLE);
-        mPresenter.getGoodsClickUrl(source, goodsId, this.bindToLifecycle());
+        TaoBaoUtil.openAliHomeWeb(this,bean.getData().getMobileUrl(),bean.getData().getOtherGoodsId());
+    }
+
+    @Override
+    public void onSucCollectInsert() {
+        EventBus.getDefault().post(FovalGoodsFragment.CollectResher);//刷新我的收藏列表
+        isCollect = true;
+        Drawable drawable= getResources().getDrawable(R.mipmap.com_favored);
+        drawable.setBounds(0, 0, drawable.getMinimumWidth(), drawable.getMinimumHeight());
+        drawable = DrawableCompat.wrap(drawable);
+        DrawableCompat.setTint(drawable, getResources().getColor(R.color.color_FF0000));
+        mBinding.titleFavor.setCompoundDrawables(null,drawable,null,null);
+        mBinding.titleFavor.setText("已收藏");
+    }
+
+    @Override
+    public void onSucCollectDelete() {
+        EventBus.getDefault().post(FovalGoodsFragment.CollectResher);//刷新我的收藏列表
+        isCollect = false;
+        Drawable drawable= getResources().getDrawable(R.mipmap.com_favor);
+        drawable.setBounds(0, 0, drawable.getMinimumWidth(), drawable.getMinimumHeight());
+        drawable = DrawableCompat.wrap(drawable);
+        DrawableCompat.setTint(drawable, getResources().getColor(R.color.color_565252));
+        mBinding.titleFavor.setCompoundDrawables(null,drawable,null,null);
+        mBinding.titleFavor.setText("收藏");
+    }
+
+    @Override
+    public void onShop(ImageBean bean) {
+        if (TextUtils.isEmpty(bean.getData())){
+            if (mDialog != null && mDialog.isShowing()){
+                mDialog.dismiss();
+            }
+            ToastUtil.show("获取店铺地址失败");
+            return;
+        }
+        TaoBaoUtil.openAliHomeWeb(this,bean.getData(),"");
     }
 
     //获取拼团状态
     public void lookTean(){
         mDialog = (new ProgressDialogView()).createLoadingDialog(this, "");
         mDialog.show();
-        mPresenter.groupStatus(goodsId,this.bindToLifecycle());
+        mPresenter.getReturnGoodsInfo(goodsId,this.bindToLifecycle());
     }
 
-    //获取拼团状态回调
+    //弹窗信息
     @Override
-    public void onGroupDialogSuc(SucBeanT<String> bean) {//0未下单，1下单成功
-        if (bean != null && bean.getData().equals("1")){
-            mPresenter.initShare(this.bindToLifecycle());
+    public void onPop(PopBean bean) {
+        if (mDialog != null && mDialog.isShowing()){
+            mDialog.dismiss();
+        }
+        if (bean.getData() != null){
+            //有弹窗
+            DialogUtil.buyNoticeDialog(this, bean.getData().getAddAllowancePrice(),
+                    bean.getAddPoint(), v -> {
+                        mDialog = (new ProgressDialogView()).createLoadingDialog(this, "");
+                        mDialog.show();
+                        mPresenter.initShare(this.bindToLifecycle());
+                    });
         }else {
-            if (mDialog != null && mDialog.isShowing()){
-                mDialog.dismiss();
-            }
-            DialogUtil.listingDetele(this, "订单消息", "很抱歉未找到您的订单，您可以选择重试\n或在个人中心-待邀请列表",
+            DialogUtil.listingDetele(this, "订单消息", "很抱歉未找到您的订单，您可以选择重试\n或在百万补贴页面可查看返利金额",
                     "重试", "关闭", R.color.color_202020, R.color.color_4A90E2, R.color.color_9D9D9D, R.color.color_565252,
                     true, false, v13 -> {
                         //重试
@@ -743,11 +524,116 @@ public class TBShoppingDetailActivity extends BaseActivity implements View.OnCli
                         bean.getData().getImgUrl(),R.mipmap.share_logo);
     }
 
-    @Subscribe
-    public void finishPage(TBShopDetailBus bus){
-        if (bus != null && bus.getTag().equals(TBShopDetailBus.finish)){
-            finish();
+    @Override
+    public void onClick(View v) {
+        switch (v.getId()){
+            case R.id.title_back:
+                finish();
+                break;
+            case R.id.detail_decSpeach:
+                if (goodsType == 1){
+                    if (mDetailList.size() != 0){
+                        mBinding.detailDecSpeach.setVisibility(View.GONE);
+                        mBinding.detailDec.setVisibility(View.VISIBLE);
+                    }else {
+                        ToastUtil.show("暂无商品详情");
+                    }
+                }else {
+                    mDialog = (new ProgressDialogView()).createLoadingDialog(this, "");
+                    mDialog.show();
+                    mPresenter.getGoodsDescImgs(goodsId,source,this.bindToLifecycle());
+                }
+                break;
+            case R.id.detail_couponImg:
+            case R.id.detail_buy:
+                if(TextUtils.isEmpty(SPUtils.getInstance(CommonDate.USER).getString(CommonDate.token,""))){
+                    startActivityForResult(new Intent(this, LoginActivity.class),201);
+                    return;
+                }
+                TaoBaoUtil.openTB(this, () -> {
+                    if (level.equals("0")) {
+                        //非会员弹窗
+                        DialogUtil.buyMemberDialog(this, fee, UpFee, v14 -> {
+                            mPresenter.getReturnGoodsClickUrl(goodsId, this.bindToLifecycle());
+                        }, v1 -> {
+                            buyRefresh = true;
+                            startActivity(new Intent(this, HomeNewActivity.class)
+                                    .putExtra("type", HomeNewActivity.member)
+                            );
+                        });
+                    } else {
+                        mDialog = (new ProgressDialogView()).createPlatformDialog(this, money, R.mipmap.dialog_tb);
+                        mDialog.show();
+                        mPresenter.getReturnGoodsClickUrl(goodsId, this.bindToLifecycle());
+                    }
+                });
+                break;
+            case R.id.detail_home:
+                EventBus.getDefault().post(new TBShopDetailBus(TBShopDetailBus.finish));
+                EventBus.getDefault().post(new ChangeHomePageBus(0));
+                break;
+            case R.id.title_favor:
+                if(TextUtils.isEmpty(SPUtils.getInstance(CommonDate.USER).getString(CommonDate.token,""))){
+                    startActivityForResult(new Intent(this, LoginActivity.class),201);
+                    return;
+                }
+                if (ClickUtil.isFastDoubleClick(1000)) {
+                    ToastUtil.show("您点击太快了，请休息会再点");
+                    return;
+                }else{
+                    if(isCollect){
+                        //收藏过了
+                        mPresenter.collectDelete(goodsId,this.bindToLifecycle());
+                    }else {
+                        //没有收藏
+                        mPresenter.collectInsert(goodsId,source,this.bindToLifecycle());
+                    }
+                }
+                break;
+            case R.id.detail_bottomMemberGo:
+            case R.id.detail_memberGo:
+                if (level.equals("0")){
+                    buyRefresh = true;
+                    startActivity(new Intent(this, HomeNewActivity.class)
+                            .putExtra("type",HomeNewActivity.member)
+                    );
+                }
+                break;
+            case R.id.detail_memberClose:
+                isStart = false;
+                mBinding.detailMemberContainer.setVisibility(View.GONE);
+                break;
+            case R.id.detail_invationContainer:
+                //查看买多少返多少弹窗
+                lookTean();
+                break;
+            case R.id.detail_goShop:
+                //进入商店
+                mDialog = (new ProgressDialogView()).createLoadingDialog(this, "");
+                mDialog.show();
+                mPresenter.getShopUrl(goodsId,this.bindToLifecycle());
+                break;
+            case R.id.detail_commentGo:
+                //查看全部评论
+                mDialog = (new ProgressDialogView()).createLoadingDialog(this, "");
+                mDialog.show();
+                TaoBaoUtil.openAliHomeWeb(this,commenUrl,"");
+                break;
         }
+    }
+
+    @Override
+    public void onItemShare(int position) {
+        if(TextUtils.isEmpty(SPUtils.getInstance(CommonDate.USER).getString(CommonDate.token,""))){
+            startActivityForResult(new Intent(this, LoginActivity.class),201);
+            return;
+        }
+        TaoBaoUtil.openTB(this, () -> {
+            startActivity(new Intent(this, ShareActivity.class)
+                    .putExtra("otherGoodsId",mUserLikeList.get(position).getOtherGoodsId())
+                    .putExtra("source","2")
+            );
+        });
     }
 
     @Override
@@ -758,17 +644,32 @@ public class TBShoppingDetailActivity extends BaseActivity implements View.OnCli
         AlibcTradeSDK.destory();
     }
 
-    @Override
-    public void onItemShare(int position) {
-        if(TextUtils.isEmpty(SPUtils.getInstance(CommonDate.USER).getString(CommonDate.token,""))){
-            startActivityForResult(new Intent(this, LoginActivity.class),201);
-            return;
+    @Subscribe
+    public void finishPage(TBShopDetailBus bus){
+        if (bus != null && bus.getTag().equals(TBShopDetailBus.finish)){
+            finish();
         }
-        TaoBaoUtil.openTB(this, () -> {
-            startActivity(new Intent(TBShoppingDetailActivity.this, ShareActivity.class)
-                    .putExtra("otherGoodsId",mUserLikeList.get(position).getOtherGoodsId())
-                    .putExtra("source","2")
-            );
-        });
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        UMShareAPI.get(this).onActivityResult(requestCode, resultCode, data);
+        if (requestCode == 201 && resultCode == 200){
+            //登陆后刷新收藏
+            mPresenter.tbGoodsDetail(2,goodsId,source,this.bindToLifecycle());
+        }
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        if (buyRefresh){
+            buyRefresh = false;
+            mPresenter.tbGoodsDetail(2,goodsId,source,this.bindToLifecycle());
+        }
+        if (mDialog != null && mDialog.isShowing()){
+            mDialog.dismiss();
+        }
     }
 }

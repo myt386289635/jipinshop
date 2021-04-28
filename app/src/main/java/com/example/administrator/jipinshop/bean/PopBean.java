@@ -12,6 +12,15 @@ public class PopBean {
     private String msg;
     private int code;
     private DataBean data;
+    private String addPoint;
+
+    public String getAddPoint() {
+        return addPoint;
+    }
+
+    public void setAddPoint(String addPoint) {
+        this.addPoint = addPoint;
+    }
 
     public String getMsg() {
         return msg;

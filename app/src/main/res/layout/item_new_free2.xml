@@ -16,6 +16,7 @@
             android:layout_height="wrap_content">
 
             <TextView
+                android:drawableTint="@color/color_E25838"
                 android:drawablePadding="@dimen/x4"
                 android:drawableLeft="@mipmap/bg_newfree3"
                 android:id="@+id/item_title"

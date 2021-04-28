@@ -3,6 +3,9 @@ package com.example.administrator.jipinshop.util;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.net.Uri;
+import android.support.annotation.NonNull;
 import android.text.TextUtils;
 import android.webkit.WebChromeClient;
 import android.webkit.WebViewClient;
@@ -15,7 +18,6 @@ import com.alibaba.baichuan.android.trade.page.AlibcBasePage;
 import com.alibaba.baichuan.android.trade.page.AlibcDetailPage;
 import com.alibaba.baichuan.trade.biz.applink.adapter.AlibcFailModeType;
 import com.alibaba.baichuan.trade.biz.context.AlibcTradeResult;
-import com.alibaba.baichuan.trade.biz.core.taoke.AlibcTaokeParams;
 import com.alibaba.baichuan.trade.biz.login.AlibcLogin;
 import com.alibaba.baichuan.trade.biz.login.AlibcLoginCallback;
 import com.alibaba.baichuan.trade.common.utils.AlibcLogger;
@@ -107,6 +109,38 @@ public class TaoBaoUtil {
                         }
                     });
         }
+    }
+
+    /**
+     * 跳转到淘宝
+     */
+    public static void jumpTB(Context context,String url,String errorUrl){
+        if (checkHasInstalledApp(context)){
+            Intent intent=new Intent(Intent.ACTION_VIEW, Uri.parse(url));
+            context.startActivity(intent);
+        }else {
+            ToastUtil.show("您未安装淘宝app，正在为您打开浏览器");
+            Intent intent=new Intent(Intent.ACTION_VIEW, Uri.parse(errorUrl));
+            context.startActivity(intent);
+        }
+    }
+
+    /**
+     * 判断是否安装淘宝
+     */
+    public static boolean checkHasInstalledApp(@NonNull Context context) {
+        PackageManager pm = context.getPackageManager();
+        String pkgName = "com.taobao.taobao";
+        boolean app_installed;
+        try {
+            pm.getPackageInfo(pkgName, PackageManager.GET_GIDS);
+            app_installed = true;
+        } catch (PackageManager.NameNotFoundException e) {
+            app_installed = false;
+        } catch (RuntimeException e) {
+            app_installed = false;
+        }
+        return app_installed;
     }
 
     /**

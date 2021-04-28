@@ -1345,7 +1345,7 @@ public class DialogUtil {
 
     //每次下单后都需要弹出该弹窗
     public static void buyNoticeDialog(Context context , String fee, String cost,
-                                       View.OnClickListener runlistener , View.OnClickListener shareListener){
+                                      View.OnClickListener shareListener){
         AlertDialog.Builder builder = new AlertDialog.Builder(context, R.style.dialog);
         final Dialog dialog = builder.create();
         DialogHomeBuyBinding binding = DataBindingUtil.inflate(LayoutInflater.from(context), R.layout.dialog_home_buy, null, false);
@@ -1353,11 +1353,9 @@ public class DialogUtil {
         binding.dialogCost.setText("+"+ cost +"极币");
         binding.dialogSure.setOnClickListener(v -> {
             context.startActivity(new Intent(context, CheapBuyActivity.class));
-            runlistener.onClick(v);
             dialog.dismiss();
         });
         binding.dialogDismiss.setOnClickListener(v -> {
-            runlistener.onClick(v);
             dialog.dismiss();
         });
         binding.dialogShare.setOnClickListener(v -> {

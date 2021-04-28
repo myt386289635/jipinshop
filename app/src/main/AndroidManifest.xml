@@ -928,6 +928,14 @@
         <activity android:name=".activity.web.server.ServerWebActivity"
                   android:screenOrientation="portrait"/>
 
+        <!--买多少送多少-->
+        <activity android:name=".activity.home.sell.SellWebActivity"
+                  android:screenOrientation="portrait"/>
+
+        <!--买多少送多少的详情页-->
+        <activity android:name=".activity.home.sell.detail.SellDetailActivity"
+                  android:screenOrientation="portrait"/>
+
     </application>
 
 </manifest>

@@ -28,6 +28,7 @@ import com.example.administrator.jipinshop.R
 import com.example.administrator.jipinshop.activity.WebActivity
 import com.example.administrator.jipinshop.activity.home.comprehensive.ComprehensiveActivity
 import com.example.administrator.jipinshop.activity.home.home.HomeNewActivity
+import com.example.administrator.jipinshop.activity.home.sell.SellWebActivity
 import com.example.administrator.jipinshop.activity.login.LoginActivity
 import com.example.administrator.jipinshop.activity.member.zero.ZeroActivity
 import com.example.administrator.jipinshop.activity.shoppingdetail.tbshoppingdetail.TBShoppingDetailActivity
@@ -380,8 +381,11 @@ class KTMain2Adapter : RecyclerView.Adapter<RecyclerView.ViewHolder>{
                             mContext.startActivity(Intent(mContext, LoginActivity::class.java))
                             return@setOnClickListener
                         }
-                        //todo 买多少送多少
-                        ToastUtil.show("买多少送多少")
+                        //买多少送多少
+                        mContext.startActivity(Intent(mContext, SellWebActivity::class.java)
+                                .putExtra(SellWebActivity.url , RetrofitModule.JP_H5_URL + "new-free/giveAway?token="
+                                        + SPUtils.getInstance(CommonDate.USER).getString(CommonDate.token))
+                        )
                     }
                     binding.msContainer.setOnClickListener {
                         if (TextUtils.isEmpty(SPUtils.getInstance(CommonDate.USER).getString(CommonDate.token, ""))) {

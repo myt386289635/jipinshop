@@ -8,6 +8,7 @@ import com.example.administrator.jipinshop.bean.BudgetDetailBean;
 import com.example.administrator.jipinshop.bean.CircleListBean;
 import com.example.administrator.jipinshop.bean.CircleTitleBean;
 import com.example.administrator.jipinshop.bean.ClickUrlBean;
+import com.example.administrator.jipinshop.bean.CommenBean;
 import com.example.administrator.jipinshop.bean.CommentBean;
 import com.example.administrator.jipinshop.bean.CommssionDetailBean;
 import com.example.administrator.jipinshop.bean.DailyTaskBean;
@@ -1373,5 +1374,29 @@ public interface APIService {
      */
     @GET("api/tbk/listLikeGoods")
     Observable<SimilerGoodsBean> listLikeGoods(@Query("otherGoodsId") String otherGoodsId);
+
+    /**
+     * 获取商品详情里评论信息
+     */
+    @GET("api/v3/tbk/getFeedback")
+    Observable<CommenBean> getFeedback(@Query("otherGoodsId") String otherGoodsId);
+
+    /**
+     * 获取店铺地址
+     */
+    @GET("api/v3/tbk/getShopUrl")
+    Observable<ImageBean> getShopUrl(@Query("otherGoodsId") String otherGoodsId);
+
+    /**
+     * 获取买多少返多少专属购买链接
+     */
+    @GET("api/v3/tbk/getReturnGoodsClickUrl")
+    Observable<ClickUrlBean> getReturnGoodsClickUrl(@Query("otherGoodsId") String otherGoodsId);
+
+    /**
+     * 获取买多少返多少弹窗信息
+     */
+    @GET("api/v3/tbk/getReturnGoodsInfo")
+    Observable<PopBean> getReturnGoodsInfo(@Query("otherGoodsId") String otherGoodsId);
 
 }
