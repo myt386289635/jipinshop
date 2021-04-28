@@ -19,6 +19,7 @@ import com.example.administrator.jipinshop.activity.login.LoginActivity;
 import com.example.administrator.jipinshop.bean.AppVersionbean;
 import com.example.administrator.jipinshop.bean.EvaluationTabBean;
 import com.example.administrator.jipinshop.bean.ImageBean;
+import com.example.administrator.jipinshop.bean.NewPopInfoBean;
 import com.example.administrator.jipinshop.bean.PopBean;
 import com.example.administrator.jipinshop.bean.PopInfoBean;
 import com.example.administrator.jipinshop.bean.SucBean;
@@ -220,6 +221,23 @@ public class MainActivityPresenter {
                     }
                 }, throwable -> {
                     mView.onGroupDialogSuc(null);
+                });
+    }
+
+    //获取首页新人一系列弹窗 4个互斥弹窗
+    public void getNewPopInfo(LifecycleTransformer<NewPopInfoBean> transformer){
+        mRepository.getNewPopInfo()
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .compose(transformer)
+                .subscribe(bean -> {
+                    if (bean.getCode() == 0) {
+                        mView.onNewDialog(bean);
+                    }else {
+                        mView.onNewDialog(null);
+                    }
+                }, throwable -> {
+                    mView.onNewDialog(null);
                 });
     }
 }

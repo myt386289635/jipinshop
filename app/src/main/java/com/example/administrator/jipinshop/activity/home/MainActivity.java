@@ -22,6 +22,7 @@ import com.example.administrator.jipinshop.base.BaseActivity;
 import com.example.administrator.jipinshop.bean.AppVersionbean;
 import com.example.administrator.jipinshop.bean.EvaluationTabBean;
 import com.example.administrator.jipinshop.bean.ImageBean;
+import com.example.administrator.jipinshop.bean.NewPopInfoBean;
 import com.example.administrator.jipinshop.bean.PopBean;
 import com.example.administrator.jipinshop.bean.PopInfoBean;
 import com.example.administrator.jipinshop.bean.SucBean;
@@ -279,11 +280,27 @@ public class MainActivity extends BaseActivity implements MainView, ViewPager.On
             }else {
                 //老用户
                 NotificationUtil.OpenNotificationSetting(this, () -> {
-                    mPresenter.getPopInfo(this.bindToLifecycle()); //活动弹窗
+                    mPresenter.getNewPopInfo(this.bindToLifecycle());//新人系列4弹窗
                 });
             }
         } else {
             //二次进入app
+            mPresenter.getNewPopInfo(this.bindToLifecycle());//新人系列4弹窗
+        }
+    }
+
+    //新人系列4弹窗
+    @Override
+    public void onNewDialog(NewPopInfoBean bean) {
+        if (bean != null){
+            DialogUtil.newPeopleDialog(this, bean.getData().getImg(), v -> {
+                mPresenter.getPopInfo(this.bindToLifecycle()); //活动弹窗
+            }, v -> {
+                ShopJumpUtil.openBanner(this,bean.getData().getTargetType(),bean.getData().getTargetId(),
+                        bean.getData().getTitle(),bean.getData().getSource(),bean.getData().getRemark());
+                mPresenter.getPopInfo(this.bindUntilEvent(ActivityEvent.DESTROY)); //活动弹窗
+            });
+        }else {
             mPresenter.getPopInfo(this.bindToLifecycle()); //活动弹窗
         }
     }

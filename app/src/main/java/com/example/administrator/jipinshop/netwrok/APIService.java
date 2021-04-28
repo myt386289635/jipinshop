@@ -40,6 +40,7 @@ import com.example.administrator.jipinshop.bean.MyOrderBean;
 import com.example.administrator.jipinshop.bean.MyWalletBean;
 import com.example.administrator.jipinshop.bean.NewFreeBean;
 import com.example.administrator.jipinshop.bean.NewPeopleBean;
+import com.example.administrator.jipinshop.bean.NewPopInfoBean;
 import com.example.administrator.jipinshop.bean.OrderTBBean;
 import com.example.administrator.jipinshop.bean.OrderbyTypeBean;
 import com.example.administrator.jipinshop.bean.PagerStateBean;
@@ -925,6 +926,12 @@ public interface APIService {
      */
     @GET("api/v4/getPopInfo")
     Observable<PopInfoBean> getPopInfo();
+
+    /**
+     * 获取首页新人一系列弹窗 4个互斥弹窗
+     */
+    @GET("api/v4/getNewPopInfo")
+    Observable<NewPopInfoBean> getNewPopInfo();
 
     /**
      * 商品图文描述
