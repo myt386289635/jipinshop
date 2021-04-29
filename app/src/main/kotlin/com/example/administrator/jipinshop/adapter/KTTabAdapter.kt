@@ -2,6 +2,7 @@ package com.example.administrator.jipinshop.adapter
 
 import android.content.Context
 import com.example.administrator.jipinshop.R
+import com.example.administrator.jipinshop.bean.TBCategoryBean
 import com.example.administrator.jipinshop.view.tab.ColorFlipPagerTitleView
 import net.lucode.hackware.magicindicator.buildins.commonnavigator.abs.CommonNavigatorAdapter
 import net.lucode.hackware.magicindicator.buildins.commonnavigator.abs.IPagerIndicator
@@ -14,17 +15,17 @@ import net.lucode.hackware.magicindicator.buildins.commonnavigator.abs.IPagerTit
  */
 class KTTabAdapter : CommonNavigatorAdapter{
 
-    private var mTitle: MutableList<String>
+    private var mTitle: MutableList<TBCategoryBean.DataBean>
     private var mOnClickItem: OnClickItem
 
-    constructor(title: MutableList<String>, onClickItem: OnClickItem){
+    constructor(title: MutableList<TBCategoryBean.DataBean>, onClickItem: OnClickItem){
         mTitle = title
         mOnClickItem = onClickItem
     }
 
     override fun getTitleView(context: Context, index: Int): IPagerTitleView {
         var simplePagerTitleView = ColorFlipPagerTitleView(context, context.resources.getDimension(R.dimen.x30).toInt(), context.resources.getDimension(R.dimen.x30).toInt())
-        simplePagerTitleView.text = mTitle[index]
+        simplePagerTitleView.text = mTitle[index].name
         var paint =  simplePagerTitleView.paint
         paint.isFakeBoldText = true
         simplePagerTitleView.normalColor = context.resources.getColor(R.color.color_202020)

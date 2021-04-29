@@ -70,6 +70,7 @@ import com.example.administrator.jipinshop.bean.SubUserBean;
 import com.example.administrator.jipinshop.bean.SucBean;
 import com.example.administrator.jipinshop.bean.SucBeanT;
 import com.example.administrator.jipinshop.bean.SuccessBean;
+import com.example.administrator.jipinshop.bean.TBCategoryBean;
 import com.example.administrator.jipinshop.bean.TBShoppingDetailBean;
 import com.example.administrator.jipinshop.bean.TBSreachResultBean;
 import com.example.administrator.jipinshop.bean.TabBean;
@@ -1544,5 +1545,19 @@ public class Repository {
      */
     public Observable<PopBean> getReturnGoodsInfo(String otherGoodsId){
         return mAPIService.getReturnGoodsInfo(otherGoodsId);
+    }
+
+    /**
+     * 热销淘宝分类
+     */
+    public Observable<TBCategoryBean> topCategory(){
+        return mAPIService.topCategory();
+    }
+
+    /**
+     * 热销列表
+     */
+    public Observable<SimilerGoodsBean> topGoodsList(HashMap<String,String> map){
+        return mAPIService.topGoodsList(map);
     }
 }

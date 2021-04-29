@@ -70,6 +70,7 @@ import com.example.administrator.jipinshop.bean.SucBean;
 import com.example.administrator.jipinshop.bean.SucBeanT;
 import com.example.administrator.jipinshop.bean.SuccessBean;
 import com.example.administrator.jipinshop.bean.MessageBean;
+import com.example.administrator.jipinshop.bean.TBCategoryBean;
 import com.example.administrator.jipinshop.bean.TBShoppingDetailBean;
 import com.example.administrator.jipinshop.bean.TBSreachResultBean;
 import com.example.administrator.jipinshop.bean.TabBean;
@@ -1406,4 +1407,15 @@ public interface APIService {
     @GET("api/v3/tbk/getReturnGoodsInfo")
     Observable<PopBean> getReturnGoodsInfo(@Query("otherGoodsId") String otherGoodsId);
 
+    /**
+     * 热销淘宝分类
+     */
+    @GET("api/v3/tbk/topCategory")
+    Observable<TBCategoryBean> topCategory();
+
+    /**
+     * 热销列表
+     */
+    @GET("api/v3/tbk/topGoodsList")
+    Observable<SimilerGoodsBean> topGoodsList(@QueryMap HashMap<String,String> map);
 }

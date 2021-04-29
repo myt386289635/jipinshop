@@ -3,14 +3,23 @@ package com.example.administrator.jipinshop.fragment.sale;
 import android.content.Context;
 import android.graphics.drawable.Drawable;
 import android.support.v4.graphics.drawable.DrawableCompat;
+import android.text.TextUtils;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
 
 import com.example.administrator.jipinshop.R;
+import com.example.administrator.jipinshop.bean.SimilerGoodsBean;
+import com.example.administrator.jipinshop.bean.TBCategoryBean;
 import com.example.administrator.jipinshop.databinding.FragmentSaleBinding;
 import com.example.administrator.jipinshop.netwrok.Repository;
+import com.trello.rxlifecycle2.LifecycleTransformer;
+
+import java.util.HashMap;
 
 import javax.inject.Inject;
+
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.schedulers.Schedulers;
 
 /**
  * @author 莫小婷
@@ -63,5 +72,45 @@ public class SaleHotPresenter {
             mBinding.saleTitleRight.setTextColor(context.getResources().getColor(R.color.color_white));
         }
         mView.refresh();
+    }
+
+    public void topCategory(LifecycleTransformer<TBCategoryBean> transformer){
+        mRepository.topCategory()
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .compose(transformer)
+                .subscribe(bean -> {
+                    if (bean.getCode() == 0){
+                        mView.onSuccess(bean);
+                    }else {
+                        mView.onFile(bean.getMsg());
+                    }
+                }, throwable -> {
+                    mView.onFile(throwable.getMessage());
+                });
+    }
+
+    public void topGoodsList(String cid , int page,  String saleType, String source
+            , LifecycleTransformer<SimilerGoodsBean> transformer){
+        HashMap<String,String> map  = new HashMap<>();
+        map.put("page", page + "");
+        map.put("saleType" , saleType);
+        map.put("source", source);
+        if (!TextUtils.isEmpty(cid)){
+            map.put("cid",cid);
+        }
+        mRepository.topGoodsList(map)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .compose(transformer)
+                .subscribe(bean -> {
+                    if (bean.getCode() == 0){
+                        mView.onGoodsList(bean);
+                    }else {
+                        mView.onGoodsFile(bean.getMsg());
+                    }
+                }, throwable -> {
+                    mView.onGoodsFile(throwable.getMessage());
+                });
     }
 }

@@ -22,6 +22,7 @@ import com.example.administrator.jipinshop.adapter.KTTabAdapter4;
 import com.example.administrator.jipinshop.adapter.KTUserLikeAdapter;
 import com.example.administrator.jipinshop.base.DBBaseFragment;
 import com.example.administrator.jipinshop.bean.SimilerGoodsBean;
+import com.example.administrator.jipinshop.bean.TBCategoryBean;
 import com.example.administrator.jipinshop.databinding.FragmentSaleBinding;
 import com.example.administrator.jipinshop.util.TaoBaoUtil;
 import com.example.administrator.jipinshop.util.ToastUtil;
@@ -60,7 +61,7 @@ public class SaleHotFragment extends DBBaseFragment implements View.OnClickListe
     private List<SimilerGoodsBean.DataBean> mList;
     private KTUserLikeAdapter mAdapter;
     //淘宝分类
-    private List<String> mTabTBTitle;
+    private List<TBCategoryBean.DataBean> mTabTBTitle;
     private KTTabAdapter mTabTBAdapter;
 
     public static SaleHotFragment getInstance(){
@@ -159,19 +160,21 @@ public class SaleHotFragment extends DBBaseFragment implements View.OnClickListe
         page = 1;
         mBinding.swipeTarget.scrollToPosition(0);
         if (source.equals("2")){
-            //todo 先请求tab
+            //先请求tab
             mBinding.saleTbCategoryContainer.setVisibility(View.VISIBLE);
+            mPresenter.topCategory(this.bindToLifecycle());
         }else {
-            //todo  请求列表
+            //请求列表
             mBinding.saleTbCategoryContainer.setVisibility(View.GONE);
+            mPresenter.topGoodsList(mTabTBTitle.get(category).getCid(),page, (left+ 1) + "" , source,this.bindToLifecycle());
         }
-        ToastUtil.show("left = "  + left +" , source = " + source);
     }
 
     @Override
     public void onLoadMore() {
         refresh = false;
         page++;
+        mPresenter.topGoodsList(mTabTBTitle.get(category).getCid(),page, (left+ 1) + "" , source,this.bindToLifecycle());
     }
 
 
@@ -180,6 +183,73 @@ public class SaleHotFragment extends DBBaseFragment implements View.OnClickListe
         mDialog = (new ProgressDialogView()).createLoadingDialog(getContext(), "");
         mDialog.show();
         onRefresh();
+    }
+
+    @Override
+    public void onSuccess(TBCategoryBean bean) {
+        mTabTBTitle.clear();
+        mTabTBTitle.addAll(bean.getData());
+        mTabTBAdapter.notifyDataSetChanged();
+        mPresenter.topGoodsList(mTabTBTitle.get(category).getCid(),page, (left+ 1) + "" , source,this.bindToLifecycle());
+    }
+
+    @Override
+    public void onFile(String error) {
+        stopRefresh();
+        ToastUtil.show(error);
+    }
+
+    @Override
+    public void onGoodsList(SimilerGoodsBean bean) {
+        if(refresh) {
+            stopRefresh();
+            mList.clear();
+            mList.addAll(bean.getData());
+            mAdapter.notifyDataSetChanged();
+        }else {
+            dissLoading();
+            if (bean.getData() != null && bean.getData().size() != 0){
+                mList.addAll(bean.getData());
+                mAdapter.notifyDataSetChanged();
+            }else {
+                page-- ;
+                ToastUtil.show("已经是最后一页了");
+            }
+        }
+        once = false;
+    }
+
+    @Override
+    public void onGoodsFile(String error) {
+        if(refresh){
+            stopRefresh();
+        }else {
+            dissLoading();
+            page--;
+        }
+        ToastUtil.show(error);
+    }
+
+    //停止刷新
+    public void stopRefresh(){
+        if (mBinding.swipeToLoad != null && mBinding.swipeToLoad.isRefreshing()) {
+            if(!mBinding.swipeToLoad.isRefreshEnabled()){
+                mBinding.swipeToLoad.setRefreshEnabled(true);
+                mBinding.swipeToLoad.setRefreshing(false);
+                mBinding.swipeToLoad.setRefreshEnabled(false);
+            }else {
+                mBinding.swipeToLoad.setRefreshing(false);
+            }
+        }
+        if (mDialog != null && mDialog.isShowing()){
+            mDialog.dismiss();
+        }
+    }
+
+    public void dissLoading(){
+        if (mBinding.swipeToLoad != null && mBinding.swipeToLoad.isLoadingMore()) {
+            mBinding.swipeToLoad.setLoadingMore(false);
+        }
     }
 
     @Override
@@ -228,7 +298,7 @@ public class SaleHotFragment extends DBBaseFragment implements View.OnClickListe
         page = 1;
         category = index;
         mBinding.swipeTarget.scrollToPosition(0);
-        //todo  请求列表
-
+        //请求列表
+        mPresenter.topGoodsList(mTabTBTitle.get(category).getCid(),page, (left+ 1) + "" , source,this.bindToLifecycle());
     }
 }
