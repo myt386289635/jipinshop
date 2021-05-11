@@ -23,6 +23,7 @@ import com.blankj.utilcode.util.SPUtils;
 import com.example.administrator.jipinshop.R;
 import com.example.administrator.jipinshop.activity.home.home.HomeNewActivity;
 import com.example.administrator.jipinshop.activity.login.LoginActivity;
+import com.example.administrator.jipinshop.activity.member.buy.MemberBuyActivity;
 import com.example.administrator.jipinshop.activity.share.ShareActivity;
 import com.example.administrator.jipinshop.adapter.NoPageBannerAdapter;
 import com.example.administrator.jipinshop.adapter.ShoppingImageAdapter;
@@ -557,8 +558,8 @@ public class SellDetailActivity extends BaseActivity implements View.OnClickList
                             mPresenter.getReturnGoodsClickUrl(goodsId, this.bindToLifecycle());
                         }, v1 -> {
                             buyRefresh = true;
-                            startActivity(new Intent(this, HomeNewActivity.class)
-                                    .putExtra("type", HomeNewActivity.member)
+                            startActivity(new Intent(this, MemberBuyActivity.class)
+                                    .putExtra("isBuy", "1")
                             );
                         });
                     } else {

@@ -38,6 +38,7 @@ import com.example.administrator.jipinshop.R;
 import com.example.administrator.jipinshop.activity.WebActivity;
 import com.example.administrator.jipinshop.activity.cheapgoods.CheapBuyActivity;
 import com.example.administrator.jipinshop.activity.home.home.HomeNewActivity;
+import com.example.administrator.jipinshop.activity.member.buy.MemberBuyActivity;
 import com.example.administrator.jipinshop.activity.mine.group.MyGroupActivity;
 import com.example.administrator.jipinshop.activity.shoppingdetail.tbshoppingdetail.TBShoppingDetailActivity;
 import com.example.administrator.jipinshop.activity.sign.SignActivity;
@@ -591,7 +592,9 @@ public class DialogUtil {
         final Dialog dialog = builder.create();
         DialogShopGuideBinding binding = DataBindingUtil.inflate(LayoutInflater.from(context), R.layout.dialog_shop_guide, null, false);
         binding.itemGoMember.setOnClickListener(v -> {
-            EventBus.getDefault().post(new ChangeHomePageBus(2));
+            context.startActivity(new Intent(context, MemberBuyActivity.class)
+                    .putExtra("isBuy", "1")
+            );
             dialog.dismiss();
         });
         binding.dialogDismiss.setOnClickListener(v -> {
@@ -1078,7 +1081,7 @@ public class DialogUtil {
         AlertDialog.Builder builder = new AlertDialog.Builder(context, R.style.dialog);
         DialogMemberBuyBinding binding = DataBindingUtil.inflate(LayoutInflater.from(context), R.layout.dialog_member_buy, null, false);
         final Dialog dialog = builder.create();
-        binding.dialogUpFree.setText("办理会员（本单可返￥" + upFree + "）");
+        binding.dialogUpFree.setText("加入会员（本单可返￥" + upFree + "）");
         binding.dialogBuy.setText("直接购买（本单可返￥" + buyFree + "）");
         binding.dialogUpFree.setOnClickListener(v -> {
             buyListener.onClick(v);
@@ -1192,6 +1195,7 @@ public class DialogUtil {
         DialogPayFileBinding binding = DataBindingUtil.inflate(LayoutInflater.from(context), R.layout.dialog_pay_file, null, false);
         final Dialog dialog = builder.create();
         binding.dialogDismiss.setOnClickListener(v -> {
+            listener.onFinish();
             dialog.dismiss();
         });
         binding.dialogSure.setOnClickListener(v -> {
@@ -1210,6 +1214,7 @@ public class DialogUtil {
 
     public interface OnPayListener {
         void onPay(String type);
+        void onFinish();
     }
 
     //家庭dialog

@@ -163,7 +163,7 @@
                     android:textColor="@color/color_797778"
                     android:textSize="16sp"
                     android:gravity="center"
-                    android:text="确认放弃"
+                    android:text="我再考虑"
                     android:background="@drawable/bg_login"
                     android:layout_width="@dimen/x160"
                     android:layout_height="@dimen/y76"/>

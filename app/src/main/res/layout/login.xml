@@ -35,41 +35,79 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"/>
 
-        <TextView
-            android:id="@+id/login_title"
+        <ImageView
+            android:id="@+id/login_logo"
+            android:layout_below="@+id/status_bar"
+            android:layout_marginTop="@dimen/y121"
             android:layout_centerHorizontal="true"
-            android:layout_below="@+id/title_back"
-            android:layout_marginTop="@dimen/y116"
-            android:textStyle="bold"
-            android:textColor="@color/color_FAE1BF"
-            android:textSize="31sp"
-            android:text="极品城VIP会员特权"
-            android:layout_width="wrap_content"
+            android:scaleType="fitXY"
+            android:adjustViewBounds="true"
+            android:src="@mipmap/login_content1"
+            android:layout_width="@dimen/x210"
             android:layout_height="wrap_content"/>
 
         <TextView
-            android:paddingRight="@dimen/x10"
-            android:paddingLeft="@dimen/x10"
-            android:id="@+id/login_content1"
-            android:layout_marginTop="@dimen/y20"
+            android:id="@+id/login_title"
             android:layout_centerHorizontal="true"
-            android:layout_below="@+id/login_title"
+            android:layout_below="@+id/login_logo"
+            android:layout_marginTop="@dimen/y24"
             android:textStyle="bold"
-            android:textColor="@color/color_774A12"
-            android:textSize="13sp"
-            android:gravity="center"
-            android:minWidth="@dimen/x500"
-            android:text="汇聚100大电商平台，超300项尊享特权"
-            android:background="@drawable/bg_f8dbb5"
+            android:textColor="@color/color_FAE1BF"
+            android:textSize="31sp"
+            android:text="0利润 不赚佣"
             android:layout_width="wrap_content"
-            android:layout_height="@dimen/y44"/>
+            android:layout_height="wrap_content"/>
+
+
+        <LinearLayout
+            android:gravity="center"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="@dimen/y92"
+            android:orientation="horizontal"
+            android:id="@+id/login_title2"
+            android:layout_below="@id/login_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+
+
+            <View
+                android:background="@color/color_FDE5C5"
+                android:layout_width="@dimen/x50"
+                android:layout_height="@dimen/y1"/>
+
+            <TextView
+                android:textStyle="bold"
+                android:layout_marginRight="@dimen/x20"
+                android:layout_marginLeft="@dimen/x20"
+                android:textColor="@color/color_FDE5C5"
+                android:text="会员权益"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+
+            <View
+                android:background="@color/color_FDE5C5"
+                android:layout_width="@dimen/x50"
+                android:layout_height="@dimen/y1"/>
+
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/login_content1"
+            android:layout_marginTop="@dimen/y15"
+            android:layout_centerHorizontal="true"
+            android:layout_below="@+id/login_title2"
+            android:textColor="@color/color_FDE5C5"
+            android:textSize="14sp"
+            android:text="汇聚100大电商平台，超300项尊享特权"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
 
         <ImageView
             android:id="@+id/login_content2"
             android:src="@mipmap/login_content2"
             android:scaleType="fitXY"
             android:adjustViewBounds="true"
-            android:layout_marginTop="@dimen/y76"
+            android:layout_marginTop="@dimen/y21"
             android:layout_below="@+id/login_content1"
             android:layout_marginRight="@dimen/x20"
             android:layout_marginLeft="@dimen/x20"
@@ -103,7 +141,7 @@
             android:textSize="14sp"
             android:gravity="center"
             android:background="@mipmap/dialog_need"
-            android:text="登录即领108元红包"
+            android:text="登录即领800元大礼包"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"/>
 
@@ -131,7 +169,7 @@
             android:textColor="@color/color_FAE1BF"
             android:id="@+id/login_protocol"
             android:textSize="12sp"
-            android:text="登录即代表同意《极品城用户协议》及《 隐私政策》"
+            android:text="登录即代表同意《极品城用户协议》及《隐私协议》"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"/>
 

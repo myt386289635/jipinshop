@@ -50,11 +50,7 @@ public class PlaySreachResultAdapter extends RecyclerView.Adapter<PlaySreachResu
         viewHolder.itemView.setOnClickListener(v -> {
             if (mList.get(position).getPopStatus().equals("1") &&
                     SPUtils.getInstance(CommonDate.USER).getString(CommonDate.userMemberGrade, "0").equals("0")) {
-                DialogUtil.memberGuideDialog(mContext, v12 -> {
-                    mContext.startActivity(new Intent(mContext, HomeNewActivity.class)
-                            .putExtra("type",HomeNewActivity.member)
-                    );
-                });
+                DialogUtil.memberGuideDialog(mContext);
             } else {
                 ShopJumpUtil.openBanner(mContext, mList.get(position).getType() + "",
                         mList.get(position).getTargetId(), mList.get(position).getTitle(),

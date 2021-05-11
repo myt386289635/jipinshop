@@ -8,31 +8,43 @@
         android:layout_height="wrap_content">
 
         <RelativeLayout
-            android:background="@drawable/bg_buy_member"
             android:layout_gravity="center_horizontal"
             android:orientation="vertical"
             android:layout_width="@dimen/x580"
             android:layout_height="wrap_content">
 
-            <TextView
-                android:layout_marginBottom="@dimen/y45"
-                android:layout_marginTop="@dimen/y57"
-                android:layout_centerHorizontal="true"
-                android:textColor="@color/color_835720"
-                android:textStyle="bold"
-                android:textSize="21sp"
-                android:text="您还不是极品VIP会员"
-                android:layout_width="wrap_content"
+            <ImageView
+                android:scaleType="fitXY"
+                android:adjustViewBounds="true"
+                android:id="@+id/dialog_bg"
+                android:src="@mipmap/shop_guide2"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"/>
 
             <TextView
-                android:layout_marginTop="@dimen/y160"
+                android:layout_alignBottom="@id/dialog_bg"
+                android:layout_marginBottom="@dimen/y30"
+                android:layout_marginTop="@dimen/y26"
+                android:id="@+id/dialog_buy"
+                android:textStyle="bold"
+                android:textSize="16sp"
+                android:gravity="center"
+                android:text="直接购买（本单可返￥0.88）"
+                android:background="@drawable/bg_835720"
+                android:textColor="@color/color_835720"
+                android:layout_marginRight="@dimen/x46"
+                android:layout_marginLeft="@dimen/x46"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/y82"/>
+
+            <TextView
+                android:layout_above="@id/dialog_buy"
                 android:id="@+id/dialog_upFree"
                 android:textStyle="bold"
                 android:textSize="16sp"
                 android:gravity="center"
-                android:text="办理会员（本单可返￥10.88）"
-                android:background="@drawable/bg_login2"
+                android:text="加入会员（本单可返￥10.88）"
+                android:background="@drawable/bg_835720_2"
                 android:textColor="@color/color_white"
                 android:layout_marginRight="@dimen/x46"
                 android:layout_marginLeft="@dimen/x46"
@@ -49,25 +61,9 @@
                 android:textSize="14sp"
                 android:gravity="center"
                 android:background="@mipmap/dialog_need"
-                android:text="限时免费加入"
+                android:text="限时1元加入"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"/>
-
-            <TextView
-                android:layout_below="@+id/dialog_upFree"
-                android:layout_marginBottom="@dimen/y53"
-                android:layout_marginTop="@dimen/y32"
-                android:id="@+id/dialog_buy"
-                android:textStyle="bold"
-                android:textSize="16sp"
-                android:gravity="center"
-                android:text="直接购买（本单可返￥0.88）"
-                android:background="@drawable/bg_835720"
-                android:textColor="@color/color_835720"
-                android:layout_marginRight="@dimen/x46"
-                android:layout_marginLeft="@dimen/x46"
-                android:layout_width="match_parent"
-                android:layout_height="@dimen/y82"/>
 
         </RelativeLayout>
 

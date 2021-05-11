@@ -28,7 +28,7 @@
                 android:textColor="@color/color_white"
                 android:textStyle="bold"
                 android:textSize="16sp"
-                android:text="加入会员"
+                android:text="限时1元加入"
                 android:background="@drawable/bg_835720_2"
                 android:layout_marginBottom="@dimen/y60"
                 android:layout_centerHorizontal="true"
@@ -44,8 +44,10 @@
                 android:textColor="@color/color_C35E07"
                 android:textSize="14sp"
                 android:gravity="center"
+                android:paddingLeft="@dimen/x30"
+                android:paddingRight="@dimen/x30"
                 android:background="@mipmap/dialog_need"
-                android:text="限时免费加入"
+                android:text="即将恢复原价￥39"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"/>
 

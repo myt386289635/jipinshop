@@ -99,8 +99,16 @@ public class MemberBuyActivity extends BaseActivity implements View.OnClickListe
                 finish();
             } else {
                 //失败
-                DialogUtil.payFileDialog(this,isBuy,"1", type -> {
-                    onBuyMember(level,type);
+                DialogUtil.payFileDialog(this,isBuy,"1", new DialogUtil.OnPayListener() {
+                    @Override
+                    public void onPay(String type) {
+                        onBuyMember(level, type);
+                    }
+
+                    @Override
+                    public void onFinish() {
+                        finish();
+                    }
                 });
             }
         }
@@ -402,8 +410,16 @@ public class MemberBuyActivity extends BaseActivity implements View.OnClickListe
                 setResult(200,intent);
                 finish();
             } else if (bus.getType().equals(WXPayEntryActivity.pay_faile)) {
-                DialogUtil.payFileDialog(this,isBuy,"2",  type -> {
-                    onBuyMember(level, type);
+                DialogUtil.payFileDialog(this, isBuy, "2", new DialogUtil.OnPayListener() {
+                    @Override
+                    public void onPay(String type) {
+                        onBuyMember(level, type);
+                    }
+
+                    @Override
+                    public void onFinish() {
+                        finish();
+                    }
                 });
             }
         }
