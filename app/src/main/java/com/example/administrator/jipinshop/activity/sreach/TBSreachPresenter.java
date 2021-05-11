@@ -58,7 +58,7 @@ public class TBSreachPresenter {
         }
     }
 
-    public void initHistroy(final Context context, final FlexboxLayout flexboxLayout,TextView histroyMore, List<SreachHistoryBean.DataBean.LogListBean> hotText) {
+    public void initHistroy(final Context context, final FlexboxLayout flexboxLayout, List<SreachHistoryBean.DataBean.LogListBean> hotText) {
         flexboxLayout.removeAllViews();
         for (int i = 0; i < hotText.size(); i++) {
             final View itemTypeView = LayoutInflater.from(context).inflate(R.layout.item_sreach_histroy2, null);
@@ -74,11 +74,9 @@ public class TBSreachPresenter {
         flexboxLayout.post(() -> {
             ViewGroup.LayoutParams layoutParams =  flexboxLayout.getLayoutParams();
             if (flexboxLayout.getFlexLines().size() > 3){
-                layoutParams.height = (int) context.getResources().getDimension(R.dimen.y270);
-                histroyMore.setVisibility(View.VISIBLE);
+                layoutParams.height = (int) context.getResources().getDimension(R.dimen.y265);
             }else {
                 layoutParams.height = ViewGroup.LayoutParams.WRAP_CONTENT;
-                histroyMore.setVisibility(View.GONE);
             }
             flexboxLayout.setLayoutParams(layoutParams);
         });

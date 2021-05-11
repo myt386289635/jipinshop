@@ -4,16 +4,13 @@ import android.app.Dialog;
 import android.content.Intent;
 import android.databinding.DataBindingUtil;
 import android.graphics.drawable.ColorDrawable;
-import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.v4.graphics.drawable.DrawableCompat;
 import android.support.v7.widget.GridLayoutManager;
 import android.text.TextUtils;
 import android.view.KeyEvent;
 import android.view.MotionEvent;
 import android.view.View;
-import android.view.ViewGroup;
 import android.view.inputmethod.EditorInfo;
 import android.widget.EditText;
 import android.widget.LinearLayout;
@@ -170,39 +167,6 @@ public class TBSreachActivity extends BaseActivity implements View.OnClickListen
             case R.id.title_back:
                 finish();
                 break;
-            case R.id.sreach_historyMore:
-                if (!speach){
-                    //展开
-                    if (mBinding.searchHistory.getFlexLines().size() > 8){
-                        ViewGroup.LayoutParams layoutParams =  mBinding.searchHistory.getLayoutParams();
-                        layoutParams.height = (int) getResources().getDimension(R.dimen.y720);
-                        mBinding.searchHistory.setLayoutParams(layoutParams);
-                    }else {
-                        ViewGroup.LayoutParams layoutParams =  mBinding.searchHistory.getLayoutParams();
-                        layoutParams.height = ViewGroup.LayoutParams.WRAP_CONTENT;
-                        mBinding.searchHistory.setLayoutParams(layoutParams);
-                    }
-                    speach = true;
-                    mBinding.sreachHistoryMore.setText("收起");
-                    Drawable drawable= getResources().getDrawable(R.mipmap.right_up);
-                    drawable.setBounds(0, 0, drawable.getMinimumWidth(), drawable.getMinimumHeight());
-                    drawable = DrawableCompat.wrap(drawable);
-                    DrawableCompat.setTint(drawable, getResources().getColor(R.color.color_CACACA));
-                    mBinding.sreachHistoryMore.setCompoundDrawables(null,null,drawable,null);
-                }else {
-                    //不展开
-                    ViewGroup.LayoutParams layoutParams =  mBinding.searchHistory.getLayoutParams();
-                    layoutParams.height = (int) getResources().getDimension(R.dimen.y270);
-                    mBinding.searchHistory.setLayoutParams(layoutParams);
-                    speach = false;
-                    mBinding.sreachHistoryMore.setText("更多搜索历史");
-                    Drawable drawable= getResources().getDrawable(R.mipmap.right_down);
-                    drawable.setBounds(0, 0, drawable.getMinimumWidth(), drawable.getMinimumHeight());
-                    drawable = DrawableCompat.wrap(drawable);
-                    DrawableCompat.setTint(drawable, getResources().getColor(R.color.color_CACACA));
-                    mBinding.sreachHistoryMore.setCompoundDrawables(null,null,drawable,null);
-                }
-                break;
             case R.id.search_delete:
                 DialogUtil.listingDetele(this, "确认删除全部历史记录？", "确定", "取消",false, v -> {
                     mDialog = (new ProgressDialogView()).createLoadingDialog(this, "正在加载...");
@@ -255,7 +219,7 @@ public class TBSreachActivity extends BaseActivity implements View.OnClickListen
         if (sreachHistoryBean.getData().getLogList().size() != 0){
             mBinding.sreachHisContainer.setVisibility(View.VISIBLE);
             mHistroyList.addAll(sreachHistoryBean.getData().getLogList());
-            mPresenter.initHistroy(this,mBinding.searchHistory,mBinding.sreachHistoryMore,mHistroyList);
+            mPresenter.initHistroy(this,mBinding.searchHistory,mHistroyList);
         }else {
             mBinding.sreachHisContainer.setVisibility(View.GONE);
         }
@@ -285,7 +249,7 @@ public class TBSreachActivity extends BaseActivity implements View.OnClickListen
             mBinding.sreachHisContainer.setVisibility(View.VISIBLE);
             mHistroyList.clear();
             mHistroyList.addAll(sreachHistoryBean.getData().getLogList());
-            mPresenter.initHistroy(this,mBinding.searchHistory,mBinding.sreachHistoryMore,mHistroyList);
+            mPresenter.initHistroy(this,mBinding.searchHistory,mHistroyList);
         }else {
             mBinding.sreachHisContainer.setVisibility(View.GONE);
         }
