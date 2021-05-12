@@ -182,6 +182,7 @@ public class NewFreeAdapter extends RecyclerView.Adapter {
                 break;
             case HEAD2:
                 Head2ViewHolder holder2 = (Head2ViewHolder) holder;
+                holder2.binding.itemBottom.setVisibility(View.GONE);
                 holder2.binding.itemCopy.setOnClickListener(v -> mOnClickItem.onCopy());
                 holder2.binding.itemOne.setOnClickListener(v -> mOnClickItem.onLeft(ad1));
                 holder2.binding.itemTwo.setOnClickListener(v -> mOnClickItem.onRight(ad2));
@@ -199,7 +200,7 @@ public class NewFreeAdapter extends RecyclerView.Adapter {
                     holder3.binding.itemTag.setImageResource(R.mipmap.new_welfare);
                 }
                 holder3.binding.itemOtherPrice.setTv(true);
-                holder3.binding.itemOtherPrice.setColor(R.color.color_989898);
+                holder3.binding.itemOtherPrice.setColor(R.color.color_9D9D9D);
                 holder3.binding.itemImage.post(() -> {
                     ViewGroup.LayoutParams layoutParams = holder3.binding.itemImage.getLayoutParams();
                     layoutParams.height = holder3.binding.itemImage.getWidth();
