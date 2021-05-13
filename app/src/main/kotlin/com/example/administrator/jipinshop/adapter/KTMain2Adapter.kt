@@ -401,26 +401,20 @@ class KTMain2Adapter : RecyclerView.Adapter<RecyclerView.ViewHolder>{
             HEAD5 ->{
                 var fiveViewHolder: FiveViewHolder = holder as FiveViewHolder
                 fiveViewHolder.run {
-                    binding.itemTb.setOnClickListener {
-                        selectTitle(0)
-                        mOnItem.onSelect("1")
-                    }
-                    binding.itemLike.setOnClickListener {
-                        selectTitle(1)
-                        mOnItem.onSelect("2")
-                    }
-                    binding.itemMc.setOnClickListener {
-                        selectTitle(2)
-                        mOnItem.onSelect("3")
-                    }
-                    binding.itemJd.setOnClickListener {
-                        selectTitle(3)
-                        mOnItem.onSelect("4")
-                    }
-                    binding.itemPdd.setOnClickListener {
-                        selectTitle(4)
-                        mOnItem.onSelect("5")
-                    }
+                    mTitle.clear()
+                    mTitle.add("淘宝")
+                    mTitle.add("猜你喜欢")
+                    mTitle.add("猫超")
+                    mTitle.add("京东")
+                    mTitle.add("拼多多")
+                    mTabTBAdapter.setClick(object : KTTabAdapter9.OnClickItem{
+                        override fun onFirstMenu(index: Int) {
+                            binding.itemCategory.onPageSelected(index)
+                            binding.itemCategory.onPageScrolled(index, 0.0f, 0)
+                            mOnItem.onSelect("" + (index + 1))
+                        }
+                    })
+                    mTabTBAdapter.notifyDataSetChanged()
                 }
             }
             CONTENT ->{
@@ -609,30 +603,23 @@ class KTMain2Adapter : RecyclerView.Adapter<RecyclerView.ViewHolder>{
     inner class FiveViewHolder : RecyclerView.ViewHolder{
 
         var binding: ItemMain2FiveBinding
-        var mTitle: MutableList<TextView>
+        var mTitle: MutableList<String>
+        var mTabTBAdapter: KTTabAdapter9
 
         constructor(binding: ItemMain2FiveBinding) : super(binding.root){
             this.binding = binding
 
             mTitle = mutableListOf()
-            mTitle.add(binding.itemTbTitle)
-            mTitle.add(binding.itemLikeTitle)
-            mTitle.add(binding.itemMcTitle)
-            mTitle.add(binding.itemJdTitle)
-            mTitle.add(binding.itemPddTitle)
+            var tbNavigator = CommonNavigator(mContext)
+            tbNavigator.leftPadding = mContext.resources.getDimension(R.dimen.x7).toInt()
+            tbNavigator.rightPadding = mContext.resources.getDimension(R.dimen.x7).toInt()
+            mTabTBAdapter = KTTabAdapter9(mTitle)
+            tbNavigator.adapter = mTabTBAdapter
+            binding.itemCategory.navigator = tbNavigator
+            binding.itemCategory.onPageSelected(0)
+            binding.itemCategory.onPageScrolled(0, 0.0f, 0)
         }
 
-        fun selectTitle(position: Int){
-            for (i in mTitle.indices){
-                if (i  == position){
-                    mTitle[i].setTextColor(mContext.resources.getColor(R.color.color_E25838))
-                    mTitle[i].paint.isFakeBoldText = true
-                }else{
-                    mTitle[i].setTextColor(mContext.resources.getColor(R.color.color_565252))
-                    mTitle[i].paint.isFakeBoldText = false
-                }
-            }
-        }
     }
 
     inner class ContentViewHolder : RecyclerView.ViewHolder{

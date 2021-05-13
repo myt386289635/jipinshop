@@ -4,6 +4,7 @@ import android.app.Dialog;
 import android.content.Intent;
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
+import android.os.CountDownTimer;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
@@ -19,7 +20,6 @@ import android.widget.LinearLayout;
 import com.alibaba.baichuan.android.trade.AlibcTradeSDK;
 import com.blankj.utilcode.util.SPUtils;
 import com.example.administrator.jipinshop.R;
-import com.example.administrator.jipinshop.activity.WebActivity;
 import com.example.administrator.jipinshop.activity.cheapgoods.CheapBuyActivity;
 import com.example.administrator.jipinshop.activity.login.LoginActivity;
 import com.example.administrator.jipinshop.activity.share.ShareActivity;
@@ -33,9 +33,9 @@ import com.example.administrator.jipinshop.bean.ImageBean;
 import com.example.administrator.jipinshop.bean.SimilerGoodsBean;
 import com.example.administrator.jipinshop.bean.TBShoppingDetailBean;
 import com.example.administrator.jipinshop.databinding.ActivityNewfreeDetailBinding;
-import com.example.administrator.jipinshop.netwrok.RetrofitModule;
 import com.example.administrator.jipinshop.util.DeviceUuidFactory;
 import com.example.administrator.jipinshop.util.TaoBaoUtil;
+import com.example.administrator.jipinshop.util.TimeUtil;
 import com.example.administrator.jipinshop.util.ToastUtil;
 import com.example.administrator.jipinshop.util.sp.CommonDate;
 import com.example.administrator.jipinshop.view.dialog.DialogParameter;
@@ -66,6 +66,7 @@ public class NewFreeDetailActivity extends BaseActivity implements View.OnClickL
     private String otherGoodsId = "";
     private Dialog mDialog;
     private Dialog mProgressDialog;
+    private CountDownTimer countDownTimer;
     //banner
     private NoPageBannerAdapter mBannerAdapter;
     private List<String> mBannerList;
@@ -104,6 +105,22 @@ public class NewFreeDetailActivity extends BaseActivity implements View.OnClickL
         freeId = getIntent().getStringExtra("freeId");
         otherGoodsId = getIntent().getStringExtra("otherGoodsId");
         mPresenter.setStatusBarHight(mBinding.statusBar,this);
+        //倒计时
+        countDownTimer = new CountDownTimer(72 * 60 * 60 * 1000, 1000) {
+            @Override
+            public void onTick(long millisUntilFinished) {
+                mBinding.detailHour.setText(TimeUtil.getHourByLong(millisUntilFinished));
+                mBinding.detailMinute.setText(TimeUtil.getMinuteByLong(millisUntilFinished));
+                mBinding.detailSecond.setText(TimeUtil.getSecondByLong(millisUntilFinished));
+            }
+
+            @Override
+            public void onFinish() {
+                mBinding.detailHour.setText("0");
+                mBinding.detailMinute.setText("0");
+                mBinding.detailSecond.setText("0");
+            }
+        }.start();
 
         //banner
         mBannerAdapter = new NoPageBannerAdapter(this);
@@ -163,7 +180,6 @@ public class NewFreeDetailActivity extends BaseActivity implements View.OnClickL
             case R.id.title_back:
                 finish();
                 break;
-            case R.id.detail_coupon:
             case R.id.detail_bottom:
                 if (TextUtils.isEmpty(SPUtils.getInstance(CommonDate.USER).getString(CommonDate.token, ""))) {
                     startActivityForResult(new Intent(this, LoginActivity.class),201);
@@ -175,11 +191,11 @@ public class NewFreeDetailActivity extends BaseActivity implements View.OnClickL
                     mPresenter.apply(otherGoodsId,this.bindToLifecycle());
                 });
                 break;
-            case R.id.detail_rule:
-                startActivity(new Intent(this, WebActivity.class)
-                        .putExtra(WebActivity.url, RetrofitModule.H5_URL+"new-free/mdRule")
-                        .putExtra(WebActivity.title,"新人免单活动规则")
-                );
+            case R.id.detail_goShop:
+                //进入商店
+                mDialog = (new ProgressDialogView()).createLoadingDialog(this, "");
+                mDialog.show();
+                mPresenter.getShopUrl(otherGoodsId,this.bindToLifecycle());
                 break;
         }
     }
@@ -239,6 +255,10 @@ public class NewFreeDetailActivity extends BaseActivity implements View.OnClickL
     @Override
     protected void onDestroy() {
         super.onDestroy();
+        if (countDownTimer != null) {
+            countDownTimer.cancel();
+            countDownTimer = null;
+        }
         AlibcTradeSDK.destory();
     }
 
@@ -265,7 +285,7 @@ public class NewFreeDetailActivity extends BaseActivity implements View.OnClickL
         mBinding.setDate(bean.getData());
         mBinding.executePendingBindings();
         mBinding.detailOldPriceName.setTv(true);
-        mBinding.detailOldPriceName.setColor(R.color.color_9D9D9D);
+        mBinding.detailOldPriceName.setColor(R.color.color_white);
         //商品名称
         SpannableString string = new SpannableString("   " + bean.getData().getOtherName());
         CenteredImageSpan imageSpan = new CenteredImageSpan(this,R.mipmap.bg_newpeople_tag);
@@ -346,5 +366,18 @@ public class NewFreeDetailActivity extends BaseActivity implements View.OnClickL
         }else {
             onFile(bean.getMsg());
         }
+    }
+
+    //跳转到店铺
+    @Override
+    public void onShop(ImageBean bean) {
+        if (TextUtils.isEmpty(bean.getData())){
+            if (mDialog != null && mDialog.isShowing()){
+                mDialog.dismiss();
+            }
+            ToastUtil.show("获取店铺地址失败");
+            return;
+        }
+        TaoBaoUtil.openAliHomeWeb(this,bean.getData(),"");
     }
 }

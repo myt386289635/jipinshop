@@ -177,7 +177,7 @@
                         android:textStyle="bold"
                         android:textColor="@color/color_202020"
                         android:textSize="16sp"
-                        android:text="历史搜索"
+                        android:text="热门搜索"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"/>
 

@@ -16,4 +16,5 @@ public interface NewFreeDetailView {
     void onSuccess(TBShoppingDetailBean bean);
 
     void onBuySuccess(ImageBean successBean);
+    void onShop(ImageBean bean);
 }

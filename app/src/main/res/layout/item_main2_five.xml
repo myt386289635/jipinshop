@@ -19,108 +19,19 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"/>
 
-        <LinearLayout
+        <RelativeLayout
             android:layout_marginBottom="@dimen/y6"
-            android:orientation="horizontal"
+            android:id="@+id/item_categoryContainer"
             android:layout_width="match_parent"
             android:layout_height="@dimen/y80">
 
-            <LinearLayout
-                android:id="@+id/item_tb"
-                android:orientation="vertical"
-                android:gravity="center"
-                android:layout_weight="1"
-                android:layout_width="0dp"
-                android:layout_height="match_parent">
+            <net.lucode.hackware.magicindicator.MagicIndicator
+                android:layout_centerHorizontal="true"
+                android:id="@+id/item_category"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"/>
 
-                <TextView
-                    android:gravity="center"
-                    android:id="@+id/item_tb_title"
-                    android:textSize="16sp"
-                    android:textColor="@color/color_E25838"
-                    android:text="淘宝"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"/>
-
-            </LinearLayout>
-
-            <LinearLayout
-                android:id="@+id/item_like"
-                android:orientation="vertical"
-                android:gravity="center"
-                android:layout_weight="1"
-                android:layout_width="0dp"
-                android:layout_height="match_parent">
-
-                <TextView
-                    android:gravity="center"
-                    android:textSize="16sp"
-                    android:id="@+id/item_like_title"
-                    android:textColor="@color/color_565252"
-                    android:text="猜你喜欢"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"/>
-
-            </LinearLayout>
-
-            <LinearLayout
-                android:id="@+id/item_mc"
-                android:orientation="vertical"
-                android:gravity="center"
-                android:layout_weight="1"
-                android:layout_width="0dp"
-                android:layout_height="match_parent">
-
-                <TextView
-                    android:gravity="center"
-                    android:textSize="16sp"
-                    android:id="@+id/item_mc_title"
-                    android:textColor="@color/color_565252"
-                    android:text="猫超"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"/>
-
-            </LinearLayout>
-
-            <LinearLayout
-                android:id="@+id/item_jd"
-                android:orientation="vertical"
-                android:gravity="center"
-                android:layout_weight="1"
-                android:layout_width="0dp"
-                android:layout_height="match_parent">
-
-                <TextView
-                    android:gravity="center"
-                    android:textSize="16sp"
-                    android:id="@+id/item_jd_title"
-                    android:textColor="@color/color_565252"
-                    android:text="京东"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"/>
-
-            </LinearLayout>
-
-            <LinearLayout
-                android:id="@+id/item_pdd"
-                android:orientation="vertical"
-                android:gravity="center"
-                android:layout_weight="1"
-                android:layout_width="0dp"
-                android:layout_height="match_parent">
-
-                <TextView
-                    android:gravity="center"
-                    android:textSize="16sp"
-                    android:id="@+id/item_pdd_title"
-                    android:textColor="@color/color_565252"
-                    android:text="拼多多"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"/>
-
-            </LinearLayout>
-
-        </LinearLayout>
+        </RelativeLayout>
 
     </LinearLayout>
 </layout>

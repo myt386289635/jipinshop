@@ -114,4 +114,21 @@ public class NewFreeDetailPresenter {
                     mView.onFile(throwable.getMessage());
                 });
     }
+
+    //获取店铺id
+    public void getShopUrl(String otherGoodsId,LifecycleTransformer<ImageBean> transformer){
+        mRepository.getShopUrl(otherGoodsId)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .compose(transformer)
+                .subscribe(bean -> {
+                    if (bean.getCode() == 0){
+                        mView.onShop(bean);
+                    }else {
+                        mView.onFile(bean.getMsg());
+                    }
+                }, throwable -> {
+                    mView.onFile(throwable.getMessage());
+                });
+    }
 }
