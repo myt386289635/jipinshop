@@ -1,0 +1,147 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:bind="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+        <import type="android.view.View"/>
+        <variable
+            name="date"
+            type="com.example.administrator.jipinshop.bean.TBSreachResultBean.DataBean"/>
+    </data>
+
+    <RelativeLayout
+        android:layout_marginTop="@dimen/y20"
+        android:id="@+id/itemContainer"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/bg_979797_1">
+
+        <ImageView
+            android:scaleType="fitXY"
+            android:id="@+id/item_image"
+            bind:srcTopRound="@{date.img}"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/y335"/>
+
+        <RelativeLayout
+            android:visibility="@{date.total > 0 ? View.GONE : View.VISIBLE}"
+            android:id="@+id/item_shadow"
+            android:background="@drawable/bg_80000000_2"
+            android:layout_alignRight="@+id/item_image"
+            android:layout_alignBottom="@+id/item_image"
+            android:layout_alignTop="@+id/item_image"
+            android:layout_alignLeft="@+id/item_image"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+
+            <ImageView
+                android:layout_centerInParent="true"
+                android:src="@mipmap/bg_shadow"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+
+        </RelativeLayout>
+
+        <ImageView
+            android:id="@+id/item_tag"
+            android:layout_margin="@dimen/x10"
+            tools:src="@mipmap/new_welfare"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+
+        <TextView
+            android:id="@+id/item_name"
+            android:layout_marginRight="@dimen/x8"
+            android:layout_marginLeft="@dimen/x8"
+            android:layout_marginTop="@dimen/y13"
+            android:ellipsize="end"
+            android:maxLines="2"
+            android:textColor="@color/color_565252"
+            android:textSize="14sp"
+            android:lineSpacingExtra="@dimen/y10"
+            android:text="@{date.otherName}"
+            android:layout_below="@+id/item_image"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+
+        <LinearLayout
+            android:paddingRight="@dimen/x5"
+            android:paddingLeft="@dimen/x5"
+            android:background="@drawable/bg_f85d42"
+            android:id="@+id/item_priceContainer"
+            android:layout_marginTop="@dimen/y18"
+            android:layout_marginLeft="@dimen/x8"
+            android:layout_below="@+id/item_name"
+            android:orientation="horizontal"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:textColor="@color/color_F85D42"
+                android:textSize="11sp"
+                android:text="首单返￥"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+
+            <TextView
+                android:textStyle="bold"
+                android:textColor="@color/color_F85D42"
+                android:textSize="18sp"
+                android:text="@{date.fee}"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+
+        </LinearLayout>
+
+        <TextView
+            android:layout_marginBottom="@dimen/y8"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="@dimen/x8"
+            android:id="@+id/item_fee"
+            android:layout_alignBottom="@+id/item_priceContainer"
+            android:gravity="center"
+            android:text="@{@string/cheap_6 + date.total + @string/free_count2}"
+            android:textColor="@color/color_202020"
+            android:textSize="11sp"
+            android:layout_width="wrap_content"
+            android:layout_height="@dimen/y30"/>
+
+        <RelativeLayout
+            android:layout_marginBottom="@dimen/y28"
+            android:layout_marginTop="@dimen/y26"
+            android:layout_below="@id/item_priceContainer"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <com.example.administrator.jipinshop.view.textview.TextViewDel
+                android:layout_centerVertical="true"
+                android:text="@{@string/index_price + @string/price + date.otherPrice}"
+                android:layout_marginLeft="@dimen/x12"
+                android:id="@+id/item_otherPrice"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="12sp"
+                android:textColor="@color/color_9D9D9D"/>
+
+            <TextView
+                android:layout_alignParentRight="true"
+                android:paddingLeft="@dimen/x12"
+                android:paddingRight="@dimen/x12"
+                android:paddingTop="@dimen/y3"
+                android:paddingBottom="@dimen/y3"
+                android:background="@{date.total > 0 ? @drawable/bg_tab_eva : @drawable/bg_tab_eva4}"
+                android:textColor="@color/color_white"
+                android:gravity="center"
+                android:textSize="13sp"
+                android:text="@{date.total > 0 ? @string/cheap_7 : @string/cheap_8}"
+                android:id="@+id/item_pay"
+                android:layout_marginRight="@dimen/x8"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+
+        </RelativeLayout>
+
+    </RelativeLayout>
+</layout>

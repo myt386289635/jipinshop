@@ -1,6 +1,7 @@
 package com.example.administrator.jipinshop.fragment.orderkt
 
 import android.app.Dialog
+import android.content.Intent
 import android.databinding.DataBindingUtil
 import android.os.Bundle
 import android.support.v7.widget.LinearLayoutManager
@@ -11,6 +12,7 @@ import android.widget.TextView
 import com.aspsine.swipetoloadlayout.OnLoadMoreListener
 import com.aspsine.swipetoloadlayout.OnRefreshListener
 import com.example.administrator.jipinshop.R
+import com.example.administrator.jipinshop.activity.shoppingdetail.tbshoppingdetail.TBShoppingDetailActivity
 import com.example.administrator.jipinshop.adapter.KTMyOrderAdapter
 import com.example.administrator.jipinshop.base.DBBaseFragment
 import com.example.administrator.jipinshop.bean.OrderTBBean
@@ -24,7 +26,7 @@ import javax.inject.Inject
  * @create 2019/10/10
  * @Describe 全部订单、即将到账、已到账、失效订单
  */
-class KTMyOrderFragment : DBBaseFragment(), OnRefreshListener, OnLoadMoreListener, KTMyOrderView, View.OnClickListener {
+class KTMyOrderFragment : DBBaseFragment(), OnRefreshListener, OnLoadMoreListener, KTMyOrderView, View.OnClickListener, KTMyOrderAdapter.OnItem {
 
     @Inject
     lateinit var mPresenter: KTMyOrderPresenter
@@ -88,6 +90,7 @@ class KTMyOrderFragment : DBBaseFragment(), OnRefreshListener, OnLoadMoreListene
         mBinding.recyclerView.layoutManager = LinearLayoutManager(context)
         mList = mutableListOf()
         mAdapter = KTMyOrderAdapter(context!!,mList)
+        mAdapter.setClick(this)
         mBinding.recyclerView.adapter = mAdapter
 
         mPresenter.solveScoll(mBinding.recyclerView,mBinding.swipeToLoad)
@@ -234,5 +237,33 @@ class KTMyOrderFragment : DBBaseFragment(), OnRefreshListener, OnLoadMoreListene
                 mTitles[i].setTextColor(resources.getColor(R.color.color_989898))
             }
         }
+    }
+
+    override fun onItemClick(position: Int) {
+        mDialog = ProgressDialogView().createLoadingDialog(context, "")
+        mDialog?.show()
+        mPresenter.tbGoodsDetail(position, mList[position].otherGoodsId,
+                "" + mList[position].source , this.bindToLifecycle())
+    }
+
+    override fun onNext(position : Int) {
+        mDialog?.let {
+            if (it.isShowing){
+                it.dismiss()
+            }
+        }
+        startActivity(Intent(context, TBShoppingDetailActivity::class.java)
+                .putExtra("otherGoodsId", mList[position].otherGoodsId)
+                .putExtra("source",mList[position].source)
+        )
+    }
+
+    override fun onCommonFile(error: String?) {
+        mDialog?.let {
+            if (it.isShowing){
+                it.dismiss()
+            }
+        }
+        ToastUtil.show(error)
     }
 }

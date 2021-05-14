@@ -61,6 +61,15 @@ public class TbkIndexBean {
         private List<HotGoodsListBean> hotGoodsList;//热销榜单
         private String hotGoodsFeeName; //热销榜单里的文案
         private List<HotGoodsListBean> returnGoodsList;//买多少送多少
+        private List<TopCategoryListBean> topCategoryList;//今日推荐title
+
+        public List<TopCategoryListBean> getTopCategoryList() {
+            return topCategoryList;
+        }
+
+        public void setTopCategoryList(List<TopCategoryListBean> topCategoryList) {
+            this.topCategoryList = topCategoryList;
+        }
 
         public String getHotGoodsFeeName() {
             return hotGoodsFeeName;
@@ -839,6 +848,28 @@ public class TbkIndexBean {
 
             public void setContent(String content) {
                 this.content = content;
+            }
+        }
+
+        public static class TopCategoryListBean {
+
+            private String name;
+            private String type;
+
+            public String getName() {
+                return name;
+            }
+
+            public void setName(String name) {
+                this.name = name;
+            }
+
+            public String getType() {
+                return type;
+            }
+
+            public void setType(String type) {
+                this.type = type;
             }
         }
     }

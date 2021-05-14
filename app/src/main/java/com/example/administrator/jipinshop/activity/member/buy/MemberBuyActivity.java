@@ -29,6 +29,7 @@ import com.example.administrator.jipinshop.bean.ImageBean;
 import com.example.administrator.jipinshop.bean.MemberBuyBean;
 import com.example.administrator.jipinshop.bean.PayResultBean;
 import com.example.administrator.jipinshop.bean.WxPayBean;
+import com.example.administrator.jipinshop.bean.eventbus.HomeRefresh;
 import com.example.administrator.jipinshop.bean.eventbus.PayBus;
 import com.example.administrator.jipinshop.databinding.ActivityMemberBuyBinding;
 import com.example.administrator.jipinshop.netwrok.RetrofitModule;
@@ -93,6 +94,7 @@ public class MemberBuyActivity extends BaseActivity implements View.OnClickListe
                 }else  if (level.equals("2")){
                     StatisticalUtil.onPayEvent(this,"年卡", yearPrice);
                 }
+                EventBus.getDefault().post(new HomeRefresh(HomeRefresh.tag));//用来刷新首页的
                 Intent intent = new Intent();
                 intent.putExtra("level",level);
                 setResult(200,intent);
@@ -405,6 +407,7 @@ public class MemberBuyActivity extends BaseActivity implements View.OnClickListe
                 }else  if (level.equals("2")){
                     StatisticalUtil.onPayEvent(this,"年卡", yearPrice);
                 }
+                EventBus.getDefault().post(new HomeRefresh(HomeRefresh.tag));//用来刷新首页的
                 Intent intent = new Intent();
                 intent.putExtra("level",level);
                 setResult(200,intent);

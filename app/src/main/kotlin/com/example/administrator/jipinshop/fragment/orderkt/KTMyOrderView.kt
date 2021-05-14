@@ -10,4 +10,7 @@ import com.example.administrator.jipinshop.bean.OrderTBBean
 interface KTMyOrderView {
     fun onSuccess(bean: OrderTBBean)
     fun onFile(error:String?)
+
+    fun onNext(position : Int)
+    fun onCommonFile(error:String?)
 }

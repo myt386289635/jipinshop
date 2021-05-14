@@ -5,7 +5,9 @@ import android.content.ClipboardManager
 import android.content.Context
 import android.databinding.DataBindingUtil
 import android.support.v7.widget.RecyclerView
+import android.text.TextUtils
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
 import com.blankj.utilcode.util.SPUtils
 import com.example.administrator.jipinshop.R
@@ -23,10 +25,15 @@ class KTMyOrderAdapter : RecyclerView.Adapter<KTMyOrderAdapter.ViewHolder>{
 
     private var mList: MutableList<OrderTBBean.DataBean>
     private var mContext : Context
+    private lateinit var mOnItem: OnItem
 
     constructor(context : Context , list: MutableList<OrderTBBean.DataBean>){
         mContext = context
         mList = list
+    }
+
+    fun setClick(onItem: OnItem){
+        mOnItem = onItem
     }
 
     override fun onCreateViewHolder(viewGroup: ViewGroup, type: Int): ViewHolder {
@@ -58,6 +65,15 @@ class KTMyOrderAdapter : RecyclerView.Adapter<KTMyOrderAdapter.ViewHolder>{
             }else{
                 it.itemPrice.text = "会员返 ¥" + mList[position].preFee
             }
+            if (!TextUtils.isEmpty(mList[position].otherGoodsId)){
+                it.itemNext.visibility = View.VISIBLE
+                holder.itemView.setOnClickListener {
+                    mOnItem.onItemClick(position)
+                }
+            }else{
+                it.itemNext.visibility = View.GONE
+                holder.itemView.setOnClickListener {}
+            }
         }
     }
 
@@ -69,5 +85,9 @@ class KTMyOrderAdapter : RecyclerView.Adapter<KTMyOrderAdapter.ViewHolder>{
         constructor(binding :ItemTbOrderBinding) : super(binding.root){
             mBinding = binding
         }
+    }
+
+    interface OnItem{
+        fun onItemClick(position: Int)
     }
 }

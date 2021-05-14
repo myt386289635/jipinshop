@@ -65,6 +65,15 @@ public class OrderTBBean {
         private int type;
         private int level;
         private String isgroup;//0不拼团，1拼团
+        private String otherGoodsId;
+
+        public String getOtherGoodsId() {
+            return otherGoodsId;
+        }
+
+        public void setOtherGoodsId(String otherGoodsId) {
+            this.otherGoodsId = otherGoodsId;
+        }
 
         public String getIsgroup() {
             return isgroup;

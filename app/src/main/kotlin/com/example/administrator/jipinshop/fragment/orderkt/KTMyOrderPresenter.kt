@@ -4,6 +4,7 @@ import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
 import com.aspsine.swipetoloadlayout.SwipeToLoadLayout
 import com.example.administrator.jipinshop.bean.OrderTBBean
+import com.example.administrator.jipinshop.bean.TBShoppingDetailBean
 import com.example.administrator.jipinshop.netwrok.Repository
 import com.trello.rxlifecycle2.LifecycleTransformer
 import io.reactivex.android.schedulers.AndroidSchedulers
@@ -67,5 +68,20 @@ class KTMyOrderPresenter {
                     mView.onFile(it.message)
                 })
     }
+
+    fun tbGoodsDetail(position : Int , otherGoodsId: String, source: String, transformer: LifecycleTransformer<TBShoppingDetailBean>) {
+        mRepository.tbGoodsDetail(otherGoodsId, source)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .compose(transformer)
+                .subscribe({ bean ->
+                    if (bean.code == 0) {
+                        mView.onNext(position)
+                    } else {
+                        mView.onCommonFile(bean.msg)
+                    }
+                }, { throwable -> mView.onCommonFile(throwable.message) })
+    }
+
 
 }

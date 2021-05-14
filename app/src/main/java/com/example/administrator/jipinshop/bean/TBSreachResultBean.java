@@ -64,6 +64,51 @@ public class TBSreachResultBean {
         private String buyRate;
         private String shopIcon;
         private String source;
+        private String isBuy;//0 没买 1买过
+        private String soldTotal;
+        private int total;
+        private int status;
+        private String id;
+
+        public String getId() {
+            return id;
+        }
+
+        public void setId(String id) {
+            this.id = id;
+        }
+
+        public String getSoldTotal() {
+            return soldTotal;
+        }
+
+        public void setSoldTotal(String soldTotal) {
+            this.soldTotal = soldTotal;
+        }
+
+        public int getTotal() {
+            return total;
+        }
+
+        public void setTotal(int total) {
+            this.total = total;
+        }
+
+        public int getStatus() {
+            return status;
+        }
+
+        public void setStatus(int status) {
+            this.status = status;
+        }
+
+        public String getIsBuy() {
+            return isBuy;
+        }
+
+        public void setIsBuy(String isBuy) {
+            this.isBuy = isBuy;
+        }
 
         public String getSource() {
             return source;

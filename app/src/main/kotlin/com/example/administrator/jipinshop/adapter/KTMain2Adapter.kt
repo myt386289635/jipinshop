@@ -27,10 +27,9 @@ import com.bumptech.glide.request.target.Target
 import com.example.administrator.jipinshop.R
 import com.example.administrator.jipinshop.activity.WebActivity
 import com.example.administrator.jipinshop.activity.home.comprehensive.ComprehensiveActivity
-import com.example.administrator.jipinshop.activity.home.home.HomeNewActivity
 import com.example.administrator.jipinshop.activity.home.sell.SellWebActivity
 import com.example.administrator.jipinshop.activity.login.LoginActivity
-import com.example.administrator.jipinshop.activity.member.zero.ZeroActivity
+import com.example.administrator.jipinshop.activity.newpeople.detail.NewFreeDetailActivity
 import com.example.administrator.jipinshop.activity.shoppingdetail.tbshoppingdetail.TBShoppingDetailActivity
 import com.example.administrator.jipinshop.bean.SuccessBean
 import com.example.administrator.jipinshop.bean.TBSreachResultBean
@@ -43,7 +42,6 @@ import com.example.administrator.jipinshop.util.ShopJumpUtil
 import com.example.administrator.jipinshop.util.ToastUtil
 import com.example.administrator.jipinshop.util.UmApp.AppStatisticalUtil
 import com.example.administrator.jipinshop.util.sp.CommonDate
-import com.example.administrator.jipinshop.view.dialog.DialogUtil
 import com.example.administrator.jipinshop.view.glide.GlideApp
 import com.google.gson.Gson
 import com.trello.rxlifecycle2.LifecycleTransformer
@@ -63,6 +61,7 @@ class KTMain2Adapter : RecyclerView.Adapter<RecyclerView.ViewHolder>{
     private val HEAD4 = 4
     private val HEAD5 = 5
     private val CONTENT = 6 //今日推荐列表
+    private val CONTENT_1 = 7 //今日推荐列表 0元购
 
     private var mContext: Context
     private var mList: MutableList<TBSreachResultBean.DataBean> //今日推荐列表
@@ -73,6 +72,7 @@ class KTMain2Adapter : RecyclerView.Adapter<RecyclerView.ViewHolder>{
     private lateinit var mPagerAdapter: HomePageAdapter
     //用于退出 Activity,避免 Countdown，造成资源浪费。
     private var countDownCounters: SparseArray<CountDownTimer>
+    private var order = "1" //0元购布局0  其他布局非0
 
     constructor(list: MutableList<TBSreachResultBean.DataBean>, context: Context){
         mList = list
@@ -86,6 +86,10 @@ class KTMain2Adapter : RecyclerView.Adapter<RecyclerView.ViewHolder>{
 
     fun setOnClick(onItem: OnItem){
         mOnItem = onItem
+    }
+
+    fun setOrder(order : String){
+        this.order = order
     }
 
     fun setAppStatisticalUtil(appStatisticalUtil : AppStatisticalUtil){
@@ -107,7 +111,13 @@ class KTMain2Adapter : RecyclerView.Adapter<RecyclerView.ViewHolder>{
             2 -> HEAD3
             3 -> HEAD4
             4 -> HEAD5
-            else -> CONTENT
+            else ->{
+                if (order != "0"){
+                    CONTENT
+                }else{
+                    CONTENT_1
+                }
+            }
         }
     }
 
@@ -117,7 +127,7 @@ class KTMain2Adapter : RecyclerView.Adapter<RecyclerView.ViewHolder>{
             val gridLayoutManager = layoutManager as GridLayoutManager?
             gridLayoutManager!!.spanSizeLookup = object : GridLayoutManager.SpanSizeLookup() {
                 override fun getSpanSize(position: Int): Int {
-                    return if (getItemViewType(position) == CONTENT) {
+                    return if (getItemViewType(position) == CONTENT || getItemViewType(position) == CONTENT_1) {
                         1
                     } else {
                         gridLayoutManager.spanCount
@@ -153,6 +163,10 @@ class KTMain2Adapter : RecyclerView.Adapter<RecyclerView.ViewHolder>{
             CONTENT ->{
                 var binding1 = DataBindingUtil.inflate<ItemSreachOneBinding>(LayoutInflater.from(mContext), R.layout.item_sreach_one, viewGroup, false)
                 holder = ContentViewHolder(binding1)
+            }
+            CONTENT_1 -> {
+                var binding1 = DataBindingUtil.inflate<ItemMain2ZoreBinding>(LayoutInflater.from(mContext), R.layout.item_main2_zore, viewGroup, false)
+                holder = ContentOtherViewHolder(binding1)
             }
         }
         return holder!!
@@ -402,16 +416,14 @@ class KTMain2Adapter : RecyclerView.Adapter<RecyclerView.ViewHolder>{
                 var fiveViewHolder: FiveViewHolder = holder as FiveViewHolder
                 fiveViewHolder.run {
                     mTitle.clear()
-                    mTitle.add("淘宝")
-                    mTitle.add("猜你喜欢")
-                    mTitle.add("猫超")
-                    mTitle.add("京东")
-                    mTitle.add("拼多多")
+                    for (i in mBean!!.data.topCategoryList.indices){
+                        mTitle.add(mBean!!.data.topCategoryList[i].name)
+                    }
                     mTabTBAdapter.setClick(object : KTTabAdapter9.OnClickItem{
                         override fun onFirstMenu(index: Int) {
                             binding.itemCategory.onPageSelected(index)
                             binding.itemCategory.onPageScrolled(index, 0.0f, 0)
-                            mOnItem.onSelect("" + (index + 1))
+                            mOnItem.onSelect(index)
                         }
                     })
                     mTabTBAdapter.notifyDataSetChanged()
@@ -477,6 +489,49 @@ class KTMain2Adapter : RecyclerView.Adapter<RecyclerView.ViewHolder>{
                         mContext.startActivity(Intent(mContext, TBShoppingDetailActivity::class.java)
                                 .putExtra("otherGoodsId", mList[pos].otherGoodsId)
                                 .putExtra("source",mList[pos].source)
+                        )
+                    }
+                }
+            }
+            CONTENT_1 ->{
+                var viewHolder: ContentOtherViewHolder = holder as ContentOtherViewHolder
+                viewHolder.run {
+                    var pos = position - 5
+                    binding.date = mList[pos]
+                    binding.executePendingBindings()
+                    binding.itemImage.post {
+                        val layoutParams = binding.itemImage.layoutParams
+                        layoutParams.height = binding.itemImage.width
+                        binding.itemImage.layoutParams = layoutParams
+                    }
+                    var layoutParams = binding.itemContainer.layoutParams as GridLayoutManager.LayoutParams
+                    if (pos % 2 != 0) {
+                        layoutParams.leftMargin = mContext.resources.getDimension(R.dimen.x10).toInt()
+                        layoutParams.rightMargin = mContext.resources.getDimension(R.dimen.x20).toInt()
+                    } else {
+                        layoutParams.leftMargin = mContext.resources.getDimension(R.dimen.x20).toInt()
+                        layoutParams.rightMargin = mContext.resources.getDimension(R.dimen.x10).toInt()
+                    }
+                    binding.itemContainer.layoutParams = layoutParams
+                    if (mList[pos].isBuy == "1") {
+                        binding.itemTag.setImageResource(R.mipmap.new_purchased)
+                    } else {
+                        binding.itemTag.setImageResource(R.mipmap.new_welfare)
+                    }
+                    binding.itemOtherPrice.setTv(true)
+                    binding.itemOtherPrice.setColor(R.color.color_9D9D9D)
+                    itemView.setOnClickListener {
+                        if (TextUtils.isEmpty(SPUtils.getInstance(CommonDate.USER).getString(CommonDate.token, ""))) {
+                            mContext.startActivity(Intent(mContext, LoginActivity::class.java))
+                            return@setOnClickListener
+                        }
+                        if (mList[pos].total <= 0) {
+                            ToastUtil.show("当前商品已售罄，看看其他商品吧")
+                            return@setOnClickListener
+                        }
+                        mContext.startActivity(Intent(mContext, NewFreeDetailActivity::class.java)
+                                .putExtra("freeId", mList[pos].id)
+                                .putExtra("otherGoodsId", mList[pos].otherGoodsId)
                         )
                     }
                 }
@@ -631,8 +686,18 @@ class KTMain2Adapter : RecyclerView.Adapter<RecyclerView.ViewHolder>{
         }
     }
 
+    inner class ContentOtherViewHolder : RecyclerView.ViewHolder{
+
+        var binding: ItemMain2ZoreBinding
+
+        constructor(binding: ItemMain2ZoreBinding) : super(binding.root){
+            this.binding = binding
+        }
+    }
+
+
     interface OnItem{
         fun onItemShare(position: Int)
-        fun onSelect(source : String)
+        fun onSelect(position : Int)
     }
 }

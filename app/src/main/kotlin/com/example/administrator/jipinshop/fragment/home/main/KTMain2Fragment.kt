@@ -3,7 +3,6 @@ package com.example.administrator.jipinshop.fragment.home.main
 import android.app.Dialog
 import android.content.Intent
 import android.databinding.DataBindingUtil
-import android.graphics.Color
 import android.support.v7.widget.GridLayoutManager
 import android.text.TextUtils
 import android.view.LayoutInflater
@@ -51,7 +50,8 @@ class KTMain2Fragment : DBBaseFragment(), KTMain2View, OnLoadMoreListener, OnRef
     private lateinit var mAdapter: KTMain2Adapter
     private lateinit var mPagerAdapter: HomePageAdapter
     private var mDialog: Dialog? = null
-    private var type : String = "1" //1:淘宝 2:猜你喜欢 3猫超，4京东，5拼多多  默认淘宝
+    private var index : Int = 0 //今日推荐title的位置
+    private lateinit var mTitle: MutableList<TbkIndexBean.DataBean.TopCategoryListBean> //今日推荐title
 
     companion object{
         fun getInstance() : KTMain2Fragment {
@@ -72,6 +72,7 @@ class KTMain2Fragment : DBBaseFragment(), KTMain2View, OnLoadMoreListener, OnRef
 
         mBinding.swipeTarget.layoutManager = GridLayoutManager(context,2)
         mList = mutableListOf()
+        mTitle = mutableListOf()
         mAdapter = KTMain2Adapter(mList,context!!)
         mPagerAdapter = HomePageAdapter(childFragmentManager)
         mAdapter.setPagerAdapter(mPagerAdapter)
@@ -102,10 +103,12 @@ class KTMain2Fragment : DBBaseFragment(), KTMain2View, OnLoadMoreListener, OnRef
     override fun onLoadMore() {
         page++
         refersh = false
-        mPresenter.commendGoodsList(context!!,page,type,this.bindToLifecycle())
+        mPresenter.commendGoodsList(context!!,page,mTitle[index].type,this.bindToLifecycle())
     }
 
     override fun onSuccess(type: String, bean: TbkIndexBean) {
+        mTitle.clear()
+        mTitle.addAll(bean.data.topCategoryList)
         mAdapter.setDate(bean)
         mAdapter.notifyDataSetChanged()
         var fragment = parentFragment
@@ -136,7 +139,7 @@ class KTMain2Fragment : DBBaseFragment(), KTMain2View, OnLoadMoreListener, OnRef
             }
         }
         if (type == "1"){
-            mPresenter.commendGoodsList(context!!,page,this.type,this.bindUntilEvent(FragmentEvent.DESTROY_VIEW))
+            mPresenter.commendGoodsList(context!!,page,mTitle[index].type,this.bindUntilEvent(FragmentEvent.DESTROY_VIEW))
         }
     }
 
@@ -146,15 +149,18 @@ class KTMain2Fragment : DBBaseFragment(), KTMain2View, OnLoadMoreListener, OnRef
             if (bean.data != null && bean.data.size != 0) {
                 mList.clear()
                 mList.addAll(bean.data)
+                mAdapter.setOrder(mTitle[index].type)
                 mAdapter.notifyDataSetChanged()
             }else {
                 mList.clear()
+                mAdapter.setOrder(mTitle[index].type)
                 mAdapter.notifyDataSetChanged()
             }
         }else{
             dissLoading()
             if (bean.data != null && bean.data.size != 0) {
                 mList.addAll(bean.data)
+                mAdapter.setOrder(mTitle[index].type)
                 mAdapter.notifyDataSetChanged()
             } else {
                 page--
@@ -224,13 +230,13 @@ class KTMain2Fragment : DBBaseFragment(), KTMain2View, OnLoadMoreListener, OnRef
     }
 
     //今日推荐的选择
-    override fun onSelect(source : String) {
-        this.type = source
+    override fun onSelect(position : Int) {
+        index = position
         page = 1
         refersh = true
         mDialog = ProgressDialogView().createLoadingDialog(context, "")
         mDialog?.show()
-        mPresenter.commendGoodsList(context!!,page,this.type,this.bindToLifecycle())
+        mPresenter.commendGoodsList(context!!,page,mTitle[index].type,this.bindToLifecycle())
     }
 
     override fun onResume() {
