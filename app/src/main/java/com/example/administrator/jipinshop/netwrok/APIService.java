@@ -1386,7 +1386,7 @@ public interface APIService {
     /**
      * 获取商品详情里评论信息
      */
-    @GET("api/v3/tbk/getFeedback")
+    @GET("api/v4/tbk/getFeedback")
     Observable<CommenBean> getFeedback(@Query("otherGoodsId") String otherGoodsId);
 
     /**

@@ -1,5 +1,7 @@
 package com.example.administrator.jipinshop.bean;
 
+import java.util.List;
+
 /**
  * @author 莫小婷
  * @create 2021/4/27
@@ -9,9 +11,18 @@ public class CommenBean {
 
     private String msg;
     private int code;
-    private DataBean data;
+    private List<DataBean> data;
     private String url;
     private String relationId;
+    private String total_results;
+
+    public String getTotal_results() {
+        return total_results;
+    }
+
+    public void setTotal_results(String total_results) {
+        this.total_results = total_results;
+    }
 
     public String getRelationId() {
         return relationId;
@@ -45,11 +56,11 @@ public class CommenBean {
         this.code = code;
     }
 
-    public DataBean getData() {
+    public List<DataBean> getData() {
         return data;
     }
 
-    public void setData(DataBean data) {
+    public void setData(List<DataBean> data) {
         this.data = data;
     }
 

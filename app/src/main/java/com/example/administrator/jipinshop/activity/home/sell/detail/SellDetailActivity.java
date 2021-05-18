@@ -26,6 +26,7 @@ import com.example.administrator.jipinshop.activity.login.LoginActivity;
 import com.example.administrator.jipinshop.activity.member.buy.MemberBuyActivity;
 import com.example.administrator.jipinshop.activity.share.ShareActivity;
 import com.example.administrator.jipinshop.adapter.NoPageBannerAdapter;
+import com.example.administrator.jipinshop.adapter.ShoppingCommentAdapter;
 import com.example.administrator.jipinshop.adapter.ShoppingImageAdapter;
 import com.example.administrator.jipinshop.adapter.ShoppingRecommendAdapter;
 import com.example.administrator.jipinshop.adapter.ShoppingUserLikeAdapter;
@@ -88,6 +89,9 @@ public class SellDetailActivity extends BaseActivity implements View.OnClickList
     private NoPageBannerAdapter mBannerAdapter;
     private List<String> mBannerList;
     private List<ImageView> point;
+    //商品评论
+    private List<CommenBean.DataBean> mCommentList;
+    private ShoppingCommentAdapter mCommentAdapter;
     //高佣推荐
     private List<SimilerGoodsBean.DataBean> mRecommendList;
     private ShoppingRecommendAdapter mRecommendAdapter;
@@ -150,6 +154,13 @@ public class SellDetailActivity extends BaseActivity implements View.OnClickList
         mBannerAdapter.setViewPager(mBinding.viewPager);
         mBannerAdapter.setImgCenter(true);
         mBinding.viewPager.setAdapter(mBannerAdapter);
+
+        //商品评论
+        mCommentList = new ArrayList<>();
+        mCommentAdapter = new ShoppingCommentAdapter(mCommentList,this);
+        mBinding.detailCommentLayout.setLayoutManager(new LinearLayoutManager(this));
+        mBinding.detailCommentLayout.setNestedScrollingEnabled(false);
+        mBinding.detailCommentLayout.setAdapter(mCommentAdapter);
 
         //高佣推荐
         mRecommendList = new ArrayList<>();
@@ -420,8 +431,10 @@ public class SellDetailActivity extends BaseActivity implements View.OnClickList
             mBinding.detailCommentNum.setText("宝贝评价(0)");
         }else {
             mBinding.detailCommentLayout.setVisibility(View.VISIBLE);
-            mBinding.setCommen(bean);
-            mBinding.executePendingBindings();
+            mBinding.detailCommentNum.setText("宝贝评价("+ bean.getTotal_results() +")");
+            mCommentList.clear();
+            mCommentList.addAll(bean.getData());
+            mCommentAdapter.notifyDataSetChanged();
         }
         commenUrl = bean.getUrl();
     }

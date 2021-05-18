@@ -15,9 +15,11 @@ import android.text.Spanned;
 import android.text.TextUtils;
 import android.view.Gravity;
 import android.view.View;
+import android.view.ViewGroup;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 
 import com.alibaba.baichuan.android.trade.AlibcTradeSDK;
 import com.blankj.utilcode.util.SPUtils;
@@ -28,6 +30,7 @@ import com.example.administrator.jipinshop.activity.member.buy.MemberBuyActivity
 import com.example.administrator.jipinshop.activity.school.video.VideoActivity;
 import com.example.administrator.jipinshop.activity.share.ShareActivity;
 import com.example.administrator.jipinshop.adapter.NoPageBannerAdapter;
+import com.example.administrator.jipinshop.adapter.ShoppingCommentAdapter;
 import com.example.administrator.jipinshop.adapter.ShoppingImageAdapter;
 import com.example.administrator.jipinshop.adapter.ShoppingRecommendAdapter;
 import com.example.administrator.jipinshop.adapter.ShoppingUserLikeAdapter;
@@ -85,6 +88,9 @@ public class TBShoppingDetailActivity extends BaseActivity implements View.OnCli
     private NoPageBannerAdapter mBannerAdapter;
     private List<String> mBannerList;
     private List<ImageView> point;
+    //商品评论
+    private List<CommenBean.DataBean> mCommentList;
+    private ShoppingCommentAdapter mCommentAdapter;
     //高佣推荐
     private List<SimilerGoodsBean.DataBean> mRecommendList;
     private ShoppingRecommendAdapter mRecommendAdapter;
@@ -95,7 +101,6 @@ public class TBShoppingDetailActivity extends BaseActivity implements View.OnCli
     private List<SimilerGoodsBean.DataBean> mUserLikeList;
     private ShoppingUserLikeAdapter mLikeAdapter;
     private boolean isCollect = false;//标志：是否收藏过此商品 false:没有
-    private int goodsType = 2;//1是极品城  2是淘宝
     private String source = "2";//商品来源:1京东,2淘宝，4拼多多 默认淘宝详情
     private String money = "0.00";//总共要省的钱
     //比价弹窗需要
@@ -163,6 +168,13 @@ public class TBShoppingDetailActivity extends BaseActivity implements View.OnCli
         mBannerAdapter.setImgCenter(true);
         mBinding.viewPager.setAdapter(mBannerAdapter);
 
+        //商品评论
+        mCommentList = new ArrayList<>();
+        mCommentAdapter = new ShoppingCommentAdapter(mCommentList,this);
+        mBinding.detailCommentLayout.setLayoutManager(new LinearLayoutManager(this));
+        mBinding.detailCommentLayout.setNestedScrollingEnabled(false);
+        mBinding.detailCommentLayout.setAdapter(mCommentAdapter);
+
         //高佣推荐
         mRecommendList = new ArrayList<>();
         mBinding.detailRecommend.setLayoutManager(new GridLayoutManager(this,3){
@@ -198,7 +210,8 @@ public class TBShoppingDetailActivity extends BaseActivity implements View.OnCli
         mProgressDialog = (new ProgressDialogView()).createLoadingDialog(this, "正在加载...");
         mProgressDialog.show();
         mPresenter.tbGoodsDetail(1,goodsId,source,this.bindToLifecycle());
-        mPresenter.listLikeGoods(goodsId,this.bindToLifecycle());
+        mPresenter.listLikeGoods(goodsId,this.bindToLifecycle());//相似推荐
+        mPresenter.getGoodsDescImgs(goodsId,source,this.bindToLifecycle());//商品详情图文
         if (source.equals("2")){//只有淘宝商品有猜你喜欢和评论
             mBinding.detailUserLikeImage.setVisibility(View.VISIBLE);
             mBinding.detailUserLike.setVisibility(View.VISIBLE);
@@ -223,17 +236,13 @@ public class TBShoppingDetailActivity extends BaseActivity implements View.OnCli
                 finish();
                 break;
             case R.id.detail_decSpeach:
-                if (goodsType == 1){
-                    if (mDetailList.size() != 0){
-                        mBinding.detailDecSpeach.setVisibility(View.GONE);
-                        mBinding.detailDec.setVisibility(View.VISIBLE);
-                    }else {
-                        ToastUtil.show("暂无商品详情");
-                    }
+                if (mDetailList.size() != 0){
+                    mBinding.detailDecSpeach.setVisibility(View.GONE);
+                    LinearLayout.LayoutParams layoutParams = (LinearLayout.LayoutParams) mBinding.detailDec.getLayoutParams();
+                    layoutParams.height = ViewGroup.LayoutParams.WRAP_CONTENT;
+                    mBinding.detailDec.setLayoutParams(layoutParams);
                 }else {
-                    mDialog = (new ProgressDialogView()).createLoadingDialog(this, "");
-                    mDialog.show();
-                    mPresenter.getGoodsDescImgs(goodsId,source,this.bindToLifecycle());
+                    ToastUtil.show("暂无商品详情");
                 }
                 break;
             case R.id.detail_couponImg:
@@ -394,18 +403,6 @@ public class TBShoppingDetailActivity extends BaseActivity implements View.OnCli
         //轮播图
         mBannerList.addAll(bean.getData().getImgList());
         mPresenter.initBanner(mBannerList, this, point, mBinding.detailPoint, mBannerAdapter);
-        //商品详情
-        goodsType = bean.getData().getGoodsType();
-        mBinding.detailDec.setVisibility(View.GONE);
-        mBinding.detailDecSpeach.setVisibility(View.VISIBLE);
-        Animation animation = AnimationUtils.loadAnimation(this, R.anim.down_anim);
-        mBinding.detailDown.startAnimation(animation);
-        animation.start();
-        mDetailList.clear();
-        if (bean.getData().getDescImgList() != null && bean.getData().getDescImgList().size() != 0){
-            mDetailList.addAll(bean.getData().getDescImgList());
-            mImageAdapter.notifyDataSetChanged();
-        }
         //推荐理由
         if (!TextUtils.isEmpty(bean.getData().getRecommendReason())){
             mBinding.detailReason.setDesc(bean.getData().getRecommendReason());
@@ -478,7 +475,7 @@ public class TBShoppingDetailActivity extends BaseActivity implements View.OnCli
             mBinding.detailFreeCode.setText("¥"+ new BigDecimal(free).setScale(2,BigDecimal.ROUND_HALF_UP).stripTrailingZeros().toPlainString());
             mBinding.detailFreeCodeText.setText("购买返");
             mBinding.detailInvationContainer.setVisibility(View.GONE);
-            mBinding.detailImgNotice.setVisibility(View.GONE);
+            mBinding.detailImgNotice.setImageResource(R.mipmap.bg_detail_coupon);
         }else {//非会员
             isStart = true;
             mBinding.detailMemberText.setText("加入极品会员，本商品可返");
@@ -492,7 +489,7 @@ public class TBShoppingDetailActivity extends BaseActivity implements View.OnCli
             mBinding.detailFreeCode.setText("¥"+ new BigDecimal(bean.getData().getUpFee()).setScale(2,BigDecimal.ROUND_HALF_UP).stripTrailingZeros().toPlainString());
             mBinding.detailFreeCodeText.setText("购买返");
             mBinding.detailInvationContainer.setVisibility(View.GONE);
-            mBinding.detailImgNotice.setVisibility(View.VISIBLE);
+            mBinding.detailImgNotice.setImageResource(R.mipmap.detail_notice);
         }
         //比价弹窗
         if (!TextUtils.isEmpty(parity)){
@@ -533,16 +530,18 @@ public class TBShoppingDetailActivity extends BaseActivity implements View.OnCli
         mRecommendAdapter.notifyDataSetChanged();
     }
 
-    //评论列表
+    //商品评论
     @Override
     public void onComment(CommenBean bean) {
-        if (bean.getData() == null){
+        if (bean.getData() == null || bean.getData().size() == 0){
             mBinding.detailCommentLayout.setVisibility(View.GONE);
             mBinding.detailCommentNum.setText("宝贝评价(0)");
         }else {
             mBinding.detailCommentLayout.setVisibility(View.VISIBLE);
-            mBinding.setCommen(bean);
-            mBinding.executePendingBindings();
+            mBinding.detailCommentNum.setText("宝贝评价("+ bean.getTotal_results() +")");
+            mCommentList.clear();
+            mCommentList.addAll(bean.getData());
+            mCommentAdapter.notifyDataSetChanged();
         }
         commenUrl = bean.getUrl();
     }
@@ -600,19 +599,20 @@ public class TBShoppingDetailActivity extends BaseActivity implements View.OnCli
         }
     }
 
+    //商品详情
     @Override
     public void onDescImgs(SucBean<String> bean) {
-        if (mDialog != null && mDialog.isShowing()){
-            mDialog.dismiss();
-        }
         if (bean.getData() != null && bean.getData().size() != 0){
-            mBinding.detailDec.setVisibility(View.VISIBLE);
-            mBinding.detailDecSpeach.setVisibility(View.GONE);
+            mBinding.detailDecContainer.setVisibility(View.VISIBLE);
+            mBinding.detailDecSpeach.setVisibility(View.VISIBLE);
+            Animation animation = AnimationUtils.loadAnimation(this, R.anim.down_anim);
+            mBinding.detailDown.startAnimation(animation);
+            animation.start();
             mDetailList.clear();
             mDetailList.addAll(bean.getData());
             mImageAdapter.notifyDataSetChanged();
         }else {
-            ToastUtil.show("暂无商品详情");
+            mBinding.detailDecContainer.setVisibility(View.GONE);
         }
     }
 

@@ -109,6 +109,15 @@ public class TBShoppingDetailBean {
         private String upFee;//最高佣金
         private int level;//会员等级
         private int tag;//标签
+        private String shopDsrImg; //店铺评分
+
+        public String getShopDsrImg() {
+            return shopDsrImg;
+        }
+
+        public void setShopDsrImg(String shopDsrImg) {
+            this.shopDsrImg = shopDsrImg;
+        }
 
         public int getTag() {
             return tag;
