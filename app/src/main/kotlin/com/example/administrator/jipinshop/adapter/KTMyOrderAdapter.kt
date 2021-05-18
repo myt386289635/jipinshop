@@ -65,7 +65,8 @@ class KTMyOrderAdapter : RecyclerView.Adapter<KTMyOrderAdapter.ViewHolder>{
             }else{
                 it.itemPrice.text = "会员返 ¥" + mList[position].preFee
             }
-            if (!TextUtils.isEmpty(mList[position].otherGoodsId)){
+            if (!TextUtils.isEmpty(mList[position].otherGoodsId) &&
+                    (mList[position].source == 1 || mList[position].source == 2 || mList[position].source == 4) ){
                 it.itemNext.visibility = View.VISIBLE
                 holder.itemView.setOnClickListener {
                     mOnItem.onItemClick(position)
