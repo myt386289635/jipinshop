@@ -116,8 +116,8 @@
                 android:layout_marginLeft="@dimen/x25"
                 android:layout_centerVertical="true"
                 android:textColor="@color/color_white"
-                android:textSize="11sp"
-                android:text="欢迎来到极品城\n登录即领108元现金红包"
+                android:textSize="13sp"
+                android:text="登陆即领800元新人大礼包"
                 android:id="@+id/login_notice"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"/>
