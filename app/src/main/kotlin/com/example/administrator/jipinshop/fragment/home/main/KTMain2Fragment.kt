@@ -103,6 +103,9 @@ class KTMain2Fragment : DBBaseFragment(), KTMain2View, OnLoadMoreListener, OnRef
     override fun onLoadMore() {
         page++
         refersh = false
+        if (index >= mTitle.size){
+            index = mTitle.size - 1
+        }
         mPresenter.commendGoodsList(context!!,page,mTitle[index].type,this.bindToLifecycle())
     }
 
@@ -139,6 +142,9 @@ class KTMain2Fragment : DBBaseFragment(), KTMain2View, OnLoadMoreListener, OnRef
             }
         }
         if (type == "1"){
+            if (index >= mTitle.size){
+                index = mTitle.size - 1
+            }
             mPresenter.commendGoodsList(context!!,page,mTitle[index].type,this.bindUntilEvent(FragmentEvent.DESTROY_VIEW))
         }
     }
@@ -258,7 +264,7 @@ class KTMain2Fragment : DBBaseFragment(), KTMain2View, OnLoadMoreListener, OnRef
     fun refresh(bus: HomeRefresh?){
         bus?.let {
             if (it.flag == HomeRefresh.tag){
-                mPresenter.getDate("2",this.bindToLifecycle())
+                onRefresh()
             }
         }
     }

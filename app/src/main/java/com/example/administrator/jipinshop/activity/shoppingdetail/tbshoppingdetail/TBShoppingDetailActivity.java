@@ -352,8 +352,8 @@ public class TBShoppingDetailActivity extends BaseActivity implements View.OnCli
             case R.id.detail_memberGo:
                 if (level.equals("0")){
                     buyRefresh = true;
-                    startActivity(new Intent(this, HomeNewActivity.class)
-                            .putExtra("type",HomeNewActivity.member)
+                    startActivity(new Intent(this, MemberBuyActivity.class)
+                            .putExtra("isBuy", "1")
                     );
                 }
                 break;
