@@ -33,6 +33,7 @@ class KTUserLikeAdapter : RecyclerView.Adapter<KTUserLikeAdapter.ViewHolder>{
     private var mOnItem: OnItem? = null
     private var appStatisticalUtil: AppStatisticalUtil? = null
     private lateinit var  transformer : LifecycleTransformer<SuccessBean>
+    private var mUtil = ""
 
     fun setOnItem(onItem: OnItem) {
         mOnItem = onItem
@@ -44,6 +45,10 @@ class KTUserLikeAdapter : RecyclerView.Adapter<KTUserLikeAdapter.ViewHolder>{
 
     fun setTransformer(transformer : LifecycleTransformer<SuccessBean>){
         this.transformer = transformer
+    }
+
+    fun setUtil(util : String){
+        mUtil = util
     }
 
     constructor(list: MutableList<SimilerGoodsBean.DataBean> , context: Context){
@@ -107,6 +112,15 @@ class KTUserLikeAdapter : RecyclerView.Adapter<KTUserLikeAdapter.ViewHolder>{
                 if (TextUtils.isEmpty(SPUtils.getInstance(CommonDate.USER).getString(CommonDate.token, ""))) {
                     mContext.startActivity(Intent(mContext, LoginActivity::class.java))
                     return@setOnClickListener
+                }
+                if (!TextUtils.isEmpty(mUtil)){
+                    if (mList[position].source == "1"){
+                        appStatisticalUtil?.addEvent(mUtil +"jd_"+ mList[position].otherGoodsId, transformer)
+                    }else if (mList[position].source == "4"){
+                        appStatisticalUtil?.addEvent(mUtil +"pdd_"+ mList[position].otherGoodsId, transformer)
+                    }else {
+                        appStatisticalUtil?.addEvent(mUtil +"tb_"+ mList[position].otherGoodsId, transformer)
+                    }
                 }
                 mContext.startActivity(Intent(mContext, TBShoppingDetailActivity::class.java)
                         .putExtra("otherGoodsId", mList[position].otherGoodsId)

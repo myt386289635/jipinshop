@@ -33,6 +33,7 @@ import com.example.administrator.jipinshop.activity.home.newGift.NewGiftActivity
 import com.example.administrator.jipinshop.activity.home.newarea.NewAreaActivity;
 import com.example.administrator.jipinshop.activity.home.recharge.RechargeActivity;
 import com.example.administrator.jipinshop.activity.home.seckill.detail.SeckillDetailActivity;
+import com.example.administrator.jipinshop.activity.home.sell.SellWebActivity;
 import com.example.administrator.jipinshop.activity.home.sell.detail.SellDetailActivity;
 import com.example.administrator.jipinshop.activity.home.tb.KTTBDetailActivity;
 import com.example.administrator.jipinshop.activity.info.MyInfoActivity;
@@ -214,4 +215,5 @@ public interface BaseActivityComponent {
     void inject(MessageActionActivity activity);
     void inject(ServerWebActivity activity);
     void inject(SellDetailActivity activity);
+    void inject(SellWebActivity activity);
 }

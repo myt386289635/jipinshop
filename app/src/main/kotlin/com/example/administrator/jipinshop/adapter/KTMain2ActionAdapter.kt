@@ -63,7 +63,7 @@ class KTMain2ActionAdapter : RecyclerView.Adapter<KTMain2ActionAdapter.ViewHolde
             binding.itemContainer.layoutParams = layoutParams
             GlideApp.loderImage(mContext,mList[position].img,binding.itemImage,0,0)
             binding.itemImage.setOnClickListener {
-                appStatisticalUtil.addEvent("shouye_louceng." + (position + 1),transformer)
+                appStatisticalUtil.addEvent("shouye_louceng." + (position + 1) + "_" + mList[position].type,transformer)
                 ShopJumpUtil.openBanner(mContext,mList[position].type,
                         mList[position].objectId,mList[position].name,
                         mList[position].source,mList[position].remark)

@@ -28,10 +28,12 @@ import com.example.administrator.jipinshop.bean.ShareInfoBean
 import com.example.administrator.jipinshop.databinding.ActivityCheapBuyBinding
 import com.example.administrator.jipinshop.util.ShareUtils
 import com.example.administrator.jipinshop.util.ToastUtil
+import com.example.administrator.jipinshop.util.UmApp.AppStatisticalUtil
 import com.example.administrator.jipinshop.util.sp.CommonDate
 import com.example.administrator.jipinshop.view.dialog.DialogUtil
 import com.example.administrator.jipinshop.view.dialog.ProgressDialogView
 import com.example.administrator.jipinshop.view.dialog.ShareBoardDialog2
+import com.trello.rxlifecycle2.android.FragmentEvent
 import com.umeng.socialize.bean.SHARE_MEDIA
 import java.math.BigDecimal
 import javax.inject.Inject
@@ -45,6 +47,9 @@ class zCheapBuyFragment : DBBaseFragment(), View.OnClickListener, OnRefreshListe
 
     @Inject
     lateinit var mPresenter: CheapBuyPresenter
+    @Inject
+    lateinit var appStatisticalUtil: AppStatisticalUtil
+
     private lateinit var mBinding : ActivityCheapBuyBinding
     private lateinit var mList: MutableList<NewPeopleBean.DataBean.AllowanceGoodsListBean>
     private lateinit var adapter: KTCheapBuyAdapter
@@ -263,6 +268,7 @@ class zCheapBuyFragment : DBBaseFragment(), View.OnClickListener, OnRefreshListe
     }
 
     override fun onBuy(position: Int) {
+        appStatisticalUtil.addEvent("shouye_activity_allowance_" + mList[position].otherGoodsId , this.bindUntilEvent(FragmentEvent.DESTROY_VIEW))
         startActivity(Intent(context, CheapBuyDetailActivity::class.java)
                 .putExtra("freeId", mList[position].id)
                 .putExtra("otherGoodsId", mList[position].otherGoodsId)

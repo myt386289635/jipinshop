@@ -44,7 +44,7 @@ public class TBSreachResultAdapter extends RecyclerView.Adapter {
     //统计用
     private AppStatisticalUtil appStatisticalUtil;
     private LifecycleTransformer<SuccessBean> transformer;
-    private String id;//专题id
+    private String id;//统计开头
 
     public void setAppStatisticalUtil(AppStatisticalUtil appStatisticalUtil) {
         this.appStatisticalUtil = appStatisticalUtil;
@@ -218,7 +218,7 @@ public class TBSreachResultAdapter extends RecyclerView.Adapter {
                 }
                 oneViewHolder.itemView.setOnClickListener(v -> {
                     if (appStatisticalUtil != null && transformer!= null && !TextUtils.isEmpty(id)){
-                        appStatisticalUtil.addEvent("zhuanti." + id + "_liebiao." + (position + 1),transformer);
+                        appStatisticalUtil.addEvent(id + (position + 1) + "_" + mList.get(position).getOtherGoodsId(),transformer);
                     }
                     mContext.startActivity(new Intent(mContext, TBShoppingDetailActivity.class)
                             .putExtra("otherGoodsId", mList.get(position).getOtherGoodsId())

@@ -24,7 +24,11 @@ import com.example.administrator.jipinshop.base.BaseActivity;
 import com.example.administrator.jipinshop.databinding.ActivityWheelWebBinding;
 import com.example.administrator.jipinshop.netwrok.RetrofitModule;
 import com.example.administrator.jipinshop.util.TaoBaoUtil;
+import com.example.administrator.jipinshop.util.UmApp.AppStatisticalUtil;
 import com.example.administrator.jipinshop.view.dialog.ProgressDialogView;
+import com.trello.rxlifecycle2.android.ActivityEvent;
+
+import javax.inject.Inject;
 
 /**
  * @author 莫小婷
@@ -35,6 +39,9 @@ public class SellWebActivity extends BaseActivity implements View.OnClickListene
 
     public static final String url = "url";
 
+    @Inject
+    AppStatisticalUtil appStatisticalUtil;
+
     private ActivityWheelWebBinding mBinding;
     private Dialog mProgressDialog ;
 
@@ -43,6 +50,7 @@ public class SellWebActivity extends BaseActivity implements View.OnClickListene
         super.onCreate(savedInstanceState);
         mBinding = DataBindingUtil.setContentView(this, R.layout.activity_wheel_web);
         mBinding.setListener(this);
+        mBaseActivityComponent.inject(this);
         initView();
     }
 
@@ -86,6 +94,7 @@ public class SellWebActivity extends BaseActivity implements View.OnClickListene
                     //跳转到商品详情
                     String goodsId = url.split("\\?")[1].split("&")[0].replace("othergoodsId=","");
                     String source = url.split("\\?")[1].split("&")[1].replace("source=", "");
+                    appStatisticalUtil.addEvent("shouye_activity_repay_" + goodsId , SellWebActivity.this.bindUntilEvent(ActivityEvent.DESTROY));
                     startActivity(new Intent(SellWebActivity.this, SellDetailActivity.class)
                             .putExtra("otherGoodsId",goodsId)
                             .putExtra("source",source)

@@ -25,8 +25,10 @@ import com.example.administrator.jipinshop.bean.SeckillTabBean;
 import com.example.administrator.jipinshop.databinding.ActivitySeckillBinding;
 import com.example.administrator.jipinshop.util.TaoBaoUtil;
 import com.example.administrator.jipinshop.util.ToastUtil;
+import com.example.administrator.jipinshop.util.UmApp.AppStatisticalUtil;
 import com.example.administrator.jipinshop.util.sp.CommonDate;
 import com.example.administrator.jipinshop.view.dialog.ProgressDialogView;
+import com.trello.rxlifecycle2.android.FragmentEvent;
 
 import net.lucode.hackware.magicindicator.buildins.commonnavigator.CommonNavigator;
 
@@ -44,6 +46,8 @@ public class SeckillFragment extends DBBaseFragment implements View.OnClickListe
 
     @Inject
     SeckillPresenter mPresenter;
+    @Inject
+    AppStatisticalUtil appStatisticalUtil;
 
     private ActivitySeckillBinding mBinding;
     private List<SeckillTabBean.DataBean> tabs;//菜单一数据
@@ -270,6 +274,7 @@ public class SeckillFragment extends DBBaseFragment implements View.OnClickListe
 
     @Override
     public void onDetail(int position) {
+        appStatisticalUtil.addEvent("shouye_activity_seckill_" + mList.get(position).getOtherGoodsId() , this.bindUntilEvent(FragmentEvent.DESTROY_VIEW));
         startActivity(new Intent(getContext(), SeckillDetailActivity.class)
                 .putExtra("otherGoodsId", mList.get(position).getOtherGoodsId())
                 .putExtra("source", mList.get(position).getSource())

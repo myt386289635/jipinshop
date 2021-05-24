@@ -115,7 +115,7 @@ class HomeDetailActivity : BaseActivity(), View.OnClickListener, TBSreachResultA
         mAdapter = TBSreachResultAdapter(mList, this)
         mAdapter.setAppStatisticalUtil(appStatisticalUtil)
         mAdapter.setTransformer(this.bindUntilEvent(ActivityEvent.DESTROY))
-        mAdapter.setId(id)
+        mAdapter.setId("zhuanti." + id + "_liebiao.")
         mAdapter.layoutType = 1//默认横向布局
         mAdapter.setOnItem(this)
         mBinding.swipeTarget.adapter = mAdapter

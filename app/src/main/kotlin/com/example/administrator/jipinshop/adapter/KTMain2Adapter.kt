@@ -72,7 +72,7 @@ class KTMain2Adapter : RecyclerView.Adapter<RecyclerView.ViewHolder>{
     private lateinit var mPagerAdapter: HomePageAdapter
     //用于退出 Activity,避免 Countdown，造成资源浪费。
     private var countDownCounters: SparseArray<CountDownTimer>
-    private var order = "1" //0元购布局0  其他布局非0
+    private var order = "1" //0:0元购,1:淘宝,2:猜你喜欢,3:猫超,4:京东,5:拼多多
 
     constructor(list: MutableList<TBSreachResultBean.DataBean>, context: Context){
         mList = list
@@ -376,7 +376,6 @@ class KTMain2Adapter : RecyclerView.Adapter<RecyclerView.ViewHolder>{
                             mContext.startActivity(Intent(mContext, LoginActivity::class.java))
                             return@setOnClickListener
                         }
-                        appStatisticalUtil.addEvent("shouye_tehui",transformer)
                         mContext.startActivity(Intent(mContext, ComprehensiveActivity::class.java)
                                 .putExtra("page", 3)
                         )
@@ -386,6 +385,7 @@ class KTMain2Adapter : RecyclerView.Adapter<RecyclerView.ViewHolder>{
                             mContext.startActivity(Intent(mContext, LoginActivity::class.java))
                             return@setOnClickListener
                         }
+                        appStatisticalUtil.addEvent("shouye_activity_" + mBean!!.data.ad3.type,transformer)
                         ShopJumpUtil.openBanner(mContext,mBean!!.data.ad3.type,
                                 mBean!!.data.ad3.objectId,mBean!!.data.ad3.name,
                                 mBean!!.data.ad3.source,mBean!!.data.ad3.remark)
@@ -479,12 +479,16 @@ class KTMain2Adapter : RecyclerView.Adapter<RecyclerView.ViewHolder>{
                             mContext.startActivity(Intent(mContext, LoginActivity::class.java))
                             return@setOnClickListener
                         }
-                        if (mList[pos].source == "1"){
-                            appStatisticalUtil.addEvent("shouye_jingdong." + (pos+1),transformer)
-                        }else if (mList[pos].source == "4"){
-                            appStatisticalUtil.addEvent("shouye_pinduoduo." + (pos+1),transformer)
-                        }else{
-                            appStatisticalUtil.addEvent("shouye_taobao." + (pos+1),transformer)
+                        if (order == "1"){
+                            appStatisticalUtil.addEvent("shouye_hot_tb_" + mList[pos].otherGoodsId,transformer)
+                        }else if (order == "2"){
+                            appStatisticalUtil.addEvent("shouye_hot_cai_" + mList[pos].otherGoodsId,transformer)
+                        }else if (order == "3"){
+                            appStatisticalUtil.addEvent("shouye_hot_tmshop_" + mList[pos].otherGoodsId,transformer)
+                        }else if (order == "4"){
+                            appStatisticalUtil.addEvent("shouye_hot_jd_" + mList[pos].otherGoodsId,transformer)
+                        }else if (order == "5"){
+                            appStatisticalUtil.addEvent("shouye_hot_pdd_" + mList[pos].otherGoodsId,transformer)
                         }
                         mContext.startActivity(Intent(mContext, TBShoppingDetailActivity::class.java)
                                 .putExtra("otherGoodsId", mList[pos].otherGoodsId)
@@ -529,6 +533,7 @@ class KTMain2Adapter : RecyclerView.Adapter<RecyclerView.ViewHolder>{
                             ToastUtil.show("当前商品已售罄，看看其他商品吧")
                             return@setOnClickListener
                         }
+                        appStatisticalUtil.addEvent("shouye_hot_free_" + mList[pos].otherGoodsId,transformer)
                         mContext.startActivity(Intent(mContext, NewFreeDetailActivity::class.java)
                                 .putExtra("freeId", mList[pos].id)
                                 .putExtra("otherGoodsId", mList[pos].otherGoodsId)

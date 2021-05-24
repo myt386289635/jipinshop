@@ -26,8 +26,10 @@ import com.example.administrator.jipinshop.bean.TBCategoryBean;
 import com.example.administrator.jipinshop.databinding.FragmentSaleBinding;
 import com.example.administrator.jipinshop.util.TaoBaoUtil;
 import com.example.administrator.jipinshop.util.ToastUtil;
+import com.example.administrator.jipinshop.util.UmApp.AppStatisticalUtil;
 import com.example.administrator.jipinshop.util.sp.CommonDate;
 import com.example.administrator.jipinshop.view.dialog.ProgressDialogView;
+import com.trello.rxlifecycle2.android.FragmentEvent;
 
 import net.lucode.hackware.magicindicator.buildins.commonnavigator.CommonNavigator;
 
@@ -45,6 +47,8 @@ public class SaleHotFragment extends DBBaseFragment implements View.OnClickListe
 
     @Inject
     SaleHotPresenter mPresenter;
+    @Inject
+    AppStatisticalUtil appStatisticalUtil;
 
     private FragmentSaleBinding mBinding;
     private int left = 0; //0是左边  1是右边  默认是0
@@ -130,6 +134,9 @@ public class SaleHotFragment extends DBBaseFragment implements View.OnClickListe
         mList = new ArrayList<>();
         mAdapter = new KTUserLikeAdapter(mList,getContext());
         mAdapter.setOnItem(this);
+        mAdapter.setAppStatisticalUtil(appStatisticalUtil);
+        mAdapter.setTransformer(this.bindUntilEvent(FragmentEvent.DESTROY_VIEW));
+        mAdapter.setUtil("rexiao_");
         mBinding.swipeTarget.setAdapter(mAdapter);
 
         mBinding.swipeToLoad.setOnLoadMoreListener(this);
@@ -142,12 +149,14 @@ public class SaleHotFragment extends DBBaseFragment implements View.OnClickListe
             case R.id.sale_titleLeft:
                 if (left != 0){
                     left = 0;
+                    appStatisticalUtil.addEvent("rexiao_hour",this.bindToLifecycle());
                     mPresenter.initTitle(getContext(),mBinding,left);
                 }
                 break;
             case R.id.sale_titleRight:
                 if (left != 1){
                     left = 1;
+                    appStatisticalUtil.addEvent("rexiao_day",this.bindToLifecycle());
                     mPresenter.initTitle(getContext(),mBinding,left);
                 }
                 break;
@@ -159,6 +168,9 @@ public class SaleHotFragment extends DBBaseFragment implements View.OnClickListe
         refresh = true;
         page = 1;
         mBinding.swipeTarget.scrollToPosition(0);
+        if (once){
+            appStatisticalUtil.addEvent("rexiao_hour",this.bindToLifecycle());
+        }
         if (source.equals("2")){
             //先请求tab
             mBinding.saleTbCategoryContainer.setVisibility(View.VISIBLE);

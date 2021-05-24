@@ -68,7 +68,7 @@ class KTMain2GridAdapter : BaseAdapter{
                     mContext.startActivity(Intent(mContext, LoginActivity::class.java))
                     return@setOnClickListener
                 }
-                appStatisticalUtil.addEvent(mUtil + (position + 1),transformer)
+                appStatisticalUtil.addEvent(mUtil + (position + 1) + "_" + mList[position].type,transformer)
                 if (mList[position].popStatus == "1" &&
                         SPUtils.getInstance(CommonDate.USER).getString(CommonDate.userMemberGrade, "0") == "0") {
                     DialogUtil.memberGuideDialog(mContext)

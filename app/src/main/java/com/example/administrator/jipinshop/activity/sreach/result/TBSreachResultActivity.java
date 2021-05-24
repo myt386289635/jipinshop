@@ -28,8 +28,10 @@ import com.example.administrator.jipinshop.bean.eventbus.SreachBus;
 import com.example.administrator.jipinshop.databinding.ActivitySreachTbResultBinding;
 import com.example.administrator.jipinshop.util.TaoBaoUtil;
 import com.example.administrator.jipinshop.util.ToastUtil;
+import com.example.administrator.jipinshop.util.UmApp.AppStatisticalUtil;
 import com.example.administrator.jipinshop.util.sp.CommonDate;
 import com.example.administrator.jipinshop.view.dialog.ProgressDialogView;
+import com.trello.rxlifecycle2.android.ActivityEvent;
 
 import net.lucode.hackware.magicindicator.buildins.commonnavigator.CommonNavigator;
 
@@ -49,6 +51,8 @@ public class TBSreachResultActivity extends BaseActivity implements View.OnClick
 
     @Inject
     TBSreachResultPresenter mPresenter;
+    @Inject
+    AppStatisticalUtil appStatisticalUtil;
 
     private ActivitySreachTbResultBinding mBinding;
     private Dialog mDialog;
@@ -124,6 +128,9 @@ public class TBSreachResultActivity extends BaseActivity implements View.OnClick
         mAdapter = new TBSreachResultAdapter(mList,this);
         mAdapter.setLayoutType(1);//默认横向布局
         mAdapter.setOnItem(this);
+        mAdapter.setAppStatisticalUtil(appStatisticalUtil);
+        mAdapter.setTransformer(this.bindUntilEvent(ActivityEvent.DESTROY));
+        mAdapter.setId("search.");
         mBinding.swipeTarget.setAdapter(mAdapter);
 
         mBinding.swipeToLoad.setOnLoadMoreListener(this);

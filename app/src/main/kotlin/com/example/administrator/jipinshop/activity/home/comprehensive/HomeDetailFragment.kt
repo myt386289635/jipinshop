@@ -111,7 +111,7 @@ class HomeDetailFragment :  DBBaseFragment(), View.OnClickListener, TBSreachResu
         mAdapter = TBSreachResultAdapter(mList, context)
         mAdapter.setAppStatisticalUtil(appStatisticalUtil)
         mAdapter.setTransformer(this.bindUntilEvent(FragmentEvent.DESTROY_VIEW))
-        mAdapter.setId(id)
+        mAdapter.setId("zhuanti." + id + "_liebiao.")
         mAdapter.layoutType = 1//默认横向布局
         mAdapter.setOnItem(this)
         mBinding.swipeTarget.adapter = mAdapter
