@@ -113,9 +113,9 @@ class KTMinePresenter {
                 })
     }
 
-    //邀请码
-    fun addInvitationCode(invitationCode: String, dialog: Dialog, inputManager: InputMethodManager, transformer: LifecycleTransformer<SuccessBean>) {
-        repository.addInvitationCode(invitationCode)
+    //会员兑换
+    fun exchangeCode(code: String, dialog: Dialog, inputManager: InputMethodManager, transformer: LifecycleTransformer<SuccessBean>) {
+        repository.exchangeCode(code)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .compose(transformer)

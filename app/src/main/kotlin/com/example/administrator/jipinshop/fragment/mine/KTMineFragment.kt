@@ -41,6 +41,7 @@ import com.example.administrator.jipinshop.bean.*
 import com.example.administrator.jipinshop.bean.eventbus.ChangeHomePageBus
 import com.example.administrator.jipinshop.bean.eventbus.EditNameBus
 import com.example.administrator.jipinshop.bean.eventbus.HomeRefresh
+import com.example.administrator.jipinshop.bean.eventbus.MemberRefreshBus
 import com.example.administrator.jipinshop.databinding.FragmentKtMineBinding
 import com.example.administrator.jipinshop.jpush.JPushReceiver
 import com.example.administrator.jipinshop.netwrok.RetrofitModule
@@ -447,21 +448,36 @@ class KTMineFragment : DBBaseFragment(), KTMineAdapter.OnItem, KTMineView, OnLoa
         )
     }
 
-    //邀请码dialog
-    override fun onInvationDialog() {
+    //会员兑换
+    override fun onMemberDialog() {
         if (TextUtils.isEmpty(SPUtils.getInstance(CommonDate.USER).getString(CommonDate.token, ""))) {
             startActivity(Intent(context, LoginActivity::class.java))
             return
         }
-        DialogUtil.invitationDialog(context) { invitationCode, dialog, inputManager ->
+        DialogUtil.memberExchange(context) { invitationCode, dialog, inputManager ->
             if (TextUtils.isEmpty(invitationCode)) {
-                ToastUtil.show("请输入邀请码")
-                return@invitationDialog
+                ToastUtil.show("请输入兑换码")
+                return@memberExchange
             }
             mDialog = ProgressDialogView().createLoadingDialog(context, "")
             mDialog?.show()
-            mPresenter.addInvitationCode(invitationCode, dialog, inputManager, this.bindToLifecycle<SuccessBean>())
+            mPresenter.exchangeCode(invitationCode,dialog,inputManager,this.bindToLifecycle())
         }
+    }
+
+    override fun onCodeSuc(dialog: Dialog, inputManager: InputMethodManager, bean: SuccessBean) {
+        mDialog?.let {
+            if (it.isShowing){
+                it.dismiss()
+            }
+        }
+        ToastUtil.show(bean.msg)
+        if (dialog.currentFocus != null)
+            inputManager.hideSoftInputFromWindow(dialog.currentFocus!!.windowToken, 0)
+        dialog.dismiss()
+        EventBus.getDefault().post(HomeRefresh(HomeRefresh.tag))//用来刷新首页的
+        EventBus.getDefault().post(MemberRefreshBus())//刷新会员页面
+        mPresenter.modelUser(this.bindUntilEvent(FragmentEvent.DESTROY_VIEW))//刷新我的页面
     }
 
     //订单找回
@@ -501,22 +517,6 @@ class KTMineFragment : DBBaseFragment(), KTMineAdapter.OnItem, KTMineView, OnLoa
         startActivity(Intent(context, WithdrawActivity::class.java)
                 .putExtra("price", "¥$withdraw")
         )
-    }
-
-    override fun onCodeSuc(dialog: Dialog, inputManager: InputMethodManager, bean: SuccessBean) {
-        mDialog?.let {
-            if (it.isShowing){
-                it.dismiss()
-            }
-        }
-        ToastUtil.show(bean.msg)
-        if (dialog.currentFocus != null)
-            inputManager.hideSoftInputFromWindow(dialog.currentFocus!!.windowToken, 0)
-        dialog.dismiss()
-        mBean?.let {
-            it.data.pid = "1"
-            mAdapter.notifyDataSetChanged()
-        }
     }
 
     @Subscribe

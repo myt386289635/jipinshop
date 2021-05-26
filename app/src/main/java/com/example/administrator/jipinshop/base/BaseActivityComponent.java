@@ -99,6 +99,7 @@ import com.example.administrator.jipinshop.activity.sreach.result.SreachResultAc
 import com.example.administrator.jipinshop.activity.sreach.result.TBSreachResultActivity;
 import com.example.administrator.jipinshop.activity.web.TaoBaoWebActivity;
 import com.example.administrator.jipinshop.activity.web.dzp.BigWheelWebActivity;
+import com.example.administrator.jipinshop.activity.web.exchange.ExChangeWebActivity;
 import com.example.administrator.jipinshop.activity.web.hb.HBWebView2;
 import com.example.administrator.jipinshop.activity.web.invite.InviteActionWebActivity;
 import com.example.administrator.jipinshop.activity.web.server.ServerWebActivity;
@@ -216,4 +217,5 @@ public interface BaseActivityComponent {
     void inject(ServerWebActivity activity);
     void inject(SellDetailActivity activity);
     void inject(SellWebActivity activity);
+    void inject(ExChangeWebActivity activity);
 }

@@ -3,19 +3,65 @@
     xmlns:android="http://schemas.android.com/apk/res/android">
 
     <RelativeLayout
+        android:gravity="center_horizontal"
+        android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
-        <TextView
-            android:layout_centerHorizontal="true"
-            android:background="@drawable/bg_balance"
+        <ImageView
             android:id="@+id/dialog_title"
-            android:gravity="center"
-            android:textColor="@color/color_202020"
-            android:textSize="16sp"
-            android:text="删除会话"
-            android:layout_width="@dimen/x590"
-            android:layout_height="@dimen/y104"/>
+            android:scaleType="fitXY"
+            android:adjustViewBounds="true"
+            android:src="@mipmap/dialog_exchange1"
+            android:layout_width="@dimen/x580"
+            android:layout_height="wrap_content"/>
+
+        <ImageView
+            android:id="@+id/dialog_dismiss"
+            android:layout_alignRight="@id/dialog_title"
+            android:padding="@dimen/x15"
+            android:tint="@color/color_white"
+            android:src="@mipmap/dialog_close1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+
+        <LinearLayout
+            android:layout_below="@id/dialog_title"
+            android:orientation="vertical"
+            android:background="@drawable/bg_ffffff"
+            android:layout_width="@dimen/x580"
+            android:layout_height="wrap_content">
+
+            <EditText
+                android:id="@+id/dialog_edit"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/y72"
+                android:layout_marginLeft="@dimen/x55"
+                android:layout_marginTop="@dimen/y79"
+                android:layout_marginRight="@dimen/x55"
+                android:layout_marginBottom="@dimen/y86"
+                android:background="@drawable/bg_common"
+                android:hint="请输入兑换码"
+                android:paddingLeft="@dimen/x32"
+                android:paddingRight="@dimen/x32"
+                android:singleLine="true"
+                android:text=""
+                android:textColor="@color/color_202020"
+                android:textColorHint="@color/color_979797"
+                android:textSize="16sp"/>
+
+            <ImageView
+                android:id="@+id/dialog_sure"
+                android:layout_marginBottom="@dimen/y66"
+                android:adjustViewBounds="true"
+                android:scaleType="fitXY"
+                android:src="@mipmap/dialog_exchange2"
+                android:layout_marginRight="@dimen/x132"
+                android:layout_marginLeft="@dimen/x132"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"/>
+
+        </LinearLayout>
 
     </RelativeLayout>
 

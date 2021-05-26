@@ -1560,4 +1560,11 @@ public class Repository {
     public Observable<SimilerGoodsBean> topGoodsList(HashMap<String,String> map){
         return mAPIService.topGoodsList(map);
     }
+
+    /**
+     * 输入兑换码
+     */
+    public Observable<SuccessBean> exchangeCode( String code){
+        return mAPIService.exchangeCode(code);
+    }
 }

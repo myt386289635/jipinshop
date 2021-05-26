@@ -936,6 +936,10 @@
         <activity android:name=".activity.home.sell.detail.SellDetailActivity"
                   android:screenOrientation="portrait"/>
 
+        <!--邀请兑换码活动-->
+        <activity android:name=".activity.web.exchange.ExChangeWebActivity"
+                  android:screenOrientation="portrait"/>
+
     </application>
 
 </manifest>

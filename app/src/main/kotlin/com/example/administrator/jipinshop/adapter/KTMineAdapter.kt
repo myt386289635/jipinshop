@@ -354,6 +354,9 @@ class KTMineAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>{
                     binding.mineHelp.setOnClickListener {
                         mOnItem?.onHelp()
                     }
+                    binding.mineExchange.setOnClickListener {
+                        mOnItem?.onMemberDialog()
+                    }
                 }
             }
             HEAD4 -> {
@@ -647,7 +650,7 @@ class KTMineAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>{
         fun onFover()//收藏夹
         fun onSetting()//设置
         fun onRule()//极币中心
-        fun onInvationDialog()//邀请码dialog（没有使用）
+        fun onMemberDialog()//会员兑换
         fun onOrderRecovery() //订单找回
         fun onTeam()//进入团队
         fun onInvitation() //进入邀请页面

@@ -42,6 +42,7 @@ import com.example.administrator.jipinshop.base.DBBaseFragment;
 import com.example.administrator.jipinshop.bean.EvaluationTabBean;
 import com.example.administrator.jipinshop.bean.MemberNewBean;
 import com.example.administrator.jipinshop.bean.ShareInfoBean;
+import com.example.administrator.jipinshop.bean.eventbus.MemberRefreshBus;
 import com.example.administrator.jipinshop.databinding.FragmentMemberNewBinding;
 import com.example.administrator.jipinshop.fragment.member.cheap.CheapFragment;
 import com.example.administrator.jipinshop.netwrok.RetrofitModule;
@@ -58,6 +59,9 @@ import com.example.administrator.jipinshop.view.viewpager.TouchViewPager;
 import com.trello.rxlifecycle2.android.ActivityEvent;
 import com.trello.rxlifecycle2.android.FragmentEvent;
 import com.umeng.socialize.bean.SHARE_MEDIA;
+
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -156,6 +160,7 @@ public class MemberFragment extends DBBaseFragment implements View.OnClickListen
 
     @Override
     public void initView() {
+        EventBus.getDefault().register(this);
         mBaseFragmentComponent.inject(this);
         mPresenter.setView(this);
         mPresenter.setStatusBarHight(mBinding.statusBar,getContext());
@@ -766,5 +771,20 @@ public class MemberFragment extends DBBaseFragment implements View.OnClickListen
     public void initShare(ShareInfoBean bean) {
         new ShareUtils(getActivity(), SHARE_MEDIA.WEIXIN)
                 .shareImage(getActivity(), bean.getData().getImgUrl());
+    }
+
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        EventBus.getDefault().unregister(this);
+    }
+
+    @Subscribe
+    public void refresh(MemberRefreshBus bus){
+        if (bus != null){
+            if (!once){
+                mPresenter.levelIndex(this.bindToLifecycle());
+            }
+        }
     }
 }

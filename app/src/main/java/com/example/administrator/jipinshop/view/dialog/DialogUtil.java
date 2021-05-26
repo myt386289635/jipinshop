@@ -624,9 +624,7 @@ public class DialogUtil {
         dialog.setContentView(binding.getRoot());
     }
 
-    /**
-     * 首页专属导师弹窗
-     */
+    //首页专属导师弹窗
     public static void teacherDialog(Context context, String Twechat, String Tavatar) {
         AlertDialog.Builder builder = new AlertDialog.Builder(context, R.style.dialog);
         final Dialog dialog = builder.create();
@@ -647,9 +645,7 @@ public class DialogUtil {
         dialog.setContentView(binding.getRoot());
     }
 
-    /**
-     * 邀请码dialog
-     */
+    //邀请码dialog
     public static void invitationDialog(Context context, OnInvitationListener listener) {
         AlertDialog.Builder builder = new AlertDialog.Builder(context, R.style.dialog);
         final Dialog dialog = builder.create();
@@ -1371,18 +1367,26 @@ public class DialogUtil {
         dialog.setContentView(binding.getRoot());
     }
 
-    //消息中心删除弹窗
-    public static void messageDetele(Context context , View.OnClickListener listener){
+    //会员兑换dialog
+    public static void memberExchange(Context context , OnInvitationListener listener){
         AlertDialog.Builder builder = new AlertDialog.Builder(context, R.style.dialog);
         final Dialog dialog = builder.create();
         DialogMessageDeteleBinding binding = DataBindingUtil.inflate(LayoutInflater.from(context),
                 R.layout.dialog_message_detele, null, false);
-        binding.dialogTitle.setOnClickListener(v -> {
+        InputMethodManager inputManager = (InputMethodManager) binding.dialogEdit
+                .getContext().getSystemService(Context.INPUT_METHOD_SERVICE);
+        binding.dialogDismiss.setOnClickListener(v -> {
+            if (dialog.getCurrentFocus() != null)
+                inputManager.hideSoftInputFromWindow(dialog.getCurrentFocus().getWindowToken(), 0);
             dialog.dismiss();
-            listener.onClick(v);
+        });
+        binding.dialogSure.setOnClickListener(v -> {
+            listener.invitation(binding.dialogEdit.getText().toString().trim(), dialog, inputManager);
         });
         dialog.getWindow().setDimAmount(0.35f);
+        showKeyboard(binding.dialogEdit, inputManager);
         dialog.show();
+        dialog.getWindow().clearFlags(WindowManager.LayoutParams.FLAG_ALT_FOCUSABLE_IM);
         dialog.setContentView(binding.getRoot());
     }
 

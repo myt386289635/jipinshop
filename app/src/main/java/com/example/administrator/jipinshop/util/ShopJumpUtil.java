@@ -34,6 +34,7 @@ import com.example.administrator.jipinshop.activity.sign.SignActivity;
 import com.example.administrator.jipinshop.activity.sign.detail.IntegralDetailActivity;
 import com.example.administrator.jipinshop.activity.sign.invitation.InvitationNewActivity;
 import com.example.administrator.jipinshop.activity.web.dzp.BigWheelWebActivity;
+import com.example.administrator.jipinshop.activity.web.exchange.ExChangeWebActivity;
 import com.example.administrator.jipinshop.activity.web.hb.HBWebView2;
 import com.example.administrator.jipinshop.activity.web.invite.InviteActionWebActivity;
 import com.example.administrator.jipinshop.activity.web.sign.H5SignWebActivity;
@@ -660,6 +661,17 @@ public class ShopJumpUtil {
                 }else {
                     intent.setClass(context, NewGiftActivity.class);
                     intent.putExtra("currentItem", 4);
+                }
+                context.startActivity(intent);
+                break;
+            case "59"://邀请兑换码活动
+                if (TextUtils.isEmpty(SPUtils.getInstance(CommonDate.USER).getString(CommonDate.token, ""))) {
+                    intent.setClass(context, LoginActivity.class);
+                }else {
+                    intent.setClass(context, ExChangeWebActivity.class);
+                    intent.putExtra(ExChangeWebActivity.url, RetrofitModule.JP_H5_URL + "new-free/inviteFriends?token=" + SPUtils.getInstance(CommonDate.USER).getString(CommonDate.token));
+                    intent.putExtra(ExChangeWebActivity.title, "邀请好友");
+                    intent.putExtra(ExChangeWebActivity.share, true);
                 }
                 context.startActivity(intent);
                 break;

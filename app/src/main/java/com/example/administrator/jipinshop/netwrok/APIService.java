@@ -1418,4 +1418,10 @@ public interface APIService {
      */
     @GET("api/v3/tbk/topGoodsList")
     Observable<SimilerGoodsBean> topGoodsList(@QueryMap HashMap<String,String> map);
+
+    /**
+     * 输入兑换码
+     */
+    @GET("api/exchange/code")
+    Observable<SuccessBean> exchangeCode(@Query("code") String code);
 }
