@@ -29,12 +29,14 @@
                 android:layout_height="wrap_content"/>
             
             <ImageView
-                tools:src="@color/color_835720"
+                android:scaleType="fitXY"
+                android:adjustViewBounds="true"
+                android:src="@mipmap/sign_group"
                 android:id="@+id/item_adImage"
                 android:layout_marginRight="@dimen/x20"
                 android:layout_marginLeft="@dimen/x20"
                 android:layout_width="match_parent"
-                android:layout_height="@dimen/y250"/>
+                android:layout_height="wrap_content"/>
 
             <android.support.v7.widget.RecyclerView
                 android:layout_marginBottom="@dimen/y30"

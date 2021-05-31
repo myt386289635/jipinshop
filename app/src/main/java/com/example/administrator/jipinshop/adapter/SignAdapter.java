@@ -1,5 +1,7 @@
 package com.example.administrator.jipinshop.adapter;
 
+import android.content.ClipData;
+import android.content.ClipboardManager;
 import android.content.Context;
 import android.content.Intent;
 import android.databinding.DataBindingUtil;
@@ -14,6 +16,7 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.blankj.utilcode.util.SPUtils;
 import com.bumptech.glide.Glide;
 import com.example.administrator.jipinshop.R;
 import com.example.administrator.jipinshop.activity.WebActivity;
@@ -30,7 +33,10 @@ import com.example.administrator.jipinshop.databinding.ItemSignHead3Binding;
 import com.example.administrator.jipinshop.databinding.ItemSignHead4Binding;
 import com.example.administrator.jipinshop.netwrok.RetrofitModule;
 import com.example.administrator.jipinshop.util.ShopJumpUtil;
+import com.example.administrator.jipinshop.util.ToastUtil;
 import com.example.administrator.jipinshop.util.UmApp.AppStatisticalUtil;
+import com.example.administrator.jipinshop.util.sp.CommonDate;
+import com.example.administrator.jipinshop.view.dialog.DialogUtil;
 import com.example.administrator.jipinshop.view.glide.GlideApp;
 import com.trello.rxlifecycle2.LifecycleTransformer;
 
@@ -286,12 +292,15 @@ public class SignAdapter extends RecyclerView.Adapter {
                             .putExtra("from",1)
                     );
                 });
-                GlideApp.loderImage(mContext,mBean.getData().getAd1().getImg(),head3ViewHolder.mBinding.itemAdImage,0,0);
                 GlideApp.loderImage(mContext,mBean.getData().getAd2().getImg(),head3ViewHolder.mBinding.itemAd2,0,0);
                 head3ViewHolder.mBinding.itemAdImage.setOnClickListener(v -> {
-                    ShopJumpUtil.openBanner(mContext,mBean.getData().getAd1().getType(),
-                            mBean.getData().getAd1().getObjectId(),mBean.getData().getAd1().getName(),
-                            mBean.getData().getAd1().getSource() , mBean.getData().getAd1().getRemark());
+                    DialogUtil.LoginDialog(mContext, "官方客服微信：" + mBean.getData().getOfficialWechat(), "复制", "取消", v1 -> {
+                        ClipboardManager clip = (ClipboardManager) mContext.getSystemService(Context.CLIPBOARD_SERVICE);
+                        ClipData clipData = ClipData.newPlainText("jipinshop", mBean.getData().getOfficialWechat());
+                        clip.setPrimaryClip(clipData);
+                        ToastUtil.show("微信号复制成功");
+                        SPUtils.getInstance().put(CommonDate.CLIP, mBean.getData().getOfficialWechat());
+                    });
                 });
                 head3ViewHolder.mBinding.itemAd2.setOnClickListener(v -> {
                     ShopJumpUtil.openBanner(mContext,mBean.getData().getAd2().getType(),

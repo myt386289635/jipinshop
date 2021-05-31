@@ -49,6 +49,15 @@ public class DailyTaskBean {
         private List<ListBean> list2;
         private List<MyWalletBean.DataBean.AdListBean> boxList;
         private List<MallBean.DataBean> goodsList;
+        private String officialWechat;
+
+        public String getOfficialWechat() {
+            return officialWechat;
+        }
+
+        public void setOfficialWechat(String officialWechat) {
+            this.officialWechat = officialWechat;
+        }
 
         public int getPoint() {
             return point;

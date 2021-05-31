@@ -54,7 +54,7 @@
             android:textStyle="bold"
             android:textColor="@color/color_FAE1BF"
             android:textSize="31sp"
-            android:text="0利润 不赚佣"
+            android:text="会员制电商导购平台"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"/>
 
