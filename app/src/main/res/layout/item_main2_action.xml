@@ -7,13 +7,14 @@
         android:layout_height="wrap_content">
 
         <ImageView
-            android:layout_marginBottom="@dimen/y20"
+            android:layout_marginBottom="@dimen/y15"
             android:id="@+id/item_image"
-            android:scaleType="fitCenter"
+            android:scaleType="fitXY"
+            android:adjustViewBounds="true"
             android:src="@color/color_white"
             android:layout_centerHorizontal="true"
             android:layout_width="@dimen/x320"
-            android:layout_height="@dimen/y160"/>
+            android:layout_height="wrap_content"/>
 
     </RelativeLayout>
 </layout>

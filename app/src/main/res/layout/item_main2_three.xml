@@ -16,7 +16,7 @@
 
         <android.support.v7.widget.RecyclerView
             android:layout_below="@+id/item_image"
-            android:layout_marginBottom="@dimen/y22"
+            android:layout_marginBottom="@dimen/y20"
             android:id="@+id/item_rv"
             android:layout_alignRight="@+id/item_image"
             android:layout_alignLeft="@+id/item_image"
