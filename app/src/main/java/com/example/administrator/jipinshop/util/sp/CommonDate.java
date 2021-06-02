@@ -12,7 +12,8 @@ public class CommonDate {
     public static final String SubTab = "SubTab";//榜单的二级菜单以及一级菜单
     public static final String EvaluationTab = "EvaluationTab";//评测的tab
     public static final String FindTab = "FindTab";//发现的tab
-    public static final String POPID = "POPID";//活动popid为了不弹出活动
+    public static final String OPEN = "open";//是否是审核版本 0审核中 1通过
+    public static final String VersionCode = "VersionCode"; //服务器上的版本号
     public static final String CLIP = "clip";//粘贴板内容存稿
     public static final String AD = "AD";//广告
     public static final String privacy = "privacy";//隐私协议版本号

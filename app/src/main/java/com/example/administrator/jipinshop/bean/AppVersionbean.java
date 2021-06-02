@@ -62,7 +62,7 @@ public class AppVersionbean {
         private Object requiredVersionCode;
         private int needUpdate;
         private String downloadUrl;
-        private int open;
+        private int open;//0审核中 1通过
         private String content;
         private Object createTime;
         private String needVerify;// 是否需要安全验证（0不需要，1需要）

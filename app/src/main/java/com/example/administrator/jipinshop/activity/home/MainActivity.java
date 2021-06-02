@@ -247,6 +247,8 @@ public class MainActivity extends BaseActivity implements MainView, ViewPager.On
     @Override
     public void onSuccess(AppVersionbean versionbean) {//版本更新弹出
         RetrofitModule.needVerify = versionbean.getData().getNeedVerify();
+        SPUtils.getInstance().put(CommonDate.OPEN, versionbean.getData().getOpen());
+        SPUtils.getInstance().put(CommonDate.VersionCode, versionbean.getData().getVersionCode());
         if (versionbean.getData().getVersionCode() > UpDataUtil.getPackageVersionCode()) {
             if (versionbean.getData().getNeedUpdate() == 0) {
                 //可以取消

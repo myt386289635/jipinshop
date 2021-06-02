@@ -3,6 +3,8 @@ package com.example.administrator.jipinshop.util;
 import android.app.Activity;
 import android.view.ViewGroup;
 
+import com.blankj.utilcode.util.SPUtils;
+import com.example.administrator.jipinshop.util.sp.CommonDate;
 import com.qubian.mob.AdManager;
 
 /**
@@ -14,8 +16,21 @@ public class ADUtil {
 
     //开屏广告
     public static void playAD(Activity activity, ViewGroup viewGroup , Jump jump){
-        int error = 0;
-        onAd(error,activity,viewGroup,jump);
+        if (UpDataUtil.getPackageVersionCode() >= SPUtils.getInstance().getInt(CommonDate.VersionCode, 76)){
+            //当前版本大于或等于服务器版本 （当前是最新版）
+            if (SPUtils.getInstance().getInt(CommonDate.OPEN, 0) == 1){
+                //通过
+                int error = 0;
+                onAd(error,activity,viewGroup,jump);
+            }else {
+                //版本还在审核中
+                jump.onJump();
+            }
+        }else {
+            //目前是老版本
+            int error = 0;
+            onAd(error,activity,viewGroup,jump);
+        }
     }
 
     //开屏广告
