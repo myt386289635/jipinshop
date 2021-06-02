@@ -16,18 +16,25 @@ public class ADUtil {
 
     //开屏广告
     public static void playAD(Activity activity, ViewGroup viewGroup , Jump jump){
-        if (UpDataUtil.getPackageVersionCode() >= SPUtils.getInstance().getInt(CommonDate.VersionCode, 76)){
-            //当前版本大于或等于服务器版本 （当前是最新版）
-            if (SPUtils.getInstance().getInt(CommonDate.OPEN, 0) == 1){
-                //通过
+        if (ifHW()){
+            //华为手机进入
+            if (UpDataUtil.getPackageVersionCode() >= SPUtils.getInstance().getInt(CommonDate.VersionCode, 76)){
+                //当前版本大于或等于服务器版本 （当前是最新版）
+                if (SPUtils.getInstance().getInt(CommonDate.OPEN, 0) == 1){
+                    //通过
+                    int error = 0;
+                    onAd(error,activity,viewGroup,jump);
+                }else {
+                    //版本还在审核中
+                    jump.onJump();
+                }
+            }else {
+                //目前是老版本
                 int error = 0;
                 onAd(error,activity,viewGroup,jump);
-            }else {
-                //版本还在审核中
-                jump.onJump();
             }
         }else {
-            //目前是老版本
+            //非华为手机进入
             int error = 0;
             onAd(error,activity,viewGroup,jump);
         }
@@ -58,6 +65,17 @@ public class ADUtil {
                 jump.onJump();
             }
         });
+    }
+
+    public static boolean ifHW(){
+        String deviceBrand = ShopJumpUtil.getDeviceBrand().toLowerCase();
+        boolean isHW;
+        if (deviceBrand.equals("huawei")){
+            isHW = true;
+        }else {
+            isHW = false;
+        }
+        return isHW;
     }
 
     public interface Jump{
