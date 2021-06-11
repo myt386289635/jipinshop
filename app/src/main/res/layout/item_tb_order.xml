@@ -103,6 +103,7 @@
             android:textColor="@color/color_9D9D9D"
             bind:TbState="@{date.status}"
             bind:TbEarningTime="@{date.appEarningTime}"
+            bind:tkStatus="@{date.tkStatus}"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"/>
 

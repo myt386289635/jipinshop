@@ -119,14 +119,14 @@ class KTMain2Fragment : DBBaseFragment(), KTMain2View, OnLoadMoreListener, OnRef
             if (!TextUtils.isEmpty(SPUtils.getInstance(CommonDate.USER).getString(CommonDate.token, ""))){
                 if(SPUtils.getInstance().getBoolean(CommonDate.memberNotice, true)){
                     fragment.initMemberNotice(true)
-                    fragment.initMarquee("")
+                    fragment.initMarquee("" , -1)
                     fragment.initAuth(false)
                 }else{
                     fragment.initMemberNotice(false)
                     if (bean.data.message != null && !TextUtils.isEmpty(bean.data.message.content)){
-                        fragment.initMarquee(bean.data.message.content)
+                        fragment.initMarquee(bean.data.message.content , bean.data.message.type)
                     }else{
-                        fragment.initMarquee("")
+                        fragment.initMarquee("", -1)
                         var specialId2 = SPUtils.getInstance(CommonDate.USER).getString(CommonDate.relationId, "")
                         if (TextUtils.isEmpty(specialId2) || specialId2 == "null"){
                             fragment.initAuth(true)
@@ -137,7 +137,7 @@ class KTMain2Fragment : DBBaseFragment(), KTMain2View, OnLoadMoreListener, OnRef
                 }
             }else{//未登录
                 fragment.initMemberNotice(false)
-                fragment.initMarquee("")
+                fragment.initMarquee("", -1)
                 fragment.initAuth(false)
             }
         }

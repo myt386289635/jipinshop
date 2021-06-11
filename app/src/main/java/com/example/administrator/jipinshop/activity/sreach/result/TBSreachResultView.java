@@ -11,4 +11,5 @@ public interface TBSreachResultView {
 
     void onSuccess(TBSreachResultBean bean);
     void onFile(String error);
+    void onNetFile(String error);
 }

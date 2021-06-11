@@ -207,6 +207,11 @@ public class TBSreachResultActivity extends BaseActivity implements View.OnClick
                     mBinding.sreachChangeImg.setImageResource(R.mipmap.sreach_change);
                 }
                 break;
+            case R.id.error_content:
+                mDialog = (new ProgressDialogView()).createLoadingDialog(this, "");
+                mDialog.show();
+                onRefresh();
+                break;
         }
     }
 
@@ -229,6 +234,8 @@ public class TBSreachResultActivity extends BaseActivity implements View.OnClick
     public void onSuccess(TBSreachResultBean bean) {
         EventBus.getDefault().post(new SreachBus(SreachActivity.sreachHistoryTag));//刷新历史搜索
         if(refresh) {
+            mBinding.errorContainer.setVisibility(View.GONE);
+            mBinding.swipeToLoad.setVisibility(View.VISIBLE);
             if (bean.getData() != null && bean.getData().size() != 0){
                 //有数据
                 mList.clear();
@@ -260,7 +267,6 @@ public class TBSreachResultActivity extends BaseActivity implements View.OnClick
                 TBSreachResultBean.DataBean headBean = new TBSreachResultBean.DataBean();
                 headBean.setGoodsType(5);
                 mList.add(headBean);
-                mList.addAll(bean.getData());
                 mAdapter.notifyDataSetChanged();
             }
         }else {
@@ -299,6 +305,18 @@ public class TBSreachResultActivity extends BaseActivity implements View.OnClick
         ToastUtil.show(error);
     }
 
+    @Override
+    public void onNetFile(String error) {
+        if(refresh){
+            dissRefresh();
+            netError();
+        }else {
+            dissLoading();
+            page--;
+        }
+        ToastUtil.show(error);
+    }
+
     public void dissRefresh(){
         if (mBinding.swipeToLoad != null && mBinding.swipeToLoad.isRefreshing()) {
             mBinding.swipeToLoad.setRefreshing(false);
@@ -312,6 +330,11 @@ public class TBSreachResultActivity extends BaseActivity implements View.OnClick
         if (mBinding.swipeToLoad != null && mBinding.swipeToLoad.isLoadingMore()) {
             mBinding.swipeToLoad.setLoadingMore(false);
         }
+    }
+
+    public void netError(){
+        mBinding.errorContainer.setVisibility(View.VISIBLE);
+        mBinding.swipeToLoad.setVisibility(View.GONE);
     }
 
     //初始化标题

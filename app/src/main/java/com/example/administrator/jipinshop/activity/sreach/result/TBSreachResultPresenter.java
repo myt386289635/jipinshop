@@ -55,7 +55,7 @@ public class TBSreachResultPresenter {
                         mView.onFile(tbSreachResultBean.getMsg());
                     }
                 }, throwable -> {
-                    mView.onFile(throwable.getMessage());
+                    mView.onNetFile(throwable.getMessage());
                 });
     }
 

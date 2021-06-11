@@ -10,8 +10,7 @@ import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.FrameLayout;
-import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 
 import com.example.administrator.jipinshop.R;
@@ -329,9 +328,9 @@ public class TBSreachResultAdapter extends RecyclerView.Adapter {
 
     class HeadViewHolder extends RecyclerView.ViewHolder{
 
-        private FrameLayout mFrameLayout;
+        private LinearLayout mFrameLayout;
         private View item_gridLine,item_line;
-        private ImageView item_userTitle;
+        private LinearLayout item_userTitle;
 
         public HeadViewHolder(@NonNull View itemView) {
             super(itemView);

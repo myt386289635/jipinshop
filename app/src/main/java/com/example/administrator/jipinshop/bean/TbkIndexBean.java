@@ -841,6 +841,15 @@ public class TbkIndexBean {
         public static class MessageBean {
 
             private String content;
+            private int type;//跳转类型
+
+            public int getType() {
+                return type;
+            }
+
+            public void setType(int type) {
+                this.type = type;
+            }
 
             public String getContent() {
                 return content;

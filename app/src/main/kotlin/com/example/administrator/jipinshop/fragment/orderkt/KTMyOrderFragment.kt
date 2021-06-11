@@ -254,7 +254,7 @@ class KTMyOrderFragment : DBBaseFragment(), OnRefreshListener, OnLoadMoreListene
         }
         startActivity(Intent(context, TBShoppingDetailActivity::class.java)
                 .putExtra("otherGoodsId", mList[position].otherGoodsId)
-                .putExtra("source",mList[position].source)
+                .putExtra("source","" + mList[position].source)
         )
     }
 

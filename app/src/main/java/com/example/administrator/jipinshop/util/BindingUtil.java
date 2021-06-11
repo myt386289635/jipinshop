@@ -373,11 +373,17 @@ public class BindingUtil {
         }
     }
 
-    @BindingAdapter({"bind:TbState", "bind:TbEarningTime"})
-    public static void setTextitem_explain(TextView view ,int TbState, String TbEarningTime){
+    @BindingAdapter({"bind:TbState", "bind:TbEarningTime", "bind:tkStatus"})
+    public static void setTextitem_explain(TextView view ,int TbState, String TbEarningTime , int tkStatus){
         switch (TbState){
             case 1:
-                view.setText("收货后次月结算");
+                if (tkStatus == 1){
+                    view.setText("收货后8天结算");
+                }else if (tkStatus == 2){
+                    view.setText("预计：" + TbEarningTime + "到账");
+                }else {
+                    view.setText("收货后次月结算");
+                }
                 break;
             case 2:
                 view.setText(TbEarningTime + "已到账");

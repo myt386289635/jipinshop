@@ -121,8 +121,7 @@
             android:layout_width="@dimen/x120"
             android:layout_height="wrap_content" />
 
-        <LinearLayout
-            android:onClick="@{listener.onClick}"
+        <RelativeLayout
             android:visibility="gone"
             android:id="@+id/home_marqueeContainer"
             android:background="@drawable/bg_ffefd5"
@@ -146,8 +145,10 @@
 
             <com.example.administrator.jipinshop.view.textview.AlwaysMarqueeTextView
                 android:ellipsize="marquee"
+                android:layout_toRightOf="@+id/home_marqueeClose"
+                android:layout_toLeftOf="@+id/home_marqueeGo"
                 android:marqueeRepeatLimit="-1"
-                android:layout_marginRight="@dimen/x52"
+                android:layout_marginRight="@dimen/x30"
                 android:id="@+id/home_marquee"
                 android:textSize="13sp"
                 android:text=""
@@ -158,7 +159,25 @@
                 android:gravity="center_vertical"
                 android:singleLine="true"/>
 
-        </LinearLayout>
+            <TextView
+                android:onClick="@{listener.onClick}"
+                android:layout_marginBottom="@dimen/y10"
+                android:layout_marginTop="@dimen/y10"
+                android:paddingRight="@dimen/x15"
+                android:paddingLeft="@dimen/x15"
+                android:gravity="center"
+                android:textColor="@color/color_white"
+                android:textSize="15sp"
+                android:layout_marginRight="@dimen/x27"
+                android:layout_centerVertical="true"
+                android:layout_alignParentRight="true"
+                android:id="@+id/home_marqueeGo"
+                android:background="@drawable/bg_e25838_7"
+                android:text="立即前往"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"/>
+
+        </RelativeLayout>
 
         <RelativeLayout
             android:visibility="gone"

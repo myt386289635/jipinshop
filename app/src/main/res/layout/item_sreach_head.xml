@@ -20,29 +20,58 @@
         android:layout_width="match_parent"
         android:layout_height="@dimen/y20"/>
 
-    <FrameLayout
+    <LinearLayout
+        android:orientation="vertical"
         android:id="@+id/item_kong"
         android:background="@color/color_F5F5F5"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
         <ImageView
-            android:layout_marginBottom="@dimen/y44"
-            android:layout_marginTop="@dimen/y89"
+            android:layout_marginBottom="@dimen/y27"
+            android:layout_marginTop="@dimen/y54"
             android:layout_gravity="center_horizontal"
             android:src="@mipmap/sreach_kong"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"/>
 
-    </FrameLayout>
+        <TextView
+            android:layout_marginBottom="@dimen/y54"
+            android:layout_gravity="center_horizontal"
+            android:text="您搜索的商品优惠券已失效"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
 
-    <ImageView
+    </LinearLayout>
+
+    <LinearLayout
+        android:gravity="center"
         android:id="@+id/item_userTitle"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
-        android:layout_marginTop="@dimen/y70"
-        android:layout_marginBottom="@dimen/y32"
-        android:src="@mipmap/bg_userlike"/>
+        android:layout_marginTop="@dimen/y34"
+        android:layout_marginBottom="@dimen/y27"
+        android:orientation="horizontal"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+
+        <View
+            android:background="@color/color_979797"
+            android:layout_width="@dimen/x53"
+            android:layout_height="1px"/>
+
+        <TextView
+            android:textColor="@color/color_979797"
+            android:layout_marginRight="@dimen/x30"
+            android:layout_marginLeft="@dimen/x30"
+            android:text="更多相关推荐"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+
+        <View
+            android:background="@color/color_979797"
+            android:layout_width="@dimen/x53"
+            android:layout_height="1px"/>
+
+    </LinearLayout>
 
 </LinearLayout>

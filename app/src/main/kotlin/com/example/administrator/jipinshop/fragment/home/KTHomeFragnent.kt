@@ -18,7 +18,9 @@ import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.bumptech.glide.request.RequestOptions
 import com.example.administrator.jipinshop.R
 import com.example.administrator.jipinshop.activity.home.MainActivity
+import com.example.administrator.jipinshop.activity.home.newGift.NewGiftActivity
 import com.example.administrator.jipinshop.activity.login.LoginActivity
+import com.example.administrator.jipinshop.activity.member.buy.MemberBuyActivity
 import com.example.administrator.jipinshop.activity.message.MessageActivity
 import com.example.administrator.jipinshop.activity.sign.SignActivity
 import com.example.administrator.jipinshop.activity.sreach.TBSreachActivity
@@ -63,6 +65,7 @@ class KTHomeFragnent : DBBaseFragment(), View.OnClickListener, KTHomeView {
     private var isAction: Boolean = false //是否开启首页悬浮按钮，默认不开启false
     private var ad : TbkIndexBean.DataBean.Ad1ListBean? = null
     private lateinit var mQBadgeView : QBadgeView
+    private var homeMarqueeType : Int = -1
 
     companion object{
         @JvmStatic //java中的静态方法
@@ -148,7 +151,20 @@ class KTHomeFragnent : DBBaseFragment(), View.OnClickListener, KTHomeView {
             }
             R.id.home_marqueeClose -> {
                 mBinding.homeMarqueeContainer.visibility = View.GONE
-                mPresenter.closeIndexMessage(this.bindToLifecycle())
+            }
+            R.id.home_marqueeGo -> {
+                when(homeMarqueeType){//5未下免单,6未下补贴,7从未买过会员,8会员到期未续费
+                    5,6 -> {//新人五重礼
+                        startActivity(Intent(context, NewGiftActivity::class.java)
+                                .putExtra("currentItem", 0)
+                        )
+                    }
+                    7,8 -> {//会员-确认订单页面
+                        startActivity(Intent(context, MemberBuyActivity::class.java)
+                                .putExtra("isBuy", "1")
+                        )
+                    }
+                }
             }
             R.id.auth_go -> {
                 //授权
@@ -167,12 +183,13 @@ class KTHomeFragnent : DBBaseFragment(), View.OnClickListener, KTHomeView {
         return mBinding.appbar
     }
 
-    fun initMarquee(content : String){
+    fun initMarquee(content : String , type : Int){
         if (TextUtils.isEmpty(content)){
             mBinding.homeMarqueeContainer.visibility = View.GONE
         }else{
             mBinding.homeMarqueeContainer.visibility = View.VISIBLE
             mBinding.homeMarquee.text = content
+            homeMarqueeType = type
         }
     }
 

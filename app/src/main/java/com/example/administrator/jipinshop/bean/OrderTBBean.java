@@ -66,6 +66,15 @@ public class OrderTBBean {
         private int level;
         private String isgroup;//0不拼团，1拼团
         private String otherGoodsId;
+        private int tkStatus;
+
+        public int getTkStatus() {
+            return tkStatus;
+        }
+
+        public void setTkStatus(int tkStatus) {
+            this.tkStatus = tkStatus;
+        }
 
         public String getOtherGoodsId() {
             return otherGoodsId;
