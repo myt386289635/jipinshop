@@ -313,8 +313,8 @@ public class TBSreachResultActivity extends BaseActivity implements View.OnClick
         }else {
             dissLoading();
             page--;
+            ToastUtil.show(error);
         }
-        ToastUtil.show(error);
     }
 
     public void dissRefresh(){
