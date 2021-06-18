@@ -27,6 +27,7 @@ import com.example.administrator.jipinshop.util.ShareUtils;
 import com.example.administrator.jipinshop.util.ToastUtil;
 import com.example.administrator.jipinshop.util.sp.CommonDate;
 import com.example.administrator.jipinshop.view.dialog.ProgressDialogView;
+import com.example.administrator.jipinshop.view.dialog.ShareBoardDialog;
 import com.umeng.socialize.UMShareAPI;
 import com.umeng.socialize.bean.SHARE_MEDIA;
 
@@ -39,7 +40,7 @@ import javax.inject.Inject;
  * @create 2021/5/26
  * @Describe 邀请兑换码活动
  */
-public class ExChangeWebActivity extends BaseActivity implements View.OnClickListener, ExChangeWebView {
+public class ExChangeWebActivity extends BaseActivity implements View.OnClickListener, ExChangeWebView, ShareBoardDialog.onShareListener {
 
     @Inject
     ExChangeWebPresenter mPresenter;
@@ -50,6 +51,8 @@ public class ExChangeWebActivity extends BaseActivity implements View.OnClickLis
     public static final String title = "title";
     private Dialog mProgressDialog ;
     private Dialog mDialog;
+    private ShareBoardDialog mShareBoardDialog;
+    private String shareCode = "";//分享code
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -103,6 +106,16 @@ public class ExChangeWebActivity extends BaseActivity implements View.OnClickLis
                 }else if (url.startsWith("https://dhsuccess")){
                     //兑换成功
                     EventBus.getDefault().post(new HomeRefresh(HomeRefresh.tag)); //用来刷新首页的
+                }else if (url.startsWith("https://dhshare")){
+                    //分享
+                    shareCode = url.split("\\?")[1].replace("code=","");
+                    if (mShareBoardDialog == null) {
+                        mShareBoardDialog = ShareBoardDialog.getInstance("","");
+                        mShareBoardDialog.setOnShareListener(ExChangeWebActivity.this);
+                    }
+                    if (!mShareBoardDialog.isAdded()) {
+                        mShareBoardDialog.show(getSupportFragmentManager(), "ShareBoardDialog");
+                    }
                 }else if (url.startsWith("http") || url.startsWith("https")) {
                     //解决第三方网页打开页面后会跳转到自定义的schame而页面出错问题
                     view.loadUrl(url);//处理http和https开头的url
@@ -197,5 +210,18 @@ public class ExChangeWebActivity extends BaseActivity implements View.OnClickLis
         }
         UMShareAPI.get(this).release();
         super.onDestroy();
+    }
+
+    @Override
+    public void share(SHARE_MEDIA share_media) {
+        mDialog = (new ProgressDialogView()).createLoadingDialog(ExChangeWebActivity.this, "");
+        mDialog.show();
+        mPresenter.initShare(shareCode, share_media,this.bindToLifecycle());
+    }
+
+    @Override
+    public void onShare(ShareInfoBean bean , SHARE_MEDIA share_media) {
+        new ShareUtils(this, share_media, mDialog)
+                .shareImage(this,bean.getData().getImgUrl());
     }
 }

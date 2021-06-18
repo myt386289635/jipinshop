@@ -52,7 +52,7 @@
                 android:textColor="@color/color_FEDDA9"
                 android:textStyle="bold"
                 android:textSize="14sp"
-                android:text="好友加入会员，赚20%会员佣金"
+                android:text="好友注册即可获得100极币奖励"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"/>
 

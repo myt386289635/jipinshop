@@ -20,6 +20,8 @@
                 android:layout_height="@dimen/y44"/>
 
             <TextView
+                android:ellipsize="end"
+                android:maxLines="1"
                 android:lineSpacingExtra="@dimen/y6"
                 android:gravity="center"
                 android:layout_marginTop="@dimen/y16"
@@ -31,6 +33,8 @@
                 android:layout_height="wrap_content"/>
 
             <TextView
+                android:ellipsize="end"
+                android:maxLines="1"
                 android:lineSpacingExtra="@dimen/y6"
                 android:gravity="center"
                 android:layout_marginTop="@dimen/y4"

@@ -16,13 +16,16 @@
             android:layout_height="wrap_content"/>
 
         <LinearLayout
-            android:layout_marginTop="@dimen/y180"
+            android:gravity="center"
+            android:id="@+id/dialog_costContainer"
+            android:layout_marginTop="@dimen/y178"
             android:layout_centerHorizontal="true"
-            android:orientation="horizontal"
+            android:orientation="vertical"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content">
 
             <TextView
+                android:textStyle="bold"
                 android:textColor="@color/color_white"
                 android:textSize="15sp"
                 android:text="提现金额："
@@ -30,74 +33,32 @@
                 android:layout_height="wrap_content"/>
 
             <TextView
+                android:layout_marginTop="@dimen/y7"
                 android:id="@+id/dialog_price"
                 android:textStyle="bold"
                 android:textColor="@color/color_white"
-                android:textSize="21sp"
-                android:text="¥2000"
+                android:textSize="33sp"
+                android:text="¥0"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"/>
 
         </LinearLayout>
-        
-        <RelativeLayout
-            android:id="@+id/dialog_costContainer"
-            android:layout_marginTop="@dimen/y261"
-            android:layout_marginRight="@dimen/x23"
-            android:layout_marginLeft="@dimen/x23"
-            android:background="@mipmap/withdraw_bg2"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-
-            <TextView
-                android:id="@+id/dialog_cost"
-                android:layout_marginLeft="@dimen/x25"
-                android:layout_centerVertical="true"
-                android:drawablePadding="@dimen/x6"
-                android:drawableLeft="@mipmap/withdraw_bg3"
-                android:textColor="@color/color_E25838"
-                android:textStyle="bold"
-                android:textSize="21sp"
-                android:text="20"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"/>
-
-            <TextView
-                android:layout_marginLeft="@dimen/x207"
-                android:layout_centerVertical="true"
-                android:textSize="15sp"
-                android:textColor="@color/color_DE151515"
-                android:text="极币奖励"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"/>
-
-            <TextView
-                android:layout_marginRight="@dimen/x25"
-                android:layout_alignParentRight="true"
-                android:layout_centerVertical="true"
-                android:textColor="@color/color_846436"
-                android:textSize="15sp"
-                android:text="查\n看"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"/>
-
-        </RelativeLayout>
 
         <TextView
             android:id="@+id/dialog_notice"
             android:textColor="@color/color_white"
-            android:layout_marginTop="@dimen/y27"
-            android:textSize="12sp"
+            android:layout_marginTop="@dimen/y29"
+            android:textSize="13sp"
             android:layout_below="@+id/dialog_costContainer"
             android:layout_centerHorizontal="true"
-            android:text="分享好友，即可获得会员费20%奖励哦~"
+            android:text=""
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"/>
 
         <ImageView
             android:id="@+id/dialog_sure"
-            android:paddingBottom="@dimen/y25"
-            android:layout_marginTop="@dimen/y8"
+            android:paddingBottom="@dimen/y28"
+            android:layout_marginTop="@dimen/y13"
             android:layout_below="@+id/dialog_notice"
             android:layout_centerHorizontal="true"
             android:src="@mipmap/withdraw_bg4"

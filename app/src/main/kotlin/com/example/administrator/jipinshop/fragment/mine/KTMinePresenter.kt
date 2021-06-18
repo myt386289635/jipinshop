@@ -123,9 +123,9 @@ class KTMinePresenter {
                     if (successBean.code == 0) {
                         mView.onCodeSuc(dialog, inputManager, successBean)
                     } else {
-                        mView.onFileCommen(successBean.msg)
+                        mView.onCodeFile(successBean.msg)
                     }
-                }, { throwable -> mView.onFileCommen(throwable.message) })
+                }, { throwable -> mView.onCodeFile(throwable.message) })
     }
 
     //佣金

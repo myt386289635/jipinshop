@@ -480,6 +480,15 @@ class KTMineFragment : DBBaseFragment(), KTMineAdapter.OnItem, KTMineView, OnLoa
         mPresenter.modelUser(this.bindUntilEvent(FragmentEvent.DESTROY_VIEW))//刷新我的页面
     }
 
+    override fun onCodeFile(error: String?) {
+        mDialog?.let {
+            if (it.isShowing){
+                it.dismiss()
+            }
+        }
+        DialogUtil.memberExchangeFile(context,error)
+    }
+
     //订单找回
     override fun onOrderRecovery() {
         if (TextUtils.isEmpty(SPUtils.getInstance(CommonDate.USER).getString(CommonDate.token, ""))) {

@@ -6,153 +6,46 @@
         android:layout_height="wrap_content">
 
         <LinearLayout
-            android:gravity="center_horizontal"
-            android:layout_width="@dimen/x560"
+            android:gravity="center"
+            android:layout_width="@dimen/x600"
             android:layout_height="wrap_content"
             android:layout_centerHorizontal="true"
-            android:background="@drawable/bg_db4210"
+            android:background="@drawable/bg_balance"
             android:orientation="vertical">
 
             <TextView
-                android:layout_marginBottom="@dimen/y31"
+                android:layout_marginBottom="@dimen/y55"
+                android:layout_marginTop="@dimen/y52"
+                android:textColor="@color/color_202020"
+                android:textStyle="bold"
+                android:textSize="17sp"
+                android:text="兑换失败"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/y37"
-                android:gravity="center"
-                android:lineSpacingExtra="@dimen/y15"
-                android:text="你有一个新人福利待领取"
-                android:textColor="@color/color_FFEC44"
-                android:textSize="19sp"
-                android:textStyle="bold"/>
+                android:layout_height="wrap_content"/>
 
             <TextView
-                android:textStyle="bold"
-                android:id="@+id/dialog_time"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="@dimen/y31"
-                android:text="70:24:24后失效"
-                android:textColor="@color/color_white"
-                android:textSize="16sp"/>
-
-            <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="@dimen/y50"
-                android:orientation="horizontal">
-
-                <RelativeLayout
-                    android:layout_width="@dimen/x160"
-                    android:layout_height="@dimen/y212">
-
-                    <ImageView
-                        android:id="@+id/dialog_img1"
-                        android:layout_width="match_parent"
-                        android:layout_height="@dimen/y160"
-                        android:scaleType="centerCrop"
-                        android:src="@color/color_F4EBDA"/>
-
-                    <TextView
-                        android:id="@+id/dialog_text1"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:layout_below="@+id/dialog_img1"
-                        android:background="@drawable/bg_balance_last"
-                        android:gravity="center"
-                        android:text="¥0"
-                        android:textColor="@color/color_DB4210"
-                        android:textSize="19sp"
-                        android:textStyle="bold"/>
-
-                </RelativeLayout>
-
-                <RelativeLayout
-                    android:layout_width="@dimen/x160"
-                    android:layout_height="@dimen/y212"
-                    android:layout_marginLeft="@dimen/x10"
-                    android:layout_marginRight="@dimen/x10">
-
-                    <ImageView
-                        android:id="@+id/dialog_img2"
-                        android:layout_width="match_parent"
-                        android:layout_height="@dimen/y160"
-                        android:scaleType="centerCrop"
-                        android:src="@color/color_F4EBDA"/>
-
-                    <TextView
-                        android:id="@+id/dialog_text2"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:layout_below="@+id/dialog_img2"
-                        android:background="@drawable/bg_balance_last"
-                        android:gravity="center"
-                        android:text="¥0"
-                        android:textColor="@color/color_DB4210"
-                        android:textSize="19sp"
-                        android:textStyle="bold"/>
-
-                </RelativeLayout>
-
-                <RelativeLayout
-                    android:layout_width="@dimen/x160"
-                    android:layout_height="@dimen/y212">
-
-                    <ImageView
-                        android:id="@+id/dialog_img3"
-                        android:layout_width="match_parent"
-                        android:layout_height="@dimen/y160"
-                        android:scaleType="centerCrop"
-                        android:src="@color/color_F4EBDA"/>
-
-                    <TextView
-                        android:id="@+id/dialog_text3"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:layout_below="@+id/dialog_img3"
-                        android:background="@drawable/bg_balance_last"
-                        android:gravity="center"
-                        android:text="¥0"
-                        android:textColor="@color/color_DB4210"
-                        android:textSize="19sp"
-                        android:textStyle="bold"/>
-
-                </RelativeLayout>
-
-            </LinearLayout>
-
-            <RelativeLayout
-                android:layout_marginRight="@dimen/x30"
-                android:layout_marginLeft="@dimen/x30"
-                android:layout_marginBottom="@dimen/y34"
+                android:layout_marginRight="@dimen/x20"
+                android:layout_marginLeft="@dimen/x20"
+                android:gravity="center"
+                android:id="@+id/dialog_content"
+                android:layout_marginBottom="@dimen/y64"
+                android:textColor="@color/color_565252"
+                android:textSize="15sp"
+                android:text=""
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
-
-                <TextView
-                    android:textStyle="bold"
-                    android:id="@+id/dialog_dismiss"
-                    android:layout_marginRight="@dimen/x10"
-                    android:gravity="center"
-                    android:background="@drawable/bg_balance"
-                    android:textColor="@color/color_292929"
-                    android:textSize="18sp"
-                    android:text="忍痛离开"
-                    android:layout_width="@dimen/x204"
-                    android:layout_height="@dimen/y82"/>
-
-                <TextView
-                    android:gravity="center"
-                    android:textSize="18sp"
-                    android:text="继续逛逛"
-                    android:textStyle="bold"
-                    android:textColor="@color/color_BF370B"
-                    android:background="@drawable/bg_dialog_out"
-                    android:layout_toRightOf="@+id/dialog_dismiss"
-                    android:id="@+id/dialog_sure"
-                    android:layout_width="match_parent"
-                    android:layout_height="@dimen/y82"/>
-
-            </RelativeLayout>
-
+                android:layout_height="wrap_content"/>
+            
+            <TextView
+                android:layout_marginBottom="@dimen/y27"
+                android:id="@+id/dialog_sure"
+                android:gravity="center"
+                android:textStyle="bold"
+                android:textColor="@color/color_white"
+                android:text="确定"
+                android:textSize="17sp"
+                android:background="@drawable/bg_login2"
+                android:layout_width="@dimen/x260"
+                android:layout_height="@dimen/y76"/>
 
         </LinearLayout>
 

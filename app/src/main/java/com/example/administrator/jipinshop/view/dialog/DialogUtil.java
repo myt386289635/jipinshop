@@ -592,8 +592,8 @@ public class DialogUtil {
         final Dialog dialog = builder.create();
         DialogShopGuideBinding binding = DataBindingUtil.inflate(LayoutInflater.from(context), R.layout.dialog_shop_guide, null, false);
         binding.itemGoMember.setOnClickListener(v -> {
-            context.startActivity(new Intent(context, MemberBuyActivity.class)
-                    .putExtra("isBuy", "1")
+            context.startActivity(new Intent(context, HomeNewActivity.class)
+                    .putExtra("type",HomeNewActivity.member)
             );
             dialog.dismiss();
         });
@@ -736,55 +736,6 @@ public class DialogUtil {
             dialog.dismiss();
         });
         binding.dialogSure.setOnClickListener(v -> {
-            if (listener != null)
-                listener.onClick(v);
-            dialog.dismiss();
-        });
-        dialog.getWindow().setDimAmount(0.35f);
-        dialog.show();
-        dialog.setContentView(binding.getRoot());
-    }
-
-    //新人0元购免单专区 离开时弹窗
-    public static void outDialog2(Context context, NewFreeBean bean, View.OnClickListener listener) {
-        AlertDialog.Builder builder = new AlertDialog.Builder(context, R.style.dialog);
-        final Dialog dialog = builder.create();
-        DialogOutBinding binding = DataBindingUtil.inflate(LayoutInflater.from(context), R.layout.dialog_out, null, false);
-        if (bean.getData().size() >= 5) {
-            GlideApp.loderTopRoundImage(context, bean.getData().get(2).getImg(), binding.dialogImg1, (int) context.getResources().getDimension(R.dimen.x10));
-            GlideApp.loderTopRoundImage(context, bean.getData().get(3).getImg(), binding.dialogImg2, (int) context.getResources().getDimension(R.dimen.x10));
-            GlideApp.loderTopRoundImage(context, bean.getData().get(4).getImg(), binding.dialogImg3, (int) context.getResources().getDimension(R.dimen.x10));
-            binding.dialogText1.setText("¥" + bean.getData().get(2).getBuyPrice());
-            binding.dialogText2.setText("¥" + bean.getData().get(3).getBuyPrice());
-            binding.dialogText3.setText("¥" + bean.getData().get(4).getBuyPrice());
-        } else {
-            GlideApp.loderTopRoundImage(context, bean.getData().get(0).getImg(), binding.dialogImg1, (int) context.getResources().getDimension(R.dimen.x10));
-            GlideApp.loderTopRoundImage(context, bean.getData().get(1).getImg(), binding.dialogImg2, (int) context.getResources().getDimension(R.dimen.x10));
-            GlideApp.loderTopRoundImage(context, bean.getData().get(2).getImg(), binding.dialogImg3, (int) context.getResources().getDimension(R.dimen.x10));
-            binding.dialogText1.setText("¥" + bean.getData().get(0).getBuyPrice());
-            binding.dialogText2.setText("¥" + bean.getData().get(1).getBuyPrice());
-            binding.dialogText3.setText("¥" + bean.getData().get(2).getBuyPrice());
-        }
-        long endTime = bean.getEndTime();
-        long time = (endTime * 1000) - System.currentTimeMillis();
-        if (time > 0) {
-            binding.dialogTime.setVisibility(View.VISIBLE);
-            new CountDownTimer(time, 1000) {
-                public void onTick(long millisUntilFinished) {
-                    binding.dialogTime.setText(TimeUtil.getCountTimeByLong2(millisUntilFinished) + "后将失效");
-                }
-
-                public void onFinish() {
-                    binding.dialogTime.setVisibility(View.GONE);
-                }
-            }.start();
-        } else {
-            binding.dialogTime.setVisibility(View.GONE);
-        }
-        binding.dialogSure.setOnClickListener(v -> {
-            dialog.dismiss();
-        });
-        binding.dialogDismiss.setOnClickListener(v -> {
             if (listener != null)
                 listener.onClick(v);
             dialog.dismiss();
@@ -1325,7 +1276,6 @@ public class DialogUtil {
         final Dialog dialog = builder.create();
         DialogBuyOutBinding binding = DataBindingUtil.inflate(LayoutInflater.from(context), R.layout.dialog_buy_out, null, false);
         binding.dialogPrice.setText("¥" + price);
-        binding.dialogCost.setText(cost);
         binding.dialogNotice.setText(rate);
         binding.dialogCostContainer.setOnClickListener(v -> {
             dialog.dismiss();
@@ -1387,6 +1337,20 @@ public class DialogUtil {
         showKeyboard(binding.dialogEdit, inputManager);
         dialog.show();
         dialog.getWindow().clearFlags(WindowManager.LayoutParams.FLAG_ALT_FOCUSABLE_IM);
+        dialog.setContentView(binding.getRoot());
+    }
+
+    //会员兑换失败dialog
+    public static void memberExchangeFile(Context context, String error) {
+        AlertDialog.Builder builder = new AlertDialog.Builder(context, R.style.dialog);
+        final Dialog dialog = builder.create();
+        DialogOutBinding binding = DataBindingUtil.inflate(LayoutInflater.from(context), R.layout.dialog_out, null, false);
+        binding.dialogContent.setText(error);
+        binding.dialogSure.setOnClickListener(v -> {
+            dialog.dismiss();
+        });
+        dialog.getWindow().setDimAmount(0.35f);
+        dialog.show();
         dialog.setContentView(binding.getRoot());
     }
 

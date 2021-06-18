@@ -3,10 +3,12 @@ package com.example.administrator.jipinshop.activity.web.exchange;
 import com.example.administrator.jipinshop.bean.ShareInfoBean;
 import com.example.administrator.jipinshop.netwrok.Repository;
 import com.trello.rxlifecycle2.LifecycleTransformer;
+import com.umeng.socialize.bean.SHARE_MEDIA;
 
 import javax.inject.Inject;
 
 import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.functions.Consumer;
 import io.reactivex.schedulers.Schedulers;
 
 /**
@@ -37,6 +39,23 @@ public class ExChangeWebPresenter {
                 .subscribe(bean -> {
                     if (bean.getCode() == 0){
                         mView.initShare(bean);
+                    }else {
+                        mView.onFile(bean.getMsg());
+                    }
+                }, throwable -> {
+                    mView.onFile(throwable.getMessage());
+                });
+    }
+
+    //分享兑换卡
+    public void initShare(String code, SHARE_MEDIA share_media , LifecycleTransformer<ShareInfoBean> transformer){
+        mRepository.getShareInfo(12,code)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .compose(transformer)
+                .subscribe(bean -> {
+                    if (bean.getCode() == 0){
+                        mView.onShare(bean, share_media);
                     }else {
                         mView.onFile(bean.getMsg());
                     }
