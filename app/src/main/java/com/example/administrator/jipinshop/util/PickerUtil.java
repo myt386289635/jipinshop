@@ -3,11 +3,15 @@ package com.example.administrator.jipinshop.util;
 import android.app.Activity;
 import android.graphics.Color;
 import android.text.TextUtils;
+import android.view.View;
+import android.widget.Toast;
 
 import com.bigkoo.pickerview.builder.OptionsPickerBuilder;
 import com.bigkoo.pickerview.builder.TimePickerBuilder;
+import com.bigkoo.pickerview.listener.OnOptionsSelectListener;
 import com.bigkoo.pickerview.view.OptionsPickerView;
 import com.bigkoo.pickerview.view.TimePickerView;
+import com.example.administrator.jipinshop.bean.CitysBean;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -143,6 +147,38 @@ public class PickerUtil {
         mOptionsPickerBuilder.setPicker(list);
         mOptionsPickerBuilder.setSelectOptions(0);
     }
+
+    //地址选择器
+    public void initAddress(Activity activity, List<CitysBean> province ,
+                            List<List<String>> city, List<List<List<String>>> area,
+                            OnClickTime onItem){
+        mOptionsPickerBuilder = new OptionsPickerBuilder(activity, (options1, options2, options3, v) -> {
+            //返回的分别是三个级别的选中位置
+            String cityTxt;
+            if (province.get(options1).getPickerViewText().equals(city.get(options1).get(options2))) {
+                cityTxt = province.get(options1).getPickerViewText() + "-" + area.get(options1).get(options2).get(options3);
+            } else {
+                cityTxt = province.get(options1).getPickerViewText() + "-" +
+                        city.get(options1).get(options2) + "-" +
+                        area.get(options1).get(options2).get(options3);
+            }
+            onItem.onTime(cityTxt);
+        })
+                .setTitleText("请选择城市")
+                .setSubmitText("确定")//确定按钮文字
+                .setCancelText("取消")//取消按钮文字
+                .setDividerColor(Color.BLACK)
+                .setTextColorCenter(Color.BLACK) //设置选中项文字颜色
+                .setSubmitColor(0xff4A90E2)//确定按钮文字颜色
+                .setCancelColor(0xff4A90E2)//取消按钮文字颜色
+                .setTitleColor(0xff202020)//标题文字颜色
+                .setSubCalSize(15)//确定和取消文字大小
+                .setTitleSize(15)//标题文字大小
+                .setContentTextSize(20)//滚轮文字大小
+                .build();
+        mOptionsPickerBuilder.setPicker(province, city, area);//三级选择器
+    }
+
 
     public void showPiker(){
         if (pvNoLinkOptions != null)

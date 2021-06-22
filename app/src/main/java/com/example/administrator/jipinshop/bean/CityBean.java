@@ -5,7 +5,7 @@ import java.util.List;
 /**
  * @author 莫小婷
  * @create 2019/3/7
- * @Describe 解析城市数据实体类
+ * @Describe 解析城市数据实体类 （不用了）
  */
 public class CityBean {
 
