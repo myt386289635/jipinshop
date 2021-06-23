@@ -23,7 +23,7 @@ android {
         }
         Baidu {//投放百度市场
         }
-        Wandoujia {//投放豌豆荚市场
+        douyin_hzjm {//投放豌豆荚市场
         }
         Vivo {//投放vivo市场
         }
