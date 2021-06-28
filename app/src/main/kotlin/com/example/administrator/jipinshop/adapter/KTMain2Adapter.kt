@@ -30,6 +30,7 @@ import com.example.administrator.jipinshop.activity.home.comprehensive.Comprehen
 import com.example.administrator.jipinshop.activity.home.sell.SellWebActivity
 import com.example.administrator.jipinshop.activity.login.LoginActivity
 import com.example.administrator.jipinshop.activity.newpeople.detail.NewFreeDetailActivity
+import com.example.administrator.jipinshop.activity.share.ShareActivity
 import com.example.administrator.jipinshop.activity.shoppingdetail.tbshoppingdetail.TBShoppingDetailActivity
 import com.example.administrator.jipinshop.bean.SuccessBean
 import com.example.administrator.jipinshop.bean.TBSreachResultBean
@@ -39,6 +40,7 @@ import com.example.administrator.jipinshop.fragment.home.main.tab.CommonTabFragm
 import com.example.administrator.jipinshop.netwrok.RetrofitModule
 import com.example.administrator.jipinshop.util.DistanceHelper
 import com.example.administrator.jipinshop.util.ShopJumpUtil
+import com.example.administrator.jipinshop.util.TaoBaoUtil
 import com.example.administrator.jipinshop.util.ToastUtil
 import com.example.administrator.jipinshop.util.UmApp.AppStatisticalUtil
 import com.example.administrator.jipinshop.util.sp.CommonDate
@@ -538,6 +540,18 @@ class KTMain2Adapter : RecyclerView.Adapter<RecyclerView.ViewHolder>{
                                 .putExtra("freeId", mList[pos].id)
                                 .putExtra("otherGoodsId", mList[pos].otherGoodsId)
                         )
+                    }
+                    binding.itemShare.setOnClickListener {
+                        if (TextUtils.isEmpty(SPUtils.getInstance(CommonDate.USER).getString(CommonDate.token, ""))) {
+                            mContext.startActivity(Intent(mContext, LoginActivity::class.java))
+                            return@setOnClickListener
+                        }
+                        TaoBaoUtil.openTB(mContext){
+                            mContext.startActivity(Intent(mContext, ShareActivity::class.java)
+                                    .putExtra("otherGoodsId", mList[pos].otherGoodsId)
+                                    .putExtra("source",mList[pos].source)
+                            )
+                        }
                     }
                 }
             }

@@ -141,6 +141,8 @@
     <string name="cheap_6">剩余：</string>
     <string name="cheap_7">立即0元购</string>
     <string name="cheap_8">已抢完</string>
+    <string name="cheap_9">销量：</string>
+    <string name="cheap_10">原价:</string>
 
     <string name="sell_1">宝贝评价(</string>
 </resources>

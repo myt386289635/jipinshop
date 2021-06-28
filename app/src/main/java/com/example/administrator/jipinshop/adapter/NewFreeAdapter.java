@@ -218,6 +218,9 @@ public class NewFreeAdapter extends RecyclerView.Adapter {
                 holder3.binding.itemContainer.setOnClickListener(v -> {
                     mOnClickItem.onBuy(pos);
                 });
+                holder3.binding.itemShare.setOnClickListener(v -> {
+                    mOnClickItem.onShare(pos);
+                });
                 break;
         }
     }
@@ -267,6 +270,7 @@ public class NewFreeAdapter extends RecyclerView.Adapter {
         void onCopy();
         void onLeft(NewFreeBean.Ad1Bean ad1);
         void onRight(NewFreeBean.Ad2Bean ad2);
+        void onShare(int position);
 
     }
 }

@@ -24,6 +24,8 @@ import com.example.administrator.jipinshop.R;
 import com.example.administrator.jipinshop.activity.home.newGift.NewGiftActivity;
 import com.example.administrator.jipinshop.activity.login.LoginActivity;
 import com.example.administrator.jipinshop.activity.newpeople.detail.NewFreeDetailActivity;
+import com.example.administrator.jipinshop.activity.share.ShareActivity;
+import com.example.administrator.jipinshop.activity.shoppingdetail.tbshoppingdetail.TBShoppingDetailActivity;
 import com.example.administrator.jipinshop.activity.web.server.ServerWebActivity;
 import com.example.administrator.jipinshop.adapter.NewFreeAdapter;
 import com.example.administrator.jipinshop.base.DBBaseFragment;
@@ -35,6 +37,7 @@ import com.example.administrator.jipinshop.netwrok.RetrofitModule;
 import com.example.administrator.jipinshop.util.FileManager;
 import com.example.administrator.jipinshop.util.ShareUtils;
 import com.example.administrator.jipinshop.util.ShopJumpUtil;
+import com.example.administrator.jipinshop.util.TaoBaoUtil;
 import com.example.administrator.jipinshop.util.ToastUtil;
 import com.example.administrator.jipinshop.util.sp.CommonDate;
 import com.example.administrator.jipinshop.view.dialog.ProgressDialogView;
@@ -184,6 +187,20 @@ public class NewFreeFragment extends DBBaseFragment implements View.OnClickListe
     public void onRight(NewFreeBean.Ad2Bean ad2) {
         ShopJumpUtil.openBanner(getContext(),ad2.getType(),
                 ad2.getObjectId(),ad2.getName(),ad2.getSource() , ad2.getRemark());
+    }
+
+    @Override
+    public void onShare(int position) {
+        if(TextUtils.isEmpty(SPUtils.getInstance(CommonDate.USER).getString(CommonDate.token,""))){
+            startActivityForResult(new Intent(getContext(), LoginActivity.class),201);
+            return;
+        }
+        TaoBaoUtil.openTB(getContext(), () -> {
+            startActivity(new Intent(getContext(), ShareActivity.class)
+                    .putExtra("otherGoodsId",mList.get(position).getOtherGoodsId())
+                    .putExtra("source","2")
+            );
+        });
     }
 
     @Override
