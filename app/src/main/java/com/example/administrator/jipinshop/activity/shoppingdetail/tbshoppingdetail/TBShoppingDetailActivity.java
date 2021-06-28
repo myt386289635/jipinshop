@@ -490,18 +490,22 @@ public class TBShoppingDetailActivity extends BaseActivity implements View.OnCli
             mBinding.detailInvationContainer.setVisibility(View.GONE);
             mBinding.detailImgNotice.setImageResource(R.mipmap.detail_notice);
         }
-        //比价弹窗
-        if (!TextUtils.isEmpty(parity)){
-            double freeparity = new BigDecimal(parity).doubleValue();
-            double commissionRate = new BigDecimal(bean.getData().getCommissionRate()).doubleValue();
-            if (freeparity - commissionRate != 0){
-                DialogUtil.parityDialog(this,source, v -> {
-                    startActivity(new Intent(this, VideoActivity.class)
-                            .putExtra("courseId", bean.getCourseId())
-                    );
-                });
+        //淘宝授权弹窗
+        TaoBaoUtil.openStartTB(this, () -> {
+            //比价弹窗
+            if (!TextUtils.isEmpty(parity)){
+                double freeparity = new BigDecimal(parity).doubleValue();
+                double commissionRate = new BigDecimal(bean.getData().getCommissionRate()).doubleValue();
+                if (freeparity - commissionRate != 0){
+                    DialogUtil.parityDialog(this,source, v -> {
+                        startActivity(new Intent(this, VideoActivity.class)
+                                .putExtra("courseId", bean.getCourseId())
+                        );
+                    });
+                }
             }
-        }
+        });
+
     }
 
     @Override

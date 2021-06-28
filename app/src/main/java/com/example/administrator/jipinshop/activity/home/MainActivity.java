@@ -3,6 +3,7 @@ package com.example.administrator.jipinshop.activity.home;
 import android.app.Dialog;
 import android.content.ClipData;
 import android.content.ClipboardManager;
+import android.content.Context;
 import android.content.Intent;
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
@@ -478,7 +479,11 @@ public class MainActivity extends BaseActivity implements MainView, ViewPager.On
             //淘口令返回
             DialogUtil.tklDialog(this, bean, tkl);
         }
-        SPUtils.getInstance().put(CommonDate.CLIP, tkl);
+        //清空粘贴板
+        ClipboardManager clip = (ClipboardManager) getSystemService(Context.CLIPBOARD_SERVICE);
+        ClipData clipData = ClipData.newPlainText("jipinshop", "");
+        clip.setPrimaryClip(clipData);
+        SPUtils.getInstance().put(CommonDate.CLIP, "");
     }
 
     @Override

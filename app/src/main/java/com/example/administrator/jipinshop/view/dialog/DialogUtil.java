@@ -5,7 +5,6 @@ import android.app.Dialog;
 import android.content.ClipData;
 import android.content.ClipboardManager;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.databinding.DataBindingUtil;
 import android.graphics.Color;
@@ -38,20 +37,16 @@ import com.example.administrator.jipinshop.R;
 import com.example.administrator.jipinshop.activity.WebActivity;
 import com.example.administrator.jipinshop.activity.cheapgoods.CheapBuyActivity;
 import com.example.administrator.jipinshop.activity.home.home.HomeNewActivity;
-import com.example.administrator.jipinshop.activity.member.buy.MemberBuyActivity;
-import com.example.administrator.jipinshop.activity.mine.group.MyGroupActivity;
 import com.example.administrator.jipinshop.activity.shoppingdetail.tbshoppingdetail.TBShoppingDetailActivity;
 import com.example.administrator.jipinshop.activity.sign.SignActivity;
 import com.example.administrator.jipinshop.activity.sreach.result.TBSreachResultActivity;
 import com.example.administrator.jipinshop.adapter.DialogLuckAdapter;
 import com.example.administrator.jipinshop.bean.FamilyBean;
 import com.example.administrator.jipinshop.bean.GroupInfoBean;
-import com.example.administrator.jipinshop.bean.NewFreeBean;
 import com.example.administrator.jipinshop.bean.NewPeopleBean;
 import com.example.administrator.jipinshop.bean.PrizeLogBean;
 import com.example.administrator.jipinshop.bean.SubUserBean;
 import com.example.administrator.jipinshop.bean.TklBean;
-import com.example.administrator.jipinshop.bean.eventbus.ChangeHomePageBus;
 import com.example.administrator.jipinshop.databinding.DialogBuyOutBinding;
 import com.example.administrator.jipinshop.databinding.DialogCheapBuyBinding;
 import com.example.administrator.jipinshop.databinding.DialogCheapOutBinding;
@@ -74,18 +69,16 @@ import com.example.administrator.jipinshop.databinding.DialogPaySuccessBinding;
 import com.example.administrator.jipinshop.databinding.DialogShopGuideBinding;
 import com.example.administrator.jipinshop.databinding.DialogSign1Binding;
 import com.example.administrator.jipinshop.databinding.DialogSignBinding;
+import com.example.administrator.jipinshop.databinding.DialogTbLoginBinding;
 import com.example.administrator.jipinshop.databinding.DialogTklBinding;
 import com.example.administrator.jipinshop.databinding.DialogUserBinding;
 import com.example.administrator.jipinshop.databinding.DialogUserDetailBinding;
 import com.example.administrator.jipinshop.databinding.DialogZeroBuyBinding;
 import com.example.administrator.jipinshop.netwrok.RetrofitModule;
 import com.example.administrator.jipinshop.util.ShopJumpUtil;
-import com.example.administrator.jipinshop.util.TimeUtil;
 import com.example.administrator.jipinshop.util.ToastUtil;
 import com.example.administrator.jipinshop.util.sp.CommonDate;
 import com.example.administrator.jipinshop.view.glide.GlideApp;
-
-import org.greenrobot.eventbus.EventBus;
 
 import java.math.BigDecimal;
 import java.util.List;
@@ -926,23 +919,18 @@ public class DialogUtil {
     public static void TBLoginDialog(Context context, View.OnClickListener listener ,View.OnClickListener cancleListener ) {
         AlertDialog.Builder builder = new AlertDialog.Builder(context, R.style.dialog);
         final Dialog dialog = builder.create();
-        View view = LayoutInflater.from(context).inflate(R.layout.dialog_tb_login, null);
-        ImageView dialog_bg = view.findViewById(R.id.dialog_bg);
-        ImageView dialog_cancle = view.findViewById(R.id.dialog_cancle);
-        TextView dialog_sure = view.findViewById(R.id.dialog_sure);
-        GlideApp.loderImage(context, "https://jipincheng.cn/tbshouquan.png",
-                dialog_bg, R.mipmap.dialog_login_bg, R.mipmap.dialog_login_bg);
-        dialog_cancle.setOnClickListener(v -> {
+        DialogTbLoginBinding binding = DataBindingUtil.inflate(LayoutInflater.from(context),R.layout.dialog_tb_login, null , false);
+        binding.dialogCancle.setOnClickListener(v -> {
             cancleListener.onClick(v);
             dialog.dismiss();
         });
-        dialog_sure.setOnClickListener(v -> {
+        binding.dialogSure.setOnClickListener(v -> {
             listener.onClick(v);
             dialog.dismiss();
         });
         dialog.getWindow().setDimAmount(0.35f);
         dialog.show();
-        dialog.setContentView(view);
+        dialog.setContentView(binding.getRoot());
     }
 
     //红包活动时的弹窗

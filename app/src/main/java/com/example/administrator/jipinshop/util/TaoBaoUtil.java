@@ -211,6 +211,29 @@ public class TaoBaoUtil {
         }
     }
 
+    //商品详情第一次进入时，需要淘宝授权弹框
+    public static void openStartTB(Context context , OnItem listener){
+        TaoBaoUtil taoBaoUtil = new TaoBaoUtil(context);//为了统计
+        String specialId2 = SPUtils.getInstance(CommonDate.USER).getString(CommonDate.relationId, "");
+        if (TextUtils.isEmpty(specialId2) || specialId2.equals("null")) {
+            DialogUtil.TBLoginDialog(context, v -> {
+                if (listener != null) listener.go();
+                taoBaoUtil.addEvent("auth_tb_click");
+                TaoBaoUtil.aliLogin(topAuthCode -> {
+                    context.startActivity(new Intent(context, TaoBaoWebActivity.class)
+                            .putExtra(TaoBaoWebActivity.url, "https://oauth.taobao.com/authorize?response_type=code&client_id=25612235&redirect_uri=https://www.jipincheng.cn/qualityshop-api/api/taobao/returnUrl&state=" + SPUtils.getInstance(CommonDate.USER).getString(CommonDate.token) + "&view=wap")
+                            .putExtra(TaoBaoWebActivity.title, "淘宝授权")
+                    );
+                });
+            }, v -> {
+                taoBaoUtil.addEvent("auth_tb_close");
+                if (listener != null) listener.go();
+            });
+        } else {
+            if (listener != null) listener.go();
+        }
+    }
+
     public void addEvent(String eventId ){
         mStatisticalUtil.addEvent(eventId);
     }
