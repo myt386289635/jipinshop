@@ -22,6 +22,7 @@ import com.example.administrator.jipinshop.activity.home.newGift.NewGiftActivity
 import com.example.administrator.jipinshop.activity.login.LoginActivity
 import com.example.administrator.jipinshop.activity.member.buy.MemberBuyActivity
 import com.example.administrator.jipinshop.activity.message.MessageActivity
+import com.example.administrator.jipinshop.activity.school.video.VideoActivity
 import com.example.administrator.jipinshop.activity.sign.SignActivity
 import com.example.administrator.jipinshop.activity.sreach.TBSreachActivity
 import com.example.administrator.jipinshop.activity.web.TaoBaoWebActivity
@@ -95,6 +96,11 @@ class KTHomeFragnent : DBBaseFragment(), View.OnClickListener, KTHomeView {
                 .load(R.drawable.home_sign)
                 .apply(options)
                 .into(mBinding.homeSign)
+        Glide.with(context!!)
+                .asGif()
+                .load(R.drawable.home_teacher)
+                .apply(options)
+                .into(mBinding.homeTeacher)
 
         mAdapter = HomeFragmentAdapter(childFragmentManager)
         mList = mutableListOf()
@@ -175,6 +181,12 @@ class KTHomeFragnent : DBBaseFragment(), View.OnClickListener, KTHomeView {
                             .putExtra(TaoBaoWebActivity.title, "淘宝授权")
                     )
                 }
+            }
+            R.id.home_teacher -> {
+                //跳转到视频页
+                startActivity(Intent(context, VideoActivity::class.java)
+                        .putExtra("courseId", "f22eab91a65346a3b6f8c40cd2def2c7")
+                )
             }
         }
     }
