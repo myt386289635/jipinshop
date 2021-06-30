@@ -187,7 +187,7 @@ public class TBSreachActivity extends BaseActivity implements View.OnClickListen
                 break;
             case R.id.sreach_process:
                 startActivity(new Intent(this, WebActivity.class)
-                        .putExtra(WebActivity.url, RetrofitModule.H5_URL+"tbk-rule.html")
+                        .putExtra(WebActivity.url, RetrofitModule.H5_URL+"new-free/saveMoneyGl")
                         .putExtra(WebActivity.title,"极品城省钱攻略")
                         .putExtra(WebActivity.isShare,true)
                         .putExtra(WebActivity.shareTitle,"如何查找淘宝隐藏优惠券及下单返利？")

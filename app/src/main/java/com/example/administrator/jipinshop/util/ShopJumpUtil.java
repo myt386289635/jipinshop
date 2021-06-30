@@ -383,7 +383,7 @@ public class ShopJumpUtil {
                     intent.setClass(context, LoginActivity.class);
                 }else {
                     intent.setClass(context, WebActivity.class);
-                    intent.putExtra(WebActivity.url, RetrofitModule.H5_URL+"tbk-rule.html");
+                    intent.putExtra(WebActivity.url, RetrofitModule.H5_URL+"new-free/saveMoneyGl");
                     intent.putExtra(WebActivity.title,"极品城省钱攻略");
                     intent.putExtra(WebActivity.isShare,true);
                     intent.putExtra(WebActivity.shareTitle,"如何查找淘宝隐藏优惠券及下单返利？");

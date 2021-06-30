@@ -234,7 +234,7 @@ class KTMain2Adapter : RecyclerView.Adapter<RecyclerView.ViewHolder>{
                         }
                         appStatisticalUtil.addEvent("shouye_pmd",transformer)
                         mContext.startActivity(Intent(mContext, WebActivity::class.java)
-                                .putExtra(WebActivity.url, RetrofitModule.H5_URL + "newZn.html")
+                                .putExtra(WebActivity.url, RetrofitModule.H5_URL + "new-free/saveMoneyGl")
                                 .putExtra(WebActivity.title, "极品城省钱攻略")
                                 .putExtra(WebActivity.isShare,true)
                                 .putExtra(WebActivity.shareTitle,"如何查找淘宝隐藏优惠券及下单返利？")
