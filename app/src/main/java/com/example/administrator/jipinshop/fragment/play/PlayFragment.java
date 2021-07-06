@@ -83,14 +83,6 @@ public class PlayFragment extends DBBaseFragment implements OnRefreshListener, P
     }
 
     @Override
-    public void setUserVisibleHint(boolean isVisibleToUser) {
-        super.setUserVisibleHint(isVisibleToUser);
-        if (isVisibleToUser && once[0]){
-            mBinding.swipeToLoad.setRefreshing(true);
-        }
-    }
-
-    @Override
     public View initLayout(LayoutInflater inflater, ViewGroup container) {
         mBinding = DataBindingUtil.inflate(inflater, R.layout.fragment_paly,container,false);
         mBinding.setListener(this);
@@ -193,6 +185,7 @@ public class PlayFragment extends DBBaseFragment implements OnRefreshListener, P
         mBinding.leftList.setAdapter(mLeftAdapter);
 
         mBinding.swipeToLoad.setOnRefreshListener(this);
+        mBinding.swipeToLoad.setRefreshing(true);
     }
 
     @Override
@@ -315,6 +308,10 @@ public class PlayFragment extends DBBaseFragment implements OnRefreshListener, P
             case R.id.paly_search:
                 //进入搜索
                 startActivity(new Intent(getContext(), PlaySreachActivity.class));
+                break;
+            case R.id.paly_balck:
+                if (getActivity() != null)
+                    getActivity().finish();
                 break;
         }
     }

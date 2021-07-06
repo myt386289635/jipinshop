@@ -675,6 +675,15 @@ public class ShopJumpUtil {
                 }
                 context.startActivity(intent);
                 break;
+            case "60"://吃喝玩乐
+                if (TextUtils.isEmpty(SPUtils.getInstance(CommonDate.USER).getString(CommonDate.token, ""))) {
+                    intent.setClass(context, LoginActivity.class);
+                }else {
+                    intent.setClass(context, HomeNewActivity.class);
+                    intent.putExtra("type",HomeNewActivity.play);
+                }
+                context.startActivity(intent);
+                break;
             case "101":
                 //滑到首页第一页
                 if (TextUtils.isEmpty(SPUtils.getInstance(CommonDate.USER).getString(CommonDate.token, ""))) {

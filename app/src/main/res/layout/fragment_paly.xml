@@ -21,17 +21,36 @@
             android:background="@drawable/bg_paly"
             android:orientation="vertical"/>
 
-        <TextView
-            android:paddingBottom="@dimen/y19"
-            android:paddingTop="@dimen/y34"
-            android:gravity="center_horizontal"
-            android:background="@drawable/bg_paly"
-            android:textColor="@color/color_white"
-            android:textStyle="bold"
-            android:textSize="18sp"
-            android:text="吃喝玩乐"
+        <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"/>
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:id="@+id/paly_title"
+                android:paddingBottom="@dimen/y19"
+                android:paddingTop="@dimen/y34"
+                android:gravity="center_horizontal"
+                android:background="@drawable/bg_paly"
+                android:textColor="@color/color_white"
+                android:textStyle="bold"
+                android:textSize="18sp"
+                android:text="吃喝玩乐"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"/>
+
+            <ImageView
+                android:onClick="@{listener.onClick}"
+                android:paddingRight="@dimen/x30"
+                android:id="@+id/paly_balck"
+                android:paddingLeft="@dimen/x30"
+                android:layout_alignBottom="@+id/paly_title"
+                android:layout_alignTop="@+id/paly_title"
+                android:tint="@color/color_white"
+                android:src="@mipmap/nav_black_big"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+
+        </RelativeLayout>
 
         <RelativeLayout
             android:background="@color/color_F5F5F5"
