@@ -138,6 +138,10 @@
             android:layout_height="@dimen/y88"/>
 
         <TextView
+            android:onClick="@{listener.onClick}"
+            android:drawableTint="@color/color_white"
+            android:drawablePadding="@dimen/x8"
+            android:drawableLeft="@mipmap/bg_servce_no1"
             android:layout_marginTop="@dimen/y18"
             android:layout_below="@+id/login_input"
             android:layout_centerHorizontal="true"

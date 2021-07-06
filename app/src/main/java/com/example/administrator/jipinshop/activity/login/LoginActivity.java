@@ -4,8 +4,10 @@ import android.app.Dialog;
 import android.content.Intent;
 import android.databinding.DataBindingUtil;
 import android.graphics.Color;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v4.graphics.drawable.DrawableCompat;
 import android.text.SpannableString;
 import android.text.Spanned;
 import android.text.TextPaint;
@@ -67,6 +69,7 @@ public class LoginActivity extends BaseActivity implements LoginView, View.OnCli
     private LoginBinding mBinding;
 
     private int newpeople = 0;//判断是否是从弹框点击来的  0 不是从弹框点击来的  1 是从新人弹框点击来的
+    private boolean isTrue = false;//默认协议未勾选
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -98,7 +101,7 @@ public class LoginActivity extends BaseActivity implements LoginView, View.OnCli
             @Override
             public void updateDrawState(TextPaint ds) {
                 //去掉可点击文字的下划线
-                ds.setColor(getResources().getColor(R.color.color_FAE1BF));
+                ds.setColor(getResources().getColor(R.color.color_6AAEFF));
                 ds.setUnderlineText(false);
             }
         };
@@ -113,7 +116,7 @@ public class LoginActivity extends BaseActivity implements LoginView, View.OnCli
             @Override
             public void updateDrawState(TextPaint ds) {
                 //去掉可点击文字的下划线
-                ds.setColor(getResources().getColor(R.color.color_FAE1BF));
+                ds.setColor(getResources().getColor(R.color.color_6AAEFF));
                 ds.setUnderlineText(false);
             }
         };
@@ -339,6 +342,10 @@ public class LoginActivity extends BaseActivity implements LoginView, View.OnCli
         switch (view.getId()) {
             case R.id.login_wx:
                 //点击微信登陆
+                if (!isTrue){
+                    ToastUtil.show("请阅读并勾选页面协议");
+                    return;
+                }
                 appStatisticalUtil.addEvent("login_weixin",this.bindUntilEvent(ActivityEvent.DESTROY));
                 authorization(SHARE_MEDIA.WEIXIN);
                 break;
@@ -347,6 +354,10 @@ public class LoginActivity extends BaseActivity implements LoginView, View.OnCli
                 onBack();
                 break;
             case R.id.login_input:
+                if (!isTrue){
+                    ToastUtil.show("请阅读并勾选页面协议");
+                    return;
+                }
                 appStatisticalUtil.addEvent("login_mobile",this.bindUntilEvent(ActivityEvent.DESTROY));
                 if (MyApplication.isJVerify){
                     //一键登录页面
@@ -367,6 +378,19 @@ public class LoginActivity extends BaseActivity implements LoginView, View.OnCli
                                     .putExtra("newpeople", newpeople)
                             , 300);
                 }
+                break;
+            case R.id.login_protocol:
+                Drawable drawable;
+                if (isTrue){ //勾选了
+                    drawable= getResources().getDrawable(R.mipmap.bg_servce_no1);
+                }else {//未勾选
+                    drawable= getResources().getDrawable(R.mipmap.bg_servce_yes1);
+                }
+                drawable.setBounds(0, 0, drawable.getMinimumWidth(), drawable.getMinimumHeight());
+                drawable = DrawableCompat.wrap(drawable);
+                DrawableCompat.setTint(drawable, getResources().getColor(R.color.color_white));
+                mBinding.loginProtocol.setCompoundDrawables(drawable,null, null,null);
+                isTrue = !isTrue;
                 break;
         }
     }
