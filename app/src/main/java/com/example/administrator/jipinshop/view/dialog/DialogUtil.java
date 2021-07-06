@@ -253,14 +253,10 @@ public class DialogUtil {
     }
 
 
-    /**
-     * 版本更新diaglog
-     */
-    public static void UpDateDialog(Context context, String varsonNum, String content, final View.OnClickListener updateListener, OnDismissLitener dismissLitener) {
+    //版本更新diaglog
+    public static void UpDateDialog(Context context, String content, final View.OnClickListener updateListener, OnDismissLitener dismissLitener) {
         AlertDialog.Builder builder = new AlertDialog.Builder(context, R.style.dialog);
         View view = LayoutInflater.from(context).inflate(R.layout.dialog_signsuccess, null);
-        TextView update_varsonNum = view.findViewById(R.id.update_varsonNum);
-        update_varsonNum.setText(varsonNum);
         TextView update_content = view.findViewById(R.id.update_content);
         update_content.setText(content);
         ImageView update_close = view.findViewById(R.id.update_close);
@@ -280,14 +276,10 @@ public class DialogUtil {
         dialog.setContentView(view);
     }
 
-    /**
-     * 强制版本更新diaglog
-     */
-    public static void UpDateDialog1(Context context, String varsonNum, String content, final View.OnClickListener updateListener) {
+    //强制版本更新diaglog
+    public static void UpDateDialog1(Context context,  String content, final View.OnClickListener updateListener) {
         AlertDialog.Builder builder = new AlertDialog.Builder(context, R.style.dialog);
         View view = LayoutInflater.from(context).inflate(R.layout.dialog_signsuccess, null);
-        TextView update_varsonNum = view.findViewById(R.id.update_varsonNum);
-        update_varsonNum.setText(varsonNum);
         TextView update_content = view.findViewById(R.id.update_content);
         update_content.setText(content);
         ImageView update_close = view.findViewById(R.id.update_close);
@@ -304,9 +296,7 @@ public class DialogUtil {
         dialog.setContentView(view);
     }
 
-    /**
-     * 用户主页里的 点赞弹窗
-     */
+    //用户主页里的 点赞弹窗
     public static void MyGoods(Context context, String title, String content) {
         AlertDialog.Builder builder = new AlertDialog.Builder(context, R.style.dialog);
         View view = LayoutInflater.from(context).inflate(R.layout.dialog_goods, null);
@@ -439,9 +429,7 @@ public class DialogUtil {
         dialog.setContentView(view);
     }
 
-    /**
-     * 评分
-     */
+    //评分
     public static void scoreDialog(Context context, OnScoreListener badListener) {
         AlertDialog.Builder builder = new AlertDialog.Builder(context, R.style.dialog);
         final Dialog dialog = builder.create();

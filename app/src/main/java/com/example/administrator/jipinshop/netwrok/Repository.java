@@ -94,7 +94,7 @@ import com.example.administrator.jipinshop.bean.WithdrawBean;
 import com.example.administrator.jipinshop.bean.WithdrawDetailBean;
 import com.example.administrator.jipinshop.bean.WithdrawInfoBean;
 import com.example.administrator.jipinshop.bean.WxPayBean;
-import com.example.administrator.jipinshop.util.UpDataUtil;
+import com.example.administrator.jipinshop.util.update.UpDataUtil;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -104,6 +104,7 @@ import javax.inject.Inject;
 import io.reactivex.Observable;
 import okhttp3.MultipartBody;
 import okhttp3.ResponseBody;
+import retrofit2.Call;
 
 public class Repository {
 
@@ -1108,6 +1109,13 @@ public class Repository {
      */
     public Observable<ResponseBody> downLoadImg(String url){
         return mAPIService.downLoadImg(url);
+    }
+
+    /**
+     * 下载apk
+     */
+    public Call<ResponseBody> downloadFile(String url){
+        return mAPIService.downloadFile(url);
     }
 
     /**

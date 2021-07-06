@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout
+    xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <LinearLayout
+        android:layout_gravity="center_horizontal"
+        android:orientation="vertical"
+        android:layout_width="@dimen/x520"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:gravity="center"
+            android:textStyle="bold"
+            android:textSize="18sp"
+            android:textColor="@color/color_white"
+            android:text="新版本更新"
+            android:background="@drawable/bg_update"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/y162"/>
+
+        <RelativeLayout
+            android:background="@drawable/bg_ffffff"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:textStyle="bold"
+                android:id="@+id/update_contentTitle"
+                android:layout_marginLeft="@dimen/x33"
+                android:layout_marginTop="@dimen/y41"
+                android:textSize="13sp"
+                android:textColor="@color/pickerview_topbar_title"
+                android:text="更新内容"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+
+            <TextView
+                android:lineSpacingExtra="@dimen/y8"
+                android:minHeight="@dimen/y136"
+                android:id="@+id/update_content"
+                android:layout_marginLeft="@dimen/x33"
+                android:layout_marginTop="@dimen/y10"
+                android:layout_below="@+id/update_contentTitle"
+                android:textSize="13sp"
+                android:textColor="@color/color_595959"
+                android:text=""
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+
+            <TextView
+                android:id="@+id/update_sure"
+                android:gravity="center"
+                android:text="立即更新"
+                android:textStyle="bold"
+                android:textColor="@color/color_white"
+                android:textSize="18sp"
+                android:layout_marginTop="@dimen/y38"
+                android:layout_below="@+id/update_content"
+                android:layout_centerHorizontal="true"
+                android:background="@drawable/bg_9d9d9d_2"
+                android:layout_width="@dimen/x347"
+                android:layout_height="@dimen/y79"/>
+
+            <TextView
+                android:id="@+id/update_notice"
+                android:layout_marginTop="@dimen/y12"
+                android:layout_below="@+id/update_sure"
+                android:layout_centerHorizontal="true"
+                android:textColor="@color/color_202020"
+                android:textSize="12sp"
+                android:text="预计仅需10秒即可更新完成"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+
+            <ProgressBar
+                android:id="@+id/update_progress"
+                style="?android:attr/progressBarStyleHorizontal"
+                android:layout_marginBottom="@dimen/y30"
+                android:layout_marginTop="@dimen/y30"
+                android:layout_below="@+id/update_notice"
+                android:layout_marginRight="@dimen/x40"
+                android:layout_marginLeft="@dimen/x40"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/y20"
+                android:progressDrawable="@drawable/bg_update_progress"
+                android:max="100"
+                android:secondaryProgress="0"
+                android:progress="0"/>
+
+        </RelativeLayout>
+
+    </LinearLayout>
+</layout>

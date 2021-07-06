@@ -5,6 +5,7 @@ import android.view.ViewGroup;
 
 import com.blankj.utilcode.util.SPUtils;
 import com.example.administrator.jipinshop.util.sp.CommonDate;
+import com.example.administrator.jipinshop.util.update.UpDataUtil;
 import com.qubian.mob.AdManager;
 
 /**

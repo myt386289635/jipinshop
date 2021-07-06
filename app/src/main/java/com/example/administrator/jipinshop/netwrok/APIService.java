@@ -101,6 +101,7 @@ import java.util.Map;
 import io.reactivex.Observable;
 import okhttp3.MultipartBody;
 import okhttp3.ResponseBody;
+import retrofit2.Call;
 import retrofit2.http.Field;
 import retrofit2.http.FieldMap;
 import retrofit2.http.FormUrlEncoded;
@@ -1028,6 +1029,13 @@ public interface APIService {
     @GET
     @Streaming
     Observable<ResponseBody> downLoadImg(@Url String url);
+
+    /**
+     * 下载apk
+     */
+    @Streaming
+    @GET
+    Call<ResponseBody> downloadFile(@Url String url);
 
     /**
      * 获取上级信息（头像和微信）

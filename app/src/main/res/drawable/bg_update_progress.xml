@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+     <!--进度条背景-->
+    <item android:id="@android:id/background"
+          android:layout_width="wrap_content">
+        <shape>
+            <corners android:radius="@dimen/x20" />
+            <stroke android:color="@color/color_E25838"
+                    android:width="@dimen/x1"/>
+            <solid android:color="@color/color_white"/>
+        </shape>
+    </item>
+    <!-- 第二条进度条颜色 缓冲进度条-->
+    <item android:id="@android:id/secondaryProgress">
+        <clip>
+            <shape>
+                <corners android:radius="@dimen/x20" />
+                <gradient
+                    android:angle="90.0"
+                    android:centerColor="#aadfdf"
+                    android:centerY="0.45"
+                    android:endColor="#aadfdf"
+                    android:startColor="#aadfdf" />
+            </shape>
+        </clip>
+    </item>
+    <!-- 进度条 -->
+    <item android:id="@android:id/progress">
+        <clip>
+            <shape>
+                <corners android:radius="@dimen/x20" />
+                <solid android:color="@color/color_E25838" />
+            </shape>
+        </clip>
+    </item>
+
+</layer-list>

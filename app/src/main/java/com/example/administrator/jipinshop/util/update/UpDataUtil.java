@@ -1,34 +1,66 @@
-package com.example.administrator.jipinshop.util;
+package com.example.administrator.jipinshop.util.update;
 
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.net.Uri;
+import android.os.Build;
+import android.support.v4.content.FileProvider;
 import android.support.v7.app.AlertDialog;
-import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
 
+import com.example.administrator.jipinshop.BuildConfig;
 import com.example.administrator.jipinshop.MyApplication;
+import com.example.administrator.jipinshop.R;
+import com.example.administrator.jipinshop.netwrok.ApplicationComponent;
+import com.example.administrator.jipinshop.netwrok.ApplicationModule;
+import com.example.administrator.jipinshop.netwrok.DaggerApplicationComponent;
+import com.example.administrator.jipinshop.netwrok.Repository;
+import com.example.administrator.jipinshop.util.FileManager;
+import com.example.administrator.jipinshop.util.ToastUtil;
 import com.example.administrator.jipinshop.view.dialog.DialogUtil;
 import com.pgyersdk.update.PgyUpdateManager;
 import com.pgyersdk.update.UpdateManagerListener;
 import com.pgyersdk.update.javabean.AppBean;
+
+import java.io.File;
+import java.util.concurrent.Callable;
+
+import javax.inject.Inject;
+
+import io.reactivex.Observable;
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.functions.Function;
+import io.reactivex.schedulers.Schedulers;
+import okhttp3.ResponseBody;
 
 /**
  * @author 莫小婷
  * @create 2018/10/8
  * @Describe 版本更新
  */
+@SuppressLint("CheckResult")
 public class UpDataUtil {
+
+    @Inject
+    Repository mRepository;
     private static UpDataUtil upDataUtil;
 
-    public static UpDataUtil newInstance() {
+    public static UpDataUtil newInstance(Context context) {
         if (upDataUtil == null) {
-            upDataUtil = new UpDataUtil();
+            upDataUtil = new UpDataUtil(context);
         }
         return upDataUtil;
+    }
+
+    private UpDataUtil(Context context) {
+        ApplicationComponent mApplicationComponent =
+                DaggerApplicationComponent.builder().applicationModule(new ApplicationModule(context))
+                        .build();
+        mApplicationComponent.inject(this);
     }
 
     /**
@@ -104,52 +136,91 @@ public class UpDataUtil {
     /**
      * 跳转浏览器下载apk
      */
-    public void downloadApk(Context context,String varsonNum,Boolean tag,String content, String url,OnNextLitener litener){
+    public void downloadApk(Activity context,String varsonNum,Boolean tag,String content, String url,OnNextLitener litener){
+        View.OnClickListener onClickListener = v -> {
+            downAPK(context, url, content);//下载apk
+        };
         if(tag){
             //必须强制更新
-            DialogUtil.UpDateDialog1(context, varsonNum , content, v -> {
-                try{
-                    Intent intent = new Intent();
-                    intent.setAction("android.intent.action.VIEW");
-                    Uri content_url = Uri.parse(url);
-                    intent.setData(content_url);
-                    intent.setClassName("com.android.browser","com.android.browser.BrowserActivity");
-                    context.startActivity(intent);
-                }catch (Exception e){
-                    Intent ExeIntent = new Intent();
-                    ExeIntent.setAction("android.intent.action.VIEW");
-                    Uri content_url = Uri.parse(url);
-                    ExeIntent.setData(content_url);
-                    context.startActivity(ExeIntent);
-                }
-                if (litener != null)
-                    litener.onNext();
-            });
+            DialogUtil.UpDateDialog1(context , content, onClickListener);
         }else {
             //可以取消
-            DialogUtil.UpDateDialog(context, varsonNum, content, v -> {
-                try {
-                    Intent intent = new Intent();
-                    intent.setAction("android.intent.action.VIEW");
-                    Uri content_url = Uri.parse(url);
-                    intent.setData(content_url);
-                    intent.setClassName("com.android.browser", "com.android.browser.BrowserActivity");
-                    context.startActivity(intent);
-                } catch (Exception e) {
-                    Intent ExeIntent = new Intent();
-                    ExeIntent.setAction("android.intent.action.VIEW");
-                    Uri content_url = Uri.parse(url);
-                    ExeIntent.setData(content_url);
-                    context.startActivity(ExeIntent);
-                }
-                if (litener != null)
-                    litener.onNext();
-            }, () -> {
+            DialogUtil.UpDateDialog(context, content, onClickListener, () -> {
                 if (litener != null)
                     litener.onNext();
             });
         }
 
+    }
+
+    //下载apk
+    public void downAPK(Activity context , String url , String content){
+        UpdateDialog dialog = new UpdateDialog(context, R.style.dialog);
+        dialog.setUpDateContent(content);
+        dialog.showDialog();
+        Observable.defer(new Callable<Observable<ResponseBody>>() {
+            @Override
+            public Observable<ResponseBody> call() throws Exception {
+                return  Observable.just(mRepository.downloadFile(url).execute().body());
+            }
+        }).map((Function<ResponseBody, File>) responseBody -> {
+            return FileManager.saveAPK(responseBody, new DownloadListener() {
+
+                @Override
+                public void onProgress(int currentLength) {
+                    context.runOnUiThread(() -> {
+                        dialog.setProgress(currentLength);
+                    });
+                }
+
+                @Override
+                public void onFinish() {
+                    context.runOnUiThread(() -> {
+                        dialog.dismiss();
+                    });
+                }
+            });
+        })
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(file -> {
+                    ToastUtil.show("下载成功，即将安装apk");
+                    installAPK(file,context);//下载完成后安装apk
+                }, throwable -> {
+                    ToastUtil.show("文件下载失败，尝试跳转浏览器下载");
+                    try{
+                        Intent intent = new Intent();
+                        intent.setAction("android.intent.action.VIEW");
+                        Uri content_url = Uri.parse(url);
+                        intent.setData(content_url);
+                        intent.setClassName("com.android.browser","com.android.browser.BrowserActivity");
+                        context.startActivity(intent);
+                    }catch (Exception e){
+                        Intent ExeIntent = new Intent();
+                        ExeIntent.setAction("android.intent.action.VIEW");
+                        Uri content_url = Uri.parse(url);
+                        ExeIntent.setData(content_url);
+                        context.startActivity(ExeIntent);
+                    }
+                });
+    }
+
+    //下载到本地后执行安装
+    private void installAPK(File apkFile , Context context ) {
+        if (apkFile == null || !apkFile.exists()) {
+            return;
+        }
+        Intent intent = new Intent(Intent.ACTION_VIEW);
+        //判断是否是AndroidN以及更高的版本
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+            intent.setFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
+            Uri contentUri = FileProvider.getUriForFile(context, BuildConfig.APPLICATION_ID + ".provider", apkFile);
+            intent.setDataAndType(contentUri, "application/vnd.android.package-archive");
+        } else {
+            intent.setDataAndType(Uri.fromFile(apkFile), "application/vnd.android.package-archive");
+            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        }
+        context.startActivity(intent);
     }
 
     public static int getPackageVersionCode() {

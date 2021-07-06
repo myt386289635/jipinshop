@@ -42,7 +42,7 @@ import com.example.administrator.jipinshop.util.NotificationUtil;
 import com.example.administrator.jipinshop.util.ShopJumpUtil;
 import com.example.administrator.jipinshop.util.ToastUtil;
 import com.example.administrator.jipinshop.util.UmApp.AppStatisticalUtil;
-import com.example.administrator.jipinshop.util.UpDataUtil;
+import com.example.administrator.jipinshop.util.update.UpDataUtil;
 import com.example.administrator.jipinshop.util.share.MobLinkUtil;
 import com.example.administrator.jipinshop.util.sp.CommonDate;
 import com.example.administrator.jipinshop.view.dialog.DialogUtil;
@@ -253,13 +253,13 @@ public class MainActivity extends BaseActivity implements MainView, ViewPager.On
         if (versionbean.getData().getVersionCode() > UpDataUtil.getPackageVersionCode()) {
             if (versionbean.getData().getNeedUpdate() == 0) {
                 //可以取消
-                UpDataUtil.newInstance().downloadApk(this, versionbean.getData().getVersionName(), false,
+                UpDataUtil.newInstance(this).downloadApk(this, versionbean.getData().getVersionName(), false,
                         versionbean.getData().getContent(), versionbean.getData().getDownloadUrl(), () -> {
                             onFile();
                         });//第一版
             } else {
                 //必须强制更新
-                UpDataUtil.newInstance().downloadApk(this, versionbean.getData().getVersionName(), true,
+                UpDataUtil.newInstance(this).downloadApk(this, versionbean.getData().getVersionName(), true,
                         versionbean.getData().getContent(), versionbean.getData().getDownloadUrl(), () -> {
                             onFile();
                         });//第一版

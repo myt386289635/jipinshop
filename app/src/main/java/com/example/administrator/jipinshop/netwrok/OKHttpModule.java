@@ -14,12 +14,8 @@ import com.example.administrator.jipinshop.util.DistanceHelper;
 import com.example.administrator.jipinshop.util.NetUtils;
 import com.example.administrator.jipinshop.util.sp.CommonDate;
 
-import java.io.BufferedReader;
-import java.io.InputStreamReader;
-import java.io.Reader;
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
-import java.nio.charset.Charset;
 import java.security.SecureRandom;
 import java.util.Arrays;
 import java.util.HashMap;
@@ -39,8 +35,6 @@ import okhttp3.HttpUrl;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.RequestBody;
-import okhttp3.Response;
-import okhttp3.ResponseBody;
 import okhttp3.internal.platform.Platform;
 import okhttp3.logging.HttpLoggingInterceptor;
 import okio.Buffer;
@@ -160,33 +154,6 @@ public class OKHttpModule {
             }
 
             return chain.proceed(authorised);
-        });
-        builder.addInterceptor(chain -> {
-            Request request = chain.request();
-            Response response = chain.proceed(request);// 发送请求，获得回包
-            // 对返回code统一拦截
-            try {
-                Charset charset;
-                charset = Charset.forName("UTF-8");
-                ResponseBody responseBody = response.peekBody(Long.MAX_VALUE);//把内容copy了一边，所以不会有影响，peekBody() 方法返回的是一个新的 response 的 body
-                Reader jsonReader = new InputStreamReader(responseBody.byteStream(), charset);
-                BufferedReader reader = new BufferedReader(jsonReader);
-                StringBuilder sbJson = new StringBuilder();
-                String line = reader.readLine();
-                do {
-                    sbJson.append(line);
-                    line = reader.readLine();
-                } while (line != null);
-//                Log.e("OKHttpModule", sbJson.toString());// 输出返回结果
-//                SuccessBean successBean = new Gson().fromJson(sbJson.toString(),SuccessBean.class);
-//                if(successBean.getCode() == 602){
-//                    MyApplication.getInstance().startActivity(new Intent(MyApplication.getInstance(),LoginActivity.class));
-//                    SPUtils.getInstance(CommonDate.USER).clear();
-//                }
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-            return response;
         });
         return builder.build();
     }

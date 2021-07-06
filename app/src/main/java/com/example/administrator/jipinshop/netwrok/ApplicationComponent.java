@@ -9,6 +9,7 @@ import com.example.administrator.jipinshop.jpush.meizu.MyPushMsgReceiver;
 import com.example.administrator.jipinshop.jpush.oppo.OppoJump;
 import com.example.administrator.jipinshop.util.ShopJumpUtil;
 import com.example.administrator.jipinshop.util.TaoBaoUtil;
+import com.example.administrator.jipinshop.util.update.UpDataUtil;
 
 import dagger.Component;
 
@@ -26,6 +27,7 @@ public interface ApplicationComponent {
    void inject(JPushReceiver jPushReceiver);
    void inject(HmsActivity hmsActivity);
    void inject(OppoJump oppoJump);
+   void inject(UpDataUtil upDataUtil);
    //父亲Component里module的方法需要暴露出来才能提供给子类Component使用
    APIService apiService();
 }

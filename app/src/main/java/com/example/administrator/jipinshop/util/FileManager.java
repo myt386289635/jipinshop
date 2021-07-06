@@ -10,13 +10,18 @@ import android.os.Environment;
 import android.provider.MediaStore;
 import android.text.TextUtils;
 
+import com.example.administrator.jipinshop.util.update.DownloadListener;
+
 import java.io.BufferedOutputStream;
+import java.io.Closeable;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
+
+import okhttp3.ResponseBody;
 
 import static android.os.Environment.DIRECTORY_PICTURES;
 
@@ -136,6 +141,65 @@ public class FileManager {
             }
         }catch (IOException e) {
             ToastUtil.show("保存失败");
+        }
+    }
+
+    //保存apk
+    public static File saveAPK(ResponseBody responseBody , DownloadListener listener){
+        long currentLength = 0;//当前进度
+        long totalLength = responseBody.contentLength();
+        InputStream inputStream = responseBody.byteStream();
+        String sdDir = FileManager.externalFiles2();
+        File file = new File(sdDir);
+        if (!file.exists()) {
+            file.mkdirs();
+        }
+        String pathName = file.getAbsolutePath() + "/jipincheng.apk";
+        File myCaptureFile = new File(pathName);
+        if (myCaptureFile.exists()) {
+            myCaptureFile.delete();
+        }
+        OutputStream outputStream = null;
+        try {
+            byte[] fileReader = new byte[4096];
+            outputStream = new FileOutputStream(myCaptureFile);
+            while (true) {
+                int read = inputStream.read(fileReader);
+                if (read == -1) {
+                    break;
+                }
+                outputStream.write(fileReader, 0, read);
+                //计算当前下载百分比，并经由回调传出
+                currentLength += read;
+                listener.onProgress((int) (100 * currentLength / totalLength));
+                //当百分比为100时下载结束
+                if ((int) (100 * currentLength / totalLength) == 100) {
+                    listener.onFinish(); //下载完成
+                }
+
+            }
+            outputStream.flush();
+            return myCaptureFile;
+        } catch (IOException e) {
+            if (myCaptureFile != null && myCaptureFile.exists()) {
+                myCaptureFile.deleteOnExit();
+            }
+            e.printStackTrace();
+        } finally {
+            closeStream(outputStream);
+            closeStream(inputStream);
+        }
+        return null;
+    }
+
+    //关闭流
+    public static void closeStream(Closeable closeable) {
+        if (closeable != null) {
+            try {
+                closeable.close();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
         }
     }
 

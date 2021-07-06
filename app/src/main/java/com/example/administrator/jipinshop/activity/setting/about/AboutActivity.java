@@ -16,7 +16,7 @@ import com.example.administrator.jipinshop.bean.AppVersionbean;
 import com.example.administrator.jipinshop.databinding.ActivityAboutBinding;
 import com.example.administrator.jipinshop.netwrok.RetrofitModule;
 import com.example.administrator.jipinshop.util.ToastUtil;
-import com.example.administrator.jipinshop.util.UpDataUtil;
+import com.example.administrator.jipinshop.util.update.UpDataUtil;
 import com.example.administrator.jipinshop.view.dialog.ProgressDialogView;
 
 import javax.inject.Inject;
@@ -86,7 +86,7 @@ public class AboutActivity extends BaseActivity implements View.OnClickListener,
             }else {
                 tag = true;
             }
-            UpDataUtil.newInstance().downloadApk(this, versionbean.getData().getVersionName(), tag,
+            UpDataUtil.newInstance(this).downloadApk(this, versionbean.getData().getVersionName(), tag,
                     versionbean.getData().getContent(), versionbean.getData().getDownloadUrl(), () -> {});
         }else {
             ToastUtil.show("已经是最新版本");
