@@ -5,32 +5,18 @@ import android.content.Context;
 import android.support.multidex.MultiDex;
 import android.text.TextUtils;
 
-import com.blankj.utilcode.util.SPUtils;
 import com.blankj.utilcode.util.Utils;
 import com.bumptech.glide.Glide;
-import com.example.administrator.jipinshop.jpush.JPushAlias;
 import com.example.administrator.jipinshop.netwrok.ApplicationComponent;
 import com.example.administrator.jipinshop.netwrok.ApplicationModule;
 import com.example.administrator.jipinshop.netwrok.DaggerApplicationComponent;
 import com.example.administrator.jipinshop.util.DebugHelper;
-import com.example.administrator.jipinshop.util.JDUtil;
-import com.example.administrator.jipinshop.util.share.SceneListener;
-import com.example.administrator.jipinshop.util.sp.CommonDate;
-import com.mob.moblink.MobLink;
-import com.qubian.mob.AdManager;
 import com.squareup.leakcanary.LeakCanary;
 import com.squareup.leakcanary.RefWatcher;
-import com.tencent.bugly.crashreport.CrashReport;
-import com.umeng.analytics.MobclickAgent;
-import com.umeng.commonsdk.UMConfigure;
-import com.umeng.socialize.PlatformConfig;
 
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
-
-import cn.jiguang.verifysdk.api.JVerificationInterface;
-import cn.jpush.android.api.JPushInterface;
 
 /**
  * @author 莫小婷
@@ -43,6 +29,7 @@ public class MyApplication extends Application {
     private static MyApplication instance;
     private  int mNotificationNum = 0;
     public static boolean isJVerify = false;//是否可以一键登录  默认否
+    private RefWatcher mRefWatcher;
 
     public int getNotificationNum() {
         return mNotificationNum;
@@ -101,48 +88,13 @@ public class MyApplication extends Application {
         mApplicationComponent.inject(this);
         Utils.init(instance);
 
-        //初始化友盟
-        UMConfigure.setLogEnabled(true);
-        UMConfigure.init(this,UMConfigure.DEVICE_TYPE_PHONE, "");
-        //友盟统计需要
-        MobclickAgent.setPageCollectionMode(MobclickAgent.PageMode.MANUAL);
-
-        //微信(已修改)
-        PlatformConfig.setWeixin("wxfd2e92db2568030a", "80b12d76b891c37a6ccc47bc0b651713");
-        //新浪微博(已修改)
-        PlatformConfig.setSinaWeibo("2148903410", "8d3c2285a9a46b5e4f36656874c0c188","http://sns.whalecloud.com/sina2/callback");
-        //腾讯（已修改）
-        PlatformConfig.setQQZone("1107605787", "0wJh63XVNMCo307r");
-
-        //极光一键登录初始化
-        JVerificationInterface.setDebugMode(true);
-        JVerificationInterface.init(this);
-        //极光推送初始化
-        JPushInterface.setDebugMode(true);
-        JPushInterface.init(this);
-        if(!TextUtils.isEmpty(SPUtils.getInstance(CommonDate.USER).getString(CommonDate.userId,"").trim())){
-            ///登陆
-            JPushAlias.setAlias(this,SPUtils.getInstance(CommonDate.USER).getString(CommonDate.userId,""));
-        }
-
         if(DebugHelper.isDebug()){
             //初始化LeakCanary
             mRefWatcher = LeakCanary.install(this);
         }
 
-        initBugly();
-
-        //初始化mobLink
-        MobLink.setRestoreSceneListener(new SceneListener());
-
-        //初始化京东SDK
-        JDUtil.init();
-
-        //初始化广告sdk
-        AdManager.init(this, "1370311636681769027");
-
     }
-    private RefWatcher mRefWatcher;
+
     public static RefWatcher getRefWatcher() {
         return getInstance().mRefWatcher;
     }
@@ -156,25 +108,6 @@ public class MyApplication extends Application {
         return mApplicationComponent;
     }
 
-    /**
-     * 初始化bugly
-     */
-    private void initBugly(){
-        Context context = getApplicationContext();
-        // 获取当前包名
-        String packageName = context.getPackageName();
-        // 获取当前进程名
-        String processName = getProcessName(android.os.Process.myPid());
-        // 设置是否为上报进程
-        CrashReport.UserStrategy strategy = new CrashReport.UserStrategy(context);
-        strategy.setBuglyLogUpload(processName == null || processName.equals(packageName));
-        if(DebugHelper.getDebug()){
-            strategy.setAppVersion("开发版本");//开发时出现的错误都在版本号为1的里面。
-        }
-        // 初始化Bugly
-        CrashReport.initCrashReport(getApplicationContext(), "9975bceb00", false,strategy);
-    }
-
 
     /**
      * 获取进程号对应的进程名
@@ -182,7 +115,7 @@ public class MyApplication extends Application {
      * @param pid 进程号
      * @return 进程名
      */
-    private static String getProcessName(int pid) {
+    public static String getProcessName(int pid) {
         BufferedReader reader = null;
         try {
             reader = new BufferedReader(new FileReader("/proc/" + pid + "/cmdline"));

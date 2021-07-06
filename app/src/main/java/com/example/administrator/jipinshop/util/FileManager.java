@@ -126,11 +126,9 @@ public class FileManager {
                     outputStream.write(fileReader, 0, read);
                 }
                 addCamera(context,myCaptureFile);
-                ToastUtil.show("保存完成");
                 outputStream.flush();
             } catch (IOException  e) {
                 e.printStackTrace();
-                ToastUtil.show("保存失败");
             }finally {
                 if (inputStream != null) {
                     inputStream.close();
@@ -140,7 +138,6 @@ public class FileManager {
                 }
             }
         }catch (IOException e) {
-            ToastUtil.show("保存失败");
         }
     }
 

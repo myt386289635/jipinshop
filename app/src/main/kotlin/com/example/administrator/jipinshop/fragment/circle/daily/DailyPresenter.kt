@@ -19,6 +19,7 @@ import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.functions.Consumer
 import io.reactivex.schedulers.Schedulers
 import okhttp3.ResponseBody
+import java.io.File
 import java.util.*
 import javax.inject.Inject
 import kotlin.collections.HashMap
@@ -152,25 +153,29 @@ class DailyPresenter {
      * 下载图片
      */
     fun downLoadImg(context: Context, urls :MutableList<String> ,share_media: SHARE_MEDIA?, transformer: LifecycleTransformer<ResponseBody>){
-        var observables = mutableListOf<Observable<ResponseBody>>()
+        var observables = mutableListOf<Observable<File>>()
         for (i in urls.indices){
-            observables.add(mRepository.downLoadImg(urls[i]))
+            var observable =
+                    mRepository.downLoadImg(urls[i])
+                            .compose(transformer)
+                            .map { it ->
+                                var bys = it.bytes()
+                                var bitmap = BitmapFactory.decodeByteArray(bys, 0, bys.size)
+                                FileManager.saveFile(bitmap, context)
+                            }
+            observables.add(observable)
         }
         var mun = 0
         var imageUris = ArrayList<Uri>()
         Observable.merge(observables)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .compose(transformer)
                 .subscribe(Consumer {
-                    var bys = it.bytes()
-                    var bitmap = BitmapFactory.decodeByteArray(bys, 0, bys.size)
-                    var file = FileManager.saveFile(bitmap, context)
                     if (Build.VERSION.SDK_INT < Build.VERSION_CODES.N) {
-                        imageUris.add(Uri.fromFile(file))
+                        imageUris.add(Uri.fromFile(it))
                     } else {
                         //修复微信在7.0崩溃的问题
-                        var uri = Uri.parse(android.provider.MediaStore.Images.Media.insertImage(context?.contentResolver, file.absolutePath, file.name, null))
+                        var uri = Uri.parse(android.provider.MediaStore.Images.Media.insertImage(context?.contentResolver, it.absolutePath, it.name, null))
                         imageUris.add(uri)
                     }
                     mun++

@@ -15,7 +15,6 @@ import com.example.administrator.jipinshop.bean.VideoBean
 import com.example.administrator.jipinshop.bean.VoteBean
 import com.example.administrator.jipinshop.databinding.ActivityVideoBinding
 import com.example.administrator.jipinshop.util.ClickUtil
-import com.example.administrator.jipinshop.util.FileManager
 import com.example.administrator.jipinshop.util.ShareUtils
 import com.example.administrator.jipinshop.util.ToastUtil
 import com.example.administrator.jipinshop.util.sp.CommonDate
@@ -25,7 +24,6 @@ import com.example.administrator.jipinshop.view.dialog.VideoPop
 import com.shuyu.gsyvideoplayer.GSYVideoManager
 import com.shuyu.gsyvideoplayer.utils.OrientationUtils
 import com.umeng.socialize.bean.SHARE_MEDIA
-import okhttp3.ResponseBody
 import java.math.BigDecimal
 import javax.inject.Inject
 
@@ -267,16 +265,16 @@ class VideoActivity : BaseActivity(), View.OnClickListener, VideoView, ShareBoar
             if (!it.isShowing)
                 it.show()
         }
-        mPresenter.downLoadVideo(mUrl,this.bindToLifecycle())
+        mPresenter.downLoadVideo(this,mUrl,this.bindToLifecycle())
     }
 
-    override fun onVideo(it: ResponseBody) {
+    override fun onVideo() {
         mDialog?.let {
             if (it.isShowing){
                 it.dismiss()
             }
         }
-        FileManager.saveVideo(it.byteStream(),this)
+        ToastUtil.show("保存完成")
     }
 
     //分享

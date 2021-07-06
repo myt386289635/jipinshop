@@ -1,11 +1,11 @@
 package com.example.administrator.jipinshop.activity.wellcome;
 
-import android.Manifest;
 import android.app.Activity;
 import android.app.Application;
 import android.app.Notification;
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
+import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Build;
@@ -25,21 +25,31 @@ import com.example.administrator.jipinshop.R;
 import com.example.administrator.jipinshop.activity.home.MainActivity;
 import com.example.administrator.jipinshop.activity.login.LoginActivity;
 import com.example.administrator.jipinshop.base.BaseActivity;
+import com.example.administrator.jipinshop.jpush.JPushAlias;
 import com.example.administrator.jipinshop.jpush.LoginUtil;
 import com.example.administrator.jipinshop.util.ADUtil;
+import com.example.administrator.jipinshop.util.DebugHelper;
+import com.example.administrator.jipinshop.util.JDUtil;
 import com.example.administrator.jipinshop.util.ShopJumpUtil;
-import com.example.administrator.jipinshop.util.permission.HasPermissionsUtil;
+import com.example.administrator.jipinshop.util.share.SceneListener;
 import com.example.administrator.jipinshop.util.sp.CommonDate;
 import com.example.administrator.jipinshop.view.dialog.DialogUtil;
 import com.heytap.msp.push.HeytapPushManager;
 import com.heytap.msp.push.callback.ICallBackResultService;
 import com.huawei.hms.push.HmsMessaging;
 import com.meizu.cloud.pushsdk.PushManager;
+import com.mob.moblink.MobLink;
+import com.qubian.mob.AdManager;
+import com.tencent.bugly.crashreport.CrashReport;
+import com.umeng.analytics.MobclickAgent;
+import com.umeng.commonsdk.UMConfigure;
+import com.umeng.socialize.PlatformConfig;
 import com.vivo.push.PushClient;
 import com.xiaomi.mipush.sdk.MiPushClient;
 
 import javax.inject.Inject;
 
+import cn.jiguang.verifysdk.api.JVerificationInterface;
 import cn.jpush.android.api.JPushInterface;
 
 /**
@@ -63,25 +73,23 @@ public class WellComeActivity extends BaseActivity {
                 .statusBarDarkFont(true, 0f)
                 .init();
         mSplashContainer = findViewById(R.id.home_fragment);
-        //预登陆获取手机号，为了一键登录
-        LoginUtil.getPhone(this);
-        //初始化阿里百川
-        //按道理应该在application里设置，但是一旦出现无法跳转淘宝时，需从后台杀掉App，再重启才能跳转淘宝，这是阿里百川的bug
-        //在启动页初始化，能避免用户不知手机后台是何物造成无法修复问题。只需关闭app再开启即可修复
-        initAlibcTradeSDK();
-        //初始化各个推送SDK
-        initPush();
         //开始
         if(SPUtils.getInstance().getBoolean(CommonDate.FIRST,true)){
             //展示隐私协议dialog
             DialogUtil.servceDialog(this, v -> {
-                permission();
+                initSDK();//初始化各种sdk
+                if (timer != null) {
+                    timer.start();
+                }
             }, v -> {
                 //关闭App
                 finish();
             });
         }else {
-            permission();
+            initSDK();//初始化各种sdk
+            if (timer != null) {
+                timer.start();
+            }
         }
     }
 
@@ -185,28 +193,6 @@ public class WellComeActivity extends BaseActivity {
         return super.onKeyDown(keyCode, event);
     }
 
-    public void permission(){
-        HasPermissionsUtil.permission2(this, new HasPermissionsUtil(){
-            @Override
-            public void hasPermissionsSuccess() {
-                super.hasPermissionsSuccess();
-                if (timer != null) {
-                    timer.start();
-                }
-            }
-
-            @Override
-            public void hasPermissionsFaile() {
-                super.hasPermissionsFaile();
-                if (timer != null) {
-                    timer.start();
-                }
-            }
-
-        }, Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.WRITE_EXTERNAL_STORAGE,
-                Manifest.permission.READ_PHONE_STATE , Manifest.permission.READ_EXTERNAL_STORAGE );
-    }
-
     /***
      * 初始化阿里百川sdk
      */
@@ -239,4 +225,67 @@ public class WellComeActivity extends BaseActivity {
         }
     }
 
+    //初始化各种第三方
+    private void initSDK(){
+        //预登陆获取手机号，为了一键登录
+        LoginUtil.getPhone(MyApplication.getInstance());
+        //初始化阿里百川
+        //按道理应该在application里设置，但是一旦出现无法跳转淘宝时，需从后台杀掉App，再重启才能跳转淘宝，这是阿里百川的bug
+        //在启动页初始化，能避免用户不知手机后台是何物造成无法修复问题。只需关闭app再开启即可修复
+        initAlibcTradeSDK();
+        //初始化各个推送SDK
+        initPush();
+
+        //初始化友盟
+        UMConfigure.setLogEnabled(true);
+        UMConfigure.init(MyApplication.getInstance(),UMConfigure.DEVICE_TYPE_PHONE, "");
+        //友盟统计需要
+        MobclickAgent.setPageCollectionMode(MobclickAgent.PageMode.MANUAL);
+
+        //微信(已修改)
+        PlatformConfig.setWeixin("wxfd2e92db2568030a", "80b12d76b891c37a6ccc47bc0b651713");
+        //新浪微博(已修改)
+        PlatformConfig.setSinaWeibo("2148903410", "8d3c2285a9a46b5e4f36656874c0c188","http://sns.whalecloud.com/sina2/callback");
+        //腾讯（已修改）
+        PlatformConfig.setQQZone("1107605787", "0wJh63XVNMCo307r");
+
+        //极光一键登录初始化
+        JVerificationInterface.setDebugMode(true);
+        JVerificationInterface.init(MyApplication.getInstance());
+        //极光推送初始化
+        JPushInterface.setDebugMode(true);
+        JPushInterface.init(MyApplication.getInstance());
+        if(!TextUtils.isEmpty(SPUtils.getInstance(CommonDate.USER).getString(CommonDate.userId,"").trim())){
+            ///登陆
+            JPushAlias.setAlias(MyApplication.getInstance(),SPUtils.getInstance(CommonDate.USER).getString(CommonDate.userId,""));
+        }
+
+        initBugly();
+
+        //初始化mobLink
+        MobLink.setRestoreSceneListener(new SceneListener());
+
+        //初始化京东SDK
+        JDUtil.init();
+
+        //初始化广告sdk
+        AdManager.init(MyApplication.getInstance(), "1370311636681769027");
+    }
+
+    //初始化bugly
+    private void initBugly(){
+        Context context = getApplicationContext();
+        // 获取当前包名
+        String packageName = context.getPackageName();
+        // 获取当前进程名
+        String processName = MyApplication.getProcessName(android.os.Process.myPid());
+        // 设置是否为上报进程
+        CrashReport.UserStrategy strategy = new CrashReport.UserStrategy(context);
+        strategy.setBuglyLogUpload(processName == null || processName.equals(packageName));
+        if(DebugHelper.getDebug()){
+            strategy.setAppVersion("开发版本");//开发时出现的错误都在版本号为1的里面。
+        }
+        // 初始化Bugly
+        CrashReport.initCrashReport(getApplicationContext(), "9975bceb00", false,strategy);
+    }
 }

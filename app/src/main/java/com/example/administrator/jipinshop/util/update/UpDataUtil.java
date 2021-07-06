@@ -176,7 +176,8 @@ public class UpDataUtil {
                 @Override
                 public void onFinish() {
                     context.runOnUiThread(() -> {
-                        dialog.dismiss();
+                        if (dialog.isShowing())
+                            dialog.dismiss();
                     });
                 }
             });
@@ -187,6 +188,8 @@ public class UpDataUtil {
                     ToastUtil.show("下载成功，即将安装apk");
                     installAPK(file,context);//下载完成后安装apk
                 }, throwable -> {
+                    if (dialog.isShowing())
+                        dialog.dismiss();
                     ToastUtil.show("文件下载失败，尝试跳转浏览器下载");
                     try{
                         Intent intent = new Intent();

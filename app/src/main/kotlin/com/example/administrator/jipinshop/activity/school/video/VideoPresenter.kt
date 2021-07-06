@@ -1,23 +1,16 @@
 package com.example.administrator.jipinshop.activity.school.video
 
 import android.content.Context
-import android.graphics.BitmapFactory
-import android.net.Uri
-import android.os.Build
-import android.view.View
 import android.widget.LinearLayout
 import com.example.administrator.jipinshop.bean.*
 import com.example.administrator.jipinshop.netwrok.Repository
 import com.example.administrator.jipinshop.util.FileManager
 import com.trello.rxlifecycle2.LifecycleTransformer
-import com.umeng.socialize.bean.SHARE_MEDIA
-import io.reactivex.Observable
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.functions.Consumer
 import io.reactivex.schedulers.Schedulers
 import okhttp3.ResponseBody
-import java.util.ArrayList
-import java.util.HashMap
+import java.util.*
 import javax.inject.Inject
 
 /**
@@ -67,13 +60,16 @@ class VideoPresenter {
     /**
      * 下载视频
      */
-    fun downLoadVideo(url : String, transformer: LifecycleTransformer<ResponseBody>){
+    fun downLoadVideo(context: Context ,url : String, transformer: LifecycleTransformer<ResponseBody>){
         mRepository.downLoadImg(url)
+                .compose(transformer)
+                .map { it ->
+                    FileManager.saveVideo(it.byteStream(),context)
+                }
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .compose(transformer)
                 .subscribe(Consumer {
-                    mView.onVideo(it)
+                    mView.onVideo()
                 }, Consumer {
                     mView.onFile(it.message)
                 })

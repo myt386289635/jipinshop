@@ -1,5 +1,6 @@
 package com.example.administrator.jipinshop.activity.home;
 
+import android.Manifest;
 import android.app.Dialog;
 import android.content.ClipData;
 import android.content.ClipboardManager;
@@ -42,9 +43,10 @@ import com.example.administrator.jipinshop.util.NotificationUtil;
 import com.example.administrator.jipinshop.util.ShopJumpUtil;
 import com.example.administrator.jipinshop.util.ToastUtil;
 import com.example.administrator.jipinshop.util.UmApp.AppStatisticalUtil;
-import com.example.administrator.jipinshop.util.update.UpDataUtil;
+import com.example.administrator.jipinshop.util.permission.HasPermissionsUtil;
 import com.example.administrator.jipinshop.util.share.MobLinkUtil;
 import com.example.administrator.jipinshop.util.sp.CommonDate;
+import com.example.administrator.jipinshop.util.update.UpDataUtil;
 import com.example.administrator.jipinshop.view.dialog.DialogUtil;
 import com.example.administrator.jipinshop.view.dialog.ProgressDialogView;
 import com.example.administrator.jipinshop.view.pick.CustomLoadingUIProvider2;
@@ -55,7 +57,6 @@ import com.google.gson.Gson;
 import com.mob.moblink.MobLink;
 import com.mob.moblink.Scene;
 import com.mob.moblink.SceneRestorable;
-import com.qubian.mob.utils.RequestPermission;
 import com.trello.rxlifecycle2.android.ActivityEvent;
 import com.umeng.analytics.MobclickAgent;
 
@@ -109,7 +110,6 @@ public class MainActivity extends BaseActivity implements MainView, ViewPager.On
     }
 
     private void initView() {
-        RequestPermission.RequestPermissionIfNecessary(this);//第三方广告需要请求的
         mBaseActivityComponent.inject(this);
         mImmersionBar.reset()
                 .transparentStatusBar()
@@ -143,8 +143,27 @@ public class MainActivity extends BaseActivity implements MainView, ViewPager.On
         mPresenter.initTab(this, mBinding.tabLayout, mFragments);//初始化tab拦截事件
         appStatisticalUtil.tab(0, this.bindToLifecycle());//统计首页
 
-        mPresenter.getPrivateVersion(this.bindToLifecycle());//获取隐私协议版本号
-        mPresenter.adList(this.bindToLifecycle());//app广告
+        permission();
+    }
+
+    public void permission(){
+        HasPermissionsUtil.permission2(this, new HasPermissionsUtil(){
+                    @Override
+                    public void hasPermissionsSuccess() {
+                        super.hasPermissionsSuccess();
+                        mPresenter.getPrivateVersion(MainActivity.this.bindToLifecycle());//获取隐私协议版本号
+                        mPresenter.adList(MainActivity.this.bindToLifecycle());//app广告
+                    }
+
+                    @Override
+                    public void hasPermissionsFaile() {
+                        super.hasPermissionsFaile();
+                        mPresenter.getPrivateVersion(MainActivity.this.bindToLifecycle());//获取隐私协议版本号
+                        mPresenter.adList(MainActivity.this.bindToLifecycle());//app广告
+                    }
+
+                }, Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.WRITE_EXTERNAL_STORAGE,
+                Manifest.permission.READ_PHONE_STATE , Manifest.permission.READ_EXTERNAL_STORAGE );
     }
 
     //隐私协议获取返回

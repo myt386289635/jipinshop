@@ -1,6 +1,8 @@
 package com.example.administrator.jipinshop.activity.share
 
+import android.annotation.SuppressLint
 import android.content.Context
+import android.graphics.Bitmap
 import android.graphics.BitmapFactory
 import android.net.Uri
 import android.os.Build
@@ -14,11 +16,14 @@ import com.example.administrator.jipinshop.util.FileManager
 import com.example.administrator.jipinshop.util.ToastUtil
 import com.trello.rxlifecycle2.LifecycleTransformer
 import com.umeng.socialize.bean.SHARE_MEDIA
+import com.xiaomi.push.it
 import io.reactivex.Observable
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.functions.Consumer
+import io.reactivex.functions.Function
 import io.reactivex.schedulers.Schedulers
 import okhttp3.ResponseBody
+import java.io.File
 import java.util.*
 import javax.inject.Inject
 
@@ -131,25 +136,29 @@ class SharePresenter {
      * 下载图片
      */
     fun downLoadImg(context: Context, urls :MutableList<String>, share_media: SHARE_MEDIA?, transformer: LifecycleTransformer<ResponseBody>){
-        var observables = mutableListOf<Observable<ResponseBody>>()
+        var observables = mutableListOf<Observable<File>>()
         for (i in urls.indices){
-            observables.add(mRepository.downLoadImg(urls[i]))
+            var observable =
+                    mRepository.downLoadImg(urls[i])
+                            .compose(transformer)
+                            .map { it ->
+                                var bys = it.bytes()
+                                var bitmap = BitmapFactory.decodeByteArray(bys, 0, bys.size)
+                                FileManager.saveFile(bitmap, context)
+                            }
+            observables.add(observable)
         }
         var mun = 0
         var imageUris = ArrayList<Uri>()
         Observable.merge(observables)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .compose(transformer)
                 .subscribe(Consumer {
-                    var bys = it.bytes()
-                    var bitmap = BitmapFactory.decodeByteArray(bys, 0, bys.size)
-                    var file = FileManager.saveFile(bitmap, context)
                     if (Build.VERSION.SDK_INT < Build.VERSION_CODES.N) {
-                        imageUris.add(Uri.fromFile(file))
+                        imageUris.add(Uri.fromFile(it))
                     } else {
                         //修复微信在7.0崩溃的问题
-                        var uri = Uri.parse(android.provider.MediaStore.Images.Media.insertImage(context?.contentResolver, file.absolutePath, file.name, null))
+                        var uri = Uri.parse(android.provider.MediaStore.Images.Media.insertImage(context?.contentResolver, it.absolutePath, it.name, null))
                         imageUris.add(uri)
                     }
                     mun++

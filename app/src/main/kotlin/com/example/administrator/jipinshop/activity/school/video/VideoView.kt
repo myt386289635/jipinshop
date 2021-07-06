@@ -13,7 +13,7 @@ interface VideoView {
     fun onSuccess(bean: VideoBean)
     fun onFile(error : String?)
 
-    fun onVideo(it : ResponseBody)
+    fun onVideo()
 
     fun onVote(successBean: VoteBean)
     fun onDelVote(successBean: VoteBean)
