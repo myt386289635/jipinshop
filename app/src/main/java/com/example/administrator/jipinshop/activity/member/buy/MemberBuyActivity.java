@@ -1,9 +1,6 @@
 package com.example.administrator.jipinshop.activity.member.buy;
 
 import android.app.Dialog;
-import android.content.ClipData;
-import android.content.ClipboardManager;
-import android.content.Context;
 import android.content.Intent;
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
@@ -35,7 +32,6 @@ import com.example.administrator.jipinshop.databinding.ActivityMemberBuyBinding;
 import com.example.administrator.jipinshop.netwrok.RetrofitModule;
 import com.example.administrator.jipinshop.util.TimeUtil;
 import com.example.administrator.jipinshop.util.ToastUtil;
-import com.example.administrator.jipinshop.util.UmApp.StatisticalUtil;
 import com.example.administrator.jipinshop.util.WeakRefHandler;
 import com.example.administrator.jipinshop.util.sp.CommonDate;
 import com.example.administrator.jipinshop.view.dialog.DialogUtil;
@@ -71,8 +67,6 @@ public class MemberBuyActivity extends BaseActivity implements View.OnClickListe
     private String isBuy = "1"; //1是购买  2续费
     private CountDownTimer countDownTimer;//倒计时
     private Boolean startPop = true;//是否弹出关闭确认弹窗
-    private String monthPrice = "";//月卡价格统计时候需要
-    private String yearPrice = "";//年卡价格统计时候需要
     private Dialog mDialog;
     private IWXAPI msgApi;//微信支付
     private MemberBuyBean mBean = null;
@@ -89,11 +83,6 @@ public class MemberBuyActivity extends BaseActivity implements View.OnClickListe
             // 判断resultStatus 为9000则代表支付成功
             if (TextUtils.equals(resultStatus, "9000")) {
                 //成功
-                if (level.equals("1")){
-                    StatisticalUtil.onPayEvent(this,"月卡", monthPrice);
-                }else  if (level.equals("2")){
-                    StatisticalUtil.onPayEvent(this,"年卡", yearPrice);
-                }
                 EventBus.getDefault().post(new HomeRefresh(HomeRefresh.tag));//用来刷新首页的
                 Intent intent = new Intent();
                 intent.putExtra("level",level);
@@ -231,8 +220,6 @@ public class MemberBuyActivity extends BaseActivity implements View.OnClickListe
             mDialog.dismiss();
         }
         mBean = bean;
-        monthPrice = bean.getData().get(0).getPrice();
-        yearPrice = bean.getData().get(1).getPrice();
         wx = bean.getOfficialWechat();
         mBinding.buyPhone.setText(SPUtils.getInstance(CommonDate.USER).getString(CommonDate.userPhone));
         //显示数据
@@ -402,11 +389,6 @@ public class MemberBuyActivity extends BaseActivity implements View.OnClickListe
     public void onPayResult(PayBus bus){
         if (bus != null){
             if (bus.getType().equals(WXPayEntryActivity.pay_success)) {
-                if (level.equals("1")){
-                    StatisticalUtil.onPayEvent(this,"月卡", monthPrice);
-                }else  if (level.equals("2")){
-                    StatisticalUtil.onPayEvent(this,"年卡", yearPrice);
-                }
                 EventBus.getDefault().post(new HomeRefresh(HomeRefresh.tag));//用来刷新首页的
                 Intent intent = new Intent();
                 intent.putExtra("level",level);

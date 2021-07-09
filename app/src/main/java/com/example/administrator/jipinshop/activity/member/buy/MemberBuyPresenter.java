@@ -85,10 +85,8 @@ public class MemberBuyPresenter {
                 .observeOn(AndroidSchedulers.mainThread())
                 .compose(transformer)
                 .subscribe(bean -> {
-                    if (bean.getCode() == 0 && bean.getData().size() >= 2){
+                    if (bean.getCode() == 0){
                         mView.onSuccess(bean);
-                    }else if (bean.getCode() == 0){
-                        mView.onCommenFile("接口错误，请联系管理员");
                     }else {
                         mView.onCommenFile(bean.getMsg());
                     }
