@@ -173,6 +173,7 @@
     </RelativeLayout>
 
     <RelativeLayout
+        android:visibility="gone"
         android:layout_below="@+id/setting_serviceContainer"
         android:id="@+id/setting_goodContainer"
         android:layout_width="match_parent"

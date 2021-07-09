@@ -27,6 +27,7 @@ import android.webkit.WebViewClient;
 
 import com.alibaba.baichuan.android.trade.AlibcTradeSDK;
 import com.example.administrator.jipinshop.R;
+import com.example.administrator.jipinshop.activity.school.video.VideoActivity;
 import com.example.administrator.jipinshop.base.BaseActivity;
 import com.example.administrator.jipinshop.bean.ClickUrlBean;
 import com.example.administrator.jipinshop.bean.ImageBean;
@@ -200,6 +201,11 @@ public class WebActivity extends BaseActivity implements View.OnClickListener, W
                                  e.printStackTrace();
                              }
                          }
+                    }else if (url.startsWith("https://video")){
+                         String id = url.split("=")[1];
+                         startActivity(new Intent(WebActivity.this, VideoActivity.class)
+                                 .putExtra("courseId", id)
+                         );
                     }else if(url.startsWith("http") || url.startsWith("https")){
                          HashMap<String, String> lStringStringHashMap = new HashMap<>();
                          if (!TextUtils.isEmpty(mReffer)) {
